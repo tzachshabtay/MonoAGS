@@ -19,6 +19,13 @@ namespace Engine
 		public ISound Sound { get; set; }
 
 		#endregion
+
+		public IAnimationFrame Clone()
+		{
+			AGSAnimationFrame clone = (AGSAnimationFrame)MemberwiseClone();
+			clone.Sprite = Sprite.Clone();
+			return clone;
+		}
 	}
 }
 

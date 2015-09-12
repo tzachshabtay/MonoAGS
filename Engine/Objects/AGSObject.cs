@@ -100,6 +100,11 @@ namespace Engine
 			ScaleBy(ScaleX, -ScaleY);
 		}
 
+		public ISprite Clone()
+		{
+			return _sprite.Clone();
+		}
+
 		public ILocation Location { get { return _sprite.Location; } set { _sprite.Location = value; } }
 
 		public float Height { get; private set; }

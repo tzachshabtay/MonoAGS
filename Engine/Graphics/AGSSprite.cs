@@ -54,6 +54,11 @@ namespace Engine
 			ScaleBy(ScaleX, -ScaleY);
 		}
 
+		public ISprite Clone()
+		{
+			return (ISprite)MemberwiseClone();
+		}
+
 		public ILocation Location { get; set; }
 
 		public float X { get { return Location.X; } set { Location = new AGSLocation(value, Y, Z); } }

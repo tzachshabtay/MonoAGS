@@ -27,7 +27,7 @@ namespace DemoGame
 				Left = factory.LoadAnimationFromFolder(_baseFolder + "Walk/left", loadConfig : loadConfig),
 				Down = factory.LoadAnimationFromFolder(_baseFolder + "Walk/front", loadConfig : loadConfig),
 			};
-			walk.Right = walk.Left;
+			walk.Right = walk.Left.Clone();
 			walk.Right.FlipHorizontally();
 
 			AGSDirectionalAnimation idle = new AGSDirectionalAnimation 
@@ -35,7 +35,7 @@ namespace DemoGame
 				Left = factory.LoadAnimationFromFolder(_baseFolder + "Idle/left", loadConfig : loadConfig),
 				Down = factory.LoadAnimationFromFolder(_baseFolder + "Idle/front", loadConfig : loadConfig),
 			};
-			idle.Right = idle.Left;
+			idle.Right = idle.Left.Clone();
 			idle.Right.FlipHorizontally();
 
 			_character.WalkAnimation = walk;

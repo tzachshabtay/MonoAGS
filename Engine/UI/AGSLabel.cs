@@ -119,6 +119,11 @@ namespace Engine
 			_obj.FlipVertically();
 		}
 
+		public ISprite Clone()
+		{
+			return _obj.Clone();
+		}
+
 		public ILocation Location { get { return _obj.Location; } set { _obj.Location = value; } }
 
 		public float X { get { return _obj.X; } set { _obj.X = value; } }

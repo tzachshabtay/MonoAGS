@@ -19,6 +19,7 @@ namespace API
 
 		void FlipVertically();
 
+		IAnimation Clone();
 	}
 }
 

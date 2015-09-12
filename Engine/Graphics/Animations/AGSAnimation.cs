@@ -99,6 +99,17 @@ namespace Engine
 			}
 		}
 
+		public IAnimation Clone()
+		{
+			AGSAnimation clone = (AGSAnimation)MemberwiseClone();
+			clone.Frames = new List<IAnimationFrame> (Frames.Count);
+			foreach (var frame in Frames)
+			{
+				clone.Frames.Add(frame.Clone());
+			}
+			return clone;
+		}
+
 		public IList<IAnimationFrame> Frames { get; private set; }
 
 		public IAnimationConfiguration Configuration { get; private set; }

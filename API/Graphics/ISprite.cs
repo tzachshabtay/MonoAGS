@@ -27,6 +27,7 @@ namespace API
 		void ScaleTo(float width, float height);
 		void FlipHorizontally();
 		void FlipVertically();
+		ISprite Clone();
 	}
 }
 
