@@ -15,6 +15,10 @@ namespace API
 
 		void NextFrame();
 
+		void FlipHorizontally();
+
+		void FlipVertically();
+
 	}
 }
 

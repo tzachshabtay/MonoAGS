@@ -90,6 +90,16 @@ namespace Engine
 			ScaleY = Height / _initialHeight;
 		}
 
+		public void FlipHorizontally()
+		{
+			ScaleBy(-ScaleX, ScaleY);
+		}
+
+		public void FlipVertically()
+		{
+			ScaleBy(ScaleX, -ScaleY);
+		}
+
 		public ILocation Location { get { return _sprite.Location; } set { _sprite.Location = value; } }
 
 		public float Height { get; private set; }

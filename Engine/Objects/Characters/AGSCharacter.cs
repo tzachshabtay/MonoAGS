@@ -10,18 +10,18 @@ namespace Engine
 {
 	public class AGSCharacter : ICharacter
 	{
-		private IObject obj;
-		private CancellationTokenSource walkCancel;
-		private IPathFinder pathFinder;
-		private List<IImageRenderer> debugPath;
+		private IObject _obj;
+		private CancellationTokenSource _walkCancel;
+		private IPathFinder _pathFinder;
+		private List<IImageRenderer> _debugPath;
 
 		public AGSCharacter (IObject obj = null, IPathFinder pathFinder = null)
 		{
-			this.pathFinder = pathFinder ?? new EPPathFinder ();
-			this.obj = obj ?? new AGSObject(new AGSSprite());
+			this._pathFinder = pathFinder ?? new EPPathFinder ();
+			this._obj = obj ?? new AGSObject(new AGSSprite());
 			DebugDrawAnchor = true;
-			walkCancel = new CancellationTokenSource ();
-			debugPath = new List<IImageRenderer> ();
+			_walkCancel = new CancellationTokenSource ();
+			_debugPath = new List<IImageRenderer> ();
 		}
 
 		/// <summary>
@@ -31,62 +31,72 @@ namespace Engine
 
 		#region ICharacter implementation
 
-		public float X { get { return obj.X; } set { obj.X = value; } }
-		public float Y { get { return obj.Y; } set { obj.Y = value; } }
-		public float Z { get { return obj.Z; } set { obj.Z = value; } }
-		public IRenderLayer RenderLayer { get { return obj.RenderLayer; } set { obj.RenderLayer = value; } }
+		public float X { get { return _obj.X; } set { _obj.X = value; } }
+		public float Y { get { return _obj.Y; } set { _obj.Y = value; } }
+		public float Z { get { return _obj.Z; } set { _obj.Z = value; } }
+		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
 
-		public ITreeNode<IObject> TreeNode { get { return obj.TreeNode; } }
+		public ITreeNode<IObject> TreeNode { get { return _obj.TreeNode; } }
 
-		public IImage Image { get { return obj.Image; } set { obj.Image = value; } }
+		public IImage Image { get { return _obj.Image; } set { _obj.Image = value; } }
 		public IImageRenderer CustomRenderer 
 		{ 
-			get { return obj.CustomRenderer; } 
-			set { obj.CustomRenderer = value; } 
+			get { return _obj.CustomRenderer; } 
+			set { _obj.CustomRenderer = value; } 
 		}
 
-		public bool Enabled { get { return obj.Enabled; } set { obj.Enabled = value; } }
-		public string Hotspot { get { return obj.Hotspot; } set { obj.Hotspot = value; } }
+		public bool Enabled { get { return _obj.Enabled; } set { _obj.Enabled = value; } }
+		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 
 		public void ResetScale ()
 		{
-			obj.ResetScale ();
+			_obj.ResetScale ();
 		}
 
 		public void ScaleBy (float scaleX, float scaleY)
 		{
-			obj.ScaleBy (scaleX, scaleY);
+			_obj.ScaleBy (scaleX, scaleY);
 		}
 
 		public void ScaleTo (float width, float height)
 		{
-			obj.ScaleTo (width, height);
+			_obj.ScaleTo (width, height);
 		}
 
-		public ILocation Location { get { return obj.Location; } set { obj.Location = value; } }
+		public void FlipHorizontally()
+		{
+			_obj.FlipHorizontally();
+		}
 
-		public float Height { get { return obj.Height; } }
+		public void FlipVertically()
+		{
+			_obj.FlipVertically();
+		}
 
-		public float Width { get { return obj.Width; } }
+		public ILocation Location { get { return _obj.Location; } set { _obj.Location = value; } }
 
-		public float ScaleX { get { return obj.ScaleX; } }
+		public float Height { get { return _obj.Height; } }
 
-		public float ScaleY { get { return obj.ScaleY; } }
+		public float Width { get { return _obj.Width; } }
 
-		public float Angle {get { return obj.Angle;} set { obj.Angle = value;}}
+		public float ScaleX { get { return _obj.ScaleX; } }
 
-		public byte Opacity {get { return obj.Opacity;} set { obj.Opacity = value;}}
+		public float ScaleY { get { return _obj.ScaleY; } }
 
-		public Color Tint {get { return obj.Tint;} set { obj.Tint = value;}}
+		public float Angle {get { return _obj.Angle;} set { _obj.Angle = value;}}
 
-		public IPoint Anchor {get { return obj.Anchor;} set { obj.Anchor = value;}}
+		public byte Opacity {get { return _obj.Opacity;} set { _obj.Opacity = value;}}
 
-		public ISquare BoundingBox { get { return obj.BoundingBox; } set { obj.BoundingBox = value; } }
+		public Color Tint {get { return _obj.Tint;} set { _obj.Tint = value;}}
 
-		public bool IgnoreViewport { get { return obj.IgnoreViewport; } set { obj.IgnoreViewport = value; } }
+		public IPoint Anchor {get { return _obj.Anchor;} set { _obj.Anchor = value;}}
 
-		public bool DebugDrawAnchor { get { return obj.DebugDrawAnchor; } set { obj.DebugDrawAnchor = value; } }
-		public IBorderStyle Border { get { return obj.Border; } set { obj.Border = value; } }
+		public ISquare BoundingBox { get { return _obj.BoundingBox; } set { _obj.BoundingBox = value; } }
+
+		public bool IgnoreViewport { get { return _obj.IgnoreViewport; } set { _obj.IgnoreViewport = value; } }
+
+		public bool DebugDrawAnchor { get { return _obj.DebugDrawAnchor; } set { _obj.DebugDrawAnchor = value; } }
+		public IBorderStyle Border { get { return _obj.Border; } set { _obj.Border = value; } }
 		public bool DebugDrawWalkPath { get; set; }
 
 		public void Say (string text)
@@ -106,7 +116,7 @@ namespace Engine
 
 		public async Task<bool> WalkAsync (ILocation location)	
 		{
-			List<IImageRenderer> debugRenderers = debugPath;
+			List<IImageRenderer> debugRenderers = _debugPath;
 			if (debugRenderers != null) 
 			{
 				foreach (IImageRenderer renderer in debugRenderers) 
@@ -114,11 +124,11 @@ namespace Engine
 					//Room.RemoveCustomRenderer (renderer);
 				}
 			}
-			walkCancel.Cancel ();
+			_walkCancel.Cancel ();
 			CancellationTokenSource token = new CancellationTokenSource ();
-			walkCancel = token;
+			_walkCancel = token;
 			debugRenderers = DebugDrawWalkPath ? new List<IImageRenderer> () : null;
-			debugPath = debugRenderers;
+			_debugPath = debugRenderers;
 
 			float xSource = X;
 			float ySource = Y;
@@ -149,12 +159,12 @@ namespace Engine
 
 		public void StartAnimation (IAnimation animation)
 		{
-			obj.StartAnimation (animation);
+			_obj.StartAnimation (animation);
 		}
 
 		public AnimationCompletedEventArgs Animate (IAnimation animation)
 		{
-			return obj.Animate (animation);
+			return _obj.Animate (animation);
 		}
 
 		public async Task<AnimationCompletedEventArgs> AnimateAsync (IAnimation animation)
@@ -173,13 +183,13 @@ namespace Engine
 			}
 		}
 
-		public IRoom Room { get { return obj.Room; } set { obj.Room = value; } }
+		public IRoom Room { get { return _obj.Room; } set { _obj.Room = value; } }
 
-		public IAnimation Animation { get { return obj.Animation; } }
+		public IAnimation Animation { get { return _obj.Animation; } }
 
-		public IInteractions Interactions { get { return obj.Interactions; } }
+		public IInteractions Interactions { get { return _obj.Interactions; } }
 
-		public bool Visible { get { return obj.Visible; } set { obj.Visible = value; } }
+		public bool Visible { get { return _obj.Visible; } set { _obj.Visible = value; } }
 
 		public override string ToString ()
 		{
@@ -216,8 +226,8 @@ namespace Engine
 				destination = new AGSLocation (closest, destination.Z);
 			}
 			bool[][] mask = getWalkableMask ();
-			pathFinder.Init (mask);
-			return pathFinder.GetWalkPoints (Location, destination);
+			_pathFinder.Init (mask);
+			return _pathFinder.GetWalkPoints (Location, destination);
 		}
 
 		private bool isWalkable(ILocation location)
@@ -304,7 +314,7 @@ namespace Engine
 
 		private async Task changeAnimationIfNeeded(IAnimation animation)
 		{
-			if (animation == obj.Animation)
+			if (animation == _obj.Animation)
 				return;
 			await Task.Delay (1);
 			StartAnimation (animation);

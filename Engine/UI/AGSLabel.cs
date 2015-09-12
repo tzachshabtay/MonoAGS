@@ -109,6 +109,16 @@ namespace Engine
 			_obj.ScaleTo(width, height);
 		}
 
+		public void FlipHorizontally()
+		{
+			_obj.FlipHorizontally();
+		}
+
+		public void FlipVertically()
+		{
+			_obj.FlipVertically();
+		}
+
 		public ILocation Location { get { return _obj.Location; } set { _obj.Location = value; } }
 
 		public float X { get { return _obj.X; } set { _obj.X = value; } }

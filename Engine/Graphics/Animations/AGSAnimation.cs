@@ -83,6 +83,22 @@ namespace Engine
 			State.TimeToNextFrame = Frames [frame].Delay;
 		}
 
+		public void FlipHorizontally()
+		{
+			foreach (var frame in Frames)
+			{
+				frame.Sprite.FlipHorizontally();
+			}
+		}
+
+		public void FlipVertically()
+		{
+			foreach (var frame in Frames)
+			{
+				frame.Sprite.FlipVertically();
+			}
+		}
+
 		public IList<IAnimationFrame> Frames { get; private set; }
 
 		public IAnimationConfiguration Configuration { get; private set; }

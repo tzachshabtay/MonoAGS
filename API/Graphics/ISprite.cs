@@ -25,6 +25,8 @@ namespace API
 		void ResetScale();
 		void ScaleBy(float scaleX, float scaleY);
 		void ScaleTo(float width, float height);
+		void FlipHorizontally();
+		void FlipVertically();
 	}
 }
 

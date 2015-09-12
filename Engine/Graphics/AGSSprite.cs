@@ -44,6 +44,16 @@ namespace Engine
 			ScaleY = Height / Image.Height;
 		}
 
+		public void FlipHorizontally()
+		{
+			ScaleBy(-ScaleX, ScaleY);
+		}
+
+		public void FlipVertically()
+		{
+			ScaleBy(ScaleX, -ScaleY);
+		}
+
 		public ILocation Location { get; set; }
 
 		public float X { get { return Location.X; } set { Location = new AGSLocation(value, Y, Z); } }
