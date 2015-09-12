@@ -90,6 +90,7 @@
     <Compile Include="Misc\Collections\IConcurrentHashSet.cs" />
     <Compile Include="Misc\Collections\Tree\ITreeNode.cs" />
     <Compile Include="UI\Rendering\ILabelRenderer.cs" />
+    <Compile Include="Graphics\Logic\ILoadImageConfig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

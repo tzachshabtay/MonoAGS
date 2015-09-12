@@ -119,6 +119,7 @@
     <Compile Include="Graphics\Logic\GLTextureRenderer.cs" />
     <Compile Include="Game\AGSGame.cs" />
     <Compile Include="Game\AGSGameFactory.cs" />
+    <Compile Include="Graphics\Logic\AGSLoadImageConfig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

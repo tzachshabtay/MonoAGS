@@ -20,15 +20,16 @@ namespace Engine
 			this.textures = textures;
 		}
 
-		public IAnimation LoadAnimationFromFolder (string folderPath, int delay = 1, IAnimationConfiguration config = null)
+		public IAnimation LoadAnimationFromFolder (string folderPath, int delay = 1, 
+			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			config = config ?? new AGSAnimationConfiguration ();
+			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
 			AGSAnimationState state = new AGSAnimationState ();
 			string[] files = Directory.GetFiles (folderPath);
-			AGSAnimation animation = new AGSAnimation (config, state, files.Length);
+			AGSAnimation animation = new AGSAnimation (animationConfig, state, files.Length);
 			foreach (string file in files) 
 			{
-				var image = LoadImage (file);
+				var image = LoadImage (file, loadConfig);
 				AGSSprite sprite = new AGSSprite { Image = image };
 				AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
 				animation.Frames.Add (frame);
@@ -37,15 +38,16 @@ namespace Engine
 			return animation;
 		}
 
-		public async Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath, int delay = 1, IAnimationConfiguration config = null)
+		public async Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath, int delay = 1, 
+			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			return await Task.Run(() => LoadAnimationFromFolder (folderPath, delay, config));
+			return await Task.Run(() => LoadAnimationFromFolder (folderPath, delay, animationConfig, loadConfig));
 		}
 
 		public IAnimation LoadAnimationFromSpriteSheet (string filePath, ISpriteSheet spriteSheet, 
-			int delay = 1, IAnimationConfiguration config = null)
+			int delay = 1, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			config = config ?? new AGSAnimationConfiguration ();
+			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
 			Bitmap bitmap = new Bitmap (filePath);
 			int cellsInRow = bitmap.Width / spriteSheet.CellWidth;
 			int cellsInCol = bitmap.Height / spriteSheet.CellHeight;
@@ -112,7 +114,7 @@ namespace Engine
 			int cellY = startRow;
 			int cellsGrabbed = 0;
 			int cellsToGrab = spriteSheet.CellsToGrab < 0 ? cellsTotal : Math.Min (spriteSheet.CellsToGrab, cellsTotal);
-			AGSAnimation animation = new AGSAnimation (config, new AGSAnimationState (), cellsToGrab);
+			AGSAnimation animation = new AGSAnimation (animationConfig, new AGSAnimationState (), cellsToGrab);
 			for (int currentCell = 0; cellsGrabbed < cellsToGrab; currentCell++) 
 			{
 				if (currentCell >= spriteSheet.StartFromCell) 
@@ -122,7 +124,7 @@ namespace Engine
 						                cellY * spriteSheet.CellHeight, spriteSheet.CellWidth, spriteSheet.CellHeight);
 					Bitmap clone = crop (bitmap, rect);
 					string path = string.Format ("{0}_{1}_{2}", rect.X, rect.Y, filePath);
-					GLImage image = loadImage (tex, clone, path);
+					GLImage image = loadImage (tex, clone, path, loadConfig);
 					//GLImage image = loadImage(tex, bitmap, rect, path);
 					AGSSprite sprite = new AGSSprite { Image = image, Location = new AGSLocation() };
 		
@@ -149,34 +151,35 @@ namespace Engine
 			return animation;
 		}
 
-		public async Task<IAnimation> LoadAnimationFromSpriteSheetAsync (string filePath, ISpriteSheet spriteSheet, int delay = 1, IAnimationConfiguration config = null)
+		public async Task<IAnimation> LoadAnimationFromSpriteSheetAsync (string filePath, ISpriteSheet spriteSheet, 
+			int delay = 1, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			return await Task.Run(() => LoadAnimationFromSpriteSheet(filePath, spriteSheet, delay, config));
+			return await Task.Run(() => LoadAnimationFromSpriteSheet(filePath, spriteSheet, delay, animationConfig, loadConfig));
 		}
 			
-		public GLImage LoadImageInner(string path)
+		public GLImage LoadImageInner(string path, ILoadImageConfig config = null)
 		{
 			int tex = generateTexture ();
 			Bitmap bitmap = new Bitmap (path);
 			//return loadImage (tex, bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height), path);
-			return loadImage (tex, bitmap, path);
+			return loadImage (tex, bitmap, path, config);
 		}
 
-		public GLImage LoadImage(Bitmap bitmap, string id = null)
+		public GLImage LoadImage(Bitmap bitmap, string id = null, ILoadImageConfig config = null)
 		{
 			id = id ?? Guid.NewGuid ().ToString ();
 			int tex = generateTexture ();
-			return loadImage (tex, bitmap, id);
+			return loadImage (tex, bitmap, id, config);
 		}
 
-		public IImage LoadImage(string path)
+		public IImage LoadImage(string path, ILoadImageConfig config = null)
 		{
-			return LoadImageInner (path);
+			return LoadImageInner (path, config);
 		}
 
-		public async Task<IImage> LoadImageAsync (string filePath)
+		public async Task<IImage> LoadImageAsync (string filePath, ILoadImageConfig config = null)
 		{
-			return await Task.Run(() => LoadImage (filePath));
+			return await Task.Run(() => LoadImage (filePath, config));
 		}
 
 		private int generateTexture()
@@ -271,8 +274,9 @@ namespace Engine
 			return croppedBitmap;*/
 		}
 
-		private GLImage loadImage(int texture, Bitmap bitmap, string path)
+		private GLImage loadImage(int texture, Bitmap bitmap, string path, ILoadImageConfig config)
 		{
+			manipulateImage(bitmap, config);
 			BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
 				ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
@@ -286,6 +290,17 @@ namespace Engine
 			if (textures != null)
 				textures.GetOrAdd (image.ID, () => image);
 			return image;
+		}
+
+		private void manipulateImage(Bitmap bitmap, ILoadImageConfig config)
+		{
+			if (config == null) return;
+			if (config.TransparentColorSamplePoint != null)
+			{
+				Color transparentColor = bitmap.GetPixel(config.TransparentColorSamplePoint.Value.X,
+					                         config.TransparentColorSamplePoint.Value.Y);
+				bitmap.MakeTransparent(transparentColor);
+			}
 		}
 	}
 }
