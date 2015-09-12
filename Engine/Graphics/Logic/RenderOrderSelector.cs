@@ -68,7 +68,8 @@ namespace Engine
 
 		private float getZ(IObject obj)
 		{
-			return obj.Z + obj.Animation.Sprite.Z;
+			float zAnimation = obj.Animation == null ? 0f : obj.Animation.Sprite.Z;
+			return obj.Z + zAnimation;
 		}
 	}
 }

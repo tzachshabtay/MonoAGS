@@ -27,14 +27,19 @@ namespace Engine
 			List<IObject> displayList = getDisplayList(room);
 			foreach (IObject obj in displayList) 
 			{
-				ISprite sprite = obj.Animation.Sprite;
 				IImageRenderer imageRenderer = obj.CustomRenderer ?? 
-					sprite.CustomRenderer ?? renderer;
+					getAnimationRenderer(obj) ?? renderer;
 				imageRenderer.Render (obj, room.Viewport);
 			}
 		}
 
 		#endregion
+
+		private IImageRenderer getAnimationRenderer(IObject obj)
+		{
+			if (obj.Animation == null) return null;
+			return obj.Animation.Sprite.CustomRenderer;
+		}
 
 		private List<IObject> getDisplayList(IRoom room)
 		{
