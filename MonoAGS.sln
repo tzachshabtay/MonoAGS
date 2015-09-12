@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoGame", "DemoGame\DemoGame.csproj", "{647BCEF8-067A-469B-B675-EBFE7465CBDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{197F8906-96FE-4D72-B3A7-BB6A169D83B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{7E614795-A8D2-4E3B-847C-3443D1B81154}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{197F8906-96FE-4D72-B3A7-BB6A169D83B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{197F8906-96FE-4D72-B3A7-BB6A169D83B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{197F8906-96FE-4D72-B3A7-BB6A169D83B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{197F8906-96FE-4D72-B3A7-BB6A169D83B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}.Release|Any CPU.Build.0 = Release|Any CPU
+		{647BCEF8-067A-469B-B675-EBFE7465CBDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{647BCEF8-067A-469B-B675-EBFE7465CBDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{647BCEF8-067A-469B-B675-EBFE7465CBDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{647BCEF8-067A-469B-B675-EBFE7465CBDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E614795-A8D2-4E3B-847C-3443D1B81154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E614795-A8D2-4E3B-847C-3443D1B81154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E614795-A8D2-4E3B-847C-3443D1B81154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E614795-A8D2-4E3B-847C-3443D1B81154}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
+		$0.TextStylePolicy = $2
+		$2.inheritsSet = null
+		$2.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $3
+		$3.IndentSwitchBody = True
+		$3.AnonymousMethodBraceStyle = NextLine
+		$3.PropertyBraceStyle = NextLine
+		$3.PropertyGetBraceStyle = NextLine
+		$3.PropertySetBraceStyle = NextLine
+		$3.EventBraceStyle = NextLine
+		$3.EventAddBraceStyle = NextLine
+		$3.EventRemoveBraceStyle = NextLine
+		$3.StatementBraceStyle = NextLine
+		$3.ElseNewLinePlacement = NewLine
+		$3.CatchNewLinePlacement = NewLine
+		$3.FinallyNewLinePlacement = NewLine
+		$3.EmbeddedStatementPlacement = DoNotCare
+		$3.BeforeMethodDeclarationParentheses = False
+		$3.BeforeMethodCallParentheses = False
+		$3.BeforeConstructorDeclarationParentheses = False
+		$3.BeforeIndexerDeclarationBracket = False
+		$3.BeforeDelegateDeclarationParentheses = False
+		$3.AfterDelegateDeclarationParameterComma = True
+		$3.SpacesBeforeBrackets = False
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/x-csharp
+		$3.scope = text/x-csharp
+		$0.TextStylePolicy = $4
+		$4.FileWidth = 120
+		$4.TabsToSpaces = False
+		$4.inheritsSet = VisualStudio
+		$4.inheritsScope = text/plain
+		$4.scope = text/plain
+		$0.TextStylePolicy = $5
+		$5.inheritsSet = null
+		$5.scope = application/config+xml
+		$0.XmlFormattingPolicy = $6
+		$6.inheritsSet = null
+		$6.scope = application/config+xml
+	EndGlobalSection
+EndGlobal

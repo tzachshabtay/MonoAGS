@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7E614795-A8D2-4E3B-847C-3443D1B81154}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Tests</RootNamespace>
+    <AssemblyName>Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Mocks.cs" />
+    <Compile Include="Engine\Game\GameLoopTests.cs" />
+    <Compile Include="Engine\Graphics\Animations\AnimationTests.cs" />
+    <Compile Include="Engine\Graphics\SpriteTests.cs" />
+    <Compile Include="Engine\Graphics\Logic\RenderOrderSelectorTests.cs" />
+    <Compile Include="Engine\Graphics\Logic\RendererLoopTests.cs" />
+    <Compile Include="Engine\Graphics\Logic\ImageRendererTests.cs" />
+    <Compile Include="Engine\Input\InputEventsTests.cs" />
+    <Compile Include="Engine\Input\Schemes\TwoButtonsInputSchemeTests.cs" />
+    <Compile Include="Engine\Objects\ChildrenObjectsTests.cs" />
+    <Compile Include="Engine\Objects\ObjectTests.cs" />
+    <Compile Include="Engine\Objects\Characters\CharacterTests.cs" />
+    <Compile Include="Engine\Objects\Characters\Pathfinding\PathfinderTests.cs" />
+    <Compile Include="Engine\Rooms\RoomTests.cs" />
+    <Compile Include="Engine\Rooms\AreaTests.cs" />
+    <Compile Include="Engine\Rooms\Viewport\ViewportFollowerTests.cs" />
+    <Compile Include="Engine\Misc\Events\EventTests.cs" />
+    <Compile Include="Engine\Misc\Geometry\SquareTests.cs" />
+    <Compile Include="Engine\Misc\LocationTests.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Engine\" />
+    <Folder Include="Engine\Game\" />
+    <Folder Include="Engine\Graphics\" />
+    <Folder Include="Engine\Graphics\Animations\" />
+    <Folder Include="Engine\Graphics\Logic\" />
+    <Folder Include="Engine\Input\" />
+    <Folder Include="Engine\Input\Schemes\" />
+    <Folder Include="Engine\Objects\" />
+    <Folder Include="Engine\Objects\Characters\" />
+    <Folder Include="Engine\Objects\Characters\Pathfinding\" />
+    <Folder Include="Engine\Rooms\" />
+    <Folder Include="Engine\Rooms\Viewport\" />
+    <Folder Include="Engine\Misc\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engine\Engine.csproj">
+      <Project>{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}</Project>
+      <Name>Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\API\API.csproj">
+      <Project>{197F8906-96FE-4D72-B3A7-BB6A169D83B5}</Project>
+      <Name>API</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

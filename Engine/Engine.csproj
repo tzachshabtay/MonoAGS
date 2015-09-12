@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Engine</RootNamespace>
+    <AssemblyName>Engine</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="OpenTK" Condition="$(Configuration) == 'Debug'">
+      <HintPath>..\DLLs Debug\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK" Condition="$(Configuration) != 'Debug'">
+      <HintPath>..\DLLs\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MyClass.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Graphics\AGSSprite.cs" />
+    <Compile Include="Graphics\GLImage.cs" />
+    <Compile Include="Graphics\Logic\GLImageRenderer.cs" />
+    <Compile Include="Graphics\Logic\GLRendererLoop.cs" />
+    <Compile Include="Game\AGSGameState.cs" />
+    <Compile Include="Objects\Interactions\AGSInteractions.cs" />
+    <Compile Include="Objects\AGSObject.cs" />
+    <Compile Include="Graphics\Animations\AGSAnimationFrame.cs" />
+    <Compile Include="Graphics\Animations\AGSAnimation.cs" />
+    <Compile Include="Graphics\Animations\AGSAnimationConfiguration.cs" />
+    <Compile Include="Graphics\Animations\AGSAnimationState.cs" />
+    <Compile Include="Graphics\Logic\GLGraphicsFactory.cs" />
+    <Compile Include="Graphics\Animations\AGSSingleFrameAnimation.cs" />
+    <Compile Include="Player\AGSPlayer.cs" />
+    <Compile Include="Game\AGSGameLoop.cs" />
+    <Compile Include="Input\GLInputEvents.cs" />
+    <Compile Include="Input\Schemes\TwoButtonsInputScheme.cs" />
+    <Compile Include="Graphics\Animations\AGSSpriteSheet.cs" />
+    <Compile Include="Graphics\Animations\AGSDirectionalAnimation.cs" />
+    <Compile Include="Graphics\Logic\SpriteRenderInfo.cs" />
+    <Compile Include="UI\Text\GLText.cs" />
+    <Compile Include="Graphics\Logic\GLUtils.cs" />
+    <Compile Include="Objects\Characters\AGSCharacter.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Heuristic.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\GridPos.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\GridRect.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\NodePool.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\JumpPointFinder.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\BaseGrid.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGrid.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGridWPool.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\PartialGridWPool.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\StaticGrid.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\EPPathFinder.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\PriorityQueue.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\SpatialAStar.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\PathNode.cs" />
+    <Compile Include="Graphics\Drawing\GLLineRenderer.cs" />
+    <Compile Include="Graphics\Drawing\GLMaskRenderer.cs" />
+    <Compile Include="Graphics\Drawing\GLBitmapRenderer.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\SpatialAStarPathFinder.cs" />
+    <Compile Include="Rooms\AGSArea.cs" />
+    <Compile Include="Rooms\Viewport\AGSViewportFollower.cs" />
+    <Compile Include="Rooms\Viewport\AGSViewport.cs" />
+    <Compile Include="Rooms\AGSRoom.cs" />
+    <Compile Include="Graphics\Layers\AGSRenderLayer.cs" />
+    <Compile Include="Graphics\Layers\AGSLayers.cs" />
+    <Compile Include="Graphics\Logic\RenderOrderSelector.cs" />
+    <Compile Include="Resolver.cs" />
+    <Compile Include="UI\AGSLabel.cs" />
+    <Compile Include="UI\AGSUIEvents.cs" />
+    <Compile Include="UI\AGSBorderStyle.cs" />
+    <Compile Include="Misc\Events\AGSEvent.cs" />
+    <Compile Include="Misc\Geometry\AGSPoint.cs" />
+    <Compile Include="Misc\Geometry\AGSSquare.cs" />
+    <Compile Include="Misc\Utils\Extensions.cs" />
+    <Compile Include="Misc\Utils\GraphicsUtils.cs" />
+    <Compile Include="Misc\Utils\MathUtils.cs" />
+    <Compile Include="Misc\AGSLocation.cs" />
+    <Compile Include="Misc\Collection\AGSConcurrentHashSet.cs" />
+    <Compile Include="Misc\Tree\AGSTreeNode.cs" />
+    <Compile Include="UI\Text\GLLabelRenderer.cs" />
+    <Compile Include="Graphics\Logic\GLMatrixBuilder.cs" />
+    <Compile Include="Graphics\Logic\Interfaces\IGLMatrixBuilder.cs" />
+    <Compile Include="Graphics\Logic\Interfaces\IGLBoundingBox.cs" />
+    <Compile Include="Graphics\Logic\Interfaces\IGLBoundingBoxBuilder.cs" />
+    <Compile Include="Graphics\Logic\GLBoundingBox.cs" />
+    <Compile Include="Graphics\Logic\Interfaces\IGLColor.cs" />
+    <Compile Include="Graphics\Logic\Interfaces\IGLColorBuilder.cs" />
+    <Compile Include="Graphics\Logic\GLColor.cs" />
+    <Compile Include="Graphics\Logic\Interfaces\IGLTextureRenderer.cs" />
+    <Compile Include="Graphics\Logic\GLTextureRenderer.cs" />
+    <Compile Include="Game\AGSGame.cs" />
+    <Compile Include="Game\AGSGameFactory.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Graphics\" />
+    <Folder Include="Objects\" />
+    <Folder Include="Graphics\Logic\" />
+    <Folder Include="Game\" />
+    <Folder Include="Objects\Interactions\" />
+    <Folder Include="Graphics\Animations\" />
+    <Folder Include="Player\" />
+    <Folder Include="Input\" />
+    <Folder Include="Input\Schemes\" />
+    <Folder Include="UI\" />
+    <Folder Include="UI\Text\" />
+    <Folder Include="Objects\Characters\" />
+    <Folder Include="Objects\Characters\Pathfinding\" />
+    <Folder Include="Objects\Characters\Pathfinding\EPJumpPointSearch\" />
+    <Folder Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\" />
+    <Folder Include="Objects\Characters\Pathfinding\SpatialAstar\" />
+    <Folder Include="Graphics\Drawing\" />
+    <Folder Include="Rooms\" />
+    <Folder Include="Rooms\Viewport\" />
+    <Folder Include="Graphics\Layers\" />
+    <Folder Include="Misc\" />
+    <Folder Include="Misc\Collection\" />
+    <Folder Include="Graphics\Logic\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\API\API.csproj">
+      <Project>{197F8906-96FE-4D72-B3A7-BB6A169D83B5}</Project>
+      <Name>API</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

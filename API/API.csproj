@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{197F8906-96FE-4D72-B3A7-BB6A169D83B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>API</RootNamespace>
+    <AssemblyName>API</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Game\IGame.cs" />
+    <Compile Include="Game\IGameFactory.cs" />
+    <Compile Include="Game\IGameLoop.cs" />
+    <Compile Include="Game\IGameState.cs" />
+    <Compile Include="Graphics\IImage.cs" />
+    <Compile Include="Graphics\ISprite.cs" />
+    <Compile Include="Graphics\Logic\IGraphicsFactory.cs" />
+    <Compile Include="Graphics\Logic\IImageRenderer.cs" />
+    <Compile Include="Graphics\Logic\IRendererLoop.cs" />
+    <Compile Include="Inventory\IInventory.cs" />
+    <Compile Include="Inventory\IInventoryItem.cs" />
+    <Compile Include="Inventory\InventoryCombinationEventArgs.cs" />
+    <Compile Include="Objects\Interactions\CustomInteractionEventArgs.cs" />
+    <Compile Include="Objects\Interactions\IInteractions.cs" />
+    <Compile Include="Objects\Interactions\InventoryInteractEventArgs.cs" />
+    <Compile Include="Objects\Interactions\ObjectEventArgs.cs" />
+    <Compile Include="Objects\IObject.cs" />
+    <Compile Include="Player\IPlayer.cs" />
+    <Compile Include="Serialization\ICustomSerializable.cs" />
+    <Compile Include="Serialization\ICustomSerializableData.cs" />
+    <Compile Include="Serialization\ISaveLoad.cs" />
+    <Compile Include="Sound\ISound.cs" />
+    <Compile Include="Sound\ISoundFactory.cs" />
+    <Compile Include="Graphics\Animations\IAnimation.cs" />
+    <Compile Include="Graphics\Animations\IAnimationConfiguration.cs" />
+    <Compile Include="Graphics\Animations\IAnimationFrame.cs" />
+    <Compile Include="Graphics\Animations\IAnimationState.cs" />
+    <Compile Include="Graphics\Animations\AnimationCompletedEventArgs.cs" />
+    <Compile Include="Input\IInputEvents.cs" />
+    <Compile Include="Input\MouseButtonEventArgs.cs" />
+    <Compile Include="Input\KeyboardEventArgs.cs" />
+    <Compile Include="Input\MousePositionEventArgs.cs" />
+    <Compile Include="Graphics\Animations\ISpriteSheet.cs" />
+    <Compile Include="Graphics\Animations\IDirectionalAnimation.cs" />
+    <Compile Include="Objects\Characters\ICharacter.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\IPathFinder.cs" />
+    <Compile Include="Objects\Characters\IFollower.cs" />
+    <Compile Include="Rooms\IRoom.cs" />
+    <Compile Include="Rooms\IArea.cs" />
+    <Compile Include="Rooms\IWalkBehindArea.cs" />
+    <Compile Include="Rooms\IScalingArea.cs" />
+    <Compile Include="Rooms\IViewport.cs" />
+    <Compile Include="Graphics\IRenderLayer.cs" />
+    <Compile Include="UI\IButton.cs" />
+    <Compile Include="UI\IUIControl.cs" />
+    <Compile Include="UI\ILabel.cs" />
+    <Compile Include="UI\Text\ITextConfig.cs" />
+    <Compile Include="UI\ISkin.cs" />
+    <Compile Include="Objects\IChildrenCollection.cs" />
+    <Compile Include="UI\IBorderStyle.cs" />
+    <Compile Include="Misc\Geometry\IPoint.cs" />
+    <Compile Include="Misc\Geometry\ISquare.cs" />
+    <Compile Include="Misc\Events\IEvent.cs" />
+    <Compile Include="Misc\ILocation.cs" />
+    <Compile Include="Misc\Collections\IConcurrentHashSet.cs" />
+    <Compile Include="Misc\Collections\Tree\ITreeNode.cs" />
+    <Compile Include="UI\Rendering\ILabelRenderer.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Graphics\Animations\" />
+    <Folder Include="Input\" />
+    <Folder Include="Objects\Characters\" />
+    <Folder Include="Objects\Characters\Pathfinding\" />
+    <Folder Include="UI\" />
+    <Folder Include="Misc\" />
+    <Folder Include="Misc\Collections\" />
+    <Folder Include="Misc\Collections\Tree\" />
+    <Folder Include="UI\Rendering\" />
+  </ItemGroup>
+</Project>
