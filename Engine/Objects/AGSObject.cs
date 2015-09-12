@@ -93,11 +93,13 @@ namespace Engine
 		public void FlipHorizontally()
 		{
 			ScaleBy(-ScaleX, ScaleY);
+			Anchor = new AGSPoint (-Anchor.X, Anchor.Y);
 		}
 
 		public void FlipVertically()
 		{
 			ScaleBy(ScaleX, -ScaleY);
+			Anchor = new AGSPoint (Anchor.X, -Anchor.Y);
 		}
 
 		public ISprite Clone()

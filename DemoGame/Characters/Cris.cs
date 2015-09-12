@@ -27,6 +27,10 @@ namespace DemoGame
 				Left = factory.LoadAnimationFromFolder(_baseFolder + "Walk/left", loadConfig : loadConfig),
 				Down = factory.LoadAnimationFromFolder(_baseFolder + "Walk/front", loadConfig : loadConfig),
 			};
+			foreach (var frame in walk.Left.Frames)
+			{
+				frame.Sprite.Anchor = new AGSPoint (0.5f, 0f);
+			}
 			walk.Right = walk.Left.Clone();
 			walk.Right.FlipHorizontally();
 
@@ -35,6 +39,10 @@ namespace DemoGame
 				Left = factory.LoadAnimationFromFolder(_baseFolder + "Idle/left", loadConfig : loadConfig),
 				Down = factory.LoadAnimationFromFolder(_baseFolder + "Idle/front", loadConfig : loadConfig),
 			};
+			foreach (var frame in idle.Left.Frames)
+			{
+				frame.Sprite.Anchor = new AGSPoint (0.5f, 0f);
+			}
 			idle.Right = idle.Left.Clone();
 			idle.Right.FlipHorizontally();
 
