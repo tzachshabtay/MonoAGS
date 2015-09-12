@@ -5,6 +5,7 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Engine
 {
@@ -115,6 +116,8 @@ namespace Engine
 					}
 					catch (Exception ex)
 					{
+						Debug.WriteLine("Exception when rendering:");
+						Debug.WriteLine(ex.ToString());
 						throw ex;
 					}
 				};
