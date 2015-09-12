@@ -8,7 +8,6 @@ namespace Engine
 	public class AGSObject : IObject
 	{
 		private float _initialWidth, _initialHeight;
-		private IObject _parent;
 		private ISprite _sprite;
 
 		/// <summary>
