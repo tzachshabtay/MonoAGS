@@ -70,7 +70,7 @@ namespace Engine
 
 					if (mask[x] == null)
 						mask[x] = new bool[image.Height];
-					mask[x][y] = masked;
+					mask[x][image.Height - y - 1] = masked;
 
 					if (debugMask != null)
 						debugMask.SetPixel(x, y, masked ? debugDrawColor.Value : Color.Transparent);
