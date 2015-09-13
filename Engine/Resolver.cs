@@ -18,6 +18,8 @@ namespace Engine
 			Builder.RegisterType<AGSObject>().As<IObject>();
 			Builder.RegisterType<AGSSprite>().As<ISprite>();
 			Builder.RegisterType<AGSGameState>().SingleInstance().As<IGameState>();
+			Builder.RegisterType<AGSGame>().SingleInstance().As<IGame>();
+			Builder.RegisterType<AGSGameEvents>().SingleInstance().As<IGameEvents>();
 			Dictionary<string, GLImage> textures = new Dictionary<string, GLImage> ();
 			Builder.RegisterInstance(textures);
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));

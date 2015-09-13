@@ -12,7 +12,7 @@ namespace API
 
 		IInputEvents Input { get; }
 
-		IEvent<EventArgs> OnLoad { get; }
+		IGameEvents Events { get; }
 
 		void Start(string title, int width, int height);
 	}

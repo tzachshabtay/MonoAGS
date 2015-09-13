@@ -9,12 +9,13 @@ namespace Engine
 {
 	public class AGSRoom : IRoom
 	{
-		private IPlayer player;
-		private IObject background;
+		private IPlayer _player;
+		private IObject _background;
+		private IAGSEdges _edges;
 
-		public AGSRoom (string id, IPlayer player, IViewport viewport)
+		public AGSRoom (string id, IPlayer player, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents)
 		{
-			this.player = player;
+			this._player = player;
 			Viewport = viewport;
 			ID = id;
 			Objects = new List<IObject> ();
@@ -22,6 +23,8 @@ namespace Engine
 			WalkBehindAreas = new List<IWalkBehindArea> ();
 			ScalingAreas = new List<IScalingArea> ();
 			ShowPlayer = true;
+			_edges = edges;
+			gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
 
 		#region IRoom implementation
@@ -32,17 +35,17 @@ namespace Engine
 
 		public IObject Background 
 		{ 
-			get { return background; } 
+			get { return _background; } 
 			set 
 			{ 
-				background = value; 
-				if (background != null && background.RenderLayer == AGSLayers.Foreground)
+				_background = value; 
+				if (_background != null && _background.RenderLayer == AGSLayers.Foreground)
 				{
-					background.RenderLayer = AGSLayers.Background;
+					_background.RenderLayer = AGSLayers.Background;
 				}
-				if (background != null)
+				if (_background != null)
 				{
-					background.Anchor = new AGSPoint ();
+					_background.Anchor = new AGSPoint ();
 				}
 			} 
 		}
@@ -57,9 +60,11 @@ namespace Engine
 
 		public IViewport Viewport { get; private set; }
 
+		public IEdges Edges { get { return _edges; } }
+
 		public IEnumerable<IObject> GetVisibleObjectsFrontToBack()
 		{
-			return Objects.Where (o => o.Visible && (ShowPlayer || o != player.Character)).
+			return Objects.Where (o => o.Visible && (ShowPlayer || o != _player.Character)).
 				OrderByDescending(o => o.RenderLayer == null ? 0 : o.RenderLayer.Z).
 				ThenByDescending(o => o.Z);
 		}
@@ -94,6 +99,12 @@ namespace Engine
 				//	return obj;
 			}
 			return null;
+		}
+
+		private void onRepeatedlyExecute(object sender, EventArgs args)
+		{
+			if (_player.Character.Room != this) return;
+			_edges.OnRepeatedlyExecute(_player.Character);
 		}
 
 	}

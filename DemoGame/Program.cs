@@ -12,9 +12,9 @@ namespace DemoGame
 		{
 			IGame game = AGSGame.CreateEmpty();
 
-			game.OnLoad.Subscribe((sender, e) =>
+			game.Events.OnLoad.Subscribe((sender, e) =>
 			{
-				EmptyStreet emptyStreet = new EmptyStreet (game.State.Player, new AGSViewport());
+				EmptyStreet emptyStreet = new EmptyStreet (game.State.Player, new AGSViewport(), game.Events);
 
 				IRoom room = emptyStreet.Load(game.Factory.Graphics);
 

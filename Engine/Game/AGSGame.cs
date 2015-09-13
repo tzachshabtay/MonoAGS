@@ -15,12 +15,12 @@ namespace Engine
 		private IRendererLoop _renderLoop;
 
 		public AGSGame(IGameFactory factory, IGameState state,
-			IGameLoop gameLoop, IEvent<EventArgs> onLoad)
+			IGameLoop gameLoop, IGameEvents gameEvents)
 		{
 			Factory = factory;
 			State = state;
 			GameLoop = gameLoop;
-			OnLoad = onLoad;
+			Events = gameEvents;
 		}
 
 		public static IGame CreateEmpty()
@@ -47,7 +47,7 @@ namespace Engine
 
 		public IInputEvents Input { get; private set; } 
 
-		public IEvent<EventArgs> OnLoad { get; private set; }
+		public IGameEvents Events { get; private set; }
 
 		public void Start(string title, int width, int height)
 		{
@@ -75,7 +75,7 @@ namespace Engine
 					GL.MatrixMode(MatrixMode.Modelview);
 					GL.LoadIdentity();
 
-					await OnLoad.InvokeAsync(sender, e);
+					await Events.OnLoad.InvokeAsync(sender, e);
 				};
 					
 				game.Resize += (sender, e) =>
@@ -90,12 +90,13 @@ namespace Engine
 				{
 					if (e.Key == OpenTK.Input.Key.Escape) game.Exit();
 				};
-				game.UpdateFrame += (sender, e) =>
+				game.UpdateFrame += async (sender, e) =>
 				{
 					try
 					{
 						// add game logic, input handling
 						GameLoop.Update();
+						await Events.OnRepeatedlyExecute.InvokeAsync(sender, e);
 					}
 					catch (Exception ex)
 					{

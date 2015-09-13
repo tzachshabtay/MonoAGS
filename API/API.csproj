@@ -93,6 +93,9 @@
     <Compile Include="Graphics\Logic\ILoadImageConfig.cs" />
     <Compile Include="Rooms\Masks\IMask.cs" />
     <Compile Include="Rooms\Masks\IMaskLoader.cs" />
+    <Compile Include="Game\IGameEvents.cs" />
+    <Compile Include="Rooms\Edges\IEdge.cs" />
+    <Compile Include="Rooms\Edges\IEdges.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -106,5 +109,6 @@
     <Folder Include="Misc\Collections\Tree\" />
     <Folder Include="UI\Rendering\" />
     <Folder Include="Rooms\Masks\" />
+    <Folder Include="Rooms\Edges\" />
   </ItemGroup>
 </Project>

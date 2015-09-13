@@ -120,6 +120,10 @@
     <Compile Include="Rooms\Masks\AGSMask.cs" />
     <Compile Include="Rooms\Masks\AGSMaskLoader.cs" />
     <Compile Include="Graphics\Logic\AGSRendererLoop.cs" />
+    <Compile Include="Game\AGSGameEvents.cs" />
+    <Compile Include="Rooms\Edges\AGSEdge.cs" />
+    <Compile Include="Rooms\Edges\AGSEdges.cs" />
+    <Compile Include="Rooms\Edges\IAGSEdges.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -147,6 +151,7 @@
     <Folder Include="Misc\Collection\" />
     <Folder Include="Graphics\Logic\Interfaces\" />
     <Folder Include="Rooms\Masks\" />
+    <Folder Include="Rooms\Edges\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\API\API.csproj">

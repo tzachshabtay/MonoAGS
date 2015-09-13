@@ -59,6 +59,7 @@
     <Compile Include="Engine\Misc\Events\EventTests.cs" />
     <Compile Include="Engine\Misc\Geometry\SquareTests.cs" />
     <Compile Include="Engine\Misc\LocationTests.cs" />
+    <Compile Include="Engine\Rooms\Edges\EdgesTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -78,6 +79,7 @@
     <Folder Include="Engine\Rooms\" />
     <Folder Include="Engine\Rooms\Viewport\" />
     <Folder Include="Engine\Misc\" />
+    <Folder Include="Engine\Rooms\Edges\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">

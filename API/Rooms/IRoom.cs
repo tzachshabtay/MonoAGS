@@ -14,6 +14,7 @@ namespace API
 		IList<IArea> WalkableAreas { get; }
 		IList<IWalkBehindArea> WalkBehindAreas { get; }
 		IList<IScalingArea> ScalingAreas { get; }
+		IEdges Edges { get; }
 
 		IEnumerable<IObject> GetVisibleObjectsFrontToBack();
 		IObject GetHotspotAt(float x, float y);
