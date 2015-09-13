@@ -176,6 +176,19 @@ namespace Engine
 			return await animation.State.OnAnimationCompleted.Task;
 		}
 
+		public void ChangeRoom(IRoom newRoom, float? x = null, float? y = null)
+		{
+			if (Room != null)
+			{
+				Room.Objects.Remove(this);
+			}
+			newRoom.Objects.Add(this);
+			Room = newRoom;
+
+			if (x != null) X = x.Value;
+			if (y != null) Y = y.Value;
+		}
+
 		public IRoom Room { get; set; }
 
 		public IAnimation Animation { get; private set; }

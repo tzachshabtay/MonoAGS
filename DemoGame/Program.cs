@@ -15,18 +15,19 @@ namespace DemoGame
 			game.Events.OnLoad.Subscribe((sender, e) =>
 			{
 				EmptyStreet emptyStreet = new EmptyStreet (game.State.Player, new AGSViewport(), game.Events);
+				Rooms.EmptyStreet = emptyStreet.Load(game.Factory.Graphics);
 
-				IRoom room = emptyStreet.Load(game.Factory.Graphics);
+				BrokenCurbStreet brokenCurbStreet = new BrokenCurbStreet(game.State.Player, new AGSViewport(), game.Events);
+				Rooms.BrokenCurbStreet = brokenCurbStreet.Load(game.Factory.Graphics);
 
-				game.State.Rooms.Add(room);
+				game.State.Rooms.Add(Rooms.EmptyStreet);
+				game.State.Rooms.Add(Rooms.BrokenCurbStreet);
 
 				Cris cris = new Cris ();
 				ICharacter character = cris.Load(game.Factory.Graphics);
 
 				game.State.Player.Character = character;
-				character.Room = room;
-				character.PlaceOnWalkableArea();
-				room.Objects.Add(character);
+				character.ChangeRoom(Rooms.EmptyStreet, 50, 30);
 
 				TwoButtonsInputScheme inputScheme = new TwoButtonsInputScheme(game.State, game.Input, new GLText(""));
 				inputScheme.Start();

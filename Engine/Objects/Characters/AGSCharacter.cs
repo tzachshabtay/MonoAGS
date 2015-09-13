@@ -12,6 +12,7 @@ namespace Engine
 	{
 		private IObject _obj;
 		private CancellationTokenSource _walkCancel;
+		private TaskCompletionSource<object> _walkCompleted;
 		private IPathFinder _pathFinder;
 		private List<IImageRenderer> _debugPath;
 
@@ -22,6 +23,8 @@ namespace Engine
 			DebugDrawAnchor = true;
 			_walkCancel = new CancellationTokenSource ();
 			_debugPath = new List<IImageRenderer> ();
+			_walkCompleted = new TaskCompletionSource<object> ();
+			_walkCompleted.SetResult(null);
 		}
 
 		/// <summary>
@@ -31,9 +34,38 @@ namespace Engine
 
 		#region ICharacter implementation
 
-		public float X { get { return _obj.X; } set { _obj.X = value; } }
-		public float Y { get { return _obj.Y; } set { _obj.Y = value; } }
+		public ILocation Location 
+		{ 
+			get { return _obj.Location; } 
+			set 
+			{ 
+				StopWalking();
+				_obj.Location = value; 
+			} 
+		}
+
+		public float X 
+		{ 
+			get { return _obj.X; } 
+			set 
+			{
+				StopWalking();
+				_obj.X = value; 
+			} 
+		}
+
+		public float Y 
+		{ 
+			get { return _obj.Y; } 
+			set 
+			{ 
+				StopWalking();
+				_obj.Y = value; 
+			} 
+		}
+
 		public float Z { get { return _obj.Z; } set { _obj.Z = value; } }
+
 		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
 
 		public ITreeNode<IObject> TreeNode { get { return _obj.TreeNode; } }
@@ -47,6 +79,15 @@ namespace Engine
 
 		public bool Enabled { get { return _obj.Enabled; } set { _obj.Enabled = value; } }
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
+
+		public bool IsWalking
+		{ 
+			get
+			{ 
+				Task task = _walkCompleted.Task;
+				return (!task.IsCompleted && !task.IsCanceled && !task.IsFaulted);
+			}
+		}
 
 		public void ResetScale ()
 		{
@@ -77,8 +118,6 @@ namespace Engine
 		{
 			return _obj.Clone();
 		}
-
-		public ILocation Location { get { return _obj.Location; } set { _obj.Location = value; } }
 
 		public float Height { get { return _obj.Height; } }
 
@@ -129,23 +168,38 @@ namespace Engine
 					//Room.RemoveCustomRenderer (renderer);
 				}
 			}
-			_walkCancel.Cancel ();
-			CancellationTokenSource token = new CancellationTokenSource ();
-			_walkCancel = token;
+			CancellationTokenSource token = await stopWalkingAsync();
 			debugRenderers = DebugDrawWalkPath ? new List<IImageRenderer> () : null;
 			_debugPath = debugRenderers;
-
+			_walkCompleted = new TaskCompletionSource<object> (null);
 			float xSource = X;
 			float ySource = Y;
-			IEnumerable<ILocation> walkPoints = getWalkPoints (location);
-
-			if (!walkPoints.Any ()) return false;
-			foreach (var point in walkPoints) 
+			try
 			{
-				if (!await walkStraightLine (point, token, debugRenderers)) return false;
+				IEnumerable<ILocation> walkPoints = getWalkPoints (location);
+
+				if (!walkPoints.Any ()) return false;
+				foreach (var point in walkPoints) 
+				{
+					if (!await walkStraightLine (point, token, debugRenderers)) return false;
+				}
 			}
-			await setDirection (xSource, ySource, location.X, location.Y, IdleAnimation);
+			finally
+			{
+				await setDirection (xSource, ySource, location.X, location.Y, IdleAnimation);
+				_walkCompleted.TrySetResult(null);
+			}
 			return true;
+		}
+
+		public void StopWalking()
+		{
+			Task.Run(async () => await StopWalkingAsync()).Wait();
+		}
+
+		public async Task StopWalkingAsync()
+		{
+			await stopWalkingAsync();
 		}
 
 		public IInventory Inventory { get; set; }
@@ -177,6 +231,13 @@ namespace Engine
 			return await AnimateAsync (animation);
 		}
 
+		public void ChangeRoom(IRoom room, float? x = null, float? y = null)
+		{
+			_obj.ChangeRoom(room);
+			if (x != null) X = x.Value;
+			if (y != null) Y = y.Value;
+		}
+
 		public void PlaceOnWalkableArea()
 		{
 			AGSPoint current = new AGSPoint (X, Y);
@@ -203,6 +264,15 @@ namespace Engine
 
 		#endregion
 
+		private async Task<CancellationTokenSource> stopWalkingAsync()
+		{
+			_walkCancel.Cancel ();
+			CancellationTokenSource token = new CancellationTokenSource ();
+			_walkCancel = token;
+			await _walkCompleted.Task;
+			return token;
+		}
+			
 		private IPoint getClosestWalkablePoint(IPoint target)
 		{
 			IPoint closestPoint = null;
@@ -272,6 +342,7 @@ namespace Engine
 			float xSteps = Math.Abs (destination.X - X);
 			float ySteps = Math.Abs (destination.Y - Y);
 
+
 			float numSteps = Math.Max (xSteps, ySteps);
 
 			float xStep = xSteps / numSteps;
@@ -287,12 +358,12 @@ namespace Engine
 			{
 				if (token.IsCancellationRequested)
 					return false;
-				X += xStep;
-				Y += yStep;
+				_obj.X += xStep;
+				_obj.Y += yStep;
 				await Task.Delay(delay);
 			}
-			X = destination.X;
-			Y = destination.Y;
+			_obj.X = destination.X;
+			_obj.Y = destination.Y;
 			return true;
 		}
 

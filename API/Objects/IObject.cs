@@ -24,6 +24,8 @@ namespace API
 		void StartAnimation(IAnimation animation);
 		AnimationCompletedEventArgs Animate(IAnimation animation);
 		Task<AnimationCompletedEventArgs> AnimateAsync(IAnimation animation);
+
+		void ChangeRoom(IRoom room, float? x = null, float? y = null);
 	}
 }
 

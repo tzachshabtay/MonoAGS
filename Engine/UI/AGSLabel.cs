@@ -66,6 +66,11 @@ namespace Engine
 			return await _obj.AnimateAsync(animation);
 		}
 
+		public void ChangeRoom(IRoom room, float? x = null, float? y = null)
+		{
+			_obj.ChangeRoom(room, x, y);
+		}
+
 		public IRoom Room { get { return _obj.Room; } set { _obj.Room = value; } }
 
 		public IAnimation Animation { get { return _obj.Animation; } }
