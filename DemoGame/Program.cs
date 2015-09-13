@@ -10,9 +10,6 @@ namespace DemoGame
 		[STAThread]
 		public static void Main()
 		{
-			//var engine = new MyClass ();
-			//engine.Run ();
-
 			IGame game = AGSGame.CreateEmpty();
 
 			game.OnLoad.Subscribe((sender, e) =>
