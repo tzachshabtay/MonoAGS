@@ -26,21 +26,15 @@ namespace Engine
 
 		public bool IsInArea (IPoint point)
 		{
-			int x = (int)point.X;
-			int y = (int)point.Y;
-			if (x < 0 || x >= Mask.Length)
-				return false;
-			if (y < 0 || y >= Mask[0].Length)
-				return false;
-			return Mask [x][y];
+			return Mask.IsMasked(point);
 		}
 
 		public IPoint FindClosestPoint (IPoint point, out float distance)
 		{
 			int x = (int)point.X;
 			int y = (int)point.Y;
-			int width = Mask.Length;
-			int height = Mask[0].Length;
+			int width = Mask.Width;
+			int height = Mask.Height;
 			distance = 0f;
 			if (x < 0) 
 			{
@@ -69,24 +63,7 @@ namespace Engine
 			return result;
 		}
 
-
-		public void ApplyToMask(bool[][] targetMask)
-		{
-			for (int i = 0; i < Mask.Length; i++) 
-			{
-				if (i >= targetMask.Length)
-					continue;
-				if (targetMask [i] == null)
-					targetMask [i] = new bool[Mask [0].Length];
-				for (int j = 0; j < Mask [0].Length; j++) 
-				{
-					if (Mask [i] [j])
-						targetMask [i] [j] = true;
-				}
-			}
-		}
-
-		public bool[][] Mask { get; set; }
+		public IMask Mask { get; set; }
 		public bool Enabled { get; set; }
 
 		#endregion
@@ -114,8 +91,9 @@ namespace Engine
 			out float distance)
 		{
 			distance = 0f;
+			bool[][] mask = Mask.AsJaggedArray();
 
-			while (!Mask [x] [y]) 
+			while (!mask [x] [y]) 
 			{
 				x += stepX;
 				y += stepY;

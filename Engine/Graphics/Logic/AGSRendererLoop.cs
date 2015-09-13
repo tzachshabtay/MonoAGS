@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace Engine
 {
-	public class GLRendererLoop : IRendererLoop
+	public class AGSRendererLoop : IRendererLoop
 	{
 		private readonly IGameState gameState;
 		private readonly IImageRenderer renderer;
 		private readonly IComparer<IObject> comparer;
 
-		public GLRendererLoop (IGameState gameState, IImageRenderer renderer)
+		public AGSRendererLoop (IGameState gameState, IImageRenderer renderer)
 		{
 			this.gameState = gameState;
 			this.renderer = renderer;
@@ -43,7 +43,7 @@ namespace Engine
 
 		private List<IObject> getDisplayList(IRoom room)
 		{
-			int count = 1 + room.Objects.Count;
+			int count = 1 + room.Objects.Count + gameState.UI.Count;
 
 			List<IObject> displayList = new List<IObject> (count);
 
@@ -58,6 +58,9 @@ namespace Engine
 				displayList.Add (obj);
 			}
 
+			foreach (var area in room.WalkableAreas) addDebugDrawArea(displayList, area);
+			foreach (var area in room.WalkBehindAreas) addDebugDrawArea(displayList, area);
+
 			foreach (IObject ui in gameState.UI)
 			{
 				displayList.Add(ui);
@@ -65,6 +68,12 @@ namespace Engine
 
 			displayList.Sort(comparer);
 			return displayList;
+		}
+
+		private void addDebugDrawArea(List<IObject> displayList, IArea area)
+		{
+			if (area.Mask.DebugDraw == null) return;
+		    displayList.Add(area.Mask.DebugDraw);
 		}
 	}
 }

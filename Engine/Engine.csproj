@@ -47,7 +47,6 @@
     <Compile Include="Graphics\AGSSprite.cs" />
     <Compile Include="Graphics\GLImage.cs" />
     <Compile Include="Graphics\Logic\GLImageRenderer.cs" />
-    <Compile Include="Graphics\Logic\GLRendererLoop.cs" />
     <Compile Include="Game\AGSGameState.cs" />
     <Compile Include="Objects\Interactions\AGSInteractions.cs" />
     <Compile Include="Objects\AGSObject.cs" />
@@ -100,7 +99,6 @@
     <Compile Include="Misc\Geometry\AGSPoint.cs" />
     <Compile Include="Misc\Geometry\AGSSquare.cs" />
     <Compile Include="Misc\Utils\Extensions.cs" />
-    <Compile Include="Misc\Utils\GraphicsUtils.cs" />
     <Compile Include="Misc\Utils\MathUtils.cs" />
     <Compile Include="Misc\AGSLocation.cs" />
     <Compile Include="Misc\Collection\AGSConcurrentHashSet.cs" />
@@ -119,6 +117,9 @@
     <Compile Include="Game\AGSGame.cs" />
     <Compile Include="Game\AGSGameFactory.cs" />
     <Compile Include="Graphics\Logic\AGSLoadImageConfig.cs" />
+    <Compile Include="Rooms\Masks\AGSMask.cs" />
+    <Compile Include="Rooms\Masks\AGSMaskLoader.cs" />
+    <Compile Include="Graphics\Logic\AGSRendererLoop.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -145,6 +146,7 @@
     <Folder Include="Misc\" />
     <Folder Include="Misc\Collection\" />
     <Folder Include="Graphics\Logic\Interfaces\" />
+    <Folder Include="Rooms\Masks\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\API\API.csproj">

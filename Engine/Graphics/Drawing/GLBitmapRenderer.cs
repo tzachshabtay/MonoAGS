@@ -10,7 +10,7 @@ namespace Engine
 
 		public GLBitmapRenderer (GLGraphicsFactory factory, Bitmap bitmap)
 		{
-			glImage = factory.LoadImage (bitmap);
+			glImage = (GLImage)factory.LoadImage (bitmap);
 			Opacity = 0.5f;
 		}
 

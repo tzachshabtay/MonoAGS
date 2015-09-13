@@ -1,16 +1,25 @@
 ﻿using System;
+using API;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
 namespace Engine
 {
-	public static class GraphicsUtils
+	public class AGSMaskLoader : IMaskLoader
 	{
-		public static bool[][] LoadMask(string path, out Bitmap debugMask, 
-			bool colorIsTrue = true, Color? maskColor = null, string debugMaskPath = null)
+		private IGraphicsFactory _factory;
+
+		public AGSMaskLoader(IGraphicsFactory factory)
 		{
-			Color color = maskColor == null ? Color.FromArgb(0,0,0,0) : maskColor.Value;
+			_factory = factory;
+		}
+
+		#region IMaskLoader implementation
+
+		public IMask Load(string path, bool transparentMeansMasked = false, 
+			Color? debugDrawColor = null, string saveMaskToFile = null)
+		{
 			Bitmap image = (Bitmap)Image.FromFile(path); 
 
 			//Get the bitmap data
@@ -37,8 +46,8 @@ namespace Engine
 			// An example on how to use the pixels, lets make a copy
 			int x = 0;
 			int y = 0;
-		    debugMask = null;
-			if (debugMaskPath != null)
+			Bitmap debugMask = null;
+			if (saveMaskToFile != null || debugDrawColor != null)
 				debugMask = new Bitmap (image.Width, image.Height);
 
 			bool[][] mask = new bool[image.Width][];
@@ -53,24 +62,18 @@ namespace Engine
 				//todo: add more formats, currently assuming Format32bppArgb
 				var pixelColor = Color.FromArgb(pixelData[3], pixelData [2], pixelData [1], pixelData [0]);
 
-				if (y < image.Height) 
+				if (y < image.Height)
 				{
-					bool masked = color.R == pixelColor.R && 
-						color.G == pixelColor.G &&
-					              color.B == pixelColor.B && color.A == pixelColor.A;
-					if (!colorIsTrue)
+					bool masked = pixelColor.A == 255;
+					if (transparentMeansMasked)
 						masked = !masked;
 
-					if (mask [x] == null)
-						mask [x] = new bool[image.Height];
-					mask [x][y] = masked;
+					if (mask[x] == null)
+						mask[x] = new bool[image.Height];
+					mask[x][y] = masked;
 
 					if (debugMask != null)
-						debugMask.SetPixel(x,y,masked ? Color.White : Color.Black);
-
-					if (!masked) 
-					{
-					}
+						debugMask.SetPixel(x, y, masked ? debugDrawColor.Value : Color.Transparent);
 				}
 
 
@@ -85,11 +88,21 @@ namespace Engine
 			}
 
 			//Save the duplicate
-			if (debugMask != null)
-				debugMask.Save (debugMaskPath);
+			if (saveMaskToFile != null)
+				debugMask.Save (saveMaskToFile);
 
-			return mask;
+			AGSObject debugDraw = null;
+			if (debugDrawColor != null)
+			{
+				debugDraw = new AGSObject (new AGSSprite ());
+				debugDraw.Image = _factory.LoadImage(debugMask);
+				debugDraw.Anchor = new AGSPoint ();
+			}
+
+			return new AGSMask (mask, debugDraw);
 		}
+
+		#endregion
 	}
 }
 

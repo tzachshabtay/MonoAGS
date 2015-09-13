@@ -247,11 +247,11 @@ namespace Engine
 
 		private bool[][] getWalkableMask()
 		{
-			int maxWidth = Room.WalkableAreas.Max(a => a.Mask.Length);
+			int maxWidth = Room.WalkableAreas.Max(a => a.Mask.Width);
 			bool[][] mask = new bool[maxWidth][];
 			foreach (var area in Room.WalkableAreas) 
 			{
-				area.ApplyToMask (mask);
+				area.Mask.ApplyToMask (mask);
 			}
 			return mask;
 		}

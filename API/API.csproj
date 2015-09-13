@@ -91,6 +91,8 @@
     <Compile Include="Misc\Collections\Tree\ITreeNode.cs" />
     <Compile Include="UI\Rendering\ILabelRenderer.cs" />
     <Compile Include="Graphics\Logic\ILoadImageConfig.cs" />
+    <Compile Include="Rooms\Masks\IMask.cs" />
+    <Compile Include="Rooms\Masks\IMaskLoader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -103,5 +105,6 @@
     <Folder Include="Misc\Collections\" />
     <Folder Include="Misc\Collections\Tree\" />
     <Folder Include="UI\Rendering\" />
+    <Folder Include="Rooms\Masks\" />
   </ItemGroup>
 </Project>

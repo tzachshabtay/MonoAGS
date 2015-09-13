@@ -165,7 +165,7 @@ namespace Engine
 			return loadImage (tex, bitmap, path, config);
 		}
 
-		public GLImage LoadImage(Bitmap bitmap, string id = null, ILoadImageConfig config = null)
+		public IImage LoadImage(Bitmap bitmap, ILoadImageConfig config = null, string id = null)
 		{
 			id = id ?? Guid.NewGuid ().ToString ();
 			int tex = generateTexture ();
