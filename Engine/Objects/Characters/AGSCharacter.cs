@@ -223,6 +223,8 @@ namespace Engine
 
 		private IEnumerable<ILocation> getWalkPoints(ILocation destination)
 		{
+			if (!isWalkable(Location))
+				return new List<ILocation> ();
 			if (!isWalkable (destination)) 
 			{
 				IPoint closest = getClosestWalkablePoint (destination);
