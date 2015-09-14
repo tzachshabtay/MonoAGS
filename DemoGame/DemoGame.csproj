@@ -41,6 +41,8 @@
     <Compile Include="Characters\Cris.cs" />
     <Compile Include="Rooms\BrokenCurbStreet.cs" />
     <Compile Include="Rooms\Rooms.cs" />
+    <Compile Include="Rooms\TrashcanStreet.cs" />
+    <Compile Include="Rooms\DarsStreet.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

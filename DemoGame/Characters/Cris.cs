@@ -49,7 +49,6 @@ namespace DemoGame
 			_character.WalkAnimation = walk;
 			_character.IdleAnimation = idle;
 			_character.StartAnimation (idle.Down);
-			_character.Z = 50;
 			_character.Hotspot = "Cris";
 
 			return _character;

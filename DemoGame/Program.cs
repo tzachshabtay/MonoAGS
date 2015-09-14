@@ -20,8 +20,15 @@ namespace DemoGame
 				BrokenCurbStreet brokenCurbStreet = new BrokenCurbStreet(game.State.Player, new AGSViewport(), game.Events);
 				Rooms.BrokenCurbStreet = brokenCurbStreet.Load(game.Factory.Graphics);
 
+				TrashcanStreet trashcanStreet = new TrashcanStreet(game.State.Player, new AGSViewport(), game.Events);
+				Rooms.TrashcanStreet = trashcanStreet.Load(game.Factory.Graphics);
+
+				DarsStreet darsStreet = new DarsStreet(game.State.Player, new AGSViewport(), game.Events);
+				Rooms.DarsStreet = darsStreet.Load(game.Factory.Graphics);
+
 				game.State.Rooms.Add(Rooms.EmptyStreet);
 				game.State.Rooms.Add(Rooms.BrokenCurbStreet);
+				game.State.Rooms.Add(Rooms.DarsStreet);
 
 				Cris cris = new Cris ();
 				ICharacter character = cris.Load(game.Factory.Graphics);

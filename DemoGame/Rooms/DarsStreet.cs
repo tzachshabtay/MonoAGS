@@ -1,28 +1,27 @@
 ﻿using System;
 using API;
 using Engine;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace DemoGame
 {
-	public class EmptyStreet
+	public class DarsStreet
 	{
 		private readonly IRoom _room;
 		private readonly IPlayer _player;
-		private const string _baseFolder = "../../Assets/Rooms/EmptyStreet/";
+		private const string _baseFolder = "../../Assets/Rooms/DarsStreet/";
 
-		public EmptyStreet(IPlayer player, IViewport viewport, IGameEvents gameEvents)
+		public DarsStreet(IPlayer player, IViewport viewport, IGameEvents gameEvents)
 		{
 			_player = player;
 			AGSEdges edges = new AGSEdges (new AGSEdge { Value = 20f },
-				                 new AGSEdge { Value = 310f }, new AGSEdge { Value = 190f },
-				                 new AGSEdge { Value = 10f });
-			edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
+				new AGSEdge { Value = 490f }, new AGSEdge { Value = 190f },
+				new AGSEdge { Value = 10f });
 			edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
-			_room = new AGSRoom ("Empty Street", player, viewport, edges, gameEvents);
+			_room = new AGSRoom ("Dars Street", player, viewport, edges, gameEvents);
+			viewport.Follower = new AGSViewportFollower { Target = () => player.Character };
 		}
-			
+
 		public IRoom Load(IGraphicsFactory factory)
 		{
 			AGSObject bg = new AGSObject (new AGSSprite ());
@@ -36,14 +35,9 @@ namespace DemoGame
 			return _room;
 		}
 
-		private void onLeftEdgeCrossed(object sender, EventArgs args)
-		{
-			_player.Character.ChangeRoom(Rooms.TrashcanStreet, 310);
-		}
-
 		private void onRightEdgeCrossed(object sender, EventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.BrokenCurbStreet, 30);
+			_player.Character.ChangeRoom(Rooms.TrashcanStreet, 30);
 		}
 	}
 }

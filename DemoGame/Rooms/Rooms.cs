@@ -7,6 +7,8 @@ namespace DemoGame
 	{
 		public static IRoom EmptyStreet { get; set; }
 		public static IRoom BrokenCurbStreet { get; set; }
+		public static IRoom TrashcanStreet { get; set; }
+		public static IRoom DarsStreet { get; set; }
 	}
 }
 

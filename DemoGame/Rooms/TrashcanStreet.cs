@@ -1,28 +1,26 @@
 ﻿using System;
 using API;
 using Engine;
-using System.Threading.Tasks;
-using System.Drawing;
 
 namespace DemoGame
 {
-	public class EmptyStreet
+	public class TrashcanStreet
 	{
 		private readonly IRoom _room;
 		private readonly IPlayer _player;
-		private const string _baseFolder = "../../Assets/Rooms/EmptyStreet/";
+		private const string _baseFolder = "../../Assets/Rooms/TrashcanStreet/";
 
-		public EmptyStreet(IPlayer player, IViewport viewport, IGameEvents gameEvents)
+		public TrashcanStreet(IPlayer player, IViewport viewport, IGameEvents gameEvents)
 		{
 			_player = player;
 			AGSEdges edges = new AGSEdges (new AGSEdge { Value = 20f },
-				                 new AGSEdge { Value = 310f }, new AGSEdge { Value = 190f },
-				                 new AGSEdge { Value = 10f });
+				new AGSEdge { Value = 310f }, new AGSEdge { Value = 190f },
+				new AGSEdge { Value = 10f });
 			edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
 			edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
-			_room = new AGSRoom ("Empty Street", player, viewport, edges, gameEvents);
+			_room = new AGSRoom ("Trashcan Street", player, viewport, edges, gameEvents);
 		}
-			
+
 		public IRoom Load(IGraphicsFactory factory)
 		{
 			AGSObject bg = new AGSObject (new AGSSprite ());
@@ -30,20 +28,19 @@ namespace DemoGame
 			_room.Background = bg;
 
 			AGSMaskLoader maskLoader = new AGSMaskLoader (factory);
-			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable1.png") });
-			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable2.png") });
+			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable.png") });
 
 			return _room;
 		}
 
 		private void onLeftEdgeCrossed(object sender, EventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.TrashcanStreet, 310);
+			_player.Character.ChangeRoom(Rooms.DarsStreet, 490);
 		}
 
 		private void onRightEdgeCrossed(object sender, EventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.BrokenCurbStreet, 30);
+			_player.Character.ChangeRoom(Rooms.EmptyStreet, 30);
 		}
 	}
 }
