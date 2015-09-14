@@ -7,15 +7,17 @@ namespace Engine
 {
 	public class GLInputEvents : IInputEvents
 	{
-		private GameWindow game;
-		private int viewportX, viewportY;
+		private GameWindow _game;
+		private int _virtualWidth, _virtualHeight;
+		private IGameState _state;
 
-		public GLInputEvents (GameWindow game)
+		public GLInputEvents (GameWindow game, IGameState state)
 		{
-			this.viewportX = game.Bounds.Width;
-			this.viewportY = game.Bounds.Height;
-				;
-			this.game = game;
+			this._virtualWidth = game.Bounds.Width;
+			this._virtualHeight = game.Bounds.Height;
+			this._state = state;
+				
+			this._game = game;
 
 			MouseDown = new AGSEvent<API.MouseButtonEventArgs> ();
 			MouseUp = new AGSEvent<API.MouseButtonEventArgs> ();
@@ -65,14 +67,19 @@ namespace Engine
 
 		private float convertX(float x)
 		{
-			x = MathUtils.Lerp (0f, 0f, game.ClientSize.Width, viewportX, x);
-			return x;
+			x = MathUtils.Lerp (0f, 0f, _game.ClientSize.Width, _virtualWidth, x);
+			return x + getViewport().X;
 		}
 
 		private float convertY(float y)
 		{
-			y = MathUtils.Lerp (0f, viewportY, game.ClientSize.Height, 0f, y);
-			return y;
+			y = MathUtils.Lerp (0f, _virtualHeight, _game.ClientSize.Height, 0f, y);
+			return y + getViewport().Y;
+		}
+
+		private IViewport getViewport()
+		{
+			return _state.Player.Character.Room.Viewport;
 		}
 	}
 }
