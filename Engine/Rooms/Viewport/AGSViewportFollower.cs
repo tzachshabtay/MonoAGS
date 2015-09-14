@@ -1,6 +1,7 @@
 ﻿using System;
 using API;
 using OpenTK;
+using System.Drawing;
 
 namespace Engine
 {
@@ -8,7 +9,12 @@ namespace Engine
 	{
 		private float speedX, speedY;
 
-		public AGSViewportFollower (float startSpeedX, float startSpeedY)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Engine.AGSViewportFollower"/> class.
+		/// </summary>
+		/// <param name="startSpeedX">Start speed x (in percentage, i.e 30 is 30% percent movement toward the target).</param>
+		/// <param name="startSpeedY">Start speed y (in percentage, i.e 30 is 30% percent movement toward the target).</param>
+		public AGSViewportFollower (float startSpeedX = 30f, float startSpeedY = 30f)
 		{
 			Enabled = true;
 			StartSpeedX = startSpeedX;
@@ -27,20 +33,28 @@ namespace Engine
 
 		#region IFollower implementation
 
-		public IPoint Follow (IPoint point)
+		public IPoint Follow (IPoint point, Size roomSize, Size virtualResoution)
 		{
-			if (!Enabled || Target == null) return point;
-			float newX = getPos (point.X, Target.X, StartSpeedX, ref speedX);
-			float newY = getPos (point.Y, Target.Y, StartSpeedY, ref speedY);
+			IObject target = Target == null ? null : Target();
+			if (!Enabled || target == null) return point;
+			float targetX = getTargetPos(target.X, roomSize.Width, virtualResoution.Width);
+			float targetY = getTargetPos(target.Y, roomSize.Height, virtualResoution.Height);
+			float newX = getPos (point.X, targetX, StartSpeedX, ref speedX);
+			float newY = getPos (point.Y, targetY, StartSpeedY, ref speedY);
 			return new AGSPoint (newX, newY);
 		}
 
-		public IObject Target { get; set; }
+		public Func<IObject> Target { get; set; }
+
+		private float getTargetPos(float target, float maxRoom, float maxResolution)
+		{
+			return MathUtils.Clamp(target - maxResolution / 2, 0, Math.Max(0, maxRoom - maxResolution));
+		}
 
 		private float getPos(float source, float target, float defaultSpeed, ref float speed)
 		{
 			float distance = Math.Abs (target - source);
-			if (distance <= 0.5f) 
+			if (distance <= 0.1f) 
 			{
 				speed = defaultSpeed;
 				return target;
@@ -51,7 +65,8 @@ namespace Engine
 				source += offset;
 			else
 				source -= offset;
-			speed *= (9f / 10f);
+			if (offset > 2)
+				speed *= (95f / 100f);
 			return source;
 		}
 

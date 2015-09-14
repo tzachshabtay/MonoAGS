@@ -19,6 +19,7 @@ namespace DemoGame
 				new AGSEdge { Value = 10f });
 			edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
 			_room = new AGSRoom ("Broken Curb Street", player, viewport, edges, gameEvents);
+			viewport.Follower = new AGSViewportFollower { Target = () => player.Character };
 		}
 
 		public IRoom Load(IGraphicsFactory factory)

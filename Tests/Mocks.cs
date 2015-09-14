@@ -4,6 +4,8 @@ using API;
 using System.Collections.Generic;
 using Autofac;
 using Autofac.Features.ResolveAnything;
+using System.Drawing;
+using Autofac.Core;
 
 namespace Tests
 {
@@ -44,9 +46,9 @@ namespace Tests
 			return mocks;
 		}
 
-		public TItem Create<TItem>()
+		public TItem Create<TItem>(params Parameter[] parameters)
 		{
-			return container.Resolve<TItem>();
+			return container.Resolve<TItem>(parameters);
 		}
 
 		public void Dispose()
@@ -69,6 +71,7 @@ namespace Tests
 			{
 				animation = new Mock<IAnimation> ();
 				animation.Setup(m => m.State).Returns(AnimationState().Object);
+				animation.Setup(m => m.Sprite).Returns(Sprite().Object);
 			}
 			return animation;
 		}

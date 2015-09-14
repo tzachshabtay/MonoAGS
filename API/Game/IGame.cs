@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace API
 {
@@ -13,6 +14,8 @@ namespace API
 		IInputEvents Input { get; }
 
 		IGameEvents Events { get; }
+
+		Size VirtualResolution { get; }
 
 		void Start(string title, int width, int height);
 	}

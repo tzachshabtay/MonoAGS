@@ -6,6 +6,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System.Threading;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace Engine
 {
@@ -14,12 +15,10 @@ namespace Engine
 		private Resolver _resolver;
 		private IRendererLoop _renderLoop;
 
-		public AGSGame(IGameFactory factory, IGameState state,
-			IGameLoop gameLoop, IGameEvents gameEvents)
+		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents)
 		{
 			Factory = factory;
 			State = state;
-			GameLoop = gameLoop;
 			Events = gameEvents;
 		}
 
@@ -49,8 +48,12 @@ namespace Engine
 
 		public IGameEvents Events { get; private set; }
 
+		public Size VirtualResolution { get; private set; }
+
 		public void Start(string title, int width, int height)
 		{
+			VirtualResolution = new Size (width, height);
+			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(Size), VirtualResolution));
 			using (var game = new GameWindow (width, height, GraphicsMode.Default, title))
 			{
 				GL.ClearColor(0, 0.1f, 0.4f, 1);

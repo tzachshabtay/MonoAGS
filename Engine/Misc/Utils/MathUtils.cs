@@ -9,6 +9,11 @@ namespace Engine
 			float targetY = ((targetX - x1) * (y2 - y1) / (x2 - x1)) + y1;
 			return targetY;
 		}
+
+		public static float Clamp(float x, float min, float max)
+		{
+			return (x < min) ? min : (x > max) ? max : x;
+		}
 	}
 }
 

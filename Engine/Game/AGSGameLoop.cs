@@ -1,30 +1,33 @@
 ﻿using System;
 using API;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Engine
 {
 	public class AGSGameLoop : IGameLoop
 	{
-		IGameState gameState;
+		IGameState _gameState;
+		Size _virtualResolution;
 
-		public AGSGameLoop (IGameState gameState)
+		public AGSGameLoop (IGameState gameState, Size virtualResolution)
 		{
-			this.gameState = gameState;
+			this._gameState = gameState;
+			this._virtualResolution = virtualResolution;
 		}
 
 		#region IGameLoop implementation
 
 		public virtual void Update ()
 		{
-			if (gameState.Player.Character == null) return;
-			IRoom room = gameState.Player.Character.Room;
+			if (_gameState.Player.Character == null) return;
+			IRoom room = _gameState.Player.Character.Room;
 			if (room.Background != null) runAnimation (room.Background.Animation);
 			foreach (var obj in room.Objects) 
 			{
 				if (!obj.Visible)
 					continue;
-				if (!room.ShowPlayer && obj == gameState.Player.Character)
+				if (!room.ShowPlayer && obj == _gameState.Player.Character)
 					continue;
 				runAnimation (obj.Animation);
 			}
@@ -45,7 +48,9 @@ namespace Engine
 			IFollower viewportFollower = room.Viewport.Follower;
 			if (viewportFollower != null) 
 			{
-				IPoint point = viewportFollower.Follow (new AGSPoint (room.Viewport.X, room.Viewport.Y));
+				ISprite sprite = room.Background.Animation.Sprite;
+				IPoint point = viewportFollower.Follow (new AGSPoint (room.Viewport.X, room.Viewport.Y),
+					new Size((int)sprite.Width, (int)sprite.Height), _virtualResolution);
 				room.Viewport.X = point.X;
 				room.Viewport.Y = point.Y;
 			}
