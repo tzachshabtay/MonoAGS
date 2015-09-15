@@ -21,7 +21,7 @@ namespace AGS.Engine
 
 		public GLLabelRenderer(Dictionary<string, GLImage> textures, IGLMatrixBuilder matrixBuilder,
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
-			IGLTextureRenderer textureRenderer)
+			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool)
 		{
 			_matrixContainer = new MatrixContainer ();
 			_boxContainer = new BoundingBoxContainer ();
@@ -31,11 +31,14 @@ namespace AGS.Engine
 			_matrixBuilder = matrixBuilder;
 			_boundingBoxBuilder = boundingBoxBuilder;
 			_colorBuilder = colorBuilder;
-			_glText = new GLText ("") { Visible = true };
+			_glText = new GLText (bitmapPool, "");
+			TextVisible = true;
 		}
 
+		public bool TextVisible { get; set; }
 		public string Text { get; set; }
 		public ITextConfig Config { get; set; }
+		public bool WrapText { get; set; }
 
 		#region IImageRenderer implementation
 
@@ -51,9 +54,9 @@ namespace AGS.Engine
 			_bgRenderer.Render(obj, viewport);
 
 			color = _colorBuilder.Build(Config == null ? Color.White : Config.Color);
-			if (_glText.Visible)
+			if (TextVisible)
 			{
-				_glText.Text = Text;
+				_glText.SetBatch(Text, Config == null ? null : Config.Font, WrapText ? (int?)sprite.Image.Width : null);
 				_glText.Refresh();
 				_textureRenderer.Render(_glText.Texture, box, color);
 			}

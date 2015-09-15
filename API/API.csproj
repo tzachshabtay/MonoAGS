@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{197F8906-96FE-4D72-B3A7-BB6A169D83B5}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>API</RootNamespace>
+    <RootNamespace>AGS.API</RootNamespace>
     <AssemblyName>API</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>

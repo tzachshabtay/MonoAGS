@@ -63,6 +63,7 @@ namespace AGS.Engine
 
 		private void onMouseMove(object sender, MousePositionEventArgs e)
 		{
+			if (label == null) return;
 			/*float angle = getAngle (state.Player.Character.X, state.Player.Character.Y,
 				e.X, e.Y);
 			label.Text = "Angle: " + ((int)angle).ToString();
@@ -72,11 +73,11 @@ namespace AGS.Engine
 			IObject obj = state.Player.Character.Room.GetHotspotAt (e.X, e.Y);
 			if (obj == null || obj.Hotspot == null) 
 			{
-				label.Visible = false;
+				//label.Visible = false;
 				return;
 			}
 			label.Text = obj.Hotspot;
-			label.Visible = true;
+			//label.Visible = true;
 
 			/*ISquare box = state.Player.Character.BoundingBox;
 			if (box == null)

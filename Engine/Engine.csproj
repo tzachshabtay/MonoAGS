@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Engine</RootNamespace>
+    <RootNamespace>AGS.Engine</RootNamespace>
     <AssemblyName>Engine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -127,6 +127,8 @@
     <Compile Include="Rooms\Areas\AGSWalkBehindArea.cs" />
     <Compile Include="Rooms\Areas\WalkBehindBitmapCreator.cs" />
     <Compile Include="Rooms\Areas\AGSWalkBehindsMap.cs" />
+    <Compile Include="Misc\Pool\ObjectPool.cs" />
+    <Compile Include="Misc\Pool\BitmapPool.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -156,6 +158,7 @@
     <Folder Include="Rooms\Masks\" />
     <Folder Include="Rooms\Edges\" />
     <Folder Include="Rooms\Areas\" />
+    <Folder Include="Misc\Pool\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

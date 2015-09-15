@@ -1,13 +1,20 @@
 ﻿using System;
 using AGS.API;
+using Autofac;
+using System.Drawing;
 
 namespace AGS.Engine
 {
 	public class AGSGameFactory : IGameFactory
 	{
-		public AGSGameFactory(IGraphicsFactory graphics)
+		private IContainer _resolver;
+		private IGameState _gameState;
+
+		public AGSGameFactory(IGraphicsFactory graphics, IGameState state, IContainer resolver)
 		{
 			Graphics = graphics;
+			_resolver = resolver;
+			_gameState = state;
 		}
 
 		#region IGameFactory implementation
@@ -25,6 +32,18 @@ namespace AGS.Engine
 		public string GetString(string name, string defaultValue = null)
 		{
 			throw new NotImplementedException();
+		}
+
+		public ILabel GetLabel(string text, float width, float height, float x, float y)
+		{
+			ILabel label = _resolver.Resolve<ILabel>();
+			label.Text = text;
+			label.ScaleTo(width, height);
+			label.X = x;
+			label.Y = y;
+			label.Tint = Color.Transparent;
+			_gameState.UI.Add(label);
+			return label;
 		}
 
 		public void RegisterCustomData(ICustomSerializable customData)

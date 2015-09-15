@@ -13,16 +13,21 @@ namespace AGS.Engine
 		{
 			Builder = new ContainerBuilder ();
 			Builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).
-			Except<SpatialAStarPathFinder>().AsImplementedInterfaces();
+				Except<SpatialAStarPathFinder>().AsImplementedInterfaces();
+
 			Builder.RegisterType<GLImageRenderer>().As<IImageRenderer>();
 			Builder.RegisterType<AGSObject>().As<IObject>();
 			Builder.RegisterType<AGSSprite>().As<ISprite>();
+
 			Builder.RegisterType<AGSGameState>().SingleInstance().As<IGameState>();
 			Builder.RegisterType<AGSGame>().SingleInstance().As<IGame>();
 			Builder.RegisterType<AGSGameEvents>().SingleInstance().As<IGameEvents>();
-			Dictionary<string, GLImage> textures = new Dictionary<string, GLImage> ();
-			Builder.RegisterInstance(textures);
+			Builder.RegisterType<BitmapPool>().SingleInstance();
+
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
+
+			Dictionary<string, GLImage> textures = new Dictionary<string, GLImage> (1024);
+			Builder.RegisterInstance(textures);
 
 			Builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 		}

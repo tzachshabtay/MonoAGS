@@ -2,6 +2,7 @@
 using AGS.Engine;
 using System.Threading.Tasks;
 using AGS.API;
+using System.Drawing;
 
 namespace DemoGame
 {
@@ -36,7 +37,7 @@ namespace DemoGame
 				game.State.Player.Character = character;
 				character.ChangeRoom(Rooms.EmptyStreet, 50, 30);
 
-				TwoButtonsInputScheme inputScheme = new TwoButtonsInputScheme(game.State, game.Input, new GLText(""));
+				TwoButtonsInputScheme inputScheme = new TwoButtonsInputScheme(game.State, game.Input, null);
 				inputScheme.Start();
 			});
 

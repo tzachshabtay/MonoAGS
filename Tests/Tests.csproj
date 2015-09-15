@@ -62,6 +62,7 @@
     <Compile Include="Engine\Rooms\Edges\EdgesTests.cs" />
     <Compile Include="Engine\Rooms\Areas\AreaTests.cs" />
     <Compile Include="Engine\Rooms\Masks\MaskTests.cs" />
+    <Compile Include="Engine\Misc\Utils\MathUtilsTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -84,6 +85,7 @@
     <Folder Include="Engine\Rooms\Edges\" />
     <Folder Include="Engine\Rooms\Areas\" />
     <Folder Include="Engine\Rooms\Masks\" />
+    <Folder Include="Engine\Misc\Utils\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
