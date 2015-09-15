@@ -55,12 +55,13 @@
     <Compile Include="Engine\Objects\Characters\CharacterTests.cs" />
     <Compile Include="Engine\Objects\Characters\Pathfinding\PathfinderTests.cs" />
     <Compile Include="Engine\Rooms\RoomTests.cs" />
-    <Compile Include="Engine\Rooms\AreaTests.cs" />
     <Compile Include="Engine\Rooms\Viewport\ViewportFollowerTests.cs" />
     <Compile Include="Engine\Misc\Events\EventTests.cs" />
     <Compile Include="Engine\Misc\Geometry\SquareTests.cs" />
     <Compile Include="Engine\Misc\LocationTests.cs" />
     <Compile Include="Engine\Rooms\Edges\EdgesTests.cs" />
+    <Compile Include="Engine\Rooms\Areas\AreaTests.cs" />
+    <Compile Include="Engine\Rooms\Masks\MaskTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -81,6 +82,8 @@
     <Folder Include="Engine\Rooms\Viewport\" />
     <Folder Include="Engine\Misc\" />
     <Folder Include="Engine\Rooms\Edges\" />
+    <Folder Include="Engine\Rooms\Areas\" />
+    <Folder Include="Engine\Rooms\Masks\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">

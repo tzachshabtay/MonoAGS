@@ -13,6 +13,7 @@ namespace Engine
 			DebugDraw = debugMask;
 			Width = mask.Length;
 			Height = Width == 0 ? 0 : mask[0].Length;
+			refreshMaskBounds();
 		}
 
 		#region IMask implementation
@@ -68,7 +69,56 @@ namespace Engine
 
 		public IObject DebugDraw { get; private set; }
 
+		public float MinX { get; private set; }
+		public float MaxX { get; private set; }
+		public float MinY { get; private set; }
+		public float MaxY { get; private set; }
+
 		#endregion
+
+		private void refreshMaskBounds()
+		{
+			MinX = refreshBoundsUpwards(_mask, Width, Height, isThereMaskInRow);
+			MaxX = refreshBoundsDownwards(_mask, Width, Height, isThereMaskInRow);
+			MinY = refreshBoundsUpwards(_mask, Height, Width, isThereMaskInColumn);
+			MaxY = refreshBoundsDownwards(_mask, Height, Width, isThereMaskInColumn);
+		}
+
+		private int refreshBoundsUpwards(bool[][] mask, int length, int crossingLength, Func<bool[][], int, int, bool> isMasked)
+		{
+			for (int index = 0; index < length; index++)
+			{
+				if (isMasked(mask, crossingLength, index)) return index;
+			}
+			return 0;
+		}
+
+		private int refreshBoundsDownwards(bool[][] mask, int length, int crossingLength, Func<bool[][], int, int, bool> isMasked)
+		{
+			for (int index = length - 1; index >= 0; index--)
+			{
+				if (isMasked(mask, crossingLength, index)) return index;
+			}
+			return length - 1;
+		}
+
+		private bool isThereMaskInRow(bool[][] mask, int width, int row)
+		{
+			for (int col = 0; col < width; col++)
+			{
+				if (mask[row][col]) return true;
+			}
+			return false;
+		}
+
+		private bool isThereMaskInColumn(bool[][] mask, int height, int col)
+		{
+			for (int row = 0; row < height; row++)
+			{
+				if (mask[row][col]) return true;
+			}
+			return false;
+		}
 	}
 }
 
