@@ -132,6 +132,7 @@
     <Compile Include="UI\DebugLabels\MousePositionLabel.cs" />
     <Compile Include="UI\HotspotLabel.cs" />
     <Compile Include="Input\GLInput.cs" />
+    <Compile Include="UI\DebugLabels\DebugLabel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
