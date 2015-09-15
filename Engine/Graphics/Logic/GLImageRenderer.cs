@@ -62,7 +62,7 @@ namespace Engine
 			
 		private GLImage createNewTexture(string path)
 		{
-			if (string.IsNullOrEmpty(path)) return new GLImage () { Width = 1, Height = 1 }; //transparent image
+			if (string.IsNullOrEmpty(path)) return new GLImage (); //transparent image
 
 			GLGraphicsFactory loader = new GLGraphicsFactory (null);
 			return loader.LoadImageInner (path);

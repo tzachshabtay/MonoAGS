@@ -1,6 +1,7 @@
 ﻿using System;
 using API;
 using OpenTK.Graphics.OpenGL;
+using System.Drawing;
 
 namespace Engine
 {
@@ -13,11 +14,22 @@ namespace Engine
 			ID = "";
 		}
 
-		public float Width { get; set; }
-		public float Height { get; set; }
+		public GLImage(Bitmap bitmap, string id, int texture)
+		{
+			OriginalBitmap = bitmap;
+			Width = bitmap.Width;
+			Height = bitmap.Height;
+			ID = id;
+			Texture = texture;
+		}
 
-		public string ID { get; set; }
-		public int Texture { get; set; }
+		public Bitmap OriginalBitmap { get; private set; }
+
+		public float Width { get; private set; }
+		public float Height { get; private set; }
+
+		public string ID { get; private set; }
+		public int Texture { get; private set; }
 
 		public override string ToString()
 		{

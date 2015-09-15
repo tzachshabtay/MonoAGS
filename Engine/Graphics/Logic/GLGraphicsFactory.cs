@@ -284,8 +284,7 @@ namespace Engine
 				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
 			bitmap.UnlockBits(data);
 
-			GLImage image = new GLImage () { Width = bitmap.Width, Height = bitmap.Height, 
-				Texture = texture, ID = path };
+			GLImage image = new GLImage (bitmap, path, texture);
 
 			if (textures != null)
 				textures.GetOrAdd (image.ID, () => image);

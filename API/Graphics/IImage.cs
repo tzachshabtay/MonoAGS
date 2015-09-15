@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Drawing;
 
 namespace API
 {
 	public interface IImage
 	{
+		Bitmap OriginalBitmap { get; }
+
 		float Width { get; }
 		float Height { get; }
 
