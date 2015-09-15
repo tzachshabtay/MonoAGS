@@ -55,22 +55,21 @@ namespace AGS.Engine
 
 			foreach (IObject obj in room.Objects) 
 			{
-				if (!obj.Visible) continue;
 				if (!room.ShowPlayer && obj == _gameState.Player.Character) 
 					continue;
-				displayList.Add (obj);
+				addToDisplayList(displayList, obj);
 			}
 
 			foreach (var area in room.WalkableAreas) addDebugDrawArea(displayList, area);
 			foreach (var area in room.WalkBehindAreas)
 			{
-				displayList.Add(_walkBehinds.GetDrawable(area, room.Background.Image.OriginalBitmap));
+				addToDisplayList(displayList, _walkBehinds.GetDrawable(area, room.Background.Image.OriginalBitmap));
 				addDebugDrawArea(displayList, area);
 			}
 
 			foreach (IObject ui in _gameState.UI)
 			{
-				displayList.Add(ui);
+				addToDisplayList(displayList, ui);
 			}
 
 			displayList.Sort(_comparer);
@@ -80,7 +79,13 @@ namespace AGS.Engine
 		private void addDebugDrawArea(List<IObject> displayList, IArea area)
 		{
 			if (area.Mask.DebugDraw == null) return;
-		    displayList.Add(area.Mask.DebugDraw);
+			addToDisplayList(displayList, area.Mask.DebugDraw);
+		}
+
+		private void addToDisplayList(List<IObject> displayList, IObject obj)
+		{
+			if (!obj.Visible) return;
+			displayList.Add(obj);
 		}
 	}
 }
