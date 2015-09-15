@@ -8,6 +8,8 @@ namespace AGS.Engine
 	{
 		public AGSBorderStyle()
 		{
+			LineWidth = 10f;
+			Color = Color.Black;
 		}
 
 		#region IBorderStyle implementation
