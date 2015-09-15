@@ -20,7 +20,6 @@ namespace Engine
 		{
 			this._pathFinder = pathFinder ?? new EPPathFinder ();
 			this._obj = obj ?? new AGSObject(new AGSSprite());
-			DebugDrawAnchor = true;
 			_walkCancel = new CancellationTokenSource ();
 			_debugPath = new List<IImageRenderer> ();
 			_walkCompleted = new TaskCompletionSource<object> ();
