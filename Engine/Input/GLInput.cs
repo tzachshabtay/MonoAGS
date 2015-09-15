@@ -5,13 +5,13 @@ using OpenTK.Input;
 
 namespace AGS.Engine
 {
-	public class GLInputEvents : IInputEvents
+	public class GLInput : IInput
 	{
 		private GameWindow _game;
 		private int _virtualWidth, _virtualHeight;
 		private IGameState _state;
 
-		public GLInputEvents (GameWindow game, IGameState state)
+		public GLInput (GameWindow game, IGameState state)
 		{
 			this._virtualWidth = game.Bounds.Width;
 			this._virtualHeight = game.Bounds.Height;
@@ -45,6 +45,24 @@ namespace AGS.Engine
 		public IEvent<KeyboardEventArgs> KeyUp { get; private set; }
 
 		#endregion
+
+		public IPoint MousePosition
+		{
+			get 
+			{
+				return new AGSPoint(MouseX, MouseY);
+			}
+		}
+
+		//For some reason GameWindow.Mouse is obsolete.
+		//From the warning it should be replaced by Input.Mouse which returns screen coordinates
+		//and not window coordinates. Changing will require us to gather the screen monitor coordinates
+		//and take multiple monitor issues into account, so for now we'll stick with the obsolete GameWindow.Mouse
+		//in the hope that future versions will keep it alive.
+		#pragma warning disable 618
+		public float MouseX { get { return convertX(_game.Mouse.X); } }
+		public float MouseY { get { return convertY(_game.Mouse.Y); } }
+		#pragma warning restore 618
 
 		private AGS.API.MouseButton convert(OpenTK.Input.MouseButton button)
 		{

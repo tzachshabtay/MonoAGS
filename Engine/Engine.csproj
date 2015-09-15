@@ -58,7 +58,6 @@
     <Compile Include="Graphics\Animations\AGSSingleFrameAnimation.cs" />
     <Compile Include="Player\AGSPlayer.cs" />
     <Compile Include="Game\AGSGameLoop.cs" />
-    <Compile Include="Input\GLInputEvents.cs" />
     <Compile Include="Input\Schemes\TwoButtonsInputScheme.cs" />
     <Compile Include="Graphics\Animations\AGSSpriteSheet.cs" />
     <Compile Include="Graphics\Animations\AGSDirectionalAnimation.cs" />
@@ -131,6 +130,8 @@
     <Compile Include="Misc\Pool\BitmapPool.cs" />
     <Compile Include="UI\DebugLabels\FPSCounter.cs" />
     <Compile Include="UI\DebugLabels\MousePositionLabel.cs" />
+    <Compile Include="UI\HotspotLabel.cs" />
+    <Compile Include="Input\GLInput.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

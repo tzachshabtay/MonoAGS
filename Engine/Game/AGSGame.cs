@@ -44,7 +44,7 @@ namespace AGS.Engine
 
 		public ISaveLoad SaveLoad { get; private set; } 
 
-		public IInputEvents Input { get; private set; } 
+		public IInput Input { get; private set; } 
 
 		public IGameEvents Events { get; private set; }
 
@@ -69,7 +69,7 @@ namespace AGS.Engine
 
 					TypedParameter gameParameter = new TypedParameter (typeof(GameWindow), game);
 					_renderLoop = _resolver.Container.Resolve<IRendererLoop>(gameParameter);
-					Input = _resolver.Container.Resolve<IInputEvents>(gameParameter); 
+					Input = _resolver.Container.Resolve<IInput>(gameParameter); 
 
 					GL.MatrixMode(MatrixMode.Projection);
 

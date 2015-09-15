@@ -11,7 +11,7 @@ namespace AGS.API
 		IGameLoop GameLoop { get; }
 		ISaveLoad SaveLoad { get; }
 
-		IInputEvents Input { get; }
+		IInput Input { get; }
 
 		IGameEvents Events { get; }
 

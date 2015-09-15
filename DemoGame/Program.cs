@@ -38,8 +38,11 @@ namespace DemoGame
 				game.State.Player.Character = character;
 				character.ChangeRoom(Rooms.EmptyStreet, 50, 30);
 
-				TwoButtonsInputScheme inputScheme = new TwoButtonsInputScheme(game.State, game.Input, null);
+				TwoButtonsInputScheme inputScheme = new TwoButtonsInputScheme(game.State, game.Input);
 				inputScheme.Start();
+
+				HotspotLabel hotspotLabel = new HotspotLabel(game, game.Factory.GetLabel("", 50, 15, 135, 10));
+				hotspotLabel.Start();
 
 				addDebugLabels(game);
 			});
