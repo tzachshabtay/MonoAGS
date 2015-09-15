@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using API;
 
@@ -27,7 +28,7 @@ namespace Engine
 		{
 			int layer1 = getRenderLayer(s1);
 			int layer2 = getRenderLayer(s2);
-			if (layer1 != layer2) return layer1 - layer2;
+			if (layer1 != layer2) return layer2 - layer1;
 
 			IObject parent1 = null;
 			IObject parent2 = null;
@@ -37,12 +38,12 @@ namespace Engine
 				IObject newParent2;
 				float z1 = getZ(parent1, s1, out newParent1);
 				float z2 = getZ(parent2, s2, out newParent2);
-				if (z1 != z2) return z1 - z2;
+				if (z1 != z2) return z2 - z1;
 				if (newParent1 == null || newParent2 == null || newParent1 == s1 || newParent2 == s2)
 				{
 					z1 = newParent1 == null ? parent1 == null ? 0 : getZ(parent1) : getZ(newParent1);
 					z2 = newParent2 == null ? parent2 == null ? 0 : getZ(parent2) : getZ(newParent2);
-					return z1 - z2;
+					return z2 - z1;
 				}
 				parent1 = newParent1;
 				parent2 = newParent2;
