@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
-using API;
+using AGS.API;
 using Moq;
-using Engine;
+using AGS.Engine;
 
 namespace Tests
 {

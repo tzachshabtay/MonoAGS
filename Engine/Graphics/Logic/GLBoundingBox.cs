@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenTK;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class GLBoundingBox : IGLBoundingBox, IGLBoundingBoxBuilder
 	{

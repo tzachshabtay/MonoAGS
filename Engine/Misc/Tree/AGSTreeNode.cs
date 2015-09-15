@@ -1,8 +1,8 @@
 ﻿using System;
-using API;
-using Engine;
+using AGS.API;
+using AGS.Engine;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSTreeNode<TItem> : ITreeNode<TItem> where TItem : class, IInTree<TItem>
 	{

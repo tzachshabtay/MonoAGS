@@ -1,12 +1,12 @@
 ﻿using System;
-using API;
+using AGS.API;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using System.Drawing;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSCharacter : ICharacter
 	{

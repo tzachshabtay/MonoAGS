@@ -1,9 +1,9 @@
 ﻿using System;
-using API;
+using AGS.API;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSGameLoop : IGameLoop
 	{

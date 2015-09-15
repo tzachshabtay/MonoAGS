@@ -1,6 +1,6 @@
 ﻿using System;
 using Moq;
-using API;
+using AGS.API;
 using System.Collections.Generic;
 using Autofac;
 using Autofac.Features.ResolveAnything;

@@ -1,10 +1,10 @@
 ﻿using System;
-using API;
+using AGS.API;
 using System.Drawing;
 using System.Collections.Generic;
-using AreaKey = System.Tuple<API.IArea, System.Drawing.Bitmap>;
+using AreaKey = System.Tuple<AGS.API.IArea, System.Drawing.Bitmap>;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSWalkBehindsMap
 	{

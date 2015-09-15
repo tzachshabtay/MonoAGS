@@ -1,10 +1,10 @@
 ﻿using System;
-using API;
+using AGS.API;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSMaskLoader : IMaskLoader
 	{

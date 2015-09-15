@@ -1,5 +1,5 @@
 ﻿using System;
-using API;
+using AGS.API;
 
 namespace DemoGame
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Engine;
+using AGS.Engine;
 
 namespace Tests
 {

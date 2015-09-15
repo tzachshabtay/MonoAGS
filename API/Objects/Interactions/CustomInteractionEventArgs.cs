@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace API
+namespace AGS.API
 {
 	public class CustomInteractionEventArgs : ObjectEventArgs
 	{

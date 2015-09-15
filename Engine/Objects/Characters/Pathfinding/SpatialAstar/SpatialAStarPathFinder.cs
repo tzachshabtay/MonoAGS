@@ -1,9 +1,9 @@
 ﻿using System;
-using API;
+using AGS.API;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class SpatialAStarPathFinder : IPathFinder
 	{

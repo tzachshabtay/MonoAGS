@@ -4,7 +4,7 @@ using System.Drawing;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing.Imaging;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class GLText
 	{

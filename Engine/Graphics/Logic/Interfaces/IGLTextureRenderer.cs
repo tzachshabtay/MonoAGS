@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public interface IGLTextureRenderer
 	{

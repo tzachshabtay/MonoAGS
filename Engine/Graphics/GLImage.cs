@@ -1,9 +1,9 @@
 ﻿using System;
-using API;
+using AGS.API;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class GLImage : IImage
 	{

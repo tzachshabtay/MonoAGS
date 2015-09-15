@@ -1,9 +1,9 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using API;
+using AGS.API;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class RenderOrderSelector : IComparer<IObject>
 	{

@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
-using API;
-using Engine;
+using AGS.API;
+using AGS.Engine;
 using System.Collections.Generic;
 using System.Drawing;
 using Autofac;

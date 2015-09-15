@@ -1,9 +1,9 @@
 ﻿using System;
-using API;
+using AGS.API;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSRendererLoop : IRendererLoop
 	{

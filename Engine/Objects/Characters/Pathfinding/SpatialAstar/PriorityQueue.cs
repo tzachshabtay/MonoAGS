@@ -19,7 +19,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Engine
+namespace AGS.Engine
 {
 	internal class PriorityQueue<T> where T : IIndexedObject
 	{

@@ -1,10 +1,10 @@
 ﻿using System;
-using API;
+using AGS.API;
 using OpenTK;
 using System.Drawing;
 using System.Collections.Generic;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class GLLabelRenderer : ILabelRenderer
 	{

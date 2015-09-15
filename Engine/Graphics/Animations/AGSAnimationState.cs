@@ -1,8 +1,8 @@
 ﻿using System;
-using API;
+using AGS.API;
 using System.Threading.Tasks;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSAnimationState : IAnimationState
 	{

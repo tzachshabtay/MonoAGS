@@ -1,5 +1,5 @@
 ﻿using System;
-using API;
+using AGS.API;
 using Autofac;
 using OpenTK;
 using OpenTK.Graphics;
@@ -8,7 +8,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Drawing;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSGame : IGame
 	{

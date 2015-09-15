@@ -1,10 +1,10 @@
 ﻿using System;
-using API;
+using AGS.API;
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using OpenTK;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class GLImageRenderer : IImageRenderer
 	{

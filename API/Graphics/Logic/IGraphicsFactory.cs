@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace API
+namespace AGS.API
 {
 	public interface IGraphicsFactory
 	{

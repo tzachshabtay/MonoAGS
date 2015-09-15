@@ -1,8 +1,8 @@
 ﻿using System;
 using OpenTK;
-using API;
+using AGS.API;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class GLMatrixBuilder : IGLMatrixBuilder
 	{

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace API
+namespace AGS.API
 {
 	public interface IImage
 	{

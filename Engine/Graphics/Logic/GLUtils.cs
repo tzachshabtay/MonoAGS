@@ -2,7 +2,7 @@
 using OpenTK.Graphics.OpenGL;
 using OpenTK;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public static class GLUtils
 	{

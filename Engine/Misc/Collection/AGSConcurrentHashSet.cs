@@ -1,10 +1,10 @@
 ﻿using System;
-using API;
+using AGS.API;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSConcurrentHashSet<TItem> : IConcurrentHashSet<TItem>
 	{

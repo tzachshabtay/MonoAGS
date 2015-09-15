@@ -1,8 +1,8 @@
 ﻿using System;
-using API;
+using AGS.API;
 using OpenTK;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public interface IGLMatrixBuilder
 	{

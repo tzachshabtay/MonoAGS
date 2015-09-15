@@ -1,7 +1,7 @@
 ﻿using System;
-using API;
+using AGS.API;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSUIEvents : IUIEvents
 	{

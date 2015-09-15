@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace API
+namespace AGS.API
 {
 	public interface ILabel<TControl> : IUIControl<TControl> where TControl : IUIControl<TControl>
 	{

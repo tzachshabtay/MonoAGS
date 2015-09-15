@@ -1,6 +1,6 @@
 ﻿using System;
-using API;
-using Engine;
+using AGS.API;
+using AGS.Engine;
 
 namespace DemoGame
 {

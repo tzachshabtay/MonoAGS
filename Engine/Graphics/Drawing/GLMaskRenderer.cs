@@ -1,8 +1,8 @@
 ﻿using System;
-using API;
+using AGS.API;
 using OpenTK.Graphics.OpenGL;
 
-namespace Engine
+namespace AGS.Engine
 {
 	/*public class GLMaskRenderer : ICustomRenderer
 	{

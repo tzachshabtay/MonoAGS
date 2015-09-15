@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using API;
+using AGS.API;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Collections.Concurrent;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSRoom : IRoom
 	{

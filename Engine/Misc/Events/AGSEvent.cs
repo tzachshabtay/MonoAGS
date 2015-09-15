@@ -1,10 +1,10 @@
 ﻿using System;
-using API;
+using AGS.API;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class AGSEvent<TEventArgs> : IEvent<TEventArgs> where TEventArgs : EventArgs
 	{

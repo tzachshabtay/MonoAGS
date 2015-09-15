@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace API
+namespace AGS.API
 {
 	public interface ITreeNode<TItem> where TItem : class, IInTree<TItem>
 	{

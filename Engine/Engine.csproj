@@ -158,12 +158,12 @@
     <Folder Include="Rooms\Areas\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\API\API.csproj">
       <Project>{197F8906-96FE-4D72-B3A7-BB6A169D83B5}</Project>
       <Name>API</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>

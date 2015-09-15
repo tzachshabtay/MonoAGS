@@ -1,7 +1,7 @@
 ﻿using System;
-using Engine;
+using AGS.Engine;
 using System.Threading.Tasks;
-using API;
+using AGS.API;
 
 namespace DemoGame
 {

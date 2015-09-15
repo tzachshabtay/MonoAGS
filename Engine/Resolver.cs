@@ -1,11 +1,11 @@
 ﻿using System;
 using Autofac;
 using System.Reflection;
-using API;
+using AGS.API;
 using System.Collections.Generic;
 using Autofac.Features.ResolveAnything;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class Resolver
 	{

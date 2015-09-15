@@ -1,5 +1,5 @@
 ﻿using System;
-using API;
+using AGS.API;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class GLGraphicsFactory : IGraphicsFactory
 	{

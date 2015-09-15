@@ -34,7 +34,7 @@ using System.Text;
 using System.Collections;
 
 
-namespace Engine
+namespace AGS.Engine
 {
 	public class DynamicGridWPool : BaseGrid
 	{

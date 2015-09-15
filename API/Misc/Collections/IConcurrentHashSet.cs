@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace API
+namespace AGS.API
 {
 	public interface IConcurrentHashSet<TItem> : IEnumerable<TItem>
 	{

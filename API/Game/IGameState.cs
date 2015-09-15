@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace API
+namespace AGS.API
 {
 	public interface IGameState
 	{
