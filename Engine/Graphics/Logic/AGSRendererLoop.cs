@@ -7,28 +7,31 @@ namespace Engine
 {
 	public class AGSRendererLoop : IRendererLoop
 	{
-		private readonly IGameState gameState;
-		private readonly IImageRenderer renderer;
-		private readonly IComparer<IObject> comparer;
+		private readonly IGameState _gameState;
+		private readonly IImageRenderer _renderer;
+		private readonly IComparer<IObject> _comparer;
+		private readonly AGSWalkBehindsMap _walkBehinds;
 
-		public AGSRendererLoop (IGameState gameState, IImageRenderer renderer)
+		public AGSRendererLoop (IGameState gameState, IImageRenderer renderer, AGSWalkBehindsMap walkBehinds)
 		{
-			this.gameState = gameState;
-			this.renderer = renderer;
-			this.comparer = new RenderOrderSelector ();
+			this._walkBehinds = walkBehinds;
+			this._gameState = gameState;
+			this._renderer = renderer;
+			this._comparer = new RenderOrderSelector ();
 		}
 
 		#region IRendererLoop implementation
 
-		public void Tick ()
+		public void
+		Tick ()
 		{
-			if (gameState.Player.Character == null) return;
-			IRoom room = gameState.Player.Character.Room;
+			if (_gameState.Player.Character == null) return;
+			IRoom room = _gameState.Player.Character.Room;
 			List<IObject> displayList = getDisplayList(room);
 			foreach (IObject obj in displayList) 
 			{
 				IImageRenderer imageRenderer = obj.CustomRenderer ?? 
-					getAnimationRenderer(obj) ?? renderer;
+					getAnimationRenderer(obj) ?? _renderer;
 				imageRenderer.Render (obj, room.Viewport);
 			}
 		}
@@ -43,7 +46,7 @@ namespace Engine
 
 		private List<IObject> getDisplayList(IRoom room)
 		{
-			int count = 1 + room.Objects.Count + gameState.UI.Count;
+			int count = 1 + room.Objects.Count + _gameState.UI.Count;
 
 			List<IObject> displayList = new List<IObject> (count);
 
@@ -53,20 +56,24 @@ namespace Engine
 			foreach (IObject obj in room.Objects) 
 			{
 				if (!obj.Visible) continue;
-				if (!room.ShowPlayer && obj == gameState.Player.Character) 
+				if (!room.ShowPlayer && obj == _gameState.Player.Character) 
 					continue;
 				displayList.Add (obj);
 			}
 
 			foreach (var area in room.WalkableAreas) addDebugDrawArea(displayList, area);
-			foreach (var area in room.WalkBehindAreas) addDebugDrawArea(displayList, area);
+			foreach (var area in room.WalkBehindAreas)
+			{
+				displayList.Add(_walkBehinds.GetDrawable(area, room.Background.Image.OriginalBitmap));
+				addDebugDrawArea(displayList, area);
+			}
 
-			foreach (IObject ui in gameState.UI)
+			foreach (IObject ui in _gameState.UI)
 			{
 				displayList.Add(ui);
 			}
 
-			displayList.Sort(comparer);
+			displayList.Sort(_comparer);
 			return displayList;
 		}
 

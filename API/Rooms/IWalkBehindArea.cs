@@ -4,7 +4,7 @@ namespace API
 {
 	public interface IWalkBehindArea : IArea
 	{
-		float Baseline { get; set; }
+		float? Baseline { get; set; }
 	}
 }
 

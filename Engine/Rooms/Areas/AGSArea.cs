@@ -6,12 +6,12 @@ namespace Engine
 {
 	public class AGSArea : IArea
 	{
-		private List<Tuple<int,int>> searchVectors;
+		private List<Tuple<int,int>> _searchVectors;
 
 		public AGSArea ()
 		{
 			Enabled = true;
-			searchVectors = new List<Tuple<int,int>>
+			_searchVectors = new List<Tuple<int,int>>
 			{
 				new Tuple<int, int>(0, -1),
 				new Tuple<int, int>(0, 1),
@@ -74,7 +74,7 @@ namespace Engine
 			//It's "good enough" most of the time, but can be improved (it only searches using straight lines currently).
 			distance = float.MaxValue;
 			IPoint closestPoint = null;
-			foreach (var vector in searchVectors) 
+			foreach (var vector in _searchVectors) 
 			{
 				float tmpDistance;
 				IPoint point = findClosestPoint (x, y, width, height, vector.Item1, vector.Item2, out tmpDistance);

@@ -84,7 +84,6 @@
     <Compile Include="Graphics\Drawing\GLMaskRenderer.cs" />
     <Compile Include="Graphics\Drawing\GLBitmapRenderer.cs" />
     <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\SpatialAStarPathFinder.cs" />
-    <Compile Include="Rooms\AGSArea.cs" />
     <Compile Include="Rooms\Viewport\AGSViewportFollower.cs" />
     <Compile Include="Rooms\Viewport\AGSViewport.cs" />
     <Compile Include="Rooms\AGSRoom.cs" />
@@ -124,6 +123,10 @@
     <Compile Include="Rooms\Edges\AGSEdge.cs" />
     <Compile Include="Rooms\Edges\AGSEdges.cs" />
     <Compile Include="Rooms\Edges\IAGSEdges.cs" />
+    <Compile Include="Rooms\Areas\AGSArea.cs" />
+    <Compile Include="Rooms\Areas\AGSWalkBehindArea.cs" />
+    <Compile Include="Rooms\Areas\WalkBehindBitmapCreator.cs" />
+    <Compile Include="Rooms\Areas\AGSWalkBehindsMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -152,6 +155,7 @@
     <Folder Include="Graphics\Logic\Interfaces\" />
     <Folder Include="Rooms\Masks\" />
     <Folder Include="Rooms\Edges\" />
+    <Folder Include="Rooms\Areas\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\API\API.csproj">
