@@ -4,35 +4,41 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class GLMatrixBuilder : IGLMatrixBuilder
+	public class GLMatrixBuilder : IGLMatrixBuilder, IGLMatrices
 	{
 		public GLMatrixBuilder()
 		{
 		}
 
+		#region IGLMatrices implementation
+
+		public Matrix4 ModelMatrix { get; private set; }
+
+		public Matrix4 ViewportMatrix { get; private set; }
+
+		#endregion
+
 		//http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
 		//http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
-		public Matrix4 Build(IObject obj, IViewport viewport)
+		public IGLMatrices Build(IObject obj, IViewport viewport)
 		{
 			ISprite sprite = obj.Animation.Sprite;
 			Matrix4 spriteMatrix = getModelMatrix (sprite);
 			Matrix4 objMatrix = getModelMatrix (obj);
 
-			Matrix4 modelMatrix = spriteMatrix * objMatrix;
+			ModelMatrix = spriteMatrix * objMatrix;
 			IObject parent = obj.TreeNode.Parent;
 			while (parent != null)
 			{
 				Matrix4 parentMatrix = getModelMatrix(parent);
-				modelMatrix = modelMatrix * parentMatrix;
+				ModelMatrix = ModelMatrix * parentMatrix;
 				parent = parent.TreeNode.Parent;
 			}
-			Matrix4 viewMatrix = obj.IgnoreViewport ? Matrix4.Identity :
+			ViewportMatrix = obj.IgnoreViewport ? Matrix4.Identity :
 				Matrix4.CreateScale(viewport.ScaleX, viewport.ScaleY, 1f) *
 				Matrix4.CreateTranslation(new Vector3(-viewport.X, -viewport.Y, 0f));
 
-			Matrix4 mvMatrix = modelMatrix * viewMatrix;
-
-			return mvMatrix;
+			return this;		
 		}
 
 		private Matrix4 getModelMatrix(ISprite sprite)

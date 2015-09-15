@@ -45,11 +45,11 @@ namespace AGS.Engine
 		public void Render(IObject obj, IViewport viewport)
 		{
 			ISprite sprite = obj.Animation.Sprite;
-			Matrix4 matrix = _matrixBuilder.Build(obj, viewport);
-			IGLBoundingBox box = _boundingBoxBuilder.Build(sprite.Image.Width, sprite.Image.Height, matrix);
+			IGLMatrices matrices = _matrixBuilder.Build(obj, viewport);
+			IGLBoundingBoxes boxes = _boundingBoxBuilder.Build(sprite.Image.Width, sprite.Image.Height, matrices);
 			IGLColor color = _colorBuilder.Build(obj, sprite);
-			_matrixContainer.Matrix = matrix;
-			_boxContainer.BoundingBox = box;
+			_matrixContainer.Matrices = matrices;
+			_boxContainer.BoundingBoxes = boxes;
 
 			_bgRenderer.Render(obj, viewport);
 
@@ -58,7 +58,7 @@ namespace AGS.Engine
 			{
 				_glText.SetBatch(Text, Config == null ? null : Config.Font, WrapText ? (int?)sprite.Image.Width : null);
 				_glText.Refresh();
-				_textureRenderer.Render(_glText.Texture, box, color);
+				_textureRenderer.Render(_glText.Texture, boxes.RenderBox, color);
 			}
 		}
 
@@ -66,24 +66,24 @@ namespace AGS.Engine
 
 		private class MatrixContainer : IGLMatrixBuilder
 		{
-			public Matrix4 Matrix { get; set; }
+			public IGLMatrices Matrices { get; set; }
 
 			#region IGLMatrixBuilder implementation
-			public Matrix4 Build(IObject obj, IViewport viewport)
+			public IGLMatrices Build(IObject obj, IViewport viewport)
 			{
-				return Matrix;
+				return Matrices;
 			}
 			#endregion
 		}
 
 		private class BoundingBoxContainer : IGLBoundingBoxBuilder
 		{
-			public IGLBoundingBox BoundingBox { get; set; }
+			public IGLBoundingBoxes BoundingBoxes { get; set; }
 
 			#region IGLBoundingBoxBuilder implementation
-			public IGLBoundingBox Build(float width, float height, Matrix4 matrix)
+			public IGLBoundingBoxes Build(float width, float height, IGLMatrices matrices)
 			{
-				return BoundingBox;
+				return BoundingBoxes;
 			}
 			#endregion
 		}

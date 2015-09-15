@@ -1,11 +1,12 @@
 ﻿using System;
 using OpenTK;
+using AGS.API;
 
 namespace AGS.Engine
 {
 	public interface IGLBoundingBoxBuilder
 	{
-		IGLBoundingBox Build(float width, float height, Matrix4 matrix);
+		IGLBoundingBoxes Build(float width, float height, IGLMatrices matrices);
 	}
 }
 

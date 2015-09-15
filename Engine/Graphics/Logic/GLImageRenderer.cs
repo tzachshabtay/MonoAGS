@@ -29,20 +29,24 @@ namespace AGS.Engine
 		{
 			ISprite sprite = obj.Animation.Sprite;
 
-			Matrix4 mvMatrix = _matrixBuilder.Build(obj, viewport);
+			IGLMatrices matrices = _matrixBuilder.Build(obj, viewport);
 
-			IGLBoundingBox boundingBox = _boundingBoxBuilder.Build(sprite.Image.Width,
-				                             sprite.Image.Height, mvMatrix);
-			Vector3 bottomLeft = boundingBox.BottomLeft;
-			Vector3 topLeft = boundingBox.TopLeft;
-			Vector3 bottomRight = boundingBox.BottomRight;
-			Vector3 topRight = boundingBox.TopRight;
+			IGLBoundingBoxes boundingBoxes = _boundingBoxBuilder.Build(sprite.Image.Width,
+				sprite.Image.Height, matrices);
+			IGLBoundingBox hitTestBox = boundingBoxes.HitTestBox;
+			IGLBoundingBox renderBox = boundingBoxes.RenderBox;
 
 			GLImage glImage = _textures.GetOrAdd (sprite.Image.ID, () => createNewTexture (sprite.Image.ID));
 
 			IGLColor color = _colorBuilder.Build(sprite, obj);
 
-			_renderer.Render(glImage.Texture, boundingBox, color);
+			_renderer.Render(glImage.Texture, renderBox, color);
+
+
+			Vector3 bottomLeft = hitTestBox.BottomLeft;
+			Vector3 topLeft = hitTestBox.TopLeft;
+			Vector3 bottomRight = hitTestBox.BottomRight;
+			Vector3 topRight = hitTestBox.TopRight;
 
 			AGSSquare square = new AGSSquare (new AGSPoint (bottomLeft.X, bottomLeft.Y),
 				                   new AGSPoint (bottomRight.X, bottomRight.Y), new AGSPoint (topLeft.X, topLeft.Y),
@@ -53,7 +57,8 @@ namespace AGS.Engine
 			if (border != null)
 			{
 				color = _colorBuilder.Build(border.Color);
-				GLUtils.DrawQuadBorder(bottomLeft, bottomRight, topLeft, topRight, border.LineWidth, 
+				GLUtils.DrawQuadBorder(renderBox.BottomLeft, renderBox.BottomRight, 
+					renderBox.TopLeft, renderBox.TopRight, border.LineWidth, 
 					color.R, color.G, color.B, color.A);
 			}
 			if (obj.DebugDrawAnchor)
