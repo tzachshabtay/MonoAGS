@@ -3,6 +3,7 @@ using AGS.Engine;
 using System.Threading.Tasks;
 using AGS.API;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace DemoGame
 {
@@ -39,9 +40,21 @@ namespace DemoGame
 
 				TwoButtonsInputScheme inputScheme = new TwoButtonsInputScheme(game.State, game.Input, null);
 				inputScheme.Start();
+
+				addDebugLabels(game);
 			});
 
 			game.Start("Demo Game", 320, 200);
+		}
+
+		[Conditional("DEBUG")]
+		private static void addDebugLabels(IGame game)
+		{
+			FPSCounter fps = new FPSCounter(game.Events, game.Factory.GetLabel("", 30, 15, 0, 20));
+			fps.Start();
+
+			MousePositionLabel label = new MousePositionLabel(game.Input, game.Factory.GetLabel("", 30, 15, 0, 0));
+			label.Start();
 		}
 	}
 }

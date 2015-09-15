@@ -129,6 +129,8 @@
     <Compile Include="Rooms\Areas\AGSWalkBehindsMap.cs" />
     <Compile Include="Misc\Pool\ObjectPool.cs" />
     <Compile Include="Misc\Pool\BitmapPool.cs" />
+    <Compile Include="UI\DebugLabels\FPSCounter.cs" />
+    <Compile Include="UI\DebugLabels\MousePositionLabel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -159,6 +161,7 @@
     <Folder Include="Rooms\Edges\" />
     <Folder Include="Rooms\Areas\" />
     <Folder Include="Misc\Pool\" />
+    <Folder Include="UI\DebugLabels\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
