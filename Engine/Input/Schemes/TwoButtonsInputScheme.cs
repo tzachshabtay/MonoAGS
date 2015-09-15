@@ -47,14 +47,16 @@ namespace Engine
 			}
 			else if (e.Button == MouseButton.Right)
 			{
-				if (state.Player.Character.Inventory.ActiveItem == null)
+				IInventory inventory = state.Player.Character.Inventory;
+				if (inventory == null) return;
+				if (inventory.ActiveItem == null)
 				{
 					IObject hotspot = state.Player.Character.Room.GetHotspotAt(e.X, e.Y);
 					if (hotspot == null) return;
 				}
 				else
 				{
-					state.Player.Character.Inventory.ActiveItem = null;
+					inventory.ActiveItem = null;
 				}
 			}
 		}
