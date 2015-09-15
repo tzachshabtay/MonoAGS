@@ -8,13 +8,14 @@ namespace Engine
 		private IPoint point;
 		private float? z;
 
-		public AGSLocation() : this(new AGSPoint(), 0)
+		public AGSLocation() : this(new AGSPoint(), null)
 		{}
 
 		public AGSLocation (IPoint point, float? z = null)
 		{
 			this.point = point;
 			this.z = z;
+			if (z != null && z.Value == point.Y) this.z = null;
 		}
 
 		public AGSLocation(float x, float y, float? z = null) : this(new AGSPoint(x,y), z)
