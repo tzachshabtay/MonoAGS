@@ -370,9 +370,9 @@ namespace AGS.Engine
 
 			public void Add(PathNode inValue)
 			{
+				#if DEBUG
 				PathNode item = m_Map[inValue.X, inValue.Y];
 
-				#if DEBUG
 				if (item != null)
 					throw new ApplicationException();
 				#endif
