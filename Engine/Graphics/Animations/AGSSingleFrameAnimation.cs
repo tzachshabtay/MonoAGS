@@ -19,7 +19,7 @@ namespace AGS.Engine
 
 		private static ISprite getDefaultSprite(IImage image)
 		{
-			return new AGSSprite { Image = image, Location = new AGSLocation() };
+			return new AGSSprite { Image = image, Location = AGSLocation.Empty() };
 		}
 	}
 }

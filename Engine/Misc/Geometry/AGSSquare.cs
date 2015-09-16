@@ -5,7 +5,7 @@ namespace AGS.Engine
 {
 	public struct AGSSquare : ISquare
 	{
-		public AGSSquare (IPoint bottomLeft, IPoint bottomRight, IPoint topLeft, IPoint topRight)
+		public AGSSquare (IPoint bottomLeft, IPoint bottomRight, IPoint topLeft, IPoint topRight) : this()
 		{
 			BottomLeft = bottomLeft;
 			BottomRight = bottomRight;

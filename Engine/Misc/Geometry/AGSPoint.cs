@@ -5,7 +5,7 @@ namespace AGS.Engine
 {
 	public struct AGSPoint : IPoint
 	{
-		public AGSPoint (float x, float y)
+		public AGSPoint (float x, float y) : this()
 		{
 			X = x;
 			Y = y;

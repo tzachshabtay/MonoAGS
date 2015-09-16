@@ -126,7 +126,7 @@ namespace AGS.Engine
 					string path = string.Format ("{0}_{1}_{2}", rect.X, rect.Y, filePath);
 					GLImage image = loadImage (tex, clone, path, loadConfig);
 					//GLImage image = loadImage(tex, bitmap, rect, path);
-					AGSSprite sprite = new AGSSprite { Image = image, Location = new AGSLocation() };
+					AGSSprite sprite = new AGSSprite { Image = image, Location = AGSLocation.Empty() };
 		
 					AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
 					animation.Frames.Add (frame);

@@ -61,7 +61,6 @@
     <Compile Include="Input\Schemes\TwoButtonsInputScheme.cs" />
     <Compile Include="Graphics\Animations\AGSSpriteSheet.cs" />
     <Compile Include="Graphics\Animations\AGSDirectionalAnimation.cs" />
-    <Compile Include="Graphics\Logic\SpriteRenderInfo.cs" />
     <Compile Include="UI\Text\GLText.cs" />
     <Compile Include="Graphics\Logic\GLUtils.cs" />
     <Compile Include="Objects\Characters\AGSCharacter.cs" />

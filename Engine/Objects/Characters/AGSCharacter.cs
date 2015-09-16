@@ -173,22 +173,24 @@ namespace AGS.Engine
 			_walkCompleted = new TaskCompletionSource<object> (null);
 			float xSource = X;
 			float ySource = Y;
+			bool completedWalk = false;
+			Exception caught = null;
 			try
 			{
-				IEnumerable<ILocation> walkPoints = getWalkPoints (location);
-
-				if (!walkPoints.Any ()) return false;
-				foreach (var point in walkPoints) 
-				{
-					if (!await walkStraightLine (point, token, debugRenderers)) return false;
-				}
+				completedWalk = await walkAsync(location, token, debugRenderers);
 			}
-			finally
+			catch (Exception e)
 			{
-				await setDirection (xSource, ySource, location.X, location.Y, IdleAnimation);
-				_walkCompleted.TrySetResult(null);
+				caught = e;
 			}
-			return true;
+
+			//On windows (assuming we're before c# 6.0), we can't await inside a finally, so we're using the workaround pattern
+			await setDirection (xSource, ySource, location.X, location.Y, IdleAnimation);
+			_walkCompleted.TrySetResult(null);
+
+			if (caught != null) throw caught;
+
+			return completedWalk;
 		}
 
 		public void StopWalking()
@@ -262,6 +264,18 @@ namespace AGS.Engine
 		}
 
 		#endregion
+
+		private async Task<bool> walkAsync(ILocation location, CancellationTokenSource token, List<IImageRenderer> debugRenderers)
+		{
+			IEnumerable<ILocation> walkPoints = getWalkPoints (location);
+
+			if (!walkPoints.Any ()) return false;
+			foreach (var point in walkPoints) 
+			{
+				if (!await walkStraightLine (point, token, debugRenderers)) return false;
+			}
+			return true;
+		}
 
 		private async Task<CancellationTokenSource> stopWalkingAsync()
 		{
