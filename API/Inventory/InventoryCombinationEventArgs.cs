@@ -10,8 +10,8 @@ namespace AGS.API
 			PassiveItem = passiveItem;
 		}
 
-		IInventoryItem ActiveItem { get; private set; }
-		IInventoryItem PassiveItem { get; private set; }
+		public IInventoryItem ActiveItem { get; private set; }
+		public IInventoryItem PassiveItem { get; private set; }
 
 		public override string ToString ()
 		{
