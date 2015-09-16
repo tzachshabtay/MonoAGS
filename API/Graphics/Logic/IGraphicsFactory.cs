@@ -6,6 +6,8 @@ namespace AGS.API
 {
 	public interface IGraphicsFactory
 	{
+		ISprite GetSprite();
+
 		IImage LoadImage(string filePath, ILoadImageConfig loadConfig = null);
 		Task<IImage> LoadImageAsync(string filePath, ILoadImageConfig loadConfig = null);
 		IImage LoadImage(Bitmap bitmap, ILoadImageConfig loadConfig = null, string id = null);

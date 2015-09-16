@@ -8,16 +8,25 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Threading;
+using Autofac;
 
 namespace AGS.Engine
 {
 	public class GLGraphicsFactory : IGraphicsFactory
 	{
-		private Dictionary<string, GLImage> textures;
+		private Dictionary<string, GLImage> _textures;
+		private IContainer _resolver;
 
-		public GLGraphicsFactory (Dictionary<string, GLImage> textures)
+		public GLGraphicsFactory (Dictionary<string, GLImage> textures, IContainer resolver)
 		{
-			this.textures = textures;
+			this._textures = textures;
+			this._resolver = resolver;
+		}
+
+		public ISprite GetSprite()
+		{
+			ISprite sprite = _resolver.Resolve<ISprite>();
+			return sprite;
 		}
 
 		public IAnimation LoadAnimationFromFolder (string folderPath, int delay = 1, 
@@ -30,7 +39,8 @@ namespace AGS.Engine
 			foreach (string file in files) 
 			{
 				var image = LoadImage (file, loadConfig);
-				AGSSprite sprite = new AGSSprite { Image = image };
+				ISprite sprite = GetSprite();
+				sprite.Image = image;
 				AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
 				animation.Frames.Add (frame);
 			}
@@ -126,8 +136,10 @@ namespace AGS.Engine
 					string path = string.Format ("{0}_{1}_{2}", rect.X, rect.Y, filePath);
 					GLImage image = loadImage (tex, clone, path, loadConfig);
 					//GLImage image = loadImage(tex, bitmap, rect, path);
-					AGSSprite sprite = new AGSSprite { Image = image, Location = new AGSLocation() };
-		
+					ISprite sprite = GetSprite();
+					sprite.Image = image;
+					sprite.Location = new AGSLocation ();
+
 					AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
 					animation.Frames.Add (frame);
 					cellsGrabbed++;
@@ -286,8 +298,8 @@ namespace AGS.Engine
 
 			GLImage image = new GLImage (bitmap, path, texture);
 
-			if (textures != null)
-				textures.GetOrAdd (image.ID, () => image);
+			if (_textures != null)
+				_textures.GetOrAdd (image.ID, () => image);
 			return image;
 		}
 

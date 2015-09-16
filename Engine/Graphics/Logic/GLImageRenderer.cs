@@ -69,7 +69,7 @@ namespace AGS.Engine
 		{
 			if (string.IsNullOrEmpty(path)) return new GLImage (); //transparent image
 
-			GLGraphicsFactory loader = new GLGraphicsFactory (null);
+			GLGraphicsFactory loader = new GLGraphicsFactory (null, null);
 			return loader.LoadImageInner (path);
 		}
 	}

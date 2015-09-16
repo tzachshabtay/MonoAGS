@@ -7,9 +7,11 @@ namespace AGS.Engine
 	public class AGSSprite : ISprite
 	{
 		private IImage _image;
+		private IMaskLoader _maskLoader;
 
-		public AGSSprite ()
+		public AGSSprite (IMaskLoader maskLoader)
 		{
+			_maskLoader = maskLoader;
 			ScaleX = 1;
 			ScaleY = 1;
 			Anchor = new AGSPoint ();
@@ -101,6 +103,22 @@ namespace AGS.Engine
 
 		public IImageRenderer CustomRenderer { get; set; }
 
+		public IArea PixelPerfectHitTestArea  { get; private set; }
+		public void PixelPerfect(bool pixelPerfect)
+		{
+			IArea area = PixelPerfectHitTestArea;
+			if (!pixelPerfect)
+			{
+				if (area == null) return;
+				area.Enabled = false;
+				return;
+			}
+			if (area != null) return;
+
+			PixelPerfectHitTestArea = new AGSArea { Mask = _maskLoader.Load(Image.OriginalBitmap, saveMaskToFile: string.Format("{0}.png",i)) };
+			i++;
+		}
+		static int i;
 		#endregion
 
 		public override string ToString()

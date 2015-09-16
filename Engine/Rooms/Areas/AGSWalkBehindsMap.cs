@@ -11,9 +11,9 @@ namespace AGS.Engine
 		private readonly Dictionary<AreaKey, IImage> _images;
 		private readonly Dictionary<AreaKey, IObject> _objects;
 		private readonly WalkBehindBitmapCreator _bitmapCreator;
-		private readonly IGraphicsFactory _factory;
+		private readonly IGameFactory _factory;
 
-		public AGSWalkBehindsMap(IGraphicsFactory factory)
+		public AGSWalkBehindsMap(IGameFactory factory, IMaskLoader maskLoader)
 		{
 			_factory = factory;
 			_images = new Dictionary<AreaKey, IImage> (100);
@@ -24,7 +24,7 @@ namespace AGS.Engine
 		public IObject GetDrawable(IWalkBehindArea area, Bitmap bg)
 		{
 			AreaKey key = new AreaKey (area, bg);
-			IObject obj = _objects.GetOrAdd(key, () => new AGSObject (new AGSSprite ()) { Anchor = new AGSPoint() });
+			IObject obj = _objects.GetOrAdd(key, () => createObject());
 			obj.Z = area.Baseline == null ? area.Mask.MinY : area.Baseline.Value;
 			obj.Image = _images.GetOrAdd(key, () => createImage(area, bg));
 			return obj;
@@ -33,7 +33,14 @@ namespace AGS.Engine
 		private IImage createImage(IWalkBehindArea area, Bitmap bg)
 		{
 			var bitmap = _bitmapCreator.Create(area, bg);
-			return _factory.LoadImage(bitmap); 
+			return _factory.Graphics.LoadImage(bitmap); 
+		}
+
+		private IObject createObject()
+		{
+			var obj = _factory.GetObject();
+			obj.Anchor = new AGSPoint ();
+			return obj;
 		}
 	}
 }

@@ -9,13 +9,16 @@ namespace AGS.Engine
 	{
 		private float _initialWidth, _initialHeight;
 		private ISprite _sprite;
+		private bool _pixelPerfect;
+		private IGraphicsFactory _factory;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Engine.AGSObject"/> class.
 		/// Width and height will be set based on the first animation frame (or single image) used.
 		/// </summary>
-		public AGSObject (ISprite sprite)
+		public AGSObject (ISprite sprite, IGraphicsFactory factory)
 		{
+			this._factory = factory;
 			this._sprite = sprite;
 			Location = new AGSLocation ();
 			Anchor = new AGSPoint (0.5f, 0f);
@@ -37,7 +40,8 @@ namespace AGS.Engine
 		/// </summary>
 		/// <param name="width">Width.</param>
 		/// <param name="height">Height.</param>
-		public AGSObject(float width, float height, ISprite sprite) : this(sprite)
+		public AGSObject(float width, float height, ISprite sprite, IGraphicsFactory factory) : 
+			this(sprite, factory)
 		{
 			initScale (width, height);
 		}
@@ -125,6 +129,15 @@ namespace AGS.Engine
 		public IPoint Anchor { get { return _sprite.Anchor; } set { _sprite.Anchor = value; } }
 
 		public ISquare BoundingBox { get; set; }
+		public IArea PixelPerfectHitTestArea  { get { return Animation.Sprite.PixelPerfectHitTestArea; } }
+		public void PixelPerfect(bool pixelPerfect)
+		{
+			_pixelPerfect = pixelPerfect;
+			foreach (var frame in Animation.Frames)
+			{
+				frame.Sprite.PixelPerfect(pixelPerfect);
+			}
+		}
 
 		public float X { get { return _sprite.X; } set { _sprite.X = value; } }
 		public float Y { get { return _sprite.Y; } set { _sprite.Y = value; } }
@@ -139,7 +152,7 @@ namespace AGS.Engine
 			get { return Animation.Sprite.Image; }
 			set 
 			{ 
-				AGSSingleFrameAnimation animation = new AGSSingleFrameAnimation (value);
+				AGSSingleFrameAnimation animation = new AGSSingleFrameAnimation (value, _factory);
 				StartAnimation (animation);
 			}
 		}
@@ -162,6 +175,7 @@ namespace AGS.Engine
 				currentAnimation.State.OnAnimationCompleted.TrySetResult (new AnimationCompletedEventArgs (false));
 			}
 			Animation = animation;
+			PixelPerfect(_pixelPerfect);
 		}
 
 		public AnimationCompletedEventArgs Animate (IAnimation animation)

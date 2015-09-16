@@ -16,10 +16,10 @@ namespace AGS.Engine
 		private IPathFinder _pathFinder;
 		private List<IImageRenderer> _debugPath;
 
-		public AGSCharacter (IObject obj = null, IPathFinder pathFinder = null)
+		public AGSCharacter (IObject obj, IPathFinder pathFinder = null)
 		{
 			this._pathFinder = pathFinder ?? new EPPathFinder ();
-			this._obj = obj ?? new AGSObject(new AGSSprite());
+			this._obj = obj;
 			_walkCancel = new CancellationTokenSource ();
 			_debugPath = new List<IImageRenderer> ();
 			_walkCompleted = new TaskCompletionSource<object> ();
@@ -135,6 +135,19 @@ namespace AGS.Engine
 		public IPoint Anchor {get { return _obj.Anchor;} set { _obj.Anchor = value;}}
 
 		public ISquare BoundingBox { get { return _obj.BoundingBox; } set { _obj.BoundingBox = value; } }
+
+		public void PixelPerfect(bool pixelPerfect)
+		{
+			_obj.PixelPerfect(pixelPerfect);
+		}
+
+		public IArea PixelPerfectHitTestArea
+		{
+			get
+			{
+				return _obj.PixelPerfectHitTestArea;
+			}
+		}
 
 		public bool IgnoreViewport { get { return _obj.IgnoreViewport; } set { _obj.IgnoreViewport = value; } }
 

@@ -5,7 +5,7 @@ namespace AGS.Engine
 {
 	public class AGSSingleFrameAnimation : AGSAnimation
 	{
-		public AGSSingleFrameAnimation (IImage image) : this(getDefaultSprite(image))
+		public AGSSingleFrameAnimation (IImage image, IGraphicsFactory factory) : this(getDefaultSprite(image, factory))
 		{
 		}
 
@@ -17,9 +17,12 @@ namespace AGS.Engine
 			Setup ();
 		}
 
-		private static ISprite getDefaultSprite(IImage image)
+		private static ISprite getDefaultSprite(IImage image, IGraphicsFactory factory)
 		{
-			return new AGSSprite { Image = image, Location = new AGSLocation() };
+			ISprite sprite = factory.GetSprite();
+			sprite.Image = image;
+			sprite.Location = new AGSLocation ();
+			return sprite;
 		}
 	}
 }

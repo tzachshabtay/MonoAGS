@@ -21,10 +21,10 @@ namespace DemoGame
 			_room = new AGSRoom ("Trashcan Street", player, viewport, edges, gameEvents);
 		}
 
-		public IRoom Load(IGraphicsFactory factory)
+		public IRoom Load(IGameFactory factory)
 		{
-			AGSObject bg = new AGSObject (new AGSSprite ());
-			bg.Image = factory.LoadImage(_baseFolder + "bg.png");
+			IObject bg = factory.GetObject();
+			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
 			_room.Background = bg;
 
 			AGSMaskLoader maskLoader = new AGSMaskLoader (factory);

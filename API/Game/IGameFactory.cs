@@ -13,6 +13,8 @@ namespace AGS.API
 		string GetString(string name, string defaultValue = null);
 
 		ILabel GetLabel(string text, float width, float height, float x, float y);
+		IObject GetObject();
+		ICharacter GetCharacter();
 
 		void RegisterCustomData(ICustomSerializable customData);
 	}

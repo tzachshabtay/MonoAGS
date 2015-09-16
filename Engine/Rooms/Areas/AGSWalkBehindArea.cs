@@ -19,6 +19,11 @@ namespace AGS.Engine
 			return _area.IsInArea(point);
 		}
 
+		public bool IsInArea(IPoint point, ISquare projectionBox, float scaleX, float scaleY)
+		{
+			return _area.IsInArea(point, projectionBox, scaleX, scaleY);
+		}
+
 		public IPoint FindClosestPoint(IPoint point, out float distance)
 		{
 			return _area.FindClosestPoint(point, out distance);

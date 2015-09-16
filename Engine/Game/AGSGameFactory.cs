@@ -46,6 +46,18 @@ namespace AGS.Engine
 			return label;
 		}
 
+		public IObject GetObject()
+		{
+			IObject obj = _resolver.Resolve<IObject>();
+			return obj;
+		}
+
+		public ICharacter GetCharacter()
+		{
+			ICharacter character = _resolver.Resolve<ICharacter>();
+			return character;
+		}
+
 		public void RegisterCustomData(ICustomSerializable customData)
 		{
 			throw new NotImplementedException();

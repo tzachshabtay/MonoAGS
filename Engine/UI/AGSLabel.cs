@@ -79,6 +79,19 @@ namespace AGS.Engine
 
 		public ISquare BoundingBox { get { return _obj.BoundingBox; } set { _obj.BoundingBox = value; } }
 
+		public void PixelPerfect(bool pixelPerfect)
+		{
+			_obj.PixelPerfect(pixelPerfect);
+		}
+
+		public IArea PixelPerfectHitTestArea
+		{
+			get
+			{
+				return _obj.PixelPerfectHitTestArea;
+			}
+		}
+
 		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
 
 		public ITreeNode<IObject> TreeNode { get { return _obj.TreeNode; } }

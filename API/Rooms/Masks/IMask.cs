@@ -14,6 +14,7 @@ namespace AGS.API
 		float MaxY { get; }
 
 		bool IsMasked(IPoint point);
+		bool IsMasked(IPoint point, ISquare projectionBox, float scaleX, float scaleY);
 		bool[][] AsJaggedArray();
 		bool[,] To2DArray();
 

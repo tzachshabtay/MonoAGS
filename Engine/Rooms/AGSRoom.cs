@@ -91,13 +91,20 @@ namespace AGS.Engine
 				ISquare boundingBox = obj.BoundingBox;
 				if (boundingBox == null)
 					continue;
-				if (boundingBox.Contains (new AGSPoint (x, y)))
-					return obj;
-				//Rectangle rect = new Rectangle ((int)obj.X, (int)obj.Y, (int)obj.Width, (int)obj.Height);
+				IArea pixelPerfect = obj.PixelPerfectHitTestArea;
 
-				//if (rect.Contains ((int)x, (int)y))
-				//	return obj;
-			}
+				if (pixelPerfect == null || !pixelPerfect.Enabled)
+				{
+					if (boundingBox.Contains(new AGSPoint (x, y)))
+						return obj;
+				}
+				else
+				{
+					if (pixelPerfect.IsInArea(new AGSPoint (x, y), boundingBox, obj.ScaleX * obj.Animation.Sprite.ScaleX,
+						obj.ScaleY * obj.Animation.Sprite.ScaleY))
+						return obj;
+				}
+ 			}
 			return null;
 		}
 

@@ -29,6 +29,11 @@ namespace AGS.Engine
 			return Mask.IsMasked(point);
 		}
 
+		public bool IsInArea(IPoint point, ISquare projectionBox, float scaleX, float scaleY)
+		{
+			return Mask.IsMasked(point, projectionBox, scaleX, scaleY);
+		}
+
 		public IPoint FindClosestPoint (IPoint point, out float distance)
 		{
 			int x = (int)point.X;

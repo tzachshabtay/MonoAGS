@@ -8,9 +8,9 @@ namespace AGS.Engine
 {
 	public class AGSMaskLoader : IMaskLoader
 	{
-		private IGraphicsFactory _factory;
+		private IGameFactory _factory;
 
-		public AGSMaskLoader(IGraphicsFactory factory)
+		public AGSMaskLoader(IGameFactory factory)
 		{
 			_factory = factory;
 		}
@@ -21,7 +21,12 @@ namespace AGS.Engine
 			Color? debugDrawColor = null, string saveMaskToFile = null)
 		{
 			Bitmap image = (Bitmap)Image.FromFile(path); 
+			return Load(image, transparentMeansMasked, debugDrawColor, saveMaskToFile);
+		}
 
+		public IMask Load(Bitmap image, bool transparentMeansMasked = false, 
+			Color? debugDrawColor = null, string saveMaskToFile = null)
+		{
 			//Get the bitmap data
 			var bitmapData = image.LockBits (
 				new Rectangle (0, 0, image.Width, image.Height),
@@ -51,6 +56,7 @@ namespace AGS.Engine
 				debugMask = new Bitmap (image.Width, image.Height);
 
 			bool[][] mask = new bool[image.Width][];
+			Color drawColor = debugDrawColor.HasValue ? debugDrawColor.Value : Color.Black;
 			//Loop pixels
 			for(int i=0;i<imageBytes.Length;i+=pixelSize/8)
 			{
@@ -73,7 +79,9 @@ namespace AGS.Engine
 					mask[x][image.Height - y - 1] = masked;
 
 					if (debugMask != null)
-						debugMask.SetPixel(x, y, masked ? debugDrawColor.Value : Color.Transparent);
+					{
+						debugMask.SetPixel(x, y, masked ? drawColor : Color.Transparent);
+					}
 				}
 
 
@@ -91,11 +99,11 @@ namespace AGS.Engine
 			if (saveMaskToFile != null)
 				debugMask.Save (saveMaskToFile);
 
-			AGSObject debugDraw = null;
+			IObject debugDraw = null;
 			if (debugDrawColor != null)
 			{
-				debugDraw = new AGSObject (new AGSSprite ());
-				debugDraw.Image = _factory.LoadImage(debugMask);
+				debugDraw = _factory.GetObject();
+				debugDraw.Image = _factory.Graphics.LoadImage(debugMask);
 				debugDraw.Anchor = new AGSPoint ();
 			}
 
