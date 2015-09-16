@@ -1,0 +1,12 @@
+language: csharp
+solution: MonoAGS.sln
+
+mono:
+ - latest
+ - 3.10.0
+ - 3.8.0
+ - 3.2.8
+ - 2.10.8
+
+script:
+  - xbuild /p:Configuration=Release MonoAGS.sln
