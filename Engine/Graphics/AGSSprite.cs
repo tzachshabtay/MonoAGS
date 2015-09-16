@@ -115,10 +115,8 @@ namespace AGS.Engine
 			}
 			if (area != null) return;
 
-			PixelPerfectHitTestArea = new AGSArea { Mask = _maskLoader.Load(Image.OriginalBitmap, saveMaskToFile: string.Format("{0}.png",i)) };
-			i++;
+			PixelPerfectHitTestArea = new AGSArea { Mask = _maskLoader.Load(Image.OriginalBitmap) };
 		}
-		static int i;
 		#endregion
 
 		public override string ToString()
