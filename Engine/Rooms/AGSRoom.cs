@@ -12,9 +12,11 @@ namespace AGS.Engine
 		private IPlayer _player;
 		private IObject _background;
 		private IAGSEdges _edges;
+		private RenderOrderSelector _sorter;
 
 		public AGSRoom (string id, IPlayer player, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents)
 		{
+			this._sorter = new RenderOrderSelector { Backwards = true };
 			this._player = player;
 			Viewport = viewport;
 			ID = id;
@@ -64,9 +66,9 @@ namespace AGS.Engine
 
 		public IEnumerable<IObject> GetVisibleObjectsFrontToBack()
 		{
-			return Objects.Where (o => o.Visible && (ShowPlayer || o != _player.Character)).
-				OrderByDescending(o => o.RenderLayer == null ? 0 : o.RenderLayer.Z).
-				ThenByDescending(o => o.Z);
+			List<IObject> visibleObjects = Objects.Where(o => o.Visible && (ShowPlayer || o != _player.Character)).ToList();
+			visibleObjects.Sort(_sorter);
+			return visibleObjects;
 		}
 
 		public IObject GetHotspotAt(float x, float y)
