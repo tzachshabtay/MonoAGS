@@ -19,6 +19,7 @@ namespace AGS.API
 		bool[,] To2DArray();
 
 		void ApplyToMask(bool[][] mask);
+		string DebugString();
 	}
 }
 

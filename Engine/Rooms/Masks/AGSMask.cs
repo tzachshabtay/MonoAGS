@@ -1,5 +1,6 @@
 ﻿using System;
 using AGS.API;
+using System.Text;
 
 namespace AGS.Engine
 {
@@ -24,8 +25,9 @@ namespace AGS.Engine
 			float rightX = scaleX >= 0f ? projectionBox.BottomRight.X : projectionBox.BottomLeft.X;
 			float bottomY = scaleY >= 0f ? projectionBox.BottomLeft.Y : projectionBox.TopLeft.Y;
 			float topY = scaleY >= 0f ? projectionBox.TopLeft.Y : projectionBox.BottomLeft.Y;
-			float x = MathUtils.Lerp(leftX, MinX, rightX, MaxX, point.X);
-			float y = MathUtils.Lerp(bottomY, MinY, topY, MaxY, point.Y);
+			float x = MathUtils.Lerp(leftX, 0, rightX, Width, point.X);
+			float y = MathUtils.Lerp(bottomY, 0, topY, Height
+				, point.Y);
 			return IsMasked(new AGSPoint (x, y));
 		}
 
@@ -72,6 +74,21 @@ namespace AGS.Engine
 						targetMask [i] [j] = true;
 				}
 			}
+		}
+
+		public string DebugString()
+		{
+			StringBuilder sb = new StringBuilder ();
+			for (int y = Height - 1; y >= 0; y--)
+			{
+				for (int x = 0; x < Width; x++)
+				{
+					if (_mask[x][y]) sb.Append('*');
+					else sb.Append(' ');
+				}
+				sb.AppendLine();
+			}
+			return sb.ToString();
 		}
 
 		public int Width { get; private set; }
