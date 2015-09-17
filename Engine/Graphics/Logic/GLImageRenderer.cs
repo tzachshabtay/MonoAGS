@@ -42,7 +42,6 @@ namespace AGS.Engine
 
 			_renderer.Render(glImage.Texture, renderBox, color);
 
-
 			Vector3 bottomLeft = hitTestBox.BottomLeft;
 			Vector3 topLeft = hitTestBox.TopLeft;
 			Vector3 bottomRight = hitTestBox.BottomRight;
