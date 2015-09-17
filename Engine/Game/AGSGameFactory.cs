@@ -58,6 +58,23 @@ namespace AGS.Engine
 			return character;
 		}
 
+		public IObject GetHotspot(string maskPath, string hotspot)
+		{
+			Bitmap image = (Bitmap)Image.FromFile(maskPath); 
+			return GetHotspot(image, hotspot);
+		}
+
+		public IObject GetHotspot(Bitmap maskBitmap, string hotspot)
+		{
+			IMaskLoader maskLoader = _resolver.Resolve<IMaskLoader>();
+			IMask mask = maskLoader.Load(maskBitmap, debugDrawColor: Color.White);
+			mask.DebugDraw.PixelPerfect(true);
+			mask.DebugDraw.Hotspot = hotspot;
+			mask.DebugDraw.Opacity = 0;
+			mask.DebugDraw.Z = mask.MinY;
+			return mask.DebugDraw;
+		}
+
 		public void RegisterCustomData(ICustomSerializable customData)
 		{
 			throw new NotImplementedException();

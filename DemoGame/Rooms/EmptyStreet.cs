@@ -33,6 +33,10 @@ namespace DemoGame
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable1.png") });
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable2.png") });
 
+			_room.Objects.Add(factory.GetHotspot(_baseFolder + "CurbHotspot.png", "Curb"));
+			_room.Objects.Add(factory.GetHotspot(_baseFolder + "BottleHotspot.png", "Bottle"));
+			_room.Objects.Add(factory.GetHotspot(_baseFolder + "GapHotspot.png", "Gap"));
+
 			return _room;
 		}
 

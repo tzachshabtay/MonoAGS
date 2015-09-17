@@ -15,6 +15,8 @@ namespace AGS.API
 		ILabel GetLabel(string text, float width, float height, float x, float y);
 		IObject GetObject();
 		ICharacter GetCharacter();
+		IObject GetHotspot(string maskPath, string hotspot);
+		IObject GetHotspot(Bitmap maskBitmap, string hotspot);
 
 		void RegisterCustomData(ICustomSerializable customData);
 	}
