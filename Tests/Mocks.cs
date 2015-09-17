@@ -11,16 +11,17 @@ namespace Tests
 {
 	public class Mocks : IDisposable
 	{
-		Mock<IAnimationState> animationState;
-		Mock<IAnimation> animation;
-		Mock<IGameState> gameState;
-		Mock<IPlayer> player;
-		Mock<ICharacter> character;
-		Mock<IRoom> room;
-		Mock<IObject> obj;
-		Mock<IViewport> viewport;
-		Mock<ISprite> sprite;
-		Mock<IImage> image;
+		Mock<IAnimationState> _animationState;
+		Mock<IAnimation> _animation;
+		Mock<IGameState> _gameState;
+		Mock<IPlayer> _player;
+		Mock<ICharacter> _character;
+		Mock<IRoom> _room;
+		Mock<IObject> _obj;
+		Mock<IViewport> _viewport;
+		Mock<ISprite> _sprite;
+		Mock<IImage> _image;
+		Mock<IMaskLoader> _maskLoader;
 
 		IContainer container;
 
@@ -58,106 +59,115 @@ namespace Tests
 
 		public Mock<IAnimationState> AnimationState()
 		{
-			if (animationState == null)
+			if (_animationState == null)
 			{
-				animationState = new Mock<IAnimationState> ();
+				_animationState = new Mock<IAnimationState> ();
 			}
-			return animationState;
+			return _animationState;
 		}
 
 		public Mock<IAnimation> Animation()
 		{
-			if (animation == null)
+			if (_animation == null)
 			{
-				animation = new Mock<IAnimation> ();
-				animation.Setup(m => m.State).Returns(AnimationState().Object);
-				animation.Setup(m => m.Sprite).Returns(Sprite().Object);
+				_animation = new Mock<IAnimation> ();
+				_animation.Setup(m => m.State).Returns(AnimationState().Object);
+				_animation.Setup(m => m.Sprite).Returns(Sprite().Object);
 			}
-			return animation;
+			return _animation;
 		}
 
 		public Mock<IGameState> GameState()
 		{
-			if (gameState == null)
+			if (_gameState == null)
 			{
-				gameState = new Mock<IGameState> ();
-				gameState.Setup(m => m.Player).Returns(Player().Object);
+				_gameState = new Mock<IGameState> ();
+				_gameState.Setup(m => m.Player).Returns(Player().Object);
 			}
-			return gameState;
+			return _gameState;
 		}
 
 		public Mock<IPlayer> Player()
 		{
-			if (player == null)
+			if (_player == null)
 			{
-				player = new Mock<IPlayer> ();
-				player.Setup(m => m.Character).Returns(Character().Object);
+				_player = new Mock<IPlayer> ();
+				_player.Setup(m => m.Character).Returns(Character().Object);
 			}
-			return player;
+			return _player;
 		}
 
 		public Mock<ICharacter> Character()
 		{
-			if (character == null)
+			if (_character == null)
 			{
-				character = new Mock<ICharacter> ();
-				character.Setup(m => m.Room).Returns(Room().Object);
+				_character = new Mock<ICharacter> ();
+				_character.Setup(m => m.Room).Returns(Room().Object);
 			}
-			return character;
+			return _character;
 		}
 
 		public Mock<IRoom> Room()
 		{
-			if (room == null)
+			if (_room == null)
 			{
-				room = new Mock<IRoom> ();
-				room.Setup(m => m.Background).Returns(Object().Object);
-				room.Setup(m => m.Viewport).Returns(Viewport().Object);
-				room.Setup(m => m.Objects).Returns(new List<IObject> ());
-				room.Setup(m => m.ShowPlayer).Returns(true);
+				_room = new Mock<IRoom> ();
+				_room.Setup(m => m.Background).Returns(Object().Object);
+				_room.Setup(m => m.Viewport).Returns(Viewport().Object);
+				_room.Setup(m => m.Objects).Returns(new List<IObject> ());
+				_room.Setup(m => m.ShowPlayer).Returns(true);
 			}
-			return room;
+			return _room;
 		}
 
 		public Mock<IObject> Object()
 		{
-			if (obj == null)
+			if (_obj == null)
 			{
-				obj = new Mock<IObject> ();
-				obj.Setup(m => m.Animation).Returns(Animation().Object);
-				obj.Setup(m => m.Image).Returns(Image().Object);
-				obj.Setup(m => m.Enabled).Returns(true);
-				obj.Setup(m => m.Visible).Returns(true);
+				_obj = new Mock<IObject> ();
+				_obj.Setup(m => m.Animation).Returns(Animation().Object);
+				_obj.Setup(m => m.Image).Returns(Image().Object);
+				_obj.Setup(m => m.Enabled).Returns(true);
+				_obj.Setup(m => m.Visible).Returns(true);
 			}
-			return obj;
+			return _obj;
 		}
 
 		public Mock<IViewport> Viewport()
 		{
-			if (viewport == null)
+			if (_viewport == null)
 			{
-				viewport = new Mock<IViewport> ();
+				_viewport = new Mock<IViewport> ();
 			}
-			return viewport;
+			return _viewport;
 		}
 
 		public Mock<ISprite> Sprite()
 		{
-			if (sprite == null)
+			if (_sprite == null)
 			{
-				sprite = new Mock<ISprite> ();
-				sprite.Setup(m => m.Image).Returns(Image().Object);
+				_sprite = new Mock<ISprite> ();
+				_sprite.Setup(m => m.Image).Returns(Image().Object);
 			}
-			return sprite;
+			return _sprite;
 		}
 
 		public Mock<IImage> Image()
 		{
-			if (image == null)
+			if (_image == null)
 			{
-				image = new Mock<IImage> ();
+				_image = new Mock<IImage> ();
 			}
-			return image;
+			return _image;
+		}
+
+		public Mock<IMaskLoader> MaskLoader()
+		{
+			if (_maskLoader == null)
+			{
+				_maskLoader = new Mock<IMaskLoader> ();
+			}
+			return _maskLoader;
 		}
 	}
 }
