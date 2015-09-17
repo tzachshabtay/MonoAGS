@@ -17,7 +17,7 @@ namespace AGS.Engine
 			Anchor = new AGSPoint ();
 
 			Tint = Color.White;
-			Location = new AGSLocation ();
+			Location = AGSLocation.Empty ();
 		}
 
 		#region ISprite implementation

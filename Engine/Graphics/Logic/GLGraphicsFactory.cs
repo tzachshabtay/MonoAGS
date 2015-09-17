@@ -138,8 +138,9 @@ namespace AGS.Engine
 					//GLImage image = loadImage(tex, bitmap, rect, path);
 					ISprite sprite = GetSprite();
 					sprite.Image = image;
-					sprite.Location = new AGSLocation ();
+					sprite.Location = AGSLocation.Empty();
 
+		
 					AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
 					animation.Frames.Add (frame);
 					cellsGrabbed++;

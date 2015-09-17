@@ -20,7 +20,6 @@ namespace AGS.Engine
 		{
 			this._factory = factory;
 			this._sprite = sprite;
-			Location = new AGSLocation ();
 			Anchor = new AGSPoint (0.5f, 0f);
 			Visible = true;
 			Enabled = true;

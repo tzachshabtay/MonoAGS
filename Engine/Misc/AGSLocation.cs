@@ -8,9 +8,6 @@ namespace AGS.Engine
 		private IPoint point;
 		private float? z;
 
-		public AGSLocation() : this(new AGSPoint(), null)
-		{}
-
 		public AGSLocation (IPoint point, float? z = null)
 		{
 			this.point = point;
@@ -20,6 +17,11 @@ namespace AGS.Engine
 
 		public AGSLocation(float x, float y, float? z = null) : this(new AGSPoint(x,y), z)
 		{}
+
+		public static AGSLocation Empty()
+		{
+			return new AGSLocation (new AGSPoint (), null);
+		}
 
 		public float X { get { return point.X; } }
 		public float Y { get { return point.Y; } }

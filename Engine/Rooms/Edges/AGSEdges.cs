@@ -73,7 +73,7 @@ namespace AGS.Engine
 
 		private struct PlayerState
 		{
-			public PlayerState(ICharacter character, float x, float y)
+			public PlayerState(ICharacter character, float x, float y) : this()
 			{
 				Character = character;
 				X = x;
