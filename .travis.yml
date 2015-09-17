@@ -6,6 +6,10 @@ mono:
  - 3.10.0
  - 3.8.0
  
+os:
+ - linux
+ - osx
+ 
 install:
  - nuget restore MonoAGS.sln
  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
