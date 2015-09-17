@@ -84,7 +84,7 @@ namespace AGS.Engine
 		public byte Opacity 
 		{ 
 			get { return Tint.A; }
-			set { Color.FromArgb(value, Tint); }
+			set { Tint = Color.FromArgb(value, Tint); }
 		}
 
 		public Color Tint { get; set; }
