@@ -2,6 +2,7 @@
 using AGS.API;
 using OpenTK;
 using OpenTK.Input;
+using System.Drawing;
 
 namespace AGS.Engine
 {
@@ -11,15 +12,16 @@ namespace AGS.Engine
 		private int _virtualWidth, _virtualHeight;
 		private IGameState _state;
 
-		public GLInput (GameWindow game, IGameState state)
+		public GLInput (GameWindow game, Size virtualResolution, IGameState state)
 		{
-			this._virtualWidth = game.Bounds.Width;
-			this._virtualHeight = game.Bounds.Height;
+			this._virtualWidth = virtualResolution.Width;
+			this._virtualHeight = virtualResolution.Height;
 			this._state = state;
 				
 			this._game = game;
 
-			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs> ();
+			MouseDown
+			= new AGSEvent<AGS.API.MouseButtonEventArgs> ();
 			MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs> ();
 			MouseMove = new AGSEvent<MousePositionEventArgs> ();
 			KeyDown = new AGSEvent<KeyboardEventArgs> ();
