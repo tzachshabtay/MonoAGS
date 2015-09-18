@@ -7,9 +7,6 @@ assembly_info:
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
-environment:
-  COVERALLS_REPO_TOKEN:
-    secure: 7hZHP5bLxlE8doYiQg6b79oF7wM6jlecs
 before_build:
   - nuget restore ".\MonoAGS.sln"
 build:
