@@ -43,14 +43,18 @@ namespace DemoGame
 			doorHotspot.Z = wallHotspot.Z - 1;
 			graffitiHotspot.Z = wallHotspot.Z - 1;
 
+			IObject manholeHotspot = factory.GetHotspot(_baseFolder + "manholeHotspot.png", "Manhole");
+			IObject roadHotspot = factory.GetHotspot(_baseFolder + "roadHotspot.png", "Road");
+			manholeHotspot.Z = roadHotspot.Z - 1;
+
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "barrierHotspot.png", "Barrier"));
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "bloodySidewalkHotspot.png", "Bloody Sidewalk"));
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "brokenCurbHotspot.png", "Broken Curb"));
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "curbHotspot.png", "Curb"));
 			_room.Objects.Add(doorHotspot);
 			_room.Objects.Add(graffitiHotspot);
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "manholeHotspot.png", "Manhole"));
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "roadHotspot.png", "Road"));
+			_room.Objects.Add(manholeHotspot);
+			_room.Objects.Add(roadHotspot);
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "sidewalkHotspot.png", "Sidewalk"));
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "slimeHotspot.png", "Slime"));
 			_room.Objects.Add(wallHotspot);
