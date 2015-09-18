@@ -3,7 +3,7 @@ AGS (Adventure Game Studio) reimagined in Mono
 
 Builds:
 
-| Mac & Linyx              | Windows                |
+| Mac & Linux              | Windows                |
 |--------------------------|------------------------|
 | [![Mac and Linux][1]][2] | [![Windows][3]][4]     |
 
