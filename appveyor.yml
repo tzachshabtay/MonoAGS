@@ -19,4 +19,4 @@ test_script:
 - ps: >-
     .\packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -target:nunit-console.exe -register:user "-targetargs:""Tests\bin\$env:CONFIGURATION\Tests.dll"" /noshadow" -filter:"+[Engine*]*" -output:opencoverCoverage.xml
     
-    .\packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover -i ./opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN
+    .\packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover -i ./opencoverCoverage.xml --repoToken 7hZHP5bLxlE8doYiQg6b79oF7wM6jlecs
