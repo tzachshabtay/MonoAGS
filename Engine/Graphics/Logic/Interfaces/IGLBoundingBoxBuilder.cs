@@ -6,7 +6,7 @@ namespace AGS.Engine
 {
 	public interface IGLBoundingBoxBuilder
 	{
-		IGLBoundingBoxes Build(float width, float height, IGLMatrices matrices);
+		void Build(IGLBoundingBoxes boxes, float width, float height, IGLMatrices matrices);
 	}
 }
 

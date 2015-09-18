@@ -36,9 +36,10 @@ namespace AGS.Engine
 
 		public ILabel GetLabel(string text, float width, float height, float x, float y)
 		{
-			ILabel label = _resolver.Resolve<ILabel>();
+			SizeF baseSize = new SizeF(width, height);
+			TypedParameter typedParameter = new TypedParameter (typeof(SizeF), baseSize);
+			ILabel label = _resolver.Resolve<ILabel>(typedParameter);
 			label.Text = text;
-			label.ScaleTo(width, height);
 			label.X = x;
 			label.Y = y;
 			label.Tint = Color.Transparent;

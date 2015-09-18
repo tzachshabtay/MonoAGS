@@ -10,7 +10,7 @@ namespace AGS.Engine
 		private IObject _obj;
 		private ILabelRenderer _labelRenderer;
 
-		public AGSLabel(IObject obj, IUIEvents events, IImage image, ILabelRenderer labelRenderer)
+		public AGSLabel(IObject obj, IUIEvents events, IImage image, ILabelRenderer labelRenderer, SizeF baseSize)
 		{
 			this._obj = obj;
 			Anchor = new AGSPoint ();
@@ -19,6 +19,7 @@ namespace AGS.Engine
 			Image = image;
 			IgnoreViewport = true;
 			_labelRenderer = labelRenderer;
+			_labelRenderer.BaseSize = baseSize;
 			CustomRenderer = _labelRenderer;
 		}
 

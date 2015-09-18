@@ -133,8 +133,9 @@
     <Compile Include="UI\DebugLabels\DebugLabel.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLMatrices.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLBoundingBoxes.cs" />
-    <Compile Include="Graphics\Logic\GLBoundingBoxes.cs" />
     <Compile Include="Graphics\Logic\GLBoundingBox.cs" />
+    <Compile Include="Graphics\Logic\GLBoundingBoxesBuilder.cs" />
+    <Compile Include="Graphics\Logic\GLBoundingBoxes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

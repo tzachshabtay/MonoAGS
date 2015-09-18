@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace AGS.API
 {
@@ -6,6 +7,7 @@ namespace AGS.API
 	{
 		string Text { get; set; }
 		ITextConfig Config { get; set; }
+	    SizeF BaseSize { get; set; }
 	}
 }
 

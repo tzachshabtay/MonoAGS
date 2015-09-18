@@ -12,24 +12,26 @@ namespace AGS.Engine
 		private readonly GLText _glText;
 
 		private readonly MatrixContainer _matrixContainer;
-		private readonly BoundingBoxContainer _boxContainer;
 
 		private readonly IGLMatrixBuilder _matrixBuilder;
 		private readonly IGLBoundingBoxBuilder _boundingBoxBuilder;
 		private readonly IGLColorBuilder _colorBuilder;
 		private readonly IGLTextureRenderer _textureRenderer;
+		private readonly IGLBoundingBoxes _labelBoundingBoxes, _textBoundingBoxes;
 
 		public GLLabelRenderer(Dictionary<string, GLImage> textures, IGLMatrixBuilder matrixBuilder,
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
-			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool)
+			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, 
+			IGLBoundingBoxes labelBoundingBoxes, IGLBoundingBoxes textBoundingBoxes)
 		{
 			_matrixContainer = new MatrixContainer ();
-			_boxContainer = new BoundingBoxContainer ();
 			_textureRenderer = textureRenderer;
-			_bgRenderer = new GLImageRenderer(textures, _matrixContainer,
-				_boxContainer, colorBuilder, _textureRenderer);
-			_matrixBuilder = matrixBuilder;
+			_labelBoundingBoxes = labelBoundingBoxes;
+			_textBoundingBoxes = textBoundingBoxes;
 			_boundingBoxBuilder = boundingBoxBuilder;
+			_bgRenderer = new GLImageRenderer(textures, _matrixContainer,
+				_boundingBoxBuilder, colorBuilder, _textureRenderer, _labelBoundingBoxes);
+			_matrixBuilder = matrixBuilder;
 			_colorBuilder = colorBuilder;
 			_glText = new GLText (bitmapPool, "");
 			TextVisible = true;
@@ -39,6 +41,8 @@ namespace AGS.Engine
 		public string Text { get; set; }
 		public ITextConfig Config { get; set; }
 		public bool WrapText { get; set; }
+		public bool ScaleTextToFit { get; set; }
+		public SizeF BaseSize { get; set; }
 
 		#region IImageRenderer implementation
 
@@ -46,10 +50,9 @@ namespace AGS.Engine
 		{
 			ISprite sprite = obj.Animation.Sprite;
 			IGLMatrices matrices = _matrixBuilder.Build(obj, viewport);
-			IGLBoundingBoxes boxes = _boundingBoxBuilder.Build(sprite.Image.Width, sprite.Image.Height, matrices);
+			_boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, matrices);
 			IGLColor color = _colorBuilder.Build(obj, sprite);
 			_matrixContainer.Matrices = matrices;
-			_boxContainer.BoundingBoxes = boxes;
 
 			_bgRenderer.Render(obj, viewport);
 
@@ -58,6 +61,12 @@ namespace AGS.Engine
 			{
 				_glText.SetBatch(Text, Config == null ? null : Config.Font, WrapText ? (int?)sprite.Image.Width : null);
 				_glText.Refresh();
+				IGLBoundingBoxes boxes = _labelBoundingBoxes;
+				if (!ScaleTextToFit)
+				{
+					_boundingBoxBuilder.Build(_textBoundingBoxes, _glText.Width, _glText.Height, matrices);
+					boxes = _textBoundingBoxes;
+				}
 				_textureRenderer.Render(_glText.Texture, boxes.RenderBox, color);
 			}
 		}
@@ -72,18 +81,6 @@ namespace AGS.Engine
 			public IGLMatrices Build(IObject obj, IViewport viewport)
 			{
 				return Matrices;
-			}
-			#endregion
-		}
-
-		private class BoundingBoxContainer : IGLBoundingBoxBuilder
-		{
-			public IGLBoundingBoxes BoundingBoxes { get; set; }
-
-			#region IGLBoundingBoxBuilder implementation
-			public IGLBoundingBoxes Build(float width, float height, IGLMatrices matrices)
-			{
-				return BoundingBoxes;
 			}
 			#endregion
 		}

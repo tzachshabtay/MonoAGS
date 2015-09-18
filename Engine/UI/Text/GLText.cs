@@ -47,6 +47,9 @@ namespace AGS.Engine
 
 		public int Texture { get { return _texture; } }
 
+		public int Width { get { return _bitmap.Width; } }
+		public int Height { get { return _bitmap.Height; } }
+
 		public void SetBatch(string text = null, Font font = null, int? maxWidth = null)
 		{
 			bool changeNeeded = (text != null && text != _text) || (font != null && !font.Equals(_font))

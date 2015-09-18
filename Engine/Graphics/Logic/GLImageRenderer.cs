@@ -13,16 +13,18 @@ namespace AGS.Engine
 		private IGLBoundingBoxBuilder _boundingBoxBuilder;
 		private IGLColorBuilder _colorBuilder;
 		private IGLTextureRenderer _renderer;
+		private IGLBoundingBoxes _boundingBoxes;
 
 		public GLImageRenderer (Dictionary<string, GLImage> textures, 
 			IGLMatrixBuilder matrixBuilder, IGLBoundingBoxBuilder boundingBoxBuilder,
-			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer)
+			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer, IGLBoundingBoxes bgBoxes)
 		{
 			_textures = textures;
 			_matrixBuilder = matrixBuilder;
 			_boundingBoxBuilder = boundingBoxBuilder;
 			_colorBuilder = colorBuilder;
 			_renderer = renderer;
+			_boundingBoxes = bgBoxes;
 		}
 
 		public void Render(IObject obj, IViewport viewport)
@@ -31,10 +33,10 @@ namespace AGS.Engine
 
 			IGLMatrices matrices = _matrixBuilder.Build(obj, viewport);
 
-			IGLBoundingBoxes boundingBoxes = _boundingBoxBuilder.Build(sprite.Image.Width,
+			_boundingBoxBuilder.Build(_boundingBoxes, sprite.Image.Width,
 				sprite.Image.Height, matrices);
-			IGLBoundingBox hitTestBox = boundingBoxes.HitTestBox;
-			IGLBoundingBox renderBox = boundingBoxes.RenderBox;
+			IGLBoundingBox hitTestBox = _boundingBoxes.HitTestBox;
+			IGLBoundingBox renderBox = _boundingBoxes.RenderBox;
 
 			GLImage glImage = _textures.GetOrAdd (sprite.Image.ID, () => createNewTexture (sprite.Image.ID));
 
