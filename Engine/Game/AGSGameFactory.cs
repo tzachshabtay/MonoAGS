@@ -34,7 +34,7 @@ namespace AGS.Engine
 			throw new NotImplementedException();
 		}
 
-		public ILabel GetLabel(string text, float width, float height, float x, float y)
+		public ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null)
 		{
 			SizeF baseSize = new SizeF(width, height);
 			TypedParameter typedParameter = new TypedParameter (typeof(SizeF), baseSize);
@@ -43,6 +43,7 @@ namespace AGS.Engine
 			label.X = x;
 			label.Y = y;
 			label.Tint = Color.Transparent;
+			label.TextConfig = config ?? new AGSTextConfig();
 			_gameState.UI.Add(label);
 			return label;
 		}

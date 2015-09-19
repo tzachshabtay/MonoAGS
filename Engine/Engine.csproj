@@ -136,6 +136,7 @@
     <Compile Include="Graphics\Logic\GLBoundingBox.cs" />
     <Compile Include="Graphics\Logic\GLBoundingBoxesBuilder.cs" />
     <Compile Include="Graphics\Logic\GLBoundingBoxes.cs" />
+    <Compile Include="UI\Text\AGSTextConfig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

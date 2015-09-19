@@ -5,11 +5,15 @@ namespace AGS.API
 {
 	public interface ITextConfig
 	{
-		Color Color { get; }
+		Brush Brush { get; }
 		Font Font { get; }
 
-		Color OutlineColor { get; }
+		Brush OutlineBrush { get; }
 		float OutlineWidth { get; }
+
+		Brush ShadowBrush  { get; }
+		float ShadowOffsetX { get; }
+		float ShadowOffsetY { get; }
 	}
 }
 

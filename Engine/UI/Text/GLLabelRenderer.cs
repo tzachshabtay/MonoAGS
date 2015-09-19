@@ -33,7 +33,7 @@ namespace AGS.Engine
 				_boundingBoxBuilder, colorBuilder, _textureRenderer, _labelBoundingBoxes);
 			_matrixBuilder = matrixBuilder;
 			_colorBuilder = colorBuilder;
-			_glText = new GLText (bitmapPool, "");
+			_glText = new GLText (bitmapPool);
 			TextVisible = true;
 		}
 
@@ -56,10 +56,9 @@ namespace AGS.Engine
 
 			_bgRenderer.Render(obj, viewport);
 
-			color = _colorBuilder.Build(Config == null ? Color.White : Config.Color);
 			if (TextVisible)
 			{
-				_glText.SetBatch(Text, Config == null ? null : Config.Font, WrapText ? (int?)sprite.Image.Width : null);
+				_glText.SetProperties(Text, Config, WrapText ? (int?)sprite.Image.Width : null);
 				_glText.Refresh();
 				IGLBoundingBoxes boxes = _labelBoundingBoxes;
 				if (!ScaleTextToFit)
@@ -67,6 +66,7 @@ namespace AGS.Engine
 					_boundingBoxBuilder.Build(_textBoundingBoxes, _glText.Width, _glText.Height, matrices);
 					boxes = _textBoundingBoxes;
 				}
+				color = _colorBuilder.Build(Color.White);
 				_textureRenderer.Render(_glText.Texture, boxes.RenderBox, color);
 			}
 		}

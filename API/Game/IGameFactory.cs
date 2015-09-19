@@ -12,7 +12,7 @@ namespace AGS.API
 		float GetFloat(string name, float defaultValue = 0f);
 		string GetString(string name, string defaultValue = null);
 
-		ILabel GetLabel(string text, float width, float height, float x, float y);
+		ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null);
 		IObject GetObject();
 		ICharacter GetCharacter();
 		IObject GetHotspot(string maskPath, string hotspot);
