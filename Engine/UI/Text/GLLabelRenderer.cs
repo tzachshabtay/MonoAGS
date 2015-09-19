@@ -30,7 +30,7 @@ namespace AGS.Engine
 			_textBoundingBoxes = textBoundingBoxes;
 			_boundingBoxBuilder = boundingBoxBuilder;
 			_bgRenderer = new GLImageRenderer(textures, _matrixContainer,
-				_boundingBoxBuilder, colorBuilder, _textureRenderer, _labelBoundingBoxes);
+				new BoundingBoxesEmptyBuilder(), colorBuilder, _textureRenderer, _labelBoundingBoxes);
 			_matrixBuilder = matrixBuilder;
 			_colorBuilder = colorBuilder;
 			_glText = new GLText (bitmapPool);
@@ -83,6 +83,16 @@ namespace AGS.Engine
 				return Matrices;
 			}
 			#endregion
+		}
+
+		private class BoundingBoxesEmptyBuilder : IGLBoundingBoxBuilder
+		{
+			#region IGLBoundingBoxBuilder implementation
+			public void Build(IGLBoundingBoxes boxes, float width, float height, IGLMatrices matrices)
+			{
+			}
+			#endregion
+			
 		}
 	}
 }
