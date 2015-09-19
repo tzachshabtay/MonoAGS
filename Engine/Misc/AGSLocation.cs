@@ -25,17 +25,7 @@ namespace AGS.Engine
 
 		public float X { get { return point.X; } }
 		public float Y { get { return point.Y; } }
-		public float Z 
-		{ 
-			get { return z.HasValue ? z.Value : Y; }
-			set 
-			{
-				if (value == Y)
-					z = null;
-				else
-					z = value;
-			}
-		}
+		public float Z { get { return z.HasValue ? z.Value : Y; } }
 
 		public override string ToString ()
 		{

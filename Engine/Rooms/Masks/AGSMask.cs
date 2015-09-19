@@ -25,16 +25,15 @@ namespace AGS.Engine
 			float rightX = scaleX >= 0f ? projectionBox.BottomRight.X : projectionBox.BottomLeft.X;
 			float bottomY = scaleY >= 0f ? projectionBox.BottomLeft.Y : projectionBox.TopLeft.Y;
 			float topY = scaleY >= 0f ? projectionBox.TopLeft.Y : projectionBox.BottomLeft.Y;
-			float x = MathUtils.Lerp(leftX, 0, rightX, Width, point.X);
-			float y = MathUtils.Lerp(bottomY, 0, topY, Height
-				, point.Y);
+			float x = MathUtils.Lerp(leftX, 0, rightX, Width - 1, point.X);
+			float y = MathUtils.Lerp(bottomY, 0, topY, Height - 1, point.Y);
 			return IsMasked(new AGSPoint (x, y));
 		}
 
 		public bool IsMasked(IPoint point)
 		{
-			int x = (int)point.X;
-			int y = (int)point.Y;
+			int x = (int)Math.Round(point.X, 0);
+			int y = (int)Math.Round(point.Y, 0);
 			if (x < 0 || x >= Width)
 				return false;
 			if (y < 0 || y >= Height)

@@ -3,6 +3,7 @@ using NUnit.Framework;
 using AGS.Engine;
 using AGS.API;
 using Moq;
+using System.Drawing;
 
 namespace Tests
 {
@@ -71,6 +72,57 @@ namespace Tests
 			Assert.AreEqual(expectedScaleY, sprite.ScaleY);
 
 			testResetScale(imageWidth, imageHeight, sprite);
+		}
+
+		[Test]
+		public void PerformingPixelPerfectTest()
+		{
+			Mock<IMask> mask = new Mock<IMask> ();
+			Bitmap bitmap = new Bitmap (1, 1);
+			_mocks.Image().Setup(i => i.OriginalBitmap).Returns(bitmap);
+			_mocks.MaskLoader().Setup(m => m.Load(bitmap, false, null, null)).Returns(mask.Object);
+			AGSSprite sprite = createSprite();
+			sprite.Image = _mocks.Image().Object;
+
+			sprite.PixelPerfect(true);
+
+			Assert.AreEqual(mask.Object, sprite.PixelPerfectHitTestArea.Mask);
+			Assert.IsTrue(sprite.PixelPerfectHitTestArea.Enabled);
+		}
+
+		[Test]
+		public void PerformingPixelPerfect_OnlyOnce_Test()
+		{
+			_mocks.MaskLoader().Setup(m => m.Load((Bitmap)null, false, null, null)).Returns((IMask)null);
+			AGSSprite sprite = createSprite();
+			sprite.Image = _mocks.Image().Object;
+
+			sprite.PixelPerfect(true);
+			Mock<IMask> secondMask = new Mock<IMask> ();
+
+			_mocks.MaskLoader().Verify(m => m.Load((Bitmap)null, false, null, null), Times.Once());
+		}
+
+		[Test]
+		public void DisablingPixelPerfect_WhenDisabled_Test()
+		{
+			AGSSprite sprite = createSprite();
+			sprite.PixelPerfect(false);
+			Assert.IsNull(sprite.PixelPerfectHitTestArea);
+		}
+
+		[Test]
+		public void DisablingPixelPerfect_WhenEnabled_Test()
+		{
+			_mocks.MaskLoader().Setup(m => m.Load((Bitmap)null, false, null, null)).Returns((IMask)null);
+			AGSSprite sprite = createSprite();
+			sprite.Image = _mocks.Image().Object;
+
+			sprite.PixelPerfect(true);
+			sprite.PixelPerfect(false);
+
+			Assert.IsNotNull(sprite.PixelPerfectHitTestArea);
+			Assert.IsFalse(sprite.PixelPerfectHitTestArea.Enabled);
 		}
 
 		static void testResetScale(float imageWidth, float imageHeight, AGSSprite sprite)
