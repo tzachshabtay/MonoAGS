@@ -7,6 +7,7 @@ namespace AGS.API
 	{
 		Brush Brush { get; }
 		Font Font { get; }
+		ContentAlignment Alignment { get; }
 
 		Brush OutlineBrush { get; }
 		float OutlineWidth { get; }

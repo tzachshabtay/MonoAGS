@@ -7,7 +7,8 @@ namespace AGS.Engine
 	public class AGSTextConfig : ITextConfig
 	{
 		public AGSTextConfig(Brush brush = null, Font font = null, Brush outlineBrush = null, float outlineWidth = 0f,
-			Brush shadowBrush = null, float shadowOffsetX = 0f, float shadowOffsetY = 0f)
+			Brush shadowBrush = null, float shadowOffsetX = 0f, float shadowOffsetY = 0f, 
+			ContentAlignment alignment = ContentAlignment.TopLeft)
 		{
 			Brush = brush ?? Brushes.White;
 			Font = font ?? DefaultFont;
@@ -16,6 +17,7 @@ namespace AGS.Engine
 			ShadowBrush = shadowBrush;
 			ShadowOffsetX = shadowOffsetX;
 			ShadowOffsetY = shadowOffsetY;
+			Alignment = alignment;
 		}
 
 		public static Font DefaultFont = new Font(SystemFonts.DefaultFont.FontFamily
@@ -26,6 +28,8 @@ namespace AGS.Engine
 		public Brush Brush { get; private set; }
 
 		public Font Font { get; private set; }
+
+		public ContentAlignment Alignment { get; private set; }
 
 		public Brush OutlineBrush { get; private set; }
 

@@ -9,6 +9,9 @@ namespace AGS.Engine
 		Vector3 TopLeft { get; set; }
 		Vector3 BottomRight { get; set; }
 		Vector3 TopRight { get; set; }
+
+		float Width { get; }
+		float Height { get; }
 	}
 }
 

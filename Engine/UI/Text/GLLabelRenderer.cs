@@ -58,19 +58,20 @@ namespace AGS.Engine
 
 			if (TextVisible)
 			{
-				_glText.SetProperties(Text, Config, WrapText ? (int?)sprite.Image.Width : null);
+				SizeF size = new SizeF (_labelBoundingBoxes.RenderBox.Width, _labelBoundingBoxes.RenderBox.Height);
+				_glText.SetProperties(size, Text, Config, WrapText ? (int?)sprite.Image.Width : null);
 				_glText.Refresh();
 				IGLBoundingBoxes boxes = _labelBoundingBoxes;
 				if (!ScaleTextToFit)
 				{
-					_boundingBoxBuilder.Build(_textBoundingBoxes, _glText.Width, _glText.Height, matrices);
+					_boundingBoxBuilder.Build(_textBoundingBoxes, _glText.BitmapWidth, _glText.BitmapHeight, matrices);
 					boxes = _textBoundingBoxes;
 				}
 				color = _colorBuilder.Build(Color.White);
 				_textureRenderer.Render(_glText.Texture, boxes.RenderBox, color);
 			}
 		}
-
+			
 		#endregion
 
 		private class MatrixContainer : IGLMatrixBuilder

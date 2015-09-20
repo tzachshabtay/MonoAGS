@@ -41,8 +41,8 @@ namespace DemoGame
 				TwoButtonsInputScheme inputScheme = new TwoButtonsInputScheme(game.State, game.Input);
 				inputScheme.Start();
 
-				ILabel label = game.Factory.GetLabel("", 50, 15, 135, 10, new AGSTextConfig(brush: Brushes.WhiteSmoke,
-					outlineBrush: Brushes.DarkSlateBlue, outlineWidth: 2f));
+				ILabel label = game.Factory.GetLabel("", 150, 25, 85, 10, new AGSTextConfig(brush: Brushes.WhiteSmoke,
+					alignment: ContentAlignment.MiddleCenter, outlineBrush: Brushes.DarkSlateBlue, outlineWidth: 2f));
 				HotspotLabel hotspotLabel = new HotspotLabel(game, label);
 				hotspotLabel.Start();
 
@@ -55,12 +55,12 @@ namespace DemoGame
 		[Conditional("DEBUG")]
 		private static void addDebugLabels(IGame game)
 		{
-			ILabel fpsLabel = game.Factory.GetLabel("", 30, 15, 0, 20);
+			ILabel fpsLabel = game.Factory.GetLabel("", 30, 25, 0, 25);
 			fpsLabel.ScaleBy(0.7f, 0.7f);
 			FPSCounter fps = new FPSCounter(game.Events, fpsLabel);
 			fps.Start();
 
-			ILabel label = game.Factory.GetLabel("", 30, 15, 0, 0);
+			ILabel label = game.Factory.GetLabel("", 30, 25, 0, 5);
 			label.ScaleBy(0.7f, 0.7f);
 			MousePositionLabel mouseLabel = new MousePositionLabel(game.Input, label);
 			mouseLabel.Start();
