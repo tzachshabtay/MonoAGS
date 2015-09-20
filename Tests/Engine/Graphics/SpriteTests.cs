@@ -98,7 +98,6 @@ namespace Tests
 			sprite.Image = _mocks.Image().Object;
 
 			sprite.PixelPerfect(true);
-			Mock<IMask> secondMask = new Mock<IMask> ();
 
 			_mocks.MaskLoader().Verify(m => m.Load((Bitmap)null, false, null, null), Times.Once());
 		}
