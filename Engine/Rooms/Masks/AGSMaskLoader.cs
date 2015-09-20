@@ -52,8 +52,12 @@ namespace AGS.Engine
 			int x = 0;
 			int y = 0;
 			Bitmap debugMask = null;
+			FastBitmap debugMaskFast = null;
 			if (saveMaskToFile != null || debugDrawColor != null)
+			{
 				debugMask = new Bitmap (image.Width, image.Height);
+				debugMaskFast = new FastBitmap (debugMask, ImageLockMode.WriteOnly, true);
+			}
 
 			bool[][] mask = new bool[image.Width][];
 			Color drawColor = debugDrawColor.HasValue ? debugDrawColor.Value : Color.Black;
@@ -80,7 +84,7 @@ namespace AGS.Engine
 
 					if (debugMask != null)
 					{
-						debugMask.SetPixel(x, y, masked ? drawColor : Color.Transparent);
+						debugMaskFast.SetPixel(x, y, masked ? drawColor : Color.Transparent);
 					}
 				}
 
@@ -94,6 +98,9 @@ namespace AGS.Engine
 				}
 
 			}
+
+			if (debugMask != null)
+				debugMaskFast.Dispose();
 
 			//Save the duplicate
 			if (saveMaskToFile != null)

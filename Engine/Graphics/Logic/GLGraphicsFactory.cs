@@ -214,77 +214,10 @@ namespace AGS.Engine
 
 			return tex;
 		}
-
-		/*private GLImage loadImage(int texture, Bitmap bitmap, Rectangle rect, string path)
-		{
 			
-			BitmapData full = bitmap.LockBits(rect,
-				ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-			int bpp = full.Stride / full.Width;
-			int offset = rect.Y * full.Stride + rect.X * bpp;
-
-			bitmap.UnlockBits (full);
-
-
-			BitmapData data = bitmap.LockBits(rect,
-				ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-			IntPtr pointer = IntPtr.Add(data.Scan0, offset);
-				
-			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
-				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, pointer);
-			bitmap.UnlockBits(data);
-
-			GLImage image = new GLImage () { Width = rect.Width, Height = rect.Height, 
-				Texture = texture, Path = path };
-			return image;
-		}*/
-
-
 		private Bitmap crop(Bitmap bmp, Rectangle cropRect)
 		{
-			return bmp.Clone (cropRect, bmp.PixelFormat); //todo: improve performance
-
-			/*Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
-			BitmapData rawOriginal = bmp.LockBits(rect, ImageLockMode.ReadOnly, 
-				System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-			int origByteCount = rawOriginal.Stride * rawOriginal.Height;
-			byte[] origBytes = new Byte[origByteCount];
-			Marshal.Copy(rawOriginal.Scan0, origBytes, 0, origByteCount);
-
-			int BPP = 4;
-
-			byte[] croppedBytes = new Byte[cropRect.Width * cropRect.Height * BPP];
-
-			//Iterate the selected area of the original image, and the full area of the new image
-			for (int i = 0; i < cropRect.Height; i++)
-			{
-				for (int j = 0; j < cropRect.Width * BPP; j += BPP)
-				{
-					int origIndex = (cropRect.X * rawOriginal.Stride) + (i * rawOriginal.Stride) + (cropRect.Y * BPP) + (j);
-					int croppedIndex = (i * cropRect.Width * BPP) + (j);
-
-					//copy data: once for each channel
-					for (int k = 0; k < BPP; k++)
-					{
-						croppedBytes[croppedIndex + k] = origBytes[origIndex + k];
-					}
-				}
-			}
-
-			//copy new data into a bitmap
-			Bitmap croppedBitmap = new Bitmap(cropRect.Width, cropRect.Height);
-			BitmapData croppedData = croppedBitmap.LockBits(new Rectangle(0, 0, cropRect.Width, cropRect.Height), ImageLockMode.WriteOnly, 
-				System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-			Marshal.Copy(croppedBytes, 0, croppedData.Scan0, croppedBytes.Length);
-
-			bmp.UnlockBits(rawOriginal);
-			croppedBitmap.UnlockBits(croppedData);
-
-			//croppedBitmap.Save (string.Format ("{0}_{1}.png", cropRect.X, cropRect.Y), ImageFormat.Png);
-			return croppedBitmap;*/
+			return bmp.Clone (cropRect, bmp.PixelFormat); //todo: improve performance by using FastBitmap
 		}
 
 		private GLImage loadImage(int texture, Bitmap bitmap, string path, ILoadImageConfig config)
