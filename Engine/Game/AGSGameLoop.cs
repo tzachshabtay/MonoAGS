@@ -7,8 +7,9 @@ namespace AGS.Engine
 {
 	public class AGSGameLoop : IGameLoop
 	{
-		IGameState _gameState;
-		Size _virtualResolution;
+		private IGameState _gameState;
+		private Size _virtualResolution;
+		private IRoom _lastPlayerRoom;
 
 		public AGSGameLoop (IGameState gameState, Size virtualResolution)
 		{
@@ -33,6 +34,7 @@ namespace AGS.Engine
 			}
 
 			updateViewport (room);
+			_lastPlayerRoom = room;
 			Task.Run (async () => await UpdateAsync ()).Wait ();
 		}
 
@@ -49,8 +51,10 @@ namespace AGS.Engine
 			if (viewportFollower != null) 
 			{
 				ISprite sprite = room.Background.Animation.Sprite;
+				bool playerChangedRoom = _lastPlayerRoom != _gameState.Player.Character.Room;
 				IPoint point = viewportFollower.Follow (new AGSPoint (room.Viewport.X, room.Viewport.Y),
-					new Size((int)sprite.Width, (int)sprite.Height), _virtualResolution);
+					new Size((int)sprite.Width, (int)sprite.Height), _virtualResolution, 
+					playerChangedRoom);
 				room.Viewport.X = point.X;
 				room.Viewport.Y = point.Y;
 			}

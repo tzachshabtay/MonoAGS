@@ -42,7 +42,6 @@ namespace Tests
 		[TestCase(40f, 200f, 500, 300, 20f, Result = 42)]
 		[TestCase(60f, 200f, 500, 300, 30f, Result = 57)]
 		[TestCase(60f, 200f, 500, 300, 20f, Result = 58)]
-
 		public int SingleViewportFollowTest(float currentViewX, float targetPosX, 
 			int roomWidth, int screenWidth, float speedX)
 		{
@@ -51,7 +50,8 @@ namespace Tests
 			_mocks.Object().Setup(o => o.Y).Returns(0f);
 			Func<IObject> getTarget = () => _mocks.Object().Object;
 			follower.Target = getTarget;
-			var result = follower.Follow(new AGSPoint (currentViewX, 0f), new Size (roomWidth, 200), new Size (screenWidth, 200));
+			var result = follower.Follow(new AGSPoint (currentViewX, 0f), new Size (roomWidth, 200), 
+				new Size (screenWidth, 200), false);
 			return (int)result.X;
 		}
 	}

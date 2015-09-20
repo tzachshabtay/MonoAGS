@@ -234,7 +234,8 @@ namespace Tests
 			Mock<IFollower> follower = new Mock<IFollower> ();
 			IPoint sourcePoint = new AGSPoint (15f, 25f);
 			IPoint targetPoint = new AGSPoint (55f, 65f);
-			follower.Setup(f => f.Follow(sourcePoint, It.IsAny<Size>(), It.IsAny<Size>())).Returns(targetPoint);
+			follower.Setup(f => f.Follow(sourcePoint, It.IsAny<Size>(), It.IsAny<Size>(),
+				It.IsAny<bool>())).Returns(targetPoint);
 			_mocks.Viewport().Setup(v => v.X).Returns(sourcePoint.X);
 			_mocks.Viewport().Setup(v => v.Y).Returns(sourcePoint.Y);
 			_mocks.Viewport().Setup(v => v.Follower).Returns(follower.Object);

@@ -7,7 +7,7 @@ namespace AGS.API
 	{
 		bool Enabled { get; set; }
 		Func<IObject> Target { get; set; }
-		IPoint Follow(IPoint point, Size roomSize, Size virtualResolution);
+		IPoint Follow(IPoint point, Size roomSize, Size virtualResolution, bool resetPosition);
 	}
 }
 

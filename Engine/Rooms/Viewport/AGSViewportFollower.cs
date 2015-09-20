@@ -33,12 +33,16 @@ namespace AGS.Engine
 
 		#region IFollower implementation
 
-		public IPoint Follow (IPoint point, Size roomSize, Size virtualResoution)
+		public IPoint Follow (IPoint point, Size roomSize, Size virtualResoution, bool resetPosition)
 		{
 			IObject target = Target == null ? null : Target();
 			if (!Enabled || target == null) return point;
 			float targetX = getTargetPos(target.X, roomSize.Width, virtualResoution.Width);
 			float targetY = getTargetPos(target.Y, roomSize.Height, virtualResoution.Height);
+			if (resetPosition)
+			{
+				return new AGSPoint (targetX, targetY);
+			}
 			float newX = getPos (point.X, targetX, StartSpeedX, ref speedX);
 			float newY = getPos (point.Y, targetY, StartSpeedY, ref speedY);
 			return new AGSPoint (newX, newY);
