@@ -35,7 +35,7 @@ using System.Collections;
 
 namespace AGS.Engine
 {
-	public class EPStaticGrid : BaseGrid
+	public class FixedGrid : BaseGrid
 	{
 		public override int width { get; protected set; }
 
@@ -43,7 +43,7 @@ namespace AGS.Engine
 
 		private EPNode[][] m_nodes;
 
-		public EPStaticGrid(int iWidth, int iHeight, bool[][] iMatrix = null):base()
+		public FixedGrid(int iWidth, int iHeight, bool[][] iMatrix = null):base()
 		{
 			width = iWidth;
 			height = iHeight;
@@ -54,7 +54,7 @@ namespace AGS.Engine
 			this.m_nodes = buildNodes(iWidth, iHeight, iMatrix);
 		}
 
-		public EPStaticGrid(EPStaticGrid b)
+		public FixedGrid(FixedGrid b)
 			: base(b)
 		{
 			bool[][] tMatrix = new bool[b.width][];
@@ -207,7 +207,7 @@ namespace AGS.Engine
 			int tHeight = height;
 			EPNode[][] tNodes = this.m_nodes;
 
-			EPStaticGrid tNewGrid = new EPStaticGrid(tWidth, tHeight, null);
+			FixedGrid tNewGrid = new FixedGrid(tWidth, tHeight, null);
 
 			EPNode[][] tNewNodes = new EPNode[tWidth][];
 			for (int widthTrav = 0; widthTrav < tWidth; widthTrav++)

@@ -73,7 +73,7 @@
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGrid.cs" />
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGridWPool.cs" />
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\PartialGridWPool.cs" />
-	<Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\EPStaticGrid.cs" />
+	<Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\FixedGrid.cs" />
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\EPPathFinder.cs" />
     <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\PriorityQueue.cs" />
     <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\SpatialAStar.cs" />
