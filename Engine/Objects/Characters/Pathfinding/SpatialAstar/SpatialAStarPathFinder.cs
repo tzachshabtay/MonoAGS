@@ -33,6 +33,8 @@ namespace AGS.Engine
 		{
 			int fromX = (int)from.X;
 			int fromY = (int)from.Y;
+			int toX = (int)to.X;
+			int toY = (int)to.Y;
 			SpatialAStar<PathNode, object> finder = new SpatialAStar<PathNode, object> (pathMask);
 			var paths = finder.Search (new System.Drawing.Point (fromX, fromY), 
 				new System.Drawing.Point ((int)to.X, (int)to.Y), null);
@@ -58,7 +60,8 @@ namespace AGS.Engine
 					if (dirX != currentDirX || dirY != currentDirY) 
 					{
 						if (Math.Abs (prevAcceptedNode.X - node.X) <= 10
-						    && Math.Abs (prevAcceptedNode.Y - node.Y) <= 10)
+						    && Math.Abs (prevAcceptedNode.Y - node.Y) <= 10
+							&& (node.X != toX || node.Y != toY))
 							continue; //smoothing the path
 						currentDirX = dirX;
 						currentDirY = dirY;

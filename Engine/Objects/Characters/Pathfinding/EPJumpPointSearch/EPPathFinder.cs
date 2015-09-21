@@ -19,8 +19,7 @@ namespace AGS.Engine
 			if (mask == null || mask [0] == null)
 				return new List<ILocation> ();
 			StaticGrid grid = new StaticGrid (mask.Length, mask[0].Length, mask);
-			JumpPointParam input = new JumpPointParam (grid, getPos(from), getPos(to));
-			input.CrossAdjacentPoint = false;
+			JumpPointParam input = new JumpPointParam (grid, getPos(from), getPos(to), false, true, false);
 			var cells = JumpPointFinder.FindPath (input);
 			return cells.Select (c => getLocation (c, to.Z));
 		}

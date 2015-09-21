@@ -21,7 +21,7 @@ namespace Tests
 			int expectedMinX, int expectedMaxX, int expectedMinY, int expectedMaxY,
 			params int[] pointsInMask)
 		{
-			bool[][] array = getArray(width, height, pointsInMask);
+			bool[][] array = GetArray(width, height, true, pointsInMask);
 
 			AGSMask mask = new AGSMask(array, null);
 
@@ -53,7 +53,7 @@ namespace Tests
 		[TestCase(100,100, 13.2f,5f, 0,0, 13,5, Result=true)]
 		public bool IsMaskedTest(int width, int height, float x, float y, params int[] pointsInMask)
 		{
-			bool[][] array = getArray(width, height, pointsInMask);
+			bool[][] array = GetArray(width, height, true, pointsInMask);
 			AGSMask mask = new AGSMask(array, null);
 			return mask.IsMasked(new AGSPoint (x, y));
 		}
@@ -90,7 +90,7 @@ namespace Tests
 		[TestCase(100,100, 16f,34f, 15f,33f,1f,-1f, 1,98, Result=true)]
 		public bool IsMasked_WithProjection_Test(int width, int height, float x, float y, float projectionLeft, float projectionBottom, float scaleX, float scaleY, params int[] pointsInMask)
 		{
-			bool[][] array = getArray(width, height, pointsInMask);
+			bool[][] array = GetArray(width, height, true, pointsInMask);
 			AGSMask mask = new AGSMask(array, null);
 			Mock<ISquare> square = new Mock<ISquare> ();
 
@@ -121,24 +121,32 @@ namespace Tests
 		[TestCase(100,100, 5,5, 6,6, 4,4, 7,7, Result=false)]
 		public bool ApplyToMaskTest(int width, int height, int xToTest, int yToTest, params int[] pointsInMask)
 		{
-			bool[][] targetMask = getArray(width, height, 0,0, 1,1, 2,2);
-			bool[][] sourceMask = getArray(width, height, pointsInMask);
+			bool[][] targetMask = GetArray(width, height, true, 0,0, 1,1, 2,2);
+			bool[][] sourceMask = GetArray(width, height, true, pointsInMask);
 			AGSMask mask = new AGSMask (sourceMask, null);
 			mask.ApplyToMask(targetMask);
 
 			return targetMask[xToTest][yToTest];
 		}
 
-		private bool[][] getArray(int width, int height, params int[] pointsInMask)
+		public static bool[][] GetArray(int width, int height, bool markAsTrue, params int[] pointsInMask)
 		{
 			bool[][] array = new bool[width][];
 
-			for (int x = 0; x < width; x++) array[x] = new bool[height];
+			for (int x = 0; x < width; x++)
+			{
+				array[x] = new bool[height];
+				for (int y = 0; y < height; y++)
+				{
+					array[x][y] = !markAsTrue;
+				}
+			}
+
 			for (int pointIndex = 0; pointIndex < pointsInMask.Length; pointIndex += 2)
 			{
 				int x = pointsInMask[pointIndex];
 				int y = pointsInMask[pointIndex + 1];
-				array[x][y] = true;
+				array[x][y] = markAsTrue;
 			}
 			return array;
 		}
