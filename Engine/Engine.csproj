@@ -73,6 +73,7 @@
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGrid.cs" />
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGridWPool.cs" />
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\PartialGridWPool.cs" />
+	<Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\EPStaticGrid.cs" />
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\EPPathFinder.cs" />
     <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\PriorityQueue.cs" />
     <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\SpatialAStar.cs" />
@@ -136,8 +137,7 @@
     <Compile Include="Graphics\Logic\GLBoundingBoxesBuilder.cs" />
     <Compile Include="Graphics\Logic\GLBoundingBoxes.cs" />
     <Compile Include="UI\Text\AGSTextConfig.cs" />
-    <Compile Include="Graphics\Logic\FastBitmap.cs" />
-    <Compile Include="d:\Personal\Github\MonoAGS\Engine\Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\EPStaticGrid.cs" />
+    <Compile Include="Graphics\Logic\FastBitmap.cs" />    
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
