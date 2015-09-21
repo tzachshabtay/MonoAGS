@@ -58,7 +58,7 @@ namespace AGS.Engine
 						tMatrix[widthTrav][heightTrav] = false;
 				}
 			}
-			this.m_nodes = buildNodes(b.width, b.height, tMatrix);
+			this.m_nodes = createNodes(b.width, b.height, tMatrix);
 		}
 
 		public FixedGrid(int iWidth, int iHeight, bool[][] iMatrix = null):base()
@@ -69,10 +69,10 @@ namespace AGS.Engine
 			m_gridRect.minY = 0;
 			m_gridRect.maxX = iWidth-1;
 			m_gridRect.maxY = iHeight - 1;
-			this.m_nodes = buildNodes(iWidth, iHeight, iMatrix);
+			this.m_nodes = createNodes(iWidth, iHeight, iMatrix);
 		}
 
-		private EPNode[][] buildNodes(int iWidth, int iHeight, bool[][] iMatrix)
+		private EPNode[][] createNodes(int iWidth, int iHeight, bool[][] iMatrix)
 		{
 			EPNode[][] tNodes = new EPNode[iWidth][];
 			for (int widthTrav = 0; widthTrav < iWidth; widthTrav++)
