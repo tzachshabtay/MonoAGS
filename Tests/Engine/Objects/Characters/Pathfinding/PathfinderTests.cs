@@ -37,8 +37,8 @@ namespace Tests
 		{
 			bool[][] array = MaskTests.GetArray(width, height, shouldMaskPoints, pointsInMask);
 
-			EPPathFinder finder2 = new EPPathFinder ();
 			SpatialAStarPathFinder finder1 = new SpatialAStarPathFinder { ApplySmoothing = true };
+			EPPathFinder finder2 = new EPPathFinder ();
 
 			bool result1 = testPathFinder(finder1, array, fromX, fromY, toX, toY);
 			bool result2 = testPathFinder(finder2, array, fromX, fromY, toX, toY);
@@ -46,10 +46,23 @@ namespace Tests
 			Assert.AreEqual(result1, result2);
 			return result1;
 		}
+
+		[Test]
+		public void PathFinder_NoMask_Test()
+		{
+			SpatialAStarPathFinder finder1 = new SpatialAStarPathFinder { ApplySmoothing = true };
+			EPPathFinder finder2 = new EPPathFinder ();
+
+			bool result1 = testPathFinder(finder1, null, 0, 0, 5, 5);
+			bool result2 = testPathFinder(finder2, null, 0, 0, 5, 5);
+
+			Assert.IsFalse(result1);
+			Assert.IsFalse(result2);
+		}
 			
 		private bool testPathFinder(IPathFinder pathFinder, bool[][] array, float fromX, float fromY, float toX, float toY)
 		{
-			pathFinder.Init(array);
+			if (array != null) pathFinder.Init(array);
 			AGSLocation from = new AGSLocation (fromX, fromY);
 			AGSLocation to = new AGSLocation (toX, toY);
 			IEnumerable<ILocation> points = pathFinder.GetWalkPoints(from, to);

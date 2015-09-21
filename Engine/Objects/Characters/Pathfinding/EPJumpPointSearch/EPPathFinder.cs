@@ -7,18 +7,23 @@ namespace AGS.Engine
 {
 	public class EPPathFinder : IPathFinder
 	{
-		private bool[][] mask;
+		private bool[][] _mask;
 
 		public void Init(bool[][] mask)
 		{
-			this.mask = mask;
+			this._mask = mask;
 		}
 
 		public IEnumerable<ILocation> GetWalkPoints(ILocation from, ILocation to)
 		{
-			if (mask == null || mask [0] == null)
+			if (_mask == null || _mask [0] == null)
 				return new List<ILocation> ();
-			StaticGrid grid = new StaticGrid (mask.Length, mask[0].Length, mask);
+			var grid = new StaticGrid (_mask.Length, _mask[0].Length, _mask);
+			return getWalkPoints(grid, from, to);
+		}
+
+		private IEnumerable<ILocation> getWalkPoints(StaticGrid grid, ILocation from, ILocation to)
+		{
 			JumpPointParam input = new JumpPointParam (grid, getPos(from), getPos(to), false, true, false);
 			var cells = JumpPointFinder.FindPath (input);
 			return cells.Select (c => getLocation (c, to.Z));
