@@ -37,8 +37,8 @@ namespace Tests
 		{
 			bool[][] array = MaskTests.GetArray(width, height, shouldMaskPoints, pointsInMask);
 
-			SpatialAStarPathFinder finder1 = new SpatialAStarPathFinder { ApplySmoothing = true };
 			EPPathFinder finder2 = new EPPathFinder ();
+			SpatialAStarPathFinder finder1 = new SpatialAStarPathFinder { ApplySmoothing = true };
 
 			bool result1 = testPathFinder(finder1, array, fromX, fromY, toX, toY);
 			bool result2 = testPathFinder(finder2, array, fromX, fromY, toX, toY);
