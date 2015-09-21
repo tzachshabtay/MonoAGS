@@ -88,7 +88,7 @@ namespace AGS.Engine
 			m_nodePool = b.m_nodePool;
 		}
 
-		public override Node GetNodeAt(int iX, int iY)
+		public override EPNode GetNodeAt(int iX, int iY)
 		{
 			GridPos pos = new GridPos(iX, iY);
 			return GetNodeAt(pos);
@@ -102,7 +102,7 @@ namespace AGS.Engine
 
 		private void setBoundingBox()
 		{
-			foreach (KeyValuePair<GridPos, Node> pair in m_nodePool.Nodes)
+			foreach (KeyValuePair<GridPos, EPNode> pair in m_nodePool.Nodes)
 			{
 				if (pair.Key.x < m_gridRect.minX || m_notSet)
 					m_gridRect.minX = pair.Key.x;
@@ -142,7 +142,7 @@ namespace AGS.Engine
 			return true;
 		}
 
-		public override Node GetNodeAt(GridPos iPos)
+		public override EPNode GetNodeAt(GridPos iPos)
 		{
 			return m_nodePool.GetNode(iPos);
 		}
@@ -160,7 +160,7 @@ namespace AGS.Engine
 
 		public override void Reset()
 		{
-			foreach (KeyValuePair<GridPos, Node> keyValue in m_nodePool.Nodes)
+			foreach (KeyValuePair<GridPos, EPNode> keyValue in m_nodePool.Nodes)
 			{
 				keyValue.Value.Reset();
 			}

@@ -93,7 +93,7 @@ namespace AGS.Engine
 			return true;
 		}
 
-		public override Node GetNodeAt(int iX, int iY)
+		public override EPNode GetNodeAt(int iX, int iY)
 		{
 			GridPos pos = new GridPos(iX, iY);
 			return GetNodeAt(pos);
@@ -119,7 +119,7 @@ namespace AGS.Engine
 			return IsInside(iPos.x, iPos.y);
 		}
 
-		public override Node GetNodeAt(GridPos iPos)
+		public override EPNode GetNodeAt(GridPos iPos)
 		{
 			if (!IsInside(iPos))
 				return null;
@@ -150,7 +150,7 @@ namespace AGS.Engine
 					for (int yTrav = m_gridRect.minY; yTrav <= m_gridRect.maxY; yTrav++)
 					{
 						travPos.y = yTrav;
-						Node curNode=m_nodePool.GetNode(travPos);
+						EPNode curNode=m_nodePool.GetNode(travPos);
 						if (curNode!=null)
 							curNode.Reset();
 					}
@@ -158,7 +158,7 @@ namespace AGS.Engine
 			}
 			else
 			{
-				foreach (KeyValuePair<GridPos, Node> keyValue in m_nodePool.Nodes)
+				foreach (KeyValuePair<GridPos, EPNode> keyValue in m_nodePool.Nodes)
 				{
 					keyValue.Value.Reset();
 				}

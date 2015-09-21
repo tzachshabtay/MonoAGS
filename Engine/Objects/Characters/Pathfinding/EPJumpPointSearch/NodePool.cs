@@ -37,48 +37,48 @@ namespace AGS.Engine
 {
 	public class NodePool
 	{
-		protected Dictionary<GridPos, Node> m_nodes;
+		protected Dictionary<GridPos, EPNode> m_nodes;
 
 		public NodePool()
 		{
-			m_nodes = new Dictionary<GridPos, Node>();
+			m_nodes = new Dictionary<GridPos, EPNode>();
 		}
 
-		public Dictionary<GridPos, Node> Nodes
+		public Dictionary<GridPos, EPNode> Nodes
 		{
 			get { return m_nodes; }
 		}
-		public Node GetNode(int iX, int iY)
+		public EPNode GetNode(int iX, int iY)
 		{
 			GridPos pos = new GridPos(iX, iY);
 			return GetNode(pos);
 		}
 
-		public Node GetNode(GridPos iPos)
+		public EPNode GetNode(GridPos iPos)
 		{
-			Node retVal = null;
+			EPNode retVal = null;
 			m_nodes.TryGetValue(iPos, out retVal);
 			return retVal;
 		}
 
-		public Node SetNode(int iX, int iY, bool? iWalkable = null)
+		public EPNode SetNode(int iX, int iY, bool? iWalkable = null)
 		{
 			GridPos pos = new GridPos(iX, iY);
 			return SetNode(pos, iWalkable);
 		}
 
-		public Node SetNode(GridPos iPos, bool? iWalkable = null)
+		public EPNode SetNode(GridPos iPos, bool? iWalkable = null)
 		{
 			if (iWalkable.HasValue)
 			{
 				if (iWalkable.Value == true)
 				{
-					Node retVal = null;
+					EPNode retVal = null;
 					if (m_nodes.TryGetValue(iPos, out retVal))
 					{
 						return retVal;
 					}
-					Node newNode = new Node(iPos.x, iPos.y, iWalkable);
+					EPNode newNode = new EPNode(iPos.x, iPos.y, iWalkable);
 					m_nodes.Add(iPos, newNode);
 					return newNode;
 				}
@@ -90,7 +90,7 @@ namespace AGS.Engine
 			}
 			else
 			{
-				Node newNode = new Node(iPos.x, iPos.y, true);
+				EPNode newNode = new EPNode(iPos.x, iPos.y, true);
 				m_nodes.Add(iPos, newNode);
 				return newNode;
 			}

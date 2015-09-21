@@ -35,7 +35,7 @@ using System.Collections;
 
 namespace AGS.Engine
 {
-	public class Node : IComparable
+	public class EPNode : IComparable
 	{
 		public int x;
 		public int y;
@@ -47,7 +47,7 @@ namespace AGS.Engine
 		public bool isClosed;
 		public Object parent;
 
-		public Node(int iX, int iY, bool? iWalkable = null)
+		public EPNode(int iX, int iY, bool? iWalkable = null)
 		{
 			this.x = iX;
 			this.y = iY;
@@ -61,7 +61,7 @@ namespace AGS.Engine
 
 		}
 
-		public Node(Node b)
+		public EPNode(EPNode b)
 		{
 			this.x = b.x;
 			this.y = b.y;
@@ -89,7 +89,7 @@ namespace AGS.Engine
 
 		public int CompareTo(object iObj)
 		{
-			Node tOtherNode = (Node)iObj;
+			EPNode tOtherNode = (EPNode)iObj;
 			float result=this.heuristicStartToEndLen - tOtherNode.heuristicStartToEndLen;
 			if (result > 0.0f)
 				return 1;
@@ -98,13 +98,13 @@ namespace AGS.Engine
 			return -1;
 		}
 
-		public static List<GridPos> Backtrace(Node iNode)
+		public static List<GridPos> Backtrace(EPNode iNode)
 		{
 			List<GridPos> path = new List<GridPos>();
 			path.Add(new GridPos(iNode.x, iNode.y));
 			while (iNode.parent != null)
 			{
-				iNode = (Node)iNode.parent;
+				iNode = (EPNode)iNode.parent;
 				path.Add(new GridPos(iNode.x, iNode.y));
 			}
 			path.Reverse();
@@ -126,7 +126,7 @@ namespace AGS.Engine
 			}
 
 			// If parameter cannot be cast to Point return false.
-			Node p = obj as Node;
+			EPNode p = obj as EPNode;
 			if ((System.Object)p == null)
 			{
 				return false;
@@ -136,7 +136,7 @@ namespace AGS.Engine
 			return (x == p.x) && (y == p.y);
 		}
 
-		public bool Equals(Node p)
+		public bool Equals(EPNode p)
 		{
 			// If parameter is null return false:
 			if ((object)p == null)
@@ -148,7 +148,7 @@ namespace AGS.Engine
 			return (x == p.x) && (y == p.y);
 		}
 
-		public static bool operator ==(Node a, Node b)
+		public static bool operator ==(EPNode a, EPNode b)
 		{
 			// If both are null, or both are same instance, return true.
 			if (System.Object.ReferenceEquals(a, b))
@@ -166,7 +166,7 @@ namespace AGS.Engine
 			return a.x == b.x && a.y == b.y;
 		}
 
-		public static bool operator !=(Node a, Node b)
+		public static bool operator !=(EPNode a, EPNode b)
 		{
 			return !(a == b);
 		}
@@ -197,23 +197,23 @@ namespace AGS.Engine
 
 		public abstract int height { get; protected set; }
 
-		public abstract Node GetNodeAt(int iX, int iY);
+		public abstract EPNode GetNodeAt(int iX, int iY);
 
 		public abstract bool IsWalkableAt(int iX, int iY);
 
 		public abstract bool SetWalkableAt(int iX, int iY, bool iWalkable);
 
-		public abstract Node GetNodeAt(GridPos iPos);
+		public abstract EPNode GetNodeAt(GridPos iPos);
 
 		public abstract bool IsWalkableAt(GridPos iPos);
 
 		public abstract bool SetWalkableAt(GridPos iPos, bool iWalkable);
 
-		public List<Node> GetNeighbors(Node iNode, bool iCrossCorners, bool iCrossAdjacentPoint)
+		public List<EPNode> GetNeighbors(EPNode iNode, bool iCrossCorners, bool iCrossAdjacentPoint)
 		{
 			int tX = iNode.x;
 			int tY = iNode.y;
-			List<Node> neighbors = new List<Node>();
+			List<EPNode> neighbors = new List<EPNode>();
 			bool tS0 = false, tD0 = false,
 			tS1 = false, tD1 = false,
 			tS2 = false, tD2 = false,

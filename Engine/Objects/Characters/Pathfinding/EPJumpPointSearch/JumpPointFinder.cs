@@ -61,15 +61,15 @@ namespace AGS.Engine
 			m_allowEndNodeUnWalkable = iAllowEndNodeUnWalkable;
 			m_crossAdjacentPoint = iCrossAdjacentPoint;
 			m_crossCorner = iCrossCorner;
-			openList = new List<Node>();
+			openList = new List<EPNode>();
 
 			m_searchGrid = iGrid;
 			m_startNode = m_searchGrid.GetNodeAt(iStartPos.x, iStartPos.y);
 			m_endNode = m_searchGrid.GetNodeAt(iEndPos.x, iEndPos.y);
 			if (m_startNode == null)
-				m_startNode = new Node(iStartPos.x, iStartPos.y, true);
+				m_startNode = new EPNode(iStartPos.x, iStartPos.y, true);
 			if (m_endNode == null)
-				m_endNode = new Node(iEndPos.x, iEndPos.y, true);
+				m_endNode = new EPNode(iEndPos.x, iEndPos.y, true);
 			m_useRecursive = false;
 		}
 
@@ -94,7 +94,7 @@ namespace AGS.Engine
 			m_crossAdjacentPoint = iCrossAdjacentPoint;
 			m_crossCorner = iCrossCorner;
 
-			openList = new List<Node>();
+			openList = new List<EPNode>();
 
 			m_searchGrid = iGrid;
 			m_startNode = null;
@@ -109,7 +109,7 @@ namespace AGS.Engine
 			m_crossAdjacentPoint = b.m_crossAdjacentPoint;
 			m_crossCorner = b.m_crossCorner;
 
-			openList = new List<Node>(b.openList);
+			openList = new List<EPNode>(b.openList);
 
 			m_searchGrid = b.m_searchGrid;
 			m_startNode = b.m_startNode;
@@ -149,9 +149,9 @@ namespace AGS.Engine
 			m_startNode = m_searchGrid.GetNodeAt(iStartPos.x, iStartPos.y);
 			m_endNode = m_searchGrid.GetNodeAt(iEndPos.x, iEndPos.y);
 			if (m_startNode == null)
-				m_startNode = new Node(iStartPos.x, iStartPos.y, true);
+				m_startNode = new EPNode(iStartPos.x, iStartPos.y, true);
 			if (m_endNode == null)
-				m_endNode = new Node(iEndPos.x, iEndPos.y, true);
+				m_endNode = new EPNode(iEndPos.x, iEndPos.y, true);
 
 
 		}
@@ -208,14 +208,14 @@ namespace AGS.Engine
 			}
 		}
 
-		public Node StartNode
+		public EPNode StartNode
 		{
 			get
 			{
 				return m_startNode;
 			}
 		}
-		public Node EndNode
+		public EPNode EndNode
 		{
 			get
 			{
@@ -242,10 +242,10 @@ namespace AGS.Engine
 		protected bool m_useRecursive;
 
 		protected BaseGrid m_searchGrid;
-		protected Node m_startNode;
-		protected Node m_endNode;
+		protected EPNode m_startNode;
+		protected EPNode m_endNode;
 
-		public List<Node> openList;
+		public List<EPNode> openList;
 	}
 	class JumpPointFinder
 	{
@@ -294,10 +294,10 @@ namespace AGS.Engine
 		public static List<GridPos> FindPath(JumpPointParam iParam)
 		{
 
-			List<Node> tOpenList = iParam.openList;
-			Node tStartNode = iParam.StartNode;
-			Node tEndNode = iParam.EndNode;
-			Node tNode;
+			List<EPNode> tOpenList = iParam.openList;
+			EPNode tStartNode = iParam.StartNode;
+			EPNode tEndNode = iParam.EndNode;
+			EPNode tNode;
 			bool revertEndNodeWalkable = false;
 
 			// set the `g` and `f` value of the start node to be 0
@@ -319,7 +319,7 @@ namespace AGS.Engine
 			{
 				// pop the position of node which has the minimum `f` value.
 				tOpenList.Sort();
-				tNode = (Node)tOpenList[0];
+				tNode = (EPNode)tOpenList[0];
 				tOpenList.RemoveAt(0);
 				tNode.isClosed = true;
 
@@ -329,7 +329,7 @@ namespace AGS.Engine
 					{
 						iParam.SearchGrid.SetWalkableAt(tEndNode.x, tEndNode.y, false);
 					}
-					return Node.Backtrace(tNode); // rebuilding path
+					return EPNode.Backtrace(tNode); // rebuilding path
 				}
 
 				identifySuccessors(iParam, tNode);
@@ -344,15 +344,15 @@ namespace AGS.Engine
 			return new List<GridPos>();
 		}
 
-		private static void identifySuccessors(JumpPointParam iParam, Node iNode)
+		private static void identifySuccessors(JumpPointParam iParam, EPNode iNode)
 		{
 			HeuristicDelegate tHeuristic = iParam.HeuristicFunc;
-			List<Node> tOpenList = iParam.openList;
+			List<EPNode> tOpenList = iParam.openList;
 			int tEndX = iParam.EndNode.x;
 			int tEndY = iParam.EndNode.y;
 			GridPos tNeighbor;
 			GridPos? tJumpPoint;
-			Node tJumpNode;
+			EPNode tJumpNode;
 
 			List<GridPos> tNeighbors = findNeighbors(iParam, iNode);
 			for (int i = 0; i < tNeighbors.Count; i++)
@@ -830,15 +830,15 @@ namespace AGS.Engine
 
 		}
 
-		private static List<GridPos> findNeighbors(JumpPointParam iParam, Node iNode)
+		private static List<GridPos> findNeighbors(JumpPointParam iParam, EPNode iNode)
 		{
-			Node tParent = (Node)iNode.parent;
+			EPNode tParent = (EPNode)iNode.parent;
 			int tX = iNode.x;
 			int tY = iNode.y;
 			int tPx, tPy, tDx, tDy;
 			List<GridPos> tNeighbors = new List<GridPos>();
-			List<Node> tNeighborNodes;
-			Node tNeighborNode;
+			List<EPNode> tNeighborNodes;
+			EPNode tNeighborNode;
 
 			// directed pruning: can ignore most neighbors, unless forced.
 			if (tParent != null)

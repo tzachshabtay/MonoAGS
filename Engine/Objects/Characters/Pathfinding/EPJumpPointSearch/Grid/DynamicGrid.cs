@@ -38,7 +38,7 @@ namespace AGS.Engine
 {
 	public class DynamicGrid : BaseGrid
 	{
-		protected Dictionary<GridPos, Node> m_nodes;
+		protected Dictionary<GridPos, EPNode> m_nodes;
 		private bool m_notSet;
 
 
@@ -86,13 +86,13 @@ namespace AGS.Engine
 			: base(b)
 		{
 			m_notSet = b.m_notSet;
-			m_nodes = new Dictionary<GridPos, Node>(b.m_nodes);
+			m_nodes = new Dictionary<GridPos, EPNode>(b.m_nodes);
 		}
 
 		protected void buildNodes(List<GridPos> iWalkableGridList)
 		{
 
-			m_nodes = new Dictionary<GridPos, Node>();
+			m_nodes = new Dictionary<GridPos, EPNode>();
 			if (iWalkableGridList == null)
 				return;
 			foreach (GridPos gridPos in iWalkableGridList)
@@ -102,7 +102,7 @@ namespace AGS.Engine
 		}
 
 
-		public override Node GetNodeAt(int iX, int iY)
+		public override EPNode GetNodeAt(int iX, int iY)
 		{
 			GridPos pos = new GridPos(iX, iY);
 			return GetNodeAt(pos);
@@ -117,7 +117,7 @@ namespace AGS.Engine
 		private void setBoundingBox()
 		{
 			m_notSet = true;
-			foreach (KeyValuePair<GridPos, Node> pair in m_nodes)
+			foreach (KeyValuePair<GridPos, EPNode> pair in m_nodes)
 			{
 				if (pair.Key.x < m_gridRect.minX || m_notSet)
 					m_gridRect.minX = pair.Key.x;
@@ -153,7 +153,7 @@ namespace AGS.Engine
 						m_gridRect.minY = iY;
 					if (iY > m_gridRect.maxY || m_notSet)
 						m_gridRect.maxY = iY;
-					m_nodes.Add(new GridPos(pos.x, pos.y), new Node(pos.x, pos.y, iWalkable));
+					m_nodes.Add(new GridPos(pos.x, pos.y), new EPNode(pos.x, pos.y, iWalkable));
 					m_notSet = false;
 				}
 			}
@@ -169,7 +169,7 @@ namespace AGS.Engine
 			return true;
 		}
 
-		public override Node GetNodeAt(GridPos iPos)
+		public override EPNode GetNodeAt(GridPos iPos)
 		{
 			if (m_nodes.ContainsKey(iPos))
 			{
@@ -196,14 +196,14 @@ namespace AGS.Engine
 		public void Reset(List<GridPos> iWalkableGridList)
 		{
 
-			foreach (KeyValuePair<GridPos, Node> keyValue in m_nodes)
+			foreach (KeyValuePair<GridPos, EPNode> keyValue in m_nodes)
 			{
 				keyValue.Value.Reset();
 			}
 
 			if (iWalkableGridList == null)
 				return;
-			foreach (KeyValuePair<GridPos, Node> keyValue in m_nodes)
+			foreach (KeyValuePair<GridPos, EPNode> keyValue in m_nodes)
 			{
 				if (iWalkableGridList.Contains(keyValue.Key))
 					SetWalkableAt(keyValue.Key, true);
@@ -216,7 +216,7 @@ namespace AGS.Engine
 		{
 			DynamicGrid tNewGrid = new DynamicGrid();
 
-			foreach (KeyValuePair<GridPos, Node> keyValue in m_nodes)
+			foreach (KeyValuePair<GridPos, EPNode> keyValue in m_nodes)
 			{
 				tNewGrid.SetWalkableAt(keyValue.Key.x, keyValue.Key.y, true);
 

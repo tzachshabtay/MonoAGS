@@ -35,15 +35,15 @@ using System.Collections;
 
 namespace AGS.Engine
 {
-	public class StaticGrid : BaseGrid
+	public class EPStaticGrid : BaseGrid
 	{
 		public override int width { get; protected set; }
 
 		public override int height { get; protected set; }
 
-		private Node[][] m_nodes;
+		private EPNode[][] m_nodes;
 
-		public StaticGrid(int iWidth, int iHeight, bool[][] iMatrix = null):base()
+		public EPStaticGrid(int iWidth, int iHeight, bool[][] iMatrix = null):base()
 		{
 			width = iWidth;
 			height = iHeight;
@@ -54,7 +54,7 @@ namespace AGS.Engine
 			this.m_nodes = buildNodes(iWidth, iHeight, iMatrix);
 		}
 
-		public StaticGrid(StaticGrid b)
+		public EPStaticGrid(EPStaticGrid b)
 			: base(b)
 		{
 			bool[][] tMatrix = new bool[b.width][];
@@ -72,16 +72,16 @@ namespace AGS.Engine
 			this.m_nodes = buildNodes(b.width, b.height, tMatrix);
 		}
 
-		private Node[][] buildNodes(int iWidth, int iHeight, bool[][] iMatrix)
+		private EPNode[][] buildNodes(int iWidth, int iHeight, bool[][] iMatrix)
 		{
 
-			Node[][] tNodes = new Node[iWidth][];
+			EPNode[][] tNodes = new EPNode[iWidth][];
 			for (int widthTrav = 0; widthTrav < iWidth; widthTrav++)
 			{
-				tNodes[widthTrav] = new Node[iHeight];
+				tNodes[widthTrav] = new EPNode[iHeight];
 				for (int heightTrav = 0; heightTrav < iHeight; heightTrav++)
 				{
-					tNodes[widthTrav][heightTrav] = new Node(widthTrav, heightTrav, null);
+					tNodes[widthTrav][heightTrav] = new EPNode(widthTrav, heightTrav, null);
 				}
 			}
 
@@ -120,7 +120,7 @@ namespace AGS.Engine
 			return tNodes;
 		}
 
-		public override Node GetNodeAt(int iX, int iY)
+		public override EPNode GetNodeAt(int iX, int iY)
 		{
 			return this.m_nodes[iX][iY];
 		}
@@ -146,7 +146,7 @@ namespace AGS.Engine
 			return isInside(iPos.x, iPos.y);
 		}
 
-		public override Node GetNodeAt(GridPos iPos)
+		public override EPNode GetNodeAt(GridPos iPos)
 		{
 			return GetNodeAt(iPos.x, iPos.y);
 		}
@@ -205,17 +205,17 @@ namespace AGS.Engine
 		{
 			int tWidth = width;
 			int tHeight = height;
-			Node[][] tNodes = this.m_nodes;
+			EPNode[][] tNodes = this.m_nodes;
 
-			StaticGrid tNewGrid = new StaticGrid(tWidth, tHeight, null);
+			EPStaticGrid tNewGrid = new EPStaticGrid(tWidth, tHeight, null);
 
-			Node[][] tNewNodes = new Node[tWidth][];
+			EPNode[][] tNewNodes = new EPNode[tWidth][];
 			for (int widthTrav = 0; widthTrav < tWidth; widthTrav++)
 			{
-				tNewNodes[widthTrav] = new Node[tHeight];
+				tNewNodes[widthTrav] = new EPNode[tHeight];
 				for (int heightTrav = 0; heightTrav < tHeight; heightTrav++)
 				{
-					tNewNodes[widthTrav][heightTrav] = new Node(widthTrav, heightTrav, tNodes[widthTrav][heightTrav].walkable);
+					tNewNodes[widthTrav][heightTrav] = new EPNode(widthTrav, heightTrav, tNodes[widthTrav][heightTrav].walkable);
 				}
 			}
 			tNewGrid.m_nodes = tNewNodes;
