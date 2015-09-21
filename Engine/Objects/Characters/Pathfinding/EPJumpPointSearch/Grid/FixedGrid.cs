@@ -43,17 +43,6 @@ namespace AGS.Engine
 
 		private EPNode[][] m_nodes;
 
-		public FixedGrid(int iWidth, int iHeight, bool[][] iMatrix = null):base()
-		{
-			width = iWidth;
-			height = iHeight;
-			m_gridRect.minX = 0;
-			m_gridRect.minY = 0;
-			m_gridRect.maxX = iWidth-1;
-			m_gridRect.maxY = iHeight - 1;
-			this.m_nodes = buildNodes(iWidth, iHeight, iMatrix);
-		}
-
 		public FixedGrid(FixedGrid b)
 			: base(b)
 		{
@@ -72,9 +61,19 @@ namespace AGS.Engine
 			this.m_nodes = buildNodes(b.width, b.height, tMatrix);
 		}
 
+		public FixedGrid(int iWidth, int iHeight, bool[][] iMatrix = null):base()
+		{
+			width = iWidth;
+			height = iHeight;
+			m_gridRect.minX = 0;
+			m_gridRect.minY = 0;
+			m_gridRect.maxX = iWidth-1;
+			m_gridRect.maxY = iHeight - 1;
+			this.m_nodes = buildNodes(iWidth, iHeight, iMatrix);
+		}
+
 		private EPNode[][] buildNodes(int iWidth, int iHeight, bool[][] iMatrix)
 		{
-
 			EPNode[][] tNodes = new EPNode[iWidth][];
 			for (int widthTrav = 0; widthTrav < iWidth; widthTrav++)
 			{
