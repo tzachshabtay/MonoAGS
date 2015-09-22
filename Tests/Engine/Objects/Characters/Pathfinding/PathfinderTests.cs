@@ -26,6 +26,7 @@ namespace Tests
 		//Diagonal lines
 		[TestCase(5,5, 0f,0f, 4f,0f, true, 0,0, 1,1, 2,2, 3,3, Result = false)]
 		[TestCase(5,5, 0f,0f, 4f,0f, true, 0,0, 1,1, 2,2, 4,4, Result = false)]
+		[TestCase(5,5, 0f,0f, 4f,0f, true, 0,0, 1,1, 2,2, 3,3, 4,4, Result = false)]
 		[TestCase(5,5, 0f,0f, 4f,4f, true, 0,0, 0,1, 1,1, 1,2, 3,3, 3,4, 4,4, Result = false)]
 		[TestCase(5,5, 0f,0f, 4f,4f, true, 0,0, 0,1, 1,1, 1,2, 2,2, 2,3, 3,3, Result = false)]
 		[TestCase(5,5, 0f,0f, 4f,4f, true, 0,0, 0,1, 1,1, 1,2, 2,2, 2,3, 3,3, 3,4, Result = false)]
@@ -71,10 +72,11 @@ namespace Tests
 			return new List<IPathFinder>
 			{
 				new SpatialAStarPathFinder(),
-				new SpatialAStarPathFinder { ApplySmoothing = true },
+				new SpatialAStarPathFinder { SmoothPath = false },
 				new EPPathFinder (),
 				new EPPathFinder { CrossCorner = false },
 				new EPPathFinder { CrossAdjacentPoint = true },
+				new EPPathFinder { SmoothPath = false },
 			};
 		}
 			

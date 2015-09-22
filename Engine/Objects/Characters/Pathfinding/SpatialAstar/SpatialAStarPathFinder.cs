@@ -11,12 +11,12 @@ namespace AGS.Engine
 
 		public SpatialAStarPathFinder ()
 		{
-			ApplySmoothing = true;
+			SmoothPath = true;
 		}
 
 		#region IPathFinder implementation
 
-		public bool ApplySmoothing { get; set; }
+		public bool SmoothPath { get; set; }
 
 		public void Init (bool[][] mask)
 		{
@@ -44,7 +44,7 @@ namespace AGS.Engine
 				new System.Drawing.Point ((int)to.X, (int)to.Y), null);
 			if (paths == null)
 				yield break;
-		    if (!ApplySmoothing) 
+		    if (!SmoothPath) 
 			{
 				foreach (var node in paths) 
 				{

@@ -14,11 +14,13 @@ namespace AGS.Engine
 			AllowEndNodeUnwalkable = false;
 			CrossCorner = true;
 			CrossAdjacentPoint = false;
+			SmoothPath = true;
 		}
 
 		public bool AllowEndNodeUnwalkable { get; set; }
 		public bool CrossCorner { get; set; }
 		public bool CrossAdjacentPoint { get; set; }
+		public bool SmoothPath { get; set; }
 
 		public void Init(bool[][] mask)
 		{
@@ -37,6 +39,7 @@ namespace AGS.Engine
 		{
 			JumpPointParam input = new JumpPointParam (grid, getPos(from), getPos(to), AllowEndNodeUnwalkable, CrossCorner, CrossAdjacentPoint);
 			var cells = JumpPointFinder.FindPath (input);
+			if (!SmoothPath) cells = JumpPointFinder.GetFullPath(cells);
 			return cells.Select (c => getLocation (c, to.Z));
 		}
 

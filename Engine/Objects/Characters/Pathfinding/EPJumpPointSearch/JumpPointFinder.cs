@@ -49,55 +49,21 @@ namespace AGS.Engine
     public class JumpPointParam
     {
 
-        public JumpPointParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, bool iAllowEndNodeUnWalkable = true, bool iCrossCorner = true, bool iCrossAdjacentPoint = true, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
+        public JumpPointParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, bool iAllowEndNodeUnWalkable = true, 
+			bool iCrossCorner = true, bool iCrossAdjacentPoint = true, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
+			: this(iGrid, iAllowEndNodeUnWalkable, iCrossCorner, iCrossAdjacentPoint, iMode)
         {
-            switch (iMode)
-            {
-                case HeuristicMode.MANHATTAN:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Manhattan);
-                    break;
-                case HeuristicMode.EUCLIDEAN:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
-                    break;
-                case HeuristicMode.CHEBYSHEV:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Chebyshev);
-                    break;
-                default:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
-                    break;
-            }
-            m_allowEndNodeUnWalkable = iAllowEndNodeUnWalkable;
-            m_crossAdjacentPoint = iCrossAdjacentPoint;
-            m_crossCorner = iCrossCorner;
-            openList = new List<Node>();
-
-            m_searchGrid = iGrid;
             m_startNode = m_searchGrid.GetNodeAt(iStartPos.x, iStartPos.y);
             m_endNode = m_searchGrid.GetNodeAt(iEndPos.x, iEndPos.y);
             if (m_startNode == null)
                 m_startNode = new Node(iStartPos.x, iStartPos.y, true);
             if (m_endNode == null)
-                m_endNode = new Node(iEndPos.x, iEndPos.y, true);
-            m_useRecursive = false;
+                m_endNode = new Node(iEndPos.x, iEndPos.y, true);            
         }
 
         public JumpPointParam(BaseGrid iGrid, bool iAllowEndNodeUnWalkable = true, bool iCrossCorner = true, bool iCrossAdjacentPoint=true, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
         {
-            switch (iMode)
-            {
-                case HeuristicMode.MANHATTAN:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Manhattan);
-                    break;
-                case HeuristicMode.EUCLIDEAN:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
-                    break;
-                case HeuristicMode.CHEBYSHEV:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Chebyshev);
-                    break;
-                default:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
-                    break;
-            }
+			SetHeuristic(iMode);            
             m_allowEndNodeUnWalkable = iAllowEndNodeUnWalkable;
             m_crossAdjacentPoint = iCrossAdjacentPoint;
             m_crossCorner = iCrossCorner;
