@@ -9,6 +9,17 @@ namespace AGS.Engine
 	{
 		private bool[][] _mask;
 
+		public EPPathFinder()
+		{
+			AllowEndNodeUnwalkable = false;
+			CrossCorner = true;
+			CrossAdjacentPoint = false;
+		}
+
+		public bool AllowEndNodeUnwalkable { get; set; }
+		public bool CrossCorner { get; set; }
+		public bool CrossAdjacentPoint { get; set; }
+
 		public void Init(bool[][] mask)
 		{
 			this._mask = mask;
@@ -24,7 +35,7 @@ namespace AGS.Engine
 
 		private IEnumerable<ILocation> getWalkPoints(StaticGrid grid, ILocation from, ILocation to)
 		{
-			JumpPointParam input = new JumpPointParam (grid, getPos(from), getPos(to), false, true, false);
+			JumpPointParam input = new JumpPointParam (grid, getPos(from), getPos(to), AllowEndNodeUnwalkable, CrossCorner, CrossAdjacentPoint);
 			var cells = JumpPointFinder.FindPath (input);
 			return cells.Select (c => getLocation (c, to.Z));
 		}

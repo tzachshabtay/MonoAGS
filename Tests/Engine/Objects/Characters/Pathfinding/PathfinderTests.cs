@@ -33,31 +33,49 @@ namespace Tests
 
 		//Going around obstacle
 		[TestCase(5,5, 0f,0f, 4f,4f, false, 2,3, 3,2, 2,2, 3,3, Result = true)]
+		[TestCase(5,5, 4f,4f, 0f,0f, false, 2,3, 3,2, 2,2, 3,3, Result = true)]
 		public bool PathFinderTest(int width, int height, float fromX, float fromY, float toX, float toY, bool shouldMaskPoints, params int[] pointsInMask)
 		{
 			bool[][] array = MaskTests.GetArray(width, height, shouldMaskPoints, pointsInMask);
 
-			SpatialAStarPathFinder finder1 = new SpatialAStarPathFinder { ApplySmoothing = true };
-			EPPathFinder finder2 = new EPPathFinder ();
-
-			bool result1 = testPathFinder(finder1, array, fromX, fromY, toX, toY);
-			bool result2 = testPathFinder(finder2, array, fromX, fromY, toX, toY);
-
-			Assert.AreEqual(result1, result2);
-			return result1;
+			return testFinders(array, fromX, fromY, toX, toY);
 		}
 
 		[Test]
 		public void PathFinder_NoMask_Test()
 		{
-			SpatialAStarPathFinder finder1 = new SpatialAStarPathFinder { ApplySmoothing = true };
-			EPPathFinder finder2 = new EPPathFinder ();
+			Assert.IsFalse(testFinders(null, 0, 0, 5, 5));
+		}
 
-			bool result1 = testPathFinder(finder1, null, 0, 0, 5, 5);
-			bool result2 = testPathFinder(finder2, null, 0, 0, 5, 5);
+		private bool testFinders(bool[][] array, float fromX, float fromY, float toX, float toY)
+		{
+			List<IPathFinder> finders = getPathFinders();
+			bool gotResult = false;
+			bool result = false;
+			foreach (IPathFinder finder in finders)
+			{
+				if (!gotResult)
+				{
+					result = testPathFinder(finder, array, fromX, fromY, toX, toY);
+					gotResult = true;
+					continue;
+				}
+				bool currentResult = testPathFinder(finder, array, fromX, fromY, toX, toY);
+				Assert.AreEqual(result, currentResult);
+			}				
+			return result;
+		}
 
-			Assert.IsFalse(result1);
-			Assert.IsFalse(result2);
+		private List<IPathFinder> getPathFinders()
+		{
+			return new List<IPathFinder>
+			{
+				new SpatialAStarPathFinder(),
+				new SpatialAStarPathFinder { ApplySmoothing = true },
+				new EPPathFinder (),
+				new EPPathFinder { CrossCorner = false },
+				new EPPathFinder { CrossAdjacentPoint = true },
+			};
 		}
 			
 		private bool testPathFinder(IPathFinder pathFinder, bool[][] array, float fromX, float fromY, float toX, float toY)
