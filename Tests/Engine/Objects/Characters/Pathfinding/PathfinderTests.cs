@@ -77,6 +77,9 @@ namespace Tests
 				new EPPathFinder { CrossCorner = false },
 				new EPPathFinder { CrossAdjacentPoint = true },
 				new EPPathFinder { SmoothPath = false },
+				new EPPathFinder { Heuristics = HeuristicMode.CHEBYSHEV },
+				new EPPathFinder { Heuristics = HeuristicMode.MANHATTAN },
+				new EPPathFinder { UseRecursive = true },
 			};
 		}
 			
