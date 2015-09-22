@@ -40,7 +40,7 @@ namespace AGS.Engine
 
 		private IEnumerable<ILocation> getWalkPoints(StaticGrid grid, ILocation from, ILocation to)
 		{
-			JumpPointParam input = new JumpPointParam (grid, getPos(from), getPos(to), AllowEndNodeUnwalkable, CrossCorner, CrossAdjacentPoint) { UseRecursive = UseRecursive };
+			JumpPointParam input = new JumpPointParam (grid, getPos(from), getPos(to), AllowEndNodeUnwalkable, CrossCorner, CrossAdjacentPoint, Heuristics) { UseRecursive = UseRecursive };
 			var cells = JumpPointFinder.FindPath (input);
 			if (!SmoothPath) cells = JumpPointFinder.GetFullPath(cells);
 			return cells.Select (c => getLocation (c, to.Z));
