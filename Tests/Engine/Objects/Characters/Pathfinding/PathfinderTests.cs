@@ -16,12 +16,12 @@ namespace Tests
 		//Horizontal line
 		[TestCase(5,5, 0f,0f, 4f,0f, true, 0,0, 1,0, 2,0, 3,0, 4,0, Result = true)]
 		[TestCase(5,5, 0f,0f, 4f,0f, true, 0,0, 1,0, 2,0, 3,0, Result = false)]
-		//[TestCase(5,5, 0f,0f, 4f,0f, true, 0,0, 1,0, 2,0, 4,0, Result = false)] Waiting for bug fix: https://github.com/juhgiyo/EpPathFinding.cs/issues/3
+		[TestCase(5,5, 0f,0f, 4f,0f, true, 0,0, 1,0, 2,0, 4,0, Result = false)] 
 
 		//Vertical line
 		[TestCase(5,5, 0f,0f, 0f,4f, true, 0,0, 0,1, 0,2, 0,3, 0,4, Result = true)]
 		[TestCase(5,5, 0f,0f, 0f,4f, true, 0,0, 0,1, 0,2, 0,3, Result = false)]
-		//[TestCase(5,5, 0f,0f, 0f,4f, true, 0,0, 0,1, 0,2, 0,4, Result = false)] Waiting for bug fix: https://github.com/juhgiyo/EpPathFinding.cs/issues/3
+		[TestCase(5,5, 0f,0f, 0f,4f, true, 0,0, 0,1, 0,2, 0,4, Result = false)]
 
 		//Diagonal lines
 		[TestCase(5,5, 0f,0f, 4f,0f, true, 0,0, 1,1, 2,2, 3,3, Result = false)]

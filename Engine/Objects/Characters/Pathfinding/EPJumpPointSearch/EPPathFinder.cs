@@ -18,17 +18,17 @@ namespace AGS.Engine
 		{
 			if (_mask == null || _mask [0] == null)
 				return new List<ILocation> ();
-			var grid = new FixedGrid (_mask.Length, _mask[0].Length, _mask);
+			var grid = new StaticGrid (_mask.Length, _mask[0].Length, _mask);
 			return getWalkPoints(grid, from, to);
 		}
 
-		private IEnumerable<ILocation> getWalkPoints(FixedGrid grid, ILocation from, ILocation to)
+		private IEnumerable<ILocation> getWalkPoints(StaticGrid grid, ILocation from, ILocation to)
 		{
 			JumpPointParam input = new JumpPointParam (grid, getPos(from), getPos(to), false, true, false);
 			var cells = JumpPointFinder.FindPath (input);
 			return cells.Select (c => getLocation (c, to.Z));
 		}
-			
+
 		private GridPos getPos(ILocation location)
 		{
 			return new GridPos ((int)location.X, (int)location.Y);

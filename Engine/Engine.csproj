@@ -64,17 +64,6 @@
     <Compile Include="UI\Text\GLText.cs" />
     <Compile Include="Graphics\Logic\GLUtils.cs" />
     <Compile Include="Objects\Characters\AGSCharacter.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Heuristic.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\GridPos.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\GridRect.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\NodePool.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\JumpPointFinder.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\BaseGrid.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGrid.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGridWPool.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\PartialGridWPool.cs" />
-	<Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\FixedGrid.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\EPPathFinder.cs" />
     <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\PriorityQueue.cs" />
     <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\SpatialAStar.cs" />
     <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\PathNode.cs" />
@@ -137,7 +126,18 @@
     <Compile Include="Graphics\Logic\GLBoundingBoxesBuilder.cs" />
     <Compile Include="Graphics\Logic\GLBoundingBoxes.cs" />
     <Compile Include="UI\Text\AGSTextConfig.cs" />
-    <Compile Include="Graphics\Logic\FastBitmap.cs" />    
+    <Compile Include="Graphics\Logic\FastBitmap.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\GridPos.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\GridRect.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Heuristic.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\JumpPointFinder.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\NodePool.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\BaseGrid.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGrid.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGridWPool.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\PartialGridWPool.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\StaticGrid.cs" />
+    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\EPPathFinder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -154,8 +154,6 @@
     <Folder Include="UI\Text\" />
     <Folder Include="Objects\Characters\" />
     <Folder Include="Objects\Characters\Pathfinding\" />
-    <Folder Include="Objects\Characters\Pathfinding\EPJumpPointSearch\" />
-    <Folder Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\" />
     <Folder Include="Objects\Characters\Pathfinding\SpatialAstar\" />
     <Folder Include="Graphics\Drawing\" />
     <Folder Include="Rooms\" />
@@ -169,6 +167,7 @@
     <Folder Include="Rooms\Areas\" />
     <Folder Include="Misc\Pool\" />
     <Folder Include="UI\DebugLabels\" />
+    <Folder Include="Objects\Characters\Pathfinding\EPJumpPointSearch\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
