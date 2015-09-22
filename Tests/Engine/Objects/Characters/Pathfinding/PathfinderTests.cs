@@ -80,6 +80,9 @@ namespace Tests
 				new EPPathFinder { Heuristics = HeuristicMode.CHEBYSHEV },
 				new EPPathFinder { Heuristics = HeuristicMode.MANHATTAN },
 				new EPPathFinder { UseRecursive = true },
+				new EPPathFinder { CreateGrid = createDynamicGrid },
+				new EPPathFinder { CreateGrid = createDynamicGridWithPool },
+				new EPPathFinder { CreateGrid = createPartialGridWithPool },
 			};
 		}
 			
@@ -95,6 +98,47 @@ namespace Tests
 				Assert.IsTrue(array[(int)point.X][(int)point.Y]);
 			}
 			return true;
+		}
+
+		private BaseGrid createDynamicGrid(bool[][] array)
+		{
+			List<GridPos> walkableList = new List<GridPos> ();
+			for (int x = 0; x < array.Length; x++)
+			{
+				for (int y = 0; y < array[0].Length; y++)
+				{
+					if (array[x][y]) walkableList.Add(new GridPos (x, y));
+				}
+			}
+			return new DynamicGrid (walkableList);
+		}
+
+		private BaseGrid createDynamicGridWithPool(bool[][] array)
+		{
+			NodePool nodePool = new NodePool ();
+			var grid = new DynamicGridWPool (nodePool);
+			initGrid(grid, array);
+			return grid; 
+		}
+
+		private BaseGrid createPartialGridWithPool(bool[][] array)
+		{
+			NodePool nodePool = new NodePool ();
+			var grid = new PartialGridWPool (nodePool, new GridRect(0, 0, array.Length, array[0].Length));
+			initGrid(grid, array);
+			return grid;
+		}
+
+		private void initGrid(BaseGrid grid, bool[][] array)
+		{
+			grid.Reset();
+			for (int x = 0; x < array.Length; x++)
+			{
+				for (int y = 0; y < array[0].Length; y++)
+				{
+					grid.SetWalkableAt(x, y, array[x][y]);
+				}
+			}
 		}
 	}
 }

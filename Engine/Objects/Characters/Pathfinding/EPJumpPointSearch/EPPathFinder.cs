@@ -16,6 +16,7 @@ namespace AGS.Engine
 			CrossAdjacentPoint = false;
 			SmoothPath = true;
 			Heuristics = HeuristicMode.EUCLIDEAN;
+			CreateGrid = mask => new StaticGrid (mask.Length, mask[0].Length, mask);
 		}
 
 		public bool AllowEndNodeUnwalkable { get; set; }
@@ -24,6 +25,7 @@ namespace AGS.Engine
 		public bool SmoothPath { get; set; }
 		public HeuristicMode Heuristics { get; set; }
 		public bool UseRecursive { get; set; }
+		public Func<bool[][], BaseGrid> CreateGrid { get; set; }
 
 		public void Init(bool[][] mask)
 		{
@@ -34,11 +36,11 @@ namespace AGS.Engine
 		{
 			if (_mask == null || _mask [0] == null)
 				return new List<ILocation> ();
-			var grid = new StaticGrid (_mask.Length, _mask[0].Length, _mask);
+			var grid = CreateGrid(_mask);
 			return getWalkPoints(grid, from, to);
 		}
 
-		private IEnumerable<ILocation> getWalkPoints(StaticGrid grid, ILocation from, ILocation to)
+		private IEnumerable<ILocation> getWalkPoints(BaseGrid grid, ILocation from, ILocation to)
 		{
 			JumpPointParam input = new JumpPointParam (grid, getPos(from), getPos(to), AllowEndNodeUnwalkable, CrossCorner, CrossAdjacentPoint, Heuristics) { UseRecursive = UseRecursive };
 			var cells = JumpPointFinder.FindPath (input);
