@@ -8,7 +8,8 @@ namespace AGS.Engine
 	{
 		public AGSTextConfig(Brush brush = null, Font font = null, Brush outlineBrush = null, float outlineWidth = 0f,
 			Brush shadowBrush = null, float shadowOffsetX = 0f, float shadowOffsetY = 0f, 
-			ContentAlignment alignment = ContentAlignment.TopLeft, AutoFit autoFit = AutoFit.NoFitting)
+			ContentAlignment alignment = ContentAlignment.TopLeft, AutoFit autoFit = AutoFit.NoFitting,
+			float paddingLeft = 2f, float paddingRight = 2f, float paddingTop = 2f, float paddingBottom = 2f)
 		{
 			Brush = brush ?? Brushes.White;
 			Font = font ?? DefaultFont;
@@ -19,6 +20,10 @@ namespace AGS.Engine
 			ShadowOffsetY = shadowOffsetY;
 			Alignment = alignment;
 			AutoFit = autoFit;
+			PaddingLeft = paddingLeft;
+			PaddingRight = paddingRight;
+			PaddingTop = paddingTop;
+			PaddingBottom = paddingBottom;
 		}
 
 		public static Font DefaultFont = new Font(SystemFonts.DefaultFont.FontFamily
@@ -42,6 +47,10 @@ namespace AGS.Engine
 		public float ShadowOffsetY { get; private set; }
 
 		public AutoFit AutoFit { get; private set; }
+		public float PaddingLeft { get; private set; }
+		public float PaddingRight { get; private set; }
+		public float PaddingTop { get; private set; }
+		public float PaddingBottom { get; private set; }
 
 		#endregion
 	}

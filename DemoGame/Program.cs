@@ -43,7 +43,7 @@ namespace DemoGame
 
 				ILabel label = game.Factory.GetLabel("", 80, 25, 160, 10, new AGSTextConfig(brush: Brushes.WhiteSmoke,
 					alignment: ContentAlignment.MiddleCenter, outlineBrush: Brushes.DarkSlateBlue, outlineWidth: 2f,
-					autoFit: AutoFit.LabelShouldFitText));
+					autoFit: AutoFit.LabelShouldFitText, paddingBottom: 5f));
 				label.Tint = Color.FromArgb(120, Color.IndianRed);
 				label.Anchor = new AGSPoint(0.5f, 0f);
 				HotspotLabel hotspotLabel = new HotspotLabel(game, label);

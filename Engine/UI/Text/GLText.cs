@@ -93,8 +93,8 @@ namespace AGS.Engine
 
 			float widthOffset = Math.Max(_config.OutlineWidth, Math.Abs(_config.ShadowOffsetX));
 			float heightOffset = Math.Max(_config.OutlineWidth, Math.Abs(_config.ShadowOffsetY));
-			float widthF = textSize.Width + widthOffset;
-			float heightF = textSize.Height + heightOffset;
+			float widthF = textSize.Width + widthOffset + _config.PaddingLeft + _config.PaddingRight;
+			float heightF = textSize.Height + heightOffset + _config.PaddingTop + _config.PaddingBottom;
 			SizeF baseSize = _baseSize.Equals(EmptySize) ? new SizeF (widthF, heightF) : _baseSize;
 
 			Width = Math.Max((int)widthF + 2, (int)baseSize.Width + 1);
@@ -208,13 +208,13 @@ namespace AGS.Engine
 				case ContentAlignment.TopLeft:
 				case ContentAlignment.MiddleLeft:
 				case ContentAlignment.BottomLeft:
-					return reducePadding;
+					return -reducePadding + _config.PaddingLeft;
 				case ContentAlignment.TopCenter:
 				case ContentAlignment.MiddleCenter:
 				case ContentAlignment.BottomCenter:
 					return baseSize.Width / 2 - width / 2 - reducePadding / 2;
 				default:
-					return baseSize.Width - width - reducePadding;
+					return baseSize.Width - width - reducePadding - _config.PaddingRight;
 			}
 		}
 
@@ -226,13 +226,13 @@ namespace AGS.Engine
 				case ContentAlignment.TopLeft:
 				case ContentAlignment.TopCenter:
 				case ContentAlignment.TopRight:
-					return _bitmap.Height - baseSize.Height - reducePadding;
+					return _bitmap.Height - baseSize.Height - reducePadding + _config.PaddingTop;
 				case ContentAlignment.MiddleLeft:
 				case ContentAlignment.MiddleCenter:
 				case ContentAlignment.MiddleRight:
 					return _bitmap.Height - baseSize.Height/2f - height/2f - reducePadding/2f;
 				default:
-					return _bitmap.Height - height - reducePadding;
+					return _bitmap.Height - height - reducePadding - _config.PaddingBottom;
 			}
 		}
 

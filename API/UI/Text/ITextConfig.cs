@@ -25,6 +25,10 @@ namespace AGS.API
 		float ShadowOffsetY { get; }
 
 		AutoFit AutoFit { get; }
+		float PaddingLeft { get; }
+		float PaddingRight { get; }
+		float PaddingTop { get; }
+		float PaddingBottom { get; }
 	}
 }
 
