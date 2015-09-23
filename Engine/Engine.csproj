@@ -140,6 +140,7 @@
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\EPPathFinder.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLViewportMatrix.cs" />
     <Compile Include="Graphics\Logic\GLViewportMatrix.cs" />
+    <Compile Include="UI\Text\LabelMatrixRenderTarget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

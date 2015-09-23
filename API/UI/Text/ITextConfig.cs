@@ -3,6 +3,14 @@ using System.Drawing;
 
 namespace AGS.API
 {
+	public enum AutoFit
+	{
+		NoFitting,
+		LabelShouldFitText,
+		TextShouldWrap,
+		TextShouldFitLabel,
+	}
+
 	public interface ITextConfig
 	{
 		Brush Brush { get; }
@@ -15,6 +23,8 @@ namespace AGS.API
 		Brush ShadowBrush  { get; }
 		float ShadowOffsetX { get; }
 		float ShadowOffsetY { get; }
+
+		AutoFit AutoFit { get; }
 	}
 }
 

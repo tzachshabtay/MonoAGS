@@ -20,22 +20,19 @@ namespace AGS.Engine
 
 		//http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
 		//http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
-		public IGLMatrices Build(IObject obj, Matrix4 viewport)
+		public IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport)
 		{
-			ISprite sprite = obj.Animation.Sprite;
 			Matrix4 spriteMatrix = getModelMatrix (sprite);
 			Matrix4 objMatrix = getModelMatrix (obj);
 
 			ModelMatrix = spriteMatrix * objMatrix;
-			IObject parent = obj.TreeNode.Parent;
 			while (parent != null)
 			{
 				Matrix4 parentMatrix = getModelMatrix(parent);
 				ModelMatrix = ModelMatrix * parentMatrix;
 				parent = parent.TreeNode.Parent;
 			}
-			ViewportMatrix = obj.IgnoreViewport ? Matrix4.Identity :
-				viewport;
+			ViewportMatrix = viewport;
 
 			return this;		
 		}

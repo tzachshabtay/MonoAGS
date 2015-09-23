@@ -20,6 +20,7 @@ namespace AGS.Engine
 		private bool _renderChanged;
 		private BitmapPool _bitmapPool;
 		private SizeF _baseSize;
+		private StringFormat _wrapFormat = new StringFormat (StringFormatFlags.NoClip);
 
 		public GLText (BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
 		{
@@ -31,6 +32,8 @@ namespace AGS.Engine
 
 			drawToBitmap();
 		}
+
+		public static SizeF EmptySize = new SizeF (0f, 0f);
 
 		public int Texture { get { return _texture; } }
 
@@ -87,12 +90,15 @@ namespace AGS.Engine
 		private void drawToBitmap ()
 		{
 			SizeF textSize = _text.Measure(_config.Font, _maxWidth);
+
 			float widthOffset = Math.Max(_config.OutlineWidth, Math.Abs(_config.ShadowOffsetX));
 			float heightOffset = Math.Max(_config.OutlineWidth, Math.Abs(_config.ShadowOffsetY));
 			float widthF = textSize.Width + widthOffset;
 			float heightF = textSize.Height + heightOffset;
-			Width = Math.Max((int)widthF + 2, (int)_baseSize.Width + 1);
-			Height = Math.Max((int)heightF + 2, (int)_baseSize.Height + 1);
+			SizeF baseSize = _baseSize.Equals(EmptySize) ? new SizeF (widthF, heightF) : _baseSize;
+
+			Width = Math.Max((int)widthF + 2, (int)baseSize.Width + 1);
+			Height = Math.Max((int)heightF + 2, (int)baseSize.Height + 1);
 			int width = MathUtils.GetNextPowerOf2(Width);
 			int height = MathUtils.GetNextPowerOf2(Height);
 			Bitmap bitmap = _bitmap;
@@ -113,8 +119,8 @@ namespace AGS.Engine
 				gfx.PixelOffsetMode = PixelOffsetMode.HighQuality;
 				gfx.CompositingQuality = CompositingQuality.HighQuality;
 
-				float left = alignX(textSize.Width);
-				float top = alignY(textSize.Height);
+				float left = alignX(textSize.Width, baseSize);
+				float top = alignY(textSize.Height, baseSize);
 				float centerX = left + _config.OutlineWidth / 2f;
 				float centerY = top + _config.OutlineWidth / 2f;
 				float right = left + _config.OutlineWidth;
@@ -124,23 +130,23 @@ namespace AGS.Engine
 
 				if (_config.OutlineWidth > 0f)
 				{
-					gfx.DrawString(_text, font, outlineBrush, left, top);
-					gfx.DrawString(_text, font, outlineBrush, centerX, top);
-					gfx.DrawString(_text, font, outlineBrush, right, top);
-
-					gfx.DrawString(_text, font, outlineBrush, left, centerY);
-					gfx.DrawString(_text, font, outlineBrush, right, centerY);
-
-					gfx.DrawString(_text, font, outlineBrush, left, bottom);
-					gfx.DrawString(_text, font, outlineBrush, centerX, bottom);
-					gfx.DrawString(_text, font, outlineBrush, right, bottom);
+					drawString(gfx, outlineBrush, left, top);
+					drawString(gfx, outlineBrush, centerX, top);
+					drawString(gfx, outlineBrush, right, top);
+							   
+					drawString(gfx, outlineBrush, left, centerY);
+					drawString(gfx, outlineBrush, right, centerY);
+							   
+					drawString(gfx, outlineBrush, left, bottom);
+					drawString(gfx, outlineBrush, centerX, bottom);
+					drawString(gfx, outlineBrush, right, bottom);
 				}
 				if (_config.ShadowBrush != null)
 				{
-					gfx.DrawString(_text, font, _config.ShadowBrush, centerX + _config.ShadowOffsetX, 
+					drawString(gfx, _config.ShadowBrush, centerX + _config.ShadowOffsetX, 
 						centerY + _config.ShadowOffsetY);
 				}
-				gfx.DrawString(_text, font, _config.Brush, centerX, centerY);
+				drawString(gfx, _config.Brush, centerX, centerY);
 
 				//This should be a better way to render the outline (DrawPath renders the outline, and FillPath renders the text)
 				//but for some reason some lines are missing when we render like that, at least on the mac
@@ -160,36 +166,71 @@ namespace AGS.Engine
 			_renderChanged = true;
 		}
 
-		private float alignX(float width)
+		private void drawString(Graphics gfx, Brush brush, float x, float y)
+		{
+			if (_maxWidth == int.MaxValue)
+			{
+				gfx.DrawString(_text, _config.Font, brush, x, y);
+			}
+			else
+			{
+				alignWrap();
+				gfx.DrawString(_text, _config.Font, brush, new RectangleF(x, y, _maxWidth, Height),
+					_wrapFormat);
+			}
+		}
+
+		private void alignWrap()
 		{
 			switch (_config.Alignment)
 			{
 				case ContentAlignment.TopLeft:
 				case ContentAlignment.MiddleLeft:
 				case ContentAlignment.BottomLeft:
-					return 0f;
+					_wrapFormat.Alignment = StringAlignment.Near;
+					break;
 				case ContentAlignment.TopCenter:
 				case ContentAlignment.MiddleCenter:
 				case ContentAlignment.BottomCenter:
-					return _baseSize.Width / 2 - width / 2;
+					_wrapFormat.Alignment = StringAlignment.Center;
+					break;
 				default:
-					return _baseSize.Width - width;
+					_wrapFormat.Alignment = StringAlignment.Far;
+					break;
 			}
 		}
 
-		private float alignY(float height)
+		private float alignX(float width, SizeF baseSize)
 		{
-			const int reducePadding = 2;
+			const float reducePadding = 2f;
+			switch (_config.Alignment)
+			{
+				case ContentAlignment.TopLeft:
+				case ContentAlignment.MiddleLeft:
+				case ContentAlignment.BottomLeft:
+					return reducePadding;
+				case ContentAlignment.TopCenter:
+				case ContentAlignment.MiddleCenter:
+				case ContentAlignment.BottomCenter:
+					return baseSize.Width / 2 - width / 2 - reducePadding / 2;
+				default:
+					return baseSize.Width - width - reducePadding;
+			}
+		}
+
+		private float alignY(float height, SizeF baseSize)
+		{
+			const float reducePadding = 2f;
 			switch (_config.Alignment)
 			{
 				case ContentAlignment.TopLeft:
 				case ContentAlignment.TopCenter:
 				case ContentAlignment.TopRight:
-					return _bitmap.Height - _baseSize.Height - reducePadding;
+					return _bitmap.Height - baseSize.Height - reducePadding;
 				case ContentAlignment.MiddleLeft:
 				case ContentAlignment.MiddleCenter:
 				case ContentAlignment.MiddleRight:
-					return _bitmap.Height - _baseSize.Height/2f - height/2f - reducePadding/2f;
+					return _bitmap.Height - baseSize.Height/2f - height/2f - reducePadding/2f;
 				default:
 					return _bitmap.Height - height - reducePadding;
 			}

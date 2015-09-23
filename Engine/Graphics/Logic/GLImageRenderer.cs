@@ -35,7 +35,8 @@ namespace AGS.Engine
 		{
 			ISprite sprite = obj.Animation.Sprite;
 
-			IGLMatrices matrices = _matrixBuilder.Build(obj, _viewport.GetMatrix(viewport));
+			IGLMatrices matrices = _matrixBuilder.Build(obj, obj.Animation.Sprite, obj.TreeNode.Parent,
+				obj.IgnoreViewport ? Matrix4.Identity : _viewport.GetMatrix(viewport));
 
 			_boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width,
 				sprite.Image.Height, matrices);
