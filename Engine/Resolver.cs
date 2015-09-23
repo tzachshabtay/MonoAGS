@@ -23,6 +23,7 @@ namespace AGS.Engine
 			Builder.RegisterType<AGSGame>().SingleInstance().As<IGame>();
 			Builder.RegisterType<AGSGameEvents>().SingleInstance().As<IGameEvents>();
 			Builder.RegisterType<BitmapPool>().SingleInstance();
+			Builder.RegisterType<GLViewportMatrix>().SingleInstance().As<IGLViewportMatrix>();
 
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
 

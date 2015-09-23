@@ -18,19 +18,21 @@ namespace AGS.Engine
 		private readonly IGLColorBuilder _colorBuilder;
 		private readonly IGLTextureRenderer _textureRenderer;
 		private readonly IGLBoundingBoxes _labelBoundingBoxes, _textBoundingBoxes;
+		private readonly IGLViewportMatrix _viewport;
 
 		public GLLabelRenderer(Dictionary<string, GLImage> textures, IGLMatrixBuilder matrixBuilder,
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
-			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, 
+			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrix viewportMatrix,
 			IGLBoundingBoxes labelBoundingBoxes, IGLBoundingBoxes textBoundingBoxes)
 		{
 			_matrixContainer = new MatrixContainer ();
+			_viewport = viewportMatrix;
 			_textureRenderer = textureRenderer;
 			_labelBoundingBoxes = labelBoundingBoxes;
 			_textBoundingBoxes = textBoundingBoxes;
 			_boundingBoxBuilder = boundingBoxBuilder;
 			_bgRenderer = new GLImageRenderer(textures, _matrixContainer,
-				new BoundingBoxesEmptyBuilder(), colorBuilder, _textureRenderer, _labelBoundingBoxes);
+				new BoundingBoxesEmptyBuilder(), colorBuilder, _textureRenderer, _labelBoundingBoxes, _viewport);
 			_matrixBuilder = matrixBuilder;
 			_colorBuilder = colorBuilder;
 			_glText = new GLText (bitmapPool);
@@ -49,7 +51,7 @@ namespace AGS.Engine
 		public void Render(IObject obj, IViewport viewport)
 		{
 			ISprite sprite = obj.Animation.Sprite;
-			IGLMatrices matrices = _matrixBuilder.Build(obj, viewport);
+			IGLMatrices matrices = _matrixBuilder.Build(obj, _viewport.GetMatrix(viewport));
 			_boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, matrices);
 			IGLColor color = _colorBuilder.Build(obj, sprite);
 			_matrixContainer.Matrices = matrices;
@@ -79,7 +81,7 @@ namespace AGS.Engine
 			public IGLMatrices Matrices { get; set; }
 
 			#region IGLMatrixBuilder implementation
-			public IGLMatrices Build(IObject obj, IViewport viewport)
+			public IGLMatrices Build(IObject obj, Matrix4 viewport)
 			{
 				return Matrices;
 			}

@@ -138,6 +138,8 @@
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\PartialGridWPool.cs" />
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\StaticGrid.cs" />
     <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\EPPathFinder.cs" />
+    <Compile Include="Graphics\Logic\Interfaces\IGLViewportMatrix.cs" />
+    <Compile Include="Graphics\Logic\GLViewportMatrix.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

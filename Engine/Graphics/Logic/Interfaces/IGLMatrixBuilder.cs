@@ -6,7 +6,7 @@ namespace AGS.Engine
 {
 	public interface IGLMatrixBuilder
 	{
-		IGLMatrices Build(IObject obj, IViewport viewport);
+		IGLMatrices Build(IObject obj, Matrix4 viewport);
 	}
 }
 
