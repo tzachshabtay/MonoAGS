@@ -286,6 +286,7 @@ namespace AGS.Engine
 			if (!walkPoints.Any ()) return false;
 			foreach (var point in walkPoints) 
 			{
+				if (point.X == X && point.Y == Y) continue;
 				if (!await walkStraightLine (point, token, debugRenderers)) return false;
 			}
 			return true;
