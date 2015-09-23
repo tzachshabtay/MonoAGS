@@ -20,8 +20,7 @@ namespace AGS.Engine
 				
 			this._game = game;
 
-			MouseDown
-			= new AGSEvent<AGS.API.MouseButtonEventArgs> ();
+			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs> ();
 			MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs> ();
 			MouseMove = new AGSEvent<MousePositionEventArgs> ();
 			KeyDown = new AGSEvent<KeyboardEventArgs> ();
