@@ -25,7 +25,10 @@ namespace DemoGame
 		public IRoom Load(IGameFactory factory)
 		{
 			IObject bg = factory.GetObject();
-			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
+			IAnimation bgAnimation = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "bg");
+			bgAnimation.Frames[0].MinDelay = 1;
+			bgAnimation.Frames[0].MaxDelay = 120;
+			bg.StartAnimation(bgAnimation);
 			_room.Background = bg;
 
 			AGSMaskLoader maskLoader = new AGSMaskLoader (factory);

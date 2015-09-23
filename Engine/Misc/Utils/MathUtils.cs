@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Threading;
 
 namespace AGS.Engine
 {
 	public static class MathUtils
 	{
+		private static ThreadLocal<Random> _random = new ThreadLocal<Random>(() => new Random());
+
 		public static float Lerp(float x1, float y1, float x2, float y2, float targetX)
 		{
 			float targetY = ((targetX - x1) * (y2 - y1) / (x2 - x1)) + y1;
@@ -32,6 +35,10 @@ namespace AGS.Engine
 			return ((x & (x - 1)) == 0);
 		}
 
+		public static Random Random()
+		{
+			return _random.Value;
+		}
 	}
 }
 

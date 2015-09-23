@@ -14,7 +14,21 @@ namespace AGS.Engine
 
 		public ISprite Sprite { get; set; }
 
-		public int Delay { get; set; }
+		public int Delay 
+		{ 
+			get 
+			{
+				if (MinDelay >= MaxDelay) return MinDelay;
+				return MathUtils.Random().Next(MinDelay, MaxDelay + 1); 
+			}
+			set 
+			{
+				MinDelay = value;
+				MaxDelay = value;
+			}
+		}
+		public int MinDelay { get; set; }
+		public int MaxDelay { get; set; }
 
 		public ISound Sound { get; set; }
 
