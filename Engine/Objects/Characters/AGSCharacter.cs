@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -406,9 +407,9 @@ namespace AGS.Engine
 				await changeAnimationIfNeeded (animation.UpLeft);
 			else if (angle > 30 && angle < 60 && animation.UpRight != null)
 				await changeAnimationIfNeeded (animation.UpRight);
-			else if (angle < -75 && angle > -105 && animation.Down != null)
+			else if (angle < -65 && angle > -115 && animation.Down != null)
 				await changeAnimationIfNeeded (animation.Down);
-			else if (angle > 75 && angle < 105 && animation.Up != null)
+			else if (angle > 65 && angle < 115 && animation.Up != null)
 				await changeAnimationIfNeeded (animation.Up);
 			else if (xDest > xSource && animation.Right != null) 
 				await changeAnimationIfNeeded (animation.Right);
