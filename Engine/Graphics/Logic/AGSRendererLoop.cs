@@ -31,11 +31,24 @@ namespace AGS.Engine
 			{
 				IImageRenderer imageRenderer = obj.CustomRenderer ?? 
 					getAnimationRenderer(obj) ?? _renderer;
-				imageRenderer.Render (obj, room.Viewport);
+				IPoint areaScaling = getAreaScaling(room, obj);
+				imageRenderer.Render (obj, room.Viewport, areaScaling);
 			}
 		}
 
 		#endregion
+
+		private IPoint getAreaScaling(IRoom room, IObject obj)
+		{
+			if (obj.IgnoreScalingArea) return GLMatrixBuilder.NoScaling;
+			foreach (IScalingArea area in room.ScalingAreas)
+			{
+				if (!area.Enabled || !area.IsInArea(obj.Location)) continue;
+				float scale = MathUtils.Lerp(area.Mask.MaxY, area.MinScaling, area.Mask.MinY, area.MaxScaling, obj.Y);
+				return new AGSPoint (scale, scale);
+			}
+			return GLMatrixBuilder.NoScaling;
+		}
 
 		private IImageRenderer getAnimationRenderer(IObject obj)
 		{

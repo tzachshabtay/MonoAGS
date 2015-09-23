@@ -25,6 +25,7 @@ namespace AGS.Engine
 			_debugPath = new List<IImageRenderer> ();
 			_walkCompleted = new TaskCompletionSource<object> ();
 			_walkCompleted.SetResult(null);
+			IgnoreScalingArea = false;
 		}
 
 		/// <summary>
@@ -151,6 +152,7 @@ namespace AGS.Engine
 		}
 
 		public bool IgnoreViewport { get { return _obj.IgnoreViewport; } set { _obj.IgnoreViewport = value; } }
+		public bool IgnoreScalingArea { get { return _obj.IgnoreScalingArea; } set { _obj.IgnoreScalingArea = value; } }
 
 		public bool DebugDrawAnchor { get { return _obj.DebugDrawAnchor; } set { _obj.DebugDrawAnchor = value; } }
 		public IBorderStyle Border { get { return _obj.Border; } set { _obj.Border = value; } }

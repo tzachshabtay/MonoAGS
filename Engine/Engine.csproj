@@ -141,6 +141,7 @@
     <Compile Include="Graphics\Logic\Interfaces\IGLViewportMatrix.cs" />
     <Compile Include="Graphics\Logic\GLViewportMatrix.cs" />
     <Compile Include="UI\Text\LabelMatrixRenderTarget.cs" />
+    <Compile Include="Rooms\Areas\AGSScalingArea.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

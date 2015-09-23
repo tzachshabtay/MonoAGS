@@ -18,6 +18,7 @@ namespace AGS.Engine
 			RenderLayer = AGSLayers.UI;
 			Image = image;
 			IgnoreViewport = true;
+			IgnoreScalingArea = true;
 			_labelRenderer = labelRenderer;
 			_labelRenderer.BaseSize = baseSize;
 			CustomRenderer = _labelRenderer;
@@ -104,6 +105,7 @@ namespace AGS.Engine
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 
 		public bool IgnoreViewport { get { return _obj.IgnoreViewport; } set { _obj.IgnoreViewport = value; } }
+		public bool IgnoreScalingArea { get { return _obj.IgnoreScalingArea; } set { _obj.IgnoreScalingArea = value; } }
 
 		public bool DebugDrawAnchor { get { return _obj.DebugDrawAnchor; } set { _obj.DebugDrawAnchor = value; } }
 

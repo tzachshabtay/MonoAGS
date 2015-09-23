@@ -33,6 +33,9 @@ namespace DemoGame
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable2.png") });
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable3.png"), Enabled = false });
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable4.png") });
+			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[0], 0.50f, 0.90f));
+			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[2], 0.40f, 0.50f));
+			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[3], 1.20f, 1.20f));
 
 			_room.WalkBehindAreas.Add(new AGSWalkBehindArea (new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkbehind1.png") }));
 			_room.WalkBehindAreas.Add(new AGSWalkBehindArea (new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkbehind2.png") }));

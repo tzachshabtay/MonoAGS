@@ -51,11 +51,11 @@ namespace AGS.Engine
 
 		#region IImageRenderer implementation
 
-		public void Render(IObject obj, IViewport viewport)
+		public void Render(IObject obj, IViewport viewport, IPoint areaScaling)
 		{
-			updateBoundingBoxes(obj, viewport);
+			updateBoundingBoxes(obj, viewport, areaScaling);
 			_bgRenderer.BoundingBoxes = _usedLabelBoundingBoxes;
-			_bgRenderer.Render(obj, viewport);
+			_bgRenderer.Render(obj, viewport, areaScaling);
 
 			if (TextVisible)
 			{
@@ -67,7 +67,7 @@ namespace AGS.Engine
 
 		#endregion
 
-		private void updateBoundingBoxes(IObject obj, IViewport viewport)
+		private void updateBoundingBoxes(IObject obj, IViewport viewport, IPoint areaScaling)
 		{
 			ITextConfig config = Config;
 			AutoFit autoFit = TextVisible && config != null ? config.AutoFit : AutoFit.NoFitting;
@@ -82,7 +82,7 @@ namespace AGS.Engine
 				_labelMatrixRenderTarget.Height = _glText.Height;
 			}
 			IGLMatrices matrices = _matrixBuilder.Build(_labelMatrixRenderTarget, obj.Animation.Sprite, obj.TreeNode.Parent,
-				obj.IgnoreViewport ? Matrix4.Identity : _viewport.GetMatrix(viewport));
+				obj.IgnoreViewport ? Matrix4.Identity : _viewport.GetMatrix(viewport), areaScaling);
 			_matrixContainer.Matrices = matrices;
 			_labelMatrixRenderTarget.Width = width;
 			_labelMatrixRenderTarget.Height = height;
@@ -160,7 +160,7 @@ namespace AGS.Engine
 			public IGLMatrices Matrices { get; set; }
 
 			#region IGLMatrixBuilder implementation
-			public IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport)
+			public IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport, IPoint areaScaling)
 			{
 				return Matrices;
 			}

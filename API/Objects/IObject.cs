@@ -16,6 +16,7 @@ namespace AGS.API
 		string Hotspot { get; set; }
 
 		bool IgnoreViewport { get; set; }
+		bool IgnoreScalingArea { get; set; }
 
 		bool DebugDrawAnchor { get; set; }
 

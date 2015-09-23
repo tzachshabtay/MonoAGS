@@ -10,6 +10,8 @@ namespace AGS.Engine
 		{
 		}
 
+		public static readonly IPoint NoScaling = new AGSPoint(1f,1f);
+
 		#region IGLMatrices implementation
 
 		public Matrix4 ModelMatrix { get; private set; }
@@ -20,15 +22,15 @@ namespace AGS.Engine
 
 		//http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
 		//http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
-		public IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport)
+		public IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport, IPoint areaScaling)
 		{
-			Matrix4 spriteMatrix = getModelMatrix (sprite);
-			Matrix4 objMatrix = getModelMatrix (obj);
+			Matrix4 spriteMatrix = getModelMatrix (sprite, NoScaling);
+			Matrix4 objMatrix = getModelMatrix (obj, areaScaling);
 
 			ModelMatrix = spriteMatrix * objMatrix;
 			while (parent != null)
 			{
-				Matrix4 parentMatrix = getModelMatrix(parent);
+				Matrix4 parentMatrix = getModelMatrix(parent, NoScaling);
 				ModelMatrix = ModelMatrix * parentMatrix;
 				parent = parent.TreeNode.Parent;
 			}
@@ -37,13 +39,12 @@ namespace AGS.Engine
 			return this;		
 		}
 
-		private Matrix4 getModelMatrix(ISprite sprite)
+		private Matrix4 getModelMatrix(ISprite sprite, IPoint areaScaling)
 		{
 			IPoint anchorOffsets = getAnchorOffsets (sprite.Anchor, sprite.Width, sprite.Height);
 			Matrix4 anchor = Matrix4.CreateTranslation (new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
-			Matrix4 scale = Matrix4.CreateScale (new Vector3 (sprite.ScaleX, sprite.ScaleY, 1f));
-			//Quaternion q = Quaternion.FromAxisAngle (Vector3.UnitZ, sprite.Angle);
-			//Matrix4 rotation = Matrix4.CreateFromQuaternion (q);
+			Matrix4 scale = Matrix4.CreateScale (new Vector3 (sprite.ScaleX * areaScaling.X, 
+				sprite.ScaleY * areaScaling.Y, 1f));
 			Matrix4 rotation = Matrix4.CreateRotationZ(sprite.Angle);
 			Matrix4 transform = Matrix4.CreateTranslation (new Vector3(sprite.X, sprite.Y, 0f));
 			return anchor * scale * rotation * transform;

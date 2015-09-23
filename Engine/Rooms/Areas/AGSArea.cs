@@ -6,11 +6,10 @@ namespace AGS.Engine
 {
 	public class AGSArea : IArea
 	{
-		private List<Tuple<int,int>> _searchVectors;
+		private static List<Tuple<int,int>> _searchVectors;
 
-		public AGSArea ()
+		static AGSArea()
 		{
-			Enabled = true;
 			_searchVectors = new List<Tuple<int,int>>
 			{
 				new Tuple<int, int>(0, -1),
@@ -20,6 +19,11 @@ namespace AGS.Engine
 				new Tuple<int, int>(-1, -1),
 				new Tuple<int, int>(1, 1),
 			};
+		}
+
+		public AGSArea ()
+		{
+			Enabled = true;
 		}
 
 		#region IArea implementation

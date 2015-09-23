@@ -31,6 +31,7 @@ namespace AGS.Engine
 
 			RenderLayer = AGSLayers.Foreground;
 			TreeNode = new AGSTreeNode<IObject> (this);
+			IgnoreScalingArea = true;
 		}
 
 		/// <summary>
@@ -145,6 +146,7 @@ namespace AGS.Engine
 		public IRenderLayer RenderLayer { get; set; }
 
 		public bool IgnoreViewport { get; set; }
+		public bool IgnoreScalingArea { get; set; }
 
 		public IImage Image 
 		{ 

@@ -31,12 +31,12 @@ namespace AGS.Engine
 
 		public IGLBoundingBoxes BoundingBoxes { get; set; }
 
-		public void Render(IObject obj, IViewport viewport)
+		public void Render(IObject obj, IViewport viewport, IPoint areaScaling)
 		{
 			ISprite sprite = obj.Animation.Sprite;
 
 			IGLMatrices matrices = _matrixBuilder.Build(obj, obj.Animation.Sprite, obj.TreeNode.Parent,
-				obj.IgnoreViewport ? Matrix4.Identity : _viewport.GetMatrix(viewport));
+				obj.IgnoreViewport ? Matrix4.Identity : _viewport.GetMatrix(viewport), areaScaling);
 
 			_boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width,
 				sprite.Image.Height, matrices);

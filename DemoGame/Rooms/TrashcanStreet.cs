@@ -29,6 +29,7 @@ namespace DemoGame
 
 			AGSMaskLoader maskLoader = new AGSMaskLoader (factory);
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable.png") });
+			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[0], 0.50f, 0.90f));
 
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "HoleHotspot.png", "Hole"));
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "roadHotspot.png", "Road"));
