@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Threading;
 using Autofac;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -38,7 +39,10 @@ namespace AGS.Engine
 			AGSAnimation animation = new AGSAnimation (animationConfig, state, files.Length);
 			foreach (string file in files) 
 			{
+				
+				if (file.EndsWith(".DS_Store")) continue; //MAC OS file
 				var image = LoadImage (file, loadConfig);
+				if (image == null) continue;
 				ISprite sprite = GetSprite();
 				sprite.Image = image;
 				AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
@@ -173,9 +177,16 @@ namespace AGS.Engine
 		public GLImage LoadImageInner(string path, ILoadImageConfig config = null)
 		{
 			int tex = generateTexture ();
-			Bitmap bitmap = new Bitmap (path);
-			//return loadImage (tex, bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height), path);
-			return loadImage (tex, bitmap, path, config);
+			try
+			{
+				Bitmap bitmap = new Bitmap (path);
+				return loadImage (tex, bitmap, path, config);
+			}
+			catch (ArgumentException e)
+			{
+				Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", path, e.ToString());
+				return null;
+			}
 		}
 
 		public IImage LoadImage(Bitmap bitmap, ILoadImageConfig config = null, string id = null)
