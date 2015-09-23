@@ -22,8 +22,7 @@ namespace AGS.Engine
 
 		#region IRendererLoop implementation
 
-		public void
-		Tick ()
+		public void Tick ()
 		{
 			if (_gameState.Player.Character == null) return;
 			IRoom room = _gameState.Player.Character.Room;
