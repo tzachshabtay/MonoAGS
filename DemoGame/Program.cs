@@ -16,16 +16,16 @@ namespace DemoGame
 
 			game.Events.OnLoad.Subscribe((sender, e) =>
 			{
-				EmptyStreet emptyStreet = new EmptyStreet (game.State.Player, new AGSViewport(), game.Events);
+				EmptyStreet emptyStreet = new EmptyStreet (game.State.Player);
 				Rooms.EmptyStreet = emptyStreet.Load(game.Factory);
 
-				BrokenCurbStreet brokenCurbStreet = new BrokenCurbStreet(game.State.Player, new AGSViewport(), game.Events);
+				BrokenCurbStreet brokenCurbStreet = new BrokenCurbStreet(game.State.Player);
 				Rooms.BrokenCurbStreet = brokenCurbStreet.Load(game.Factory);
 
-				TrashcanStreet trashcanStreet = new TrashcanStreet(game.State.Player, new AGSViewport(), game.Events);
+				TrashcanStreet trashcanStreet = new TrashcanStreet(game.State.Player);
 				Rooms.TrashcanStreet = trashcanStreet.Load(game.Factory);
 
-				DarsStreet darsStreet = new DarsStreet(game.State.Player, new AGSViewport(), game.Events);
+				DarsStreet darsStreet = new DarsStreet(game.State.Player);
 				Rooms.DarsStreet = darsStreet.Load(game.Factory);
 
 				game.State.Rooms.Add(Rooms.EmptyStreet);

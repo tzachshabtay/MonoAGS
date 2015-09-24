@@ -34,7 +34,8 @@ namespace AGS.Engine
 			}
 
 			updateViewport (room);
-			_lastPlayerRoom = room;
+			updateRoom(room);
+
 			Task.Run (async () => await UpdateAsync ()).Wait ();
 		}
 
@@ -58,6 +59,23 @@ namespace AGS.Engine
 				room.Viewport.X = point.X;
 				room.Viewport.Y = point.Y;
 			}
+		}
+
+		private void updateRoom(IRoom room)
+		{
+			if (_lastPlayerRoom == room) return;
+			IRoom previousRoom = _lastPlayerRoom;
+
+			if (previousRoom != null)
+			{
+				previousRoom.Events.OnBeforeFadeOut.Invoke(this, new AGSEventArgs ());
+				previousRoom.Events.OnAfterFadeOut.Invoke(this, new AGSEventArgs ());
+			}
+
+			room.Events.OnBeforeFadeIn.Invoke(this, new AGSEventArgs ());
+			room.Events.OnAfterFadeIn.Invoke(this, new AGSEventArgs ());
+
+			_lastPlayerRoom = room;
 		}
 
 		private void runAnimation(IAnimation animation)

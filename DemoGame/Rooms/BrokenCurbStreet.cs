@@ -7,23 +7,22 @@ namespace DemoGame
 {
 	public class BrokenCurbStreet
 	{
-		private readonly IRoom _room;
+		private IRoom _room;
 		private readonly IPlayer _player;
+
 		private const string _baseFolder = "../../Assets/Rooms/BrokenCurbStreet/";
 
-		public BrokenCurbStreet(IPlayer player, IViewport viewport, IGameEvents gameEvents)
+		public BrokenCurbStreet(IPlayer player)
 		{
 			_player = player;
-			AGSEdges edges = new AGSEdges (new AGSEdge { Value = 20f },
-				new AGSEdge { Value = 310f }, new AGSEdge { Value = 190f },
-				new AGSEdge { Value = 10f });
-			edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
-			_room = new AGSRoom ("Broken Curb Street", player, viewport, edges, gameEvents);
-			viewport.Follower = new AGSViewportFollower { Target = () => player.Character };
 		}
 
 		public IRoom Load(IGameFactory factory)
 		{
+			_room = factory.GetRoom ("Broken Curb Street", 20f, 310f, 190f, 10f);
+			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
+			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
+
 			IObject bg = factory.GetObject();
 			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
 			_room.Background = bg;
@@ -62,14 +61,17 @@ namespace DemoGame
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "slimeHotspot.png", "Slime"));
 			_room.Objects.Add(wallHotspot);
 
-
-
 			return _room;
 		}
 
-		private void onLeftEdgeCrossed(object sender, EventArgs args)
+		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)
 		{
 			_player.Character.ChangeRoom(Rooms.EmptyStreet, 310);
+		}
+
+		private void onBeforeFadeIn(object sender, AGSEventArgs args)
+		{
+			_player.Character.PlaceOnWalkableArea();
 		}
 	}
 }

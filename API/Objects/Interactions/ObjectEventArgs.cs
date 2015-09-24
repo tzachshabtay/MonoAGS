@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-	public class ObjectEventArgs : EventArgs
+	public class ObjectEventArgs : AGSEventArgs
 	{
 		public ObjectEventArgs (IObject obj)
 		{

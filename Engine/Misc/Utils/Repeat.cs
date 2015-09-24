@@ -10,22 +10,22 @@ namespace AGS.Engine
 
 		public static bool OnceOnly(string key)
 		{
-			return Do() == 1;
+			return Do(key) == 1;
 		}
 
 		public static bool Exactly(string key, int times)
 		{
-			return Do() == times;
+			return Do(key) == times;
 		}
 
 		public static bool MoreThan(string key, int times)
 		{
-			return Do() > times;
+			return Do(key) > times;
 		}
 
 		public static bool LessThan(string key, int times)
 		{
-			return Do() < times;
+			return Do(key) < times;
 		}
 
 		public static int Do(string key)

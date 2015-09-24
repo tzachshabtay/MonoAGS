@@ -7,7 +7,7 @@ namespace AGS.API
 		
 	}
 
-	public class KeyboardEventArgs : EventArgs
+	public class KeyboardEventArgs : AGSEventArgs
 	{
 		public KeyboardEventArgs (Key key)
 		{

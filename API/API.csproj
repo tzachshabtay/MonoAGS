@@ -97,6 +97,8 @@
     <Compile Include="Rooms\Edges\IEdge.cs" />
     <Compile Include="Rooms\Edges\IEdges.cs" />
     <Compile Include="Input\IInput.cs" />
+    <Compile Include="Rooms\IRoomEvents.cs" />
+    <Compile Include="Misc\Events\AGSEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

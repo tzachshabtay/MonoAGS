@@ -4,8 +4,8 @@ namespace AGS.API
 {
 	public interface IGameEvents
 	{
-		IEvent<EventArgs> OnLoad { get; }
-		IEvent<EventArgs> OnRepeatedlyExecute { get; }
+		IEvent<AGSEventArgs> OnLoad { get; }
+		IEvent<AGSEventArgs> OnRepeatedlyExecute { get; }
 	}
 }
 

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace AGS.API
 {
-	public interface IEvent<TEventArgs> where TEventArgs : EventArgs
+	public interface IEvent<TEventArgs> where TEventArgs : AGSEventArgs
 	{
 		void Subscribe(Action<object, TEventArgs> callback);
 		void Unsubscribe(Action<object, TEventArgs> callback);

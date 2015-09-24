@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using AGS.Engine;
 using System.Threading.Tasks;
+using AGS.API;
 
 namespace Tests
 {
@@ -21,7 +22,7 @@ namespace Tests
 		[Test ()]
 		public void NoSubscribersTest ()
 		{
-			AGSEvent<EventArgs> ev = new AGSEvent<EventArgs> ();
+			AGSEvent<AGSEventArgs> ev = new AGSEvent<AGSEventArgs> ();
 			ev.Invoke (this, null);
 			Assert.AreEqual (0, syncEvents);
 			Assert.AreEqual (0, asyncEvents);
@@ -30,7 +31,7 @@ namespace Tests
 		[Test ()]
 		public async Task NoSubscribersAsyncTest ()
 		{
-			AGSEvent<EventArgs> ev = new AGSEvent<EventArgs> ();
+			AGSEvent<AGSEventArgs> ev = new AGSEvent<AGSEventArgs> ();
 			await ev.InvokeAsync (this, null);
 			Assert.AreEqual (0, syncEvents);
 			Assert.AreEqual (0, asyncEvents);
@@ -115,7 +116,7 @@ namespace Tests
 			asyncEvents++;
 		}
 
-		private class MockEventArgs : EventArgs
+		private class MockEventArgs : AGSEventArgs
 		{
 			public MockEventArgs(int x)
 			{

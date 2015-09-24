@@ -6,23 +6,22 @@ namespace DemoGame
 {
 	public class TrashcanStreet
 	{
-		private readonly IRoom _room;
+		private IRoom _room;
 		private readonly IPlayer _player;
+
 		private const string _baseFolder = "../../Assets/Rooms/TrashcanStreet/";
 
-		public TrashcanStreet(IPlayer player, IViewport viewport, IGameEvents gameEvents)
+		public TrashcanStreet(IPlayer player)
 		{
 			_player = player;
-			AGSEdges edges = new AGSEdges (new AGSEdge { Value = 20f },
-				new AGSEdge { Value = 310f }, new AGSEdge { Value = 190f },
-				new AGSEdge { Value = 10f });
-			edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
-			edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
-			_room = new AGSRoom ("Trashcan Street", player, viewport, edges, gameEvents);
 		}
 
 		public IRoom Load(IGameFactory factory)
 		{
+			_room = factory.GetRoom("Trashcan Street", 20f, 310f, 190f, 10f);
+			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
+			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
+			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 			IObject bg = factory.GetObject();
 			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
 			_room.Background = bg;
@@ -40,14 +39,19 @@ namespace DemoGame
 			return _room;
 		}
 
-		private void onLeftEdgeCrossed(object sender, EventArgs args)
+		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)
 		{
 			_player.Character.ChangeRoom(Rooms.DarsStreet, 490);
 		}
 
-		private void onRightEdgeCrossed(object sender, EventArgs args)
+		private void onRightEdgeCrossed(object sender, AGSEventArgs args)
 		{
 			_player.Character.ChangeRoom(Rooms.EmptyStreet, 30);
+		}
+
+		private void onBeforeFadeIn(object sender, AGSEventArgs args)
+		{
+			_player.Character.PlaceOnWalkableArea();
 		}
 	}
 }

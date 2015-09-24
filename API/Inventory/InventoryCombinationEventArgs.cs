@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-	public class InventoryCombinationEventArgs : EventArgs
+	public class InventoryCombinationEventArgs : AGSEventArgs
 	{
 		public InventoryCombinationEventArgs (IInventoryItem activeItem, IInventoryItem passiveItem)
 		{

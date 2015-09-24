@@ -5,7 +5,7 @@ namespace AGS.Engine
 {
 	public class AGSGameEvents : IGameEvents
 	{
-		public AGSGameEvents(IEvent<EventArgs> onLoad, IEvent<EventArgs> onRepeatedlyExecute)
+		public AGSGameEvents(IEvent<AGSEventArgs> onLoad, IEvent<AGSEventArgs> onRepeatedlyExecute)
 		{
 			OnLoad = onLoad;
 			OnRepeatedlyExecute = onRepeatedlyExecute;
@@ -13,9 +13,9 @@ namespace AGS.Engine
 
 		#region IGameEvents implementation
 
-		public IEvent<EventArgs> OnLoad { get; private set; }
+		public IEvent<AGSEventArgs> OnLoad { get; private set; }
 
-		public IEvent<EventArgs> OnRepeatedlyExecute { get; private set; }
+		public IEvent<AGSEventArgs> OnRepeatedlyExecute { get; private set; }
 
 		#endregion
 	}

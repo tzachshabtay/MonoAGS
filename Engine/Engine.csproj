@@ -143,6 +143,7 @@
     <Compile Include="UI\Text\LabelMatrixRenderTarget.cs" />
     <Compile Include="Rooms\Areas\AGSScalingArea.cs" />
     <Compile Include="Misc\Utils\Repeat.cs" />
+    <Compile Include="Rooms\AGSRoomEvents.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -7,14 +7,14 @@ namespace AGS.Engine
 	{
 		public AGSEdge()
 		{
-			OnEdgeCrossed = new AGSEvent<EventArgs> ();
+			OnEdgeCrossed = new AGSEvent<AGSEventArgs> ();
 		}
 
 		#region IEdge implementation
 
 		public float Value { get; set; }
 
-		public IEvent<EventArgs> OnEdgeCrossed { get; private set; }
+		public IEvent<AGSEventArgs> OnEdgeCrossed { get; private set; }
 
 		#endregion
 	}

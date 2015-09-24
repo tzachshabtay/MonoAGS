@@ -79,7 +79,8 @@ namespace AGS.Engine
 					GL.MatrixMode(MatrixMode.Modelview);
 					GL.LoadIdentity();
 
-					await Events.OnLoad.InvokeAsync(sender, e);
+
+					await Events.OnLoad.InvokeAsync(sender, new AGSEventArgs());
 				};
 					
 				game.Resize += (sender, e) =>
@@ -100,7 +101,7 @@ namespace AGS.Engine
 					{
 						// add game logic, input handling
 						GameLoop.Update();
-						await Events.OnRepeatedlyExecute.InvokeAsync(sender, e);
+						await Events.OnRepeatedlyExecute.InvokeAsync(sender, new AGSEventArgs());
 					}
 					catch (Exception ex)
 					{

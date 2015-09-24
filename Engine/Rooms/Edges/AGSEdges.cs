@@ -57,7 +57,7 @@ namespace AGS.Engine
 		private bool checkEdgeCross(IEdge edge, float previous, float current, Func<IEdge,float,float,bool> check)
 		{
 			if (!check(edge,previous,current)) return false;
-			edge.OnEdgeCrossed.Invoke(edge, new EventArgs());
+			edge.OnEdgeCrossed.Invoke(edge, new AGSEventArgs());
 			return true;
 		}
 

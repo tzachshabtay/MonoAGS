@@ -14,11 +14,13 @@ namespace AGS.Engine
 		private IAGSEdges _edges;
 		private RenderOrderSelector _sorter;
 
-		public AGSRoom (string id, IPlayer player, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents)
+		public AGSRoom (string id, IPlayer player, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents,
+			IRoomEvents roomEvents)
 		{
 			this._sorter = new RenderOrderSelector { Backwards = true };
 			this._player = player;
 			Viewport = viewport;
+			Events = roomEvents;
 			ID = id;
 			Objects = new List<IObject> ();
 			WalkableAreas = new List<IArea> ();
@@ -63,6 +65,8 @@ namespace AGS.Engine
 		public IViewport Viewport { get; private set; }
 
 		public IEdges Edges { get { return _edges; } }
+
+		public IRoomEvents Events { get; private set; }
 
 		public IEnumerable<IObject> GetVisibleObjectsFrontToBack()
 		{

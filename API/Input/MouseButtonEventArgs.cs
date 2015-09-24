@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-	public class MouseButtonEventArgs : EventArgs
+	public class MouseButtonEventArgs : AGSEventArgs
 	{
 		public MouseButtonEventArgs (MouseButton button, float x, float y)
 		{

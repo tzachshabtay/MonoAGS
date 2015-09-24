@@ -22,6 +22,7 @@ namespace Tests
 		Mock<ISprite> _sprite;
 		Mock<IImage> _image;
 		Mock<IMaskLoader> _maskLoader;
+		Mock<IRoomEvents> _roomEvents;
 
 		IContainer container;
 
@@ -116,8 +117,22 @@ namespace Tests
 				_room.Setup(m => m.Viewport).Returns(Viewport().Object);
 				_room.Setup(m => m.Objects).Returns(new List<IObject> ());
 				_room.Setup(m => m.ShowPlayer).Returns(true);
+				_room.Setup(m => m.Events).Returns(RoomEvents().Object);
 			}
 			return _room;
+		}
+
+		public Mock<IRoomEvents> RoomEvents()
+		{
+			if (_roomEvents == null)
+			{
+				_roomEvents = new Mock<IRoomEvents> ();
+				_roomEvents.Setup(r => r.OnAfterFadeIn).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
+				_roomEvents.Setup(r => r.OnAfterFadeOut).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
+				_roomEvents.Setup(r => r.OnBeforeFadeIn).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
+				_roomEvents.Setup(r => r.OnBeforeFadeOut).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
+			}
+			return _roomEvents;
 		}
 
 		public Mock<IObject> Object()

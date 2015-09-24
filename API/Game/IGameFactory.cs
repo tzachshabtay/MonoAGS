@@ -18,6 +18,9 @@ namespace AGS.API
 		IObject GetHotspot(string maskPath, string hotspot);
 		IObject GetHotspot(Bitmap maskBitmap, string hotspot);
 
+		IEdge GetEdge(float value = 0f);
+		IRoom GetRoom(string id, float leftEdge = 0f, float rightEdge = 0f, float bottomEdge = 0f, float topEdge = 0f);
+
 		void RegisterCustomData(ICustomSerializable customData);
 	}
 }

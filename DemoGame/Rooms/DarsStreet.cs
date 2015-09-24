@@ -7,23 +7,21 @@ namespace DemoGame
 {
 	public class DarsStreet
 	{
-		private readonly IRoom _room;
+		private IRoom _room;
 		private readonly IPlayer _player;
+
 		private const string _baseFolder = "../../Assets/Rooms/DarsStreet/";
 
-		public DarsStreet(IPlayer player, IViewport viewport, IGameEvents gameEvents)
+		public DarsStreet(IPlayer player)
 		{
 			_player = player;
-			AGSEdges edges = new AGSEdges (new AGSEdge { Value = 20f },
-				new AGSEdge { Value = 490f }, new AGSEdge { Value = 190f },
-				new AGSEdge { Value = 10f });
-			edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
-			_room = new AGSRoom ("Dars Street", player, viewport, edges, gameEvents);
-			viewport.Follower = new AGSViewportFollower { Target = () => player.Character };
 		}
 
 		public IRoom Load(IGameFactory factory)
 		{
+			_room = factory.GetRoom("Dars Street", 20f, 490f, 190f, 10f);
+			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
+			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 			IObject bg = factory.GetObject();
 			IAnimation bgAnimation = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "bg");
 			bgAnimation.Frames[0].MinDelay = 1;
@@ -61,9 +59,14 @@ namespace DemoGame
 			return _room;
 		}
 
-		private void onRightEdgeCrossed(object sender, EventArgs args)
+		private void onRightEdgeCrossed(object sender, AGSEventArgs args)
 		{
 			_player.Character.ChangeRoom(Rooms.TrashcanStreet, 30);
+		}
+
+		private void onBeforeFadeIn(object sender, AGSEventArgs args)
+		{
+			_player.Character.PlaceOnWalkableArea();
 		}
 	}
 }

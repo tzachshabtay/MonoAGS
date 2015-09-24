@@ -6,10 +6,13 @@ using System.Diagnostics;
 
 namespace AGS.Engine
 {
-	public class AGSEvent<TEventArgs> : IEvent<TEventArgs> where TEventArgs : EventArgs
+	public class AGSEvent<TEventArgs> : IEvent<TEventArgs> where TEventArgs : AGSEventArgs
 	{
+		Guid _id;
+
 		public AGSEvent ()
 		{
+			_id = Guid.NewGuid();
 		}
 
 		#region IEvent implementation
@@ -38,6 +41,8 @@ namespace AGS.Engine
 		{
 			try
 			{
+				if (args != null)
+					args.TimesInvoked = Repeat.Do(_id.ToString());
 				foreach (var target in invocationList) 
 				{
 					await target (sender, args).ConfigureAwait(true);
