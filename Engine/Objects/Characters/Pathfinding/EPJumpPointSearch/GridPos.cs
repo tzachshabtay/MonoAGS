@@ -42,7 +42,7 @@ using System.Text;
 
 namespace AGS.Engine
 {
-    public struct GridPos
+	public struct GridPos : IEquatable<GridPos>
     {
         public int x;
         public int y;
