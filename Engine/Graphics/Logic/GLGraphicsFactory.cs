@@ -30,7 +30,7 @@ namespace AGS.Engine
 			return sprite;
 		}
 
-		public IAnimation LoadAnimationFromFolder (string folderPath, int delay = 1, 
+		public IAnimation LoadAnimationFromFolder (string folderPath, int delay = 4, 
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
 			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
@@ -52,14 +52,14 @@ namespace AGS.Engine
 			return animation;
 		}
 
-		public async Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath, int delay = 1, 
+		public async Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath, int delay = 4, 
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
 			return await Task.Run(() => LoadAnimationFromFolder (folderPath, delay, animationConfig, loadConfig));
 		}
 
 		public IAnimation LoadAnimationFromSpriteSheet (string filePath, ISpriteSheet spriteSheet, 
-			int delay = 1, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
 			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
 			Bitmap bitmap = new Bitmap (filePath);
@@ -169,7 +169,7 @@ namespace AGS.Engine
 		}
 
 		public async Task<IAnimation> LoadAnimationFromSpriteSheetAsync (string filePath, ISpriteSheet spriteSheet, 
-			int delay = 1, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
 			return await Task.Run(() => LoadAnimationFromSpriteSheet(filePath, spriteSheet, delay, animationConfig, loadConfig));
 		}
