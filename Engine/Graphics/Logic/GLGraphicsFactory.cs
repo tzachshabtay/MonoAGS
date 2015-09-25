@@ -30,16 +30,13 @@ namespace AGS.Engine
 			return sprite;
 		}
 
-		public IAnimation LoadAnimationFromFolder (string folderPath, int delay = 4, 
-			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+		public IAnimation LoadAnimationFromFiles(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files)
 		{
 			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
 			AGSAnimationState state = new AGSAnimationState ();
-			string[] files = Directory.GetFiles (folderPath);
 			AGSAnimation animation = new AGSAnimation (animationConfig, state, files.Length);
 			foreach (string file in files) 
 			{
-				
 				if (file.EndsWith(".DS_Store")) continue; //MAC OS file
 				var image = LoadImage (file, loadConfig);
 				if (image == null) continue;
@@ -50,6 +47,12 @@ namespace AGS.Engine
 			}
 			animation.Setup ();
 			return animation;
+		}
+
+		public IAnimation LoadAnimationFromFolder (string folderPath, int delay = 4, 
+			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+		{
+			return LoadAnimationFromFiles(delay, animationConfig, loadConfig, Directory.GetFiles (folderPath));
 		}
 
 		public async Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath, int delay = 4, 
