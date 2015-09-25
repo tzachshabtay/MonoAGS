@@ -16,6 +16,9 @@ namespace DemoGame
 
 			game.Events.OnLoad.Subscribe((sender, e) =>
 			{
+				MouseCursors cursors = new MouseCursors();
+				cursors.Load(game);
+
 				EmptyStreet emptyStreet = new EmptyStreet (game.State.Player);
 				Rooms.EmptyStreet = emptyStreet.Load(game.Factory);
 
@@ -37,9 +40,6 @@ namespace DemoGame
 
 				game.State.Player.Character = character;
 				character.ChangeRoom(Rooms.EmptyStreet, 50, 30);
-
-				TwoButtonsInputScheme inputScheme = new TwoButtonsInputScheme(game.State, game.Input);
-				inputScheme.Start();
 
 				ILabel label = game.Factory.GetLabel("", 80, 25, 160, 10, new AGSTextConfig(brush: Brushes.WhiteSmoke,
 					alignment: ContentAlignment.MiddleCenter, outlineBrush: Brushes.DarkSlateBlue, outlineWidth: 2f,

@@ -43,6 +43,7 @@
     <Compile Include="Rooms\Rooms.cs" />
     <Compile Include="Rooms\TrashcanStreet.cs" />
     <Compile Include="Rooms\DarsStreet.cs" />
+    <Compile Include="GUI\MouseCursors.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -61,5 +62,6 @@
   <ItemGroup>
     <Folder Include="Rooms\" />
     <Folder Include="Characters\" />
+    <Folder Include="GUI\" />
   </ItemGroup>
 </Project>

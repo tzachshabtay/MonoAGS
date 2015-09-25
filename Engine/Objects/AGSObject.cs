@@ -13,9 +13,10 @@ namespace AGS.Engine
 		/// Initializes a new instance of the <see cref="Engine.AGSObject"/> class.
 		/// Width and height will be set based on the first animation frame (or single image) used.
 		/// </summary>
-		public AGSObject (IAnimationContainer animationContainer)
+		public AGSObject (IAnimationContainer animationContainer, IInteractions interactions)
 		{
 			_animation = animationContainer;
+			Interactions = interactions;
 
 			Enabled = true;
 			RenderLayer = AGSLayers.Foreground;

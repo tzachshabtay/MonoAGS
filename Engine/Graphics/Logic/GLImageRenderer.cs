@@ -33,6 +33,10 @@ namespace AGS.Engine
 
 		public void Render(IObject obj, IViewport viewport, IPoint areaScaling)
 		{
+			if (obj.Animation == null)
+			{
+				return;
+			}
 			ISprite sprite = obj.Animation.Sprite;
 
 			IGLMatrices matrices = _matrixBuilder.Build(obj, obj.Animation.Sprite, obj.TreeNode.Parent,

@@ -37,6 +37,7 @@ namespace AGS.Engine
 				IImageRenderer imageRenderer = obj.CustomRenderer ?? 
 					getAnimationRenderer(obj) ?? _renderer;
 				IPoint areaScaling = getAreaScaling(room, obj);
+
 				imageRenderer.Render (obj, room.Viewport, areaScaling);
 			}
 		}
@@ -67,7 +68,7 @@ namespace AGS.Engine
 			if (cursor == null) return;
 			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
 			{
-				_mouseCursorContainer = new AGSObject (cursor) { Anchor = new AGSPoint (0f,1f) };
+				_mouseCursorContainer = new AGSObject (cursor, null) { Anchor = new AGSPoint (0f,1f) };
 			}
 			_mouseCursorContainer.X = _input.MouseX;
 			_mouseCursorContainer.Y = _input.MouseY;

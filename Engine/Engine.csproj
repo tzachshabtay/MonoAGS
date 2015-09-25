@@ -145,6 +145,7 @@
     <Compile Include="Misc\Utils\Repeat.cs" />
     <Compile Include="Rooms\AGSRoomEvents.cs" />
     <Compile Include="Graphics\Animations\AGSAnimationContainer.cs" />
+    <Compile Include="Input\Schemes\RotatingCursorScheme.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
