@@ -11,12 +11,17 @@ namespace AGS.Engine
 		private readonly IImageRenderer _renderer;
 		private readonly IComparer<IObject> _comparer;
 		private readonly AGSWalkBehindsMap _walkBehinds;
+		private readonly IInput _input;
 
-		public AGSRendererLoop (IGameState gameState, IImageRenderer renderer, AGSWalkBehindsMap walkBehinds)
+		private IObject _mouseCursorContainer;
+
+
+		public AGSRendererLoop (IGameState gameState, IImageRenderer renderer, IInput input, AGSWalkBehindsMap walkBehinds)
 		{
 			this._walkBehinds = walkBehinds;
 			this._gameState = gameState;
 			this._renderer = renderer;
+			this._input = input;
 			this._comparer = new RenderOrderSelector ();
 		}
 
@@ -56,6 +61,19 @@ namespace AGS.Engine
 			return obj.Animation.Sprite.CustomRenderer;
 		}
 
+		private void addCursor(List<IObject> displayList)
+		{
+			IAnimationContainer cursor = _input.Cursor;
+			if (cursor == null) return;
+			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
+			{
+				_mouseCursorContainer = new AGSObject (cursor) { Anchor = new AGSPoint (0f,1f) };
+			}
+			_mouseCursorContainer.X = _input.MouseX;
+			_mouseCursorContainer.Y = _input.MouseY;
+			addToDisplayList(displayList, _mouseCursorContainer);
+		}
+
 		private List<IObject> getDisplayList(IRoom room)
 		{
 			int count = 1 + room.Objects.Count + _gameState.UI.Count;
@@ -85,6 +103,7 @@ namespace AGS.Engine
 			}
 
 			displayList.Sort(_comparer);
+			addCursor(displayList);
 			return displayList;
 		}
 

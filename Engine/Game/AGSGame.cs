@@ -15,12 +15,11 @@ namespace AGS.Engine
 		private Resolver _resolver;
 		private IRendererLoop _renderLoop;
 
-		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents, IRendererLoop renderLoop)
+		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents)
 		{
 			Factory = factory;
 			State = state;
 			Events = gameEvents;
-			_renderLoop = renderLoop;
 		}
 
 		public static IGame CreateEmpty()
@@ -71,6 +70,8 @@ namespace AGS.Engine
 					TypedParameter gameParameter = new TypedParameter (typeof(GameWindow), game);
 					TypedParameter sizeParameter = new TypedParameter(typeof(Size), VirtualResolution);
 					Input = _resolver.Container.Resolve<IInput>(gameParameter, sizeParameter); 
+					TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
+					_renderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater);
 
 					GL.MatrixMode(MatrixMode.Projection);
 

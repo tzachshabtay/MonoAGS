@@ -12,6 +12,9 @@ namespace AGS.Engine
 		private int _virtualWidth, _virtualHeight;
 		private IGameState _state;
 
+		private IAnimationContainer _mouseCursor;
+		private MouseCursor _originalOSCursor;
+
 		public GLInput (GameWindow game, Size virtualResolution, IGameState state)
 		{
 			this._virtualWidth = virtualResolution.Width;
@@ -19,6 +22,7 @@ namespace AGS.Engine
 			this._state = state;
 				
 			this._game = game;
+			this._originalOSCursor = _game.Cursor;
 
 			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs> ();
 			MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs> ();
@@ -64,6 +68,16 @@ namespace AGS.Engine
 		public float MouseX { get { return convertX(_game.Mouse.X); } }
 		public float MouseY { get { return convertY(_game.Mouse.Y); } }
 		#pragma warning restore 618
+
+		public IAnimationContainer Cursor
+		{ 
+			get { return _mouseCursor; } 
+		  	set 
+		  	{ 
+				_mouseCursor = value;
+				_game.Cursor = _mouseCursor == null ? _originalOSCursor : MouseCursor.Empty;
+		  	}
+		}
 
 		private AGS.API.MouseButton convert(OpenTK.Input.MouseButton button)
 		{

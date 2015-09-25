@@ -7,6 +7,7 @@ namespace AGS.API
 		IPoint MousePosition { get; }
 		float MouseX { get; }
 		float MouseY { get; }
+		IAnimationContainer Cursor { get; set; }
 	}
 }
 
