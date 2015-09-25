@@ -266,7 +266,7 @@ namespace AGS.Engine
 			}
 		}
 
-		public IRoom Room { get { return _obj.Room; } set { _obj.Room = value; } }
+		public IRoom Room { get { return _obj.Room; } }
 
 		public IAnimation Animation { get { return _obj.Animation; } }
 

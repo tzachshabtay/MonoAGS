@@ -5,7 +5,7 @@ namespace AGS.API
 {
 	public interface IObject : ISprite, IInTree<IObject>
 	{
-		IRoom Room { get; set; }
+		IRoom Room { get; }
 		IAnimation Animation { get; }
 		IInteractions Interactions { get; }
 		ISquare BoundingBox { get; set; } //todo: find a way to remove the setter (only the engine should use the setter)

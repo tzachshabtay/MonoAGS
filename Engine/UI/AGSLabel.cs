@@ -73,7 +73,7 @@ namespace AGS.Engine
 			_obj.ChangeRoom(room, x, y);
 		}
 
-		public IRoom Room { get { return _obj.Room; } set { _obj.Room = value; } }
+		public IRoom Room { get { return _obj.Room; } }
 
 		public IAnimation Animation { get { return _obj.Animation; } }
 
