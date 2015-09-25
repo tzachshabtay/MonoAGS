@@ -7,188 +7,111 @@ namespace AGS.Engine
 {
 	public class AGSObject : IObject
 	{
-		private float _initialWidth, _initialHeight;
-		private ISprite _sprite;
-		private bool _pixelPerfect;
-		private IGraphicsFactory _factory;
+		private IAnimationContainer _animation;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Engine.AGSObject"/> class.
 		/// Width and height will be set based on the first animation frame (or single image) used.
 		/// </summary>
-		public AGSObject (ISprite sprite, IGraphicsFactory factory)
+		public AGSObject (IAnimationContainer animationContainer)
 		{
-			this._factory = factory;
-			this._sprite = sprite;
-			Anchor = new AGSPoint (0.5f, 0f);
-			Visible = true;
+			_animation = animationContainer;
+
 			Enabled = true;
-
-			ScaleX = 1;
-			ScaleY = 1;
-
-			Tint = Color.White;
-
 			RenderLayer = AGSLayers.Foreground;
 			TreeNode = new AGSTreeNode<IObject> (this);
 			IgnoreScalingArea = true;
 		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Engine.AGSObject"/> class.
-		/// Initialized with preset width and height. 
-		/// </summary>
-		/// <param name="width">Width.</param>
-		/// <param name="height">Height.</param>
-		public AGSObject(float width, float height, ISprite sprite, IGraphicsFactory factory) : 
-			this(sprite, factory)
-		{
-			initScale (width, height);
-		}
-
-		private void initScale(float width, float height)
-		{
-			Width = width;
-			Height = height;
-			_initialWidth = width;
-			_initialHeight = height;
-		}
-
-		private void validateScaleInitialized()
-		{
-			if (_initialWidth == 0f) 
-			{
-				throw new InvalidOperationException (
-					"Initial size was not set. Either assign an animation/image to the object, or use the appropriate constructor.");
-			}
-		}
-
+			
 		#region IObject implementation
 
 		public ITreeNode<IObject> TreeNode { get; private set; }
 
 		public void ResetScale ()
 		{
-			Width = _initialWidth;
-			Height = _initialHeight;
-			ScaleX = 1;
-			ScaleY = 1;
+			_animation.ResetScale();
 		}
 
 		public void ScaleBy (float scaleX, float scaleY)
 		{
-			validateScaleInitialized ();
-			ScaleX = scaleX;
-			ScaleY = scaleY;
-			Width = _initialWidth * ScaleX;
-			Height = _initialHeight * ScaleY;
+			_animation.ScaleBy(scaleX, scaleY);
 		}
 
 		public void ScaleTo (float width, float height)
 		{
-			validateScaleInitialized ();
-			Width = width;
-			Height = height;
-			ScaleX = Width / _initialWidth;
-			ScaleY = Height / _initialHeight;
+			_animation.ScaleTo(width, height);
 		}
 
 		public void FlipHorizontally()
 		{
-			ScaleBy(-ScaleX, ScaleY);
-			Anchor = new AGSPoint (-Anchor.X, Anchor.Y);
+			_animation.FlipHorizontally();
 		}
 
 		public void FlipVertically()
 		{
-			ScaleBy(ScaleX, -ScaleY);
-			Anchor = new AGSPoint (Anchor.X, -Anchor.Y);
+			_animation.FlipVertically();
 		}
 
 		public ISprite Clone()
 		{
-			return _sprite.Clone();
+			return _animation.Clone();
 		}
 
-		public ILocation Location { get { return _sprite.Location; } set { _sprite.Location = value; } }
+		public ILocation Location { get { return _animation.Location; } set { _animation.Location = value; } }
 
-		public float Height { get; private set; }
+		public float Height { get { return _animation.Height; } }
 
-		public float Width { get; private set; }
+		public float Width { get { return _animation.Width; } }
 
-		public float ScaleX { get; private set; }
+		public float ScaleX { get { return _animation.ScaleX; } }
 
-		public float ScaleY { get; private set; }
+		public float ScaleY { get { return _animation.ScaleY; } }
 
-		public float Angle { get { return _sprite.Angle; } set { _sprite.Angle = value; } }
+		public float Angle { get { return _animation.Angle; } set { _animation.Angle = value; } }
 
-		public byte Opacity { get { return _sprite.Opacity; } set { _sprite.Opacity = value; } }
+		public byte Opacity { get { return _animation.Opacity; } set { _animation.Opacity = value; } }
 
-		public Color Tint { get { return _sprite.Tint; } set { _sprite.Tint = value; } }
+		public Color Tint { get { return _animation.Tint; } set { _animation.Tint = value; } }
 
-		public IPoint Anchor { get { return _sprite.Anchor; } set { _sprite.Anchor = value; } }
+		public IPoint Anchor { get { return _animation.Anchor; } set { _animation.Anchor = value; } }
 
 		public ISquare BoundingBox { get; set; }
-		public IArea PixelPerfectHitTestArea  { get { return Animation.Sprite.PixelPerfectHitTestArea; } }
+		public IArea PixelPerfectHitTestArea  { get { return _animation.PixelPerfectHitTestArea; } }
 		public void PixelPerfect(bool pixelPerfect)
 		{
-			_pixelPerfect = pixelPerfect;
-			foreach (var frame in Animation.Frames)
-			{
-				frame.Sprite.PixelPerfect(pixelPerfect);
-			}
+			_animation.PixelPerfect(pixelPerfect);
 		}
 
-		public float X { get { return _sprite.X; } set { _sprite.X = value; } }
-		public float Y { get { return _sprite.Y; } set { _sprite.Y = value; } }
-		public float Z { get { return _sprite.Z; } set { _sprite.Z = value; } }
+		public float X { get { return _animation.X; } set { _animation.X = value; } }
+		public float Y { get { return _animation.Y; } set { _animation.Y = value; } }
+		public float Z { get { return _animation.Z; } set { _animation.Z = value; } }
 
 		public IRenderLayer RenderLayer { get; set; }
 
 		public bool IgnoreViewport { get; set; }
 		public bool IgnoreScalingArea { get; set; }
 
-		public IImage Image 
-		{ 
-			get { return Animation.Sprite.Image; }
-			set 
-			{ 
-				AGSSingleFrameAnimation animation = new AGSSingleFrameAnimation (value, _factory);
-				StartAnimation (animation);
-			}
-		}
+		public IImage Image { get { return _animation.Image; } set { _animation.Image = value; } }
 
 		public IImageRenderer CustomRenderer 
 		{ 
-			get { return _sprite.CustomRenderer; } 
-			set { _sprite.CustomRenderer = value; } 
+			get { return _animation.CustomRenderer; } 
+			set { _animation.CustomRenderer = value; } 
 		}
 
 		public void StartAnimation(IAnimation animation)
 		{
-			if (_initialWidth == 0f && animation.Frames.Count > 0) 
-			{
-				initScale (animation.Frames [0].Sprite.Width, animation.Frames [0].Sprite.Height);
-			}
-			IAnimation currentAnimation = Animation;
-			if (currentAnimation != null) 
-			{
-				currentAnimation.State.OnAnimationCompleted.TrySetResult (new AnimationCompletedEventArgs (false));
-			}
-			Animation = animation;
-			PixelPerfect(_pixelPerfect);
+			_animation.StartAnimation(animation);
 		}
 
 		public AnimationCompletedEventArgs Animate (IAnimation animation)
 		{
-			var task = Task.Run (async () => await AnimateAsync (animation));
-			return task.Result;
+			return _animation.Animate(animation);
 		}
 
 		public async Task<AnimationCompletedEventArgs> AnimateAsync (IAnimation animation)
 		{
-			StartAnimation (animation);
-			return await animation.State.OnAnimationCompleted.Task;
+			return await _animation.AnimateAsync(animation);
 		}
 
 		public void ChangeRoom(IRoom newRoom, float? x = null, float? y = null)
@@ -206,19 +129,19 @@ namespace AGS.Engine
 
 		public IRoom Room { get; set; }
 
-		public IAnimation Animation { get; private set; }
+		public IAnimation Animation { get { return _animation.Animation; } }
 
 		public IInteractions Interactions { get; private set; }
 
-		public bool Visible { get; set; }
+		public bool Visible { get { return _animation.Visible; } set { _animation.Visible = value; } }
 
 		public bool Enabled { get; set; }
 
 		public string Hotspot { get; set; }
 
-		public bool DebugDrawAnchor { get; set; }
+		public bool DebugDrawAnchor { get { return _animation.DebugDrawAnchor; } set { _animation.DebugDrawAnchor = value; } }
 
-		public IBorderStyle Border { get; set; }
+		public IBorderStyle Border { get { return _animation.Border; } set { _animation.Border = value; } }
 
 		public override string ToString ()
 		{

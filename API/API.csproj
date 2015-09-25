@@ -99,6 +99,7 @@
     <Compile Include="Input\IInput.cs" />
     <Compile Include="Rooms\IRoomEvents.cs" />
     <Compile Include="Misc\Events\AGSEventArgs.cs" />
+    <Compile Include="Graphics\Animations\IAnimationContainer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
