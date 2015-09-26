@@ -7,9 +7,11 @@ namespace AGS.API
 	{
 		void Subscribe(Action<object, TEventArgs> callback);
 		void Unsubscribe(Action<object, TEventArgs> callback);
+		void WaitUntil(Predicate<TEventArgs> callback);
 
 		void SubscribeToAsync(Func<object, TEventArgs, Task> callback);
 		void UnsubscribeToAsync(Func<object, TEventArgs, Task> callback);
+		Task WaitUntilAsync(Predicate<TEventArgs> condition);
 
 		Task InvokeAsync(object sender, TEventArgs args);
 		void Invoke(object sender, TEventArgs args);
