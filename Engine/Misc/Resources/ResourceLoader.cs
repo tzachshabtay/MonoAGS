@@ -96,7 +96,7 @@ namespace AGS.Engine
 		private bool shouldIgnoreFile(string path)
 		{
 			return path == null || 
-				   path.EndsWith(".DS_STORE"); //Mac OS file
+				   path.EndsWith(".DS_Store"); //Mac OS file
 		}
 
 		private IResource loadResource(string resourceName)
