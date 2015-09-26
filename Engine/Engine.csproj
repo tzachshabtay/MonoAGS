@@ -146,6 +146,8 @@
     <Compile Include="Rooms\AGSRoomEvents.cs" />
     <Compile Include="Graphics\Animations\AGSAnimationContainer.cs" />
     <Compile Include="Input\Schemes\RotatingCursorScheme.cs" />
+    <Compile Include="Misc\Resources\ResourceLoader.cs" />
+    <Compile Include="Misc\Resources\AGSResource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -176,6 +178,7 @@
     <Folder Include="Misc\Pool\" />
     <Folder Include="UI\DebugLabels\" />
     <Folder Include="Objects\Characters\Pathfinding\EPJumpPointSearch\" />
+    <Folder Include="Misc\Resources\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

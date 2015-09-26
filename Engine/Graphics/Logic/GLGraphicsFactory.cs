@@ -4,7 +4,6 @@ using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading.Tasks;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Threading;
@@ -17,11 +16,13 @@ namespace AGS.Engine
 	{
 		private Dictionary<string, GLImage> _textures;
 		private IContainer _resolver;
+		private IResourceLoader _resources;
 
 		public GLGraphicsFactory (Dictionary<string, GLImage> textures, IContainer resolver)
 		{
 			this._textures = textures;
 			this._resolver = resolver;
+			this._resources = resolver.Resolve<IResourceLoader>();
 		}
 
 		public ISprite GetSprite()
@@ -32,27 +33,13 @@ namespace AGS.Engine
 
 		public IAnimation LoadAnimationFromFiles(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files)
 		{
-			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
-			AGSAnimationState state = new AGSAnimationState ();
-			AGSAnimation animation = new AGSAnimation (animationConfig, state, files.Length);
-			foreach (string file in files) 
-			{
-				if (file.EndsWith(".DS_Store")) continue; //MAC OS file
-				var image = LoadImage (file, loadConfig);
-				if (image == null) continue;
-				ISprite sprite = GetSprite();
-				sprite.Image = image;
-				AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
-				animation.Frames.Add (frame);
-			}
-			animation.Setup ();
-			return animation;
+			return loadAnimationFromResources(_resources.LoadResources(files), delay, animationConfig, loadConfig);
 		}
 
 		public IAnimation LoadAnimationFromFolder (string folderPath, int delay = 4, 
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			return LoadAnimationFromFiles(delay, animationConfig, loadConfig, Directory.GetFiles (folderPath));
+			return loadAnimationFromResources(_resources.LoadResources(folderPath), delay, animationConfig, loadConfig);
 		}
 
 		public async Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath, int delay = 4, 
@@ -65,7 +52,12 @@ namespace AGS.Engine
 			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
 			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
-			Bitmap bitmap = new Bitmap (filePath);
+			IResource resource = _resources.LoadResource(filePath);
+			if (resource == null)
+			{
+				throw new InvalidOperationException ("Failed to load sprite sheet from " + filePath);
+			}
+			Bitmap bitmap = new Bitmap (resource.Stream);
 			int cellsInRow = bitmap.Width / spriteSheet.CellWidth;
 			int cellsInCol = bitmap.Height / spriteSheet.CellHeight;
 			int cellsTotal = cellsInRow * cellsInCol;
@@ -179,17 +171,8 @@ namespace AGS.Engine
 			
 		public GLImage LoadImageInner(string path, ILoadImageConfig config = null)
 		{
-			int tex = generateTexture ();
-			try
-			{
-				Bitmap bitmap = new Bitmap (path);
-				return loadImage (tex, bitmap, path, config);
-			}
-			catch (ArgumentException e)
-			{
-				Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", path, e.ToString());
-				return null;
-			}
+			IResource resource = _resources.LoadResource(path);
+			return loadImage(resource, config);
 		}
 
 		public IImage LoadImage(Bitmap bitmap, ILoadImageConfig config = null, string id = null)
@@ -207,6 +190,41 @@ namespace AGS.Engine
 		public async Task<IImage> LoadImageAsync (string filePath, ILoadImageConfig config = null)
 		{
 			return await Task.Run(() => LoadImage (filePath, config));
+		}
+
+		private IAnimation loadAnimationFromResources(List<IResource> resources, 
+			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+		{
+			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
+			AGSAnimationState state = new AGSAnimationState ();
+			AGSAnimation animation = new AGSAnimation (animationConfig, state, resources.Count);
+
+			foreach (IResource resource in resources) 
+			{
+				var image = loadImage (resource, loadConfig);
+				if (image == null) continue;
+				ISprite sprite = GetSprite();
+				sprite.Image = image;
+				AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
+				animation.Frames.Add (frame);
+			}
+			animation.Setup ();
+			return animation;
+		}
+			
+		private GLImage loadImage(IResource resource, ILoadImageConfig config = null)
+		{
+			int tex = generateTexture ();
+			try
+			{
+				Bitmap bitmap = new Bitmap (resource.Stream);
+				return loadImage (tex, bitmap, resource.ID, config);
+			}
+			catch (ArgumentException e)
+			{
+				Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+				return null;
+			}
 		}
 
 		private int generateTexture()
@@ -234,7 +252,7 @@ namespace AGS.Engine
 			return bmp.Clone (cropRect, bmp.PixelFormat); //todo: improve performance by using FastBitmap
 		}
 
-		private GLImage loadImage(int texture, Bitmap bitmap, string path, ILoadImageConfig config)
+		private GLImage loadImage(int texture, Bitmap bitmap, string id, ILoadImageConfig config)
 		{
 			manipulateImage(bitmap, config);
 			BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
@@ -244,7 +262,7 @@ namespace AGS.Engine
 				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
 			bitmap.UnlockBits(data);
 
-			GLImage image = new GLImage (bitmap, path, texture);
+			GLImage image = new GLImage (bitmap, id, texture);
 
 			if (_textures != null)
 				_textures.GetOrAdd (image.ID, () => image);
