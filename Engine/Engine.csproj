@@ -152,6 +152,7 @@
     <Compile Include="Objects\Characters\Talking\AGSSayLocation.cs" />
     <Compile Include="Objects\Characters\Talking\FastFingerChecker.cs" />
     <Compile Include="Objects\Characters\Talking\AGSSayConfig.cs" />
+    <Compile Include="Objects\Interactions\AGSInteractionEvent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -16,6 +16,9 @@ namespace DemoGame
 
 			game.Events.OnLoad.Subscribe((sender, e) =>
 			{
+				DefaultInteractions defaults = new DefaultInteractions(game.State.Player, game.Events);
+				defaults.Load();
+
 				MouseCursors cursors = new MouseCursors();
 				cursors.Load(game);
 

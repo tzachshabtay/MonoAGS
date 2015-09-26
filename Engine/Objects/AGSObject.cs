@@ -2,6 +2,7 @@
 using AGS.API;
 using System.Threading.Tasks;
 using System.Drawing;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -13,10 +14,15 @@ namespace AGS.Engine
 		/// Initializes a new instance of the <see cref="Engine.AGSObject"/> class.
 		/// Width and height will be set based on the first animation frame (or single image) used.
 		/// </summary>
-		public AGSObject (IAnimationContainer animationContainer, IInteractions interactions)
+		public AGSObject (IAnimationContainer animationContainer, IGameEvents gameEvents, Resolver resolver)
 		{
 			_animation = animationContainer;
-			Interactions = interactions;
+
+			if (resolver != null)
+			{
+				TypedParameter defaults = new TypedParameter (typeof(IInteractions), gameEvents.DefaultInteractions);
+				Interactions = resolver.Container.Resolve<IInteractions>(defaults);
+			}
 
 			Enabled = true;
 			RenderLayer = AGSLayers.Foreground;

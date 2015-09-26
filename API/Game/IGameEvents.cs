@@ -6,6 +6,8 @@ namespace AGS.API
 	{
 		IEvent<AGSEventArgs> OnLoad { get; }
 		IEvent<AGSEventArgs> OnRepeatedlyExecute { get; }
+
+		IInteractions DefaultInteractions { get; }
 	}
 }
 

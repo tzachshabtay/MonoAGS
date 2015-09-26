@@ -19,6 +19,8 @@ namespace AGS.Engine
 
 		#region IEvent implementation
 
+		public int SubscribersCount { get { return _invocationList.Count; } }
+
 		public void Subscribe (Action<object, TEventArgs> callback)
 		{
 			if (_invocationList.Count > 100)

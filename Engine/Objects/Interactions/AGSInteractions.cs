@@ -5,12 +5,12 @@ namespace AGS.Engine
 {
 	public class AGSInteractions : IInteractions
 	{
-		public AGSInteractions ()
+		public AGSInteractions (IInteractions defaultInteractions)
 		{
-			OnLook = new AGSEvent<ObjectEventArgs> ();
-			OnInteract = new AGSEvent<ObjectEventArgs> ();
-			OnInventoryInteract = new AGSEvent<InventoryInteractEventArgs> ();
-			OnCustomInteract = new AGSEvent<CustomInteractionEventArgs> ();
+			OnLook = new AGSInteractionEvent<ObjectEventArgs>(defaultInteractions == null ? null : defaultInteractions.OnLook);
+			OnInteract = new AGSInteractionEvent<ObjectEventArgs> (defaultInteractions == null ? null : defaultInteractions.OnInteract);
+			OnInventoryInteract = new AGSInteractionEvent<InventoryInteractEventArgs> (defaultInteractions == null ? null : defaultInteractions.OnInventoryInteract);
+			OnCustomInteract = new AGSInteractionEvent<CustomInteractionEventArgs> (defaultInteractions == null ? null : defaultInteractions.OnCustomInteract);
 		}
 			
 		#region IInteractions implementation

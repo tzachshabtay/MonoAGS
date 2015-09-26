@@ -1,0 +1,66 @@
+﻿using System;
+using AGS.API;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+
+namespace DemoGame
+{
+	public class DefaultInteractions
+	{
+		private IPlayer _player;
+		private IGameEvents _gameEvents;
+
+		private List<string> _looks, _interacts, _inventoryInteracts, _customInteracts;
+		private int _looksIndex, _interactsIndex, _inventoryIndex, _customIndex;
+
+		public DefaultInteractions(IPlayer player, IGameEvents gameEvents)
+		{
+			_player = player;
+			_gameEvents = gameEvents;
+
+			_looks = new List<string> { "It looks nice.", "Nothing to see here.", "I guess it looks ok." };
+			_interacts = new List<string> { "I can't do that.", "Nope.", "I don't think so." };
+			_inventoryInteracts = _interacts;
+			_customInteracts = _interacts;
+		}
+
+		public void Load()
+		{
+			_gameEvents.DefaultInteractions.OnLook.SubscribeToAsync(onLook);
+			_gameEvents.DefaultInteractions.OnInteract.SubscribeToAsync(onInteract);
+			_gameEvents.DefaultInteractions.OnCustomInteract.SubscribeToAsync(onCustomInteract);
+			_gameEvents.DefaultInteractions.OnInventoryInteract.SubscribeToAsync(onInventoryInteract);
+		}
+
+		private async Task onLook(object sender, ObjectEventArgs args)
+		{
+			_looksIndex = await sayDefault(_looks, _looksIndex);
+		}
+
+		private async Task onInteract(object sender, ObjectEventArgs args)
+		{
+			_interactsIndex = await sayDefault(_interacts, _interactsIndex);
+		}
+
+		private async Task onCustomInteract(object sender, CustomInteractionEventArgs args)
+		{
+			_customIndex = await sayDefault(_customInteracts, _customIndex);
+		}
+
+		private async Task onInventoryInteract(object sender, InventoryInteractEventArgs args)
+		{
+			_inventoryIndex = await sayDefault(_inventoryInteracts, _inventoryIndex);
+		}
+
+		private async Task<int> sayDefault(List<string> list, int index)
+		{
+			string sentence = list[index];
+			index = (index + 1) % list.Count;
+
+			await _player.Character.SayAsync(sentence);
+
+			return index;
+		}
+	}
+}
+
