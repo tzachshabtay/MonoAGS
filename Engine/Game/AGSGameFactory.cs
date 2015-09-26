@@ -48,25 +48,34 @@ namespace AGS.Engine
 			return label;
 		}
 
-		public IObject GetObject()
+		public IObject GetObject(string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
 			IObject obj = _resolver.Resolve<IObject>();
+
+			subscribeSentences(sayWhenLook, obj.Interactions.OnLook);
+			subscribeSentences(sayWhenInteract, obj.Interactions.OnInteract);
+
 			return obj;
 		}
 
-		public ICharacter GetCharacter()
+		public ICharacter GetCharacter(string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
 			ICharacter character = _resolver.Resolve<ICharacter>();
+
+			subscribeSentences(sayWhenLook, character.Interactions.OnLook);
+			subscribeSentences(sayWhenInteract, character.Interactions.OnInteract);
+
 			return character;
 		}
 
-		public IObject GetHotspot(string maskPath, string hotspot)
+		public IObject GetHotspot(string maskPath, string hotspot, string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
 			Bitmap image = (Bitmap)Image.FromFile(maskPath); 
-			return GetHotspot(image, hotspot);
+			return GetHotspot(image, hotspot, sayWhenLook, sayWhenInteract);
 		}
 
-		public IObject GetHotspot(Bitmap maskBitmap, string hotspot)
+		public IObject GetHotspot(Bitmap maskBitmap, string hotspot, 
+			string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
 			IMaskLoader maskLoader = _resolver.Resolve<IMaskLoader>();
 			IMask mask = maskLoader.Load(maskBitmap, debugDrawColor: Color.White);
@@ -74,6 +83,10 @@ namespace AGS.Engine
 			mask.DebugDraw.Hotspot = hotspot;
 			mask.DebugDraw.Opacity = 0;
 			mask.DebugDraw.Z = mask.MinY;
+
+			subscribeSentences(sayWhenLook, mask.DebugDraw.Interactions.OnLook);
+			subscribeSentences(sayWhenInteract, mask.DebugDraw.Interactions.OnInteract);
+
 			return mask.DebugDraw;
 		}
 
@@ -112,6 +125,19 @@ namespace AGS.Engine
 		}
 
 		#endregion
+
+		private void subscribeSentences(string[] sentences, IEvent<ObjectEventArgs> e)
+		{
+			if (sentences == null || e == null) return;
+
+			e.SubscribeToAsync(async (sender, args) =>
+			{
+				foreach (string sentence in sentences)
+				{
+					await _gameState.Player.Character.SayAsync(sentence);
+				}
+			});
+		}
 	}
 }
 

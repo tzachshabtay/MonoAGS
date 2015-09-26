@@ -31,6 +31,9 @@ namespace AGS.Engine
 			Dictionary<string, GLImage> textures = new Dictionary<string, GLImage> (1024);
 			Builder.RegisterInstance(textures);
 
+			FastFingerChecker checker = new FastFingerChecker ();
+			Builder.RegisterInstance(checker);
+
 			Builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 		}
 
@@ -44,6 +47,7 @@ namespace AGS.Engine
 
 			var updater = new ContainerBuilder ();
 			updater.RegisterInstance(Container);
+			updater.RegisterInstance(this);
 			updater.Update(Container);
 		}
 	}

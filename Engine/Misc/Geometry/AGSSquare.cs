@@ -11,6 +11,11 @@ namespace AGS.Engine
 			BottomRight = bottomRight;
 			TopLeft = topLeft;
 			TopRight = topRight;
+
+			MinX = MathUtils.Min(bottomLeft.X, bottomRight.X, topLeft.X, topRight.X);
+			MaxX = MathUtils.Max(bottomLeft.X, bottomRight.X, topLeft.X, topRight.X);
+			MinY = MathUtils.Min(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
+			MaxY = MathUtils.Max(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
 		}
 
 		#region ISquare implementation
@@ -38,6 +43,12 @@ namespace AGS.Engine
 		public IPoint TopLeft { get; private set; }
 
 		public IPoint TopRight { get; private set; }
+
+		public float MinX { get; private set; }
+		public float MaxX { get; private set; }
+
+		public float MinY { get; private set; }
+		public float MaxY { get; private set; }
 
 		#endregion
 

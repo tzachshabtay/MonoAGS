@@ -6,6 +6,7 @@ using System.Threading;
 using System.Linq;
 using System.Drawing;
 using System.Diagnostics;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -16,10 +17,18 @@ namespace AGS.Engine
 		private TaskCompletionSource<object> _walkCompleted;
 		private IPathFinder _pathFinder;
 		private List<IImageRenderer> _debugPath;
+		private ISayBehavior _sayBehavior;
 
-		public AGSCharacter (IObject obj, IPathFinder pathFinder = null)
+		public AGSCharacter (IObject obj, Resolver resolver, IPathFinder pathFinder)
 		{
 			this._pathFinder = pathFinder ?? new EPPathFinder ();
+
+			TypedParameter typedParameter = new TypedParameter (typeof(IObject), obj);
+			ISayLocation location = resolver.Container.Resolve<ISayLocation>(typedParameter);
+
+			typedParameter = new TypedParameter (typeof(ISayLocation), location);
+			this._sayBehavior = resolver.Container.Resolve<ISayBehavior>(typedParameter);
+
 			this._obj = obj;
 			_walkCancel = new CancellationTokenSource ();
 			_debugPath = new List<IImageRenderer> ();
@@ -158,14 +167,16 @@ namespace AGS.Engine
 		public IBorderStyle Border { get { return _obj.Border; } set { _obj.Border = value; } }
 		public bool DebugDrawWalkPath { get; set; }
 
+		public ISayConfig SpeechConfig { get { return _sayBehavior.SpeechConfig; } }
+
 		public void Say (string text)
 		{
-			throw new NotImplementedException ();
+			_sayBehavior.Say(text);
 		}
 
-		public Task SayAsync (string text)
+		public async Task SayAsync (string text)
 		{
-			throw new NotImplementedException ();
+			await _sayBehavior.SayAsync(text);
 		}
 
 		public bool Walk (ILocation location)

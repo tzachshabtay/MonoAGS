@@ -37,7 +37,7 @@ namespace DemoGame
 
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "CurbHotspot.png", "Curb"));
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "BottleHotspot.png", "Bottle"));
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "GapHotspot.png", "Gap"));
+			_room.Objects.Add(factory.GetHotspot(_baseFolder + "GapHotspot.png", "Gap", new[]{"It's a gap!", "I wonder what's in there!"}));
 
 			return _room;
 		}

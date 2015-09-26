@@ -9,7 +9,7 @@ namespace AGS.Engine
 	public class GLLabelRenderer : ILabelRenderer
 	{
 		private readonly GLImageRenderer _bgRenderer;
-		private readonly GLText _glText;
+		private GLText _glText;
 
 		private readonly MatrixContainer _matrixContainer;
 
@@ -21,6 +21,7 @@ namespace AGS.Engine
 		private readonly IGLViewportMatrix _viewport;
 		private IGLBoundingBoxes _usedLabelBoundingBoxes, _usedTextBoundingBoxes;
 		private readonly LabelMatrixRenderTarget _labelMatrixRenderTarget;
+		private readonly BitmapPool _bitmapPool;
 
 		public GLLabelRenderer(Dictionary<string, GLImage> textures, IGLMatrixBuilder matrixBuilder,
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
@@ -28,6 +29,7 @@ namespace AGS.Engine
 			IGLBoundingBoxes labelBoundingBoxes, IGLBoundingBoxes textBoundingBoxes)
 		{
 			_matrixContainer = new MatrixContainer ();
+			_bitmapPool = bitmapPool;
 			_labelMatrixRenderTarget = new LabelMatrixRenderTarget ();
 			_viewport = viewportMatrix;
 			_textureRenderer = textureRenderer;
@@ -39,7 +41,7 @@ namespace AGS.Engine
 				viewportMatrix);
 			_matrixBuilder = matrixBuilder;
 			_colorBuilder = colorBuilder;
-			_glText = new GLText (bitmapPool);
+
 			TextVisible = true;
 		}
 
@@ -53,6 +55,8 @@ namespace AGS.Engine
 
 		public void Render(IObject obj, IViewport viewport, IPoint areaScaling)
 		{
+			_glText = _glText ?? new GLText (_bitmapPool);
+
 			updateBoundingBoxes(obj, viewport, areaScaling);
 			_bgRenderer.BoundingBoxes = _usedLabelBoundingBoxes;
 			_bgRenderer.Render(obj, viewport, areaScaling);

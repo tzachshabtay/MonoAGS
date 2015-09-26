@@ -10,6 +10,7 @@ namespace AGS.Engine
 	{
 		private List<Cursor> _cursors = new List<Cursor>(10);
 		private IGame _game;
+		private bool _handlingClick;
 
 		public const string WALK_MODE = "Walk";
 		public const string LOOK_MODE = "Look";
@@ -64,64 +65,82 @@ namespace AGS.Engine
 		private async Task onMouseDown(object sender, MouseButtonEventArgs e)
 		{
 			var state = _game.State;
-			if (!state.Player.Character.Enabled)
+			if (_handlingClick || !state.Player.Character.Enabled)
 				return;
 
-			if (e.Button == MouseButton.Left)
+			_handlingClick = true;
+			try
 			{
-				if (state.Player.Character.Inventory == null || 
-					state.Player.Character.Inventory.ActiveItem == null)
+				if (e.Button == MouseButton.Left)
 				{
-					if (CurrentMode == WALK_MODE)
-					{
-						AGSLocation location = new AGSLocation (e.X, e.Y, state.Player.Character.Z);
-						await state.Player.Character.WalkAsync(location).ConfigureAwait(true);
-					}
-					else if (CurrentMode != WAIT_MODE)
-					{
-						IObject hotspot = state.Player.Character.Room.GetHotspotAt(e.X, e.Y);
-						if (hotspot == null) return;
-
-						if (CurrentMode == LOOK_MODE)
-						{
-							await hotspot.Interactions.OnLook.InvokeAsync(this, new ObjectEventArgs (hotspot));
-						}
-						else if (CurrentMode == INTERACT_MODE)
-						{
-							await hotspot.Interactions.OnInteract.InvokeAsync(this, new ObjectEventArgs (hotspot));
-						}
-						else
-						{
-							await hotspot.Interactions.OnCustomInteract.InvokeAsync(this, new CustomInteractionEventArgs (hotspot, CurrentMode));
-						}
-					}
+					await onLeftMouseDown(e, state);
 				}
-				else 
+				else if (e.Button == MouseButton.Right)
 				{
-					
+					onRightMouseDown(e, state);
 				}
 			}
-			else if (e.Button == MouseButton.Right)
+			finally
 			{
-				IInventory inventory = state.Player.Character.Inventory;
-				if (inventory == null || inventory.ActiveItem == null)
-				{
-					int startMode = _currentMode;
-					Cursor cursor = _cursors[_currentMode];
-					if (!cursor.Rotating) return;
+				_handlingClick = false;
+			}
+		}
 
-					do
+		private async Task onLeftMouseDown(MouseButtonEventArgs e, IGameState state)
+		{
+			if (state.Player.Character.Inventory == null || 
+				state.Player.Character.Inventory.ActiveItem == null)
+			{
+				if (CurrentMode == WALK_MODE)
+				{
+					AGSLocation location = new AGSLocation (e.X, e.Y, state.Player.Character.Z);
+					await state.Player.Character.WalkAsync(location).ConfigureAwait(true);
+				}
+				else if (CurrentMode != WAIT_MODE)
+				{
+					IObject hotspot = state.Player.Character.Room.GetHotspotAt(e.X, e.Y);
+					if (hotspot == null) return;
+
+					if (CurrentMode == LOOK_MODE)
 					{
-						_currentMode = (_currentMode + 1) % _cursors.Count;
-						cursor = _cursors[_currentMode];
-					} while (!cursor.Rotating && _currentMode != startMode);
+						await hotspot.Interactions.OnLook.InvokeAsync(this, new ObjectEventArgs (hotspot));
+					}
+					else if (CurrentMode == INTERACT_MODE)
+					{
+						await hotspot.Interactions.OnInteract.InvokeAsync(this, new ObjectEventArgs (hotspot));
+					}
+					else
+					{
+						await hotspot.Interactions.OnCustomInteract.InvokeAsync(this, new CustomInteractionEventArgs (hotspot, CurrentMode));
+					}
+				}
+			}
+			else 
+			{
 
-					setCursor();
-				}
-				else
+			}
+		}
+
+		private void onRightMouseDown(MouseButtonEventArgs e, IGameState state)
+		{
+			IInventory inventory = state.Player.Character.Inventory;
+			if (inventory == null || inventory.ActiveItem == null)
+			{
+				int startMode = _currentMode;
+				Cursor cursor = _cursors[_currentMode];
+				if (!cursor.Rotating) return;
+
+				do
 				{
-					inventory.ActiveItem = null;
-				}
+					_currentMode = (_currentMode + 1) % _cursors.Count;
+					cursor = _cursors[_currentMode];
+				} while (!cursor.Rotating && _currentMode != startMode);
+
+				setCursor();
+			}
+			else
+			{
+				inventory.ActiveItem = null;
 			}
 		}
 

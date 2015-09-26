@@ -3,19 +3,15 @@ using System.Threading.Tasks;
 
 namespace AGS.API
 {
-	public interface ICharacter : IObject
+	public interface ICharacter : IObject, ISayBehavior
 	{
 		IInventory Inventory { get; set; }
 		IDirectionalAnimation WalkAnimation { get; set; }
 		IDirectionalAnimation IdleAnimation { get; set; }
-		ITextConfig SpeechTextConfig { get; set; }
 		int WalkSpeed { get; set; }
 		bool IsWalking { get; }
 
 		bool DebugDrawWalkPath { get; set; }
-
-		void Say(string text);
-		Task SayAsync(string text);
 
 		bool Walk(ILocation location);
 		Task<bool> WalkAsync(ILocation location);

@@ -72,6 +72,7 @@ namespace AGS.Engine
 					Input = _resolver.Container.Resolve<IInput>(gameParameter, sizeParameter); 
 					TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
 					_renderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater);
+					updateResolver();
 
 					GL.MatrixMode(MatrixMode.Projection);
 
@@ -136,6 +137,16 @@ namespace AGS.Engine
 		}
 
 		#endregion
+
+		private void updateResolver()
+		{
+			var updater = new ContainerBuilder ();
+			updater.RegisterInstance(Input).As<IInput>();
+			updater.RegisterInstance(_renderLoop).As<IRendererLoop>();
+			updater.RegisterInstance(this).As<IGame>();
+
+			updater.Update(_resolver.Container);
+		}
 	}
 }
 

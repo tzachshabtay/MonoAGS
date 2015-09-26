@@ -102,6 +102,9 @@
     <Compile Include="Graphics\Animations\IAnimationContainer.cs" />
     <Compile Include="Misc\Resources\IResourceLoader.cs" />
     <Compile Include="Misc\Resources\IResource.cs" />
+    <Compile Include="Objects\Characters\Talking\ISayLocation.cs" />
+    <Compile Include="Objects\Characters\Talking\ISayBehavior.cs" />
+    <Compile Include="Objects\Characters\Talking\ISayConfig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -117,5 +120,6 @@
     <Folder Include="Rooms\Masks\" />
     <Folder Include="Rooms\Edges\" />
     <Folder Include="Misc\Resources\" />
+    <Folder Include="Objects\Characters\Talking\" />
   </ItemGroup>
 </Project>

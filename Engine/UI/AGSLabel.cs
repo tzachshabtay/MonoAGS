@@ -174,6 +174,11 @@ namespace AGS.Engine
 		public IImageRenderer CustomRenderer { get { return _obj.CustomRenderer; } set { _obj.CustomRenderer = value; } }
 
 		#endregion
+
+		public override string ToString()
+		{
+			return string.Format("Label: {0}", Text ?? "null");
+		}
 	}
 }
 

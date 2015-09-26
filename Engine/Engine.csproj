@@ -148,6 +148,10 @@
     <Compile Include="Input\Schemes\RotatingCursorScheme.cs" />
     <Compile Include="Misc\Resources\ResourceLoader.cs" />
     <Compile Include="Misc\Resources\AGSResource.cs" />
+    <Compile Include="Objects\Characters\Talking\AGSSayBehavior.cs" />
+    <Compile Include="Objects\Characters\Talking\AGSSayLocation.cs" />
+    <Compile Include="Objects\Characters\Talking\FastFingerChecker.cs" />
+    <Compile Include="Objects\Characters\Talking\AGSSayConfig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -179,6 +183,7 @@
     <Folder Include="UI\DebugLabels\" />
     <Folder Include="Objects\Characters\Pathfinding\EPJumpPointSearch\" />
     <Folder Include="Misc\Resources\" />
+    <Folder Include="Objects\Characters\Talking\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

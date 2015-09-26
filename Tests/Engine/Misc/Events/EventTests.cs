@@ -82,9 +82,9 @@ namespace Tests
 		{
 			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
 			ev.Subscribe (onEvent);
-			ev.Subscribe (onEvent);
+			ev.Subscribe ((sender, e) => onEvent(sender, e));
 			ev.SubscribeToAsync (onEventAsync);
-			ev.SubscribeToAsync (onEventAsync);
+			ev.SubscribeToAsync (async (sender, e) => await onEventAsync(sender, e));
 			ev.Invoke (this, new MockEventArgs(x));
 			Assert.AreEqual (2, syncEvents);
 			Assert.AreEqual (2, asyncEvents);
@@ -95,9 +95,9 @@ namespace Tests
 		{
 			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
 			ev.Subscribe (onEvent);
-			ev.Subscribe (onEvent);
+			ev.Subscribe ((sender, e) => onEvent(sender, e));
 			ev.SubscribeToAsync (onEventAsync);
-			ev.SubscribeToAsync (onEventAsync);
+			ev.SubscribeToAsync (async (sender, e) => await onEventAsync(sender, e));
 			await ev.InvokeAsync (this, new MockEventArgs(x));
 			Assert.AreEqual (2, syncEvents);
 			Assert.AreEqual (2, asyncEvents);

@@ -39,6 +39,26 @@ namespace AGS.Engine
 		{
 			return _random.Value;
 		}
+
+		public static float Min(params float[] values)
+		{
+			float minValue = float.MaxValue;
+			foreach (var value in values)
+			{
+				if (value < minValue) minValue = value;
+			}
+			return minValue;
+		}
+
+		public static float Max(params float[] values)
+		{
+			float maxValue = float.MinValue;
+			foreach (var value in values)
+			{
+				if (value > maxValue) maxValue = value;
+			}
+			return maxValue;
+		}
 	}
 }
 

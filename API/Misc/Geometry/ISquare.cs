@@ -14,6 +14,11 @@ namespace AGS.API
 		IPoint TopLeft { get; }
 		IPoint TopRight { get; }
 
+		float MinX { get; }
+		float MaxX { get; }
+		float MinY { get; }
+		float MaxY { get; }
+
 		bool Contains(IPoint point);
 	}
 }

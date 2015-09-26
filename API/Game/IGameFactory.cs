@@ -13,10 +13,10 @@ namespace AGS.API
 		string GetString(string name, string defaultValue = null);
 
 		ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null);
-		IObject GetObject();
-		ICharacter GetCharacter();
-		IObject GetHotspot(string maskPath, string hotspot);
-		IObject GetHotspot(Bitmap maskBitmap, string hotspot);
+		IObject GetObject(string[] sayWhenLook = null, string[] sayWhenInteract = null);
+		ICharacter GetCharacter(string[] sayWhenLook = null, string[] sayWhenInteract = null);
+		IObject GetHotspot(string maskPath, string hotspot, string[] sayWhenLook = null, string[] sayWhenInteract = null);
+		IObject GetHotspot(Bitmap maskBitmap, string hotspot, string[] sayWhenLook = null, string[] sayWhenInteract = null);
 
 		IEdge GetEdge(float value = 0f);
 		IRoom GetRoom(string id, float leftEdge = 0f, float rightEdge = 0f, float bottomEdge = 0f, float topEdge = 0f);
