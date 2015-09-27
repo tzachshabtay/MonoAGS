@@ -68,21 +68,13 @@ namespace AGS.Engine
 			if (_handlingClick || !state.Player.Character.Enabled)
 				return;
 
-			_handlingClick = true;
-			try
+			if (e.Button == MouseButton.Left)
 			{
-				if (e.Button == MouseButton.Left)
-				{
-					await onLeftMouseDown(e, state);
-				}
-				else if (e.Button == MouseButton.Right)
-				{
-					onRightMouseDown(e, state);
-				}
+				await onLeftMouseDown(e, state);
 			}
-			finally
+			else if (e.Button == MouseButton.Right)
 			{
-				_handlingClick = false;
+				onRightMouseDown(e, state);
 			}
 		}
 
@@ -98,20 +90,28 @@ namespace AGS.Engine
 				}
 				else if (CurrentMode != WAIT_MODE)
 				{
-					IObject hotspot = state.Player.Character.Room.GetHotspotAt(e.X, e.Y);
-					if (hotspot == null) return;
+					_handlingClick = true;
+					try
+					{
+						IObject hotspot = state.Player.Character.Room.GetHotspotAt(e.X, e.Y);
+						if (hotspot == null) return;
 
-					if (CurrentMode == LOOK_MODE)
-					{
-						await hotspot.Interactions.OnLook.InvokeAsync(this, new ObjectEventArgs (hotspot));
+						if (CurrentMode == LOOK_MODE)
+						{
+							await hotspot.Interactions.OnLook.InvokeAsync(this, new ObjectEventArgs (hotspot));
+						}
+						else if (CurrentMode == INTERACT_MODE)
+						{
+							await hotspot.Interactions.OnInteract.InvokeAsync(this, new ObjectEventArgs (hotspot));
+						}
+						else
+						{
+							await hotspot.Interactions.OnCustomInteract.InvokeAsync(this, new CustomInteractionEventArgs (hotspot, CurrentMode));
+						}
 					}
-					else if (CurrentMode == INTERACT_MODE)
+					finally
 					{
-						await hotspot.Interactions.OnInteract.InvokeAsync(this, new ObjectEventArgs (hotspot));
-					}
-					else
-					{
-						await hotspot.Interactions.OnCustomInteract.InvokeAsync(this, new CustomInteractionEventArgs (hotspot, CurrentMode));
+						_handlingClick = false;
 					}
 				}
 			}
