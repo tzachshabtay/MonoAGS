@@ -64,13 +64,9 @@
     <Compile Include="UI\Text\GLText.cs" />
     <Compile Include="Graphics\Logic\GLUtils.cs" />
     <Compile Include="Objects\Characters\AGSCharacter.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\PriorityQueue.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\SpatialAStar.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\PathNode.cs" />
     <Compile Include="Graphics\Drawing\GLLineRenderer.cs" />
     <Compile Include="Graphics\Drawing\GLMaskRenderer.cs" />
     <Compile Include="Graphics\Drawing\GLBitmapRenderer.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\SpatialAstar\SpatialAStarPathFinder.cs" />
     <Compile Include="Rooms\Viewport\AGSViewportFollower.cs" />
     <Compile Include="Rooms\Viewport\AGSViewport.cs" />
     <Compile Include="Rooms\AGSRoom.cs" />
@@ -127,17 +123,6 @@
     <Compile Include="Graphics\Logic\GLBoundingBoxes.cs" />
     <Compile Include="UI\Text\AGSTextConfig.cs" />
     <Compile Include="Graphics\Logic\FastBitmap.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\GridPos.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\GridRect.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Heuristic.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\JumpPointFinder.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\NodePool.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\BaseGrid.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGrid.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\DynamicGridWPool.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\PartialGridWPool.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\Grid\StaticGrid.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\EPJumpPointSearch\EPPathFinder.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLViewportMatrix.cs" />
     <Compile Include="Graphics\Logic\GLViewportMatrix.cs" />
     <Compile Include="UI\Text\LabelMatrixRenderTarget.cs" />
@@ -153,7 +138,26 @@
     <Compile Include="Objects\Characters\Talking\FastFingerChecker.cs" />
     <Compile Include="Objects\Characters\Talking\AGSSayConfig.cs" />
     <Compile Include="Objects\Interactions\AGSInteractionEvent.cs" />
-    <Compile Include="Objects\Characters\AGSOutfit.cs" />
+    <Compile Include="Objects\Characters\Walking\AGSWalkBehavior.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\EPPathFinder.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\Grid\BaseGrid.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\Grid\DynamicGrid.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\Grid\DynamicGridWPool.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\Grid\PartialGridWPool.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\Grid\StaticGrid.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\GridPos.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\GridRect.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\Heuristic.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\JumpPointFinder.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\NodePool.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\SpatialAstar\PathNode.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\SpatialAstar\PriorityQueue.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\SpatialAstar\SpatialAStar.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\SpatialAstar\SpatialAStarPathFinder.cs" />
+    <Compile Include="Objects\Characters\FaceDirection\AGSFaceDirectionBehavior.cs" />
+    <Compile Include="Objects\Characters\FaceDirection\IAGSFaceDirectionBehavior.cs" />
+    <Compile Include="Objects\Characters\Outfit\AGSOutfit.cs" />
+    <Compile Include="Objects\Characters\Outfit\IOutfitHolder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -169,8 +173,6 @@
     <Folder Include="UI\" />
     <Folder Include="UI\Text\" />
     <Folder Include="Objects\Characters\" />
-    <Folder Include="Objects\Characters\Pathfinding\" />
-    <Folder Include="Objects\Characters\Pathfinding\SpatialAstar\" />
     <Folder Include="Graphics\Drawing\" />
     <Folder Include="Rooms\" />
     <Folder Include="Rooms\Viewport\" />
@@ -183,9 +185,11 @@
     <Folder Include="Rooms\Areas\" />
     <Folder Include="Misc\Pool\" />
     <Folder Include="UI\DebugLabels\" />
-    <Folder Include="Objects\Characters\Pathfinding\EPJumpPointSearch\" />
     <Folder Include="Misc\Resources\" />
     <Folder Include="Objects\Characters\Talking\" />
+    <Folder Include="Objects\Characters\Walking\" />
+    <Folder Include="Objects\Characters\FaceDirection\" />
+    <Folder Include="Objects\Characters\Outfit\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

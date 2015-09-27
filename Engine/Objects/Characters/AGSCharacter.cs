@@ -10,38 +10,33 @@ using Autofac;
 
 namespace AGS.Engine
 {
-	public class AGSCharacter : ICharacter
+	public class AGSCharacter : ICharacter, IOutfitHolder
 	{
-		private IObject _obj;
-		private CancellationTokenSource _walkCancel;
-		private TaskCompletionSource<object> _walkCompleted;
-		private IPathFinder _pathFinder;
-		private List<IImageRenderer> _debugPath;
-		private ISayBehavior _sayBehavior;
+		private readonly IObject _obj;
+		private readonly ISayBehavior _sayBehavior;
+		private readonly IWalkBehavior _walkBehavior;
+		private readonly IAGSFaceDirectionBehavior _faceDirectionBehavior;
 
 		public AGSCharacter (IObject obj, IOutfit outfit, Resolver resolver, IPathFinder pathFinder)
 		{
-			this._pathFinder = pathFinder;
 			Outfit = outfit;
 
-			TypedParameter typedParameter = new TypedParameter (typeof(IObject), obj);
-			ISayLocation location = resolver.Container.Resolve<ISayLocation>(typedParameter);
+			TypedParameter objParameter = new TypedParameter (typeof(IObject), obj);
+			_faceDirectionBehavior = resolver.Container.Resolve<IAGSFaceDirectionBehavior>(objParameter);
 
-			typedParameter = new TypedParameter (typeof(ISayLocation), location);
-			this._sayBehavior = resolver.Container.Resolve<ISayBehavior>(typedParameter);
+			TypedParameter faceDirectionParameter = new TypedParameter (typeof(IAGSFaceDirectionBehavior), _faceDirectionBehavior);
+			TypedParameter outfitParameter = new TypedParameter (typeof(IOutfitHolder), this);
 
-			this._obj = obj;
-			_walkCancel = new CancellationTokenSource ();
-			_debugPath = new List<IImageRenderer> ();
-			_walkCompleted = new TaskCompletionSource<object> ();
-			_walkCompleted.SetResult(null);
+			ISayLocation location = resolver.Container.Resolve<ISayLocation>(objParameter);
+
+			TypedParameter locationParameter = new TypedParameter (typeof(ISayLocation), location);
+			_sayBehavior = resolver.Container.Resolve<ISayBehavior>(locationParameter);
+
+			_walkBehavior = resolver.Container.Resolve<IWalkBehavior>(objParameter, outfitParameter, faceDirectionParameter);
+
+			_obj = obj;
 			IgnoreScalingArea = false;
 		}
-
-		/// <summary>
-		/// The larger this is, the slower all character walks will be.
-		/// </summary>
-		public static int MaxWalkDelay = 6;
 
 		#region ICharacter implementation
 
@@ -91,14 +86,7 @@ namespace AGS.Engine
 		public bool Enabled { get { return _obj.Enabled; } set { _obj.Enabled = value; } }
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 
-		public bool IsWalking
-		{ 
-			get
-			{ 
-				Task task = _walkCompleted.Task;
-				return (!task.IsCompleted && !task.IsCanceled && !task.IsFaulted);
-			}
-		}
+		public bool IsWalking { get { return _walkBehavior.IsWalking; } }
 
 		public void ResetScale ()
 		{
@@ -166,7 +154,7 @@ namespace AGS.Engine
 
 		public bool DebugDrawAnchor { get { return _obj.DebugDrawAnchor; } set { _obj.DebugDrawAnchor = value; } }
 		public IBorderStyle Border { get { return _obj.Border; } set { _obj.Border = value; } }
-		public bool DebugDrawWalkPath { get; set; }
+		public bool DebugDrawWalkPath { get { return _walkBehavior.DebugDrawWalkPath; } set { _walkBehavior.DebugDrawWalkPath = value; } }
 
 		public ISayConfig SpeechConfig { get { return _sayBehavior.SpeechConfig; } }
 
@@ -182,53 +170,22 @@ namespace AGS.Engine
 
 		public bool Walk (ILocation location)
 		{
-			return Task.Run (async () => await WalkAsync (location)).Result;
+			return _walkBehavior.Walk(location);
 		}
 
 		public async Task<bool> WalkAsync (ILocation location)	
 		{
-			List<IImageRenderer> debugRenderers = _debugPath;
-			if (debugRenderers != null) 
-			{
-				foreach (IImageRenderer renderer in debugRenderers) 
-				{
-					//Room.RemoveCustomRenderer (renderer);
-				}
-			}
-			CancellationTokenSource token = await stopWalkingAsync();
-			debugRenderers = DebugDrawWalkPath ? new List<IImageRenderer> () : null;
-			_debugPath = debugRenderers;
-			_walkCompleted = new TaskCompletionSource<object> (null);
-			float xSource = X;
-			float ySource = Y;
-			bool completedWalk = false;
-			Exception caught = null;
-			try
-			{
-				completedWalk = await walkAsync(location, token, debugRenderers);
-			}
-			catch (Exception e)
-			{
-				caught = e;
-			}
-
-			//On windows (assuming we're before c# 6.0), we can't await inside a finally, so we're using the workaround pattern
-			await setDirection (xSource, ySource, location.X, location.Y, Outfit.IdleAnimation);
-			_walkCompleted.TrySetResult(null);
-
-			if (caught != null) throw caught;
-
-			return completedWalk;
+			return await _walkBehavior.WalkAsync(location);
 		}
 
 		public void StopWalking()
 		{
-			Task.Run(async () => await StopWalkingAsync()).Wait();
+			_walkBehavior.StopWalking();
 		}
 
 		public async Task StopWalkingAsync()
 		{
-			await stopWalkingAsync();
+			await _walkBehavior.StopWalkingAsync();
 		}
 
 		public IInventory Inventory { get; set; }
@@ -237,7 +194,51 @@ namespace AGS.Engine
 
 		public ITextConfig SpeechTextConfig { get; set; }
 
-		public int WalkSpeed { get; set; }
+		public int WalkSpeed { get { return _walkBehavior.WalkSpeed; } set { _walkBehavior.WalkSpeed = value; } }
+
+		public void FaceDirection(Direction direction)
+		{
+			_faceDirectionBehavior.FaceDirection(direction);
+		}
+
+		public async Task FaceDirectionAsync(Direction direction)
+		{
+			await _faceDirectionBehavior.FaceDirectionAsync(direction);
+		}
+
+		public void FaceDirection(IObject obj)
+		{
+			_faceDirectionBehavior.FaceDirection(obj);
+		}
+
+		public async Task FaceDirectionAsync(IObject obj)
+		{
+			await _faceDirectionBehavior.FaceDirectionAsync(obj);
+		}
+
+		public void FaceDirection(float x, float y)
+		{
+			_faceDirectionBehavior.FaceDirection(x, y);
+		}
+
+		public async Task FaceDirectionAsync(float x, float y)
+		{
+			await _faceDirectionBehavior.FaceDirectionAsync(x, y);
+		}
+
+		public void FaceDirection(float fromX, float fromY, float toX, float toY)
+		{
+			_faceDirectionBehavior.FaceDirection(fromX, fromY, toX, toY);
+		}
+
+		public async Task FaceDirectionAsync(float fromX, float fromY, float toX, float toY)
+		{
+			await _faceDirectionBehavior.FaceDirectionAsync(fromX, fromY, toX, toY);
+		}
+
+		public Direction Direction { get { return _faceDirectionBehavior.Direction; } }
+
+		public IDirectionalAnimation CurrentDirectionalAnimation{ get { return _faceDirectionBehavior.CurrentDirectionalAnimation; } }
 
 		#endregion
 
@@ -267,13 +268,7 @@ namespace AGS.Engine
 
 		public void PlaceOnWalkableArea()
 		{
-			AGSPoint current = new AGSPoint (X, Y);
-			IPoint closestPoint = getClosestWalkablePoint (current);
-			if (closestPoint != null) 
-			{
-				X = closestPoint.X;
-				Y = closestPoint.Y;
-			}
+			_walkBehavior.PlaceOnWalkableArea();
 		}
 
 		public IRoom Room { get { return _obj.Room; } }
@@ -290,164 +285,6 @@ namespace AGS.Engine
 		}
 
 		#endregion
-
-		private async Task<bool> walkAsync(ILocation location, CancellationTokenSource token, List<IImageRenderer> debugRenderers)
-		{
-			IEnumerable<ILocation> walkPoints = getWalkPoints (location);
-
-			if (!walkPoints.Any ()) return false;
-			foreach (var point in walkPoints) 
-			{
-				if (point.X == X && point.Y == Y) continue;
-				if (!await walkStraightLine (point, token, debugRenderers)) return false;
-			}
-			return true;
-		}
-
-		private async Task<CancellationTokenSource> stopWalkingAsync()
-		{
-			_walkCancel.Cancel ();
-			CancellationTokenSource token = new CancellationTokenSource ();
-			_walkCancel = token;
-			await _walkCompleted.Task;
-			return token;
-		}
-			
-		private IPoint getClosestWalkablePoint(IPoint target)
-		{
-			IPoint closestPoint = null;
-			float closestDistance = float.MaxValue;
-			foreach (IArea area in Room.WalkableAreas) 
-			{
-				if (!area.Enabled) continue;
-				float distance;
-				IPoint point = area.FindClosestPoint (target, out distance);
-				if (distance < closestDistance) 
-				{
-					closestPoint = point;
-					closestDistance = distance;
-				}
-			}
-			return closestPoint;
-		}
-
-		private IEnumerable<ILocation> getWalkPoints(ILocation destination)
-		{
-			if (!isWalkable(Location))
-				return new List<ILocation> ();
-			if (!isWalkable (destination)) 
-			{
-				IPoint closest = getClosestWalkablePoint (destination);
-				if (closest == null)
-					return new List<ILocation> ();
-				destination = new AGSLocation (closest, destination.Z);
-			}
-			bool[][] mask = getWalkableMask ();
-			_pathFinder.Init (mask);
-			return _pathFinder.GetWalkPoints (Location, destination);
-		}
-
-		private bool isWalkable(ILocation location)
-		{
-			foreach (var area in Room.WalkableAreas) 
-			{
-				if (area.IsInArea (location))
-					return true;
-			}
-			return false;
-		}
-
-		private bool[][] getWalkableMask()
-		{
-			int maxWidth = Room.WalkableAreas.Max(a => a.Mask.Width);
-			bool[][] mask = new bool[maxWidth][];
-			foreach (var area in Room.WalkableAreas) 
-			{
-				area.Mask.ApplyToMask (mask);
-			}
-			return mask;
-		}
-
-		private async Task<bool> walkStraightLine(ILocation destination, 
-			CancellationTokenSource token, List<IImageRenderer> debugRenderers)
-		{
-			if (debugRenderers != null) 
-			{
-				GLLineRenderer line = new GLLineRenderer (X, Y, destination.X, destination.Y);
-				//Room.AddCustomRenderer (line);
-				debugRenderers.Add (line);
-			}
-
-			await setDirection (X, Y, destination.X, destination.Y, Outfit.WalkAnimation);
-			float xSteps = Math.Abs (destination.X - X);
-			float ySteps = Math.Abs (destination.Y - Y);
-
-
-			float numSteps = Math.Max (xSteps, ySteps);
-
-			float xStep = xSteps / numSteps;
-			if (X > destination.X) xStep = -xStep;
-
-			float yStep = ySteps / numSteps;
-			if (Y > destination.Y) yStep = -yStep;
-
-			int numStepsInt = (int)numSteps;
-			int delay = MaxWalkDelay - WalkSpeed;
-
-			for (int step = 0; step < numStepsInt; step++) 
-			{
-				if (token.IsCancellationRequested)
-					return false;
-				_obj.X += xStep;
-				_obj.Y += yStep;
-				await Task.Delay(delay);
-			}
-			_obj.X = destination.X;
-			_obj.Y = destination.Y;
-			return true;
-		}
-
-		private async Task setDirection(float xSource, float ySource, float xDest, float yDest, 
-			IDirectionalAnimation animation)
-		{
-			float angle = getAngle (xSource, ySource, xDest, yDest);
-
-			if (angle < -30 && angle > -60 && animation.DownRight != null)
-				await changeAnimationIfNeeded (animation.DownRight);
-			else if (angle < -120 && angle > -150 && animation.DownLeft != null)
-				await changeAnimationIfNeeded (animation.DownLeft);
-			else if (angle > 120 && angle < 150 && animation.UpLeft != null)
-				await changeAnimationIfNeeded (animation.UpLeft);
-			else if (angle > 30 && angle < 60 && animation.UpRight != null)
-				await changeAnimationIfNeeded (animation.UpRight);
-			else if (angle < -65 && angle > -115 && animation.Down != null)
-				await changeAnimationIfNeeded (animation.Down);
-			else if (angle > 65 && angle < 115 && animation.Up != null)
-				await changeAnimationIfNeeded (animation.Up);
-			else if (xDest > xSource && animation.Right != null) 
-				await changeAnimationIfNeeded (animation.Right);
-			else if (animation.Left != null)
-				await changeAnimationIfNeeded(animation.Left);
-		}
-
-		private async Task changeAnimationIfNeeded(IAnimation animation)
-		{
-			if (animation == _obj.Animation)
-				return;
-			await Task.Delay (1);
-			StartAnimation (animation);
-			await Task.Delay (1);
-		}
-
-		private float getAngle(float x1, float y1, float x2, float y2)
-		{
-			float deltaX = x2 - x1;
-			if (deltaX == 0f)
-				deltaX = 0.001f;
-			float deltaY = y2 - y1;
-			float angle = ((float)Math.Atan2 (deltaY, deltaX)) * 180f / (float)Math.PI;
-			return angle;
-		}
 	}
 }
 

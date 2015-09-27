@@ -68,7 +68,6 @@
     <Compile Include="Graphics\Animations\ISpriteSheet.cs" />
     <Compile Include="Graphics\Animations\IDirectionalAnimation.cs" />
     <Compile Include="Objects\Characters\ICharacter.cs" />
-    <Compile Include="Objects\Characters\Pathfinding\IPathFinder.cs" />
     <Compile Include="Objects\Characters\IFollower.cs" />
     <Compile Include="Rooms\IRoom.cs" />
     <Compile Include="Rooms\IArea.cs" />
@@ -106,13 +105,15 @@
     <Compile Include="Objects\Characters\Talking\ISayBehavior.cs" />
     <Compile Include="Objects\Characters\Talking\ISayConfig.cs" />
     <Compile Include="Objects\Characters\IOutfit.cs" />
+    <Compile Include="Objects\Characters\Walking\IWalkBehavior.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\IPathFinder.cs" />
+    <Compile Include="Objects\Characters\FaceDirection\IFaceDirectionBehavior.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Graphics\Animations\" />
     <Folder Include="Input\" />
     <Folder Include="Objects\Characters\" />
-    <Folder Include="Objects\Characters\Pathfinding\" />
     <Folder Include="UI\" />
     <Folder Include="Misc\" />
     <Folder Include="Misc\Collections\" />
@@ -122,5 +123,7 @@
     <Folder Include="Rooms\Edges\" />
     <Folder Include="Misc\Resources\" />
     <Folder Include="Objects\Characters\Talking\" />
+    <Folder Include="Objects\Characters\Walking\" />
+    <Folder Include="Objects\Characters\FaceDirection\" />
   </ItemGroup>
 </Project>
