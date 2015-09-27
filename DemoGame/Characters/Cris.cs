@@ -42,8 +42,8 @@ namespace DemoGame
 			idle.Right = idle.Left.Clone();
 			idle.Right.FlipHorizontally();
 
-			_character.WalkAnimation = walk;
-			_character.IdleAnimation = idle;
+			_character.Outfit.WalkAnimation = walk;
+			_character.Outfit.IdleAnimation = idle;
 			_character.StartAnimation (idle.Down);
 			_character.Hotspot = "Cris";
 			_character.PixelPerfect(true);

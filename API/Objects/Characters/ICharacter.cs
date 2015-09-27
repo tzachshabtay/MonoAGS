@@ -6,8 +6,8 @@ namespace AGS.API
 	public interface ICharacter : IObject, ISayBehavior
 	{
 		IInventory Inventory { get; set; }
-		IDirectionalAnimation WalkAnimation { get; set; }
-		IDirectionalAnimation IdleAnimation { get; set; }
+		IOutfit Outfit { get; set; }
+
 		int WalkSpeed { get; set; }
 		bool IsWalking { get; }
 

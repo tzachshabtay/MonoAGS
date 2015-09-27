@@ -105,6 +105,7 @@
     <Compile Include="Objects\Characters\Talking\ISayLocation.cs" />
     <Compile Include="Objects\Characters\Talking\ISayBehavior.cs" />
     <Compile Include="Objects\Characters\Talking\ISayConfig.cs" />
+    <Compile Include="Objects\Characters\IOutfit.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

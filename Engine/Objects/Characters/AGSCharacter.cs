@@ -19,9 +19,10 @@ namespace AGS.Engine
 		private List<IImageRenderer> _debugPath;
 		private ISayBehavior _sayBehavior;
 
-		public AGSCharacter (IObject obj, Resolver resolver, IPathFinder pathFinder)
+		public AGSCharacter (IObject obj, IOutfit outfit, Resolver resolver, IPathFinder pathFinder)
 		{
-			this._pathFinder = pathFinder ?? new EPPathFinder ();
+			this._pathFinder = pathFinder;
+			Outfit = outfit;
 
 			TypedParameter typedParameter = new TypedParameter (typeof(IObject), obj);
 			ISayLocation location = resolver.Container.Resolve<ISayLocation>(typedParameter);
@@ -212,7 +213,7 @@ namespace AGS.Engine
 			}
 
 			//On windows (assuming we're before c# 6.0), we can't await inside a finally, so we're using the workaround pattern
-			await setDirection (xSource, ySource, location.X, location.Y, IdleAnimation);
+			await setDirection (xSource, ySource, location.X, location.Y, Outfit.IdleAnimation);
 			_walkCompleted.TrySetResult(null);
 
 			if (caught != null) throw caught;
@@ -232,9 +233,7 @@ namespace AGS.Engine
 
 		public IInventory Inventory { get; set; }
 
-		public IDirectionalAnimation WalkAnimation { get; set; }
-
-		public IDirectionalAnimation IdleAnimation { get; set; }
+		public IOutfit Outfit { get; set; }
 
 		public ITextConfig SpeechTextConfig { get; set; }
 
@@ -379,7 +378,7 @@ namespace AGS.Engine
 				debugRenderers.Add (line);
 			}
 
-			await setDirection (X, Y, destination.X, destination.Y, WalkAnimation);
+			await setDirection (X, Y, destination.X, destination.Y, Outfit.WalkAnimation);
 			float xSteps = Math.Abs (destination.X - X);
 			float ySteps = Math.Abs (destination.Y - Y);
 
