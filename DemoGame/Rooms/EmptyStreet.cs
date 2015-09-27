@@ -35,8 +35,10 @@ namespace DemoGame
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[0], 0.50f, 0.75f));
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[1], 0.75f, 0.90f));
 
+			IObject bottle = factory.GetHotspot(_baseFolder + "BottleHotspot.png", "Bottle");
+			bottle.WalkPoint = new AGSPoint (140f, 50f);
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "CurbHotspot.png", "Curb"));
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "BottleHotspot.png", "Bottle"));
+			_room.Objects.Add(bottle);
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "GapHotspot.png", "Gap", new[]{"It's a gap!", "I wonder what's in there!"}));
 
 			return _room;

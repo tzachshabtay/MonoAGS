@@ -13,15 +13,16 @@ namespace DemoGame
 
 		public ICharacter Load(IGameFactory factory)
 		{
-			_character = factory.GetCharacter();
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
 			{ 
 				TransparentColorSamplePoint = new Point (0, 0) 
 			};
 
-			factory.Graphics.LoadToOutfitFromFolders(_baseFolder, _character.Outfit, walkLeftFolder: "Walk/left",
+			IOutfit outfit = factory.LoadOutfitFromFolders(_baseFolder, walkLeftFolder: "Walk/left",
 				walkDownFolder: "Walk/front", idleLeftFolder: "Idle/left", idleDownFolder: "Idle/front", 
 				speakLeftFolder: "Talk", loadConfig: loadConfig);
+
+			_character = factory.GetCharacter(outfit);
 
 			foreach (var frame in _character.Outfit.SpeakAnimation.Left.Frames)
 			{

@@ -7,11 +7,13 @@ namespace AGS.Engine
 	{
 		public AGSPlayer ()
 		{
+			ApproachStyle = new AGSApproachStyle ();
 		}
 
 		#region IPlayer implementation
 
 		public ICharacter Character { get; set; }
+		public IApproachStyle ApproachStyle { get; private set; }
 
 		#endregion
 	}

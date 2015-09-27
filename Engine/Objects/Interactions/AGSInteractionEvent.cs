@@ -8,11 +8,17 @@ namespace AGS.Engine
 	{
 		private readonly IEvent<TEventArgs> _ev;
 		private readonly IEvent<TEventArgs> _defaultEvent;
+		private readonly bool _isLookEvent;
+		private readonly IObject _obj;
+		private readonly IPlayer _player;
 
-		public AGSInteractionEvent(IEvent<TEventArgs> defaultEvent)
+		public AGSInteractionEvent(IEvent<TEventArgs> defaultEvent, bool isLookEvent, IObject obj, IPlayer player)
 		{
 			_ev = new AGSEvent<TEventArgs>();
 			_defaultEvent = defaultEvent;
+			_isLookEvent = isLookEvent;
+			_obj = obj;
+			_player = player;
 		}
 
 		#region IInteractionEvent implementation
@@ -31,11 +37,7 @@ namespace AGS.Engine
 
 		public void WaitUntil(Predicate<TEventArgs> condition)
 		{
-			if (shouldDefault())
-			{
-				_defaultEvent.WaitUntil(condition);
-			}
-			else _ev.WaitUntil(condition);
+			Task.Run(async () => await WaitUntilAsync(condition)).Wait();
 		}
 
 		public void SubscribeToAsync(Func<object, TEventArgs, Task> callback)
@@ -50,36 +52,79 @@ namespace AGS.Engine
 
 		public async Task WaitUntilAsync(Predicate<TEventArgs> condition)
 		{
-			if (shouldDefault())
+			if (await shouldDefault())
 			{
 				await _defaultEvent.WaitUntilAsync(condition);
 			}
-			else await _ev.WaitUntilAsync(condition);
+			else
+			{
+				await approachHotspot();
+				await _ev.WaitUntilAsync(condition);
+			}
 		}
 
 		public async Task InvokeAsync(object sender, TEventArgs args)
 		{
-			if (shouldDefault())
+			if (await shouldDefault())
 			{
 				await _defaultEvent.InvokeAsync(sender, args);
 			}
-			else await _ev.InvokeAsync(sender, args);
+			else
+			{
+				await approachHotspot();
+				await _ev.InvokeAsync(sender, args);
+			}
 		}
 
 		public void Invoke(object sender, TEventArgs args)
 		{
-			if (shouldDefault())
-			{
-				_defaultEvent.Invoke(sender, args);
-			}
-			else _ev.Invoke(sender, args);
+			Task.Run(async () => await InvokeAsync(sender, args)).Wait();
 		}
 
 		#endregion
 
-		private bool shouldDefault()
+		private async Task<bool> shouldDefault()
 		{
-			return _ev.SubscribersCount == 0 && _defaultEvent != null;
+			if (_ev.SubscribersCount > 0 || _defaultEvent == null) return false;
+			if (_player.ApproachStyle.ApplyApproachStyleOnDefaults)
+			{
+				await approachHotspot();
+			}
+			return true;
+		}
+
+		private async Task approachHotspot()
+		{
+			if (_obj == null) return;
+			ApproachHotspots approachStyle = getApproachStyle();
+			switch (approachStyle)
+			{
+				case ApproachHotspots.NeverWalk:
+					return;
+				case ApproachHotspots.FaceOnly:
+					await _player.Character.FaceDirectionAsync(_obj);
+					break;
+				case ApproachHotspots.WalkIfHaveWalkPoint:
+					if (_obj.WalkPoint == null) await _player.Character.FaceDirectionAsync(_obj);
+					else
+					{
+						await _player.Character.WalkAsync(new AGSLocation (_obj.WalkPoint));
+						await _player.Character.FaceDirectionAsync(_obj);
+					}
+					break;
+				case ApproachHotspots.AlwaysWalk:
+					if (_obj.WalkPoint == null) await _player.Character.WalkAsync(new AGSLocation(_obj.CenterPoint));
+					else await _player.Character.WalkAsync(new AGSLocation (_obj.WalkPoint));
+					await _player.Character.FaceDirectionAsync(_obj);
+					break;
+				default:
+					throw new NotSupportedException ("Approach style is not supported: " + approachStyle.ToString());
+			}
+		}
+
+		private ApproachHotspots getApproachStyle()
+		{
+			return _isLookEvent ? _player.ApproachStyle.ApproachWhenLook : _player.ApproachStyle.ApproachWhenInteract;
 		}
 	}
 }

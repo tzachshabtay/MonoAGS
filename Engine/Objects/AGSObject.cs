@@ -21,7 +21,8 @@ namespace AGS.Engine
 			if (resolver != null)
 			{
 				TypedParameter defaults = new TypedParameter (typeof(IInteractions), gameEvents.DefaultInteractions);
-				Interactions = resolver.Container.Resolve<IInteractions>(defaults);
+				TypedParameter objParam = new TypedParameter (typeof(IObject), this);
+				Interactions = resolver.Container.Resolve<IInteractions>(defaults, objParam);
 			}
 
 			Enabled = true;
@@ -97,6 +98,23 @@ namespace AGS.Engine
 
 		public bool IgnoreViewport { get; set; }
 		public bool IgnoreScalingArea { get; set; }
+
+		public IPoint WalkPoint { get; set; }
+
+		public IPoint CenterPoint
+		{
+			get
+			{
+				float minX = BoundingBox.MinX;
+				float minY = BoundingBox.MinY;
+				float offsetX = PixelPerfectHitTestArea == null ? (BoundingBox.MaxX - BoundingBox.MinX) / 2f : 
+					PixelPerfectHitTestArea.Mask.MinX + (PixelPerfectHitTestArea.Mask.MaxX - PixelPerfectHitTestArea.Mask.MinX) / 2f;
+				float offsetY = PixelPerfectHitTestArea == null ? (BoundingBox.MaxY - BoundingBox.MinY) / 2f : 
+					PixelPerfectHitTestArea.Mask.MinY + (PixelPerfectHitTestArea.Mask.MaxY - PixelPerfectHitTestArea.Mask.MinY) / 2f;
+
+				return new AGSPoint (minX + offsetX, minY + offsetY);
+			}
+		}
 
 		public IImage Image { get { return _animation.Image; } set { _animation.Image = value; } }
 

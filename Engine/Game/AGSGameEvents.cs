@@ -13,7 +13,8 @@ namespace AGS.Engine
 			OnRepeatedlyExecute = onRepeatedlyExecute;
 
 			TypedParameter nullDefaults = new TypedParameter (typeof(IInteractions), null);
-			DefaultInteractions = resolver.Container.Resolve<IInteractions>(nullDefaults);
+			TypedParameter nullObject = new TypedParameter (typeof(IObject), null);
+			DefaultInteractions = resolver.Container.Resolve<IInteractions>(nullDefaults, nullObject);
 		}
 
 		#region IGameEvents implementation

@@ -31,22 +31,6 @@ namespace AGS.Engine
 			return sprite;
 		}
 
-		public void LoadToOutfitFromFolders(string baseFolder, IOutfit outfit, string walkLeftFolder = null, string walkRightFolder = null,
-			string walkDownFolder = null, string walkUpFolder = null, string idleLeftFolder = null, string idleRightFolder = null,
-			string idleDownFolder = null, string idleUpFolder = null, string speakLeftFolder = null, string speakRightFolder = null,
-			string speakDownFolder = null, string speakUpFolder = null,
-			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
-		{
-			outfit.IdleAnimation = LoadDirectionalAnimationFromFolders(baseFolder, idleLeftFolder, idleRightFolder, 
-				idleDownFolder, idleUpFolder, delay, animationConfig, loadConfig);
-
-			outfit.WalkAnimation = LoadDirectionalAnimationFromFolders(baseFolder, walkLeftFolder, walkRightFolder, 
-				walkDownFolder, walkUpFolder, delay, animationConfig, loadConfig);
-
-			outfit.SpeakAnimation = LoadDirectionalAnimationFromFolders(baseFolder, speakLeftFolder, speakRightFolder, 
-				speakDownFolder, speakUpFolder, delay, animationConfig, loadConfig);
-		}
-
 		public IDirectionalAnimation LoadDirectionalAnimationFromFolders(string baseFolder, string leftFolder = null,
 			string rightFolder = null, string downFolder = null, string upFolder = null,
 			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)

@@ -158,6 +158,7 @@
     <Compile Include="Objects\Characters\FaceDirection\IAGSFaceDirectionBehavior.cs" />
     <Compile Include="Objects\Characters\Outfit\AGSOutfit.cs" />
     <Compile Include="Objects\Characters\Outfit\IOutfitHolder.cs" />
+    <Compile Include="Player\AGSApproachStyle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

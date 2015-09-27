@@ -23,6 +23,7 @@ namespace AGS.Engine
 
 			TypedParameter objParameter = new TypedParameter (typeof(IObject), obj);
 			_faceDirectionBehavior = resolver.Container.Resolve<IAGSFaceDirectionBehavior>(objParameter);
+			_faceDirectionBehavior.CurrentDirectionalAnimation = Outfit.IdleAnimation;
 
 			TypedParameter faceDirectionParameter = new TypedParameter (typeof(IAGSFaceDirectionBehavior), _faceDirectionBehavior);
 			TypedParameter outfitParameter = new TypedParameter (typeof(IOutfitHolder), this);
@@ -151,6 +152,10 @@ namespace AGS.Engine
 
 		public bool IgnoreViewport { get { return _obj.IgnoreViewport; } set { _obj.IgnoreViewport = value; } }
 		public bool IgnoreScalingArea { get { return _obj.IgnoreScalingArea; } set { _obj.IgnoreScalingArea = value; } }
+
+		public IPoint WalkPoint { get { return _obj.WalkPoint; } set { _obj.WalkPoint = value; } }
+
+		public IPoint CenterPoint { get { return _obj.CenterPoint; } }
 
 		public bool DebugDrawAnchor { get { return _obj.DebugDrawAnchor; } set { _obj.DebugDrawAnchor = value; } }
 		public IBorderStyle Border { get { return _obj.Border; } set { _obj.Border = value; } }

@@ -108,6 +108,7 @@
     <Compile Include="Objects\Characters\Walking\IWalkBehavior.cs" />
     <Compile Include="Objects\Characters\Walking\Pathfinding\IPathFinder.cs" />
     <Compile Include="Objects\Characters\FaceDirection\IFaceDirectionBehavior.cs" />
+    <Compile Include="Player\IApproachStyle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

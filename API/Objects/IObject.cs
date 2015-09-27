@@ -10,6 +10,9 @@ namespace AGS.API
 		ISquare BoundingBox { get; set; } //todo: find a way to remove the setter (only the engine should use the setter)
 		IRenderLayer RenderLayer { get; set; }
 
+		IPoint WalkPoint { get; set; }
+		IPoint CenterPoint { get; }
+
 		bool Enabled { get; set; }
 		string Hotspot { get; set; }
 

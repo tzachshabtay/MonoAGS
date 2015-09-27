@@ -28,33 +28,47 @@ namespace AGS.Engine
 		{
 			Direction = direction;
 			IDirectionalAnimation animation = CurrentDirectionalAnimation;
+			if (animation == null) return;
 
-			if (direction == Direction.DownRight && animation.DownRight != null)
-				await changeAnimationIfNeeded (animation.DownRight);
-			else if (direction == Direction.DownLeft && animation.DownLeft != null)
-				await changeAnimationIfNeeded (animation.DownLeft);
-			else if (direction == Direction.UpLeft && animation.UpLeft != null)
-				await changeAnimationIfNeeded (animation.UpLeft);
-			else if (direction == Direction.UpRight && animation.UpRight != null)
-				await changeAnimationIfNeeded (animation.UpRight);
-			else if (direction == Direction.Down && animation.Down != null)
-				await changeAnimationIfNeeded (animation.Down);
-			else if (direction == Direction.Up && animation.Up != null)
-				await changeAnimationIfNeeded (animation.Up);
-			else if (direction == Direction.Right && animation.Right != null) 
-				await changeAnimationIfNeeded (animation.Right);
-			else if (animation.Left != null)
-				await changeAnimationIfNeeded(animation.Left);
+			switch (direction)
+			{
+				case Direction.Down:
+					await faceDirectionAsync(Direction.Down, Direction.Up, Direction.Left, Direction.Right);
+					return;
+				case Direction.Up:
+					await faceDirectionAsync(Direction.Up, Direction.Down, Direction.Left, Direction.Right);
+					return;
+				case Direction.Left:
+					await faceDirectionAsync(Direction.Left, Direction.Down, Direction.Up, Direction.Right);
+					return;
+				case Direction.Right:
+					await faceDirectionAsync(Direction.Right, Direction.Down, Direction.Up, Direction.Left);
+					return;
+				case Direction.DownRight:
+					await faceDirectionAsync(Direction.DownRight, Direction.Right, Direction.Down, Direction.Up, Direction.Left);
+					return;
+				case Direction.DownLeft:
+					await faceDirectionAsync(Direction.DownLeft, Direction.Left, Direction.Down, Direction.Up, Direction.Right);
+					return;
+				case Direction.UpRight:
+					await faceDirectionAsync(Direction.UpRight, Direction.Right, Direction.Up, Direction.Down, Direction.Left);
+					return;
+				case Direction.UpLeft:
+					await faceDirectionAsync(Direction.UpLeft, Direction.Left, Direction.Up, Direction.Down, Direction.Right);
+					return;
+				default:
+					throw new NotSupportedException ("Direction is not supported: " + direction.ToString());
+			}
 		}
-
+			
 		public void FaceDirection(IObject obj)
 		{
-			FaceDirection(obj.X, obj.Y);
+			FaceDirection(obj.CenterPoint.X, obj.CenterPoint.Y);
 		}
 
 		public async Task FaceDirectionAsync(IObject obj)
 		{
-			await FaceDirectionAsync(obj.X, obj.Y);
+			await FaceDirectionAsync(obj.CenterPoint.X, obj.CenterPoint.Y);
 		}
 
 		public void FaceDirection(float x, float y)
@@ -83,6 +97,7 @@ namespace AGS.Engine
 		{
 			float angle = getAngle (xSource, ySource, xDest, yDest);
 			IDirectionalAnimation animation = CurrentDirectionalAnimation;
+			if (animation == null) return;
 
 			if (angle < -30 && angle > -60 && animation.DownRight != null)
 			{
@@ -124,6 +139,50 @@ namespace AGS.Engine
 				Direction = Direction.Left;
 				await changeAnimationIfNeeded(animation.Left);
 			}
+		}
+
+		private async Task faceDirectionAsync(params Direction[] directions)
+		{
+			IDirectionalAnimation animation = CurrentDirectionalAnimation;
+			if (animation == null) return;
+
+			foreach (Direction dir in directions)
+			{
+				switch (dir)
+				{
+					case Direction.Down:
+						if (await animateAsync(animation.Down)) return;
+						break;
+					case Direction.Up:
+						if (await animateAsync(animation.Up)) return;
+						break;
+					case Direction.Left:
+						if (await animateAsync(animation.Left)) return;
+						break;
+					case Direction.Right:
+						if (await animateAsync(animation.Right)) return;
+						break;
+					case Direction.DownLeft:
+						if (await animateAsync(animation.DownLeft)) return;
+						break;
+					case Direction.DownRight:
+						if (await animateAsync(animation.DownRight)) return;
+						break;
+					case Direction.UpLeft:
+						if (await animateAsync(animation.UpLeft)) return;
+						break;
+					case Direction.UpRight:
+						if (await animateAsync(animation.UpRight)) return;
+						break;
+				}
+			}
+		}
+
+		private async Task<bool> animateAsync(IAnimation animation)
+		{
+			if (animation == null) return false;
+			await changeAnimationIfNeeded(animation);
+			return true;
 		}
 
 		private async Task changeAnimationIfNeeded(IAnimation animation)
