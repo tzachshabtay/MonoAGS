@@ -30,7 +30,7 @@ namespace AGS.Engine
 			ISayLocation location = resolver.Container.Resolve<ISayLocation>(objParameter);
 
 			TypedParameter locationParameter = new TypedParameter (typeof(ISayLocation), location);
-			_sayBehavior = resolver.Container.Resolve<ISayBehavior>(locationParameter);
+			_sayBehavior = resolver.Container.Resolve<ISayBehavior>(locationParameter, outfitParameter, faceDirectionParameter);
 
 			_walkBehavior = resolver.Container.Resolve<IWalkBehavior>(objParameter, outfitParameter, faceDirectionParameter);
 

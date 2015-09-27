@@ -14,15 +14,19 @@ namespace AGS.Engine
 		private readonly IInput _input;
 		private readonly ISayLocation _location;
 		private readonly FastFingerChecker _fastFingerChecker;
+		private readonly IOutfitHolder _outfit;
+		private readonly IAGSFaceDirectionBehavior _faceDirection;
 
 		public AGSSayBehavior(IGameState state, IGameFactory factory, IInput input, ISayLocation location,
-			FastFingerChecker fastFingerChecker, ISayConfig sayConfig)
+			FastFingerChecker fastFingerChecker, ISayConfig sayConfig, IOutfitHolder outfit, IAGSFaceDirectionBehavior faceDirection)
 		{
 			_state = state;
 			_factory = factory;
 			_input = input;
 			_location = location;
 			_fastFingerChecker = fastFingerChecker;
+			_outfit = outfit;
+			_faceDirection = faceDirection;
 			SpeechConfig = sayConfig;
 		}
 
@@ -35,12 +39,25 @@ namespace AGS.Engine
 
 		public async Task SayAsync(string text)
 		{
+			setAnimation(_outfit.Outfit.SpeakAnimation);
+
 			IPoint location = getLocation(text);
 			ILabel label = _factory.GetLabel(text, SpeechConfig.LabelSize.Width, SpeechConfig.LabelSize.Height, 
 				location.X, location.Y, SpeechConfig.TextConfig);
 
 			await waitForText(text);
 			_state.UI.Remove(label);
+
+			setAnimation(_outfit.Outfit.IdleAnimation);
+		}
+
+		private void setAnimation(IDirectionalAnimation animation)
+		{
+			if (_outfit.Outfit.SpeakAnimation != null)
+			{
+				_faceDirection.CurrentDirectionalAnimation = animation;
+				_faceDirection.FaceDirection(_faceDirection.Direction);
+			}
 		}
 
 		private async Task waitForText(string text)

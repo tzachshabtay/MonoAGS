@@ -18,33 +18,23 @@ namespace DemoGame
 			{ 
 				TransparentColorSamplePoint = new Point (0, 0) 
 			};
-			AGSDirectionalAnimation walk = new AGSDirectionalAnimation
-			{
-				Left = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Walk/left", loadConfig : loadConfig),
-				Down = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Walk/front", loadConfig : loadConfig),
-			};
-			foreach (var frame in walk.Left.Frames)
-			{
-				frame.Sprite.Anchor = new AGSPoint (0.5f, 0f);
-			}
-			walk.Right = walk.Left.Clone();
-			walk.Right.FlipHorizontally();
 
-			AGSDirectionalAnimation idle = new AGSDirectionalAnimation 
-			{
-				Left = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Idle/left", loadConfig : loadConfig),
-				Down = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Idle/front", loadConfig : loadConfig),
-			};
-			foreach (var frame in idle.Left.Frames)
-			{
-				frame.Sprite.Anchor = new AGSPoint (0.5f, 0f);
-			}
-			idle.Right = idle.Left.Clone();
-			idle.Right.FlipHorizontally();
+			factory.Graphics.LoadToOutfitFromFolders(_baseFolder, _character.Outfit, walkLeftFolder: "Walk/left",
+				walkDownFolder: "Walk/front", idleLeftFolder: "Idle/left", idleDownFolder: "Idle/front", 
+				speakLeftFolder: "Talk", loadConfig: loadConfig);
 
-			_character.Outfit.WalkAnimation = walk;
-			_character.Outfit.IdleAnimation = idle;
-			_character.StartAnimation (idle.Down);
+			foreach (var frame in _character.Outfit.SpeakAnimation.Left.Frames)
+			{
+				frame.MinDelay = 5;
+				frame.MaxDelay = 30;
+			}
+			foreach (var frame in _character.Outfit.SpeakAnimation.Right.Frames)
+			{
+				frame.MinDelay = 5;
+				frame.MaxDelay = 30;
+			}
+
+			_character.StartAnimation (_character.Outfit.IdleAnimation.Down);
 			_character.Hotspot = "Cris";
 			_character.PixelPerfect(true);
 

@@ -31,6 +31,47 @@ namespace AGS.Engine
 			return sprite;
 		}
 
+		public void LoadToOutfitFromFolders(string baseFolder, IOutfit outfit, string walkLeftFolder = null, string walkRightFolder = null,
+			string walkDownFolder = null, string walkUpFolder = null, string idleLeftFolder = null, string idleRightFolder = null,
+			string idleDownFolder = null, string idleUpFolder = null, string speakLeftFolder = null, string speakRightFolder = null,
+			string speakDownFolder = null, string speakUpFolder = null,
+			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+		{
+			outfit.IdleAnimation = LoadDirectionalAnimationFromFolders(baseFolder, idleLeftFolder, idleRightFolder, 
+				idleDownFolder, idleUpFolder, delay, animationConfig, loadConfig);
+
+			outfit.WalkAnimation = LoadDirectionalAnimationFromFolders(baseFolder, walkLeftFolder, walkRightFolder, 
+				walkDownFolder, walkUpFolder, delay, animationConfig, loadConfig);
+
+			outfit.SpeakAnimation = LoadDirectionalAnimationFromFolders(baseFolder, speakLeftFolder, speakRightFolder, 
+				speakDownFolder, speakUpFolder, delay, animationConfig, loadConfig);
+		}
+
+		public IDirectionalAnimation LoadDirectionalAnimationFromFolders(string baseFolder, string leftFolder = null,
+			string rightFolder = null, string downFolder = null, string upFolder = null,
+			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+		{
+			if (leftFolder == null && rightFolder == null && downFolder == null && upFolder == null) return null;
+
+			AGSDirectionalAnimation dirAnimation = new AGSDirectionalAnimation ();
+			if (leftFolder != null) dirAnimation.Left = LoadAnimationFromFolder(baseFolder + leftFolder, delay, animationConfig, loadConfig);
+			if (rightFolder != null) dirAnimation.Right = LoadAnimationFromFolder(baseFolder + rightFolder, delay, animationConfig, loadConfig);
+			if (downFolder != null) dirAnimation.Down = LoadAnimationFromFolder(baseFolder + downFolder, delay, animationConfig, loadConfig);
+			if (upFolder != null) dirAnimation.Up = LoadAnimationFromFolder(baseFolder + upFolder, delay, animationConfig, loadConfig);
+
+			if (dirAnimation.Left != null && dirAnimation.Right == null)
+			{
+				dirAnimation.Right = createLeftRightAnimation(dirAnimation.Left);
+			}
+
+			if (dirAnimation.Right != null && dirAnimation.Left == null)
+			{
+				dirAnimation.Left = createLeftRightAnimation(dirAnimation.Right);
+			}
+
+			return dirAnimation;
+		}
+
 		public IAnimation LoadAnimationFromFiles(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files)
 		{
 			return loadAnimationFromResources(_resources.LoadResources(files), delay, animationConfig, loadConfig);
@@ -192,6 +233,17 @@ namespace AGS.Engine
 			return await Task.Run(() => LoadImage (filePath, config));
 		}
 
+		private IAnimation createLeftRightAnimation(IAnimation animation)
+		{
+			foreach (var frame in animation.Frames)
+			{
+				frame.Sprite.Anchor = new AGSPoint (0.5f, 0f);
+			}
+			IAnimation clone = animation.Clone();
+			clone.FlipHorizontally();
+			return clone;
+		}
+			
 		private IAnimation loadAnimationFromResources(List<IResource> resources, 
 			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
