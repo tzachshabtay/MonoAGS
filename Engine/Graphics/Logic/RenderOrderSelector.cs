@@ -26,9 +26,13 @@ namespace AGS.Engine
 
 		private float compare(IObject s1, IObject s2)
 		{
+			if (s1 == s2) return 0;
 			int layer1 = getRenderLayer(s1);
 			int layer2 = getRenderLayer(s2);
 			if (layer1 != layer2) return layer2 - layer1;
+
+			if (isParentOf(s1, s2)) return 1;
+			if (isParentOf(s2, s1)) return -1;
 
 			IObject parent1 = null;
 			IObject parent2 = null;
@@ -50,6 +54,17 @@ namespace AGS.Engine
 			}
 		}
 
+		private bool isParentOf(IObject child, IObject parent)
+		{
+			do
+			{
+				if (child == parent.TreeNode.Node) 
+					return true;
+				child = child.TreeNode.Parent;
+			} while (child != null);
+			return false;
+		}
+
 		private int getRenderLayer(IObject obj)
 		{
 			if (obj == null) return 0;
@@ -60,7 +75,8 @@ namespace AGS.Engine
 		private float getZ(IObject parent, IObject obj, out IObject newParent)
 		{
 			newParent = obj;
-			while (newParent.TreeNode.Parent != parent)
+
+			while (newParent.TreeNode.Parent != (parent == null ? null : parent.TreeNode.Node))
 			{
 				newParent = newParent.TreeNode.Parent;
 			}

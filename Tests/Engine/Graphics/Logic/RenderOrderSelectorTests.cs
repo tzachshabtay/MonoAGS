@@ -174,6 +174,8 @@ namespace Tests
 			obj.Setup(o => o.TreeNode).Returns(tree.Object);
 			obj.Setup(o => o.RenderLayer).Returns(layer);
 
+			tree.Setup(t => t.Node).Returns(obj.Object);
+
 			return obj.Object;
 		}
 	}
