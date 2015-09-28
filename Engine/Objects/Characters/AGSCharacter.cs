@@ -271,6 +271,11 @@ namespace AGS.Engine
 			if (y != null) Y = y.Value;
 		}
 
+		public bool CollidesWith(float x, float y)
+		{
+			return _obj.CollidesWith(x, y);
+		}
+
 		public void PlaceOnWalkableArea()
 		{
 			_walkBehavior.PlaceOnWalkableArea();

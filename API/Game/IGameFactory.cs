@@ -18,7 +18,12 @@ namespace AGS.API
 		float GetFloat(string name, float defaultValue = 0f);
 		string GetString(string name, string defaultValue = null);
 
-		ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null);
+		ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true);
+		IButton GetButton(IAnimation idle, IAnimation hovered, IAnimation pushed, float width, float height, float x, 
+			float y, string text = "", ITextConfig config = null, bool addToUi = true);
+		IButton GetButton(string idleImagePath, string hoveredImagePath, string pushedImagePath, float width, float height, 
+			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true);
+
 		IObject GetObject(string[] sayWhenLook = null, string[] sayWhenInteract = null);
 		ICharacter GetCharacter(IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null);
 		IObject GetHotspot(string maskPath, string hotspot, string[] sayWhenLook = null, string[] sayWhenInteract = null);

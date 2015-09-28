@@ -94,22 +94,7 @@ namespace AGS.Engine
 				if (onlyHotspots && !obj.Enabled)
 					continue;
 
-				ISquare boundingBox = obj.BoundingBox;
-				if (boundingBox == null)
-					continue;
-				IArea pixelPerfect = obj.PixelPerfectHitTestArea;
-
-				if (pixelPerfect == null || !pixelPerfect.Enabled)
-				{
-					if (boundingBox.Contains(new AGSPoint (x, y)))
-						return obj;
-				}
-				else
-				{
-					if (pixelPerfect.IsInArea(new AGSPoint (x, y), boundingBox, obj.ScaleX * obj.Animation.Sprite.ScaleX,
-						obj.ScaleY * obj.Animation.Sprite.ScaleY))
-						return obj;
-				}
+				if (obj.CollidesWith(x, y)) return obj;
  			}
 			return null;
 		}

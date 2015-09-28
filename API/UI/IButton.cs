@@ -6,7 +6,7 @@ namespace AGS.API
 	{
 		IAnimation IdleAnimation { get; set; }
 		IAnimation HoverAnimation { get; set; }
-		IAnimation PressedAnimation { get; set; }
+		IAnimation PushedAnimation { get; set; }
 	}
 }
 

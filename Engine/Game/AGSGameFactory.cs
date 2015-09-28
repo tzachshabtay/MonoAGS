@@ -54,7 +54,7 @@ namespace AGS.Engine
 			throw new NotImplementedException();
 		}
 
-		public ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null)
+		public ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
 		{
 			SizeF baseSize = new SizeF(width, height);
 			TypedParameter typedParameter = new TypedParameter (typeof(SizeF), baseSize);
@@ -64,8 +64,40 @@ namespace AGS.Engine
 			label.Y = y;
 			label.Tint = Color.Transparent;
 			label.TextConfig = config ?? new AGSTextConfig();
-			_gameState.UI.Add(label);
+			if (addToUi)
+				_gameState.UI.Add(label);
 			return label;
+		}
+
+		public IButton GetButton(IAnimation idle, IAnimation hovered, IAnimation pushed, float width, float height, 
+			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true)
+		{
+			ILabel label = GetLabel(text, width, height, x, y, config, false);
+			label.Tint = Color.White;
+
+			TypedParameter typedParameter = new TypedParameter (typeof(ILabel), label);
+			IButton button = _resolver.Resolve <IButton>(typedParameter);
+
+			button.IdleAnimation = idle;
+			button.HoverAnimation = hovered;
+			button.PushedAnimation = pushed;
+
+			button.StartAnimation(idle);
+
+			if (addToUi)
+				_gameState.UI.Add(button);
+			
+			return button;
+		}
+
+		public IButton GetButton(string idleImagePath, string hoveredImagePath, string pushedImagePath, float width, 
+			float height, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true)
+		{
+			IAnimation idle = Graphics.LoadAnimationFromFiles(files: new[]{ idleImagePath });
+			IAnimation hovered = Graphics.LoadAnimationFromFiles(files: new[]{ hoveredImagePath });
+			IAnimation pushed = Graphics.LoadAnimationFromFiles(files: new[]{ pushedImagePath });
+
+			return GetButton(idle, hovered, pushed, width, height, x, y, text, config, addToUi);
 		}
 
 		public IObject GetObject(string[] sayWhenLook = null, string[] sayWhenInteract = null)

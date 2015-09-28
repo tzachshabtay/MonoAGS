@@ -2,51 +2,46 @@
 using AGS.API;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
-	public class AGSLabel : ILabel
+	public class AGSPanel : IPanel
 	{
-		private readonly IPanel _obj;
-		private readonly ILabelRenderer _labelRenderer;
+		private IObject _obj;
+		private readonly IInput _input;
 
-		public AGSLabel(IPanel obj, IUIEvents events, IImage image, ILabelRenderer labelRenderer, SizeF baseSize)
+		private bool _leftMouseDown, _rightMouseDown;
+		private float _mouseX, _mouseY;
+		private Stopwatch _leftMouseClickTimer, _rightMouseClickTimer;
+
+		public AGSPanel(IObject obj, IUIEvents events, IImage image, IGameEvents gameEvents, IInput input)
 		{
 			this._obj = obj;
-			_labelRenderer = labelRenderer;
-			_labelRenderer.BaseSize = baseSize;
-			CustomRenderer = _labelRenderer;
+			Anchor = new AGSPoint ();
+			Events = events;
+			RenderLayer = AGSLayers.UI;
+			Image = image;
+			IgnoreViewport = true;
+			IgnoreScalingArea = true;
+			_leftMouseClickTimer = new Stopwatch ();
+			_rightMouseClickTimer = new Stopwatch ();
+
+			_input = input;
+			gameEvents.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
 		}
 
 		#region IUIControl implementation
 
-		public void ApplySkin(ILabel skin)
+		public void ApplySkin(IPanel skin)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IUIEvents Events { get { return _obj.Events; } }
-		public bool IsMouseIn { get { return _obj.IsMouseIn; } }
+		public IUIEvents Events { get; private set; }
+		public bool IsMouseIn { get; private set; }
 
 		#endregion
-
-		#region ILabel implementation
-
-		public ITextConfig TextConfig 
-		{
-			get { return _labelRenderer.Config; }
-			set { _labelRenderer.Config = value; }
-		}
-
-		public string Text 
-		{ 
-			get { return _labelRenderer.Text; }
-			set { _labelRenderer.Text = value; }
-		}
-
-		#endregion
-
-		#region IObject implementation
 
 		public void StartAnimation(IAnimation animation)
 		{
@@ -114,8 +109,6 @@ namespace AGS.Engine
 
 		public IBorderStyle Border { get { return _obj.Border; } set { _obj.Border = value; } }
 
-		#endregion
-
 		#region ISprite implementation
 
 		public void ResetScale()
@@ -178,9 +171,59 @@ namespace AGS.Engine
 
 		#endregion
 
-		public override string ToString()
+		private async Task onRepeatedlyExecute(object sender, EventArgs args)
 		{
-			return string.Format("Label: {0}", Text ?? "null");
+			if (!Enabled) return;
+			IPoint position = _input.MousePosition;
+			bool mouseIn = _obj.CollidesWith(position.X, position.Y);
+			bool leftMouseDown = _input.LeftMouseButtonDown;
+			bool rightMouseDown = _input.RightMouseButtonDown;
+
+			bool fireMouseMove = mouseIn && (_mouseX != position.X || _mouseY != position.Y);
+			bool fireMouseEnter = mouseIn && !IsMouseIn;
+			bool fireMouseLeave = !mouseIn && IsMouseIn;
+
+			_mouseX = position.X;
+			_mouseY = position.Y;
+			IsMouseIn = mouseIn;
+
+			await handleMouseButton(_leftMouseClickTimer, _leftMouseDown, leftMouseDown, MouseButton.Left);
+			await handleMouseButton(_rightMouseClickTimer, _rightMouseDown, rightMouseDown, MouseButton.Right);
+
+			_leftMouseDown = leftMouseDown;
+			_rightMouseDown = rightMouseDown;
+
+			if (fireMouseEnter) await Events.MouseEnter.InvokeAsync(this, new MousePositionEventArgs (position.X, position.Y));
+			else if (fireMouseLeave) await Events.MouseLeave.InvokeAsync(this, new MousePositionEventArgs (position.X, position.Y));
+			if (fireMouseMove) await Events.MouseMove.InvokeAsync(this, new MousePositionEventArgs(position.X, position.Y));
+		}
+
+		private async Task handleMouseButton(Stopwatch sw, bool wasDown, bool isDown, MouseButton button)
+		{
+			bool fireDown = !wasDown && isDown && IsMouseIn;
+			bool fireUp = wasDown && !isDown;
+			if (fireDown)
+			{
+				sw.Restart();
+			}
+			bool fireClick = false;
+			if (fireUp)
+			{
+				if (IsMouseIn && sw.ElapsedMilliseconds < 1500 && sw.ElapsedMilliseconds != 0)
+				{
+					fireClick = true;
+				}
+				sw.Stop();
+				sw.Reset();
+			}
+
+			if (fireDown || fireUp || fireClick)
+			{
+				MouseButtonEventArgs args = new MouseButtonEventArgs (button, _mouseX, _mouseY);
+				if (fireDown) await Events.MouseDown.InvokeAsync(this, args);
+				else if (fireUp) await Events.MouseUp.InvokeAsync(this, args);
+				if (fireClick) await Events.MouseClicked.InvokeAsync(this, args);
+			}
 		}
 	}
 }

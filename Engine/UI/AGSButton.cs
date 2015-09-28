@@ -5,22 +5,28 @@ using System.Drawing;
 
 namespace AGS.Engine
 {
-	public class AGSLabel : ILabel
+	public class AGSButton : IButton
 	{
-		private readonly IPanel _obj;
-		private readonly ILabelRenderer _labelRenderer;
+		private readonly ILabel _obj;
 
-		public AGSLabel(IPanel obj, IUIEvents events, IImage image, ILabelRenderer labelRenderer, SizeF baseSize)
+		public AGSButton(ILabel label)
 		{
-			this._obj = obj;
-			_labelRenderer = labelRenderer;
-			_labelRenderer.BaseSize = baseSize;
-			CustomRenderer = _labelRenderer;
+			_obj = label;
+			Events.MouseEnter.Subscribe((sender, e) => StartAnimation(HoverAnimation));
+			Events.MouseLeave.Subscribe((sender, e) => StartAnimation(IdleAnimation));
+			Events.MouseDown.Subscribe((sender, e) => StartAnimation(PushedAnimation));
+			Events.MouseUp.Subscribe((sender, e) => StartAnimation(IsMouseIn ? HoverAnimation : IdleAnimation));
 		}
+
+		public IAnimation IdleAnimation { get; set; }
+
+		public IAnimation HoverAnimation { get; set; }
+
+		public IAnimation PushedAnimation { get; set; }
 
 		#region IUIControl implementation
 
-		public void ApplySkin(ILabel skin)
+		public void ApplySkin(IButton skin)
 		{
 			throw new NotImplementedException();
 		}
@@ -32,17 +38,9 @@ namespace AGS.Engine
 
 		#region ILabel implementation
 
-		public ITextConfig TextConfig 
-		{
-			get { return _labelRenderer.Config; }
-			set { _labelRenderer.Config = value; }
-		}
+		public ITextConfig TextConfig { get { return _obj.TextConfig; } set { _obj.TextConfig = value; }}
 
-		public string Text 
-		{ 
-			get { return _labelRenderer.Text; }
-			set { _labelRenderer.Text = value; }
-		}
+		public string Text { get { return _obj.Text; } set { _obj.Text = value; }}
 
 		#endregion
 
@@ -180,8 +178,7 @@ namespace AGS.Engine
 
 		public override string ToString()
 		{
-			return string.Format("Label: {0}", Text ?? "null");
+			return string.Format("Button: {0}", Text ?? "null");
 		}
 	}
 }
-

@@ -30,8 +30,20 @@ namespace AGS.Engine
 			KeyDown = new AGSEvent<KeyboardEventArgs> ();
 			KeyUp = new AGSEvent<KeyboardEventArgs> ();
 
-			game.MouseDown += async (sender, e) => await MouseDown.InvokeAsync(sender, new AGS.API.MouseButtonEventArgs(convert(e.Button), convertX(e.X), convertY(e.Y)));
-			game.MouseUp += async (sender, e) => await MouseUp.InvokeAsync(sender, new AGS.API.MouseButtonEventArgs(convert(e.Button), convertX(e.X), convertY(e.Y)));
+			game.MouseDown += async (sender, e) => 
+			{ 
+				var button = convert(e.Button);
+				if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = true;
+				else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = true;
+				await MouseDown.InvokeAsync(sender, new AGS.API.MouseButtonEventArgs(button, convertX(e.X), convertY(e.Y)));
+			};
+			game.MouseUp += async (sender, e) => 
+			{
+				var button = convert(e.Button);
+				if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = false;
+				else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = false;
+				await MouseUp.InvokeAsync(sender, new AGS.API.MouseButtonEventArgs(button, convertX(e.X), convertY(e.Y)));
+			};
 			game.MouseMove += async (sender, e) => await MouseMove.InvokeAsync(sender, new MousePositionEventArgs(convertX(e.X), convertY(e.Y)));
 			game.KeyDown += async (sender, e) => await KeyDown.InvokeAsync(sender, new KeyboardEventArgs(convert(e.Key)));
 			game.KeyUp += async (sender, e) => await KeyUp.InvokeAsync(sender, new KeyboardEventArgs(convert(e.Key)));
@@ -58,6 +70,9 @@ namespace AGS.Engine
 				return new AGSPoint(MouseX, MouseY);
 			}
 		}
+
+		public bool LeftMouseButtonDown { get; private set; }
+		public bool RightMouseButtonDown { get; private set; }
 
 		//For some reason GameWindow.Mouse is obsolete.
 		//From the warning it should be replaced by Input.Mouse which returns screen coordinates

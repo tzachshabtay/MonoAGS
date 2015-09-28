@@ -168,6 +168,27 @@ namespace AGS.Engine
 
 		public IBorderStyle Border { get { return _animation.Border; } set { _animation.Border = value; } }
 
+		public bool CollidesWith(float x, float y)
+		{
+			ISquare boundingBox = BoundingBox;
+			if (boundingBox == null)
+				return false;
+			IArea pixelPerfect = PixelPerfectHitTestArea;
+
+			if (pixelPerfect == null || !pixelPerfect.Enabled)
+			{
+				if (boundingBox.Contains(new AGSPoint (x, y)))
+					return true;
+			}
+			else
+			{
+				if (pixelPerfect.IsInArea(new AGSPoint (x, y), boundingBox, ScaleX * Animation.Sprite.ScaleX,
+					ScaleY * Animation.Sprite.ScaleY))
+					return true;
+			}
+			return false;
+		}
+
 		public override string ToString ()
 		{
 			return Hotspot ?? base.ToString ();

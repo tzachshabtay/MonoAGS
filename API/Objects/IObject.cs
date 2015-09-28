@@ -20,6 +20,7 @@ namespace AGS.API
 		bool IgnoreScalingArea { get; set; }
 
 		void ChangeRoom(IRoom room, float? x = null, float? y = null);
+		bool CollidesWith(float x, float y);
 	}
 }
 

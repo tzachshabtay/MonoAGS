@@ -159,6 +159,8 @@
     <Compile Include="Objects\Characters\Outfit\AGSOutfit.cs" />
     <Compile Include="Objects\Characters\Outfit\IOutfitHolder.cs" />
     <Compile Include="Player\AGSApproachStyle.cs" />
+    <Compile Include="UI\AGSPanel.cs" />
+    <Compile Include="UI\AGSButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

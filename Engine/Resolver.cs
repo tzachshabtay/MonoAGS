@@ -18,6 +18,7 @@ namespace AGS.Engine
 			Builder.RegisterType<GLImageRenderer>().As<IImageRenderer>();
 			Builder.RegisterType<AGSObject>().As<IObject>();
 			Builder.RegisterType<AGSSprite>().As<ISprite>();
+			Builder.RegisterType<AGSAnimationContainer>().As<IAnimationContainer>();
 
 			Builder.RegisterType<AGSGameState>().SingleInstance().As<IGameState>();
 			Builder.RegisterType<AGSGame>().SingleInstance().As<IGame>();
