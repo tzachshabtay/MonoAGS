@@ -9,6 +9,7 @@ namespace AGS.Engine
 	public class AGSObject : IObject
 	{
 		private IAnimationContainer _animation;
+		private readonly IGameState _state;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Engine.AGSObject"/> class.
@@ -23,6 +24,8 @@ namespace AGS.Engine
 				TypedParameter defaults = new TypedParameter (typeof(IInteractions), gameEvents.DefaultInteractions);
 				TypedParameter objParam = new TypedParameter (typeof(IObject), this);
 				Interactions = resolver.Container.Resolve<IInteractions>(defaults, objParam);
+
+				_state = resolver.Container.Resolve<IGameState>();
 			}
 
 			Enabled = true;
@@ -174,6 +177,12 @@ namespace AGS.Engine
 			if (boundingBox == null)
 				return false;
 			IArea pixelPerfect = PixelPerfectHitTestArea;
+
+			if (IgnoreViewport && _state != null) //todo: account for viewport scaling as well
+			{
+				x -= _state.Player.Character.Room.Viewport.X;
+				y -= _state.Player.Character.Room.Viewport.Y;
+			}
 
 			if (pixelPerfect == null || !pixelPerfect.Enabled)
 			{
