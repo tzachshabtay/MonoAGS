@@ -81,9 +81,18 @@ namespace AGS.Engine
 			return label;
 		}
 
-		public IButton GetButton(IAnimation idle, IAnimation hovered, IAnimation pushed, float width, float height, 
-			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true)
+		public IButton GetButton(IAnimation idle, IAnimation hovered, IAnimation pushed, 
+			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true,
+			float width = -1f, float height = -1f)
 		{
+			if (width == -1f)
+			{
+				width = idle.Frames[0].Sprite.Width;
+			}
+			if (height == -1f)
+			{
+				height = idle.Frames[0].Sprite.Height;
+			}
 			ILabel label = GetLabel(text, width, height, x, y, config, false);
 			label.Tint = Color.White;
 
@@ -102,14 +111,15 @@ namespace AGS.Engine
 			return button;
 		}
 
-		public IButton GetButton(string idleImagePath, string hoveredImagePath, string pushedImagePath, float width, 
-			float height, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true)
+		public IButton GetButton(string idleImagePath, string hoveredImagePath, string pushedImagePath,
+			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true,
+			float width = -1f, float height = -1f)
 		{
 			IAnimation idle = Graphics.LoadAnimationFromFiles(files: new[]{ idleImagePath });
 			IAnimation hovered = Graphics.LoadAnimationFromFiles(files: new[]{ hoveredImagePath });
 			IAnimation pushed = Graphics.LoadAnimationFromFiles(files: new[]{ pushedImagePath });
 
-			return GetButton(idle, hovered, pushed, width, height, x, y, text, config, addToUi);
+			return GetButton(idle, hovered, pushed, x, y, text, config, addToUi, width, height);
 		}
 
 		public IObject GetObject(string[] sayWhenLook = null, string[] sayWhenInteract = null)
