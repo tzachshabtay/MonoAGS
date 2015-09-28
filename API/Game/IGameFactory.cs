@@ -18,6 +18,7 @@ namespace AGS.API
 		float GetFloat(string name, float defaultValue = 0f);
 		string GetString(string name, string defaultValue = null);
 
+		IPanel GetPanel(string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true); 
 		ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true);
 		IButton GetButton(IAnimation idle, IAnimation hovered, IAnimation pushed, float width, float height, float x, 
 			float y, string text = "", ITextConfig config = null, bool addToUi = true);

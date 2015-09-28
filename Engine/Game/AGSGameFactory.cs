@@ -54,6 +54,18 @@ namespace AGS.Engine
 			throw new NotImplementedException();
 		}
 
+		public IPanel GetPanel(string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true)
+		{
+			IImage image = Graphics.LoadImage(imagePath, loadConfig);
+			TypedParameter typedParameter = new TypedParameter (typeof(IImage), image);
+			IPanel panel = _resolver.Resolve<IPanel>(typedParameter);
+			panel.X = x;
+			panel.Y = y;
+			if (addToUi)
+				_gameState.UI.Add(panel);
+			return panel;
+		}
+
 		public ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
 		{
 			SizeF baseSize = new SizeF(width, height);
