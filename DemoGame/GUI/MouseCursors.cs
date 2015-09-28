@@ -25,6 +25,8 @@ namespace DemoGame
 		public IAnimationContainer Interact { get; private set; }
 		public IAnimationContainer Wait { get; private set; }
 
+		public RotatingCursorScheme Scheme { get; private set; }
+
 		public const string TALK_MODE = "Talk";
 		public const string POINT_MODE = "Point";
 
@@ -41,10 +43,10 @@ namespace DemoGame
 
 			game.Input.Cursor = new AGSAnimationContainer(game.Factory.Graphics.GetSprite(), game.Factory.Graphics);
 
-			RotatingCursorScheme scheme = new RotatingCursorScheme (game, Look, Walk, Interact, Wait);
-			scheme.AddCursor(TALK_MODE, Talk, true);
-			scheme.AddCursor(POINT_MODE, Point, false);
-			scheme.Start();
+			Scheme = new RotatingCursorScheme (game, Look, Walk, Interact, Wait);
+			Scheme.AddCursor(TALK_MODE, Talk, true);
+			Scheme.AddCursor(POINT_MODE, Point, false);
+			Scheme.Start();
 		}
 
 		private IAnimationContainer loadCursor(string filename, IGraphicsFactory factory)
