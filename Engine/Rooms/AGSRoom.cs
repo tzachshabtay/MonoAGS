@@ -73,7 +73,7 @@ namespace AGS.Engine
 		public IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true)
 		{
 			List<IObject> visibleObjects = Objects.Where(o => o.Visible && (ShowPlayer || o != _player.Character)).ToList();
-			if (includeUi) visibleObjects.AddRange(_state.UI);
+			if (includeUi) visibleObjects.AddRange(_state.UI.Where(o => o.Visible));
 			visibleObjects.Sort(_sorter);
 			return visibleObjects;
 		}
