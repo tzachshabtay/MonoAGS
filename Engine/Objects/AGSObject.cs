@@ -10,6 +10,7 @@ namespace AGS.Engine
 	{
 		private IAnimationContainer _animation;
 		private readonly IGameState _state;
+		private Lazy<IRoom> _cachedRoom;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Engine.AGSObject"/> class.
@@ -27,13 +28,14 @@ namespace AGS.Engine
 
 				_state = resolver.Container.Resolve<IGameState>();
 			}
+			refreshRoom();
 
 			Enabled = true;
 			RenderLayer = AGSLayers.Foreground;
 			TreeNode = new AGSTreeNode<IObject> (this);
 			IgnoreScalingArea = true;
 		}
-			
+
 		#region IObject implementation
 
 		public ITreeNode<IObject> TreeNode { get; private set; }
@@ -149,13 +151,13 @@ namespace AGS.Engine
 				Room.Objects.Remove(this);
 			}
 			newRoom.Objects.Add(this);
-			Room = newRoom;
+			refreshRoom();
 
 			if (x != null) X = x.Value;
 			if (y != null) Y = y.Value;
 		}
 
-		public IRoom Room { get; set; }
+		public IRoom Room  { get { return _cachedRoom.Value; } }
 
 		public IAnimation Animation { get { return _animation.Animation; } }
 
@@ -204,6 +206,21 @@ namespace AGS.Engine
 		}
 
 		#endregion
+
+		private void refreshRoom()
+		{
+			_cachedRoom = new Lazy<IRoom> (getRoom, true);
+		}
+
+		private IRoom getRoom()
+		{
+			if (_state == null) return null;
+			foreach (var room in _state.Rooms)
+			{
+				if (room.Objects.Contains(this)) return room;
+			}
+			return null;
+		}
 	}
 }
 
