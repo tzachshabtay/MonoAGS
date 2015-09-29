@@ -32,7 +32,10 @@ namespace DemoGame
 			MouseCursors cursors = new MouseCursors();
 			cursors.Load(game);
 
-			TopBar topBar = new TopBar(cursors.Scheme);
+			InventoryPanel inventory = new InventoryPanel (cursors.Scheme);
+			inventory.Load(game.Factory);
+
+			TopBar topBar = new TopBar(cursors.Scheme, inventory);
 			topBar.Load(game.Factory);
 
 			ILabel label = game.Factory.GetLabel("", 80, 25, 160, 10, new AGSTextConfig(brush: Brushes.WhiteSmoke,
