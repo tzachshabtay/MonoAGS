@@ -13,12 +13,14 @@ namespace AGS.Engine
 		private IObject _background;
 		private IAGSEdges _edges;
 		private RenderOrderSelector _sorter;
+		private IGameState _state;
 
 		public AGSRoom (string id, IPlayer player, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents,
-			IRoomEvents roomEvents)
+			IRoomEvents roomEvents, IGameState state)
 		{
 			this._sorter = new RenderOrderSelector { Backwards = true };
 			this._player = player;
+			this._state = state;
 			Viewport = viewport;
 			Events = roomEvents;
 			ID = id;
@@ -68,36 +70,27 @@ namespace AGS.Engine
 
 		public IRoomEvents Events { get; private set; }
 
-		public IEnumerable<IObject> GetVisibleObjectsFrontToBack()
+		public IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true)
 		{
 			List<IObject> visibleObjects = Objects.Where(o => o.Visible && (ShowPlayer || o != _player.Character)).ToList();
+			if (includeUi) visibleObjects.AddRange(_state.UI);
 			visibleObjects.Sort(_sorter);
 			return visibleObjects;
 		}
 
-		public IObject GetHotspotAt(float x, float y)
-		{
-			return getObjectAt (x, y, true);
-		}
-
-		public IObject GetObjectAt(float x, float y)
-		{
-			return getObjectAt (x, y, false);
-		}
-
-		#endregion
-
-		private IObject getObjectAt(float x, float y, bool onlyHotspots)
+		public IObject GetObjectAt(float x, float y, bool onlyEnabled = true, bool includeUi = true)
 		{
 			foreach (IObject obj in GetVisibleObjectsFrontToBack()) 
 			{
-				if (onlyHotspots && !obj.Enabled)
+				if (onlyEnabled && !obj.Enabled)
 					continue;
 
 				if (obj.CollidesWith(x, y)) return obj;
- 			}
+			}
 			return null;
 		}
+
+		#endregion
 
 		private void onRepeatedlyExecute(object sender, EventArgs args)
 		{

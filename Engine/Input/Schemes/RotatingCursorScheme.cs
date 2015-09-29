@@ -83,6 +83,9 @@ namespace AGS.Engine
 			if (state.Player.Character.Inventory == null || 
 				state.Player.Character.Inventory.ActiveItem == null)
 			{
+				IObject hotspot = state.Player.Character.Room.GetObjectAt(e.X, e.Y);
+				if (hotspot != null && hotspot.Room == null) return; //Blocking clicks when hovering UI objects
+
 				if (CurrentMode == WALK_MODE)
 				{
 					AGSLocation location = new AGSLocation (e.X, e.Y, state.Player.Character.Z);
@@ -93,7 +96,6 @@ namespace AGS.Engine
 					_handlingClick = true;
 					try
 					{
-						IObject hotspot = state.Player.Character.Room.GetHotspotAt(e.X, e.Y);
 						if (hotspot == null) return;
 
 						if (CurrentMode == LOOK_MODE)

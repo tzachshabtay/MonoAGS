@@ -17,9 +17,8 @@ namespace AGS.API
 		IList<IScalingArea> ScalingAreas { get; }
 		IEdges Edges { get; }
 
-		IEnumerable<IObject> GetVisibleObjectsFrontToBack();
-		IObject GetHotspotAt(float x, float y);
-		IObject GetObjectAt(float x, float y);
+		IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true);
+		IObject GetObjectAt(float x, float y, bool onlyEnabled = true, bool includeUi = true);
 	}
 }
 

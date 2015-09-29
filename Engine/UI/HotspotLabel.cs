@@ -26,7 +26,7 @@ namespace AGS.Engine
 		private void onTick(object sender, EventArgs args)
 		{
 			IPoint position = _input.MousePosition;
-			IObject obj = _state.Player.Character.Room.GetHotspotAt (position.X, position.Y);
+			IObject obj = _state.Player.Character.Room.GetObjectAt (position.X, position.Y);
 			if (obj == null || obj.Hotspot == null) 
 			{
 				_label.Visible = false;

@@ -44,7 +44,7 @@ namespace AGS.Engine
 				if (inventory == null) return;
 				if (inventory.ActiveItem == null)
 				{
-					IObject hotspot = _state.Player.Character.Room.GetHotspotAt(e.X, e.Y);
+					IObject hotspot = _state.Player.Character.Room.GetObjectAt(e.X, e.Y);
 					if (hotspot == null) return;
 				}
 				else
