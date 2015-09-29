@@ -11,6 +11,8 @@ namespace AGS.Engine
 		private IAnimationContainer _animation;
 		private readonly IGameState _state;
 		private Lazy<IRoom> _cachedRoom;
+		private bool _visible;
+		private bool _enabled;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Engine.AGSObject"/> class.
@@ -31,6 +33,7 @@ namespace AGS.Engine
 			refreshRoom();
 
 			Enabled = true;
+			Visible = true;
 			RenderLayer = AGSLayers.Foreground;
 			TreeNode = new AGSTreeNode<IObject> (this);
 			IgnoreScalingArea = true;
@@ -163,9 +166,25 @@ namespace AGS.Engine
 
 		public IInteractions Interactions { get; private set; }
 
-		public bool Visible { get { return _animation.Visible; } set { _animation.Visible = value; } }
+		public bool Visible 
+		{ 
+			get 
+			{ 
+				if (!_visible) return false;
+				return getBooleanFromParentIfNeeded(o => o.Visible, this.TreeNode.Parent); 
+			} 
+			set { _visible = value; } 
+		}
 
-		public bool Enabled { get; set; }
+		public bool Enabled 
+		{ 
+			get
+			{
+				if (!_enabled) return false;
+				return getBooleanFromParentIfNeeded(o => o.Enabled, this.TreeNode.Parent);
+			}
+			set { _enabled = value; }
+		}
 
 		public string Hotspot { get; set; }
 
@@ -220,6 +239,14 @@ namespace AGS.Engine
 				if (room.Objects.Contains(this)) return room;
 			}
 			return null;
+		}
+
+		private bool getBooleanFromParentIfNeeded(Predicate<IObject> getCurrent, IObject obj)
+		{
+			if (obj == null) return true;
+			if (obj.TreeNode.Parent == null) return getCurrent(obj);
+			if (!getCurrent(obj)) return false;
+			return getBooleanFromParentIfNeeded(getCurrent, obj.TreeNode.Parent);
 		}
 	}
 }
