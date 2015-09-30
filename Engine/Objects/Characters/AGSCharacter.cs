@@ -35,6 +35,8 @@ namespace AGS.Engine
 
 			_walkBehavior = resolver.Container.Resolve<IWalkBehavior>(objParameter, outfitParameter, faceDirectionParameter);
 
+			Inventory = resolver.Container.Resolve<IInventory>();
+
 			_obj = obj;
 			IgnoreScalingArea = false;
 		}

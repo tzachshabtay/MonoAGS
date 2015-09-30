@@ -18,7 +18,10 @@ namespace AGS.API
 		float GetFloat(string name, float defaultValue = 0f);
 		string GetString(string name, string defaultValue = null);
 
+		IPanel GetPanel(IImage image, float x, float y, bool addToUi = true);
+		IPanel GetPanel(float width, float height, float x, float y, bool addToUi = true);
 		IPanel GetPanel(string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true); 
+
 		ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true);
 		IButton GetButton(IAnimation idle, IAnimation hovered, IAnimation pushed, float x, 
 			float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);
@@ -32,6 +35,9 @@ namespace AGS.API
 
 		IEdge GetEdge(float value = 0f);
 		IRoom GetRoom(string id, float leftEdge = 0f, float rightEdge = 0f, float bottomEdge = 0f, float topEdge = 0f);
+
+		IInventoryWindow GetInventoryWindow(float width, float height, float itemWidth, float itemHeight, float x, float y, 
+			ICharacter character = null, bool addToUi = true);
 
 		void RegisterCustomData(ICustomSerializable customData);
 	}

@@ -19,9 +19,9 @@ namespace DemoGame
 				DefaultInteractions defaults = new DefaultInteractions(game.State.Player, game.Events);
 				defaults.Load();
 
-				loadUi(game);
 				loadRooms(game);
 				loadCharacters(game);
+				loadUi(game);
 			});
 
 			game.Start("Demo Game", 320, 200);

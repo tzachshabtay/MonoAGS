@@ -54,9 +54,8 @@ namespace AGS.Engine
 			throw new NotImplementedException();
 		}
 
-		public IPanel GetPanel(string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true)
+		public IPanel GetPanel(IImage image, float x, float y, bool addToUi = true)
 		{
-			IImage image = Graphics.LoadImage(imagePath, loadConfig);
 			TypedParameter typedParameter = new TypedParameter (typeof(IImage), image);
 			IPanel panel = _resolver.Resolve<IPanel>(typedParameter);
 			panel.X = x;
@@ -64,6 +63,18 @@ namespace AGS.Engine
 			if (addToUi)
 				_gameState.UI.Add(panel);
 			return panel;
+		}
+
+		public IPanel GetPanel(float width, float height, float x, float y, bool addToUi = true)
+		{
+			EmptyImage image = new EmptyImage (width, height);
+			return GetPanel(image, x, y, addToUi);
+		}
+
+		public IPanel GetPanel(string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true)
+		{
+			IImage image = Graphics.LoadImage(imagePath, loadConfig);
+			return GetPanel(image, x, y, addToUi);
 		}
 
 		public ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
@@ -182,6 +193,22 @@ namespace AGS.Engine
 			IPlayer player = _resolver.Resolve<IPlayer>();
 			room.Viewport.Follower.Target = () => player.Character;
 			return room;
+		}
+
+		public IInventoryWindow GetInventoryWindow(float width, float height, float itemWidth, float itemHeight, float x, float y,
+			ICharacter character = null, bool addToUi = true)
+		{
+			IPanel panel = GetPanel(width, height, x, y, false);
+			TypedParameter parameter = new TypedParameter (typeof(IPanel), panel);
+			IInventoryWindow inventory = _resolver.Resolve<IInventoryWindow>(parameter);
+			inventory.Tint = Color.Transparent;
+			inventory.ItemSize = new SizeF (itemWidth, itemHeight);
+			inventory.CharacterToUse = character ?? _resolver.Resolve<IPlayer>().Character;
+
+			if (addToUi)
+				_gameState.UI.Add(inventory);
+
+			return inventory;
 		}
 
 		public void RegisterCustomData(ICustomSerializable customData)

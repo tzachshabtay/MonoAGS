@@ -86,7 +86,7 @@ namespace AGS.Engine
 		private async Task<bool> shouldDefault()
 		{
 			if (_ev.SubscribersCount > 0 || _defaultEvent == null) return false;
-			if (_player.ApproachStyle.ApplyApproachStyleOnDefaults)
+			if (_player != null && _player.ApproachStyle.ApplyApproachStyleOnDefaults)
 			{
 				await approachHotspot();
 			}

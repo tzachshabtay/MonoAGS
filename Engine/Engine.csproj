@@ -161,6 +161,10 @@
     <Compile Include="Player\AGSApproachStyle.cs" />
     <Compile Include="UI\AGSPanel.cs" />
     <Compile Include="UI\AGSButton.cs" />
+    <Compile Include="Inventory\AGSInventory.cs" />
+    <Compile Include="Inventory\AGSInventoryItem.cs" />
+    <Compile Include="UI\AGSInventoryWindow.cs" />
+    <Compile Include="Graphics\Logic\EmptyImage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -193,6 +197,7 @@
     <Folder Include="Objects\Characters\Walking\" />
     <Folder Include="Objects\Characters\FaceDirection\" />
     <Folder Include="Objects\Characters\Outfit\" />
+    <Folder Include="Inventory\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

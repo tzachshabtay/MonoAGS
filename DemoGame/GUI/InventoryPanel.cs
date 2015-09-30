@@ -25,10 +25,16 @@ namespace DemoGame
 			loadButton(factory, "magnify/", 5f, RotatingCursorScheme.LOOK_MODE);
 			loadButton(factory, "upLeft/", 27f, MouseCursors.POINT_MODE);
 			IButton okButton = loadButton(factory, "ok/", 49f);
-			loadButton(factory, "up/", 93f);
-			loadButton(factory, "down/", 115f);
+			IButton upButton = loadButton(factory, "up/", 93f);
+			IButton downButton = loadButton(factory, "down/", 115f);
 
 			okButton.Events.MouseClicked.Subscribe((sender, e) => Hide());
+
+			var invWindow = factory.GetInventoryWindow(124f, 88f, 40f, 22f, 7f, 30f);
+			invWindow.TreeNode.SetParent(_panel.TreeNode);
+
+			upButton.Events.MouseClicked.Subscribe((sender, e) => invWindow.ScrollUp());
+			downButton.Events.MouseClicked.Subscribe((sender, e) => invWindow.ScrollDown());	
 		}
 
 		public void Show()

@@ -43,7 +43,6 @@
     <Compile Include="Graphics\Logic\IImageRenderer.cs" />
     <Compile Include="Graphics\Logic\IRendererLoop.cs" />
     <Compile Include="Inventory\IInventory.cs" />
-    <Compile Include="Inventory\IInventoryItem.cs" />
     <Compile Include="Inventory\InventoryCombinationEventArgs.cs" />
     <Compile Include="Objects\Interactions\CustomInteractionEventArgs.cs" />
     <Compile Include="Objects\Interactions\IInteractions.cs" />
@@ -110,6 +109,8 @@
     <Compile Include="Objects\Characters\FaceDirection\IFaceDirectionBehavior.cs" />
     <Compile Include="Player\IApproachStyle.cs" />
     <Compile Include="UI\IPanel.cs" />
+    <Compile Include="UI\IInventoryWindow.cs" />
+    <Compile Include="Inventory\IInventoryItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

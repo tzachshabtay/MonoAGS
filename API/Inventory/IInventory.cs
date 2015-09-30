@@ -7,9 +7,11 @@ namespace AGS.API
 	{
 		IInventoryItem ActiveItem { get; set; }
 
-		IEnumerable<IInventoryItem> Items { get; }
+		IList<IInventoryItem> Items { get; }
 
-		IEvent<InventoryCombinationEventArgs> OnCombination { get; }
+		IEvent<InventoryCombinationEventArgs> OnCombination(IInventoryItem item1, IInventoryItem item2);
+
+		IEvent<InventoryCombinationEventArgs> OnDefaultCombination { get; }
 	}
 }
 

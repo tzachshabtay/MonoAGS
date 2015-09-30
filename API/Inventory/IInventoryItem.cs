@@ -4,9 +4,9 @@ namespace AGS.API
 {
 	public interface IInventoryItem
 	{
-		string ID { get; }
-		string DisplayName { get; }
-		int Qty { get; }
+		IObject Graphics { get; set; }
+		IObject CursorGraphics { get; set; }
+		float Qty { get; set; }
 	}
 }
 
