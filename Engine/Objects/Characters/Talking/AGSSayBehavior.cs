@@ -44,6 +44,7 @@ namespace AGS.Engine
 			IPoint location = getLocation(text);
 			ILabel label = _factory.GetLabel(text, SpeechConfig.LabelSize.Width, SpeechConfig.LabelSize.Height, 
 				location.X, location.Y, SpeechConfig.TextConfig);
+			label.RenderLayer = AGSLayers.Speech;
 
 			await waitForText(text);
 			_state.UI.Remove(label);
