@@ -173,7 +173,7 @@ namespace AGS.Engine
 
 		private async Task onRepeatedlyExecute(object sender, EventArgs args)
 		{
-			if (!Enabled) return;
+			if (!Enabled || !Visible) return;
 			IPoint position = _input.MousePosition;
 			bool mouseIn = _obj.CollidesWith(position.X, position.Y);
 			bool leftMouseDown = _input.LeftMouseButtonDown;
