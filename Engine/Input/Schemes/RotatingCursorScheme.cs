@@ -3,6 +3,7 @@ using AGS.API;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Linq;
 
 namespace AGS.Engine
 {
@@ -22,6 +23,7 @@ namespace AGS.Engine
 		public RotatingCursorScheme(IGame game, IAnimationContainer lookCursor, IAnimationContainer walkCursor,
 			IAnimationContainer interactCursor, IAnimationContainer waitCursor)
 		{
+			RotatingEnabled = true;
 			_game = game;
 
 			if (walkCursor != null) AddCursor(WALK_MODE, walkCursor, true);
@@ -29,6 +31,8 @@ namespace AGS.Engine
 			if (interactCursor != null) AddCursor(INTERACT_MODE, interactCursor, true);
 			if (waitCursor != null) AddCursor(WAIT_MODE, waitCursor, false);
 		}
+
+		public bool RotatingEnabled { get; set; }
 
 		public string CurrentMode 
 		{ 
@@ -80,35 +84,55 @@ namespace AGS.Engine
 
 		private async Task onLeftMouseDown(MouseButtonEventArgs e, IGameState state)
 		{
+			string mode = CurrentMode;
+			IObject hotspot = state.Player.Character.Room.GetObjectAt(e.X, e.Y);
+
 			if (state.Player.Character.Inventory == null || 
 				state.Player.Character.Inventory.ActiveItem == null)
 			{
-				IObject hotspot = state.Player.Character.Room.GetObjectAt(e.X, e.Y);
-				if (hotspot != null && hotspot.Room == null) return; //Blocking clicks when hovering UI objects
+				if (hotspot != null && hotspot.Room == null) 
+				{
+					IInventoryItem inventoryItem = state.Player.Character.Inventory.Items.FirstOrDefault(
+						i => i.Graphics == hotspot);
+					if (inventoryItem != null)
+					{
+						if (mode != LOOK_MODE)
+						{
+							if (inventoryItem.ShouldInteract) mode = INTERACT_MODE;
+							else
+							{
+								state.Player.Character.Inventory.ActiveItem = inventoryItem;
+								_game.Input.Cursor = inventoryItem.CursorGraphics;
+								return;
+							}
+						}
+					}
+					else return; //Blocking clicks when hovering UI objects
+				}
 
-				if (CurrentMode == WALK_MODE)
+				if (mode == WALK_MODE)
 				{
 					AGSLocation location = new AGSLocation (e.X, e.Y, state.Player.Character.Z);
 					await state.Player.Character.WalkAsync(location).ConfigureAwait(true);
 				}
-				else if (CurrentMode != WAIT_MODE)
+				else if (mode != WAIT_MODE)
 				{
 					_handlingClick = true;
 					try
 					{
 						if (hotspot == null) return;
 
-						if (CurrentMode == LOOK_MODE)
+						if (mode == LOOK_MODE)
 						{
 							await hotspot.Interactions.OnLook.InvokeAsync(this, new ObjectEventArgs (hotspot));
 						}
-						else if (CurrentMode == INTERACT_MODE)
+						else if (mode == INTERACT_MODE)
 						{
 							await hotspot.Interactions.OnInteract.InvokeAsync(this, new ObjectEventArgs (hotspot));
 						}
 						else
 						{
-							await hotspot.Interactions.OnCustomInteract.InvokeAsync(this, new CustomInteractionEventArgs (hotspot, CurrentMode));
+							await hotspot.Interactions.OnCustomInteract.InvokeAsync(this, new CustomInteractionEventArgs (hotspot, mode));
 						}
 					}
 					finally
@@ -117,33 +141,52 @@ namespace AGS.Engine
 					}
 				}
 			}
-			else 
+			else if (hotspot != null)
 			{
+				if (hotspot.Room == null)
+				{
+					IInventoryItem inventoryItem = state.Player.Character.Inventory.Items.FirstOrDefault(
+						                              i => i.Graphics == hotspot);
+					if (inventoryItem != null)
+					{
 
+						await state.Player.Character.Inventory.OnCombination(state.Player.Character.Inventory.ActiveItem,
+							inventoryItem).InvokeAsync(this, new InventoryCombinationEventArgs (
+							state.Player.Character.Inventory.ActiveItem, inventoryItem));
+					}
+					return;
+				}
+
+				await hotspot.Interactions.OnInventoryInteract.InvokeAsync(this, new InventoryInteractEventArgs(hotspot,
+					state.Player.Character.Inventory.ActiveItem));
 			}
 		}
 
 		private void onRightMouseDown(MouseButtonEventArgs e, IGameState state)
 		{
+			if (!RotatingEnabled) return;
+
 			IInventory inventory = state.Player.Character.Inventory;
-			if (inventory == null || inventory.ActiveItem == null)
-			{
-				int startMode = _currentMode;
-				Cursor cursor = _cursors[_currentMode];
-				if (!cursor.Rotating) return;
 
-				do
-				{
-					_currentMode = (_currentMode + 1) % _cursors.Count;
-					cursor = _cursors[_currentMode];
-				} while (!cursor.Rotating && _currentMode != startMode);
+			int startMode = _currentMode;
+			Cursor cursor = _cursors[_currentMode];
 
-				setCursor();
-			}
-			else
+			if (inventory != null && inventory.ActiveItem != null)
 			{
 				inventory.ActiveItem = null;
 			}
+			else
+			{
+				if (!cursor.Rotating) return;
+			}
+
+			do
+			{
+				_currentMode = (_currentMode + 1) % _cursors.Count;
+				cursor = _cursors[_currentMode];
+			} while (!cursor.Rotating && _currentMode != startMode);
+
+			setCursor();
 		}
 
 		private class Cursor

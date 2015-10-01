@@ -16,12 +16,12 @@ namespace DemoGame
 
 			game.Events.OnLoad.Subscribe((sender, e) =>
 			{
-				DefaultInteractions defaults = new DefaultInteractions(game.State.Player, game.Events);
-				defaults.Load();
-
 				loadRooms(game);
 				loadCharacters(game);
 				loadUi(game);
+
+				DefaultInteractions defaults = new DefaultInteractions(game.State.Player, game.Events);
+				defaults.Load();
 			});
 
 			game.Start("Demo Game", 320, 200);
@@ -29,11 +29,14 @@ namespace DemoGame
 
 		private static void loadUi(IGame game)
 		{
+			InventoryItems items = new InventoryItems ();
+			items.Load(game.Factory);
+
 			MouseCursors cursors = new MouseCursors();
 			cursors.Load(game);
 
 			InventoryPanel inventory = new InventoryPanel (cursors.Scheme);
-			inventory.Load(game.Factory);
+			inventory.Load(game);
 
 			TopBar topBar = new TopBar(cursors.Scheme, inventory);
 			topBar.Load(game.Factory);

@@ -2,6 +2,7 @@
 using AGS.API;
 using Autofac;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -209,6 +210,41 @@ namespace AGS.Engine
 				_gameState.UI.Add(inventory);
 
 			return inventory;
+		}
+
+		public IInventoryItem GetInventoryItem(IObject graphics, IObject cursorGraphics, bool playerStartsWithItem = false)
+		{
+			IInventoryItem item = _resolver.Resolve<IInventoryItem>();
+			item.Graphics = graphics;
+			item.CursorGraphics = cursorGraphics;
+
+			if (playerStartsWithItem)
+			{
+				IPlayer player = _resolver.Resolve<IPlayer>();
+				if (player.Character == null)
+				{
+					Debug.WriteLine("Character was not assigned to player yet, cannot add inventory item", graphics.ToString());
+				}
+				else player.Character.Inventory.Items.Add(item);
+			}
+			return item;
+		}
+
+		public IInventoryItem GetInventoryItem(string hotspot, string graphicsFile, string cursorFile = null, 
+			ILoadImageConfig loadConfig = null, bool playerStartsWithItem = false)
+		{
+			IObject graphics = GetObject();
+			graphics.Image = Graphics.LoadImage(graphicsFile, loadConfig);
+			graphics.RenderLayer = AGSLayers.UI;
+			graphics.IgnoreViewport = true;
+			graphics.IgnoreScalingArea = true;
+			graphics.Anchor = new AGSPoint (0.5f, 0.5f);
+			graphics.Hotspot = hotspot;
+
+			IObject cursor = GetObject();
+			cursor.Image = cursorFile == null ? graphics.Image : Graphics.LoadImage(cursorFile, loadConfig);
+
+			return GetInventoryItem(graphics, cursor, playerStartsWithItem);
 		}
 
 		public void RegisterCustomData(ICustomSerializable customData)

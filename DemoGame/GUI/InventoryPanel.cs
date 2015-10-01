@@ -10,14 +10,18 @@ namespace DemoGame
 		private IPanel _panel;
 		private readonly RotatingCursorScheme _scheme;
 		private string _lastMode;
+		private IGame _game;
 
 		public InventoryPanel(RotatingCursorScheme scheme)
 		{
 			_scheme = scheme;
 		}
 
-		public void Load(IGameFactory factory)
+		public void Load(IGame game)
 		{
+			_game = game;
+			IGameFactory factory = game.Factory;
+
 			_panel = factory.GetPanel("../../Assets/Gui/DialogBox/inventory.bmp", 160f, 100f);
 			_panel.Anchor = new AGSPoint (0.5f, 0.5f);
 			_panel.Visible = false;
@@ -41,12 +45,15 @@ namespace DemoGame
 		{
 			_lastMode = _scheme.CurrentMode;
 			_scheme.CurrentMode = MouseCursors.POINT_MODE;
+			_scheme.RotatingEnabled = false;
+			_game.State.Player.Character.Inventory.ActiveItem = null;
 			_panel.Visible = true;
 		}
 
 		public void Hide()
 		{
-			if (_lastMode != null) _scheme.CurrentMode = _lastMode;
+			_scheme.RotatingEnabled = true;
+			if (_lastMode != null && _game.State.Player.Character.Inventory.ActiveItem == null) _scheme.CurrentMode = _lastMode;
 			_panel.Visible = false;
 		}
 
@@ -57,7 +64,11 @@ namespace DemoGame
 			button.TreeNode.SetParent(_panel.TreeNode);
 			if (mode != null)
 			{
-				button.Events.MouseClicked.Subscribe((sender, e) => _scheme.CurrentMode = mode);
+				button.Events.MouseClicked.Subscribe((sender, e) => 
+				{
+					_scheme.CurrentMode = mode;
+					_game.State.Player.Character.Inventory.ActiveItem = null;
+				});
 			}
 			return button;
 		}

@@ -60,8 +60,8 @@ namespace DemoGame
 
 		private void onBottleInteract(object sender, AGSEventArgs args)
 		{
-			_player.Character.Room.Objects.Remove(_bottle);
-			_player.Character.Inventory.Items.Add(AGSInventoryItem.FromRoomObject(_bottle));
+			_bottle.ChangeRoom(null);
+			_player.Character.Inventory.Items.Add(InventoryItems.Bottle);
 		}
 
 		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)

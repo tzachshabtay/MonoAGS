@@ -30,6 +30,7 @@ namespace DemoGame
 			_gameEvents.DefaultInteractions.OnInteract.SubscribeToAsync(onInteract);
 			_gameEvents.DefaultInteractions.OnCustomInteract.SubscribeToAsync(onCustomInteract);
 			_gameEvents.DefaultInteractions.OnInventoryInteract.SubscribeToAsync(onInventoryInteract);
+			_player.Character.Inventory.OnDefaultCombination.SubscribeToAsync(onInventoryCombination);
 		}
 
 		private async Task onLook(object sender, ObjectEventArgs args)
@@ -50,6 +51,19 @@ namespace DemoGame
 		private async Task onInventoryInteract(object sender, InventoryInteractEventArgs args)
 		{
 			_inventoryIndex = await sayDefault(_inventoryInteracts, _inventoryIndex);
+		}
+
+		private async Task onInventoryCombination(object sender, InventoryCombinationEventArgs args)
+		{
+			if (string.IsNullOrEmpty(args.ActiveItem.Graphics.Hotspot) ||
+			    string.IsNullOrEmpty(args.PassiveItem.Graphics.Hotspot))
+			{
+				await _player.Character.SayAsync("I don't think these two items go together.");
+				return;
+			}
+
+			await _player.Character.SayAsync(string.Format("Use {0} on {1}? I don't get it...",
+				args.ActiveItem.Graphics.Hotspot, args.PassiveItem.Graphics.Hotspot));
 		}
 
 		private async Task<int> sayDefault(List<string> list, int index)
