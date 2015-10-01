@@ -153,7 +153,10 @@ namespace AGS.Engine
 			{
 				Room.Objects.Remove(this);
 			}
-			newRoom.Objects.Add(this);
+			if (newRoom != null)
+			{
+				newRoom.Objects.Add(this);
+			}
 			refreshRoom();
 
 			if (x != null) X = x.Value;
