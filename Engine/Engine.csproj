@@ -165,6 +165,8 @@
     <Compile Include="Inventory\AGSInventoryItem.cs" />
     <Compile Include="UI\AGSInventoryWindow.cs" />
     <Compile Include="Graphics\Logic\EmptyImage.cs" />
+    <Compile Include="Game\AGSGameSettings.cs" />
+    <Compile Include="UI\Text\AGSFontLoader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

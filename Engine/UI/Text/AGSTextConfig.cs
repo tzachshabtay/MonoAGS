@@ -12,7 +12,7 @@ namespace AGS.Engine
 			float paddingLeft = 2f, float paddingRight = 2f, float paddingTop = 2f, float paddingBottom = 2f)
 		{
 			Brush = brush ?? Brushes.White;
-			Font = font ?? DefaultFont;
+			Font = font ?? AGSGameSettings.DefaultTextFont;
 			OutlineBrush = outlineBrush;
 			OutlineWidth = outlineWidth;
 			ShadowBrush = shadowBrush;
@@ -25,9 +25,6 @@ namespace AGS.Engine
 			PaddingTop = paddingTop;
 			PaddingBottom = paddingBottom;
 		}
-
-		public static Font DefaultFont = new Font(SystemFonts.DefaultFont.FontFamily
-			, 14f, FontStyle.Regular);
 
 		#region ITextConfig implementation
 

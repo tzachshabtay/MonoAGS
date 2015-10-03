@@ -406,12 +406,15 @@
     <None Include="Assets\Rooms\TrashcanStreet\trashCansHotspot.png" />
     <None Include="Assets\Rooms\TrashcanStreet\walkable.png" />
     <None Include="Assets\Rooms\TrashcanStreet\wallet.bmp" />
+    <None Include="Assets\Fonts\Pixel_Berry_08_84_Ltd.Edition.TTF" />
+    <None Include="Assets\Fonts\pf_ronda_seven.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Rooms\" />
     <Folder Include="Characters\" />
     <Folder Include="GUI\" />
     <Folder Include="Assets\" />
+    <Folder Include="Assets\Fonts\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Gui\Cursors\eye.bmp" />
