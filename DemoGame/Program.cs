@@ -19,20 +19,9 @@ namespace DemoGame
 
 			game.Events.OnLoad.Subscribe((sender, e) =>
 			{
-				PrivateFontCollection fontCollection = new PrivateFontCollection();
-				fontCollection.AddFontFile("../../Assets/Fonts/KA-BLAMO!.ttf");
-				AGSGameSettings.DefaultSpeechFont = new Font(fontCollection.Families[0], 14f);
-				//AGSFontLoader fontLoader = new AGSFontLoader(new ResourceLoader());
-				//AGSGameSettings.DefaultSpeechFont = new Font(fontLoader.LoadFontFamily("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF"), 28f, GraphicsUnit.Point);
-
-				//InstalledFontCollection c = new InstalledFontCollection();
-				//List<FontFamily> families = c.Families.Where(f => f.Name.StartsWith("K")).ToList();
-				//AGSGameSettings.DefaultSpeechFont = new Font(families[0], 14f);
-				//AGSGameSettings.DefaultSpeechFont = new Font("Impact", 14f);
-				//AGSGameSettings.DefaultSpeechFont = new Font("KA-BLAMO!", 14f);
-				//AGSGameSettings.DefaultSpeechFont = new Font(fontLoader.LoadFontFamily("../../Assets/Fonts/KA-BLAMO!.ttf"), 14f);
-				//AGSGameSettings.DefaultSpeechFont = new Font(fontLoader.LoadFontFamily("../../Assets/Fonts/pf_ronda_seven.ttf"), 8f, GraphicsUnit.Point);
-				//AGSGameSettings.DefaultTextFont = AGSGameSettings.DefaultSpeechFont;
+				AGSFontLoader fontLoader = new AGSFontLoader(new ResourceLoader());
+				AGSGameSettings.DefaultSpeechFont = new Font(fontLoader.LoadFontFamily("../../Assets/Fonts/pf_ronda_seven.ttf"), 14f);
+				AGSGameSettings.DefaultTextFont = new Font(fontLoader.LoadFontFamily("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF"), 14f);
 
 				loadRooms(game);
 				loadCharacters(game);
