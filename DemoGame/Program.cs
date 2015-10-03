@@ -53,7 +53,7 @@ namespace DemoGame
 				autoFit: AutoFit.LabelShouldFitText, paddingBottom: 5f));
 			label.Tint = Color.FromArgb(120, Color.IndianRed);
 			label.Anchor = new AGSPoint(0.5f, 0f);
-			HotspotLabel hotspotLabel = new HotspotLabel(game, label);
+			VerbOnHotspotLabel hotspotLabel = new VerbOnHotspotLabel(() => cursors.Scheme.CurrentMode, game, label);
 			hotspotLabel.Start();
 
 			addDebugLabels(game);
