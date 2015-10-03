@@ -24,22 +24,23 @@ namespace DemoGame
 
 			_character = factory.GetCharacter(outfit);
 
-			foreach (var frame in _character.Outfit.SpeakAnimation.Left.Frames)
-			{
-				frame.MinDelay = 5;
-				frame.MaxDelay = 30;
-			}
-			foreach (var frame in _character.Outfit.SpeakAnimation.Right.Frames)
-			{
-				frame.MinDelay = 5;
-				frame.MaxDelay = 30;
-			}
+			RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
+			RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);
 
 			_character.StartAnimation (_character.Outfit.IdleAnimation.Down);
 			_character.Hotspot = "Cris";
 			_character.PixelPerfect(true);
 
 			return _character;
+		}
+
+		public static void RandomAnimationDelay(IAnimation animation)
+		{
+			foreach (var frame in animation.Frames)
+			{
+				frame.MinDelay = 5;
+				frame.MaxDelay = 30;
+			}
 		}
 	}
 }

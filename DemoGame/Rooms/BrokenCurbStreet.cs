@@ -61,6 +61,14 @@ namespace DemoGame
 			_room.Objects.Add(factory.GetHotspot(_baseFolder + "slimeHotspot.png", "Slime"));
 			_room.Objects.Add(wallHotspot);
 
+			IObject panel = factory.GetObject();
+			IAnimation panelAnimation = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Panel");
+			Cris.RandomAnimationDelay(panelAnimation);
+			panel.StartAnimation(panelAnimation);
+			panel.X = 195;
+			panel.Y = 145;
+			_room.Objects.Add(panel);
+
 			return _room;
 		}
 

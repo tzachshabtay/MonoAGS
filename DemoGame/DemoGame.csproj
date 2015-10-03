@@ -48,6 +48,7 @@
     <Compile Include="GUI\TopBar.cs" />
     <Compile Include="GUI\InventoryPanel.cs" />
     <Compile Include="GUI\InventoryItems.cs" />
+    <Compile Include="Characters\Beman.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
