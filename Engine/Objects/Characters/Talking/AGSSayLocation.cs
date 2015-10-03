@@ -19,19 +19,33 @@ namespace AGS.Engine
 
 		public IPoint GetLocation(string text, SizeF labelSize, ITextConfig config)
 		{
-			//todo: need to account for alignment and auto-fit
-			SizeF size = text.Measure(config.Font);
+			//todo: need to account for alignment
+			SizeF size = getSize(text, labelSize, config);
 
 			float x = _obj.BoundingBox.MaxX;
-			x = MathUtils.Clamp(x, 0f, _game.VirtualResolution.Width - size.Width);
+			x = MathUtils.Clamp(x, 0f, Math.Max(0f, _game.VirtualResolution.Width - size.Width));
 
 			float y = _obj.BoundingBox.MaxY;
-			y = MathUtils.Clamp(y, 0f, _game.VirtualResolution.Height - size.Height);
+			y = MathUtils.Clamp(y, 0f, Math.Min(_game.VirtualResolution.Height,
+				_game.VirtualResolution.Height - size.Height));
 
 			return new AGSPoint (x, y);
 		}
 
 		#endregion
+
+		private SizeF getSize(string text, SizeF labelSize, ITextConfig config)
+		{
+			switch (config.AutoFit)
+			{
+				case AutoFit.TextShouldFitLabel:
+					return labelSize;
+				case AutoFit.TextShouldWrap:
+					return text.Measure(config.Font, (int)labelSize.Width);
+				default:
+					return text.Measure(config.Font);
+			}
+		}
 	}
 }
 
