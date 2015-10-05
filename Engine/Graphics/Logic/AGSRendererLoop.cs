@@ -38,6 +38,9 @@ namespace AGS.Engine
 					getAnimationRenderer(obj) ?? _renderer;
 				IPoint areaScaling = getAreaScaling(room, obj);
 
+				imageRenderer.Prepare(obj, room.Viewport, areaScaling);
+
+				if (!obj.Visible) continue;
 				imageRenderer.Render (obj, room.Viewport, areaScaling);
 			}
 		}
@@ -116,7 +119,6 @@ namespace AGS.Engine
 
 		private void addToDisplayList(List<IObject> displayList, IObject obj)
 		{
-			if (!obj.Visible) return;
 			displayList.Add(obj);
 		}
 	}

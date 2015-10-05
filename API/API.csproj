@@ -111,6 +111,11 @@
     <Compile Include="UI\IPanel.cs" />
     <Compile Include="UI\IInventoryWindow.cs" />
     <Compile Include="Inventory\IInventoryItem.cs" />
+    <Compile Include="UI\Text\Dialogs\IDialogOption.cs" />
+    <Compile Include="UI\Text\Dialogs\IDialog.cs" />
+    <Compile Include="UI\Text\Dialogs\IDialogAction.cs" />
+    <Compile Include="UI\Text\Dialogs\IDialogLayout.cs" />
+    <Compile Include="UI\Text\Dialogs\IDialogActions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -128,5 +133,6 @@
     <Folder Include="Objects\Characters\Talking\" />
     <Folder Include="Objects\Characters\Walking\" />
     <Folder Include="Objects\Characters\FaceDirection\" />
+    <Folder Include="UI\Text\Dialogs\" />
   </ItemGroup>
 </Project>

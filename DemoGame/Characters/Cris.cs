@@ -31,6 +31,7 @@ namespace DemoGame
 			_character.Hotspot = "Cris";
 			_character.PixelPerfect(true);
 
+			Characters.Cris = _character;
 			return _character;
 		}
 

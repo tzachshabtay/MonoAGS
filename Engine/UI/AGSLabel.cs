@@ -13,6 +13,7 @@ namespace AGS.Engine
 		public AGSLabel(IPanel obj, IUIEvents events, IImage image, ILabelRenderer labelRenderer, SizeF baseSize)
 		{
 			this._obj = obj;
+			Enabled = false;
 			_labelRenderer = labelRenderer;
 			_labelRenderer.BaseSize = baseSize;
 			CustomRenderer = _labelRenderer;
@@ -43,6 +44,11 @@ namespace AGS.Engine
 			get { return _labelRenderer.Text; }
 			set { _labelRenderer.Text = value; }
 		}
+
+
+		public float TextHeight { get { return _labelRenderer.TextHeight; } }
+
+		public float TextWidth { get { return _labelRenderer.TextWidth; } }
 
 		#endregion
 
@@ -156,9 +162,9 @@ namespace AGS.Engine
 
 		public float Z { get { return _obj.Z; } set { _obj.Z = value; } }
 
-		public float Height { get { return _obj.Height; } }
+		public float Height { get { return _labelRenderer.Height; } }
 
-		public float Width { get { return _obj.Width; } }
+		public float Width { get { return _labelRenderer.Width; } }
 
 		public float ScaleX { get { return _obj.ScaleX; } }
 

@@ -9,12 +9,12 @@ namespace AGS.Engine
 	public class AGSEvent<TEventArgs> : IEvent<TEventArgs> where TEventArgs : AGSEventArgs
 	{
 		private readonly Guid _id;
-		private readonly IConcurrentHashSet<Func<object, TEventArgs, Task>> _invocationList;
+		private readonly IConcurrentHashSet<Callback> _invocationList;
 
 		public AGSEvent ()
 		{
 			_id = Guid.NewGuid();
-			_invocationList = new AGSConcurrentHashSet<Func<object, TEventArgs, Task>> ();
+			_invocationList = new AGSConcurrentHashSet<Callback> ();
 		}
 
 		#region IEvent implementation
@@ -28,12 +28,12 @@ namespace AGS.Engine
 				Debug.WriteLine("Subscribe!!! " + new StackTrace ().ToString());
 				return;
 			}
-			_invocationList.Add (convert (callback));
+			_invocationList.Add (new Callback (callback));
 		}
 
 		public void Unsubscribe (Action<object, TEventArgs> callback)
 		{
-			_invocationList.Remove (convert (callback));
+			_invocationList.Remove (new Callback (callback));
 		}
 
 		public void WaitUntil(Predicate<TEventArgs> condition)
@@ -43,26 +43,21 @@ namespace AGS.Engine
 
 		public void SubscribeToAsync (Func<object, TEventArgs, Task> callback)
 		{
-			if (_invocationList.Count > 100)
-			{
-				Debug.WriteLine("Subscribe!!! " + new StackTrace ().ToString());
-				return;
-			}
-			_invocationList.Add (callback);
+			subscribeToAsync(new Callback (callback));
 		}
 
 		public void UnsubscribeToAsync (Func<object, TEventArgs, Task> callback)
 		{
-			_invocationList.Remove (callback);
+			unsubscribeToAsync(new Callback (callback));
 		}
 
 		public async Task WaitUntilAsync(Predicate<TEventArgs> condition)
 		{
 			TaskCompletionSource<object> tcs = new TaskCompletionSource<object> (null);
-			var callback = convert(condition, tcs);
-			SubscribeToAsync(callback);
+			var callback = new Callback(condition, tcs);
+			subscribeToAsync(callback);
 			await tcs.Task;
-			UnsubscribeToAsync(callback);
+			unsubscribeToAsync(callback);
 		}
 
 		public async Task InvokeAsync (object sender, TEventArgs args)
@@ -73,7 +68,7 @@ namespace AGS.Engine
 					args.TimesInvoked = Repeat.Do(_id.ToString());
 				foreach (var target in _invocationList) 
 				{
-					await target (sender, args).ConfigureAwait(true);
+					await target.Event (sender, args).ConfigureAwait(true);
 				}
 			}
 			catch (Exception e) 
@@ -91,23 +86,75 @@ namespace AGS.Engine
 
 		#endregion
 
-		private Func<object, TEventArgs, Task> convert(Action<object, TEventArgs> callback)
+		private void subscribeToAsync(Callback callback)
 		{
-			return (sender, e) => 
+			if (_invocationList.Count > 100)
 			{
-				callback (sender, e);
-				return Task.FromResult (true);
-			};
+				Debug.WriteLine("Subscribe!!! " + new StackTrace ().ToString());
+				return;
+			}
+			_invocationList.Add (callback);
 		}
 
-		private Func<object, TEventArgs, Task> convert(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
+		private void unsubscribeToAsync(Callback callback)
 		{
-			return (sender, e) => 
+			_invocationList.Remove (callback);
+		}
+
+		private class Callback
+		{
+			private object _origObject;
+
+			public Callback(Func<object, TEventArgs, Task> callback)
 			{
-				if (!condition(e)) return Task.FromResult(true);
-				tcs.TrySetResult(null);
-				return Task.FromResult(true);
-			};
+				_origObject = callback;
+				Event = callback;
+			}
+
+			public Callback(Action<object, TEventArgs> callback)
+			{
+				_origObject = callback;
+				Event = convert(callback);
+			}
+
+			public Callback(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
+			{
+				_origObject = condition;
+				Event = convert(condition, tcs);
+			}
+
+			public Func<object, TEventArgs, Task> Event { get; private set; }
+
+			public override bool Equals(object obj)
+			{
+				Callback other = obj as Callback;
+				if (other == null) return false;
+				return other._origObject == _origObject;
+			}
+
+			public override int GetHashCode()
+			{
+				return _origObject.GetHashCode();
+			}
+
+			private Func<object, TEventArgs, Task> convert(Action<object, TEventArgs> callback)
+			{
+				return (sender, e) => 
+				{
+					callback (sender, e);
+					return Task.FromResult (true);
+				};
+			}
+
+			private Func<object, TEventArgs, Task> convert(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
+			{
+				return (sender, e) => 
+				{
+					if (!condition(e)) return Task.FromResult(true);
+					tcs.TrySetResult(null);
+					return Task.FromResult(true);
+				};
+			}
 		}
 	}
 }

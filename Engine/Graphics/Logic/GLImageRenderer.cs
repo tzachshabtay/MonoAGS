@@ -31,6 +31,10 @@ namespace AGS.Engine
 
 		public IGLBoundingBoxes BoundingBoxes { get; set; }
 
+		public void Prepare(IObject obj, IViewport viewport, IPoint areaScaling)
+		{
+		}
+
 		public void Render(IObject obj, IViewport viewport, IPoint areaScaling)
 		{
 			if (obj.Animation == null)

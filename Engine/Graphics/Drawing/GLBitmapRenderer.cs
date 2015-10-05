@@ -16,6 +16,10 @@ namespace AGS.Engine
 
 		#region ICustomRenderer implementation
 
+		public void Prepare(IObject obj, IViewport viewport, IPoint areaScaling)
+		{
+		}
+
 		public void Render (IObject obj, IViewport viewport, IPoint areaScaling)
 		{
 			GLUtils.DrawQuad (glImage.Texture, X, Y, glImage.Width, glImage.Height, 0f, 

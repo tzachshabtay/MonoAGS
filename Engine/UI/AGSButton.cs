@@ -16,6 +16,7 @@ namespace AGS.Engine
 			Events.MouseLeave.Subscribe((sender, e) => StartAnimation(IdleAnimation));
 			Events.MouseDown.Subscribe((sender, e) => StartAnimation(PushedAnimation));
 			Events.MouseUp.Subscribe((sender, e) => StartAnimation(IsMouseIn ? HoverAnimation : IdleAnimation));
+			Enabled = true;
 		}
 
 		public IAnimation IdleAnimation { get; set; }
@@ -41,6 +42,10 @@ namespace AGS.Engine
 		public ITextConfig TextConfig { get { return _obj.TextConfig; } set { _obj.TextConfig = value; }}
 
 		public string Text { get { return _obj.Text; } set { _obj.Text = value; }}
+
+		public float TextHeight { get { return _obj.TextHeight; } }
+
+		public float TextWidth { get { return _obj.TextWidth; } }
 
 		#endregion
 

@@ -6,6 +6,9 @@ namespace AGS.API
 	{
 		ITextConfig TextConfig { get; set; }
 		string Text { get; set; }
+
+		float TextHeight  { get; }
+		float TextWidth { get; }
 	}
 
 	public interface ILabel : ILabel<ILabel>

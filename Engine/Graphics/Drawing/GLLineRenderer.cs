@@ -15,6 +15,10 @@ namespace AGS.Engine
 
 		#region ICustomRenderer implementation
 
+		public void Prepare(IObject obj, IViewport viewport, IPoint areaScaling)
+		{
+		}
+
 		public void Render (IObject obj, IViewport viewport, IPoint areaScaling)
 		{
 			GLUtils.DrawLine (X1, Y1, X2, Y2, 1f, 1f, 0f, 0f, 1f);

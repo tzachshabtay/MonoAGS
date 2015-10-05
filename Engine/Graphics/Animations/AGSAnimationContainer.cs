@@ -120,7 +120,11 @@ namespace AGS.Engine
 
 		public IImage Image 
 		{ 
-			get { return Animation.Sprite.Image; }
+			get 
+			{ 
+				if (Animation == null || Animation.Sprite == null) return null;
+				return Animation.Sprite.Image; 
+			}
 			set 
 			{ 
 				AGSSingleFrameAnimation animation = new AGSSingleFrameAnimation (value, _factory);

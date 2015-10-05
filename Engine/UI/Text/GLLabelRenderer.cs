@@ -51,19 +51,56 @@ namespace AGS.Engine
 		public SizeF BaseSize { get; set; }
 		public ILabel Label { get; set; }
 
+
+		public float Width 
+		{ 
+			get 
+			{ 
+				return _usedLabelBoundingBoxes == null || _usedLabelBoundingBoxes.RenderBox == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Width; 
+			}
+		}
+
+		public float Height 
+		{ 
+			get 
+			{ 
+				return _usedLabelBoundingBoxes == null || _usedLabelBoundingBoxes.RenderBox == null ? 1f :  _usedLabelBoundingBoxes.RenderBox.Height; 
+			}
+		}
+
+		public float TextWidth 
+		{ 
+			get 
+			{ 
+				return _glText == null ? 1f : _glText.Width; 
+			}
+		}
+
+		public float TextHeight 
+		{ 
+			get 
+			{ 
+				return _glText == null ? 1f : _glText.Height;
+			}
+		}
+
 		#region IImageRenderer implementation
 
-		public void Render(IObject obj, IViewport viewport, IPoint areaScaling)
+		public void Prepare(IObject obj, IViewport viewport, IPoint areaScaling)
 		{
 			_glText = _glText ?? new GLText (_bitmapPool);
 
 			updateBoundingBoxes(obj, viewport, areaScaling);
 			_bgRenderer.BoundingBoxes = _usedLabelBoundingBoxes;
+			_bgRenderer.Prepare(obj, viewport, areaScaling);
+		}
+
+		public void Render(IObject obj, IViewport viewport, IPoint areaScaling)
+		{
 			_bgRenderer.Render(obj, viewport, areaScaling);
 
 			if (TextVisible)
 			{
-				
 				IGLColor color = _colorBuilder.Build(Color.White);
 				_textureRenderer.Render(_glText.Texture, _usedTextBoundingBoxes.RenderBox, color);
 			}

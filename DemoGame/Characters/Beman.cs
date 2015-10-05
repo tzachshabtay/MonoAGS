@@ -9,6 +9,7 @@ namespace DemoGame
 	{
 		private ICharacter _character;
 		private const string _baseFolder = "../../Assets/Characters/Beman/";
+		private BemanDialogs _dialogs = new BemanDialogs();
 
 		public ICharacter Load(IGameFactory factory)
 		{
@@ -34,6 +35,10 @@ namespace DemoGame
 			_character.Hotspot = "Beman";
 			_character.PixelPerfect(true);
 
+			_character.Interactions.OnInteract.SubscribeToAsync(async (sender, e) => await _dialogs.StartDialog.RunAsync());
+
+			Characters.Beman = _character;
+			_dialogs.Load(factory);
 			return _character;
 		}
 	}

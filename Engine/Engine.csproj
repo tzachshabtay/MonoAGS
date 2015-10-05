@@ -168,6 +168,11 @@
     <Compile Include="UI\Text\AGSFontLoader.cs" />
     <Compile Include="UI\HotspotLabels\HotspotLabel.cs" />
     <Compile Include="UI\HotspotLabels\VerbOnHotspotLabel.cs" />
+    <Compile Include="UI\Text\Dialogs\AGSDialogAction.cs" />
+    <Compile Include="UI\Text\Dialogs\AGSDialogOption.cs" />
+    <Compile Include="UI\Text\Dialogs\AGSDialog.cs" />
+    <Compile Include="UI\Text\Dialogs\AGSDialogLayout.cs" />
+    <Compile Include="UI\Text\Dialogs\AGSDialogActions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -202,6 +207,7 @@
     <Folder Include="Objects\Characters\Outfit\" />
     <Folder Include="Inventory\" />
     <Folder Include="UI\HotspotLabels\" />
+    <Folder Include="UI\Text\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

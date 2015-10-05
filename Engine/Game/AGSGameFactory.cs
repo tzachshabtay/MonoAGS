@@ -247,6 +247,44 @@ namespace AGS.Engine
 			return GetInventoryItem(graphics, cursor, playerStartsWithItem);
 		}
 
+		public IDialogOption GetDialogOption(string text, ITextConfig config = null, ITextConfig hoverConfig = null,
+			bool speakOption = true, bool showOnce = false)
+		{
+			IGame game = _resolver.Resolve<IGame>();
+			if (config == null) config = new AGSTextConfig (autoFit: AutoFit.TextShouldWrap,
+					brush: Brushes.White, font: new Font(SystemFonts.DefaultFont.FontFamily, 10f));
+			if (hoverConfig == null) hoverConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrap,
+				brush: Brushes.Yellow, font: new Font(SystemFonts.DefaultFont.FontFamily, 10f));
+			ILabel label = GetLabel(text, game.VirtualResolution.Width, 20f, 0f, 0f, config);
+			label.Enabled = true;
+			TypedParameter labelParam = new TypedParameter (typeof(ILabel), label);
+			NamedParameter speakParam = new NamedParameter ("speakOption", speakOption);
+			NamedParameter showOnceParam = new NamedParameter ("showOnce", showOnce);
+			TypedParameter hoverParam = new TypedParameter (typeof(ITextConfig), hoverConfig);
+			IDialogOption option = _resolver.Resolve<IDialogOption>(labelParam, speakParam, showOnceParam, hoverParam);
+			return option;
+		}
+
+		public IDialog GetDialog(float x = 0f, float y = 0f, IObject graphics = null, bool showWhileOptionsAreRunning = false, 
+			params IDialogOption[] options)
+		{
+			TypedParameter showParam = new TypedParameter (typeof(bool), showWhileOptionsAreRunning);
+			if (graphics == null)
+			{
+				graphics = GetObject();
+				graphics.Tint = Color.Black;
+				graphics.Anchor = new AGSPoint ();
+				_gameState.UI.Add(graphics);
+			}
+			TypedParameter graphicsParam = new TypedParameter (typeof(IObject), graphics);
+			IDialog dialog = _resolver.Resolve<IDialog>(showParam, graphicsParam);
+			foreach (IDialogOption option in options)
+			{
+				dialog.Options.Add(option);
+			}
+			return dialog;
+		}
+
 		public void RegisterCustomData(ICustomSerializable customData)
 		{
 			throw new NotImplementedException();

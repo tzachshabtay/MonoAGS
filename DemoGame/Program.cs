@@ -95,12 +95,16 @@ namespace DemoGame
 		[Conditional("DEBUG")]
 		private static void addDebugLabels(IGame game)
 		{
-			ILabel fpsLabel = game.Factory.GetLabel("", 30, 25, 0, 25);
+			ILabel fpsLabel = game.Factory.GetLabel("", 30, 25, 320, 25, config: new AGSTextConfig(alignment: ContentAlignment.TopLeft,
+				autoFit: AutoFit.LabelShouldFitText));
+			fpsLabel.Anchor = new AGSPoint (1f, 0f);
 			fpsLabel.ScaleBy(0.7f, 0.7f);
 			FPSCounter fps = new FPSCounter(game.Events, fpsLabel);
 			fps.Start();
 
-			ILabel label = game.Factory.GetLabel("", 30, 25, 0, 5);
+			ILabel label = game.Factory.GetLabel("", 30, 25, 320, 5, config: new AGSTextConfig(alignment: ContentAlignment.TopRight,
+				autoFit: AutoFit.LabelShouldFitText));
+			label.Anchor = new AGSPoint (1f, 0f);
 			label.ScaleBy(0.7f, 0.7f);
 			MousePositionLabel mouseLabel = new MousePositionLabel(game.Input, label);
 			mouseLabel.Start();

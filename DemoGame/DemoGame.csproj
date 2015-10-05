@@ -49,6 +49,8 @@
     <Compile Include="GUI\InventoryPanel.cs" />
     <Compile Include="GUI\InventoryItems.cs" />
     <Compile Include="Characters\Beman.cs" />
+    <Compile Include="Dialogs\BemanDialogs.cs" />
+    <Compile Include="Characters\Characters.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -416,6 +418,7 @@
     <Folder Include="GUI\" />
     <Folder Include="Assets\" />
     <Folder Include="Assets\Fonts\" />
+    <Folder Include="Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Gui\Cursors\eye.bmp" />
