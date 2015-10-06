@@ -23,7 +23,7 @@ namespace AGS.Engine
 			SizeF size = getSize(text, labelSize, config);
 
 			float x = _obj.BoundingBox.MaxX;
-			x = MathUtils.Clamp(x, 0f, Math.Max(0f, _game.VirtualResolution.Width - size.Width));
+			x = MathUtils.Clamp(x, 0f, Math.Max(0f, _game.VirtualResolution.Width - size.Width - 10f));
 
 			float y = _obj.BoundingBox.MaxY;
 			y = MathUtils.Clamp(y, 0f, Math.Min(_game.VirtualResolution.Height,
