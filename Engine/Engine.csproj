@@ -74,7 +74,6 @@
     <Compile Include="Graphics\Layers\AGSLayers.cs" />
     <Compile Include="Graphics\Logic\RenderOrderSelector.cs" />
     <Compile Include="Resolver.cs" />
-    <Compile Include="UI\AGSLabel.cs" />
     <Compile Include="UI\AGSUIEvents.cs" />
     <Compile Include="UI\AGSBorderStyle.cs" />
     <Compile Include="Misc\Events\AGSEvent.cs" />
@@ -158,11 +157,8 @@
     <Compile Include="Objects\Characters\Outfit\AGSOutfit.cs" />
     <Compile Include="Objects\Characters\Outfit\IOutfitHolder.cs" />
     <Compile Include="Player\AGSApproachStyle.cs" />
-    <Compile Include="UI\AGSPanel.cs" />
-    <Compile Include="UI\AGSButton.cs" />
     <Compile Include="Inventory\AGSInventory.cs" />
     <Compile Include="Inventory\AGSInventoryItem.cs" />
-    <Compile Include="UI\AGSInventoryWindow.cs" />
     <Compile Include="Graphics\Logic\EmptyImage.cs" />
     <Compile Include="Game\AGSGameSettings.cs" />
     <Compile Include="UI\Text\AGSFontLoader.cs" />
@@ -173,6 +169,10 @@
     <Compile Include="UI\Text\Dialogs\AGSDialog.cs" />
     <Compile Include="UI\Text\Dialogs\AGSDialogLayout.cs" />
     <Compile Include="UI\Text\Dialogs\AGSDialogActions.cs" />
+    <Compile Include="UI\Controls\AGSButton.cs" />
+    <Compile Include="UI\Controls\AGSInventoryWindow.cs" />
+    <Compile Include="UI\Controls\AGSLabel.cs" />
+    <Compile Include="UI\Controls\AGSPanel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -208,6 +208,7 @@
     <Folder Include="Inventory\" />
     <Folder Include="UI\HotspotLabels\" />
     <Folder Include="UI\Text\Dialogs\" />
+    <Folder Include="UI\Controls\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

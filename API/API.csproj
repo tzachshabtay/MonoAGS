@@ -74,9 +74,6 @@
     <Compile Include="Rooms\IScalingArea.cs" />
     <Compile Include="Rooms\IViewport.cs" />
     <Compile Include="Graphics\IRenderLayer.cs" />
-    <Compile Include="UI\IButton.cs" />
-    <Compile Include="UI\IUIControl.cs" />
-    <Compile Include="UI\ILabel.cs" />
     <Compile Include="UI\Text\ITextConfig.cs" />
     <Compile Include="UI\ISkin.cs" />
     <Compile Include="Objects\IChildrenCollection.cs" />
@@ -108,14 +105,17 @@
     <Compile Include="Objects\Characters\Walking\Pathfinding\IPathFinder.cs" />
     <Compile Include="Objects\Characters\FaceDirection\IFaceDirectionBehavior.cs" />
     <Compile Include="Player\IApproachStyle.cs" />
-    <Compile Include="UI\IPanel.cs" />
-    <Compile Include="UI\IInventoryWindow.cs" />
     <Compile Include="Inventory\IInventoryItem.cs" />
     <Compile Include="UI\Text\Dialogs\IDialogOption.cs" />
     <Compile Include="UI\Text\Dialogs\IDialog.cs" />
     <Compile Include="UI\Text\Dialogs\IDialogAction.cs" />
     <Compile Include="UI\Text\Dialogs\IDialogLayout.cs" />
     <Compile Include="UI\Text\Dialogs\IDialogActions.cs" />
+    <Compile Include="UI\Controls\IButton.cs" />
+    <Compile Include="UI\Controls\IInventoryWindow.cs" />
+    <Compile Include="UI\Controls\ILabel.cs" />
+    <Compile Include="UI\Controls\IPanel.cs" />
+    <Compile Include="UI\Controls\IUIControl.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -134,5 +134,6 @@
     <Folder Include="Objects\Characters\Walking\" />
     <Folder Include="Objects\Characters\FaceDirection\" />
     <Folder Include="UI\Text\Dialogs\" />
+    <Folder Include="UI\Controls\" />
   </ItemGroup>
 </Project>
