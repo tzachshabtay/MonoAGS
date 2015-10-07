@@ -224,7 +224,7 @@ namespace AGS.Engine
 
 		public override string ToString ()
 		{
-			return Hotspot ?? base.ToString ();
+			return Hotspot ?? (Image == null ? base.ToString () : Image.ToString());
 		}
 
 		#endregion

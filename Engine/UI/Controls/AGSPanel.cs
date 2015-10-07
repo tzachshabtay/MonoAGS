@@ -171,6 +171,11 @@ namespace AGS.Engine
 
 		#endregion
 
+		public override string ToString()
+		{
+			return string.Format("Panel: {0}", _obj.ToString());
+		}
+
 		private async Task onRepeatedlyExecute(object sender, EventArgs args)
 		{
 			if (!Enabled || !Visible) return;

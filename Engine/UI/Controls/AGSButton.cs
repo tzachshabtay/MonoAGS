@@ -183,7 +183,7 @@ namespace AGS.Engine
 
 		public override string ToString()
 		{
-			return string.Format("Button: {0}", Text ?? "null");
+			return string.Format("Button: {0}", string.IsNullOrWhiteSpace(Text) ? _obj.ToString() : Text);
 		}
 	}
 }

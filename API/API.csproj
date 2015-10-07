@@ -116,6 +116,8 @@
     <Compile Include="UI\Controls\ILabel.cs" />
     <Compile Include="UI\Controls\IPanel.cs" />
     <Compile Include="UI\Controls\IUIControl.cs" />
+    <Compile Include="UI\Controls\Slider\ISlider.cs" />
+    <Compile Include="UI\Controls\Slider\SliderValueEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -135,5 +137,6 @@
     <Folder Include="Objects\Characters\FaceDirection\" />
     <Folder Include="UI\Text\Dialogs\" />
     <Folder Include="UI\Controls\" />
+    <Folder Include="UI\Controls\Slider\" />
   </ItemGroup>
 </Project>

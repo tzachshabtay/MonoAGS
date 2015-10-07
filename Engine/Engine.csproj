@@ -173,6 +173,7 @@
     <Compile Include="UI\Controls\AGSInventoryWindow.cs" />
     <Compile Include="UI\Controls\AGSLabel.cs" />
     <Compile Include="UI\Controls\AGSPanel.cs" />
+    <Compile Include="UI\Controls\AGSSlider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

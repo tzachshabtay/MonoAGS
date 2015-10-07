@@ -27,6 +27,8 @@ namespace AGS.API
 			float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);
 		IButton GetButton(string idleImagePath, string hoveredImagePath, string pushedImagePath, 
 			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);
+		ISlider GetSlider(string imagePath, string handleImagePath, float value, float min, float max, 
+			ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true);
 
 		IObject GetObject(string[] sayWhenLook = null, string[] sayWhenInteract = null);
 		ICharacter GetCharacter(IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null);

@@ -186,7 +186,7 @@ namespace AGS.Engine
 
 		public override string ToString()
 		{
-			return string.Format("Label: {0}", Text ?? "null");
+			return string.Format("Label: {0}", string.IsNullOrWhiteSpace(Text) ? _obj.ToString() : Text);
 		}
 	}
 }

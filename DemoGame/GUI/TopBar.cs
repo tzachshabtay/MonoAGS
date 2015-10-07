@@ -10,11 +10,13 @@ namespace DemoGame
 		private IPanel _panel;
 		private readonly RotatingCursorScheme _scheme;
 		private InventoryPanel _invPanel;
+		private OptionsPanel _optionsPanel;
 
-		public TopBar(RotatingCursorScheme scheme, InventoryPanel invPanel)
+		public TopBar(RotatingCursorScheme scheme, InventoryPanel invPanel, OptionsPanel optionsPanel)
 		{
 			_scheme = scheme;
 			_invPanel = invPanel;
+			_optionsPanel = optionsPanel;
 		}
 
 		public void Load(IGameFactory factory)
@@ -28,9 +30,10 @@ namespace DemoGame
 			IButton invButton = loadButton(factory, "inventory/", 80f);
 			loadButton(factory, "activeInventory/", 100f);
 			loadButton(factory, "help/", 280f);
-			loadButton(factory, "settings/", 300f);
+			IButton optionsButton = loadButton(factory, "settings/", 300f);
 
 			invButton.Events.MouseClicked.Subscribe((sender, e) => _invPanel.Show());
+			optionsButton.Events.MouseClicked.Subscribe((sender, e) => _optionsPanel.Show());
 		}
 
 		private IButton loadButton(IGameFactory factory, string folder, float x, string mode = null)

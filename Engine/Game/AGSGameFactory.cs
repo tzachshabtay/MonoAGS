@@ -134,6 +134,34 @@ namespace AGS.Engine
 			return GetButton(idle, hovered, pushed, x, y, text, config, addToUi, width, height);
 		}
 
+		public ISlider GetSlider(string imagePath, string handleImagePath, float value, float min, float max, 
+			ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
+		{
+			IObject graphics = GetObject();
+			graphics.Image = Graphics.LoadImage(imagePath, loadConfig);
+			ILabel label = null;
+			if (config != null)
+			{
+				label = GetLabel("", graphics.Width, 30f, 0f, -30f, config, false);
+				label.Anchor = new AGSPoint (0.5f, 0f);
+			}
+
+			IObject handle = GetObject();
+			handle.Image = Graphics.LoadImage(handleImagePath, loadConfig);
+
+			ISlider slider = _resolver.Resolve<ISlider>();
+			slider.Label = label;
+			slider.MinValue = min;
+			slider.MaxValue = max;
+			slider.Value = value;
+			slider.Graphics = graphics;
+			slider.HandleGraphics = handle;
+
+			if (addToUi)
+				_gameState.UI.Add(slider);
+			return slider;
+		}
+
 		public IObject GetObject(string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
 			IObject obj = _resolver.Resolve<IObject>();
