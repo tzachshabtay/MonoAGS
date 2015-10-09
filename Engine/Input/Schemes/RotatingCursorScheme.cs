@@ -61,6 +61,11 @@ namespace AGS.Engine
 			_game.Input.MouseDown.SubscribeToAsync(onMouseDown);
 		}
 
+		public void SetInventoryCursor()
+		{
+			_game.Input.Cursor = _game.State.Player.Character.Inventory.ActiveItem.CursorGraphics;
+		}
+
 		private void setCursor()
 		{
 			_game.Input.Cursor = _cursors[_currentMode].Animation;
@@ -102,7 +107,7 @@ namespace AGS.Engine
 							else
 							{
 								state.Player.Character.Inventory.ActiveItem = inventoryItem;
-								_game.Input.Cursor = inventoryItem.CursorGraphics;
+								SetInventoryCursor();
 								return;
 							}
 						}

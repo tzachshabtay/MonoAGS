@@ -45,10 +45,10 @@ namespace DemoGame
 			InventoryPanel inventory = new InventoryPanel (cursors.Scheme);
 			inventory.Load(game);
 
-			OptionsPanel options = new OptionsPanel ();
-			options.Load(game.Factory);
+			OptionsPanel options = new OptionsPanel (cursors.Scheme);
+			options.Load(game);
 
-			TopBar topBar = new TopBar(cursors.Scheme, null/*inventory*/, options);
+			TopBar topBar = new TopBar(cursors.Scheme, inventory, options);
 			topBar.Load(game.Factory);
 
 			ILabel label = game.Factory.GetLabel("", 80, 25, 160, 10, new AGSTextConfig(brush: Brushes.WhiteSmoke,

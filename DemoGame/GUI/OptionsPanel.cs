@@ -9,21 +9,31 @@ namespace DemoGame
 	{
 		private const string _sliderFolder = "../../Assets/Gui/Sliders/";
 		private IPanel _panel;
+		private IGame _game;
 
-		public OptionsPanel()
+		AGSTextConfig _textConfig = new AGSTextConfig (font: new Font (SystemFonts.DefaultFont.FontFamily, 10f), brush: Brushes.DarkOliveGreen,
+			outlineBrush: Brushes.LightGreen, outlineWidth: 1f);
+
+		AGSTextConfig _buttonTextConfig = new AGSTextConfig (font: new Font (SystemFonts.DefaultFont.FontFamily, 7f, FontStyle.Bold), brush: Brushes.LightGreen,
+			alignment: ContentAlignment.MiddleCenter);
+
+		private string _lastMode;
+		private readonly RotatingCursorScheme _scheme;
+
+		public OptionsPanel(RotatingCursorScheme scheme)
 		{
+			_scheme = scheme;
 		}
 
-		public void Load(IGameFactory factory)
+		public void Load(IGame game)
 		{
+			_game = game;
+			IGameFactory factory = game.Factory;
 			_panel = factory.GetPanel("../../Assets/Gui/DialogBox/options.bmp", 160f, 100f);
 			_panel.Anchor = new AGSPoint (0.5f, 0.5f);
 			_panel.Visible = false;
 
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig { TransparentColorSamplePoint = new Point (0, 0) };
-
-			AGSTextConfig textConfig = new AGSTextConfig (font: new Font (SystemFonts.DefaultFont.FontFamily, 10f), brush: Brushes.DarkOliveGreen,
-				outlineBrush: Brushes.LightGreen, outlineWidth: 1f);
 
 			ISlider volumeSlider = factory.GetSlider(_sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
 				loadConfig: loadConfig);
@@ -32,7 +42,7 @@ namespace DemoGame
 			volumeSlider.HandleGraphics.Anchor = new AGSPoint (0.5f, 0.5f);
 			volumeSlider.TreeNode.SetParent(_panel.TreeNode);
 
-			ILabel volumeLabel = factory.GetLabel("Volume", 50f, 30f, 120f, 85f, textConfig); 
+			ILabel volumeLabel = factory.GetLabel("Volume", 50f, 30f, 120f, 85f, _textConfig); 
 			volumeLabel.Anchor = new AGSPoint (0.5f, 0f);
 			volumeLabel.TreeNode.SetParent(_panel.TreeNode);
 
@@ -43,14 +53,50 @@ namespace DemoGame
 			speedSlider.HandleGraphics.Anchor = new AGSPoint (0.5f, 0.5f);
 			speedSlider.TreeNode.SetParent(_panel.TreeNode);
 
-			ILabel speedLabel = factory.GetLabel("Speed", 50f, 30f, 180f, 85f, textConfig); 
+			ILabel speedLabel = factory.GetLabel("Speed", 50f, 30f, 180f, 85f, _textConfig); 
 			speedLabel.Anchor = new AGSPoint (0.5f, 0f);
 			speedLabel.TreeNode.SetParent(_panel.TreeNode);
+
+			IButton resumeButton = loadButton("Resume", 95);
+			resumeButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
+
+			IButton restartButton = loadButton("Restart", 75);
+			restartButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
+
+			IButton restoreButton = loadButton("Load", 55);
+			restoreButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
+
+			IButton saveButton = loadButton("Save", 35);
+			saveButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
+
+			IButton quitButton = loadButton("Quit", 15);
+			quitButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
+		}
+
+		private IButton loadButton(string text, float y)
+		{
+			const string folder = "../../Assets/Gui/Buttons/buttonSmall/";
+			IButton button = _game.Factory.GetButton(folder + "normal.bmp", folder + "hovered.bmp", 
+				folder + "pushed.bmp", 15f, y, text, _buttonTextConfig);
+			button.TreeNode.SetParent(_panel.TreeNode);
+			return button;
 		}
 
 		public void Show()
 		{
+			_lastMode = _scheme.CurrentMode;
+			_scheme.CurrentMode = MouseCursors.POINT_MODE;
+			_scheme.RotatingEnabled = false;
 			_panel.Visible = true;
+		}
+
+		public void Hide()
+		{
+			_scheme.RotatingEnabled = true;
+			if (_game.State.Player.Character.Inventory.ActiveItem == null)
+				_scheme.CurrentMode = _lastMode;
+			else _scheme.SetInventoryCursor();
+			_panel.Visible = false;
 		}
 	}
 }
