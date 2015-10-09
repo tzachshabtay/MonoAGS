@@ -34,13 +34,11 @@ namespace AGS.Engine
 			List<IObject> displayList = getDisplayList(room);
 			foreach (IObject obj in displayList) 
 			{
-				IImageRenderer imageRenderer = obj.CustomRenderer ?? 
-					getAnimationRenderer(obj) ?? _renderer;
+				IImageRenderer imageRenderer = getImageRenderer(obj);
 				IPoint areaScaling = getAreaScaling(room, obj);
 
 				imageRenderer.Prepare(obj, room.Viewport, areaScaling);
 
-				if (!obj.Visible) continue;
 				imageRenderer.Render (obj, room.Viewport, areaScaling);
 			}
 		}
@@ -59,13 +57,18 @@ namespace AGS.Engine
 			return GLMatrixBuilder.NoScaling;
 		}
 
+		private IImageRenderer getImageRenderer(IObject obj)
+		{
+			return obj.CustomRenderer ?? getAnimationRenderer(obj) ?? _renderer;
+		}
+
 		private IImageRenderer getAnimationRenderer(IObject obj)
 		{
 			if (obj.Animation == null) return null;
 			return obj.Animation.Sprite.CustomRenderer;
 		}
 
-		private void addCursor(List<IObject> displayList)
+		private void addCursor(List<IObject> displayList, IRoom room)
 		{
 			IAnimationContainer cursor = _input.Cursor;
 			if (cursor == null) return;
@@ -75,7 +78,7 @@ namespace AGS.Engine
 			}
 			_mouseCursorContainer.X = _input.MouseX;
 			_mouseCursorContainer.Y = _input.MouseY;
-			addToDisplayList(displayList, _mouseCursorContainer);
+			addToDisplayList(displayList, _mouseCursorContainer, room);
 		}
 
 		private List<IObject> getDisplayList(IRoom room)
@@ -91,34 +94,44 @@ namespace AGS.Engine
 			{
 				if (!room.ShowPlayer && obj == _gameState.Player.Character) 
 					continue;
-				addToDisplayList(displayList, obj);
+				addToDisplayList(displayList, obj, room);
 			}
 
-			foreach (var area in room.WalkableAreas) addDebugDrawArea(displayList, area);
+			foreach (var area in room.WalkableAreas) addDebugDrawArea(displayList, area, room);
 			foreach (var area in room.WalkBehindAreas)
 			{
-				addToDisplayList(displayList, _walkBehinds.GetDrawable(area, room.Background.Image.OriginalBitmap));
-				addDebugDrawArea(displayList, area);
+				addToDisplayList(displayList, _walkBehinds.GetDrawable(area, room.Background.Image.OriginalBitmap), room);
+				addDebugDrawArea(displayList, area, room);
 			}
 
 			foreach (IObject ui in _gameState.UI)
 			{
-				addToDisplayList(displayList, ui);
+				addToDisplayList(displayList, ui, room);
 			}
 
+
 			displayList.Sort(_comparer);
-			addCursor(displayList);
+			addCursor(displayList, room);
 			return displayList;
 		}
 
-		private void addDebugDrawArea(List<IObject> displayList, IArea area)
+		private void addDebugDrawArea(List<IObject> displayList, IArea area, IRoom room)
 		{
 			if (area.Mask.DebugDraw == null) return;
-			addToDisplayList(displayList, area.Mask.DebugDraw);
+			addToDisplayList(displayList, area.Mask.DebugDraw, room);
 		}
 
-		private void addToDisplayList(List<IObject> displayList, IObject obj)
+		private void addToDisplayList(List<IObject> displayList, IObject obj, IRoom room)
 		{
+			if (!obj.Visible)
+			{
+				IImageRenderer imageRenderer = getImageRenderer(obj);
+				IPoint areaScaling = getAreaScaling(room, obj);
+
+				imageRenderer.Prepare(obj, room.Viewport, areaScaling);
+				return;
+			}
+
 			displayList.Add(obj);
 		}
 	}
