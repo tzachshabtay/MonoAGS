@@ -6,6 +6,7 @@ using Autofac;
 using Autofac.Features.ResolveAnything;
 using System.Drawing;
 using Autofac.Core;
+using AGS.Engine;
 
 namespace Tests
 {
@@ -115,7 +116,7 @@ namespace Tests
 				_room = new Mock<IRoom> ();
 				_room.Setup(m => m.Background).Returns(Object().Object);
 				_room.Setup(m => m.Viewport).Returns(Viewport().Object);
-				_room.Setup(m => m.Objects).Returns(new List<IObject> ());
+				_room.Setup(m => m.Objects).Returns(new AGSConcurrentHashSet<IObject> ());
 				_room.Setup(m => m.ShowPlayer).Returns(true);
 				_room.Setup(m => m.Events).Returns(RoomEvents().Object);
 			}

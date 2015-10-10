@@ -9,7 +9,7 @@ namespace AGS.API
 		bool ShowPlayer { get; }
 		IViewport Viewport { get; }
 		IObject Background  { get; set; }
-		IList<IObject> Objects { get; }
+		IConcurrentHashSet<IObject> Objects { get; }
 		IRoomEvents Events { get; }
 		ICustomProperties Properties { get; }
 

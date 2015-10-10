@@ -24,7 +24,7 @@ namespace AGS.Engine
 			Viewport = viewport;
 			Events = roomEvents;
 			ID = id;
-			Objects = new List<IObject> ();
+			Objects = new AGSConcurrentHashSet<IObject> ();
 			WalkableAreas = new List<IArea> ();
 			WalkBehindAreas = new List<IWalkBehindArea> ();
 			ScalingAreas = new List<IScalingArea> ();
@@ -59,7 +59,7 @@ namespace AGS.Engine
 			} 
 		}
 
-		public IList<IObject> Objects { get; private set; }
+		public IConcurrentHashSet<IObject> Objects { get; private set; }
 
 		public IList<IArea> WalkableAreas { get; private set; }
 

@@ -72,7 +72,7 @@ namespace Tests
 		public void Object_CounterDecreasedTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
-			_mocks.Room().Setup(r => r.Objects).Returns(new List<IObject> { _mocks.Object().Object });
+			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
 			var animationState = _mocks.AnimationState();
 			animationState.Setup(a => a.TimeToNextFrame).Returns(5);
 			var animation = _mocks.Animation();
@@ -89,7 +89,7 @@ namespace Tests
 		public void InvisibleObject_CounterNotDecreasedTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
-			_mocks.Room().Setup(r => r.Objects).Returns(new List<IObject> { _mocks.Object().Object });
+			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
 			_mocks.Object().Setup(o => o.Visible).Returns(false);
 			var animationState = _mocks.AnimationState();
 			animationState.Setup(a => a.TimeToNextFrame).Returns(5);
@@ -107,7 +107,7 @@ namespace Tests
 		public void PlayerInNoPlayerRoom_CounterNotDecreasedTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
-			_mocks.Room().Setup(r => r.Objects).Returns(new List<IObject> { _mocks.Character().Object });
+			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Character().Object });
 			_mocks.Room().Setup(r => r.ShowPlayer).Returns(false);
 			var animationState = _mocks.AnimationState();
 			animationState.Setup(a => a.TimeToNextFrame).Returns(5);
@@ -125,7 +125,7 @@ namespace Tests
 		public void ObjectInNoPlayerRoom_CounterDecreasedTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
-			_mocks.Room().Setup(r => r.Objects).Returns(new List<IObject> { _mocks.Object().Object });
+			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
 			_mocks.Room().Setup(r => r.ShowPlayer).Returns(false);
 			var animationState = _mocks.AnimationState();
 			animationState.Setup(a => a.TimeToNextFrame).Returns(5);
@@ -143,7 +143,7 @@ namespace Tests
 		public void Object_NextFrameTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
-			_mocks.Room().Setup(r => r.Objects).Returns(new List<IObject> { _mocks.Object().Object });
+			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
 			var animationState = _mocks.AnimationState();
 			int frame = 0;
 			animationState.Setup(a => a.TimeToNextFrame).Returns(() => frame);
@@ -162,7 +162,7 @@ namespace Tests
 		public void InvisibleObject_NotNextFrameTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
-			_mocks.Room().Setup(r => r.Objects).Returns(new List<IObject> { _mocks.Object().Object });
+			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
 			_mocks.Object().Setup(o => o.Visible).Returns(false);
 			var animationState = _mocks.AnimationState();
 			int frame = 0;
@@ -182,7 +182,7 @@ namespace Tests
 		public void PlayerInNoPlayerRoom_NotNextFrameTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
-			_mocks.Room().Setup(r => r.Objects).Returns(new List<IObject> { _mocks.Character().Object });
+			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Character().Object });
 			var animationState = _mocks.AnimationState();
 			int frame = 0;
 			animationState.Setup(a => a.TimeToNextFrame).Returns(() => frame);
@@ -201,7 +201,7 @@ namespace Tests
 		public void ObjectInNoPlayerRoom_NextFrameTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
-			_mocks.Room().Setup(r => r.Objects).Returns(new List<IObject> { _mocks.Object().Object });
+			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
 			var animationState = _mocks.AnimationState();
 			int frame = 0;
 			animationState.Setup(a => a.TimeToNextFrame).Returns(() => frame);
