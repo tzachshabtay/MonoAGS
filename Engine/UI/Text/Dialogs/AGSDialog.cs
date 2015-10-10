@@ -66,8 +66,6 @@ namespace AGS.Engine
 
 		private async Task dialogLoop()
 		{
-			if (!Options.Any(o => o.Label.Visible)) return;
-
 			TaskCompletionSource<IDialogOption> selectedOptionTask = new TaskCompletionSource<IDialogOption> (null);
 			List<Action<object, MouseButtonEventArgs>> callbacks = 
 				new List<Action<object, MouseButtonEventArgs>> (Options.Count);
@@ -79,6 +77,12 @@ namespace AGS.Engine
 			}
 			Graphics.Visible = true;
 			await _dialogLayout.LayoutAsync(Graphics, Options);
+			if (!Options.Any(o => o.Label.Visible))
+			{
+				Graphics.Visible = false;
+				return;
+			}
+
 			IDialogOption selectedOption = await selectedOptionTask.Task;
 			for (int index = 0; index < Options.Count; index++)
 			{
