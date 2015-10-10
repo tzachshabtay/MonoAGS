@@ -15,11 +15,12 @@ namespace AGS.Engine
 		private Resolver _resolver;
 		private IRendererLoop _renderLoop;
 
-		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents)
+		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents, ICustomProperties globalVars)
 		{
 			Factory = factory;
 			State = state;
 			Events = gameEvents;
+			GlobalVariables = globalVars;
 		}
 
 		public static IGame CreateEmpty()
@@ -35,6 +36,8 @@ namespace AGS.Engine
 		public const string UIThread = "UI";
 
 		#region IGame implementation
+
+		public ICustomProperties GlobalVariables { get; private set; }
 
 		public IGameFactory Factory { get; private set; }
 

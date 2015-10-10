@@ -43,6 +43,8 @@ namespace AGS.Engine
 
 		#region ICharacter implementation
 
+		public ICustomProperties Properties { get { return _obj.Properties; } }
+
 		public ILocation Location 
 		{ 
 			get { return _obj.Location; } 

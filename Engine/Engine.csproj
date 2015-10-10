@@ -180,6 +180,7 @@
     <Compile Include="Game\Factories\AGSInventoryFactory.cs" />
     <Compile Include="Game\Factories\AGSRoomFactory.cs" />
     <Compile Include="Game\Factories\AGSOutfitFactory.cs" />
+    <Compile Include="Misc\AGSCustomProperties.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

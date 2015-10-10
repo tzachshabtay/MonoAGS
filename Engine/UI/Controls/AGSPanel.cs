@@ -43,6 +43,8 @@ namespace AGS.Engine
 
 		#endregion
 
+		public ICustomProperties Properties { get { return _obj.Properties; } }
+
 		public void StartAnimation(IAnimation animation)
 		{
 			_obj.StartAnimation(animation);

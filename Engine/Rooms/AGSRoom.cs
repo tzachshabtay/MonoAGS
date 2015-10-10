@@ -16,7 +16,7 @@ namespace AGS.Engine
 		private IGameState _state;
 
 		public AGSRoom (string id, IPlayer player, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents,
-			IRoomEvents roomEvents, IGameState state)
+			IRoomEvents roomEvents, IGameState state, ICustomProperties properties)
 		{
 			this._sorter = new RenderOrderSelector { Backwards = true };
 			this._player = player;
@@ -30,12 +30,15 @@ namespace AGS.Engine
 			ScalingAreas = new List<IScalingArea> ();
 			ShowPlayer = true;
 			_edges = edges;
+			Properties = properties;
 			gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
 
 		#region IRoom implementation
 
 		public string ID { get; private set; }
+
+		public ICustomProperties Properties { get; private set; }
 
 		public bool ShowPlayer { get; set; }
 

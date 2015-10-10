@@ -124,6 +124,7 @@
     <Compile Include="Game\Factories\IRoomFactory.cs" />
     <Compile Include="Game\Factories\IDialogFactory.cs" />
     <Compile Include="Game\Factories\IOutfitFactory.cs" />
+    <Compile Include="Misc\ICustomProperties.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

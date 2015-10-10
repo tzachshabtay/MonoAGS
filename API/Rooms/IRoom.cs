@@ -11,6 +11,7 @@ namespace AGS.API
 		IObject Background  { get; set; }
 		IList<IObject> Objects { get; }
 		IRoomEvents Events { get; }
+		ICustomProperties Properties { get; }
 
 		IList<IArea> WalkableAreas { get; }
 		IList<IWalkBehindArea> WalkBehindAreas { get; }

@@ -13,6 +13,8 @@ namespace AGS.API
 		IPoint WalkPoint { get; set; }
 		IPoint CenterPoint { get; }
 
+		ICustomProperties Properties { get; }
+
 		bool Enabled { get; set; }
 		string Hotspot { get; set; }
 

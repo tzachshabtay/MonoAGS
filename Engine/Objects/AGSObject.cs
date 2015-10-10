@@ -29,6 +29,8 @@ namespace AGS.Engine
 				Interactions = resolver.Container.Resolve<IInteractions>(defaults, objParam);
 
 				_state = resolver.Container.Resolve<IGameState>();
+
+				Properties = resolver.Container.Resolve<ICustomProperties>();
 			}
 			refreshRoom();
 
@@ -40,6 +42,8 @@ namespace AGS.Engine
 		}
 
 		#region IObject implementation
+
+		public ICustomProperties Properties { get; private set; }
 
 		public ITreeNode<IObject> TreeNode { get; private set; }
 

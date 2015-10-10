@@ -40,6 +40,8 @@ namespace AGS.Engine
 
 		#region IObject implementation
 
+		public ICustomProperties Properties { get { return _obj.Properties; } }
+
 		public void ChangeRoom(IRoom room, float? x = default(float?), float? y = default(float?))
 		{
 			_obj.ChangeRoom(room, x, y);
