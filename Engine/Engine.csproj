@@ -95,7 +95,6 @@
     <Compile Include="Graphics\Logic\Interfaces\IGLTextureRenderer.cs" />
     <Compile Include="Graphics\Logic\GLTextureRenderer.cs" />
     <Compile Include="Game\AGSGame.cs" />
-    <Compile Include="Game\AGSGameFactory.cs" />
     <Compile Include="Graphics\Logic\AGSLoadImageConfig.cs" />
     <Compile Include="Rooms\Masks\AGSMask.cs" />
     <Compile Include="Rooms\Masks\AGSMaskLoader.cs" />
@@ -174,6 +173,13 @@
     <Compile Include="UI\Controls\AGSLabel.cs" />
     <Compile Include="UI\Controls\AGSPanel.cs" />
     <Compile Include="UI\Controls\AGSSlider.cs" />
+    <Compile Include="Game\Factories\AGSGameFactory.cs" />
+    <Compile Include="Game\Factories\AGSDialogFactory.cs" />
+    <Compile Include="Game\Factories\AGSObjectFactory.cs" />
+    <Compile Include="Game\Factories\AGSUIFactory.cs" />
+    <Compile Include="Game\Factories\AGSInventoryFactory.cs" />
+    <Compile Include="Game\Factories\AGSRoomFactory.cs" />
+    <Compile Include="Game\Factories\AGSOutfitFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -210,6 +216,7 @@
     <Folder Include="UI\HotspotLabels\" />
     <Folder Include="UI\Text\Dialogs\" />
     <Folder Include="UI\Controls\" />
+    <Folder Include="Game\Factories\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

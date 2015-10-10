@@ -72,7 +72,7 @@ namespace AGS.Engine
 			IObject debugDraw = null;
 			if (debugDrawColor != null)
 			{
-				debugDraw = _factory.GetObject();
+				debugDraw = _factory.Object.GetObject();
 				debugDraw.Image = _factory.Graphics.LoadImage(debugMask);
 				debugDraw.Anchor = new AGSPoint ();
 			}

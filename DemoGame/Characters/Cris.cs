@@ -18,11 +18,11 @@ namespace DemoGame
 				TransparentColorSamplePoint = new Point (0, 0) 
 			};
 
-			IOutfit outfit = factory.LoadOutfitFromFolders(_baseFolder, walkLeftFolder: "Walk/left",
+			IOutfit outfit = factory.Outfit.LoadOutfitFromFolders(_baseFolder, walkLeftFolder: "Walk/left",
 				walkDownFolder: "Walk/front", idleLeftFolder: "Idle/left", idleDownFolder: "Idle/front", 
 				speakLeftFolder: "Talk", loadConfig: loadConfig);
 
-			_character = factory.GetCharacter(outfit);
+			_character = factory.Object.GetCharacter(outfit);
 
 			RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
 			RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);

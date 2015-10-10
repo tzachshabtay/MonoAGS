@@ -51,7 +51,7 @@ namespace DemoGame
 			TopBar topBar = new TopBar(cursors.Scheme, inventory, options);
 			topBar.Load(game.Factory);
 
-			ILabel label = game.Factory.GetLabel("", 80, 25, 160, 10, new AGSTextConfig(brush: Brushes.WhiteSmoke,
+			ILabel label = game.Factory.UI.GetLabel("", 80, 25, 160, 10, new AGSTextConfig(brush: Brushes.WhiteSmoke,
 				alignment: ContentAlignment.MiddleCenter, outlineBrush: Brushes.DarkSlateBlue, outlineWidth: 2f,
 				autoFit: AutoFit.LabelShouldFitText, paddingBottom: 5f));
 			label.Tint = Color.FromArgb(120, Color.IndianRed);
@@ -98,14 +98,14 @@ namespace DemoGame
 		[Conditional("DEBUG")]
 		private static void addDebugLabels(IGame game)
 		{
-			ILabel fpsLabel = game.Factory.GetLabel("", 30, 25, 320, 25, config: new AGSTextConfig(alignment: ContentAlignment.TopLeft,
+			ILabel fpsLabel = game.Factory.UI.GetLabel("", 30, 25, 320, 25, config: new AGSTextConfig(alignment: ContentAlignment.TopLeft,
 				autoFit: AutoFit.LabelShouldFitText));
 			fpsLabel.Anchor = new AGSPoint (1f, 0f);
 			fpsLabel.ScaleBy(0.7f, 0.7f);
 			FPSCounter fps = new FPSCounter(game.Events, fpsLabel);
 			fps.Start();
 
-			ILabel label = game.Factory.GetLabel("", 30, 25, 320, 5, config: new AGSTextConfig(alignment: ContentAlignment.TopRight,
+			ILabel label = game.Factory.UI.GetLabel("", 30, 25, 320, 5, config: new AGSTextConfig(alignment: ContentAlignment.TopRight,
 				autoFit: AutoFit.LabelShouldFitText));
 			label.Anchor = new AGSPoint (1f, 0f);
 			label.ScaleBy(0.7f, 0.7f);

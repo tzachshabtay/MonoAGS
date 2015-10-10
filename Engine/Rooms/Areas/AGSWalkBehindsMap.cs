@@ -38,7 +38,7 @@ namespace AGS.Engine
 
 		private IObject createObject()
 		{
-			var obj = _factory.GetObject();
+			var obj = _factory.Object.GetObject();
 			obj.Anchor = new AGSPoint ();
 			return obj;
 		}

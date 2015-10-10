@@ -21,7 +21,7 @@ namespace DemoGame
 
 		public void Load(IGameFactory factory)
 		{
-			_panel = factory.GetPanel("../../Assets/Gui/DialogBox/toolbar.bmp", 0f, 180f);
+			_panel = factory.UI.GetPanel("../../Assets/Gui/DialogBox/toolbar.bmp", 0f, 180f);
 
 			loadButton(factory, "walk/", 0f, RotatingCursorScheme.WALK_MODE);
 			loadButton(factory, "hand/", 20f, RotatingCursorScheme.INTERACT_MODE);
@@ -39,7 +39,7 @@ namespace DemoGame
 		private IButton loadButton(IGameFactory factory, string folder, float x, string mode = null)
 		{
 			folder = _baseFolder + folder;
-			IButton button = factory.GetButton(folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 0f);
+			IButton button = factory.UI.GetButton(folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 0f);
 			button.TreeNode.SetParent(_panel.TreeNode);
 			if (mode != null)
 			{

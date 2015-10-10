@@ -34,7 +34,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game\IGame.cs" />
-    <Compile Include="Game\IGameFactory.cs" />
     <Compile Include="Game\IGameLoop.cs" />
     <Compile Include="Game\IGameState.cs" />
     <Compile Include="Graphics\IImage.cs" />
@@ -118,6 +117,13 @@
     <Compile Include="UI\Controls\IUIControl.cs" />
     <Compile Include="UI\Controls\Slider\ISlider.cs" />
     <Compile Include="UI\Controls\Slider\SliderValueEventArgs.cs" />
+    <Compile Include="Game\Factories\IGameFactory.cs" />
+    <Compile Include="Game\Factories\IInventoryFactory.cs" />
+    <Compile Include="Game\Factories\IUIFactory.cs" />
+    <Compile Include="Game\Factories\IObjectFactory.cs" />
+    <Compile Include="Game\Factories\IRoomFactory.cs" />
+    <Compile Include="Game\Factories\IDialogFactory.cs" />
+    <Compile Include="Game\Factories\IOutfitFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -138,5 +144,6 @@
     <Folder Include="UI\Text\Dialogs\" />
     <Folder Include="UI\Controls\" />
     <Folder Include="UI\Controls\Slider\" />
+    <Folder Include="Game\Factories\" />
   </ItemGroup>
 </Project>

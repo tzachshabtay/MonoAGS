@@ -27,6 +27,7 @@ namespace AGS.Engine
 			Builder.RegisterType<BitmapPool>().SingleInstance();
 			Builder.RegisterType<GLViewportMatrix>().SingleInstance().As<IGLViewportMatrix>();
 			Builder.RegisterType<AGSPlayer>().SingleInstance().As<IPlayer>();
+			Builder.RegisterType<ResourceLoader>().SingleInstance().As<IResourceLoader>();
 
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
 

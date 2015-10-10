@@ -25,12 +25,12 @@ namespace DemoGame
 			{
 				TransparentColorSamplePoint = new Point(0, 0)
 			};
-			_room = factory.GetRoom("Empty Street", 20f, 310f, 190f, 10f);
+			_room = factory.Room.GetRoom("Empty Street", 20f, 310f, 190f, 10f);
 			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
 			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 
-			IObject bg = factory.GetObject();
+			IObject bg = factory.Object.GetObject();
 			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
 			_room.Background = bg;
 
@@ -40,13 +40,13 @@ namespace DemoGame
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[0], 0.50f, 0.75f));
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[1], 0.75f, 0.90f));
 
-			IObject bottleHotspot = factory.GetHotspot(_baseFolder + "BottleHotspot.png", "Bottle");
+			IObject bottleHotspot = factory.Object.GetHotspot(_baseFolder + "BottleHotspot.png", "Bottle");
 			bottleHotspot.WalkPoint = new AGSPoint (140f, 50f);
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "CurbHotspot.png", "Curb"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "CurbHotspot.png", "Curb"));
 			_room.Objects.Add(bottleHotspot);
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "GapHotspot.png", "Gap", new[]{"It's a gap!", "I wonder what's in there!"}));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "GapHotspot.png", "Gap", new[]{"It's a gap!", "I wonder what's in there!"}));
 
-			_bottle = factory.GetObject();
+			_bottle = factory.Object.GetObject();
 			_bottle.Image = factory.Graphics.LoadImage(_baseFolder + "bottle.bmp", loadConfig: loadConfig);
 			_bottle.WalkPoint = bottleHotspot.WalkPoint;
 			_bottle.X = 185f;

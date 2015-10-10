@@ -22,7 +22,7 @@ namespace DemoGame
 			_game = game;
 			IGameFactory factory = game.Factory;
 
-			_panel = factory.GetPanel("../../Assets/Gui/DialogBox/inventory.bmp", 160f, 100f);
+			_panel = factory.UI.GetPanel("../../Assets/Gui/DialogBox/inventory.bmp", 160f, 100f);
 			_panel.Anchor = new AGSPoint (0.5f, 0.5f);
 			_panel.Visible = false;
 
@@ -34,7 +34,7 @@ namespace DemoGame
 
 			okButton.Events.MouseClicked.Subscribe((sender, e) => Hide());
 
-			var invWindow = factory.GetInventoryWindow(124f, 88f, 40f, 22f, 7f, 30f);
+			var invWindow = factory.Inventory.GetInventoryWindow(124f, 88f, 40f, 22f, 7f, 30f);
 			invWindow.TreeNode.SetParent(_panel.TreeNode);
 
 			upButton.Events.MouseClicked.Subscribe((sender, e) => invWindow.ScrollUp());
@@ -60,7 +60,7 @@ namespace DemoGame
 		private IButton loadButton(IGameFactory factory, string folder, float x, string mode = null)
 		{
 			folder = _baseFolder + folder;
-			IButton button = factory.GetButton(folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 4f);
+			IButton button = factory.UI.GetButton(folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 4f);
 			button.TreeNode.SetParent(_panel.TreeNode);
 			if (mode != null)
 			{

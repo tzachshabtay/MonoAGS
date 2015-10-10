@@ -18,11 +18,11 @@ namespace DemoGame
 
 		public IRoom Load(IGameFactory factory)
 		{
-			_room = factory.GetRoom("Trashcan Street", 20f, 310f, 190f, 10f);
+			_room = factory.Room.GetRoom("Trashcan Street", 20f, 310f, 190f, 10f);
 			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
 			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
-			IObject bg = factory.GetObject();
+			IObject bg = factory.Object.GetObject();
 			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
 			_room.Background = bg;
 
@@ -30,11 +30,11 @@ namespace DemoGame
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable.png") });
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[0], 0.50f, 0.90f));
 
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "HoleHotspot.png", "Hole"));
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "roadHotspot.png", "Road"));
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "sidewalkHotspot.png", "Sidewalk"));
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "SignHotspot.png", "Sign"));
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "trashCansHotspot.png", "Trashcans"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "HoleHotspot.png", "Hole"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "roadHotspot.png", "Road"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "sidewalkHotspot.png", "Sidewalk"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "SignHotspot.png", "Sign"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "trashCansHotspot.png", "Trashcans"));
 
 			return _room;
 		}

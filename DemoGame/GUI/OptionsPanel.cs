@@ -29,31 +29,31 @@ namespace DemoGame
 		{
 			_game = game;
 			IGameFactory factory = game.Factory;
-			_panel = factory.GetPanel("../../Assets/Gui/DialogBox/options.bmp", 160f, 100f);
+			_panel = factory.UI.GetPanel("../../Assets/Gui/DialogBox/options.bmp", 160f, 100f);
 			_panel.Anchor = new AGSPoint (0.5f, 0.5f);
 			_panel.Visible = false;
 
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig { TransparentColorSamplePoint = new Point (0, 0) };
 
-			ISlider volumeSlider = factory.GetSlider(_sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
+			ISlider volumeSlider = factory.UI.GetSlider(_sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
 				loadConfig: loadConfig);
 			volumeSlider.X = 120f;
 			volumeSlider.Y = 10f;
 			volumeSlider.HandleGraphics.Anchor = new AGSPoint (0.5f, 0.5f);
 			volumeSlider.TreeNode.SetParent(_panel.TreeNode);
 
-			ILabel volumeLabel = factory.GetLabel("Volume", 50f, 30f, 120f, 85f, _textConfig); 
+			ILabel volumeLabel = factory.UI.GetLabel("Volume", 50f, 30f, 120f, 85f, _textConfig); 
 			volumeLabel.Anchor = new AGSPoint (0.5f, 0f);
 			volumeLabel.TreeNode.SetParent(_panel.TreeNode);
 
-			ISlider speedSlider = factory.GetSlider(_sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
+			ISlider speedSlider = factory.UI.GetSlider(_sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
 				loadConfig: loadConfig);
 			speedSlider.X = 180f;
 			speedSlider.Y = 10f;
 			speedSlider.HandleGraphics.Anchor = new AGSPoint (0.5f, 0.5f);
 			speedSlider.TreeNode.SetParent(_panel.TreeNode);
 
-			ILabel speedLabel = factory.GetLabel("Speed", 50f, 30f, 180f, 85f, _textConfig); 
+			ILabel speedLabel = factory.UI.GetLabel("Speed", 50f, 30f, 180f, 85f, _textConfig); 
 			speedLabel.Anchor = new AGSPoint (0.5f, 0f);
 			speedLabel.TreeNode.SetParent(_panel.TreeNode);
 
@@ -76,7 +76,7 @@ namespace DemoGame
 		private IButton loadButton(string text, float y)
 		{
 			const string folder = "../../Assets/Gui/Buttons/buttonSmall/";
-			IButton button = _game.Factory.GetButton(folder + "normal.bmp", folder + "hovered.bmp", 
+			IButton button = _game.Factory.UI.GetButton(folder + "normal.bmp", folder + "hovered.bmp", 
 				folder + "pushed.bmp", 15f, y, text, _buttonTextConfig);
 			button.TreeNode.SetParent(_panel.TreeNode);
 			return button;

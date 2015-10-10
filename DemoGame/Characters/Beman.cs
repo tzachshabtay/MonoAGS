@@ -18,13 +18,13 @@ namespace DemoGame
 				TransparentColorSamplePoint = new Point (0, 0) 
 			};
 
-			IOutfit outfit = factory.LoadOutfitFromFolders(_baseFolder, 
+			IOutfit outfit = factory.Outfit.LoadOutfitFromFolders(_baseFolder, 
 				walkLeftFolder: "Walk/left", walkDownFolder: "Walk/down", walkRightFolder: "Walk/right", walkUpFolder: "Walk/up", 
 				idleLeftFolder: "Idle/left", idleDownFolder: "Idle/down", idleRightFolder: "Idle/right", idleUpFolder: "Idle/up", 
 				speakLeftFolder: "Talk/left", speakDownFolder: "Talk/down", speakRightFolder: "Talk/right", speakUpFolder: "Talk/up", 
 				loadConfig: loadConfig);
 
-			_character = factory.GetCharacter(outfit);
+			_character = factory.Object.GetCharacter(outfit);
 
 			Cris.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
 			Cris.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);

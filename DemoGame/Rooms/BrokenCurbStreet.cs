@@ -19,11 +19,11 @@ namespace DemoGame
 
 		public IRoom Load(IGameFactory factory)
 		{
-			_room = factory.GetRoom ("Broken Curb Street", 20f, 310f, 190f, 10f);
+			_room = factory.Room.GetRoom ("Broken Curb Street", 20f, 310f, 190f, 10f);
 			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 
-			IObject bg = factory.GetObject();
+			IObject bg = factory.Object.GetObject();
 			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
 			_room.Background = bg;
 
@@ -39,29 +39,29 @@ namespace DemoGame
 			_room.WalkBehindAreas.Add(new AGSWalkBehindArea (new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkbehind1.png") }));
 			_room.WalkBehindAreas.Add(new AGSWalkBehindArea (new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkbehind2.png") }));
 
-			IObject wallHotspot = factory.GetHotspot(_baseFolder + "wallHotspot.png", "Wall");
-			IObject graffitiHotspot = factory.GetHotspot(_baseFolder + "graffitiHotspot.png", "Graffiti");
-			IObject doorHotspot = factory.GetHotspot(_baseFolder + "doorHotspot.png", "Door");
+			IObject wallHotspot = factory.Object.GetHotspot(_baseFolder + "wallHotspot.png", "Wall");
+			IObject graffitiHotspot = factory.Object.GetHotspot(_baseFolder + "graffitiHotspot.png", "Graffiti");
+			IObject doorHotspot = factory.Object.GetHotspot(_baseFolder + "doorHotspot.png", "Door");
 			doorHotspot.Z = wallHotspot.Z - 1;
 			graffitiHotspot.Z = wallHotspot.Z - 1;
 
-			IObject manholeHotspot = factory.GetHotspot(_baseFolder + "manholeHotspot.png", "Manhole");
-			IObject roadHotspot = factory.GetHotspot(_baseFolder + "roadHotspot.png", "Road");
+			IObject manholeHotspot = factory.Object.GetHotspot(_baseFolder + "manholeHotspot.png", "Manhole");
+			IObject roadHotspot = factory.Object.GetHotspot(_baseFolder + "roadHotspot.png", "Road");
 			manholeHotspot.Z = roadHotspot.Z - 1;
 
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "barrierHotspot.png", "Barrier"));
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "bloodySidewalkHotspot.png", "Bloody Sidewalk"));
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "brokenCurbHotspot.png", "Broken Curb"));
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "curbHotspot.png", "Curb"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "barrierHotspot.png", "Barrier"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "bloodySidewalkHotspot.png", "Bloody Sidewalk"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "brokenCurbHotspot.png", "Broken Curb"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "curbHotspot.png", "Curb"));
 			_room.Objects.Add(doorHotspot);
 			_room.Objects.Add(graffitiHotspot);
 			_room.Objects.Add(manholeHotspot);
 			_room.Objects.Add(roadHotspot);
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "sidewalkHotspot.png", "Sidewalk"));
-			_room.Objects.Add(factory.GetHotspot(_baseFolder + "slimeHotspot.png", "Slime"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "sidewalkHotspot.png", "Sidewalk"));
+			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "slimeHotspot.png", "Slime"));
 			_room.Objects.Add(wallHotspot);
 
-			IObject panel = factory.GetObject();
+			IObject panel = factory.Object.GetObject();
 			IAnimation panelAnimation = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Panel");
 			Cris.RandomAnimationDelay(panelAnimation);
 			panel.StartAnimation(panelAnimation);

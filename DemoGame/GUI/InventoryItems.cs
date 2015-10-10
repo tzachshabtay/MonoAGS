@@ -20,10 +20,10 @@ namespace DemoGame
 			{
 				TransparentColorSamplePoint = new Point(0,0),
 			};
-			Bottle = factory.GetInventoryItem("Bottle", "../../Assets/Rooms/EmptyStreet/bottle.bmp");
-			VoodooDoll = factory.GetInventoryItem("Voodoo Doll", _baseFolder + "voodooDoll.bmp", null, loadConfig, true);
-			Poster = factory.GetInventoryItem("Poster", _baseFolder + "poster.bmp", playerStartsWithItem: true);
-			Manual = factory.GetInventoryItem("Manual", _baseFolder + "manual.bmp", null, loadConfig, true);
+			Bottle = factory.Inventory.GetInventoryItem("Bottle", "../../Assets/Rooms/EmptyStreet/bottle.bmp");
+			VoodooDoll = factory.Inventory.GetInventoryItem("Voodoo Doll", _baseFolder + "voodooDoll.bmp", null, loadConfig, true);
+			Poster = factory.Inventory.GetInventoryItem("Poster", _baseFolder + "poster.bmp", playerStartsWithItem: true);
+			Manual = factory.Inventory.GetInventoryItem("Manual", _baseFolder + "manual.bmp", null, loadConfig, true);
 		}
 	}
 }
