@@ -21,7 +21,9 @@ namespace AGS.Engine
 
 		public void Render (IObject obj, IViewport viewport, IPoint areaScaling)
 		{
-			GLUtils.DrawLine (X1, Y1, X2, Y2, 1f, 1f, 0f, 0f, 1f);
+			float x1 = obj.IgnoreViewport ? X1 : X1 - viewport.X;
+			float x2 = obj.IgnoreViewport ? X2 : X2 - viewport.X;
+			GLUtils.DrawLine (x1, Y1, x2, Y2, 1f, 1f, 0f, 0f, 1f);
 		}
 
 		public float X1 { get; private set; }

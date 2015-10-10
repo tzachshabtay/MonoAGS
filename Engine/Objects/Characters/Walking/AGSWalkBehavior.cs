@@ -13,20 +13,23 @@ namespace AGS.Engine
 		private CancellationTokenSource _walkCancel;
 		private TaskCompletionSource<object> _walkCompleted;
 		private IPathFinder _pathFinder;
-		private List<IImageRenderer> _debugPath;
+		private List<IObject> _debugPath;
 		private IObject _obj;
 		private IAGSFaceDirectionBehavior _faceDirection;
 		private IOutfitHolder _outfit;
+		private IObjectFactory _objFactory;
 
-		public AGSWalkBehavior(IObject obj, IPathFinder pathFinder, IAGSFaceDirectionBehavior faceDirection, IOutfitHolder outfit)
+		public AGSWalkBehavior(IObject obj, IPathFinder pathFinder, IAGSFaceDirectionBehavior faceDirection, 
+			IOutfitHolder outfit, IObjectFactory objFactory)
 		{
 			_obj = obj;
 			_pathFinder = pathFinder;
 			_faceDirection = faceDirection;
 			_outfit = outfit;
+			_objFactory = objFactory;
 
 			_walkCancel = new CancellationTokenSource ();
-			_debugPath = new List<IImageRenderer> ();
+			_debugPath = new List<IObject> ();
 			_walkCompleted = new TaskCompletionSource<object> ();
 			_walkCompleted.SetResult(null);
 		}
@@ -45,16 +48,16 @@ namespace AGS.Engine
 
 		public async Task<bool> WalkAsync (ILocation location)	
 		{
-			List<IImageRenderer> debugRenderers = _debugPath;
+			List<IObject> debugRenderers = _debugPath;
 			if (debugRenderers != null) 
 			{
-				foreach (IImageRenderer renderer in debugRenderers) 
+				foreach (var renderer in debugRenderers) 
 				{
-					//Room.RemoveCustomRenderer (renderer);
+					renderer.ChangeRoom(null);
 				}
 			}
 			CancellationTokenSource token = await stopWalkingAsync();
-			debugRenderers = DebugDrawWalkPath ? new List<IImageRenderer> () : null;
+			debugRenderers = DebugDrawWalkPath ? new List<IObject> () : null;
 			_debugPath = debugRenderers;
 			_walkCompleted = new TaskCompletionSource<object> (null);
 			float xSource = _obj.X;
@@ -116,7 +119,7 @@ namespace AGS.Engine
 
 		#endregion
 
-		private async Task<bool> walkAsync(ILocation location, CancellationTokenSource token, List<IImageRenderer> debugRenderers)
+		private async Task<bool> walkAsync(ILocation location, CancellationTokenSource token, List<IObject> debugRenderers)
 		{
 			IEnumerable<ILocation> walkPoints = getWalkPoints (location);
 
@@ -194,13 +197,15 @@ namespace AGS.Engine
 		}
 
 		private async Task<bool> walkStraightLine(ILocation destination, 
-			CancellationTokenSource token, List<IImageRenderer> debugRenderers)
+			CancellationTokenSource token, List<IObject> debugRenderers)
 		{
 			if (debugRenderers != null) 
 			{
 				GLLineRenderer line = new GLLineRenderer (_obj.X, _obj.Y, destination.X, destination.Y);
-				//Room.AddCustomRenderer (line);
-				debugRenderers.Add (line);
+				IObject renderer = _objFactory.GetObject();
+				renderer.CustomRenderer = line;
+				renderer.ChangeRoom(_obj.Room);
+				debugRenderers.Add (renderer);
 			}
 
 			_faceDirection.CurrentDirectionalAnimation = _outfit.Outfit.WalkAnimation;

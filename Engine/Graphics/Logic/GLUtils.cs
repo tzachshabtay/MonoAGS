@@ -142,6 +142,7 @@ namespace AGS.Engine
 		public static void DrawLine(float x1, float y1, float x2, float y2, 
 			float width, float r, float g, float b, float a)
 		{
+			GL.BindTexture (TextureTarget.Texture2D, 0);
 			GL.LineWidth (width);
 			GL.Begin (PrimitiveType.Lines);
 
