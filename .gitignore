@@ -198,3 +198,5 @@ FakesAssemblies/
 
 # Ncover Bolt files
 *.jf
+*.sbt
+*.mf
