@@ -54,6 +54,8 @@ namespace AGS.Engine
 
 		public IRoom Room { get { return _obj.Room; } }
 
+		public IRoom PreviousRoom { get { return _obj.PreviousRoom; } }
+
 		public IInteractions Interactions { get { return _obj.Interactions; } }
 
 		public ISquare BoundingBox { get { return _obj.BoundingBox; } set { _obj.BoundingBox = value; } }

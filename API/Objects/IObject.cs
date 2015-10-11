@@ -6,6 +6,7 @@ namespace AGS.API
 	public interface IObject : IAnimationContainer, IInTree<IObject>
 	{
 		IRoom Room { get; }
+		IRoom PreviousRoom { get; }
 		IInteractions Interactions { get; }
 		ISquare BoundingBox { get; set; } //todo: find a way to remove the setter (only the engine should use the setter)
 		IRenderLayer RenderLayer { get; set; }

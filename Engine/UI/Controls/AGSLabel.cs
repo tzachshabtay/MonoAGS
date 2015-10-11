@@ -83,6 +83,8 @@ namespace AGS.Engine
 			
 		public IRoom Room { get { return _obj.Room; } }
 
+		public IRoom PreviousRoom { get { return _obj.PreviousRoom; } }
+
 		public IAnimation Animation { get { return _obj.Animation; } }
 
 		public IInteractions Interactions { get { return _obj.Interactions; } }

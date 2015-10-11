@@ -42,6 +42,7 @@ namespace Tests
 				rooms.Add(room);
 				obj.ChangeRoom(room);
 				Assert.AreEqual(room, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
+				Assert.IsNull(obj.PreviousRoom, "Prev room not null for " + obj.Hotspot ?? "null");
 			}
 		}
 
@@ -62,6 +63,7 @@ namespace Tests
 				obj.ChangeRoom(oldRoom);
 				obj.ChangeRoom(newRoom);
 				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
+				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.Hotspot ?? "null");
 			}
 		}
 
@@ -82,6 +84,7 @@ namespace Tests
 				obj.ChangeRoom(oldRoom);
 				obj.ChangeRoom(newRoom);
 				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
+				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.Hotspot ?? "null");
 			}
 		}
 
@@ -101,6 +104,7 @@ namespace Tests
 				obj.ChangeRoom(oldRoom);
 				obj.ChangeRoom(newRoom);
 				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
+				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.Hotspot ?? "null");
 			}
 		}
 

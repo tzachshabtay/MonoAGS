@@ -161,6 +161,7 @@ namespace AGS.Engine
 			{
 				newRoom.Objects.Add(this);
 			}
+			PreviousRoom = Room;
 			refreshRoom();
 
 			if (x != null) X = x.Value;
@@ -168,6 +169,8 @@ namespace AGS.Engine
 		}
 
 		public IRoom Room  { get { return _cachedRoom.Value; } }
+
+		public IRoom PreviousRoom { get; private set; }
 
 		public IAnimation Animation { get { return _animation.Animation; } }
 
