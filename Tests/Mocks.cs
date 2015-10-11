@@ -109,9 +109,9 @@ namespace Tests
 			return _character;
 		}
 
-		public Mock<IRoom> Room()
-		{
-			if (_room == null)
+		public Mock<IRoom> Room(bool newInstance = false)
+		{			
+			if (_room == null || newInstance)
 			{
 				_room = new Mock<IRoom> ();
 				_room.Setup(m => m.Background).Returns(Object().Object);
