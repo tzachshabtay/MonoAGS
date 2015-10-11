@@ -21,6 +21,8 @@ namespace AGS.Engine
 
 		public int TimeToNextFrame { get; set; }
 
+		public bool IsPaused { get; set; }
+
 		public TaskCompletionSource<AnimationCompletedEventArgs> OnAnimationCompleted { get; private set; }
 
 		#endregion

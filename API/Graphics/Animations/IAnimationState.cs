@@ -9,6 +9,7 @@ namespace AGS.API
 		int CurrentFrame { get; set; }
 		int CurrentLoop { get; set; }
 		int TimeToNextFrame { get; set; }
+		bool IsPaused { get; set; }
 
 		TaskCompletionSource<AnimationCompletedEventArgs> OnAnimationCompleted { get; }
 	}

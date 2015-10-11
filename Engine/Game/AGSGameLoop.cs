@@ -80,7 +80,7 @@ namespace AGS.Engine
 
 		private void runAnimation(IAnimation animation)
 		{
-			if (animation == null)
+			if (animation == null || animation.State.IsPaused)
 				return;
 			if (animation.State.TimeToNextFrame < 0)
 				return;

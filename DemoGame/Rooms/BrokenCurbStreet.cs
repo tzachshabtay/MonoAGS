@@ -62,11 +62,14 @@ namespace DemoGame
 			_room.Objects.Add(wallHotspot);
 
 			IObject panel = factory.Object.GetObject();
+			panel.Hotspot = "Panel";
 			IAnimation panelAnimation = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Panel");
 			Cris.RandomAnimationDelay(panelAnimation);
 			panel.StartAnimation(panelAnimation);
 			panel.X = 195;
 			panel.Y = 145;
+			panel.Z = 110;
+			panel.Interactions.OnInteract.Subscribe((sender, args) => panel.Animation.State.IsPaused = !panel.Animation.State.IsPaused);
 			_room.Objects.Add(panel);
 
 			return _room;
