@@ -265,7 +265,7 @@ namespace AGS.Engine
 
 		public async Task<AnimationCompletedEventArgs> AnimateAsync (IAnimation animation)
 		{
-			return await AnimateAsync (animation);
+			return await _obj.AnimateAsync (animation);
 		}
 
 		public void ChangeRoom(IRoom room, float? x = null, float? y = null)

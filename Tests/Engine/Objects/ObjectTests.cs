@@ -35,7 +35,7 @@ namespace Tests
 			List<IRoom> rooms = new List<IRoom> ();
 			state.Setup(s => s.Rooms).Returns(rooms);
 
-			foreach (IObject obj in GetImplementors(state.Object))
+			foreach (IObject obj in GetImplementors(_mocks, state.Object))
 			{
 				rooms.Clear();
 				IRoom room = _mocks.Room(true).Object;
@@ -52,7 +52,7 @@ namespace Tests
 			List<IRoom> rooms = new List<IRoom> ();
 			state.Setup(s => s.Rooms).Returns(rooms);
 
-			foreach (IObject obj in GetImplementors(state.Object))
+			foreach (IObject obj in GetImplementors(_mocks, state.Object))
 			{
 				rooms.Clear();
 				IRoom oldRoom = _mocks.Room(true).Object;
@@ -72,7 +72,7 @@ namespace Tests
 			List<IRoom> rooms = new List<IRoom> ();
 			state.Setup(s => s.Rooms).Returns(rooms);
 
-			foreach (IObject obj in GetImplementors(state.Object))
+			foreach (IObject obj in GetImplementors(_mocks, state.Object))
 			{
 				rooms.Clear();
 				IRoom oldRoom = _mocks.Room(true).Object;
@@ -92,7 +92,7 @@ namespace Tests
 			List<IRoom> rooms = new List<IRoom> ();
 			state.Setup(s => s.Rooms).Returns(rooms);
 
-			foreach (IObject obj in GetImplementors(state.Object))
+			foreach (IObject obj in GetImplementors(_mocks, state.Object))
 			{
 				rooms.Clear();
 				IRoom oldRoom = _mocks.Room(true).Object;
@@ -104,7 +104,7 @@ namespace Tests
 			}
 		}
 
-		public static IEnumerable<IObject> GetImplementors(IGameState state)
+		public static IEnumerable<IObject> GetImplementors(Mocks mocks, IGameState state)
 		{
 			Resolver resolver = new Resolver ();
 			Mock<IInput> input = new Mock<IInput> ();
@@ -113,11 +113,14 @@ namespace Tests
 			resolver.Builder.RegisterInstance(state);
 			resolver.Build();
 
-			Mock<IAnimationContainer> animationContainer = new Mock<IAnimationContainer> ();
+			Mock<IGraphicsFactory> graphicsFactory = new Mock<IGraphicsFactory> ();
+			Func<ISprite> getSprite = () => new AGSSprite (mocks.MaskLoader().Object);
+			graphicsFactory.Setup(g => g.GetSprite()).Returns(() => getSprite());
+			AGSAnimationContainer animationContainer = new AGSAnimationContainer (mocks.Sprite().Object, graphicsFactory.Object);
 			Mock<IGameEvents> gameEvents = new Mock<IGameEvents> ();
 			Mock<IEvent<AGSEventArgs>> emptyEvent = new Mock<IEvent<AGSEventArgs>> ();
 			gameEvents.Setup(ev => ev.OnRepeatedlyExecute).Returns(emptyEvent.Object);
-			Func<IObject> baseObj = () => new AGSObject (animationContainer.Object, 
+			Func<IObject> baseObj = () => new AGSObject (animationContainer, 
 				gameEvents.Object, resolver);
 
 			Mock<IOutfit> outfit = new Mock<IOutfit> ();

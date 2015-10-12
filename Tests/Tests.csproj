@@ -63,6 +63,7 @@
     <Compile Include="Engine\Rooms\Areas\AreaTests.cs" />
     <Compile Include="Engine\Rooms\Masks\MaskTests.cs" />
     <Compile Include="Engine\Misc\Utils\MathUtilsTests.cs" />
+    <Compile Include="Engine\Graphics\Animations\AnimationContainerTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

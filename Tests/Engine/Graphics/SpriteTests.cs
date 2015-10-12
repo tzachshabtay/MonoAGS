@@ -4,6 +4,7 @@ using AGS.Engine;
 using AGS.API;
 using Moq;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -29,28 +30,31 @@ namespace Tests
 		public void ScaleByTest(float imageWidth, float imageHeight, float scaleX, float scaleY, 
 			bool imageBeforeScale, float expectedWidth, float expectedHeight)
 		{
-			_mocks.Image().Setup(i => i.Width).Returns(imageWidth);
-			_mocks.Image().Setup(i => i.Height).Returns(imageHeight);
-
-			AGSSprite sprite = createSprite();
-			if (imageBeforeScale)
+			foreach (ISprite sprite in getImplementors())
 			{
-				sprite.Image = _mocks.Image().Object;
-				sprite.ScaleBy(scaleX, scaleY);
-			}
-			else
-			{
-				sprite.Image = new Mock<IImage> ().Object;
-				sprite.ScaleBy(scaleX, scaleY);
-				sprite.Image = _mocks.Image().Object;
-			}
+				bool isSprite = sprite.GetType() == typeof(AGSSprite);
+				_mocks.Image().Setup(i => i.Width).Returns(imageWidth);
+				_mocks.Image().Setup(i => i.Height).Returns(imageHeight);
 
-			Assert.AreEqual(expectedWidth, sprite.Width);
-			Assert.AreEqual(expectedHeight, sprite.Height);
-			Assert.AreEqual(scaleX, sprite.ScaleX);
-			Assert.AreEqual(scaleY, sprite.ScaleY);
+				if (imageBeforeScale || !isSprite)
+				{
+					sprite.Image = _mocks.Image().Object;
+					sprite.ScaleBy(scaleX, scaleY);
+				}
+				else
+				{					
+					sprite.Image = new Mock<IImage> ().Object;
+					sprite.ScaleBy(scaleX, scaleY);
+					sprite.Image = _mocks.Image().Object;
+				}
 
-			testResetScale(imageWidth, imageHeight, sprite);
+				Assert.AreEqual(expectedWidth, sprite.Width, "Width doesn' match for " + sprite.GetType().Name);
+				Assert.AreEqual(expectedHeight, sprite.Height, "Height doesn't match for " + sprite.GetType().Name);
+				Assert.AreEqual(scaleX, sprite.ScaleX, "ScaleX doesn't match for " + sprite.GetType().Name);
+				Assert.AreEqual(scaleY, sprite.ScaleY, "ScaleY doesn't match for " + sprite.GetType().Name);
+
+				testResetScale(imageWidth, imageHeight, sprite);
+			}
 		}
 
 		[TestCase(200f,100f, 1f,1f, 200f,100f)]
@@ -59,72 +63,85 @@ namespace Tests
 		public void ScaleToTest(float imageWidth, float imageHeight, float expectedScaleX, float expectedScaleY, 
 			float toWidth, float toHeight)
 		{
-			_mocks.Image().Setup(i => i.Width).Returns(imageWidth);
-			_mocks.Image().Setup(i => i.Height).Returns(imageHeight);
+			foreach (ISprite sprite in getImplementors())
+			{
+				_mocks.Image().Setup(i => i.Width).Returns(imageWidth);
+				_mocks.Image().Setup(i => i.Height).Returns(imageHeight);
 
-			AGSSprite sprite = createSprite();
-			sprite.Image = _mocks.Image().Object;
-            sprite.ScaleTo(toWidth, toHeight);
+				sprite.Image = _mocks.Image().Object;
+				sprite.ScaleTo(toWidth, toHeight);
 			
-			Assert.AreEqual(toWidth, sprite.Width);
-			Assert.AreEqual(toHeight, sprite.Height);
-			Assert.AreEqual(expectedScaleX, sprite.ScaleX);
-			Assert.AreEqual(expectedScaleY, sprite.ScaleY);
+				Assert.AreEqual(toWidth, sprite.Width, "Width doesn' match for " + sprite.GetType().Name);
+				Assert.AreEqual(toHeight, sprite.Height, "Height doesn't match for " + sprite.GetType().Name);
+				Assert.AreEqual(expectedScaleX, sprite.ScaleX, "ScaleX doesn't match for " + sprite.GetType().Name);
+				Assert.AreEqual(expectedScaleY, sprite.ScaleY, "ScaleY doesn't match for " + sprite.GetType().Name);
 
-			testResetScale(imageWidth, imageHeight, sprite);
+				testResetScale(imageWidth, imageHeight, sprite);
+			}
 		}
 
 		[Test]
 		public void PerformingPixelPerfectTest()
 		{
-			Mock<IMask> mask = new Mock<IMask> ();
-			Bitmap bitmap = new Bitmap (1, 1);
-			_mocks.Image().Setup(i => i.OriginalBitmap).Returns(bitmap);
-			_mocks.MaskLoader().Setup(m => m.Load(bitmap, false, null, null)).Returns(mask.Object);
-			AGSSprite sprite = createSprite();
-			sprite.Image = _mocks.Image().Object;
+			foreach (ISprite sprite in getImplementors())
+			{
+				Mock<IMask> mask = new Mock<IMask> ();
+				Bitmap bitmap = new Bitmap (1, 1);
+				_mocks.Image().Setup(i => i.OriginalBitmap).Returns(bitmap);
+				_mocks.MaskLoader().Setup(m => m.Load(bitmap, false, null, null)).Returns(mask.Object);
 
-			sprite.PixelPerfect(true);
+				sprite.Image = _mocks.Image().Object;
 
-			Assert.AreEqual(mask.Object, sprite.PixelPerfectHitTestArea.Mask);
-			Assert.IsTrue(sprite.PixelPerfectHitTestArea.Enabled);
+				sprite.PixelPerfect(true);
+
+				Assert.AreEqual(mask.Object, sprite.PixelPerfectHitTestArea.Mask);
+				Assert.IsTrue(sprite.PixelPerfectHitTestArea.Enabled);
+			}
 		}
 
 		[Test]
 		public void PerformingPixelPerfect_OnlyOnce_Test()
 		{
-			_mocks.MaskLoader().Setup(m => m.Load((Bitmap)null, false, null, null)).Returns((IMask)null);
-			AGSSprite sprite = createSprite();
-			sprite.Image = _mocks.Image().Object;
+			int count = 0;
+			foreach (ISprite sprite in getImplementors())
+			{
+				_mocks.MaskLoader().Setup(m => m.Load((Bitmap)null, false, null, null)).Returns((IMask)null);
+				sprite.Image = _mocks.Image().Object;
 
-			sprite.PixelPerfect(true);
+				sprite.PixelPerfect(true);
+				count++;
 
-			_mocks.MaskLoader().Verify(m => m.Load((Bitmap)null, false, null, null), Times.Once());
+				_mocks.MaskLoader().Verify(m => m.Load((Bitmap)null, false, null, null), Times.Exactly(count));
+			}
 		}
 
 		[Test]
 		public void DisablingPixelPerfect_WhenDisabled_Test()
 		{
-			AGSSprite sprite = createSprite();
-			sprite.PixelPerfect(false);
-			Assert.IsNull(sprite.PixelPerfectHitTestArea);
+			foreach (ISprite sprite in getImplementors())
+			{
+				sprite.PixelPerfect(false);
+				Assert.IsNull(sprite.PixelPerfectHitTestArea);
+			}
 		}
 
 		[Test]
 		public void DisablingPixelPerfect_WhenEnabled_Test()
 		{
-			_mocks.MaskLoader().Setup(m => m.Load((Bitmap)null, false, null, null)).Returns((IMask)null);
-			AGSSprite sprite = createSprite();
-			sprite.Image = _mocks.Image().Object;
+			foreach (ISprite sprite in getImplementors())
+			{
+				_mocks.MaskLoader().Setup(m => m.Load((Bitmap)null, false, null, null)).Returns((IMask)null);
+				sprite.Image = _mocks.Image().Object;
 
-			sprite.PixelPerfect(true);
-			sprite.PixelPerfect(false);
+				sprite.PixelPerfect(true);
+				sprite.PixelPerfect(false);
 
-			Assert.IsNotNull(sprite.PixelPerfectHitTestArea);
-			Assert.IsFalse(sprite.PixelPerfectHitTestArea.Enabled);
+				Assert.IsNotNull(sprite.PixelPerfectHitTestArea);
+				Assert.IsFalse(sprite.PixelPerfectHitTestArea.Enabled);
+			}
 		}
 
-		static void testResetScale(float imageWidth, float imageHeight, AGSSprite sprite)
+		static void testResetScale(float imageWidth, float imageHeight, ISprite sprite)
 		{
 			sprite.ResetScale();
 			Assert.AreEqual(1f, sprite.ScaleX);
@@ -133,11 +150,17 @@ namespace Tests
 			Assert.AreEqual(imageHeight, sprite.Height);
 		}
 
-		private AGSSprite createSprite()
+		private IEnumerable<ISprite> getImplementors()
 		{
-			AGSSprite sprite = new AGSSprite (_mocks.MaskLoader().Object);
-			return sprite;
-		}
+			foreach (var sprite in ObjectTests.GetImplementors(_mocks, _mocks.GameState().Object))
+			{
+				//todo: Fix scaling for labels
+				if (sprite is AGSLabel || sprite is AGSButton) continue;
+
+				yield return sprite;
+			}
+			yield return new AGSSprite (_mocks.MaskLoader().Object);
+		}			
 	}
 }
 

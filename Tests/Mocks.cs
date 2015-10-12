@@ -7,6 +7,7 @@ using Autofac.Features.ResolveAnything;
 using System.Drawing;
 using Autofac.Core;
 using AGS.Engine;
+using System.Threading.Tasks;
 
 namespace Tests
 {
@@ -59,22 +60,24 @@ namespace Tests
 			container.Dispose();
 		}
 
-		public Mock<IAnimationState> AnimationState()
+		public Mock<IAnimationState> AnimationState(bool newInstance = false)
 		{
-			if (_animationState == null)
+			if (_animationState == null || newInstance)
 			{
 				_animationState = new Mock<IAnimationState> ();
+				_animationState.Setup(a => a.OnAnimationCompleted).Returns(new TaskCompletionSource<AnimationCompletedEventArgs> ());
 			}
 			return _animationState;
 		}
 
-		public Mock<IAnimation> Animation()
+		public Mock<IAnimation> Animation(bool newInstance = false)
 		{
-			if (_animation == null)
+			if (_animation == null || newInstance)
 			{
 				_animation = new Mock<IAnimation> ();
 				_animation.Setup(m => m.State).Returns(AnimationState().Object);
 				_animation.Setup(m => m.Sprite).Returns(Sprite().Object);
+				_animation.Setup(m => m.Frames).Returns(new List<IAnimationFrame>());
 			}
 			return _animation;
 		}
@@ -158,9 +161,9 @@ namespace Tests
 			return _viewport;
 		}
 
-		public Mock<ISprite> Sprite()
+		public Mock<ISprite> Sprite(bool newInstance = false)
 		{
-			if (_sprite == null)
+			if (_sprite == null || newInstance)
 			{
 				_sprite = new Mock<ISprite> ();
 				_sprite.Setup(m => m.Image).Returns(Image().Object);
