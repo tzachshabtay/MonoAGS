@@ -75,7 +75,13 @@ namespace Tests
 			foreach (var container in getImplementors())
 			{
 				Mock<IAnimation> animation = _mocks.Animation();
-				Task<AnimationCompletedEventArgs> task = Task.Run(() => container.Animate(animation.Object));
+				TaskCompletionSource<object> tcs = new TaskCompletionSource<object> (null);
+				Task<AnimationCompletedEventArgs> task = Task.Run(() =>
+				{
+					tcs.SetResult(null);
+					return container.Animate(animation.Object);
+				});
+				await tcs.Task;
 				await Task.Delay(10);
 				Mock<IAnimation> newAnimation = _mocks.Animation(true);
 				container.StartAnimation(newAnimation.Object);
