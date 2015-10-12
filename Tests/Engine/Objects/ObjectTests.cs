@@ -98,7 +98,6 @@ namespace Tests
 				IRoom oldRoom = _mocks.Room(true).Object;
 				IRoom newRoom = null;
 				rooms.Add(oldRoom);
-				rooms.Add(newRoom);
 				obj.ChangeRoom(oldRoom);
 				obj.ChangeRoom(newRoom);
 				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
