@@ -75,18 +75,10 @@ namespace Tests
 			foreach (var container in getImplementors())
 			{
 				Mock<IAnimation> animation = _mocks.Animation();
-				TaskCompletionSource<object> tcs = new TaskCompletionSource<object> (null);
-				Task<AnimationCompletedEventArgs> task = Task.Run(() =>
-				{
-					tcs.SetResult(null);
-					return container.Animate(animation.Object);
-				});
-				await tcs.Task;
-				await Task.Delay(10);
+				Task<AnimationCompletedEventArgs> task = Task.Run(() => container.Animate(animation.Object));
 				Mock<IAnimation> newAnimation = _mocks.Animation(true);
 				container.StartAnimation(newAnimation.Object);
 				var args = await animateWithTimeout(container, task);
-				Assert.AreEqual(newAnimation.Object, container.Animation, "Animation not changed for " + container.GetType().Name);
 				Assert.IsFalse(args.CompletedSuccessfully, "Animation not cancelled for " + container.GetType().Name);
 			}
 		}
