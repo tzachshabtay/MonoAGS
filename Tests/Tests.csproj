@@ -53,7 +53,6 @@
     <Compile Include="Engine\Objects\ChildrenObjectsTests.cs" />
     <Compile Include="Engine\Objects\ObjectTests.cs" />
     <Compile Include="Engine\Objects\Characters\CharacterTests.cs" />
-    <Compile Include="Engine\Objects\Characters\Pathfinding\PathfinderTests.cs" />
     <Compile Include="Engine\Rooms\RoomTests.cs" />
     <Compile Include="Engine\Rooms\Viewport\ViewportFollowerTests.cs" />
     <Compile Include="Engine\Misc\Events\EventTests.cs" />
@@ -64,6 +63,8 @@
     <Compile Include="Engine\Rooms\Masks\MaskTests.cs" />
     <Compile Include="Engine\Misc\Utils\MathUtilsTests.cs" />
     <Compile Include="Engine\Graphics\Animations\AnimationContainerTests.cs" />
+    <Compile Include="Engine\Objects\Characters\Walking\Pathfinding\PathfinderTests.cs" />
+    <Compile Include="Engine\Objects\Characters\Walking\WalkBehaviorTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -79,7 +80,6 @@
     <Folder Include="Engine\Input\Schemes\" />
     <Folder Include="Engine\Objects\" />
     <Folder Include="Engine\Objects\Characters\" />
-    <Folder Include="Engine\Objects\Characters\Pathfinding\" />
     <Folder Include="Engine\Rooms\" />
     <Folder Include="Engine\Rooms\Viewport\" />
     <Folder Include="Engine\Misc\" />
@@ -87,6 +87,7 @@
     <Folder Include="Engine\Rooms\Areas\" />
     <Folder Include="Engine\Rooms\Masks\" />
     <Folder Include="Engine\Misc\Utils\" />
+    <Folder Include="Engine\Objects\Characters\Walking\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
