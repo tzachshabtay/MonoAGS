@@ -49,7 +49,7 @@ namespace DemoGame
 			options.Load(game);
 
 			TopBar topBar = new TopBar(cursors.Scheme, inventory, options);
-			topBar.Load(game.Factory);
+			topBar.Load(game);
 
 			ILabel label = game.Factory.UI.GetLabel("", 80, 25, 160, 10, new AGSTextConfig(brush: Brushes.WhiteSmoke,
 				alignment: ContentAlignment.MiddleCenter, outlineBrush: Brushes.DarkSlateBlue, outlineWidth: 2f,

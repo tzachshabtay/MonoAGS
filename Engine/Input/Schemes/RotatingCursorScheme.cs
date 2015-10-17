@@ -17,8 +17,10 @@ namespace AGS.Engine
 		public const string LOOK_MODE = "Look";
 		public const string INTERACT_MODE = "Interact";
 		public const string WAIT_MODE = "Wait";
+		public const string INVENTORY_MODE = "Inventory";
 
 		private int _currentMode;
+		private Cursor _inventoryCursor;
 
 		public RotatingCursorScheme(IGame game, IAnimationContainer lookCursor, IAnimationContainer walkCursor,
 			IAnimationContainer interactCursor, IAnimationContainer waitCursor)
@@ -30,6 +32,9 @@ namespace AGS.Engine
 			if (lookCursor != null) AddCursor(LOOK_MODE, lookCursor, true);
 			if (interactCursor != null) AddCursor(INTERACT_MODE, interactCursor, true);
 			if (waitCursor != null) AddCursor(WAIT_MODE, waitCursor, false);
+
+			AddCursor(INVENTORY_MODE, null, true);
+			_inventoryCursor = _cursors[_cursors.Count - 1];
 		}
 
 		public bool RotatingEnabled { get; set; }
@@ -63,7 +68,9 @@ namespace AGS.Engine
 
 		public void SetInventoryCursor()
 		{
-			_game.Input.Cursor = _game.State.Player.Character.Inventory.ActiveItem.CursorGraphics;
+			_inventoryCursor.Animation = _game.State.Player.Character.Inventory.ActiveItem.CursorGraphics;
+			_currentMode = _cursors.FindIndex(c => c == _inventoryCursor);
+			setCursor();
 		}
 
 		private void setCursor()
@@ -176,20 +183,13 @@ namespace AGS.Engine
 			int startMode = _currentMode;
 			Cursor cursor = _cursors[_currentMode];
 
-			if (inventory != null && inventory.ActiveItem != null)
-			{
-				inventory.ActiveItem = null;
-			}
-			else
-			{
-				if (!cursor.Rotating) return;
-			}
+			if (!cursor.Rotating) return;
 
 			do
 			{
 				_currentMode = (_currentMode + 1) % _cursors.Count;
 				cursor = _cursors[_currentMode];
-			} while (!cursor.Rotating && _currentMode != startMode);
+			} while ((!cursor.Rotating || cursor.Animation == null) && _currentMode != startMode);
 
 			setCursor();
 		}
@@ -204,7 +204,7 @@ namespace AGS.Engine
 			}
 
 			public string Mode { get; private set; }
-			public IAnimationContainer Animation { get; private set; }
+			public IAnimationContainer Animation { get; set; }
 			public bool Rotating { get; private set;}
 		}
 	}
