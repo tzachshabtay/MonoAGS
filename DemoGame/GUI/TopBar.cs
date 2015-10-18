@@ -1,6 +1,7 @@
 ﻿using System;
 using AGS.API;
 using AGS.Engine;
+using System.Drawing;
 
 namespace DemoGame
 {
@@ -35,6 +36,7 @@ namespace DemoGame
 			loadButton(factory, "talk/", 60f, MouseCursors.TALK_MODE);
 			IButton invButton = loadButton(factory, "inventory/", 80f);
 			IButton activeInvButton = loadButton(factory, "activeInventory/", 100f, RotatingCursorScheme.INVENTORY_MODE);
+			activeInvButton.Z = 1f;
 			loadButton(factory, "help/", 280f);
 			IButton optionsButton = loadButton(factory, "settings/", 300f);
 

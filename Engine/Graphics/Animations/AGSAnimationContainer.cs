@@ -85,7 +85,8 @@ namespace AGS.Engine
 
 		public ISprite Clone()
 		{
-			return _sprite.Clone();
+			ISprite sprite = Animation == null ? _sprite : Animation.Sprite;
+			return sprite.Clone();
 		}
 
 		public ILocation Location { get { return _sprite.Location; } set { _sprite.Location = value; } }
@@ -128,6 +129,7 @@ namespace AGS.Engine
 			set 
 			{ 
 				AGSSingleFrameAnimation animation = new AGSSingleFrameAnimation (value, _factory);
+				initScale(value.Width, value.Height);
 				StartAnimation (animation);
 			}
 		}
@@ -177,8 +179,8 @@ namespace AGS.Engine
 
 		private void initScale(float width, float height)
 		{
-			Width = width;
-			Height = height;
+			Width = width * ScaleX;
+			Height = height * ScaleY;
 			_initialWidth = width;
 			_initialHeight = height;
 		}

@@ -26,24 +26,36 @@ namespace AGS.Engine
 		{
 			ScaleX = 1;
 			ScaleY = 1;
-			Width = Image.Width;
-			Height = Image.Height;
+			var image = Image;
+			if (image != null)
+			{
+				Width = Image.Width;
+				Height = Image.Height;
+			}
 		}
 
 		public void ScaleBy (float scaleX, float scaleY)
 		{
 			ScaleX = scaleX;
 			ScaleY = scaleY;
-			Width = Image.Width * ScaleX;
-			Height = Image.Height * ScaleY;
+			var image = Image;
+			if (image != null)
+			{
+				Width = Image.Width * ScaleX;
+				Height = Image.Height * ScaleY;
+			}
 		}
 
 		public void ScaleTo (float width, float height)
 		{
 			Width = width;
 			Height = height;
-			ScaleX = Width / Image.Width;
-			ScaleY = Height / Image.Height;
+			var image = Image;
+			if (image != null)
+			{
+				ScaleX = Width / Image.Width;
+				ScaleY = Height / Image.Height;
+			}
 		}
 
 		public void FlipHorizontally()
@@ -97,6 +109,7 @@ namespace AGS.Engine
 			set 
 			{
 				_image = value;
+
 				ScaleBy (ScaleX, ScaleY);
 			}
 		}

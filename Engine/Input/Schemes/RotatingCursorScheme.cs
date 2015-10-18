@@ -69,8 +69,7 @@ namespace AGS.Engine
 		public void SetInventoryCursor()
 		{
 			_inventoryCursor.Animation = _game.State.Player.Character.Inventory.ActiveItem.CursorGraphics;
-			_currentMode = _cursors.FindIndex(c => c == _inventoryCursor);
-			setCursor();
+			CurrentMode = INVENTORY_MODE;
 		}
 
 		private void setCursor()
@@ -99,8 +98,7 @@ namespace AGS.Engine
 			string mode = CurrentMode;
 			IObject hotspot = state.Player.Character.Room.GetObjectAt(e.X, e.Y);
 
-			if (state.Player.Character.Inventory == null || 
-				state.Player.Character.Inventory.ActiveItem == null)
+			if (_game.Input.Cursor != _inventoryCursor.Animation)
 			{
 				if (hotspot != null && hotspot.Room == null) 
 				{
@@ -184,6 +182,7 @@ namespace AGS.Engine
 			Cursor cursor = _cursors[_currentMode];
 
 			if (!cursor.Rotating) return;
+
 
 			do
 			{

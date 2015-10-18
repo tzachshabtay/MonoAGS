@@ -46,7 +46,6 @@ namespace DemoGame
 			_lastMode = _scheme.CurrentMode;
 			_scheme.CurrentMode = MouseCursors.POINT_MODE;
 			_scheme.RotatingEnabled = false;
-			_game.State.Player.Character.Inventory.ActiveItem = null;
 			_panel.Visible = true;
 		}
 
