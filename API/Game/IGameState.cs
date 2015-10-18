@@ -8,7 +8,7 @@ namespace AGS.API
 	{
 		IPlayer Player { get; set; }
 		IList<IRoom> Rooms { get; }
-		IList<IObject> UI { get; }
+		IConcurrentHashSet<IObject> UI { get; }
 
 		IDictionary<string, int> Ints { get; }
 		IDictionary<string, float> Floats { get; }

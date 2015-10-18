@@ -9,7 +9,7 @@ namespace AGS.Engine
 		public AGSGameState (IPlayer player)
 		{
 			Rooms = new List<IRoom> ();
-			UI = new List<IObject> ();
+			UI = new AGSConcurrentHashSet<IObject> ();
 			Ints = new Dictionary<string, int> ();
 			Floats = new Dictionary<string, float> ();
 			Strings = new Dictionary<string, string> ();
@@ -23,7 +23,7 @@ namespace AGS.Engine
 
 		public IList<IRoom> Rooms { get; private set; }
 
-		public IList<IObject> UI { get; private set; }
+		public IConcurrentHashSet<IObject> UI { get; private set; }
 
 		public IDictionary<string, int> Ints { get; private set; }
 
