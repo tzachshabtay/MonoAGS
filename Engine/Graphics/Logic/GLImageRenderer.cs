@@ -42,6 +42,10 @@ namespace AGS.Engine
 				return;
 			}
 			ISprite sprite = obj.Animation.Sprite;
+			if (sprite == null || sprite.Image == null)
+			{
+				return;
+			}
 
 			IGLMatrices matrices = _matrixBuilder.Build(obj, obj.Animation.Sprite, obj.TreeNode.Parent,
 				obj.IgnoreViewport ? Matrix4.Identity : _viewport.GetMatrix(viewport), areaScaling);
@@ -76,7 +80,18 @@ namespace AGS.Engine
 					color.R, color.G, color.B, color.A);
 			}
 			if (obj.DebugDrawAnchor)
-				GLUtils.DrawCross (obj.X - viewport.X, obj.Y - viewport.Y, 10, 10, 1f, 1f, 1f, 1f);
+			{
+				IObject parent = obj;
+				float x = 0f;
+				float y = 0f;
+				while (parent != null)
+				{
+					x += parent.X;
+					y += parent.Y;
+					parent = parent.TreeNode.Parent;
+				}
+				GLUtils.DrawCross(x - viewport.X, y - viewport.Y, 10, 10, 1f, 1f, 1f, 1f);
+			}
 		}
 			
 		private GLImage createNewTexture(string path)
