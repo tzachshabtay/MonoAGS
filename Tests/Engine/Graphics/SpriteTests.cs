@@ -152,7 +152,7 @@ namespace Tests
 
 		private IEnumerable<ISprite> getImplementors()
 		{
-			foreach (var sprite in ObjectTests.GetImplementors(_mocks, _mocks.GameState().Object))
+			foreach (var sprite in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
 			{
 				//todo: Fix scaling for labels
 				if (sprite is AGSLabel || sprite is AGSButton) continue;

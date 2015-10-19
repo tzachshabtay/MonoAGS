@@ -71,7 +71,7 @@ namespace DemoGame
 			character.ChangeRoom(Rooms.EmptyStreet, 50, 30);
 
 			Beman beman = new Beman ();
-			character = beman.Load(game.Factory);
+			character = beman.Load(game);
 			character.ChangeRoom(Rooms.BrokenCurbStreet, 100, 110);
 		}
 

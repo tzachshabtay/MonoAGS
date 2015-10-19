@@ -35,7 +35,7 @@ namespace Tests
 			List<IRoom> rooms = new List<IRoom> ();
 			state.Setup(s => s.Rooms).Returns(rooms);
 
-			foreach (IObject obj in GetImplementors(_mocks, state.Object))
+			foreach (IObject obj in GetImplementors(_mocks, state))
 			{
 				rooms.Clear();
 				IRoom room = _mocks.Room(true).Object;
@@ -53,7 +53,7 @@ namespace Tests
 			List<IRoom> rooms = new List<IRoom> ();
 			state.Setup(s => s.Rooms).Returns(rooms);
 
-			foreach (IObject obj in GetImplementors(_mocks, state.Object))
+			foreach (IObject obj in GetImplementors(_mocks, state))
 			{
 				rooms.Clear();
 				IRoom oldRoom = _mocks.Room(true).Object;
@@ -74,7 +74,7 @@ namespace Tests
 			List<IRoom> rooms = new List<IRoom> ();
 			state.Setup(s => s.Rooms).Returns(rooms);
 
-			foreach (IObject obj in GetImplementors(_mocks, state.Object))
+			foreach (IObject obj in GetImplementors(_mocks, state))
 			{
 				rooms.Clear();
 				IRoom oldRoom = _mocks.Room(true).Object;
@@ -95,7 +95,7 @@ namespace Tests
 			List<IRoom> rooms = new List<IRoom> ();
 			state.Setup(s => s.Rooms).Returns(rooms);
 
-			foreach (IObject obj in GetImplementors(_mocks, state.Object))
+			foreach (IObject obj in GetImplementors(_mocks, state))
 			{
 				rooms.Clear();
 				IRoom oldRoom = _mocks.Room(true).Object;
@@ -108,13 +108,14 @@ namespace Tests
 			}
 		}
 
-		public static IEnumerable<IObject> GetImplementors(Mocks mocks, IGameState state)
+		public static IEnumerable<IObject> GetImplementors(Mocks mocks, Mock<IGameState> state)
 		{
 			Resolver resolver = new Resolver ();
 			Mock<IInput> input = new Mock<IInput> ();
+			state.Setup(s => s.Cutscene).Returns(mocks.Cutscene().Object);
 
 			resolver.Builder.RegisterInstance(input.Object);
-			resolver.Builder.RegisterInstance(state);
+			resolver.Builder.RegisterInstance(state.Object);
 			resolver.Build();
 
 			Mock<IGraphicsFactory> graphicsFactory = new Mock<IGraphicsFactory> ();
@@ -153,8 +154,8 @@ namespace Tests
 				basePanel().Hotspot("Panel"),
 				baseLabel().Hotspot("Label"),
 				new AGSButton(baseLabel()).Hotspot("Button"),
-				new AGSInventoryWindow(basePanel(), gameEvents.Object, state).Hotspot("Inventory"),
-				new AGSSlider(basePanel(), input.Object, gameEvents.Object, state).Hotspot("Slider"),
+				new AGSInventoryWindow(basePanel(), gameEvents.Object, state.Object).Hotspot("Inventory"),
+				new AGSSlider(basePanel(), input.Object, gameEvents.Object, state.Object).Hotspot("Slider"),
 			};
 
 			return implmentors;

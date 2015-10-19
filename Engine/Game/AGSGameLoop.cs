@@ -84,9 +84,17 @@ namespace AGS.Engine
 				return;
 			if (animation.State.TimeToNextFrame < 0)
 				return;
-			animation.State.TimeToNextFrame--;
-			if (animation.State.TimeToNextFrame < 0)
-				animation.NextFrame ();
+			if (_gameState.Cutscene.IsSkipping && animation.Configuration.Loops > 0)
+			{
+				animation.State.TimeToNextFrame = 0;
+				while (animation.NextFrame()) ;
+			}
+			else
+			{
+				animation.State.TimeToNextFrame--;
+				if (animation.State.TimeToNextFrame < 0)
+					animation.NextFrame();
+			}
 		}
 	}
 }

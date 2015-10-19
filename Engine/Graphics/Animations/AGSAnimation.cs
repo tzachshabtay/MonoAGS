@@ -34,9 +34,9 @@ namespace AGS.Engine
 			State.TimeToNextFrame = Frames [frame].Delay;
 		}
 
-		public void NextFrame ()
+		public bool NextFrame ()
 		{
-			if (finishedAnimation) return;
+			if (finishedAnimation) return false;
 
 			int frame = State.CurrentFrame;
 			bool endedLoop = false;
@@ -57,7 +57,7 @@ namespace AGS.Engine
 				{
 					finishedAnimation = true;
 					State.OnAnimationCompleted.TrySetResult (new AnimationCompletedEventArgs (true));
-					return;
+					return true;
 				}
 
 				switch (Configuration.Looping) 
@@ -81,6 +81,7 @@ namespace AGS.Engine
 			State.CurrentFrame = frame;
 			State.RunningBackwards = runningBackwards;
 			State.TimeToNextFrame = Frames [frame].Delay;
+			return true;
 		}
 
 		public void FlipHorizontally()

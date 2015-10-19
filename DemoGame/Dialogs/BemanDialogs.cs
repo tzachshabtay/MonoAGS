@@ -6,14 +6,18 @@ namespace DemoGame
 {
 	public class BemanDialogs
 	{
+		private IGame _game;
+
 		public BemanDialogs()
 		{
 		}
 
 		public IDialog StartDialog { get; private set; }
 
-		public void Load(IGameFactory factory)
+		public void Load(IGame game)
 		{
+			_game = game;
+			IGameFactory factory = game.Factory;
 			StartDialog = factory.Dialog.GetDialog();
 			createStartDialog(factory, createQuestionsDialog(factory));
 		}
@@ -52,13 +56,35 @@ namespace DemoGame
 			IDialogOption option2 = factory.Dialog.GetDialogOption("What do you do?");
 			option2.AddText(Characters.Beman, "I'm a hobbyist game developer.");
 
-			IDialogOption option3 = factory.Dialog.GetDialogOption("That's all I have...");
+			IDialogOption option3 = factory.Dialog.GetDialogOption("Can I start a scene?");
+			option3.ExitDialogWhenFinished = true;
+			option3.AddText(Characters.Beman, "Go for it, though remember that the user can skip the scene by pressing any key on the keyboard");
+			option3.AddConditionalActions(startAScene);
+
+			IDialogOption option4 = factory.Dialog.GetDialogOption("That's all I have...");
 			option3.ChangeDialogWhenFinished = StartDialog;
 
 			IDialog dialog = factory.Dialog.GetDialog();
-			dialog.AddOptions(option1, option2, option3);
+			dialog.AddOptions(option1, option2, option3, option4);
 
 			return dialog;
+		}
+
+		private bool startAScene()
+		{
+			ICharacter player = _game.State.Player.Character;
+			_game.State.Cutscene.Start();
+
+			player.Say("Scene is now in session.");
+			player.Walk(new AGSLocation (0f, player.Y));
+			player.ChangeRoom(Rooms.EmptyStreet);
+			player.Say("This scene involves switching rooms!");
+			player.Walk(new AGSLocation (250f, player.Y));
+
+			_game.State.Cutscene.End();
+
+			player.Say("End scene.");
+			return true;
 		}
 	}
 }

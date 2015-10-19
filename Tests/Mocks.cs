@@ -25,6 +25,8 @@ namespace Tests
 		Mock<IImage> _image;
 		Mock<IMaskLoader> _maskLoader;
 		Mock<IRoomEvents> _roomEvents;
+		Mock<ICutscene> _cutscene;
+		Mock<IInput> _input;
 
 		IContainer container;
 
@@ -42,6 +44,8 @@ namespace Tests
 			builder.RegisterInstance(mocks.Viewport().Object);
 			builder.RegisterInstance(mocks.Sprite().Object);
 			builder.RegisterInstance(mocks.Image().Object);
+			builder.RegisterInstance(mocks.Input().Object);
+			builder.RegisterInstance(mocks.Cutscene().Object);
 
 			builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 
@@ -88,6 +92,7 @@ namespace Tests
 			{
 				_gameState = new Mock<IGameState> ();
 				_gameState.Setup(m => m.Player).Returns(Player().Object);
+				_gameState.Setup(m => m.Cutscene).Returns(Cutscene().Object);
 			}
 			return _gameState;
 		}
@@ -187,6 +192,24 @@ namespace Tests
 				_maskLoader = new Mock<IMaskLoader> ();
 			}
 			return _maskLoader;
+		}
+
+		public Mock<ICutscene> Cutscene()
+		{
+			if (_cutscene == null)
+			{
+				_cutscene = new Mock<ICutscene> ();
+			}
+			return _cutscene;
+		}
+
+		public Mock<IInput> Input()
+		{
+			if (_input == null)
+			{
+				_input = new Mock<IInput> ();
+			}
+			return _input;
 		}
 	}
 }

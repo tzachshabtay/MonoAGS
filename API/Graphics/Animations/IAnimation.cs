@@ -13,7 +13,7 @@ namespace AGS.API
 
 		ISprite Sprite { get; }
 
-		void NextFrame();
+		bool NextFrame();
 
 		void FlipHorizontally();
 

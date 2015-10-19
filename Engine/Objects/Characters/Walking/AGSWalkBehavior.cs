@@ -18,10 +18,12 @@ namespace AGS.Engine
 		private IAGSFaceDirectionBehavior _faceDirection;
 		private IOutfitHolder _outfit;
 		private IObjectFactory _objFactory;
+		private ICutscene _cutscene;
 
 		public AGSWalkBehavior(IObject obj, IPathFinder pathFinder, IAGSFaceDirectionBehavior faceDirection, 
-			IOutfitHolder outfit, IObjectFactory objFactory)
+			IOutfitHolder outfit, IObjectFactory objFactory, IGameState state)
 		{
+			_cutscene = state.Cutscene;
 			_obj = obj;
 			_pathFinder = pathFinder;
 			_faceDirection = faceDirection;
@@ -210,6 +212,13 @@ namespace AGS.Engine
 
 			_faceDirection.CurrentDirectionalAnimation = _outfit.Outfit.WalkAnimation;
 			await _faceDirection.FaceDirectionAsync(_obj.X, _obj.Y, destination.X, destination.Y);
+
+			if (_cutscene.IsSkipping)
+			{
+				_obj.X = destination.X;
+				_obj.Y = destination.Y;
+				return true;
+			}
 			float xSteps = Math.Abs (destination.X - _obj.X);
 			float ySteps = Math.Abs (destination.Y - _obj.Y);
 

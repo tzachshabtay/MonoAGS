@@ -32,7 +32,10 @@ namespace Tests
 			Mock<IRoom> room = new Mock<IRoom> ();
 			Mock<IArea> area = new Mock<IArea> ();
 			Mock<IMask> mask = new Mock<IMask> ();
+			Mock<ICutscene> cutscene = new Mock<ICutscene> ();
+			Mock<IGameState> gameState = new Mock<IGameState> ();
 
+			gameState.Setup(s => s.Cutscene).Returns(cutscene.Object);
 			room.Setup(r => r.WalkableAreas).Returns(new List<IArea> { area.Object });
 			area.Setup(a => a.Enabled).Returns(true);
 			area.Setup(a => a.IsInArea(It.Is<IPoint>(p => p.X == fromX && p.Y == fromY))).Returns(fromWalkable);
@@ -64,7 +67,7 @@ namespace Tests
 				It.Is<ILocation>(l => l.X == closeToX && l.Y == closeToY))).Returns(hasCloseToWalkable ? new List<ILocation> {closeLocation} : new List<ILocation>());
 			
 			AGSWalkBehavior walk = new AGSWalkBehavior (obj.Object, pathFinder.Object, faceDirection.Object,
-				                       outfitHolder.Object, objFactory.Object);
+				outfitHolder.Object, objFactory.Object, gameState.Object);
 
 			bool walkShouldSucceed = fromWalkable && (toWalkable || hasCloseToWalkable);
 

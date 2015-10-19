@@ -11,8 +11,9 @@ namespace DemoGame
 		private const string _baseFolder = "../../Assets/Characters/Beman/";
 		private BemanDialogs _dialogs = new BemanDialogs();
 
-		public ICharacter Load(IGameFactory factory)
+		public ICharacter Load(IGame game)
 		{
+			IGameFactory factory = game.Factory;
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
 			{ 
 				TransparentColorSamplePoint = new Point (0, 0) 
@@ -38,7 +39,7 @@ namespace DemoGame
 			_character.Interactions.OnInteract.SubscribeToAsync(async (sender, e) => await _dialogs.StartDialog.RunAsync());
 
 			Characters.Beman = _character;
-			_dialogs.Load(factory);
+			_dialogs.Load(game);
 			return _character;
 		}
 	}

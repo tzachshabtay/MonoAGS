@@ -11,6 +11,7 @@ namespace AGS.API
 		IConcurrentHashSet<IObject> UI { get; }
 
 		ICustomProperties GlobalVariables { get; }
+		ICutscene Cutscene { get; }
 	}
 }
 

@@ -113,7 +113,7 @@ namespace Tests
 
 		private IEnumerable<IAnimationContainer> getImplementors()
 		{
-			foreach (var container in ObjectTests.GetImplementors(_mocks, _mocks.GameState().Object))
+			foreach (var container in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
 			{
 				yield return container;
 			}

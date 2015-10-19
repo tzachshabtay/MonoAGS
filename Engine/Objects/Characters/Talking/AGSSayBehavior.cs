@@ -39,6 +39,11 @@ namespace AGS.Engine
 
 		public async Task SayAsync(string text)
 		{
+			if (_state.Cutscene.IsSkipping)
+			{
+				setAnimation(_outfit.Outfit.IdleAnimation);
+				return;
+			}
 			setAnimation(_outfit.Outfit.SpeakAnimation);
 
 			IPoint location = getLocation(text);
