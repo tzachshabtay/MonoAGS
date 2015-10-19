@@ -10,11 +10,7 @@ namespace AGS.API
 		IList<IRoom> Rooms { get; }
 		IConcurrentHashSet<IObject> UI { get; }
 
-		IDictionary<string, int> Ints { get; }
-		IDictionary<string, float> Floats { get; }
-		IDictionary<string, string> Strings { get; }
-
-		IList<ICustomSerializable> CustomData { get; }
+		ICustomProperties GlobalVariables { get; }
 	}
 }
 

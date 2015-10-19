@@ -15,8 +15,6 @@ namespace AGS.API
 
 		IGameEvents Events { get; }
 
-		ICustomProperties GlobalVariables { get; }
-
 		Size VirtualResolution { get; }
 
 		void Start(string title, int width, int height);

@@ -6,15 +6,12 @@ namespace AGS.Engine
 {
 	public class AGSGameState : IGameState
 	{
-		public AGSGameState (IPlayer player)
+		public AGSGameState (IPlayer player, ICustomProperties globalVariables)
 		{
 			Rooms = new List<IRoom> ();
 			UI = new AGSConcurrentHashSet<IObject> ();
-			Ints = new Dictionary<string, int> ();
-			Floats = new Dictionary<string, float> ();
-			Strings = new Dictionary<string, string> ();
-			CustomData = new List<ICustomSerializable> ();
 			Player = player;
+			GlobalVariables = globalVariables;
 		}
 
 		#region IGameState implementation
@@ -25,13 +22,8 @@ namespace AGS.Engine
 
 		public IConcurrentHashSet<IObject> UI { get; private set; }
 
-		public IDictionary<string, int> Ints { get; private set; }
 
-		public IDictionary<string, float> Floats { get; private set; }
-
-		public IDictionary<string, string> Strings { get; private set; }
-
-		public IList<ICustomSerializable> CustomData { get; private set; }
+		public ICustomProperties GlobalVariables { get; private set; }
 
 		#endregion
 	}
