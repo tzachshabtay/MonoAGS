@@ -36,7 +36,11 @@ namespace DemoGame
 			_character.Hotspot = "Beman";
 			_character.PixelPerfect(true);
 
-			_character.Interactions.OnInteract.SubscribeToAsync(async (sender, e) => await _dialogs.StartDialog.RunAsync());
+			_character.Interactions.OnCustomInteract.SubscribeToAsync(async (sender, e) =>
+			{ 
+				if (e.InteractionName == MouseCursors.TALK_MODE) await _dialogs.StartDialog.RunAsync();
+				else await game.State.Player.Character.SayAsync("I don't think he'd appreciate that.");
+			});
 
 			Characters.Beman = _character;
 			_dialogs.Load(game);

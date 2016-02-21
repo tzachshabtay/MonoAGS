@@ -6,10 +6,10 @@ namespace AGS.Engine
 {
 	public class AGSTreeNode<TItem> : ITreeNode<TItem> where TItem : class, IInTree<TItem>
 	{
-		IConcurrentHashSet<TItem> _children;
-		ITreeNode<TItem> _parent;
+		private readonly IConcurrentHashSet<TItem> _children;
+		private ITreeNode<TItem> _parent;
 
-		public AGSTreeNode(TItem node, IConcurrentHashSet<TItem> children = null)
+		public AGSTreeNode(TItem node = null, IConcurrentHashSet<TItem> children = null)
 		{
 			_children = children ?? new AGSConcurrentHashSet<TItem>();
 			Node = node;
@@ -38,7 +38,7 @@ namespace AGS.Engine
 			return _children.Contains(child);
 		}
 
-		public TItem Node { get; private set; }
+		public TItem Node { get; set; }
 
 		public TItem Parent
 		{
@@ -51,6 +51,7 @@ namespace AGS.Engine
 
 		public void SetParent(ITreeNode<TItem> parent)
 		{
+			if (_parent == parent) return;
 			ITreeNode<TItem> prevParent = _parent;
 			_parent = parent;
 			if (prevParent != null)
@@ -61,6 +62,17 @@ namespace AGS.Engine
 			{
 				_parent.AddChild(Node);
 			}
+		}
+
+		public void StealParent(ITreeNode<TItem> victim)
+		{
+			if (victim.Parent == null)
+			{
+				SetParent(null);
+				return;
+			}
+			SetParent(victim.Parent.TreeNode);
+			victim.SetParent(null);
 		}
 			
 		public int ChildrenCount

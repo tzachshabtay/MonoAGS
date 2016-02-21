@@ -10,7 +10,7 @@ namespace AGS.Engine
 		public AGSCutscene(IInput input)
 		{
 			_input = input;
-			_input.KeyUp.Subscribe(onKeyUp);
+			if (_input.KeyUp != null) _input.KeyUp.Subscribe(onKeyUp);
 		}
 
 		#region ICutscene implementation
@@ -25,6 +25,12 @@ namespace AGS.Engine
 		{
 			IsSkipping = false;
 			IsRunning = false;
+		}
+
+		public void CopyFrom(ICutscene cutscene)
+		{
+			IsSkipping = cutscene.IsSkipping;
+			IsRunning = cutscene.IsRunning;
 		}
 
 		public bool IsSkipping { get; private set; }

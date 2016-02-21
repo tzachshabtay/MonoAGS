@@ -144,6 +144,7 @@ namespace AGS.Engine
 		}
 
 		private IPoint getClosestWalkablePoint(IPoint target)
+
 		{
 			IPoint closestPoint = null;
 			float closestDistance = float.MaxValue;
@@ -237,6 +238,7 @@ namespace AGS.Engine
 			{
 				if (token.IsCancellationRequested)
 					return false;
+
 				_obj.X += xStep;
 				_obj.Y += yStep;
 				await Task.Delay(delay);

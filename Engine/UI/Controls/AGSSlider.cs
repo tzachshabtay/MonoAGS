@@ -2,6 +2,7 @@
 using AGS.API;
 using System.Threading.Tasks;
 using System.Drawing;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -14,13 +15,22 @@ namespace AGS.Engine
 		private bool _isHorizontal;
 		private IInput _input;
 		private IGameState _state;
+		private IHasRoom _roomBehavior;
+		private readonly VisibleProperty _visible;
+		private readonly EnabledProperty _enabled;
 
-		public AGSSlider(IPanel panel, IInput input, IGameEvents gameEvents, IGameState state)
+		public AGSSlider(IPanel panel, IInput input, IGameEvents gameEvents, IGameState state, Resolver resolver)
 		{
 			_input = input;
 			_obj = panel;
 			_state = state;
+			_visible = new VisibleProperty (this);
+			_enabled = new EnabledProperty (this);
 			OnValueChanged = new AGSEvent<SliderValueEventArgs> ();
+			TreeNode = new AGSTreeNode<IObject> (this);
+
+			TypedParameter panelParam = new TypedParameter (typeof(IObject), this);
+			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
 
 			gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
@@ -44,7 +54,7 @@ namespace AGS.Engine
 
 		public void ChangeRoom(IRoom room, float? x = default(float?), float? y = default(float?))
 		{
-			_obj.ChangeRoom(room, x, y);
+			_roomBehavior.ChangeRoom(room, x, y);
 		}
 
 		public bool CollidesWith(float x, float y)
@@ -52,9 +62,9 @@ namespace AGS.Engine
 			return _obj.CollidesWith(x, y);
 		}
 
-		public IRoom Room { get { return _obj.Room; } }
+		public IRoom Room { get { return _roomBehavior.Room; } }
 
-		public IRoom PreviousRoom { get { return _obj.PreviousRoom; } }
+		public IRoom PreviousRoom { get { return _roomBehavior.PreviousRoom; } }
 
 		public IInteractions Interactions { get { return _obj.Interactions; } }
 
@@ -65,8 +75,6 @@ namespace AGS.Engine
 		public IPoint WalkPoint { get { return _obj.WalkPoint; } set { _obj.WalkPoint = value; } }
 
 		public IPoint CenterPoint { get { return _obj.CenterPoint; } }
-
-		public bool Enabled { get { return _obj.Enabled; } set { _obj.Enabled = value; } }
 
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 
@@ -95,7 +103,9 @@ namespace AGS.Engine
 
 		public IAnimation Animation { get { return _obj.Animation; } }
 
-		public bool Visible { get { return _obj.Visible; } set { _obj.Visible = value; } }
+		public bool Visible { get { return _visible.Value; } set { _visible.Value = value; } }
+
+		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
 
 		public bool DebugDrawAnchor { get { return _obj.DebugDrawAnchor; } set { _obj.DebugDrawAnchor = value; } }
 
@@ -273,7 +283,7 @@ namespace AGS.Engine
 
 		#region IInTree implementation
 
-		public ITreeNode<IObject> TreeNode { get { return _obj.TreeNode; } }
+		public ITreeNode<IObject> TreeNode { get; private set; }
 
 		#endregion
 
@@ -293,8 +303,8 @@ namespace AGS.Engine
 			
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
 		{
-			if (BoundingBox == null || !_input.LeftMouseButtonDown || 
-				!Graphics.BoundingBox.Contains(new AGSPoint(_input.MouseX, _input.MouseY)) ||  Graphics == null || HandleGraphics == null) 
+			if (BoundingBox == null || !_input.LeftMouseButtonDown || Graphics == null || Graphics.BoundingBox == null ||
+				!Graphics.BoundingBox.Contains(new AGSPoint(_input.MouseX, _input.MouseY)) ||  HandleGraphics == null) 
 				return;
 			if (IsHorizontal) Value = getSliderValue(MathUtils.Clamp(_input.MouseX - BoundingBox.MinX, 0f, Graphics.Width));
 			else Value = getSliderValue(MathUtils.Clamp(_input.MouseY - BoundingBox.MinY

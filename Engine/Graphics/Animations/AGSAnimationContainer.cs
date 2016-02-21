@@ -167,10 +167,19 @@ namespace AGS.Engine
 			return await animation.State.OnAnimationCompleted.Task;
 		}
 
-		public IArea PixelPerfectHitTestArea  { get { return Animation.Sprite.PixelPerfectHitTestArea; } }
+		public IArea PixelPerfectHitTestArea  
+		{ 
+			get 
+			{ 
+				if (Animation == null || Animation.Sprite == null) return null;
+				return Animation.Sprite.PixelPerfectHitTestArea; 
+			} 
+		}
+		
 		public void PixelPerfect(bool pixelPerfect)
 		{
 			_pixelPerfect = pixelPerfect;
+			if (Animation == null || Animation.Frames == null) return;
 			foreach (var frame in Animation.Frames)
 			{
 				frame.Sprite.PixelPerfect(pixelPerfect);

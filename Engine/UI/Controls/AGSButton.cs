@@ -2,16 +2,27 @@
 using AGS.API;
 using System.Threading.Tasks;
 using System.Drawing;
+using Autofac;
 
 namespace AGS.Engine
 {
 	public class AGSButton : IButton
 	{
 		private readonly ILabel _obj;
+		private readonly IHasRoom _roomBehavior;
+		private readonly VisibleProperty _visible;
+		private readonly EnabledProperty _enabled;
 
-		public AGSButton(ILabel label)
+		public AGSButton(ILabel label, Resolver resolver)
 		{
 			_obj = label;
+			_visible = new VisibleProperty (this);
+			_enabled = new EnabledProperty (this);
+
+			TypedParameter panelParam = new TypedParameter (typeof(IObject), this);
+			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
+			TreeNode = new AGSTreeNode<IObject> (this);
+
 			Events.MouseEnter.Subscribe((sender, e) => StartAnimation(HoverAnimation));
 			Events.MouseLeave.Subscribe((sender, e) => StartAnimation(IdleAnimation));
 			Events.MouseDown.Subscribe((sender, e) => StartAnimation(PushedAnimation));
@@ -70,7 +81,7 @@ namespace AGS.Engine
 
 		public void ChangeRoom(IRoom room, float? x = null, float? y = null)
 		{
-			_obj.ChangeRoom(room, x, y);
+			_roomBehavior.ChangeRoom(room, x, y);
 		}
 
 		public bool CollidesWith(float x, float y)
@@ -78,9 +89,9 @@ namespace AGS.Engine
 			return _obj.CollidesWith(x, y);
 		}
 			
-		public IRoom Room { get { return _obj.Room; } }
+		public IRoom Room { get { return _roomBehavior.Room; } }
 
-		public IRoom PreviousRoom { get { return _obj.PreviousRoom; } }
+		public IRoom PreviousRoom { get { return _roomBehavior.PreviousRoom; } }
 
 		public IAnimation Animation { get { return _obj.Animation; } }
 
@@ -103,11 +114,11 @@ namespace AGS.Engine
 
 		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
 
-		public ITreeNode<IObject> TreeNode { get { return _obj.TreeNode; } }
+		public ITreeNode<IObject> TreeNode { get; private set; }
 
-		public bool Visible { get { return _obj.Visible; } set { _obj.Visible = value; } }
+		public bool Visible { get { return _visible.Value; } set { _visible.Value = value; } }
 
-		public bool Enabled { get { return _obj.Enabled; } set { _obj.Enabled = value; } }
+		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
 
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 

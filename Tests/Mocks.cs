@@ -121,12 +121,19 @@ namespace Tests
 		{			
 			if (_room == null || newInstance)
 			{
+				List<IArea> walkables = new List<IArea> ();
+				List<IWalkBehindArea> walkBehinds = new List<IWalkBehindArea> ();
+				List<IScalingArea> scalingAreas = new List<IScalingArea> ();
+				AGSConcurrentHashSet<IObject> roomObjects = new AGSConcurrentHashSet<IObject> ();
 				_room = new Mock<IRoom> ();
 				_room.Setup(m => m.Background).Returns(Object().Object);
 				_room.Setup(m => m.Viewport).Returns(Viewport().Object);
-				_room.Setup(m => m.Objects).Returns(new AGSConcurrentHashSet<IObject> ());
+				_room.Setup(m => m.Objects).Returns(roomObjects);
 				_room.Setup(m => m.ShowPlayer).Returns(true);
 				_room.Setup(m => m.Events).Returns(RoomEvents().Object);
+				_room.Setup(m => m.WalkableAreas).Returns(walkables);
+				_room.Setup(m => m.WalkBehindAreas).Returns(walkBehinds);
+				_room.Setup(m => m.ScalingAreas).Returns(scalingAreas);
 			}
 			return _room;
 		}
@@ -153,6 +160,7 @@ namespace Tests
 				_obj.Setup(m => m.Image).Returns(Image().Object);
 				_obj.Setup(m => m.Enabled).Returns(true);
 				_obj.Setup(m => m.Visible).Returns(true);
+				_obj.Setup(m => m.Anchor).Returns(new AGSPoint ());
 			}
 			return _obj;
 		}
@@ -172,6 +180,7 @@ namespace Tests
 			{
 				_sprite = new Mock<ISprite> ();
 				_sprite.Setup(m => m.Image).Returns(Image().Object);
+				_sprite.Setup(m => m.Anchor).Returns(new AGSPoint ());
 			}
 			return _sprite;
 		}
@@ -181,6 +190,8 @@ namespace Tests
 			if (_image == null)
 			{
 				_image = new Mock<IImage> ();
+				_image.Setup(m => m.Width).Returns(100f);
+				_image.Setup(m => m.Height).Returns(50f);
 			}
 			return _image;
 		}

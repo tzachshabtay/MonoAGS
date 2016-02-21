@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AGS.API
 {
@@ -13,7 +14,16 @@ namespace AGS.API
 		string GetString(string name, string defaultValue = null);
 		void SetString(string name, string value);
 
+		bool GetBool(string name, bool defaultValue = false);
+		void SetBool(string name, bool value);
+
+		IDictionary<string, int> AllInts();
+		IDictionary<string, float> AllFloats();
+		IDictionary<string, string> AllStrings();
+		IDictionary<string, bool> AllBooleans();
+
 		void RegisterCustomData(ICustomSerializable customData);
+		void CopyFrom(ICustomProperties properties);
 	}
 }
 

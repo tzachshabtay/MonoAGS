@@ -3,6 +3,7 @@ using AGS.API;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -10,14 +11,19 @@ namespace AGS.Engine
 	{
 		private IObject _obj;
 		private readonly IInput _input;
+		private readonly VisibleProperty _visible;
+		private readonly EnabledProperty _enabled;
 
 		private bool _leftMouseDown, _rightMouseDown;
 		private float _mouseX, _mouseY;
 		private Stopwatch _leftMouseClickTimer, _rightMouseClickTimer;
+		private IHasRoom _roomBehavior;
 
-		public AGSPanel(IObject obj, IUIEvents events, IImage image, IGameEvents gameEvents, IInput input)
+		public AGSPanel(IObject obj, IUIEvents events, IImage image, IGameEvents gameEvents, IInput input, Resolver resolver)
 		{
 			this._obj = obj;
+			_visible = new VisibleProperty (this);
+			_enabled = new EnabledProperty (this);
 			Anchor = new AGSPoint ();
 			Events = events;
 			RenderLayer = AGSLayers.UI;
@@ -27,7 +33,11 @@ namespace AGS.Engine
 			_leftMouseClickTimer = new Stopwatch ();
 			_rightMouseClickTimer = new Stopwatch ();
 
+			TypedParameter panelParam = new TypedParameter (typeof(IObject), this);
+			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
+
 			_input = input;
+			TreeNode = new AGSTreeNode<IObject> (this);
 			gameEvents.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
 		}
 
@@ -62,7 +72,7 @@ namespace AGS.Engine
 
 		public void ChangeRoom(IRoom room, float? x = null, float? y = null)
 		{
-			_obj.ChangeRoom(room, x, y);
+			_roomBehavior.ChangeRoom(room, x, y);
 		}
 
 		public bool CollidesWith(float x, float y)
@@ -70,9 +80,9 @@ namespace AGS.Engine
 			return _obj.CollidesWith(x, y);
 		}
 			
-		public IRoom Room { get { return _obj.Room; } }
+		public IRoom Room { get { return _roomBehavior.Room; } }
 
-		public IRoom PreviousRoom { get { return _obj.PreviousRoom; } }
+		public IRoom PreviousRoom { get { return _roomBehavior.PreviousRoom; } }
 
 		public IAnimation Animation { get { return _obj.Animation; } }
 
@@ -95,11 +105,11 @@ namespace AGS.Engine
 
 		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
 
-		public ITreeNode<IObject> TreeNode { get { return _obj.TreeNode; } }
+		public ITreeNode<IObject> TreeNode { get; private set; }
 
-		public bool Visible { get { return _obj.Visible; } set { _obj.Visible = value; } }
+		public bool Visible { get { return _visible.Value; } set { _visible.Value = value; } }
 
-		public bool Enabled { get { return _obj.Enabled; } set { _obj.Enabled = value; } }
+		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
 
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 

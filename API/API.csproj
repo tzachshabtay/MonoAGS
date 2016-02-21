@@ -126,6 +126,7 @@
     <Compile Include="Game\Factories\IOutfitFactory.cs" />
     <Compile Include="Misc\ICustomProperties.cs" />
     <Compile Include="Game\ICutscene.cs" />
+    <Compile Include="Objects\IHasRoom.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

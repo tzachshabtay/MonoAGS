@@ -3,10 +3,8 @@ using System.Threading.Tasks;
 
 namespace AGS.API
 {
-	public interface IObject : IAnimationContainer, IInTree<IObject>
+	public interface IObject : IHasRoom, IAnimationContainer, IInTree<IObject>
 	{
-		IRoom Room { get; }
-		IRoom PreviousRoom { get; }
 		IInteractions Interactions { get; }
 		ISquare BoundingBox { get; set; } //todo: find a way to remove the setter (only the engine should use the setter)
 		IRenderLayer RenderLayer { get; set; }
@@ -22,7 +20,6 @@ namespace AGS.API
 		bool IgnoreViewport { get; set; }
 		bool IgnoreScalingArea { get; set; }
 
-		void ChangeRoom(IRoom room, float? x = null, float? y = null);
 		bool CollidesWith(float x, float y);
 	}
 }

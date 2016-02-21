@@ -28,15 +28,21 @@ namespace AGS.Engine
 			ICharacter character = null, bool addToUi = true)
 		{
 			IPanel panel = _ui.GetPanel(width, height, x, y, false);
-			TypedParameter parameter = new TypedParameter (typeof(IPanel), panel);
-			IInventoryWindow inventory = _resolver.Resolve<IInventoryWindow>(parameter);
-			inventory.Tint = Color.Transparent;
-			inventory.ItemSize = new SizeF (itemWidth, itemHeight);
-			inventory.CharacterToUse = character ?? _resolver.Resolve<IPlayer>().Character;
+			IInventoryWindow inventory = GetInventoryWindow(panel, itemWidth, itemHeight, character);
 
 			if (addToUi)
 				_gameState.UI.Add(inventory);
 
+			return inventory;
+		}
+
+		public IInventoryWindow GetInventoryWindow(IPanel innerPanel, float itemWidth, float itemHeight, ICharacter character)
+		{
+			TypedParameter parameter = new TypedParameter (typeof(IPanel), innerPanel);
+			IInventoryWindow inventory = _resolver.Resolve<IInventoryWindow>(parameter);
+			inventory.Tint = Color.Transparent;
+			inventory.ItemSize = new SizeF (itemWidth, itemHeight);
+			inventory.CharacterToUse = character ?? _resolver.Resolve<IPlayer>().Character;
 			return inventory;
 		}
 
@@ -51,7 +57,7 @@ namespace AGS.Engine
 				IPlayer player = _resolver.Resolve<IPlayer>();
 				if (player.Character == null)
 				{
-					Debug.WriteLine("Character was not assigned to player yet, cannot add inventory item", graphics.ToString());
+					Debug.WriteLine(string.Format("Character was not assigned to player yet, cannot add inventory item :{0}", graphics.ToString()));
 				}
 				else player.Character.Inventory.Items.Add(item);
 			}

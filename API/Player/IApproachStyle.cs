@@ -16,6 +16,8 @@ namespace AGS.API
 		ApproachHotspots ApproachWhenInteract { get; set; }
 
 		bool ApplyApproachStyleOnDefaults { get; set; }
+
+		void CopyFrom(IApproachStyle style);
 	}
 }
 

@@ -10,9 +10,11 @@ namespace AGS.Engine
 	{
 		private IAnimationContainer _animation;
 		private readonly IGameState _state;
-		private Lazy<IRoom> _cachedRoom;
-		private bool _visible;
-		private bool _enabled;
+		private IHasRoom _roomBehavior;
+		private readonly VisibleProperty _visible;
+		private readonly EnabledProperty _enabled;
+		private int _id;
+		static int runningId;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Engine.AGSObject"/> class.
@@ -20,7 +22,12 @@ namespace AGS.Engine
 		/// </summary>
 		public AGSObject (IAnimationContainer animationContainer, IGameEvents gameEvents, Resolver resolver)
 		{
+			runningId++;
+			_id = runningId;
+
 			_animation = animationContainer;
+			_visible = new VisibleProperty (this);
+			_enabled = new EnabledProperty (this);
 
 			if (resolver != null)
 			{
@@ -31,11 +38,10 @@ namespace AGS.Engine
 				_state = resolver.Container.Resolve<IGameState>();
 
 				Properties = resolver.Container.Resolve<ICustomProperties>();
-			}
-			refreshRoom();
 
-			Enabled = true;
-			Visible = true;
+				_roomBehavior = resolver.Container.Resolve<IHasRoom>(objParam);
+			}
+
 			RenderLayer = AGSLayers.Foreground;
 			TreeNode = new AGSTreeNode<IObject> (this);
 			IgnoreScalingArea = true;
@@ -153,48 +159,20 @@ namespace AGS.Engine
 
 		public void ChangeRoom(IRoom newRoom, float? x = null, float? y = null)
 		{
-			if (Room != null)
-			{
-				Room.Objects.Remove(this);
-			}
-			if (newRoom != null)
-			{
-				newRoom.Objects.Add(this);
-			}
-			PreviousRoom = Room;
-			refreshRoom();
-
-			if (x != null) X = x.Value;
-			if (y != null) Y = y.Value;
+			_roomBehavior.ChangeRoom(newRoom, x, y);
 		}
 
-		public IRoom Room  { get { return _cachedRoom.Value; } }
+		public IRoom Room  { get { return _roomBehavior.Room; } }
 
-		public IRoom PreviousRoom { get; private set; }
+		public IRoom PreviousRoom { get { return _roomBehavior.PreviousRoom; } }
 
 		public IAnimation Animation { get { return _animation.Animation; } }
 
 		public IInteractions Interactions { get; private set; }
 
-		public bool Visible 
-		{ 
-			get 
-			{ 
-				if (!_visible) return false;
-				return getBooleanFromParentIfNeeded(o => o.Visible, this.TreeNode.Parent); 
-			} 
-			set { _visible = value; } 
-		}
+		public bool Visible { get { return _visible.Value; } set { _visible.Value = value; } }
 
-		public bool Enabled 
-		{ 
-			get
-			{
-				if (!_enabled) return false;
-				return getBooleanFromParentIfNeeded(o => o.Enabled, this.TreeNode.Parent);
-			}
-			set { _enabled = value; }
-		}
+		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
 
 		public string Hotspot { get; set; }
 
@@ -231,33 +209,10 @@ namespace AGS.Engine
 
 		public override string ToString ()
 		{
-			return Hotspot ?? (Image == null ? base.ToString () : Image.ToString());
+			return string.Format("{0} ({1})", Hotspot ?? (Image == null ? "" : Image.ToString()), base.ToString());
 		}
 
 		#endregion
-
-		private void refreshRoom()
-		{
-			_cachedRoom = new Lazy<IRoom> (getRoom, true);
-		}
-
-		private IRoom getRoom()
-		{
-			if (_state == null) return null;
-			foreach (var room in _state.Rooms)
-			{
-				if (room.Objects.Contains(this)) return room;
-			}
-			return null;
-		}
-
-		private bool getBooleanFromParentIfNeeded(Predicate<IObject> getCurrent, IObject obj)
-		{
-			if (obj == null) return true;
-			if (obj.TreeNode.Parent == null) return getCurrent(obj);
-			if (!getCurrent(obj)) return false;
-			return getBooleanFromParentIfNeeded(getCurrent, obj.TreeNode.Parent);
-		}
 	}
 }
 

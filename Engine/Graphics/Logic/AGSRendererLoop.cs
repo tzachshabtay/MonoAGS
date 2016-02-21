@@ -15,7 +15,6 @@ namespace AGS.Engine
 
 		private IObject _mouseCursorContainer;
 
-
 		public AGSRendererLoop (IGameState gameState, IImageRenderer renderer, IInput input, AGSWalkBehindsMap walkBehinds)
 		{
 			this._walkBehinds = walkBehinds;
@@ -32,6 +31,7 @@ namespace AGS.Engine
 			if (_gameState.Player.Character == null) return;
 			IRoom room = _gameState.Player.Character.Room;
 			List<IObject> displayList = getDisplayList(room);
+
 			foreach (IObject obj in displayList) 
 			{
 				IImageRenderer imageRenderer = getImageRenderer(obj);
@@ -108,7 +108,6 @@ namespace AGS.Engine
 			{
 				addToDisplayList(displayList, ui, room);
 			}
-
 
 			displayList.Sort(_comparer);
 			addCursor(displayList, room);

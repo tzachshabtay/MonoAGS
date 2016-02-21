@@ -9,6 +9,8 @@ namespace AGS.API
 
 		void Start();
 		void End();
+
+		void CopyFrom(ICutscene cutscene);
 	}
 }
 

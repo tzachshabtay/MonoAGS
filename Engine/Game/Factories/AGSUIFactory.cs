@@ -22,12 +22,19 @@ namespace AGS.Engine
 
 		public IPanel GetPanel(IImage image, float x, float y, bool addToUi = true)
 		{
-			TypedParameter typedParameter = new TypedParameter (typeof(IImage), image);
-			IPanel panel = _resolver.Resolve<IPanel>(typedParameter);
-			panel.X = x;
-			panel.Y = y;
+			IPanel panel = GetPanel(_resolver.Resolve<IObject>(), image, x, y);
 			if (addToUi)
 				_gameState.UI.Add(panel);
+			return panel;
+		}
+
+		public IPanel GetPanel(IObject innerObject, IImage image, float x, float y)
+		{
+			TypedParameter typedParameter = new TypedParameter (typeof(IImage), image);
+			TypedParameter objParameter = new TypedParameter (typeof(IObject), innerObject);
+			IPanel panel = _resolver.Resolve<IPanel>(objParameter, typedParameter);
+			panel.X = x;
+			panel.Y = y;
 			return panel;
 		}
 
@@ -45,17 +52,37 @@ namespace AGS.Engine
 
 		public ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
 		{
+			ILabel label = GetLabel(_resolver.Resolve<IPanel>(), text, width, height, x, y, config);
+			if (addToUi)
+				_gameState.UI.Add(label);
+			return label;
+		}
+
+		public ILabel GetLabel(IPanel innerPanel, string text, float width, float height, float x, float y, ITextConfig config = null)
+		{
 			SizeF baseSize = new SizeF(width, height);
 			TypedParameter typedParameter = new TypedParameter (typeof(SizeF), baseSize);
-			ILabel label = _resolver.Resolve<ILabel>(typedParameter);
+			TypedParameter panelParameter = new TypedParameter (typeof(IPanel), innerPanel);
+			ILabel label = _resolver.Resolve<ILabel>(typedParameter, panelParameter);
 			label.Text = text;
 			label.X = x;
 			label.Y = y;
 			label.Tint = Color.Transparent;
 			label.TextConfig = config ?? new AGSTextConfig();
-			if (addToUi)
-				_gameState.UI.Add(label);
 			return label;
+		}
+
+		public IButton GetButton(ILabel innerLabel, IAnimation idle, IAnimation hovered, IAnimation pushed)
+		{
+			TypedParameter typedParameter = new TypedParameter (typeof(ILabel), innerLabel);
+			IButton button = _resolver.Resolve <IButton>(typedParameter);
+
+			button.IdleAnimation = idle;
+			button.HoverAnimation = hovered;
+			button.PushedAnimation = pushed;
+
+			button.StartAnimation(idle);
+			return button;
 		}
 
 		public IButton GetButton(IAnimation idle, IAnimation hovered, IAnimation pushed, 
@@ -73,14 +100,7 @@ namespace AGS.Engine
 			ILabel label = GetLabel(text, width, height, x, y, config, false);
 			label.Tint = Color.White;
 
-			TypedParameter typedParameter = new TypedParameter (typeof(ILabel), label);
-			IButton button = _resolver.Resolve <IButton>(typedParameter);
-
-			button.IdleAnimation = idle;
-			button.HoverAnimation = hovered;
-			button.PushedAnimation = pushed;
-
-			button.StartAnimation(idle);
+			IButton button = GetButton(label, idle, hovered, pushed);
 
 			if (addToUi)
 				_gameState.UI.Add(button);

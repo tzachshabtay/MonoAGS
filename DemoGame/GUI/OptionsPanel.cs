@@ -64,10 +64,10 @@ namespace DemoGame
 			restartButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
 
 			IButton restoreButton = loadButton("Load", 55);
-			restoreButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
+			restoreButton.Events.MouseClicked.Subscribe((sender, args) => load());
 
 			IButton saveButton = loadButton("Save", 35);
-			saveButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
+			saveButton.Events.MouseClicked.Subscribe((sender, args) => save());
 
 			IButton quitButton = loadButton("Quit", 15);
 			quitButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
@@ -80,6 +80,18 @@ namespace DemoGame
 				folder + "pushed.bmp", 15f, y, text, _buttonTextConfig);
 			button.TreeNode.SetParent(_panel.TreeNode);
 			return button;
+		}
+
+		private void save()
+		{
+			_game.SaveLoad.Save("save.bin");
+			Hide();
+		}
+
+		private void load()
+		{
+			_game.SaveLoad.Load("save.bin");
+			Hide();
 		}
 
 		public void Show()

@@ -12,6 +12,10 @@ namespace AGS.API
 
 		ICustomProperties GlobalVariables { get; }
 		ICutscene Cutscene { get; }
+
+		bool Paused { get; set; }
+
+		void CopyFrom(IGameState state);
 	}
 }
 

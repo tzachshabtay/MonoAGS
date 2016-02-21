@@ -65,6 +65,7 @@
     <Compile Include="Engine\Graphics\Animations\AnimationContainerTests.cs" />
     <Compile Include="Engine\Objects\Characters\Walking\Pathfinding\PathfinderTests.cs" />
     <Compile Include="Engine\Objects\Characters\Walking\WalkBehaviorTests.cs" />
+    <Compile Include="Engine\Serialization\SaveLoadTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -88,6 +89,7 @@
     <Folder Include="Engine\Rooms\Masks\" />
     <Folder Include="Engine\Misc\Utils\" />
     <Folder Include="Engine\Objects\Characters\Walking\" />
+    <Folder Include="Engine\Serialization\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">

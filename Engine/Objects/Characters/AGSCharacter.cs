@@ -16,12 +16,18 @@ namespace AGS.Engine
 		private readonly ISayBehavior _sayBehavior;
 		private readonly IWalkBehavior _walkBehavior;
 		private readonly IAGSFaceDirectionBehavior _faceDirectionBehavior;
+		private readonly IHasRoom _roomBehavior;
+		private readonly VisibleProperty _visible;
+		private readonly EnabledProperty _enabled;
 
 		public AGSCharacter (IObject obj, IOutfit outfit, Resolver resolver, IPathFinder pathFinder)
 		{
 			Outfit = outfit;
+			TreeNode = new AGSTreeNode<IObject> (this);
+			_visible = new VisibleProperty (this);
+			_enabled = new EnabledProperty (this);
 
-			TypedParameter objParameter = new TypedParameter (typeof(IObject), obj);
+			TypedParameter objParameter = new TypedParameter (typeof(IObject), this);
 			_faceDirectionBehavior = resolver.Container.Resolve<IAGSFaceDirectionBehavior>(objParameter);
 			_faceDirectionBehavior.CurrentDirectionalAnimation = Outfit.IdleAnimation;
 
@@ -36,6 +42,8 @@ namespace AGS.Engine
 			_walkBehavior = resolver.Container.Resolve<IWalkBehavior>(objParameter, outfitParameter, faceDirectionParameter);
 
 			Inventory = resolver.Container.Resolve<IInventory>();
+
+			_roomBehavior = resolver.Container.Resolve<IHasRoom>(objParameter);
 
 			_obj = obj;
 			IgnoreScalingArea = false;
@@ -55,31 +63,13 @@ namespace AGS.Engine
 			} 
 		}
 
-		public float X 
-		{ 
-			get { return _obj.X; } 
-			set 
-			{
-				StopWalking();
-				_obj.X = value; 
-			} 
-		}
-
-		public float Y 
-		{ 
-			get { return _obj.Y; } 
-			set 
-			{ 
-				StopWalking();
-				_obj.Y = value; 
-			} 
-		}
-
+		public float X  { get { return _obj.X; } set { _obj.X = value; } }
+		public float Y { get { return _obj.Y; } set { _obj.Y = value; } }
 		public float Z { get { return _obj.Z; } set { _obj.Z = value; } }
 
 		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
 
-		public ITreeNode<IObject> TreeNode { get { return _obj.TreeNode; } }
+		public ITreeNode<IObject> TreeNode { get; private set; }
 
 		public IImage Image { get { return _obj.Image; } set { _obj.Image = value; } }
 		public IImageRenderer CustomRenderer 
@@ -88,7 +78,6 @@ namespace AGS.Engine
 			set { _obj.CustomRenderer = value; } 
 		}
 
-		public bool Enabled { get { return _obj.Enabled; } set { _obj.Enabled = value; } }
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 
 		public bool IsWalking { get { return _walkBehavior.IsWalking; } }
@@ -270,9 +259,8 @@ namespace AGS.Engine
 
 		public void ChangeRoom(IRoom room, float? x = null, float? y = null)
 		{
-			_obj.ChangeRoom(room);
-			if (x != null) X = x.Value;
-			if (y != null) Y = y.Value;
+			StopWalking();
+			_roomBehavior.ChangeRoom(room, x, y);
 		}
 
 		public bool CollidesWith(float x, float y)
@@ -285,15 +273,17 @@ namespace AGS.Engine
 			_walkBehavior.PlaceOnWalkableArea();
 		}
 
-		public IRoom Room { get { return _obj.Room; } }
+		public IRoom Room { get { return _roomBehavior.Room; } }
 
-		public IRoom PreviousRoom { get { return _obj.PreviousRoom; } }
+		public IRoom PreviousRoom { get { return _roomBehavior.PreviousRoom; } }
 
 		public IAnimation Animation { get { return _obj.Animation; } }
 
 		public IInteractions Interactions { get { return _obj.Interactions; } }
 
-		public bool Visible { get { return _obj.Visible; } set { _obj.Visible = value; } }
+		public bool Visible { get { return _visible.Value; } set { _visible.Value = value; } }
+
+		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
 
 		public override string ToString ()
 		{

@@ -8,6 +8,7 @@ namespace AGS.API
 		TItem Parent { get; }
 
 		void SetParent(ITreeNode<TItem> parent);
+		void StealParent(ITreeNode<TItem> victim);
 
 		int ChildrenCount { get; }
 

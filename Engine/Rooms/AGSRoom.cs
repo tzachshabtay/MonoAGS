@@ -93,6 +93,11 @@ namespace AGS.Engine
 			return null;
 		}
 
+		public override string ToString()
+		{
+			return ID ?? base.ToString();
+		}
+
 		#endregion
 
 		private void onRepeatedlyExecute(object sender, EventArgs args)

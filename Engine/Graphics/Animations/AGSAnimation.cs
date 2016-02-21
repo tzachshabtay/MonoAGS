@@ -117,7 +117,14 @@ namespace AGS.Engine
 
 		public IAnimationState State { get; private set; }
 
-		public ISprite Sprite { get { return Frames[State.CurrentFrame].Sprite; } }
+		public ISprite Sprite 
+		{ 
+			get 
+			{ 
+				if (State.CurrentFrame >= Frames.Count) return null;
+				return Frames[State.CurrentFrame].Sprite; 
+			} 
+		}
 
 		#endregion
 

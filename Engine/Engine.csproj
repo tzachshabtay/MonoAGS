@@ -41,6 +41,10 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -182,6 +186,56 @@
     <Compile Include="Game\Factories\AGSOutfitFactory.cs" />
     <Compile Include="Misc\AGSCustomProperties.cs" />
     <Compile Include="Game\AGSCutscene.cs" />
+    <Compile Include="Serialization\Contracts\ContractObject.cs" />
+    <Compile Include="Serialization\Contracts\ContractSprite.cs" />
+    <Compile Include="Serialization\Contracts\ContractAnimationContainer.cs" />
+    <Compile Include="Serialization\Contracts\ContractImage.cs" />
+    <Compile Include="Serialization\Contracts\ContractAnimationFrame.cs" />
+    <Compile Include="Serialization\Contracts\ContractSound.cs" />
+    <Compile Include="Serialization\AGSSerializationContext.cs" />
+    <Compile Include="Serialization\IContract.cs" />
+    <Compile Include="Serialization\Contracts\ContractAnimationConfiguration.cs" />
+    <Compile Include="Serialization\Contracts\ContractAnimationState.cs" />
+    <Compile Include="Serialization\Contracts\ContractAnimation.cs" />
+    <Compile Include="Serialization\Contracts\ContractBorderStyle.cs" />
+    <Compile Include="Serialization\Contracts\ContractCustomProperties.cs" />
+    <Compile Include="Serialization\Contracts\ContractRenderLayer.cs" />
+    <Compile Include="Serialization\Contracts\ContractFollower.cs" />
+    <Compile Include="Serialization\Contracts\ContractViewport.cs" />
+    <Compile Include="Serialization\Contracts\ContractMask.cs" />
+    <Compile Include="Serialization\Contract.cs" />
+    <Compile Include="Serialization\Contracts\ContractInventoryItem.cs" />
+    <Compile Include="Serialization\Contracts\ContractInventory.cs" />
+    <Compile Include="Serialization\Contracts\ContractDirectionalAnimation.cs" />
+    <Compile Include="Serialization\Contracts\ContractOutfit.cs" />
+    <Compile Include="Serialization\Contracts\ContractCharacter.cs" />
+    <Compile Include="Serialization\Contracts\ContractPlayer.cs" />
+    <Compile Include="Serialization\Contracts\ContractApproachStyle.cs" />
+    <Compile Include="Serialization\Contracts\ContractArea.cs" />
+    <Compile Include="Serialization\Contracts\ContractWalkBehindArea.cs" />
+    <Compile Include="Serialization\Contracts\ContractScalingArea.cs" />
+    <Compile Include="Serialization\Contracts\ContractEdge.cs" />
+    <Compile Include="Serialization\Contracts\ContractEdges.cs" />
+    <Compile Include="Serialization\Contracts\ContractRoom.cs" />
+    <Compile Include="Serialization\Contracts\ContractGameState.cs" />
+    <Compile Include="Serialization\Contracts\ContractTextConfig.cs" />
+    <Compile Include="Serialization\Contracts\ContractLabel.cs" />
+    <Compile Include="Serialization\Contracts\ContractButton.cs" />
+    <Compile Include="Serialization\Contracts\ContractInventoryWindow.cs" />
+    <Compile Include="Serialization\Contracts\ContractSlider.cs" />
+    <Compile Include="Serialization\AGSSaveLoad.cs" />
+    <Compile Include="Serialization\Contracts\ContractCutscene.cs" />
+    <Compile Include="Serialization\ContractsFactory.cs" />
+    <Compile Include="Objects\HasRoomBehavior.cs" />
+    <Compile Include="Serialization\Surrogates\ProtoBrush.cs" />
+    <Compile Include="Serialization\Surrogates\ProtoColor.cs" />
+    <Compile Include="Serialization\Surrogates\ProtoFont.cs" />
+    <Compile Include="Serialization\Surrogates\ProtoBlend.cs" />
+    <Compile Include="Serialization\Surrogates\ProtoColorBlend.cs" />
+    <Compile Include="Serialization\Surrogates\ProtoMatrix.cs" />
+    <Compile Include="Serialization\Surrogates\ProtoPointF.cs" />
+    <Compile Include="Serialization\Contracts\ContractPanel.cs" />
+    <Compile Include="Objects\AGSObjectBoolParentProperty.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -219,6 +273,9 @@
     <Folder Include="UI\Text\Dialogs\" />
     <Folder Include="UI\Controls\" />
     <Folder Include="Game\Factories\" />
+    <Folder Include="Serialization\" />
+    <Folder Include="Serialization\Contracts\" />
+    <Folder Include="Serialization\Surrogates\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

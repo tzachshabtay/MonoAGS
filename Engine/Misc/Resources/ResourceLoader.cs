@@ -113,11 +113,18 @@ namespace AGS.Engine
 
 		private string getResourceName(string path)
 		{
-			string assemblyName = CustomAssemblyName ?? _assembly.GetName().Name;
-			string resourcePath = path.Substring(path.IndexOf(AssetsFolder));
-			resourcePath = resourcePath.Replace('/', '.').Replace('\\', '.');
-			resourcePath = string.Format("{0}.{1}", assemblyName, resourcePath);
-			return resourcePath;
+			try
+			{
+				string assemblyName = CustomAssemblyName ?? _assembly.GetName().Name;
+				string resourcePath = path.Substring(path.IndexOf(AssetsFolder));
+				resourcePath = resourcePath.Replace('/', '.').Replace('\\', '.');
+				resourcePath = string.Format("{0}.{1}", assemblyName, resourcePath);
+				return resourcePath;
+			}
+			catch (Exception e)
+			{
+				throw new ArgumentException ("Invalid resource name: " + path ?? "null", e);
+			}
 		}
 
 		private string getFolderName(string resource)

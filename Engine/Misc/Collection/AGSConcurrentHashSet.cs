@@ -36,6 +36,11 @@ namespace AGS.Engine
 			return _map.ContainsKey(item);
 		}
 
+		public void Clear()
+		{
+			_map.Clear();
+		}
+
 		#endregion
 
 		#region IEnumerable implementation

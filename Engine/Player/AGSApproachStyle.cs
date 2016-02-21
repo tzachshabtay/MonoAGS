@@ -20,6 +20,13 @@ namespace AGS.Engine
 
 		public bool ApplyApproachStyleOnDefaults { get; set; }
 
+		public void CopyFrom(IApproachStyle style)
+		{
+			ApproachWhenLook = style.ApproachWhenLook;
+			ApproachWhenInteract = style.ApproachWhenInteract;
+			ApplyApproachStyleOnDefaults = style.ApplyApproachStyleOnDefaults;
+		}
+
 		#endregion
 	}
 }

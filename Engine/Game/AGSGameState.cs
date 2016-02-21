@@ -2,6 +2,7 @@
 using AGS.API;
 using System.Collections.Generic;
 using Autofac;
+using ProtoBuf;
 
 namespace AGS.Engine
 {
@@ -30,7 +31,18 @@ namespace AGS.Engine
 
 		public ICutscene Cutscene { get { return _cutscene.Value; } }
 
+		public bool Paused { get; set; }
+
 		#endregion
+
+		public void CopyFrom(IGameState state)
+		{
+			Rooms = state.Rooms;
+			Player = state.Player;
+			UI = state.UI;
+			GlobalVariables.CopyFrom(state.GlobalVariables);
+			Cutscene.CopyFrom(state.Cutscene);
+		}
 	}
 }
 

@@ -34,6 +34,7 @@ namespace AGS.Engine
 
 			Dictionary<string, GLImage> textures = new Dictionary<string, GLImage> (1024);
 			Builder.RegisterInstance(textures);
+			Builder.RegisterInstance(textures).As(typeof(IDictionary<string, GLImage>));
 
 			FastFingerChecker checker = new FastFingerChecker ();
 			Builder.RegisterInstance(checker);

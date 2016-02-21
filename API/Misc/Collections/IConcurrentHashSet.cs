@@ -10,6 +10,7 @@ namespace AGS.API
 		bool Add(TItem item);
 		bool Remove(TItem item);
 		bool Contains(TItem item);
+		void Clear();
 	}
 }
 

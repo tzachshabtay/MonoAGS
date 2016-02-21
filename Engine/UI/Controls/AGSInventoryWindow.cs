@@ -3,6 +3,7 @@ using AGS.API;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -10,18 +11,28 @@ namespace AGS.Engine
 	{
 		private readonly IPanel _obj;
 		private readonly IGameState _state;
+		private readonly VisibleProperty _visible;
+		private readonly EnabledProperty _enabled;
 
 		private IList<IObject> _inventoryItems;
 		private volatile bool _refreshNeeded;
 		private SizeF _itemSize;
 		private ICharacter _character;
 		private int _topItem;
+		private readonly IHasRoom _roomBehavior;
 
-		public AGSInventoryWindow(IPanel panel, IGameEvents gameEvents, IGameState state)
+		public AGSInventoryWindow(IPanel panel, IGameEvents gameEvents, IGameState state, Resolver resolver)
 		{
 			_obj = panel;
 			_state = state;
+			_visible = new VisibleProperty (this);
+			_enabled = new EnabledProperty (this);
 			_inventoryItems = new List<IObject> (20);
+			TreeNode = new AGSTreeNode<IObject> (this);
+
+			TypedParameter panelParam = new TypedParameter (typeof(IObject), this);
+			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
+
 			gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
 
@@ -106,7 +117,7 @@ namespace AGS.Engine
 
 		public void ChangeRoom(IRoom room, float? x = null, float? y = null)
 		{
-			_obj.ChangeRoom(room, x, y);
+			_roomBehavior.ChangeRoom(room, x, y);
 		}
 
 		public bool CollidesWith(float x, float y)
@@ -114,9 +125,9 @@ namespace AGS.Engine
 			return _obj.CollidesWith(x, y);
 		}
 
-		public IRoom Room { get { return _obj.Room; } }
+		public IRoom Room { get { return _roomBehavior.Room; } }
 
-		public IRoom PreviousRoom { get { return _obj.PreviousRoom; } }
+		public IRoom PreviousRoom { get { return _roomBehavior.PreviousRoom; } }
 
 		public IAnimation Animation { get { return _obj.Animation; } }
 
@@ -139,11 +150,11 @@ namespace AGS.Engine
 
 		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
 
-		public ITreeNode<IObject> TreeNode { get { return _obj.TreeNode; } }
+		public ITreeNode<IObject> TreeNode { get; private set; }
 
-		public bool Visible { get { return _obj.Visible; } set { _obj.Visible = value; } }
+		public bool Visible { get { return _visible.Value; } set { _visible.Value = value; } }
 
-		public bool Enabled { get { return _obj.Enabled; } set { _obj.Enabled = value; } }
+		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
 
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 
@@ -234,7 +245,7 @@ namespace AGS.Engine
 
 			foreach (var obj in _inventoryItems)
 			{
-				_obj.TreeNode.RemoveChild(obj);
+				TreeNode.RemoveChild(obj);
 				_state.UI.Remove(obj);
 			}
 			List<IObject> items = new List<IObject> (_character.Inventory.Items.Count);
@@ -255,7 +266,8 @@ namespace AGS.Engine
 				IObject obj = items[item];
 				obj.X = x;
 				obj.Y = y;
-				_obj.TreeNode.AddChild(obj);
+
+				TreeNode.AddChild(obj);
 				_state.UI.Add(obj);
 
 				x += stepX;

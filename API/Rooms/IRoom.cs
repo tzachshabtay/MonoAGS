@@ -6,7 +6,7 @@ namespace AGS.API
 	public interface IRoom
 	{
 		string ID { get; }
-		bool ShowPlayer { get; }
+		bool ShowPlayer { get; set; }
 		IViewport Viewport { get; }
 		IObject Background  { get; set; }
 		IConcurrentHashSet<IObject> Objects { get; }

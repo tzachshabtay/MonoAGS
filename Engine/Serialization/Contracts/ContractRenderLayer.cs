@@ -1,0 +1,32 @@
+﻿using System;
+using ProtoBuf;
+using AGS.API;
+
+namespace AGS.Engine
+{
+	[ProtoContract]
+	public class ContractRenderLayer : IContract<IRenderLayer>
+	{
+		public ContractRenderLayer()
+		{
+		}
+
+		[ProtoMember(1)]
+		public int Z { get; set; }
+
+		#region IContract implementation
+
+		public IRenderLayer ToItem(AGSSerializationContext context)
+		{
+			return new AGSRenderLayer (Z);
+		}
+
+		public void FromItem(AGSSerializationContext context, IRenderLayer item)
+		{
+			Z = item.Z;
+		}
+
+		#endregion
+	}
+}
+

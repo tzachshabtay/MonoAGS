@@ -73,6 +73,7 @@ namespace AGS.Engine
 					TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
 					_renderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater);
 					updateResolver();
+					SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
 
 					GL.MatrixMode(MatrixMode.Projection);
 
@@ -101,12 +102,13 @@ namespace AGS.Engine
 				{
 					try
 					{
-						// add game logic, input handling
+						if (State.Paused) return;
 						GameLoop.Update();
 						await Events.OnRepeatedlyExecute.InvokeAsync(sender, new AGSEventArgs());
 					}
 					catch (Exception ex)
 					{
+						Debug.WriteLine(ex.ToString());
 						throw ex;
 					}
 				};

@@ -159,7 +159,6 @@ namespace AGS.Engine
 						                              i => i.Graphics == hotspot);
 					if (inventoryItem != null)
 					{
-
 						await state.Player.Character.Inventory.OnCombination(state.Player.Character.Inventory.ActiveItem,
 							inventoryItem).InvokeAsync(this, new InventoryCombinationEventArgs (
 							state.Player.Character.Inventory.ActiveItem, inventoryItem));

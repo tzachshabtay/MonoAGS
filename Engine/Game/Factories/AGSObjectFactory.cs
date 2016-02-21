@@ -26,6 +26,12 @@ namespace AGS.Engine
 			return obj;
 		}
 
+		public IObject GetObject(IAnimationContainer container)
+		{
+			TypedParameter animationParam = new TypedParameter (typeof(IAnimationContainer), container);
+			return _resolver.Resolve<IObject>(animationParam);
+		}
+
 		public ICharacter GetCharacter(IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
 			TypedParameter outfitParam = new TypedParameter (typeof(IOutfit), outfit);
@@ -35,6 +41,13 @@ namespace AGS.Engine
 			subscribeSentences(sayWhenInteract, character.Interactions.OnInteract);
 
 			return character;
+		}
+
+		public ICharacter GetCharacter(IObject innerObject, IOutfit outfit)
+		{
+			TypedParameter outfitParam = new TypedParameter (typeof(IOutfit), outfit);
+			TypedParameter objParam = new TypedParameter (typeof(IObject), innerObject);
+			return _resolver.Resolve<ICharacter>(outfitParam, objParam);
 		}
 
 		public IObject GetHotspot(string maskPath, string hotspot, string[] sayWhenLook = null, string[] sayWhenInteract = null)

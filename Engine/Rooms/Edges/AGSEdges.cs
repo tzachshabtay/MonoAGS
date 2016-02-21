@@ -38,6 +38,14 @@ namespace AGS.Engine
 			_lastState = currentState;
 		}
 
+		public void FromEdges(IEdges edges)
+		{
+			Left = edges.Left;
+			Right = edges.Right;
+			Top = edges.Top;
+			Bottom = edges.Bottom;
+		}
+
 		private void checkHorizontalEdges(PlayerState currentState)
 		{
 			float previous = _lastState.X;
