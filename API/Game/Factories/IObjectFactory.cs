@@ -12,7 +12,6 @@ namespace AGS.API
 		ICharacter GetCharacter(IObject innerObject, IOutfit outfit);
 
 		IObject GetHotspot(string maskPath, string hotspot, string[] sayWhenLook = null, string[] sayWhenInteract = null);
-		IObject GetHotspot(Bitmap maskBitmap, string hotspot, string[] sayWhenLook = null, string[] sayWhenInteract = null);
 	}
 }
 

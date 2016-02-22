@@ -22,6 +22,8 @@ namespace AGS.API
 		SpriteSheetOrder Order { get; }
 		int StartFromCell { get; }
 		int CellsToGrab { get; }
+
+		string Path { get; }
 	}
 }
 

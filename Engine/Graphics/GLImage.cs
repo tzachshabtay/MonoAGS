@@ -14,13 +14,15 @@ namespace AGS.Engine
 			ID = "";
 		}
 
-		public GLImage(Bitmap bitmap, string id, int texture)
+		public GLImage(Bitmap bitmap, string id, int texture, ISpriteSheet spriteSheet, ILoadImageConfig loadConfig)
 		{
 			OriginalBitmap = bitmap;
 			Width = bitmap.Width;
 			Height = bitmap.Height;
 			ID = id;
 			Texture = texture;
+			SpriteSheet = spriteSheet;
+			LoadConfig = loadConfig;
 		}
 
 		public Bitmap OriginalBitmap { get; private set; }
@@ -30,6 +32,9 @@ namespace AGS.Engine
 
 		public string ID { get; private set; }
 		public int Texture { get; private set; }
+
+		public ISpriteSheet SpriteSheet { get; private set; }
+		public ILoadImageConfig LoadConfig { get; private set; }
 
 		public override string ToString()
 		{

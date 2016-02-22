@@ -52,15 +52,8 @@ namespace AGS.Engine
 
 		public IObject GetHotspot(string maskPath, string hotspot, string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
-			Bitmap image = (Bitmap)Image.FromFile(maskPath); 
-			return GetHotspot(image, hotspot, sayWhenLook, sayWhenInteract);
-		}
-
-		public IObject GetHotspot(Bitmap maskBitmap, string hotspot, 
-			string[] sayWhenLook = null, string[] sayWhenInteract = null)
-		{
 			IMaskLoader maskLoader = _resolver.Resolve<IMaskLoader>();
-			IMask mask = maskLoader.Load(maskBitmap, debugDrawColor: Color.White);
+			IMask mask = maskLoader.Load(maskPath, debugDrawColor: Color.White);
 			mask.DebugDraw.PixelPerfect(true);
 			mask.DebugDraw.Hotspot = hotspot;
 			mask.DebugDraw.Opacity = 0;

@@ -54,6 +54,10 @@ namespace AGS.Engine
 		{
 			if (_obj != null) return _obj;
 
+			if (Hotspot == "Gap")
+			{
+			}
+
 			_obj = context.Factory.Object.GetObject(AnimationContainer.ToItem(context));
 			_obj.RenderLayer = RenderLayer.ToItem(context);
 			if (WalkPoint != null)

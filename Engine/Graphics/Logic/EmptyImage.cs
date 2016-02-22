@@ -21,6 +21,11 @@ namespace AGS.Engine
 		public float Height { get; private set; }
 
 		public string ID { get { return ""; } }
+
+		public ISpriteSheet SpriteSheet { get { return null; } }
+
+		public ILoadImageConfig LoadConfig { get { return null; } }
+
 		#endregion
 	}
 }

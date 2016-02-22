@@ -21,8 +21,8 @@ namespace AGS.API
 		IAnimation LoadAnimationFromFolder (string folderPath, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
 		Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
 
-		IAnimation LoadAnimationFromSpriteSheet (string filePath, ISpriteSheet spriteSheet, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
-		Task<IAnimation> LoadAnimationFromSpriteSheetAsync (string filePath, ISpriteSheet spriteSheet, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
+		IAnimation LoadAnimationFromSpriteSheet (ISpriteSheet spriteSheet, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
+		Task<IAnimation> LoadAnimationFromSpriteSheetAsync (ISpriteSheet spriteSheet, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
 	}
 }
 

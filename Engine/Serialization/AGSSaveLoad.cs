@@ -149,6 +149,7 @@ namespace AGS.Engine
 			RuntimeTypeModel.Default.Add(typeof(ColorBlend), false).SetSurrogate(typeof(ProtoColorBlend));
 			RuntimeTypeModel.Default.Add(typeof(Matrix), false).SetSurrogate(typeof(ProtoMatrix));
 			RuntimeTypeModel.Default.Add(typeof(PointF), false).SetSurrogate(typeof(ProtoPointF));
+			RuntimeTypeModel.Default.Add(typeof(Point), false).SetSurrogate(typeof(ProtoPoint));
 		}
 
 		private static Type getSupportedInterfaces(Type type,Type inter)

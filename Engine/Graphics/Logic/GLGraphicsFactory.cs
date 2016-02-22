@@ -73,10 +73,11 @@ namespace AGS.Engine
 			return await Task.Run(() => LoadAnimationFromFolder (folderPath, delay, animationConfig, loadConfig));
 		}
 
-		public IAnimation LoadAnimationFromSpriteSheet (string filePath, ISpriteSheet spriteSheet, 
+		public IAnimation LoadAnimationFromSpriteSheet (ISpriteSheet spriteSheet, 
 			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
 			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
+			string filePath = spriteSheet.Path;
 			IResource resource = _resources.LoadResource(filePath);
 			if (resource == null)
 			{
@@ -158,13 +159,12 @@ namespace AGS.Engine
 						                cellY * spriteSheet.CellHeight, spriteSheet.CellWidth, spriteSheet.CellHeight);
 					Bitmap clone = crop (bitmap, rect);
 					string path = string.Format ("{0}_{1}_{2}", rect.X, rect.Y, filePath);
-					GLImage image = loadImage (tex, clone, path, loadConfig);
+					GLImage image = loadImage (tex, clone, path, loadConfig, spriteSheet);
 					//GLImage image = loadImage(tex, bitmap, rect, path);
 					ISprite sprite = GetSprite();
 					sprite.Image = image;
 					sprite.Location = AGSLocation.Empty();
 
-		
 					AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
 					animation.Frames.Add (frame);
 					cellsGrabbed++;
@@ -188,10 +188,10 @@ namespace AGS.Engine
 			return animation;
 		}
 
-		public async Task<IAnimation> LoadAnimationFromSpriteSheetAsync (string filePath, ISpriteSheet spriteSheet, 
+		public async Task<IAnimation> LoadAnimationFromSpriteSheetAsync (ISpriteSheet spriteSheet, 
 			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			return await Task.Run(() => LoadAnimationFromSpriteSheet(filePath, spriteSheet, delay, animationConfig, loadConfig));
+			return await Task.Run(() => LoadAnimationFromSpriteSheet(spriteSheet, delay, animationConfig, loadConfig));
 		}
 			
 		public GLImage LoadImageInner(string path, ILoadImageConfig config = null)
@@ -204,7 +204,7 @@ namespace AGS.Engine
 		{
 			id = id ?? Guid.NewGuid ().ToString ();
 			int tex = generateTexture ();
-			return loadImage (tex, bitmap, id, config);
+			return loadImage (tex, bitmap, id, config, null);
 		}
 
 		public IImage LoadImage(string path, ILoadImageConfig config = null)
@@ -254,7 +254,7 @@ namespace AGS.Engine
 			try
 			{
 				Bitmap bitmap = new Bitmap (resource.Stream);
-				return loadImage (tex, bitmap, resource.ID, config);
+				return loadImage (tex, bitmap, resource.ID, config, null);
 			}
 			catch (ArgumentException e)
 			{
@@ -288,7 +288,7 @@ namespace AGS.Engine
 			return bmp.Clone (cropRect, bmp.PixelFormat); //todo: improve performance by using FastBitmap
 		}
 
-		private GLImage loadImage(int texture, Bitmap bitmap, string id, ILoadImageConfig config)
+		private GLImage loadImage(int texture, Bitmap bitmap, string id, ILoadImageConfig config, ISpriteSheet spriteSheet)
 		{
 			manipulateImage(bitmap, config);
 			BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
@@ -298,7 +298,7 @@ namespace AGS.Engine
 				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
 			bitmap.UnlockBits(data);
 
-			GLImage image = new GLImage (bitmap, id, texture);
+			GLImage image = new GLImage (bitmap, id, texture, spriteSheet, config);
 
 			if (_textures != null)
 				_textures.GetOrAdd (image.ID, () => image);

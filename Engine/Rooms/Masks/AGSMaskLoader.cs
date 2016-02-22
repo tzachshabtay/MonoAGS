@@ -21,10 +21,18 @@ namespace AGS.Engine
 			Color? debugDrawColor = null, string saveMaskToFile = null)
 		{
 			Bitmap image = (Bitmap)Image.FromFile(path); 
-			return Load(image, transparentMeansMasked, debugDrawColor, saveMaskToFile);
+			return load(path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile);
 		}
 
 		public IMask Load(Bitmap image, bool transparentMeansMasked = false, 
+			Color? debugDrawColor = null, string saveMaskToFile = null)
+		{
+			return load(null, image, transparentMeansMasked, debugDrawColor, saveMaskToFile);
+		}
+
+		#endregion
+
+		private IMask load(string id, Bitmap image, bool transparentMeansMasked = false, 
 			Color? debugDrawColor = null, string saveMaskToFile = null)
 		{
 			Bitmap debugMask = null;
@@ -73,14 +81,12 @@ namespace AGS.Engine
 			if (debugDrawColor != null)
 			{
 				debugDraw = _factory.Object.GetObject();
-				debugDraw.Image = _factory.Graphics.LoadImage(debugMask);
+				debugDraw.Image = _factory.Graphics.LoadImage(debugMask, null, id);
 				debugDraw.Anchor = new AGSPoint ();
 			}
 
 			return new AGSMask (mask, debugDraw);
 		}
-			
-		#endregion
 	}
 }
 

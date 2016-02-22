@@ -236,6 +236,9 @@
     <Compile Include="Serialization\Surrogates\ProtoPointF.cs" />
     <Compile Include="Serialization\Contracts\ContractPanel.cs" />
     <Compile Include="Objects\AGSObjectBoolParentProperty.cs" />
+    <Compile Include="Serialization\Contracts\ContractLoadImageConfig.cs" />
+    <Compile Include="Serialization\Surrogates\ProtoPoint.cs" />
+    <Compile Include="Serialization\Contracts\ContractSpriteSheet.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
