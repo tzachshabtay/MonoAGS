@@ -2,12 +2,14 @@
 using AGS.API;
 using AGS.Engine;
 using System.Drawing;
+using System.Linq;
 
 namespace DemoGame
 {
 	public class OptionsPanel
 	{
 		private const string _sliderFolder = "../../Assets/Gui/Sliders/";
+		private const string _panelId = "Options Panel";
 		private IPanel _panel;
 		private IGame _game;
 
@@ -29,57 +31,56 @@ namespace DemoGame
 		{
 			_game = game;
 			IGameFactory factory = game.Factory;
-			_panel = factory.UI.GetPanel("../../Assets/Gui/DialogBox/options.bmp", 160f, 100f);
+			_panel = factory.UI.GetPanel(_panelId, "../../Assets/Gui/DialogBox/options.bmp", 160f, 100f);
 			_panel.Anchor = new AGSPoint (0.5f, 0.5f);
 			_panel.Visible = false;
 
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig { TransparentColorSamplePoint = new Point (0, 0) };
 
-			ISlider volumeSlider = factory.UI.GetSlider(_sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
+			ISlider volumeSlider = factory.UI.GetSlider("Volume Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
 				loadConfig: loadConfig);
 			volumeSlider.X = 120f;
 			volumeSlider.Y = 10f;
 			volumeSlider.HandleGraphics.Anchor = new AGSPoint (0.5f, 0.5f);
 			volumeSlider.TreeNode.SetParent(_panel.TreeNode);
 
-			ILabel volumeLabel = factory.UI.GetLabel("Volume", 50f, 30f, 120f, 85f, _textConfig); 
+			ILabel volumeLabel = factory.UI.GetLabel("Volume Label", "Volume", 50f, 30f, 120f, 85f, _textConfig); 
 			volumeLabel.Anchor = new AGSPoint (0.5f, 0f);
 			volumeLabel.TreeNode.SetParent(_panel.TreeNode);
 
-			ISlider speedSlider = factory.UI.GetSlider(_sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
+			ISlider speedSlider = factory.UI.GetSlider("Speed Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
 				loadConfig: loadConfig);
 			speedSlider.X = 180f;
 			speedSlider.Y = 10f;
 			speedSlider.HandleGraphics.Anchor = new AGSPoint (0.5f, 0.5f);
 			speedSlider.TreeNode.SetParent(_panel.TreeNode);
 
-			ILabel speedLabel = factory.UI.GetLabel("Speed", 50f, 30f, 180f, 85f, _textConfig); 
+			ILabel speedLabel = factory.UI.GetLabel("Speed Label", "Speed", 50f, 30f, 180f, 85f, _textConfig); 
 			speedLabel.Anchor = new AGSPoint (0.5f, 0f);
 			speedLabel.TreeNode.SetParent(_panel.TreeNode);
 
-			IButton resumeButton = loadButton("Resume", 95);
-			resumeButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
+			_game.Events.OnSavedGameLoad.Subscribe((sender, args) => findPanel());
 
-			IButton restartButton = loadButton("Restart", 75);
-			restartButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
-
-			IButton restoreButton = loadButton("Load", 55);
-			restoreButton.Events.MouseClicked.Subscribe((sender, args) => load());
-
-			IButton saveButton = loadButton("Save", 35);
-			saveButton.Events.MouseClicked.Subscribe((sender, args) => save());
-
-			IButton quitButton = loadButton("Quit", 15);
-			quitButton.Events.MouseClicked.Subscribe((sender, args) => Hide());
+			loadButton("Resume", 95, Hide);
+			loadButton("Restart", 75, Hide);
+			loadButton("Load", 55, load);
+			loadButton("Save", 35, save);
+			loadButton("Quit", 15, Hide);
 		}
 
-		private IButton loadButton(string text, float y)
+		private void findPanel()
+		{
+			_panel = _game.Find<IPanel>(_panelId);
+		}
+
+		private void loadButton(string text, float y, Action onClick)
 		{
 			const string folder = "../../Assets/Gui/Buttons/buttonSmall/";
-			IButton button = _game.Factory.UI.GetButton(folder + "normal.bmp", folder + "hovered.bmp", 
+			string buttonId = string.Format("{0} Button", text);
+			IButton button = _game.Factory.UI.GetButton(buttonId, folder + "normal.bmp", folder + "hovered.bmp", 
 				folder + "pushed.bmp", 15f, y, text, _buttonTextConfig);
 			button.TreeNode.SetParent(_panel.TreeNode);
-			return button;
+			button.OnMouseClick(onClick, _game);
 		}
 
 		private void save()

@@ -24,10 +24,10 @@ namespace AGS.Engine
 			_ui = ui;
 		}
 
-		public IInventoryWindow GetInventoryWindow(float width, float height, float itemWidth, float itemHeight, float x, float y,
+		public IInventoryWindow GetInventoryWindow(string id, float width, float height, float itemWidth, float itemHeight, float x, float y,
 			ICharacter character = null, bool addToUi = true)
 		{
-			IPanel panel = _ui.GetPanel(width, height, x, y, false);
+			IPanel panel = _ui.GetPanel(id, width, height, x, y, false);
 			IInventoryWindow inventory = GetInventoryWindow(panel, itemWidth, itemHeight, character);
 
 			if (addToUi)
@@ -67,7 +67,7 @@ namespace AGS.Engine
 		public IInventoryItem GetInventoryItem(string hotspot, string graphicsFile, string cursorFile = null, 
 			ILoadImageConfig loadConfig = null, bool playerStartsWithItem = false)
 		{
-			IObject graphics = _object.GetObject();
+			IObject graphics = _object.GetObject(string.Format("{0}(inventory item)", hotspot ?? ""));
 			graphics.Image = _graphics.LoadImage(graphicsFile, loadConfig);
 			graphics.RenderLayer = AGSLayers.UI;
 			graphics.IgnoreViewport = true;
@@ -75,7 +75,7 @@ namespace AGS.Engine
 			graphics.Anchor = new AGSPoint (0.5f, 0.5f);
 			graphics.Hotspot = hotspot;
 
-			IObject cursor = _object.GetObject();
+			IObject cursor = _object.GetObject(string.Format("{0}(inventory item cursor)", hotspot ?? ""));
 			cursor.Image = cursorFile == null ? graphics.Image : _graphics.LoadImage(cursorFile, loadConfig);
 
 			return GetInventoryItem(graphics, cursor, playerStartsWithItem);

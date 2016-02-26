@@ -22,7 +22,7 @@ namespace DemoGame
 				walkDownFolder: "Walk/front", idleLeftFolder: "Idle/left", idleDownFolder: "Idle/front", 
 				speakLeftFolder: "Talk", loadConfig: loadConfig);
 
-			_character = factory.Object.GetCharacter(outfit);
+			_character = factory.Object.GetCharacter("Cris", outfit);
 
 			RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
 			RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);

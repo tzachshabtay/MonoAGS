@@ -29,6 +29,8 @@ namespace AGS.Engine
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
 		}
 
+		public string ID { get { return _obj.ID; } }
+
 		#region IUIControl implementation
 
 		public void ApplySkin(ILabel skin)
@@ -122,6 +124,10 @@ namespace AGS.Engine
 
 		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
 
+		public bool UnderlyingVisible { get { return _visible.UnderlyingValue; } }
+
+		public bool UnderlyingEnabled { get { return _enabled.UnderlyingValue; } }
+
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 
 		public bool IgnoreViewport { get { return _obj.IgnoreViewport; } set { _obj.IgnoreViewport = value; } }
@@ -200,7 +206,7 @@ namespace AGS.Engine
 
 		public override string ToString()
 		{
-			return string.Format("Label: {0}", string.IsNullOrWhiteSpace(Text) ? _obj.ToString() : Text);
+			return string.Format("Label: {0}", ID ?? (string.IsNullOrWhiteSpace(Text) ? _obj.ToString() : Text));
 		}
 	}
 }

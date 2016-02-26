@@ -5,6 +5,7 @@ namespace AGS.API
 {
 	public interface IObject : IHasRoom, IAnimationContainer, IInTree<IObject>
 	{
+		string ID { get; }
 		IInteractions Interactions { get; }
 		ISquare BoundingBox { get; set; } //todo: find a way to remove the setter (only the engine should use the setter)
 		IRenderLayer RenderLayer { get; set; }
@@ -15,6 +16,11 @@ namespace AGS.API
 		ICustomProperties Properties { get; }
 
 		bool Enabled { get; set; }
+		bool UnderlyingEnabled { get; }
+
+		bool Visible { get; set; }
+		bool UnderlyingVisible { get; }
+
 		string Hotspot { get; set; }
 
 		bool IgnoreViewport { get; set; }

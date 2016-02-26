@@ -35,6 +35,8 @@ namespace AGS.Engine
 			gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
 
+		public string ID { get { return _obj.ID; } }
+
 		#region IUIControl implementation
 
 		public void ApplySkin(ISlider skin)
@@ -106,6 +108,10 @@ namespace AGS.Engine
 		public bool Visible { get { return _visible.Value; } set { _visible.Value = value; } }
 
 		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
+
+		public bool UnderlyingVisible { get { return _visible.UnderlyingValue; } }
+
+		public bool UnderlyingEnabled { get { return _enabled.UnderlyingValue; } }
 
 		public bool DebugDrawAnchor { get { return _obj.DebugDrawAnchor; } set { _obj.DebugDrawAnchor = value; } }
 
@@ -286,6 +292,11 @@ namespace AGS.Engine
 		public ITreeNode<IObject> TreeNode { get; private set; }
 
 		#endregion
+
+		public override string ToString()
+		{
+			return string.Format("Slider: {0}", ID ?? _obj.ToString());
+		}
 
 		private void updateGraphics(IObject oldGraphics, IObject newGraphics, float z)
 		{

@@ -11,6 +11,7 @@ namespace DemoGame
 		private readonly RotatingCursorScheme _scheme;
 		private string _lastMode;
 		private IGame _game;
+		private IInventoryWindow _invWindow;
 
 		public InventoryPanel(RotatingCursorScheme scheme)
 		{
@@ -20,25 +21,26 @@ namespace DemoGame
 		public void Load(IGame game)
 		{
 			_game = game;
+			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
 			IGameFactory factory = game.Factory;
 
-			_panel = factory.UI.GetPanel("../../Assets/Gui/DialogBox/inventory.bmp", 160f, 100f);
+			_panel = factory.UI.GetPanel("Inventory Panel", "../../Assets/Gui/DialogBox/inventory.bmp", 160f, 100f);
 			_panel.Anchor = new AGSPoint (0.5f, 0.5f);
 			_panel.Visible = false;
 
-			loadButton(factory, "magnify/", 5f, RotatingCursorScheme.LOOK_MODE);
-			loadButton(factory, "upLeft/", 27f, MouseCursors.POINT_MODE);
-			IButton okButton = loadButton(factory, "ok/", 49f);
-			IButton upButton = loadButton(factory, "up/", 93f);
-			IButton downButton = loadButton(factory, "down/", 115f);
+			loadButton("Inventory Look Button", factory, "magnify/", 5f, RotatingCursorScheme.LOOK_MODE);
+			loadButton("Invntory Point Button", factory, "upLeft/", 27f, MouseCursors.POINT_MODE);
+			IButton okButton = loadButton("Inventory Ok Button", factory, "ok/", 49f);
+			IButton upButton = loadButton("Inventory Up Button", factory, "up/", 93f);
+			IButton downButton = loadButton("Inventory Down Button", factory, "down/", 115f);
 
-			okButton.Events.MouseClicked.Subscribe((sender, e) => Hide());
+			okButton.OnMouseClick(Hide, _game);
 
-			var invWindow = factory.Inventory.GetInventoryWindow(124f, 88f, 40f, 22f, 7f, 30f);
-			invWindow.TreeNode.SetParent(_panel.TreeNode);
+			_invWindow = factory.Inventory.GetInventoryWindow("Inventory Window", 124f, 88f, 40f, 22f, 7f, 30f);
+			_invWindow.TreeNode.SetParent(_panel.TreeNode);
 
-			upButton.Events.MouseClicked.Subscribe((sender, e) => invWindow.ScrollUp());
-			downButton.Events.MouseClicked.Subscribe((sender, e) => invWindow.ScrollDown());	
+			upButton.OnMouseClick(_invWindow.ScrollUp, _game);
+			downButton.OnMouseClick(_invWindow.ScrollDown, _game);
 		}
 
 		public void Show()
@@ -56,18 +58,24 @@ namespace DemoGame
 			_panel.Visible = false;
 		}
 
-		private IButton loadButton(IGameFactory factory, string folder, float x, string mode = null)
+		private void onSaveGameLoaded()
+		{
+			_panel = _game.Find<IPanel>(_panel.ID);
+			_invWindow = _game.Find<IInventoryWindow>(_invWindow.ID);
+		}
+
+		private IButton loadButton(string id, IGameFactory factory, string folder, float x, string mode = null)
 		{
 			folder = _baseFolder + folder;
-			IButton button = factory.UI.GetButton(folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 4f);
+			IButton button = factory.UI.GetButton(id, folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 4f);
 			button.TreeNode.SetParent(_panel.TreeNode);
 			if (mode != null)
 			{
-				button.Events.MouseClicked.Subscribe((sender, e) => 
+				button.OnMouseClick(() =>
 				{
 					_scheme.CurrentMode = mode;
 					_game.State.Player.Character.Inventory.ActiveItem = null;
-				});
+				}, _game);
 			}
 			return button;
 		}

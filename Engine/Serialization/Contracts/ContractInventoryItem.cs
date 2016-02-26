@@ -11,10 +11,10 @@ namespace AGS.Engine
 		{
 		}
 
-		[ProtoMember(1)]
+		[ProtoMember(1, AsReference = true)]
 		public IContract<IObject> Graphics { get; set; }
 
-		[ProtoMember(2)]
+		[ProtoMember(2, AsReference = true)]
 		public IContract<IObject> CursorGraphics { get; set; }
 
 		[ProtoMember(3)]

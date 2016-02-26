@@ -18,10 +18,10 @@ namespace AGS.Engine
 		#region IMaskLoader implementation
 
 		public IMask Load(string path, bool transparentMeansMasked = false, 
-			Color? debugDrawColor = null, string saveMaskToFile = null)
+			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
 		{
 			Bitmap image = (Bitmap)Image.FromFile(path); 
-			return load(path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile);
+			return load(path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
 		}
 
 		public IMask Load(Bitmap image, bool transparentMeansMasked = false, 
@@ -32,8 +32,8 @@ namespace AGS.Engine
 
 		#endregion
 
-		private IMask load(string id, Bitmap image, bool transparentMeansMasked = false, 
-			Color? debugDrawColor = null, string saveMaskToFile = null)
+		private IMask load(string path, Bitmap image, bool transparentMeansMasked = false, 
+			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
 		{
 			Bitmap debugMask = null;
 			FastBitmap debugMaskFast = null;
@@ -80,8 +80,8 @@ namespace AGS.Engine
 			IObject debugDraw = null;
 			if (debugDrawColor != null)
 			{
-				debugDraw = _factory.Object.GetObject();
-				debugDraw.Image = _factory.Graphics.LoadImage(debugMask, null, id);
+				debugDraw = _factory.Object.GetObject(id ?? path ?? "Mask Drawable");
+				debugDraw.Image = _factory.Graphics.LoadImage(debugMask, null, path);
 				debugDraw.Anchor = new AGSPoint ();
 			}
 

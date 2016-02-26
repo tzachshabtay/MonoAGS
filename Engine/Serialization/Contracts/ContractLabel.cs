@@ -42,7 +42,7 @@ namespace AGS.Engine
 				obj.X, obj.Y);
 			ILabel label = context.Factory.UI.GetLabel(panel, Text, Width, Height, obj.X, obj.Y, 
 				TextConfig.ToItem(context));
-			label.Visible = Object.AnimationContainer.Visible;
+			label.Visible = Object.Visible;
 			label.Anchor = anchor;
 			label.Tint = tint;
 			label.TreeNode.StealParent(obj.TreeNode);

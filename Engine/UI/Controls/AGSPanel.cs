@@ -41,6 +41,8 @@ namespace AGS.Engine
 			gameEvents.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
 		}
 
+		public string ID { get { return _obj.ID; } }
+
 		#region IUIControl implementation
 
 		public void ApplySkin(IPanel skin)
@@ -110,6 +112,10 @@ namespace AGS.Engine
 		public bool Visible { get { return _visible.Value; } set { _visible.Value = value; } }
 
 		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
+
+		public bool UnderlyingVisible { get { return _visible.UnderlyingValue; } }
+
+		public bool UnderlyingEnabled { get { return _enabled.UnderlyingValue; } }
 
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 
@@ -187,7 +193,7 @@ namespace AGS.Engine
 
 		public override string ToString()
 		{
-			return string.Format("Panel: {0}", _obj.ToString());
+			return string.Format("Panel: {0}", ID ?? _obj.ToString());
 		}
 
 		private async Task onRepeatedlyExecute(object sender, EventArgs args)

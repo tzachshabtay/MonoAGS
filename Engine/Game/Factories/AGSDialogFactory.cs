@@ -19,7 +19,7 @@ namespace AGS.Engine
 			_ui = ui;
 			_object = obj;
 		}
-
+			
 		public IDialogOption GetDialogOption(string text, ITextConfig config = null, ITextConfig hoverConfig = null,
 			bool speakOption = true, bool showOnce = false)
 		{
@@ -28,7 +28,7 @@ namespace AGS.Engine
 				brush: Brushes.White, font: new Font(SystemFonts.DefaultFont.FontFamily, 10f));
 			if (hoverConfig == null) hoverConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrap,
 				brush: Brushes.Yellow, font: new Font(SystemFonts.DefaultFont.FontFamily, 10f));
-			ILabel label = _ui.GetLabel(text, game.VirtualResolution.Width, 20f, 0f, 0f, config);
+			ILabel label = _ui.GetLabel(string.Format("Dialog option: {0}", text), text, game.VirtualResolution.Width, 20f, 0f, 0f, config);
 			label.Enabled = true;
 			TypedParameter labelParam = new TypedParameter (typeof(ILabel), label);
 			NamedParameter speakParam = new NamedParameter ("speakOption", speakOption);
@@ -38,13 +38,13 @@ namespace AGS.Engine
 			return option;
 		}
 
-		public IDialog GetDialog(float x = 0f, float y = 0f, IObject graphics = null, bool showWhileOptionsAreRunning = false, 
+		public IDialog GetDialog(string id, float x = 0f, float y = 0f, IObject graphics = null, bool showWhileOptionsAreRunning = false, 
 			params IDialogOption[] options)
 		{
 			TypedParameter showParam = new TypedParameter (typeof(bool), showWhileOptionsAreRunning);
 			if (graphics == null)
 			{
-				graphics = _object.GetObject();
+				graphics = _object.GetObject(id);
 				graphics.Tint = Color.Black;
 				graphics.Anchor = new AGSPoint ();
 				_gameState.UI.Add(graphics);

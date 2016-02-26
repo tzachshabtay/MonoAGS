@@ -7,22 +7,19 @@ namespace DemoGame
 	public class TrashcanStreet
 	{
 		private IRoom _room;
-		private readonly IPlayer _player;
+		private IPlayer _player;
+		private IGame _game;
 
 		private const string _baseFolder = "../../Assets/Rooms/TrashcanStreet/";
 
-		public TrashcanStreet(IPlayer player)
+		public IRoom Load(IGame game)
 		{
-			_player = player;
-		}
-
-		public IRoom Load(IGameFactory factory)
-		{
+			_game = game;
+			_player = _game.State.Player;
+			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
+			IGameFactory factory = game.Factory;
 			_room = factory.Room.GetRoom("Trashcan Street", 20f, 310f, 190f, 10f);
-			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
-			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
-			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
-			IObject bg = factory.Object.GetObject();
+			IObject bg = factory.Object.GetObject("Trashcan Street BG");
 			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
 			_room.Background = bg;
 
@@ -36,7 +33,22 @@ namespace DemoGame
 			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "SignHotspot.png", "Sign"));
 			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "trashCansHotspot.png", "Trashcans"));
 
+			subscribeEvents();
 			return _room;
+		}
+
+		private void onSavedGameLoaded()
+		{
+			_player = _game.State.Player;
+			_room = Rooms.Find(_game.State, _room);
+			subscribeEvents();
+		}
+
+		private void subscribeEvents()
+		{
+			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
+			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
+			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 		}
 
 		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)

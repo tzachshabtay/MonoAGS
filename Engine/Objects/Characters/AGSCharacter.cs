@@ -51,6 +51,8 @@ namespace AGS.Engine
 
 		#region ICharacter implementation
 
+		public string ID { get { return _obj.ID; } }
+
 		public ICustomProperties Properties { get { return _obj.Properties; } }
 
 		public ILocation Location 
@@ -285,9 +287,13 @@ namespace AGS.Engine
 
 		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
 
+		public bool UnderlyingVisible { get { return _visible.UnderlyingValue; } }
+
+		public bool UnderlyingEnabled { get { return _enabled.UnderlyingValue; } }
+
 		public override string ToString ()
 		{
-			return Hotspot ?? base.ToString ();
+			return string.Format("Character: {0}", ID ?? Hotspot ?? base.ToString ());
 		}
 
 		#endregion

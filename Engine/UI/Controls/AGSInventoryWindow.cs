@@ -36,6 +36,8 @@ namespace AGS.Engine
 			gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
 
+		public string ID { get { return _obj.ID; } }
+
 		#region IInventoryWindow implementation
 
 		public void ScrollUp()
@@ -155,6 +157,10 @@ namespace AGS.Engine
 		public bool Visible { get { return _visible.Value; } set { _visible.Value = value; } }
 
 		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
+
+		public bool UnderlyingVisible { get { return _visible.UnderlyingValue; } }
+
+		public bool UnderlyingEnabled { get { return _enabled.UnderlyingValue; } }
 
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AGS.API
 {
@@ -6,6 +7,7 @@ namespace AGS.API
 	{
 		TItem Node { get; }
 		TItem Parent { get; }
+		IEnumerable<TItem> Children { get; }
 
 		void SetParent(ITreeNode<TItem> parent);
 		void StealParent(ITreeNode<TItem> victim);

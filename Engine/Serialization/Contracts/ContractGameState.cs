@@ -65,6 +65,12 @@ namespace AGS.Engine
 
 		public void FromItem(AGSSerializationContext context, IGameState item)
 		{
+			UI = new List<IContract<IObject>> (item.UI.Count);
+			foreach (var ui in item.UI)
+			{
+				UI.Add(context.GetContract(ui));
+			}
+				
 			Rooms = new List<IContract<IRoom>> (item.Rooms.Count);
 			foreach (var room in item.Rooms)
 			{
@@ -72,12 +78,6 @@ namespace AGS.Engine
 			}
 
 			Player = context.GetContract(item.Player);
-
-			UI = new List<IContract<IObject>> (item.UI.Count);
-			foreach (var ui in item.UI)
-			{
-				UI.Add(context.GetContract(ui));
-			}
 
 			GlobalVariables = context.GetContract(item.GlobalVariables);
 			Cutscene = context.GetContract(item.Cutscene);

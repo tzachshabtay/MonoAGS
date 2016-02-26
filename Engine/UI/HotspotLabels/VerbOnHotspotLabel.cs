@@ -7,12 +7,13 @@ namespace AGS.Engine
 {
 	public class VerbOnHotspotLabel
 	{
-		private Func<string> _getMode;
-		private IGameEvents _events;
+		private readonly Func<string> _getMode;
+		private readonly IGameEvents _events;
 		private ILabel _label;
-		private IInput _input;
+		private readonly IInput _input;
 		private IGameState _state;
-		private Dictionary<string, string> _verbFormats;
+		private readonly IGame _game;
+		private readonly Dictionary<string, string> _verbFormats;
 
 		public VerbOnHotspotLabel(Func<string> getMode, IGame game, ILabel label)
 		{
@@ -21,6 +22,7 @@ namespace AGS.Engine
 			_events = game.Events;
 			_input = game.Input;
 			_state = game.State;
+			_game = game;
 
 			_verbFormats = new Dictionary<string, string> (10)
 			{
@@ -39,10 +41,19 @@ namespace AGS.Engine
 		public void Start()
 		{
 			_events.OnRepeatedlyExecute.Subscribe(onTick);
+			_events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
+		}
+
+		private void onSavedGameLoaded()
+		{
+			ILabel oldLabel = _label;
+			_state = _game.State;
+			_label = _game.Find<ILabel>(oldLabel.ID);
 		}
 
 		private void onTick(object sender, EventArgs args)
 		{
+			if (_label == null) return;
 			IPoint position = _input.MousePosition;
 			IObject obj = _state.Player.Character.Room.GetObjectAt (position.X, position.Y);
 			if (obj == null || obj.Hotspot == null) 

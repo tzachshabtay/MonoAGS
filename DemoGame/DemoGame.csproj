@@ -52,6 +52,7 @@
     <Compile Include="Dialogs\BemanDialogs.cs" />
     <Compile Include="Characters\Characters.cs" />
     <Compile Include="GUI\OptionsPanel.cs" />
+    <Compile Include="GUI\Buttons.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

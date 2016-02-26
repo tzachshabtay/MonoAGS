@@ -7,6 +7,7 @@ using OpenTK.Graphics.OpenGL;
 using System.Threading;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 
 namespace AGS.Engine
 {
@@ -82,7 +83,6 @@ namespace AGS.Engine
 					GL.MatrixMode(MatrixMode.Modelview);
 					GL.LoadIdentity();
 
-
 					await Events.OnLoad.InvokeAsync(sender, new AGSEventArgs());
 				};
 					
@@ -128,7 +128,7 @@ namespace AGS.Engine
 					{
 						Debug.WriteLine("Exception when rendering:");
 						Debug.WriteLine(ex.ToString());
-						throw ex;
+						throw;
 					}
 				};
 
@@ -138,6 +138,11 @@ namespace AGS.Engine
 			}
 		}
 
+		public TObject Find<TObject>(string id) where TObject : class, IObject
+		{
+			return State.Find<TObject>(id);
+		}
+			
 		#endregion
 
 		private void updateResolver()

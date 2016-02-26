@@ -16,15 +16,12 @@ namespace AGS.Engine
 		public IContract<IAnimation> Animation { get; set; }
 
 		[ProtoMember(2)]
-		public bool Visible { get; set; }
-
-		[ProtoMember(3)]
 		public bool DebugDrawAnchor { get; set; }
 
-		[ProtoMember(4)]
+		[ProtoMember(3)]
 		public IContract<IBorderStyle> Border { get; set; }
 
-		[ProtoMember(5)]
+		[ProtoMember(4)]
 		public Contract<ISprite> Sprite { get; set; }
 
 		#region IContract implementation
@@ -40,9 +37,9 @@ namespace AGS.Engine
 				context.Factory.Graphics);
 			container.Tint = tint;
 			container.Anchor = anchor;
-			container.Visible = Visible;
 			container.DebugDrawAnchor = DebugDrawAnchor;
 			container.Border = Border.ToItem(context);
+			container.PixelPerfect(sprite.PixelPerfectHitTestArea != null);
 			IAnimation animation = Animation.ToItem(context);
 			if (animation != null)
 			{
@@ -62,7 +59,6 @@ namespace AGS.Engine
 			Animation = context.GetContract(item.Animation);
 			Border = context.GetContract(item.Border);
 
-			Visible = item.Visible;
 			DebugDrawAnchor = item.DebugDrawAnchor;
 		}
 

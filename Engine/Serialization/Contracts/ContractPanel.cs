@@ -24,7 +24,7 @@ namespace AGS.Engine
 			IObject obj = Object.ToItem(context);
 			var anchor = obj.Anchor;
 			IPanel panel = context.Factory.UI.GetPanel(obj, obj.Image, obj.X, obj.Y);
-			panel.Visible = Object.AnimationContainer.Visible;
+			panel.Visible = Object.Visible;
 			panel.Anchor = anchor;
 			panel.TreeNode.StealParent(obj.TreeNode);
 			return panel;

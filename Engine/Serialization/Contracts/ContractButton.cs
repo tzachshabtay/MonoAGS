@@ -36,7 +36,7 @@ namespace AGS.Engine
 			var anchor = label.Anchor;
 			IButton button = context.Factory.UI.GetButton(label, IdleAnimation.ToItem(context),
 				                 HoverAnimation.ToItem(context), PushedAnimation.ToItem(context));
-			button.Visible = label.Visible;
+			button.Visible = label.UnderlyingVisible;
 			button.Anchor = anchor;
 			button.TreeNode.StealParent(label.TreeNode);
 			return button;

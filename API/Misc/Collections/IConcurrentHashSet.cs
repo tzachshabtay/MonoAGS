@@ -9,6 +9,7 @@ namespace AGS.API
 
 		bool Add(TItem item);
 		bool Remove(TItem item);
+		void RemoveAll(Predicate<TItem> shouldRemove);
 		bool Contains(TItem item);
 		void Clear();
 	}

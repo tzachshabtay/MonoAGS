@@ -1,6 +1,7 @@
 ﻿using System;
 using AGS.API;
 using AGS.Engine;
+using System.Collections.Generic;
 
 namespace AGS.Engine
 {
@@ -48,6 +49,8 @@ namespace AGS.Engine
 				return _parent.Node;
 			}
 		}
+
+		public IEnumerable<TItem> Children { get { return _children; } }
 
 		public void SetParent(ITreeNode<TItem> parent)
 		{

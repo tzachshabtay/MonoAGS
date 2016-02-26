@@ -5,8 +5,13 @@ using AGS.API;
 namespace AGS.Engine
 {
 	[ProtoContract]
-	public class ContractInventoryWindow : IContract<IInventoryWindow>
+	public class ContractInventoryWindow : IContract<IObject>
 	{
+		static ContractInventoryWindow()
+		{
+			ContractsFactory.RegisterFactory(typeof(IInventoryWindow), () => new ContractInventoryWindow ());
+		}
+
 		public ContractInventoryWindow()
 		{
 		}
@@ -21,7 +26,7 @@ namespace AGS.Engine
 		public float ItemHeight { get; set; }
 
 		[ProtoMember(4)]
-		public Contract<ICharacter> CharacterToUse { get; set; }
+		public string CharacterID { get; set; }
 
 		[ProtoMember(5)]
 		public int TopItem { get; set; }
@@ -32,11 +37,16 @@ namespace AGS.Engine
 		{
 			IObject obj = Object.ToItem(context);
 			IPanel panel = context.Factory.UI.GetPanel(obj, new EmptyImage (obj.Width, obj.Height), obj.X, obj.Y);
-			var invWindow = context.Factory.Inventory.GetInventoryWindow(panel, ItemWidth, ItemHeight,
-				CharacterToUse.ToItem(context));
-			invWindow.Visible = Object.AnimationContainer.Visible;
+			var invWindow = context.Factory.Inventory.GetInventoryWindow(panel, ItemWidth, ItemHeight, null);
+			invWindow.Visible = Object.Visible;
 			invWindow.TreeNode.StealParent(obj.TreeNode);
+			context.Rewire(state => invWindow.CharacterToUse = CharacterID == null ? null :  state.Find<ICharacter>(CharacterID));
 			return invWindow;
+		}
+
+		IObject IContract<IObject>.ToItem(AGSSerializationContext context)
+		{
+			return ToItem(context);
 		}
 
 		public void FromItem(AGSSerializationContext context, IInventoryWindow item)
@@ -44,11 +54,15 @@ namespace AGS.Engine
 			Object = new ContractObject ();
 			Object.FromItem(context, item);
 
-			CharacterToUse = new Contract<ICharacter> ();
-			CharacterToUse.FromItem(context, item.CharacterToUse);
+			CharacterID = item.CharacterToUse == null ? null : item.CharacterToUse.ID;
 
 			ItemWidth = item.ItemSize.Width;
 			ItemHeight = item.ItemSize.Height;
+		}
+
+		public void FromItem(AGSSerializationContext context, IObject item)
+		{
+			FromItem(context, (IInventoryWindow)item);
 		}
 
 		#endregion

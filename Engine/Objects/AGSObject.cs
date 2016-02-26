@@ -8,23 +8,19 @@ namespace AGS.Engine
 {
 	public class AGSObject : IObject
 	{
-		private IAnimationContainer _animation;
+		private readonly IAnimationContainer _animation;
 		private readonly IGameState _state;
-		private IHasRoom _roomBehavior;
+		private readonly IHasRoom _roomBehavior;
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
-		private int _id;
-		static int runningId;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Engine.AGSObject"/> class.
 		/// Width and height will be set based on the first animation frame (or single image) used.
 		/// </summary>
-		public AGSObject (IAnimationContainer animationContainer, IGameEvents gameEvents, Resolver resolver)
+		public AGSObject (string id, IAnimationContainer animationContainer, IGameEvents gameEvents, Resolver resolver)
 		{
-			runningId++;
-			_id = runningId;
-
+			ID = id;
 			_animation = animationContainer;
 			_visible = new VisibleProperty (this);
 			_enabled = new EnabledProperty (this);
@@ -48,6 +44,8 @@ namespace AGS.Engine
 		}
 
 		#region IObject implementation
+
+		public string ID { get; private set; }
 
 		public ICustomProperties Properties { get; private set; }
 
@@ -174,6 +172,10 @@ namespace AGS.Engine
 
 		public bool Enabled { get { return _enabled.Value; } set { _enabled.Value = value; } }
 
+		public bool UnderlyingVisible { get { return _visible.UnderlyingValue; } }
+
+		public bool UnderlyingEnabled { get { return _enabled.UnderlyingValue; } }
+
 		public string Hotspot { get; set; }
 
 		public bool DebugDrawAnchor { get { return _animation.DebugDrawAnchor; } set { _animation.DebugDrawAnchor = value; } }
@@ -209,7 +211,7 @@ namespace AGS.Engine
 
 		public override string ToString ()
 		{
-			return string.Format("{0} ({1})", Hotspot ?? (Image == null ? "" : Image.ToString()), base.ToString());
+			return string.Format("Object: {0}", ID ?? Hotspot ?? (Image == null ? "" : Image.ToString()));
 		}
 
 		#endregion

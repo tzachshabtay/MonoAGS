@@ -18,7 +18,9 @@ namespace AGS.Engine
 
 		public IFollower ToItem(AGSSerializationContext context)
 		{
-			return new AGSViewportFollower { Enabled = Enabled };
+			var follower = new AGSViewportFollower { Enabled = Enabled };
+			context.Rewire(state => follower.Target = () => state.Player.Character);
+			return follower;
 		}
 
 		public void FromItem(AGSSerializationContext context, IFollower item)

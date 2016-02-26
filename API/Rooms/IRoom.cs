@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AGS.API
 {
-	public interface IRoom
+	public interface IRoom : IDisposable
 	{
 		string ID { get; }
 		bool ShowPlayer { get; set; }
@@ -20,6 +20,7 @@ namespace AGS.API
 
 		IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true);
 		IObject GetObjectAt(float x, float y, bool onlyEnabled = true, bool includeUi = true);
+		TObject Find<TObject>(string id) where TObject : class, IObject;
 	}
 }
 

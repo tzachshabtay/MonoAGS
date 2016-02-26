@@ -74,7 +74,7 @@ namespace AGS.Engine
 			if (cursor == null) return;
 			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
 			{
-				_mouseCursorContainer = new AGSObject (cursor, null, null) { Anchor = new AGSPoint (0f,1f) };
+				_mouseCursorContainer = new AGSObject ("MouseCursor", cursor, null, null) { Anchor = new AGSPoint (0f,1f) };
 			}
 			_mouseCursorContainer.X = _input.MouseX;
 			_mouseCursorContainer.Y = _input.MouseY;

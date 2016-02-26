@@ -31,7 +31,7 @@ namespace Tests
 			_textures = new Dictionary<string, GLImage> ();
 			_state = _resolver.Container.Resolve<IGameState>();
 			_factory = _resolver.Container.Resolve<IGameFactory>();
-			_saveLoad = new AGSSaveLoad (_resolver, _factory, _textures, _state);
+			_saveLoad = new AGSSaveLoad (_resolver, _factory, _textures, _resolver.Container.Resolve<IGame>());
 			_state.Rooms.Add(_mocks.Room().Object);
 		}
 

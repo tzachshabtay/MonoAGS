@@ -7,24 +7,25 @@ namespace AGS.Engine
 	{
 		private readonly IObject _obj;
 		private readonly Predicate<IObject> _getProperty;
-		private bool _value;
 
 		public AGSObjectBoolParentProperty(IObject obj, Predicate<IObject> getProperty)
 		{
 			_obj = obj;
 			_getProperty = getProperty;
-			_value = true;
+			UnderlyingValue = true;
 		}
-
+			
 		public bool Value 
 		{
 			get { return getBooleanFromParentIfNeeded(_obj.TreeNode.Parent); }
-			set { _value = value;}
+			set { UnderlyingValue = value;}
 		}
+
+		public bool UnderlyingValue { get; private set; }
 
 		private bool getBooleanFromParentIfNeeded(IObject parent)
 		{
-			if (!_value) return false;
+			if (!UnderlyingValue) return false;
 			if (parent == null) return true;
 			return _getProperty(parent);
 		}

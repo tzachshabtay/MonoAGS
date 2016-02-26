@@ -23,7 +23,6 @@ namespace AGS.Engine
 			this._factory = factory;
 			this._sprite = sprite;
 			Anchor = new AGSPoint (0.5f, 0f);
-			Visible = true;
 
 			ScaleX = 1;
 			ScaleY = 1;
@@ -112,8 +111,6 @@ namespace AGS.Engine
 		public float Z { get { return _sprite.Z; } set { _sprite.Z = value; } }
 
 		public IAnimation Animation { get; private set; }
-
-		public bool Visible { get; set; }
 
 		public bool DebugDrawAnchor { get; set; }
 

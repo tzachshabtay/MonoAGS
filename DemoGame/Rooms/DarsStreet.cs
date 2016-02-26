@@ -8,21 +8,19 @@ namespace DemoGame
 	public class DarsStreet
 	{
 		private IRoom _room;
-		private readonly IPlayer _player;
+		private IPlayer _player;
+		private IGame _game;
 
 		private const string _baseFolder = "../../Assets/Rooms/DarsStreet/";
 
-		public DarsStreet(IPlayer player)
+		public IRoom Load(IGame game)
 		{
-			_player = player;
-		}
-
-		public IRoom Load(IGameFactory factory)
-		{
+			_game = game;
+			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
+			_player = _game.State.Player;
+			IGameFactory factory = game.Factory;
 			_room = factory.Room.GetRoom("Dars Street", 20f, 490f, 190f, 10f);
-			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
-			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
-			IObject bg = factory.Object.GetObject();
+			IObject bg = factory.Object.GetObject("Dars Street BG");
 			IAnimation bgAnimation = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "bg");
 			bgAnimation.Frames[0].MinDelay = 1;
 			bgAnimation.Frames[0].MaxDelay = 120;
@@ -56,7 +54,22 @@ namespace DemoGame
 			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "trashcansHotspot.png", "Trashcans"));
 			_room.Objects.Add(windowHotspot);
 
+			subscribeEvents();
+
 			return _room;
+		}
+
+		private void onSavedGameLoaded()
+		{
+			_player = _game.State.Player;
+			_room = Rooms.Find(_game.State, _room);
+			subscribeEvents();
+		}
+
+		private void subscribeEvents()
+		{
+			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
+			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 		}
 
 		private void onRightEdgeCrossed(object sender, AGSEventArgs args)

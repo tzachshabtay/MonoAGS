@@ -10,9 +10,12 @@ namespace DemoGame
 		private ICharacter _character;
 		private const string _baseFolder = "../../Assets/Characters/Beman/";
 		private BemanDialogs _dialogs = new BemanDialogs();
+		private IGame _game;
 
 		public ICharacter Load(IGame game)
 		{
+			_game = game;
+			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
 			IGameFactory factory = game.Factory;
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
 			{ 
@@ -25,7 +28,7 @@ namespace DemoGame
 				speakLeftFolder: "Talk/left", speakDownFolder: "Talk/down", speakRightFolder: "Talk/right", speakUpFolder: "Talk/up", 
 				loadConfig: loadConfig);
 
-			_character = factory.Object.GetCharacter(outfit);
+			_character = factory.Object.GetCharacter("Beman", outfit);
 
 			Cris.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
 			Cris.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);
@@ -36,15 +39,26 @@ namespace DemoGame
 			_character.Hotspot = "Beman";
 			_character.PixelPerfect(true);
 
-			_character.Interactions.OnCustomInteract.SubscribeToAsync(async (sender, e) =>
-			{ 
-				if (e.InteractionName == MouseCursors.TALK_MODE) await _dialogs.StartDialog.RunAsync();
-				else await game.State.Player.Character.SayAsync("I don't think he'd appreciate that.");
-			});
+			subscribeEvents();
 
 			Characters.Beman = _character;
 			_dialogs.Load(game);
 			return _character;
+		}
+
+		private void onSaveGameLoaded()
+		{
+			_character = _game.Find<ICharacter>(_character.ID);
+			subscribeEvents();
+		}
+
+		private void subscribeEvents()
+		{
+			_character.Interactions.OnCustomInteract.SubscribeToAsync(async (sender, e) =>
+			{ 
+				if (e.InteractionName == MouseCursors.TALK_MODE) await _dialogs.StartDialog.RunAsync();
+				else await _game.State.Player.Character.SayAsync("I don't think he'd appreciate that.");
+			});
 		}
 	}
 }

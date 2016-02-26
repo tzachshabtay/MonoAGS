@@ -205,7 +205,7 @@ namespace AGS.Engine
 			if (debugRenderers != null) 
 			{
 				GLLineRenderer line = new GLLineRenderer (_obj.X, _obj.Y, destination.X, destination.Y);
-				IObject renderer = _objFactory.GetObject();
+				IObject renderer = _objFactory.GetObject("Debug Line");
 				renderer.CustomRenderer = line;
 				renderer.ChangeRoom(_obj.Room);
 				debugRenderers.Add (renderer);

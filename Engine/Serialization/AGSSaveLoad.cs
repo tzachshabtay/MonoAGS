@@ -20,15 +20,17 @@ namespace AGS.Engine
 		private readonly IGameFactory _factory;
 		private readonly IDictionary<string, GLImage> _textures;
 		private readonly IGameState _state;
+		private readonly IGameEvents _events;
 		private static bool _firstTimeSetup = true;
 
 		public AGSSaveLoad(Resolver resolver, IGameFactory factory, 
-			IDictionary<string, GLImage> textures, IGameState state)
+			IDictionary<string, GLImage> textures, IGame game)
 		{
 			_resolver = resolver;
 			_factory = factory;
 			_textures = textures;
-			_state = state;
+			_state = game.State;
+			_events = game.Events;
 		}
 
 		#region ISaveLoad implementation
@@ -79,7 +81,11 @@ namespace AGS.Engine
 				{
 					state = Serializer.Deserialize<ContractGameState>(file);
 				}
-				_state.CopyFrom(state.ToItem(context));
+				IGameState newState = state.ToItem(context);
+				context.Rewire(newState);
+				_state.CopyFrom(newState);
+
+				_events.OnSavedGameLoad.Invoke(this, new AGSEventArgs());
 
 				_state.Paused = false;
 			}

@@ -7,6 +7,7 @@ namespace AGS.Engine
 	public class AGSSerializationContext
 	{
 		private readonly ContractsFactory _contracts;
+		private readonly List<Action<IGameState>> _rewireActions;
 
 		public AGSSerializationContext(IGameFactory factory, IDictionary<string, GLImage> textures, 
 			Resolver resolver)
@@ -15,6 +16,7 @@ namespace AGS.Engine
 			Textures = textures;
 			_contracts = new ContractsFactory();
 			Resolver = resolver;
+			_rewireActions = new List<Action<IGameState>> ();
 		}
 
 		public IGameFactory Factory { get; private set; }
@@ -25,6 +27,16 @@ namespace AGS.Engine
 
 		//Hack to work around the player character reference not saved and thus the character being cloned twice.
 		public ICharacter Player { get; set; }
+
+		public void Rewire(Action<IGameState> onRewire)
+		{
+			_rewireActions.Add(onRewire);
+		}
+
+		public void Rewire(IGameState state)
+		{
+			foreach (var action in _rewireActions) action(state);
+		}
 
 		public IContract<TItem> GetContract<TItem>(TItem item)
 		{

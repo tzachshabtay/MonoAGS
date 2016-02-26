@@ -31,6 +31,14 @@ namespace AGS.Engine
 			return _map.TryRemove(item, out weDontCare);
 		}
 
+		public void RemoveAll(Predicate<TItem> shouldRemove)
+		{
+			foreach (var item in _map.Keys)
+			{
+				if (shouldRemove(item)) Remove(item);
+			}
+		}
+
 		public bool Contains(TItem item)
 		{
 			return _map.ContainsKey(item);

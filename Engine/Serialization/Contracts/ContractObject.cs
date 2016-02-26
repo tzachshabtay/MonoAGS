@@ -46,6 +46,12 @@ namespace AGS.Engine
 		[ProtoMember(9, AsReference = true)]
 		public IContract<IObject> Parent { get; set; }
 
+		[ProtoMember(10)]
+		public string ID { get; set; }
+
+		[ProtoMember(11)]
+		public bool Visible { get; set; }
+
 		//todo: save object's previous room
 
 		#region IContract implementation
@@ -54,11 +60,7 @@ namespace AGS.Engine
 		{
 			if (_obj != null) return _obj;
 
-			if (Hotspot == "Gap")
-			{
-			}
-
-			_obj = context.Factory.Object.GetObject(AnimationContainer.ToItem(context));
+			_obj = context.Factory.Object.GetObject(ID, AnimationContainer.ToItem(context));
 			_obj.RenderLayer = RenderLayer.ToItem(context);
 			if (WalkPoint != null)
 			{
@@ -69,7 +71,7 @@ namespace AGS.Engine
 			_obj.Hotspot = Hotspot;
 			_obj.IgnoreViewport = IgnoreViewport;
 			_obj.IgnoreScalingArea = IgnoreScalingArea;
-			_obj.Visible = AnimationContainer.Visible;
+			_obj.Visible = Visible;
 
 			if (Parent != null)
 			{
@@ -82,6 +84,7 @@ namespace AGS.Engine
 			
 		public void FromItem(AGSSerializationContext context, IObject item)
 		{
+			ID = item.ID;
 			RenderLayer = context.GetContract(item.RenderLayer);
 
 			Properties = context.GetContract(item.Properties);
@@ -93,7 +96,8 @@ namespace AGS.Engine
 			{
 				WalkPoint = new Tuple<float, float> (item.WalkPoint.X, item.WalkPoint.Y);
 			}
-			Enabled = item.Enabled;
+			Enabled = item.UnderlyingEnabled;
+			Visible = item.UnderlyingVisible;
 			Hotspot = item.Hotspot;
 			IgnoreViewport = item.IgnoreViewport;
 			IgnoreScalingArea = item.IgnoreScalingArea;

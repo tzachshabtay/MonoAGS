@@ -20,9 +20,10 @@ namespace AGS.Engine
 			_object = obj;
 		}
 
-		public IPanel GetPanel(IImage image, float x, float y, bool addToUi = true)
+		public IPanel GetPanel(string id, IImage image, float x, float y, bool addToUi = true)
 		{
-			IPanel panel = GetPanel(_resolver.Resolve<IObject>(), image, x, y);
+			TypedParameter idParam = new TypedParameter (typeof(string), id);
+			IPanel panel = GetPanel(_resolver.Resolve<IObject>(idParam), image, x, y);
 			if (addToUi)
 				_gameState.UI.Add(panel);
 			return panel;
@@ -38,21 +39,23 @@ namespace AGS.Engine
 			return panel;
 		}
 
-		public IPanel GetPanel(float width, float height, float x, float y, bool addToUi = true)
+		public IPanel GetPanel(string id, float width, float height, float x, float y, bool addToUi = true)
 		{
 			EmptyImage image = new EmptyImage (width, height);
-			return GetPanel(image, x, y, addToUi);
+			return GetPanel(id, image, x, y, addToUi);
 		}
 
-		public IPanel GetPanel(string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true)
+		public IPanel GetPanel(string id, string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true)
 		{
 			IImage image = _graphics.LoadImage(imagePath, loadConfig);
-			return GetPanel(image, x, y, addToUi);
+			return GetPanel(id, image, x, y, addToUi);
 		}
 
-		public ILabel GetLabel(string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
+		public ILabel GetLabel(string id, string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
 		{
-			ILabel label = GetLabel(_resolver.Resolve<IPanel>(), text, width, height, x, y, config);
+			IObject obj = _object.GetObject(id);
+			TypedParameter objParam = new TypedParameter (typeof(IObject), obj);
+			ILabel label = GetLabel(_resolver.Resolve<IPanel>(objParam), text, width, height, x, y, config);
 			if (addToUi)
 				_gameState.UI.Add(label);
 			return label;
@@ -85,7 +88,7 @@ namespace AGS.Engine
 			return button;
 		}
 
-		public IButton GetButton(IAnimation idle, IAnimation hovered, IAnimation pushed, 
+		public IButton GetButton(string id, IAnimation idle, IAnimation hovered, IAnimation pushed, 
 			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true,
 			float width = -1f, float height = -1f)
 		{
@@ -97,7 +100,7 @@ namespace AGS.Engine
 			{
 				height = idle.Frames[0].Sprite.Height;
 			}
-			ILabel label = GetLabel(text, width, height, x, y, config, false);
+			ILabel label = GetLabel(id, text, width, height, x, y, config, false);
 			label.Tint = Color.White;
 
 			IButton button = GetButton(label, idle, hovered, pushed);
@@ -108,7 +111,7 @@ namespace AGS.Engine
 			return button;
 		}
 
-		public IButton GetButton(string idleImagePath, string hoveredImagePath, string pushedImagePath,
+		public IButton GetButton(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath,
 			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true,
 			float width = -1f, float height = -1f)
 		{
@@ -116,25 +119,29 @@ namespace AGS.Engine
 			IAnimation hovered = _graphics.LoadAnimationFromFiles(files: new[]{ hoveredImagePath });
 			IAnimation pushed = _graphics.LoadAnimationFromFiles(files: new[]{ pushedImagePath });
 
-			return GetButton(idle, hovered, pushed, x, y, text, config, addToUi, width, height);
+			return GetButton(id, idle, hovered, pushed, x, y, text, config, addToUi, width, height);
 		}
 
-		public ISlider GetSlider(string imagePath, string handleImagePath, float value, float min, float max, 
+		public ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max, 
 			ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
 		{
-			IObject graphics = _object.GetObject();
+			IObject graphics = _object.GetObject(string.Format("{0}(graphics)", id));
 			graphics.Image = _graphics.LoadImage(imagePath, loadConfig);
 			ILabel label = null;
 			if (config != null)
 			{
-				label = GetLabel("", graphics.Width, 30f, 0f, -30f, config, false);
+				label = GetLabel(string.Format("{0}(label)", id), "", graphics.Width, 30f, 0f, -30f, config, false);
 				label.Anchor = new AGSPoint (0.5f, 0f);
 			}
 
-			IObject handle = _object.GetObject();
+			IObject handle = _object.GetObject(string.Format("{0}(handle)", id));
 			handle.Image = _graphics.LoadImage(handleImagePath, loadConfig);
 
-			ISlider slider = _resolver.Resolve<ISlider>();
+			IObject sliderInner = _object.GetObject(id);
+			TypedParameter objParam = new TypedParameter (typeof(IObject), sliderInner);
+			IPanel panelInner = _resolver.Resolve<IPanel>(objParam);
+			TypedParameter panelParam = new TypedParameter (typeof(IPanel), panelInner);
+			ISlider slider = _resolver.Resolve<ISlider>(panelParam);
 			slider.Label = label;
 			slider.MinValue = min;
 			slider.MaxValue = max;

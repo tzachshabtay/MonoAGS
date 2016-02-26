@@ -8,22 +8,20 @@ namespace DemoGame
 	public class BrokenCurbStreet
 	{
 		private IRoom _room;
-		private readonly IPlayer _player;
+		private IPlayer _player;
+		private IGame _game;
 
 		private const string _baseFolder = "../../Assets/Rooms/BrokenCurbStreet/";
 
-		public BrokenCurbStreet(IPlayer player)
+		public IRoom Load(IGame game)
 		{
-			_player = player;
-		}
-
-		public IRoom Load(IGameFactory factory)
-		{
+			_game = game;
+			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
+			_player = game.State.Player;
+			IGameFactory factory = game.Factory;
 			_room = factory.Room.GetRoom ("Broken Curb Street", 20f, 310f, 190f, 10f);
-			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
-			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 
-			IObject bg = factory.Object.GetObject();
+			IObject bg = factory.Object.GetObject("Broken Curb BG");
 			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
 			_room.Background = bg;
 
@@ -61,7 +59,7 @@ namespace DemoGame
 			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "slimeHotspot.png", "Slime"));
 			_room.Objects.Add(wallHotspot);
 
-			IObject panel = factory.Object.GetObject();
+			IObject panel = factory.Object.GetObject("Panel");
 			panel.Hotspot = "Panel";
 			IAnimation panelAnimation = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Panel");
 			Cris.RandomAnimationDelay(panelAnimation);
@@ -72,7 +70,22 @@ namespace DemoGame
 			panel.Interactions.OnInteract.Subscribe((sender, args) => panel.Animation.State.IsPaused = !panel.Animation.State.IsPaused);
 			_room.Objects.Add(panel);
 
+			subscribeEvents();
+
 			return _room;
+		}
+
+		private void onSavedGameLoaded()
+		{
+			_player = _game.State.Player;
+			_room = Rooms.Find(_game.State, _room);
+			subscribeEvents();
+		}
+
+		private void subscribeEvents()
+		{
+			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
+			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 		}
 
 		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)

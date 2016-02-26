@@ -9,18 +9,19 @@ namespace AGS.Engine
 {
 	public class AGSRoom : IRoom
 	{
-		private IPlayer _player;
+		private IPlayer _player { get { return _state.Player; } }
 		private IObject _background;
 		private IAGSEdges _edges;
 		private RenderOrderSelector _sorter;
 		private IGameState _state;
+		private IGameEvents _gameEvents;
 
-		public AGSRoom (string id, IPlayer player, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents,
+		public AGSRoom (string id, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents,
 			IRoomEvents roomEvents, IGameState state, ICustomProperties properties)
 		{
 			this._sorter = new RenderOrderSelector { Backwards = true };
-			this._player = player;
 			this._state = state;
+			_gameEvents = gameEvents;
 			Viewport = viewport;
 			Events = roomEvents;
 			ID = id;
@@ -91,6 +92,16 @@ namespace AGS.Engine
 				if (obj.CollidesWith(x, y)) return obj;
 			}
 			return null;
+		}
+
+		public TObject Find<TObject>(string id) where TObject : class, IObject
+		{
+			return Objects.FirstOrDefault(o => o.ID == id) as TObject;
+		}
+
+		public void Dispose()
+		{
+			_gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
 		}
 
 		public override string ToString()

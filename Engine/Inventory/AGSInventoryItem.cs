@@ -21,6 +21,11 @@ namespace AGS.Engine
 		public bool ShouldInteract { get; set; }
 
 		#endregion
+
+		public override string ToString()
+		{
+			return string.Format("Inventory Item: {0}", Graphics.ID ?? Graphics.Hotspot ?? Graphics.ToString());
+		}
 	}
 }
 

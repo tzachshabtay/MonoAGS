@@ -38,7 +38,7 @@ namespace AGS.Engine
 
 		private IObject createObject()
 		{
-			var obj = _factory.Object.GetObject();
+			var obj = _factory.Object.GetObject("Walk-Behind Drawable");
 			obj.Anchor = new AGSPoint ();
 			return obj;
 		}

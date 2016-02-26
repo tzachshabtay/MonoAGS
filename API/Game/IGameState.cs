@@ -16,6 +16,8 @@ namespace AGS.API
 		bool Paused { get; set; }
 
 		void CopyFrom(IGameState state);
+
+		TObject Find<TObject>(string id) where TObject : class, IObject;
 	}
 }
 

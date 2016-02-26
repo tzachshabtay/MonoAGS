@@ -198,7 +198,7 @@ namespace Tests
 			Mock<IGameEvents> gameEvents = new Mock<IGameEvents> ();
 			Mock<IEvent<AGSEventArgs>> emptyEvent = new Mock<IEvent<AGSEventArgs>> ();
 			gameEvents.Setup(ev => ev.OnRepeatedlyExecute).Returns(emptyEvent.Object);
-			Func<IObject> baseObj = () => new AGSObject (animationContainer, 
+			Func<IObject> baseObj = () => new AGSObject ("Test", animationContainer, 
 				gameEvents.Object, resolver);
 
 			Mock<IOutfit> outfit = new Mock<IOutfit> ();

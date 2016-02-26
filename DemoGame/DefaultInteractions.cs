@@ -7,15 +7,15 @@ namespace DemoGame
 {
 	public class DefaultInteractions
 	{
-		private IPlayer _player;
+		private IGame _game;
 		private IGameEvents _gameEvents;
 
 		private List<string> _looks, _interacts, _inventoryInteracts, _customInteracts;
 		private int _looksIndex, _interactsIndex, _inventoryIndex, _customIndex;
 
-		public DefaultInteractions(IPlayer player, IGameEvents gameEvents)
+		public DefaultInteractions(IGame game, IGameEvents gameEvents)
 		{
-			_player = player;
+			_game = game;
 			_gameEvents = gameEvents;
 
 			_looks = new List<string> { "It looks nice.", "Nothing to see here.", "I guess it looks ok." };
@@ -26,11 +26,22 @@ namespace DemoGame
 
 		public void Load()
 		{
+			_gameEvents.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
 			_gameEvents.DefaultInteractions.OnLook.SubscribeToAsync(onLook);
 			_gameEvents.DefaultInteractions.OnInteract.SubscribeToAsync(onInteract);
 			_gameEvents.DefaultInteractions.OnCustomInteract.SubscribeToAsync(onCustomInteract);
 			_gameEvents.DefaultInteractions.OnInventoryInteract.SubscribeToAsync(onInventoryInteract);
-			_player.Character.Inventory.OnDefaultCombination.SubscribeToAsync(onInventoryCombination);
+			subscribeDefaultInventoryCombination();
+		}
+
+		private void onSaveGameLoaded()
+		{
+			subscribeDefaultInventoryCombination();
+		}
+
+		private void subscribeDefaultInventoryCombination()
+		{
+			_game.State.Player.Character.Inventory.OnDefaultCombination.SubscribeToAsync(onInventoryCombination);
 		}
 
 		private async Task onLook(object sender, ObjectEventArgs args)
@@ -58,11 +69,11 @@ namespace DemoGame
 			if (string.IsNullOrEmpty(args.ActiveItem.Graphics.Hotspot) ||
 			    string.IsNullOrEmpty(args.PassiveItem.Graphics.Hotspot))
 			{
-				await _player.Character.SayAsync("I don't think these two items go together.");
+				await _game.State.Player.Character.SayAsync("I don't think these two items go together.");
 				return;
 			}
 
-			await _player.Character.SayAsync(string.Format("Use {0} on {1}? I don't get it...",
+			await _game.State.Player.Character.SayAsync(string.Format("Use {0} on {1}? I don't get it...",
 				args.ActiveItem.Graphics.Hotspot, args.PassiveItem.Graphics.Hotspot));
 		}
 
@@ -71,7 +82,7 @@ namespace DemoGame
 			string sentence = list[index];
 			index = (index + 1) % list.Count;
 
-			await _player.Character.SayAsync(sentence);
+			await _game.State.Player.Character.SayAsync(sentence);
 
 			return index;
 		}

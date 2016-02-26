@@ -1,6 +1,7 @@
 ﻿using System;
 using AGS.API;
 using AGS.Engine;
+using System.Collections.Generic;
 
 namespace DemoGame
 {
@@ -17,9 +18,39 @@ namespace DemoGame
 		public void Load(IGame game)
 		{
 			_game = game;
-			IGameFactory factory = game.Factory;
-			StartDialog = factory.Dialog.GetDialog();
+			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
+			initDialogs();
+		}
+
+		private void onSavedGameLoaded()
+		{
+			clearDialogs();
+			initDialogs();
+		}
+
+		private void initDialogs()
+		{
+			IGameFactory factory = _game.Factory;
+			StartDialog = factory.Dialog.GetDialog("Dialog: Beman- Start");
 			createStartDialog(factory, createQuestionsDialog(factory));
+		}
+
+		private void clearDialogs()
+		{
+			HashSet<string> ids = new HashSet<string> ();
+			getDialogGraphics(StartDialog, ids);
+			_game.State.UI.RemoveAll(o => ids.Contains(o.ID));
+		}
+
+		private void getDialogGraphics(IDialog dialog, HashSet<string> ids)
+		{
+			if (dialog == null) return;
+			if (!ids.Add(dialog.Graphics.ID)) return;
+			foreach (var option in dialog.Options)
+			{
+				ids.Add(option.Label.ID);
+				getDialogGraphics(option.ChangeDialogWhenFinished, ids);
+			}
 		}
 
 		private void createStartDialog(IGameFactory factory, IDialog questionsDialog)
@@ -64,7 +95,7 @@ namespace DemoGame
 			IDialogOption option4 = factory.Dialog.GetDialogOption("That's all I have...");
 			option3.ChangeDialogWhenFinished = StartDialog;
 
-			IDialog dialog = factory.Dialog.GetDialog();
+			IDialog dialog = factory.Dialog.GetDialog("Dialog: Beman- Questions");
 			dialog.AddOptions(option1, option2, option3, option4);
 
 			return dialog;

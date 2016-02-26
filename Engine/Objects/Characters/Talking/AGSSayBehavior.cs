@@ -47,7 +47,7 @@ namespace AGS.Engine
 			setAnimation(_outfit.Outfit.SpeakAnimation);
 
 			IPoint location = getLocation(text);
-			ILabel label = _factory.UI.GetLabel(text, SpeechConfig.LabelSize.Width, SpeechConfig.LabelSize.Height, 
+			ILabel label = _factory.UI.GetLabel(string.Format("Say: {0}", text), text, SpeechConfig.LabelSize.Width, SpeechConfig.LabelSize.Height, 
 				location.X, location.Y, SpeechConfig.TextConfig);
 			label.RenderLayer = AGSLayers.Speech;
 
