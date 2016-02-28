@@ -147,6 +147,11 @@ namespace AGS.Engine
 			_obj.ResetScale();
 		}
 
+		public void ResetScale(float initialWidth, float initialHeight)
+		{
+			_obj.ResetScale(initialWidth, initialHeight);
+		}
+
 		public void ScaleBy(float scaleX, float scaleY)
 		{
 			_obj.ScaleBy(scaleX, scaleY);

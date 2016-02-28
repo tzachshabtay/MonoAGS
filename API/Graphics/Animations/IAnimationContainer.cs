@@ -13,6 +13,8 @@ namespace AGS.API
 		void StartAnimation(IAnimation animation);
 		AnimationCompletedEventArgs Animate(IAnimation animation);
 		Task<AnimationCompletedEventArgs> AnimateAsync(IAnimation animation);
+
+		void ResetScale(float initialWidth, float initialHeight);
 	}
 }
 

@@ -24,6 +24,12 @@ namespace AGS.Engine
 		[ProtoMember(4)]
 		public Contract<ISprite> Sprite { get; set; }
 
+		[ProtoMember(5)]
+		public float InitialWidth { get; set; }
+
+		[ProtoMember(6)]
+		public float InitialHeight { get; set; }
+
 		#region IContract implementation
 
 		public IAnimationContainer ToItem(AGSSerializationContext context)
@@ -40,6 +46,7 @@ namespace AGS.Engine
 			container.DebugDrawAnchor = DebugDrawAnchor;
 			container.Border = Border.ToItem(context);
 			container.PixelPerfect(sprite.PixelPerfectHitTestArea != null);
+			container.ResetScale(InitialWidth, InitialHeight);
 			IAnimation animation = Animation.ToItem(context);
 			if (animation != null)
 			{
@@ -60,6 +67,16 @@ namespace AGS.Engine
 			Border = context.GetContract(item.Border);
 
 			DebugDrawAnchor = item.DebugDrawAnchor;
+
+			if (item.Width != 0f)
+			{
+				var scaleX = item.ScaleX;
+				var scaleY = item.ScaleY;
+				item.ResetScale();
+				InitialWidth = item.Width;
+				InitialHeight = item.Height;
+				item.ScaleBy(scaleX, scaleY);
+			}
 		}
 
 		#endregion

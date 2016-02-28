@@ -56,6 +56,11 @@ namespace AGS.Engine
 			_animation.ResetScale();
 		}
 
+		public void ResetScale(float initialWidth, float initialHeight)
+		{
+			_animation.ResetScale(initialWidth, initialHeight);
+		}
+
 		public void ScaleBy (float scaleX, float scaleY)
 		{
 			_animation.ScaleBy(scaleX, scaleY);

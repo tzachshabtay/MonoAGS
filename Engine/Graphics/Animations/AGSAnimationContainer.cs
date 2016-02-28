@@ -52,6 +52,13 @@ namespace AGS.Engine
 			ScaleY = 1;
 		}
 
+		public void ResetScale(float initialWidth, float initialHeight)
+		{
+			_initialWidth = initialWidth;
+			_initialHeight = initialHeight;
+			ResetScale();
+		}
+
 		public void ScaleBy (float scaleX, float scaleY)
 		{
 			validateScaleInitialized ();
