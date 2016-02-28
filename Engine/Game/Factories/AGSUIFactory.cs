@@ -127,6 +127,7 @@ namespace AGS.Engine
 		{
 			IObject graphics = _object.GetObject(string.Format("{0}(graphics)", id));
 			graphics.Image = _graphics.LoadImage(imagePath, loadConfig);
+			graphics.IgnoreViewport = true;
 			ILabel label = null;
 			if (config != null)
 			{
@@ -136,6 +137,7 @@ namespace AGS.Engine
 
 			IObject handle = _object.GetObject(string.Format("{0}(handle)", id));
 			handle.Image = _graphics.LoadImage(handleImagePath, loadConfig);
+			handle.IgnoreViewport = true;
 
 			IObject sliderInner = _object.GetObject(id);
 			TypedParameter objParam = new TypedParameter (typeof(IObject), sliderInner);
@@ -148,6 +150,7 @@ namespace AGS.Engine
 			slider.Value = value;
 			slider.Graphics = graphics;
 			slider.HandleGraphics = handle;
+			slider.IgnoreViewport = true;
 
 			if (addToUi)
 				_gameState.UI.Add(slider);
