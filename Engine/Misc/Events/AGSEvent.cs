@@ -25,7 +25,8 @@ namespace AGS.Engine
 		{
 			if (_invocationList.Count > 100)
 			{
-				Debug.WriteLine("Subscribe!!! " + new StackTrace ().ToString());
+				string st = new StackTrace ().ToString();
+				Debug.WriteLine("Subscribe!!! " + st);
 				return;
 			}
 			_invocationList.Add (new Callback (callback));
@@ -33,7 +34,9 @@ namespace AGS.Engine
 
 		public void Unsubscribe (Action<object, TEventArgs> callback)
 		{
-			_invocationList.Remove (new Callback (callback));
+			if (!_invocationList.Remove(new Callback (callback)))
+			{
+			}
 		}
 
 		public void WaitUntil(Predicate<TEventArgs> condition)
@@ -98,12 +101,14 @@ namespace AGS.Engine
 
 		private void unsubscribeToAsync(Callback callback)
 		{
-			_invocationList.Remove (callback);
+			if (!_invocationList.Remove(callback))
+			{
+			}
 		}
 
 		private class Callback
 		{
-			private object _origObject;
+			private Delegate _origObject;
 
 			public Callback(Func<object, TEventArgs, Task> callback)
 			{
@@ -129,12 +134,19 @@ namespace AGS.Engine
 			{
 				Callback other = obj as Callback;
 				if (other == null) return false;
-				return other._origObject == _origObject;
+				if (other._origObject == _origObject) return true;
+				if (_origObject.Target != other._origObject.Target) return false;
+				return _origObject.Method.Name == other._origObject.Method.Name;
 			}
 
 			public override int GetHashCode()
 			{
-				return _origObject.GetHashCode();
+				return _origObject.Target.GetHashCode();
+			}
+
+			public override string ToString()
+			{
+				return string.Format("[Event on {0} ({1})]", _origObject.Target.ToString(), _origObject.Method.Name);
 			}
 
 			private Func<object, TEventArgs, Task> convert(Action<object, TEventArgs> callback)

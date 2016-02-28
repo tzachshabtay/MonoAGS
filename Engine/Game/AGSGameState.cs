@@ -4,6 +4,7 @@ using AGS.API;
 using System.Collections.Generic;
 using Autofac;
 using ProtoBuf;
+using System.Collections.Concurrent;
 
 namespace AGS.Engine
 {
@@ -38,12 +39,23 @@ namespace AGS.Engine
 
 		public void CopyFrom(IGameState state)
 		{
-			clean();
 			Rooms = state.Rooms;
 			Player = state.Player;
 			UI = state.UI;
 			GlobalVariables.CopyFrom(state.GlobalVariables);
 			Cutscene.CopyFrom(state.Cutscene);
+		}
+
+		public void Clean()
+		{
+			foreach (var room in Rooms)
+			{
+				room.Dispose();
+			}
+			foreach (var ui in UI)
+			{
+				ui.Dispose();
+			}
 		}
 
 		public TObject Find<TObject>(string id) where TObject : class, IObject
@@ -58,7 +70,7 @@ namespace AGS.Engine
 				return findUi<TObject>(id) ?? findInRooms<TObject>(id);
 			}
 		}
-			
+
 		private TObject findUi<TObject>(string id) where TObject : class, IObject
 		{
 			return (UI.FirstOrDefault(o => o.ID == id)) as TObject;
@@ -67,14 +79,6 @@ namespace AGS.Engine
 		private TObject findInRooms<TObject>(string id) where TObject : class, IObject
 		{
 			return (Rooms.SelectMany(r => r.Objects).FirstOrDefault(o => o.ID == id)) as TObject;
-		}
-
-		private void clean()
-		{
-			foreach (var room in Rooms)
-			{
-				room.Dispose();
-			}
 		}
 	}
 }

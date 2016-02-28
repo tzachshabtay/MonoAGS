@@ -15,6 +15,7 @@ namespace DemoGame
 		[STAThread]
 		public static void Main()
 		{
+
 			IGame game = AGSGame.CreateEmpty();
 
 			game.Events.OnLoad.Subscribe((sender, e) =>
@@ -107,14 +108,14 @@ namespace DemoGame
 				autoFit: AutoFit.LabelShouldFitText));
 			fpsLabel.Anchor = new AGSPoint (1f, 0f);
 			fpsLabel.ScaleBy(0.7f, 0.7f);
-			FPSCounter fps = new FPSCounter(game.Events, fpsLabel);
+			FPSCounter fps = new FPSCounter(game, fpsLabel);
 			fps.Start();
 
 			ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 30, 25, 320, 5, config: new AGSTextConfig(alignment: ContentAlignment.TopRight,
 				autoFit: AutoFit.LabelShouldFitText));
 			label.Anchor = new AGSPoint (1f, 0f);
 			label.ScaleBy(0.7f, 0.7f);
-			MousePositionLabel mouseLabel = new MousePositionLabel(game.Input, label);
+			MousePositionLabel mouseLabel = new MousePositionLabel(game, label);
 			mouseLabel.Start();
 		}
 	}

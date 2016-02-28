@@ -23,10 +23,10 @@ namespace AGS.Engine
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
 			TreeNode = new AGSTreeNode<IObject> (this);
 
-			Events.MouseEnter.Subscribe((sender, e) => StartAnimation(HoverAnimation));
-			Events.MouseLeave.Subscribe((sender, e) => StartAnimation(IdleAnimation));
-			Events.MouseDown.Subscribe((sender, e) => StartAnimation(PushedAnimation));
-			Events.MouseUp.Subscribe((sender, e) => StartAnimation(IsMouseIn ? HoverAnimation : IdleAnimation));
+			Events.MouseEnter.Subscribe(onMouseEnter);
+			Events.MouseLeave.Subscribe(onMouseLeave);
+			Events.MouseDown.Subscribe(onMouseDown);
+			Events.MouseUp.Subscribe(onMouseUp);
 			Enabled = true;
 		}
 
@@ -205,6 +205,35 @@ namespace AGS.Engine
 		public override string ToString()
 		{
 			return string.Format("Button: {0}", ID ?? (string.IsNullOrWhiteSpace(Text) ? _obj.ToString() : Text));
+		}
+
+		public void Dispose()
+		{
+			Events.MouseEnter.Unsubscribe(onMouseEnter);
+			Events.MouseLeave.Unsubscribe(onMouseLeave);
+			Events.MouseDown.Unsubscribe(onMouseDown);
+			Events.MouseUp.Unsubscribe(onMouseUp);
+			_obj.Dispose();
+		}
+
+		private void onMouseEnter(object sender, MousePositionEventArgs e)
+		{
+			StartAnimation(HoverAnimation);
+		}
+
+		private void onMouseLeave(object sender, MousePositionEventArgs e)
+		{
+			StartAnimation(IdleAnimation);
+		}
+
+		private void onMouseDown(object sender, MouseButtonEventArgs e)
+		{
+			StartAnimation(PushedAnimation);
+		}
+
+		private void onMouseUp(object sender, MouseButtonEventArgs e)
+		{
+			StartAnimation(IsMouseIn ? HoverAnimation : IdleAnimation);
 		}
 	}
 }

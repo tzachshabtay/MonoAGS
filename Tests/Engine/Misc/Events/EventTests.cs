@@ -103,6 +103,44 @@ namespace Tests
 			Assert.AreEqual (2, asyncEvents);
 		}
 
+		[Test]
+		public void SubscribeUnsubscribeTest()
+		{
+			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
+			ev.Subscribe(onEvent);
+			ev.Unsubscribe(onEvent);
+			Assert.AreEqual(0, ev.SubscribersCount);
+		}
+
+		[Test]
+		public void SubscribeUnsubscribeOnDifferentTargetTest()
+		{
+			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
+			ev.Subscribe(onEvent);
+			EventTests target2 = new EventTests ();
+			ev.Unsubscribe(target2.onEvent);
+			Assert.AreEqual(1, ev.SubscribersCount);
+		}
+
+		[Test]
+		public void SubscribeUnsubscribeAsyncTest()
+		{
+			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
+			ev.SubscribeToAsync(onEventAsync);
+			ev.UnsubscribeToAsync(onEventAsync);
+			Assert.AreEqual(0, ev.SubscribersCount);
+		}
+
+		[Test]
+		public void SubscribeUnsubscribeOnDifferentTargetAsyncTest()
+		{
+			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
+			ev.SubscribeToAsync(onEventAsync);
+			EventTests target2 = new EventTests ();
+			ev.UnsubscribeToAsync(target2.onEventAsync);
+			Assert.AreEqual(1, ev.SubscribersCount);
+		}
+
 		private void onEvent(object sender, MockEventArgs e)
 		{
 			Assert.AreEqual (x, e.X);

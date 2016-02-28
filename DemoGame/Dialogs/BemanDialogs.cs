@@ -48,6 +48,7 @@ namespace DemoGame
 			if (!ids.Add(dialog.Graphics.ID)) return;
 			foreach (var option in dialog.Options)
 			{
+				option.Dispose();
 				ids.Add(option.Label.ID);
 				getDialogGraphics(option.ChangeDialogWhenFinished, ids);
 			}

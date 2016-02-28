@@ -23,8 +23,8 @@ namespace AGS.Engine
 			ExitDialogWhenFinished = exitDialogOnFinish;
 			SpeakOption = speakOption;
 			ShowOnce = showOnce;
-			label.Events.MouseEnter.Subscribe((sender, e) => label.TextConfig = HoverConfig ?? _normalConfig);
-			label.Events.MouseLeave.Subscribe((sender, e) => label.TextConfig = _normalConfig);
+			label.Events.MouseEnter.Subscribe(onMouseEnter);
+			label.Events.MouseLeave.Subscribe(onMouseLeave);
 		}
 
 		#region IDialogOption implementation
@@ -82,6 +82,13 @@ namespace AGS.Engine
 			_actions.AddActions(actions);
 		}
 
+		public void Dispose()
+		{
+			Label.Dispose();
+			Label.Events.MouseEnter.Unsubscribe(onMouseEnter);
+			Label.Events.MouseLeave.Unsubscribe(onMouseLeave);
+		}
+
 		public ILabel Label { get; private set; }
 
 		public ITextConfig HoverConfig { get; private set; }
@@ -97,6 +104,16 @@ namespace AGS.Engine
 		public IList<IDialogAction> Actions { get { return _actions.Actions; } }
 
 		#endregion
+
+		private void onMouseEnter(object sender, MousePositionEventArgs e)
+		{
+			Label.TextConfig = HoverConfig ?? _normalConfig;
+		}
+
+		private void onMouseLeave(object sender, MousePositionEventArgs e)
+		{
+			Label.TextConfig = _normalConfig;
+		}
 	}
 }
 

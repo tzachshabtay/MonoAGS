@@ -19,6 +19,12 @@ namespace AGS.Engine
 		public void Start()
 		{
 			_game.Events.OnRepeatedlyExecute.Subscribe(onTick);
+			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
+		}
+
+		private void onSaveGameLoaded()
+		{
+			_label = _game.Find<ILabel>(_label.ID);
 		}
 
 		private void onTick(object sender, EventArgs args)

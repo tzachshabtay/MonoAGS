@@ -6,17 +6,23 @@ namespace AGS.Engine
 	public class MousePositionLabel
 	{
 		private ILabel _label;
-		private IInputEvents _inputEvents;
+		private IGame _game;
 
-		public MousePositionLabel(IInputEvents events, ILabel label)
+		public MousePositionLabel(IGame game, ILabel label)
 		{
 			_label = label;
-			_inputEvents = events;
+			_game = game;
 		}
 
 		public void Start()
 		{
-			_inputEvents.MouseMove.Subscribe(onMouseMove);
+			_game.Input.MouseMove.Subscribe(onMouseMove);
+			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
+		}
+
+		private void onSaveGameLoaded()
+		{
+			_label = _game.Find<ILabel>(_label.ID);
 		}
 
 		private void onMouseMove(object sender, MousePositionEventArgs args)

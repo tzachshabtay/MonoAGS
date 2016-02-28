@@ -43,8 +43,8 @@ namespace DemoGame
 			loadButton("Help Button", factory, "help/", 280f);
 			IButton optionsButton = loadButton("Settings Button", factory, "settings/", 300f);
 
-			invButton.Events.MouseClicked.Subscribe((sender, e) => _invPanel.Show());
-			optionsButton.Events.MouseClicked.Subscribe((sender, e) => _optionsPanel.Show());
+			invButton.OnMouseClick(() => _invPanel.Show(), _game);
+			optionsButton.OnMouseClick(() => _optionsPanel.Show(), _game);
 
 			game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 			_inventoryItemIcon = factory.Object.GetObject("Inventory Item Icon");

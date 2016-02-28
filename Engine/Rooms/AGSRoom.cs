@@ -102,6 +102,10 @@ namespace AGS.Engine
 		public void Dispose()
 		{
 			_gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+			foreach (var obj in Objects)
+			{
+				obj.Dispose();
+			}
 		}
 
 		public override string ToString()

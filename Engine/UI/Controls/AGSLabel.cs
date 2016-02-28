@@ -208,6 +208,11 @@ namespace AGS.Engine
 		{
 			return string.Format("Label: {0}", ID ?? (string.IsNullOrWhiteSpace(Text) ? _obj.ToString() : Text));
 		}
+
+		public void Dispose()
+		{
+			_obj.Dispose();
+		}
 	}
 }
 

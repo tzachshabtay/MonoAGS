@@ -13,6 +13,7 @@ namespace AGS.Engine
 		private readonly IGameState _state;
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
+		private readonly IGameEvents _gameEvents;
 
 		private IList<IObject> _inventoryItems;
 		private volatile bool _refreshNeeded;
@@ -23,6 +24,7 @@ namespace AGS.Engine
 
 		public AGSInventoryWindow(IPanel panel, IGameEvents gameEvents, IGameState state, Resolver resolver)
 		{
+			_gameEvents = gameEvents;
 			_obj = panel;
 			_state = state;
 			_visible = new VisibleProperty (this);
@@ -241,6 +243,12 @@ namespace AGS.Engine
 		public override string ToString()
 		{
 			return string.Format("Inventory window for: {0}", CharacterToUse == null ? "null" : CharacterToUse.ToString());
+		}
+
+		public void Dispose()
+		{
+			_gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+			_obj.Dispose();
 		}
 
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)

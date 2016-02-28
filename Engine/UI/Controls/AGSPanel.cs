@@ -13,6 +13,7 @@ namespace AGS.Engine
 		private readonly IInput _input;
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
+		private readonly IGameEvents _gameEvents;
 
 		private bool _leftMouseDown, _rightMouseDown;
 		private float _mouseX, _mouseY;
@@ -21,6 +22,7 @@ namespace AGS.Engine
 
 		public AGSPanel(IObject obj, IUIEvents events, IImage image, IGameEvents gameEvents, IInput input, Resolver resolver)
 		{
+			_gameEvents = gameEvents;
 			this._obj = obj;
 			_visible = new VisibleProperty (this);
 			_enabled = new EnabledProperty (this);
@@ -194,6 +196,12 @@ namespace AGS.Engine
 		public override string ToString()
 		{
 			return string.Format("Panel: {0}", ID ?? _obj.ToString());
+		}
+
+		public void Dispose()
+		{
+			_gameEvents.OnRepeatedlyExecute.UnsubscribeToAsync(onRepeatedlyExecute);
+			_obj.Dispose();
 		}
 
 		private async Task onRepeatedlyExecute(object sender, EventArgs args)

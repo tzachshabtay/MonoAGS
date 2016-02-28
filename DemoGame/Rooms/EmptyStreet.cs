@@ -76,7 +76,7 @@ namespace DemoGame
 			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
 			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
-			_bottle.Interactions.OnInteract.Subscribe(onBottleInteract);
+			if (_bottle != null) _bottle.Interactions.OnInteract.Subscribe(onBottleInteract);
 		}
 
 		private void onBottleInteract(object sender, AGSEventArgs args)

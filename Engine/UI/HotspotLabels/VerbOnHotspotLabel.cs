@@ -40,6 +40,7 @@ namespace AGS.Engine
 
 		public void Start()
 		{
+		
 			_events.OnRepeatedlyExecute.Subscribe(onTick);
 			_events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
 		}

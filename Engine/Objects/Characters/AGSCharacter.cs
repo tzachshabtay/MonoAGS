@@ -296,6 +296,11 @@ namespace AGS.Engine
 			return string.Format("Character: {0}", ID ?? Hotspot ?? base.ToString ());
 		}
 
+		public void Dispose()
+		{
+			_obj.Dispose();
+		}
+
 		#endregion
 	}
 }

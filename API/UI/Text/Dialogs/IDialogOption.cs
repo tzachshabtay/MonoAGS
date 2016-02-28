@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AGS.API
 {
-	public interface IDialogOption : IDialogActions
+	public interface IDialogOption : IDialogActions, IDisposable
 	{
 		ILabel Label { get; }
 		ITextConfig HoverConfig { get; }

@@ -8,23 +8,29 @@ namespace AGS.Engine
 	public class FPSCounter
 	{
 		private ILabel _label;
-		private IGameEvents _events;
+		private IGame _game;
 
 		private int _numSamples;
 
 		private Stopwatch _stopwatch;
 
-		public FPSCounter(IGameEvents events, ILabel label)
+		public FPSCounter(IGame game, ILabel label)
 		{
 			_label = label;
-			_events = events;
+			_game = game;
 		}
 
 		public void Start()
 		{
 			_stopwatch = new Stopwatch ();
 			_stopwatch.Restart();
-			_events.OnRepeatedlyExecute.Subscribe(onTick);
+			_game.Events.OnRepeatedlyExecute.Subscribe(onTick);
+			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
+		}
+
+		private void onSaveGameLoaded()
+		{
+			_label = _game.Find<ILabel>(_label.ID);
 		}
 
 		private void onTick(object sender, EventArgs e)

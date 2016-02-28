@@ -18,10 +18,12 @@ namespace AGS.Engine
 		private IHasRoom _roomBehavior;
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
+		private readonly IGameEvents _gameEvents;
 
 		public AGSSlider(IPanel panel, IInput input, IGameEvents gameEvents, IGameState state, Resolver resolver)
 		{
 			_input = input;
+			_gameEvents = gameEvents;
 			_obj = panel;
 			_state = state;
 			_visible = new VisibleProperty (this);
@@ -296,6 +298,12 @@ namespace AGS.Engine
 		public override string ToString()
 		{
 			return string.Format("Slider: {0}", ID ?? _obj.ToString());
+		}
+
+		public void Dispose()
+		{
+			_gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+			_obj.Dispose();
 		}
 
 		private void updateGraphics(IObject oldGraphics, IObject newGraphics, float z)

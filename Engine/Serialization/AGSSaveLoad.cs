@@ -75,6 +75,7 @@ namespace AGS.Engine
 				_state.Paused = true;
 				firstTimeSetup();
 
+				_state.Clean();
 				var context = getContext();
 				ContractGameState state;
 				using (var file = File.OpenRead(saveName)) 

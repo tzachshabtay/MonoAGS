@@ -214,6 +214,10 @@ namespace AGS.Engine
 			return string.Format("Object: {0}", ID ?? Hotspot ?? (Image == null ? "" : Image.ToString()));
 		}
 
+		public void Dispose()
+		{
+		}
+
 		#endregion
 	}
 }
