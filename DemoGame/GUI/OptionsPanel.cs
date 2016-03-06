@@ -62,7 +62,7 @@ namespace DemoGame
 			_game.Events.OnSavedGameLoad.Subscribe((sender, args) => findPanel());
 
 			loadButton("Resume", 95, Hide);
-			loadButton("Restart", 75, Hide);
+			loadButton("Restart", 75, restart);
 			loadButton("Load", 55, load);
 			loadButton("Save", 35, save);
 			loadButton("Quit", 15, Hide);
@@ -83,18 +83,6 @@ namespace DemoGame
 			button.OnMouseClick(onClick, _game);
 		}
 
-		private void save()
-		{
-			_game.SaveLoad.Save("save.bin");
-			Hide();
-		}
-
-		private void load()
-		{
-			_game.SaveLoad.Load("save.bin");
-			Hide();
-		}
-
 		public void Show()
 		{
 			_lastMode = _scheme.CurrentMode;
@@ -110,6 +98,23 @@ namespace DemoGame
 				_scheme.CurrentMode = _lastMode;
 			else _scheme.SetInventoryCursor();
 			_panel.Visible = false;
+		}
+
+		private void save()
+		{
+			_game.SaveLoad.Save("save.bin");
+			Hide();
+		}
+
+		private void load()
+		{
+			_game.SaveLoad.Load("save.bin");
+			Hide();
+		}
+
+		private void restart()
+		{
+			_game.SaveLoad.Restart();
 		}
 	}
 }

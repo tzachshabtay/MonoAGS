@@ -156,8 +156,6 @@ namespace AGS.Engine
 				_gameState.UI.Add(slider);
 			return slider;
 		}
-
-
 	}
 }
 

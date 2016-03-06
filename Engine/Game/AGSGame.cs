@@ -123,6 +123,11 @@ namespace AGS.Engine
 						_renderLoop.Tick();
 
 						game.SwapBuffers();
+
+						if (Repeat.OnceOnly("SetFirstRestart"))
+						{
+							SaveLoad.SetRestartPoint();
+						}
 					}
 					catch (Exception ex)
 					{

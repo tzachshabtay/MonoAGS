@@ -27,6 +27,7 @@ namespace AGS.Engine
 		{
 			RotatingEnabled = true;
 			_game = game;
+			_game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoad);
 
 			if (walkCursor != null) AddCursor(WALK_MODE, walkCursor, true);
 			if (lookCursor != null) AddCursor(LOOK_MODE, lookCursor, true);
@@ -75,6 +76,13 @@ namespace AGS.Engine
 		private void setCursor()
 		{
 			_game.Input.Cursor = _cursors[_currentMode].Animation;
+		}
+
+		private void onSavedGameLoad(object sender, AGSEventArgs e)
+		{
+			_currentMode = 0;
+			setCursor();
+			RotatingEnabled = true;
 		}
 
 		private async Task onMouseDown(object sender, MouseButtonEventArgs e)
@@ -181,7 +189,6 @@ namespace AGS.Engine
 			Cursor cursor = _cursors[_currentMode];
 
 			if (!cursor.Rotating) return;
-
 
 			do
 			{

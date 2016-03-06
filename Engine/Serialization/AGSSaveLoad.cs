@@ -22,6 +22,7 @@ namespace AGS.Engine
 		private readonly IGameState _state;
 		private readonly IGameEvents _events;
 		private static bool _firstTimeSetup = true;
+		private const string RESTART_FILENAME = "RestartPoint.bin";
 
 		public AGSSaveLoad(Resolver resolver, IGameFactory factory, 
 			IDictionary<string, GLImage> textures, IGame game)
@@ -101,6 +102,16 @@ namespace AGS.Engine
 		public async Task LoadAsync(string saveName)
 		{
 			await Task.Run(() => Load(saveName));
+		}
+
+		public void SetRestartPoint()
+		{
+			Save(RESTART_FILENAME);
+		}
+
+		public void Restart()
+		{
+			Load(RESTART_FILENAME);
 		}
 
 		#endregion

@@ -10,6 +10,9 @@ namespace AGS.API
 
 		void Load(string saveName);
 		Task LoadAsync(string saveName);
+
+		void SetRestartPoint();
+		void Restart();
 	}
 }
 
