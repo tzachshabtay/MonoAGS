@@ -50,7 +50,7 @@ namespace AGS.Engine
 			if (obj.IgnoreScalingArea) return GLMatrixBuilder.NoScaling;
 			foreach (IScalingArea area in room.ScalingAreas)
 			{
-				if (!area.Enabled || !area.IsInArea(obj.Location)) continue;
+				if (!area.Enabled || !area.ScaleObjects || !area.IsInArea(obj.Location)) continue;
 				float scale = MathUtils.Lerp(area.Mask.MaxY, area.MinScaling, area.Mask.MinY, area.MaxScaling, obj.Y);
 				return new AGSPoint (scale, scale);
 			}
@@ -74,10 +74,10 @@ namespace AGS.Engine
 			if (cursor == null) return;
 			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
 			{
-				_mouseCursorContainer = new AGSObject ("MouseCursor", cursor, null, null) { Anchor = new AGSPoint (0f,1f) };
+				_mouseCursorContainer = new AGSObject ("MouseCursor", cursor, null, null) { Anchor = new AGSPoint (0f,1f), IgnoreScalingArea = true, IgnoreViewport = true };
 			}
-			_mouseCursorContainer.X = _input.MouseX;
-			_mouseCursorContainer.Y = _input.MouseY;
+			_mouseCursorContainer.X = (_input.MouseX - room.Viewport.X) * room.Viewport.ScaleX;
+			_mouseCursorContainer.Y = (_input.MouseY - room.Viewport.Y) * room.Viewport.ScaleY;
 			addToDisplayList(displayList, _mouseCursorContainer, room);
 		}
 

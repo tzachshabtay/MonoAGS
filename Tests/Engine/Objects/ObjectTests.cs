@@ -216,7 +216,7 @@ namespace Tests
 			Mock<ILabelRenderer> renderer = new Mock<ILabelRenderer> ();
 
 			Func<IPanel> basePanel = () => new AGSPanel (baseObj(), uiEvents.Object,
-				image.Object, gameEvents.Object, input.Object, resolver);
+				image.Object, gameEvents.Object, input.Object, state, resolver);
 			Func<ILabel> baseLabel = () => new AGSLabel (basePanel(), uiEvents.Object, 
 				image.Object, renderer.Object, new SizeF (100f, 50f), resolver);
 

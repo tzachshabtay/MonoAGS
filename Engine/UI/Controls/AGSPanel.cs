@@ -14,15 +14,17 @@ namespace AGS.Engine
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
 		private readonly IGameEvents _gameEvents;
+		private readonly IGameState _state;
 
 		private bool _leftMouseDown, _rightMouseDown;
 		private float _mouseX, _mouseY;
 		private Stopwatch _leftMouseClickTimer, _rightMouseClickTimer;
 		private IHasRoom _roomBehavior;
 
-		public AGSPanel(IObject obj, IUIEvents events, IImage image, IGameEvents gameEvents, IInput input, Resolver resolver)
+		public AGSPanel(IObject obj, IUIEvents events, IImage image, IGameEvents gameEvents, IInput input, IGameState state, Resolver resolver)
 		{
 			_gameEvents = gameEvents;
+			_state = state;
 			this._obj = obj;
 			_visible = new VisibleProperty (this);
 			_enabled = new EnabledProperty (this);
@@ -213,7 +215,13 @@ namespace AGS.Engine
 		{
 			if (!Enabled || !Visible) return;
 			IPoint position = _input.MousePosition;
-			bool mouseIn = _obj.CollidesWith(position.X, position.Y);
+			IViewport viewport = _state.Player.Character.Room.Viewport;
+
+			//todo: Support mouseX/Y When IgnoreScalingArea = false (i.e 4 options: IgnoreScaling+IgnoreViewport,IgnoreScaling,IgnoreViewport,None)
+			float mouseX = IgnoreViewport ? (position.X - viewport.X) * viewport.ScaleX + viewport.X : position.X;
+			float mouseY = IgnoreViewport ? (position.Y - viewport.Y) * viewport.ScaleY + viewport.Y : position.Y;
+			bool mouseIn = _obj.CollidesWith(mouseX, mouseY);
+
 			bool leftMouseDown = _input.LeftMouseButtonDown;
 			bool rightMouseDown = _input.RightMouseButtonDown;
 

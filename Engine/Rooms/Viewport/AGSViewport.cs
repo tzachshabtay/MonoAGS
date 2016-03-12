@@ -21,7 +21,7 @@ namespace AGS.Engine
 
 		public float ScaleY { get; set; }
 
-		public IFollower Follower { get; set; }
+		public ICamera Camera { get; set; }
 
 		#endregion
 	}

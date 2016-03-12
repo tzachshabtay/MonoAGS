@@ -10,7 +10,7 @@ namespace AGS.API
 		float ScaleX { get; set; }
 		float ScaleY { get; set; }
 
-		IFollower Follower { get; set; }
+		ICamera Camera { get; set; }
 	}
 }
 

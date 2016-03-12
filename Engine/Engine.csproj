@@ -71,7 +71,6 @@
     <Compile Include="Graphics\Drawing\GLLineRenderer.cs" />
     <Compile Include="Graphics\Drawing\GLMaskRenderer.cs" />
     <Compile Include="Graphics\Drawing\GLBitmapRenderer.cs" />
-    <Compile Include="Rooms\Viewport\AGSViewportFollower.cs" />
     <Compile Include="Rooms\Viewport\AGSViewport.cs" />
     <Compile Include="Rooms\AGSRoom.cs" />
     <Compile Include="Graphics\Layers\AGSRenderLayer.cs" />
@@ -200,7 +199,6 @@
     <Compile Include="Serialization\Contracts\ContractBorderStyle.cs" />
     <Compile Include="Serialization\Contracts\ContractCustomProperties.cs" />
     <Compile Include="Serialization\Contracts\ContractRenderLayer.cs" />
-    <Compile Include="Serialization\Contracts\ContractFollower.cs" />
     <Compile Include="Serialization\Contracts\ContractViewport.cs" />
     <Compile Include="Serialization\Contracts\ContractMask.cs" />
     <Compile Include="Serialization\Contract.cs" />
@@ -239,6 +237,8 @@
     <Compile Include="Serialization\Contracts\ContractLoadImageConfig.cs" />
     <Compile Include="Serialization\Surrogates\ProtoPoint.cs" />
     <Compile Include="Serialization\Contracts\ContractSpriteSheet.cs" />
+    <Compile Include="Rooms\Viewport\AGSCamera.cs" />
+    <Compile Include="Serialization\Contracts\ContractCamera.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

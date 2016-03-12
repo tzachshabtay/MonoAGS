@@ -115,14 +115,18 @@ namespace AGS.Engine
 
 		private float convertX(float x)
 		{
-			x = MathUtils.Lerp (0f, 0f, _game.ClientSize.Width, _virtualWidth, x);
-			return x + getViewport().X;
+			var viewport = getViewport();
+			var virtualWidth = _virtualWidth / viewport.ScaleX;
+			x = MathUtils.Lerp (0f, 0f, _game.ClientSize.Width, virtualWidth, x);
+			return x + viewport.X;
 		}
 
 		private float convertY(float y)
 		{
-			y = MathUtils.Lerp (0f, _virtualHeight, _game.ClientSize.Height, 0f, y);
-			return y + getViewport().Y;
+			var viewport = getViewport();
+			var virtualHeight = _virtualHeight / viewport.ScaleY;
+			y = MathUtils.Lerp (0f, virtualHeight, _game.ClientSize.Height, 0f, y);
+			return y + viewport.Y;
 		}
 
 		private IViewport getViewport()

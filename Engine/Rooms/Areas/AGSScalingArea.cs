@@ -13,11 +13,16 @@ namespace AGS.Engine
 			Enabled = true;
 		}
 
-		public static AGSScalingArea Create(IArea area, float minScaling, float maxScaling)
+		public static AGSScalingArea Create(IArea area, float minScaling, float maxScaling, bool scaleObjects = true, bool zoomCamera = false)
 		{
 			//cloning to be able to enable/disable the same area as scalable and (probably) walkable
 			AGSArea clone = new AGSArea { Mask = area.Mask };
-			return new AGSScalingArea (clone) { MinScaling = minScaling, MaxScaling = maxScaling };
+			return new AGSScalingArea (clone) { MinScaling = minScaling, MaxScaling = maxScaling, ScaleObjects = scaleObjects, ZoomCamera = zoomCamera };
+		}
+
+		public static AGSScalingArea CreateZoom(IArea area, float minZoom, float maxZoom)
+		{
+			return Create(area, minZoom, maxZoom, false, true);
 		}
 
 		#region IArea implementation
@@ -48,6 +53,10 @@ namespace AGS.Engine
 		public float MinScaling { get; set; }
 
 		public float MaxScaling { get; set; }
+
+		public bool ScaleObjects { get; set; }
+
+		public bool ZoomCamera { get; set; }
 
 		#endregion
 	}

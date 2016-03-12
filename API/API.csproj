@@ -66,7 +66,6 @@
     <Compile Include="Graphics\Animations\ISpriteSheet.cs" />
     <Compile Include="Graphics\Animations\IDirectionalAnimation.cs" />
     <Compile Include="Objects\Characters\ICharacter.cs" />
-    <Compile Include="Objects\Characters\IFollower.cs" />
     <Compile Include="Rooms\IRoom.cs" />
     <Compile Include="Rooms\IArea.cs" />
     <Compile Include="Rooms\IWalkBehindArea.cs" />
@@ -127,6 +126,7 @@
     <Compile Include="Misc\ICustomProperties.cs" />
     <Compile Include="Game\ICutscene.cs" />
     <Compile Include="Objects\IHasRoom.cs" />
+    <Compile Include="Rooms\ICamera.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

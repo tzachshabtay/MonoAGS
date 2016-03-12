@@ -3,11 +3,11 @@ using System.Drawing;
 
 namespace AGS.API
 {
-	public interface IFollower
+	public interface ICamera
 	{
 		bool Enabled { get; set; }
 		Func<IObject> Target { get; set; }
-		IPoint Follow(IPoint point, Size roomSize, Size virtualResolution, bool resetPosition);
+		void Tick(IViewport viewport, Size roomSize, Size virtualResolution, bool resetPosition);
 	}
 }
 

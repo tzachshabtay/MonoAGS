@@ -217,9 +217,9 @@ namespace Tests
 		}
 
 		[Test]
-		public void NoViewportFollower_ViewportStaysTest()
+		public void NoCamera_ViewportStaysTest()
 		{
-			_mocks.Viewport().Setup(v => v.Follower).Returns((IFollower)null);
+			_mocks.Viewport().Setup(v => v.Camera).Returns((ICamera)null);
 			var loop = getGameLoop();
 
 			loop.Update();
@@ -229,16 +229,17 @@ namespace Tests
 		}
 
 		[Test]
-		public void ViewportFollower_ViewportMovesTest()
+		public void Camera_ViewportMovesTest()
 		{
-			Mock<IFollower> follower = new Mock<IFollower> ();
+			Mock<ICamera> camera = new Mock<ICamera> ();
 			IPoint sourcePoint = new AGSPoint (15f, 25f);
 			IPoint targetPoint = new AGSPoint (55f, 65f);
-			follower.Setup(f => f.Follow(sourcePoint, It.IsAny<Size>(), It.IsAny<Size>(),
-				It.IsAny<bool>())).Returns(targetPoint);
+			camera.Setup(f => f.Tick(_mocks.Viewport().Object, It.IsAny<Size>(), It.IsAny<Size>(),
+				It.IsAny<bool>())).Callback(() => 
+				{_mocks.Viewport().Object.X = targetPoint.X; _mocks.Viewport().Object.Y = targetPoint.Y; });
 			_mocks.Viewport().Setup(v => v.X).Returns(sourcePoint.X);
 			_mocks.Viewport().Setup(v => v.Y).Returns(sourcePoint.Y);
-			_mocks.Viewport().Setup(v => v.Follower).Returns(follower.Object);
+			_mocks.Viewport().Setup(v => v.Camera).Returns(camera.Object);
 			var loop = getGameLoop();
 
 			loop.Update();

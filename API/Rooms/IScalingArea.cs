@@ -6,6 +6,8 @@ namespace AGS.API
 	{
 		float MinScaling { get; set; }
 		float MaxScaling { get; set; }
+		bool ScaleObjects { get; set; }
+		bool ZoomCamera { get; set; }
 	}
 }
 

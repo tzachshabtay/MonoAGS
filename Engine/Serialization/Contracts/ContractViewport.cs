@@ -24,7 +24,7 @@ namespace AGS.Engine
 		public float ScaleY { get; set; }
 		 
 		[ProtoMember(5)]
-		public Contract<IFollower> Follower { get; set; }
+		public Contract<ICamera> Camera { get; set; }
 
 		#region IContract implementation
 
@@ -36,15 +36,15 @@ namespace AGS.Engine
 			viewport.ScaleX = ScaleX;
 			viewport.ScaleY = ScaleY;
 		
-			viewport.Follower = Follower.ToItem(context);
+			viewport.Camera = Camera.ToItem(context);
 
 			return viewport;
 		}
 
 		public void FromItem(AGSSerializationContext context, IViewport item)
 		{
-			Follower = new Contract<IFollower> ();
-			Follower.FromItem(context, item.Follower);
+			Camera = new Contract<ICamera> ();
+			Camera.FromItem(context, item.Camera);
 
 			X = item.X;
 			Y = item.Y;

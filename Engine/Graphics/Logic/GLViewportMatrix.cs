@@ -39,8 +39,9 @@ namespace AGS.Engine
 
 		private void buildMatrix()
 		{
-			_lastMatrix = Matrix4.CreateScale(_lastScaleX, _lastScaleY, 1f) *
-				Matrix4.CreateTranslation(new Vector3(-_lastX, -_lastY, 0f));
+			_lastMatrix = 
+				Matrix4.CreateTranslation(new Vector3(-_lastX, -_lastY, 0f)) * 
+				Matrix4.CreateScale(_lastScaleX, _lastScaleY, 1f);
 		}
 	}
 }

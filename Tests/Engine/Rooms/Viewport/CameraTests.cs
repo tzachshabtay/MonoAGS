@@ -7,7 +7,7 @@ using System.Drawing;
 namespace Tests
 {
 	[TestFixture]
-	public class ViewportFollowerTests
+	public class CameraTests
 	{
 		private Mocks _mocks;
 
@@ -42,17 +42,20 @@ namespace Tests
 		[TestCase(40f, 200f, 500, 300, 20f, Result = 42)]
 		[TestCase(60f, 200f, 500, 300, 30f, Result = 57)]
 		[TestCase(60f, 200f, 500, 300, 20f, Result = 58)]
-		public int SingleViewportFollowTest(float currentViewX, float targetPosX, 
+		public int Camera_FollowX_Test(float currentViewX, float targetPosX, 
 			int roomWidth, int screenWidth, float speedX)
 		{
-			AGSViewportFollower follower = new AGSViewportFollower (speedX, 0f);
+			AGSCamera camera = new AGSCamera (speedX, 0f);
 			_mocks.Object().Setup(o => o.X).Returns(targetPosX);
 			_mocks.Object().Setup(o => o.Y).Returns(0f);
 			Func<IObject> getTarget = () => _mocks.Object().Object;
-			follower.Target = getTarget;
-			var result = follower.Follow(new AGSPoint (currentViewX, 0f), new Size (roomWidth, 200), 
+			camera.Target = getTarget;
+			AGSViewport viewport = new AGSViewport ();
+			viewport.X = currentViewX;
+			viewport.Y = 0f;
+			camera.Tick(viewport, new Size (roomWidth, 200), 
 				new Size (screenWidth, 200), false);
-			return (int)result.X;
+			return (int)viewport.X;
 		}
 	}
 }

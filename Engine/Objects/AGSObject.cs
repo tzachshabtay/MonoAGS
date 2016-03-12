@@ -126,6 +126,7 @@ namespace AGS.Engine
 		{
 			get
 			{
+				if (BoundingBox == null) return null;
 				float minX = BoundingBox.MinX;
 				float minY = BoundingBox.MinY;
 				float offsetX = PixelPerfectHitTestArea == null ? (BoundingBox.MaxX - BoundingBox.MinX) / 2f : 

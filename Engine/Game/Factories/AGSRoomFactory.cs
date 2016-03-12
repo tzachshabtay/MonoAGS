@@ -26,9 +26,9 @@ namespace AGS.Engine
 			TypedParameter edgeParam = new TypedParameter (typeof(IAGSEdges), edges);
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
 			IRoom room = _resolver.Resolve<IRoom>(idParam, edgeParam);
-			room.Viewport.Follower = _resolver.Resolve<IFollower>();
+			room.Viewport.Camera = _resolver.Resolve<ICamera>();
 			IPlayer player = _resolver.Resolve<IPlayer>();
-			room.Viewport.Follower.Target = () => player.Character;
+			room.Viewport.Camera.Target = () => player.Character;
 			return room;
 		}
 	}

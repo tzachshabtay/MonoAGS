@@ -48,16 +48,14 @@ namespace AGS.Engine
 			
 		private void updateViewport (IRoom room)
 		{
-			IFollower viewportFollower = room.Viewport.Follower;
-			if (viewportFollower != null) 
+			ICamera camera = room.Viewport.Camera;
+			if (camera != null) 
 			{
 				ISprite sprite = room.Background.Animation.Sprite;
 				bool playerChangedRoom = _lastPlayerRoom != _gameState.Player.Character.Room;
-				IPoint point = viewportFollower.Follow (new AGSPoint (room.Viewport.X, room.Viewport.Y),
+				camera.Tick (room.Viewport,
 					new Size((int)sprite.Width, (int)sprite.Height), _virtualResolution, 
 					playerChangedRoom);
-				room.Viewport.X = point.X;
-				room.Viewport.Y = point.Y;
 			}
 		}
 
