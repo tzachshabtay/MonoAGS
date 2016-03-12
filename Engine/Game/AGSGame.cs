@@ -8,6 +8,8 @@ using System.Threading;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.IO;
+using System.Reflection;
 
 namespace AGS.Engine
 {
@@ -26,6 +28,7 @@ namespace AGS.Engine
 		public static IGame CreateEmpty()
 		{
 			Thread.CurrentThread.Name = UIThread;
+            Environment.CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			Resolver resolver = new Resolver ();
 			resolver.Build();
 			AGSGame game = resolver.Container.Resolve<AGSGame>();
