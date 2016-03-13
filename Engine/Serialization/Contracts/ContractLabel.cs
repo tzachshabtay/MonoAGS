@@ -35,6 +35,7 @@ namespace AGS.Engine
 
 		public IObject ToItem(AGSSerializationContext context)
 		{
+			if (Object == null) return null;
 			IObject obj = Object.ToItem(context);
 			var anchor = obj.Anchor;
 			var tint = obj.Tint;

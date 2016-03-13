@@ -101,7 +101,7 @@ namespace AGS.Engine
 			Hotspot = item.Hotspot;
 			IgnoreViewport = item.IgnoreViewport;
 			IgnoreScalingArea = item.IgnoreScalingArea;
-			if (item.TreeNode != null && item.TreeNode.Parent != null)
+			if (Parent == null && item.TreeNode != null && item.TreeNode.Parent != null)
 			{
 				Parent = context.GetContract(item.TreeNode.Parent);
 			}

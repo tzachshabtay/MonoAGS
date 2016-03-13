@@ -6,23 +6,28 @@ using Autofac;
 namespace AGS.Engine
 {
 	[ProtoContract]
-	public class ContractSlider : IContract<ISlider>
+	public class ContractSlider : IContract<IObject>
 	{
+		static ContractSlider()
+		{
+			ContractsFactory.RegisterFactory(typeof(ISlider), () => new ContractSlider ());
+		}
+
 		public ContractSlider()
 		{
 		}
-
+			
 		[ProtoMember(1)]
-		public Contract<IObject> Object { get; set; }
+		public ContractObject Object { get; set; }
 
 		[ProtoMember(2)]
-		public Contract<IObject> Graphics { get; set; }
+		public ContractObject Graphics { get; set; }
 
 		[ProtoMember(3)]
-		public Contract<IObject> HandleGraphics { get; set; }
+		public ContractObject HandleGraphics { get; set; }
 
 		[ProtoMember(4)]
-		public Contract<ILabel> Label { get; set; }
+		public ContractLabel Label { get; set; }
 
 		[ProtoMember(5)]
 		public float MinValue { get; set; }
@@ -38,36 +43,48 @@ namespace AGS.Engine
 
 		#region IContract implementation
 
-		public ISlider ToItem(AGSSerializationContext context)
+		public IObject ToItem(AGSSerializationContext context)
 		{
 			IObject obj = Object.ToItem(context);
 			TypedParameter objParam = new TypedParameter (typeof(IObject), obj);
-			ISlider slider = context.Resolver.Container.Resolve<ISlider>(objParam);
+			IPanel panel = context.Resolver.Container.Resolve<IPanel>(objParam);
+			TypedParameter panelParam = new TypedParameter (typeof(IPanel), panel);
+			ISlider slider = context.Resolver.Container.Resolve<ISlider>(panelParam);
+
+			Graphics.Parent = null;
 			slider.Graphics = Graphics.ToItem(context);
+
+			HandleGraphics.Parent = null;
 			slider.HandleGraphics = HandleGraphics.ToItem(context);
-			slider.Label = Label.ToItem(context);
+
+			slider.Label = (ILabel)Label.ToItem(context);
 			slider.MinValue = MinValue;
 			slider.MaxValue = MaxValue;
 			slider.Value = Value;
 			slider.IsHorizontal = IsHorizontal;
 			slider.TreeNode.StealParent(obj.TreeNode);
+			slider.Graphics.TreeNode.SetParent(slider.TreeNode);
+			slider.HandleGraphics.TreeNode.SetParent(slider.TreeNode);
 
 			return slider;
 		}
 
-		public void FromItem(AGSSerializationContext context, ISlider item)
+		public void FromItem(AGSSerializationContext context, IObject obj)
 		{
-			Object = new Contract<IObject> ();
+			ISlider item = (ISlider)obj;
+			Object = new ContractObject ();
 			Object.FromItem(context, item);
 
-			Graphics = new Contract<IObject> ();
+			Graphics = new ContractObject ();
+			Graphics.Parent = this;
 			Graphics.FromItem(context, item.Graphics);
 
-			HandleGraphics = new Contract<IObject> ();
+			HandleGraphics = new ContractObject ();
+			HandleGraphics.Parent = this;
 			HandleGraphics.FromItem(context, item.HandleGraphics);
 
-			Label = new Contract<ILabel> ();
-			Label.FromItem(context, item.Label);
+			Label = new ContractLabel ();
+			if (item.Label != null) Label.FromItem(context, item.Label);
 
 			MinValue = item.MinValue;
 			MaxValue = item.MaxValue;
