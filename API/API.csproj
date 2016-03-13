@@ -127,6 +127,7 @@
     <Compile Include="Game\ICutscene.cs" />
     <Compile Include="Objects\IHasRoom.cs" />
     <Compile Include="Rooms\ICamera.cs" />
+    <Compile Include="Game\IGameSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -15,7 +15,6 @@ namespace DemoGame
 		[STAThread]
 		public static void Main()
 		{
-
 			IGame game = AGSGame.CreateEmpty();
 
 			game.Events.OnLoad.Subscribe((sender, e) =>
@@ -33,7 +32,8 @@ namespace DemoGame
 				defaults.Load();
 			});
 
-			game.Start("Demo Game", 320, 200);
+			game.Start(new AGSGameSettings("Demo Game", new Size(320, 200), 
+				windowSize: new Size(640, 480), windowState: WindowState.Normal));
 		}
 
 		private static void loadUi(IGame game)

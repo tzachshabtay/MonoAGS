@@ -54,17 +54,19 @@ namespace AGS.Engine
 
 		public Size VirtualResolution { get; private set; }
 
-		public void Start(string title, int width, int height)
+		public void Start(IGameSettings settings)
 		{
-			VirtualResolution = new Size (width, height);
+			VirtualResolution = settings.VirtualResolution;
 			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(Size), VirtualResolution));
-			using (var game = new GameWindow (width, height, GraphicsMode.Default, title))
+			using (var game = new GameWindow (settings.VirtualResolution.Width, 
+                settings.VirtualResolution.Height, GraphicsMode.Default, settings.Title))
 			{
 				GL.ClearColor(0, 0.1f, 0.4f, 1);
+                game.Size = settings.WindowSize;
+                setWindowState(game, settings);
 				game.Load += async (sender, e) =>
 				{
-					// setup settings, load textures, sounds
-					game.VSync = VSyncMode.On;
+                    setVSync(game, settings);                    
 
 					GL.Enable(EnableCap.Blend);
 					GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
@@ -82,7 +84,7 @@ namespace AGS.Engine
 					GL.MatrixMode(MatrixMode.Projection);
 
 					GL.LoadIdentity();
-					GL.Ortho(0, width, 0, height, -1, 1);
+					GL.Ortho(0, settings.VirtualResolution.Width, 0, settings.VirtualResolution.Height, -1, 1);
 					GL.MatrixMode(MatrixMode.Modelview);
 					GL.LoadIdentity();
 
@@ -162,6 +164,45 @@ namespace AGS.Engine
 
 			updater.Update(_resolver.Container);
 		}
+        
+        private void setVSync(GameWindow game, IGameSettings settings)
+        {
+            switch (settings.Vsync)
+            {
+                case VsyncMode.On:
+                    game.VSync = VSyncMode.On;
+                    break;
+                case VsyncMode.Adaptive:
+                    game.VSync = VSyncMode.Adaptive;
+                    break;
+                case VsyncMode.Off:
+                    game.VSync = VSyncMode.Off;
+                    break;
+                default:
+                    throw new NotSupportedException(settings.Vsync.ToString());
+            }
+        }
+        
+        private void setWindowState(GameWindow game, IGameSettings settings)
+        {
+            switch (settings.WindowState)
+            {
+                case AGS.API.WindowState.FullScreen:
+                    game.WindowState = OpenTK.WindowState.Fullscreen;
+                    break;
+				case AGS.API.WindowState.Maximized:
+                    game.WindowState = OpenTK.WindowState.Maximized;
+                    break;
+				case AGS.API.WindowState.Minimized:
+                    game.WindowState = OpenTK.WindowState.Minimized;
+                    break;
+				case AGS.API.WindowState.Normal:
+                    game.WindowState = OpenTK.WindowState.Normal;
+                    break;
+                default:
+                    throw new NotSupportedException(settings.WindowState.ToString());
+            }
+        }
 	}
 }
 
