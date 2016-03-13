@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace AGS.API
 {
-	public interface ILabelRenderer : IImageRenderer
+    public interface ILabelRenderer : IImageRenderer
 	{
 		string Text { get; set; }
 		ITextConfig Config { get; set; }

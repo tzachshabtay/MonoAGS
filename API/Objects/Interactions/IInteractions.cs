@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IInteractions
+    public interface IInteractions
 	{
 		IEvent<ObjectEventArgs> OnLook { get; }
 		IEvent<ObjectEventArgs> OnInteract { get; }

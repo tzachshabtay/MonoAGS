@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public class InventoryInteractEventArgs : ObjectEventArgs
+    public class InventoryInteractEventArgs : ObjectEventArgs
 	{
 		public InventoryInteractEventArgs (IObject obj, IInventoryItem item) : base(obj)
 		{

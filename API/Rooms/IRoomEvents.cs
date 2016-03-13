@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IRoomEvents
+    public interface IRoomEvents
 	{
 		IEvent<AGSEventArgs> OnBeforeFadeIn { get; }
 

@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IOutfit
+    public interface IOutfit
 	{
 		IDirectionalAnimation WalkAnimation { get; set; }
 		IDirectionalAnimation IdleAnimation { get; set; }

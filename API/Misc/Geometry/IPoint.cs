@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IPoint
+    public interface IPoint
 	{
 		float X { get; }
 		float Y { get; }

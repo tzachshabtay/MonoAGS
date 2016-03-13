@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public class InventoryCombinationEventArgs : AGSEventArgs
+    public class InventoryCombinationEventArgs : AGSEventArgs
 	{
 		public InventoryCombinationEventArgs (IInventoryItem activeItem, IInventoryItem passiveItem)
 		{

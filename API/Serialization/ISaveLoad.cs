@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace AGS.API
 {
-	public interface ISaveLoad
+    public interface ISaveLoad
 	{
 		void Save(string saveName);
 		Task SaveAsync(string saveName);

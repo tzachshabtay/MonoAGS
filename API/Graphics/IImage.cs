@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace AGS.API
 {
-	public interface IImage
+    public interface IImage
 	{
 		Bitmap OriginalBitmap { get; }
 

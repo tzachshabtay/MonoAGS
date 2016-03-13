@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IButton : ILabel<IButton>
+    public interface IButton : ILabel<IButton>
 	{
 		IAnimation IdleAnimation { get; set; }
 		IAnimation HoverAnimation { get; set; }

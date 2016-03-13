@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IUIEvents
+    public interface IUIEvents
 	{
 		IEvent<MousePositionEventArgs> MouseEnter { get; }
 		IEvent<MousePositionEventArgs> MouseLeave { get; }

@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface ICutscene
+    public interface ICutscene
 	{
 		bool IsSkipping { get; }
 		bool IsRunning { get; }

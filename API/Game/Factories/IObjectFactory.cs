@@ -1,9 +1,6 @@
-﻿using System;
-using System.Drawing;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IObjectFactory
+    public interface IObjectFactory
 	{
 		IObject GetObject(string id, string[] sayWhenLook = null, string[] sayWhenInteract = null);
 		IObject GetObject(string id, IAnimationContainer innerContainer);

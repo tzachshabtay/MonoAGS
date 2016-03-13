@@ -1,12 +1,10 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace DemoGame
 {
-	public class Cris
+    public class Cris
 	{
 		private ICharacter _character;
 		private const string _baseFolder = "../../Assets/Characters/Cris/";

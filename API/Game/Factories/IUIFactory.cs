@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IUIFactory
+    public interface IUIFactory
 	{
 		IPanel GetPanel(string id, IImage image, float x, float y, bool addToUi = true);
 		IPanel GetPanel(string id, float width, float height, float x, float y, bool addToUi = true);

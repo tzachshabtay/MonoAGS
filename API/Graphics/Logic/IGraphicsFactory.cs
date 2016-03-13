@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Drawing;
 
 namespace AGS.API
 {
-	public interface IGraphicsFactory
+    public interface IGraphicsFactory
 	{
 		ISprite GetSprite();
 

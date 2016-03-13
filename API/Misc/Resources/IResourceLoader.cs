@@ -1,10 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AGS.API
 {
-	public interface IResourceLoader
+    public interface IResourceLoader
 	{
 		IResource LoadResource(string path);
 		List<IResource> LoadResources(params string[] paths);

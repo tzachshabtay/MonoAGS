@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AGS.API
 {
-	public interface ITreeNode<TItem> where TItem : class, IInTree<TItem>
+    public interface ITreeNode<TItem> where TItem : class, IInTree<TItem>
 	{
 		TItem Node { get; }
 		TItem Parent { get; }

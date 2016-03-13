@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IInventoryFactory
+    public interface IInventoryFactory
 	{
 		IInventoryWindow GetInventoryWindow(string id, float width, float height, float itemWidth, float itemHeight, float x, float y, 
 			ICharacter character = null, bool addToUi = true);

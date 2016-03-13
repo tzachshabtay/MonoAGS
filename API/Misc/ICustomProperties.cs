@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AGS.API
 {
-	public interface ICustomProperties
+    public interface ICustomProperties
 	{
 		int GetInt(string name, int defaultValue = 0);
 		void SetInt(string name, int value);

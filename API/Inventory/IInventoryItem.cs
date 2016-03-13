@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IInventoryItem
+    public interface IInventoryItem
 	{
 		IObject Graphics { get; set; }
 		IObject CursorGraphics { get; set; }

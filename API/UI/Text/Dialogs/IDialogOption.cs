@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace AGS.API
 {
-	public interface IDialogOption : IDialogActions, IDisposable
+    public interface IDialogOption : IDialogActions, IDisposable
 	{
 		ILabel Label { get; }
 		ITextConfig HoverConfig { get; }

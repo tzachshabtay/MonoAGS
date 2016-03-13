@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public enum SpriteSheetOrder
+    public enum SpriteSheetOrder
 	{
 		TopLeftGoRight,
 		TopLeftGoDown,

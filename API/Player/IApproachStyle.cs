@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public enum ApproachHotspots
+    public enum ApproachHotspots
 	{
 		NeverWalk,
 		FaceOnly,

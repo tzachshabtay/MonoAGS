@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace AGS.API
 {
-	public enum Direction
+    public enum Direction
 	{
 		Down,
 		Up,

@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public class SliderValueEventArgs : AGSEventArgs
+    public class SliderValueEventArgs : AGSEventArgs
 	{
 		public SliderValueEventArgs(float value)
 		{

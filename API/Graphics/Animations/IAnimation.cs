@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AGS.API
 {
-	public interface IAnimation
+    public interface IAnimation
 	{
 		IList<IAnimationFrame> Frames { get; }
 

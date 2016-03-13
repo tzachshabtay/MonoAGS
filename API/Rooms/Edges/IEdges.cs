@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IEdges
+    public interface IEdges
 	{
 		IEdge Left { get; }
 		IEdge Right { get; }

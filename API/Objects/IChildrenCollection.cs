@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AGS.API
 {
-	public interface IChildrenCollection : IEnumerable<IObject>
+    public interface IChildrenCollection : IEnumerable<IObject>
 	{
 		int Count { get; }
 		void AddChild(IObject child);

@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IRendererLoop
+    public interface IRendererLoop
 	{
 		void Tick();
 	}

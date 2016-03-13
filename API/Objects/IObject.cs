@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace AGS.API
 {
-	public interface IObject : IHasRoom, IAnimationContainer, IInTree<IObject>, IDisposable
+    public interface IObject : IHasRoom, IAnimationContainer, IInTree<IObject>, IDisposable
 	{
 		string ID { get; }
 		IInteractions Interactions { get; }

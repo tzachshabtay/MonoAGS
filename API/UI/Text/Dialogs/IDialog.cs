@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AGS.API
 {
-	public interface IDialog
+    public interface IDialog
 	{
 		IObject Graphics { get; }
 		IList<IDialogOption> Options { get; }

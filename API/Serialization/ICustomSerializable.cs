@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface ICustomSerializable
+    public interface ICustomSerializable
 	{
 		void Load(string contents);
 		ICustomSerializableData Save();

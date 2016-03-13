@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace AGS.API
 {
-	public interface IAnimationState
+    public interface IAnimationState
 	{
 		bool RunningBackwards { get; set; }
 		int CurrentFrame { get; set; }

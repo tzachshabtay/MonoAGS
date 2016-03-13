@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IArea
+    public interface IArea
 	{
 		IMask Mask { get; set; }
 		bool Enabled { get; set; }

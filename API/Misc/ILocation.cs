@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface ILocation : IPoint
+    public interface ILocation : IPoint
 	{
 	    float Z { get; }
 	}

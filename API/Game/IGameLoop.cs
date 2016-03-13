@@ -1,9 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IGameLoop
+    public interface IGameLoop
 	{
 		void Update();
 	}

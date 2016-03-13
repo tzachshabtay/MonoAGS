@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace AGS.API
 {
-	public interface ISayLocation
+    public interface ISayLocation
 	{
 		IPoint GetLocation(string text, SizeF labelSize, ITextConfig config);
 	}

@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public enum LoopingStyle
+    public enum LoopingStyle
 	{
 		/// <summary>
 		/// Will animate the loop forwards, and then start again from the top

@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface ISkin
+    public interface ISkin
 	{
 		IButton ButtonSkin { get; }
 		ILabel LabelSkin { get; }

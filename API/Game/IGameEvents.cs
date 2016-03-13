@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IGameEvents
+    public interface IGameEvents
 	{
 		IEvent<AGSEventArgs> OnLoad { get; }
 		IEvent<AGSEventArgs> OnRepeatedlyExecute { get; }

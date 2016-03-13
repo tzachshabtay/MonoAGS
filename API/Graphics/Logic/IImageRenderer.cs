@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IImageRenderer
+    public interface IImageRenderer
 	{
 		void Prepare(IObject obj, IViewport viewport, IPoint areaScaling);
 		void Render(IObject obj, IViewport viewport, IPoint areaScaling);

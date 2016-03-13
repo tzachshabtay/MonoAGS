@@ -1,9 +1,6 @@
-﻿using System;
-using System.Drawing;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IGameFactory
+    public interface IGameFactory
 	{
 		IGraphicsFactory Graphics { get; }
 		ISoundFactory Sound { get; }

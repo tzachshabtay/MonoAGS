@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface ISquare
+    public interface ISquare
 	{
 		//Note: the points are listed as bottom left, bottom right, etc, even though it's not accurate.
 		//A square doesn't really have bottom left, it just has 4 points. 

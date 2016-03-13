@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace AGS.API
 {
-	public interface ISound
+    public interface ISound
 	{
 		string ID { get; }
 		int Volume { get; set; }

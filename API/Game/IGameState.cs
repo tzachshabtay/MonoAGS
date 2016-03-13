@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AGS.API
 {
-	public interface IGameState
+    public interface IGameState
 	{
 		IPlayer Player { get; set; }
 		IList<IRoom> Rooms { get; }

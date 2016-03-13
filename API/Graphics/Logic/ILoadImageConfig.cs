@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace AGS.API
 {
-	public interface ILoadImageConfig
+    public interface ILoadImageConfig
 	{
 		/// <summary>
 		/// For loading non 32-bit images (i.e with no alpha), you can select

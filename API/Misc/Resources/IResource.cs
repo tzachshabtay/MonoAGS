@@ -1,9 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace AGS.API
 {
-	public interface IResource
+    public interface IResource
 	{
 		string ID { get; }
 		Stream Stream { get; }

@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IDirectionalAnimation
+    public interface IDirectionalAnimation
 	{
 		IAnimation Left { get; set; }
 		IAnimation Right { get; set; }

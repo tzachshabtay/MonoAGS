@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IViewport
+    public interface IViewport
 	{
 		float X { get; set; }
 		float Y { get; set; }

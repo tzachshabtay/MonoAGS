@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace AGS.API
 {
-	public interface IInventoryWindow<TControl> : IUIControl<TControl> where TControl : IUIControl<TControl>
+    public interface IInventoryWindow<TControl> : IUIControl<TControl> where TControl : IUIControl<TControl>
 	{
 		SizeF ItemSize { get; set; }
 		ICharacter CharacterToUse { get; set; }

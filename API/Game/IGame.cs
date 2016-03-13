@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace AGS.API
 {
-	public interface IGame
+    public interface IGame
 	{
 		IGameFactory Factory { get; }
 		IGameState State { get; }

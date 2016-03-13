@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public enum Key
+    public enum Key
 	{
 		
 	}

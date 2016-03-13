@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace AGS.API
 {
-	public interface IMaskLoader
+    public interface IMaskLoader
 	{
 		IMask Load(string path, bool transparentMeansMasked = false, Color? debugDrawColor = null, 
 			string saveMaskToFile = null, string id = null);

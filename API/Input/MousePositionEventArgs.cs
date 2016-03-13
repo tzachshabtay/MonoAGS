@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public class MousePositionEventArgs : AGSEventArgs
+    public class MousePositionEventArgs : AGSEventArgs
 	{
 		public MousePositionEventArgs (float x, float y)
 		{

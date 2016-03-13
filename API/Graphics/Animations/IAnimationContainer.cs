@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace AGS.API
 {
-	public interface IAnimationContainer : ISprite
+    public interface IAnimationContainer : ISprite
 	{
 		IAnimation Animation { get; }
 		bool DebugDrawAnchor { get; set; }

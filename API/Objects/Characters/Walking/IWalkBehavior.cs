@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace AGS.API
 {
-	public interface IWalkBehavior
+    public interface IWalkBehavior
 	{
 		int WalkSpeed { get; set; }
         bool AdjustWalkSpeedToScaleArea { get; set; }

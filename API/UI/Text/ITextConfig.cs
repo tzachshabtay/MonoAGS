@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace AGS.API
 {
-	public enum AutoFit
+    public enum AutoFit
 	{
 		NoFitting,
 		LabelShouldFitText,

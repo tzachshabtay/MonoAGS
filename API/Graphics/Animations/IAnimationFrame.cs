@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IAnimationFrame
+    public interface IAnimationFrame
 	{
 		ISprite Sprite { get; set; }
 		ISound Sound { get; set; }

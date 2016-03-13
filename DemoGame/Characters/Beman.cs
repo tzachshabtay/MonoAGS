@@ -1,11 +1,10 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 using System.Drawing;
 
 namespace DemoGame
 {
-	public class Beman
+    public class Beman
 	{
 		private ICharacter _character;
 		private const string _baseFolder = "../../Assets/Characters/Beman/";

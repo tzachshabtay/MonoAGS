@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace AGS.API
 {
-	public interface ISprite
+    public interface ISprite
 	{
 		ILocation Location { get; set; }
 		float X { get; set; }

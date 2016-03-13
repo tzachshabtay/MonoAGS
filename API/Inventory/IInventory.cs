@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AGS.API
 {
-	public interface IInventory
+    public interface IInventory
 	{
 		IInventoryItem ActiveItem { get; set; }
 

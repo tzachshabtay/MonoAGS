@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IHasRoom
+    public interface IHasRoom
 	{
 		IRoom Room { get; }
 		IRoom PreviousRoom { get; }
