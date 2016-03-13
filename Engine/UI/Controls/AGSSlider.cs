@@ -19,6 +19,7 @@ namespace AGS.Engine
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
 		private readonly IGameEvents _gameEvents;
+		private bool _isSliding;
 
 		public AGSSlider(IPanel panel, IInput input, IGameEvents gameEvents, IGameState state, Resolver resolver)
 		{
@@ -270,10 +271,8 @@ namespace AGS.Engine
 			}
 			set
 			{
-				if (_value == value) return;
-				_value = value;
-				refresh();
-				OnValueChanged.Invoke(this, new SliderValueEventArgs (value));
+				setValue(value);
+				onValueChanged();
 			}
 		}
 
@@ -328,11 +327,19 @@ namespace AGS.Engine
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
 		{
 			if (BoundingBox == null || !_input.LeftMouseButtonDown || Graphics == null || Graphics.BoundingBox == null ||
-				!Graphics.BoundingBox.Contains(new AGSPoint(_input.MouseX, _input.MouseY)) ||  HandleGraphics == null) 
+			    !Graphics.BoundingBox.Contains(new AGSPoint (_input.MouseX, _input.MouseY)) || HandleGraphics == null)
+			{
+				if (_isSliding)
+				{
+					_isSliding = false;
+					onValueChanged();
+				}
 				return;
-			if (IsHorizontal) Value = getSliderValue(MathUtils.Clamp(_input.MouseX - BoundingBox.MinX, 0f, Graphics.Width));
-			else Value = getSliderValue(MathUtils.Clamp(_input.MouseY - BoundingBox.MinY
-				, 0f, Graphics.Height));
+			}
+			_isSliding = true;
+			if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - BoundingBox.MinX, 0f, Graphics.Width)));
+			else setValue(getSliderValue(MathUtils.Clamp(_input.MouseY - BoundingBox.MinY
+				, 0f, Graphics.Height)));
 		}
 
 		private void refresh()
@@ -358,6 +365,18 @@ namespace AGS.Engine
 		{
 			if (_label == null) return;
 			_label.Text = ((int)Value).ToString();
+		}
+
+		private void setValue(float value)
+		{
+			if (_value == value) return;
+			_value = value;
+			refresh();
+		}
+
+		private void onValueChanged()
+		{
+			OnValueChanged.Invoke(this, new SliderValueEventArgs (_value));
 		}
 	}
 }
