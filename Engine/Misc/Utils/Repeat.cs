@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AGS.Engine
 {
@@ -42,6 +43,16 @@ namespace AGS.Engine
 		{
 			getCounter(key).Reset();
 		}
+        
+        public static Dictionary<string, int> ToDictionary()
+        {
+            return _times.ToDictionary(k => k.Key, v => v.Value.Value);
+        }
+        
+        public static void FromDictionary(Dictionary<string, int> counters)
+        {
+            _times = counters.ToDictionary(k => k.Key, v => new Counter(v.Value));
+        }
 
 		private static Counter getCounter(string key)
 		{
@@ -50,6 +61,11 @@ namespace AGS.Engine
 			
 		private class Counter
 		{
+            public Counter(int value = 0)
+            {
+                _value = value;
+            }
+            
 			private int _value;
 
 			public int Value { get { return _value; }}
