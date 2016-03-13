@@ -51,7 +51,7 @@ namespace AGS.Engine
 			foreach (IScalingArea area in room.ScalingAreas)
 			{
 				if (!area.Enabled || !area.ScaleObjects || !area.IsInArea(obj.Location)) continue;
-				float scale = MathUtils.Lerp(area.Mask.MaxY, area.MinScaling, area.Mask.MinY, area.MaxScaling, obj.Y);
+                float scale = area.GetScaling(obj.Y);
 				return new AGSPoint (scale, scale);
 			}
 			return GLMatrixBuilder.NoScaling;

@@ -201,6 +201,8 @@ namespace AGS.Engine
 
 		public int WalkSpeed { get { return _walkBehavior.WalkSpeed; } set { _walkBehavior.WalkSpeed = value; } }
 
+        public bool AdjustWalkSpeedToScaleArea { get { return _walkBehavior.AdjustWalkSpeedToScaleArea; } set { _walkBehavior.AdjustWalkSpeedToScaleArea = value; } }
+        
 		public void FaceDirection(Direction direction)
 		{
 			_faceDirectionBehavior.FaceDirection(direction);

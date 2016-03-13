@@ -41,6 +41,11 @@ namespace AGS.Engine
 		{
 			return _area.FindClosestPoint(point, out distance);
 		}
+        
+        public float GetScaling(float value)
+        {
+            return MathUtils.Lerp(Mask.MaxY, MinScaling, Mask.MinY, MaxScaling, value);
+        }
 
 		public IMask Mask { get { return _area.Mask; } set { _area.Mask = value; } }
 

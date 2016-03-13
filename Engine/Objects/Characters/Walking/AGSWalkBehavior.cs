@@ -34,6 +34,7 @@ namespace AGS.Engine
 			_debugPath = new List<IObject> ();
 			_walkCompleted = new TaskCompletionSource<object> ();
 			_walkCompleted.SetResult(null);
+            AdjustWalkSpeedToScaleArea = true;
 		}
 
 		/// <summary>
@@ -108,6 +109,8 @@ namespace AGS.Engine
 
 		public int WalkSpeed { get; set; }
 
+        public bool AdjustWalkSpeedToScaleArea { get; set; }
+        
 		public bool IsWalking
 		{ 
 			get
@@ -233,6 +236,7 @@ namespace AGS.Engine
 
 			int numStepsInt = (int)numSteps;
 			int delay = MaxWalkDelay - WalkSpeed;
+            delay = adjustWalkSpeed(delay);
 
 			for (int step = 0; step < numStepsInt; step++) 
 			{
@@ -247,6 +251,25 @@ namespace AGS.Engine
 			_obj.Y = destination.Y;
 			return true;
 		}
+        
+        private int adjustWalkSpeed(int delay)
+        {
+			if (_obj == null || _obj.Room == null || _obj.Room.ScalingAreas == null ||
+				_obj.IgnoreScalingArea || !AdjustWalkSpeedToScaleArea) return delay;
+            
+            foreach (var area in _obj.Room.ScalingAreas)
+            {
+                if (!area.Enabled || !area.ScaleObjects || !area.IsInArea(_obj.Location)) continue;
+                float scale = area.GetScaling(_obj.Y);
+                if (scale != 1f)
+                {
+                    delay = (int)(((float)delay) / scale);
+                    if (delay == 0) delay = 1;
+                }
+                break;
+            }
+            return delay;
+        }
 	}
 }
 

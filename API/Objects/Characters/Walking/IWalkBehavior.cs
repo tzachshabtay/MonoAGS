@@ -6,6 +6,7 @@ namespace AGS.API
 	public interface IWalkBehavior
 	{
 		int WalkSpeed { get; set; }
+        bool AdjustWalkSpeedToScaleArea { get; set; }
 		bool IsWalking { get; }
 
 		bool DebugDrawWalkPath { get; set; }

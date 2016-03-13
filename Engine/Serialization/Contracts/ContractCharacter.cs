@@ -34,6 +34,9 @@ namespace AGS.Engine
 
 		[ProtoMember(6)]
 		public bool IsPlayer { get; set; }
+        
+        [ProtoMember(7)]
+        public bool AdjustWalkSpeedToScaleArea { get; set; }
 
 		//todo: Character's current animation will be cloned and not have the same reference to the animation in the outfit. This should be fixed.
 
@@ -43,6 +46,7 @@ namespace AGS.Engine
 		{
 			ICharacter item = context.Factory.Object.GetCharacter(Obj.ToItem(context), Outfit.ToItem(context));
 			item.WalkSpeed = WalkSpeed;
+            item.AdjustWalkSpeedToScaleArea = AdjustWalkSpeedToScaleArea;
 			item.DebugDrawWalkPath = DebugDrawWalkPath;
 			item.Inventory = Inventory.ToItem(context);
 
@@ -59,6 +63,7 @@ namespace AGS.Engine
 		public void FromItem(AGSSerializationContext context, ICharacter item)
 		{
 			WalkSpeed = item.WalkSpeed;
+            AdjustWalkSpeedToScaleArea = item.AdjustWalkSpeedToScaleArea;
 			DebugDrawWalkPath = item.DebugDrawWalkPath;
 
 			Outfit = context.GetContract(item.Outfit);

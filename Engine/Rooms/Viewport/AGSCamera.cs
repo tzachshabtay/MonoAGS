@@ -90,7 +90,7 @@ namespace AGS.Engine
 			foreach (var area in target.Room.ScalingAreas)
 			{
 				if (!area.Enabled || !area.ZoomCamera || !area.IsInArea(target.Location)) continue;
-				float scale = MathUtils.Lerp(area.Mask.MaxY, area.MinScaling, area.Mask.MinY, area.MaxScaling, target.Y);
+                float scale = area.GetScaling(target.Y);
 				return scale;
 			}
 
