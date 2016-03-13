@@ -65,7 +65,7 @@ namespace DemoGame
 			loadButton("Restart", 75, restart);
 			loadButton("Load", 55, load);
 			loadButton("Save", 35, save);
-			loadButton("Quit", 15, Hide);
+			loadButton("Quit", 15, _game.Quit);
 		}
 
 		private void findPanel()

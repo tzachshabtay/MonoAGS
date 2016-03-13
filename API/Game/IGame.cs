@@ -17,6 +17,7 @@ namespace AGS.API
 		Size VirtualResolution { get; }
 
 		void Start(IGameSettings settings);
+		void Quit();
 
 		TObject Find<TObject>(string id) where TObject : class, IObject;
 	}

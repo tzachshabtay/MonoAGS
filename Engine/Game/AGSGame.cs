@@ -17,6 +17,7 @@ namespace AGS.Engine
 	{
 		private Resolver _resolver;
 		private IRendererLoop _renderLoop;
+		private GameWindow _game;
 
 		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents)
 		{
@@ -58,22 +59,22 @@ namespace AGS.Engine
 		{
 			VirtualResolution = settings.VirtualResolution;
 			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(Size), VirtualResolution));
-			using (var game = new GameWindow (settings.VirtualResolution.Width, 
+			using (_game = new GameWindow (settings.VirtualResolution.Width, 
                 settings.VirtualResolution.Height, GraphicsMode.Default, settings.Title))
 			{
 				GL.ClearColor(0, 0.1f, 0.4f, 1);
-                game.Size = settings.WindowSize;
-                setWindowState(game, settings);
-				game.Load += async (sender, e) =>
+				_game.Size = settings.WindowSize;
+                setWindowState(settings);
+				_game.Load += async (sender, e) =>
 				{
-                    setVSync(game, settings);                    
+					setVSync(settings);                    
 
 					GL.Enable(EnableCap.Blend);
 					GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
 					GL.Enable(EnableCap.Texture2D);
 
-					TypedParameter gameParameter = new TypedParameter (typeof(GameWindow), game);
+					TypedParameter gameParameter = new TypedParameter (typeof(GameWindow), _game);
 					TypedParameter sizeParameter = new TypedParameter(typeof(Size), VirtualResolution);
 					Input = _resolver.Container.Resolve<IInput>(gameParameter, sizeParameter); 
 					TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
@@ -91,19 +92,19 @@ namespace AGS.Engine
 					await Events.OnLoad.InvokeAsync(sender, new AGSEventArgs());
 				};
 					
-				game.Resize += (sender, e) =>
+				_game.Resize += (sender, e) =>
 				{
-					GL.Viewport(0, 0, game.Width, game.Height);
+					GL.Viewport(0, 0, _game.Width, _game.Height);
 				};
 
-				game.MouseDown += (sender, e) => 
+				_game.MouseDown += (sender, e) => 
 				{
 				};
-				game.KeyDown += (sender, e) =>  
+				_game.KeyDown += (sender, e) =>  
 				{
-					if (e.Key == OpenTK.Input.Key.Escape) game.Exit();
+					if (e.Key == OpenTK.Input.Key.Escape) Quit();
 				};
-				game.UpdateFrame += async (sender, e) =>
+				_game.UpdateFrame += async (sender, e) =>
 				{
 					try
 					{
@@ -118,7 +119,7 @@ namespace AGS.Engine
 					}
 				};
 
-				game.RenderFrame += (sender, e) =>
+				_game.RenderFrame += (sender, e) =>
 				{
 					try
 					{
@@ -127,7 +128,7 @@ namespace AGS.Engine
 
 						_renderLoop.Tick();
 
-						game.SwapBuffers();
+						_game.SwapBuffers();
 
 						if (Repeat.OnceOnly("SetFirstRestart"))
 						{
@@ -144,8 +145,13 @@ namespace AGS.Engine
 
 				// Run the game at 60 updates per second
 
-				game.Run(60.0);
+				_game.Run(60.0);
 			}
+		}
+
+		public void Quit()
+		{
+			_game.Exit();
 		}
 
 		public TObject Find<TObject>(string id) where TObject : class, IObject
@@ -165,39 +171,39 @@ namespace AGS.Engine
 			updater.Update(_resolver.Container);
 		}
         
-        private void setVSync(GameWindow game, IGameSettings settings)
+        private void setVSync(IGameSettings settings)
         {
             switch (settings.Vsync)
             {
                 case VsyncMode.On:
-                    game.VSync = VSyncMode.On;
+                    _game.VSync = VSyncMode.On;
                     break;
                 case VsyncMode.Adaptive:
-                    game.VSync = VSyncMode.Adaptive;
+                    _game.VSync = VSyncMode.Adaptive;
                     break;
                 case VsyncMode.Off:
-                    game.VSync = VSyncMode.Off;
+                    _game.VSync = VSyncMode.Off;
                     break;
                 default:
                     throw new NotSupportedException(settings.Vsync.ToString());
             }
         }
         
-        private void setWindowState(GameWindow game, IGameSettings settings)
+        private void setWindowState(IGameSettings settings)
         {
             switch (settings.WindowState)
             {
                 case AGS.API.WindowState.FullScreen:
-                    game.WindowState = OpenTK.WindowState.Fullscreen;
+                    _game.WindowState = OpenTK.WindowState.Fullscreen;
                     break;
 				case AGS.API.WindowState.Maximized:
-                    game.WindowState = OpenTK.WindowState.Maximized;
+                    _game.WindowState = OpenTK.WindowState.Maximized;
                     break;
 				case AGS.API.WindowState.Minimized:
-                    game.WindowState = OpenTK.WindowState.Minimized;
+                    _game.WindowState = OpenTK.WindowState.Minimized;
                     break;
 				case AGS.API.WindowState.Normal:
-                    game.WindowState = OpenTK.WindowState.Normal;
+                    _game.WindowState = OpenTK.WindowState.Normal;
                     break;
                 default:
                     throw new NotSupportedException(settings.WindowState.ToString());
