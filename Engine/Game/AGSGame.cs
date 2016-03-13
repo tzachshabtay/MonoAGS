@@ -18,12 +18,15 @@ namespace AGS.Engine
 		private Resolver _resolver;
 		private IRendererLoop _renderLoop;
 		private GameWindow _game;
+		private int _relativeSpeed;
+		private const double UPDATE_RATE = 60.0;
 
 		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents)
 		{
 			Factory = factory;
 			State = state;
 			Events = gameEvents;
+			_relativeSpeed = state.Speed;
 		}
 
 		public static IGame CreateEmpty()
@@ -64,7 +67,8 @@ namespace AGS.Engine
 			{
 				GL.ClearColor(0, 0.1f, 0.4f, 1);
 				_game.Size = settings.WindowSize;
-                setWindowState(settings);
+				setWindowState(settings);
+
 				_game.Load += async (sender, e) =>
 				{
 					setVSync(settings);                    
@@ -109,6 +113,7 @@ namespace AGS.Engine
 					try
 					{
 						if (State.Paused) return;
+						adjustSpeed();
 						GameLoop.Update();
 						await Events.OnRepeatedlyExecute.InvokeAsync(sender, new AGSEventArgs());
 					}
@@ -145,7 +150,7 @@ namespace AGS.Engine
 
 				// Run the game at 60 updates per second
 
-				_game.Run(60.0);
+				_game.Run(UPDATE_RATE);
 			}
 		}
 
@@ -169,6 +174,14 @@ namespace AGS.Engine
 			updater.RegisterInstance(this).As<IGame>();
 
 			updater.Update(_resolver.Container);
+		}
+
+		void adjustSpeed()
+		{
+			if (_relativeSpeed == State.Speed) return;
+
+			_relativeSpeed = State.Speed;
+			_game.TargetUpdateFrequency = UPDATE_RATE * (_relativeSpeed / 100f);
 		}
         
         private void setVSync(IGameSettings settings)

@@ -12,6 +12,7 @@ namespace AGS.API
 		ICutscene Cutscene { get; }
 
 		bool Paused { get; set; }
+		int Speed { get; set; }
 
 		void Clean();
 		void CopyFrom(IGameState state);

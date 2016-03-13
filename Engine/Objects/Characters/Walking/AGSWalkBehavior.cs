@@ -19,6 +19,7 @@ namespace AGS.Engine
 		private IOutfitHolder _outfit;
 		private IObjectFactory _objFactory;
 		private ICutscene _cutscene;
+		private IGameState _state;
 
 		public AGSWalkBehavior(IObject obj, IPathFinder pathFinder, IAGSFaceDirectionBehavior faceDirection, 
 			IOutfitHolder outfit, IObjectFactory objFactory, IGameState state)
@@ -29,6 +30,7 @@ namespace AGS.Engine
 			_faceDirection = faceDirection;
 			_outfit = outfit;
 			_objFactory = objFactory;
+			_state = state;
 
 			_walkCancel = new CancellationTokenSource ();
 			_debugPath = new List<IObject> ();
@@ -252,7 +254,18 @@ namespace AGS.Engine
 			return true;
 		}
         
-        private int adjustWalkSpeed(int delay)
+		private int adjustWalkSpeed(int delay)
+		{
+			delay = adjustWalkSpeedBasedOnArea(delay);
+			if (_state.Speed != 100 && _state.Speed > 0)
+			{
+				float factor = (float)_state.Speed / 100f;
+				delay = (int)(delay / factor);
+			}
+			return delay;
+		}
+
+        private int adjustWalkSpeedBasedOnArea(int delay)
         {
 			if (_obj == null || _obj.Room == null || _obj.Room.ScalingAreas == null ||
 				_obj.IgnoreScalingArea || !AdjustWalkSpeedToScaleArea) return delay;

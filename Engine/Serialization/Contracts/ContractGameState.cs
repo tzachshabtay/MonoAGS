@@ -30,6 +30,10 @@ namespace AGS.Engine
 
         [ProtoMember(6)]
         public Dictionary<string, int> RepeatCounters { get; set; }
+
+		[ProtoMember(7)]
+		public int GameSpeed { get; set; }
+
 		#region IContract implementation
 
 		public IGameState ToItem(AGSSerializationContext context)
@@ -61,6 +65,7 @@ namespace AGS.Engine
 			updater.RegisterInstance(player).As<IPlayer>();
 			updater.Update(context.Resolver.Container);
 			state.Player = player;
+			state.Speed = GameSpeed;
             
             Repeat.FromDictionary(RepeatCounters);
 
@@ -86,6 +91,7 @@ namespace AGS.Engine
 			GlobalVariables = context.GetContract(item.GlobalVariables);
 			Cutscene = context.GetContract(item.Cutscene);
             RepeatCounters = Repeat.ToDictionary();
+			GameSpeed = item.Speed;
 		}
 
 		#endregion

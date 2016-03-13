@@ -14,6 +14,7 @@ namespace AGS.Engine
 
 		public AGSGameState (IPlayer player, ICustomProperties globalVariables, Resolver resolver)
 		{
+			Speed = 100;
 			Rooms = new List<IRoom> ();
 			UI = new AGSConcurrentHashSet<IObject> ();
 			Player = player;
@@ -34,6 +35,8 @@ namespace AGS.Engine
 		public ICutscene Cutscene { get { return _cutscene.Value; } }
 
 		public bool Paused { get; set; }
+
+		public int Speed { get; set; }
 
 		#endregion
 

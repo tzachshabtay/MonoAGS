@@ -48,12 +48,13 @@ namespace DemoGame
 			volumeLabel.Anchor = new AGSPoint (0.5f, 0f);
 			volumeLabel.TreeNode.SetParent(_panel.TreeNode);
 
-			ISlider speedSlider = factory.UI.GetSlider("Speed Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
+			ISlider speedSlider = factory.UI.GetSlider("Speed Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 100f, 1f, 200f, 
 				loadConfig: loadConfig);
 			speedSlider.X = 180f;
 			speedSlider.Y = 10f;
 			speedSlider.HandleGraphics.Anchor = new AGSPoint (0.5f, 0.5f);
 			speedSlider.TreeNode.SetParent(_panel.TreeNode);
+			speedSlider.OnValueChanged(onSpeedChanged, _game);
 
 			ILabel speedLabel = factory.UI.GetLabel("Speed Label", "Speed", 50f, 30f, 180f, 85f, _textConfig); 
 			speedLabel.Anchor = new AGSPoint (0.5f, 0f);
@@ -81,6 +82,11 @@ namespace DemoGame
 				folder + "pushed.bmp", 15f, y, text, _buttonTextConfig);
 			button.TreeNode.SetParent(_panel.TreeNode);
 			button.OnMouseClick(onClick, _game);
+		}
+
+		private void onSpeedChanged(float speed)
+		{
+			_game.State.Speed = (int)speed;
 		}
 
 		public void Show()
