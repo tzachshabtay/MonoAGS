@@ -19,6 +19,7 @@ namespace AGS.Engine
 		private readonly IHasRoom _roomBehavior;
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
+		private readonly ICollider _collider;
 
 		public AGSCharacter (IObject obj, IOutfit outfit, Resolver resolver, IPathFinder pathFinder)
 		{
@@ -44,6 +45,7 @@ namespace AGS.Engine
 			Inventory = resolver.Container.Resolve<IInventory>();
 
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(objParameter);
+			_collider = resolver.Container.Resolve<ICollider>(objParameter);
 
 			_obj = obj;
 			IgnoreScalingArea = false;
@@ -135,7 +137,7 @@ namespace AGS.Engine
 
 		public IPoint Anchor {get { return _obj.Anchor;} set { _obj.Anchor = value;}}
 
-		public ISquare BoundingBox { get { return _obj.BoundingBox; } set { _obj.BoundingBox = value; } }
+		public ISquare BoundingBox { get { return _collider.BoundingBox; } set { _collider.BoundingBox = value; } }
 
 		public void PixelPerfect(bool pixelPerfect)
 		{
@@ -155,7 +157,7 @@ namespace AGS.Engine
 
 		public IPoint WalkPoint { get { return _obj.WalkPoint; } set { _obj.WalkPoint = value; } }
 
-		public IPoint CenterPoint { get { return _obj.CenterPoint; } }
+		public IPoint CenterPoint { get { return _collider.CenterPoint; } }
 
 		public bool DebugDrawAnchor { get { return _obj.DebugDrawAnchor; } set { _obj.DebugDrawAnchor = value; } }
 		public IBorderStyle Border { get { return _obj.Border; } set { _obj.Border = value; } }
@@ -274,7 +276,7 @@ namespace AGS.Engine
 
 		public bool CollidesWith(float x, float y)
 		{
-			return _obj.CollidesWith(x, y);
+			return _collider.CollidesWith(x, y);
 		}
 
 		public void PlaceOnWalkableArea()

@@ -2,15 +2,14 @@
 
 namespace AGS.API
 {
-    public interface IObject : IHasRoom, IAnimationContainer, IInTree<IObject>, IDisposable
+	public interface IObject : IHasRoom, IAnimationContainer, IInTree<IObject>, ICollider, IDisposable
 	{
 		string ID { get; }
 		IInteractions Interactions { get; }
-		ISquare BoundingBox { get; set; } //todo: find a way to remove the setter (only the engine should use the setter)
+
 		IRenderLayer RenderLayer { get; set; }
 
 		IPoint WalkPoint { get; set; }
-		IPoint CenterPoint { get; }
 
 		ICustomProperties Properties { get; }
 
@@ -24,8 +23,6 @@ namespace AGS.API
 
 		bool IgnoreViewport { get; set; }
 		bool IgnoreScalingArea { get; set; }
-
-		bool CollidesWith(float x, float y);
 	}
 }
 

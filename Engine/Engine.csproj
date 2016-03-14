@@ -239,6 +239,7 @@
     <Compile Include="Serialization\Contracts\ContractSpriteSheet.cs" />
     <Compile Include="Rooms\Viewport\AGSCamera.cs" />
     <Compile Include="Serialization\Contracts\ContractCamera.cs" />
+    <Compile Include="Objects\AGSCollider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

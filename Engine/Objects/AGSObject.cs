@@ -9,10 +9,10 @@ namespace AGS.Engine
 	public class AGSObject : IObject
 	{
 		private readonly IAnimationContainer _animation;
-		private readonly IGameState _state;
 		private readonly IHasRoom _roomBehavior;
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
+		private readonly ICollider _collider;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Engine.AGSObject"/> class.
@@ -31,11 +31,10 @@ namespace AGS.Engine
 				TypedParameter objParam = new TypedParameter (typeof(IObject), this);
 				Interactions = resolver.Container.Resolve<IInteractions>(defaults, objParam);
 
-				_state = resolver.Container.Resolve<IGameState>();
-
 				Properties = resolver.Container.Resolve<ICustomProperties>();
 
 				_roomBehavior = resolver.Container.Resolve<IHasRoom>(objParam);
+				_collider = resolver.Container.Resolve<ICollider>(objParam);
 			}
 
 			RenderLayer = AGSLayers.Foreground;
@@ -104,7 +103,7 @@ namespace AGS.Engine
 
 		public IPoint Anchor { get { return _animation.Anchor; } set { _animation.Anchor = value; } }
 
-		public ISquare BoundingBox { get; set; }
+		public ISquare BoundingBox { get { return _collider.BoundingBox; } set { if (_collider != null) _collider.BoundingBox = value; } }
 		public IArea PixelPerfectHitTestArea  { get { return _animation.PixelPerfectHitTestArea; } }
 		public void PixelPerfect(bool pixelPerfect)
 		{
@@ -122,21 +121,7 @@ namespace AGS.Engine
 
 		public IPoint WalkPoint { get; set; }
 
-		public IPoint CenterPoint
-		{
-			get
-			{
-				if (BoundingBox == null) return null;
-				float minX = BoundingBox.MinX;
-				float minY = BoundingBox.MinY;
-				float offsetX = PixelPerfectHitTestArea == null ? (BoundingBox.MaxX - BoundingBox.MinX) / 2f : 
-					PixelPerfectHitTestArea.Mask.MinX + (PixelPerfectHitTestArea.Mask.MaxX - PixelPerfectHitTestArea.Mask.MinX) / 2f;
-				float offsetY = PixelPerfectHitTestArea == null ? (BoundingBox.MaxY - BoundingBox.MinY) / 2f : 
-					PixelPerfectHitTestArea.Mask.MinY + (PixelPerfectHitTestArea.Mask.MaxY - PixelPerfectHitTestArea.Mask.MinY) / 2f;
-
-				return new AGSPoint (minX + offsetX, minY + offsetY);
-			}
-		}
+		public IPoint CenterPoint { get { return _collider.CenterPoint; } }
 
 		public IImage Image { get { return _animation.Image; } set { _animation.Image = value; } }
 
@@ -190,29 +175,7 @@ namespace AGS.Engine
 
 		public bool CollidesWith(float x, float y)
 		{
-			ISquare boundingBox = BoundingBox;
-			if (boundingBox == null)
-				return false;
-			IArea pixelPerfect = PixelPerfectHitTestArea;
-
-			if (IgnoreViewport && _state != null) //todo: account for viewport scaling as well
-			{
-				x -= _state.Player.Character.Room.Viewport.X;
-				y -= _state.Player.Character.Room.Viewport.Y;
-			}
-
-			if (pixelPerfect == null || !pixelPerfect.Enabled)
-			{
-				if (boundingBox.Contains(new AGSPoint (x, y)))
-					return true;
-			}
-			else
-			{
-				if (pixelPerfect.IsInArea(new AGSPoint (x, y), boundingBox, ScaleX * Animation.Sprite.ScaleX,
-					ScaleY * Animation.Sprite.ScaleY))
-					return true;
-			}
-			return false;
+			return _collider.CollidesWith(x, y);
 		}
 
 		public override string ToString ()

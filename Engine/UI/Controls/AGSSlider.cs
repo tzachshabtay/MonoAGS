@@ -18,6 +18,7 @@ namespace AGS.Engine
 		private IHasRoom _roomBehavior;
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
+		private readonly ICollider _collider;
 		private readonly IGameEvents _gameEvents;
 		private bool _isSliding;
 
@@ -34,6 +35,7 @@ namespace AGS.Engine
 
 			TypedParameter panelParam = new TypedParameter (typeof(IObject), this);
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
+			_collider = resolver.Container.Resolve<ICollider>(panelParam);
 			Events = resolver.Container.Resolve<IUIEvents>(panelParam);
 
 			gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
@@ -63,7 +65,7 @@ namespace AGS.Engine
 
 		public bool CollidesWith(float x, float y)
 		{
-			return _obj.CollidesWith(x, y);
+			return _collider.CollidesWith(x, y);
 		}
 
 		public IRoom Room { get { return _roomBehavior.Room; } }
@@ -72,13 +74,13 @@ namespace AGS.Engine
 
 		public IInteractions Interactions { get { return _obj.Interactions; } }
 
-		public ISquare BoundingBox { get { return _obj.BoundingBox; } set { _obj.BoundingBox = value; } }
+		public ISquare BoundingBox { get { return _collider.BoundingBox; } set { _collider.BoundingBox = value; } }
 
 		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
 
 		public IPoint WalkPoint { get { return _obj.WalkPoint; } set { _obj.WalkPoint = value; } }
 
-		public IPoint CenterPoint { get { return _obj.CenterPoint; } }
+		public IPoint CenterPoint { get { return _collider.CenterPoint; } }
 
 		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
 
