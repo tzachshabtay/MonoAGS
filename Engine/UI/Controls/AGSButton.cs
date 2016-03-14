@@ -21,6 +21,8 @@ namespace AGS.Engine
 
 			TypedParameter panelParam = new TypedParameter (typeof(IObject), this);
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
+			Events = resolver.Container.Resolve<IUIEvents>(panelParam);
+
 			TreeNode = new AGSTreeNode<IObject> (this);
 
 			Events.MouseEnter.Subscribe(onMouseEnter);
@@ -45,8 +47,7 @@ namespace AGS.Engine
 			throw new NotImplementedException();
 		}
 
-		public IUIEvents Events { get { return _obj.Events; } }
-		public bool IsMouseIn { get { return _obj.IsMouseIn; } }
+		public IUIEvents Events { get; private set; }
 
 		#endregion
 
@@ -238,7 +239,7 @@ namespace AGS.Engine
 
 		private void onMouseUp(object sender, MouseButtonEventArgs e)
 		{
-			StartAnimation(IsMouseIn ? HoverAnimation : IdleAnimation);
+			StartAnimation(Events.IsMouseIn ? HoverAnimation : IdleAnimation);
 		}
 	}
 }

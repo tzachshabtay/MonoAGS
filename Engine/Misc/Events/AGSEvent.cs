@@ -10,6 +10,7 @@ namespace AGS.Engine
 	{
 		private readonly Guid _id;
 		private readonly IConcurrentHashSet<Callback> _invocationList;
+		private const int MAX_SUBSCRIPTIONS = 10000;
 
 		public AGSEvent ()
 		{
@@ -23,10 +24,10 @@ namespace AGS.Engine
 
 		public void Subscribe (Action<object, TEventArgs> callback)
 		{
-			if (_invocationList.Count > 100)
+			if (_invocationList.Count > MAX_SUBSCRIPTIONS)
 			{
 				string st = new StackTrace ().ToString();
-				Debug.WriteLine("Subscribe!!! " + st);
+				Debug.WriteLine("Subscribe Overflow! " + st);
 				return;
 			}
 			_invocationList.Add (new Callback (callback));
@@ -91,7 +92,7 @@ namespace AGS.Engine
 
 		private void subscribeToAsync(Callback callback)
 		{
-			if (_invocationList.Count > 100)
+			if (_invocationList.Count > MAX_SUBSCRIPTIONS)
 			{
 				Debug.WriteLine("Subscribe!!! " + new StackTrace ().ToString());
 				return;

@@ -14,7 +14,7 @@ namespace AGS.Engine
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
 
-		public AGSLabel(IPanel obj, IUIEvents events, IImage image, ILabelRenderer labelRenderer, SizeF baseSize, Resolver resolver)
+		public AGSLabel(IPanel obj, IImage image, ILabelRenderer labelRenderer, SizeF baseSize, Resolver resolver)
 		{
 			this._obj = obj;
 			_visible = new VisibleProperty (this);
@@ -27,6 +27,7 @@ namespace AGS.Engine
 
 			TypedParameter panelParam = new TypedParameter (typeof(IObject), this);
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
+			Events = resolver.Container.Resolve<IUIEvents>(panelParam);
 		}
 
 		public string ID { get { return _obj.ID; } }
@@ -38,8 +39,7 @@ namespace AGS.Engine
 			throw new NotImplementedException();
 		}
 
-		public IUIEvents Events { get { return _obj.Events; } }
-		public bool IsMouseIn { get { return _obj.IsMouseIn; } }
+		public IUIEvents Events { get; private set; }
 
 		#endregion
 

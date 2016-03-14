@@ -10,39 +10,27 @@ namespace AGS.Engine
 	public class AGSPanel : IPanel
 	{
 		private IObject _obj;
-		private readonly IInput _input;
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
-		private readonly IGameEvents _gameEvents;
-		private readonly IGameState _state;
 
-		private bool _leftMouseDown, _rightMouseDown;
-		private float _mouseX, _mouseY;
-		private Stopwatch _leftMouseClickTimer, _rightMouseClickTimer;
 		private IHasRoom _roomBehavior;
 
-		public AGSPanel(IObject obj, IUIEvents events, IImage image, IGameEvents gameEvents, IInput input, IGameState state, Resolver resolver)
+		public AGSPanel(IObject obj, IImage image, Resolver resolver)
 		{
-			_gameEvents = gameEvents;
-			_state = state;
 			this._obj = obj;
 			_visible = new VisibleProperty (this);
 			_enabled = new EnabledProperty (this);
 			Anchor = new AGSPoint ();
-			Events = events;
 			RenderLayer = AGSLayers.UI;
 			Image = image;
 			IgnoreViewport = true;
 			IgnoreScalingArea = true;
-			_leftMouseClickTimer = new Stopwatch ();
-			_rightMouseClickTimer = new Stopwatch ();
 
 			TypedParameter panelParam = new TypedParameter (typeof(IObject), this);
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
+			Events = resolver.Container.Resolve<IUIEvents>(panelParam);
 
-			_input = input;
 			TreeNode = new AGSTreeNode<IObject> (this);
-			gameEvents.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
 		}
 
 		public string ID { get { return _obj.ID; } }
@@ -55,7 +43,6 @@ namespace AGS.Engine
 		}
 
 		public IUIEvents Events { get; private set; }
-		public bool IsMouseIn { get; private set; }
 
 		#endregion
 
@@ -207,69 +194,8 @@ namespace AGS.Engine
 
 		public void Dispose()
 		{
-			_gameEvents.OnRepeatedlyExecute.UnsubscribeToAsync(onRepeatedlyExecute);
+			Events.Dispose();
 			_obj.Dispose();
-		}
-
-		private async Task onRepeatedlyExecute(object sender, EventArgs args)
-		{
-			if (!Enabled || !Visible) return;
-			IPoint position = _input.MousePosition;
-			IViewport viewport = _state.Player.Character.Room.Viewport;
-
-			//todo: Support mouseX/Y When IgnoreScalingArea = false (i.e 4 options: IgnoreScaling+IgnoreViewport,IgnoreScaling,IgnoreViewport,None)
-			float mouseX = IgnoreViewport ? (position.X - viewport.X) * viewport.ScaleX + viewport.X : position.X;
-			float mouseY = IgnoreViewport ? (position.Y - viewport.Y) * viewport.ScaleY + viewport.Y : position.Y;
-			bool mouseIn = _obj.CollidesWith(mouseX, mouseY);
-
-			bool leftMouseDown = _input.LeftMouseButtonDown;
-			bool rightMouseDown = _input.RightMouseButtonDown;
-
-			bool fireMouseMove = mouseIn && (_mouseX != position.X || _mouseY != position.Y);
-			bool fireMouseEnter = mouseIn && !IsMouseIn;
-			bool fireMouseLeave = !mouseIn && IsMouseIn;
-
-			_mouseX = position.X;
-			_mouseY = position.Y;
-			IsMouseIn = mouseIn;
-
-			await handleMouseButton(_leftMouseClickTimer, _leftMouseDown, leftMouseDown, MouseButton.Left);
-			await handleMouseButton(_rightMouseClickTimer, _rightMouseDown, rightMouseDown, MouseButton.Right);
-
-			_leftMouseDown = leftMouseDown;
-			_rightMouseDown = rightMouseDown;
-
-			if (fireMouseEnter) await Events.MouseEnter.InvokeAsync(this, new MousePositionEventArgs (position.X, position.Y));
-			else if (fireMouseLeave) await Events.MouseLeave.InvokeAsync(this, new MousePositionEventArgs (position.X, position.Y));
-			if (fireMouseMove) await Events.MouseMove.InvokeAsync(this, new MousePositionEventArgs(position.X, position.Y));
-		}
-
-		private async Task handleMouseButton(Stopwatch sw, bool wasDown, bool isDown, MouseButton button)
-		{
-			bool fireDown = !wasDown && isDown && IsMouseIn;
-			bool fireUp = wasDown && !isDown;
-			if (fireDown)
-			{
-				sw.Restart();
-			}
-			bool fireClick = false;
-			if (fireUp)
-			{
-				if (IsMouseIn && sw.ElapsedMilliseconds < 1500 && sw.ElapsedMilliseconds != 0)
-				{
-					fireClick = true;
-				}
-				sw.Stop();
-				sw.Reset();
-			}
-
-			if (fireDown || fireUp || fireClick)
-			{
-				MouseButtonEventArgs args = new MouseButtonEventArgs (button, _mouseX, _mouseY);
-				if (fireDown) await Events.MouseDown.InvokeAsync(this, args);
-				else if (fireUp) await Events.MouseUp.InvokeAsync(this, args);
-				if (fireClick) await Events.MouseClicked.InvokeAsync(this, args);
-			}
 		}
 	}
 }

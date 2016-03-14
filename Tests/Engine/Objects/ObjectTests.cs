@@ -187,8 +187,19 @@ namespace Tests
 			Mock<IInput> input = new Mock<IInput> ();
 			if (stateMock != null) stateMock.Setup(s => s.Cutscene).Returns(mocks.Cutscene().Object);
 
+			Mock<IUIEvents> uiEvents = new Mock<IUIEvents> ();
+			Mock<IEvent<MouseButtonEventArgs>> buttonEvent = new Mock<IEvent<MouseButtonEventArgs>> ();
+			Mock<IEvent<MousePositionEventArgs>> mouseEvent = new Mock<IEvent<MousePositionEventArgs>> ();
+			uiEvents.Setup(u => u.MouseClicked).Returns(buttonEvent.Object);
+			uiEvents.Setup(u => u.MouseDown).Returns(buttonEvent.Object);
+			uiEvents.Setup(u => u.MouseUp).Returns(buttonEvent.Object);
+			uiEvents.Setup(u => u.MouseEnter).Returns(mouseEvent.Object);
+			uiEvents.Setup(u => u.MouseLeave).Returns(mouseEvent.Object);
+			uiEvents.Setup(u => u.MouseMove).Returns(mouseEvent.Object);
+
 			resolver.Builder.RegisterInstance(input.Object);
 			resolver.Builder.RegisterInstance(state);
+			resolver.Builder.RegisterInstance(uiEvents.Object);
 			resolver.Build();
 
 			Mock<IGraphicsFactory> graphicsFactory = new Mock<IGraphicsFactory> ();
@@ -203,21 +214,11 @@ namespace Tests
 
 			Mock<IOutfit> outfit = new Mock<IOutfit> ();
 			Mock<IPathFinder> pathFinder = new Mock<IPathFinder> ();
-			Mock<IUIEvents> uiEvents = new Mock<IUIEvents> ();
-			Mock<IEvent<MouseButtonEventArgs>> buttonEvent = new Mock<IEvent<MouseButtonEventArgs>> ();
-			Mock<IEvent<MousePositionEventArgs>> mouseEvent = new Mock<IEvent<MousePositionEventArgs>> ();
-			uiEvents.Setup(u => u.MouseClicked).Returns(buttonEvent.Object);
-			uiEvents.Setup(u => u.MouseDown).Returns(buttonEvent.Object);
-			uiEvents.Setup(u => u.MouseUp).Returns(buttonEvent.Object);
-			uiEvents.Setup(u => u.MouseEnter).Returns(mouseEvent.Object);
-			uiEvents.Setup(u => u.MouseLeave).Returns(mouseEvent.Object);
-			uiEvents.Setup(u => u.MouseMove).Returns(mouseEvent.Object);
 			Mock<IImage> image = new Mock<IImage> ();
 			Mock<ILabelRenderer> renderer = new Mock<ILabelRenderer> ();
 
-			Func<IPanel> basePanel = () => new AGSPanel (baseObj(), uiEvents.Object,
-				image.Object, gameEvents.Object, input.Object, state, resolver);
-			Func<ILabel> baseLabel = () => new AGSLabel (basePanel(), uiEvents.Object, 
+			Func<IPanel> basePanel = () => new AGSPanel (baseObj(), image.Object, resolver);
+			Func<ILabel> baseLabel = () => new AGSLabel (basePanel(),  
 				image.Object, renderer.Object, new SizeF (100f, 50f), resolver);
 
 			List<IObject> implmentors = new List<IObject>

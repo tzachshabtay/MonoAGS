@@ -34,6 +34,7 @@ namespace AGS.Engine
 
 			TypedParameter panelParam = new TypedParameter (typeof(IObject), this);
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
+			Events = resolver.Container.Resolve<IUIEvents>(panelParam);
 
 			gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
@@ -47,9 +48,7 @@ namespace AGS.Engine
 			throw new NotImplementedException();
 		}
 
-		public IUIEvents Events { get { return _obj.Events; } }
-
-		public bool IsMouseIn { get { return _obj.IsMouseIn; } }
+		public IUIEvents Events { get; private set; }
 
 		#endregion
 
