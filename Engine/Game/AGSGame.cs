@@ -33,7 +33,7 @@ namespace AGS.Engine
 		{
 			Thread.CurrentThread.Name = UIThread;
             Environment.CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			Resolver resolver = new Resolver ();
+			Resolver resolver = new Resolver (new EngineConfigFile());
 			resolver.Build();
 			AGSGame game = resolver.Container.Resolve<AGSGame>();
 			game._resolver = resolver;

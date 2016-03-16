@@ -6,6 +6,7 @@ using AGS.Engine;
 using AGS.API;
 using Autofac;
 using System.Drawing;
+using Moq;
 
 namespace Tests
 {
@@ -23,7 +24,8 @@ namespace Tests
 		public void Init()
 		{
 			_mocks = Mocks.Init();
-			_resolver = new Resolver ();
+			Mock<IEngineConfigFile> config = new Mock<IEngineConfigFile> ();
+			_resolver = new Resolver (config.Object);
 			_resolver.Build();
 			var updater = new ContainerBuilder ();
 			updater.RegisterInstance(_mocks.Input().Object).As<IInput>();

@@ -9,9 +9,17 @@ namespace AGS.Engine
 {
 	public class Resolver
 	{
-		public Resolver()
+		public Resolver(IEngineConfigFile configFile)
 		{
 			Builder = new ContainerBuilder ();
+			//configFile.DebugResolves = true;
+
+			if (configFile.DebugResolves)
+			{
+				Builder.RegisterModule(new AutofacResolveLoggingModule ());
+			}
+
+
 			Builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).
 				Except<SpatialAStarPathFinder>().AsImplementedInterfaces();
 

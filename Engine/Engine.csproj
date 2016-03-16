@@ -45,6 +45,7 @@
       <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,7 +77,6 @@
     <Compile Include="Graphics\Layers\AGSRenderLayer.cs" />
     <Compile Include="Graphics\Layers\AGSLayers.cs" />
     <Compile Include="Graphics\Logic\RenderOrderSelector.cs" />
-    <Compile Include="Resolver.cs" />
     <Compile Include="UI\AGSUIEvents.cs" />
     <Compile Include="UI\AGSBorderStyle.cs" />
     <Compile Include="Misc\Events\AGSEvent.cs" />
@@ -240,6 +240,10 @@
     <Compile Include="Rooms\Viewport\AGSCamera.cs" />
     <Compile Include="Serialization\Contracts\ContractCamera.cs" />
     <Compile Include="Objects\AGSCollider.cs" />
+    <Compile Include="Misc\DependencyInjection\AutofacResolveLoggingModule.cs" />
+    <Compile Include="Misc\DependencyInjection\Resolver.cs" />
+    <Compile Include="Misc\Config\EngineConfigFile.cs" />
+    <Compile Include="Misc\Config\IEngineConfigFile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -280,6 +284,8 @@
     <Folder Include="Serialization\" />
     <Folder Include="Serialization\Contracts\" />
     <Folder Include="Serialization\Surrogates\" />
+    <Folder Include="Misc\Config\" />
+    <Folder Include="Misc\DependencyInjection\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
