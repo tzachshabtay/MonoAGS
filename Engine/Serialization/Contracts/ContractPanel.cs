@@ -21,12 +21,12 @@ namespace AGS.Engine
 
 		public IObject ToItem(AGSSerializationContext context)
 		{
-			IObject obj = Object.ToItem(context);
-			var anchor = obj.Anchor;
-			IPanel panel = context.Factory.UI.GetPanel(obj, obj.Image, obj.X, obj.Y);
+			IAnimationContainer container = Object.AnimationContainer.ToItem(context);
+			var anchor = container.Anchor;
+			IPanel panel = context.Factory.UI.GetPanel(Object.ID, container, container.Image, container.X, container.Y);
+			Object.ToItem(context, panel);
 			panel.Visible = Object.Visible;
 			panel.Anchor = anchor;
-			panel.TreeNode.StealParent(obj.TreeNode);
 			return panel;
 		}
 

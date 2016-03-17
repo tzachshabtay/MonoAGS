@@ -38,8 +38,9 @@ namespace AGS.Engine
 
 		public IInventoryWindow GetInventoryWindow(IPanel innerPanel, float itemWidth, float itemHeight, ICharacter character)
 		{
-			TypedParameter parameter = new TypedParameter (typeof(IPanel), innerPanel);
-			IInventoryWindow inventory = _resolver.Resolve<IInventoryWindow>(parameter);
+			TypedParameter idParam = new TypedParameter (typeof(string), innerPanel.ID);
+			TypedParameter panelParam = new TypedParameter (typeof(IPanel), innerPanel);
+			IInventoryWindow inventory = _resolver.Resolve<IInventoryWindow>(idParam, panelParam);
 			inventory.Tint = Color.Transparent;
 			inventory.ItemSize = new SizeF (itemWidth, itemHeight);
 			inventory.CharacterToUse = character ?? _resolver.Resolve<IPlayer>().Character;

@@ -45,11 +45,11 @@ namespace AGS.Engine
 
 		public IObject ToItem(AGSSerializationContext context)
 		{
-			IObject obj = Object.ToItem(context);
-			TypedParameter objParam = new TypedParameter (typeof(IObject), obj);
-			IPanel panel = context.Resolver.Container.Resolve<IPanel>(objParam);
+			TypedParameter idParam = new TypedParameter (typeof(string), Object.ID);
+			IPanel panel = context.Resolver.Container.Resolve<IPanel>(idParam);
+			Object.ToItem(context, panel);
 			TypedParameter panelParam = new TypedParameter (typeof(IPanel), panel);
-			ISlider slider = context.Resolver.Container.Resolve<ISlider>(panelParam);
+			ISlider slider = context.Resolver.Container.Resolve<ISlider>(idParam, panelParam);
 
 			Graphics.Parent = null;
 			slider.Graphics = Graphics.ToItem(context);
@@ -62,7 +62,7 @@ namespace AGS.Engine
 			slider.MaxValue = MaxValue;
 			slider.Value = Value;
 			slider.IsHorizontal = IsHorizontal;
-			slider.TreeNode.StealParent(obj.TreeNode);
+			slider.TreeNode.StealParent(panel.TreeNode);
 			slider.Graphics.TreeNode.SetParent(slider.TreeNode);
 			slider.HandleGraphics.TreeNode.SetParent(slider.TreeNode);
 

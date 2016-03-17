@@ -12,7 +12,6 @@ namespace AGS.Engine
 		public Resolver(IEngineConfigFile configFile)
 		{
 			Builder = new ContainerBuilder ();
-			//configFile.DebugResolves = true;
 
 			if (configFile.DebugResolves)
 			{

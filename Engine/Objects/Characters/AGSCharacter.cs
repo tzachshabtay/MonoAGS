@@ -12,7 +12,7 @@ namespace AGS.Engine
 {
 	public class AGSCharacter : ICharacter, IOutfitHolder
 	{
-		private readonly IObject _obj;
+		private readonly IAnimationContainer _obj;
 		private readonly ISayBehavior _sayBehavior;
 		private readonly IWalkBehavior _walkBehavior;
 		private readonly IAGSFaceDirectionBehavior _faceDirectionBehavior;
@@ -21,8 +21,9 @@ namespace AGS.Engine
 		private readonly EnabledProperty _enabled;
 		private readonly ICollider _collider;
 
-		public AGSCharacter (IObject obj, IOutfit outfit, Resolver resolver, IPathFinder pathFinder)
+		public AGSCharacter (string id, IAnimationContainer obj, IOutfit outfit, IGameEvents gameEvents, Resolver resolver, IPathFinder pathFinder)
 		{
+			ID = id;
 			Outfit = outfit;
 			TreeNode = new AGSTreeNode<IObject> (this);
 			_visible = new VisibleProperty (this);
@@ -31,6 +32,8 @@ namespace AGS.Engine
 			TypedParameter objParameter = new TypedParameter (typeof(IObject), this);
 			_faceDirectionBehavior = resolver.Container.Resolve<IAGSFaceDirectionBehavior>(objParameter);
 			_faceDirectionBehavior.CurrentDirectionalAnimation = Outfit.IdleAnimation;
+			TypedParameter defaults = new TypedParameter (typeof(IInteractions), gameEvents.DefaultInteractions);
+			Interactions = resolver.Container.Resolve<IInteractions>(defaults, objParameter);
 
 			TypedParameter faceDirectionParameter = new TypedParameter (typeof(IAGSFaceDirectionBehavior), _faceDirectionBehavior);
 			TypedParameter outfitParameter = new TypedParameter (typeof(IOutfitHolder), this);
@@ -46,16 +49,18 @@ namespace AGS.Engine
 
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(objParameter);
 			_collider = resolver.Container.Resolve<ICollider>(objParameter);
+			Properties = resolver.Container.Resolve<ICustomProperties>();
 
 			_obj = obj;
 			IgnoreScalingArea = false;
+			RenderLayer = AGSLayers.Foreground;
 		}
 
 		#region ICharacter implementation
 
-		public string ID { get { return _obj.ID; } }
+		public string ID { get; private set; }
 
-		public ICustomProperties Properties { get { return _obj.Properties; } }
+		public ICustomProperties Properties { get; private set; }
 
 		public ILocation Location 
 		{ 
@@ -71,7 +76,7 @@ namespace AGS.Engine
 		public float Y { get { return _obj.Y; } set { _obj.Y = value; } }
 		public float Z { get { return _obj.Z; } set { _obj.Z = value; } }
 
-		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
+		public IRenderLayer RenderLayer { get; set; }
 
 		public ITreeNode<IObject> TreeNode { get; private set; }
 
@@ -82,7 +87,7 @@ namespace AGS.Engine
 			set { _obj.CustomRenderer = value; } 
 		}
 
-		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
+		public string Hotspot { get; set; }
 
 		public bool IsWalking { get { return _walkBehavior.IsWalking; } }
 
@@ -152,10 +157,10 @@ namespace AGS.Engine
 			}
 		}
 
-		public bool IgnoreViewport { get { return _obj.IgnoreViewport; } set { _obj.IgnoreViewport = value; } }
-		public bool IgnoreScalingArea { get { return _obj.IgnoreScalingArea; } set { _obj.IgnoreScalingArea = value; } }
+		public bool IgnoreViewport { get; set; }
+		public bool IgnoreScalingArea { get; set; }
 
-		public IPoint WalkPoint { get { return _obj.WalkPoint; } set { _obj.WalkPoint = value; } }
+		public IPoint WalkPoint { get; set; }
 
 		public IPoint CenterPoint { get { return _collider.CenterPoint; } }
 
@@ -290,7 +295,7 @@ namespace AGS.Engine
 
 		public IAnimation Animation { get { return _obj.Animation; } }
 
-		public IInteractions Interactions { get { return _obj.Interactions; } }
+		public IInteractions Interactions { get; private set; }
 
 		public bool Visible { get { return _visible.Value; } set { _visible.Value = value; } }
 
@@ -307,7 +312,6 @@ namespace AGS.Engine
 
 		public void Dispose()
 		{
-			_obj.Dispose();
 		}
 
 		#endregion

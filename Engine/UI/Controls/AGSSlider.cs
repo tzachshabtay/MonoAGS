@@ -22,8 +22,9 @@ namespace AGS.Engine
 		private readonly IGameEvents _gameEvents;
 		private bool _isSliding;
 
-		public AGSSlider(IPanel panel, IInput input, IGameEvents gameEvents, IGameState state, Resolver resolver)
+		public AGSSlider(string id, IPanel panel, IInput input, IGameEvents gameEvents, IGameState state, Resolver resolver)
 		{
+			ID = id;
 			_input = input;
 			_gameEvents = gameEvents;
 			_obj = panel;
@@ -32,16 +33,24 @@ namespace AGS.Engine
 			_enabled = new EnabledProperty (this);
 			OnValueChanged = new AGSEvent<SliderValueEventArgs> ();
 			TreeNode = new AGSTreeNode<IObject> (this);
+			IgnoreViewport = true;
+			IgnoreScalingArea = true;
 
 			TypedParameter panelParam = new TypedParameter (typeof(IObject), this);
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
 			_collider = resolver.Container.Resolve<ICollider>(panelParam);
 			Events = resolver.Container.Resolve<IUIEvents>(panelParam);
 
+			TypedParameter defaults = new TypedParameter (typeof(IInteractions), gameEvents.DefaultInteractions);
+			Interactions = resolver.Container.Resolve<IInteractions>(defaults, panelParam);
+			Properties = resolver.Container.Resolve<ICustomProperties>();
+
 			gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+			RenderLayer = AGSLayers.UI;
+			Enabled = true;
 		}
 
-		public string ID { get { return _obj.ID; } }
+		public string ID { get; private set; }
 
 		#region IUIControl implementation
 
@@ -56,7 +65,7 @@ namespace AGS.Engine
 
 		#region IObject implementation
 
-		public ICustomProperties Properties { get { return _obj.Properties; } }
+		public ICustomProperties Properties { get; private set; }
 
 		public void ChangeRoom(IRoom room, float? x = default(float?), float? y = default(float?))
 		{
@@ -72,21 +81,20 @@ namespace AGS.Engine
 
 		public IRoom PreviousRoom { get { return _roomBehavior.PreviousRoom; } }
 
-		public IInteractions Interactions { get { return _obj.Interactions; } }
+		public IInteractions Interactions { get; private set; }
 
 		public ISquare BoundingBox { get { return _collider.BoundingBox; } set { _collider.BoundingBox = value; } }
 
-		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
-
-		public IPoint WalkPoint { get { return _obj.WalkPoint; } set { _obj.WalkPoint = value; } }
+		public IRenderLayer RenderLayer { get; set; }
 
 		public IPoint CenterPoint { get { return _collider.CenterPoint; } }
 
-		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
+		public string Hotspot { get; set; }
 
-		public bool IgnoreViewport { get { return _obj.IgnoreViewport; } set { _obj.IgnoreViewport = value; } }
+		public bool IgnoreViewport { get; set; }
+		public bool IgnoreScalingArea { get; set; }
 
-		public bool IgnoreScalingArea { get { return _obj.IgnoreScalingArea; } set { _obj.IgnoreScalingArea = value; } }
+		public IPoint WalkPoint { get; set; }
 
 		#endregion
 

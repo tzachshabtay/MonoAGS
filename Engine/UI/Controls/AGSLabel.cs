@@ -15,8 +15,9 @@ namespace AGS.Engine
 		private readonly EnabledProperty _enabled;
 		private readonly ICollider _collider;
 
-		public AGSLabel(IPanel obj, IImage image, ILabelRenderer labelRenderer, SizeF baseSize, Resolver resolver)
+		public AGSLabel(string id, IPanel obj, IImage image, IGameEvents gameEvents, ILabelRenderer labelRenderer, SizeF baseSize, Resolver resolver)
 		{
+			ID = id;
 			this._obj = obj;
 			_visible = new VisibleProperty (this);
 			_enabled = new EnabledProperty (this);
@@ -25,14 +26,22 @@ namespace AGS.Engine
 			_labelRenderer.BaseSize = baseSize;
 			CustomRenderer = _labelRenderer;
 			TreeNode = new AGSTreeNode<IObject> (this);
+			IgnoreViewport = true;
+			IgnoreScalingArea = true;
 
 			TypedParameter panelParam = new TypedParameter (typeof(IObject), this);
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
 			_collider = resolver.Container.Resolve<ICollider>(panelParam);
 			Events = resolver.Container.Resolve<IUIEvents>(panelParam);
+			Properties = resolver.Container.Resolve<ICustomProperties>();
+
+			TypedParameter defaults = new TypedParameter (typeof(IInteractions), gameEvents.DefaultInteractions);
+			Interactions = resolver.Container.Resolve<IInteractions>(defaults, panelParam);
+
+			RenderLayer = AGSLayers.UI;
 		}
 
-		public string ID { get { return _obj.ID; } }
+		public string ID { get; private set; }
 
 		#region IUIControl implementation
 
@@ -68,7 +77,7 @@ namespace AGS.Engine
 
 		#region IObject implementation
 
-		public ICustomProperties Properties { get { return _obj.Properties; } }
+		public ICustomProperties Properties { get; private set; }
 
 		public void StartAnimation(IAnimation animation)
 		{
@@ -101,7 +110,7 @@ namespace AGS.Engine
 
 		public IAnimation Animation { get { return _obj.Animation; } }
 
-		public IInteractions Interactions { get { return _obj.Interactions; } }
+		public IInteractions Interactions { get; private set; }
 
 		public ISquare BoundingBox { get { return _collider.BoundingBox; } set { _collider.BoundingBox = value; } }
 
@@ -118,7 +127,7 @@ namespace AGS.Engine
 			}
 		}
 
-		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
+		public IRenderLayer RenderLayer { get; set; }
 
 		public ITreeNode<IObject> TreeNode { get; private set; }
 
@@ -130,12 +139,12 @@ namespace AGS.Engine
 
 		public bool UnderlyingEnabled { get { return _enabled.UnderlyingValue; } }
 
-		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
+		public string Hotspot { get; set; }
 
-		public bool IgnoreViewport { get { return _obj.IgnoreViewport; } set { _obj.IgnoreViewport = value; } }
-		public bool IgnoreScalingArea { get { return _obj.IgnoreScalingArea; } set { _obj.IgnoreScalingArea = value; } }
+		public bool IgnoreViewport { get; set; }
+		public bool IgnoreScalingArea { get; set; }
 
-		public IPoint WalkPoint { get { return _obj.WalkPoint; } set { _obj.WalkPoint = value; } }
+		public IPoint WalkPoint { get; set; }
 		public IPoint CenterPoint { get { return _collider.CenterPoint; } }
 
 		public bool DebugDrawAnchor { get { return _obj.DebugDrawAnchor; } set { _obj.DebugDrawAnchor = value; } }

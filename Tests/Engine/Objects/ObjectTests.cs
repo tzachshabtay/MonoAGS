@@ -183,7 +183,8 @@ namespace Tests
 		public static IEnumerable<IObject> GetImplementors(Mocks mocks, Mock<IGameState> stateMock, IGameState state = null)
 		{
 			if (state == null && stateMock != null) state = stateMock.Object;
-			Resolver resolver = new Resolver ();
+			Mock<IEngineConfigFile> configFile = new Mock<IEngineConfigFile> ();
+			Resolver resolver = new Resolver (configFile.Object);
 			Mock<IInput> input = new Mock<IInput> ();
 			if (stateMock != null) stateMock.Setup(s => s.Cutscene).Returns(mocks.Cutscene().Object);
 
@@ -217,19 +218,19 @@ namespace Tests
 			Mock<IImage> image = new Mock<IImage> ();
 			Mock<ILabelRenderer> renderer = new Mock<ILabelRenderer> ();
 
-			Func<IPanel> basePanel = () => new AGSPanel (baseObj(), image.Object, resolver);
-			Func<ILabel> baseLabel = () => new AGSLabel (basePanel(),  
-				image.Object, renderer.Object, new SizeF (100f, 50f), resolver);
+			Func<IPanel> basePanel = () => new AGSPanel ("Panel", baseObj(), image.Object, gameEvents.Object, resolver);
+			Func<ILabel> baseLabel = () => new AGSLabel ("Label", basePanel(),  
+				image.Object, gameEvents.Object, renderer.Object, new SizeF (100f, 50f), resolver);
 
 			List<IObject> implmentors = new List<IObject>
 			{
 				baseObj().Hotspot("Object"),
-				new AGSCharacter(baseObj(), outfit.Object, resolver, pathFinder.Object).Hotspot("Character"),
+				new AGSCharacter("Character", baseObj(), outfit.Object, gameEvents.Object, resolver, pathFinder.Object).Hotspot("Character"),
 				basePanel().Hotspot("Panel"),
 				baseLabel().Hotspot("Label"),
-				new AGSButton(baseLabel(), resolver).Hotspot("Button"),
-				new AGSInventoryWindow(basePanel(), gameEvents.Object, state, resolver).Hotspot("Inventory"),
-				new AGSSlider(basePanel(), input.Object, gameEvents.Object, state, resolver).Hotspot("Slider"),
+				new AGSButton("Button", baseLabel(), gameEvents.Object, resolver).Hotspot("Button"),
+				new AGSInventoryWindow("Inventory", basePanel(), gameEvents.Object, state, resolver).Hotspot("Inventory"),
+				new AGSSlider("Slider", basePanel(), input.Object, gameEvents.Object, state, resolver).Hotspot("Slider"),
 			};
 
 			return implmentors;

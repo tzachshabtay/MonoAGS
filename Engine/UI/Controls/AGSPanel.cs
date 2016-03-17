@@ -9,15 +9,15 @@ namespace AGS.Engine
 {
 	public class AGSPanel : IPanel
 	{
-		private IObject _obj;
+		private IAnimationContainer _obj;
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
 		private readonly ICollider _collider;
+		private readonly IHasRoom _roomBehavior;
 
-		private IHasRoom _roomBehavior;
-
-		public AGSPanel(IObject obj, IImage image, Resolver resolver)
+		public AGSPanel(string id, IAnimationContainer obj, IImage image, IGameEvents gameEvents, Resolver resolver)
 		{
+			ID = id;
 			this._obj = obj;
 			_visible = new VisibleProperty (this);
 			_enabled = new EnabledProperty (this);
@@ -31,11 +31,15 @@ namespace AGS.Engine
 			_roomBehavior = resolver.Container.Resolve<IHasRoom>(panelParam);
 			_collider = resolver.Container.Resolve<ICollider>(panelParam);
 			Events = resolver.Container.Resolve<IUIEvents>(panelParam);
+			Properties = resolver.Container.Resolve<ICustomProperties>();
+
+			TypedParameter defaults = new TypedParameter (typeof(IInteractions), gameEvents.DefaultInteractions);
+			Interactions = resolver.Container.Resolve<IInteractions>(defaults, panelParam);
 
 			TreeNode = new AGSTreeNode<IObject> (this);
 		}
 
-		public string ID { get { return _obj.ID; } }
+		public string ID { get; private set; }
 
 		#region IUIControl implementation
 
@@ -48,7 +52,7 @@ namespace AGS.Engine
 
 		#endregion
 
-		public ICustomProperties Properties { get { return _obj.Properties; } }
+		public ICustomProperties Properties { get; private set; }
 
 		public void StartAnimation(IAnimation animation)
 		{
@@ -81,7 +85,7 @@ namespace AGS.Engine
 
 		public IAnimation Animation { get { return _obj.Animation; } }
 
-		public IInteractions Interactions { get { return _obj.Interactions; } }
+		public IInteractions Interactions { get; private set; }
 
 		public ISquare BoundingBox { get { return _collider.BoundingBox; } set { _collider.BoundingBox = value; } }
 
@@ -98,7 +102,7 @@ namespace AGS.Engine
 			}
 		}
 
-		public IRenderLayer RenderLayer { get { return _obj.RenderLayer; } set { _obj.RenderLayer = value; } }
+		public IRenderLayer RenderLayer { get; set; }
 
 		public ITreeNode<IObject> TreeNode { get; private set; }
 
@@ -110,12 +114,12 @@ namespace AGS.Engine
 
 		public bool UnderlyingEnabled { get { return _enabled.UnderlyingValue; } }
 
-		public string Hotspot { get { return _obj.Hotspot; } set { _obj.Hotspot = value; } }
+		public string Hotspot { get; set; }
 
-		public bool IgnoreViewport { get { return _obj.IgnoreViewport; } set { _obj.IgnoreViewport = value; } }
-		public bool IgnoreScalingArea { get { return _obj.IgnoreScalingArea; } set { _obj.IgnoreScalingArea = value; } }
+		public bool IgnoreViewport { get; set; }
+		public bool IgnoreScalingArea { get; set; }
 
-		public IPoint WalkPoint { get { return _obj.WalkPoint; } set { _obj.WalkPoint = value; } }
+		public IPoint WalkPoint { get; set; }
 		public IPoint CenterPoint { get { return _collider.CenterPoint; } }
 
 		public bool DebugDrawAnchor { get { return _obj.DebugDrawAnchor; } set { _obj.DebugDrawAnchor = value; } }
@@ -197,7 +201,6 @@ namespace AGS.Engine
 		public void Dispose()
 		{
 			Events.Dispose();
-			_obj.Dispose();
 		}
 	}
 }

@@ -18,8 +18,7 @@ namespace AGS.Engine
 
 		public IObject GetObject(string id, string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
-			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			IObject obj = _resolver.Resolve<IObject>(idParam);
+			IObject obj = GetObject(id, _resolver.Resolve<IAnimationContainer>());
 
 			subscribeSentences(sayWhenLook, obj.Interactions.OnLook);
 			subscribeSentences(sayWhenInteract, obj.Interactions.OnInteract);
@@ -36,18 +35,20 @@ namespace AGS.Engine
 
 		public ICharacter GetCharacter(string id, IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
-			return GetCharacter(GetObject(id), outfit, sayWhenLook, sayWhenInteract);
-		}
-
-		public ICharacter GetCharacter(IObject innerObject, IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null)
-		{
-			TypedParameter outfitParam = new TypedParameter (typeof(IOutfit), outfit);
-			TypedParameter objParam = new TypedParameter (typeof(IObject), innerObject);
-			ICharacter character = _resolver.Resolve<ICharacter>(outfitParam, objParam);
+			ICharacter character = GetCharacter(id, outfit, _resolver.Resolve<IAnimationContainer>());
 
 			subscribeSentences(sayWhenLook, character.Interactions.OnLook);
 			subscribeSentences(sayWhenInteract, character.Interactions.OnInteract);
 
+			return character;
+		}
+
+		public ICharacter GetCharacter(string id, IOutfit outfit, IAnimationContainer container)
+		{
+			TypedParameter outfitParam = new TypedParameter (typeof(IOutfit), outfit);
+			TypedParameter idParam = new TypedParameter (typeof(string), id);
+			TypedParameter animationParam = new TypedParameter (typeof(IAnimationContainer), container);
+			ICharacter character = _resolver.Resolve<ICharacter>(outfitParam, idParam, animationParam);
 			return character;
 		}
 

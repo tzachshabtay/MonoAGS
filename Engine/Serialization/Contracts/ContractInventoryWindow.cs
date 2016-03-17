@@ -35,11 +35,12 @@ namespace AGS.Engine
 
 		public IInventoryWindow ToItem(AGSSerializationContext context)
 		{
-			IObject obj = Object.ToItem(context);
-			IPanel panel = context.Factory.UI.GetPanel(obj, new EmptyImage (obj.Width, obj.Height), obj.X, obj.Y);
+			IAnimationContainer obj = Object.AnimationContainer.ToItem(context);
+			IPanel panel = context.Factory.UI.GetPanel(Object.ID, obj, new EmptyImage (obj.Width, obj.Height), obj.X, obj.Y);
+			Object.ToItem(context, panel);
 			var invWindow = context.Factory.Inventory.GetInventoryWindow(panel, ItemWidth, ItemHeight, null);
 			invWindow.Visible = Object.Visible;
-			invWindow.TreeNode.StealParent(obj.TreeNode);
+			invWindow.TreeNode.StealParent(panel.TreeNode);
 			context.Rewire(state => invWindow.CharacterToUse = CharacterID == null ? null :  state.Find<ICharacter>(CharacterID));
 			return invWindow;
 		}

@@ -61,25 +61,30 @@ namespace AGS.Engine
 			if (_obj != null) return _obj;
 
 			_obj = context.Factory.Object.GetObject(ID, AnimationContainer.ToItem(context));
-			_obj.RenderLayer = RenderLayer.ToItem(context);
+			ToItem(context, _obj);
+
+			return _obj;
+		}
+
+		public void ToItem(AGSSerializationContext context, IObject obj)
+		{
+			obj.RenderLayer = RenderLayer.ToItem(context);
 			if (WalkPoint != null)
 			{
-				_obj.WalkPoint = new AGSPoint (WalkPoint.Item1, WalkPoint.Item2);
+				obj.WalkPoint = new AGSPoint (WalkPoint.Item1, WalkPoint.Item2);
 			}
-			_obj.Properties.CopyFrom(Properties.ToItem(context));
-			_obj.Enabled = Enabled;
-			_obj.Hotspot = Hotspot;
-			_obj.IgnoreViewport = IgnoreViewport;
-			_obj.IgnoreScalingArea = IgnoreScalingArea;
-			_obj.Visible = Visible;
+			obj.Properties.CopyFrom(Properties.ToItem(context));
+			obj.Enabled = Enabled;
+			obj.Hotspot = Hotspot;
+			obj.IgnoreViewport = IgnoreViewport;
+			obj.IgnoreScalingArea = IgnoreScalingArea;
+			obj.Visible = Visible;
 
 			if (Parent != null)
 			{
 				var parent = Parent.ToItem(context);
-				_obj.TreeNode.SetParent(parent.TreeNode);
+				obj.TreeNode.SetParent(parent.TreeNode);
 			}
-
-			return _obj;
 		}
 			
 		public void FromItem(AGSSerializationContext context, IObject item)

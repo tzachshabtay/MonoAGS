@@ -5,7 +5,7 @@
 		IPanel GetPanel(string id, IImage image, float x, float y, bool addToUi = true);
 		IPanel GetPanel(string id, float width, float height, float x, float y, bool addToUi = true);
 		IPanel GetPanel(string id, string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true);
-		IPanel GetPanel(IObject innerObject, IImage image, float x, float y);
+		IPanel GetPanel(string id, IAnimationContainer innerContainer, IImage image, float x, float y);
 
 		ILabel GetLabel(string id, string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true);
 		ILabel GetLabel(IPanel innerPanel, string text, float width, float height, float x, float y, ITextConfig config = null);

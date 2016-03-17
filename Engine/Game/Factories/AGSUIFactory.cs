@@ -22,18 +22,18 @@ namespace AGS.Engine
 
 		public IPanel GetPanel(string id, IImage image, float x, float y, bool addToUi = true)
 		{
-			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			IPanel panel = GetPanel(_resolver.Resolve<IObject>(idParam), image, x, y);
+			IPanel panel = GetPanel(id, _resolver.Resolve<IAnimationContainer>(), image, x, y);
 			if (addToUi)
 				_gameState.UI.Add(panel);
 			return panel;
 		}
 
-		public IPanel GetPanel(IObject innerObject, IImage image, float x, float y)
+		public IPanel GetPanel(string id, IAnimationContainer innerContainer, IImage image, float x, float y)
 		{
-			TypedParameter typedParameter = new TypedParameter (typeof(IImage), image);
-			TypedParameter objParameter = new TypedParameter (typeof(IObject), innerObject);
-			IPanel panel = _resolver.Resolve<IPanel>(objParameter, typedParameter);
+			TypedParameter idParam = new TypedParameter (typeof(string), id);
+			TypedParameter imageParameter = new TypedParameter (typeof(IImage), image);
+			TypedParameter containerParameter = new TypedParameter (typeof(IAnimationContainer), innerContainer);
+			IPanel panel = _resolver.Resolve<IPanel>(idParam, containerParameter, imageParameter);
 			panel.X = x;
 			panel.Y = y;
 			return panel;
@@ -53,9 +53,8 @@ namespace AGS.Engine
 
 		public ILabel GetLabel(string id, string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
 		{
-			IObject obj = _object.GetObject(id);
-			TypedParameter objParam = new TypedParameter (typeof(IObject), obj);
-			ILabel label = GetLabel(_resolver.Resolve<IPanel>(objParam), text, width, height, x, y, config);
+			TypedParameter idParam = new TypedParameter(typeof(string), id);
+			ILabel label = GetLabel(_resolver.Resolve<IPanel>(idParam), text, width, height, x, y, config);
 			if (addToUi)
 				_gameState.UI.Add(label);
 			return label;
@@ -66,7 +65,8 @@ namespace AGS.Engine
 			SizeF baseSize = new SizeF(width, height);
 			TypedParameter typedParameter = new TypedParameter (typeof(SizeF), baseSize);
 			TypedParameter panelParameter = new TypedParameter (typeof(IPanel), innerPanel);
-			ILabel label = _resolver.Resolve<ILabel>(typedParameter, panelParameter);
+			TypedParameter idParameter = new TypedParameter (typeof(string), innerPanel.ID);
+			ILabel label = _resolver.Resolve<ILabel>(idParameter, typedParameter, panelParameter);
 			label.Text = text;
 			label.X = x;
 			label.Y = y;
@@ -78,7 +78,8 @@ namespace AGS.Engine
 		public IButton GetButton(ILabel innerLabel, IAnimation idle, IAnimation hovered, IAnimation pushed)
 		{
 			TypedParameter typedParameter = new TypedParameter (typeof(ILabel), innerLabel);
-			IButton button = _resolver.Resolve <IButton>(typedParameter);
+			TypedParameter idParameter = new TypedParameter (typeof(string), innerLabel.ID);
+			IButton button = _resolver.Resolve <IButton>(idParameter, typedParameter);
 
 			button.IdleAnimation = idle;
 			button.HoverAnimation = hovered;
@@ -139,11 +140,10 @@ namespace AGS.Engine
 			handle.Image = _graphics.LoadImage(handleImagePath, loadConfig);
 			handle.IgnoreViewport = true;
 
-			IObject sliderInner = _object.GetObject(id);
-			TypedParameter objParam = new TypedParameter (typeof(IObject), sliderInner);
-			IPanel panelInner = _resolver.Resolve<IPanel>(objParam);
+			TypedParameter idParam = new TypedParameter (typeof(string), id);
+			IPanel panelInner = _resolver.Resolve<IPanel>(idParam);
 			TypedParameter panelParam = new TypedParameter (typeof(IPanel), panelInner);
-			ISlider slider = _resolver.Resolve<ISlider>(panelParam);
+			ISlider slider = _resolver.Resolve<ISlider>(idParam, panelParam);
 			slider.Label = label;
 			slider.MinValue = min;
 			slider.MaxValue = max;

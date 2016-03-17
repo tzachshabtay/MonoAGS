@@ -36,17 +36,17 @@ namespace AGS.Engine
 		public IObject ToItem(AGSSerializationContext context)
 		{
 			if (Object == null) return null;
-			IObject obj = Object.ToItem(context);
-			var anchor = obj.Anchor;
-			var tint = obj.Tint;
-			IPanel panel = context.Factory.UI.GetPanel(obj, new EmptyImage (obj.Width/obj.ScaleX, obj.Height/obj.ScaleY), 
-				obj.X, obj.Y);
-			ILabel label = context.Factory.UI.GetLabel(panel, Text, Width, Height, obj.X, obj.Y, 
+			IAnimationContainer container = Object.AnimationContainer.ToItem(context);
+			var anchor = container.Anchor;
+			var tint = container.Tint;
+			IPanel panel = context.Factory.UI.GetPanel(Object.ID, container, new EmptyImage (container.Width/container.ScaleX, container.Height/container.ScaleY), 
+				container.X, container.Y);
+			ILabel label = context.Factory.UI.GetLabel(panel, Text, Width, Height, container.X, container.Y, 
 				TextConfig.ToItem(context));
+			Object.ToItem(context, label);
 			label.Visible = Object.Visible;
 			label.Anchor = anchor;
 			label.Tint = tint;
-			label.TreeNode.StealParent(obj.TreeNode);
 			return label;
 		}
 			
