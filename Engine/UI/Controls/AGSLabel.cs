@@ -8,19 +8,21 @@ namespace AGS.Engine
 {
 	public class AGSLabel : ILabel
 	{
-		private readonly IPanel _obj;
+		private readonly IAnimationContainer _obj;
 		private readonly ILabelRenderer _labelRenderer;
 		private IHasRoom _roomBehavior;
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
 		private readonly ICollider _collider;
 
-		public AGSLabel(string id, IPanel obj, IImage image, IGameEvents gameEvents, ILabelRenderer labelRenderer, SizeF baseSize, Resolver resolver)
+		public AGSLabel(string id, IAnimationContainer obj, IImage image, IGameEvents gameEvents, ILabelRenderer labelRenderer, SizeF baseSize, Resolver resolver)
 		{
 			ID = id;
 			this._obj = obj;
 			_visible = new VisibleProperty (this);
 			_enabled = new EnabledProperty (this);
+			Anchor = new AGSPoint ();
+			Image = image;
 			Enabled = false;
 			_labelRenderer = labelRenderer;
 			_labelRenderer.BaseSize = baseSize;
@@ -227,7 +229,8 @@ namespace AGS.Engine
 
 		public void Dispose()
 		{
-			_obj.Dispose();
+			Events.Dispose();
+
 		}
 	}
 }

@@ -46,16 +46,15 @@ namespace AGS.Engine
 		public IObject ToItem(AGSSerializationContext context)
 		{
 			TypedParameter idParam = new TypedParameter (typeof(string), Object.ID);
-			IPanel panel = context.Resolver.Container.Resolve<IPanel>(idParam);
+			TypedParameter containerParam = new TypedParameter (typeof(IAnimationContainer), Object.AnimationContainer.ToItem(context));
+			IPanel panel = context.Resolver.Container.Resolve<IPanel>(idParam, containerParam);
 			Object.ToItem(context, panel);
 			TypedParameter panelParam = new TypedParameter (typeof(IPanel), panel);
 			ISlider slider = context.Resolver.Container.Resolve<ISlider>(idParam, panelParam);
 
 			Graphics.Parent = null;
-			slider.Graphics = Graphics.ToItem(context);
 
 			HandleGraphics.Parent = null;
-			slider.HandleGraphics = HandleGraphics.ToItem(context);
 
 			slider.Label = (ILabel)Label.ToItem(context);
 			slider.MinValue = MinValue;
@@ -63,8 +62,19 @@ namespace AGS.Engine
 			slider.Value = Value;
 			slider.IsHorizontal = IsHorizontal;
 			slider.TreeNode.StealParent(panel.TreeNode);
-			slider.Graphics.TreeNode.SetParent(slider.TreeNode);
-			slider.HandleGraphics.TreeNode.SetParent(slider.TreeNode);
+
+			context.Rewire(state =>
+			{
+				IObject obj = state.Find<IObject>(Graphics.ID);
+				if (obj != null) state.UI.Remove(obj);
+				obj = state.Find<IObject>(HandleGraphics.ID);
+				if (obj != null) state.UI.Remove(obj);
+
+				slider.Graphics = Graphics.ToItem(context);
+				slider.HandleGraphics = HandleGraphics.ToItem(context);
+				slider.Graphics.TreeNode.SetParent(slider.TreeNode);
+				slider.HandleGraphics.TreeNode.SetParent(slider.TreeNode);
+			});
 
 			return slider;
 		}

@@ -265,6 +265,7 @@ namespace AGS.Engine
 		{
 			_gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
 			_obj.Dispose();
+			Events.Dispose();
 		}
 
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)

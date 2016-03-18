@@ -53,20 +53,19 @@ namespace AGS.Engine
 
 		public ILabel GetLabel(string id, string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
 		{
-			TypedParameter idParam = new TypedParameter(typeof(string), id);
-			ILabel label = GetLabel(_resolver.Resolve<IPanel>(idParam), text, width, height, x, y, config);
+			ILabel label = GetLabel(id, _resolver.Resolve<IAnimationContainer>(), text, width, height, x, y, config);
 			if (addToUi)
 				_gameState.UI.Add(label);
 			return label;
 		}
 
-		public ILabel GetLabel(IPanel innerPanel, string text, float width, float height, float x, float y, ITextConfig config = null)
+		public ILabel GetLabel(string id, IAnimationContainer innerContainer, string text, float width, float height, float x, float y, ITextConfig config = null)
 		{
 			SizeF baseSize = new SizeF(width, height);
-			TypedParameter typedParameter = new TypedParameter (typeof(SizeF), baseSize);
-			TypedParameter panelParameter = new TypedParameter (typeof(IPanel), innerPanel);
-			TypedParameter idParameter = new TypedParameter (typeof(string), innerPanel.ID);
-			ILabel label = _resolver.Resolve<ILabel>(idParameter, typedParameter, panelParameter);
+			TypedParameter sizeParam = new TypedParameter (typeof(SizeF), baseSize);
+			TypedParameter containerParam = new TypedParameter (typeof(IAnimationContainer), innerContainer);
+			TypedParameter idParam = new TypedParameter (typeof(string), id);
+			ILabel label = _resolver.Resolve<ILabel>(idParam, sizeParam, containerParam);
 			label.Text = text;
 			label.X = x;
 			label.Y = y;

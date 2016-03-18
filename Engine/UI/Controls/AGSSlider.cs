@@ -317,6 +317,7 @@ namespace AGS.Engine
 		{
 			_gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
 			_obj.Dispose();
+			Events.Dispose();
 		}
 
 		private void updateGraphics(IObject oldGraphics, IObject newGraphics, float z)

@@ -229,6 +229,7 @@ namespace AGS.Engine
 			Events.MouseLeave.Unsubscribe(onMouseLeave);
 			Events.MouseDown.Unsubscribe(onMouseDown);
 			Events.MouseUp.Unsubscribe(onMouseUp);
+			Events.Dispose();
 			_obj.Dispose();
 		}
 

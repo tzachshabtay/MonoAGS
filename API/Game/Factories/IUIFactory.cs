@@ -8,7 +8,7 @@
 		IPanel GetPanel(string id, IAnimationContainer innerContainer, IImage image, float x, float y);
 
 		ILabel GetLabel(string id, string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true);
-		ILabel GetLabel(IPanel innerPanel, string text, float width, float height, float x, float y, ITextConfig config = null);
+		ILabel GetLabel(string id, IAnimationContainer innerContainer, string text, float width, float height, float x, float y, ITextConfig config = null);
 
 		IButton GetButton(string id, IAnimation idle, IAnimation hovered, IAnimation pushed, float x, 
 			float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);

@@ -39,9 +39,7 @@ namespace AGS.Engine
 			IAnimationContainer container = Object.AnimationContainer.ToItem(context);
 			var anchor = container.Anchor;
 			var tint = container.Tint;
-			IPanel panel = context.Factory.UI.GetPanel(Object.ID, container, new EmptyImage (container.Width/container.ScaleX, container.Height/container.ScaleY), 
-				container.X, container.Y);
-			ILabel label = context.Factory.UI.GetLabel(panel, Text, Width, Height, container.X, container.Y, 
+			ILabel label = context.Factory.UI.GetLabel(Object.ID, container, Text, Width, Height, container.X, container.Y, 
 				TextConfig.ToItem(context));
 			Object.ToItem(context, label);
 			label.Visible = Object.Visible;
