@@ -74,11 +74,13 @@ namespace AGS.Engine
 			return label;
 		}
 
-		public IButton GetButton(ILabel innerLabel, IAnimation idle, IAnimation hovered, IAnimation pushed)
+		public IButton GetButton(string id, IAnimationContainer innerContainer, float width, float height, 
+			IAnimation idle, IAnimation hovered, IAnimation pushed)
 		{
-			TypedParameter typedParameter = new TypedParameter (typeof(ILabel), innerLabel);
-			TypedParameter idParameter = new TypedParameter (typeof(string), innerLabel.ID);
-			IButton button = _resolver.Resolve <IButton>(idParameter, typedParameter);
+			TypedParameter containerParam = new TypedParameter (typeof(IAnimationContainer), innerContainer);
+			TypedParameter idParam = new TypedParameter (typeof(string), id);
+			TypedParameter sizeParam = new TypedParameter (typeof(SizeF), new SizeF (width, height));
+			IButton button = _resolver.Resolve <IButton>(idParam, containerParam, sizeParam);
 
 			button.IdleAnimation = idle;
 			button.HoverAnimation = hovered;
@@ -100,10 +102,12 @@ namespace AGS.Engine
 			{
 				height = idle.Frames[0].Sprite.Height;
 			}
-			ILabel label = GetLabel(id, text, width, height, x, y, config, false);
-			label.Tint = Color.White;
-
-			IButton button = GetButton(label, idle, hovered, pushed);
+			IButton button = GetButton(id, _resolver.Resolve<IAnimationContainer>(), width, height, idle, hovered, pushed);
+			button.Tint = Color.White;
+			button.X = x;
+			button.Y = y;
+			button.TextConfig = config;
+			button.Text = text;
 
 			if (addToUi)
 				_gameState.UI.Add(button);

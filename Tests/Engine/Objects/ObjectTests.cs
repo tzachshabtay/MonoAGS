@@ -228,7 +228,7 @@ namespace Tests
 				new AGSCharacter("Character", baseObj(), outfit.Object, gameEvents.Object, resolver, pathFinder.Object).Hotspot("Character"),
 				basePanel().Hotspot("Panel"),
 				baseLabel().Hotspot("Label"),
-				new AGSButton("Button", baseLabel(), gameEvents.Object, resolver).Hotspot("Button"),
+				new AGSButton("Button", animationContainer, image.Object, renderer.Object, new SizeF(100f,50f), gameEvents.Object, resolver).Hotspot("Button"),
 				new AGSInventoryWindow("Inventory", basePanel(), gameEvents.Object, state, resolver).Hotspot("Inventory"),
 				new AGSSlider("Slider", basePanel(), input.Object, gameEvents.Object, state, resolver).Hotspot("Slider"),
 			};

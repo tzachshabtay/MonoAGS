@@ -14,7 +14,7 @@
 			float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);
 		IButton GetButton(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath, 
 			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);
-		IButton GetButton(ILabel innerLabel, IAnimation idle, IAnimation hovered, IAnimation pushed);
+		IButton GetButton(string id, IAnimationContainer innerContainer, float width, float height, IAnimation idle, IAnimation hovered, IAnimation pushed);
 
 		ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max, 
 			ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true);

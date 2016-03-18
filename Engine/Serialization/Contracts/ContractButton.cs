@@ -32,14 +32,15 @@ namespace AGS.Engine
 
 		public IObject ToItem(AGSSerializationContext context)
 		{
-			ILabel label = (ILabel)Label.ToItem(context);
-			var anchor = label.Anchor;
-			IButton button = context.Factory.UI.GetButton(label, IdleAnimation.ToItem(context),
-				                 HoverAnimation.ToItem(context), PushedAnimation.ToItem(context));
+			IAnimationContainer container = Label.Object.AnimationContainer.ToItem(context);
+			var anchor = container.Anchor;
+			IButton button = context.Factory.UI.GetButton(Label.Object.ID, container, Label.Width, Label.Height,
+				IdleAnimation.ToItem(context), HoverAnimation.ToItem(context), PushedAnimation.ToItem(context));
 			Label.Object.ToItem(context, button);
-			button.Visible = label.UnderlyingVisible;
+			button.TextConfig = Label.TextConfig.ToItem(context);
+			button.Text = Label.Text;
+			button.Visible = Label.Object.Visible;
 			button.Anchor = anchor;
-			button.TreeNode.StealParent(label.TreeNode);
 			return button;
 		}
 

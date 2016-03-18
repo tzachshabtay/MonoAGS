@@ -8,18 +8,24 @@ namespace AGS.Engine
 {
 	public class AGSButton : IButton
 	{
-		private readonly ILabel _obj;
+		private readonly IAnimationContainer _obj;
+		private readonly ILabelRenderer _labelRenderer;
 		private readonly IHasRoom _roomBehavior;
 		private readonly VisibleProperty _visible;
 		private readonly EnabledProperty _enabled;
 		private readonly ICollider _collider;
 
-		public AGSButton(string id, ILabel label, IGameEvents gameEvents, Resolver resolver)
+		public AGSButton(string id, IAnimationContainer container, IImage image, ILabelRenderer labelRenderer, SizeF baseSize, IGameEvents gameEvents, Resolver resolver)
 		{
 			ID = id;
-			_obj = label;
+			_obj = container;
+			_labelRenderer = labelRenderer;
+			_labelRenderer.BaseSize = baseSize;
+			CustomRenderer = _labelRenderer;
 			_visible = new VisibleProperty (this);
 			_enabled = new EnabledProperty (this);
+			Anchor = new AGSPoint ();
+			Image = image;
 			RenderLayer = AGSLayers.UI;
 			IgnoreViewport = true;
 			IgnoreScalingArea = true;
@@ -63,13 +69,22 @@ namespace AGS.Engine
 
 		#region ILabel implementation
 
-		public ITextConfig TextConfig { get { return _obj.TextConfig; } set { _obj.TextConfig = value; }}
+		public ITextConfig TextConfig 
+		{
+			get { return _labelRenderer.Config; }
+			set { _labelRenderer.Config = value; }
+		}
 
-		public string Text { get { return _obj.Text; } set { _obj.Text = value; }}
+		public string Text 
+		{ 
+			get { return _labelRenderer.Text; }
+			set { _labelRenderer.Text = value; }
+		}
 
-		public float TextHeight { get { return _obj.TextHeight; } }
 
-		public float TextWidth { get { return _obj.TextWidth; } }
+		public float TextHeight { get { return _labelRenderer.TextHeight; } }
+
+		public float TextWidth { get { return _labelRenderer.TextWidth; } }
 
 		#endregion
 
@@ -196,9 +211,9 @@ namespace AGS.Engine
 
 		public float Z { get { return _obj.Z; } set { _obj.Z = value; } }
 
-		public float Height { get { return _obj.Height; } }
+		public float Height { get { return _labelRenderer.Height; } }
 
-		public float Width { get { return _obj.Width; } }
+		public float Width { get { return _labelRenderer.Width; } }
 
 		public float ScaleX { get { return _obj.ScaleX; } }
 
@@ -230,7 +245,6 @@ namespace AGS.Engine
 			Events.MouseDown.Unsubscribe(onMouseDown);
 			Events.MouseUp.Unsubscribe(onMouseUp);
 			Events.Dispose();
-			_obj.Dispose();
 		}
 
 		private void onMouseEnter(object sender, MousePositionEventArgs e)
