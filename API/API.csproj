@@ -129,6 +129,9 @@
     <Compile Include="Rooms\ICamera.cs" />
     <Compile Include="Game\IGameSettings.cs" />
     <Compile Include="Objects\ICollider.cs" />
+    <Compile Include="ComponentsFramework\IComponent.cs" />
+    <Compile Include="ComponentsFramework\IComponentsCollection.cs" />
+    <Compile Include="ComponentsFramework\IEntity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -150,5 +153,6 @@
     <Folder Include="UI\Controls\" />
     <Folder Include="UI\Controls\Slider\" />
     <Folder Include="Game\Factories\" />
+    <Folder Include="ComponentsFramework\" />
   </ItemGroup>
 </Project>

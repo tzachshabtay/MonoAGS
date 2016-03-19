@@ -244,6 +244,8 @@
     <Compile Include="Misc\DependencyInjection\Resolver.cs" />
     <Compile Include="Misc\Config\EngineConfigFile.cs" />
     <Compile Include="Misc\Config\IEngineConfigFile.cs" />
+    <Compile Include="ComponentsFramework\AGSComponent.cs" />
+    <Compile Include="ComponentsFramework\AGSEntity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -286,6 +288,7 @@
     <Folder Include="Serialization\Surrogates\" />
     <Folder Include="Misc\Config\" />
     <Folder Include="Misc\DependencyInjection\" />
+    <Folder Include="ComponentsFramework\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
