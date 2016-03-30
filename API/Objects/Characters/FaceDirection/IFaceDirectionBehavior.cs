@@ -14,10 +14,11 @@ namespace AGS.API
 		UpRight,
 	}
 
-	public interface IFaceDirectionBehavior
+	[RequiredComponent(typeof(IAnimationContainer))]
+	public interface IFaceDirectionBehavior : IComponent
 	{
 		Direction Direction { get; }
-		IDirectionalAnimation CurrentDirectionalAnimation { get; }
+		IDirectionalAnimation CurrentDirectionalAnimation { get; set; }
 
 		void FaceDirection(Direction direction);
 		Task FaceDirectionAsync(Direction direction);

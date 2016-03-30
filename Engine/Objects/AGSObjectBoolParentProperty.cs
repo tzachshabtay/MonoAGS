@@ -3,21 +3,26 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class AGSObjectBoolParentProperty
+	public class AGSObjectBoolParentProperty : AGSComponent
 	{
-		private readonly IObject _obj;
 		private readonly Predicate<IObject> _getProperty;
+		private IInTree<IObject> _tree;
 
-		public AGSObjectBoolParentProperty(IObject obj, Predicate<IObject> getProperty)
+		public AGSObjectBoolParentProperty(Predicate<IObject> getProperty)
 		{
-			_obj = obj;
 			_getProperty = getProperty;
 			UnderlyingValue = true;
+		}
+
+		public override void Init(IEntity entity)
+		{
+			base.Init(entity);
+			_tree = entity.GetComponent<IInTree<IObject>>();
 		}
 			
 		public bool Value 
 		{
-			get { return getBooleanFromParentIfNeeded(_obj.TreeNode.Parent); }
+			get { return getBooleanFromParentIfNeeded(_tree.TreeNode.Parent); }
 			set { UnderlyingValue = value;}
 		}
 
@@ -31,14 +36,18 @@ namespace AGS.Engine
 		}
 	}
 
-	public class VisibleProperty : AGSObjectBoolParentProperty
+	public class VisibleProperty : AGSObjectBoolParentProperty, IVisibleComponent
 	{
-		public VisibleProperty(IObject obj) : base(obj, o => o.Visible){}
+		public VisibleProperty() : base(o => o.Visible){}
+		public bool Visible { get { return Value; } set { Value = value; } }
+		public bool UnderlyingVisible { get { return UnderlyingValue; } }
 	}
 
-	public class EnabledProperty : AGSObjectBoolParentProperty
+	public class EnabledProperty : AGSObjectBoolParentProperty, IEnabledComponent
 	{
-		public EnabledProperty(IObject obj) : base(obj, o => o.Enabled){}
+		public EnabledProperty() : base(o => o.Enabled){}
+		public bool Enabled { get { return Value; } set { Value = value; } }
+		public bool UnderlyingEnabled { get { return UnderlyingValue; } }
 	}
 }
 

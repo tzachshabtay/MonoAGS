@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-    public interface IAnimationContainer : ISprite
+	public interface IAnimationContainer : IComponent, ISprite
 	{
 		IAnimation Animation { get; }
 		bool DebugDrawAnchor { get; set; }

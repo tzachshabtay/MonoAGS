@@ -2,7 +2,11 @@
 
 namespace AGS.API
 {
-    public interface IUIEvents : IDisposable
+	[RequiredComponent(typeof(IEnabledComponent))]
+	[RequiredComponent(typeof(IVisibleComponent))]
+	[RequiredComponent(typeof(IDrawableInfo))]
+	[RequiredComponent(typeof(ICollider))]
+	public interface IUIEvents : IComponent
 	{
 		IEvent<MousePositionEventArgs> MouseEnter { get; }
 		IEvent<MousePositionEventArgs> MouseLeave { get; }
@@ -14,10 +18,8 @@ namespace AGS.API
 		bool IsMouseIn { get; }
 	}
 
-	public interface IUIControl<TControl> : IObject where TControl : IUIControl<TControl>
+	public interface IUIControl<TControl> : IUIEvents, IObject where TControl : IUIControl<TControl>
 	{
-		IUIEvents Events { get; }
-
 		void ApplySkin(TControl skin);
 	}
 }

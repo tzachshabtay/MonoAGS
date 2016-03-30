@@ -18,19 +18,13 @@ namespace AGS.Engine
 
 		public IObject GetObject(string id, string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
-			IObject obj = GetObject(id, _resolver.Resolve<IAnimationContainer>());
+			TypedParameter idParam = new TypedParameter (typeof(string), id);
+			IObject obj = _resolver.Resolve<IObject>(idParam);
 
 			subscribeSentences(sayWhenLook, obj.Interactions.OnLook);
 			subscribeSentences(sayWhenInteract, obj.Interactions.OnInteract);
 
 			return obj;
-		}
-
-		public IObject GetObject(string id, IAnimationContainer container)
-		{
-			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			TypedParameter animationParam = new TypedParameter (typeof(IAnimationContainer), container);
-			return _resolver.Resolve<IObject>(idParam, animationParam);
 		}
 
 		public ICharacter GetCharacter(string id, IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null)

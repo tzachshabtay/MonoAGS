@@ -3,17 +3,22 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class HasRoomBehavior : IHasRoom
+	public class HasRoomBehavior : AGSComponent, IHasRoom
 	{
 		private IObject _obj;
 		private readonly IGameState _state;
 		private Lazy<IRoom> _cachedRoom;
 
-		public HasRoomBehavior(IObject obj, IGameState state)
+		public HasRoomBehavior(IGameState state)
 		{
-			_obj = obj;
 			_state = state;
 			refreshRoom();
+		}
+
+		public override void Init(IEntity entity)
+		{
+			base.Init(entity);
+			_obj = (IObject)entity;
 		}
 
 		public IRoom Room  { get { return _cachedRoom.Value; } }

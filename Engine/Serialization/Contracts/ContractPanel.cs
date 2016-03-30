@@ -23,7 +23,7 @@ namespace AGS.Engine
 		{
 			IAnimationContainer container = Object.AnimationContainer.ToItem(context);
 			var anchor = container.Anchor;
-			IPanel panel = context.Factory.UI.GetPanel(Object.ID, container, container.Image, container.X, container.Y);
+			IPanel panel = context.Factory.UI.GetPanel(Object.ID, container.Image, container.X, container.Y, false);
 			Object.ToItem(context, panel);
 			panel.Visible = Object.Visible;
 			panel.Anchor = anchor;

@@ -18,14 +18,11 @@ namespace AGS.Engine
 				Builder.RegisterModule(new AutofacResolveLoggingModule ());
 			}
 
-
 			Builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).
 				Except<SpatialAStarPathFinder>().AsImplementedInterfaces();
 
 			Builder.RegisterType<GLImageRenderer>().As<IImageRenderer>();
 			Builder.RegisterType<AGSObject>().As<IObject>();
-			Builder.RegisterType<AGSSprite>().As<ISprite>();
-			Builder.RegisterType<AGSAnimationContainer>().As<IAnimationContainer>();
 			Builder.RegisterType<GLImage>().As<IImage>();
 
 			Builder.RegisterType<AGSGameState>().SingleInstance().As<IGameState>();
@@ -37,6 +34,9 @@ namespace AGS.Engine
 			Builder.RegisterType<ResourceLoader>().SingleInstance().As<IResourceLoader>();
 			Builder.RegisterType<AGSCutscene>().SingleInstance().As<ICutscene>();
 
+			registerComponents();
+
+			Builder.RegisterType<AGSSprite>().As<ISprite>();
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
 
 			Dictionary<string, GLImage> textures = new Dictionary<string, GLImage> (1024);
@@ -61,6 +61,34 @@ namespace AGS.Engine
 			updater.RegisterInstance(Container);
 			updater.RegisterInstance(this);
 			updater.Update(Container);
+		}
+
+		private void registerComponents()
+		{
+			var assembly = Assembly.GetCallingAssembly();
+			foreach (var type in assembly.GetTypes())
+			{
+				if (!isComponent(type)) continue;
+				registerComponent(type);
+			}
+			Builder.RegisterType<VisibleProperty>().As<IVisibleComponent>();
+			Builder.RegisterType<EnabledProperty>().As<IEnabledComponent>();
+			Builder.RegisterGeneric(typeof(InTreeComponent<>)).As(typeof(IInTree<>));
+			Builder.RegisterType<InTreeComponent<IObject>>().As<IInTree<IObject>>();
+		}
+
+		private bool isComponent(Type type)
+		{
+			return (type.BaseType == typeof(AGSComponent));
+		}
+
+		private void registerComponent(Type type)
+		{
+			foreach (var compInterface in type.GetInterfaces())
+			{
+				if (compInterface == typeof(IComponent) || compInterface == typeof(IDisposable)) continue;
+				Builder.RegisterType(type).As(compInterface);
+			}
 		}
 	}
 }

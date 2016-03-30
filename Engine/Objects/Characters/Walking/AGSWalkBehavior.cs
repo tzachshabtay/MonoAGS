@@ -8,21 +8,21 @@ using System.Diagnostics;
 
 namespace AGS.Engine
 {
-	public class AGSWalkBehavior : IWalkBehavior
+	public class AGSWalkBehavior : AGSComponent, IWalkBehavior
 	{
 		private CancellationTokenSource _walkCancel;
 		private TaskCompletionSource<object> _walkCompleted;
 		private IPathFinder _pathFinder;
 		private List<IObject> _debugPath;
 		private IObject _obj;
-		private IAGSFaceDirectionBehavior _faceDirection;
-		private IOutfitHolder _outfit;
+		private IFaceDirectionBehavior _faceDirection;
+		private IHasOutfit _outfit;
 		private IObjectFactory _objFactory;
 		private ICutscene _cutscene;
 		private IGameState _state;
 
-		public AGSWalkBehavior(IObject obj, IPathFinder pathFinder, IAGSFaceDirectionBehavior faceDirection, 
-			IOutfitHolder outfit, IObjectFactory objFactory, IGameState state)
+		public AGSWalkBehavior(IObject obj, IPathFinder pathFinder, IFaceDirectionBehavior faceDirection, 
+			IHasOutfit outfit, IObjectFactory objFactory, IGameState state)
 		{
 			_cutscene = state.Cutscene;
 			_obj = obj;

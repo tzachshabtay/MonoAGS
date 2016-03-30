@@ -132,6 +132,16 @@
     <Compile Include="ComponentsFramework\IComponent.cs" />
     <Compile Include="ComponentsFramework\IComponentsCollection.cs" />
     <Compile Include="ComponentsFramework\IEntity.cs" />
+    <Compile Include="Objects\IVisibleComponent.cs" />
+    <Compile Include="Objects\IEnabledComponent.cs" />
+    <Compile Include="Objects\IDrawableInfo.cs" />
+    <Compile Include="Objects\IHotspotComponent.cs" />
+    <Compile Include="Objects\Characters\IHasOutfit.cs" />
+    <Compile Include="Objects\Characters\IHasInventory.cs" />
+    <Compile Include="UI\Controls\IInventoryWindowComponent.cs" />
+    <Compile Include="UI\Controls\IButtonComponent.cs" />
+    <Compile Include="UI\Controls\Slider\ISliderComponent.cs" />
+    <Compile Include="ComponentsFramework\RequiredComponentAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

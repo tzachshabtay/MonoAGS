@@ -22,6 +22,11 @@ namespace AGS.Engine
 
 		public string ID { get; private set; }
 
+		protected void InitComponents()
+		{
+			foreach (var component in this) component.Init(this);
+		}
+
 		#region IComponentsCollection implementation
 
 		public TComponent AddComponent<TComponent>() where TComponent : IComponent
@@ -34,8 +39,7 @@ namespace AGS.Engine
 			List<IComponent> ofType = _components.GetOrAdd(componentType, _ => new List<IComponent> ());
 			if (ofType.Count == 0 || ofType[0].AllowMultiple)
 			{
-				TypedParameter entityParam = new TypedParameter (typeof(IEntity), this);
-				IComponent component = (IComponent)_resolver.Container.Resolve(componentType, entityParam);
+				IComponent component = (IComponent)_resolver.Container.Resolve(componentType);
 				ofType.Add(component);
 				return component;
 			}
@@ -136,6 +140,15 @@ namespace AGS.Engine
 			{
 				return _components.Sum(c => c.Value.Count);
 			}
+		}
+
+		public void Dispose()
+		{
+			foreach (var component in this)
+			{
+				component.Dispose();
+			}
+			_components.Clear();
 		}
 
 		#endregion

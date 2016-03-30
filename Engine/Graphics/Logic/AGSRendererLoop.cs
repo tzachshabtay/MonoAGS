@@ -12,11 +12,13 @@ namespace AGS.Engine
 		private readonly IComparer<IObject> _comparer;
 		private readonly AGSWalkBehindsMap _walkBehinds;
 		private readonly IInput _input;
+		private readonly Resolver _resolver;
 
 		private IObject _mouseCursorContainer;
 
-		public AGSRendererLoop (IGameState gameState, IImageRenderer renderer, IInput input, AGSWalkBehindsMap walkBehinds)
+		public AGSRendererLoop (Resolver resolver, IGameState gameState, IImageRenderer renderer, IInput input, AGSWalkBehindsMap walkBehinds)
 		{
+			this._resolver = resolver;
 			this._walkBehinds = walkBehinds;
 			this._gameState = gameState;
 			this._renderer = renderer;
@@ -74,7 +76,8 @@ namespace AGS.Engine
 			if (cursor == null) return;
 			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
 			{
-				_mouseCursorContainer = new AGSObject ("MouseCursor", cursor, null, null) { Anchor = new AGSPoint (0f,1f), IgnoreScalingArea = true, IgnoreViewport = true };
+				_mouseCursorContainer = new AGSObject ("MouseCursor", _resolver) { Anchor = new AGSPoint (0f,1f), IgnoreScalingArea = true, IgnoreViewport = true };
+				_mouseCursorContainer.StartAnimation(cursor.Animation);
 			}
 			_mouseCursorContainer.X = (_input.MouseX - room.Viewport.X) * room.Viewport.ScaleX;
 			_mouseCursorContainer.Y = (_input.MouseY - room.Viewport.Y) * room.Viewport.ScaleY;

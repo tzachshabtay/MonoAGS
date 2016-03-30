@@ -1,9 +1,7 @@
 ﻿namespace AGS.API
 {
-    public interface ICharacter : IObject, ISayBehavior, IWalkBehavior, IFaceDirectionBehavior
+	public interface ICharacter : IObject, ISayBehavior, IWalkBehavior, IFaceDirectionBehavior, IHasOutfit, IHasInventory
 	{
-		IInventory Inventory { get; set; }
-		IOutfit Outfit { get; set; }
 	}
 }
 

@@ -18,7 +18,7 @@ namespace AGS.API
 		bool HasChild(TItem child);
 	}
 
-	public interface IInTree<TItem> where TItem : class, IInTree<TItem>
+	public interface IInTree<TItem> : IComponent where TItem : class, IInTree<TItem>
 	{
 		ITreeNode<TItem> TreeNode { get; }
 	}

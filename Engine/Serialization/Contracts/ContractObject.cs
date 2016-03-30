@@ -60,7 +60,7 @@ namespace AGS.Engine
 		{
 			if (_obj != null) return _obj;
 
-			_obj = context.Factory.Object.GetObject(ID, AnimationContainer.ToItem(context));
+			_obj = context.Factory.Object.GetObject(ID);
 			ToItem(context, _obj);
 
 			return _obj;
@@ -68,12 +68,13 @@ namespace AGS.Engine
 
 		public void ToItem(AGSSerializationContext context, IObject obj)
 		{
+			AnimationContainer.ToItem(context, obj);
 			obj.RenderLayer = RenderLayer.ToItem(context);
 			if (WalkPoint != null)
 			{
 				obj.WalkPoint = new AGSPoint (WalkPoint.Item1, WalkPoint.Item2);
 			}
-			obj.Properties.CopyFrom(Properties.ToItem(context));
+			obj.CopyFrom(Properties.ToItem(context));
 			obj.Enabled = Enabled;
 			obj.Hotspot = Hotspot;
 			obj.IgnoreViewport = IgnoreViewport;
@@ -92,7 +93,7 @@ namespace AGS.Engine
 			ID = item.ID;
 			RenderLayer = context.GetContract(item.RenderLayer);
 
-			Properties = context.GetContract(item.Properties);
+			Properties = context.GetContract((ICustomProperties)item);
 
 			AnimationContainer = new ContractAnimationContainer ();
 			AnimationContainer.FromItem(context, item);

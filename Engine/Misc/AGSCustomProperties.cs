@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AGS.Engine
 {
-	public class AGSCustomProperties : ICustomProperties
+	public class AGSCustomProperties : AGSComponent, ICustomProperties
 	{
 		private readonly Dictionary<string, int> _ints;
 		private readonly Dictionary<string, float> _floats;

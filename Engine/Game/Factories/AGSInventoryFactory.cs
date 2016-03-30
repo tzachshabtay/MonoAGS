@@ -12,23 +12,21 @@ namespace AGS.Engine
 		private IGameState _gameState;
 		private IGraphicsFactory _graphics;
 		private IObjectFactory _object;
-		private IUIFactory _ui;
 
-		public AGSInventoryFactory(IContainer resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj,
-			IUIFactory ui)
+		public AGSInventoryFactory(IContainer resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj)
 		{
 			_resolver = resolver;
 			_gameState = gameState;
 			_graphics = graphics;
 			_object = obj;
-			_ui = ui;
 		}
 
 		public IInventoryWindow GetInventoryWindow(string id, float width, float height, float itemWidth, float itemHeight, float x, float y,
 			ICharacter character = null, bool addToUi = true)
 		{
-			IPanel panel = _ui.GetPanel(id, width, height, x, y, false);
-			IInventoryWindow inventory = GetInventoryWindow(panel, itemWidth, itemHeight, character);
+			IInventoryWindow inventory = GetInventoryWindow(id, new EmptyImage(width, height), itemWidth, itemHeight, character);
+			inventory.X = x;
+			inventory.Y = y;
 
 			if (addToUi)
 				_gameState.UI.Add(inventory);
@@ -36,11 +34,11 @@ namespace AGS.Engine
 			return inventory;
 		}
 
-		public IInventoryWindow GetInventoryWindow(IPanel innerPanel, float itemWidth, float itemHeight, ICharacter character)
+		public IInventoryWindow GetInventoryWindow(string id, IImage image, float itemWidth, float itemHeight, ICharacter character)
 		{
-			TypedParameter idParam = new TypedParameter (typeof(string), innerPanel.ID);
-			TypedParameter panelParam = new TypedParameter (typeof(IPanel), innerPanel);
-			IInventoryWindow inventory = _resolver.Resolve<IInventoryWindow>(idParam, panelParam);
+			TypedParameter idParam = new TypedParameter (typeof(string), id);
+			TypedParameter imageParam = new TypedParameter (typeof(IImage), image);
+			IInventoryWindow inventory = _resolver.Resolve<IInventoryWindow>(idParam, imageParam);
 			inventory.Tint = Color.Transparent;
 			inventory.ItemSize = new SizeF (itemWidth, itemHeight);
 			inventory.CharacterToUse = character ?? _resolver.Resolve<IPlayer>().Character;
@@ -60,6 +58,7 @@ namespace AGS.Engine
 				{
 					Debug.WriteLine(string.Format("Character was not assigned to player yet, cannot add inventory item :{0}", graphics.ToString()));
 				}
+
 				else player.Character.Inventory.Items.Add(item);
 			}
 			return item;

@@ -46,11 +46,8 @@ namespace AGS.Engine
 		public IObject ToItem(AGSSerializationContext context)
 		{
 			TypedParameter idParam = new TypedParameter (typeof(string), Object.ID);
-			TypedParameter containerParam = new TypedParameter (typeof(IAnimationContainer), Object.AnimationContainer.ToItem(context));
-			IPanel panel = context.Resolver.Container.Resolve<IPanel>(idParam, containerParam);
-			Object.ToItem(context, panel);
-			TypedParameter panelParam = new TypedParameter (typeof(IPanel), panel);
-			ISlider slider = context.Resolver.Container.Resolve<ISlider>(idParam, panelParam);
+			ISlider slider = context.Resolver.Container.Resolve<ISlider>(idParam);
+			Object.ToItem(context, slider);
 
 			Graphics.Parent = null;
 
@@ -61,7 +58,6 @@ namespace AGS.Engine
 			slider.MaxValue = MaxValue;
 			slider.Value = Value;
 			slider.IsHorizontal = IsHorizontal;
-			slider.TreeNode.StealParent(panel.TreeNode);
 
 			context.Rewire(state =>
 			{

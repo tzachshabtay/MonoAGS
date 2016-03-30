@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AGS.API
 {
-	public interface IComponentsCollection : IEnumerable<IComponent>
+	public interface IComponentsCollection : IEnumerable<IComponent>, IDisposable
 	{
 		TComponent AddComponent<TComponent>() where TComponent : IComponent;
 		IComponent AddComponent(Type componentType);

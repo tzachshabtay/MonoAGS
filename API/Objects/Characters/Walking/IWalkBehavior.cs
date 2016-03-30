@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-    public interface IWalkBehavior
+	public interface IWalkBehavior : IComponent
 	{
 		int WalkSpeed { get; set; }
         bool AdjustWalkSpeedToScaleArea { get; set; }

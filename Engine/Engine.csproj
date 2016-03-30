@@ -46,6 +46,9 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
+    <Reference Include="Mono.TextTemplating">
+      <HintPath>..\packages\Mono.TextTransform.1.0.0\tools\Mono.TextTemplating.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,7 +57,6 @@
     <Compile Include="Graphics\Logic\GLImageRenderer.cs" />
     <Compile Include="Game\AGSGameState.cs" />
     <Compile Include="Objects\Interactions\AGSInteractions.cs" />
-    <Compile Include="Objects\AGSObject.cs" />
     <Compile Include="Graphics\Animations\AGSAnimationFrame.cs" />
     <Compile Include="Graphics\Animations\AGSAnimation.cs" />
     <Compile Include="Graphics\Animations\AGSAnimationConfiguration.cs" />
@@ -68,7 +70,6 @@
     <Compile Include="Graphics\Animations\AGSDirectionalAnimation.cs" />
     <Compile Include="UI\Text\GLText.cs" />
     <Compile Include="Graphics\Logic\GLUtils.cs" />
-    <Compile Include="Objects\Characters\AGSCharacter.cs" />
     <Compile Include="Graphics\Drawing\GLLineRenderer.cs" />
     <Compile Include="Graphics\Drawing\GLMaskRenderer.cs" />
     <Compile Include="Graphics\Drawing\GLBitmapRenderer.cs" />
@@ -155,9 +156,7 @@
     <Compile Include="Objects\Characters\Walking\Pathfinding\SpatialAstar\SpatialAStar.cs" />
     <Compile Include="Objects\Characters\Walking\Pathfinding\SpatialAstar\SpatialAStarPathFinder.cs" />
     <Compile Include="Objects\Characters\FaceDirection\AGSFaceDirectionBehavior.cs" />
-    <Compile Include="Objects\Characters\FaceDirection\IAGSFaceDirectionBehavior.cs" />
     <Compile Include="Objects\Characters\Outfit\AGSOutfit.cs" />
-    <Compile Include="Objects\Characters\Outfit\IOutfitHolder.cs" />
     <Compile Include="Player\AGSApproachStyle.cs" />
     <Compile Include="Inventory\AGSInventory.cs" />
     <Compile Include="Inventory\AGSInventoryItem.cs" />
@@ -171,11 +170,6 @@
     <Compile Include="UI\Text\Dialogs\AGSDialog.cs" />
     <Compile Include="UI\Text\Dialogs\AGSDialogLayout.cs" />
     <Compile Include="UI\Text\Dialogs\AGSDialogActions.cs" />
-    <Compile Include="UI\Controls\AGSButton.cs" />
-    <Compile Include="UI\Controls\AGSInventoryWindow.cs" />
-    <Compile Include="UI\Controls\AGSLabel.cs" />
-    <Compile Include="UI\Controls\AGSPanel.cs" />
-    <Compile Include="UI\Controls\AGSSlider.cs" />
     <Compile Include="Game\Factories\AGSGameFactory.cs" />
     <Compile Include="Game\Factories\AGSDialogFactory.cs" />
     <Compile Include="Game\Factories\AGSObjectFactory.cs" />
@@ -246,6 +240,42 @@
     <Compile Include="Misc\Config\IEngineConfigFile.cs" />
     <Compile Include="ComponentsFramework\AGSComponent.cs" />
     <Compile Include="ComponentsFramework\AGSEntity.cs" />
+    <Compile Include="Objects\AGSHotspotComponent.cs" />
+    <Compile Include="Misc\Tree\InTreeComponent.cs" />
+    <Compile Include="Objects\AGSDrawableInfoComponent.cs" />
+    <Compile Include="Objects\Characters\Outfit\HasInventoryComponent.cs" />
+    <Compile Include="Objects\Characters\Outfit\HasOutfitComponent.cs" />
+    <Compile Include="UI\Controls\AGSInventoryWindowComponent.cs" />
+    <Compile Include="ComponentsFramework\Templates\AGSCharacter.cs" />
+    <Compile Include="ComponentsFramework\Templates\AGSCharacter.generated.cs">
+      <DependentUpon>AGSCharacter.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentsFramework\Templates\AGSObject.generated.cs">
+      <DependentUpon>AGSObject.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentsFramework\Templates\AGSPanel.generated.cs">
+      <DependentUpon>AGSPanel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentsFramework\Templates\AGSInventoryWindow.generated.cs">
+      <DependentUpon>AGSInventoryWindow.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentsFramework\Templates\AGSLabel.generated.cs">
+      <DependentUpon>AGSLabel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentsFramework\Templates\AGSPanel.cs" />
+    <Compile Include="ComponentsFramework\Templates\AGSLabel.cs" />
+    <Compile Include="UI\Controls\AGSButtonComponent.cs" />
+    <Compile Include="ComponentsFramework\Templates\AGSButton.generated.cs">
+      <DependentUpon>AGSButton.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentsFramework\Templates\AGSInventoryWindow.cs" />
+    <Compile Include="ComponentsFramework\Templates\AGSButton.cs" />
+    <Compile Include="UI\Controls\AGSSliderComponent.cs" />
+    <Compile Include="ComponentsFramework\Templates\AGSSlider.generated.cs">
+      <DependentUpon>AGSSlider.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentsFramework\Templates\AGSSlider.cs" />
+    <Compile Include="ComponentsFramework\Templates\AGSObject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -289,9 +319,44 @@
     <Folder Include="Misc\Config\" />
     <Folder Include="Misc\DependencyInjection\" />
     <Folder Include="ComponentsFramework\" />
+    <Folder Include="ComponentsFramework\Templates\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ComponentsFramework\Templates\AGSCharacter.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSCharacter.generated.cs</LastGenOutput>
+    </None>
+    <None Include="ComponentsFramework\Templates\AGSObject.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSObject.generated.cs</LastGenOutput>
+    </None>
+    <None Include="ComponentsFramework\Templates\AGSPanel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSPanel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="ComponentsFramework\Templates\EntityCreatorTemplate.tt">
+      <LastGenOutput>EntityCreatorTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="ComponentsFramework\Templates\FlatInterfaceTemplate.tt">
+      <LastGenOutput>FlatInterfaceTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="ComponentsFramework\Templates\AGSInventoryWindow.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSInventoryWindow.generated.cs</LastGenOutput>
+    </None>
+    <None Include="ComponentsFramework\Templates\AGSLabel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSLabel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="ComponentsFramework\Templates\AGSButton.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSButton.generated.cs</LastGenOutput>
+    </None>
+    <None Include="ComponentsFramework\Templates\AGSSlider.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSSlider.generated.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\API\API.csproj">

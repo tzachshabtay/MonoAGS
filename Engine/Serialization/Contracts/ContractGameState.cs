@@ -54,6 +54,7 @@ namespace AGS.Engine
 			{
 				foreach (var ui in UI)
 				{
+
 					state.UI.Add(ui.ToItem(context));
 				}
 			}
@@ -77,7 +78,9 @@ namespace AGS.Engine
 			UI = new List<IContract<IObject>> (item.UI.Count);
 			foreach (var ui in item.UI)
 			{
-				UI.Add(context.GetContract(ui));
+				var contract = context.GetContract(ui);
+				if (contract == null) continue;
+				UI.Add(contract);
 			}
 				
 			Rooms = new List<IContract<IRoom>> (item.Rooms.Count);

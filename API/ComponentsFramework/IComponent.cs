@@ -7,7 +7,7 @@ namespace AGS.API
 		string Name { get; }
 		bool AllowMultiple { get; }
 
-		bool Enabled { get; set; }
+		void Init(IEntity entity);
 	}
 }
 

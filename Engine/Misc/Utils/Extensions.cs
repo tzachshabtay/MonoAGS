@@ -13,7 +13,7 @@ namespace AGS.Engine
 			if (!map.TryGetValue (key, out value)) 
 			{
 				value = getValue ();
-				map.Add (key, value);
+				map[key] = value;
 			}
 			return value;
 		}

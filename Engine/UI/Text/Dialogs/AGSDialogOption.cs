@@ -23,8 +23,8 @@ namespace AGS.Engine
 			ExitDialogWhenFinished = exitDialogOnFinish;
 			SpeakOption = speakOption;
 			ShowOnce = showOnce;
-			label.Events.MouseEnter.Subscribe(onMouseEnter);
-			label.Events.MouseLeave.Subscribe(onMouseLeave);
+			label.MouseEnter.Subscribe(onMouseEnter);
+			label.MouseLeave.Subscribe(onMouseLeave);
 		}
 
 		#region IDialogOption implementation
@@ -85,8 +85,8 @@ namespace AGS.Engine
 		public void Dispose()
 		{
 			Label.Dispose();
-			Label.Events.MouseEnter.Unsubscribe(onMouseEnter);
-			Label.Events.MouseLeave.Unsubscribe(onMouseLeave);
+			Label.MouseEnter.Unsubscribe(onMouseEnter);
+			Label.MouseLeave.Unsubscribe(onMouseLeave);
 		}
 
 		public ILabel Label { get; private set; }

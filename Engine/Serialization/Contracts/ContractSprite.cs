@@ -44,15 +44,24 @@ namespace AGS.Engine
 		public ISprite ToItem(AGSSerializationContext context)
 		{
 			ISprite sprite = context.Factory.Graphics.GetSprite();
-			sprite.Image = Image.ToItem(context);
+			ToItem(context, sprite);
+			return sprite;
+		}
+
+		public void ToItem(AGSSerializationContext context, ISprite sprite)
+		{
+			var image = Image.ToItem(context);
+			if (image != null)
+			{
+				sprite.Image = image;
+				sprite.ScaleBy(ScaleX, ScaleY);
+			}
 			sprite.Location = new AGSLocation (Location.Item1, Location.Item2, Location.Item3);
 			sprite.Anchor = new AGSPoint (Anchor.Item1, Anchor.Item2);
-			sprite.ScaleBy(ScaleX, ScaleY);
 			sprite.Angle = Angle;
 			sprite.Tint = Tint;
 
 			sprite.PixelPerfect(IsPixelPerfect);
-			return sprite;
 		}
 
 		public void FromItem(AGSSerializationContext context, ISprite sprite)

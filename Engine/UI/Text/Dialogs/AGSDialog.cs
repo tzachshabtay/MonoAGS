@@ -73,7 +73,7 @@ namespace AGS.Engine
 			{
 				Action<object, MouseButtonEventArgs> callback = (sender, args) => selectedOptionTask.TrySetResult(option);
 				callbacks.Add(callback);
-				option.Label.Events.MouseClicked.Subscribe(callback);
+				option.Label.MouseClicked.Subscribe(callback);
 			}
 			Graphics.Visible = true;
 			await _dialogLayout.LayoutAsync(Graphics, Options);
@@ -86,7 +86,7 @@ namespace AGS.Engine
 			IDialogOption selectedOption = await selectedOptionTask.Task;
 			for (int index = 0; index < Options.Count; index++)
 			{
-				Options[index].Label.Events.MouseClicked.Unsubscribe(callbacks[index]);
+				Options[index].Label.MouseClicked.Unsubscribe(callbacks[index]);
 			}
 			if (!ShowWhileOptionsAreRunning)
 			{

@@ -7,18 +7,18 @@ using System.Diagnostics;
 
 namespace AGS.Engine
 {
-	public class AGSSayBehavior : ISayBehavior
+	public class AGSSayBehavior : AGSComponent, ISayBehavior
 	{
 		private readonly IGameState _state;
 		private readonly IGameFactory _factory;
 		private readonly IInput _input;
 		private readonly ISayLocation _location;
 		private readonly FastFingerChecker _fastFingerChecker;
-		private readonly IOutfitHolder _outfit;
-		private readonly IAGSFaceDirectionBehavior _faceDirection;
+		private readonly IHasOutfit _outfit;
+		private readonly IFaceDirectionBehavior _faceDirection;
 
 		public AGSSayBehavior(IGameState state, IGameFactory factory, IInput input, ISayLocation location,
-			FastFingerChecker fastFingerChecker, ISayConfig sayConfig, IOutfitHolder outfit, IAGSFaceDirectionBehavior faceDirection)
+			FastFingerChecker fastFingerChecker, ISayConfig sayConfig, IHasOutfit outfit, IFaceDirectionBehavior faceDirection)
 		{
 			_state = state;
 			_factory = factory;
@@ -46,6 +46,7 @@ namespace AGS.Engine
 			}
 			setAnimation(_outfit.Outfit.SpeakAnimation);
 
+			await Task.Delay(1);
 			IPoint location = getLocation(text);
 			ILabel label = _factory.UI.GetLabel(string.Format("Say: {0}", text), text, SpeechConfig.LabelSize.Width, SpeechConfig.LabelSize.Height, 
 				location.X, location.Y, SpeechConfig.TextConfig);

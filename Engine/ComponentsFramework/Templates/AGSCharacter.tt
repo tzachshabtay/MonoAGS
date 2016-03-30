@@ -1,0 +1,82 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".generated.cs" #>
+<#@ assembly name="/Users/zachi/Projects/MonoAGS/API/bin/Debug/API.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="AGS.API" #>
+<#@ include file="EntityCreatorTemplate.tt" #>
+
+<#
+		EntityCreator template = new CharacterTemplate();
+		template.NamespaceName = "AGS.Engine";
+		template.ClassName = "AGSCharacter";
+		template.AdditionalInterfaces = "ICharacter";
+		template.ComponentType = typeof(IComponent);
+		template.CustomTemplate = () => new CharacterInterfaceFlat();
+		template.Components = new List<Type> { typeof(ICharacter) };
+		string output = template.TransformText();
+		if (output != null)
+		{
+    		Write(output);
+		}
+#>
+
+<#+
+	class CharacterTemplate : EntityCreator
+	{
+		protected override void WriteAdditionalUsings()
+    	{
+    		base.WriteAdditionalUsings();
+    		WriteLine("using System.Threading.Tasks;");
+    		WriteLine("using System.Drawing;");
+    		WriteLine("using System.Collections.Generic;");
+    		Write("using Autofac;");
+    	}
+
+    	protected override bool ProcessInterface(Type interfaceType)
+    	{
+    		if (interfaceType == typeof(ICharacter) || interfaceType == typeof(IObject)) return false;
+    		return base.ProcessInterface(interfaceType);
+    	}
+
+    	protected override bool WriteImplements(Type interfaceType)
+    	{
+    		return false;
+    	}
+
+    	protected override bool WriteInitComponent(Type interfaceType)
+    	{
+    		if (interfaceType == typeof(ISayBehavior) || interfaceType == typeof(IWalkBehavior)) return false;
+    		return base.WriteInitComponent(interfaceType);
+    	}
+
+    	protected override void WriteAdditionalConstructorParams()
+    	{
+    		Write(", IOutfit outfit");
+    	}
+
+    	protected override void WriteAdditionalConstructorParamsCall()
+    	{
+    		Write(", outfit");
+    	}
+	}
+
+	class CharacterInterfaceFlat : FlatEntityTemplate
+	{
+		protected override bool ShouldWriteProperty(PropertyInfo property)
+        {
+        	if (!base.ShouldWriteProperty(property)) return false;
+        	if (property.Name != "Location") return true;
+        	return false;
+        }
+
+        protected override bool ShouldWriteMethod(MethodInfo method)
+        {
+        	if (!base.ShouldWriteMethod(method)) return false;
+        	if (method.Name != "ChangeRoom") return true;
+			return false;
+        }
+	}
+#>

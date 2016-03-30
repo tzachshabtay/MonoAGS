@@ -32,15 +32,12 @@ namespace AGS.Engine
 
 		public IObject ToItem(AGSSerializationContext context)
 		{
-			IAnimationContainer container = Label.Object.AnimationContainer.ToItem(context);
-			var anchor = container.Anchor;
-			IButton button = context.Factory.UI.GetButton(Label.Object.ID, container, Label.Width, Label.Height,
-				IdleAnimation.ToItem(context), HoverAnimation.ToItem(context), PushedAnimation.ToItem(context));
+			IButton button = context.Factory.UI.GetButton(Label.Object.ID, IdleAnimation.ToItem(context), HoverAnimation.ToItem(context),
+				PushedAnimation.ToItem(context), 0,0, "", null, false, Label.Width, Label.Height);
 			Label.Object.ToItem(context, button);
 			button.TextConfig = Label.TextConfig.ToItem(context);
 			button.Text = Label.Text;
 			button.Visible = Label.Object.Visible;
-			button.Anchor = anchor;
 			return button;
 		}
 

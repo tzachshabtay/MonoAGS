@@ -19,7 +19,7 @@ namespace DemoGame
 
 		private static void subscribeButton(IButton button, Action action)
 		{
-			button.Events.MouseClicked.Subscribe((sender, args) => action());
+			button.MouseClicked.Subscribe((sender, args) => action());
 		}
 
 		private static void subscribeSlider(ISlider slider, Action<float> action)

@@ -1,10 +1,7 @@
 ﻿namespace AGS.API
 {
-    public interface IButton : ILabel<IButton>
+	public interface IButton : ILabel<IButton>, IButtonComponent
 	{
-		IAnimation IdleAnimation { get; set; }
-		IAnimation HoverAnimation { get; set; }
-		IAnimation PushedAnimation { get; set; }
 	}
 }
 

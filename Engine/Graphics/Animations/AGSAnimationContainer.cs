@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
-	public class AGSAnimationContainer : IAnimationContainer
+	public class AGSAnimationContainer : AGSComponent, IAnimationContainer
 	{
 		private float _initialWidth, _initialHeight;
 		private ISprite _sprite;

@@ -36,15 +36,10 @@ namespace AGS.Engine
 		public IObject ToItem(AGSSerializationContext context)
 		{
 			if (Object == null) return null;
-			IAnimationContainer container = Object.AnimationContainer.ToItem(context);
-			var anchor = container.Anchor;
-			var tint = container.Tint;
-			ILabel label = context.Factory.UI.GetLabel(Object.ID, container, Text, Width, Height, container.X, container.Y, 
-				TextConfig.ToItem(context));
+			ILabel label = context.Factory.UI.GetLabel(Object.ID, Text, Width, Height, 0, 0, 
+				TextConfig.ToItem(context), false);
 			Object.ToItem(context, label);
 			label.Visible = Object.Visible;
-			label.Anchor = anchor;
-			label.Tint = tint;
 			return label;
 		}
 			
@@ -56,7 +51,7 @@ namespace AGS.Engine
 		public void FromItem<TControl>(AGSSerializationContext context, ILabel<TControl> item) where TControl : IUIControl<TControl>
 		{
 			Object = new ContractObject ();
-			Object.FromItem(context, item);
+			Object.FromItem(context, (IObject)item);
 
 			TextConfig = context.GetContract(item.TextConfig);
 			Text = item.Text;

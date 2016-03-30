@@ -22,7 +22,7 @@ namespace AGS.Engine
 		public IContract<IBorderStyle> Border { get; set; }
 
 		[ProtoMember(4)]
-		public Contract<ISprite> Sprite { get; set; }
+		public ContractSprite Sprite { get; set; }
 
 		[ProtoMember(5)]
 		public float InitialWidth { get; set; }
@@ -35,32 +35,32 @@ namespace AGS.Engine
 		public IAnimationContainer ToItem(AGSSerializationContext context)
 		{
 			ISprite sprite = Sprite.ToItem(context);
-			float scaleX = sprite.ScaleX;
-			float scaleY = sprite.ScaleY;
-			IPoint anchor = sprite.Anchor;
-			Color tint = sprite.Tint;
 			AGSAnimationContainer container = new AGSAnimationContainer (sprite,
 				context.Factory.Graphics);
-			container.Tint = tint;
-			container.Anchor = anchor;
+			ToItem(context, container);
+			return container;
+		}
+
+		public void ToItem(AGSSerializationContext context, IAnimationContainer container)
+		{
+			container.ResetScale(InitialWidth, InitialHeight);
+			Sprite.ToItem(context, container);
 			container.DebugDrawAnchor = DebugDrawAnchor;
 			container.Border = Border.ToItem(context);
-			container.PixelPerfect(sprite.PixelPerfectHitTestArea != null);
-			container.ResetScale(InitialWidth, InitialHeight);
+			container.PixelPerfect(container.PixelPerfectHitTestArea != null);
 			IAnimation animation = Animation.ToItem(context);
 			if (animation != null)
 			{
 				container.StartAnimation(animation);
 				if (animation.Frames.Count > 0)
-					container.ScaleBy(scaleX, scaleY);
+					container.ScaleBy(container.ScaleX, container.ScaleY);
 			}
 
-			return container;
 		}
 
 		public void FromItem(AGSSerializationContext context, IAnimationContainer item)
 		{
-			Sprite = new Contract<ISprite> ();
+			Sprite = new ContractSprite ();
 			Sprite.FromItem(context, item);
 
 			Animation = context.GetContract(item.Animation);

@@ -5,19 +5,22 @@ using System.Diagnostics;
 
 namespace AGS.Engine
 {
-	public class AGSUIEvents : IUIEvents
+	public class AGSUIEvents : AGSComponent, IUIEvents
 	{
 		private readonly IInput _input;
 		private readonly IGameState _state;
-		private readonly IObject _obj;
 		private readonly IGameEvents _gameEvents;
 		private bool _leftMouseDown, _rightMouseDown;
 		private float _mouseX, _mouseY;
 		private Stopwatch _leftMouseClickTimer, _rightMouseClickTimer;
 
-		public AGSUIEvents(IObject obj, IInput input, IGameState state, IGameEvents gameEvents)
+		private IEnabledComponent _enabled;
+		private IVisibleComponent _visible;
+		private ICollider _collider;
+		private IDrawableInfo _drawableInfo;
+
+		public AGSUIEvents(IInput input, IGameState state, IGameEvents gameEvents)
 		{
-			_obj = obj;
 			_input = input;
 			_state = state;
 			_gameEvents = gameEvents;
@@ -31,7 +34,17 @@ namespace AGS.Engine
 
 			_leftMouseClickTimer = new Stopwatch ();
 			_rightMouseClickTimer = new Stopwatch ();
-			gameEvents.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
+		}
+
+		public override void Init(IEntity entity)
+		{
+			base.Init(entity);
+			_enabled = entity.GetComponent<IEnabledComponent>();
+			_visible = entity.GetComponent<IVisibleComponent>();
+			_collider = entity.GetComponent<ICollider>();
+			_drawableInfo = entity.GetComponent<IDrawableInfo>();
+
+			_gameEvents.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
 		}
 
 		public IEvent<MousePositionEventArgs> MouseEnter { get; private set; }
@@ -48,21 +61,22 @@ namespace AGS.Engine
 
 		public bool IsMouseIn { get; private set; }
 
-		public void Dispose()
+		public override void Dispose()
 		{
+			base.Dispose();
 			_gameEvents.OnRepeatedlyExecute.UnsubscribeToAsync(onRepeatedlyExecute);
 		}
 
 		private async Task onRepeatedlyExecute(object sender, EventArgs args)
 		{
-			if (!_obj.Enabled || !_obj.Visible) return;
+			if (!_enabled.Enabled || !_visible.Visible) return;
 			IPoint position = _input.MousePosition;
 			IViewport viewport = _state.Player.Character.Room.Viewport;
 
 			//todo: Support mouseX/Y When IgnoreScalingArea = false (i.e 4 options: IgnoreScaling+IgnoreViewport,IgnoreScaling,IgnoreViewport,None)
-			float mouseX = _obj.IgnoreViewport ? (position.X - viewport.X) * viewport.ScaleX + viewport.X : position.X;
-			float mouseY = _obj.IgnoreViewport ? (position.Y - viewport.Y) * viewport.ScaleY + viewport.Y : position.Y;
-			bool mouseIn = _obj.CollidesWith(mouseX, mouseY);
+			float mouseX = _drawableInfo.IgnoreViewport ? (position.X - viewport.X) * viewport.ScaleX + viewport.X : position.X;
+			float mouseY = _drawableInfo.IgnoreViewport ? (position.Y - viewport.Y) * viewport.ScaleY + viewport.Y : position.Y;
+			bool mouseIn = _collider.CollidesWith(mouseX, mouseY);
 
 			bool leftMouseDown = _input.LeftMouseButtonDown;
 			bool rightMouseDown = _input.RightMouseButtonDown;

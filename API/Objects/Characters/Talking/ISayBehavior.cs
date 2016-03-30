@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-    public interface ISayBehavior
+	public interface ISayBehavior : IComponent
 	{
 		ISayConfig SpeechConfig { get; }
 

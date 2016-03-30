@@ -1,6 +1,6 @@
 ﻿namespace AGS.API
 {
-    public interface IHasRoom
+	public interface IHasRoom : IComponent
 	{
 		IRoom Room { get; }
 		IRoom PreviousRoom { get; }

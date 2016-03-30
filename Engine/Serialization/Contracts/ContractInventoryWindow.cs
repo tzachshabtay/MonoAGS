@@ -36,11 +36,10 @@ namespace AGS.Engine
 		public IInventoryWindow ToItem(AGSSerializationContext context)
 		{
 			IAnimationContainer obj = Object.AnimationContainer.ToItem(context);
-			IPanel panel = context.Factory.UI.GetPanel(Object.ID, obj, new EmptyImage (obj.Width, obj.Height), obj.X, obj.Y);
-			Object.ToItem(context, panel);
-			var invWindow = context.Factory.Inventory.GetInventoryWindow(panel, ItemWidth, ItemHeight, null);
+			var invWindow = context.Factory.Inventory.GetInventoryWindow(Object.ID, new EmptyImage(obj.Width, obj.Height), 
+				ItemWidth, ItemHeight, null);
+			Object.ToItem(context, invWindow);
 			invWindow.Visible = Object.Visible;
-			invWindow.TreeNode.StealParent(panel.TreeNode);
 			context.Rewire(state => invWindow.CharacterToUse = CharacterID == null ? null :  state.Find<ICharacter>(CharacterID));
 			return invWindow;
 		}
@@ -53,7 +52,7 @@ namespace AGS.Engine
 		public void FromItem(AGSSerializationContext context, IInventoryWindow item)
 		{
 			Object = new ContractObject ();
-			Object.FromItem(context, item);
+			Object.FromItem(context, (IObject)item);
 
 			CharacterID = item.CharacterToUse == null ? null : item.CharacterToUse.ID;
 

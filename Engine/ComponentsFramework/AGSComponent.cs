@@ -18,7 +18,7 @@ namespace AGS.Engine
 
 		public virtual bool AllowMultiple { get { return false; } }
 
-		public bool Enabled { get; set; }
+		public virtual void Init(IEntity entity) {}
 
 		#endregion
 

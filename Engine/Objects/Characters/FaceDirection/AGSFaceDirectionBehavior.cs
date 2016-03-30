@@ -5,13 +5,14 @@ using System.Diagnostics;
 
 namespace AGS.Engine
 {
-	public class AGSFaceDirectionBehavior : IAGSFaceDirectionBehavior
+	public class AGSFaceDirectionBehavior : AGSComponent, IFaceDirectionBehavior
 	{
-		private readonly IObject _obj;
+		private IAnimationContainer _obj;
 
-		public AGSFaceDirectionBehavior(IObject obj)
+		public override void Init(IEntity entity)
 		{
-			_obj = obj;
+			base.Init(entity);
+			_obj = entity.GetComponent<IAnimationContainer>();
 		}
 
 		#region IFaceDirectionBehavior implementation

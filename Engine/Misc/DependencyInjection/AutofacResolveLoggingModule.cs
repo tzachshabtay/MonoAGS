@@ -28,7 +28,7 @@ namespace AGS.Engine
 
 		private void RegistrationOnPreparing(object sender, PreparingEventArgs preparingEventArgs)
 		{
-			Debug.WriteLine("{0}Resolving  {1}", GetPrefix(), preparingEventArgs.Component.Activator.LimitType);
+			Debug.WriteLine("{0}Resolving  {1}", GetPrefix(), preparingEventArgs.Component);
 			depth++;
 		}
 

@@ -3,15 +3,22 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class AGSCollider : ICollider
+	public class AGSCollider : AGSComponent, ICollider
 	{
 		private IGameState _state;
-		private IObject _obj;
+		private IDrawableInfo _drawableInfo;
+		private IAnimationContainer _obj;
 
-		public AGSCollider(IObject obj, IGameState state)
+		public AGSCollider(IGameState state)
 		{
-			_obj = obj;
 			_state = state;
+		}
+
+		public override void Init(IEntity entity)
+		{
+			base.Init(entity);
+			_drawableInfo = entity.GetComponent<IDrawableInfo>();
+			_obj = entity.GetComponent<IAnimationContainer>();
 		}
 
 		public ISquare BoundingBox { get; set; }
@@ -34,13 +41,12 @@ namespace AGS.Engine
 
 		public bool CollidesWith(float x, float y)
 		{
-			
 			ISquare boundingBox = BoundingBox;
 			if (boundingBox == null)
 				return false;
 			IArea pixelPerfect = _obj.PixelPerfectHitTestArea;
 
-			if (_obj.IgnoreViewport && _state != null) //todo: account for viewport scaling as well
+			if (_drawableInfo.IgnoreViewport && _state != null) //todo: account for viewport scaling as well
 			{
 				x -= _state.Player.Character.Room.Viewport.X;
 				y -= _state.Player.Character.Room.Viewport.Y;

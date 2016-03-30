@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-    public interface ICustomProperties
+	public interface ICustomProperties : IComponent
 	{
 		int GetInt(string name, int defaultValue = 0);
 		void SetInt(string name, int value);

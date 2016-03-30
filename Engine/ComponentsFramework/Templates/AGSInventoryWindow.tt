@@ -1,0 +1,59 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".generated.cs" #>
+<#@ assembly name="/Users/zachi/Projects/MonoAGS/API/bin/Debug/API.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="AGS.API" #>
+<#@ include file="EntityCreatorTemplate.tt" #>
+
+<#
+		EntityCreator template = new PanelTemplate();
+		template.NamespaceName = "AGS.Engine";
+		template.ClassName = "AGSInventoryWindow";
+		template.AdditionalInterfaces = "IInventoryWindow";
+		template.ComponentType = typeof(IComponent);
+		template.Components = new List<Type> { typeof(IInventoryWindow) };
+		string output = template.TransformText();
+		if (output != null)
+		{
+    		Write(output);
+		}
+#>
+
+<#+
+	class PanelTemplate : EntityCreator
+	{
+		protected override void WriteAdditionalUsings()
+    	{
+    		base.WriteAdditionalUsings();
+    		WriteLine("using System.Threading.Tasks;");
+    		WriteLine("using System.Drawing;");
+    		Write("using System.Collections.Generic;");
+    	}
+
+    	protected override bool ProcessInterface(Type interfaceType)
+    	{
+    		if (interfaceType == typeof(IInventoryWindow) ||interfaceType == typeof(IPanel) 
+    			|| interfaceType == typeof(IObject)) return false;
+			if (interfaceType.Name.Contains("IUIControl")) return false;
+    		if (interfaceType.Name.Contains("InventoryWindow") && interfaceType != typeof(IInventoryWindowComponent)) return false;
+    		return base.ProcessInterface(interfaceType);
+    	}
+
+    	protected override bool WriteImplements(Type interfaceType)
+    	{
+    		return false;
+    	}
+
+    	protected override void WriteAdditionalConstructorParams()
+    	{
+    		Write(", IImage image");
+    	}
+
+    	protected override void WriteAdditionalConstructorParamsCall()
+    	{
+    		Write(", image");
+    	}
+	}
+#>

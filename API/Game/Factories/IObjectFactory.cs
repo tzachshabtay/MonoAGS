@@ -3,7 +3,6 @@
     public interface IObjectFactory
 	{
 		IObject GetObject(string id, string[] sayWhenLook = null, string[] sayWhenInteract = null);
-		IObject GetObject(string id, IAnimationContainer innerContainer);
 
 		ICharacter GetCharacter(string id, IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null);
 		ICharacter GetCharacter(string id, IOutfit outfit, IAnimationContainer innerContainer);
