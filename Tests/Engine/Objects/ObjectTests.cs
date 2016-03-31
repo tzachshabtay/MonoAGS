@@ -198,39 +198,44 @@ namespace Tests
 			uiEvents.Setup(u => u.MouseLeave).Returns(mouseEvent.Object);
 			uiEvents.Setup(u => u.MouseMove).Returns(mouseEvent.Object);
 
-			resolver.Builder.RegisterInstance(input.Object);
-			resolver.Builder.RegisterInstance(state);
-			resolver.Builder.RegisterInstance(uiEvents.Object);
-			resolver.Build();
-
 			Mock<IGraphicsFactory> graphicsFactory = new Mock<IGraphicsFactory> ();
 			Func<ISprite> getSprite = () => new AGSSprite (mocks.MaskLoader().Object);
 			graphicsFactory.Setup(g => g.GetSprite()).Returns(() => getSprite());
 			AGSAnimationContainer animationContainer = new AGSAnimationContainer (getSprite(), graphicsFactory.Object);
+
+			Mock<IImage> image = new Mock<IImage> ();
+			Mock<IButtonComponent> buttonComponent = new Mock<IButtonComponent> ();
+			buttonComponent.Setup(b => b.HoverAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
+			buttonComponent.Setup(b => b.IdleAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
+			buttonComponent.Setup(b => b.PushedAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
+
+			resolver.Builder.RegisterInstance(input.Object);
+			resolver.Builder.RegisterInstance(state);
+			resolver.Builder.RegisterInstance(uiEvents.Object);
+			resolver.Builder.RegisterInstance(animationContainer).As<IAnimationContainer>();
+			resolver.Builder.RegisterInstance(buttonComponent.Object);
+			resolver.Build();
+
 			Mock<IGameEvents> gameEvents = new Mock<IGameEvents> ();
 			Mock<IEvent<AGSEventArgs>> emptyEvent = new Mock<IEvent<AGSEventArgs>> ();
 			gameEvents.Setup(ev => ev.OnRepeatedlyExecute).Returns(emptyEvent.Object);
-			Func<IObject> baseObj = () => new AGSObject ("Test", animationContainer, 
-				gameEvents.Object, resolver);
+			Func<IObject> baseObj = () => new AGSObject ("Test", resolver);
 
 			Mock<IOutfit> outfit = new Mock<IOutfit> ();
-			Mock<IPathFinder> pathFinder = new Mock<IPathFinder> ();
-			Mock<IImage> image = new Mock<IImage> ();
 			Mock<ILabelRenderer> renderer = new Mock<ILabelRenderer> ();
 
-			Func<IPanel> basePanel = () => new AGSPanel ("Panel", baseObj(), image.Object, gameEvents.Object, resolver);
-			Func<ILabel> baseLabel = () => new AGSLabel ("Label", basePanel(),  
-				image.Object, gameEvents.Object, renderer.Object, new SizeF (100f, 50f), resolver);
+			Func<IPanel> basePanel = () => new AGSPanel ("Panel", resolver, image.Object);
+			Func<ILabel> baseLabel = () => new AGSLabel ("Label", resolver, renderer.Object, new SizeF (100f, 50f));
 
 			List<IObject> implmentors = new List<IObject>
 			{
 				baseObj().Hotspot("Object"),
-				new AGSCharacter("Character", baseObj(), outfit.Object, gameEvents.Object, resolver, pathFinder.Object).Hotspot("Character"),
+				new AGSCharacter("Character", resolver, outfit.Object).Hotspot("Character"),
 				basePanel().Hotspot("Panel"),
 				baseLabel().Hotspot("Label"),
-				new AGSButton("Button", animationContainer, image.Object, renderer.Object, new SizeF(100f,50f), gameEvents.Object, resolver).Hotspot("Button"),
-				new AGSInventoryWindow("Inventory", basePanel(), gameEvents.Object, state, resolver).Hotspot("Inventory"),
-				new AGSSlider("Slider", basePanel(), input.Object, gameEvents.Object, state, resolver).Hotspot("Slider"),
+				new AGSButton("Button", resolver, renderer.Object, new SizeF(100f,50f)).Hotspot("Button"),
+				new AGSInventoryWindow("Inventory", resolver, image.Object).Hotspot("Inventory"),
+				new AGSSlider("Slider", resolver, image.Object).Hotspot("Slider"),
 			};
 
 			return implmentors;

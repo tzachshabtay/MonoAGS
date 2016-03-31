@@ -24,10 +24,10 @@ namespace Tests
 		{
 			//Setup:
 			Mock<IObject> obj = new Mock<IObject> ();
-			Mock<IOutfitHolder> outfitHolder = new Mock<IOutfitHolder> ();
+			Mock<IHasOutfit> outfitHolder = new Mock<IHasOutfit> ();
 			Mock<IOutfit> outfit = new Mock<IOutfit> ();
 			Mock<IPathFinder> pathFinder = new Mock<IPathFinder> ();
-			Mock<IAGSFaceDirectionBehavior> faceDirection = new Mock<IAGSFaceDirectionBehavior> ();
+			Mock<IFaceDirectionBehavior> faceDirection = new Mock<IFaceDirectionBehavior> ();
 			Mock<IObjectFactory> objFactory = new Mock<IObjectFactory> ();
 			Mock<IRoom> room = new Mock<IRoom> ();
 			Mock<IArea> area = new Mock<IArea> ();
