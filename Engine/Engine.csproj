@@ -270,12 +270,12 @@
       <DependentUpon>AGSSlider.tt</DependentUpon>
     </Compile>
     <Compile Include="Objects\AGSObject.cs" />
-    <Compile Include="Objects\Characters\AGSCharacter.cs" />
     <Compile Include="UI\Controls\AGSLabel.cs" />
     <Compile Include="UI\Controls\AGSPanel.cs" />
     <Compile Include="UI\Controls\AGSSlider.cs" />
     <Compile Include="UI\Controls\AGSInventoryWindow.cs" />
     <Compile Include="UI\Controls\AGSButton.cs" />
+    <Compile Include="ComponentsFramework\Templates\AGSCharacter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
