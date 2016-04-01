@@ -94,7 +94,7 @@ namespace DemoGame
 			option3.AddConditionalActions(startAScene);
 
 			IDialogOption option4 = factory.Dialog.GetDialogOption("That's all I have...");
-			option3.ChangeDialogWhenFinished = StartDialog;
+			option4.ChangeDialogWhenFinished = StartDialog;
 
 			IDialog dialog = factory.Dialog.GetDialog("Dialog: Beman- Questions");
 			dialog.AddOptions(option1, option2, option3, option4);
