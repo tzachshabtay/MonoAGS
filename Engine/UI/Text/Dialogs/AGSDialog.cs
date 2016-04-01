@@ -93,7 +93,7 @@ namespace AGS.Engine
 				Graphics.Visible = false;
 			}
 			await selectedOption.RunAsync();
-			await Task.Delay(100); //This delay is to avoid player clicks for skipping speech to accidentally trigger a new dialog option
+			await Task.Delay(300); //This delay is to avoid player clicks for skipping speech to accidentally trigger a new dialog option
 			Graphics.Visible = !selectedOption.ExitDialogWhenFinished && selectedOption.ChangeDialogWhenFinished == null;
 
 			if (selectedOption.ChangeDialogWhenFinished != null)
