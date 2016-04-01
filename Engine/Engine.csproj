@@ -275,7 +275,7 @@
     <Compile Include="UI\Controls\AGSSlider.cs" />
     <Compile Include="UI\Controls\AGSInventoryWindow.cs" />
     <Compile Include="UI\Controls\AGSButton.cs" />
-    <Compile Include="ComponentsFramework\Templates\AGSCharacter.cs" />
+    <Compile Include="Objects\Characters\AGSCharacter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
