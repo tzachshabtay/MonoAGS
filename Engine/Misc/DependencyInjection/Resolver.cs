@@ -37,6 +37,8 @@ namespace AGS.Engine
 			registerComponents();
 
 			Builder.RegisterType<AGSSprite>().As<ISprite>();
+            Builder.RegisterType<GLMatrixBuilder>().As<IGLMatrixBuilder>();
+            Builder.RegisterType<GLBoundingBoxesBuilder>().As<IGLBoundingBoxBuilder>();
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
 
 			Dictionary<string, GLImage> textures = new Dictionary<string, GLImage> (1024);
