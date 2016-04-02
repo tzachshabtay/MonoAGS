@@ -1,5 +1,4 @@
-﻿<#@ template language="C#" #>
-<#@ output extension=".generated.cs" #>
+﻿<#@ output extension=".generated.cs" #>
 <#@ assembly name="$(SolutionDir)/API/bin/Debug/API.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>

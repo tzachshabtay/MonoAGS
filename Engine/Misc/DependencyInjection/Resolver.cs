@@ -73,8 +73,6 @@ namespace AGS.Engine
 			}
 			Builder.RegisterType<VisibleProperty>().As<IVisibleComponent>();
 			Builder.RegisterType<EnabledProperty>().As<IEnabledComponent>();
-			Builder.RegisterGeneric(typeof(InTreeComponent<>)).As(typeof(IInTree<>));
-			Builder.RegisterType<InTreeComponent<IObject>>().As<IInTree<IObject>>();
 		}
 
 		private bool isComponent(Type type)

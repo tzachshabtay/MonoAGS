@@ -4,7 +4,7 @@ using System.Drawing;
 namespace AGS.API
 {
 	[RequiredComponent(typeof(IAnimationContainer))]
-	[RequiredComponent(typeof(IInTree<IObject>))]
+	[RequiredComponent(typeof(IInObjectTree))]
 	public interface IInventoryWindowComponent : IComponent
 	{
 		SizeF ItemSize { get; set; }

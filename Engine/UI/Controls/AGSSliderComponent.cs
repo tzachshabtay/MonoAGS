@@ -16,7 +16,7 @@ namespace AGS.Engine
 		private readonly IGameEvents _gameEvents;
 		private ICollider _collider;
 		private IDrawableInfo _drawableInfo;
-		private IInTree<IObject> _tree;
+		private IInObjectTree _tree;
 		private IVisibleComponent _visible;
 		private IEnabledComponent _enabled;
 
@@ -33,7 +33,7 @@ namespace AGS.Engine
 			base.Init(entity);
 			_collider = entity.GetComponent<ICollider>();
 			_drawableInfo = entity.GetComponent<IDrawableInfo>();
-			_tree = entity.GetComponent<IInTree<IObject>>();
+			_tree = entity.GetComponent<IInObjectTree>();
 			_visible = entity.GetComponent<IVisibleComponent>();
 			_enabled = entity.GetComponent<IEnabledComponent>();
 			_gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);

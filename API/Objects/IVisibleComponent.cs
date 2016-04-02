@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-	[RequiredComponent(typeof(IInTree<IObject>))]
+	[RequiredComponent(typeof(IInObjectTree))]
 	public interface IVisibleComponent : IComponent
 	{
 		bool Visible { get; set; }

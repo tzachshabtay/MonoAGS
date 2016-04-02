@@ -4,7 +4,7 @@ namespace AGS.API
 {
 	[RequiredComponent(typeof(ICollider))]
 	[RequiredComponent(typeof(IDrawableInfo))]
-	[RequiredComponent(typeof(IInTree<IObject>))]
+	[RequiredComponent(typeof(IInObjectTree))]
 	[RequiredComponent(typeof(IVisibleComponent))]
 	[RequiredComponent(typeof(IEnabledComponent))]
 	public interface ISliderComponent : IComponent

@@ -22,5 +22,7 @@ namespace AGS.API
 	{
 		ITreeNode<TItem> TreeNode { get; }
 	}
+
+	public interface IInObjectTree : IInTree<IObject> {}
 }
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -51,6 +51,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentsFramework\Templates\AGSLabel.generated.cs">
+      <DependentUpon>AGSLabel.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graphics\AGSSprite.cs" />
     <Compile Include="Graphics\GLImage.cs" />
@@ -241,33 +246,42 @@
     <Compile Include="ComponentsFramework\AGSComponent.cs" />
     <Compile Include="ComponentsFramework\AGSEntity.cs" />
     <Compile Include="Objects\AGSHotspotComponent.cs" />
-    <Compile Include="Misc\Tree\InTreeComponent.cs" />
+    <Compile Include="Misc\Tree\InObjectTreeComponent.cs" />
     <Compile Include="Objects\AGSDrawableInfoComponent.cs" />
     <Compile Include="Objects\Characters\Outfit\HasInventoryComponent.cs" />
     <Compile Include="Objects\Characters\Outfit\HasOutfitComponent.cs" />
     <Compile Include="UI\Controls\AGSInventoryWindowComponent.cs" />
     <Compile Include="ComponentsFramework\Templates\AGSCharacter.generated.cs">
       <DependentUpon>AGSCharacter.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSObject.generated.cs">
       <DependentUpon>AGSObject.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSPanel.generated.cs">
       <DependentUpon>AGSPanel.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSInventoryWindow.generated.cs">
       <DependentUpon>AGSInventoryWindow.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ComponentsFramework\Templates\AGSLabel.generated.cs">
-      <DependentUpon>AGSLabel.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="UI\Controls\AGSButtonComponent.cs" />
     <Compile Include="ComponentsFramework\Templates\AGSButton.generated.cs">
       <DependentUpon>AGSButton.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="UI\Controls\AGSSliderComponent.cs" />
     <Compile Include="ComponentsFramework\Templates\AGSSlider.generated.cs">
       <DependentUpon>AGSSlider.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Objects\AGSObject.cs" />
     <Compile Include="UI\Controls\AGSLabel.cs" />
@@ -278,50 +292,12 @@
     <Compile Include="Objects\Characters\AGSCharacter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Graphics\" />
-    <Folder Include="Objects\" />
-    <Folder Include="Graphics\Logic\" />
-    <Folder Include="Game\" />
-    <Folder Include="Objects\Interactions\" />
-    <Folder Include="Graphics\Animations\" />
-    <Folder Include="Player\" />
-    <Folder Include="Input\" />
-    <Folder Include="Input\Schemes\" />
-    <Folder Include="UI\" />
-    <Folder Include="UI\Text\" />
-    <Folder Include="Objects\Characters\" />
-    <Folder Include="Graphics\Drawing\" />
-    <Folder Include="Rooms\" />
-    <Folder Include="Rooms\Viewport\" />
-    <Folder Include="Graphics\Layers\" />
-    <Folder Include="Misc\" />
-    <Folder Include="Misc\Collection\" />
-    <Folder Include="Graphics\Logic\Interfaces\" />
-    <Folder Include="Rooms\Masks\" />
-    <Folder Include="Rooms\Edges\" />
-    <Folder Include="Rooms\Areas\" />
-    <Folder Include="Misc\Pool\" />
-    <Folder Include="UI\DebugLabels\" />
-    <Folder Include="Misc\Resources\" />
-    <Folder Include="Objects\Characters\Talking\" />
-    <Folder Include="Objects\Characters\Walking\" />
-    <Folder Include="Objects\Characters\FaceDirection\" />
-    <Folder Include="Objects\Characters\Outfit\" />
-    <Folder Include="Inventory\" />
-    <Folder Include="UI\HotspotLabels\" />
-    <Folder Include="UI\Text\Dialogs\" />
-    <Folder Include="UI\Controls\" />
-    <Folder Include="Game\Factories\" />
-    <Folder Include="Serialization\" />
-    <Folder Include="Serialization\Contracts\" />
-    <Folder Include="Serialization\Surrogates\" />
-    <Folder Include="Misc\Config\" />
-    <Folder Include="Misc\DependencyInjection\" />
-    <Folder Include="ComponentsFramework\" />
-    <Folder Include="ComponentsFramework\Templates\" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="ComponentsFramework\Templates\AGSLabel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSLabel.generated.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="ComponentsFramework\Templates\AGSCharacter.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -345,10 +321,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AGSInventoryWindow.generated.cs</LastGenOutput>
     </None>
-    <None Include="ComponentsFramework\Templates\AGSLabel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AGSLabel.generated.cs</LastGenOutput>
-    </None>
     <None Include="ComponentsFramework\Templates\AGSButton.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AGSButton.generated.cs</LastGenOutput>
@@ -363,5 +335,8 @@
       <Project>{197F8906-96FE-4D72-B3A7-BB6A169D83B5}</Project>
       <Name>API</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
 </Project>

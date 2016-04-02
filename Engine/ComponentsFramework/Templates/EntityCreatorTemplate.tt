@@ -1,4 +1,5 @@
-﻿<#@ template language="C#" #>
+﻿<#@ assembly name="System.dll" #>
+<#@ assembly name="System.Core.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -39,8 +40,14 @@
 
     	protected virtual bool WriteInitComponent(Type interfaceType)
     	{
-    		return true;
+    		return WriteComponentVariable(interfaceType);
     	}
+
+		protected virtual bool WriteComponentVariable(Type interfaceType)
+		{
+			if (interfaceType.Name.Contains("IInTree")) return false;
+			return true;
+		}
 
     	protected virtual void WriteAdditionalInits()
     	{
@@ -79,7 +86,9 @@ namespace <#= NamespaceName #>
 	public partial class <#= ClassName #> : AGSEntity<#= implements #>
 	{<#+
 		foreach (var component in Components)
-		{#>
+		{
+			if (!WriteComponentVariable(component)) continue;
+		#>
 
 		private <#= helper.GetTypeName(component) #> <#= getVarName(component) #>;<#+
 		}#>
@@ -139,6 +148,7 @@ namespace <#= NamespaceName #>
 
         private string getVarName(Type component)
         {
+			if (component.Name.Contains("IInTree")) return "_inObjectTree";
         	string typeName = component.Name;
         	string varName = "";
         	if (typeName.Length <= 1) varName = typeName;

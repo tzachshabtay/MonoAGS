@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-	public interface IObject : IEntity, IHasRoom, IAnimationContainer, IInTree<IObject>, ICollider, 
+	public interface IObject : IEntity, IHasRoom, IAnimationContainer, IInObjectTree, ICollider, 
 		IVisibleComponent, IEnabledComponent, ICustomProperties, IDrawableInfo, IHotspotComponent
 	{
 	}

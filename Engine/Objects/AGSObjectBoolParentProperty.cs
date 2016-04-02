@@ -6,7 +6,7 @@ namespace AGS.Engine
 	public class AGSObjectBoolParentProperty : AGSComponent
 	{
 		private readonly Predicate<IObject> _getProperty;
-		private IInTree<IObject> _tree;
+		private IInObjectTree _tree;
 
 		public AGSObjectBoolParentProperty(Predicate<IObject> getProperty)
 		{
@@ -17,7 +17,7 @@ namespace AGS.Engine
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-			_tree = entity.GetComponent<IInTree<IObject>>();
+			_tree = entity.GetComponent<IInObjectTree>();
 		}
 			
 		public bool Value 
