@@ -13,6 +13,8 @@ namespace DemoGame
 {
 	class MainClass
 	{
+        private static AGSFontLoader _fontLoader; //Must be kept in memory.
+
 		[STAThread]
 		public static void Main()
 		{
@@ -20,10 +22,10 @@ namespace DemoGame
 
 			game.Events.OnLoad.Subscribe((sender, e) =>
 			{
-				AGSFontLoader fontLoader = new AGSFontLoader(new ResourceLoader());
-				fontLoader.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
-				AGSGameSettings.DefaultSpeechFont = new Font(fontLoader.LoadFontFamily("../../Assets/Fonts/pf_ronda_seven.ttf"), 14f);
-				AGSGameSettings.DefaultTextFont = new Font(fontLoader.LoadFontFamily("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF"), 14f);
+				_fontLoader = new AGSFontLoader(new ResourceLoader());
+				_fontLoader.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
+				AGSGameSettings.DefaultSpeechFont = new Font(_fontLoader.LoadFontFamily("../../Assets/Fonts/pf_ronda_seven.ttf"), 14f);
+				AGSGameSettings.DefaultTextFont = new Font(_fontLoader.LoadFontFamily("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF"), 14f);
 
 				loadRooms(game);
 				loadCharacters(game);
