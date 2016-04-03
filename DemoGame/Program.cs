@@ -21,6 +21,7 @@ namespace DemoGame
 			game.Events.OnLoad.Subscribe((sender, e) =>
 			{
 				AGSFontLoader fontLoader = new AGSFontLoader(new ResourceLoader());
+				fontLoader.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
 				AGSGameSettings.DefaultSpeechFont = new Font(fontLoader.LoadFontFamily("../../Assets/Fonts/pf_ronda_seven.ttf"), 14f);
 				AGSGameSettings.DefaultTextFont = new Font(fontLoader.LoadFontFamily("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF"), 14f);
 
