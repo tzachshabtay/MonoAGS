@@ -14,7 +14,6 @@ namespace DemoGame
 		public ICharacter Load(IGame game)
 		{
 			_game = game;
-			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
 			IGameFactory factory = game.Factory;
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
 			{ 
@@ -27,28 +26,25 @@ namespace DemoGame
 				speakLeftFolder: "Talk/left", speakDownFolder: "Talk/down", speakRightFolder: "Talk/right", speakUpFolder: "Talk/up", 
 				loadConfig: loadConfig);
 
-			_character = factory.Object.GetCharacter("Beman", outfit);
+			_character = factory.Object.GetCharacter("Beman", outfit).Remember(_game, character => 
+			{
+				_character = character;
+				subscribeEvents();
+			});
 
-			Cris.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
-			Cris.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);
-			Cris.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Down);
-			Cris.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Up);
+			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
+			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);
+			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Down);
+			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Up);
 
 			_character.StartAnimation (_character.Outfit.IdleAnimation.Down);
 			_character.Hotspot = "Beman";
 			_character.PixelPerfect(true);
 
-			subscribeEvents();
-
 			Characters.Beman = _character;
+
 			_dialogs.Load(game);
 			return _character;
-		}
-
-		private void onSaveGameLoaded()
-		{
-			_character = _game.Find<ICharacter>(_character.ID);
-			subscribeEvents();
 		}
 
 		private void subscribeEvents()

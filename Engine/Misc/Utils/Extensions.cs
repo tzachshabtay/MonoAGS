@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -35,6 +36,18 @@ namespace AGS.Engine
 		{
 			_graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 			return _graphics.MeasureString(text, font, maxWidth, StringFormat.GenericTypographic);
+		}
+
+		public static TEntity Remember<TEntity>(this TEntity entity, IGame game, 
+			Action<TEntity> resetEntity) where TEntity : class, IEntity
+		{
+			resetEntity(entity);
+			game.Events.OnSavedGameLoad.Subscribe((sender, e) =>
+			{
+				entity = game.Find<TEntity>(entity.ID);
+				resetEntity(entity);
+			});
+			return entity;
 		}
 	}
 }

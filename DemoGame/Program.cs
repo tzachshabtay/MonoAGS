@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing.Text;
 using System.Linq;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace DemoGame
 {
@@ -67,7 +68,7 @@ namespace DemoGame
 		private static void loadCharacters(IGame game)
 		{
 			Cris cris = new Cris ();
-			ICharacter character = cris.Load(game.Factory);
+			ICharacter character = cris.Load(game);
 
 			game.State.Player.Character = character;
 			character.ChangeRoom(Rooms.EmptyStreet, 50, 30);

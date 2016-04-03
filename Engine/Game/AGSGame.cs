@@ -32,6 +32,7 @@ namespace AGS.Engine
 		public static IGame CreateEmpty()
 		{
 			Thread.CurrentThread.Name = UIThread;
+			printRuntime();
             Environment.CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			Resolver resolver = new Resolver (new EngineConfigFile());
 			resolver.Build();
@@ -159,9 +160,9 @@ namespace AGS.Engine
 			_game.Exit();
 		}
 
-		public TObject Find<TObject>(string id) where TObject : class, IObject
+		public TEntity Find<TEntity>(string id) where TEntity : class, IEntity
 		{
-			return State.Find<TObject>(id);
+			return State.Find<TEntity>(id);
 		}
 			
 		#endregion
@@ -222,6 +223,20 @@ namespace AGS.Engine
                     throw new NotSupportedException(settings.WindowState.ToString());
             }
         }
+
+		private static void printRuntime()
+		{
+			Type type = Type.GetType("Mono.Runtime");
+			if (type != null)
+			{                                          
+				MethodInfo getDisplayName = type.GetMethod("GetDisplayName", BindingFlags.NonPublic | BindingFlags.Static); 
+				if (getDisplayName != null)
+				{
+					object displayName = getDisplayName.Invoke(null, null);
+					Debug.WriteLine(string.Format("Runtime: Mono- {0}", displayName)); 
+				}
+			}
+		}
 	}
 }
 

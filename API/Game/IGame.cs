@@ -19,7 +19,7 @@ namespace AGS.API
 		void Start(IGameSettings settings);
 		void Quit();
 
-		TObject Find<TObject>(string id) where TObject : class, IObject;
+		TEntity Find<TEntity>(string id) where TEntity : class, IEntity;
 	}
 }
 

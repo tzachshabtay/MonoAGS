@@ -61,27 +61,27 @@ namespace AGS.Engine
 			}
 		}
 
-		public TObject Find<TObject>(string id) where TObject : class, IObject
+		public TEntity Find<TEntity>(string id) where TEntity : class, IEntity
 		{
 			//Naive implementation, if this becomes a bottleneck, we'll need to maintain a dictionary of all objects
-			if (typeof(TObject) == typeof(IObject) || typeof(TObject) == typeof(ICharacter))
+			if (typeof(TEntity) == typeof(IObject) || typeof(TEntity) == typeof(ICharacter))
 			{
-				return findInRooms<TObject>(id) ?? findUi<TObject>(id);
+				return findInRooms<TEntity>(id) ?? findUi<TEntity>(id);
 			}
 			else
 			{
-				return findUi<TObject>(id) ?? findInRooms<TObject>(id);
+				return findUi<TEntity>(id) ?? findInRooms<TEntity>(id);
 			}
 		}
 
-		private TObject findUi<TObject>(string id) where TObject : class, IObject
+		private TEntity findUi<TEntity>(string id) where TEntity : class, IEntity
 		{
-			return (UI.FirstOrDefault(o => o.ID == id)) as TObject;
+			return (UI.FirstOrDefault(o => o.ID == id)) as TEntity;
 		}
 
-		private TObject findInRooms<TObject>(string id) where TObject : class, IObject
+		private TEntity findInRooms<TEntity>(string id) where TEntity : class, IEntity
 		{
-			return (Rooms.SelectMany(r => r.Objects).FirstOrDefault(o => o.ID == id)) as TObject;
+			return (Rooms.SelectMany(r => r.Objects).FirstOrDefault(o => o.ID == id)) as TEntity;
 		}
 	}
 }

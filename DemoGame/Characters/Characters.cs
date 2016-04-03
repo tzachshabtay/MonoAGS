@@ -12,6 +12,15 @@ namespace DemoGame
 			game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded(game.State));
 		}
 
+		public static void RandomAnimationDelay(IAnimation animation)
+		{
+			foreach (var frame in animation.Frames)
+			{
+				frame.MinDelay = 5;
+				frame.MaxDelay = 30;
+			}
+		}
+
 		private static void onSaveGameLoaded(IGameState state)
 		{
 			Cris = state.Find<ICharacter>(Cris.ID);

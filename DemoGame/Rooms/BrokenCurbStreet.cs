@@ -62,7 +62,7 @@ namespace DemoGame
 			IObject panel = factory.Object.GetObject("Panel");
 			panel.Hotspot = "Panel";
 			IAnimation panelAnimation = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Panel");
-			Cris.RandomAnimationDelay(panelAnimation);
+			Characters.RandomAnimationDelay(panelAnimation);
 			panel.StartAnimation(panelAnimation);
 			panel.X = 195;
 			panel.Y = 145;

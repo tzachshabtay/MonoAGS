@@ -9,21 +9,21 @@ namespace DemoGame
 		private ICharacter _character;
 		private const string _baseFolder = "../../Assets/Characters/Cris/";
 
-		public ICharacter Load(IGameFactory factory)
+		public ICharacter Load(IGame game)
 		{
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
 			{ 
 				TransparentColorSamplePoint = new Point (0, 0) 
 			};
 
-			IOutfit outfit = factory.Outfit.LoadOutfitFromFolders(_baseFolder, walkLeftFolder: "Walk/left",
+			IOutfit outfit = game.Factory.Outfit.LoadOutfitFromFolders(_baseFolder, walkLeftFolder: "Walk/left",
 				walkDownFolder: "Walk/front", idleLeftFolder: "Idle/left", idleDownFolder: "Idle/front", 
 				speakLeftFolder: "Talk", loadConfig: loadConfig);
 
-			_character = factory.Object.GetCharacter("Cris", outfit);
+			_character = game.Factory.Object.GetCharacter("Cris", outfit).Remember(game, c => _character = c);
 
-			RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
-			RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);
+			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
+			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);
 
 			_character.StartAnimation (_character.Outfit.IdleAnimation.Down);
 			_character.Hotspot = "Cris";
@@ -31,15 +31,6 @@ namespace DemoGame
 
 			Characters.Cris = _character;
 			return _character;
-		}
-
-		public static void RandomAnimationDelay(IAnimation animation)
-		{
-			foreach (var frame in animation.Frames)
-			{
-				frame.MinDelay = 5;
-				frame.MaxDelay = 30;
-			}
 		}
 	}
 }
