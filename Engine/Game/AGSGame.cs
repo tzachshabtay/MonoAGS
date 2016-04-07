@@ -7,7 +7,7 @@ using OpenTK.Graphics.OpenGL;
 using System.Threading;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
+using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
 
@@ -109,14 +109,24 @@ namespace AGS.Engine
 				{
 					if (e.Key == OpenTK.Input.Key.Escape) Quit();
 				};
-				_game.UpdateFrame += async (sender, e) =>
+				_game.UpdateFrame += (sender, e) =>
 				{
 					try
 					{
 						if (State.Paused) return;
 						adjustSpeed();
 						GameLoop.Update();
-						await Events.OnRepeatedlyExecute.InvokeAsync(sender, new AGSEventArgs());
+                        AGSEventArgs args = new AGSEventArgs();
+
+                        //Invoking repeatedly execute in a task, as if one subscriber is waiting on another subscriber the event will 
+                        //never get to it (for example: calling ChangeRoom from within RepeatedlyExecute calls StopWalking which 
+                        //waits for the walk to stop, only the walk also happens on RepeatedlyExecute and we'll hang.
+                        //Since we're running in a task, the next UpdateFrame will call RepeatedlyExecute for the walk cycle to stop itself and we're good.
+                        ///The downside of this approach is that we need to look out for re-entrancy issues.
+                        Task.Run(async () => 
+                        {
+                            await Events.OnRepeatedlyExecute.InvokeAsync(sender, args);
+                        });
 					}
 					catch (Exception ex)
 					{

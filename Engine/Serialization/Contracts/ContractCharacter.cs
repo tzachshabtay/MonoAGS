@@ -18,7 +18,7 @@ namespace AGS.Engine
 		}
 
 		[ProtoMember(1)]
-		public int WalkSpeed { get; set; }
+		public float WalkSpeed { get; set; }
 
 		[ProtoMember(2)]
 		public bool DebugDrawWalkPath { get; set; }

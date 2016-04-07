@@ -4,7 +4,7 @@ namespace AGS.API
 {
 	public interface IWalkBehavior : IComponent
 	{
-		int WalkSpeed { get; set; }
+		float WalkSpeed { get; set; }
         bool AdjustWalkSpeedToScaleArea { get; set; }
 		bool IsWalking { get; }
 

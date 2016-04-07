@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -71,26 +71,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Engine\" />
-    <Folder Include="Engine\Game\" />
-    <Folder Include="Engine\Graphics\" />
-    <Folder Include="Engine\Graphics\Animations\" />
-    <Folder Include="Engine\Graphics\Logic\" />
-    <Folder Include="Engine\Input\" />
-    <Folder Include="Engine\Input\Schemes\" />
-    <Folder Include="Engine\Objects\" />
-    <Folder Include="Engine\Objects\Characters\" />
-    <Folder Include="Engine\Rooms\" />
-    <Folder Include="Engine\Rooms\Viewport\" />
-    <Folder Include="Engine\Misc\" />
-    <Folder Include="Engine\Rooms\Edges\" />
-    <Folder Include="Engine\Rooms\Areas\" />
-    <Folder Include="Engine\Rooms\Masks\" />
-    <Folder Include="Engine\Misc\Utils\" />
-    <Folder Include="Engine\Objects\Characters\Walking\" />
-    <Folder Include="Engine\Serialization\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
       <Project>{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}</Project>
@@ -100,5 +81,8 @@
       <Project>{197F8906-96FE-4D72-B3A7-BB6A169D83B5}</Project>
       <Name>API</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
 </Project>

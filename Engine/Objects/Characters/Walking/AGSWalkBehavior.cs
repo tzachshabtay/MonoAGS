@@ -4,15 +4,14 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
-using System.Diagnostics;
 
 namespace AGS.Engine
 {
 	public class AGSWalkBehavior : AGSComponent, IWalkBehavior
 	{
-		private CancellationTokenSource _walkCancel;
-		private TaskCompletionSource<object> _walkCompleted;
-		private IPathFinder _pathFinder;
+        private TaskCompletionSource<object> _walkCompleted;
+        private WalkLineInstruction _currentWalkLine;
+        private IPathFinder _pathFinder;
 		private List<IObject> _debugPath;
 		private IObject _obj;
 		private IFaceDirectionBehavior _faceDirection;
@@ -20,33 +19,39 @@ namespace AGS.Engine
 		private IObjectFactory _objFactory;
 		private ICutscene _cutscene;
 		private IGameState _state;
-
+        private IGameEvents _events;
+        
 		public AGSWalkBehavior(IObject obj, IPathFinder pathFinder, IFaceDirectionBehavior faceDirection, 
-			IHasOutfit outfit, IObjectFactory objFactory, IGameState state)
+			IHasOutfit outfit, IObjectFactory objFactory, IGame game)
 		{
-			_cutscene = state.Cutscene;
+            _state = game.State;
+            _cutscene = _state.Cutscene;
+            _events = game.Events;
 			_obj = obj;
 			_pathFinder = pathFinder;
 			_faceDirection = faceDirection;
 			_outfit = outfit;
 			_objFactory = objFactory;
-			_state = state;
 
-			_walkCancel = new CancellationTokenSource ();
 			_debugPath = new List<IObject> ();
 			_walkCompleted = new TaskCompletionSource<object> ();
 			_walkCompleted.SetResult(null);
             AdjustWalkSpeedToScaleArea = true;
+
+            _events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
 
-		/// <summary>
-		/// The larger this is, the slower all character walks will be.
-		/// </summary>
-		public static int MaxWalkDelay = 6;
+        public static int WalkLineTimeoutInMilliseconds = 15000; //15 seconds
 
-		#region IWalkBehavior implementation
+        public override void Dispose()
+        {
+            base.Dispose();
+            _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+        }
 
-		public bool Walk (ILocation location)
+        #region IWalkBehavior implementation
+
+        public bool Walk (ILocation location)
 		{
 			return Task.Run (async () => await WalkAsync (location)).Result;
 		}
@@ -109,7 +114,7 @@ namespace AGS.Engine
 			}
 		}
 
-		public int WalkSpeed { get; set; }
+		public float WalkSpeed { get; set; }
 
         public bool AdjustWalkSpeedToScaleArea { get; set; }
         
@@ -124,7 +129,24 @@ namespace AGS.Engine
 
 		public bool DebugDrawWalkPath { get; set; }
 
-		#endregion
+        #endregion
+
+        private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+        {
+            WalkLineInstruction currentLine = _currentWalkLine;
+            if (currentLine == null) return;
+
+            if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 0)
+            {
+                _currentWalkLine = null; //Possible race condition here? If so, need to replace with concurrent queue
+                currentLine.OnCompletion.TrySetResult(null);                
+                return;
+            }
+
+            currentLine.NumSteps--;
+            _obj.X += currentLine.XStep;
+            _obj.Y += currentLine.YStep;
+        }
 
 		private async Task<bool> walkAsync(ILocation location, CancellationTokenSource token, List<IObject> debugRenderers)
 		{
@@ -141,9 +163,13 @@ namespace AGS.Engine
 
 		private async Task<CancellationTokenSource> stopWalkingAsync()
 		{
-			_walkCancel.Cancel ();
+            var currentLine = _currentWalkLine;
+            if (currentLine != null)
+            {
+                currentLine.CancelToken.Cancel();
+                await currentLine.OnCompletion.Task;
+            }
 			CancellationTokenSource token = new CancellationTokenSource ();
-			_walkCancel = token;
 			await _walkCompleted.Task;
 			return token;
 		}
@@ -228,47 +254,45 @@ namespace AGS.Engine
 			float xSteps = Math.Abs (destination.X - _obj.X);
 			float ySteps = Math.Abs (destination.Y - _obj.Y);
 
-			float numSteps = Math.Max (xSteps, ySteps);
+			float numSteps = Math.Max (xSteps, ySteps) / adjustWalkSpeed(WalkSpeed);
 
-			float xStep = xSteps / numSteps;
+            float xStep = xSteps / numSteps;
 			if (_obj.X > destination.X) xStep = -xStep;
 
 			float yStep = ySteps / numSteps;
 			if (_obj.Y > destination.Y) yStep = -yStep;
 
 			int numStepsInt = (int)numSteps;
-			int delay = MaxWalkDelay - WalkSpeed;
-            delay = adjustWalkSpeed(delay);
 
-			for (int step = 0; step < numStepsInt; step++) 
-			{
-				if (token.IsCancellationRequested)
-					return false;
+            WalkLineInstruction instruction = new WalkLineInstruction(token, numStepsInt, xStep, yStep);
+            _currentWalkLine = instruction;
+            Task timeout = Task.Delay(WalkLineTimeoutInMilliseconds);
+            Task completedTask = await Task.WhenAny(_currentWalkLine.OnCompletion.Task, timeout);
 
-				_obj.X += xStep;
-				_obj.Y += yStep;
-				await Task.Delay(delay);
-			}
+            if (completedTask == timeout)
+            {
+                instruction.CancelToken.Cancel();
+                return false;
+            }
+
+            if (instruction.CancelToken.IsCancellationRequested)
+                return false;
+			
 			_obj.X = destination.X;
 			_obj.Y = destination.Y;
 			return true;
 		}
-        
-		private int adjustWalkSpeed(int delay)
+
+        private float adjustWalkSpeed(float walkSpeed)
 		{
-			delay = adjustWalkSpeedBasedOnArea(delay);
-			if (_state.Speed != 100 && _state.Speed > 0)
-			{
-				float factor = (float)_state.Speed / 100f;
-				delay = (int)(delay / factor);
-			}
-			return delay;
+            walkSpeed = adjustWalkSpeedBasedOnArea(walkSpeed);
+			return walkSpeed;
 		}
 
-        private int adjustWalkSpeedBasedOnArea(int delay)
+        private float adjustWalkSpeedBasedOnArea(float walkSpeed)
         {
 			if (_obj == null || _obj.Room == null || _obj.Room.ScalingAreas == null ||
-				_obj.IgnoreScalingArea || !AdjustWalkSpeedToScaleArea) return delay;
+				_obj.IgnoreScalingArea || !AdjustWalkSpeedToScaleArea) return walkSpeed;
             
             foreach (var area in _obj.Room.ScalingAreas)
             {
@@ -276,13 +300,31 @@ namespace AGS.Engine
                 float scale = area.GetScaling(_obj.Y);
                 if (scale != 1f)
                 {
-                    delay = (int)(((float)delay) / scale);
-                    if (delay == 0) delay = 1;
+                    walkSpeed *= scale;
+                    if (walkSpeed == 0) walkSpeed = 1;
                 }
                 break;
             }
-            return delay;
+            return walkSpeed;
         }
-	}
+
+        private class WalkLineInstruction
+        {
+            public WalkLineInstruction(CancellationTokenSource token, int numSteps, float xStep, float yStep)
+            {
+                CancelToken = token;
+                NumSteps = numSteps;
+                XStep = xStep;
+                YStep = yStep;
+                OnCompletion = new TaskCompletionSource<object>();
+            }
+
+            public CancellationTokenSource CancelToken { get; private set; }
+            public TaskCompletionSource<object> OnCompletion { get; private set; }
+            public int NumSteps { get; set; }
+            public float XStep { get; private set; }
+            public float YStep { get; private set; }
+        }
+    }
 }
 

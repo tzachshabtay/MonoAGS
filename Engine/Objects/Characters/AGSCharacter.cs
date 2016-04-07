@@ -23,6 +23,8 @@ namespace AGS.Engine
 			_walkBehavior = resolver.Container.Resolve<IWalkBehavior>(objParameter, outfitParameter, faceDirectionParameter);
 			AddComponent(_sayBehavior);
 			AddComponent(_walkBehavior);
+
+            WalkSpeed = 4f;
 		}
 
 		public ILocation Location

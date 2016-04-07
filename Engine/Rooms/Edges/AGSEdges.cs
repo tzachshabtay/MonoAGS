@@ -30,12 +30,13 @@ namespace AGS.Engine
 		public void OnRepeatedlyExecute(ICharacter character)
 		{
 			PlayerState currentState = new PlayerState (character, character.X, character.Y);
-			if (_lastState.Character == character)
-			{
-				checkHorizontalEdges(currentState);
-				checkVerticalEdges(currentState);
-			}
-			_lastState = currentState;
+            PlayerState lastState = _lastState;
+            _lastState = currentState;
+            if (lastState.Character == character)
+			{                
+				checkHorizontalEdges(currentState, lastState);
+				checkVerticalEdges(currentState, lastState);
+			}			
 		}
 
 		public void FromEdges(IEdges edges)
@@ -46,17 +47,17 @@ namespace AGS.Engine
 			Bottom = edges.Bottom;
 		}
 
-		private void checkHorizontalEdges(PlayerState currentState)
+		private void checkHorizontalEdges(PlayerState currentState, PlayerState lastState)
 		{
-			float previous = _lastState.X;
+			float previous = lastState.X;
 			float current = currentState.X;
 			if (!checkEdgeCross(Left, previous, current, crossedEdgeDownwards))
 				checkEdgeCross(Right, previous, current, crossedEdgeUpwards);
 		}
 
-		private void checkVerticalEdges(PlayerState currentState)
+		private void checkVerticalEdges(PlayerState currentState, PlayerState lastState)
 		{
-			float previous = _lastState.Y;
+			float previous = lastState.Y;
 			float current = currentState.Y;
 			if (!checkEdgeCross(Bottom, previous, current, crossedEdgeDownwards))
 				checkEdgeCross(Top, previous, current, crossedEdgeUpwards);

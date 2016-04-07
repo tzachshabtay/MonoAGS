@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using NUnit.Framework;
 using AGS.Engine;
 using AGS.API;
@@ -7,10 +7,27 @@ using System.Collections.Generic;
 
 namespace Tests
 {
-	[TestFixture]
+    [TestFixture]
+    [SetUpFixture]
 	public class WalkBehaviorTests
 	{
-		[TestCase(0f, 0f, true, 5f, 5f, true, 3f, 3f, true)]
+        private AGSEvent<AGSEventArgs> _onRepeatedlyExecute;
+        private bool _testCompleted;
+
+        [SetUp]
+        public void Init()
+        {
+            _onRepeatedlyExecute = new AGSEvent<AGSEventArgs>();
+            startTicks();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _testCompleted = true;
+        }
+
+        [TestCase(0f, 0f, true, 5f, 5f, true, 3f, 3f, true)]
 		[TestCase(5f, 5f, true, 0f, 0f, true, 3f, 3f, true)]
 		[TestCase(0f, 0f, false, 5f, 5f, true, 3f, 3f, true)]
 		[TestCase(5f, 5f, false, 0f, 0f, true, 3f, 3f, true)]
@@ -34,7 +51,12 @@ namespace Tests
 			Mock<IMask> mask = new Mock<IMask> ();
 			Mock<ICutscene> cutscene = new Mock<ICutscene> ();
 			Mock<IGameState> gameState = new Mock<IGameState> ();
+            Mock<IGame> game = new Mock<IGame>();
+            Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();
 
+            gameEvents.Setup(g => g.OnRepeatedlyExecute).Returns(_onRepeatedlyExecute);
+            game.Setup(g => g.State).Returns(gameState.Object);
+            game.Setup(g => g.Events).Returns(gameEvents.Object);
 			gameState.Setup(s => s.Cutscene).Returns(cutscene.Object);
 			room.Setup(r => r.WalkableAreas).Returns(new List<IArea> { area.Object });
 			area.Setup(a => a.Enabled).Returns(true);
@@ -67,7 +89,7 @@ namespace Tests
 				It.Is<ILocation>(l => l.X == closeToX && l.Y == closeToY))).Returns(hasCloseToWalkable ? new List<ILocation> {closeLocation} : new List<ILocation>());
 			
 			AGSWalkBehavior walk = new AGSWalkBehavior (obj.Object, pathFinder.Object, faceDirection.Object,
-				outfitHolder.Object, objFactory.Object, gameState.Object);
+				outfitHolder.Object, objFactory.Object, game.Object);
 
 			bool walkShouldSucceed = fromWalkable && (toWalkable || hasCloseToWalkable);
 
@@ -83,6 +105,19 @@ namespace Tests
 				Assert.AreEqual(toWalkable ? toY : closeToY, y, 0.1f);
 			}				
 		}
+
+        private async void startTicks()
+        {
+            await tick();
+        }
+
+        private async Task tick()
+        {
+            if (_testCompleted) return;
+            await Task.Delay(10);
+            _onRepeatedlyExecute.Invoke(this, new AGSEventArgs());
+            await tick();
+        }
 	}
 }
 
