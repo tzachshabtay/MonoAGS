@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Autofac;
 using ProtoBuf;
 using AGS.API;
 
@@ -18,7 +18,7 @@ namespace AGS.Engine
 
 		public IPlayer ToItem(AGSSerializationContext context)
 		{
-			IPlayer player = new AGSPlayer ();
+            IPlayer player = context.Resolver.Container.Resolve<IPlayer>();             
 			player.Character = context.Player;
 			player.ApproachStyle.CopyFrom(ApproachStyle.ToItem(context));
 
