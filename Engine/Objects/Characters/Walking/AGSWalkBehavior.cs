@@ -242,8 +242,16 @@ namespace AGS.Engine
 				debugRenderers.Add (renderer);
 			}
 
-			_faceDirection.CurrentDirectionalAnimation = _outfit.Outfit.WalkAnimation;
-			await _faceDirection.FaceDirectionAsync(_obj.X, _obj.Y, destination.X, destination.Y);
+			if (!isDistanceVeryShort(destination))
+			{
+				var lastDirection = _faceDirection.Direction;
+				_faceDirection.CurrentDirectionalAnimation = _outfit.Outfit.WalkAnimation;
+				await _faceDirection.FaceDirectionAsync(_obj.X, _obj.Y, destination.X, destination.Y);
+				if (lastDirection != _faceDirection.Direction)
+				{
+					await Task.Delay(200);
+				}
+			}
 
 			if (_cutscene.IsSkipping)
 			{
@@ -281,6 +289,13 @@ namespace AGS.Engine
 			_obj.X = destination.X;
 			_obj.Y = destination.Y;
 			return true;
+		}
+
+		private bool isDistanceVeryShort(ILocation destination)
+		{
+			var deltaX = destination.X - _obj.X;
+			var deltaY = destination.Y - _obj.Y;
+			return (deltaX * deltaX) + (deltaY * deltaY) < 10;
 		}
 
         private float adjustWalkSpeed(float walkSpeed)
