@@ -248,9 +248,10 @@ namespace AGS.Engine
 			if (!isDistanceVeryShort(destination))
 			{
 				var lastDirection = _faceDirection.Direction;
+				bool alreadyWalking = _faceDirection.CurrentDirectionalAnimation == _outfit.Outfit.WalkAnimation;
 				_faceDirection.CurrentDirectionalAnimation = _outfit.Outfit.WalkAnimation;
 				await _faceDirection.FaceDirectionAsync(_obj.X, _obj.Y, destination.X, destination.Y);
-				if (lastDirection != _faceDirection.Direction)
+				if (lastDirection != _faceDirection.Direction && alreadyWalking)
 				{
 					await Task.Delay(200);
 				}
