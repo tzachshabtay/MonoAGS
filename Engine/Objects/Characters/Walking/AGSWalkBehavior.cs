@@ -136,16 +136,19 @@ namespace AGS.Engine
             WalkLineInstruction currentLine = _currentWalkLine;
             if (currentLine == null) return;
 
-            if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 0)
+            if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 1f)
             {
                 _currentWalkLine = null; //Possible race condition here? If so, need to replace with concurrent queue
                 currentLine.OnCompletion.TrySetResult(null);                
                 return;
             }
 
-            currentLine.NumSteps--;
-            _obj.X += currentLine.XStep;
-            _obj.Y += currentLine.YStep;
+			float walkSpeed = adjustWalkSpeed(WalkSpeed);
+			float xStep = currentLine.XStep * walkSpeed;
+			float yStep = currentLine.YStep * walkSpeed;
+			currentLine.NumSteps -= Math.Abs(currentLine.IsBaseStepX ? xStep : yStep);
+			_obj.X += xStep;
+			_obj.Y += yStep;
         }
 
 		private async Task<bool> walkAsync(ILocation location, CancellationTokenSource token, List<IObject> debugRenderers)
@@ -262,7 +265,8 @@ namespace AGS.Engine
 			float xSteps = Math.Abs (destination.X - _obj.X);
 			float ySteps = Math.Abs (destination.Y - _obj.Y);
 
-			float numSteps = Math.Max (xSteps, ySteps) / adjustWalkSpeed(WalkSpeed);
+			float numSteps = Math.Max (xSteps, ySteps);
+			bool isBaseStepX = xSteps >= ySteps;
 
             float xStep = xSteps / numSteps;
 			if (_obj.X > destination.X) xStep = -xStep;
@@ -270,12 +274,10 @@ namespace AGS.Engine
 			float yStep = ySteps / numSteps;
 			if (_obj.Y > destination.Y) yStep = -yStep;
 
-			int numStepsInt = (int)numSteps;
-
-            WalkLineInstruction instruction = new WalkLineInstruction(token, numStepsInt, xStep, yStep);
+			WalkLineInstruction instruction = new WalkLineInstruction(token, numSteps, xStep, yStep, isBaseStepX);
             _currentWalkLine = instruction;
             Task timeout = Task.Delay(WalkLineTimeoutInMilliseconds);
-            Task completedTask = await Task.WhenAny(_currentWalkLine.OnCompletion.Task, timeout);
+			Task completedTask = await Task.WhenAny(instruction.OnCompletion.Task, timeout);
 
             if (completedTask == timeout)
             {
@@ -325,20 +327,22 @@ namespace AGS.Engine
 
         private class WalkLineInstruction
         {
-            public WalkLineInstruction(CancellationTokenSource token, int numSteps, float xStep, float yStep)
+			public WalkLineInstruction(CancellationTokenSource token, float numSteps, float xStep, float yStep, bool isBaseStepX)
             {
                 CancelToken = token;
                 NumSteps = numSteps;
                 XStep = xStep;
                 YStep = yStep;
+				IsBaseStepX = isBaseStepX;
                 OnCompletion = new TaskCompletionSource<object>();
             }
 
             public CancellationTokenSource CancelToken { get; private set; }
             public TaskCompletionSource<object> OnCompletion { get; private set; }
-            public int NumSteps { get; set; }
+			public float NumSteps { get; set; }
             public float XStep { get; private set; }
             public float YStep { get; private set; }
+			public bool IsBaseStepX { get; private set; }
         }
     }
 }
