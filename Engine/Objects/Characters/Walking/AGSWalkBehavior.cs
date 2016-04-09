@@ -147,8 +147,11 @@ namespace AGS.Engine
 			float xStep = currentLine.XStep * walkSpeed;
 			float yStep = currentLine.YStep * walkSpeed;
 			currentLine.NumSteps -= Math.Abs(currentLine.IsBaseStepX ? xStep : yStep);
-			_obj.X += xStep;
-			_obj.Y += yStep;
+			if (currentLine.NumSteps >= 0f)
+			{
+				_obj.X += xStep;
+				_obj.Y += yStep;
+			}
         }
 
 		private async Task<bool> walkAsync(ILocation location, CancellationTokenSource token, List<IObject> debugRenderers)
