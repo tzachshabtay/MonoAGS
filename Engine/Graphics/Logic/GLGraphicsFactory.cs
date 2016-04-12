@@ -157,7 +157,7 @@ namespace AGS.Engine
 					int tex = generateTexture ();
 					Rectangle rect = new Rectangle (cellX * spriteSheet.CellWidth,
 						                cellY * spriteSheet.CellHeight, spriteSheet.CellWidth, spriteSheet.CellHeight);
-					Bitmap clone = crop (bitmap, rect);
+					IBitmap clone = crop (bitmap, rect);
 					string path = string.Format ("{0}_{1}_{2}", rect.X, rect.Y, filePath);
 					GLImage image = loadImage (tex, clone, path, loadConfig, spriteSheet);
 					//GLImage image = loadImage(tex, bitmap, rect, path);
@@ -200,7 +200,7 @@ namespace AGS.Engine
 			return loadImage(resource, config);
 		}
 
-		public IImage LoadImage(Bitmap bitmap, ILoadImageConfig config = null, string id = null)
+		public IImage LoadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
 		{
 			id = id ?? Guid.NewGuid ().ToString ();
 			int tex = generateTexture ();
@@ -253,7 +253,7 @@ namespace AGS.Engine
 			int tex = generateTexture ();
 			try
 			{
-				Bitmap bitmap = new Bitmap (resource.Stream);
+				IBitmap bitmap = new AGSBitmap(new Bitmap (resource.Stream));
 				return loadImage (tex, bitmap, resource.ID, config, null);
 			}
 			catch (ArgumentException e)
@@ -283,21 +283,15 @@ namespace AGS.Engine
 			return tex;
 		}
 			
-		private Bitmap crop(Bitmap bmp, Rectangle cropRect)
+		private IBitmap crop(Bitmap bmp, Rectangle cropRect)
 		{
-			return bmp.Clone (cropRect, bmp.PixelFormat); //todo: improve performance by using FastBitmap
+			return new AGSBitmap(bmp.Clone (cropRect, bmp.PixelFormat)); //todo: improve performance by using FastBitmap
 		}
 
-		private GLImage loadImage(int texture, Bitmap bitmap, string id, ILoadImageConfig config, ISpriteSheet spriteSheet)
+		private GLImage loadImage(int texture, IBitmap bitmap, string id, ILoadImageConfig config, ISpriteSheet spriteSheet)
 		{
 			manipulateImage(bitmap, config);
-			BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
-				ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmap.Width, bitmap.Height, 0,
-				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
-			bitmap.UnlockBits(data);
-
+			bitmap.LoadTexture(null);
 			GLImage image = new GLImage (bitmap, id, texture, spriteSheet, config);
 
 			if (_textures != null)
@@ -305,13 +299,13 @@ namespace AGS.Engine
 			return image;
 		}
 
-		private void manipulateImage(Bitmap bitmap, ILoadImageConfig config)
+		private void manipulateImage(IBitmap bitmap, ILoadImageConfig config)
 		{
 			if (config == null) return;
 			if (config.TransparentColorSamplePoint != null)
 			{
-				Color transparentColor = bitmap.GetPixel(config.TransparentColorSamplePoint.Value.X,
-					                         config.TransparentColorSamplePoint.Value.Y);
+				IColor transparentColor = bitmap.GetPixel((int)config.TransparentColorSamplePoint.X,
+					(int)config.TransparentColorSamplePoint.Y);
 				bitmap.MakeTransparent(transparentColor);
 			}
 		}

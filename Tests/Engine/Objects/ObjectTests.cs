@@ -225,7 +225,7 @@ namespace Tests
 			Mock<ILabelRenderer> renderer = new Mock<ILabelRenderer> ();
 
 			Func<IPanel> basePanel = () => new AGSPanel ("Panel", resolver, image.Object);
-			Func<ILabel> baseLabel = () => new AGSLabel ("Label", resolver, renderer.Object, new SizeF (100f, 50f));
+			Func<ILabel> baseLabel = () => new AGSLabel ("Label", resolver, renderer.Object, new AGS.API.SizeF (100f, 50f));
 
 			List<IObject> implmentors = new List<IObject>
 			{
@@ -233,7 +233,7 @@ namespace Tests
 				new AGSCharacter("Character", resolver, outfit.Object).Hotspot("Character"),
 				basePanel().Hotspot("Panel"),
 				baseLabel().Hotspot("Label"),
-				new AGSButton("Button", resolver, renderer.Object, new SizeF(100f,50f)).Hotspot("Button"),
+				new AGSButton("Button", resolver, renderer.Object, new AGS.API.SizeF(100f,50f)).Hotspot("Button"),
 				new AGSInventoryWindow("Inventory", resolver, image.Object).Hotspot("Inventory"),
 				new AGSSlider("Slider", resolver, image.Object).Hotspot("Slider"),
 			};

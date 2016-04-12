@@ -29,7 +29,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,6 +141,20 @@
     <Compile Include="UI\Controls\IButtonComponent.cs" />
     <Compile Include="UI\Controls\Slider\ISliderComponent.cs" />
     <Compile Include="ComponentsFramework\RequiredComponentAttribute.cs" />
+    <Compile Include="Misc\Drawing\IColor.cs" />
+    <Compile Include="Misc\Drawing\IBitmap.cs" />
+    <Compile Include="Misc\Drawing\Size.cs" />
+    <Compile Include="Misc\Drawing\IBrush.cs" />
+    <Compile Include="Misc\Drawing\IFont.cs" />
+    <Compile Include="Misc\Drawing\Alignment.cs" />
+    <Compile Include="Misc\Drawing\SizeF.cs" />
+    <Compile Include="Misc\Drawing\BrushType.cs" />
+    <Compile Include="Misc\Drawing\HatchStyle.cs" />
+    <Compile Include="Misc\Drawing\IBlend.cs" />
+    <Compile Include="Misc\Drawing\IColorBlend.cs" />
+    <Compile Include="Misc\Drawing\ITransformMatrix.cs" />
+    <Compile Include="Misc\Drawing\IBitmapTextDraw.cs" />
+    <Compile Include="Misc\Drawing\WrapMode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -164,5 +177,6 @@
     <Folder Include="UI\Controls\Slider\" />
     <Folder Include="Game\Factories\" />
     <Folder Include="ComponentsFramework\" />
+    <Folder Include="Misc\Drawing\" />
   </ItemGroup>
 </Project>

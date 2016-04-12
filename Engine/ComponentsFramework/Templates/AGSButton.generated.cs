@@ -28,7 +28,7 @@ namespace AGS.Engine
 		private IHotspotComponent _hotspotComponent;
 		private IButtonComponent _buttonComponent;
 
-		public AGSButton(string id, Resolver resolver, ILabelRenderer labelRenderer, SizeF baseSize) : base(id, resolver)
+		public AGSButton(string id, Resolver resolver, ILabelRenderer labelRenderer, AGS.API.SizeF baseSize) : base(id, resolver)
 		{			
 			_uIEvents = AddComponent<IUIEvents>();			
 			_hasRoom = AddComponent<IHasRoom>();			
@@ -54,7 +54,7 @@ namespace AGS.Engine
 			return string.Format("{0} ({1})", ID ?? "", GetType().Name);
 		}
 
-		partial void init(Resolver resolver, ILabelRenderer labelRenderer, SizeF baseSize);
+		partial void init(Resolver resolver, ILabelRenderer labelRenderer, AGS.API.SizeF baseSize);
 
 		#region IUIEvents implementation
 
@@ -218,7 +218,7 @@ namespace AGS.Engine
 			set { _animationContainer.Opacity = value; } 
 		}
 
-		public Color Tint 
+		public IColor Tint 
 		{  
 			get { return _animationContainer.Tint; }  
 			set { _animationContainer.Tint = value; } 

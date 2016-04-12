@@ -17,10 +17,10 @@ namespace AGS.Engine
 
 		#region ISayLocation implementation
 
-		public IPoint GetLocation(string text, SizeF labelSize, ITextConfig config)
+		public IPoint GetLocation(string text, AGS.API.SizeF labelSize, ITextConfig config)
 		{
 			//todo: need to account for alignment
-			SizeF size = getSize(text, labelSize, config);
+			AGS.API.SizeF size = getSize(text, labelSize, config);
 
 			float x = _obj.BoundingBox.MaxX;
 			x = MathUtils.Clamp(x, 0f, Math.Max(0f, _game.VirtualResolution.Width - size.Width - 10f));
@@ -34,16 +34,16 @@ namespace AGS.Engine
 
 		#endregion
 
-		private SizeF getSize(string text, SizeF labelSize, ITextConfig config)
+		private AGS.API.SizeF getSize(string text, AGS.API.SizeF labelSize, ITextConfig config)
 		{
 			switch (config.AutoFit)
 			{
 				case AutoFit.TextShouldFitLabel:
 					return labelSize;
 				case AutoFit.TextShouldWrap:
-					return text.Measure(config.Font, (int)labelSize.Width);
+					return config.Font.MeasureString(text, (int)labelSize.Width);
 				default:
-					return text.Measure(config.Font);
+					return config.Font.MeasureString(text);
 			}
 		}
 	}

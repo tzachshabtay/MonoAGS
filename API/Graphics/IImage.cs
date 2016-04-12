@@ -1,10 +1,8 @@
-﻿using System.Drawing;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     public interface IImage
 	{
-		Bitmap OriginalBitmap { get; }
+		IBitmap OriginalBitmap { get; }
 
 		float Width { get; }
 		float Height { get; }

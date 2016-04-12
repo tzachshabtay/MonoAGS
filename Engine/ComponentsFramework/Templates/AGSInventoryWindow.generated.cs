@@ -218,7 +218,7 @@ namespace AGS.Engine
 			set { _animationContainer.Opacity = value; } 
 		}
 
-		public Color Tint 
+		public IColor Tint 
 		{  
 			get { return _animationContainer.Tint; }  
 			set { _animationContainer.Tint = value; } 
@@ -461,7 +461,7 @@ namespace AGS.Engine
 
 		#region IInventoryWindowComponent implementation
 
-		public SizeF ItemSize 
+		public AGS.API.SizeF ItemSize 
 		{  
 			get { return _inventoryWindowComponent.ItemSize; }  
 			set { _inventoryWindowComponent.ItemSize = value; } 

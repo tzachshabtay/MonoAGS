@@ -32,7 +32,7 @@ namespace AGS.Engine
 		}
 
 		private static Graphics _graphics = Graphics.FromImage(new Bitmap (1, 1));
-		public static SizeF Measure(this string text, Font font, int maxWidth = int.MaxValue)
+		public static System.Drawing.SizeF Measure(this string text, Font font, int maxWidth = int.MaxValue)
 		{
 			_graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 			return _graphics.MeasureString(text, font, maxWidth, StringFormat.GenericTypographic);

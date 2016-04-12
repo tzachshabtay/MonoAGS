@@ -12,7 +12,7 @@ namespace AGS.Engine
 
 		#region ILoadImageConfig implementation
 
-		public Point? TransparentColorSamplePoint { get; set; }
+		public IPoint TransparentColorSamplePoint { get; set; }
 
 		#endregion
 	}

@@ -29,7 +29,7 @@ namespace DemoGame
 			IGameFactory factory = game.Factory;
 			ILoadImageConfig loadConfig = new AGSLoadImageConfig
 			{
-				TransparentColorSamplePoint = new Point(0, 0)
+				TransparentColorSamplePoint = new AGSPoint(0, 0)
 			};
 			_room = factory.Room.GetRoom(_roomId, 20f, 310f, 190f, 10f);
 			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());

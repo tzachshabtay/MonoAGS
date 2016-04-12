@@ -14,7 +14,7 @@ namespace AGS.Engine
 			ID = "";
 		}
 
-		public GLImage(Bitmap bitmap, string id, int texture, ISpriteSheet spriteSheet, ILoadImageConfig loadConfig)
+		public GLImage(IBitmap bitmap, string id, int texture, ISpriteSheet spriteSheet, ILoadImageConfig loadConfig)
 		{
 			OriginalBitmap = bitmap;
 			Width = bitmap.Width;
@@ -25,7 +25,7 @@ namespace AGS.Engine
 			LoadConfig = loadConfig;
 		}
 
-		public Bitmap OriginalBitmap { get; private set; }
+		public IBitmap OriginalBitmap { get; private set; }
 
 		public float Width { get; private set; }
 		public float Height { get; private set; }

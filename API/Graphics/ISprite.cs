@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     public interface ISprite
 	{
@@ -18,7 +16,7 @@ namespace AGS.API
 		float ScaleY { get; }
 		float Angle { get; set; }
 		byte Opacity { get; set; }
-		Color Tint { get; set; }
+		IColor Tint { get; set; }
 		IPoint Anchor { get; set; }
 
 		IImage Image { get; set; }

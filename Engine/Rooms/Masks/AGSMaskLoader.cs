@@ -18,74 +18,24 @@ namespace AGS.Engine
 		#region IMaskLoader implementation
 
 		public IMask Load(string path, bool transparentMeansMasked = false, 
-			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
+			IColor debugDrawColor = null, string saveMaskToFile = null, string id = null)
 		{
-			Bitmap image = (Bitmap)Image.FromFile(path); 
+			IBitmap image = new AGSBitmap((Bitmap)Image.FromFile(path)); 
 			return load(path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
 		}
 
-		public IMask Load(Bitmap image, bool transparentMeansMasked = false, 
-			Color? debugDrawColor = null, string saveMaskToFile = null)
+		public IMask Load(IBitmap image, bool transparentMeansMasked = false, 
+			IColor debugDrawColor = null, string saveMaskToFile = null)
 		{
 			return load(null, image, transparentMeansMasked, debugDrawColor, saveMaskToFile);
 		}
 
 		#endregion
 
-		private IMask load(string path, Bitmap image, bool transparentMeansMasked = false, 
-			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
+		private IMask load(string path, IBitmap image, bool transparentMeansMasked = false, 
+			IColor debugDrawColor = null, string saveMaskToFile = null, string id = null)
 		{
-			Bitmap debugMask = null;
-			FastBitmap debugMaskFast = null;
-			if (saveMaskToFile != null || debugDrawColor != null)
-			{
-				debugMask = new Bitmap (image.Width, image.Height);
-				debugMaskFast = new FastBitmap (debugMask, ImageLockMode.WriteOnly, true);
-			}
-				
-			bool[][] mask = new bool[image.Width][];
-			Color drawColor = debugDrawColor.HasValue ? debugDrawColor.Value : Color.Black;
-
-			using (FastBitmap bitmapData = new FastBitmap (image, ImageLockMode.ReadOnly))
-			{
-				for (int x = 0; x < image.Width; x++)
-				{
-					for (int y = 0; y < image.Height; y++)
-					{
-						var pixelColor = bitmapData.GetPixel(x, y);
-
-						bool masked = pixelColor.A == 255;
-						if (transparentMeansMasked)
-							masked = !masked;
-
-						if (mask[x] == null)
-							mask[x] = new bool[image.Height];
-						mask[x][image.Height - y - 1] = masked;
-
-						if (debugMask != null)
-						{
-							debugMaskFast.SetPixel(x, y, masked ? drawColor : Color.Transparent);
-						}
-					}
-				}
-			}
-				
-			if (debugMask != null)
-				debugMaskFast.Dispose();
-
-			//Save the duplicate
-			if (saveMaskToFile != null)
-				debugMask.Save (saveMaskToFile);
-
-			IObject debugDraw = null;
-			if (debugDrawColor != null)
-			{
-				debugDraw = _factory.Object.GetObject(id ?? path ?? "Mask Drawable");
-				debugDraw.Image = _factory.Graphics.LoadImage(debugMask, null, path);
-				debugDraw.Anchor = new AGSPoint ();
-			}
-
-			return new AGSMask (mask, debugDraw);
+			return image.CreateMask(_factory, path, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
 		}
 	}
 }

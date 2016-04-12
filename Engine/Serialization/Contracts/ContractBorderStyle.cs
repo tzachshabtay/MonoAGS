@@ -23,7 +23,7 @@ namespace AGS.Engine
 		public IBorderStyle ToItem(AGSSerializationContext context)
 		{
 			AGSBorderStyle style = new AGSBorderStyle ();
-			style.Color = Color;
+			style.Color = (AGSColor)Color;
 			style.LineWidth = LineWidth;
 
 			return style;
@@ -31,7 +31,7 @@ namespace AGS.Engine
 
 		public void FromItem(AGSSerializationContext context, IBorderStyle item)
 		{
-			Color = item.Color;
+			Color = Color.FromArgb(item.Color.A, item.Color.R, item.Color.G, item.Color.B);
 			LineWidth = item.LineWidth;
 		}
 

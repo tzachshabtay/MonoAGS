@@ -16,7 +16,7 @@ namespace AGS.Engine
 			ScaleY = 1;
 			Anchor = new AGSPoint ();
 
-			Tint = Color.White;
+			Tint = (AGSColor)Color.White;
 			Location = AGSLocation.Empty ();
 		}
 
@@ -96,10 +96,10 @@ namespace AGS.Engine
 		public byte Opacity 
 		{ 
 			get { return Tint.A; }
-			set { Tint = Color.FromArgb(value, Tint); }
+			set { Tint = new AGSColor(Tint.R, Tint.G, Tint.B, value); }
 		}
 
-		public Color Tint { get; set; }
+		public IColor Tint { get; set; }
 
 		public IPoint Anchor { get; set; }
 

@@ -8,10 +8,10 @@ namespace AGS.Engine
 	public class AGSGameLoop : IGameLoop
 	{
 		private IGameState _gameState;
-		private Size _virtualResolution;
+		private AGS.API.Size _virtualResolution;
 		private IRoom _lastPlayerRoom;
 
-		public AGSGameLoop (IGameState gameState, Size virtualResolution)
+		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution)
 		{
 			this._gameState = gameState;
 			this._virtualResolution = virtualResolution;
@@ -54,7 +54,7 @@ namespace AGS.Engine
 				ISprite sprite = room.Background.Animation.Sprite;
 				bool playerChangedRoom = _lastPlayerRoom != _gameState.Player.Character.Room;
 				camera.Tick (room.Viewport,
-					new Size((int)sprite.Width, (int)sprite.Height), _virtualResolution, 
+					new AGS.API.Size((int)sprite.Width, (int)sprite.Height), _virtualResolution, 
 					playerChangedRoom);
 			}
 		}

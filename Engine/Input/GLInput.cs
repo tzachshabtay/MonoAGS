@@ -15,7 +15,7 @@ namespace AGS.Engine
 		private IAnimationContainer _mouseCursor;
 		private MouseCursor _originalOSCursor;
 
-		public GLInput (GameWindow game, Size virtualResolution, IGameState state)
+		public GLInput (GameWindow game, AGS.API.Size virtualResolution, IGameState state)
 		{
 			this._virtualWidth = virtualResolution.Width;
 			this._virtualHeight = virtualResolution.Height;

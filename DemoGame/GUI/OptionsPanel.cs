@@ -13,11 +13,13 @@ namespace DemoGame
 		private IPanel _panel;
 		private IGame _game;
 
-		AGSTextConfig _textConfig = new AGSTextConfig (font: new Font (SystemFonts.DefaultFont.FontFamily, 10f), brush: Brushes.DarkOliveGreen,
-			outlineBrush: Brushes.LightGreen, outlineWidth: 1f);
+		AGSTextConfig _textConfig = new AGSTextConfig (font: new AGSFont(new Font (SystemFonts.DefaultFont.FontFamily, 10f)), 
+			brush: new AGSBrush(Brushes.DarkOliveGreen),
+			outlineBrush: new AGSBrush(Brushes.LightGreen), outlineWidth: 1f);
 
-		AGSTextConfig _buttonTextConfig = new AGSTextConfig (font: new Font (SystemFonts.DefaultFont.FontFamily, 7f, FontStyle.Bold), brush: Brushes.LightGreen,
-			alignment: ContentAlignment.MiddleCenter);
+		AGSTextConfig _buttonTextConfig = new AGSTextConfig (font: new AGSFont(new Font (SystemFonts.DefaultFont.FontFamily, 7f, FontStyle.Bold)), 
+			brush: new AGSBrush(Brushes.LightGreen),
+			alignment: Alignment.MiddleCenter);
 
 		private string _lastMode;
 		private readonly RotatingCursorScheme _scheme;
@@ -35,7 +37,7 @@ namespace DemoGame
 			_panel.Anchor = new AGSPoint (0.5f, 0.5f);
 			_panel.Visible = false;
 
-			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig { TransparentColorSamplePoint = new Point (0, 0) };
+			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig { TransparentColorSamplePoint = new AGSPoint (0, 0) };
 
 			ISlider volumeSlider = factory.UI.GetSlider("Volume Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
 				loadConfig: loadConfig);

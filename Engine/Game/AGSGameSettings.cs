@@ -6,14 +6,14 @@ namespace AGS.Engine
 {
 	public class AGSGameSettings : IGameSettings
 	{
-		public static Font DefaultSpeechFont = new Font(SystemFonts.DefaultFont.FontFamily
-			, 14f, FontStyle.Regular);
+		public static IFont DefaultSpeechFont = new AGSFont(new Font(SystemFonts.DefaultFont.FontFamily
+			, 14f, FontStyle.Regular));
 		
-		public static Font DefaultTextFont = new Font(SystemFonts.DefaultFont.FontFamily
-			, 14f, FontStyle.Regular);
+		public static IFont DefaultTextFont = new AGSFont(new Font(SystemFonts.DefaultFont.FontFamily
+			, 14f, FontStyle.Regular));
 
-		public AGSGameSettings(string title, Size virtualResolution, WindowState windowState = WindowState.Maximized,
-            Size? windowSize = null, VsyncMode vsync = VsyncMode.On)
+		public AGSGameSettings(string title, AGS.API.Size virtualResolution, WindowState windowState = WindowState.Maximized,
+            AGS.API.Size? windowSize = null, VsyncMode vsync = VsyncMode.On)
 		{
             Title = title;
             VirtualResolution = virtualResolution;
@@ -24,11 +24,11 @@ namespace AGS.Engine
 
         public string Title { get; private set; }
         
-        public Size VirtualResolution { get; private set; }
+        public AGS.API.Size VirtualResolution { get; private set; }
 
         public VsyncMode Vsync { get; private set; }
 
-        public Size WindowSize { get; private set; }
+        public AGS.API.Size WindowSize { get; private set; }
 
         public WindowState WindowState { get; private set; }
     }

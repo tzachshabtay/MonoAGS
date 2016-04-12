@@ -1,11 +1,9 @@
-﻿using System.Drawing;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     public interface IBorderStyle
 	{
 		float LineWidth { get; set; }
-		Color Color { get; set; }
+		IColor Color { get; set; }
 	}
 }
 

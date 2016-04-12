@@ -2,18 +2,10 @@
 using ProtoBuf;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using AGS.API;
 
 namespace AGS.Engine
 {
-	public enum BrushType
-	{
-		Solid,
-		Linear,
-		Hatch,
-		Path,
-		Texture,
-	};
-
 	[ProtoContract]
 	public class ProtoBrush
 	{
@@ -39,13 +31,13 @@ namespace AGS.Engine
 		public Matrix Transform { get; set; }
 
 		[ProtoMember(8)]
-		public WrapMode WrapMode { get; set; }
+		public System.Drawing.Drawing2D.WrapMode WrapMode { get; set; }
 
 		[ProtoMember(9)]
 		public Color BackgroundColor { get; set; }
 
 		[ProtoMember(10)]
-		public HatchStyle HatchStyle { get; set; }
+		public System.Drawing.Drawing2D.HatchStyle HatchStyle { get; set; }
 
 		[ProtoMember(11)]
 		public PointF CenterPoint { get; set; }

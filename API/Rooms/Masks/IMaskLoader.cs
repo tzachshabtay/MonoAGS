@@ -1,13 +1,11 @@
-﻿using System.Drawing;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     public interface IMaskLoader
 	{
-		IMask Load(string path, bool transparentMeansMasked = false, Color? debugDrawColor = null, 
+		IMask Load(string path, bool transparentMeansMasked = false, IColor debugDrawColor = null, 
 			string saveMaskToFile = null, string id = null);
 
-		IMask Load(Bitmap image, bool transparentMeansMasked = false, Color? debugDrawColor = null, 
+		IMask Load(IBitmap image, bool transparentMeansMasked = false, IColor debugDrawColor = null, 
 			string saveMaskToFile = null);
 	}
 }

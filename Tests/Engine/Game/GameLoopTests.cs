@@ -234,7 +234,7 @@ namespace Tests
 			Mock<ICamera> camera = new Mock<ICamera> ();
 			IPoint sourcePoint = new AGSPoint (15f, 25f);
 			IPoint targetPoint = new AGSPoint (55f, 65f);
-			camera.Setup(f => f.Tick(_mocks.Viewport().Object, It.IsAny<Size>(), It.IsAny<Size>(),
+			camera.Setup(f => f.Tick(_mocks.Viewport().Object, It.IsAny<AGS.API.Size>(), It.IsAny<AGS.API.Size>(),
 				It.IsAny<bool>())).Callback(() => 
 				{_mocks.Viewport().Object.X = targetPoint.X; _mocks.Viewport().Object.Y = targetPoint.Y; });
 			_mocks.Viewport().Setup(v => v.X).Returns(sourcePoint.X);
@@ -252,7 +252,7 @@ namespace Tests
 
 		private AGSGameLoop getGameLoop()
 		{
-			return _mocks.Create<AGSGameLoop>(new TypedParameter (typeof(Size), new Size (320, 200)));
+			return _mocks.Create<AGSGameLoop>(new TypedParameter (typeof(AGS.API.Size), new AGS.API.Size (320, 200)));
 		}
 	}
 }

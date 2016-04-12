@@ -46,14 +46,14 @@ namespace AGS.Engine
 
 		public ILabel GetLabel(string id, string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
 		{
-			SizeF baseSize = new SizeF(width, height);
-			TypedParameter sizeParam = new TypedParameter (typeof(SizeF), baseSize);
+			AGS.API.SizeF baseSize = new AGS.API.SizeF(width, height);
+			TypedParameter sizeParam = new TypedParameter (typeof(AGS.API.SizeF), baseSize);
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
 			ILabel label = _resolver.Resolve<ILabel>(idParam, sizeParam);
 			label.Text = text;
 			label.X = x;
 			label.Y = y;
-			label.Tint = Color.Transparent;
+			label.Tint = (AGSColor)Color.Transparent;
 			label.TextConfig = config ?? new AGSTextConfig();
 			if (addToUi)
 				_gameState.UI.Add(label);
@@ -73,14 +73,14 @@ namespace AGS.Engine
 				height = idle.Frames[0].Sprite.Height;
 			}
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			TypedParameter sizeParam = new TypedParameter (typeof(SizeF), new SizeF (width, height));
+			TypedParameter sizeParam = new TypedParameter (typeof(AGS.API.SizeF), new AGS.API.SizeF (width, height));
 			IButton button = _resolver.Resolve <IButton>(idParam, sizeParam);
 			button.IdleAnimation = idle;
 			button.HoverAnimation = hovered;
 			button.PushedAnimation = pushed;
 
 			button.StartAnimation(idle);
-			button.Tint = Color.White;
+			button.Tint = (AGSColor)Color.White;
 			button.X = x;
 			button.Y = y;
 			button.TextConfig = config;

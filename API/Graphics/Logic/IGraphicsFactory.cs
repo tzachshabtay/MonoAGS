@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using System.Drawing;
 
 namespace AGS.API
 {
@@ -9,7 +8,7 @@ namespace AGS.API
 
 		IImage LoadImage(string filePath, ILoadImageConfig loadConfig = null);
 		Task<IImage> LoadImageAsync(string filePath, ILoadImageConfig loadConfig = null);
-		IImage LoadImage(Bitmap bitmap, ILoadImageConfig loadConfig = null, string id = null);
+		IImage LoadImage(IBitmap bitmap, ILoadImageConfig loadConfig = null, string id = null);
 
 		IDirectionalAnimation LoadDirectionalAnimationFromFolders(string baseFolder, string leftFolder = null,
 		                                                          string rightFolder = null, string downFolder = null, string upFolder = null,

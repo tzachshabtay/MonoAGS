@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     public interface ILoadImageConfig
 	{
@@ -10,7 +8,7 @@ namespace AGS.API
 		/// (0,0) for selecting the color on the top-left pixel of the image.
 		/// </summary>
 		/// <value>The transparent color sample point.</value>
-		Point? TransparentColorSamplePoint { get; }
+		IPoint TransparentColorSamplePoint { get; }
 	}
 }
 

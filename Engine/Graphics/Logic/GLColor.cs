@@ -35,7 +35,7 @@ namespace AGS.Engine
 			return this;
 		}
 
-		public IGLColor Build(Color color)
+		public IGLColor Build(IColor color)
 		{
 			R = color.R / COLOR_FACTOR;
 			G = color.G / COLOR_FACTOR;

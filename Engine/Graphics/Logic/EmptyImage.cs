@@ -14,7 +14,7 @@ namespace AGS.Engine
 
 		#region IImage implementation
 
-		public Bitmap OriginalBitmap { get { return null; } }
+		public IBitmap OriginalBitmap { get { return null; } }
 
 		public float Width { get; private set; }
 

@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     public interface ISayLocation
 	{

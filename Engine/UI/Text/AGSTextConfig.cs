@@ -6,12 +6,12 @@ namespace AGS.Engine
 {
 	public class AGSTextConfig : ITextConfig
 	{
-		public AGSTextConfig(Brush brush = null, Font font = null, Brush outlineBrush = null, float outlineWidth = 0f,
-			Brush shadowBrush = null, float shadowOffsetX = 0f, float shadowOffsetY = 0f, 
-			ContentAlignment alignment = ContentAlignment.TopLeft, AutoFit autoFit = AutoFit.NoFitting,
+		public AGSTextConfig(IBrush brush = null, IFont font = null, IBrush outlineBrush = null, float outlineWidth = 0f,
+			IBrush shadowBrush = null, float shadowOffsetX = 0f, float shadowOffsetY = 0f, 
+			Alignment alignment = Alignment.TopLeft, AutoFit autoFit = AutoFit.NoFitting,
 			float paddingLeft = 2f, float paddingRight = 2f, float paddingTop = 2f, float paddingBottom = 2f)
 		{
-			Brush = brush ?? Brushes.White;
+			Brush = brush ?? new AGSBrush(Brushes.White);
 			Font = font ?? AGSGameSettings.DefaultTextFont;
 			OutlineBrush = outlineBrush;
 			OutlineWidth = outlineWidth;
@@ -28,17 +28,17 @@ namespace AGS.Engine
 
 		#region ITextConfig implementation
 
-		public Brush Brush { get; private set; }
+		public IBrush Brush { get; private set; }
 
-		public Font Font { get; private set; }
+		public IFont Font { get; private set; }
 
-		public ContentAlignment Alignment { get; private set; }
+		public Alignment Alignment { get; private set; }
 
-		public Brush OutlineBrush { get; private set; }
+		public IBrush OutlineBrush { get; private set; }
 
 		public float OutlineWidth { get; private set; }
 
-		public Brush ShadowBrush { get; private set; }
+		public IBrush ShadowBrush { get; private set; }
 
 		public float ShadowOffsetX { get; private set; }
 		public float ShadowOffsetY { get; private set; }

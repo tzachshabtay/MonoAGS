@@ -59,7 +59,7 @@ namespace AGS.Engine
 			sprite.Location = new AGSLocation (Location.Item1, Location.Item2, Location.Item3);
 			sprite.Anchor = new AGSPoint (Anchor.Item1, Anchor.Item2);
 			sprite.Angle = Angle;
-			sprite.Tint = Tint;
+			sprite.Tint = (AGSColor)Tint;
 
 			sprite.PixelPerfect(IsPixelPerfect);
 		}
@@ -69,7 +69,7 @@ namespace AGS.Engine
 			Image = new Contract<IImage> ();
 			Image.FromItem(context, sprite.Image);
 			Anchor = new Tuple<float, float> (sprite.Anchor.X, sprite.Anchor.Y);
-			Tint = sprite.Tint;
+			Tint = sprite.Tint == null ? Color.White : Color.FromArgb(sprite.Tint.A, sprite.Tint.R, sprite.Tint.G, sprite.Tint.B);
 			Angle = sprite.Angle;
 			ScaleX = sprite.ScaleX;
 			ScaleY = sprite.ScaleY;

@@ -9,14 +9,14 @@ namespace AGS.Engine
 		public AGSBorderStyle()
 		{
 			LineWidth = 10f;
-			Color = Color.Black;
+			Color = (AGSColor)System.Drawing.Color.Black;
 		}
 
 		#region IBorderStyle implementation
 
 		public float LineWidth { get; set; }
 
-		public Color Color { get; set; }
+		public IColor Color { get; set; }
 
 		#endregion
 	}

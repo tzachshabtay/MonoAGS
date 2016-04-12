@@ -8,7 +8,7 @@ namespace AGS.Engine
 	{
 		private ILabelRenderer _labelRenderer;
 
-		partial void init(Resolver resolver, ILabelRenderer labelRenderer, SizeF baseSize)
+		partial void init(Resolver resolver, ILabelRenderer labelRenderer, AGS.API.SizeF baseSize)
 		{
 			RenderLayer = AGSLayers.UI;
 			IgnoreScalingArea = true;

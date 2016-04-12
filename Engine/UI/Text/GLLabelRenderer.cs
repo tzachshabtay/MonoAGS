@@ -48,7 +48,7 @@ namespace AGS.Engine
 		public bool TextVisible { get; set; }
 		public string Text { get; set; }
 		public ITextConfig Config { get; set; }
-		public SizeF BaseSize { get; set; }
+		public AGS.API.SizeF BaseSize { get; set; }
 		public ILabel Label { get; set; }
 
 
@@ -101,7 +101,7 @@ namespace AGS.Engine
 
 			if (TextVisible)
 			{
-				IGLColor color = _colorBuilder.Build(Color.White);
+				IGLColor color = _colorBuilder.Build((AGSColor)Color.White);
 				_textureRenderer.Render(_glText.Texture, _usedTextBoundingBoxes.RenderBox, color);
 			}
 		}
@@ -132,7 +132,7 @@ namespace AGS.Engine
 			{
 				case AutoFit.NoFitting:
 					_boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, matrices);
-					updateText(new SizeF (_labelBoundingBoxes.RenderBox.Width, _labelBoundingBoxes.RenderBox.Height),
+					updateText(new AGS.API.SizeF (_labelBoundingBoxes.RenderBox.Width, _labelBoundingBoxes.RenderBox.Height),
 						null);
 					_boundingBoxBuilder.Build(_textBoundingBoxes, _glText.BitmapWidth, _glText.BitmapHeight, matrices);
 
@@ -187,7 +187,7 @@ namespace AGS.Engine
 			_labelMatrixRenderTarget.ScaleY = obj.ScaleY;
 		}
 
-		private void updateText(SizeF baseSize, int? maxWidth)
+		private void updateText(AGS.API.SizeF baseSize, int? maxWidth)
 		{
 			if (TextVisible)
 			{

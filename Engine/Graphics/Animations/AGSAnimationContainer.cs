@@ -27,7 +27,7 @@ namespace AGS.Engine
 			ScaleX = 1;
 			ScaleY = 1;
 
-			Tint = Color.White;
+			Tint = (AGSColor)Color.White;
 		}
 
 		/// <summary>
@@ -109,7 +109,7 @@ namespace AGS.Engine
 
 		public byte Opacity { get { return _sprite.Opacity; } set { _sprite.Opacity = value; } }
 
-		public Color Tint { get { return _sprite.Tint; } set { _sprite.Tint = value; } }
+		public IColor Tint { get { return _sprite.Tint; } set { _sprite.Tint = value; } }
 
 		public IPoint Anchor { get { return _sprite.Anchor; } set { _sprite.Anchor = value; } }
 

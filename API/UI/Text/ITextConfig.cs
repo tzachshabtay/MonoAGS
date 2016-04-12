@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     public enum AutoFit
 	{
@@ -12,14 +10,14 @@ namespace AGS.API
 
 	public interface ITextConfig
 	{
-		Brush Brush { get; }
-		Font Font { get; }
-		ContentAlignment Alignment { get; }
+		IBrush Brush { get; }
+		IFont Font { get; }
+		Alignment Alignment { get; }
 
-		Brush OutlineBrush { get; }
+		IBrush OutlineBrush { get; }
 		float OutlineWidth { get; }
 
-		Brush ShadowBrush  { get; }
+		IBrush ShadowBrush  { get; }
 		float ShadowOffsetX { get; }
 		float ShadowOffsetY { get; }
 

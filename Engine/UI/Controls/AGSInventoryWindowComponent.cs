@@ -9,7 +9,7 @@ namespace AGS.Engine
 	{
 		private IList<IObject> _inventoryItems;
 		private volatile bool _refreshNeeded;
-		private SizeF _itemSize;
+		private AGS.API.SizeF _itemSize;
 		private ICharacter _character;
 		private int _topItem;
 		private IGameState _state;
@@ -50,7 +50,7 @@ namespace AGS.Engine
 			TopItem = Math.Min(CharacterToUse.Inventory.Items.Count - 1, TopItem + ItemsPerRow); 
 		}
 
-		public SizeF ItemSize
+		public AGS.API.SizeF ItemSize
 		{
 			get { return _itemSize; }
 			set

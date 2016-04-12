@@ -57,17 +57,17 @@ namespace AGS.Engine
 
 		public IGameEvents Events { get; private set; }
 
-		public Size VirtualResolution { get; private set; }
+		public AGS.API.Size VirtualResolution { get; private set; }
 
 		public void Start(IGameSettings settings)
 		{
 			VirtualResolution = settings.VirtualResolution;
-			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(Size), VirtualResolution));
+			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), VirtualResolution));
 			using (_game = new GameWindow (settings.VirtualResolution.Width, 
                 settings.VirtualResolution.Height, GraphicsMode.Default, settings.Title))
 			{
 				GL.ClearColor(0, 0.1f, 0.4f, 1);
-				_game.Size = settings.WindowSize;
+				_game.Size = new System.Drawing.Size(settings.WindowSize.Width, settings.WindowSize.Height);
 				setWindowState(settings);
 
 				_game.Load += async (sender, e) =>
@@ -80,7 +80,7 @@ namespace AGS.Engine
 					GL.Enable(EnableCap.Texture2D);
 
 					TypedParameter gameParameter = new TypedParameter (typeof(GameWindow), _game);
-					TypedParameter sizeParameter = new TypedParameter(typeof(Size), VirtualResolution);
+					TypedParameter sizeParameter = new TypedParameter(typeof(AGS.API.Size), VirtualResolution);
 					Input = _resolver.Container.Resolve<IInput>(gameParameter, sizeParameter); 
 					TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
 					_renderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater);

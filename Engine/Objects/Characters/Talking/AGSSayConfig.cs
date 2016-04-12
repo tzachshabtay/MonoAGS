@@ -10,7 +10,7 @@ namespace AGS.Engine
 		{
 			TextConfig = new AGSTextConfig(font : AGSGameSettings.DefaultSpeechFont, autoFit: AutoFit.TextShouldWrap);
 			TextDelay = 70;
-			LabelSize = new SizeF (250f, 200f);
+			LabelSize = new AGS.API.SizeF (250f, 200f);
 			SkipText = SkipText.ByTimeAndMouse;
 		}
 
@@ -22,7 +22,7 @@ namespace AGS.Engine
 
 		public SkipText SkipText { get; set; }
 
-		public SizeF LabelSize { get; set; }
+		public AGS.API.SizeF LabelSize { get; set; }
 
 		#endregion
 	}

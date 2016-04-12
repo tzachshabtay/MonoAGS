@@ -25,9 +25,9 @@ namespace AGS.Engine
 		{
 			IGame game = _resolver.Resolve<IGame>();
 			if (config == null) config = new AGSTextConfig (autoFit: AutoFit.TextShouldWrap,
-				brush: Brushes.White, font: new Font(SystemFonts.DefaultFont.FontFamily, 10f));
+				brush: new AGSBrush(Brushes.White), font: new AGSFont(new Font(SystemFonts.DefaultFont.FontFamily, 10f)));
 			if (hoverConfig == null) hoverConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrap,
-				brush: Brushes.Yellow, font: new Font(SystemFonts.DefaultFont.FontFamily, 10f));
+				brush: new AGSBrush(Brushes.Yellow), font: new AGSFont(new Font(SystemFonts.DefaultFont.FontFamily, 10f)));
 			ILabel label = _ui.GetLabel(string.Format("Dialog option: {0}", text), text, game.VirtualResolution.Width, 20f, 0f, 0f, config);
 			label.Enabled = true;
 			TypedParameter labelParam = new TypedParameter (typeof(ILabel), label);
@@ -45,7 +45,7 @@ namespace AGS.Engine
 			if (graphics == null)
 			{
 				graphics = _object.GetObject(id);
-				graphics.Tint = Color.Black;
+				graphics.Tint = (AGSColor)Color.Black;
 				graphics.Anchor = new AGSPoint ();
 				_gameState.UI.Add(graphics);
 			}

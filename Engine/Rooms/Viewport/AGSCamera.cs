@@ -40,7 +40,7 @@ namespace AGS.Engine
 
 		#region ICamera implementation
 
-		public void Tick (IViewport viewport, Size roomSize, Size virtualResoution, bool resetPosition)
+		public void Tick (IViewport viewport, AGS.API.Size roomSize, AGS.API.Size virtualResoution, bool resetPosition)
 		{
 			IObject target = Target == null ? null : Target();
 			if (!Enabled || target == null) return;

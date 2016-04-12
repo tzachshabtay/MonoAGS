@@ -8,7 +8,7 @@ namespace AGS.Engine
 	{
 		GLImage glImage;
 
-		public GLBitmapRenderer (GLGraphicsFactory factory, Bitmap bitmap)
+		public GLBitmapRenderer (GLGraphicsFactory factory, IBitmap bitmap)
 		{
 			glImage = (GLImage)factory.LoadImage (bitmap);
 			Opacity = 0.5f;

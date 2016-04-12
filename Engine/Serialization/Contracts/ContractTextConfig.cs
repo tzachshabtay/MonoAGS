@@ -19,7 +19,7 @@ namespace AGS.Engine
 		public Font Font { get; set; }
 
 		[ProtoMember(3)]
-		public ContentAlignment Alignment { get; set; }
+		public Alignment Alignment { get; set; }
 
 		[ProtoMember(4)]
 		public Brush OutlineBrush { get; set; }
@@ -55,19 +55,19 @@ namespace AGS.Engine
 
 		public ITextConfig ToItem(AGSSerializationContext context)
 		{
-			AGSTextConfig config = new AGSTextConfig (Brush, Font, OutlineBrush, OutlineWidth,
-				                       ShadowBrush, ShadowOffsetX, ShadowOffsetY, Alignment, AutoFit, PaddingLeft,
+			AGSTextConfig config = new AGSTextConfig (new AGSBrush (Brush), new AGSFont (Font), new AGSBrush (OutlineBrush), OutlineWidth,
+				                       new AGSBrush (ShadowBrush), ShadowOffsetX, ShadowOffsetY, Alignment, AutoFit, PaddingLeft,
 				                       PaddingRight, PaddingTop, PaddingBottom);
 			return config;
 		}
 
 		public void FromItem(AGSSerializationContext context, ITextConfig item)
 		{
-			Brush = item.Brush;
-			Font = item.Font;
-			OutlineBrush = item.OutlineBrush;
+			Brush = ((AGSBrush)item.Brush).InnerBrush;
+			Font = ((AGSFont)item.Font).InnerFont;
+			OutlineBrush = item.OutlineBrush == null ? null : ((AGSBrush)item.OutlineBrush).InnerBrush;
 			OutlineWidth = item.OutlineWidth;
-			ShadowBrush = item.ShadowBrush;
+			ShadowBrush = item.ShadowBrush == null ? null : ((AGSBrush)item.ShadowBrush).InnerBrush;
 			ShadowOffsetX = item.ShadowOffsetX;
 			ShadowOffsetY = item.ShadowOffsetY;
 			Alignment = item.Alignment;

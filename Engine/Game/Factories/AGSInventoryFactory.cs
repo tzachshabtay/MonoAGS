@@ -39,8 +39,8 @@ namespace AGS.Engine
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
 			TypedParameter imageParam = new TypedParameter (typeof(IImage), image);
 			IInventoryWindow inventory = _resolver.Resolve<IInventoryWindow>(idParam, imageParam);
-			inventory.Tint = Color.Transparent;
-			inventory.ItemSize = new SizeF (itemWidth, itemHeight);
+			inventory.Tint = (AGSColor)Color.Transparent;
+			inventory.ItemSize = new AGS.API.SizeF (itemWidth, itemHeight);
 			inventory.CharacterToUse = character ?? _resolver.Resolve<IPlayer>().Character;
 			return inventory;
 		}

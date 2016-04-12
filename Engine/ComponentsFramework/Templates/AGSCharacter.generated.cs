@@ -173,7 +173,7 @@ namespace AGS.Engine
 			set { _animationContainer.Opacity = value; } 
 		}
 
-		public Color Tint 
+		public IColor Tint 
 		{  
 			get { return _animationContainer.Tint; }  
 			set { _animationContainer.Tint = value; } 

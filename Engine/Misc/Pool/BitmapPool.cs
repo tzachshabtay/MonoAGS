@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Drawing;
+using AGS.API;
 
 namespace AGS.Engine
 {
 	public class BitmapPool
 	{
-		private ConcurrentDictionary<Size, ObjectPool<Bitmap>> _bitmaps;
+		private ConcurrentDictionary<AGS.API.Size, ObjectPool<IBitmap>> _bitmaps;
 
 		public BitmapPool()
 		{
-			_bitmaps = new ConcurrentDictionary<Size, ObjectPool<Bitmap>> (2, 40);
+			_bitmaps = new ConcurrentDictionary<AGS.API.Size, ObjectPool<IBitmap>> (2, 40);
 			initPool();		
 		}
 
-		public Bitmap Acquire(int width, int height)
+		public IBitmap Acquire(int width, int height)
 		{
 			width = MathUtils.GetNextPowerOf2(width);
 			height = MathUtils.GetNextPowerOf2(height);
 			return getPool(width, height).Acquire();
 		}
 
-		public void Release(Bitmap bitmap)
+		public void Release(IBitmap bitmap)
 		{
 			if (!MathUtils.IsPowerOf2(bitmap.Width) ||
 			    !MathUtils.IsPowerOf2(bitmap.Height)) return;
@@ -48,10 +49,10 @@ namespace AGS.Engine
 			}
 		}
 
-		private ObjectPool<Bitmap> getPool(int width, int height)
+		private ObjectPool<IBitmap> getPool(int width, int height)
 		{
-			Size size = new Size (width, height);
-			return _bitmaps.GetOrAdd(size, _ => new ObjectPool<Bitmap> (() => new Bitmap (width, height), 3,
+			AGS.API.Size size = new AGS.API.Size (width, height);
+			return _bitmaps.GetOrAdd(size, _ => new ObjectPool<IBitmap> (() => (IBitmap)new AGSBitmap(new Bitmap (width, height)), 3,
 				bitmap => bitmap.Clear()));
 		}
 

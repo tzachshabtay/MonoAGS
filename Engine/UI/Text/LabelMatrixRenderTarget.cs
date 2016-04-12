@@ -105,7 +105,7 @@ namespace AGS.Engine
 			}
 		}
 
-		public System.Drawing.Color Tint
+		public IColor Tint
 		{
 			get
 			{

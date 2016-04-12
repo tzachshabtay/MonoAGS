@@ -114,7 +114,6 @@
     <Compile Include="Rooms\Edges\IAGSEdges.cs" />
     <Compile Include="Rooms\Areas\AGSArea.cs" />
     <Compile Include="Rooms\Areas\AGSWalkBehindArea.cs" />
-    <Compile Include="Rooms\Areas\WalkBehindBitmapCreator.cs" />
     <Compile Include="Rooms\Areas\AGSWalkBehindsMap.cs" />
     <Compile Include="Misc\Pool\ObjectPool.cs" />
     <Compile Include="Misc\Pool\BitmapPool.cs" />
@@ -290,6 +289,11 @@
     <Compile Include="UI\Controls\AGSInventoryWindow.cs" />
     <Compile Include="UI\Controls\AGSButton.cs" />
     <Compile Include="Objects\Characters\AGSCharacter.cs" />
+    <Compile Include="Misc\Drawing\AGSBitmap.cs" />
+    <Compile Include="Misc\Drawing\AGSColor.cs" />
+    <Compile Include="Misc\Drawing\AGSBrush.cs" />
+    <Compile Include="Misc\Drawing\AGSFont.cs" />
+    <Compile Include="Misc\Drawing\AGSBitmapTextDraw.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
@@ -338,5 +342,8 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Misc\Drawing\" />
   </ItemGroup>
 </Project>

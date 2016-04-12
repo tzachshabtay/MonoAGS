@@ -106,7 +106,7 @@ namespace Tests
 			obj.Angle = 0.8f;
 			obj.Image = new EmptyImage (100f, 50f);
 			obj.ScaleBy(2f, 2.5f);
-			obj.Tint = Color.AliceBlue;
+			obj.Tint = (AGSColor) Color.AliceBlue;
 
 			IRoom room = _mocks.Room().Object;
 			room.Objects.Add(obj);
