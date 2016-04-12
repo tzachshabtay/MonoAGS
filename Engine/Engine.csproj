@@ -335,15 +335,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\API\API.csproj">
-      <Project>{197F8906-96FE-4D72-B3A7-BB6A169D83B5}</Project>
-      <Name>API</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Misc\Drawing\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AGS.API\AGS.API.csproj">
+      <Project>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</Project>
+      <Name>AGS.API</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

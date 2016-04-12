@@ -60,9 +60,9 @@
       <Project>{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}</Project>
       <Name>Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\API\API.csproj">
-      <Project>{197F8906-96FE-4D72-B3A7-BB6A169D83B5}</Project>
-      <Name>API</Name>
+    <ProjectReference Include="..\AGS.API\AGS.API.csproj">
+      <Project>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</Project>
+      <Name>AGS.API</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

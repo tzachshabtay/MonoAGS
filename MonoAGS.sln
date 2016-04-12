@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoGame", "DemoGame\DemoGa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{197F8906-96FE-4D72-B3A7-BB6A169D83B5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{7E614795-A8D2-4E3B-847C-3443D1B81154}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.API", "AGS.API\AGS.API.csproj", "{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{197F8906-96FE-4D72-B3A7-BB6A169D83B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{197F8906-96FE-4D72-B3A7-BB6A169D83B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{197F8906-96FE-4D72-B3A7-BB6A169D83B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{197F8906-96FE-4D72-B3A7-BB6A169D83B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -31,6 +27,10 @@ Global
 		{7E614795-A8D2-4E3B-847C-3443D1B81154}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E614795-A8D2-4E3B-847C-3443D1B81154}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E614795-A8D2-4E3B-847C-3443D1B81154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

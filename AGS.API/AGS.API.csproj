@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>AGS.API</RootNamespace>
+    <AssemblyName>AGS.API</AssemblyName>
+    <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ComponentsFramework\IComponent.cs" />
+    <Compile Include="ComponentsFramework\IComponentsCollection.cs" />
+    <Compile Include="ComponentsFramework\IEntity.cs" />
+    <Compile Include="ComponentsFramework\RequiredComponentAttribute.cs" />
+    <Compile Include="Game\Factories\IDialogFactory.cs" />
+    <Compile Include="Game\Factories\IGameFactory.cs" />
+    <Compile Include="Game\Factories\IInventoryFactory.cs" />
+    <Compile Include="Game\Factories\IObjectFactory.cs" />
+    <Compile Include="Game\Factories\IOutfitFactory.cs" />
+    <Compile Include="Game\Factories\IRoomFactory.cs" />
+    <Compile Include="Game\Factories\IUIFactory.cs" />
+    <Compile Include="Game\ICutscene.cs" />
+    <Compile Include="Game\IGame.cs" />
+    <Compile Include="Game\IGameEvents.cs" />
+    <Compile Include="Game\IGameLoop.cs" />
+    <Compile Include="Game\IGameSettings.cs" />
+    <Compile Include="Game\IGameState.cs" />
+    <Compile Include="Graphics\Animations\AnimationCompletedEventArgs.cs" />
+    <Compile Include="Graphics\Animations\IAnimation.cs" />
+    <Compile Include="Graphics\Animations\IAnimationConfiguration.cs" />
+    <Compile Include="Graphics\Animations\IAnimationContainer.cs" />
+    <Compile Include="Graphics\Animations\IAnimationFrame.cs" />
+    <Compile Include="Graphics\Animations\IAnimationState.cs" />
+    <Compile Include="Graphics\Animations\IDirectionalAnimation.cs" />
+    <Compile Include="Graphics\Animations\ISpriteSheet.cs" />
+    <Compile Include="Graphics\IImage.cs" />
+    <Compile Include="Graphics\IRenderLayer.cs" />
+    <Compile Include="Graphics\ISprite.cs" />
+    <Compile Include="Graphics\Logic\IGraphicsFactory.cs" />
+    <Compile Include="Graphics\Logic\IImageRenderer.cs" />
+    <Compile Include="Graphics\Logic\ILoadImageConfig.cs" />
+    <Compile Include="Graphics\Logic\IRendererLoop.cs" />
+    <Compile Include="Input\IInput.cs" />
+    <Compile Include="Input\IInputEvents.cs" />
+    <Compile Include="Input\KeyboardEventArgs.cs" />
+    <Compile Include="Input\MouseButtonEventArgs.cs" />
+    <Compile Include="Input\MousePositionEventArgs.cs" />
+    <Compile Include="Inventory\IInventory.cs" />
+    <Compile Include="Inventory\IInventoryItem.cs" />
+    <Compile Include="Inventory\InventoryCombinationEventArgs.cs" />
+    <Compile Include="Misc\Collections\IConcurrentHashSet.cs" />
+    <Compile Include="Misc\Collections\Tree\ITreeNode.cs" />
+    <Compile Include="Misc\Drawing\Alignment.cs" />
+    <Compile Include="Misc\Drawing\BrushType.cs" />
+    <Compile Include="Misc\Drawing\HatchStyle.cs" />
+    <Compile Include="Misc\Drawing\IBitmap.cs" />
+    <Compile Include="Misc\Drawing\IBitmapTextDraw.cs" />
+    <Compile Include="Misc\Drawing\IBlend.cs" />
+    <Compile Include="Misc\Drawing\IBrush.cs" />
+    <Compile Include="Misc\Drawing\IColor.cs" />
+    <Compile Include="Misc\Drawing\IColorBlend.cs" />
+    <Compile Include="Misc\Drawing\IFont.cs" />
+    <Compile Include="Misc\Drawing\ITransformMatrix.cs" />
+    <Compile Include="Misc\Drawing\Size.cs" />
+    <Compile Include="Misc\Drawing\SizeF.cs" />
+    <Compile Include="Misc\Drawing\WrapMode.cs" />
+    <Compile Include="Misc\Events\AGSEventArgs.cs" />
+    <Compile Include="Misc\Events\IEvent.cs" />
+    <Compile Include="Misc\Geometry\IPoint.cs" />
+    <Compile Include="Misc\Geometry\ISquare.cs" />
+    <Compile Include="Misc\ICustomProperties.cs" />
+    <Compile Include="Misc\ILocation.cs" />
+    <Compile Include="Misc\Resources\IResource.cs" />
+    <Compile Include="Misc\Resources\IResourceLoader.cs" />
+    <Compile Include="Objects\Characters\FaceDirection\IFaceDirectionBehavior.cs" />
+    <Compile Include="Objects\Characters\ICharacter.cs" />
+    <Compile Include="Objects\Characters\IHasInventory.cs" />
+    <Compile Include="Objects\Characters\IHasOutfit.cs" />
+    <Compile Include="Objects\Characters\IOutfit.cs" />
+    <Compile Include="Objects\Characters\Talking\ISayBehavior.cs" />
+    <Compile Include="Objects\Characters\Talking\ISayConfig.cs" />
+    <Compile Include="Objects\Characters\Talking\ISayLocation.cs" />
+    <Compile Include="Objects\Characters\Walking\IWalkBehavior.cs" />
+    <Compile Include="Objects\Characters\Walking\Pathfinding\IPathFinder.cs" />
+    <Compile Include="Objects\IChildrenCollection.cs" />
+    <Compile Include="Objects\ICollider.cs" />
+    <Compile Include="Objects\IDrawableInfo.cs" />
+    <Compile Include="Objects\IEnabledComponent.cs" />
+    <Compile Include="Objects\IHasRoom.cs" />
+    <Compile Include="Objects\IHotspotComponent.cs" />
+    <Compile Include="Objects\Interactions\CustomInteractionEventArgs.cs" />
+    <Compile Include="Objects\Interactions\IInteractions.cs" />
+    <Compile Include="Objects\Interactions\InventoryInteractEventArgs.cs" />
+    <Compile Include="Objects\Interactions\ObjectEventArgs.cs" />
+    <Compile Include="Objects\IObject.cs" />
+    <Compile Include="Objects\IVisibleComponent.cs" />
+    <Compile Include="Player\IApproachStyle.cs" />
+    <Compile Include="Player\IPlayer.cs" />
+    <Compile Include="Rooms\Edges\IEdge.cs" />
+    <Compile Include="Rooms\Edges\IEdges.cs" />
+    <Compile Include="Rooms\IArea.cs" />
+    <Compile Include="Rooms\ICamera.cs" />
+    <Compile Include="Rooms\IRoom.cs" />
+    <Compile Include="Rooms\IRoomEvents.cs" />
+    <Compile Include="Rooms\IScalingArea.cs" />
+    <Compile Include="Rooms\IViewport.cs" />
+    <Compile Include="Rooms\IWalkBehindArea.cs" />
+    <Compile Include="Rooms\Masks\IMask.cs" />
+    <Compile Include="Rooms\Masks\IMaskLoader.cs" />
+    <Compile Include="Serialization\ICustomSerializable.cs" />
+    <Compile Include="Serialization\ICustomSerializableData.cs" />
+    <Compile Include="Serialization\ISaveLoad.cs" />
+    <Compile Include="Sound\ISound.cs" />
+    <Compile Include="Sound\ISoundFactory.cs" />
+    <Compile Include="UI\Controls\IButton.cs" />
+    <Compile Include="UI\Controls\IButtonComponent.cs" />
+    <Compile Include="UI\Controls\IInventoryWindow.cs" />
+    <Compile Include="UI\Controls\IInventoryWindowComponent.cs" />
+    <Compile Include="UI\Controls\ILabel.cs" />
+    <Compile Include="UI\Controls\IPanel.cs" />
+    <Compile Include="UI\Controls\IUIControl.cs" />
+    <Compile Include="UI\Controls\Slider\ISlider.cs" />
+    <Compile Include="UI\Controls\Slider\ISliderComponent.cs" />
+    <Compile Include="UI\Controls\Slider\SliderValueEventArgs.cs" />
+    <Compile Include="UI\IBorderStyle.cs" />
+    <Compile Include="UI\ISkin.cs" />
+    <Compile Include="UI\Rendering\ILabelRenderer.cs" />
+    <Compile Include="UI\Text\Dialogs\IDialog.cs" />
+    <Compile Include="UI\Text\Dialogs\IDialogAction.cs" />
+    <Compile Include="UI\Text\Dialogs\IDialogActions.cs" />
+    <Compile Include="UI\Text\Dialogs\IDialogLayout.cs" />
+    <Compile Include="UI\Text\Dialogs\IDialogOption.cs" />
+    <Compile Include="UI\Text\ITextConfig.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="ComponentsFramework\" />
+    <Folder Include="Game\" />
+    <Folder Include="Graphics\" />
+    <Folder Include="Input\" />
+    <Folder Include="Inventory\" />
+    <Folder Include="Misc\" />
+    <Folder Include="Objects\" />
+    <Folder Include="Player\" />
+    <Folder Include="Rooms\" />
+    <Folder Include="Serialization\" />
+    <Folder Include="Sound\" />
+    <Folder Include="UI\" />
+  </ItemGroup>
+</Project>
