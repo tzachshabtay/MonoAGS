@@ -1,5 +1,10 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// The event arguments for the inventory combination events.
+    /// The arguments carry with the two combined items.
+    /// </summary>
+    /// <seealso cref="AGS.API.AGSEventArgs" />
     public class InventoryCombinationEventArgs : AGSEventArgs
 	{
 		public InventoryCombinationEventArgs (IInventoryItem activeItem, IInventoryItem passiveItem)
@@ -8,8 +13,20 @@
 			PassiveItem = passiveItem;
 		}
 
-		public IInventoryItem ActiveItem { get; private set; }
-		public IInventoryItem PassiveItem { get; private set; }
+        /// <summary>
+        /// Gets the active item for the combination (the item that you are using on the other item).
+        /// </summary>
+        /// <value>
+        /// The active item.
+        /// </value>
+        public IInventoryItem ActiveItem { get; private set; }
+        /// <summary>
+        /// Gets the passive item for the combination (the item that you use the other item on).
+        /// </summary>
+        /// <value>
+        /// The passive item.
+        /// </value>
+        public IInventoryItem PassiveItem { get; private set; }
 
 		public override string ToString ()
 		{
