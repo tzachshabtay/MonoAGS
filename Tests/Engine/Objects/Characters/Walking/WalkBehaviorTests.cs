@@ -4,28 +4,28 @@ using AGS.Engine;
 using AGS.API;
 using Moq;
 using System.Collections.Generic;
+using AGS.Engine.Desktop;
 
 namespace Tests
 {
     [TestFixture]
-    [SetUpFixture]
-	public class WalkBehaviorTests
+    public class WalkBehaviorTests
 	{
-        private AGSEvent<AGSEventArgs> _onRepeatedlyExecute;
-        private bool _testCompleted;
+		private AGSEvent<AGSEventArgs> _onRepeatedlyExecute;
+		private bool _testCompleted;
 
-        [SetUp]
-        public void Init()
-        {
-            _onRepeatedlyExecute = new AGSEvent<AGSEventArgs>();
-            startTicks();
-        }
+		[TestFixtureSetUp]
+		public void Init()
+		{
+			_onRepeatedlyExecute = new AGSEvent<AGSEventArgs>();
+			startTicks();
+		}
 
-        [TearDown]
-        public void TearDown()
-        {
-            _testCompleted = true;
-        }
+		[TestFixtureTearDown]
+		public void TearDown()
+		{
+			_testCompleted = true;
+		}
 
         [TestCase(0f, 0f, true, 5f, 5f, true, 3f, 3f, true)]
 		[TestCase(5f, 5f, true, 0f, 0f, true, 3f, 3f, true)]
@@ -54,18 +54,18 @@ namespace Tests
             Mock<IGame> game = new Mock<IGame>();
             Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();
 
-            gameEvents.Setup(g => g.OnRepeatedlyExecute).Returns(_onRepeatedlyExecute);
+			gameEvents.Setup(g => g.OnRepeatedlyExecute).Returns(_onRepeatedlyExecute);
             game.Setup(g => g.State).Returns(gameState.Object);
             game.Setup(g => g.Events).Returns(gameEvents.Object);
 			gameState.Setup(s => s.Cutscene).Returns(cutscene.Object);
 			room.Setup(r => r.WalkableAreas).Returns(new List<IArea> { area.Object });
 			area.Setup(a => a.Enabled).Returns(true);
-			area.Setup(a => a.IsInArea(It.Is<IPoint>(p => p.X == fromX && p.Y == fromY))).Returns(fromWalkable);
-			area.Setup(a => a.IsInArea(It.Is<IPoint>(p => p.X == toX && p.Y == toY))).Returns(toWalkable);
-			area.Setup(a => a.IsInArea(It.Is<IPoint>(p => p.X == closeToX && p.Y == closeToY))).Returns(hasCloseToWalkable);
+			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == fromX && p.Y == fromY))).Returns(fromWalkable);
+			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == toX && p.Y == toY))).Returns(toWalkable);
+			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == closeToX && p.Y == closeToY))).Returns(hasCloseToWalkable);
 			area.Setup(a => a.Mask).Returns(mask.Object);
 			float distance = 1f;
-			area.Setup(a => a.FindClosestPoint(It.Is<IPoint>(p => p.X == toX && p.Y == toY), out distance)).Returns(new AGSPoint (closeToX, closeToY));
+			area.Setup(a => a.FindClosestPoint(It.Is<AGS.API.PointF>(p => p.X == toX && p.Y == toY), out distance)).Returns(new AGS.API.PointF (closeToX, closeToY));
 			mask.Setup(m => m.Width).Returns(10);
 
 			outfitHolder.Setup(o => o.Outfit).Returns(outfit.Object);
@@ -89,7 +89,7 @@ namespace Tests
 				It.Is<ILocation>(l => l.X == closeToX && l.Y == closeToY))).Returns(hasCloseToWalkable ? new List<ILocation> {closeLocation} : new List<ILocation>());
 			
 			AGSWalkBehavior walk = new AGSWalkBehavior (obj.Object, pathFinder.Object, faceDirection.Object,
-				outfitHolder.Object, objFactory.Object, game.Object);
+				outfitHolder.Object, objFactory.Object, game.Object) { WalkSpeed = 4 };
 
 			bool walkShouldSucceed = fromWalkable && (toWalkable || hasCloseToWalkable);
 
@@ -106,18 +106,18 @@ namespace Tests
 			}				
 		}
 
-        private async void startTicks()
-        {
-            await tick();
-        }
+		private async void startTicks()
+		{
+			await tick();
+		}
 
-        private async Task tick()
-        {
-            if (_testCompleted) return;
-            await Task.Delay(10);
-            _onRepeatedlyExecute.Invoke(this, new AGSEventArgs());
-            await tick();
-        }
+		private async Task tick()
+		{
+			if (_testCompleted) return;
+			await Task.Delay(10);
+			await _onRepeatedlyExecute.InvokeAsync(this, new AGSEventArgs());
+			await tick();
+		}
 	}
 }
 

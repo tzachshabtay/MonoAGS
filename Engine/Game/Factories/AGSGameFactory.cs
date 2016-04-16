@@ -1,7 +1,7 @@
 ﻿using System;
 using AGS.API;
 using Autofac;
-using System.Drawing;
+
 using System.Diagnostics;
 
 namespace AGS.Engine

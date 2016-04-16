@@ -2,20 +2,20 @@
 using AGS.API;
 using System.Drawing;
 
-namespace AGS.Engine
+namespace AGS.Engine.Desktop
 {
-	public class AGSBrush : IBrush
+	public class DesktopBrush : IBrush
 	{
-		public AGSBrush(Brush brush)
+		public DesktopBrush(Brush brush)
 		{
 			InnerBrush = brush;
 		}
 
 		public Brush InnerBrush { get; private set; }
 
-		public static AGSBrush Solid(IColor color)
+		public static DesktopBrush Solid(AGS.API.Color color)
 		{
-			AGSBrush brush = new AGSBrush (new SolidBrush (System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B)));
+			DesktopBrush brush = new DesktopBrush (new SolidBrush (color.Convert()));
 			brush.Type = BrushType.Solid;
 			brush.Color = color;
 			return brush;
@@ -25,7 +25,7 @@ namespace AGS.Engine
 
 		public BrushType Type { get; private set; }
 
-		public IColor Color { get; private set; }
+		public AGS.API.Color Color { get; private set; }
 
 		public IBlend Blend { get; private set; }
 
@@ -33,19 +33,19 @@ namespace AGS.Engine
 
 		public IColorBlend InterpolationColors { get; private set; }
 
-		public IColor[] LinearColors { get; private set; }
+		public AGS.API.Color[] LinearColors { get; private set; }
 
 		public ITransformMatrix Transform { get; private set; }
 
 		public WrapMode WrapMode { get; private set; }
 
-		public IColor BackgroundColor { get; private set; }
+		public AGS.API.Color BackgroundColor { get; private set; }
 
 		public HatchStyle HatchStyle { get; private set; }
 
-		public IPoint CenterPoint { get; private set; }
+		public AGS.API.PointF CenterPoint { get; private set; }
 
-		public IPoint FocusScales { get; private set; }
+		public AGS.API.PointF FocusScales { get; private set; }
 
 		#endregion
 	}

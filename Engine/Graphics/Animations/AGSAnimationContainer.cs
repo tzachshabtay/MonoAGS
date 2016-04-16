@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 using System.Threading.Tasks;
 
 namespace AGS.Engine
@@ -22,12 +22,12 @@ namespace AGS.Engine
 		{
 			this._factory = factory;
 			this._sprite = sprite;
-			Anchor = new AGSPoint (0.5f, 0f);
+			Anchor = new PointF (0.5f, 0f);
 
 			ScaleX = 1;
 			ScaleY = 1;
 
-			Tint = (AGSColor)Color.White;
+			Tint =  Colors.White;
 		}
 
 		/// <summary>
@@ -80,13 +80,13 @@ namespace AGS.Engine
 		public void FlipHorizontally()
 		{
 			ScaleBy(-ScaleX, ScaleY);
-			Anchor = new AGSPoint (-Anchor.X, Anchor.Y);
+			Anchor = new PointF (-Anchor.X, Anchor.Y);
 		}
 
 		public void FlipVertically()
 		{
 			ScaleBy(ScaleX, -ScaleY);
-			Anchor = new AGSPoint (Anchor.X, -Anchor.Y);
+			Anchor = new PointF (Anchor.X, -Anchor.Y);
 		}
 
 		public ISprite Clone()
@@ -109,9 +109,9 @@ namespace AGS.Engine
 
 		public byte Opacity { get { return _sprite.Opacity; } set { _sprite.Opacity = value; } }
 
-		public IColor Tint { get { return _sprite.Tint; } set { _sprite.Tint = value; } }
+		public Color Tint { get { return _sprite.Tint; } set { _sprite.Tint = value; } }
 
-		public IPoint Anchor { get { return _sprite.Anchor; } set { _sprite.Anchor = value; } }
+		public PointF Anchor { get { return _sprite.Anchor; } set { _sprite.Anchor = value; } }
 
 		public float X { get { return _sprite.X; } set { _sprite.X = value; } }
 		public float Y { get { return _sprite.Y; } set { _sprite.Y = value; } }

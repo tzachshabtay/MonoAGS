@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Drawing;
+
 using AGS.API;
 
 namespace AGS.Engine
 {
 	public class AGSGameSettings : IGameSettings
 	{
-		public static IFont DefaultSpeechFont = new AGSFont(new Font(SystemFonts.DefaultFont.FontFamily
-			, 14f, FontStyle.Regular));
+		public static IFont DefaultSpeechFont = Hooks.FontLoader.LoadFont(null, 14f, FontStyle.Regular); 
 		
-		public static IFont DefaultTextFont = new AGSFont(new Font(SystemFonts.DefaultFont.FontFamily
-			, 14f, FontStyle.Regular));
+		public static IFont DefaultTextFont = Hooks.FontLoader.LoadFont(null, 14f, FontStyle.Regular);
 
 		public AGSGameSettings(string title, AGS.API.Size virtualResolution, WindowState windowState = WindowState.Maximized,
             AGS.API.Size? windowSize = null, VsyncMode vsync = VsyncMode.On)

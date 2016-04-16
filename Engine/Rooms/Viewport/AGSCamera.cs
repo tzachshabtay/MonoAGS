@@ -1,7 +1,7 @@
 ﻿using System;
 using AGS.API;
 using OpenTK;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -89,7 +89,7 @@ namespace AGS.Engine
 
 			foreach (var area in target.Room.ScalingAreas)
 			{
-				if (!area.Enabled || !area.ZoomCamera || !area.IsInArea(target.Location)) continue;
+				if (!area.Enabled || !area.ZoomCamera || !area.IsInArea(target.Location.XY)) continue;
                 float scale = area.GetScaling(target.Y);
 				return scale;
 			}

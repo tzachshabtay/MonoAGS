@@ -1,7 +1,7 @@
 ﻿using System;
 using AGS.API;
 using OpenTK;
-using System.Drawing;
+
 using System.Collections.Generic;
 
 namespace AGS.Engine
@@ -86,7 +86,7 @@ namespace AGS.Engine
 
 		#region IImageRenderer implementation
 
-		public void Prepare(IObject obj, IViewport viewport, IPoint areaScaling)
+		public void Prepare(IObject obj, IViewport viewport, PointF areaScaling)
 		{
 			_glText = _glText ?? new GLText (_bitmapPool);
 
@@ -95,20 +95,20 @@ namespace AGS.Engine
 			_bgRenderer.Prepare(obj, viewport, areaScaling);
 		}
 
-		public void Render(IObject obj, IViewport viewport, IPoint areaScaling)
+		public void Render(IObject obj, IViewport viewport, PointF areaScaling)
 		{
 			_bgRenderer.Render(obj, viewport, areaScaling);
 
 			if (TextVisible)
 			{
-				IGLColor color = _colorBuilder.Build((AGSColor)Color.White);
+				IGLColor color = _colorBuilder.Build(Colors.White);
 				_textureRenderer.Render(_glText.Texture, _usedTextBoundingBoxes.RenderBox, color);
 			}
 		}
 
 		#endregion
 
-		private void updateBoundingBoxes(IObject obj, IViewport viewport, IPoint areaScaling)
+		private void updateBoundingBoxes(IObject obj, IViewport viewport, PointF areaScaling)
 		{
 			ITextConfig config = Config;
 			AutoFit autoFit = TextVisible && config != null ? config.AutoFit : AutoFit.NoFitting;
@@ -201,7 +201,7 @@ namespace AGS.Engine
 			public IGLMatrices Matrices { get; set; }
 
 			#region IGLMatrixBuilder implementation
-			public IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport, IPoint areaScaling)
+			public IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport, PointF areaScaling)
 			{
 				return Matrices;
 			}

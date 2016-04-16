@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
 
-namespace AGS.Engine
+namespace AGS.Engine.Desktop
 {
 	public class FastBitmap : IDisposable
 	{

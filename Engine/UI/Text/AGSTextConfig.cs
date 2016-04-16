@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -11,7 +11,7 @@ namespace AGS.Engine
 			Alignment alignment = Alignment.TopLeft, AutoFit autoFit = AutoFit.NoFitting,
 			float paddingLeft = 2f, float paddingRight = 2f, float paddingTop = 2f, float paddingBottom = 2f)
 		{
-			Brush = brush ?? new AGSBrush(Brushes.White);
+			Brush = brush ?? Hooks.BrushLoader.LoadSolidBrush(Colors.White);
 			Font = font ?? AGSGameSettings.DefaultTextFont;
 			OutlineBrush = outlineBrush;
 			OutlineWidth = outlineWidth;

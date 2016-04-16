@@ -10,7 +10,7 @@ namespace AGS.Engine
 		{
 		}
 
-		public static readonly IPoint NoScaling = new AGSPoint(1f,1f);
+		public static readonly PointF NoScaling = new PointF(1f,1f);
 
 		#region IGLMatrices implementation
 
@@ -22,7 +22,7 @@ namespace AGS.Engine
 
 		//http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
 		//http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
-		public IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport, IPoint areaScaling)
+		public IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport, PointF areaScaling)
 		{
 			Matrix4 spriteMatrix = getModelMatrix (sprite, NoScaling);
 			Matrix4 objMatrix = getModelMatrix (obj, areaScaling);
@@ -39,9 +39,9 @@ namespace AGS.Engine
 			return this;		
 		}
 
-		private Matrix4 getModelMatrix(ISprite sprite, IPoint areaScaling)
+		private Matrix4 getModelMatrix(ISprite sprite, PointF areaScaling)
 		{
-			IPoint anchorOffsets = getAnchorOffsets (sprite.Anchor, sprite.Width, sprite.Height);
+			PointF anchorOffsets = getAnchorOffsets (sprite.Anchor, sprite.Width, sprite.Height);
 			Matrix4 anchor = Matrix4.CreateTranslation (new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
 			Matrix4 scale = Matrix4.CreateScale (new Vector3 (sprite.ScaleX * areaScaling.X, 
 				sprite.ScaleY * areaScaling.Y, 1f));
@@ -50,11 +50,11 @@ namespace AGS.Engine
 			return anchor * scale * rotation * transform;
 		}
 
-		private IPoint getAnchorOffsets(IPoint anchor, float width, float height)
+		private PointF getAnchorOffsets(PointF anchor, float width, float height)
 		{
 			float x = MathUtils.Lerp (0f, 0f, 1f, width, anchor.X);
 			float y = MathUtils.Lerp (0f, 0f, 1f, height, anchor.Y);
-			return new AGSPoint (x, y);
+			return new PointF (x, y);
 		}
 	}
 }

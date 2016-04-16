@@ -40,8 +40,8 @@ namespace AGS.Engine
 			int toX = (int)to.X;
 			int toY = (int)to.Y;
 			SpatialAStar<PathNode, object> finder = new SpatialAStar<PathNode, object> (_pathMask);
-			var paths = finder.Search (new System.Drawing.Point (fromX, fromY), 
-				new System.Drawing.Point ((int)to.X, (int)to.Y), null);
+			var paths = finder.Search (new Point (fromX, fromY), 
+				new Point ((int)to.X, (int)to.Y), null);
 			if (paths == null)
 				yield break;
 		    if (!SmoothPath) 

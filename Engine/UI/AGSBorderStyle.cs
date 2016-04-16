@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -9,14 +9,14 @@ namespace AGS.Engine
 		public AGSBorderStyle()
 		{
 			LineWidth = 10f;
-			Color = (AGSColor)System.Drawing.Color.Black;
+			Color = Colors.Black;
 		}
 
 		#region IBorderStyle implementation
 
 		public float LineWidth { get; set; }
 
-		public IColor Color { get; set; }
+		public Color Color { get; set; }
 
 		#endregion
 	}

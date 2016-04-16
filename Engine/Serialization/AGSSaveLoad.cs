@@ -8,9 +8,7 @@ using System.Diagnostics;
 using System.Reflection;
 using ProtoBuf.Meta;
 using System.Linq;
-using System.Drawing;
 using System.Runtime.CompilerServices;
-using System.Drawing.Drawing2D;
 
 namespace AGS.Engine
 {
@@ -129,7 +127,6 @@ namespace AGS.Engine
 			if (!_firstTimeSetup) return;
 			_firstTimeSetup = false;
 
-			setupSurrogates();
 			setupContracts();
 		}
 
@@ -156,18 +153,6 @@ namespace AGS.Engine
 				contractWrapper = contractWrapper.MakeGenericType(contract.GetGenericArguments()[0]);
 				RuntimeTypeModel.Default.Add(contract, true).AddSubType(ContractsFactory.RunningID++, contractWrapper);
 			}
-		}
-
-		private void setupSurrogates()
-		{
-			RuntimeTypeModel.Default.Add(typeof(Color), false).SetSurrogate(typeof(ProtoColor));
-			RuntimeTypeModel.Default.Add(typeof(Font), false).SetSurrogate(typeof(ProtoFont));
-			RuntimeTypeModel.Default.Add(typeof(Brush), false).SetSurrogate(typeof(ProtoBrush));
-			RuntimeTypeModel.Default.Add(typeof(Blend), false).SetSurrogate(typeof(ProtoBlend));
-			RuntimeTypeModel.Default.Add(typeof(ColorBlend), false).SetSurrogate(typeof(ProtoColorBlend));
-			RuntimeTypeModel.Default.Add(typeof(Matrix), false).SetSurrogate(typeof(ProtoMatrix));
-			RuntimeTypeModel.Default.Add(typeof(PointF), false).SetSurrogate(typeof(ProtoPointF));
-			RuntimeTypeModel.Default.Add(typeof(Point), false).SetSurrogate(typeof(ProtoPoint));
 		}
 
 		private static Type getSupportedInterfaces(Type type,Type inter)

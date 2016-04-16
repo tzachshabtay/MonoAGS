@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 using System.Collections.Generic;
 
 namespace AGS.Engine

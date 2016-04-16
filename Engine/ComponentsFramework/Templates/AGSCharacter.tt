@@ -29,7 +29,6 @@
     	{
     		base.WriteAdditionalUsings();
     		WriteLine("using System.Threading.Tasks;");
-    		WriteLine("using System.Drawing;");
     		WriteLine("using System.Collections.Generic;");
     		Write("using Autofac;");
     	}

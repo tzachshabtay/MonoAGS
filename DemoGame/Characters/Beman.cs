@@ -17,7 +17,7 @@ namespace DemoGame
 			IGameFactory factory = game.Factory;
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
 			{ 
-				TransparentColorSamplePoint = new AGSPoint (0, 0) 
+				TransparentColorSamplePoint = new AGS.API.Point (0, 0) 
 			};
 
 			IOutfit outfit = factory.Outfit.LoadOutfitFromFolders(_baseFolder, 

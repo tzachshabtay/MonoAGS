@@ -7,17 +7,17 @@
 		//We use these descriptors for convenience, since each square in our engine was converted from
 		//a rectangle which does have bottom left, etc.
 		//Also, the order of the points is important for the "Contains" calculation.
-		IPoint BottomLeft { get; }
-		IPoint BottomRight { get; }
-		IPoint TopLeft { get; }
-		IPoint TopRight { get; }
+		PointF BottomLeft { get; }
+		PointF BottomRight { get; }
+		PointF TopLeft { get; }
+		PointF TopRight { get; }
 
 		float MinX { get; }
 		float MaxX { get; }
 		float MinY { get; }
 		float MaxY { get; }
 
-		bool Contains(IPoint point);
+		bool Contains(PointF point);
 	}
 }
 

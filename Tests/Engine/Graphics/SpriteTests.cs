@@ -5,6 +5,7 @@ using AGS.API;
 using Moq;
 using System.Drawing;
 using System.Collections.Generic;
+using AGS.Engine.Desktop;
 
 namespace Tests
 {
@@ -87,7 +88,7 @@ namespace Tests
 			{
 				Mock<IMask> mask = new Mock<IMask> ();
 				Bitmap bitmap = new Bitmap (1, 1);
-				AGSBitmap ibitmap = new AGSBitmap (bitmap);
+				DesktopBitmap ibitmap = new DesktopBitmap (bitmap);
 				_mocks.Image().Setup(i => i.OriginalBitmap).Returns(ibitmap);
 				_mocks.MaskLoader().Setup(m => m.Load(ibitmap, false, null, null)).Returns(mask.Object);
 

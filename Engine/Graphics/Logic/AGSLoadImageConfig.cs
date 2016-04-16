@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -12,7 +12,7 @@ namespace AGS.Engine
 
 		#region ILoadImageConfig implementation
 
-		public IPoint TransparentColorSamplePoint { get; set; }
+		public Point? TransparentColorSamplePoint { get; set; }
 
 		#endregion
 	}

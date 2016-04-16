@@ -8,7 +8,7 @@
 		/// (0,0) for selecting the color on the top-left pixel of the image.
 		/// </summary>
 		/// <value>The transparent color sample point.</value>
-		IPoint TransparentColorSamplePoint { get; }
+		Point? TransparentColorSamplePoint { get; }
 	}
 }
 

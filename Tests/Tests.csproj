@@ -66,6 +66,7 @@
     <Compile Include="Engine\Objects\Characters\Walking\WalkBehaviorTests.cs" />
     <Compile Include="Engine\Serialization\SaveLoadTests.cs" />
     <Compile Include="Engine\Rooms\Viewport\CameraTests.cs" />
+    <Compile Include="Engine\TestAssembly.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -80,6 +81,10 @@
     <ProjectReference Include="..\AGS.API\AGS.API.csproj">
       <Project>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</Project>
       <Name>AGS.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AGS.Engine.Desktop\AGS.Engine.Desktop.csproj">
+      <Project>{1C51A706-4D2C-49D4-972F-CB5075324F5F}</Project>
+      <Name>AGS.Engine.Desktop</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

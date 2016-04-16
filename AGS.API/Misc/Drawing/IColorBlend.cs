@@ -4,7 +4,7 @@ namespace AGS.API
 {
 	public interface IColorBlend
 	{
-		IColor[] Colors { get; }
+		Color[] Colors { get; }
 		float[] Positions { get; }
 	}
 }

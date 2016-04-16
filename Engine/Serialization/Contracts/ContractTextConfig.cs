@@ -1,7 +1,7 @@
 ﻿using System;
 using ProtoBuf;
 using AGS.API;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -13,22 +13,22 @@ namespace AGS.Engine
 		}
 
 		[ProtoMember(1)]
-		public Brush Brush { get; set; }
+		public IContract<IBrush> Brush { get; set; }
 
 		[ProtoMember(2)]
-		public Font Font { get; set; }
+		public IContract<IFont> Font { get; set; }
 
 		[ProtoMember(3)]
 		public Alignment Alignment { get; set; }
 
 		[ProtoMember(4)]
-		public Brush OutlineBrush { get; set; }
+		public IContract<IBrush> OutlineBrush { get; set; }
 
 		[ProtoMember(5)]
 		public float OutlineWidth { get; set; }
 
 		[ProtoMember(6)]
-		public Brush ShadowBrush  { get; set; }
+		public IContract<IBrush> ShadowBrush  { get; set; }
 
 		[ProtoMember(7)]
 		public float ShadowOffsetX { get; set; }
@@ -55,19 +55,19 @@ namespace AGS.Engine
 
 		public ITextConfig ToItem(AGSSerializationContext context)
 		{
-			AGSTextConfig config = new AGSTextConfig (new AGSBrush (Brush), new AGSFont (Font), new AGSBrush (OutlineBrush), OutlineWidth,
-				                       new AGSBrush (ShadowBrush), ShadowOffsetX, ShadowOffsetY, Alignment, AutoFit, PaddingLeft,
+			AGSTextConfig config = new AGSTextConfig (Brush.ToItem(context), Font.ToItem(context), OutlineBrush.ToItem(context), OutlineWidth,
+				                       ShadowBrush.ToItem(context), ShadowOffsetX, ShadowOffsetY, Alignment, AutoFit, PaddingLeft,
 				                       PaddingRight, PaddingTop, PaddingBottom);
 			return config;
 		}
 
 		public void FromItem(AGSSerializationContext context, ITextConfig item)
 		{
-			Brush = ((AGSBrush)item.Brush).InnerBrush;
-			Font = ((AGSFont)item.Font).InnerFont;
-			OutlineBrush = item.OutlineBrush == null ? null : ((AGSBrush)item.OutlineBrush).InnerBrush;
+			Brush = context.GetContract(item.Brush);
+			Font = context.GetContract(item.Font);
+			OutlineBrush = context.GetContract(item.OutlineBrush);
 			OutlineWidth = item.OutlineWidth;
-			ShadowBrush = item.ShadowBrush == null ? null : ((AGSBrush)item.ShadowBrush).InnerBrush;
+			ShadowBrush = context.GetContract(item.ShadowBrush);
 			ShadowOffsetX = item.ShadowOffsetX;
 			ShadowOffsetY = item.ShadowOffsetY;
 			Alignment = item.Alignment;

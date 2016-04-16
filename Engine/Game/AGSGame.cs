@@ -6,7 +6,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System.Threading;
 using System.Diagnostics;
-using System.Drawing;
+
 using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
@@ -67,7 +67,7 @@ namespace AGS.Engine
                 settings.VirtualResolution.Height, GraphicsMode.Default, settings.Title))
 			{
 				GL.ClearColor(0, 0.1f, 0.4f, 1);
-				_game.Size = new System.Drawing.Size(settings.WindowSize.Width, settings.WindowSize.Height);
+				Hooks.GameWindowSize.SetSize(_game, settings.WindowSize);
 				setWindowState(settings);
 
 				_game.Load += async (sender, e) =>

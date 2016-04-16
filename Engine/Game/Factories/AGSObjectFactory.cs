@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 using Autofac;
 
 namespace AGS.Engine
@@ -50,7 +50,7 @@ namespace AGS.Engine
 			string[] sayWhenInteract = null, string id = null)
 		{
 			IMaskLoader maskLoader = _resolver.Resolve<IMaskLoader>();
-			IMask mask = maskLoader.Load(maskPath, debugDrawColor: (AGSColor)Color.White, id: id ?? hotspot);
+			IMask mask = maskLoader.Load(maskPath, debugDrawColor:  Colors.White, id: id ?? hotspot);
 			mask.DebugDraw.PixelPerfect(true);
 			mask.DebugDraw.Hotspot = hotspot;
 			mask.DebugDraw.Opacity = 0;

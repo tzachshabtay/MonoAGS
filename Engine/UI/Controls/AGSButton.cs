@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -13,7 +13,7 @@ namespace AGS.Engine
 			RenderLayer = AGSLayers.UI;
 			IgnoreScalingArea = true;
 			IgnoreViewport = true;
-			Anchor = new AGSPoint ();
+			Anchor = new PointF ();
 
 			_labelRenderer = labelRenderer;
 			_labelRenderer.BaseSize = baseSize;

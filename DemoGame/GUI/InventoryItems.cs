@@ -18,7 +18,7 @@ namespace DemoGame
 		{
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
 			{
-				TransparentColorSamplePoint = new AGSPoint(0,0),
+				TransparentColorSamplePoint = new AGS.API.Point(0,0),
 			};
 			Bottle = factory.Inventory.GetInventoryItem("Bottle", "../../Assets/Rooms/EmptyStreet/bottle.bmp");
 			VoodooDoll = factory.Inventory.GetInventoryItem("Voodoo Doll", _baseFolder + "voodooDoll.bmp", null, loadConfig, true);

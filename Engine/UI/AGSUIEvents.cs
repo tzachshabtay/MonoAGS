@@ -70,7 +70,7 @@ namespace AGS.Engine
 		private async Task onRepeatedlyExecute(object sender, EventArgs args)
 		{
 			if (!_enabled.Enabled || !_visible.Visible) return;
-			IPoint position = _input.MousePosition;
+			PointF position = _input.MousePosition;
 			IViewport viewport = _state.Player.Character.Room.Viewport;
 
 			//todo: Support mouseX/Y When IgnoreScalingArea = false (i.e 4 options: IgnoreScaling+IgnoreViewport,IgnoreScaling,IgnoreViewport,None)

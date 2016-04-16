@@ -1,20 +1,20 @@
 ﻿using System;
 using AGS.API;
+using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using System.Drawing.Imaging;
-using OpenTK.Graphics.OpenGL;
 
-namespace AGS.Engine
+namespace AGS.Engine.Desktop
 {
-	public class AGSBitmap : IBitmap
+	public class DesktopBitmap : IBitmap
 	{
 		private Bitmap _bitmap;
 		private IBitmapTextDraw _textDraw;
 
-		public AGSBitmap(Bitmap bitmap)
+		public DesktopBitmap(Bitmap bitmap)
 		{
 			_bitmap = bitmap;
-			_textDraw = new AGSBitmapTextDraw (_bitmap);
+			_textDraw = new DesktopBitmapTextDraw (_bitmap);
 		}
 
 		#region IBitmap implementation
@@ -24,19 +24,19 @@ namespace AGS.Engine
 			_bitmap.Clear();
 		}
 
-		public IColor GetPixel(int x, int y)
+		public AGS.API.Color GetPixel(int x, int y)
 		{
-			return (AGSColor)_bitmap.GetPixel(x, y);
+			return _bitmap.GetPixel(x, y).Convert();
 		}
 
-		public void MakeTransparent(IColor color)
+		public void MakeTransparent(AGS.API.Color color)
 		{
-			_bitmap.MakeTransparent(Color.FromArgb(color.A, color.R, color.G, color.B));
+			_bitmap.MakeTransparent(color.Convert());
 		}
 
 		public void LoadTexture(int? textureToBind)
 		{
-			BitmapData data = _bitmap.LockBits(new Rectangle(0, 0, Width, Height),
+			BitmapData data = _bitmap.LockBits(new System.Drawing.Rectangle(0, 0, Width, Height),
 				ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
 			if (textureToBind != null) 
@@ -62,19 +62,24 @@ namespace AGS.Engine
 						int bitmapY = Height - y - 1;
 						for (int x = 0; x < Width; x++)
 						{
-							Color color = inBmp.GetPixel(x, bitmapY);
-							byte alpha = area.IsInArea(new AGSPoint(x, y)) ? color.A : zero;
-							outBmp.SetPixel(x, bitmapY, Color.FromArgb(alpha, color));
+							System.Drawing.Color color = inBmp.GetPixel(x, bitmapY);
+							byte alpha = area.IsInArea(new AGS.API.PointF(x, y)) ? color.A : zero;
+							outBmp.SetPixel(x, bitmapY, System.Drawing.Color.FromArgb(alpha, color));
 						}
 					}
 				}
 			}
 
-			return new AGSBitmap(output);
+			return new DesktopBitmap(output);
+		}
+
+		public IBitmap Crop(AGS.API.Rectangle cropRect)
+		{
+			return new DesktopBitmap(_bitmap.Clone (cropRect.Convert(), _bitmap.PixelFormat)); //todo: improve performance by using FastBitmap
 		}
 
 		public IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, 
-			IColor debugDrawColor = null, string saveMaskToFile = null, string id = null)
+			AGS.API.Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
 		{
 			Bitmap debugMask = null;
 			FastBitmap debugMaskFast = null;
@@ -85,8 +90,7 @@ namespace AGS.Engine
 			}
 
 			bool[][] mask = new bool[Width][];
-			Color drawColor = debugDrawColor != null ? Color.FromArgb(debugDrawColor.A, debugDrawColor.R,
-				debugDrawColor.G, debugDrawColor.B) : Color.Black;
+			System.Drawing.Color drawColor = debugDrawColor != null ? debugDrawColor.Value.Convert() : System.Drawing.Color.Black;
 
 			using (FastBitmap bitmapData = new FastBitmap (_bitmap, ImageLockMode.ReadOnly))
 			{
@@ -106,7 +110,7 @@ namespace AGS.Engine
 
 						if (debugMask != null)
 						{
-							debugMaskFast.SetPixel(x, y, masked ? drawColor : Color.Transparent);
+							debugMaskFast.SetPixel(x, y, masked ? drawColor : System.Drawing.Color.Transparent);
 						}
 					}
 				}
@@ -123,8 +127,8 @@ namespace AGS.Engine
 			if (debugDrawColor != null)
 			{
 				debugDraw = factory.Object.GetObject(id ?? path ?? "Mask Drawable");
-				debugDraw.Image = factory.Graphics.LoadImage(new AGSBitmap(debugMask), null, path);
-				debugDraw.Anchor = new AGSPoint ();
+				debugDraw.Image = factory.Graphics.LoadImage(new DesktopBitmap(debugMask), null, path);
+				debugDraw.Anchor = new AGS.API.PointF ();
 			}
 
 			return new AGSMask (mask, debugDraw);

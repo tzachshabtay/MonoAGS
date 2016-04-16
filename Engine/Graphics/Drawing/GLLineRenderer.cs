@@ -15,11 +15,11 @@ namespace AGS.Engine
 
 		#region ICustomRenderer implementation
 
-		public void Prepare(IObject obj, IViewport viewport, IPoint areaScaling)
+		public void Prepare(IObject obj, IViewport viewport, PointF areaScaling)
 		{
 		}
 
-		public void Render (IObject obj, IViewport viewport, IPoint areaScaling)
+		public void Render (IObject obj, IViewport viewport, PointF areaScaling)
 		{
 			float x1 = obj.IgnoreViewport ? X1 : X1 - viewport.X;
 			float x2 = obj.IgnoreViewport ? X2 : X2 - viewport.X;

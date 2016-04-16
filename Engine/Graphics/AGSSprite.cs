@@ -1,6 +1,5 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
 
 namespace AGS.Engine
 {
@@ -14,9 +13,9 @@ namespace AGS.Engine
 			_maskLoader = maskLoader;
 			ScaleX = 1;
 			ScaleY = 1;
-			Anchor = new AGSPoint ();
+			Anchor = new PointF ();
 
-			Tint = (AGSColor)Color.White;
+			Tint =  Colors.White;
 			Location = AGSLocation.Empty ();
 		}
 
@@ -61,13 +60,13 @@ namespace AGS.Engine
 		public void FlipHorizontally()
 		{
 			ScaleBy(-ScaleX, ScaleY);
-			Anchor = new AGSPoint (-Anchor.X, Anchor.Y);
+			Anchor = new PointF (-Anchor.X, Anchor.Y);
 		}
 
 		public void FlipVertically()
 		{
 			ScaleBy(ScaleX, -ScaleY);
-			Anchor = new AGSPoint (Anchor.X, -Anchor.Y);
+			Anchor = new PointF (Anchor.X, -Anchor.Y);
 		}
 
 		public ISprite Clone()
@@ -96,12 +95,12 @@ namespace AGS.Engine
 		public byte Opacity 
 		{ 
 			get { return Tint.A; }
-			set { Tint = new AGSColor(Tint.R, Tint.G, Tint.B, value); }
+			set { Tint = Color.FromArgb(value, Tint.R, Tint.G, Tint.B); }
 		}
 
-		public IColor Tint { get; set; }
+		public Color Tint { get; set; }
 
-		public IPoint Anchor { get; set; }
+		public PointF Anchor { get; set; }
 
 		public IImage Image 
 		{ 

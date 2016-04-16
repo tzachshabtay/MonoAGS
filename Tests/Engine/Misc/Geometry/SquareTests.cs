@@ -20,9 +20,9 @@ namespace Tests
 		public bool InsideSquareTest (float ax, float ay, float bx, float @by, 
 			float cx, float cy, float dx, float dy, float px, float py)
 		{
-			AGSSquare square = new AGSSquare (new AGSPoint (ax, ay), new AGSPoint (bx, @by),
-				                   new AGSPoint (cx, cy), new AGSPoint (dx, dy));
-			return square.Contains (new AGSPoint (px, py));
+			AGSSquare square = new AGSSquare (new AGS.API.PointF (ax, ay), new AGS.API.PointF (bx, @by),
+				new AGS.API.PointF (cx, cy), new AGS.API.PointF (dx, dy));
+			return square.Contains (new AGS.API.PointF (px, py));
 		}
 	}
 }

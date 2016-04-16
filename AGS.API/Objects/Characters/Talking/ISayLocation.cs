@@ -2,7 +2,7 @@
 {
     public interface ISayLocation
 	{
-		IPoint GetLocation(string text, SizeF labelSize, ITextConfig config);
+		PointF GetLocation(string text, SizeF labelSize, ITextConfig config);
 	}
 }
 

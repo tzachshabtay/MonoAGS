@@ -1,6 +1,6 @@
 ﻿using System;
 using ProtoBuf;
-using System.Drawing;
+
 using AGS.API;
 using System.Collections.Generic;
 
@@ -29,7 +29,7 @@ namespace AGS.Engine
 		public float Angle { get; set; }
 
 		[ProtoMember(6)]
-		public Color Tint { get; set; }
+		public uint Tint { get; set; }
 
 		[ProtoMember(7)]
 		public Tuple<float, float> Anchor { get; set; }
@@ -57,9 +57,9 @@ namespace AGS.Engine
 				sprite.ScaleBy(ScaleX, ScaleY);
 			}
 			sprite.Location = new AGSLocation (Location.Item1, Location.Item2, Location.Item3);
-			sprite.Anchor = new AGSPoint (Anchor.Item1, Anchor.Item2);
+			sprite.Anchor = new PointF (Anchor.Item1, Anchor.Item2);
 			sprite.Angle = Angle;
-			sprite.Tint = (AGSColor)Tint;
+			sprite.Tint = Color.FromHexa(Tint);
 
 			sprite.PixelPerfect(IsPixelPerfect);
 		}
@@ -69,7 +69,7 @@ namespace AGS.Engine
 			Image = new Contract<IImage> ();
 			Image.FromItem(context, sprite.Image);
 			Anchor = new Tuple<float, float> (sprite.Anchor.X, sprite.Anchor.Y);
-			Tint = sprite.Tint == null ? Color.White : Color.FromArgb(sprite.Tint.A, sprite.Tint.R, sprite.Tint.G, sprite.Tint.B);
+			Tint = sprite.Tint.Value;
 			Angle = sprite.Angle;
 			ScaleX = sprite.ScaleX;
 			ScaleY = sprite.ScaleY;

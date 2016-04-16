@@ -2,7 +2,7 @@
 {
     public interface IInput : IInputEvents
 	{
-		IPoint MousePosition { get; }
+		PointF MousePosition { get; }
 		float MouseX { get; }
 		float MouseY { get; }
 		bool LeftMouseButtonDown { get; }

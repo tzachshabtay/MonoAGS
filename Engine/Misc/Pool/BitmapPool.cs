@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Drawing;
+
 using AGS.API;
 
 namespace AGS.Engine
@@ -52,7 +52,7 @@ namespace AGS.Engine
 		private ObjectPool<IBitmap> getPool(int width, int height)
 		{
 			AGS.API.Size size = new AGS.API.Size (width, height);
-			return _bitmaps.GetOrAdd(size, _ => new ObjectPool<IBitmap> (() => (IBitmap)new AGSBitmap(new Bitmap (width, height)), 3,
+			return _bitmaps.GetOrAdd(size, _ => new ObjectPool<IBitmap> (() => Hooks.BitmapLoader.Load(width, height), 3,
 				bitmap => bitmap.Clear()));
 		}
 

@@ -2,7 +2,7 @@
 using System.Linq;
 using AGS.API;
 using System.Collections.Generic;
-using System.Drawing;
+
 using System.Collections.Concurrent;
 
 namespace AGS.Engine
@@ -55,7 +55,7 @@ namespace AGS.Engine
 				}
 				if (_background != null)
 				{
-					_background.Anchor = new AGSPoint ();
+					_background.Anchor = new PointF ();
 				}
 			} 
 		}

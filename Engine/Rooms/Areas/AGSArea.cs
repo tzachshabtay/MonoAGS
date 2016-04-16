@@ -28,17 +28,17 @@ namespace AGS.Engine
 
 		#region IArea implementation
 
-		public bool IsInArea (IPoint point)
+		public bool IsInArea (PointF point)
 		{
 			return Mask.IsMasked(point);
 		}
 
-		public bool IsInArea(IPoint point, ISquare projectionBox, float scaleX, float scaleY)
+		public bool IsInArea(PointF point, ISquare projectionBox, float scaleX, float scaleY)
 		{
 			return Mask.IsMasked(point, projectionBox, scaleX, scaleY);
 		}
 
-		public IPoint FindClosestPoint (IPoint point, out float distance)
+		public PointF? FindClosestPoint (PointF point, out float distance)
 		{
 			int x = (int)point.X;
 			int y = (int)point.Y;
@@ -67,7 +67,7 @@ namespace AGS.Engine
 				y = height - 1;
 			}
 			float insideDistance;
-			IPoint result = findClosestPoint(x, y, width, height, out insideDistance);
+			PointF? result = findClosestPoint(x, y, width, height, out insideDistance);
 			distance += insideDistance;
 			return result;
 		}
@@ -77,16 +77,16 @@ namespace AGS.Engine
 
 		#endregion
 
-		private IPoint findClosestPoint(int x, int y, int width, int height, out float distance)
+		private PointF? findClosestPoint(int x, int y, int width, int height, out float distance)
 		{
 			//todo: This will not always give the real closest position.
 			//It's "good enough" most of the time, but can be improved (it only searches using straight lines currently).
 			distance = float.MaxValue;
-			IPoint closestPoint = null;
+			PointF? closestPoint = null;
 			foreach (var vector in _searchVectors) 
 			{
 				float tmpDistance;
-				IPoint point = findClosestPoint (x, y, width, height, vector.Item1, vector.Item2, out tmpDistance);
+				PointF? point = findClosestPoint (x, y, width, height, vector.Item1, vector.Item2, out tmpDistance);
 				if (tmpDistance < distance) 
 				{
 					closestPoint = point;
@@ -96,7 +96,7 @@ namespace AGS.Engine
 			return closestPoint;
 		}
 			
-		private IPoint findClosestPoint(int x, int y, int width, int height, int stepX, int stepY,
+		private PointF? findClosestPoint(int x, int y, int width, int height, int stepX, int stepY,
 			out float distance)
 		{
 			distance = 0f;
@@ -113,7 +113,7 @@ namespace AGS.Engine
 					return null;
 				}
 			}
-			return new AGSPoint (x, y);
+			return new PointF (x, y);
 		}
 	}
 }

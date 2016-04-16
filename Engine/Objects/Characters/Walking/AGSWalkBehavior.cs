@@ -105,12 +105,12 @@ namespace AGS.Engine
 
 		public void PlaceOnWalkableArea()
 		{
-			AGSPoint current = new AGSPoint (_obj.X, _obj.Y);
-			IPoint closestPoint = getClosestWalkablePoint (current);
+			PointF current = new PointF (_obj.X, _obj.Y);
+			PointF? closestPoint = getClosestWalkablePoint (current);
 			if (closestPoint != null) 
 			{
-				_obj.X = closestPoint.X;
-				_obj.Y = closestPoint.Y;
+				_obj.X = closestPoint.Value.X;
+				_obj.Y = closestPoint.Value.Y;
 			}
 		}
 
@@ -158,11 +158,13 @@ namespace AGS.Engine
 		{
 			IEnumerable<ILocation> walkPoints = getWalkPoints (location);
 
-			if (!walkPoints.Any ()) return false;
+			if (!walkPoints.Any ()) 
+				return false;
 			foreach (var point in walkPoints) 
 			{
 				if (point.X == _obj.X && point.Y == _obj.Y) continue;
-				if (!await walkStraightLine (point, token, debugRenderers)) return false;
+				if (!await walkStraightLine (point, token, debugRenderers)) 
+					return false;
 			}
 			return true;
 		}
@@ -180,16 +182,16 @@ namespace AGS.Engine
 			return token;
 		}
 
-		private IPoint getClosestWalkablePoint(IPoint target)
+		private PointF? getClosestWalkablePoint(PointF target)
 
 		{
-			IPoint closestPoint = null;
+			PointF? closestPoint = null;
 			float closestDistance = float.MaxValue;
 			foreach (IArea area in _obj.Room.WalkableAreas) 
 			{
 				if (!area.Enabled) continue;
 				float distance;
-				IPoint point = area.FindClosestPoint (target, out distance);
+				PointF? point = area.FindClosestPoint (target, out distance);
 				if (distance < closestDistance) 
 				{
 					closestPoint = point;
@@ -205,10 +207,10 @@ namespace AGS.Engine
 				return new List<ILocation> ();
 			if (!isWalkable (destination)) 
 			{
-				IPoint closest = getClosestWalkablePoint (destination);
+				PointF? closest = getClosestWalkablePoint (destination.XY);
 				if (closest == null)
 					return new List<ILocation> ();
-				destination = new AGSLocation (closest, destination.Z);
+				destination = new AGSLocation (closest.Value, destination.Z);
 			}
 			bool[][] mask = getWalkableMask ();
 			_pathFinder.Init (mask);
@@ -219,7 +221,7 @@ namespace AGS.Engine
 		{
 			foreach (var area in _obj.Room.WalkableAreas) 
 			{
-				if (area.IsInArea (location))
+				if (area.IsInArea (location.XY))
 					return true;
 			}
 			return false;
@@ -317,7 +319,7 @@ namespace AGS.Engine
             
             foreach (var area in _obj.Room.ScalingAreas)
             {
-                if (!area.Enabled || !area.ScaleObjects || !area.IsInArea(_obj.Location)) continue;
+				if (!area.Enabled || !area.ScaleObjects || !area.IsInArea(_obj.Location.XY)) continue;
                 float scale = area.GetScaling(_obj.Y);
                 if (scale != 1f)
                 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -17,7 +17,7 @@ namespace AGS.Engine
 
 		#region ISayLocation implementation
 
-		public IPoint GetLocation(string text, AGS.API.SizeF labelSize, ITextConfig config)
+		public PointF GetLocation(string text, AGS.API.SizeF labelSize, ITextConfig config)
 		{
 			//todo: need to account for alignment
 			AGS.API.SizeF size = getSize(text, labelSize, config);
@@ -29,7 +29,7 @@ namespace AGS.Engine
 			y = MathUtils.Clamp(y, 0f, Math.Min(_game.VirtualResolution.Height,
 				_game.VirtualResolution.Height - size.Height));
 
-			return new AGSPoint (x, y);
+			return new PointF (x, y);
 		}
 
 		#endregion

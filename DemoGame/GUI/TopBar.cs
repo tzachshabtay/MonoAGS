@@ -50,7 +50,7 @@ namespace DemoGame
 			_inventoryItemIcon = factory.Object.GetObject("Inventory Item Icon");
 			_inventoryItemIcon.X = 10f;
 			_inventoryItemIcon.Y = 10f;
-			_inventoryItemIcon.Anchor = new AGSPoint (0f, 0f);
+			_inventoryItemIcon.Anchor = new AGS.API.PointF (0f, 0f);
 			_inventoryItemIcon.TreeNode.SetParent(activeInvButton.TreeNode);
 			_inventoryItemIcon.RenderLayer = _panel.RenderLayer;
 			game.State.UI.Add(_inventoryItemIcon);
@@ -85,7 +85,7 @@ namespace DemoGame
 			if (_lastInventoryItem != null)
 			{
 				_inventoryItemIcon.Image = _lastInventoryItem.CursorGraphics.Image;
-				_inventoryItemIcon.Animation.Sprite.Anchor = new AGSPoint (0.5f, 0.5f);
+				_inventoryItemIcon.Animation.Sprite.Anchor = new AGS.API.PointF (0.5f, 0.5f);
 				_inventoryItemIcon.ScaleTo(15f, 15f);
 			}
 			_inventoryItemIcon.Visible = (_lastInventoryItem != null);

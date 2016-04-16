@@ -2,8 +2,8 @@
 {
     public interface IImageRenderer
 	{
-		void Prepare(IObject obj, IViewport viewport, IPoint areaScaling);
-		void Render(IObject obj, IViewport viewport, IPoint areaScaling);
+		void Prepare(IObject obj, IViewport viewport, PointF areaScaling);
+		void Render(IObject obj, IViewport viewport, PointF areaScaling);
 	}
 }
 

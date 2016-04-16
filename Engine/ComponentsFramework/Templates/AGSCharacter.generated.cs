@@ -9,7 +9,6 @@ using System;
 using AGS.API;
 using AGS.Engine;
 using System.Threading.Tasks;
-using System.Drawing;
 using System.Collections.Generic;
 using Autofac;
 
@@ -173,13 +172,13 @@ namespace AGS.Engine
 			set { _animationContainer.Opacity = value; } 
 		}
 
-		public IColor Tint 
+		public Color Tint 
 		{  
 			get { return _animationContainer.Tint; }  
 			set { _animationContainer.Tint = value; } 
 		}
 
-		public IPoint Anchor 
+		public PointF Anchor 
 		{  
 			get { return _animationContainer.Anchor; }  
 			set { _animationContainer.Anchor = value; } 
@@ -255,7 +254,7 @@ namespace AGS.Engine
 			set { _collider.BoundingBox = value; } 
 		}
 
-		public IPoint CenterPoint 
+		public PointF? CenterPoint 
 		{  
 			get { return _collider.CenterPoint; } 
 		}
@@ -400,7 +399,7 @@ namespace AGS.Engine
 			get { return _hotspotComponent.Interactions; } 
 		}
 
-		public IPoint WalkPoint 
+		public PointF? WalkPoint 
 		{  
 			get { return _hotspotComponent.WalkPoint; }  
 			set { _hotspotComponent.WalkPoint = value; } 

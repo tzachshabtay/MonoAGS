@@ -5,17 +5,17 @@ namespace AGS.API
 	public interface IBrush
 	{
 		BrushType Type { get; }
-		IColor Color { get; }
+		Color Color { get; }
 		IBlend Blend { get; }
 		bool GammaCorrection { get; }
 		IColorBlend InterpolationColors { get; }
-		IColor[] LinearColors { get; }
+		Color[] LinearColors { get; }
 		ITransformMatrix Transform { get; }
 		WrapMode WrapMode { get; }
-		IColor BackgroundColor { get; }
+		Color BackgroundColor { get; }
 		HatchStyle HatchStyle { get; }
-		IPoint CenterPoint { get; }
-		IPoint FocusScales { get; }
+		PointF CenterPoint { get; }
+		PointF FocusScales { get; }
 	}
 }
 

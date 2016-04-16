@@ -64,12 +64,14 @@ namespace AGS.Engine
 			
 		public void FaceDirection(IObject obj)
 		{
-			FaceDirection(obj.CenterPoint.X, obj.CenterPoint.Y);
+			PointF? point = obj.CenterPoint ?? obj.Location.XY;
+			FaceDirection(point.Value.X, point.Value.Y);
 		}
 
 		public async Task FaceDirectionAsync(IObject obj)
 		{
-			await FaceDirectionAsync(obj.CenterPoint.X, obj.CenterPoint.Y);
+			PointF? point = obj.CenterPoint ?? obj.Location.XY;
+			await FaceDirectionAsync(point.Value.X, point.Value.Y);
 		}
 
 		public void FaceDirection(float x, float y)

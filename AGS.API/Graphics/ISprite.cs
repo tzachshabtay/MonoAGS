@@ -16,8 +16,8 @@
 		float ScaleY { get; }
 		float Angle { get; set; }
 		byte Opacity { get; set; }
-		IColor Tint { get; set; }
-		IPoint Anchor { get; set; }
+		Color Tint { get; set; }
+		PointF Anchor { get; set; }
 
 		IImage Image { get; set; }
 		IImageRenderer CustomRenderer { get; set; }

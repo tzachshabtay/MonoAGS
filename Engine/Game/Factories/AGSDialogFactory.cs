@@ -1,7 +1,7 @@
 ﻿using System;
 using Autofac;
 using AGS.API;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -25,9 +25,9 @@ namespace AGS.Engine
 		{
 			IGame game = _resolver.Resolve<IGame>();
 			if (config == null) config = new AGSTextConfig (autoFit: AutoFit.TextShouldWrap,
-				brush: new AGSBrush(Brushes.White), font: new AGSFont(new Font(SystemFonts.DefaultFont.FontFamily, 10f)));
+				brush: Hooks.BrushLoader.LoadSolidBrush(Colors.White), font: Hooks.FontLoader.LoadFont(null,10f,FontStyle.Regular));
 			if (hoverConfig == null) hoverConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrap,
-				brush: new AGSBrush(Brushes.Yellow), font: new AGSFont(new Font(SystemFonts.DefaultFont.FontFamily, 10f)));
+				brush: Hooks.BrushLoader.LoadSolidBrush(Colors.Yellow), font: Hooks.FontLoader.LoadFont(null, 10f, FontStyle.Regular));
 			ILabel label = _ui.GetLabel(string.Format("Dialog option: {0}", text), text, game.VirtualResolution.Width, 20f, 0f, 0f, config);
 			label.Enabled = true;
 			TypedParameter labelParam = new TypedParameter (typeof(ILabel), label);
@@ -45,8 +45,8 @@ namespace AGS.Engine
 			if (graphics == null)
 			{
 				graphics = _object.GetObject(id);
-				graphics.Tint = (AGSColor)Color.Black;
-				graphics.Anchor = new AGSPoint ();
+				graphics.Tint =  Colors.Black;
+				graphics.Anchor = new PointF ();
 				_gameState.UI.Add(graphics);
 			}
 			TypedParameter graphicsParam = new TypedParameter (typeof(IObject), graphics);

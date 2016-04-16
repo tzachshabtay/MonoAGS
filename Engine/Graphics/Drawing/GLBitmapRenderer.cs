@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -16,11 +16,11 @@ namespace AGS.Engine
 
 		#region ICustomRenderer implementation
 
-		public void Prepare(IObject obj, IViewport viewport, IPoint areaScaling)
+		public void Prepare(IObject obj, IViewport viewport, PointF areaScaling)
 		{
 		}
 
-		public void Render (IObject obj, IViewport viewport, IPoint areaScaling)
+		public void Render (IObject obj, IViewport viewport, PointF areaScaling)
 		{
 			GLUtils.DrawQuad (glImage.Texture, X, Y, glImage.Width, glImage.Height, 0f, 
 				1f, 1f, 1f, Opacity);

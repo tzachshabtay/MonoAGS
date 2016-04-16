@@ -5,9 +5,9 @@
 		IMask Mask { get; set; }
 		bool Enabled { get; set; }
 
-		bool IsInArea(IPoint point);
-		bool IsInArea(IPoint point, ISquare projectionBox, float scaleX, float scaleY);
-		IPoint FindClosestPoint(IPoint point, out float distance);
+		bool IsInArea(PointF point);
+		bool IsInArea(PointF point, ISquare projectionBox, float scaleX, float scaleY);
+		PointF? FindClosestPoint(PointF point, out float distance);
 	}
 }
 

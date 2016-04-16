@@ -1,8 +1,6 @@
 ﻿using System;
 using AGS.API;
 using OpenTK.Graphics.OpenGL;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
@@ -14,15 +12,17 @@ namespace AGS.Engine
 {
 	public class GLGraphicsFactory : IGraphicsFactory
 	{
-		private Dictionary<string, GLImage> _textures;
-		private IContainer _resolver;
-		private IResourceLoader _resources;
+		private readonly Dictionary<string, GLImage> _textures;
+		private readonly IContainer _resolver;
+		private readonly IResourceLoader _resources;
+		private readonly IBitmapLoader _bitmapLoader;
 
 		public GLGraphicsFactory (Dictionary<string, GLImage> textures, IContainer resolver)
 		{
 			this._textures = textures;
 			this._resolver = resolver;
 			this._resources = resolver.Resolve<IResourceLoader>();
+			this._bitmapLoader = Hooks.BitmapLoader;
 		}
 
 		public ISprite GetSprite()
@@ -83,7 +83,7 @@ namespace AGS.Engine
 			{
 				throw new InvalidOperationException ("Failed to load sprite sheet from " + filePath);
 			}
-			Bitmap bitmap = new Bitmap (resource.Stream);
+			IBitmap bitmap = _bitmapLoader.Load(resource.Stream);
 			int cellsInRow = bitmap.Width / spriteSheet.CellWidth;
 			int cellsInCol = bitmap.Height / spriteSheet.CellHeight;
 			int cellsTotal = cellsInRow * cellsInCol;
@@ -157,7 +157,7 @@ namespace AGS.Engine
 					int tex = generateTexture ();
 					Rectangle rect = new Rectangle (cellX * spriteSheet.CellWidth,
 						                cellY * spriteSheet.CellHeight, spriteSheet.CellWidth, spriteSheet.CellHeight);
-					IBitmap clone = crop (bitmap, rect);
+					IBitmap clone = bitmap.Crop(rect);
 					string path = string.Format ("{0}_{1}_{2}", rect.X, rect.Y, filePath);
 					GLImage image = loadImage (tex, clone, path, loadConfig, spriteSheet);
 					//GLImage image = loadImage(tex, bitmap, rect, path);
@@ -221,7 +221,7 @@ namespace AGS.Engine
 		{
 			foreach (var frame in animation.Frames)
 			{
-				frame.Sprite.Anchor = new AGSPoint (0.5f, 0f);
+				frame.Sprite.Anchor = new PointF (0.5f, 0f);
 			}
 			IAnimation clone = animation.Clone();
 			clone.FlipHorizontally();
@@ -253,7 +253,7 @@ namespace AGS.Engine
 			int tex = generateTexture ();
 			try
 			{
-				IBitmap bitmap = new AGSBitmap(new Bitmap (resource.Stream));
+				IBitmap bitmap = _bitmapLoader.Load(resource.Stream);
 				return loadImage (tex, bitmap, resource.ID, config, null);
 			}
 			catch (ArgumentException e)
@@ -283,11 +283,6 @@ namespace AGS.Engine
 			return tex;
 		}
 			
-		private IBitmap crop(Bitmap bmp, Rectangle cropRect)
-		{
-			return new AGSBitmap(bmp.Clone (cropRect, bmp.PixelFormat)); //todo: improve performance by using FastBitmap
-		}
-
 		private GLImage loadImage(int texture, IBitmap bitmap, string id, ILoadImageConfig config, ISpriteSheet spriteSheet)
 		{
 			manipulateImage(bitmap, config);
@@ -304,8 +299,8 @@ namespace AGS.Engine
 			if (config == null) return;
 			if (config.TransparentColorSamplePoint != null)
 			{
-				IColor transparentColor = bitmap.GetPixel((int)config.TransparentColorSamplePoint.X,
-					(int)config.TransparentColorSamplePoint.Y);
+				Color transparentColor = bitmap.GetPixel((int)config.TransparentColorSamplePoint.Value.X,
+					(int)config.TransparentColorSamplePoint.Value.Y);
 				bitmap.MakeTransparent(transparentColor);
 			}
 		}

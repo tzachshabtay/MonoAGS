@@ -105,7 +105,7 @@ namespace AGS.Engine
 			}
 		}
 
-		public IColor Tint
+		public Color Tint
 		{
 			get
 			{
@@ -117,7 +117,7 @@ namespace AGS.Engine
 			}
 		}
 
-		public IPoint Anchor { get; set; }
+		public PointF Anchor { get; set; }
 
 		public IImage Image
 		{

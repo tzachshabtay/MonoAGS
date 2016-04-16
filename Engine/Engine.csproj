@@ -37,7 +37,6 @@
     <Reference Include="OpenTK" Condition="$(Configuration) != 'Debug'">
       <HintPath>..\DLLs\OpenTK.dll</HintPath>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
@@ -86,7 +85,6 @@
     <Compile Include="UI\AGSUIEvents.cs" />
     <Compile Include="UI\AGSBorderStyle.cs" />
     <Compile Include="Misc\Events\AGSEvent.cs" />
-    <Compile Include="Misc\Geometry\AGSPoint.cs" />
     <Compile Include="Misc\Geometry\AGSSquare.cs" />
     <Compile Include="Misc\Utils\Extensions.cs" />
     <Compile Include="Misc\Utils\MathUtils.cs" />
@@ -127,7 +125,6 @@
     <Compile Include="Graphics\Logic\GLBoundingBoxesBuilder.cs" />
     <Compile Include="Graphics\Logic\GLBoundingBoxes.cs" />
     <Compile Include="UI\Text\AGSTextConfig.cs" />
-    <Compile Include="Graphics\Logic\FastBitmap.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLViewportMatrix.cs" />
     <Compile Include="Graphics\Logic\GLViewportMatrix.cs" />
     <Compile Include="UI\Text\LabelMatrixRenderTarget.cs" />
@@ -166,7 +163,6 @@
     <Compile Include="Inventory\AGSInventoryItem.cs" />
     <Compile Include="Graphics\Logic\EmptyImage.cs" />
     <Compile Include="Game\AGSGameSettings.cs" />
-    <Compile Include="UI\Text\AGSFontLoader.cs" />
     <Compile Include="UI\HotspotLabels\HotspotLabel.cs" />
     <Compile Include="UI\HotspotLabels\VerbOnHotspotLabel.cs" />
     <Compile Include="UI\Text\Dialogs\AGSDialogAction.cs" />
@@ -223,17 +219,9 @@
     <Compile Include="Serialization\Contracts\ContractCutscene.cs" />
     <Compile Include="Serialization\ContractsFactory.cs" />
     <Compile Include="Objects\HasRoomBehavior.cs" />
-    <Compile Include="Serialization\Surrogates\ProtoBrush.cs" />
-    <Compile Include="Serialization\Surrogates\ProtoColor.cs" />
-    <Compile Include="Serialization\Surrogates\ProtoFont.cs" />
-    <Compile Include="Serialization\Surrogates\ProtoBlend.cs" />
-    <Compile Include="Serialization\Surrogates\ProtoColorBlend.cs" />
-    <Compile Include="Serialization\Surrogates\ProtoMatrix.cs" />
-    <Compile Include="Serialization\Surrogates\ProtoPointF.cs" />
     <Compile Include="Serialization\Contracts\ContractPanel.cs" />
     <Compile Include="Objects\AGSObjectBoolParentProperty.cs" />
     <Compile Include="Serialization\Contracts\ContractLoadImageConfig.cs" />
-    <Compile Include="Serialization\Surrogates\ProtoPoint.cs" />
     <Compile Include="Serialization\Contracts\ContractSpriteSheet.cs" />
     <Compile Include="Rooms\Viewport\AGSCamera.cs" />
     <Compile Include="Serialization\Contracts\ContractCamera.cs" />
@@ -289,11 +277,17 @@
     <Compile Include="UI\Controls\AGSInventoryWindow.cs" />
     <Compile Include="UI\Controls\AGSButton.cs" />
     <Compile Include="Objects\Characters\AGSCharacter.cs" />
-    <Compile Include="Misc\Drawing\AGSBitmap.cs" />
-    <Compile Include="Misc\Drawing\AGSColor.cs" />
-    <Compile Include="Misc\Drawing\AGSBrush.cs" />
-    <Compile Include="Misc\Drawing\AGSFont.cs" />
-    <Compile Include="Misc\Drawing\AGSBitmapTextDraw.cs" />
+    <Compile Include="Serialization\Contracts\ContractBrush.cs" />
+    <Compile Include="Platform\Hooks.cs" />
+    <Compile Include="Serialization\Contracts\ContractPointF.cs" />
+    <Compile Include="Serialization\Contracts\ContractBlend.cs" />
+    <Compile Include="Misc\Drawing\AGSBlend.cs" />
+    <Compile Include="Misc\Drawing\AGSColorBlend.cs" />
+    <Compile Include="Serialization\Contracts\ContractColorBlend.cs" />
+    <Compile Include="Misc\Drawing\AGSTransformMatrix.cs" />
+    <Compile Include="Serialization\Contracts\ContractTransformMatrix.cs" />
+    <Compile Include="Serialization\Contracts\ContractFont.cs" />
+    <Compile Include="Game\IGameWindowSize.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
@@ -338,12 +332,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Misc\Drawing\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\AGS.API\AGS.API.csproj">
       <Project>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</Project>
       <Name>AGS.API</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Platform\" />
+    <Folder Include="Misc\Drawing\" />
   </ItemGroup>
 </Project>

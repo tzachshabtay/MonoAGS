@@ -55,7 +55,7 @@ namespace Tests
 		{
 			bool[][] array = GetArray(width, height, true, pointsInMask);
 			AGSMask mask = new AGSMask(array, null);
-			return mask.IsMasked(new AGSPoint (x, y));
+			return mask.IsMasked(new AGS.API.PointF (x, y));
 		}
 
 		//Not masked
@@ -94,16 +94,16 @@ namespace Tests
 			AGSMask mask = new AGSMask(array, null);
 			Mock<ISquare> square = new Mock<ISquare> ();
 
-			AGSPoint bottomLeft = new AGSPoint (projectionLeft, projectionBottom);
-			AGSPoint bottomRight = new AGSPoint (projectionLeft + width * Math.Abs(scaleX), projectionBottom);
-			AGSPoint topLeft = new AGSPoint (projectionLeft, projectionBottom + height * Math.Abs(scaleY));
-			AGSPoint topRight = new AGSPoint (projectionLeft + width * Math.Abs(scaleX), projectionBottom + height * Math.Abs(scaleY));
+			AGS.API.PointF bottomLeft = new AGS.API.PointF (projectionLeft, projectionBottom);
+			AGS.API.PointF bottomRight = new AGS.API.PointF (projectionLeft + width * Math.Abs(scaleX), projectionBottom);
+			AGS.API.PointF topLeft = new AGS.API.PointF (projectionLeft, projectionBottom + height * Math.Abs(scaleY));
+			AGS.API.PointF topRight = new AGS.API.PointF (projectionLeft + width * Math.Abs(scaleX), projectionBottom + height * Math.Abs(scaleY));
 			square.Setup(s => s.BottomLeft).Returns(bottomLeft);
 			square.Setup(s => s.BottomRight).Returns(bottomRight);
 			square.Setup(s => s.TopLeft).Returns(topLeft);
 			square.Setup(s => s.TopRight).Returns(topRight);
 
-			return mask.IsMasked(new AGSPoint (x, y), square.Object, scaleX, scaleY);
+			return mask.IsMasked(new AGS.API.PointF (x, y), square.Object, scaleX, scaleY);
 		}
 
 		[TestCase(100,100, 0,0, Result=true)]

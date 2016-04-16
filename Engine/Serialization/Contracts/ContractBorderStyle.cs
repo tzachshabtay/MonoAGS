@@ -1,7 +1,7 @@
 ﻿using System;
 using ProtoBuf;
 using AGS.API;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -16,14 +16,14 @@ namespace AGS.Engine
 		public float LineWidth { get; set; }
 
 		[ProtoMember(2)]
-		public Color Color { get; set; }
+		public uint ColorValue { get; set; }
 
 		#region IContract implementation
 
 		public IBorderStyle ToItem(AGSSerializationContext context)
 		{
 			AGSBorderStyle style = new AGSBorderStyle ();
-			style.Color = (AGSColor)Color;
+			style.Color = Color.FromHexa(ColorValue);
 			style.LineWidth = LineWidth;
 
 			return style;
@@ -31,7 +31,7 @@ namespace AGS.Engine
 
 		public void FromItem(AGSSerializationContext context, IBorderStyle item)
 		{
-			Color = Color.FromArgb(item.Color.A, item.Color.R, item.Color.G, item.Color.B);
+			ColorValue = item.Color.Value;
 			LineWidth = item.LineWidth;
 		}
 

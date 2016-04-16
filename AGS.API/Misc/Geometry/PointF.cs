@@ -1,23 +1,17 @@
 ﻿using System;
-using AGS.API;
 
-namespace AGS.Engine
+namespace AGS.API
 {
-	public struct AGSPoint : IPoint
+	public struct PointF
 	{
-		public AGSPoint (float x, float y) : this()
+		public PointF(float x, float y)
 		{
 			X = x;
 			Y = y;
 		}
 
-		#region IPoint implementation
-
 		public float X { get; private set; }
-
 		public float Y { get; private set; }
-
-		#endregion
 
 		public override string ToString ()
 		{
@@ -27,9 +21,9 @@ namespace AGS.Engine
 		public override bool Equals(Object obj) 
 		{
 			if (obj == null) return false;
+			if (!(obj is PointF)) return false;
 
-			IPoint p = obj as IPoint;
-			if (obj == null) return false;
+			PointF p = (PointF)obj;
 			return (X == p.X) && (Y == p.Y);
 		}
 
@@ -37,7 +31,6 @@ namespace AGS.Engine
 		{
 			return X.GetHashCode() ^ Y.GetHashCode();
 		}
-
 	}
 }
 

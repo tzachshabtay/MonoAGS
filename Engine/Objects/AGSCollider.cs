@@ -23,7 +23,7 @@ namespace AGS.Engine
 
 		public ISquare BoundingBox { get; set; }
 
-		public IPoint CenterPoint
+		public PointF? CenterPoint
 		{
 			get
 			{
@@ -35,7 +35,7 @@ namespace AGS.Engine
 				float offsetY = _obj.PixelPerfectHitTestArea == null ? (BoundingBox.MaxY - BoundingBox.MinY) / 2f : 
 					_obj.PixelPerfectHitTestArea.Mask.MinY + (_obj.PixelPerfectHitTestArea.Mask.MaxY - _obj.PixelPerfectHitTestArea.Mask.MinY) / 2f;
 
-				return new AGSPoint (minX + offsetX, minY + offsetY);
+				return new PointF (minX + offsetX, minY + offsetY);
 			}
 		}
 
@@ -54,12 +54,12 @@ namespace AGS.Engine
 
 			if (pixelPerfect == null || !pixelPerfect.Enabled)
 			{
-				if (boundingBox.Contains(new AGSPoint (x, y)))
+				if (boundingBox.Contains(new PointF (x, y)))
 					return true;
 			}
 			else
 			{
-				if (pixelPerfect.IsInArea(new AGSPoint (x, y), boundingBox, _obj.ScaleX * _obj.Animation.Sprite.ScaleX,
+				if (pixelPerfect.IsInArea(new PointF (x, y), boundingBox, _obj.ScaleX * _obj.Animation.Sprite.ScaleX,
 					_obj.ScaleY * _obj.Animation.Sprite.ScaleY))
 					return true;
 			}

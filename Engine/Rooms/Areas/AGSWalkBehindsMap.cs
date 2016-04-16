@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 using System.Collections.Generic;
 using AreaKey = System.Tuple<AGS.API.IArea, AGS.API.IBitmap>;
 
@@ -37,7 +37,7 @@ namespace AGS.Engine
 		private IObject createObject()
 		{
 			var obj = _factory.Object.GetObject("Walk-Behind Drawable");
-			obj.Anchor = new AGSPoint ();
+			obj.Anchor = new PointF ();
 			return obj;
 		}
 	}

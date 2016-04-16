@@ -27,7 +27,6 @@
     	{
     		base.WriteAdditionalUsings();
     		WriteLine("using System.Threading.Tasks;");
-    		WriteLine("using System.Drawing;");
     		Write("using System.Collections.Generic;");
     	}
 

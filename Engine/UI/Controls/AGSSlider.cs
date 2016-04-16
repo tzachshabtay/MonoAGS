@@ -10,7 +10,7 @@ namespace AGS.Engine
 			RenderLayer = AGSLayers.UI;
 			IgnoreScalingArea = true;
 			IgnoreViewport = true;
-			Anchor = new AGSPoint ();
+			Anchor = new PointF ();
 			Image = image;
 			Enabled = true;
 		}

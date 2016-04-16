@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -144,7 +145,7 @@ namespace AGS.Engine
 		/// Returns null, if no path is found. Start- and End-Node are included in returned path. The user context
 		/// is passed to IsWalkable().
 		/// </summary>
-		public LinkedList<TPathNode> Search(System.Drawing.Point inStartNode, System.Drawing.Point inEndNode, TUserContext inUserContext)
+		public LinkedList<TPathNode> Search(Point inStartNode, Point inEndNode, TUserContext inUserContext)
 		{
 			PathNode startNode = m_SearchSpace[inStartNode.X, inStartNode.Y];
 			PathNode endNode = m_SearchSpace[inEndNode.X, inEndNode.Y];

@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -35,7 +35,7 @@ namespace AGS.Engine
 			return this;
 		}
 
-		public IGLColor Build(IColor color)
+		public IGLColor Build(Color color)
 		{
 			R = color.R / COLOR_FACTOR;
 			G = color.G / COLOR_FACTOR;

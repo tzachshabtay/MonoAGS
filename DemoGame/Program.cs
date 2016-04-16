@@ -8,6 +8,7 @@ using System.Drawing.Text;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
+using AGS.Engine.Desktop;
 
 namespace DemoGame
 {
@@ -18,14 +19,15 @@ namespace DemoGame
 		[STAThread]
 		public static void Main()
 		{
+			AGSEngineDesktop.InitHooks();
 			IGame game = AGSGame.CreateEmpty();
 
 			game.Events.OnLoad.Subscribe((sender, e) =>
 			{
 				_fontLoader = new AGSFontLoader(new ResourceLoader());
 				_fontLoader.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
-				AGSGameSettings.DefaultSpeechFont = new AGSFont(new Font(_fontLoader.LoadFontFamily("../../Assets/Fonts/pf_ronda_seven.ttf"), 14f));
-				AGSGameSettings.DefaultTextFont = new AGSFont(new Font(_fontLoader.LoadFontFamily("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF"), 14f));
+				AGSGameSettings.DefaultSpeechFont = new DesktopFont(new Font(_fontLoader.LoadFontFamily("../../Assets/Fonts/pf_ronda_seven.ttf"), 14f));
+				AGSGameSettings.DefaultTextFont = new DesktopFont(new Font(_fontLoader.LoadFontFamily("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF"), 14f));
 
 				loadRooms(game);
 				loadCharacters(game);
@@ -57,11 +59,12 @@ namespace DemoGame
 			TopBar topBar = new TopBar(cursors.Scheme, inventory, options);
 			topBar.Load(game);
 
-			ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 80, 25, 160, 10, new AGSTextConfig(brush: new AGSBrush(Brushes.WhiteSmoke),
-				alignment: Alignment.MiddleCenter, outlineBrush: new AGSBrush(Brushes.DarkSlateBlue), outlineWidth: 2f,
+			ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 80, 25, 160, 10, new AGSTextConfig(brush: new DesktopBrush(Brushes.WhiteSmoke),
+				alignment: Alignment.MiddleCenter, outlineBrush: new DesktopBrush(Brushes.DarkSlateBlue), outlineWidth: 2f,
 				autoFit: AutoFit.LabelShouldFitText, paddingBottom: 5f));
-			label.Tint = new AGSColor(Color.FromArgb(120, Color.IndianRed));
-			label.Anchor = new AGSPoint(0.5f, 0f);
+			System.Drawing.Color red = System.Drawing.Color.IndianRed;
+			label.Tint = AGS.API.Color.FromArgb(120, red.R, red.G, red.B);
+			label.Anchor = new AGS.API.PointF(0.5f, 0f);
 			VerbOnHotspotLabel hotspotLabel = new VerbOnHotspotLabel(() => cursors.Scheme.CurrentMode, game, label);
 			hotspotLabel.Start();
 
@@ -110,14 +113,14 @@ namespace DemoGame
 		{
 			ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, 320, 25, config: new AGSTextConfig(alignment: Alignment.TopLeft,
 				autoFit: AutoFit.LabelShouldFitText));
-			fpsLabel.Anchor = new AGSPoint (1f, 0f);
+			fpsLabel.Anchor = new AGS.API.PointF (1f, 0f);
 			fpsLabel.ScaleBy(0.7f, 0.7f);
 			FPSCounter fps = new FPSCounter(game, fpsLabel);
 			fps.Start();
 
 			ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 30, 25, 320, 5, config: new AGSTextConfig(alignment: Alignment.TopRight,
 				autoFit: AutoFit.LabelShouldFitText));
-			label.Anchor = new AGSPoint (1f, 0f);
+			label.Anchor = new AGS.API.PointF (1f, 0f);
 			label.ScaleBy(0.7f, 0.7f);
 			MousePositionLabel mouseLabel = new MousePositionLabel(game, label);
 			mouseLabel.Start();

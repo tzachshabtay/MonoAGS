@@ -3,7 +3,7 @@
     public interface IBorderStyle
 	{
 		float LineWidth { get; set; }
-		IColor Color { get; set; }
+		Color Color { get; set; }
 	}
 }
 

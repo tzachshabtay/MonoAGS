@@ -14,7 +14,7 @@ namespace DemoGame
 		{
 			_loadConfig = new AGSLoadImageConfig
 			{ 
-				TransparentColorSamplePoint = new AGSPoint (0, 12) 
+				TransparentColorSamplePoint = new AGS.API.Point (0, 12) 
 			};
 		}
 

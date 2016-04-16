@@ -31,11 +31,11 @@ namespace AGS.Engine
 
 		public IGLBoundingBoxes BoundingBoxes { get; set; }
 
-		public void Prepare(IObject obj, IViewport viewport, IPoint areaScaling)
+		public void Prepare(IObject obj, IViewport viewport, PointF areaScaling)
 		{
 		}
 
-		public void Render(IObject obj, IViewport viewport, IPoint areaScaling)
+		public void Render(IObject obj, IViewport viewport, PointF areaScaling)
 		{
 			if (obj.Animation == null)
 			{
@@ -66,9 +66,9 @@ namespace AGS.Engine
 			Vector3 bottomRight = hitTestBox.BottomRight;
 			Vector3 topRight = hitTestBox.TopRight;
 
-			AGSSquare square = new AGSSquare (new AGSPoint (bottomLeft.X, bottomLeft.Y),
-				                   new AGSPoint (bottomRight.X, bottomRight.Y), new AGSPoint (topLeft.X, topLeft.Y),
-				                   new AGSPoint (topRight.X, topRight.Y));
+			AGSSquare square = new AGSSquare (new PointF (bottomLeft.X, bottomLeft.Y),
+				new PointF (bottomRight.X, bottomRight.Y), new PointF (topLeft.X, topLeft.Y),
+				new PointF (topRight.X, topRight.Y));
 			obj.BoundingBox = square;
 
 			IBorderStyle border = obj.Border;

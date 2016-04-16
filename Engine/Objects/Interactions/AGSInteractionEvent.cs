@@ -108,13 +108,13 @@ namespace AGS.Engine
 					if (_obj.WalkPoint == null) await _player.Character.FaceDirectionAsync(_obj);
 					else
 					{
-						await _player.Character.WalkAsync(new AGSLocation (_obj.WalkPoint));
+						await _player.Character.WalkAsync(new AGSLocation (_obj.WalkPoint.Value));
 						await _player.Character.FaceDirectionAsync(_obj);
 					}
 					break;
 				case ApproachHotspots.AlwaysWalk:
-					if (_obj.WalkPoint == null) await _player.Character.WalkAsync(new AGSLocation(_obj.CenterPoint));
-					else await _player.Character.WalkAsync(new AGSLocation (_obj.WalkPoint));
+					PointF? walkPoint = _obj.WalkPoint ?? _obj.CenterPoint ?? _obj.Location.XY;
+					await _player.Character.WalkAsync(new AGSLocation(walkPoint.Value));
 					await _player.Character.FaceDirectionAsync(_obj);
 					break;
 				default:

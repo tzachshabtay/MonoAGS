@@ -27,17 +27,17 @@ namespace AGS.Engine
 
 		#region IArea implementation
 
-		public bool IsInArea(IPoint point)
+		public bool IsInArea(PointF point)
 		{
 			return _area.IsInArea(point);
 		}
 
-		public bool IsInArea(IPoint point, ISquare projectionBox, float scaleX, float scaleY)
+		public bool IsInArea(PointF point, ISquare projectionBox, float scaleX, float scaleY)
 		{
 			return _area.IsInArea(point, projectionBox, scaleX, scaleY);
 		}
 
-		public IPoint FindClosestPoint(IPoint point, out float distance)
+		public PointF? FindClosestPoint(PointF point, out float distance)
 		{
 			return _area.FindClosestPoint(point, out distance);
 		}

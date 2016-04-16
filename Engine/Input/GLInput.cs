@@ -2,7 +2,7 @@
 using AGS.API;
 using OpenTK;
 using OpenTK.Input;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {
@@ -63,11 +63,11 @@ namespace AGS.Engine
 
 		#endregion
 
-		public IPoint MousePosition
+		public PointF MousePosition
 		{
 			get 
 			{
-				return new AGSPoint(MouseX, MouseY);
+				return new PointF(MouseX, MouseY);
 			}
 		}
 
@@ -117,7 +117,7 @@ namespace AGS.Engine
 		{
 			var viewport = getViewport();
 			var virtualWidth = _virtualWidth / viewport.ScaleX;
-			x = MathUtils.Lerp (0f, 0f, _game.ClientSize.Width, virtualWidth, x);
+			x = MathUtils.Lerp (0f, 0f, Hooks.GameWindowSize.GetWidth(_game), virtualWidth, x);
 			return x + viewport.X;
 		}
 
@@ -125,7 +125,7 @@ namespace AGS.Engine
 		{
 			var viewport = getViewport();
 			var virtualHeight = _virtualHeight / viewport.ScaleY;
-			y = MathUtils.Lerp (0f, virtualHeight, _game.ClientSize.Height, 0f, y);
+			y = MathUtils.Lerp (0f, virtualHeight, Hooks.GameWindowSize.GetHeight(_game), 0f, y);
 			return y + viewport.Y;
 		}
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 using System.Runtime.InteropServices;
 using System.Drawing.Text;
 using System.Collections.Generic;
@@ -8,8 +8,9 @@ using System.IO;
 using System.Threading;
 using System.Diagnostics;
 using System.Reflection;
+using System.Drawing;
 
-namespace AGS.Engine
+namespace AGS.Engine.Desktop
 {
 	public class AGSFontLoader
 	{

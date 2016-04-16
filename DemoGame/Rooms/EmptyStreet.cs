@@ -29,7 +29,7 @@ namespace DemoGame
 			IGameFactory factory = game.Factory;
 			ILoadImageConfig loadConfig = new AGSLoadImageConfig
 			{
-				TransparentColorSamplePoint = new AGSPoint(0, 0)
+				TransparentColorSamplePoint = new AGS.API.Point(0, 0)
 			};
 			_room = factory.Room.GetRoom(_roomId, 20f, 310f, 190f, 10f);
 			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
@@ -45,7 +45,7 @@ namespace DemoGame
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[1], 0.75f, 0.90f));
 
 			IObject bottleHotspot = factory.Object.GetHotspot(_baseFolder + "BottleHotspot.png", "Bottle");
-			bottleHotspot.WalkPoint = new AGSPoint (140f, 50f);
+			bottleHotspot.WalkPoint = new AGS.API.PointF (140f, 50f);
 			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "CurbHotspot.png", "Curb"));
 			_room.Objects.Add(bottleHotspot);
 			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "GapHotspot.png", "Gap", new[]{"It's a gap!", "I wonder what's in there!"}));

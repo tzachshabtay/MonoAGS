@@ -100,13 +100,13 @@ namespace Tests
 
 		private void setupObject(IObject obj)
 		{
-			obj.Anchor = new AGSPoint (0.1f, 0.2f);
-			obj.WalkPoint = new AGSPoint (0.3f, 0.4f);
+			obj.Anchor = new AGS.API.PointF (0.1f, 0.2f);
+			obj.WalkPoint = new AGS.API.PointF (0.3f, 0.4f);
 			obj.Location = new AGSLocation (0.5f, 0.6f, 0.7f);
 			obj.Angle = 0.8f;
 			obj.Image = new EmptyImage (100f, 50f);
 			obj.ScaleBy(2f, 2.5f);
-			obj.Tint = (AGSColor) Color.AliceBlue;
+			obj.Tint = AGS.API.Color.FromHexa((uint)System.Drawing.Color.AliceBlue.ToArgb());
 
 			IRoom room = _mocks.Room().Object;
 			room.Objects.Add(obj);
@@ -116,18 +116,18 @@ namespace Tests
 		{
 			Assert.AreEqual(0.1f, actual.Anchor.X);
 			Assert.AreEqual(0.2f, actual.Anchor.Y);
-			Assert.AreEqual(0.3f, actual.WalkPoint.X);
-			Assert.AreEqual(0.4f, actual.WalkPoint.Y);
+			Assert.AreEqual(0.3f, actual.WalkPoint.Value.X);
+			Assert.AreEqual(0.4f, actual.WalkPoint.Value.Y);
 			Assert.AreEqual(0.5f, actual.X);
 			Assert.AreEqual(0.6f, actual.Y);
 			Assert.AreEqual(0.7f, actual.Z);
 			Assert.AreEqual(0.8f, actual.Angle);
 			Assert.AreEqual(2f, actual.ScaleX);
 			Assert.AreEqual(2.5f, actual.ScaleY);
-			Assert.AreEqual(Color.AliceBlue.R, actual.Tint.R);
-			Assert.AreEqual(Color.AliceBlue.G, actual.Tint.G);
-			Assert.AreEqual(Color.AliceBlue.B, actual.Tint.B);
-			Assert.AreEqual(Color.AliceBlue.A, actual.Tint.A);
+			Assert.AreEqual(System.Drawing.Color.AliceBlue.R, actual.Tint.R);
+			Assert.AreEqual(System.Drawing.Color.AliceBlue.G, actual.Tint.G);
+			Assert.AreEqual(System.Drawing.Color.AliceBlue.B, actual.Tint.B);
+			Assert.AreEqual(System.Drawing.Color.AliceBlue.A, actual.Tint.A);
 		}
 
 		private void clearState()

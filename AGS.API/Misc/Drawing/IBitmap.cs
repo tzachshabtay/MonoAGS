@@ -8,12 +8,13 @@ namespace AGS.API
 		int Height { get; }
 
 		void Clear();
-		IColor GetPixel(int x, int y);
-		void MakeTransparent(IColor color);
+		Color GetPixel(int x, int y);
+		void MakeTransparent(Color color);
 		void LoadTexture(int? textureToBind);
 		IBitmap ApplyArea(IArea area);
+		IBitmap Crop(Rectangle rectangle);
 		IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, 
-			IColor debugDrawColor = null, string saveMaskToFile = null, string id = null);
+			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null);
 		IBitmapTextDraw GetTextDraw();
 	}
 }

@@ -1,11 +1,9 @@
 ﻿using System;
 using OpenTK;
-using System.Drawing;
+
 using OpenTK.Graphics.OpenGL;
-using System.Drawing.Imaging;
+
 using System.Diagnostics;
-using System.Drawing.Text;
-using System.Drawing.Drawing2D;
 using AGS.API;
 
 namespace AGS.Engine

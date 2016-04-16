@@ -3,6 +3,7 @@ using AGS.API;
 using AGS.Engine;
 using System.Drawing;
 using System.Linq;
+using AGS.Engine.Desktop;
 
 namespace DemoGame
 {
@@ -13,12 +14,12 @@ namespace DemoGame
 		private IPanel _panel;
 		private IGame _game;
 
-		AGSTextConfig _textConfig = new AGSTextConfig (font: new AGSFont(new Font (SystemFonts.DefaultFont.FontFamily, 10f)), 
-			brush: new AGSBrush(Brushes.DarkOliveGreen),
-			outlineBrush: new AGSBrush(Brushes.LightGreen), outlineWidth: 1f);
+		AGSTextConfig _textConfig = new AGSTextConfig (font: new DesktopFont(new Font (SystemFonts.DefaultFont.FontFamily, 10f)), 
+			brush: new DesktopBrush(Brushes.DarkOliveGreen),
+			outlineBrush: new DesktopBrush(Brushes.LightGreen), outlineWidth: 1f);
 
-		AGSTextConfig _buttonTextConfig = new AGSTextConfig (font: new AGSFont(new Font (SystemFonts.DefaultFont.FontFamily, 7f, FontStyle.Bold)), 
-			brush: new AGSBrush(Brushes.LightGreen),
+		AGSTextConfig _buttonTextConfig = new AGSTextConfig (font: new DesktopFont(new Font (SystemFonts.DefaultFont.FontFamily, 7f, System.Drawing.FontStyle.Bold)), 
+			brush: new DesktopBrush(Brushes.LightGreen),
 			alignment: Alignment.MiddleCenter);
 
 		private string _lastMode;
@@ -34,32 +35,32 @@ namespace DemoGame
 			_game = game;
 			IGameFactory factory = game.Factory;
 			_panel = factory.UI.GetPanel(_panelId, "../../Assets/Gui/DialogBox/options.bmp", 160f, 100f);
-			_panel.Anchor = new AGSPoint (0.5f, 0.5f);
+			_panel.Anchor = new AGS.API.PointF (0.5f, 0.5f);
 			_panel.Visible = false;
 
-			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig { TransparentColorSamplePoint = new AGSPoint (0, 0) };
+			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig { TransparentColorSamplePoint = new AGS.API.Point (0, 0) };
 
 			ISlider volumeSlider = factory.UI.GetSlider("Volume Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
 				loadConfig: loadConfig);
 			volumeSlider.X = 120f;
 			volumeSlider.Y = 10f;
-			volumeSlider.HandleGraphics.Anchor = new AGSPoint (0.5f, 0.5f);
+			volumeSlider.HandleGraphics.Anchor = new AGS.API.PointF (0.5f, 0.5f);
 			volumeSlider.TreeNode.SetParent(_panel.TreeNode);
 
 			ILabel volumeLabel = factory.UI.GetLabel("Volume Label", "Volume", 50f, 30f, 120f, 85f, _textConfig); 
-			volumeLabel.Anchor = new AGSPoint (0.5f, 0f);
+			volumeLabel.Anchor = new AGS.API.PointF (0.5f, 0f);
 			volumeLabel.TreeNode.SetParent(_panel.TreeNode);
 
 			ISlider speedSlider = factory.UI.GetSlider("Speed Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 100f, 1f, 200f, 
 				loadConfig: loadConfig);
 			speedSlider.X = 180f;
 			speedSlider.Y = 10f;
-			speedSlider.HandleGraphics.Anchor = new AGSPoint (0.5f, 0.5f);
+			speedSlider.HandleGraphics.Anchor = new AGS.API.PointF (0.5f, 0.5f);
 			speedSlider.TreeNode.SetParent(_panel.TreeNode);
 			speedSlider.OnValueChanged(onSpeedChanged, _game);
 
 			ILabel speedLabel = factory.UI.GetLabel("Speed Label", "Speed", 50f, 30f, 180f, 85f, _textConfig); 
-			speedLabel.Anchor = new AGSPoint (0.5f, 0f);
+			speedLabel.Anchor = new AGS.API.PointF (0.5f, 0f);
 			speedLabel.TreeNode.SetParent(_panel.TreeNode);
 
 			_game.Events.OnSavedGameLoad.Subscribe((sender, args) => findPanel());

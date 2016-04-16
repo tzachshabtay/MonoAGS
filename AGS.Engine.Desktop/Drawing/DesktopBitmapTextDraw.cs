@@ -1,12 +1,13 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using System.Drawing;
 
-namespace AGS.Engine
+namespace AGS.Engine.Desktop
 {
-	public class AGSBitmapTextDraw : IBitmapTextDraw
+	public class DesktopBitmapTextDraw : IBitmapTextDraw
 	{
 		private ITextConfig _config;
 		private StringFormat _wrapFormat = new StringFormat (StringFormatFlags.NoClip);
@@ -14,7 +15,7 @@ namespace AGS.Engine
 		private int _maxWidth, _height;
 		private string _text;
 
-		public AGSBitmapTextDraw(Bitmap bitmap)
+		public DesktopBitmapTextDraw(Bitmap bitmap)
 		{
 			_bitmap = bitmap;
 		}
@@ -44,7 +45,7 @@ namespace AGS.Engine
 				float right = left + _config.OutlineWidth;
 				float bottom = top + _config.OutlineWidth;
 
-				gfx.Clear(Color.Transparent);
+				gfx.Clear(System.Drawing.Color.Transparent);
 
 				if (_config.OutlineWidth > 0f)
 				{
@@ -102,12 +103,12 @@ namespace AGS.Engine
 
 		private Brush getBrush(IBrush brush)
 		{
-			return ((AGSBrush)brush).InnerBrush; //todo: build brush based on BrushType
+			return ((DesktopBrush)brush).InnerBrush; //todo: build brush based on BrushType
 		}
 
 		private Font getFont(IFont font)
 		{
-			return ((AGSFont)font).InnerFont;
+			return ((DesktopFont)font).InnerFont;
 		}
 
 		private void alignWrap()

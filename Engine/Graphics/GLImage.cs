@@ -1,7 +1,7 @@
 ﻿using System;
 using AGS.API;
 using OpenTK.Graphics.OpenGL;
-using System.Drawing;
+
 
 namespace AGS.Engine
 {

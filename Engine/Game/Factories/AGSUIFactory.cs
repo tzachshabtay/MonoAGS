@@ -1,6 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Drawing;
+
 using Autofac;
 
 namespace AGS.Engine
@@ -53,7 +53,7 @@ namespace AGS.Engine
 			label.Text = text;
 			label.X = x;
 			label.Y = y;
-			label.Tint = (AGSColor)Color.Transparent;
+			label.Tint =  Colors.Transparent;
 			label.TextConfig = config ?? new AGSTextConfig();
 			if (addToUi)
 				_gameState.UI.Add(label);
@@ -80,7 +80,7 @@ namespace AGS.Engine
 			button.PushedAnimation = pushed;
 
 			button.StartAnimation(idle);
-			button.Tint = (AGSColor)Color.White;
+			button.Tint =  Colors.White;
 			button.X = x;
 			button.Y = y;
 			button.TextConfig = config;
@@ -113,7 +113,7 @@ namespace AGS.Engine
 			if (config != null)
 			{
 				label = GetLabel(string.Format("{0}(label)", id), "", graphics.Width, 30f, 0f, -30f, config, false);
-				label.Anchor = new AGSPoint (0.5f, 0f);
+				label.Anchor = new PointF (0.5f, 0f);
 			}
 
 			IObject handle = _object.GetObject(string.Format("{0}(handle)", id));

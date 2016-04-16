@@ -19,7 +19,7 @@ namespace AGS.Engine
 
 		#region IMask implementation
 
-		public bool IsMasked(IPoint point, ISquare projectionBox, float scaleX, float scaleY)
+		public bool IsMasked(PointF point, ISquare projectionBox, float scaleX, float scaleY)
 		{
 			float leftX = scaleX >= 0f ? projectionBox.BottomLeft.X : projectionBox.BottomRight.X;
 			float rightX = scaleX >= 0f ? projectionBox.BottomRight.X : projectionBox.BottomLeft.X;
@@ -27,10 +27,10 @@ namespace AGS.Engine
 			float topY = scaleY >= 0f ? projectionBox.TopLeft.Y : projectionBox.BottomLeft.Y;
 			float x = MathUtils.Lerp(leftX, 0, rightX, Width - 1, point.X);
 			float y = MathUtils.Lerp(bottomY, 0, topY, Height - 1, point.Y);
-			return IsMasked(new AGSPoint (x, y));
+			return IsMasked(new PointF (x, y));
 		}
 
-		public bool IsMasked(IPoint point)
+		public bool IsMasked(PointF point)
 		{
 			int x = (int)Math.Round(point.X, 0);
 			int y = (int)Math.Round(point.Y, 0);

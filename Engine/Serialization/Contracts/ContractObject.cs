@@ -72,7 +72,7 @@ namespace AGS.Engine
 			obj.RenderLayer = RenderLayer.ToItem(context);
 			if (WalkPoint != null)
 			{
-				obj.WalkPoint = new AGSPoint (WalkPoint.Item1, WalkPoint.Item2);
+				obj.WalkPoint = new PointF (WalkPoint.Item1, WalkPoint.Item2);
 			}
 			obj.CopyFrom(Properties.ToItem(context));
 			obj.Enabled = Enabled;
@@ -100,7 +100,7 @@ namespace AGS.Engine
 
 			if (item.WalkPoint != null)
 			{
-				WalkPoint = new Tuple<float, float> (item.WalkPoint.X, item.WalkPoint.Y);
+				WalkPoint = new Tuple<float, float> (item.WalkPoint.Value.X, item.WalkPoint.Value.Y);
 			}
 			Enabled = item.UnderlyingEnabled;
 			Visible = item.UnderlyingVisible;

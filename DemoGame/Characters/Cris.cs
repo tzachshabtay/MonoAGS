@@ -13,7 +13,7 @@ namespace DemoGame
 		{
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
 			{ 
-				TransparentColorSamplePoint = new AGSPoint (0, 0) 
+				TransparentColorSamplePoint = new AGS.API.Point (0, 0) 
 			};
 
 			IOutfit outfit = game.Factory.Outfit.LoadOutfitFromFolders(_baseFolder, walkLeftFolder: "Walk/left",

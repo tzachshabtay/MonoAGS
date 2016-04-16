@@ -1,7 +1,7 @@
 ﻿using System;
 using AGS.API;
 using Autofac;
-using System.Drawing;
+
 using System.Diagnostics;
 
 namespace AGS.Engine
@@ -39,7 +39,7 @@ namespace AGS.Engine
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
 			TypedParameter imageParam = new TypedParameter (typeof(IImage), image);
 			IInventoryWindow inventory = _resolver.Resolve<IInventoryWindow>(idParam, imageParam);
-			inventory.Tint = (AGSColor)Color.Transparent;
+			inventory.Tint =  Colors.Transparent;
 			inventory.ItemSize = new AGS.API.SizeF (itemWidth, itemHeight);
 			inventory.CharacterToUse = character ?? _resolver.Resolve<IPlayer>().Character;
 			return inventory;
@@ -72,7 +72,7 @@ namespace AGS.Engine
 			graphics.RenderLayer = AGSLayers.UI;
 			graphics.IgnoreViewport = true;
 			graphics.IgnoreScalingArea = true;
-			graphics.Anchor = new AGSPoint (0.5f, 0.5f);
+			graphics.Anchor = new PointF (0.5f, 0.5f);
 			graphics.Hotspot = hotspot;
 
 			IObject cursor = _object.GetObject(string.Format("{0}(inventory item cursor)", hotspot ?? ""));

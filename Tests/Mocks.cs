@@ -160,7 +160,7 @@ namespace Tests
 				_obj.Setup(m => m.Image).Returns(Image().Object);
 				_obj.Setup(m => m.Enabled).Returns(true);
 				_obj.Setup(m => m.Visible).Returns(true);
-				_obj.Setup(m => m.Anchor).Returns(new AGSPoint ());
+				_obj.Setup(m => m.Anchor).Returns(new AGS.API.PointF ());
 			}
 			return _obj;
 		}
@@ -180,7 +180,7 @@ namespace Tests
 			{
 				_sprite = new Mock<ISprite> ();
 				_sprite.Setup(m => m.Image).Returns(Image().Object);
-				_sprite.Setup(m => m.Anchor).Returns(new AGSPoint ());
+				_sprite.Setup(m => m.Anchor).Returns(new AGS.API.PointF ());
 			}
 			return _sprite;
 		}

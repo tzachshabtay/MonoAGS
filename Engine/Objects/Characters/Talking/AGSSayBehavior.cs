@@ -2,7 +2,7 @@
 using AGS.API;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Drawing;
+
 using System.Diagnostics;
 
 namespace AGS.Engine
@@ -47,7 +47,7 @@ namespace AGS.Engine
 			setAnimation(_outfit.Outfit.SpeakAnimation);
 
 			await Task.Delay(1);
-			IPoint location = getLocation(text);
+			PointF location = getLocation(text);
 			ILabel label = _factory.UI.GetLabel(string.Format("Say: {0}", text), text, SpeechConfig.LabelSize.Width, SpeechConfig.LabelSize.Height, 
 				location.X, location.Y, SpeechConfig.TextConfig);
 			label.RenderLayer = AGSLayers.Speech;
@@ -105,7 +105,7 @@ namespace AGS.Engine
 			await Task.Delay(40 + text.Length * SpeechConfig.TextDelay);
 		}
 
-		private IPoint getLocation(string text)
+		private PointF getLocation(string text)
 		{
 			return _location.GetLocation(text, SpeechConfig.LabelSize, SpeechConfig.TextConfig);
 		}

@@ -37,7 +37,7 @@ namespace AGS.Engine
 			foreach (IObject obj in displayList) 
 			{
 				IImageRenderer imageRenderer = getImageRenderer(obj);
-				IPoint areaScaling = getAreaScaling(room, obj);
+				PointF areaScaling = getAreaScaling(room, obj);
 
 				imageRenderer.Prepare(obj, room.Viewport, areaScaling);
 
@@ -47,14 +47,14 @@ namespace AGS.Engine
 
 		#endregion
 
-		private IPoint getAreaScaling(IRoom room, IObject obj)
+		private PointF getAreaScaling(IRoom room, IObject obj)
 		{
 			if (obj.IgnoreScalingArea) return GLMatrixBuilder.NoScaling;
 			foreach (IScalingArea area in room.ScalingAreas)
 			{
-				if (!area.Enabled || !area.ScaleObjects || !area.IsInArea(obj.Location)) continue;
+				if (!area.Enabled || !area.ScaleObjects || !area.IsInArea(obj.Location.XY)) continue;
                 float scale = area.GetScaling(obj.Y);
-				return new AGSPoint (scale, scale);
+				return new PointF (scale, scale);
 			}
 			return GLMatrixBuilder.NoScaling;
 		}
@@ -76,7 +76,7 @@ namespace AGS.Engine
 			if (cursor == null) return;
 			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
 			{
-				_mouseCursorContainer = new AGSObject ("MouseCursor", _resolver) { Anchor = new AGSPoint (0f,1f), IgnoreScalingArea = true, IgnoreViewport = true };
+				_mouseCursorContainer = new AGSObject ("MouseCursor", _resolver) { Anchor = new PointF (0f,1f), IgnoreScalingArea = true, IgnoreViewport = true };
 				_mouseCursorContainer.StartAnimation(cursor.Animation);
 			}
 			_mouseCursorContainer.X = (_input.MouseX - room.Viewport.X) * room.Viewport.ScaleX;
@@ -128,7 +128,7 @@ namespace AGS.Engine
 			if (!obj.Visible)
 			{
 				IImageRenderer imageRenderer = getImageRenderer(obj);
-				IPoint areaScaling = getAreaScaling(room, obj);
+				PointF areaScaling = getAreaScaling(room, obj);
 
 				imageRenderer.Prepare(obj, room.Viewport, areaScaling);
 				return;

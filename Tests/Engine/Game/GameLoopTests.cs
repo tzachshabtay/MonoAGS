@@ -232,8 +232,8 @@ namespace Tests
 		public void Camera_ViewportMovesTest()
 		{
 			Mock<ICamera> camera = new Mock<ICamera> ();
-			IPoint sourcePoint = new AGSPoint (15f, 25f);
-			IPoint targetPoint = new AGSPoint (55f, 65f);
+			AGS.API.PointF sourcePoint = new AGS.API.PointF (15f, 25f);
+			AGS.API.PointF targetPoint = new AGS.API.PointF (55f, 65f);
 			camera.Setup(f => f.Tick(_mocks.Viewport().Object, It.IsAny<AGS.API.Size>(), It.IsAny<AGS.API.Size>(),
 				It.IsAny<bool>())).Callback(() => 
 				{_mocks.Viewport().Object.X = targetPoint.X; _mocks.Viewport().Object.Y = targetPoint.Y; });
