@@ -30,9 +30,13 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
-    <Reference Include="OpenTK">
+    <Reference Include="OpenTK" Condition="$(Configuration) == 'Debug'">
+      <HintPath>..\DLLs Debug\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK" Condition="$(Configuration) != 'Debug'">
       <HintPath>..\DLLs\OpenTK.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -48,6 +52,8 @@
     <Compile Include="DesktopGameWindowSize.cs" />
     <Compile Include="AGSFontLoader.cs" />
     <Compile Include="Drawing\DesktopFontLoader.cs" />
+    <Compile Include="DesktopEngineConfigFile.cs" />
+    <Compile Include="DesktopFileSystem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -58,9 +64,9 @@
       <Project>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</Project>
       <Name>AGS.API</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}</Project>
-      <Name>Engine</Name>
+    <ProjectReference Include="..\AGS.Engine\AGS.Engine.csproj">
+      <Project>{6BEEC517-011A-441E-8A2F-D9461806A879}</Project>
+      <Name>AGS.Engine</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

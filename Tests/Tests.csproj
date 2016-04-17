@@ -74,10 +74,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{578F2BF0-F2E4-45F9-96B0-2ED6007AA198}</Project>
-      <Name>Engine</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AGS.API\AGS.API.csproj">
       <Project>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</Project>
       <Name>AGS.API</Name>
@@ -85,6 +81,10 @@
     <ProjectReference Include="..\AGS.Engine.Desktop\AGS.Engine.Desktop.csproj">
       <Project>{1C51A706-4D2C-49D4-972F-CB5075324F5F}</Project>
       <Name>AGS.Engine.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AGS.Engine\AGS.Engine.csproj">
+      <Project>{6BEEC517-011A-441E-8A2F-D9461806A879}</Project>
+      <Name>AGS.Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

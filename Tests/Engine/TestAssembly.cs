@@ -13,7 +13,7 @@ namespace Tests
 		[SetUp]
 		public void Init()
 		{
-			AGSEngineDesktop.InitHooks();
+			AGSEngineDesktop.Init();
 		}
 
 		[TearDown]

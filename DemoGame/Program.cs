@@ -19,7 +19,7 @@ namespace DemoGame
 		[STAThread]
 		public static void Main()
 		{
-			AGSEngineDesktop.InitHooks();
+			AGSEngineDesktop.Init();
 			IGame game = AGSGame.CreateEmpty();
 
 			game.Events.OnLoad.Subscribe((sender, e) =>
@@ -59,8 +59,8 @@ namespace DemoGame
 			TopBar topBar = new TopBar(cursors.Scheme, inventory, options);
 			topBar.Load(game);
 
-			ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 80, 25, 160, 10, new AGSTextConfig(brush: new DesktopBrush(Brushes.WhiteSmoke),
-				alignment: Alignment.MiddleCenter, outlineBrush: new DesktopBrush(Brushes.DarkSlateBlue), outlineWidth: 2f,
+			ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 80, 25, 160, 10, new AGSTextConfig(brush: DesktopBrush.Solid(System.Drawing.Color.WhiteSmoke),
+				alignment: Alignment.MiddleCenter, outlineBrush: DesktopBrush.Solid(System.Drawing.Color.DarkSlateBlue), outlineWidth: 2f,
 				autoFit: AutoFit.LabelShouldFitText, paddingBottom: 5f));
 			System.Drawing.Color red = System.Drawing.Color.IndianRed;
 			label.Tint = AGS.API.Color.FromArgb(120, red.R, red.G, red.B);

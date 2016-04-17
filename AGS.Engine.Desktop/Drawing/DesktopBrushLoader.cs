@@ -11,7 +11,7 @@ namespace AGS.Engine.Desktop
 
 		public IBrush LoadSolidBrush(AGS.API.Color color)
 		{
-			return new DesktopBrush (new SolidBrush (color.Convert()));
+			return DesktopBrush.Solid(color);
 		}
 
 		public IBrush LoadLinearBrush(AGS.API.Point point1, AGS.API.Point point2, AGS.API.Color color1, AGS.API.Color color2)

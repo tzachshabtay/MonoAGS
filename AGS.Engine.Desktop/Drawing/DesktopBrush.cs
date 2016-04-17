@@ -21,6 +21,14 @@ namespace AGS.Engine.Desktop
 			return brush;
 		}
 
+		public static DesktopBrush Solid(System.Drawing.Color color)
+		{
+			DesktopBrush brush = new DesktopBrush (new SolidBrush (color));
+			brush.Type = BrushType.Solid;
+			brush.Color = color.Convert();
+			return brush;
+		}
+
 		#region IBrush implementation
 
 		public BrushType Type { get; private set; }

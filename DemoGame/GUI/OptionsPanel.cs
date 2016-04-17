@@ -15,11 +15,11 @@ namespace DemoGame
 		private IGame _game;
 
 		AGSTextConfig _textConfig = new AGSTextConfig (font: new DesktopFont(new Font (SystemFonts.DefaultFont.FontFamily, 10f)), 
-			brush: new DesktopBrush(Brushes.DarkOliveGreen),
-			outlineBrush: new DesktopBrush(Brushes.LightGreen), outlineWidth: 1f);
+			brush: DesktopBrush.Solid(System.Drawing.Color.DarkOliveGreen),
+			outlineBrush: DesktopBrush.Solid(System.Drawing.Color.LightGreen), outlineWidth: 1f);
 
 		AGSTextConfig _buttonTextConfig = new AGSTextConfig (font: new DesktopFont(new Font (SystemFonts.DefaultFont.FontFamily, 7f, System.Drawing.FontStyle.Bold)), 
-			brush: new DesktopBrush(Brushes.LightGreen),
+			brush: DesktopBrush.Solid(System.Drawing.Color.LightGreen),
 			alignment: Alignment.MiddleCenter);
 
 		private string _lastMode;
