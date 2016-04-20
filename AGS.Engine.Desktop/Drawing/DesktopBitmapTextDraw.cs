@@ -38,8 +38,8 @@ namespace AGS.Engine.Desktop
 				gfx.PixelOffsetMode = PixelOffsetMode.HighQuality;
 				gfx.CompositingQuality = CompositingQuality.HighQuality;
 
-				float left = alignX(textSize.Width, baseSize);
-				float top = alignY(textSize.Height, baseSize);
+				float left = _config.AlignX(textSize.Width, baseSize);
+				float top = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
 				float centerX = left + _config.OutlineWidth / 2f;
 				float centerY = top + _config.OutlineWidth / 2f;
 				float right = left + _config.OutlineWidth;
@@ -128,42 +128,6 @@ namespace AGS.Engine.Desktop
 				default:
 					_wrapFormat.Alignment = StringAlignment.Far;
 					break;
-			}
-		}
-
-		private float alignX(float width, AGS.API.SizeF baseSize)
-		{
-			const float reducePadding = 2f;
-			switch (_config.Alignment)
-			{
-				case Alignment.TopLeft:
-				case Alignment.MiddleLeft:
-				case Alignment.BottomLeft:
-					return -reducePadding + _config.PaddingLeft;
-				case Alignment.TopCenter:
-				case Alignment.MiddleCenter:
-				case Alignment.BottomCenter:
-					return baseSize.Width / 2 - width / 2 - reducePadding / 2;
-				default:
-					return baseSize.Width - width - reducePadding - _config.PaddingRight;
-			}
-		}
-
-		private float alignY(float height, AGS.API.SizeF baseSize)
-		{
-			const float reducePadding = 2f;
-			switch (_config.Alignment)
-			{
-				case Alignment.TopLeft:
-				case Alignment.TopCenter:
-				case Alignment.TopRight:
-					return _bitmap.Height - baseSize.Height - reducePadding + _config.PaddingTop;
-				case Alignment.MiddleLeft:
-				case Alignment.MiddleCenter:
-				case Alignment.MiddleRight:
-					return _bitmap.Height - baseSize.Height/2f - height/2f - reducePadding/2f;
-				default:
-					return _bitmap.Height - height - reducePadding - _config.PaddingBottom;
 			}
 		}
 	}

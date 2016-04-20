@@ -41,6 +41,42 @@ namespace AGS.Engine
 				t = ti.BaseType;
 			}
 		}
+
+		public static float AlignX(this ITextConfig config, float width, AGS.API.SizeF baseSize)
+		{
+			const float reducePadding = 2f;
+			switch (config.Alignment)
+			{
+				case Alignment.TopLeft:
+				case Alignment.MiddleLeft:
+				case Alignment.BottomLeft:
+					return -reducePadding + config.PaddingLeft;
+				case Alignment.TopCenter:
+				case Alignment.MiddleCenter:
+				case Alignment.BottomCenter:
+					return baseSize.Width / 2 - width / 2 - reducePadding / 2;
+				default:
+					return baseSize.Width - width - reducePadding - config.PaddingRight;
+			}
+		}
+
+		public static float AlignY(this ITextConfig config, float bitmapHeight, float height, AGS.API.SizeF baseSize)
+		{
+			const float reducePadding = 2f;
+			switch (config.Alignment)
+			{
+				case Alignment.TopLeft:
+				case Alignment.TopCenter:
+				case Alignment.TopRight:
+					return bitmapHeight - baseSize.Height - reducePadding + config.PaddingTop;
+				case Alignment.MiddleLeft:
+				case Alignment.MiddleCenter:
+				case Alignment.MiddleRight:
+					return bitmapHeight - baseSize.Height/2f - height/2f - reducePadding/2f;
+				default:
+					return bitmapHeight - height - reducePadding - config.PaddingBottom;
+			}
+		}
 	}
 }
 

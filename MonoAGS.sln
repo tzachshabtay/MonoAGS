@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine.Desktop", "AGS.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine", "AGS.Engine\AGS.Engine.csproj", "{6BEEC517-011A-441E-8A2F-D9461806A879}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine.Android", "AGS.Engine.Android\AGS.Engine.Android.csproj", "{6A2504D8-3C7F-485E-9793-A51989C6B2B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{647BCEF8-067A-469B-B675-EBFE7465CBDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{647BCEF8-067A-469B-B675-EBFE7465CBDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{647BCEF8-067A-469B-B675-EBFE7465CBDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A2504D8-3C7F-485E-9793-A51989C6B2B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A2504D8-3C7F-485E-9793-A51989C6B2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A2504D8-3C7F-485E-9793-A51989C6B2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A2504D8-3C7F-485E-9793-A51989C6B2B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BEEC517-011A-441E-8A2F-D9461806A879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6BEEC517-011A-441E-8A2F-D9461806A879}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BEEC517-011A-441E-8A2F-D9461806A879}.Release|Any CPU.ActiveCfg = Release|Any CPU
