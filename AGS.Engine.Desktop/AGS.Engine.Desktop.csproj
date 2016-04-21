@@ -50,10 +50,10 @@
     <Compile Include="Drawing\DesktopFont.cs" />
     <Compile Include="Drawing\DesktopBrush.cs" />
     <Compile Include="DesktopGameWindowSize.cs" />
-    <Compile Include="AGSFontLoader.cs" />
     <Compile Include="Drawing\DesktopFontLoader.cs" />
     <Compile Include="DesktopEngineConfigFile.cs" />
     <Compile Include="DesktopFileSystem.cs" />
+    <Compile Include="Drawing\DesktopFontFamilyLoader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

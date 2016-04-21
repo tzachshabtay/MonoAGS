@@ -6,9 +6,9 @@ namespace AGS.Engine
 {
 	public class AGSGameSettings : IGameSettings
 	{
-		public static IFont DefaultSpeechFont = Hooks.FontLoader.LoadFont(null, 14f, FontStyle.Regular); 
+		public static IFont DefaultSpeechFont = Hooks.FontLoader.LoadFont(null, 14f); 
 		
-		public static IFont DefaultTextFont = Hooks.FontLoader.LoadFont(null, 14f, FontStyle.Regular);
+		public static IFont DefaultTextFont = Hooks.FontLoader.LoadFont(null, 14f);
 
 		public AGSGameSettings(string title, AGS.API.Size virtualResolution, WindowState windowState = WindowState.Maximized,
             AGS.API.Size? windowSize = null, VsyncMode vsync = VsyncMode.On)

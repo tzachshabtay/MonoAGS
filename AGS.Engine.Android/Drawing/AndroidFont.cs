@@ -8,12 +8,24 @@ namespace AGS.Engine.Android
 {
 	public class AndroidFont : IFont
 	{
-		public AndroidFont(string familyName, FontStyle style, float sizeInPoints)
+		public static AndroidFont FromFamilyName(string familyName, FontStyle style, float sizeInPoints)
 		{
-			InnerFont = Typeface.Create(familyName, style.Convert());
-			FontFamily = familyName;
-			Style = style;
-			SizeInPoints = sizeInPoints;
+			AndroidFont font = new AndroidFont ();
+			font.InnerFont = Typeface.Create(familyName, style.Convert());
+			font.FontFamily = familyName;
+			font.Style = style;
+			font.SizeInPoints = sizeInPoints;
+			return font;
+		}
+
+		public static AndroidFont FromPath(string path, FontStyle style, float sizeInPoints)
+		{
+			AndroidFont font = new AndroidFont ();
+			font.InnerFont = Typeface.Create(Typeface.CreateFromFile(path), style.Convert());
+			font.FontFamily = path;
+			font.Style = style;
+			font.SizeInPoints = sizeInPoints;
+			return font;
 		}
 
 		public Typeface InnerFont { get; private set; }

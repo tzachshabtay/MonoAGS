@@ -11,9 +11,18 @@ namespace AGS.Engine.Android
 
 		#region IFontLoader implementation
 
+		public void InstallFonts(params string[] paths)
+		{
+		}
+			
 		public IFont LoadFont(string fontFamily, float sizeInPoints, FontStyle style)
 		{
-			return new AndroidFont (fontFamily, style, sizeInPoints);
+			return AndroidFont.FromFamilyName(fontFamily, style, sizeInPoints);
+		}
+			
+		public IFont LoadFontFromPath(string path, float sizeInPoints, FontStyle style)
+		{
+			return AndroidFont.FromPath(path, style, sizeInPoints);
 		}
 
 		#endregion

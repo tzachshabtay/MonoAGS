@@ -27,7 +27,7 @@ namespace AGS.Engine
 					runningBackwards = true;
 					break;
 			}
-
+					
 			State.CurrentFrame = frame;
 			State.CurrentLoop = 0;
 			State.RunningBackwards = runningBackwards;
