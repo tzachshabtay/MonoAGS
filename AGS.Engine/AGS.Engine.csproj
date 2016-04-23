@@ -77,7 +77,6 @@
     <Compile Include="Graphics\Animations\AGSDirectionalAnimation.cs" />
     <Compile Include="Graphics\Animations\AGSSingleFrameAnimation.cs" />
     <Compile Include="Graphics\Animations\AGSSpriteSheet.cs" />
-    <Compile Include="Graphics\Drawing\GLBitmapRenderer.cs" />
     <Compile Include="Graphics\Drawing\GLLineRenderer.cs" />
     <Compile Include="Graphics\Drawing\GLMaskRenderer.cs" />
     <Compile Include="Graphics\GLImage.cs" />
@@ -254,6 +253,7 @@
     <Compile Include="UI\Text\GLText.cs" />
     <Compile Include="UI\Text\LabelMatrixRenderTarget.cs" />
     <Compile Include="Platform\IFileSystem.cs" />
+    <Compile Include="Graphics\Logic\GLVertex.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

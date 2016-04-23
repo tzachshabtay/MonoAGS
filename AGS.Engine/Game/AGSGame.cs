@@ -77,6 +77,10 @@ namespace AGS.Engine
 					GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
 					GL.Enable(EnableCap.Texture2D);
+					GL.EnableClientState(ArrayCap.VertexArray);
+					GL.EnableClientState(ArrayCap.TextureCoordArray);
+					GL.EnableClientState(ArrayCap.ColorArray);
+					GLUtils.GenBuffer();
 
 					TypedParameter gameParameter = new TypedParameter (typeof(GameWindow), _game);
 					TypedParameter sizeParameter = new TypedParameter(typeof(AGS.API.Size), VirtualResolution);
