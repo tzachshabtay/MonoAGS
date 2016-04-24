@@ -4,14 +4,16 @@ namespace AGS.API
 {
 	public struct SizeF
 	{
+		private readonly float _width, _height;
+
 		public SizeF(float width, float height)
 		{
-			Width = width;
-			Height = height;
+			_width = width;
+			_height = height;
 		}
 
-		public float Width { get; private set; }
-		public float Height { get; private set; }
+		public float Width { get { return _width; } }
+		public float Height { get { return _height; } }
 	}
 }
 

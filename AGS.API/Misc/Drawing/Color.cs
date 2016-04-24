@@ -9,12 +9,14 @@ namespace AGS.API
 		private const int SHIFT_G = 8;
 		private const int SHIFT_B = 0;
 
+		private readonly uint _value;
+
 		private Color(uint argb)
 		{
-			Value = argb;
+			_value = argb;
 		}
 
-		public uint Value { get; private set; }
+		public uint Value { get { return _value; } }
 		public byte R { get { return(byte)((Value >> SHIFT_R)); } }
 		public byte G { get { return(byte)((Value >> SHIFT_G)); } }
 		public byte B { get { return(byte)((Value >> SHIFT_B)); } }

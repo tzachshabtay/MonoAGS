@@ -4,14 +4,16 @@ namespace AGS.API
 {
 	public struct PointF
 	{
+		private readonly float _x, _y;
+
 		public PointF(float x, float y)
 		{
-			X = x;
-			Y = y;
+			_x = x;
+			_y = y;
 		}
 
-		public float X { get; private set; }
-		public float Y { get; private set; }
+		public float X { get { return _x; } }
+		public float Y { get { return _y; } }
 
 		public override string ToString ()
 		{
