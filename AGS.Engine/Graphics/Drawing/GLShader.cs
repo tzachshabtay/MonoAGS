@@ -46,6 +46,7 @@ namespace AGS.Engine
 
 		public IShader Compile()
 		{
+			if (_isCompiled) return this;
 			if (!IsSupported)
 			{
 				Debug.WriteLine("Shaders are not supported on this system.");

@@ -41,7 +41,7 @@ namespace AGS.Engine
             Builder.RegisterType<GLMatrixBuilder>().As<IGLMatrixBuilder>();
             Builder.RegisterType<GLBoundingBoxesBuilder>().As<IGLBoundingBoxBuilder>();
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
-			Builder.RegisterGeneric(typeof(AGSBlockingEvent<>)).As(typeof(IBlockingEvent<>));
+			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IBlockingEvent<>));
 
 			Dictionary<string, GLImage> textures = new Dictionary<string, GLImage> (1024);
 			Builder.RegisterInstance(textures);

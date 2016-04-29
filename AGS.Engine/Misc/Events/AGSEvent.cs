@@ -77,7 +77,7 @@ namespace AGS.Engine
 			}
 			catch (Exception e) 
 			{
-				Debug.WriteLine("Exception when invoking an event:");
+				Debug.WriteLine("Exception when invoking an event asynchronously:");
 				Debug.WriteLine (e.ToString ());
 				throw;
 			}
@@ -85,7 +85,22 @@ namespace AGS.Engine
 
 		public void Invoke (object sender, TEventArgs args)
 		{
-			Task.Run (async () => await InvokeAsync (sender, args)).Wait ();
+			try
+			{
+				if (args != null)
+					args.TimesInvoked = Repeat.Do(_id.ToString());
+				foreach (var target in _invocationList) 
+				{
+					if (target.BlockingEvent != null) target.BlockingEvent(sender, args);
+					else Task.Run(async () =>  await target.Event(sender, args).ConfigureAwait(true)).Wait();
+				}
+			}
+			catch (Exception e) 
+			{
+				Debug.WriteLine("Exception when invoking an event:");
+				Debug.WriteLine (e.ToString ());
+				throw;
+			}
 		}
 
 		#endregion
@@ -121,6 +136,7 @@ namespace AGS.Engine
 			{
 				_origObject = callback;
 				Event = convert(callback);
+				BlockingEvent = callback;
 			}
 
 			public Callback(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
@@ -130,6 +146,7 @@ namespace AGS.Engine
 			}
 
 			public Func<object, TEventArgs, Task> Event { get; private set; }
+			public Action<object, TEventArgs> BlockingEvent { get; private set; }
 
 			public override bool Equals(object obj)
 			{

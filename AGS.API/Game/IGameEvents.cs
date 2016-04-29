@@ -63,6 +63,12 @@ namespace AGS.API
 		/// <value>The on before render event.</value>
 		IBlockingEvent<AGSEventArgs> OnBeforeRender { get; }
 
+		/// <summary>
+		/// This event is called whenever the screen is resized.
+		/// </summary>
+		/// <value>The on screen resize.</value>
+		IBlockingEvent<AGSEventArgs> OnScreenResize { get; }
+
         /// <summary>
         /// The on saved game load is called whenever a saved game was loaded.
         /// This event can be used to rewire external code back to the game, and to make changes if needed when loading saves from previous versions of the game.

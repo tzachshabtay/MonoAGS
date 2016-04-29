@@ -17,7 +17,6 @@ namespace AGS.Engine
 	{
 		private Resolver _resolver;
 		private IRendererLoop _renderLoop;
-		private GameWindow _game;
 		private int _relativeSpeed;
 		private AGSEventArgs _renderEventArgs;
 		private const double UPDATE_RATE = 60.0;
@@ -31,7 +30,16 @@ namespace AGS.Engine
 			_renderEventArgs = new AGSEventArgs ();
 		}
 
+		public static GameWindow GameWindow { get; private set; }
+
+		public static IGame Game { get; private set; }
+
 		public static IShader Shader { get; set; }
+
+		public static Size GetPhysicalResolution()
+		{
+			return new Size (Hooks.GameWindowSize.GetWidth(GameWindow), Hooks.GameWindowSize.GetHeight(GameWindow));
+		}
 
 		public static IGame CreateEmpty()
 		{
@@ -41,6 +49,7 @@ namespace AGS.Engine
 			resolver.Build();
 			AGSGame game = resolver.Container.Resolve<AGSGame>();
 			game._resolver = resolver;
+			Game = game;
 			return game;
 		}
 
@@ -66,14 +75,14 @@ namespace AGS.Engine
 		{
 			VirtualResolution = settings.VirtualResolution;
 			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), VirtualResolution));
-			using (_game = new GameWindow (settings.VirtualResolution.Width, 
+			using (GameWindow = new GameWindow (settings.VirtualResolution.Width, 
                 settings.VirtualResolution.Height, GraphicsMode.Default, settings.Title))
 			{
 				GL.ClearColor(0, 0.1f, 0.4f, 1);
-				Hooks.GameWindowSize.SetSize(_game, settings.WindowSize);
+				Hooks.GameWindowSize.SetSize(GameWindow, settings.WindowSize);
 				setWindowState(settings);
 
-				_game.Load += async (sender, e) =>
+				GameWindow.Load += async (sender, e) =>
 				{
 					setVSync(settings);                    
 
@@ -86,7 +95,7 @@ namespace AGS.Engine
 					GL.EnableClientState(ArrayCap.ColorArray);
 					GLUtils.GenBuffer();
 
-					TypedParameter gameParameter = new TypedParameter (typeof(GameWindow), _game);
+					TypedParameter gameParameter = new TypedParameter (typeof(GameWindow), GameWindow);
 					TypedParameter sizeParameter = new TypedParameter(typeof(AGS.API.Size), VirtualResolution);
 					Input = _resolver.Container.Resolve<IInput>(gameParameter, sizeParameter); 
 					TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
@@ -104,19 +113,20 @@ namespace AGS.Engine
 					await Events.OnLoad.InvokeAsync(sender, new AGSEventArgs());
 				};
 					
-				_game.Resize += (sender, e) =>
+				GameWindow.Resize += (sender, e) =>
 				{
-					GL.Viewport(0, 0, _game.Width, _game.Height);
+					GL.Viewport(0, 0, GameWindow.Width, GameWindow.Height);
+					Events.OnScreenResize.Invoke(sender, new AGSEventArgs());
 				};
 
-				_game.MouseDown += (sender, e) => 
+				GameWindow.MouseDown += (sender, e) => 
 				{
 				};
-				_game.KeyDown += (sender, e) =>  
+				GameWindow.KeyDown += (sender, e) =>  
 				{
 					if (e.Key == OpenTK.Input.Key.Escape) Quit();
 				};
-				_game.UpdateFrame += (sender, e) =>
+				GameWindow.UpdateFrame += (sender, e) =>
 				{
 					try
 					{
@@ -142,7 +152,7 @@ namespace AGS.Engine
 					}
 				};
 
-				_game.RenderFrame += (sender, e) =>
+				GameWindow.RenderFrame += (sender, e) =>
 				{
 					try
 					{
@@ -152,7 +162,7 @@ namespace AGS.Engine
 
 						_renderLoop.Tick();
 
-						_game.SwapBuffers();
+						GameWindow.SwapBuffers();
 
 						if (Repeat.OnceOnly("SetFirstRestart"))
 						{
@@ -168,14 +178,13 @@ namespace AGS.Engine
 				};
 
 				// Run the game at 60 updates per second
-
-				_game.Run(UPDATE_RATE);
+				GameWindow.Run(UPDATE_RATE);
 			}
 		}
 
 		public void Quit()
 		{
-			_game.Exit();
+			GameWindow.Exit();
 		}
 
 		public TEntity Find<TEntity>(string id) where TEntity : class, IEntity
@@ -200,7 +209,7 @@ namespace AGS.Engine
 			if (_relativeSpeed == State.Speed) return;
 
 			_relativeSpeed = State.Speed;
-			_game.TargetUpdateFrequency = UPDATE_RATE * (_relativeSpeed / 100f);
+			GameWindow.TargetUpdateFrequency = UPDATE_RATE * (_relativeSpeed / 100f);
 		}
         
         private void setVSync(IGameSettings settings)
@@ -208,13 +217,13 @@ namespace AGS.Engine
             switch (settings.Vsync)
             {
                 case VsyncMode.On:
-                    _game.VSync = VSyncMode.On;
+					GameWindow.VSync = VSyncMode.On;
                     break;
                 case VsyncMode.Adaptive:
-                    _game.VSync = VSyncMode.Adaptive;
+					GameWindow.VSync = VSyncMode.Adaptive;
                     break;
                 case VsyncMode.Off:
-                    _game.VSync = VSyncMode.Off;
+					GameWindow.VSync = VSyncMode.Off;
                     break;
                 default:
                     throw new NotSupportedException(settings.Vsync.ToString());
@@ -226,16 +235,16 @@ namespace AGS.Engine
             switch (settings.WindowState)
             {
                 case AGS.API.WindowState.FullScreen:
-                    _game.WindowState = OpenTK.WindowState.Fullscreen;
+					GameWindow.WindowState = OpenTK.WindowState.Fullscreen;
                     break;
 				case AGS.API.WindowState.Maximized:
-                    _game.WindowState = OpenTK.WindowState.Maximized;
+					GameWindow.WindowState = OpenTK.WindowState.Maximized;
                     break;
 				case AGS.API.WindowState.Minimized:
-                    _game.WindowState = OpenTK.WindowState.Minimized;
+					GameWindow.WindowState = OpenTK.WindowState.Minimized;
                     break;
 				case AGS.API.WindowState.Normal:
-                    _game.WindowState = OpenTK.WindowState.Normal;
+					GameWindow.WindowState = OpenTK.WindowState.Normal;
                     break;
                 default:
                     throw new NotSupportedException(settings.WindowState.ToString());
