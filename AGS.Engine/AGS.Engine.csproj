@@ -254,6 +254,8 @@
     <Compile Include="UI\Text\LabelMatrixRenderTarget.cs" />
     <Compile Include="Platform\IFileSystem.cs" />
     <Compile Include="Graphics\Logic\GLVertex.cs" />
+    <Compile Include="Graphics\Drawing\GLShader.cs" />
+    <Compile Include="Misc\Events\AGSBlockingEvent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

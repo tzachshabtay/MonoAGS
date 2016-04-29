@@ -19,6 +19,7 @@ namespace AGS.Engine
 		private IRendererLoop _renderLoop;
 		private GameWindow _game;
 		private int _relativeSpeed;
+		private AGSEventArgs _renderEventArgs;
 		private const double UPDATE_RATE = 60.0;
 
 		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents)
@@ -27,7 +28,10 @@ namespace AGS.Engine
 			State = state;
 			Events = gameEvents;
 			_relativeSpeed = state.Speed;
+			_renderEventArgs = new AGSEventArgs ();
 		}
+
+		public static IShader Shader { get; set; }
 
 		public static IGame CreateEmpty()
 		{
@@ -144,6 +148,7 @@ namespace AGS.Engine
 					{
 						// render graphics
 						GL.Clear( ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit );
+						Events.OnBeforeRender.Invoke(sender, _renderEventArgs);
 
 						_renderLoop.Tick();
 

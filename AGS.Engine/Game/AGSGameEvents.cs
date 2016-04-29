@@ -7,10 +7,11 @@ namespace AGS.Engine
 	public class AGSGameEvents : IGameEvents
 	{
 		public AGSGameEvents(IEvent<AGSEventArgs> onLoad, IEvent<AGSEventArgs> onRepeatedlyExecute,
-			IEvent<AGSEventArgs> onSavedGameLoad, Resolver resolver)
+			IBlockingEvent<AGSEventArgs> onBeforeRender, IEvent<AGSEventArgs> onSavedGameLoad, Resolver resolver)
 		{
 			OnLoad = onLoad;
 			OnRepeatedlyExecute = onRepeatedlyExecute;
+			OnBeforeRender = onBeforeRender;
 			OnSavedGameLoad = onSavedGameLoad;
 
 			TypedParameter nullDefaults = new TypedParameter (typeof(IInteractions), null);
@@ -23,6 +24,8 @@ namespace AGS.Engine
 		public IEvent<AGSEventArgs> OnLoad { get; private set; }
 
 		public IEvent<AGSEventArgs> OnRepeatedlyExecute { get; private set; }
+
+		public IBlockingEvent<AGSEventArgs> OnBeforeRender { get; private set; }
 
 		public IEvent<AGSEventArgs> OnSavedGameLoad { get; private set; }
 

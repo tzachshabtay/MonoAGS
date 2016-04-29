@@ -2,6 +2,7 @@
 using AGS.API;
 using System.Linq;
 using System.Collections.Generic;
+using OpenTK.Input;
 
 namespace AGS.Engine
 {
@@ -13,6 +14,7 @@ namespace AGS.Engine
 		private readonly AGSWalkBehindsMap _walkBehinds;
 		private readonly IInput _input;
 		private readonly Resolver _resolver;
+		private IShader _lastShaderUsed;
 
 		private IObject _mouseCursorContainer;
 
@@ -34,6 +36,7 @@ namespace AGS.Engine
 			IRoom room = _gameState.Player.Character.Room;
 			List<IObject> displayList = getDisplayList(room);
 
+			activateShader();
 			foreach (IObject obj in displayList) 
 			{
 				IImageRenderer imageRenderer = getImageRenderer(obj);
@@ -46,6 +49,19 @@ namespace AGS.Engine
 		}
 
 		#endregion
+
+		private void activateShader()
+		{
+			var shader = AGSGame.Shader;
+			if (shader != null) shader = shader.Compile();
+			if (shader == null)
+			{
+				if (_lastShaderUsed != null) _lastShaderUsed.Unbind();
+				return;
+			}
+			_lastShaderUsed = shader;
+			shader.Bind();
+		}
 
 		private PointF getAreaScaling(IRoom room, IObject obj)
 		{

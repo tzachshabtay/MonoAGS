@@ -161,6 +161,8 @@
     <Compile Include="Misc\Drawing\IBrushLoader.cs" />
     <Compile Include="Misc\Drawing\FontStyle.cs" />
     <Compile Include="Misc\Drawing\IFontLoader.cs" />
+    <Compile Include="Graphics\IShader.cs" />
+    <Compile Include="Misc\Events\IBlockingEvent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

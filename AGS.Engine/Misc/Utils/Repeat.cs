@@ -2,12 +2,13 @@
 using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Concurrent;
 
 namespace AGS.Engine
 {
 	public static class Repeat
 	{
-		private static Dictionary<string, Counter> _times = new Dictionary<string, Counter>(100);
+		private static ConcurrentDictionary<string, Counter> _times = new ConcurrentDictionary<string, Counter>();
 
 		public static bool OnceOnly(string key)
 		{
@@ -51,12 +52,16 @@ namespace AGS.Engine
         
         public static void FromDictionary(Dictionary<string, int> counters)
         {
-            _times = counters.ToDictionary(k => k.Key, v => new Counter(v.Value));
+			_times = new ConcurrentDictionary<string, Counter> ();
+			foreach (var counter in counters)
+			{
+				_times.TryAdd(counter.Key, new Counter (counter.Value));
+			}
         }
 
 		private static Counter getCounter(string key)
 		{
-			return _times.GetOrAdd(key, () => new Counter ());
+			return _times.GetOrAdd(key, _ => new Counter ());
 		}
 			
 		private class Counter

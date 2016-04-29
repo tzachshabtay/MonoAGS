@@ -2,6 +2,7 @@
 using AGS.API;
 using AGS.Engine;
 using System.Collections.Generic;
+using DemoQuest;
 
 namespace DemoGame
 {
@@ -32,7 +33,7 @@ namespace DemoGame
 		{
 			IGameFactory factory = _game.Factory;
 			StartDialog = factory.Dialog.GetDialog("Dialog: Beman- Start");
-			createStartDialog(factory, createQuestionsDialog(factory));
+			createStartDialog(factory, createQuestionsDialog(factory), createShadersDialog(factory));
 		}
 
 		private void clearDialogs()
@@ -54,7 +55,7 @@ namespace DemoGame
 			}
 		}
 
-		private void createStartDialog(IGameFactory factory, IDialog questionsDialog)
+		private void createStartDialog(IGameFactory factory, IDialog questionsDialog, IDialog shadersDialog)
 		{
 			StartDialog.StartupActions.AddPlayerText("Hello there!");
 			StartDialog.StartupActions.AddText(Characters.Beman, "Hello yourself!");
@@ -73,11 +74,15 @@ namespace DemoGame
 			option3.AddText(Characters.Beman, "What do you want to know?");
 			option3.ChangeDialogWhenFinished = questionsDialog;
 
-			IDialogOption option4 = factory.Dialog.GetDialogOption("I'll be going now.");
-			option4.AddText(Characters.Beman, "Ok, see you around.");
-			option4.ExitDialogWhenFinished = true;
+			IDialogOption option4 = factory.Dialog.GetDialogOption("Can I set a shader?");
+			option4.AddText(Characters.Beman, "Sure, choose a shader...");
+			option4.ChangeDialogWhenFinished = shadersDialog;
 
-			StartDialog.AddOptions(option1, option2, option3, option4);
+			IDialogOption option5 = factory.Dialog.GetDialogOption("I'll be going now.");
+			option5.AddText(Characters.Beman, "Ok, see you around.");
+			option5.ExitDialogWhenFinished = true;
+
+			StartDialog.AddOptions(option1, option2, option3, option4, option5);
 		}
 
 		private IDialog createQuestionsDialog(IGameFactory factory)
@@ -100,6 +105,33 @@ namespace DemoGame
 			dialog.AddOptions(option1, option2, option3, option4);
 
 			return dialog;
+		}
+
+		private IDialog createShadersDialog(IGameFactory factory)
+		{
+			IDialogOption option1 = factory.Dialog.GetDialogOption("Normal");
+			IDialogOption option2 = factory.Dialog.GetDialogOption("Grayscale");
+			IDialogOption option3 = factory.Dialog.GetDialogOption("Sepia");
+			IDialogOption option4 = factory.Dialog.GetDialogOption("Soft Sepia");
+			IDialogOption option5 = factory.Dialog.GetDialogOption("Actually, I don't want a shader!");
+
+			setShaderOption(option1, () => Shaders.SetStandardShader());
+			setShaderOption(option2, () => Shaders.SetGrayscaleShader());
+			setShaderOption(option3, () => Shaders.SetSepiaShader());
+			setShaderOption(option4, () => Shaders.SetSoftSepiaShader());
+			setShaderOption(option5, () => Shaders.TurnOffShader());
+
+			IDialog dialog = factory.Dialog.GetDialog("Dialog: Beman- Shaders");
+			dialog.AddOptions(option1, option2, option3, option4, option5);
+
+			return dialog;
+		}
+
+		private void setShaderOption(IDialogOption option, Action setShader)
+		{
+			option.AddText(Characters.Beman, "Your wish is my command.");
+			option.AddActions(setShader);
+			option.ExitDialogWhenFinished = true;
 		}
 
 		private bool startAScene()

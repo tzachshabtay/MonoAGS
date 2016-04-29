@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System;
+
+namespace AGS.API
 {
     /// <summary>
     /// The game events, allows you to subscribe to important events that happen in the game.
@@ -52,6 +54,14 @@
         /// </code>        
         /// </example>
         IEvent<AGSEventArgs> OnRepeatedlyExecute { get; }
+
+		/// <summary>
+		/// This event is called on every render cycle before rendering starts.
+		/// It can be used for native background drawings, or for native OpenGL calls
+		/// for setting thins up (like setting shader variables).
+		/// </summary>
+		/// <value>The on before render event.</value>
+		IBlockingEvent<AGSEventArgs> OnBeforeRender { get; }
 
         /// <summary>
         /// The on saved game load is called whenever a saved game was loaded.

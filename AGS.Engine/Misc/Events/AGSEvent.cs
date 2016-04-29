@@ -142,6 +142,7 @@ namespace AGS.Engine
 
 			public override int GetHashCode()
 			{
+				if (_origObject.Target == null) return getMethodName(_origObject).GetHashCode(); //static method subscriptions
 				return _origObject.Target.GetHashCode();
 			}
 

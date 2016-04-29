@@ -377,5 +377,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Rooms\TrashcanStreet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DefaultInteractions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Program.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shaders.cs" />
   </ItemGroup>
 </Project>
