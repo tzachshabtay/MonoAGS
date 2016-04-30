@@ -30,6 +30,7 @@ namespace AGS.Engine
 		private IFaceDirectionBehavior _faceDirectionBehavior;
 		private IHasOutfit _hasOutfit;
 		private IHasInventory _hasInventory;
+		private IShaderComponent _shaderComponent;
 
 		public AGSCharacter(string id, Resolver resolver, IOutfit outfit) : base(id, resolver)
 		{			
@@ -45,6 +46,7 @@ namespace AGS.Engine
 			_faceDirectionBehavior = AddComponent<IFaceDirectionBehavior>();			
 			_hasOutfit = AddComponent<IHasOutfit>();			
 			_hasInventory = AddComponent<IHasInventory>();
+			_shaderComponent = AddComponent<IShaderComponent>();
 			init(resolver, outfit);
 			InitComponents();
 		}
@@ -556,6 +558,12 @@ namespace AGS.Engine
 			get { return _hasInventory.Inventory; }  
 			set { _hasInventory.Inventory = value; } 
 		}
+
+		#endregion
+
+		#region IShaderComponent implementation
+
+		public IShader Shader { get; set; }
 
 		#endregion
 	}

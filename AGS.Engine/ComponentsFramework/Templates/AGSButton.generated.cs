@@ -26,6 +26,7 @@ namespace AGS.Engine
 		private IDrawableInfo _drawableInfo;
 		private IHotspotComponent _hotspotComponent;
 		private IButtonComponent _buttonComponent;
+		private IShaderComponent _shaderComponnt;
 
 		public AGSButton(string id, Resolver resolver, ILabelRenderer labelRenderer, AGS.API.SizeF baseSize) : base(id, resolver)
 		{			
@@ -40,6 +41,7 @@ namespace AGS.Engine
 			_drawableInfo = AddComponent<IDrawableInfo>();			
 			_hotspotComponent = AddComponent<IHotspotComponent>();			
 			_buttonComponent = AddComponent<IButtonComponent>();
+			_shaderComponnt = AddComponent<IShaderComponent>();
 			init(resolver, labelRenderer, baseSize);
 			InitComponents();
 		}
@@ -477,6 +479,12 @@ namespace AGS.Engine
 			get { return _buttonComponent.PushedAnimation; }  
 			set { _buttonComponent.PushedAnimation = value; } 
 		}
+
+		#endregion
+
+		#region IShaderComponent implementation
+
+		public IShader Shader { get; set; }
 
 		#endregion
 	}

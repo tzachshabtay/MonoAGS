@@ -25,6 +25,7 @@ namespace AGS.Engine
 		private ICustomProperties _customProperties;
 		private IDrawableInfo _drawableInfo;
 		private IHotspotComponent _hotspotComponent;
+		private IShaderComponent _shaderComponent;
 
 		public AGSPanel(string id, Resolver resolver, IImage image) : base(id, resolver)
 		{			
@@ -38,6 +39,7 @@ namespace AGS.Engine
 			_customProperties = AddComponent<ICustomProperties>();			
 			_drawableInfo = AddComponent<IDrawableInfo>();			
 			_hotspotComponent = AddComponent<IHotspotComponent>();
+			_shaderComponent = AddComponent<IShaderComponent>();
 			init(resolver, image);
 			InitComponents();
 		}
@@ -453,6 +455,12 @@ namespace AGS.Engine
 			get { return _hotspotComponent.Hotspot; }  
 			set { _hotspotComponent.Hotspot = value; } 
 		}
+
+		#endregion
+
+		#region IShaderComponent implementation
+
+		public IShader Shader { get; set; }
 
 		#endregion
 	}

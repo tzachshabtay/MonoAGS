@@ -4,7 +4,7 @@ using AGS.API;
 
 namespace DemoQuest
 {
-	//Shaders source taken from: https://github.com/mattdesl/lwjgl-basics/wiki/ShaderLesson3
+	//Shaders source taken from: https://github.com/mattdesl/lwjgl-basics/wiki/ShaderLesson3 & https://www.youtube.com/watch?v=qNM0k522R7o
 	public static class Shaders
 	{
 		const string VERTEX_SHADER = 
@@ -110,6 +110,30 @@ void main()
 	gl_FragColor = col * gl_Color;
 }
 ";
+		const string FRAGMENT_SHADER_BLUR = 
+			@"#version 120
+
+uniform sampler2D texture;
+varying vec4 gl_Color;
+
+void main()
+{
+	vec2 pos = gl_TexCoord[0].st;
+	vec4 col = texture2D(texture, pos) * gl_Color;
+
+	int i, j;
+	vec4 sum = vec4(0);
+	for (i = -2; i <= 2; i++)
+		for (j = -2; j <= 2; j++)
+		{
+			vec2 offset = vec2(i, j) * 0.01;
+			vec4 currentCol = texture2D(texture, pos + offset);
+			sum += currentCol;
+		}
+	
+	gl_FragColor = (sum / 25);	
+}
+			";
 
 		public static void SetStandardShader()
 		{
@@ -133,6 +157,12 @@ void main()
 		{
 			unbindVignetteShader();
 			AGSGame.Shader =  GLShader.FromText(VERTEX_SHADER, FRAGMENT_SHADER_SOFT_SEPIA);
+		}
+
+		public static void SetBlurShader()
+		{
+			unbindVignetteShader();
+			AGSGame.Game.State.Player.Character.Shader = GLShader.FromText(VERTEX_SHADER, FRAGMENT_SHADER_BLUR);
 		}
 
 		private static GLShader _vignetteShader;
@@ -175,6 +205,7 @@ void main()
 		{
 			unbindVignetteShader();
 			AGSGame.Shader = null;
+			AGSGame.Game.State.Player.Character.Shader = null;
 		}
 	}
 }

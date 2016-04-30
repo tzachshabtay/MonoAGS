@@ -114,17 +114,19 @@ namespace DemoGame
 			IDialogOption option3 = factory.Dialog.GetDialogOption("Sepia");
 			IDialogOption option4 = factory.Dialog.GetDialogOption("Soft Sepia");
 			IDialogOption option5 = factory.Dialog.GetDialogOption("Vignette");
-			IDialogOption option6 = factory.Dialog.GetDialogOption("Actually, I don't want a shader!");
+			IDialogOption option6 = factory.Dialog.GetDialogOption("Blur me!");
+			IDialogOption option7 = factory.Dialog.GetDialogOption("Actually, I don't want a shader!");
 
 			setShaderOption(option1, () => Shaders.SetStandardShader());
 			setShaderOption(option2, () => Shaders.SetGrayscaleShader());
 			setShaderOption(option3, () => Shaders.SetSepiaShader());
 			setShaderOption(option4, () => Shaders.SetSoftSepiaShader());
 			setShaderOption(option5, () => Shaders.SetVignetteShader());
-			setShaderOption(option6, () => Shaders.TurnOffShader());
+			setShaderOption(option6, () => Shaders.SetBlurShader());
+			setShaderOption(option7, () => Shaders.TurnOffShader());
 
 			IDialog dialog = factory.Dialog.GetDialog("Dialog: Beman- Shaders");
-			dialog.AddOptions(option1, option2, option3, option4, option5, option6);
+			dialog.AddOptions(option1, option2, option3, option4, option5, option6, option7);
 
 			return dialog;
 		}

@@ -44,11 +44,31 @@ namespace AGS.Engine
 
 				imageRenderer.Prepare(obj, room.Viewport, areaScaling);
 
+				var shader = applyObjectShader(obj);
+
 				imageRenderer.Render (obj, room.Viewport, areaScaling);
+
+				removeObjectShader(shader);
 			}
 		}
 
 		#endregion
+
+		private static IShader applyObjectShader(IObject obj)
+		{
+			var shader = obj.Shader;
+			if (shader != null) shader = shader.Compile();
+			if (shader != null) shader.Bind();
+			return shader;
+		}
+
+		private void removeObjectShader(IShader shader)
+		{
+			if (shader == null) return;
+
+			if (_lastShaderUsed != null) _lastShaderUsed.Bind();
+			else shader.Unbind();
+		}
 
 		private void activateShader()
 		{

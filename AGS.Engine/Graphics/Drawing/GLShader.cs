@@ -15,6 +15,7 @@ namespace AGS.Engine
 		private string _vertexSource, _fragmentSource;
 		private Dictionary<string, int> _variables;
 		private bool _isCompiled;
+		private bool _hadCompilationErrors;
 
 		private GLShader(string vertexSource, string fragmentSource)
 		{
@@ -46,18 +47,28 @@ namespace AGS.Engine
 
 		public IShader Compile()
 		{
+			if (_hadCompilationErrors) return null;
 			if (_isCompiled) return this;
 			if (!IsSupported)
 			{
 				Debug.WriteLine("Shaders are not supported on this system.");
+				_hadCompilationErrors = true;
 				return null;
 			}
 
 			_program = GL.CreateProgram();
 			if (!compileShader(_fragmentSource, ShaderType.FragmentShader) ||
-				!compileShader(_vertexSource, ShaderType.VertexShader)) return null;
+			    !compileShader(_vertexSource, ShaderType.VertexShader))
+			{
+				_hadCompilationErrors = true;
+				return null;
+			}
 
-			if (!linkProgram()) return null;
+			if (!linkProgram())
+			{
+				_hadCompilationErrors = true;
+				return null;
+			}
 
 			_isCompiled = true;
 			return this;

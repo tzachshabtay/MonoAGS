@@ -255,6 +255,7 @@
     <Compile Include="Platform\IFileSystem.cs" />
     <Compile Include="Graphics\Logic\GLVertex.cs" />
     <Compile Include="Graphics\Drawing\GLShader.cs" />
+    <Compile Include="Graphics\Drawing\AGSShaderComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

@@ -26,6 +26,7 @@ namespace AGS.Engine
 		private IDrawableInfo _drawableInfo;
 		private IHotspotComponent _hotspotComponent;
 		private IInventoryWindowComponent _inventoryWindowComponent;
+		private IShaderComponent _shaderComponent;
 
 		public AGSInventoryWindow(string id, Resolver resolver, IImage image) : base(id, resolver)
 		{			
@@ -40,6 +41,7 @@ namespace AGS.Engine
 			_drawableInfo = AddComponent<IDrawableInfo>();			
 			_hotspotComponent = AddComponent<IHotspotComponent>();			
 			_inventoryWindowComponent = AddComponent<IInventoryWindowComponent>();
+			_shaderComponent = AddComponent<IShaderComponent>();
 			init(resolver, image);
 			InitComponents();
 		}
@@ -497,6 +499,12 @@ namespace AGS.Engine
         {
         	_inventoryWindowComponent.ScrollDown();
         }
+
+		#endregion
+
+		#region IShaderComponent implementation
+
+		public IShader Shader { get; set; }
 
 		#endregion
 	}
