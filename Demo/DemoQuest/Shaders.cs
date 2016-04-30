@@ -201,6 +201,13 @@ void main()
 			_vignetteShader = null;
 		}
 
+		public static void SetShakeShader()
+		{
+			unbindVignetteShader();
+			ShakeEffect effect = new ShakeEffect ();
+			effect.RunBlocking(TimeSpan.FromSeconds(5));
+		}
+
 		public static void TurnOffShader()
 		{
 			unbindVignetteShader();

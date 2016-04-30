@@ -256,6 +256,7 @@
     <Compile Include="Graphics\Logic\GLVertex.cs" />
     <Compile Include="Graphics\Drawing\GLShader.cs" />
     <Compile Include="Graphics\Drawing\AGSShaderComponent.cs" />
+    <Compile Include="Graphics\Effects\ShakeEffect.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -308,6 +309,7 @@
     <Folder Include="Rooms\" />
     <Folder Include="Serialization\" />
     <Folder Include="UI\" />
+    <Folder Include="Graphics\Effects\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AGS.API\AGS.API.csproj">
