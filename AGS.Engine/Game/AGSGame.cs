@@ -19,7 +19,7 @@ namespace AGS.Engine
 		private IRendererLoop _renderLoop;
 		private int _relativeSpeed;
 		private AGSEventArgs _renderEventArgs;
-		private const double UPDATE_RATE = 60.0;
+		public const double UPDATE_RATE = 60.0;
 
 		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents)
 		{

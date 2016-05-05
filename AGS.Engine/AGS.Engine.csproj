@@ -257,6 +257,9 @@
     <Compile Include="Graphics\Drawing\GLShader.cs" />
     <Compile Include="Graphics\Drawing\AGSShaderComponent.cs" />
     <Compile Include="Graphics\Effects\ShakeEffect.cs" />
+    <Compile Include="Misc\Tweening\Tween.cs" />
+    <Compile Include="Misc\Tweening\Ease.cs" />
+    <Compile Include="Misc\Tweening\Tweens.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -310,6 +313,7 @@
     <Folder Include="Serialization\" />
     <Folder Include="UI\" />
     <Folder Include="Graphics\Effects\" />
+    <Folder Include="Misc\Tweening\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AGS.API\AGS.API.csproj">

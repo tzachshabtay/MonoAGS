@@ -67,6 +67,8 @@
     <Compile Include="Engine\Serialization\SaveLoadTests.cs" />
     <Compile Include="Engine\Rooms\Viewport\CameraTests.cs" />
     <Compile Include="Engine\TestAssembly.cs" />
+    <Compile Include="Engine\Misc\Tweens\TweensTests.cs" />
+    <Compile Include="API\Misc\Drawing\ColorTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -89,5 +91,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Engine\Misc\Tweens\" />
+    <Folder Include="API\" />
+    <Folder Include="API\Misc\" />
+    <Folder Include="API\Misc\Drawing\" />
   </ItemGroup>
 </Project>
