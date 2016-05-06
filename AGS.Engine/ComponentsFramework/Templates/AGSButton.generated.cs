@@ -484,7 +484,11 @@ namespace AGS.Engine
 
 		#region IShaderComponent implementation
 
-		public IShader Shader { get; set; }
+		public IShader Shader 
+		{ 
+			get { return _shaderComponnt.Shader; }
+			set { _shaderComponnt.Shader = value; }
+		}
 
 		#endregion
 	}

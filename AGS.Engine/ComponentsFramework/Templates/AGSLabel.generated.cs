@@ -39,6 +39,7 @@ namespace AGS.Engine
 			_customProperties = AddComponent<ICustomProperties>();			
 			_drawableInfo = AddComponent<IDrawableInfo>();			
 			_hotspotComponent = AddComponent<IHotspotComponent>();
+			_shaderComponent = AddComponent<IShaderComponent>();
 			init(resolver, labelRenderer, baseSize);
 			InitComponents();
 		}
@@ -459,7 +460,11 @@ namespace AGS.Engine
 
 		#region IShaderComponent implementation
 
-		public IShader Shader { get; set; }
+		public IShader Shader 
+		{ 
+			get { return _shaderComponent.Shader; }
+			set { _shaderComponent.Shader = value; }
+		}
 
 		#endregion
 	}
