@@ -50,10 +50,10 @@ namespace Tests
 			sprite.Tint = Color.FromHsla(100, 1f, 0.5f, 100); //Lightness must be different than 1 for saturation to change
 
 			await sprite.TweenSaturation(0f, 1f, Ease.QuadIn).Task;
-			Assert.AreEqual(0f, sprite.Tint.GetSaturation());
+			Assert.IsTrue(Math.Abs(sprite.Tint.GetSaturation()) < 0.0001f);
 
 			await sprite.TweenSaturation(1f, 1f).Task;
-			Assert.AreEqual(1f, sprite.Tint.GetSaturation());
+			Assert.IsTrue(Math.Abs(1f - sprite.Tint.GetSaturation()) < 0.0001f);
 		}
 
 		private async void startTicks()
