@@ -14,14 +14,17 @@ namespace AGS.Engine
 		private int _program;
 		private string _vertexSource, _fragmentSource;
 		private Dictionary<string, int> _variables;
+		private Dictionary<int, int> _textures;
 		private bool _isCompiled;
 		private bool _hadCompilationErrors;
+		private static int _maxTextureUnits = -1;
 
 		private GLShader(string vertexSource, string fragmentSource)
 		{
 			_vertexSource = vertexSource;
 			_fragmentSource = fragmentSource;
 			_variables = new Dictionary<string, int> ();
+			_textures = new Dictionary<int, int> ();
 		}
 
 		public static GLShader FromText(string vertexSource, string fragmentSource)
@@ -77,6 +80,7 @@ namespace AGS.Engine
 		public void Bind()
 		{
 			GL.UseProgram(_program);
+			bindTextures();
 		}
 
 		public void Unbind()
@@ -141,6 +145,22 @@ namespace AGS.Engine
 			int location = getVariableLocation(name);
 			if (location == -1) return false;
 			GL.UniformMatrix4(location, false, ref matrix);
+			return true;
+		}
+
+		public bool SetTextureVariable(string name, int texture)
+		{
+			int location = getVariableLocation(name);
+			if (location == -1) return false;
+
+			_textures[location] = texture;
+			if (_textures.Count > getMaxTextureUnits())
+			{
+				Debug.WriteLine("Failed to add texture {0} to shader. Reached max texture units {1}.",
+					name, getMaxTextureUnits());
+				_textures.Remove(location);
+				return false;
+			}
 			return true;
 		}
 
@@ -217,6 +237,26 @@ namespace AGS.Engine
 				return false;
 			}
 			return true;
+		}
+
+		private void bindTextures()
+		{
+			int i = 0;
+			foreach (var pair in _textures)
+			{
+				GL.Uniform1(pair.Key, i);
+				GL.ActiveTexture(TextureUnit.Texture0 + i);
+				GL.BindTexture(TextureTarget.Texture2D, pair.Value);
+				i++;
+			}
+			GL.ActiveTexture(TextureUnit.Texture0);
+		}
+
+		private int getMaxTextureUnits()
+		{
+			if (_maxTextureUnits != -1) return _maxTextureUnits;
+			_maxTextureUnits = GL.GetInteger(GetPName.MaxTextureUnits);
+			return _maxTextureUnits;
 		}
 	}
 }

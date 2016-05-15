@@ -46,6 +46,7 @@ namespace Tests
 			builder.RegisterInstance(mocks.Image().Object);
 			builder.RegisterInstance(mocks.Input().Object);
 			builder.RegisterInstance(mocks.Cutscene().Object);
+			builder.RegisterInstance(mocks.RoomTransitions().Object);
 
 			builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 
@@ -149,6 +150,12 @@ namespace Tests
 				_roomEvents.Setup(r => r.OnBeforeFadeOut).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
 			}
 			return _roomEvents;
+		}
+
+		public Mock<IAGSRoomTransitions> RoomTransitions()
+		{
+			var transitions = new Mock<IAGSRoomTransitions> ();
+			return transitions;
 		}
 
 		public Mock<IObject> Object()

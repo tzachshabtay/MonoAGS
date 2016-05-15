@@ -12,7 +12,7 @@ namespace AGS.Engine
 	{
 		private Lazy<ICutscene> _cutscene;
 
-		public AGSGameState (IPlayer player, ICustomProperties globalVariables, Resolver resolver)
+		public AGSGameState (IPlayer player, ICustomProperties globalVariables, IAGSRoomTransitions roomTransitions, Resolver resolver)
 		{
 			Speed = 100;
 			Rooms = new List<IRoom> ();
@@ -20,6 +20,7 @@ namespace AGS.Engine
 			Player = player;
 			GlobalVariables = globalVariables;
 			_cutscene = new Lazy<ICutscene> (() => resolver.Container.Resolve<ICutscene>());
+			RoomTransitions = roomTransitions;
 		}
 
 		#region IGameState implementation
@@ -33,6 +34,8 @@ namespace AGS.Engine
 		public ICustomProperties GlobalVariables { get; private set; }
 
 		public ICutscene Cutscene { get { return _cutscene.Value; } }
+
+		public IRoomTransitions RoomTransitions { get; private set; }
 
 		public bool Paused { get; set; }
 

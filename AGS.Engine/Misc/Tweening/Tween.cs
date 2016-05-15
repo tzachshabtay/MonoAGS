@@ -16,10 +16,10 @@ namespace AGS.Engine
 		private TaskCompletionSource<object> _tcs;
 		private static IGameEvents _gameEvents { get { return OverrideGameEvents ?? AGSGame.Game.Events; } }
 
-		public Tween()
+		private Tween(bool subscribe)
 		{
 			_tcs = new TaskCompletionSource<object> (null);
-			_gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+			if (subscribe) _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
 
 		public float DurationInTicks { get; private set; }
@@ -36,10 +36,22 @@ namespace AGS.Engine
 			float timeInSeconds, Func<float, float> easing = null)
 		{
 			easing = easing ?? Ease.Linear;
-			Tween tween = new Tween
+			Tween tween = new Tween(true)
 			{
 				From = from, To = to, Setter = setter, Easing = easing, DurationInTicks = toTicks(timeInSeconds)
 			};
+			return tween;
+		}
+
+		public static Tween RunWithExternalVisit(float from, float to, Action<float> setter, 
+			float timeInSeconds, Func<float, float> easing, out Action visitCallback)
+		{
+			easing = easing ?? Ease.Linear;
+			Tween tween = new Tween(false)
+			{
+				From = from, To = to, Setter = setter, Easing = easing, DurationInTicks = toTicks(timeInSeconds)
+			};
+			visitCallback = tween.visit;
 			return tween;
 		}
 
@@ -49,6 +61,11 @@ namespace AGS.Engine
 		}
 
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+		{
+			visit();
+		}
+
+		private void visit()
 		{
 			ElapsedTicks++;
 			if (ElapsedTicks >= DurationInTicks)

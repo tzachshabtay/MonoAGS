@@ -13,6 +13,7 @@
 		IGameEvents Events { get; }
 
 		Size VirtualResolution { get; }
+		Size WindowSize { get; }
 
 		void Start(IGameSettings settings);
 		void Quit();

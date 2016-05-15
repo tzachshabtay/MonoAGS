@@ -8,10 +8,12 @@ namespace AGS.Engine
 		private IObject _obj;
 		private readonly IGameState _state;
 		private Lazy<IRoom> _cachedRoom;
+		private IAGSRoomTransitions _roomTransitions;
 
-		public HasRoomBehavior(IGameState state)
+		public HasRoomBehavior(IGameState state, IAGSRoomTransitions roomTransitions)
 		{
 			_state = state;
+			_roomTransitions = roomTransitions;
 			refreshRoom();
 		}
 
@@ -29,6 +31,13 @@ namespace AGS.Engine
 		{
 			if (Room != null)
 			{
+				if (_state.Player.Character == _obj)
+				{
+					_roomTransitions.State = RoomTransitionState.BeforeLeavingRoom;
+					if (_roomTransitions.Transition != null)
+						_roomTransitions.OnStateChanged.WaitUntil(_ => _roomTransitions.State == RoomTransitionState.PreparingTransition
+							|| _roomTransitions.State == RoomTransitionState.NotInTransition);
+				}
 				Room.Objects.Remove(_obj);
 			}
 			if (newRoom != null)

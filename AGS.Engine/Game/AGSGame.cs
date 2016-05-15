@@ -71,6 +71,8 @@ namespace AGS.Engine
 
 		public AGS.API.Size VirtualResolution { get; private set; }
 
+		public AGS.API.Size WindowSize { get { return GetPhysicalResolution(); } }
+
 		public void Start(IGameSettings settings)
 		{
 			VirtualResolution = settings.VirtualResolution;
@@ -95,11 +97,12 @@ namespace AGS.Engine
 					GL.EnableClientState(ArrayCap.ColorArray);
 					GLUtils.GenBuffer();
 
-					TypedParameter gameParameter = new TypedParameter (typeof(GameWindow), GameWindow);
+					TypedParameter gameWindowParameter = new TypedParameter (typeof(GameWindow), GameWindow);
 					TypedParameter sizeParameter = new TypedParameter(typeof(AGS.API.Size), VirtualResolution);
-					Input = _resolver.Container.Resolve<IInput>(gameParameter, sizeParameter); 
+					Input = _resolver.Container.Resolve<IInput>(gameWindowParameter, sizeParameter); 
 					TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
-					_renderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater);
+					TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
+					_renderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter);
 					updateResolver();
 					SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
 
@@ -160,10 +163,10 @@ namespace AGS.Engine
 						GL.Clear( ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit );
 						Events.OnBeforeRender.Invoke(sender, _renderEventArgs);
 
-						_renderLoop.Tick();
-
-						GameWindow.SwapBuffers();
-
+						if (_renderLoop.Tick())
+						{
+							GameWindow.SwapBuffers();
+						}
 						if (Repeat.OnceOnly("SetFirstRestart"))
 						{
 							SaveLoad.SetRestartPoint();

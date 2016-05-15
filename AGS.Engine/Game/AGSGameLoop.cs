@@ -10,11 +10,13 @@ namespace AGS.Engine
 		private IGameState _gameState;
 		private AGS.API.Size _virtualResolution;
 		private IRoom _lastPlayerRoom;
+		private IAGSRoomTransitions _roomTransitions;
 
-		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution)
+		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution, IAGSRoomTransitions roomTransitions)
 		{
 			this._gameState = gameState;
 			this._virtualResolution = virtualResolution;
+			this._roomTransitions = roomTransitions;
 		}
 
 		#region IGameLoop implementation
@@ -23,6 +25,17 @@ namespace AGS.Engine
 		{
 			if (_gameState.Player.Character == null) return;
 			IRoom room = _gameState.Player.Character.Room;
+			if (_roomTransitions.State != RoomTransitionState.NotInTransition)
+			{
+				if (_roomTransitions.State == RoomTransitionState.PreparingTransition)
+				{
+					if (updateViewport(room))
+					{
+						_roomTransitions.State = RoomTransitionState.InTransition;
+					}
+				}
+				return;
+			}
 			if (room.Background != null) runAnimation (room.Background.Animation);
 			foreach (var obj in room.Objects) 
 			{
@@ -46,7 +59,7 @@ namespace AGS.Engine
 			return Task.FromResult (true);
 		}
 			
-		private void updateViewport (IRoom room)
+		private bool updateViewport (IRoom room)
 		{
 			ICamera camera = room.Viewport.Camera;
 			if (camera != null) 
@@ -56,7 +69,9 @@ namespace AGS.Engine
 				camera.Tick (room.Viewport,
 					new AGS.API.Size((int)sprite.Width, (int)sprite.Height), _virtualResolution, 
 					playerChangedRoom);
+				return playerChangedRoom;
 			}
+			return true;
 		}
 
 		private void updateRoom(IRoom room)

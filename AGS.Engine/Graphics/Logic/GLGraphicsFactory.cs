@@ -154,7 +154,7 @@ namespace AGS.Engine
 			{
 				if (currentCell >= spriteSheet.StartFromCell) 
 				{
-					int tex = generateTexture ();
+					int tex = GLImage.CreateTexture();
 					Rectangle rect = new Rectangle (cellX * spriteSheet.CellWidth,
 						                cellY * spriteSheet.CellHeight, spriteSheet.CellWidth, spriteSheet.CellHeight);
 					IBitmap clone = bitmap.Crop(rect);
@@ -203,7 +203,7 @@ namespace AGS.Engine
 		public IImage LoadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
 		{
 			id = id ?? Guid.NewGuid ().ToString ();
-			int tex = generateTexture ();
+			int tex = GLImage.CreateTexture();
 			return loadImage (tex, bitmap, id, config, null);
 		}
 
@@ -250,7 +250,7 @@ namespace AGS.Engine
 			
 		private GLImage loadImage(IResource resource, ILoadImageConfig config = null)
 		{
-			int tex = generateTexture ();
+			int tex = GLImage.CreateTexture();
 			try
 			{
 				IBitmap bitmap = _bitmapLoader.Load(resource.Stream);
@@ -263,26 +263,6 @@ namespace AGS.Engine
 			}
 		}
 
-		private int generateTexture()
-		{
-			if (Environment.CurrentManagedThreadId != AGSGame.UIThreadID)
-			{
-				throw new InvalidOperationException ("Must generate textures on the UI thread");
-			}
-			int tex;
-			GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
-
-			GL.GenTextures(1, out tex);
-			GL.BindTexture(TextureTarget.Texture2D, tex);
-
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Linear);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMagFilter.Linear);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int) TextureWrapMode.Clamp);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int) TextureWrapMode.Clamp);
-
-			return tex;
-		}
-			
 		private GLImage loadImage(int texture, IBitmap bitmap, string id, ILoadImageConfig config, ISpriteSheet spriteSheet)
 		{
 			manipulateImage(bitmap, config);

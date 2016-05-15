@@ -14,6 +14,11 @@ namespace AGS.API
 
 		public int Width { get { return _width; } }
 		public int Height { get { return _height; } }
+
+		public override string ToString()
+		{
+			return string.Format("[Size: Width={0}, Height={1}]", Width, Height);
+		}
 	}
 }
 

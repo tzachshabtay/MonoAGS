@@ -260,6 +260,16 @@
     <Compile Include="Misc\Tweening\Tween.cs" />
     <Compile Include="Misc\Tweening\Ease.cs" />
     <Compile Include="Misc\Tweening\Tweens.cs" />
+    <Compile Include="Rooms\Transitions\RoomTransitionFade.cs" />
+    <Compile Include="Graphics\Logic\GLFrameBuffer.cs" />
+    <Compile Include="Graphics\Logic\Interfaces\IAGSRoomTransitions.cs" />
+    <Compile Include="Graphics\Logic\AGSRoomTransitions.cs" />
+    <Compile Include="Rooms\Transitions\RoomTransitionSlide.cs" />
+    <Compile Include="Rooms\Transitions\QuadVectors.cs" />
+    <Compile Include="Rooms\Transitions\RoomTransitionInstant.cs" />
+    <Compile Include="Rooms\Transitions\RoomTransitionCrossFade.cs" />
+    <Compile Include="Rooms\Transitions\RoomTransitionBoxOut.cs" />
+    <Compile Include="Rooms\Transitions\RoomTransitionDissolve.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -314,6 +324,7 @@
     <Folder Include="UI\" />
     <Folder Include="Graphics\Effects\" />
     <Folder Include="Misc\Tweening\" />
+    <Folder Include="Rooms\Transitions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AGS.API\AGS.API.csproj">

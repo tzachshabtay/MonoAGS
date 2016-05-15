@@ -54,6 +54,7 @@ namespace Tests
 			Mock<IGameState> state = new Mock<IGameState> ();
 			List<IRoom> rooms = new List<IRoom> ();
 			state.Setup(s => s.Rooms).Returns(rooms);
+			state.Setup(s => s.Player).Returns(_mocks.Player().Object);
 
 			foreach (IObject obj in GetImplementors(_mocks, state))
 			{
@@ -75,6 +76,7 @@ namespace Tests
 			Mock<IGameState> state = new Mock<IGameState> ();
 			List<IRoom> rooms = new List<IRoom> ();
 			state.Setup(s => s.Rooms).Returns(rooms);
+			state.Setup(s => s.Player).Returns(_mocks.Player().Object);
 
 			foreach (IObject obj in GetImplementors(_mocks, state))
 			{
@@ -96,6 +98,7 @@ namespace Tests
 			Mock<IGameState> state = new Mock<IGameState> ();
 			List<IRoom> rooms = new List<IRoom> ();
 			state.Setup(s => s.Rooms).Returns(rooms);
+			state.Setup(s => s.Player).Returns(_mocks.Player().Object);
 
 			foreach (IObject obj in GetImplementors(_mocks, state))
 			{

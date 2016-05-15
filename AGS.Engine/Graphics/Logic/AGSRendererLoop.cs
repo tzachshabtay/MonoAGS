@@ -14,11 +14,13 @@ namespace AGS.Engine
 		private readonly AGSWalkBehindsMap _walkBehinds;
 		private readonly IInput _input;
 		private readonly Resolver _resolver;
+		private readonly IAGSRoomTransitions _roomTransitions;
 		private IShader _lastShaderUsed;
-
 		private IObject _mouseCursorContainer;
+		private GLFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;
 
-		public AGSRendererLoop (Resolver resolver, IGameState gameState, IImageRenderer renderer, IInput input, AGSWalkBehindsMap walkBehinds)
+		public AGSRendererLoop (Resolver resolver, IGameState gameState, IImageRenderer renderer, IInput input, AGSWalkBehindsMap walkBehinds,
+			IAGSRoomTransitions roomTransitions)
 		{
 			this._resolver = resolver;
 			this._walkBehinds = walkBehinds;
@@ -26,33 +28,96 @@ namespace AGS.Engine
 			this._renderer = renderer;
 			this._input = input;
 			this._comparer = new RenderOrderSelector ();
+			this._roomTransitions = roomTransitions;
+			_roomTransitions.Transition = new RoomTransitionInstant ();
 		}
 
 		#region IRendererLoop implementation
 
-		public void Tick ()
+		public bool Tick ()
 		{
-			if (_gameState.Player.Character == null) return;
+			if (_gameState.Player.Character == null) return false;
 			IRoom room = _gameState.Player.Character.Room;
-			List<IObject> displayList = getDisplayList(room);
 
-			activateShader();
-			foreach (IObject obj in displayList) 
+			switch (_roomTransitions.State)
 			{
-				IImageRenderer imageRenderer = getImageRenderer(obj);
-				PointF areaScaling = getAreaScaling(room, obj);
-
-				imageRenderer.Prepare(obj, room.Viewport, areaScaling);
-
-				var shader = applyObjectShader(obj);
-
-				imageRenderer.Render (obj, room.Viewport, areaScaling);
-
-				removeObjectShader(shader);
+				case RoomTransitionState.NotInTransition:
+					activateShader();
+					renderRoom(room);
+					break;
+				case RoomTransitionState.BeforeLeavingRoom:
+					if (_roomTransitions.Transition == null)
+					{
+						_roomTransitions.State = RoomTransitionState.NotInTransition;
+						return false;
+					}
+					else if (!_roomTransitions.Transition.RenderBeforeLeavingRoom(getDisplayList(room), obj => renderObject(room, obj)))
+					{
+						if (_fromTransitionBuffer == null) _fromTransitionBuffer = renderToBuffer(room);
+						_roomTransitions.State = RoomTransitionState.PreparingTransition;
+						return false;
+					}
+					break;
+				case RoomTransitionState.PreparingTransition:
+					return false;
+				case RoomTransitionState.InTransition:
+					if (_toTransitionBuffer == null) _toTransitionBuffer = renderToBuffer(room);
+					if (!_roomTransitions.Transition.RenderTransition(_fromTransitionBuffer, _toTransitionBuffer))
+					{
+						_fromTransitionBuffer = null;
+						_toTransitionBuffer = null;
+						_roomTransitions.State = RoomTransitionState.AfterEnteringRoom;
+						return false;
+					}
+					break;
+				case RoomTransitionState.AfterEnteringRoom:
+					if (!_roomTransitions.Transition.RenderAfterEnteringRoom(getDisplayList(room), obj => renderObject(room, obj)))
+					{
+						_roomTransitions.SetOneTimeNextTransition(null);
+						_roomTransitions.State = RoomTransitionState.NotInTransition;
+						return false;
+					}
+					break;
+				default:
+					throw new NotSupportedException (_roomTransitions.State.ToString());
 			}
+			return true;
 		}
 
 		#endregion
+
+		private GLFrameBuffer renderToBuffer(IRoom room)
+		{
+			GLFrameBuffer frameBuffer = new GLFrameBuffer (AGSGame.GetPhysicalResolution().Width, AGSGame.GetPhysicalResolution().Height);
+			frameBuffer.Begin();
+			renderRoom(room);
+			frameBuffer.End();
+			return frameBuffer;
+		}
+
+		private void renderRoom(IRoom room)
+		{
+			List<IObject> displayList = getDisplayList(room);
+
+			foreach (IObject obj in displayList) 
+			{
+				renderObject(room, obj);
+			}
+		}
+
+		private void renderObject(IRoom room, IObject obj)
+		{
+			IImageRenderer imageRenderer = getImageRenderer(obj);
+			PointF areaScaling = getAreaScaling(room, obj);
+
+			imageRenderer.Prepare(obj, room.Viewport, areaScaling);
+
+			var shader = applyObjectShader(obj);
+
+			imageRenderer.Render (obj, room.Viewport, areaScaling);
+
+			removeObjectShader(shader);
+		}
 
 		private static IShader applyObjectShader(IObject obj)
 		{

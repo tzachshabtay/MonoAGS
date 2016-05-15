@@ -12,6 +12,7 @@ namespace AGS.API
 		bool SetVariable(string name, float x, float y, float z);
 		bool SetVariable(string name, float x, float y, float z, float w);
 		bool SetVariable(string name, Color c);
+		bool SetTextureVariable(string name, int texture);
 	}
 }
 

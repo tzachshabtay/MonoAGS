@@ -11,6 +11,8 @@ namespace AGS.API
 		ICustomProperties GlobalVariables { get; }
 		ICutscene Cutscene { get; }
 
+		IRoomTransitions RoomTransitions { get; }
+
 		bool Paused { get; set; }
 		int Speed { get; set; }
 

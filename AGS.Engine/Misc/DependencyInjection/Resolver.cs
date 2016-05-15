@@ -34,6 +34,7 @@ namespace AGS.Engine
 			Builder.RegisterType<AGSPlayer>().SingleInstance().As<IPlayer>();
 			Builder.RegisterType<ResourceLoader>().SingleInstance().As<IResourceLoader>();
 			Builder.RegisterType<AGSCutscene>().SingleInstance().As<ICutscene>();
+			Builder.RegisterType<AGSRoomTransitions>().SingleInstance().As<IAGSRoomTransitions>();
 
 			registerComponents();
 

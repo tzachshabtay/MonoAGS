@@ -2,7 +2,7 @@
 {
     public interface IRendererLoop
 	{
-		void Tick();
+		bool Tick();
 	}
 }
 
