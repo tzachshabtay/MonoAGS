@@ -41,6 +41,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Misc\CustomPropertiesTests.cs" />
     <Compile Include="Mocks.cs" />
     <Compile Include="Engine\Game\GameLoopTests.cs" />
     <Compile Include="Engine\Graphics\Animations\AnimationTests.cs" />
@@ -92,10 +93,5 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Engine\Misc\Tweens\" />
-    <Folder Include="API\" />
-    <Folder Include="API\Misc\" />
-    <Folder Include="API\Misc\Drawing\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
