@@ -22,6 +22,11 @@ namespace AGS.API
 		public byte B { get { return(byte)((Value >> SHIFT_B)); } }
 		public byte A { get { return(byte)((Value >> SHIFT_A)); } }
 
+		public override string ToString()
+		{
+			return string.Format("[Color: Value={0}, R={1}, G={2}, B={3}, A={4}]", Value, R, G, B, A);
+		}
+
 		public static Color FromArgb(byte a, byte r, byte g, byte b)
 		{
 			return new Color ((uint)(r << SHIFT_R |

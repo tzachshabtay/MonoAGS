@@ -18,6 +18,7 @@
 		float MaxY { get; }
 
 		bool Contains(PointF point);
+		ISquare FlipHorizontal();
 	}
 }
 

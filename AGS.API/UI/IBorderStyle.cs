@@ -2,8 +2,8 @@
 {
     public interface IBorderStyle
 	{
-		float LineWidth { get; set; }
-		Color Color { get; set; }
+		void RenderBorderBack(ISquare square);
+		void RenderBorderFront(ISquare square);
 	}
 }
 

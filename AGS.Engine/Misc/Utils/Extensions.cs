@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AGS.API;
 using System.Reflection;
+using OpenTK;
 
 namespace AGS.Engine
 {
@@ -76,6 +77,25 @@ namespace AGS.Engine
 				default:
 					return bitmapHeight - height - reducePadding - config.PaddingBottom;
 			}
+		}
+
+		public static Vector3 ToVector3(this PointF point)
+		{
+			return new Vector3 (point.X, point.Y, 0f);
+		}
+
+		public static Vector2 ToVector2(this PointF point)
+		{
+			return new Vector2 (point.X, point.Y);
+		}
+
+		public static IGLColor ToGLColor(this Color color)
+		{
+			float r = color.R / 255f;
+			float g = color.G / 255f;
+			float b = color.B / 255f;
+			float a = color.A / 255f;
+			return new GLColor (r, g, b, a);
 		}
 	}
 }

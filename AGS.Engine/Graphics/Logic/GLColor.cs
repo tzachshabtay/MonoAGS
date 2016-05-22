@@ -12,6 +12,14 @@ namespace AGS.Engine
 		{
 		}
 
+		public GLColor(float r, float g, float b, float a)
+		{
+			R = r;
+			G = g;
+			B = b;
+			A = a;
+		}
+
 		#region IGLColor implementation
 
 		public float R { get; private set; }
@@ -42,6 +50,11 @@ namespace AGS.Engine
 			B = color.B / COLOR_FACTOR;
 			A = color.A / COLOR_FACTOR;
 			return this;
+		}
+
+		public override string ToString()
+		{
+			return string.Format("[GLColor: R={0}, G={1}, B={2}, A={3}]", R, G, B, A);
 		}
 
 		#endregion

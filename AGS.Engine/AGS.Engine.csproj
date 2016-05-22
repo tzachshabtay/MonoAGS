@@ -228,7 +228,6 @@
     <Compile Include="Serialization\Contracts\ContractWalkBehindArea.cs" />
     <Compile Include="Serialization\ContractsFactory.cs" />
     <Compile Include="Serialization\IContract.cs" />
-    <Compile Include="UI\AGSBorderStyle.cs" />
     <Compile Include="UI\AGSUIEvents.cs" />
     <Compile Include="UI\Controls\AGSButton.cs" />
     <Compile Include="UI\Controls\AGSButtonComponent.cs" />
@@ -270,6 +269,12 @@
     <Compile Include="Rooms\Transitions\RoomTransitionCrossFade.cs" />
     <Compile Include="Rooms\Transitions\RoomTransitionBoxOut.cs" />
     <Compile Include="Rooms\Transitions\RoomTransitionDissolve.cs" />
+    <Compile Include="UI\Borders\AGSColoredBorder.cs" />
+    <Compile Include="UI\Borders\SlicedImage\AGSSlicedImageBorder.cs" />
+    <Compile Include="UI\Borders\SlicedImage\SliceMeasureUnit.cs" />
+    <Compile Include="UI\Borders\SlicedImage\SliceValues.cs" />
+    <Compile Include="UI\Borders\FourCorners.cs" />
+    <Compile Include="UI\Borders\AGSBorders.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -325,6 +330,8 @@
     <Folder Include="Graphics\Effects\" />
     <Folder Include="Misc\Tweening\" />
     <Folder Include="Rooms\Transitions\" />
+    <Folder Include="UI\Borders\" />
+    <Folder Include="UI\Borders\SlicedImage\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AGS.API\AGS.API.csproj">

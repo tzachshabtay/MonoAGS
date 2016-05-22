@@ -15,6 +15,11 @@ namespace AGS.Engine
 		{
 		}
 
+		public GLVertex(Vector2 position, Vector2 texCoord, IGLColor color)
+			:   this(position, texCoord, color.R, color.G, color.B, color.A)
+		{
+		}
+
 		public GLVertex(Vector2 position, Vector2 texCoord, float r, float g, float b, float a)
 			:	this(position, texCoord, new Vector4(r,g,b,a))
 		{

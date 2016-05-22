@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenTK;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -12,6 +13,8 @@ namespace AGS.Engine
 
 		float Width { get; }
 		float Height { get; }
+
+		ISquare ToSquare();
 	}
 }
 

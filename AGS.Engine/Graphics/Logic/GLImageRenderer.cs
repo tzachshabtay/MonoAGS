@@ -59,6 +59,13 @@ namespace AGS.Engine
 
 			IGLColor color = _colorBuilder.Build(sprite, obj);
 
+			IBorderStyle border = obj.Border;
+			ISquare renderSquare = null;
+			if (border != null)
+			{
+				renderSquare = renderBox.ToSquare();
+				border.RenderBorderBack(renderSquare);
+			}
 			_renderer.Render(glImage.Texture, renderBox, color);
 
 			Vector3 bottomLeft = hitTestBox.BottomLeft;
@@ -71,13 +78,9 @@ namespace AGS.Engine
 				new PointF (topRight.X, topRight.Y));
 			obj.BoundingBox = square;
 
-			IBorderStyle border = obj.Border;
 			if (border != null)
 			{
-				color = _colorBuilder.Build(border.Color);
-				GLUtils.DrawQuadBorder(renderBox.BottomLeft, renderBox.BottomRight, 
-					renderBox.TopLeft, renderBox.TopRight, border.LineWidth, 
-					color.R, color.G, color.B, color.A);
+				border.RenderBorderFront(renderSquare);
 			}
 			if (obj.DebugDrawAnchor)
 			{

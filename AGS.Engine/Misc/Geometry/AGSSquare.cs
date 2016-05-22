@@ -36,6 +36,11 @@ namespace AGS.Engine
 			return true;
 		}
 
+		public ISquare FlipHorizontal()
+		{
+			return new AGSSquare (BottomRight, BottomLeft, TopRight, TopLeft);
+		}
+
 		public PointF BottomLeft { get; private set; }
 
 		public PointF BottomRight { get; private set; }
