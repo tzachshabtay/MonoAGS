@@ -24,9 +24,9 @@ namespace AGS.Engine
 			bool speakOption = true, bool showOnce = false)
 		{
 			IGame game = _resolver.Resolve<IGame>();
-			if (config == null) config = new AGSTextConfig (autoFit: AutoFit.TextShouldWrap,
+			if (config == null) config = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapWithoutHeightFitting,
 				brush: Hooks.BrushLoader.LoadSolidBrush(Colors.White), font: Hooks.FontLoader.LoadFont(null,10f));
-			if (hoverConfig == null) hoverConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrap,
+			if (hoverConfig == null) hoverConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapWithoutHeightFitting,
 				brush: Hooks.BrushLoader.LoadSolidBrush(Colors.Yellow), font: Hooks.FontLoader.LoadFont(null, 10f));
 			ILabel label = _ui.GetLabel(string.Format("Dialog option: {0}", text), text, game.VirtualResolution.Width, 20f, 0f, 0f, config);
 			label.Enabled = true;

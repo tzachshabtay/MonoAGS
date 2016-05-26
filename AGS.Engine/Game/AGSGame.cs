@@ -36,6 +36,8 @@ namespace AGS.Engine
 
 		public static IShader Shader { get; set; }
 
+		public static Resolver Resolver { get { return ((AGSGame)Game)._resolver; } }
+
 		public static Size GetPhysicalResolution()
 		{
 			return new Size (Hooks.GameWindowSize.GetWidth(GameWindow), Hooks.GameWindowSize.GetHeight(GameWindow));
@@ -84,7 +86,7 @@ namespace AGS.Engine
 				Hooks.GameWindowSize.SetSize(GameWindow, settings.WindowSize);
 				setWindowState(settings);
 
-				GameWindow.Load += async (sender, e) =>
+				GameWindow.Load += (sender, e) =>
 				{
 					setVSync(settings);                    
 
@@ -113,7 +115,7 @@ namespace AGS.Engine
 					GL.MatrixMode(MatrixMode.Modelview);
 					GL.LoadIdentity();
 
-					await Events.OnLoad.InvokeAsync(sender, new AGSEventArgs());
+					Events.OnLoad.Invoke(sender, new AGSEventArgs());
 				};
 					
 				GameWindow.Resize += (sender, e) =>

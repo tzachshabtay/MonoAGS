@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 namespace AGS.Engine
 {
+
 	public class AGSSayBehavior : AGSComponent, ISayBehavior
 	{
 		private readonly IGameState _state;
@@ -37,25 +38,26 @@ namespace AGS.Engine
 			Task.Run(async () => await SayAsync(text)).Wait();
 		}
 
+
 		public async Task SayAsync(string text)
 		{
 			if (_state.Cutscene.IsSkipping)
 			{
-				setAnimation(_outfit.Outfit.IdleAnimation);
+				if (_outfit != null) setAnimation(_outfit.Outfit.IdleAnimation);
 				return;
 			}
-			setAnimation(_outfit.Outfit.SpeakAnimation);
-
+			if (_outfit != null) setAnimation(_outfit.Outfit.SpeakAnimation);
 			await Task.Delay(1);
 			PointF location = getLocation(text);
 			ILabel label = _factory.UI.GetLabel(string.Format("Say: {0}", text), text, SpeechConfig.LabelSize.Width, SpeechConfig.LabelSize.Height, 
 				location.X, location.Y, SpeechConfig.TextConfig);
 			label.RenderLayer = AGSLayers.Speech;
-
+			label.Border = SpeechConfig.Border;
+			label.Tint = SpeechConfig.BackgroundColor;
 			await waitForText(text);
 			_state.UI.Remove(label);
 
-			setAnimation(_outfit.Outfit.IdleAnimation);
+			if (_outfit != null) setAnimation(_outfit.Outfit.IdleAnimation);
 		}
 
 		private void setAnimation(IDirectionalAnimation animation)

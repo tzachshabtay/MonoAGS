@@ -140,11 +140,20 @@ namespace AGS.Engine
 					_usedTextBoundingBoxes = _textBoundingBoxes;
 					break;
 
-				case AutoFit.TextShouldWrap:
-					ISprite sprite = obj.Animation.Sprite;
+				case AutoFit.TextShouldWrapWithoutHeightFitting:
 					_boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, matrices);
 					updateText(GLText.EmptySize, (int?)BaseSize.Width);
 					_boundingBoxBuilder.Build(_textBoundingBoxes, _glText.BitmapWidth, _glText.BitmapHeight, matrices);
+
+					_usedLabelBoundingBoxes = _labelBoundingBoxes;
+					_usedTextBoundingBoxes = _textBoundingBoxes;
+					break;
+
+				case AutoFit.TextShouldWrapAndLabelShouldFitHeight:
+					_boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, matrices);
+					updateText(GLText.EmptySize, (int?)BaseSize.Width);
+					_boundingBoxBuilder.Build(_textBoundingBoxes, _glText.BitmapWidth, _glText.BitmapHeight, matrices);
+					_boundingBoxBuilder.Build(_labelBoundingBoxes, _glText.Width, _glText.Height, matrices);
 
 					_usedLabelBoundingBoxes = _labelBoundingBoxes;
 					_usedTextBoundingBoxes = _textBoundingBoxes;

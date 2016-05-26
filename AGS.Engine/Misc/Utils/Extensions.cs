@@ -97,6 +97,20 @@ namespace AGS.Engine
 			float a = color.A / 255f;
 			return new GLColor (r, g, b, a);
 		}
+
+		public static SizeF GetTextSize(this ITextConfig config, string text, SizeF labelSize)
+		{
+			switch (config.AutoFit)
+			{
+				case AutoFit.TextShouldFitLabel:
+					return labelSize;
+				case AutoFit.TextShouldWrapWithoutHeightFitting:
+				case AutoFit.TextShouldWrapAndLabelShouldFitHeight:
+					return config.Font.MeasureString(text, (int)labelSize.Width);
+				default:
+					return config.Font.MeasureString(text);
+			}
+		}
 	}
 }
 

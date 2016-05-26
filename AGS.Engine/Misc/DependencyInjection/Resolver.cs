@@ -25,6 +25,7 @@ namespace AGS.Engine
 			Builder.RegisterType<AGSObject>().As<IObject>();
 			Builder.RegisterType<GLImage>().As<IImage>();
 			Builder.RegisterType<AGSDialogActions>().As<IDialogActions>();
+			Builder.RegisterType<AGSSayLocation>().As<ISayLocation>();
 
 			Builder.RegisterType<AGSGameState>().SingleInstance().As<IGameState>();
 			Builder.RegisterType<AGSGame>().SingleInstance().As<IGame>();

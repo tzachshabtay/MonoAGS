@@ -68,6 +68,7 @@ namespace AGS.Engine
 		{
 			try
 			{
+				await Task.Yield(); //Ensuring that the event is invoked on a non-UI thread
 				if (args != null)
 					args.TimesInvoked = Repeat.Do(_id.ToString());
 				foreach (var target in _invocationList) 
