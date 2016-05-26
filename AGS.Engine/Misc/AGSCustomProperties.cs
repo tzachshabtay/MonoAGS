@@ -1,29 +1,30 @@
 ﻿using System;
 using AGS.API;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace AGS.Engine
 {
 	public class AGSCustomProperties : AGSComponent, ICustomProperties
 	{
-		private readonly Dictionary<string, int> _ints;
-		private readonly Dictionary<string, float> _floats;
-		private readonly Dictionary<string, string> _strings;
-		private readonly Dictionary<string, bool> _bools;
+		private readonly ConcurrentDictionary<string, int> _ints;
+		private readonly ConcurrentDictionary<string, float> _floats;
+		private readonly ConcurrentDictionary<string, string> _strings;
+		private readonly ConcurrentDictionary<string, bool> _bools;
 
 		public AGSCustomProperties()
 		{
-			_ints = new Dictionary<string, int> ();
-			_floats = new Dictionary<string, float> ();
-			_strings = new Dictionary<string, string> ();
-			_bools = new Dictionary<string, bool> ();
+			_ints = new ConcurrentDictionary<string, int> ();
+			_floats = new ConcurrentDictionary<string, float> ();
+			_strings = new ConcurrentDictionary<string, string> ();
+			_bools = new ConcurrentDictionary<string, bool> ();
 		}
 
 		#region ICustomProperties implementation
 
 		public int GetInt(string name, int defaultValue = 0)
 		{
-			return _ints.GetOrAdd(name, () => defaultValue);
+			return _ints.GetOrAdd(name, _ => defaultValue);
 		}
 
 		public void SetInt(string name, int value)
@@ -33,7 +34,7 @@ namespace AGS.Engine
 
 		public float GetFloat(string name, float defaultValue = 0f)
 		{
-			return _floats.GetOrAdd(name, () => defaultValue);
+			return _floats.GetOrAdd(name, _ => defaultValue);
 		}
 
 		public void SetFloat(string name, float value)
@@ -43,7 +44,7 @@ namespace AGS.Engine
 
 		public string GetString(string name, string defaultValue = null)
 		{
-			return _strings.GetOrAdd(name, () => defaultValue);
+			return _strings.GetOrAdd(name, _ => defaultValue);
 		}
 
 		public void SetString(string name, string value)
@@ -53,7 +54,7 @@ namespace AGS.Engine
 
 		public bool GetBool(string name, bool defaultValue = false)
 		{
-			return _bools.GetOrAdd(name, () => defaultValue);
+			return _bools.GetOrAdd(name, _ => defaultValue);
 		}
 
 		public void SetBool(string name, bool value)

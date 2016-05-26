@@ -67,7 +67,7 @@ namespace DemoGame
 			loadButton("Restart", 75, restart);
 			loadButton("Load", 55, load);
 			loadButton("Save", 35, save);
-			loadButton("Quit", 15, _game.Quit);
+			loadButton("Quit", 15, quit);
 		}
 
 		private void findPanel()
@@ -122,6 +122,12 @@ namespace DemoGame
 		private void restart()
 		{
 			_game.SaveLoad.Restart();
+		}
+
+		private void quit()
+		{
+			if (!AGSMessageBox.YesNo("Are you sure you want to quit?")) return;
+			_game.Quit();
 		}
 	}
 }

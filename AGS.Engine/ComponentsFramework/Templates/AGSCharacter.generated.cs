@@ -422,6 +422,11 @@ namespace AGS.Engine
 			get { return _sayBehavior.SpeechConfig; } 
 		}
 
+		public IBlockingEvent<BeforeSayEventArgs> OnBeforeSay
+		{
+			get { return _sayBehavior.OnBeforeSay; }
+		}
+
 		public void Say(String text)
         {
         	_sayBehavior.Say(text);

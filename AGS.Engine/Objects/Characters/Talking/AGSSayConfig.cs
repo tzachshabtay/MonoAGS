@@ -15,6 +15,18 @@ namespace AGS.Engine
 			BackgroundColor = Colors.Transparent;
 		}
 
+		public static AGSSayConfig FromConfig(ISayConfig config, float paddingBottomOffset = 0f)
+		{
+			AGSSayConfig sayConfig = new AGSSayConfig();
+			sayConfig.TextConfig = AGSTextConfig.FromConfig (config.TextConfig, paddingBottomOffset);
+			sayConfig.TextDelay = config.TextDelay;
+			sayConfig.SkipText = config.SkipText;
+			sayConfig.LabelSize = config.LabelSize;
+			sayConfig.Border = config.Border;
+			sayConfig.BackgroundColor = config.BackgroundColor;
+			return sayConfig;
+		}
+
 		#region ISayConfig implementation
 
 		public ITextConfig TextConfig { get; set; }

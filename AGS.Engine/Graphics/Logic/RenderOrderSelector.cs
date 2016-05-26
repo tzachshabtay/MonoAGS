@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using AGS.API;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -19,6 +20,10 @@ namespace AGS.Engine
 		{
 			int result = (int)compare(s1, s2);
 			if (Backwards) result *= -1;
+			#if DEBUG
+			s1.SetInt(s2.ID, result);
+			s2.SetInt(s1.ID, -result);
+			#endif
 			return result;
 		}
 			

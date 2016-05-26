@@ -5,6 +5,7 @@
 		ByTimeAndMouse,
 		ByTime,
 		ByMouse,
+		External,
 	}
 		
 	public interface ISayConfig

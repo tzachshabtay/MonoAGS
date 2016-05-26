@@ -19,7 +19,8 @@ namespace AGS.Engine
 		private readonly IFaceDirectionBehavior _faceDirection;
 
 		public AGSSayBehavior(IGameState state, IGameFactory factory, IInput input, ISayLocation location,
-			FastFingerChecker fastFingerChecker, ISayConfig sayConfig, IHasOutfit outfit, IFaceDirectionBehavior faceDirection)
+			FastFingerChecker fastFingerChecker, ISayConfig sayConfig, IHasOutfit outfit, 
+			IFaceDirectionBehavior faceDirection, IBlockingEvent<BeforeSayEventArgs> onBeforeSay)
 		{
 			_state = state;
 			_factory = factory;
@@ -29,9 +30,11 @@ namespace AGS.Engine
 			_outfit = outfit;
 			_faceDirection = faceDirection;
 			SpeechConfig = sayConfig;
+			OnBeforeSay = onBeforeSay;
 		}
 
 		public ISayConfig SpeechConfig { get; private set; }
+		public IBlockingEvent<BeforeSayEventArgs> OnBeforeSay { get; private set; }
 
 		public void Say(string text)
 		{
@@ -50,11 +53,17 @@ namespace AGS.Engine
 			await Task.Delay(1);
 			PointF location = getLocation(text);
 			ILabel label = _factory.UI.GetLabel(string.Format("Say: {0}", text), text, SpeechConfig.LabelSize.Width, SpeechConfig.LabelSize.Height, 
-				location.X, location.Y, SpeechConfig.TextConfig);
+				location.X, location.Y, SpeechConfig.TextConfig, false);
 			label.RenderLayer = AGSLayers.Speech;
 			label.Border = SpeechConfig.Border;
 			label.Tint = SpeechConfig.BackgroundColor;
-			await waitForText(text);
+			TaskCompletionSource<object> externalSkipToken = new TaskCompletionSource<object> (null);
+			BeforeSayEventArgs args = new BeforeSayEventArgs (label, () => externalSkipToken.TrySetResult(null));
+			OnBeforeSay.Invoke(this, args);
+			label = args.Label;
+			_state.UI.Add(label);
+
+			await waitForText(text, externalSkipToken.Task);
 			_state.UI.Remove(label);
 
 			if (_outfit != null) setAnimation(_outfit.Outfit.IdleAnimation);
@@ -69,19 +78,19 @@ namespace AGS.Engine
 			}
 		}
 
-		private async Task waitForText(string text)
+		private async Task waitForText(string text, Task externalWait)
 		{
 			switch (SpeechConfig.SkipText)
 			{
 				case SkipText.ByMouse:
-					await waitForClick();
+					await Task.WhenAny(waitForClick(), externalWait);
 					break;
 				case SkipText.ByTime:
-					await waitTime(text);
+					await Task.WhenAny(waitTime(text), externalWait);
 					break;
 				case SkipText.ByTimeAndMouse:
 					Task waitingTime = waitTime(text);
-					Task completed = await Task.WhenAny(waitingTime, waitForClick());
+					Task completed = await Task.WhenAny(waitingTime, waitForClick(), externalWait);
 					if (completed == waitingTime)
 					{
 						_fastFingerChecker.StartMeasuring();
@@ -90,6 +99,9 @@ namespace AGS.Engine
 					{
 						_fastFingerChecker.StopMeasuring();
 					}
+					break;
+				case SkipText.External:
+					await externalWait;
 					break;
 				default:
 					throw new NotSupportedException ("Skip text configuration is not supported: " + SpeechConfig.SkipText.ToString());

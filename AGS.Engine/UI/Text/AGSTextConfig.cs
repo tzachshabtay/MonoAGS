@@ -26,6 +26,25 @@ namespace AGS.Engine
 			PaddingBottom = paddingBottom;
 		}
 
+		public static AGSTextConfig FromConfig(ITextConfig config, float paddingBottomOffset = 0f)
+		{
+			AGSTextConfig textConfig = new AGSTextConfig ();
+			textConfig.Brush = config.Brush;
+			textConfig.Font = config.Font;
+			textConfig.Alignment = config.Alignment;
+			textConfig.OutlineBrush = config.OutlineBrush;
+			textConfig.OutlineWidth = config.OutlineWidth;
+			textConfig.ShadowBrush = config.ShadowBrush;
+			textConfig.ShadowOffsetX = config.ShadowOffsetX;
+			textConfig.ShadowOffsetY = config.ShadowOffsetY;
+			textConfig.AutoFit = config.AutoFit;
+			textConfig.PaddingLeft = config.PaddingLeft;
+			textConfig.PaddingRight = config.PaddingRight;
+			textConfig.PaddingTop = config.PaddingTop;
+			textConfig.PaddingBottom = config.PaddingBottom + paddingBottomOffset;
+			return textConfig;
+		}
+
 		#region ITextConfig implementation
 
 		public IBrush Brush { get; private set; }
