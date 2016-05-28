@@ -276,6 +276,7 @@
     <Compile Include="UI\Borders\FourCorners.cs" />
     <Compile Include="UI\Borders\AGSBorders.cs" />
     <Compile Include="UI\Text\AGSMessageBox.cs" />
+    <Compile Include="Input\Schemes\KeyboardMovement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

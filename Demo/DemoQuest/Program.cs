@@ -70,6 +70,9 @@ namespace DemoGame
 			ICharacter character = cris.Load(game);
 
 			game.State.Player.Character = character;
+			KeyboardMovement movement = new KeyboardMovement (character, game.Input, KeyboardMovementMode.Pressing);
+			movement.AddArrows();
+			movement.AddWASD();
 			character.ChangeRoom(Rooms.EmptyStreet, 50, 30);
 
 			Beman beman = new Beman ();
