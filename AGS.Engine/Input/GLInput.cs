@@ -11,12 +11,14 @@ namespace AGS.Engine
 		private GameWindow _game;
 		private int _virtualWidth, _virtualHeight;
 		private IGameState _state;
+		private IAGSRoomTransitions _roomTransitions;
 
 		private IAnimationContainer _mouseCursor;
 		private MouseCursor _originalOSCursor;
 
-		public GLInput (GameWindow game, AGS.API.Size virtualResolution, IGameState state)
+		public GLInput (GameWindow game, AGS.API.Size virtualResolution, IGameState state, IAGSRoomTransitions roomTransitions)
 		{
+			this._roomTransitions = roomTransitions;
 			this._virtualWidth = virtualResolution.Width;
 			this._virtualHeight = virtualResolution.Height;
 			this._state = state;
@@ -32,6 +34,7 @@ namespace AGS.Engine
 
 			game.MouseDown += async (sender, e) => 
 			{ 
+				if (isInputBlocked()) return;
 				var button = convert(e.Button);
 				if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = true;
 				else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = true;
@@ -39,14 +42,27 @@ namespace AGS.Engine
 			};
 			game.MouseUp += async (sender, e) => 
 			{
+				if (isInputBlocked()) return;
 				var button = convert(e.Button);
 				if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = false;
 				else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = false;
 				await MouseUp.InvokeAsync(sender, new AGS.API.MouseButtonEventArgs(button, convertX(e.X), convertY(e.Y)));
 			};
-			game.MouseMove += async (sender, e) => await MouseMove.InvokeAsync(sender, new MousePositionEventArgs(convertX(e.X), convertY(e.Y)));
-			game.KeyDown += async (sender, e) => await KeyDown.InvokeAsync(sender, new KeyboardEventArgs(convert(e.Key)));
-			game.KeyUp += async (sender, e) => await KeyUp.InvokeAsync(sender, new KeyboardEventArgs(convert(e.Key)));
+			game.MouseMove += async (sender, e) =>
+			{
+				if (isInputBlocked()) return;
+				await MouseMove.InvokeAsync(sender, new MousePositionEventArgs (convertX(e.X), convertY(e.Y)));
+			};
+			game.KeyDown += async (sender, e) =>
+			{
+				if (isInputBlocked()) return;
+				await KeyDown.InvokeAsync(sender, new KeyboardEventArgs (convert(e.Key)));
+			};
+			game.KeyUp += async (sender, e) =>
+			{
+				if (isInputBlocked()) return;
+				await KeyUp.InvokeAsync(sender, new KeyboardEventArgs (convert(e.Key)));
+			};
 		}
 
 		#region IInputEvents implementation
@@ -92,6 +108,12 @@ namespace AGS.Engine
 				_mouseCursor = value;
 				_game.Cursor = _mouseCursor == null ? _originalOSCursor : MouseCursor.Empty;
 		  	}
+		}
+
+		private bool isInputBlocked()
+		{
+			if (_roomTransitions.State != RoomTransitionState.NotInTransition) return true;
+			return false;
 		}
 
 		private AGS.API.MouseButton convert(OpenTK.Input.MouseButton button)
