@@ -95,6 +95,31 @@ namespace AGS.Engine
 		{
 			return Tween.Run(sprite.Height, toHeight, h => sprite.ScaleTo(sprite.Width, h), timeInSeconds, easing);
 		}
+
+		public static Tween TweenX(this IViewport viewport, float toX, float timeInSeconds, Func<float, float> easing = null)
+		{
+			return Tween.Run(viewport.X, toX, x => viewport.X = x, timeInSeconds, easing);
+		}
+
+		public static Tween TweenY(this IViewport viewport, float toY, float timeInSeconds, Func<float, float> easing = null)
+		{
+			return Tween.Run(viewport.Y, toY, y => viewport.Y = y, timeInSeconds, easing);
+		}
+
+		public static Tween TweenScaleX(this IViewport viewport, float toScaleX, float timeInSeconds, Func<float, float> easing = null)
+		{
+			return Tween.Run(viewport.ScaleX, toScaleX, x => viewport.ScaleX = x, timeInSeconds, easing);
+		}
+
+		public static Tween TweenScaleY(this IViewport viewport, float toScaleY, float timeInSeconds, Func<float, float> easing = null)
+		{
+			return Tween.Run(viewport.ScaleY, toScaleY, y => viewport.ScaleY = y, timeInSeconds, easing);
+		}
+
+		public static Tween TweenAngle(this IViewport viewport, float toAngle, float timeInSeconds, Func<float, float> easing = null)
+		{
+			return Tween.Run(viewport.Angle, toAngle, a => viewport.Angle = a, timeInSeconds, easing);
+		}
 	}
 }
 

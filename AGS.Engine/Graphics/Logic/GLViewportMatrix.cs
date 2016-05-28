@@ -25,7 +25,7 @@ namespace AGS.Engine
 			if (viewport.X == _lastX && viewport.Y == _lastY &&
 			    viewport.ScaleX == _lastScaleX && viewport.Y == _lastScaleY &&
 				parallaxSpeed.X == _lastParallaxSpeedX && parallaxSpeed.Y == _lastParallaxSpeedY &&
-				viewport.Rotation == _lastRotation)
+				viewport.Angle == _lastRotation)
 			{
 				return _lastMatrix;
 			}
@@ -36,7 +36,7 @@ namespace AGS.Engine
 			_lastScaleY = viewport.ScaleY;
 			_lastParallaxSpeedX = parallaxSpeed.X;
 			_lastParallaxSpeedY = parallaxSpeed.Y;
-			_lastRotation = viewport.Rotation;
+			_lastRotation = viewport.Angle;
 			buildMatrix();
 
 			return _lastMatrix;

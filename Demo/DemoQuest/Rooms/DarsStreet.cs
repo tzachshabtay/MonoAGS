@@ -1,6 +1,7 @@
 ﻿using System;
 using AGS.API;
 using AGS.Engine;
+using System.Threading.Tasks;
 
 namespace DemoGame
 {
@@ -43,6 +44,7 @@ namespace DemoGame
 			IObject windowHotspot = factory.Object.GetHotspot(_baseFolder + "windowHotspot.png", "Window");
 			doorHotspot.Z = buildingHotspot.Z - 1;
 			windowHotspot.Z = buildingHotspot.Z - 1;
+			windowHotspot.Interactions.OnLook.SubscribeToAsync(lookOnWindow);
 
 			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "aztecBuildingHotspot.png", "Aztec Building"));
 			_room.Objects.Add(buildingHotspot);
@@ -102,6 +104,39 @@ namespace DemoGame
 				lampPost.StartAnimation(singleFrame);
 				_room.Objects.Add(lampPost);
 			}
+		}
+
+		private async Task lookOnWindow(object sender, AGSEventArgs args)
+		{
+			_room.Viewport.Camera.Enabled = false;
+
+			float scaleX = _room.Viewport.ScaleX;
+			float scaleY = _room.Viewport.ScaleY;
+			float angle = _room.Viewport.Angle;
+			float x = _room.Viewport.X;
+			float y = _room.Viewport.Y;
+
+			Tween zoomX = _room.Viewport.TweenScaleX(4f, 2f);
+			Tween zoomY = _room.Viewport.TweenScaleY(4f, 2f);
+			Task rotate = _room.Viewport.TweenAngle(0.1f, 1f, Ease.QuadOut).Task.
+				ContinueWith(t => _room.Viewport.TweenAngle(angle, 1f, Ease.QuadIn).Task);
+			Tween translateX = _room.Viewport.TweenX(240f, 2f);
+			Tween translateY = _room.Viewport.TweenY(100f, 2f);
+
+			await Task.WhenAll(zoomX.Task, zoomY.Task, rotate, translateX.Task, translateY.Task);
+			await Task.Delay(100);
+			await _player.Character.SayAsync("Hmmm, nobody seems to be home...");
+			await Task.Delay(100);
+
+			zoomX = _room.Viewport.TweenScaleX(scaleX, 2f);
+			zoomY = _room.Viewport.TweenScaleY(scaleY, 2f);
+			rotate = _room.Viewport.TweenAngle(0.1f, 1f, Ease.QuadIn).Task.
+				ContinueWith(t => _room.Viewport.TweenAngle(angle, 1f, Ease.QuadOut).Task);
+			translateX = _room.Viewport.TweenX(x, 2f);
+			translateY = _room.Viewport.TweenY(y, 2f);
+
+			await Task.WhenAll(zoomX.Task, zoomY.Task, rotate, translateX.Task, translateY.Task);
+			_room.Viewport.Camera.Enabled = true;
 		}
 	}
 }
