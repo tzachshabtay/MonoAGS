@@ -183,38 +183,49 @@ namespace AGS.Engine
 		}
 
 		private PointF? getClosestWalkablePoint(PointF target)
-
 		{
-			PointF? closestPoint = null;
-			float closestDistance = float.MaxValue;
+			var points = getClosestWalkablePoints(target);
+			if (points.Count == 0) return null;
+			return points[0];
+		}
+
+		private List<PointF> getClosestWalkablePoints(PointF target)
+		{
+			List<Tuple<PointF, float>> points = new List<Tuple<PointF, float>> (_obj.Room.WalkableAreas.Count);
 			foreach (IArea area in _obj.Room.WalkableAreas) 
 			{
 				if (!area.Enabled) continue;
 				float distance;
 				PointF? point = area.FindClosestPoint (target, out distance);
-				if (distance < closestDistance) 
-				{
-					closestPoint = point;
-					closestDistance = distance;
-				}
+				if (point == null) continue;
+				points.Add(new Tuple<PointF, float> (point.Value, distance));
 			}
-			return closestPoint;
+			return points.OrderBy(p => p.Item2).Select(p => p.Item1).ToList();
 		}
 
 		private IEnumerable<ILocation> getWalkPoints(ILocation destination)
 		{
 			if (!isWalkable(_obj.Location))
 				return new List<ILocation> ();
-			if (!isWalkable (destination)) 
+			List<PointF> closestPoints = new List<PointF> (_obj.Room.WalkableAreas.Count + 1);
+			if (isWalkable(destination))
 			{
-				PointF? closest = getClosestWalkablePoint (destination.XY);
-				if (closest == null)
-					return new List<ILocation> ();
-				destination = new AGSLocation (closest.Value, destination.Z);
+				closestPoints.Add(destination.XY);
 			}
+
+			closestPoints.AddRange(getClosestWalkablePoints (destination.XY));
+			if (closestPoints.Count == 0)
+				return new List<ILocation> ();
+			
 			bool[][] mask = getWalkableMask ();
 			_pathFinder.Init (mask);
-			return _pathFinder.GetWalkPoints (_obj.Location, destination);
+			foreach (var closest in closestPoints)
+			{
+				destination = new AGSLocation (closest, destination.Z);
+				var walkPoints = _pathFinder.GetWalkPoints(_obj.Location, destination);
+				if (walkPoints.Any()) return walkPoints;
+			}
+			return new List<ILocation> ();
 		}
 
 		private bool isWalkable(ILocation location)
