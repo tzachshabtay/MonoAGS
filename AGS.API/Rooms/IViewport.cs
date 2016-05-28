@@ -8,6 +8,8 @@
 		float ScaleX { get; set; }
 		float ScaleY { get; set; }
 
+		float Rotation { get; set; }
+
 		ICamera Camera { get; set; }
 	}
 }

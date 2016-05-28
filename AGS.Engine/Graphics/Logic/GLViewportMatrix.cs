@@ -7,7 +7,7 @@ namespace AGS.Engine
 	public class GLViewportMatrix : IGLViewportMatrix
 	{
 		private Matrix4 _lastMatrix;
-		private float _lastScaleX, _lastScaleY, _lastX, _lastY, _lastParallaxSpeedX, _lastParallaxSpeedY;
+		private float _lastScaleX, _lastScaleY, _lastX, _lastY, _lastParallaxSpeedX, _lastParallaxSpeedY, _lastRotation;
 
 		public GLViewportMatrix()
 		{
@@ -24,7 +24,8 @@ namespace AGS.Engine
 		{
 			if (viewport.X == _lastX && viewport.Y == _lastY &&
 			    viewport.ScaleX == _lastScaleX && viewport.Y == _lastScaleY &&
-				parallaxSpeed.X == _lastParallaxSpeedX && parallaxSpeed.Y == _lastParallaxSpeedY)
+				parallaxSpeed.X == _lastParallaxSpeedX && parallaxSpeed.Y == _lastParallaxSpeedY &&
+				viewport.Rotation == _lastRotation)
 			{
 				return _lastMatrix;
 			}
@@ -35,6 +36,7 @@ namespace AGS.Engine
 			_lastScaleY = viewport.ScaleY;
 			_lastParallaxSpeedX = parallaxSpeed.X;
 			_lastParallaxSpeedY = parallaxSpeed.Y;
+			_lastRotation = viewport.Rotation;
 			buildMatrix();
 
 			return _lastMatrix;
@@ -46,6 +48,7 @@ namespace AGS.Engine
 		{
 			_lastMatrix = 
 				Matrix4.CreateTranslation(new Vector3(-_lastX * _lastParallaxSpeedX, -_lastY * _lastParallaxSpeedY, 0f)) * 
+				Matrix4.CreateRotationZ(_lastRotation) *
 				Matrix4.CreateScale(_lastScaleX, _lastScaleY, 1f);
 		}
 	}
