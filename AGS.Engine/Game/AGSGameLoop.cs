@@ -25,12 +25,15 @@ namespace AGS.Engine
 		{
 			if (_gameState.Player.Character == null) return;
 			IRoom room = _gameState.Player.Character.Room;
+			bool playerChangedRoom = _lastPlayerRoom != _gameState.Player.Character.Room;
 			if (_roomTransitions.State != RoomTransitionState.NotInTransition)
 			{
 				if (_roomTransitions.State == RoomTransitionState.PreparingTransition)
 				{
-					if (updateViewport(room))
+					if (playerChangedRoom)
 					{
+						room.Events.OnBeforeFadeIn.Invoke(this, new AGSEventArgs ());
+						updateViewport(room, playerChangedRoom);
 						_roomTransitions.State = RoomTransitionState.InTransition;
 					}
 				}
@@ -46,7 +49,7 @@ namespace AGS.Engine
 				runAnimation (obj.Animation);
 			}
 
-			updateViewport (room);
+			updateViewport (room, playerChangedRoom);
 			updateRoom(room);
 
 			Task.Run (async () => await UpdateAsync ()).Wait ();
@@ -59,19 +62,16 @@ namespace AGS.Engine
 			return Task.FromResult (true);
 		}
 			
-		private bool updateViewport (IRoom room)
+		private void updateViewport (IRoom room, bool playerChangedRoom)
 		{
 			ICamera camera = room.Viewport.Camera;
 			if (camera != null) 
 			{
 				ISprite sprite = room.Background.Animation.Sprite;
-				bool playerChangedRoom = _lastPlayerRoom != _gameState.Player.Character.Room;
 				camera.Tick (room.Viewport,
 					new AGS.API.Size((int)sprite.Width, (int)sprite.Height), _virtualResolution, 
 					playerChangedRoom);
-				return playerChangedRoom;
 			}
-			return true;
 		}
 
 		private void updateRoom(IRoom room)
@@ -85,7 +85,6 @@ namespace AGS.Engine
 				previousRoom.Events.OnAfterFadeOut.Invoke(this, new AGSEventArgs ());
 			}
 
-			room.Events.OnBeforeFadeIn.Invoke(this, new AGSEventArgs ());
 			room.Events.OnAfterFadeIn.Invoke(this, new AGSEventArgs ());
 
 			_lastPlayerRoom = room;
