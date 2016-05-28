@@ -3,6 +3,7 @@ using AGS.API;
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using OpenTK;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -13,19 +14,19 @@ namespace AGS.Engine
 		private IGLBoundingBoxBuilder _boundingBoxBuilder;
 		private IGLColorBuilder _colorBuilder;
 		private IGLTextureRenderer _renderer;
-		private IGLViewportMatrix _viewport;
+		private IGLViewportMatrixFactory _layerViewports;
 
 		public GLImageRenderer (Dictionary<string, GLImage> textures, 
 			IGLMatrixBuilder matrixBuilder, IGLBoundingBoxBuilder boundingBoxBuilder,
 			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer, IGLBoundingBoxes bgBoxes,
-			IGLViewportMatrix viewport)
+			IGLViewportMatrixFactory layerViewports)
 		{
 			_textures = textures;
 			_matrixBuilder = matrixBuilder;
 			_boundingBoxBuilder = boundingBoxBuilder;
 			_colorBuilder = colorBuilder;
 			_renderer = renderer;
-			_viewport = viewport;
+			_layerViewports = layerViewports;
 			BoundingBoxes = bgBoxes;
 		}
 
@@ -47,8 +48,11 @@ namespace AGS.Engine
 				return;
 			}
 
+			var layerViewport = _layerViewports.GetViewport(obj.RenderLayer.Z);
+
 			IGLMatrices matrices = _matrixBuilder.Build(obj, obj.Animation.Sprite, obj.TreeNode.Parent,
-				obj.IgnoreViewport ? Matrix4.Identity : _viewport.GetMatrix(viewport), areaScaling);
+				obj.IgnoreViewport ? Matrix4.Identity : layerViewport.GetMatrix(viewport, obj.RenderLayer.ParallaxSpeed), 
+				areaScaling);
 
 			_boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width,
 				sprite.Image.Height, matrices);

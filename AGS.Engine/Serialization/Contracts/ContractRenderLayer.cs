@@ -18,7 +18,7 @@ namespace AGS.Engine
 
 		public IRenderLayer ToItem(AGSSerializationContext context)
 		{
-			return new AGSRenderLayer (Z);
+			return new AGSRenderLayer (Z, new PointF (1f, 1f));
 		}
 
 		public void FromItem(AGSSerializationContext context, IRenderLayer item)

@@ -31,7 +31,7 @@ namespace AGS.Engine
 			Builder.RegisterType<AGSGame>().SingleInstance().As<IGame>();
 			Builder.RegisterType<AGSGameEvents>().SingleInstance().As<IGameEvents>();
 			Builder.RegisterType<BitmapPool>().SingleInstance();
-			Builder.RegisterType<GLViewportMatrix>().SingleInstance().As<IGLViewportMatrix>();
+			Builder.RegisterType<GLViewportMatrixFactory>().SingleInstance().As<IGLViewportMatrixFactory>();
 			Builder.RegisterType<AGSPlayer>().SingleInstance().As<IPlayer>();
 			Builder.RegisterType<ResourceLoader>().SingleInstance().As<IResourceLoader>();
 			Builder.RegisterType<AGSCutscene>().SingleInstance().As<ICutscene>();

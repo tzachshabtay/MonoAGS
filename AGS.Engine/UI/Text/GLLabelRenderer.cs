@@ -18,14 +18,14 @@ namespace AGS.Engine
 		private readonly IGLColorBuilder _colorBuilder;
 		private readonly IGLTextureRenderer _textureRenderer;
 		private readonly IGLBoundingBoxes _labelBoundingBoxes, _textBoundingBoxes;
-		private readonly IGLViewportMatrix _viewport;
+		private readonly IGLViewportMatrixFactory _viewport;
 		private IGLBoundingBoxes _usedLabelBoundingBoxes, _usedTextBoundingBoxes;
 		private readonly LabelMatrixRenderTarget _labelMatrixRenderTarget;
 		private readonly BitmapPool _bitmapPool;
 
 		public GLLabelRenderer(Dictionary<string, GLImage> textures, IGLMatrixBuilder matrixBuilder,
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
-			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrix viewportMatrix,
+			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrixFactory viewportMatrix,
 			IGLBoundingBoxes labelBoundingBoxes, IGLBoundingBoxes textBoundingBoxes)
 		{
 			_matrixContainer = new MatrixContainer ();
@@ -123,7 +123,8 @@ namespace AGS.Engine
 				_labelMatrixRenderTarget.Height = _glText.Height;
 			}
 			IGLMatrices matrices = _matrixBuilder.Build(_labelMatrixRenderTarget, obj.Animation.Sprite, obj.TreeNode.Parent,
-				obj.IgnoreViewport ? Matrix4.Identity : _viewport.GetMatrix(viewport), areaScaling);
+				obj.IgnoreViewport ? Matrix4.Identity : _viewport.GetViewport(obj.RenderLayer.Z).GetMatrix(viewport, obj.RenderLayer.ParallaxSpeed), 
+				areaScaling);
 			_matrixContainer.Matrices = matrices;
 			_labelMatrixRenderTarget.Width = width;
 			_labelMatrixRenderTarget.Height = height;

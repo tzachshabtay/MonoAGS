@@ -43,6 +43,7 @@ namespace DemoGame
 			IObject windowHotspot = factory.Object.GetHotspot(_baseFolder + "windowHotspot.png", "Window");
 			doorHotspot.Z = buildingHotspot.Z - 1;
 			windowHotspot.Z = buildingHotspot.Z - 1;
+
 			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "aztecBuildingHotspot.png", "Aztec Building"));
 			_room.Objects.Add(buildingHotspot);
 			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "carHotspot.png", "Car"));
@@ -54,6 +55,7 @@ namespace DemoGame
 			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "skylineHotspot.png", "Skyline"));
 			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "trashcansHotspot.png", "Trashcans"));
 			_room.Objects.Add(windowHotspot);
+			addLampPosts(factory);
 
 			subscribeEvents();
 
@@ -81,6 +83,25 @@ namespace DemoGame
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)
 		{
 			_player.Character.PlaceOnWalkableArea();
+		}
+
+		private void addLampPosts(IGameFactory factory)
+		{
+			PointF parallaxSpeed = new PointF (1.4f, 1f);
+			AGSRenderLayer parallaxLayer = new AGSRenderLayer (-50, parallaxSpeed);
+			var image = factory.Graphics.LoadImage(_baseFolder + "lampPost.png");
+			var singleFrame = new AGSSingleFrameAnimation (image, factory.Graphics);
+			const int numLampPosts = 3;
+
+			for (int index = 0; index < numLampPosts; index++)
+			{
+				IObject lampPost = factory.Object.GetObject("Lamp Post " + index);
+				lampPost.X = 200f * index + 30f;
+				lampPost.Y = -130f;
+				lampPost.RenderLayer = parallaxLayer;
+				lampPost.StartAnimation(singleFrame);
+				_room.Objects.Add(lampPost);
+			}
 		}
 	}
 }
