@@ -12,7 +12,7 @@ namespace DemoGame
 		private IPlayer _player;
 		private IObject _bottle;
 		private IGame _game;
-		private IAudioClip _effect;
+		private IAudioClip _effect, _music;
 
 		private const string _baseFolder = "../../Assets/Rooms/EmptyStreet/";
 		private const string _roomId = "Empty Street";
@@ -28,6 +28,7 @@ namespace DemoGame
 			_game = game;
 			IGameFactory factory = game.Factory;
 			_effect = factory.Sound.LoadAudioClip("../../Assets/Sounds/254818__kwahmah-02__rattling-glass-bottles-impact.wav");
+			_music = factory.Sound.LoadAudioClip("../../Assets/Sounds/AMemoryAway.ogg");
 
 			ILoadImageConfig loadConfig = new AGSLoadImageConfig
 			{
@@ -100,6 +101,8 @@ namespace DemoGame
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)
 		{
+			if (Repeat.OnceOnly("PlayOpenMusic"))
+				_music.Play(shouldLoop: true);
 			_player.Character.PlaceOnWalkableArea();
 		}
 	}
