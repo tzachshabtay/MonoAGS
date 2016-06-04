@@ -32,9 +32,11 @@ namespace AGS.Engine
 				{
 					if (playerChangedRoom)
 					{
+						if (_lastPlayerRoom != null) _lastPlayerRoom.Events.OnAfterFadeOut.Invoke(this, new AGSEventArgs ());
 						room.Events.OnBeforeFadeIn.Invoke(this, new AGSEventArgs ());
 						updateViewport(room, playerChangedRoom);
-						_roomTransitions.State = RoomTransitionState.InTransition;
+						if (_lastPlayerRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
+						else _roomTransitions.State = RoomTransitionState.InTransition;
 					}
 				}
 				return;
@@ -78,12 +80,6 @@ namespace AGS.Engine
 		{
 			if (_lastPlayerRoom == room) return;
 			IRoom previousRoom = _lastPlayerRoom;
-
-			if (previousRoom != null)
-			{
-				previousRoom.Events.OnBeforeFadeOut.Invoke(this, new AGSEventArgs ());
-				previousRoom.Events.OnAfterFadeOut.Invoke(this, new AGSEventArgs ());
-			}
 
 			room.Events.OnAfterFadeIn.Invoke(this, new AGSEventArgs ());
 

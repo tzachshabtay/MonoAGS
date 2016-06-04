@@ -33,6 +33,7 @@ namespace AGS.Engine
 			{
 				if (_state.Player.Character == _obj)
 				{
+					Room.Events.OnBeforeFadeOut.Invoke(this, new AGSEventArgs ());
 					_roomTransitions.State = RoomTransitionState.BeforeLeavingRoom;
 					if (_roomTransitions.Transition != null)
 						_roomTransitions.OnStateChanged.WaitUntil(_ => _roomTransitions.State == RoomTransitionState.PreparingTransition

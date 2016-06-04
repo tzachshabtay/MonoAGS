@@ -11,6 +11,8 @@ namespace AGS.Engine
 		public AGSRoomTransitions(IEvent<AGSEventArgs> onStateChanged)
 		{
 			OnStateChanged = onStateChanged;
+			//starting with preparing transition so that the before fade in event will be called for the first room in the game
+			_state = RoomTransitionState.PreparingTransition; 
 		}
 
 		#region IRoomTransitions implementation
