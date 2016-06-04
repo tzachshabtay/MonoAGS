@@ -12,6 +12,7 @@ namespace DemoGame
 		private IPlayer _player;
 		private IObject _bottle;
 		private IGame _game;
+		private IAudioClip _effect;
 
 		private const string _baseFolder = "../../Assets/Rooms/EmptyStreet/";
 		private const string _roomId = "Empty Street";
@@ -26,6 +27,8 @@ namespace DemoGame
 		{
 			_game = game;
 			IGameFactory factory = game.Factory;
+			_effect = factory.Sound.LoadAudioClip("../../Assets/Sounds/254818__kwahmah-02__rattling-glass-bottles-impact.wav");
+
 			ILoadImageConfig loadConfig = new AGSLoadImageConfig
 			{
 				TransparentColorSamplePoint = new AGS.API.Point(0, 0)
@@ -80,6 +83,7 @@ namespace DemoGame
 
 		private void onBottleInteract(object sender, AGSEventArgs args)
 		{
+			_effect.Play();
 			_bottle.ChangeRoom(null);
 			_player.Character.Inventory.Items.Add(InventoryItems.Bottle);
 		}

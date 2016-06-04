@@ -3,7 +3,7 @@
     public interface IGameFactory
 	{
 		IGraphicsFactory Graphics { get; }
-		ISoundFactory Sound { get; }
+		IAudioFactory Sound { get; }
 		IInventoryFactory Inventory { get; }
 		IUIFactory UI { get; }
 		IObjectFactory Object { get; }

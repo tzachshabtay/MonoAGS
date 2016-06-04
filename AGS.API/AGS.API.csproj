@@ -131,8 +131,6 @@
     <Compile Include="Serialization\ICustomSerializable.cs" />
     <Compile Include="Serialization\ICustomSerializableData.cs" />
     <Compile Include="Serialization\ISaveLoad.cs" />
-    <Compile Include="Sound\ISound.cs" />
-    <Compile Include="Sound\ISoundFactory.cs" />
     <Compile Include="UI\Controls\IButton.cs" />
     <Compile Include="UI\Controls\IButtonComponent.cs" />
     <Compile Include="UI\Controls\IInventoryWindow.cs" />
@@ -168,6 +166,10 @@
     <Compile Include="Rooms\IRoomTransitions.cs" />
     <Compile Include="Graphics\IFrameBuffer.cs" />
     <Compile Include="Objects\Characters\Talking\BeforeSayEventArgs.cs" />
+    <Compile Include="Audio\ISound.cs" />
+    <Compile Include="Audio\ISoundProperties.cs" />
+    <Compile Include="Audio\IAudioClip.cs" />
+    <Compile Include="Audio\IAudioFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -181,7 +183,7 @@
     <Folder Include="Player\" />
     <Folder Include="Rooms\" />
     <Folder Include="Serialization\" />
-    <Folder Include="Sound\" />
     <Folder Include="UI\" />
+    <Folder Include="Audio\" />
   </ItemGroup>
 </Project>

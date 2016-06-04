@@ -9,7 +9,7 @@ namespace AGS.Engine
 	public class AGSGameFactory : IGameFactory
 	{
 		public AGSGameFactory(IGraphicsFactory graphics, IInventoryFactory inventory, IUIFactory ui,
-			IRoomFactory room, IOutfitFactory outfit, IObjectFactory obj, IDialogFactory dialog)
+			IRoomFactory room, IOutfitFactory outfit, IObjectFactory obj, IDialogFactory dialog, IAudioFactory sound)
 		{
 			Graphics = graphics;
 			Inventory = inventory;
@@ -18,6 +18,7 @@ namespace AGS.Engine
 			Outfit = outfit;
 			Object = obj;
 			Dialog = dialog;
+			Sound = sound;
 		}
 
 		#region IGameFactory implementation
@@ -36,13 +37,7 @@ namespace AGS.Engine
 
 		public IGraphicsFactory Graphics { get; private set; }
 
-		public ISoundFactory Sound
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-		}
+		public IAudioFactory Sound { get; private set; }
 
 		#endregion
 

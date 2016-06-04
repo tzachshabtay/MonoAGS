@@ -22,6 +22,13 @@ namespace DemoGame
 				AGSGameSettings.DefaultTextFont = Hooks.FontLoader.LoadFontFromPath("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
 				game.State.RoomTransitions.Transition = AGSRoomTransitions.Dissolve();
 
+				/*ALSoundFactory factory = new ALSoundFactory(new ResourceLoader());
+				//var sound = factory.LoadSound( 
+				);
+				//var sound = factory.LoadSound("../../Assets/Sounds/85102.flac");
+				var sound = factory.LoadSound("../../Assets/Sounds/Epoq-Lepidoptera.ogg");
+				sound.Play();*/
+
 				loadRooms(game);
 				loadCharacters(game);
 

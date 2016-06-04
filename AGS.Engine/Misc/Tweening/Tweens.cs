@@ -120,6 +120,16 @@ namespace AGS.Engine
 		{
 			return Tween.Run(viewport.Angle, toAngle, a => viewport.Angle = a, timeInSeconds, easing);
 		}
+
+		public static Tween TweenVolume(this ISound sound, float toVolume, float timeInSeconds, Func<float, float> easing = null)
+		{
+			return Tween.Run(sound.Volume, toVolume, v => sound.Volume = v, timeInSeconds, easing);
+		}
+
+		public static Tween TweenPitch(this ISound sound, float toPitch, float timeInSeconds, Func<float, float> easing = null)
+		{
+			return Tween.Run(sound.Pitch, toPitch, p => sound.Pitch = p, timeInSeconds, easing);
+		}
 	}
 }
 
