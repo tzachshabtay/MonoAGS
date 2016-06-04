@@ -211,12 +211,14 @@ namespace Tests
 			buttonComponent.Setup(b => b.HoverAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
 			buttonComponent.Setup(b => b.IdleAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
 			buttonComponent.Setup(b => b.PushedAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
+			Mock<IAudioSystem> audioSystem = new Mock<IAudioSystem> ();
 
 			resolver.Builder.RegisterInstance(input.Object);
 			resolver.Builder.RegisterInstance(state);
 			resolver.Builder.RegisterInstance(uiEvents.Object);
 			resolver.Builder.RegisterInstance(animationContainer).As<IAnimationContainer>();
 			resolver.Builder.RegisterInstance(buttonComponent.Object);
+			resolver.Builder.RegisterInstance(audioSystem.Object);
 			resolver.Build();
 
 			Mock<IGameEvents> gameEvents = new Mock<IGameEvents> ();

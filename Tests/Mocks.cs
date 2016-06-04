@@ -27,6 +27,7 @@ namespace Tests
 		Mock<IRoomEvents> _roomEvents;
 		Mock<ICutscene> _cutscene;
 		Mock<IInput> _input;
+		Mock<IAudioSystem> _audioSystem;
 
 		IContainer container;
 
@@ -47,6 +48,7 @@ namespace Tests
 			builder.RegisterInstance(mocks.Input().Object);
 			builder.RegisterInstance(mocks.Cutscene().Object);
 			builder.RegisterInstance(mocks.RoomTransitions().Object);
+			builder.RegisterInstance(mocks.AudioSystem().Object);
 
 			builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 
@@ -63,6 +65,15 @@ namespace Tests
 		public void Dispose()
 		{
 			container.Dispose();
+		}
+
+		public Mock<IAudioSystem> AudioSystem(bool newInstance = false)
+		{
+			if (_audioSystem == null || newInstance)
+			{
+				_audioSystem = new Mock<IAudioSystem> ();
+			}
+			return _audioSystem;
 		}
 
 		public Mock<IAnimationState> AnimationState(bool newInstance = false)

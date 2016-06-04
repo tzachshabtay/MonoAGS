@@ -68,6 +68,7 @@ namespace AGS.Engine
 			state.Player = player;
 			state.Speed = GameSpeed;
             
+			if (RepeatCounters == null) RepeatCounters = new Dictionary<string, int> ();
             Repeat.FromDictionary(RepeatCounters);
 
 			return state;
