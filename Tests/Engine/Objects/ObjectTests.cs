@@ -34,7 +34,7 @@ namespace Tests
 		public void ChangeRoom_WhenNotInRoom_Test()
 		{
 			Mock<IGameState> state = new Mock<IGameState> ();
-			List<IRoom> rooms = new List<IRoom> ();
+			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
 			state.Setup(s => s.Rooms).Returns(rooms);
 
 			foreach (IObject obj in GetImplementors(_mocks, state))
@@ -52,7 +52,7 @@ namespace Tests
 		public void ChangeRoom_WhenInRoom_Test()
 		{
 			Mock<IGameState> state = new Mock<IGameState> ();
-			List<IRoom> rooms = new List<IRoom> ();
+			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
 			state.Setup(s => s.Rooms).Returns(rooms);
 			state.Setup(s => s.Player).Returns(_mocks.Player().Object);
 
@@ -74,7 +74,7 @@ namespace Tests
 		public void ChangeRoom_ToSameRoom_Test()
 		{
 			Mock<IGameState> state = new Mock<IGameState> ();
-			List<IRoom> rooms = new List<IRoom> ();
+			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
 			state.Setup(s => s.Rooms).Returns(rooms);
 			state.Setup(s => s.Player).Returns(_mocks.Player().Object);
 
@@ -96,7 +96,7 @@ namespace Tests
 		public void ChangeRoom_ToNullRoom_Test()
 		{
 			Mock<IGameState> state = new Mock<IGameState> ();
-			List<IRoom> rooms = new List<IRoom> ();
+			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
 			state.Setup(s => s.Rooms).Returns(rooms);
 			state.Setup(s => s.Player).Returns(_mocks.Player().Object);
 
@@ -145,7 +145,7 @@ namespace Tests
 		public void ObjectBoolProperties_Test(string propertyName, bool isObj, bool? isParent, bool? isGrandParent, bool result)
 		{
 			Mock<IGameState> state = new Mock<IGameState> ();
-			List<IRoom> rooms = new List<IRoom> ();
+			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
 			state.Setup(s => s.Rooms).Returns(rooms);
 
 			Action<IObject, bool> setBool = (propertyName == "Visible") ? _setVisible : _setEnabled;
