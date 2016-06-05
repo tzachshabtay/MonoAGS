@@ -22,7 +22,7 @@ namespace AGS.Engine
 				return null;
 			}
 
-			int riffSize = reader.ReadInt32(); //riff_chunk_size
+			reader.ReadInt32(); //riff_chunk_size
 
 			string format = new string (reader.ReadChars(4));
 			if (format != "WAVE")

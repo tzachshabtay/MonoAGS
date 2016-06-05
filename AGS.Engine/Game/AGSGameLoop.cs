@@ -79,10 +79,7 @@ namespace AGS.Engine
 		private void updateRoom(IRoom room)
 		{
 			if (_lastPlayerRoom == room) return;
-			IRoom previousRoom = _lastPlayerRoom;
-
 			room.Events.OnAfterFadeIn.Invoke(this, new AGSEventArgs ());
-
 			_lastPlayerRoom = room;
 		}
 

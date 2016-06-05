@@ -14,14 +14,15 @@ namespace AGS.Engine
 	[ProtoContract(AsReferenceDefault = true)]
 	public class Contract<TItem> : IContract<TItem>, IInnerContract
 	{
-		private static int runningId;
-		private int _id;
+		//Uncomment for debugging the contracts:
+		//private static int runningId; 
+		//private int _id;
 		private TItem _item;
 
 		public Contract()
 		{
-			_id = runningId;
-			runningId++;
+			//_id = runningId;
+			//runningId++;
 		}
 
 		[ProtoMember(1)]
