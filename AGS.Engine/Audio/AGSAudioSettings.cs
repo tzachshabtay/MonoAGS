@@ -5,12 +5,21 @@ namespace AGS.Engine
 {
 	public class AGSAudioSettings : IAudioSettings
 	{
-		public AGSAudioSettings(ICrossFading roomMusicCrossFading)
+		private IAudioSystem _system;
+
+		public AGSAudioSettings(IAudioSystem system, ICrossFading roomMusicCrossFading)
 		{
+			_system = system;
 			RoomMusicCrossFading = roomMusicCrossFading;
 		}
 
 		#region IAudioSettings implementation
+
+		public float MasterVolume
+		{ 
+			get { return _system.Listener.Volume; }
+			set { _system.Listener.Volume = value; }
+		}
 
 		public ICrossFading RoomMusicCrossFading { get; private set; }
 

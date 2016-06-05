@@ -38,12 +38,13 @@ namespace DemoGame
 
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig { TransparentColorSamplePoint = new AGS.API.Point (0, 0) };
 
-			ISlider volumeSlider = factory.UI.GetSlider("Volume Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 50f, 0f, 100f, 
+			ISlider volumeSlider = factory.UI.GetSlider("Volume Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 0.5f, 0f, 1f, 
 				loadConfig: loadConfig);
 			volumeSlider.X = 120f;
 			volumeSlider.Y = 10f;
 			volumeSlider.HandleGraphics.Anchor = new AGS.API.PointF (0.5f, 0.5f);
 			volumeSlider.TreeNode.SetParent(_panel.TreeNode);
+			volumeSlider.OnValueChanged(onVolumeChanged, _game);
 
 			ILabel volumeLabel = factory.UI.GetLabel("Volume Label", "Volume", 50f, 30f, 120f, 85f, _textConfig); 
 			volumeLabel.Anchor = new AGS.API.PointF (0.5f, 0f);
@@ -88,6 +89,11 @@ namespace DemoGame
 		private void onSpeedChanged(float speed)
 		{
 			_game.State.Speed = (int)speed;
+		}
+
+		private void onVolumeChanged(float volume)
+		{
+			_game.AudioSettings.MasterVolume = volume;
 		}
 
 		public void Show()

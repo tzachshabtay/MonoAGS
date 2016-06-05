@@ -9,12 +9,15 @@ namespace AGS.Engine
 	{
 		private AudioContext _context;
 
-		public ALAudioSystem()
+		public ALAudioSystem(IAudioListener listener)
 		{
 			_context = new AudioContext ();
+			Listener = listener;
 		}
 
 		#region IAudioSystem implementation
+
+		public IAudioListener Listener { get; private set; }
 
 		public int AcquireSource()
 		{

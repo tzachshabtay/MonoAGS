@@ -288,11 +288,13 @@
     <Compile Include="Audio\ALAudioFactory.cs" />
     <Compile Include="Audio\ALAudioSystem.cs" />
     <Compile Include="Audio\ALSound.cs" />
-    <Compile Include="Audio\IAudioSystem.cs" />
     <Compile Include="Audio\Decoders\FlacDecoder.cs" />
     <Compile Include="Audio\RoomMusicCrossFading.cs" />
     <Compile Include="Audio\AGSAudioSettings.cs" />
     <Compile Include="Misc\Collection\AGSBindingList.cs" />
+    <Compile Include="Audio\ALListener.cs" />
+    <Compile Include="Audio\Interfaces\IAudioSystem.cs" />
+    <Compile Include="Audio\Interfaces\IAudioListener.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -352,6 +354,7 @@
     <Folder Include="UI\Borders\SlicedImage\" />
     <Folder Include="Audio\" />
     <Folder Include="Audio\Decoders\" />
+    <Folder Include="Audio\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AGS.API\AGS.API.csproj">
