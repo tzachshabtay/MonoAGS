@@ -106,6 +106,21 @@ namespace AGS.Engine
 			}
 		}
 
+		public float Seek
+		{
+			get 
+			{
+				float seek;
+				AL.GetSource(_source, ALSourcef.SecOffset, out seek); 
+				return seek;
+			}
+			set 
+			{
+				if (HasCompleted) return;
+				AL.Source(_source, ALSourcef.SecOffset, value);
+			}
+		}
+
 		#endregion
 	}
 }

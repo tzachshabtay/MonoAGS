@@ -9,6 +9,12 @@ namespace AGS.API
 		bool HasCompleted { get; }
 		Task Completed { get; }
 
+		/// <summary>
+		/// Gets or sets the seek (position within the sound) in seconds.
+		/// </summary>
+		/// <value>The seek.</value>
+		float Seek { get; set; }
+
 		void Pause();
 		void Resume();
 		void Rewind();
