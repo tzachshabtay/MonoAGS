@@ -9,6 +9,7 @@
 		ISaveLoad SaveLoad { get; }
 
 		IInput Input { get; }
+		IAudioSettings AudioSettings { get; }
 
 		IGameEvents Events { get; }
 

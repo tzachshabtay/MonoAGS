@@ -170,6 +170,10 @@
     <Compile Include="Audio\ISoundProperties.cs" />
     <Compile Include="Audio\IAudioClip.cs" />
     <Compile Include="Audio\IAudioFactory.cs" />
+    <Compile Include="Audio\ICrossFading.cs" />
+    <Compile Include="Audio\IAudioSettings.cs" />
+    <Compile Include="Misc\Collections\BindingList\IAGSBindingList.cs" />
+    <Compile Include="Misc\Collections\BindingList\AGSListChangedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -185,5 +189,6 @@
     <Folder Include="Serialization\" />
     <Folder Include="UI\" />
     <Folder Include="Audio\" />
+    <Folder Include="Misc\Collections\BindingList\" />
   </ItemGroup>
 </Project>

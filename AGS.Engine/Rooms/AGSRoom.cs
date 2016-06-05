@@ -43,6 +43,8 @@ namespace AGS.Engine
 
 		public bool ShowPlayer { get; set; }
 
+		public IAudioClip MusicOnLoad { get; set; }
+
 		public IObject Background 
 		{ 
 			get { return _background; } 

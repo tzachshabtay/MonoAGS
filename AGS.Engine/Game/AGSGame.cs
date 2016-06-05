@@ -71,6 +71,8 @@ namespace AGS.Engine
 
 		public IGameEvents Events { get; private set; }
 
+		public IAudioSettings AudioSettings { get; private set; }
+
 		public AGS.API.Size VirtualResolution { get; private set; }
 
 		public AGS.API.Size WindowSize { get { return GetPhysicalResolution(); } }
@@ -105,6 +107,7 @@ namespace AGS.Engine
 					TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
 					TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
 					_renderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter);
+					AudioSettings = _resolver.Container.Resolve<IAudioSettings>(gameParameter);
 					updateResolver();
 					SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
 

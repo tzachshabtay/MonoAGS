@@ -15,7 +15,7 @@ namespace AGS.Engine
 		public AGSGameState (IPlayer player, ICustomProperties globalVariables, IAGSRoomTransitions roomTransitions, Resolver resolver)
 		{
 			Speed = 100;
-			Rooms = new List<IRoom> ();
+			Rooms = new AGSBindingList<IRoom>(10);
 			UI = new AGSConcurrentHashSet<IObject> ();
 			Player = player;
 			GlobalVariables = globalVariables;
@@ -27,7 +27,7 @@ namespace AGS.Engine
 
 		public IPlayer Player { get; set; }
 
-		public IList<IRoom> Rooms { get; private set; }
+		public IAGSBindingList<IRoom> Rooms { get; private set; }
 
 		public IConcurrentHashSet<IObject> UI { get; private set; }
 

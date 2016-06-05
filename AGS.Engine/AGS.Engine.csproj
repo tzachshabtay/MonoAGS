@@ -290,6 +290,9 @@
     <Compile Include="Audio\ALSound.cs" />
     <Compile Include="Audio\IAudioSystem.cs" />
     <Compile Include="Audio\Decoders\FlacDecoder.cs" />
+    <Compile Include="Audio\RoomMusicCrossFading.cs" />
+    <Compile Include="Audio\AGSAudioSettings.cs" />
+    <Compile Include="Misc\Collection\AGSBindingList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

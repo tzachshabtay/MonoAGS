@@ -7,6 +7,7 @@ namespace AGS.API
 	{
 		string ID { get; }
 		bool ShowPlayer { get; set; }
+		IAudioClip MusicOnLoad { get; set; }
 		IViewport Viewport { get; }
 		IObject Background  { get; set; }
 		IConcurrentHashSet<IObject> Objects { get; }

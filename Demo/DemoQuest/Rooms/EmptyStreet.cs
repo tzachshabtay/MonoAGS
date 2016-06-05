@@ -12,8 +12,7 @@ namespace DemoGame
 		private IPlayer _player;
 		private IObject _bottle;
 		private IGame _game;
-		private IAudioClip _bottleEffectClip, _bgMusicClip;
-		private ISound _bgMusicSound;
+		private IAudioClip _bottleEffectClip;
 
 		private const string _baseFolder = "../../Assets/Rooms/EmptyStreet/";
 		private const string _roomId = "Empty Street";
@@ -29,13 +28,14 @@ namespace DemoGame
 			_game = game;
 			IGameFactory factory = game.Factory;
 			_bottleEffectClip = factory.Sound.LoadAudioClip("../../Assets/Sounds/254818__kwahmah-02__rattling-glass-bottles-impact.wav");
-			_bgMusicClip = factory.Sound.LoadAudioClip("../../Assets/Sounds/AMemoryAway.ogg");
 
 			ILoadImageConfig loadConfig = new AGSLoadImageConfig
 			{
 				TransparentColorSamplePoint = new AGS.API.Point(0, 0)
 			};
 			_room = factory.Room.GetRoom(_roomId, 20f, 310f, 190f, 10f);
+			_room.MusicOnLoad = factory.Sound.LoadAudioClip("../../Assets/Sounds/AMemoryAway.ogg");
+
 			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
 
 			IObject bg = factory.Object.GetObject("Empty Street BG");
@@ -80,7 +80,6 @@ namespace DemoGame
 			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
 			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
-			_room.Events.OnBeforeFadeOut.Subscribe(onBeforeFadeOut);
 			if (_bottle != null) _bottle.Interactions.OnInteract.Subscribe(onBottleInteract);
 		}
 
@@ -103,22 +102,7 @@ namespace DemoGame
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)
 		{
-			var currentMusic = _bgMusicSound;
-			if (currentMusic != null) currentMusic.Stop();
-			_bgMusicSound = _bgMusicClip.Play(shouldLoop: true);
 			_player.Character.PlaceOnWalkableArea();
-		}
-
-		private void onBeforeFadeOut(object sender, AGSEventArgs args)
-		{
-			var currentMusic = _bgMusicSound;
-			if (currentMusic != null && !currentMusic.HasCompleted)
-			{
-				currentMusic.TweenVolume(0f, 3f).Task.ContinueWith(_ =>
-				{
-					currentMusic.Stop();
-				});
-			}
 		}
 	}
 }
