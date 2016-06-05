@@ -12,7 +12,8 @@ namespace DemoGame
 		private IPlayer _player;
 		private IObject _bottle;
 		private IGame _game;
-		private IAudioClip _effect, _music;
+		private IAudioClip _bottleEffectClip, _bgMusicClip;
+		private ISound _bgMusicSound;
 
 		private const string _baseFolder = "../../Assets/Rooms/EmptyStreet/";
 		private const string _roomId = "Empty Street";
@@ -27,8 +28,8 @@ namespace DemoGame
 		{
 			_game = game;
 			IGameFactory factory = game.Factory;
-			_effect = factory.Sound.LoadAudioClip("../../Assets/Sounds/254818__kwahmah-02__rattling-glass-bottles-impact.wav");
-			_music = factory.Sound.LoadAudioClip("../../Assets/Sounds/AMemoryAway.ogg");
+			_bottleEffectClip = factory.Sound.LoadAudioClip("../../Assets/Sounds/254818__kwahmah-02__rattling-glass-bottles-impact.wav");
+			_bgMusicClip = factory.Sound.LoadAudioClip("../../Assets/Sounds/AMemoryAway.ogg");
 
 			ILoadImageConfig loadConfig = new AGSLoadImageConfig
 			{
@@ -79,12 +80,13 @@ namespace DemoGame
 			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
 			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
+			_room.Events.OnBeforeFadeOut.Subscribe(onBeforeFadeOut);
 			if (_bottle != null) _bottle.Interactions.OnInteract.Subscribe(onBottleInteract);
 		}
 
 		private void onBottleInteract(object sender, AGSEventArgs args)
 		{
-			_effect.Play();
+			_bottleEffectClip.Play();
 			_bottle.ChangeRoom(null);
 			_player.Character.Inventory.Items.Add(InventoryItems.Bottle);
 		}
@@ -101,9 +103,22 @@ namespace DemoGame
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)
 		{
-			if (Repeat.OnceOnly("PlayOpenMusic"))
-				_music.Play(shouldLoop: true);
+			var currentMusic = _bgMusicSound;
+			if (currentMusic != null) currentMusic.Stop();
+			_bgMusicSound = _bgMusicClip.Play(shouldLoop: true);
 			_player.Character.PlaceOnWalkableArea();
+		}
+
+		private void onBeforeFadeOut(object sender, AGSEventArgs args)
+		{
+			var currentMusic = _bgMusicSound;
+			if (currentMusic != null && !currentMusic.HasCompleted)
+			{
+				currentMusic.TweenVolume(0f, 3f).Task.ContinueWith(_ =>
+				{
+					currentMusic.Stop();
+				});
+			}
 		}
 	}
 }

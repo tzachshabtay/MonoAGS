@@ -9,6 +9,8 @@ namespace DemoGame
 		private IRoom _room;
 		private IPlayer _player;
 		private IGame _game;
+		private IAudioClip _bgMusicClip;
+		private ISound _bgMusicSound;
 
 		private const string _baseFolder = "../../Assets/Rooms/BrokenCurbStreet/";
 
@@ -19,6 +21,7 @@ namespace DemoGame
 			_player = game.State.Player;
 			IGameFactory factory = game.Factory;
 			_room = factory.Room.GetRoom ("Broken Curb Street", 20f, 310f, 190f, 10f);
+			_bgMusicClip = factory.Sound.LoadAudioClip("../../Assets/Sounds/01_Ghosts_I.flac");
 
 			IObject bg = factory.Object.GetObject("Broken Curb BG");
 			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
@@ -85,6 +88,7 @@ namespace DemoGame
 		{
 			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
+			_room.Events.OnBeforeFadeOut.Subscribe(onBeforeFadeOut);
 		}
 
 		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)
@@ -94,7 +98,22 @@ namespace DemoGame
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)
 		{
+			var currentMusic = _bgMusicSound;
+			if (currentMusic != null) currentMusic.Stop();
+			_bgMusicSound = _bgMusicClip.Play(shouldLoop: true);
 			_player.Character.PlaceOnWalkableArea();
+		}
+
+		private void onBeforeFadeOut(object sender, AGSEventArgs args)
+		{
+			var currentMusic = _bgMusicSound;
+			if (currentMusic != null && !currentMusic.HasCompleted)
+			{
+				currentMusic.TweenVolume(0f, 3f).Task.ContinueWith(_ =>
+				{
+					currentMusic.Stop();
+				});
+			}
 		}
 	}
 }

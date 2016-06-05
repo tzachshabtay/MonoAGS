@@ -289,6 +289,7 @@
     <Compile Include="Audio\ALAudioSystem.cs" />
     <Compile Include="Audio\ALSound.cs" />
     <Compile Include="Audio\IAudioSystem.cs" />
+    <Compile Include="Audio\Decoders\FlacDecoder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -370,6 +371,9 @@
     </Reference>
     <Reference Include="NVorbis">
       <HintPath>..\DLLs\NVorbis.dll</HintPath>
+    </Reference>
+    <Reference Include="CSFlac">
+      <HintPath>..\DLLs\CSFlac.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

@@ -21,6 +21,7 @@ namespace AGS.Engine
 			{
 				{ ".WAV", new List<ISoundDecoder> { new WaveDecoder() } }
 				,{ ".OGG", new List<ISoundDecoder> { new OggDecoder() } }
+				,{ ".FLAC", new List<ISoundDecoder> { new FlacDecoder() } }
 			};
 			var registerExternlDecoders = RegisterExternalDecoders;
 			if (registerExternlDecoders != null) registerExternlDecoders(_decoders);
