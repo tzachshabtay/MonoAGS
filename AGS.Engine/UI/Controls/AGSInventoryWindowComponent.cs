@@ -134,7 +134,9 @@ namespace AGS.Engine
 			if (_inventoryItems.Count != _character.Inventory.Items.Count) return true;
 			for (int i = 0; i < _inventoryItems.Count; i++)
 			{
-				if (_inventoryItems[i] != _character.Inventory.Items[i].Graphics) return true;
+				var item = _inventoryItems[i];
+				if (item != _character.Inventory.Items[i].Graphics) return true;
+				if (item.TreeNode.Parent == null) return true;
 			}
 			return false;
 		}
