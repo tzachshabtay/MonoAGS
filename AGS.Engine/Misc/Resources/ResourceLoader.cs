@@ -101,6 +101,7 @@ namespace AGS.Engine
 
 		private IResource loadResource(string resourceName)
 		{
+			if (resourceName == null) return null;
 			Stream stream = _assembly.GetManifestResourceStream(resourceName);
 			if (stream == null) return null;
 			return new AGSResource (resourceName, stream);
@@ -116,7 +117,9 @@ namespace AGS.Engine
 			try
 			{
 				string assemblyName = CustomAssemblyName ?? _assembly.GetName().Name;
-				string resourcePath = path.Substring(path.IndexOf(AssetsFolder));
+				int assetsIndex = path.IndexOf(AssetsFolder);
+				if (assetsIndex < 0) return null;
+				string resourcePath = path.Substring(assetsIndex);
 				resourcePath = resourcePath.Replace('/', '.').Replace('\\', '.');
 				resourcePath = string.Format("{0}.{1}", assemblyName, resourcePath);
 				return resourcePath;
