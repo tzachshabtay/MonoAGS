@@ -30,7 +30,7 @@ namespace AGS.Engine
 		public int MinDelay { get; set; }
 		public int MaxDelay { get; set; }
 
-		public ISound Sound { get; set; }
+		public ISoundEmitter SoundEmitter { get; set; }
 
 		#endregion
 

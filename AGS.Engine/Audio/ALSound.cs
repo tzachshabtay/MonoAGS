@@ -3,6 +3,7 @@ using AGS.API;
 using System.Threading.Tasks;
 using OpenTK.Audio.OpenAL;
 using System.Diagnostics;
+using OpenTK;
 
 namespace AGS.Engine
 {
@@ -11,15 +12,19 @@ namespace AGS.Engine
 		private readonly int _source;
 		private float _volume;
 		private float _pitch;
+		private float _panning;
 		private TaskCompletionSource<object> _tcs;
+		private IAudioErrors _errors;
 
-		public ALSound(int source, float volume, float pitch, bool isLooping)
+		public ALSound(int source, float volume, float pitch, bool isLooping, float panning, IAudioErrors errors)
 		{
 			_tcs = new TaskCompletionSource<object> (null);
 			_source = source;
 			_volume = volume;
 			_pitch = pitch;
+			_panning = panning;
 			IsLooping = isLooping;
+			_errors = errors;
 		}
 
 		public async void Play(int buffer)
@@ -27,8 +32,10 @@ namespace AGS.Engine
 			AL.Source(_source, ALSourcei.Buffer, buffer);
 			Volume = _volume;
 			Pitch = _pitch;
+			Panning = _panning;
 			AL.Source(_source, ALSourceb.Looping, IsLooping);
 			AL.SourcePlay(_source);
+			_errors.HasErrors();
 
 			if (IsLooping) return;
 			int state;
@@ -49,12 +56,14 @@ namespace AGS.Engine
 			if (HasCompleted) return;
 			IsPaused = true;
 			AL.SourcePause(_source);
+			_errors.HasErrors();
 		}
 
 		public void Resume()
 		{
 			if (HasCompleted || !IsPaused) return;
 			AL.SourcePlay(_source);
+			_errors.HasErrors();
 			IsPaused = false;
 		}
 
@@ -62,6 +71,7 @@ namespace AGS.Engine
 		{
 			if (HasCompleted) return;
 			AL.SourceRewind(_source);
+			_errors.HasErrors();
 		}
 
 		public void Stop()
@@ -69,7 +79,10 @@ namespace AGS.Engine
 			if (HasCompleted) return;
 			_tcs.TrySetResult(null);
 			AL.SourceStop(_source);
+			_errors.HasErrors();
 		}
+
+		public int SourceID { get { return _source; } }
 
 		public bool IsPaused { get; private set; }
 
@@ -93,6 +106,7 @@ namespace AGS.Engine
 			{
 				_volume = value;
 				AL.Source(_source, ALSourcef.Gain, _volume);
+				_errors.HasErrors();
 			}
 		}
 
@@ -103,6 +117,7 @@ namespace AGS.Engine
 			{
 				_pitch = value;
 				AL.Source(_source, ALSourcef.Pitch, _pitch);
+				_errors.HasErrors();
 			}
 		}
 
@@ -111,13 +126,28 @@ namespace AGS.Engine
 			get 
 			{
 				float seek;
-				AL.GetSource(_source, ALSourcef.SecOffset, out seek); 
+				AL.GetSource(_source, ALSourcef.SecOffset, out seek);
+				_errors.HasErrors();
 				return seek;
 			}
 			set 
 			{
 				if (HasCompleted) return;
 				AL.Source(_source, ALSourcef.SecOffset, value);
+				_errors.HasErrors();
+			}
+		}
+
+		public float Panning
+		{
+			get { return _panning; }
+			set 
+			{
+				_panning = value;
+				//formula from: https://code.google.com/archive/p/libgdx/issues/1183
+				float x = (float)Math.Cos((value - 1) * Math.PI / 2);
+				float z = (float)Math.Sin((value + 1) * Math.PI / 2);
+				AL.Source(_source, ALSource3f.Position, x, 0f, z);
 			}
 		}
 

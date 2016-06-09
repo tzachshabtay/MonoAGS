@@ -35,7 +35,7 @@ namespace AGS.Engine
 		{
 			ISoundData soundData = loadSoundData(filePath);
 			if (soundData == null) return null;
-			return new ALAudioClip (id ?? filePath, soundData, _system);
+			return new ALAudioClip (id ?? filePath, soundData, _system, new ALErrors());
 		}
 
 		public async Task<IAudioClip> LoadAudioClipAsync(string filePath, string id = null)

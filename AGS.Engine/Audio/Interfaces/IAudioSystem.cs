@@ -8,8 +8,6 @@ namespace AGS.Engine
 
 		int AcquireSource();
 		void ReleaseSource(int source);
-
-		bool HasErrors();
 	}
 }
 

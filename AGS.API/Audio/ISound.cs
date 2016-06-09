@@ -4,6 +4,7 @@ namespace AGS.API
 {
 	public interface ISound : ISoundProperties
 	{
+		int SourceID { get; }
 		bool IsPaused { get; }
 		bool IsLooping { get; }
 		bool HasCompleted { get; }

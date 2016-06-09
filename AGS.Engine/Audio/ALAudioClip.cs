@@ -12,10 +12,12 @@ namespace AGS.Engine
 		private ISoundData _soundData;
 		private Lazy<int> _buffer;
 		private IAudioSystem _system;
+		private IAudioErrors _errors;
 
-		public ALAudioClip(string id, ISoundData soundData, IAudioSystem system)
+		public ALAudioClip(string id, ISoundData soundData, IAudioSystem system, IAudioErrors errors)
 		{
 			_soundData = soundData;
+			_errors = errors;
 			ID = id;
 			_buffer = new Lazy<int> (() => generateBuffer());
 			_system = system;
@@ -28,24 +30,24 @@ namespace AGS.Engine
 		public ISound Play(bool shouldLoop = false, ISoundProperties properties = null)
 		{
 			properties = properties ?? this;
-			return playSound(properties.Volume, properties.Pitch, shouldLoop);
+			return playSound(properties.Volume, properties.Pitch, properties.Panning, shouldLoop);
 		}
 
 		public ISound Play(float volume, bool shouldLoop = false)
 		{
-			return playSound(volume, Pitch, shouldLoop);
+			return playSound(volume, Pitch, Panning, shouldLoop);
 		}
 
 		public void PlayAndWait(ISoundProperties properties = null)
 		{
 			properties = properties ?? this;
-			ISound sound = playSound(properties.Volume, properties.Pitch);
+			ISound sound = playSound(properties.Volume, properties.Pitch, properties.Panning);
 			Task.Run(async () => await sound.Completed).Wait();
 		}
 
 		public void PlayAndWait(float volume)
 		{
-			ISound sound = playSound(volume, Pitch);
+			ISound sound = playSound(volume, Pitch, Panning);
 			Task.Run(async () => await sound.Completed).Wait();
 		}
 			
@@ -53,14 +55,15 @@ namespace AGS.Engine
 
 		public float Volume { get; set; }
 		public float Pitch { get; set; }
+		public float Panning { get; set; }
 
 		#endregion
 
-		private ISound playSound(float volume, float pitch, bool looping = false)
+		private ISound playSound(float volume, float pitch, float panning, bool looping = false)
 		{
 			Debug.WriteLine("Playing Sound: " + ID);
 			int source = getSource();
-			ALSound sound = new ALSound (source, volume, pitch, looping);
+			ALSound sound = new ALSound (source, volume, pitch, looping, panning, _errors);
 			sound.Play(_buffer.Value);
 			sound.Completed.ContinueWith(_ => _system.ReleaseSource(source));
 			return sound;
@@ -73,7 +76,7 @@ namespace AGS.Engine
 
 		private int generateBuffer()
 		{
-			_system.HasErrors();
+			_errors.HasErrors();
 
 			int buffer = AL.GenBuffer();
 			Type dataType = _soundData.Data.GetType();
@@ -91,7 +94,7 @@ namespace AGS.Engine
 			}
 			else throw new NotSupportedException ("ALSound: Data type not supported: " + dataType.Name);
 
-			_system.HasErrors();
+			_errors.HasErrors();
 			return buffer;
 		}
 

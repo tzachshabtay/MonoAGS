@@ -80,7 +80,10 @@ namespace AGS.Engine
 			}
 			State.CurrentFrame = frame;
 			State.RunningBackwards = runningBackwards;
-			State.TimeToNextFrame = Frames [frame].Delay;
+			var animationFrame = Frames[frame];
+			State.TimeToNextFrame = animationFrame.Delay;
+			var emitter = animationFrame.SoundEmitter;
+			if (emitter != null) emitter.Play();
 			return true;
 		}
 

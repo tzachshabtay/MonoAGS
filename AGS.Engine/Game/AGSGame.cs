@@ -107,7 +107,7 @@ namespace AGS.Engine
 					TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
 					TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
 					_renderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter);
-					AudioSettings = _resolver.Container.Resolve<IAudioSettings>(gameParameter);
+					AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
 					updateResolver();
 					SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
 

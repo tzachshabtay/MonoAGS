@@ -19,6 +19,18 @@ namespace AGS.API
 		/// </summary>
 		/// <value>The pitch.</value>
 		float Pitch { get; set; }
+
+		/// <summary>
+		/// Gets or sets the panning the sound is coming from.
+		/// The valid range is -1..1 
+		/// -1 will play the sound on the left speaker.
+		/// 1 will play the sound on the right speaker.
+		/// 0 will play the sound equally on both speakers.
+		/// Values in between will be interpolated accordingly.
+		/// Note: Panning can only work on Mono sounds (it will not work for Stereo sounds).
+		/// </summary>
+		/// <value>The location.</value>
+		float Panning { get; set; }
 	}
 }
 

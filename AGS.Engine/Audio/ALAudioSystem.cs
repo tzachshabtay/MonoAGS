@@ -2,17 +2,20 @@
 using OpenTK.Audio;
 using OpenTK.Audio.OpenAL;
 using System.Diagnostics;
+using Autofac;
 
 namespace AGS.Engine
 {
 	public class ALAudioSystem : IDisposable, IAudioSystem
 	{
 		private AudioContext _context;
+		private IAudioErrors _errors;
 
-		public ALAudioSystem(IAudioListener listener)
+		public ALAudioSystem(Resolver resolver, IAudioErrors errors)
 		{
 			_context = new AudioContext ();
-			Listener = listener;
+			Listener = resolver.Container.Resolve<IAudioListener>();
+			_errors = errors;
 		}
 
 		#region IAudioSystem implementation
@@ -21,23 +24,18 @@ namespace AGS.Engine
 
 		public int AcquireSource()
 		{
-			return AL.GenSource();
+			int source = AL.GenSource();
+			_errors.HasErrors();
+			return source;
 		}
 
 		public void ReleaseSource(int source)
 		{
 			AL.SourceStop(source);
 			AL.DeleteSource(source);
+			_errors.HasErrors();
 		}
-
-		public bool HasErrors()
-		{
-			var error = AL.GetError();
-			if (error == ALError.NoError) return false;
-			Debug.WriteLine("OpenAL Error: " + error);
-			return true;
-		}
-
+			
 		#endregion
 			
 		#region IDisposable implementation

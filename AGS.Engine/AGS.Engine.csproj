@@ -282,7 +282,6 @@
     <Compile Include="Audio\Decoders\WaveDecoder.cs" />
     <Compile Include="Audio\Decoders\ISoundDecoder.cs" />
     <Compile Include="Audio\Decoders\OggDecoder.cs" />
-    <Compile Include="Audio\ISoundData.cs" />
     <Compile Include="Audio\SoundData.cs" />
     <Compile Include="Audio\ALAudioClip.cs" />
     <Compile Include="Audio\ALAudioFactory.cs" />
@@ -295,6 +294,10 @@
     <Compile Include="Audio\ALListener.cs" />
     <Compile Include="Audio\Interfaces\IAudioSystem.cs" />
     <Compile Include="Audio\Interfaces\IAudioListener.cs" />
+    <Compile Include="Audio\Interfaces\ISoundData.cs" />
+    <Compile Include="Audio\AGSSoundEmitter.cs" />
+    <Compile Include="Audio\Interfaces\IAudioErrors.cs" />
+    <Compile Include="Audio\ALErrors.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

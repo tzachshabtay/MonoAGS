@@ -3,7 +3,7 @@
     public interface IAnimationFrame
 	{
 		ISprite Sprite { get; set; }
-		ISound Sound { get; set; }
+		ISoundEmitter SoundEmitter { get; set; }
 
 		int Delay { get; set; }
 		int MinDelay { get; set; }
