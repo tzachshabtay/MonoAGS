@@ -336,6 +336,10 @@
       <LastGenOutput>FlatInterfaceTemplate.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="..\DLLs\OpenTK.dll.config">
+      <Link>OpenTK.dll.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ComponentsFramework\" />
