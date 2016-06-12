@@ -21,8 +21,8 @@ namespace AGS.Engine
 			int result = (int)compare(s1, s2);
 			if (Backwards) result *= -1;
 			#if DEBUG
-			s1.SetInt(s2.ID, result);
-			s2.SetInt(s1.ID, -result);
+			s1.SetInt(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s2.ID), result);
+			s2.SetInt(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s1.ID), -result);
 			#endif
 			return result;
 		}
