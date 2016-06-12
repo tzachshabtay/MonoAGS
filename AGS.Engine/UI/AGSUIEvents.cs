@@ -17,7 +17,6 @@ namespace AGS.Engine
 		private IEnabledComponent _enabled;
 		private IVisibleComponent _visible;
 		private ICollider _collider;
-		private IDrawableInfo _drawableInfo;
 
 		public AGSUIEvents(IInput input, IGameState state, IGameEvents gameEvents)
 		{
@@ -42,7 +41,6 @@ namespace AGS.Engine
 			_enabled = entity.GetComponent<IEnabledComponent>();
 			_visible = entity.GetComponent<IVisibleComponent>();
 			_collider = entity.GetComponent<ICollider>();
-			_drawableInfo = entity.GetComponent<IDrawableInfo>();
 
 			_gameEvents.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
 		}
