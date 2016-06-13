@@ -74,13 +74,19 @@ namespace DemoGame
 		private static void loadCharacters(IGame game)
 		{
 			Cris cris = new Cris ();
+			//ICharacter follower = cris.Load (game); Uncomment all follower lines in this method to see character follow demo
 			ICharacter character = cris.Load(game);
+			//follower.Tint = Colors.LightSeaGreen;
+			//follower.Opacity = 180;
+			//follower.Hotspot = "Ghost";
 
 			game.State.Player.Character = character;
 			KeyboardMovement movement = new KeyboardMovement (character, game.Input, KeyboardMovementMode.Pressing);
 			movement.AddArrows();
 			movement.AddWASD();
 			character.ChangeRoom(Rooms.EmptyStreet, 50, 30);
+			//follower.ChangeRoom (Rooms.EmptyStreet, 30, 30);
+			//follower.Follow (character);
 
 			Beman beman = new Beman ();
 			character = beman.Load(game);

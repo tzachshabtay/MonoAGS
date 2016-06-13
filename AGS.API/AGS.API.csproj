@@ -176,6 +176,8 @@
     <Compile Include="Misc\Collections\BindingList\AGSListChangedEventArgs.cs" />
     <Compile Include="Audio\ISoundPlayer.cs" />
     <Compile Include="Audio\ISoundEmitter.cs" />
+    <Compile Include="Objects\Characters\Walking\Follow\IFollowBehavior.cs" />
+    <Compile Include="Objects\Characters\Walking\Follow\IFollowSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -192,5 +194,6 @@
     <Folder Include="UI\" />
     <Folder Include="Audio\" />
     <Folder Include="Misc\Collections\BindingList\" />
+    <Folder Include="Objects\Characters\Walking\Follow\" />
   </ItemGroup>
 </Project>
