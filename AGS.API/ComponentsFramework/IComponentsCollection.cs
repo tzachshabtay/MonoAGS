@@ -7,7 +7,7 @@ namespace AGS.API
 	{
 		TComponent AddComponent<TComponent>() where TComponent : IComponent;
 		IComponent AddComponent(Type componentType);
-		bool AddComponent(IComponent component);
+		bool AddComponent<TComponent> (TComponent component) where TComponent : IComponent;
 
 		bool RemoveComponents<TComponent>() where TComponent : IComponent;
 		bool RemoveComponents(Type componentType);
