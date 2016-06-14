@@ -25,7 +25,7 @@ namespace DemoGame
 			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
 			_room.Background = bg;
 
-			AGSMaskLoader maskLoader = new AGSMaskLoader (factory);
+			AGSMaskLoader maskLoader = new AGSMaskLoader (factory, new ResourceLoader());
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable1.png") });
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable2.png") });
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable3.png"), Enabled = false });

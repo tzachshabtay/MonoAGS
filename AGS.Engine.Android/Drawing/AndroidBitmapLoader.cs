@@ -18,12 +18,6 @@ namespace AGS.Engine.Android
 			return new AndroidBitmap (bitmap);
 		}
 
-		public IBitmap Load(string path)
-		{
-			Bitmap bitmap = BitmapFactory.DecodeFile(path);
-			return new AndroidBitmap (bitmap);
-		}
-
 		public IBitmap Load(int width, int height)
 		{
 			Bitmap bitmap = Bitmap.CreateBitmap(width, height, Bitmap.Config.Argb8888);

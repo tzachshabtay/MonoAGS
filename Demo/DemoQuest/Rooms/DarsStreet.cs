@@ -27,7 +27,7 @@ namespace DemoGame
 			bg.StartAnimation(bgAnimation);
 			_room.Background = bg;
 
-			AGSMaskLoader maskLoader = new AGSMaskLoader (factory);
+			AGSMaskLoader maskLoader = new AGSMaskLoader (factory, new ResourceLoader());
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable1.png") });
 			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable2.png") });
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[0], 0.35f, 0.75f));
