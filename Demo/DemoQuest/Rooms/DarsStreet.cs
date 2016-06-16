@@ -13,7 +13,7 @@ namespace DemoGame
 
 		private const string _baseFolder = "../../Assets/Rooms/DarsStreet/";
 
-		public IRoom Load(IGame game)
+		public async Task<IRoom> LoadAsync(IGame game)
 		{
 			_game = game;
 			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
@@ -21,43 +21,43 @@ namespace DemoGame
 			IGameFactory factory = game.Factory;
 			_room = factory.Room.GetRoom("Dars Street", 20f, 490f, 190f, 10f);
 			IObject bg = factory.Object.GetObject("Dars Street BG");
-			IAnimation bgAnimation = factory.Graphics.LoadAnimationFromFolder(_baseFolder + "bg");
+			IAnimation bgAnimation = await factory.Graphics.LoadAnimationFromFolderAsync(_baseFolder + "bg");
 			bgAnimation.Frames[0].MinDelay = 1;
 			bgAnimation.Frames[0].MaxDelay = 120;
 			bg.StartAnimation(bgAnimation);
 			_room.Background = bg;
 
 			AGSMaskLoader maskLoader = new AGSMaskLoader (factory, new ResourceLoader());
-			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable1.png") });
-			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable2.png") });
+			_room.WalkableAreas.Add(new AGSArea { Mask = await maskLoader.LoadAsync(_baseFolder + "walkable1.png") });
+			_room.WalkableAreas.Add(new AGSArea { Mask = await maskLoader.LoadAsync(_baseFolder + "walkable2.png") });
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[0], 0.35f, 0.75f));
 			_room.ScalingAreas.Add(AGSScalingArea.CreateZoom(_room.WalkableAreas[0], 1.2f, 1f));
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[1], 0.10f, 0.35f));
 			_room.ScalingAreas.Add(AGSScalingArea.CreateZoom(_room.WalkableAreas[1], 1.8f, 1.2f));
 
-			_room.WalkBehindAreas.Add(new AGSWalkBehindArea (new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkbehind1.png") }));
-			_room.WalkBehindAreas.Add(new AGSWalkBehindArea (new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkbehind2.png") }));
-			_room.WalkBehindAreas.Add(new AGSWalkBehindArea (new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkbehind3.png") }));
+			_room.WalkBehindAreas.Add(new AGSWalkBehindArea (new AGSArea { Mask = await maskLoader.LoadAsync(_baseFolder + "walkbehind1.png") }));
+			_room.WalkBehindAreas.Add(new AGSWalkBehindArea (new AGSArea { Mask = await maskLoader.LoadAsync (_baseFolder + "walkbehind2.png") }));
+			_room.WalkBehindAreas.Add(new AGSWalkBehindArea (new AGSArea { Mask = await maskLoader.LoadAsync (_baseFolder + "walkbehind3.png") }));
 		
-			IObject buildingHotspot = factory.Object.GetHotspot(_baseFolder + "buildingHotspot.png", "Building");
-			IObject doorHotspot = factory.Object.GetHotspot(_baseFolder + "doorHotspot.png", "Door");
-			IObject windowHotspot = factory.Object.GetHotspot(_baseFolder + "windowHotspot.png", "Window");
+			IObject buildingHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "buildingHotspot.png", "Building");
+			IObject doorHotspot = await factory.Object.GetHotspotAsync (_baseFolder + "doorHotspot.png", "Door");
+			IObject windowHotspot = await factory.Object.GetHotspotAsync (_baseFolder + "windowHotspot.png", "Window");
 			doorHotspot.Z = buildingHotspot.Z - 1;
 			windowHotspot.Z = buildingHotspot.Z - 1;
 			windowHotspot.Interactions.OnLook.SubscribeToAsync(lookOnWindow);
 
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "aztecBuildingHotspot.png", "Aztec Building"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "aztecBuildingHotspot.png", "Aztec Building"));
 			_room.Objects.Add(buildingHotspot);
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "carHotspot.png", "Car"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "carHotspot.png", "Car"));
 			_room.Objects.Add(doorHotspot);
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "fencesHotspot.png", "Fences"));
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "neonSignHotspot.png", "Neon Sign"));
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "roadHotspot.png", "Road"));
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "sidewalkHotspot.png", "Sidewalk"));
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "skylineHotspot.png", "Skyline"));
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "trashcansHotspot.png", "Trashcans"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "fencesHotspot.png", "Fences"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "neonSignHotspot.png", "Neon Sign"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "roadHotspot.png", "Road"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "sidewalkHotspot.png", "Sidewalk"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "skylineHotspot.png", "Skyline"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "trashcansHotspot.png", "Trashcans"));
 			_room.Objects.Add(windowHotspot);
-			addLampPosts(factory);
+			await addLampPosts(factory);
 
 			subscribeEvents();
 
@@ -79,7 +79,7 @@ namespace DemoGame
 
 		private void onRightEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.TrashcanStreet, 30);
+			_player.Character.ChangeRoom(Rooms.TrashcanStreet.Result, 30);
 		}
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)
@@ -87,11 +87,11 @@ namespace DemoGame
 			_player.Character.PlaceOnWalkableArea();
 		}
 
-		private void addLampPosts(IGameFactory factory)
+		private async Task addLampPosts(IGameFactory factory)
 		{
 			PointF parallaxSpeed = new PointF (1.4f, 1f);
 			AGSRenderLayer parallaxLayer = new AGSRenderLayer (-50, parallaxSpeed);
-			var image = factory.Graphics.LoadImage(_baseFolder + "lampPost.png");
+			var image = await factory.Graphics.LoadImageAsync(_baseFolder + "lampPost.png");
 			var singleFrame = new AGSSingleFrameAnimation (image, factory.Graphics);
 			const int numLampPosts = 3;
 

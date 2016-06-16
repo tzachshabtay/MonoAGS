@@ -1,8 +1,5 @@
-﻿using System;
-using AGS.API;
-
-
-using System.Runtime.InteropServices;
+﻿using AGS.API;
+using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
@@ -25,6 +22,14 @@ namespace AGS.Engine
 			var resource = _resourceLoader.LoadResource (path);
 			IBitmap image = Hooks.BitmapLoader.Load (resource.Stream);
 			return load(path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
+		}
+
+		public async Task<IMask> LoadAsync (string path, bool transparentMeansMasked = false,
+			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
+		{
+			var resource = await Task.Run(() => _resourceLoader.LoadResource (path));
+			IBitmap image = await Task.Run(() => Hooks.BitmapLoader.Load (resource.Stream));
+			return load (path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
 		}
 
 		public IMask Load(IBitmap image, bool transparentMeansMasked = false, 

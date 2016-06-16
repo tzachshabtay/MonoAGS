@@ -300,6 +300,9 @@
     <Compile Include="Audio\ALErrors.cs" />
     <Compile Include="Objects\Characters\Walking\Following\AGSFollowBehavior.cs" />
     <Compile Include="Objects\Characters\Walking\Following\AGSFollowSettings.cs" />
+    <Compile Include="Graphics\Logic\SpriteSheetLoader.cs" />
+    <Compile Include="Game\AGSSyncContext.cs" />
+    <Compile Include="Game\IMessagePump.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

@@ -40,6 +40,7 @@ namespace AGS.Engine
 			Builder.RegisterType<RoomMusicCrossFading>().SingleInstance().As<ICrossFading>();
 			Builder.RegisterType<AGSAudioSettings>().SingleInstance().As<IAudioSettings>();
 			Builder.RegisterType<ALListener>().SingleInstance().As<IAudioListener>();
+			Builder.RegisterType<AGSSyncContext>().SingleInstance().As<IMessagePump>();
 
 			registerComponents();
 

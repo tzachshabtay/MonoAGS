@@ -30,6 +30,7 @@ namespace Tests
 			var updater = new ContainerBuilder ();
 			updater.RegisterInstance(_mocks.Input().Object).As<IInput>();
 			updater.RegisterInstance(_mocks.AudioSystem().Object).As<IAudioSystem>();
+			updater.RegisterInstance(new Mock<IMessagePump>().Object);
 			updater.Update(_resolver.Container);
 			_textures = new Dictionary<string, GLImage> ();
 			_state = _resolver.Container.Resolve<IGameState>();

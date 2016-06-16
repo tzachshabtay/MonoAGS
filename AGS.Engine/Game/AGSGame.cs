@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
+using System.Collections.Concurrent;
 
 namespace AGS.Engine
 {
@@ -19,10 +20,13 @@ namespace AGS.Engine
 		private IRendererLoop _renderLoop;
 		private int _relativeSpeed;
 		private AGSEventArgs _renderEventArgs;
+		private IMessagePump _messagePump;
 		public const double UPDATE_RATE = 60.0;
 
-		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents)
+		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents, IMessagePump messagePump)
 		{
+			_messagePump = messagePump;
+			_messagePump.SetSyncContext ();
 			Factory = factory;
 			State = state;
 			Events = gameEvents;
@@ -46,6 +50,7 @@ namespace AGS.Engine
 		public static IGame CreateEmpty()
 		{
 			UIThreadID = Environment.CurrentManagedThreadId;
+
 			printRuntime();
 			Resolver resolver = new Resolver (Hooks.ConfigFile);
 			resolver.Build();
@@ -107,8 +112,8 @@ namespace AGS.Engine
 					TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
 					TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
 					_renderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter);
+					updateResolver ();
 					AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
-					updateResolver();
 					SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
 
 					GL.MatrixMode(MatrixMode.Projection);
@@ -138,6 +143,7 @@ namespace AGS.Engine
 				{
 					try
 					{
+						_messagePump.PumpMessages();
 						if (State.Paused) return;
 						adjustSpeed();
 						GameLoop.Update();

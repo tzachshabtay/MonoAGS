@@ -1,11 +1,7 @@
-﻿using System;
-using AGS.Engine;
+﻿using AGS.Engine;
 using System.Threading.Tasks;
 using AGS.API;
 using System.Diagnostics;
-using System.Linq;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace DemoGame
 {
@@ -21,13 +17,6 @@ namespace DemoGame
 				AGSGameSettings.DefaultSpeechFont = Hooks.FontLoader.LoadFontFromPath("../../Assets/Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
 				AGSGameSettings.DefaultTextFont = Hooks.FontLoader.LoadFontFromPath("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
 				game.State.RoomTransitions.Transition = AGSRoomTransitions.Dissolve();
-
-				/*ALSoundFactory factory = new ALSoundFactory(new ResourceLoader());
-				//var sound = factory.LoadSound( 
-				);
-				//var sound = factory.LoadSound("../../Assets/Sounds/85102.flac");
-				var sound = factory.LoadSound("../../Assets/Sounds/Epoq-Lepidoptera.ogg");
-				sound.Play();*/
 
 				loadRooms(game);
 				loadCharacters(game);
@@ -89,32 +78,36 @@ namespace DemoGame
 			//follower.Follow (character);
 
 			Beman beman = new Beman ();
-			character = beman.Load(game);
-			character.ChangeRoom(Rooms.BrokenCurbStreet, 100, 110);
+			character = beman.Load (game);
+			Rooms.BrokenCurbStreet.ContinueWith (room => character.ChangeRoom (room.Result, 100, 110));
 
-			Characters.Init(game);
+			Characters.Init (game);
 		}
 
 		private static void loadRooms(IGame game)
 		{
 			EmptyStreet emptyStreet = new EmptyStreet (game.State.Player);
 			Rooms.EmptyStreet = emptyStreet.Load(game);
+			game.State.Rooms.Add (Rooms.EmptyStreet);
 
 			BrokenCurbStreet brokenCurbStreet = new BrokenCurbStreet();
-			Rooms.BrokenCurbStreet = brokenCurbStreet.Load(game);
+			Rooms.BrokenCurbStreet = brokenCurbStreet.LoadAsync(game);
+			addRoomWhenLoaded(game, Rooms.BrokenCurbStreet);
 
 			TrashcanStreet trashcanStreet = new TrashcanStreet();
-			Rooms.TrashcanStreet = trashcanStreet.Load(game);
+			Rooms.TrashcanStreet = trashcanStreet.LoadAsync(game);
+			addRoomWhenLoaded (game, Rooms.TrashcanStreet);
 
 			DarsStreet darsStreet = new DarsStreet();
-			Rooms.DarsStreet = darsStreet.Load(game);
-
-			game.State.Rooms.Add(Rooms.EmptyStreet);
-			game.State.Rooms.Add(Rooms.BrokenCurbStreet);
-			game.State.Rooms.Add(Rooms.DarsStreet);
-			game.State.Rooms.Add(Rooms.TrashcanStreet);
+			Rooms.DarsStreet = darsStreet.LoadAsync(game);
+			addRoomWhenLoaded(game, Rooms.DarsStreet);
 
 			Rooms.Init(game);
+		}
+
+		private static void addRoomWhenLoaded (IGame game, Task<IRoom> task)
+		{
+			task.ContinueWith(room => game.State.Rooms.Add (room.Result));
 		}
 
 		[Conditional("DEBUG")]

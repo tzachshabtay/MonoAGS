@@ -92,12 +92,12 @@ namespace DemoGame
 
 		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.TrashcanStreet, 310);
+			_player.Character.ChangeRoom(Rooms.TrashcanStreet.Result, 310);
 		}
 
 		private void onRightEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.BrokenCurbStreet, 30);
+			_player.Character.ChangeRoom(Rooms.BrokenCurbStreet.Result, 30);
 		}
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)

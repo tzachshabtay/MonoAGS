@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 
 using Autofac;
@@ -51,15 +52,29 @@ namespace AGS.Engine
 		{
 			IMaskLoader maskLoader = _resolver.Resolve<IMaskLoader>();
 			IMask mask = maskLoader.Load(maskPath, debugDrawColor:  Colors.White, id: id ?? hotspot);
-			mask.DebugDraw.PixelPerfect(true);
+			setMask (mask, hotspot, sayWhenLook, sayWhenInteract);
+			return mask.DebugDraw;
+		}
+
+		public async Task<IObject> GetHotspotAsync(string maskPath, string hotspot, string [] sayWhenLook = null,
+			string [] sayWhenInteract = null, string id = null)
+		{
+			IMaskLoader maskLoader = _resolver.Resolve<IMaskLoader> ();
+			IMask mask = await maskLoader.LoadAsync(maskPath, debugDrawColor: Colors.White, id: id ?? hotspot);
+			setMask (mask, hotspot, sayWhenLook, sayWhenInteract);
+			return mask.DebugDraw;
+		}
+
+		private void setMask (IMask mask, string hotspot, string [] sayWhenLook = null,
+			string [] sayWhenInteract = null)
+		{
+			mask.DebugDraw.PixelPerfect (true);
 			mask.DebugDraw.Hotspot = hotspot;
 			mask.DebugDraw.Opacity = 0;
 			mask.DebugDraw.Z = mask.MinY;
 
-			subscribeSentences(sayWhenLook, mask.DebugDraw.Interactions.OnLook);
-			subscribeSentences(sayWhenInteract, mask.DebugDraw.Interactions.OnInteract);
-
-			return mask.DebugDraw;
+			subscribeSentences (sayWhenLook, mask.DebugDraw.Interactions.OnLook);
+			subscribeSentences (sayWhenInteract, mask.DebugDraw.Interactions.OnInteract);
 		}
 
 		private void subscribeSentences(string[] sentences, IEvent<ObjectEventArgs> e)
