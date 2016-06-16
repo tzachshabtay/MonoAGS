@@ -20,7 +20,7 @@ namespace DemoGame
 			_player = game.State.Player;
 			IGameFactory factory = game.Factory;
 			_room = factory.Room.GetRoom ("Broken Curb Street", 20f, 310f, 190f, 10f);
-			_room.MusicOnLoad = factory.Sound.LoadAudioClip("../../Assets/Sounds/01_Ghosts_I.flac");
+			_room.MusicOnLoad = await factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/01_Ghosts_I.flac");
 
 			IObject bg = factory.Object.GetObject("Broken Curb BG");
 			bg.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bg.png");
