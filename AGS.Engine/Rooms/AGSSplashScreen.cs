@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -9,9 +11,10 @@ namespace AGS.Engine
 		private IGame _game;
 		private IRoom _splashScreen;
 		private ILabel _label;
+		private Action _visitTween;
+		private Stopwatch _stopwatch;
 
 		public string LoadingText = "Loading";
-		public int DotsDelay = 30;
 		public ITextConfig TextConfig = getDefaultTextConfig ();
 
 		public IRoom Load(IGame game)
@@ -27,6 +30,10 @@ namespace AGS.Engine
 			_splashScreen.ShowPlayer = false;
 
 			tweenLabel ();
+			_stopwatch = new Stopwatch();
+			_stopwatch.Start();
+			onRepeatedlyExecute ();
+
 			return _splashScreen;
 		}
 
@@ -38,23 +45,48 @@ namespace AGS.Engine
 
 		private async void tweenLabel()
 		{
-			if (_game.State.Player.Character != null &&
-				_game.State.Player.Character.Room != _splashScreen && 
-			   _game.State.Player.Character.Room != null) return;
+			if (notInRoom ()) return;
 
-			var tweenScaleX = _label.TweenScaleX (1.5f, 3f, Ease.BounceOut);
-			var tweenScaleY = _label.TweenScaleY (1.5f, 3f, Ease.BounceOut);
+			var tween = Tween.RunWithExternalVisit(_label.ScaleX, 1.5f, scale => _label.ScaleBy(scale,scale), 
+			                                       3f, Ease.BounceOut, out _visitTween);
 
-			await tweenScaleX.Task;
-			await tweenScaleY.Task;
+			await tween.Task;
 
-			tweenScaleX = _label.TweenScaleX (1f, 3f, Ease.BounceOut);
-			tweenScaleY = _label.TweenScaleY (1f, 3f, Ease.BounceOut);
+			tween = Tween.RunWithExternalVisit (_label.ScaleX, 1f, scale => _label.ScaleBy (scale, scale),
+												   3f, Ease.BounceOut, out _visitTween);
 
-			await tweenScaleX.Task;
-			await tweenScaleY.Task;
+			await tween.Task;
 
 			tweenLabel ();
+		}
+
+		private async void onRepeatedlyExecute()
+		{
+			if (notInRoom ()) return;
+
+			//When we're loading assets, FPS is all over the place, so we need to compensate
+			const int speed = 60;
+			long elapsed = _stopwatch.ElapsedMilliseconds;
+			if (elapsed > speed) 
+			{
+				int times = (int)elapsed / speed;
+
+				for (int i = 0; i < times; i++) {
+					_visitTween ();
+				}
+
+				_stopwatch.Restart ();
+			}
+
+			await Task.Delay (5);
+			onRepeatedlyExecute ();
+		}
+
+		private bool notInRoom()
+		{
+			return (_game.State.Player.Character != null &&
+				_game.State.Player.Character.Room != _splashScreen &&
+					_game.State.Player.Character.Room != null);
 		}
 	}
 }
