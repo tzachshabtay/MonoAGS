@@ -67,7 +67,7 @@ namespace AGS.Engine
 		private void updateViewport (IRoom room, bool playerChangedRoom)
 		{
 			ICamera camera = room.Viewport.Camera;
-			if (camera != null) 
+			if (camera != null && room.Background != null) 
 			{
 				ISprite sprite = room.Background.Animation.Sprite;
 				camera.Tick (room.Viewport,

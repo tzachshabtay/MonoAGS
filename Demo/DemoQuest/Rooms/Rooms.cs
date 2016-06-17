@@ -7,7 +7,8 @@ namespace DemoGame
 {
 	public static class Rooms
 	{
-		public static IRoom EmptyStreet { get; set; }
+		public static IRoom SplashScreen { get; set; }
+		public static Task<IRoom> EmptyStreet { get; set; }
 		public static Task<IRoom> BrokenCurbStreet { get; set; }
 		public static Task<IRoom> TrashcanStreet { get; set; }
 		public static Task<IRoom> DarsStreet { get; set; }
@@ -24,7 +25,7 @@ namespace DemoGame
 
 		private static void onSaveGameLoaded(IGameState state)
 		{
-			EmptyStreet = Find(state, EmptyStreet);
+			EmptyStreet = Task.FromResult(Find(state, EmptyStreet.Result));
 			BrokenCurbStreet = Task.FromResult(Find(state, BrokenCurbStreet.Result));
 			TrashcanStreet = Task.FromResult(Find(state, TrashcanStreet.Result));
 			DarsStreet = Task.FromResult(Find(state, DarsStreet.Result));

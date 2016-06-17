@@ -89,7 +89,7 @@ namespace AGS.Engine
 			using (GameWindow = new GameWindow (settings.VirtualResolution.Width, 
                 settings.VirtualResolution.Height, GraphicsMode.Default, settings.Title))
 			{
-				GL.ClearColor(0, 0.1f, 0.4f, 1);
+				GL.ClearColor(0, 0f, 0f, 1);
 				Hooks.GameWindowSize.SetSize(GameWindow, settings.WindowSize);
 				setWindowState(settings);
 

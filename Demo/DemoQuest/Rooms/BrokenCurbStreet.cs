@@ -91,7 +91,7 @@ namespace DemoGame
 
 		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.EmptyStreet, 310);
+			_player.Character.ChangeRoom(Rooms.EmptyStreet.Result, 310);
 		}
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)

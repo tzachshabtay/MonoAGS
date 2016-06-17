@@ -23,39 +23,39 @@ namespace DemoGame
 			_player = player;
 		}
 			
-		public IRoom Load(IGame game)
+		public async Task<IRoom> LoadAsync(IGame game)
 		{
 			_game = game;
 			IGameFactory factory = game.Factory;
-			_bottleEffectClip = factory.Sound.LoadAudioClip("../../Assets/Sounds/254818__kwahmah-02__rattling-glass-bottles-impact.wav");
+			_bottleEffectClip = await factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/254818__kwahmah-02__rattling-glass-bottles-impact.wav");
 
 			ILoadImageConfig loadConfig = new AGSLoadImageConfig
 			{
 				TransparentColorSamplePoint = new AGS.API.Point(0, 0)
 			};
 			_room = factory.Room.GetRoom(_roomId, 20f, 310f, 190f, 10f);
-			_room.MusicOnLoad = factory.Sound.LoadAudioClip("../../Assets/Sounds/AMemoryAway.ogg");
+			_room.MusicOnLoad = await factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/AMemoryAway.ogg");
 
 			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
 
 			IObject bg = factory.Object.GetObject("Empty Street BG");
-			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
+			bg.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bg.png");
 			_room.Background = bg;
 
 			AGSMaskLoader maskLoader = new AGSMaskLoader (factory, new ResourceLoader());
-			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable1.png") });
-			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable2.png") });
+			_room.WalkableAreas.Add(new AGSArea { Mask = await maskLoader.LoadAsync(_baseFolder + "walkable1.png") });
+			_room.WalkableAreas.Add(new AGSArea { Mask = await maskLoader.LoadAsync (_baseFolder + "walkable2.png") });
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[0], 0.50f, 0.75f));
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[1], 0.75f, 0.90f));
 
-			IObject bottleHotspot = factory.Object.GetHotspot(_baseFolder + "BottleHotspot.png", "Bottle");
+			IObject bottleHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "BottleHotspot.png", "Bottle");
 			bottleHotspot.WalkPoint = new AGS.API.PointF (140f, 50f);
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "CurbHotspot.png", "Curb"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync (_baseFolder + "CurbHotspot.png", "Curb"));
 			_room.Objects.Add(bottleHotspot);
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "GapHotspot.png", "Gap", new[]{"It's a gap!", "I wonder what's in there!"}));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync (_baseFolder + "GapHotspot.png", "Gap", new[]{"It's a gap!", "I wonder what's in there!"}));
 
 			_bottle = factory.Object.GetObject(_bottleId);
-			_bottle.Image = factory.Graphics.LoadImage(_baseFolder + "bottle.bmp", loadConfig: loadConfig);
+			_bottle.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bottle.bmp", loadConfig: loadConfig);
 			_bottle.WalkPoint = bottleHotspot.WalkPoint;
 			_bottle.X = 185f;
 			_bottle.Y = 85f;
@@ -80,6 +80,7 @@ namespace DemoGame
 			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
 			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
+			_room.Events.OnAfterFadeIn.Subscribe(onAfterFadeIn);
 			if (_bottle != null) _bottle.Interactions.OnInteract.Subscribe(onBottleInteract);
 		}
 
@@ -103,6 +104,14 @@ namespace DemoGame
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)
 		{
 			_player.Character.PlaceOnWalkableArea();
+		}
+
+		private void onAfterFadeIn (object sender, AGSEventArgs args)
+		{
+			if (args.TimesInvoked == 1) 
+			{
+				_game.State.RoomTransitions.Transition = AGSRoomTransitions.Dissolve ();
+			}
 		}
 	}
 }

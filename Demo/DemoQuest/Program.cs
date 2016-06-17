@@ -16,22 +16,30 @@ namespace DemoGame
 				Hooks.FontLoader.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
 				AGSGameSettings.DefaultSpeechFont = Hooks.FontLoader.LoadFontFromPath("../../Assets/Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
 				AGSGameSettings.DefaultTextFont = Hooks.FontLoader.LoadFontFromPath("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
-				game.State.RoomTransitions.Transition = AGSRoomTransitions.Dissolve();
+				game.State.RoomTransitions.Transition = AGSRoomTransitions.Fade();
 
-				loadRooms(game);
+				addDebugLabels (game);
+
+				Task roomsLoaded = loadRooms(game);
 				loadCharacters(game);
 
-				loadUi(game);
+				var topPanel = loadUi(game);
 
 				DefaultInteractions defaults = new DefaultInteractions(game, game.Events);
 				defaults.Load();
+
+				roomsLoaded.ContinueWith(_ => 
+				{
+					game.State.Player.Character.ChangeRoom (Rooms.EmptyStreet.Result, 50, 30);
+					topPanel.Visible = true;
+				});
 			});
 
 			game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
 				windowSize: new AGS.API.Size(640, 480), windowState: WindowState.Normal));
 		}
 
-		private static void loadUi(IGame game)
+		private static IPanel loadUi(IGame game)
 		{
 			InventoryItems items = new InventoryItems ();
 			items.Load(game.Factory);
@@ -46,7 +54,7 @@ namespace DemoGame
 			options.Load(game);
 
 			TopBar topBar = new TopBar(cursors.Scheme, inventory, options);
-			topBar.Load(game);
+			var topPanel = topBar.Load(game);
 
 			ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 80, 25, 160, 10, new AGSTextConfig(brush: Hooks.BrushLoader.LoadSolidBrush(Colors.WhiteSmoke),
 				alignment: Alignment.MiddleCenter, outlineBrush: Hooks.BrushLoader.LoadSolidBrush(Colors.DarkSlateBlue), outlineWidth: 2f,
@@ -57,25 +65,19 @@ namespace DemoGame
 			VerbOnHotspotLabel hotspotLabel = new VerbOnHotspotLabel(() => cursors.Scheme.CurrentMode, game, label);
 			hotspotLabel.Start();
 
-			addDebugLabels(game);
+			return topPanel;
 		}
 
 		private static void loadCharacters(IGame game)
 		{
 			Cris cris = new Cris ();
-			//ICharacter follower = cris.Load (game); Uncomment all follower lines in this method to see character follow demo
 			ICharacter character = cris.Load(game);
-			//follower.Tint = Colors.LightSeaGreen;
-			//follower.Opacity = 180;
-			//follower.Hotspot = "Ghost";
 
 			game.State.Player.Character = character;
 			KeyboardMovement movement = new KeyboardMovement (character, game.Input, KeyboardMovementMode.Pressing);
 			movement.AddArrows();
 			movement.AddWASD();
-			character.ChangeRoom(Rooms.EmptyStreet, 50, 30);
-			//follower.ChangeRoom (Rooms.EmptyStreet, 30, 30);
-			//follower.Follow (character);
+			character.ChangeRoom (Rooms.SplashScreen);
 
 			Beman beman = new Beman ();
 			character = beman.Load (game);
@@ -84,11 +86,15 @@ namespace DemoGame
 			Characters.Init (game);
 		}
 
-		private static void loadRooms(IGame game)
+		private static Task loadRooms(IGame game)
 		{
+			AGSSplashScreen splashScreen = new AGSSplashScreen ();
+			Rooms.SplashScreen = splashScreen.Load (game);
+			game.State.Rooms.Add (Rooms.SplashScreen);
+
 			EmptyStreet emptyStreet = new EmptyStreet (game.State.Player);
-			Rooms.EmptyStreet = emptyStreet.Load(game);
-			game.State.Rooms.Add (Rooms.EmptyStreet);
+			Rooms.EmptyStreet = emptyStreet.LoadAsync(game);
+			addRoomWhenLoaded(game, Rooms.EmptyStreet);
 
 			BrokenCurbStreet brokenCurbStreet = new BrokenCurbStreet();
 			Rooms.BrokenCurbStreet = brokenCurbStreet.LoadAsync(game);
@@ -103,6 +109,8 @@ namespace DemoGame
 			addRoomWhenLoaded(game, Rooms.DarsStreet);
 
 			Rooms.Init(game);
+
+			return Rooms.DarsStreet;
 		}
 
 		private static void addRoomWhenLoaded (IGame game, Task<IRoom> task)

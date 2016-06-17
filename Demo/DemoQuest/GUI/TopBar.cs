@@ -24,13 +24,14 @@ namespace DemoGame
 			_optionsPanel = optionsPanel;
 		}
 
-		public void Load(IGame game)
+		public IPanel Load(IGame game)
 		{
 			_game = game;
 			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
 			IGameFactory factory = game.Factory;
 			_player = game.State.Player;
 			_panel = factory.UI.GetPanel("Toolbar", "../../Assets/Gui/DialogBox/toolbar.bmp", 0f, 180f);
+			_panel.Visible = false;
 
 			loadButton("Walk Button", factory, "walk/", 0f, RotatingCursorScheme.WALK_MODE);
 			loadButton("Interact Button",factory, "hand/", 20f, RotatingCursorScheme.INTERACT_MODE);
@@ -53,6 +54,8 @@ namespace DemoGame
 			_inventoryItemIcon.TreeNode.SetParent(activeInvButton.TreeNode);
 			_inventoryItemIcon.RenderLayer = _panel.RenderLayer;
 			game.State.UI.Add(_inventoryItemIcon);
+
+			return _panel;
 		}
 
 		private void onSaveGameLoaded()
