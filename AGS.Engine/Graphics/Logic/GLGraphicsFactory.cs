@@ -60,6 +60,12 @@ namespace AGS.Engine
 			return loadAnimationFromResources(_resources.LoadResources(files), delay, animationConfig, loadConfig);
 		}
 
+		public async Task<IAnimation> LoadAnimationFromFilesAsync(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string [] files)
+		{
+			return await loadAnimationFromResourcesAsync(await Task.Run(() => _resources.LoadResources (files)), 
+			                                             delay, animationConfig, loadConfig);
+		}
+
 		public IAnimation LoadAnimationFromFolder (string folderPath, int delay = 4, 
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{

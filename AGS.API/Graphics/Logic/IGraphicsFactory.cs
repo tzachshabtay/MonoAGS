@@ -15,6 +15,7 @@ namespace AGS.API
 		                                                          int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
 
 		IAnimation LoadAnimationFromFiles(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files);
+		Task<IAnimation> LoadAnimationFromFilesAsync(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string [] files);
 
 		IAnimation LoadAnimationFromFolder (string folderPath, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
 		Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);

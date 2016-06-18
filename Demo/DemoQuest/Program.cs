@@ -45,7 +45,7 @@ namespace DemoGame
 			await items.LoadAsync(game.Factory);
 
 			MouseCursors cursors = new MouseCursors();
-			cursors.Load(game);
+			await cursors.LoadAsync(game);
 
 			InventoryPanel inventory = new InventoryPanel (cursors.Scheme);
 			inventory.Load(game);
