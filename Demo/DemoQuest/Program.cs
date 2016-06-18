@@ -21,15 +21,15 @@ namespace DemoGame
 				addDebugLabels (game);
 
 				Task roomsLoaded = loadRooms(game);
-				loadCharacters(game);
+				Task charactersLoaded = loadCharacters(game);
 
 				var topPanelTask = loadUi(game);
 
-				DefaultInteractions defaults = new DefaultInteractions(game, game.Events);
-				defaults.Load();
-
-				roomsLoaded.ContinueWith(_ => 
+				Task.WhenAll(roomsLoaded, charactersLoaded).ContinueWith(_ => 
 				{
+					DefaultInteractions defaults = new DefaultInteractions (game, game.Events);
+					defaults.Load ();
+
 					game.State.Player.Character.ChangeRoom (Rooms.EmptyStreet.Result, 50, 30);
 					topPanelTask.ContinueWith(topPanel => topPanel.Result.Visible = true);
 				});
@@ -68,10 +68,10 @@ namespace DemoGame
 			return topPanel;
 		}
 
-		private static void loadCharacters(IGame game)
+		private static async Task loadCharacters(IGame game)
 		{
 			Cris cris = new Cris ();
-			ICharacter character = cris.Load(game);
+			ICharacter character = await cris.LoadAsync(game);
 
 			game.State.Player.Character = character;
 			KeyboardMovement movement = new KeyboardMovement (character, game.Input, KeyboardMovementMode.Pressing);
@@ -80,8 +80,9 @@ namespace DemoGame
 			character.ChangeRoom (Rooms.SplashScreen);
 
 			Beman beman = new Beman ();
-			character = beman.Load (game);
-			Rooms.BrokenCurbStreet.ContinueWith (room => character.ChangeRoom (room.Result, 100, 110));
+			character = await beman.LoadAsync(game);
+			var room = await Rooms.BrokenCurbStreet;
+			character.ChangeRoom(room, 100, 110);
 
 			Characters.Init (game);
 		}

@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.Threading.Tasks;
+using AGS.API;
 using AGS.Engine;
 
 namespace DemoGame
@@ -8,18 +9,18 @@ namespace DemoGame
 		private ICharacter _character;
 		private const string _baseFolder = "../../Assets/Characters/Cris/";
 
-		public ICharacter Load(IGame game)
+		public async Task<ICharacter> LoadAsync(IGame game)
 		{
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
 			{ 
 				TransparentColorSamplePoint = new AGS.API.Point (0, 0) 
 			};
 
-			var footstep = game.Factory.Sound.LoadAudioClip("../../Assets/Sounds/151238__owlstorm__hard-female-footstep-2.wav");
+			var footstep = await game.Factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/151238__owlstorm__hard-female-footstep-2.wav");
 			ISoundEmitter emitter = new AGSSoundEmitter (game);
 			emitter.AudioClip = footstep;
 
-			IOutfit outfit = game.Factory.Outfit.LoadOutfitFromFolders(_baseFolder, walkLeftFolder: "Walk/left",
+			IOutfit outfit = await game.Factory.Outfit.LoadOutfitFromFoldersAsync(_baseFolder, walkLeftFolder: "Walk/left",
 				walkDownFolder: "Walk/front", idleLeftFolder: "Idle/left", idleDownFolder: "Idle/front", 
 				speakLeftFolder: "Talk", loadConfig: loadConfig);
 

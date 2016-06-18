@@ -55,6 +55,29 @@ namespace AGS.Engine
 			return dirAnimation;
 		}
 
+		public async Task<IDirectionalAnimation> LoadDirectionalAnimationFromFoldersAsync(string baseFolder, string leftFolder = null,
+			string rightFolder = null, string downFolder = null, string upFolder = null,
+			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+		{
+			if (leftFolder == null && rightFolder == null && downFolder == null && upFolder == null) return null;
+
+			AGSDirectionalAnimation dirAnimation = new AGSDirectionalAnimation ();
+			if (leftFolder != null) dirAnimation.Left = await LoadAnimationFromFolderAsync(baseFolder + leftFolder, delay, animationConfig, loadConfig);
+			if (rightFolder != null) dirAnimation.Right = await LoadAnimationFromFolderAsync(baseFolder + rightFolder, delay, animationConfig, loadConfig);
+			if (downFolder != null) dirAnimation.Down = await LoadAnimationFromFolderAsync(baseFolder + downFolder, delay, animationConfig, loadConfig);
+			if (upFolder != null) dirAnimation.Up = await LoadAnimationFromFolderAsync(baseFolder + upFolder, delay, animationConfig, loadConfig);
+
+			if (dirAnimation.Left != null && dirAnimation.Right == null) {
+				dirAnimation.Right = createLeftRightAnimation (dirAnimation.Left);
+			}
+
+			if (dirAnimation.Right != null && dirAnimation.Left == null) {
+				dirAnimation.Left = createLeftRightAnimation (dirAnimation.Right);
+			}
+
+			return dirAnimation;
+		}
+
 		public IAnimation LoadAnimationFromFiles(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files)
 		{
 			return loadAnimationFromResources(_resources.LoadResources(files), delay, animationConfig, loadConfig);

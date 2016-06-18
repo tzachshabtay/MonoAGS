@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.Threading.Tasks;
+using AGS.API;
 using AGS.Engine;
 
 namespace DemoGame
@@ -10,7 +11,7 @@ namespace DemoGame
 		private BemanDialogs _dialogs = new BemanDialogs();
 		private IGame _game;
 
-		public ICharacter Load(IGame game)
+		public async Task<ICharacter> LoadAsync(IGame game)
 		{
 			_game = game;
 			IGameFactory factory = game.Factory;
@@ -19,7 +20,7 @@ namespace DemoGame
 				TransparentColorSamplePoint = new AGS.API.Point (0, 0) 
 			};
 
-			IOutfit outfit = factory.Outfit.LoadOutfitFromFolders(_baseFolder, 
+			IOutfit outfit = await factory.Outfit.LoadOutfitFromFoldersAsync(_baseFolder, 
 				walkLeftFolder: "Walk/left", walkDownFolder: "Walk/down", walkRightFolder: "Walk/right", walkUpFolder: "Walk/up", 
 				idleLeftFolder: "Idle/left", idleDownFolder: "Idle/down", idleRightFolder: "Idle/right", idleUpFolder: "Idle/up", 
 				speakLeftFolder: "Talk/left", speakDownFolder: "Talk/down", speakRightFolder: "Talk/right", speakUpFolder: "Talk/up", 

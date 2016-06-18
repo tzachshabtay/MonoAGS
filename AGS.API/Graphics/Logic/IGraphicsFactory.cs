@@ -13,6 +13,9 @@ namespace AGS.API
 		IDirectionalAnimation LoadDirectionalAnimationFromFolders(string baseFolder, string leftFolder = null,
 		                                                          string rightFolder = null, string downFolder = null, string upFolder = null,
 		                                                          int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
+		Task<IDirectionalAnimation> LoadDirectionalAnimationFromFoldersAsync(string baseFolder, string leftFolder = null,
+																  string rightFolder = null, string downFolder = null, string upFolder = null,
+																  int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
 
 		IAnimation LoadAnimationFromFiles(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files);
 		Task<IAnimation> LoadAnimationFromFilesAsync(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string [] files);
