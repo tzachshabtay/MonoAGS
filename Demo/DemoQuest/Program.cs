@@ -48,13 +48,13 @@ namespace DemoGame
 			await cursors.LoadAsync(game);
 
 			InventoryPanel inventory = new InventoryPanel (cursors.Scheme);
-			inventory.Load(game);
+			await inventory.LoadAsync(game);
 
 			OptionsPanel options = new OptionsPanel (cursors.Scheme);
-			options.Load(game);
+			await options.LoadAsync(game);
 
 			TopBar topBar = new TopBar(cursors.Scheme, inventory, options);
-			var topPanel = topBar.Load(game);
+			var topPanel = await topBar.LoadAsync(game);
 
 			ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 80, 25, 160, 10, new AGSTextConfig(brush: Hooks.BrushLoader.LoadSolidBrush(Colors.WhiteSmoke),
 				alignment: Alignment.MiddleCenter, outlineBrush: Hooks.BrushLoader.LoadSolidBrush(Colors.DarkSlateBlue), outlineWidth: 2f,

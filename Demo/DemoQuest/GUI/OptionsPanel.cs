@@ -2,6 +2,7 @@
 using AGS.API;
 using AGS.Engine;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DemoGame
 {
@@ -28,17 +29,17 @@ namespace DemoGame
 			_scheme = scheme;
 		}
 
-		public void Load(IGame game)
+		public async Task LoadAsync(IGame game)
 		{
 			_game = game;
 			IGameFactory factory = game.Factory;
-			_panel = factory.UI.GetPanel(_panelId, "../../Assets/Gui/DialogBox/options.bmp", 160f, 100f);
+			_panel = await factory.UI.GetPanelAsync(_panelId, "../../Assets/Gui/DialogBox/options.bmp", 160f, 100f);
 			_panel.Anchor = new AGS.API.PointF (0.5f, 0.5f);
 			_panel.Visible = false;
 
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig { TransparentColorSamplePoint = new AGS.API.Point (0, 0) };
 
-			ISlider volumeSlider = factory.UI.GetSlider("Volume Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 0.5f, 0f, 1f, 
+			ISlider volumeSlider = await factory.UI.GetSliderAsync("Volume Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 0.5f, 0f, 1f, 
 				loadConfig: loadConfig);
 			volumeSlider.X = 120f;
 			volumeSlider.Y = 10f;
@@ -50,7 +51,7 @@ namespace DemoGame
 			volumeLabel.Anchor = new AGS.API.PointF (0.5f, 0f);
 			volumeLabel.TreeNode.SetParent(_panel.TreeNode);
 
-			ISlider speedSlider = factory.UI.GetSlider("Speed Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 100f, 1f, 200f, 
+			ISlider speedSlider = await factory.UI.GetSliderAsync("Speed Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 100f, 1f, 200f, 
 				loadConfig: loadConfig);
 			speedSlider.X = 180f;
 			speedSlider.Y = 10f;
@@ -64,11 +65,11 @@ namespace DemoGame
 
 			_game.Events.OnSavedGameLoad.Subscribe((sender, args) => findPanel());
 
-			loadButton("Resume", 95, Hide);
-			loadButton("Restart", 75, restart);
-			loadButton("Load", 55, load);
-			loadButton("Save", 35, save);
-			loadButton("Quit", 15, quit);
+			await loadButton("Resume", 95, Hide);
+			await loadButton("Restart", 75, restart);
+			await loadButton("Load", 55, load);
+			await loadButton("Save", 35, save);
+			await loadButton("Quit", 15, quit);
 		}
 
 		private void findPanel()
@@ -76,11 +77,11 @@ namespace DemoGame
 			_panel = _game.Find<IPanel>(_panelId);
 		}
 
-		private void loadButton(string text, float y, Action onClick)
+		private async Task loadButton(string text, float y, Action onClick)
 		{
 			const string folder = "../../Assets/Gui/Buttons/buttonSmall/";
 			string buttonId = string.Format("{0} Button", text);
-			IButton button = _game.Factory.UI.GetButton(buttonId, folder + "normal.bmp", folder + "hovered.bmp", 
+			IButton button = await _game.Factory.UI.GetButtonAsync(buttonId, folder + "normal.bmp", folder + "hovered.bmp", 
 				folder + "pushed.bmp", 15f, y, text, _buttonTextConfig);
 			button.TreeNode.SetParent(_panel.TreeNode);
 			button.OnMouseClick(onClick, _game);

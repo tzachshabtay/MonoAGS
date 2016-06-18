@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -24,24 +25,24 @@ namespace DemoGame
 			_optionsPanel = optionsPanel;
 		}
 
-		public IPanel Load(IGame game)
+		public async Task<IPanel> LoadAsync(IGame game)
 		{
 			_game = game;
 			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
 			IGameFactory factory = game.Factory;
 			_player = game.State.Player;
-			_panel = factory.UI.GetPanel("Toolbar", "../../Assets/Gui/DialogBox/toolbar.bmp", 0f, 180f);
+			_panel = await factory.UI.GetPanelAsync("Toolbar", "../../Assets/Gui/DialogBox/toolbar.bmp", 0f, 180f);
 			_panel.Visible = false;
 
-			loadButton("Walk Button", factory, "walk/", 0f, RotatingCursorScheme.WALK_MODE);
-			loadButton("Interact Button",factory, "hand/", 20f, RotatingCursorScheme.INTERACT_MODE);
-			loadButton("Look Button",factory, "eye/", 40f, RotatingCursorScheme.LOOK_MODE);
-			loadButton("Talk Button", factory, "talk/", 60f, MouseCursors.TALK_MODE);
-			IButton invButton = loadButton("Inventory Button", factory, "inventory/", 80f);
-			IButton activeInvButton = loadButton("Active Inventory Button", factory, "activeInventory/", 100f, RotatingCursorScheme.INVENTORY_MODE);
+			await loadButton("Walk Button", factory, "walk/", 0f, RotatingCursorScheme.WALK_MODE);
+			await loadButton("Interact Button",factory, "hand/", 20f, RotatingCursorScheme.INTERACT_MODE);
+			await loadButton("Look Button",factory, "eye/", 40f, RotatingCursorScheme.LOOK_MODE);
+			await loadButton("Talk Button", factory, "talk/", 60f, MouseCursors.TALK_MODE);
+			IButton invButton = await loadButton("Inventory Button", factory, "inventory/", 80f);
+			IButton activeInvButton = await loadButton("Active Inventory Button", factory, "activeInventory/", 100f, RotatingCursorScheme.INVENTORY_MODE);
 			activeInvButton.Z = 1f;
-			loadButton("Help Button", factory, "help/", 280f);
-			IButton optionsButton = loadButton("Settings Button", factory, "settings/", 300f);
+			await loadButton("Help Button", factory, "help/", 280f);
+			IButton optionsButton = await loadButton("Settings Button", factory, "settings/", 300f);
 
 			invButton.OnMouseClick(() => _invPanel.Show(), _game);
 			optionsButton.OnMouseClick(() => _optionsPanel.Show(), _game);
@@ -66,10 +67,10 @@ namespace DemoGame
 			_lastInventoryItem = null;
 		}
 
-		private IButton loadButton(string id, IGameFactory factory, string folder, float x, string mode = null)
+		private async Task<IButton> loadButton(string id, IGameFactory factory, string folder, float x, string mode = null)
 		{
 			folder = _baseFolder + folder;
-			IButton button = factory.UI.GetButton(id, folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 0f);
+			IButton button = await factory.UI.GetButtonAsync(id, folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 0f);
 			button.TreeNode.SetParent(_panel.TreeNode);
 			if (mode != null)
 			{

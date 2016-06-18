@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -18,21 +19,21 @@ namespace DemoGame
 			_scheme = scheme;
 		}
 
-		public void Load(IGame game)
+		public async Task LoadAsync(IGame game)
 		{
 			_game = game;
 			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
 			IGameFactory factory = game.Factory;
 
-			_panel = factory.UI.GetPanel("Inventory Panel", "../../Assets/Gui/DialogBox/inventory.bmp", 160f, 100f);
+			_panel = await factory.UI.GetPanelAsync("Inventory Panel", "../../Assets/Gui/DialogBox/inventory.bmp", 160f, 100f);
 			_panel.Anchor = new PointF (0.5f, 0.5f);
 			_panel.Visible = false;
 
-			loadButton("Inventory Look Button", factory, "magnify/", 5f, RotatingCursorScheme.LOOK_MODE);
-			loadButton("Invntory Point Button", factory, "upLeft/", 27f, MouseCursors.POINT_MODE);
-			IButton okButton = loadButton("Inventory Ok Button", factory, "ok/", 49f);
-			IButton upButton = loadButton("Inventory Up Button", factory, "up/", 93f);
-			IButton downButton = loadButton("Inventory Down Button", factory, "down/", 115f);
+			await loadButton("Inventory Look Button", factory, "magnify/", 5f, RotatingCursorScheme.LOOK_MODE);
+			await loadButton("Invntory Point Button", factory, "upLeft/", 27f, MouseCursors.POINT_MODE);
+			IButton okButton = await loadButton("Inventory Ok Button", factory, "ok/", 49f);
+			IButton upButton = await loadButton("Inventory Up Button", factory, "up/", 93f);
+			IButton downButton = await loadButton("Inventory Down Button", factory, "down/", 115f);
 
 			okButton.OnMouseClick(Hide, _game);
 
@@ -64,10 +65,10 @@ namespace DemoGame
 			_invWindow = _game.Find<IInventoryWindow>(_invWindow.ID);
 		}
 
-		private IButton loadButton(string id, IGameFactory factory, string folder, float x, string mode = null)
+		private async Task<IButton> loadButton(string id, IGameFactory factory, string folder, float x, string mode = null)
 		{
 			folder = _baseFolder + folder;
-			IButton button = factory.UI.GetButton(id, folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 4f);
+			IButton button = await factory.UI.GetButtonAsync(id, folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 4f);
 			button.TreeNode.SetParent(_panel.TreeNode);
 			if (mode != null)
 			{

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 
 using Autofac;
@@ -42,6 +43,12 @@ namespace AGS.Engine
 		{
 			IImage image = _graphics.LoadImage(imagePath, loadConfig);
 			return GetPanel(id, image, x, y, addToUi);
+		}
+
+		public async Task<IPanel> GetPanelAsync(string id, string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true)
+		{
+			IImage image = await _graphics.LoadImageAsync(imagePath, loadConfig);
+			return GetPanel (id, image, x, y, addToUi);
 		}
 
 		public ILabel GetLabel(string id, string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
@@ -103,25 +110,51 @@ namespace AGS.Engine
 			return GetButton(id, idle, hovered, pushed, x, y, text, config, addToUi, width, height);
 		}
 
+		public async Task<IButton> GetButtonAsync(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath,
+			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true,
+			float width = -1f, float height = -1f)
+		{
+			IAnimation idle = await _graphics.LoadAnimationFromFilesAsync(files: new [] { idleImagePath });
+			IAnimation hovered = await _graphics.LoadAnimationFromFilesAsync(files: new [] { hoveredImagePath });
+			IAnimation pushed = await _graphics.LoadAnimationFromFilesAsync(files: new [] { pushedImagePath });
+
+			return GetButton (id, idle, hovered, pushed, x, y, text, config, addToUi, width, height);
+		}
+
 		public ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max, 
 			ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
 		{
-			IObject graphics = _object.GetObject(string.Format("{0}(graphics)", id));
-			graphics.Image = _graphics.LoadImage(imagePath, loadConfig);
+			var image = _graphics.LoadImage(imagePath, loadConfig);
+			var handleImage = _graphics.LoadImage(handleImagePath, loadConfig);
+			return getSlider(id, image, handleImage, value, min, max, config, addToUi);
+		}
+
+		public async Task<ISlider> GetSliderAsync(string id, string imagePath, string handleImagePath, float value, float min, float max,
+			ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
+		{
+			var image = await _graphics.LoadImageAsync(imagePath, loadConfig);
+			var handleImage = await _graphics.LoadImageAsync(handleImagePath, loadConfig);
+			return getSlider(id, image, handleImage, value, min, max, config, addToUi);
+		}
+
+		private ISlider getSlider (string id, IImage image, IImage handleImage, float value, float min, float max,
+			ITextConfig config = null, bool addToUi = true)
+		{
+			IObject graphics = _object.GetObject (string.Format ("{0}(graphics)", id));
+			graphics.Image = image;
 			graphics.IgnoreViewport = true;
 			ILabel label = null;
-			if (config != null)
-			{
-				label = GetLabel(string.Format("{0}(label)", id), "", graphics.Width, 30f, 0f, -30f, config, false);
+			if (config != null) {
+				label = GetLabel (string.Format ("{0}(label)", id), "", graphics.Width, 30f, 0f, -30f, config, false);
 				label.Anchor = new PointF (0.5f, 0f);
 			}
 
-			IObject handle = _object.GetObject(string.Format("{0}(handle)", id));
-			handle.Image = _graphics.LoadImage(handleImagePath, loadConfig);
+			IObject handle = _object.GetObject (string.Format ("{0}(handle)", id));
+			handle.Image = handleImage;
 			handle.IgnoreViewport = true;
 
-			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			ISlider slider = _resolver.Resolve<ISlider>(idParam, idParam);
+			TypedParameter idParam = new TypedParameter (typeof (string), id);
+			ISlider slider = _resolver.Resolve<ISlider> (idParam, idParam);
 			slider.Label = label;
 			slider.MinValue = min;
 			slider.MaxValue = max;
@@ -131,7 +164,7 @@ namespace AGS.Engine
 			slider.IgnoreViewport = true;
 
 			if (addToUi)
-				_gameState.UI.Add(slider);
+				_gameState.UI.Add (slider);
 			return slider;
 		}
 	}
