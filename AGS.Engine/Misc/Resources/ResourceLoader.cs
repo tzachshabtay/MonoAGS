@@ -11,11 +11,12 @@ namespace AGS.Engine
 	public class ResourceLoader : IResourceLoader
 	{
 		private readonly Assembly _assembly;
-		private Dictionary<string, List<string>> _folders;
+        private Dictionary<string, List<string>> _resourceFolders, _externalFolders;
 
 		public ResourceLoader()
 		{
 			_assembly = Hooks.EntryAssembly;
+            _externalFolders = new Dictionary<string, List<string>>(10);
 		}
 
 		public static string CustomAssemblyName;
@@ -24,6 +25,8 @@ namespace AGS.Engine
 		public IResource LoadResource(string path)
 		{
 			if (shouldIgnoreFile(path)) return null;
+            path = findFilePath(path);
+            if (path == null) return null;
 
 			string resourcePath = getResourceName(path);
 
@@ -57,7 +60,7 @@ namespace AGS.Engine
 
 		public List<IResource> LoadResources(string folder)
 		{
-			loadFolders();
+			loadResourceFolders();
 
 			HashSet<Asset> assets = new HashSet<Asset> ();
 			foreach (var file in Hooks.FileSystem.GetFiles(folder))
@@ -69,7 +72,7 @@ namespace AGS.Engine
 
 			string folderResource = getResourceName(folder);
 			List<string> embeddedResources;
-			if (_folders.TryGetValue(folderResource, out embeddedResources))
+			if (_resourceFolders.TryGetValue(folderResource, out embeddedResources))
 			{
 				foreach (string resource in embeddedResources)
 				{
@@ -93,17 +96,37 @@ namespace AGS.Engine
 			return resources;
 		}
 
+        private string findFilePath(string path)
+        {
+            string folder = Path.GetDirectoryName(path);
+            string filename = Path.GetFileName(path).ToUpper();
+            if (filename.Contains(".")) return path;
+
+            //We're assuming we received a file/resource name without the extension: let's try to find a matching resource/file.
+            List<string> files;
+            string folderResourceName = getResourceName(folder);
+            if (_resourceFolders.TryGetValue(folderResourceName, out files))
+            {
+                var matchingResource = files.FirstOrDefault(f => f.ToUpperInvariant().Contains(filename));
+                if (matchingResource != null) return matchingResource;
+            }
+
+            files = _externalFolders.GetOrAdd(folder, () => Hooks.FileSystem.GetFiles(folder).ToList());
+            var matchingFile = files.FirstOrDefault(f => f.ToUpperInvariant().Contains(filename));
+            return matchingFile;
+        }
+
 		private bool shouldIgnoreFile(string path)
 		{
 			return path == null || 
-				   path.EndsWith(".DS_Store"); //Mac OS file
+                path.EndsWith(".DS_Store", StringComparison.Ordinal); //Mac OS file
 		}
 
 		private IResource loadResource(string resourceName)
 		{
 			if (resourceName == null) return null;
 			Stream stream = _assembly.GetManifestResourceStream(resourceName);
-			if (stream == null) return null;
+            if (stream == null) return null;
 			return new AGSResource (resourceName, stream);
 		}
 
@@ -117,7 +140,7 @@ namespace AGS.Engine
 			try
 			{
 				string assemblyName = CustomAssemblyName ?? _assembly.GetName().Name;
-				int assetsIndex = path.IndexOf(AssetsFolder);
+                int assetsIndex = path.IndexOf(AssetsFolder, StringComparison.Ordinal);
 				if (assetsIndex < 0) return null;
 				string resourcePath = path.Substring(assetsIndex);
 				resourcePath = resourcePath.Replace('/', '.').Replace('\\', '.');
@@ -137,15 +160,15 @@ namespace AGS.Engine
 			return folder;
 		}
 
-		private void loadFolders()
+        private void loadResourceFolders()
 		{
 			if (Repeat.OnceOnly("LoadResourceFolders"))
 			{
-				_folders = new Dictionary<string, List<string>> (50);
+				_resourceFolders = new Dictionary<string, List<string>> (50);
 				foreach (string name in _assembly.GetManifestResourceNames())
 				{
 					string folder = getFolderName(name);
-					_folders.GetOrAdd(folder, () => new List<string> (20)).Add(name);
+					_resourceFolders.GetOrAdd(folder, () => new List<string> (20)).Add(name);
 				}
 			}
 		}
