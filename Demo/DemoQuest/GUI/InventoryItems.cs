@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -13,16 +14,16 @@ namespace DemoGame
 		public static IInventoryItem Poster { get; private set; }
 		public static IInventoryItem Manual { get; private set; }
 
-		public void Load(IGameFactory factory)
+		public async Task LoadAsync(IGameFactory factory)
 		{
 			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
 			{
 				TransparentColorSamplePoint = new AGS.API.Point(0,0),
 			};
-			Bottle = factory.Inventory.GetInventoryItem("Bottle", "../../Assets/Rooms/EmptyStreet/bottle.bmp", null, loadConfig);
-			VoodooDoll = factory.Inventory.GetInventoryItem("Voodoo Doll", _baseFolder + "voodooDoll.bmp", null, loadConfig, true);
-			Poster = factory.Inventory.GetInventoryItem("Poster", _baseFolder + "poster.bmp", playerStartsWithItem: true);
-			Manual = factory.Inventory.GetInventoryItem("Manual", _baseFolder + "manual.bmp", null, loadConfig, true);
+			Bottle = await factory.Inventory.GetInventoryItemAsync("Bottle", "../../Assets/Rooms/EmptyStreet/bottle.bmp", null, loadConfig);
+			VoodooDoll = await factory.Inventory.GetInventoryItemAsync("Voodoo Doll", _baseFolder + "voodooDoll.bmp", null, loadConfig, true);
+			Poster = await factory.Inventory.GetInventoryItemAsync("Poster", _baseFolder + "poster.bmp", playerStartsWithItem: true);
+			Manual = await factory.Inventory.GetInventoryItemAsync("Manual", _baseFolder + "manual.bmp", null, loadConfig, true);
 		}
 	}
 }

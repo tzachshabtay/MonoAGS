@@ -23,7 +23,7 @@ namespace DemoGame
 				Task roomsLoaded = loadRooms(game);
 				loadCharacters(game);
 
-				var topPanel = loadUi(game);
+				var topPanelTask = loadUi(game);
 
 				DefaultInteractions defaults = new DefaultInteractions(game, game.Events);
 				defaults.Load();
@@ -31,7 +31,7 @@ namespace DemoGame
 				roomsLoaded.ContinueWith(_ => 
 				{
 					game.State.Player.Character.ChangeRoom (Rooms.EmptyStreet.Result, 50, 30);
-					topPanel.Visible = true;
+					topPanelTask.ContinueWith(topPanel => topPanel.Result.Visible = true);
 				});
 			});
 
@@ -39,10 +39,10 @@ namespace DemoGame
 				windowSize: new AGS.API.Size(640, 480), windowState: WindowState.Normal));
 		}
 
-		private static IPanel loadUi(IGame game)
+		private static async Task<IPanel> loadUi(IGame game)
 		{
 			InventoryItems items = new InventoryItems ();
-			items.Load(game.Factory);
+			await items.LoadAsync(game.Factory);
 
 			MouseCursors cursors = new MouseCursors();
 			cursors.Load(game);

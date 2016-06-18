@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.Threading.Tasks;
+
+namespace AGS.API
 {
     public interface IInventoryFactory
 	{
@@ -8,6 +10,8 @@
 
 		IInventoryItem GetInventoryItem(IObject graphics, IObject cursorGraphics, bool playerStartsWithItem = false);
 		IInventoryItem GetInventoryItem(string hotspot, string graphicsFile, string cursorFile = null, ILoadImageConfig loadConfig = null,
+			bool playerStartsWithItem = false);
+		Task<IInventoryItem> GetInventoryItemAsync(string hotspot, string graphicsFile, string cursorFile = null, ILoadImageConfig loadConfig = null,
 			bool playerStartsWithItem = false);
 	}
 }
