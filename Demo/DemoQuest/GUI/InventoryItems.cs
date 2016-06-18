@@ -19,7 +19,7 @@ namespace DemoGame
 			{
 				TransparentColorSamplePoint = new AGS.API.Point(0,0),
 			};
-			Bottle = factory.Inventory.GetInventoryItem("Bottle", "../../Assets/Rooms/EmptyStreet/bottle.bmp");
+			Bottle = factory.Inventory.GetInventoryItem("Bottle", "../../Assets/Rooms/EmptyStreet/bottle.bmp", null, loadConfig);
 			VoodooDoll = factory.Inventory.GetInventoryItem("Voodoo Doll", _baseFolder + "voodooDoll.bmp", null, loadConfig, true);
 			Poster = factory.Inventory.GetInventoryItem("Poster", _baseFolder + "poster.bmp", playerStartsWithItem: true);
 			Manual = factory.Inventory.GetInventoryItem("Manual", _baseFolder + "manual.bmp", null, loadConfig, true);
