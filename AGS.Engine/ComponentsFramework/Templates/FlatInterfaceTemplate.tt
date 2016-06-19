@@ -13,7 +13,7 @@
 
         protected virtual bool ShouldWriteProperty(PropertyInfo property)
         {
-        	return true;
+            return true;
         }
 
         protected virtual void WritePropertyAttributes(PropertyInfo property)
@@ -22,7 +22,7 @@
 
         protected virtual bool ShouldWriteMethod(MethodInfo method)
         {
-        	return !method.IsSpecialName;
+            return !method.IsSpecialName;
         }
 
         protected virtual void WriteMethodAttributes(MethodInfo method)
@@ -30,103 +30,103 @@
         }
 
         protected virtual bool FlattenInterface(Type interfaceType)
-    	{
-    		return true;
-    	}
+        {
+            return true;
+        }
 
         public string GetTypeName(Type type)
         {
-        	string paramType = type.Name;
-        	if (paramType == "Void") return "void";
-			if (type.IsGenericType)
-			{
-				paramType = paramType.Substring(0, paramType.Length - 2);
-				Type[] genericArgs = type.GetGenericArguments();
-				StringBuilder args = new StringBuilder("<");
-				for (int j = 0; j < genericArgs.Length; j++)
-				{
-					var arg = genericArgs[j];
-					args.AppendFormat("{0}{1}", arg.Name, j == genericArgs.Length - 1 ? "" : ",");
-				}
-				args.Append(">");
-				paramType = string.Format("{0}{1}", paramType, args.ToString());
-			}
-			return paramType;
+            string paramType = type.Name;
+            if (paramType == "Void") return "void";
+            if (type.GetTypeInfo().IsGenericType)
+            {
+                paramType = paramType.Substring(0, paramType.Length - 2);
+                Type[] genericArgs = type.GetTypeInfo().GenericTypeArguments;
+                StringBuilder args = new StringBuilder("<");
+                for (int j = 0; j < genericArgs.Length; j++)
+                {
+                    var arg = genericArgs[j];
+                    args.AppendFormat("{0}{1}", arg.Name, j == genericArgs.Length - 1 ? "" : ",");
+                }
+                args.Append(">");
+                paramType = string.Format("{0}{1}", paramType, args.ToString());
+            }
+            return paramType;
         }
 
         public override string TransformText()
         {
-        	if (InterfaceType == null || VarName == null) 
- 			{
- 				return GenerationEnvironment.ToString();
- 			}
- 			List<Type> allInterfaces = new List<Type> { InterfaceType };
- 			if (IsRecursive) allInterfaces.AddRange(InterfaceType.GetInterfaces());
- 			foreach (Type interfaceType in allInterfaces)
- 			{
- 				if (!FlattenInterface(interfaceType)) continue;
-        		string interfaceName = GetTypeName(interfaceType);
+            if (InterfaceType == null || VarName == null) 
+             {
+                 return GenerationEnvironment.ToString();
+             }
+             List<Type> allInterfaces = new List<Type> { InterfaceType };
+             if (IsRecursive) allInterfaces.AddRange(InterfaceType.GetInterfaces());
+             foreach (Type interfaceType in allInterfaces)
+             {
+                 if (!FlattenInterface(interfaceType)) continue;
+                string interfaceName = GetTypeName(interfaceType);
         #>
 
-		#region <#= interfaceName #> implementation
+        #region <#= interfaceName #> implementation
 
 <#+
-	 			foreach (var property in interfaceType.GetProperties())
-	        	{
-	        		if (!ShouldWriteProperty(property)) continue;
-	        		WritePropertyAttributes(property);
-	        		string typeName = GetTypeName(property.PropertyType);
-	        		string propertyName = property.Name;
+                 foreach (var property in interfaceType.GetRuntimeProperties())
+                {
+                    if (!ShouldWriteProperty(property)) continue;
+                    WritePropertyAttributes(property);
+                    string typeName = GetTypeName(property.PropertyType);
+                    string propertyName = property.Name;
 
-        		#>
-		public <#= typeName #> <#= propertyName #> 
-		{ <#+
-        			if (property.CanRead)
-        			{#> 
-			get { return <#= VarName #>.<#= propertyName #>; } <#+
-        			}
-        			if (property.CanWrite)
-        			{#> 
-			set { <#= VarName #>.<#= propertyName #> = value; } <#+
-        			}   #>
+                #>
+        public <#= typeName #> <#= propertyName #> 
+        { <#+
+                    if (property.CanRead)
+                    {#> 
+            get { return <#= VarName #>.<#= propertyName #>; } <#+
+                    }
+                    if (property.CanWrite)
+                    {#> 
+            set { <#= VarName #>.<#= propertyName #> = value; } <#+
+                    }   #>
 
-		}
-
-<#+
-        		}
-	        	foreach (var method in interfaceType.GetMethods())
-	        	{
-	        		StringBuilder signature = new StringBuilder();
-	        		StringBuilder invocation = new StringBuilder();
-	        	
-	        		if (!ShouldWriteMethod(method)) continue;
-	        		WriteMethodAttributes(method);
-
-	        		string methodName = method.Name;
-	        		string returnType = GetTypeName(method.ReturnType);
-	        		string hasReturn = returnType == "void" ? "" : "return ";
-	        		ParameterInfo[] parameters = method.GetParameters();
-        			#>		public <#= returnType #> <#= methodName #>(<#+
-        			for (int i = 0; i < parameters.Length; i++)
-	        		{
-	        			var parameter = parameters[i];
-	        			string paramName = parameter.Name;
-	        			string paramType = GetTypeName(parameter.ParameterType);
-	        			string comma = (i == parameters.Length - 1) ? "" : ", ";
-	        			signature.AppendFormat("{0} {1}{2}", paramType, paramName, comma);
-	        			invocation.AppendFormat("{0}{1}", paramName, comma);
-	        		}
-        			#><#= signature.ToString() #><#+
-        			#>)
-        {
-        	<#= hasReturn #><#= VarName #>.<#= methodName #>(<#= invocation.ToString() #>);
         }
 
-<#+				}
-#>
-		#endregion
 <#+
-			}
+                }
+                foreach (var method in interfaceType.GetRuntimeMethods())
+                {
+                    StringBuilder signature = new StringBuilder();
+                    StringBuilder invocation = new StringBuilder();
+                
+                    if (!ShouldWriteMethod(method)) continue;
+                    WriteMethodAttributes(method);
+
+                    string methodName = method.Name;
+                    string returnType = GetTypeName(method.ReturnType);
+                    string hasReturn = returnType == "void" ? "" : "return ";
+                    ParameterInfo[] parameters = method.GetParameters();
+                    #>        public <#= returnType #> <#= methodName #>(<#+
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        var parameter = parameters[i];
+                        string paramName = parameter.Name;
+                        string paramType = GetTypeName(parameter.ParameterType);
+                        string comma = (i == parameters.Length - 1) ? "" : ", ";
+                        signature.AppendFormat("{0} {1}{2}", paramType, paramName, comma);
+                        invocation.AppendFormat("{0}{1}", paramName, comma);
+                    }
+                    #><#= signature.ToString() #><#+
+                    #>)
+        {
+            <#= hasReturn #><#= VarName #>.<#= methodName #>(<#= invocation.ToString() #>);
+        }
+
+<#+                }
+#>
+        #endregion
+<#+
+            }
             return GenerationEnvironment.ToString();
         }
     }

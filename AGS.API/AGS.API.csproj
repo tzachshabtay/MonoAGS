@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -131,8 +131,11 @@
     <Compile Include="Serialization\ICustomSerializable.cs" />
     <Compile Include="Serialization\ICustomSerializableData.cs" />
     <Compile Include="Serialization\ISaveLoad.cs" />
+    <Compile Include="UI\Controls\Checkbox\CheckboxEventArgs.cs" />
+    <Compile Include="UI\Controls\Checkbox\ICheckbox.cs" />
     <Compile Include="UI\Controls\IButton.cs" />
     <Compile Include="UI\Controls\IButtonComponent.cs" />
+    <Compile Include="UI\Controls\Checkbox\ICheckboxComponent.cs" />
     <Compile Include="UI\Controls\IInventoryWindow.cs" />
     <Compile Include="UI\Controls\IInventoryWindowComponent.cs" />
     <Compile Include="UI\Controls\ILabel.cs" />
@@ -178,19 +181,5 @@
     <Compile Include="Audio\ISoundEmitter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="ComponentsFramework\" />
-    <Folder Include="Game\" />
-    <Folder Include="Graphics\" />
-    <Folder Include="Input\" />
-    <Folder Include="Inventory\" />
-    <Folder Include="Misc\" />
-    <Folder Include="Objects\" />
-    <Folder Include="Player\" />
-    <Folder Include="Rooms\" />
-    <Folder Include="Serialization\" />
-    <Folder Include="UI\" />
-    <Folder Include="Audio\" />
-    <Folder Include="Misc\Collections\BindingList\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

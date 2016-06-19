@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -30,14 +30,23 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ComponentsFramework\Templates\AGSButton.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AGSButton.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentsFramework\Templates\AGSCharacter.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AGSCharacter.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentsFramework\AGSComponent.cs" />
     <Compile Include="ComponentsFramework\AGSEntity.cs" />
-    <Compile Include="ComponentsFramework\Templates\AGSButton.generated.cs">
-      <DependentUpon>..\..\..\Engine\ComponentsFramework\Templates\AGSButton.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ComponentsFramework\Templates\AGSCharacter.generated.cs">
-      <DependentUpon>..\..\..\Engine\ComponentsFramework\Templates\AGSCharacter.tt</DependentUpon>
+    <Compile Include="ComponentsFramework\Templates\AGSCheckbox.generated.cs">
+      <DependentUpon>AGSCheckbox.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSInventoryWindow.generated.cs">
       <DependentUpon>..\..\..\Engine\ComponentsFramework\Templates\AGSInventoryWindow.tt</DependentUpon>
@@ -231,6 +240,8 @@
     <Compile Include="UI\AGSUIEvents.cs" />
     <Compile Include="UI\Controls\AGSButton.cs" />
     <Compile Include="UI\Controls\AGSButtonComponent.cs" />
+    <Compile Include="UI\Controls\Checkbox\AGSCheckbox.cs" />
+    <Compile Include="UI\Controls\Checkbox\AGSCheckboxComponent.cs" />
     <Compile Include="UI\Controls\AGSInventoryWindow.cs" />
     <Compile Include="UI\Controls\AGSInventoryWindowComponent.cs" />
     <Compile Include="UI\Controls\AGSLabel.cs" />
@@ -338,26 +349,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ComponentsFramework\" />
-    <Folder Include="Game\" />
-    <Folder Include="Graphics\" />
-    <Folder Include="Input\" />
-    <Folder Include="Inventory\" />
-    <Folder Include="Misc\" />
-    <Folder Include="Objects\" />
-    <Folder Include="Platform\" />
-    <Folder Include="Player\" />
-    <Folder Include="Rooms\" />
-    <Folder Include="Serialization\" />
-    <Folder Include="UI\" />
-    <Folder Include="Graphics\Effects\" />
-    <Folder Include="Misc\Tweening\" />
-    <Folder Include="Rooms\Transitions\" />
-    <Folder Include="UI\Borders\" />
-    <Folder Include="UI\Borders\SlicedImage\" />
-    <Folder Include="Audio\" />
-    <Folder Include="Audio\Decoders\" />
-    <Folder Include="Audio\Interfaces\" />
+    <None Include="ComponentsFramework\Templates\AGSCheckbox.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSCheckbox.generated.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AGS.API\AGS.API.csproj">
@@ -384,5 +379,8 @@
     <Reference Include="CSFlac">
       <HintPath>..\DLLs\CSFlac.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
 </Project>

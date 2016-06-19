@@ -1,0 +1,56 @@
+﻿<#@ output extension=".generated.cs" #>
+<#@ assembly name="$(SolutionDir)/AGS.API/bin/Debug/AGS.API.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="AGS.API" #>
+<#@ include file="EntityCreatorTemplate.tt" #>
+
+<#
+		EntityCreator template = new CheckboxTemplate();
+		template.NamespaceName = "AGS.Engine";
+		template.ClassName = "AGSCheckbox";
+		template.AdditionalInterfaces = "ICheckbox";
+		template.ComponentType = typeof(IComponent);
+		template.Components = new List<Type> { typeof(ICheckbox) };
+		string output = template.TransformText();
+		if (output != null)
+		{
+    		Write(output);
+		}
+#>
+
+<#+
+	class CheckboxTemplate : EntityCreator
+	{
+		protected override void WriteAdditionalUsings()
+    	{
+    		base.WriteAdditionalUsings();
+    		WriteLine("using System.Threading.Tasks;");
+    		Write("using System.Collections.Generic;");
+    	}
+
+    	protected override bool ProcessInterface(Type interfaceType)
+    	{
+    		if (interfaceType == typeof(ICheckbox) || interfaceType == typeof(ILabel) || interfaceType == typeof(IPanel) 
+    			|| interfaceType == typeof(IObject)) return false;
+    		if (interfaceType.Name.Contains("IUIControl") || interfaceType.Name.Contains("ILabel")) return false;
+    		return base.ProcessInterface(interfaceType);
+    	}
+
+    	protected override bool WriteImplements(Type interfaceType)
+    	{
+    		return false;
+    	}
+
+    	protected override void WriteAdditionalConstructorParams()
+    	{
+    		Write(", ILabelRenderer labelRenderer, SizeF baseSize");
+    	}
+
+    	protected override void WriteAdditionalConstructorParamsCall()
+    	{
+    		Write(", labelRenderer, baseSize");
+    	}
+	}
+#>
