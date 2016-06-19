@@ -140,6 +140,7 @@
     <Compile Include="UI\Controls\IInventoryWindowComponent.cs" />
     <Compile Include="UI\Controls\ILabel.cs" />
     <Compile Include="UI\Controls\IPanel.cs" />
+    <Compile Include="UI\Controls\ITextComponent.cs" />
     <Compile Include="UI\Controls\IUIControl.cs" />
     <Compile Include="UI\Controls\Slider\ISlider.cs" />
     <Compile Include="UI\Controls\Slider\ISliderComponent.cs" />

@@ -41,16 +41,6 @@
     	protected override bool WriteImplements(Type interfaceType)
     	{
     		return false;
-    	}
-
-    	protected override void WriteAdditionalConstructorParams()
-    	{
-    		Write(", ILabelRenderer labelRenderer, SizeF baseSize");
-    	}
-
-    	protected override void WriteAdditionalConstructorParamsCall()
-    	{
-    		Write(", labelRenderer, baseSize");
-    	}
+    	}    	
 	}
 #>

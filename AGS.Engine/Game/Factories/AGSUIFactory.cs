@@ -53,10 +53,10 @@ namespace AGS.Engine
 
 		public ILabel GetLabel(string id, string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
 		{
-			AGS.API.SizeF baseSize = new AGS.API.SizeF(width, height);
-			TypedParameter sizeParam = new TypedParameter (typeof(AGS.API.SizeF), baseSize);
+			AGS.API.SizeF baseSize = new AGS.API.SizeF(width, height);			
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			ILabel label = _resolver.Resolve<ILabel>(idParam, sizeParam);
+			ILabel label = _resolver.Resolve<ILabel>(idParam);
+            label.LabelRenderSize = baseSize;
 			label.Text = text;
 			label.X = x;
 			label.Y = y;
@@ -79,10 +79,10 @@ namespace AGS.Engine
 			{
 				height = idle.Frames[0].Sprite.Height;
 			}
-			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			TypedParameter sizeParam = new TypedParameter (typeof(AGS.API.SizeF), new AGS.API.SizeF (width, height));
-			IButton button = _resolver.Resolve <IButton>(idParam, sizeParam);
-			button.IdleAnimation = idle;
+			TypedParameter idParam = new TypedParameter (typeof(string), id);			
+			IButton button = _resolver.Resolve <IButton>(idParam);
+            button.LabelRenderSize = new AGS.API.SizeF(width, height);
+            button.IdleAnimation = idle;
 			button.HoverAnimation = hovered;
 			button.PushedAnimation = pushed;
 
@@ -131,9 +131,9 @@ namespace AGS.Engine
             {
                 height = notChecked.Frames[0].Sprite.Height;
             }
-            TypedParameter idParam = new TypedParameter(typeof(string), id);
-            TypedParameter sizeParam = new TypedParameter(typeof(AGS.API.SizeF), new AGS.API.SizeF(width, height));
-            ICheckbox checkbox = _resolver.Resolve<ICheckbox>(idParam, sizeParam);
+            TypedParameter idParam = new TypedParameter(typeof(string), id);            
+            ICheckbox checkbox = _resolver.Resolve<ICheckbox>(idParam);
+            checkbox.LabelRenderSize = new AGS.API.SizeF(width, height);
             checkbox.NotCheckedAnimation = notChecked;
             checkbox.HoverNotCheckedAnimation = notCheckedHovered;
             checkbox.CheckedAnimation = @checked;

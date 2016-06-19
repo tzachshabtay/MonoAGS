@@ -52,7 +52,9 @@
       <DependentUpon>..\..\..\Engine\ComponentsFramework\Templates\AGSInventoryWindow.tt</DependentUpon>
     </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSLabel.generated.cs">
-      <DependentUpon>..\..\..\Engine\ComponentsFramework\Templates\AGSLabel.tt</DependentUpon>
+      <DependentUpon>AGSLabel.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSObject.generated.cs">
       <DependentUpon>..\..\..\Engine\ComponentsFramework\Templates\AGSObject.tt</DependentUpon>
@@ -231,6 +233,7 @@
     <Compile Include="Serialization\Contracts\ContractSound.cs" />
     <Compile Include="Serialization\Contracts\ContractSprite.cs" />
     <Compile Include="Serialization\Contracts\ContractSpriteSheet.cs" />
+    <Compile Include="Serialization\Contracts\ContractTextComponent.cs" />
     <Compile Include="Serialization\Contracts\ContractTextConfig.cs" />
     <Compile Include="Serialization\Contracts\ContractTransformMatrix.cs" />
     <Compile Include="Serialization\Contracts\ContractViewport.cs" />
@@ -240,6 +243,7 @@
     <Compile Include="UI\AGSUIEvents.cs" />
     <Compile Include="UI\Controls\AGSButton.cs" />
     <Compile Include="UI\Controls\AGSButtonComponent.cs" />
+    <Compile Include="UI\Controls\AGSTextComponent.cs" />
     <Compile Include="UI\Controls\Checkbox\AGSCheckbox.cs" />
     <Compile Include="UI\Controls\Checkbox\AGSCheckboxComponent.cs" />
     <Compile Include="UI\Controls\AGSInventoryWindow.cs" />
@@ -358,7 +362,7 @@
     <None Include="ComponentsFramework\Templates\FlatInterfaceTemplate.tt">
       <LastGenOutput>FlatInterfaceTemplate.cs</LastGenOutput>
     </None>
-	<None Include="packages.config" />
+    <None Include="packages.config" />
     <None Include="..\DLLs\OpenTK.dll.config">
       <Link>OpenTK.dll.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

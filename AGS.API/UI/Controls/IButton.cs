@@ -1,6 +1,6 @@
 ﻿namespace AGS.API
 {
-	public interface IButton : ILabel<IButton>, IButtonComponent
+	public interface IButton : IUIControl<IButton>, ITextComponent, IButtonComponent
 	{
 	}
 }

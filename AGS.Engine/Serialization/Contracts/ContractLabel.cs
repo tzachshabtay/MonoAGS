@@ -20,24 +20,17 @@ namespace AGS.Engine
 		public ContractObject Object { get; set; }
 
 		[ProtoMember(2)]
-		public IContract<ITextConfig> TextConfig { get; set; }
-
-		[ProtoMember(3)]
-		public string Text { get; set; }
-
-		[ProtoMember(4)]
-		public float Width { get; set; }
-
-		[ProtoMember(5)]
-		public float Height { get; set; }
+        public IContract<ITextComponent> TextComponent { get; set; }
 
 		#region IContract implementation
 
 		public IObject ToItem(AGSSerializationContext context)
 		{
 			if (Object == null) return null;
-			ILabel label = context.Factory.UI.GetLabel(Object.ID, Text, Width, Height, 0, 0, 
-				TextConfig.ToItem(context), false);
+            ITextComponent textComponent = TextComponent.ToItem(context);
+			ILabel label = context.Factory.UI.GetLabel(Object.ID, textComponent.Text, 
+                textComponent.LabelRenderSize.Width, textComponent.LabelRenderSize.Height, 0, 0, 
+				textComponent.TextConfig, false);
 			Object.ToItem(context, label);
 			label.Visible = Object.Visible;
 			return label;
@@ -53,10 +46,7 @@ namespace AGS.Engine
 			Object = new ContractObject ();
 			Object.FromItem(context, (IObject)item);
 
-			TextConfig = context.GetContract(item.TextConfig);
-			Text = item.Text;
-			Width = item.Width;
-			Height = item.Height;
+            TextComponent = context.GetContract(item as ITextComponent);            
 		}
 
 		#endregion

@@ -183,63 +183,64 @@ namespace Tests
 			}
 		}
 
-		public static IEnumerable<IObject> GetImplementors(Mocks mocks, Mock<IGameState> stateMock, IGameState state = null)
-		{
-			if (state == null && stateMock != null) state = stateMock.Object;
-			Mock<IEngineConfigFile> configFile = new Mock<IEngineConfigFile> ();
-			Resolver resolver = new Resolver (configFile.Object);
-			Mock<IInput> input = new Mock<IInput> ();
-			if (stateMock != null) stateMock.Setup(s => s.Cutscene).Returns(mocks.Cutscene().Object);
+        public static IEnumerable<IObject> GetImplementors(Mocks mocks, Mock<IGameState> stateMock, IGameState state = null)
+        {
+            if (state == null && stateMock != null) state = stateMock.Object;
+            Mock<IEngineConfigFile> configFile = new Mock<IEngineConfigFile>();
+            Resolver resolver = new Resolver(configFile.Object);
+            Mock<IInput> input = new Mock<IInput>();
+            if (stateMock != null) stateMock.Setup(s => s.Cutscene).Returns(mocks.Cutscene().Object);
 
-			Mock<IUIEvents> uiEvents = new Mock<IUIEvents> ();
-			Mock<IEvent<MouseButtonEventArgs>> buttonEvent = new Mock<IEvent<MouseButtonEventArgs>> ();
-			Mock<IEvent<MousePositionEventArgs>> mouseEvent = new Mock<IEvent<MousePositionEventArgs>> ();
-			uiEvents.Setup(u => u.MouseClicked).Returns(buttonEvent.Object);
-			uiEvents.Setup(u => u.MouseDown).Returns(buttonEvent.Object);
-			uiEvents.Setup(u => u.MouseUp).Returns(buttonEvent.Object);
-			uiEvents.Setup(u => u.MouseEnter).Returns(mouseEvent.Object);
-			uiEvents.Setup(u => u.MouseLeave).Returns(mouseEvent.Object);
-			uiEvents.Setup(u => u.MouseMove).Returns(mouseEvent.Object);
+            Mock<IUIEvents> uiEvents = new Mock<IUIEvents>();
+            Mock<IEvent<MouseButtonEventArgs>> buttonEvent = new Mock<IEvent<MouseButtonEventArgs>>();
+            Mock<IEvent<MousePositionEventArgs>> mouseEvent = new Mock<IEvent<MousePositionEventArgs>>();
+            uiEvents.Setup(u => u.MouseClicked).Returns(buttonEvent.Object);
+            uiEvents.Setup(u => u.MouseDown).Returns(buttonEvent.Object);
+            uiEvents.Setup(u => u.MouseUp).Returns(buttonEvent.Object);
+            uiEvents.Setup(u => u.MouseEnter).Returns(mouseEvent.Object);
+            uiEvents.Setup(u => u.MouseLeave).Returns(mouseEvent.Object);
+            uiEvents.Setup(u => u.MouseMove).Returns(mouseEvent.Object);
 
-			Mock<IGraphicsFactory> graphicsFactory = new Mock<IGraphicsFactory> ();
-			Func<ISprite> getSprite = () => new AGSSprite (mocks.MaskLoader().Object);
-			graphicsFactory.Setup(g => g.GetSprite()).Returns(() => getSprite());
-			AGSAnimationContainer animationContainer = new AGSAnimationContainer (getSprite(), graphicsFactory.Object);
+            Mock<IGraphicsFactory> graphicsFactory = new Mock<IGraphicsFactory>();
+            Func<ISprite> getSprite = () => new AGSSprite(mocks.MaskLoader().Object);
+            graphicsFactory.Setup(g => g.GetSprite()).Returns(() => getSprite());
+            AGSAnimationContainer animationContainer = new AGSAnimationContainer(getSprite(), graphicsFactory.Object);
 
-			Mock<IImage> image = new Mock<IImage> ();
-			Mock<IButtonComponent> buttonComponent = new Mock<IButtonComponent> ();
-			buttonComponent.Setup(b => b.HoverAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
-			buttonComponent.Setup(b => b.IdleAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
-			buttonComponent.Setup(b => b.PushedAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
-			Mock<IAudioSystem> audioSystem = new Mock<IAudioSystem> ();
+            Mock<IImage> image = new Mock<IImage>();
+            Mock<IButtonComponent> buttonComponent = new Mock<IButtonComponent>();
+            buttonComponent.Setup(b => b.HoverAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
+            buttonComponent.Setup(b => b.IdleAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
+            buttonComponent.Setup(b => b.PushedAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
+            Mock<IAudioSystem> audioSystem = new Mock<IAudioSystem>();
 
-			resolver.Builder.RegisterInstance(input.Object);
-			resolver.Builder.RegisterInstance(state);
-			resolver.Builder.RegisterInstance(uiEvents.Object);
-			resolver.Builder.RegisterInstance(animationContainer).As<IAnimationContainer>();
-			resolver.Builder.RegisterInstance(buttonComponent.Object);
-			resolver.Builder.RegisterInstance(audioSystem.Object);
-			resolver.Builder.RegisterInstance(new Mock<IMessagePump> ().Object);
-			resolver.Build();
+            resolver.Builder.RegisterInstance(input.Object);
+            resolver.Builder.RegisterInstance(state);
+            resolver.Builder.RegisterInstance(uiEvents.Object);
+            resolver.Builder.RegisterInstance(animationContainer).As<IAnimationContainer>();
+            resolver.Builder.RegisterInstance(buttonComponent.Object);
+            resolver.Builder.RegisterInstance(audioSystem.Object);
+            resolver.Builder.RegisterInstance(new Mock<IMessagePump>().Object);
+            resolver.Builder.RegisterInstance(new Mock<ILabelRenderer>().Object);
+            resolver.Build();
 
-			Mock<IGameEvents> gameEvents = new Mock<IGameEvents> ();
-			Mock<IEvent<AGSEventArgs>> emptyEvent = new Mock<IEvent<AGSEventArgs>> ();
-			gameEvents.Setup(ev => ev.OnRepeatedlyExecute).Returns(emptyEvent.Object);
-			Func<IObject> baseObj = () => new AGSObject ("Test", resolver);
+            Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();
+            Mock<IEvent<AGSEventArgs>> emptyEvent = new Mock<IEvent<AGSEventArgs>>();
+            gameEvents.Setup(ev => ev.OnRepeatedlyExecute).Returns(emptyEvent.Object);
+            Func<IObject> baseObj = () => new AGSObject("Test", resolver);
 
-			Mock<IOutfit> outfit = new Mock<IOutfit> ();
-			Mock<ILabelRenderer> renderer = new Mock<ILabelRenderer> ();
+            Mock<IOutfit> outfit = new Mock<IOutfit>();
 
-			Func<IPanel> basePanel = () => new AGSPanel ("Panel", resolver, image.Object);
-			Func<ILabel> baseLabel = () => new AGSLabel ("Label", resolver, renderer.Object, new AGS.API.SizeF (100f, 50f));
+            Func<IPanel> basePanel = () => new AGSPanel("Panel", resolver, image.Object);
+            Func<ILabel> baseLabel = () => new AGSLabel("Label", resolver) { LabelRenderSize = new AGS.API.SizeF(100f, 50f) };
+            var button = new AGSButton("Button", resolver) { LabelRenderSize = new AGS.API.SizeF(100f, 50f) };
 
-			List<IObject> implmentors = new List<IObject>
-			{
-				baseObj().Hotspot("Object"),
-				new AGSCharacter("Character", resolver, outfit.Object).Hotspot("Character"),
-				basePanel().Hotspot("Panel"),
-				baseLabel().Hotspot("Label"),
-				new AGSButton("Button", resolver, renderer.Object, new AGS.API.SizeF(100f,50f)).Hotspot("Button"),
+            List<IObject> implmentors = new List<IObject>
+            {
+                baseObj().Hotspot("Object"),
+                new AGSCharacter("Character", resolver, outfit.Object).Hotspot("Character"),
+                basePanel().Hotspot("Panel"),
+                baseLabel().Hotspot("Label"),
+                button.Hotspot("Button"),
 				new AGSInventoryWindow("Inventory", resolver, image.Object).Hotspot("Inventory"),
 				new AGSSlider("Slider", resolver, image.Object).Hotspot("Slider"),
 			};

@@ -17,7 +17,7 @@ namespace AGS.Engine
 		}
 
 		[ProtoMember(1)]
-		public ContractLabel Label { get; set; }
+		public ContractObject Object { get; set; }
 
 		[ProtoMember(2)]
 		public IContract<IAnimation> IdleAnimation { get; set; }
@@ -28,16 +28,20 @@ namespace AGS.Engine
 		[ProtoMember(4)]
 		public IContract<IAnimation> PushedAnimation { get; set; }
 
+        [ProtoMember(5)]
+        public ContractTextComponent TextComponent { get; set; }
+
 		#region IContract implementation
 
 		public IObject ToItem(AGSSerializationContext context)
 		{
-			IButton button = context.Factory.UI.GetButton(Label.Object.ID, IdleAnimation.ToItem(context), HoverAnimation.ToItem(context),
-				PushedAnimation.ToItem(context), 0,0, "", null, false, Label.Width, Label.Height);
-			Label.Object.ToItem(context, button);
-			button.TextConfig = Label.TextConfig.ToItem(context);
-			button.Text = Label.Text;
-			button.Visible = Label.Object.Visible;
+            var textComponent = TextComponent.ToItem(context);
+			IButton button = context.Factory.UI.GetButton(Object.ID, IdleAnimation.ToItem(context), HoverAnimation.ToItem(context),
+				PushedAnimation.ToItem(context), 0,0, "", null, false, textComponent.LabelRenderSize.Width, textComponent.LabelRenderSize.Height);
+			Object.ToItem(context, button);
+            button.TextConfig = textComponent.TextConfig;
+			button.Text = textComponent.Text;
+			button.Visible = Object.Visible;
 			return button;
 		}
 
@@ -45,8 +49,11 @@ namespace AGS.Engine
 		{
 			IButton button = (IButton)item;
 
-			Label = new ContractLabel ();
-			Label.FromItem(context, button);
+			Object = new ContractObject ();
+			Object.FromItem(context, button);
+
+            TextComponent = new ContractTextComponent();
+            TextComponent.FromItem(context, button);
 
 			IdleAnimation = context.GetContract(button.IdleAnimation);
 			HoverAnimation = context.GetContract(button.HoverAnimation);
