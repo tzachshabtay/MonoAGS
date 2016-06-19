@@ -18,7 +18,14 @@ namespace AGS.API
 		Task<IButton> GetButtonAsync(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath,
 			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);
 
-		ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max, 
+        ICheckbox GetCheckbox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation @checked, IAnimation checkedHovered,
+            float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);
+        ICheckbox GetCheckbox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
+            float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);
+        Task<ICheckbox> GetCheckboxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
+            float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);
+
+        ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max, 
 			ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true);
 		Task<ISlider> GetSliderAsync(string id, string imagePath, string handleImagePath, float value, float min, float max,
 			ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true);

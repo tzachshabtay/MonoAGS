@@ -121,7 +121,58 @@ namespace AGS.Engine
 			return GetButton (id, idle, hovered, pushed, x, y, text, config, addToUi, width, height);
 		}
 
-		public ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max, 
+        public ICheckbox GetCheckbox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation @checked, IAnimation checkedHovered, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)
+        {
+            if (width == -1f)
+            {
+                width = notChecked.Frames[0].Sprite.Width;
+            }
+            if (height == -1f)
+            {
+                height = notChecked.Frames[0].Sprite.Height;
+            }
+            TypedParameter idParam = new TypedParameter(typeof(string), id);
+            TypedParameter sizeParam = new TypedParameter(typeof(AGS.API.SizeF), new AGS.API.SizeF(width, height));
+            ICheckbox checkbox = _resolver.Resolve<ICheckbox>(idParam, sizeParam);
+            checkbox.NotCheckedAnimation = notChecked;
+            checkbox.HoverNotCheckedAnimation = notCheckedHovered;
+            checkbox.CheckedAnimation = @checked;
+            checkbox.HoverCheckedAnimation = checkedHovered;
+
+            checkbox.StartAnimation(notChecked);
+            checkbox.Tint = Colors.White;
+            checkbox.X = x;
+            checkbox.Y = y;
+            checkbox.TextConfig = config;
+            checkbox.Text = text;
+
+            if (addToUi)
+                _gameState.UI.Add(checkbox);
+
+            return checkbox;
+        }
+
+        public ICheckbox GetCheckbox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)
+        {
+            IAnimation notChecked = _graphics.LoadAnimationFromFiles(files: new[] { notCheckedPath });
+            IAnimation notCheckedHovered = _graphics.LoadAnimationFromFiles(files: new[] { notCheckedHoveredPath });
+            IAnimation @checked = _graphics.LoadAnimationFromFiles(files: new[] { checkedPath });
+            IAnimation checkedHovered = _graphics.LoadAnimationFromFiles(files: new[] { checkedHoveredPath });
+
+            return GetCheckbox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, text, config, addToUi, width, height);
+        }
+
+        public async Task<ICheckbox> GetCheckboxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)
+        {
+            IAnimation notChecked = await _graphics.LoadAnimationFromFilesAsync(files: new[] { notCheckedPath });
+            IAnimation notCheckedHovered = await _graphics.LoadAnimationFromFilesAsync(files: new[] { notCheckedHoveredPath });
+            IAnimation @checked = await _graphics.LoadAnimationFromFilesAsync(files: new[] { checkedPath });
+            IAnimation checkedHovered = await _graphics.LoadAnimationFromFilesAsync(files: new[] { checkedHoveredPath });
+
+            return GetCheckbox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, text, config, addToUi, width, height);
+        }
+
+        public ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max, 
 			ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
 		{
 			var image = _graphics.LoadImage(imagePath, loadConfig);
@@ -166,7 +217,7 @@ namespace AGS.Engine
 			if (addToUi)
 				_gameState.UI.Add (slider);
 			return slider;
-		}
-	}
+		}       
+    }
 }
 
