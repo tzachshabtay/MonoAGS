@@ -1,10 +1,7 @@
 ﻿using System;
 using AGS.API;
-using OpenTK.Graphics.OpenGL;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices;
 using System.Collections.Generic;
-using System.Threading;
 using Autofac;
 using System.Diagnostics;
 
@@ -16,6 +13,7 @@ namespace AGS.Engine
 		private readonly IContainer _resolver;
 		private readonly IResourceLoader _resources;
 		private readonly IBitmapLoader _bitmapLoader;
+		private readonly SpriteSheetLoader _spriteSheetLoader;
 
 		public GLGraphicsFactory (Dictionary<string, GLImage> textures, IContainer resolver)
 		{
@@ -23,6 +21,7 @@ namespace AGS.Engine
 			this._resolver = resolver;
 			this._resources = resolver.Resolve<IResourceLoader>();
 			this._bitmapLoader = Hooks.BitmapLoader;
+			this._spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage);
 		}
 
 		public ISprite GetSprite()
@@ -56,9 +55,38 @@ namespace AGS.Engine
 			return dirAnimation;
 		}
 
+		public async Task<IDirectionalAnimation> LoadDirectionalAnimationFromFoldersAsync(string baseFolder, string leftFolder = null,
+			string rightFolder = null, string downFolder = null, string upFolder = null,
+			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+		{
+			if (leftFolder == null && rightFolder == null && downFolder == null && upFolder == null) return null;
+
+			AGSDirectionalAnimation dirAnimation = new AGSDirectionalAnimation ();
+			if (leftFolder != null) dirAnimation.Left = await LoadAnimationFromFolderAsync(baseFolder + leftFolder, delay, animationConfig, loadConfig);
+			if (rightFolder != null) dirAnimation.Right = await LoadAnimationFromFolderAsync(baseFolder + rightFolder, delay, animationConfig, loadConfig);
+			if (downFolder != null) dirAnimation.Down = await LoadAnimationFromFolderAsync(baseFolder + downFolder, delay, animationConfig, loadConfig);
+			if (upFolder != null) dirAnimation.Up = await LoadAnimationFromFolderAsync(baseFolder + upFolder, delay, animationConfig, loadConfig);
+
+			if (dirAnimation.Left != null && dirAnimation.Right == null) {
+				dirAnimation.Right = createLeftRightAnimation (dirAnimation.Left);
+			}
+
+			if (dirAnimation.Right != null && dirAnimation.Left == null) {
+				dirAnimation.Left = createLeftRightAnimation (dirAnimation.Right);
+			}
+
+			return dirAnimation;
+		}
+
 		public IAnimation LoadAnimationFromFiles(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files)
 		{
 			return loadAnimationFromResources(_resources.LoadResources(files), delay, animationConfig, loadConfig);
+		}
+
+		public async Task<IAnimation> LoadAnimationFromFilesAsync(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string [] files)
+		{
+			return await loadAnimationFromResourcesAsync(await Task.Run(() => _resources.LoadResources (files)), 
+			                                             delay, animationConfig, loadConfig);
 		}
 
 		public IAnimation LoadAnimationFromFolder (string folderPath, int delay = 4, 
@@ -70,134 +98,32 @@ namespace AGS.Engine
 		public async Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath, int delay = 4, 
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			return await Task.Run(() => LoadAnimationFromFolder (folderPath, delay, animationConfig, loadConfig));
+			return await loadAnimationFromResourcesAsync (await Task.Run(() => _resources.LoadResources (folderPath)), 
+			                                   delay, animationConfig, loadConfig);
 		}
 
 		public IAnimation LoadAnimationFromSpriteSheet (ISpriteSheet spriteSheet, 
 			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
-			string filePath = spriteSheet.Path;
-			IResource resource = _resources.LoadResource(filePath);
-			if (resource == null)
-			{
-				throw new InvalidOperationException ("Failed to load sprite sheet from " + filePath);
-			}
-			IBitmap bitmap = _bitmapLoader.Load(resource.Stream);
-			int cellsInRow = bitmap.Width / spriteSheet.CellWidth;
-			int cellsInCol = bitmap.Height / spriteSheet.CellHeight;
-			int cellsTotal = cellsInRow * cellsInCol;
-
-			int startRow, startCol;
-			Point mainStep, secondStep;
-
-			switch (spriteSheet.Order) 
-			{
-				case SpriteSheetOrder.BottomLeftGoRight:
-					startRow = cellsInCol - 1;
-					startCol = 0;
-					mainStep = new Point (1, 0);
-					secondStep = new Point (0, -1);
-					break;
-				case SpriteSheetOrder.BottomLeftGoUp:
-					startRow = cellsInCol - 1;
-					startCol = 0;
-					mainStep = new Point (0, -1);
-					secondStep = new Point (1, 0);
-					break;
-				case SpriteSheetOrder.BottomRightGoLeft:
-					startRow = cellsInCol - 1;
-					startCol = cellsInRow - 1;
-					mainStep = new Point (-1, 0);
-					secondStep = new Point (0, -1);
-					break;
-				case SpriteSheetOrder.BottomRightGoUp:
-					startRow = cellsInCol - 1;
-					startCol = cellsInRow - 1;
-					mainStep = new Point (0, -1);
-					secondStep = new Point (-1, 0);
-					break;
-				case SpriteSheetOrder.TopLeftGoDown:
-					startRow = 0;
-					startCol = 0;
-					mainStep = new Point (0, 1);
-					secondStep = new Point (1, 0);
-					break;
-				case SpriteSheetOrder.TopLeftGoRight:
-					startRow = 0;
-					startCol = 0;
-					mainStep = new Point (1, 0);
-					secondStep = new Point (0, 1);
-					break;
-				case SpriteSheetOrder.TopRightGoDown:
-					startRow = 0;
-					startCol = cellsInRow - 1;
-					mainStep = new Point (0, 1);
-					secondStep = new Point (-1, 0);
-					break;
-				case SpriteSheetOrder.TopRightGoLeft:
-					startRow = 0;
-					startCol = cellsInRow - 1;
-					mainStep = new Point (-1, 0);
-					secondStep = new Point (0, 1);
-					break;
-				default:
-					throw new NotSupportedException (string.Format("Sprite sheet order {0} is not supported", spriteSheet.Order));
-			}
-
-			int cellX = startCol;
-			int cellY = startRow;
-			int cellsGrabbed = 0;
-			int cellsToGrab = spriteSheet.CellsToGrab < 0 ? cellsTotal : Math.Min (spriteSheet.CellsToGrab, cellsTotal);
-			AGSAnimation animation = new AGSAnimation (animationConfig, new AGSAnimationState (), cellsToGrab);
-			for (int currentCell = 0; cellsGrabbed < cellsToGrab; currentCell++) 
-			{
-				if (currentCell >= spriteSheet.StartFromCell) 
-				{
-					int tex = GLImage.CreateTexture();
-					Rectangle rect = new Rectangle (cellX * spriteSheet.CellWidth,
-						                cellY * spriteSheet.CellHeight, spriteSheet.CellWidth, spriteSheet.CellHeight);
-					IBitmap clone = bitmap.Crop(rect);
-					string path = string.Format ("{0}_{1}_{2}", rect.X, rect.Y, filePath);
-					GLImage image = loadImage (tex, clone, path, loadConfig, spriteSheet);
-					//GLImage image = loadImage(tex, bitmap, rect, path);
-					ISprite sprite = GetSprite();
-					sprite.Image = image;
-					sprite.Location = AGSLocation.Empty();
-
-					AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
-					animation.Frames.Add (frame);
-					cellsGrabbed++;
-				}
-
-				if (cellX + mainStep.X >= cellsInRow ||
-				    cellY + mainStep.Y >= cellsInCol) 
-				{
-					if (mainStep.X != 0) cellX = 0;
-					else cellY = 0;
-					cellX += secondStep.X;
-					cellY += secondStep.Y;
-				} 
-				else 
-				{
-					cellX += mainStep.X;
-					cellY += mainStep.Y;
-				}
-			}
-			animation.Setup ();
-			return animation;
+			return _spriteSheetLoader.LoadAnimationFromSpriteSheet (spriteSheet, delay, animationConfig, loadConfig);
 		}
 
 		public async Task<IAnimation> LoadAnimationFromSpriteSheetAsync (ISpriteSheet spriteSheet, 
 			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			return await Task.Run(() => LoadAnimationFromSpriteSheet(spriteSheet, delay, animationConfig, loadConfig));
+			return await _spriteSheetLoader.LoadAnimationFromSpriteSheetAsync (spriteSheet, delay, animationConfig, loadConfig);
 		}
 			
 		public GLImage LoadImageInner(string path, ILoadImageConfig config = null)
 		{
 			IResource resource = _resources.LoadResource(path);
 			return loadImage(resource, config);
+		}
+
+		public async Task<GLImage> LoadImageInnerAsync(string path, ILoadImageConfig config = null)
+		{
+			IResource resource = await Task.Run(() => _resources.LoadResource (path));
+			return await loadImageAsync (resource, config);
 		}
 
 		public IImage LoadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
@@ -214,7 +140,7 @@ namespace AGS.Engine
 
 		public async Task<IImage> LoadImageAsync (string filePath, ILoadImageConfig config = null)
 		{
-			return await Task.Run(() => LoadImage (filePath, config));
+			return await LoadImageInnerAsync (filePath, config);
 		}
 
 		private IAnimation createLeftRightAnimation(IAnimation animation)
@@ -231,21 +157,46 @@ namespace AGS.Engine
 		private IAnimation loadAnimationFromResources(List<IResource> resources, 
 			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
-			AGSAnimationState state = new AGSAnimationState ();
-			AGSAnimation animation = new AGSAnimation (animationConfig, state, resources.Count);
+			AGSAnimation animation = getAnimation (animationConfig, resources.Count);
 
 			foreach (IResource resource in resources) 
 			{
 				var image = loadImage (resource, loadConfig);
-				if (image == null) continue;
-				ISprite sprite = GetSprite();
-				sprite.Image = image;
-				AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
-				animation.Frames.Add (frame);
+				addAnimationFrame (image, animation, delay);
 			}
 			animation.Setup ();
 			return animation;
+		}
+
+		private async Task<IAnimation> loadAnimationFromResourcesAsync (List<IResource> resources,
+			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+		{
+			AGSAnimation animation = getAnimation (animationConfig, resources.Count);
+
+			foreach (IResource resource in resources) 
+			{
+				var image = await loadImageAsync (resource, loadConfig);
+				addAnimationFrame (image, animation, delay);
+			}
+			animation.Setup ();
+			return animation;
+		}
+
+		private AGSAnimation getAnimation (IAnimationConfiguration animationConfig, int resourcesCount)
+		{
+			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
+			AGSAnimationState state = new AGSAnimationState ();
+			AGSAnimation animation = new AGSAnimation (animationConfig, state, resourcesCount);
+			return animation;
+		}
+
+		private void addAnimationFrame (GLImage image, AGSAnimation animation, int delay)
+		{
+			if (image == null) return;
+			ISprite sprite = GetSprite ();
+			sprite.Image = image;
+			AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
+			animation.Frames.Add (frame);
 		}
 			
 		private GLImage loadImage(IResource resource, ILoadImageConfig config = null)
@@ -259,6 +210,21 @@ namespace AGS.Engine
 			catch (ArgumentException e)
 			{
 				Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+				return null;
+			}
+		}
+
+		private async Task<GLImage> loadImageAsync (IResource resource, ILoadImageConfig config = null)
+		{
+			try 
+			{
+				IBitmap bitmap = await Task.Run(() => _bitmapLoader.Load (resource.Stream));
+				int tex = GLImage.CreateTexture ();
+				return loadImage(tex, bitmap, resource.ID, config, null);
+			} 
+			catch (ArgumentException e) 
+			{
+				Debug.WriteLine ("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString ());
 				return null;
 			}
 		}

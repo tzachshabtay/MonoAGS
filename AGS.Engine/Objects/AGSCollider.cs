@@ -46,10 +46,12 @@ namespace AGS.Engine
 				return false;
 			IArea pixelPerfect = _obj.PixelPerfectHitTestArea;
 
-			if (_drawableInfo.IgnoreViewport && _state != null) //todo: account for viewport scaling as well
+			if (_drawableInfo.IgnoreViewport && _state != null) 
 			{
-				x -= _state.Player.Character.Room.Viewport.X;
-				y -= _state.Player.Character.Room.Viewport.Y;
+				var viewport = _state.Player.Character.Room.Viewport;
+				//todo: Support viewport rotation (+ ignore scaling areas = false?)
+				x = (x - viewport.X) * viewport.ScaleX;
+				y = (y - viewport.Y) * viewport.ScaleY;
 			}
 
 			if (pixelPerfect == null || !pixelPerfect.Enabled)

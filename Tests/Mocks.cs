@@ -49,6 +49,7 @@ namespace Tests
 			builder.RegisterInstance(mocks.Cutscene().Object);
 			builder.RegisterInstance(mocks.RoomTransitions().Object);
 			builder.RegisterInstance(mocks.AudioSystem().Object);
+			builder.RegisterInstance(new Mock<IMessagePump> ().Object);
 
 			builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 

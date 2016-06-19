@@ -4,7 +4,6 @@ namespace AGS.API
 {
 	[RequiredComponent(typeof(IEnabledComponent))]
 	[RequiredComponent(typeof(IVisibleComponent))]
-	[RequiredComponent(typeof(IDrawableInfo))]
 	[RequiredComponent(typeof(ICollider))]
 	public interface IUIEvents : IComponent
 	{

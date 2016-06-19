@@ -61,7 +61,7 @@ namespace AGS.Engine
 
 		private ISound playSound(float volume, float pitch, float panning, bool looping = false)
 		{
-			Debug.WriteLine("Playing Sound: " + ID);
+			//Debug.WriteLine("Playing Sound: " + ID);
 			int source = getSource();
 			ALSound sound = new ALSound (source, volume, pitch, looping, panning, _errors);
 			sound.Play(_buffer.Value);

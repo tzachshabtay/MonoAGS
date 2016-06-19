@@ -17,7 +17,6 @@ namespace AGS.Engine
 		private IEnabledComponent _enabled;
 		private IVisibleComponent _visible;
 		private ICollider _collider;
-		private IDrawableInfo _drawableInfo;
 
 		public AGSUIEvents(IInput input, IGameState state, IGameEvents gameEvents)
 		{
@@ -42,7 +41,6 @@ namespace AGS.Engine
 			_enabled = entity.GetComponent<IEnabledComponent>();
 			_visible = entity.GetComponent<IVisibleComponent>();
 			_collider = entity.GetComponent<ICollider>();
-			_drawableInfo = entity.GetComponent<IDrawableInfo>();
 
 			_gameEvents.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
 		}
@@ -73,10 +71,7 @@ namespace AGS.Engine
 			PointF position = _input.MousePosition;
 			IViewport viewport = _state.Player.Character.Room.Viewport;
 
-			//todo: Support mouseX/Y When IgnoreScalingArea = false (i.e 4 options: IgnoreScaling+IgnoreViewport,IgnoreScaling,IgnoreViewport,None)
-			float mouseX = _drawableInfo.IgnoreViewport ? (position.X - viewport.X) * viewport.ScaleX + viewport.X : position.X;
-			float mouseY = _drawableInfo.IgnoreViewport ? (position.Y - viewport.Y) * viewport.ScaleY + viewport.Y : position.Y;
-			bool mouseIn = _collider.CollidesWith(mouseX, mouseY);
+			bool mouseIn = _collider.CollidesWith(position.X, position.Y);
 
 			bool leftMouseDown = _input.LeftMouseButtonDown;
 			bool rightMouseDown = _input.RightMouseButtonDown;

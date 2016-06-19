@@ -309,6 +309,14 @@
     <Compile Include="Audio\AGSSoundEmitter.cs" />
     <Compile Include="Audio\Interfaces\IAudioErrors.cs" />
     <Compile Include="Audio\ALErrors.cs" />
+    <Compile Include="Objects\Characters\Walking\Following\AGSFollowBehavior.cs" />
+    <Compile Include="Objects\Characters\Walking\Following\AGSFollowSettings.cs" />
+    <Compile Include="Graphics\Logic\SpriteSheetLoader.cs" />
+    <Compile Include="Game\AGSSyncContext.cs" />
+    <Compile Include="Game\IMessagePump.cs" />
+    <Compile Include="Rooms\AGSSplashScreen.cs" />
+    <Compile Include="Audio\AGSClassicSpeechCache.cs" />
+    <Compile Include="Audio\AGSSpeechLine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -340,18 +348,20 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AGSSlider.generated.cs</LastGenOutput>
     </None>
+    <None Include="ComponentsFramework\Templates\AGSCheckbox.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSCheckbox.generated.cs</LastGenOutput>
+    </None>
     <None Include="ComponentsFramework\Templates\EntityCreatorTemplate.tt">
       <LastGenOutput>EntityCreatorTemplate.cs</LastGenOutput>
     </None>
     <None Include="ComponentsFramework\Templates\FlatInterfaceTemplate.tt">
       <LastGenOutput>FlatInterfaceTemplate.cs</LastGenOutput>
     </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ComponentsFramework\Templates\AGSCheckbox.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AGSCheckbox.generated.cs</LastGenOutput>
+	<None Include="packages.config" />
+    <None Include="..\DLLs\OpenTK.dll.config">
+      <Link>OpenTK.dll.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

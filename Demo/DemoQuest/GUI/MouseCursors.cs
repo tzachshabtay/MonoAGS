@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -29,16 +30,16 @@ namespace DemoGame
 		public const string TALK_MODE = "Talk";
 		public const string POINT_MODE = "Point";
 
-		public void Load(IGame game)
+		public async Task LoadAsync(IGame game)
 		{
 			var factory = game.Factory.Graphics;
 
-			Point = loadCursor("point.bmp", factory);
-			Walk = loadCursor("walk.bmp", factory);
-			Look = loadCursor("eye.bmp", factory);
-			Talk = loadCursor("talk.bmp", factory);
-			Interact = loadCursor("hand.bmp", factory);
-			Wait = loadCursor("wait.bmp", factory);
+			Point = await loadCursor("point.bmp", factory);
+			Walk = await loadCursor("walk.bmp", factory);
+			Look = await loadCursor("eye.bmp", factory);
+			Talk = await loadCursor("talk.bmp", factory);
+			Interact = await loadCursor("hand.bmp", factory);
+			Wait = await loadCursor("wait.bmp", factory);
 
 			game.Input.Cursor = new AGSAnimationContainer(game.Factory.Graphics.GetSprite(), game.Factory.Graphics);
 
@@ -48,9 +49,9 @@ namespace DemoGame
 			Scheme.Start();
 		}
 
-		private IAnimationContainer loadCursor(string filename, IGraphicsFactory factory)
+		private async Task<IAnimationContainer> loadCursor(string filename, IGraphicsFactory factory)
 		{
-			IAnimation animation = factory.LoadAnimationFromFiles(loadConfig: _loadConfig, files: new[]{ _baseFolder + filename });
+			IAnimation animation = await factory.LoadAnimationFromFilesAsync(loadConfig: _loadConfig, files: new[]{ _baseFolder + filename });
 			AGSAnimationContainer cursor = new AGSAnimationContainer (factory.GetSprite(), factory);
 			cursor.StartAnimation(animation);
 			return cursor;

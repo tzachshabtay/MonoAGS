@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -12,7 +13,7 @@ namespace DemoGame
 
 		private const string _baseFolder = "../../Assets/Rooms/TrashcanStreet/";
 
-		public IRoom Load(IGame game)
+		public async Task<IRoom> LoadAsync(IGame game)
 		{
 			_game = game;
 			_player = _game.State.Player;
@@ -20,18 +21,18 @@ namespace DemoGame
 			IGameFactory factory = game.Factory;
 			_room = factory.Room.GetRoom("Trashcan Street", 20f, 310f, 190f, 10f);
 			IObject bg = factory.Object.GetObject("Trashcan Street BG");
-			bg.Image = factory.Graphics.LoadImage(_baseFolder + "bg.png");
+			bg.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bg.png");
 			_room.Background = bg;
 
-			AGSMaskLoader maskLoader = new AGSMaskLoader (factory);
-			_room.WalkableAreas.Add(new AGSArea { Mask = maskLoader.Load(_baseFolder + "walkable.png") });
+			AGSMaskLoader maskLoader = new AGSMaskLoader (factory, new ResourceLoader());
+			_room.WalkableAreas.Add(new AGSArea { Mask = await maskLoader.LoadAsync(_baseFolder + "walkable.png") });
 			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[0], 0.50f, 0.90f));
 
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "HoleHotspot.png", "Hole"));
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "roadHotspot.png", "Road"));
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "sidewalkHotspot.png", "Sidewalk"));
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "SignHotspot.png", "Sign"));
-			_room.Objects.Add(factory.Object.GetHotspot(_baseFolder + "trashCansHotspot.png", "Trashcans"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "HoleHotspot.png", "Hole"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "roadHotspot.png", "Road"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "sidewalkHotspot.png", "Sidewalk"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "SignHotspot.png", "Sign"));
+			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "trashCansHotspot.png", "Trashcans"));
 
 			subscribeEvents();
 			return _room;
@@ -53,12 +54,12 @@ namespace DemoGame
 
 		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.DarsStreet, 490);
+			_player.Character.ChangeRoom(Rooms.DarsStreet.Result, 490);
 		}
 
 		private void onRightEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.EmptyStreet, 30);
+			_player.Character.ChangeRoom(Rooms.EmptyStreet.Result, 30);
 		}
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)

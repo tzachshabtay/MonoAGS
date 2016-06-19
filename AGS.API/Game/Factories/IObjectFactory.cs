@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.Threading.Tasks;
+
+namespace AGS.API
 {
     public interface IObjectFactory
 	{
@@ -9,6 +11,7 @@
 
 		//If ID is null, the hotspot is used as the id
 		IObject GetHotspot(string maskPath, string hotspot, string[] sayWhenLook = null, string[] sayWhenInteract = null, string id = null);
+		Task<IObject> GetHotspotAsync(string maskPath, string hotspot, string [] sayWhenLook = null, string [] sayWhenInteract = null, string id = null);
 	}
 }
 

@@ -10,6 +10,7 @@ namespace AGS.Engine.Android
 
 		public IEnumerable<string> GetFiles(string folder)
 		{
+            if (!Directory.Exists(folder)) return new List<string>();
 			return Directory.GetFiles(folder);
 		}
 

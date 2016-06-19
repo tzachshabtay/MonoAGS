@@ -46,9 +46,9 @@ namespace AGS.Engine
 			return null;
 		}
 
-		public bool AddComponent(IComponent component)
+		public bool AddComponent<TComponent>(TComponent component) where TComponent : IComponent
 		{
-			List<IComponent> ofType = _components.GetOrAdd(component.GetType(), _ => new List<IComponent> ());
+			List<IComponent> ofType = _components.GetOrAdd(typeof(TComponent), _ => new List<IComponent> ());
 			if (ofType.Count == 0 || component.AllowMultiple)
 			{
 				ofType.Add(component);

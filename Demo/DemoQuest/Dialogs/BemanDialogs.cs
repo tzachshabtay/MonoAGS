@@ -147,7 +147,7 @@ namespace DemoGame
 
 			player.Say("Scene is now in session.");
 			player.Walk(new AGSLocation (0f, player.Y));
-			player.ChangeRoom(Rooms.EmptyStreet);
+			player.ChangeRoom(Rooms.EmptyStreet.Result);
 			player.Say("This scene involves switching rooms!");
 			player.Walk(new AGSLocation (250f, player.Y));
 

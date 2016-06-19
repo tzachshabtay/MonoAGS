@@ -31,6 +31,7 @@ namespace AGS.Engine
 		private IHasOutfit _hasOutfit;
 		private IHasInventory _hasInventory;
 		private IShaderComponent _shaderComponent;
+		private IFollowBehavior _followBehavior;
 
 		public AGSCharacter(string id, Resolver resolver, IOutfit outfit) : base(id, resolver)
 		{			
@@ -47,6 +48,7 @@ namespace AGS.Engine
 			_hasOutfit = AddComponent<IHasOutfit>();			
 			_hasInventory = AddComponent<IHasInventory>();
 			_shaderComponent = AddComponent<IShaderComponent>();
+			_followBehavior = AddComponent<IFollowBehavior>();
 			init(resolver, outfit);
 			InitComponents();
 		}
@@ -572,6 +574,15 @@ namespace AGS.Engine
 		{ 
 			get { return _shaderComponent.Shader; }
 			set { _shaderComponent.Shader = value; }
+		}
+
+		#endregion
+
+		#region IFollowBehavior implementation
+
+		public void Follow (IObject obj, IFollowSettings settings)
+		{
+			_followBehavior.Follow(obj, settings);
 		}
 
 		#endregion

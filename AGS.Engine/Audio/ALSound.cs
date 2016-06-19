@@ -77,7 +77,6 @@ namespace AGS.Engine
 		public void Stop()
 		{
 			if (HasCompleted) return;
-			_tcs.TrySetResult(null);
 			AL.SourceStop(_source);
 			_errors.HasErrors();
 		}
@@ -148,6 +147,7 @@ namespace AGS.Engine
 				float x = (float)Math.Cos((value - 1) * Math.PI / 2);
 				float z = (float)Math.Sin((value + 1) * Math.PI / 2);
 				AL.Source(_source, ALSource3f.Position, x, 0f, z);
+                _errors.HasErrors();
 			}
 		}
 

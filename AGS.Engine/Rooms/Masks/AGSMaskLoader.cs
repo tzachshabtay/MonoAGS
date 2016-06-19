@@ -1,18 +1,17 @@
-﻿using System;
-using AGS.API;
-
-
-using System.Runtime.InteropServices;
+﻿using AGS.API;
+using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
 	public class AGSMaskLoader : IMaskLoader
 	{
-		private IGameFactory _factory;
+		private readonly IGameFactory _factory;
+		private readonly IResourceLoader _resourceLoader;
 
-		public AGSMaskLoader(IGameFactory factory)
+		public AGSMaskLoader(IGameFactory factory, IResourceLoader resourceLoader)
 		{
 			_factory = factory;
+			_resourceLoader = resourceLoader;
 		}
 
 		#region IMaskLoader implementation
@@ -20,8 +19,17 @@ namespace AGS.Engine
 		public IMask Load(string path, bool transparentMeansMasked = false, 
 			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
 		{
-			IBitmap image = Hooks.BitmapLoader.Load(path);
+			var resource = _resourceLoader.LoadResource (path);
+			IBitmap image = Hooks.BitmapLoader.Load (resource.Stream);
 			return load(path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
+		}
+
+		public async Task<IMask> LoadAsync (string path, bool transparentMeansMasked = false,
+			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
+		{
+			var resource = await Task.Run(() => _resourceLoader.LoadResource (path));
+			IBitmap image = await Task.Run(() => Hooks.BitmapLoader.Load (resource.Stream));
+			return load (path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
 		}
 
 		public IMask Load(IBitmap image, bool transparentMeansMasked = false, 

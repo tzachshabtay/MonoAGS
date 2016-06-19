@@ -219,6 +219,7 @@ namespace Tests
 			resolver.Builder.RegisterInstance(animationContainer).As<IAnimationContainer>();
 			resolver.Builder.RegisterInstance(buttonComponent.Object);
 			resolver.Builder.RegisterInstance(audioSystem.Object);
+			resolver.Builder.RegisterInstance(new Mock<IMessagePump> ().Object);
 			resolver.Build();
 
 			Mock<IGameEvents> gameEvents = new Mock<IGameEvents> ();

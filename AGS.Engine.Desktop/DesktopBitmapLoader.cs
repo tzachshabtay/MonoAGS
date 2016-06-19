@@ -14,11 +14,6 @@ namespace AGS.Engine.Desktop
 			return new DesktopBitmap (new Bitmap (stream));
 		}
 
-		public IBitmap Load(string path)
-		{
-			return new DesktopBitmap(new Bitmap (Image.FromFile(path)));
-		}
-
 		public IBitmap Load(int width, int height)
 		{
 			return new DesktopBitmap (new Bitmap (width, height));
