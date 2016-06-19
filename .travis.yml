@@ -3,7 +3,7 @@ solution: MonoAGS.sln
 
 mono:
  - latest
- - 3.10.0
+ - 3.12.1
  
 os:
  - linux
