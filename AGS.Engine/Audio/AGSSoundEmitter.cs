@@ -1,66 +1,69 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using OpenTK.Audio.OpenAL;
 
 namespace AGS.Engine
 {
-	public class AGSSoundEmitter : ISoundEmitter
-	{
-		private readonly ConcurrentDictionary<int, EmittedSound> _playingSounds;
-		private readonly IGame _game;
+    public class AGSSoundEmitter : ISoundEmitter
+    {
+        private readonly ConcurrentDictionary<int, EmittedSound> _playingSounds;
+        private readonly IGame _game;
 
-		public AGSSoundEmitter(IGame game)
-		{
-			_game = game;
-			_playingSounds = new ConcurrentDictionary<int, EmittedSound> ();
-			game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
-			AutoPan = true;
-			AutoAdjustVolume = true;
-		}
+        public AGSSoundEmitter(IGame game)
+        {
+            _game = game;
+            _playingSounds = new ConcurrentDictionary<int, EmittedSound>();
+            game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+            AutoPan = true;
+            AutoAdjustVolume = true;
+        }
 
-		#region ISoundPlayer implementation
+        #region ISoundPlayer implementation
 
-		public ISound Play(bool shouldLoop = false, ISoundProperties properties = null)
-		{
-			ISound sound = AudioClip.Play(shouldLoop, properties);
-			EmittedSound emittedSound = new EmittedSound (sound);
-			_playingSounds.TryAdd(emittedSound.ID, emittedSound);
-			return sound;
-		}
+        public ISound Play(bool shouldLoop = false, ISoundProperties properties = null)
+        {
+            ISound sound = AudioClip.Play(shouldLoop, properties);
+            EmittedSound emittedSound = new EmittedSound(sound);
+            _playingSounds.TryAdd(emittedSound.ID, emittedSound);
+            return sound;
+        }
 
-		public ISound Play(float volume, bool shouldLoop = false)
-		{
-			ISound sound = AudioClip.Play(volume, shouldLoop);
-			EmittedSound emittedSound = new EmittedSound (sound);
-			_playingSounds.TryAdd(emittedSound.ID, emittedSound);
-			return sound;
-		}
+        public ISound Play(float volume, bool shouldLoop = false)
+        {
+            ISound sound = AudioClip.Play(volume, shouldLoop);
+            EmittedSound emittedSound = new EmittedSound(sound);
+            _playingSounds.TryAdd(emittedSound.ID, emittedSound);
+            return sound;
+        }
 
-		public void PlayAndWait(ISoundProperties properties = null)
-		{
-			ISound sound = AudioClip.Play(false, properties);
-			EmittedSound emittedSound = new EmittedSound (sound);
-			_playingSounds.TryAdd(emittedSound.ID, emittedSound);
-			Task.Run(async () => await sound.Completed).Wait();
-		}
+        public void PlayAndWait(ISoundProperties properties = null)
+        {
+            ISound sound = AudioClip.Play(false, properties);
+            EmittedSound emittedSound = new EmittedSound(sound);
+            _playingSounds.TryAdd(emittedSound.ID, emittedSound);
+            Task.Run(async () => await sound.Completed).Wait();
+        }
 
-		public void PlayAndWait(float volume)
-		{
-			ISound sound = AudioClip.Play(volume, false);
-			EmittedSound emittedSound = new EmittedSound (sound);
-			_playingSounds.TryAdd(emittedSound.ID, emittedSound);
-			Task.Run(async () => await sound.Completed).Wait();
-		}
+        public void PlayAndWait(float volume)
+        {
+            ISound sound = AudioClip.Play(volume, false);
+            EmittedSound emittedSound = new EmittedSound(sound);
+            _playingSounds.TryAdd(emittedSound.ID, emittedSound);
+            Task.Run(async () => await sound.Completed).Wait();
+        }
 
-		#endregion
+        #endregion
 
-		#region ISoundEmitter implementation
+        #region ISoundEmitter implementation
 
-		public IAudioClip AudioClip { get; set; }
+        public IAudioClip AudioClip { get; set; }
 
-		public IObject Object { get; set; }
+        public IObject Object 
+        { 
+            set { AnimationContainer = value; HasRoom = value; }
+        }
+        public IAnimationContainer AnimationContainer { get; set; }
+        public IHasRoom HasRoom { get; set; }
 
 		public bool AutoPan { get; set; }
 		public bool AutoAdjustVolume { get; set; }
@@ -99,7 +102,8 @@ namespace AGS.Engine
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
 		{
 			if (_game.State.Paused) return;
-			var obj = Object;
+            var obj = AnimationContainer;
+            var hasRoom = HasRoom;
 
 			foreach (var sound in _playingSounds)
 			{
@@ -112,13 +116,14 @@ namespace AGS.Engine
 				if (obj == null) continue;
 				if (AutoPan)
 				{
-					float pan = MathUtils.Lerp(0f, -1f, _game.VirtualResolution.Width, 1f, Object.Location.X);
+					float pan = MathUtils.Lerp(0f, -1f, _game.VirtualResolution.Width, 1f, obj.Location.X);
 					sound.Value.Sound.Panning = pan;
 				}
 				if (AutoAdjustVolume)
 				{
+                    if (hasRoom == null) continue;
 					var room = _game.State.Player.Character.Room;
-					if (room != obj.Room) return;
+                    if (room != hasRoom.Room) return;
 					foreach (var area in room.ScalingAreas)
 					{
 						if (!area.Enabled || !area.ScaleObjects || !area.IsInArea(obj.Location.XY)) continue;

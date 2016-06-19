@@ -304,6 +304,8 @@
     <Compile Include="Game\AGSSyncContext.cs" />
     <Compile Include="Game\IMessagePump.cs" />
     <Compile Include="Rooms\AGSSplashScreen.cs" />
+    <Compile Include="Audio\AGSClassicSpeechCache.cs" />
+    <Compile Include="Audio\AGSSpeechLine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

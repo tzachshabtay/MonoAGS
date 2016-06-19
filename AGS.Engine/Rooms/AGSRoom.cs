@@ -3,8 +3,6 @@ using System.Linq;
 using AGS.API;
 using System.Collections.Generic;
 
-using System.Collections.Concurrent;
-
 namespace AGS.Engine
 {
 	public class AGSRoom : IRoom
@@ -119,10 +117,9 @@ namespace AGS.Engine
 
 		private void onRepeatedlyExecute(object sender, EventArgs args)
 		{
-			if (_player.Character.Room != this) return;
+            if (_player.Character == null || _player.Character.Room != this) return;
 			_edges.OnRepeatedlyExecute(_player.Character);
 		}
-
 	}
 }
 

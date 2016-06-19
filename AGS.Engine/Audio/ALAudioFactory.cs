@@ -48,7 +48,9 @@ namespace AGS.Engine
 		private ISoundData loadSoundData(string filePath)
 		{
 			IResource resource = _loader.LoadResource(filePath);
+            if (resource == null) return null;
 			string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
+            if (fileExtension == "") fileExtension = Path.GetExtension(resource.ID).ToUpperInvariant();
 			var stream = resource.Stream;
 
 			try

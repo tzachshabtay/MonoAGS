@@ -1,13 +1,9 @@
 ﻿using System;
 using AGS.API;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-
-using System.Diagnostics;
 
 namespace AGS.Engine
 {
-
 	public class AGSSayBehavior : AGSComponent, ISayBehavior
 	{
 		private readonly IGameState _state;
@@ -17,10 +13,14 @@ namespace AGS.Engine
 		private readonly FastFingerChecker _fastFingerChecker;
 		private readonly IHasOutfit _outfit;
 		private readonly IFaceDirectionBehavior _faceDirection;
+        private readonly ISoundEmitter _emitter;
+        private readonly ISpeechCache _speechCache;
+        private string _characterName;
 
 		public AGSSayBehavior(IGameState state, IGameFactory factory, IInput input, ISayLocation location,
-			FastFingerChecker fastFingerChecker, ISayConfig sayConfig, IHasOutfit outfit, 
-			IFaceDirectionBehavior faceDirection, IBlockingEvent<BeforeSayEventArgs> onBeforeSay)
+			                  FastFingerChecker fastFingerChecker, ISayConfig sayConfig, IHasOutfit outfit, 
+                              IFaceDirectionBehavior faceDirection, IBlockingEvent<BeforeSayEventArgs> onBeforeSay, 
+                              ISoundEmitter emitter, ISpeechCache speechCache)
 		{
 			_state = state;
 			_factory = factory;
@@ -29,6 +29,8 @@ namespace AGS.Engine
 			_fastFingerChecker = fastFingerChecker;
 			_outfit = outfit;
 			_faceDirection = faceDirection;
+            _emitter = emitter;
+            _speechCache = speechCache;
 			SpeechConfig = sayConfig;
 			OnBeforeSay = onBeforeSay;
 		}
@@ -36,11 +38,18 @@ namespace AGS.Engine
 		public ISayConfig SpeechConfig { get; private set; }
 		public IBlockingEvent<BeforeSayEventArgs> OnBeforeSay { get; private set; }
 
+        public override void Init(IEntity entity)
+        {
+            base.Init(entity);
+            _characterName = entity.ID;
+            _emitter.AnimationContainer = entity.GetComponent<IAnimationContainer>();
+            _emitter.HasRoom = entity.GetComponent<IHasRoom>();
+        }
+
 		public void Say(string text)
 		{
 			Task.Run(async () => await SayAsync(text)).Wait();
 		}
-
 
 		public async Task SayAsync(string text)
 		{
@@ -51,7 +60,10 @@ namespace AGS.Engine
 			}
 			if (_outfit != null) setAnimation(_outfit.Outfit.SpeakAnimation);
 			await Task.Delay(1);
-			PointF location = getLocation(text);
+            var speech = await _speechCache.GetSpeechLineAsync(_characterName, text);
+            text = speech.Text;
+
+            PointF location = getLocation(text);
 			ILabel label = _factory.UI.GetLabel(string.Format("Say: {0}", text), text, SpeechConfig.LabelSize.Width, SpeechConfig.LabelSize.Height, 
 				location.X, location.Y, SpeechConfig.TextConfig, false);
 			label.RenderLayer = AGSLayers.Speech;
@@ -61,9 +73,15 @@ namespace AGS.Engine
 			BeforeSayEventArgs args = new BeforeSayEventArgs (label, () => externalSkipToken.TrySetResult(null));
 			OnBeforeSay.Invoke(this, args);
 			label = args.Label;
-			_state.UI.Add(label);
+            _state.UI.Add(label);
+			ISound sound = null;
+            if (speech.AudioClip != null)
+            {
+                _emitter.AudioClip = speech.AudioClip;
+                sound = _emitter.Play();
+            }
 
-			await waitForText(text, externalSkipToken.Task);
+			await waitForText(text, externalSkipToken.Task, sound);
 			_state.UI.Remove(label);
 
 			if (_outfit != null) setAnimation(_outfit.Outfit.IdleAnimation);
@@ -78,7 +96,7 @@ namespace AGS.Engine
 			}
 		}
 
-		private async Task waitForText(string text, Task externalWait)
+		private async Task waitForText(string text, Task externalWait, ISound sound)
 		{
 			switch (SpeechConfig.SkipText)
 			{
@@ -86,10 +104,10 @@ namespace AGS.Engine
 					await Task.WhenAny(waitForClick(), externalWait);
 					break;
 				case SkipText.ByTime:
-					await Task.WhenAny(waitTime(text), externalWait);
+					await Task.WhenAny(waitTime(text, sound), externalWait);
 					break;
 				case SkipText.ByTimeAndMouse:
-					Task waitingTime = waitTime(text);
+					Task waitingTime = waitTime(text, sound);
 					Task completed = await Task.WhenAny(waitingTime, waitForClick(), externalWait);
 					if (completed == waitingTime)
 					{
@@ -114,9 +132,10 @@ namespace AGS.Engine
 			await _input.MouseDown.WaitUntilAsync(e => e.Button == MouseButton.Left && !_fastFingerChecker.IsFastFinger());
 		}
 
-		private async Task waitTime(string text)
+		private async Task waitTime(string text, ISound sound)
 		{
-			await Task.Delay(40 + text.Length * SpeechConfig.TextDelay);
+			if (sound == null) await Task.Delay(40 + text.Length * SpeechConfig.TextDelay);
+			else await sound.Completed;
 		}
 
 		private PointF getLocation(string text)

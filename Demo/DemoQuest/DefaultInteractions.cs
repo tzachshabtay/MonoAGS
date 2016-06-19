@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -18,7 +17,7 @@ namespace DemoGame
 			_game = game;
 			_gameEvents = gameEvents;
 
-			_looks = new List<string> { "It looks nice.", "Nothing to see here.", "I guess it looks ok." };
+			_looks = new List<string> { "&1 It looks nice.", "&2Nothing to see here.", "&3 I guess it looks ok." };
 			_interacts = new List<string> { "I can't do that.", "Nope.", "I don't think so." };
 			_inventoryInteracts = _interacts;
 			_customInteracts = _interacts;

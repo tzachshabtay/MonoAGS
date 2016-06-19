@@ -2,7 +2,9 @@
 
 namespace AGS.API
 {
-	public interface ISayBehavior : IComponent
+    [RequiredComponent(typeof(IAnimationContainer), false)] //needed for speech sound panning and volume adjustment
+    [RequiredComponent(typeof(IHasRoom), false)] //needed for speech sound volume adjustment
+    public interface ISayBehavior : IComponent
 	{
 		ISayConfig SpeechConfig { get; }
 		IBlockingEvent<BeforeSayEventArgs> OnBeforeSay { get; }

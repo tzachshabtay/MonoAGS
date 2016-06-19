@@ -41,6 +41,7 @@ namespace AGS.Engine
 			Builder.RegisterType<AGSAudioSettings>().SingleInstance().As<IAudioSettings>();
 			Builder.RegisterType<ALListener>().SingleInstance().As<IAudioListener>();
 			Builder.RegisterType<AGSSyncContext>().SingleInstance().As<IMessagePump>();
+            Builder.RegisterType<AGSClassicSpeechCache>().SingleInstance().As<ISpeechCache>();
 
 			registerComponents();
 

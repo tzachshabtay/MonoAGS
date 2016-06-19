@@ -178,6 +178,8 @@
     <Compile Include="Audio\ISoundEmitter.cs" />
     <Compile Include="Objects\Characters\Walking\Follow\IFollowBehavior.cs" />
     <Compile Include="Objects\Characters\Walking\Follow\IFollowSettings.cs" />
+    <Compile Include="Audio\ISpeechCache.cs" />
+    <Compile Include="Audio\ISpeechLine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
