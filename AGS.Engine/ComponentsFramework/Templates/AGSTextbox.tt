@@ -1,0 +1,46 @@
+﻿<#@ output extension=".generated.cs" #>
+<#@ assembly name="$(SolutionDir)/AGS.API/bin/Debug/AGS.API.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="AGS.API" #>
+<#@ include file="EntityCreatorTemplate.tt" #>
+
+<#
+		EntityCreator template = new TextboxTemplate();
+		template.NamespaceName = "AGS.Engine";
+		template.ClassName = "AGSTextbox";
+		template.AdditionalInterfaces = "ITextbox";
+		template.ComponentType = typeof(IComponent);
+		template.Components = new List<Type> { typeof(ITextbox) };
+		string output = template.TransformText();
+		if (output != null)
+		{
+    		Write(output);
+		}
+#>
+
+<#+
+	class TextboxTemplate : EntityCreator
+	{
+		protected override void WriteAdditionalUsings()
+    	{
+    		base.WriteAdditionalUsings();
+    		WriteLine("using System.Threading.Tasks;");
+    		Write("using System.Collections.Generic;");
+    	}
+
+    	protected override bool ProcessInterface(Type interfaceType)
+    	{
+    		if (interfaceType == typeof(ITextbox) || interfaceType == typeof(ILabel) || interfaceType == typeof(IPanel) 
+    			|| interfaceType == typeof(IObject)) return false;
+    		if (interfaceType.Name.Contains("IUIControl") || interfaceType.Name.Contains("ILabel")) return false;
+    		return base.ProcessInterface(interfaceType);
+    	}
+
+    	protected override bool WriteImplements(Type interfaceType)
+    	{
+    		return false;
+    	}    	
+	}
+#>

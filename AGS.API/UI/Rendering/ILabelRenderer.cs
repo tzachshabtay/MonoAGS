@@ -6,6 +6,8 @@
 		ITextConfig Config { get; set; }
 	    SizeF BaseSize { get; set; }
 
+        bool CalculationOnly { get; set; }
+
 		float Width { get; }
 		float Height { get; }
 

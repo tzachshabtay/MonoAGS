@@ -110,7 +110,7 @@ namespace AGS.Engine
 			IImageRenderer imageRenderer = getImageRenderer(obj);
 			PointF areaScaling = getAreaScaling(room, obj);
 
-			imageRenderer.Prepare(obj, room.Viewport, areaScaling);
+			imageRenderer.Prepare(obj, obj, obj, room.Viewport, areaScaling);
 
 			var shader = applyObjectShader(obj);
 
@@ -231,7 +231,7 @@ namespace AGS.Engine
 				IImageRenderer imageRenderer = getImageRenderer(obj);
 				PointF areaScaling = getAreaScaling(room, obj);
 
-				imageRenderer.Prepare(obj, room.Viewport, areaScaling);
+				imageRenderer.Prepare(obj, obj, obj, room.Viewport, areaScaling);
 				return;
 			}
 

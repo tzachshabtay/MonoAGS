@@ -15,7 +15,7 @@ namespace AGS.Engine
 
 		#region ICustomRenderer implementation
 
-		public void Prepare(IObject obj, IViewport viewport, PointF areaScaling)
+		public void Prepare(IAnimationContainer obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
 		{
 		}
 

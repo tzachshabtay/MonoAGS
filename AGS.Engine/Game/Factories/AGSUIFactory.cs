@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 
 using Autofac;
@@ -120,6 +119,23 @@ namespace AGS.Engine
 
 			return GetButton (id, idle, hovered, pushed, x, y, text, config, addToUi, width, height);
 		}
+
+        public ITextbox GetTextbox(string id, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, 
+            float width = -1F, float height = -1F)
+        {
+            TypedParameter idParam = new TypedParameter(typeof(string), id);            
+            ITextbox textbox = _resolver.Resolve<ITextbox>(idParam);
+            textbox.LabelRenderSize = new SizeF(width, height);
+            textbox.X = x;
+            textbox.Y = y;
+            textbox.TextConfig = config;
+            textbox.Text = text;
+
+            if (addToUi)
+                _gameState.UI.Add(textbox);
+
+            return textbox;
+        }
 
         public ICheckbox GetCheckbox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation @checked, IAnimation checkedHovered, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)
         {

@@ -40,6 +40,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AGSCharacter.tt</DependentUpon>
     </Compile>
+    <Compile Include="ComponentsFramework\Templates\AGSTextbox.generated.cs">
+      <DependentUpon>AGSTextbox.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Platform\IKeyboardState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentsFramework\AGSComponent.cs" />
     <Compile Include="ComponentsFramework\AGSEntity.cs" />
@@ -49,7 +55,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSInventoryWindow.generated.cs">
-      <DependentUpon>..\..\..\Engine\ComponentsFramework\Templates\AGSInventoryWindow.tt</DependentUpon>
+      <DependentUpon>AGSInventoryWindow.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSLabel.generated.cs">
       <DependentUpon>AGSLabel.tt</DependentUpon>
@@ -57,13 +65,19 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSObject.generated.cs">
-      <DependentUpon>..\..\..\Engine\ComponentsFramework\Templates\AGSObject.tt</DependentUpon>
+      <DependentUpon>AGSObject.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSPanel.generated.cs">
-      <DependentUpon>..\..\..\Engine\ComponentsFramework\Templates\AGSPanel.tt</DependentUpon>
+      <DependentUpon>AGSPanel.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSSlider.generated.cs">
-      <DependentUpon>..\..\..\Engine\ComponentsFramework\Templates\AGSSlider.tt</DependentUpon>
+      <DependentUpon>AGSSlider.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Game\AGSCutscene.cs" />
     <Compile Include="Game\AGSGame.cs" />
@@ -252,6 +266,8 @@
     <Compile Include="UI\Controls\AGSPanel.cs" />
     <Compile Include="UI\Controls\AGSSlider.cs" />
     <Compile Include="UI\Controls\AGSSliderComponent.cs" />
+    <Compile Include="UI\Controls\Textbox\AGSTextbox.cs" />
+    <Compile Include="UI\Controls\Textbox\AGSTextboxComponent.cs" />
     <Compile Include="UI\DebugLabels\DebugLabel.cs" />
     <Compile Include="UI\DebugLabels\FPSCounter.cs" />
     <Compile Include="UI\DebugLabels\MousePositionLabel.cs" />
@@ -396,5 +412,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ComponentsFramework\Templates\AGSTextbox.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSTextbox.generated.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 </Project>

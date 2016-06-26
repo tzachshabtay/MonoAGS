@@ -17,6 +17,7 @@ namespace AGS.Engine
 		private IEnabledComponent _enabled;
 		private IVisibleComponent _visible;
 		private ICollider _collider;
+        string id;
 
 		public AGSUIEvents(IInput input, IGameState state, IGameEvents gameEvents)
 		{
@@ -30,6 +31,7 @@ namespace AGS.Engine
 			MouseClicked = new AGSEvent<MouseButtonEventArgs> ();
 			MouseDown = new AGSEvent<MouseButtonEventArgs> ();
 			MouseUp = new AGSEvent<MouseButtonEventArgs> ();
+            MouseDownOutside = new AGSEvent<MouseButtonEventArgs>();
 
 			_leftMouseClickTimer = new Stopwatch ();
 			_rightMouseClickTimer = new Stopwatch ();
@@ -41,7 +43,7 @@ namespace AGS.Engine
 			_enabled = entity.GetComponent<IEnabledComponent>();
 			_visible = entity.GetComponent<IVisibleComponent>();
 			_collider = entity.GetComponent<ICollider>();
-
+            id = entity.ID;
 			_gameEvents.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
 		}
 
@@ -57,7 +59,9 @@ namespace AGS.Engine
 
 		public IEvent<MouseButtonEventArgs> MouseUp { get; private set; }
 
-		public bool IsMouseIn { get; private set; }
+        public IEvent<MouseButtonEventArgs> MouseDownOutside { get; private set; }
+
+        public bool IsMouseIn { get; private set; }
 
 		public override void Dispose()
 		{
@@ -97,7 +101,8 @@ namespace AGS.Engine
 
 		private async Task handleMouseButton(Stopwatch sw, bool wasDown, bool isDown, MouseButton button)
 		{
-			bool fireDown = !wasDown && isDown && IsMouseIn;
+            bool fireDown = !wasDown && isDown && IsMouseIn;
+            bool fireDownOutside = !wasDown && isDown && !IsMouseIn;
 			bool fireUp = wasDown && !isDown;
 			if (fireDown)
 			{
@@ -114,11 +119,12 @@ namespace AGS.Engine
 				sw.Reset();
 			}
 
-			if (fireDown || fireUp || fireClick)
+            if (fireDown || fireUp || fireClick || fireDownOutside)
 			{
-				MouseButtonEventArgs args = new MouseButtonEventArgs (button, _mouseX, _mouseY);
-				if (fireDown) await MouseDown.InvokeAsync(this, args);
-				else if (fireUp) await MouseUp.InvokeAsync(this, args);
+                MouseButtonEventArgs args = new MouseButtonEventArgs (button, _mouseX, _mouseY);
+                if (fireDown) await MouseDown.InvokeAsync(this, args);
+                else if (fireUp) await MouseUp.InvokeAsync(this, args);
+                else if (fireDownOutside) await MouseDownOutside.InvokeAsync(this, args);
 				if (fireClick) await MouseClicked.InvokeAsync(this, args);
 			}
 		}

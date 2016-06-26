@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Misc\CustomPropertiesTests.cs" />
+    <Compile Include="Engine\UI\Controls\Textbox\TextboxComponentTests.cs" />
     <Compile Include="Mocks.cs" />
     <Compile Include="Engine\Game\GameLoopTests.cs" />
     <Compile Include="Engine\Graphics\Animations\AnimationTests.cs" />
@@ -95,7 +96,5 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Engine\Audio\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

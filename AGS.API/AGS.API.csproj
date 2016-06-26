@@ -145,6 +145,9 @@
     <Compile Include="UI\Controls\Slider\ISlider.cs" />
     <Compile Include="UI\Controls\Slider\ISliderComponent.cs" />
     <Compile Include="UI\Controls\Slider\SliderValueEventArgs.cs" />
+    <Compile Include="UI\Controls\Textbox\ITextbox.cs" />
+    <Compile Include="UI\Controls\Textbox\ITextboxComponent.cs" />
+    <Compile Include="UI\Controls\Textbox\TextboxKeyPressingEventArgs.cs" />
     <Compile Include="UI\IBorderStyle.cs" />
     <Compile Include="UI\ISkin.cs" />
     <Compile Include="UI\Rendering\ILabelRenderer.cs" />

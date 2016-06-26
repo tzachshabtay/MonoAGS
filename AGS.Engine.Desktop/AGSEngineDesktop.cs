@@ -9,7 +9,7 @@ namespace AGS.Engine.Desktop
 		private static DesktopFontFamilyLoader _fontFamilyLoader; //Must stay in memory
 
 		public static void Init()
-		{
+		{                        
 			OpenTK.Toolkit.Init();
 			string currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(".Desktop", "");
 			Directory.CreateDirectory(currentDir);
@@ -23,6 +23,7 @@ namespace AGS.Engine.Desktop
 			Hooks.GameWindowSize = new DesktopGameWindowSize ();
 			Hooks.ConfigFile = new DesktopEngineConfigFile ();
 			Hooks.FileSystem = new DesktopFileSystem ();
+            Hooks.KeyboardState = new DesktopKeyboardState();
 		}
 	}
 }

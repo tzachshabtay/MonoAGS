@@ -13,8 +13,9 @@ namespace AGS.API
 		IEvent<MouseButtonEventArgs> MouseClicked { get; }
 		IEvent<MouseButtonEventArgs> MouseDown { get; }
 		IEvent<MouseButtonEventArgs> MouseUp { get; }
+        IEvent<MouseButtonEventArgs> MouseDownOutside { get; }
 
-		bool IsMouseIn { get; }
+        bool IsMouseIn { get; }
 	}
 
 	public interface IUIControl<TControl> : IUIEvents, IObject where TControl : IUIControl<TControl>

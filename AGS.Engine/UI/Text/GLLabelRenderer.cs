@@ -22,6 +22,7 @@ namespace AGS.Engine
 		private IGLBoundingBoxes _usedLabelBoundingBoxes, _usedTextBoundingBoxes;
 		private readonly LabelMatrixRenderTarget _labelMatrixRenderTarget;
 		private readonly BitmapPool _bitmapPool;
+        private bool _calculationOnly;
 
 		public GLLabelRenderer(Dictionary<string, GLImage> textures, IGLMatrixBuilder matrixBuilder,
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
@@ -50,7 +51,16 @@ namespace AGS.Engine
 		public ITextConfig Config { get; set; }
 		public AGS.API.SizeF BaseSize { get; set; }
 		public ILabel Label { get; set; }
-
+        public bool CalculationOnly
+        {
+            get { return _calculationOnly; }
+            set
+            {
+                _calculationOnly = value;
+                var glText = _glText;
+                if (glText != null) glText.CalculationOnly = _calculationOnly;
+            }
+        }
 
 		public float Width 
 		{ 
@@ -86,13 +96,13 @@ namespace AGS.Engine
 
 		#region IImageRenderer implementation
 
-		public void Prepare(IObject obj, IViewport viewport, PointF areaScaling)
+		public void Prepare(IAnimationContainer obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
 		{
-			_glText = _glText ?? new GLText (_bitmapPool);
+			_glText = _glText ?? new GLText (_bitmapPool, calculationOnly: CalculationOnly);
 
-			updateBoundingBoxes(obj, viewport, areaScaling);
+			updateBoundingBoxes(obj, drawable, tree, viewport, areaScaling);
 			_bgRenderer.BoundingBoxes = _usedLabelBoundingBoxes;
-			_bgRenderer.Prepare(obj, viewport, areaScaling);
+			_bgRenderer.Prepare(obj, drawable, tree, viewport, areaScaling);
 		}
 
 		public void Render(IObject obj, IViewport viewport, PointF areaScaling)
@@ -108,7 +118,7 @@ namespace AGS.Engine
 
 		#endregion
 
-		private void updateBoundingBoxes(IObject obj, IViewport viewport, PointF areaScaling)
+		private void updateBoundingBoxes(IAnimationContainer obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
 		{
 			ITextConfig config = Config;
 			AutoFit autoFit = TextVisible && config != null ? config.AutoFit : AutoFit.NoFitting;
@@ -122,8 +132,8 @@ namespace AGS.Engine
 				_labelMatrixRenderTarget.Width = _glText.Width;
 				_labelMatrixRenderTarget.Height = _glText.Height;
 			}
-			IGLMatrices matrices = _matrixBuilder.Build(_labelMatrixRenderTarget, obj.Animation.Sprite, obj.TreeNode.Parent,
-				obj.IgnoreViewport ? Matrix4.Identity : _viewport.GetViewport(obj.RenderLayer.Z).GetMatrix(viewport, obj.RenderLayer.ParallaxSpeed), 
+			IGLMatrices matrices = _matrixBuilder.Build(_labelMatrixRenderTarget, obj.Animation.Sprite, tree.TreeNode.Parent,
+                drawable.IgnoreViewport ? Matrix4.Identity : _viewport.GetViewport(drawable.RenderLayer.Z).GetMatrix(viewport, drawable.RenderLayer.ParallaxSpeed), 
 				areaScaling);
 			_matrixContainer.Matrices = matrices;
 			_labelMatrixRenderTarget.Width = width;
@@ -133,8 +143,7 @@ namespace AGS.Engine
 			{
 				case AutoFit.NoFitting:
 					_boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, matrices);
-					updateText(new AGS.API.SizeF (_labelBoundingBoxes.RenderBox.Width, _labelBoundingBoxes.RenderBox.Height),
-						null);
+					updateText(GLText.EmptySize, null);
 					_boundingBoxBuilder.Build(_textBoundingBoxes, _glText.BitmapWidth, _glText.BitmapHeight, matrices);
 
 					_usedLabelBoundingBoxes = _labelBoundingBoxes;
@@ -185,7 +194,7 @@ namespace AGS.Engine
 			}
 		}
 
-		private void updateLabelMatrixRenderTarget(IObject obj)
+		private void updateLabelMatrixRenderTarget(IAnimationContainer obj)
 		{
 			_labelMatrixRenderTarget.X = obj.X;
 			_labelMatrixRenderTarget.Y = obj.Y;

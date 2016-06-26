@@ -32,7 +32,7 @@ namespace AGS.Engine
 
 		public IGLBoundingBoxes BoundingBoxes { get; set; }
 
-		public void Prepare(IObject obj, IViewport viewport, PointF areaScaling)
+		public void Prepare(IAnimationContainer obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
 		{
 		}
 

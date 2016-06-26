@@ -18,6 +18,9 @@ namespace AGS.API
 		Task<IButton> GetButtonAsync(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath,
 			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);
 
+        ITextbox GetTextbox(string id, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, 
+            float width = -1f, float height = -1f);
+
         ICheckbox GetCheckbox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation @checked, IAnimation checkedHovered,
             float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f);
         ICheckbox GetCheckbox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,

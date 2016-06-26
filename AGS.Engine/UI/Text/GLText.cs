@@ -19,12 +19,13 @@ namespace AGS.Engine
 		private BitmapPool _bitmapPool;
 		private AGS.API.SizeF _baseSize;
 
-		public GLText (BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
+		public GLText (BitmapPool pool, string text = "", int maxWidth = int.MaxValue, bool calculationOnly = false)
 		{
 			this._maxWidth = maxWidth;
 			this._text = text;
 			this._bitmapPool = pool;
-			_texture = createTexture ();
+            CalculationOnly = calculationOnly;
+			_texture = CalculationOnly ? 0 : createTexture ();
 			_config = new AGSTextConfig ();
 
 			drawToBitmap();
@@ -38,6 +39,7 @@ namespace AGS.Engine
 		public int BitmapHeight { get { return _bitmap.Height; } }
 		public int Width { get; private set; }
 		public int Height { get; private set; }
+        public bool CalculationOnly { get; set; }
 
 		public void SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null)
 		{
@@ -66,6 +68,7 @@ namespace AGS.Engine
 
 		public void Refresh()
 		{
+            if (CalculationOnly) return;
 			if (_renderChanged)
 			{
 				_renderChanged = false;

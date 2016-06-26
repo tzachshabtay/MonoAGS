@@ -13,6 +13,7 @@ namespace AGS.Engine
 		public static IEngineConfigFile ConfigFile;
 		public static Assembly EntryAssembly;
 		public static IFileSystem FileSystem;
+        public static IKeyboardState KeyboardState;
 	}
 }
 
