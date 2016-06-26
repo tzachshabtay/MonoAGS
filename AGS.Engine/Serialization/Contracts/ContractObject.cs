@@ -93,7 +93,7 @@ namespace AGS.Engine
 			ID = item.ID;
 			RenderLayer = context.GetContract(item.RenderLayer);
 
-			Properties = context.GetContract((ICustomProperties)item);
+            Properties = context.GetContract(item.GetComponent<ICustomProperties>());
 
 			AnimationContainer = new ContractAnimationContainer ();
 			AnimationContainer.FromItem(context, item);

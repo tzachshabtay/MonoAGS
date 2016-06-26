@@ -186,9 +186,15 @@ namespace Tests
         public static IEnumerable<IObject> GetImplementors(Mocks mocks, Mock<IGameState> stateMock, IGameState state = null)
         {
             if (state == null && stateMock != null) state = stateMock.Object;
+            if (stateMock != null)
+            {
+                stateMock.Setup(s => s.UI).Returns(new AGSConcurrentHashSet<IObject>());
+            }
             Mock<IEngineConfigFile> configFile = new Mock<IEngineConfigFile>();
             Resolver resolver = new Resolver(configFile.Object);
             Mock<IInput> input = new Mock<IInput>();
+            input.Setup(i => i.KeyUp).Returns(new Mock<IEvent<KeyboardEventArgs>>().Object);
+            input.Setup(i => i.KeyDown).Returns(new Mock<IEvent<KeyboardEventArgs>>().Object);
             if (stateMock != null) stateMock.Setup(s => s.Cutscene).Returns(mocks.Cutscene().Object);
 
             Mock<IUIEvents> uiEvents = new Mock<IUIEvents>();
@@ -197,6 +203,7 @@ namespace Tests
             uiEvents.Setup(u => u.MouseClicked).Returns(buttonEvent.Object);
             uiEvents.Setup(u => u.MouseDown).Returns(buttonEvent.Object);
             uiEvents.Setup(u => u.MouseUp).Returns(buttonEvent.Object);
+            uiEvents.Setup(u => u.MouseDownOutside).Returns(buttonEvent.Object);
             uiEvents.Setup(u => u.MouseEnter).Returns(mouseEvent.Object);
             uiEvents.Setup(u => u.MouseLeave).Returns(mouseEvent.Object);
             uiEvents.Setup(u => u.MouseMove).Returns(mouseEvent.Object);
@@ -243,6 +250,8 @@ namespace Tests
                 button.Hotspot("Button"),
 				new AGSInventoryWindow("Inventory", resolver, image.Object).Hotspot("Inventory"),
 				new AGSSlider("Slider", resolver, image.Object).Hotspot("Slider"),
+                new AGSCheckbox("Checkbox", resolver),
+                new AGSTextbox("Textbox", resolver),
 			};
 
 			return implmentors;
