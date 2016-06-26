@@ -57,7 +57,7 @@ namespace AGS.Engine
 				IPlayer player = _resolver.Resolve<IPlayer>();
 				if (player.Character == null)
 				{
-					Debug.WriteLine(string.Format("Character was not assigned to player yet, cannot add inventory item :{0}", graphics.ToString()));
+					Debug.WriteLine(string.Format("Character was not assigned to player yet, cannot add inventory item: {0}", graphics.ToString()));
 				}
 
 				else player.Character.Inventory.Items.Add(item);
