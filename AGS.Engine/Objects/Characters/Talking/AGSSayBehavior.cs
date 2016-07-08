@@ -9,7 +9,7 @@ namespace AGS.Engine
 		private readonly IGameState _state;
 		private readonly IGameFactory _factory;
 		private readonly IInput _input;
-		private readonly ISayLocation _location;
+		private readonly ISayLocationProvider _location;
 		private readonly FastFingerChecker _fastFingerChecker;
 		private readonly IHasOutfit _outfit;
 		private readonly IFaceDirectionBehavior _faceDirection;
@@ -17,7 +17,7 @@ namespace AGS.Engine
         private readonly ISpeechCache _speechCache;
         private string _characterName;
 
-		public AGSSayBehavior(IGameState state, IGameFactory factory, IInput input, ISayLocation location,
+		public AGSSayBehavior(IGameState state, IGameFactory factory, IInput input, ISayLocationProvider location,
 			                  FastFingerChecker fastFingerChecker, ISayConfig sayConfig, IHasOutfit outfit, 
                               IFaceDirectionBehavior faceDirection, IBlockingEvent<BeforeSayEventArgs> onBeforeSay, 
                               ISoundEmitter emitter, ISpeechCache speechCache)
@@ -63,9 +63,11 @@ namespace AGS.Engine
             var speech = await _speechCache.GetSpeechLineAsync(_characterName, text);
             text = speech.Text;
 
-            PointF location = getLocation(text);
-			ILabel label = _factory.UI.GetLabel(string.Format("Say: {0}", text), text, SpeechConfig.LabelSize.Width, SpeechConfig.LabelSize.Height, 
-				location.X, location.Y, SpeechConfig.TextConfig, false);
+            ISayLocation location = getLocation(text);
+            IObject portrait = showPortrait(location);
+			ILabel label = _factory.UI.GetLabel(string.Format("Say: {0}", text), text, SpeechConfig.LabelSize.Width, 
+                SpeechConfig.LabelSize.Height, location.TextLocation.X, location.TextLocation.Y, 
+                SpeechConfig.TextConfig, false);
 			label.RenderLayer = AGSLayers.Speech;
 			label.Border = SpeechConfig.Border;
 			label.Tint = SpeechConfig.BackgroundColor;
@@ -83,9 +85,24 @@ namespace AGS.Engine
 
 			await waitForText(text, externalSkipToken.Task, sound);
 			_state.UI.Remove(label);
+            if (portrait != null) portrait.Visible = false;
 
 			if (_outfit != null) setAnimation(_outfit.Outfit.IdleAnimation);
 		}
+
+        private IObject showPortrait(ISayLocation location)
+        {
+            if (location.PortraitLocation == null) return null;
+            var portraitConfig = SpeechConfig.PortraitConfig;
+            if (portraitConfig == null) return null;
+            IObject portrait = portraitConfig.Portrait;
+            if (portrait != null)
+            {
+                portrait.Visible = true;
+                portrait.Location = new AGSLocation(location.PortraitLocation.Value);
+            }
+            return portrait;
+        }
 
 		private void setAnimation(IDirectionalAnimation animation)
 		{
@@ -138,9 +155,9 @@ namespace AGS.Engine
 			else await sound.Completed;
 		}
 
-		private PointF getLocation(string text)
+        private ISayLocation getLocation(string text)
 		{
-			return _location.GetLocation(text, SpeechConfig.LabelSize, SpeechConfig.TextConfig);
+			return _location.GetLocation(text, SpeechConfig);
 		}
 	}
 }

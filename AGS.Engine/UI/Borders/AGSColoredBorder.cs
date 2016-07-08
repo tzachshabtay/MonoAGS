@@ -22,6 +22,11 @@ namespace AGS.Engine
 		public FourCorners<bool> HasRoundCorner { get; set; }
 		public bool DrawBorderBehind { get; set; }
 
+        public float WidthLeft { get { return LineWidth; } }
+        public float WidthRight { get { return LineWidth; } }
+        public float WidthTop { get { return LineWidth; } }
+        public float WidthBottom { get { return LineWidth; } }
+
 		#region IBorderStyle implementation
 
 		public void RenderBorderBack(ISquare square)

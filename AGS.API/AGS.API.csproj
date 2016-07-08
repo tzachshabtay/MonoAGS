@@ -100,7 +100,7 @@
     <Compile Include="Objects\Characters\IOutfit.cs" />
     <Compile Include="Objects\Characters\Talking\ISayBehavior.cs" />
     <Compile Include="Objects\Characters\Talking\ISayConfig.cs" />
-    <Compile Include="Objects\Characters\Talking\ISayLocation.cs" />
+    <Compile Include="Objects\Characters\Talking\ISayLocationProvider.cs" />
     <Compile Include="Objects\Characters\Walking\IWalkBehavior.cs" />
     <Compile Include="Objects\Characters\Walking\Pathfinding\IPathFinder.cs" />
     <Compile Include="Objects\IChildrenCollection.cs" />
@@ -187,6 +187,8 @@
     <Compile Include="Objects\Characters\Walking\Follow\IFollowSettings.cs" />
     <Compile Include="Audio\ISpeechCache.cs" />
     <Compile Include="Audio\ISpeechLine.cs" />
+    <Compile Include="Objects\Characters\Talking\IPortraitConfig.cs" />
+    <Compile Include="Objects\Characters\Talking\ISayLocation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

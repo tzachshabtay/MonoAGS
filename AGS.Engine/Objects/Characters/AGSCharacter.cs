@@ -16,8 +16,8 @@ namespace AGS.Engine
 			TypedParameter objParameter = new TypedParameter (typeof(IObject), this);
 			_faceDirectionBehavior.CurrentDirectionalAnimation = outfit.IdleAnimation;
 			TypedParameter outfitParameter = new TypedParameter (typeof(IHasOutfit), this);
-			ISayLocation location = resolver.Container.Resolve<ISayLocation>(objParameter);
-			TypedParameter locationParameter = new TypedParameter (typeof(ISayLocation), location);
+			ISayLocationProvider location = resolver.Container.Resolve<ISayLocationProvider>(objParameter);
+			TypedParameter locationParameter = new TypedParameter (typeof(ISayLocationProvider), location);
 			TypedParameter faceDirectionParameter = new TypedParameter (typeof(IFaceDirectionBehavior), _faceDirectionBehavior);
 			_sayBehavior = resolver.Container.Resolve<ISayBehavior>(locationParameter, outfitParameter, faceDirectionParameter);
 			_walkBehavior = resolver.Container.Resolve<IWalkBehavior>(objParameter, outfitParameter, faceDirectionParameter);

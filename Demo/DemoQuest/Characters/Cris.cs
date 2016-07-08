@@ -27,6 +27,20 @@ namespace DemoGame
 			_character = game.Factory.Object.GetCharacter("Cris", outfit).Remember(game, c => _character = c);
 			emitter.Object = _character;
 
+
+            //Uncomment for portrait
+            /*
+            var portrait = game.Factory.Object.GetObject("CrisPortrait");
+            portrait.StartAnimation(game.Factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Talk"));
+            portrait.Border = AGSBorders.SolidColor(Colors.AliceBlue, 3f, true);
+            portrait.Visible = false;
+            portrait.RenderLayer = AGSLayers.Speech;
+            portrait.IgnoreViewport = true;
+            portrait.IgnoreScalingArea = true;
+            game.State.UI.Add(portrait);
+            _character.SpeechConfig.PortraitConfig = new AGSPortraitConfig { Portrait = portrait, Positioning = PortraitPositioning.Alternating };
+            */
+
 			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
 			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);
 			emitter.Assign(_character.Outfit.WalkAnimation, 1, 5);

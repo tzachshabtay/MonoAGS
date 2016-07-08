@@ -18,6 +18,12 @@ namespace AGS.Engine
 
 		public float Value { get; set; }
 		public SliceMeasurement MeasureUnit { get; set; }
+
+        public SliceMeasureUnit ToPixels(float width)
+        {
+            return new SliceMeasureUnit(MeasureUnit == SliceMeasurement.Pixels ? Value : width * Value, 
+                                        SliceMeasurement.Pixels);
+        }
 	}
 }
 

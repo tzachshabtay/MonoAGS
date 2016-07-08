@@ -32,7 +32,20 @@ namespace DemoGame
 				subscribeEvents();
 			});
 
-			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
+            //Uncomment for portrait
+            /*
+            var portrait = game.Factory.Object.GetObject("BemanPortrait");
+            portrait.StartAnimation(game.Factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Talk/down"));
+            portrait.Border = AGSBorders.SolidColor(Colors.AliceBlue, 3f, true);
+            portrait.Visible = false;
+            portrait.RenderLayer = AGSLayers.Speech;
+            portrait.IgnoreViewport = true;
+            portrait.IgnoreScalingArea = true;
+            game.State.UI.Add(portrait);
+            _character.SpeechConfig.PortraitConfig = new AGSPortraitConfig { Portrait = portrait, Positioning = PortraitPositioning.Alternating };
+            */
+
+            Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
 			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);
 			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Down);
 			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Up);

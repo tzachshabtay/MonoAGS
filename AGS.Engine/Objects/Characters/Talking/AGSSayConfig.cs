@@ -24,6 +24,7 @@ namespace AGS.Engine
 			sayConfig.LabelSize = config.LabelSize;
 			sayConfig.Border = config.Border;
 			sayConfig.BackgroundColor = config.BackgroundColor;
+            sayConfig.PortraitConfig = config.PortraitConfig;
 			return sayConfig;
 		}
 
@@ -40,6 +41,8 @@ namespace AGS.Engine
 		public IBorderStyle Border { get; set; }
 
 		public Color BackgroundColor { get; set; }
+
+        public IPortraitConfig PortraitConfig { get; set; }
 
 		#endregion
 	}

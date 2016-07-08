@@ -81,8 +81,8 @@ namespace AGS.Engine
 		private static ISayBehavior getSayBehavior(float buttonHeight)
 		{
 			TypedParameter outfitParameter = new TypedParameter (typeof(IHasOutfit), null);
-			ISayLocation location = new MessageBoxLocation (AGSGame.Game);
-			TypedParameter locationParameter = new TypedParameter (typeof(ISayLocation), location);
+			ISayLocationProvider location = new MessageBoxLocation (AGSGame.Game);
+			TypedParameter locationParameter = new TypedParameter (typeof(ISayLocationProvider), location);
 			TypedParameter faceDirectionParameter = new TypedParameter (typeof(IFaceDirectionBehavior), null);
 			TypedParameter configParameter = new TypedParameter (typeof(ISayConfig), AGSSayConfig.FromConfig(Config, buttonHeight));
 			return AGSGame.Resolver.Container.Resolve<ISayBehavior>(locationParameter, outfitParameter, 
@@ -107,7 +107,7 @@ namespace AGS.Engine
 			return new AGSTextConfig (autoFit: AutoFit.TextShouldFitLabel, paddingLeft: 5);
 		}
 
-		private class MessageBoxLocation : ISayLocation
+		private class MessageBoxLocation : ISayLocationProvider
 		{
 			private readonly IGame _game;
 
@@ -118,13 +118,14 @@ namespace AGS.Engine
 
 			#region ISayLocation implementation
 
-			public PointF GetLocation(string text, SizeF labelSize, ITextConfig config)
+            public ISayLocation GetLocation(string text, ISayConfig sayConfig)
 			{
-				SizeF size = config.GetTextSize(text, labelSize);
+                var config = sayConfig.TextConfig;
+                SizeF size = config.GetTextSize(text, sayConfig.LabelSize);
 				float height = size.Height + config.PaddingTop + config.PaddingBottom;
 				float width = size.Width + config.PaddingLeft + config.PaddingRight;
-				return new PointF (_game.VirtualResolution.Width / 2f - width / 2f, 
-					_game.VirtualResolution.Height / 2f - height / 2f);
+                return new AGSSayLocation(new PointF (_game.VirtualResolution.Width / 2f - width / 2f, 
+                              _game.VirtualResolution.Height / 2f - height / 2f), null);
 			}
 
 			#endregion

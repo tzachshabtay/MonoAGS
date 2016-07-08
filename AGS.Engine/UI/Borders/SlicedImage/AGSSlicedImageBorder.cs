@@ -38,6 +38,11 @@ namespace AGS.Engine
 
 		public bool DrawBorderBehind { get; set; }
 
+        public float WidthLeft { get { return Width.Left.ToPixels(_width).Value; } }
+        public float WidthRight { get { return Width.Right.ToPixels(_width).Value; } }
+        public float WidthTop { get { return Width.Top.ToPixels(_height).Value; } }
+        public float WidthBottom { get { return Width.Bottom.ToPixels(_height).Value; } }
+
 		#region IBorderStyle implementation
 
 		public void RenderBorderBack(ISquare square)

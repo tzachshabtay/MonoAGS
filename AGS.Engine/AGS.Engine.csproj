@@ -167,7 +167,7 @@
     <Compile Include="Objects\Characters\Outfit\HasOutfitComponent.cs" />
     <Compile Include="Objects\Characters\Talking\AGSSayBehavior.cs" />
     <Compile Include="Objects\Characters\Talking\AGSSayConfig.cs" />
-    <Compile Include="Objects\Characters\Talking\AGSSayLocation.cs" />
+    <Compile Include="Objects\Characters\Talking\AGSSayLocationProvider.cs" />
     <Compile Include="Objects\Characters\Talking\FastFingerChecker.cs" />
     <Compile Include="Objects\Characters\Walking\AGSWalkBehavior.cs" />
     <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\EPPathFinder.cs" />
@@ -337,6 +337,8 @@
     <Compile Include="Rooms\AGSSplashScreen.cs" />
     <Compile Include="Audio\AGSClassicSpeechCache.cs" />
     <Compile Include="Audio\AGSSpeechLine.cs" />
+    <Compile Include="Objects\Characters\Talking\AGSPortraitConfig.cs" />
+    <Compile Include="Objects\Characters\Talking\AGSSayLocation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
