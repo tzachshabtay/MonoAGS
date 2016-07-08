@@ -25,12 +25,16 @@ namespace AGS.Engine
 				sayBehavior.OnBeforeSay.Subscribe((sender, args) =>
 				{
 					args.Label.Enabled = true;
-					float buttonsWidth = buttons.Sum(b => b.Width) + ButtonXPadding * (buttons.Length - 1);
-					if (buttonsWidth > args.Label.Width)
+                    var textConfig = sayBehavior.SpeechConfig.TextConfig;
+                    SizeF textSize = textConfig.GetTextSize(text, sayBehavior.SpeechConfig.LabelSize);
+                    float labelWidth = textSize.Width + textConfig.PaddingLeft + textConfig.PaddingRight;
+
+                    float buttonsWidth = buttons.Sum(b => b.Width) + ButtonXPadding * (buttons.Length - 1);
+					if (buttonsWidth > labelWidth)
 					{
 						//todo: alter label to have room for all buttons
 					}
-					float buttonX = args.Label.Width/2f - buttonsWidth/2f;
+					float buttonX = labelWidth /2f - buttonsWidth/2f;
 					foreach (var button in buttons)
 					{
 						args.Label.TreeNode.AddChild(button);
