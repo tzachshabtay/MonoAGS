@@ -47,6 +47,8 @@ namespace AGS.Engine
 				graphics = _object.GetObject(id);
 				graphics.Tint =  Colors.Black;
 				graphics.Anchor = new PointF ();
+                graphics.IgnoreViewport = true;
+                graphics.IgnoreScalingArea = true;
 				_gameState.UI.Add(graphics);
 			}
 			TypedParameter graphicsParam = new TypedParameter (typeof(IObject), graphics);
