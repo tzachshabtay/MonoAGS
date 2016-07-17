@@ -10,7 +10,7 @@ namespace AGS.Engine.UI.Controls
 
         public AGSCheckboxComponent()
         {
-            OnCheckChanged = new AGSEvent<CheckboxEventArgs>();
+            OnCheckChanged = new AGSEvent<CheckBoxEventArgs>();
         }
 
         public override void Init(IEntity entity)
@@ -42,7 +42,7 @@ namespace AGS.Engine.UI.Controls
 
         public IAnimation NotCheckedAnimation { get; set; }
 
-        public IEvent<CheckboxEventArgs> OnCheckChanged { get; private set; }
+        public IEvent<CheckBoxEventArgs> OnCheckChanged { get; private set; }
 
         public override void Dispose()
         {
@@ -74,7 +74,7 @@ namespace AGS.Engine.UI.Controls
         {
             _animation.StartAnimation(_events.IsMouseIn ? (Checked ? HoverCheckedAnimation : HoverNotCheckedAnimation) :
                 (Checked ? CheckedAnimation : NotCheckedAnimation));
-            OnCheckChanged.Invoke(this, new CheckboxEventArgs(Checked));
+            OnCheckChanged.Invoke(this, new CheckBoxEventArgs(Checked));
         }
     }
 }

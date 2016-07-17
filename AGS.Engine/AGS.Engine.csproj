@@ -54,7 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentsFramework\AGSComponent.cs" />
     <Compile Include="ComponentsFramework\AGSEntity.cs" />
-    <Compile Include="ComponentsFramework\Templates\AGSCheckbox.generated.cs">
+    <Compile Include="ComponentsFramework\Templates\AGSCheckBox.generated_1.cs">
       <DependentUpon>AGSCheckbox.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

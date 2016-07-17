@@ -1,8 +1,8 @@
 ﻿namespace AGS.API
 {
-    public class CheckboxEventArgs : AGSEventArgs
+    public class CheckBoxEventArgs : AGSEventArgs
     {
-        public CheckboxEventArgs(bool isChecked)
+        public CheckBoxEventArgs(bool isChecked)
         {
             Checked = isChecked;
         }

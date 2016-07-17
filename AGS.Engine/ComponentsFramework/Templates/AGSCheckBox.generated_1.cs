@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace AGS.Engine
 {
-    public partial class AGSCheckbox : AGSEntity, ICheckbox
+    public partial class AGSCheckBox : AGSEntity, ICheckBox
     {
         private IUIEvents _uIEvents;
         private IHasRoom _hasRoom;
@@ -29,7 +29,7 @@ namespace AGS.Engine
         private ITextComponent _textComponent;
         private ICheckboxComponent _checkboxComponent;
 
-        public AGSCheckbox(string id, Resolver resolver) : base(id, resolver)
+        public AGSCheckBox(string id, Resolver resolver) : base(id, resolver)
         {            
             _uIEvents = AddComponent<IUIEvents>();            
             _hasRoom = AddComponent<IHasRoom>();            
@@ -517,7 +517,7 @@ namespace AGS.Engine
             set { _checkboxComponent.Checked = value; } 
         }
 
-        public IEvent<CheckboxEventArgs> OnCheckChanged 
+        public IEvent<CheckBoxEventArgs> OnCheckChanged 
         {  
             get { return _checkboxComponent.OnCheckChanged; } 
         }

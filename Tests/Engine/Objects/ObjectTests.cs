@@ -250,7 +250,7 @@ namespace Tests
                 button.Hotspot("Button"),
 				new AGSInventoryWindow("Inventory", resolver, image.Object).Hotspot("Inventory"),
 				new AGSSlider("Slider", resolver, image.Object).Hotspot("Slider"),
-                new AGSCheckbox("Checkbox", resolver),
+                new AGSCheckBox("Checkbox", resolver),
                 new AGSTextbox("Textbox", resolver),
 			};
 

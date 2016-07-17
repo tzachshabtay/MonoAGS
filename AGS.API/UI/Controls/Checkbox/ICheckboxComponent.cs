@@ -5,7 +5,7 @@
     public interface ICheckboxComponent : IComponent
     {
         bool Checked { get; set; }
-        IEvent<CheckboxEventArgs> OnCheckChanged { get; }
+        IEvent<CheckBoxEventArgs> OnCheckChanged { get; }
 
         IAnimation NotCheckedAnimation { get; set; }
         IAnimation HoverNotCheckedAnimation { get; set; }

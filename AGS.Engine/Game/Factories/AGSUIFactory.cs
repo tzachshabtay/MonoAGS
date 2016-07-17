@@ -121,7 +121,7 @@ namespace AGS.Engine
 			return GetButton (id, idle, hovered, pushed, x, y, text, config, addToUi, width, height);
 		}
 
-        public ITextBox GetTextbox(string id, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, 
+        public ITextBox GetTextBox(string id, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, 
             float width = -1F, float height = -1F)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);            
@@ -138,7 +138,7 @@ namespace AGS.Engine
             return textbox;
         }
 
-        public ICheckbox GetCheckbox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation @checked, IAnimation checkedHovered, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)
+        public ICheckBox GetCheckBox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation @checked, IAnimation checkedHovered, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)
         {
             if (width == -1f)
             {
@@ -149,7 +149,7 @@ namespace AGS.Engine
                 height = notChecked.Frames[0].Sprite.Height;
             }
             TypedParameter idParam = new TypedParameter(typeof(string), id);            
-            ICheckbox checkbox = _resolver.Resolve<ICheckbox>(idParam);
+            ICheckBox checkbox = _resolver.Resolve<ICheckBox>(idParam);
             checkbox.LabelRenderSize = new AGS.API.SizeF(width, height);
             checkbox.NotCheckedAnimation = notChecked;
             checkbox.HoverNotCheckedAnimation = notCheckedHovered;
@@ -169,24 +169,24 @@ namespace AGS.Engine
             return checkbox;
         }
 
-        public ICheckbox GetCheckbox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)
+        public ICheckBox GetCheckBox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)
         {
             IAnimation notChecked = _graphics.LoadAnimationFromFiles(files: new[] { notCheckedPath });
             IAnimation notCheckedHovered = _graphics.LoadAnimationFromFiles(files: new[] { notCheckedHoveredPath });
             IAnimation @checked = _graphics.LoadAnimationFromFiles(files: new[] { checkedPath });
             IAnimation checkedHovered = _graphics.LoadAnimationFromFiles(files: new[] { checkedHoveredPath });
 
-            return GetCheckbox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, text, config, addToUi, width, height);
+            return GetCheckBox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, text, config, addToUi, width, height);
         }
 
-        public async Task<ICheckbox> GetCheckboxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)
+        public async Task<ICheckBox> GetCheckBoxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)
         {
             IAnimation notChecked = await _graphics.LoadAnimationFromFilesAsync(files: new[] { notCheckedPath });
             IAnimation notCheckedHovered = await _graphics.LoadAnimationFromFilesAsync(files: new[] { notCheckedHoveredPath });
             IAnimation @checked = await _graphics.LoadAnimationFromFilesAsync(files: new[] { checkedPath });
             IAnimation checkedHovered = await _graphics.LoadAnimationFromFilesAsync(files: new[] { checkedHoveredPath });
 
-            return GetCheckbox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, text, config, addToUi, width, height);
+            return GetCheckBox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, text, config, addToUi, width, height);
         }
 
         public IComboBox GetComboBox(string id, IButton dropDownButton, ITextBox textBox, 

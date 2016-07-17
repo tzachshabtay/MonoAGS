@@ -3,7 +3,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-    public partial class AGSCheckbox
+    public partial class AGSCheckBox
     {
         partial void init(Resolver resolver)
         {
@@ -15,7 +15,7 @@ namespace AGS.Engine
             Enabled = true;
         }
 
-        public void ApplySkin(ICheckbox checkbox)
+        public void ApplySkin(ICheckBox checkbox)
         {
             throw new NotSupportedException();
         }
