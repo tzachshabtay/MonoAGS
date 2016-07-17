@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace AGS.Engine
 {
-    public partial class AGSTextbox : AGSEntity, ITextbox
+    public partial class AGSTextbox : AGSEntity, ITextBox
     {
         private IUIEvents _uIEvents;
         private IHasRoom _hasRoom;
@@ -27,7 +27,7 @@ namespace AGS.Engine
         private IHotspotComponent _hotspotComponent;
         private IShaderComponent _shaderComponent;
         private ITextComponent _textComponent;
-        private ITextboxComponent _textboxComponent;
+        private ITextBoxComponent _textboxComponent;
 
         public AGSTextbox(string id, Resolver resolver) : base(id, resolver)
         {            
@@ -43,7 +43,7 @@ namespace AGS.Engine
             _hotspotComponent = AddComponent<IHotspotComponent>();            
             _shaderComponent = AddComponent<IShaderComponent>();            
             _textComponent = AddComponent<ITextComponent>();            
-            _textboxComponent = AddComponent<ITextboxComponent>();
+            _textboxComponent = AddComponent<ITextBoxComponent>();
             init(resolver);
             InitComponents();
         }
@@ -511,7 +511,7 @@ namespace AGS.Engine
 
         #region ITextboxComponent implementation
 
-        public IEvent<TextboxKeyPressingEventArgs> OnPressingKey 
+        public IEvent<TextBoxKeyPressingEventArgs> OnPressingKey 
         {  
             get { return _textboxComponent.OnPressingKey; } 
         }

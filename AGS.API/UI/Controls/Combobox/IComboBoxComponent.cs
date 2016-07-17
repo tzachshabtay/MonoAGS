@@ -11,7 +11,7 @@ namespace AGS.API
         IList<object> Items { get; }
 
         IPanel DropDownPanel { get; }
-        ITextbox Textbox { get; set; }
+        ITextBox TextBox { get; set; }
         IButton DropDownButton { get; set; }
         Func<IButton> ItemButtonFactory { get; set; }
         IEnumerable<IButton> ItemButtons { get; }

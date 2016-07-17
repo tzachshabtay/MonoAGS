@@ -9,7 +9,7 @@
     [RequiredComponent(typeof(IDrawableInfo))]
     [RequiredComponent(typeof(IInObjectTree))]
     [RequiredComponent(typeof(IHasRoom))]
-    public interface ITextboxComponent : IComponent
+    public interface ITextBoxComponent : IComponent
     {
         /// <summary>
         /// This event can be subscribed to get notifications when keys are pressed.
@@ -41,7 +41,7 @@
         /// </code>
         /// </example>
         /// </summary>
-        IEvent<TextboxKeyPressingEventArgs> OnPressingKey { get; }
+        IEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; }
 
         /// <summary>
         /// This event can be subscribed to get notifications for when the textbox gets or a loses focus.

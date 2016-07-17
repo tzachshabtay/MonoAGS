@@ -6,7 +6,7 @@ using Moq;
 namespace Tests
 {
     [TestFixture]
-    public class TextboxComponentTests
+    public class TextBoxComponentTests
     {
         [TestCase("a", Key.A)]
         [TestCase("abcd", Key.A, Key.B, Key.C, Key.D)]
@@ -41,7 +41,7 @@ namespace Tests
         [TestCase("aaa", Key.A, Key.A, Key.A, Key.Delete, Key.Delete, Key.Delete)]
         [TestCase("", Key.A, Key.A, Key.A, Key.Home, Key.Delete, Key.Delete, Key.Delete)]
         [TestCase("ad", Key.A, Key.B, Key.C, Key.D, Key.Home, Key.Right, Key.Delete, Key.Delete)]
-        public void Textbox_RespondsToKeys_Test(string expectedText, params Key[] keys)
+        public void TextBox_RespondsToKeys_Test(string expectedText, params Key[] keys)
         {                                    
             Mock<IInput> input = new Mock<IInput>();
             AGSEvent<KeyboardEventArgs> keyDown = new AGSEvent<KeyboardEventArgs>();
@@ -81,7 +81,7 @@ namespace Tests
                 Returns(label.Object);
             
 
-            AGSTextboxComponent textbox = new AGSTextboxComponent(new AGSEvent<AGSEventArgs>(), new AGSEvent<TextboxKeyPressingEventArgs>(), 
+            AGSTextBoxComponent textbox = new AGSTextBoxComponent(new AGSEvent<AGSEventArgs>(), new AGSEvent<TextBoxKeyPressingEventArgs>(), 
                 input.Object, game.Object);
             textbox.Init(entity.Object);
             textbox.IsFocused = true;

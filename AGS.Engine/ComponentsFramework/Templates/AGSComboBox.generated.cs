@@ -80,10 +80,10 @@ namespace AGS.Engine
             get { return _comboBoxComponent.DropDownPanel; } 
         }
 
-        public ITextbox Textbox 
+        public ITextBox TextBox 
         {  
-            get { return _comboBoxComponent.Textbox; }  
-            set { _comboBoxComponent.Textbox = value; } 
+            get { return _comboBoxComponent.TextBox; }  
+            set { _comboBoxComponent.TextBox = value; } 
         }
 
         public IButton DropDownButton 

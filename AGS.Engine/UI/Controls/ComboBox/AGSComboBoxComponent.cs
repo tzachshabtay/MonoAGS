@@ -9,7 +9,7 @@ namespace AGS.Engine
         private AGSBindingList<object> _items;
         private List<IButton> _itemButtons;
         private IInObjectTree _tree;
-        private ITextbox _textBox;
+        private ITextBox _textBox;
         private IButton _dropDownButton;
         private IUIFactory _uiFactory;
         private int _selectedIndex;
@@ -40,7 +40,7 @@ namespace AGS.Engine
             }
         }
 
-        public ITextbox Textbox
+        public ITextBox TextBox
         {
             get { return _textBox; }
             set { _textBox = value; refreshDropDownLayout(); }
@@ -60,7 +60,7 @@ namespace AGS.Engine
             set
             {
                 _selectedIndex = value;
-                var textBox = Textbox;
+                var textBox = TextBox;
                 if (value >= 0 && value < Items.Count && textBox != null)
                 {
                     textBox.Text = Items[value].ToString();
@@ -124,7 +124,7 @@ namespace AGS.Engine
 
         private void refreshDropDownLayout()
         {
-            var textbox = Textbox;
+            var textbox = TextBox;
             var dropDownButton = DropDownButton;
             if (dropDownButton == null) return;
             dropDownButton.X = textbox == null ? 0f : textbox.Width;

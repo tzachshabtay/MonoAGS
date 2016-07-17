@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace AGS.Engine
 {
-    public class AGSTextboxComponent : AGSComponent, ITextboxComponent
+    public class AGSTextBoxComponent : AGSComponent, ITextBoxComponent
     {
         private bool _isFocused;
         private ITextComponent _textComponent;
@@ -25,7 +25,7 @@ namespace AGS.Engine
 
         private ILabel _caretMeasure, _caret;
 
-        public AGSTextboxComponent(IEvent<AGSEventArgs> onFocusChanged, IEvent<TextboxKeyPressingEventArgs> onPressingKey,
+        public AGSTextBoxComponent(IEvent<AGSEventArgs> onFocusChanged, IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
             IInput input, IGame game)
         {
             CaretOffset = -7f;
@@ -80,7 +80,7 @@ namespace AGS.Engine
 
         public IEvent<AGSEventArgs> OnFocusChanged { get; private set; }
 
-        public IEvent<TextboxKeyPressingEventArgs> OnPressingKey { get; private set; }
+        public IEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; private set; }
 
         private void onMouseDown(object sender, MouseButtonEventArgs args)
         {
@@ -156,7 +156,7 @@ namespace AGS.Engine
             if (args.Key == Key.ShiftRight) { _rightShiftOn = true; return; }
 
             if (!IsFocused) return;
-            TextboxKeyPressingEventArgs pressingArgs = new TextboxKeyPressingEventArgs(args.Key);
+            TextBoxKeyPressingEventArgs pressingArgs = new TextBoxKeyPressingEventArgs(args.Key);
             OnPressingKey.Invoke(this, pressingArgs);
             if (pressingArgs.ShouldCancel) return;
 

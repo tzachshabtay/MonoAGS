@@ -1,6 +1,6 @@
 ﻿namespace AGS.API
 {
-    public interface ITextbox : IUIControl<ITextbox>, ITextComponent, ITextboxComponent
+    public interface ITextBox : IUIControl<ITextBox>, ITextComponent, ITextBoxComponent
     {
     }
 }

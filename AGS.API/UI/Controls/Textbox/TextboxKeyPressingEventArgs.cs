@@ -1,8 +1,8 @@
 ﻿namespace AGS.API
 {
-    public class TextboxKeyPressingEventArgs : AGSEventArgs
+    public class TextBoxKeyPressingEventArgs : AGSEventArgs
     {
-        public TextboxKeyPressingEventArgs(Key pressedKey)
+        public TextBoxKeyPressingEventArgs(Key pressedKey)
         {
             PressedKey = pressedKey;
         }

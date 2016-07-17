@@ -121,11 +121,11 @@ namespace AGS.Engine
 			return GetButton (id, idle, hovered, pushed, x, y, text, config, addToUi, width, height);
 		}
 
-        public ITextbox GetTextbox(string id, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, 
+        public ITextBox GetTextbox(string id, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, 
             float width = -1F, float height = -1F)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);            
-            ITextbox textbox = _resolver.Resolve<ITextbox>(idParam);
+            ITextBox textbox = _resolver.Resolve<ITextBox>(idParam);
             textbox.LabelRenderSize = new SizeF(width, height);
             textbox.X = x;
             textbox.Y = y;
@@ -189,13 +189,13 @@ namespace AGS.Engine
             return GetCheckbox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, text, config, addToUi, width, height);
         }
 
-        public IComboBox GetComboBox(string id, IButton dropDownButton, ITextbox textBox, 
+        public IComboBox GetComboBox(string id, IButton dropDownButton, ITextBox textBox, 
             Func<IButton> itemButtonFactory, bool addToUi = true)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IComboBox comboBox = _resolver.Resolve<IComboBox>(idParam);
             comboBox.DropDownButton = dropDownButton;
-            comboBox.Textbox = textBox;            
+            comboBox.TextBox = textBox;            
             comboBox.ItemButtonFactory = itemButtonFactory;
 
             comboBox.TreeNode.AddChild(textBox);

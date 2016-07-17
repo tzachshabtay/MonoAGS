@@ -15,7 +15,7 @@ namespace AGS.Engine
             Enabled = true;
         }
 
-        public void ApplySkin(ITextbox textbox)
+        public void ApplySkin(ITextBox textbox)
         {
             throw new NotSupportedException();
         }
