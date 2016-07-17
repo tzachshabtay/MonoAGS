@@ -69,7 +69,7 @@ namespace AGS.Engine
 		public void Add(TItem item)
 		{
 			_list.Add(item);
-			onListChanged(item, _list.Count, ListChangeType.Add);
+			onListChanged(item, _list.Count - 1, ListChangeType.Add);
 		}
 
 		public void Clear()
