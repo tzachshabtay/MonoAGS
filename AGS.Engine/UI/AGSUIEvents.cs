@@ -33,7 +33,7 @@ namespace AGS.Engine
 			MouseClicked = new AGSEvent<MouseButtonEventArgs> ();
 			MouseDown = new AGSEvent<MouseButtonEventArgs> ();
 			MouseUp = new AGSEvent<MouseButtonEventArgs> ();
-            MouseDownOutside = new AGSEvent<MouseButtonEventArgs>();
+            LostFocus = new AGSEvent<MouseButtonEventArgs>();
 
 			_leftMouseClickTimer = new Stopwatch ();
 			_rightMouseClickTimer = new Stopwatch ();
@@ -62,7 +62,7 @@ namespace AGS.Engine
 
 		public IEvent<MouseButtonEventArgs> MouseUp { get; private set; }
 
-        public IEvent<MouseButtonEventArgs> MouseDownOutside { get; private set; }
+        public IEvent<MouseButtonEventArgs> LostFocus { get; private set; }
 
         public bool IsMouseIn { get; private set; }
 
@@ -133,7 +133,7 @@ namespace AGS.Engine
                 MouseButtonEventArgs args = new MouseButtonEventArgs (button, _mouseX, _mouseY);
                 if (fireDown) await MouseDown.InvokeAsync(_entity, args);
                 else if (fireUp) await MouseUp.InvokeAsync(_entity, args);
-                else if (fireDownOutside) await MouseDownOutside.InvokeAsync(_entity, args);
+                else if (fireDownOutside) await LostFocus.InvokeAsync(_entity, args);
 				if (fireClick) await MouseClicked.InvokeAsync(_entity, args);
 			}
 		}

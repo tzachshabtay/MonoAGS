@@ -140,9 +140,9 @@ namespace AGS.Engine
             get { return _uIEvents.MouseUp; } 
         }
 
-        public IEvent<MouseButtonEventArgs> MouseDownOutside 
+        public IEvent<MouseButtonEventArgs> LostFocus 
         {  
-            get { return _uIEvents.MouseDownOutside; } 
+            get { return _uIEvents.LostFocus; } 
         }
 
         public Boolean IsMouseIn 

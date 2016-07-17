@@ -60,7 +60,7 @@ namespace Tests
             Mock<IUIEvents> uiEvents = new Mock<IUIEvents>();
             uiEvents.Setup(i => i.MouseDown).Returns(mouseDown);
             uiEvents.Setup(i => i.MouseUp).Returns(mouseUp);
-            uiEvents.Setup(i => i.MouseDownOutside).Returns(mouseDownOutside);
+            uiEvents.Setup(i => i.LostFocus).Returns(mouseDownOutside);
             Mock<IInObjectTree> inTree = new Mock<IInObjectTree>();
             entity.Setup(e => e.GetComponent<ITextComponent>()).Returns(textComponent.Object);
             entity.Setup(e => e.GetComponent<IUIEvents>()).Returns(uiEvents.Object);

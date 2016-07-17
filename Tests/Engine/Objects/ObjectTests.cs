@@ -203,7 +203,7 @@ namespace Tests
             uiEvents.Setup(u => u.MouseClicked).Returns(buttonEvent.Object);
             uiEvents.Setup(u => u.MouseDown).Returns(buttonEvent.Object);
             uiEvents.Setup(u => u.MouseUp).Returns(buttonEvent.Object);
-            uiEvents.Setup(u => u.MouseDownOutside).Returns(buttonEvent.Object);
+            uiEvents.Setup(u => u.LostFocus).Returns(buttonEvent.Object);
             uiEvents.Setup(u => u.MouseEnter).Returns(mouseEvent.Object);
             uiEvents.Setup(u => u.MouseLeave).Returns(mouseEvent.Object);
             uiEvents.Setup(u => u.MouseMove).Returns(mouseEvent.Object);

@@ -60,7 +60,7 @@ namespace AGS.Engine
 
             _game.Events.OnBeforeRender.Subscribe(onBeforeRender);
             _uiEvents.MouseDown.Subscribe(onMouseDown);
-            _uiEvents.MouseDownOutside.Subscribe(onMouseDownOutside);
+            _uiEvents.LostFocus.Subscribe(onMouseDownOutside);
         }
 
         public bool IsFocused
