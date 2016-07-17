@@ -90,7 +90,6 @@ namespace AGS.Engine
 
         private void onMouseDownOutside(object sender, MouseButtonEventArgs args)
         {
-            Debug.WriteLine("{0} not", _textComponent.Text);
             IsFocused = false;
         }
 
