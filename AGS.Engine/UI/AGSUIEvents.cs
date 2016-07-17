@@ -17,9 +17,7 @@ namespace AGS.Engine
 
 		private IEnabledComponent _enabled;
 		private IVisibleComponent _visible;
-		private ICollider _collider;
         private IEntity _entity;
-        string id;
 
 		public AGSUIEvents(IInput input, IGameState state, IGameEvents gameEvents)
 		{
@@ -45,8 +43,6 @@ namespace AGS.Engine
             _entity = entity;
 			_enabled = entity.GetComponent<IEnabledComponent>();
 			_visible = entity.GetComponent<IVisibleComponent>();
-			_collider = entity.GetComponent<ICollider>();
-            id = entity.ID;
 			_gameEvents.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
 		}
 

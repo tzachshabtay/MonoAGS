@@ -12,7 +12,6 @@ namespace AGS.Engine
         private IDrawableInfo _drawable;
         private IInObjectTree _tree;
         private IHasRoom _room;
-        private readonly IInput _input;
         private readonly IGame _game;
         private static readonly PointF _noScaling = new PointF(1f, 1f);
         private float _spaceWidth;
@@ -32,7 +31,6 @@ namespace AGS.Engine
             CaretFlashDelay = 10;
             OnFocusChanged = onFocusChanged;
             OnPressingKey = onPressingKey;
-            _input = input;
             _game = game;
             
             input.KeyDown.Subscribe(onKeyDown);
