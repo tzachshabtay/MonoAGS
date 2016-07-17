@@ -81,11 +81,11 @@ namespace AGS.Engine
 		{
 			newParent = obj;
 
-			while (newParent.TreeNode.Parent != (parent == null ? null : parent.TreeNode.Node))
+			while (newParent != null && newParent.TreeNode.Parent != (parent == null ? null : parent.TreeNode.Node))
 			{
 				newParent = newParent.TreeNode.Parent;
 			}
-			return getZ(newParent);
+			return getZ(newParent ?? obj);
 		}
 
 		private float getZ(IObject obj)

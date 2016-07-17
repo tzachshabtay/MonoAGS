@@ -40,6 +40,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AGSCharacter.tt</DependentUpon>
     </Compile>
+    <Compile Include="ComponentsFramework\Templates\AGSComboBox.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AGSComboBox.tt</DependentUpon>
+    </Compile>
     <Compile Include="ComponentsFramework\Templates\AGSTextbox.generated.cs">
       <DependentUpon>AGSTextbox.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -255,17 +260,19 @@
     <Compile Include="Serialization\ContractsFactory.cs" />
     <Compile Include="Serialization\IContract.cs" />
     <Compile Include="UI\AGSUIEvents.cs" />
-    <Compile Include="UI\Controls\AGSButton.cs" />
-    <Compile Include="UI\Controls\AGSButtonComponent.cs" />
+    <Compile Include="UI\Controls\Button\AGSButton.cs" />
+    <Compile Include="UI\Controls\Button\AGSButtonComponent.cs" />
     <Compile Include="UI\Controls\AGSTextComponent.cs" />
     <Compile Include="UI\Controls\Checkbox\AGSCheckbox.cs" />
     <Compile Include="UI\Controls\Checkbox\AGSCheckboxComponent.cs" />
-    <Compile Include="UI\Controls\AGSInventoryWindow.cs" />
-    <Compile Include="UI\Controls\AGSInventoryWindowComponent.cs" />
+    <Compile Include="UI\Controls\ComboBox\AGSComboBox.cs" />
+    <Compile Include="UI\Controls\ComboBox\AGSComboBoxComponent.cs" />
+    <Compile Include="UI\Controls\InventoryWindow\AGSInventoryWindow.cs" />
+    <Compile Include="UI\Controls\InventoryWindow\AGSInventoryWindowComponent.cs" />
     <Compile Include="UI\Controls\AGSLabel.cs" />
     <Compile Include="UI\Controls\AGSPanel.cs" />
-    <Compile Include="UI\Controls\AGSSlider.cs" />
-    <Compile Include="UI\Controls\AGSSliderComponent.cs" />
+    <Compile Include="UI\Controls\Slider\AGSSlider.cs" />
+    <Compile Include="UI\Controls\Slider\AGSSliderComponent.cs" />
     <Compile Include="UI\Controls\Textbox\AGSTextbox.cs" />
     <Compile Include="UI\Controls\Textbox\AGSTextboxComponent.cs" />
     <Compile Include="UI\DebugLabels\DebugLabel.cs" />
@@ -421,4 +428,11 @@
       <LastGenOutput>AGSTextbox.generated.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ComponentsFramework\Templates\AGSComboBox.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSComboBox.generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
 </Project>

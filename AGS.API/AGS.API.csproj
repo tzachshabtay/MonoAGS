@@ -133,11 +133,13 @@
     <Compile Include="Serialization\ISaveLoad.cs" />
     <Compile Include="UI\Controls\Checkbox\CheckboxEventArgs.cs" />
     <Compile Include="UI\Controls\Checkbox\ICheckbox.cs" />
-    <Compile Include="UI\Controls\IButton.cs" />
-    <Compile Include="UI\Controls\IButtonComponent.cs" />
+    <Compile Include="UI\Controls\Button\IButton.cs" />
+    <Compile Include="UI\Controls\Button\IButtonComponent.cs" />
     <Compile Include="UI\Controls\Checkbox\ICheckboxComponent.cs" />
-    <Compile Include="UI\Controls\IInventoryWindow.cs" />
-    <Compile Include="UI\Controls\IInventoryWindowComponent.cs" />
+    <Compile Include="UI\Controls\Combobox\IComboBox.cs" />
+    <Compile Include="UI\Controls\Combobox\IComboBoxComponent.cs" />
+    <Compile Include="UI\Controls\InventoryWindow\IInventoryWindow.cs" />
+    <Compile Include="UI\Controls\InventoryWindow\IInventoryWindowComponent.cs" />
     <Compile Include="UI\Controls\ILabel.cs" />
     <Compile Include="UI\Controls\IPanel.cs" />
     <Compile Include="UI\Controls\ITextComponent.cs" />

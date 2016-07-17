@@ -2,6 +2,7 @@
 using AGS.API;
 
 using Autofac;
+using System;
 
 namespace AGS.Engine
 {
@@ -186,6 +187,26 @@ namespace AGS.Engine
             IAnimation checkedHovered = await _graphics.LoadAnimationFromFilesAsync(files: new[] { checkedHoveredPath });
 
             return GetCheckbox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, text, config, addToUi, width, height);
+        }
+
+        public IComboBox GetComboBox(string id, IButton dropDownButton, ITextbox textBox, 
+            Func<IButton> itemButtonFactory, bool addToUi = true)
+        {
+            TypedParameter idParam = new TypedParameter(typeof(string), id);
+            IComboBox comboBox = _resolver.Resolve<IComboBox>(idParam);
+            comboBox.DropDownButton = dropDownButton;
+            comboBox.Textbox = textBox;            
+            comboBox.ItemButtonFactory = itemButtonFactory;
+
+            comboBox.TreeNode.AddChild(textBox);
+            comboBox.TreeNode.AddChild(dropDownButton);
+
+            if (addToUi)
+            {
+                _gameState.UI.Add(comboBox);
+            }
+
+            return comboBox;
         }
 
         public ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max, 
