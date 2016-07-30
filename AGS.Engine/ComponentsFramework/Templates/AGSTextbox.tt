@@ -10,9 +10,9 @@
 		EntityCreator template = new TextboxTemplate();
 		template.NamespaceName = "AGS.Engine";
 		template.ClassName = "AGSTextbox";
-		template.AdditionalInterfaces = "ITextbox";
+		template.AdditionalInterfaces = "ITextBox";
 		template.ComponentType = typeof(IComponent);
-		template.Components = new List<Type> { typeof(ITextbox) };
+		template.Components = new List<Type> { typeof(ITextBox) };
 		string output = template.TransformText();
 		if (output != null)
 		{
@@ -32,7 +32,7 @@
 
     	protected override bool ProcessInterface(Type interfaceType)
     	{
-    		if (interfaceType == typeof(ITextbox) || interfaceType == typeof(ILabel) || interfaceType == typeof(IPanel) 
+    		if (interfaceType == typeof(ITextBox) || interfaceType == typeof(ILabel) || interfaceType == typeof(IPanel) 
     			|| interfaceType == typeof(IObject)) return false;
     		if (interfaceType.Name.Contains("IUIControl") || interfaceType.Name.Contains("ILabel")) return false;
     		return base.ProcessInterface(interfaceType);
