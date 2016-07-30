@@ -9,10 +9,10 @@
 <#
 		EntityCreator template = new CheckboxTemplate();
 		template.NamespaceName = "AGS.Engine";
-		template.ClassName = "AGSCheckbox";
-		template.AdditionalInterfaces = "ICheckbox";
+		template.ClassName = "AGSCheckBox";
+		template.AdditionalInterfaces = "ICheckBox";
 		template.ComponentType = typeof(IComponent);
-		template.Components = new List<Type> { typeof(ICheckbox) };
+		template.Components = new List<Type> { typeof(ICheckBox) };
 		string output = template.TransformText();
 		if (output != null)
 		{
@@ -32,7 +32,7 @@
 
     	protected override bool ProcessInterface(Type interfaceType)
     	{
-    		if (interfaceType == typeof(ICheckbox) || interfaceType == typeof(ILabel) || interfaceType == typeof(IPanel) 
+    		if (interfaceType == typeof(ICheckBox) || interfaceType == typeof(ILabel) || interfaceType == typeof(IPanel) 
     			|| interfaceType == typeof(IObject)) return false;
     		if (interfaceType.Name.Contains("IUIControl") || interfaceType.Name.Contains("ILabel")) return false;
     		return base.ProcessInterface(interfaceType);
