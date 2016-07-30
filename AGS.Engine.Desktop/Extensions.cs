@@ -7,7 +7,12 @@ namespace AGS.Engine.Desktop
 {
 	public static class Extensions
 	{
-		public static void Clear(this Bitmap bitmap, Color color)
+        static Extensions()
+        {
+            _graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+        }
+
+        public static void Clear(this Bitmap bitmap, Color color)
 		{
 			//todo: Possibly improve performance by using direct access math
 			Graphics g = Graphics.FromImage(bitmap);
@@ -22,8 +27,7 @@ namespace AGS.Engine.Desktop
 		private static Graphics _graphics = Graphics.FromImage(new Bitmap (1, 1));
 		public static System.Drawing.SizeF Measure(this string text, Font font, int maxWidth = int.MaxValue)
 		{
-			_graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-			return _graphics.MeasureString(text, font, maxWidth, StringFormat.GenericTypographic);
+            return _graphics.MeasureString(text, font, maxWidth, StringFormat.GenericTypographic);            
 		}
 
 		public static System.Drawing.Color Convert(this AGS.API.Color color)

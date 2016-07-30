@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -13,12 +12,7 @@ namespace AGS.Engine
 			Anchor = new PointF ();
 			Image = image;
 			Enabled = true;
-		}
-
-		public void ApplySkin(IPanel panel)
-		{
-			throw new NotSupportedException ();
-		}
+		}        
 	}
 }
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -9,6 +7,8 @@ namespace AGS.Engine
 		public static IFont DefaultSpeechFont = Hooks.FontLoader.LoadFont(null, 14f); 
 		
 		public static IFont DefaultTextFont = Hooks.FontLoader.LoadFont(null, 14f);
+
+        public static ISkin CurrentSkin;
 
 		public AGSGameSettings(string title, AGS.API.Size virtualResolution, WindowState windowState = WindowState.Maximized,
             AGS.API.Size? windowSize = null, VsyncMode vsync = VsyncMode.On)

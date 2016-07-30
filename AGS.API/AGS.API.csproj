@@ -151,8 +151,9 @@
     <Compile Include="UI\Controls\Textbox\ITextboxComponent.cs" />
     <Compile Include="UI\Controls\Textbox\TextboxKeyPressingEventArgs.cs" />
     <Compile Include="UI\IBorderStyle.cs" />
-    <Compile Include="UI\ISkin.cs" />
+    <Compile Include="UI\Skin\ISkin.cs" />
     <Compile Include="UI\Rendering\ILabelRenderer.cs" />
+    <Compile Include="UI\Skin\ISkinComponent.cs" />
     <Compile Include="UI\Text\Dialogs\IDialog.cs" />
     <Compile Include="UI\Text\Dialogs\IDialogAction.cs" />
     <Compile Include="UI\Text\Dialogs\IDialogActions.cs" />

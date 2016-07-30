@@ -22,6 +22,8 @@ namespace AGS.Engine
 			this._resources = resolver.Resolve<IResourceLoader>();
 			this._bitmapLoader = Hooks.BitmapLoader;
 			this._spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage);
+            
+            AGSGameSettings.CurrentSkin = new AGSBlueSkin(this).CreateSkin();
 		}
 
 		public ISprite GetSprite()

@@ -1,6 +1,6 @@
 ﻿namespace AGS.API
 {
-    public interface ICheckBox : IUIControl<ICheckBox>, ITextComponent, ICheckboxComponent
+    public interface ICheckBox : IUIControl, ITextComponent, ICheckboxComponent
     {
     }
 }

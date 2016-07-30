@@ -38,10 +38,10 @@ namespace AGS.Engine
 			
 		public void FromItem(AGSSerializationContext context, IObject item)
 		{
-			FromItem<ILabel>(context, (ILabel)item);
+			FromItem(context, (ILabel)item);
 		}
 
-		public void FromItem<TControl>(AGSSerializationContext context, ILabel<TControl> item) where TControl : IUIControl<TControl>
+		public void FromItem(AGSSerializationContext context, ILabel item)
 		{
 			Object = new ContractObject ();
 			Object.FromItem(context, (IObject)item);

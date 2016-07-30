@@ -26,6 +26,8 @@ namespace AGS.API
 		int Count { get; }
 		int CountType(Type componentType);
 		int CountType<TComponent>() where TComponent : IComponent;
+
+        IEvent<AGSEventArgs> OnComponentsInitialized { get; }
 	}
 }
 

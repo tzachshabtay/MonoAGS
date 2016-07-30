@@ -31,7 +31,7 @@ namespace AGS.Engine
 			State.CurrentFrame = frame;
 			State.CurrentLoop = 0;
 			State.RunningBackwards = runningBackwards;
-			State.TimeToNextFrame = Frames [frame].Delay;
+			State.TimeToNextFrame = Frames.Count == 0 ? -1 : Frames[frame].Delay;
 		}
 
 		public bool NextFrame ()

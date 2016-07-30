@@ -2,8 +2,7 @@
 {
     public interface ISkin
 	{
-		IButton ButtonSkin { get; }
-		ILabel LabelSkin { get; }
+        void Apply(IEntity entity);
 	}
 }
 

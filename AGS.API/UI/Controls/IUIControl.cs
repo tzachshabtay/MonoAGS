@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
 	[RequiredComponent(typeof(IEnabledComponent))]
 	[RequiredComponent(typeof(IVisibleComponent))]
@@ -18,9 +16,8 @@ namespace AGS.API
         bool IsMouseIn { get; }
 	}
 
-	public interface IUIControl<TControl> : IUIEvents, IObject where TControl : IUIControl<TControl>
+	public interface IUIControl : IUIEvents, ISkinComponent, IObject
 	{
-		void ApplySkin(TControl skin);
 	}
 }
 

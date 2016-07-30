@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -13,11 +12,6 @@ namespace AGS.Engine
             Anchor = new PointF();
 
             Enabled = true;
-        }
-
-        public void ApplySkin(IComboBox comboBox)
-        {
-            throw new NotSupportedException();
-        }
+        }        
     }
 }

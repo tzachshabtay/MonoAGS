@@ -18,13 +18,17 @@ namespace AGS.Engine
 			ID = id;
 			_resolver = resolver;
 			_components = new ConcurrentDictionary<Type, List<IComponent>> ();
+            OnComponentsInitialized = new AGSEvent<AGSEventArgs>();
 		}
 
 		public string ID { get; private set; }
 
+        public IEvent<AGSEventArgs> OnComponentsInitialized { get; private set; }
+
 		protected void InitComponents()
 		{
 			foreach (var component in this) component.Init(this);
+            OnComponentsInitialized.Invoke(this, new AGSEventArgs());
 		}
 
 		#region IComponentsCollection implementation

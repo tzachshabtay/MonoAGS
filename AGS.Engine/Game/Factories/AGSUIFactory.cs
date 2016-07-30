@@ -71,22 +71,22 @@ namespace AGS.Engine
 			float x, float y, string text = "", ITextConfig config = null, bool addToUi = true,
 			float width = -1f, float height = -1f)
 		{
-			if (width == -1f)
+			if (width == -1f && idle != null && idle.Frames.Count > 0)
 			{
 				width = idle.Frames[0].Sprite.Width;
 			}
-			if (height == -1f)
+			if (height == -1f && idle != null && idle.Frames.Count > 0)
 			{
 				height = idle.Frames[0].Sprite.Height;
 			}
 			TypedParameter idParam = new TypedParameter (typeof(string), id);			
 			IButton button = _resolver.Resolve <IButton>(idParam);
             button.LabelRenderSize = new AGS.API.SizeF(width, height);
-            button.IdleAnimation = idle;
-			button.HoverAnimation = hovered;
-			button.PushedAnimation = pushed;
+            if (idle != null && idle.Frames.Count > 0) button.IdleAnimation = idle;
+            if (hovered != null && hovered.Frames.Count > 0) button.HoverAnimation = hovered;
+            if (pushed != null && pushed.Frames.Count > 0) button.PushedAnimation = pushed;
 
-			button.StartAnimation(idle);
+            button.StartAnimation(button.IdleAnimation);
 			button.Tint =  Colors.White;
 			button.X = x;
 			button.Y = y;
@@ -194,6 +194,11 @@ namespace AGS.Engine
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IComboBox comboBox = _resolver.Resolve<IComboBox>(idParam);
+            dropDownButton = dropDownButton ?? GetButton(id + "_DropDownButton", (string)null, null, null, 0f, 0f);
+            dropDownButton.SkinTags.Add(AGSSkin.DropDownButtonTag);
+            dropDownButton.Skin.Apply(dropDownButton);
+            textBox = textBox ?? GetTextBox(id + "_TextBox", 0f, 0f);
+            itemButtonFactory = itemButtonFactory ?? (() => GetButton(id + "_" + Guid.NewGuid().ToString(), (string)null, null, null, 0f, 0f));
             comboBox.DropDownButton = dropDownButton;
             comboBox.TextBox = textBox;            
             comboBox.ItemButtonFactory = itemButtonFactory;
