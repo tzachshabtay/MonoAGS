@@ -13,7 +13,9 @@ namespace AGS.Engine
                 ButtonIdleBackColor = Colors.DimGray,
                 ButtonHoverBackColor = Colors.LightGray,
                 ButtonPushedBackColor = Colors.LightYellow,
-                ButtonBorderStyle = AGSBorders.SolidColor(Colors.Black, 1f)
+                ButtonBorderStyle = AGSBorders.SolidColor(Colors.Black, 1f),
+                TextBoxBackColor = Colors.DimGray,
+                TextBoxBorderStyle = AGSBorders.SolidColor(Colors.Black, 1f),
             };
         }
 

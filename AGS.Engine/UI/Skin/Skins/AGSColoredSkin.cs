@@ -8,11 +8,7 @@ namespace AGS.Engine
 
         public AGSColoredSkin(IGraphicsFactory factory)
         {
-            _factory = factory;
-            ButtonIdleBackColor = Colors.DimGray;
-            ButtonHoverBackColor = Colors.LightGray;
-            ButtonPushedBackColor = Colors.LightYellow;
-            ButtonBorderStyle = AGSBorders.SolidColor(Colors.Black, 1f);        
+            _factory = factory;            
         }
 
         public Color ButtonIdleBackColor { get; set; }
@@ -20,6 +16,8 @@ namespace AGS.Engine
         public Color ButtonPushedBackColor { get; set; }
         public IBorderStyle ButtonBorderStyle { get; set; }
         public ITextConfig TextConfig { get; set; }
+        public Color TextBoxBackColor { get; set; }
+        public IBorderStyle TextBoxBorderStyle { get; set; }
 
         public ISkin CreateSkin()
         {
@@ -51,7 +49,7 @@ namespace AGS.Engine
             }, entity => 
             {
                 var textComponent = entity.GetComponent<ITextComponent>();
-                textComponent.Text = ">";
+                textComponent.Text = "\u25BE";//Unicode for down arrow. Another option is "\u25BC";
             });
 
             skin.AddRule<ITextComponent>(text =>
@@ -59,7 +57,15 @@ namespace AGS.Engine
                 var textConfig = TextConfig;
                 if (textConfig == null) return;
                 text.TextConfig = textConfig;
-            });            
+            });
+
+            skin.AddRule<ITextBoxComponent>(entity =>
+            {
+                var animationContainer = entity.GetComponent<IAnimationContainer>();
+                if (animationContainer == null) return;
+                animationContainer.Tint = TextBoxBackColor;
+                animationContainer.Border = TextBoxBorderStyle;
+            });
 
             return skin;
         }

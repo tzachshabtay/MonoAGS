@@ -14,12 +14,13 @@ namespace AGS.Engine
         private IUIFactory _uiFactory;
         private int _selectedIndex;
 
-        public AGSComboBoxComponent(IUIFactory factory)
+        public AGSComboBoxComponent(IUIFactory factory, IGameEvents gameEvents)
         {
             _uiFactory = factory;
             _itemButtons = new List<IButton>();
             _items = new AGSBindingList<object>(10);
             _items.OnListChanged.Subscribe(onListChanged);
+            gameEvents.OnRepeatedlyExecute.Subscribe((_, __) => refreshDropDownLayout());
         }
 
         public IButton DropDownButton
@@ -32,7 +33,6 @@ namespace AGS.Engine
                 var newDropDownButton = value;
                 if (oldDropDownButton != null) oldDropDownButton.MouseClicked.Unsubscribe(onDropDownClicked);
                 _dropDownButton = newDropDownButton;
-                refreshDropDownLayout();
                 if (newDropDownButton != null)
                 {
                     newDropDownButton.MouseClicked.Subscribe(onDropDownClicked);
@@ -43,7 +43,7 @@ namespace AGS.Engine
         public ITextBox TextBox
         {
             get { return _textBox; }
-            set { _textBox = value; refreshDropDownLayout(); }
+            set { _textBox = value; }
         }
 
         public IPanel DropDownPanel { get; private set; }
@@ -127,7 +127,7 @@ namespace AGS.Engine
             var textbox = TextBox;
             var dropDownButton = DropDownButton;
             if (dropDownButton == null) return;
-            dropDownButton.X = textbox == null ? 0f : textbox.Width;
+            dropDownButton.X = textbox == null ? 0f : textbox.Width < 0 ? textbox.TextWidth : textbox.Width;
         }
 
         private void onItemClicked(object sender, MouseButtonEventArgs args)

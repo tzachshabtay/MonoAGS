@@ -129,9 +129,13 @@ namespace AGS.Engine
             textbox.LabelRenderSize = new SizeF(width, height);
             textbox.X = x;
             textbox.Y = y;
+            if (width < 0f && config == null)
+            {
+                config = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText);
+            }
             textbox.TextConfig = config;
             textbox.Text = text;
-
+            
             if (addToUi)
                 _gameState.UI.Add(textbox);
 
@@ -194,11 +198,15 @@ namespace AGS.Engine
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IComboBox comboBox = _resolver.Resolve<IComboBox>(idParam);
-            dropDownButton = dropDownButton ?? GetButton(id + "_DropDownButton", (string)null, null, null, 0f, 0f);
+            float defaultHeight = dropDownButton != null ? dropDownButton.Height : textBox != null ? textBox.Height : 20f;
+            float itemWidth = textBox != null ? textBox.Width : 100f;
+            dropDownButton = dropDownButton ?? GetButton(id + "_DropDownButton", (string)null, null, null, 0f, 0f, width: 20f, height: defaultHeight);
             dropDownButton.SkinTags.Add(AGSSkin.DropDownButtonTag);
             dropDownButton.Skin.Apply(dropDownButton);
-            textBox = textBox ?? GetTextBox(id + "_TextBox", 0f, 0f);
-            itemButtonFactory = itemButtonFactory ?? (() => GetButton(id + "_" + Guid.NewGuid().ToString(), (string)null, null, null, 0f, 0f));
+            textBox = textBox ?? GetTextBox(id + "_TextBox", 0f, 0f, width: itemWidth, height: defaultHeight);
+            textBox.Enabled = false;
+            itemButtonFactory = itemButtonFactory ?? (() => GetButton(id + "_" + Guid.NewGuid().ToString(), (string)null, null, null, 0f, 0f, width: itemWidth,
+                height: defaultHeight));
             comboBox.DropDownButton = dropDownButton;
             comboBox.TextBox = textBox;            
             comboBox.ItemButtonFactory = itemButtonFactory;
