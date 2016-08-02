@@ -10,6 +10,7 @@ namespace AGS.Engine
         private List<SkinRule> _rules = new List<SkinRule>(30);
 
         public const string DropDownButtonTag = "DropDownButton";
+        public const string CheckBoxTag = "CheckBox";
 
         public void Apply(IEntity entity)
         {

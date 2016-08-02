@@ -12,6 +12,9 @@ namespace AGS.Engine
 			Height = height;
 		}
 
+        public EmptyImage(PointF size) : this (size.X, size.Y)
+        { }
+
 		#region IImage implementation
 
 		public IBitmap OriginalBitmap { get { return null; } }

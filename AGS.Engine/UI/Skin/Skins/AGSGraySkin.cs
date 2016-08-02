@@ -16,6 +16,11 @@ namespace AGS.Engine
                 ButtonBorderStyle = AGSBorders.SolidColor(Colors.Black, 1f),
                 TextBoxBackColor = Colors.DimGray,
                 TextBoxBorderStyle = AGSBorders.SolidColor(Colors.Black, 1f),
+                CheckboxCheckedColor = Colors.SlateGray,
+                CheckboxNotCheckedColor = Colors.DimGray,
+                CheckboxHoverCheckedColor = Colors.LightGray,
+                CheckboxHoverNotCheckedColor = Colors.LightGray,
+                CheckboxBorderStyle = AGSBorders.SolidColor(Colors.Black, 1f),
             };
         }
 
