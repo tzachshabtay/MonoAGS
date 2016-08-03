@@ -42,9 +42,6 @@ namespace DemoGame
 
 		private static async Task<IPanel> loadUi(IGame game)
 		{
-			InventoryItems items = new InventoryItems ();
-			await items.LoadAsync(game.Factory);
-
 			MouseCursors cursors = new MouseCursors();
 			await cursors.LoadAsync(game);
 
@@ -80,7 +77,10 @@ namespace DemoGame
 			movement.AddWASD();
 			character.ChangeRoom (Rooms.SplashScreen);
 
-			Beman beman = new Beman ();
+            InventoryItems items = new InventoryItems();
+            await items.LoadAsync(game.Factory);
+
+            Beman beman = new Beman ();
 			character = await beman.LoadAsync(game);
 			var room = await Rooms.BrokenCurbStreet;
 			character.ChangeRoom(room, 100, 110);
