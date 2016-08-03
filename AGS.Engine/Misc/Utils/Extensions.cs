@@ -103,7 +103,8 @@ namespace AGS.Engine
 			switch (config.AutoFit)
 			{
 				case AutoFit.TextShouldFitLabel:
-					return labelSize;
+                    var textSize = config.Font.MeasureString(text);
+                    return new SizeF(Math.Min(textSize.Width, labelSize.Width), Math.Min(textSize.Height, labelSize.Height));
 				case AutoFit.TextShouldWrapWithoutHeightFitting:
 				case AutoFit.TextShouldWrapAndLabelShouldFitHeight:
 					return config.Font.MeasureString(text, (int)labelSize.Width);

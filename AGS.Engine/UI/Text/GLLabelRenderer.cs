@@ -170,11 +170,12 @@ namespace AGS.Engine
 					break;
 
 				case AutoFit.TextShouldFitLabel:
-					_boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, matrices);
-					updateText(GLText.EmptySize, null);
-					
-					float textWidth = MathUtils.Lerp(0f, 0f, _glText.Width, BaseSize.Width,  _glText.BitmapWidth);
-					float textHeight = MathUtils.Lerp(0f, 0f, _glText.Height, BaseSize.Height, _glText.BitmapHeight);
+					_boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, matrices);        
+                    updateText(_glText.Width > BaseSize.Width ? GLText.EmptySize : new SizeF(BaseSize.Width, GLText.EmptySize.Height), null);                    
+
+					float textWidth = _glText.Width < BaseSize.Width ? _glText.BitmapWidth : MathUtils.Lerp(0f, 0f, _glText.Width, BaseSize.Width,  _glText.BitmapWidth);
+					float textHeight = _glText.Height < BaseSize.Height ? _glText.BitmapHeight : MathUtils.Lerp(0f, 0f, _glText.Height, BaseSize.Height, _glText.BitmapHeight);
+                    
 					_boundingBoxBuilder.Build(_textBoundingBoxes, textWidth, textHeight, matrices);
 
 					_usedLabelBoundingBoxes = _labelBoundingBoxes;

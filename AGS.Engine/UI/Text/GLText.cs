@@ -95,17 +95,18 @@ namespace AGS.Engine
 			float heightOffset = Math.Max(_config.OutlineWidth, Math.Abs(_config.ShadowOffsetY));
 			float widthF = textSize.Width + widthOffset + _config.PaddingLeft + _config.PaddingRight;
 			float heightF = textSize.Height + heightOffset + _config.PaddingTop + _config.PaddingBottom;
-			AGS.API.SizeF baseSize = _baseSize.Equals(EmptySize) ? new AGS.API.SizeF (widthF, heightF) : _baseSize;
+            SizeF baseSize = new SizeF(_baseSize.Width == EmptySize.Width ? widthF : _baseSize.Width,
+                _baseSize.Height == EmptySize.Height ? heightF : _baseSize.Height);
 
-			Width = Math.Max((int)widthF + 2, (int)baseSize.Width + 1);
-			Height = Math.Max((int)heightF + 2, (int)baseSize.Height + 1);
-			int width = MathUtils.GetNextPowerOf2(Width);
-			int height = MathUtils.GetNextPowerOf2(Height);
+            Width = Math.Max((int)widthF + 2, _baseSize.Width == EmptySize.Width ? (int)baseSize.Width + 1 : 1);
+            Height = Math.Max((int)heightF + 2, _baseSize.Height == EmptySize.Height ? (int)baseSize.Height + 1 : 1);
+            int bitmapWidth = MathUtils.GetNextPowerOf2(Width);
+			int bitmapHeight = MathUtils.GetNextPowerOf2(Height);
 			IBitmap bitmap = _bitmap;
-			if (bitmap == null || bitmap.Width != width || bitmap.Height != height)
+            if (bitmap == null || bitmap.Width != bitmapWidth || bitmap.Height != bitmapHeight)
 			{
 				if (bitmap != null) _bitmapPool.Release(bitmap);
-				_bitmap = _bitmapPool.Acquire(width, height);
+				_bitmap = _bitmapPool.Acquire(bitmapWidth, bitmapHeight);
 				bitmap = _bitmap;
 			}
 			IBitmapTextDraw textDraw = bitmap.GetTextDraw();

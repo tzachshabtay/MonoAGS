@@ -19,7 +19,7 @@ namespace DemoGame
 
 		AGSTextConfig _buttonTextConfig = new AGSTextConfig (font: Hooks.FontLoader.LoadFont(null, 7f, FontStyle.Bold), 
 			brush: Hooks.BrushLoader.LoadSolidBrush(Colors.LightGreen),
-			alignment: Alignment.MiddleCenter);
+			alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, paddingLeft: 0f);
 
 		private string _lastMode;
 		private readonly RotatingCursorScheme _scheme;
