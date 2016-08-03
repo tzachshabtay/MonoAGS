@@ -55,6 +55,8 @@ namespace DemoGame
 			_inventoryItemIcon.TreeNode.SetParent(activeInvButton.TreeNode);
 			_inventoryItemIcon.RenderLayer = _panel.RenderLayer;
             _inventoryItemIcon.Enabled = false;
+            _inventoryItemIcon.IgnoreScalingArea = true;
+            _inventoryItemIcon.IgnoreViewport = true;
 			game.State.UI.Add(_inventoryItemIcon);
 
 			return _panel;
