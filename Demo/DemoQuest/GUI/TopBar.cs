@@ -54,6 +54,7 @@ namespace DemoGame
 			_inventoryItemIcon.Anchor = new AGS.API.PointF (0f, 0f);
 			_inventoryItemIcon.TreeNode.SetParent(activeInvButton.TreeNode);
 			_inventoryItemIcon.RenderLayer = _panel.RenderLayer;
+            _inventoryItemIcon.Enabled = false;
 			game.State.UI.Add(_inventoryItemIcon);
 
 			return _panel;
