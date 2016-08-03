@@ -1,7 +1,6 @@
 ﻿using System;
 using AGS.API;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AGS.Engine
 {
@@ -26,9 +25,10 @@ namespace AGS.Engine
 
 			_verbFormats = new Dictionary<string, string> (10)
 			{
-				{"Look", "Look on {0}"},
-				{"Interact", "Interact with {0}"},
-				{"Walk", "Walk to {0}"},
+				{RotatingCursorScheme.LOOK_MODE, "Look on {0}"},
+				{RotatingCursorScheme.INTERACT_MODE, "Interact with {0}"},
+				{RotatingCursorScheme.WALK_MODE, "Walk to {0}"},
+                {RotatingCursorScheme.INVENTORY_MODE, "Use {1} on {0}" },
 				{"Talk", "Talk to {0}"},
 			};
 		}
@@ -39,8 +39,7 @@ namespace AGS.Engine
 		}
 
 		public void Start()
-		{
-		
+		{		
 			_events.OnRepeatedlyExecute.Subscribe(onTick);
 			_events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
 		}
@@ -63,29 +62,20 @@ namespace AGS.Engine
 				return;
 			}
 			_label.Visible = true;
-			if (_state.Player.Character.Inventory.ActiveItem != null)
-			{
-				IInventoryItem inventoryItem = _state.Player.Character.Inventory.Items.FirstOrDefault(
-					                              i => i.Graphics == obj);
-				if (inventoryItem != null)
-				{
-					inventoryItem = _state.Player.Character.Inventory.ActiveItem;
-					_label.Text = string.Format("Use {0} on {1}", inventoryItem.Graphics.Hotspot ??
-						inventoryItem.CursorGraphics.Hotspot ?? "Item", obj.Hotspot);
-					return;
-				}
-			}
-			
-			_label.Text = getSentence(obj.Hotspot);
+            IInventoryItem inventoryItem = _state.Player.Character.Inventory.ActiveItem;
+            string inventoryText = inventoryItem == null ? "" : 
+                inventoryItem.Graphics.Hotspot ?? inventoryItem.CursorGraphics.Hotspot ?? "Item";
+            
+			_label.Text = getSentence(obj.Hotspot, inventoryText);
 
 		}
 
-		private string getSentence(string hotspot)
+		private string getSentence(string hotspot, string inventoryItem)
 		{
 			string format;
 			if (_verbFormats.TryGetValue(_getMode(), out format))
 			{
-				return string.Format(format, hotspot);
+				return string.Format(format, hotspot, inventoryItem);
 			}
 			return hotspot;
 		}
