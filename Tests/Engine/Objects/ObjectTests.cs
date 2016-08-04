@@ -252,6 +252,7 @@ namespace Tests
 				new AGSSlider("Slider", resolver, image.Object).Hotspot("Slider"),
                 new AGSCheckBox("Checkbox", resolver),
                 new AGSTextbox("Textbox", resolver),
+                new AGSComboBox("Combobox", resolver),
 			};
 
 			return implmentors;
