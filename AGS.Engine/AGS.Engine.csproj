@@ -351,6 +351,7 @@
     <Compile Include="Audio\AGSSpeechLine.cs" />
     <Compile Include="Objects\Characters\Talking\AGSPortraitConfig.cs" />
     <Compile Include="Objects\Characters\Talking\AGSSayLocation.cs" />
+    <Compile Include="Objects\AGSHasCursorComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

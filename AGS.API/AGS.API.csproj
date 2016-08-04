@@ -192,6 +192,7 @@
     <Compile Include="Audio\ISpeechLine.cs" />
     <Compile Include="Objects\Characters\Talking\IPortraitConfig.cs" />
     <Compile Include="Objects\Characters\Talking\ISayLocation.cs" />
+    <Compile Include="Objects\IHasCursorComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
