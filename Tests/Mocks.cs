@@ -170,9 +170,9 @@ namespace Tests
 			return transitions;
 		}
 
-		public Mock<IObject> Object()
+		public Mock<IObject> Object(bool newInstance = false)
 		{
-			if (_obj == null)
+            if (_obj == null || newInstance)
 			{
 				_obj = new Mock<IObject> ();
 				_obj.Setup(m => m.Animation).Returns(Animation().Object);
@@ -180,6 +180,7 @@ namespace Tests
 				_obj.Setup(m => m.Enabled).Returns(true);
 				_obj.Setup(m => m.Visible).Returns(true);
 				_obj.Setup(m => m.Anchor).Returns(new AGS.API.PointF ());
+                _obj.Setup(m => m.TreeNode).Returns(new AGSTreeNode<IObject>());
 			}
 			return _obj;
 		}

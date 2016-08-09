@@ -3,6 +3,7 @@ using AGS.API;
 using System.Linq;
 using System.Collections.Generic;
 using OpenTK.Input;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -17,7 +18,7 @@ namespace AGS.Engine
 		private readonly IAGSRoomTransitions _roomTransitions;
 		private IShader _lastShaderUsed;
 		private IObject _mouseCursorContainer;
-		private GLFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;
+        private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;
 
 		public AGSRendererLoop (Resolver resolver, IGameState gameState, IImageRenderer renderer, IInput input, AGSWalkBehindsMap walkBehinds,
 			IAGSRoomTransitions roomTransitions)
@@ -86,9 +87,10 @@ namespace AGS.Engine
 
 		#endregion
 
-		private GLFrameBuffer renderToBuffer(IRoom room)
+        private IFrameBuffer renderToBuffer(IRoom room)
 		{
-			GLFrameBuffer frameBuffer = new GLFrameBuffer (AGSGame.GetPhysicalResolution().Width, AGSGame.GetPhysicalResolution().Height);
+            TypedParameter sizeParam = new TypedParameter(typeof(Size), AGSGame.GetPhysicalResolution());
+            IFrameBuffer frameBuffer = _resolver.Container.Resolve<IFrameBuffer>(sizeParam);
 			frameBuffer.Begin();
 			renderRoom(room);
 			frameBuffer.End();
@@ -204,7 +206,8 @@ namespace AGS.Engine
 			foreach (var area in room.WalkableAreas) addDebugDrawArea(displayList, area, room);
 			foreach (var area in room.WalkBehindAreas)
 			{
-				addToDisplayList(displayList, _walkBehinds.GetDrawable(area, room.Background.Image.OriginalBitmap), room);
+                if (room.Background != null && room.Background.Image != null)
+				    addToDisplayList(displayList, _walkBehinds.GetDrawable(area, room.Background.Image.OriginalBitmap), room);
 				addDebugDrawArea(displayList, area, room);
 			}
 

@@ -12,7 +12,7 @@ namespace AGS.Engine
 		private readonly Dictionary<AreaKey, IObject> _objects;
 		private readonly IGameFactory _factory;
 
-		public AGSWalkBehindsMap(IGameFactory factory, IMaskLoader maskLoader)
+		public AGSWalkBehindsMap(IGameFactory factory)
 		{
 			_factory = factory;
 			_images = new Dictionary<AreaKey, IImage> (100);

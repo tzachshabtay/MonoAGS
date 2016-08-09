@@ -9,12 +9,12 @@ namespace AGS.Engine
 	{
 		private readonly int _fbo, _width, _height;
 
-		public GLFrameBuffer(int width, int height)
+		public GLFrameBuffer(Size size)
 		{
-			_width = width;
-			_height = height;
+            _width = size.Width;
+            _height = size.Height;
 			Texture = GLImage.CreateTexture();
-			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, width, height, 0,
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, _width, _height, 0,
 				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, IntPtr.Zero);
 
 			_fbo = GL.GenFramebuffer();
