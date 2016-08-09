@@ -1,5 +1,8 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// Configuration to be used when loading images.
+    /// </summary>
     public interface ILoadImageConfig
 	{
 		/// <summary>

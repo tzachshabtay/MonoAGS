@@ -1,10 +1,18 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
-	public interface IShaderComponent : IComponent
+    /// <summary>
+    /// This component provides a way to attach a shader to your entities
+    /// </summary>
+    /// <seealso cref="AGS.API.IComponent" />
+    public interface IShaderComponent : IComponent
 	{
-		IShader Shader { get; set; }
+        /// <summary>
+        /// Gets or sets the shader that is attached to the entity.
+        /// </summary>
+        /// <value>
+        /// The shader.
+        /// </value>
+        IShader Shader { get; set; }
 	}
 }
 
