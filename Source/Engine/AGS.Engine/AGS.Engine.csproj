@@ -394,35 +394,35 @@
       <LastGenOutput>FlatInterfaceTemplate.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
-    <None Include="..\..\DLLs\OpenTK.dll.config">
+    <None Include="..\..\..\DLLs\OpenTK.dll.config">
       <Link>OpenTK.dll.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AGS.API\AGS.API.csproj">
+    <ProjectReference Include="..\..\AGS.API\AGS.API.csproj">
       <Project>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</Project>
       <Name>AGS.API</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK" Condition="$(Configuration) == 'Debug'">
-      <HintPath>..\..\DLLs Debug\OpenTK.dll</HintPath>
+      <HintPath>..\..\..\DLLs Debug\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK" Condition="$(Configuration) != 'Debug'">
-      <HintPath>..\..\DLLs\OpenTK.dll</HintPath>
+      <HintPath>..\..\..\DLLs\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="Autofac">
-      <HintPath>..\..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
+      <HintPath>..\..\..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net">
-      <HintPath>..\..\packages\protobuf-net.2.0.0.668\lib\portable-sl4+net40+wp7+windows8\protobuf-net.dll</HintPath>
+      <HintPath>..\..\..\packages\protobuf-net.2.0.0.668\lib\portable-sl4+net40+wp7+windows8\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="NVorbis">
-      <HintPath>..\..\DLLs\NVorbis.dll</HintPath>
+      <HintPath>..\..\..\DLLs\NVorbis.dll</HintPath>
     </Reference>
     <Reference Include="CSFlac">
-      <HintPath>..\..\DLLs\CSFlac.dll</HintPath>
+      <HintPath>..\..\..\DLLs\CSFlac.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

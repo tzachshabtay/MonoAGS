@@ -59,7 +59,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\AGS.API\AGS.API.csproj">
+    <ProjectReference Include="..\..\AGS.API\AGS.API.csproj">
       <Project>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</Project>
       <Name>AGS.API</Name>
     </ProjectReference>

@@ -37,7 +37,7 @@
   <Import Project="..\DemoQuest\DemoQuest.projitems" Label="Shared" Condition="Exists('..\DemoQuest\DemoQuest.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\AGS.Engine.Desktop\AGS.Engine.Desktop.csproj">
+    <ProjectReference Include="..\..\Engine\AGS.Engine.Desktop\AGS.Engine.Desktop.csproj">
       <Project>{1C51A706-4D2C-49D4-972F-CB5075324F5F}</Project>
       <Name>AGS.Engine.Desktop</Name>
     </ProjectReference>
@@ -45,7 +45,7 @@
       <Project>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</Project>
       <Name>AGS.API</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AGS.Engine\AGS.Engine.csproj">
+    <ProjectReference Include="..\..\Engine\AGS.Engine\AGS.Engine.csproj">
       <Project>{6BEEC517-011A-441E-8A2F-D9461806A879}</Project>
       <Name>AGS.Engine</Name>
     </ProjectReference>

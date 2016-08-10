@@ -7,11 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Source\Tests\Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.API", "Source\AGS.API\AGS.API.csproj", "{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine.Desktop", "Source\AGS.Engine.Desktop\AGS.Engine.Desktop.csproj", "{1C51A706-4D2C-49D4-972F-CB5075324F5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine.Desktop", "Source\Engine\AGS.Engine.Desktop\AGS.Engine.Desktop.csproj", "{1C51A706-4D2C-49D4-972F-CB5075324F5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine", "Source\AGS.Engine\AGS.Engine.csproj", "{6BEEC517-011A-441E-8A2F-D9461806A879}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine", "Source\Engine\AGS.Engine\AGS.Engine.csproj", "{6BEEC517-011A-441E-8A2F-D9461806A879}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine.Android", "Source\AGS.Engine.Android\AGS.Engine.Android.csproj", "{6A2504D8-3C7F-485E-9793-A51989C6B2B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine.Android", "Source\Engine\AGS.Engine.Android\AGS.Engine.Android.csproj", "{6A2504D8-3C7F-485E-9793-A51989C6B2B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoQuest.iOS", "Source\Demo\iOS\DemoQuest.iOS.csproj", "{4CFB5682-347B-44F4-B592-92FED4DE57BA}"
 EndProject

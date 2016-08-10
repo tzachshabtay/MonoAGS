@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -73,12 +73,10 @@
       <Project>{6BEEC517-011A-441E-8A2F-D9461806A879}</Project>
       <Name>AGS.Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AGS.API\AGS.API.csproj">
+    <ProjectReference Include="..\..\AGS.API\AGS.API.csproj">
       <Project>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</Project>
       <Name>AGS.API</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Drawing\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
