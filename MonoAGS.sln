@@ -3,32 +3,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{7E614795-A8D2-4E3B-847C-3443D1B81154}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Source\Tests\Tests.csproj", "{7E614795-A8D2-4E3B-847C-3443D1B81154}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.API", "AGS.API\AGS.API.csproj", "{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.API", "Source\AGS.API\AGS.API.csproj", "{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine.Desktop", "AGS.Engine.Desktop\AGS.Engine.Desktop.csproj", "{1C51A706-4D2C-49D4-972F-CB5075324F5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine.Desktop", "Source\AGS.Engine.Desktop\AGS.Engine.Desktop.csproj", "{1C51A706-4D2C-49D4-972F-CB5075324F5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine", "AGS.Engine\AGS.Engine.csproj", "{6BEEC517-011A-441E-8A2F-D9461806A879}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine", "Source\AGS.Engine\AGS.Engine.csproj", "{6BEEC517-011A-441E-8A2F-D9461806A879}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine.Android", "AGS.Engine.Android\AGS.Engine.Android.csproj", "{6A2504D8-3C7F-485E-9793-A51989C6B2B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGS.Engine.Android", "Source\AGS.Engine.Android\AGS.Engine.Android.csproj", "{6A2504D8-3C7F-485E-9793-A51989C6B2B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoQuest.iOS", "Demo\iOS\DemoQuest.iOS.csproj", "{4CFB5682-347B-44F4-B592-92FED4DE57BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoQuest.iOS", "Source\Demo\iOS\DemoQuest.iOS.csproj", "{4CFB5682-347B-44F4-B592-92FED4DE57BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoQuest.Droid", "Demo\Droid\DemoQuest.Droid.csproj", "{ED5CC880-E60B-452E-AACF-E61ED81504B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoQuest.Droid", "Source\Demo\Droid\DemoQuest.Droid.csproj", "{ED5CC880-E60B-452E-AACF-E61ED81504B3}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DemoQuest", "Demo\DemoQuest\DemoQuest.shproj", "{9C80E5AC-7047-435B-8A42-01E9FD6519BF}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DemoQuest", "Source\Demo\DemoQuest\DemoQuest.shproj", "{9C80E5AC-7047-435B-8A42-01E9FD6519BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoQuest.UITests", "Demo\UITests\DemoQuest.UITests.csproj", "{2A4114C9-B9B7-41FD-A0EF-EC77AD65DCC1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoQuest.UITests", "Source\Demo\UITests\DemoQuest.UITests.csproj", "{2A4114C9-B9B7-41FD-A0EF-EC77AD65DCC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoQuest.Desktop", "Demo\DemoQuest.Desktop\DemoQuest.Desktop.csproj", "{98152D72-EBE6-4202-810F-79D39058FB4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoQuest.Desktop", "Source\Demo\DemoQuest.Desktop\DemoQuest.Desktop.csproj", "{98152D72-EBE6-4202-810F-79D39058FB4F}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Demo\DemoQuest\DemoQuest.projitems*{4cfb5682-347b-44f4-b592-92fed4de57ba}*SharedItemsImports = 4
-		Demo\DemoQuest\DemoQuest.projitems*{98152d72-ebe6-4202-810f-79d39058fb4f}*SharedItemsImports = 4
-		Demo\DemoQuest\DemoQuest.projitems*{9c80e5ac-7047-435b-8a42-01e9fd6519bf}*SharedItemsImports = 13
-		Demo\DemoQuest\DemoQuest.projitems*{ed5cc880-e60b-452e-aacf-e61ed81504b3}*SharedItemsImports = 4
+		Source\Demo\DemoQuest\DemoQuest.projitems*{4cfb5682-347b-44f4-b592-92fed4de57ba}*SharedItemsImports = 4
+		Source\Demo\DemoQuest\DemoQuest.projitems*{98152d72-ebe6-4202-810f-79d39058fb4f}*SharedItemsImports = 4
+		Source\Demo\DemoQuest\DemoQuest.projitems*{9c80e5ac-7047-435b-8a42-01e9fd6519bf}*SharedItemsImports = 13
+		Source\Demo\DemoQuest\DemoQuest.projitems*{ed5cc880-e60b-452e-aacf-e61ed81504b3}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
