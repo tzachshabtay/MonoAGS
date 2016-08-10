@@ -13,7 +13,7 @@ before_build:
   - nuget restore ".\MonoAGS.sln"
 build:
   project: .\MonoAGS.sln
-  verbosity: minimal
+  verbosity: detailed
 test_script:
 - ps: >-
     if($env:CONFIGURATION -eq "Debug")
