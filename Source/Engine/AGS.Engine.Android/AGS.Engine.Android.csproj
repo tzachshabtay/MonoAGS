@@ -41,7 +41,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
     <Reference Include="OpenTK">
-      <HintPath>..\DLLs\OpenTK.dll</HintPath>
+      <HintPath>..\..\..\DLLs\OpenTK.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -31,10 +31,10 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="OpenTK" Condition="$(Configuration) == 'Debug'">
-      <HintPath>..\DLLs Debug\OpenTK.dll</HintPath>
+      <HintPath>..\..\..\DLLs Debug\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK" Condition="$(Configuration) != 'Debug'">
-      <HintPath>..\DLLs\OpenTK.dll</HintPath>
+      <HintPath>..\..\..\DLLs\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
   </ItemGroup>
