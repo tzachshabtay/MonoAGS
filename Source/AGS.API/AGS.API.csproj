@@ -30,6 +30,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Objects\ITransformComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentsFramework\IComponent.cs" />
     <Compile Include="ComponentsFramework\IComponentsCollection.cs" />

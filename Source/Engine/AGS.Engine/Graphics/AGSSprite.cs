@@ -7,10 +7,12 @@ namespace AGS.Engine
 	{
 		private IImage _image;
 		private IMaskLoader _maskLoader;
+        private ITransform _transform;
 
 		public AGSSprite (IMaskLoader maskLoader)
 		{
 			_maskLoader = maskLoader;
+            _transform = new AGSTransform(); //todo: abstract it to the constructor
 			ScaleX = 1;
 			ScaleY = 1;
 			Anchor = new PointF ();
@@ -74,15 +76,15 @@ namespace AGS.Engine
 			return (ISprite)MemberwiseClone();
 		}
 
-		public ILocation Location { get; set; }
+        public ILocation Location { get { return _transform.Location; } set { _transform.Location = value; } }
 
-		public float X { get { return Location.X; } set { Location = new AGSLocation(value, Y, Z); } }
+        public float X { get { return _transform.X; } set { _transform.X = value; } }
 
-		public float Y { get { return Location.Y; } set { Location = new AGSLocation(X, value, Z == Y ? value : Z); } }
+        public float Y { get { return _transform.Y; } set { _transform.Y = value; } }
 
-		public float Z { get { return Location.Z; } set { Location = new AGSLocation(X, Y, value); } }
+        public float Z { get { return _transform.Z; } set { _transform.Z = value; } }
 
-		public float Height { get; private set; }
+        public float Height { get; private set; }
 
 		public float Width { get; private set; }
 
