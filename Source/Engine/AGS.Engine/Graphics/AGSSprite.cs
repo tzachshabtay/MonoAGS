@@ -4,8 +4,7 @@ namespace AGS.Engine
 {
 	public class AGSSprite : ISprite
 	{
-		private IImage _image;
-        private IHasImage _hasImage;
+		private IHasImage _hasImage;
 		private IMaskLoader _maskLoader;
         private ITransform _transform;
         private IScale _scale;
@@ -17,12 +16,7 @@ namespace AGS.Engine
             //todo: abstract it to the constructor
             _transform = new AGSTransform();
             _hasImage = new AGSHasImage();
-            _scale = new AGSScale(_hasImage);
-
-            Anchor = new PointF ();
-
-			Tint =  Colors.White;
-			Location = AGSLocation.Empty ();
+            _scale = new AGSScale(_hasImage);            
 		}
 
 		#region ISprite implementation
@@ -105,7 +99,7 @@ namespace AGS.Engine
 
 		public override string ToString()
 		{
-			return _image == null ? base.ToString() : _image.ToString();
+            return _hasImage.ToString();
 		}
 	}
 }

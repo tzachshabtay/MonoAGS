@@ -4,6 +4,11 @@ namespace AGS.Engine
 {
     public class AGSTransform : ITransform
     {
+        public AGSTransform()
+        {
+            Location = AGSLocation.Empty();
+        }
+
         public ILocation Location { get; set; }
 
         public float X { get { return Location.X; } set { Location = new AGSLocation(value, Y, Z); } }

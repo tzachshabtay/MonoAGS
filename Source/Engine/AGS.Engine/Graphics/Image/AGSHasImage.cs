@@ -9,6 +9,8 @@ namespace AGS.Engine
         public AGSHasImage()
         {
             OnImageChanged = new AGSEvent<AGSEventArgs>();
+            Anchor = new PointF();
+            Tint = Colors.White;
         }
 
         public byte Opacity
@@ -34,5 +36,10 @@ namespace AGS.Engine
         public IImageRenderer CustomRenderer { get; set; }
 
         public IEvent<AGSEventArgs> OnImageChanged { get; private set; }
+
+        public override string ToString()
+        {
+            return _image == null ? base.ToString() : _image.ToString();
+        }
     }
 }
