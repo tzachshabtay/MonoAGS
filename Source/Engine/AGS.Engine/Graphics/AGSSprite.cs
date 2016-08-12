@@ -4,19 +4,18 @@ namespace AGS.Engine
 {
 	public class AGSSprite : ISprite
 	{
-		private IHasImage _hasImage;
-		private IMaskLoader _maskLoader;
-        private ITransform _transform;
-        private IScale _scale;
+		private readonly IHasImage _hasImage;
+        private readonly ITransform _transform;
+        private readonly IScale _scale;
+        private readonly IPixelPerfectCollidable _pixelPerfect;
 
 		public AGSSprite (IMaskLoader maskLoader)
 		{
-			_maskLoader = maskLoader;
-
             //todo: abstract it to the constructor
             _transform = new AGSTransform();
             _hasImage = new AGSHasImage();
-            _scale = new AGSScale(_hasImage);            
+            _scale = new AGSScale(_hasImage);
+            _pixelPerfect = new AGSPixelPerfectCollidable(_hasImage, maskLoader);   
 		}
 
 		#region ISprite implementation
@@ -81,19 +80,10 @@ namespace AGS.Engine
 
         public Color Tint { get { return _hasImage.Tint; } set { _hasImage.Tint = value; } }
 
-        public IArea PixelPerfectHitTestArea  { get; private set; }
+        public IArea PixelPerfectHitTestArea { get { return _pixelPerfect.PixelPerfectHitTestArea; } }
 		public void PixelPerfect(bool pixelPerfect)
 		{
-			IArea area = PixelPerfectHitTestArea;
-			if (!pixelPerfect)
-			{
-				if (area == null) return;
-				area.Enabled = false;
-				return;
-			}
-			if (area != null) return;
-
-			PixelPerfectHitTestArea = new AGSArea { Mask = _maskLoader.Load(Image.OriginalBitmap) };
+            _pixelPerfect.PixelPerfect(pixelPerfect); //A pixel perfect line!
 		}
 		#endregion
 
