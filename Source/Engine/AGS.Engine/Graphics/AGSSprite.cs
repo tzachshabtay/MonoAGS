@@ -8,6 +8,7 @@ namespace AGS.Engine
         private readonly ITransform _transform;
         private readonly IScale _scale;
         private readonly IPixelPerfectCollidable _pixelPerfect;
+        private readonly IRotate _rotate;
 
 		public AGSSprite (IMaskLoader maskLoader)
 		{
@@ -15,7 +16,8 @@ namespace AGS.Engine
             _transform = new AGSTransform();
             _hasImage = new AGSHasImage();
             _scale = new AGSScale(_hasImage);
-            _pixelPerfect = new AGSPixelPerfectCollidable(_hasImage, maskLoader);   
+            _pixelPerfect = new AGSPixelPerfectCollidable(_hasImage, maskLoader);
+            _rotate = new AGSRotate();
 		}
 
 		#region ISprite implementation
@@ -66,7 +68,7 @@ namespace AGS.Engine
 
 		public float ScaleY { get { return _scale.ScaleY; } }
 
-		public float Angle { get; set; }
+		public float Angle { get { return _rotate.Angle; } set { _rotate.Angle = value; } }
 
         public PointF Anchor { get { return _hasImage.Anchor; } set { _hasImage.Anchor = value; } }
 

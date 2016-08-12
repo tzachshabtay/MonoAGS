@@ -1,9 +1,7 @@
 ﻿namespace AGS.API
 {
-    public interface ISprite : IHasImage, ITransform, IScale, IPixelPerfectCollidable
+    public interface ISprite : IHasImage, ITransform, IScale, IPixelPerfectCollidable, IRotate
 	{
-		float Angle { get; set; }
-
         ISprite Clone();
 	}
 }
