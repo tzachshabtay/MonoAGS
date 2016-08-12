@@ -8,6 +8,7 @@ namespace AGS.Engine
         private IHasImage _hasImage;
 		private IMaskLoader _maskLoader;
         private ITransform _transform;
+        private IScale _scale;
 
 		public AGSSprite (IMaskLoader maskLoader)
 		{
@@ -16,11 +17,9 @@ namespace AGS.Engine
             //todo: abstract it to the constructor
             _transform = new AGSTransform();
             _hasImage = new AGSHasImage();
-            _hasImage.OnImageChanged.Subscribe((sender, args) => ScaleBy(ScaleX, ScaleY));
+            _scale = new AGSScale(_hasImage);
 
-			ScaleX = 1;
-			ScaleY = 1;
-			Anchor = new PointF ();
+            Anchor = new PointF ();
 
 			Tint =  Colors.White;
 			Location = AGSLocation.Empty ();
@@ -30,50 +29,27 @@ namespace AGS.Engine
 
 		public void ResetScale()
 		{
-			ScaleX = 1;
-			ScaleY = 1;
-			var image = Image;
-			if (image != null)
-			{
-				Width = Image.Width;
-				Height = Image.Height;
-			}
+            _scale.ResetScale();
 		}
 
 		public void ScaleBy (float scaleX, float scaleY)
 		{
-			ScaleX = scaleX;
-			ScaleY = scaleY;
-			var image = Image;
-			if (image != null)
-			{
-				Width = Image.Width * ScaleX;
-				Height = Image.Height * ScaleY;
-			}
+            _scale.ScaleBy(scaleX, scaleY);
 		}
 
 		public void ScaleTo (float width, float height)
 		{
-			Width = width;
-			Height = height;
-			var image = Image;
-			if (image != null)
-			{
-				ScaleX = Width / Image.Width;
-				ScaleY = Height / Image.Height;
-			}
+            _scale.ScaleTo(width, height);                
 		}
 
 		public void FlipHorizontally()
 		{
-			ScaleBy(-ScaleX, ScaleY);
-			Anchor = new PointF (-Anchor.X, Anchor.Y);
+            _scale.FlipHorizontally();
 		}
 
 		public void FlipVertically()
 		{
-			ScaleBy(ScaleX, -ScaleY);
-			Anchor = new PointF (Anchor.X, -Anchor.Y);
+            _scale.FlipVertically();
 		}
 
 		public ISprite Clone()
@@ -89,13 +65,13 @@ namespace AGS.Engine
 
         public float Z { get { return _transform.Z; } set { _transform.Z = value; } }
 
-        public float Height { get; private set; }
+        public float Height { get { return _scale.Height; } }
 
-		public float Width { get; private set; }
+		public float Width { get { return _scale.Width; } }
 
-		public float ScaleX { get; private set; }
+		public float ScaleX { get { return _scale.ScaleX; } }
 
-		public float ScaleY { get; private set; }
+		public float ScaleY { get { return _scale.ScaleY; } }
 
 		public float Angle { get; set; }
 

@@ -57,6 +57,8 @@
     </Compile>
     <Compile Include="Graphics\Image\AGSHasImage.cs" />
     <Compile Include="Graphics\Image\AGSImageComponent.cs" />
+    <Compile Include="Objects\Scale\AGSScale.cs" />
+    <Compile Include="Objects\Scale\AGSScaleComponent.cs" />
     <Compile Include="Objects\Transform\AGSTransform.cs" />
     <Compile Include="Objects\Transform\AGSTransportComponent.cs" />
     <Compile Include="Platform\IKeyboardState.cs" />

@@ -30,7 +30,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Graphics\IImageComponent.cs" />    
+    <Compile Include="Graphics\IImageComponent.cs" />
+    <Compile Include="Objects\IScaleComponent.cs" />
     <Compile Include="Objects\ITransformComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentsFramework\IComponent.cs" />
