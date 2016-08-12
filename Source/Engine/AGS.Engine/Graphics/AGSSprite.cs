@@ -1,18 +1,23 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
 	public class AGSSprite : ISprite
 	{
 		private IImage _image;
+        private IHasImage _hasImage;
 		private IMaskLoader _maskLoader;
         private ITransform _transform;
 
 		public AGSSprite (IMaskLoader maskLoader)
 		{
 			_maskLoader = maskLoader;
-            _transform = new AGSTransform(); //todo: abstract it to the constructor
+
+            //todo: abstract it to the constructor
+            _transform = new AGSTransform();
+            _hasImage = new AGSHasImage();
+            _hasImage.OnImageChanged.Subscribe((sender, args) => ScaleBy(ScaleX, ScaleY));
+
 			ScaleX = 1;
 			ScaleY = 1;
 			Anchor = new PointF ();
@@ -94,30 +99,19 @@ namespace AGS.Engine
 
 		public float Angle { get; set; }
 
-		public byte Opacity 
-		{ 
-			get { return Tint.A; }
-			set { Tint = Color.FromArgb(value, Tint.R, Tint.G, Tint.B); }
-		}
+        public PointF Anchor { get { return _hasImage.Anchor; } set { _hasImage.Anchor = value; } }
 
-		public Color Tint { get; set; }
+        public IImageRenderer CustomRenderer { get { return _hasImage.CustomRenderer; } set { _hasImage.CustomRenderer = value; } }
 
-		public PointF Anchor { get; set; }
+        public IImage Image { get { return _hasImage.Image; } set { _hasImage.Image = value; } }
 
-		public IImage Image 
-		{ 
-			get { return _image; }
-			set 
-			{
-				_image = value;
+        public IEvent<AGSEventArgs> OnImageChanged { get { return _hasImage.OnImageChanged; } }
 
-				ScaleBy (ScaleX, ScaleY);
-			}
-		}
+        public byte Opacity { get { return _hasImage.Opacity; } set { _hasImage.Opacity = value; } }
 
-		public IImageRenderer CustomRenderer { get; set; }
+        public Color Tint { get { return _hasImage.Tint; } set { _hasImage.Tint = value; } }
 
-		public IArea PixelPerfectHitTestArea  { get; private set; }
+        public IArea PixelPerfectHitTestArea  { get; private set; }
 		public void PixelPerfect(bool pixelPerfect)
 		{
 			IArea area = PixelPerfectHitTestArea;

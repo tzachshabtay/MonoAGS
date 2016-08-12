@@ -55,6 +55,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Graphics\Image\AGSHasImage.cs" />
+    <Compile Include="Graphics\Image\AGSImageComponent.cs" />
     <Compile Include="Objects\Transform\AGSTransform.cs" />
     <Compile Include="Objects\Transform\AGSTransportComponent.cs" />
     <Compile Include="Platform\IKeyboardState.cs" />
@@ -111,7 +113,7 @@
     <Compile Include="Graphics\Animations\AGSSpriteSheet.cs" />
     <Compile Include="Graphics\Drawing\GLLineRenderer.cs" />
     <Compile Include="Graphics\Drawing\GLMaskRenderer.cs" />
-    <Compile Include="Graphics\GLImage.cs" />
+    <Compile Include="Graphics\Image\GLImage.cs" />
     <Compile Include="Graphics\Layers\AGSLayers.cs" />
     <Compile Include="Graphics\Layers\AGSRenderLayer.cs" />
     <Compile Include="Graphics\Logic\AGSLoadImageConfig.cs" />
