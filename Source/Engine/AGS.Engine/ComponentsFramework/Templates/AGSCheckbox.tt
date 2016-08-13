@@ -1,5 +1,5 @@
 ﻿<#@ output extension=".generated.cs" #>
-<#@ assembly name="$(SolutionDir)/AGS.API/bin/Debug/AGS.API.dll" #>
+<#@ assembly name="$(SolutionDir)/Source/AGS.API/bin/Debug/AGS.API.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
