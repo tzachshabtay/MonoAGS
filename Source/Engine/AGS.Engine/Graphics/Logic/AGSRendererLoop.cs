@@ -175,12 +175,11 @@ namespace AGS.Engine
 
 		private void addCursor(List<IObject> displayList, IRoom room)
 		{
-			IAnimationContainer cursor = _input.Cursor;
+			IObject cursor = _input.Cursor;
 			if (cursor == null) return;
 			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
 			{
-				_mouseCursorContainer = new AGSObject ("MouseCursor", _resolver) { Anchor = new PointF (0f,1f), IgnoreScalingArea = true, IgnoreViewport = true };
-				_mouseCursorContainer.StartAnimation(cursor.Animation);
+                _mouseCursorContainer = cursor;
 			}
 			_mouseCursorContainer.X = (_input.MouseX - room.Viewport.X) * room.Viewport.ScaleX;
 			_mouseCursorContainer.Y = (_input.MouseY - room.Viewport.Y) * room.Viewport.ScaleY;

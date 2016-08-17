@@ -117,7 +117,6 @@ namespace Tests
 			{
 				yield return container;
 			}
-			yield return new AGSAnimationContainer (_mocks.Sprite().Object, null);
 		}
 	}
 }

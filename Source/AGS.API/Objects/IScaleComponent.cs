@@ -7,7 +7,9 @@
         float ScaleX { get; }
         float ScaleY { get; }
 
+        void ResetBaseSize(float initialWidth, float initialHeight);
         void ResetScale();
+        void ResetScale(float initialWidth, float initialHeight);
         void ScaleBy(float scaleX, float scaleY);
         void ScaleTo(float width, float height);
         void FlipHorizontally();

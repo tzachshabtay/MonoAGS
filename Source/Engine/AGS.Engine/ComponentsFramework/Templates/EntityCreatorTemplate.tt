@@ -18,7 +18,7 @@
 
         protected virtual bool ProcessInterface(Type interfaceType)
         {
-            return ComponentType.GetTypeInfo().IsAssignableFrom(interfaceType.GetTypeInfo()) && interfaceType != ComponentType;
+			return ComponentType.GetTypeInfo().IsAssignableFrom(interfaceType.GetTypeInfo()) && interfaceType != ComponentType;
         }
 
         protected virtual void WriteAdditionalUsings()
@@ -107,8 +107,9 @@ namespace <#= NamespaceName #>
         WriteAdditionalInits();
         #>
 
-            init(resolver<#+ WriteAdditionalConstructorParamsCall(); #>);
-            InitComponents();
+			beforeInitComponents(resolver<#+ WriteAdditionalConstructorParamsCall(); #>);            
+			InitComponents();
+            afterInitComponents(resolver<#+ WriteAdditionalConstructorParamsCall(); #>);            
         }
 
         public string Name { get { return ID; } }
@@ -120,7 +121,8 @@ namespace <#= NamespaceName #>
             return string.Format("{0} ({1})", ID ?? "", GetType().Name);
         }
 
-        partial void init(Resolver resolver<#+ WriteAdditionalConstructorParams(); #>);
+        partial void beforeInitComponents(Resolver resolver<#+ WriteAdditionalConstructorParams(); #>);
+		partial void afterInitComponents(Resolver resolver<#+ WriteAdditionalConstructorParams(); #>);
 <#+           
             foreach (var component in Components)
             {

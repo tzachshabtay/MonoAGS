@@ -6,7 +6,7 @@ namespace AGS.Engine
     {
         private bool _showingObjectSpecificCursor;
         private IGame _game;
-        private IAnimationContainer _lastCursor;
+        private IObject _lastCursor;
 
         public AGSHasCursorComponent(IGame game)
         {
@@ -14,7 +14,7 @@ namespace AGS.Engine
             _game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
-        public IAnimationContainer SpecialCursor { get; set; }
+        public IObject SpecialCursor { get; set; }
 
         private void onRepeatedlyExecute(object sender, AGSEventArgs e)
         {

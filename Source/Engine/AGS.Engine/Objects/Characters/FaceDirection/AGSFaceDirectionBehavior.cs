@@ -1,18 +1,19 @@
 ﻿using System;
 using AGS.API;
 using System.Threading.Tasks;
-using System.Diagnostics;
 
 namespace AGS.Engine
 {
 	public class AGSFaceDirectionBehavior : AGSComponent, IFaceDirectionBehavior
 	{
 		private IAnimationContainer _obj;
+        private ITransform _transform;
 
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
 			_obj = entity.GetComponent<IAnimationContainer>();
+            _transform = entity.GetComponent<ITransformComponent>();
 		}
 
 		#region IFaceDirectionBehavior implementation
@@ -76,12 +77,12 @@ namespace AGS.Engine
 
 		public void FaceDirection(float x, float y)
 		{
-			FaceDirection(_obj.X, _obj.Y, x, y);
+			FaceDirection(_transform.X, _transform.Y, x, y);
 		}
 
 		public async Task FaceDirectionAsync(float x, float y)
 		{
-			await FaceDirectionAsync(_obj.X, _obj.Y, x, y);
+			await FaceDirectionAsync(_transform.X, _transform.Y, x, y);
 		}
 
 		public void FaceDirection(float fromX, float fromY, float toX, float toY)

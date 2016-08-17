@@ -60,9 +60,9 @@ namespace AGS.Engine
 
         public IObject Object 
         { 
-            set { AnimationContainer = value; HasRoom = value; }
+            set { Transform = value; HasRoom = value; }
         }
-        public IAnimationContainer AnimationContainer { get; set; }
+        public ITransform Transform { get; set; }
         public IHasRoom HasRoom { get; set; }
 
 		public bool AutoPan { get; set; }
@@ -102,7 +102,7 @@ namespace AGS.Engine
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
 		{
 			if (_game.State.Paused) return;
-            var obj = AnimationContainer;
+            var obj = Transform;
             var hasRoom = HasRoom;
 
 			foreach (var sound in _playingSounds)

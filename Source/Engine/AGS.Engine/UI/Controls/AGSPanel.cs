@@ -4,7 +4,7 @@ namespace AGS.Engine
 {
 	public partial class AGSPanel
 	{
-		partial void init(Resolver resolver, IImage image)
+		partial void afterInitComponents(Resolver resolver, IImage image)
 		{
 			RenderLayer = AGSLayers.UI;
 			IgnoreScalingArea = true;

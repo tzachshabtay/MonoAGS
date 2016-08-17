@@ -52,7 +52,7 @@ namespace Tests
             input.Setup(i => i.KeyDown).Returns(keyDown);
             input.Setup(i => i.KeyUp).Returns(keyUp);            
 
-            Mock<IEntity> entity = new Mock<IEntity>();
+            Mock<IObject> entity = new Mock<IObject>();
             Mock<ITextComponent> textComponent = new Mock<ITextComponent>();
             string actualText = "";
             textComponent.Setup(t => t.Text).Returns(() => actualText);

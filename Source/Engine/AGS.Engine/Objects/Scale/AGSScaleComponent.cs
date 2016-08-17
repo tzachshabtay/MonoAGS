@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System;
+using AGS.API;
 using Autofac;
 
 namespace AGS.Engine
@@ -29,6 +30,16 @@ namespace AGS.Engine
 
         public float ScaleY { get { return _scale.ScaleY; } }
 
+        public void ResetBaseSize(float initialWidth, float initialHeight)
+        {
+            _scale.ResetBaseSize(initialWidth, initialHeight);
+        }
+
+        public void ResetScale(float initialWidth, float initialHeight)
+        {
+            _scale.ResetScale(initialWidth, initialHeight);
+        }
+
         public void ResetScale()
         {
             _scale.ResetScale();
@@ -52,6 +63,6 @@ namespace AGS.Engine
         public void FlipVertically()
         {
             _scale.FlipVertically();
-        }
+        }        
     }
 }

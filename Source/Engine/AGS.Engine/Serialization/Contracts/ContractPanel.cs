@@ -21,12 +21,8 @@ namespace AGS.Engine
 
 		public IObject ToItem(AGSSerializationContext context)
 		{
-			IAnimationContainer container = Object.AnimationContainer.ToItem(context);
-			var anchor = container.Anchor;
-			IPanel panel = context.Factory.UI.GetPanel(Object.ID, container.Image, container.X, container.Y, false);
-			Object.ToItem(context, panel);
-			panel.Visible = Object.Visible;
-			panel.Anchor = anchor;
+			IPanel panel = context.Factory.UI.GetPanel(Object.ID, new EmptyImage(1f,1f), 0f, 0f, false);
+            Object.ToItem(context, panel);
 			return panel;
 		}
 

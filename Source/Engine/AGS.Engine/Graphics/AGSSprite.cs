@@ -2,54 +2,103 @@
 
 namespace AGS.Engine
 {
-	public class AGSSprite : ISprite
+	public class AGSSprite : AGSComponent, ISprite
 	{
 		private readonly IHasImage _hasImage;
-        private readonly ITransform _transform;
-        private readonly IScale _scale;
-        private readonly IPixelPerfectCollidable _pixelPerfect;
+        private readonly ITransform _transform;        
         private readonly IRotate _rotate;
+        private readonly IMaskLoader _maskLoader;
 
 		public AGSSprite (IMaskLoader maskLoader)
 		{
+            _maskLoader = maskLoader;
+
             //todo: abstract it to the constructor
             _transform = new AGSTransform();
             _hasImage = new AGSHasImage();
-            _scale = new AGSScale(_hasImage);
-            _pixelPerfect = new AGSPixelPerfectCollidable(_hasImage, maskLoader);
+            _hasImage.Anchor = new PointF();                        
             _rotate = new AGSRotate();
-		}
 
-		#region ISprite implementation
+            ScaleX = 1;
+            ScaleY = 1;
+            _hasImage.OnImageChanged.Subscribe((sender, args) => ScaleBy(ScaleX, ScaleY));
+        }
 
-		public void ResetScale()
+        private AGSSprite(AGSSprite sprite) : this(sprite._maskLoader)
+        {
+            _transform.Location = sprite._transform.Location;
+            _hasImage.Anchor = sprite._hasImage.Anchor;
+            _hasImage.Image = sprite._hasImage.Image;
+            _hasImage.Tint = sprite._hasImage.Tint;
+            _hasImage.CustomRenderer = sprite._hasImage.CustomRenderer;
+            _rotate.Angle = sprite._rotate.Angle;
+            ScaleX = sprite.ScaleX;
+            ScaleY = sprite.ScaleY;
+            Width = sprite.Width;
+            Height = sprite.Height;
+        }
+
+        #region ISprite implementation
+
+        public void ResetBaseSize(float initialWidth, float initialHeight)
+        {
+        }
+
+        public void ResetScale(float initialWidth, float initialHeight)
+        {
+        }
+
+        public void ResetScale()
+        {
+            ScaleX = 1;
+            ScaleY = 1;
+            var image = _hasImage.Image;
+            if (image != null)
+            {
+                Width = _hasImage.Image.Width;
+                Height = _hasImage.Image.Height;
+            }
+        }
+
+        public void ScaleBy(float scaleX, float scaleY)
+        {
+            ScaleX = scaleX;
+            ScaleY = scaleY;
+            var image = _hasImage.Image;
+            if (image != null)
+            {
+                Width = _hasImage.Image.Width * ScaleX;
+                Height = _hasImage.Image.Height * ScaleY;
+            }
+        }
+
+        public void ScaleTo(float width, float height)
+        {
+            Width = width;
+            Height = height;
+            var image = _hasImage.Image;
+            if (image != null)
+            {
+                ScaleX = Width / _hasImage.Image.Width;
+                ScaleY = Height / _hasImage.Image.Height;
+            }
+        }
+
+        public void FlipHorizontally()
+        {
+            ScaleBy(-ScaleX, ScaleY);
+            _hasImage.Anchor = new PointF(-_hasImage.Anchor.X, _hasImage.Anchor.Y);
+        }
+
+        public void FlipVertically()
+        {
+            ScaleBy(ScaleX, -ScaleY);
+            _hasImage.Anchor = new PointF(_hasImage.Anchor.X, -_hasImage.Anchor.Y);
+        }
+
+        public ISprite Clone()
 		{
-            _scale.ResetScale();
-		}
-
-		public void ScaleBy (float scaleX, float scaleY)
-		{
-            _scale.ScaleBy(scaleX, scaleY);
-		}
-
-		public void ScaleTo (float width, float height)
-		{
-            _scale.ScaleTo(width, height);                
-		}
-
-		public void FlipHorizontally()
-		{
-            _scale.FlipHorizontally();
-		}
-
-		public void FlipVertically()
-		{
-            _scale.FlipVertically();
-		}
-
-		public ISprite Clone()
-		{
-			return (ISprite)MemberwiseClone();
+            return new AGSSprite(this);
 		}
 
         public ILocation Location { get { return _transform.Location; } set { _transform.Location = value; } }
@@ -60,15 +109,15 @@ namespace AGS.Engine
 
         public float Z { get { return _transform.Z; } set { _transform.Z = value; } }
 
-        public float Height { get { return _scale.Height; } }
+        public float Height { get; private set; }
 
-		public float Width { get { return _scale.Width; } }
+        public float Width { get; private set; }
 
-		public float ScaleX { get { return _scale.ScaleX; } }
+        public float ScaleX { get; private set; }
 
-		public float ScaleY { get { return _scale.ScaleY; } }
+        public float ScaleY { get; private set; }
 
-		public float Angle { get { return _rotate.Angle; } set { _rotate.Angle = value; } }
+        public float Angle { get { return _rotate.Angle; } set { _rotate.Angle = value; } }
 
         public PointF Anchor { get { return _hasImage.Anchor; } set { _hasImage.Anchor = value; } }
 
@@ -82,14 +131,27 @@ namespace AGS.Engine
 
         public Color Tint { get { return _hasImage.Tint; } set { _hasImage.Tint = value; } }
 
-        public IArea PixelPerfectHitTestArea { get { return _pixelPerfect.PixelPerfectHitTestArea; } }
-		public void PixelPerfect(bool pixelPerfect)
-		{
-            _pixelPerfect.PixelPerfect(pixelPerfect); //A pixel perfect line!
-		}
-		#endregion
+        public IArea PixelPerfectHitTestArea { get; private set; }
+        public void PixelPerfect(bool pixelPerfect)
+        {
+            IArea area = PixelPerfectHitTestArea;
+            if (!pixelPerfect)
+            {
+                if (area == null) return;
+                area.Enabled = false;
+                return;
+            }
+            if (area != null)
+            {
+                area.Enabled = true;
+                return;
+            }
 
-		public override string ToString()
+            PixelPerfectHitTestArea = new AGSArea { Mask = _maskLoader.Load(_hasImage.Image.OriginalBitmap) };
+        }
+        #endregion
+
+        public override string ToString()
 		{
             return _hasImage.ToString();
 		}

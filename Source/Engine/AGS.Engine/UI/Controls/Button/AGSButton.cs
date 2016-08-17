@@ -6,7 +6,7 @@ namespace AGS.Engine
 {
 	public partial class AGSButton
 	{
-		partial void init(Resolver resolver)
+		partial void afterInitComponents(Resolver resolver)
 		{
 			RenderLayer = AGSLayers.UI;
 			IgnoreScalingArea = true;
@@ -14,12 +14,7 @@ namespace AGS.Engine
 			Anchor = new PointF ();
 
 			Enabled = true;
-		}
-
-		public void ApplySkin(IButton button)
-		{
-			throw new NotSupportedException ();
-		}
+		}        
 	}
 }
 

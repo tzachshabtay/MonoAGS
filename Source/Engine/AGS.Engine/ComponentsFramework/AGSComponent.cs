@@ -19,12 +19,13 @@ namespace AGS.Engine
 		public virtual bool AllowMultiple { get { return false; } }
 
 		public virtual void Init(IEntity entity) {}
+        public virtual void AfterInit() { }
 
-		#endregion
+        #endregion
 
-		#region IDisposable implementation
+        #region IDisposable implementation
 
-		public virtual void Dispose()
+        public virtual void Dispose()
 		{
 		}
 

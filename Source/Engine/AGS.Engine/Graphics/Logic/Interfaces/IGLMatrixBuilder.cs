@@ -1,12 +1,11 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using OpenTK;
 
 namespace AGS.Engine
 {
 	public interface IGLMatrixBuilder
 	{
-		IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport, PointF areaScaling);
+		IGLMatrices Build(IHasModelMatrix obj, IHasModelMatrix sprite, IObject parent, Matrix4 viewport, PointF areaScaling);
 	}
 }
 

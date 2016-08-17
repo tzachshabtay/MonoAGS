@@ -93,8 +93,11 @@ namespace AGS.Engine
 
 			IObject cursor = _object.GetObject (string.Format ("{0}(inventory item cursor)", hotspot ?? ""));
 			cursor.Image = cursorImage;
+            cursor.IgnoreViewport = true;
+            cursor.IgnoreScalingArea = true;
+            cursor.Anchor = new PointF(0f, 1f);
 
-			return GetInventoryItem (graphics, cursor, playerStartsWithItem);
+            return GetInventoryItem (graphics, cursor, playerStartsWithItem);
 		}
 	}
 }

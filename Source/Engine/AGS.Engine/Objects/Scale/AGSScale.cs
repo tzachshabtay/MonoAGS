@@ -1,10 +1,12 @@
 ﻿using AGS.API;
+using System;
 
 namespace AGS.Engine
 {
     public class AGSScale : IScale
     {
         private IHasImage _image;
+        private float _initialWidth, _initialHeight;
 
         public AGSScale(IHasImage image)
         {
@@ -12,7 +14,19 @@ namespace AGS.Engine
 
             ScaleX = 1;
             ScaleY = 1;
-            _image.OnImageChanged.Subscribe((sender, args) => ScaleBy(ScaleX, ScaleY));
+            image.OnImageChanged.Subscribe((sender, args) =>
+            {
+                if (_initialWidth == 0f) ResetBaseSize(_image.Image.Width, _image.Image.Height);
+            });
+        }
+
+        public AGSScale(IHasImage image, float width, float height)
+        {
+            _image = image;
+
+            ScaleX = 1;
+            ScaleY = 1;
+            ResetBaseSize(width, height);
         }
 
         public float Height { get; private set; }
@@ -23,40 +37,45 @@ namespace AGS.Engine
 
         public float ScaleY { get; private set; }
 
+        public void ResetBaseSize(float initialWidth, float initialHeight)
+        {
+            Width = initialWidth * ScaleX;
+            Height = initialHeight * ScaleY;
+            _initialWidth = initialWidth;
+            _initialHeight = initialHeight;
+        }
+
         public void ResetScale()
         {
+            Width = _initialWidth;
+            Height = _initialHeight;
             ScaleX = 1;
             ScaleY = 1;
-            var image = _image.Image;
-            if (image != null)
-            {
-                Width = _image.Image.Width;
-                Height = _image.Image.Height;
-            }
+        }
+
+        public void ResetScale(float initialWidth, float initialHeight)
+        {
+            _initialWidth = initialWidth;
+            _initialHeight = initialHeight;
+            ResetScale();
         }
 
         public void ScaleBy(float scaleX, float scaleY)
         {
+            validateScaleInitialized();
             ScaleX = scaleX;
             ScaleY = scaleY;
-            var image = _image.Image;
-            if (image != null)
-            {
-                Width = _image.Image.Width * ScaleX;
-                Height = _image.Image.Height * ScaleY;
-            }
+            Width = _initialWidth * ScaleX;
+            Height = _initialHeight * ScaleY;
         }
 
         public void ScaleTo(float width, float height)
         {
+            validateScaleInitialized();
             Width = width;
             Height = height;
-            var image = _image.Image;
-            if (image != null)
-            {
-                ScaleX = Width / _image.Image.Width;
-                ScaleY = Height / _image.Image.Height;
-            }
+            ScaleX = Width / _initialWidth;
+            ScaleY = Height / _initialHeight;
         }
 
         public void FlipHorizontally()
@@ -69,6 +88,15 @@ namespace AGS.Engine
         {
             ScaleBy(ScaleX, -ScaleY);
             _image.Anchor = new PointF(_image.Anchor.X, -_image.Anchor.Y);
+        }        
+
+        private void validateScaleInitialized()
+        {
+            if (_initialWidth == 0f)
+            {
+                throw new InvalidOperationException(
+                    "Initial size was not set. Either assign an animation/image to the object, or use the appropriate constructor.");
+            }
         }
     }
 }

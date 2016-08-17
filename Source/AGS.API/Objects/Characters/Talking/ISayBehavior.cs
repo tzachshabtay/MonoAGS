@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-    [RequiredComponent(typeof(IAnimationContainer), false)] //needed for speech sound panning and volume adjustment
+    [RequiredComponent(typeof(ITransformComponent), false)] //needed for speech sound panning and volume adjustment
     [RequiredComponent(typeof(IHasRoom), false)] //needed for speech sound volume adjustment
     public interface ISayBehavior : IComponent
 	{

@@ -12,6 +12,8 @@
         IEvent<AGSEventArgs> OnImageChanged { get; }
     }
 
+    [RequiredComponent(typeof(IAnimationContainer))]
+    [RequiredComponent(typeof(IScaleComponent))]
     public interface IImageComponent : IHasImage, IComponent
     {
     }

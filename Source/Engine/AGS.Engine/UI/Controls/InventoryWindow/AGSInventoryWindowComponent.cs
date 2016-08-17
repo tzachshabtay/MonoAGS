@@ -14,7 +14,7 @@ namespace AGS.Engine
 		private int _topItem;
 		private IGameState _state;
 		private IGameEvents _gameEvents;
-		private IAnimationContainer _animationContainer;
+		private IScale _scale;
 		private IInObjectTree _tree;
 
 		public AGSInventoryWindowComponent(IGameState state, IGameEvents gameEvents)
@@ -28,7 +28,7 @@ namespace AGS.Engine
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-			_animationContainer = entity.GetComponent<IAnimationContainer>();
+			_scale = entity.GetComponent<IScaleComponent>();
 			_tree = entity.GetComponent<IInObjectTree>();
 		}
 
@@ -80,9 +80,9 @@ namespace AGS.Engine
 			}
 		}
 
-		public int ItemsPerRow { get { return (int)(_animationContainer.Width / ItemSize.Width); } }
+		public int ItemsPerRow { get { return (int)(_scale.Width / ItemSize.Width); } }
 
-		public int RowCount { get { return (int)(_animationContainer.Height / ItemSize.Height); } }
+		public int RowCount { get { return (int)(_scale.Height / ItemSize.Height); } }
 
 		#endregion
 
@@ -109,7 +109,7 @@ namespace AGS.Engine
 			float stepX = ItemSize.Width;
 			float stepY = ItemSize.Height;
 			float x = stepX/2f;
-			float y = _animationContainer.Height - stepY/2;
+			float y = _scale.Height - stepY/2;
 			for (int item = topItem; item < count; item++)
 			{
 				IObject obj = items[item];
@@ -120,7 +120,7 @@ namespace AGS.Engine
 				_state.UI.Add(obj);
 
 				x += stepX;
-				if (x >= _animationContainer.Width)
+				if (x >= _scale.Width)
 				{
 					x = stepX/2f;
 					y -= stepY;

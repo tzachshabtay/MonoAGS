@@ -9,7 +9,7 @@ namespace AGS.Engine
         public AGSHasImage()
         {
             OnImageChanged = new AGSEvent<AGSEventArgs>();
-            Anchor = new PointF();
+            Anchor = new PointF(0.5f, 0f);
             Tint = Colors.White;
         }
 

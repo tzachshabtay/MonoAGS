@@ -49,6 +49,12 @@ namespace AGS.Engine
 			Builder.RegisterType<AGSSprite>().As<ISprite>();
             Builder.RegisterType<GLMatrixBuilder>().As<IGLMatrixBuilder>();
             Builder.RegisterType<GLBoundingBoxesBuilder>().As<IGLBoundingBoxBuilder>();
+            Builder.RegisterType<AGSPixelPerfectCollidable>().As<IPixelPerfectCollidable>();
+            Builder.RegisterType<AGSTransform>().As<ITransform>();
+            Builder.RegisterType<AGSScale>().As<IScale>();
+            Builder.RegisterType<AGSRotate>().As<IRotate>();
+            Builder.RegisterType<AGSHasImage>().As<IHasImage>();
+
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IBlockingEvent<>));
 

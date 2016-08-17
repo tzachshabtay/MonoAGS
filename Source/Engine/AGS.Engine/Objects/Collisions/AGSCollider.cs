@@ -8,6 +8,8 @@ namespace AGS.Engine
 		private IGameState _state;
 		private IDrawableInfo _drawableInfo;
 		private IAnimationContainer _obj;
+        private IScale _scale;
+        private IPixelPerfectCollidable _pixelPerfect;
 
 		public AGSCollider(IGameState state)
 		{
@@ -19,6 +21,8 @@ namespace AGS.Engine
 			base.Init(entity);
 			_drawableInfo = entity.GetComponent<IDrawableInfo>();
 			_obj = entity.GetComponent<IAnimationContainer>();
+            _scale = entity.GetComponent<IScaleComponent>();
+            _pixelPerfect = entity.GetComponent<IPixelPerfectComponent>();
 		}
 
 		public ISquare BoundingBox { get; set; }
@@ -30,10 +34,10 @@ namespace AGS.Engine
 				if (BoundingBox == null) return null;
 				float minX = BoundingBox.MinX;
 				float minY = BoundingBox.MinY;
-				float offsetX = _obj.PixelPerfectHitTestArea == null ? (BoundingBox.MaxX - BoundingBox.MinX) / 2f : 
-					_obj.PixelPerfectHitTestArea.Mask.MinX + (_obj.PixelPerfectHitTestArea.Mask.MaxX - _obj.PixelPerfectHitTestArea.Mask.MinX) / 2f;
-				float offsetY = _obj.PixelPerfectHitTestArea == null ? (BoundingBox.MaxY - BoundingBox.MinY) / 2f : 
-					_obj.PixelPerfectHitTestArea.Mask.MinY + (_obj.PixelPerfectHitTestArea.Mask.MaxY - _obj.PixelPerfectHitTestArea.Mask.MinY) / 2f;
+				float offsetX = _pixelPerfect.PixelPerfectHitTestArea == null ? (BoundingBox.MaxX - BoundingBox.MinX) / 2f :
+                    _pixelPerfect.PixelPerfectHitTestArea.Mask.MinX + (_pixelPerfect.PixelPerfectHitTestArea.Mask.MaxX - _pixelPerfect.PixelPerfectHitTestArea.Mask.MinX) / 2f;
+				float offsetY = _pixelPerfect.PixelPerfectHitTestArea == null ? (BoundingBox.MaxY - BoundingBox.MinY) / 2f :
+                    _pixelPerfect.PixelPerfectHitTestArea.Mask.MinY + (_pixelPerfect.PixelPerfectHitTestArea.Mask.MaxY - _pixelPerfect.PixelPerfectHitTestArea.Mask.MinY) / 2f;
 
 				return new PointF (minX + offsetX, minY + offsetY);
 			}
@@ -44,7 +48,7 @@ namespace AGS.Engine
 			ISquare boundingBox = BoundingBox;
 			if (boundingBox == null)
 				return false;
-			IArea pixelPerfect = _obj.PixelPerfectHitTestArea;
+			IArea pixelPerfect = _pixelPerfect.PixelPerfectHitTestArea;
 
 			if (_drawableInfo.IgnoreViewport && _state != null) 
 			{
@@ -61,8 +65,8 @@ namespace AGS.Engine
 			}
 			else
 			{
-				if (pixelPerfect.IsInArea(new PointF (x, y), boundingBox, _obj.ScaleX * _obj.Animation.Sprite.ScaleX,
-					_obj.ScaleY * _obj.Animation.Sprite.ScaleY))
+				if (pixelPerfect.IsInArea(new PointF (x, y), boundingBox, _scale.ScaleX * _obj.Animation.Sprite.ScaleX,
+					_scale.ScaleY * _obj.Animation.Sprite.ScaleY))
 					return true;
 			}
 			return false;

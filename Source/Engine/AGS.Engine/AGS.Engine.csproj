@@ -57,6 +57,10 @@
     </Compile>
     <Compile Include="Graphics\Image\AGSHasImage.cs" />
     <Compile Include="Graphics\Image\AGSImageComponent.cs" />
+    <Compile Include="Objects\Collisions\AGSPixelPerfectCollidable.cs" />
+    <Compile Include="Objects\Collisions\AGSPixelPerfectComponent.cs" />
+    <Compile Include="Objects\Rotate\AGSRotate.cs" />
+    <Compile Include="Objects\Rotate\AGSRotateComponent.cs" />
     <Compile Include="Objects\Scale\AGSScale.cs" />
     <Compile Include="Objects\Scale\AGSScaleComponent.cs" />
     <Compile Include="Objects\Transform\AGSTransform.cs" />
@@ -166,7 +170,7 @@
     <Compile Include="Misc\Utils\Extensions.cs" />
     <Compile Include="Misc\Utils\MathUtils.cs" />
     <Compile Include="Misc\Utils\Repeat.cs" />
-    <Compile Include="Objects\AGSCollider.cs" />
+    <Compile Include="Objects\Collisions\AGSCollider.cs" />
     <Compile Include="Objects\AGSDrawableInfoComponent.cs" />
     <Compile Include="Objects\AGSHotspotComponent.cs" />
     <Compile Include="Objects\AGSObject.cs" />

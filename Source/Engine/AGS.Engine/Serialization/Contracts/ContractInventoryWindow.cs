@@ -35,11 +35,9 @@ namespace AGS.Engine
 
 		public IInventoryWindow ToItem(AGSSerializationContext context)
 		{
-			IAnimationContainer obj = Object.AnimationContainer.ToItem(context);
-			var invWindow = context.Factory.Inventory.GetInventoryWindow(Object.ID, new EmptyImage(obj.Width, obj.Height), 
+			var invWindow = context.Factory.Inventory.GetInventoryWindow(Object.ID, new EmptyImage(1f, 1f), 
 				ItemWidth, ItemHeight, null);
 			Object.ToItem(context, invWindow);
-			invWindow.Visible = Object.Visible;
 			context.Rewire(state => invWindow.CharacterToUse = CharacterID == null ? null :  state.Find<ICharacter>(CharacterID));
 			return invWindow;
 		}

@@ -6,7 +6,7 @@
         void PixelPerfect(bool pixelPerfect);
     }
 
-    [RequiredComponent(typeof(IImageComponent))]
+    [RequiredComponent(typeof(IAnimationContainer))]
     public interface IPixelPerfectComponent : IPixelPerfectCollidable, IComponent
     { }
 }

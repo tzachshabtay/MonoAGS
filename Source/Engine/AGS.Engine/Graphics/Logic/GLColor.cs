@@ -34,7 +34,7 @@ namespace AGS.Engine
 
 		#region IGLColorBuilder implementation
 
-		public IGLColor Build(params ISprite[] sprites)
+		public IGLColor Build(params IHasImage[] sprites)
 		{
 			R = multiply (s => s.Tint.R / COLOR_FACTOR, sprites);
 			G = multiply (s => s.Tint.G / COLOR_FACTOR, sprites);
@@ -59,16 +59,16 @@ namespace AGS.Engine
 
 		#endregion
 
-		private float multiply(Func<ISprite, float> getter, params ISprite[] sprites)
+		private float multiply(Func<IHasImage, float> getter, params IHasImage[] sprites)
 		{
 			return process ((arg1, arg2) => arg1 * arg2, getter, sprites);
 		}
 
-		private float process(Func<float, float, float> apply, Func<ISprite, float> getter, params ISprite[] sprites)
+		private float process(Func<float, float, float> apply, Func<IHasImage, float> getter, params IHasImage[] sprites)
 		{
 			float result = float.NaN;
 			bool firstIteration = true;
-			foreach (ISprite sprite in sprites) 
+			foreach (IHasImage sprite in sprites) 
 			{
 				if (sprite == null)
 					continue;

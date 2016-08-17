@@ -8,7 +8,7 @@
 		bool LeftMouseButtonDown { get; }
 		bool RightMouseButtonDown { get; }
 
-		IAnimationContainer Cursor { get; set; }
+		IObject Cursor { get; set; }
 	}
 }
 

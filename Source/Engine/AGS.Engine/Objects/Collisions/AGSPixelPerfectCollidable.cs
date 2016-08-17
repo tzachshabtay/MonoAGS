@@ -4,28 +4,32 @@ namespace AGS.Engine
 {
     public class AGSPixelPerfectCollidable : IPixelPerfectCollidable
     {
-        private IHasImage _image;
-        private IMaskLoader _maskLoader;
+        private IAnimationContainer _animation;
+        private bool _pixelPerfect;
 
-        public AGSPixelPerfectCollidable(IHasImage image, IMaskLoader maskLoader)
+        public AGSPixelPerfectCollidable(IAnimationContainer animation)
         {
-            _image = image;
-            _maskLoader = maskLoader;
+            _animation = animation;
+            _animation.OnAnimationStarted.Subscribe((sender, args) => PixelPerfect(_pixelPerfect));
         }
 
-        public IArea PixelPerfectHitTestArea { get; private set; }
+        public IArea PixelPerfectHitTestArea
+        {
+            get
+            {
+                if (_animation.Animation == null || _animation.Animation.Sprite == null) return null;
+                return _animation.Animation.Sprite.PixelPerfectHitTestArea;
+            }
+        }        
+
         public void PixelPerfect(bool pixelPerfect)
         {
-            IArea area = PixelPerfectHitTestArea;
-            if (!pixelPerfect)
+            _pixelPerfect = pixelPerfect;
+            if (_animation.Animation == null || _animation.Animation.Frames == null) return;
+            foreach (var frame in _animation.Animation.Frames)
             {
-                if (area == null) return;
-                area.Enabled = false;
-                return;
+                frame.Sprite.PixelPerfect(pixelPerfect);
             }
-            if (area != null) return;
-
-            PixelPerfectHitTestArea = new AGSArea { Mask = _maskLoader.Load(_image.Image.OriginalBitmap) };
         }
     }
 }

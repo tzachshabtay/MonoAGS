@@ -31,7 +31,7 @@ namespace Tests
 		public void ScaleByTest(float imageWidth, float imageHeight, float scaleX, float scaleY, 
 			bool imageBeforeScale, float expectedWidth, float expectedHeight)
 		{
-			foreach (ISprite sprite in getImplementors())
+			foreach (IHasModelMatrix sprite in getImplementors())
 			{
 				bool isSprite = sprite.GetType() == typeof(AGSSprite);
 				_mocks.Image().Setup(i => i.Width).Returns(imageWidth);
@@ -64,7 +64,7 @@ namespace Tests
 		public void ScaleToTest(float imageWidth, float imageHeight, float expectedScaleX, float expectedScaleY, 
 			float toWidth, float toHeight)
 		{
-			foreach (ISprite sprite in getImplementors())
+			foreach (IHasModelMatrix sprite in getImplementors())
 			{
 				_mocks.Image().Setup(i => i.Width).Returns(imageWidth);
 				_mocks.Image().Setup(i => i.Height).Returns(imageHeight);
@@ -84,7 +84,7 @@ namespace Tests
 		[Test]
 		public void PerformingPixelPerfectTest()
 		{
-			foreach (ISprite sprite in getImplementors())
+			foreach (var sprite in getPixelPerfectImplementors())
 			{
 				Mock<IMask> mask = new Mock<IMask> ();
 				Bitmap bitmap = new Bitmap (1, 1);
@@ -92,12 +92,12 @@ namespace Tests
 				_mocks.Image().Setup(i => i.OriginalBitmap).Returns(ibitmap);
 				_mocks.MaskLoader().Setup(m => m.Load(ibitmap, false, null, null)).Returns(mask.Object);
 
-				sprite.Image = _mocks.Image().Object;
+				sprite.Model.Image = _mocks.Image().Object;
 
-				sprite.PixelPerfect(true);
+				sprite.PixelPerfect.PixelPerfect(true);
 
-				Assert.AreEqual(mask.Object, sprite.PixelPerfectHitTestArea.Mask);
-				Assert.IsTrue(sprite.PixelPerfectHitTestArea.Enabled);
+				Assert.AreEqual(mask.Object, sprite.PixelPerfect.PixelPerfectHitTestArea.Mask);
+				Assert.IsTrue(sprite.PixelPerfect.PixelPerfectHitTestArea.Enabled);
 			}
 		}
 
@@ -105,12 +105,12 @@ namespace Tests
 		public void PerformingPixelPerfect_OnlyOnce_Test()
 		{
 			int count = 0;
-			foreach (ISprite sprite in getImplementors())
+			foreach (var sprite in getPixelPerfectImplementors())
 			{
 				_mocks.MaskLoader().Setup(m => m.Load((IBitmap)null, false, null, null)).Returns((IMask)null);
-				sprite.Image = _mocks.Image().Object;
+				sprite.Model.Image = _mocks.Image().Object;
 
-				sprite.PixelPerfect(true);
+				sprite.PixelPerfect.PixelPerfect(true);
 				count++;
 
 				_mocks.MaskLoader().Verify(m => m.Load((IBitmap)null, false, null, null), Times.Exactly(count));
@@ -120,30 +120,30 @@ namespace Tests
 		[Test]
 		public void DisablingPixelPerfect_WhenDisabled_Test()
 		{
-			foreach (ISprite sprite in getImplementors())
+			foreach (var sprite in getPixelPerfectImplementors())
 			{
-				sprite.PixelPerfect(false);
-				Assert.IsNull(sprite.PixelPerfectHitTestArea);
+                sprite.PixelPerfect.PixelPerfect(false);
+				Assert.IsNull(sprite.PixelPerfect.PixelPerfectHitTestArea);
 			}
 		}
 
 		[Test]
 		public void DisablingPixelPerfect_WhenEnabled_Test()
 		{
-			foreach (ISprite sprite in getImplementors())
+			foreach (var sprite in getPixelPerfectImplementors())
 			{
-				_mocks.MaskLoader().Setup(m => m.Load((IBitmap)null, false, null, null)).Returns((IMask)null);
-				sprite.Image = _mocks.Image().Object;
+				_mocks.MaskLoader().Setup(m => m.Load((IBitmap)null, false, null, null)).Returns((IMask)null);                
+				sprite.Model.Image = _mocks.Image().Object;
 
-				sprite.PixelPerfect(true);
-				sprite.PixelPerfect(false);
+				sprite.PixelPerfect.PixelPerfect(true);
+				sprite.PixelPerfect.PixelPerfect(false);
 
-				Assert.IsNotNull(sprite.PixelPerfectHitTestArea);
-				Assert.IsFalse(sprite.PixelPerfectHitTestArea.Enabled);
+				Assert.IsNotNull(sprite.PixelPerfect.PixelPerfectHitTestArea);
+				Assert.IsFalse(sprite.PixelPerfect.PixelPerfectHitTestArea.Enabled);
 			}
 		}
 
-		static void testResetScale(float imageWidth, float imageHeight, ISprite sprite)
+		static void testResetScale(float imageWidth, float imageHeight, IHasModelMatrix sprite)
 		{
 			sprite.ResetScale();
 			Assert.AreEqual(1f, sprite.ScaleX);
@@ -152,7 +152,7 @@ namespace Tests
 			Assert.AreEqual(imageHeight, sprite.Height);
 		}
 
-		private IEnumerable<ISprite> getImplementors()
+		private IEnumerable<IHasModelMatrix> getImplementors()
 		{
 			foreach (var sprite in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
 			{
@@ -162,7 +162,29 @@ namespace Tests
 				yield return sprite;
 			}
 			yield return new AGSSprite (_mocks.MaskLoader().Object);
-		}			
+		}
+
+        private IEnumerable<PixelPerfectImplementation> getPixelPerfectImplementors()
+        {
+            foreach (var sprite in getImplementors())
+            {
+                yield return new PixelPerfectImplementation(sprite);
+            }
+        }
+
+        private class PixelPerfectImplementation
+        {
+            public PixelPerfectImplementation(IHasModelMatrix model)
+            {
+                Model = model;
+                if (model is IPixelPerfectCollidable) PixelPerfect = (IPixelPerfectCollidable)model;
+                else throw new InvalidOperationException("Missing pixel perfect implementation");
+            }
+
+            public IPixelPerfectCollidable PixelPerfect { get; private set; }
+
+            public IHasModelMatrix Model { get; private set; }
+        }
 	}
 }
 

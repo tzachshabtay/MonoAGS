@@ -31,6 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Graphics\IImageComponent.cs" />
+    <Compile Include="Objects\Collisions\IPixelPerfectCollidable.cs" />
+    <Compile Include="Objects\IRotateComponent.cs" />
     <Compile Include="Objects\IScaleComponent.cs" />
     <Compile Include="Objects\ITransformComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,7 +109,7 @@
     <Compile Include="Objects\Characters\Walking\IWalkBehavior.cs" />
     <Compile Include="Objects\Characters\Walking\Pathfinding\IPathFinder.cs" />
     <Compile Include="Objects\IChildrenCollection.cs" />
-    <Compile Include="Objects\ICollider.cs" />
+    <Compile Include="Objects\Collisions\ICollider.cs" />
     <Compile Include="Objects\IDrawableInfo.cs" />
     <Compile Include="Objects\IEnabledComponent.cs" />
     <Compile Include="Objects\IHasRoom.cs" />

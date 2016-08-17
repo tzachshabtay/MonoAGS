@@ -211,7 +211,7 @@ namespace Tests
             Mock<IGraphicsFactory> graphicsFactory = new Mock<IGraphicsFactory>();
             Func<ISprite> getSprite = () => new AGSSprite(mocks.MaskLoader().Object);
             graphicsFactory.Setup(g => g.GetSprite()).Returns(() => getSprite());
-            AGSAnimationContainer animationContainer = new AGSAnimationContainer(getSprite(), graphicsFactory.Object);
+            AGSAnimationContainer animationContainer = new AGSAnimationContainer(graphicsFactory.Object);
 
             Mock<IImage> image = new Mock<IImage>();
             Mock<IButtonComponent> buttonComponent = new Mock<IButtonComponent>();
@@ -228,6 +228,7 @@ namespace Tests
             resolver.Builder.RegisterInstance(audioSystem.Object);
             resolver.Builder.RegisterInstance(new Mock<IMessagePump>().Object);
             resolver.Builder.RegisterInstance(new Mock<ILabelRenderer>().Object);
+            resolver.Builder.RegisterInstance(mocks.MaskLoader().Object).As<IMaskLoader>();
             resolver.Build();
 
             Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();

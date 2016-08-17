@@ -8,7 +8,7 @@ namespace AGS.Engine
         private bool _isFocused;
         private ITextComponent _textComponent;
         private IUIEvents _uiEvents;
-        private IAnimationContainer _obj;
+        private IObject _obj;
         private IDrawableInfo _drawable;
         private IInObjectTree _tree;
         private IHasRoom _room;
@@ -42,7 +42,7 @@ namespace AGS.Engine
             base.Init(entity);
             _textComponent = entity.GetComponent<ITextComponent>();
             _uiEvents = entity.GetComponent<IUIEvents>();
-            _obj = entity.GetComponent<IAnimationContainer>();
+            _obj = (IObject)entity;
             _drawable = entity.GetComponent<IDrawableInfo>();
             _tree = entity.GetComponent<IInObjectTree>();
             _room = entity.GetComponent<IHasRoom>();

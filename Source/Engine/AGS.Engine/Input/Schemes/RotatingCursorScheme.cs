@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Diagnostics;
@@ -22,8 +21,8 @@ namespace AGS.Engine
 		private int _currentMode;
 		private Cursor _inventoryCursor;
 
-		public RotatingCursorScheme(IGame game, IAnimationContainer lookCursor, IAnimationContainer walkCursor,
-			IAnimationContainer interactCursor, IAnimationContainer waitCursor)
+		public RotatingCursorScheme(IGame game, IObject lookCursor, IObject walkCursor,
+            IObject interactCursor, IObject waitCursor)
 		{
 			RotatingEnabled = true;
 			_game = game;
@@ -33,7 +32,6 @@ namespace AGS.Engine
 			if (lookCursor != null) AddCursor(LOOK_MODE, lookCursor, true);
 			if (interactCursor != null) AddCursor(INTERACT_MODE, interactCursor, true);
 			if (waitCursor != null) AddCursor(WAIT_MODE, waitCursor, false);
-
 			AddCursor(INVENTORY_MODE, null, true);
 			_inventoryCursor = _cursors[_cursors.Count - 1];
 		}
@@ -56,7 +54,7 @@ namespace AGS.Engine
 			}
 		}
 			
-		public void AddCursor(string mode, IAnimationContainer animation, bool rotating)
+		public void AddCursor(string mode, IObject animation, bool rotating)
 		{
 			_cursors.Add(new Cursor (mode, animation, rotating));
 		}
@@ -201,7 +199,7 @@ namespace AGS.Engine
 
 		private class Cursor
 		{
-			public Cursor(string mode, IAnimationContainer animation, bool rotating)
+			public Cursor(string mode, IObject animation, bool rotating)
 			{
 				Mode = mode;
 				Animation = animation;
@@ -209,7 +207,7 @@ namespace AGS.Engine
 			}
 
 			public string Mode { get; private set; }
-			public IAnimationContainer Animation { get; set; }
+			public IObject Animation { get; set; }
 			public bool Rotating { get; private set;}
 		}
 	}

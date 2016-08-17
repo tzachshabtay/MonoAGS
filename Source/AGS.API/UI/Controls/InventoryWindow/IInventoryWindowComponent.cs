@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-	[RequiredComponent(typeof(IAnimationContainer))]
+	[RequiredComponent(typeof(IScaleComponent))]
 	[RequiredComponent(typeof(IInObjectTree))]
 	public interface IInventoryWindowComponent : IComponent
 	{

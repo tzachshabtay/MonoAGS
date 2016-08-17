@@ -1,6 +1,6 @@
 ﻿namespace AGS.API
 {
-    [RequiredComponent(typeof(IAnimationContainer))]
+    [RequiredComponent(typeof(IImageComponent))]
     public interface ITextComponent : IComponent
     {
         ITextConfig TextConfig { get; set; }

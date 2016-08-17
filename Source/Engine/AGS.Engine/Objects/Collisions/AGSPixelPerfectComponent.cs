@@ -7,22 +7,19 @@ namespace AGS.Engine
     {
         private IPixelPerfectCollidable _pixelPerfect;
         private readonly IContainer _resolver;
-        private IMaskLoader _maskLoader;
 
-        public AGSPixelPerfectComponent(IContainer resolver, IMaskLoader maskLoader)
+        public AGSPixelPerfectComponent(IContainer resolver)
         {
-            _resolver = resolver;
-            _maskLoader = maskLoader;
+            _resolver = resolver;            
         }
 
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            IImageComponent image = entity.GetComponent<IImageComponent>();
-            TypedParameter imageParam = new TypedParameter(typeof(IHasImage), image);
-            TypedParameter maskParam = new TypedParameter(typeof(IMaskLoader), _maskLoader);
+            IAnimationContainer animation = entity.GetComponent<IAnimationContainer>();
+            TypedParameter animationParam = new TypedParameter(typeof(IAnimationContainer), animation);            
 
-            _pixelPerfect = _resolver.Resolve<IPixelPerfectCollidable>(imageParam, maskParam);
+            _pixelPerfect = _resolver.Resolve<IPixelPerfectCollidable>(animationParam);
         }
 
         public IArea PixelPerfectHitTestArea { get { return _pixelPerfect.PixelPerfectHitTestArea; } }

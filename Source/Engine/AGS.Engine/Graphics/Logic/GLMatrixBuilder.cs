@@ -22,7 +22,7 @@ namespace AGS.Engine
 
 		//http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
 		//http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
-		public IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport, PointF areaScaling)
+		public IGLMatrices Build(IHasModelMatrix obj, IHasModelMatrix sprite, IObject parent, Matrix4 viewport, PointF areaScaling)
 		{
 			Matrix4 spriteMatrix = getModelMatrix (sprite, NoScaling);
 			Matrix4 objMatrix = getModelMatrix (obj, areaScaling);
@@ -39,7 +39,7 @@ namespace AGS.Engine
 			return this;		
 		}
 
-		private Matrix4 getModelMatrix(ISprite sprite, PointF areaScaling)
+		private Matrix4 getModelMatrix(IHasModelMatrix sprite, PointF areaScaling)
 		{
 			PointF anchorOffsets = getAnchorOffsets (sprite.Anchor, sprite.Width, sprite.Height);
 			Matrix4 anchor = Matrix4.CreateTranslation (new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));

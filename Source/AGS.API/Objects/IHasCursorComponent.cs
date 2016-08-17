@@ -10,7 +10,7 @@
         /// Gets or sets the special cursor the will be shown on hover.
         /// </summary>
         /// <value>The special cursor.</value>
-        IAnimationContainer SpecialCursor { get; set; }
+        IObject SpecialCursor { get; set; }
     }
 }
 

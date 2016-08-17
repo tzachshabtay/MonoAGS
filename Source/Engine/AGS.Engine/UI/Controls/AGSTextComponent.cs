@@ -5,7 +5,7 @@ namespace AGS.Engine
     public class AGSTextComponent : AGSComponent, ITextComponent
     {
         private ILabelRenderer _labelRenderer;
-        private IAnimationContainer _obj;
+        private IImageComponent _obj;
 
         public AGSTextComponent(ILabelRenderer labelRenderer)
         {
@@ -15,7 +15,7 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _obj = entity.GetComponent<IAnimationContainer>();
+            _obj = entity.GetComponent<IImageComponent>();
             _obj.CustomRenderer = _labelRenderer;
         }
 

@@ -47,7 +47,17 @@ namespace AGS.Engine
 			throw new NotImplementedException();
 		}
 
-		public ILocation Location
+        public void ResetBaseSize(float initialWidth, float initialHeight)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ResetScale(float initialWidth, float initialHeight)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ILocation Location
 		{
 			get
 			{
@@ -143,7 +153,15 @@ namespace AGS.Engine
 			}
 		}
 
-		#endregion
-	}
+        public IEvent<AGSEventArgs> OnImageChanged
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        #endregion
+    }
 }
 

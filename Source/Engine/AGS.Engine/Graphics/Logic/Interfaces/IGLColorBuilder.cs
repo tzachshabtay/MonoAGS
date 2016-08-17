@@ -6,7 +6,7 @@ namespace AGS.Engine
 {
 	public interface IGLColorBuilder
 	{
-		IGLColor Build(params ISprite[] sprites);
+		IGLColor Build(params IHasImage[] sprites);
 		IGLColor Build(Color color);
 	}
 }

@@ -18,12 +18,12 @@ namespace DemoGame
 			};
 		}
 
-		public IAnimationContainer Point { get; private set; }
-		public IAnimationContainer Walk { get; private set; }
-		public IAnimationContainer Look { get; private set; }
-		public IAnimationContainer Talk { get; private set; }
-		public IAnimationContainer Interact { get; private set; }
-		public IAnimationContainer Wait { get; private set; }
+		public IObject Point { get; private set; }
+		public IObject Walk { get; private set; }
+		public IObject Look { get; private set; }
+		public IObject Talk { get; private set; }
+		public IObject Interact { get; private set; }
+		public IObject Wait { get; private set; }
 
 		public RotatingCursorScheme Scheme { get; private set; }
 
@@ -32,7 +32,7 @@ namespace DemoGame
 
 		public async Task LoadAsync(IGame game)
 		{
-			var factory = game.Factory.Graphics;
+			var factory = game.Factory;
 
 			Point = await loadCursor("point.bmp", factory);
 			Walk = await loadCursor("walk.bmp", factory);
@@ -41,19 +41,20 @@ namespace DemoGame
 			Interact = await loadCursor("hand.bmp", factory);
 			Wait = await loadCursor("wait.bmp", factory);
 
-			game.Input.Cursor = new AGSAnimationContainer(game.Factory.Graphics.GetSprite(), game.Factory.Graphics);
-
 			Scheme = new RotatingCursorScheme (game, Look, Walk, Interact, Wait);
 			Scheme.AddCursor(TALK_MODE, Talk, true);
 			Scheme.AddCursor(POINT_MODE, Point, false);
 			Scheme.Start();
 		}
 
-		private async Task<IAnimationContainer> loadCursor(string filename, IGraphicsFactory factory)
+		private async Task<IObject> loadCursor(string filename, IGameFactory factory)
 		{
-			IAnimation animation = await factory.LoadAnimationFromFilesAsync(loadConfig: _loadConfig, files: new[]{ _baseFolder + filename });
-			AGSAnimationContainer cursor = new AGSAnimationContainer (factory.GetSprite(), factory);
-			cursor.StartAnimation(animation);
+			IAnimation animation = await factory.Graphics.LoadAnimationFromFilesAsync(loadConfig: _loadConfig, files: new[]{ _baseFolder + filename });
+            var cursor = factory.Object.GetObject(string.Format("Cursor_{0}", filename));
+            cursor.Anchor = new PointF(0f, 1f);
+            cursor.IgnoreScalingArea = true;
+            cursor.IgnoreViewport = true;
+            cursor.StartAnimation(animation);
 			return cursor;
 		}
 	}

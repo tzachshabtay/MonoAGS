@@ -1,4 +1,5 @@
 ﻿using AGS.API;
+using System;
 
 namespace AGS.Engine
 {
@@ -112,8 +113,9 @@ namespace AGS.Engine
             skin.AddRule<ITextBoxComponent>(entity =>
             {
                 var animationContainer = entity.GetComponent<IAnimationContainer>();
+                var image = entity.GetComponent<IImageComponent>();
                 if (animationContainer == null) return;
-                animationContainer.Tint = TextBoxBackColor;
+                image.Tint = TextBoxBackColor;
                 animationContainer.Border = TextBoxBorderStyle;
             });
 

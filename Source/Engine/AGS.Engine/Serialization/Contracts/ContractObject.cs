@@ -52,11 +52,45 @@ namespace AGS.Engine
 		[ProtoMember(11)]
 		public bool Visible { get; set; }
 
-		//todo: save object's previous room
+        [ProtoMember(12)]
+        public float InitialWidth { get; set; }
 
-		#region IContract implementation
+        [ProtoMember(13)]
+        public float InitialHeight { get; set; }
 
-		public IObject ToItem(AGSSerializationContext context)
+        [ProtoMember(14)]
+        public Tuple<float, float, float> Location { get; set; }
+
+        [ProtoMember(15)]
+        public bool IsPixelPerfect { get; set; }
+
+        [ProtoMember(16)]
+        public float ScaleX { get; set; }
+
+        [ProtoMember(17)]
+        public float ScaleY { get; set; }
+
+        [ProtoMember(18)]
+        public float Angle { get; set; }
+
+        [ProtoMember(19)]
+        public uint Tint { get; set; }
+
+        [ProtoMember(20)]
+        public Tuple<float, float> Anchor { get; set; }
+
+        [ProtoMember(21)]
+        public Contract<IImage> Image { get; set; }
+
+        //todo: support custom renderer deserialization
+        [ProtoMember(22)]
+        public string CustomRenderer { get; set; }
+
+        //todo: save object's previous room
+
+        #region IContract implementation
+
+        public IObject ToItem(AGSSerializationContext context)
 		{
 			if (_obj != null) return _obj;
 
@@ -68,8 +102,23 @@ namespace AGS.Engine
 
 		public void ToItem(AGSSerializationContext context, IObject obj)
 		{
-			AnimationContainer.ToItem(context, obj);
-			obj.RenderLayer = RenderLayer.ToItem(context);
+            obj.ResetScale(InitialWidth, InitialHeight);
+            var image = Image.ToItem(context);
+            if (image != null)
+            {
+                obj.Image = image;
+                obj.ScaleBy(ScaleX, ScaleY);
+            }
+            obj.Location = new AGSLocation(Location.Item1, Location.Item2, Location.Item3);
+            obj.Anchor = new PointF(Anchor.Item1, Anchor.Item2);
+            obj.Angle = Angle;
+            obj.Tint = Color.FromHexa(Tint);
+
+            obj.PixelPerfect(IsPixelPerfect);            
+            AnimationContainer.ToItem(context, obj);
+            if (obj.Animation.Frames.Count > 0)
+                obj.ScaleBy(obj.ScaleX, obj.ScaleY);
+            obj.RenderLayer = RenderLayer.ToItem(context);
 			if (WalkPoint != null)
 			{
 				obj.WalkPoint = new PointF (WalkPoint.Item1, WalkPoint.Item2);
@@ -111,7 +160,26 @@ namespace AGS.Engine
 			{
 				Parent = context.GetContract(item.TreeNode.Parent);
 			}
-		}
+            if (item.Width != 0f)
+            {
+                var scaleX = item.ScaleX;
+                var scaleY = item.ScaleY;
+                item.ResetScale();
+                InitialWidth = item.Width;
+                InitialHeight = item.Height;
+                item.ScaleBy(scaleX, scaleY);
+            }
+            Image = new Contract<IImage>();
+            Image.FromItem(context, item.Image);
+            Anchor = new Tuple<float, float>(item.Anchor.X, item.Anchor.Y);
+            Tint = item.Tint.Value;
+            Angle = item.Angle;
+            ScaleX = item.ScaleX;
+            ScaleY = item.ScaleY;
+            IsPixelPerfect = item.PixelPerfectHitTestArea != null;
+            Location = new Tuple<float, float, float>(item.X, item.Y, item.Z);
+            CustomRenderer = item.CustomRenderer == null ? null : item.CustomRenderer.GetType().Name;
+        }
 
 		#endregion
 	}

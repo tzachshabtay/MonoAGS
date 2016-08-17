@@ -1,8 +1,6 @@
 ﻿using System;
 using AGS.API;
 using OpenTK;
-using OpenTK.Input;
-
 
 namespace AGS.Engine
 {
@@ -13,7 +11,7 @@ namespace AGS.Engine
 		private IGameState _state;
 		private IAGSRoomTransitions _roomTransitions;
 
-		private IAnimationContainer _mouseCursor;
+		private IObject _mouseCursor;
 		private MouseCursor _originalOSCursor;
 
 		public GLInput (GameWindow game, AGS.API.Size virtualResolution, IGameState state, IAGSRoomTransitions roomTransitions)
@@ -100,7 +98,7 @@ namespace AGS.Engine
 		public float MouseY { get { return convertY(_game.Mouse.Y); } }
 		#pragma warning restore 618
 
-		public IAnimationContainer Cursor
+		public IObject Cursor
 		{ 
 			get { return _mouseCursor; } 
 		  	set 

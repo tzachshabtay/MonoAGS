@@ -4,7 +4,7 @@ namespace AGS.Engine
 {
     public partial class AGSTextbox
     {
-        partial void init(Resolver resolver)
+        partial void afterInitComponents(Resolver resolver)
         {
             RenderLayer = AGSLayers.UI;
             IgnoreScalingArea = true;

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -9,7 +7,7 @@ namespace AGS.Engine
 	{
 		private IWalkBehavior _walk;
 		private IHasRoom _hasRoom;
-		private IAnimationContainer _obj;
+		private ITransform _obj;
 		private IGame _game;
 		private IObject _target, _lastTarget;
 		private Task _currentWalk;
@@ -28,7 +26,7 @@ namespace AGS.Engine
 			base.Init (entity);
 			_walk = entity.GetComponent<IWalkBehavior>();
 			_hasRoom = entity.GetComponent<IHasRoom> ();
-			_obj = entity.GetComponent<IAnimationContainer> ();
+			_obj = entity.GetComponent<ITransformComponent> ();
 		}
 
 		public void Follow (IObject obj, IFollowSettings settings)

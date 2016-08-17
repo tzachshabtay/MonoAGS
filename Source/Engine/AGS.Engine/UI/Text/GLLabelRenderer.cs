@@ -96,7 +96,7 @@ namespace AGS.Engine
 
 		#region IImageRenderer implementation
 
-		public void Prepare(IAnimationContainer obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
+		public void Prepare(IObject obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
 		{
 			_glText = _glText ?? new GLText (_bitmapPool, calculationOnly: CalculationOnly);
 
@@ -118,7 +118,7 @@ namespace AGS.Engine
 
 		#endregion
 
-		private void updateBoundingBoxes(IAnimationContainer obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
+		private void updateBoundingBoxes(IObject obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
 		{
 			ITextConfig config = Config;
 			AutoFit autoFit = TextVisible && config != null ? config.AutoFit : AutoFit.NoFitting;
@@ -195,7 +195,7 @@ namespace AGS.Engine
 			}
 		}
 
-		private void updateLabelMatrixRenderTarget(IAnimationContainer obj)
+		private void updateLabelMatrixRenderTarget(IHasModelMatrix obj)
 		{
 			_labelMatrixRenderTarget.X = obj.X;
 			_labelMatrixRenderTarget.Y = obj.Y;
@@ -221,7 +221,7 @@ namespace AGS.Engine
 			public IGLMatrices Matrices { get; set; }
 
 			#region IGLMatrixBuilder implementation
-			public IGLMatrices Build(ISprite obj, ISprite sprite, IObject parent, Matrix4 viewport, PointF areaScaling)
+			public IGLMatrices Build(IHasModelMatrix obj, IHasModelMatrix sprite, IObject parent, Matrix4 viewport, PointF areaScaling)
 			{
 				return Matrices;
 			}
