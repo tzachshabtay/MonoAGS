@@ -103,6 +103,16 @@
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AGS.API\AGS.API.csproj">
+      <Project>{8a8cca2e-d708-4668-b539-fecfff8dddb7}</Project>
+      <Name>AGS.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\AGS.Engine\AGS.Engine.csproj">
+      <Project>{6beec517-011a-441e-8a2f-d9461806a879}</Project>
+      <Name>AGS.Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\DemoQuest\DemoQuest.projitems" Label="Shared" Condition="Exists('..\DemoQuest\DemoQuest.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
