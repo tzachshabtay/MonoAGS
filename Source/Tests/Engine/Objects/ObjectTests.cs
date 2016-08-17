@@ -211,7 +211,7 @@ namespace Tests
             Mock<IGraphicsFactory> graphicsFactory = new Mock<IGraphicsFactory>();
             Func<ISprite> getSprite = () => new AGSSprite(mocks.MaskLoader().Object);
             graphicsFactory.Setup(g => g.GetSprite()).Returns(() => getSprite());
-            AGSAnimationContainer animationContainer = new AGSAnimationContainer(graphicsFactory.Object);
+            AGSAnimationContainer animationContainer = new AGSAnimationContainer();
 
             Mock<IImage> image = new Mock<IImage>();
             Mock<IButtonComponent> buttonComponent = new Mock<IButtonComponent>();

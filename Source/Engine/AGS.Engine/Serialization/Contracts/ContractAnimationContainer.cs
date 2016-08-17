@@ -25,8 +25,7 @@ namespace AGS.Engine
 
 		public IAnimationContainer ToItem(AGSSerializationContext context)
 		{
-			AGSAnimationContainer container = new AGSAnimationContainer (
-				context.Factory.Graphics);
+            AGSAnimationContainer container = new AGSAnimationContainer();
 			ToItem(context, container);
 			return container;
 		}

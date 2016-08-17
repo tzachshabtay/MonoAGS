@@ -5,36 +5,12 @@ namespace AGS.Engine
 {
 	public class AGSAnimationContainer : AGSComponent, IAnimationContainer
 	{
-		private IGraphicsFactory _factory;
         private IScale _scale;
-        private float _initialWidth, _initialHeight;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="AGS.Engine.AGSAnimationContainer"/> class.
-		/// Width and height will be set based on the first animation frame (or single image) used.
-		/// </summary>
-		/// <param name="sprite">Sprite.</param>
-		/// <param name="factory">Factory.</param>
-		public AGSAnimationContainer(IGraphicsFactory factory)
+		public AGSAnimationContainer()
 		{
-            this._factory = factory;
             OnAnimationStarted = new AGSEvent<AGSEventArgs>();
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="AGS.Engine.AGSAnimationContainer"/> class.
-		/// Initialized with preset width and height. 
-		/// </summary>
-		/// <param name="width">Width.</param>
-		/// <param name="height">Height.</param>
-		/// <param name="sprite">Sprite.</param>
-		/// <param name="factory">Factory.</param>
-		public AGSAnimationContainer(float width, float height, IGraphicsFactory factory) : 
-			this(factory)
-		{
-            _initialWidth = width;
-            _initialHeight = height;
-		}
+		}		
 
 		public IAnimation Animation { get; private set; }
 
