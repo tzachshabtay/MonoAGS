@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="Graphics\Image\AGSHasImage.cs" />
     <Compile Include="Graphics\Image\AGSImageComponent.cs" />
+    <Compile Include="Objects\AGSDraggableComponent.cs" />
     <Compile Include="Objects\Collisions\AGSPixelPerfectCollidable.cs" />
     <Compile Include="Objects\Collisions\AGSPixelPerfectComponent.cs" />
     <Compile Include="Objects\Rotate\AGSRotate.cs" />
