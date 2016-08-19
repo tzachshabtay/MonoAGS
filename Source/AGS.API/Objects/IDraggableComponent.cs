@@ -1,7 +1,7 @@
 ﻿namespace AGS.API
 {
     [RequiredComponent(typeof(IUIEvents))]
-    [RequiredComponent(typeof(ITransformComponent))]
+    [RequiredComponent(typeof(ITranslateComponent))]
     public interface IDraggableComponent : IComponent
     {
         bool IsDragEnabled { get; set; }

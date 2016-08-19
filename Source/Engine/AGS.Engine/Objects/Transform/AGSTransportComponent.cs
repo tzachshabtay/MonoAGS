@@ -2,11 +2,11 @@
 
 namespace AGS.Engine
 {
-    public class AGSTransportComponent : AGSComponent, ITransformComponent
+    public class AGSTransportComponent : AGSComponent, ITranslateComponent
     {
-        private ITransform _transform;
+        private ITranslate _transform;
 
-        public AGSTransportComponent(ITransform transform)
+        public AGSTransportComponent(ITranslate transform)
         {
             _transform = transform;
         }

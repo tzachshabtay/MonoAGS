@@ -62,7 +62,7 @@ namespace AGS.Engine
         { 
             set { Transform = value; HasRoom = value; }
         }
-        public ITransform Transform { get; set; }
+        public ITranslate Transform { get; set; }
         public IHasRoom HasRoom { get; set; }
 
 		public bool AutoPan { get; set; }

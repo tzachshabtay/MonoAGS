@@ -50,7 +50,7 @@ namespace AGS.Engine
             Builder.RegisterType<GLMatrixBuilder>().As<IGLMatrixBuilder>();
             Builder.RegisterType<GLBoundingBoxesBuilder>().As<IGLBoundingBoxBuilder>();
             Builder.RegisterType<AGSPixelPerfectCollidable>().As<IPixelPerfectCollidable>();
-            Builder.RegisterType<AGSTransform>().As<ITransform>();
+            Builder.RegisterType<AGSTransform>().As<ITranslate>();
             Builder.RegisterType<AGSScale>().As<IScale>();
             Builder.RegisterType<AGSRotate>().As<IRotate>();
             Builder.RegisterType<AGSHasImage>().As<IHasImage>();

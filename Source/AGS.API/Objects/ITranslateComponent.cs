@@ -1,6 +1,6 @@
 ﻿namespace AGS.API
 {
-    public interface ITransform
+    public interface ITranslate
     {
         ILocation Location { get; set; }
         float X { get; set; }
@@ -8,7 +8,7 @@
         float Z { get; set; }
     }
 
-    public interface ITransformComponent : ITransform, IComponent
+    public interface ITranslateComponent : ITranslate, IComponent
     {        
     }
 }

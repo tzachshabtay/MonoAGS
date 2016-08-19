@@ -22,7 +22,7 @@ namespace AGS.API
     /// </summary>
     /// <seealso cref="AGS.API.IComponent" />
     [RequiredComponent(typeof(IAnimationContainer))]
-    [RequiredComponent(typeof(ITransformComponent))]
+    [RequiredComponent(typeof(ITranslateComponent))]
 	public interface IFaceDirectionBehavior : IComponent
 	{
         /// <summary>

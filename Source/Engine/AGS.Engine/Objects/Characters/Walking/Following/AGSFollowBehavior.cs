@@ -7,7 +7,7 @@ namespace AGS.Engine
 	{
 		private IWalkBehavior _walk;
 		private IHasRoom _hasRoom;
-		private ITransform _obj;
+		private ITranslate _obj;
 		private IGame _game;
 		private IObject _target, _lastTarget;
 		private Task _currentWalk;
@@ -26,7 +26,7 @@ namespace AGS.Engine
 			base.Init (entity);
 			_walk = entity.GetComponent<IWalkBehavior>();
 			_hasRoom = entity.GetComponent<IHasRoom> ();
-			_obj = entity.GetComponent<ITransformComponent> ();
+			_obj = entity.GetComponent<ITranslateComponent> ();
 		}
 
 		public void Follow (IObject obj, IFollowSettings settings)

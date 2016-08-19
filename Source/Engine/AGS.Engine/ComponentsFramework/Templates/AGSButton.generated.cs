@@ -27,7 +27,7 @@ namespace AGS.Engine
         private IDrawableInfo _drawableInfo;
         private IHotspotComponent _hotspotComponent;
         private IShaderComponent _shaderComponent;
-        private ITransformComponent _transformComponent;
+        private ITranslateComponent _transformComponent;
         private IImageComponent _imageComponent;
         private IScaleComponent _scaleComponent;
         private IRotateComponent _rotateComponent;
@@ -49,7 +49,7 @@ namespace AGS.Engine
             _drawableInfo = AddComponent<IDrawableInfo>();            
             _hotspotComponent = AddComponent<IHotspotComponent>();            
             _shaderComponent = AddComponent<IShaderComponent>();            
-            _transformComponent = AddComponent<ITransformComponent>();            
+            _transformComponent = AddComponent<ITranslateComponent>();            
             _imageComponent = AddComponent<IImageComponent>();            
             _scaleComponent = AddComponent<IScaleComponent>();            
             _rotateComponent = AddComponent<IRotateComponent>();            

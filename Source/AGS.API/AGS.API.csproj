@@ -35,7 +35,7 @@
     <Compile Include="Objects\IDraggableComponent.cs" />
     <Compile Include="Objects\IRotateComponent.cs" />
     <Compile Include="Objects\IScaleComponent.cs" />
-    <Compile Include="Objects\ITransformComponent.cs" />
+    <Compile Include="Objects\ITranslateComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentsFramework\IComponent.cs" />
     <Compile Include="ComponentsFramework\IComponentsCollection.cs" />

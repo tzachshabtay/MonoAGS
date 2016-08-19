@@ -7,13 +7,13 @@ namespace AGS.Engine
 	public class AGSFaceDirectionBehavior : AGSComponent, IFaceDirectionBehavior
 	{
 		private IAnimationContainer _obj;
-        private ITransform _transform;
+        private ITranslate _transform;
 
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
 			_obj = entity.GetComponent<IAnimationContainer>();
-            _transform = entity.GetComponent<ITransformComponent>();
+            _transform = entity.GetComponent<ITranslateComponent>();
 		}
 
 		#region IFaceDirectionBehavior implementation

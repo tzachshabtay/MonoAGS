@@ -5,7 +5,7 @@
 		IAudioClip AudioClip { get; set; }
 		
         IObject Object { set; }
-        ITransform Transform { get; set; }
+        ITranslate Transform { get; set; }
         IHasRoom HasRoom { get; set; }
 
 		bool AutoPan { get; set; }

@@ -2,7 +2,7 @@
 
 namespace AGS.Engine
 {
-    public class AGSTransform : ITransform
+    public class AGSTransform : ITranslate
     {
         public AGSTransform()
         {

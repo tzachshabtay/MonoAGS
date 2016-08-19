@@ -8,7 +8,7 @@ namespace AGS.Engine
         private readonly IGameEvents _gameEvents;
         private IUIEvents _uiEvents;
         private float _dragObjectStartX, _dragObjectStartY, _dragMouseStartX, _dragMouseStartY;
-        private ITransform _transform;
+        private ITranslate _transform;
 
         public AGSDraggableComponent(IInput input, IGameEvents gameEvents)
         {
@@ -33,7 +33,7 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _transform = entity.GetComponent<ITransformComponent>();
+            _transform = entity.GetComponent<ITranslateComponent>();
             _uiEvents = entity.GetComponent<IUIEvents>();
             _uiEvents.MouseDown.Subscribe(onMouseDown);
         }

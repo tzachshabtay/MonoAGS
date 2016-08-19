@@ -5,7 +5,7 @@ namespace AGS.Engine
 	public class AGSSprite : AGSComponent, ISprite
 	{
 		private readonly IHasImage _hasImage;
-        private readonly ITransform _transform;        
+        private readonly ITranslate _transform;        
         private readonly IRotate _rotate;
         private readonly IMaskLoader _maskLoader;
 
