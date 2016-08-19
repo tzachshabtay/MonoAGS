@@ -12,6 +12,7 @@ namespace AGS.Engine
     {
         private ConcurrentDictionary<Type, List<IComponent>> _components;
         private Resolver _resolver;
+        private bool _componentsInitialized;
 
         public AGSEntity(string id, Resolver resolver)
         {
@@ -29,6 +30,7 @@ namespace AGS.Engine
         {
             foreach (var component in this) component.Init(this);
             foreach (var component in this) component.AfterInit();
+            _componentsInitialized = true;
             OnComponentsInitialized.Invoke(this, new AGSEventArgs());
         }
 
@@ -46,6 +48,7 @@ namespace AGS.Engine
             {
                 IComponent component = (IComponent)_resolver.Container.Resolve(componentType);
                 ofType.Add(component);
+                initComponentIfNeeded(component);
                 return component;
             }
             return null;
@@ -57,6 +60,7 @@ namespace AGS.Engine
             if (ofType.Count == 0 || component.AllowMultiple)
             {
                 ofType.Add(component);
+                initComponentIfNeeded(component);
                 return true;
             }
             return false;
@@ -181,6 +185,13 @@ namespace AGS.Engine
         public void AfterInit() { }
 
         #endregion
+
+        private void initComponentIfNeeded(IComponent component)
+        {
+            if (!_componentsInitialized) return;
+            component.Init(this);
+            component.AfterInit();
+        }
     }
 }
 
