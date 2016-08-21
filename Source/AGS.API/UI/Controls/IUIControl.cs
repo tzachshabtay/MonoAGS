@@ -9,7 +9,8 @@
 		IEvent<MousePositionEventArgs> MouseLeave { get; }
 		IEvent<MousePositionEventArgs> MouseMove { get; }
 		IEvent<MouseButtonEventArgs> MouseClicked { get; }
-		IEvent<MouseButtonEventArgs> MouseDown { get; }
+        IEvent<MouseButtonEventArgs> MouseDoubleClicked { get; }
+        IEvent<MouseButtonEventArgs> MouseDown { get; }
 		IEvent<MouseButtonEventArgs> MouseUp { get; }
         IEvent<MouseButtonEventArgs> LostFocus { get; }
 
