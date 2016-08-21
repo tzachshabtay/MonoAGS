@@ -14,6 +14,11 @@ namespace AGS.Engine
 
 		public bool Backwards { get; set; }
 
+        /// <summary>
+        /// Applying a default sort index (the index the rendered item was added to the display list) will help 
+        /// to reduce inconsistencies in the sorting when two items have the same z index and render layer (if the sorting 
+        /// result is 0 for 2 items, they can be randomly sorted  which can effect other sorted items).
+        /// </summary>
         public const string SortDefaultIndex = "SortDefaultIndex";
 
 		#region IComparer implementation
