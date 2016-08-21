@@ -14,7 +14,17 @@ namespace AGS.Engine.Android
 			return Directory.GetFiles(folder);
 		}
 
-		public Stream Open(string path)
+        public string GetCurrentDirectory()
+        {
+            return Directory.GetCurrentDirectory();
+        }
+
+        public bool DirectoryExists(string folder)
+        {
+            return Directory.Exists(folder);
+        }
+
+        public Stream Open(string path)
 		{
 			return File.OpenRead(path);
 		}

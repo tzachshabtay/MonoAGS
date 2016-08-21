@@ -14,6 +14,16 @@ namespace AGS.Engine.Desktop
 			return Directory.GetFiles(folder);
 		}
 
+        public string GetCurrentDirectory()
+        {
+            return Directory.GetCurrentDirectory();
+        }
+
+        public bool DirectoryExists(string folder)
+        {
+            return Directory.Exists(folder);
+        }
+
 		public Stream Open(string path)
 		{
 			return File.OpenRead(path);
