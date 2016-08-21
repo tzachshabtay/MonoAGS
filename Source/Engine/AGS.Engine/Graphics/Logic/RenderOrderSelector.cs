@@ -14,11 +14,17 @@ namespace AGS.Engine
 
 		public bool Backwards { get; set; }
 
+        public const string SortDefaultIndex = "SortDefaultIndex";
+
 		#region IComparer implementation
 
 		public int Compare(IObject s1, IObject s2)
 		{
 			int result = (int)compare(s1, s2);
+            if (result == 0)
+            {
+                result = s2.GetInt(SortDefaultIndex) - s1.GetInt(SortDefaultIndex);
+            }
 			if (Backwards) result *= -1;
 			#if DEBUG
 			s1.SetInt(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s2.ID), result);

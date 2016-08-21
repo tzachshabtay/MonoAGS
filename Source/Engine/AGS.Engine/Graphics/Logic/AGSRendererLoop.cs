@@ -193,7 +193,7 @@ namespace AGS.Engine
 			List<IObject> displayList = new List<IObject> (count);
 
 			if (room.Background != null)
-				displayList.Add (room.Background);
+				addToDisplayList(displayList, room.Background);
 
 			foreach (IObject obj in room.Objects) 
 			{
@@ -237,8 +237,14 @@ namespace AGS.Engine
 				return;
 			}
 
-			displayList.Add(obj);
+            addToDisplayList(displayList, obj);
 		}
+
+        private void addToDisplayList(List<IObject> displayList, IObject obj)
+        {
+            obj.SetInt(RenderOrderSelector.SortDefaultIndex, displayList.Count);
+            displayList.Add(obj);
+        }
 	}
 }
 
