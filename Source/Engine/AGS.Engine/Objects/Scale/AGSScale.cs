@@ -95,7 +95,7 @@ namespace AGS.Engine
             if (_initialWidth == 0f)
             {
                 throw new InvalidOperationException(
-                    "Initial size was not set. Either assign an animation/image to the object, or use the appropriate constructor.");
+                    "Initial size was not set. Either assign an animation/image to the object, use ResetBaseSize or use the appropriate constructor.");
             }
         }
     }
