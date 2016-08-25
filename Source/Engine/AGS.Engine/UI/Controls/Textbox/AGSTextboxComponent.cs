@@ -113,6 +113,7 @@ namespace AGS.Engine
 
             _caretMeasure.LabelRenderSize = _textComponent.LabelRenderSize;
             _caretMeasure.TextConfig = _textComponent.TextConfig;
+            if (CaretPosition > _textComponent.Text.Length) CaretPosition = _textComponent.Text.Length;
             _caretMeasure.Text = _textComponent.Text.Substring(0, CaretPosition);//.Replace(' ', '_'); 
 
             //spaces are not measured in end of line for some reason
@@ -120,7 +121,7 @@ namespace AGS.Engine
             if (_caretMeasure.Text.EndsWith(" ")) spaceOffset = _spaceWidth * (_caretMeasure.Text.Length - _caretMeasure.Text.TrimEnd().Length);
 
             _caretMeasure.CustomRenderer.Prepare(_obj, _drawable, _tree, _game.State.Player.Character.Room.Viewport, getAreaScaling());
-            _caret.X = _caretMeasure.TextWidth + CaretOffset + spaceOffset;
+            _caret.X = _caretMeasure.TextWidth + CaretOffset + spaceOffset;            
         }
 
         private float measureSpace()
