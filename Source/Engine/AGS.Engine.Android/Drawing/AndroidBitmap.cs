@@ -1,7 +1,5 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using Android.Graphics;
-using Java.Nio;
 using OpenTK.Graphics.OpenGL;
 using System.IO;
 
@@ -155,6 +153,12 @@ namespace AGS.Engine.Android
 		{
 			return _textDraw;
 		}
+
+        public void SaveToFile(string path)
+        {
+            using (Stream stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write))
+                _bitmap.Compress(Bitmap.CompressFormat.Png, 85, stream);
+        }
 
 		public int Width { get { return _bitmap.Width; } }
 

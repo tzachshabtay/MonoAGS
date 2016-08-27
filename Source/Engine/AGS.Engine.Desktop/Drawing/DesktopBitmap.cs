@@ -139,6 +139,11 @@ namespace AGS.Engine.Desktop
 			return _textDraw;
 		}
 
+        public void SaveToFile(string path)
+        {
+            _bitmap.Save(path, ImageFormat.Png);
+        }
+
 		public int Width { get { return _bitmap.Width; } }
 
 		public int Height { get { return _bitmap.Height; } }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
 	public interface IBitmap
 	{
@@ -16,6 +14,7 @@ namespace AGS.API
 		IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, 
 			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null);
 		IBitmapTextDraw GetTextDraw();
-	}
+        void SaveToFile(string path);
+    }
 }
 
