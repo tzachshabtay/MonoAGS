@@ -10,8 +10,9 @@ namespace AGS.Engine
         IEnumerable<string> GetLogicalDrives();
         string GetCurrentDirectory();
         bool DirectoryExists(string folder);
+        bool FileExists(string path);
 
-		Stream Open(string path);
+        Stream Open(string path);
 		Stream Create(string path);
 	}
 }

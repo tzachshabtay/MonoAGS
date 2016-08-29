@@ -35,6 +35,11 @@ namespace AGS.Engine.Desktop
             return Directory.Exists(folder);
         }
 
+        public bool FileExists(string path)
+        {
+            return File.Exists(path);
+        }
+
 		public Stream Open(string path)
 		{
 			return File.OpenRead(path);
