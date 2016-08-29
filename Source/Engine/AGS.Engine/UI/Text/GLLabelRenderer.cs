@@ -132,7 +132,7 @@ namespace AGS.Engine
 				_labelMatrixRenderTarget.Width = _glText.Width;
 				_labelMatrixRenderTarget.Height = _glText.Height;
 			}
-			IGLMatrices matrices = _matrixBuilder.Build(_labelMatrixRenderTarget, obj.Animation.Sprite, tree.TreeNode.Parent,
+			IGLMatrices matrices = _matrixBuilder.Build(_labelMatrixRenderTarget, obj.Animation == null ? null : obj.Animation.Sprite, tree.TreeNode.Parent,
                 drawable.IgnoreViewport ? Matrix4.Identity : _viewport.GetViewport(drawable.RenderLayer.Z).GetMatrix(viewport, drawable.RenderLayer.ParallaxSpeed), 
 				areaScaling);
 			_matrixContainer.Matrices = matrices;
@@ -171,7 +171,7 @@ namespace AGS.Engine
 
 				case AutoFit.TextShouldFitLabel:
 					_boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, matrices);        
-                    updateText(_glText.Width > BaseSize.Width ? GLText.EmptySize : new SizeF(BaseSize.Width, GLText.EmptySize.Height), null);                    
+                    updateText(_glText.Width > BaseSize.Width ? GLText.EmptySize : new SizeF(BaseSize.Width, GLText.EmptySize.Height), null);
 
 					float textWidth = _glText.Width < BaseSize.Width ? _glText.BitmapWidth : MathUtils.Lerp(0f, 0f, _glText.Width, BaseSize.Width,  _glText.BitmapWidth);
 					float textHeight = _glText.Height < BaseSize.Height ? _glText.BitmapHeight : MathUtils.Lerp(0f, 0f, _glText.Height, BaseSize.Height, _glText.BitmapHeight);
