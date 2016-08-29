@@ -8,7 +8,7 @@ namespace AGS.Engine
         partial void beforeInitComponents(Resolver resolver, IOutfit outfit)
         {
             TypedParameter objParameter = new TypedParameter(typeof(IObject), this);
-            _faceDirectionBehavior.CurrentDirectionalAnimation = outfit.IdleAnimation;
+            if (outfit != null) _faceDirectionBehavior.CurrentDirectionalAnimation = outfit.IdleAnimation;
             TypedParameter outfitParameter = new TypedParameter(typeof(IHasOutfit), this);
             ISayLocationProvider location = resolver.Container.Resolve<ISayLocationProvider>(objParameter);
             TypedParameter locationParameter = new TypedParameter(typeof(ISayLocationProvider), location);
