@@ -289,7 +289,8 @@
     <Compile Include="UI\Controls\Textbox\AGSTextboxComponent.cs" />
     <Compile Include="UI\DebugLabels\DebugLabel.cs" />
     <Compile Include="UI\DebugLabels\FPSCounter.cs" />
-    <Compile Include="UI\DebugLabels\MousePositionLabel.cs" />    
+    <Compile Include="UI\DebugLabels\MousePositionLabel.cs" />
+    <Compile Include="UI\DialogBoxes\AGSSelectFileDialog.cs" />
     <Compile Include="UI\HotspotLabels\HotspotLabel.cs" />
     <Compile Include="UI\HotspotLabels\VerbOnHotspotLabel.cs" />
     <Compile Include="UI\Skin\AGSSkin.cs" />
