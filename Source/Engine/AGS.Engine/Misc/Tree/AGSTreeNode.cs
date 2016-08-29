@@ -45,8 +45,9 @@ namespace AGS.Engine
 		{
 			get 
 			{
-				if (_parent == null) return null;
-				return _parent.Node;
+                var parent = _parent;
+				if (parent == null) return null;
+				return parent.Node;
 			}
 		}
 
