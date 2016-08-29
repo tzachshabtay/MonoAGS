@@ -127,6 +127,7 @@ namespace DemoGame
 				autoFit: AutoFit.LabelShouldFitText));
 			fpsLabel.Anchor = new AGS.API.PointF (1f, 0f);
 			fpsLabel.ScaleBy(0.7f, 0.7f);
+            fpsLabel.RenderLayer = new AGSRenderLayer(-99999);
 			FPSCounter fps = new FPSCounter(game, fpsLabel);
 			fps.Start();
 
@@ -134,7 +135,8 @@ namespace DemoGame
 				autoFit: AutoFit.LabelShouldFitText));
 			label.Anchor = new AGS.API.PointF (1f, 0f);
 			label.ScaleBy(0.7f, 0.7f);
-			MousePositionLabel mouseLabel = new MousePositionLabel(game, label);
+            label.RenderLayer = new AGSRenderLayer(-99999);
+            MousePositionLabel mouseLabel = new MousePositionLabel(game, label);
 			mouseLabel.Start();
 		}
 	}
