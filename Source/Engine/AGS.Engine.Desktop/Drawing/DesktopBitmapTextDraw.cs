@@ -1,8 +1,4 @@
-﻿using System;
-using AGS.API;
-
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
+﻿using AGS.API;
 using System.Drawing;
 
 namespace AGS.Engine.Desktop
@@ -10,8 +6,8 @@ namespace AGS.Engine.Desktop
 	public class DesktopBitmapTextDraw : IBitmapTextDraw
 	{
 		private ITextConfig _config;
-		private StringFormat _wrapFormat = new StringFormat (StringFormatFlags.NoClip);
-		private Bitmap _bitmap;
+        private StringFormat _wrapFormat = StringFormat.GenericTypographic;
+        private Bitmap _bitmap;
 		private int _maxWidth, _height;
 		private string _text;
 
@@ -23,7 +19,7 @@ namespace AGS.Engine.Desktop
 		public void DrawText(string text, ITextConfig config, AGS.API.SizeF textSize, AGS.API.SizeF baseSize, 
 			int maxWidth, int height)
 		{
-			_height = height;
+            _height = height;
 			_text = text;
 			_config = config;
 			_maxWidth = maxWidth;
@@ -32,22 +28,18 @@ namespace AGS.Engine.Desktop
 
 			using (Graphics gfx = Graphics.FromImage (_bitmap)) 
 			{
-				gfx.SmoothingMode = SmoothingMode.AntiAlias;
-				gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-				gfx.TextRenderingHint = TextRenderingHint.AntiAlias;
-				gfx.PixelOffsetMode = PixelOffsetMode.HighQuality;
-				gfx.CompositingQuality = CompositingQuality.HighQuality;
-
-				float left = _config.AlignX(textSize.Width, baseSize);
+                gfx.Init();
+                
+                float left = _config.AlignX(textSize.Width, baseSize);
 				float top = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
 				float centerX = left + _config.OutlineWidth / 2f;
 				float centerY = top + _config.OutlineWidth / 2f;
 				float right = left + _config.OutlineWidth;
 				float bottom = top + _config.OutlineWidth;
 
-				gfx.Clear(System.Drawing.Color.Transparent);
+                gfx.Clear(System.Drawing.Color.Transparent);
 
-				if (_config.OutlineWidth > 0f)
+                if (_config.OutlineWidth > 0f)
 				{
 					drawString(gfx, outlineBrush, left, top);
 					drawString(gfx, outlineBrush, centerX, top);
@@ -66,10 +58,10 @@ namespace AGS.Engine.Desktop
 						centerY + _config.ShadowOffsetY);
 				}
 				drawString(gfx, _config.Brush, centerX, centerY);
-
-				//This should be a better way to render the outline (DrawPath renders the outline, and FillPath renders the text)
-				//but for some reason some lines are missing when we render like that, at least on the mac
-				/*if (_outlineWidth > 0f)
+                
+                //This should be a better way to render the outline (DrawPath renders the outline, and FillPath renders the text)
+                //but for some reason some lines are missing when we render like that, at least on the mac
+                /*if (_outlineWidth > 0f)
 				{
 					GraphicsPath path = new GraphicsPath ();
 					Pen outlinePen = new Pen (_outlineBrush, _outlineWidth) { LineJoin = LineJoin.Round };
@@ -80,7 +72,7 @@ namespace AGS.Engine.Desktop
 				}
 				else 
 					gfx.DrawString (_text, _font, _brush, 0f, 0f);*/
-			}
+            }
 		}
 
 		private void drawString(Graphics gfx, IBrush ibrush, float x, float y)
@@ -91,7 +83,7 @@ namespace AGS.Engine.Desktop
 			Font font = getFont(_config.Font);
 			if (_maxWidth == int.MaxValue)
 			{
-				gfx.DrawString(_text, font, brush, x, y);
+				gfx.DrawString(_text, font, brush, x, y, StringFormat.GenericTypographic);                
 			}
 			else
 			{

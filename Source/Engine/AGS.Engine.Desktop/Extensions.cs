@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Drawing;
 using System.Drawing.Text;
+using System.Drawing.Drawing2D;
 
 namespace AGS.Engine.Desktop
 {
@@ -9,7 +10,16 @@ namespace AGS.Engine.Desktop
 	{
         static Extensions()
         {
-            _graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+            _graphics.Init();
+        }
+
+        public static void Init(this Graphics gfx)
+        {
+            gfx.SmoothingMode = SmoothingMode.AntiAlias;
+            gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            gfx.TextRenderingHint = TextRenderingHint.AntiAlias;
+            gfx.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            gfx.CompositingQuality = CompositingQuality.HighQuality;
         }
 
         public static void Clear(this Bitmap bitmap, Color color)
