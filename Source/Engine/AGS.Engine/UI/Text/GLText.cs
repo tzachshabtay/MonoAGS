@@ -89,7 +89,7 @@ namespace AGS.Engine
 
 		private void drawToBitmap ()
 		{
-			AGS.API.SizeF textSize = _config.Font.MeasureString(_text, _maxWidth);
+            AGS.API.SizeF textSize = _config.Font.MeasureString(_text, _maxWidth);
 
 			float widthOffset = Math.Max(_config.OutlineWidth, Math.Abs(_config.ShadowOffsetX));
 			float heightOffset = Math.Max(_config.OutlineWidth, Math.Abs(_config.ShadowOffsetY));
@@ -98,10 +98,10 @@ namespace AGS.Engine
             SizeF baseSize = new SizeF(_baseSize.Width == EmptySize.Width ? widthF : _baseSize.Width,
                 _baseSize.Height == EmptySize.Height ? heightF : _baseSize.Height);
 
-            Width = Math.Max((int)widthF + 2, _baseSize.Width == EmptySize.Width ? (int)baseSize.Width + 1 : 1);
-            Height = Math.Max((int)heightF + 2, _baseSize.Height == EmptySize.Height ? (int)baseSize.Height + 1 : 1);
-            int bitmapWidth = MathUtils.GetNextPowerOf2(Width);
-			int bitmapHeight = MathUtils.GetNextPowerOf2(Height);
+            Width = (int)widthF + 2;
+            Height = (int)heightF + 2;
+            int bitmapWidth = MathUtils.GetNextPowerOf2(Math.Max(Width, (int)_baseSize.Width + 2));
+			int bitmapHeight = MathUtils.GetNextPowerOf2(Math.Max(Height, (int)_baseSize.Height + 2));
 			IBitmap bitmap = _bitmap;
             if (bitmap == null || bitmap.Width != bitmapWidth || bitmap.Height != bitmapHeight)
 			{
@@ -112,7 +112,7 @@ namespace AGS.Engine
 			IBitmapTextDraw textDraw = bitmap.GetTextDraw();
 			textDraw.DrawText(_text, _config, textSize, baseSize, _maxWidth, Height);
 
-			_renderChanged = true;
+            _renderChanged = true;
 		}
 			
 		private void uploadBitmapToOpenGl()
