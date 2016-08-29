@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="Graphics\Image\AGSHasImage.cs" />
     <Compile Include="Graphics\Image\AGSImageComponent.cs" />
+    <Compile Include="Graphics\Logic\SortDebugger.cs" />
     <Compile Include="Objects\AGSDraggableComponent.cs" />
     <Compile Include="Objects\Collisions\AGSPixelPerfectCollidable.cs" />
     <Compile Include="Objects\Collisions\AGSPixelPerfectComponent.cs" />
@@ -288,7 +289,7 @@
     <Compile Include="UI\Controls\Textbox\AGSTextboxComponent.cs" />
     <Compile Include="UI\DebugLabels\DebugLabel.cs" />
     <Compile Include="UI\DebugLabels\FPSCounter.cs" />
-    <Compile Include="UI\DebugLabels\MousePositionLabel.cs" />
+    <Compile Include="UI\DebugLabels\MousePositionLabel.cs" />    
     <Compile Include="UI\HotspotLabels\HotspotLabel.cs" />
     <Compile Include="UI\HotspotLabels\VerbOnHotspotLabel.cs" />
     <Compile Include="UI\Skin\AGSSkin.cs" />

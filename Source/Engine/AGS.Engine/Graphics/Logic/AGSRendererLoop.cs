@@ -100,6 +100,7 @@ namespace AGS.Engine
 		private void renderRoom(IRoom room)
 		{
 			List<IObject> displayList = getDisplayList(room);
+            SortDebugger.DebugIfNeeded(displayList);
 
 			foreach (IObject obj in displayList) 
 			{
