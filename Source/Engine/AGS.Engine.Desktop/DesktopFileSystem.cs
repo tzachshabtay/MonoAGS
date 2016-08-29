@@ -14,6 +14,17 @@ namespace AGS.Engine.Desktop
 			return Directory.GetFiles(folder);
 		}
 
+        public IEnumerable<string> GetDirectories(string folder)
+        {
+            if (!Directory.Exists(folder)) return new List<string>();
+            return Directory.GetDirectories(folder);
+        }
+
+        public IEnumerable<string> GetLogicalDrives()
+        {
+            return Directory.GetLogicalDrives();
+        }
+
         public string GetCurrentDirectory()
         {
             return Directory.GetCurrentDirectory();
