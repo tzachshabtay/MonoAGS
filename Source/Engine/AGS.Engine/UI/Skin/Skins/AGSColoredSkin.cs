@@ -24,6 +24,8 @@ namespace AGS.Engine
         public Color CheckboxHoverNotCheckedColor { get; set; }
         public Color CheckboxHoverCheckedColor { get; set; }
         public IBorderStyle CheckboxBorderStyle { get; set; }
+        public Color DialogBoxColor { get; set; }
+        public IBorderStyle DialogBoxBorder { get; set; }
 
         public PointF DefaultItemSize = new PointF(100f, 50f);
 
@@ -80,6 +82,18 @@ namespace AGS.Engine
             {
                 var textComponent = entity.GetComponent<ITextComponent>();
                 textComponent.Text = "\u25BE";//Unicode for down arrow. Another option is "\u25BC";
+            });
+
+            skin.AddRule(entity =>
+            {
+                var skinComponent = entity.GetComponent<ISkinComponent>();
+                return skinComponent != null && skinComponent.SkinTags.Contains(AGSSkin.DialogBoxTag);
+            }, entity =>
+            {
+                var imageComponent = entity.GetComponent<IImageComponent>();
+                if (imageComponent != null) imageComponent.Tint = DialogBoxColor;
+                var animationContainer = entity.GetComponent<IAnimationContainer>();
+                if (animationContainer != null) animationContainer.Border = DialogBoxBorder;
             });
 
             skin.AddRule(entity =>

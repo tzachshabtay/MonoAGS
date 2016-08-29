@@ -11,6 +11,7 @@ namespace AGS.Engine
 
         public const string DropDownButtonTag = "DropDownButton";
         public const string CheckBoxTag = "CheckBox";
+        public const string DialogBoxTag = "DialogBox";
 
         public void Apply(IEntity entity)
         {

@@ -21,6 +21,8 @@ namespace AGS.Engine
                 CheckboxHoverCheckedColor = Colors.Blue,
                 CheckboxHoverNotCheckedColor = Colors.Blue,
                 CheckboxBorderStyle = AGSBorders.SolidColor(Colors.DarkBlue, 1f),
+                DialogBoxColor = Colors.DarkSlateBlue,
+                DialogBoxBorder = AGSBorders.SolidColor(Colors.DarkBlue, 2f)
             };
         }
 
