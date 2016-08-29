@@ -45,19 +45,20 @@ namespace AGS.Engine
 
 		public static float AlignX(this ITextConfig config, float width, AGS.API.SizeF baseSize)
 		{
-			const float reducePadding = 2f;
 			switch (config.Alignment)
 			{
 				case Alignment.TopLeft:
 				case Alignment.MiddleLeft:
 				case Alignment.BottomLeft:
-					return -reducePadding + config.PaddingLeft;
+					return config.PaddingLeft;
 				case Alignment.TopCenter:
 				case Alignment.MiddleCenter:
 				case Alignment.BottomCenter:
-					return baseSize.Width / 2 - width / 2 - reducePadding / 2;
-				default:
-					return baseSize.Width - width - reducePadding - config.PaddingRight;
+                    float left = config.PaddingLeft;
+                    float right = baseSize.Width - config.PaddingRight;
+                    return (left + (right - left) / 2f - width / 2f);
+                default:
+					return baseSize.Width - width - config.PaddingRight;
 			}
 		}
 
