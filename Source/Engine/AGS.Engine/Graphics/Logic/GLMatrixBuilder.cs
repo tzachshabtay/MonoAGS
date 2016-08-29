@@ -41,6 +41,7 @@ namespace AGS.Engine
 
 		private Matrix4 getModelMatrix(IHasModelMatrix sprite, PointF areaScaling)
 		{
+            if (sprite == null) return Matrix4.Identity;
 			PointF anchorOffsets = getAnchorOffsets (sprite.Anchor, sprite.Width, sprite.Height);
 			Matrix4 anchor = Matrix4.CreateTranslation (new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
 			Matrix4 scale = Matrix4.CreateScale (new Vector3 (sprite.ScaleX * areaScaling.X, 
