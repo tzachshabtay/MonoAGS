@@ -6,7 +6,7 @@ namespace AGS.Engine.Desktop
 	public class DesktopBitmapTextDraw : IBitmapTextDraw
 	{
 		private ITextConfig _config;
-        private StringFormat _wrapFormat = StringFormat.GenericTypographic;
+        private StringFormat _wrapFormat = new StringFormat(StringFormat.GenericTypographic);
         private Bitmap _bitmap;
 		private int _maxWidth, _height;
 		private string _text;
@@ -83,7 +83,7 @@ namespace AGS.Engine.Desktop
 			Font font = getFont(_config.Font);
 			if (_maxWidth == int.MaxValue)
 			{
-				gfx.DrawString(_text, font, brush, x, y, StringFormat.GenericTypographic);                
+                gfx.DrawString(_text, font, brush, x, y, StringFormat.GenericTypographic);                
 			}
 			else
 			{
