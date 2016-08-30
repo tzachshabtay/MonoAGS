@@ -3,19 +3,14 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	//todo: create interface for matrix render target with just the required properties
-	public class LabelMatrixRenderTarget : ISprite
+    //todo: create interface for matrix render target with just the required properties
+    public class LabelMatrixRenderTarget : IHasModelMatrix
 	{
 		public LabelMatrixRenderTarget()
 		{
 		}
 
 		#region ISprite implementation
-
-		public void PixelPerfect(bool pixelPerfect)
-		{
-			throw new NotImplementedException();
-		}
 
 		public void ResetScale()
 		{
@@ -42,12 +37,7 @@ namespace AGS.Engine
 			throw new NotImplementedException();
 		}
 
-		public ISprite Clone()
-		{
-			throw new NotImplementedException();
-		}
-
-        public void ResetBaseSize(float initialWidth, float initialHeight)
+		public void ResetBaseSize(float initialWidth, float initialHeight)
         {
             throw new NotImplementedException();
         }
@@ -80,14 +70,6 @@ namespace AGS.Engine
 				throw new NotImplementedException();
 			}
 			set
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		public IArea PixelPerfectHitTestArea
-		{
-			get
 			{
 				throw new NotImplementedException();
 			}
