@@ -22,7 +22,6 @@ namespace AGS.Engine
 		private IGLBoundingBoxes _usedLabelBoundingBoxes, _usedTextBoundingBoxes;
 		private readonly LabelMatrixRenderTarget _labelMatrixRenderTarget;
 		private readonly BitmapPool _bitmapPool;
-        private bool _calculationOnly;
 
 		public GLLabelRenderer(Dictionary<string, GLImage> textures, IGLMatrixBuilder matrixBuilder,
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
@@ -51,16 +50,7 @@ namespace AGS.Engine
 		public ITextConfig Config { get; set; }
 		public AGS.API.SizeF BaseSize { get; set; }
 		public ILabel Label { get; set; }
-        public bool CalculationOnly
-        {
-            get { return _calculationOnly; }
-            set
-            {
-                _calculationOnly = value;
-                var glText = _glText;
-                if (glText != null) glText.CalculationOnly = _calculationOnly;
-            }
-        }
+        public int? CaretPosition { get; set; }
 
 		public float Width 
 		{ 
@@ -98,7 +88,7 @@ namespace AGS.Engine
 
 		public void Prepare(IObject obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
 		{
-			_glText = _glText ?? new GLText (_bitmapPool, calculationOnly: CalculationOnly);
+			_glText = _glText ?? new GLText (_bitmapPool);
 
 			updateBoundingBoxes(obj, drawable, tree, viewport, areaScaling);
 			_bgRenderer.BoundingBoxes = _usedLabelBoundingBoxes;
@@ -211,7 +201,7 @@ namespace AGS.Engine
 		{
 			if (TextVisible)
 			{
-				_glText.SetProperties(baseSize, Text, Config, maxWidth);
+				_glText.SetProperties(baseSize, Text, Config, maxWidth, CaretPosition);
 				_glText.Refresh();
 			}
 		}

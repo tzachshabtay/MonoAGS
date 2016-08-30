@@ -20,7 +20,7 @@ namespace AGS.Engine.Android
 
 		#region IBitmapTextDraw implementation
 
-		public void DrawText(string text, ITextConfig config, AGS.API.SizeF textSize, AGS.API.SizeF baseSize, int maxWidth, int height)
+		public void DrawText(string text, ITextConfig config, AGS.API.SizeF textSize, AGS.API.SizeF baseSize, int maxWidth, int height, float xOffset)
 		{
 			//_height = height; todo: support height
 			_text = text;
@@ -31,7 +31,7 @@ namespace AGS.Engine.Android
 
 			using (Canvas canvas = new Canvas (_bitmap))
 			{
-				float left = _config.AlignX(textSize.Width, baseSize);
+				float left = xOffset + _config.AlignX(textSize.Width, baseSize);
 				float top = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
 				float centerX = left + _config.OutlineWidth / 2f;
 				float centerY = top + _config.OutlineWidth / 2f;

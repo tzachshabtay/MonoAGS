@@ -17,7 +17,7 @@ namespace AGS.Engine.Desktop
 		}
 
 		public void DrawText(string text, ITextConfig config, AGS.API.SizeF textSize, AGS.API.SizeF baseSize, 
-			int maxWidth, int height)
+			int maxWidth, int height, float xOffset)
 		{
             _height = height;
 			_text = text;
@@ -30,7 +30,7 @@ namespace AGS.Engine.Desktop
 			{
                 gfx.Init();
                 
-                float left = _config.AlignX(textSize.Width, baseSize);
+                float left = xOffset + _config.AlignX(textSize.Width, baseSize);
 				float top = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
 				float centerX = left + _config.OutlineWidth / 2f;
 				float centerY = top + _config.OutlineWidth / 2f;

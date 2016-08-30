@@ -60,13 +60,7 @@
         /// The default is 0, meaning the caret will be placed at the start of the string.
         /// The caret position automatically changes based on the keyboard input.
         /// </summary>
-        int CaretPosition { get; set; }
-
-        /// <summary>
-        /// A constant offset for placing the caret (this might be configured a little differently for different fonts to get better looking results)
-        /// Default: -7
-        /// </summary>
-        float CaretOffset { get; set; }
+        int CaretPosition { get; set; }       
 
         /// <summary>
         /// Sets the number of frames will wait for flashing the caret.

@@ -14,7 +14,6 @@ namespace AGS.Engine
         private IHasRoom _room;
         private readonly IGame _game;
         private static readonly PointF _noScaling = new PointF(1f, 1f);
-        private float _spaceWidth;
         private int _caretFlashCounter;
 
         private int _endOfLine { get { return _textComponent.Text.Length; } }
@@ -22,12 +21,11 @@ namespace AGS.Engine
         private bool _leftShiftOn, _rightShiftOn;
         private bool _shiftOn { get { return _leftShiftOn || _rightShiftOn; } }
 
-        private ILabel _caretMeasure, _caret;
+        private ILabel _withCaret;
 
         public AGSTextBoxComponent(IEvent<AGSEventArgs> onFocusChanged, IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
             IInput input, IGame game)
         {
-            CaretOffset = -7f;
             CaretFlashDelay = 10;
             OnFocusChanged = onFocusChanged;
             OnPressingKey = onPressingKey;
@@ -48,14 +46,9 @@ namespace AGS.Engine
             _room = entity.GetComponent<IHasRoom>();
 
             _caretFlashCounter = (int)CaretFlashDelay;
-            _spaceWidth = measureSpace();
-            _caret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
-            _caretMeasure = _game.Factory.UI.GetLabel(entity.ID + " Caret Measure", "", 1f, 1f, 0f, 0f, addToUi: false);
-            _caretMeasure.TreeNode.SetParent(_tree.TreeNode);
-            _caret.Anchor = new PointF(0f, 0f);
-            ILabelRenderer labelRenderer = _caretMeasure.CustomRenderer as ILabelRenderer;
-            if (labelRenderer != null) labelRenderer.CalculationOnly = true;
-
+            _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
+            _withCaret.Anchor = new PointF(0f, 0f);
+            
             _game.Events.OnBeforeRender.Subscribe(onBeforeRender);
             _uiEvents.MouseDown.Subscribe(onMouseDown);
             _uiEvents.LostFocus.Subscribe(onMouseDownOutside);
@@ -73,7 +66,6 @@ namespace AGS.Engine
         }
 
         public int CaretPosition { get; set; }
-        public float CaretOffset { get; set; }        
         public uint CaretFlashDelay { get; set; }
 
         public IEvent<AGSEventArgs> OnFocusChanged { get; private set; }
@@ -94,7 +86,7 @@ namespace AGS.Engine
         private void onBeforeRender(object sender, AGSEventArgs args)
         {
             if (_room.Room != null && _room.Room != _game.State.Player.Character.Room) return;
-            if (_caret.TreeNode.Parent == null) _caret.TreeNode.SetParent(_tree.TreeNode);
+            if (_withCaret.TreeNode.Parent == null) _withCaret.TreeNode.SetParent(_tree.TreeNode);
             bool isVisible = IsFocused;
             if (isVisible)
             {
@@ -108,27 +100,16 @@ namespace AGS.Engine
                     }                    
                 }
             }
-            _caret.Visible = isVisible;
+            _withCaret.Visible = isVisible;            
             if (!isVisible) return;
-
-            _caretMeasure.LabelRenderSize = _textComponent.LabelRenderSize;
-            _caretMeasure.TextConfig = _textComponent.TextConfig;
-            if (CaretPosition > _textComponent.Text.Length) CaretPosition = _textComponent.Text.Length;
-            _caretMeasure.Text = _textComponent.Text.Substring(0, CaretPosition);//.Replace(' ', '_'); 
-
-            //spaces are not measured in end of line for some reason
-            float spaceOffset = 0f;            
-            if (_caretMeasure.Text.EndsWith(" ")) spaceOffset = _spaceWidth * (_caretMeasure.Text.Length - _caretMeasure.Text.TrimEnd().Length);
-
-            _caretMeasure.CustomRenderer.Prepare(_obj, _drawable, _tree, _game.State.Player.Character.Room.Viewport, getAreaScaling());
-            _caret.X = _caretMeasure.TextWidth + CaretOffset + spaceOffset;            
-        }
-
-        private float measureSpace()
-        {
-            //hack to measure the size of spaces. For some reason MeasureString returns bad results when string ends with a space.
-            IFont font = (_textComponent.TextConfig ?? new AGSTextConfig()).Font;
-            return font.MeasureString(" a").Width - font.MeasureString("a").Width;
+            _withCaret.Text = _textComponent.Text;
+            _withCaret.TextConfig = _textComponent.TextConfig;
+            var renderer = _withCaret.CustomRenderer as ILabelRenderer;
+            if (renderer != null)
+            {
+                renderer.CaretPosition = CaretPosition;
+                renderer.BaseSize = _textComponent.LabelRenderSize;
+            }            
         }
 
         private PointF getAreaScaling()

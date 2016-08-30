@@ -613,12 +613,6 @@ namespace AGS.Engine
             set { _textBoxComponent.CaretPosition = value; } 
         }
 
-        public Single CaretOffset 
-        {  
-            get { return _textBoxComponent.CaretOffset; }  
-            set { _textBoxComponent.CaretOffset = value; } 
-        }
-
         public UInt32 CaretFlashDelay 
         {  
             get { return _textBoxComponent.CaretFlashDelay; }  

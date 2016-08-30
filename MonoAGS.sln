@@ -47,6 +47,7 @@ Global
 		Source\Editor\AGS.Editor\AGS.Editor.projitems*{7d1de11b-bb78-485d-ba7a-2f34dd73c242}*SharedItemsImports = 4
 		Source\Demo\DemoQuest\DemoQuest.projitems*{98152d72-ebe6-4202-810f-79d39058fb4f}*SharedItemsImports = 4
 		Source\Demo\DemoQuest\DemoQuest.projitems*{9c80e5ac-7047-435b-8a42-01e9fd6519bf}*SharedItemsImports = 13
+		Source\Editor\AGS.Editor\AGS.Editor.projitems*{bfb62b1a-8e55-4ea9-84e9-23b02240a4a2}*SharedItemsImports = 4
 		Source\Demo\DemoQuest\DemoQuest.projitems*{ed5cc880-e60b-452e-aacf-e61ed81504b3}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
