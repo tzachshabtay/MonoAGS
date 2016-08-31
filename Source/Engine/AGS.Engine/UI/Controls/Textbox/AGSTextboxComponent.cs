@@ -8,8 +8,8 @@ namespace AGS.Engine
         private bool _isFocused;
         private ITextComponent _textComponent;
         private IImageComponent _imageComponent;
-        private IUIEvents _uiEvents;
-        private IObject _obj;
+        private ITranslateComponent _translateComponent;
+        private IUIEvents _uiEvents;        
         private IDrawableInfo _drawable;
         private IInObjectTree _tree;
         private IHasRoom _room;
@@ -42,7 +42,7 @@ namespace AGS.Engine
             _textComponent = entity.GetComponent<ITextComponent>();
             _imageComponent = entity.GetComponent<IImageComponent>();
             _uiEvents = entity.GetComponent<IUIEvents>();
-            _obj = (IObject)entity;
+            _translateComponent = entity.GetComponent<ITranslateComponent>();
             _drawable = entity.GetComponent<IDrawableInfo>();
             _tree = entity.GetComponent<IInObjectTree>();
             _room = entity.GetComponent<IHasRoom>();
@@ -125,8 +125,8 @@ namespace AGS.Engine
             if (_drawable.IgnoreScalingArea) return _noScaling;
             foreach (var area in _room.Room.ScalingAreas)
             {
-                if (!area.IsInArea(_obj.Location.XY)) continue;
-                float scaling = area.GetScaling(_obj.Y);
+                if (!area.IsInArea(_translateComponent.Location.XY)) continue;
+                float scaling = area.GetScaling(_translateComponent.Y);
                 return new PointF(scaling, scaling);
             }
             return _noScaling;

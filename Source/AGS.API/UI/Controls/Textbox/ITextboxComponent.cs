@@ -5,7 +5,7 @@
     /// </summary>
     [RequiredComponent(typeof(ITextComponent))]
     [RequiredComponent(typeof(IUIEvents))]
-    //[RequiredComponent(typeof(IAnimationContainer))]    todo: requires object
+    [RequiredComponent(typeof(ITranslateComponent))]
     [RequiredComponent(typeof(IDrawableInfo))]
     [RequiredComponent(typeof(IInObjectTree))]
     [RequiredComponent(typeof(IHasRoom))]
