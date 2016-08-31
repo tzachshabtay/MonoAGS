@@ -9,6 +9,7 @@
     [RequiredComponent(typeof(IDrawableInfo))]
     [RequiredComponent(typeof(IInObjectTree))]
     [RequiredComponent(typeof(IHasRoom))]
+    [RequiredComponent(typeof(IImageComponent))]
     public interface ITextBoxComponent : IComponent
     {
         /// <summary>

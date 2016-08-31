@@ -5,6 +5,7 @@ using OpenTK.Graphics.OpenGL;
 
 using System.Diagnostics;
 using AGS.API;
+using System.Text;
 
 namespace AGS.Engine
 {
@@ -18,8 +19,9 @@ namespace AGS.Engine
 		private bool _renderChanged;
 		private BitmapPool _bitmapPool;
 		private AGS.API.SizeF _baseSize;
-        private int? _caretPosition;
+        private int _caretPosition;
         private float _spaceWidth;
+        private bool _cropText, _renderCaret;
 
         public GLText (BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
 		{
@@ -41,14 +43,17 @@ namespace AGS.Engine
 		public int Width { get; private set; }
 		public int Height { get; private set; }        
 
-		public void SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null, int? caretPosition = null)
+		public void SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null, 
+            int caretPosition = 0, bool renderCaret = false, bool? cropText = null)
 		{
 			bool changeNeeded = 
 				(text != null && text != _text)
 				|| (config != null && config != _config)
 				|| (maxWidth != null && maxWidth.Value != _maxWidth)
 				|| !baseSize.Equals(_baseSize)
-                || _caretPosition != caretPosition;
+                || _caretPosition != caretPosition
+                || _renderCaret != renderCaret
+                || (cropText != null && cropText.Value != _cropText);
 			if (!changeNeeded) return;
 
 			_text = text;
@@ -58,8 +63,10 @@ namespace AGS.Engine
                 _spaceWidth = measureSpace();
             }
 			if (maxWidth != null) _maxWidth = maxWidth.Value;
+            if (cropText != null) _cropText = cropText.Value;
 			_baseSize = baseSize;
             _caretPosition = caretPosition;
+            _renderCaret = renderCaret;
 
 			drawToBitmap();
 		}
@@ -92,9 +99,48 @@ namespace AGS.Engine
 			return text_texture;
 		}
 
-		private void drawToBitmap ()
+        private SizeF cropText(ref string text)
+        {
+            var caretPosition = _caretPosition;
+            if (caretPosition >= text.Length) caretPosition = text.Length - 1;
+            SizeF newTextSize = new SizeF();
+            SizeF prevTextSize = newTextSize;
+            StringBuilder textBuilder = new StringBuilder();
+            string newText = "";
+            string result = "";
+            int currentPosition = caretPosition;
+            while (newTextSize.Width < _maxWidth)
+            {
+                result = newText;
+                prevTextSize = newTextSize;
+                if (currentPosition > caretPosition)
+                {
+                    textBuilder.Append(text[currentPosition]);
+                    currentPosition++;                    
+                }
+                else
+                {
+                    textBuilder.Insert(0, text[currentPosition]);
+                    currentPosition--;
+                    if (currentPosition < 0) currentPosition = caretPosition + 1;
+                }
+                newText = textBuilder.ToString();
+                newTextSize = _config.Font.MeasureString(newText, int.MaxValue);                
+            }
+            text = result;
+            return prevTextSize;
+        }
+
+        private void drawToBitmap ()
 		{
-            SizeF textSize = _config.Font.MeasureString(_text, _maxWidth);
+            string originalText = _text ?? "";            
+            string text = _text;
+            SizeF originalTextSize = _config.Font.MeasureString(text, _cropText ? int.MaxValue : _maxWidth);
+            SizeF textSize = originalTextSize;
+            if (_cropText && textSize.Width > _maxWidth)
+            {
+                textSize = cropText(ref text);
+            }
 
 			float widthOffset = Math.Max(_config.OutlineWidth, Math.Abs(_config.ShadowOffsetX));
 			float heightOffset = Math.Max(_config.OutlineWidth, Math.Abs(_config.ShadowOffsetY));
@@ -115,20 +161,22 @@ namespace AGS.Engine
 				bitmap = _bitmap;
 			}
 			IBitmapTextDraw textDraw = bitmap.GetTextDraw();
-            string text = _text;
-            textDraw.DrawText(text, _config, textSize, baseSize, _maxWidth, Height, 0f);
-            drawCaret(text, textSize, baseSize, textDraw);
+            using (var context = textDraw.CreateContext())
+            {
+                textDraw.DrawText(text, _config, textSize, baseSize, _maxWidth, Height, 0f);
+                drawCaret(originalText, textSize, baseSize, textDraw);
+            }
             
             _renderChanged = true;
 		}
 
         private void drawCaret(string text, SizeF textSize, SizeF baseSize, IBitmapTextDraw textDraw)
         {
-            var caretPosition = _caretPosition;
-            if (caretPosition == null) return;
+            if (!_renderCaret) return;
+            var caretPosition = _caretPosition;            
             
             if (caretPosition > text.Length) caretPosition = text.Length;
-            string untilCaret = text.Substring(0, caretPosition.Value);
+            string untilCaret = text.Substring(0, caretPosition);
             AGS.API.SizeF caretOffset = _config.Font.MeasureString(untilCaret, _maxWidth);
             float spaceOffset = 0f;
             if (untilCaret.EndsWith(" ")) spaceOffset = _spaceWidth * (untilCaret.Length - untilCaret.TrimEnd().Length);

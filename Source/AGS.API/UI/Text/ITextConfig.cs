@@ -7,6 +7,7 @@
 		TextShouldWrapWithoutHeightFitting,
 		TextShouldWrapAndLabelShouldFitHeight,
 		TextShouldFitLabel,
+        TextShouldCrop,
 	}
 
 	public interface ITextConfig

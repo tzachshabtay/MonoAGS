@@ -50,7 +50,8 @@ namespace AGS.Engine
 		public ITextConfig Config { get; set; }
 		public AGS.API.SizeF BaseSize { get; set; }
 		public ILabel Label { get; set; }
-        public int? CaretPosition { get; set; }
+        public int CaretPosition { get; set; }
+        public bool RenderCaret { get; set; }
 
 		public float Width 
 		{ 
@@ -180,7 +181,19 @@ namespace AGS.Engine
 					_usedTextBoundingBoxes = _textBoundingBoxes;
 					break;
 
-				default:
+                case AutoFit.TextShouldCrop:
+                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, matrices);
+                    updateText(_glText.Width > BaseSize.Width ? GLText.EmptySize : new SizeF(BaseSize.Width, GLText.EmptySize.Height), (int)BaseSize.Width, true);
+
+                    float heightOfText = _glText.Height < BaseSize.Height ? _glText.BitmapHeight : MathUtils.Lerp(0f, 0f, _glText.Height, BaseSize.Height, _glText.BitmapHeight);
+
+                    _boundingBoxBuilder.Build(_textBoundingBoxes, _glText.BitmapWidth, heightOfText, matrices);
+
+                    _usedLabelBoundingBoxes = _labelBoundingBoxes;
+                    _usedTextBoundingBoxes = _textBoundingBoxes;
+                    break;
+
+                default:
 					throw new NotSupportedException (autoFit.ToString());
 			}
 		}
@@ -197,11 +210,11 @@ namespace AGS.Engine
 			_labelMatrixRenderTarget.ScaleY = obj.ScaleY;
 		}
 
-		private void updateText(AGS.API.SizeF baseSize, int? maxWidth)
+		private void updateText(AGS.API.SizeF baseSize, int? maxWidth, bool? cropText = null)
 		{
 			if (TextVisible)
 			{
-				_glText.SetProperties(baseSize, Text, Config, maxWidth, CaretPosition);
+				_glText.SetProperties(baseSize, Text, Config, maxWidth, CaretPosition, RenderCaret, cropText);
 				_glText.Refresh();
 			}
 		}

@@ -131,7 +131,7 @@ namespace AGS.Engine
             textbox.Y = y;
             if (width < 0f && config == null)
             {
-                config = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText);
+                config = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop);
             }
             textbox.TextConfig = config;
             textbox.Text = text;

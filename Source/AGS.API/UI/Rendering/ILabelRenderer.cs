@@ -7,7 +7,8 @@
 	    SizeF BaseSize { get; set; }
         bool TextVisible { get; set; }
 
-        int? CaretPosition { get; set; }
+        int CaretPosition { get; set; }
+        bool RenderCaret { get; set; }
 
 		float Width { get; }
 		float Height { get; }

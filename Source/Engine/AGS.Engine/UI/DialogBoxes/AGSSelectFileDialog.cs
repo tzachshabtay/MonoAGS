@@ -72,12 +72,13 @@ namespace AGS.Engine
             float cancelButtonX = okButtonX + okButtonWidth + okButtonPaddingX;
             float panelX = _game.VirtualResolution.Width / 2f - panelWidth / 2f;
             float panelY = _game.VirtualResolution.Height / 2f - panelHeight / 2f;
-            
+            ITextConfig textBoxConfig = new AGSTextConfig(alignment: Alignment.BottomLeft, autoFit: AutoFit.TextShouldCrop);
+
             IPanel panel = factory.UI.GetPanel("SelectFilePanel", panelWidth, panelHeight, panelX, panelY);
             panel.SkinTags.Add(AGSSkin.DialogBoxTag);
             panel.Skin.Apply(panel);
             ILabel titleLabel = factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, _textConfig);
-            _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, _startPath, _textConfig, width: panelWidth, height: textBoxHeight);                        
+            _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, _startPath, textBoxConfig, width: panelWidth, height: textBoxHeight);                        
 
             _dummyChar = factory.Object.GetCharacter("SelectFileCharacter", null);
             IInventoryWindow invWindow = factory.Inventory.GetInventoryWindow("SelectFileInventory", panelWidth - scrollButtonWidth - scrollButtonOffsetX * 2, 

@@ -2,7 +2,6 @@
 using AGS.API;
 using Android.Graphics;
 using Android.Text;
-using System.Drawing;
 
 namespace AGS.Engine.Android
 {
@@ -12,13 +11,21 @@ namespace AGS.Engine.Android
 		private Bitmap _bitmap;
 		private int _maxWidth;//, _height;
 		private string _text;
+        private Canvas _canvas;
 
 		public AndroidBitmapTextDraw(Bitmap bitmap)
 		{
 			_bitmap = bitmap;
 		}
 
-		#region IBitmapTextDraw implementation
+        #region IBitmapTextDraw implementation
+
+        public IDisposable CreateContext()
+        {
+            _canvas = new Canvas(_bitmap);
+            _canvas.DrawColor(global::Android.Graphics.Color.Transparent);
+            return _canvas;
+        }
 
 		public void DrawText(string text, ITextConfig config, AGS.API.SizeF textSize, AGS.API.SizeF baseSize, int maxWidth, int height, float xOffset)
 		{
@@ -29,39 +36,35 @@ namespace AGS.Engine.Android
 
 			TextPaint paint = getPaint(_config.Brush);
 
-			using (Canvas canvas = new Canvas (_bitmap))
+			float left = xOffset + _config.AlignX(textSize.Width, baseSize);
+			float top = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
+			float centerX = left + _config.OutlineWidth / 2f;
+			float centerY = top + _config.OutlineWidth / 2f;
+			float right = left + _config.OutlineWidth;
+			float bottom = top + _config.OutlineWidth;
+
+            var canvas = _canvas;
+			if (_config.OutlineWidth > 0f)
 			{
-				float left = xOffset + _config.AlignX(textSize.Width, baseSize);
-				float top = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
-				float centerX = left + _config.OutlineWidth / 2f;
-				float centerY = top + _config.OutlineWidth / 2f;
-				float right = left + _config.OutlineWidth;
-				float bottom = top + _config.OutlineWidth;
+				TextPaint outlinePaint = getPaint(_config.OutlineBrush);
+				drawString(canvas, outlinePaint, left, top);
+				drawString(canvas, outlinePaint, centerX, top);
+				drawString(canvas, outlinePaint, right, top);
 
-				canvas.DrawColor(global::Android.Graphics.Color.Transparent);
+				drawString(canvas, outlinePaint, left, centerY);
+				drawString(canvas, outlinePaint, right, centerY);
 
-				if (_config.OutlineWidth > 0f)
-				{
-					TextPaint outlinePaint = getPaint(_config.OutlineBrush);
-					drawString(canvas, outlinePaint, left, top);
-					drawString(canvas, outlinePaint, centerX, top);
-					drawString(canvas, outlinePaint, right, top);
-
-					drawString(canvas, outlinePaint, left, centerY);
-					drawString(canvas, outlinePaint, right, centerY);
-
-					drawString(canvas, outlinePaint, left, bottom);
-					drawString(canvas, outlinePaint, centerX, bottom);
-					drawString(canvas, outlinePaint, right, bottom);
-				}
-				if (_config.ShadowBrush != null)
-				{
-					TextPaint shadowPaint = getPaint(_config.ShadowBrush);
-					drawString(canvas, shadowPaint, centerX + _config.ShadowOffsetX, 
-						centerY + _config.ShadowOffsetY);
-				}
-				drawString(canvas, paint, centerX, centerY);
+				drawString(canvas, outlinePaint, left, bottom);
+				drawString(canvas, outlinePaint, centerX, bottom);
+				drawString(canvas, outlinePaint, right, bottom);
 			}
+			if (_config.ShadowBrush != null)
+			{
+				TextPaint shadowPaint = getPaint(_config.ShadowBrush);
+				drawString(canvas, shadowPaint, centerX + _config.ShadowOffsetX, 
+					centerY + _config.ShadowOffsetY);
+			}
+			drawString(canvas, paint, centerX, centerY);
 		}
 
 		#endregion

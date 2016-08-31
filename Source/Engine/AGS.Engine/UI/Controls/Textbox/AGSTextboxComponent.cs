@@ -7,6 +7,7 @@ namespace AGS.Engine
     {
         private bool _isFocused;
         private ITextComponent _textComponent;
+        private IImageComponent _imageComponent;
         private IUIEvents _uiEvents;
         private IObject _obj;
         private IDrawableInfo _drawable;
@@ -39,6 +40,7 @@ namespace AGS.Engine
         {
             base.Init(entity);
             _textComponent = entity.GetComponent<ITextComponent>();
+            _imageComponent = entity.GetComponent<IImageComponent>();
             _uiEvents = entity.GetComponent<IUIEvents>();
             _obj = (IObject)entity;
             _drawable = entity.GetComponent<IDrawableInfo>();
@@ -48,7 +50,7 @@ namespace AGS.Engine
             _caretFlashCounter = (int)CaretFlashDelay;
             _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _withCaret.Anchor = new PointF(0f, 0f);
-            
+
             _game.Events.OnBeforeRender.Subscribe(onBeforeRender);
             _uiEvents.MouseDown.Subscribe(onMouseDown);
             _uiEvents.LostFocus.Subscribe(onMouseDownOutside);
@@ -100,8 +102,7 @@ namespace AGS.Engine
                     }                    
                 }
             }
-            _withCaret.Visible = isVisible;            
-            if (!isVisible) return;
+            _withCaret.Visible = isVisible;
             _withCaret.Text = _textComponent.Text;
             _withCaret.TextConfig = _textComponent.TextConfig;
             var renderer = _withCaret.CustomRenderer as ILabelRenderer;
@@ -109,7 +110,14 @@ namespace AGS.Engine
             {
                 renderer.CaretPosition = CaretPosition;
                 renderer.BaseSize = _textComponent.LabelRenderSize;
-            }            
+                renderer.RenderCaret = true;
+            }
+            _textComponent.TextVisible = !isVisible;
+            renderer = _imageComponent.CustomRenderer as ILabelRenderer;
+            if (renderer != null)
+            {
+                renderer.CaretPosition = CaretPosition;
+            }
         }
 
         private PointF getAreaScaling()
