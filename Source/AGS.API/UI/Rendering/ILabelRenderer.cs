@@ -5,6 +5,7 @@
 		string Text { get; set; }
 		ITextConfig Config { get; set; }
 	    SizeF BaseSize { get; set; }
+        bool TextVisible { get; set; }
 
         int? CaretPosition { get; set; }
 
@@ -15,4 +16,3 @@
 		float TextHeight { get; }
 	}
 }
-

@@ -6,6 +6,7 @@
         ITextConfig TextConfig { get; set; }
         string Text { get; set; }
         SizeF LabelRenderSize { get; set; }
+        bool TextVisible { get; set; }
 
         float TextHeight { get; }
         float TextWidth { get; }
