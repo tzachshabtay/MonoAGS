@@ -37,7 +37,8 @@ namespace AGS.Engine
             _title = title;
             _fileSelection = fileSelection;
             _startPath = startPath ?? Hooks.FileSystem.GetCurrentDirectory();
-            _textConfig = new AGSTextConfig(alignment: Alignment.BottomCenter, autoFit: AutoFit.TextShouldFitLabel);
+            _textConfig = new AGSTextConfig(alignment: Alignment.BottomCenter, 
+                autoFit: AutoFit.TextShouldFitLabel, font: Hooks.FontLoader.LoadFont(null, 10f));
             _tcs = new TaskCompletionSource<bool>(false);
         }
 
@@ -72,7 +73,8 @@ namespace AGS.Engine
             float cancelButtonX = okButtonX + okButtonWidth + okButtonPaddingX;
             float panelX = _game.VirtualResolution.Width / 2f - panelWidth / 2f;
             float panelY = _game.VirtualResolution.Height / 2f - panelHeight / 2f;
-            ITextConfig textBoxConfig = new AGSTextConfig(alignment: Alignment.BottomLeft, autoFit: AutoFit.TextShouldCrop);
+            ITextConfig textBoxConfig = new AGSTextConfig(alignment: Alignment.BottomLeft, 
+                autoFit: AutoFit.TextShouldCrop, font: Hooks.FontLoader.LoadFont(null, 10f));
 
             IPanel panel = factory.UI.GetPanel("SelectFilePanel", panelWidth, panelHeight, panelX, panelY);
             panel.SkinTags.Add(AGSSkin.DialogBoxTag);
