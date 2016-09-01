@@ -53,7 +53,7 @@ namespace AGS.Engine
 
 		private void onTick(object sender, EventArgs args)
 		{
-			if (_label == null) return;
+			if (_label == null || _state.Player.Character == null) return;
 			PointF position = _input.MousePosition;
 			IObject obj = _state.Player.Character.Room.GetObjectAt (position.X, position.Y);
 			if (obj == null || obj.Hotspot == null) 

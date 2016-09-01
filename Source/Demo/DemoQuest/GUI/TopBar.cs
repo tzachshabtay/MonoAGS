@@ -84,6 +84,7 @@ namespace DemoGame
 
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
 		{
+            if (_player.Character == null) return;
 			if (_lastInventoryItem == _player.Character.Inventory.ActiveItem) return;
 
 			_lastInventoryItem = _player.Character.Inventory.ActiveItem;
