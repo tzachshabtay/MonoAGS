@@ -12,8 +12,9 @@ namespace AGS.Engine
 		private readonly IResourceLoader _loader;
 		private readonly Dictionary<string, List<ISoundDecoder>> _decoders;
 		private readonly IAudioSystem _system;
+        private object _unsafeMemoryLocker = new object();
 
-		public ALAudioFactory(IResourceLoader loader, IAudioSystem system)
+        public ALAudioFactory(IResourceLoader loader, IAudioSystem system)
 		{
 			_system = system;
 			_loader = loader;
@@ -29,14 +30,14 @@ namespace AGS.Engine
 
 		public static Action<Dictionary<string, List<ISoundDecoder>>> RegisterExternalDecoders { get; set; }
 
-		#region ISoundFactory implementation
+        #region ISoundFactory implementation
 
-		public IAudioClip LoadAudioClip(string filePath, string id = null)
-		{
-			ISoundData soundData = loadSoundData(filePath);
-			if (soundData == null) return null;
-			return new ALAudioClip (id ?? filePath, soundData, _system, new ALErrors());
-		}
+        public IAudioClip LoadAudioClip(string filePath, string id = null)
+        {
+            ISoundData soundData = loadSoundData(filePath);
+            if (soundData == null) return null;
+            return new ALAudioClip(id ?? filePath, soundData, _system, new ALErrors());
+        }
 
 		public async Task<IAudioClip> LoadAudioClipAsync(string filePath, string id = null)
 		{
@@ -60,9 +61,13 @@ namespace AGS.Engine
 				{
 					foreach (var decoder in decoders)
 					{
-						var sound = decoder.Decode(stream);
-						if (sound != null) return sound;
-
+                        //Was experiencing crashes when decoding 2 audio streams at the same time (ogg and flac kept crashing randomly),
+                        //this was solved by putting a lock on the decoding (assuming unsafe memory access in the decoders is not thread safe)
+                        lock (_unsafeMemoryLocker)
+                        {
+                            var sound = decoder.Decode(stream);
+                            if (sound != null) return sound;
+                        }
 						stream = rewindStream(stream);
 					}
 				}
