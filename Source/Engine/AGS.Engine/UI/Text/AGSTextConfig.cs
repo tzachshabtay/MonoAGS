@@ -13,8 +13,8 @@ namespace AGS.Engine
 		{
 			Brush = brush ?? Hooks.BrushLoader.LoadSolidBrush(Colors.White);
 			Font = font ?? AGSGameSettings.DefaultTextFont;
-			OutlineBrush = outlineBrush;
-			OutlineWidth = outlineWidth;
+			OutlineBrush = outlineBrush ?? Hooks.BrushLoader.LoadSolidBrush(Colors.White);
+            OutlineWidth = outlineWidth;
 			ShadowBrush = shadowBrush;
 			ShadowOffsetX = shadowOffsetX;
 			ShadowOffsetY = shadowOffsetY;
