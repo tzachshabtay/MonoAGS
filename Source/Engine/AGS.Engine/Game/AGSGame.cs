@@ -21,6 +21,7 @@ namespace AGS.Engine
 		private int _relativeSpeed;
 		private AGSEventArgs _renderEventArgs;
 		private IMessagePump _messagePump;
+        private IGameSettings _settings;
 		public const double UPDATE_RATE = 60.0;
 
 		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents, IMessagePump messagePump)
@@ -84,6 +85,7 @@ namespace AGS.Engine
 
         public void Start(IGameSettings settings)
 		{
+            _settings = settings;
 			VirtualResolution = settings.VirtualResolution;
 			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), VirtualResolution));
 			using (GameWindow = new GameWindow (settings.WindowSize.Width, 
@@ -127,7 +129,7 @@ namespace AGS.Engine
 					
 				GameWindow.Resize += (sender, e) =>
 				{
-                    resize(settings);
+                    resize();
                     Events.OnScreenResize.Invoke(sender, new AGSEventArgs());
 				};
 
@@ -205,13 +207,18 @@ namespace AGS.Engine
 			return State.Find<TEntity>(id);
 		}
 
+        public void ResetViewport()
+        {
+            resize();
+        }
+
         #endregion
 
-        private void resize(IGameSettings settings)
+        private void resize()
         {
-            if (settings.PreserveAspectRatio) //http://www.david-amador.com/2013/04/opengl-2d-independent-resolution-rendering/
+            if (_settings.PreserveAspectRatio) //http://www.david-amador.com/2013/04/opengl-2d-independent-resolution-rendering/
             {
-                float targetAspectRatio = (float)settings.VirtualResolution.Width / settings.VirtualResolution.Height;
+                float targetAspectRatio = (float)_settings.VirtualResolution.Width / _settings.VirtualResolution.Height;
                 Size screen = new Size(GameWindow.Width, GameWindow.Height);
                 int width = screen.Width;
                 int height = (int)(width / targetAspectRatio + 0.5f);

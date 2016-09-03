@@ -20,6 +20,7 @@
 		void Quit();
 
 		TEntity Find<TEntity>(string id) where TEntity : class, IEntity;
+        void ResetViewport();
 	}
 }
 

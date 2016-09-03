@@ -45,7 +45,7 @@ namespace AGS.Engine
 		public void End()
 		{
 			GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);
-			GL.Viewport(0, 0, Hooks.GameWindowSize.GetWidth(AGSGame.GameWindow), Hooks.GameWindowSize.GetHeight(AGSGame.GameWindow));
+            AGSGame.Game.ResetViewport();
 		}
 
 		#region IDisposable implementation
