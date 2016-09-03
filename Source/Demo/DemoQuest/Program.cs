@@ -37,7 +37,7 @@ namespace DemoGame
 			});
 
 			game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
-				windowSize: new AGS.API.Size(640, 480), windowState: WindowState.Normal));
+				windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal));
 		}
 
 		private static async Task<IPanel> loadUi(IGame game)
