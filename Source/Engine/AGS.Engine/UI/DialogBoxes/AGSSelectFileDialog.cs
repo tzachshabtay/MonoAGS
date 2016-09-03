@@ -19,7 +19,7 @@ namespace AGS.Engine
         private readonly string _startPath, _title;
         private readonly FileSelection _fileSelection;
         private readonly IGame _game;
-        private readonly ITextConfig _textConfig;
+        private readonly ITextConfig _buttonsTextConfig, _filesTextConfig;
 
         private ICharacter _dummyChar;
         private ITextBox _fileTextBox;
@@ -31,14 +31,19 @@ namespace AGS.Engine
         private TaskCompletionSource<bool> _tcs;
         private string _selectedItem;
 
+        private IBorderStyle _fileIcon, _fileIconSelected, _folderIcon, _folderIconSelected;
+
         private AGSSelectFileDialog(IGame game, string title, FileSelection fileSelection, string startPath = null)
         {
             _game = game;
             _title = title;
             _fileSelection = fileSelection;
             _startPath = startPath ?? Hooks.FileSystem.GetCurrentDirectory();
-            _textConfig = new AGSTextConfig(alignment: Alignment.BottomCenter, 
+            _buttonsTextConfig = new AGSTextConfig(alignment: Alignment.BottomCenter,
                 autoFit: AutoFit.TextShouldFitLabel, font: Hooks.FontLoader.LoadFont(null, 10f));
+            _filesTextConfig = new AGSTextConfig(alignment: Alignment.BottomCenter,
+                autoFit: AutoFit.TextShouldFitLabel, font: Hooks.FontLoader.LoadFont(null, 10f),
+                brush: Hooks.BrushLoader.LoadSolidBrush(Colors.Black));
             _tcs = new TaskCompletionSource<bool>(false);
         }
 
@@ -49,7 +54,7 @@ namespace AGS.Engine
         }
 
         public async Task<string> Run()
-        {                        
+        {
             IGameFactory factory = _game.Factory;
             AGSGameSettings.CurrentSkin = new AGSBlueSkin(factory.Graphics).CreateSkin();
             float panelWidth = _game.VirtualResolution.Width * 3 / 4f;
@@ -73,23 +78,23 @@ namespace AGS.Engine
             float cancelButtonX = okButtonX + okButtonWidth + okButtonPaddingX;
             float panelX = _game.VirtualResolution.Width / 2f - panelWidth / 2f;
             float panelY = _game.VirtualResolution.Height / 2f - panelHeight / 2f;
-            ITextConfig textBoxConfig = new AGSTextConfig(alignment: Alignment.BottomLeft, 
+            ITextConfig textBoxConfig = new AGSTextConfig(alignment: Alignment.BottomLeft,
                 autoFit: AutoFit.TextShouldCrop, font: Hooks.FontLoader.LoadFont(null, 10f));
 
             IPanel panel = factory.UI.GetPanel("SelectFilePanel", panelWidth, panelHeight, panelX, panelY);
             panel.SkinTags.Add(AGSSkin.DialogBoxTag);
             panel.Skin.Apply(panel);
-            ILabel titleLabel = factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, _textConfig);
-            _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, _startPath, textBoxConfig, width: panelWidth, height: textBoxHeight);                        
+            ILabel titleLabel = factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, _buttonsTextConfig);
+            _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, _startPath, textBoxConfig, width: panelWidth, height: textBoxHeight);
 
             _dummyChar = factory.Object.GetCharacter("SelectFileCharacter", null);
-            IInventoryWindow invWindow = factory.Inventory.GetInventoryWindow("SelectFileInventory", panelWidth - scrollButtonWidth - scrollButtonOffsetX * 2, 
+            IInventoryWindow invWindow = factory.Inventory.GetInventoryWindow("SelectFileInventory", panelWidth - scrollButtonWidth - scrollButtonOffsetX * 2,
                 panelHeight - labelHeight - buttonHeight - textBoxHeight - okButtonPaddingY, ITEM_WIDTH + itemPaddingX, itemHeight + itemPaddingY, 0f, okButtonPaddingY + okButtonHeight, _dummyChar);
             invWindow.Z = 1;
-            IButton okButton = factory.UI.GetButton("SelectFileOkButton", (string)null, null, null, okButtonX, okButtonPaddingY, "OK", _textConfig, width: okButtonWidth, height: okButtonHeight);            
-            IButton cancelButton = factory.UI.GetButton("SelectFileCancelButton", (string)null, null, null, cancelButtonX, okButtonPaddingY, "Cancel", _textConfig, width: okButtonWidth, height: okButtonHeight);
-            IButton scrollDownButton = factory.UI.GetButton("SelectFileScrollDown", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, okButton.Y + okButtonHeight + scrollButtonOffsetY, "\u25BC", _textConfig, width: scrollButtonWidth, height: scrollButtonHeight);            
-            IButton scrollUpButton = factory.UI.GetButton("SelectFileScrollUp", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, panelHeight - labelHeight - textBoxHeight - scrollButtonHeight - scrollButtonOffsetY, "\u25B2", _textConfig, width: scrollButtonWidth, height: scrollButtonHeight);
+            IButton okButton = factory.UI.GetButton("SelectFileOkButton", (string)null, null, null, okButtonX, okButtonPaddingY, "OK", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
+            IButton cancelButton = factory.UI.GetButton("SelectFileCancelButton", (string)null, null, null, cancelButtonX, okButtonPaddingY, "Cancel", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
+            IButton scrollDownButton = factory.UI.GetButton("SelectFileScrollDown", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, okButton.Y + okButtonHeight + scrollButtonOffsetY, "\u25BC", _buttonsTextConfig, width: scrollButtonWidth, height: scrollButtonHeight);
+            IButton scrollUpButton = factory.UI.GetButton("SelectFileScrollUp", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, panelHeight - labelHeight - textBoxHeight - scrollButtonHeight - scrollButtonOffsetY, "\u25B2", _buttonsTextConfig, width: scrollButtonWidth, height: scrollButtonHeight);
             titleLabel.TreeNode.SetParent(panel.TreeNode);
             _fileTextBox.TreeNode.SetParent(panel.TreeNode);
             invWindow.TreeNode.SetParent(panel.TreeNode);
@@ -104,21 +109,28 @@ namespace AGS.Engine
             scrollDownButton.MouseClicked.Subscribe((sender, args) => invWindow.ScrollDown());
             scrollUpButton.MouseClicked.Subscribe((sender, args) => invWindow.ScrollUp());
 
+            _fileIcon = new FileIcon();
+            _fileIconSelected = new FileIcon { IsSelected = true };
+            _folderIcon = new FolderIcon();
+            _folderIconSelected = new FolderIcon { IsSelected = true };
+
             _fileGraphics = factory.Object.GetObject("FileGraphics");
-            _fileGraphics.Tint = Colors.Gray;
+            _fileGraphics.Tint = Colors.Transparent;
             _fileGraphics.Image = new EmptyImage(ITEM_WIDTH, itemHeight);
             _fileGraphics.RenderLayer = AGSLayers.UI;
             _fileGraphics.Anchor = new PointF(0.5f, 0.5f);
             _fileGraphics.IgnoreScalingArea = true;
             _fileGraphics.IgnoreViewport = true;
+            _fileGraphics.Border = _fileIcon;
 
             _folderGraphics = factory.Object.GetObject("FolderGraphics");
-            _folderGraphics.Tint = Colors.DarkOrange;
+            _folderGraphics.Tint = Colors.Transparent;
             _folderGraphics.Image = new EmptyImage(ITEM_WIDTH, itemHeight);
             _folderGraphics.RenderLayer = AGSLayers.UI;
             _folderGraphics.Anchor = new PointF(0.5f, 0.5f);
             _folderGraphics.IgnoreScalingArea = true;
             _folderGraphics.IgnoreViewport = true;
+            _folderGraphics.Border = _folderIcon;
 
             fillAllFiles(_startPath);
 
@@ -211,14 +223,14 @@ namespace AGS.Engine
                 };
                 Action<object, MouseButtonEventArgs> onClick = (sender, args) =>
                 {
-                    foreach (var fileItem in fileItems) fileItem.Tint = Colors.Gray;
-                    foreach (var dirItem in dirItems) dirItem.Tint = Colors.DarkOrange;
+                    foreach (var fileItem in fileItems) fileItem.Border = _fileIcon;
+                    foreach (var dirItem in dirItems) dirItem.Border = _folderIcon;
                     _selectedItem = fileObj.GetString(PATH_PROPERTY);
-                    fileObj.Tint = Colors.Blue;
+                    fileObj.Border = _folderIconSelected;
                 };
                 IUIEvents uiEvents = fileObj.AddComponent<IUIEvents>();
                 uiEvents.MouseClicked.Subscribe(onClick);
-                uiEvents.MouseDoubleClicked.Subscribe(onDoubleClick);                
+                uiEvents.MouseDoubleClicked.Subscribe(onDoubleClick);
             }
             foreach (var file in allFiles)
             {
@@ -230,21 +242,21 @@ namespace AGS.Engine
                 };
                 Action<object, MouseButtonEventArgs> onClick = (sender, args) =>
                 {
-                    foreach (var fileItem in fileItems) fileItem.Tint = Colors.Gray;
-                    foreach (var dirItem in dirItems) dirItem.Tint = Colors.DarkOrange;
-                    fileObj.Tint = Colors.Blue;
+                    foreach (var fileItem in fileItems) fileItem.Border = _fileIcon;
+                    foreach (var dirItem in dirItems) dirItem.Border = _folderIcon;
+                    fileObj.Border = _fileIconSelected;
                 };
                 IUIEvents uiEvents = fileObj.AddComponent<IUIEvents>();
                 uiEvents.MouseClicked.Subscribe(onClick);
                 uiEvents.MouseDoubleClicked.Subscribe(onDoubleClick);
             }
-        }
+        }        
 
         private IObject addFileItem(string file, IObject graphics)
         {
             graphics = clone("FileItem_" + file, _game.Factory, graphics);
             graphics.SetString(PATH_PROPERTY, file);
-            ILabel fileLabel = _game.Factory.UI.GetLabel("FileItemLabel_" + file, getLastName(file), ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, 0f, _textConfig);
+            ILabel fileLabel = _game.Factory.UI.GetLabel("FileItemLabel_" + file, getLastName(file), ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, 0f, _filesTextConfig);
             fileLabel.TreeNode.SetParent(graphics.TreeNode);
             graphics.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1);
             fileLabel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 2);
@@ -296,11 +308,104 @@ namespace AGS.Engine
             newObj.Hotspot = obj.Hotspot;
             newObj.RenderLayer = obj.RenderLayer;
             newObj.IgnoreViewport = obj.IgnoreViewport;
-            newObj.IgnoreScalingArea = obj.IgnoreScalingArea;               
+            newObj.IgnoreScalingArea = obj.IgnoreScalingArea;
+            newObj.Border = obj.Border;
             if (obj.Animation != null) newObj.StartAnimation(obj.Animation.Clone());
             newObj.ResetBaseSize(obj.Width / obj.ScaleX, obj.Height / obj.ScaleY);
-            newObj.ScaleBy(obj.ScaleX, obj.ScaleY);            
+            newObj.ScaleBy(obj.ScaleX, obj.ScaleY);
             return newObj;
-        }        
+        }
+
+        private class FileIcon : IBorderStyle
+        {
+            /*     ****+
+             *     ****++
+             *     ****+++
+             *     ********
+             *     ********
+             *     ********
+             */
+
+            private IGLColor _color = Colors.OldLace.ToGLColor();
+            private IGLColor _foldColor = Colors.Gray.ToGLColor();
+
+            private IGLColor _selectedColor = Colors.DeepSkyBlue.ToGLColor();
+            private IGLColor _selectedFoldColor = Colors.Blue.ToGLColor();
+
+            private OpenTK.Vector2 _emptyVector = new OpenTK.Vector2();
+
+            public float WidthBottom { get { return 0f; } }
+            public float WidthLeft { get { return 0f; } }
+            public float WidthRight { get { return 0f; } }
+            public float WidthTop { get { return 0f; } }
+            public bool IsSelected { get; set; }
+
+            public void RenderBorderFront(ISquare square) {}            
+
+            public void RenderBorderBack(ISquare square)
+            {
+                float foldWidth = (square.MaxX - square.MinX) * (1f / 5f);
+                float foldHeight = (square.MaxY - square.MinY) * (1f / 5f);
+                IGLColor color = IsSelected ? _selectedColor : _color;
+                IGLColor foldColor = IsSelected ? _selectedFoldColor : _foldColor;
+
+                PointF foldBottomLeft = square.TopRight - new PointF(foldWidth, foldHeight);
+                PointF foldTopLeft = square.TopRight - new PointF(foldWidth, 0f);
+                PointF foldTopRight = square.TopRight - new PointF(0f, foldHeight);
+
+                GLUtils.DrawQuad(0, square.BottomLeft.ToVector3(), (square.BottomRight - new PointF(foldWidth, 0f)).ToVector3(),
+                    square.TopLeft.ToVector3(), foldTopLeft.ToVector3(),
+                    color, color, color, color);
+
+                GLUtils.DrawQuad(0, (square.BottomRight - new PointF(foldWidth, 0f)).ToVector3(), square.BottomRight.ToVector3(),
+                    foldBottomLeft.ToVector3(), foldTopRight.ToVector3(),
+                    color, color, color, color);
+
+                GLUtils.DrawTriangleFan(0, new GLVertex[] { new GLVertex(foldBottomLeft.ToVector2(), _emptyVector, foldColor),
+                    new GLVertex(foldTopLeft.ToVector2(), _emptyVector, foldColor), new GLVertex(foldTopRight.ToVector2(), _emptyVector, foldColor)});
+            }            
+        }
+
+        private class FolderIcon : IBorderStyle
+        {
+            /*     ++++++++
+             *     **++++**
+             *     ***++***
+             *     ********
+             *     ********
+             *     ********
+             */
+
+            private IGLColor _color = Colors.Gold.ToGLColor();
+            private IGLColor _foldColor = Colors.DarkGoldenrod.ToGLColor();
+            private IGLColor _selectedColor = Colors.DeepSkyBlue.ToGLColor();
+            private IGLColor _selectedFoldColor = Colors.Blue.ToGLColor();
+
+            private OpenTK.Vector2 _emptyVector = new OpenTK.Vector2();
+
+            public float WidthBottom { get { return 0f; } }
+            public float WidthLeft { get { return 0f; } }
+            public float WidthRight { get { return 0f; } }
+            public float WidthTop { get { return 0f; } }
+            public bool IsSelected { get; set; }
+
+            public void RenderBorderFront(ISquare square) { }
+
+            public void RenderBorderBack(ISquare square)
+            {
+                IGLColor color = IsSelected ? _selectedColor : _color;
+                IGLColor foldColor = IsSelected ? _selectedFoldColor : _foldColor;
+
+                GLUtils.DrawQuad(0, square.BottomLeft.ToVector3(), square.BottomRight.ToVector3(),
+                        square.TopLeft.ToVector3(), square.TopRight.ToVector3(),
+                        color, color, color, color);
+
+                float foldHeight = (square.MaxY - square.MinY) * (1f / 5f);
+                PointF foldBottom = new PointF((square.TopLeft.X + square.TopRight.X) / 2f, square.TopLeft.Y - foldHeight);
+
+                GLUtils.DrawTriangleFan(0, new GLVertex[] { new GLVertex(square.TopLeft.ToVector2(), _emptyVector, foldColor),
+                    new GLVertex(foldBottom.ToVector2(), _emptyVector, foldColor), new GLVertex(square.TopRight.ToVector2(), _emptyVector, foldColor)});
+            }
+        }            
     }
 }

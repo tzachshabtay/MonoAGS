@@ -15,7 +15,27 @@ namespace AGS.API
 		public float X { get { return _x; } }
 		public float Y { get { return _y; } }
 
-		public override string ToString ()
+        public static PointF operator +(PointF p1, PointF p2)
+        {
+            return new PointF(p1.X + p2.X, p1.Y + p2.Y);
+        }
+
+        public static PointF operator -(PointF p1, PointF p2)
+        {
+            return new PointF(p1.X - p2.X, p1.Y - p2.Y);
+        }
+
+        public static PointF operator *(PointF p1, PointF p2)
+        {
+            return new PointF(p1.X * p2.X, p1.Y * p2.Y);
+        }
+
+        public static PointF operator /(PointF p1, PointF p2)
+        {
+            return new PointF(p1.X / p2.X, p1.Y / p2.Y);
+        }
+
+        public override string ToString ()
 		{
 			return string.Format ("{0:0.##},{1:0.##}", X, Y);
 		}
