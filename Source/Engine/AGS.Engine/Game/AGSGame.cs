@@ -82,15 +82,14 @@ namespace AGS.Engine
 
 		public AGS.API.Size WindowSize { get { return GetPhysicalResolution(); } }
 
-		public void Start(IGameSettings settings)
+        public void Start(IGameSettings settings)
 		{
 			VirtualResolution = settings.VirtualResolution;
 			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), VirtualResolution));
-			using (GameWindow = new GameWindow (settings.VirtualResolution.Width, 
-                settings.VirtualResolution.Height, GraphicsMode.Default, settings.Title))
+			using (GameWindow = new GameWindow (settings.WindowSize.Width, 
+                settings.WindowSize.Height, GraphicsMode.Default, settings.Title))
 			{
-				GL.ClearColor(0, 0f, 0f, 1);
-				Hooks.GameWindowSize.SetSize(GameWindow, settings.WindowSize);
+				GL.ClearColor(0, 0f, 0f, 1);				
 				setWindowState(settings);
 
 				GameWindow.Load += (sender, e) =>
@@ -116,10 +115,10 @@ namespace AGS.Engine
 					AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
 					SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
 
-					GL.MatrixMode(MatrixMode.Projection);
+                    GL.MatrixMode(MatrixMode.Projection);
 
 					GL.LoadIdentity();
-					GL.Ortho(0, settings.VirtualResolution.Width, 0, settings.VirtualResolution.Height, -1, 1);
+					GL.Ortho(0, settings.VirtualResolution.Width, 0, settings.VirtualResolution.Height, -1, 1);                    
 					GL.MatrixMode(MatrixMode.Modelview);
 					GL.LoadIdentity();
 
@@ -128,8 +127,8 @@ namespace AGS.Engine
 					
 				GameWindow.Resize += (sender, e) =>
 				{
-					GL.Viewport(0, 0, GameWindow.Width, GameWindow.Height);
-					Events.OnScreenResize.Invoke(sender, new AGSEventArgs());
+                    resize(settings);
+                    Events.OnScreenResize.Invoke(sender, new AGSEventArgs());
 				};
 
 				GameWindow.MouseDown += (sender, e) => 
@@ -205,8 +204,35 @@ namespace AGS.Engine
 		{
 			return State.Find<TEntity>(id);
 		}
-			
-		#endregion
+
+        #endregion
+
+        private void resize(IGameSettings settings)
+        {
+            if (settings.PreserveAspectRatio) //http://www.david-amador.com/2013/04/opengl-2d-independent-resolution-rendering/
+            {
+                float targetAspectRatio = (float)settings.VirtualResolution.Width / settings.VirtualResolution.Height;
+                Size screen = new Size(GameWindow.Width, GameWindow.Height);
+                int width = screen.Width;
+                int height = (int)(width / targetAspectRatio + 0.5f);
+                if (height > screen.Height)
+                {
+                    //It doesn't fit our height, we must switch to pillarbox then
+                    height = screen.Height;
+                    width = (int)(height * targetAspectRatio + 0.5f);
+                }
+
+                // set up the new viewport centered in the backbuffer
+                int viewX = (screen.Width / 2) - (width / 2);
+                int viewY = (screen.Height / 2) - (height / 2);
+
+                GL.Viewport(viewX, viewY, width, height);
+            }
+            else
+            {
+                GL.Viewport(0, 0, GameWindow.Width, GameWindow.Height);
+            }
+        }
 
 		private void updateResolver()
 		{

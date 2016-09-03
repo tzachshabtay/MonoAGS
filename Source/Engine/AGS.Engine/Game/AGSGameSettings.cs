@@ -11,13 +11,14 @@ namespace AGS.Engine
         public static ISkin CurrentSkin;
 
 		public AGSGameSettings(string title, AGS.API.Size virtualResolution, WindowState windowState = WindowState.Maximized,
-            AGS.API.Size? windowSize = null, VsyncMode vsync = VsyncMode.On)
+            AGS.API.Size? windowSize = null, VsyncMode vsync = VsyncMode.On, bool preserveAspectRatio = true)
 		{
             Title = title;
             VirtualResolution = virtualResolution;
             WindowState = windowState;
             WindowSize = windowSize.HasValue ? windowSize.Value : virtualResolution;
             Vsync = vsync;
+            PreserveAspectRatio = preserveAspectRatio;
 		}
 
         public string Title { get; private set; }
@@ -27,6 +28,8 @@ namespace AGS.Engine
         public VsyncMode Vsync { get; private set; }
 
         public AGS.API.Size WindowSize { get; private set; }
+
+        public bool PreserveAspectRatio { get; private set; }
 
         public WindowState WindowState { get; private set; }
     }
