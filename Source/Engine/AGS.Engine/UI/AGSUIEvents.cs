@@ -76,6 +76,7 @@ namespace AGS.Engine
 		private async Task onRepeatedlyExecute(object sender, EventArgs args)
 		{
 			if (!_enabled.Enabled || !_visible.Visible) return;
+            if (_state.Player.Character == null) return;
             IRoom room = _state.Player.Character.Room;
             if (room == null) return;
 
