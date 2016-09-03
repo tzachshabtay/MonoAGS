@@ -114,15 +114,19 @@ namespace DemoGame
 			_panel.Visible = false;
 		}
 
-		private void save()
+		private async void save()
 		{
-			_game.SaveLoad.Save("save.bin");
+            string file = await AGSSelectFileDialog.SelectFile("Select file to save", FileSelection.FileOnly);
+            if (file == null) return;
+            _game.SaveLoad.Save(file);
 			Hide();
 		}
 
-		private void load()
+		private async void load()
 		{
-			_game.SaveLoad.Load("save.bin");
+            string file = await AGSSelectFileDialog.SelectFile("Select file to load", FileSelection.FileOnly);
+            if (file == null) return;
+            _game.SaveLoad.Load(file);
 			Hide();
 		}
 
