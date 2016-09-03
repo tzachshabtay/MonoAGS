@@ -210,7 +210,7 @@ namespace AGS.Engine
             float itemWidth = textBox != null ? textBox.Width : 100f;
             dropDownButton = dropDownButton ?? GetButton(id + "_DropDownButton", (string)null, null, null, 0f, 0f, width: 20f, height: defaultHeight);
             dropDownButton.SkinTags.Add(AGSSkin.DropDownButtonTag);
-            dropDownButton.Skin.Apply(dropDownButton);
+            if (dropDownButton.Skin != null) dropDownButton.Skin.Apply(dropDownButton);
             textBox = textBox ?? GetTextBox(id + "_TextBox", 0f, 0f, width: itemWidth, height: defaultHeight);
             textBox.Enabled = false;
             itemButtonFactory = itemButtonFactory ?? (() => GetButton(id + "_" + Guid.NewGuid().ToString(), (string)null, null, null, 0f, 0f, width: itemWidth,
