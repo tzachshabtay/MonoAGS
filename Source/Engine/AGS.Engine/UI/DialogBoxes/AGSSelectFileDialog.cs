@@ -56,7 +56,6 @@ namespace AGS.Engine
         public async Task<string> Run()
         {
             IGameFactory factory = _game.Factory;
-            AGSGameSettings.CurrentSkin = new AGSBlueSkin(factory.Graphics).CreateSkin();
             float panelWidth = _game.VirtualResolution.Width * 3 / 4f;
             float panelHeight = _game.VirtualResolution.Height * 3 / 4f;
             const float labelHeight = 20f;

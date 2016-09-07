@@ -65,8 +65,8 @@ namespace DemoGame
 
 			_game.Events.OnSavedGameLoad.Subscribe((sender, args) => findPanel());
 
-			await loadButton("Resume", 95, Hide);
-			await loadButton("Restart", 75, restart);
+            await loadButton("Resume", 95, Hide);
+            await loadButton("Restart", 75, restart);
 			await loadButton("Load", 55, load);
 			await loadButton("Save", 35, save);
 			await loadButton("Quit", 15, quit);
@@ -116,7 +116,9 @@ namespace DemoGame
 
 		private async void save()
 		{
+            AGSGameSettings.CurrentSkin = new AGSBlueSkin(_game.Factory.Graphics).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to save", FileSelection.FileOnly);
+            AGSGameSettings.CurrentSkin = null;
             if (file == null) return;
             _game.SaveLoad.Save(file);
 			Hide();
@@ -124,7 +126,9 @@ namespace DemoGame
 
 		private async void load()
 		{
+            AGSGameSettings.CurrentSkin = new AGSBlueSkin(_game.Factory.Graphics).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to load", FileSelection.FileOnly);
+            AGSGameSettings.CurrentSkin = null;
             if (file == null) return;
             _game.SaveLoad.Load(file);
 			Hide();
