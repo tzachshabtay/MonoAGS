@@ -1,6 +1,4 @@
-﻿using System;
-using OpenTK;
-using AGS.API;
+﻿using OpenTK;
 
 namespace AGS.Engine
 {
@@ -8,7 +6,7 @@ namespace AGS.Engine
 	{
 		#region IGLBoundingBoxBuilder implementation
 
-		public void Build(IGLBoundingBoxes boxes, float width, float height, IGLMatrices matrices)
+		public void Build(IGLBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
 		{
 			float left = 0f;
 			float right = width;
@@ -19,18 +17,21 @@ namespace AGS.Engine
 			Vector3 bottomRight = Vector3.Transform(new Vector3 (right, bottom, 0f), matrices.ModelMatrix);
 			Vector3 topRight = Vector3.Transform(new Vector3 (right, top, 0f), matrices.ModelMatrix);
 
-			buildForHitTest(boxes.HitTestBox, bottomLeft, topLeft, bottomRight, topRight);
-
-			IGLBoundingBox renderBox = boxes.RenderBox;
-			renderBox.BottomLeft = Vector3.Transform(bottomLeft, matrices.ViewportMatrix);
-			renderBox.TopLeft = Vector3.Transform(topLeft, matrices.ViewportMatrix);
-			renderBox.BottomRight = Vector3.Transform(bottomRight, matrices.ViewportMatrix);
-			renderBox.TopRight = Vector3.Transform(topRight, matrices.ViewportMatrix);
+			if (buildHitTestBox) buildForHitTest(boxes.HitTestBox, bottomLeft, topLeft, bottomRight, topRight);
+            if (buildRenderBox)  buildForRender(boxes.RenderBox, matrices, bottomLeft, topLeft, bottomRight, topRight);            
 		}
 
-		//Hit test box should be built before viewport transformation, and vertices need to be arranged
-		//in case the sprite was flipped
-		private void buildForHitTest(IGLBoundingBox hitTestBox, Vector3 bottomLeft, Vector3 topLeft, Vector3 bottomRight, Vector3 topRight)
+        private void buildForRender(IGLBoundingBox renderBox, IGLMatrices matrices, Vector3 bottomLeft, Vector3 topLeft, Vector3 bottomRight, Vector3 topRight)
+        {
+            renderBox.BottomLeft = Vector3.Transform(bottomLeft, matrices.ViewportMatrix);
+            renderBox.TopLeft = Vector3.Transform(topLeft, matrices.ViewportMatrix);
+            renderBox.BottomRight = Vector3.Transform(bottomRight, matrices.ViewportMatrix);
+            renderBox.TopRight = Vector3.Transform(topRight, matrices.ViewportMatrix);
+        }
+
+        //Hit test box should be built without viewport transformation, and vertices need to be arranged
+        //in case the sprite was flipped
+        private void buildForHitTest(IGLBoundingBox hitTestBox, Vector3 bottomLeft, Vector3 topLeft, Vector3 bottomRight, Vector3 topRight)
 		{
 			if (bottomLeft.X > bottomRight.X)
 			{

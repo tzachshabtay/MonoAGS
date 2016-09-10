@@ -117,12 +117,7 @@ namespace AGS.Engine
 					AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
 					SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
 
-                    GL.MatrixMode(MatrixMode.Projection);
-
-					GL.LoadIdentity();
-					GL.Ortho(0, settings.VirtualResolution.Width, 0, settings.VirtualResolution.Height, -1, 1);                    
-					GL.MatrixMode(MatrixMode.Modelview);
-					GL.LoadIdentity();
+                    GLUtils.AdjustResolution(settings.VirtualResolution.Width, settings.VirtualResolution.Height);
 
 					Events.OnLoad.Invoke(sender, new AGSEventArgs());
 				};

@@ -1,7 +1,6 @@
 ﻿using System;
 using OpenTK.Graphics.OpenGL;
 using OpenTK;
-using AGS.API;
 
 namespace AGS.Engine
 {
@@ -13,6 +12,23 @@ namespace AGS.Engine
 		private static Vector2 _topLeft = new Vector2 (0.0f, 0.0f);
 
 		private static int vbo;
+
+        private static int _lastResolutionWidth, _lastResolutionHeight;
+
+        public static void AdjustResolution(int width, int height)
+        {
+            if (_lastResolutionWidth == width && _lastResolutionHeight == height) return;
+            _lastResolutionWidth = width;
+            _lastResolutionHeight = height;
+
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
+
+            GL.Ortho(0, width, 0, height, -1, 1);
+            
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadIdentity();
+        }
 
 		public static void GenBuffer()
 		{

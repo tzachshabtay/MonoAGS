@@ -9,7 +9,11 @@ namespace DemoGame
 	{
 		public static void Run()
 		{
-			IGame game = AGSGame.CreateEmpty();            
+			IGame game = AGSGame.CreateEmpty();
+
+            //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
+            GLText.TextResolutionFactorX = 4;
+            GLText.TextResolutionFactorY = 4;
 
 			game.Events.OnLoad.Subscribe((sender, e) =>
 			{

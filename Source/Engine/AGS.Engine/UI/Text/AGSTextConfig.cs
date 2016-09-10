@@ -45,9 +45,28 @@ namespace AGS.Engine
 			return textConfig;
 		}
 
-		#region ITextConfig implementation
+        public static AGSTextConfig ScaleConfig(ITextConfig config, float sizeFactor)
+        {
+            AGSTextConfig textConfig = new AGSTextConfig();
+            textConfig.Brush = config.Brush;
+            textConfig.Font = Hooks.FontLoader.LoadFont(config.Font.FontFamily, config.Font.SizeInPoints * sizeFactor, config.Font.Style);
+            textConfig.Alignment = config.Alignment;
+            textConfig.OutlineBrush = config.OutlineBrush;
+            textConfig.OutlineWidth = config.OutlineWidth * sizeFactor;
+            textConfig.ShadowBrush = config.ShadowBrush;
+            textConfig.ShadowOffsetX = config.ShadowOffsetX * sizeFactor;
+            textConfig.ShadowOffsetY = config.ShadowOffsetY * sizeFactor;
+            textConfig.AutoFit = config.AutoFit;
+            textConfig.PaddingLeft = config.PaddingLeft * sizeFactor;
+            textConfig.PaddingRight = config.PaddingRight * sizeFactor;
+            textConfig.PaddingTop = config.PaddingTop * sizeFactor;
+            textConfig.PaddingBottom = config.PaddingBottom * sizeFactor;
+            return textConfig;
+        }
 
-		public IBrush Brush { get; private set; }
+        #region ITextConfig implementation
+
+        public IBrush Brush { get; private set; }
 
 		public IFont Font { get; private set; }
 

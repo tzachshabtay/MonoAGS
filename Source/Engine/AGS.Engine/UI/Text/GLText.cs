@@ -1,8 +1,5 @@
 ﻿using System;
-using OpenTK;
-
 using OpenTK.Graphics.OpenGL;
-
 using System.Diagnostics;
 using AGS.API;
 using System.Text;
@@ -23,6 +20,17 @@ namespace AGS.Engine
         private float _spaceWidth;
         private bool _cropText, _renderCaret;
 
+        /// <summary>
+        /// The factor in which the text will be rendered (and then will be downscaled to match the resolution so it would look sharper)
+        /// </summary>
+        public static int TextResolutionFactorX = 1;
+        /// <summary>
+        /// The factor in which the text will be rendered (and then will be downscaled to match the resolution so it would look sharper)
+        /// </summary>
+        public static int TextResolutionFactorY = 1;
+        public static int TextResolutionWidth { get { return AGSGame.Game.VirtualResolution.Width * TextResolutionFactorX; } }
+        public static int TextResolutionHeight { get { return AGSGame.Game.VirtualResolution.Height * TextResolutionFactorY; } }
+
         public GLText (BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
 		{
 			this._maxWidth = maxWidth;
@@ -38,10 +46,10 @@ namespace AGS.Engine
 
 		public int Texture { get { return _texture; } }
 
-		public int BitmapWidth { get { return _bitmap.Width; } }
-		public int BitmapHeight { get { return _bitmap.Height; } }
-		public int Width { get; private set; }
-		public int Height { get; private set; }        
+		public int BitmapWidth { get { return _bitmap.Width / 1; } }
+		public int BitmapHeight { get { return _bitmap.Height / 1; } }
+		public float Width { get; private set; }
+		public float Height { get; private set; }        
 
 		public void SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null, 
             int caretPosition = 0, bool renderCaret = false, bool? cropText = null)
@@ -99,7 +107,7 @@ namespace AGS.Engine
 			return text_texture;
 		}
 
-        private SizeF cropText(ref string text)
+        private SizeF cropText(int maxWidth, ITextConfig config, ref string text)
         {
             var caretPosition = _caretPosition;
             if (caretPosition >= text.Length) caretPosition = text.Length - 1;
@@ -109,7 +117,7 @@ namespace AGS.Engine
             string newText = "";
             string result = "";
             int currentPosition = caretPosition;
-            while (newTextSize.Width < _maxWidth)
+            while (newTextSize.Width < maxWidth)
             {
                 result = newText;
                 prevTextSize = newTextSize;
@@ -125,68 +133,71 @@ namespace AGS.Engine
                     if (currentPosition < 0) currentPosition = caretPosition + 1;
                 }
                 newText = textBuilder.ToString();
-                newTextSize = _config.Font.MeasureString(newText, int.MaxValue);                
+                newTextSize = config.Font.MeasureString(newText, int.MaxValue);                
             }
             text = result;
             return prevTextSize;
         }
 
-        private void drawToBitmap ()
-		{
-            string originalText = _text ?? "";            
+        private void drawToBitmap()
+        {
+            string originalText = _text ?? "";
             string text = _text;
-            SizeF originalTextSize = _config.Font.MeasureString(text, _cropText ? int.MaxValue : _maxWidth);
+
+            var config = AGSTextConfig.ScaleConfig(_config, TextResolutionFactorX);
+            int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : _maxWidth * TextResolutionFactorX;
+            SizeF originalTextSize = config.Font.MeasureString(text, _cropText ? int.MaxValue : maxWidth);
             SizeF textSize = originalTextSize;
-            if (_cropText && textSize.Width > _maxWidth)
+            if (_cropText && textSize.Width > maxWidth)
             {
-                textSize = cropText(ref text);
+                textSize = cropText(maxWidth, config, ref text);
             }
 
-			float widthOffset = Math.Max(_config.OutlineWidth, Math.Abs(_config.ShadowOffsetX));
-			float heightOffset = Math.Max(_config.OutlineWidth, Math.Abs(_config.ShadowOffsetY));
-			float widthF = textSize.Width + widthOffset + _config.PaddingLeft + _config.PaddingRight;
-			float heightF = textSize.Height + heightOffset + _config.PaddingTop + _config.PaddingBottom;
-            SizeF baseSize = new SizeF(_baseSize.Width == EmptySize.Width ? widthF : _baseSize.Width,
-                _baseSize.Height == EmptySize.Height ? heightF : _baseSize.Height);
+            float widthOffset = Math.Max(config.OutlineWidth, Math.Abs(config.ShadowOffsetX));
+            float heightOffset = Math.Max(config.OutlineWidth, Math.Abs(config.ShadowOffsetY));
+            float widthF = textSize.Width + widthOffset + config.PaddingLeft + config.PaddingRight;
+            float heightF = textSize.Height + heightOffset + config.PaddingTop + config.PaddingBottom;
+            SizeF baseSize = new SizeF(_baseSize.Width == EmptySize.Width ? widthF : _baseSize.Width * TextResolutionFactorX,
+                _baseSize.Height == EmptySize.Height ? heightF : _baseSize.Height * TextResolutionFactorY);
 
-            Width = (int)widthF + 2;
-            Height = (int)heightF + 2;
-            int bitmapWidth = MathUtils.GetNextPowerOf2(Math.Max(Width, (int)_baseSize.Width + 2));
-			int bitmapHeight = MathUtils.GetNextPowerOf2(Math.Max(Height, (int)_baseSize.Height + 2));
-			IBitmap bitmap = _bitmap;
+            Width = (widthF / GLText.TextResolutionFactorX);
+            Height = (heightF / GLText.TextResolutionFactorY);
+            int bitmapWidth = MathUtils.GetNextPowerOf2(Math.Max((int)widthF + 1, (int)baseSize.Width + 1));
+            int bitmapHeight = MathUtils.GetNextPowerOf2(Math.Max((int)heightF + 1, (int)baseSize.Height + 1));
+            IBitmap bitmap = _bitmap;
             if (bitmap == null || bitmap.Width != bitmapWidth || bitmap.Height != bitmapHeight)
-			{
-				if (bitmap != null) _bitmapPool.Release(bitmap);
-				_bitmap = _bitmapPool.Acquire(bitmapWidth, bitmapHeight);
-				bitmap = _bitmap;
-			}
-			IBitmapTextDraw textDraw = bitmap.GetTextDraw();
+            {
+                if (bitmap != null) _bitmapPool.Release(bitmap);
+                _bitmap = _bitmapPool.Acquire(bitmapWidth, bitmapHeight);
+                bitmap = _bitmap;
+            }
+            IBitmapTextDraw textDraw = bitmap.GetTextDraw();
             using (var context = textDraw.CreateContext())
             {
-                textDraw.DrawText(text, _config, textSize, baseSize, _maxWidth, Height, 0f);
-                drawCaret(originalText, textSize, baseSize, textDraw);
+                textDraw.DrawText(text, config, textSize, baseSize, maxWidth, (int)heightF, 0f);
+                drawCaret(originalText, textSize, baseSize, textDraw, config, maxWidth);
             }
-            
+
             _renderChanged = true;
 		}
 
-        private void drawCaret(string text, SizeF textSize, SizeF baseSize, IBitmapTextDraw textDraw)
+        private void drawCaret(string text, SizeF textSize, SizeF baseSize, IBitmapTextDraw textDraw, ITextConfig config, int maxWidth)
         {
             if (!_renderCaret) return;
             var caretPosition = _caretPosition;            
             
             if (caretPosition > text.Length) caretPosition = text.Length;
             string untilCaret = text.Substring(0, caretPosition);
-            AGS.API.SizeF caretOffset = _config.Font.MeasureString(untilCaret, _maxWidth);
+            AGS.API.SizeF caretOffset = config.Font.MeasureString(untilCaret, maxWidth);
             float spaceOffset = 0f;
             if (untilCaret.EndsWith(" ")) spaceOffset = _spaceWidth * (untilCaret.Length - untilCaret.TrimEnd().Length);
-            textDraw.DrawText("|", _config, textSize, baseSize, _maxWidth, Height, caretOffset.Width + spaceOffset - 1f);            
+            textDraw.DrawText("|", config, textSize, baseSize, maxWidth, (int)Height, caretOffset.Width + spaceOffset - 1f);            
         }
 
         private float measureSpace()
         {
             //hack to measure the size of spaces. For some reason MeasureString returns bad results when string ends with a space.
-            IFont font = _config.Font;
+            IFont font = Hooks.FontLoader.LoadFont(_config.Font.FontFamily, _config.Font.SizeInPoints * TextResolutionFactorX, _config.Font.Style);
             return font.MeasureString(" a").Width - font.MeasureString("a").Width;
         }
 			

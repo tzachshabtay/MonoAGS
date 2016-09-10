@@ -13,8 +13,7 @@ namespace AGS.Engine
         private IDrawableInfo _drawable;
         private IInObjectTree _tree;
         private IHasRoom _room;
-        private readonly IGame _game;
-        private static readonly PointF _noScaling = new PointF(1f, 1f);
+        private readonly IGame _game;        
         private int _caretFlashCounter;
 
         private int _endOfLine { get { return _textComponent.Text.Length; } }
@@ -122,14 +121,14 @@ namespace AGS.Engine
 
         private PointF getAreaScaling()
         {
-            if (_drawable.IgnoreScalingArea) return _noScaling;
+            if (_drawable.IgnoreScalingArea) return GLMatrixBuilder.NoScaling;
             foreach (var area in _room.Room.ScalingAreas)
             {
                 if (!area.IsInArea(_translateComponent.Location.XY)) continue;
                 float scaling = area.GetScaling(_translateComponent.Y);
                 return new PointF(scaling, scaling);
             }
-            return _noScaling;
+            return GLMatrixBuilder.NoScaling;
         }
 
         private void onKeyUp(object sender, KeyboardEventArgs args)

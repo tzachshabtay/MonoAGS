@@ -5,7 +5,7 @@ namespace AGS.Engine
 {
 	public interface IGLMatrixBuilder
 	{
-		IGLMatrices Build(IHasModelMatrix obj, IHasModelMatrix sprite, IObject parent, Matrix4 viewport, PointF areaScaling);
+		IGLMatrices Build(IHasModelMatrix obj, IHasModelMatrix sprite, IObject parent, Matrix4 viewport, PointF areaScaling, PointF resolutionTransform);
 	}
 }
 

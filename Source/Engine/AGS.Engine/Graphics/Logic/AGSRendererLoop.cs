@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using OpenTK.Input;
 using Autofac;
+using OpenTK.Graphics.OpenGL;
 
 namespace AGS.Engine
 {
@@ -110,7 +111,10 @@ namespace AGS.Engine
 
 		private void renderObject(IRoom room, IObject obj)
 		{
-			IImageRenderer imageRenderer = getImageRenderer(obj);
+            var resolution = obj.RenderLayer.IndependentResolution ?? AGSGame.Game.VirtualResolution;
+            GLUtils.AdjustResolution(resolution.Width, resolution.Height);
+
+            IImageRenderer imageRenderer = getImageRenderer(obj);
 			PointF areaScaling = getAreaScaling(room, obj);
 
 			imageRenderer.Prepare(obj, obj, obj, room.Viewport, areaScaling);

@@ -58,6 +58,8 @@
         /// The parallax speed.
         /// </value>
         PointF ParallaxSpeed { get; }
+
+        Size? IndependentResolution { get; }
 	}
 }
 

@@ -4,7 +4,6 @@
 	{
 		NoFitting,
 		LabelShouldFitText,
-		TextShouldWrapWithoutHeightFitting,
 		TextShouldWrapAndLabelShouldFitHeight,
 		TextShouldFitLabel,
         TextShouldCrop,

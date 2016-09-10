@@ -108,7 +108,7 @@ namespace AGS.Engine
 
 		private static ITextConfig getDefaultButtonConfig()
 		{
-			return new AGSTextConfig (autoFit: AutoFit.TextShouldFitLabel, paddingLeft: 5);
+			return new AGSTextConfig (autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter);
 		}
 
 		private class MessageBoxLocation : ISayLocationProvider

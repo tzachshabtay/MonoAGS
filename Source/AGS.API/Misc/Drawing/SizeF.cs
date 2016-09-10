@@ -14,6 +14,16 @@ namespace AGS.API
 
 		public float Width { get { return _width; } }
 		public float Height { get { return _height; } }
-	}
+
+        public override string ToString()
+        {
+            return string.Format("{0},{1}", Width, Height);
+        }
+
+        public SizeF Scale(float factorX, float factorY)
+        {
+            return new SizeF(_width * factorX, _height * factorY);
+        }
+    }
 }
 

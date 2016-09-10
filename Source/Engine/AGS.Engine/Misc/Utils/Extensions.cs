@@ -45,7 +45,7 @@ namespace AGS.Engine
 
 		public static float AlignX(this ITextConfig config, float width, AGS.API.SizeF baseSize)
 		{
-			switch (config.Alignment)
+            switch (config.Alignment)
 			{
 				case Alignment.TopLeft:
 				case Alignment.MiddleLeft:
@@ -101,16 +101,20 @@ namespace AGS.Engine
 
 		public static SizeF GetTextSize(this ITextConfig config, string text, SizeF labelSize)
 		{
+            config = AGSTextConfig.ScaleConfig(config, GLText.TextResolutionFactorX);
+            labelSize = labelSize.Scale(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
+            float scaleBackX = 1f / GLText.TextResolutionFactorX;
+            float scaleBackY = 1f / GLText.TextResolutionFactorY;
+
 			switch (config.AutoFit)
 			{
 				case AutoFit.TextShouldFitLabel:
                     var textSize = config.Font.MeasureString(text);
-                    return new SizeF(Math.Min(textSize.Width, labelSize.Width), Math.Min(textSize.Height, labelSize.Height));
-				case AutoFit.TextShouldWrapWithoutHeightFitting:
+                    return new SizeF(Math.Min(textSize.Width, labelSize.Width), Math.Min(textSize.Height, labelSize.Height)).Scale(scaleBackX, scaleBackY);
 				case AutoFit.TextShouldWrapAndLabelShouldFitHeight:
-					return config.Font.MeasureString(text, (int)labelSize.Width);
+					return config.Font.MeasureString(text, (int)labelSize.Width).Scale(scaleBackX, scaleBackY);
 				default:
-					return config.Font.MeasureString(text);
+					return config.Font.MeasureString(text).Scale(scaleBackX, scaleBackY);
 			}
 		}
 	}
