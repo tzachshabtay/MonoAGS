@@ -28,6 +28,7 @@ namespace Tests
 		Mock<ICutscene> _cutscene;
 		Mock<IInput> _input;
 		Mock<IAudioSystem> _audioSystem;
+        Mock<IGame> _game;
 
 		IContainer container;
 
@@ -38,6 +39,7 @@ namespace Tests
 			builder.RegisterInstance(mocks.Animation().Object);
 			builder.RegisterInstance(mocks.AnimationState().Object);
 			builder.RegisterInstance(mocks.GameState().Object);
+            builder.RegisterInstance(mocks.Game().Object);
 			builder.RegisterInstance(mocks.Player().Object);
 			builder.RegisterInstance(mocks.Character().Object);
 			builder.RegisterInstance(mocks.Room().Object);
@@ -98,6 +100,17 @@ namespace Tests
 			}
 			return _animation;
 		}
+
+        public Mock<IGame> Game()
+        {
+            if (_game == null)
+            {
+                _game = new Mock<IGame>();
+                _game.Setup(g => g.State).Returns(GameState().Object);
+                _game.Setup(g => g.VirtualResolution).Returns(new AGS.API.Size(640, 480));
+            }
+            return _game;
+        }
 
 		public Mock<IGameState> GameState()
 		{

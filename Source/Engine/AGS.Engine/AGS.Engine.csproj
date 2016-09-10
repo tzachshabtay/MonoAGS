@@ -57,6 +57,8 @@
     </Compile>
     <Compile Include="Graphics\Image\AGSHasImage.cs" />
     <Compile Include="Graphics\Image\AGSImageComponent.cs" />
+    <Compile Include="Graphics\Logic\Utils\GLUtilsWrapper.cs" />
+    <Compile Include="Graphics\Logic\Interfaces\IGLUtils.cs" />
     <Compile Include="Graphics\Logic\SortDebugger.cs" />
     <Compile Include="Objects\AGSDraggableComponent.cs" />
     <Compile Include="Objects\Collisions\AGSPixelPerfectCollidable.cs" />
@@ -135,7 +137,7 @@
     <Compile Include="Graphics\Logic\GLImageRenderer.cs" />
     <Compile Include="Graphics\Logic\GLMatrixBuilder.cs" />
     <Compile Include="Graphics\Logic\GLTextureRenderer.cs" />
-    <Compile Include="Graphics\Logic\GLUtils.cs" />
+    <Compile Include="Graphics\Logic\Utils\GLUtils.cs" />
     <Compile Include="Graphics\Logic\GLViewportMatrix.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLBoundingBox.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLBoundingBoxBuilder.cs" />

@@ -11,22 +11,26 @@ namespace AGS.Engine
 	public class AGSRendererLoop : IRendererLoop
 	{
 		private readonly IGameState _gameState;
+        private readonly IGame _game;
 		private readonly IImageRenderer _renderer;
 		private readonly IComparer<IObject> _comparer;
 		private readonly AGSWalkBehindsMap _walkBehinds;
 		private readonly IInput _input;
 		private readonly Resolver _resolver;
 		private readonly IAGSRoomTransitions _roomTransitions;
-		private IShader _lastShaderUsed;
+        private IGLUtils _glUtils;
+        private IShader _lastShaderUsed;
 		private IObject _mouseCursorContainer;
-        private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;
+        private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
 
-		public AGSRendererLoop (Resolver resolver, IGameState gameState, IImageRenderer renderer, IInput input, AGSWalkBehindsMap walkBehinds,
-			IAGSRoomTransitions roomTransitions)
+		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer, IInput input, AGSWalkBehindsMap walkBehinds,
+			IAGSRoomTransitions roomTransitions, IGLUtils glUtils)
 		{
+            this._glUtils = glUtils;
 			this._resolver = resolver;
 			this._walkBehinds = walkBehinds;
-			this._gameState = gameState;
+            this._game = game;
+			this._gameState = game.State;
 			this._renderer = renderer;
 			this._input = input;
 			this._comparer = new RenderOrderSelector ();
@@ -111,8 +115,10 @@ namespace AGS.Engine
 
 		private void renderObject(IRoom room, IObject obj)
 		{
-            var resolution = obj.RenderLayer.IndependentResolution ?? AGSGame.Game.VirtualResolution;
-            GLUtils.AdjustResolution(resolution.Width, resolution.Height);
+            Size resolution = obj.RenderLayer == null || obj.RenderLayer.IndependentResolution == null ? 
+                _game.VirtualResolution :
+                obj.RenderLayer.IndependentResolution.Value;
+            _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 
             IImageRenderer imageRenderer = getImageRenderer(obj);
 			PointF areaScaling = getAreaScaling(room, obj);
