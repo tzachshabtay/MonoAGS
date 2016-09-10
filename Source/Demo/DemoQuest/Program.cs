@@ -58,15 +58,6 @@ namespace DemoGame
 			TopBar topBar = new TopBar(cursors.Scheme, inventory, options);
 			var topPanel = await topBar.LoadAsync(game);
 
-			ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 80, 25, 160, 10, new AGSTextConfig(brush: Hooks.BrushLoader.LoadSolidBrush(Colors.WhiteSmoke),
-				alignment: Alignment.MiddleCenter, outlineBrush: Hooks.BrushLoader.LoadSolidBrush(Colors.DarkSlateBlue), outlineWidth: 2f,
-				autoFit: AutoFit.LabelShouldFitText, paddingBottom: 5f));
-			AGS.API.Color red = Colors.IndianRed;
-			label.Tint = AGS.API.Color.FromArgb(120, red.R, red.G, red.B);
-			label.Anchor = new AGS.API.PointF(0.5f, 0f);
-			VerbOnHotspotLabel hotspotLabel = new VerbOnHotspotLabel(() => cursors.Scheme.CurrentMode, game, label);
-			hotspotLabel.Start();
-
 			return topPanel;
 		}
 

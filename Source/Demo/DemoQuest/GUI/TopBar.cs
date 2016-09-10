@@ -59,7 +59,15 @@ namespace DemoGame
             _inventoryItemIcon.IgnoreViewport = true;
 			game.State.UI.Add(_inventoryItemIcon);
 
-			return _panel;
+            ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 150f, 20f, 200f, 0f, new AGSTextConfig(brush: Hooks.BrushLoader.LoadSolidBrush(Colors.LightGreen),
+                alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, paddingBottom: 5f,
+                font: Hooks.FontLoader.LoadFont(AGSGameSettings.DefaultTextFont.FontFamily, 10f)));
+            label.Anchor = new AGS.API.PointF(0.5f, 0f);
+            label.TreeNode.SetParent(_panel.TreeNode);
+            VerbOnHotspotLabel hotspotLabel = new VerbOnHotspotLabel(() => _scheme.CurrentMode, game, label);
+            hotspotLabel.Start();
+
+            return _panel;
 		}
 
 		private void onSaveGameLoaded()
