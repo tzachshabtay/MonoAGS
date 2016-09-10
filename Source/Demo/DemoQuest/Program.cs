@@ -15,30 +15,28 @@ namespace DemoGame
             GLText.TextResolutionFactorX = 4;
             GLText.TextResolutionFactorY = 4;
 
-			game.Events.OnLoad.Subscribe((sender, e) =>
-			{
-				Hooks.FontLoader.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
-				AGSGameSettings.DefaultSpeechFont = Hooks.FontLoader.LoadFontFromPath("../../Assets/Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
-				AGSGameSettings.DefaultTextFont = Hooks.FontLoader.LoadFontFromPath("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
+			game.Events.OnLoad.Subscribe(async (sender, e) =>
+            {
+                Hooks.FontLoader.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
+                AGSGameSettings.DefaultSpeechFont = Hooks.FontLoader.LoadFontFromPath("../../Assets/Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
+                AGSGameSettings.DefaultTextFont = Hooks.FontLoader.LoadFontFromPath("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
                 AGSGameSettings.CurrentSkin = null;
-				game.State.RoomTransitions.Transition = AGSRoomTransitions.Fade();
+                game.State.RoomTransitions.Transition = AGSRoomTransitions.Fade();
 
-				addDebugLabels (game);
+                addDebugLabels(game);
 
-				Task roomsLoaded = loadRooms(game);
-				Task charactersLoaded = loadCharacters(game);
-
-				var topPanelTask = loadUi(game);
-
-				Task.WhenAll(roomsLoaded, charactersLoaded).ContinueWith(_ => 
-				{
-					DefaultInteractions defaults = new DefaultInteractions (game, game.Events);
-					defaults.Load ();
-
-					game.State.Player.Character.ChangeRoom (Rooms.EmptyStreet.Result, 50, 30);
-					topPanelTask.ContinueWith(topPanel => topPanel.Result.Visible = true);
-				});
-			});
+                await loadPlayerCharacter(game);
+                await loadRooms(game);
+                Task charactersLoaded = loadCharacters(game);
+                var topPanel = await loadUi(game);
+                DefaultInteractions defaults = new DefaultInteractions(game, game.Events);
+                defaults.Load();
+                await charactersLoaded.ContinueWith(c =>
+                {
+                    game.State.Player.Character.ChangeRoom(Rooms.EmptyStreet.Result, 50, 30);
+                    topPanel.Visible = true;
+                });
+            });
 
 			game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
 				windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal));
@@ -61,12 +59,17 @@ namespace DemoGame
 			return topPanel;
 		}
 
+        private static async Task loadPlayerCharacter(IGame game)
+        { 
+            Cris cris = new Cris();
+            ICharacter character = await cris.LoadAsync(game);
+
+            game.State.Player.Character = character;
+        }
+
 		private static async Task loadCharacters(IGame game)
 		{
-			Cris cris = new Cris ();
-			ICharacter character = await cris.LoadAsync(game);
-
-			game.State.Player.Character = character;
+            ICharacter character = game.State.Player.Character;
 			KeyboardMovement movement = new KeyboardMovement (character, game.Input, KeyboardMovementMode.Pressing);
 			movement.AddArrows();
 			movement.AddWASD();
