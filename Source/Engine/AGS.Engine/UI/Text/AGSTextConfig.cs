@@ -26,41 +26,52 @@ namespace AGS.Engine
 			PaddingBottom = paddingBottom;
 		}
 
+        public static AGSTextConfig Clone(ITextConfig config)
+        {
+            AGSTextConfig textConfig = new AGSTextConfig();
+            textConfig.Brush = config.Brush;
+            textConfig.Font = config.Font;
+            textConfig.Alignment = config.Alignment;
+            textConfig.OutlineBrush = config.OutlineBrush;
+            textConfig.OutlineWidth = config.OutlineWidth;
+            textConfig.ShadowBrush = config.ShadowBrush;
+            textConfig.ShadowOffsetX = config.ShadowOffsetX;
+            textConfig.ShadowOffsetY = config.ShadowOffsetY;
+            textConfig.AutoFit = config.AutoFit;
+            textConfig.PaddingLeft = config.PaddingLeft;
+            textConfig.PaddingRight = config.PaddingRight;
+            textConfig.PaddingTop = config.PaddingTop;
+            textConfig.PaddingBottom = config.PaddingBottom;
+            return textConfig;
+        }
+
 		public static AGSTextConfig FromConfig(ITextConfig config, float paddingBottomOffset = 0f)
 		{
-			AGSTextConfig textConfig = new AGSTextConfig ();
-			textConfig.Brush = config.Brush;
-			textConfig.Font = config.Font;
-			textConfig.Alignment = config.Alignment;
-			textConfig.OutlineBrush = config.OutlineBrush;
-			textConfig.OutlineWidth = config.OutlineWidth;
-			textConfig.ShadowBrush = config.ShadowBrush;
-			textConfig.ShadowOffsetX = config.ShadowOffsetX;
-			textConfig.ShadowOffsetY = config.ShadowOffsetY;
-			textConfig.AutoFit = config.AutoFit;
-			textConfig.PaddingLeft = config.PaddingLeft;
-			textConfig.PaddingRight = config.PaddingRight;
-			textConfig.PaddingTop = config.PaddingTop;
-			textConfig.PaddingBottom = config.PaddingBottom + paddingBottomOffset;
+            AGSTextConfig textConfig = Clone(config);
+            textConfig.PaddingBottom += paddingBottomOffset;
 			return textConfig;
 		}
 
         public static AGSTextConfig ScaleConfig(ITextConfig config, float sizeFactor)
         {
-            AGSTextConfig textConfig = new AGSTextConfig();
-            textConfig.Brush = config.Brush;
+            AGSTextConfig textConfig = Clone(config);
             textConfig.Font = Hooks.FontLoader.LoadFont(config.Font.FontFamily, config.Font.SizeInPoints * sizeFactor, config.Font.Style);
-            textConfig.Alignment = config.Alignment;
-            textConfig.OutlineBrush = config.OutlineBrush;
-            textConfig.OutlineWidth = config.OutlineWidth * sizeFactor;
-            textConfig.ShadowBrush = config.ShadowBrush;
-            textConfig.ShadowOffsetX = config.ShadowOffsetX * sizeFactor;
-            textConfig.ShadowOffsetY = config.ShadowOffsetY * sizeFactor;
-            textConfig.AutoFit = config.AutoFit;
-            textConfig.PaddingLeft = config.PaddingLeft * sizeFactor;
-            textConfig.PaddingRight = config.PaddingRight * sizeFactor;
-            textConfig.PaddingTop = config.PaddingTop * sizeFactor;
-            textConfig.PaddingBottom = config.PaddingBottom * sizeFactor;
+            textConfig.OutlineWidth *= sizeFactor;
+            textConfig.ShadowOffsetX *= sizeFactor;
+            textConfig.ShadowOffsetY *= sizeFactor;
+            textConfig.PaddingLeft *= sizeFactor;
+            textConfig.PaddingRight *= sizeFactor;
+            textConfig.PaddingTop *= sizeFactor;
+            textConfig.PaddingBottom *= sizeFactor;
+            return textConfig;
+        }
+
+        public static AGSTextConfig ChangeColor(ITextConfig config, Color color, Color outline, float outlineWidth)
+        {
+            AGSTextConfig textConfig = Clone(config);
+            textConfig.Brush = Hooks.BrushLoader.LoadSolidBrush(color);
+            textConfig.OutlineBrush = Hooks.BrushLoader.LoadSolidBrush(outline);
+            textConfig.OutlineWidth = outlineWidth;
             return textConfig;
         }
 

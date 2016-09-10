@@ -4,7 +4,7 @@ namespace AGS.Engine
 {
 	public class AGSGameSettings : IGameSettings
 	{
-		public static IFont DefaultSpeechFont = Hooks.FontLoader.LoadFont(null, 14f); 
+		public static IFont DefaultSpeechFont = Hooks.FontLoader.LoadFont(null, 10f); 
 		
 		public static IFont DefaultTextFont = Hooks.FontLoader.LoadFont(null, 14f);
 

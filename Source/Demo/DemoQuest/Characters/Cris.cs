@@ -25,6 +25,7 @@ namespace DemoGame
 				speakLeftFolder: "Talk", loadConfig: loadConfig);
 
 			_character = game.Factory.Object.GetCharacter("Cris", outfit).Remember(game, c => _character = c);
+            _character.SpeechConfig.TextConfig = AGSTextConfig.ChangeColor(_character.SpeechConfig.TextConfig, Colors.OrangeRed, Colors.Black, 1f);
 			emitter.Object = _character;
 
 
