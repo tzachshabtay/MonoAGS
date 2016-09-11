@@ -10,6 +10,7 @@ namespace AGS.Engine
 		private readonly IGameState _state;
 		private Lazy<IRoom> _cachedRoom;
 		private IAGSRoomTransitions _roomTransitions;
+        private Task[] _emptyTaskArray = new Task[] { };
 
 		public HasRoomBehavior(IGameState state, IAGSRoomTransitions roomTransitions)
 		{
@@ -38,7 +39,7 @@ namespace AGS.Engine
                     {
                         while (_roomTransitions.State != RoomTransitionState.NotInTransition)
                         {
-                            Task.WaitAll(new Task[]{},10); //Busy waiting, agghh!
+                            Task.WaitAll(_emptyTaskArray,10); //Busy waiting, agghh!
                         }
                         if (Room == newRoom) return; //somebody already changed to this room, no need to change again.
                     }
