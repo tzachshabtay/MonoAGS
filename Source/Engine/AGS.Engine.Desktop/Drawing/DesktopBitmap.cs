@@ -9,12 +9,10 @@ namespace AGS.Engine.Desktop
 	public class DesktopBitmap : IBitmap
 	{
 		private Bitmap _bitmap;
-		private IBitmapTextDraw _textDraw;
 
 		public DesktopBitmap(Bitmap bitmap)
 		{
 			_bitmap = bitmap;
-			_textDraw = new DesktopBitmapTextDraw (_bitmap);
 		}
 
 		#region IBitmap implementation
@@ -136,7 +134,7 @@ namespace AGS.Engine.Desktop
 
 		public IBitmapTextDraw GetTextDraw()
 		{
-			return _textDraw;
+            return new DesktopBitmapTextDraw(_bitmap);
 		}
 
         public void SaveToFile(string path)

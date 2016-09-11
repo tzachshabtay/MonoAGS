@@ -8,12 +8,10 @@ namespace AGS.Engine.Android
 	public class AndroidBitmap : IBitmap
 	{
 		private Bitmap _bitmap;
-		private IBitmapTextDraw _textDraw;
 
 		public AndroidBitmap(Bitmap bitmap)
 		{
 			_bitmap = bitmap;
-			_textDraw = new AndroidBitmapTextDraw (_bitmap);
 		}
 
 		#region IBitmap implementation
@@ -151,7 +149,7 @@ namespace AGS.Engine.Android
 
 		public IBitmapTextDraw GetTextDraw()
 		{
-			return _textDraw;
+            return new AndroidBitmapTextDraw(_bitmap);
 		}
 
         public void SaveToFile(string path)
