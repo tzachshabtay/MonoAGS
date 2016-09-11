@@ -5,7 +5,7 @@ namespace AGS.Engine
 	public class AGSSprite : AGSComponent, ISprite
 	{
 		private readonly IHasImage _hasImage;
-        private readonly ITranslate _transform;        
+        private readonly ITranslate _translate;        
         private readonly IRotate _rotate;
         private readonly IMaskLoader _maskLoader;
 
@@ -14,7 +14,7 @@ namespace AGS.Engine
             _maskLoader = maskLoader;
 
             //todo: abstract it to the constructor
-            _transform = new AGSTransform();
+            _translate = new AGSTranslate();
             _hasImage = new AGSHasImage();
             _hasImage.Anchor = new PointF();                        
             _rotate = new AGSRotate();
@@ -26,7 +26,7 @@ namespace AGS.Engine
 
         private AGSSprite(AGSSprite sprite) : this(sprite._maskLoader)
         {
-            _transform.Location = sprite._transform.Location;
+            _translate.Location = sprite._translate.Location;
             _hasImage.Anchor = sprite._hasImage.Anchor;
             _hasImage.Image = sprite._hasImage.Image;
             _hasImage.Tint = sprite._hasImage.Tint;
@@ -101,13 +101,13 @@ namespace AGS.Engine
             return new AGSSprite(this);
 		}
 
-        public ILocation Location { get { return _transform.Location; } set { _transform.Location = value; } }
+        public ILocation Location { get { return _translate.Location; } set { _translate.Location = value; } }
 
-        public float X { get { return _transform.X; } set { _transform.X = value; } }
+        public float X { get { return _translate.X; } set { _translate.X = value; } }
 
-        public float Y { get { return _transform.Y; } set { _transform.Y = value; } }
+        public float Y { get { return _translate.Y; } set { _translate.Y = value; } }
 
-        public float Z { get { return _transform.Z; } set { _transform.Z = value; } }
+        public float Z { get { return _translate.Z; } set { _translate.Z = value; } }
 
         public float Height { get; private set; }
 

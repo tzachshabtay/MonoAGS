@@ -2,9 +2,9 @@
 
 namespace AGS.Engine
 {
-    public class AGSTransform : ITranslate
+    public class AGSTranslate : ITranslate
     {
-        public AGSTransform()
+        public AGSTranslate()
         {
             Location = AGSLocation.Empty();
         }

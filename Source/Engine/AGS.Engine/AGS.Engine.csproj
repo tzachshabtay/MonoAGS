@@ -67,8 +67,8 @@
     <Compile Include="Objects\Rotate\AGSRotateComponent.cs" />
     <Compile Include="Objects\Scale\AGSScale.cs" />
     <Compile Include="Objects\Scale\AGSScaleComponent.cs" />
-    <Compile Include="Objects\Transform\AGSTransform.cs" />
-    <Compile Include="Objects\Transform\AGSTransportComponent.cs" />
+    <Compile Include="Objects\Transform\AGSTranslate.cs" />
+    <Compile Include="Objects\Transform\AGSTranslateComponent.cs" />
     <Compile Include="Platform\IKeyboardState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentsFramework\AGSComponent.cs" />
