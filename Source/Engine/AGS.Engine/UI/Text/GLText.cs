@@ -65,7 +65,7 @@ namespace AGS.Engine
 			if (!changeNeeded) return;
 
 			_text = text;
-            if (config != null)
+            if (config != null && config != _config)
             {
                 _config = config;
                 _spaceWidth = measureSpace();
