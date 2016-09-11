@@ -22,7 +22,12 @@ namespace AGS.Engine
 			
 		public bool Value 
 		{
-			get { return getBooleanFromParentIfNeeded(_tree.TreeNode.Parent); }
+			get 
+            {
+                var tree = _tree;
+                if (tree == null || tree.TreeNode == null) return UnderlyingValue;
+                return getBooleanFromParentIfNeeded(tree.TreeNode.Parent); 
+            }
 			set { UnderlyingValue = value;}
 		}
 
