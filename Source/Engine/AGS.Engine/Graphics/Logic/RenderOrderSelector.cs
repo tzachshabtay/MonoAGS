@@ -32,8 +32,8 @@ namespace AGS.Engine
             }
 			if (Backwards) result *= -1;
 			#if DEBUG
-			s1.SetInt(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s2.ID), result);
-			s2.SetInt(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s1.ID), -result);
+			s1.SetInt(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s2.ID ?? "null"), result);
+			s2.SetInt(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s1.ID ?? "null"), -result);
 			#endif
 			return result;
 		}
