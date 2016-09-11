@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -27,17 +28,24 @@ namespace AGS.Engine
 
 		public IRoom PreviousRoom { get; private set; }
 
-		public void ChangeRoom(IRoom newRoom, float? x = null, float? y = null)
+        public void ChangeRoom(IRoom newRoom, float? x = null, float? y = null)
 		{
 			if (Room != null)
 			{
 				if (_state.Player.Character == _obj)
 				{
+                    if (_roomTransitions.State != RoomTransitionState.NotInTransition) //Room is already changing, need to wait for previous transition to complete before starting a new transition!
+                    {
+                        while (_roomTransitions.State != RoomTransitionState.NotInTransition)
+                        {
+                            Task.WaitAll(new Task[]{},10); //Busy waiting, agghh!
+                        }
+                        if (Room == newRoom) return; //somebody already changed to this room, no need to change again.
+                    }
 					Room.Events.OnBeforeFadeOut.Invoke(this, new AGSEventArgs ());
 					_roomTransitions.State = RoomTransitionState.BeforeLeavingRoom;
 					if (_roomTransitions.Transition != null)
-						_roomTransitions.OnStateChanged.WaitUntil(_ => _roomTransitions.State == RoomTransitionState.PreparingTransition
-							|| _roomTransitions.State == RoomTransitionState.NotInTransition);
+                        _roomTransitions.OnStateChanged.WaitUntil(canContinueRoomTransition);
 				}
 				Room.Objects.Remove(_obj);
 			}
@@ -52,7 +60,13 @@ namespace AGS.Engine
 			if (y != null) _obj.Y = y.Value;
 		}
 
-		private void refreshRoom()
+        private bool canContinueRoomTransition(AGSEventArgs args)
+        {
+            return _roomTransitions.State == RoomTransitionState.PreparingTransition ||
+                   _roomTransitions.State == RoomTransitionState.NotInTransition;
+        }
+
+        private void refreshRoom()
 		{
 			_cachedRoom = new Lazy<IRoom> (getRoom, true);
 		}
