@@ -142,6 +142,15 @@ namespace AGS.Engine
                 currentLine.OnCompletion.TrySetResult(null);                
                 return;
             }
+            if (_cutscene.IsSkipping)
+            {
+                _obj.X = currentLine.Destination.X;
+                _obj.Y = currentLine.Destination.Y;
+
+                _currentWalkLine = null; //Possible race condition here? If so, need to replace with concurrent queue
+                currentLine.OnCompletion.TrySetResult(null);
+                return;
+            }
 
 			float walkSpeed = adjustWalkSpeed(WalkSpeed);
 			float xStep = currentLine.XStep * walkSpeed;
@@ -261,7 +270,14 @@ namespace AGS.Engine
 				debugRenderers.Add (renderer);
 			}
 
-			if (!isDistanceVeryShort(destination))
+            if (_cutscene.IsSkipping)
+            {
+                _obj.X = destination.X;
+                _obj.Y = destination.Y;
+                return true;
+            }
+
+            if (!isDistanceVeryShort(destination))
 			{
 				var lastDirection = _faceDirection.Direction;
 				bool alreadyWalking = _faceDirection.CurrentDirectionalAnimation == _outfit.Outfit.WalkAnimation;
@@ -273,12 +289,6 @@ namespace AGS.Engine
 				}
 			}
 
-			if (_cutscene.IsSkipping)
-			{
-				_obj.X = destination.X;
-				_obj.Y = destination.Y;
-				return true;
-			}
 			float xSteps = Math.Abs (destination.X - _obj.X);
 			float ySteps = Math.Abs (destination.Y - _obj.Y);
 
@@ -291,7 +301,8 @@ namespace AGS.Engine
 			float yStep = ySteps / numSteps;
 			if (_obj.Y > destination.Y) yStep = -yStep;
 
-			WalkLineInstruction instruction = new WalkLineInstruction(token, numSteps, xStep, yStep, isBaseStepX);
+			WalkLineInstruction instruction = new WalkLineInstruction(token, numSteps, xStep, yStep, 
+                                                                      isBaseStepX, destination);
             _currentWalkLine = instruction;
             Task timeout = Task.Delay(WalkLineTimeoutInMilliseconds);
 			Task completedTask = await Task.WhenAny(instruction.OnCompletion.Task, timeout);
@@ -344,7 +355,8 @@ namespace AGS.Engine
 
         private class WalkLineInstruction
         {
-			public WalkLineInstruction(CancellationTokenSource token, float numSteps, float xStep, float yStep, bool isBaseStepX)
+			public WalkLineInstruction(CancellationTokenSource token, float numSteps, float xStep, float yStep, 
+                                       bool isBaseStepX, ILocation destination)
             {
                 CancelToken = token;
                 NumSteps = numSteps;
@@ -352,6 +364,7 @@ namespace AGS.Engine
                 YStep = yStep;
 				IsBaseStepX = isBaseStepX;
                 OnCompletion = new TaskCompletionSource<object>();
+                Destination = destination;
             }
 
             public CancellationTokenSource CancelToken { get; private set; }
@@ -360,6 +373,7 @@ namespace AGS.Engine
             public float XStep { get; private set; }
             public float YStep { get; private set; }
 			public bool IsBaseStepX { get; private set; }
+            public ILocation Destination { get; private set; }
         }
     }
 }

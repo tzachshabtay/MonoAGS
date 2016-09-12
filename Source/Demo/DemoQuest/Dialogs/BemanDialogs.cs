@@ -145,11 +145,14 @@ namespace DemoGame
 			ICharacter player = _game.State.Player.Character;
 			_game.State.Cutscene.Start();
 
-			player.Say("Scene is now in session.");
+            player.Say("Scene is now in session.");
+            var leftEdge = player.Room.Edges.Left;
+            leftEdge.Enabled = false;
 			player.Walk(new AGSLocation (0f, player.Y));
-			player.ChangeRoom(Rooms.EmptyStreet.Result);
+            leftEdge.Enabled = true;
+			player.ChangeRoom(Rooms.EmptyStreet.Result, 400f);
 			player.Say("This scene involves switching rooms!");
-			player.Walk(new AGSLocation (250f, player.Y));
+			player.Walk(new AGSLocation (70f, player.Y));
 
 			_game.State.Cutscene.End();
 

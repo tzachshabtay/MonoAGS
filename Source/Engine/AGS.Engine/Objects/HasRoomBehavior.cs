@@ -50,20 +50,30 @@ namespace AGS.Engine
 				}
 				Room.Objects.Remove(_obj);
 			}
+            if (x != null) _obj.X = x.Value;
+            if (y != null) _obj.Y = y.Value;
 			if (newRoom != null)
 			{
 				newRoom.Objects.Add(_obj);
 			}
+            bool firstRoom = PreviousRoom == null;
 			PreviousRoom = Room;
-			refreshRoom();
+            refreshRoom();
 
-			if (x != null) _obj.X = x.Value;
-			if (y != null) _obj.Y = y.Value;
+            //Waiting for a transition state change to ensure the before fade in event of the new room occurs before the next action after the ChangeRoom was called
+            if (_state.Player.Character == _obj && !firstRoom && _roomTransitions.Transition != null)
+                _roomTransitions.OnStateChanged.WaitUntil(canCompleteRoomTransition);
 		}
 
         private bool canContinueRoomTransition(AGSEventArgs args)
         {
             return _roomTransitions.State == RoomTransitionState.PreparingTransition ||
+                   _roomTransitions.State == RoomTransitionState.NotInTransition;
+        }
+
+        private bool canCompleteRoomTransition(AGSEventArgs args)
+        {
+            return _roomTransitions.State == RoomTransitionState.InTransition ||
                    _roomTransitions.State == RoomTransitionState.NotInTransition;
         }
 

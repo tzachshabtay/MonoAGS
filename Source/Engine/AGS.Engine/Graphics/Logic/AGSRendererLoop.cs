@@ -52,11 +52,16 @@ namespace AGS.Engine
 					renderRoom(room);
 					break;
 				case RoomTransitionState.BeforeLeavingRoom:
-					if (_roomTransitions.Transition == null)
-					{
-						_roomTransitions.State = RoomTransitionState.NotInTransition;
-						return false;
-					}
+                    if (_roomTransitions.Transition == null)
+                    {
+                        _roomTransitions.State = RoomTransitionState.NotInTransition;
+                        return false;
+                    }
+                    else if (_gameState.Cutscene.IsSkipping)
+                    {
+                        _roomTransitions.State = RoomTransitionState.PreparingTransition;
+                        return false;
+                    }
 					else if (!_roomTransitions.Transition.RenderBeforeLeavingRoom(getDisplayList(room), obj => renderObject(room, obj)))
 					{
 						if (_fromTransitionBuffer == null) _fromTransitionBuffer = renderToBuffer(room);
@@ -67,6 +72,13 @@ namespace AGS.Engine
 				case RoomTransitionState.PreparingTransition:
 					return false;
 				case RoomTransitionState.InTransition:
+                    if (_gameState.Cutscene.IsSkipping)
+                    { 
+                        _fromTransitionBuffer = null;
+                        _toTransitionBuffer = null;
+                        _roomTransitions.State = RoomTransitionState.AfterEnteringRoom;
+                        return false;
+                    }
 					if (_toTransitionBuffer == null) _toTransitionBuffer = renderToBuffer(room);
 					if (!_roomTransitions.Transition.RenderTransition(_fromTransitionBuffer, _toTransitionBuffer))
 					{
@@ -77,7 +89,7 @@ namespace AGS.Engine
 					}
 					break;
 				case RoomTransitionState.AfterEnteringRoom:
-					if (!_roomTransitions.Transition.RenderAfterEnteringRoom(getDisplayList(room), obj => renderObject(room, obj)))
+                    if (_gameState.Cutscene.IsSkipping || !_roomTransitions.Transition.RenderAfterEnteringRoom(getDisplayList(room), obj => renderObject(room, obj)))
 					{
 						_roomTransitions.SetOneTimeNextTransition(null);
 						_roomTransitions.State = RoomTransitionState.NotInTransition;
