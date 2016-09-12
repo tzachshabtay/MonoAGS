@@ -33,7 +33,7 @@ namespace Tests
 		[Test]
 		public void ChangeRoom_WhenNotInRoom_Test()
 		{
-			Mock<IGameState> state = new Mock<IGameState> ();
+            Mock<IGameState> state = _mocks.GameState();
 			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
 			state.Setup(s => s.Rooms).Returns(rooms);
 
