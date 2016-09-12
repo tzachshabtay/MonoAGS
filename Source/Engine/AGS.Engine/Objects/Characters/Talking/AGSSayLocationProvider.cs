@@ -26,9 +26,11 @@ namespace AGS.Engine
 		{
             var portraitLocation = getPortraitLocation(config);
             _lastSpeaker = _obj;
-            float x = portraitLocation == null ? _obj.BoundingBox.MaxX : portraitLocation.Value.X;
+            float x = portraitLocation == null ? (_obj.BoundingBox.MaxX - (_obj.IgnoreViewport ? 0 : _obj.Room.Viewport.X)) 
+                                                  : portraitLocation.Value.X;
             if (portraitLocation != null && _lastSpeakerOnLeft) x += config.PortraitConfig.Portrait.Width + getBorderWidth(config.PortraitConfig, true).X;
-            float y = portraitLocation == null ? _obj.BoundingBox.MaxY : _game.VirtualResolution.Height;
+            float y = portraitLocation == null ? (_obj.BoundingBox.MaxY - (_obj.IgnoreViewport ? 0 : _obj.Room.Viewport.Y)) 
+                                                  : _game.VirtualResolution.Height;
             return new AGSSayLocation(getTextLocation(text, config, x, y), portraitLocation);
 		}
 
@@ -38,20 +40,21 @@ namespace AGS.Engine
         {
             //todo: need to account for alignment
             AGS.API.SizeF size = config.TextConfig.GetTextSize(text, config.LabelSize);
+            float width = size.Width + config.TextConfig.PaddingLeft + config.TextConfig.PaddingRight;
+            float height = size.Height + config.TextConfig.PaddingTop + config.TextConfig.PaddingBottom;
 
             y = MathUtils.Clamp(y, 0f, Math.Min(_game.VirtualResolution.Height,
-                _game.VirtualResolution.Height - size.Height));
+                                _game.VirtualResolution.Height - height));
             y -= config.PortraitConfig == null ? 0f : config.PortraitConfig.TextOffset.Y;
             y = MathUtils.Clamp(y, 0f, Math.Min(_game.VirtualResolution.Height,
-                _game.VirtualResolution.Height - size.Height));
-
+                                _game.VirtualResolution.Height - height));
 
             float rightPortraitX = _game.VirtualResolution.Width - 100;
             x += config.PortraitConfig == null ? 0f : (x > rightPortraitX ? -config.PortraitConfig.TextOffset.X
                                                        : config.PortraitConfig.TextOffset.X);
             float maxX = y > _game.VirtualResolution.Height - 100 && x > rightPortraitX ? 
-                                  x : _game.VirtualResolution.Width;
-            x = MathUtils.Clamp(x, 0f, Math.Max(0f, maxX - size.Width - 10f));
+                                  Math.Min(x, _game.VirtualResolution.Width) : _game.VirtualResolution.Width;
+            x = MathUtils.Clamp(x, 0f, Math.Max(0f, maxX - width - 10f));
 
             return new PointF(x, y);
         }
