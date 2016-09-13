@@ -73,8 +73,7 @@ namespace AGS.Engine
 
         private bool canCompleteRoomTransition(AGSEventArgs args)
         {
-            return _roomTransitions.State == RoomTransitionState.InTransition ||
-                   _roomTransitions.State == RoomTransitionState.NotInTransition;
+            return _roomTransitions.State == RoomTransitionState.NotInTransition;
         }
 
         private void refreshRoom()
