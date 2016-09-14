@@ -42,6 +42,8 @@ namespace AGS.Engine
 
 		public Color BackgroundColor { get; set; }
 
+        public PointF TextOffset { get; set; }
+
         public IPortraitConfig PortraitConfig { get; set; }
 
 		#endregion

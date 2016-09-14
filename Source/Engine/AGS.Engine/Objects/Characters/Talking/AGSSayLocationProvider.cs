@@ -48,6 +48,7 @@ namespace AGS.Engine
             y -= config.PortraitConfig == null ? 0f : config.PortraitConfig.TextOffset.Y;
             y = MathUtils.Clamp(y, 0f, Math.Min(_game.VirtualResolution.Height,
                                 _game.VirtualResolution.Height - height));
+            y += config.TextOffset.Y;
 
             float rightPortraitX = _game.VirtualResolution.Width - 100;
             x += config.PortraitConfig == null ? 0f : (x > rightPortraitX ? -config.PortraitConfig.TextOffset.X
@@ -55,6 +56,7 @@ namespace AGS.Engine
             float maxX = y > _game.VirtualResolution.Height - 100 && x > rightPortraitX ? 
                                   Math.Min(x, _game.VirtualResolution.Width) : _game.VirtualResolution.Width;
             x = MathUtils.Clamp(x, 0f, Math.Max(0f, maxX - width - 10f));
+            x += config.TextOffset.X;
 
             return new PointF(x, y);
         }

@@ -16,6 +16,7 @@
 		SizeF LabelSize { get; set; }
 		IBorderStyle Border { get; set; }
 		Color BackgroundColor { get; set; }
+        PointF TextOffset { get; set; }
         IPortraitConfig PortraitConfig { get; set; }
 	}
 }

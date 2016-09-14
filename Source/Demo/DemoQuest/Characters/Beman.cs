@@ -32,6 +32,7 @@ namespace DemoGame
 				subscribeEvents();
 			});
             _character.SpeechConfig.TextConfig = AGSTextConfig.ChangeColor(_character.SpeechConfig.TextConfig, Colors.CornflowerBlue, Colors.Black, 1f);
+            _character.SpeechConfig.TextOffset = new PointF(0f, -10f);
 
             //Uncomment for portrait
             /*
