@@ -4,13 +4,10 @@ using Autofac;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using System.Threading;
 using System.Diagnostics;
 
 using System.Threading.Tasks;
-using System.IO;
 using System.Reflection;
-using System.Collections.Concurrent;
 
 namespace AGS.Engine
 {
@@ -87,11 +84,13 @@ namespace AGS.Engine
 		{
             _settings = settings;
 			VirtualResolution = settings.VirtualResolution;
+
 			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), VirtualResolution));
 			using (GameWindow = new GameWindow (settings.WindowSize.Width, 
-                settings.WindowSize.Height, GraphicsMode.Default, settings.Title))
+                   settings.WindowSize.Height, GraphicsMode.Default, settings.Title))
 			{
-				GL.ClearColor(0, 0f, 0f, 1);				
+				GL.ClearColor(0, 0f, 0f, 1);
+                setWindowBorder(settings);
 				setWindowState(settings);
 
 				GameWindow.Load += (sender, e) =>
@@ -254,7 +253,7 @@ namespace AGS.Engine
 			_relativeSpeed = State.Speed;
 			GameWindow.TargetUpdateFrequency = UPDATE_RATE * (_relativeSpeed / 100f);
 		}
-        
+
         private void setVSync(IGameSettings settings)
         {
             switch (settings.Vsync)
@@ -291,6 +290,24 @@ namespace AGS.Engine
                     break;
                 default:
                     throw new NotSupportedException(settings.WindowState.ToString());
+            }
+        }
+
+        private void setWindowBorder(IGameSettings settings)
+        {
+            switch (settings.WindowBorder)
+            {
+                case API.WindowBorder.Fixed:
+                    GameWindow.WindowBorder = OpenTK.WindowBorder.Fixed;
+                    break;
+                case API.WindowBorder.Resizable:
+                    GameWindow.WindowBorder = OpenTK.WindowBorder.Resizable;
+                    break;
+                case API.WindowBorder.Hidden:
+                    GameWindow.WindowBorder = OpenTK.WindowBorder.Hidden;
+                    break;
+                default:
+                    throw new NotSupportedException(settings.WindowBorder.ToString());
             }
         }
 
