@@ -22,9 +22,9 @@ namespace DemoGame
                 AGSGameSettings.DefaultTextFont = Hooks.FontLoader.LoadFontFromPath("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
                 AGSGameSettings.CurrentSkin = null;
                 game.State.RoomTransitions.Transition = AGSRoomTransitions.Fade();
+                setKeyboardEvents(game);
 
                 addDebugLabels(game);
-
                 await loadPlayerCharacter(game);
                 await loadRooms(game);
                 Task charactersLoaded = loadCharacters(game);
@@ -38,9 +38,30 @@ namespace DemoGame
                 });
             });
 
-			game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
+            game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
 				windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal));
 		}
+
+        private static void setKeyboardEvents(IGame game)
+        { 
+            game.Input.KeyDown.Subscribe((sender, args) =>
+            {
+                if (args.Key == Key.Enter && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
+                {
+                    if (game.Settings.WindowState == WindowState.FullScreen ||
+                        game.Settings.WindowState == WindowState.Maximized)
+                    {
+                        game.Settings.WindowState = WindowState.Normal;
+                        game.Settings.WindowBorder = WindowBorder.Resizable;
+                    }
+                    else
+                    {
+                        game.Settings.WindowBorder = WindowBorder.Hidden;
+                        game.Settings.WindowState = WindowState.Maximized;
+                    }
+                }
+            });
+        }
 
 		private static async Task<IPanel> loadUi(IGame game)
 		{
