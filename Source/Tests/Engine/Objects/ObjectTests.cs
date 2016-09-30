@@ -219,6 +219,7 @@ namespace Tests
             buttonComponent.Setup(b => b.IdleAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
             buttonComponent.Setup(b => b.PushedAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
             Mock<IAudioSystem> audioSystem = new Mock<IAudioSystem>();
+            Mock<IRuntimeSettings> settings = mocks.Settings();
 
             resolver.Builder.RegisterInstance(input.Object);
             resolver.Builder.RegisterInstance(state);
@@ -229,6 +230,8 @@ namespace Tests
             resolver.Builder.RegisterInstance(new Mock<IMessagePump>().Object);
             resolver.Builder.RegisterInstance(new Mock<ILabelRenderer>().Object);
             resolver.Builder.RegisterInstance(mocks.MaskLoader().Object).As<IMaskLoader>();
+            resolver.Builder.RegisterInstance(settings.Object).As<IGameSettings>();
+            resolver.Builder.RegisterInstance(settings.Object).As<IRuntimeSettings>();
             resolver.Build();
 
             Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();

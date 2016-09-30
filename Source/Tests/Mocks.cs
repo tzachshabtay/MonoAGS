@@ -29,6 +29,7 @@ namespace Tests
 		Mock<IInput> _input;
 		Mock<IAudioSystem> _audioSystem;
         Mock<IGame> _game;
+        Mock<IRuntimeSettings> _settings;
 
 		IContainer container;
 
@@ -107,9 +108,19 @@ namespace Tests
             {
                 _game = new Mock<IGame>();
                 _game.Setup(g => g.State).Returns(GameState().Object);
-                _game.Setup(g => g.VirtualResolution).Returns(new AGS.API.Size(640, 480));
+                _game.Setup(g => g.Settings).Returns(Settings().Object);
             }
             return _game;
+        }
+
+        public Mock<IRuntimeSettings> Settings()
+        {
+            if (_settings == null)
+            {
+                _settings = new Mock<IRuntimeSettings>();
+                _settings.Setup(g => g.VirtualResolution).Returns(new AGS.API.Size(640, 480));
+            }
+            return _settings;
         }
 
 		public Mock<IGameState> GameState()
