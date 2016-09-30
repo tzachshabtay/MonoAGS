@@ -116,7 +116,7 @@ namespace AGS.Engine
 				if (obj == null) continue;
 				if (AutoPan)
 				{
-					float pan = MathUtils.Lerp(0f, -1f, _game.VirtualResolution.Width, 1f, obj.Location.X);
+					float pan = MathUtils.Lerp(0f, -1f, _game.Settings.VirtualResolution.Width, 1f, obj.Location.X);
 					sound.Value.Sound.Panning = pan;
 				}
 				if (AutoAdjustVolume)
@@ -126,7 +126,7 @@ namespace AGS.Engine
                     if (room != hasRoom.Room) return;
 					foreach (var area in room.ScalingAreas)
 					{
-						if (!area.Enabled || !area.ScaleObjects || !area.IsInArea(obj.Location.XY)) continue;
+                        if (!area.Enabled || !area.ScaleVolume || !area.IsInArea(obj.Location.XY)) continue;
 						float scale = area.GetScaling(obj.Y);
 						sound.Value.Sound.Volume = AudioClip.Volume * scale;
 					}

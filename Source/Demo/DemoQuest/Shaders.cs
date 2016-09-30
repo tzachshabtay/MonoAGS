@@ -187,7 +187,7 @@ void main()
 
 		private static void setVignetteResolution()
 		{
-			var resolution = AGSGame.GetPhysicalResolution();
+            var resolution = AGSGame.Game.Settings.WindowSize;
 			_vignetteShader.Compile();
 			_vignetteShader.Bind();
 			_vignetteShader.SetVariable("resolution", resolution.Width, resolution.Height);

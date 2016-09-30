@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenTK.Graphics.OpenGL;
 using OpenTK;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -28,6 +29,33 @@ namespace AGS.Engine
             
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
+        }
+
+        public static void RefreshViewport(IGameSettings settings, GameWindow gameWindow)
+        { 
+            if (settings.PreserveAspectRatio) //http://www.david-amador.com/2013/04/opengl-2d-independent-resolution-rendering/
+            {
+                float targetAspectRatio = (float)settings.VirtualResolution.Width / settings.VirtualResolution.Height;
+                Size screen = new Size(gameWindow.Width, gameWindow.Height);
+                int width = screen.Width;
+                int height = (int)(width / targetAspectRatio + 0.5f);
+                if (height > screen.Height)
+                {
+                    //It doesn't fit our height, we must switch to pillarbox then
+                    height = screen.Height;
+                    width = (int)(height * targetAspectRatio + 0.5f);
+                }
+
+                // set up the new viewport centered in the backbuffer
+                int viewX = (screen.Width / 2) - (width / 2);
+                int viewY = (screen.Height / 2) - (height / 2);
+
+                GL.Viewport(viewX, viewY, width, height);
+            }
+            else
+            {
+                GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
+            }
         }
 
 		public static void GenBuffer()

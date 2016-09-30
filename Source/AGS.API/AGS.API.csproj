@@ -52,7 +52,6 @@
     <Compile Include="Game\IGame.cs" />
     <Compile Include="Game\IGameEvents.cs" />
     <Compile Include="Game\IGameLoop.cs" />
-    <Compile Include="Game\IGameSettings.cs" />
     <Compile Include="Game\IGameState.cs" />
     <Compile Include="Graphics\Animations\AnimationCompletedEventArgs.cs" />
     <Compile Include="Graphics\Animations\IAnimation.cs" />
@@ -199,7 +198,12 @@
     <Compile Include="Objects\Characters\Talking\IPortraitConfig.cs" />
     <Compile Include="Objects\Characters\Talking\ISayLocation.cs" />
     <Compile Include="Objects\IHasCursorComponent.cs" />
+    <Compile Include="Game\Settings\IGameSettings.cs" />
+    <Compile Include="Game\Settings\IRuntimeSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Game\Settings\" />
+  </ItemGroup>
 </Project>

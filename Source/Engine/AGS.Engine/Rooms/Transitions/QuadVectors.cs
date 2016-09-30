@@ -9,9 +9,9 @@ namespace AGS.Engine
 		public QuadVectors(IGame game)
 		{
 			TopLeft = new Vector3 ();
-			BottomLeft = new Vector3 (0f, game.VirtualResolution.Height, 0f);
-			TopRight = new Vector3 (game.VirtualResolution.Width, 0f, 0f);
-			BottomRight = new Vector3 (game.VirtualResolution.Width, game.VirtualResolution.Height, 0f);
+			BottomLeft = new Vector3 (0f, game.Settings.VirtualResolution.Height, 0f);
+			TopRight = new Vector3 (game.Settings.VirtualResolution.Width, 0f, 0f);
+			BottomRight = new Vector3 (game.Settings.VirtualResolution.Width, game.Settings.VirtualResolution.Height, 0f);
 		}
 
 		public QuadVectors(float x, float y, float width, float height)

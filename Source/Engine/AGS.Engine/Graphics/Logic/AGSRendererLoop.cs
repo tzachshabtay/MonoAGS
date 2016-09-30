@@ -106,7 +106,7 @@ namespace AGS.Engine
 
         private IFrameBuffer renderToBuffer(IRoom room)
 		{
-            TypedParameter sizeParam = new TypedParameter(typeof(Size), AGSGame.GetPhysicalResolution());
+            TypedParameter sizeParam = new TypedParameter(typeof(Size), _game.Settings.WindowSize);
             IFrameBuffer frameBuffer = _resolver.Container.Resolve<IFrameBuffer>(sizeParam);
 			frameBuffer.Begin();
 			renderRoom(room);
@@ -128,7 +128,7 @@ namespace AGS.Engine
 		private void renderObject(IRoom room, IObject obj)
 		{
             Size resolution = obj.RenderLayer == null || obj.RenderLayer.IndependentResolution == null ? 
-                _game.VirtualResolution :
+                _game.Settings.VirtualResolution :
                 obj.RenderLayer.IndependentResolution.Value;
             _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 

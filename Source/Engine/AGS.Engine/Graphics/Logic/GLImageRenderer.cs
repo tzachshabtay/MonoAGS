@@ -50,7 +50,7 @@ namespace AGS.Engine
 			}
 
 			var layerViewport = _layerViewports.GetViewport(obj.RenderLayer.Z);
-            var gameResolution = AGSGame.Game.VirtualResolution;
+            var gameResolution = AGSGame.Game.Settings.VirtualResolution;
             var resolution = obj.RenderLayer.IndependentResolution ?? gameResolution;
             bool resolutionMatches = resolution.Equals(gameResolution);
 

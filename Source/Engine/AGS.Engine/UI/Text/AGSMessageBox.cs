@@ -100,8 +100,8 @@ namespace AGS.Engine
 				Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
 			config.TextConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight
 				, paddingLeft: 8, paddingTop: 8, paddingBottom: 8, paddingRight: 8);
-			config.LabelSize = new SizeF (AGSGame.Game.VirtualResolution.Width*3/4f, 
-				AGSGame.Game.VirtualResolution.Height*3/4f);
+			config.LabelSize = new SizeF (AGSGame.Game.Settings.VirtualResolution.Width*3/4f, 
+				AGSGame.Game.Settings.VirtualResolution.Height*3/4f);
 			config.BackgroundColor = Colors.Black;
 			return config;
 		}
@@ -128,8 +128,8 @@ namespace AGS.Engine
                 SizeF size = config.GetTextSize(text, sayConfig.LabelSize);
 				float height = size.Height + config.PaddingTop + config.PaddingBottom;
 				float width = size.Width + config.PaddingLeft + config.PaddingRight;
-                return new AGSSayLocation(new PointF (_game.VirtualResolution.Width / 2f - width / 2f, 
-                              _game.VirtualResolution.Height / 2f - height / 2f), null);
+                return new AGSSayLocation(new PointF (_game.Settings.VirtualResolution.Width / 2f - width / 2f, 
+                              _game.Settings.VirtualResolution.Height / 2f - height / 2f), null);
 			}
 
 			#endregion

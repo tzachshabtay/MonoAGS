@@ -30,10 +30,10 @@ namespace AGS.Engine
 			}
 			if (dialogGraphics.Image == null)
 			{
-				dialogGraphics.Image = new EmptyImage (_game.VirtualResolution.Width, y);
+				dialogGraphics.Image = new EmptyImage (_game.Settings.VirtualResolution.Width, y);
 			}
 
-			dialogGraphics.Animation.Sprite.ScaleTo(_game.VirtualResolution.Width, y);
+			dialogGraphics.Animation.Sprite.ScaleTo(_game.Settings.VirtualResolution.Width, y);
 			return Task.FromResult(true);
 		}
 

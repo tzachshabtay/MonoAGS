@@ -102,7 +102,6 @@
     <Compile Include="Game\AGSGame.cs" />
     <Compile Include="Game\AGSGameEvents.cs" />
     <Compile Include="Game\AGSGameLoop.cs" />
-    <Compile Include="Game\AGSGameSettings.cs" />
     <Compile Include="Game\AGSGameState.cs" />
     <Compile Include="Game\Factories\AGSDialogFactory.cs" />
     <Compile Include="Game\Factories\AGSGameFactory.cs" />
@@ -370,6 +369,8 @@
     <Compile Include="UI\Icons\FileIcon.cs" />
     <Compile Include="UI\Icons\FolderIcon.cs" />
     <Compile Include="UI\Icons\ArrowIcon.cs" />
+    <Compile Include="Game\Settings\AGSGameSettings.cs" />
+    <Compile Include="Game\Settings\AGSRuntimeSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -461,5 +462,6 @@
   <ItemGroup />
   <ItemGroup>
     <Folder Include="UI\Icons\" />
+    <Folder Include="Game\Settings\" />
   </ItemGroup>
 </Project>

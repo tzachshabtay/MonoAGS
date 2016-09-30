@@ -95,8 +95,8 @@ namespace AGS.Engine
 
 		private PointF wanderOff()
 		{
-			float x = (float)MathUtils.Random().Next(0, _game.VirtualResolution.Width);
-			float y = (float)MathUtils.Random ().Next (0, _game.VirtualResolution.Height);
+			float x = (float)MathUtils.Random().Next(0, _game.Settings.VirtualResolution.Width);
+			float y = (float)MathUtils.Random ().Next (0, _game.Settings.VirtualResolution.Height);
 			return new PointF(x, y);
 		}
 

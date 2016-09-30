@@ -26,10 +26,10 @@ namespace AGS.Engine
 			_slideIn = slideIn;
 			_easingX = easingX ?? Ease.QuadIn;
 			_easingY = easingY ?? Ease.QuadIn;
-			_targetX = x == null ? game.VirtualResolution.Width : x.Value;
+			_targetX = x == null ? game.Settings.VirtualResolution.Width : x.Value;
 			_targetY = y;
-			_width = game.VirtualResolution.Width;
-			_height = game.VirtualResolution.Height;
+			_width = game.Settings.VirtualResolution.Width;
+			_height = game.Settings.VirtualResolution.Height;
 			_screenVectors = new QuadVectors (game);
 		}
 

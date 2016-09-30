@@ -5,7 +5,6 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System.Diagnostics;
-
 using System.Threading.Tasks;
 using System.Reflection;
 
@@ -18,7 +17,6 @@ namespace AGS.Engine
 		private int _relativeSpeed;
 		private AGSEventArgs _renderEventArgs;
 		private IMessagePump _messagePump;
-        private IGameSettings _settings;
 		public const double UPDATE_RATE = 60.0;
 
 		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents, IMessagePump messagePump)
@@ -39,11 +37,6 @@ namespace AGS.Engine
 		public static IShader Shader { get; set; }
 
 		public static Resolver Resolver { get { return ((AGSGame)Game)._resolver; } }
-
-		public static Size GetPhysicalResolution()
-		{
-			return new Size (Hooks.GameWindowSize.GetWidth(GameWindow), Hooks.GameWindowSize.GetHeight(GameWindow));
-		}
 
 		public static IGame CreateEmpty()
 		{
@@ -76,28 +69,22 @@ namespace AGS.Engine
 
 		public IAudioSettings AudioSettings { get; private set; }
 
-		public AGS.API.Size VirtualResolution { get; private set; }
-
-		public AGS.API.Size WindowSize { get { return GetPhysicalResolution(); } }
+        public IRuntimeSettings Settings { get; private set; }
 
         public void Start(IGameSettings settings)
 		{
-            _settings = settings;
-			VirtualResolution = settings.VirtualResolution;
-
-			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), VirtualResolution));
+			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), settings.VirtualResolution));
 			using (GameWindow = new GameWindow (settings.WindowSize.Width, 
                    settings.WindowSize.Height, GraphicsMode.Default, settings.Title))
 			{
-				GL.ClearColor(0, 0f, 0f, 1);
-                setWindowBorder(settings);
-				setWindowState(settings);
+                GL.ClearColor(0, 0f, 0f, 1);
+                TypedParameter settingsParameter = new TypedParameter(typeof(IGameSettings), settings);
+                TypedParameter gameWindowParameter = new TypedParameter(typeof(GameWindow), GameWindow);
+                Settings = Resolver.Container.Resolve<IRuntimeSettings>(settingsParameter, gameWindowParameter);
 
-				GameWindow.Load += (sender, e) =>
+                GameWindow.Load += (sender, e) =>
 				{
-					setVSync(settings);                    
-
-					GL.Enable(EnableCap.Blend);
+                    GL.Enable(EnableCap.Blend);
 					GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
 					GL.Enable(EnableCap.Texture2D);
@@ -106,8 +93,7 @@ namespace AGS.Engine
 					GL.EnableClientState(ArrayCap.ColorArray);
 					GLUtils.GenBuffer();
 
-					TypedParameter gameWindowParameter = new TypedParameter (typeof(GameWindow), GameWindow);
-					TypedParameter sizeParameter = new TypedParameter(typeof(AGS.API.Size), VirtualResolution);
+					TypedParameter sizeParameter = new TypedParameter(typeof(AGS.API.Size), Settings.VirtualResolution);
 					Input = _resolver.Container.Resolve<IInput>(gameWindowParameter, sizeParameter); 
 					TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
 					TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
@@ -202,38 +188,11 @@ namespace AGS.Engine
 			return State.Find<TEntity>(id);
 		}
 
-        public void ResetViewport()
-        {
-            resize();
-        }
-
         #endregion
 
         private void resize()
         {
-            if (_settings.PreserveAspectRatio) //http://www.david-amador.com/2013/04/opengl-2d-independent-resolution-rendering/
-            {
-                float targetAspectRatio = (float)_settings.VirtualResolution.Width / _settings.VirtualResolution.Height;
-                Size screen = new Size(GameWindow.Width, GameWindow.Height);
-                int width = screen.Width;
-                int height = (int)(width / targetAspectRatio + 0.5f);
-                if (height > screen.Height)
-                {
-                    //It doesn't fit our height, we must switch to pillarbox then
-                    height = screen.Height;
-                    width = (int)(height * targetAspectRatio + 0.5f);
-                }
-
-                // set up the new viewport centered in the backbuffer
-                int viewX = (screen.Width / 2) - (width / 2);
-                int viewY = (screen.Height / 2) - (height / 2);
-
-                GL.Viewport(viewX, viewY, width, height);
-            }
-            else
-            {
-                GL.Viewport(0, 0, GameWindow.Width, GameWindow.Height);
-            }
+            Settings.ResetViewport();
         }
 
 		private void updateResolver()
@@ -242,6 +201,8 @@ namespace AGS.Engine
 			updater.RegisterInstance(Input).As<IInput>();
 			updater.RegisterInstance(_renderLoop).As<IRendererLoop>();
 			updater.RegisterInstance(this).As<IGame>();
+            updater.RegisterInstance(Settings).As<IGameSettings>();
+            updater.RegisterInstance(Settings).As<IRuntimeSettings>();
 
 			updater.Update(_resolver.Container);
 		}
@@ -253,63 +214,6 @@ namespace AGS.Engine
 			_relativeSpeed = State.Speed;
 			GameWindow.TargetUpdateFrequency = UPDATE_RATE * (_relativeSpeed / 100f);
 		}
-
-        private void setVSync(IGameSettings settings)
-        {
-            switch (settings.Vsync)
-            {
-                case VsyncMode.On:
-					GameWindow.VSync = VSyncMode.On;
-                    break;
-                case VsyncMode.Adaptive:
-					GameWindow.VSync = VSyncMode.Adaptive;
-                    break;
-                case VsyncMode.Off:
-					GameWindow.VSync = VSyncMode.Off;
-                    break;
-                default:
-                    throw new NotSupportedException(settings.Vsync.ToString());
-            }
-        }
-        
-        private void setWindowState(IGameSettings settings)
-        {
-            switch (settings.WindowState)
-            {
-                case AGS.API.WindowState.FullScreen:
-					GameWindow.WindowState = OpenTK.WindowState.Fullscreen;
-                    break;
-				case AGS.API.WindowState.Maximized:
-					GameWindow.WindowState = OpenTK.WindowState.Maximized;
-                    break;
-				case AGS.API.WindowState.Minimized:
-					GameWindow.WindowState = OpenTK.WindowState.Minimized;
-                    break;
-				case AGS.API.WindowState.Normal:
-					GameWindow.WindowState = OpenTK.WindowState.Normal;
-                    break;
-                default:
-                    throw new NotSupportedException(settings.WindowState.ToString());
-            }
-        }
-
-        private void setWindowBorder(IGameSettings settings)
-        {
-            switch (settings.WindowBorder)
-            {
-                case API.WindowBorder.Fixed:
-                    GameWindow.WindowBorder = OpenTK.WindowBorder.Fixed;
-                    break;
-                case API.WindowBorder.Resizable:
-                    GameWindow.WindowBorder = OpenTK.WindowBorder.Resizable;
-                    break;
-                case API.WindowBorder.Hidden:
-                    GameWindow.WindowBorder = OpenTK.WindowBorder.Hidden;
-                    break;
-                default:
-                    throw new NotSupportedException(settings.WindowBorder.ToString());
-            }
-        }
 
 		private static void printRuntime()
 		{

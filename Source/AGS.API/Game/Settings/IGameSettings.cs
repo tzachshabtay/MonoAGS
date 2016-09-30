@@ -29,6 +29,10 @@
         /// </summary>
 		Normal,
         /// <summary>
+        /// The window will be minimized.
+        /// </summary>
+        Minimized,
+        /// <summary>
         /// The window will be maximized. Unlike FullScreen mode, the computer's resolution will remain untouched
         /// and switching to other applications is easier. The window's border will still be seen (unless you
         /// set the window border to be hidden).
@@ -39,14 +43,14 @@
         /// resolution to fit. No border will be shown regardless of the window border configuration.
         /// </summary>
 		FullScreen,
-        /// <summary>
-        /// The window will be minimized.
-        /// </summary>
-		Minimized,
 	}
 
     public enum WindowBorder
     {
+        /// <summary>
+        /// The window border will be visible and the user will be able to resize the window by dragging the border (the default).
+        /// </summary>
+        Resizable,
         /// <summary>
         /// The window border will be visible but the user will not be able to resize it.
         /// </summary>
@@ -56,10 +60,6 @@
         /// using the FullScreen mode that changes the computer's resolution).
         /// </summary>
         Hidden,
-        /// <summary>
-        /// The window border will be visible and the user will be able to resize the window by dragging the border (the default).
-        /// </summary>
-        Resizable,
     }
 
 	public interface IGameSettings

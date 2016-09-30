@@ -56,8 +56,8 @@ namespace AGS.Engine
         public async Task<string> Run()
         {
             IGameFactory factory = _game.Factory;
-            float panelWidth = _game.VirtualResolution.Width * 3 / 4f;
-            float panelHeight = _game.VirtualResolution.Height * 3 / 4f;
+            float panelWidth = _game.Settings.VirtualResolution.Width * 3 / 4f;
+            float panelHeight = _game.Settings.VirtualResolution.Height * 3 / 4f;
             const float labelHeight = 20f;
             const float textBoxHeight = 20f;
             const float buttonHeight = 20f;
@@ -75,8 +75,8 @@ namespace AGS.Engine
             float okCancelWidth = okButtonWidth * 2 + okButtonPaddingX;
             float okButtonX = panelWidth / 2f - okCancelWidth / 2f;
             float cancelButtonX = okButtonX + okButtonWidth + okButtonPaddingX;
-            float panelX = _game.VirtualResolution.Width / 2f - panelWidth / 2f;
-            float panelY = _game.VirtualResolution.Height / 2f - panelHeight / 2f;
+            float panelX = _game.Settings.VirtualResolution.Width / 2f - panelWidth / 2f;
+            float panelY = _game.Settings.VirtualResolution.Height / 2f - panelHeight / 2f;
             ITextConfig textBoxConfig = new AGSTextConfig(alignment: Alignment.BottomLeft,
                 autoFit: AutoFit.TextShouldCrop, font: Hooks.FontLoader.LoadFont(null, 10f));
 

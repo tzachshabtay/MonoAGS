@@ -28,8 +28,8 @@ namespace AGS.Engine
         /// The factor in which the text will be rendered (and then will be downscaled to match the resolution so it would look sharper)
         /// </summary>
         public static int TextResolutionFactorY = 1;
-        public static int TextResolutionWidth { get { return AGSGame.Game.VirtualResolution.Width * TextResolutionFactorX; } }
-        public static int TextResolutionHeight { get { return AGSGame.Game.VirtualResolution.Height * TextResolutionFactorY; } }
+        public static int TextResolutionWidth { get { return AGSGame.Game.Settings.VirtualResolution.Width * TextResolutionFactorX; } }
+        public static int TextResolutionHeight { get { return AGSGame.Game.Settings.VirtualResolution.Height * TextResolutionFactorY; } }
 
         public GLText (BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
 		{

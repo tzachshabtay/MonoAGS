@@ -7,16 +7,16 @@ namespace AGS.Engine
 	public class AGSSayLocationProvider : ISayLocationProvider
 	{
 		private IObject _obj;
-		private IGame _game;
+        private IGameSettings _settings;
 
         private static bool _lastSpeakerOnLeft;
         private static IObject _lastSpeaker;
 
         private static readonly PointF _emptyPoint = new PointF(0f, 0f);
 
-		public AGSSayLocationProvider(IGame game, IObject obj)
+        public AGSSayLocationProvider(IGameSettings settings, IObject obj)
 		{
-			_game = game;
+            _settings = settings;
 			_obj = obj;
 		}
 
@@ -30,7 +30,7 @@ namespace AGS.Engine
                                                   : portraitLocation.Value.X;
             if (portraitLocation != null && _lastSpeakerOnLeft) x += config.PortraitConfig.Portrait.Width + getBorderWidth(config.PortraitConfig, true).X;
             float y = portraitLocation == null ? (_obj.BoundingBox.MaxY - (_obj.IgnoreViewport ? 0 : _obj.Room.Viewport.Y)) 
-                                                  : _game.VirtualResolution.Height;
+                                                  : _settings.VirtualResolution.Height;
             return new AGSSayLocation(getTextLocation(text, config, x, y), portraitLocation);
 		}
 
@@ -43,18 +43,18 @@ namespace AGS.Engine
             float width = size.Width + config.TextConfig.PaddingLeft + config.TextConfig.PaddingRight;
             float height = size.Height + config.TextConfig.PaddingTop + config.TextConfig.PaddingBottom;
 
-            y = MathUtils.Clamp(y, 0f, Math.Min(_game.VirtualResolution.Height,
-                                _game.VirtualResolution.Height - height));
+            y = MathUtils.Clamp(y, 0f, Math.Min(_settings.VirtualResolution.Height,
+                                _settings.VirtualResolution.Height - height));
             y -= config.PortraitConfig == null ? 0f : config.PortraitConfig.TextOffset.Y;
-            y = MathUtils.Clamp(y, 0f, Math.Min(_game.VirtualResolution.Height,
-                                _game.VirtualResolution.Height - height));
+            y = MathUtils.Clamp(y, 0f, Math.Min(_settings.VirtualResolution.Height,
+                                _settings.VirtualResolution.Height - height));
             y += config.TextOffset.Y;
 
-            float rightPortraitX = _game.VirtualResolution.Width - 100;
+            float rightPortraitX = _settings.VirtualResolution.Width - 100;
             x += config.PortraitConfig == null ? 0f : (x > rightPortraitX ? -config.PortraitConfig.TextOffset.X
                                                        : config.PortraitConfig.TextOffset.X);
-            float maxX = y > _game.VirtualResolution.Height - 100 && x > rightPortraitX ? 
-                                  Math.Min(x, _game.VirtualResolution.Width) : _game.VirtualResolution.Width;
+            float maxX = y > _settings.VirtualResolution.Height - 100 && x > rightPortraitX ? 
+                                  Math.Min(x, _settings.VirtualResolution.Width) : _settings.VirtualResolution.Width;
             x = MathUtils.Clamp(x, 0f, Math.Max(0f, maxX - width - 10f));
             x += config.TextOffset.X;
 
@@ -79,7 +79,7 @@ namespace AGS.Engine
                     return getPortraitLocation(portraitConfig);
                 case PortraitPositioning.SpeakerPosition:
                     portrait.Anchor = new PointF(0f, 0f);
-                    if (_obj.X < _game.VirtualResolution.Width / 2) _lastSpeakerOnLeft = true;
+                    if (_obj.X < _settings.VirtualResolution.Width / 2) _lastSpeakerOnLeft = true;
                     else _lastSpeakerOnLeft = false;
                     return getPortraitLocation(portraitConfig);
                 default: throw new NotSupportedException(portraitConfig.Positioning.ToString());
@@ -95,16 +95,16 @@ namespace AGS.Engine
         {
             var border = getBorderWidth(portraitConfig, true);
             return new PointF(portraitConfig.PortraitOffset.X + border.X, 
-                              _game.VirtualResolution.Height - portraitConfig.Portrait.Height - 
+                              _settings.VirtualResolution.Height - portraitConfig.Portrait.Height - 
                               portraitConfig.PortraitOffset.Y - border.Y);
         }
 
         private PointF getRightPortrait(IPortraitConfig portraitConfig)
         {
             var border = getBorderWidth(portraitConfig, false);
-            return new PointF(_game.VirtualResolution.Width - portraitConfig.Portrait.Width - 
+            return new PointF(_settings.VirtualResolution.Width - portraitConfig.Portrait.Width - 
                               portraitConfig.PortraitOffset.X - border.X,
-                              _game.VirtualResolution.Height - portraitConfig.Portrait.Height - 
+                              _settings.VirtualResolution.Height - portraitConfig.Portrait.Height - 
                               portraitConfig.PortraitOffset.Y - border.Y);
         }
 

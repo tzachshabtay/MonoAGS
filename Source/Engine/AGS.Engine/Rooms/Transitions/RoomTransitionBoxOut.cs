@@ -23,8 +23,8 @@ namespace AGS.Engine
 			_easingBoxIn = easingBoxIn ?? Ease.Linear;
 			game = game ?? AGSGame.Game;
 			_screenVectors = new QuadVectors (game);
-			_screenWidth = game.VirtualResolution.Width;
-			_screenHeight = game.VirtualResolution.Height;
+			_screenWidth = game.Settings.VirtualResolution.Width;
+			_screenHeight = game.Settings.VirtualResolution.Height;
 			_screenHalfWidth = _screenWidth / 2f;
 			_screenHalfHeight = _screenHeight / 2f;
 		}

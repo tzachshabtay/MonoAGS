@@ -28,7 +28,7 @@ namespace AGS.Engine
 				brush: Hooks.BrushLoader.LoadSolidBrush(Colors.White), font: Hooks.FontLoader.LoadFont(null,10f));
 			if (hoverConfig == null) hoverConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
 				brush: Hooks.BrushLoader.LoadSolidBrush(Colors.Yellow), font: Hooks.FontLoader.LoadFont(null, 10f));
-			ILabel label = _ui.GetLabel(string.Format("Dialog option: {0}", text), text, game.VirtualResolution.Width, 20f, 0f, 0f, config);
+			ILabel label = _ui.GetLabel(string.Format("Dialog option: {0}", text), text, game.Settings.VirtualResolution.Width, 20f, 0f, 0f, config);
 			label.Enabled = true;
 			TypedParameter labelParam = new TypedParameter (typeof(ILabel), label);
 			NamedParameter speakParam = new NamedParameter ("speakOption", speakOption);

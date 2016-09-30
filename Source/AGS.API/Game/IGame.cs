@@ -12,15 +12,12 @@
 		IAudioSettings AudioSettings { get; }
 
 		IGameEvents Events { get; }
-
-		Size VirtualResolution { get; }
-		Size WindowSize { get; }
+        IRuntimeSettings Settings { get; }
 
 		void Start(IGameSettings settings);
 		void Quit();
 
 		TEntity Find<TEntity>(string id) where TEntity : class, IEntity;
-        void ResetViewport();
 	}
 }
 
