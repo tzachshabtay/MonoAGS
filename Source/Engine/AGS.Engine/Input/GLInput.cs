@@ -4,68 +4,74 @@ using OpenTK;
 
 namespace AGS.Engine
 {
-	public class GLInput : IInput
-	{
-		private GameWindow _game;
-		private int _virtualWidth, _virtualHeight;
-		private IGameState _state;
-		private IAGSRoomTransitions _roomTransitions;
+    public class GLInput : IInput
+    {
+        private GameWindow _game;
+        private int _virtualWidth, _virtualHeight;
+        private IGameState _state;
+        private IAGSRoomTransitions _roomTransitions;
+        private IConcurrentHashSet<Key> _keysDown;
 
-		private IObject _mouseCursor;
-		private MouseCursor _originalOSCursor;
+        private IObject _mouseCursor;
+        private MouseCursor _originalOSCursor;
 
-		public GLInput (GameWindow game, AGS.API.Size virtualResolution, IGameState state, IAGSRoomTransitions roomTransitions)
-		{
-			this._roomTransitions = roomTransitions;
-			this._virtualWidth = virtualResolution.Width;
-			this._virtualHeight = virtualResolution.Height;
-			this._state = state;
-				
-			this._game = game;
-			this._originalOSCursor = _game.Cursor;
+        public GLInput(GameWindow game, AGS.API.Size virtualResolution, IGameState state, IAGSRoomTransitions roomTransitions)
+        {
+            this._roomTransitions = roomTransitions;
+            this._virtualWidth = virtualResolution.Width;
+            this._virtualHeight = virtualResolution.Height;
+            this._state = state;
+            this._keysDown = new AGSConcurrentHashSet<Key>();
 
-			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs> ();
-			MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs> ();
-			MouseMove = new AGSEvent<MousePositionEventArgs> ();
-			KeyDown = new AGSEvent<KeyboardEventArgs> ();
-			KeyUp = new AGSEvent<KeyboardEventArgs> ();
+            this._game = game;
+            this._originalOSCursor = _game.Cursor;
 
-			game.MouseDown += async (sender, e) => 
-			{ 
-				if (isInputBlocked()) return;
-				var button = convert(e.Button);
-				if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = true;
-				else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = true;
-				await MouseDown.InvokeAsync(sender, new AGS.API.MouseButtonEventArgs(button, convertX(e.X), convertY(e.Y)));
-			};
-			game.MouseUp += async (sender, e) => 
-			{
-				if (isInputBlocked()) return;
-				var button = convert(e.Button);
-				if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = false;
-				else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = false;
-				await MouseUp.InvokeAsync(sender, new AGS.API.MouseButtonEventArgs(button, convertX(e.X), convertY(e.Y)));
-			};
-			game.MouseMove += async (sender, e) =>
-			{
-				if (isInputBlocked()) return;
-				await MouseMove.InvokeAsync(sender, new MousePositionEventArgs (convertX(e.X), convertY(e.Y)));
-			};
-			game.KeyDown += async (sender, e) =>
-			{
-				if (isInputBlocked()) return;
-				await KeyDown.InvokeAsync(sender, new KeyboardEventArgs (convert(e.Key)));
-			};
-			game.KeyUp += async (sender, e) =>
-			{
-				if (isInputBlocked()) return;
-				await KeyUp.InvokeAsync(sender, new KeyboardEventArgs (convert(e.Key)));
-			};
-		}
+            MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
+            MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
+            MouseMove = new AGSEvent<MousePositionEventArgs>();
+            KeyDown = new AGSEvent<KeyboardEventArgs>();
+            KeyUp = new AGSEvent<KeyboardEventArgs>();
 
-		#region IInputEvents implementation
+            game.MouseDown += async (sender, e) =>
+            {
+                if (isInputBlocked()) return;
+                var button = convert(e.Button);
+                if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = true;
+                else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = true;
+                await MouseDown.InvokeAsync(sender, new AGS.API.MouseButtonEventArgs(button, convertX(e.X), convertY(e.Y)));
+            };
+            game.MouseUp += async (sender, e) =>
+            {
+                if (isInputBlocked()) return;
+                var button = convert(e.Button);
+                if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = false;
+                else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = false;
+                await MouseUp.InvokeAsync(sender, new AGS.API.MouseButtonEventArgs(button, convertX(e.X), convertY(e.Y)));
+            };
+            game.MouseMove += async (sender, e) =>
+            {
+                if (isInputBlocked()) return;
+                await MouseMove.InvokeAsync(sender, new MousePositionEventArgs(convertX(e.X), convertY(e.Y)));
+            };
+            game.KeyDown += async (sender, e) =>
+            {
+                Key key = convert(e.Key);
+                _keysDown.Add(key);
+                if (isInputBlocked()) return;
+                await KeyDown.InvokeAsync(sender, new KeyboardEventArgs(key));
+            };
+            game.KeyUp += async (sender, e) =>
+            {
+                Key key = convert(e.Key);
+                _keysDown.Remove(key);
+                if (isInputBlocked()) return;
+                await KeyUp.InvokeAsync(sender, new KeyboardEventArgs(key));
+            };
+        }
 
-		public IEvent<AGS.API.MouseButtonEventArgs> MouseDown { get; private set; }
+        #region IInputEvents implementation
+
+        public IEvent<AGS.API.MouseButtonEventArgs> MouseDown { get; private set; }
 
 		public IEvent<AGS.API.MouseButtonEventArgs> MouseUp { get; private set; }
 
@@ -75,7 +81,12 @@ namespace AGS.Engine
 
 		public IEvent<KeyboardEventArgs> KeyUp { get; private set; }
 
-		#endregion
+        #endregion
+
+        public bool IsKeyDown(Key key)
+        {
+            return _keysDown.Contains(key);
+        }
 
 		public PointF MousePosition
 		{

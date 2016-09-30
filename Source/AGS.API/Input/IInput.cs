@@ -9,6 +9,8 @@
 		bool RightMouseButtonDown { get; }
 
 		IObject Cursor { get; set; }
+
+        bool IsKeyDown(Key key);
 	}
 }
 
