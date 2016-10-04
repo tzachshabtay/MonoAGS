@@ -23,11 +23,11 @@ namespace AGS.Engine
 		private readonly LabelMatrixRenderTarget _labelMatrixRenderTarget;
 		private readonly BitmapPool _bitmapPool;
 
-		public GLLabelRenderer(Dictionary<string, GLImage> textures, 
+        public GLLabelRenderer(Dictionary<string, ITexture> textures, 
             IGLMatrixBuilder textRenderMatrixBuilder, IGLMatrixBuilder labelRenderMatrixBuilder, IGLMatrixBuilder hitTestMatrixBuilder,
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
 			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrixFactory viewportMatrix,
-			IGLBoundingBoxes labelBoundingBoxes, IGLBoundingBoxes textBoundingBoxes)
+            IGLBoundingBoxes labelBoundingBoxes, IGLBoundingBoxes textBoundingBoxes, IGraphicsFactory graphicsFactory)
 		{
 			_renderLabelMatrixContainer = new MatrixContainer ();
             _hitTestLabelMatrixContainer = new MatrixContainer();
@@ -40,7 +40,7 @@ namespace AGS.Engine
 			_boundingBoxBuilder = boundingBoxBuilder;
 			_bgRenderer = new GLImageRenderer(textures, _hitTestLabelMatrixContainer, _renderLabelMatrixContainer,
 				new BoundingBoxesEmptyBuilder(), colorBuilder, _textureRenderer, _labelBoundingBoxes,
-				viewportMatrix);
+                                              viewportMatrix, graphicsFactory);
 			_textRenderMatrixBuilder = textRenderMatrixBuilder;
             _labelRenderMatrixBuilder = labelRenderMatrixBuilder;
             _hitTestMatrixBuilder = hitTestMatrixBuilder;

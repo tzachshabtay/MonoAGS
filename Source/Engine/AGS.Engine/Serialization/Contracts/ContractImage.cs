@@ -31,26 +31,27 @@ namespace AGS.Engine
 		public IImage ToItem(AGSSerializationContext context)
 		{
 			if (string.IsNullOrEmpty(ID)) return new EmptyImage (Width, Height);
-			GLImage image;
-			if (context.Textures.TryGetValue(ID, out image))
-			{
-				return image;
-			}
-			var loadConfig = LoadConfig.ToItem(context);
+            var loadConfig = LoadConfig.ToItem(context);
 			var spriteSheet = SpriteSheet.ToItem(context);
-			if (spriteSheet != null)
+            ITexture texture;
+            if (context.Textures.TryGetValue(ID, out texture))
+            {
+                return getImage(texture, spriteSheet, loadConfig);
+            }
+
+            if (spriteSheet != null)
 			{
 				context.Factory.Graphics.LoadAnimationFromSpriteSheet(spriteSheet, 4, null, loadConfig);
-				if (context.Textures.TryGetValue(ID, out image))
+                if (context.Textures.TryGetValue(ID, out texture))
 				{
-					return image;
+					return getImage(texture, spriteSheet, loadConfig);
 				}
 			}
 			try
 			{
-				image = ((GLGraphicsFactory)context.Factory.Graphics).LoadImageInner(ID, loadConfig);
-				context.Textures.Add(ID, image);
-				return image;
+                texture = context.Factory.Graphics.LoadImage(ID, loadConfig).Texture;
+				context.Textures.Add(ID, texture);
+				return getImage(texture, spriteSheet, loadConfig);
 			}
 			catch (ArgumentException e)
 			{
@@ -59,13 +60,18 @@ namespace AGS.Engine
 			}
 		}
 
-		public void FromItem(AGSSerializationContext context, IImage image)
+        public void FromItem(AGSSerializationContext context, IImage image)
 		{
 			ID = image.ID;
 			Width = image.Width;
 			Height = image.Height;
 			LoadConfig = context.GetContract(image.LoadConfig);
 		}
-	}
+
+        private IImage getImage(ITexture texture, ISpriteSheet spriteSheet, ILoadImageConfig loadConfig)
+        {
+            return new GLImage(Hooks.BitmapLoader.Load((int)Width, (int)Height), ID, texture, spriteSheet, loadConfig);
+        }
+    }
 }
 

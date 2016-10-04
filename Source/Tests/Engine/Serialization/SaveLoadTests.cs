@@ -14,7 +14,7 @@ namespace Tests
 	public class SaveLoadTests
 	{
 		private Resolver _resolver;
-		private IDictionary<string, GLImage> _textures;
+        private IDictionary<string, ITexture> _textures;
 		private IGameState _state;
 		private IGameFactory _factory;
 		private AGSSaveLoad _saveLoad;
@@ -32,7 +32,7 @@ namespace Tests
 			updater.RegisterInstance(_mocks.AudioSystem().Object).As<IAudioSystem>();
 			updater.RegisterInstance(new Mock<IMessagePump>().Object);
 			updater.Update(_resolver.Container);
-			_textures = new Dictionary<string, GLImage> ();
+            _textures = new Dictionary<string, ITexture> ();
 			_state = _resolver.Container.Resolve<IGameState>();
 			_factory = _resolver.Container.Resolve<IGameFactory>();
 			_saveLoad = new AGSSaveLoad (_resolver, _factory, _textures, _resolver.Container.Resolve<IGame>());

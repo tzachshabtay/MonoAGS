@@ -9,13 +9,13 @@ namespace AGS.Engine
 {
 	public class GLGraphicsFactory : IGraphicsFactory
 	{
-		private readonly Dictionary<string, GLImage> _textures;
+        private readonly Dictionary<string, ITexture> _textures;
 		private readonly IContainer _resolver;
 		private readonly IResourceLoader _resources;
 		private readonly IBitmapLoader _bitmapLoader;
 		private readonly SpriteSheetLoader _spriteSheetLoader;
 
-		public GLGraphicsFactory (Dictionary<string, GLImage> textures, IContainer resolver)
+        public GLGraphicsFactory (Dictionary<string, ITexture> textures, IContainer resolver)
 		{
 			this._textures = textures;
 			this._resolver = resolver;
@@ -24,10 +24,7 @@ namespace AGS.Engine
 			this._spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage);
             
             AGSGameSettings.CurrentSkin = new AGSBlueSkin(this).CreateSkin();
-            initEmptyTexture();
 		}
-
-        public static ITexture EmptyTexture { get; private set; }
 
 		public ISprite GetSprite()
 		{
@@ -119,18 +116,6 @@ namespace AGS.Engine
 			return await _spriteSheetLoader.LoadAnimationFromSpriteSheetAsync (spriteSheet, delay, animationConfig, loadConfig);
 		}
 			
-		public GLImage LoadImageInner(string path, ILoadImageConfig config = null)
-		{
-			IResource resource = _resources.LoadResource(path);
-			return loadImage(resource, config);
-		}
-
-		public async Task<GLImage> LoadImageInnerAsync(string path, ILoadImageConfig config = null)
-		{
-			IResource resource = await Task.Run(() => _resources.LoadResource (path));
-			return await loadImageAsync (resource, config);
-		}
-
 		public IImage LoadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
 		{
             return loadImage(bitmap, config, id);
@@ -138,12 +123,14 @@ namespace AGS.Engine
 
         public IImage LoadImage(string path, ILoadImageConfig config = null)
 		{
-			return LoadImageInner (path, config);
+			IResource resource = _resources.LoadResource(path);
+            return loadImage(resource, config);
 		}
 
 		public async Task<IImage> LoadImageAsync (string filePath, ILoadImageConfig config = null)
 		{
-			return await LoadImageInnerAsync (filePath, config);
+			IResource resource = await Task.Run(() => _resources.LoadResource(filePath));
+            return await loadImageAsync(resource, config);
 		}
 
 		private IAnimation createLeftRightAnimation(IAnimation animation)
@@ -246,7 +233,7 @@ namespace AGS.Engine
 			GLImage image = new GLImage (bitmap, id, texture, spriteSheet, config);
 
 			if (_textures != null)
-				_textures.GetOrAdd (image.ID, () => image);
+                _textures.GetOrAdd (image.ID, () => image.Texture);
 			return image;
 		}
 
@@ -266,16 +253,6 @@ namespace AGS.Engine
             ITextureConfig textureConfig = config == null ? null : config.TextureConfig;
             TypedParameter textureConfigParam = new TypedParameter(typeof(ITextureConfig), textureConfig);
             return _resolver.Resolve<ITexture>(textureConfigParam);
-        }
-
-        private void initEmptyTexture()
-        {
-            if (EmptyTexture != null) return;
-            var bitmap = Hooks.BitmapLoader.Load(1, 1);
-            bitmap.SetPixel(Colors.White, 0, 0);
-
-            GLImage image = loadImage(bitmap, new AGSLoadImageConfig(config: new AGSTextureConfig(scaleUp: ScaleUpFilters.Nearest)));
-            EmptyTexture = image.Texture;
         }
 	}
 }

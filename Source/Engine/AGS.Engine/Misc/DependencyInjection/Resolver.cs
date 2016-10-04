@@ -58,9 +58,9 @@ namespace AGS.Engine
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IBlockingEvent<>));
 
-			Dictionary<string, GLImage> textures = new Dictionary<string, GLImage> (1024);
+            Dictionary<string, ITexture> textures = new Dictionary<string, ITexture> (1024);
 			Builder.RegisterInstance(textures);
-			Builder.RegisterInstance(textures).As(typeof(IDictionary<string, GLImage>));
+            Builder.RegisterInstance(textures).As(typeof(IDictionary<string, ITexture>));
 
 			FastFingerChecker checker = new FastFingerChecker ();
 			Builder.RegisterInstance(checker);

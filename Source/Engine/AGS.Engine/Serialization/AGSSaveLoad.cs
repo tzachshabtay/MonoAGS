@@ -16,14 +16,14 @@ namespace AGS.Engine
 	{
 		private readonly Resolver _resolver;
 		private readonly IGameFactory _factory;
-		private readonly IDictionary<string, GLImage> _textures;
+        private readonly IDictionary<string, ITexture> _textures;
 		private readonly IGameState _state;
 		private readonly IGameEvents _events;
 		private static bool _firstTimeSetup = true;
 		private const string RESTART_FILENAME = "RestartPoint.bin";
 
 		public AGSSaveLoad(Resolver resolver, IGameFactory factory, 
-			IDictionary<string, GLImage> textures, IGame game)
+                           IDictionary<string, ITexture> textures, IGame game)
 		{
 			_resolver = resolver;
 			_factory = factory;

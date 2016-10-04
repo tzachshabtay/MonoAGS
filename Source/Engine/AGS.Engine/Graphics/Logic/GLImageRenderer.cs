@@ -1,26 +1,27 @@
-﻿using System;
-using AGS.API;
-using OpenTK.Graphics.OpenGL;
+﻿using AGS.API;
 using System.Collections.Generic;
 using OpenTK;
-using Autofac;
+using System;
 
 namespace AGS.Engine
 {
 	public class GLImageRenderer : IImageRenderer
 	{
-		private Dictionary<string, GLImage> _textures;
+        private Dictionary<string, ITexture> _textures;
+        private static Lazy<ITexture> _emptyTexture;
 		private IGLMatrixBuilder _hitTestMatrixBuilder, _renderMatrixBuilder;
 		private IGLBoundingBoxBuilder _boundingBoxBuilder;
 		private IGLColorBuilder _colorBuilder;
 		private IGLTextureRenderer _renderer;
 		private IGLViewportMatrixFactory _layerViewports;
+        private IGraphicsFactory _graphicsFactory;
 
-		public GLImageRenderer (Dictionary<string, GLImage> textures, 
+        public GLImageRenderer (Dictionary<string, ITexture> textures, 
 			IGLMatrixBuilder hitTestMatrixBuilder, IGLMatrixBuilder renderMatrixBuilder, IGLBoundingBoxBuilder boundingBoxBuilder,
 			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer, IGLBoundingBoxes bgBoxes,
-			IGLViewportMatrixFactory layerViewports)
+            IGLViewportMatrixFactory layerViewports, IGraphicsFactory graphicsFactory)
 		{
+            _graphicsFactory = graphicsFactory;
 			_textures = textures;
 			_renderMatrixBuilder = renderMatrixBuilder;
             _hitTestMatrixBuilder = hitTestMatrixBuilder;
@@ -29,9 +30,12 @@ namespace AGS.Engine
 			_renderer = renderer;
 			_layerViewports = layerViewports;
 			BoundingBoxes = bgBoxes;
+            _emptyTexture = new Lazy<ITexture>(() => initEmptyTexture());
 		}
 
 		public IGLBoundingBoxes BoundingBoxes { get; set; }
+
+        public static ITexture EmptyTexture { get { return _emptyTexture.Value; } }
 
 		public void Prepare(IObject obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
 		{
@@ -73,7 +77,7 @@ namespace AGS.Engine
             }
             IGLBoundingBox renderBox = BoundingBoxes.RenderBox;
 
-			GLImage glImage = _textures.GetOrAdd (sprite.Image.ID, () => createNewTexture (sprite.Image.ID));
+            ITexture texture = _textures.GetOrAdd (sprite.Image.ID, () => createNewTexture (sprite.Image.ID));
 
 			IGLColor color = _colorBuilder.Build(sprite, obj);
 
@@ -84,7 +88,7 @@ namespace AGS.Engine
 				renderSquare = renderBox.ToSquare();
 				border.RenderBorderBack(renderSquare);
 			}
-            _renderer.Render(glImage.Texture == null ? 0 : glImage.Texture.ID, renderBox, color);
+            _renderer.Render(texture.ID, renderBox, color);
 
             Vector3 bottomLeft = hitTestBox.BottomLeft;
             Vector3 topLeft = hitTestBox.TopLeft;
@@ -115,13 +119,18 @@ namespace AGS.Engine
 			}
 		}
 			
-		private GLImage createNewTexture(string path)
+        private ITexture createNewTexture(string path)
 		{
-			if (string.IsNullOrEmpty(path)) return new GLImage (); //transparent image
-
-			GLGraphicsFactory loader = new GLGraphicsFactory (null, null);
-			return loader.LoadImageInner (path);
+            if (string.IsNullOrEmpty(path)) return _emptyTexture.Value;
+            return _graphicsFactory.LoadImage(path).Texture;
 		}
+
+        private ITexture initEmptyTexture()
+        {
+            var bitmap = Hooks.BitmapLoader.Load(1, 1);
+            bitmap.SetPixel(Colors.White, 0, 0);
+            return _graphicsFactory.LoadImage(bitmap, new AGSLoadImageConfig(config: new AGSTextureConfig(scaleUp: ScaleUpFilters.Nearest))).Texture;
+        }
 	}
 }
 
