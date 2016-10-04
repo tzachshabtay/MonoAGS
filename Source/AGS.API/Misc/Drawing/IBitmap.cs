@@ -7,6 +7,7 @@
 
 		void Clear();
 		Color GetPixel(int x, int y);
+        void SetPixel(Color color, int x, int y);
 		void MakeTransparent(Color color);
 		void LoadTexture(int? textureToBind);
 		IBitmap ApplyArea(IArea area);

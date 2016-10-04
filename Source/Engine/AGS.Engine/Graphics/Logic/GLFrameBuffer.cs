@@ -13,20 +13,20 @@ namespace AGS.Engine
 		{
             _width = size.Width;
             _height = size.Height;
-			Texture = GLImage.CreateTexture();
+            Texture = new GLTexture(null);
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, _width, _height, 0,
 				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, IntPtr.Zero);
 
 			_fbo = GL.GenFramebuffer();
 		}
 
-		public int Texture { get; private set; }
+        public ITexture Texture { get; private set; }
 
 		public bool Begin()
 		{
-			GL.BindTexture(TextureTarget.Texture2D, Texture);
+            GL.BindTexture(TextureTarget.Texture2D, Texture.ID);
 			GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, _fbo);
-			GL.FramebufferTexture2D(FramebufferTarget.DrawFramebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, Texture, 0);
+            GL.FramebufferTexture2D(FramebufferTarget.DrawFramebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, Texture.ID, 0);
 			GL.BindTexture(TextureTarget.Texture2D, 0);
 			DrawBuffersEnum[] attachments = new[]{ DrawBuffersEnum.ColorAttachment0 };
 			GL.DrawBuffers(1, attachments);

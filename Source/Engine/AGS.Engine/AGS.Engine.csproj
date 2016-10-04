@@ -371,6 +371,8 @@
     <Compile Include="UI\Icons\ArrowIcon.cs" />
     <Compile Include="Game\Settings\AGSGameSettings.cs" />
     <Compile Include="Game\Settings\AGSRuntimeSettings.cs" />
+    <Compile Include="Graphics\Image\AGSTextureConfig.cs" />
+    <Compile Include="Graphics\Image\GLTexture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

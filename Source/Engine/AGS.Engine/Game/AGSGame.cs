@@ -19,11 +19,10 @@ namespace AGS.Engine
 		private IMessagePump _messagePump;
 		public const double UPDATE_RATE = 60.0;
 
-		public AGSGame(IGameFactory factory, IGameState state, IGameEvents gameEvents, IMessagePump messagePump)
+		public AGSGame(IGameState state, IGameEvents gameEvents, IMessagePump messagePump)
 		{
 			_messagePump = messagePump;
 			_messagePump.SetSyncContext ();
-			Factory = factory;
 			State = state;
 			Events = gameEvents;
 			_relativeSpeed = state.Speed;
@@ -85,13 +84,15 @@ namespace AGS.Engine
                 GameWindow.Load += (sender, e) =>
 				{
                     GL.Enable(EnableCap.Blend);
-					GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+                    GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
 					GL.Enable(EnableCap.Texture2D);
 					GL.EnableClientState(ArrayCap.VertexArray);
 					GL.EnableClientState(ArrayCap.TextureCoordArray);
 					GL.EnableClientState(ArrayCap.ColorArray);
 					GLUtils.GenBuffer();
+
+                    Factory = Resolver.Container.Resolve<IGameFactory>();
 
 					TypedParameter sizeParameter = new TypedParameter(typeof(AGS.API.Size), Settings.VirtualResolution);
 					Input = _resolver.Container.Resolve<IInput>(gameWindowParameter, sizeParameter); 
@@ -114,13 +115,6 @@ namespace AGS.Engine
                     Events.OnScreenResize.Invoke(sender, new AGSEventArgs());
 				};
 
-				GameWindow.MouseDown += (sender, e) => 
-				{
-				};
-				GameWindow.KeyDown += (sender, e) =>  
-				{
-					if (e.Key == OpenTK.Input.Key.Escape) Quit();
-				};
 				GameWindow.UpdateFrame += (sender, e) =>
 				{
 					try

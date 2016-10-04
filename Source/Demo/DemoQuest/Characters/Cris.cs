@@ -11,10 +11,7 @@ namespace DemoGame
 
 		public async Task<ICharacter> LoadAsync(IGame game)
 		{
-			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
-			{ 
-				TransparentColorSamplePoint = new AGS.API.Point (0, 0) 
-			};
+            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
 
 			var footstep = await game.Factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/151238__owlstorm__hard-female-footstep-2.wav");
 			ISoundEmitter emitter = new AGSSoundEmitter (game);

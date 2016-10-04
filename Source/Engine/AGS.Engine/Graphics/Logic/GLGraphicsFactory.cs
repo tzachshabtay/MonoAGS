@@ -24,7 +24,10 @@ namespace AGS.Engine
 			this._spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage);
             
             AGSGameSettings.CurrentSkin = new AGSBlueSkin(this).CreateSkin();
+            initEmptyTexture();
 		}
+
+        public static ITexture EmptyTexture { get; private set; }
 
 		public ISprite GetSprite()
 		{
@@ -130,12 +133,10 @@ namespace AGS.Engine
 
 		public IImage LoadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
 		{
-			id = id ?? Guid.NewGuid ().ToString ();
-			int tex = GLImage.CreateTexture();
-			return loadImage (tex, bitmap, id, config, null);
+            return loadImage(bitmap, config, id);
 		}
 
-		public IImage LoadImage(string path, ILoadImageConfig config = null)
+        public IImage LoadImage(string path, ILoadImageConfig config = null)
 		{
 			return LoadImageInner (path, config);
 		}
@@ -200,10 +201,17 @@ namespace AGS.Engine
 			AGSAnimationFrame frame = new AGSAnimationFrame (sprite) { Delay = delay };
 			animation.Frames.Add (frame);
 		}
-			
-		private GLImage loadImage(IResource resource, ILoadImageConfig config = null)
+
+        private GLImage loadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
+        {
+            id = id ?? Guid.NewGuid().ToString();
+            ITexture tex = createTexture(config);
+            return loadImage(tex, bitmap, id, config, null);
+        }
+
+        private GLImage loadImage(IResource resource, ILoadImageConfig config = null)
 		{
-			int tex = GLImage.CreateTexture();
+			ITexture tex = createTexture(config);
 			try
 			{
 				IBitmap bitmap = _bitmapLoader.Load(resource.Stream);
@@ -221,7 +229,7 @@ namespace AGS.Engine
 			try 
 			{
 				IBitmap bitmap = await Task.Run(() => _bitmapLoader.Load (resource.Stream));
-				int tex = GLImage.CreateTexture ();
+				ITexture tex = createTexture(config);
 				return loadImage(tex, bitmap, resource.ID, config, null);
 			} 
 			catch (ArgumentException e) 
@@ -231,7 +239,7 @@ namespace AGS.Engine
 			}
 		}
 
-		private GLImage loadImage(int texture, IBitmap bitmap, string id, ILoadImageConfig config, ISpriteSheet spriteSheet)
+        private GLImage loadImage(ITexture texture, IBitmap bitmap, string id, ILoadImageConfig config, ISpriteSheet spriteSheet)
 		{
 			manipulateImage(bitmap, config);
 			bitmap.LoadTexture(null);
@@ -252,6 +260,23 @@ namespace AGS.Engine
 				bitmap.MakeTransparent(transparentColor);
 			}
 		}
+
+        private ITexture createTexture(ILoadImageConfig config)
+        {
+            ITextureConfig textureConfig = config == null ? null : config.TextureConfig;
+            TypedParameter textureConfigParam = new TypedParameter(typeof(ITextureConfig), textureConfig);
+            return _resolver.Resolve<ITexture>(textureConfigParam);
+        }
+
+        private void initEmptyTexture()
+        {
+            if (EmptyTexture != null) return;
+            var bitmap = Hooks.BitmapLoader.Load(1, 1);
+            bitmap.SetPixel(Colors.White, 0, 0);
+
+            GLImage image = loadImage(bitmap, new AGSLoadImageConfig(config: new AGSTextureConfig(scaleUp: ScaleUpFilters.Nearest)));
+            EmptyTexture = image.Texture;
+        }
 	}
 }
 

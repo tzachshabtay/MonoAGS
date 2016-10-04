@@ -87,7 +87,7 @@ namespace AGS.Engine
 		{
 			foreach (var quad in quads)
 			{
-				quad.Render(0, 0f,0f,0f);
+				quad.Render(null, 0f,0f,0f);
 			}
 		}
 	}

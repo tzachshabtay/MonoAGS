@@ -54,6 +54,12 @@
         /// The load configuration.
         /// </value>
         ILoadImageConfig LoadConfig { get; }
+
+        /// <summary>
+        /// Gets the texture.
+        /// </summary>
+        /// <value>The texture.</value>
+        ITexture Texture { get; }
 	}
 }
 

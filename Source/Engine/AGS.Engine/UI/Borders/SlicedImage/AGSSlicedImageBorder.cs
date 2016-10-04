@@ -303,9 +303,9 @@ namespace AGS.Engine
 
 			var frame = Image.Frames[Image.State.CurrentFrame];
 			if (frame.Sprite == null) return;
-			GLImage image = frame.Sprite.Image as GLImage;
-			if (image == null) return;
-			_texture = image.Texture;
+            IImage image = frame.Sprite.Image;
+            if (image.Texture == null) return;
+            _texture = image.Texture.ID;
 			_width = image.Width;
 			_height = image.Height;
 		}

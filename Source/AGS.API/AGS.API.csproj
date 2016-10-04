@@ -200,6 +200,8 @@
     <Compile Include="Objects\IHasCursorComponent.cs" />
     <Compile Include="Game\Settings\IGameSettings.cs" />
     <Compile Include="Game\Settings\IRuntimeSettings.cs" />
+    <Compile Include="Graphics\ITextureConfig.cs" />
+    <Compile Include="Graphics\ITexture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

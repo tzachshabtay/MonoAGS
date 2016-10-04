@@ -29,10 +29,7 @@ namespace DemoGame
 			IGameFactory factory = game.Factory;
 			_bottleEffectClip = await factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/254818__kwahmah-02__rattling-glass-bottles-impact.wav");
 
-			ILoadImageConfig loadConfig = new AGSLoadImageConfig
-			{
-				TransparentColorSamplePoint = new AGS.API.Point(0, 0)
-			};
+            ILoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
 			_room = factory.Room.GetRoom(_roomId, 20f, 310f, 190f, 10f);
 			_room.MusicOnLoad = await factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/AMemoryAway.ogg");
 
@@ -110,7 +107,7 @@ namespace DemoGame
 		{
 			if (args.TimesInvoked == 1) 
 			{
-				_game.State.RoomTransitions.Transition = AGSRoomTransitions.Dissolve ();
+                _game.State.RoomTransitions.Transition = AGSRoomTransitions.Dissolve ();
 			}
 		}
 	}

@@ -16,10 +16,7 @@ namespace DemoGame
 
 		public async Task LoadAsync(IGameFactory factory)
 		{
-			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
-			{
-				TransparentColorSamplePoint = new AGS.API.Point(0,0),
-			};
+            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
 			Bottle = await factory.Inventory.GetInventoryItemAsync("Bottle", "../../Assets/Rooms/EmptyStreet/bottle.bmp", null, loadConfig);
 			VoodooDoll = await factory.Inventory.GetInventoryItemAsync("Voodoo Doll", _baseFolder + "voodooDoll.bmp", null, loadConfig, true);
 			Poster = await factory.Inventory.GetInventoryItemAsync("Poster", _baseFolder + "poster.bmp", playerStartsWithItem: true);

@@ -22,9 +22,8 @@ namespace AGS.Engine
 
 		public ILoadImageConfig ToItem(AGSSerializationContext context)
 		{
-			return new AGSLoadImageConfig { TransparentColorSamplePoint = TransparentColorSamplePointX == null ? (Point?)null :
-					new Point (TransparentColorSamplePointX.Value, TransparentColorSamplePointY.Value)
-			};
+            return new AGSLoadImageConfig(TransparentColorSamplePointX == null ? (Point?)null :
+                                          new Point(TransparentColorSamplePointX.Value, TransparentColorSamplePointY.Value));
 		}
 
 		public void FromItem(AGSSerializationContext context, ILoadImageConfig item)

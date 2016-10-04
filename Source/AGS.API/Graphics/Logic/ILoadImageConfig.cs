@@ -12,6 +12,11 @@
 		/// </summary>
 		/// <value>The transparent color sample point.</value>
 		Point? TransparentColorSamplePoint { get; }
+
+        /// <summary>
+        /// Gets the configuration of the texture (scaling filter, should the texture be tiled or not).
+        /// </summary>
+        ITextureConfig TextureConfig { get; }
 	}
 }
 

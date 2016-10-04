@@ -37,7 +37,7 @@ namespace DemoGame
 			_panel.Anchor = new AGS.API.PointF (0.5f, 0.5f);
 			_panel.Visible = false;
 
-			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig { TransparentColorSamplePoint = new AGS.API.Point (0, 0) };
+            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
 
 			ISlider volumeSlider = await factory.UI.GetSliderAsync("Volume Slider", _sliderFolder + "slider.bmp", _sliderFolder + "handle.bmp", 0.5f, 0f, 1f, 
 				loadConfig: loadConfig);

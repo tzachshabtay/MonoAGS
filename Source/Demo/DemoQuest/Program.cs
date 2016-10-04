@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AGS.API;
 using System.Diagnostics;
+using DemoQuest;
 
 namespace DemoGame
 {
@@ -59,6 +60,10 @@ namespace DemoGame
                         game.Settings.WindowBorder = WindowBorder.Hidden;
                         game.Settings.WindowState = WindowState.Maximized;
                     }
+                }
+                else if (args.Key == Key.Escape)
+                {
+                    game.Quit();
                 }
             });
         }
@@ -147,11 +152,15 @@ namespace DemoGame
 			fpsLabel.Anchor = new AGS.API.PointF (1f, 0f);
 			fpsLabel.ScaleBy(0.7f, 0.7f);
             fpsLabel.RenderLayer = new AGSRenderLayer(-99999);
+            var red = Colors.IndianRed;
+            fpsLabel.Tint = Color.FromRgba(red.R, red.G, red.B, 125);
 			FPSCounter fps = new FPSCounter(game, fpsLabel);
 			fps.Start();
 
 			ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 30, 25, 320, 5, config: new AGSTextConfig(alignment: Alignment.TopRight,
 				autoFit: AutoFit.LabelShouldFitText));
+            var blue = Colors.SlateBlue;
+            label.Tint = Color.FromRgba(blue.R, blue.G, blue.B, 125);
 			label.Anchor = new AGS.API.PointF (1f, 0f);
 			label.ScaleBy(0.7f, 0.7f);
             label.RenderLayer = new AGSRenderLayer(-99999);

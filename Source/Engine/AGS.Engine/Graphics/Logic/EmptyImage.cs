@@ -29,6 +29,8 @@ namespace AGS.Engine
 
 		public ILoadImageConfig LoadConfig { get { return null; } }
 
+        public ITexture Texture { get { return null; } }
+
 		#endregion
 	}
 }

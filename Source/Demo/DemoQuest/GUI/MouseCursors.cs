@@ -12,10 +12,7 @@ namespace DemoGame
 
 		public MouseCursors()
 		{
-			_loadConfig = new AGSLoadImageConfig
-			{ 
-				TransparentColorSamplePoint = new AGS.API.Point (0, 12) 
-			};
+            _loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 12));
 		}
 
 		public IObject Point { get; private set; }

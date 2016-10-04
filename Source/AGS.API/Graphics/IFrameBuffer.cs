@@ -9,7 +9,7 @@
         /// Gets the texture that was rendered (will be valid after End() was called).
         /// </summary>
         /// <value>The texture.</value>
-		int Texture { get; }
+        ITexture Texture { get; }
 
         /// <summary>
         /// Signals that all following renders will be performed into the buffer instead of into the screen.

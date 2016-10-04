@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using OpenTK;
 
 namespace AGS.Engine
@@ -27,9 +26,9 @@ namespace AGS.Engine
 		public Vector3 TopLeft { get; private set; }
 		public Vector3 TopRight { get; private set; }
 
-		public void Render(int texture, float r = 1f, float g = 1f, float b = 1f, float a = 1f)
+        public void Render(ITexture texture, float r = 1f, float g = 1f, float b = 1f, float a = 1f)
 		{
-			GLUtils.DrawQuad(texture, BottomLeft, BottomRight, TopLeft, TopRight, r, g, b, a);
+            GLUtils.DrawQuad(texture == null ? 0 : texture.ID, BottomLeft, BottomRight, TopLeft, TopRight, r, g, b, a);
 		}
 	}
 }

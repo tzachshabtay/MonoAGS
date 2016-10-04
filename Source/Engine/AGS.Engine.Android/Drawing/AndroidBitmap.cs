@@ -26,6 +26,11 @@ namespace AGS.Engine.Android
 			return AGS.API.Color.FromHexa((uint)_bitmap.GetPixel(x, y));
 		}
 
+        public void SetPixel(AGS.API.Color color, int x, int y)
+        {
+            _bitmap.SetPixel(x, y, color.Convert());
+        }
+
 		public void MakeTransparent(AGS.API.Color color)
 		{
 			global::Android.Graphics.Color c = new global::Android.Graphics.Color(color.R, color.G, color.B, color.A);

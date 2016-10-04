@@ -15,10 +15,7 @@ namespace DemoGame
 		{
 			_game = game;
 			IGameFactory factory = game.Factory;
-			AGSLoadImageConfig loadConfig = new AGSLoadImageConfig
-			{ 
-				TransparentColorSamplePoint = new AGS.API.Point (0, 0) 
-			};
+            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
 
 			IOutfit outfit = await factory.Outfit.LoadOutfitFromFoldersAsync(_baseFolder, 
 				walkLeftFolder: "Walk/left", walkDownFolder: "Walk/down", walkRightFolder: "Walk/right", walkUpFolder: "Walk/up", 

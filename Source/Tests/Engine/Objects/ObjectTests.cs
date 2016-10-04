@@ -186,6 +186,7 @@ namespace Tests
         public static IEnumerable<IObject> GetImplementors(Mocks mocks, Mock<IGameState> stateMock, IGameState state = null)
         {
             if (state == null && stateMock != null) state = stateMock.Object;
+            mocks.Game().Setup(g => g.State).Returns(state);
             if (stateMock != null)
             {
                 stateMock.Setup(s => s.UI).Returns(new AGSConcurrentHashSet<IObject>());
@@ -229,15 +230,16 @@ namespace Tests
             resolver.Builder.RegisterInstance(audioSystem.Object);
             resolver.Builder.RegisterInstance(new Mock<IMessagePump>().Object);
             resolver.Builder.RegisterInstance(new Mock<ILabelRenderer>().Object);
+            resolver.Builder.RegisterInstance(new Mock<ITexture>().Object);
             resolver.Builder.RegisterInstance(mocks.MaskLoader().Object).As<IMaskLoader>();
             resolver.Builder.RegisterInstance(settings.Object).As<IGameSettings>();
             resolver.Builder.RegisterInstance(settings.Object).As<IRuntimeSettings>();
+            resolver.Builder.RegisterInstance(mocks.Game().Object);
             resolver.Build();
 
-            Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();
-            Mock<IEvent<AGSEventArgs>> emptyEvent = new Mock<IEvent<AGSEventArgs>>();
-            gameEvents.Setup(ev => ev.OnRepeatedlyExecute).Returns(emptyEvent.Object);
             Func<IObject> baseObj = () => new AGSObject("Test", resolver);
+            mocks.Game().Setup(g => g.Events).Returns(resolver.Container.Resolve<IGameEvents>());
+            mocks.Game().Setup(g => g.Factory).Returns(resolver.Container.Resolve<IGameFactory>());
 
             Mock<IOutfit> outfit = new Mock<IOutfit>();
 

@@ -9,11 +9,11 @@ namespace AGS.Engine
 		private readonly IResourceLoader _resources;
 		private readonly IBitmapLoader _bitmapLoader;
 		private readonly Action<GLImage, AGSAnimation, int> _addAnimationFrame;
-		private readonly Func<int, IBitmap, string, ILoadImageConfig, ISpriteSheet, GLImage> _loadImage;
+        private readonly Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, GLImage> _loadImage;
 
 		public SpriteSheetLoader (IResourceLoader resources, IBitmapLoader bitmapLoader, 
 		                          Action<GLImage, AGSAnimation, int> addAnimationFrame,
-		                         Func<int, IBitmap, string, ILoadImageConfig, ISpriteSheet, GLImage> loadImage)
+                                  Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, GLImage> loadImage)
 		{
 			_resources = resources;
 			_bitmapLoader = bitmapLoader;
@@ -41,8 +41,8 @@ namespace AGS.Engine
 			{
 				if (currentCell >= spriteSheet.StartFromCell) 
 				{
-					Rectangle rect; IBitmap clone; string path; int tex;
-					getImageInfo (bitmap, cellX, cellY, spriteSheet, filePath, out rect, out clone, out path, out tex);
+                    Rectangle rect; IBitmap clone; string path; ITexture tex;
+                    getImageInfo (bitmap, cellX, cellY, spriteSheet, loadConfig, filePath, out rect, out clone, out path, out tex);
 					GLImage image = _loadImage (tex, clone, path, loadConfig, spriteSheet);
 					_addAnimationFrame (image, animation, delay);
 					cellsGrabbed++;
@@ -74,8 +74,8 @@ namespace AGS.Engine
 			{
 				if (currentCell >= spriteSheet.StartFromCell) 
 				{
-					Rectangle rect; IBitmap clone; string path; int tex;
-					getImageInfo (bitmap, cellX, cellY, spriteSheet, filePath, out rect, out clone, out path, out tex);
+                    Rectangle rect; IBitmap clone; string path; ITexture tex;
+                    getImageInfo (bitmap, cellX, cellY, spriteSheet, loadConfig, filePath, out rect, out clone, out path, out tex);
 					GLImage image = _loadImage (tex, clone, path, loadConfig, spriteSheet);
 					_addAnimationFrame (image, animation, delay);
 					cellsGrabbed++;
@@ -105,10 +105,11 @@ namespace AGS.Engine
 			animation = new AGSAnimation (animationConfig, new AGSAnimationState (), cellsToGrab);
 		}
 
-		private void getImageInfo(IBitmap bitmap, int cellX, int cellY, ISpriteSheet spriteSheet, string filePath, 
-		                          out Rectangle rect, out IBitmap clone, out string path, out int texture)
+		private void getImageInfo(IBitmap bitmap, int cellX, int cellY, ISpriteSheet spriteSheet, 
+                                  ILoadImageConfig loadConfig, string filePath, 
+                                  out Rectangle rect, out IBitmap clone, out string path, out ITexture texture)
 		{
-			texture = GLImage.CreateTexture ();
+            texture = new GLTexture(loadConfig.TextureConfig);
 			rect = new Rectangle (cellX * spriteSheet.CellWidth,
 										cellY * spriteSheet.CellHeight, spriteSheet.CellWidth, spriteSheet.CellHeight);
 			clone = bitmap.Crop (rect);

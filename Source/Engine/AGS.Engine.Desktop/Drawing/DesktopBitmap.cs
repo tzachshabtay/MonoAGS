@@ -27,6 +27,11 @@ namespace AGS.Engine.Desktop
 			return _bitmap.GetPixel(x, y).Convert();
 		}
 
+        public void SetPixel(AGS.API.Color color, int x, int y)
+        {
+            _bitmap.SetPixel(x, y, color.Convert());
+        }
+
 		public void MakeTransparent(AGS.API.Color color)
 		{
 			_bitmap.MakeTransparent(color.Convert());

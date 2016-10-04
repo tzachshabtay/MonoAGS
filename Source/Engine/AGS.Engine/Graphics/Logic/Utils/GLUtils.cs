@@ -68,6 +68,7 @@ namespace AGS.Engine
 		public static void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
 			Vector3 topLeft, Vector3 topRight, float r, float g, float b, float a)
 		{
+            texture = getTexture(texture);
 			GL.BindTexture (TextureTarget.Texture2D, texture);
 
 			GLVertex[] vertices = new GLVertex[]{ new GLVertex(bottomLeft.Xy, _bottomLeft, r,g,b,a), 
@@ -83,6 +84,7 @@ namespace AGS.Engine
 			Vector3 topLeft, Vector3 topRight, IGLColor bottomLeftColor, IGLColor bottomRightColor,
 			IGLColor topLeftColor, IGLColor topRightColor)
 		{
+            texture = getTexture(texture);
 			GL.BindTexture (TextureTarget.Texture2D, texture);
 
 			GLVertex[] vertices = new GLVertex[]{ new GLVertex(bottomLeft.Xy, _bottomLeft, bottomLeftColor), 
@@ -97,6 +99,7 @@ namespace AGS.Engine
 		public static void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
 			Vector3 topLeft, Vector3 topRight, IGLColor color, FourCorners<Vector2> texturePos)
 		{
+            texture = getTexture(texture);
 			GL.BindTexture (TextureTarget.Texture2D, texture);
 
 			GLVertex[] vertices = new GLVertex[]{ new GLVertex(bottomLeft.Xy, texturePos.BottomLeft, color), 
@@ -110,6 +113,7 @@ namespace AGS.Engine
 
 		public static void DrawTriangleFan(int texture, GLVertex[] vertices)
 		{
+            texture = getTexture(texture);
 			GL.BindTexture (TextureTarget.Texture2D, texture);
 
 			GL.BufferData<GLVertex>(BufferTarget.ArrayBuffer, (IntPtr)(GLVertex.Size * vertices.Length),
@@ -120,7 +124,8 @@ namespace AGS.Engine
 		public static void DrawCross(float x, float y, float width, float height,
 			float r, float g, float b, float a)
 		{
-			GL.BindTexture (TextureTarget.Texture2D, 0);
+            int texture = getTexture(0);
+			GL.BindTexture (TextureTarget.Texture2D, texture);
 
 			GLVertex[] vertices = new GLVertex[]{ 
 				new GLVertex(new Vector2(x - width, y - height/10), _bottomLeft, r,g,b,a), 
@@ -142,7 +147,8 @@ namespace AGS.Engine
 		public static void DrawLine(float x1, float y1, float x2, float y2, 
 			float width, float r, float g, float b, float a)
 		{
-			GL.BindTexture (TextureTarget.Texture2D, 0);
+            int texture = getTexture(0);
+			GL.BindTexture (TextureTarget.Texture2D, texture);
 			GL.LineWidth (width);
 			GLVertex[] vertices = new GLVertex[]{ new GLVertex(new Vector2(x1,y1), _bottomLeft, r,g,b,a), 
 				new GLVertex(new Vector2(x2,y2), _bottomRight, r,g,b,a)};
@@ -151,6 +157,11 @@ namespace AGS.Engine
 			
 			GL.DrawArrays(PrimitiveType.Lines, 0, vertices.Length);
 		}
+
+        private static int getTexture(int texture)
+        {
+            return texture == 0 ? GLGraphicsFactory.EmptyTexture.ID : texture;
+        }
 	}
 }
 

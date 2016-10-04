@@ -84,7 +84,7 @@ namespace AGS.Engine
 				renderSquare = renderBox.ToSquare();
 				border.RenderBorderBack(renderSquare);
 			}
-			_renderer.Render(glImage.Texture, renderBox, color);
+            _renderer.Render(glImage.Texture == null ? 0 : glImage.Texture.ID, renderBox, color);
 
             Vector3 bottomLeft = hitTestBox.BottomLeft;
             Vector3 topLeft = hitTestBox.TopLeft;
