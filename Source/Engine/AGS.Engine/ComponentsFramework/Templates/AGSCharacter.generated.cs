@@ -528,6 +528,11 @@ namespace AGS.Engine
             get { return _walkBehavior.IsWalking; } 
         }
 
+        public ILocation WalkDestination
+        { 
+            get { return _walkBehavior.WalkDestination; }
+        }
+
         public Boolean DebugDrawWalkPath 
         {  
             get { return _walkBehavior.DebugDrawWalkPath; }  

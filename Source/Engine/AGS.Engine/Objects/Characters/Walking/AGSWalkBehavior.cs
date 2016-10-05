@@ -58,6 +58,7 @@ namespace AGS.Engine
 
 		public async Task<bool> WalkAsync (ILocation location)	
 		{
+            WalkDestination = location;
 			List<IObject> debugRenderers = _debugPath;
 			if (debugRenderers != null) 
 			{
@@ -126,6 +127,8 @@ namespace AGS.Engine
 				return (!task.IsCompleted && !task.IsCanceled && !task.IsFaulted);
 			}
 		}
+
+        public ILocation WalkDestination { get; private set; }
 
 		public bool DebugDrawWalkPath { get; set; }
 

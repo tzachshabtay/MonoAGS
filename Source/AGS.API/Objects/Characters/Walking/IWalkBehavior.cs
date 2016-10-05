@@ -7,6 +7,12 @@ namespace AGS.API
 		float WalkSpeed { get; set; }
         bool AdjustWalkSpeedToScaleArea { get; set; }
 		bool IsWalking { get; }
+        /// <summary>
+        /// Gets the destination the character is currently walking to (if currently walking),
+        /// or the last destination the character was walking to (if currently not walking).
+        /// </summary>
+        /// <value>The walk destination.</value>
+        ILocation WalkDestination { get; }
 
 		bool DebugDrawWalkPath { get; set; }
 
