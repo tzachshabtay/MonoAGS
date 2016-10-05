@@ -10,16 +10,18 @@ namespace AGS.Engine
 		private readonly ITextConfig _normalConfig;
 		private readonly IDialogActions _actions;
 		private readonly IPlayer _player;
+        private bool _hasBeenChosen;
 
 		//Parameter names for speakOption and showOnce are used in the factory, changing the names requires factory code change as well
 		public AGSDialogOption(IDialogActions actions, IPlayer player, ILabel label, bool exitDialogOnFinish = false, 
-			bool speakOption = true, bool showOnce = false, ITextConfig hoverConfig = null)
+                               bool speakOption = true, bool showOnce = false, ITextConfig hoverConfig = null, ITextConfig hasBeenChosenConfig = null)
 		{
 			_actions = actions;
 			_player = player;
 			Label = label;
 			_normalConfig = label.TextConfig;
 			HoverConfig = hoverConfig;
+            HasBeenChosenConfig = hasBeenChosenConfig;
 			ExitDialogWhenFinished = exitDialogOnFinish;
 			SpeakOption = speakOption;
 			ShowOnce = showOnce;
@@ -44,6 +46,7 @@ namespace AGS.Engine
 			{
 				Label.Visible = false;
 			}
+            HasOptionBeenChosen = true;
 			return true;
 		}
 
@@ -93,6 +96,8 @@ namespace AGS.Engine
 
 		public ITextConfig HoverConfig { get; private set; }
 
+        public ITextConfig HasBeenChosenConfig { get; private set; }
+
 		public bool SpeakOption { get; private set; }
 
 		public bool ShowOnce { get; private set; }
@@ -103,17 +108,32 @@ namespace AGS.Engine
 
 		public IList<IDialogAction> Actions { get { return _actions.Actions; } }
 
+        public bool HasOptionBeenChosen 
+        { 
+            get { return _hasBeenChosen; } 
+            set 
+            { 
+                _hasBeenChosen = value; 
+                Label.TextConfig = getNormalTextConfig();
+            } 
+        }
+
 		#endregion
 
 		private void onMouseEnter(object sender, MousePositionEventArgs e)
 		{
-			Label.TextConfig = HoverConfig ?? _normalConfig;
+			Label.TextConfig = HoverConfig ?? getNormalTextConfig();
 		}
 
 		private void onMouseLeave(object sender, MousePositionEventArgs e)
 		{
-			Label.TextConfig = _normalConfig;
+			Label.TextConfig = getNormalTextConfig();
 		}
+
+        private ITextConfig getNormalTextConfig()
+        {
+            return _hasBeenChosen ? HasBeenChosenConfig ?? _normalConfig : _normalConfig;
+        }
 	}
 }
 

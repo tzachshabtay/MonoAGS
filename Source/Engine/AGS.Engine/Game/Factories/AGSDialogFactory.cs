@@ -21,20 +21,23 @@ namespace AGS.Engine
 		}
 			
 		public IDialogOption GetDialogOption(string text, ITextConfig config = null, ITextConfig hoverConfig = null,
-			bool speakOption = true, bool showOnce = false)
+			ITextConfig hasBeenChosenConfig = null, bool speakOption = true, bool showOnce = false)
 		{
 			IGame game = _resolver.Resolve<IGame>();
 			if (config == null) config = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
 				brush: Hooks.BrushLoader.LoadSolidBrush(Colors.White), font: Hooks.FontLoader.LoadFont(null,10f));
 			if (hoverConfig == null) hoverConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
 				brush: Hooks.BrushLoader.LoadSolidBrush(Colors.Yellow), font: Hooks.FontLoader.LoadFont(null, 10f));
+            if (hasBeenChosenConfig == null) hasBeenChosenConfig = new AGSTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
+                brush: Hooks.BrushLoader.LoadSolidBrush(Colors.Gray), font: Hooks.FontLoader.LoadFont(null, 10f));
 			ILabel label = _ui.GetLabel(string.Format("Dialog option: {0}", text), text, game.Settings.VirtualResolution.Width, 20f, 0f, 0f, config);
 			label.Enabled = true;
 			TypedParameter labelParam = new TypedParameter (typeof(ILabel), label);
 			NamedParameter speakParam = new NamedParameter ("speakOption", speakOption);
 			NamedParameter showOnceParam = new NamedParameter ("showOnce", showOnce);
-			TypedParameter hoverParam = new TypedParameter (typeof(ITextConfig), hoverConfig);
-			IDialogOption option = _resolver.Resolve<IDialogOption>(labelParam, speakParam, showOnceParam, hoverParam);
+            NamedParameter hoverParam = new NamedParameter ("hoverConfig", hoverConfig);
+            NamedParameter wasChosenParam = new NamedParameter("hasBeenChosenConfig", hasBeenChosenConfig);
+			IDialogOption option = _resolver.Resolve<IDialogOption>(labelParam, speakParam, showOnceParam, hoverParam, wasChosenParam);
 			return option;
 		}
 
