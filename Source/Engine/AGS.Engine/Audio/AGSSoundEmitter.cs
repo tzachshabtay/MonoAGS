@@ -49,7 +49,7 @@ namespace AGS.Engine
             ISound sound = AudioClip.Play(volume, false);
             EmittedSound emittedSound = new EmittedSound(sound);
             _playingSounds.TryAdd(emittedSound.ID, emittedSound);
-            Task.Run(async () => await sound.Completed).Wait();
+            Task.Run(async () => await sound.Completed).Wait(); 
         }
 
         #endregion
@@ -67,6 +67,9 @@ namespace AGS.Engine
 
 		public bool AutoPan { get; set; }
 		public bool AutoAdjustVolume { get; set; }
+
+        public bool IsPlaying { get { return _playingSounds.Count > 0; } }
+        public int NumOfCurrentlyPlayingSounds { get { return _playingSounds.Count; } }
 
 		public void Assign(IDirectionalAnimation animation, params int[] frames)
 		{

@@ -1,14 +1,53 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
 	public interface ISoundPlayer
 	{
+        /// <summary>
+        /// Plays a sound.
+        /// </summary>
+        /// <param name="shouldLoop">If set to <c>true</c> should loop.</param>
+        /// <param name="properties">Properties.</param>
+        /// <example>
+        /// In order to play a sound and then asynchronously wait for it to finish:
+        /// <code>
+        /// private async Task onSpecificTrigger()
+        /// {
+        ///     ISound sound = myAudioClip.Play();
+        ///     doStuffWhileSoundIsPlaying(); //This happens in parallel to the playing sound
+        ///     await sound.Completed;
+        ///     doStuffAfterSoundFinishedPlaying();
+        /// }
+        /// </code>
+        /// </example>
 		ISound Play(bool shouldLoop = false, ISoundProperties properties = null);
+        /// <summary>
+        /// Plays a sound
+        /// </summary>
+        /// <param name="volume">Volume (allowed values: 0-1, see ISoundPropertie).</param>
+        /// <param name="shouldLoop">If set to <c>true</c> should loop.</param>
 		ISound Play(float volume, bool shouldLoop = false);
 
+        /// <summary>
+        /// Plays a sound and blocks until the sound is completed.
+        /// </summary>
+        /// <param name="properties">Properties.</param>
 		void PlayAndWait(ISoundProperties properties = null);
+        /// <summary>
+        /// Plays a sound and blocks until the sound is completed.
+        /// </summary>
+        /// <param name="volume">Volume (allowed values: 0-1, see ISoundPropertie).</param>
 		void PlayAndWait(float volume);
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="T:AGS.API.ISoundPlayer"/> is playing a sound (or more than 1 sound).
+        /// </summary>
+        /// <value><c>true</c> if is playing; otherwise, <c>false</c>.</value>
+        bool IsPlaying { get; }
+        /// <summary>
+        /// Gets the number of currently playing sounds.
+        /// </summary>
+        /// <value>The number of currently playing sounds.</value>
+        int NumOfCurrentlyPlayingSounds { get; }
 	}
 }
 

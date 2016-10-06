@@ -13,6 +13,7 @@ namespace AGS.Engine
 		private Lazy<int> _buffer;
 		private IAudioSystem _system;
 		private IAudioErrors _errors;
+        private volatile int _numPlayingSounds;
 
 		public ALAudioClip(string id, ISoundData soundData, IAudioSystem system, IAudioErrors errors)
 		{
@@ -57,15 +58,23 @@ namespace AGS.Engine
 		public float Pitch { get; set; }
 		public float Panning { get; set; }
 
+        public bool IsPlaying { get { return _numPlayingSounds > 0; } }
+        public int NumOfCurrentlyPlayingSounds { get { return _numPlayingSounds; } }
+
 		#endregion
 
 		private ISound playSound(float volume, float pitch, float panning, bool looping = false)
 		{
-			//Debug.WriteLine("Playing Sound: " + ID);
+            //Debug.WriteLine("Playing Sound: " + ID);
+            _numPlayingSounds++;
 			int source = getSource();
 			ALSound sound = new ALSound (source, volume, pitch, looping, panning, _errors);
 			sound.Play(_buffer.Value);
-			sound.Completed.ContinueWith(_ => _system.ReleaseSource(source));
+            sound.Completed.ContinueWith(_ =>
+            {
+                _system.ReleaseSource(source);
+                _numPlayingSounds--;
+            });
 			return sound;
 		}
 
