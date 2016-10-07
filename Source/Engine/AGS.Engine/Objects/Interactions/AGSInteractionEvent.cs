@@ -52,26 +52,28 @@ namespace AGS.Engine
 
 		public async Task WaitUntilAsync(Predicate<TEventArgs> condition)
 		{
-			if (await shouldDefault())
+			if (shouldDefault())
 			{
+                if (!await approachDefault()) return;
 				await _defaultEvent.WaitUntilAsync(condition);
 			}
 			else
 			{
-				await approachHotspot();
+                if (!await approachHotspot()) return;
 				await _ev.WaitUntilAsync(condition);
 			}
 		}
 
 		public async Task InvokeAsync(object sender, TEventArgs args)
 		{
-			if (await shouldDefault())
+			if (shouldDefault())
 			{
+                if (!await approachDefault()) return;
 				await _defaultEvent.InvokeAsync(sender, args);
 			}
 			else
 			{
-				await approachHotspot();
+                if (!await approachHotspot()) return;
 				await _ev.InvokeAsync(sender, args);
 			}
 		}
@@ -81,26 +83,30 @@ namespace AGS.Engine
 			Task.Run(async () => await InvokeAsync(sender, args)).Wait();
 		}
 
-		#endregion
+        #endregion
 
-		private async Task<bool> shouldDefault()
+        private bool shouldDefault()
+        {
+            return (_ev.SubscribersCount == 0 && _defaultEvent != null);
+        }
+
+		private async Task<bool> approachDefault()
 		{
-			if (_ev.SubscribersCount > 0 || _defaultEvent == null) return false;
 			if (_player != null && _player.ApproachStyle.ApplyApproachStyleOnDefaults)
 			{
-				await approachHotspot();
+				return await approachHotspot();
 			}
 			return true;
 		}
 
-		private async Task approachHotspot()
+		private async Task<bool> approachHotspot()
 		{
-			if (_obj == null) return;
+			if (_obj == null) return true;
 			ApproachHotspots approachStyle = getApproachStyle();
 			switch (approachStyle)
 			{
 				case ApproachHotspots.NeverWalk:
-					return;
+                    break;
 				case ApproachHotspots.FaceOnly:
 					await _player.Character.FaceDirectionAsync(_obj);
 					break;
@@ -108,18 +114,19 @@ namespace AGS.Engine
 					if (_obj.WalkPoint == null) await _player.Character.FaceDirectionAsync(_obj);
 					else
 					{
-						await _player.Character.WalkAsync(new AGSLocation (_obj.WalkPoint.Value));
+                        if (!await _player.Character.WalkAsync(new AGSLocation(_obj.WalkPoint.Value))) return false;
 						await _player.Character.FaceDirectionAsync(_obj);
 					}
 					break;
 				case ApproachHotspots.AlwaysWalk:
 					PointF? walkPoint = _obj.WalkPoint ?? _obj.CenterPoint ?? _obj.Location.XY;
-					await _player.Character.WalkAsync(new AGSLocation(walkPoint.Value));
+                    if (!await _player.Character.WalkAsync(new AGSLocation(walkPoint.Value))) return false;
 					await _player.Character.FaceDirectionAsync(_obj);
 					break;
 				default:
 					throw new NotSupportedException ("Approach style is not supported: " + approachStyle.ToString());
 			}
+            return true;
 		}
 
 		private ApproachHotspots getApproachStyle()
