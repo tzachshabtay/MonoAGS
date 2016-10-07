@@ -9,6 +9,8 @@ os:
  - linux
  - osx
  
+ osx_image: xcode6.4
+ 
 install:
  - nuget restore MonoAGS.sln
  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
