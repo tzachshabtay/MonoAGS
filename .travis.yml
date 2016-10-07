@@ -4,13 +4,12 @@ solution: MonoAGS.sln
 mono:
  - latest
  - 3.12.0
- 
-os:
- - linux
- - osx
- 
- osx_image: 
- - xcode6.4
+
+matrix:
+  include: 
+    - os: linux
+    - os: osx
+      osx_image: xcode6.4
  
 install:
  - nuget restore MonoAGS.sln
