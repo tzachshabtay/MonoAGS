@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -11,9 +10,12 @@ namespace AGS.Engine
 		{
 			_input = input;
 			if (_input.KeyUp != null) _input.KeyUp.Subscribe(onKeyUp);
+            if (_input.MouseUp != null) _input.MouseUp.Subscribe(onMouseUp);
 		}
 
 		#region ICutscene implementation
+
+        public SkipCutsceneTrigger SkipTrigger { get; set; }
 
 		public void Start()
 		{
@@ -21,11 +23,19 @@ namespace AGS.Engine
 			IsRunning = true;
 		}
 
-		public void End()
+		public bool End()
 		{
+            bool wasSkipping = IsSkipping;
 			IsSkipping = false;
 			IsRunning = false;
+            return wasSkipping;
 		}
+
+        public void BeginSkip()
+        {
+            if (!IsRunning || IsSkipping) return;
+            IsSkipping = true;
+        }
 
 		public void CopyFrom(ICutscene cutscene)
 		{
@@ -40,9 +50,21 @@ namespace AGS.Engine
 
 		private void onKeyUp(object sender, KeyboardEventArgs args)
 		{
-			if (!IsRunning || IsSkipping) return;
-			IsSkipping = true;
+            switch (SkipTrigger)
+            {
+                case SkipCutsceneTrigger.EscapeKeyOnly:
+                    if (args.Key != Key.Escape) return;
+                    break;
+                case SkipCutsceneTrigger.Custom: return;
+            }
+            BeginSkip();
 		}
+
+        private void onMouseUp(object sender, MouseButtonEventArgs args)
+        {
+            if (SkipTrigger != SkipCutsceneTrigger.AnyKeyOrMouse) return;
+            BeginSkip();
+        }
 	}
 }
 

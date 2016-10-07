@@ -44,7 +44,8 @@ namespace DemoGame
 		}
 
         private static void setKeyboardEvents(IGame game)
-        { 
+        {
+            game.State.Cutscene.SkipTrigger = SkipCutsceneTrigger.AnyKey;
             game.Input.KeyDown.Subscribe((sender, args) =>
             {
                 if (args.Key == Key.Enter && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
@@ -63,6 +64,7 @@ namespace DemoGame
                 }
                 else if (args.Key == Key.Escape)
                 {
+                    if (game.State.Cutscene.IsRunning) return;
                     game.Quit();
                 }
             });
