@@ -1,12 +1,10 @@
 language: csharp
 solution: MonoAGS.sln
 
-mono:
- - latest
- - 3.12.0
-
 matrix:
   include: 
+    - mono: latest
+    - mono: 3.12.0
     - os: linux
     - os: osx
       osx_image: xcode6.4
