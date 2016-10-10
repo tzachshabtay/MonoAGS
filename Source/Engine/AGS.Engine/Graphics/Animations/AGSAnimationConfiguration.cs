@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -7,6 +6,7 @@ namespace AGS.Engine
 	{
 		public AGSAnimationConfiguration ()
 		{
+            DelayBetweenFrames = 5;
 		}
 
 		#region IAnimationConfiguration implementation
@@ -14,6 +14,8 @@ namespace AGS.Engine
 		public LoopingStyle Looping { get; set; }
 
 		public int Loops { get; set; }
+
+        public int DelayBetweenFrames { get; set; }
 
 		#endregion
 	}

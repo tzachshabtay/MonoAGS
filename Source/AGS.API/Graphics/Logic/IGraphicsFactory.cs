@@ -12,19 +12,19 @@ namespace AGS.API
 
 		IDirectionalAnimation LoadDirectionalAnimationFromFolders(string baseFolder, string leftFolder = null,
 		                                                          string rightFolder = null, string downFolder = null, string upFolder = null,
-		                                                          int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
+		                                                          IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
 		Task<IDirectionalAnimation> LoadDirectionalAnimationFromFoldersAsync(string baseFolder, string leftFolder = null,
 																  string rightFolder = null, string downFolder = null, string upFolder = null,
-																  int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
+																  IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
 
-		IAnimation LoadAnimationFromFiles(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files);
-		Task<IAnimation> LoadAnimationFromFilesAsync(int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string [] files);
+		IAnimation LoadAnimationFromFiles(IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files);
+		Task<IAnimation> LoadAnimationFromFilesAsync(IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string [] files);
 
-		IAnimation LoadAnimationFromFolder (string folderPath, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
-		Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
+		IAnimation LoadAnimationFromFolder (string folderPath, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
+		Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
 
-		IAnimation LoadAnimationFromSpriteSheet (ISpriteSheet spriteSheet, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
-		Task<IAnimation> LoadAnimationFromSpriteSheetAsync (ISpriteSheet spriteSheet, int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
+		IAnimation LoadAnimationFromSpriteSheet (ISpriteSheet spriteSheet, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
+		Task<IAnimation> LoadAnimationFromSpriteSheetAsync (ISpriteSheet spriteSheet, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null);
 	}
 }
 

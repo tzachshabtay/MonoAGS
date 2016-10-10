@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AGS.API;
 
 namespace AGS.Engine
@@ -27,7 +28,19 @@ namespace AGS.Engine
 
 		public IAnimation DownRight { get; set; }
 
-		#endregion
-	}
+        public IEnumerable<IAnimation> GetAllDirections()
+        {
+            if (Left != null) yield return Left;
+            if (Right != null) yield return Right;
+            if (Up != null) yield return Up;
+            if (Down != null) yield return Down;
+            if (UpLeft != null) yield return UpLeft;
+            if (UpRight != null) yield return UpRight;
+            if (DownLeft != null) yield return DownLeft;
+            if (DownRight != null) yield return DownRight;
+        }
+
+        #endregion
+    }
 }
 

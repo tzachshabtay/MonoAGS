@@ -31,7 +31,7 @@ namespace AGS.Engine
 			State.CurrentFrame = frame;
 			State.CurrentLoop = 0;
 			State.RunningBackwards = runningBackwards;
-			State.TimeToNextFrame = Frames.Count == 0 ? -1 : Frames[frame].Delay;
+            State.TimeToNextFrame = Frames.Count == 0 ? -1 : getTimeForNextFrame(Frames[frame]);
 		}
 
 		public bool NextFrame ()
@@ -81,7 +81,7 @@ namespace AGS.Engine
 			State.CurrentFrame = frame;
 			State.RunningBackwards = runningBackwards;
 			var animationFrame = Frames[frame];
-			State.TimeToNextFrame = animationFrame.Delay;
+            State.TimeToNextFrame = getTimeForNextFrame(animationFrame);
 			var emitter = animationFrame.SoundEmitter;
 			if (emitter != null) emitter.Play();
 			return true;
@@ -129,7 +129,14 @@ namespace AGS.Engine
 			} 
 		}
 
-		#endregion
+        #endregion
+
+        private int getTimeForNextFrame(IAnimationFrame frame)
+        {
+            int delay = frame.Delay + Configuration.DelayBetweenFrames;
+            if (delay < 0) delay = 0;
+            return delay;
+        }
 
 		private bool finishedAnimation;
 	}

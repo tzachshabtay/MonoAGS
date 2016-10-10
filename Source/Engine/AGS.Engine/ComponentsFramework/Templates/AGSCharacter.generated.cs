@@ -511,16 +511,22 @@ namespace AGS.Engine
 
         #region IWalkBehavior implementation
 
-        public Single WalkSpeed 
+        public PointF WalkStep 
         {  
-            get { return _walkBehavior.WalkSpeed; }  
-            set { _walkBehavior.WalkSpeed = value; } 
+            get { return _walkBehavior.WalkStep; }  
+            set { _walkBehavior.WalkStep = value; } 
         }
 
         public Boolean AdjustWalkSpeedToScaleArea 
         {  
             get { return _walkBehavior.AdjustWalkSpeedToScaleArea; }  
             set { _walkBehavior.AdjustWalkSpeedToScaleArea = value; } 
+        }
+
+        public Boolean MovementLinkedToAnimation
+        {
+            get { return _walkBehavior.MovementLinkedToAnimation; }
+            set { _walkBehavior.MovementLinkedToAnimation = value; }
         }
 
         public Boolean IsWalking 

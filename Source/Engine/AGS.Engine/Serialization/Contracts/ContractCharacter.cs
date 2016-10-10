@@ -18,7 +18,7 @@ namespace AGS.Engine
 		}
 
 		[ProtoMember(1)]
-		public float WalkSpeed { get; set; }
+        public PointF WalkSpeed { get; set; }
 
 		[ProtoMember(2)]
 		public bool DebugDrawWalkPath { get; set; }
@@ -46,7 +46,7 @@ namespace AGS.Engine
 		{
 			ICharacter item = context.Factory.Object.GetCharacter(Obj.ID, Outfit.ToItem(context), Obj.AnimationContainer.ToItem(context));
 			Obj.ToItem(context, item);
-			item.WalkSpeed = WalkSpeed;
+			item.WalkStep = WalkSpeed;
             item.AdjustWalkSpeedToScaleArea = AdjustWalkSpeedToScaleArea;
 			item.DebugDrawWalkPath = DebugDrawWalkPath;
 			item.Inventory = Inventory.ToItem(context);
@@ -63,7 +63,7 @@ namespace AGS.Engine
 
 		public void FromItem(AGSSerializationContext context, ICharacter item)
 		{
-			WalkSpeed = item.WalkSpeed;
+			WalkSpeed = item.WalkStep;
             AdjustWalkSpeedToScaleArea = item.AdjustWalkSpeedToScaleArea;
 			DebugDrawWalkPath = item.DebugDrawWalkPath;
 

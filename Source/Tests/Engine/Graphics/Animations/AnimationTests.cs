@@ -15,7 +15,7 @@ namespace Tests
 		[TestCase(LoopingStyle.BackwardsForwards, 4, true)]
 		public void SetupAnimationTest(LoopingStyle looping, int expectedFrame, bool expectedBackwards)
 		{
-			AGSAnimationConfiguration config = new AGSAnimationConfiguration { Looping = looping };
+            AGSAnimationConfiguration config = new AGSAnimationConfiguration { Looping = looping, DelayBetweenFrames = 0 };
 			AGSAnimationState state = new AGSAnimationState ();
 			AGSAnimation animation = new AGSAnimation (config, state);
 			for (int i = 0; i < 5; i++)
@@ -62,7 +62,7 @@ namespace Tests
 		[TestCase(LoopingStyle.BackwardsForwards, 0, 0, 1, false, 1, 1, false)]
 		public void NextFrameTest(LoopingStyle looping, int loops, int currentFrame, int currentLoop, bool runningBackwards, int expectedFrame, int expectedLoop, bool expectedBackwards)
 		{
-			AGSAnimationConfiguration config = new AGSAnimationConfiguration { Looping = looping, Loops = loops };
+            AGSAnimationConfiguration config = new AGSAnimationConfiguration { Looping = looping, Loops = loops, DelayBetweenFrames = 0 };
 			AGSAnimationState state = new AGSAnimationState {
 				CurrentFrame = currentFrame,
 				CurrentLoop = currentLoop,

@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.Collections.Generic;
+
+namespace AGS.API
 {
     public interface IDirectionalAnimation
 	{
@@ -11,6 +13,8 @@
 		IAnimation UpRight { get; set; }
 		IAnimation DownLeft { get; set; }
 		IAnimation DownRight { get; set; }
+
+        IEnumerable<IAnimation> GetAllDirections();
 	}
 }
 

@@ -41,7 +41,7 @@ namespace AGS.Engine
 
             if (spriteSheet != null)
 			{
-				context.Factory.Graphics.LoadAnimationFromSpriteSheet(spriteSheet, 4, null, loadConfig);
+				context.Factory.Graphics.LoadAnimationFromSpriteSheet(spriteSheet, null, loadConfig);
                 if (context.Textures.TryGetValue(ID, out texture))
 				{
 					return getImage(texture, spriteSheet, loadConfig);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 using Autofac;
 
@@ -20,18 +19,18 @@ namespace AGS.Engine
 			string walkDownFolder = null, string walkUpFolder = null, string idleLeftFolder = null, string idleRightFolder = null,
 			string idleDownFolder = null, string idleUpFolder = null, string speakLeftFolder = null, string speakRightFolder = null,
 			string speakDownFolder = null, string speakUpFolder = null,
-			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
 			IOutfit outfit = _resolver.Resolve<IOutfit>();
 
 			outfit.IdleAnimation = _graphics.LoadDirectionalAnimationFromFolders(baseFolder, idleLeftFolder, idleRightFolder, 
-				idleDownFolder, idleUpFolder, delay, animationConfig, loadConfig);
+				idleDownFolder, idleUpFolder, animationConfig, loadConfig);
 
 			outfit.WalkAnimation = _graphics.LoadDirectionalAnimationFromFolders(baseFolder, walkLeftFolder, walkRightFolder, 
-				walkDownFolder, walkUpFolder, delay, animationConfig, loadConfig);
+				walkDownFolder, walkUpFolder, animationConfig, loadConfig);
 
 			outfit.SpeakAnimation = _graphics.LoadDirectionalAnimationFromFolders(baseFolder, speakLeftFolder, speakRightFolder, 
-				speakDownFolder, speakUpFolder, delay, animationConfig, loadConfig);
+				speakDownFolder, speakUpFolder, animationConfig, loadConfig);
 
 			return outfit;
 		}
@@ -40,18 +39,18 @@ namespace AGS.Engine
 			string walkDownFolder = null, string walkUpFolder = null, string idleLeftFolder = null, string idleRightFolder = null,
 			string idleDownFolder = null, string idleUpFolder = null, string speakLeftFolder = null, string speakRightFolder = null,
 			string speakDownFolder = null, string speakUpFolder = null,
-			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
 			IOutfit outfit = _resolver.Resolve<IOutfit> ();
 
 			outfit.IdleAnimation = await _graphics.LoadDirectionalAnimationFromFoldersAsync(baseFolder, idleLeftFolder, idleRightFolder,
-				idleDownFolder, idleUpFolder, delay, animationConfig, loadConfig);
+				idleDownFolder, idleUpFolder, animationConfig, loadConfig);
 
 			outfit.WalkAnimation = await _graphics.LoadDirectionalAnimationFromFoldersAsync (baseFolder, walkLeftFolder, walkRightFolder,
-				walkDownFolder, walkUpFolder, delay, animationConfig, loadConfig);
+				walkDownFolder, walkUpFolder, animationConfig, loadConfig);
 
 			outfit.SpeakAnimation = await _graphics.LoadDirectionalAnimationFromFoldersAsync (baseFolder, speakLeftFolder, speakRightFolder,
-				speakDownFolder, speakUpFolder, delay, animationConfig, loadConfig);
+				speakDownFolder, speakUpFolder, animationConfig, loadConfig);
 
 			return outfit;
 		}

@@ -8,11 +8,11 @@ namespace AGS.Engine
 	{
 		private readonly IResourceLoader _resources;
 		private readonly IBitmapLoader _bitmapLoader;
-		private readonly Action<GLImage, AGSAnimation, int> _addAnimationFrame;
+		private readonly Action<GLImage, AGSAnimation> _addAnimationFrame;
         private readonly Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, GLImage> _loadImage;
 
 		public SpriteSheetLoader (IResourceLoader resources, IBitmapLoader bitmapLoader, 
-		                          Action<GLImage, AGSAnimation, int> addAnimationFrame,
+		                          Action<GLImage, AGSAnimation> addAnimationFrame,
                                   Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, GLImage> loadImage)
 		{
 			_resources = resources;
@@ -22,7 +22,7 @@ namespace AGS.Engine
 		}
 
 		public IAnimation LoadAnimationFromSpriteSheet(ISpriteSheet spriteSheet,
-			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
 			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
 			string filePath = spriteSheet.Path;
@@ -44,7 +44,7 @@ namespace AGS.Engine
                     Rectangle rect; IBitmap clone; string path; ITexture tex;
                     getImageInfo (bitmap, cellX, cellY, spriteSheet, loadConfig, filePath, out rect, out clone, out path, out tex);
 					GLImage image = _loadImage (tex, clone, path, loadConfig, spriteSheet);
-					_addAnimationFrame (image, animation, delay);
+					_addAnimationFrame (image, animation);
 					cellsGrabbed++;
 				}
 
@@ -55,7 +55,7 @@ namespace AGS.Engine
 		}
 
 		public async Task<IAnimation> LoadAnimationFromSpriteSheetAsync(ISpriteSheet spriteSheet,
-			int delay = 4, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
+			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
 			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
 			string filePath = spriteSheet.Path;
@@ -77,7 +77,7 @@ namespace AGS.Engine
                     Rectangle rect; IBitmap clone; string path; ITexture tex;
                     getImageInfo (bitmap, cellX, cellY, spriteSheet, loadConfig, filePath, out rect, out clone, out path, out tex);
 					GLImage image = _loadImage (tex, clone, path, loadConfig, spriteSheet);
-					_addAnimationFrame (image, animation, delay);
+					_addAnimationFrame (image, animation);
 					cellsGrabbed++;
 				}
 

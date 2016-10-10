@@ -89,7 +89,7 @@ namespace Tests
 				It.Is<ILocation>(l => l.X == closeToX && l.Y == closeToY))).Returns(hasCloseToWalkable ? new List<ILocation> {closeLocation} : new List<ILocation>());
 			
 			AGSWalkBehavior walk = new AGSWalkBehavior (obj.Object, pathFinder.Object, faceDirection.Object,
-				outfitHolder.Object, objFactory.Object, game.Object) { WalkSpeed = 4 };
+                                                        outfitHolder.Object, objFactory.Object, game.Object) { WalkStep = new PointF(4f, 4f) };
 
 			bool walkShouldSucceed = fromWalkable && (toWalkable || hasCloseToWalkable);
 

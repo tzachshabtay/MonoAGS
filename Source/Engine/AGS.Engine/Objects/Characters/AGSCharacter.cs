@@ -25,8 +25,6 @@ namespace AGS.Engine
 			IgnoreScalingArea = false;
 
 			_hasOutfit.Outfit = outfit;
-
-			WalkSpeed = 4f;
 		}
 
 		public ILocation Location

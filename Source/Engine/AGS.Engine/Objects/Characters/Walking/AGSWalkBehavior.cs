@@ -20,6 +20,9 @@ namespace AGS.Engine
 		private ICutscene _cutscene;
 		private IGameState _state;
         private IGameEvents _events;
+        private IAnimationContainer _animation;
+        private ISprite _lastFrame;
+        private float _lastViewportX, _lastViewportY, _compensateScrollX, _compensateScrollY;
         
 		public AGSWalkBehavior(IObject obj, IPathFinder pathFinder, IFaceDirectionBehavior faceDirection, 
 			IHasOutfit outfit, IObjectFactory objFactory, IGame game)
@@ -37,6 +40,8 @@ namespace AGS.Engine
 			_walkCompleted = new TaskCompletionSource<object> ();
 			_walkCompleted.SetResult(null);
             AdjustWalkSpeedToScaleArea = true;
+            MovementLinkedToAnimation = true;
+            WalkStep = new PointF(8f, 8f);
 
             _events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
@@ -47,6 +52,12 @@ namespace AGS.Engine
         {
             base.Dispose();
             _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+        }
+
+        public override void Init(IEntity entity)
+        {
+            base.Init(entity);
+            _animation = entity.GetComponent<IAnimationContainer>();
         }
 
         #region IWalkBehavior implementation
@@ -115,9 +126,11 @@ namespace AGS.Engine
 			}
 		}
 
-		public float WalkSpeed { get; set; }
+        public PointF WalkStep { get; set; }
 
         public bool AdjustWalkSpeedToScaleArea { get; set; }
+
+        public bool MovementLinkedToAnimation { get; set; }
         
 		public bool IsWalking
 		{ 
@@ -142,6 +155,8 @@ namespace AGS.Engine
             if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 1f)
             {
                 _currentWalkLine = null; //Possible race condition here? If so, need to replace with concurrent queue
+                _lastFrame = null;
+                _compensateScrollX = _compensateScrollY = 0f;
                 currentLine.OnCompletion.TrySetResult(null);                
                 return;
             }
@@ -151,19 +166,42 @@ namespace AGS.Engine
                 _obj.Y = currentLine.Destination.Y;
 
                 _currentWalkLine = null; //Possible race condition here? If so, need to replace with concurrent queue
+                _lastFrame = null;
+                _compensateScrollX = _compensateScrollY = 0f;
                 currentLine.OnCompletion.TrySetResult(null);
                 return;
             }
+            PointF walkSpeed = adjustWalkSpeed(WalkStep);
+            float xStep = currentLine.XStep * walkSpeed.X;
+            float yStep = currentLine.YStep * walkSpeed.Y;
+            if (MovementLinkedToAnimation && _animation != null && _animation.Animation.Frames.Count > 1 && 
+                _animation.Animation.Sprite == _lastFrame)
+            {
+                //If the movement is linked to the animation and the animation speed is slower the the viewport movement, it can lead to flickering
+                //so we do a smooth movement for this scenario.
+                _obj.X += compensateForViewScrollIfNeeded(_obj.Room.Viewport.X, xStep, ref _compensateScrollX, ref _lastViewportX);
+                _obj.Y += compensateForViewScrollIfNeeded(_obj.Room.Viewport.Y, yStep, ref _compensateScrollY, ref _lastViewportY);
+                return;
+            }
+            if (_animation != null) _lastFrame = _animation.Animation.Sprite;
+            _lastViewportX = _obj.Room.Viewport.X;
 
-			float walkSpeed = adjustWalkSpeed(WalkSpeed);
-			float xStep = currentLine.XStep * walkSpeed;
-			float yStep = currentLine.YStep * walkSpeed;
-			currentLine.NumSteps -= Math.Abs(currentLine.IsBaseStepX ? xStep : yStep);
+            currentLine.NumSteps -= Math.Abs(currentLine.IsBaseStepX ? xStep : yStep);
 			if (currentLine.NumSteps >= 0f)
 			{
-				_obj.X += xStep;
-				_obj.Y += yStep;
+                _obj.X += (xStep - _compensateScrollX);
+                _obj.Y += (yStep - _compensateScrollY);
 			}
+            _compensateScrollX = _compensateScrollY = 0f;
+        }
+
+        private float compensateForViewScrollIfNeeded(float currentViewport, float step, ref float compensateStep, ref float lastViewport)
+        {
+            if (currentViewport == lastViewport) return 0f;
+            float smoothStep = step / (_animation.Animation.Configuration.DelayBetweenFrames + _animation.Animation.Frames[_animation.Animation.State.CurrentFrame].Delay);
+            compensateStep += smoothStep;
+            lastViewport = currentViewport;
+            return smoothStep;
         }
 
 		private async Task<bool> walkAsync(ILocation location, CancellationTokenSource token, List<IObject> debugRenderers)
@@ -175,8 +213,8 @@ namespace AGS.Engine
 			foreach (var point in walkPoints) 
 			{
 				if (point.X == _obj.X && point.Y == _obj.Y) continue;
-				if (!await walkStraightLine (point, token, debugRenderers)) 
-					return false;
+                if (!await walkStraightLine(point, token, debugRenderers))
+                    return false;
 			}
 			return true;
 		}
@@ -331,13 +369,13 @@ namespace AGS.Engine
 			return (deltaX * deltaX) + (deltaY * deltaY) < 10;
 		}
 
-        private float adjustWalkSpeed(float walkSpeed)
+        private PointF adjustWalkSpeed(PointF walkSpeed)
 		{
             walkSpeed = adjustWalkSpeedBasedOnArea(walkSpeed);
 			return walkSpeed;
 		}
 
-        private float adjustWalkSpeedBasedOnArea(float walkSpeed)
+        private PointF adjustWalkSpeedBasedOnArea(PointF walkSpeed)
         {
 			if (_obj == null || _obj.Room == null || _obj.Room.ScalingAreas == null ||
 				_obj.IgnoreScalingArea || !AdjustWalkSpeedToScaleArea) return walkSpeed;
@@ -349,7 +387,11 @@ namespace AGS.Engine
                 if (scale != 1f)
                 {
                     walkSpeed *= scale;
-                    if (walkSpeed == 0) walkSpeed = 1;
+                    if (walkSpeed.X == 0f || walkSpeed.Y == 0f)
+                    {
+                        walkSpeed = new PointF(walkSpeed.X == 0f ? 1f : walkSpeed.X,
+                                               walkSpeed.Y == 0f ? 1f : walkSpeed.Y);
+                    }
                 }
                 break;
             }

@@ -35,6 +35,16 @@ namespace AGS.API
             return new PointF(p1.X / p2.X, p1.Y / p2.Y);
         }
 
+        public static PointF operator *(PointF p1, float factor)
+        {
+            return new PointF(p1.X * factor, p1.Y * factor);
+        }
+
+        public static PointF operator /(PointF p1, float factor)
+        {
+            return new PointF(p1.X / factor, p1.Y / factor);
+        }
+
         public override string ToString ()
 		{
 			return string.Format ("{0:0.##},{1:0.##}", X, Y);
