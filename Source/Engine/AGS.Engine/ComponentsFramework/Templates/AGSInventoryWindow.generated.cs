@@ -563,10 +563,10 @@ namespace AGS.Engine
             set { _inventoryWindowComponent.ItemSize = value; } 
         }
 
-        public ICharacter CharacterToUse 
+        public IInventory Inventory 
         {  
-            get { return _inventoryWindowComponent.CharacterToUse; }  
-            set { _inventoryWindowComponent.CharacterToUse = value; } 
+            get { return _inventoryWindowComponent.Inventory; }  
+            set { _inventoryWindowComponent.Inventory = value; } 
         }
 
         public Int32 TopItem 

@@ -21,7 +21,7 @@ namespace AGS.Engine
         private readonly IGame _game;
         private readonly ITextConfig _buttonsTextConfig, _filesTextConfig;
 
-        private ICharacter _dummyChar;
+        private IInventory _inventory;
         private ITextBox _fileTextBox;
         private IObject _fileGraphics, _folderGraphics;
         const float FILE_TEXT_HEIGHT = 10f;
@@ -86,9 +86,9 @@ namespace AGS.Engine
             ILabel titleLabel = factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, _buttonsTextConfig);
             _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, _startPath, textBoxConfig, width: panelWidth, height: textBoxHeight);
 
-            _dummyChar = factory.Object.GetCharacter("SelectFileCharacter", null);
+            _inventory = new AGSInventory();
             IInventoryWindow invWindow = factory.Inventory.GetInventoryWindow("SelectFileInventory", panelWidth - scrollButtonWidth - scrollButtonOffsetX * 2,
-                panelHeight - labelHeight - buttonHeight - textBoxHeight - okButtonPaddingY, ITEM_WIDTH + itemPaddingX, itemHeight + itemPaddingY, 0f, okButtonPaddingY + okButtonHeight, _dummyChar);
+                                                                              panelHeight - labelHeight - buttonHeight - textBoxHeight - okButtonPaddingY, ITEM_WIDTH + itemPaddingX, itemHeight + itemPaddingY, 0f, okButtonPaddingY + okButtonHeight, _inventory);
             invWindow.Z = 1;
             IButton okButton = factory.UI.GetButton("SelectFileOkButton", (string)null, null, null, okButtonX, okButtonPaddingY, "OK", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
             IButton cancelButton = factory.UI.GetButton("SelectFileCancelButton", (string)null, null, null, cancelButtonX, okButtonPaddingY, "Cancel", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
@@ -213,7 +213,7 @@ namespace AGS.Engine
         private void fillAllFiles(string folder)
         {
             _selectedItem = null;
-            _dummyChar.Inventory.Items.Clear();
+            _inventory.Items.Clear();
             var allFiles = Hooks.FileSystem.GetFiles(folder).ToList();
             var allDirs = folder == "" ? Hooks.FileSystem.GetLogicalDrives().ToList() : Hooks.FileSystem.GetDirectories(folder).ToList();
             const string back = "..";
@@ -272,7 +272,7 @@ namespace AGS.Engine
             graphics.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1);
             fileLabel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 2);
             var item = _game.Factory.Inventory.GetInventoryItem(graphics, null);
-            _dummyChar.Inventory.Items.Add(item);
+            _inventory.Items.Add(item);
             return graphics;
         }
 

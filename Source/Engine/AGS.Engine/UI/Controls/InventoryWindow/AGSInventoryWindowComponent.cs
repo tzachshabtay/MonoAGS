@@ -10,7 +10,7 @@ namespace AGS.Engine
 		private IList<IObject> _inventoryItems;
 		private volatile bool _refreshNeeded;
 		private AGS.API.SizeF _itemSize;
-		private ICharacter _character;
+        private IInventory _inventory;
 		private int _topItem;
 		private IGameState _state;
 		private IGameEvents _gameEvents;
@@ -47,7 +47,7 @@ namespace AGS.Engine
 
 		public void ScrollDown()
 		{
-			TopItem = Math.Min(CharacterToUse.Inventory.Items.Count - 1, TopItem + ItemsPerRow); 
+			TopItem = Math.Min(Inventory.Items.Count - 1, TopItem + ItemsPerRow); 
 		}
 
 		public AGS.API.SizeF ItemSize
@@ -60,12 +60,12 @@ namespace AGS.Engine
 			}
 		}
 
-		public ICharacter CharacterToUse 
+        public IInventory Inventory 
 		{
-			get { return _character; }
+            get { return _inventory; }
 			set
 			{
-				_character = value;
+				_inventory = value;
 				_refreshNeeded = true;
 			}
 		}
@@ -88,7 +88,7 @@ namespace AGS.Engine
 
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
 		{
-			if (_character == null) return;
+			if (Inventory == null) return;
 			if (!isRefreshNeeded()) return;
 			_refreshNeeded = false;
 
@@ -96,8 +96,8 @@ namespace AGS.Engine
 			{
                 obj.Visible = false;				
 			}
-			List<IObject> items = new List<IObject> (_character.Inventory.Items.Count);
-			foreach (var item in _character.Inventory.Items)
+			List<IObject> items = new List<IObject> (Inventory.Items.Count);
+			foreach (var item in Inventory.Items)
 			{
 				items.Add(item.Graphics);
 			}
@@ -134,11 +134,11 @@ namespace AGS.Engine
 		private bool isRefreshNeeded()
 		{
 			if (_refreshNeeded) return true;
-			if (_inventoryItems.Count != _character.Inventory.Items.Count) return true;
+			if (_inventoryItems.Count != Inventory.Items.Count) return true;
 			for (int i = 0; i < _inventoryItems.Count; i++)
 			{
 				var item = _inventoryItems[i];
-				if (item != _character.Inventory.Items[i].Graphics) return true;
+				if (item != Inventory.Items[i].Graphics) return true;
 				if (item.TreeNode.Parent == null) return true;
 			}
 			return false;

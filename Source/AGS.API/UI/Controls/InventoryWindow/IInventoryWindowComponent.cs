@@ -7,7 +7,7 @@ namespace AGS.API
 	public interface IInventoryWindowComponent : IComponent
 	{
 		SizeF ItemSize { get; set; }
-		ICharacter CharacterToUse { get; set; }
+        IInventory Inventory { get; set; }
 		int TopItem { get; set; }
 
 		void ScrollUp();

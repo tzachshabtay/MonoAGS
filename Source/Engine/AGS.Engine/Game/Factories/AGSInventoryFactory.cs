@@ -23,27 +23,27 @@ namespace AGS.Engine
 		}
 
 		public IInventoryWindow GetInventoryWindow(string id, float width, float height, float itemWidth, float itemHeight, float x, float y,
-			ICharacter character = null, bool addToUi = true)
+			IInventory inventory = null, bool addToUi = true)
 		{
-			IInventoryWindow inventory = GetInventoryWindow(id, new EmptyImage(width, height), itemWidth, itemHeight, character);
-			inventory.X = x;
-			inventory.Y = y;
+            IInventoryWindow inventoryWindow = GetInventoryWindow(id, new EmptyImage(width, height), itemWidth, itemHeight, inventory);
+			inventoryWindow.X = x;
+			inventoryWindow.Y = y;
 
 			if (addToUi)
-				_gameState.UI.Add(inventory);
+				_gameState.UI.Add(inventoryWindow);
 
-			return inventory;
+			return inventoryWindow;
 		}
 
-		public IInventoryWindow GetInventoryWindow(string id, IImage image, float itemWidth, float itemHeight, ICharacter character)
+		public IInventoryWindow GetInventoryWindow(string id, IImage image, float itemWidth, float itemHeight, IInventory inventory)
 		{
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
 			TypedParameter imageParam = new TypedParameter (typeof(IImage), image);
-			IInventoryWindow inventory = _resolver.Resolve<IInventoryWindow>(idParam, imageParam);
-			inventory.Tint =  Colors.Transparent;
-			inventory.ItemSize = new AGS.API.SizeF (itemWidth, itemHeight);
-			inventory.CharacterToUse = character ?? _resolver.Resolve<IPlayer>().Character;
-			return inventory;
+			IInventoryWindow inventoryWindow = _resolver.Resolve<IInventoryWindow>(idParam, imageParam);
+			inventoryWindow.Tint =  Colors.Transparent;
+			inventoryWindow.ItemSize = new AGS.API.SizeF (itemWidth, itemHeight);
+            inventoryWindow.Inventory = inventory ?? _resolver.Resolve<IPlayer>().Character.Inventory;
+			return inventoryWindow;
 		}
 
 		public IInventoryItem GetInventoryItem(IObject graphics, IObject cursorGraphics, bool playerStartsWithItem = false)

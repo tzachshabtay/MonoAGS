@@ -26,7 +26,7 @@ namespace AGS.Engine
 		public float ItemHeight { get; set; }
 
 		[ProtoMember(4)]
-		public string CharacterID { get; set; }
+        public IContract<IInventory> Inventory { get; set; }
 
 		[ProtoMember(5)]
 		public int TopItem { get; set; }
@@ -36,9 +36,8 @@ namespace AGS.Engine
 		public IInventoryWindow ToItem(AGSSerializationContext context)
 		{
 			var invWindow = context.Factory.Inventory.GetInventoryWindow(Object.ID, new EmptyImage(1f, 1f), 
-				ItemWidth, ItemHeight, null);
+				ItemWidth, ItemHeight, Inventory == null ? null : Inventory.ToItem(context));
 			Object.ToItem(context, invWindow);
-			context.Rewire(state => invWindow.CharacterToUse = CharacterID == null ? null :  state.Find<ICharacter>(CharacterID));
 			return invWindow;
 		}
 
@@ -52,7 +51,7 @@ namespace AGS.Engine
 			Object = new ContractObject ();
 			Object.FromItem(context, (IObject)item);
 
-			CharacterID = item.CharacterToUse == null ? null : item.CharacterToUse.ID;
+            Inventory = item.Inventory == null ? null : context.GetContract(item.Inventory);
 
 			ItemWidth = item.ItemSize.Width;
 			ItemHeight = item.ItemSize.Height;
