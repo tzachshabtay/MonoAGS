@@ -47,6 +47,7 @@ namespace Tests
 			Mock<IFaceDirectionBehavior> faceDirection = new Mock<IFaceDirectionBehavior> ();
 			Mock<IObjectFactory> objFactory = new Mock<IObjectFactory> ();
 			Mock<IRoom> room = new Mock<IRoom> ();
+            Mock<IViewport> viewport = new Mock<IViewport>();
 			Mock<IArea> area = new Mock<IArea> ();
 			Mock<IMask> mask = new Mock<IMask> ();
 			Mock<ICutscene> cutscene = new Mock<ICutscene> ();
@@ -59,6 +60,7 @@ namespace Tests
             game.Setup(g => g.Events).Returns(gameEvents.Object);
 			gameState.Setup(s => s.Cutscene).Returns(cutscene.Object);
 			room.Setup(r => r.WalkableAreas).Returns(new List<IArea> { area.Object });
+            room.Setup(r => r.Viewport).Returns(viewport.Object);
 			area.Setup(a => a.Enabled).Returns(true);
 			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == fromX && p.Y == fromY))).Returns(fromWalkable);
 			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == toX && p.Y == toY))).Returns(toWalkable);
@@ -89,7 +91,7 @@ namespace Tests
 				It.Is<ILocation>(l => l.X == closeToX && l.Y == closeToY))).Returns(hasCloseToWalkable ? new List<ILocation> {closeLocation} : new List<ILocation>());
 			
 			AGSWalkBehavior walk = new AGSWalkBehavior (obj.Object, pathFinder.Object, faceDirection.Object,
-                                                        outfitHolder.Object, objFactory.Object, game.Object) { WalkStep = new PointF(4f, 4f) };
+                                                        outfitHolder.Object, objFactory.Object, game.Object) { WalkStep = new PointF(4f, 4f), MovementLinkedToAnimation = false };
 
 			bool walkShouldSucceed = fromWalkable && (toWalkable || hasCloseToWalkable);
 
