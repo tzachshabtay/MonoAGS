@@ -33,7 +33,9 @@ namespace Tests
 		[Test]
 		public async Task TestTweenHue()
 		{
-			AGSSprite sprite = new AGSSprite (null);
+            var resolver = ObjectTests.GetResolver();
+            resolver.Build();
+            AGSSprite sprite = new AGSSprite (resolver, null);
 			sprite.Tint = Color.FromHsla(0, 1f, 0.75f, 100); //Lightness must be different than 1 for hue to change
 
 			await sprite.TweenHue(359, 1f).Task;
@@ -46,7 +48,9 @@ namespace Tests
 		[Test]
 		public async Task TestTweenSaturation()
 		{
-			AGSSprite sprite = new AGSSprite (null);
+			var resolver = ObjectTests.GetResolver();
+            resolver.Build();
+            AGSSprite sprite = new AGSSprite (resolver, null);
 			sprite.Tint = Color.FromHsla(100, 1f, 0.5f, 100); //Lightness must be different than 1 for saturation to change
 
 			await sprite.TweenSaturation(0f, 1f, Ease.QuadIn).Task;

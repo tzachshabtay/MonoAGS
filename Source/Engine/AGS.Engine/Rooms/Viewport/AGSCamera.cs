@@ -85,12 +85,13 @@ namespace AGS.Engine
 
 		private float getTargetZoom(IObject target, IViewport viewport)
 		{
-			if (target.Room == null || target.Room.ScalingAreas == null) return viewport.ScaleX;
+			if (target.Room == null || target.Room.Areas == null) return viewport.ScaleX;
 
-			foreach (var area in target.Room.ScalingAreas)
+            foreach (var area in target.Room.GetMatchingAreas(target.Location.XY))
 			{
-				if (!area.Enabled || !area.ZoomCamera || !area.IsInArea(target.Location.XY)) continue;
-                float scale = area.GetScaling(target.Y);
+                var zoomArea = area.GetComponent<IZoomArea>();
+                if (zoomArea == null || !zoomArea.ZoomCamera) continue;
+                float scale = zoomArea.GetZoom(target.Y);
 				return scale;
 			}
 

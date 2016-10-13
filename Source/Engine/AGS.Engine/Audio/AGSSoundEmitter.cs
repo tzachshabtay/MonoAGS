@@ -127,10 +127,11 @@ namespace AGS.Engine
                     if (hasRoom == null) continue;
 					var room = _game.State.Player.Character.Room;
                     if (room != hasRoom.Room) return;
-					foreach (var area in room.ScalingAreas)
+                    foreach (var area in room.GetMatchingAreas(obj.Location.XY))
 					{
-                        if (!area.Enabled || !area.ScaleVolume || !area.IsInArea(obj.Location.XY)) continue;
-						float scale = area.GetScaling(obj.Y);
+                        var scalingArea = area.GetComponent<IScalingArea>();
+                        if (scalingArea == null || !scalingArea.ScaleVolume) continue;
+						float scale = scalingArea.GetScaling(obj.Y);
 						sound.Value.Sound.Volume = AudioClip.Volume * scale;
 					}
 				}

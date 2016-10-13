@@ -164,10 +164,11 @@ namespace AGS.Engine
 		private bool isWalkable(float x, float y)
 		{
 			PointF point = new PointF (x, y);
-			foreach (var area in _character.Room.WalkableAreas)
+            foreach (var area in _character.Room.GetMatchingAreas(point))
 			{
-				if (!area.Enabled) continue;
-				if (area.IsInArea(point)) return true;
+                var walkableArea = area.GetComponent<IWalkableArea>();
+                if (walkableArea == null || !walkableArea.IsWalkable) continue;
+                return true;
 			}
 			return false;
 		}

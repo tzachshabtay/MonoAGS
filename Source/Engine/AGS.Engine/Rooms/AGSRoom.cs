@@ -24,9 +24,7 @@ namespace AGS.Engine
 			Events = roomEvents;
 			ID = id;
 			Objects = new AGSConcurrentHashSet<IObject> ();
-			WalkableAreas = new List<IArea> ();
-			WalkBehindAreas = new List<IWalkBehindArea> ();
-			ScalingAreas = new List<IScalingArea> ();
+			Areas = new List<IArea> ();
 			ShowPlayer = true;
 			_edges = edges;
 			Properties = properties;
@@ -62,17 +60,18 @@ namespace AGS.Engine
 
 		public IConcurrentHashSet<IObject> Objects { get; private set; }
 
-		public IList<IArea> WalkableAreas { get; private set; }
-
-		public IList<IWalkBehindArea> WalkBehindAreas { get; private set; }
-
-		public IList<IScalingArea> ScalingAreas { get; private set; }
+		public IList<IArea> Areas { get; private set; }
 
 		public IViewport Viewport { get; private set; }
 
 		public IEdges Edges { get { return _edges; } }
 
 		public IRoomEvents Events { get; private set; }
+
+        public IEnumerable<IArea> GetMatchingAreas(PointF point)
+        {
+            return Areas.Where(area => area.Enabled && area.IsInArea(point));
+        }
 
 		public IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true)
 		{

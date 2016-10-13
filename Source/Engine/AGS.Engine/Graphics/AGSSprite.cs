@@ -8,10 +8,12 @@ namespace AGS.Engine
         private readonly ITranslate _translate;        
         private readonly IRotate _rotate;
         private readonly IMaskLoader _maskLoader;
+        private readonly Resolver _resolver;
 
-		public AGSSprite (IMaskLoader maskLoader)
+		public AGSSprite (Resolver resolver, IMaskLoader maskLoader)
 		{
             _maskLoader = maskLoader;
+            _resolver = resolver;
 
             //todo: abstract it to the constructor
             _translate = new AGSTranslate();
@@ -24,7 +26,7 @@ namespace AGS.Engine
             _hasImage.OnImageChanged.Subscribe((sender, args) => ScaleBy(ScaleX, ScaleY));
         }
 
-        private AGSSprite(AGSSprite sprite) : this(sprite._maskLoader)
+        private AGSSprite(AGSSprite sprite) : this(sprite._resolver, sprite._maskLoader)
         {
             _translate.Location = sprite._translate.Location;
             _hasImage.Anchor = sprite._hasImage.Anchor;
@@ -147,7 +149,8 @@ namespace AGS.Engine
                 return;
             }
 
-            PixelPerfectHitTestArea = new AGSArea { Mask = _maskLoader.Load(_hasImage.Image.OriginalBitmap) };
+            string areaId = string.Format("Sprite_PixelPerfect_{0}", Image.ID);
+            PixelPerfectHitTestArea = new AGSArea(areaId, _resolver) { Mask = _maskLoader.Load(_hasImage.Image.OriginalBitmap) };
         }
         #endregion
 

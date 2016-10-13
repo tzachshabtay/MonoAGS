@@ -211,7 +211,7 @@
     <Compile Include="Player\AGSPlayer.cs" />
     <Compile Include="Rooms\AGSRoom.cs" />
     <Compile Include="Rooms\AGSRoomEvents.cs" />
-    <Compile Include="Rooms\Areas\AGSArea.cs" />
+    <Compile Include="Rooms\Areas\AGSAreaComponent.cs" />
     <Compile Include="Rooms\Areas\AGSScalingArea.cs" />
     <Compile Include="Rooms\Areas\AGSWalkBehindArea.cs" />
     <Compile Include="Rooms\Areas\AGSWalkBehindsMap.cs" />
@@ -373,6 +373,9 @@
     <Compile Include="Game\Settings\AGSRuntimeSettings.cs" />
     <Compile Include="Graphics\Image\AGSTextureConfig.cs" />
     <Compile Include="Graphics\Image\GLTexture.cs" />
+    <Compile Include="Rooms\Areas\AGSArea.cs" />
+    <Compile Include="Rooms\Areas\AGSWalkableArea.cs" />
+    <Compile Include="Rooms\Areas\AGSZoomArea.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

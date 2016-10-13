@@ -119,18 +119,6 @@ namespace AGS.Engine
             }
         }
 
-        private PointF getAreaScaling()
-        {
-            if (_drawable.IgnoreScalingArea) return GLMatrixBuilder.NoScaling;
-            foreach (var area in _room.Room.ScalingAreas)
-            {
-                if (!area.IsInArea(_translateComponent.Location.XY)) continue;
-                float scaling = area.GetScaling(_translateComponent.Y);
-                return new PointF(scaling, scaling);
-            }
-            return GLMatrixBuilder.NoScaling;
-        }
-
         private void onKeyUp(object sender, KeyboardEventArgs args)
         {
             if (args.Key == Key.ShiftLeft) { _leftShiftOn = false; return; }

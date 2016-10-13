@@ -12,41 +12,31 @@ namespace AGS.Engine
 		}
 
 		[ProtoMember(1)]
-		public Contract<IArea> Area { get; set; }
-
-		[ProtoMember(2)]
 		public float MaxScaling { get; set; }
 
-		[ProtoMember(3)]
+		[ProtoMember(2)]
 		public float MinScaling { get; set; }
 
-		[ProtoMember(4)]
+		[ProtoMember(3)]
 		public bool ScaleObjects { get; set; }
-
-		[ProtoMember(5)]
-		public bool ZoomCamera { get; set; }
 
 		#region IContract implementation
 
 		public IScalingArea ToItem(AGSSerializationContext context)
 		{
-			AGSScalingArea area = new AGSScalingArea (Area.ToItem(context));
+			AGSScalingArea area = new AGSScalingArea ();
 			area.MaxScaling = MaxScaling;
 			area.MinScaling = MinScaling;
 			area.ScaleObjects = ScaleObjects;
-			area.ZoomCamera = ZoomCamera;
 
 			return area;
 		}
 
 		public void FromItem(AGSSerializationContext context, IScalingArea item)
 		{
-			Area = new Contract<IArea> ();
-			Area.FromItem(context, item);
 			MaxScaling = item.MaxScaling;
 			MinScaling = item.MinScaling;
 			ScaleObjects = item.ScaleObjects;
-			ZoomCamera = item.ZoomCamera;
 		}
 
 		#endregion

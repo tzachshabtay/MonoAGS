@@ -158,9 +158,7 @@ namespace Tests
 		{			
 			if (_room == null || newInstance)
 			{
-				List<IArea> walkables = new List<IArea> ();
-				List<IWalkBehindArea> walkBehinds = new List<IWalkBehindArea> ();
-				List<IScalingArea> scalingAreas = new List<IScalingArea> ();
+				List<IArea> areas = new List<IArea> ();
 				AGSConcurrentHashSet<IObject> roomObjects = new AGSConcurrentHashSet<IObject> ();
 				_room = new Mock<IRoom> ();
 				_room.Setup(m => m.Background).Returns(Object().Object);
@@ -168,9 +166,7 @@ namespace Tests
 				_room.Setup(m => m.Objects).Returns(roomObjects);
 				_room.Setup(m => m.ShowPlayer).Returns(true);
 				_room.Setup(m => m.Events).Returns(RoomEvents().Object);
-				_room.Setup(m => m.WalkableAreas).Returns(walkables);
-				_room.Setup(m => m.WalkBehindAreas).Returns(walkBehinds);
-				_room.Setup(m => m.ScalingAreas).Returns(scalingAreas);
+				_room.Setup(m => m.Areas).Returns(areas);
 			}
 			return _room;
 		}
@@ -205,6 +201,7 @@ namespace Tests
 				_obj.Setup(m => m.Visible).Returns(true);
 				_obj.Setup(m => m.Anchor).Returns(new AGS.API.PointF ());
                 _obj.Setup(m => m.TreeNode).Returns(new AGSTreeNode<IObject>());
+                _obj.Setup(m => m.Location).Returns(new AGSLocation(0f, 0f));
 			}
 			return _obj;
 		}

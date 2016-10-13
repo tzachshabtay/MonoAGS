@@ -183,6 +183,13 @@ namespace Tests
 			}
 		}
 
+        public static Resolver GetResolver()
+        { 
+            Mock<IEngineConfigFile> configFile = new Mock<IEngineConfigFile>();
+            Resolver resolver = new Resolver(configFile.Object);
+            return resolver;
+        }
+
         public static IEnumerable<IObject> GetImplementors(Mocks mocks, Mock<IGameState> stateMock, IGameState state = null)
         {
             if (state == null && stateMock != null) state = stateMock.Object;
@@ -191,9 +198,8 @@ namespace Tests
             {
                 stateMock.Setup(s => s.UI).Returns(new AGSConcurrentHashSet<IObject>());
             }
-            Mock<IEngineConfigFile> configFile = new Mock<IEngineConfigFile>();
-            Resolver resolver = new Resolver(configFile.Object);
             Mock<IInput> input = new Mock<IInput>();
+            Resolver resolver = GetResolver();
             input.Setup(i => i.KeyUp).Returns(new Mock<IEvent<KeyboardEventArgs>>().Object);
             input.Setup(i => i.KeyDown).Returns(new Mock<IEvent<KeyboardEventArgs>>().Object);
             if (stateMock != null) stateMock.Setup(s => s.Cutscene).Returns(mocks.Cutscene().Object);
@@ -210,7 +216,7 @@ namespace Tests
             uiEvents.Setup(u => u.MouseMove).Returns(mouseEvent.Object);
 
             Mock<IGraphicsFactory> graphicsFactory = new Mock<IGraphicsFactory>();
-            Func<ISprite> getSprite = () => new AGSSprite(mocks.MaskLoader().Object);
+            Func<ISprite> getSprite = () => new AGSSprite(resolver, mocks.MaskLoader().Object);
             graphicsFactory.Setup(g => g.GetSprite()).Returns(() => getSprite());
             AGSAnimationContainer animationContainer = new AGSAnimationContainer();
 

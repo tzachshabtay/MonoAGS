@@ -176,10 +176,11 @@ namespace AGS.Engine
 		private PointF getAreaScaling(IRoom room, IObject obj)
 		{
 			if (obj.IgnoreScalingArea) return GLMatrixBuilder.NoScaling;
-			foreach (IScalingArea area in room.ScalingAreas)
+            foreach (IArea area in room.GetMatchingAreas(obj.Location.XY))
 			{
-				if (!area.Enabled || !area.ScaleObjects || !area.IsInArea(obj.Location.XY)) continue;
-                float scale = area.GetScaling(obj.Y);
+                IScalingArea scaleArea = area.GetComponent<IScalingArea>();
+				if (scaleArea == null || !scaleArea.ScaleObjects ) continue;
+                float scale = scaleArea.GetScaling(obj.Y);
 				return new PointF (scale, scale);
 			}
 			return GLMatrixBuilder.NoScaling;
@@ -225,12 +226,13 @@ namespace AGS.Engine
 				addToDisplayList(displayList, obj, room);
 			}
 
-			foreach (var area in room.WalkableAreas) addDebugDrawArea(displayList, area, room);
-			foreach (var area in room.WalkBehindAreas)
+			foreach (var area in room.Areas) addDebugDrawArea(displayList, area, room);
+            foreach (var area in room.Areas)
 			{
-                if (room.Background != null && room.Background.Image != null)
-				    addToDisplayList(displayList, _walkBehinds.GetDrawable(area, room.Background.Image.OriginalBitmap), room);
-				addDebugDrawArea(displayList, area, room);
+                if (!area.Enabled || room.Background == null || room.Background.Image == null) continue;
+                IObject drawable = _walkBehinds.GetDrawable(area, room.Background.Image.OriginalBitmap);
+                if (drawable == null) continue;
+                addToDisplayList(displayList, drawable, room);
 			}
 
 			foreach (IObject ui in _gameState.UI)

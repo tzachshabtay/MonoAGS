@@ -32,15 +32,9 @@ namespace AGS.Engine
 		public IContract<ICustomProperties> Properties { get; set; }
 
 		[ProtoMember(7)]
-		public IList<IContract<IArea>> WalkableAreas { get; set; }
+		public IList<IContract<IArea>> Areas { get; set; }
 
 		[ProtoMember(8)]
-		public IList<IContract<IWalkBehindArea>> WalkBehindAreas { get; set; }
-
-		[ProtoMember(9)]
-		public IList<IContract<IScalingArea>> ScalingAreas { get; set; }
-
-		[ProtoMember(10)]
 		public IContract<IAGSEdges> Edges { get; set; }
 
 		#region IContract implementation
@@ -59,25 +53,11 @@ namespace AGS.Engine
 				room.Objects.Add(obj.ToItem(context));
 			}
 			room.Properties.CopyFrom(Properties.ToItem(context));
-			if (WalkableAreas != null)
+			if (Areas != null)
 			{
-				foreach (var area in WalkableAreas)
+				foreach (var area in Areas)
 				{
-					room.WalkableAreas.Add(area.ToItem(context));
-				}
-			}
-			if (WalkBehindAreas != null)
-			{
-				foreach (var area in WalkBehindAreas)
-				{
-					room.WalkBehindAreas.Add(area.ToItem(context));
-				}
-			}
-			if (ScalingAreas != null)
-			{
-				foreach (var area in ScalingAreas)
-				{
-					room.ScalingAreas.Add(area.ToItem(context));
+					room.Areas.Add(area.ToItem(context));
 				}
 			}
 			IAGSEdges edges = room.Edges as IAGSEdges;
@@ -106,22 +86,10 @@ namespace AGS.Engine
 
 			Properties = context.GetContract(item.Properties);
 
-			WalkableAreas = new List<IContract<IArea>> (item.WalkableAreas.Count);
-			foreach (var area in item.WalkableAreas)
+			Areas = new List<IContract<IArea>> (item.Areas.Count);
+			foreach (var area in item.Areas)
 			{
-				WalkableAreas.Add(context.GetContract(area));
-			}
-
-			WalkBehindAreas = new List<IContract<IWalkBehindArea>> (item.WalkBehindAreas.Count);
-			foreach (var area in item.WalkBehindAreas)
-			{
-				WalkBehindAreas.Add(context.GetContract(area));
-			}
-
-			ScalingAreas = new List<IContract<IScalingArea>> (item.ScalingAreas.Count);
-			foreach (var area in item.ScalingAreas)
-			{
-				ScalingAreas.Add(context.GetContract(area));
+				Areas.Add(context.GetContract(area));
 			}
 
 			Edges = context.GetContract((IAGSEdges)item.Edges);

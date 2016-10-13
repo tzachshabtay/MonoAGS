@@ -1,120 +1,57 @@
-﻿using System;
-using AGS.API;
-using System.Collections.Generic;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
-	public class AGSArea : IArea
-	{
-		private static List<Tuple<int,int>> _searchVectors;
+    public partial class AGSArea : AGSEntity, IArea
+    {
+        private IAreaComponent _areaComponent;
 
-		static AGSArea()
-		{
-			_searchVectors = new List<Tuple<int,int>>
-			{
-				new Tuple<int, int>(0, -1),
-				new Tuple<int, int>(0, 1),
-				new Tuple<int, int>(1, 0),
-				new Tuple<int, int>(-1, 0),
-				new Tuple<int, int>(-1, -1),
-				new Tuple<int, int>(1, 1),
-			};
-		}
+        public AGSArea(string id, Resolver resolver) : base(id, resolver)
+        {
+            _areaComponent = AddComponent<IAreaComponent>();
 
-		public AGSArea ()
-		{
-			Enabled = true;
-		}
+            beforeInitComponents(resolver);
+            InitComponents();
+            afterInitComponents(resolver);
+        }
 
-		#region IArea implementation
+        public string Name { get { return ID; } }
+        public bool AllowMultiple { get { return false; } }
+        public void Init(IEntity entity) { }
 
-		public bool IsInArea (PointF point)
-		{
-			return Mask.IsMasked(point);
-		}
+        public override string ToString()
+        {
+            return string.Format("{0} ({1})", ID ?? "", GetType().Name);
+        }
 
-		public bool IsInArea(PointF point, ISquare projectionBox, float scaleX, float scaleY)
-		{
-			return Mask.IsMasked(point, projectionBox, scaleX, scaleY);
-		}
+        partial void beforeInitComponents(Resolver resolver);
+        partial void afterInitComponents(Resolver resolver);
 
-		public PointF? FindClosestPoint (PointF point, out float distance)
-		{
-			int x = (int)point.X;
-			int y = (int)point.Y;
-			int width = Mask.Width;
-			int height = Mask.Height;
-			distance = 0f;
-			if (x < 0) 
-			{
-				distance -= x;
-				x = 0;
-			}
-			if (x >= width) 
-			{
-				distance += (width - x);
-				x = width - 1;
-			}
-			if (y < 0) 
-			{
-				distance -= y;
-				y = 0;
-			}
+        public bool Enabled
+        {
+            get { return _areaComponent.Enabled; }
+            set { _areaComponent.Enabled = value; }
+        }
 
-			if (y >= height) 
-			{
-				distance += (height - y);
-				y = height - 1;
-			}
-			float insideDistance;
-			PointF? result = findClosestPoint(x, y, width, height, out insideDistance);
-			distance += insideDistance;
-			return result;
-		}
+        public IMask Mask
+        {
+            get { return _areaComponent.Mask; }
+            set { _areaComponent.Mask = value; }
+        }
 
-		public IMask Mask { get; set; }
-		public bool Enabled { get; set; }
+        public PointF? FindClosestPoint(PointF point, out float distance)
+        {
+            return _areaComponent.FindClosestPoint(point, out distance);
+        }
 
-		#endregion
+        public bool IsInArea(PointF point)
+        {
+            return _areaComponent.IsInArea(point);
+        }
 
-		private PointF? findClosestPoint(int x, int y, int width, int height, out float distance)
-		{
-			//todo: This will not always give the real closest position.
-			//It's "good enough" most of the time, but can be improved (it only searches using straight lines currently).
-			distance = float.MaxValue;
-			PointF? closestPoint = null;
-			foreach (var vector in _searchVectors) 
-			{
-				float tmpDistance;
-				PointF? point = findClosestPoint (x, y, width, height, vector.Item1, vector.Item2, out tmpDistance);
-				if (tmpDistance < distance) 
-				{
-					closestPoint = point;
-					distance = tmpDistance;
-				}
-			}
-			return closestPoint;
-		}
-			
-		private PointF? findClosestPoint(int x, int y, int width, int height, int stepX, int stepY,
-			out float distance)
-		{
-			distance = 0f;
-			bool[][] mask = Mask.AsJaggedArray();
-
-			while (!mask [x] [y]) 
-			{
-				x += stepX;
-				y += stepY;
-				distance++;
-				if (x < 0 || x >= width || y < 0 || y >= height) 
-				{
-					distance = float.MaxValue;
-					return null;
-				}
-			}
-			return new PointF (x, y);
-		}
-	}
+        public bool IsInArea(PointF point, ISquare projectionBox, float scaleX, float scaleY)
+        {
+            return _areaComponent.IsInArea(point, projectionBox, scaleX, scaleY);
+        }
+    }
 }
-

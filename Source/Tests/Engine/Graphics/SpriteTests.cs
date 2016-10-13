@@ -161,7 +161,9 @@ namespace Tests
 
 				yield return sprite;
 			}
-			yield return new AGSSprite (_mocks.MaskLoader().Object);
+            var resolver = ObjectTests.GetResolver();
+            resolver.Build();
+            yield return new AGSSprite (resolver, _mocks.MaskLoader().Object);
 		}
 
         private IEnumerable<PixelPerfectImplementation> getPixelPerfectImplementors()

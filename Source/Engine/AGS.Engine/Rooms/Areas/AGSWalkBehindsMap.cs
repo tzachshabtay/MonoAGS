@@ -19,16 +19,18 @@ namespace AGS.Engine
 			_objects = new Dictionary<AreaKey, IObject> (100);
 		}
 
-		public IObject GetDrawable(IWalkBehindArea area, IBitmap bg)
+        public IObject GetDrawable(IArea area, IBitmap bg)
 		{
+            IWalkBehindArea walkBehind = area.GetComponent<IWalkBehindArea>();
+            if (walkBehind == null) return null;
 			AreaKey key = new AreaKey (area, bg);
 			IObject obj = _objects.GetOrAdd(key, () => createObject());
-			obj.Z = area.Baseline == null ? area.Mask.MinY : area.Baseline.Value;
+			obj.Z = walkBehind.Baseline == null ? area.Mask.MinY : walkBehind.Baseline.Value;
 			obj.Image = _images.GetOrAdd(key, () => createImage(area, bg));
 			return obj;
 		}
 
-		private IImage createImage(IWalkBehindArea area, IBitmap bg)
+		private IImage createImage(IArea area, IBitmap bg)
 		{
 			var bitmap = bg.ApplyArea(area);
 			return _factory.Graphics.LoadImage(bitmap); 

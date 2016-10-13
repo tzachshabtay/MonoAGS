@@ -124,13 +124,10 @@
     <Compile Include="Player\IPlayer.cs" />
     <Compile Include="Rooms\Edges\IEdge.cs" />
     <Compile Include="Rooms\Edges\IEdges.cs" />
-    <Compile Include="Rooms\IArea.cs" />
     <Compile Include="Rooms\ICamera.cs" />
     <Compile Include="Rooms\IRoom.cs" />
     <Compile Include="Rooms\IRoomEvents.cs" />
-    <Compile Include="Rooms\IScalingArea.cs" />
     <Compile Include="Rooms\IViewport.cs" />
-    <Compile Include="Rooms\IWalkBehindArea.cs" />
     <Compile Include="Rooms\Masks\IMask.cs" />
     <Compile Include="Rooms\Masks\IMaskLoader.cs" />
     <Compile Include="Serialization\ICustomSerializable.cs" />
@@ -202,10 +199,16 @@
     <Compile Include="Game\Settings\IRuntimeSettings.cs" />
     <Compile Include="Graphics\ITextureConfig.cs" />
     <Compile Include="Graphics\ITexture.cs" />
+    <Compile Include="Rooms\Areas\IArea.cs" />
+    <Compile Include="Rooms\Areas\IScalingArea.cs" />
+    <Compile Include="Rooms\Areas\IWalkBehindArea.cs" />
+    <Compile Include="Rooms\Areas\IWalkableArea.cs" />
+    <Compile Include="Rooms\Areas\IZoomArea.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
   <ItemGroup>
     <Folder Include="Game\Settings\" />
+    <Folder Include="Rooms\Areas\" />
   </ItemGroup>
 </Project>

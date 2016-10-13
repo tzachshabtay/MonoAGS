@@ -12,24 +12,19 @@ namespace AGS.Engine
 		}
 
 		[ProtoMember(1)]
-		public Contract<IArea> Area { get; set; }
-
-		[ProtoMember(2)]
 		public float? BaseLine { get; set; }
 
 		#region IContract implementation
 
 		public IWalkBehindArea ToItem(AGSSerializationContext context)
 		{
-			AGSWalkBehindArea area = new AGSWalkBehindArea (Area.ToItem(context));
+			AGSWalkBehindArea area = new AGSWalkBehindArea ();
 			area.Baseline = BaseLine;
 			return area;
 		}
 
 		public void FromItem(AGSSerializationContext context, IWalkBehindArea item)
 		{
-			Area = new Contract<IArea> ();
-			Area.FromItem(context, item);
 			BaseLine = item.Baseline;
 		}
 

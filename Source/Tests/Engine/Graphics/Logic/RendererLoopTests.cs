@@ -12,9 +12,7 @@ namespace Tests
         private Mocks _mocks;
         private Mock<IAGSRoomTransitions> _transitions;
         private Mock<IImageRenderer> _renderer;
-        private List<IArea> _walkables;
-        private List<IWalkBehindArea> _walkBehinds;
-        private List<IScalingArea> _scalingAreas;
+        private List<IArea> _areas;
         private AGSConcurrentHashSet<IObject> _roomObjects, _uiObjects;
         private Resolver _resolver;
 
@@ -26,17 +24,13 @@ namespace Tests
             Mock<IEngineConfigFile> configFile = new Mock<IEngineConfigFile>();
             _resolver = new Resolver(configFile.Object);
 
-            _walkables = new List<IArea>();
-            _walkBehinds = new List<IWalkBehindArea>();
-            _scalingAreas = new List<IScalingArea>();
+            _areas = new List<IArea>();
             _roomObjects = new AGSConcurrentHashSet<IObject>();
             _uiObjects = new AGSConcurrentHashSet<IObject>();
 
             var room = _mocks.Room();
             room.Setup(m => m.Objects).Returns(_roomObjects);
-            room.Setup(m => m.WalkableAreas).Returns(_walkables);
-            room.Setup(m => m.WalkBehindAreas).Returns(_walkBehinds);
-            room.Setup(m => m.ScalingAreas).Returns(_scalingAreas);
+            room.Setup(m => m.Areas).Returns(_areas);
             room.Setup(m => m.Background).Returns(() => null);
             _mocks.GameState().Setup(s => s.UI).Returns(_uiObjects);
         }
@@ -51,9 +45,7 @@ namespace Tests
         public void EmptyRoom_NotError_Test()
         {
             _mocks.Room().Setup(m => m.ShowPlayer).Returns(false);
-            _walkables.Clear();
-            _walkBehinds.Clear();
-            _scalingAreas.Clear();
+            _areas.Clear();
             _roomObjects.Clear();
             _uiObjects.Clear();
 
@@ -66,9 +58,7 @@ namespace Tests
         public void RoomProperlyRendered_Test()
         { 
             _mocks.Room().Setup(m => m.ShowPlayer).Returns(false);
-            _walkables.Clear(); _walkables.Add(getArea());
-            _walkBehinds.Clear(); _walkBehinds.Add(new AGSWalkBehindArea(getArea()));
-            _scalingAreas.Clear(); _scalingAreas.Add(new AGSScalingArea(getArea()));
+            _areas.Clear(); _areas.Add(getArea());
             _roomObjects.Clear(); _roomObjects.Add(_mocks.Object(true).Object);
             _uiObjects.Clear(); _uiObjects.Add(_mocks.Object(true).Object);
 
@@ -87,7 +77,12 @@ namespace Tests
 
         private IArea getArea()
         {
-            return new AGSArea { Mask = new AGSMask(new bool[][] { }, null) };
+            var resolver = ObjectTests.GetResolver();
+            resolver.Build();
+            var area = new AGSArea("Area", resolver) { Mask = new AGSMask(new bool[][] { }, null) };
+            AGSScalingArea.Create(area, 1f, 1f);
+            area.AddComponent<IWalkBehindArea>();
+            return area;
         }
 	}
 }

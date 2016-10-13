@@ -241,10 +241,9 @@ namespace AGS.Engine
 
 		private List<PointF> getClosestWalkablePoints(PointF target)
 		{
-			List<Tuple<PointF, float>> points = new List<Tuple<PointF, float>> (_obj.Room.WalkableAreas.Count);
-			foreach (IArea area in _obj.Room.WalkableAreas) 
+			List<Tuple<PointF, float>> points = new List<Tuple<PointF, float>> (_obj.Room.Areas.Count);
+            foreach (IArea area in getWalkableAreas()) 
 			{
-				if (!area.Enabled) continue;
 				float distance;
 				PointF? point = area.FindClosestPoint (target, out distance);
 				if (point == null) continue;
@@ -257,7 +256,7 @@ namespace AGS.Engine
 		{
 			if (!isWalkable(_obj.Location))
 				return new List<ILocation> ();
-			List<PointF> closestPoints = new List<PointF> (_obj.Room.WalkableAreas.Count + 1);
+			List<PointF> closestPoints = new List<PointF> (_obj.Room.Areas.Count + 1);
 			if (isWalkable(destination))
 			{
 				closestPoints.Add(destination.XY);
@@ -280,24 +279,34 @@ namespace AGS.Engine
 
 		private bool isWalkable(ILocation location)
 		{
-			foreach (var area in _obj.Room.WalkableAreas) 
+            foreach (var area in getWalkableAreas()) 
 			{
-				if (area.IsInArea (location.XY))
-					return true;
+                if (area.IsInArea(location.XY)) return true;
 			}
 			return false;
 		}
 
 		private bool[][] getWalkableMask()
 		{
-			int maxWidth = _obj.Room.WalkableAreas.Max(a => a.Mask.Width);
+            var walkables = getWalkableAreas().ToList();
+			int maxWidth = walkables.Max(a => a.Mask.Width);
 			bool[][] mask = new bool[maxWidth][];
-			foreach (var area in _obj.Room.WalkableAreas) 
+			foreach (var area in walkables) 
 			{
 				area.Mask.ApplyToMask (mask);
 			}
 			return mask;
 		}
+
+        private IEnumerable<IArea> getWalkableAreas()
+        {
+            return _obj.Room.Areas.Where(area => 
+            {
+                if (!area.Enabled) return false;
+                var walkable = area.GetComponent<IWalkableArea>();
+                return walkable != null && walkable.IsWalkable;
+            });
+        }
 
 		private async Task<bool> walkStraightLine(ILocation destination, 
 			CancellationTokenSource token, List<IObject> debugRenderers)
@@ -377,13 +386,15 @@ namespace AGS.Engine
 
         private PointF adjustWalkSpeedBasedOnArea(PointF walkSpeed)
         {
-			if (_obj == null || _obj.Room == null || _obj.Room.ScalingAreas == null ||
+			if (_obj == null || _obj.Room == null || _obj.Room.Areas == null ||
 				_obj.IgnoreScalingArea || !AdjustWalkSpeedToScaleArea) return walkSpeed;
             
-            foreach (var area in _obj.Room.ScalingAreas)
+            foreach (var area in _obj.Room.Areas)
             {
-				if (!area.Enabled || !area.ScaleObjects || !area.IsInArea(_obj.Location.XY)) continue;
-                float scale = area.GetScaling(_obj.Y);
+				if (!area.Enabled || !area.IsInArea(_obj.Location.XY)) continue;
+                var scalingArea = area.GetComponent<IScalingArea>();
+                if (scalingArea == null || !scalingArea.ScaleObjects) continue;
+                float scale = scalingArea.GetScaling(_obj.Y);
                 if (scale != 1f)
                 {
                     walkSpeed *= scale;

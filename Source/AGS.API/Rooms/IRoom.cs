@@ -14,11 +14,10 @@ namespace AGS.API
 		IRoomEvents Events { get; }
 		ICustomProperties Properties { get; }
 
-		IList<IArea> WalkableAreas { get; }
-		IList<IWalkBehindArea> WalkBehindAreas { get; }
-		IList<IScalingArea> ScalingAreas { get; }
+		IList<IArea> Areas { get; }
 		IEdges Edges { get; }
 
+        IEnumerable<IArea> GetMatchingAreas(PointF point);
 		IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true);
 		IObject GetObjectAt(float x, float y, bool onlyEnabled = true, bool includeUi = true);
 		TObject Find<TObject>(string id) where TObject : class, IObject;

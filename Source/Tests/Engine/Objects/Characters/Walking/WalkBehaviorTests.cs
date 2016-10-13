@@ -49,6 +49,7 @@ namespace Tests
 			Mock<IRoom> room = new Mock<IRoom> ();
             Mock<IViewport> viewport = new Mock<IViewport>();
 			Mock<IArea> area = new Mock<IArea> ();
+            Mock<IWalkableArea> walkableArea = new Mock<IWalkableArea>();
 			Mock<IMask> mask = new Mock<IMask> ();
 			Mock<ICutscene> cutscene = new Mock<ICutscene> ();
 			Mock<IGameState> gameState = new Mock<IGameState> ();
@@ -59,13 +60,15 @@ namespace Tests
             game.Setup(g => g.State).Returns(gameState.Object);
             game.Setup(g => g.Events).Returns(gameEvents.Object);
 			gameState.Setup(s => s.Cutscene).Returns(cutscene.Object);
-			room.Setup(r => r.WalkableAreas).Returns(new List<IArea> { area.Object });
+			room.Setup(r => r.Areas).Returns(new List<IArea> { area.Object });
             room.Setup(r => r.Viewport).Returns(viewport.Object);
+            walkableArea.Setup(w => w.IsWalkable).Returns(true);
 			area.Setup(a => a.Enabled).Returns(true);
 			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == fromX && p.Y == fromY))).Returns(fromWalkable);
 			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == toX && p.Y == toY))).Returns(toWalkable);
 			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == closeToX && p.Y == closeToY))).Returns(hasCloseToWalkable);
 			area.Setup(a => a.Mask).Returns(mask.Object);
+            area.Setup(a => a.GetComponent<IWalkableArea>()).Returns(walkableArea.Object);
 			float distance = 1f;
 			area.Setup(a => a.FindClosestPoint(It.Is<AGS.API.PointF>(p => p.X == toX && p.Y == toY), out distance)).Returns(new AGS.API.PointF (closeToX, closeToY));
 			mask.Setup(m => m.Width).Returns(10);

@@ -40,10 +40,10 @@ namespace DemoGame
 			_room.Background = bg;
 
 			AGSMaskLoader maskLoader = new AGSMaskLoader (factory, new ResourceLoader());
-			_room.WalkableAreas.Add(new AGSArea { Mask = await maskLoader.LoadAsync(_baseFolder + "walkable1.png") });
-			_room.WalkableAreas.Add(new AGSArea { Mask = await maskLoader.LoadAsync (_baseFolder + "walkable2.png") });
-			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[0], 0.50f, 0.75f));
-			_room.ScalingAreas.Add(AGSScalingArea.Create(_room.WalkableAreas[1], 0.75f, 0.90f));
+            _room.Areas.Add(AGSWalkableArea.Create("EmptyStreetWalkable1", await maskLoader.LoadAsync(_baseFolder + "walkable1.png")));
+            _room.Areas.Add(AGSWalkableArea.Create("EmptyStreetWalkable2", await maskLoader.LoadAsync (_baseFolder + "walkable2.png")));
+			AGSScalingArea.Create(_room.Areas[0], 0.50f, 0.75f);
+			AGSScalingArea.Create(_room.Areas[1], 0.75f, 0.90f);
 
 			IObject bottleHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "BottleHotspot.png", "Bottle");
 			bottleHotspot.WalkPoint = new AGS.API.PointF (140f, 50f);
