@@ -1,10 +1,7 @@
 ﻿using System;
 using AGS.API;
-using System.Linq;
 using System.Collections.Generic;
-using OpenTK.Input;
 using Autofac;
-using OpenTK.Graphics.OpenGL;
 
 namespace AGS.Engine
 {
@@ -179,9 +176,9 @@ namespace AGS.Engine
             foreach (IArea area in room.GetMatchingAreas(obj.Location.XY))
 			{
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();
-				if (scaleArea == null || !scaleArea.ScaleObjects ) continue;
-                float scale = scaleArea.GetScaling(obj.Y);
-				return new PointF (scale, scale);
+                if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY)) continue;
+                float scale = scaleArea.GetScaling(scaleArea.Axis == ScalingAxis.X ? obj.X : obj.Y);
+                return new PointF (scaleArea.ScaleObjectsX ? scale : 1f, scaleArea.ScaleObjectsY ? scale : 1f);
 			}
 			return GLMatrixBuilder.NoScaling;
 		}

@@ -18,7 +18,10 @@ namespace AGS.Engine
 		public float MinScaling { get; set; }
 
 		[ProtoMember(3)]
-		public bool ScaleObjects { get; set; }
+		public bool ScaleObjectsX { get; set; }
+
+        [ProtoMember(4)]
+        public bool ScaleObjectsY { get; set; }
 
 		#region IContract implementation
 
@@ -27,7 +30,8 @@ namespace AGS.Engine
 			AGSScalingArea area = new AGSScalingArea ();
 			area.MaxScaling = MaxScaling;
 			area.MinScaling = MinScaling;
-			area.ScaleObjects = ScaleObjects;
+			area.ScaleObjectsX = ScaleObjectsX;
+            area.ScaleObjectsY = ScaleObjectsY;
 
 			return area;
 		}
@@ -36,7 +40,8 @@ namespace AGS.Engine
 		{
 			MaxScaling = item.MaxScaling;
 			MinScaling = item.MinScaling;
-			ScaleObjects = item.ScaleObjects;
+			ScaleObjectsX = item.ScaleObjectsX;
+            ScaleObjectsY = item.ScaleObjectsY;
 		}
 
 		#endregion

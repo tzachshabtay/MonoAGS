@@ -393,11 +393,12 @@ namespace AGS.Engine
             {
 				if (!area.Enabled || !area.IsInArea(_obj.Location.XY)) continue;
                 var scalingArea = area.GetComponent<IScalingArea>();
-                if (scalingArea == null || !scalingArea.ScaleObjects) continue;
-                float scale = scalingArea.GetScaling(_obj.Y);
+                if (scalingArea == null || (!scalingArea.ScaleObjectsX && !scalingArea.ScaleObjectsY)) continue;
+                float scale = scalingArea.GetScaling(scalingArea.Axis == ScalingAxis.X ? _obj.X : _obj.Y);
                 if (scale != 1f)
                 {
-                    walkSpeed *= scale;
+                    walkSpeed = new PointF(walkSpeed.X * (scalingArea.ScaleObjectsX ? scale : 1f), 
+                                           walkSpeed.Y * (scalingArea.ScaleObjectsY ? scale : 1f));
                     if (walkSpeed.X == 0f || walkSpeed.Y == 0f)
                     {
                         walkSpeed = new PointF(walkSpeed.X == 0f ? 1f : walkSpeed.X,

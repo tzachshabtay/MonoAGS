@@ -6,12 +6,20 @@ namespace AGS.Engine
 	{
         private IAreaComponent _area;
 
-		public static void Create(IArea area, float minScaling, float maxScaling, bool scaleObjects = true, bool scaleVolume = true)
+        public AGSScalingArea()
+        {
+            Axis = ScalingAxis.Y;
+            MinScaling = 1f;
+            MaxScaling = 1f;
+        }
+
+		public static void Create(IArea area, float minScaling, float maxScaling, bool scaleObjectsX = true, bool scaleObjectsY = true, bool scaleVolume = true)
 		{
             var component = area.AddComponent<IScalingArea>();
             component.MinScaling = minScaling;
             component.MaxScaling = maxScaling;
-            component.ScaleObjects = scaleObjects;
+            component.ScaleObjectsX = scaleObjectsX;
+            component.ScaleObjectsY = scaleObjectsY;
             component.ScaleVolume = scaleVolume;
 		}
 
@@ -25,6 +33,8 @@ namespace AGS.Engine
 
         public float GetScaling(float value)
         {
+            if (Axis == ScalingAxis.X) 
+                return MathUtils.Lerp(_area.Mask.MinX, MinScaling, _area.Mask.MaxX, MaxScaling, value);
             return MathUtils.Lerp(_area.Mask.MaxY, MinScaling, _area.Mask.MinY, MaxScaling, value);
         }
 
@@ -32,9 +42,13 @@ namespace AGS.Engine
 
 		public float MaxScaling { get; set; }
 
-		public bool ScaleObjects { get; set; }
+		public bool ScaleObjectsX { get; set; }
+
+        public bool ScaleObjectsY { get; set; }
 
 		public bool ScaleVolume { get; set; }
+
+        public ScalingAxis Axis { get; set; }
 
 		#endregion
 	}
