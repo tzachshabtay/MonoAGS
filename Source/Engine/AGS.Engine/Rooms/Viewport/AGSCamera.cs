@@ -87,7 +87,7 @@ namespace AGS.Engine
 		{
 			if (target.Room == null || target.Room.Areas == null) return viewport.ScaleX;
 
-            foreach (var area in target.Room.GetMatchingAreas(target.Location.XY))
+            foreach (var area in target.Room.GetMatchingAreas(target.Location.XY, target.ID))
 			{
                 var zoomArea = area.GetComponent<IZoomArea>();
                 if (zoomArea == null || !zoomArea.ZoomCamera) continue;

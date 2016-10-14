@@ -60,8 +60,9 @@ namespace AGS.Engine
 
         public IObject Object 
         { 
-            set { Translate = value; HasRoom = value; }
+            set { Translate = value; HasRoom = value; EntityID = value == null ? null : value.ID; }
         }
+        public string EntityID { get; set; }
         public ITranslate Translate { get; set; }
         public IHasRoom HasRoom { get; set; }
 
@@ -127,7 +128,7 @@ namespace AGS.Engine
                     if (hasRoom == null) continue;
 					var room = _game.State.Player.Character.Room;
                     if (room != hasRoom.Room) return;
-                    foreach (var area in room.GetMatchingAreas(obj.Location.XY))
+                    foreach (var area in room.GetMatchingAreas(obj.Location.XY, EntityID))
 					{
                         var scalingArea = area.GetComponent<IScalingArea>();
                         if (scalingArea == null || !scalingArea.ScaleVolume) continue;

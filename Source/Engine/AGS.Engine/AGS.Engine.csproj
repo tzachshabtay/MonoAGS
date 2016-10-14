@@ -376,6 +376,7 @@
     <Compile Include="Rooms\Areas\AGSArea.cs" />
     <Compile Include="Rooms\Areas\AGSWalkableArea.cs" />
     <Compile Include="Rooms\Areas\AGSZoomArea.cs" />
+    <Compile Include="Rooms\Areas\AGSAreaRestriction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

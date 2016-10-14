@@ -17,7 +17,7 @@ namespace AGS.API
 		IList<IArea> Areas { get; }
 		IEdges Edges { get; }
 
-        IEnumerable<IArea> GetMatchingAreas(PointF point);
+        IEnumerable<IArea> GetMatchingAreas(PointF point, string entityId);
 		IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true);
 		IObject GetObjectAt(float x, float y, bool onlyEnabled = true, bool includeUi = true);
 		TObject Find<TObject>(string id) where TObject : class, IObject;

@@ -304,7 +304,9 @@ namespace AGS.Engine
             {
                 if (!area.Enabled) return false;
                 var walkable = area.GetComponent<IWalkableArea>();
-                return walkable != null && walkable.IsWalkable;
+                if (walkable == null || !walkable.IsWalkable) return false;
+                var restrictionArea = area.GetComponent<IAreaRestriction>();
+                return (restrictionArea == null || !restrictionArea.IsRestricted(_obj.ID));
             });
         }
 

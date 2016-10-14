@@ -173,7 +173,7 @@ namespace AGS.Engine
 		private PointF getAreaScaling(IRoom room, IObject obj)
 		{
 			if (obj.IgnoreScalingArea) return GLMatrixBuilder.NoScaling;
-            foreach (IArea area in room.GetMatchingAreas(obj.Location.XY))
+            foreach (IArea area in room.GetMatchingAreas(obj.Location.XY, obj.ID))
 			{
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();
                 if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY)) continue;

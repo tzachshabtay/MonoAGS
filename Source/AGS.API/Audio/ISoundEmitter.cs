@@ -7,6 +7,7 @@
         IObject Object { set; }
         ITranslate Translate { get; set; }
         IHasRoom HasRoom { get; set; }
+        string EntityID { get; set; }
 
 		bool AutoPan { get; set; }
 		bool AutoAdjustVolume { get; set; }

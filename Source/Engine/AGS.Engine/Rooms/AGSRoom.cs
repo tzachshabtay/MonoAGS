@@ -68,9 +68,15 @@ namespace AGS.Engine
 
 		public IRoomEvents Events { get; private set; }
 
-        public IEnumerable<IArea> GetMatchingAreas(PointF point)
+        public IEnumerable<IArea> GetMatchingAreas(PointF point, string entityId)
         {
-            return Areas.Where(area => area.Enabled && area.IsInArea(point));
+            return Areas.Where(area =>
+            {
+                if (!area.Enabled || !area.IsInArea(point)) return false;
+                if (entityId == null) return true;
+                IAreaRestriction areaRestriction = area.GetComponent<IAreaRestriction>();
+                return (areaRestriction == null || !areaRestriction.IsRestricted(entityId));
+            });
         }
 
 		public IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true)

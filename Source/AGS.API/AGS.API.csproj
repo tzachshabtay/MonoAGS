@@ -204,6 +204,7 @@
     <Compile Include="Rooms\Areas\IWalkBehindArea.cs" />
     <Compile Include="Rooms\Areas\IWalkableArea.cs" />
     <Compile Include="Rooms\Areas\IZoomArea.cs" />
+    <Compile Include="Rooms\Areas\IAreaRestriction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
