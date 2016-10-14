@@ -42,7 +42,7 @@ namespace AGS.Engine
         {
             base.Init(entity);
             _characterName = entity.ID;
-            _emitter.Transform = entity.GetComponent<ITranslateComponent>();
+            _emitter.Translate = entity.GetComponent<ITranslateComponent>();
             _emitter.HasRoom = entity.GetComponent<IHasRoom>();
         }
 

@@ -60,9 +60,9 @@ namespace AGS.Engine
 
         public IObject Object 
         { 
-            set { Transform = value; HasRoom = value; }
+            set { Translate = value; HasRoom = value; }
         }
-        public ITranslate Transform { get; set; }
+        public ITranslate Translate { get; set; }
         public IHasRoom HasRoom { get; set; }
 
 		public bool AutoPan { get; set; }
@@ -105,7 +105,7 @@ namespace AGS.Engine
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
 		{
 			if (_game.State.Paused) return;
-            var obj = Transform;
+            var obj = Translate;
             var hasRoom = HasRoom;
 
 			foreach (var sound in _playingSounds)
