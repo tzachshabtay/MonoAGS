@@ -236,7 +236,7 @@ namespace AGS.Engine
                 {
                     foreach (var fileItem in fileItems) fileItem.Border = _fileIcon;
                     foreach (var dirItem in dirItems) dirItem.Border = _folderIcon;
-                    _selectedItem = fileObj.GetString(PATH_PROPERTY);
+                    _selectedItem = fileObj.Properties.Strings.GetValue(PATH_PROPERTY);
                     fileObj.Border = _folderIconSelected;
                 };
                 IUIEvents uiEvents = fileObj.AddComponent<IUIEvents>();
@@ -249,7 +249,7 @@ namespace AGS.Engine
                 fileItems.Add(fileObj);
                 Action<object, MouseButtonEventArgs> onDoubleClick = (sender, args) =>
                 {
-                    onFileSelected(fileObj.GetString(PATH_PROPERTY));
+                    onFileSelected(fileObj.Properties.Strings.GetValue(PATH_PROPERTY));
                 };
                 Action<object, MouseButtonEventArgs> onClick = (sender, args) =>
                 {
@@ -266,7 +266,7 @@ namespace AGS.Engine
         private IObject addFileItem(string file, IObject graphics)
         {
             graphics = clone("FileItem_" + file, _game.Factory, graphics);
-            graphics.SetString(PATH_PROPERTY, file);
+            graphics.Properties.Strings.SetValue(PATH_PROPERTY, file);
             ILabel fileLabel = _game.Factory.UI.GetLabel("FileItemLabel_" + file, getLastName(file), ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, 0f, _filesTextConfig);
             fileLabel.TreeNode.SetParent(graphics.TreeNode);
             graphics.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1);

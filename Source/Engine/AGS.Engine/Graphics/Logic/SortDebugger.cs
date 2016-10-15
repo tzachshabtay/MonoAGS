@@ -39,7 +39,7 @@ namespace AGS.Engine
             const string backwardsWord = "backwards ";
             foreach (var obj in displayList)
             {                
-                foreach (var property in obj.AllInts())
+                foreach (var property in obj.Properties.Ints.AllProperties())
                 {
                     if (!property.Key.Contains(sortWord)) continue;
                     if (renderDebug && property.Key.Contains(backwardsWord)) continue;

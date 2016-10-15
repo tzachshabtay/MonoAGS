@@ -264,7 +264,7 @@ namespace AGS.Engine
 
         private void addToDisplayList(List<IObject> displayList, IObject obj)
         {
-            obj.SetInt(RenderOrderSelector.SortDefaultIndex, displayList.Count);
+            obj.Properties.Ints.SetValue(RenderOrderSelector.SortDefaultIndex, displayList.Count);
             displayList.Add(obj);
         }
 	}

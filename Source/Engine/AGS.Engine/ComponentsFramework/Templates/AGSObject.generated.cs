@@ -21,7 +21,7 @@ namespace AGS.Engine
         private ICollider _collider;
         private IVisibleComponent _visibleComponent;
         private IEnabledComponent _enabledComponent;
-        private ICustomProperties _customProperties;
+        private ICustomPropertiesComponent _customProperties;
         private IDrawableInfo _drawableInfo;
         private IHotspotComponent _hotspotComponent;
         private IShaderComponent _shaderComponent;
@@ -39,7 +39,7 @@ namespace AGS.Engine
             _collider = AddComponent<ICollider>();            
             _visibleComponent = AddComponent<IVisibleComponent>();            
             _enabledComponent = AddComponent<IEnabledComponent>();            
-            _customProperties = AddComponent<ICustomProperties>();            
+            _customProperties = AddComponent<ICustomPropertiesComponent>();            
             _drawableInfo = AddComponent<IDrawableInfo>();            
             _hotspotComponent = AddComponent<IHotspotComponent>();            
             _shaderComponent = AddComponent<IShaderComponent>();            
@@ -190,74 +190,9 @@ namespace AGS.Engine
 
         #region ICustomProperties implementation
 
-        public Int32 GetInt(String name, Int32 defaultValue)
+        public ICustomProperties Properties
         {
-            return _customProperties.GetInt(name, defaultValue);
-        }
-
-        public void SetInt(String name, Int32 value)
-        {
-            _customProperties.SetInt(name, value);
-        }
-
-        public Single GetFloat(String name, Single defaultValue)
-        {
-            return _customProperties.GetFloat(name, defaultValue);
-        }
-
-        public void SetFloat(String name, Single value)
-        {
-            _customProperties.SetFloat(name, value);
-        }
-
-        public String GetString(String name, String defaultValue)
-        {
-            return _customProperties.GetString(name, defaultValue);
-        }
-
-        public void SetString(String name, String value)
-        {
-            _customProperties.SetString(name, value);
-        }
-
-        public Boolean GetBool(String name, Boolean defaultValue)
-        {
-            return _customProperties.GetBool(name, defaultValue);
-        }
-
-        public void SetBool(String name, Boolean value)
-        {
-            _customProperties.SetBool(name, value);
-        }
-
-        public IDictionary<String,Int32> AllInts()
-        {
-            return _customProperties.AllInts();
-        }
-
-        public IDictionary<String,Single> AllFloats()
-        {
-            return _customProperties.AllFloats();
-        }
-
-        public IDictionary<String,String> AllStrings()
-        {
-            return _customProperties.AllStrings();
-        }
-
-        public IDictionary<String,Boolean> AllBooleans()
-        {
-            return _customProperties.AllBooleans();
-        }
-
-        public void RegisterCustomData(ICustomSerializable customData)
-        {
-            _customProperties.RegisterCustomData(customData);
-        }
-
-        public void CopyFrom(ICustomProperties properties)
-        {
-            _customProperties.CopyFrom(properties);
+            get { return _customProperties.Properties; }
         }
 
         #endregion

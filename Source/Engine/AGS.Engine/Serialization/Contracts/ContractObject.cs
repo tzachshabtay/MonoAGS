@@ -123,7 +123,7 @@ namespace AGS.Engine
 			{
 				obj.WalkPoint = new PointF (WalkPoint.Item1, WalkPoint.Item2);
 			}
-			obj.CopyFrom(Properties.ToItem(context));
+            obj.Properties.CopyFrom(Properties.ToItem(context));
 			obj.Enabled = Enabled;
 			obj.Hotspot = Hotspot;
 			obj.IgnoreViewport = IgnoreViewport;
@@ -142,7 +142,7 @@ namespace AGS.Engine
 			ID = item.ID;
 			RenderLayer = context.GetContract(item.RenderLayer);
 
-            Properties = context.GetContract(item.GetComponent<ICustomProperties>());
+            Properties = context.GetContract(item.GetComponent<ICustomPropertiesComponent>().Properties);
 
 			AnimationContainer = new ContractAnimationContainer ();
 			AnimationContainer.FromItem(context, item);

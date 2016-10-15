@@ -94,7 +94,6 @@
     <Compile Include="Misc\Events\AGSEventArgs.cs" />
     <Compile Include="Misc\Events\IEvent.cs" />
     <Compile Include="Misc\Geometry\ISquare.cs" />
-    <Compile Include="Misc\ICustomProperties.cs" />
     <Compile Include="Misc\ILocation.cs" />
     <Compile Include="Misc\Resources\IResource.cs" />
     <Compile Include="Misc\Resources\IResourceLoader.cs" />
@@ -205,11 +204,14 @@
     <Compile Include="Rooms\Areas\IWalkableArea.cs" />
     <Compile Include="Rooms\Areas\IZoomArea.cs" />
     <Compile Include="Rooms\Areas\IAreaRestriction.cs" />
+    <Compile Include="Misc\CustomProperties\ICustomProperties.cs" />
+    <Compile Include="Misc\CustomProperties\ICustomPropertiesPerType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
   <ItemGroup>
     <Folder Include="Game\Settings\" />
     <Folder Include="Rooms\Areas\" />
+    <Folder Include="Misc\CustomProperties\" />
   </ItemGroup>
 </Project>

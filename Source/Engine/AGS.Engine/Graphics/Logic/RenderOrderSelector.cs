@@ -28,12 +28,12 @@ namespace AGS.Engine
 			int result = (int)compare(s1, s2);
             if (result == 0)
             {
-                result = s2.GetInt(SortDefaultIndex) - s1.GetInt(SortDefaultIndex);
+                result = s2.Properties.Ints.GetValue(SortDefaultIndex) - s1.Properties.Ints.GetValue(SortDefaultIndex);
             }
 			if (Backwards) result *= -1;
 			#if DEBUG
-			s1.SetInt(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s2.ID ?? "null"), result);
-			s2.SetInt(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s1.ID ?? "null"), -result);
+            s1.Properties.Ints.SetValue(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s2.ID ?? "null"), result);
+            s2.Properties.Ints.SetValue(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s1.ID ?? "null"), -result);
 			#endif
 			return result;
 		}

@@ -1,109 +1,59 @@
 ﻿using System;
 using AGS.API;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
 
 namespace AGS.Engine
 {
-	public class AGSCustomProperties : AGSComponent, ICustomProperties
-	{
-		private readonly ConcurrentDictionary<string, int> _ints;
-		private readonly ConcurrentDictionary<string, float> _floats;
-		private readonly ConcurrentDictionary<string, string> _strings;
-		private readonly ConcurrentDictionary<string, bool> _bools;
+    public class AGSCustomProperties : AGSComponent, ICustomProperties
+    {
+        private readonly ICustomPropertiesPerType<int> _ints;
+        private readonly ICustomPropertiesPerType<float> _floats;
+        private readonly ConcurrentDictionary<string, string> _strings;
+        private readonly ConcurrentDictionary<string, bool> _bools;
 
-		public AGSCustomProperties()
-		{
-			_ints = new ConcurrentDictionary<string, int> ();
-			_floats = new ConcurrentDictionary<string, float> ();
-			_strings = new ConcurrentDictionary<string, string> ();
-			_bools = new ConcurrentDictionary<string, bool> ();
-		}
+        public AGSCustomProperties()
+        {
+            Ints = new AGSCustomPropertiesPerType<int>();
+            Floats = new AGSCustomPropertiesPerType<float>();
+            Strings = new AGSCustomPropertiesPerType<string>();
+            Bools = new AGSCustomPropertiesPerType<bool>();
+            Entities = new AGSCustomPropertiesPerType<IEntity>();
+        }
 
-		#region ICustomProperties implementation
+        #region ICustomProperties implementation
 
-		public int GetInt(string name, int defaultValue = 0)
-		{
-			return _ints.GetOrAdd(name, _ => defaultValue);
-		}
+        public ICustomPropertiesPerType<int> Ints { get; private set; }
+        public ICustomPropertiesPerType<float> Floats { get; private set; }
+        public ICustomPropertiesPerType<string> Strings { get; private set; }
+        public ICustomPropertiesPerType<bool> Bools { get; private set; }
+        public ICustomPropertiesPerType<IEntity> Entities { get; private set; }
 
-		public void SetInt(string name, int value)
-		{
-			_ints[name] = value;
-		}
+        public void RegisterCustomData(ICustomSerializable customData)
+        {
+            throw new NotImplementedException();
+        }
 
-		public float GetFloat(string name, float defaultValue = 0f)
-		{
-			return _floats.GetOrAdd(name, _ => defaultValue);
-		}
-
-		public void SetFloat(string name, float value)
-		{
-			_floats[name] = value;
-		}
-
-		public string GetString(string name, string defaultValue = null)
-		{
-			return _strings.GetOrAdd(name, _ => defaultValue);
+        public void CopyFrom(ICustomProperties properties)
+        {
+            if (properties == null) return;
+            Ints.CopyFrom(properties.Ints);
+            Floats.CopyFrom(properties.Floats);
+            Strings.CopyFrom(properties.Strings);
+            Bools.CopyFrom(properties.Bools);
+            Entities.CopyFrom(properties.Entities);
 		}
 
-		public void SetString(string name, string value)
-		{
-			_strings[name] = value;
-		}
-
-		public bool GetBool(string name, bool defaultValue = false)
-		{
-			return _bools.GetOrAdd(name, _ => defaultValue);
-		}
-
-		public void SetBool(string name, bool value)
-		{
-			_bools[name] = value;
-		}
-
-		public void RegisterCustomData(ICustomSerializable customData)
-		{
-			throw new NotImplementedException();
-		}
-			
-		public IDictionary<string, int> AllInts()
-		{
-			return _ints;
-		}
-
-		public IDictionary<string, float> AllFloats()
-		{
-			return _floats;
-		}
-
-		public IDictionary<string, string> AllStrings()
-		{
-			return _strings;
-		}
-
-		public IDictionary<string, bool> AllBooleans()
-		{
-			return _bools;
-		}
-			
-		public void CopyFrom(ICustomProperties properties)
-		{
-			if (properties == null) return;
-			addMap(AllInts(), properties.AllInts());
-			addMap(AllBooleans(), properties.AllBooleans());
-			addMap(AllStrings(), properties.AllStrings());
-			addMap(AllFloats(), properties.AllFloats());
-		}
-
-		private void addMap<TValue>(IDictionary<string, TValue> appendTo, IDictionary<string, TValue> appendFrom)
-		{
-			foreach (var pair in appendFrom)
-			{
-				appendTo[pair.Key] = pair.Value;
-			}
-		}
 		#endregion
 	}
+
+    public class AGSCustomPropertiesComponent : AGSComponent, ICustomPropertiesComponent
+    {
+        public AGSCustomPropertiesComponent(ICustomProperties properties)
+        {
+            Properties = properties;
+        }
+
+        public ICustomProperties Properties { get; private set; }
+    }
 }
 
