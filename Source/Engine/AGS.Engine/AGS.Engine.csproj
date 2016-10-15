@@ -378,6 +378,7 @@
     <Compile Include="Rooms\Areas\AGSZoomArea.cs" />
     <Compile Include="Rooms\Areas\AGSAreaRestriction.cs" />
     <Compile Include="Misc\AGSCustomPropertiesPerType.cs" />
+    <Compile Include="Objects\Characters\Walking\Following\FollowTag.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

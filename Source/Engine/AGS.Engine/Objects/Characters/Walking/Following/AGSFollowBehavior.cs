@@ -9,11 +9,12 @@ namespace AGS.Engine
 		private IHasRoom _hasRoom;
 		private ITranslate _obj;
 		private IGame _game;
-		private IObject _target, _lastTarget;
+		private IObject _lastTarget;
 		private Task _currentWalk;
 		private int _counter = -1;
 		private IFollowSettings _followSettings;
 		private float? _newRoomX, _newRoomY;
+        private IEntity _follower;
 
 		public AGSFollowBehavior(IGame game)
 		{
@@ -24,6 +25,7 @@ namespace AGS.Engine
 		public override void Init (IEntity entity)
 		{
 			base.Init (entity);
+            _follower = entity;
 			_walk = entity.GetComponent<IWalkBehavior>();
 			_hasRoom = entity.GetComponent<IHasRoom> ();
 			_obj = entity.GetComponent<ITranslateComponent> ();
@@ -31,9 +33,17 @@ namespace AGS.Engine
 
 		public void Follow (IObject obj, IFollowSettings settings)
 		{
-			_target = obj;
+            var currentTarget = obj;
+            if (currentTarget != null)
+            {
+                FollowTag.RemoveTag(currentTarget, _follower);
+            }
+            TargetBeingFollowed = obj;
+            FollowTag.AddTag(obj, _follower);
 			_followSettings = settings ?? new AGSFollowSettings ();
 		}
+
+        public IObject TargetBeingFollowed { get; private set; }
 
 		public override void Dispose ()
 		{
@@ -43,7 +53,7 @@ namespace AGS.Engine
 
 		private void onRepeatedlyExecute (object sender, AGSEventArgs args)
 		{
-			var target = _target;
+            var target = TargetBeingFollowed;
 			var currentWalk = _currentWalk;
 			var followSettings = _followSettings;
 			if (target == null || followSettings == null) 

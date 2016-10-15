@@ -589,6 +589,11 @@ namespace AGS.Engine
             _followBehavior.Follow(obj, settings);
         }
 
+        public IObject TargetBeingFollowed
+        {
+            get { return _followBehavior.TargetBeingFollowed; }
+        }
+
         #endregion
     }
 }
