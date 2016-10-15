@@ -8,9 +8,7 @@ namespace AGS.Engine
         private bool _isFocused;
         private ITextComponent _textComponent;
         private IImageComponent _imageComponent;
-        private ITranslateComponent _translateComponent;
         private IUIEvents _uiEvents;        
-        private IDrawableInfo _drawable;
         private IInObjectTree _tree;
         private IHasRoom _room;
         private readonly IGame _game;        
@@ -41,8 +39,6 @@ namespace AGS.Engine
             _textComponent = entity.GetComponent<ITextComponent>();
             _imageComponent = entity.GetComponent<IImageComponent>();
             _uiEvents = entity.GetComponent<IUIEvents>();
-            _translateComponent = entity.GetComponent<ITranslateComponent>();
-            _drawable = entity.GetComponent<IDrawableInfo>();
             _tree = entity.GetComponent<IInObjectTree>();
             _room = entity.GetComponent<IHasRoom>();
 

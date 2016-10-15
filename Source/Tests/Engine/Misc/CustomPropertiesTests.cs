@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using AGS.Engine;
 
 namespace Tests.Engine.Misc
 {
@@ -30,10 +29,10 @@ namespace Tests.Engine.Misc
         {
             foreach (var obj in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
             {
-                Assert.IsTrue(!obj.AllInts().ContainsKey(VAR_NAME));
-                Assert.AreEqual(defaultInt, obj.GetInt(VAR_NAME, defaultInt));
-                Assert.IsTrue(obj.AllInts().ContainsKey(VAR_NAME));
-                Assert.AreEqual(defaultInt, obj.GetInt(VAR_NAME));
+                Assert.IsTrue(!obj.Properties.Ints.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(defaultInt, obj.Properties.Ints.GetValue(VAR_NAME, defaultInt));
+                Assert.IsTrue(obj.Properties.Ints.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(defaultInt, obj.Properties.Ints.GetValue(VAR_NAME));
             }
         }
 
@@ -51,12 +50,12 @@ namespace Tests.Engine.Misc
         {
             foreach (var obj in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
             {
-                Assert.IsTrue(!obj.AllInts().ContainsKey(VAR_NAME));
-                if (getIntFirst) Assert.AreEqual(999, obj.GetInt(VAR_NAME, 999));
-                obj.SetInt(VAR_NAME, intToSet);
-                Assert.IsTrue(obj.AllInts().ContainsKey(VAR_NAME));
-                Assert.AreEqual(intToSet, obj.GetInt(VAR_NAME));
-                Assert.AreEqual(intToSet, obj.GetInt(VAR_NAME, 999));
+                Assert.IsTrue(!obj.Properties.Ints.AllProperties().ContainsKey(VAR_NAME));
+                if (getIntFirst) Assert.AreEqual(999, obj.Properties.Ints.GetValue(VAR_NAME, 999));
+                obj.Properties.Ints.SetValue(VAR_NAME, intToSet);
+                Assert.IsTrue(obj.Properties.Ints.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(intToSet, obj.Properties.Ints.GetValue(VAR_NAME));
+                Assert.AreEqual(intToSet, obj.Properties.Ints.GetValue(VAR_NAME, 999));
             }
         }
 
@@ -69,10 +68,10 @@ namespace Tests.Engine.Misc
         {
             foreach (var obj in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
             {
-                Assert.IsTrue(!obj.AllFloats().ContainsKey(VAR_NAME));
-                Assert.AreEqual(defaultFloat, obj.GetFloat(VAR_NAME, defaultFloat));
-                Assert.IsTrue(obj.AllFloats().ContainsKey(VAR_NAME));
-                Assert.AreEqual(defaultFloat, obj.GetFloat(VAR_NAME));
+                Assert.IsTrue(!obj.Properties.Floats.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(defaultFloat, obj.Properties.Floats.GetValue(VAR_NAME, defaultFloat));
+                Assert.IsTrue(obj.Properties.Floats.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(defaultFloat, obj.Properties.Floats.GetValue(VAR_NAME));
             }
         }
 
@@ -90,12 +89,12 @@ namespace Tests.Engine.Misc
         {
             foreach (var obj in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
             {
-                Assert.IsTrue(!obj.AllFloats().ContainsKey(VAR_NAME));
-                if (getFloatFirst) Assert.AreEqual(999f, obj.GetFloat(VAR_NAME, 999));
-                obj.SetFloat(VAR_NAME, floatToSet);
-                Assert.IsTrue(obj.AllFloats().ContainsKey(VAR_NAME));
-                Assert.AreEqual(floatToSet, obj.GetFloat(VAR_NAME));
-                Assert.AreEqual(floatToSet, obj.GetFloat(VAR_NAME, 999f));
+                Assert.IsTrue(!obj.Properties.Floats.AllProperties().ContainsKey(VAR_NAME));
+                if (getFloatFirst) Assert.AreEqual(999f, obj.Properties.Floats.GetValue(VAR_NAME, 999));
+                obj.Properties.Floats.SetValue(VAR_NAME, floatToSet);
+                Assert.IsTrue(obj.Properties.Floats.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(floatToSet, obj.Properties.Floats.GetValue(VAR_NAME));
+                Assert.AreEqual(floatToSet, obj.Properties.Floats.GetValue(VAR_NAME, 999f));
             }
         }
 
@@ -105,10 +104,10 @@ namespace Tests.Engine.Misc
         {
             foreach (var obj in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
             {
-                Assert.IsTrue(!obj.AllBooleans().ContainsKey(VAR_NAME));
-                Assert.AreEqual(defaultBool, obj.GetBool(VAR_NAME, defaultBool));
-                Assert.IsTrue(obj.AllBooleans().ContainsKey(VAR_NAME));
-                Assert.AreEqual(defaultBool, obj.GetBool(VAR_NAME));
+                Assert.IsTrue(!obj.Properties.Bools.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(defaultBool, obj.Properties.Bools.GetValue(VAR_NAME, defaultBool));
+                Assert.IsTrue(obj.Properties.Bools.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(defaultBool, obj.Properties.Bools.GetValue(VAR_NAME));
             }
         }
 
@@ -120,12 +119,12 @@ namespace Tests.Engine.Misc
         {
             foreach (var obj in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
             {
-                Assert.IsTrue(!obj.AllBooleans().ContainsKey(VAR_NAME));
-                if (getBoolFirst) Assert.AreEqual(false, obj.GetBool(VAR_NAME, false));
-                obj.SetBool(VAR_NAME, boolToSet);
-                Assert.IsTrue(obj.AllBooleans().ContainsKey(VAR_NAME));
-                Assert.AreEqual(boolToSet, obj.GetBool(VAR_NAME));
-                Assert.AreEqual(boolToSet, obj.GetBool(VAR_NAME, false));
+                Assert.IsTrue(!obj.Properties.Bools.AllProperties().ContainsKey(VAR_NAME));
+                if (getBoolFirst) Assert.AreEqual(false, obj.Properties.Bools.GetValue(VAR_NAME, false));
+                obj.Properties.Bools.SetValue(VAR_NAME, boolToSet);
+                Assert.IsTrue(obj.Properties.Bools.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(boolToSet, obj.Properties.Bools.GetValue(VAR_NAME));
+                Assert.AreEqual(boolToSet, obj.Properties.Bools.GetValue(VAR_NAME, false));
             }
         }
 
@@ -140,10 +139,10 @@ namespace Tests.Engine.Misc
         {
             foreach (var obj in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
             {
-                Assert.IsTrue(!obj.AllStrings().ContainsKey(VAR_NAME));
-                Assert.AreEqual(defaultString, obj.GetString(VAR_NAME, defaultString));
-                Assert.IsTrue(obj.AllStrings().ContainsKey(VAR_NAME));
-                Assert.AreEqual(defaultString, obj.GetString(VAR_NAME));
+                Assert.IsTrue(!obj.Properties.Strings.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(defaultString, obj.Properties.Strings.GetValue(VAR_NAME, defaultString));
+                Assert.IsTrue(obj.Properties.Strings.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(defaultString, obj.Properties.Strings.GetValue(VAR_NAME));
             }
         }
 
@@ -165,12 +164,12 @@ namespace Tests.Engine.Misc
         {
             foreach (var obj in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
             {
-                Assert.IsTrue(!obj.AllStrings().ContainsKey(VAR_NAME));
-                if (getStringFirst) Assert.AreEqual("", obj.GetString(VAR_NAME, ""));
-                obj.SetString(VAR_NAME, stringToSet);
-                Assert.IsTrue(obj.AllStrings().ContainsKey(VAR_NAME));
-                Assert.AreEqual(stringToSet, obj.GetString(VAR_NAME));
-                Assert.AreEqual(stringToSet, obj.GetString(VAR_NAME, ""));
+                Assert.IsTrue(!obj.Properties.Strings.AllProperties().ContainsKey(VAR_NAME));
+                if (getStringFirst) Assert.AreEqual("", obj.Properties.Strings.GetValue(VAR_NAME, ""));
+                obj.Properties.Strings.SetValue(VAR_NAME, stringToSet);
+                Assert.IsTrue(obj.Properties.Strings.AllProperties().ContainsKey(VAR_NAME));
+                Assert.AreEqual(stringToSet, obj.Properties.Strings.GetValue(VAR_NAME));
+                Assert.AreEqual(stringToSet, obj.Properties.Strings.GetValue(VAR_NAME, ""));
             }
         }
     }

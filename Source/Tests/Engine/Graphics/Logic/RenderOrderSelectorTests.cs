@@ -173,6 +173,7 @@ namespace Tests
 			obj.Setup(o => o.Animation).Returns(animation.Object);
 			obj.Setup(o => o.TreeNode).Returns(tree.Object);
 			obj.Setup(o => o.RenderLayer).Returns(layer);
+            obj.Setup(o => o.Properties).Returns(new AGSCustomProperties());
 
 			tree.Setup(t => t.Node).Returns(obj.Object);
 

@@ -1,16 +1,10 @@
 ﻿using System;
 using AGS.API;
-using System.Collections.Concurrent;
 
 namespace AGS.Engine
 {
     public class AGSCustomProperties : AGSComponent, ICustomProperties
     {
-        private readonly ICustomPropertiesPerType<int> _ints;
-        private readonly ICustomPropertiesPerType<float> _floats;
-        private readonly ConcurrentDictionary<string, string> _strings;
-        private readonly ConcurrentDictionary<string, bool> _bools;
-
         public AGSCustomProperties()
         {
             Ints = new AGSCustomPropertiesPerType<int>();

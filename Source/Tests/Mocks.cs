@@ -202,6 +202,7 @@ namespace Tests
 				_obj.Setup(m => m.Anchor).Returns(new AGS.API.PointF ());
                 _obj.Setup(m => m.TreeNode).Returns(new AGSTreeNode<IObject>());
                 _obj.Setup(m => m.Location).Returns(new AGSLocation(0f, 0f));
+                _obj.Setup(m => m.Properties).Returns(new AGSCustomProperties());
 			}
 			return _obj;
 		}
