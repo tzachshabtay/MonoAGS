@@ -23,13 +23,13 @@ namespace AGS.Engine
 		{
 			IOutfit outfit = _resolver.Resolve<IOutfit>();
 
-			outfit.IdleAnimation = _graphics.LoadDirectionalAnimationFromFolders(baseFolder, idleLeftFolder, idleRightFolder, 
+            outfit[AGSOutfit.Idle] = _graphics.LoadDirectionalAnimationFromFolders(baseFolder, idleLeftFolder, idleRightFolder, 
 				idleDownFolder, idleUpFolder, animationConfig, loadConfig);
 
-			outfit.WalkAnimation = _graphics.LoadDirectionalAnimationFromFolders(baseFolder, walkLeftFolder, walkRightFolder, 
+            outfit[AGSOutfit.Walk] = _graphics.LoadDirectionalAnimationFromFolders(baseFolder, walkLeftFolder, walkRightFolder, 
 				walkDownFolder, walkUpFolder, animationConfig, loadConfig);
 
-			outfit.SpeakAnimation = _graphics.LoadDirectionalAnimationFromFolders(baseFolder, speakLeftFolder, speakRightFolder, 
+            outfit[AGSOutfit.Speak] = _graphics.LoadDirectionalAnimationFromFolders(baseFolder, speakLeftFolder, speakRightFolder, 
 				speakDownFolder, speakUpFolder, animationConfig, loadConfig);
 
 			return outfit;
@@ -43,13 +43,13 @@ namespace AGS.Engine
 		{
 			IOutfit outfit = _resolver.Resolve<IOutfit> ();
 
-			outfit.IdleAnimation = await _graphics.LoadDirectionalAnimationFromFoldersAsync(baseFolder, idleLeftFolder, idleRightFolder,
+            outfit[AGSOutfit.Idle] = await _graphics.LoadDirectionalAnimationFromFoldersAsync(baseFolder, idleLeftFolder, idleRightFolder,
 				idleDownFolder, idleUpFolder, animationConfig, loadConfig);
 
-			outfit.WalkAnimation = await _graphics.LoadDirectionalAnimationFromFoldersAsync (baseFolder, walkLeftFolder, walkRightFolder,
+            outfit[AGSOutfit.Walk] = await _graphics.LoadDirectionalAnimationFromFoldersAsync (baseFolder, walkLeftFolder, walkRightFolder,
 				walkDownFolder, walkUpFolder, animationConfig, loadConfig);
 
-			outfit.SpeakAnimation = await _graphics.LoadDirectionalAnimationFromFoldersAsync (baseFolder, speakLeftFolder, speakRightFolder,
+            outfit[AGSOutfit.Speak] = await _graphics.LoadDirectionalAnimationFromFoldersAsync (baseFolder, speakLeftFolder, speakRightFolder,
 				speakDownFolder, speakUpFolder, animationConfig, loadConfig);
 
 			return outfit;

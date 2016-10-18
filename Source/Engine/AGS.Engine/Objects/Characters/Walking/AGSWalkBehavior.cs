@@ -96,7 +96,7 @@ namespace AGS.Engine
 			}
 
 			//On windows (assuming we're before c# 6.0), we can't await inside a finally, so we're using the workaround pattern
-			_faceDirection.CurrentDirectionalAnimation = _outfit.Outfit.IdleAnimation;
+            _faceDirection.CurrentDirectionalAnimation = _outfit.Outfit[AGSOutfit.Idle];
 			await _faceDirection.FaceDirectionAsync(_faceDirection.Direction);
 			_walkCompleted.TrySetResult(null);
 
@@ -332,8 +332,9 @@ namespace AGS.Engine
             if (!isDistanceVeryShort(destination))
 			{
 				var lastDirection = _faceDirection.Direction;
-				bool alreadyWalking = _faceDirection.CurrentDirectionalAnimation == _outfit.Outfit.WalkAnimation;
-				_faceDirection.CurrentDirectionalAnimation = _outfit.Outfit.WalkAnimation;
+                var walkAnimation = _outfit.Outfit[AGSOutfit.Walk];
+                bool alreadyWalking = _faceDirection.CurrentDirectionalAnimation == walkAnimation;
+                _faceDirection.CurrentDirectionalAnimation = walkAnimation;
 				await _faceDirection.FaceDirectionAsync(_obj.X, _obj.Y, destination.X, destination.Y);
 				if (lastDirection != _faceDirection.Direction && alreadyWalking)
 				{

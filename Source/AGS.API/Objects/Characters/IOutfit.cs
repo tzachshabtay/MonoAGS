@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.Collections.Generic;
+
+namespace AGS.API
 {
     /// <summary>
     /// An outfit is a collection of animations that are associated with a character.
@@ -20,35 +22,30 @@
     public interface IOutfit
     {
         /// <summary>
-        /// The animation that is used whenever the character is walking somewhere.
-        /// </summary>
+        /// Gets or sets an animation that will be associated with a specific key for this outfit.
+        /// Some built in keys are expected by some components to change animations (idle, walk, speak).
+        /// Custom animations can be added and accessed from the outfit as needed.
         /// <example>
         /// <code>
-        /// cPlayer.Outfit.WalkAnimation = aCrazyWalkAnimation;
+        /// cPlayer.Outfit[AGSOutfit.Walk] = aCrazyWalkAnimation;
+        /// cPlayer.Outfit[AGSOutfit.Idle] = aPlayingYoyoAnimation;
+        /// cPlayer.Outfit[AGSOutfit.Speak] = aScaryAnimation;
+        /// cPlayer.Outfit["Jump"] = aJumpAnimation;
+        /// 
         /// cPlayer.Walk(100, 200); //The crazy walk animation will now be used for walking to (100,200).
-        /// </code>
-        /// </example>
-		IDirectionalAnimation WalkAnimation { get; set; }
-
-        /// <summary>
-        /// The animation that is used whenever the character is standing.
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// cPlayer.Outfit.IdleAnimation = aPlayingYoyoAnimation; //The character will play yoyo when idle        
-        /// </code>
-        /// </example>
-		IDirectionalAnimation IdleAnimation { get; set; }
-
-        /// <summary>
-        /// The animation that is used whenever the character is speaking.
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// cPlayer.Outfit.SpeakAnimation = aScaryAnimation;
+        /// Thread.Sleep(5000); //The player has finished walking, and sitting idle for 5 seconds during which the playing yoyo animation is playing
         /// cPlayer.Say("Do I scare you?"); //The character will speak with the scary animation
+        /// cPlayer.StartAnimation(cPlayer.Outfit["Jump"].Left); //The character will do a jump left animation.
         /// </code>
         /// </example>
-		IDirectionalAnimation SpeakAnimation { get; set; }
+        /// </summary>
+        /// <param name="key">Key.</param>
+        IDirectionalAnimation this[string key] { get; set; }
+
+        /// <summary>
+        /// Gets all the animations as a dictionary;
+        /// </summary>
+        /// <returns>The dictionary.</returns>
+        IDictionary<string, IDirectionalAnimation> ToDictionary();
     }
 }

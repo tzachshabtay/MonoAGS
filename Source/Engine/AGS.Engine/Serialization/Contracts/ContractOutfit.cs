@@ -1,6 +1,7 @@
 ﻿using System;
 using ProtoBuf;
 using AGS.API;
+using System.Collections.Generic;
 
 namespace AGS.Engine
 {
@@ -12,31 +13,23 @@ namespace AGS.Engine
 		}
 
 		[ProtoMember(1)]
-		public Contract<IDirectionalAnimation> WalkAnimation { get; set; }
-
-		[ProtoMember(2)]
-		public Contract<IDirectionalAnimation> IdleAnimation { get; set; }
-
-		[ProtoMember(3)]
-		public Contract<IDirectionalAnimation> SpeakAnimation { get; set; }
+		public IDictionary<string, IDirectionalAnimation> Outfit { get; set; }
 
 		#region IContract implementation
 
 		public IOutfit ToItem(AGSSerializationContext context)
 		{
 			IOutfit item = new AGSOutfit ();
-			item.WalkAnimation = WalkAnimation.ToItem(context);
-			item.IdleAnimation = IdleAnimation.ToItem(context);
-			item.SpeakAnimation = SpeakAnimation.ToItem(context);
-
-			return item;
+            foreach (var pair in Outfit)
+            {
+                item[pair.Key] = pair.Value;
+            }
+            return item;
 		}
 
 		public void FromItem(AGSSerializationContext context, IOutfit item)
 		{
-			WalkAnimation = fromItem(context, item.WalkAnimation);
-			IdleAnimation = fromItem(context, item.IdleAnimation);
-			SpeakAnimation = fromItem(context, item.SpeakAnimation);
+            Outfit = item.ToDictionary();
 		}
 
 		#endregion

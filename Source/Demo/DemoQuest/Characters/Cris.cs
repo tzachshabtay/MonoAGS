@@ -39,11 +39,12 @@ namespace DemoGame
             _character.SpeechConfig.PortraitConfig = new AGSPortraitConfig { Portrait = portrait, Positioning = PortraitPositioning.Alternating };
             */
 
-			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
-			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);
-			emitter.Assign(_character.Outfit.WalkAnimation, 1, 5);
+            var speakAnimation = _character.Outfit[AGSOutfit.Speak];
+			Characters.RandomAnimationDelay(speakAnimation.Left);
+			Characters.RandomAnimationDelay(speakAnimation.Right);
+            emitter.Assign(_character.Outfit[AGSOutfit.Walk], 1, 5);
 
-			_character.StartAnimation (_character.Outfit.IdleAnimation.Down);
+            _character.StartAnimation (_character.Outfit[AGSOutfit.Idle].Down);
 			_character.Hotspot = "Cris";
 			_character.PixelPerfect(true);
 

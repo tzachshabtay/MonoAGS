@@ -44,12 +44,13 @@ namespace DemoGame
             _character.SpeechConfig.PortraitConfig = new AGSPortraitConfig { Portrait = portrait, Positioning = PortraitPositioning.Alternating };
             */
 
-            Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Left);
-			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Right);
-			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Down);
-			Characters.RandomAnimationDelay(_character.Outfit.SpeakAnimation.Up);
+            var speakAnimation = _character.Outfit[AGSOutfit.Speak];
+            Characters.RandomAnimationDelay(speakAnimation.Left);
+			Characters.RandomAnimationDelay(speakAnimation.Right);
+			Characters.RandomAnimationDelay(speakAnimation.Down);
+			Characters.RandomAnimationDelay(speakAnimation.Up);
 
-			_character.StartAnimation (_character.Outfit.IdleAnimation.Down);
+            _character.StartAnimation (_character.Outfit[AGSOutfit.Idle].Down);
 			_character.Hotspot = "Beman";
 			_character.PixelPerfect(true);
 
