@@ -1,22 +1,26 @@
 ﻿using System;
 using AGS.API;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using System.Collections.Concurrent;
 
 namespace AGS.Engine
 {
 	public class AGSInteractionEvent<TEventArgs> : IEvent<TEventArgs> where TEventArgs : AGSEventArgs
 	{
 		private readonly IEvent<TEventArgs> _ev;
-		private readonly IEvent<TEventArgs> _defaultEvent;
-		private readonly bool _isLookEvent;
+		private readonly List<IEvent<TEventArgs>> _events;
+		private readonly string _verb;
 		private readonly IObject _obj;
 		private readonly IPlayer _player;
 
-		public AGSInteractionEvent(IEvent<TEventArgs> defaultEvent, bool isLookEvent, IObject obj, IPlayer player)
+		public AGSInteractionEvent(List<IEvent<TEventArgs>> defaultEvents, string verb, IObject obj, IPlayer player)
 		{
 			_ev = new AGSEvent<TEventArgs>();
-			_defaultEvent = defaultEvent;
-			_isLookEvent = isLookEvent;
+            _events = new List<IEvent<TEventArgs>> { _ev };
+            _events.AddRange(defaultEvents);
+            _verb = verb;
 			_obj = obj;
 			_player = player;
 		}
@@ -52,30 +56,18 @@ namespace AGS.Engine
 
 		public async Task WaitUntilAsync(Predicate<TEventArgs> condition)
 		{
-			if (shouldDefault())
-			{
-                if (!await approachDefault()) return;
-				await _defaultEvent.WaitUntilAsync(condition);
-			}
-			else
-			{
-                if (!await approachHotspot()) return;
-				await _ev.WaitUntilAsync(condition);
-			}
+            var ev = getEvent();
+            if (ev == null) return;
+            if (!await approachHotspot(ev)) return;
+            await ev.WaitUntilAsync(condition);
 		}
 
 		public async Task InvokeAsync(object sender, TEventArgs args)
 		{
-			if (shouldDefault())
-			{
-                if (!await approachDefault()) return;
-				await _defaultEvent.InvokeAsync(sender, args);
-			}
-			else
-			{
-                if (!await approachHotspot()) return;
-				await _ev.InvokeAsync(sender, args);
-			}
+            var ev = getEvent();
+            if (ev == null) return;
+            if (!await approachHotspot(ev)) return;
+            await ev.InvokeAsync(sender, args);
 		}
 
 		public void Invoke(object sender, TEventArgs args)
@@ -85,22 +77,17 @@ namespace AGS.Engine
 
         #endregion
 
-        private bool shouldDefault()
+        private IEvent<TEventArgs> getEvent()
         {
-            return (_ev.SubscribersCount == 0 && _defaultEvent != null);
+            return _events.FirstOrDefault(ev => ev.SubscribersCount > 0);
         }
 
-		private async Task<bool> approachDefault()
+        private async Task<bool> approachHotspot(IEvent<TEventArgs> ev)
 		{
-			if (_player != null && _player.ApproachStyle.ApplyApproachStyleOnDefaults)
-			{
-				return await approachHotspot();
-			}
-			return true;
-		}
-
-		private async Task<bool> approachHotspot()
-		{
+            if (ev != _ev && (_player == null || !_player.ApproachStyle.ApplyApproachStyleOnDefaults))
+            {
+                return true;
+            }
 			if (_obj == null) return true;
 			ApproachHotspots approachStyle = getApproachStyle();
 			switch (approachStyle)
@@ -131,7 +118,7 @@ namespace AGS.Engine
 
 		private ApproachHotspots getApproachStyle()
 		{
-			return _isLookEvent ? _player.ApproachStyle.ApproachWhenLook : _player.ApproachStyle.ApproachWhenInteract;
+            return ((ConcurrentDictionary<string,ApproachHotspots>)_player.ApproachStyle.ApproachWhenVerb).GetOrAdd(_verb, _ => ApproachHotspots.NeverWalk);
 		}
 	}
 }

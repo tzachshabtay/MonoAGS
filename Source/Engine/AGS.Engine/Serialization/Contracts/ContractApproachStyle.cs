@@ -1,6 +1,7 @@
 ﻿using System;
 using ProtoBuf;
 using AGS.API;
+using System.Collections.Generic;
 
 namespace AGS.Engine
 {
@@ -12,12 +13,9 @@ namespace AGS.Engine
 		}
 
 		[ProtoMember(1)]
-		public ApproachHotspots ApproachWhenLook { get; set; }
+		public IDictionary<string, ApproachHotspots> ApproachWhenVerb { get; set; }
 
 		[ProtoMember(2)]
-		public ApproachHotspots ApproachWhenInteract { get; set; }
-
-		[ProtoMember(3)]
 		public bool ApplyApproachStyleOnDefaults { get; set; }
 
 		#region IContract implementation
@@ -25,8 +23,7 @@ namespace AGS.Engine
 		public IApproachStyle ToItem(AGSSerializationContext context)
 		{
 			AGSApproachStyle style = new AGSApproachStyle ();
-			style.ApproachWhenLook = ApproachWhenLook;
-			style.ApproachWhenInteract = ApproachWhenInteract;
+            style.ApproachWhenVerb = ApproachWhenVerb;
 			style.ApplyApproachStyleOnDefaults = ApplyApproachStyleOnDefaults;
 
 			return style;
@@ -34,8 +31,7 @@ namespace AGS.Engine
 
 		public void FromItem(AGSSerializationContext context, IApproachStyle item)
 		{
-			ApproachWhenLook = item.ApproachWhenLook;
-			ApproachWhenInteract = item.ApproachWhenInteract;
+            ApproachWhenVerb = item.ApproachWhenVerb;
 			ApplyApproachStyleOnDefaults = item.ApplyApproachStyleOnDefaults;
 		}
 

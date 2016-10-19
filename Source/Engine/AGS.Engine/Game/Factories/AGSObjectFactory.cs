@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 
 using Autofac;
@@ -22,8 +21,8 @@ namespace AGS.Engine
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
 			IObject obj = _resolver.Resolve<IObject>(idParam);
 
-			subscribeSentences(sayWhenLook, obj.Interactions.OnLook);
-			subscribeSentences(sayWhenInteract, obj.Interactions.OnInteract);
+            subscribeSentences(sayWhenLook, obj.Interactions.OnInteract(AGSInteractions.LOOK));
+            subscribeSentences(sayWhenInteract, obj.Interactions.OnInteract(AGSInteractions.INTERACT));
 
 			return obj;
 		}
@@ -32,8 +31,8 @@ namespace AGS.Engine
 		{
 			ICharacter character = GetCharacter(id, outfit, _resolver.Resolve<IAnimationContainer>());
 
-			subscribeSentences(sayWhenLook, character.Interactions.OnLook);
-			subscribeSentences(sayWhenInteract, character.Interactions.OnInteract);
+            subscribeSentences(sayWhenLook, character.Interactions.OnInteract(AGSInteractions.LOOK));
+            subscribeSentences(sayWhenInteract, character.Interactions.OnInteract(AGSInteractions.INTERACT));
 
 			return character;
 		}
@@ -73,8 +72,8 @@ namespace AGS.Engine
 			mask.DebugDraw.Opacity = 0;
 			mask.DebugDraw.Z = mask.MinY;
 
-			subscribeSentences (sayWhenLook, mask.DebugDraw.Interactions.OnLook);
-			subscribeSentences (sayWhenInteract, mask.DebugDraw.Interactions.OnInteract);
+            subscribeSentences (sayWhenLook, mask.DebugDraw.Interactions.OnInteract(AGSInteractions.LOOK));
+            subscribeSentences (sayWhenInteract, mask.DebugDraw.Interactions.OnInteract(AGSInteractions.INTERACT));
 		}
 
 		private void subscribeSentences(string[] sentences, IEvent<ObjectEventArgs> e)

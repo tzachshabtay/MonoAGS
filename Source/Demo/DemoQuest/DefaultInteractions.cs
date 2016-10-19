@@ -1,6 +1,7 @@
 ﻿using AGS.API;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using AGS.Engine;
 
 namespace DemoGame
 {
@@ -9,8 +10,8 @@ namespace DemoGame
 		private IGame _game;
 		private IGameEvents _gameEvents;
 
-		private List<string> _looks, _interacts, _inventoryInteracts, _customInteracts;
-		private int _looksIndex, _interactsIndex, _inventoryIndex, _customIndex;
+		private List<string> _looks, _interacts, _inventoryInteracts;
+		private int _looksIndex, _interactsIndex, _inventoryIndex;
 
 		public DefaultInteractions(IGame game, IGameEvents gameEvents)
 		{
@@ -20,16 +21,14 @@ namespace DemoGame
 			_looks = new List<string> { "&1 It looks nice.", "&2Nothing to see here.", "&3 I guess it looks ok." };
 			_interacts = new List<string> { "I can't do that.", "Nope.", "I don't think so." };
 			_inventoryInteracts = _interacts;
-			_customInteracts = _interacts;
 		}
 
 		public void Load()
 		{
 			_gameEvents.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
-			_gameEvents.DefaultInteractions.OnLook.SubscribeToAsync(onLook);
-			_gameEvents.DefaultInteractions.OnInteract.SubscribeToAsync(onInteract);
-			_gameEvents.DefaultInteractions.OnCustomInteract.SubscribeToAsync(onCustomInteract);
-			_gameEvents.DefaultInteractions.OnInventoryInteract.SubscribeToAsync(onInventoryInteract);
+            _gameEvents.DefaultInteractions.OnInteract(AGSInteractions.LOOK).SubscribeToAsync(onLook);
+            _gameEvents.DefaultInteractions.OnInteract(AGSInteractions.DEFAULT).SubscribeToAsync(onInteract);
+            _gameEvents.DefaultInteractions.OnInventoryInteract(AGSInteractions.DEFAULT).SubscribeToAsync(onInventoryInteract);
 			subscribeDefaultInventoryCombination();
 		}
 
@@ -51,11 +50,6 @@ namespace DemoGame
 		private async Task onInteract(object sender, ObjectEventArgs args)
 		{
 			_interactsIndex = await sayDefault(_interacts, _interactsIndex);
-		}
-
-		private async Task onCustomInteract(object sender, CustomInteractionEventArgs args)
-		{
-			_customIndex = await sayDefault(_customInteracts, _customIndex);
 		}
 
 		private async Task onInventoryInteract(object sender, InventoryInteractEventArgs args)

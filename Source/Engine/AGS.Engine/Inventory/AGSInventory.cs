@@ -26,7 +26,8 @@ namespace AGS.Engine
 			var tuple2 = new Tuple<IInventoryItem, IInventoryItem> (item2, item1);
 
 			var combinationEvent = _eventsMap.GetOrAdd(tuple1, _ => new AGSInteractionEvent<InventoryCombinationEventArgs>
-				(OnDefaultCombination, false, null, null));
+                                   (new List<IEvent<InventoryCombinationEventArgs>> { OnDefaultCombination }, 
+                                    AGSInteractions.INTERACT, null, null));
 			_eventsMap[tuple2] = combinationEvent;
 
 			return combinationEvent;

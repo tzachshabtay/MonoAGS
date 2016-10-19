@@ -1,136 +1,113 @@
 ﻿namespace AGS.API
 {
     /// <summary>
-    /// Defines the default interactions for objects on the screen that can be interacted in some way, but for which we haven't
-    /// defined specific interactions.
+    /// Allows subscribing interaction events (to define what happens when an object is looked at/interacted with/etc). 
     /// </summary>
     public interface IInteractions
 	{
         /// <summary>
-        /// The default event for when looking on an object without a specific look event.
-        /// </summary>
-        /// <value>
-        /// The on default look event.
-        /// </value>
-        /// <example>
-        /// <code>
-        /// IGame _game;
-        /// 
-        /// public void LoadModule(IGame game)
-        /// {
-        ///     _game = game;        
-        ///     _game.Events.DefaultInteractions.OnLook.Subscribe(onDefaultLook);
-        /// }
-        /// 
-        /// public void DisposeModule()
-        /// {
-        ///     //Whenever we subscribe to an event we need to remember to unsubscribe when we don't need it anymore, to avoid memory leaks.
-        ///     _game.Events.DefaultInteractions.OnLook.Unsubscribe(onDefaultLook);
-        /// }
-        /// 
-        /// private void onDefaultLook(object sender, ObjectEventArgs args)
-        /// {
-        ///     cEgo.Say(string.Format("What am I looking at? Oh, it's {0}. It looks nice, I guess."), args.Object.Hotspot);
-        /// }
-        /// </code>
-        /// </example>
-        IEvent<ObjectEventArgs> OnLook { get; }
-        /// <summary>
-        /// The default event for when interacting with an object without a specific interact event.
-        /// </summary>
-        /// <value>
-        /// The on default interact event.
-        /// </value>
-        /// <example>
-        /// <code>
-        /// IGame _game;
-        /// 
-        /// public void LoadModule(IGame game)
-        /// {
-        ///     _game = game;        
-        ///     _game.Events.DefaultInteractions.OnInteract.Subscribe(onDefaultInteract);
-        /// }
-        /// 
-        /// public void DisposeModule()
-        /// {
-        ///     //Whenever we subscribe to an event we need to remember to unsubscribe when we don't need it anymore, to avoid memory leaks.
-        ///     _game.Events.DefaultInteractions.OnInteract.Unsubscribe(onDefaultInteract);
-        /// }
-        /// 
-        /// private void onDefaultInteract(object sender, ObjectEventArgs args)
-        /// {
-        ///     cEgo.Say("{0}? No, I'm not touching it.", args.Object.Hotspot);
-        /// }
-        /// </code>
-        /// </example>
-		IEvent<ObjectEventArgs> OnInteract { get; }
-        /// <summary>
-        /// The default event for when using an inventory item on an object without a specific inventory interact event for that object.
-        /// </summary>
-        /// <value>
-        /// The on default inventory interact event.
-        /// </value>
-        /// <example>
-        /// <code>
-        /// IGame _game;
-        /// 
-        /// public void LoadModule(IGame game)
-        /// {
-        ///     _game = game;        
-        ///     _game.Events.DefaultInteractions.OnInteract.Subscribe(onDefaultInventoryInteract);
-        /// }
-        /// 
-        /// public void DisposeModule()
-        /// {
-        ///     //Whenever we subscribe to an event we need to remember to unsubscribe when we don't need it anymore, to avoid memory leaks.
-        ///     _game.Events.DefaultInteractions.OnInteract.Unsubscribe(onDefaultInventoryInteract);
-        /// }
-        /// 
-        /// private void onDefaultInventoryInteract(object sender, InventoryInteractEventArgs args)
-        /// {
-        ///     cEgo.Say("Using {0} on {1}? No, I don't think so.", args.Item.Graphics.Hotspot, args.Object.Hotspot);
-        /// }
-        /// </code>
-        /// </example>
-        IEvent<InventoryInteractEventArgs> OnInventoryInteract { get; }
-        /// <summary>
-        /// The default event for when custom interacting with an object without a specific custom interact event.
-        /// The possible custom interactions depend on your control scheme. For example, you might have a separate icon for talk
+        /// The event for when interacting with an object.
+        /// The available verbs depend on your control scheme. For example, you might have a separate icon for talk
         /// in your game which is different from the interact icon.
+        /// There's also a "Default" event which will be used if no specific event was subscribed to.
+        /// There's a chain of default behaviors that can be defined to allow for generic responses.
+        /// The event handler lookup is as follows: 
+        /// 1. Object's verb
+        /// 2. Object's default verb
+        /// 3. IGame.Events.DefaultInteractions verb
+        /// 4. IGame.Events.DefaultInteractions default verb
         /// </summary>
         /// <value>
-        /// The on default interact event.
+        /// The interaction event.
         /// </value>
         /// <example>
         /// <code>
-        /// IGame _game;
-        /// 
-        /// public void LoadModule(IGame game)
+        /// public void SubscribeEvents()
         /// {
-        ///     _game = game;        
-        ///     _game.Events.DefaultInteractions.OnCustomInteract.Subscribe(onCustomInteract);
+        ///     game.Events.DefaultInteractions.OnInteract("Talk").Subscribe(onDefaultTalk);
+        ///     oTeapot.Interactions.OnInteract(AGSInteractions.Look).Subscribe(onTeapotLook);
+        ///     oTeapot.Interactions.OnInteract(AGSInteractions.Interact).SubscribeToAsync(onTeapotInteract);
+        ///     oTeapot.Interactions.OnInteract("Throw").Subscribe(onTeapotThrow);
+        ///     oTeapot.Interactions.OnInteract(AGSInteractions.Default).Subscribe(onTeapotDefault);
         /// }
         /// 
-        /// public void DisposeModule()
+        /// private void onDefaultTalk(object sender, ObjectEventArgs args)
         /// {
-        ///     //Whenever we subscribe to an event we need to remember to unsubscribe when we don't need it anymore, to avoid memory leaks.
-        ///     _game.Events.DefaultInteractions.OnCustomInteract.Unsubscribe(onCustomInteract);
+        ///     cEgo.Say(string.Format("{0}? No, I don't think it's going to talk back.", args.Object.Hotspot));
         /// }
         /// 
-        /// private void onCustomInteract(object sender, CustomInteractionEventArgs args)
+        /// private void onTeapotLook(object sender, ObjectEventArgs args)
         /// {
-        ///     if (args.InteractionName == "Talk")
+        ///     cEgo.Say("What a lovely looking teapot!");
+        /// }
+        /// 
+        /// private async Task onTeapotInteract(object sender, ObjectEventArgs args)
+        /// {
+        ///     await cEgo.SayAsync("I'm going to pour some tea now.");
+        ///     oTeapot.StartAnimation(aPourTea);
+        /// }
+        /// 
+        /// private void onTeapotThrow(object sender, ObjectEventArgs args)
+        /// {
+        ///     cEgo.Say("No way, I'm not throwing the teapot.");
+        /// }
+        /// 
+        /// private void onTeapotDefault(object sender, ObjectEventArgs args)
+        /// {
+        ///     cEgo.Say("I'm not doing anything like that to the teapot.");
+        /// }
+        /// </code>
+        /// </example>
+        IEvent<ObjectEventArgs> OnInteract(string verb);
+
+        /// <summary>
+        /// The event for when using an inventory item on an object.
+        /// The available verbs depend on your control scheme. For example, you might have a separate icon for give
+        /// item in your game which is different from the interact icon.
+        /// There's also a "Default" event which will be used if no specific event was subscribed to.
+        /// There's a chain of default behaviors that can be defined to allow for generic responses.
+        /// The event handler lookup is as follows: 
+        /// 1. Object's verb
+        /// 2. Object's default verb
+        /// 3. IGame.Events.DefaultInteractions verb
+        /// 4. IGame.Events.DefaultInteractions default verb
+        /// </summary>
+        /// <value>
+        /// The inventory interaction event.
+        /// </value>
+        /// <example>
+        /// <code>
+        /// public void SubscribeEvents()
+        /// {
+        ///     oTeapot.Interactions.OnInventoryInteract(AGSInteractions.Interact).Subscribe(onTeapotInventoryInteract);
+        ///     game.Events.DefaultInteractions.OnInventoryInteract(AGSInteractions.Interact).Subscribe(onDefaultInventoryInteract);
+        /// }
+        /// 
+        /// private void onTeapotInventoryInteract(object sender, InventoryInteractEventArgs args)
+        /// {
+        ///     if (args.Item == iCup)
         ///     {
-        ///         cEgo.Say("I don't want to speak with {0}.", args.Object.Hotspot);
-        ///     } 
+        ///         cEgo.Say("Ok, I'm going to pour tea in the cup");
+        ///         oTeapot.StartAnimation(aPourTea);
+        ///         cEgo.Inventory.Items.Remove(iCup);
+        ///         cEgo.Inventory.Items.Add(iFullCup);
+        ///     }
+        ///     else if (args.Item == iFullCup)
+        ///     {
+        ///         cEgo.Say("The cup is already full.");
+        ///     }
         ///     else
         ///     {
-        ///         cEgo.Say("I don't want any '{0}ing' with {1}.", args.InteractionName, args.Object.Hotspot);
-        ///     }  
+        ///         cEgo.Say("This is not what you'd usually use on a teapot...");
+        ///     }
+        /// }
+        /// private void onDefaultInventoryInteract(object sender, InventoryInteractEventArgs args)
+        /// {
+        ///     cEgo.Say(string.Format("Using {0} on {1}? No, I don't think so.", args.Item.Graphics.Hotspot, args.Object.Hotspot));
         /// }
         /// </code>
         /// </example>
-		IEvent<CustomInteractionEventArgs> OnCustomInteract { get; }
+        IEvent<InventoryInteractEventArgs> OnInventoryInteract(string verb);
 	}
 }
 

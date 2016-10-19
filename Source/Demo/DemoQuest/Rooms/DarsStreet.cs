@@ -44,7 +44,7 @@ namespace DemoGame
 			IObject windowHotspot = await factory.Object.GetHotspotAsync (_baseFolder + "windowHotspot.png", "Window");
 			doorHotspot.Z = buildingHotspot.Z - 1;
 			windowHotspot.Z = buildingHotspot.Z - 1;
-			windowHotspot.Interactions.OnLook.SubscribeToAsync(lookOnWindow);
+            windowHotspot.Interactions.OnInteract(AGSInteractions.LOOK).SubscribeToAsync(lookOnWindow);
 
 			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "aztecBuildingHotspot.png", "Aztec Building"));
 			_room.Objects.Add(buildingHotspot);

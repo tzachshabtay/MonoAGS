@@ -140,15 +140,15 @@ namespace AGS.Engine
 
 						if (mode == LOOK_MODE)
 						{
-							await hotspot.Interactions.OnLook.InvokeAsync(this, new ObjectEventArgs (hotspot));
+                            await hotspot.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(this, new ObjectEventArgs (hotspot));
 						}
 						else if (mode == INTERACT_MODE)
 						{
-							await hotspot.Interactions.OnInteract.InvokeAsync(this, new ObjectEventArgs (hotspot));
+                            await hotspot.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(this, new ObjectEventArgs (hotspot));
 						}
 						else
 						{
-							await hotspot.Interactions.OnCustomInteract.InvokeAsync(this, new CustomInteractionEventArgs (hotspot, mode));
+                            await hotspot.Interactions.OnInteract(mode).InvokeAsync(this, new ObjectEventArgs (hotspot));
 						}
 					}
 					finally
@@ -172,7 +172,7 @@ namespace AGS.Engine
 					return;
 				}
 
-				await hotspot.Interactions.OnInventoryInteract.InvokeAsync(this, new InventoryInteractEventArgs(hotspot,
+                await hotspot.Interactions.OnInventoryInteract(AGSInteractions.INTERACT).InvokeAsync(this, new InventoryInteractEventArgs(hotspot,
 					state.Player.Character.Inventory.ActiveItem));
 			}
 		}

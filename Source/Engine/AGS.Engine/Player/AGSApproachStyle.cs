@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using AGS.API;
 
 namespace AGS.Engine
@@ -7,23 +9,21 @@ namespace AGS.Engine
 	{
 		public AGSApproachStyle()
 		{
-			ApproachWhenLook = ApproachHotspots.FaceOnly;
-			ApproachWhenInteract = ApproachHotspots.WalkIfHaveWalkPoint;
+            ApproachWhenVerb = new ConcurrentDictionary<string, ApproachHotspots>();
+            ApproachWhenVerb[AGSInteractions.LOOK] = ApproachHotspots.FaceOnly;
+            ApproachWhenVerb[AGSInteractions.INTERACT] = ApproachHotspots.WalkIfHaveWalkPoint;
 			ApplyApproachStyleOnDefaults = true;
 		}
 
 		#region IApproachStyle implementation
 
-		public ApproachHotspots ApproachWhenLook { get; set; }
-
-		public ApproachHotspots ApproachWhenInteract { get; set; }
+		public IDictionary<string, ApproachHotspots> ApproachWhenVerb { get; set; }
 
 		public bool ApplyApproachStyleOnDefaults { get; set; }
 
 		public void CopyFrom(IApproachStyle style)
 		{
-			ApproachWhenLook = style.ApproachWhenLook;
-			ApproachWhenInteract = style.ApproachWhenInteract;
+            ApproachWhenVerb = style.ApproachWhenVerb;
 			ApplyApproachStyleOnDefaults = style.ApplyApproachStyleOnDefaults;
 		}
 

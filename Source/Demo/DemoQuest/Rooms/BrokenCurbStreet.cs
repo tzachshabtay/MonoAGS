@@ -69,7 +69,7 @@ namespace DemoGame
 			panel.X = 195;
 			panel.Y = 145;
 			panel.Z = 110;
-			panel.Interactions.OnInteract.Subscribe((sender, args) => panel.Animation.State.IsPaused = !panel.Animation.State.IsPaused);
+            panel.Interactions.OnInteract(AGSInteractions.INTERACT).Subscribe((sender, args) => panel.Animation.State.IsPaused = !panel.Animation.State.IsPaused);
 			_room.Objects.Add(panel);
 
 			subscribeEvents();

@@ -113,7 +113,6 @@
     <Compile Include="Objects\IEnabledComponent.cs" />
     <Compile Include="Objects\IHasRoom.cs" />
     <Compile Include="Objects\IHotspotComponent.cs" />
-    <Compile Include="Objects\Interactions\CustomInteractionEventArgs.cs" />
     <Compile Include="Objects\Interactions\IInteractions.cs" />
     <Compile Include="Objects\Interactions\InventoryInteractEventArgs.cs" />
     <Compile Include="Objects\Interactions\ObjectEventArgs.cs" />

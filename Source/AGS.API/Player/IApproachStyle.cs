@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.Collections.Generic;
+
+namespace AGS.API
 {
     public enum ApproachHotspots
 	{
@@ -10,8 +12,7 @@
 		
 	public interface IApproachStyle
 	{
-		ApproachHotspots ApproachWhenLook { get; set; }
-		ApproachHotspots ApproachWhenInteract { get; set; }
+        IDictionary<string, ApproachHotspots> ApproachWhenVerb { get; }
 
 		bool ApplyApproachStyleOnDefaults { get; set; }
 

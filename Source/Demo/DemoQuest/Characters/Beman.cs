@@ -62,11 +62,14 @@ namespace DemoGame
 
 		private void subscribeEvents()
 		{
-			_character.Interactions.OnCustomInteract.SubscribeToAsync(async (sender, e) =>
+            _character.Interactions.OnInteract(MouseCursors.TALK_MODE).SubscribeToAsync(async (sender, e) =>
 			{ 
-				if (e.InteractionName == MouseCursors.TALK_MODE) await _dialogs.StartDialog.RunAsync();
-				else await _game.State.Player.Character.SayAsync("I don't think he'd appreciate that.");
+				await _dialogs.StartDialog.RunAsync();
 			});
+            _character.Interactions.OnInventoryInteract(AGSInteractions.DEFAULT).SubscribeToAsync(async (sender, e) =>
+            {
+                await _game.State.Player.Character.SayAsync("I don't think he'd appreciate that."); 
+            });
 		}
 	}
 }
