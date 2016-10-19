@@ -200,3 +200,6 @@ FakesAssemblies/
 *.jf
 *.sbt
 *.mf
+
+# Mac specific files
+.DS_Store
