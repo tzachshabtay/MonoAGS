@@ -22,16 +22,16 @@ namespace AGS.Engine
 			
 		private async Task onMouseDown(object sender, MouseButtonEventArgs e)
 		{
-			if (!_state.Player.Character.Enabled)
+			if (!_state.Player.Enabled)
 				return;
 
 			if (e.Button == MouseButton.Left)
 			{
-				if (_state.Player.Character.Inventory == null || 
-					_state.Player.Character.Inventory.ActiveItem == null)
+				if (_state.Player.Inventory == null || 
+					_state.Player.Inventory.ActiveItem == null)
 				{
-					AGSLocation location = new AGSLocation(e.X, e.Y, _state.Player.Character.Z);
-					await _state.Player.Character.WalkAsync(location).ConfigureAwait(true);
+					AGSLocation location = new AGSLocation(e.X, e.Y, _state.Player.Z);
+					await _state.Player.WalkAsync(location).ConfigureAwait(true);
 				}
 				else
 				{
@@ -40,7 +40,7 @@ namespace AGS.Engine
 			}
 			else if (e.Button == MouseButton.Right)
 			{
-				IInventory inventory = _state.Player.Character.Inventory;
+				IInventory inventory = _state.Player.Inventory;
 				if (inventory == null) return;
 				if (inventory.ActiveItem == null)
 				{

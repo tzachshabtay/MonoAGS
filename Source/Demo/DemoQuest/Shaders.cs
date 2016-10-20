@@ -162,7 +162,7 @@ void main()
 		public static void SetBlurShader()
 		{
 			unbindVignetteShader();
-			AGSGame.Game.State.Player.Character.Shader = GLShader.FromText(VERTEX_SHADER, FRAGMENT_SHADER_BLUR);
+			AGSGame.Game.State.Player.Shader = GLShader.FromText(VERTEX_SHADER, FRAGMENT_SHADER_BLUR);
 		}
 
 		private static GLShader _vignetteShader;
@@ -212,7 +212,7 @@ void main()
 		{
 			unbindVignetteShader();
 			AGSGame.Shader = null;
-			AGSGame.Game.State.Player.Character.Shader = null;
+			AGSGame.Game.State.Player.Shader = null;
 		}
 	}
 }

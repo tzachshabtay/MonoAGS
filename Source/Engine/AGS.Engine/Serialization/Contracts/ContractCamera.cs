@@ -19,7 +19,7 @@ namespace AGS.Engine
 		public ICamera ToItem(AGSSerializationContext context)
 		{
 			var camera = new AGSCamera { Enabled = Enabled };
-			context.Rewire(state => camera.Target = () => state.Player.Character);
+			context.Rewire(state => camera.Target = () => state.Player);
 			return camera;
 		}
 

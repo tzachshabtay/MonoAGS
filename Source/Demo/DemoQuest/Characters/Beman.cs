@@ -68,7 +68,7 @@ namespace DemoGame
 			});
             _character.Interactions.OnInventoryInteract(AGSInteractions.DEFAULT).SubscribeToAsync(async (sender, e) =>
             {
-                await _game.State.Player.Character.SayAsync("I don't think he'd appreciate that."); 
+                await _game.State.Player.SayAsync("I don't think he'd appreciate that."); 
             });
 		}
 	}

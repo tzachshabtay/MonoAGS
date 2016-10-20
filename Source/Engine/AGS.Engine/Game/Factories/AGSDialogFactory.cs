@@ -37,7 +37,11 @@ namespace AGS.Engine
 			NamedParameter showOnceParam = new NamedParameter ("showOnce", showOnce);
             NamedParameter hoverParam = new NamedParameter ("hoverConfig", hoverConfig);
             NamedParameter wasChosenParam = new NamedParameter("hasBeenChosenConfig", hasBeenChosenConfig);
-			IDialogOption option = _resolver.Resolve<IDialogOption>(labelParam, speakParam, showOnceParam, hoverParam, wasChosenParam);
+            TypedParameter playerParam = new TypedParameter(typeof(ICharacter), _gameState.Player);
+            IDialogActions dialogActions = _resolver.Resolve<IDialogActions>(playerParam);
+            TypedParameter dialogActionsParam = new TypedParameter(typeof(IDialogActions), dialogActions);
+            IDialogOption option = _resolver.Resolve<IDialogOption>(labelParam, speakParam, showOnceParam, hoverParam, 
+                                                                    wasChosenParam, playerParam, dialogActionsParam);
 			return option;
 		}
 
@@ -55,7 +59,10 @@ namespace AGS.Engine
 				_gameState.UI.Add(graphics);
 			}
 			TypedParameter graphicsParam = new TypedParameter (typeof(IObject), graphics);
-			IDialog dialog = _resolver.Resolve<IDialog>(showParam, graphicsParam);
+            TypedParameter playerParam = new TypedParameter(typeof(ICharacter), _gameState.Player);
+            IDialogActions dialogActions = _resolver.Resolve<IDialogActions>(playerParam);
+            TypedParameter dialogActionsParam = new TypedParameter(typeof(IDialogActions), dialogActions);
+            IDialog dialog = _resolver.Resolve<IDialog>(showParam, graphicsParam, dialogActionsParam);
 			foreach (IDialogOption option in options)
 			{
 				dialog.Options.Add(option);

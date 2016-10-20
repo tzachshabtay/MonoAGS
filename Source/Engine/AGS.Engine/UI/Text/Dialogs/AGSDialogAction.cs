@@ -52,15 +52,6 @@ namespace AGS.Engine
 		{
 		}
 
-		public AGSDialogAction(IPlayer player, string text)
-			:this(async () =>
-			{
-				await player.Character.SayAsync(text);
-				return true;
-			})
-		{
-		}
-
 		#region IDialogAction implementation
 
 		public async Task<bool> RunActionAsync()

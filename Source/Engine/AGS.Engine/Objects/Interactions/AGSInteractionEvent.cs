@@ -84,7 +84,7 @@ namespace AGS.Engine
         private async Task<bool> approachHotspot(IEvent<TEventArgs> ev)
         {
             if (_obj == null) return true;
-            var approach = _state.Player.Character.GetComponent<IApproachComponent>();
+            var approach = _state.Player.GetComponent<IApproachComponent>();
             if (approach == null) return true;
             if (ev != _ev && !approach.ApproachStyle.ApplyApproachStyleOnDefaults)
             {

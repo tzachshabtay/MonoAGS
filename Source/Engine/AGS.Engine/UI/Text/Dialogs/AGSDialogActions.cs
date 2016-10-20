@@ -7,9 +7,9 @@ namespace AGS.Engine
 {
 	public class AGSDialogActions : IDialogActions
 	{
-		private IPlayer _player;
+        private ICharacter _player;
 
-		public AGSDialogActions(IPlayer player)
+		public AGSDialogActions(ICharacter player)
 		{
 			_player = player;
 			Actions = new List<IDialogAction> (5);

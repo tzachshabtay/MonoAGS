@@ -46,7 +46,7 @@ namespace AGS.Engine
 			{
 				if (!obj.Visible)
 					continue;
-				if (!room.ShowPlayer && obj == _gameState.Player.Character)
+				if (!room.ShowPlayer && obj == _gameState.Player)
 					continue;
 				runAnimation (obj.Animation);
 			}

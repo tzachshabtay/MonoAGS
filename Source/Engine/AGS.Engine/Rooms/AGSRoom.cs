@@ -7,7 +7,7 @@ namespace AGS.Engine
 {
 	public class AGSRoom : IRoom
 	{
-		private IPlayer _player { get { return _state.Player; } }
+        private ICharacter _player { get { return _state.Player; } }
 		private IObject _background;
 		private IAGSEdges _edges;
 		private RenderOrderSelector _sorter;
@@ -81,7 +81,7 @@ namespace AGS.Engine
 
 		public IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true)
 		{
-			List<IObject> visibleObjects = Objects.Where(o => o.Visible && (ShowPlayer || o != _player.Character)).ToList();
+			List<IObject> visibleObjects = Objects.Where(o => o.Visible && (ShowPlayer || o != _player)).ToList();
 			if (includeUi) visibleObjects.AddRange(_state.UI.Where(o => o.Visible));
 			visibleObjects.Sort(_sorter);
 			return visibleObjects;
@@ -122,8 +122,8 @@ namespace AGS.Engine
 
 		private void onRepeatedlyExecute(object sender, EventArgs args)
 		{
-            if (_player.Character == null || _player.Character.Room != this) return;
-			_edges.OnRepeatedlyExecute(_player.Character);
+            if (_player == null || _player.Room != this) return;
+			_edges.OnRepeatedlyExecute(_player);
 		}
 	}
 }

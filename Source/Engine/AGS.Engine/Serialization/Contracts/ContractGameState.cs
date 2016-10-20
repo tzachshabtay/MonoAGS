@@ -14,7 +14,7 @@ namespace AGS.Engine
 		}
 
 		[ProtoMember(1)]
-		public IContract<IPlayer> Player { get; set; }
+        public ContractCharacter Player { get; set; }
 
 		[ProtoMember(2)]
 		public IList<IContract<IRoom>> Rooms { get; set; }
@@ -61,9 +61,8 @@ namespace AGS.Engine
 			state.GlobalVariables.CopyFrom(GlobalVariables.ToItem(context));
 			state.Cutscene.CopyFrom(Cutscene.ToItem(context));
 
-			IPlayer player = Player.ToItem(context);
+            ICharacter player = Player.ToItem(context);
 			var updater = new ContainerBuilder ();
-			updater.RegisterInstance(player).As<IPlayer>();
 			updater.Update(context.Resolver.Container);
 			state.Player = player;
 			state.Speed = GameSpeed;
@@ -90,7 +89,8 @@ namespace AGS.Engine
 				Rooms.Add(context.GetContract(room));
 			}
 
-			Player = context.GetContract(item.Player);
+            Player = new ContractCharacter();
+            Player.FromItem(context, item.Player);
 
 			GlobalVariables = context.GetContract(item.GlobalVariables);
 			Cutscene = context.GetContract(item.Cutscene);

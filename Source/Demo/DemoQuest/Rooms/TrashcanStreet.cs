@@ -8,7 +8,7 @@ namespace DemoGame
 	public class TrashcanStreet
 	{
 		private IRoom _room;
-		private IPlayer _player;
+        private ICharacter _player;
 		private IGame _game;
 
 		private const string _baseFolder = "../../Assets/Rooms/TrashcanStreet/";
@@ -54,17 +54,17 @@ namespace DemoGame
 
 		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.DarsStreet.Result, 490);
+			_player.ChangeRoom(Rooms.DarsStreet.Result, 490);
 		}
 
 		private void onRightEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.EmptyStreet.Result, 30);
+			_player.ChangeRoom(Rooms.EmptyStreet.Result, 30);
 		}
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)
 		{
-			_player.Character.PlaceOnWalkableArea();
+			_player.PlaceOnWalkableArea();
 		}
 	}
 }

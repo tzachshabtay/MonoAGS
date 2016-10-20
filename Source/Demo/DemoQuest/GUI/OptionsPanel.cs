@@ -108,7 +108,7 @@ namespace DemoGame
 		public void Hide()
 		{
 			_scheme.RotatingEnabled = true;
-			if (_game.State.Player.Character.Inventory.ActiveItem == null)
+			if (_game.State.Player.Inventory.ActiveItem == null)
 				_scheme.CurrentMode = _lastMode;
 			else _scheme.SetInventoryCursor();
 			_panel.Visible = false;

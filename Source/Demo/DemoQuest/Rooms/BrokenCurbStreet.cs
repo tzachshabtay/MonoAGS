@@ -8,7 +8,7 @@ namespace DemoGame
 	public class BrokenCurbStreet
 	{
 		private IRoom _room;
-		private IPlayer _player;
+        private ICharacter _player;
 		private IGame _game;
 
 		private const string _baseFolder = "../../Assets/Rooms/BrokenCurbStreet/";
@@ -92,12 +92,12 @@ namespace DemoGame
 
 		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.EmptyStreet.Result, 310);
+			_player.ChangeRoom(Rooms.EmptyStreet.Result, 310);
 		}
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)
 		{
-			_player.Character.PlaceOnWalkableArea();
+			_player.PlaceOnWalkableArea();
 		}
 	}
 }

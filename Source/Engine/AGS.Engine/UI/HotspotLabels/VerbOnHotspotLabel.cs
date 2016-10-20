@@ -53,7 +53,7 @@ namespace AGS.Engine
 
 		private void onTick(object sender, EventArgs args)
 		{
-			if (_label == null || _state.Player.Character == null) return;
+			if (_label == null || _state.Player == null) return;
 			PointF position = _input.MousePosition;
 			IObject obj = _state.Room.GetObjectAt (position.X, position.Y);
 			if (obj == null || obj.Hotspot == null) 
@@ -62,7 +62,7 @@ namespace AGS.Engine
 				return;
 			}
 			_label.Visible = true;
-            IInventoryItem inventoryItem = _state.Player.Character.Inventory.ActiveItem;
+            IInventoryItem inventoryItem = _state.Player.Inventory.ActiveItem;
             string inventoryText = inventoryItem == null ? "" : 
                 inventoryItem.Graphics.Hotspot ?? inventoryItem.CursorGraphics.Hotspot ?? "Item";
             

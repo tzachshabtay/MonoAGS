@@ -218,7 +218,7 @@ namespace AGS.Engine
 
 			foreach (IObject obj in room.Objects) 
 			{
-				if (!room.ShowPlayer && obj == _gameState.Player.Character) 
+				if (!room.ShowPlayer && obj == _gameState.Player) 
 					continue;
 				addToDisplayList(displayList, obj, room);
 			}

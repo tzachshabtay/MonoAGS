@@ -84,7 +84,7 @@ namespace AGS.Engine
 			{
 				foreach (string sentence in sentences)
 				{
-					await _gameState.Player.Character.SayAsync(sentence);
+					await _gameState.Player.SayAsync(sentence);
 				}
 			});
 		}

@@ -67,7 +67,7 @@ namespace AGS.Engine
 
 		public void SetInventoryCursor()
 		{
-			_inventoryCursor.Animation = _game.State.Player.Character.Inventory.ActiveItem.CursorGraphics;
+			_inventoryCursor.Animation = _game.State.Player.Inventory.ActiveItem.CursorGraphics;
 			CurrentMode = INVENTORY_MODE;
 		}
 
@@ -86,7 +86,7 @@ namespace AGS.Engine
 		private async Task onMouseDown(object sender, MouseButtonEventArgs e)
 		{
 			var state = _game.State;
-			if (_handlingClick || !state.Player.Character.Enabled)
+			if (_handlingClick || !state.Player.Enabled)
 				return;
 
 			if (e.Button == MouseButton.Left)
@@ -108,7 +108,7 @@ namespace AGS.Engine
 			{
 				if (hotspot != null && hotspot.Room == null) 
 				{
-					IInventoryItem inventoryItem = state.Player.Character.Inventory.Items.FirstOrDefault(
+					IInventoryItem inventoryItem = state.Player.Inventory.Items.FirstOrDefault(
 						i => i.Graphics == hotspot);
 					if (inventoryItem != null)
 					{
@@ -117,7 +117,7 @@ namespace AGS.Engine
 							if (inventoryItem.ShouldInteract) mode = INTERACT_MODE;
 							else
 							{
-								state.Player.Character.Inventory.ActiveItem = inventoryItem;
+								state.Player.Inventory.ActiveItem = inventoryItem;
 								SetInventoryCursor();
 								return;
 							}
@@ -128,8 +128,8 @@ namespace AGS.Engine
 
 				if (mode == WALK_MODE)
 				{
-					AGSLocation location = new AGSLocation (e.X, e.Y, state.Player.Character.Z);
-					await state.Player.Character.WalkAsync(location).ConfigureAwait(true);
+                    AGSLocation location = new AGSLocation (e.X, e.Y, state.Player.Z);
+					await state.Player.WalkAsync(location).ConfigureAwait(true);
 				}
 				else if (mode != WAIT_MODE)
 				{
@@ -161,19 +161,19 @@ namespace AGS.Engine
 			{
 				if (hotspot.Room == null)
 				{
-					IInventoryItem inventoryItem = state.Player.Character.Inventory.Items.FirstOrDefault(
+					IInventoryItem inventoryItem = state.Player.Inventory.Items.FirstOrDefault(
 						                              i => i.Graphics == hotspot);
 					if (inventoryItem != null)
 					{
-						await state.Player.Character.Inventory.OnCombination(state.Player.Character.Inventory.ActiveItem,
+						await state.Player.Inventory.OnCombination(state.Player.Inventory.ActiveItem,
 							inventoryItem).InvokeAsync(this, new InventoryCombinationEventArgs (
-							state.Player.Character.Inventory.ActiveItem, inventoryItem));
+							state.Player.Inventory.ActiveItem, inventoryItem));
 					}
 					return;
 				}
 
                 await hotspot.Interactions.OnInventoryInteract(AGSInteractions.INTERACT).InvokeAsync(this, new InventoryInteractEventArgs(hotspot,
-					state.Player.Character.Inventory.ActiveItem));
+					state.Player.Inventory.ActiveItem));
 			}
 		}
 
@@ -181,7 +181,7 @@ namespace AGS.Engine
 		{
 			if (!RotatingEnabled) return;
 
-			IInventory inventory = state.Player.Character.Inventory;
+			IInventory inventory = state.Player.Inventory;
 
 			int startMode = _currentMode;
 			Cursor cursor = _cursors[_currentMode];

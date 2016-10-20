@@ -15,7 +15,7 @@ namespace DemoGame
 
 		private IInventoryItem _lastInventoryItem;
 		private IObject _inventoryItemIcon;
-		private IPlayer _player;
+        private ICharacter _player;
 		private IGame _game;
 
 		public TopBar(RotatingCursorScheme scheme, InventoryPanel invPanel, OptionsPanel optionsPanel)
@@ -92,10 +92,10 @@ namespace DemoGame
 
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
 		{
-            if (_player.Character == null) return;
-			if (_lastInventoryItem == _player.Character.Inventory.ActiveItem) return;
+            if (_player == null) return;
+			if (_lastInventoryItem == _player.Inventory.ActiveItem) return;
 
-			_lastInventoryItem = _player.Character.Inventory.ActiveItem;
+			_lastInventoryItem = _player.Inventory.ActiveItem;
 
 			if (_lastInventoryItem != null)
 			{

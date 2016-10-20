@@ -4,7 +4,7 @@ namespace AGS.API
 {
     public interface IGameState
 	{
-		IPlayer Player { get; set; }
+        ICharacter Player { get; set; }
         IRoom Room { get; }
 		IAGSBindingList<IRoom> Rooms { get; }
 		IConcurrentHashSet<IObject> UI { get; }

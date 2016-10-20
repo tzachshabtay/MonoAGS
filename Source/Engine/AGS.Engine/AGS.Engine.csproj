@@ -207,7 +207,6 @@
     <Compile Include="Objects\Interactions\AGSInteractionEvent.cs" />
     <Compile Include="Objects\Interactions\AGSInteractions.cs" />
     <Compile Include="Platform\Hooks.cs" />
-    <Compile Include="Player\AGSPlayer.cs" />
     <Compile Include="Rooms\AGSRoom.cs" />
     <Compile Include="Rooms\AGSRoomEvents.cs" />
     <Compile Include="Rooms\Areas\AGSAreaComponent.cs" />
@@ -255,7 +254,6 @@
     <Compile Include="Serialization\Contracts\ContractObject.cs" />
     <Compile Include="Serialization\Contracts\ContractOutfit.cs" />
     <Compile Include="Serialization\Contracts\ContractPanel.cs" />
-    <Compile Include="Serialization\Contracts\ContractPlayer.cs" />
     <Compile Include="Serialization\Contracts\ContractPointF.cs" />
     <Compile Include="Serialization\Contracts\ContractRenderLayer.cs" />
     <Compile Include="Serialization\Contracts\ContractRoom.cs" />

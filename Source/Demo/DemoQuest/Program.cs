@@ -34,7 +34,7 @@ namespace DemoGame
                 defaults.Load();
                 await charactersLoaded.ContinueWith(c =>
                 {
-                    game.State.Player.Character.ChangeRoom(Rooms.EmptyStreet.Result, 50, 30);
+                    game.State.Player.ChangeRoom(Rooms.EmptyStreet.Result, 50, 30);
                     topPanel.Visible = true;
                 });
             });
@@ -92,12 +92,12 @@ namespace DemoGame
             Cris cris = new Cris();
             ICharacter character = await cris.LoadAsync(game);
 
-            game.State.Player.Character = character;
+            game.State.Player = character;
         }
 
 		private static async Task loadCharacters(IGame game)
 		{
-            ICharacter character = game.State.Player.Character;
+            ICharacter character = game.State.Player;
 			KeyboardMovement movement = new KeyboardMovement (character, game.Input, KeyboardMovementMode.Pressing);
 			movement.AddArrows();
 			movement.AddWASD();

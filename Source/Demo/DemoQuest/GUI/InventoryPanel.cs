@@ -55,7 +55,7 @@ namespace DemoGame
 		public void Hide()
 		{
 			_scheme.RotatingEnabled = true;
-			if (_lastMode != null && _game.State.Player.Character.Inventory.ActiveItem == null) _scheme.CurrentMode = _lastMode;
+			if (_lastMode != null && _game.State.Player.Inventory.ActiveItem == null) _scheme.CurrentMode = _lastMode;
 			_panel.Visible = false;
 		}
 
@@ -75,7 +75,7 @@ namespace DemoGame
 				button.OnMouseClick(() =>
 				{
 					_scheme.CurrentMode = mode;
-					_game.State.Player.Character.Inventory.ActiveItem = null;
+					_game.State.Player.Inventory.ActiveItem = null;
 				}, _game);
 			}
 			return button;

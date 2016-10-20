@@ -39,7 +39,7 @@ namespace DemoGame
 
 		private void subscribeDefaultInventoryCombination()
 		{
-			_game.State.Player.Character.Inventory.OnDefaultCombination.SubscribeToAsync(onInventoryCombination);
+			_game.State.Player.Inventory.OnDefaultCombination.SubscribeToAsync(onInventoryCombination);
 		}
 
 		private async Task onLook(object sender, ObjectEventArgs args)
@@ -62,11 +62,11 @@ namespace DemoGame
 			if (string.IsNullOrEmpty(args.ActiveItem.Graphics.Hotspot) ||
 			    string.IsNullOrEmpty(args.PassiveItem.Graphics.Hotspot))
 			{
-				await _game.State.Player.Character.SayAsync("I don't think these two items go together.");
+				await _game.State.Player.SayAsync("I don't think these two items go together.");
 				return;
 			}
 
-			await _game.State.Player.Character.SayAsync(string.Format("Use {0} on {1}? I don't get it...",
+			await _game.State.Player.SayAsync(string.Format("Use {0} on {1}? I don't get it...",
 				args.ActiveItem.Graphics.Hotspot, args.PassiveItem.Graphics.Hotspot));
 		}
 
@@ -75,7 +75,7 @@ namespace DemoGame
 			string sentence = list[index];
 			index = (index + 1) % list.Count;
 
-			await _game.State.Player.Character.SayAsync(sentence);
+			await _game.State.Player.SayAsync(sentence);
 
 			return index;
 		}

@@ -12,12 +12,11 @@ namespace AGS.Engine
         private IAGSRoomTransitions _roomTransitions;
         private Task[] _emptyTaskArray = new Task[] { };
 
-		public AGSGameState (IPlayer player, ICustomProperties globalVariables, IAGSRoomTransitions roomTransitions, Resolver resolver)
+        public AGSGameState (ICustomProperties globalVariables, IAGSRoomTransitions roomTransitions, Resolver resolver)
 		{
 			Speed = 100;
 			Rooms = new AGSBindingList<IRoom>(10);
 			UI = new AGSConcurrentHashSet<IObject> ();
-			Player = player;
 			GlobalVariables = globalVariables;
 			_cutscene = new Lazy<ICutscene> (() => resolver.Container.Resolve<ICutscene>());
 			_roomTransitions = roomTransitions;
@@ -25,7 +24,7 @@ namespace AGS.Engine
 
 		#region IGameState implementation
 
-		public IPlayer Player { get; set; }
+        public ICharacter Player { get; set; }
 
         public IRoom Room { get; private set; }
 

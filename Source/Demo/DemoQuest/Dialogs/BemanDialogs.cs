@@ -142,7 +142,7 @@ namespace DemoGame
 
 		private bool startAScene()
 		{
-			ICharacter player = _game.State.Player.Character;
+			ICharacter player = _game.State.Player;
 			_game.State.Cutscene.Start();
 
             player.Say("Scene is now in session.");

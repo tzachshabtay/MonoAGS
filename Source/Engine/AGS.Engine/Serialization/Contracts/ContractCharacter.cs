@@ -63,6 +63,7 @@ namespace AGS.Engine
 
 		public void FromItem(AGSSerializationContext context, ICharacter item)
 		{
+            if (item == null) return;
 			WalkSpeed = item.WalkStep;
             AdjustWalkSpeedToScaleArea = item.AdjustWalkSpeedToScaleArea;
 			DebugDrawWalkPath = item.DebugDrawWalkPath;

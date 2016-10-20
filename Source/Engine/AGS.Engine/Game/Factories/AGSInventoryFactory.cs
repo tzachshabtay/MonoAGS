@@ -42,7 +42,7 @@ namespace AGS.Engine
 			IInventoryWindow inventoryWindow = _resolver.Resolve<IInventoryWindow>(idParam, imageParam);
 			inventoryWindow.Tint =  Colors.Transparent;
 			inventoryWindow.ItemSize = new AGS.API.SizeF (itemWidth, itemHeight);
-            inventoryWindow.Inventory = inventory ?? _resolver.Resolve<IPlayer>().Character.Inventory;
+            inventoryWindow.Inventory = inventory ?? _gameState.Player.Inventory;
 			return inventoryWindow;
 		}
 
@@ -54,13 +54,7 @@ namespace AGS.Engine
 
 			if (playerStartsWithItem)
 			{
-				IPlayer player = _resolver.Resolve<IPlayer>();
-				if (player.Character == null)
-				{
-					Debug.WriteLine(string.Format("Character was not assigned to player yet, cannot add inventory item: {0}", graphics.ToString()));
-				}
-
-				else player.Character.Inventory.Items.Add(item);
+                _gameState.Player.Inventory.Items.Add(item);
 			}
 			return item;
 		}

@@ -43,11 +43,11 @@ namespace AGS.Engine
                 PreviousRoom = Room;
                 refreshRoom();
             };
-            if (_state.Player.Character == _obj) _state.ChangeRoom(newRoom, changeRoom);
+            if (_state.Player == _obj) _state.ChangeRoom(newRoom, changeRoom);
             else changeRoom();
 			
             //Waiting for a transition state change to ensure the before fade in event of the new room occurs before the next action after the ChangeRoom was called
-            if (_state.Player.Character == _obj && !firstRoom && _roomTransitions.Transition != null)
+            if (_state.Player == _obj && !firstRoom && _roomTransitions.Transition != null)
                 _roomTransitions.OnStateChanged.WaitUntil(canCompleteRoomTransition);
 		}
 

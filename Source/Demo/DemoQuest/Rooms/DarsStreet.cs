@@ -8,7 +8,7 @@ namespace DemoGame
 	public class DarsStreet
 	{
 		private IRoom _room;
-		private IPlayer _player;
+        private ICharacter _player;
 		private IGame _game;
 
 		private const string _baseFolder = "../../Assets/Rooms/DarsStreet/";
@@ -79,12 +79,12 @@ namespace DemoGame
 
 		private void onRightEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.TrashcanStreet.Result, 30);
+			_player.ChangeRoom(Rooms.TrashcanStreet.Result, 30);
 		}
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)
 		{
-			_player.Character.PlaceOnWalkableArea();
+			_player.PlaceOnWalkableArea();
 		}
 
 		private async Task addLampPosts(IGameFactory factory)
@@ -125,7 +125,7 @@ namespace DemoGame
 
 			await Task.WhenAll(zoomX.Task, zoomY.Task, rotate, translateX.Task, translateY.Task);
 			await Task.Delay(100);
-			await _player.Character.SayAsync("Hmmm, nobody seems to be home...");
+			await _player.SayAsync("Hmmm, nobody seems to be home...");
 			await Task.Delay(100);
 
 			zoomX = _room.Viewport.TweenScaleX(scaleX, 2f);

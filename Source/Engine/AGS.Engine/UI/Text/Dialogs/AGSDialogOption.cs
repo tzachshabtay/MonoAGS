@@ -9,11 +9,11 @@ namespace AGS.Engine
 	{
 		private readonly ITextConfig _normalConfig;
 		private readonly IDialogActions _actions;
-		private readonly IPlayer _player;
+        private readonly ICharacter _player;
         private bool _hasBeenChosen;
 
 		//Parameter names for speakOption and showOnce are used in the factory, changing the names requires factory code change as well
-		public AGSDialogOption(IDialogActions actions, IPlayer player, ILabel label, bool exitDialogOnFinish = false, 
+		public AGSDialogOption(IDialogActions actions, ICharacter player, ILabel label, bool exitDialogOnFinish = false, 
                                bool speakOption = true, bool showOnce = false, ITextConfig hoverConfig = null, ITextConfig hasBeenChosenConfig = null)
 		{
 			_actions = actions;
@@ -40,7 +40,7 @@ namespace AGS.Engine
 		{
 			if (SpeakOption)
 			{
-				await _player.Character.SayAsync(Label.Text);
+				await _player.SayAsync(Label.Text);
 			}
 			if (await _actions.RunAsync() && ShowOnce)
 			{

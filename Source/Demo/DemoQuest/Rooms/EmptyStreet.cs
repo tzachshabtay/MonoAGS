@@ -9,7 +9,7 @@ namespace DemoGame
 	public class EmptyStreet
 	{
 		private IRoom _room;
-		private IPlayer _player;
+        private ICharacter _player;
 		private IObject _bottle;
 		private IGame _game;
 		private IAudioClip _bottleEffectClip;
@@ -18,7 +18,7 @@ namespace DemoGame
 		private const string _roomId = "Empty Street";
 		private const string _bottleId = "Bottle (object)";
 
-		public EmptyStreet(IPlayer player)
+		public EmptyStreet(ICharacter player)
 		{
 			_player = player;
 		}
@@ -85,22 +85,22 @@ namespace DemoGame
 		{
 			_bottleEffectClip.Play();
 			_bottle.ChangeRoom(null);
-			_player.Character.Inventory.Items.Add(InventoryItems.Bottle);
+			_player.Inventory.Items.Add(InventoryItems.Bottle);
 		}
 
 		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.TrashcanStreet.Result, 310);
+			_player.ChangeRoom(Rooms.TrashcanStreet.Result, 310);
 		}
 
 		private void onRightEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.Character.ChangeRoom(Rooms.BrokenCurbStreet.Result, 30);
+			_player.ChangeRoom(Rooms.BrokenCurbStreet.Result, 30);
 		}
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)
 		{
-			_player.Character.PlaceOnWalkableArea();
+			_player.PlaceOnWalkableArea();
 		}
 
 		private void onAfterFadeIn (object sender, AGSEventArgs args)

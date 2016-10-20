@@ -118,7 +118,6 @@
     <Compile Include="Objects\Interactions\ObjectEventArgs.cs" />
     <Compile Include="Objects\IObject.cs" />
     <Compile Include="Objects\IVisibleComponent.cs" />
-    <Compile Include="Player\IPlayer.cs" />
     <Compile Include="Rooms\Edges\IEdge.cs" />
     <Compile Include="Rooms\Edges\IEdges.cs" />
     <Compile Include="Rooms\ICamera.cs" />

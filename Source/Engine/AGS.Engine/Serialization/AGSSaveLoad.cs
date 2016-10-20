@@ -118,7 +118,7 @@ namespace AGS.Engine
 		{
 			var context = new AGSSerializationContext (_factory, _textures, 
 				              _resolver);
-			context.Player = _state.Player.Character;
+			context.Player = _state.Player;
 			return context;
 		}
 
