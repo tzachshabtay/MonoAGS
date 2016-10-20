@@ -118,7 +118,6 @@
     <Compile Include="Objects\Interactions\ObjectEventArgs.cs" />
     <Compile Include="Objects\IObject.cs" />
     <Compile Include="Objects\IVisibleComponent.cs" />
-    <Compile Include="Player\IApproachStyle.cs" />
     <Compile Include="Player\IPlayer.cs" />
     <Compile Include="Rooms\Edges\IEdge.cs" />
     <Compile Include="Rooms\Edges\IEdges.cs" />
@@ -205,6 +204,8 @@
     <Compile Include="Rooms\Areas\IAreaRestriction.cs" />
     <Compile Include="Misc\CustomProperties\ICustomProperties.cs" />
     <Compile Include="Misc\CustomProperties\ICustomPropertiesPerType.cs" />
+    <Compile Include="Player\Approach\IApproachStyle.cs" />
+    <Compile Include="Player\Approach\IApproachComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
@@ -212,5 +213,6 @@
     <Folder Include="Game\Settings\" />
     <Folder Include="Rooms\Areas\" />
     <Folder Include="Misc\CustomProperties\" />
+    <Folder Include="Player\Approach\" />
   </ItemGroup>
 </Project>

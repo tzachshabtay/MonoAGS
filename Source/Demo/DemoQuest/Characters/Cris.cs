@@ -23,6 +23,7 @@ namespace DemoGame
 
 			_character = game.Factory.Object.GetCharacter("Cris", outfit).Remember(game, c => _character = c);
             _character.SpeechConfig.TextConfig = AGSTextConfig.ChangeColor(_character.SpeechConfig.TextConfig, Colors.OrangeRed, Colors.Black, 1f);
+            _character.AddComponent<IApproachComponent>();
 			emitter.Object = _character;
 
 

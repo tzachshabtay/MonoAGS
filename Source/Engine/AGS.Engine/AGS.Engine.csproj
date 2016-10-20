@@ -207,7 +207,6 @@
     <Compile Include="Objects\Interactions\AGSInteractionEvent.cs" />
     <Compile Include="Objects\Interactions\AGSInteractions.cs" />
     <Compile Include="Platform\Hooks.cs" />
-    <Compile Include="Player\AGSApproachStyle.cs" />
     <Compile Include="Player\AGSPlayer.cs" />
     <Compile Include="Rooms\AGSRoom.cs" />
     <Compile Include="Rooms\AGSRoomEvents.cs" />
@@ -379,6 +378,8 @@
     <Compile Include="Rooms\Areas\AGSAreaRestriction.cs" />
     <Compile Include="Misc\AGSCustomPropertiesPerType.cs" />
     <Compile Include="Objects\Characters\Walking\Following\FollowTag.cs" />
+    <Compile Include="Player\Approach\AGSApproachComponent.cs" />
+    <Compile Include="Player\Approach\AGSApproachStyle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -471,5 +472,6 @@
   <ItemGroup>
     <Folder Include="UI\Icons\" />
     <Folder Include="Game\Settings\" />
+    <Folder Include="Player\Approach\" />
   </ItemGroup>
 </Project>

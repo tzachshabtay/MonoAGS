@@ -20,14 +20,18 @@ namespace AGS.Engine
 		{
             IPlayer player = context.Resolver.Container.Resolve<IPlayer>();             
 			player.Character = context.Player;
-			player.ApproachStyle.CopyFrom(ApproachStyle.ToItem(context));
+            AGSApproachStyle approach = new AGSApproachStyle();
+            approach.CopyFrom(ApproachStyle.ToItem(context));
+            AGSApproachComponent component = new AGSApproachComponent { ApproachStyle = approach };
+            player.Character.AddComponent(component);
 
 			return player;
 		}
 
 		public void FromItem(AGSSerializationContext context, IPlayer item)
 		{
-			ApproachStyle = context.GetContract(item.ApproachStyle);
+            if (item.Character == null) return;
+            ApproachStyle = context.GetContract(item.Character.GetComponent<IApproachComponent>().ApproachStyle);
 		}
 
 		#endregion

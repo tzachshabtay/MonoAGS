@@ -13,14 +13,14 @@ namespace AGS.Engine
         private Func<string, IEvent<ObjectEventArgs>> _factory;
         private Func<string, IEvent<InventoryInteractEventArgs>> _inventoryFactory;
 
-		public AGSInteractions (IInteractions defaultInteractions, IObject obj, IPlayer player)
+        public AGSInteractions (IInteractions defaultInteractions, IObject obj, IGameState state)
 		{
             _events = new ConcurrentDictionary<string, IEvent<ObjectEventArgs>>();
             _inventoryEvents = new ConcurrentDictionary<string, IEvent<InventoryInteractEventArgs>>();
             var defaultInteractionEvent = new AGSInteractionEvent<ObjectEventArgs>(
-                new List<IEvent<ObjectEventArgs>>(), DEFAULT, obj, player);
+                new List<IEvent<ObjectEventArgs>>(), DEFAULT, obj, state);
             var defaultInventoryEvent = new AGSInteractionEvent<InventoryInteractEventArgs>(
-                new List<IEvent<InventoryInteractEventArgs>>(), DEFAULT, obj, player);
+                new List<IEvent<InventoryInteractEventArgs>>(), DEFAULT, obj, state);
             _events.TryAdd(DEFAULT, defaultInteractionEvent);
             _inventoryEvents.TryAdd(DEFAULT, defaultInventoryEvent);
 
@@ -32,7 +32,7 @@ namespace AGS.Engine
                     interactions.Add(defaultInteractions.OnInteract(verb));
                     if (verb != DEFAULT) interactions.Add(defaultInteractions.OnInteract(DEFAULT));
                 }
-                return new AGSInteractionEvent<ObjectEventArgs>(interactions, verb, obj, player);
+                return new AGSInteractionEvent<ObjectEventArgs>(interactions, verb, obj, state);
             };
             _inventoryFactory = verb =>
             {
@@ -42,7 +42,7 @@ namespace AGS.Engine
                     interactions.Add(defaultInteractions.OnInventoryInteract(verb));
                     if (verb != DEFAULT) interactions.Add(defaultInteractions.OnInventoryInteract(DEFAULT));
                 }
-                return new AGSInteractionEvent<InventoryInteractEventArgs>(interactions, verb, obj, player);
+                return new AGSInteractionEvent<InventoryInteractEventArgs>(interactions, verb, obj, state);
             };
 		}
 
