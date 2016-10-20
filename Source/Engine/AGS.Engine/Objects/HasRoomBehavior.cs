@@ -10,7 +10,6 @@ namespace AGS.Engine
 		private readonly IGameState _state;
 		private Lazy<IRoom> _cachedRoom;
 		private IAGSRoomTransitions _roomTransitions;
-        private Task[] _emptyTaskArray = new Task[] { };
 
 		public HasRoomBehavior(IGameState state, IAGSRoomTransitions roomTransitions)
 		{
