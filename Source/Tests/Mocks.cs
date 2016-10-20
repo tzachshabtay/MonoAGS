@@ -129,6 +129,7 @@ namespace Tests
 			{
 				_gameState = new Mock<IGameState> ();
 				_gameState.Setup(m => m.Player).Returns(Player().Object);
+                _gameState.Setup(m => m.Room).Returns(() => Player().Object.Character.Room);
 				_gameState.Setup(m => m.Cutscene).Returns(Cutscene().Object);
 			}
 			return _gameState;

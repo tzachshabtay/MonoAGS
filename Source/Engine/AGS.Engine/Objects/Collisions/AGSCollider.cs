@@ -52,7 +52,7 @@ namespace AGS.Engine
 
 			if (_drawableInfo.IgnoreViewport && _state != null) 
 			{
-				var viewport = _state.Player.Character.Room.Viewport;
+				var viewport = _state.Room.Viewport;
 				//todo: Support viewport rotation (+ ignore scaling areas = false?)
 				x = (x - viewport.X) * viewport.ScaleX;
 				y = (y - viewport.Y) * viewport.ScaleY;

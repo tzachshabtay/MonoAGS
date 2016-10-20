@@ -9,7 +9,7 @@ namespace AGS.Engine
 	{
 		private IGameState _gameState;
 		private AGS.API.Size _virtualResolution;
-		private IRoom _lastPlayerRoom;
+		private IRoom _lastRoom;
 		private IAGSRoomTransitions _roomTransitions;
 
 		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution, IAGSRoomTransitions roomTransitions)
@@ -23,19 +23,19 @@ namespace AGS.Engine
 
 		public virtual void Update ()
 		{
-			if (_gameState.Player.Character == null) return;
-			IRoom room = _gameState.Player.Character.Room;
-			bool playerChangedRoom = _lastPlayerRoom != _gameState.Player.Character.Room;
+            if (_gameState.Room == null) return;
+			IRoom room = _gameState.Room;
+            bool changedRoom = _lastRoom != room;
 			if (_roomTransitions.State != RoomTransitionState.NotInTransition)
 			{
 				if (_roomTransitions.State == RoomTransitionState.PreparingTransition)
 				{
-					if (playerChangedRoom)
+					if (changedRoom)
 					{
-						if (_lastPlayerRoom != null) _lastPlayerRoom.Events.OnAfterFadeOut.Invoke(this, new AGSEventArgs ());
+						if (_lastRoom != null) _lastRoom.Events.OnAfterFadeOut.Invoke(this, new AGSEventArgs ());
 						room.Events.OnBeforeFadeIn.Invoke(this, new AGSEventArgs ());
-						updateViewport(room, playerChangedRoom);
-						if (_lastPlayerRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
+						updateViewport(room, changedRoom);
+						if (_lastRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
 						else _roomTransitions.State = RoomTransitionState.InTransition;
 					}
 				}
@@ -51,7 +51,7 @@ namespace AGS.Engine
 				runAnimation (obj.Animation);
 			}
 
-			updateViewport (room, playerChangedRoom);
+			updateViewport (room, changedRoom);
 			updateRoom(room);
 
 			Task.Run (async () => await UpdateAsync ()).Wait ();
@@ -78,9 +78,9 @@ namespace AGS.Engine
 
 		private void updateRoom(IRoom room)
 		{
-			if (_lastPlayerRoom == room) return;
+			if (_lastRoom == room) return;
 			room.Events.OnAfterFadeIn.Invoke(this, new AGSEventArgs ());
-			_lastPlayerRoom = room;
+            _lastRoom = room;
 		}
 
 		private void runAnimation(IAnimation animation)

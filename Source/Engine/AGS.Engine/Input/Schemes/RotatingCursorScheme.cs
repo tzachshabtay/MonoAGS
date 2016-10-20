@@ -102,7 +102,7 @@ namespace AGS.Engine
 		private async Task onLeftMouseDown(MouseButtonEventArgs e, IGameState state)
 		{
 			string mode = CurrentMode;
-			IObject hotspot = state.Player.Character.Room.GetObjectAt(e.X, e.Y);
+			IObject hotspot = state.Room.GetObjectAt(e.X, e.Y);
 
 			if (_game.Input.Cursor != _inventoryCursor.Animation)
 			{

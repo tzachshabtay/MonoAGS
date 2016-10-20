@@ -84,9 +84,7 @@ namespace AGS.Engine
 
 		private bool notInRoom()
 		{
-			return (_game.State.Player.Character != null &&
-				_game.State.Player.Character.Room != _splashScreen &&
-					_game.State.Player.Character.Room != null);
+            return _game.State.Room != null && _game.State.Room != _splashScreen;
 		}
 	}
 }

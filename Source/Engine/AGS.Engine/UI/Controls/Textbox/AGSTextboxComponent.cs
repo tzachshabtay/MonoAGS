@@ -82,7 +82,7 @@ namespace AGS.Engine
 
         private void onBeforeRender(object sender, AGSEventArgs args)
         {
-            if (_room.Room != null && _room.Room != _game.State.Player.Character.Room) return;
+            if (_room.Room != null && _room.Room != _game.State.Room) return;
             if (_withCaret.TreeNode.Parent == null) _withCaret.TreeNode.SetParent(_tree.TreeNode);
             bool isVisible = IsFocused;
             if (isVisible)

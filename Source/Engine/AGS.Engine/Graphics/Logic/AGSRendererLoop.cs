@@ -39,8 +39,8 @@ namespace AGS.Engine
 
 		public bool Tick ()
 		{
-			if (_gameState.Player.Character == null) return false;
-			IRoom room = _gameState.Player.Character.Room;
+            if (_gameState.Room == null) return false;
+			IRoom room = _gameState.Room;
 
 			switch (_roomTransitions.State)
 			{

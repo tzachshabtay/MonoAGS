@@ -31,45 +31,26 @@ namespace AGS.Engine
 
         public void ChangeRoom(IRoom newRoom, float? x = null, float? y = null)
 		{
-			if (Room != null)
-			{
-				if (_state.Player.Character == _obj)
-				{
-                    if (_roomTransitions.State != RoomTransitionState.NotInTransition) //Room is already changing, need to wait for previous transition to complete before starting a new transition!
-                    {
-                        while (_roomTransitions.State != RoomTransitionState.NotInTransition)
-                        {
-                            Task.WaitAll(_emptyTaskArray,10); //Busy waiting, agghh!
-                        }
-                        if (Room == newRoom) return; //somebody already changed to this room, no need to change again.
-                    }
-					Room.Events.OnBeforeFadeOut.Invoke(this, new AGSEventArgs ());
-					_roomTransitions.State = RoomTransitionState.BeforeLeavingRoom;
-					if (_roomTransitions.Transition != null)
-                        _roomTransitions.OnStateChanged.WaitUntil(canContinueRoomTransition);
-				}
-				Room.Objects.Remove(_obj);
-			}
-            if (x != null) _obj.X = x.Value;
-            if (y != null) _obj.Y = y.Value;
-			if (newRoom != null)
-			{
-				newRoom.Objects.Add(_obj);
-			}
             bool firstRoom = PreviousRoom == null;
-			PreviousRoom = Room;
-            refreshRoom();
-
+            Action changeRoom = () => 
+            {
+                if (Room != null) Room.Objects.Remove(_obj);
+                if (x != null) _obj.X = x.Value;
+                if (y != null) _obj.Y = y.Value;
+                if (newRoom != null)
+                {
+                    newRoom.Objects.Add(_obj);
+                }
+                PreviousRoom = Room;
+                refreshRoom();
+            };
+            if (_state.Player.Character == _obj) _state.ChangeRoom(newRoom, changeRoom);
+            else changeRoom();
+			
             //Waiting for a transition state change to ensure the before fade in event of the new room occurs before the next action after the ChangeRoom was called
             if (_state.Player.Character == _obj && !firstRoom && _roomTransitions.Transition != null)
                 _roomTransitions.OnStateChanged.WaitUntil(canCompleteRoomTransition);
 		}
-
-        private bool canContinueRoomTransition(AGSEventArgs args)
-        {
-            return _roomTransitions.State == RoomTransitionState.PreparingTransition ||
-                   _roomTransitions.State == RoomTransitionState.NotInTransition;
-        }
 
         private bool canCompleteRoomTransition(AGSEventArgs args)
         {

@@ -162,7 +162,7 @@ namespace AGS.Engine
 
 		private IViewport getViewport()
 		{
-			return _state.Player.Character.Room.Viewport;
+			return _state.Room.Viewport;
 		}
 	}
 }

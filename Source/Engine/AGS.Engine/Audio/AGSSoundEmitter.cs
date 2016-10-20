@@ -126,7 +126,7 @@ namespace AGS.Engine
 				if (AutoAdjustVolume)
 				{
                     if (hasRoom == null) continue;
-					var room = _game.State.Player.Character.Room;
+                    var room = _game.State.Room;
                     if (room != hasRoom.Room) return;
                     foreach (var area in room.GetMatchingAreas(obj.Location.XY, EntityID))
 					{

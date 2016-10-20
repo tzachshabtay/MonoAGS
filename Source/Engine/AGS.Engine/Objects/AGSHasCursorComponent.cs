@@ -19,7 +19,7 @@ namespace AGS.Engine
         private void onRepeatedlyExecute(object sender, AGSEventArgs e)
         {
             var state = _game.State;
-            IObject hotspot = state.Player.Character.Room.GetObjectAt(_game.Input.MouseX, _game.Input.MouseY);
+            IObject hotspot = state.Room.GetObjectAt(_game.Input.MouseX, _game.Input.MouseY);
             if (hotspot == null)
             {
                 turnOffObjectSpecificCursor();

@@ -55,7 +55,7 @@ namespace AGS.Engine
 		{
 			if (_label == null || _state.Player.Character == null) return;
 			PointF position = _input.MousePosition;
-			IObject obj = _state.Player.Character.Room.GetObjectAt (position.X, position.Y);
+			IObject obj = _state.Room.GetObjectAt (position.X, position.Y);
 			if (obj == null || obj.Hotspot == null) 
 			{
 				_label.Visible = false;

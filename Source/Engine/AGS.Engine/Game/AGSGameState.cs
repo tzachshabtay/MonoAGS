@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
 using AGS.API;
-using System.Collections.Generic;
 using Autofac;
-using ProtoBuf;
-using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
 	public class AGSGameState : IGameState
 	{
 		private Lazy<ICutscene> _cutscene;
+        private IAGSRoomTransitions _roomTransitions;
+        private Task[] _emptyTaskArray = new Task[] { };
 
 		public AGSGameState (IPlayer player, ICustomProperties globalVariables, IAGSRoomTransitions roomTransitions, Resolver resolver)
 		{
@@ -20,12 +20,14 @@ namespace AGS.Engine
 			Player = player;
 			GlobalVariables = globalVariables;
 			_cutscene = new Lazy<ICutscene> (() => resolver.Container.Resolve<ICutscene>());
-			RoomTransitions = roomTransitions;
+			_roomTransitions = roomTransitions;
 		}
 
 		#region IGameState implementation
 
 		public IPlayer Player { get; set; }
+
+        public IRoom Room { get; private set; }
 
 		public IAGSBindingList<IRoom> Rooms { get; private set; }
 
@@ -35,13 +37,34 @@ namespace AGS.Engine
 
 		public ICutscene Cutscene { get { return _cutscene.Value; } }
 
-		public IRoomTransitions RoomTransitions { get; private set; }
+        public IRoomTransitions RoomTransitions { get { return _roomTransitions; } }
 
 		public bool Paused { get; set; }
 
 		public int Speed { get; set; }
 
-		#endregion
+        #endregion
+
+        public void ChangeRoom(IRoom newRoom, Action afterTransitionFadeOut = null)
+        {
+            if (Room != null)
+            {
+                if (_roomTransitions.State != RoomTransitionState.NotInTransition) //Room is already changing, need to wait for previous transition to complete before starting a new transition!
+                {
+                    while (_roomTransitions.State != RoomTransitionState.NotInTransition)
+                    {
+                        Task.WaitAll(_emptyTaskArray, 10); //Busy waiting, agghh!
+                    }
+                    if (Room == newRoom) return; //somebody already changed to this room, no need to change again.
+                }
+                Room.Events.OnBeforeFadeOut.Invoke(this, new AGSEventArgs());
+                _roomTransitions.State = RoomTransitionState.BeforeLeavingRoom;
+                if (_roomTransitions.Transition != null)
+                    _roomTransitions.OnStateChanged.WaitUntil(canContinueRoomTransition);
+            }
+            if (afterTransitionFadeOut != null) afterTransitionFadeOut();
+            Room = newRoom;
+        }
 
 		public void CopyFrom(IGameState state)
 		{
@@ -86,6 +109,12 @@ namespace AGS.Engine
 		{
 			return (Rooms.SelectMany(r => r.Objects).FirstOrDefault(o => o.ID == id)) as TEntity;
 		}
-	}
+
+        private bool canContinueRoomTransition(AGSEventArgs args)
+        {
+            return _roomTransitions.State == RoomTransitionState.PreparingTransition ||
+                   _roomTransitions.State == RoomTransitionState.NotInTransition;
+        }
+    }
 }
 
