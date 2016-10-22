@@ -1,15 +1,20 @@
-﻿using System;
-using OpenTK.Audio.OpenAL;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace AGS.Engine
 {
 	public class ALErrors : IAudioErrors
 	{
+        private IAudioBackend _backend;
+
+        public ALErrors(IAudioBackend backend)
+        {
+            _backend = backend;
+        }
+
 		public bool HasErrors()
 		{
-			var error = AL.GetError();
-			if (error == ALError.NoError) return false;
+            var error = _backend.GetError();
+			if (error == null) return false;
 			Debug.WriteLine("OpenAL Error: " + error);
 			return true;
 		}

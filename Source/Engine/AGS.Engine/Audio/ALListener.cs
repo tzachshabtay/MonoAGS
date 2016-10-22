@@ -1,8 +1,4 @@
-﻿using System;
-using OpenTK.Audio.OpenAL;
-using System.Diagnostics;
-using AGS.API;
-using OpenTK;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -11,10 +7,12 @@ namespace AGS.Engine
 		private float _volume;
 		private ILocation _location;
 		private IAudioErrors _errors;
+        private IAudioBackend _backend;
 
-		public ALListener(IAudioErrors errors)
+        public ALListener(IAudioErrors errors, IAudioBackend backend)
 		{
 			_errors = errors;
+            _backend = backend;
 			Volume = 0.5f;
 			_location = new AGSLocation ();
 		}
@@ -25,7 +23,7 @@ namespace AGS.Engine
 			set 
 			{
 				_volume = value;
-				AL.Listener(ALListenerf.Gain, value);
+                _backend.ListenerSetGain(value);
 				_errors.HasErrors();
 			}
 		}
@@ -36,7 +34,7 @@ namespace AGS.Engine
 			set
 			{
 				_location = value;
-				AL.Listener(ALListener3f.Position, value.X, value.Y, value.Z);
+                _backend.ListenerSetPosition(value.X, value.Y, value.Z);
 				_errors.HasErrors();
 			}
 		}

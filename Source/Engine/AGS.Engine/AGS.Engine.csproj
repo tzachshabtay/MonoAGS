@@ -378,6 +378,8 @@
     <Compile Include="Objects\Characters\Walking\Following\FollowTag.cs" />
     <Compile Include="Player\Approach\AGSApproachComponent.cs" />
     <Compile Include="Player\Approach\AGSApproachStyle.cs" />
+    <Compile Include="Platform\IAudioBackend.cs" />
+    <Compile Include="Platform\ALAudioBackend.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

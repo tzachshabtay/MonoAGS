@@ -1,9 +1,6 @@
 ﻿using System;
 using AGS.API;
 using System.Threading.Tasks;
-using OpenTK.Audio.OpenAL;
-using OpenTK.Audio;
-using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -14,11 +11,13 @@ namespace AGS.Engine
 		private IAudioSystem _system;
 		private IAudioErrors _errors;
         private volatile int _numPlayingSounds;
+        private IAudioBackend _backend;
 
-		public ALAudioClip(string id, ISoundData soundData, IAudioSystem system, IAudioErrors errors)
+        public ALAudioClip(string id, ISoundData soundData, IAudioSystem system, IAudioErrors errors, IAudioBackend backend)
 		{
 			_soundData = soundData;
 			_errors = errors;
+            _backend = backend;
 			ID = id;
 			_buffer = new Lazy<int> (() => generateBuffer());
 			_system = system;
@@ -68,7 +67,7 @@ namespace AGS.Engine
             //Debug.WriteLine("Playing Sound: " + ID);
             _numPlayingSounds++;
 			int source = getSource();
-			ALSound sound = new ALSound (source, volume, pitch, looping, panning, _errors);
+            ALSound sound = new ALSound (source, volume, pitch, looping, panning, _errors, _backend);
 			sound.Play(_buffer.Value);
             sound.Completed.ContinueWith(_ =>
             {
@@ -87,18 +86,18 @@ namespace AGS.Engine
 		{
 			_errors.HasErrors();
 
-			int buffer = AL.GenBuffer();
+            int buffer = _backend.GenBuffer();
 			Type dataType = _soundData.Data.GetType();
 			if (dataType == typeof(byte[]))
 			{
 				byte[] bytes = (byte[])_soundData.Data;
-				AL.BufferData(buffer, getSoundFormat(_soundData.Channels, _soundData.BitsPerSample),
+                _backend.BufferData(buffer, getSoundFormat(_soundData.Channels, _soundData.BitsPerSample),
 					bytes, _soundData.DataLength, _soundData.SampleRate);
 			}
 			else if (dataType == typeof(short[]))
 			{
 				short[] shorts = (short[])_soundData.Data;
-				AL.BufferData(buffer, getSoundFormat(_soundData.Channels, _soundData.BitsPerSample),
+                _backend.BufferData(buffer, getSoundFormat(_soundData.Channels, _soundData.BitsPerSample),
 					shorts, _soundData.DataLength, _soundData.SampleRate);
 			}
 			else throw new NotSupportedException ("ALSound: Data type not supported: " + dataType.Name);
@@ -107,13 +106,13 @@ namespace AGS.Engine
 			return buffer;
 		}
 
-		private ALFormat getSoundFormat(int channels, int bits)
+        private SoundFormat getSoundFormat(int channels, int bits)
 		{
 			switch (channels)
 
 			{
-				case 1: return bits == 8 ? ALFormat.Mono8 : ALFormat.Mono16;
-				case 2: return bits == 8 ? ALFormat.Stereo8 : ALFormat.Stereo16;
+				case 1: return bits == 8 ? SoundFormat.Mono8 : SoundFormat.Mono16;
+				case 2: return bits == 8 ? SoundFormat.Stereo8 : SoundFormat.Stereo16;
 				default: throw new NotSupportedException("The specified sound format is not supported.");
 			}
 		}

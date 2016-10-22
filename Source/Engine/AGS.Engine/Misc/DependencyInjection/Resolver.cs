@@ -42,6 +42,7 @@ namespace AGS.Engine
 			Builder.RegisterType<AGSSyncContext>().SingleInstance().As<IMessagePump>();
             Builder.RegisterType<AGSClassicSpeechCache>().SingleInstance().As<ISpeechCache>();
             Builder.RegisterType<GLGraphicsFactory>().SingleInstance().As<IGraphicsFactory>();
+            Builder.RegisterType<ALAudioBackend>().SingleInstance().As<IAudioBackend>();
 
 			registerComponents();
 

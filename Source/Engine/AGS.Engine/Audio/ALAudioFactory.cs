@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -11,13 +12,13 @@ namespace AGS.Engine
 	{
 		private readonly IResourceLoader _loader;
 		private readonly Dictionary<string, List<ISoundDecoder>> _decoders;
-		private readonly IAudioSystem _system;
+        private readonly Resolver _resolver;
         private object _unsafeMemoryLocker = new object();
 
-        public ALAudioFactory(IResourceLoader loader, IAudioSystem system)
+        public ALAudioFactory(IResourceLoader loader, Resolver resolver)
 		{
-			_system = system;
 			_loader = loader;
+            _resolver = resolver;
 			_decoders = new Dictionary<string, List<ISoundDecoder>> 
 			{
 				{ ".WAV", new List<ISoundDecoder> { new WaveDecoder() } }
@@ -36,7 +37,9 @@ namespace AGS.Engine
         {
             ISoundData soundData = loadSoundData(filePath);
             if (soundData == null) return null;
-            return new ALAudioClip(id ?? filePath, soundData, _system, new ALErrors());
+            TypedParameter idParam = new TypedParameter(typeof(string), id ?? filePath);
+            TypedParameter soundParam = new TypedParameter(typeof(ISoundData), soundData);
+            return _resolver.Container.Resolve<IAudioClip>(idParam, soundParam);
         }
 
 		public async Task<IAudioClip> LoadAudioClipAsync(string filePath, string id = null)
