@@ -1,6 +1,4 @@
-﻿using System;
-using OpenTK;
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK;
 using AGS.API;
 
 namespace AGS.Engine
@@ -38,11 +36,11 @@ namespace AGS.Engine
 		public Vector2 TexCoord { get { return _texCoord; } }
 		public Vector4 Color { get { return _color; } }
 
-		public static void InitPointers()
+        public static void InitPointers(IGraphicsBackend graphics)
 		{
-			GL.VertexPointer(2, VertexPointerType.Float, Size, 0);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, Size, Vector2.SizeInBytes);
-			GL.ColorPointer(4, ColorPointerType.Float, Size, Vector2.SizeInBytes * 2);
+			graphics.VertexPointer(2, VertexPointerMode.Float, Size, 0);
+			graphics.TexCoordPointer(2, TexCoordPointerMode.Float, Size, Vector2.SizeInBytes);
+			graphics.ColorPointer(4, ColorPointerMode.Float, Size, Vector2.SizeInBytes * 2);
 		}
 	}
 }

@@ -9,6 +9,8 @@ namespace AGS.Engine
 	public class GLLabelRenderer : ILabelRenderer
 	{
 		private readonly GLImageRenderer _bgRenderer;
+        private readonly IGLUtils _glUtils;
+        private readonly IGraphicsBackend _graphics;
 		private GLText _glText;
 
 		private readonly MatrixContainer _renderLabelMatrixContainer, _hitTestLabelMatrixContainer;
@@ -27,8 +29,11 @@ namespace AGS.Engine
             IGLMatrixBuilder textRenderMatrixBuilder, IGLMatrixBuilder labelRenderMatrixBuilder, IGLMatrixBuilder hitTestMatrixBuilder,
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
 			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrixFactory viewportMatrix,
-            IGLBoundingBoxes labelBoundingBoxes, IGLBoundingBoxes textBoundingBoxes, IGraphicsFactory graphicsFactory)
+            IGLBoundingBoxes labelBoundingBoxes, IGLBoundingBoxes textBoundingBoxes, IGraphicsFactory graphicsFactory,
+            IGLUtils glUtils, IGraphicsBackend graphics)
 		{
+            _glUtils = glUtils;
+            _graphics = graphics;
 			_renderLabelMatrixContainer = new MatrixContainer ();
             _hitTestLabelMatrixContainer = new MatrixContainer();
 			_bitmapPool = bitmapPool;
@@ -40,7 +45,7 @@ namespace AGS.Engine
 			_boundingBoxBuilder = boundingBoxBuilder;
 			_bgRenderer = new GLImageRenderer(textures, _hitTestLabelMatrixContainer, _renderLabelMatrixContainer,
 				new BoundingBoxesEmptyBuilder(), colorBuilder, _textureRenderer, _labelBoundingBoxes,
-                                              viewportMatrix, graphicsFactory);
+                                              viewportMatrix, graphicsFactory, glUtils);
 			_textRenderMatrixBuilder = textRenderMatrixBuilder;
             _labelRenderMatrixBuilder = labelRenderMatrixBuilder;
             _hitTestMatrixBuilder = hitTestMatrixBuilder;
@@ -93,7 +98,7 @@ namespace AGS.Engine
 
 		public void Prepare(IObject obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
 		{
-            _glText = _glText ?? new GLText (_bitmapPool);
+            _glText = _glText ?? new GLText (_graphics, _bitmapPool);
 
 			updateBoundingBoxes(obj, drawable, tree, viewport, areaScaling);
 			_bgRenderer.BoundingBoxes = _usedLabelBoundingBoxes;
@@ -104,13 +109,13 @@ namespace AGS.Engine
 		{
             if (getAutoFit() == AutoFit.LabelShouldFitText)
             {
-                GLUtils.AdjustResolution(GLText.TextResolutionWidth, GLText.TextResolutionHeight);
+                _glUtils.AdjustResolution(GLText.TextResolutionWidth, GLText.TextResolutionHeight);
             }
             _bgRenderer.Render(obj, viewport, areaScaling);
 
 			if (TextVisible)
 			{
-                if (!string.IsNullOrEmpty(Text)) GLUtils.AdjustResolution(GLText.TextResolutionWidth, GLText.TextResolutionHeight);
+                if (!string.IsNullOrEmpty(Text)) _glUtils.AdjustResolution(GLText.TextResolutionWidth, GLText.TextResolutionHeight);
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
 				_textureRenderer.Render(_glText.Texture, _usedTextBoundingBoxes.RenderBox, color);

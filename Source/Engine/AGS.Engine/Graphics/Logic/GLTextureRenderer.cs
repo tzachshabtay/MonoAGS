@@ -1,12 +1,14 @@
-﻿using System;
-using OpenTK;
+﻿using OpenTK;
 
 namespace AGS.Engine
 {
 	public class GLTextureRenderer : IGLTextureRenderer
 	{
-		public GLTextureRenderer()
+        private readonly IGLUtils _glUtils;
+
+        public GLTextureRenderer(IGLUtils glUtils)
 		{
+            _glUtils = glUtils;
 		}
 
 		#region IGLTextureRenderer implementation
@@ -18,7 +20,7 @@ namespace AGS.Engine
 			Vector3 bottomRight = boundingBox.BottomRight;
 			Vector3 topRight = boundingBox.TopRight;
 
-			GLUtils.DrawQuad (texture, bottomLeft, bottomRight, topLeft, topRight, color.R,
+			_glUtils.DrawQuad (texture, bottomLeft, bottomRight, topLeft, topRight, color.R,
 				color.G, color.B, color.A);
 		}
 

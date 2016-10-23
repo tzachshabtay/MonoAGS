@@ -1,5 +1,4 @@
 ﻿using System;
-using OpenTK.Graphics.OpenGL;
 using System.IO;
 using System.Threading.Tasks;
 using System.Diagnostics;
@@ -18,50 +17,51 @@ namespace AGS.Engine
 		private bool _isCompiled;
 		private bool _hadCompilationErrors;
 		private static int _maxTextureUnits = -1;
+        private readonly IGraphicsBackend _graphics;
 
-		private GLShader(string vertexSource, string fragmentSource)
+        private GLShader(string vertexSource, string fragmentSource, IGraphicsBackend graphics)
 		{
+            _graphics = graphics;
 			_vertexSource = vertexSource;
 			_fragmentSource = fragmentSource;
 			_variables = new Dictionary<string, int> ();
 			_textures = new Dictionary<int, int> ();
 		}
 
-		public static GLShader FromText(string vertexSource, string fragmentSource)
+        public static GLShader FromText(string vertexSource, string fragmentSource, IGraphicsBackend graphics = null)
 		{
-			return new GLShader (vertexSource, fragmentSource);
+            graphics = graphics ?? Hooks.GraphicsBackend;
+            return new GLShader (vertexSource, fragmentSource, graphics);
 		}
 
-		public static async Task<GLShader> FromResource(string vertexResource, string fragmentResource)
+        public static async Task<GLShader> FromResource(string vertexResource, string fragmentResource, IGraphicsBackend graphics = null)
 		{
+            graphics = graphics ?? Hooks.GraphicsBackend;
 			ResourceLoader loader = new ResourceLoader ();
 			string vertexSource = await getSource(vertexResource, loader);
 			string fragmentSource = await getSource(fragmentResource, loader);
-			return FromText(vertexSource, fragmentSource);
+            return FromText(vertexSource, fragmentSource, graphics);
 		}
 
-		public static bool IsSupported
+        public static bool IsSupported(IGraphicsBackend graphics)
 		{
-			get
-			{
-				return (new Version(GL.GetString(StringName.Version).Substring(0, 3)) >= new Version(2, 0) ? true : false);
-			}
+			return new Version(graphics.GetVersion().Substring(0, 3)) >= new Version(2, 0);
 		}
 
 		public IShader Compile()
 		{
 			if (_hadCompilationErrors) return null;
 			if (_isCompiled) return this;
-			if (!IsSupported)
+            if (!IsSupported(_graphics))
 			{
 				Debug.WriteLine("Shaders are not supported on this system.");
 				_hadCompilationErrors = true;
 				return null;
 			}
 
-			_program = GL.CreateProgram();
-			if (!compileShader(_fragmentSource, ShaderType.FragmentShader) ||
-			    !compileShader(_vertexSource, ShaderType.VertexShader))
+			_program = _graphics.CreateProgram();
+            if (!compileShader(_fragmentSource, ShaderMode.FragmentShader) ||
+			    !compileShader(_vertexSource, ShaderMode.VertexShader))
 			{
 				_hadCompilationErrors = true;
 				return null;
@@ -79,20 +79,20 @@ namespace AGS.Engine
 			
 		public void Bind()
 		{
-			GL.UseProgram(_program);
+			_graphics.UseProgram(_program);
 			bindTextures();
 		}
 
 		public void Unbind()
 		{
-			GL.UseProgram(0);
+			_graphics.UseProgram(0);
 		}
 
 		public bool SetVariable(string name, float x)
 		{
 			int location = getVariableLocation(name);
 			if (location == -1) return false;
-			GL.Uniform1(location, x);
+			_graphics.Uniform1(location, x);
 			return true;
 		}
 
@@ -105,7 +105,7 @@ namespace AGS.Engine
 		{
 			int location = getVariableLocation(name);
 			if (location == -1) return false;
-			GL.Uniform2(location, x, y);
+			_graphics.Uniform2(location, x, y);
 			return true;
 		}
 
@@ -118,7 +118,7 @@ namespace AGS.Engine
 		{
 			int location = getVariableLocation(name);
 			if (location == -1) return false;
-			GL.Uniform3(location, x, y, z);
+			_graphics.Uniform3(location, x, y, z);
 			return true;
 		}
 
@@ -136,7 +136,7 @@ namespace AGS.Engine
 		{
 			int location = getVariableLocation(name);
 			if (location == -1) return false;
-			GL.Uniform4(location, x, y, z, w);
+			_graphics.Uniform4(location, x, y, z, w);
 			return true;
 		}
 
@@ -144,7 +144,7 @@ namespace AGS.Engine
 		{
 			int location = getVariableLocation(name);
 			if (location == -1) return false;
-			GL.UniformMatrix4(location, false, ref matrix);
+			_graphics.UniformMatrix4(location, ref matrix);
 			return true;
 		}
 
@@ -170,7 +170,7 @@ namespace AGS.Engine
 		{
 			int program = _program;
 			if (program == 0) return;
-			GL.DeleteProgram(program);
+			_graphics.DeleteProgram(program);
 		}
 
 		#endregion
@@ -180,7 +180,7 @@ namespace AGS.Engine
 			if (_program == 0) return -1;
 			return _variables.GetOrAdd(name, () =>
 			{
-				int location = GL.GetUniformLocation(_program, name);
+				int location = _graphics.GetUniformLocation(_program, name);
 				Debug.WriteLineIf(location == -1, string.Format("Variable name {0} not found in shader program.", name));
 				return location;
 			});
@@ -197,42 +197,40 @@ namespace AGS.Engine
 			}
 		}
 
-		private bool compileShader(string source, ShaderType shaderType)
+		private bool compileShader(string source, ShaderMode shaderType)
 		{
 			if (string.IsNullOrEmpty(source)) return true;
 
-			int shader = GL.CreateShader(shaderType);
-			GL.ShaderSource(shader, source);
-			GL.CompileShader(shader);
-			string info = GL.GetShaderInfoLog(shader);
-			int errorCode;
-			GL.GetShader(shader, ShaderParameter.CompileStatus, out errorCode);
+			int shader = _graphics.CreateShader(shaderType);
+			_graphics.ShaderSource(shader, source);
+			_graphics.CompileShader(shader);
+			string info = _graphics.GetShaderInfoLog(shader);
+            int errorCode = _graphics.GetShaderCompilationErrorCode(shader);
 
 			if (errorCode != 1)
 			{
 				Debug.WriteLine(string.Format("Failed to compile {0}.{4}Error code: {1}.{4}Error message(s): {2}.{4}Shader Source: {3}{4}",
 					shaderType, errorCode, info ?? "null", source, Environment.NewLine));
-				GL.DeleteShader(shader);
+				_graphics.DeleteShader(shader);
 				_program = 0;
 				return false;
 			}
 
-			GL.AttachShader(_program, shader);
-			GL.DeleteShader(shader);
+			_graphics.AttachShader(_program, shader);
+			_graphics.DeleteShader(shader);
 			return true;
 		}
 
 		private bool linkProgram()
 		{
-			GL.LinkProgram(_program);
-			string info = GL.GetProgramInfoLog(_program);
-			int errorCode;
-			GL.GetProgram(_program, GetProgramParameterName.LinkStatus, out errorCode);
+			_graphics.LinkProgram(_program);
+			string info = _graphics.GetProgramInfoLog(_program);
+            int errorCode = _graphics.GetProgramLinkErrorCode(_program);
 			if (errorCode != 1)
 			{
 				Debug.WriteLine(string.Format("Failed to link shader program. Error code: {0}.{2}Error message(s): {1}{2}",
 					errorCode, info ?? "null", Environment.NewLine));
-				GL.DeleteProgram(_program);
+				_graphics.DeleteProgram(_program);
 				_program = 0;
 				return false;
 			}
@@ -244,18 +242,18 @@ namespace AGS.Engine
 			int i = 0;
 			foreach (var pair in _textures)
 			{
-				GL.Uniform1(pair.Key, i);
-				GL.ActiveTexture(TextureUnit.Texture0 + i);
-				GL.BindTexture(TextureTarget.Texture2D, pair.Value);
+				_graphics.Uniform1(pair.Key, i);
+				_graphics.ActiveTexture(i);
+                _graphics.BindTexture2D(pair.Value);
 				i++;
 			}
-			GL.ActiveTexture(TextureUnit.Texture0);
+			_graphics.ActiveTexture(0);
 		}
 
 		private int getMaxTextureUnits()
 		{
 			if (_maxTextureUnits != -1) return _maxTextureUnits;
-			_maxTextureUnits = GL.GetInteger(GetPName.MaxTextureUnits);
+            _maxTextureUnits = _graphics.GetMaxTextureUnits();
 			return _maxTextureUnits;
 		}
 	}

@@ -1,7 +1,6 @@
 ﻿using System;
 using AGS.API;
 using AGS.Engine;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DemoGame
@@ -116,7 +115,7 @@ namespace DemoGame
 
 		private async void save()
 		{
-            AGSGameSettings.CurrentSkin = new AGSBlueSkin(_game.Factory.Graphics).CreateSkin();
+            AGSGameSettings.CurrentSkin = new AGSBlueSkin(_game.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to save", FileSelection.FileOnly);
             AGSGameSettings.CurrentSkin = null;
             if (file == null) return;
@@ -126,7 +125,7 @@ namespace DemoGame
 
 		private async void load()
 		{
-            AGSGameSettings.CurrentSkin = new AGSBlueSkin(_game.Factory.Graphics).CreateSkin();
+            AGSGameSettings.CurrentSkin = new AGSBlueSkin(_game.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to load", FileSelection.FileOnly);
             AGSGameSettings.CurrentSkin = null;
             if (file == null) return;

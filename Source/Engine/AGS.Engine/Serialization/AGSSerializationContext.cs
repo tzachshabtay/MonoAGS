@@ -10,14 +10,17 @@ namespace AGS.Engine
 		private readonly List<Action<IGameState>> _rewireActions;
 
         public AGSSerializationContext(IGameFactory factory, IDictionary<string, ITexture> textures, 
-			Resolver resolver)
+                                       Resolver resolver, IGLUtils glUtils)
 		{
 			Factory = factory;
+            GLUtils = glUtils;
 			Textures = textures;
 			_contracts = new ContractsFactory();
 			Resolver = resolver;
 			_rewireActions = new List<Action<IGameState>> ();
 		}
+
+        public IGLUtils GLUtils { get; private set; }
 
 		public IGameFactory Factory { get; private set; }
 

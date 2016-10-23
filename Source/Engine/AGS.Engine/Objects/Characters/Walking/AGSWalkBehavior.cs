@@ -23,9 +23,10 @@ namespace AGS.Engine
         private IAnimationContainer _animation;
         private ISprite _lastFrame;
         private float _lastViewportX, _lastViewportY, _compensateScrollX, _compensateScrollY;
+        private readonly IGLUtils _glUtils;
         
 		public AGSWalkBehavior(IObject obj, IPathFinder pathFinder, IFaceDirectionBehavior faceDirection, 
-			IHasOutfit outfit, IObjectFactory objFactory, IGame game)
+                               IHasOutfit outfit, IObjectFactory objFactory, IGame game, IGLUtils glUtils)
 		{
             _state = game.State;
             _cutscene = _state.Cutscene;
@@ -35,6 +36,7 @@ namespace AGS.Engine
 			_faceDirection = faceDirection;
 			_outfit = outfit;
 			_objFactory = objFactory;
+            _glUtils = glUtils;
 
 			_debugPath = new List<IObject> ();
 			_walkCompleted = new TaskCompletionSource<object> ();
@@ -315,7 +317,7 @@ namespace AGS.Engine
 		{
 			if (debugRenderers != null) 
 			{
-				GLLineRenderer line = new GLLineRenderer (_obj.X, _obj.Y, destination.X, destination.Y);
+                GLLineRenderer line = new GLLineRenderer (_glUtils, _obj.X, _obj.Y, destination.X, destination.Y);
 				IObject renderer = _objFactory.GetObject("Debug Line");
 				renderer.CustomRenderer = line;
 				renderer.ChangeRoom(_obj.Room);

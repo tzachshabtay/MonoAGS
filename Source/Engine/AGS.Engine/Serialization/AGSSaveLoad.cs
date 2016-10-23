@@ -2,13 +2,13 @@
 using AGS.API;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.IO;
 using ProtoBuf;
 using System.Diagnostics;
 using System.Reflection;
 using ProtoBuf.Meta;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -117,7 +117,7 @@ namespace AGS.Engine
 		private AGSSerializationContext getContext()
 		{
 			var context = new AGSSerializationContext (_factory, _textures, 
-				              _resolver);
+                                                       _resolver, _resolver.Container.Resolve<IGLUtils>());
 			context.Player = _state.Player;
 			return context;
 		}

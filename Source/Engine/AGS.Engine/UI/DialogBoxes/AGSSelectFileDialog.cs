@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -20,6 +20,7 @@ namespace AGS.Engine
         private readonly FileSelection _fileSelection;
         private readonly IGame _game;
         private readonly ITextConfig _buttonsTextConfig, _filesTextConfig;
+        private readonly IGLUtils _glUtils;
 
         private IInventory _inventory;
         private ITextBox _fileTextBox;
@@ -33,8 +34,9 @@ namespace AGS.Engine
 
         private IBorderStyle _fileIcon, _fileIconSelected, _folderIcon, _folderIconSelected;
 
-        private AGSSelectFileDialog(IGame game, string title, FileSelection fileSelection, string startPath = null)
+        private AGSSelectFileDialog(IGame game, IGLUtils glUtils, string title, FileSelection fileSelection, string startPath = null)
         {
+            _glUtils = glUtils;
             _game = game;
             _title = title;
             _fileSelection = fileSelection;
@@ -49,7 +51,7 @@ namespace AGS.Engine
 
         public static async Task<string> SelectFile(string title, FileSelection fileSelection, string startPath = null)
         {
-            var dialog = new AGSSelectFileDialog(AGSGame.Game, title, fileSelection, startPath);
+            var dialog = new AGSSelectFileDialog(AGSGame.Game, AGSGame.Resolver.Container.Resolve<IGLUtils>(), title, fileSelection, startPath);
             return await dialog.Run();
         }
 
@@ -108,20 +110,20 @@ namespace AGS.Engine
             scrollDownButton.MouseClicked.Subscribe((sender, args) => invWindow.ScrollDown());
             scrollUpButton.MouseClicked.Subscribe((sender, args) => invWindow.ScrollUp());
 
-            _fileIcon = new FileIcon();
-            _fileIconSelected = new FileIcon { IsSelected = true };
-            _folderIcon = new FolderIcon();
-            _folderIconSelected = new FolderIcon { IsSelected = true };
+            _fileIcon = new FileIcon(_glUtils);
+            _fileIconSelected = new FileIcon(_glUtils) { IsSelected = true };
+            _folderIcon = new FolderIcon(_glUtils);
+            _folderIconSelected = new FolderIcon(_glUtils) { IsSelected = true };
 
             var arrowDownIcon = getIcon("ArrowDown", factory, scrollButtonWidth, scrollButtonHeight, 
-                                        new ArrowIcon { Direction = ArrowIcon.ArrowDirection.Down });
+                                        new ArrowIcon(_glUtils) { Direction = ArrowIcon.ArrowDirection.Down });
             arrowDownIcon.Anchor = new PointF();
             arrowDownIcon.Enabled = false;
             arrowDownIcon.TreeNode.SetParent(scrollDownButton.TreeNode);
             _game.State.UI.Add(arrowDownIcon);
 
             var arrowUpIcon = getIcon("ArrowUp", factory, scrollButtonWidth, scrollButtonHeight,
-                                      new ArrowIcon { Direction = ArrowIcon.ArrowDirection.Up });
+                                      new ArrowIcon(_glUtils) { Direction = ArrowIcon.ArrowDirection.Up });
             arrowUpIcon.Anchor = new PointF();
             arrowUpIcon.Enabled = false;
             arrowUpIcon.TreeNode.SetParent(scrollUpButton.TreeNode);

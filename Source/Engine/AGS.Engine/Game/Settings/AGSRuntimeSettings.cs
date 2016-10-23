@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using AGS.API;
+﻿using AGS.API;
 using OpenTK;
 
 namespace AGS.Engine
@@ -8,10 +7,12 @@ namespace AGS.Engine
     {
         private readonly GameWindow _gameWindow;
         private readonly IMessagePump _messagePump;
+        private readonly IGLUtils _glUtils;
         private bool _preserveAspectRatio;
 
-        public AGSRuntimeSettings(IGameSettings settings, GameWindow gameWindow, IMessagePump messagePump)
+        public AGSRuntimeSettings(IGameSettings settings, GameWindow gameWindow, IMessagePump messagePump, IGLUtils glUtils)
         {
+            _glUtils = glUtils;
             _gameWindow = gameWindow;
             _messagePump = messagePump;
             Title = settings.Title;
@@ -58,7 +59,7 @@ namespace AGS.Engine
 
         public void ResetViewport()
         {
-            GLUtils.RefreshViewport(this, _gameWindow);
+            _glUtils.RefreshViewport(this, _gameWindow);
         }
     }
 }

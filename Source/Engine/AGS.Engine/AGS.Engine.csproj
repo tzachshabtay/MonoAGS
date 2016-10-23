@@ -57,7 +57,6 @@
     </Compile>
     <Compile Include="Graphics\Image\AGSHasImage.cs" />
     <Compile Include="Graphics\Image\AGSImageComponent.cs" />
-    <Compile Include="Graphics\Logic\Utils\GLUtilsWrapper.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLUtils.cs" />
     <Compile Include="Graphics\Logic\SortDebugger.cs" />
     <Compile Include="Objects\AGSDraggableComponent.cs" />
@@ -121,7 +120,6 @@
     <Compile Include="Graphics\Animations\AGSSingleFrameAnimation.cs" />
     <Compile Include="Graphics\Animations\AGSSpriteSheet.cs" />
     <Compile Include="Graphics\Drawing\GLLineRenderer.cs" />
-    <Compile Include="Graphics\Drawing\GLMaskRenderer.cs" />
     <Compile Include="Graphics\Image\GLImage.cs" />
     <Compile Include="Graphics\Layers\AGSLayers.cs" />
     <Compile Include="Graphics\Layers\AGSRenderLayer.cs" />
@@ -380,6 +378,8 @@
     <Compile Include="Player\Approach\AGSApproachStyle.cs" />
     <Compile Include="Platform\IAudioBackend.cs" />
     <Compile Include="Platform\ALAudioBackend.cs" />
+    <Compile Include="Platform\IGraphicsBackend.cs" />
+    <Compile Include="Platform\GLGraphicsBackend.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

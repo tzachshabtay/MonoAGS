@@ -17,7 +17,8 @@ namespace AGS.Engine.Desktop
 			Hooks.EntryAssembly = Assembly.GetEntryAssembly();
 			_fontFamilyLoader = new DesktopFontFamilyLoader(new ResourceLoader());
 
-			Hooks.BitmapLoader = new DesktopBitmapLoader ();
+            Hooks.GraphicsBackend = new GLGraphicsBackend();
+			Hooks.BitmapLoader = new DesktopBitmapLoader (Hooks.GraphicsBackend);
 			Hooks.BrushLoader = new DesktopBrushLoader ();
 			Hooks.FontLoader = new DesktopFontLoader (_fontFamilyLoader);
 			Hooks.GameWindowSize = new DesktopGameWindowSize ();

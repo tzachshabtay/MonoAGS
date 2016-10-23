@@ -12,15 +12,17 @@ namespace AGS.Engine
 		private readonly float _timeInSeconds;
 		private readonly float _width, _height;
 		private readonly QuadVectors _screenVectors;
+        private readonly IGLUtils _glUtils;
 
 		private Tween _tweenX, _tweenY;
 		private Action _visitTweenX, _visitTweenY;
 		private float _x, _y;
 
-		public RoomTransitionSlide(bool slideIn = false, float? x = null, float y = 0f, 
+		public RoomTransitionSlide(IGLUtils glUtils, bool slideIn = false, float? x = null, float y = 0f, 
 			float timeInSeconds = 1f, Func<float, float> easingX = null,
 			Func<float, float> easingY = null, IGame game = null)
 		{
+            _glUtils = glUtils;
 			game = game ?? AGSGame.Game;
 			_timeInSeconds = timeInSeconds;
 			_slideIn = slideIn;
@@ -30,7 +32,7 @@ namespace AGS.Engine
 			_targetY = y;
 			_width = game.Settings.VirtualResolution.Width;
 			_height = game.Settings.VirtualResolution.Height;
-			_screenVectors = new QuadVectors (game);
+            _screenVectors = new QuadVectors (game, glUtils);
 		}
 
 		#region IRoomTransition implementation
@@ -55,7 +57,7 @@ namespace AGS.Engine
 			if (!_tweenX.Task.IsCompleted) _visitTweenX();
 			if (!_tweenY.Task.IsCompleted) _visitTweenY();
 
-			var quad = new QuadVectors (_x, _y, _width, _height);
+			var quad = new QuadVectors (_x, _y, _width, _height, _glUtils);
 			if (_slideIn)
 			{
 				_screenVectors.Render(from.Texture);

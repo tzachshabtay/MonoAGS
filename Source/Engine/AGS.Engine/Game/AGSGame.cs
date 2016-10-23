@@ -3,7 +3,6 @@ using AGS.API;
 using Autofac;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Reflection;
@@ -16,10 +15,13 @@ namespace AGS.Engine
 		private IRendererLoop _renderLoop;
 		private int _relativeSpeed;
 		private AGSEventArgs _renderEventArgs;
-		private IMessagePump _messagePump;
+		private readonly IMessagePump _messagePump;
+        private readonly IGraphicsBackend _graphics;
+        private readonly IGLUtils _glUtils;
 		public const double UPDATE_RATE = 60.0;
 
-		public AGSGame(IGameState state, IGameEvents gameEvents, IMessagePump messagePump)
+        public AGSGame(IGameState state, IGameEvents gameEvents, IMessagePump messagePump, 
+                       IGraphicsBackend graphics, IGLUtils glUtils)
 		{
 			_messagePump = messagePump;
 			_messagePump.SetSyncContext ();
@@ -27,6 +29,9 @@ namespace AGS.Engine
 			Events = gameEvents;
 			_relativeSpeed = state.Speed;
 			_renderEventArgs = new AGSEventArgs ();
+            _graphics = graphics;
+            _glUtils = glUtils;
+            GLUtils = _glUtils;
 		}
 
 		public static GameWindow GameWindow { get; private set; }
@@ -36,6 +41,8 @@ namespace AGS.Engine
 		public static IShader Shader { get; set; }
 
 		public static Resolver Resolver { get { return ((AGSGame)Game)._resolver; } }
+
+        public static IGLUtils GLUtils { get; private set; }
 
 		public static IGame CreateEmpty()
 		{
@@ -76,21 +83,15 @@ namespace AGS.Engine
 			using (GameWindow = new GameWindow (settings.WindowSize.Width, 
                    settings.WindowSize.Height, GraphicsMode.Default, settings.Title))
 			{
-                GL.ClearColor(0, 0f, 0f, 1);
+                _graphics.ClearColor(0f, 0f, 0f, 1f);
                 TypedParameter settingsParameter = new TypedParameter(typeof(IGameSettings), settings);
                 TypedParameter gameWindowParameter = new TypedParameter(typeof(GameWindow), GameWindow);
                 Settings = Resolver.Container.Resolve<IRuntimeSettings>(settingsParameter, gameWindowParameter);
 
                 GameWindow.Load += (sender, e) =>
 				{
-                    GL.Enable(EnableCap.Blend);
-                    GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-
-					GL.Enable(EnableCap.Texture2D);
-					GL.EnableClientState(ArrayCap.VertexArray);
-					GL.EnableClientState(ArrayCap.TextureCoordArray);
-					GL.EnableClientState(ArrayCap.ColorArray);
-					GLUtils.GenBuffer();
+                    _graphics.Init();
+                    _glUtils.GenBuffer();
 
                     Factory = Resolver.Container.Resolve<IGameFactory>();
 
@@ -103,7 +104,7 @@ namespace AGS.Engine
 					AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
 					SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
 
-                    GLUtils.AdjustResolution(settings.VirtualResolution.Width, settings.VirtualResolution.Height);
+                    _glUtils.AdjustResolution(settings.VirtualResolution.Width, settings.VirtualResolution.Height);
 
 					Events.OnLoad.Invoke(sender, new AGSEventArgs());
 				};
@@ -146,8 +147,8 @@ namespace AGS.Engine
 				{
 					try
 					{
-						// render graphics
-						GL.Clear( ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit );
+                        // render graphics
+                        _graphics.ClearScreen();
 						Events.OnBeforeRender.Invoke(sender, _renderEventArgs);
 
 						if (_renderLoop.Tick())

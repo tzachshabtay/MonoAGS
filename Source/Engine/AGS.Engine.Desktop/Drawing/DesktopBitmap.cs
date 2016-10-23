@@ -1,6 +1,4 @@
-﻿using System;
-using AGS.API;
-using OpenTK.Graphics.OpenGL;
+﻿using AGS.API;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -8,11 +6,13 @@ namespace AGS.Engine.Desktop
 {
 	public class DesktopBitmap : IBitmap
 	{
-		private Bitmap _bitmap;
+		private readonly Bitmap _bitmap;
+        private readonly IGraphicsBackend _graphics;
 
-		public DesktopBitmap(Bitmap bitmap)
+        public DesktopBitmap(Bitmap bitmap, IGraphicsBackend graphics)
 		{
 			_bitmap = bitmap;
+            _graphics = graphics;
 		}
 
 		#region IBitmap implementation
@@ -42,11 +42,10 @@ namespace AGS.Engine.Desktop
 			BitmapData data = _bitmap.LockBits(new System.Drawing.Rectangle(0, 0, Width, Height),
 				ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-			if (textureToBind != null) 
-				GL.BindTexture(TextureTarget.Texture2D, textureToBind.Value);
-			
-			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, Width, Height, 0,
-				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+            if (textureToBind != null)
+                _graphics.BindTexture2D(textureToBind.Value);
+
+            _graphics.TexImage2D(Width, Height, data.Scan0);
 			_bitmap.UnlockBits(data);
 		}
 
@@ -73,12 +72,12 @@ namespace AGS.Engine.Desktop
 				}
 			}
 
-			return new DesktopBitmap(output);
+            return new DesktopBitmap(output, _graphics);
 		}
 
 		public IBitmap Crop(AGS.API.Rectangle cropRect)
 		{
-			return new DesktopBitmap(_bitmap.Clone (cropRect.Convert(), _bitmap.PixelFormat)); //todo: improve performance by using FastBitmap
+            return new DesktopBitmap(_bitmap.Clone (cropRect.Convert(), _bitmap.PixelFormat), _graphics); //todo: improve performance by using FastBitmap
 		}
 
 		public IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, 
@@ -130,7 +129,7 @@ namespace AGS.Engine.Desktop
 			if (debugDrawColor != null)
 			{
 				debugDraw = factory.Object.GetObject(id ?? path ?? "Mask Drawable");
-				debugDraw.Image = factory.Graphics.LoadImage(new DesktopBitmap(debugMask), null, path);
+                debugDraw.Image = factory.Graphics.LoadImage(new DesktopBitmap(debugMask, _graphics), null, path);
 				debugDraw.Anchor = new AGS.API.PointF ();
 			}
 

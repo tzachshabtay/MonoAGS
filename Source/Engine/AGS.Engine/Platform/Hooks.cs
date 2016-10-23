@@ -14,6 +14,7 @@ namespace AGS.Engine
 		public static Assembly EntryAssembly;
 		public static IFileSystem FileSystem;
         public static IKeyboardState KeyboardState;
+        public static IGraphicsBackend GraphicsBackend;
 	}
 }
 

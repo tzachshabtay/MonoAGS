@@ -1,6 +1,5 @@
 ﻿using System;
 using AGS.API;
-using OpenTK;
 
 namespace AGS.Engine
 {
@@ -14,13 +13,13 @@ namespace AGS.Engine
 		private Action _visitTween;
 		private float _alpha;
 
-		public RoomTransitionCrossFade(float timeInSeconds = 1f, Func<float, float> easingFadeOut = null, 
+		public RoomTransitionCrossFade(IGLUtils glUtils, float timeInSeconds = 1f, Func<float, float> easingFadeOut = null, 
 			IGame game = null)
 		{
 			game = game ?? AGSGame.Game;
 			_timeInSeconds = timeInSeconds / 2f;
 			_easingFadeOut = easingFadeOut ?? Ease.Linear;
-			_screenVectors = new QuadVectors (game);
+            _screenVectors = new QuadVectors (game, glUtils);
 		}
 
 		#region IRoomTransition implementation

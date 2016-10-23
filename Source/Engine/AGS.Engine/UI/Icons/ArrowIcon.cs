@@ -5,10 +5,12 @@ namespace AGS.Engine
 {
     public class ArrowIcon : IBorderStyle
     {
+        private readonly IGLUtils _glUtils;
         private OpenTK.Vector2 _emptyVector = new OpenTK.Vector2();
 
-        public ArrowIcon()
+        public ArrowIcon(IGLUtils glUtils)
         {
+            _glUtils = glUtils;
             ArrowColor = Colors.White.ToGLColor();
         }
 
@@ -58,7 +60,7 @@ namespace AGS.Engine
                 default: throw new NotSupportedException(Direction.ToString());
             }
 
-            GLUtils.DrawTriangleFan(0, new GLVertex[] { new GLVertex(point1.ToVector2(), _emptyVector, ArrowColor),
+            _glUtils.DrawTriangleFan(0, new GLVertex[] { new GLVertex(point1.ToVector2(), _emptyVector, ArrowColor),
                 new GLVertex(point2.ToVector2(), _emptyVector, ArrowColor), new GLVertex(point3.ToVector2(), _emptyVector, ArrowColor)});
         }
 

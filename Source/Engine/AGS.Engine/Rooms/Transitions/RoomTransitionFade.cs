@@ -1,7 +1,6 @@
 ﻿using System;
 using AGS.API;
 using System.Collections.Generic;
-using OpenTK;
 
 namespace AGS.Engine
 {
@@ -16,14 +15,14 @@ namespace AGS.Engine
 		private float _black;
 		private bool _isFadeIn;
 
-		public RoomTransitionFade(float timeInSeconds = 1f, Func<float, float> easingFadeOut = null, 
+		public RoomTransitionFade(IGLUtils glUtils, float timeInSeconds = 1f, Func<float, float> easingFadeOut = null, 
 			Func<float, float> easingFadeIn = null, IGame game = null)
 		{
 			game = game ?? AGSGame.Game;
 			_timeInSeconds = timeInSeconds / 2f;
 			_easingFadeOut = easingFadeOut ?? Ease.Linear;
 			_easingFadeIn = easingFadeIn ?? Ease.Linear;
-			_screenVectors = new QuadVectors (game);
+            _screenVectors = new QuadVectors (game, glUtils);
 		}
 
 		#region IRoomTransition implementation

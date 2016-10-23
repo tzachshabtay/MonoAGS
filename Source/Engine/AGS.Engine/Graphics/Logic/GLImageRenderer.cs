@@ -15,11 +15,12 @@ namespace AGS.Engine
 		private IGLTextureRenderer _renderer;
 		private IGLViewportMatrixFactory _layerViewports;
         private IGraphicsFactory _graphicsFactory;
+        private IGLUtils _glUtils;
 
         public GLImageRenderer (Dictionary<string, ITexture> textures, 
 			IGLMatrixBuilder hitTestMatrixBuilder, IGLMatrixBuilder renderMatrixBuilder, IGLBoundingBoxBuilder boundingBoxBuilder,
 			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer, IGLBoundingBoxes bgBoxes,
-            IGLViewportMatrixFactory layerViewports, IGraphicsFactory graphicsFactory)
+            IGLViewportMatrixFactory layerViewports, IGraphicsFactory graphicsFactory, IGLUtils glUtils)
 		{
             _graphicsFactory = graphicsFactory;
 			_textures = textures;
@@ -30,6 +31,7 @@ namespace AGS.Engine
 			_renderer = renderer;
 			_layerViewports = layerViewports;
 			BoundingBoxes = bgBoxes;
+            _glUtils = glUtils;
             _emptyTexture = new Lazy<ITexture>(() => initEmptyTexture());
 		}
 
@@ -115,7 +117,7 @@ namespace AGS.Engine
 					y += parent.Y;
 					parent = parent.TreeNode.Parent;
 				}
-				GLUtils.DrawCross(x - viewport.X, y - viewport.Y, 10, 10, 1f, 1f, 1f, 1f);
+                _glUtils.DrawCross(x - viewport.X, y - viewport.Y, 10, 10, 1f, 1f, 1f, 1f);
 			}
 		}
 			

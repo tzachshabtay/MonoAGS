@@ -1,5 +1,4 @@
 ﻿using System;
-using OpenTK.Graphics.OpenGL;
 using System.Diagnostics;
 using AGS.API;
 using System.Text;
@@ -19,6 +18,7 @@ namespace AGS.Engine
         private int _caretPosition;
         private float _spaceWidth;
         private bool _cropText, _renderCaret;
+        private readonly IGraphicsBackend _graphics;
 
         /// <summary>
         /// The factor in which the text will be rendered (and then will be downscaled to match the resolution so it would look sharper)
@@ -31,8 +31,9 @@ namespace AGS.Engine
         public static int TextResolutionWidth { get { return AGSGame.Game.Settings.VirtualResolution.Width * TextResolutionFactorX; } }
         public static int TextResolutionHeight { get { return AGSGame.Game.Settings.VirtualResolution.Height * TextResolutionFactorY; } }
 
-        public GLText (BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
+        public GLText (IGraphicsBackend graphics, BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
 		{
+            _graphics = graphics;
 			this._maxWidth = maxWidth;
 			this._text = text;
 			this._bitmapPool = pool;            
@@ -98,10 +99,10 @@ namespace AGS.Engine
 
 		private int createTexture()
 		{
-			int text_texture = GL.GenTexture();
-			GL.BindTexture(TextureTarget.Texture2D, text_texture);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)All.Linear);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)All.Linear);
+			int text_texture = _graphics.GenTexture();
+            _graphics.BindTexture2D(text_texture);
+            _graphics.SetTextureMagFilter(ScaleUpFilters.Linear);
+            _graphics.SetTextureMinFilter(ScaleDownFilters.Linear);
 			//GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, 1024, 1024, 0,
 			//	OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, IntPtr.Zero); // just allocate memory, so we can update efficiently using TexSubImage2D
 			return text_texture;

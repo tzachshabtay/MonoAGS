@@ -88,7 +88,8 @@ namespace Tests
 			{
 				Mock<IMask> mask = new Mock<IMask> ();
 				Bitmap bitmap = new Bitmap (1, 1);
-				DesktopBitmap ibitmap = new DesktopBitmap (bitmap);
+                Mock<IGraphicsBackend> graphics = new Mock<IGraphicsBackend>();
+                DesktopBitmap ibitmap = new DesktopBitmap (bitmap, graphics.Object);
 				_mocks.Image().Setup(i => i.OriginalBitmap).Returns(ibitmap);
 				_mocks.MaskLoader().Setup(m => m.Load(ibitmap, false, null, null)).Returns(mask.Object);
 

@@ -45,17 +45,19 @@ varying vec4 gl_Color;
 		private readonly float _timeInSeconds;
 		private readonly Func<float, float> _easing;
 		private readonly QuadVectors _screenVectors;
+        private readonly IGraphicsBackend _graphics;
 
 		private float _time;
 		private Tween _tween;
 		private Action _visitTween;
 
-		public RoomTransitionDissolve(float timeInSeconds = 1f, Func<float, float> easing = null, IGame game = null)
+        public RoomTransitionDissolve(IGLUtils glUtils, IGraphicsBackend graphics, float timeInSeconds = 1f, Func<float, float> easing = null, IGame game = null)
 		{
+            _graphics = graphics;
 			_timeInSeconds = timeInSeconds;
 			_easing = easing ?? Ease.Linear;
 			game = game ?? AGSGame.Game;
-			_screenVectors = new QuadVectors (game);
+            _screenVectors = new QuadVectors (game, glUtils);
 		}
 
 		#region IRoomTransition implementation
@@ -75,7 +77,7 @@ varying vec4 gl_Color;
 			_visitTween();
 			var oldShader = AGSGame.Shader;
 			_screenVectors.Render(to.Texture);
-			var shader = GLShader.FromText(VERTEX_SHADER, FRAGMENT_SHADER).Compile();
+			var shader = GLShader.FromText(VERTEX_SHADER, FRAGMENT_SHADER, _graphics).Compile();
 			if (shader == null)
 			{
 				return false;

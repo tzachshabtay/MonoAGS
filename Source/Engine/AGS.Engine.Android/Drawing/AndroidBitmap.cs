@@ -1,17 +1,18 @@
 ﻿using AGS.API;
 using Android.Graphics;
-using OpenTK.Graphics.OpenGL;
 using System.IO;
 
 namespace AGS.Engine.Android
 {
 	public class AndroidBitmap : IBitmap
 	{
-		private Bitmap _bitmap;
+		private readonly Bitmap _bitmap;
+        private readonly IGraphicsBackend _graphics;
 
-		public AndroidBitmap(Bitmap bitmap)
+        public AndroidBitmap(Bitmap bitmap, IGraphicsBackend graphics)
 		{
 			_bitmap = bitmap;
+            _graphics = graphics;
 		}
 
 		#region IBitmap implementation
@@ -52,11 +53,10 @@ namespace AGS.Engine.Android
 		{
 			var scan0 = _bitmap.LockPixels();
 
-			if (textureToBind != null) 
-				GL.BindTexture(TextureTarget.Texture2D, textureToBind.Value);
+            if (textureToBind != null)
+                _graphics.BindTexture2D(textureToBind.Value);
 
-			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, Width, Height, 0,
-				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, scan0);
+            _graphics.TexImage2D(Width, Height, scan0);
 			_bitmap.UnlockPixels();
 		}
 
@@ -83,12 +83,12 @@ namespace AGS.Engine.Android
 				}
 			}
 
-			return new AndroidBitmap(output);
+            return new AndroidBitmap(output, _graphics);
 		}
 
 		public IBitmap Crop(AGS.API.Rectangle cropRect)
 		{
-			return new AndroidBitmap(Bitmap.CreateBitmap(_bitmap, cropRect.X, cropRect.Y, cropRect.Width, cropRect.Height)); //todo: improve performance by using FastBitmap
+            return new AndroidBitmap(Bitmap.CreateBitmap(_bitmap, cropRect.X, cropRect.Y, cropRect.Width, cropRect.Height), _graphics); //todo: improve performance by using FastBitmap
 		}
 
 		public IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, 
@@ -145,7 +145,7 @@ namespace AGS.Engine.Android
 			if (debugDrawColor != null)
 			{
 				debugDraw = factory.Object.GetObject(id ?? path ?? "Mask Drawable");
-				debugDraw.Image = factory.Graphics.LoadImage(new AndroidBitmap(debugMask), null, path);
+                debugDraw.Image = factory.Graphics.LoadImage(new AndroidBitmap(debugMask, _graphics), null, path);
 				debugDraw.Anchor = new AGS.API.PointF ();
 			}
 

@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 
 
@@ -28,7 +27,7 @@ namespace AGS.Engine
 			if (!BorderSupported) return null;
 			var color = Color.FromHexa(ColorValue);
 			var lineWidth = LineWidth;
-			IBorderStyle style = AGSBorders.SolidColor(color, lineWidth);
+            IBorderStyle style = AGSBorders.SolidColor(context.GLUtils, color, lineWidth);
 
 			return style;
 		}

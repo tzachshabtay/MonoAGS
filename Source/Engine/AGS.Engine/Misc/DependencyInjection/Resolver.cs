@@ -43,6 +43,7 @@ namespace AGS.Engine
             Builder.RegisterType<AGSClassicSpeechCache>().SingleInstance().As<ISpeechCache>();
             Builder.RegisterType<GLGraphicsFactory>().SingleInstance().As<IGraphicsFactory>();
             Builder.RegisterType<ALAudioBackend>().SingleInstance().As<IAudioBackend>();
+            Builder.RegisterType<GLUtils>().SingleInstance().As<IGLUtils>();
 
 			registerComponents();
 
@@ -64,6 +65,8 @@ namespace AGS.Engine
 
 			FastFingerChecker checker = new FastFingerChecker ();
 			Builder.RegisterInstance(checker);
+
+            Builder.RegisterInstance(Hooks.GraphicsBackend).As<IGraphicsBackend>();
 
 			Builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 		}

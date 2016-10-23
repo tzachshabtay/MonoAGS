@@ -8,9 +8,11 @@ namespace AGS.Engine
 	{
 		private GLVertex[] _roundCorner;
 		public static int ROUND_CORNER_SAMPLE_SIZE = 15;
+        private readonly IGLUtils _glUtils;
 
-		public AGSColoredBorder(float lineWidth, FourCorners<Color> color, FourCorners<bool> hasRoundCorner)
+		public AGSColoredBorder(IGLUtils glUtils, float lineWidth, FourCorners<Color> color, FourCorners<bool> hasRoundCorner)
 		{
+            _glUtils = glUtils;
 			LineWidth = lineWidth;
 			Color = color;
 			HasRoundCorner = hasRoundCorner;
@@ -93,7 +95,7 @@ namespace AGS.Engine
 			GLColor topRightColor = getColor(colors, border, quad.TopRight);
 			GLColor topLeftColor = getColor(colors, border, quad.TopLeft);
 
-			GLUtils.DrawQuad(0, quad.BottomLeft.ToVector3(), quad.BottomRight.ToVector3(),
+            _glUtils.DrawQuad(0, quad.BottomLeft.ToVector3(), quad.BottomRight.ToVector3(),
 				quad.TopLeft.ToVector3(), quad.TopRight.ToVector3(), bottomLeftColor, bottomRightColor, topLeftColor, topRightColor);
 		}
 
@@ -113,7 +115,7 @@ namespace AGS.Engine
 				_roundCorner[i] = new GLVertex (point.ToVector2(), tex, getColor(colors, border, point));
 			}
 
-			GLUtils.DrawTriangleFan(0, _roundCorner);
+            _glUtils.DrawTriangleFan(0, _roundCorner);
 		}
 
 		private GLColor getColor(FourCorners<IGLColor> colors, ISquare border, PointF point)

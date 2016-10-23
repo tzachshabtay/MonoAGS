@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AGS.API;
 using Autofac;
 
@@ -67,7 +66,7 @@ namespace AGS.Engine
 			hovered.Sprite.Tint = Colors.Yellow;
 			IAnimation pushed = new AGSSingleFrameAnimation (new EmptyImage (ButtonWidth, ButtonHeight), factory.Graphics);
 			pushed.Sprite.Tint = Colors.DarkSlateBlue;
-			var border = AGSBorders.Gradient(new FourCorners<Color>(Colors.DarkOliveGreen,
+            var border = AGSBorders.Gradient(AGSGame.Resolver.Container.Resolve<IGLUtils>(), new FourCorners<Color>(Colors.DarkOliveGreen,
 				Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
 			
 			IButton yesButton = factory.UI.GetButton("Dialog Yes Button", idle, hovered, pushed, 0f, 0f, yes, ButtonConfig);
@@ -96,7 +95,7 @@ namespace AGS.Engine
 		private static ISayConfig getDefaultConfig()
 		{
 			AGSSayConfig config = new AGSSayConfig ();
-			config.Border =  AGSBorders.Gradient(new FourCorners<Color>(Colors.DarkOliveGreen,
+			config.Border =  AGSBorders.Gradient(AGSGame.Resolver.Container.Resolve<IGLUtils>(), new FourCorners<Color>(Colors.DarkOliveGreen,
 				Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
 			config.TextConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight
 				, paddingLeft: 8, paddingTop: 8, paddingBottom: 8, paddingRight: 8);

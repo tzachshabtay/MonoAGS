@@ -1,6 +1,4 @@
 ﻿using System;
-using OpenTK.Graphics.OpenGL;
-using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -8,43 +6,36 @@ namespace AGS.Engine
 	public class GLFrameBuffer : IFrameBuffer, IDisposable
 	{
 		private readonly int _fbo, _width, _height;
+        private readonly IGraphicsBackend _graphics;
 
-		public GLFrameBuffer(Size size)
+        public GLFrameBuffer(Size size, IGraphicsBackend graphics)
 		{
             _width = size.Width;
             _height = size.Height;
-            Texture = new GLTexture(null);
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, _width, _height, 0,
-				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, IntPtr.Zero);
+            Texture = new GLTexture(null, graphics);
+            _graphics = graphics;
+            _graphics.TexImage2D(_width, _height, IntPtr.Zero);
 
-			_fbo = GL.GenFramebuffer();
+			_fbo = _graphics.GenFrameBuffer();
 		}
 
         public ITexture Texture { get; private set; }
 
 		public bool Begin()
 		{
-            GL.BindTexture(TextureTarget.Texture2D, Texture.ID);
-			GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, _fbo);
-            GL.FramebufferTexture2D(FramebufferTarget.DrawFramebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, Texture.ID, 0);
-			GL.BindTexture(TextureTarget.Texture2D, 0);
-			DrawBuffersEnum[] attachments = new[]{ DrawBuffersEnum.ColorAttachment0 };
-			GL.DrawBuffers(1, attachments);
+            _graphics.BindTexture2D(Texture.ID);
+			_graphics.BindFrameBuffer(_fbo);
+            _graphics.FrameBufferTexture2D(Texture.ID);
+            _graphics.BindTexture2D(0);
+            if (!_graphics.DrawFrameBuffer()) return false;
 
-			var errorCode = GL.CheckFramebufferStatus(FramebufferTarget.DrawFramebuffer);
-			if (errorCode != FramebufferErrorCode.FramebufferComplete || errorCode != FramebufferErrorCode.FramebufferCompleteExt)
-			{
-				Debug.WriteLine("Cannot create frame buffer. Error: " + errorCode.ToString());
-				return false;
-			}
-
-			GL.Viewport(0, 0, _width, _height);
+            _graphics.Viewport(0, 0, _width, _height);
 			return true;
 		}
 
 		public void End()
 		{
-			GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);
+            _graphics.BindFrameBuffer(0);
             AGSGame.Game.Settings.ResetViewport();
 		}
 
@@ -52,7 +43,7 @@ namespace AGS.Engine
 
 		public void Dispose()
 		{
-			GL.DeleteFramebuffer(_fbo);
+            _graphics.DeleteFrameBuffer(_fbo);
 		}
 
 		#endregion

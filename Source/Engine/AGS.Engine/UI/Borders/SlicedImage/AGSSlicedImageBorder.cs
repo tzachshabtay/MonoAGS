@@ -18,9 +18,11 @@ namespace AGS.Engine
 		private int _texture;
 		private float _width, _height;
 		private readonly IGLColor _white;
+        private readonly IGLUtils _glUtils;
 
-		public AGSSlicedImageBorder()
+        public AGSSlicedImageBorder(IGLUtils glUtils)
 		{
+            _glUtils = glUtils;
 			_white = Colors.White.ToGLColor();
 		}
 
@@ -139,7 +141,7 @@ namespace AGS.Engine
 
 		private void drawQuad(ISquare quad, FourCorners<Vector2> texturePos)
 		{
-			GLUtils.DrawQuad(_texture, quad.BottomLeft.ToVector3(), quad.BottomRight.ToVector3(),
+            _glUtils.DrawQuad(_texture, quad.BottomLeft.ToVector3(), quad.BottomRight.ToVector3(),
 				quad.TopLeft.ToVector3(), quad.TopRight.ToVector3(), _white, texturePos); 
 		}
 

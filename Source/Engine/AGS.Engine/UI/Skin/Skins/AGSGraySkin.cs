@@ -6,23 +6,23 @@ namespace AGS.Engine
     {
         private AGSColoredSkin _skin;
 
-        public AGSGraySkin(IGraphicsFactory factory)
+        public AGSGraySkin(IGraphicsFactory factory, IGLUtils glUtils)
         {
             _skin = new AGSColoredSkin(factory)
             {
                 ButtonIdleBackColor = Colors.DimGray,
                 ButtonHoverBackColor = Colors.LightGray,
                 ButtonPushedBackColor = Colors.LightYellow,
-                ButtonBorderStyle = AGSBorders.SolidColor(Colors.Black, 1f),
+                ButtonBorderStyle = AGSBorders.SolidColor(glUtils, Colors.Black, 1f),
                 TextBoxBackColor = Colors.DimGray,
-                TextBoxBorderStyle = AGSBorders.SolidColor(Colors.Black, 1f),
+                TextBoxBorderStyle = AGSBorders.SolidColor(glUtils, Colors.Black, 1f),
                 CheckboxCheckedColor = Colors.SlateGray,
                 CheckboxNotCheckedColor = Colors.DimGray,
                 CheckboxHoverCheckedColor = Colors.LightGray,
                 CheckboxHoverNotCheckedColor = Colors.LightGray,
-                CheckboxBorderStyle = AGSBorders.SolidColor(Colors.Black, 1f),
+                CheckboxBorderStyle = AGSBorders.SolidColor(glUtils, Colors.Black, 1f),
                 DialogBoxColor = Colors.DarkGray,
-                DialogBoxBorder = AGSBorders.SolidColor(Colors.Black, 2f)
+                DialogBoxBorder = AGSBorders.SolidColor(glUtils, Colors.Black, 2f)
             };
         }
 

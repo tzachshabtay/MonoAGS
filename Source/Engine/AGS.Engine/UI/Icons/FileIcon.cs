@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -13,6 +12,8 @@ namespace AGS.Engine
          *     ********
          */
 
+        private readonly IGLUtils _glUtils;
+
         private IGLColor _color = Colors.OldLace.ToGLColor();
         private IGLColor _foldColor = Colors.Gray.ToGLColor();
 
@@ -20,6 +21,11 @@ namespace AGS.Engine
         private IGLColor _selectedFoldColor = Colors.Blue.ToGLColor();
 
         private OpenTK.Vector2 _emptyVector = new OpenTK.Vector2();
+
+        public FileIcon(IGLUtils glUtils)
+        {
+            _glUtils = glUtils;
+        }
 
         public float WidthBottom { get { return 0f; } }
         public float WidthLeft { get { return 0f; } }
@@ -40,15 +46,15 @@ namespace AGS.Engine
             PointF foldTopLeft = square.TopRight - new PointF(foldWidth, 0f);
             PointF foldTopRight = square.TopRight - new PointF(0f, foldHeight);
 
-            GLUtils.DrawQuad(0, square.BottomLeft.ToVector3(), (square.BottomRight - new PointF(foldWidth, 0f)).ToVector3(),
+            _glUtils.DrawQuad(0, square.BottomLeft.ToVector3(), (square.BottomRight - new PointF(foldWidth, 0f)).ToVector3(),
                 square.TopLeft.ToVector3(), foldTopLeft.ToVector3(),
                 color, color, color, color);
 
-            GLUtils.DrawQuad(0, (square.BottomRight - new PointF(foldWidth, 0f)).ToVector3(), square.BottomRight.ToVector3(),
+            _glUtils.DrawQuad(0, (square.BottomRight - new PointF(foldWidth, 0f)).ToVector3(), square.BottomRight.ToVector3(),
                 foldBottomLeft.ToVector3(), foldTopRight.ToVector3(),
                 color, color, color, color);
 
-            GLUtils.DrawTriangleFan(0, new GLVertex[] { new GLVertex(foldBottomLeft.ToVector2(), _emptyVector, foldColor),
+            _glUtils.DrawTriangleFan(0, new GLVertex[] { new GLVertex(foldBottomLeft.ToVector2(), _emptyVector, foldColor),
                     new GLVertex(foldTopLeft.ToVector2(), _emptyVector, foldColor), new GLVertex(foldTopRight.ToVector2(), _emptyVector, foldColor)});
         }
     }
