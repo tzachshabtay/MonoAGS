@@ -9,7 +9,6 @@ namespace AGS.Engine
 		public static IBrushLoader BrushLoader;
 		public static IFontLoader FontLoader;
 		public static IBitmapLoader BitmapLoader;
-		public static IGameWindowSize GameWindowSize;
 		public static IEngineConfigFile ConfigFile;
 		public static Assembly EntryAssembly;
 		public static IFileSystem FileSystem;

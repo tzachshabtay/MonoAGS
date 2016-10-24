@@ -1,8 +1,6 @@
 ﻿using System;
 using AGS.API;
 using Autofac;
-using OpenTK;
-using OpenTK.Graphics;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Reflection;
@@ -34,7 +32,7 @@ namespace AGS.Engine
             GLUtils = _glUtils;
 		}
 
-		public static GameWindow GameWindow { get; private set; }
+		public static IGameWindow GameWindow { get; private set; }
 
 		public static IGame Game { get; private set; }
 
@@ -80,12 +78,12 @@ namespace AGS.Engine
         public void Start(IGameSettings settings)
 		{
 			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), settings.VirtualResolution));
-			using (GameWindow = new GameWindow (settings.WindowSize.Width, 
-                   settings.WindowSize.Height, GraphicsMode.Default, settings.Title))
+            TypedParameter settingsParameter = new TypedParameter(typeof(IGameSettings), settings);
+
+            using (GameWindow = Resolver.Container.Resolve<IGameWindow>(settingsParameter))
 			{
                 _graphics.ClearColor(0f, 0f, 0f, 1f);
-                TypedParameter settingsParameter = new TypedParameter(typeof(IGameSettings), settings);
-                TypedParameter gameWindowParameter = new TypedParameter(typeof(GameWindow), GameWindow);
+                TypedParameter gameWindowParameter = new TypedParameter(typeof(IGameWindow), GameWindow);
                 Settings = Resolver.Container.Resolve<IRuntimeSettings>(settingsParameter, gameWindowParameter);
 
                 GameWindow.Load += (sender, e) =>

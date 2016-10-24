@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.IO;
+using Autofac;
 
 namespace AGS.Engine.Desktop
 {
@@ -21,10 +22,11 @@ namespace AGS.Engine.Desktop
 			Hooks.BitmapLoader = new DesktopBitmapLoader (Hooks.GraphicsBackend);
 			Hooks.BrushLoader = new DesktopBrushLoader ();
 			Hooks.FontLoader = new DesktopFontLoader (_fontFamilyLoader);
-			Hooks.GameWindowSize = new DesktopGameWindowSize ();
 			Hooks.ConfigFile = new DesktopEngineConfigFile ();
 			Hooks.FileSystem = new DesktopFileSystem ();
             Hooks.KeyboardState = new DesktopKeyboardState();
+
+            Resolver.Override(resolver => resolver.Builder.RegisterType<AGSGameWindow>().SingleInstance().As<IGameWindow>());
 		}
 	}
 }

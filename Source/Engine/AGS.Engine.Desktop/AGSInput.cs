@@ -4,7 +4,7 @@ using OpenTK;
 
 namespace AGS.Engine
 {
-    public class GLInput : IInput
+    public class AGSInput : IInput
     {
         private GameWindow _game;
         private int _virtualWidth, _virtualHeight;
@@ -15,7 +15,7 @@ namespace AGS.Engine
         private IObject _mouseCursor;
         private MouseCursor _originalOSCursor;
 
-        public GLInput(GameWindow game, AGS.API.Size virtualResolution, IGameState state, IAGSRoomTransitions roomTransitions)
+        public AGSInput(GameWindow game, AGS.API.Size virtualResolution, IGameState state, IAGSRoomTransitions roomTransitions)
         {
             this._roomTransitions = roomTransitions;
             this._virtualWidth = virtualResolution.Width;
@@ -148,7 +148,7 @@ namespace AGS.Engine
 		{
 			var viewport = getViewport();
 			var virtualWidth = _virtualWidth / viewport.ScaleX;
-			x = MathUtils.Lerp (0f, 0f, Hooks.GameWindowSize.GetWidth(_game), virtualWidth, x);
+            x = MathUtils.Lerp (0f, 0f, _game.ClientSize.Width, virtualWidth, x);
 			return x + viewport.X;
 		}
 
@@ -156,7 +156,7 @@ namespace AGS.Engine
 		{
 			var viewport = getViewport();
 			var virtualHeight = _virtualHeight / viewport.ScaleY;
-			y = MathUtils.Lerp (0f, virtualHeight, Hooks.GameWindowSize.GetHeight(_game), 0f, y);
+            y = MathUtils.Lerp (0f, virtualHeight, _game.ClientSize.Height, 0f, y);
 			return y + viewport.Y;
 		}
 

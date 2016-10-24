@@ -9,6 +9,8 @@ namespace AGS.Engine
 {
 	public class Resolver
 	{
+        private static List<Action<Resolver>> _overrides = new List<Action<Resolver>>();
+
 		public Resolver(IEngineConfigFile configFile)
 		{
 			Builder = new ContainerBuilder ();
@@ -69,7 +71,14 @@ namespace AGS.Engine
             Builder.RegisterInstance(Hooks.GraphicsBackend).As<IGraphicsBackend>();
 
 			Builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
+
+            foreach (var action in _overrides) action(this);
 		}
+
+        public static void Override(Action<Resolver> action)
+        {
+            _overrides.Add(action);
+        }
 
 		public ContainerBuilder Builder { get; private set; }
 

@@ -1,5 +1,4 @@
-﻿using OpenTK;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -36,7 +35,7 @@ namespace AGS.Engine
             _graphics.LoadIdentity();
         }
 
-        public void RefreshViewport(IGameSettings settings, GameWindow gameWindow)
+        public void RefreshViewport(IGameSettings settings, IGameWindow gameWindow)
         { 
             if (settings.PreserveAspectRatio) //http://www.david-amador.com/2013/04/opengl-2d-independent-resolution-rendering/
             {

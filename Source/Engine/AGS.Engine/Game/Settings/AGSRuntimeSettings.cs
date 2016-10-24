@@ -1,16 +1,15 @@
 ﻿using AGS.API;
-using OpenTK;
 
 namespace AGS.Engine
 {
     public class AGSRuntimeSettings : IRuntimeSettings
     {
-        private readonly GameWindow _gameWindow;
+        private readonly IGameWindow _gameWindow;
         private readonly IMessagePump _messagePump;
         private readonly IGLUtils _glUtils;
         private bool _preserveAspectRatio;
 
-        public AGSRuntimeSettings(IGameSettings settings, GameWindow gameWindow, IMessagePump messagePump, IGLUtils glUtils)
+        public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IMessagePump messagePump, IGLUtils glUtils)
         {
             _glUtils = glUtils;
             _gameWindow = gameWindow;
@@ -27,12 +26,12 @@ namespace AGS.Engine
         
         public AGS.API.Size VirtualResolution { get; private set; }
 
-        public VsyncMode Vsync { get { return (VsyncMode)_gameWindow.VSync; } set { _gameWindow.VSync = (VSyncMode)value; } }
+        public VsyncMode Vsync { get { return _gameWindow.Vsync; } set { _gameWindow.Vsync = value; } }
 
         public AGS.API.Size WindowSize 
         { 
-            get { return new AGS.API.Size(Hooks.GameWindowSize.GetWidth(_gameWindow), Hooks.GameWindowSize.GetWidth(_gameWindow)); }
-            set { _messagePump.Post(_ => Hooks.GameWindowSize.SetSize(_gameWindow, value), null); }                              
+            get { return new AGS.API.Size(_gameWindow.ClientWidth, _gameWindow.ClientHeight); }
+            set { _messagePump.Post(_ => _gameWindow.SetSize(value), null); }                              
         }
 
         public bool PreserveAspectRatio 
@@ -48,13 +47,13 @@ namespace AGS.Engine
         public AGS.API.WindowState WindowState 
         { 
             get { return (AGS.API.WindowState)_gameWindow.WindowState; } 
-            set { _messagePump.Post(_ => _gameWindow.WindowState = (OpenTK.WindowState)value, null); } 
+            set { _messagePump.Post(_ => _gameWindow.WindowState = value, null); } 
         }
 
         public AGS.API.WindowBorder WindowBorder 
         { 
             get { return (AGS.API.WindowBorder)_gameWindow.WindowBorder; } 
-            set { _messagePump.Post(_ => _gameWindow.WindowBorder = (OpenTK.WindowBorder)value, null); } 
+            set { _messagePump.Post(_ => _gameWindow.WindowBorder = value, null); } 
         }
 
         public void ResetViewport()

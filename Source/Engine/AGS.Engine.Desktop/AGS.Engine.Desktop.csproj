@@ -37,6 +37,9 @@
       <HintPath>..\..\..\DLLs\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DesktopKeyboardState.cs" />
@@ -50,11 +53,12 @@
     <Compile Include="Drawing\DesktopBitmapTextDraw.cs" />
     <Compile Include="Drawing\DesktopFont.cs" />
     <Compile Include="Drawing\DesktopBrush.cs" />
-    <Compile Include="DesktopGameWindowSize.cs" />
+    <Compile Include="AGSGameWindow.cs" />
     <Compile Include="Drawing\DesktopFontLoader.cs" />
     <Compile Include="DesktopEngineConfigFile.cs" />
     <Compile Include="DesktopFileSystem.cs" />
     <Compile Include="Drawing\DesktopFontFamilyLoader.cs" />
+    <Compile Include="AGSInput.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
@@ -67,5 +71,8 @@
       <Project>{6BEEC517-011A-441E-8A2F-D9461806A879}</Project>
       <Name>AGS.Engine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

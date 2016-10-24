@@ -111,7 +111,6 @@
     <Compile Include="Game\Factories\AGSOutfitFactory.cs" />
     <Compile Include="Game\Factories\AGSRoomFactory.cs" />
     <Compile Include="Game\Factories\AGSUIFactory.cs" />
-    <Compile Include="Game\IGameWindowSize.cs" />
     <Compile Include="Graphics\AGSSprite.cs" />
     <Compile Include="Graphics\Animations\AGSAnimation.cs" />
     <Compile Include="Graphics\Animations\AGSAnimationConfiguration.cs" />
@@ -148,7 +147,6 @@
     <Compile Include="Graphics\Logic\Interfaces\IGLTextureRenderer.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLViewportMatrix.cs" />
     <Compile Include="Graphics\Logic\RenderOrderSelector.cs" />
-    <Compile Include="Input\GLInput.cs" />
     <Compile Include="Input\Schemes\RotatingCursorScheme.cs" />
     <Compile Include="Input\Schemes\TwoButtonsInputScheme.cs" />
     <Compile Include="Inventory\AGSInventory.cs" />
@@ -389,6 +387,7 @@
     <Compile Include="Misc\Geometry\OpenTK\Matrix4.cs" />
     <Compile Include="Misc\Geometry\OpenTK\Vector4.cs" />
     <Compile Include="Misc\Geometry\OpenTK\Matrix3.cs" />
+    <Compile Include="Platform\IGameWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -450,7 +449,7 @@
       <HintPath>..\..\..\DLLs\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="Autofac">
-      <HintPath>..\..\..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
+      <HintPath>..\..\..\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\..\..\packages\protobuf-net.2.0.0.668\lib\portable-sl4+net40+wp7+windows8\protobuf-net.dll</HintPath>
