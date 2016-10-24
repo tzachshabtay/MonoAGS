@@ -1,8 +1,4 @@
-﻿using System;
-using OpenTK;
-using AGS.API;
-
-namespace AGS.Engine
+﻿namespace AGS.Engine
 {
 	public interface IGLBoundingBoxBuilder
 	{

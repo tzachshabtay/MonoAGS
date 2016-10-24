@@ -1,6 +1,4 @@
-﻿using OpenTK;
-
-namespace AGS.Engine
+﻿namespace AGS.Engine
 {
 	public class GLTextureRenderer : IGLTextureRenderer
 	{

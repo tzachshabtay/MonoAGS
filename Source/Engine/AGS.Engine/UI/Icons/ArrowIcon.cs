@@ -6,7 +6,7 @@ namespace AGS.Engine
     public class ArrowIcon : IBorderStyle
     {
         private readonly IGLUtils _glUtils;
-        private OpenTK.Vector2 _emptyVector = new OpenTK.Vector2();
+        private Vector2 _emptyVector = new Vector2();
 
         public ArrowIcon(IGLUtils glUtils)
         {

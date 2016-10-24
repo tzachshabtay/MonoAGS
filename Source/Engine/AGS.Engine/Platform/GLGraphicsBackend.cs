@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using AGS.API;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
 namespace AGS.Engine
@@ -85,7 +84,7 @@ namespace AGS.Engine
         public void Uniform2(int varLocation, float x, float y) { GL.Uniform2(varLocation, x, y); }
         public void Uniform3(int varLocation, float x, float y, float z) { GL.Uniform3(varLocation, x, y, z); }
         public void Uniform4(int varLocation, float x, float y, float z, float w) { GL.Uniform4(varLocation, x, y, z, w); }
-        public void UniformMatrix4(int varLocation, ref Matrix4 matrix) { GL.UniformMatrix4(varLocation, false, ref matrix); }
+        //public void UniformMatrix4(int varLocation, ref Matrix4 matrix) { GL.UniformMatrix4(varLocation, false, ref matrix); }
         public void DeleteProgram(int programId) { GL.DeleteProgram(programId); }
         public int GetUniformLocation(int programId, string varName) { return GL.GetUniformLocation(programId, varName); }
         public int CreateShader(ShaderMode shaderType) { return GL.CreateShader(getShaderType(shaderType)); }

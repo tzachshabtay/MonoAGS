@@ -1,5 +1,4 @@
-﻿using OpenTK;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {

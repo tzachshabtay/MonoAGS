@@ -1,6 +1,5 @@
 ﻿using AGS.API;
 using System.Collections.Generic;
-using OpenTK;
 using System;
 
 namespace AGS.Engine

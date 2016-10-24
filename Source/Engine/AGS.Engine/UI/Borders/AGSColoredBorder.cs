@@ -1,7 +1,6 @@
 ﻿using System;
 using AGS.API;
 
-
 namespace AGS.Engine
 {
 	public class AGSColoredBorder : IBorderStyle
@@ -101,7 +100,7 @@ namespace AGS.Engine
 
 		private void drawRoundCorner(PointF center, float radius, float angle, ISquare border, FourCorners<IGLColor> colors)
 		{
-			OpenTK.Vector2 tex = new OpenTK.Vector2 ();
+			Vector2 tex = new Vector2 ();
 			GLVertex centerVertex = new GLVertex (center.ToVector2(), tex, getColor(colors, border, center));
 			_roundCorner[0] = centerVertex;
 			float step = (90f / (_roundCorner.Length - 2));

@@ -1,6 +1,5 @@
 ﻿using System;
 using AGS.API;
-using OpenTK;
 
 namespace AGS.Engine
 {
@@ -121,7 +120,7 @@ namespace AGS.Engine
         void Uniform2(int varLocation, float x, float y);
         void Uniform3(int varLocation, float x, float y, float z);
         void Uniform4(int varLocation, float x, float y, float z, float w);
-        void UniformMatrix4(int varLocation, ref Matrix4 matrix);
+        //void UniformMatrix4(int varLocation, ref Matrix4 matrix);
         void DeleteProgram(int programId);
         int GetUniformLocation(int programId, string varName);
         int CreateShader(ShaderMode shaderType);

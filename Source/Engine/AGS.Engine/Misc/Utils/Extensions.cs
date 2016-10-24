@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using AGS.API;
 using System.Reflection;
-using OpenTK;
 
 namespace AGS.Engine
 {

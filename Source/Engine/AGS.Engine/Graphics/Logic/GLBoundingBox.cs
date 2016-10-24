@@ -1,5 +1,4 @@
 ﻿using System;
-using OpenTK;
 using AGS.API;
 
 namespace AGS.Engine

@@ -19,7 +19,7 @@ namespace AGS.Engine
         private IGLColor _selectedColor = Colors.DeepSkyBlue.ToGLColor();
         private IGLColor _selectedFoldColor = Colors.Blue.ToGLColor();
 
-        private OpenTK.Vector2 _emptyVector = new OpenTK.Vector2();
+        private Vector2 _emptyVector = new Vector2();
 
         public FolderIcon(IGLUtils glUtils)
         {

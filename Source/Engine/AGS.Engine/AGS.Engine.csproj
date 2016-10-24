@@ -20,6 +20,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -28,6 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ComponentsFramework\Templates\AGSButton.generated.cs">
@@ -380,6 +382,13 @@
     <Compile Include="Platform\ALAudioBackend.cs" />
     <Compile Include="Platform\IGraphicsBackend.cs" />
     <Compile Include="Platform\GLGraphicsBackend.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Vector2.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\MathHelper.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Quaternion.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Vector3.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Matrix4.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Vector4.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Matrix3.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -473,5 +482,6 @@
     <Folder Include="UI\Icons\" />
     <Folder Include="Game\Settings\" />
     <Folder Include="Player\Approach\" />
+    <Folder Include="Misc\Geometry\OpenTK\" />
   </ItemGroup>
 </Project>

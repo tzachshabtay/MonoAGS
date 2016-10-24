@@ -1,7 +1,4 @@
-﻿using System;
-using OpenTK;
-
-namespace AGS.Engine
+﻿namespace AGS.Engine
 {
 	public interface IGLMatrices
 	{

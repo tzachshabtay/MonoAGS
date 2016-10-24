@@ -1,6 +1,4 @@
-﻿using OpenTK;
-
-namespace AGS.Engine
+﻿namespace AGS.Engine
 {
 	public class GLBoundingBoxesBuilder : IGLBoundingBoxBuilder
 	{
@@ -12,7 +10,7 @@ namespace AGS.Engine
 			float right = width;
 			float bottom = 0f;
 			float top = height;
-			Vector3 bottomLeft = Vector3.Transform(new Vector3 (left, bottom, 0f), matrices.ModelMatrix);
+            Vector3 bottomLeft = Vector3.Transform(new Vector3 (left, bottom, 0f), matrices.ModelMatrix);
 			Vector3 topLeft = Vector3.Transform(new Vector3 (left, top, 0f), matrices.ModelMatrix);
 			Vector3 bottomRight = Vector3.Transform(new Vector3 (right, bottom, 0f), matrices.ModelMatrix);
 			Vector3 topRight = Vector3.Transform(new Vector3 (right, top, 0f), matrices.ModelMatrix);

@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Collections.Generic;
-using OpenTK;
 using AGS.API;
 
 namespace AGS.Engine
@@ -140,13 +139,13 @@ namespace AGS.Engine
 			return true;
 		}
 
-		public bool SetVariable(string name, Matrix4 matrix)
+		/*public bool SetVariable(string name, Matrix4 matrix)
 		{
 			int location = getVariableLocation(name);
 			if (location == -1) return false;
 			_graphics.UniformMatrix4(location, ref matrix);
 			return true;
-		}
+		}*/
 
 		public bool SetTextureVariable(string name, int texture)
 		{
