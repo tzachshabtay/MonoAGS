@@ -26,6 +26,7 @@ namespace AGS.Engine.Desktop
 			Hooks.FileSystem = new DesktopFileSystem ();
             Hooks.KeyboardState = new DesktopKeyboardState();
 
+            Resolver.Override(resolver => resolver.Builder.RegisterType<DesktopGameWindowSize>().SingleInstance().As<IGameWindowSize>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<AGSGameWindow>().SingleInstance().As<IGameWindow>());
 		}
 	}

@@ -2,11 +2,12 @@
 using AGS.API;
 using OpenTK;
 
-namespace AGS.Engine
+namespace AGS.Engine.Desktop
 {
     public class AGSInput : IInput
     {
         private GameWindow _game;
+        private IGameWindowSize _windowSize;
         private int _virtualWidth, _virtualHeight;
         private IGameState _state;
         private IAGSRoomTransitions _roomTransitions;
@@ -15,8 +16,10 @@ namespace AGS.Engine
         private IObject _mouseCursor;
         private MouseCursor _originalOSCursor;
 
-        public AGSInput(GameWindow game, AGS.API.Size virtualResolution, IGameState state, IAGSRoomTransitions roomTransitions)
+        public AGSInput(GameWindow game, AGS.API.Size virtualResolution, IGameState state, 
+                        IAGSRoomTransitions roomTransitions, IGameWindowSize windowSize)
         {
+            _windowSize = windowSize;
             this._roomTransitions = roomTransitions;
             this._virtualWidth = virtualResolution.Width;
             this._virtualHeight = virtualResolution.Height;
@@ -148,7 +151,7 @@ namespace AGS.Engine
 		{
 			var viewport = getViewport();
 			var virtualWidth = _virtualWidth / viewport.ScaleX;
-            x = MathUtils.Lerp (0f, 0f, _game.ClientSize.Width, virtualWidth, x);
+            x = MathUtils.Lerp (0f, 0f, _windowSize.GetWidth(_game), virtualWidth, x);
 			return x + viewport.X;
 		}
 
@@ -156,7 +159,7 @@ namespace AGS.Engine
 		{
 			var viewport = getViewport();
 			var virtualHeight = _virtualHeight / viewport.ScaleY;
-            y = MathUtils.Lerp (0f, virtualHeight, _game.ClientSize.Height, 0f, y);
+            y = MathUtils.Lerp (0f, virtualHeight, _windowSize.GetHeight(_game), 0f, y);
 			return y + viewport.Y;
 		}
 

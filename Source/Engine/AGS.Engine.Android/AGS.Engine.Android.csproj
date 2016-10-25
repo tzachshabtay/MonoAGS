@@ -40,8 +40,13 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\packages\Autofac.4.1.1\lib\netstandard1.1\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK">
-      <HintPath>..\..\..\DLLs\OpenTK.dll</HintPath>
+      <HintPath>..\..\..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -60,9 +65,20 @@
     <Compile Include="AndroidGameWindowSize.cs" />
     <Compile Include="Drawing\AndroidBitmapLoader.cs" />
     <Compile Include="Drawing\AndroidFontLoader.cs" />
+    <Compile Include="..\AGS.Engine.Desktop\AGSGameWindow.cs">
+      <Link>AGSGameWindow.cs</Link>
+    </Compile>
+    <Compile Include="..\AGS.Engine.Desktop\AGSInput.cs">
+      <Link>AGSInput.cs</Link>
+    </Compile>
+    <Compile Include="..\AGS.Engine.Desktop\IGameWindowSize.cs">
+      <Link>IGameWindowSize.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
+    <None Include="packages.config" />
+    <None Include="OpenTK.dll.config" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

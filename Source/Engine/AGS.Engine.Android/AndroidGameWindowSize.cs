@@ -4,6 +4,7 @@ using Android.Content;
 using Android.App;
 using Android.Runtime;
 using Android.Views;
+using AGS.Engine.Desktop;
 
 namespace AGS.Engine.Android
 {

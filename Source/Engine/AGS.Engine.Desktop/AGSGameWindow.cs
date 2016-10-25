@@ -9,10 +9,12 @@ namespace AGS.Engine.Desktop
 	public class AGSGameWindow : IGameWindow
 	{
         private GameWindow _gameWindow;
+        private IGameWindowSize _windowSize;
         private FrameEventArgs _updateFrameArgs, _renderFrameArgs;
 
-        public AGSGameWindow(IGameSettings settings, Resolver resolver)
+        public AGSGameWindow(IGameSettings settings, IGameWindowSize windowSize, Resolver resolver)
         {
+            _windowSize = windowSize;
             _gameWindow = new GameWindow(settings.WindowSize.Width, settings.WindowSize.Height, 
                                          GraphicsMode.Default, settings.Title);
             
@@ -55,12 +57,9 @@ namespace AGS.Engine.Desktop
         }
         public int Width { get { return _gameWindow.Width; } }
         public int Height { get { return _gameWindow.Height; } }
-        public int ClientWidth { get { return _gameWindow.ClientSize.Width; } }
-        public int ClientHeight { get { return _gameWindow.ClientSize.Height; } }
-        public void SetSize(Size size)
-        {
-            _gameWindow.Size = new System.Drawing.Size(size.Width, size.Height);
-        }
+        public int ClientWidth { get { return _windowSize.GetWidth(_gameWindow); } }
+        public int ClientHeight { get { return _windowSize.GetHeight(_gameWindow); } }
+        public void SetSize(Size size) { _windowSize.SetSize(_gameWindow, size); }
 
         public void Run(double updateRate) { _gameWindow.Run(updateRate); }
         public void SwapBuffers() { _gameWindow.SwapBuffers(); }

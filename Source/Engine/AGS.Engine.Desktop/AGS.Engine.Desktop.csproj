@@ -59,6 +59,8 @@
     <Compile Include="DesktopFileSystem.cs" />
     <Compile Include="Drawing\DesktopFontFamilyLoader.cs" />
     <Compile Include="AGSInput.cs" />
+    <Compile Include="IGameWindowSize.cs" />
+    <Compile Include="DesktopGameWindowSize.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Reflection;
+using AGS.Engine.Desktop;
+using Autofac;
 
 namespace AGS.Engine.Android
 {
@@ -9,14 +11,17 @@ namespace AGS.Engine.Android
 		{
 			OpenTK.Toolkit.Init();
 
-			Hooks.BitmapLoader = new AndroidBitmapLoader ();
+            Hooks.GraphicsBackend = new GLGraphicsBackend();
+			Hooks.BitmapLoader = new AndroidBitmapLoader (Hooks.GraphicsBackend);
 			Hooks.BrushLoader = new AndroidBrushLoader ();
 			Hooks.FontLoader = new AndroidFontLoader ();
-			Hooks.GameWindowSize = new AndroidGameWindowSize ();
 			Hooks.ConfigFile = new AndroidEngineConfigFile ();
 			Hooks.EntryAssembly = Assembly.GetEntryAssembly();
 			Hooks.FileSystem = new AndroidFileSystem ();
-		}
+
+		    Resolver.Override(resolver => resolver.Builder.RegisterType<AndroidGameWindowSize>().SingleInstance().As<IGameWindowSize>());
+            Resolver.Override(resolver => resolver.Builder.RegisterType<AGSGameWindow>().SingleInstance().As<IGameWindow>());
+        }
 	}
 }
 
