@@ -36,30 +36,32 @@ namespace AGS.Engine
 
 		public void Save(string saveName)
 		{
-			try
-			{
-				_state.Paused = true;
-				firstTimeSetup();
+            try
+            {
+                _state.Paused = true;
+                firstTimeSetup();
 
-				var context = getContext();
-				ContractGameState state = new ContractGameState ();
-				state.FromItem(context, _state);
-				using (var file = Hooks.FileSystem.Create(saveName)) 
-				{
-					Serializer.Serialize(file, state);
-				}
-
-				_state.Paused = false;
-			}
-			catch (Exception e)
-			{
-				string error = e.ToString();
+                var context = getContext();
+                ContractGameState state = new ContractGameState();
+                state.FromItem(context, _state);
+                using (var file = Hooks.FileSystem.Create(saveName))
+                {
+                    Serializer.Serialize(file, state);
+                }
+            }
+            catch (Exception e)
+            {
+                string error = e.ToString();
 
 				Debug.WriteLine("Failed to save game:");
 				Debug.WriteLine(error);
 
-				throw;
+				//throw;
 			}
+            finally
+            {
+                _state.Paused = false;   
+            }
 		}
 
 		public async Task SaveAsync(string saveName)

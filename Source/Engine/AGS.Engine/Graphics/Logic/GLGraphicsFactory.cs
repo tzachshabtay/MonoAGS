@@ -179,7 +179,7 @@ namespace AGS.Engine
 			return animation;
 		}
 
-		private void addAnimationFrame (GLImage image, AGSAnimation animation)
+        private void addAnimationFrame (IImage image, AGSAnimation animation)
 		{
 			if (image == null) return;
 			ISprite sprite = GetSprite ();
@@ -188,14 +188,14 @@ namespace AGS.Engine
 			animation.Frames.Add (frame);
 		}
 
-        private GLImage loadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
+        private IImage loadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
         {
             id = id ?? Guid.NewGuid().ToString();
             ITexture tex = createTexture(config);
             return loadImage(tex, bitmap, id, config, null);
         }
 
-        private GLImage loadImage(IResource resource, ILoadImageConfig config = null)
+        private IImage loadImage(IResource resource, ILoadImageConfig config = null)
 		{
 			ITexture tex = createTexture(config);
 			try
@@ -210,10 +210,11 @@ namespace AGS.Engine
 			}
 		}
 
-		private async Task<GLImage> loadImageAsync (IResource resource, ILoadImageConfig config = null)
+        private async Task<IImage> loadImageAsync (IResource resource, ILoadImageConfig config = null)
 		{
 			try 
 			{
+                if (resource == null) return new EmptyImage(1f, 1f);
 				IBitmap bitmap = await Task.Run(() => _bitmapLoader.Load (resource.Stream));
 				ITexture tex = createTexture(config);
 				return loadImage(tex, bitmap, resource.ID, config, null);
@@ -225,7 +226,7 @@ namespace AGS.Engine
 			}
 		}
 
-        private GLImage loadImage(ITexture texture, IBitmap bitmap, string id, ILoadImageConfig config, ISpriteSheet spriteSheet)
+        private IImage loadImage(ITexture texture, IBitmap bitmap, string id, ILoadImageConfig config, ISpriteSheet spriteSheet)
 		{
 			manipulateImage(bitmap, config);
 			bitmap.LoadTexture(null);

@@ -132,7 +132,12 @@ namespace AGS.Engine
 
 		private IResource loadFile(string path)
 		{
-			return new AGSResource (path, Hooks.FileSystem.Open(path));
+            if (!Hooks.FileSystem.FileExists(path))
+            {
+                Debug.WriteLine("Failed to find resource at path: {0}", path);
+                return null;
+            }
+            return new AGSResource(path, Hooks.FileSystem.Open(path));
 		}
 
 		private string getResourceName(string path)

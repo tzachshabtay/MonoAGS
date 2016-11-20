@@ -28,6 +28,7 @@ namespace AGS.Engine
 			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
 		{
 			var resource = await Task.Run(() => _resourceLoader.LoadResource (path));
+            if (resource == null) return null;
 			IBitmap image = await Task.Run(() => Hooks.BitmapLoader.Load (resource.Stream));
 			return load (path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
 		}

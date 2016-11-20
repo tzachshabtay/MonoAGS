@@ -51,6 +51,7 @@ namespace AGS.Engine
 		{
 			IMaskLoader maskLoader = _resolver.Resolve<IMaskLoader>();
 			IMask mask = maskLoader.Load(maskPath, debugDrawColor:  Colors.White, id: id ?? hotspot);
+            if (mask == null) return new AGSObject(id ?? hotspot, _resolver.Resolve<Resolver>());
 			setMask (mask, hotspot, sayWhenLook, sayWhenInteract);
 			return mask.DebugDraw;
 		}
@@ -60,6 +61,7 @@ namespace AGS.Engine
 		{
 			IMaskLoader maskLoader = _resolver.Resolve<IMaskLoader> ();
 			IMask mask = await maskLoader.LoadAsync(maskPath, debugDrawColor: Colors.White, id: id ?? hotspot);
+            if (mask == null) return new AGSObject(id ?? hotspot, _resolver.Resolve<Resolver>());
 			setMask (mask, hotspot, sayWhenLook, sayWhenInteract);
 			return mask.DebugDraw;
 		}

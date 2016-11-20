@@ -8,13 +8,13 @@ namespace AGS.Engine
 	{
 		private readonly IResourceLoader _resources;
 		private readonly IBitmapLoader _bitmapLoader;
-		private readonly Action<GLImage, AGSAnimation> _addAnimationFrame;
-        private readonly Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, GLImage> _loadImage;
+        private readonly Action<IImage, AGSAnimation> _addAnimationFrame;
+        private readonly Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, IImage> _loadImage;
         private readonly IGraphicsBackend _graphics;
 
 		public SpriteSheetLoader (IResourceLoader resources, IBitmapLoader bitmapLoader, 
-		                          Action<GLImage, AGSAnimation> addAnimationFrame,
-                                  Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, GLImage> loadImage,
+                                  Action<IImage, AGSAnimation> addAnimationFrame,
+                                  Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, IImage> loadImage,
                                   IGraphicsBackend graphics)
 		{
             _graphics = graphics;
@@ -46,7 +46,7 @@ namespace AGS.Engine
 				{
                     Rectangle rect; IBitmap clone; string path; ITexture tex;
                     getImageInfo (bitmap, cellX, cellY, spriteSheet, loadConfig, filePath, out rect, out clone, out path, out tex);
-					GLImage image = _loadImage (tex, clone, path, loadConfig, spriteSheet);
+                    IImage image = _loadImage (tex, clone, path, loadConfig, spriteSheet);
 					_addAnimationFrame (image, animation);
 					cellsGrabbed++;
 				}
@@ -79,7 +79,7 @@ namespace AGS.Engine
 				{
                     Rectangle rect; IBitmap clone; string path; ITexture tex;
                     getImageInfo (bitmap, cellX, cellY, spriteSheet, loadConfig, filePath, out rect, out clone, out path, out tex);
-					GLImage image = _loadImage (tex, clone, path, loadConfig, spriteSheet);
+                    IImage image = _loadImage (tex, clone, path, loadConfig, spriteSheet);
 					_addAnimationFrame (image, animation);
 					cellsGrabbed++;
 				}
