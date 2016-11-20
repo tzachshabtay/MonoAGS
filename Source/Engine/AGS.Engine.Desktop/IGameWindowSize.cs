@@ -2,8 +2,8 @@
 {
     public interface IGameWindowSize
     {
-        int GetWidth(OpenTK.GameWindow gameWindow);
-        int GetHeight(OpenTK.GameWindow gameWindow);
-        void SetSize(OpenTK.GameWindow gameWindow, AGS.API.Size size);
+        int GetWidth(OpenTK.INativeWindow gameWindow);
+        int GetHeight(OpenTK.INativeWindow gameWindow);
+        void SetSize(OpenTK.INativeWindow gameWindow, AGS.API.Size size);
     }
 }

@@ -9,6 +9,9 @@ namespace AGS.Engine
 		private static readonly Vector2 _topRight = new Vector2 (1.0f, 0.0f);
 		private static readonly Vector2 _topLeft = new Vector2 (0.0f, 0.0f);
 
+        private static readonly byte[] _quadIndices = {0,1,2,  // first triangle (bottom left - top left - top right)
+                                                       0,2,3}; // second triangle (bottom left - top right - bottom right)
+
         private int _vbo;
 
         private int _lastResolutionWidth, _lastResolutionHeight;
@@ -80,7 +83,8 @@ namespace AGS.Engine
 				new GLVertex(topLeft.Xy, _topLeft, r,g,b,a)};
 
             _graphics.BufferData(vertices);
-            _graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
+            _graphics.DrawElements(PrimitiveMode.Triangles, 6, _quadIndices);
+            //_graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
 		}
 
 		public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
@@ -95,7 +99,8 @@ namespace AGS.Engine
 				new GLVertex(topLeft.Xy, _topLeft, topLeftColor)};
 
             _graphics.BufferData(vertices);
-			_graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
+            _graphics.DrawElements(PrimitiveMode.Triangles, 6, _quadIndices);
+			//_graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
 		}
 
 		public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
@@ -109,7 +114,8 @@ namespace AGS.Engine
 				new GLVertex(topLeft.Xy, texturePos.TopLeft, color)};
 
             _graphics.BufferData(vertices);
-			_graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
+            _graphics.DrawElements(PrimitiveMode.Triangles, 6, _quadIndices);
+			//_graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
 		}
 
 		public void DrawTriangleFan(int texture, GLVertex[] vertices)
@@ -140,7 +146,8 @@ namespace AGS.Engine
 			};
 
             _graphics.BufferData(vertices);
-			_graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
+            _graphics.DrawElements(PrimitiveMode.Triangles, 6, _quadIndices);
+			//_graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
 		}
 
 		public void DrawLine(float x1, float y1, float x2, float y2, 

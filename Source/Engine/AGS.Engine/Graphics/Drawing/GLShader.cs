@@ -42,16 +42,11 @@ namespace AGS.Engine
             return FromText(vertexSource, fragmentSource, graphics);
 		}
 
-        public static bool IsSupported(IGraphicsBackend graphics)
-		{
-			return new Version(graphics.GetVersion().Substring(0, 3)) >= new Version(2, 0);
-		}
-
 		public IShader Compile()
 		{
 			if (_hadCompilationErrors) return null;
 			if (_isCompiled) return this;
-            if (!IsSupported(_graphics))
+            if (!_graphics.AreShadersSupported())
 			{
 				Debug.WriteLine("Shaders are not supported on this system.");
 				_hadCompilationErrors = true;
@@ -73,14 +68,15 @@ namespace AGS.Engine
 			}
 
 			_isCompiled = true;
-			return this;
+            return this;
 		}
 			
 		public void Bind()
 		{
 			_graphics.UseProgram(_program);
 			bindTextures();
-		}
+            _graphics.SetShaderAppVars(_program);
+        }
 
 		public void Unbind()
 		{

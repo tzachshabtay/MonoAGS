@@ -61,6 +61,8 @@
     <Compile Include="AGSInput.cs" />
     <Compile Include="IGameWindowSize.cs" />
     <Compile Include="DesktopGameWindowSize.cs" />
+    <Compile Include="ALAudioBackend.cs" />
+    <Compile Include="OpenGLBackend.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />

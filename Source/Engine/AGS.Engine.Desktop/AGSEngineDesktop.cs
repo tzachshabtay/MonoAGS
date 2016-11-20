@@ -18,7 +18,7 @@ namespace AGS.Engine.Desktop
 			Hooks.EntryAssembly = Assembly.GetEntryAssembly();
 			_fontFamilyLoader = new DesktopFontFamilyLoader(new ResourceLoader());
 
-            Hooks.GraphicsBackend = new GLGraphicsBackend();
+            Hooks.GraphicsBackend = new OpenGLBackend();
 			Hooks.BitmapLoader = new DesktopBitmapLoader (Hooks.GraphicsBackend);
 			Hooks.BrushLoader = new DesktopBrushLoader ();
 			Hooks.FontLoader = new DesktopFontLoader (_fontFamilyLoader);
@@ -28,7 +28,8 @@ namespace AGS.Engine.Desktop
 
             Resolver.Override(resolver => resolver.Builder.RegisterType<DesktopGameWindowSize>().SingleInstance().As<IGameWindowSize>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<AGSGameWindow>().SingleInstance().As<IGameWindow>());
-		}
+            Resolver.Override(resolver => resolver.Builder.RegisterType<ALAudioBackend>().SingleInstance().As<IAudioBackend>());
+        }
 	}
 }
 

@@ -100,7 +100,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Game\AGSCutscene.cs" />
-    <Compile Include="Game\AGSGame.cs" />
     <Compile Include="Game\AGSGameEvents.cs" />
     <Compile Include="Game\AGSGameLoop.cs" />
     <Compile Include="Game\AGSGameState.cs" />
@@ -377,9 +376,7 @@
     <Compile Include="Player\Approach\AGSApproachComponent.cs" />
     <Compile Include="Player\Approach\AGSApproachStyle.cs" />
     <Compile Include="Platform\IAudioBackend.cs" />
-    <Compile Include="Platform\ALAudioBackend.cs" />
     <Compile Include="Platform\IGraphicsBackend.cs" />
-    <Compile Include="Platform\GLGraphicsBackend.cs" />
     <Compile Include="Misc\Geometry\OpenTK\Vector2.cs" />
     <Compile Include="Misc\Geometry\OpenTK\MathHelper.cs" />
     <Compile Include="Misc\Geometry\OpenTK\Quaternion.cs" />
@@ -388,6 +385,7 @@
     <Compile Include="Misc\Geometry\OpenTK\Vector4.cs" />
     <Compile Include="Misc\Geometry\OpenTK\Matrix3.cs" />
     <Compile Include="Platform\IGameWindow.cs" />
+    <Compile Include="Game\AGSGame.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -442,12 +440,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="OpenTK" Condition="$(Configuration) == 'Debug'">
-      <HintPath>..\..\..\DLLs Debug\OpenTK.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK" Condition="$(Configuration) != 'Debug'">
-      <HintPath>..\..\..\DLLs\OpenTK.dll</HintPath>
-    </Reference>
     <Reference Include="Autofac">
       <HintPath>..\..\..\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
     </Reference>

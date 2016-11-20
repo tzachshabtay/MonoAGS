@@ -12,19 +12,19 @@ namespace AGS.Engine.Android
 	{
 		#region IGameWindowSize implementation
 
-		public int GetWidth(OpenTK.GameWindow gameWindow)
+        public int GetWidth(OpenTK.INativeWindow gameWindow)
 		{
 			var metrics = Resources.System.DisplayMetrics;
 			return convertPixelsToDp(metrics.WidthPixels);
 		}
 
-		public int GetHeight(OpenTK.GameWindow gameWindow)
+		public int GetHeight(OpenTK.INativeWindow gameWindow)
 		{
 			var metrics = Resources.System.DisplayMetrics;
 			return convertPixelsToDp(metrics.HeightPixels);
 		}
 
-		public void SetSize(OpenTK.GameWindow gameWindow, AGS.API.Size size)
+		public void SetSize(OpenTK.INativeWindow gameWindow, AGS.API.Size size)
 		{
 		}
 

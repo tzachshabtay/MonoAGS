@@ -44,39 +44,12 @@ namespace AGS.Engine
 
     public enum VertexPointerMode
     {
-        Short,
-        Int,
-        Float,
-        Double,
-        HalfFloat,
-        UnsignedInt2101010Rev,
-        Int2101010Rev,
-    }
-
-    public enum TexCoordPointerMode
-    {
-        Short,
-        Int,
-        Float,
-        Double,
-        HalfFloat,
-        UnsignedInt2101010Rev,
-        Int2101010Rev,
-    }
-
-    public enum ColorPointerMode
-    {
         Byte,
-        UnsignedByte,
-        Short,
-        UnsignedShort,
-        Int,
-        UnsignedInt,
+        Fixed,
         Float,
-        Double,
-        HalfFloat,
-        UnsignedInt2101010Rev,
-        Int2101010Rev,
+        Short,
+        UnsignedByte,
+        UnsignedShort,
     }
 
     public interface IGraphicsBackend
@@ -97,9 +70,9 @@ namespace AGS.Engine
         void BindBuffer(int bufferId);
         void BufferData(GLVertex[] vertices);
         void DrawArrays(PrimitiveMode primitiveType, int first, int count);
-        void VertexPointer(int size, VertexPointerMode vertexType, int stride, int offset);
-        void TexCoordPointer(int size, TexCoordPointerMode texCoordType, int stride, int offset);
-        void ColorPointer(int size, ColorPointerMode colorType, int stride, int offset);
+        void DrawElements(PrimitiveMode primitiveType, int count, byte[] indices);
+        //void VertexPointer(int index, int size, VertexPointerMode vertexType, int stride, int offset);
+        void InitPointers(int size);
 
         int GenFrameBuffer();
         void BindFrameBuffer(int frameBufferId);
@@ -111,7 +84,7 @@ namespace AGS.Engine
         void MatrixMode(MatrixType matrix);
         void LoadIdentity();
         void Ortho(double left, double right, double bottom, double top, double zNear, double zFar);
-        string GetVersion();
+        bool AreShadersSupported();
         void LineWidth(float lineWidth);
 
         int CreateProgram();
@@ -135,5 +108,6 @@ namespace AGS.Engine
         int GetProgramLinkErrorCode(int programId);
         void ActiveTexture(int paramIndex);
         int GetMaxTextureUnits();
+        void SetShaderAppVars(int programId);
     }
 }

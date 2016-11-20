@@ -37,9 +37,10 @@ namespace AGS.Engine
 
         public static void InitPointers(IGraphicsBackend graphics)
 		{
-			graphics.VertexPointer(2, VertexPointerMode.Float, Size, 0);
-			graphics.TexCoordPointer(2, TexCoordPointerMode.Float, Size, Vector2.SizeInBytes);
-			graphics.ColorPointer(4, ColorPointerMode.Float, Size, Vector2.SizeInBytes * 2);
+            graphics.InitPointers(Size);
+			//graphics.VertexPointer(0, 2, VertexPointerMode.Float, Size, 0);
+			//graphics.VertexPointer(1, 2, VertexPointerMode.Float, Size, Vector2.SizeInBytes);
+			//graphics.VertexPointer(2, 4, VertexPointerMode.Float, Size, Vector2.SizeInBytes * 2);
 		}
 	}
 }
