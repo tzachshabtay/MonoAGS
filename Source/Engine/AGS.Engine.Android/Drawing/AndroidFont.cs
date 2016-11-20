@@ -3,6 +3,8 @@ using AGS.API;
 using Android.Graphics;
 using Android.Widget;
 using Android.Text;
+using Java.Lang;
+using System.Diagnostics;
 
 namespace AGS.Engine.Android
 {
@@ -20,12 +22,21 @@ namespace AGS.Engine.Android
 
 		public static AndroidFont FromPath(string path, FontStyle style, float sizeInPoints)
 		{
-			AndroidFont font = new AndroidFont ();
-			font.InnerFont = Typeface.Create(Typeface.CreateFromFile(path), style.Convert());
-			font.FontFamily = path;
-			font.Style = style;
-			font.SizeInPoints = sizeInPoints;
-			return font;
+            try
+            {
+                AndroidFont font = new AndroidFont();
+                font.InnerFont = Typeface.Create(Typeface.CreateFromFile(path), style.Convert());
+                font.FontFamily = path;
+                font.Style = style;
+                font.SizeInPoints = sizeInPoints;
+                return font;
+            }
+            catch (RuntimeException e)
+            {
+                Debug.WriteLine(string.Format("Failed to load font from path: {0}, will resort to default font", path));
+                Debug.WriteLine(e.ToString());
+                return FromFamilyName("sans-serif", style, sizeInPoints);
+            }
 		}
 
 		public Typeface InnerFont { get; private set; }
@@ -56,7 +67,7 @@ namespace AGS.Engine.Android
 
 			Rect bounds = new Rect();
 			paint.GetTextBounds("Py", 0, 2, bounds);
-			float height = (float)Math.Floor((double)lineCount * bounds.Height());
+			float height = (float)System.Math.Floor((double)lineCount * bounds.Height());
 
 			return new SizeF (measuredWidth, height);
 		}
