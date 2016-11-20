@@ -89,6 +89,7 @@ namespace AGS.Engine
 			if (animation == null) return;
 			foreach (int frame in frames)
 			{
+                if (frame >= animation.Frames.Count) continue;
 				animation.Frames[frame].SoundEmitter = this;
 			}
 		}
