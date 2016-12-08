@@ -112,7 +112,7 @@ namespace AGS.Engine
             }
             _bgRenderer.Render(obj, viewport, areaScaling);
 
-			if (TextVisible)
+            if (TextVisible && Text != "")
 			{
                 if (!string.IsNullOrEmpty(Text)) _glUtils.AdjustResolution(GLText.TextResolutionWidth, GLText.TextResolutionHeight);
 
