@@ -1,7 +1,5 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using Android.Graphics;
-using Android.Widget;
 using Android.Text;
 using Java.Lang;
 using System.Diagnostics;

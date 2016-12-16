@@ -91,11 +91,11 @@ namespace AGS.Engine.Desktop
             return _keysDown.Contains(key);
         }
 
-		public PointF MousePosition
+		public API.PointF MousePosition
 		{
 			get 
 			{
-				return new PointF(MouseX, MouseY);
+				return new API.PointF(MouseX, MouseY);
 			}
 		}
 

@@ -52,6 +52,12 @@ namespace AGS.Engine
         UnsignedShort,
     }
 
+    public enum BufferType
+    {
+        ArrayBuffer,
+        ElementArrayBuffer,
+    }
+
     public interface IGraphicsBackend
     {
         void Init();
@@ -67,11 +73,9 @@ namespace AGS.Engine
         void SetTextureWrapT(TextureWrap wrap);
 
         int GenBuffer();
-        void BindBuffer(int bufferId);
-        void BufferData(GLVertex[] vertices);
-        void DrawArrays(PrimitiveMode primitiveType, int first, int count);
-        void DrawElements(PrimitiveMode primitiveType, int count, byte[] indices);
-        //void VertexPointer(int index, int size, VertexPointerMode vertexType, int stride, int offset);
+        void BindBuffer(int bufferId, BufferType bufferType);
+        void BufferData<TBufferItem>(TBufferItem[] items, int itemSize, BufferType bufferType) where TBufferItem : struct;
+        void DrawElements(PrimitiveMode primitiveType, int count, short[] indices);
         void InitPointers(int size);
 
         int GenFrameBuffer();
@@ -84,11 +88,12 @@ namespace AGS.Engine
         void MatrixMode(MatrixType matrix);
         void LoadIdentity();
         void Ortho(double left, double right, double bottom, double top, double zNear, double zFar);
-        bool AreShadersSupported();
         void LineWidth(float lineWidth);
 
+        bool AreShadersSupported();
         int CreateProgram();
         void UseProgram(int programId);
+        void Uniform1(int varLocation, int x);
         void Uniform1(int varLocation, float x);
         void Uniform2(int varLocation, float x, float y);
         void Uniform3(int varLocation, float x, float y, float z);
@@ -108,6 +113,9 @@ namespace AGS.Engine
         int GetProgramLinkErrorCode(int programId);
         void ActiveTexture(int paramIndex);
         int GetMaxTextureUnits();
-        void SetShaderAppVars(int programId);
+        void SetShaderAppVars();
+        void SetActiveShader(IShader shader);
+        string GetStandardVertexShader();
+        string GetStandardFragmentShader();
     }
 }

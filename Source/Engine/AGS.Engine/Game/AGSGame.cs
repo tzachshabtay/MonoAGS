@@ -100,7 +100,7 @@ namespace AGS.Engine
                         _graphics.ClearColor(0f, 0f, 0f, 1f);
 
                         _graphics.Init();
-                        _glUtils.GenBuffer();
+                        _glUtils.GenBuffers();
 
                         Factory = Resolver.Container.Resolve<IGameFactory>();
 

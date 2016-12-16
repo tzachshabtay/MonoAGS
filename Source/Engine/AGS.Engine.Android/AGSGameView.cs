@@ -41,7 +41,7 @@ namespace AGS.Engine.Android
 
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>());
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<INativeWindow>());
-            Resolver.Override(resolver => resolver.Builder.RegisterType<AGSInput>().SingleInstance().As<IInput>());
+            Resolver.Override(resolver => resolver.Builder.RegisterType<AndroidInput>().SingleInstance().As<IInput>());
         }
 
         // This method is called everytime the context needs

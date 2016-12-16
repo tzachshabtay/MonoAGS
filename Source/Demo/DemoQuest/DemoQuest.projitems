@@ -326,7 +326,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Rooms\DarsStreet\walkbehind2.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Rooms\DarsStreet\walkbehind3.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Rooms\DarsStreet\windowHotspot.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Rooms\EmptyStreet\bg.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Rooms\EmptyStreet\bottle.bmp" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Rooms\EmptyStreet\bottleBrokenEmpty.bmp" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Rooms\EmptyStreet\bottleBrokenWithId.bmp" />
@@ -357,6 +356,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Sounds\254818__kwahmah-02__rattling-glass-bottles-impact.wav" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Sounds\AMemoryAway.ogg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Rooms\DarsStreet\lampPost.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Rooms\EmptyStreet\bg.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />

@@ -35,16 +35,19 @@ namespace AGS.Engine
         public void SetTextureWrapT(TextureWrap wrap) { GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, getWrapMode(wrap)); }
 
         public int GenBuffer() { return GL.GenBuffer(); }
-        public void BindBuffer(int bufferId) { GL.BindBuffer(BufferTarget.ArrayBuffer, bufferId); }
-        public void BufferData(GLVertex[] vertices)
+        public void BindBuffer(int bufferId, BufferType bufferType) 
         {
-            GL.BufferData<GLVertex>(BufferTarget.ArrayBuffer, (IntPtr)(GLVertex.Size * vertices.Length),
-                vertices, BufferUsageHint.StreamDraw);
+            var bufferTarget = getBufferTarget(bufferType);
+            GL.BindBuffer(bufferTarget, bufferId); 
         }
-        public void DrawArrays(PrimitiveMode primitiveType, int first, int count) { GL.DrawArrays(getPrimitive(primitiveType), first, count); }
-        public void DrawElements(PrimitiveMode primitiveType, int count, byte[] indices)
+        public void BufferData<TBufferItem>(TBufferItem[] items, int itemSize, BufferType bufferType) where TBufferItem : struct
         {
-            GL.DrawElements<byte>(getPrimitive(primitiveType), count, DrawElementsType.UnsignedByte, indices);
+            GL.BufferData(getBufferTarget(bufferType), (IntPtr)(itemSize * items.Length), 
+                          items, BufferUsageHint.StreamDraw);
+        }
+        public void DrawElements(PrimitiveMode primitiveType, int count, short[] indices)
+        {
+            GL.DrawElements(getPrimitive(primitiveType), count, DrawElementsType.UnsignedShort, IntPtr.Zero);
         }
         public void InitPointers(int size)
         {
@@ -90,6 +93,7 @@ namespace AGS.Engine
 
         public int CreateProgram() { return GL.CreateProgram(); }
         public void UseProgram(int programId) { GL.UseProgram(programId); }
+        public void Uniform1(int varLocation, int x) { GL.Uniform1(varLocation, x); }
         public void Uniform1(int varLocation, float x) { GL.Uniform1(varLocation, x); }
         public void Uniform2(int varLocation, float x, float y) { GL.Uniform2(varLocation, x, y); }
         public void Uniform3(int varLocation, float x, float y, float z) { GL.Uniform3(varLocation, x, y, z); }
@@ -119,7 +123,38 @@ namespace AGS.Engine
         }
         public void ActiveTexture(int paramIndex) { GL.ActiveTexture(TextureUnit.Texture0 + paramIndex); }
         public int GetMaxTextureUnits() { return GL.GetInteger(GetPName.MaxTextureUnits); }
-        public void SetShaderAppVars(int programId) { }
+        public void SetShaderAppVars() { }
+        public void SetActiveShader(IShader shader) { }
+
+        public string GetStandardVertexShader()
+        {
+            return @"#version 120
+
+            varying vec4 gl_FrontColor;
+
+            void main(void)
+            {
+                gl_FrontColor = gl_Color;
+                gl_TexCoord[0] = gl_MultiTexCoord0;
+                gl_Position = ftransform();
+            }
+            ";
+        }
+
+        public string GetStandardFragmentShader()
+        { 
+            return @"#version 120
+
+            uniform sampler2D texture;
+            varying vec4 gl_Color;
+
+            void main()
+            {
+                vec2 pos = gl_TexCoord[0].xy;
+                vec4 col = texture2D(texture, pos);
+                gl_FragColor = col * gl_Color;
+            }";
+        }
 
         private int getWrapMode(TextureWrap wrap)
         {
@@ -179,55 +214,6 @@ namespace AGS.Engine
             }
         }
 
-        /*private VertexPointerType getVertexPointer(VertexPointerMode mode)
-        {
-            switch (mode)
-            {
-                case VertexPointerMode.Double: return VertexPointerType.Double;
-                case VertexPointerMode.Float: return VertexPointerType.Float;
-                case VertexPointerMode.HalfFloat: return VertexPointerType.HalfFloat;
-                case VertexPointerMode.Int: return VertexPointerType.Int;
-                case VertexPointerMode.Int2101010Rev: return VertexPointerType.Int2101010Rev;
-                case VertexPointerMode.Short: return VertexPointerType.Short;
-                case VertexPointerMode.UnsignedInt2101010Rev: return VertexPointerType.UnsignedInt2101010Rev;
-                default: throw new NotSupportedException(mode.ToString());
-            }
-        }
-
-        private TexCoordPointerType getTexCoordPointer(TexCoordPointerMode mode)
-        {
-            switch (mode)
-            {
-                case TexCoordPointerMode.Double: return TexCoordPointerType.Double;
-                case TexCoordPointerMode.Float: return TexCoordPointerType.Float;
-                case TexCoordPointerMode.HalfFloat: return TexCoordPointerType.HalfFloat;
-                case TexCoordPointerMode.Int: return TexCoordPointerType.Int;
-                case TexCoordPointerMode.Int2101010Rev: return TexCoordPointerType.Int2101010Rev;
-                case TexCoordPointerMode.Short: return TexCoordPointerType.Short;
-                case TexCoordPointerMode.UnsignedInt2101010Rev: return TexCoordPointerType.UnsignedInt2101010Rev;
-                default: throw new NotSupportedException(mode.ToString());
-            }
-        }
-
-        private ColorPointerType getColorPointer(ColorPointerMode mode)
-        {
-            switch (mode)
-            {
-                case ColorPointerMode.Double: return ColorPointerType.Double;
-                case ColorPointerMode.Float: return ColorPointerType.Float;
-                case ColorPointerMode.HalfFloat: return ColorPointerType.HalfFloat;
-                case ColorPointerMode.Int: return ColorPointerType.Int;
-                case ColorPointerMode.Int2101010Rev: return ColorPointerType.Int2101010Rev;
-                case ColorPointerMode.Short: return ColorPointerType.Short;
-                case ColorPointerMode.UnsignedInt2101010Rev: return ColorPointerType.UnsignedInt2101010Rev;
-                case ColorPointerMode.Byte: return ColorPointerType.Byte;
-                case ColorPointerMode.UnsignedByte: return ColorPointerType.UnsignedByte;
-                case ColorPointerMode.UnsignedInt: return ColorPointerType.UnsignedInt;
-                case ColorPointerMode.UnsignedShort: return ColorPointerType.UnsignedShort;
-                default: throw new NotSupportedException(mode.ToString());
-            }
-        }*/
-
         private MatrixMode getMatrixMode(MatrixType matrix)
         {
             switch (matrix)
@@ -253,6 +239,16 @@ namespace AGS.Engine
                 case ShaderMode.TessEvaluationShader: return ShaderType.TessEvaluationShader;
                 case ShaderMode.VertexShader: return ShaderType.VertexShader;
                 default: throw new NotSupportedException(shader.ToString());
+            }
+        }
+
+        private BufferTarget getBufferTarget(BufferType bufferType)
+        {
+            switch (bufferType)
+            {
+                case BufferType.ArrayBuffer: return BufferTarget.ArrayBuffer;
+                case BufferType.ElementArrayBuffer: return BufferTarget.ElementArrayBuffer;
+                default: throw new NotSupportedException(bufferType.ToString());
             }
         }
     }

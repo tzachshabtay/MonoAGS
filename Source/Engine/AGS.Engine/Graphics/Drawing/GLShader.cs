@@ -42,6 +42,8 @@ namespace AGS.Engine
             return FromText(vertexSource, fragmentSource, graphics);
 		}
 
+        public int ProgramId { get { return _program; } }
+
 		public IShader Compile()
 		{
 			if (_hadCompilationErrors) return null;
@@ -75,7 +77,7 @@ namespace AGS.Engine
 		{
 			_graphics.UseProgram(_program);
 			bindTextures();
-            _graphics.SetShaderAppVars(_program);
+            _graphics.SetActiveShader(this);
         }
 
 		public void Unbind()

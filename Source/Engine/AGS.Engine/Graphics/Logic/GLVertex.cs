@@ -29,19 +29,19 @@ namespace AGS.Engine
 			_color = color;
 		}
 
-		public static int Size = Vector2.SizeInBytes * 2 + Vector4.SizeInBytes;
+        static GLVertex()
+        { 
+            unsafe
+            {
+                Size = sizeof(GLVertex);
+            }
+        }
+
+        public static int Size;
 
 		public Vector2 Position { get { return _position; } }
 		public Vector2 TexCoord { get { return _texCoord; } }
 		public Vector4 Color { get { return _color; } }
-
-        public static void InitPointers(IGraphicsBackend graphics)
-		{
-            graphics.InitPointers(Size);
-			//graphics.VertexPointer(0, 2, VertexPointerMode.Float, Size, 0);
-			//graphics.VertexPointer(1, 2, VertexPointerMode.Float, Size, Vector2.SizeInBytes);
-			//graphics.VertexPointer(2, 4, VertexPointerMode.Float, Size, Vector2.SizeInBytes * 2);
-		}
 	}
 }
 

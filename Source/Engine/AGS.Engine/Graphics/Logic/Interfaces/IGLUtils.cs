@@ -6,7 +6,7 @@ namespace AGS.Engine
     {
         void AdjustResolution(int width, int height);
         void RefreshViewport(IGameSettings settings, IGameWindow gameWindow);
-        void GenBuffer();
+        void GenBuffers();
         void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight,
                       Vector3 topLeft, Vector3 topRight, float r, float g, float b, float a);
         void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight,

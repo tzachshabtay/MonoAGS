@@ -25,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -34,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -45,8 +47,11 @@
     <Reference Include="Autofac">
       <HintPath>..\..\..\packages\Autofac.4.1.1\lib\netstandard1.1\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTK">
-      <HintPath>..\..\..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
+    <Reference Include="OpenTK-1.1" Condition="$(Configuration) == 'Debug'">
+      <HintPath>..\..\..\DLLs Debug\Android\OpenTK-1.1.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK-1.1" Condition="$(Configuration) != 'Debug'">
+      <HintPath>..\..\..\DLLs\Android\OpenTK-1.1.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +79,12 @@
     <Compile Include="..\AGS.Engine.Desktop\IGameWindowSize.cs">
       <Link>IGameWindowSize.cs</Link>
     </Compile>
+    <Compile Include="AGSGameView.cs" />
+    <Compile Include="..\AGS.Engine.Desktop\ALAudioBackend.cs">
+      <Link>ALAudioBackend.cs</Link>
+    </Compile>
+    <Compile Include="OpenGLESBackend.cs" />
+    <Compile Include="AndroidInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -95,4 +106,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Embedded\" />
+    <Folder Include="Embedded\arm64-v8a\" />
+    <Folder Include="Embedded\armeabi-v7a\" />
+    <Folder Include="Embedded\x86\" />
+    <Folder Include="Embedded\x86_64\" />
+    <Folder Include="Embedded\armeabi\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedNativeLibrary Include="..\..\..\DLLs\Android\armeabi-v7a\libopenal32.so">
+      <Link>Embedded\armeabi-v7a\libopenal32.so</Link>
+    </EmbeddedNativeLibrary>
+    <EmbeddedNativeLibrary Include="..\..\..\DLLs\Android\armeabi\libopenal32.so">
+      <Link>Embedded\armeabi\libopenal32.so</Link>
+    </EmbeddedNativeLibrary>
+    <EmbeddedNativeLibrary Include="..\..\..\DLLs\Android\x86\libopenal32.so">
+      <Link>Embedded\x86\libopenal32.so</Link>
+    </EmbeddedNativeLibrary>
+  </ItemGroup>
 </Project>

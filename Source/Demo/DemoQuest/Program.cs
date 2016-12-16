@@ -24,16 +24,30 @@ namespace DemoGame
                 AGSGameSettings.CurrentSkin = null;
                 game.State.RoomTransitions.Transition = AGSRoomTransitions.Fade();
                 setKeyboardEvents(game);
+                Shaders.SetStandardShader();
+
+                /*IObject bg = game.Factory.Object.GetObject("Empty Street BG");
+                bg.Image = await game.Factory.Graphics.LoadImageAsync("../../Assets/Rooms/EmptyStreet/bg.png");
+                game.State.UI.Add(bg);
+                var room = game.Factory.Room.GetRoom("x");
+                game.State.ChangeRoom(room);
+
+                await Task.Delay(1);*/
 
                 addDebugLabels(game);
+                Debug.WriteLine("Startup: Loading Assets");
                 await loadPlayerCharacter(game);
+                Debug.WriteLine("Startup: Loaded Player Character");
                 await loadRooms(game);
+                Debug.WriteLine("Startup: Loaded Rooms");
                 Task charactersLoaded = loadCharacters(game);
                 var topPanel = await loadUi(game);
+                Debug.WriteLine("Startup: Loaded UI");
                 DefaultInteractions defaults = new DefaultInteractions(game, game.Events);
                 defaults.Load();
                 await charactersLoaded.ContinueWith(c =>
                 {
+                    Debug.WriteLine("Startup: Loaded Characters");
                     game.State.Player.ChangeRoom(Rooms.EmptyStreet.Result, 50, 30);
                     topPanel.Visible = true;
                 });
@@ -74,15 +88,19 @@ namespace DemoGame
 		{
 			MouseCursors cursors = new MouseCursors();
 			await cursors.LoadAsync(game);
+            Debug.WriteLine("Startup: Loaded Cursors");
 
 			InventoryPanel inventory = new InventoryPanel (cursors.Scheme);
 			await inventory.LoadAsync(game);
+            Debug.WriteLine("Startup: Loaded Inventory Panel");
 
 			OptionsPanel options = new OptionsPanel (cursors.Scheme);
 			await options.LoadAsync(game);
+            Debug.WriteLine("Startup: Loaded Options Panel");
 
 			TopBar topBar = new TopBar(cursors.Scheme, inventory, options);
 			var topPanel = await topBar.LoadAsync(game);
+            Debug.WriteLine("Startup: Loaded Top Bar");
 
 			return topPanel;
 		}
@@ -114,37 +132,53 @@ namespace DemoGame
 			Characters.Init (game);
 		}
 
-		private static Task loadRooms(IGame game)
+		private static async Task loadRooms(IGame game)
 		{
 			AGSSplashScreen splashScreen = new AGSSplashScreen ();
 			Rooms.SplashScreen = splashScreen.Load (game);
 			game.State.Rooms.Add (Rooms.SplashScreen);
+            Debug.WriteLine("Startup: Loaded splash screen");
 
 			EmptyStreet emptyStreet = new EmptyStreet (game.State.Player);
 			Rooms.EmptyStreet = emptyStreet.LoadAsync(game);
-			addRoomWhenLoaded(game, Rooms.EmptyStreet);
+            await waitForRoom(game, Rooms.EmptyStreet);
+			//addRoomWhenLoaded(game, Rooms.EmptyStreet);
+            Debug.WriteLine("Startup: Loaded empty street");
 
 			BrokenCurbStreet brokenCurbStreet = new BrokenCurbStreet();
 			Rooms.BrokenCurbStreet = brokenCurbStreet.LoadAsync(game);
-			addRoomWhenLoaded(game, Rooms.BrokenCurbStreet);
+            await waitForRoom(game, Rooms.BrokenCurbStreet);
+			//addRoomWhenLoaded(game, Rooms.BrokenCurbStreet);
+            Debug.WriteLine("Startup: Loaded broken curb street");
 
 			TrashcanStreet trashcanStreet = new TrashcanStreet();
 			Rooms.TrashcanStreet = trashcanStreet.LoadAsync(game);
-			addRoomWhenLoaded (game, Rooms.TrashcanStreet);
+            await waitForRoom(game, Rooms.TrashcanStreet);
+			//addRoomWhenLoaded (game, Rooms.TrashcanStreet);
+            Debug.WriteLine("Startup: Loaded trashcan street");
 
 			DarsStreet darsStreet = new DarsStreet();
 			Rooms.DarsStreet = darsStreet.LoadAsync(game);
-			addRoomWhenLoaded(game, Rooms.DarsStreet);
+            await waitForRoom(game, Rooms.DarsStreet);
+			//addRoomWhenLoaded(game, Rooms.DarsStreet);
+            Debug.WriteLine("Startup: Loaded Dars street");
 
 			Rooms.Init(game);
+            Debug.WriteLine("Startup: Initialized rooms");
 
-			return Rooms.DarsStreet;
+			//await Rooms.DarsStreet;
 		}
 
 		private static void addRoomWhenLoaded (IGame game, Task<IRoom> task)
 		{
 			task.ContinueWith(room => game.State.Rooms.Add (room.Result));
 		}
+
+        private static async Task waitForRoom(IGame game, Task<IRoom> task)
+        {
+            var room = await task;
+            game.State.Rooms.Add(room);
+        }
 
 		[Conditional("DEBUG")]
 		private static void addDebugLabels(IGame game)

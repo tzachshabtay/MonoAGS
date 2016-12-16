@@ -1,25 +1,24 @@
 ﻿using System;
-using System.Diagnostics;
 using AGS.API;
-//using OpenTK.Graphics.ES11;
 using OpenTK.Graphics.ES20;
-//using OpenTK.Graphics.OpenGL;
 
 namespace AGS.Engine
 {
     public class OpenGLESBackend : IGraphicsBackend
     {
         private OpenTK.Matrix4 _ortho;
+        private IShader _activeShader;
+        private int _activeTexture;
 
         public void Init()
         {
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
-            GL.Enable(EnableCap.Texture2D);
-            GL.EnableVertexAttribArray(0);
-            GL.EnableVertexAttribArray(1);
-            GL.EnableVertexAttribArray(2);
+            //GL.Enable(EnableCap.Texture2D);
+            //GL.EnableVertexAttribArray(0);
+            //GL.EnableVertexAttribArray(1);
+            //GL.EnableVertexAttribArray(2);
             /*GL.EnableClientState(ArrayCap.VertexArray);
             GL.EnableClientState(ArrayCap.TextureCoordArray);
             GL.EnableClientState(ArrayCap.ColorArray);*/
@@ -33,10 +32,14 @@ namespace AGS.Engine
         }
         public void ClearScreen() { GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit); }
 
-        public void BindTexture2D(int textureId) { GL.BindTexture(TextureTarget.Texture2D, textureId); }
+        public void BindTexture2D(int textureId) 
+        { 
+            GL.BindTexture(TextureTarget.Texture2D, textureId);
+            _activeTexture = textureId;
+        }
         public void TexImage2D(int width, int height, IntPtr scan0)
         {
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, width, height, 0, PixelFormat.Rgba,
+            GL.TexImage2D(TextureTarget2d.Texture2D, 0, TextureComponentCount.Rgba, width, height, 0, PixelFormat.Rgba,
                           PixelType.UnsignedByte, scan0);
         }
         public int GenTexture() { return GL.GenTexture(); }
@@ -46,34 +49,45 @@ namespace AGS.Engine
         public void SetTextureWrapT(TextureWrap wrap) { GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, getWrapMode(wrap)); }
 
         public int GenBuffer() { return GL.GenBuffer(); }
-        public void BindBuffer(int bufferId) { GL.BindBuffer(BufferTarget.ArrayBuffer, bufferId); }
-        public void BufferData(GLVertex[] vertices)
-        {
-            GL.BufferData<GLVertex>(BufferTarget.ArrayBuffer, (IntPtr)(GLVertex.Size * vertices.Length),
-                vertices, BufferUsageHint.StreamDraw);
+        public void BindBuffer(int bufferId, BufferType bufferType) 
+        { 
+            var bufferTarget = getBufferTarget(bufferType);
+            GL.BindBuffer(bufferTarget, bufferId);
         }
-        public void DrawArrays(PrimitiveMode primitiveType, int first, int count)
+        public void BufferData<TBufferItem>(TBufferItem[] items, int itemSize, BufferType bufferType) where TBufferItem : struct
         {
-            GL.DrawArrays(getPrimitive(primitiveType), first, count);
+            GL.BufferData(getBufferTarget(bufferType), (IntPtr)(itemSize * items.Length),
+                                        items, BufferUsageHint.StreamDraw);
         }
-        public void DrawElements(PrimitiveMode primitiveType, int count, byte[] indices)
+        public void DrawElements(PrimitiveMode primitiveType, int count, short[] indices)
         {
-            GL.DrawElements<byte>(getPrimitive(primitiveType), count, DrawElementsType.UnsignedByte, indices); 
+            GL.DrawElements<short>(getPrimitive(primitiveType), count, DrawElementsType.UnsignedShort, indices); 
         }
-        //public void VertexPointer(int index, int size, VertexPointerMode vertexType, int stride, int offset) { GL.VertexAttribPointer(index, size, getVertexPointer(vertexType), true, stride, offset); }
         public void InitPointers(int size)
         {
-            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, true, size, 0);
-            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, true, size, Vector2.SizeInBytes);
-            GL.VertexAttribPointer(2, 4, VertexAttribPointerType.Float, true, size, Vector2.SizeInBytes * 2);
+            var shader = _activeShader;
+            if (shader == null) return;
+
+            int posLocation = GL.GetAttribLocation(shader.ProgramId, "aPosition");
+            GL.EnableVertexAttribArray(posLocation);
+
+            int texLocation = GL.GetAttribLocation(shader.ProgramId, "aTexCoord");
+            GL.EnableVertexAttribArray(texLocation);
+
+            int colorLocation = GL.GetAttribLocation(shader.ProgramId, "aColor");
+            GL.EnableVertexAttribArray(colorLocation);
+
+            GL.VertexAttribPointer(posLocation, 2, VertexAttribPointerType.Float, true, size, 0);
+            GL.VertexAttribPointer(texLocation, 2, VertexAttribPointerType.Float, true, size, Vector2.SizeInBytes);
+            GL.VertexAttribPointer(colorLocation, 4, VertexAttribPointerType.Float, true, size, Vector2.SizeInBytes * 2);
         }
 
         public int GenFrameBuffer() { return GL.GenFramebuffer(); }
         public void BindFrameBuffer(int frameBufferId) { GL.BindFramebuffer(FramebufferTarget.Framebuffer, frameBufferId); }
         public void FrameBufferTexture2D(int textureId)
         {
-            GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferSlot.ColorAttachment0,
-                                    TextureTarget.Texture2D, textureId, 0);
+            GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, All.ColorAttachment0,
+                                    TextureTarget2d.Texture2D, textureId, 0);
         }
         public bool DrawFrameBuffer()
         {
@@ -108,6 +122,7 @@ namespace AGS.Engine
 
         public int CreateProgram() { return GL.CreateProgram(); }
         public void UseProgram(int programId) { GL.UseProgram(programId); }
+        public void Uniform1(int varLocation, int x) { GL.Uniform1(varLocation, x); }
         public void Uniform1(int varLocation, float x) { GL.Uniform1(varLocation, x); }
         public void Uniform2(int varLocation, float x, float y) { GL.Uniform2(varLocation, x, y); }
         public void Uniform3(int varLocation, float x, float y, float z) { GL.Uniform3(varLocation, x, y, z); }
@@ -137,11 +152,60 @@ namespace AGS.Engine
         }
         public void ActiveTexture(int paramIndex) { GL.ActiveTexture(TextureUnit.Texture0 + paramIndex); }
         public int GetMaxTextureUnits() { return GL.GetInteger(/*GetPName.MaxTextureUnits*/GetPName.MaxTextureImageUnits); }
-        public void SetShaderAppVars(int programId)
+        public void SetShaderAppVars()
         {
-            var location = GetUniformLocation(programId, "uMvp");
-            if (location < 0) return;
-            GL.UniformMatrix4(location, false, ref _ortho);
+            var activeShader = _activeShader;
+            if (activeShader == null) return;
+
+            var location = GetUniformLocation(activeShader.ProgramId, "uMvp");
+            if (location >= 0) GL.UniformMatrix4(location, false, ref _ortho);
+
+            activeShader.SetTextureVariable("uTexture", _activeTexture);
+            activeShader.Bind();
+        }
+        public void SetActiveShader(IShader shader)
+        {
+            _activeShader = shader;
+            //InitPointers(
+        }
+
+        public string GetStandardVertexShader()
+        { 
+            return @"
+            uniform mat4    uMvp;
+            attribute vec2 aPosition;
+
+            attribute vec2 aTexCoord;
+            varying vec2 vTexCoord;
+
+            attribute vec4 aColor;
+            varying vec4 vColor;
+            
+            void main() {
+               vec4 position = vec4(aPosition.xy, 1., 1.);
+               gl_Position = uMvp * position;
+               vTexCoord = aTexCoord;
+               vColor = aColor;
+               //gl_Position = ftransform();
+            }
+            ";
+        }
+
+        public string GetStandardFragmentShader()
+        { 
+            return @"
+            precision mediump float;
+            uniform sampler2D uTexture;
+            varying vec4 vColor;
+            varying vec2 vTexCoord;
+
+            void main()
+            {
+                vec4 col = texture2D(uTexture, vTexCoord);
+                gl_FragColor = col * vColor;
+                //gl_FragColor = vec4(1.0,0.0,0.0,1.0);
+            }
+            ";
         }
 
         private int getWrapMode(TextureWrap wrap)
@@ -190,14 +254,6 @@ namespace AGS.Engine
                 case PrimitiveMode.Triangles: return PrimitiveType.Triangles;
                 case PrimitiveMode.TriangleStrip: return PrimitiveType.TriangleStrip;
                 case PrimitiveMode.TriangleFan: return PrimitiveType.TriangleFan;
-                case PrimitiveMode.Quads: return PrimitiveType.Quads;
-                case PrimitiveMode.QuadStrip: return PrimitiveType.QuadStrip;
-                case PrimitiveMode.Polygon: return PrimitiveType.Polygon;
-                case PrimitiveMode.LinesAdjacency: return PrimitiveType.LinesAdjacency;
-                case PrimitiveMode.LineStripAdjacency: return PrimitiveType.LineStripAdjacency;
-                case PrimitiveMode.TrianglesAdjacency: return PrimitiveType.TrianglesAdjacency;
-                case PrimitiveMode.TriangleStripAdjacency: return PrimitiveType.TriangleStripAdjacency;
-                case PrimitiveMode.Patches: return PrimitiveType.Patches;
                 default: throw new NotSupportedException(mode.ToString());
             }
         }
@@ -228,6 +284,16 @@ namespace AGS.Engine
                 //case ShaderMode.TessEvaluationShader: return ShaderType.TessEvaluationShader;
                 case ShaderMode.VertexShader: return ShaderType.VertexShader;
                 default: throw new NotSupportedException(shader.ToString());
+            }
+        }
+
+        private BufferTarget getBufferTarget(BufferType bufferType)
+        {
+            switch (bufferType)
+            {
+                case BufferType.ArrayBuffer: return BufferTarget.ArrayBuffer;
+                case BufferType.ElementArrayBuffer: return BufferTarget.ElementArrayBuffer;
+                default: throw new NotSupportedException(bufferType.ToString());
             }
         }
     }

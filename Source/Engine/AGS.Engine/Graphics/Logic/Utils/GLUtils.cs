@@ -9,10 +9,10 @@ namespace AGS.Engine
 		private static readonly Vector2 _topRight = new Vector2 (1.0f, 0.0f);
 		private static readonly Vector2 _topLeft = new Vector2 (0.0f, 0.0f);
 
-        private static readonly byte[] _quadIndices = {0,1,2,  // first triangle (bottom left - top left - top right)
-                                                       0,2,3}; // second triangle (bottom left - top right - bottom right)
+        private static readonly short[] _quadIndices = {0,2,3,  // first triangle (bottom left - top left - top right)
+                                                       0,1,2}; // second triangle (bottom left - top right - bottom right)
 
-        private int _vbo;
+        private int _vbo, _ebo;
 
         private int _lastResolutionWidth, _lastResolutionHeight;
 
@@ -65,11 +65,15 @@ namespace AGS.Engine
             }
         }
 
-		public void GenBuffer()
+		public void GenBuffers()
 		{
 			_vbo = _graphics.GenBuffer();
-			_graphics.BindBuffer(_vbo);
-			GLVertex.InitPointers(_graphics);
+            _graphics.BindBuffer(_vbo, BufferType.ArrayBuffer);
+            _graphics.InitPointers(GLVertex.Size);
+		
+
+            _ebo = _graphics.GenBuffer();
+            _graphics.BindBuffer(_ebo, BufferType.ElementArrayBuffer);
 		}
 
 		public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
@@ -82,9 +86,7 @@ namespace AGS.Engine
 				new GLVertex(bottomRight.Xy, _bottomRight, r,g,b,a), new GLVertex(topRight.Xy, _topRight, r,g,b,a),
 				new GLVertex(topLeft.Xy, _topLeft, r,g,b,a)};
 
-            _graphics.BufferData(vertices);
-            _graphics.DrawElements(PrimitiveMode.Triangles, 6, _quadIndices);
-            //_graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
+            drawVertices(vertices);
 		}
 
 		public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
@@ -98,12 +100,10 @@ namespace AGS.Engine
 				new GLVertex(bottomRight.Xy, _bottomRight, bottomRightColor), new GLVertex(topRight.Xy, _topRight, topRightColor),
 				new GLVertex(topLeft.Xy, _topLeft, topLeftColor)};
 
-            _graphics.BufferData(vertices);
-            _graphics.DrawElements(PrimitiveMode.Triangles, 6, _quadIndices);
-			//_graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
+            drawVertices(vertices);
 		}
 
-		public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
+        public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
 			Vector3 topLeft, Vector3 topRight, IGLColor color, FourCorners<Vector2> texturePos)
 		{
             texture = getTexture(texture);
@@ -113,9 +113,7 @@ namespace AGS.Engine
 				new GLVertex(bottomRight.Xy, texturePos.BottomRight, color), new GLVertex(topRight.Xy, texturePos.TopRight, color),
 				new GLVertex(topLeft.Xy, texturePos.TopLeft, color)};
 
-            _graphics.BufferData(vertices);
-            _graphics.DrawElements(PrimitiveMode.Triangles, 6, _quadIndices);
-			//_graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
+            drawVertices(vertices);
 		}
 
 		public void DrawTriangleFan(int texture, GLVertex[] vertices)
@@ -123,8 +121,7 @@ namespace AGS.Engine
             texture = getTexture(texture);
             _graphics.BindTexture2D(texture);
 
-            _graphics.BufferData(vertices);
-			_graphics.DrawArrays(PrimitiveMode.TriangleFan, 0, vertices.Length);
+            drawVertices(vertices);
 		}
 			
 		public void DrawCross(float x, float y, float width, float height,
@@ -145,9 +142,7 @@ namespace AGS.Engine
 				new GLVertex(new Vector2(x - width/10, y + height), _topLeft, r,g,b,a)
 			};
 
-            _graphics.BufferData(vertices);
-            _graphics.DrawElements(PrimitiveMode.Triangles, 6, _quadIndices);
-			//_graphics.DrawArrays(PrimitiveMode.Quads, 0, vertices.Length);
+            drawVertices(vertices);
 		}
 
 		public void DrawLine(float x1, float y1, float x2, float y2, 
@@ -158,10 +153,18 @@ namespace AGS.Engine
 			_graphics.LineWidth (width);
 			GLVertex[] vertices = new GLVertex[]{ new GLVertex(new Vector2(x1,y1), _bottomLeft, r,g,b,a), 
 				new GLVertex(new Vector2(x2,y2), _bottomRight, r,g,b,a)};
-            _graphics.BufferData(vertices);
-			
-			_graphics.DrawArrays(PrimitiveMode.Lines, 0, vertices.Length);
+
+            drawVertices(vertices);
 		}
+
+        private void drawVertices(GLVertex[] vertices)
+        {
+            _graphics.BufferData(vertices, GLVertex.Size, BufferType.ArrayBuffer);
+            _graphics.BufferData(_quadIndices, sizeof(short), BufferType.ElementArrayBuffer);
+            _graphics.SetShaderAppVars();
+
+            _graphics.DrawElements(PrimitiveMode.Triangles, 6, _quadIndices);
+        }
 
         private static int getTexture(int texture)
         {

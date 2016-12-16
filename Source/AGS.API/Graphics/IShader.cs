@@ -8,6 +8,11 @@
     public interface IShader
 	{
         /// <summary>
+        /// Gets the program identifier for the shader (used by GLSL).
+        /// </summary>
+        /// <value>The program identifier.</value>
+        int ProgramId { get; }
+        /// <summary>
         /// Compiles this shader. 
         /// </summary>
         /// <returns>Will return itself if compiled successfully or null if there are compilation errors (those will be logged to the screen).</returns>
