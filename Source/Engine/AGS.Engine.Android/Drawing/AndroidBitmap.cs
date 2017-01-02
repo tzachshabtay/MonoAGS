@@ -34,7 +34,7 @@ namespace AGS.Engine.Android
 
 		public void MakeTransparent(AGS.API.Color color)
 		{
-			global::Android.Graphics.Color c = new global::Android.Graphics.Color(color.R, color.G, color.B, color.A);
+            global::Android.Graphics.Color c = new global::Android.Graphics.Color(color.R, color.G, color.B, color.A);
 			global::Android.Graphics.Color transparent = global::Android.Graphics.Color.Transparent;
 			using (FastBitmap fastBitmap = new FastBitmap (_bitmap))
 			{
@@ -43,7 +43,7 @@ namespace AGS.Engine.Android
 					for (int y = 0; y < _bitmap.Height; y++)
 					{
 						if (fastBitmap.GetPixel(x, y) == c)
-							fastBitmap.SetPixel(x, y, c);
+                            fastBitmap.SetPixel(x, y, transparent);
 					}
 				}
 			}
