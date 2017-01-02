@@ -19,7 +19,7 @@ namespace AGS.Engine.Android
 
 		public void Clear()
 		{
-			_bitmap.EraseColor(Colors.White.Convert());
+            _bitmap.EraseColor(global::Android.Graphics.Color.White);
 		}
 
 		public AGS.API.Color GetPixel(int x, int y)
