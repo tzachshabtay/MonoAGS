@@ -9,8 +9,8 @@ namespace AGS.Engine
 		private static readonly Vector2 _topRight = new Vector2 (1.0f, 0.0f);
 		private static readonly Vector2 _topLeft = new Vector2 (0.0f, 0.0f);
 
-        private static readonly short[] _quadIndices = {0,2,3,  // first triangle (bottom left - top left - top right)
-                                                       0,1,2}; // second triangle (bottom left - top right - bottom right)
+        private static readonly short[] _quadIndices = {3,0,1,  // first triangle (top left - bottom left - bottom right)
+                                                       3,1,2}; // second triangle (top left - bottom right - top right)
 
         private int _vbo, _ebo;
 
@@ -71,7 +71,6 @@ namespace AGS.Engine
             _graphics.BindBuffer(_vbo, BufferType.ArrayBuffer);
             _graphics.InitPointers(GLVertex.Size);
 		
-
             _ebo = _graphics.GenBuffer();
             _graphics.BindBuffer(_ebo, BufferType.ElementArrayBuffer);
 		}
@@ -160,6 +159,8 @@ namespace AGS.Engine
         private void drawVertices(GLVertex[] vertices)
         {
             _graphics.BufferData(vertices, GLVertex.Size, BufferType.ArrayBuffer);
+            _graphics.InitPointers(GLVertex.Size);
+
             _graphics.BufferData(_quadIndices, sizeof(short), BufferType.ElementArrayBuffer);
             _graphics.SetShaderAppVars();
 

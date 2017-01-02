@@ -6,7 +6,7 @@ namespace AGS.Engine
 {
     public class OpenGLESBackend : IGraphicsBackend
     {
-        private OpenTK.Matrix4 _ortho;
+        private OpenTK.Matrix4 _ortho, _view;
         private IShader _activeShader;
         private int _activeTexture;
 
@@ -14,6 +14,11 @@ namespace AGS.Engine
         {
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+
+            OpenTK.Vector3 eye = new OpenTK.Vector3(0f, 0f, 1f);
+            OpenTK.Vector3 center = new OpenTK.Vector3(0f, 0f, 0f);
+            OpenTK.Vector3 up = new OpenTK.Vector3(0f, 1f, 0f);
+            _view = OpenTK.Matrix4.LookAt(eye, center, up);
 
             //GL.Enable(EnableCap.Texture2D);
             //GL.EnableVertexAttribArray(0);
@@ -56,30 +61,21 @@ namespace AGS.Engine
         }
         public void BufferData<TBufferItem>(TBufferItem[] items, int itemSize, BufferType bufferType) where TBufferItem : struct
         {
-            GL.BufferData(getBufferTarget(bufferType), (IntPtr)(itemSize * items.Length),
+            GL.BufferData(getBufferTarget(bufferType), itemSize * items.Length,
                                         items, BufferUsageHint.StreamDraw);
         }
         public void DrawElements(PrimitiveMode primitiveType, int count, short[] indices)
         {
-            GL.DrawElements<short>(getPrimitive(primitiveType), count, DrawElementsType.UnsignedShort, indices); 
+            GL.DrawElements(getPrimitive(primitiveType), count, DrawElementsType.UnsignedShort, 0);
         }
         public void InitPointers(int size)
         {
             var shader = _activeShader;
             if (shader == null) return;
 
-            int posLocation = GL.GetAttribLocation(shader.ProgramId, "aPosition");
-            GL.EnableVertexAttribArray(posLocation);
-
-            int texLocation = GL.GetAttribLocation(shader.ProgramId, "aTexCoord");
-            GL.EnableVertexAttribArray(texLocation);
-
-            int colorLocation = GL.GetAttribLocation(shader.ProgramId, "aColor");
-            GL.EnableVertexAttribArray(colorLocation);
-
-            GL.VertexAttribPointer(posLocation, 2, VertexAttribPointerType.Float, true, size, 0);
-            GL.VertexAttribPointer(texLocation, 2, VertexAttribPointerType.Float, true, size, Vector2.SizeInBytes);
-            GL.VertexAttribPointer(colorLocation, 4, VertexAttribPointerType.Float, true, size, Vector2.SizeInBytes * 2);
+            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, size, 0);
+            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, size, Vector2.SizeInBytes);
+            GL.VertexAttribPointer(2, 4, VertexAttribPointerType.Float, false, size, Vector2.SizeInBytes * 2);
         }
 
         public int GenFrameBuffer() { return GL.GenFramebuffer(); }
@@ -110,17 +106,27 @@ namespace AGS.Engine
         public void LoadIdentity() { /*GL.LoadIdentity();*/ }
         public void Ortho(double left, double right, double bottom, double top, double zNear, double zFar)
         {
-            //GL.Ortho(left, right, bottom, top, zNear, zFar);
-            _ortho = new OpenTK.Matrix4(
-                new OpenTK.Vector4((float)(2 / right), 0f, 0f, -1f),
-                new OpenTK.Vector4(0f, (float)(-2 / top), 0f, 1f),
-                new OpenTK.Vector4(0f, 0f, 2f / (float)(zFar - zNear), (float)(zNear + zFar) / (float)(zNear - zFar)),
-                new OpenTK.Vector4(0f, 0f, 0f, 1f));
+            OpenTK.Matrix4 projection = OpenTK.Matrix4.CreateOrthographicOffCenter((float)left, (float)right, 
+                                                                     (float)bottom, (float)top, 
+                                                                     (float)zNear, (float)zFar);
+            _ortho = _view * projection;
         }
         public bool AreShadersSupported() { return true; }
         public void LineWidth(float lineWidth) { GL.LineWidth(lineWidth); }
 
-        public int CreateProgram() { return GL.CreateProgram(); }
+        public int CreateProgram() 
+        { 
+            int program = GL.CreateProgram();
+
+            GL.BindAttribLocation(program, 0, "aPosition");
+            GL.BindAttribLocation(program, 1, "aTexCoord");
+            GL.BindAttribLocation(program, 2, "aColor");
+            GL.EnableVertexAttribArray(0);
+            GL.EnableVertexAttribArray(1);
+            GL.EnableVertexAttribArray(2);
+
+            return program;
+        }
         public void UseProgram(int programId) { GL.UseProgram(programId); }
         public void Uniform1(int varLocation, int x) { GL.Uniform1(varLocation, x); }
         public void Uniform1(int varLocation, float x) { GL.Uniform1(varLocation, x); }
@@ -166,7 +172,6 @@ namespace AGS.Engine
         public void SetActiveShader(IShader shader)
         {
             _activeShader = shader;
-            //InitPointers(
         }
 
         public string GetStandardVertexShader()
@@ -185,8 +190,7 @@ namespace AGS.Engine
                vec4 position = vec4(aPosition.xy, 1., 1.);
                gl_Position = uMvp * position;
                vTexCoord = aTexCoord;
-               vColor = aColor;
-               //gl_Position = ftransform();
+               vColor = aColor;             
             }
             ";
         }
@@ -243,17 +247,17 @@ namespace AGS.Engine
             }
         }
 
-        private PrimitiveType getPrimitive(PrimitiveMode mode)
+        private BeginMode getPrimitive(PrimitiveMode mode)
         {
             switch (mode)
             {
-                case PrimitiveMode.Points: return PrimitiveType.Points;
-                case PrimitiveMode.Lines: return PrimitiveType.Lines;
-                case PrimitiveMode.LineLoop: return PrimitiveType.LineLoop;
-                case PrimitiveMode.LineStrip: return PrimitiveType.LineStrip;
-                case PrimitiveMode.Triangles: return PrimitiveType.Triangles;
-                case PrimitiveMode.TriangleStrip: return PrimitiveType.TriangleStrip;
-                case PrimitiveMode.TriangleFan: return PrimitiveType.TriangleFan;
+                case PrimitiveMode.Points: return BeginMode.Points;
+                case PrimitiveMode.Lines: return BeginMode.Lines;
+                case PrimitiveMode.LineLoop: return BeginMode.LineLoop;
+                case PrimitiveMode.LineStrip: return BeginMode.LineStrip;
+                case PrimitiveMode.Triangles: return BeginMode.Triangles;
+                case PrimitiveMode.TriangleStrip: return BeginMode.TriangleStrip;
+                case PrimitiveMode.TriangleFan: return BeginMode.TriangleFan;
                 default: throw new NotSupportedException(mode.ToString());
             }
         }

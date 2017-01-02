@@ -99,6 +99,12 @@ namespace AGS.Engine.Android
             base.OnLoad(e);
         }
 
+        protected override void OnResize(EventArgs e)
+        {
+            MakeCurrent();
+            base.OnResize(e);
+        }
+
         /*protected override void OnResize(EventArgs e)
         {
             //viewportWidth = Width;
