@@ -23,7 +23,7 @@ namespace AGS.Engine.Android
         public IDisposable CreateContext()
         {
             _canvas = new Canvas(_bitmap);
-            _canvas.DrawColor(global::Android.Graphics.Color.Transparent);
+            _canvas.DrawColor(global::Android.Graphics.Color.Transparent, PorterDuff.Mode.Clear);
             return _canvas;
         }
 
