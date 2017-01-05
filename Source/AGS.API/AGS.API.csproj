@@ -205,6 +205,7 @@
     <Compile Include="Misc\CustomProperties\ICustomPropertiesPerType.cs" />
     <Compile Include="Player\Approach\IApproachStyle.cs" />
     <Compile Include="Player\Approach\IApproachComponent.cs" />
+    <Compile Include="Input\IShouldBlockInput.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

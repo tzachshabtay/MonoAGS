@@ -386,6 +386,7 @@
     <Compile Include="Misc\Geometry\OpenTK\Matrix3.cs" />
     <Compile Include="Platform\IGameWindow.cs" />
     <Compile Include="Game\AGSGame.cs" />
+    <Compile Include="Input\AGSShouldBlockInput.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

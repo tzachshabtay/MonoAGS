@@ -11,12 +11,12 @@ namespace AGS.Engine.Android
         private IGameWindowSize _windowSize;
         private IGameState _state;
         private int _virtualWidth, _virtualHeight;
-        private IAGSRoomTransitions _roomTransitions;
+        private IShouldBlockInput _shouldBlockInput;
 
         public AndroidInput(AndroidSimpleGestures gestures, AGS.API.Size virtualResolution, 
-                            IGameState state, IAGSRoomTransitions roomTransitions, IGameWindowSize windowSize)
+                            IGameState state, IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
         {
-            _roomTransitions = roomTransitions;
+            _shouldBlockInput = shouldBlockInput;
             _windowSize = windowSize;
             _state = state;
             this._virtualWidth = virtualResolution.Width;
@@ -74,8 +74,7 @@ namespace AGS.Engine.Android
 
         private bool isInputBlocked()
         {
-            if (_state.Room == null || _roomTransitions.State != RoomTransitionState.NotInTransition) return true;
-            return false;
+            return _shouldBlockInput.ShouldBlockInput();
         }
 
         private void setMousePosition(MotionEvent e)

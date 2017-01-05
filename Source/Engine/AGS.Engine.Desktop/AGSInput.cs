@@ -10,17 +10,17 @@ namespace AGS.Engine.Desktop
         private IGameWindowSize _windowSize;
         private int _virtualWidth, _virtualHeight;
         private IGameState _state;
-        private IAGSRoomTransitions _roomTransitions;
+        private IShouldBlockInput _shouldBlockInput;
         private IConcurrentHashSet<Key> _keysDown;
 
         private IObject _mouseCursor;
         private MouseCursor _originalOSCursor;
 
         public AGSInput(GameWindow game, AGS.API.Size virtualResolution, IGameState state, 
-                        IAGSRoomTransitions roomTransitions, IGameWindowSize windowSize)
+                        IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
         {
             _windowSize = windowSize;
-            this._roomTransitions = roomTransitions;
+            this._shouldBlockInput = shouldBlockInput;
             this._virtualWidth = virtualResolution.Width;
             this._virtualHeight = virtualResolution.Height;
             this._state = state;
@@ -124,8 +124,7 @@ namespace AGS.Engine.Desktop
 
 		private bool isInputBlocked()
 		{
-            if (_state.Room == null || _roomTransitions.State != RoomTransitionState.NotInTransition) return true;
-			return false;
+            return _shouldBlockInput.ShouldBlockInput();
 		}
 
 		private AGS.API.MouseButton convert(OpenTK.Input.MouseButton button)
