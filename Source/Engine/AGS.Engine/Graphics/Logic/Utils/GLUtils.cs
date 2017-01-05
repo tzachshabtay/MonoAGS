@@ -23,6 +23,8 @@ namespace AGS.Engine
             _graphics = graphics;
         }
 
+        public static Rectangle ScreenViewport { get; private set; }
+
         public void AdjustResolution(int width, int height)
         {
             if (_lastResolutionWidth == width && _lastResolutionHeight == height) return;
@@ -57,10 +59,12 @@ namespace AGS.Engine
                 int viewX = (screen.Width / 2) - (width / 2);
                 int viewY = (screen.Height / 2) - (height / 2);
 
+                ScreenViewport = new Rectangle(viewX, viewY, width, height);
                 _graphics.Viewport(viewX, viewY, width, height);
             }
             else
             {
+                ScreenViewport = new Rectangle(0, 0, gameWindow.Width, gameWindow.Height);
                 _graphics.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
             }
         }

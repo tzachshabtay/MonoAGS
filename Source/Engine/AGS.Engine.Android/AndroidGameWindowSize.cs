@@ -1,27 +1,28 @@
-﻿using System;
-using Android.Content.Res;
-using Android.Content;
-using Android.App;
-using Android.Runtime;
-using Android.Views;
+﻿using Android.Content.Res;
 using AGS.Engine.Desktop;
+using OpenTK.Platform.Android;
 
 namespace AGS.Engine.Android
 {
 	public class AndroidGameWindowSize : IGameWindowSize
 	{
+        private AndroidGameView _view;
+
+        public AndroidGameWindowSize(AndroidGameView view)
+        {
+            _view = view;
+        }
+
 		#region IGameWindowSize implementation
 
         public int GetWidth(OpenTK.INativeWindow gameWindow)
 		{
-			var metrics = Resources.System.DisplayMetrics;
-			return convertPixelsToDp(metrics.WidthPixels);
+            return convertPixelsToDp(_view.Width);
 		}
 
 		public int GetHeight(OpenTK.INativeWindow gameWindow)
 		{
-			var metrics = Resources.System.DisplayMetrics;
-			return convertPixelsToDp(metrics.HeightPixels);
+            return convertPixelsToDp(_view.Height);
 		}
 
 		public void SetSize(OpenTK.INativeWindow gameWindow, AGS.API.Size size)
@@ -35,7 +36,6 @@ namespace AGS.Engine.Android
 			var dp = (int) ((pixelValue)/Resources.System.DisplayMetrics.Density);
 			return dp;
 		}
-
 	}
 }
 

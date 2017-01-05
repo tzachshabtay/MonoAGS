@@ -1,16 +1,48 @@
-﻿using AGS.API;
+﻿using System.Threading.Tasks;
+using AGS.API;
+using AGS.Engine.Desktop;
+using Android.Content.Res;
+using Android.Views;
 
 namespace AGS.Engine.Android
 {
     public class AndroidInput : IInput
     {
-        public AndroidInput()
+        private IGameWindowSize _windowSize;
+        private IGameState _state;
+        private int _virtualWidth, _virtualHeight;
+        private IAGSRoomTransitions _roomTransitions;
+
+        public AndroidInput(AndroidSimpleGestures gestures, AGS.API.Size virtualResolution, 
+                            IGameState state, IAGSRoomTransitions roomTransitions, IGameWindowSize windowSize)
         {
+            _roomTransitions = roomTransitions;
+            _windowSize = windowSize;
+            _state = state;
+            this._virtualWidth = virtualResolution.Width;
+            this._virtualHeight = virtualResolution.Height;
             MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseMove = new AGSEvent<MousePositionEventArgs>();
             KeyDown = new AGSEvent<KeyboardEventArgs>();
             KeyUp = new AGSEvent<KeyboardEventArgs>();
+
+            gestures.OnUserDrag += async (sender, e) => 
+            {
+                if (isInputBlocked()) return;
+                setMousePosition(e);
+                await MouseMove.InvokeAsync(sender, new MousePositionEventArgs(MouseX, MouseY));
+            };
+            gestures.OnUserSingleTap += async (sender, e) => 
+            {
+                if (isInputBlocked()) return;
+                setMousePosition(e);
+                LeftMouseButtonDown = true;
+                await MouseDown.InvokeAsync(sender, new MouseButtonEventArgs(MouseButton.Left, MouseX, MouseY));
+                await Task.Delay(250);
+                await MouseUp.InvokeAsync(sender, new MouseButtonEventArgs(MouseButton.Left, MouseX, MouseY));
+                LeftMouseButtonDown = false;
+            };
         }
 
         public IObject Cursor { get; set; }
@@ -29,15 +61,55 @@ namespace AGS.Engine.Android
 
         public PointF MousePosition { get; private set; }
 
-        public float MouseX { get; private set; }
+        public float MouseX { get { return MousePosition.X; } }
 
-        public float MouseY { get; private set; }
+        public float MouseY { get { return MousePosition.Y; } }
 
         public bool RightMouseButtonDown { get; private set; }
 
         public bool IsKeyDown(Key key)
         {
             return false;
+        }
+
+        private bool isInputBlocked()
+        {
+            if (_state.Room == null || _roomTransitions.State != RoomTransitionState.NotInTransition) return true;
+            return false;
+        }
+
+        private void setMousePosition(MotionEvent e)
+        { 
+            float x = convertX(e.GetX());
+            float y = convertY(e.GetY());
+            MousePosition = new PointF(x, y);
+        }
+
+        private float convertX(float x)
+        {
+            var viewport = getViewport();
+            var virtualWidth = _virtualWidth / viewport.ScaleX;
+            float density = Resources.System.DisplayMetrics.Density;
+            x = (x - GLUtils.ScreenViewport.X) / density;
+            float width = _windowSize.GetWidth(null) - ((GLUtils.ScreenViewport.X * 2) / density);
+            x = MathUtils.Lerp(0f, 0f, width, virtualWidth, x);
+            return x + viewport.X;
+        }
+
+        private float convertY(float y)
+        {
+            var viewport = getViewport();
+            var virtualHeight = _virtualHeight / viewport.ScaleY;
+            float density = Resources.System.DisplayMetrics.Density;
+            y = (y - GLUtils.ScreenViewport.Y) / density;
+            float height = _windowSize.GetHeight(null) - ((GLUtils.ScreenViewport.Y * 2) / density);
+            y = MathUtils.Lerp(0f, virtualHeight, height, 0f, y);
+            return y + viewport.Y;
+        }
+
+        private IViewport getViewport()
+        {
+            return _state.Room.Viewport;
         }
     }
 }

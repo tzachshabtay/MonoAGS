@@ -70,12 +70,6 @@
     <Compile Include="AndroidGameWindowSize.cs" />
     <Compile Include="Drawing\AndroidBitmapLoader.cs" />
     <Compile Include="Drawing\AndroidFontLoader.cs" />
-    <Compile Include="..\AGS.Engine.Desktop\AGSGameWindow.cs">
-      <Link>AGSGameWindow.cs</Link>
-    </Compile>
-    <Compile Include="..\AGS.Engine.Desktop\AGSInput.cs">
-      <Link>AGSInput.cs</Link>
-    </Compile>
     <Compile Include="..\AGS.Engine.Desktop\IGameWindowSize.cs">
       <Link>IGameWindowSize.cs</Link>
     </Compile>
@@ -85,6 +79,7 @@
     </Compile>
     <Compile Include="OpenGLESBackend.cs" />
     <Compile Include="AndroidInput.cs" />
+    <Compile Include="AndroidSimpleGestures.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

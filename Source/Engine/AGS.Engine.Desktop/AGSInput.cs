@@ -124,7 +124,7 @@ namespace AGS.Engine.Desktop
 
 		private bool isInputBlocked()
 		{
-			if (_roomTransitions.State != RoomTransitionState.NotInTransition) return true;
+            if (_state.Room == null || _roomTransitions.State != RoomTransitionState.NotInTransition) return true;
 			return false;
 		}
 

@@ -22,6 +22,7 @@ namespace AGS.Engine.Android
     public class AGSGameView : AndroidGameView, IGameWindow
     {
         private FrameEventArgs _updateFrameArgs, _renderFrameArgs;
+        private GestureDetector _gestures;
 
         public AGSGameView(Context context, IAttributeSet attrs) :
             base(context, attrs)
@@ -38,9 +39,13 @@ namespace AGS.Engine.Android
         {
             _updateFrameArgs = new FrameEventArgs();
             _renderFrameArgs = new FrameEventArgs();
+            AndroidSimpleGestures simpleGestures = new AndroidSimpleGestures();
+            _gestures = new GestureDetector(simpleGestures);
 
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>());
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<INativeWindow>());
+            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<AndroidGameView>());
+            Resolver.Override(resolver => resolver.Builder.RegisterInstance(simpleGestures));
             Resolver.Override(resolver => resolver.Builder.RegisterType<AndroidInput>().SingleInstance().As<IInput>());
         }
 
@@ -110,6 +115,13 @@ namespace AGS.Engine.Android
             //viewportWidth = Width;
             //viewportHeight = Height;
         }*/
+
+        public override bool OnTouchEvent(MotionEvent e)
+        {
+            bool gestureHandled = _gestures.OnTouchEvent(e);
+            bool touchHandled = base.OnTouchEvent(e);
+            return touchHandled || gestureHandled;
+        }
 
         public new event EventHandler<FrameEventArgs> UpdateFrame;
         public new event EventHandler<FrameEventArgs> RenderFrame;
