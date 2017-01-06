@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using AGS.API;
 using OpenTK.Graphics.ES20;
 
@@ -87,15 +88,12 @@ namespace AGS.Engine
         }
         public bool DrawFrameBuffer()
         {
-            /*DrawBuffersEnum[] attachments = new[] { DrawBuffersEnum.ColorAttachment0 };
-            GL.DrawBuffers(1, attachments);
-
-            var errorCode = GL.CheckFramebufferStatus(FramebufferTarget.DrawFramebuffer);
-            if (errorCode != FramebufferErrorCode.FramebufferComplete || errorCode != FramebufferErrorCode.FramebufferCompleteExt)
+            var errorCode = GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer);
+            if (errorCode != FramebufferErrorCode.FramebufferComplete)
             {
                 Debug.WriteLine("Cannot create frame buffer. Error: " + errorCode.ToString());
                 return false;
-            }*/
+            }
             return true;
         }
         public void DeleteFrameBuffer(int frameBufferId) { GL.DeleteFramebuffer(frameBufferId); }
