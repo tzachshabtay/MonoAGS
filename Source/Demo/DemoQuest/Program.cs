@@ -26,14 +26,6 @@ namespace DemoGame
                 setKeyboardEvents(game);
                 Shaders.SetStandardShader();
 
-                /*IObject bg = game.Factory.Object.GetObject("Empty Street BG");
-                bg.Image = await game.Factory.Graphics.LoadImageAsync("../../Assets/Rooms/EmptyStreet/bg.png");
-                game.State.UI.Add(bg);
-                var room = game.Factory.Room.GetRoom("x");
-                game.State.ChangeRoom(room);
-
-                await Task.Delay(1);*/
-
                 addDebugLabels(game);
                 Debug.WriteLine("Startup: Loading Assets");
                 await loadPlayerCharacter(game);
@@ -45,12 +37,10 @@ namespace DemoGame
                 Debug.WriteLine("Startup: Loaded UI");
                 DefaultInteractions defaults = new DefaultInteractions(game, game.Events);
                 defaults.Load();
-                await charactersLoaded.ContinueWith(c =>
-                {
-                    Debug.WriteLine("Startup: Loaded Characters");
-                    game.State.Player.ChangeRoom(Rooms.EmptyStreet.Result, 50, 30);
-                    topPanel.Visible = true;
-                });
+                await charactersLoaded;
+                Debug.WriteLine("Startup: Loaded Characters");
+                await Task.Run(() => game.State.Player.ChangeRoom(Rooms.EmptyStreet.Result, 50, 30)); //todo: switch to ChangeRoomAsync: https://github.com/tzachshabtay/MonoAGS/issues/126
+                topPanel.Visible = true;
             });
 
             game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
