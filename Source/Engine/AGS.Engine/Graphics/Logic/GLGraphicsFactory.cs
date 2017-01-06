@@ -82,25 +82,27 @@ namespace AGS.Engine
 
 		public IAnimation LoadAnimationFromFiles(IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files)
 		{
-			return loadAnimationFromResources(_resources.LoadResources(files), animationConfig, loadConfig);
+            if (files.Length == 0) throw new InvalidOperationException("No files given to LoadAnimationFromFiles");
+			return loadAnimationFromResources(files[0], _resources.LoadResources(files), animationConfig, loadConfig);
 		}
 
 		public async Task<IAnimation> LoadAnimationFromFilesAsync(IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string [] files)
 		{
-			return await loadAnimationFromResourcesAsync(await Task.Run(() => _resources.LoadResources (files)), 
+            if (files.Length == 0) throw new InvalidOperationException("No files given to LoadAnimationFromFilesAsync");
+			return await loadAnimationFromResourcesAsync(files[0], await Task.Run(() => _resources.LoadResources (files)), 
 			                                             animationConfig, loadConfig);
 		}
 
 		public IAnimation LoadAnimationFromFolder (string folderPath, 
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			return loadAnimationFromResources(_resources.LoadResources(folderPath), animationConfig, loadConfig);
+			return loadAnimationFromResources(folderPath, _resources.LoadResources(folderPath), animationConfig, loadConfig);
 		}
 
 		public async Task<IAnimation> LoadAnimationFromFolderAsync (string folderPath,
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			return await loadAnimationFromResourcesAsync (await Task.Run(() => _resources.LoadResources (folderPath)), 
+			return await loadAnimationFromResourcesAsync (folderPath, await Task.Run(() => _resources.LoadResources (folderPath)), 
 			                                   animationConfig, loadConfig);
 		}
 
@@ -144,10 +146,10 @@ namespace AGS.Engine
 			return clone;
 		}
 			
-		private IAnimation loadAnimationFromResources(List<IResource> resources, 
+		private IAnimation loadAnimationFromResources(string samplePath, List<IResource> resources, 
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			AGSAnimation animation = getAnimation (animationConfig, resources.Count);
+			AGSAnimation animation = getAnimation (samplePath, animationConfig, resources.Count);
 			foreach (IResource resource in resources) 
 			{
 				var image = loadImage (resource, loadConfig);
@@ -157,10 +159,10 @@ namespace AGS.Engine
 			return animation;
 		}
 
-		private async Task<IAnimation> loadAnimationFromResourcesAsync (List<IResource> resources,
+		private async Task<IAnimation> loadAnimationFromResourcesAsync (string samplePath, List<IResource> resources,
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			AGSAnimation animation = getAnimation (animationConfig, resources.Count);
+			AGSAnimation animation = getAnimation (samplePath, animationConfig, resources.Count);
 
 			foreach (IResource resource in resources) 
 			{
@@ -171,8 +173,12 @@ namespace AGS.Engine
 			return animation;
 		}
 
-		private AGSAnimation getAnimation (IAnimationConfiguration animationConfig, int resourcesCount)
+		private AGSAnimation getAnimation (string samplePath, IAnimationConfiguration animationConfig, int resourcesCount)
 		{
+            if (resourcesCount == 0)
+            {
+                throw new InvalidOperationException(string.Format("Failed to load animation from: {0}", samplePath));
+            }
 			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
 			AGSAnimationState state = new AGSAnimationState ();
 			AGSAnimation animation = new AGSAnimation (animationConfig, state, resourcesCount);
