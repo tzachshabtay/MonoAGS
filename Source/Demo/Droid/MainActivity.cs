@@ -11,16 +11,18 @@ namespace DemoQuest.Droid
 {
 	//[Activity(Label = "DemoQuest", MainLauncher = true, Icon = "@mipmap/icon")]
     [Activity(Label = "DemoQuest", MainLauncher = true, Icon = "@mipmap/icon",
+              AlwaysRetainTaskState = true,
 #if __ANDROID_11__
         HardwareAccelerated = false,
 #endif
-        ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.KeyboardHidden, LaunchMode = LaunchMode.SingleTask)]
+              ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.KeyboardHidden | ConfigChanges.ScreenSize | ConfigChanges.Keyboard, LaunchMode = LaunchMode.SingleTask)]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            //AGSEngineAndroid.Init();
+            AndroidGameWindow.Instance.StartGame = DemoStarter.Run;
+            AGSEngineAndroid.SetAssembly();
 
             // Inflate our UI from its XML layout description
             // - should match filename res/layout/main.xml ?
@@ -29,8 +31,6 @@ namespace DemoQuest.Droid
 
             // Load the view
             FindViewById(Resource.Id.AGSGameView);
-            AGSEngineAndroid.Init();
-            DemoStarter.Run();
             /*AGSGameView view = FindViewById(Resource.Id.AGSGameView) as AGSGameView;
             if (view != null)
             {
@@ -52,6 +52,13 @@ namespace DemoQuest.Droid
             var view = FindViewById<AGSGameView>(Resource.Id.AGSGameView);
             view.Resume();
         }
+
+        public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
+        {
+            base.OnConfigurationChanged(newConfig);
+            AndroidGameWindow.Instance.OnResize(new EventArgs());
+        }
+
 
         private void debugPath()
         {

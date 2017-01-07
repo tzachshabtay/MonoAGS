@@ -160,9 +160,13 @@ namespace AGS.Engine
 
 		private string getFolderName(string resource)
 		{
-			string folder = resource.Substring(0, resource.LastIndexOf('.'));
-			folder = folder.Substring(0, folder.LastIndexOf('.'));
-			return folder;
+            int lastDot = resource.LastIndexOf('.');
+            if (lastDot < 0) return null;
+            string folder = resource.Substring(0, lastDot);
+            lastDot = folder.LastIndexOf('.');
+            if (lastDot < 0) return null;
+            folder = folder.Substring(0, lastDot);
+            return folder;
 		}
 
         private void loadResourceFolders()
@@ -173,6 +177,7 @@ namespace AGS.Engine
 				foreach (string name in _assembly.GetManifestResourceNames())
 				{
 					string folder = getFolderName(name);
+                    if (folder == null) continue;
 					_resourceFolders.GetOrAdd(folder, () => new List<string> (20)).Add(name);
 				}
 			}

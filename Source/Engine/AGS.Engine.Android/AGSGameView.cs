@@ -1,28 +1,18 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.ES11;
-using OpenTK.Platform;
 using OpenTK.Platform.Android;
-
-using Android.Content.Res;
 using Android.Views;
 using Android.Util;
 using Android.Content;
-using AGS.Engine.Desktop;
-using AGS.API;
-using Autofac;
 using Android.Runtime;
 using System.Diagnostics;
 
 namespace AGS.Engine.Android
 {
-    public class AGSGameView : AndroidGameView, IGameWindow
+    public class AGSGameView : AndroidGameView
     {
         private FrameEventArgs _updateFrameArgs, _renderFrameArgs;
-        private GestureDetector _gestures;
 
         public AGSGameView(Context context, IAttributeSet attrs) :
             base(context, attrs)
@@ -39,14 +29,7 @@ namespace AGS.Engine.Android
         {
             _updateFrameArgs = new FrameEventArgs();
             _renderFrameArgs = new FrameEventArgs();
-            AndroidSimpleGestures simpleGestures = new AndroidSimpleGestures();
-            _gestures = new GestureDetector(simpleGestures);
-
-            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>());
-            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<INativeWindow>());
-            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<AndroidGameView>());
-            Resolver.Override(resolver => resolver.Builder.RegisterInstance(simpleGestures));
-            Resolver.Override(resolver => resolver.Builder.RegisterType<AndroidInput>().SingleInstance().As<IInput>());
+            AndroidGameWindow.Instance.View = this;
         }
 
         // This method is called everytime the context needs
@@ -102,12 +85,16 @@ namespace AGS.Engine.Android
             // this call is optional, and meant to raise delegates
             // in case any are registered
             base.OnLoad(e);
+
+            AndroidGameWindow.Instance.OnLoad(e);
         }
 
         protected override void OnResize(EventArgs e)
         {
             MakeCurrent();
             base.OnResize(e);
+
+            AndroidGameWindow.Instance.OnResize(e);
         }
 
         /*protected override void OnResize(EventArgs e)
@@ -118,17 +105,11 @@ namespace AGS.Engine.Android
 
         public override bool OnTouchEvent(MotionEvent e)
         {
-            bool gestureHandled = _gestures.OnTouchEvent(e);
+            bool gestureHandled = AndroidGameWindow.Instance.OnTouchEvent(e);
             bool touchHandled = base.OnTouchEvent(e);
             return touchHandled || gestureHandled;
         }
 
-        public new event EventHandler<FrameEventArgs> UpdateFrame;
-        public new event EventHandler<FrameEventArgs> RenderFrame;
-
-        public double TargetUpdateFrequency { get { return 60f; } set { } } //todo
-        public VsyncMode Vsync { get { return VsyncMode.Off; } set { } } //todo
-        public new string Title { get { return ""; } set { } }
         public new API.WindowState WindowState
         {
             get { return (API.WindowState)base.WindowState; }
@@ -139,44 +120,17 @@ namespace AGS.Engine.Android
             get { return (API.WindowBorder)base.WindowBorder; }
             set { base.WindowBorder = (OpenTK.WindowBorder)value; }
         }
-        public int ClientWidth 
-        { 
-            get 
-            { 
-                var metrics = Resources.System.DisplayMetrics;
-                return convertPixelsToDp(metrics.WidthPixels); 
-            } 
-        }
-        public int ClientHeight 
-        { 
-            get 
-            { 
-                var metrics = Resources.System.DisplayMetrics;
-                return convertPixelsToDp(metrics.HeightPixels);
-            } 
-        }
-        public void SetSize(API.Size size) { }
-
-        public void Exit() {  } //todo
 
         private void onUpdateFrame(object sender, OpenTK.FrameEventArgs args)
         {
             _updateFrameArgs.Time = args.Time;
-            var updateFrame = UpdateFrame;
-            if (updateFrame != null) updateFrame(sender, _updateFrameArgs);
+            AndroidGameWindow.Instance.OnUpdateFrame(_updateFrameArgs);
         }
 
         private void onRenderFrame(object sender, OpenTK.FrameEventArgs args)
         {
             _renderFrameArgs.Time = args.Time;
-            var renderFrame = RenderFrame;
-            if (renderFrame != null) renderFrame(sender, _renderFrameArgs);
-        }
-
-        private int convertPixelsToDp(float pixelValue)
-        {
-            var dp = (int)((pixelValue) / Resources.System.DisplayMetrics.Density);
-            return dp;
+            AndroidGameWindow.Instance.OnRenderFrame(_renderFrameArgs);
         }
     }
 }

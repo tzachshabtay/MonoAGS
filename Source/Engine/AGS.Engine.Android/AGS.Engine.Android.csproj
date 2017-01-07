@@ -80,6 +80,7 @@
     <Compile Include="OpenGLESBackend.cs" />
     <Compile Include="AndroidInput.cs" />
     <Compile Include="AndroidSimpleGestures.cs" />
+    <Compile Include="AndroidGameWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
