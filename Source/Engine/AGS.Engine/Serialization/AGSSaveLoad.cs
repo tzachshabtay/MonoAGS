@@ -9,6 +9,7 @@ using ProtoBuf.Meta;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Autofac;
+using System.IO;
 
 namespace AGS.Engine
 {
@@ -38,6 +39,7 @@ namespace AGS.Engine
 		{
             try
             {
+                saveName = Path.Combine(Hooks.FileSystem.StorageFolder, saveName);
                 _state.Paused = true;
                 firstTimeSetup();
 
@@ -73,6 +75,7 @@ namespace AGS.Engine
 		{
 			try
 			{
+                saveName = Path.Combine(Hooks.FileSystem.StorageFolder, saveName);
 				_state.Paused = true;
 				firstTimeSetup();
 

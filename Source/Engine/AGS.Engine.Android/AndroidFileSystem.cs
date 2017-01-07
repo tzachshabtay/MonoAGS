@@ -8,6 +8,8 @@ namespace AGS.Engine.Android
 	{
 		#region IFileSystem implementation
 
+        public string StorageFolder { get { return Environment.GetFolderPath(Environment.SpecialFolder.Personal); } }
+
 		public IEnumerable<string> GetFiles(string folder)
 		{
             if (!Directory.Exists(folder)) return new List<string>();

@@ -8,6 +8,8 @@ namespace AGS.Engine.Desktop
 	{
 		#region IFileSystem implementation
 
+        public string StorageFolder { get { return Directory.GetCurrentDirectory(); } } //todo: find a suitable save location on desktop
+
 		public IEnumerable<string> GetFiles(string folder)
 		{
             if (!Directory.Exists(folder)) return new List<string>();

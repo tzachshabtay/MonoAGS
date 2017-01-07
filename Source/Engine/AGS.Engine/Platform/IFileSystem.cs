@@ -5,6 +5,7 @@ namespace AGS.Engine
 {
 	public interface IFileSystem
 	{
+        string StorageFolder { get; }
 		IEnumerable<string> GetFiles(string folder);
         IEnumerable<string> GetDirectories(string folder);
         IEnumerable<string> GetLogicalDrives();
