@@ -6,6 +6,7 @@
 		IAudioFactory Sound { get; }
 		IInventoryFactory Inventory { get; }
 		IUIFactory UI { get; }
+        IFontLoader Fonts { get; }
 		IObjectFactory Object { get; }
 		IRoomFactory Room { get; }
 		IOutfitFactory Outfit { get; }

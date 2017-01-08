@@ -387,6 +387,7 @@
     <Compile Include="Platform\IGameWindow.cs" />
     <Compile Include="Game\AGSGame.cs" />
     <Compile Include="Input\AGSShouldBlockInput.cs" />
+    <Compile Include="Game\Factories\AGSFontFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

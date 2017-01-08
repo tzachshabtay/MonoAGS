@@ -52,6 +52,11 @@ namespace AGS.Engine.Android
 			return File.Create(path);
 		}
 
+        public void Delete(string path)
+        {
+            File.Delete(path);
+        }
+
 		#endregion
 	}
 }

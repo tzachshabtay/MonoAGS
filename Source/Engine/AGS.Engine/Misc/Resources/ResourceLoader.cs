@@ -25,7 +25,7 @@ namespace AGS.Engine
 		public IResource LoadResource(string path)
 		{
 			if (shouldIgnoreFile(path)) return null;
-            path = findFilePath(path);
+            path = FindFilePath(path);
             if (path == null) return null;
 
 			string resourcePath = getResourceName(path);
@@ -96,7 +96,7 @@ namespace AGS.Engine
 			return resources;
 		}
 
-        private string findFilePath(string path)
+        public string FindFilePath(string path)
         {
             string folder = Path.GetDirectoryName(path);
             string filename = Path.GetFileName(path).ToUpper();

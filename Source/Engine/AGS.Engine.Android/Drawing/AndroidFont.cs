@@ -3,15 +3,22 @@ using Android.Graphics;
 using Android.Text;
 using Java.Lang;
 using System.Diagnostics;
+using Android.App;
+using System.Collections.Concurrent;
 
 namespace AGS.Engine.Android
 {
 	public class AndroidFont : IFont
 	{
+        private static ConcurrentDictionary<string, Typeface> _fontsFromFiles = new ConcurrentDictionary<string, Typeface>();
+
 		public static AndroidFont FromFamilyName(string familyName, FontStyle style, float sizeInPoints)
 		{
-			AndroidFont font = new AndroidFont ();
-			font.InnerFont = Typeface.Create(familyName, style.Convert());
+            AndroidFont font = new AndroidFont ();
+            Typeface innerFont = null;
+            if (familyName != null) _fontsFromFiles.TryGetValue(familyName, out innerFont);
+            if (innerFont != null) innerFont = Typeface.Create(innerFont, style.Convert());
+            font.InnerFont = innerFont ?? Typeface.Create(familyName, style.Convert());
 			font.FontFamily = familyName;
 			font.Style = style;
 			font.SizeInPoints = sizeInPoints;
@@ -24,6 +31,7 @@ namespace AGS.Engine.Android
             {
                 AndroidFont font = new AndroidFont();
                 font.InnerFont = Typeface.Create(Typeface.CreateFromFile(path), style.Convert());
+                _fontsFromFiles[path] = font.InnerFont;
                 font.FontFamily = path;
                 font.Style = style;
                 font.SizeInPoints = sizeInPoints;

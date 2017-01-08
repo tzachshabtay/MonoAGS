@@ -12,6 +12,7 @@ namespace AGS.Engine
         string GetCurrentDirectory();
         bool DirectoryExists(string folder);
         bool FileExists(string path);
+        void Delete(string path);
 
         Stream Open(string path);
 		Stream Create(string path);

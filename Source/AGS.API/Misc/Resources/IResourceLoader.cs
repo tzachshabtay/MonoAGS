@@ -7,6 +7,8 @@ namespace AGS.API
 		IResource LoadResource(string path);
 		List<IResource> LoadResources(params string[] paths);
 		List<IResource> LoadResources(string folder);
+
+        string FindFilePath(string path);
 	}
 }
 

@@ -1,15 +1,12 @@
-﻿using System;
-using AGS.API;
-using Autofac;
-
-using System.Diagnostics;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
 	public class AGSGameFactory : IGameFactory
 	{
 		public AGSGameFactory(IGraphicsFactory graphics, IInventoryFactory inventory, IUIFactory ui,
-			IRoomFactory room, IOutfitFactory outfit, IObjectFactory obj, IDialogFactory dialog, IAudioFactory sound)
+			IRoomFactory room, IOutfitFactory outfit, IObjectFactory obj, IDialogFactory dialog, 
+                              IAudioFactory sound, IFontLoader fontFactory)
 		{
 			Graphics = graphics;
 			Inventory = inventory;
@@ -19,6 +16,7 @@ namespace AGS.Engine
 			Object = obj;
 			Dialog = dialog;
 			Sound = sound;
+            Fonts = fontFactory;
 		}
 
 		#region IGameFactory implementation
@@ -26,6 +24,8 @@ namespace AGS.Engine
 		public IInventoryFactory Inventory { get; private set; }
 
 		public IUIFactory UI { get; private set; }
+
+        public IFontLoader Fonts { get; private set; }
 
 		public IObjectFactory Object { get; private set; }
 
