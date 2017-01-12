@@ -156,8 +156,10 @@ namespace AGS.Engine
 
 		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
 		{
-			if (!_visible.Visible || !_enabled.Enabled || _collider.BoundingBox == null || !_input.LeftMouseButtonDown || Graphics == null || Graphics.BoundingBox == null ||
-			    !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || HandleGraphics == null)
+			if (!_visible.Visible || !_enabled.Enabled || _collider.BoundingBox == null || 
+                (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
+                Graphics.BoundingBox == null || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
+                HandleGraphics == null)
 			{
 				if (_isSliding)
 				{

@@ -101,6 +101,7 @@ namespace AGS.Engine.Desktop
 
 		public bool LeftMouseButtonDown { get; private set; }
 		public bool RightMouseButtonDown { get; private set; }
+        public bool IsTouchDrag { get { return false; } } //todo: support touch screens on desktops
 
 		//For some reason GameWindow.Mouse is obsolete.
 		//From the warning it should be replaced by Input.Mouse which returns screen coordinates

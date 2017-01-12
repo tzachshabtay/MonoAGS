@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine.Desktop;
 using Android.Content.Res;
@@ -12,6 +13,7 @@ namespace AGS.Engine.Android
         private IGameState _state;
         private int _virtualWidth, _virtualHeight;
         private IShouldBlockInput _shouldBlockInput;
+        private DateTime _lastDrag;
 
         public AndroidInput(AndroidSimpleGestures gestures, AGS.API.Size virtualResolution, 
                             IGameState state, IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
@@ -30,8 +32,13 @@ namespace AGS.Engine.Android
             gestures.OnUserDrag += async (sender, e) => 
             {
                 if (isInputBlocked()) return;
+                DateTime now = DateTime.Now;
+                _lastDrag = now;
+                IsTouchDrag = true;
                 setMousePosition(e);
                 await MouseMove.InvokeAsync(sender, new MousePositionEventArgs(MouseX, MouseY));
+                await Task.Delay(300);
+                if (_lastDrag <= now) IsTouchDrag = false;
             };
             gestures.OnUserSingleTap += async (sender, e) => 
             {
@@ -66,6 +73,8 @@ namespace AGS.Engine.Android
         public float MouseY { get { return MousePosition.Y; } }
 
         public bool RightMouseButtonDown { get; private set; }
+
+        public bool IsTouchDrag { get; private set; }
 
         public bool IsKeyDown(Key key)
         {
