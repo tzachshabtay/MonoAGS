@@ -47,24 +47,25 @@ namespace AGS.Engine.Android
 			if (_config.OutlineWidth > 0f)
 			{
 				TextPaint outlinePaint = getPaint(_config.OutlineBrush);
-				drawString(canvas, outlinePaint, left, top);
-				drawString(canvas, outlinePaint, centerX, top);
-				drawString(canvas, outlinePaint, right, top);
+                AndroidTextLayout outlineLayout = new AndroidTextLayout(outlinePaint);
+				drawString(canvas, outlineLayout, left, top);
+				drawString(canvas, outlineLayout, centerX, top);
+				drawString(canvas, outlineLayout, right, top);
 
-				drawString(canvas, outlinePaint, left, centerY);
-				drawString(canvas, outlinePaint, right, centerY);
+				drawString(canvas, outlineLayout, left, centerY);
+				drawString(canvas, outlineLayout, right, centerY);
 
-				drawString(canvas, outlinePaint, left, bottom);
-				drawString(canvas, outlinePaint, centerX, bottom);
-				drawString(canvas, outlinePaint, right, bottom);
+				drawString(canvas, outlineLayout, left, bottom);
+				drawString(canvas, outlineLayout, centerX, bottom);
+				drawString(canvas, outlineLayout, right, bottom);
 			}
 			if (_config.ShadowBrush != null)
 			{
 				TextPaint shadowPaint = getPaint(_config.ShadowBrush);
-				drawString(canvas, shadowPaint, centerX + _config.ShadowOffsetX, 
+                drawString(canvas, new AndroidTextLayout(shadowPaint), centerX + _config.ShadowOffsetX, 
 					centerY + _config.ShadowOffsetY);
 			}
-			drawString(canvas, paint, centerX, centerY);
+            drawString(canvas, new AndroidTextLayout(paint), centerX, centerY);
 		}
 
 		#endregion
@@ -77,21 +78,10 @@ namespace AGS.Engine.Android
 			return paint;
 		}
 
-		private void drawString(Canvas gfx, TextPaint paint, float x, float y)
-		{
-			if (_maxWidth == int.MaxValue)
-			{
-				gfx.DrawText(_text, x, y, paint);
-			}
-			else
-			{
-				paint.TextAlign = alignWrap();
-				StaticLayout layout = new StaticLayout (_text, paint, _maxWidth, Layout.Alignment.AlignNormal, 1f, 0f, false);
-				gfx.Translate(x, y);
-				layout.Draw(gfx);
-				gfx.Translate(-x, -y);
-			}
-		}
+        private void drawString(Canvas gfx, AndroidTextLayout layout, float x, float y)
+        {
+            layout.DrawString(gfx, _text, x, y, alignWrap(), _maxWidth);
+        }
 
 		private Paint.Align alignWrap()
 		{

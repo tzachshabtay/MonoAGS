@@ -14,7 +14,7 @@ namespace DemoGame
 
 		AGSTextConfig _textConfig = new AGSTextConfig (font: Hooks.FontLoader.LoadFont(null, 10f),
 			brush: Hooks.BrushLoader.LoadSolidBrush(Colors.DarkOliveGreen),
-			outlineBrush: Hooks.BrushLoader.LoadSolidBrush(Colors.LightGreen), outlineWidth: 1f);
+			alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, outlineBrush: Hooks.BrushLoader.LoadSolidBrush(Colors.LightGreen), outlineWidth: 1f);
 
 		AGSTextConfig _buttonTextConfig = new AGSTextConfig (font: Hooks.FontLoader.LoadFont(null, 7f, FontStyle.Bold), 
 			brush: Hooks.BrushLoader.LoadSolidBrush(Colors.LightGreen),

@@ -81,6 +81,7 @@
     <Compile Include="AndroidInput.cs" />
     <Compile Include="AndroidSimpleGestures.cs" />
     <Compile Include="AndroidGameWindow.cs" />
+    <Compile Include="Drawing\AndroidTextLayout.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
