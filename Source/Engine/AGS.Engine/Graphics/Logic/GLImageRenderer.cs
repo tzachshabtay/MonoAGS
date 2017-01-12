@@ -107,13 +107,13 @@ namespace AGS.Engine
 			}
 			if (obj.DebugDrawAnchor)
 			{
-				IObject parent = obj;
-				float x = 0f;
-				float y = 0f;
+                IObject parent = obj.TreeNode.Parent;
+                float x = obj.X;
+                float y = obj.Y;
 				while (parent != null)
 				{
-					x += parent.X;
-					y += parent.Y;
+                    x += (parent.X - parent.Width * parent.Anchor.X);
+                    y += (parent.Y - parent.Height * parent.Anchor.Y);
 					parent = parent.TreeNode.Parent;
 				}
                 _glUtils.DrawCross(x - viewport.X, y - viewport.Y, 10, 10, 1f, 1f, 1f, 1f);

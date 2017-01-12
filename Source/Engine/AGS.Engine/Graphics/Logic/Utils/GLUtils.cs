@@ -133,12 +133,15 @@ namespace AGS.Engine
             int texture = getTexture(0);
             _graphics.BindTexture2D(texture);
 
-			GLVertex[] vertices = new GLVertex[]{ 
-				new GLVertex(new Vector2(x - width, y - height/10), _bottomLeft, r,g,b,a), 
-				new GLVertex(new Vector2(x + width, y - height/10), _bottomRight, r,g,b,a), 
-				new GLVertex(new Vector2(x + width, y + height/10), _topRight, r,g,b,a),
-				new GLVertex(new Vector2(x - width, y + height/10), _topLeft, r,g,b,a),
+            GLVertex[] vertices = new GLVertex[]{
+                new GLVertex(new Vector2(x - width, y - height/10), _bottomLeft, r,g,b,a),
+                new GLVertex(new Vector2(x + width, y - height/10), _bottomRight, r,g,b,a),
+                new GLVertex(new Vector2(x + width, y + height/10), _topRight, r,g,b,a),
+                new GLVertex(new Vector2(x - width, y + height/10), _topLeft, r,g,b,a)
+            };
+            drawVertices(vertices);
 
+            vertices = new GLVertex[]{
 				new GLVertex(new Vector2(x - width/10, y - height), _bottomLeft, r,g,b,a), 
 				new GLVertex(new Vector2(x + width/10, y - height), _bottomRight, r,g,b,a), 
 				new GLVertex(new Vector2(x + width/10, y + height), _topRight, r,g,b,a),
