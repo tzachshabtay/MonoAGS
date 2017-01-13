@@ -8,106 +8,158 @@ namespace DemoQuest
 	public static class Shaders
 	{
 		const string FRAGMENT_SHADER_GRAYSCALE = 
-@"#version 120
+@"
+#ifdef GL_ES
+            precision mediump float;
+#endif        
+            uniform sampler2D uTexture;
+#ifdef GL_ES
+            varying vec4 vColor;
+            varying vec2 vTexCoord;
+#else
+            varying vec4 gl_Color;
+#endif
 
-uniform sampler2D texture;
-varying vec4 gl_Color;
-
-void main()
-{
-	vec4 col = texture2D(texture, gl_TexCoord[0].st) * gl_Color;
-	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
-	gl_FragColor = vec4(gray, gray, gray, col.a);
-}";
+            void main()
+            {
+#ifndef GL_ES
+                vec2 vTexCoord = gl_TexCoord[0].xy;
+                vec4 vColor = gl_Color;
+#endif
+            	vec4 col = texture2D(uTexture, vTexCoord) * vColor;
+            	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
+            	gl_FragColor = vec4(gray, gray, gray, col.a);
+            }";
 
 		const string FRAGMENT_SHADER_SEPIA = 
-@"#version 120
+@"
+#ifdef GL_ES
+            precision mediump float;
+#endif        
+            uniform sampler2D uTexture;
+#ifdef GL_ES
+            varying vec4 vColor;
+            varying vec2 vTexCoord;
+#else
+            varying vec4 gl_Color;
+#endif
+            const vec3 SEPIA = vec3(1.2, 1.0, 0.8); 
 
-uniform sampler2D texture;
-varying vec4 gl_Color;
-const vec3 SEPIA = vec3(1.2, 1.0, 0.8); 
-
-void main()
-{
-	vec4 col = texture2D(texture, gl_TexCoord[0].st) * gl_Color;
-	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
-	gl_FragColor = vec4(vec3(gray) * SEPIA, col.a);
-}";
+            void main()
+            {
+#ifndef GL_ES
+                vec2 vTexCoord = gl_TexCoord[0].xy;
+                vec4 vColor = gl_Color;
+#endif
+            	vec4 col = texture2D(uTexture, vTexCoord) * vColor;
+            	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
+            	gl_FragColor = vec4(vec3(gray) * SEPIA, col.a);
+            }";
 
 		const string FRAGMENT_SHADER_SOFT_SEPIA = 
-			@"#version 120
+			@"
+#ifdef GL_ES
+            precision mediump float;
+#endif        
+            uniform sampler2D uTexture;
+#ifdef GL_ES
+            varying vec4 vColor;
+            varying vec2 vTexCoord;
+#else
+            varying vec4 gl_Color;
+#endif
+            const vec3 SEPIA = vec3(1.2, 1.0, 0.8); 
 
-uniform sampler2D texture;
-varying vec4 gl_Color;
-const vec3 SEPIA = vec3(1.2, 1.0, 0.8); 
-
-void main()
-{
-	vec4 col = texture2D(texture, gl_TexCoord[0].st);
-	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
-	vec3 sepiaColor = vec3(gray) * SEPIA;
-	col.rgb = mix(col.rgb, sepiaColor, 0.75);
-	gl_FragColor = col * gl_Color;
-}";
+            void main()
+            {
+#ifndef GL_ES
+                vec2 vTexCoord = gl_TexCoord[0].xy;
+                vec4 vColor = gl_Color;
+#endif
+            	vec4 col = texture2D(uTexture, vTexCoord);
+            	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
+            	vec3 sepiaColor = vec3(gray) * SEPIA;
+            	col.rgb = mix(col.rgb, sepiaColor, 0.75);
+            	gl_FragColor = col * vColor;
+            }";
 
 		const string FRAGMENT_SHADER_VIGNETTE = 
-			@"#version 120
+			@"
+#ifdef GL_ES
+            precision mediump float;
+#endif        
+            uniform sampler2D uTexture;
+#ifdef GL_ES
+            varying vec4 vColor;
+            varying vec2 vTexCoord;
+#else
+            varying vec4 gl_Color;
+#endif
+            //The resolution needs to be set whenever the screen resizes
+            uniform vec2 resolution;
 
-//The resolution needs to be set whenever the screen resizes
-uniform vec2 resolution;
+            //RADIUS of our vignette, where 0.5 results in a circle fitting the screen
+            const float RADIUS = 0.75;
 
-uniform sampler2D texture;
-varying vec4 gl_Color;
+            //softness of our vignette, between 0.0 and 1.0
+            const float SOFTNESS = 0.45;
 
-//RADIUS of our vignette, where 0.5 results in a circle fitting the screen
-const float RADIUS = 0.75;
+            void main()
+            {
+#ifndef GL_ES
+                vec2 vTexCoord = gl_TexCoord[0].xy;
+                vec4 vColor = gl_Color;
+#endif
+            	vec4 col = texture2D(uTexture, vTexCoord);
 
-//softness of our vignette, between 0.0 and 1.0
-const float SOFTNESS = 0.45;
+            	//determine center position
+                vec2 position = (gl_FragCoord.xy / resolution.xy) - vec2(0.5);
 
-void main()
-{
-	vec4 col = texture2D(texture, gl_TexCoord[0].st);
+                //determine the vector length of the center position
+                float len = length(position);
 
-	//determine center position
-    vec2 position = (gl_FragCoord.xy / resolution.xy) - vec2(0.5);
+                //use smoothstep to create a smooth vignette
+                float vignette = smoothstep(RADIUS, RADIUS-SOFTNESS, len);
 
-    //determine the vector length of the center position
-    float len = length(position);
+                //apply the vignette with 50% opacity
+                col.rgb = mix(col.rgb, col.rgb * vignette, 0.5);
 
-    //use smoothstep to create a smooth vignette
-    float vignette = smoothstep(RADIUS, RADIUS-SOFTNESS, len);
-
-    //apply the vignette with 50% opacity
-    col.rgb = mix(col.rgb, col.rgb * vignette, 0.5);
-
-	gl_FragColor = col * gl_Color;
-}
-";
+            	gl_FragColor = col * vColor;
+            }
+            ";
 		const string FRAGMENT_SHADER_BLUR = 
-			@"#version 120
+			@"
+#ifdef GL_ES
+            precision mediump float;
+#endif        
+            uniform sampler2D uTexture;
+#ifdef GL_ES
+            varying vec4 vColor;
+            varying vec2 vTexCoord;
+#else
+            varying vec4 gl_Color;
+#endif
 
-uniform sampler2D texture;
-varying vec4 gl_Color;
+            void main()
+            {
+#ifndef GL_ES
+                vec2 vTexCoord = gl_TexCoord[0].xy;
+                vec4 vColor = gl_Color;
+#endif
+            	vec4 col = texture2D(uTexture, vTexCoord) * vColor;
 
-void main()
-{
-	vec2 pos = gl_TexCoord[0].st;
-	vec4 col = texture2D(texture, pos) * gl_Color;
-
-	int i, j;
-	vec4 sum = vec4(0);
-	for (i = -2; i <= 2; i++)
-		for (j = -2; j <= 2; j++)
-		{
-			vec2 offset = vec2(i, j) * 0.01;
-			vec4 currentCol = texture2D(texture, pos + offset);
-			sum += currentCol;
-		}
-	
-	gl_FragColor = (sum / 25);	
-}
-			";
+            	int i, j;
+            	vec4 sum = vec4(0);
+            	for (i = -2; i <= 2; i++)
+            		for (j = -2; j <= 2; j++)
+            		{
+            			vec2 offset = vec2(i, j) * 0.01;
+            			vec4 currentCol = texture2D(uTexture, vTexCoord + offset);
+            			sum += currentCol;
+            		}
+            	
+            	gl_FragColor = (sum / vec4(25));	
+            }";
 
         private static string getVertexShader()
         {

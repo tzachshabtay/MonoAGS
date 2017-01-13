@@ -6,43 +6,42 @@ namespace AGS.Engine
 {
 	public class RoomTransitionDissolve : IRoomTransition
 	{
-		const string VERTEX_SHADER = 
-			@"#version 120
+		//shader code inspired by: http://developer.playcanvas.com/en/tutorials/advanced/custom-shaders/
+        const string FRAGMENT_SHADER = @"
+#ifdef GL_ES
+            precision mediump float;
+#endif
+            uniform sampler2D uTexture;
+            uniform float time;
+#ifdef GL_ES
+            varying vec4 vColor;
+            varying vec2 vTexCoord;
+#else
+            varying vec4 gl_Color;
+#endif
 
-varying vec4 gl_FrontColor;
-
-void main(void)
-{
-	gl_FrontColor = gl_Color;
-	gl_TexCoord[0] = gl_MultiTexCoord0;
-	gl_Position = ftransform();
-}
+            void main()
+            {
+#ifndef GL_ES
+                vec2 vTexCoord = gl_TexCoord[0].xy;
+                vec4 vColor = gl_Color;
+#endif
+                vec4 col = texture2D(uTexture, vTexCoord);
+                float height = col.r;
+                if (height < time) 
+                {
+                    discard;
+                }
+                /*else if (height < time +0.04) add this if we want a 'burn' color
+                {
+                    gl_FragColor = vec4(0, 0.2, 1, 1.0);
+                }*/
+                else gl_FragColor = col * vColor;
+                //gl_FragColor = vec4(1.0,0.0,0.0,1.0);
+            }
 ";
 
-		//shader code inspired by: http://developer.playcanvas.com/en/tutorials/advanced/custom-shaders/
-		const string FRAGMENT_SHADER = 
-			@"#version 120
-
-uniform float time;
-uniform sampler2D texture;
-varying vec4 gl_Color;
-
-			void main()
-{
-	vec2 pos = gl_TexCoord[0].xy;
-	vec4 col = texture2D(texture, pos);
-	float height = col.r;
-	if (height < time) 
-	{
-		discard;
-	}
-	/*else if (height < time +0.04) add this if we want a 'burn' color
-	{
-		gl_FragColor = vec4(0, 0.2, 1, 1.0);
-	}*/
-	else gl_FragColor = col * gl_Color;
-}";
-		private readonly float _timeInSeconds;
+        private readonly float _timeInSeconds;
 		private readonly Func<float, float> _easing;
 		private readonly QuadVectors _screenVectors;
         private readonly IGraphicsBackend _graphics;
@@ -77,7 +76,7 @@ varying vec4 gl_Color;
 			_visitTween();
 			var oldShader = AGSGame.Shader;
 			_screenVectors.Render(to.Texture);
-			var shader = GLShader.FromText(VERTEX_SHADER, FRAGMENT_SHADER, _graphics).Compile();
+            var shader = GLShader.FromText(Hooks.GraphicsBackend.GetStandardVertexShader(), FRAGMENT_SHADER, _graphics).Compile();
 			if (shader == null)
 			{
 				return false;

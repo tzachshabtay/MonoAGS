@@ -7,35 +7,39 @@ namespace AGS.Engine
 	public class ShakeEffect
 	{
 		const string VERTEX_SHADER_SHAKE = 
-			@"#version 120
+			@"
+#ifdef GL_ES
+    uniform mat4    uMvp;
+    attribute vec2 aPosition;
 
-varying vec4 gl_FrontColor;
-uniform float time;
-uniform float strength;
+    attribute vec2 aTexCoord;
+    varying vec2 vTexCoord;
 
-void main(void)
-{
-	gl_FrontColor = gl_Color;
-	gl_TexCoord[0] = gl_MultiTexCoord0;
-	gl_Position = ftransform();
-	gl_Position.x += cos(time * 10) * strength;        
-	gl_Position.y += cos(time * 15) * strength;
-}
+    attribute vec4 aColor;
+    varying vec4 vColor;
+#else
+    varying vec4 gl_FrontColor;
+#endif
+
+    uniform float time;
+    uniform float strength;
+    void main() 
+    {
+#ifdef GL_ES
+       vec4 position = vec4(aPosition.xy, 1., 1.);
+       gl_Position = uMvp * position;
+       vTexCoord = aTexCoord;
+       vColor = aColor; 
+#else
+       gl_FrontColor = gl_Color;
+       gl_TexCoord[0] = gl_MultiTexCoord0;
+       gl_Position = ftransform();             
+#endif
+       gl_Position.x += cos(time * 10.0) * strength;        
+       gl_Position.y += cos(time * 15.0) * strength;
+    }
 ";
 
-		const string FRAGMENT_SHADER_STANDARD = 
-			@"#version 120
-
-uniform sampler2D texture;
-varying vec4 gl_Color;
-
-void main()
-{
-	vec2 pos = gl_TexCoord[0].xy;
-	vec4 col = texture2D(texture, pos);
-	gl_FragColor = col * gl_Color;
-}";
-		
 		private readonly IObject _target;
 		private readonly float _decay;
         private readonly IGraphicsBackend _graphics;
@@ -56,7 +60,8 @@ void main()
 		{
 			_previousShader = getActiveShader();
 			_taskCompletionSource = new TaskCompletionSource<object> (null);
-			_shakeShader = GLShader.FromText(VERTEX_SHADER_SHAKE, FRAGMENT_SHADER_STANDARD, _graphics);
+            _shakeShader = GLShader.FromText(VERTEX_SHADER_SHAKE, 
+                                             Hooks.GraphicsBackend.GetStandardFragmentShader(), _graphics);
 			AGSGame.Game.Events.OnBeforeRender.Subscribe(onBeforeRender);
 			setActiveShader(_shakeShader);
 		}
