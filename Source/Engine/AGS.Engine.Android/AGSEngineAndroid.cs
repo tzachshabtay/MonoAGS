@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using AGS.Engine.Desktop;
+using Android.Content.Res;
 using Autofac;
 
 namespace AGS.Engine.Android
@@ -14,6 +15,7 @@ namespace AGS.Engine.Android
 		{
             OpenTK.Toolkit.Init();
 
+            Hooks.DisplayDensity = Resources.System.DisplayMetrics.Density;
             Hooks.GraphicsBackend = new OpenGLESBackend();
 			Hooks.BitmapLoader = new AndroidBitmapLoader (Hooks.GraphicsBackend);
 			Hooks.BrushLoader = new AndroidBrushLoader ();
