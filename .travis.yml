@@ -5,18 +5,18 @@ matrix:
   include: 
     - os: linux
       mono: latest
-    - os: linux
-      mono: 3.12.0
+      env: BUILD_CONFIG=DesktopRelease
     - os: osx
       mono: latest
+      env: BUILD_CONFIG=DesktopRelease
     - os: osx
-      osx_image: xcode6.4
-      mono: 3.12.0
+      mono: latest
+      env: BUILD_CONFIG=AndroidRelease
  
 install:
  - nuget restore MonoAGS.sln
  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 
 script:
- - xbuild /p:Configuration=Release MonoAGS.sln
+ - xbuild /p:Configuration=$BUILD_CONFIG MonoAGS.sln
  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Source/Tests/bin/Release/Tests.dll
