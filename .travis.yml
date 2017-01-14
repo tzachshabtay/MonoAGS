@@ -19,4 +19,4 @@ install:
 
 script:
  - xbuild /p:Configuration=$BUILD_CONFIG MonoAGS.sln
- - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Source/Tests/bin/Release/Tests.dll
+ - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Source/Tests/bin/$BUILD_CONFIG/Tests.dll
