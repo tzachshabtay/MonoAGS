@@ -11,7 +11,7 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 install:
-  - ps: |
+- ps: >-
   $zipPath = "$($env:APPVEYOR_BUILD_FOLDER)\xpkg.zip"
   (New-Object Net.WebClient).DownloadFile('https://components.xamarin.com/submit/xpkg', $zipPath)
   7z x $zipPath | Out-Null
