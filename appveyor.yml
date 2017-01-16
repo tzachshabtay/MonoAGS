@@ -1,9 +1,13 @@
 version: 1.0.{build}
 skip_tags: true
-configuration: 
- - Debug
- - DesktopRelease 
- - AndroidRelease
+environment:
+  matrix:
+    - configuration: Debug
+      platform: Any CPU
+    - configuration: DesktopRelease
+      platform: Any CPU
+    - configuration: AndroidRelease
+      platform: ARM
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
@@ -11,10 +15,14 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 install:
-  - ps: $zipPath = "$($env:APPVEYOR_BUILD_FOLDER)\xpkg.zip"
-  - ps: (New-Object Net.WebClient).DownloadFile('https://components.xamarin.com/submit/xpkg', $zipPath)
-  - ps: 7z x $zipPath | Out-Null
-  - ps: Set-Content -path "$env:USERPROFILE\.xamarin-credentials" -value "xamarin.com,$env:XAMARIN_COOKIE"
+  - ps: >-
+      if($env:CONFIGURATION -eq "AndroidReleaseDebug")
+      {
+        $zipPath = "$($env:APPVEYOR_BUILD_FOLDER)\xpkg.zip"
+        (New-Object Net.WebClient).DownloadFile('https://components.xamarin.com/submit/xpkg', $zipPath)
+        7z x $zipPath | Out-Null
+        Set-Content -path "$env:USERPROFILE\.xamarin-credentials" -value "xamarin.com,$env:XAMARIN_COOKIE"
+      }
 before_build:
   - nuget restore ".\MonoAGS.sln"
   - xamarin-component.exe restore ".\MonoAGS.sln"
