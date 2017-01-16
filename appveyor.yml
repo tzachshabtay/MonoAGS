@@ -2,15 +2,22 @@ version: 1.0.{build}
 skip_tags: true
 configuration: 
  - Debug
- - Release 
+ - DesktopRelease 
+ - AndroidRelease
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
+install:
+  $zipPath = "$($env:APPVEYOR_BUILD_FOLDER)\xpkg.zip"
+  (New-Object Net.WebClient).DownloadFile('https://components.xamarin.com/submit/xpkg', $zipPath)
+  7z x $zipPath | Out-Null
+  Set-Content -path "$env:USERPROFILE\.xamarin-credentials" -value "xamarin.com,$env:XAMARIN_COOKIE"
 before_build:
   - nuget restore ".\MonoAGS.sln"
+  - xamarin-component.exe restore ".\MonoAGS.sln"
 build:
   project: .\MonoAGS.sln
   verbosity: minimal
