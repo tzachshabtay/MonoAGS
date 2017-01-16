@@ -30,6 +30,5 @@ test_script:
     if($env:CONFIGURATION -eq "Debug")
     {
     .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:.\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe "-targetargs:""Source\Tests\bin\Debug\Tests.dll"" /noshadow" -filter:"+[AGS.Engine]*" -output:opencoverCoverage.xml
-    
     .\packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover -i ./opencoverCoverage.xml --repoToken 7hZHP5bLxlE8doYiQg6b79oF7wM6jlecs
     }
