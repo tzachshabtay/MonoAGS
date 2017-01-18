@@ -1,7 +1,6 @@
 ﻿using System;
 using ProtoBuf;
 using AGS.API;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace AGS.Engine
@@ -70,7 +69,7 @@ namespace AGS.Engine
 
         private IImage getImage(ITexture texture, ISpriteSheet spriteSheet, ILoadImageConfig loadConfig)
         {
-            return new GLImage(Hooks.BitmapLoader.Load((int)Width, (int)Height), ID, texture, spriteSheet, loadConfig);
+            return new GLImage(AGSGame.Device.BitmapLoader.Load((int)Width, (int)Height), ID, texture, spriteSheet, loadConfig);
         }
     }
 }

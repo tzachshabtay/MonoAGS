@@ -203,7 +203,6 @@
     <Compile Include="Objects\HasRoomBehavior.cs" />
     <Compile Include="Objects\Interactions\AGSInteractionEvent.cs" />
     <Compile Include="Objects\Interactions\AGSInteractions.cs" />
-    <Compile Include="Platform\Hooks.cs" />
     <Compile Include="Rooms\AGSRoom.cs" />
     <Compile Include="Rooms\AGSRoomEvents.cs" />
     <Compile Include="Rooms\Areas\AGSAreaComponent.cs" />
@@ -388,6 +387,8 @@
     <Compile Include="Game\AGSGame.cs" />
     <Compile Include="Input\AGSShouldBlockInput.cs" />
     <Compile Include="Game\Factories\AGSFontFactory.cs" />
+    <Compile Include="Platform\IDevice.cs" />
+    <Compile Include="Platform\IAssemblies.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

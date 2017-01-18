@@ -7,11 +7,13 @@ namespace AGS.Engine
 {
 	public class BitmapPool
 	{
-		private ConcurrentDictionary<AGS.API.Size, ObjectPool<IBitmap>> _bitmaps;
+		private readonly ConcurrentDictionary<AGS.API.Size, ObjectPool<IBitmap>> _bitmaps;
+        private readonly IBitmapLoader _bitmapLoader;
 
-		public BitmapPool()
+        public BitmapPool(IBitmapLoader bitmapLoader)
 		{
 			_bitmaps = new ConcurrentDictionary<AGS.API.Size, ObjectPool<IBitmap>> (2, 40);
+            _bitmapLoader = bitmapLoader;
 			initPool();		
 		}
 
@@ -52,7 +54,7 @@ namespace AGS.Engine
 		private ObjectPool<IBitmap> getPool(int width, int height)
 		{
 			AGS.API.Size size = new AGS.API.Size (width, height);
-			return _bitmaps.GetOrAdd(size, _ => new ObjectPool<IBitmap> (() => Hooks.BitmapLoader.Load(width, height), 3,
+			return _bitmaps.GetOrAdd(size, _ => new ObjectPool<IBitmap> (() => _bitmapLoader.Load(width, height), 3,
 				bitmap => bitmap.Clear()));
 		}
 

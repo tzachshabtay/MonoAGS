@@ -6,20 +6,22 @@ namespace AGS.Engine
 {
 	public class GLImageRenderer : IImageRenderer
 	{
-        private Dictionary<string, ITexture> _textures;
+        private readonly Dictionary<string, ITexture> _textures;
         private static Lazy<ITexture> _emptyTexture;
-		private IGLMatrixBuilder _hitTestMatrixBuilder, _renderMatrixBuilder;
-		private IGLBoundingBoxBuilder _boundingBoxBuilder;
-		private IGLColorBuilder _colorBuilder;
-		private IGLTextureRenderer _renderer;
-		private IGLViewportMatrixFactory _layerViewports;
-        private IGraphicsFactory _graphicsFactory;
-        private IGLUtils _glUtils;
+		private readonly IGLMatrixBuilder _hitTestMatrixBuilder, _renderMatrixBuilder;
+		private readonly IGLBoundingBoxBuilder _boundingBoxBuilder;
+		private readonly IGLColorBuilder _colorBuilder;
+		private readonly IGLTextureRenderer _renderer;
+		private readonly IGLViewportMatrixFactory _layerViewports;
+        private readonly IGraphicsFactory _graphicsFactory;
+        private readonly IGLUtils _glUtils;
+        private readonly IBitmapLoader _bitmapLoader;
 
         public GLImageRenderer (Dictionary<string, ITexture> textures, 
 			IGLMatrixBuilder hitTestMatrixBuilder, IGLMatrixBuilder renderMatrixBuilder, IGLBoundingBoxBuilder boundingBoxBuilder,
 			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer, IGLBoundingBoxes bgBoxes,
-            IGLViewportMatrixFactory layerViewports, IGraphicsFactory graphicsFactory, IGLUtils glUtils)
+            IGLViewportMatrixFactory layerViewports, IGraphicsFactory graphicsFactory, IGLUtils glUtils, 
+            IBitmapLoader bitmapLoader)
 		{
             _graphicsFactory = graphicsFactory;
 			_textures = textures;
@@ -31,6 +33,7 @@ namespace AGS.Engine
 			_layerViewports = layerViewports;
 			BoundingBoxes = bgBoxes;
             _glUtils = glUtils;
+            _bitmapLoader = bitmapLoader;
             _emptyTexture = new Lazy<ITexture>(() => initEmptyTexture());
 		}
 
@@ -128,7 +131,7 @@ namespace AGS.Engine
 
         private ITexture initEmptyTexture()
         {
-            var bitmap = Hooks.BitmapLoader.Load(1, 1);
+            var bitmap = _bitmapLoader.Load(1, 1);
             bitmap.SetPixel(Colors.White, 0, 0);
             return _graphicsFactory.LoadImage(bitmap, new AGSLoadImageConfig(config: new AGSTextureConfig(scaleUp: ScaleUpFilters.Nearest))).Texture;
         }

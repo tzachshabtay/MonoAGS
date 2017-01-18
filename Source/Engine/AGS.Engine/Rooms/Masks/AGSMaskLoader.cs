@@ -7,11 +7,13 @@ namespace AGS.Engine
 	{
 		private readonly IGameFactory _factory;
 		private readonly IResourceLoader _resourceLoader;
+        private readonly IBitmapLoader _bitmapLoader;
 
-		public AGSMaskLoader(IGameFactory factory, IResourceLoader resourceLoader)
+        public AGSMaskLoader(IGameFactory factory, IResourceLoader resourceLoader, IBitmapLoader bitmapLoader)
 		{
 			_factory = factory;
 			_resourceLoader = resourceLoader;
+            _bitmapLoader = bitmapLoader;
 		}
 
 		#region IMaskLoader implementation
@@ -20,7 +22,7 @@ namespace AGS.Engine
 			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
 		{
 			var resource = _resourceLoader.LoadResource (path);
-			IBitmap image = Hooks.BitmapLoader.Load (resource.Stream);
+			IBitmap image = _bitmapLoader.Load (resource.Stream);
 			return load(path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
 		}
 
@@ -29,7 +31,7 @@ namespace AGS.Engine
 		{
 			var resource = await Task.Run(() => _resourceLoader.LoadResource (path));
             if (resource == null) return null;
-			IBitmap image = await Task.Run(() => Hooks.BitmapLoader.Load (resource.Stream));
+			IBitmap image = await Task.Run(() => _bitmapLoader.Load (resource.Stream));
 			return load (path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
 		}
 

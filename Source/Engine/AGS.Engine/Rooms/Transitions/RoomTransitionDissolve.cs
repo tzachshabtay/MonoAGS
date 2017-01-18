@@ -76,7 +76,7 @@ namespace AGS.Engine
 			_visitTween();
 			var oldShader = AGSGame.Shader;
 			_screenVectors.Render(to.Texture);
-            var shader = GLShader.FromText(Hooks.GraphicsBackend.GetStandardVertexShader(), FRAGMENT_SHADER, _graphics).Compile();
+            var shader = GLShader.FromText(_graphics.GetStandardVertexShader(), FRAGMENT_SHADER, _graphics).Compile();
 			if (shader == null)
 			{
 				return false;

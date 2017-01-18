@@ -7,14 +7,19 @@ namespace AGS.Engine
 {
 	public class AGSDialogFactory : IDialogFactory
 	{
-		private IContainer _resolver;
-		private IGameState _gameState;
-		private IUIFactory _ui;
-		private IObjectFactory _object;
+		private readonly IContainer _resolver;
+		private readonly IGameState _gameState;
+		private readonly IUIFactory _ui;
+		private readonly IObjectFactory _object;
+        private readonly IBrushLoader _brushLoader;
+        private readonly IFontLoader _fontLoader;
 
-		public AGSDialogFactory(IContainer resolver, IGameState gameState, IUIFactory ui, IObjectFactory obj)
+		public AGSDialogFactory(IContainer resolver, IGameState gameState, IUIFactory ui, IObjectFactory obj,
+                                IBrushLoader brushloader, IFontLoader fontLoader)
 		{
 			_resolver = resolver;
+            _brushLoader = brushloader;
+            _fontLoader = fontLoader;
 			_gameState = gameState;
 			_ui = ui;
 			_object = obj;
@@ -25,11 +30,11 @@ namespace AGS.Engine
 		{
 			IGame game = _resolver.Resolve<IGame>();
 			if (config == null) config = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
-				brush: Hooks.BrushLoader.LoadSolidBrush(Colors.White), font: Hooks.FontLoader.LoadFont(null,10f));
+                brush: _brushLoader.LoadSolidBrush(Colors.White), font: _fontLoader.LoadFont(null,10f));
 			if (hoverConfig == null) hoverConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
-				brush: Hooks.BrushLoader.LoadSolidBrush(Colors.Yellow), font: Hooks.FontLoader.LoadFont(null, 10f));
+				brush: _brushLoader.LoadSolidBrush(Colors.Yellow), font: _fontLoader.LoadFont(null, 10f));
             if (hasBeenChosenConfig == null) hasBeenChosenConfig = new AGSTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
-                brush: Hooks.BrushLoader.LoadSolidBrush(Colors.Gray), font: Hooks.FontLoader.LoadFont(null, 10f));
+                brush: _brushLoader.LoadSolidBrush(Colors.Gray), font: _fontLoader.LoadFont(null, 10f));
 			ILabel label = _ui.GetLabel(string.Format("Dialog option: {0}", text), text, game.Settings.VirtualResolution.Width, 20f, 0f, 0f, config);
 			label.Enabled = true;
 			TypedParameter labelParam = new TypedParameter (typeof(ILabel), label);

@@ -19,6 +19,7 @@ namespace AGS.Engine
         private float _spaceWidth;
         private bool _cropText, _renderCaret;
         private readonly IGraphicsBackend _graphics;
+        private readonly IFontLoader _fonts;
 
         /// <summary>
         /// The factor in which the text will be rendered (and then will be downscaled to match the resolution so it would look sharper)
@@ -31,8 +32,9 @@ namespace AGS.Engine
         public static int TextResolutionWidth { get { return AGSGame.Game.Settings.VirtualResolution.Width * TextResolutionFactorX; } }
         public static int TextResolutionHeight { get { return AGSGame.Game.Settings.VirtualResolution.Height * TextResolutionFactorY; } }
 
-        public GLText (IGraphicsBackend graphics, BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
+        public GLText (IGraphicsBackend graphics, IFontLoader fonts, BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
 		{
+            _fonts = fonts;
             _graphics = graphics;
 			this._maxWidth = maxWidth;
 			this._text = text;
@@ -198,7 +200,7 @@ namespace AGS.Engine
         private float measureSpace()
         {
             //hack to measure the size of spaces. For some reason MeasureString returns bad results when string ends with a space.
-            IFont font = Hooks.FontLoader.LoadFont(_config.Font.FontFamily, _config.Font.SizeInPoints * TextResolutionFactorX, _config.Font.Style);
+            IFont font = _fonts.LoadFont(_config.Font.FontFamily, _config.Font.SizeInPoints * TextResolutionFactorX, _config.Font.Style);
             return font.MeasureString(" a").Width - font.MeasureString("a").Width;
         }
 			

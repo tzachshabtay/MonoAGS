@@ -23,16 +23,18 @@ namespace AGS.Engine
 		private IGLBoundingBoxes _usedLabelBoundingBoxes, _usedTextBoundingBoxes;
 		private readonly LabelMatrixRenderTarget _labelMatrixRenderTarget;
 		private readonly BitmapPool _bitmapPool;
+        private readonly IFontLoader _fonts;
 
         public GLLabelRenderer(Dictionary<string, ITexture> textures, 
             IGLMatrixBuilder textRenderMatrixBuilder, IGLMatrixBuilder labelRenderMatrixBuilder, IGLMatrixBuilder hitTestMatrixBuilder,
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
 			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrixFactory viewportMatrix,
             IGLBoundingBoxes labelBoundingBoxes, IGLBoundingBoxes textBoundingBoxes, IGraphicsFactory graphicsFactory,
-            IGLUtils glUtils, IGraphicsBackend graphics)
+            IGLUtils glUtils, IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IFontLoader fonts)
 		{
             _glUtils = glUtils;
             _graphics = graphics;
+            _fonts = fonts;
 			_renderLabelMatrixContainer = new MatrixContainer ();
             _hitTestLabelMatrixContainer = new MatrixContainer();
 			_bitmapPool = bitmapPool;
@@ -44,7 +46,7 @@ namespace AGS.Engine
 			_boundingBoxBuilder = boundingBoxBuilder;
 			_bgRenderer = new GLImageRenderer(textures, _hitTestLabelMatrixContainer, _renderLabelMatrixContainer,
 				new BoundingBoxesEmptyBuilder(), colorBuilder, _textureRenderer, _labelBoundingBoxes,
-                                              viewportMatrix, graphicsFactory, glUtils);
+                                              viewportMatrix, graphicsFactory, glUtils, bitmapLoader);
 			_textRenderMatrixBuilder = textRenderMatrixBuilder;
             _labelRenderMatrixBuilder = labelRenderMatrixBuilder;
             _hitTestMatrixBuilder = hitTestMatrixBuilder;
@@ -56,7 +58,7 @@ namespace AGS.Engine
 		public bool TextVisible { get; set; }
 		public string Text { get; set; }
 		public ITextConfig Config { get; set; }
-		public AGS.API.SizeF BaseSize { get; set; }
+		public SizeF BaseSize { get; set; }
 		public ILabel Label { get; set; }
         public int CaretPosition { get; set; }
         public bool RenderCaret { get; set; }
@@ -97,7 +99,7 @@ namespace AGS.Engine
 
 		public void Prepare(IObject obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
 		{
-            _glText = _glText ?? new GLText (_graphics, _bitmapPool);
+            _glText = _glText ?? new GLText (_graphics, _fonts, _bitmapPool);
 
 			updateBoundingBoxes(obj, drawable, tree, viewport, areaScaling);
 			_bgRenderer.BoundingBoxes = _usedLabelBoundingBoxes;
@@ -237,7 +239,7 @@ namespace AGS.Engine
 			_labelMatrixRenderTarget.ScaleY = obj.ScaleY;
 		}
 
-		private void updateText(AGS.API.SizeF baseSize, int? maxWidth, bool? cropText = null)
+		private void updateText(SizeF baseSize, int? maxWidth, bool? cropText = null)
 		{
 			if (TextVisible)
 			{

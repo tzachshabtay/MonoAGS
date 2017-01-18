@@ -1,19 +1,20 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 
 namespace AGS.Engine
 {
 	public class AGSTextConfig : ITextConfig
 	{
+        private static IBrushLoader _brushes { get { return AGSGame.Device.BrushLoader; } }
+
 		public AGSTextConfig(IBrush brush = null, IFont font = null, IBrush outlineBrush = null, float outlineWidth = 0f,
 			IBrush shadowBrush = null, float shadowOffsetX = 0f, float shadowOffsetY = 0f, 
 			Alignment alignment = Alignment.TopLeft, AutoFit autoFit = AutoFit.NoFitting,
 			float paddingLeft = 2f, float paddingRight = 2f, float paddingTop = 2f, float paddingBottom = 2f)
 		{
-			Brush = brush ?? Hooks.BrushLoader.LoadSolidBrush(Colors.White);
+			Brush = brush ?? _brushes.LoadSolidBrush(Colors.White);
 			Font = font ?? AGSGameSettings.DefaultTextFont;
-			OutlineBrush = outlineBrush ?? Hooks.BrushLoader.LoadSolidBrush(Colors.White);
+			OutlineBrush = outlineBrush ?? _brushes.LoadSolidBrush(Colors.White);
             OutlineWidth = outlineWidth;
 			ShadowBrush = shadowBrush;
 			ShadowOffsetX = shadowOffsetX;
@@ -55,7 +56,7 @@ namespace AGS.Engine
         public static AGSTextConfig ScaleConfig(ITextConfig config, float sizeFactor)
         {
             AGSTextConfig textConfig = Clone(config);
-            textConfig.Font = Hooks.FontLoader.LoadFont(config.Font.FontFamily, config.Font.SizeInPoints * sizeFactor, config.Font.Style);
+            textConfig.Font = AGSGame.Game.Factory.Fonts.LoadFont(config.Font.FontFamily, config.Font.SizeInPoints * sizeFactor, config.Font.Style);
             textConfig.OutlineWidth *= sizeFactor;
             textConfig.ShadowOffsetX *= sizeFactor;
             textConfig.ShadowOffsetY *= sizeFactor;
@@ -69,8 +70,8 @@ namespace AGS.Engine
         public static AGSTextConfig ChangeColor(ITextConfig config, Color color, Color outline, float outlineWidth)
         {
             AGSTextConfig textConfig = Clone(config);
-            textConfig.Brush = Hooks.BrushLoader.LoadSolidBrush(color);
-            textConfig.OutlineBrush = Hooks.BrushLoader.LoadSolidBrush(outline);
+            textConfig.Brush = _brushes.LoadSolidBrush(color);
+            textConfig.OutlineBrush = _brushes.LoadSolidBrush(outline);
             textConfig.OutlineWidth = outlineWidth;
             return textConfig;
         }

@@ -20,17 +20,19 @@ namespace AGS.Engine
         private readonly IDictionary<string, ITexture> _textures;
 		private readonly IGameState _state;
 		private readonly IGameEvents _events;
+        private readonly IFileSystem _fileSystem;
 		private static bool _firstTimeSetup = true;
 		private const string RESTART_FILENAME = "RestartPoint.bin";
 
 		public AGSSaveLoad(Resolver resolver, IGameFactory factory, 
-                           IDictionary<string, ITexture> textures, IGame game)
+                           IDictionary<string, ITexture> textures, IGame game, IFileSystem fileSystem)
 		{
 			_resolver = resolver;
 			_factory = factory;
 			_textures = textures;
 			_state = game.State;
 			_events = game.Events;
+            _fileSystem = fileSystem;
 		}
 
 		#region ISaveLoad implementation
@@ -39,14 +41,14 @@ namespace AGS.Engine
 		{
             try
             {
-                saveName = Path.Combine(Hooks.FileSystem.StorageFolder, saveName);
+                saveName = Path.Combine(_fileSystem.StorageFolder, saveName);
                 _state.Paused = true;
                 firstTimeSetup();
 
                 var context = getContext();
                 ContractGameState state = new ContractGameState();
                 state.FromItem(context, _state);
-                using (var file = Hooks.FileSystem.Create(saveName))
+                using (var file = _fileSystem.Create(saveName))
                 {
                     Serializer.Serialize(file, state);
                 }
@@ -75,14 +77,14 @@ namespace AGS.Engine
 		{
 			try
 			{
-                saveName = Path.Combine(Hooks.FileSystem.StorageFolder, saveName);
+                saveName = Path.Combine(_fileSystem.StorageFolder, saveName);
 				_state.Paused = true;
 				firstTimeSetup();
 
 				_state.Clean();
 				var context = getContext();
 				ContractGameState state;
-				using (var file = Hooks.FileSystem.Open(saveName)) 
+				using (var file = _fileSystem.Open(saveName)) 
 				{
 					state = Serializer.Deserialize<ContractGameState>(file);
 				}

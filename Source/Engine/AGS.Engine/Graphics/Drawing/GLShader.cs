@@ -29,14 +29,14 @@ namespace AGS.Engine
 
         public static GLShader FromText(string vertexSource, string fragmentSource, IGraphicsBackend graphics = null)
 		{
-            graphics = graphics ?? Hooks.GraphicsBackend;
+            graphics = graphics ?? AGSGame.Device.GraphicsBackend;
             return new GLShader (vertexSource, fragmentSource, graphics);
 		}
 
         public static async Task<GLShader> FromResource(string vertexResource, string fragmentResource, IGraphicsBackend graphics = null)
 		{
-            graphics = graphics ?? Hooks.GraphicsBackend;
-			ResourceLoader loader = new ResourceLoader ();
+            graphics = graphics ?? AGSGame.Device.GraphicsBackend;
+            ResourceLoader loader = new ResourceLoader (AGSGame.Device.FileSystem, AGSGame.Device.Assemblies);
 			string vertexSource = await getSource(vertexResource, loader);
 			string fragmentSource = await getSource(fragmentResource, loader);
             return FromText(vertexSource, fragmentSource, graphics);

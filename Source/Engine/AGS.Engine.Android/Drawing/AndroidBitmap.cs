@@ -135,7 +135,7 @@ namespace AGS.Engine.Android
 			//Save the duplicate
 			if (saveMaskToFile != null)
 			{
-				using (Stream stream = Hooks.FileSystem.Create(saveMaskToFile))
+                using (Stream stream = AGSGame.Device.FileSystem.Create(saveMaskToFile))
 				{
 					debugMask.Compress(global::Android.Graphics.Bitmap.CompressFormat.Png, 100, stream);
 				}

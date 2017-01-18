@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using ProtoBuf;
 
 namespace AGS.Engine
@@ -20,7 +19,7 @@ namespace AGS.Engine
 
 		public IFont ToItem(AGSSerializationContext context)
 		{
-			return Hooks.FontLoader.LoadFont(FontFamily, SizeInPoints, Style);
+            return context.Factory.Fonts.LoadFont(FontFamily, SizeInPoints, Style);
 		}
 
 		public void FromItem(AGSSerializationContext context, IFont item)

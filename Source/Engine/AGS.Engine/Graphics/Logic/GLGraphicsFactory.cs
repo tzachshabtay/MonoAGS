@@ -15,12 +15,13 @@ namespace AGS.Engine
 		private readonly IBitmapLoader _bitmapLoader;
 		private readonly SpriteSheetLoader _spriteSheetLoader;
 
-        public GLGraphicsFactory (Dictionary<string, ITexture> textures, IContainer resolver, IGLUtils glUtils, IGraphicsBackend graphics)
+        public GLGraphicsFactory (Dictionary<string, ITexture> textures, IContainer resolver, IGLUtils glUtils, 
+                                  IGraphicsBackend graphics, IBitmapLoader bitmapLoader)
 		{
 			this._textures = textures;
 			this._resolver = resolver;
 			this._resources = resolver.Resolve<IResourceLoader>();
-			this._bitmapLoader = Hooks.BitmapLoader;
+			this._bitmapLoader = bitmapLoader;
             this._spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage, graphics);
             
             AGSGameSettings.CurrentSkin = new AGSBlueSkin(this, glUtils).CreateSkin();

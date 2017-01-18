@@ -36,6 +36,8 @@ namespace AGS.Engine
 
 		public static IGame Game { get; private set; }
 
+        public static IDevice Device { get; set; }
+
 		public static IShader Shader { get; set; }
 
 		public static Resolver Resolver { get { return ((AGSGame)Game)._resolver; } }
@@ -48,7 +50,7 @@ namespace AGS.Engine
 			UIThreadID = Environment.CurrentManagedThreadId;
 
 			printRuntime();
-			Resolver resolver = new Resolver (Hooks.ConfigFile);
+			Resolver resolver = new Resolver(Device);
 			resolver.Build();
 			AGSGame game = resolver.Container.Resolve<AGSGame>();
 			game._resolver = resolver;
@@ -56,7 +58,7 @@ namespace AGS.Engine
 			return game;
 		}
 
-		public static int UIThreadID;
+        public static int UIThreadID;
 
 		#region IGame implementation
 

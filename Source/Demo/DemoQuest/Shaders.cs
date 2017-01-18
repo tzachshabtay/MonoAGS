@@ -163,13 +163,13 @@ namespace DemoQuest
 
         private static string getVertexShader()
         {
-            return Hooks.GraphicsBackend.GetStandardVertexShader(); 
+            return AGSGame.Device.GraphicsBackend.GetStandardVertexShader(); 
         }
 
 		public static void SetStandardShader()
 		{
 			unbindVignetteShader();
-            AGSGame.Shader = GLShader.FromText(getVertexShader(), Hooks.GraphicsBackend.GetStandardFragmentShader());
+            AGSGame.Shader = GLShader.FromText(getVertexShader(), AGSGame.Device.GraphicsBackend.GetStandardFragmentShader());
 		}
 
 		public static void SetGrayscaleShader()

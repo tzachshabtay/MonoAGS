@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 using System.Threading.Tasks;
 
@@ -27,7 +26,8 @@ namespace DemoGame
 			bg.StartAnimation(bgAnimation);
 			_room.Background = bg;
 
-			AGSMaskLoader maskLoader = new AGSMaskLoader (factory, new ResourceLoader());
+            var device = AGSGame.Device;
+            AGSMaskLoader maskLoader = new AGSMaskLoader (factory, new ResourceLoader(device.FileSystem, device.Assemblies), device.BitmapLoader);
             _room.Areas.Add(AGSWalkableArea.Create("DarsStreetWalkable1", await maskLoader.LoadAsync(_baseFolder + "walkable1.png")));
             _room.Areas.Add(AGSWalkableArea.Create("DarsStreetWalkable2", await maskLoader.LoadAsync(_baseFolder + "walkable2.png")));
 			AGSScalingArea.Create(_room.Areas[0], 0.35f, 0.75f);

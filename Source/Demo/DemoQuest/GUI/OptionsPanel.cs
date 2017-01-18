@@ -12,12 +12,13 @@ namespace DemoGame
 		private IPanel _panel;
 		private IGame _game;
 
-		AGSTextConfig _textConfig = new AGSTextConfig (font: Hooks.FontLoader.LoadFont(null, 10f),
-			brush: Hooks.BrushLoader.LoadSolidBrush(Colors.DarkOliveGreen),
-			alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, outlineBrush: Hooks.BrushLoader.LoadSolidBrush(Colors.LightGreen), outlineWidth: 1f);
+        AGSTextConfig _textConfig = new AGSTextConfig (font: AGSGame.Game.Factory.Fonts.LoadFont(null, 10f),
+            brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.DarkOliveGreen),
+			alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, 
+            outlineBrush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen), outlineWidth: 1f);
 
-		AGSTextConfig _buttonTextConfig = new AGSTextConfig (font: Hooks.FontLoader.LoadFont(null, 7f, FontStyle.Bold), 
-			brush: Hooks.BrushLoader.LoadSolidBrush(Colors.LightGreen),
+		AGSTextConfig _buttonTextConfig = new AGSTextConfig (font: AGSGame.Game.Factory.Fonts.LoadFont(null, 7f, FontStyle.Bold), 
+			brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen),
 			alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, paddingLeft: 0f);
 
 		private string _lastMode;

@@ -31,6 +31,7 @@ namespace AGS.Engine
 
         private TaskCompletionSource<bool> _tcs;
         private string _selectedItem;
+        private IDevice _device { get { return AGSGame.Device; } }
 
         private IBorderStyle _fileIcon, _fileIconSelected, _folderIcon, _folderIconSelected;
 
@@ -40,12 +41,12 @@ namespace AGS.Engine
             _game = game;
             _title = title;
             _fileSelection = fileSelection;
-            _startPath = startPath ?? Hooks.FileSystem.GetCurrentDirectory();
+            _startPath = startPath ?? _device.FileSystem.GetCurrentDirectory();
             _buttonsTextConfig = new AGSTextConfig(alignment: Alignment.BottomCenter,
-                autoFit: AutoFit.TextShouldFitLabel, font: Hooks.FontLoader.LoadFont(null, 10f));
+                autoFit: AutoFit.TextShouldFitLabel, font: game.Factory.Fonts.LoadFont(null, 10f));
             _filesTextConfig = new AGSTextConfig(alignment: Alignment.BottomCenter,
-                autoFit: AutoFit.TextShouldFitLabel, font: Hooks.FontLoader.LoadFont(null, 10f),
-                brush: Hooks.BrushLoader.LoadSolidBrush(Colors.Black));
+                autoFit: AutoFit.TextShouldFitLabel, font: game.Factory.Fonts.LoadFont(null, 10f),
+                brush: _device.BrushLoader.LoadSolidBrush(Colors.Black));
             _tcs = new TaskCompletionSource<bool>(false);
         }
 
@@ -80,7 +81,7 @@ namespace AGS.Engine
             float panelX = _game.Settings.VirtualResolution.Width / 2f - panelWidth / 2f;
             float panelY = _game.Settings.VirtualResolution.Height / 2f - panelHeight / 2f;
             ITextConfig textBoxConfig = new AGSTextConfig(alignment: Alignment.BottomLeft,
-                autoFit: AutoFit.TextShouldCrop, font: Hooks.FontLoader.LoadFont(null, 10f));
+                autoFit: AutoFit.TextShouldCrop, font: _game.Factory.Fonts.LoadFont(null, 10f));
 
             IPanel panel = factory.UI.GetPanel("SelectFilePanel", panelWidth, panelHeight, panelX, panelY);
             panel.SkinTags.Add(AGSSkin.DialogBoxTag);
@@ -175,7 +176,7 @@ namespace AGS.Engine
             if (args.Button != MouseButton.Left) return;
             var item = _selectedItem ?? _fileTextBox.Text;
             _fileTextBox.Text = item;
-            if (Hooks.FileSystem.DirectoryExists(item))
+            if (_device.FileSystem.DirectoryExists(item))
             {
                 if (_fileSelection == FileSelection.FileOnly)
                 {
@@ -196,9 +197,9 @@ namespace AGS.Engine
             if (args.PressedKey != Key.Enter) return;
             args.ShouldCancel = true;
             string path = _fileTextBox.Text;
-            if (Hooks.FileSystem.DirectoryExists(path))
+            if (_device.FileSystem.DirectoryExists(path))
                 fillAllFiles(path);
-            else if (Hooks.FileSystem.FileExists(path))
+            else if (_device.FileSystem.FileExists(path))
             {
                 onFileSelected(path);
             }
@@ -216,8 +217,8 @@ namespace AGS.Engine
         {
             _selectedItem = null;
             _inventory.Items.Clear();
-            var allFiles = Hooks.FileSystem.GetFiles(folder).ToList();
-            var allDirs = folder == "" ? Hooks.FileSystem.GetLogicalDrives().ToList() : Hooks.FileSystem.GetDirectories(folder).ToList();
+            var allFiles = _device.FileSystem.GetFiles(folder).ToList();
+            var allDirs = folder == "" ? _device.FileSystem.GetLogicalDrives().ToList() : _device.FileSystem.GetDirectories(folder).ToList();
             const string back = "..";
             if (folder != "") allDirs.Insert(0, back);
             List<IObject> fileItems = new List<IObject>(allFiles.Count);

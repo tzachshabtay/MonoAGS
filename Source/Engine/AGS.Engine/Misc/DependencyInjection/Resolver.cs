@@ -11,17 +11,19 @@ namespace AGS.Engine
 	{
         private static List<Action<Resolver>> _overrides = new List<Action<Resolver>>();
 
-		public Resolver(IEngineConfigFile configFile)
+		public Resolver(IDevice device)
 		{
 			Builder = new ContainerBuilder ();
 
-			if (configFile.DebugResolves)
+            if (device.ConfigFile.DebugResolves)
 			{
 				Builder.RegisterModule(new AutofacResolveLoggingModule ());
 			}
 
 			Builder.RegisterAssemblyTypes(typeof(AGSGame).GetTypeInfo().Assembly).
 				Except<SpatialAStarPathFinder>().AsImplementedInterfaces();
+
+            registerDevice(device);
 
 			Builder.RegisterType<GLImageRenderer>().As<IImageRenderer>();
 			Builder.RegisterType<AGSObject>().As<IObject>();
@@ -67,9 +69,7 @@ namespace AGS.Engine
 			FastFingerChecker checker = new FastFingerChecker ();
 			Builder.RegisterInstance(checker);
 
-            Builder.RegisterInstance(Hooks.GraphicsBackend).As<IGraphicsBackend>();
-
-			Builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
+            Builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 
             foreach (var action in _overrides) action(this);
 		}
@@ -92,6 +92,18 @@ namespace AGS.Engine
 			updater.RegisterInstance(this);
 			updater.Update(Container);
 		}
+
+        private void registerDevice(IDevice device)
+        {
+            Builder.RegisterInstance(device).As<IDevice>();
+            Builder.RegisterInstance(device.Assemblies).As<IAssemblies>();
+            Builder.RegisterInstance(device.BitmapLoader).As<IBitmapLoader>();
+            Builder.RegisterInstance(device.BrushLoader).As<IBrushLoader>();
+            Builder.RegisterInstance(device.ConfigFile).As<IEngineConfigFile>();
+            Builder.RegisterInstance(device.FileSystem).As<IFileSystem>();
+            Builder.RegisterInstance(device.GraphicsBackend).As<IGraphicsBackend>();
+            Builder.RegisterInstance(device.KeyboardState).As<IKeyboardState>();
+        }
 
 		private void registerComponents()
 		{

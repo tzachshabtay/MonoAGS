@@ -11,20 +11,22 @@ namespace AGS.Engine
         private IUIEvents _uiEvents;        
         private IInObjectTree _tree;
         private IHasRoom _room;
+        private IKeyboardState _keyboardState;
         private readonly IGame _game;        
         private int _caretFlashCounter;
 
         private int _endOfLine { get { return _textComponent.Text.Length; } }
-        private bool _capslock {  get { return Hooks.KeyboardState.CapslockOn; } }
+        private bool _capslock {  get { return _keyboardState.CapslockOn; } }
         private bool _leftShiftOn, _rightShiftOn;
         private bool _shiftOn { get { return _leftShiftOn || _rightShiftOn; } }
 
         private ILabel _withCaret;
 
         public AGSTextBoxComponent(IEvent<AGSEventArgs> onFocusChanged, IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
-            IInput input, IGame game)
+                                   IInput input, IGame game, IKeyboardState keyboardState)
         {
             CaretFlashDelay = 10;
+            _keyboardState = keyboardState;
             OnFocusChanged = onFocusChanged;
             OnPressingKey = onPressingKey;
             _game = game;

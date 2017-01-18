@@ -12,10 +12,12 @@ namespace AGS.Engine
 	{
 		private readonly Assembly _assembly;
         private Dictionary<string, List<string>> _resourceFolders, _externalFolders;
+        private readonly IFileSystem _fileSystem;
 
-		public ResourceLoader()
+        public ResourceLoader(IFileSystem fileSystem, IAssemblies assemblies)
 		{
-			_assembly = Hooks.EntryAssembly;
+            _fileSystem = fileSystem;
+			_assembly = assemblies.EntryAssembly;
             _externalFolders = new Dictionary<string, List<string>>(10);
 		}
 
@@ -63,7 +65,7 @@ namespace AGS.Engine
 			loadResourceFolders();
 
 			HashSet<Asset> assets = new HashSet<Asset> ();
-			foreach (var file in Hooks.FileSystem.GetFiles(folder))
+			foreach (var file in _fileSystem.GetFiles(folder))
 			{
 				if (shouldIgnoreFile(file)) continue;
 				Asset asset = new Asset (getResourceName(file), file);
@@ -111,7 +113,7 @@ namespace AGS.Engine
                 if (matchingResource != null) return matchingResource;
             }
 
-            files = _externalFolders.GetOrAdd(folder, () => Hooks.FileSystem.GetFiles(folder).ToList());
+            files = _externalFolders.GetOrAdd(folder, () => _fileSystem.GetFiles(folder).ToList());
             var matchingFile = files.FirstOrDefault(f => f.ToUpperInvariant().Contains(filename));
             return matchingFile;
         }
@@ -132,12 +134,12 @@ namespace AGS.Engine
 
 		private IResource loadFile(string path)
 		{
-            if (!Hooks.FileSystem.FileExists(path))
+            if (!_fileSystem.FileExists(path))
             {
                 Debug.WriteLine("Failed to find resource at path: {0}", path);
                 return null;
             }
-            return new AGSResource(path, Hooks.FileSystem.Open(path));
+            return new AGSResource(path, _fileSystem.Open(path));
 		}
 
 		private string getResourceName(string path)

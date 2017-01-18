@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using AGS.API;
 
@@ -39,7 +38,7 @@ namespace AGS.Engine
 
 		private static ITextConfig getDefaultTextConfig()
 		{
-			return new AGSTextConfig (brush: Hooks.BrushLoader.LoadSolidBrush (Colors.WhiteSmoke),
+            return new AGSTextConfig (brush: AGSGame.Device.BrushLoader.LoadSolidBrush (Colors.WhiteSmoke),
 			                          alignment: Alignment.MiddleCenter, autoFit: AutoFit.LabelShouldFitText);
 		}
 

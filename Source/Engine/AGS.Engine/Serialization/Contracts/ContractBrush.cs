@@ -8,6 +8,8 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractBrush : IContract<IBrush>
 	{
+        private IBrushLoader _brushes { get { return AGSGame.Device.BrushLoader; } }
+
 		[ProtoMember(1)]
 		public BrushType Type { get; set; }
 
@@ -51,14 +53,14 @@ namespace AGS.Engine
 			switch (Type)
 			{
 				case BrushType.Solid:
-					return Hooks.BrushLoader.LoadSolidBrush(Color.FromHexa(MainColor));
+					return _brushes.LoadSolidBrush(Color.FromHexa(MainColor));
 				case BrushType.Linear:
-					return Hooks.BrushLoader.LoadLinearBrush(LinearColors.Select(c => Color.FromHexa(c)).ToArray(), 
+					return _brushes.LoadLinearBrush(LinearColors.Select(c => Color.FromHexa(c)).ToArray(), 
 						Blend.ToItem(context), InterpolationColors.ToItem(context), Transform.ToItem(context), WrapMode, GammaCorrection);
 				case BrushType.Hatch:
-					return Hooks.BrushLoader.LoadHatchBrush(HatchStyle, Color.FromHexa(MainColor), Color.FromHexa(BackgroundColor));
+					return _brushes.LoadHatchBrush(HatchStyle, Color.FromHexa(MainColor), Color.FromHexa(BackgroundColor));
 				case BrushType.Path:
-					return Hooks.BrushLoader.LoadPathsGradientBrush(Color.FromHexa(MainColor), CenterPoint.ToItem(context), Blend.ToItem(context), 
+					return _brushes.LoadPathsGradientBrush(Color.FromHexa(MainColor), CenterPoint.ToItem(context), Blend.ToItem(context), 
 						FocusScales.ToItem(context), LinearColors.Select(c => Color.FromHexa(c)).ToArray(), 
 						InterpolationColors.ToItem(context), Transform.ToItem(context), WrapMode);
 				default:
