@@ -16,10 +16,6 @@ namespace Tests
 		public void Init()
 		{
 			AGSEngineDesktop.Init();
-
-            Mock<IBitmapLoader> bitmapLoader = new Mock<IBitmapLoader>();
-            bitmapLoader.Setup(loader => loader.Load(It.IsAny<int>(), It.IsAny<int>())).Returns(new Mock<IBitmap>().Object);
-            Hooks.BitmapLoader = bitmapLoader.Object;
 		}
 
 		[TearDown]

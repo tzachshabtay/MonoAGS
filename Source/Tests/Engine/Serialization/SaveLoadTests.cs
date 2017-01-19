@@ -7,6 +7,7 @@ using AGS.API;
 using Autofac;
 using System.Drawing;
 using Moq;
+using AGS.Engine.Desktop;
 
 namespace Tests
 {
@@ -24,8 +25,7 @@ namespace Tests
 		public void Init()
 		{
 			_mocks = Mocks.Init();
-			Mock<IEngineConfigFile> config = new Mock<IEngineConfigFile> ();
-			_resolver = new Resolver (config.Object);
+            _resolver = Mocks.GetResolver();
 			_resolver.Build();
 			var updater = new ContainerBuilder ();
 			updater.RegisterInstance(_mocks.Input().Object).As<IInput>();
@@ -35,7 +35,9 @@ namespace Tests
             _textures = new Dictionary<string, ITexture> ();
 			_state = _resolver.Container.Resolve<IGameState>();
 			_factory = _resolver.Container.Resolve<IGameFactory>();
-			_saveLoad = new AGSSaveLoad (_resolver, _factory, _textures, _resolver.Container.Resolve<IGame>());
+            DesktopFileSystem fileSystem = new DesktopFileSystem();
+			_saveLoad = new AGSSaveLoad (_resolver, _factory, _textures, _resolver.Container.Resolve<IGame>(),
+                                         fileSystem);
 			_state.Rooms.Add(_mocks.Room().Object);
 		}
 

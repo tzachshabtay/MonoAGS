@@ -2,6 +2,7 @@
 using AGS.Engine;
 using NUnit.Framework;
 using Moq;
+using AGS.Engine.Desktop;
 
 namespace Tests
 {
@@ -82,7 +83,7 @@ namespace Tests
             
 
             AGSTextBoxComponent textbox = new AGSTextBoxComponent(new AGSEvent<AGSEventArgs>(), new AGSEvent<TextBoxKeyPressingEventArgs>(), 
-                input.Object, game.Object);
+                  input.Object, game.Object, new DesktopKeyboardState());
             textbox.Init(entity.Object);
             textbox.IsFocused = true;
             bool isShiftDown = false;

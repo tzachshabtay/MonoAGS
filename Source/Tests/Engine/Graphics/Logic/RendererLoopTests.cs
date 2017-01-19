@@ -21,8 +21,7 @@ namespace Tests
         {
             _mocks = Mocks.Init();
             _transitions = new Mock<IAGSRoomTransitions>();
-            Mock<IEngineConfigFile> configFile = new Mock<IEngineConfigFile>();
-            _resolver = new Resolver(configFile.Object);
+            _resolver = Mocks.GetResolver();
 
             _areas = new List<IArea>();
             _roomObjects = new AGSConcurrentHashSet<IObject>();

@@ -61,6 +61,37 @@ namespace Tests
 			return mocks;
 		}
 
+        public static Resolver GetResolver()
+        {
+            Mock<IDevice> device = new Mock<IDevice>();
+            Mock<IEngineConfigFile> configFile = new Mock<IEngineConfigFile>();
+            device.Setup(d => d.ConfigFile).Returns(configFile.Object);
+
+            Mock<IBitmapLoader> bitmapLoader = new Mock<IBitmapLoader>();
+            bitmapLoader.Setup(loader => loader.Load(It.IsAny<int>(), It.IsAny<int>())).Returns(new Mock<IBitmap>().Object);
+            device.Setup(d => d.BitmapLoader).Returns(bitmapLoader.Object);
+
+            Mock<IAssemblies> assemblies = new Mock<IAssemblies>();
+            device.Setup(d => d.Assemblies).Returns(assemblies.Object);
+
+            var mocks = new Mocks();
+            device.Setup(d => d.FileSystem).Returns(mocks.FileSystem().Object);
+
+            Mock<IBrushLoader> brushes = new Mock<IBrushLoader>();
+            device.Setup(d => d.BrushLoader).Returns(brushes.Object);
+
+            Mock<IGraphicsBackend> graphics = new Mock<IGraphicsBackend>();
+            device.Setup(d => d.GraphicsBackend).Returns(graphics.Object);
+
+            Mock<IFontLoader> fonts = new Mock<IFontLoader>();
+            device.Setup(d => d.FontLoader).Returns(fonts.Object);
+
+            Mock<IKeyboardState> keyboard = new Mock<IKeyboardState>();
+            device.Setup(d => d.KeyboardState).Returns(keyboard.Object);
+
+            return new Resolver(device.Object);
+        }
+
 		public TItem Create<TItem>(params Parameter[] parameters)
 		{
 			return container.Resolve<TItem>(parameters);
@@ -70,6 +101,13 @@ namespace Tests
 		{
 			container.Dispose();
 		}
+
+        public Mock<IFileSystem> FileSystem()
+        {
+            Mock<IFileSystem> files = new Mock<IFileSystem>();
+            files.Setup(f => f.StorageFolder).Returns("Test");
+            return files;
+        }
 
 		public Mock<IAudioSystem> AudioSystem(bool newInstance = false)
 		{

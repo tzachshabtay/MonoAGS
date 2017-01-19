@@ -185,9 +185,7 @@ namespace Tests
 
         public static Resolver GetResolver()
         { 
-            Mock<IEngineConfigFile> configFile = new Mock<IEngineConfigFile>();
-            Resolver resolver = new Resolver(configFile.Object);
-            return resolver;
+            return Mocks.GetResolver();
         }
 
         public static IEnumerable<IObject> GetImplementors(Mocks mocks, Mock<IGameState> stateMock, IGameState state = null)
