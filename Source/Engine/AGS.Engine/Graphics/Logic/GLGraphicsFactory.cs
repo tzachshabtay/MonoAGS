@@ -176,7 +176,7 @@ namespace AGS.Engine
 
 		private AGSAnimation getAnimation (string samplePath, IAnimationConfiguration animationConfig, int resourcesCount)
 		{
-            if (resourcesCount == 0)
+            if (resourcesCount == 0 && samplePath != null)
             {
                 throw new InvalidOperationException(string.Format("Failed to load animation from: {0}", samplePath));
             }

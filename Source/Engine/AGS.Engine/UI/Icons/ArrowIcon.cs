@@ -60,7 +60,7 @@ namespace AGS.Engine
                 default: throw new NotSupportedException(Direction.ToString());
             }
 
-            _glUtils.DrawTriangleFan(0, new GLVertex[] { new GLVertex(point1.ToVector2(), _emptyVector, ArrowColor),
+            _glUtils.DrawTriangle(0, new GLVertex[] { new GLVertex(point1.ToVector2(), _emptyVector, ArrowColor),
                 new GLVertex(point2.ToVector2(), _emptyVector, ArrowColor), new GLVertex(point3.ToVector2(), _emptyVector, ArrowColor)});
         }
 

@@ -54,7 +54,7 @@ namespace AGS.Engine
                 foldBottomLeft.ToVector3(), foldTopRight.ToVector3(),
                 color, color, color, color);
 
-            _glUtils.DrawTriangleFan(0, new GLVertex[] { new GLVertex(foldBottomLeft.ToVector2(), _emptyVector, foldColor),
+            _glUtils.DrawTriangle(0, new GLVertex[] { new GLVertex(foldBottomLeft.ToVector2(), _emptyVector, foldColor),
                     new GLVertex(foldTopLeft.ToVector2(), _emptyVector, foldColor), new GLVertex(foldTopRight.ToVector2(), _emptyVector, foldColor)});
         }
     }

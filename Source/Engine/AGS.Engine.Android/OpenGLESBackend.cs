@@ -67,7 +67,11 @@ namespace AGS.Engine
         }
         public void DrawElements(PrimitiveMode primitiveType, int count, short[] indices)
         {
-            GL.DrawElements(getPrimitive(primitiveType), count, DrawElementsType.UnsignedShort, 0);
+            GL.DrawElements(getBeginMode(primitiveType), count, DrawElementsType.UnsignedShort, 0);
+        }
+        public void DrawArrays(PrimitiveMode primitiveType, int first, int count)
+        {
+            GL.DrawArrays(getPrimitive(primitiveType), first, count);
         }
         public void InitPointers(int size)
         {
@@ -245,7 +249,22 @@ namespace AGS.Engine
             }
         }
 
-        private BeginMode getPrimitive(PrimitiveMode mode)
+        private PrimitiveType getPrimitive(PrimitiveMode mode)
+        {
+            switch (mode)
+            {
+                case PrimitiveMode.Points: return PrimitiveType.Points;
+                case PrimitiveMode.Lines: return PrimitiveType.Lines;
+                case PrimitiveMode.LineLoop: return PrimitiveType.LineLoop;
+                case PrimitiveMode.LineStrip: return PrimitiveType.LineStrip;
+                case PrimitiveMode.Triangles: return PrimitiveType.Triangles;
+                case PrimitiveMode.TriangleStrip: return PrimitiveType.TriangleStrip;
+                case PrimitiveMode.TriangleFan: return PrimitiveType.TriangleFan;
+                default: throw new NotSupportedException(mode.ToString());
+            }
+        }
+
+        private BeginMode getBeginMode(PrimitiveMode mode)
         {
             switch (mode)
             {

@@ -49,6 +49,10 @@ namespace AGS.Engine
         {
             GL.DrawElements(getPrimitive(primitiveType), count, DrawElementsType.UnsignedShort, IntPtr.Zero);
         }
+        public void DrawArrays(PrimitiveMode primitiveType, int first, int count)
+        {
+            GL.DrawArrays(getPrimitive(primitiveType), first, count);
+        }
         public void InitPointers(int size)
         {
             GL.VertexPointer(2, VertexPointerType.Float, size, 0);

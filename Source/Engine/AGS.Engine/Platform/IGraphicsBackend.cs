@@ -76,6 +76,7 @@ namespace AGS.Engine
         void BindBuffer(int bufferId, BufferType bufferType);
         void BufferData<TBufferItem>(TBufferItem[] items, int itemSize, BufferType bufferType) where TBufferItem : struct;
         void DrawElements(PrimitiveMode primitiveType, int count, short[] indices);
+        void DrawArrays(PrimitiveMode primitiveType, int first, int count);
         void InitPointers(int size);
 
         int GenFrameBuffer();

@@ -46,7 +46,7 @@ namespace AGS.Engine
             float foldHeight = (square.MaxY - square.MinY) * (1f / 5f);
             PointF foldBottom = new PointF((square.TopLeft.X + square.TopRight.X) / 2f, square.TopLeft.Y - foldHeight);
 
-            _glUtils.DrawTriangleFan(0, new GLVertex[] { new GLVertex(square.TopLeft.ToVector2(), _emptyVector, foldColor),
+            _glUtils.DrawTriangle(0, new GLVertex[] { new GLVertex(square.TopLeft.ToVector2(), _emptyVector, foldColor),
                     new GLVertex(foldBottom.ToVector2(), _emptyVector, foldColor), new GLVertex(square.TopRight.ToVector2(), _emptyVector, foldColor)});
         }
     }
