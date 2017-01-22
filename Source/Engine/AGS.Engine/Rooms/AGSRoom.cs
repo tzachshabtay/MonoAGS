@@ -13,6 +13,7 @@ namespace AGS.Engine
 		private RenderOrderSelector _sorter;
 		private IGameState _state;
 		private IGameEvents _gameEvents;
+        private List<IObject> _visibleObjectsWithUi = new List<IObject>(), _visibleObjectsWithoutUi = new List<IObject>();
 
 		public AGSRoom (string id, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents,
 			IRoomEvents roomEvents, IGameState state, ICustomProperties properties)
@@ -81,22 +82,19 @@ namespace AGS.Engine
 
 		public IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true)
 		{
-			List<IObject> visibleObjects = Objects.Where(o => o.Visible && (ShowPlayer || o != _player)).ToList();
-			if (includeUi) visibleObjects.AddRange(_state.UI.Where(o => o.Visible));
-			visibleObjects.Sort(_sorter);
-			return visibleObjects;
+            return includeUi ? _visibleObjectsWithUi : _visibleObjectsWithoutUi;
 		}
 
 		public IObject GetObjectAt(float x, float y, bool onlyEnabled = true, bool includeUi = true)
 		{
-			foreach (IObject obj in GetVisibleObjectsFrontToBack()) 
-			{
-				if (onlyEnabled && !obj.Enabled)
-					continue;
+            foreach (IObject obj in GetVisibleObjectsFrontToBack())
+            {
+                if (onlyEnabled && !obj.Enabled)
+                    continue;
 
-				if (obj.CollidesWith(x, y)) return obj;
-			}
-			return null;
+                if (obj.CollidesWith(x, y)) return obj;
+            }
+            return null;
 		}
 
 		public TObject Find<TObject>(string id) where TObject : class, IObject
@@ -123,8 +121,20 @@ namespace AGS.Engine
 		private void onRepeatedlyExecute(object sender, EventArgs args)
 		{
             if (_player == null || _player.Room != this) return;
+            cacheVisibleObjects();
 			_edges.OnRepeatedlyExecute(_player);
 		}
-	}
+
+        private void cacheVisibleObjects()
+        { 
+            List<IObject> visibleObjects = Objects.Where(o => o.Visible && (ShowPlayer || o != _player)).ToList();
+            List<IObject> visibleWithUi = new List<IObject>(visibleObjects);
+            visibleWithUi.AddRange(_state.UI.Where(o => o.Visible));
+            visibleObjects.Sort(_sorter);
+            visibleWithUi.Sort(_sorter);
+            _visibleObjectsWithUi = visibleWithUi;
+            _visibleObjectsWithoutUi = visibleObjects;
+        }
+    }
 }
 
