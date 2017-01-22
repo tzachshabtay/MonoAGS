@@ -111,20 +111,20 @@ namespace AGS.Engine
             scrollDownButton.MouseClicked.Subscribe((sender, args) => invWindow.ScrollDown());
             scrollUpButton.MouseClicked.Subscribe((sender, args) => invWindow.ScrollUp());
 
-            _fileIcon = new FileIcon(_glUtils);
-            _fileIconSelected = new FileIcon(_glUtils) { IsSelected = true };
-            _folderIcon = new FolderIcon(_glUtils);
-            _folderIconSelected = new FolderIcon(_glUtils) { IsSelected = true };
+            _fileIcon = new FileIcon(_glUtils, _game.Settings);
+            _fileIconSelected = new FileIcon(_glUtils, _game.Settings) { IsSelected = true };
+            _folderIcon = new FolderIcon(_glUtils, _game.Settings);
+            _folderIconSelected = new FolderIcon(_glUtils, _game.Settings) { IsSelected = true };
 
             var arrowDownIcon = getIcon("ArrowDown", factory, scrollButtonWidth, scrollButtonHeight, 
-                                        new ArrowIcon(_glUtils) { Direction = ArrowIcon.ArrowDirection.Down });
+                                        new ArrowIcon(_glUtils, _game.Settings) { Direction = ArrowIcon.ArrowDirection.Down });
             arrowDownIcon.Anchor = new PointF();
             arrowDownIcon.Enabled = false;
             arrowDownIcon.TreeNode.SetParent(scrollDownButton.TreeNode);
             _game.State.UI.Add(arrowDownIcon);
 
             var arrowUpIcon = getIcon("ArrowUp", factory, scrollButtonWidth, scrollButtonHeight,
-                                      new ArrowIcon(_glUtils) { Direction = ArrowIcon.ArrowDirection.Up });
+                                      new ArrowIcon(_glUtils, _game.Settings) { Direction = ArrowIcon.ArrowDirection.Up });
             arrowUpIcon.Anchor = new PointF();
             arrowUpIcon.Enabled = false;
             arrowUpIcon.TreeNode.SetParent(scrollUpButton.TreeNode);
