@@ -33,7 +33,8 @@ namespace AGS.Engine
             bool firstRoom = PreviousRoom == null;
             Action changeRoom = () => 
             {
-                if (Room != null) Room.Objects.Remove(_obj);
+                var room = Room;
+                if (room != null) room.Objects.Remove(_obj);
                 if (x != null) _obj.X = x.Value;
                 if (y != null) _obj.Y = y.Value;
                 if (newRoom != null)
