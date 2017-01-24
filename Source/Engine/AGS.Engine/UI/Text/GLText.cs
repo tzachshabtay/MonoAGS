@@ -178,13 +178,13 @@ namespace AGS.Engine
             using (var context = textDraw.CreateContext())
             {
                 textDraw.DrawText(text, config, textSize, baseSize, maxWidth, (int)heightF, 0f);
-                drawCaret(originalText, textSize, baseSize, textDraw, config, maxWidth);
+                drawCaret(originalText, textSize, heightF, baseSize, textDraw, config, maxWidth);
             }
 
             _renderChanged = true;
 		}
 
-        private void drawCaret(string text, SizeF textSize, SizeF baseSize, IBitmapTextDraw textDraw, ITextConfig config, int maxWidth)
+        private void drawCaret(string text, SizeF textSize, float heightF, SizeF baseSize, IBitmapTextDraw textDraw, ITextConfig config, int maxWidth)
         {
             if (!_renderCaret) return;
             var caretPosition = _caretPosition;            
@@ -193,8 +193,8 @@ namespace AGS.Engine
             string untilCaret = text.Substring(0, caretPosition);
             AGS.API.SizeF caretOffset = config.Font.MeasureString(untilCaret, maxWidth);
             float spaceOffset = 0f;
-            if (untilCaret.EndsWith(" ")) spaceOffset = _spaceWidth * (untilCaret.Length - untilCaret.TrimEnd().Length);
-            textDraw.DrawText("|", config, textSize, baseSize, maxWidth, (int)Height, caretOffset.Width + spaceOffset - 1f);            
+            if (untilCaret.EndsWith(" ", StringComparison.Ordinal)) spaceOffset = _spaceWidth * (untilCaret.Length - untilCaret.TrimEnd().Length);
+            textDraw.DrawText("|", config, textSize, baseSize, maxWidth, (int)heightF, caretOffset.Width + spaceOffset - 1f);            
         }
 
         private float measureSpace()
