@@ -111,7 +111,10 @@ namespace AGS.Engine.Android
             View.Dispose();
         }
 
-        public void Exit() { } //todo
+        public void Exit() 
+        {
+            Java.Lang.JavaSystem.Exit(0);
+        } 
 
         public void Run(double updateRate)
         {
