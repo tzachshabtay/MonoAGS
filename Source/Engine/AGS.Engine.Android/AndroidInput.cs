@@ -14,6 +14,7 @@ namespace AGS.Engine.Android
         private int _virtualWidth, _virtualHeight;
         private IShouldBlockInput _shouldBlockInput;
         private DateTime _lastDrag;
+        private AGSGameView _view;
 
         public AndroidInput(AndroidSimpleGestures gestures, AGS.API.Size virtualResolution, 
                             IGameState state, IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
@@ -50,6 +51,8 @@ namespace AGS.Engine.Android
                 await MouseUp.InvokeAsync(sender, new MouseButtonEventArgs(MouseButton.Left, MouseX, MouseY));
                 LeftMouseButtonDown = false;
             };
+            AndroidGameWindow.Instance.OnNewView += onViewChanged;
+            onViewChanged(null, AndroidGameWindow.Instance.View);
         }
 
         public IObject Cursor { get; set; }
@@ -79,6 +82,35 @@ namespace AGS.Engine.Android
         public bool IsKeyDown(Key key)
         {
             return false;
+        }
+
+        private void onViewChanged(object sender, AGSGameView view)
+        {
+            if (_view != null)
+            {
+                _view.KeyDown -= onKeyDown;
+                _view.KeyUp -= onKeyUp;
+            }
+            if (view != null)
+            {
+                view.KeyDown += onKeyDown;
+                view.KeyUp += onKeyUp;
+            }
+            _view = view;
+        }
+
+        private async void onKeyDown(object sender, Tuple<Keycode, KeyEvent> args)
+        { 
+            var key = args.Item1.Convert();
+            if (key == null) return;
+            await KeyDown.InvokeAsync(sender, new KeyboardEventArgs(key.Value));
+        }
+
+        private async void onKeyUp(object sender, Tuple<Keycode, KeyEvent> args)
+        {
+            var key = args.Item1.Convert();
+            if (key == null) return;
+            await KeyUp.InvokeAsync(sender, new KeyboardEventArgs(key.Value));
         }
 
         private bool isInputBlocked()

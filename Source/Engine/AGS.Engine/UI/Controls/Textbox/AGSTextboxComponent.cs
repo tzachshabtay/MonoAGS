@@ -18,7 +18,7 @@ namespace AGS.Engine
         private int _endOfLine { get { return _textComponent.Text.Length; } }
         private bool _capslock {  get { return _keyboardState.CapslockOn; } }
         private bool _leftShiftOn, _rightShiftOn;
-        private bool _shiftOn { get { return _leftShiftOn || _rightShiftOn; } }
+        private bool _shiftOn { get { return _leftShiftOn || _rightShiftOn || (_capslock && _keyboardState.SoftKeyboardVisible); } }
 
         private ILabel _withCaret;
 
@@ -60,6 +60,12 @@ namespace AGS.Engine
             {
                 if (_isFocused == value) return;
                 _isFocused = value;
+                if (_isFocused)
+                {
+                    _keyboardState.ShowSoftKeyboard();
+                    CaretPosition = _textComponent.Text.Length;
+                }
+                else _keyboardState.HideSoftKeyboard();
                 OnFocusChanged.Invoke(this, new AGSEventArgs());
             }
         }

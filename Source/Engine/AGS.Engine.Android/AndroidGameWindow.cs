@@ -12,6 +12,7 @@ namespace AGS.Engine.Android
         private GestureDetector _gestures;
         private bool _started;
         private double _updateRate;
+        private AGSGameView _view;
 
         public static AndroidGameWindow Instance = new AndroidGameWindow();
 
@@ -25,7 +26,18 @@ namespace AGS.Engine.Android
             Resolver.Override(resolver => resolver.Builder.RegisterType<AndroidInput>().SingleInstance().As<IInput>());
         }
 
-        public AGSGameView View { get; set; }
+        public AGSGameView View 
+        { 
+            get { return _view; } 
+            set 
+            { 
+                _view = value;
+                var onNewView = OnNewView;
+                if (onNewView != null) onNewView(this, value);
+            } 
+        }
+
+        public event EventHandler<AGSGameView> OnNewView;
 
         public Action StartGame { get; set; }
 

@@ -46,7 +46,7 @@ namespace AGS.Engine.Android
 
             int index = 0;
             int length = text.Length;
-            while (index < length - 1)
+            while (index < length)
             {
                 string line = getNextLine(text, length, maxWidth, ref index);
                 if (index >= length - 1) y -= _metrics.Descent;

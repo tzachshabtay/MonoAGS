@@ -7,6 +7,9 @@ using Android.Util;
 using Android.Content;
 using Android.Runtime;
 using System.Diagnostics;
+using Android.Views.InputMethods;
+using Android.Graphics;
+using Res=Android.Content.Res;
 
 namespace AGS.Engine.Android
 {
@@ -30,6 +33,16 @@ namespace AGS.Engine.Android
             _updateFrameArgs = new FrameEventArgs();
             _renderFrameArgs = new FrameEventArgs();
             AndroidGameWindow.Instance.View = this;
+            this.Focusable = true;
+            this.FocusableInTouchMode = true;
+            this.ViewTreeObserver.GlobalLayout += (sender, e) => 
+            {
+                Rect rect = new Rect();
+                GetWindowVisibleDisplayFrame(rect);
+                var heightDiff = this.Height - (rect.Bottom - rect.Top);
+                if (heightDiff > 100) SoftKeyboardVisible = true;
+                else SoftKeyboardVisible = false;
+            };
         }
 
         // This method is called everytime the context needs
@@ -105,9 +118,54 @@ namespace AGS.Engine.Android
 
         public override bool OnTouchEvent(MotionEvent e)
         {
+            if (SoftKeyboardVisible) return false;
             bool gestureHandled = AndroidGameWindow.Instance.OnTouchEvent(e);
             bool touchHandled = base.OnTouchEvent(e);
             return touchHandled || gestureHandled;
+        }
+
+        public event EventHandler<Tuple<Keycode, KeyEvent>> KeyDown;
+        public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
+        {
+            CapslockOn = e.IsShiftPressed;
+            var mappedKey = mapKey(keyCode);
+            var keyDown = KeyDown;
+            if (keyDown != null) keyDown(this, new Tuple<Keycode, KeyEvent>(mappedKey, e));
+            return base.OnKeyDown(keyCode, e);
+        }
+
+        public event EventHandler<Tuple<Keycode, KeyEvent>> KeyUp;
+        public override bool OnKeyUp(Keycode keyCode, KeyEvent e)
+        {
+            var keyUp = KeyUp;
+            var mappedKey = mapKey(keyCode);
+            if (keyUp != null) keyUp(this, new Tuple<Keycode, KeyEvent>(mappedKey, e));
+            return base.OnKeyUp(keyCode, e);
+        }
+
+        protected override void OnConfigurationChanged(Res.Configuration newConfig)
+        {
+            base.OnConfigurationChanged(newConfig);
+            SoftKeyboardVisible = newConfig.HardKeyboardHidden == Res.HardKeyboardHidden.No;
+        }
+
+        public bool CapslockOn { get; private set; }
+        public bool SoftKeyboardVisible { get; private set; }
+
+        public void ShowKeyboard()
+        {
+            RequestFocus();
+            SoftKeyboardVisible = true;
+            InputMethodManager mgr = (InputMethodManager)this.Context.GetSystemService(Context.InputMethodService);
+            mgr.ShowSoftInput(this, ShowFlags.Forced);
+        }
+
+        public void HideKeyboard()
+        {
+            CapslockOn = false;
+            SoftKeyboardVisible = false;
+            InputMethodManager mgr = (InputMethodManager)this.Context.GetSystemService(Context.InputMethodService);
+            mgr.HideSoftInputFromWindow(WindowToken, HideSoftInputFlags.ImplicitOnly);
         }
 
         public new API.WindowState WindowState
@@ -119,6 +177,27 @@ namespace AGS.Engine.Android
         {
             get { return (API.WindowBorder)base.WindowBorder; }
             set { base.WindowBorder = (OpenTK.WindowBorder)value; }
+        }
+
+        private Keycode mapKey(Keycode key)
+        { 
+            //Yikes! A few of the keys don't map nicely to their matching numbers + shift (tested on a Nexus5X), so we need to simulate this for consistency
+            switch (key)
+            {
+                case Keycode.Star:
+                    CapslockOn = true;
+                    return Keycode.Num8;
+                case Keycode.Pound:
+                    CapslockOn = true;
+                    return Keycode.Num3;
+                case Keycode.At:
+                    CapslockOn = true;
+                    return Keycode.Num2;
+                case Keycode.Plus:
+                    CapslockOn = true;
+                    return Keycode.Plus;
+            }
+            return key;
         }
 
         private void onUpdateFrame(object sender, OpenTK.FrameEventArgs args)
