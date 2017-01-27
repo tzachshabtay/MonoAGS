@@ -75,6 +75,8 @@ namespace AGS.Engine.Android
 			TextPaint paint = ((AndroidBrush)brush).InnerBrush;
 			paint.SetTypeface(((AndroidFont)_config.Font).InnerFont);
 			paint.TextSize = _config.Font.SizeInPoints;
+            if (_config.Font.Style.HasFlag(FontStyle.Underline)) paint.Flags |= PaintFlags.UnderlineText;
+            if (_config.Font.Style.HasFlag(FontStyle.Strikeout)) paint.Flags |= PaintFlags.StrikeThruText;
 			return paint;
 		}
 

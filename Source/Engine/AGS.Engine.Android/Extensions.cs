@@ -23,7 +23,6 @@ namespace AGS.Engine.Android
 			{
 				return TypefaceStyle.Italic;
 			}
-			//todo: support Underline and Strikeout
 			return TypefaceStyle.Normal;
 		}
 
