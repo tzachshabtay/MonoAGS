@@ -94,8 +94,9 @@ namespace AGS.Engine
 
 			foreach (var obj in _inventoryItems)
 			{
-                obj.Visible = false;				
-			}
+                obj.Visible = false;	
+                _tree.TreeNode.AddChild(obj);
+            }
 			List<IObject> items = new List<IObject> (Inventory.Items.Count);
 			foreach (var item in Inventory.Items)
 			{
@@ -115,7 +116,6 @@ namespace AGS.Engine
 				obj.X = x;
 				obj.Y = y;
                 
-                _tree.TreeNode.AddChild(obj);
                 if (!_state.UI.Contains(obj))
                 {
                     _state.UI.Add(obj);
