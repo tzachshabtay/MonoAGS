@@ -243,6 +243,7 @@ namespace AGS.Engine
 		{
 			if (TextVisible)
 			{
+                if (Text == null) return;
 				_glText.SetProperties(baseSize, Text, Config, maxWidth, CaretPosition, RenderCaret, cropText);
 				_glText.Refresh();
 			}

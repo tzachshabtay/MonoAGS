@@ -41,7 +41,7 @@ namespace AGS.Engine
             _game = game;
             _title = title;
             _fileSelection = fileSelection;
-            _startPath = startPath ?? _device.FileSystem.GetCurrentDirectory();
+            _startPath = startPath ?? _device.FileSystem.GetCurrentDirectory() ?? "";
             _buttonsTextConfig = new AGSTextConfig(alignment: Alignment.BottomCenter,
                 autoFit: AutoFit.TextShouldFitLabel, font: game.Factory.Fonts.LoadFont(null, 10f));
             _filesTextConfig = new AGSTextConfig(alignment: Alignment.BottomCenter,
@@ -138,6 +138,7 @@ namespace AGS.Engine
             _fileTextBox.OnPressingKey.Subscribe(onTextBoxKeyPressed);
 
             bool okGiven = await _tcs.Task;
+            _inventory.Items.Clear();
             removeAllUI(panel);
             if (!okGiven) return null;
             return _fileTextBox.Text;
