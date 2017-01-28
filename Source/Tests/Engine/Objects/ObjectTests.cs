@@ -152,8 +152,12 @@ namespace Tests
 
 			Predicate<IObject> getBool = propertyName == "Visible" ? _getVisible : _getEnabled;
 
+            AGSConcurrentHashSet<IObject> ui = new AGSConcurrentHashSet<IObject>();
+
 			foreach (IObject obj in GetImplementors(_mocks, state))
 			{
+                state.Setup(s => s.UI).Returns(ui);
+                ui.Add(obj);
 				setBool(obj, isObj);
 				if (!isParent.HasValue)
 				{
@@ -163,6 +167,8 @@ namespace Tests
 				}
 				foreach (IObject parent in GetImplementors(_mocks, state))
 				{
+                    state.Setup(s => s.UI).Returns(ui);
+                    ui.Add(parent);
 					obj.TreeNode.SetParent(parent.TreeNode);
 					setBool(parent, isParent.Value);
 					if (!isGrandParent.HasValue)
@@ -173,6 +179,8 @@ namespace Tests
 					}
 					foreach (IObject grandparent in GetImplementors(_mocks, state))
 					{
+                        state.Setup(s => s.UI).Returns(ui);
+                        ui.Add(grandparent);
 						parent.TreeNode.SetParent(grandparent.TreeNode);
 						setBool(grandparent, isGrandParent.Value);
 

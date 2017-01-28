@@ -71,11 +71,13 @@ namespace Tests
             Mock<IUIFactory> uiFactory = new Mock<IUIFactory>();
             Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();
             gameEvents.Setup(g => g.OnBeforeRender).Returns(new Mock<IBlockingEvent<AGSEventArgs>>().Object);
+            gameEvents.Setup(g => g.OnRepeatedlyExecute).Returns(new Mock<IEvent<AGSEventArgs>>().Object);
             game.Setup(g => g.Events).Returns(gameEvents.Object);
             game.Setup(g => g.Factory).Returns(factory.Object);
             factory.Setup(f => f.UI).Returns(uiFactory.Object);
             Mock<ILabel> label = new Mock<ILabel>();
             Mock<ITreeNode<IObject>> tree = new Mock<ITreeNode<IObject>>();
+            Mock<IFocusedUI> focusedUi = new Mock<IFocusedUI>();
             label.Setup(l => l.TreeNode).Returns(tree.Object);
             uiFactory.Setup(u => u.GetLabel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<float>(),
                 It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<ITextConfig>(), It.IsAny<bool>())).
@@ -83,7 +85,7 @@ namespace Tests
             
 
             AGSTextBoxComponent textbox = new AGSTextBoxComponent(new AGSEvent<AGSEventArgs>(), new AGSEvent<TextBoxKeyPressingEventArgs>(), 
-                  input.Object, game.Object, new DesktopKeyboardState());
+                                                  input.Object, game.Object, new DesktopKeyboardState(), focusedUi.Object);
             textbox.Init(entity.Object);
             textbox.IsFocused = true;
             bool isShiftDown = false;
