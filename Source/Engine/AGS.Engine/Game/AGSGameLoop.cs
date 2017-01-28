@@ -21,7 +21,7 @@ namespace AGS.Engine
 
 		#region IGameLoop implementation
 
-		public virtual void Update ()
+		public virtual async Task UpdateAsync()
 		{
             if (_gameState.Room == null) return;
 			IRoom room = _gameState.Room;
@@ -52,18 +52,11 @@ namespace AGS.Engine
 			}
 
 			updateViewport (room, changedRoom);
-			updateRoom(room);
-
-			Task.Run (async () => await UpdateAsync ()).Wait ();
+			await updateRoom(room);
 		}
 
 		#endregion
 
-		protected virtual Task UpdateAsync ()
-		{
-			return Task.FromResult (true);
-		}
-			
 		private void updateViewport (IRoom room, bool playerChangedRoom)
 		{
 			ICamera camera = room.Viewport.Camera;
@@ -76,11 +69,11 @@ namespace AGS.Engine
 			}
 		}
 
-		private void updateRoom(IRoom room)
+        private async Task updateRoom(IRoom room)
 		{
 			if (_lastRoom == room) return;
-			room.Events.OnAfterFadeIn.Invoke(this, new AGSEventArgs ());
             _lastRoom = room;
+            await room.Events.OnAfterFadeIn.InvokeAsync(this, new AGSEventArgs ());
 		}
 
 		private void runAnimation(IAnimation animation)

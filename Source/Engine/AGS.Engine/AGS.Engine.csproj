@@ -389,6 +389,7 @@
     <Compile Include="Game\Factories\AGSFontFactory.cs" />
     <Compile Include="Platform\IDevice.cs" />
     <Compile Include="Platform\IAssemblies.cs" />
+    <Compile Include="Game\IUIThread.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

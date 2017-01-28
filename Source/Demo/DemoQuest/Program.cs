@@ -30,17 +30,7 @@ namespace DemoGame
                 Debug.WriteLine("Startup: Loading Assets");
                 await loadPlayerCharacter(game);
                 Debug.WriteLine("Startup: Loaded Player Character");
-                await loadRooms(game);
-                Debug.WriteLine("Startup: Loaded Rooms");
-                Task charactersLoaded = loadCharacters(game);
-                var topPanel = await loadUi(game);
-                Debug.WriteLine("Startup: Loaded UI");
-                DefaultInteractions defaults = new DefaultInteractions(game, game.Events);
-                defaults.Load();
-                await charactersLoaded;
-                Debug.WriteLine("Startup: Loaded Characters");
-                await game.State.Player.ChangeRoomAsync(Rooms.EmptyStreet.Result, 50, 30);
-                topPanel.Visible = true;
+                await loadSplashScreen(game);
             });
 
             game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
@@ -109,7 +99,6 @@ namespace DemoGame
 			KeyboardMovement movement = new KeyboardMovement (character, game.Input, KeyboardMovementMode.Pressing);
 			movement.AddArrows();
 			movement.AddWASD();
-			await character.ChangeRoomAsync(Rooms.SplashScreen);
 
             InventoryItems items = new InventoryItems();
             await items.LoadAsync(game.Factory);
@@ -122,13 +111,31 @@ namespace DemoGame
 			Characters.Init (game);
 		}
 
+        private static async Task loadSplashScreen(IGame game)
+        { 
+            AGSSplashScreen splashScreen = new AGSSplashScreen();
+            Rooms.SplashScreen = splashScreen.Load(game);
+            game.State.Rooms.Add(Rooms.SplashScreen);
+            Rooms.SplashScreen.Events.OnAfterFadeIn.SubscribeToAsync(async (object sender, AGSEventArgs args) => 
+            { 
+                await loadRooms(game);
+                Debug.WriteLine("Startup: Loaded Rooms");
+                Task charactersLoaded = loadCharacters(game);
+                var topPanel = await loadUi(game);
+                Debug.WriteLine("Startup: Loaded UI");
+                DefaultInteractions defaults = new DefaultInteractions(game, game.Events);
+                defaults.Load();
+                await charactersLoaded;
+                Debug.WriteLine("Startup: Loaded Characters");
+                await game.State.Player.ChangeRoomAsync(Rooms.EmptyStreet.Result, 50, 30);
+                topPanel.Visible = true;
+            });
+            await game.State.ChangeRoomAsync(Rooms.SplashScreen);
+            Debug.WriteLine("Startup: Loaded splash screen");
+        }
+
 		private static async Task loadRooms(IGame game)
 		{
-			AGSSplashScreen splashScreen = new AGSSplashScreen ();
-			Rooms.SplashScreen = splashScreen.Load (game);
-			game.State.Rooms.Add (Rooms.SplashScreen);
-            Debug.WriteLine("Startup: Loaded splash screen");
-
 			EmptyStreet emptyStreet = new EmptyStreet (game.State.Player);
 			Rooms.EmptyStreet = emptyStreet.LoadAsync(game);
             await waitForRoom(game, Rooms.EmptyStreet);

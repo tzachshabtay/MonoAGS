@@ -4,7 +4,6 @@ using AGS.Engine;
 using AGS.API;
 using Moq;
 using System.Collections.Generic;
-using AGS.Engine.Desktop;
 
 namespace Tests
 {
@@ -35,7 +34,7 @@ namespace Tests
 		[TestCase(5f, 5f, true, 0f, 0f, false, 3f, 3f, true)]
 		[TestCase(0f, 0f, true, 5f, 5f, false, 3f, 3f, false)]
 		[TestCase(5f, 5f, true, 0f, 0f, false, 3f, 3f, false)]
-		public void WalkTest(float fromX, float fromY, bool fromWalkable, 
+		public async Task WalkTest(float fromX, float fromY, bool fromWalkable, 
 			                 float toX, float toY, bool toWalkable, 
 			                 float closeToX, float closeToY, bool hasCloseToWalkable)
 		{
@@ -100,7 +99,7 @@ namespace Tests
 			bool walkShouldSucceed = fromWalkable && (toWalkable || hasCloseToWalkable);
 
 			//Act:
-			bool walkSucceded = walk.Walk(toLocation);
+			bool walkSucceded = await walk.WalkAsync(toLocation);
 
 			//Test:
 			Assert.AreEqual(walkShouldSucceed, walkSucceded);

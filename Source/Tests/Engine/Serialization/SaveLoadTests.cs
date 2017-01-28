@@ -31,6 +31,9 @@ namespace Tests
 			updater.RegisterInstance(_mocks.Input().Object).As<IInput>();
 			updater.RegisterInstance(_mocks.AudioSystem().Object).As<IAudioSystem>();
 			updater.RegisterInstance(new Mock<IMessagePump>().Object);
+            Mock<IUIThread> uiThread = new Mock<IUIThread>();
+            uiThread.Setup(u => u.RunBlocking(It.IsAny<Action>())).Callback<Action>(a => a());
+            updater.RegisterInstance(uiThread.Object);
 			updater.Update(_resolver.Container);
             _textures = new Dictionary<string, ITexture> ();
 			_state = _resolver.Container.Resolve<IGameState>();

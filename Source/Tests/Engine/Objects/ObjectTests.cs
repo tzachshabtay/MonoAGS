@@ -4,8 +4,8 @@ using AGS.API;
 using System.Collections.Generic;
 using AGS.Engine;
 using Moq;
-using System.Drawing;
 using Autofac;
+using System.Threading.Tasks;
 
 namespace Tests
 {
@@ -31,7 +31,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void ChangeRoom_WhenNotInRoom_Test()
+		public async Task ChangeRoom_WhenNotInRoom_Test()
 		{
             Mock<IGameState> state = _mocks.GameState();
 			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
@@ -42,14 +42,14 @@ namespace Tests
 				rooms.Clear();
 				IRoom room = _mocks.Room(true).Object;
 				rooms.Add(room);
-				obj.ChangeRoom(room);
+				await obj.ChangeRoomAsync(room);
 				Assert.AreEqual(room, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
 				Assert.IsNull(obj.PreviousRoom, "Prev room not null for " + obj.Hotspot ?? "null");
 			}
 		}
 
 		[Test]
-		public void ChangeRoom_WhenInRoom_Test()
+		public async Task ChangeRoom_WhenInRoom_Test()
 		{
 			Mock<IGameState> state = new Mock<IGameState> ();
 			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
@@ -63,15 +63,15 @@ namespace Tests
 				IRoom newRoom = _mocks.Room(true).Object;
 				rooms.Add(oldRoom);
 				rooms.Add(newRoom);
-				obj.ChangeRoom(oldRoom);
-				obj.ChangeRoom(newRoom);
+				await obj.ChangeRoomAsync(oldRoom);
+				await obj.ChangeRoomAsync(newRoom);
 				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
 				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.Hotspot ?? "null");
 			}
 		}
 
 		[Test]
-		public void ChangeRoom_ToSameRoom_Test()
+		public async Task ChangeRoom_ToSameRoom_Test()
 		{
 			Mock<IGameState> state = new Mock<IGameState> ();
 			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
@@ -85,15 +85,15 @@ namespace Tests
 				IRoom newRoom = oldRoom;
 				rooms.Add(oldRoom);
 				rooms.Add(newRoom);
-				obj.ChangeRoom(oldRoom);
-				obj.ChangeRoom(newRoom);
+				await obj.ChangeRoomAsync(oldRoom);
+				await obj.ChangeRoomAsync(newRoom);
 				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
 				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.Hotspot ?? "null");
 			}
 		}
 
 		[Test]
-		public void ChangeRoom_ToNullRoom_Test()
+		public async Task ChangeRoom_ToNullRoom_Test()
 		{
 			Mock<IGameState> state = new Mock<IGameState> ();
 			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
@@ -106,8 +106,8 @@ namespace Tests
 				IRoom oldRoom = _mocks.Room(true).Object;
 				IRoom newRoom = null;
 				rooms.Add(oldRoom);
-				obj.ChangeRoom(oldRoom);
-				obj.ChangeRoom(newRoom);
+				await obj.ChangeRoomAsync(oldRoom);
+				await obj.ChangeRoomAsync(newRoom);
 				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
 				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.Hotspot ?? "null");
 			}
@@ -225,6 +225,8 @@ namespace Tests
             buttonComponent.Setup(b => b.PushedAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
             Mock<IAudioSystem> audioSystem = new Mock<IAudioSystem>();
             Mock<IRuntimeSettings> settings = mocks.Settings();
+            Mock<IUIThread> uiThread = new Mock<IUIThread>();
+            uiThread.Setup(u => u.RunBlocking(It.IsAny<Action>())).Callback<Action>(a => a());
 
             resolver.Builder.RegisterInstance(input.Object);
             resolver.Builder.RegisterInstance(state);
@@ -233,6 +235,7 @@ namespace Tests
             resolver.Builder.RegisterInstance(buttonComponent.Object);
             resolver.Builder.RegisterInstance(audioSystem.Object);
             resolver.Builder.RegisterInstance(new Mock<IMessagePump>().Object);
+            resolver.Builder.RegisterInstance(uiThread.Object);
             resolver.Builder.RegisterInstance(new Mock<ILabelRenderer>().Object);
             resolver.Builder.RegisterInstance(new Mock<ITexture>().Object);
             resolver.Builder.RegisterInstance(mocks.MaskLoader().Object).As<IMaskLoader>();

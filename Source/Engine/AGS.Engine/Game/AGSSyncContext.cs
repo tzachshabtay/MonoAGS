@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace AGS.Engine
 {
-	public class AGSSyncContext : SynchronizationContext, IMessagePump
+	public class AGSSyncContext : SynchronizationContext, IMessagePump, IUIThread
 	{
 		private ConcurrentQueue<Action> _queue;
 		private static bool _initialized;
@@ -42,8 +42,18 @@ namespace AGS.Engine
 				resetEvent.Set ();
 			};
 			_queue.Enqueue (action);
-			resetEvent.WaitOne (120000);
+            resetEvent.WaitOne(120000);
 		}
+
+        public void RunBlocking(Action action)
+        { 
+            if (Environment.CurrentManagedThreadId == AGSGame.UIThreadID)
+            {
+                action();
+                return;
+            }
+            Send((state) => action(), null);
+        }
 	}
 }
 

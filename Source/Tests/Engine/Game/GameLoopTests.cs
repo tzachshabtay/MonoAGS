@@ -1,11 +1,9 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Moq;
 using AGS.API;
 using AGS.Engine;
-using System.Collections.Generic;
-using System.Drawing;
 using Autofac;
+using System.Threading.Tasks;
 
 namespace Tests
 {
@@ -27,24 +25,24 @@ namespace Tests
 		}
 
 		[Test]
-		public void EmptyRoomTest()
+		public async Task EmptyRoomTest()
 		{
 			var room = _mocks.Room();
 			room.Setup(r => r.Background).Returns((IObject)null);
 			var loop = getGameLoop();
 
-			loop.Update();
+			await loop.UpdateAsync();
 		}
 
 		[Test]
-		public void Background_CounterDecreasedTest()
+		public async Task Background_CounterDecreasedTest()
 		{
 			var animationState = _mocks.AnimationState();
 			animationState.Setup(a => a.TimeToNextFrame).Returns(5);
 			var animation = _mocks.Animation();
 
 			var loop = getGameLoop();
-			loop.Update();
+			await loop.UpdateAsync();
 
 			animationState.VerifySet(a => a.TimeToNextFrame = 4, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -52,7 +50,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void Background_NextFrameTest()
+		public async Task Background_NextFrameTest()
 		{
 			var animationState = _mocks.AnimationState();
 			int frame = 0;
@@ -61,7 +59,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 			var loop = getGameLoop();
 
-			loop.Update();
+			await loop.UpdateAsync();
 
 			animationState.VerifySet(a => a.TimeToNextFrame = -1, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -69,7 +67,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void Object_CounterDecreasedTest()
+		public async Task Object_CounterDecreasedTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
 			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
@@ -78,7 +76,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 
 			var loop = getGameLoop();
-			loop.Update();
+			await loop.UpdateAsync();
 
 			animationState.VerifySet(a => a.TimeToNextFrame = 4, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -86,7 +84,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void InvisibleObject_CounterNotDecreasedTest()
+		public async Task InvisibleObject_CounterNotDecreasedTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
 			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
@@ -96,7 +94,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 
 			var loop = getGameLoop();
-			loop.Update();
+			await loop.UpdateAsync();
 
 			animationState.VerifySet(a => a.TimeToNextFrame = 4, Times.Never());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Never());
@@ -104,7 +102,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void PlayerInNoPlayerRoom_CounterNotDecreasedTest()
+		public async Task PlayerInNoPlayerRoom_CounterNotDecreasedTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
 			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Character().Object });
@@ -114,7 +112,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 
 			var loop = getGameLoop();
-			loop.Update();
+			await loop.UpdateAsync();
 
 			animationState.VerifySet(a => a.TimeToNextFrame = 4, Times.Never());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Never());
@@ -122,7 +120,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void ObjectInNoPlayerRoom_CounterDecreasedTest()
+		public async Task ObjectInNoPlayerRoom_CounterDecreasedTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
 			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
@@ -132,7 +130,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 
 			var loop = getGameLoop();
-			loop.Update();
+			await loop.UpdateAsync();
 
 			animationState.VerifySet(a => a.TimeToNextFrame = 4, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -140,7 +138,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void Object_NextFrameTest()
+		public async Task Object_NextFrameTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
 			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
@@ -151,7 +149,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 			var loop = getGameLoop();
 
-			loop.Update();
+			await loop.UpdateAsync();
 
 			animationState.VerifySet(a => a.TimeToNextFrame = -1, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -159,7 +157,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void InvisibleObject_NotNextFrameTest()
+		public async Task InvisibleObject_NotNextFrameTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
 			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
@@ -171,7 +169,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 			var loop = getGameLoop();
 
-			loop.Update();
+			await loop.UpdateAsync();
 
 			animationState.VerifySet(a => a.TimeToNextFrame = -1, Times.Never());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Never());
@@ -179,7 +177,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void PlayerInNoPlayerRoom_NotNextFrameTest()
+		public async Task PlayerInNoPlayerRoom_NotNextFrameTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
 			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Character().Object });
@@ -190,7 +188,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 			var loop = getGameLoop();
 
-			loop.Update();
+			await loop.UpdateAsync();
 
 			animationState.VerifySet(a => a.TimeToNextFrame = -1, Times.Never());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Never());
@@ -198,7 +196,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void ObjectInNoPlayerRoom_NextFrameTest()
+		public async Task ObjectInNoPlayerRoom_NextFrameTest()
 		{
 			_mocks.Room().Setup(r => r.Background).Returns((IObject)null);
 			_mocks.Room().Setup(r => r.Objects).Returns(new AGSConcurrentHashSet<IObject> { _mocks.Object().Object });
@@ -209,7 +207,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 			var loop = getGameLoop();
 
-			loop.Update();
+			await loop.UpdateAsync();
 
 			animationState.VerifySet(a => a.TimeToNextFrame = -1, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -217,19 +215,19 @@ namespace Tests
 		}
 
 		[Test]
-		public void NoCamera_ViewportStaysTest()
+		public async Task NoCamera_ViewportStaysTest()
 		{
 			_mocks.Viewport().Setup(v => v.Camera).Returns((ICamera)null);
 			var loop = getGameLoop();
 
-			loop.Update();
+			await loop.UpdateAsync();
 
 			_mocks.Viewport().VerifySet(v => v.X = It.IsAny<float>(), Times.Never());
 			_mocks.Viewport().VerifySet(v => v.Y = It.IsAny<float>(), Times.Never());
 		}
 
 		[Test]
-		public void Camera_ViewportMovesTest()
+		public async Task Camera_ViewportMovesTest()
 		{
 			Mock<ICamera> camera = new Mock<ICamera> ();
 			AGS.API.PointF sourcePoint = new AGS.API.PointF (15f, 25f);
@@ -242,7 +240,7 @@ namespace Tests
 			_mocks.Viewport().Setup(v => v.Camera).Returns(camera.Object);
 			var loop = getGameLoop();
 
-			loop.Update();
+			await loop.UpdateAsync();
 
 			_mocks.Viewport().VerifySet(v => v.X = It.IsAny<float>(), Times.Once());
 			_mocks.Viewport().VerifySet(v => v.Y = It.IsAny<float>(), Times.Once());

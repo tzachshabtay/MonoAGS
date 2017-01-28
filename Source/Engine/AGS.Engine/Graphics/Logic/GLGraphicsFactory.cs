@@ -14,10 +14,12 @@ namespace AGS.Engine
 		private readonly IResourceLoader _resources;
 		private readonly IBitmapLoader _bitmapLoader;
 		private readonly SpriteSheetLoader _spriteSheetLoader;
+        private readonly IUIThread _uiThread;
 
         public GLGraphicsFactory (Dictionary<string, ITexture> textures, IContainer resolver, IGLUtils glUtils, 
-                                  IGraphicsBackend graphics, IBitmapLoader bitmapLoader)
+                                  IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IUIThread uiThread)
 		{
+            this._uiThread = uiThread;
 			this._textures = textures;
 			this._resolver = resolver;
 			this._resources = resolver.Resolve<IResourceLoader>();
@@ -198,39 +200,54 @@ namespace AGS.Engine
         private IImage loadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
         {
             id = id ?? Guid.NewGuid().ToString();
-            ITexture tex = createTexture(config);
-            return loadImage(tex, bitmap, id, config, null);
+            IImage image = null;
+            _uiThread.RunBlocking(() =>
+            {
+                ITexture tex = createTexture(config);
+                image = loadImage(tex, bitmap, id, config, null);
+            });
+            return image;
         }
 
         private IImage loadImage(IResource resource, ILoadImageConfig config = null)
 		{
-			ITexture tex = createTexture(config);
-			try
-			{
-				IBitmap bitmap = _bitmapLoader.Load(resource.Stream);
-				return loadImage (tex, bitmap, resource.ID, config, null);
-			}
-			catch (ArgumentException e)
-			{
-				Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
-				return null;
-			}
+            IImage image = null;
+            _uiThread.RunBlocking(() =>
+            {
+                ITexture tex = createTexture(config);
+                try
+                {
+                    IBitmap bitmap = _bitmapLoader.Load(resource.Stream);
+                    image = loadImage(tex, bitmap, resource.ID, config, null);
+                }
+                catch (ArgumentException e)
+                {
+                    Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+                }
+            });
+            return image;
 		}
 
         private async Task<IImage> loadImageAsync (IResource resource, ILoadImageConfig config = null)
 		{
+            IBitmap bitmap;
 			try 
 			{
                 if (resource == null) return new EmptyImage(1f, 1f);
-				IBitmap bitmap = await Task.Run(() => _bitmapLoader.Load (resource.Stream));
-				ITexture tex = createTexture(config);
-				return loadImage(tex, bitmap, resource.ID, config, null);
+				bitmap = await Task.Run(() => _bitmapLoader.Load (resource.Stream));
 			} 
 			catch (ArgumentException e) 
 			{
 				Debug.WriteLine ("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString ());
 				return null;
 			}
+            IImage image = null;
+            _uiThread.RunBlocking(() =>
+            {
+                ITexture tex = createTexture(config);
+                image = loadImage(tex, bitmap, resource.ID, config, null);
+            });
+            return image;
 		}
 
         private IImage loadImage(ITexture texture, IBitmap bitmap, string id, ILoadImageConfig config, ISpriteSheet spriteSheet)
