@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.Threading.Tasks;
+
+namespace AGS.API
 {
     /// <summary>
     /// This component associates an entity with the game's room system.
@@ -34,6 +36,6 @@
         /// }
         /// </code>
         /// </example>
-		void ChangeRoom(IRoom room, float? x = null, float? y = null);
+		Task ChangeRoomAsync(IRoom room, float? x = null, float? y = null);
     }
 }

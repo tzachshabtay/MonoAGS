@@ -28,7 +28,7 @@ namespace AGS.Engine
 
 		public IRoom PreviousRoom { get; private set; }
 
-        public void ChangeRoom(IRoom newRoom, float? x = null, float? y = null)
+        public async Task ChangeRoomAsync(IRoom newRoom, float? x = null, float? y = null)
 		{
             bool firstRoom = PreviousRoom == null;
             Action changeRoom = () => 
@@ -44,12 +44,12 @@ namespace AGS.Engine
                 PreviousRoom = Room;
                 refreshRoom();
             };
-            if (_state.Player == _obj) _state.ChangeRoom(newRoom, changeRoom);
+            if (_state.Player == _obj) await _state.ChangeRoomAsync(newRoom, changeRoom);
             else changeRoom();
 			
             //Waiting for a transition state change to ensure the before fade in event of the new room occurs before the next action after the ChangeRoom was called
             if (_state.Player == _obj && !firstRoom && _roomTransitions.Transition != null)
-                _roomTransitions.OnStateChanged.WaitUntil(canCompleteRoomTransition);
+                await _roomTransitions.OnStateChanged.WaitUntilAsync(canCompleteRoomTransition);
 		}
 
         private bool canCompleteRoomTransition(AGSEventArgs args)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace AGS.API
 {
@@ -17,7 +18,7 @@ namespace AGS.API
 		bool Paused { get; set; }
 		int Speed { get; set; }
 
-        void ChangeRoom(IRoom newRoom, Action afterTransitionFadeOut = null);
+        Task ChangeRoomAsync(IRoom newRoom, Action afterTransitionFadeOut = null);
 		void Clean();
 		void CopyFrom(IGameState state);
 

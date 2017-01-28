@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.Threading.Tasks;
+using AGS.API;
 using Autofac;
 
 namespace AGS.Engine
@@ -37,10 +38,10 @@ namespace AGS.Engine
 			}
 		}
 
-		public void ChangeRoom(IRoom room, float? x = null, float? y = null)
+		public Task ChangeRoomAsync(IRoom room, float? x = null, float? y = null)
 		{
 			StopWalking();
-			_hasRoom.ChangeRoom(room, x, y);
+			return _hasRoom.ChangeRoomAsync(room, x, y);
 		}
 	}
 }

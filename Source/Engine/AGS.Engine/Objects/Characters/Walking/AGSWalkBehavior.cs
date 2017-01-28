@@ -64,11 +64,6 @@ namespace AGS.Engine
 
         #region IWalkBehavior implementation
 
-        public bool Walk (ILocation location)
-		{
-			return Task.Run (async () => await WalkAsync (location)).Result;
-		}
-
 		public async Task<bool> WalkAsync (ILocation location)	
 		{
             WalkDestination = location;
@@ -77,7 +72,7 @@ namespace AGS.Engine
 			{
 				foreach (var renderer in debugRenderers) 
 				{
-					renderer.ChangeRoom(null);
+					await renderer.ChangeRoomAsync(null);
 				}
 			}
 			CancellationTokenSource token = await stopWalkingAsync();
@@ -320,7 +315,7 @@ namespace AGS.Engine
                 GLLineRenderer line = new GLLineRenderer (_glUtils, _obj.X, _obj.Y, destination.X, destination.Y);
 				IObject renderer = _objFactory.GetObject("Debug Line");
 				renderer.CustomRenderer = line;
-				renderer.ChangeRoom(_obj.Room);
+				await renderer.ChangeRoomAsync(_obj.Room);
 				debugRenderers.Add (renderer);
 			}
 

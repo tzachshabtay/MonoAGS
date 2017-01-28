@@ -75,28 +75,28 @@ namespace DemoGame
 
 		private void subscribeEvents()
 		{
-			_room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
-			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
+            _room.Edges.Left.OnEdgeCrossed.SubscribeToAsync(onLeftEdgeCrossed);
+			_room.Edges.Right.OnEdgeCrossed.SubscribeToAsync(onRightEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 			_room.Events.OnAfterFadeIn.Subscribe(onAfterFadeIn);
-            if (_bottle != null) _bottle.Interactions.OnInteract(AGSInteractions.INTERACT).Subscribe(onBottleInteract);
+            if (_bottle != null) _bottle.Interactions.OnInteract(AGSInteractions.INTERACT).SubscribeToAsync(onBottleInteract);
 		}
 
-		private void onBottleInteract(object sender, AGSEventArgs args)
+		private async Task onBottleInteract(object sender, AGSEventArgs args)
 		{
 			_bottleEffectClip.Play();
-			_bottle.ChangeRoom(null);
+			await _bottle.ChangeRoomAsync(null);
 			_player.Inventory.Items.Add(InventoryItems.Bottle);
 		}
 
-		private void onLeftEdgeCrossed(object sender, AGSEventArgs args)
+        private async Task onLeftEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.ChangeRoom(Rooms.TrashcanStreet.Result, 310);
+			await _player.ChangeRoomAsync(Rooms.TrashcanStreet.Result, 310);
 		}
 
-		private void onRightEdgeCrossed(object sender, AGSEventArgs args)
+        private async Task onRightEdgeCrossed(object sender, AGSEventArgs args)
 		{
-			_player.ChangeRoom(Rooms.BrokenCurbStreet.Result, 30);
+			await _player.ChangeRoomAsync(Rooms.BrokenCurbStreet.Result, 30);
 		}
 
 		private void onBeforeFadeIn(object sender, AGSEventArgs args)

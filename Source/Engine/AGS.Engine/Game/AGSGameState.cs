@@ -44,7 +44,7 @@ namespace AGS.Engine
 
         #endregion
 
-        public void ChangeRoom(IRoom newRoom, Action afterTransitionFadeOut = null)
+        public async Task ChangeRoomAsync(IRoom newRoom, Action afterTransitionFadeOut = null)
         {
             if (Room != null)
             {
@@ -59,7 +59,7 @@ namespace AGS.Engine
                 Room.Events.OnBeforeFadeOut.Invoke(this, new AGSEventArgs());
                 _roomTransitions.State = RoomTransitionState.BeforeLeavingRoom;
                 if (_roomTransitions.Transition != null)
-                    _roomTransitions.OnStateChanged.WaitUntil(canContinueRoomTransition);
+                    await _roomTransitions.OnStateChanged.WaitUntilAsync(canContinueRoomTransition);
             }
             if (afterTransitionFadeOut != null) afterTransitionFadeOut();
             Room = newRoom;

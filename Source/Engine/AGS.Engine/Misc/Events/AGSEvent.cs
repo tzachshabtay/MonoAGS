@@ -40,11 +40,6 @@ namespace AGS.Engine
 			}
 		}
 
-		public void WaitUntil(Predicate<TEventArgs> condition)
-		{
-			Task.Run(async () => await WaitUntilAsync(condition)).Wait();
-		}
-
 		public void SubscribeToAsync (Func<object, TEventArgs, Task> callback)
 		{
 			subscribeToAsync(new Callback (callback));

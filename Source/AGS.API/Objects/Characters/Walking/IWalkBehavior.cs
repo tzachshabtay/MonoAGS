@@ -70,19 +70,6 @@ namespace AGS.API
 		bool DebugDrawWalkPath { get; set; }
 
         /// <summary>
-        /// Walk to the specified location.
-        /// Returns true if the walk was completed successfully, or false if the walk was cancelled (if the user clicked on something else).
-        /// <example>
-        /// <code>
-        /// cHero.Walk(oChair.Location); //will walk to the chair
-        /// cHero.Walk(new AGSLocation(oChair.X - 15f, oChair.Y)); //will walk to the left of the chair
-        /// </code>
-        /// </example>
-        /// </summary>
-        /// <param name="location">Location.</param>
-		bool Walk(ILocation location);
-
-        /// <summary>
         /// Walks asynchronously to the specified location.
         /// <example>
         /// Let's start walking to the chair, say something about it while we're walking,

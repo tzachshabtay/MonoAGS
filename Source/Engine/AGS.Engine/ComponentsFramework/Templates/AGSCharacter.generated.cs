@@ -480,11 +480,6 @@ namespace AGS.Engine
             set { _walkBehavior.DebugDrawWalkPath = value; } 
         }
 
-        public Boolean Walk(ILocation location)
-        {
-            return _walkBehavior.Walk(location);
-        }
-
         public Task<Boolean> WalkAsync(ILocation location)
         {
             return _walkBehavior.WalkAsync(location);

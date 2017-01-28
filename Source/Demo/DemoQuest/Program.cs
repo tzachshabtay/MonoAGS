@@ -39,7 +39,7 @@ namespace DemoGame
                 defaults.Load();
                 await charactersLoaded;
                 Debug.WriteLine("Startup: Loaded Characters");
-                await Task.Run(() => game.State.Player.ChangeRoom(Rooms.EmptyStreet.Result, 50, 30)); //todo: switch to ChangeRoomAsync: https://github.com/tzachshabtay/MonoAGS/issues/126
+                await game.State.Player.ChangeRoomAsync(Rooms.EmptyStreet.Result, 50, 30);
                 topPanel.Visible = true;
             });
 
@@ -109,7 +109,7 @@ namespace DemoGame
 			KeyboardMovement movement = new KeyboardMovement (character, game.Input, KeyboardMovementMode.Pressing);
 			movement.AddArrows();
 			movement.AddWASD();
-			character.ChangeRoom (Rooms.SplashScreen);
+			await character.ChangeRoomAsync(Rooms.SplashScreen);
 
             InventoryItems items = new InventoryItems();
             await items.LoadAsync(game.Factory);
@@ -117,7 +117,7 @@ namespace DemoGame
             Beman beman = new Beman ();
 			character = await beman.LoadAsync(game);
 			var room = await Rooms.BrokenCurbStreet;
-			character.ChangeRoom(room, 100, 110);
+			await character.ChangeRoomAsync(room, 100, 110);
 
 			Characters.Init (game);
 		}

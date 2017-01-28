@@ -19,7 +19,7 @@ namespace AGS.Engine
 		public AGSFollowBehavior(IGame game)
 		{
 			_game = game;
-			game.Events.OnRepeatedlyExecute.Subscribe (onRepeatedlyExecute);
+            game.Events.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
 		}
 
 		public override void Init (IEntity entity)
@@ -48,10 +48,10 @@ namespace AGS.Engine
 		public override void Dispose ()
 		{
 			base.Dispose ();
-			_game.Events.OnRepeatedlyExecute.Unsubscribe (onRepeatedlyExecute);
+            _game.Events.OnRepeatedlyExecute.UnsubscribeToAsync(onRepeatedlyExecute);
 		}
 
-		private void onRepeatedlyExecute (object sender, AGSEventArgs args)
+        private async Task onRepeatedlyExecute (object sender, AGSEventArgs args)
 		{
             var target = TargetBeingFollowed;
 			var currentWalk = _currentWalk;
@@ -81,7 +81,7 @@ namespace AGS.Engine
 			{
 				if (_followSettings.FollowBetweenRooms) 
 				{
-					_hasRoom.ChangeRoom (target.Room, _newRoomX, _newRoomY);
+					await _hasRoom.ChangeRoomAsync(target.Room, _newRoomX, _newRoomY);
 					_walk.PlaceOnWalkableArea ();
 					_newRoomX = null;
 					_newRoomY = null;

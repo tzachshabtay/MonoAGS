@@ -195,9 +195,9 @@ namespace AGS.Engine
             get { return _hasRoom.PreviousRoom; } 
         }
 
-        public void ChangeRoom(IRoom room, Nullable<Single> x, Nullable<Single> y)
+        public Task ChangeRoomAsync(IRoom room, Nullable<Single> x, Nullable<Single> y)
         {
-            _hasRoom.ChangeRoom(room, x, y);
+            return _hasRoom.ChangeRoomAsync(room, x, y);
         }
 
         #endregion

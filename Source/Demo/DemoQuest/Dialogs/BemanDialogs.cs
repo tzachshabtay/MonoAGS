@@ -3,6 +3,7 @@ using AGS.API;
 using AGS.Engine;
 using System.Collections.Generic;
 using DemoQuest;
+using System.Threading.Tasks;
 
 namespace DemoGame
 {
@@ -96,7 +97,7 @@ namespace DemoGame
 			IDialogOption option3 = factory.Dialog.GetDialogOption("Can I start a scene?");
 			option3.ExitDialogWhenFinished = true;
 			option3.AddText(Characters.Beman, "Go for it, though remember that the user can skip the scene by pressing any key on the keyboard");
-			option3.AddConditionalActions(startAScene);
+            option3.AddAsyncConditionalActions(startAScene);
 
 			IDialogOption option4 = factory.Dialog.GetDialogOption("That's all I have...");
 			option4.ChangeDialogWhenFinished = StartDialog;
@@ -140,7 +141,7 @@ namespace DemoGame
 			option.ExitDialogWhenFinished = true;
 		}
 
-		private bool startAScene()
+		private async Task<bool> startAScene()
 		{
 			ICharacter player = _game.State.Player;
 			_game.State.Cutscene.Start();
@@ -148,11 +149,11 @@ namespace DemoGame
             player.Say("Scene is now in session.");
             var leftEdge = player.Room.Edges.Left;
             leftEdge.Enabled = false;
-			player.Walk(new AGSLocation (0f, player.Y));
+			await player.WalkAsync(new AGSLocation (0f, player.Y));
             leftEdge.Enabled = true;
-			player.ChangeRoom(Rooms.EmptyStreet.Result, 400f);
-			player.Say("This scene involves switching rooms!");
-			player.Walk(new AGSLocation (70f, player.Y));
+			await player.ChangeRoomAsync(Rooms.EmptyStreet.Result, 400f);
+            await player.SayAsync("This scene involves switching rooms!");
+			await player.WalkAsync(new AGSLocation (70f, player.Y));
 
 			_game.State.Cutscene.End();
 
