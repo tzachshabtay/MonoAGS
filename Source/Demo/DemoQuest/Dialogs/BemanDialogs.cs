@@ -11,10 +11,6 @@ namespace DemoGame
 	{
 		private IGame _game;
 
-		public BemanDialogs()
-		{
-		}
-
 		public IDialog StartDialog { get; private set; }
 
 		public void Load(IGame game)
