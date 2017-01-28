@@ -96,7 +96,8 @@ namespace DemoGame
 		private static async Task loadCharacters(IGame game)
 		{
             ICharacter character = game.State.Player;
-			KeyboardMovement movement = new KeyboardMovement (character, game.Input, KeyboardMovementMode.Pressing);
+			KeyboardMovement movement = new KeyboardMovement (character, game.Input, 
+                                                              game.State.FocusedUI, KeyboardMovementMode.Pressing);
 			movement.AddArrows();
 			movement.AddWASD();
 

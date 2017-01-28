@@ -36,6 +36,7 @@ namespace DemoGame
 			_panel = await factory.UI.GetPanelAsync(_panelId, "../../Assets/Gui/DialogBox/options.bmp", 160f, 100f);
 			_panel.Anchor = new AGS.API.PointF (0.5f, 0.5f);
 			_panel.Visible = false;
+            _panel.AddComponent<IModalWindowComponent>();
 
             AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
 
@@ -103,6 +104,7 @@ namespace DemoGame
 			_scheme.CurrentMode = MouseCursors.POINT_MODE;
 			_scheme.RotatingEnabled = false;
 			_panel.Visible = true;
+            _panel.GetComponent<IModalWindowComponent>().GrabFocus();
 		}
 
 		public void Hide()
@@ -112,6 +114,7 @@ namespace DemoGame
 				_scheme.CurrentMode = _lastMode;
 			else _scheme.SetInventoryCursor();
 			_panel.Visible = false;
+            _panel.GetComponent<IModalWindowComponent>().LoseFocus();
 		}
 
 		private async void save()

@@ -7,16 +7,24 @@ namespace AGS.Engine
 	{
 		private readonly Predicate<IObject> _getProperty;
 		private IInObjectTree _tree;
+        private AGSEventArgs _args;
+        private readonly IGameState _state;
+        private readonly IInput _input;
+        private IObject _obj;
 
-		public AGSObjectBoolParentProperty(Predicate<IObject> getProperty)
+        public AGSObjectBoolParentProperty(Predicate<IObject> getProperty, IGameState state, IInput input)
 		{
+            _state = state;
+            _input = input;
 			_getProperty = getProperty;
-			UnderlyingValue = true;
+            _args = new AGSEventArgs();
+            UnderlyingValue = true;
 		}
 
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
+            _obj = entity as IObject;
 			_tree = entity.GetComponent<IInObjectTree>();
 		}
 			
@@ -31,11 +39,16 @@ namespace AGS.Engine
 			set { UnderlyingValue = value;}
 		}
 
-		public bool UnderlyingValue { get; private set; }
+        public bool UnderlyingValue { get; private set; }
 
 		private bool getBooleanFromParentIfNeeded(IObject parent)
 		{
 			if (!UnderlyingValue) return false;
+            if (_obj != null)
+            {
+                if (_obj != _input.Cursor && !_state.UI.Contains(_obj) && (_state.Room == null || !_state.Room.Objects.Contains(_obj)))
+                    return false;
+            }
 			if (parent == null) return true;
 			return _getProperty(parent);
 		}
@@ -43,14 +56,16 @@ namespace AGS.Engine
 
 	public class VisibleProperty : AGSObjectBoolParentProperty, IVisibleComponent
 	{
-		public VisibleProperty() : base(o => o.Visible){}
+        public VisibleProperty(IGameState state, IInput input) : 
+            base(o => o.Visible, state, input){}
 		public bool Visible { get { return Value; } set { Value = value; } }
 		public bool UnderlyingVisible { get { return UnderlyingValue; } }
 	}
 
 	public class EnabledProperty : AGSObjectBoolParentProperty, IEnabledComponent
 	{
-		public EnabledProperty() : base(o => o.Enabled){}
+		public EnabledProperty(IGameState state, IInput input) : 
+            base(o => o.Enabled, state, input){}
 		public bool Enabled { get { return Value; } set { Value = value; } }
 		public bool UnderlyingEnabled { get { return UnderlyingValue; } }
 	}

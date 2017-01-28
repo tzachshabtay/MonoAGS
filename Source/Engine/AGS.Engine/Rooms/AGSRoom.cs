@@ -9,14 +9,14 @@ namespace AGS.Engine
 	{
         private ICharacter _player { get { return _state.Player; } }
 		private IObject _background;
-		private IAGSEdges _edges;
-		private RenderOrderSelector _sorter;
-		private IGameState _state;
-		private IGameEvents _gameEvents;
+		private readonly IAGSEdges _edges;
+		private readonly RenderOrderSelector _sorter;
+		private readonly IGameState _state;
+		private readonly IGameEvents _gameEvents;
         private List<IObject> _visibleObjectsWithUi = new List<IObject>(), _visibleObjectsWithoutUi = new List<IObject>();
 
 		public AGSRoom (string id, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents,
-			IRoomEvents roomEvents, IGameState state, ICustomProperties properties)
+                        IRoomEvents roomEvents, IGameState state, ICustomProperties properties)
 		{
 			this._sorter = new RenderOrderSelector { Backwards = true };
 			this._state = state;
@@ -92,7 +92,11 @@ namespace AGS.Engine
                 if (onlyEnabled && !obj.Enabled)
                     continue;
 
-                if (obj.CollidesWith(x, y)) return obj;
+                if (!obj.CollidesWith(x, y)) continue;
+
+                if (!hasFocus(obj)) continue;
+
+                return obj;
             }
             return null;
 		}
@@ -116,7 +120,19 @@ namespace AGS.Engine
 			return ID ?? base.ToString();
 		}
 
-		#endregion
+        #endregion
+
+        private bool hasFocus(IObject obj)
+        {
+            var focusedWindow = _state.FocusedUI.FocusedWindow;
+            if (focusedWindow == null) return true;
+            while (obj != null)
+            {
+                if (obj == focusedWindow) return true;
+                obj = obj.TreeNode.Parent;
+            }
+            return false;
+        }
 
 		private void onRepeatedlyExecute(object sender, EventArgs args)
 		{

@@ -390,6 +390,9 @@
     <Compile Include="Platform\IDevice.cs" />
     <Compile Include="Platform\IAssemblies.cs" />
     <Compile Include="Game\IUIThread.cs" />
+    <Compile Include="UI\Focus\IModalWindows.cs" />
+    <Compile Include="UI\Focus\AGSFocusedUI.cs" />
+    <Compile Include="UI\Focus\AGSModalWindowComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -478,5 +481,6 @@
     <Folder Include="Game\Settings\" />
     <Folder Include="Player\Approach\" />
     <Folder Include="Misc\Geometry\OpenTK\" />
+    <Folder Include="UI\Focus\" />
   </ItemGroup>
 </Project>

@@ -12,12 +12,14 @@ namespace AGS.Engine
         private IAGSRoomTransitions _roomTransitions;
         private Task[] _emptyTaskArray = new Task[] { };
 
-        public AGSGameState (ICustomProperties globalVariables, IAGSRoomTransitions roomTransitions, Resolver resolver)
+        public AGSGameState (ICustomProperties globalVariables, IAGSRoomTransitions roomTransitions, 
+                             Resolver resolver, IFocusedUI focusedUi)
 		{
 			Speed = 100;
 			Rooms = new AGSBindingList<IRoom>(10);
 			UI = new AGSConcurrentHashSet<IObject> ();
 			GlobalVariables = globalVariables;
+            FocusedUI = focusedUi;
 			_cutscene = new Lazy<ICutscene> (() => resolver.Container.Resolve<ICutscene>());
 			_roomTransitions = roomTransitions;
 		}
@@ -31,6 +33,8 @@ namespace AGS.Engine
 		public IAGSBindingList<IRoom> Rooms { get; private set; }
 
 		public IConcurrentHashSet<IObject> UI { get; private set; }
+
+        public IFocusedUI FocusedUI { get; private set; }
 
 		public ICustomProperties GlobalVariables { get; private set; }
 

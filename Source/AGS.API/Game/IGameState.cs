@@ -9,6 +9,7 @@ namespace AGS.API
         IRoom Room { get; }
 		IAGSBindingList<IRoom> Rooms { get; }
 		IConcurrentHashSet<IObject> UI { get; }
+        IFocusedUI FocusedUI { get; }
 
 		ICustomProperties GlobalVariables { get; }
 		ICutscene Cutscene { get; }

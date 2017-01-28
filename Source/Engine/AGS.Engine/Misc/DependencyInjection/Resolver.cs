@@ -47,6 +47,7 @@ namespace AGS.Engine
             Builder.RegisterType<AGSClassicSpeechCache>().SingleInstance().As<ISpeechCache>();
             Builder.RegisterType<GLGraphicsFactory>().SingleInstance().As<IGraphicsFactory>();
             Builder.RegisterType<GLUtils>().SingleInstance().As<IGLUtils>();
+            Builder.RegisterType<AGSFocusedUI>().SingleInstance().As<IFocusedUI>().As<IModalWindows>();
 
 			registerComponents();
 

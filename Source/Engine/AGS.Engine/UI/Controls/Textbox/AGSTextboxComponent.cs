@@ -11,8 +11,9 @@ namespace AGS.Engine
         private IUIEvents _uiEvents;        
         private IInObjectTree _tree;
         private IHasRoom _room;
-        private IKeyboardState _keyboardState;
-        private readonly IGame _game;        
+        private readonly IKeyboardState _keyboardState;
+        private readonly IGame _game;
+        private readonly IFocusedUI _focusedUi;
         private int _caretFlashCounter;
 
         private int _endOfLine { get { return _textComponent.Text.Length; } }
@@ -23,10 +24,11 @@ namespace AGS.Engine
         private ILabel _withCaret;
 
         public AGSTextBoxComponent(IEvent<AGSEventArgs> onFocusChanged, IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
-                                   IInput input, IGame game, IKeyboardState keyboardState)
+                                   IInput input, IGame game, IKeyboardState keyboardState, IFocusedUI focusedUi)
         {
             CaretFlashDelay = 10;
             _keyboardState = keyboardState;
+            _focusedUi = focusedUi;
             OnFocusChanged = onFocusChanged;
             OnPressingKey = onPressingKey;
             _game = game;
@@ -43,6 +45,11 @@ namespace AGS.Engine
             _uiEvents = entity.GetComponent<IUIEvents>();
             _tree = entity.GetComponent<IInObjectTree>();
             _room = entity.GetComponent<IHasRoom>();
+            var visible = entity.GetComponent<IVisibleComponent>();
+            _game.Events.OnRepeatedlyExecute.Subscribe((_, __) =>
+            {
+                if (!visible.Visible) IsFocused = false;
+            });
 
             _caretFlashCounter = (int)CaretFlashDelay;
             _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
@@ -64,8 +71,14 @@ namespace AGS.Engine
                 {
                     _keyboardState.ShowSoftKeyboard();
                     CaretPosition = _textComponent.Text.Length;
+                    _focusedUi.FocusedTextBox = this;
                 }
-                else _keyboardState.HideSoftKeyboard();
+                else
+                {
+                    _keyboardState.HideSoftKeyboard();
+                    if (_focusedUi.FocusedTextBox == this)
+                        _focusedUi.FocusedTextBox = null;
+                }
                 OnFocusChanged.Invoke(this, new AGSEventArgs());
             }
         }

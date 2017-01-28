@@ -206,6 +206,8 @@
     <Compile Include="Player\Approach\IApproachStyle.cs" />
     <Compile Include="Player\Approach\IApproachComponent.cs" />
     <Compile Include="Input\IShouldBlockInput.cs" />
+    <Compile Include="UI\Focus\IFocusedUI.cs" />
+    <Compile Include="UI\Focus\IModalWindowComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
@@ -214,5 +216,6 @@
     <Folder Include="Rooms\Areas\" />
     <Folder Include="Misc\CustomProperties\" />
     <Folder Include="Player\Approach\" />
+    <Folder Include="UI\Focus\" />
   </ItemGroup>
 </Project>

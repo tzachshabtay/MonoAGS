@@ -86,6 +86,7 @@ namespace AGS.Engine
             IPanel panel = factory.UI.GetPanel("SelectFilePanel", panelWidth, panelHeight, panelX, panelY);
             panel.SkinTags.Add(AGSSkin.DialogBoxTag);
             panel.Skin.Apply(panel);
+            panel.AddComponent<IModalWindowComponent>().GrabFocus();
             ILabel titleLabel = factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, _buttonsTextConfig);
             _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, _startPath, textBoxConfig, width: panelWidth, height: textBoxHeight);
 
@@ -140,6 +141,7 @@ namespace AGS.Engine
             bool okGiven = await _tcs.Task;
             _inventory.Items.Clear();
             removeAllUI(panel);
+            panel.GetComponent<IModalWindowComponent>().LoseFocus();
             if (!okGiven) return null;
             return _fileTextBox.Text;
         }

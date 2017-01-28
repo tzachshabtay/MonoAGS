@@ -1,8 +1,6 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using System.Threading.Tasks;
 using System.Linq;
-using System.Threading;
 
 namespace AGS.Engine
 {
@@ -22,10 +20,12 @@ namespace AGS.Engine
 	{
 		private IConcurrentHashSet<Key> _up, _down, _left, _right, _keysDown;
 		private ICharacter _character;
+        private readonly IFocusedUI _focusedUi;
 
-		public KeyboardMovement(ICharacter character, IInput input, KeyboardMovementMode mode)
+		public KeyboardMovement(ICharacter character, IInput input, IFocusedUI focusedUi, KeyboardMovementMode mode)
 		{
 			_character = character;
+            _focusedUi = focusedUi;
 			Enabled = true;
 			Mode = mode;
 			_up = new AGSConcurrentHashSet<Key> ();
@@ -65,7 +65,7 @@ namespace AGS.Engine
 
 		private async Task onKeyDown(object sender, KeyboardEventArgs args)
 		{
-			if (!Enabled) return;
+            if (!Enabled || _focusedUi.FocusedTextBox != null) return;
 			_keysDown.Add(args.Key);
 			Direction? direction = getDirection();
 			if (Mode == KeyboardMovementMode.Pressing)
@@ -89,7 +89,7 @@ namespace AGS.Engine
 
 		private async Task onKeyUp(object sender, KeyboardEventArgs args)
 		{
-			if (!Enabled) return;
+            if (!Enabled || _focusedUi.FocusedTextBox != null) return;
 			_keysDown.Remove(args.Key);
 			if (Mode == KeyboardMovementMode.Tapping) return;
 			Direction? direction = getDirection();
