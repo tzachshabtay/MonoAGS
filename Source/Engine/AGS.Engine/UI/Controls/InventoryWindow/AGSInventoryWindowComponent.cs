@@ -115,7 +115,8 @@ namespace AGS.Engine
 				IObject obj = items[item];
 				obj.X = x;
 				obj.Y = y;
-                
+
+                _tree.TreeNode.AddChild(obj);
                 if (!_state.UI.Contains(obj))
                 {
                     _state.UI.Add(obj);
