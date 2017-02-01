@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿extern alias IOS;
+
+using System.IO;
 using AGS.API;
-using CoreGraphics;
-using Foundation;
-using UIKit;
+using IOS::CoreGraphics;
+using IOS::Foundation;
+using IOS::UIKit;
 
 namespace AGS.Engine.IOS
 {

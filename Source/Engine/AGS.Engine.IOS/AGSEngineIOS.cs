@@ -9,7 +9,7 @@ namespace AGS.Engine.IOS
 
         public static void Init()
         {
-            //OpenTK.Toolkit.Init();
+            OpenTK.Toolkit.Init();
 
             var device = new IOSDevice(_assembly);
             AGSGame.Device = device;

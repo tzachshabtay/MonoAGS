@@ -1,7 +1,9 @@
-﻿using System;
+﻿extern alias IOS;
+
+using System;
 using System.Runtime.InteropServices;
 using AGS.API;
-using CoreGraphics;
+using IOS::CoreGraphics;
 
 namespace AGS.Engine.IOS
 {
@@ -10,7 +12,6 @@ namespace AGS.Engine.IOS
         private byte[] _bytes;
         private bool _isDirty;
         private IntPtr _scan0;
-        private CGImage _bitmap;
         const int BPP = 4;
         private int _width, _height;
 
@@ -21,7 +22,6 @@ namespace AGS.Engine.IOS
             int byteCount = _width * _height * BPP;
 
             _bytes = new byte[byteCount];
-            _bitmap = bitmap;
 
             _scan0 = bitmap.Handle;
 
