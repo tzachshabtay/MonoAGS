@@ -1,7 +1,9 @@
-﻿using AGS.API;
-using CoreGraphics;
-using CoreText;
-using Foundation;
+﻿extern alias IOS;
+
+using AGS.API;
+using IOS::CoreGraphics;
+using IOS::CoreText;
+using IOS::Foundation;
 
 namespace AGS.Engine.IOS
 {

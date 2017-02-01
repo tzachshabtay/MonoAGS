@@ -1,10 +1,12 @@
-﻿using System.Collections.Concurrent;
+﻿extern alias IOS;
+
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using AGS.API;
-using CoreGraphics;
-using CoreText;
-using Foundation;
-using UIKit;
+using IOS:CoreGraphics;
+using IOS:CoreText;
+using IOS:Foundation;
+using IOS:UIKit;
 
 namespace AGS.Engine.IOS
 {

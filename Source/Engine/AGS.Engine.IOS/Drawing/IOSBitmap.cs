@@ -1,8 +1,10 @@
-﻿using System;
+﻿extern alias IOS;
+
+using System;
 using System.Runtime.InteropServices;
 using AGS.API;
-using CoreGraphics;
-using UIKit;
+using IOS::CoreGraphics;
+using IOS::UIKit;
 
 namespace AGS.Engine.IOS
 {
@@ -93,7 +95,7 @@ namespace AGS.Engine.IOS
 
                         if (debugMask != null)
                         {
-                            debugMaskFast.SetPixel(x, y, masked ? drawColor : global::Android.Graphics.Color.Transparent);
+                            debugMaskFast.SetPixel(x, y, masked ? drawColor : Colors.Transparent);
                         }
                     }
                 }
@@ -169,7 +171,7 @@ namespace AGS.Engine.IOS
                 fixed (byte* p = imageData)
                 {
                     IntPtr ptr = (IntPtr)p;
-                    _graphics.TexImage2D(Width, Height, p);
+                    _graphics.TexImage2D(Width, Height, ptr);
                 }
             }
 
@@ -216,7 +218,7 @@ namespace AGS.Engine.IOS
                 {
                     for (int y = 0; y < Height; y++)
                     {
-                        if (fastBitmap.GetPixel(x, y) == c)
+                        if (fastBitmap.GetPixel(x, y).Equals(color))
                             fastBitmap.SetPixel(x, y, transparent);
                     }
                 }
