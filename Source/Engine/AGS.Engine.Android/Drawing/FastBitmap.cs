@@ -10,11 +10,11 @@ namespace AGS.Engine.Android
 		private Bitmap _bitmap;
 		private bool _isDirty;
 		private IntPtr _scan0;
-		const int bpp = 4;
+        const int BPP = 4;
 
 		public FastBitmap(Bitmap bitmap, bool cleanSlate = false)
 		{
-			int byteCount = bitmap.Width * bitmap.Height * bpp;
+			int byteCount = bitmap.Width * bitmap.Height * BPP;
 
 			_bytes  = new byte[byteCount];
 			_bitmap = bitmap;
@@ -60,7 +60,7 @@ namespace AGS.Engine.Android
 
 		private int getOffset(int x, int y)
 		{
-			return (_bitmap.Width * y + x) * bpp;;
+			return (_bitmap.Width * y + x) * BPP;
 		}
 	}
 }
