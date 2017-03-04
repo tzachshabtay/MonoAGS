@@ -3,10 +3,10 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using AGS.API;
-using IOS:CoreGraphics;
-using IOS:CoreText;
-using IOS:Foundation;
-using IOS:UIKit;
+using IOS::UIKit;
+using IOS::Foundation;
+using IOS::CoreGraphics;
+using IOS::CoreText;
 
 namespace AGS.Engine.IOS
 {

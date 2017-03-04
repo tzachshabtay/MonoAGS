@@ -70,9 +70,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IOSAssemblies.cs" />
     <Compile Include="AGSEngineIOS.cs" />
-    <Compile Include="..\AGS.Engine.Android\OpenGLESBackend.cs">
-      <Link>OpenGLESBackend.cs</Link>
-    </Compile>
     <Compile Include="..\AGS.Engine.Desktop\ALAudioBackend.cs">
       <Link>ALAudioBackend.cs</Link>
     </Compile>
@@ -91,6 +88,14 @@
       <Link>AndroidEngineConfigFile.cs</Link>
     </Compile>
     <Compile Include="IOSKeyboardState.cs" />
+    <Compile Include="IOSGameView.cs" />
+    <Compile Include="IOSGameWindow.cs" />
+    <Compile Include="OpenGLViewController.cs" />
+    <Compile Include="XamarinTKGLESBackend.cs" />
+    <Compile Include="..\AGS.Engine.Android\OpenGLESBackend.cs">
+      <Link>OpenGLESBackend.cs</Link>
+    </Compile>
+    <Compile Include="IOSInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AGS.Engine\AGS.Engine.csproj">

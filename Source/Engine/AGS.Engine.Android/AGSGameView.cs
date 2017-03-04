@@ -87,16 +87,8 @@ namespace AGS.Engine.Android
         // This gets called when the drawing surface is ready
         protected override void OnLoad(EventArgs e)
         {
-            //AGSEngineAndroid.Init();
-
-            // UpdateFrame and RenderFrame are called
-            // by the render loop. This takes effect
-            // when we use 'Run ()', like below
             base.UpdateFrame += onUpdateFrame;
             base.RenderFrame += onRenderFrame;
-
-            // this call is optional, and meant to raise delegates
-            // in case any are registered
             base.OnLoad(e);
 
             AndroidGameWindow.Instance.OnLoad(e);
