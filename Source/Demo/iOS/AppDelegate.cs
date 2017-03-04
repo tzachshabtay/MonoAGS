@@ -15,7 +15,7 @@ namespace DemoQuest.iOS
 			get;
 			set;
 		}
-
+        /*
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
 			// Override point for customization after application launch.
@@ -23,7 +23,7 @@ namespace DemoQuest.iOS
 
 			// Code to start the Xamarin Test Cloud Agent
 			#if ENABLE_TEST_CLOUD
-			Xamarin.Calabash.Start();
+			//Xamarin.Calabash.Start();
 			#endif
 
 			return true;
@@ -58,7 +58,7 @@ namespace DemoQuest.iOS
 		public override void WillTerminate(UIApplication application)
 		{
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
-		}
+		}*/
 	}
 }
 

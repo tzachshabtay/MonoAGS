@@ -80,6 +80,9 @@
     <Reference Include="Calabash">
       <HintPath>..\..\packages\Xamarin.TestCloud.Agent.0.16.2\lib\Xamarin.iOS10\Calabash.dll</HintPath>
     </Reference>
+    <Reference Include="OpenTK">
+      <HintPath>..\..\..\DLLs\IOS\OpenTK.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
@@ -98,10 +101,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="ViewController.cs" />
-    <Compile Include="ViewController.designer.cs">
-      <DependentUpon>ViewController.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Proxies.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AGS.API\AGS.API.csproj">
@@ -111,6 +111,10 @@
     <ProjectReference Include="..\..\Engine\AGS.Engine\AGS.Engine.csproj">
       <Project>{6beec517-011a-441e-8a2f-d9461806a879}</Project>
       <Name>AGS.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\AGS.Engine.IOS\AGS.Engine.IOS.csproj">
+      <Project>{2C72EB5A-14C6-4CB5-A7EA-EF5AA329DEEE}</Project>
+      <Name>AGS.Engine.IOS</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\DemoQuest\DemoQuest.projitems" Label="Shared" Condition="Exists('..\DemoQuest\DemoQuest.projitems')" />

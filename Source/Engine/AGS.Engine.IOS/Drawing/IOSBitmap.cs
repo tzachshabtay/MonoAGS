@@ -152,8 +152,8 @@ namespace AGS.Engine.IOS
             if (textureToBind != null)
                 _graphics.BindTexture2D(textureToBind.Value);
 
-            nint width = _image.CGImage.Width;
-            nint height = _image.CGImage.Height;
+            var width = _image.CGImage.Width;
+            var height = _image.CGImage.Height;
 
             CGColorSpace colorSpace = CGColorSpace.CreateDeviceRGB();
             byte[] imageData = new byte[height * width * 4];
