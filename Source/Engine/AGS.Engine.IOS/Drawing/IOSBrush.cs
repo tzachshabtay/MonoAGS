@@ -12,92 +12,59 @@ namespace AGS.Engine.IOS
 
         public Color BackgroundColor
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get; private set;
         }
 
         public IBlend Blend
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get; private set;
         }
 
         public PointF CenterPoint
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get; private set;
         }
 
         public Color Color { get; private set; }
 
         public PointF FocusScales
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get; private set;
         }
 
         public bool GammaCorrection
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get; private set;
         }
 
         public HatchStyle HatchStyle
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get; private set;
         }
 
         public IColorBlend InterpolationColors
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get; private set;
         }
 
         public Color[] LinearColors
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get; private set;
         }
 
         public ITransformMatrix Transform
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get; private set;
         }
 
         public BrushType Type
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get; private set;
         }
 
         public WrapMode WrapMode
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get; private set;
         }
     }
 }
