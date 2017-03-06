@@ -12,8 +12,11 @@ namespace AGS.Engine.IOS
 {
     public class IOSFontLoader : IFontLoader
     {
-        private readonly ConcurrentDictionary<string, IFont> _installedFonts = 
-            new ConcurrentDictionary<string, IFont>();
+        private readonly ConcurrentDictionary<string, CGFont> _installedFonts = 
+            new ConcurrentDictionary<string, CGFont>();
+
+        private readonly ConcurrentDictionary<string, string> _postScriptNames =
+            new ConcurrentDictionary<string, string>();
 
         public void InstallFonts(params string[] paths)
         {
@@ -21,26 +24,37 @@ namespace AGS.Engine.IOS
 
         public IFont LoadFont(string fontFamily, float sizeInPoints, FontStyle style = FontStyle.Regular)
         {
-            CTFont font = new CTFont(fontFamily, sizeInPoints);
+            //todo: the postscript names dictionary helps preventing duplicate warnings from ios core text:
+            //"For best performance, only use PostScript names when calling this API."
+            //However, we'll still get one warning for each font family not written as postscript.
+            //Need to see if there's a way to get the postscript name in advance.
+            string postScriptName = null;
+            _postScriptNames.TryGetValue(fontFamily ?? "", out postScriptName);
+            if (postScriptName == null) postScriptName = fontFamily;
+            CTFont font = new CTFont(postScriptName, sizeInPoints);
+            _postScriptNames[fontFamily ?? ""] = font.PostScriptName;
             font = setFontStyle(font, sizeInPoints, style);
             return new IOSFont(font, style);
         }
 
         public IFont LoadFontFromPath(string path, float sizeInPoints, FontStyle style = FontStyle.Regular)
         {
-            return _installedFonts.GetOrAdd(path, _ =>
+            CGFont cgFont = _installedFonts.GetOrAdd(path, _ =>
             {
-                CGFont cgFont = CGFont.CreateFromProvider(new CGDataProvider(path));
+                CGFont createdFont = CGFont.CreateFromProvider(new CGDataProvider(path));
                 NSError error;
-                if (!CTFontManager.RegisterGraphicsFont(cgFont, out error))
+                if (!CTFontManager.RegisterGraphicsFont(createdFont, out error))
                 {
                     Debug.WriteLine("Failed to load font from {0} (loading default font instead), error: {1}", path, error.ToString());
-                    return LoadFont("Helvetica", sizeInPoints, style);
+                    return null;
                 }
-                CTFont font = new CTFont(cgFont, sizeInPoints, CGAffineTransform.MakeIdentity());
-                font = setFontStyle(font, sizeInPoints, style);
-                return new IOSFont(font, style);
+                return createdFont;
             });
+            if (cgFont == null) return LoadFont("Helvetica", sizeInPoints, style);
+
+            CTFont font = new CTFont(cgFont, sizeInPoints, CGAffineTransform.MakeIdentity());
+            font = setFontStyle(font, sizeInPoints, style);
+            return new IOSFont(font, style);
         }
 
         private CTFont setFontStyle(CTFont font, float sizeInPoints, FontStyle style)
