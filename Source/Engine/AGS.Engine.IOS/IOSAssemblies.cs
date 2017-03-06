@@ -18,7 +18,7 @@ namespace AGS.Engine.IOS
             var methodFrames = new StackTrace().GetFrames().Select(t => t.GetMethod()).ToArray();
             foreach (var frame in methodFrames)
             {
-                if (frame.Name == "OnCreate") return frame.Module.Assembly;
+                if (frame.Name == "Main") return frame.Module.Assembly;
             }
             return Assembly.GetAssembly(typeof(AGSEngineIOS));
         }
