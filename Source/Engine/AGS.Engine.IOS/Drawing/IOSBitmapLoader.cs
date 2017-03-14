@@ -21,9 +21,11 @@ namespace AGS.Engine.IOS
         {
             byte[] buffer = new byte[stream.Length];
             stream.Read(buffer, 0, buffer.Length);
-            NSData data = NSData.FromArray(buffer);
-            UIImage image = UIImage.LoadFromData(data);
-            return new IOSBitmap(image, _graphics);
+            using (NSData data = NSData.FromArray(buffer))
+            {
+                UIImage image = UIImage.LoadFromData(data);
+                return new IOSBitmap(image, _graphics);
+            }
         }
 
         public IBitmap Load(int width, int height)
@@ -33,7 +35,7 @@ namespace AGS.Engine.IOS
         }
 
         public static UIImage Create(int width, int height)
-        { 
+        {
             UIGraphics.BeginImageContext(new CGSize(width, height));
             UIImage image = UIGraphics.GetImageFromCurrentImageContext();
             UIGraphics.EndImageContext();
