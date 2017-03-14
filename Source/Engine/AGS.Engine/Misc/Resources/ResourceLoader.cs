@@ -26,6 +26,7 @@ namespace AGS.Engine
 
 		public IResource LoadResource(string path)
 		{
+            Debug.WriteLine("Loading resource from " + path ?? "null");
 			if (shouldIgnoreFile(path)) return null;
             path = FindFilePath(path);
             if (path == null) return null;
@@ -44,6 +45,7 @@ namespace AGS.Engine
 
 		public List<IResource> LoadResources(params string[] paths)
 		{
+            Debug.WriteLine("Loading resources from paths " + string.Join(", ", paths));
 			List<IResource> resources = new List<IResource> (paths.Length);
 			foreach (string path in paths)
 			{
@@ -62,6 +64,7 @@ namespace AGS.Engine
 
 		public List<IResource> LoadResources(string folder)
 		{
+            Debug.WriteLine("Loading resources from folder " + folder);
 			loadResourceFolders();
 
 			HashSet<Asset> assets = new HashSet<Asset> ();

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using AGS.API;
 
 using Autofac;
@@ -18,6 +19,7 @@ namespace AGS.Engine
 
 		public IObject GetObject(string id, string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
+            Debug.WriteLine("Getting object: " + id ?? "null");
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
 			IObject obj = _resolver.Resolve<IObject>(idParam);
 

@@ -230,6 +230,8 @@ namespace AGS.Engine
 
         private async Task<IImage> loadImageAsync (IResource resource, ILoadImageConfig config = null)
 		{
+            if (resource == null) Debug.WriteLine("loadImageAsync null");
+            else Debug.WriteLine("loadImageAsync: " + resource.ID);
             IBitmap bitmap;
 			try 
 			{
@@ -252,6 +254,8 @@ namespace AGS.Engine
 
         private IImage loadImage(ITexture texture, IBitmap bitmap, string id, ILoadImageConfig config, ISpriteSheet spriteSheet)
 		{
+            if (id == null) Debug.WriteLine("loadImage null");
+            else Debug.WriteLine("loadImage: " + id);
 			manipulateImage(bitmap, config);
 			bitmap.LoadTexture(null);
 			GLImage image = new GLImage (bitmap, id, texture, spriteSheet, config);

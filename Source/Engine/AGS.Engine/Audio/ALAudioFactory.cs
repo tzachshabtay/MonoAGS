@@ -35,6 +35,7 @@ namespace AGS.Engine
 
         public IAudioClip LoadAudioClip(string filePath, string id = null)
         {
+            Debug.WriteLine("Loading AudioClip: " + filePath);
             ISoundData soundData = loadSoundData(filePath);
             if (soundData == null) return null;
             TypedParameter idParam = new TypedParameter(typeof(string), id ?? filePath);

@@ -137,6 +137,7 @@ namespace DemoGame
 
 		private static async Task loadRooms(IGame game)
 		{
+            Debug.WriteLine("Startup: Loading Rooms");
 			EmptyStreet emptyStreet = new EmptyStreet (game.State.Player);
 			Rooms.EmptyStreet = emptyStreet.LoadAsync(game);
             await waitForRoom(game, Rooms.EmptyStreet);
