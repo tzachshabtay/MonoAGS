@@ -1,7 +1,7 @@
 ﻿extern alias IOS;
 
 using System;
-using System.Runtime.InteropServices;
+using System.Diagnostics;
 using AGS.API;
 using IOS::CoreGraphics;
 using IOS::UIKit;
@@ -10,18 +10,31 @@ namespace AGS.Engine.IOS
 {
     public class IOSBitmap : IBitmap
     {
-        private UIImage _image;
+        private UIImage _uiImage;
+        private CGImage _cgImage;
         private readonly IGraphicsBackend _graphics;
 
         public IOSBitmap(UIImage image, IGraphicsBackend graphics)
         {
-            _image = image;
+            setImage(image);
             _graphics = graphics;
         }
 
-        public int Height { get { return (int)_image.Size.Height; } }
+        public int Height { get; private set; }
 
-        public int Width { get { return (int)_image.Size.Width; } }
+        public int Width { get; private set; }
+
+        private void setImage(UIImage image)
+        {
+            var currentImage = _uiImage;
+            if (currentImage == image) return;
+            _uiImage = image;
+            _cgImage = image.CGImage;
+            var size = image.Size;
+            Height = (int)_uiImage.Size.Height;
+            Width = (int)_uiImage.Size.Width;
+            if (currentImage != null) currentImage.Dispose();
+        }
 
         public IBitmap ApplyArea(IArea area)
         {
@@ -30,7 +43,7 @@ namespace AGS.Engine.IOS
             byte zero = (byte)0;
             var output = IOSBitmapLoader.Create(Width, Height);
 
-            using (FastBitmap inBmp = new FastBitmap(_image.CGImage))
+            using (FastBitmap inBmp = new FastBitmap(_cgImage))
             {
                 using (FastBitmap outBmp = new FastBitmap(output.CGImage, true))
                 {
@@ -56,28 +69,33 @@ namespace AGS.Engine.IOS
             var context = UIGraphics.GetCurrentContext();
             context.SaveState();
             CGRect rect = new CGRect(0f, 0f, Width, Height);
-            context.DrawImage(rect, _image.CGImage);
+            context.DrawImage(rect, _cgImage);
             Color color = Colors.Transparent;
             context.SetFillColor(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
             context.FillRect(new CGRect(0, 0, Width, Height));
             context.RestoreState();
-            _image = UIGraphics.GetImageFromCurrentImageContext();
+            setImage(UIGraphics.GetImageFromCurrentImageContext());
+        }
+
+        private UIImage getDebugMask(Color? debugDrawColor, string saveMaskToFile)
+        {
+            if (saveMaskToFile == null && debugDrawColor == null) return null;
+            return IOSBitmapLoader.Create(Width, Height);
         }
 
         public IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, Color? debugDrawColor = default(Color?), string saveMaskToFile = null, string id = null)
         {
-            UIImage debugMask = null;
             FastBitmap debugMaskFast = null;
-            if (saveMaskToFile != null || debugDrawColor != null)
+            UIImage debugMask = getDebugMask(debugDrawColor, saveMaskToFile);
+            if (debugMask != null) 
             {
-                debugMask = IOSBitmapLoader.Create(Width, Height);
                 debugMaskFast = new FastBitmap(debugMask.CGImage, true);
             }
 
             bool[][] mask = new bool[Width][];
             Color drawColor = debugDrawColor != null ? debugDrawColor.Value : Colors.Black;
 
-            using (FastBitmap bitmapData = new FastBitmap(_image.CGImage))
+            using (FastBitmap bitmapData = new FastBitmap(_cgImage))
             {
                 for (int x = 0; x < Width; x++)
                 {
@@ -107,7 +125,7 @@ namespace AGS.Engine.IOS
             //Save the duplicate
             if (saveMaskToFile != null)
             {
-                debugMask.AsPNG().Save(saveMaskToFile, true);
+                saveToFile(debugMask, saveMaskToFile);
             }
 
             IObject debugDraw = null;
@@ -117,33 +135,29 @@ namespace AGS.Engine.IOS
                 debugDraw.Image = factory.Graphics.LoadImage(new IOSBitmap(debugMask, _graphics), null, path);
                 debugDraw.Anchor = new AGS.API.PointF();
             }
+            else if (debugMask != null) debugMask.Dispose();
 
             return new AGSMask(mask, debugDraw);
         }
 
         public IBitmap Crop(Rectangle rectangle)
         {
-            var cropped = _image.CGImage.WithImageInRect(new CGRect(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
+            var cropped = _cgImage.WithImageInRect(new CGRect(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
             UIImage image = new UIImage(cropped);
             return new IOSBitmap(image, _graphics);
         }
 
-        //http://stackoverflow.com/questions/3284185/get-pixel-color-of-uiimage
         public Color GetPixel(int x, int y)
         {
-            var pixelData = _image.CGImage.DataProvider.CopyData();
-            var data = pixelData.Bytes;
-            int pixelIndex = ((Width * y) + x) * 4; // 4 bytes per pixel
-
-            byte[] rgba = new byte[4];
-            Marshal.Copy(data, rgba, pixelIndex, rgba.Length);
-
-            return Color.FromRgba(rgba[0], rgba[1], rgba[2], rgba[3]);
+            using (FastBitmap bitmap = new FastBitmap(_cgImage))
+            {
+                return bitmap.GetPixel(x, y);
+            }
         }
 
         public IBitmapTextDraw GetTextDraw()
         {
-            return new IOSBitmapTextDraw(_image);
+            return new IOSBitmapTextDraw(_uiImage);
         }
 
         //https://github.com/xamarin/mobile-samples/blob/master/TexturedCubeES30/TexturedCubeiOS/EAGLView.cs
@@ -152,67 +166,39 @@ namespace AGS.Engine.IOS
             if (textureToBind != null)
                 _graphics.BindTexture2D(textureToBind.Value);
 
-            var width = _image.CGImage.Width;
-            var height = _image.CGImage.Height;
+            var width = _cgImage.Width;
+            var height = _cgImage.Height;
 
-            CGColorSpace colorSpace = CGColorSpace.CreateDeviceRGB();
-            byte[] imageData = new byte[height * width * 4];
-            CGContext context = new CGBitmapContext(imageData, width, height, 8, 4 * width, colorSpace,
-                                    CGBitmapFlags.PremultipliedLast | CGBitmapFlags.ByteOrder32Big);
-
-            context.TranslateCTM(0, height);
-            context.ScaleCTM(1, -1);
-            colorSpace.Dispose();
-            context.ClearRect(new CGRect(0, 0, width, height));
-            context.DrawImage(new CGRect(0, 0, width, height), _image.CGImage);
-
-            unsafe
+            using (CGColorSpace colorSpace = CGColorSpace.CreateDeviceRGB())
             {
-                fixed (byte* p = imageData)
+                byte[] imageData = new byte[height * width * 4];
+                CGContext context = new CGBitmapContext(imageData, width, height, 8, 4 * width, colorSpace,
+                                        CGBitmapFlags.PremultipliedLast | CGBitmapFlags.ByteOrder32Big);
+
+                using (context)
                 {
-                    IntPtr ptr = (IntPtr)p;
-                    _graphics.TexImage2D(Width, Height, ptr);
+                    context.TranslateCTM(0, height);
+                    context.ScaleCTM(1, -1);
+                    context.ClearRect(new CGRect(0, 0, width, height));
+                    context.DrawImage(new CGRect(0, 0, width, height), _cgImage);
+
+                    unsafe
+                    {
+                        fixed (byte* p = imageData)
+                        {
+                            IntPtr ptr = (IntPtr)p;
+                            _graphics.TexImage2D(Width, Height, ptr);
+                        }
+                    }
                 }
             }
-
-            context.Dispose();
         }
 
         //http://stackoverflow.com/questions/633722/how-to-make-one-color-transparent-on-a-uiimage
         public void MakeTransparent(Color color)
         {
             var transparent = Colors.Transparent;
-            /*var colorSpace = CGColorSpace.CreateDeviceRGB();
-            const int bytesPerPixel = 4;
-            int bytesPerRow = bytesPerPixel * Width;
-            const int bitsPerComponent = 8;
-            int bitmapBytesCount = bytesPerRow * Height;
-
-            byte[] data = new byte[bitmapBytesCount];
-            var context = new CGBitmapContext(data, Width, Height, bitsPerComponent, bytesPerRow,
-                                              colorSpace, CGBitmapFlags.PremultipliedLast | CGBitmapFlags.ByteOrder32Big);
-            colorSpace.Dispose();
-            context.DrawImage(new CGRect(0, 0, Width, Height), _image.CGImage);
-
-            for (int byteIndex = 0; byteIndex < bitmapBytesCount; byteIndex += bytesPerPixel)
-            {
-                if (data[byteIndex] == color.R
-                    && data[byteIndex + 1] == color.G
-                    && data[byteIndex + 2] == color.B
-                    && data[byteIndex + 3] == color.A)
-                {
-                    data[byteIndex] = transparent.R;
-                    data[byteIndex + 1] = transparent.G;
-                    data[byteIndex + 2] = transparent.B;
-                    data[byteIndex + 3] = transparent.A;
-                }
-            }
-            var image = context.ToImage();
-            _image = new UIImage(image);
-            image.Dispose();
-            context.Dispose();*/
-
-            using (FastBitmap fastBitmap = new FastBitmap(_image.CGImage))
+            using (FastBitmap fastBitmap = new FastBitmap(_cgImage))
             {
                 for (int x = 0; x < Width; x++)
                 {
@@ -227,7 +213,7 @@ namespace AGS.Engine.IOS
 
         public void SaveToFile(string path)
         {
-            _image.AsPNG().Save(path, true);
+            saveToFile(_uiImage, path);
         }
 
         //http://stackoverflow.com/questions/16462129/iphone-how-to-change-color-of-particular-pixel-of-a-uiimage
@@ -237,11 +223,24 @@ namespace AGS.Engine.IOS
             var context = UIGraphics.GetCurrentContext();
             context.SaveState();
             CGRect rect = new CGRect(0f, 0f, Width, Height);
-            context.DrawImage(rect, _image.CGImage);
+            context.DrawImage(rect, _cgImage);
             context.SetFillColor(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
             context.FillRect(new CGRect(x, y, 1, 1));
             context.RestoreState();
-            _image = UIGraphics.GetImageFromCurrentImageContext();
+            setImage(UIGraphics.GetImageFromCurrentImageContext());
+        }
+
+        private void saveToFile(UIImage image, string path)
+        {
+            using (var imageData = image.AsPNG())
+            {
+                if (imageData == null)
+                {
+                    Debug.WriteLine("Saving image to path " + path + " failed");
+                    return;
+                }
+                imageData.Save(path, true);
+            }
         }
     }
 }

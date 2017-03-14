@@ -9,61 +9,75 @@ namespace AGS.Engine.IOS
 {
     public class FastBitmap : IDisposable
     {
-        private byte[] _bytes;
-        private bool _isDirty;
-        private IntPtr _scan0;
-        const int BPP = 4;
-        private int _width, _height;
+        private int _width, _height, _bpp;
+        private CGColorSpace _colorSpace;
+        private CGBitmapContext _context;
+        private IntPtr _bitmapData;
 
         public FastBitmap(CGImage bitmap, bool cleanSlate = false)
         {
             _width = (int)bitmap.Width;
             _height = (int)bitmap.Height;
-            int byteCount = _width * _height * BPP;
 
-            _bytes = new byte[byteCount];
+            _colorSpace = CGColorSpace.CreateDeviceRGB();
+            int bytesPerRow = (int)bitmap.BytesPerRow;
+            _bpp = bytesPerRow / _width;
+            int bitmapByteCount = bytesPerRow * _height;
+            int bitsPerComponent = (int)bitmap.BitsPerComponent;
+            CGImageAlphaInfo alphaInfo = CGImageAlphaInfo.PremultipliedLast;
+            _bitmapData = Marshal.AllocHGlobal(bitmapByteCount);
+            _context = new CGBitmapContext(_bitmapData, _width, _height, bitsPerComponent, bytesPerRow, _colorSpace, alphaInfo);
+            _context.SetBlendMode(CGBlendMode.Copy);
 
-            _scan0 = bitmap.Handle;
-
-            if (!cleanSlate)
-                Marshal.Copy(_scan0, _bytes, 0, byteCount);
+            if (cleanSlate)
+                _context.ClearRect(new CGRect(0f, 0f, _width, _height));
         }
 
         public Color GetPixel(int x, int y)
-        { 
+        {
             int offset = getOffset(x, y);
-            byte blue = _bytes[offset];
-            byte green = _bytes[offset + 1];
-            byte red = _bytes[offset + 2];
-            byte alpha = _bytes[offset + 3];
+            byte blue = getByte(offset);
+            byte green = getByte(offset + 1);
+            byte red = getByte(offset + 2);
+            byte alpha = getByte(offset + 3);
             return Color.FromRgba(red, green, blue, alpha);
         }
 
         public void SetPixel(int x, int y, Color color)
         {
-            _isDirty = true;
             int offset = getOffset(x, y);
-            _bytes[offset] = color.B;
-            _bytes[offset + 1] = color.G;
-            _bytes[offset + 2] = color.R;
-            _bytes[offset + 3] = color.A;
+            setByte(offset, color.B);
+            setByte(offset + 1, color.G);
+            setByte(offset + 2, color.R);
+            setByte(offset + 3, color.A);
         }
 
         #region IDisposable implementation
 
         public void Dispose()
         {
-            if (_isDirty)
-            {
-                Marshal.Copy(_bytes, 0, _scan0, _bytes.Length);
-            }
+            _context.Dispose();
+            _colorSpace.Dispose();
+            Marshal.FreeHGlobal(_bitmapData);
         }
 
         #endregion
 
         private int getOffset(int x, int y)
         {
-            return (_width * y + x) * BPP;
+            return (_width * y + x) * _bpp;
+        }
+
+        private unsafe byte getByte(int offset) 
+        {
+            byte* bufferAsBytes = (byte*)_bitmapData;
+            return bufferAsBytes[offset];
+        }
+
+        private unsafe void setByte(int offset, byte val)
+        { 
+            byte* bufferAsBytes = (byte*)_bitmapData;
+            bufferAsBytes[offset] = val;
         }
     }
 }
