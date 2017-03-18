@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AGS.API;
 
 namespace AGS.Engine
@@ -46,7 +47,10 @@ namespace AGS.Engine
 			if (!UnderlyingValue) return false;
             if (_obj != null)
             {
-                if (_obj != _input.Cursor && !_state.UI.Contains(_obj) && (_state.Room == null || !_state.Room.Objects.Contains(_obj)))
+                //todo: make this more efficient
+                if (_obj != _input.Cursor && !_state.UI.Contains(_obj) && 
+                    (_state.Room == null || !_state.Room.Objects.Contains(_obj)) &&
+                    (_state.Room == null || !_state.Room.Areas.Select(a => a.Mask.DebugDraw).Contains(_obj)))
                     return false;
             }
 			if (parent == null) return true;
