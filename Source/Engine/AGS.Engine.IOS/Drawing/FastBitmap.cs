@@ -4,6 +4,7 @@ using System;
 using System.Runtime.InteropServices;
 using AGS.API;
 using IOS::CoreGraphics;
+using IOS::UIKit;
 
 namespace AGS.Engine.IOS
 {
@@ -12,44 +13,54 @@ namespace AGS.Engine.IOS
         private int _width, _height, _bpp;
         private CGColorSpace _colorSpace;
         private CGBitmapContext _context;
-        private IntPtr _bitmapData;
+        private byte[] _bitmapData;
+        private GCHandle _handle;
 
-        public FastBitmap(CGImage bitmap, bool cleanSlate = false)
+        public FastBitmap(int width, int height)
         {
-            _width = (int)bitmap.Width;
-            _height = (int)bitmap.Height;
+            _width = width;
+            _height = height;
 
             _colorSpace = CGColorSpace.CreateDeviceRGB();
-            int bytesPerRow = (int)bitmap.BytesPerRow;
-            _bpp = bytesPerRow / _width;
+            _bpp = 4;
+            int bytesPerRow = _width * _bpp;
             int bitmapByteCount = bytesPerRow * _height;
-            int bitsPerComponent = (int)bitmap.BitsPerComponent;
-            CGImageAlphaInfo alphaInfo = CGImageAlphaInfo.PremultipliedLast;
-            _bitmapData = Marshal.AllocHGlobal(bitmapByteCount);
-            _context = new CGBitmapContext(_bitmapData, _width, _height, bitsPerComponent, bytesPerRow, _colorSpace, alphaInfo);
-            _context.SetBlendMode(CGBlendMode.Copy);
+            const int bitsPerComponent = 8;
+            CGBitmapFlags flags = CGBitmapFlags.PremultipliedLast | CGBitmapFlags.ByteOrder32Big;
 
-            if (cleanSlate)
-                _context.ClearRect(new CGRect(0f, 0f, _width, _height));
+            _bitmapData = new byte[bitmapByteCount];
+            _handle = GCHandle.Alloc(_bitmapData);
+
+            _context = new CGBitmapContext(_bitmapData, _width, _height, bitsPerComponent, bytesPerRow, _colorSpace, flags);
+        }
+
+        public FastBitmap(CGImage bitmap) : this((int)bitmap.Width, (int)bitmap.Height)
+        { 
+            _context.DrawImage(new CGRect(0f, 0f, _width, _height), bitmap);
         }
 
         public Color GetPixel(int x, int y)
         {
             int offset = getOffset(x, y);
-            byte blue = getByte(offset);
-            byte green = getByte(offset + 1);
-            byte red = getByte(offset + 2);
-            byte alpha = getByte(offset + 3);
+            byte red = _bitmapData[offset];
+            byte green = _bitmapData[offset + 1];
+            byte blue = _bitmapData[offset + 2];
+            byte alpha = _bitmapData[offset + 3];
             return Color.FromRgba(red, green, blue, alpha);
         }
 
         public void SetPixel(int x, int y, Color color)
         {
             int offset = getOffset(x, y);
-            setByte(offset, color.B);
-            setByte(offset + 1, color.G);
-            setByte(offset + 2, color.R);
-            setByte(offset + 3, color.A);
+            _bitmapData[offset] = color.R;
+            _bitmapData[offset + 1] = color.G;
+            _bitmapData[offset + 2] = color.B;
+            _bitmapData[offset + 3] = color.A;
+        }
+
+        public UIImage GetImage()
+        {
+            return UIImage.FromImage(_context.ToImage());
         }
 
         #region IDisposable implementation
@@ -58,7 +69,7 @@ namespace AGS.Engine.IOS
         {
             _context.Dispose();
             _colorSpace.Dispose();
-            Marshal.FreeHGlobal(_bitmapData);
+            _handle.Free();
         }
 
         #endregion
@@ -66,18 +77,6 @@ namespace AGS.Engine.IOS
         private int getOffset(int x, int y)
         {
             return (_width * y + x) * _bpp;
-        }
-
-        private unsafe byte getByte(int offset) 
-        {
-            byte* bufferAsBytes = (byte*)_bitmapData;
-            return bufferAsBytes[offset];
-        }
-
-        private unsafe void setByte(int offset, byte val)
-        { 
-            byte* bufferAsBytes = (byte*)_bitmapData;
-            bufferAsBytes[offset] = val;
         }
     }
 }

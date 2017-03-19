@@ -41,11 +41,11 @@ namespace AGS.Engine.IOS
             //todo: performance can be improved by only creating a bitmap the size of the area, and not the entire background.
             //This will require to change the rendering as well to offset the location
             byte zero = (byte)0;
-            var output = IOSBitmapLoader.Create(Width, Height);
+            UIImage output;
 
             using (FastBitmap inBmp = new FastBitmap(_cgImage))
             {
-                using (FastBitmap outBmp = new FastBitmap(output.CGImage, true))
+                using (FastBitmap outBmp = new FastBitmap(Width, Height))
                 {
                     for (int y = 0; y < Height; y++)
                     {
@@ -57,6 +57,7 @@ namespace AGS.Engine.IOS
                             outBmp.SetPixel(x, bitmapY, Color.FromRgba(color.R, color.G, color.B, alpha));
                         }
                     }
+                    output = outBmp.GetImage();
                 }
             }
 
@@ -77,19 +78,12 @@ namespace AGS.Engine.IOS
             setImage(UIGraphics.GetImageFromCurrentImageContext());
         }
 
-        private UIImage getDebugMask(Color? debugDrawColor, string saveMaskToFile)
-        {
-            if (saveMaskToFile == null && debugDrawColor == null) return null;
-            return IOSBitmapLoader.Create(Width, Height);
-        }
-
         public IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, Color? debugDrawColor = default(Color?), string saveMaskToFile = null, string id = null)
         {
             FastBitmap debugMaskFast = null;
-            UIImage debugMask = getDebugMask(debugDrawColor, saveMaskToFile);
-            if (debugMask != null) 
+            if (saveMaskToFile != null || debugDrawColor != null) 
             {
-                debugMaskFast = new FastBitmap(debugMask.CGImage, true);
+                debugMaskFast = new FastBitmap(Width, Height);
             }
 
             bool[][] mask = new bool[Width][];
@@ -111,7 +105,7 @@ namespace AGS.Engine.IOS
                             mask[x] = new bool[Height];
                         mask[x][Height - y - 1] = masked;
 
-                        if (debugMask != null)
+                        if (debugMaskFast != null)
                         {
                             debugMaskFast.SetPixel(x, y, masked ? drawColor : Colors.Transparent);
                         }
@@ -119,8 +113,12 @@ namespace AGS.Engine.IOS
                 }
             }
 
-            if (debugMask != null)
+            UIImage debugMask = null;
+            if (debugMaskFast != null)
+            {
+                debugMask = debugMaskFast.GetImage();
                 debugMaskFast.Dispose();
+            }
 
             //Save the duplicate
             if (saveMaskToFile != null)
@@ -208,6 +206,7 @@ namespace AGS.Engine.IOS
                             fastBitmap.SetPixel(x, y, transparent);
                     }
                 }
+                setImage(fastBitmap.GetImage());
             }
         }
 
