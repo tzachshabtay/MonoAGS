@@ -155,7 +155,7 @@ namespace AGS.Engine.IOS
 
         public IBitmapTextDraw GetTextDraw()
         {
-            return new IOSBitmapTextDraw(_uiImage);
+            return new IOSBitmapTextDraw(_uiImage, setImage);
         }
 
         //https://github.com/xamarin/mobile-samples/blob/master/TexturedCubeES30/TexturedCubeiOS/EAGLView.cs

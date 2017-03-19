@@ -11,15 +11,35 @@ namespace AGS.Engine.IOS
 {
     public class IOSBitmapTextDraw : IBitmapTextDraw
     {
+        private class IOSTextDrawContext : IDisposable
+        {
+            private Action<UIImage> _setImage;
+            private CGContext _context;
+
+            public IOSTextDrawContext(Action<UIImage> setImage)
+            {
+                _setImage = setImage;
+            }
+
+            public void Dispose()
+            {
+                var image = UIGraphics.GetImageFromCurrentImageContext();
+                _setImage(image);
+                UIGraphics.EndImageContext();
+            }
+        }
+
         private readonly UIImage _image;
+        private readonly Action<UIImage> _setImage;
         private CGContext _context;
         private int _maxWidth, _height;
         private ITextConfig _config;
         private string _text;
 
-        public IOSBitmapTextDraw(UIImage image)
+        public IOSBitmapTextDraw(UIImage image, Action<UIImage> setImage)
         {
             _image = image;
+            _setImage = setImage;
         }
 
         public IDisposable CreateContext()
@@ -27,7 +47,7 @@ namespace AGS.Engine.IOS
             UIGraphics.BeginImageContext(_image.Size);
             _context = UIGraphics.GetCurrentContext();
             _context.ClearRect(new CGRect(0, 0, _image.Size.Width, _image.Size.Height));
-            return _context;
+            return new IOSTextDrawContext(_setImage);
         }
 
         public void DrawText(string text, ITextConfig config, SizeF textSize, SizeF baseSize, int maxWidth, int height, float xOffset)
@@ -67,25 +87,34 @@ namespace AGS.Engine.IOS
         }
 
         private void drawString(IBrush brush, float x, float y)
-        { 
-            NSMutableAttributedString str = new NSMutableAttributedString(_text);
-            NSRange range = new NSRange(0, _text.Length);
-            CTParagraphStyle style = new CTParagraphStyle(new CTParagraphStyleSettings { Alignment = align() });
-            var foreColor = brush.Color;
-            CGColor color = new CGColor(foreColor.R / 255f, foreColor.G / 255f, foreColor.B / 255f, foreColor.A / 255f);
+        {
+            using (NSMutableAttributedString str = new NSMutableAttributedString(_text))
+            {
+                NSRange range = new NSRange(0, _text.Length);
+                using (CTParagraphStyle style = new CTParagraphStyle(new CTParagraphStyleSettings { Alignment = align() }))
+                {
+                    var foreColor = brush.Color;
+                    using (CGColor color = new CGColor(foreColor.R / 255f, foreColor.G / 255f, foreColor.B / 255f, foreColor.A / 255f))
+                    {
+                        str.SetAttributes(new CTStringAttributes
+                        {
+                            Font = ((IOSFont)_config.Font).InnerFont,
+                            ParagraphStyle = style,
+                            ForegroundColor = color
+                        }, range);
 
-            str.SetAttributes(new CTStringAttributes
-            { 
-                Font = ((IOSFont)_config.Font).InnerFont, 
-                ParagraphStyle = style, 
-                ForegroundColor = color 
-            }, range);
-
-            CTFramesetter frameSetter = new CTFramesetter(str);
-            CGPath path = new CGPath();
-            path.AddRect(new CGRect(x, y, _maxWidth, _height));
-            var frame = frameSetter.GetFrame(range, path, null);
-            frame.Draw(_context);
+                        using (CTFramesetter frameSetter = new CTFramesetter(str))
+                        using (CGPath path = new CGPath())
+                        {
+                            path.AddRect(new CGRect(x, y, _maxWidth, _height));
+                            using (var frame = frameSetter.GetFrame(range, path, null))
+                            {
+                                frame.Draw(_context);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private CTTextAlignment align()
