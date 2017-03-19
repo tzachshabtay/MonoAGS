@@ -14,7 +14,6 @@ namespace AGS.Engine.IOS
         private class IOSTextDrawContext : IDisposable
         {
             private Action<UIImage> _setImage;
-            private CGContext _context;
 
             public IOSTextDrawContext(Action<UIImage> setImage)
             {
