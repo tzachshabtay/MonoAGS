@@ -78,13 +78,13 @@
       <Link>ALAudioBackend.cs</Link>
     </Compile>
     <Compile Include="OpenGLESBackend.cs" />
-    <Compile Include="AndroidInput.cs" />
-    <Compile Include="AndroidSimpleGestures.cs" />
     <Compile Include="AndroidGameWindow.cs" />
     <Compile Include="Drawing\AndroidTextLayout.cs" />
     <Compile Include="AndroidAssemblies.cs" />
     <Compile Include="AndroidDevice.cs" />
-    <Compile Include="AndroidKeyboardState.cs" />
+    <Compile Include="Input\AndroidInput.cs" />
+    <Compile Include="Input\AndroidKeyboardState.cs" />
+    <Compile Include="Input\AndroidSimpleGestures.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -113,6 +113,7 @@
     <Folder Include="Embedded\x86\" />
     <Folder Include="Embedded\x86_64\" />
     <Folder Include="Embedded\armeabi\" />
+    <Folder Include="Input\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedNativeLibrary Include="..\..\..\DLLs\Android\armeabi-v7a\libopenal32.so">
