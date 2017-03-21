@@ -90,7 +90,7 @@ namespace AGS.Engine.IOS
             using (NSMutableAttributedString str = new NSMutableAttributedString(_text))
             {
                 NSRange range = new NSRange(0, _text.Length);
-                using (CTParagraphStyle style = new CTParagraphStyle(new CTParagraphStyleSettings { Alignment = align() }))
+                using (CTParagraphStyle style = new CTParagraphStyle())
                 {
                     var foreColor = brush.Color;
                     using (CGColor color = new CGColor(foreColor.R / 255f, foreColor.G / 255f, foreColor.B / 255f, foreColor.A / 255f))
@@ -113,23 +113,6 @@ namespace AGS.Engine.IOS
                         }
                     }
                 }
-            }
-        }
-
-        private CTTextAlignment align()
-        {
-            switch (_config.Alignment)
-            { 
-                case Alignment.TopLeft:
-                case Alignment.MiddleLeft:
-                case Alignment.BottomLeft:
-                    return CTTextAlignment.Left;
-                case Alignment.TopCenter:
-                case Alignment.MiddleCenter:
-                case Alignment.BottomCenter:
-                    return CTTextAlignment.Center;
-                default:
-                    return CTTextAlignment.Right;
             }
         }
     }
