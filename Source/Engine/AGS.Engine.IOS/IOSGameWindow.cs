@@ -37,6 +37,7 @@ namespace AGS.Engine.IOS
         {
             Debug.WriteLine("IOS Game Window Constructor");
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>());
+            Resolver.Override(resolver => resolver.Builder.RegisterType<IOSGestures>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterType<IOSInput>().SingleInstance().As<IInput>());
             //_window = new GameWindow();
             //_context = OpenTK.Platform.Utilities.CreateGraphicsContext(GraphicsMode.Default, new TempWindowInfo(), 2, 0, GraphicsContextFlags.Default);
