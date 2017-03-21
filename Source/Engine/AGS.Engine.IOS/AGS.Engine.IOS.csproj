@@ -64,6 +64,7 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Drawing\" />
+    <Folder Include="Input\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IOSDevice.cs" />
@@ -95,7 +96,8 @@
     <Compile Include="..\AGS.Engine.Android\OpenGLESBackend.cs">
       <Link>OpenGLESBackend.cs</Link>
     </Compile>
-    <Compile Include="IOSInput.cs" />
+    <Compile Include="Input\IOSInput.cs" />
+    <Compile Include="Input\IOSGestures.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AGS.Engine\AGS.Engine.csproj">

@@ -11,6 +11,7 @@ using IOS::CoreGraphics;
 using System;
 using OpenTK.Graphics.ES20;
 using System.Diagnostics;
+using Autofac;
 
 namespace AGS.Engine.IOS
 {
@@ -23,6 +24,7 @@ namespace AGS.Engine.IOS
         public IOSGameView(NSCoder coder) : base(coder)
         {
             Debug.WriteLine("IOS Game View constructor");
+            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this));
             LayerRetainsBacking = true;
             LayerColorFormat = EAGLColorFormat.RGBA8;
 
