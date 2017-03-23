@@ -1,9 +1,14 @@
-﻿using System;
+﻿extern alias IOS;
+
+using System;
 using System.Diagnostics;
 using AGS.API;
 using Autofac;
 using OpenTK;
 using OpenTK.Graphics;
+using IOS::UIKit;
+using IOS::CoreGraphics;
+using System.Threading.Tasks;
 
 namespace AGS.Engine.IOS
 {
@@ -12,24 +17,7 @@ namespace AGS.Engine.IOS
         private IOSGameView _view;
         private bool _started;
         private double _updateRate;
-        //GameWindow _window;
-        //IGraphicsContext _context;
-
-        class TempWindowInfo : OpenTK.Platform.IWindowInfo
-        {
-            #region IDisposable Members
-
-            public void Dispose()
-            {
-            }
-
-            #endregion
-
-            public IntPtr Handle
-            {
-                get { return IntPtr.Zero; }
-            }
-        }
+        private Lazy<Size> _size;
 
         public static IOSGameWindow Instance = new IOSGameWindow();
 
@@ -39,8 +27,6 @@ namespace AGS.Engine.IOS
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<IOSGestures>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterType<IOSInput>().SingleInstance().As<IInput>());
-            //_window = new GameWindow();
-            //_context = OpenTK.Platform.Utilities.CreateGraphicsContext(GraphicsMode.Default, new TempWindowInfo(), 2, 0, GraphicsContextFlags.Default);
         }
 
         public IOSGameView View
@@ -49,6 +35,8 @@ namespace AGS.Engine.IOS
             set
             {
                 _view = value;
+                _size = new Lazy<Size>(() => new Size((int)(View.Size.Width * View.ContentScaleFactor),
+                                                      (int)(View.Size.Height * View.ContentScaleFactor)));
                 var onNewView = OnNewView;
                 if (onNewView != null) onNewView(this, value);
             }
@@ -58,13 +46,13 @@ namespace AGS.Engine.IOS
 
         public Action StartGame { get; set; }
 
-        public int ClientHeight { get { return View.Size.Height; } }
+        public int ClientHeight { get { return _size.Value.Height; } }
 
-        public int ClientWidth { get { return View.Size.Width; } }
+        public int ClientWidth { get { return _size.Value.Width; } }
 
-        public int Height { get { return View.Size.Height; } }
+        public int Height { get { return _size.Value.Height; } }
 
-        public int Width { get { return View.Size.Width; } }
+        public int Width { get { return _size.Value.Width; } }
 
         public double TargetUpdateFrequency { get { return 60f; } set { } } //todo
         public VsyncMode Vsync { get { return VsyncMode.Off; } set { } } //todo
@@ -94,10 +82,15 @@ namespace AGS.Engine.IOS
             else View.Run(_updateRate);
         }
 
-        public void OnResize(EventArgs args)
+        public void OnResize(CGSize size)
         {
+            View.ResizeFrameBuffer();
+            float width = (float)size.Width;
+            float height = (float)size.Height;
+            _size = new Lazy<Size>(() => new Size((int)(width * View.ContentScaleFactor),
+                                                  (int)(height * View.ContentScaleFactor)));
             var onResize = Resize;
-            if (onResize != null) onResize(this, args);
+            if (onResize != null) onResize(this, new EventArgs());
         }
 
         public void OnRenderFrame(FrameEventArgs args)

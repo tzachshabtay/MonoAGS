@@ -1,6 +1,7 @@
 ﻿extern alias IOS;
 
 using System;
+using IOS::CoreGraphics;
 using IOS::Foundation;
 using IOS::UIKit;
 
@@ -38,7 +39,8 @@ namespace AGS.Engine.IOS
                 if (IsViewLoaded && View.Window != null)
                     View.StopAnimating();
             }, this);
-            UIDevice.Notifications.ObserveOrientationDidChange((sender, e) => IOSGameWindow.Instance.OnResize(e));
+            //todo: this might be needed on older IOS versions, as ViewWillTransitionToSize might not be supported
+            //UIDevice.Notifications.ObserveOrientationDidChange((sender, e) => IOSGameWindow.Instance.OnResize(e));
         }
 
         protected override void Dispose(bool disposing)
@@ -63,6 +65,30 @@ namespace AGS.Engine.IOS
         {
             base.ViewWillDisappear(animated);
             View.StopAnimating();
+        }
+
+        public override void ViewWillTransitionToSize(CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
+        {
+            base.ViewWillTransitionToSize(toSize, coordinator);
+            coordinator.AnimateAlongsideTransition((obj) => { }, (obj) => 
+            {
+                IOSGameWindow.Instance.OnResize(toSize);
+            });
+        }
+
+        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+        {
+            return UIInterfaceOrientationMask.All;
+        }
+
+        public override bool ShouldAutorotate()
+        {
+            return true;
+        }
+
+        public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+        {
+            return true;
         }
     }
 }
