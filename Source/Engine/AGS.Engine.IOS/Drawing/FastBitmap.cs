@@ -76,7 +76,7 @@ namespace AGS.Engine.IOS
 
         private int getOffset(int x, int y)
         {
-            return (_width * y + x) * _bpp;
+            return (_width * (_height - y - 1) + x) * _bpp;
         }
     }
 }
