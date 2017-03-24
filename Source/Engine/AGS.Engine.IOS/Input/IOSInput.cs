@@ -1,6 +1,9 @@
-﻿using System;
+﻿extern alias IOS;
+
+using System;
 using System.Threading.Tasks;
 using AGS.API;
+using IOS::UIKit;
 
 namespace AGS.Engine.IOS
 {
@@ -92,12 +95,29 @@ namespace AGS.Engine.IOS
 
         private float convertX(float x)
         {
-            return x;
+            var viewport = getViewport();
+            var virtualWidth = _virtualWidth / viewport.ScaleX;
+            float density = (float)UIScreen.MainScreen.Scale;
+            x = x - (GLUtils.ScreenViewport.X / density);
+            float width = (_gameWindow.Width - (GLUtils.ScreenViewport.X * 2)) / density;
+            x = MathUtils.Lerp(0f, 0f, width, virtualWidth, x);
+            return x + viewport.X;
         }
 
         private float convertY(float y)
         {
-            return y;
+            var viewport = getViewport();
+            var virtualHeight = _virtualHeight / viewport.ScaleY;
+            float density = (float)UIScreen.MainScreen.Scale;
+            y = y - (GLUtils.ScreenViewport.Y / density);
+            float height = (_gameWindow.Height - (GLUtils.ScreenViewport.Y * 2)) / density;
+            y = MathUtils.Lerp(0f, virtualHeight, height, 0f, y);
+            return y + viewport.Y;
+        }
+
+        private IViewport getViewport()
+        {
+            return _state.Room.Viewport;
         }
     }
 }
