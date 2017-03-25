@@ -27,7 +27,7 @@ namespace AGS.Engine
 				if (!option.Label.Visible) continue;
 				option.Label.Y = y;
 
-                int retries = 100;
+                int retries = 1000;
                 while (option.Label.TextHeight <= 5f && retries > 0)
                 {
                     await Task.Delay(1); //todo: find a better way (we need to wait at least one render loop for the text height to be correct)
