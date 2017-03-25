@@ -57,11 +57,17 @@ namespace AGS.Engine.IOS
             _text = text;
 
             float left = xOffset + _config.AlignX(textSize.Width, baseSize);
-            float top = _config.AlignY(_image.CGImage.Height, textSize.Height, baseSize);
+
+            //Unlike desktop and android which start the bitmap from the top (and draws the text from the top),
+            //in ios the bitmap starts from the bottom (and draws the text from the bottom), so we need to adjust
+            //the value returned by _config.AlignY which assumes drawing from top.
+            float topOfTextFromTopOfBitmap = _config.AlignY(_image.CGImage.Height, textSize.Height, baseSize);
+            float bottom = _image.CGImage.Height - (topOfTextFromTopOfBitmap + textSize.Height);
+
             float centerX = left + _config.OutlineWidth / 2f;
-            float centerY = top + _config.OutlineWidth / 2f;
+            float centerY = bottom - _config.OutlineWidth / 2f;
             float right = left + _config.OutlineWidth;
-            float bottom = top + _config.OutlineWidth;
+            float top = bottom - _config.OutlineWidth;
 
             if (_config.OutlineWidth > 0f)
             {
@@ -90,26 +96,25 @@ namespace AGS.Engine.IOS
             using (NSMutableAttributedString str = new NSMutableAttributedString(_text))
             {
                 NSRange range = new NSRange(0, _text.Length);
-                using (CTParagraphStyle style = new CTParagraphStyle())
-                {
-                    var foreColor = brush.Color;
-                    using (CGColor color = new CGColor(foreColor.R / 255f, foreColor.G / 255f, foreColor.B / 255f, foreColor.A / 255f))
-                    {
-                        str.SetAttributes(new CTStringAttributes
-                        {
-                            Font = ((IOSFont)_config.Font).InnerFont,
-                            ParagraphStyle = style,
-                            ForegroundColor = color
-                        }, range);
 
-                        using (CTFramesetter frameSetter = new CTFramesetter(str))
-                        using (CGPath path = new CGPath())
+                var foreColor = brush.Color;
+                using (CGColor color = new CGColor(foreColor.R / 255f, foreColor.G / 255f, foreColor.B / 255f, foreColor.A / 255f))
+                {
+                    str.SetAttributes(new CTStringAttributes
+                    {
+                        Font = ((IOSFont)_config.Font).InnerFont,
+                        ForegroundColor = color
+                    }, range);
+
+                    using (CTFramesetter frameSetter = new CTFramesetter(str))
+                    using (CGPath path = new CGPath())
+                    {
+                        NSRange fitRange;
+                        CGSize size = frameSetter.SuggestFrameSize(range, null, new CGSize(_maxWidth, _height), out fitRange);
+                        path.AddRect(new CGRect(x, y, size.Width, size.Height));
+                        using (var frame = frameSetter.GetFrame(fitRange, path, null))
                         {
-                            path.AddRect(new CGRect(x, y, _maxWidth, _height));
-                            using (var frame = frameSetter.GetFrame(range, path, null))
-                            {
-                                frame.Draw(_context);
-                            }
+                            frame.Draw(_context);
                         }
                     }
                 }

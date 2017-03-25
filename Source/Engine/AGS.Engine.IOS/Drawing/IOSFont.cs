@@ -27,13 +27,22 @@ namespace AGS.Engine.IOS
 
         public SizeF MeasureString(string text, int maxWidth = int.MaxValue)
         {
-            NSMutableAttributedString str = new NSMutableAttributedString(text);
-            NSRange range = new NSRange(0, text.Length);
-            str.SetAttributes(new CTStringAttributes { Font = InnerFont }, range);
-            CTFramesetter frame = new CTFramesetter(str);
-            NSRange fitRange;
-            CGSize size = frame.SuggestFrameSize(range, null, new CGSize(maxWidth, float.MaxValue), out fitRange);
-            return new SizeF((float)size.Width, (float)size.Height);
+            using (NSMutableAttributedString str = new NSMutableAttributedString(text))
+            {
+                NSRange range = new NSRange(0, text.Length);
+
+                str.SetAttributes(new CTStringAttributes
+                {
+                    Font = InnerFont,
+                }, range);
+
+                using (CTFramesetter frameSetter = new CTFramesetter(str))
+                {
+                    NSRange fitRange;
+                    CGSize size = frameSetter.SuggestFrameSize(range, null, new CGSize(maxWidth, float.MaxValue), out fitRange);
+                    return new SizeF((float)size.Width, (float)size.Height);
+                }
+            }
         }
     }
 }
