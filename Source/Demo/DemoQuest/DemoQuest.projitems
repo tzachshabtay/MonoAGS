@@ -365,6 +365,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Characters\Beman\Idle\left\left.bmp" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Characters\Beman\Idle\right\right.bmp" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Characters\Beman\Idle\up\up.bmp" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Speech\English\CRIS1.wav" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Speech\English\CRIS2.wav" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\Speech\English\CRIS3.wav" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
