@@ -45,7 +45,7 @@ namespace AGS.Engine
             if (text.Length > index && text[index] == ' ') index++;
             text = text.Substring(index);
 
-            return sb.ToString();
+            return sb.ToString().ToUpperInvariant();
         }
     }
 }
