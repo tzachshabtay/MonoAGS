@@ -29,6 +29,9 @@ namespace AGS.Engine.IOS
             KeyDown = new AGSEvent<KeyboardEventArgs>();
             KeyUp = new AGSEvent<KeyboardEventArgs>();
 
+            IOSGameWindow.Instance.View.OnInsertText += onInsertText;
+            IOSGameWindow.Instance.View.OnDeleteBackward += onDeleteBackwards;
+
             gestures.OnUserDrag += async (sender, e) =>
             {
                 if (isInputBlocked()) return;
@@ -118,6 +121,99 @@ namespace AGS.Engine.IOS
         private IViewport getViewport()
         {
             return _state.Room.Viewport;
+        }
+
+        private async void onInsertText(object sender, string text)
+        {
+            foreach (char c in text)
+            {
+                bool isShift;
+                Key key = mapKey(c, out isShift);
+                await fireKeyPress(key, isShift);
+            }
+        }
+
+        private async void onDeleteBackwards(object sender, EventArgs args)
+        {
+            await fireKeyPress(Key.BackSpace, false);
+        }
+
+        private async Task fireKeyPress(Key key, bool isShift)
+        {
+            var keyDown = KeyDown;
+            var keyUp = KeyUp;
+            if (keyDown != null)
+            {
+                if (isShift) await keyDown.InvokeAsync(this, new KeyboardEventArgs(Key.ShiftLeft));
+                await keyDown.InvokeAsync(this, new KeyboardEventArgs(key));
+            }
+            await Task.Delay(5);
+            if (keyUp != null)
+            {
+                await keyUp.InvokeAsync(this, new KeyboardEventArgs(key));
+                if (isShift) await keyUp.InvokeAsync(this, new KeyboardEventArgs(Key.ShiftLeft));
+            }
+        }
+
+        private Key mapKey(char c, out bool isShift)
+        {
+            isShift = false;
+            if (c >= 'a' && c <= 'z')
+            {
+                return c - 'a' + Key.A;
+            }
+            if (c >= 'A' && c <= 'Z')
+            {
+                isShift = true;
+                return c - 'A' + Key.A;
+            }
+            if (c >= '0' && c <= '9')
+            {
+                return c - '0' + Key.Number0;
+            }
+            switch (c)
+            {
+                case '!': return withShift(Key.Number1, out isShift);
+                case '@': return withShift(Key.Number2, out isShift);
+                case '#': return withShift(Key.Number3, out isShift);
+                case '$': return withShift(Key.Number4, out isShift);
+                case '%': return withShift(Key.Number5, out isShift);
+                case '^': return withShift(Key.Number6, out isShift);
+                case '&': return withShift(Key.Number7, out isShift);
+                case '*': return withShift(Key.Number8, out isShift);
+                case '(': return withShift(Key.Number9, out isShift);
+                case ')': return withShift(Key.Number0, out isShift);
+                case '-': return Key.Minus;
+                case '_': return withShift(Key.Minus, out isShift);
+                case '=': return Key.Plus;
+                case '+': return withShift(Key.Plus, out isShift);
+                case '`': return Key.Tilde;
+                case '~': return withShift(Key.Tilde, out isShift);
+                case '[': return Key.BracketLeft;
+                case '{': return withShift(Key.BracketLeft, out isShift);
+                case ']': return Key.BracketRight;
+                case '}': return withShift(Key.BracketRight, out isShift);
+                case '\\': return Key.BackSlash;
+                case '|': return withShift(Key.BackSlash, out isShift);
+                case ';': return Key.Semicolon;
+                case ':': return withShift(Key.Semicolon, out isShift);
+                case '\'': return Key.Quote;
+                case '"': return withShift(Key.Quote, out isShift);
+                case ',': return Key.Comma;
+                case '<': return withShift(Key.Comma, out isShift);
+                case '.': return Key.Period;
+                case '>': return withShift(Key.Period, out isShift);
+                case '/': return Key.Slash;
+                case '?': return withShift(Key.Slash, out isShift);
+                case ' ': return Key.Space;
+                default: return withShift(Key.Slash, out isShift);
+            }
+        }
+
+        private Key withShift(Key key, out bool isShift)
+        {
+            isShift = true;
+            return key;
         }
     }
 }

@@ -17,9 +17,12 @@ namespace DemoQuest.iOS
         }
     }
 
+    [Adopts("UIKeyInput")]
     [Register("GameViewProxy")]
     public class GameViewProxy : IOSGameView
     {
+        private readonly OpenTK.FrameEventArgs _args = new OpenTK.FrameEventArgs();
+
         [Export("initWithCoder:")]
         public GameViewProxy(NSCoder coder) : base(coder) 
         { 
@@ -35,7 +38,7 @@ namespace DemoQuest.iOS
         [Export("drawFrame")]
         void DrawFrame()
         {
-            OnRenderFrame(new OpenTK.FrameEventArgs());
+            OnRenderFrame(_args);
         }
     }
 }

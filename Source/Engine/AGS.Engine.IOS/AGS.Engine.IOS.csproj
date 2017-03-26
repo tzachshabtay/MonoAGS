@@ -88,7 +88,6 @@
     <Compile Include="..\AGS.Engine.Android\AndroidEngineConfigFile.cs">
       <Link>AndroidEngineConfigFile.cs</Link>
     </Compile>
-    <Compile Include="IOSKeyboardState.cs" />
     <Compile Include="IOSGameView.cs" />
     <Compile Include="IOSGameWindow.cs" />
     <Compile Include="OpenGLViewController.cs" />
@@ -98,6 +97,7 @@
     </Compile>
     <Compile Include="Input\IOSInput.cs" />
     <Compile Include="Input\IOSGestures.cs" />
+    <Compile Include="Input\IOSKeyboardState.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AGS.Engine\AGS.Engine.csproj">
