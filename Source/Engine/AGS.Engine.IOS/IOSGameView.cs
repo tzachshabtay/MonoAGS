@@ -7,7 +7,6 @@ using IOS::ObjCRuntime;
 using IOS::OpenGLES;
 using IOS::UIKit;
 using OpenTK.Platform.iPhoneOS;
-using IOS::CoreGraphics;
 using System;
 using OpenTK.Graphics.ES20;
 using System.Diagnostics;
@@ -15,7 +14,7 @@ using Autofac;
 
 namespace AGS.Engine.IOS
 {
-    public class IOSGameView : iPhoneOSGameView
+    public class IOSGameView : iPhoneOSGameView, IUIKeyInput
     {
         int _frameInterval;
         CADisplayLink _displayLink;
@@ -75,7 +74,13 @@ namespace AGS.Engine.IOS
             base.OnLoad(e);
         }
 
-        #region DisplayLink support
+        public override bool CanBecomeFirstResponder
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         public bool IsAnimating { get; private set; }
 
@@ -98,6 +103,24 @@ namespace AGS.Engine.IOS
                 }
             }
         }
+
+        public bool HasText { get; set; }
+
+        public UITextAutocapitalizationType AutocapitalizationType { get; set; }
+
+        public UITextAutocorrectionType AutocorrectionType { get; set; }
+
+        public UIKeyboardType KeyboardType { get; set; }
+
+        public UIKeyboardAppearance KeyboardAppearance { get; set; }
+
+        public UIReturnKeyType ReturnKeyType { get; set; }
+
+        public bool EnablesReturnKeyAutomatically { get; set; }
+
+        public bool SecureTextEntry { get; set; }
+
+        public UITextSpellCheckingType SpellCheckingType { get; set; }
 
         public void StartAnimating()
         {
@@ -126,7 +149,21 @@ namespace AGS.Engine.IOS
             IsAnimating = false;
         }
 
-        #endregion
+        public event EventHandler<string> OnInsertText;
+        public event EventHandler<EventArgs> OnDeleteBackward;
+
+        public void InsertText(string text)
+        {
+            HasText = true;
+            var onInsertText = OnInsertText;
+            if (onInsertText != null) onInsertText(this, text);
+        }
+
+        public void DeleteBackward()
+        {
+            var onDeleteBackward = OnDeleteBackward;
+            if (onDeleteBackward != null) onDeleteBackward(this, null);
+        }
 
         private void onUpdateFrame(object sender, OpenTK.FrameEventArgs args)
         {
