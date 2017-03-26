@@ -19,11 +19,14 @@ namespace AGS.Engine
 			var sayBehavior = getSayBehavior(maxHeight);
 			sayBehavior.SpeechConfig.SkipText = buttons.Length > 0 ? SkipText.External : SkipText.ByMouse;
 			IButton selectedButton = null;
+            ILabel label = null;
 			if (buttons.Length > 0)
 			{
 				sayBehavior.OnBeforeSay.Subscribe((sender, args) =>
 				{
+                    label = args.Label;
 					args.Label.Enabled = true;
+                    args.Label.AddComponent<IModalWindowComponent>().GrabFocus();
                     var textConfig = sayBehavior.SpeechConfig.TextConfig;
                     SizeF textSize = textConfig.GetTextSize(text, sayBehavior.SpeechConfig.LabelSize);
                     float labelWidth = textSize.Width + textConfig.PaddingLeft + textConfig.PaddingRight;
@@ -50,6 +53,7 @@ namespace AGS.Engine
 				});
 			}
 			sayBehavior.Say(text);
+            if (label != null) label.GetComponent<IModalWindowComponent>().LoseFocus();
 			foreach (var button in buttons)
 			{
 				AGSGame.Game.State.UI.Remove(button);
