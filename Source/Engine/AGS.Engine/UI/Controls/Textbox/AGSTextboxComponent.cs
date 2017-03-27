@@ -69,6 +69,7 @@ namespace AGS.Engine
                 _isFocused = value;
                 if (_isFocused)
                 {
+                    _keyboardState.OnSoftKeyboardHidden.Subscribe(onSoftKeyboardHidden);
                     _keyboardState.ShowSoftKeyboard();
                     CaretPosition = _textComponent.Text.Length;
                     _focusedUi.FocusedTextBox = this;
@@ -89,6 +90,12 @@ namespace AGS.Engine
         public IEvent<AGSEventArgs> OnFocusChanged { get; private set; }
 
         public IEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; private set; }
+
+        private void onSoftKeyboardHidden(object sender, AGSEventArgs args)
+        {
+            _keyboardState.OnSoftKeyboardHidden.Unsubscribe(onSoftKeyboardHidden);
+            IsFocused = false;
+        }
 
         private void onMouseDown(object sender, MouseButtonEventArgs args)
         {
