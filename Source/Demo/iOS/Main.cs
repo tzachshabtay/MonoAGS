@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using AGS.Engine;
 using AGS.Engine.IOS;
 using DemoGame;
 using Foundation;
@@ -15,6 +16,7 @@ namespace DemoQuest.iOS
 		static void Main(string[] args)
 		{
             Debug.WriteLine("Main started");
+            ResourceLoader.CustomAssemblyName = "DemoQuest.iOS";
             IOSGameWindow.Instance.StartGame = DemoStarter.Run;
             AGSEngineIOS.SetAssembly();
 			// if you want to use a different Application Delegate class from "AppDelegate"
