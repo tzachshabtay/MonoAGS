@@ -8,8 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>AGS.Engine</RootNamespace>
     <AssemblyName>AGS.Engine</AssemblyName>
-    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -434,11 +433,11 @@
     <None Include="ComponentsFramework\Templates\FlatInterfaceTemplate.tt">
       <LastGenOutput>FlatInterfaceTemplate.cs</LastGenOutput>
     </None>
-    <None Include="packages.config" />
     <None Include="..\..\..\DLLs\OpenTK.dll.config">
       <Link>OpenTK.dll.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AGS.API\AGS.API.csproj">
@@ -447,12 +446,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\..\..\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="protobuf-net">
-      <HintPath>..\..\..\packages\protobuf-net.2.0.0.668\lib\portable-sl4+net40+wp7+windows8\protobuf-net.dll</HintPath>
-    </Reference>
     <Reference Include="NVorbis">
       <HintPath>..\..\..\DLLs\NVorbis.dll</HintPath>
     </Reference>

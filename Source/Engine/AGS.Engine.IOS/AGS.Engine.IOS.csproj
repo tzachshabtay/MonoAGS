@@ -54,11 +54,11 @@
     </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="Autofac">
-      <HintPath>..\..\..\packages\Autofac.4.3.0\lib\netstandard1.1\Autofac.dll</HintPath>
-    </Reference>
     <Reference Include="OpenTK">
       <HintPath>..\..\..\DLLs\IOS\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\packages\Autofac.4.4.0\lib\netstandard1.1\Autofac.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

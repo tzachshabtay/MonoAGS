@@ -8,8 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>AGS.API</RootNamespace>
     <AssemblyName>AGS.API</AssemblyName>
-    <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -217,5 +216,8 @@
     <Folder Include="Misc\CustomProperties\" />
     <Folder Include="Player\Approach\" />
     <Folder Include="UI\Focus\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="project.json" />
   </ItemGroup>
 </Project>
