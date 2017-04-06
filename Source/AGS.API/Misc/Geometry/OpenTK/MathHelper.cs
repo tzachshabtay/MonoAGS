@@ -9,10 +9,8 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace AGS.Engine
+namespace AGS.API
 {
     /// <summary>
     /// Contains common mathematical functions and constants.

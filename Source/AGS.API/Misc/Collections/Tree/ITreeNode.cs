@@ -8,6 +8,8 @@ namespace AGS.API
 		TItem Parent { get; }
 		IEnumerable<TItem> Children { get; }
 
+        IEvent<AGSEventArgs> OnParentChanged { get; }
+
 		void SetParent(ITreeNode<TItem> parent);
 		void StealParent(ITreeNode<TItem> victim);
 

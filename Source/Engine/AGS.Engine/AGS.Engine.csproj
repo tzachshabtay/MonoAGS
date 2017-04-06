@@ -131,7 +131,6 @@
     <Compile Include="Graphics\Logic\GLColor.cs" />
     <Compile Include="Graphics\Logic\GLGraphicsFactory.cs" />
     <Compile Include="Graphics\Logic\GLImageRenderer.cs" />
-    <Compile Include="Graphics\Logic\GLMatrixBuilder.cs" />
     <Compile Include="Graphics\Logic\GLTextureRenderer.cs" />
     <Compile Include="Graphics\Logic\Utils\GLUtils.cs" />
     <Compile Include="Graphics\Logic\GLViewportMatrix.cs" />
@@ -141,7 +140,6 @@
     <Compile Include="Graphics\Logic\Interfaces\IGLColor.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLColorBuilder.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLMatrices.cs" />
-    <Compile Include="Graphics\Logic\Interfaces\IGLMatrixBuilder.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLTextureRenderer.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLViewportMatrix.cs" />
     <Compile Include="Graphics\Logic\RenderOrderSelector.cs" />
@@ -299,7 +297,6 @@
     <Compile Include="UI\Text\Dialogs\AGSDialogOption.cs" />
     <Compile Include="UI\Text\GLLabelRenderer.cs" />
     <Compile Include="UI\Text\GLText.cs" />
-    <Compile Include="UI\Text\LabelMatrixRenderTarget.cs" />
     <Compile Include="Platform\IFileSystem.cs" />
     <Compile Include="Graphics\Logic\GLVertex.cs" />
     <Compile Include="Graphics\Drawing\GLShader.cs" />
@@ -375,13 +372,6 @@
     <Compile Include="Player\Approach\AGSApproachStyle.cs" />
     <Compile Include="Platform\IAudioBackend.cs" />
     <Compile Include="Platform\IGraphicsBackend.cs" />
-    <Compile Include="Misc\Geometry\OpenTK\Vector2.cs" />
-    <Compile Include="Misc\Geometry\OpenTK\MathHelper.cs" />
-    <Compile Include="Misc\Geometry\OpenTK\Quaternion.cs" />
-    <Compile Include="Misc\Geometry\OpenTK\Vector3.cs" />
-    <Compile Include="Misc\Geometry\OpenTK\Matrix4.cs" />
-    <Compile Include="Misc\Geometry\OpenTK\Vector4.cs" />
-    <Compile Include="Misc\Geometry\OpenTK\Matrix3.cs" />
     <Compile Include="Platform\IGameWindow.cs" />
     <Compile Include="Game\AGSGame.cs" />
     <Compile Include="Input\AGSShouldBlockInput.cs" />
@@ -392,6 +382,8 @@
     <Compile Include="UI\Focus\IModalWindows.cs" />
     <Compile Include="UI\Focus\AGSFocusedUI.cs" />
     <Compile Include="UI\Focus\AGSModalWindowComponent.cs" />
+    <Compile Include="Objects\AGSModelMatrixComponent.cs" />
+    <Compile Include="Graphics\Logic\GLMatrices.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -473,7 +465,6 @@
     <Folder Include="UI\Icons\" />
     <Folder Include="Game\Settings\" />
     <Folder Include="Player\Approach\" />
-    <Folder Include="Misc\Geometry\OpenTK\" />
     <Folder Include="UI\Focus\" />
   </ItemGroup>
 </Project>

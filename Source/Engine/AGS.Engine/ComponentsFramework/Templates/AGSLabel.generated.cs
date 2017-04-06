@@ -33,6 +33,7 @@ namespace AGS.Engine
         private IScaleComponent _scaleComponent;
         private IRotateComponent _rotateComponent;
         private IPixelPerfectComponent _pixelPerfectComponent;
+        private IModelMatrixComponent _modelMatrixComponent;
 
         public AGSLabel(string id, Resolver resolver) : base(id, resolver)
         {            
@@ -54,6 +55,7 @@ namespace AGS.Engine
             _scaleComponent = AddComponent<IScaleComponent>();            
             _rotateComponent = AddComponent<IRotateComponent>();            
             _pixelPerfectComponent = AddComponent<IPixelPerfectComponent>();
+            _modelMatrixComponent = AddComponent<IModelMatrixComponent>();
 			beforeInitComponents(resolver);            
 			InitComponents();
             afterInitComponents(resolver);            
@@ -527,6 +529,16 @@ namespace AGS.Engine
         }
 
         #endregion
+
+        public ModelMatrices GetModelMatrices() { return _modelMatrixComponent.GetModelMatrices(); }
+
+        public IEvent<AGSEventArgs> OnMatrixChanged { get { return _modelMatrixComponent.OnMatrixChanged; } }
+        public IEvent<AGSEventArgs> OnIgnoreScalingAreaChanged { get { return _drawableInfo.OnIgnoreScalingAreaChanged; } }
+        public IEvent<AGSEventArgs> OnRenderLayerChanged { get { return _drawableInfo.OnRenderLayerChanged; } }
+        public IEvent<AGSEventArgs> OnLocationChanged { get { return _translateComponent.OnLocationChanged; } }
+        public IEvent<AGSEventArgs> OnScaleChanged { get { return _scaleComponent.OnScaleChanged; } }
+        public IEvent<AGSEventArgs> OnAnchorChanged { get { return _imageComponent.OnAnchorChanged; } }
+        public IEvent<AGSEventArgs> OnAngleChanged { get { return _rotateComponent.OnAngleChanged; } }
     }
 }
 

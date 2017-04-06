@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using AGS.API;
 using Autofac;
 
@@ -30,11 +30,11 @@ namespace AGS.Engine
 
 		public ILocation Location
 		{
-			get { return _transformComponent.Location; } 
+			get { return _translateComponent.Location; } 
 			set
 			{
 				StopWalking();
-                _transformComponent.Location = value; 
+                _translateComponent.Location = value; 
 			}
 		}
 

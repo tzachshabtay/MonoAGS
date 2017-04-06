@@ -8,7 +8,6 @@ namespace AGS.Engine
 	{
         private readonly Dictionary<string, ITexture> _textures;
         private static Lazy<ITexture> _emptyTexture;
-		private readonly IGLMatrixBuilder _hitTestMatrixBuilder, _renderMatrixBuilder;
 		private readonly IGLBoundingBoxBuilder _boundingBoxBuilder;
 		private readonly IGLColorBuilder _colorBuilder;
 		private readonly IGLTextureRenderer _renderer;
@@ -16,17 +15,16 @@ namespace AGS.Engine
         private readonly IGraphicsFactory _graphicsFactory;
         private readonly IGLUtils _glUtils;
         private readonly IBitmapLoader _bitmapLoader;
+        private readonly GLMatrices _matrices = new GLMatrices();
 
         public GLImageRenderer (Dictionary<string, ITexture> textures, 
-			IGLMatrixBuilder hitTestMatrixBuilder, IGLMatrixBuilder renderMatrixBuilder, IGLBoundingBoxBuilder boundingBoxBuilder,
+			IGLBoundingBoxBuilder boundingBoxBuilder,
 			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer, IGLBoundingBoxes bgBoxes,
             IGLViewportMatrixFactory layerViewports, IGraphicsFactory graphicsFactory, IGLUtils glUtils, 
             IBitmapLoader bitmapLoader)
 		{
             _graphicsFactory = graphicsFactory;
 			_textures = textures;
-			_renderMatrixBuilder = renderMatrixBuilder;
-            _hitTestMatrixBuilder = hitTestMatrixBuilder;
 			_boundingBoxBuilder = boundingBoxBuilder;
 			_colorBuilder = colorBuilder;
 			_renderer = renderer;
@@ -41,11 +39,14 @@ namespace AGS.Engine
 
         public static ITexture EmptyTexture { get { return _emptyTexture.Value; } }
 
-		public void Prepare(IObject obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
+        public SizeF? CustomImageSize { get { return null; } }
+        public PointF? CustomImageResolutionFactor { get { return null; } }
+
+		public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
 		{
 		}
 
-		public void Render(IObject obj, IViewport viewport, PointF areaScaling)
+		public void Render(IObject obj, IViewport viewport)
 		{
 			if (obj.Animation == null)
 			{
@@ -63,21 +64,20 @@ namespace AGS.Engine
             bool resolutionMatches = resolution.Equals(gameResolution);
 
             var viewportMatrix = obj.IgnoreViewport ? Matrix4.Identity : layerViewport.GetMatrix(viewport, obj.RenderLayer.ParallaxSpeed);
-            PointF resolutionFactor = new PointF(resolution.Width / gameResolution.Width, resolution.Height / gameResolution.Height);
-            IGLMatrices matricesRender = _renderMatrixBuilder.Build(obj, obj.Animation.Sprite, obj.TreeNode.Parent,
-                viewportMatrix, areaScaling, resolutionFactor);
 
-            IGLMatrices matricesHitTest = resolutionMatches ? matricesRender : _hitTestMatrixBuilder.Build(obj, obj.Animation.Sprite, obj.TreeNode.Parent,
-                viewportMatrix, areaScaling, GLMatrixBuilder.NoScaling);
+            var modelMatrices = obj.GetModelMatrices();
+            _matrices.ModelMatrix = modelMatrices.InVirtualResolutionMatrix;
+            _matrices.ViewportMatrix = viewportMatrix;
 
             _boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width,
-				sprite.Image.Height, matricesHitTest, resolutionMatches, true);
+				sprite.Image.Height, _matrices, resolutionMatches, true);
 			IGLBoundingBox hitTestBox = BoundingBoxes.HitTestBox;
             
             if (!resolutionMatches)
             {
+                _matrices.ModelMatrix = modelMatrices.InObjResolutionMatrix;
                 _boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width,
-                    sprite.Image.Height, matricesRender, true, false);
+                    sprite.Image.Height, _matrices, true, false);
             }
             IGLBoundingBox renderBox = BoundingBoxes.RenderBox;
 

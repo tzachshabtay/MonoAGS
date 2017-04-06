@@ -1,6 +1,4 @@
-﻿using System;
-using AGS.API;
-using AGS.Engine;
+﻿using AGS.API;
 using System.Collections.Generic;
 
 namespace AGS.Engine
@@ -9,9 +7,11 @@ namespace AGS.Engine
 	{
 		private readonly IConcurrentHashSet<TItem> _children;
 		private ITreeNode<TItem> _parent;
+        private readonly AGSEventArgs _args = new AGSEventArgs();
 
 		public AGSTreeNode(TItem node = null, IConcurrentHashSet<TItem> children = null)
 		{
+            OnParentChanged = new AGSEvent<AGSEventArgs>();
 			_children = children ?? new AGSConcurrentHashSet<TItem>();
 			Node = node;
 		}
@@ -66,6 +66,7 @@ namespace AGS.Engine
 			{
 				_parent.AddChild(Node);
 			}
+            fireParentChanged();
 		}
 
 		public void StealParent(ITreeNode<TItem> victim)
@@ -77,7 +78,10 @@ namespace AGS.Engine
 			}
 			SetParent(victim.Parent.TreeNode);
 			victim.SetParent(null);
+            fireParentChanged();
 		}
+
+        public IEvent<AGSEventArgs> OnParentChanged { get; private set; }
 			
 		public int ChildrenCount
 		{
@@ -87,7 +91,12 @@ namespace AGS.Engine
 			}
 		}
 
-		#endregion
+        #endregion
+
+        private void fireParentChanged()
+        {
+            OnParentChanged.FireEvent(this, _args);
+        }
 	}
 }
 

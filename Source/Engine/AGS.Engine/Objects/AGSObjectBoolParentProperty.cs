@@ -8,7 +8,6 @@ namespace AGS.Engine
 	{
 		private readonly Predicate<IObject> _getProperty;
 		private IInObjectTree _tree;
-        private AGSEventArgs _args;
         private readonly IGameState _state;
         private readonly IInput _input;
         private IObject _obj;
@@ -18,7 +17,6 @@ namespace AGS.Engine
             _state = state;
             _input = input;
 			_getProperty = getProperty;
-            _args = new AGSEventArgs();
             UnderlyingValue = true;
 		}
 

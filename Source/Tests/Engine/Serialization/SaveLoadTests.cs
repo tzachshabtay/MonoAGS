@@ -5,7 +5,6 @@ using NUnit.Framework;
 using AGS.Engine;
 using AGS.API;
 using Autofac;
-using System.Drawing;
 using Moq;
 using AGS.Engine.Desktop;
 
@@ -31,6 +30,7 @@ namespace Tests
 			updater.RegisterInstance(_mocks.Input().Object).As<IInput>();
 			updater.RegisterInstance(_mocks.AudioSystem().Object).As<IAudioSystem>();
 			updater.RegisterInstance(new Mock<IMessagePump>().Object);
+            updater.RegisterInstance(new Mock<IRuntimeSettings>().Object);
             Mock<IUIThread> uiThread = new Mock<IUIThread>();
             uiThread.Setup(u => u.RunBlocking(It.IsAny<Action>())).Callback<Action>(a => a());
             updater.RegisterInstance(uiThread.Object);

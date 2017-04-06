@@ -7,6 +7,8 @@
         float ScaleX { get; }
         float ScaleY { get; }
 
+        IEvent<AGSEventArgs> OnScaleChanged { get; }
+
         void ResetBaseSize(float initialWidth, float initialHeight);
         void ResetScale();
         void ResetScale(float initialWidth, float initialHeight);

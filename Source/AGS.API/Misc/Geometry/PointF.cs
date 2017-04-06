@@ -52,16 +52,15 @@ namespace AGS.API
 
 		public override bool Equals(Object obj) 
 		{
-			if (obj == null) return false;
-			if (!(obj is PointF)) return false;
+            PointF? other = obj as PointF?;
+			if (other == null) return false;
 
-			PointF p = (PointF)obj;
-			return (X == p.X) && (Y == p.Y);
+            return (X == other.Value.X) && (Y == other.Value.Y);
 		}
 
 		public override int GetHashCode() 
 		{
-			return X.GetHashCode() ^ Y.GetHashCode();
+            return (X.GetHashCode() * 397) ^ Y.GetHashCode();
 		}
 	}
 }

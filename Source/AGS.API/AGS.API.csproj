@@ -19,6 +19,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -27,6 +29,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Graphics\IImageComponent.cs" />
@@ -207,6 +211,14 @@
     <Compile Include="Input\IShouldBlockInput.cs" />
     <Compile Include="UI\Focus\IFocusedUI.cs" />
     <Compile Include="UI\Focus\IModalWindowComponent.cs" />
+    <Compile Include="Objects\IModelMatrixComponent.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\MathHelper.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Matrix3.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Matrix4.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Quaternion.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Vector2.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Vector3.cs" />
+    <Compile Include="Misc\Geometry\OpenTK\Vector4.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
@@ -216,6 +228,7 @@
     <Folder Include="Misc\CustomProperties\" />
     <Folder Include="Player\Approach\" />
     <Folder Include="UI\Focus\" />
+    <Folder Include="Misc\Geometry\OpenTK\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
