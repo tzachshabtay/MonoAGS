@@ -12,21 +12,16 @@ namespace AGS.Engine
         private readonly IGraphicsBackend _graphics;
 		private GLText _glText;
 
-		private readonly MatrixContainer _renderLabelMatrixContainer, _hitTestLabelMatrixContainer;
-
-		private readonly IGLMatrixBuilder _textRenderMatrixBuilder, _labelRenderMatrixBuilder, _hitTestMatrixBuilder;
 		private readonly IGLBoundingBoxBuilder _boundingBoxBuilder;
 		private readonly IGLColorBuilder _colorBuilder;
 		private readonly IGLTextureRenderer _textureRenderer;
 		private readonly IGLBoundingBoxes _labelBoundingBoxes, _textBoundingBoxes;
 		private readonly IGLViewportMatrixFactory _viewport;
 		private IGLBoundingBoxes _usedLabelBoundingBoxes, _usedTextBoundingBoxes;
-		private readonly LabelMatrixRenderTarget _labelMatrixRenderTarget;
 		private readonly BitmapPool _bitmapPool;
         private readonly IFontLoader _fonts;
 
         public GLLabelRenderer(Dictionary<string, ITexture> textures, 
-            IGLMatrixBuilder textRenderMatrixBuilder, IGLMatrixBuilder labelRenderMatrixBuilder, IGLMatrixBuilder hitTestMatrixBuilder,
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
 			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrixFactory viewportMatrix,
             IGLBoundingBoxes labelBoundingBoxes, IGLBoundingBoxes textBoundingBoxes, IGraphicsFactory graphicsFactory,
@@ -35,21 +30,16 @@ namespace AGS.Engine
             _glUtils = glUtils;
             _graphics = graphics;
             _fonts = fonts;
-			_renderLabelMatrixContainer = new MatrixContainer ();
-            _hitTestLabelMatrixContainer = new MatrixContainer();
 			_bitmapPool = bitmapPool;
-			_labelMatrixRenderTarget = new LabelMatrixRenderTarget ();
 			_viewport = viewportMatrix;
 			_textureRenderer = textureRenderer;
 			_labelBoundingBoxes = labelBoundingBoxes;
 			_textBoundingBoxes = textBoundingBoxes;
 			_boundingBoxBuilder = boundingBoxBuilder;
-			_bgRenderer = new GLImageRenderer(textures, _hitTestLabelMatrixContainer, _renderLabelMatrixContainer,
+			_bgRenderer = new GLImageRenderer(textures,
 				new BoundingBoxesEmptyBuilder(), colorBuilder, _textureRenderer, _labelBoundingBoxes,
                                               viewportMatrix, graphicsFactory, glUtils, bitmapLoader);
-			_textRenderMatrixBuilder = textRenderMatrixBuilder;
-            _labelRenderMatrixBuilder = labelRenderMatrixBuilder;
-            _hitTestMatrixBuilder = hitTestMatrixBuilder;
+
 			_colorBuilder = colorBuilder;
 
 			TextVisible = true;
@@ -97,22 +87,25 @@ namespace AGS.Engine
 
 		#region IImageRenderer implementation
 
-		public void Prepare(IObject obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
+        public SizeF? CustomImageSize { get; private set; }
+        public PointF? CustomImageResolutionFactor { get; private set; }
+
+		public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
 		{
             _glText = _glText ?? new GLText (_graphics, _fonts, _bitmapPool);
 
-			updateBoundingBoxes(obj, drawable, tree, viewport, areaScaling);
+			updateBoundingBoxes(obj, drawable, viewport);
 			_bgRenderer.BoundingBoxes = _usedLabelBoundingBoxes;
-			_bgRenderer.Prepare(obj, drawable, tree, viewport, areaScaling);
+			_bgRenderer.Prepare(obj, drawable, viewport);
 		}
 
-		public void Render(IObject obj, IViewport viewport, PointF areaScaling)
+		public void Render(IObject obj, IViewport viewport)
 		{
             if (getAutoFit() == AutoFit.LabelShouldFitText)
             {
                 _glUtils.AdjustResolution(GLText.TextResolutionWidth, GLText.TextResolutionHeight);
             }
-            _bgRenderer.Render(obj, viewport, areaScaling);
+            _bgRenderer.Render(obj, viewport);
 
             if (TextVisible && Text != "")
 			{
@@ -131,35 +124,31 @@ namespace AGS.Engine
             return TextVisible && config != null ? config.AutoFit : AutoFit.NoFitting;
         }
 
-        private void updateBoundingBoxes(IObject obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
+        private void updateBoundingBoxes(IObject obj, IDrawableInfo drawable, IViewport viewport)
 		{
             AutoFit autoFit = getAutoFit();
-			updateLabelMatrixRenderTarget(obj);
 
 			float height = obj.Height;
 			float width = obj.Width;
-			if (autoFit == AutoFit.LabelShouldFitText)
-			{
-				updateText(GLText.EmptySize, null);
-				_labelMatrixRenderTarget.Width = _glText.Width;
-				_labelMatrixRenderTarget.Height = _glText.Height;
-			}
-            var resolutionFactor = string.IsNullOrEmpty(Text) ? new PointF(1f,1f) : new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
-            var noFactor = GLMatrixBuilder.NoScaling;
-            bool resolutionMatches = resolutionFactor.Equals(noFactor);
-            var matrix = drawable.IgnoreViewport ? Matrix4.Identity : _viewport.GetViewport(drawable.RenderLayer.Z).GetMatrix(viewport, drawable.RenderLayer.ParallaxSpeed);
-            var sprite = obj.Animation == null ? null : obj.Animation.Sprite;
-            var parent = tree.TreeNode.Parent;
+            if (autoFit == AutoFit.LabelShouldFitText)
+            {
+                updateText(GLText.EmptySize, null);
+                CustomImageSize = new SizeF(_glText.Width, _glText.Height);
+            }
+            else CustomImageSize = BaseSize;
 
-            IGLMatrices textRenderMatrices = _textRenderMatrixBuilder.Build(_labelMatrixRenderTarget, sprite, parent, matrix, areaScaling, resolutionFactor);
-            IGLMatrices labelRenderMatrices = _labelRenderMatrixBuilder.Build(_labelMatrixRenderTarget, sprite, parent, matrix, areaScaling, noFactor);
-            IGLMatrices textHitTestMatrices = resolutionMatches ? textRenderMatrices : _hitTestMatrixBuilder.Build(_labelMatrixRenderTarget, sprite, parent,
-                matrix, areaScaling, noFactor);
-            IGLMatrices labelHitTestMatrices = resolutionMatches ? labelRenderMatrices : textHitTestMatrices;
-            _renderLabelMatrixContainer.Matrices = labelRenderMatrices;
-            _hitTestLabelMatrixContainer.Matrices = labelHitTestMatrices;
-			_labelMatrixRenderTarget.Width = width;
-			_labelMatrixRenderTarget.Height = height;
+            var resolutionFactor = string.IsNullOrEmpty(Text) ? AGSModelMatrixComponent.NoScaling : new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
+            CustomImageResolutionFactor = resolutionFactor;
+            var noFactor = AGSModelMatrixComponent.NoScaling;
+            bool resolutionMatches = resolutionFactor.Equals(noFactor);
+            var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : _viewport.GetViewport(drawable.RenderLayer.Z).GetMatrix(viewport, drawable.RenderLayer.ParallaxSpeed);
+
+            var modelMatrices = obj.GetModelMatrices();
+
+            IGLMatrices textRenderMatrices = new GLMatrices { ModelMatrix = modelMatrices.InObjResolutionMatrix, ViewportMatrix = viewportMatrix }; //_textRenderMatrixBuilder.Build(_labelMatrixRenderTarget, sprite, parent, matrix, areaScaling, resolutionFactor);
+            IGLMatrices labelRenderMatrices = new GLMatrices { ModelMatrix = modelMatrices.InVirtualResolutionMatrix, ViewportMatrix = viewportMatrix }; // _labelRenderMatrixBuilder.Build(_labelMatrixRenderTarget, sprite, parent, matrix, areaScaling, noFactor);
+            IGLMatrices textHitTestMatrices = resolutionMatches ? textRenderMatrices : labelRenderMatrices;
+            IGLMatrices labelHitTestMatrices = labelRenderMatrices;
 
             updateBoundingBoxes(autoFit, textHitTestMatrices, labelHitTestMatrices, noFactor, resolutionMatches, true);
             if (!resolutionMatches) updateBoundingBoxes(autoFit, textRenderMatrices, labelRenderMatrices, resolutionFactor, true, false);            
@@ -227,18 +216,6 @@ namespace AGS.Engine
             }
         }
 
-		private void updateLabelMatrixRenderTarget(IHasModelMatrix obj)
-		{
-            _labelMatrixRenderTarget.X = obj.X;
-            _labelMatrixRenderTarget.Y = obj.Y;
-			_labelMatrixRenderTarget.Anchor = obj.Anchor;
-			_labelMatrixRenderTarget.Angle = obj.Angle;
-			_labelMatrixRenderTarget.Width = BaseSize.Width;
-			_labelMatrixRenderTarget.Height = BaseSize.Height;
-			_labelMatrixRenderTarget.ScaleX = obj.ScaleX;
-			_labelMatrixRenderTarget.ScaleY = obj.ScaleY;
-		}
-
 		private void updateText(SizeF baseSize, int? maxWidth, bool? cropText = null)
 		{
 			if (TextVisible)
@@ -247,18 +224,6 @@ namespace AGS.Engine
 				_glText.SetProperties(baseSize, Text, Config, maxWidth, CaretPosition, RenderCaret, cropText);
 				_glText.Refresh();
 			}
-		}
-
-		private class MatrixContainer : IGLMatrixBuilder
-		{
-			public IGLMatrices Matrices { get; set; }
-
-			#region IGLMatrixBuilder implementation
-			public IGLMatrices Build(IHasModelMatrix obj, IHasModelMatrix sprite, IObject parent, Matrix4 viewport, PointF areaScaling, PointF resolutionTransform)
-			{
-				return Matrices;
-			}
-			#endregion
 		}
 
 		private class BoundingBoxesEmptyBuilder : IGLBoundingBoxBuilder

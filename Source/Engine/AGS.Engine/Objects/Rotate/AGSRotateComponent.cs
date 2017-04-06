@@ -12,5 +12,7 @@ namespace AGS.Engine
         }
 
         public float Angle {  get { return _rotate.Angle; } set { _rotate.Angle = value; } }
+
+        public IEvent<AGSEventArgs> OnAngleChanged { get { return _rotate.OnAngleChanged; } }
     }
 }

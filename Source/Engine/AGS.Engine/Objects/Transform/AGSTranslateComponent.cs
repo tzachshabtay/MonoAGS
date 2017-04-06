@@ -18,5 +18,7 @@ namespace AGS.Engine
         public float Y { get { return _translate.Y; } set { _translate.Y = value; } }
 
         public float Z { get { return _translate.Z; } set { _translate.Z = value; } }
+
+        public IEvent<AGSEventArgs> OnLocationChanged { get { return _translate.OnLocationChanged; } }
     }
 }

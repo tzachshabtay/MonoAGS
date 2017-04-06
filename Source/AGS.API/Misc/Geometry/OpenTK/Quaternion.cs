@@ -25,7 +25,7 @@ using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace AGS.Engine
+namespace AGS.API
 {
     /// <summary>
     /// Represents a Quaternion.

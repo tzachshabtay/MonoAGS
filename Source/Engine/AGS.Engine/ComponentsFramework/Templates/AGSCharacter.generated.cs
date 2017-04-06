@@ -26,7 +26,7 @@ namespace AGS.Engine
         private IDrawableInfo _drawableInfo;
         private IHotspotComponent _hotspotComponent;
         private IShaderComponent _shaderComponent;
-        private ITranslateComponent _transformComponent;
+        private ITranslateComponent _translateComponent;
         private IImageComponent _imageComponent;
         private IScaleComponent _scaleComponent;
         private IRotateComponent _rotateComponent;
@@ -37,6 +37,7 @@ namespace AGS.Engine
         private IHasOutfit _hasOutfit;
         private IHasInventory _hasInventory;
         private IFollowBehavior _followBehavior;
+        private IModelMatrixComponent _modelMatrixComponent;
 
         public AGSCharacter(string id, Resolver resolver, IOutfit outfit) : base(id, resolver)
         {            
@@ -50,7 +51,7 @@ namespace AGS.Engine
             _drawableInfo = AddComponent<IDrawableInfo>();            
             _hotspotComponent = AddComponent<IHotspotComponent>();            
             _shaderComponent = AddComponent<IShaderComponent>();            
-            _transformComponent = AddComponent<ITranslateComponent>();            
+            _translateComponent = AddComponent<ITranslateComponent>();            
             _imageComponent = AddComponent<IImageComponent>();            
             _scaleComponent = AddComponent<IScaleComponent>();            
             _rotateComponent = AddComponent<IRotateComponent>();            
@@ -59,6 +60,7 @@ namespace AGS.Engine
             _hasOutfit = AddComponent<IHasOutfit>();            
             _hasInventory = AddComponent<IHasInventory>();            
             _followBehavior = AddComponent<IFollowBehavior>();
+            _modelMatrixComponent = AddComponent<IModelMatrixComponent>();
 			beforeInitComponents(resolver, outfit);            
 			InitComponents();
             afterInitComponents(resolver, outfit);            
@@ -264,20 +266,20 @@ namespace AGS.Engine
 
         public Single X 
         {  
-            get { return _transformComponent.X; }  
-            set { _transformComponent.X = value; } 
+            get { return _translateComponent.X; }  
+            set { _translateComponent.X = value; } 
         }
 
         public Single Y 
         {  
-            get { return _transformComponent.Y; }  
-            set { _transformComponent.Y = value; } 
+            get { return _translateComponent.Y; }  
+            set { _translateComponent.Y = value; } 
         }
 
         public Single Z 
         {  
-            get { return _transformComponent.Z; }  
-            set { _transformComponent.Z = value; } 
+            get { return _translateComponent.Z; }  
+            set { _translateComponent.Z = value; } 
         }
 
         #endregion
@@ -590,6 +592,16 @@ namespace AGS.Engine
         }
 
         #endregion
+
+        public ModelMatrices GetModelMatrices() { return _modelMatrixComponent.GetModelMatrices(); }
+
+        public IEvent<AGSEventArgs> OnMatrixChanged { get { return _modelMatrixComponent.OnMatrixChanged; } }
+        public IEvent<AGSEventArgs> OnIgnoreScalingAreaChanged { get { return _drawableInfo.OnIgnoreScalingAreaChanged; } }
+        public IEvent<AGSEventArgs> OnRenderLayerChanged { get { return _drawableInfo.OnRenderLayerChanged; } }
+        public IEvent<AGSEventArgs> OnLocationChanged { get { return _translateComponent.OnLocationChanged; } }
+        public IEvent<AGSEventArgs> OnScaleChanged { get { return _scaleComponent.OnScaleChanged; } }
+        public IEvent<AGSEventArgs> OnAnchorChanged { get { return _imageComponent.OnAnchorChanged; } }
+        public IEvent<AGSEventArgs> OnAngleChanged { get { return _rotateComponent.OnAngleChanged; } }
     }
 }
 

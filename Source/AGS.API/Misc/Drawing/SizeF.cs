@@ -20,6 +20,18 @@ namespace AGS.API
             return string.Format("{0},{1}", Width, Height);
         }
 
+        public override bool Equals(object obj)
+        {
+            SizeF? other = obj as SizeF?;
+            if (other == null) return false;
+            return other.Value.Width == _width && other.Value.Height == _height;
+        }
+
+        public override int GetHashCode()
+        {
+            return (_width.GetHashCode() * 397) ^ _height.GetHashCode();
+        }
+
         public SizeF Scale(float factorX, float factorY)
         {
             return new SizeF(_width * factorX, _height * factorY);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AGS.API;
 using AGS.Engine;
 using Moq;
@@ -50,7 +49,7 @@ namespace Tests
 
             IRendererLoop loop = getLoop();
             Assert.IsTrue(loop.Tick());
-            _renderer.Verify(r => r.Render(It.IsAny<IObject>(), It.IsAny<IViewport>(), It.IsAny<PointF>()), Times.Never);
+            _renderer.Verify(r => r.Render(It.IsAny<IObject>(), It.IsAny<IViewport>()), Times.Never);
         }
 
         [Test]
@@ -63,7 +62,7 @@ namespace Tests
 
             IRendererLoop loop = getLoop();
             Assert.IsTrue(loop.Tick());
-            _renderer.Verify(r => r.Render(It.IsAny<IObject>(), It.IsAny<IViewport>(), It.IsAny<PointF>()), Times.Exactly(2));
+            _renderer.Verify(r => r.Render(It.IsAny<IObject>(), It.IsAny<IViewport>()), Times.Exactly(2));
         }
 
         private IRendererLoop getLoop()

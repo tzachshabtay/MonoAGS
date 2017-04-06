@@ -10,6 +10,7 @@
         IImageRenderer CustomRenderer { get; set; }
 
         IEvent<AGSEventArgs> OnImageChanged { get; }
+        IEvent<AGSEventArgs> OnAnchorChanged { get; }
     }
 
     [RequiredComponent(typeof(IAnimationContainer))]

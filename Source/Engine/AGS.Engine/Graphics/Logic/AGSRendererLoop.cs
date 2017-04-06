@@ -130,13 +130,12 @@ namespace AGS.Engine
             _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 
             IImageRenderer imageRenderer = getImageRenderer(obj);
-			PointF areaScaling = getAreaScaling(room, obj);
 
-			imageRenderer.Prepare(obj, obj, obj, room.Viewport, areaScaling);
+			imageRenderer.Prepare(obj, obj, room.Viewport);
 
 			var shader = applyObjectShader(obj);
 
-			imageRenderer.Render (obj, room.Viewport, areaScaling);
+			imageRenderer.Render (obj, room.Viewport);
 
 			removeObjectShader(shader);
 		}
@@ -168,19 +167,6 @@ namespace AGS.Engine
 			}
 			_lastShaderUsed = shader;
 			shader.Bind();
-		}
-
-		private PointF getAreaScaling(IRoom room, IObject obj)
-		{
-			if (obj.IgnoreScalingArea) return GLMatrixBuilder.NoScaling;
-            foreach (IArea area in room.GetMatchingAreas(obj.Location.XY, obj.ID))
-			{
-                IScalingArea scaleArea = area.GetComponent<IScalingArea>();
-                if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY)) continue;
-                float scale = scaleArea.GetScaling(scaleArea.Axis == ScalingAxis.X ? obj.X : obj.Y);
-                return new PointF (scaleArea.ScaleObjectsX ? scale : 1f, scaleArea.ScaleObjectsY ? scale : 1f);
-			}
-			return GLMatrixBuilder.NoScaling;
 		}
 
 		private IImageRenderer getImageRenderer(IObject obj)
@@ -253,9 +239,8 @@ namespace AGS.Engine
 			if (!obj.Visible)
 			{
 				IImageRenderer imageRenderer = getImageRenderer(obj);
-				PointF areaScaling = getAreaScaling(room, obj);
 
-				imageRenderer.Prepare(obj, obj, obj, room.Viewport, areaScaling);
+				imageRenderer.Prepare(obj, obj, room.Viewport);
 				return;
 			}
 

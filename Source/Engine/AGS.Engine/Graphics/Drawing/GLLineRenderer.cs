@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -17,11 +18,11 @@ namespace AGS.Engine
 
 		#region ICustomRenderer implementation
 
-		public void Prepare(IObject obj, IDrawableInfo drawable, IInObjectTree tree, IViewport viewport, PointF areaScaling)
+		public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
 		{
 		}
 
-		public void Render (IObject obj, IViewport viewport, PointF areaScaling)
+		public void Render (IObject obj, IViewport viewport)
 		{
 			float x1 = obj.IgnoreViewport ? X1 : X1 - viewport.X;
 			float x2 = obj.IgnoreViewport ? X2 : X2 - viewport.X;
@@ -33,7 +34,11 @@ namespace AGS.Engine
 		public float X2 { get; private set; }
 		public float Y2 { get; private set; }
 
-		#endregion
-	}
+        public SizeF? CustomImageSize { get { return null; } }
+
+        public PointF? CustomImageResolutionFactor { get { return null; } }
+
+        #endregion
+    }
 }
 

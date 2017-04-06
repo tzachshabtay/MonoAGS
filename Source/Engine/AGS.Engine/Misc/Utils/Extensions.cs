@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AGS.API;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
@@ -116,6 +117,18 @@ namespace AGS.Engine
 					return config.Font.MeasureString(text).Scale(scaleBackX, scaleBackY);
 			}
 		}
+
+        public static void FireEvent<TEventArgs>(this IEvent<TEventArgs> ev, object sender, TEventArgs args) where TEventArgs : AGSEventArgs
+        {
+            if (ev == null) return;
+            ev.Invoke(sender, args);
+        }
+
+        public static async Task FireEventAsync<TEventArgs>(this IEvent<TEventArgs> ev, object sender, TEventArgs args) where TEventArgs : AGSEventArgs
+        {
+            if (ev == null) return;
+            await ev.InvokeAsync(sender, args);
+        }
 	}
 }
 

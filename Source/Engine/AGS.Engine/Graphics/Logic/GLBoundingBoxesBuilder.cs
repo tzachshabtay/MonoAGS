@@ -1,4 +1,6 @@
-﻿namespace AGS.Engine
+﻿using AGS.API;
+
+namespace AGS.Engine
 {
 	public class GLBoundingBoxesBuilder : IGLBoundingBoxBuilder
 	{
