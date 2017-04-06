@@ -65,7 +65,7 @@ namespace AGS.Engine
 						castBuffer(allBuffers[i], data, offset, len);
 						offset += len;
 					}
-					return new SoundData(channels, BITS_PER_SAMPLE, sampleRate, data, Marshal.SizeOf(typeof(short)) * data.Length);
+					return new SoundData(channels, BITS_PER_SAMPLE, sampleRate, data, Marshal.SizeOf<short>() * data.Length);
 				}
 				else
 				{
