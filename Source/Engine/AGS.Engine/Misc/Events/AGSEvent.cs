@@ -16,7 +16,7 @@ namespace AGS.Engine
 		public AGSEvent ()
 		{
 			_id = Guid.NewGuid();
-			_invocationList = new AGSConcurrentHashSet<Callback> ();
+            _invocationList = new AGSConcurrentHashSet<Callback>(fireListChangedEvent: false);
 		}
 
 		#region IEvent implementation
