@@ -6,6 +6,7 @@ namespace AGS.API
 	public interface IConcurrentHashSet<TItem> : IEnumerable<TItem>
 	{
 		int Count { get; }
+        IEvent<AGSHashSetChangedEventArgs<TItem>> OnListChanged { get; }
 
 		bool Add(TItem item);
 		bool Remove(TItem item);

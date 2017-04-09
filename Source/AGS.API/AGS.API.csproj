@@ -79,7 +79,6 @@
     <Compile Include="Inventory\IInventory.cs" />
     <Compile Include="Inventory\IInventoryItem.cs" />
     <Compile Include="Inventory\InventoryCombinationEventArgs.cs" />
-    <Compile Include="Misc\Collections\IConcurrentHashSet.cs" />
     <Compile Include="Misc\Collections\Tree\ITreeNode.cs" />
     <Compile Include="Misc\Drawing\Alignment.cs" />
     <Compile Include="Misc\Drawing\BrushType.cs" />
@@ -219,6 +218,8 @@
     <Compile Include="Misc\Geometry\OpenTK\Vector2.cs" />
     <Compile Include="Misc\Geometry\OpenTK\Vector3.cs" />
     <Compile Include="Misc\Geometry\OpenTK\Vector4.cs" />
+    <Compile Include="Misc\Collections\HashSet\IConcurrentHashSet.cs" />
+    <Compile Include="Misc\Collections\HashSet\AGSHashSetChangedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
@@ -229,6 +230,7 @@
     <Folder Include="Player\Approach\" />
     <Folder Include="UI\Focus\" />
     <Folder Include="Misc\Geometry\OpenTK\" />
+    <Folder Include="Misc\Collections\HashSet\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
