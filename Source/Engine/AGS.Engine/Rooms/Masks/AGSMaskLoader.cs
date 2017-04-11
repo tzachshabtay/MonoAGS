@@ -24,9 +24,7 @@ namespace AGS.Engine
 		{
             Debug.WriteLine("MaskLoader: Load " + path ?? "null");
 			var resource = _resourceLoader.LoadResource (path);
-            Debug.WriteLine("MaskLoader: Loaded resource");
 			IBitmap image = _bitmapLoader.Load (resource.Stream);
-            Debug.WriteLine("MaskLoader: Loaded bitmap");
 			return load(path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
 		}
 
@@ -36,9 +34,7 @@ namespace AGS.Engine
             Debug.WriteLine("MaskLoader: LoadAsync " + path ?? "null");
 			var resource = await Task.Run(() => _resourceLoader.LoadResource (path));
             if (resource == null) return null;
-            Debug.WriteLine("MaskLoader: LoadAsync loaded resource");
 			IBitmap image = await Task.Run(() => _bitmapLoader.Load (resource.Stream));
-            Debug.WriteLine("MaskLoader: LoadAsync loaded bitmap");
 			return load (path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
 		}
 
@@ -54,7 +50,6 @@ namespace AGS.Engine
 			Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
 		{
 			var mask = image.CreateMask(_factory, path, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
-            Debug.WriteLine("MaskLoader: loaded mask");
             return mask;
 		}
 	}
