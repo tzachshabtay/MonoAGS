@@ -38,6 +38,8 @@ namespace AGS.Engine
 
         public IEvent<AGSEventArgs> OnAnchorChanged { get { return _image.OnAnchorChanged; } }
 
+        public IEvent<AGSEventArgs> OnTintChanged { get { return _image.OnTintChanged; } }
+
         public byte Opacity { get { return _image.Opacity; } set { _image.Opacity = value; } }
 
         public Color Tint { get { return _image.Tint; } set { _image.Tint = value; } }
