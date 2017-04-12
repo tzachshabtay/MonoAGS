@@ -143,6 +143,7 @@ namespace AGS.Engine
         public IEvent<AGSEventArgs> OnLocationChanged { get { return _translate.OnLocationChanged; } }
         public IEvent<AGSEventArgs> OnAngleChanged { get { return _rotate.OnAngleChanged; } }
         public IEvent<AGSEventArgs> OnAnchorChanged { get { return _hasImage.OnAnchorChanged; } }
+        public IEvent<AGSEventArgs> OnTintChanged { get { return _hasImage.OnTintChanged; } }
         public IEvent<AGSEventArgs> OnScaleChanged { get; private set; }
 
         public IArea PixelPerfectHitTestArea { get; private set; }

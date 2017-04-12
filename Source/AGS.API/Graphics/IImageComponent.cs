@@ -11,6 +11,7 @@
 
         IEvent<AGSEventArgs> OnImageChanged { get; }
         IEvent<AGSEventArgs> OnAnchorChanged { get; }
+        IEvent<AGSEventArgs> OnTintChanged { get; }
     }
 
     [RequiredComponent(typeof(IAnimationContainer))]

@@ -579,6 +579,7 @@ namespace AGS.Engine
         public IEvent<AGSEventArgs> OnLocationChanged { get { return _translateComponent.OnLocationChanged; } }
         public IEvent<AGSEventArgs> OnScaleChanged { get { return _scaleComponent.OnScaleChanged; } }
         public IEvent<AGSEventArgs> OnAnchorChanged { get { return _imageComponent.OnAnchorChanged; } }
+        public IEvent<AGSEventArgs> OnTintChanged { get { return _imageComponent.OnTintChanged; } }
         public IEvent<AGSEventArgs> OnAngleChanged { get { return _rotateComponent.OnAngleChanged; } }
     }
 }
