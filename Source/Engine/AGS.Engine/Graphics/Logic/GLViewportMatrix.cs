@@ -21,7 +21,7 @@ namespace AGS.Engine
 		public Matrix4 GetMatrix(IViewport viewport, PointF parallaxSpeed)
 		{
 			if (viewport.X == _lastX && viewport.Y == _lastY &&
-			    viewport.ScaleX == _lastScaleX && viewport.Y == _lastScaleY &&
+                viewport.ScaleX == _lastScaleX && viewport.ScaleY == _lastScaleY &&
 				parallaxSpeed.X == _lastParallaxSpeedX && parallaxSpeed.Y == _lastParallaxSpeedY &&
 				viewport.Angle == _lastRotation)
 			{
