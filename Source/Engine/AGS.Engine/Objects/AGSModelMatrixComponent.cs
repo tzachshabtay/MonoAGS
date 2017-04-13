@@ -30,6 +30,7 @@ namespace AGS.Engine
         public AGSModelMatrixComponent(IRuntimeSettings settings)
         {
             _isDirty = true;
+            _matrices = new ModelMatrices();
             _virtualResolution = settings.VirtualResolution;
             OnMatrixChanged = new AGSEvent<AGSEventArgs>();
         }
@@ -128,21 +129,20 @@ namespace AGS.Engine
                 _isDirty = true;
             }
             var renderer = _image.CustomRenderer;
-            if (_entity.ID == "Quit Button")
-            { 
-            }
             if (renderer != null)
             {
                 var customImageSize = renderer.CustomImageSize;
                 if ((customImageSize == null && _customImageSize != null) || 
-                    !customImageSize.Equals(_customImageSize))
+                    (customImageSize != null && _customImageSize == null) ||
+                    !customImageSize.Value.Equals(_customImageSize.Value))
                 {
                     _customImageSize = customImageSize;
                     _isDirty = true;
                 }
                 var customFactor = renderer.CustomImageResolutionFactor;
                 if ((customFactor == null && _customResolutionFactor != null) ||
-                    !customFactor.Equals(_customResolutionFactor))
+                    (customFactor != null && _customResolutionFactor == null) ||
+                    !customFactor.Value.Equals(_customResolutionFactor.Value))
                 {
                     _customResolutionFactor = customFactor;
                     _isDirty = true;

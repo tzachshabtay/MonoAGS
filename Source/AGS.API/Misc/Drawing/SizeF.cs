@@ -24,7 +24,12 @@ namespace AGS.API
         {
             SizeF? other = obj as SizeF?;
             if (other == null) return false;
-            return other.Value.Width == _width && other.Value.Height == _height;
+            return Equals(other.Value);
+        }
+
+        public bool Equals(SizeF other)
+        { 
+            return other.Width == _width && other.Height == _height;
         }
 
         public override int GetHashCode()
