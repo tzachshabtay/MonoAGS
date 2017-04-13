@@ -55,8 +55,13 @@ namespace AGS.API
             PointF? other = obj as PointF?;
 			if (other == null) return false;
 
-            return (X == other.Value.X) && (Y == other.Value.Y);
+            return Equals(other.Value);
 		}
+
+        public bool Equals(PointF other)
+        { 
+            return (X == other.X) && (Y == other.Y);
+        }
 
 		public override int GetHashCode() 
 		{
