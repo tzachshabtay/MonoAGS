@@ -11,16 +11,18 @@ namespace AGS.Engine.Desktop
 		private Bitmap _bitmap;
 		private bool _isDirty;
 		private BitmapData _bitmapData;
+        private int _bitmapWidth;
 		const int bpp = 4;
 
 		public FastBitmap(Bitmap bitmap, ImageLockMode lockMode, bool cleanSlate = false)
 		{
-			int byteCount = bitmap.Width * bitmap.Height * bpp;
+            _bitmapWidth = bitmap.Width;
+			int byteCount = _bitmapWidth * bitmap.Height * bpp;
 
 			_bytes  = new byte[byteCount];
 			_bitmap = bitmap;
 
-			_bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), lockMode, 
+			_bitmapData = bitmap.LockBits(new Rectangle(0, 0, _bitmapWidth, bitmap.Height), lockMode, 
 				PixelFormat.Format32bppArgb);
 
 			if (!cleanSlate)
@@ -62,7 +64,7 @@ namespace AGS.Engine.Desktop
 
 		private int getOffset(int x, int y)
 		{
-			return (_bitmap.Width * y + x) * bpp;;
+			return (_bitmapWidth * y + x) * bpp;;
 		}
 	}
 }

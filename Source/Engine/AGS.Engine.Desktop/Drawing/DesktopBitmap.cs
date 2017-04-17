@@ -85,20 +85,22 @@ namespace AGS.Engine.Desktop
 		{
 			Bitmap debugMask = null;
 			FastBitmap debugMaskFast = null;
+            int bitmapWidth = Width;
+            int bitmapHeight = Height;
 			if (saveMaskToFile != null || debugDrawColor != null)
 			{
-				debugMask = new Bitmap (Width, Height);
+				debugMask = new Bitmap (bitmapWidth, bitmapHeight);
 				debugMaskFast = new FastBitmap (debugMask, ImageLockMode.WriteOnly, true);
 			}
 
-			bool[][] mask = new bool[Width][];
+			bool[][] mask = new bool[bitmapWidth][];
 			System.Drawing.Color drawColor = debugDrawColor != null ? debugDrawColor.Value.Convert() : System.Drawing.Color.Black;
 
 			using (FastBitmap bitmapData = new FastBitmap (_bitmap, ImageLockMode.ReadOnly))
 			{
-				for (int x = 0; x < Width; x++)
+				for (int x = 0; x < bitmapWidth; x++)
 				{
-					for (int y = 0; y < Height; y++)
+					for (int y = 0; y < bitmapHeight; y++)
 					{
 						var pixelColor = bitmapData.GetPixel(x, y);
 
@@ -107,8 +109,8 @@ namespace AGS.Engine.Desktop
 							masked = !masked;
 
 						if (mask[x] == null)
-							mask[x] = new bool[Height];
-						mask[x][Height - y - 1] = masked;
+							mask[x] = new bool[bitmapHeight];
+						mask[x][bitmapHeight - y - 1] = masked;
 
 						if (debugMask != null)
 						{
