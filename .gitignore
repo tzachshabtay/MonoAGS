@@ -203,3 +203,4 @@ FakesAssemblies/
 
 # Mac specific files
 .DS_Store
+*.bak
