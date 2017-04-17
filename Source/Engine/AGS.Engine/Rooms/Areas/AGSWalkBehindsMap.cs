@@ -24,9 +24,9 @@ namespace AGS.Engine
             IWalkBehindArea walkBehind = area.GetComponent<IWalkBehindArea>();
             if (walkBehind == null) return null;
 			AreaKey key = new AreaKey (area, bg);
-			IObject obj = _objects.GetOrAdd(key, () => createObject());
+			IObject obj = _objects.GetOrAdd(key, () => createObject(area.ID));
 			obj.Z = walkBehind.Baseline == null ? area.Mask.MinY : walkBehind.Baseline.Value;
-			obj.Image = _images.GetOrAdd(key, () => createImage(area, bg));
+			obj.Image = _images.GetOrAdd(key, () => createImage(area, bg));         
 			return obj;
 		}
 
@@ -36,9 +36,9 @@ namespace AGS.Engine
 			return _factory.Graphics.LoadImage(bitmap); 
 		}
 
-		private IObject createObject()
-		{
-			var obj = _factory.Object.GetObject("Walk-Behind Drawable");
+		private IObject createObject(string id)
+		{            
+			var obj = _factory.Object.GetObject("Walk-Behind Drawable: " + id);
 			obj.Anchor = new PointF ();
 			return obj;
 		}
