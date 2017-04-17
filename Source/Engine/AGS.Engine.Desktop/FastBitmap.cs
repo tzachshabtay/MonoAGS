@@ -39,6 +39,13 @@ namespace AGS.Engine.Desktop
 			return Color.FromArgb(alpha, red, green, blue);
 		}
 
+        public bool IsOpaque(int x, int y)
+        {
+            int offset = getOffset(x, y);
+            byte alpha = _bytes[offset + 3];
+            return alpha == 255;
+        }
+
 		public void SetPixel(int x, int y, Color color)
 		{
 			_isDirty = true;

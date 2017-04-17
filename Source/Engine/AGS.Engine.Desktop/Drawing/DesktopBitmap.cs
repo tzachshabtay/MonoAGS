@@ -101,11 +101,10 @@ namespace AGS.Engine.Desktop
 				for (int x = 0; x < bitmapWidth; x++)
 				{
 					for (int y = 0; y < bitmapHeight; y++)
-					{
-						var pixelColor = bitmapData.GetPixel(x, y);
+					{						
+                        bool masked = bitmapData.IsOpaque(x, y);
 
-						bool masked = pixelColor.A == 255;
-						if (transparentMeansMasked)
+                        if (transparentMeansMasked)
 							masked = !masked;
 
 						if (mask[x] == null)
