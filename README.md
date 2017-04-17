@@ -1,7 +1,7 @@
 # MonoAGS
 AGS (Adventure Game Studio) reimagined in Mono
  
-Builds:
+### Builds:
 
 | Windows            | Android            | Linux            | Mac            |
 |--------------------|--------------------|------------------|----------------|
@@ -18,3 +18,17 @@ Builds:
 Code Coverage:
 
 [![Coverage Status](https://coveralls.io/repos/tzachshabtay/MonoAGS/badge.svg?branch=master&service=github)](https://coveralls.io/github/tzachshabtay/MonoAGS?branch=master)
+
+### Compiling the code:
+
+#### On Windows:
+
+Install Visual Studio 2017 Community, make sure to install both the dot net framework workflow and the mobile workflow.
+Right click the solution and build.
+Please note that you will not be able to run IOS without a Mac.
+To run the unit tests, please install the NUnit 2 Test Adapter (available from Visual Studio, tools menu -> Extensions and Updates... -> Online).
+
+#### On Mac:
+
+Install the latest edition of Xamarin Studio Community Edition.
+Right click the solution and build.
