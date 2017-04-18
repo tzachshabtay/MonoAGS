@@ -1,6 +1,7 @@
 version: 1.0.{build}
 skip_tags: true
 environment:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   matrix:
     - configuration: Debug
       platform: Any CPU
@@ -20,6 +21,7 @@ install:
   - ps: 7z x $zipPath | Out-Null
   - ps: Set-Content -path "$env:USERPROFILE\.xamarin-credentials" -value "xamarin.com,$env:XAMARIN_COOKIE"
 before_build:
+  - ps: dotnet restore
   - nuget restore ".\MonoAGS.sln"
   - xamarin-component.exe restore ".\MonoAGS.sln"
 build:
