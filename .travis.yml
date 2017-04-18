@@ -21,5 +21,6 @@ install:
 
 script:
  - dotnet restore
+ - nuget restore MonoAGS.sln
  - xbuild /p:Configuration=$BUILD_CONFIG /p:Platform="$BUILD_PLATFORM" MonoAGS.sln
  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Source/Tests/bin/Release/Tests.dll
