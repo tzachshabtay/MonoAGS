@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Source\Tests\Tests.csproj", "{7E614795-A8D2-4E3B-847C-3443D1B81154}"
 EndProject
@@ -524,7 +524,6 @@ Global
 		{BFB62B1A-8E55-4EA9-84E9-23B02240A4A2}.Release|x86.Build.0 = Release|Any CPU
 		{2C72EB5A-14C6-4CB5-A7EA-EF5AA329DEEE}.AndroidRelease|Any CPU.ActiveCfg = Release|Any CPU
 		{2C72EB5A-14C6-4CB5-A7EA-EF5AA329DEEE}.AndroidRelease|ARM.ActiveCfg = Debug|Any CPU
-		{2C72EB5A-14C6-4CB5-A7EA-EF5AA329DEEE}.AndroidRelease|ARM.Build.0 = Debug|Any CPU
 		{2C72EB5A-14C6-4CB5-A7EA-EF5AA329DEEE}.AndroidRelease|iPhone.ActiveCfg = Release|Any CPU
 		{2C72EB5A-14C6-4CB5-A7EA-EF5AA329DEEE}.AndroidRelease|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{2C72EB5A-14C6-4CB5-A7EA-EF5AA329DEEE}.AndroidRelease|x64.ActiveCfg = Release|Any CPU
