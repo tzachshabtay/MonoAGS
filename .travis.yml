@@ -2,7 +2,9 @@ language: csharp
 solution: MonoAGS.sln
 sudo: required
 dist: trusty
-      
+env:  
+  - CLI_VERSION=latest
+  
 matrix:
   include: 
     - os: linux
