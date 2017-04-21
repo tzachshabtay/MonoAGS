@@ -1,31 +1,19 @@
 language: csharp
 solution: MonoAGS.sln
-sudo: required
-dist: trusty
-addons:  
-  apt:
-    packages:
-    - gettext
-    - libcurl4-openssl-dev
-    - libicu-dev
-    - libssl-dev
-    - libunwind8
-    - zlib1g
 matrix:
   include: 
     - os: linux
       mono: latest
       env: BUILD_CONFIG=DesktopRelease BUILD_PLATFORM="Any CPU"
+      sudo: required
+      dist: trusty
+      dotnet: 1.0.1
     - os: osx
       mono: latest
       env: BUILD_CONFIG=DesktopRelease BUILD_PLATFORM="Any CPU"
+      dotnet: 1.0.1
 
-before_install:  
-  - if test "$TRAVIS_OS_NAME" == "osx"; then brew update; brew install openssl; ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/; ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/; openssl; fi
 install:  
-  - export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
-  - curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "latest" --install-dir "$DOTNET_INSTALL_DIR"
-  - export PATH="$DOTNET_INSTALL_DIR:$PATH"
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 
 script:
