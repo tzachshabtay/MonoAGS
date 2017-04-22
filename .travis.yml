@@ -7,13 +7,16 @@ matrix:
       env: BUILD_CONFIG=DesktopRelease BUILD_PLATFORM="Any CPU"
       sudo: required
       dist: trusty
-      dotnet: 1.0.1
     - os: osx
       mono: latest
       env: BUILD_CONFIG=DesktopRelease BUILD_PLATFORM="Any CPU"
       dotnet: 1.0.1
 
-install:  
+install:
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet/ trusty main" > /etc/apt/sources.list.d/dotnetdev.list'; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install dotnet-dev-1.0.1 -y; fi  
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 
 script:
