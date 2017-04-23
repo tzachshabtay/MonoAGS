@@ -66,9 +66,9 @@
     <Compile Include="OpenGLBackend.cs" />
     <Compile Include="DesktopDevice.cs" />
     <Compile Include="DesktopAssemblies.cs" />
+    <Compile Include="WindowsOpenALSoftLoader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\AGS.API\AGS.API.csproj">
       <Project>{8A8CCA2E-D708-4668-B539-FECFFF8DDDB7}</Project>
@@ -81,5 +81,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\DLLs\Windows\OpenALSoft32.dll">
+      <Link>OpenALSoft32.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\DLLs\Windows\OpenALSoft64.dll">
+      <Link>OpenALSoft64.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

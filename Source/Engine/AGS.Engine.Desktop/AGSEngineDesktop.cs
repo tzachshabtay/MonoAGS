@@ -10,6 +10,7 @@ namespace AGS.Engine.Desktop
 		public static void Init()
 		{                        
 			OpenTK.Toolkit.Init();
+            WindowsOpenALSoftLoader.Load();
 			string currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(".Desktop", "");
 			Directory.CreateDirectory(currentDir);
 			Environment.CurrentDirectory = currentDir;
