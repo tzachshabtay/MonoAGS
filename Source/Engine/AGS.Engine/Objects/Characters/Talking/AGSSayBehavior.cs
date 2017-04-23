@@ -151,7 +151,7 @@ namespace AGS.Engine
 
 		private async Task waitTime(string text, ISound sound)
 		{
-			if (sound == null) await Task.Delay(40 + text.Length * SpeechConfig.TextDelay);
+			if (sound == null || !sound.IsValid) await Task.Delay(40 + text.Length * SpeechConfig.TextDelay);
 			else await sound.Completed;
 		}
 

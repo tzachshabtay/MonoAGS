@@ -14,7 +14,8 @@ namespace AGS.Engine
 		private IAudioErrors _errors;
         private IAudioBackend _backend;
 
-        public ALSound(int source, float volume, float pitch, bool isLooping, float panning, IAudioErrors errors, IAudioBackend backend)
+        public ALSound(int source, float volume, float pitch, bool isLooping, float panning, 
+            IAudioErrors errors, IAudioBackend backend)
 		{
 			_tcs = new TaskCompletionSource<object> (null);
             _backend = backend;
@@ -47,6 +48,8 @@ namespace AGS.Engine
 		}
 
 		#region ISound implementation
+
+        public bool IsValid { get { return _backend.IsValid; } }
 
 		public void Pause()
 		{

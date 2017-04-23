@@ -5,6 +5,10 @@ namespace AGS.API
 	public interface ISound : ISoundProperties
 	{
 		int SourceID { get; }
+        /// <summary>
+        /// Is the sound a valid sound and expected to play properly, or is there some audio problem and this is a dummy object?
+        /// </summary>
+        bool IsValid { get; }
 		bool IsPaused { get; }
 		bool IsLooping { get; }
 		bool HasCompleted { get; }

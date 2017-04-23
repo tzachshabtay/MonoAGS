@@ -8,13 +8,14 @@ namespace AGS.Engine
     public class ALAudioBackend : IAudioBackend
     {
         private readonly int _playingState = (int)ALSourceState.Playing;
-        private AudioContext _context;
+        private readonly AudioContext _context;
 
         public ALAudioBackend()
         {
             try
             {
                 _context = new AudioContext();
+                IsValid = true;
             }
             catch (AudioContextException e1)
             {
@@ -26,8 +27,19 @@ namespace AGS.Engine
                 Debug.WriteLine("Failed to find OpenAL Soft dll, audio will not be played.");
                 Debug.WriteLine(e2.ToString());
             }
+            catch (TypeInitializationException e3)
+            {
+                Debug.WriteLine("Failed to load OpenAL Soft dll (this might because the dll is missing, or corrupt, or another reason), audio will not be played.");
+                Debug.WriteLine(e3.ToString());
+            }
+            catch (AudioDeviceException e4)
+            {
+                Debug.WriteLine("Failed to load audio device, audio will not be played.");
+                Debug.WriteLine(e4.ToString());
+            }
         }
 
+        public bool IsValid { get; private set; }
         public int GenBuffer() { return _context == null ? 0 : AL.GenBuffer(); }
         public int GenSource() { return _context == null ? 0 : AL.GenSource(); }
         public void BufferData(int bufferId, SoundFormat format, byte[] buffer, int size, int freq)
