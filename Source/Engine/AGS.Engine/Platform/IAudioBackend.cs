@@ -12,6 +12,10 @@ namespace AGS.Engine
 
     public interface IAudioBackend : IDisposable
     {
+        /// <summary>
+        /// Is the audio backend working (are audio clips expected to play properly or is there some issue)?
+        /// </summary>
+        bool IsValid { get; }
         int GenBuffer();
         int GenSource();
         void BufferData(int bufferId, SoundFormat format, byte[] buffer, int size, int freq);

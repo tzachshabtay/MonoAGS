@@ -15,6 +15,7 @@ namespace AGS.Engine
             try
             {
                 _context = new AudioContext();
+                IsValid = true;
             }
             catch (AudioContextException e1)
             {
@@ -38,6 +39,7 @@ namespace AGS.Engine
             }
         }
 
+        public bool IsValid { get; private set; }
         public int GenBuffer() { return _context == null ? 0 : AL.GenBuffer(); }
         public int GenSource() { return _context == null ? 0 : AL.GenSource(); }
         public void BufferData(int bufferId, SoundFormat format, byte[] buffer, int size, int freq)
