@@ -1,6 +1,9 @@
 version: 1.0.{build}
 skip_tags: true
+os: Visual Studio 2017
 environment:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  JavaSdkDirectory: C:\Program Files (x86)\Java\jdk1.8.0
   matrix:
     - configuration: Debug
       platform: Any CPU
@@ -20,6 +23,7 @@ install:
   - ps: 7z x $zipPath | Out-Null
   - ps: Set-Content -path "$env:USERPROFILE\.xamarin-credentials" -value "xamarin.com,$env:XAMARIN_COOKIE"
 before_build:
+  - ps: dotnet restore
   - nuget restore ".\MonoAGS.sln"
   - xamarin-component.exe restore ".\MonoAGS.sln"
 build:

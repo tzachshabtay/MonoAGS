@@ -14,7 +14,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AssemblyName>AGS.Editor.Droid</AssemblyName>
     <AndroidTlsProvider>
     </AndroidTlsProvider>
@@ -69,9 +69,9 @@
       <Project>{8a8cca2e-d708-4668-b539-fecfff8dddb7}</Project>
       <Name>AGS.API</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Engine\AGS.Engine\AGS.Engine.csproj">
-      <Project>{6beec517-011a-441e-8a2f-d9461806a879}</Project>
-      <Name>AGS.Engine</Name>
+    <ProjectReference Include="..\..\Engine\AGS.Engine.Android\AGS.Engine.Android.csproj">
+      <Project>{6A2504D8-3C7F-485E-9793-A51989C6B2B6}</Project>
+      <Name>AGS.Engine.Android</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\AGS.Editor\AGS.Editor.projitems" Label="Shared" Condition="Exists('..\AGS.Editor\AGS.Editor.projitems')" />
