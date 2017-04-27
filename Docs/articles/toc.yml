@@ -1,0 +1,17 @@
+- name: Getting Started
+  href: getting-started.md
+- name: Game Structure
+  href: game-structure.md
+  items:
+    - name: Resources
+      href: resources.md
+    - name: Rooms
+      href: rooms.md
+      items:
+        - name: Areas
+          href: areas.md
+    - name: Characters
+      href: characters.md
+      items:
+        - name: Walking
+          href: walking.md

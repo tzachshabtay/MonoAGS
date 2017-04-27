@@ -1,3 +1,5 @@
+# Game Structure
+
 The main steps of creating your game, generally speaking, from the technical side (we will not be discussing the creative side here) are:
 
 1. Compose your assets (graphics & audio) and add to the project

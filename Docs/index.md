@@ -1,3 +1,5 @@
+# MonoAGS (Adventure Game Studio reimagined in Mono)
+
 MonoAGS is an engine (and eventually, editor and tooling) for creating 2D Point&Click adventures.
 
 The project is still in very early stages, no official release as of yet, so expect it to be rough around the edges for some time, and expect rapid changes.
@@ -12,3 +14,5 @@ MonoAGS was created with the following goals in mind:
 3. Have a workflow (with the accompanied tooling) which is friendlier than the current engine.
 
 Once those goals are deemed completed, it is intended to pitch MonoAGS as the next version of AGS to the community.
+
+### <a href="articles/getting-started.md" class="button"><i class="glyphicon glyphicon-send"></i> Getting Started</a>
