@@ -31,7 +31,7 @@ before_build:
   - nuget restore ".\MonoAGS.sln"
   - xamarin-component.exe restore ".\MonoAGS.sln"
   - ps: |
-        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $env:CONFIGURATION -eq "Release")
+        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $env:CONFIGURATION -eq "DOCS")
         {
             #git checkout $env:APPVEYOR_REPO_BRANCH -q
             git checkout docs -q
@@ -54,7 +54,7 @@ after_build:
 # https://github.com/richardschneider/net-ipfs-core/blob/master/appveyor.yml
 # https://github.com/cameron-elliott/LimeVideoSDK/blob/master/appveyor.yml
   - ps: |
-        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $env:CONFIGURATION -eq "Release")
+        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $env:CONFIGURATION -eq "DOCS")
         {
             docfx Docs/docfx.json
             git config --global credential.helper store
