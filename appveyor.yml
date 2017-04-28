@@ -7,7 +7,7 @@ environment:
   git_token:
     secure: LGUAs6fAe/4AL1s3r3jYG3CN5GOgOq+OW+ngaoa+u9HXPhH/jeqarcOV/qQwSohM
   matrix:
-    - configuration: DesktopRelease
+    - configuration: DOCS
       platform: x86 #this configuration is for the docs only, we apparently can't use "Any CPU" because of a bug: https://github.com/dotnet/docfx/issues/1078
     - configuration: Debug
       platform: Any CPU
