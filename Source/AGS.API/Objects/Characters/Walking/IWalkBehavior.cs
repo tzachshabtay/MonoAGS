@@ -75,7 +75,7 @@ namespace AGS.API
         /// Let's start walking to the chair, say something about it while we're walking,
         /// and then properly respond if the user decided they want to walk somewhere else before we got to the chair.
         /// <code>
-        /// Task<bool> walkSuccessful = cHero.WalkAsync(oChair.Location);
+        /// Task&lt;bool&gt; walkSuccessful = cHero.WalkAsync(oChair.Location);
         /// await cHero.SayAsync("I'm walking to the chair!");
         /// if (await walkSuccessful)
         /// {

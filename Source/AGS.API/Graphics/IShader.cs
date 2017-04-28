@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a shader which is a user defined program that can be written to directly affect what's rendered on the screen.
     /// See here: https://www.opengl.org/wiki/Shader
-    /// We're currently supporting vertex & fragment shaders.
+    /// We're currently supporting vertex &amp; fragment shaders.
     /// </summary>
     public interface IShader
 	{

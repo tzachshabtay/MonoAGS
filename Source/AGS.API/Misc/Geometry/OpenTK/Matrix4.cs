@@ -27,7 +27,6 @@ namespace AGS.API
     /// <summary>
     /// Represents a 4x4 matrix containing 3D rotation, scale, transform, and projection.
     /// </summary>
-    /// <seealso cref="Matrix4d"/>
     [StructLayout(LayoutKind.Sequential)]
     public struct Matrix4 : IEquatable<Matrix4>
     {

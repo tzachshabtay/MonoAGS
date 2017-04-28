@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// The game events, allows you to subscribe to important events that happen in the game.
@@ -42,14 +40,14 @@ namespace AGS.API
         ///     if (cEgo.IsDancing()) performDanceAnimation(); 
         ///     
         ///     //GOOD! We only running the dance animation once, not every tick, so we should be ok.
-        ///     if (cEgo.IsDancing() && Repeat.OnceOnly("DanceAnimation!!")) performDanceAnimation(); 
+        ///     if (cEgo.IsDancing() &amp;&amp; Repeat.OnceOnly("DanceAnimation!!")) performDanceAnimation(); 
         /// 
         ///     //BAD!! We're allocating memory on every tick (the memory that we're allocating is the class we created called CheckShouldRunDance).
         ///     CheckShouldRunDance shouldRunDance = new CheckShouldRunDance();
-        ///     if (shouldRunDance.ShouldDance() && Repeat.OnceOnly("DanecAnimation!!")) performDanceAnimation();
+        ///     if (shouldRunDance.ShouldDance() &amp;&amp; Repeat.OnceOnly("DanecAnimation!!")) performDanceAnimation();
         /// 
         ///     //GOOD!! We allocated this class outside the method once, and now we can use it (note the underscore prefix is just a convention used for class variables)...
-        ///     if (_shouldRunDance.ShouldDance() && Repeat.OnceOnly("DanceAnimation!!")) performDanceAnimation();
+        ///     if (_shouldRunDance.ShouldDance() &amp;&amp; Repeat.OnceOnly("DanceAnimation!!")) performDanceAnimation();
         /// }
         /// </code>        
         /// </example>
@@ -138,7 +136,7 @@ namespace AGS.API
         /// private void onSavedGameLoad(object sender, AGSEventArgs args)
         /// {
         ///     var inventory = _game.State.Player.Character.Inventory;
-        ///     if (inventory.Contains(iCandle) && !inventory.Contains(iBowlingBall))
+        ///     if (inventory.Contains(iCandle) &amp;&amp; !inventory.Contains(iBowlingBall))
         ///     {
         ///         inventory.Add(iBowlingBall);
         ///     }
