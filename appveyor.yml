@@ -41,7 +41,7 @@ build:
   project: .\MonoAGS.sln
   verbosity: minimal
 test_script:
-  - ps: |
+- ps: >-
     if($env:CONFIGURATION -eq "Debug")
     {
     .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:.\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe "-targetargs:""Source\Tests\bin\Debug\Tests.dll"" /noshadow" -filter:"+[AGS.Engine]*" -output:opencoverCoverage.xml
