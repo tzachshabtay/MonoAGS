@@ -1,5 +1,8 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// Allows to play a sound.
+    /// </summary>
 	public interface ISoundPlayer
 	{
         /// <summary>

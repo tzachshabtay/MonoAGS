@@ -1,6 +1,8 @@
-﻿using System;
-namespace AGS.API
+﻿namespace AGS.API
 {
+    /// <summary>
+    /// Represents a line of speech (text and sound).
+    /// </summary>
     public interface ISpeechLine
     {
         /// <summary>
