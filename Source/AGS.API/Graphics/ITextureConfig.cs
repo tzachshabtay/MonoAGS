@@ -50,6 +50,9 @@
         NearestMipmapNearest,
     }
 
+    /// <summary>
+    /// How a texture is wrapped to fill an image.
+    /// </summary>
     public enum TextureWrap
     {
         /// <summary>
@@ -66,6 +69,9 @@
         Repeat,
     }
 
+    /// <summary>
+    /// Various configurations for a texture.
+    /// </summary>
     public interface ITextureConfig
     {
         /// <summary>

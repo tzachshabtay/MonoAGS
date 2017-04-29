@@ -59,6 +59,18 @@
         /// </value>
         PointF ParallaxSpeed { get; }
 
+        /// <summary>
+        /// A custom virtual resolution that will be used for all objects in this layer, different than the default
+        /// game's virtual resolution.
+        /// Null means that the layer does not have a custom resolution and uses the game's resolution.
+        /// </summary>
+        /// <example>
+        /// Let's assume the game resolution is (320,200):
+        /// The character is using the game's resolution, but the house in the room is in a layer with a (640,400) resolution.
+        /// This means that if the character's position is (100,100) and the house's position is (200,200) they will 
+        /// actually be drawn in the same location.
+        /// </example>
+        /// <value>The independent resolution.</value>
         Size? IndependentResolution { get; }
 	}
 }

@@ -1,5 +1,10 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// An interface for rendering image on screen. There's a default renderer
+    /// which is used for object, which you can override with your own implementation (though
+    /// this will require advanced coding knowledge).
+    /// </summary>
     public interface IImageRenderer
 	{
         /// <summary>
