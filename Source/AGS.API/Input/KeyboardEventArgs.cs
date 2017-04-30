@@ -1,5 +1,8 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// The keyboard keys.
+    /// </summary>
 	public enum Key
 	{
 		Unknown,
@@ -151,6 +154,9 @@
 		LastKey
 	}
 
+    /// <summary>
+    /// Event arguments for keyboard key press/release.
+    /// </summary>
 	public class KeyboardEventArgs : AGSEventArgs
 	{
 		public KeyboardEventArgs (Key key)
