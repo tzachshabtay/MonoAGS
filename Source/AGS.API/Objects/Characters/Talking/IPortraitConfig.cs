@@ -26,6 +26,9 @@
         Custom,
     }
 
+    /// <summary>
+    /// Configuration for how the speech portrait is rendered.
+    /// </summary>
     public interface IPortraitConfig
     {
         /// <summary>
