@@ -26,12 +26,11 @@ namespace AGS.API
         /// Unsubscribe the specified callback from the event.
         /// This will stops notifications to call this callback.
         /// </summary>
-        /// <returns>The unsubscribe.</returns>
         /// <param name="callback">Callback.</param>
 		void Unsubscribe(Action<object, TEventArgs> callback);
 
         /// <summary>
-        /// Invoke the event.
+        /// Invoke the event synchronously (i.e will wait for all subscribers to process the event before moving on).
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="args">Event arguments which can be used to provide additional data.</param>

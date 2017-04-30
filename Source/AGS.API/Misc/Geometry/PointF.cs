@@ -2,17 +2,34 @@
 
 namespace AGS.API
 {
+    /// <summary>
+    /// Represents a float point in 2D space.
+    /// </summary>
 	public struct PointF
 	{
 		private readonly float _x, _y;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:AGS.API.PointF"/> struct.
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
 		public PointF(float x, float y)
 		{
 			_x = x;
 			_y = y;
 		}
 
+        /// <summary>
+        /// Gets the x coordinate.
+        /// </summary>
+        /// <value>The x.</value>
 		public float X { get { return _x; } }
+
+        /// <summary>
+        /// Gets the y coordinate.
+        /// </summary>
+        /// <value>The y.</value>
 		public float Y { get { return _y; } }
 
         public static PointF operator +(PointF p1, PointF p2)
