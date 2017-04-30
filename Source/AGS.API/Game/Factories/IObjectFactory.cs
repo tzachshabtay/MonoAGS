@@ -53,7 +53,7 @@ namespace AGS.API
         /// <param name="hotspot">The hotspot text.</param>
         /// <param name="sayWhenLook">An optional list of things that the player will say (one after the other) when looking on the object.</param>
         /// <param name="sayWhenInteract">An optional list of things that the player will say (one after the other) when interacting with the object.</param>
-        /// <param name="id">A unique identifier for the object (this has to be globally unique across all entities). If an ID is not given, the hotspot text will be used as the id.</par    
+        /// <param name="id">A unique identifier for the object (this has to be globally unique across all entities). If an ID is not given, the hotspot text will be used as the id.</param>    
         Task<IObject> GetHotspotAsync(string maskPath, string hotspot, string [] sayWhenLook = null, string [] sayWhenInteract = null, string id = null);
 	}
 }

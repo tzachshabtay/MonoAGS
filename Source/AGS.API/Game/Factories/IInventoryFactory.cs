@@ -63,7 +63,7 @@ namespace AGS.API
         /// <param name="graphicsFile">Graphics file to load the item graphics file.</param>
         /// <param name="cursorFile">Cursor file to load the graphics for the cursor when the item is selected.</param>
         /// <param name="loadConfig">A load configuration for the images.</param>
-        /// <param name="playerStartsWithItem">If set to <c>true</c> player will have the item at the beginning of th/param>
+        /// <param name="playerStartsWithItem">If set to <c>true</c> player will have the item at the beginning of the game.</param>
 		Task<IInventoryItem> GetInventoryItemAsync(string hotspot, string graphicsFile, string cursorFile = null, ILoadImageConfig loadConfig = null,
 			bool playerStartsWithItem = false);
 	}

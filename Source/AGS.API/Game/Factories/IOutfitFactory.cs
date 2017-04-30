@@ -53,7 +53,7 @@ namespace AGS.API
         /// <param name="speakDownFolder">Speak down folder.</param>
         /// <param name="speakUpFolder">Speak up folder.</param>
         /// <param name="animationConfig">Animation configuration to be applied for all animations.</param>
-        /// <param name="loadConfig">Load image configuration to be applied for all /param>
+        /// <param name="loadConfig">Load image configuration to be applied for all images.</param>
 		Task<IOutfit> LoadOutfitFromFoldersAsync(string baseFolder, string walkLeftFolder = null, string walkRightFolder = null,
 			string walkDownFolder = null, string walkUpFolder = null, string idleLeftFolder = null, string idleRightFolder = null,
 			string idleDownFolder = null, string idleUpFolder = null, string speakLeftFolder = null, string speakRightFolder = null,
