@@ -49,7 +49,7 @@ namespace AGS.API
         /// Creates a new hotspot object from a bitmap mask asynchronously (the hotspot text will be shown when the mouse is hovering the object if a hotspot label is in the game).
         /// </summary>
         /// <returns>The hotspot.</returns>
-        /// <param name="maskPath">The path of the resource/file (see cref="IResourceLoader"/> to load the mask from.</param>
+        /// <param name="maskPath">The path of the resource/file (<see cref="IResourceLoader"/> to load the mask from.</param>
         /// <param name="hotspot">The hotspot text.</param>
         /// <param name="sayWhenLook">An optional list of things that the player will say (one after the other) when looking on the object.</param>
         /// <param name="sayWhenInteract">An optional list of things that the player will say (one after the other) when interacting with the object.</param>

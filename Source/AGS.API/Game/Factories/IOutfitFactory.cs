@@ -36,7 +36,7 @@ namespace AGS.API
 
         /// <summary>
         /// Loads the outfit animation from several folders asynchronously (each folder contains one animation).
-        /// The folders can be resource folders, or actual folders on the file system (see cref="IRsourceLoader"/>.
+        /// The folders can be resource folders, or actual folders on the file system (<see cref="IResourceLoader"/>).
         /// </summary>
         /// <returns>The outfit from folders.</returns>
         /// <param name="baseFolder">Base folder, all other folders will be on a relative path from this folder.</param>

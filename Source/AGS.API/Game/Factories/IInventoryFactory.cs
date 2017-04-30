@@ -56,7 +56,7 @@ namespace AGS.API
 			bool playerStartsWithItem = false);
 
         /// <summary>
-        /// Creates a new inventory item asynchronously/
+        /// Creates a new inventory item asynchronously
         /// </summary>
         /// <returns>The inventory item.</returns>
         /// <param name="hotspot">The hotspot text (which will be shown when hovering the item if a hotspot label is in the game).</param>
