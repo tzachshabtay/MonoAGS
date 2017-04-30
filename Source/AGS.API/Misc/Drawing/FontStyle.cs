@@ -2,6 +2,9 @@
 
 namespace AGS.API
 {
+    /// <summary>
+    /// Font style (regular, bold, italic, underline or strikeout).
+    /// </summary>
 	[Flags]
 	public enum FontStyle
 	{

@@ -2,6 +2,9 @@
 
 namespace AGS.API
 {
+    /// <summary>
+    /// Custom properties that you can attach to entities and can be used to get/set values during the game.
+    /// </summary>
     public interface ICustomPropertiesPerType<TValue>
     {
         /// <summary>
