@@ -58,19 +58,19 @@ Room edges are a convenient way for scripting a room change once a player walks 
 Each room has specific events which you can subscribe to and code stuff to happen on those events. The available events:
 #### Before fade in
 
-After leaving the previous room, before the current room is visible
+After leaving the previous room, before the current room is visible.
 
 #### After fade in
 
-After leaving the previous room, after the current room is visible
+After leaving the previous room, after the current room is visible.
 
 #### Before fade out
 
-Before leaving the current room when it is still visible
+Before leaving the current room when it is still visible.
 
 #### After fade out
 
-Before leaving the current room when it is no longer visible
+Before leaving the current room when it is no longer visible.
 
 ### Custom Properties
 
