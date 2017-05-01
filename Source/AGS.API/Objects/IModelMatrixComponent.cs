@@ -1,5 +1,8 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// The model matrix is used for rendering and hit-testing the object.
+    /// </summary>
     public struct ModelMatrices
     {
         /// <summary>
