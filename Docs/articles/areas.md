@@ -58,7 +58,7 @@ Note that objects/characters have a `IgnoreScalingArea` property which can be tu
 These are areas that indicate the camera should automatically zoom when the player (or whatever other target was chosen for the camera) is in that area. 
 This works along nicely with a vertical scaling area, to zoom the camera as the player moves farther away from the camera.
 Besides the `ZoomCamera` flag which can turn zooming on/off, there's a `MinZoom` and `MaxZoom` properties which correspond with the `Y` property of the camera's target. 
-The lowest point in the area, which usually corresponds to the closest distance to the camera (if you're background have perspective) will match the `MinZoom` where the upper most point 
+The lowest point in the area, which usually corresponds to the closest distance to the camera (if your background has perspective) will match the `MinZoom` where the upper most point 
 in the area will match the `MaxZoom`. Any point in between will be interpolated to get the matching camera zoom.
 Note that the default implemented camera does not do any sharp movement, but slowly adjusts toward its goal for smooth movements. If you want a different behavior from your camera, you
 can code your own camera by implementing the `ICamera` interface. If you code your own, you'll need to adjust to the zoom areas in your camera's code (if you want that feature in your camera, that is).

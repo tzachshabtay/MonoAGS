@@ -1,8 +1,17 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// Scaling axis on which the scaling takes place.
+    /// </summary>
     public enum ScalingAxis
     {
+        /// <summary>
+        /// Scale based on the horizontal X axis.
+        /// </summary>
         X,
+        /// <summary>
+        /// Scale based on the vertical Y axis.
+        /// </summary>
         Y,
     }
 

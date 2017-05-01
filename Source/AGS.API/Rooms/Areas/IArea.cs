@@ -1,7 +1,7 @@
 ﻿namespace AGS.API
 {
     /// <summary>
-    /// An area on the screen.
+    /// Areas are specific regions in a room that provide additional behaviors that apply only within that region.
     /// </summary>
     public interface IAreaComponent : IComponent
 	{
@@ -46,6 +46,9 @@
 		PointF? FindClosestPoint(PointF point, out float distance);
 	}
 
+    /// <summary>
+    /// Areas are specific regions in a room that provide additional behaviors that apply only within that region.
+    /// </summary>
     public interface IArea : IEntity, IAreaComponent { }
 }
 
