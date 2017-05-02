@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace AGS.API
 {
     /// <summary>
-    /// Represents a dialog (an on-going conversation) between two characters.
+    /// Represents a dialog (an on-going conversation) between two (or more) characters.
     /// The dialog is structured as a sequence of actions (usually the characters talking),
     /// followed by a list of choices for the player, where each choice branches to another sequence of actions,
     /// followed by another list of choices, and so on.
