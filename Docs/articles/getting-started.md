@@ -32,7 +32,7 @@ Besides the demo folder, there's also the Engine folder which contains *AGS.Engi
 
 Additionally, in the root folder of the solution, you'll also find the *AGS.API* project and the *Tests* project. The tests project is for running tests that check that the engine is functioning properly, as a game developer you shouldn't touch that project (you can delete it if you want).
 
-The API project contain all of the definitions of what different systems and components of the game should do. This might also be referred to as contracts, or using the c# term of interfaces (it's a common convention in c# to start all interface names with an "I"). Those interfaces are then implemented by the engine. Ideally, the game is programmed against the interfaces, so plugin authors might implement those interafces differently and your game will be able to run with those plugins as well.
+The API project contain all of the definitions of what different systems and components of the game should do. This might also be referred to as contracts, or using the c# term of interfaces (it's a common convention in c# to start all interface names with an "I"). Those interfaces are then implemented by the engine. Ideally, the game is programmed against the interfaces, so plugin authors might implement those interfaces differently and your game will be able to run with those plugins as well.
 
 ## Create your own game project:
 
@@ -40,7 +40,7 @@ It is recommended, for now, that you modify the demo game for developing your ga
 
 Right click the solution in the solution explorer, and create a new folder with your game (this is not mandatory, but recommended for better organization). Right click the folder and click to "Add a new project".
 This gives you a window with selection of a lot of templates which you can use.
-You'll need to do this 3 times and create 3 projects: a shared project (multiplatform), a console project (.Net, this is the desktop project, only required if you want your game to run on desktop) and an Android App (only required if you want your game to run on android).
+You'll need to do this 3 times and create 3 projects: a shared project (multi-platform), a console project (.Net, this is the desktop project, only required if you want your game to run on desktop) and an Android App (only required if you want your game to run on android).
 Add references from the desktop and android projects to the shared project, AGS.API and AGS.Engine (to add references, there should be a references node under the project in the solution explorer, right click it and click on add a reference, which will show the list of project to choose from). Also add a reference to AGS.Engine.Desktop from the desktop project and to AGS.Engine.Android from the android project.
 Then copy the boilerplate code from the DemoQuest.Desktop and DemoQuest.Android to your desktop and android projects and whatever code you want from the DemoQuest shared project to your shared project.
 

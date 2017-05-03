@@ -10,8 +10,21 @@
       items:
         - name: Areas
           href: areas.md
+    - name: Objects
+      href: objects.md
+      items:
+        - name: Hotspots
+          href: hotspots.md
+        - name: Animations
+          href: animations.md
+        - name: Render Layers
+          href: render-layers.md
+        - name: Borders
+          href: borders.md
     - name: Characters
       href: characters.md
       items:
         - name: Walking
           href: walking.md
+        - name: Dialogs
+          href: dialogs.md

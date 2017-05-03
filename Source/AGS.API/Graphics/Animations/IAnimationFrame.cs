@@ -24,7 +24,7 @@
         /// <summary>
         /// An animation frame has 2 modes of delays (how much time to wait before moving on to the next frame).
         /// It's either a specific delay or a random delay with an allowed range.
-        /// A random delay with an allowed range is useful for simulating talking, for example, when the mouse 
+        /// A random delay with an allowed range is useful for simulating talking, for example, when the mouth 
         /// is moving in random speeds, giving the illusion of actual talking, instead of repeating animation 
         /// that breaks the illusion fast.
         /// Anyways, the delay is added on top of the animation's overall delay (see cref="IAnimationConfiguration"/>)

@@ -24,7 +24,7 @@ either "up" or "down" will be used).
 ### Following
 
 Allows commanding a character to follow another character/object in the room. 
-You can configure how the character performs a follow, to be able to accomodate different scenario (a companion, a spy or an enemy, for example).
+You can configure how the character performs a follow, to be able to accommodate different scenario (a companion, a spy or an enemy, for example).
 You can configure with the time range the character will wait before commencing a new walk towards the target, what's the distance range you'd want to have your character away from the target, 
 what's the probability of having your character wander off somewhere else, and whether or not the character will move between rooms if the target moves to another room.
 

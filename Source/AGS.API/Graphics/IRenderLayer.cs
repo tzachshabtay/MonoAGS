@@ -13,7 +13,7 @@
     /// UI layer is next, to ensure that it can always be seen (unless obstructed by text). This is the default layer used for all UI controls.
     /// This is followed by the Foreground layer, which is the default for all non UI objects.
     /// And lastly the Background layer, which is the default for the room's background graphics.
-    /// You can assign those layer yourself, using AGSLayers static class:    
+    /// You can assign those layers yourself, using AGSLayers static class:    
     /// <example>
     /// <code>
     /// cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!

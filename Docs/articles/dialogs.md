@@ -18,7 +18,7 @@ For each option you can configure the following:
 
 ### Label
 
-Each dialog option is a text hosted in a label which you can configure to change various things, like its color, size, border, font, text color, text outline/shadow, etc (refer to the [GUIs](guis.md) section to learn more).
+Each dialog option is a text hosted in a label which you can configure to change various things, like its color, size, border, font, text color, text outline/shadow, etc (refer to the [Labels](labels.md) section to learn more).
 
 ### Text rendering options
 
@@ -44,7 +44,7 @@ Each of the options, when selected, will lead to a different conversation which 
 
 A dialog action is any action which runs as part of a sequence of actions. As this is a dialog between characters, the action is usually one of the characters saying something but it isn't always the case, it can also be an animation, or setting a variable to indicate a puzzle has completed, or anything really.
 
-The dialog option contains convenience methods for adding speaking actions, but also generic actions, which can be either synchrnous (blockinb) or asynchronous. Each action can also return a false value, indicating that the sequence of actions should be cancelled.
+The dialog option contains convenience methods for adding speaking actions, but also generic actions, which can be either synchronous (blocking) or asynchronous. Each action can also return a false value, indicating that the sequence of actions should be cancelled.
 Finally, each dialog action can also be disabled by the code which will skip the action and go to the next action in the sequence.
 
 ### Startup actions
