@@ -28,3 +28,8 @@
           href: walking.md
         - name: Dialogs
           href: dialogs.md
+    - name: GUIs
+      href: guis.md
+      items:
+        - name: Labels
+          href: labels.md

@@ -80,8 +80,7 @@ to call your animation from whatever outfit the character is currently using.
 Allows your character to carry inventory. Those are the items that the character holds in his/her (usually) imaginary bag.
 It is composed of a list of inventory items, and one active item that the character holds in his/her hand.
 Those inventory items are usually displayed using an inventory window (see the GUI section).
-You can add or remove items from the inventory and get or set the currently active inventory item (a user typically chooses an inventory item from 
-the inventory window which makes it the active inventory item, and then try to "use" that item on an object on the screen, or on another inventory item).
+You can add or remove items from the inventory and get or set the currently active inventory item (a user typically chooses an inventory item from  the inventory window which makes it the active inventory item, and then try to "use" that item on an object on the screen, or on another inventory item).
 You can also subscribe to combination events on the inventory, which gives the 2 items that the player attempts to combine and let you code the desired behavior.
 And you can also subscribe to a default combination event, for those combination attempts which doesn't have special handling, allowing you, for example, to say something like
 "This doesn't make any sense, I don't to use those 2 items together" (but hopefully in a less boring way).
