@@ -45,15 +45,21 @@ Allows a character to speak. You'll use either `Say` or `SayAsync` for the chara
 3. Optionally display a portrait of the character
 4. Optionally play an audio clip
 
-You can configure how the text is rendered (color, font, etc: see text rendering section for more on the all the options that you have for text rendering), when the text is skipped
+#### Displaying text
+
+You can configure how the text is rendered (color, font, etc: see [Labels](labels.md) section for more on the all the options that you have for text rendering), when the text is skipped
 (by time and how much, by mouse, both, or none which means you implement text skipping yourself), a label to host the text with a border (see the section about borders) and background color,
 and a text offset to offset the location of the text. That offset will be relative to the default text display location which will be selected by the engine: The engine, by default, tries to place
 the text above the character and a little to the side, unless the text won't fit the screen, then it changes the location to ensure the text fits the screen.
 If you don't like that behavior you can implement your own text location by implementing the `ISayLocationProvider` interface (and hooking it up, see the section about customizability).
 
+#### Displaying portrait 
+
 As for the portrait, you can configure the object which shows the portrait (this is a standard object, so it can has everything a normal object has, including animations, scaling, rotations, etc),
 plus a strategy on where to position the portrait (SpeakerPosition- on the top, either left or right based on where the speaker is standing, Alternating- top right, then top left, then top right, etc 
 or Custom which leaves the portrait positioning to you) and custom offsets for both the portrait and for the text from the portrait.
+
+#### Playing the audio clip
 
 In order to play an audio clip, the text you pass to the speech method should have a number at the beginning prefixed by an ampersand, for example, "&17 Hello there!".
 If the number exists, the engine will look for an audio file with the first four capital letters of your character's id followed by the number. So if the line was said by "Christopher",
