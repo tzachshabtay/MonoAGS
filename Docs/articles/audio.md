@@ -31,14 +31,14 @@ Some additional concepts related to audio are discussed in other sections, but w
 ### Speech
 
 Allows you to configure speech sounds to be automatically played when the character speaks.
-See [character's speech section](characters.md#playing_the_audio_clip).
+See [character's speech section](characters.md#playing-the-audio-clip).
 
 ### Cross-Fading
 
 Allows you to configure how music clips are cross-faded when moving between rooms.
-See [cross-fading section in rooms](rooms.md#music_clip_to_play).
+See [cross-fading section in rooms](rooms.md#music-clip-to-play).
 
 ### Sound Emitter
 
 Allows you to attach an audio clip to an object, and play a sound which will sound like it's coming from that object (via adjusting the panning and volume), and also optionally attach it to animation frames which will automatically trigger the sound (very useful for footsteps effects).
-See [animation's sound emitter section](animations.md#sound_emitter), and also [scaling volume areas section](areas.md#scaling_areas).
+See [animation's sound emitter section](animations.md#sound-emitter), and also [scaling volume areas section](areas.md#scaling-areas).

@@ -5,6 +5,8 @@
   items:
     - name: Resources
       href: resources.md
+    - name: Game Interface
+      href: game.md
     - name: Rooms
       href: rooms.md
       items:
@@ -35,3 +37,5 @@
           href: labels.md
     - name: Audio
       href: audio.md
+    - name: Effects
+      href: effects.md

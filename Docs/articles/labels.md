@@ -72,4 +72,17 @@ low resolution. Some "pixel purists" might like it as it stays true to the resol
 but other people might prefer to have their text sharp and crisp even if the game itself
 is in low resolution. If you want your text in high resolution (and don't want to put
 all text object in a specific high resolution label) there are properties in the engine
-for scaling the resolution for the text. Those are `GLText.TextResolutionFactorX` and `GLText.TextResolutionFactorY` which will be a factor of the game's resolution. In a future revision, we'll add support for automatically adjusting the text resolution to your physical resolution, which would save from calculating the text resolution factor needed. 
+for scaling the resolution for the text. Those are `GLText.TextResolutionFactorX` and `GLText.TextResolutionFactorY` which will be a factor of the game's resolution. In a future revision, we'll add support for automatically adjusting the text resolution to your physical resolution, which would save from calculating the text resolution factor needed.
+
+## Built-in Labels
+
+There are specific types of labels which are built in with the engine, designed to make it easier for completing common tasks.
+
+### Hotspot Labels
+
+Those are labels that show the hotspot name when the mouse hovers over a hotspot. `HotspotLabel` will show the name of the hotspot (i.e "Shiny Object"), and `VerbOnHotspotLabel` will show the currently used verb with the name of the hotspot (i.e "Look at Shiny Object" or "Walk to Shiny Object" or "Use Hammer on Shiny Object").
+
+### Debug Labels
+
+Those are labels that can you help while you develop. `FPSCounter` will show the current FPS (frame per second), and can easily show you if the game is running too slow (slower than 60 FPS usually is considered too slow).
+`MousePositionLabel` will show you the current (x,y) position of the mouse cursor. `DebugLabel` (which is internally used by both `FPSCounter` and `MousePositionLabel`) lets you bind a function to a label. The function will be repeatedly called and the text result will be shown on the label.
