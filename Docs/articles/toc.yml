@@ -39,3 +39,11 @@
       href: audio.md
     - name: Effects
       href: effects.md
+- name: Advanced
+  items:
+    - name: Entities & Components
+      href: entities.md
+    - name: Async/Await
+      href: async.md
+    - name: Customizations
+      href: customizations.md
