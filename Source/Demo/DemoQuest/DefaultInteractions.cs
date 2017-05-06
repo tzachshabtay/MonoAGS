@@ -10,17 +10,10 @@ namespace DemoGame
 		private IGame _game;
 		private IGameEvents _gameEvents;
 
-		private List<string> _looks, _interacts, _inventoryInteracts;
-		private int _looksIndex, _interactsIndex, _inventoryIndex;
-
 		public DefaultInteractions(IGame game, IGameEvents gameEvents)
 		{
 			_game = game;
 			_gameEvents = gameEvents;
-
-			_looks = new List<string> { "&1 It looks nice.", "&2Nothing to see here.", "&3 I guess it looks ok." };
-			_interacts = new List<string> { "I can't do that.", "Nope.", "I don't think so." };
-			_inventoryInteracts = _interacts;
 		}
 
 		public void Load()
@@ -44,17 +37,26 @@ namespace DemoGame
 
 		private async Task onLook(object sender, ObjectEventArgs args)
 		{
-			_looksIndex = await sayDefault(_looks, _looksIndex);
+            await Repeat.RotateAsync("Look Default", 
+                                     () => sayAsync("&1 It looks nice."), 
+                                     () => sayAsync("&2Nothing to see here."),
+                                     () => sayAsync("&3 I guess it looks ok."));
 		}
+
+
 
 		private async Task onInteract(object sender, ObjectEventArgs args)
 		{
-			_interactsIndex = await sayDefault(_interacts, _interactsIndex);
+            await Repeat.RotateAsync("Interact Default",
+                                     () => sayAsync("I can't do that."), 
+                                     () => sayAsync("Nope."),
+                                     () => sayAsync("I don't think so."));
+
 		}
 
-		private async Task onInventoryInteract(object sender, InventoryInteractEventArgs args)
+		private Task onInventoryInteract(object sender, InventoryInteractEventArgs args)
 		{
-			_inventoryIndex = await sayDefault(_inventoryInteracts, _inventoryIndex);
+            return onInteract(sender, args);
 		}
 
 		private async Task onInventoryCombination(object sender, InventoryCombinationEventArgs args)
@@ -70,15 +72,10 @@ namespace DemoGame
 				args.ActiveItem.Graphics.Hotspot, args.PassiveItem.Graphics.Hotspot));
 		}
 
-		private async Task<int> sayDefault(List<string> list, int index)
-		{
-			string sentence = list[index];
-			index = (index + 1) % list.Count;
-
-			await _game.State.Player.SayAsync(sentence);
-
-			return index;
-		}
+        private Task sayAsync(string text)
+        {
+            return _game.State.Player.SayAsync(text);
+        }
 	}
 }
 

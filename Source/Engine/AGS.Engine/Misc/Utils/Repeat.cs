@@ -3,6 +3,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
@@ -34,6 +35,18 @@ namespace AGS.Engine
 		{
 			return getCounter(key).Increment();
 		}
+
+        public static void Rotate(string key, params Action[] actions)
+        {
+            int times = Do(key);
+            actions[times % actions.Length]();
+        }
+
+        public static Task RotateAsync(string key, params Func<Task>[] actions)
+        {
+            int times = Do(key);
+            return actions[times % actions.Length]();
+        }
 
 		public static int Current(string key)
 		{
