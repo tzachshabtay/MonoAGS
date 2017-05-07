@@ -56,7 +56,7 @@ after_build:
   - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $env:CONFIGURATION -eq "DOCS")
         {
-            docfx Docs/docfx.json
+            docfx Docs/docfx.json --debug
             if($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode )  }
             git config --global credential.helper store
             Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:git_token):x-oauth-basic@github.com`n"
