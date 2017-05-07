@@ -1,13 +1,13 @@
 ﻿namespace AGS.API
 {
-	[RequiredComponent(typeof(IWalkBehavior))]
-	[RequiredComponent(typeof(IHasRoom))]
-	[RequiredComponent(typeof(ITranslateComponent))]
     /// <summary>
     /// This component adds the ability for a character to follow another entity (i.e to keep walking
     /// to where the entity is. The follow settings can be configured to set how aggressive that follow is). 
     /// </summary>
-	public interface IFollowBehavior : IComponent
+    [RequiredComponent(typeof(IWalkBehavior))]
+	[RequiredComponent(typeof(IHasRoom))]
+	[RequiredComponent(typeof(ITranslateComponent))]
+    public interface IFollowBehavior : IComponent
 	{
         /// <summary>
         /// Starts following the specified object throughout the game. The character will walk to where

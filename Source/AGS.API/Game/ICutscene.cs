@@ -1,5 +1,8 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// Different options of how to trigger skipping a cutscene.
+    /// </summary>
     public enum SkipCutsceneTrigger
     {
         /// <summary>

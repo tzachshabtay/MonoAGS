@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
+    /// <summary>
+    /// Allows to set global audio settings
+    /// </summary>
 	public interface IAudioSettings
 	{
 		/// <summary>

@@ -1,8 +1,17 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// Scaling axis on which the scaling takes place.
+    /// </summary>
     public enum ScalingAxis
     {
+        /// <summary>
+        /// Scale based on the horizontal X axis.
+        /// </summary>
         X,
+        /// <summary>
+        /// Scale based on the vertical Y axis.
+        /// </summary>
         Y,
     }
 
@@ -12,7 +21,7 @@
     /// The most common use is for faking perspective, so that when a character walks to the top of the screen
     /// (closer to the horizon), he will appear smaller and make quieter sounds.
     /// For that common use case, you'll want to scale on the Y axis (which is why Y axis is the default),
-    /// and scale both the object x && y (to keep the aspect ration in tact).
+    /// and scale both the object x &amp;&amp; y (to keep the aspect ration in tact).
     /// </summary>
     [RequiredComponent(typeof(IArea))]
     public interface IScalingArea : IComponent

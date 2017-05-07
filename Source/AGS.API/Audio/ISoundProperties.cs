@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
+    /// <summary>
+    /// Allows to set the properties (volume, pitch, gain) of a sound/clip.
+    /// </summary>
 	public interface ISoundProperties
 	{
 		/// <summary>

@@ -15,6 +15,10 @@
 		BottomRightGoUp,
 	}
 
+    /// <summary>
+    /// Represents a sprite sheet: An image that contains multiple sprites in it, with some
+    /// rules on how to read the sprites to perform an animation (usually).
+    /// </summary>
 	public interface ISpriteSheet
 	{
         /// <summary>

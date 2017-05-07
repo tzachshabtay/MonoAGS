@@ -1,5 +1,8 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// Determines how the animation will run.
+    /// </summary>
     public enum LoopingStyle
 	{
 		/// <summary>
@@ -20,6 +23,9 @@
 		BackwardsForwards,
 	}
 
+    /// <summary>
+    /// Allows to configure various aspects of the animation.
+    /// </summary>
 	public interface IAnimationConfiguration
 	{
         /// <summary>
@@ -37,7 +43,7 @@
 
         /// <summary>
         /// Gets or sets the delay between each frame.
-        /// The delay is measured in frames, so if we're running at the expected 60 FPS, a delay of 5 means
+        /// The delay is measured in frames, so if we're running at the expected 60 FPS, a delay of 5 (the default) means
         /// each second 12 frames of animation will be shown.
         /// Note that each frame can be configured with an additional delay. That delay will be added for this
         /// overall delay for that specific frame, so a frame's delay is relative, while this delay can be used

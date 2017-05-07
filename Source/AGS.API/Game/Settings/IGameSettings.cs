@@ -1,5 +1,8 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// Vsync mode- how the FPS and screen refresh rate are synchronized.
+    /// </summary>
 	public enum VsyncMode
 	{
         /// <summary>
@@ -21,6 +24,9 @@
 		Adaptive,
 	}
 
+    /// <summary>
+    /// Window state (minimized, maximized, full screen, floating).
+    /// </summary>
 	public enum WindowState
 	{
         /// <summary>
@@ -45,6 +51,9 @@
 		FullScreen,
 	}
 
+    /// <summary>
+    /// Window border- resizable, fixed or hidden.
+    /// </summary>
     public enum WindowBorder
     {
         /// <summary>
@@ -62,6 +71,9 @@
         Hidden,
     }
 
+    /// <summary>
+    /// Game settings (those can be set only once).
+    /// </summary>
 	public interface IGameSettings
 	{
         /// <summary>

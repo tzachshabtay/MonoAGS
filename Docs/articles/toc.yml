@@ -1,0 +1,49 @@
+- name: Getting Started
+  href: getting-started.md
+- name: Game Structure
+  href: game-structure.md
+  items:
+    - name: Resources
+      href: resources.md
+    - name: Game Interface
+      href: game.md
+    - name: Rooms
+      href: rooms.md
+      items:
+        - name: Areas
+          href: areas.md
+    - name: Objects
+      href: objects.md
+      items:
+        - name: Hotspots
+          href: hotspots.md
+        - name: Animations
+          href: animations.md
+        - name: Render Layers
+          href: render-layers.md
+        - name: Borders
+          href: borders.md
+    - name: Characters
+      href: characters.md
+      items:
+        - name: Walking
+          href: walking.md
+        - name: Dialogs
+          href: dialogs.md
+    - name: GUIs
+      href: guis.md
+      items:
+        - name: Labels
+          href: labels.md
+    - name: Audio
+      href: audio.md
+    - name: Effects
+      href: effects.md
+- name: Advanced
+  items:
+    - name: Entities & Components
+      href: entities.md
+    - name: Async/Await
+      href: async.md
+    - name: Customizations
+      href: customizations.md

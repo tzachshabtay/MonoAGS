@@ -2,6 +2,9 @@
 
 namespace AGS.API
 {
+    /// <summary>
+    /// How to approach hotspots?
+    /// </summary>
     public enum ApproachHotspots
 	{
         /// <summary>
@@ -24,6 +27,9 @@ namespace AGS.API
 		AlwaysWalk,
 	}
 		
+    /// <summary>
+    /// How to approach hotspots? Can be configured per verb.
+    /// </summary>
 	public interface IApproachStyle
 	{
         /// <summary>
@@ -42,6 +48,10 @@ namespace AGS.API
         /// <value><c>true</c> if apply approach style on defaults; otherwise, <c>false</c>.</value>
 		bool ApplyApproachStyleOnDefaults { get; set; }
 
+        /// <summary>
+        /// Copies the style from another <see cref="IApproachStyle"/> .
+        /// </summary>
+        /// <param name="style">Style.</param>
 		void CopyFrom(IApproachStyle style);
 	}
 }

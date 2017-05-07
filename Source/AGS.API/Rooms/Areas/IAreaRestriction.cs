@@ -1,5 +1,8 @@
 ﻿namespace AGS.API
 {
+    /// <summary>
+    /// Defines how an area restriction list is interpreted.
+    /// </summary>
     public enum RestrictionListType
     {
         /// <summary>

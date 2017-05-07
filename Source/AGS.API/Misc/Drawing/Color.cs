@@ -2,6 +2,9 @@
 
 namespace AGS.API
 {
+    /// <summary>
+    /// Represents a color.
+    /// </summary>
 	public struct Color
 	{
 		private const int SHIFT_A = 24;
@@ -16,10 +19,35 @@ namespace AGS.API
 			_value = argb;
 		}
 
+        /// <summary>
+        /// A single value which encodes the color within it, 8 bits per color element, 
+        /// where the order is A (alpha)-R (red)-G (green)-B (blue).
+        /// </summary>
+        /// <value>The color value.</value>
 		public uint Value { get { return _value; } }
+
+        /// <summary>
+        /// Gets the red element of the color. 0 is no red and 255 is fully red.
+        /// </summary>
+        /// <value>The red element of the color.</value>
 		public byte R { get { return(byte)((Value >> SHIFT_R)); } }
+
+        /// <summary>
+        /// Gets the green element of the color. 0 is no red and 255 is fully green.
+        /// </summary>
+        /// <value>The green element of the color.</value>
 		public byte G { get { return(byte)((Value >> SHIFT_G)); } }
+
+        /// <summary>
+        /// Gets the blue element of the color. 0 is no red and 255 is fully blue.
+        /// </summary>
+        /// <value>The blue element of the color.</value>
 		public byte B { get { return(byte)((Value >> SHIFT_B)); } }
+
+        /// <summary>
+        /// Gets the alpha element of the color. 0 is fully transparent and 255 is fully opaque.
+        /// </summary>
+        /// <value>The alpha element of the color.</value>
 		public byte A { get { return(byte)((Value >> SHIFT_A)); } }
 
 		public override string ToString()
@@ -27,6 +55,14 @@ namespace AGS.API
 			return string.Format("[Color: Value={0}, R={1}, G={2}, B={3}, A={4}]", Value, R, G, B, A);
 		}
 
+        /// <summary>
+        /// Gets a color from ARGB elements (alpha, red, green, blue).
+        /// </summary>
+        /// <returns>The color.</returns>
+        /// <param name="a">The alpha component.</param>
+        /// <param name="r">The red component.</param>
+        /// <param name="g">The green component.</param>
+        /// <param name="b">The blue component.</param>
 		public static Color FromArgb(byte a, byte r, byte g, byte b)
 		{
 			return new Color ((uint)(r << SHIFT_R |
@@ -35,16 +71,37 @@ namespace AGS.API
 									 a << SHIFT_A));
 		}
 
+        /// <summary>
+        /// Gets a color from RGBA elements (red, green, blue, alpha).
+        /// </summary>
+        /// <returns>The color.</returns>
+        /// <param name="r">The red component.</param>
+        /// <param name="g">The green component.</param>
+        /// <param name="b">The blue component.</param>
+        /// <param name="a">The alpha component.</param>
 		public static Color FromRgba(byte r, byte g, byte b, byte a)
 		{
 			return FromArgb(a, r, g, b);
 		}
 
+        /// <summary>
+        /// Gets a color from a hexa value (in ARGB format).
+        /// </summary>
+        /// <returns>The hexa.</returns>
+        /// <param name="argb">ARGB.</param>
 		public static Color FromHexa(uint argb)
 		{
 			return new Color (argb);
 		}
 
+        /// <summary>
+        /// Gets a color from HSLA format (https://en.wikipedia.org/wiki/HSL_and_HSV)
+        /// </summary>
+        /// <returns>The color.</returns>
+        /// <param name="hue">Hue.</param>
+        /// <param name="saturation">Saturation.</param>
+        /// <param name="lightness">Lightness.</param>
+        /// <param name="a">The alpha component.</param>
 		public static Color FromHsla(int hue, float saturation, float lightness, byte a)
 		{
 			float h = hue / 60f;
@@ -96,6 +153,10 @@ namespace AGS.API
 			return t1;
 		}
 
+        /// <summary>
+        /// Gets the hue of the color (based on HSL format: https://en.wikipedia.org/wiki/HSL_and_HSV).
+        /// </summary>
+        /// <returns>The hue.</returns>
 		public int GetHue()
 		{
 			decimal r = (decimal)R / 255m;
@@ -115,6 +176,10 @@ namespace AGS.API
 			return h;
 		}
 
+        /// <summary>
+        /// Gets the saturation of the color (based on HSL format: https://en.wikipedia.org/wiki/HSL_and_HSV).
+        /// </summary>
+        /// <returns>The saturation.</returns>
 		public float GetSaturation()
 		{
 			decimal r = (decimal)R / 255m;
@@ -127,6 +192,10 @@ namespace AGS.API
 			return (float)delta / (1 - Math.Abs(2 * GetLightness() - 1));
 		}
 
+        /// <summary>
+        /// Gets the lightness of the color (based on HSL format: https://en.wikipedia.org/wiki/HSL_and_HSV).
+        /// </summary>
+        /// <returns>The saturation.</returns>
 		public float GetLightness()
 		{
 			decimal r = (decimal)R / 255m;

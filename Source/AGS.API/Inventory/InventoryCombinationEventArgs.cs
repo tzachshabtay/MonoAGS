@@ -7,6 +7,11 @@
     /// <seealso cref="AGS.API.AGSEventArgs" />
     public class InventoryCombinationEventArgs : AGSEventArgs
 	{
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:AGS.API.InventoryCombinationEventArgs"/> class.
+        /// </summary>
+        /// <param name="activeItem">Active item.</param>
+        /// <param name="passiveItem">Passive item.</param>
 		public InventoryCombinationEventArgs (IInventoryItem activeItem, IInventoryItem passiveItem)
 		{
 			ActiveItem = activeItem;

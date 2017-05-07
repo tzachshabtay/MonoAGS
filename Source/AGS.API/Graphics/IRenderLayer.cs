@@ -13,7 +13,7 @@
     /// UI layer is next, to ensure that it can always be seen (unless obstructed by text). This is the default layer used for all UI controls.
     /// This is followed by the Foreground layer, which is the default for all non UI objects.
     /// And lastly the Background layer, which is the default for the room's background graphics.
-    /// You can assign those layer yourself, using AGSLayers static class:    
+    /// You can assign those layers yourself, using AGSLayers static class:    
     /// <example>
     /// <code>
     /// cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!
@@ -59,6 +59,18 @@
         /// </value>
         PointF ParallaxSpeed { get; }
 
+        /// <summary>
+        /// A custom virtual resolution that will be used for all objects in this layer, different than the default
+        /// game's virtual resolution.
+        /// Null means that the layer does not have a custom resolution and uses the game's resolution.
+        /// </summary>
+        /// <example>
+        /// Let's assume the game resolution is (320,200):
+        /// The character is using the game's resolution, but the house in the room is in a layer with a (640,400) resolution.
+        /// This means that if the character's position is (100,100) and the house's position is (200,200) they will 
+        /// actually be drawn in the same location.
+        /// </example>
+        /// <value>The independent resolution.</value>
         Size? IndependentResolution { get; }
 	}
 }

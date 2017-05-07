@@ -19,7 +19,7 @@ namespace AGS.API
 		/// <example>
 		/// Let's render all objects with a yellow tint:
 		/// <code>
-		/// public bool RenderBeforeLeavingRoom(List<IObject> displayList, Action<IObject> renderObj)
+		/// public bool RenderBeforeLeavingRoom(List&lt;IObject&gt; displayList, Action&lt;IObject&gt; renderObj)
 		/// {
 		/// 	foreach (var obj in displayList)
 		/// 	{
@@ -67,7 +67,7 @@ namespace AGS.API
 		/// <example>
 		/// Let's only render every 3rd object!
 		/// <code>
-		/// for (int i = 0; i < displayList.Count; i++)
+		/// for (int i = 0; i &lt; displayList.Count; i++)
 		/// {
 		/// 	if (i %% 3 != 0) continue;
 		/// 	renderObj(displayList[i]);

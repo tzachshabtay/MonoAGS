@@ -1,8 +1,13 @@
 ﻿namespace AGS.API
 {
     /// <summary>
-    /// An area on the screen.
+    /// Areas are specific regions in a room that provide additional behaviors that apply only within that region.
     /// </summary>
+    /// <seealso cref="IWalkableArea"/>
+    /// <seealso cref="IWalkBehindArea"/>
+    /// <seealso cref="IScalingArea"/>
+    /// <seealso cref="IZoomArea"/>
+    /// <seealso cref="IAreaRestriction"/>
     public interface IAreaComponent : IComponent
 	{
         /// <summary>
@@ -46,6 +51,14 @@
 		PointF? FindClosestPoint(PointF point, out float distance);
 	}
 
+    /// <summary>
+    /// Areas are specific regions in a room that provide additional behaviors that apply only within that region.
+    /// </summary>
+    /// <seealso cref="IWalkableArea"/>
+    /// <seealso cref="IWalkBehindArea"/>
+    /// <seealso cref="IScalingArea"/>
+    /// <seealso cref="IZoomArea"/>
+    /// <seealso cref="IAreaRestriction"/>
     public interface IArea : IEntity, IAreaComponent { }
 }
 

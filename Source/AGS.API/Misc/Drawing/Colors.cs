@@ -1,8 +1,9 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
 	//color table from: http://referencesource.microsoft.com/#PresentationCore/Core/CSharp/System/Windows/Media/KnownColors.cs,f75c562722809d27
+    /// <summary>
+    /// A list of colors to choose from.
+    /// </summary>
 	public static class Colors
 	{
 		public static Color AliceBlue = Color.FromHexa(0xFFF0F8FF);
