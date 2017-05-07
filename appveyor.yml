@@ -6,6 +6,8 @@ environment:
   JavaSdkDirectory: C:\Program Files (x86)\Java\jdk1.8.0
   git_token:
     secure: LGUAs6fAe/4AL1s3r3jYG3CN5GOgOq+OW+ngaoa+u9HXPhH/jeqarcOV/qQwSohM
+  github_email:
+    secure: gRFz90kCueB13wW3WV/Jve7i2hzFfnwdOz2HRGwOyD4=
   matrix:
     - configuration: DOCS
       platform: x86 #this configuration is for the docs only, we apparently can't use "Any CPU" because of a bug: https://github.com/dotnet/docfx/issues/1078
@@ -60,12 +62,12 @@ after_build:
             if($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode )  }
             git config --global credential.helper store
             Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:git_token):x-oauth-basic@github.com`n"
-            git config --global user.email "tzachshabtay@gmail.com"
+            git config --global user.email %github_email%
             git config --global user.name "tzachshabtay"
             git clone https://github.com/tzachshabtay/MonoAGS.git -b gh-pages origin_site -q
             Copy-Item origin_site/.git _site -recurse
             CD Docs/_site
             git add -A 2>&1
             git commit -m "CI Updates" -q
-            git push origin HEAD:gh-pages -q
+            git push origin :gh-pages -q
         }
