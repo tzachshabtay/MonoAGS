@@ -1,0 +1,502 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ITreeNode&lt;TItem&gt;
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ITreeNode&lt;TItem&gt;
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ITreeNode`1">
+  
+  
+  <h1 id="AGS_API_ITreeNode_1" data-uid="AGS.API.ITreeNode`1">Interface ITreeNode&lt;TItem&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A node in a tree.
+A tree is a structure in which every node can have one parent (or no parent if it&#39;s the root)
+and several children (or no children, which will make it a leaf in the tree).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_ITreeNode_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ITreeNode&lt;TItem&gt;
+    where TItem : class, IInTree&lt;TItem&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TItem</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ITreeNode_1_Children.md&amp;value=---%0Auid%3A%20AGS.API.ITreeNode%601.Children%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Collections/Tree/ITreeNode.cs/#L28">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeNode_1_Children_" data-uid="AGS.API.ITreeNode`1.Children*"></a>
+  <h4 id="AGS_API_ITreeNode_1_Children" data-uid="AGS.API.ITreeNode`1.Children">Children</h4>
+  <div class="markdown level1 summary"><p>Gets the items contained in the children.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;TItem&gt; Children { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;TItem&gt;</td>
+        <td><p>The children.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ITreeNode_1_ChildrenCount.md&amp;value=---%0Auid%3A%20AGS.API.ITreeNode%601.ChildrenCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Collections/Tree/ITreeNode.cs/#L53">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeNode_1_ChildrenCount_" data-uid="AGS.API.ITreeNode`1.ChildrenCount*"></a>
+  <h4 id="AGS_API_ITreeNode_1_ChildrenCount" data-uid="AGS.API.ITreeNode`1.ChildrenCount">ChildrenCount</h4>
+  <div class="markdown level1 summary"><p>Gets the number of children this node has.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int ChildrenCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The children count.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ITreeNode_1_Node.md&amp;value=---%0Auid%3A%20AGS.API.ITreeNode%601.Node%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Collections/Tree/ITreeNode.cs/#L16">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeNode_1_Node_" data-uid="AGS.API.ITreeNode`1.Node*"></a>
+  <h4 id="AGS_API_ITreeNode_1_Node" data-uid="AGS.API.ITreeNode`1.Node">Node</h4>
+  <div class="markdown level1 summary"><p>Gets the item contained in the node.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">TItem Node { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TItem</span></td>
+        <td><p>The node.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ITreeNode_1_OnParentChanged.md&amp;value=---%0Auid%3A%20AGS.API.ITreeNode%601.OnParentChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Collections/Tree/ITreeNode.cs/#L34">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeNode_1_OnParentChanged_" data-uid="AGS.API.ITreeNode`1.OnParentChanged*"></a>
+  <h4 id="AGS_API_ITreeNode_1_OnParentChanged" data-uid="AGS.API.ITreeNode`1.OnParentChanged">OnParentChanged</h4>
+  <div class="markdown level1 summary"><p>An event which fires whenever the parent for a node changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEvent&lt;AGSEventArgs&gt; OnParentChanged { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.AGSEventArgs.html">AGSEventArgs</a>&gt;</td>
+        <td><p>The event.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ITreeNode_1_Parent.md&amp;value=---%0Auid%3A%20AGS.API.ITreeNode%601.Parent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Collections/Tree/ITreeNode.cs/#L22">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeNode_1_Parent_" data-uid="AGS.API.ITreeNode`1.Parent*"></a>
+  <h4 id="AGS_API_ITreeNode_1_Parent" data-uid="AGS.API.ITreeNode`1.Parent">Parent</h4>
+  <div class="markdown level1 summary"><p>Gets the item contained in the parent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">TItem Parent { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TItem</span></td>
+        <td><p>The parent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ITreeNode_1_AddChild__0_.md&amp;value=---%0Auid%3A%20AGS.API.ITreeNode%601.AddChild(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Collections/Tree/ITreeNode.cs/#L59">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeNode_1_AddChild_" data-uid="AGS.API.ITreeNode`1.AddChild*"></a>
+  <h4 id="AGS_API_ITreeNode_1_AddChild__0_" data-uid="AGS.API.ITreeNode`1.AddChild(`0)">AddChild(TItem)</h4>
+  <div class="markdown level1 summary"><p>Adds a child to the node.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddChild(TItem child)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TItem</span></td>
+        <td><span class="parametername">child</span></td>
+        <td><p>Child.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ITreeNode_1_HasChild__0_.md&amp;value=---%0Auid%3A%20AGS.API.ITreeNode%601.HasChild(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Collections/Tree/ITreeNode.cs/#L72">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeNode_1_HasChild_" data-uid="AGS.API.ITreeNode`1.HasChild*"></a>
+  <h4 id="AGS_API_ITreeNode_1_HasChild__0_" data-uid="AGS.API.ITreeNode`1.HasChild(`0)">HasChild(TItem)</h4>
+  <div class="markdown level1 summary"><p>Is the specified item a child of this node?</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool HasChild(TItem child)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TItem</span></td>
+        <td><span class="parametername">child</span></td>
+        <td><p>Child.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code>, if it is a child of the node, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ITreeNode_1_RemoveChild__0_.md&amp;value=---%0Auid%3A%20AGS.API.ITreeNode%601.RemoveChild(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Collections/Tree/ITreeNode.cs/#L65">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeNode_1_RemoveChild_" data-uid="AGS.API.ITreeNode`1.RemoveChild*"></a>
+  <h4 id="AGS_API_ITreeNode_1_RemoveChild__0_" data-uid="AGS.API.ITreeNode`1.RemoveChild(`0)">RemoveChild(TItem)</h4>
+  <div class="markdown level1 summary"><p>Removes the specified child from the node.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveChild(TItem child)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TItem</span></td>
+        <td><span class="parametername">child</span></td>
+        <td><p>Child.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ITreeNode_1_SetParent_AGS_API_ITreeNode__0__.md&amp;value=---%0Auid%3A%20AGS.API.ITreeNode%601.SetParent(AGS.API.ITreeNode%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Collections/Tree/ITreeNode.cs/#L40">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeNode_1_SetParent_" data-uid="AGS.API.ITreeNode`1.SetParent*"></a>
+  <h4 id="AGS_API_ITreeNode_1_SetParent_AGS_API_ITreeNode__0__" data-uid="AGS.API.ITreeNode`1.SetParent(AGS.API.ITreeNode{`0})">SetParent(ITreeNode&lt;TItem&gt;)</h4>
+  <div class="markdown level1 summary"><p>Sets a new parent for the node.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetParent(ITreeNode&lt;TItem&gt; parent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITreeNode-1.html">ITreeNode</a>&lt;TItem&gt;</td>
+        <td><span class="parametername">parent</span></td>
+        <td><p>Parent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ITreeNode_1_StealParent_AGS_API_ITreeNode__0__.md&amp;value=---%0Auid%3A%20AGS.API.ITreeNode%601.StealParent(AGS.API.ITreeNode%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Collections/Tree/ITreeNode.cs/#L47">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeNode_1_StealParent_" data-uid="AGS.API.ITreeNode`1.StealParent*"></a>
+  <h4 id="AGS_API_ITreeNode_1_StealParent_AGS_API_ITreeNode__0__" data-uid="AGS.API.ITreeNode`1.StealParent(AGS.API.ITreeNode{`0})">StealParent(ITreeNode&lt;TItem&gt;)</h4>
+  <div class="markdown level1 summary"><p>&quot;Steals&quot; the parent from the specified node: this will make this node have the specified node&#39;s parent
+as its parent, and the specified node will remain with no parent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void StealParent(ITreeNode&lt;TItem&gt; victim)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITreeNode-1.html">ITreeNode</a>&lt;TItem&gt;</td>
+        <td><span class="parametername">victim</span></td>
+        <td><p>Victim.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ITreeNode_1.md&amp;value=---%0Auid%3A%20AGS.API.ITreeNode%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Collections/Tree/ITreeNode.cs/#L10" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

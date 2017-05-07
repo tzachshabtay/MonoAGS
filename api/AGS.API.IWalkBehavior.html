@@ -1,0 +1,499 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IWalkBehavior
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IWalkBehavior
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IWalkBehavior">
+  
+  
+  <h1 id="AGS_API_IWalkBehavior" data-uid="AGS.API.IWalkBehavior">Interface IWalkBehavior
+  </h1>
+  <div class="markdown level0 summary"><p>Gives an entity the ability to walk around the room.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_IWalkBehavior_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IWalkBehavior : IComponent, IDisposable</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IWalkBehavior_AdjustWalkSpeedToScaleArea.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.AdjustWalkSpeedToScaleArea%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L29">View Source</a>
+  </span>
+  <a id="AGS_API_IWalkBehavior_AdjustWalkSpeedToScaleArea_" data-uid="AGS.API.IWalkBehavior.AdjustWalkSpeedToScaleArea*"></a>
+  <h4 id="AGS_API_IWalkBehavior_AdjustWalkSpeedToScaleArea" data-uid="AGS.API.IWalkBehavior.AdjustWalkSpeedToScaleArea">AdjustWalkSpeedToScaleArea</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.IWalkBehavior.html">IWalkBehavior</a> adjust the walk speed to
+the scaling area (i.e for a scaling area that shrinks the character to simulate a far away place, you&#39;ll want the character to walk slower).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool AdjustWalkSpeedToScaleArea { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if adjust walk speed to scale area; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IWalkBehavior_DebugDrawWalkPath.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.DebugDrawWalkPath%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L73">View Source</a>
+  </span>
+  <a id="AGS_API_IWalkBehavior_DebugDrawWalkPath_" data-uid="AGS.API.IWalkBehavior.DebugDrawWalkPath*"></a>
+  <h4 id="AGS_API_IWalkBehavior_DebugDrawWalkPath" data-uid="AGS.API.IWalkBehavior.DebugDrawWalkPath">DebugDrawWalkPath</h4>
+  <div class="markdown level1 summary"><p>If set to true, lines will be drawn to mark the selected paths to walk by the path finder.
+This can be useful for debugging issues with the path finder algorithm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool DebugDrawWalkPath { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if debug draw walk path; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IWalkBehavior_IsWalking.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.IsWalking%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L59">View Source</a>
+  </span>
+  <a id="AGS_API_IWalkBehavior_IsWalking_" data-uid="AGS.API.IWalkBehavior.IsWalking*"></a>
+  <h4 id="AGS_API_IWalkBehavior_IsWalking" data-uid="AGS.API.IWalkBehavior.IsWalking">IsWalking</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the character is walking.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsWalking { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if is walking; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IWalkBehavior_MovementLinkedToAnimation.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.MovementLinkedToAnimation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L53">View Source</a>
+  </span>
+  <a id="AGS_API_IWalkBehavior_MovementLinkedToAnimation_" data-uid="AGS.API.IWalkBehavior.MovementLinkedToAnimation*"></a>
+  <h4 id="AGS_API_IWalkBehavior_MovementLinkedToAnimation" data-uid="AGS.API.IWalkBehavior.MovementLinkedToAnimation">MovementLinkedToAnimation</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.IWalkBehavior.html">IWalkBehavior</a> movement is linked to the animation.
+This is on by default, meaning that the walk step would only be performed when the walk animation frame changes.
+For the walk to look right, the images need to be drawn so that a foot touching the ground moves back a 
+constant amount of pixels in between frames. This amount should then be entered as the <a class="xref" href="AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_WalkStep">WalkStep</a>, 
+and not touched any further. Any speed adjustment should only done by changing the animation speed (the animation&#39;s <a class="xref" href="AGS.API.IAnimationConfiguration.html#AGS_API_IAnimationConfiguration_DelayBetweenFrames">DelayBetweenFrames</a> property 
+and an optional additional delay for the actual running frame).</p>
+<p>If this is turned off, then the walk step would be performed on each frame making for a smooth movement.
+Note that if the walk animation only has a single frame, then the engine will ignore the configuration
+and will treat it as false.</p>
+<h2 id="how-to-decide-if-this-should-be-on-or-off">How to decide if this should be on or off?</h2>
+<p>As a rule of thumb, if the character has legs you would want this on.
+If you turn this off (for a character which has legs) while the movement will look smoother, it
+will also cause a gliding effect, caused by the fact that the movement is not in sync with the animation
+of the moving feet.
+If your character doesn&#39;t have legs (a robot, a floating ghost, etc), turning this off would make
+for a smoother looking walk.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool MovementLinkedToAnimation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if movement linked to animation; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IWalkBehavior_WalkDestination.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.WalkDestination%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L66">View Source</a>
+  </span>
+  <a id="AGS_API_IWalkBehavior_WalkDestination_" data-uid="AGS.API.IWalkBehavior.WalkDestination*"></a>
+  <h4 id="AGS_API_IWalkBehavior_WalkDestination" data-uid="AGS.API.IWalkBehavior.WalkDestination">WalkDestination</h4>
+  <div class="markdown level1 summary"><p>Gets the destination the character is currently walking to (if currently walking),
+or the last destination the character was walking to (if currently not walking).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ILocation WalkDestination { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILocation.html">ILocation</a></td>
+        <td><p>The walk destination.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IWalkBehavior_WalkStep.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.WalkStep%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L22">View Source</a>
+  </span>
+  <a id="AGS_API_IWalkBehavior_WalkStep_" data-uid="AGS.API.IWalkBehavior.WalkStep*"></a>
+  <h4 id="AGS_API_IWalkBehavior_WalkStep" data-uid="AGS.API.IWalkBehavior.WalkStep">WalkStep</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the walk step.
+The walk speed is actually the number of pixels the character moves each time he/she/it moves.
+If <a class="xref" href="AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_MovementLinkedToAnimation">MovementLinkedToAnimation</a> is turned off, the step would be made on each frame, making for a smooth movement.
+This means that for this state, the walk step is the sole &#39;decision maker&#39; for the walking speed of the character.
+If <a class="xref" href="AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_MovementLinkedToAnimation">MovementLinkedToAnimation</a> is turned on (the default), the step would be made each time the animation frame changes.
+This means that for this state, the walk step should be setup once (it needs to match exactly the amount of pixels the leg moves in the drawings)
+when the actual controller of the walk speed is the animation&#39;s speed (the animation&#39;s <a class="xref" href="AGS.API.IAnimationConfiguration.html#AGS_API_IAnimationConfiguration_DelayBetweenFrames">DelayBetweenFrames</a> property 
+and an optional additional delay for the actual running frame).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">PointF WalkStep { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.PointF.html">PointF</a></td>
+        <td><p>The walk speed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IWalkBehavior_PlaceOnWalkableArea.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.PlaceOnWalkableArea%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L114">View Source</a>
+  </span>
+  <a id="AGS_API_IWalkBehavior_PlaceOnWalkableArea_" data-uid="AGS.API.IWalkBehavior.PlaceOnWalkableArea*"></a>
+  <h4 id="AGS_API_IWalkBehavior_PlaceOnWalkableArea" data-uid="AGS.API.IWalkBehavior.PlaceOnWalkableArea">PlaceOnWalkableArea()</h4>
+  <div class="markdown level1 summary"><p>If the character is already standing in a walkable area, does nothing.
+Otherwise it would try to place it on a walkable area close by.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void PlaceOnWalkableArea()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IWalkBehavior_StopWalking.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.StopWalking%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L102">View Source</a>
+  </span>
+  <a id="AGS_API_IWalkBehavior_StopWalking_" data-uid="AGS.API.IWalkBehavior.StopWalking*"></a>
+  <h4 id="AGS_API_IWalkBehavior_StopWalking" data-uid="AGS.API.IWalkBehavior.StopWalking">StopWalking()</h4>
+  <div class="markdown level1 summary"><p>Stops the current walk (if there is a walk to stop).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void StopWalking()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IWalkBehavior_StopWalkingAsync.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.StopWalkingAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L108">View Source</a>
+  </span>
+  <a id="AGS_API_IWalkBehavior_StopWalkingAsync_" data-uid="AGS.API.IWalkBehavior.StopWalkingAsync*"></a>
+  <h4 id="AGS_API_IWalkBehavior_StopWalkingAsync" data-uid="AGS.API.IWalkBehavior.StopWalkingAsync">StopWalkingAsync()</h4>
+  <div class="markdown level1 summary"><p>Asynchronosly stops the current walk (if there is a walk to stop).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task StopWalkingAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td><p>The walking async.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IWalkBehavior_WalkAsync_AGS_API_ILocation_.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.WalkAsync(AGS.API.ILocation)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L97">View Source</a>
+  </span>
+  <a id="AGS_API_IWalkBehavior_WalkAsync_" data-uid="AGS.API.IWalkBehavior.WalkAsync*"></a>
+  <h4 id="AGS_API_IWalkBehavior_WalkAsync_AGS_API_ILocation_" data-uid="AGS.API.IWalkBehavior.WalkAsync(AGS.API.ILocation)">WalkAsync(ILocation)</h4>
+  <div class="markdown level1 summary"><p>Walks asynchronously to the specified location.
+<example>
+Let&#39;s start walking to the chair, say something about it while we&#39;re walking,
+and then properly respond if the user decided they want to walk somewhere else before we got to the chair.
+<pre><code>Task&lt;bool&gt; walkSuccessful = cHero.WalkAsync(oChair.Location);
+await cHero.SayAsync("I'm walking to the chair!");
+if (await walkSuccessful)
+{
+    cHero.Say("And now I'm sitting!");
+    sitOnChair();
+}
+else
+{
+    cHero.Say("You know what, that the chair doesn't look too comfortable, I think I'll pass.");
+}</code></pre>
+</example></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; WalkAsync(ILocation location)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILocation.html">ILocation</a></td>
+        <td><span class="parametername">location</span></td>
+        <td><p>The location.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td><p>Returns true if the walk was completed successfully, or false if the walk was cancelled (if the user clicked on something else).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IWalkBehavior.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L8" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

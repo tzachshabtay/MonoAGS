@@ -1,0 +1,1596 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IUIFactory
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IUIFactory
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IUIFactory">
+  
+  
+  <h1 id="AGS_API_IUIFactory" data-uid="AGS.API.IUIFactory">Interface IUIFactory
+  </h1>
+  <div class="markdown level0 summary"><p>Factory for creating UI controls (buttons, textboxes, etc).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_IUIFactory_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IUIFactory</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetButton_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetButton(System.String%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CSystem.Single%2CSystem.Single%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L87">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetButton_" data-uid="AGS.API.IUIFactory.GetButton*"></a>
+  <h4 id="AGS_API_IUIFactory_GetButton_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_" data-uid="AGS.API.IUIFactory.GetButton(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)">GetButton(String, IAnimation, IAnimation, IAnimation, Single, Single, String, ITextConfig, Boolean, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Creats a button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IButton GetButton(string id, IAnimation idle, IAnimation hovered, IAnimation pushed, float x, float y, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the button (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></td>
+        <td><span class="parametername">idle</span></td>
+        <td><p>Idle animation (when the button is not clicked on or hovered).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></td>
+        <td><span class="parametername">hovered</span></td>
+        <td><p>Hovered animation (when the mouse is hovering the button).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></td>
+        <td><span class="parametername">pushed</span></td>
+        <td><p>Pushed animation (when clicking the button).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>Text for the button.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>Configuration for rendering the text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td><p>Width (if not supplied the engine takes it from the idle animation&#39;s first frame).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td><p>Height (if not supplied the engine takes it from the idle animation&#39;s first frame).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IButton.html">IButton</a></td>
+        <td><p>The button.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetButton_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetButton(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L105">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetButton_" data-uid="AGS.API.IUIFactory.GetButton*"></a>
+  <h4 id="AGS_API_IUIFactory_GetButton_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_" data-uid="AGS.API.IUIFactory.GetButton(System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)">GetButton(String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Creats a button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IButton GetButton(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath, float x, float y, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the panel (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">idleImagePath</span></td>
+        <td><p>Idle image resourece/file path (when the button is not clicked on or hovered).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">hoveredImagePath</span></td>
+        <td><p>Hovered image resource/file path (when the mouse is hovering the button).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">pushedImagePath</span></td>
+        <td><p>Pushed image resource/file path (when clicking the button).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>Text for the button.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>Configuration for rendering the text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td><p>Width (if not supplied the engine takes it from the idle animation&#39;s first frame).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td><p>Height (if not supplied the engine takes it from the idle animation&#39;s first frame)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IButton.html">IButton</a></td>
+        <td><p>The button.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetButtonAsync_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetButtonAsync(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L123">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetButtonAsync_" data-uid="AGS.API.IUIFactory.GetButtonAsync*"></a>
+  <h4 id="AGS_API_IUIFactory_GetButtonAsync_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_" data-uid="AGS.API.IUIFactory.GetButtonAsync(System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)">GetButtonAsync(String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Creats a button asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;IButton&gt; GetButtonAsync(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath, float x, float y, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the panel (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">idleImagePath</span></td>
+        <td><p>Idle image resourece/file path (when the button is not clicked on or hovered).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">hoveredImagePath</span></td>
+        <td><p>Hovered image resource/file path (when the mouse is hovering the button).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">pushedImagePath</span></td>
+        <td><p>Pushed image resource/file path (when clicking the button).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>Text for the button.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>Configuration for rendering the text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td><p>Width (if not supplied the engine takes it from the idle animation&#39;s first frame).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td><p>Height (if not supplied the engine takes it from the idle animation&#39;s first frame)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.IButton.html">IButton</a>&gt;</td>
+        <td><p>The button.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetCheckBox_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetCheckBox(System.String%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CSystem.Single%2CSystem.Single%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L157">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetCheckBox_" data-uid="AGS.API.IUIFactory.GetCheckBox*"></a>
+  <h4 id="AGS_API_IUIFactory_GetCheckBox_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_" data-uid="AGS.API.IUIFactory.GetCheckBox(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)">GetCheckBox(String, IAnimation, IAnimation, IAnimation, IAnimation, Single, Single, String, ITextConfig, Boolean, Single, Single, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creats a checkbox.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICheckBox GetCheckBox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation checked, IAnimation checkedHovered, float x, float y, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null, bool isCheckButton = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the checkbox (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></td>
+        <td><span class="parametername">notChecked</span></td>
+        <td><p>Not checked animation (when the checkbox is not checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></td>
+        <td><span class="parametername">notCheckedHovered</span></td>
+        <td><p>Hovered and not checked animation (when the checkbox is hovered by the mouse but not checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></td>
+        <td><span class="parametername">checked</span></td>
+        <td><p>Checked animation (when the checkbox is checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></td>
+        <td><span class="parametername">checkedHovered</span></td>
+        <td><p>Hovered and checked animation (when the checkbox is hovered by the mouse and checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>Text for the checkbox.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>Configuration for rendering the text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td><p>Width (if not supplied the engine takes it from the not checked animation&#39;s first frame).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td><p>Height (if not supplied the engine takes it from the not checked animation&#39;s first frame).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isCheckButton</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ICheckBox.html">ICheckBox</a></td>
+        <td><p>The checkbox.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetCheckBox_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetCheckBox(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L176">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetCheckBox_" data-uid="AGS.API.IUIFactory.GetCheckBox*"></a>
+  <h4 id="AGS_API_IUIFactory_GetCheckBox_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_" data-uid="AGS.API.IUIFactory.GetCheckBox(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)">GetCheckBox(String, String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creats a checkbox.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICheckBox GetCheckBox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null, bool isCheckButton = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the checkbox (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">notCheckedPath</span></td>
+        <td><p>Not checked image resource/file path (when the checkbox is not checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">notCheckedHoveredPath</span></td>
+        <td><p>Hovered and not checked image resource/file path (when the checkbox is hovered by the mouse but not checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">checkedPath</span></td>
+        <td><p>Checked image resource/file path (when the checkbox is checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">checkedHoveredPath</span></td>
+        <td><p>Hovered and checked image resource/file path (when the checkbox is hovered by the mouse and checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>Text for the checkbox.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>Configuration for rendering the text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td><p>Width (if not supplied the engine takes it from the not checked animation&#39;s first frame).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td><p>Height (if not supplied the engine takes it from the not checked animation&#39;s first frame).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isCheckButton</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ICheckBox.html">ICheckBox</a></td>
+        <td><p>The checkbox.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetCheckBoxAsync_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetCheckBoxAsync(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L195">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetCheckBoxAsync_" data-uid="AGS.API.IUIFactory.GetCheckBoxAsync*"></a>
+  <h4 id="AGS_API_IUIFactory_GetCheckBoxAsync_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_" data-uid="AGS.API.IUIFactory.GetCheckBoxAsync(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)">GetCheckBoxAsync(String, String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creats a checkbox asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;ICheckBox&gt; GetCheckBoxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null, bool isCheckButton = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the checkbox (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">notCheckedPath</span></td>
+        <td><p>Not checked image resource/file path (when the checkbox is not checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">notCheckedHoveredPath</span></td>
+        <td><p>Hovered and not checked image resource/file path (when the checkbox is hovered by the mouse but not checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">checkedPath</span></td>
+        <td><p>Checked image resource/file path (when the checkbox is checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">checkedHoveredPath</span></td>
+        <td><p>Hovered and checked image resource/file path (when the checkbox is hovered by the mouse and checked).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>Text for the checkbox.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>Configuration for rendering the text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td><p>Width (if not supplied the engine takes it from the not checked animation&#39;s first frame).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td><p>Height (if not supplied the engine takes it from the not checked animation&#39;s first frame).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isCheckButton</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.ICheckBox.html">ICheckBox</a>&gt;</td>
+        <td><p>The checkbox.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_Func_AGS_API_IButton__System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetComboBox(System.String%2CAGS.API.IButton%2CAGS.API.ITextBox%2CFunc%7BAGS.API.IButton%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L207">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetComboBox_" data-uid="AGS.API.IUIFactory.GetComboBox*"></a>
+  <h4 id="AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_Func_AGS_API_IButton__System_Boolean_" data-uid="AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{AGS.API.IButton},System.Boolean)">GetComboBox(String, IButton, ITextBox, Func&lt;IButton&gt;, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates a combo box (drop down).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IComboBox GetComboBox(string id, IButton dropDownButton, ITextBox textBox, Func&lt;IButton&gt; itemButtonFactory, bool addToUi = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the combo box (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IButton.html">IButton</a></td>
+        <td><span class="parametername">dropDownButton</span></td>
+        <td><p>Drop down button.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextBox.html">ITextBox</a></td>
+        <td><span class="parametername">textBox</span></td>
+        <td><p>The text box for showing the selected choice.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Func</span>&lt;<a class="xref" href="AGS.API.IButton.html">IButton</a>&gt;</td>
+        <td><span class="parametername">itemButtonFactory</span></td>
+        <td><p>A function for creating a button for the drop down list.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IComboBox.html">IComboBox</a></td>
+        <td><p>The combo box.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetLabel_System_String_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_ITextConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetLabel(System.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.ITextConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L70">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetLabel_" data-uid="AGS.API.IUIFactory.GetLabel*"></a>
+  <h4 id="AGS_API_IUIFactory_GetLabel_System_String_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_ITextConfig_System_Boolean_" data-uid="AGS.API.IUIFactory.GetLabel(System.String,System.String,System.Single,System.Single,System.Single,System.Single,AGS.API.ITextConfig,System.Boolean)">GetLabel(String, String, Single, Single, Single, Single, ITextConfig, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates a label.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ILabel GetLabel(string id, string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the label (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text that appears on the label.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td><p>Width.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td><p>Height.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>The configuration for rendering the text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILabel.html">ILabel</a></td>
+        <td><p>The label.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetPanel_System_String_AGS_API_IImage_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanel(System.String%2CAGS.API.IImage%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L20">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetPanel_" data-uid="AGS.API.IUIFactory.GetPanel*"></a>
+  <h4 id="AGS_API_IUIFactory_GetPanel_System_String_AGS_API_IImage_System_Single_System_Single_System_Boolean_" data-uid="AGS.API.IUIFactory.GetPanel(System.String,AGS.API.IImage,System.Single,System.Single,System.Boolean)">GetPanel(String, IImage, Single, Single, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Create a panel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPanel GetPanel(string id, IImage image, float x, float y, bool addToUi = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the panel (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IImage.html">IImage</a></td>
+        <td><span class="parametername">image</span></td>
+        <td><p>A background image for the panel.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to the game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IPanel.html">IPanel</a></td>
+        <td><p>The panel.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetPanel_System_String_System_Single_System_Single_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanel(System.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L32">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetPanel_" data-uid="AGS.API.IUIFactory.GetPanel*"></a>
+  <h4 id="AGS_API_IUIFactory_GetPanel_System_String_System_Single_System_Single_System_Single_System_Single_System_Boolean_" data-uid="AGS.API.IUIFactory.GetPanel(System.String,System.Single,System.Single,System.Single,System.Single,System.Boolean)">GetPanel(String, Single, Single, Single, Single, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Create a panel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPanel GetPanel(string id, float width, float height, float x, float y, bool addToUi = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the panel (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td><p>The panel&#39;s width.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td><p>The panel&#39;s height.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to the game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IPanel.html">IPanel</a></td>
+        <td><p>The panel.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetPanel_System_String_System_String_System_Single_System_Single_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanel(System.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L44">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetPanel_" data-uid="AGS.API.IUIFactory.GetPanel*"></a>
+  <h4 id="AGS_API_IUIFactory_GetPanel_System_String_System_String_System_Single_System_Single_AGS_API_ILoadImageConfig_System_Boolean_" data-uid="AGS.API.IUIFactory.GetPanel(System.String,System.String,System.Single,System.Single,AGS.API.ILoadImageConfig,System.Boolean)">GetPanel(String, String, Single, Single, ILoadImageConfig, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Create a panel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPanel GetPanel(string id, string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the panel (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">imagePath</span></td>
+        <td><p>A resource/file path (see cref=&quot;IResourceLoader&quot;) for the panel&#39;s background image/&gt;.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>The configuration for loading the image.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to the game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IPanel.html">IPanel</a></td>
+        <td><p>The panel.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetPanelAsync_System_String_System_String_System_Single_System_Single_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanelAsync(System.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L56">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetPanelAsync_" data-uid="AGS.API.IUIFactory.GetPanelAsync*"></a>
+  <h4 id="AGS_API_IUIFactory_GetPanelAsync_System_String_System_String_System_Single_System_Single_AGS_API_ILoadImageConfig_System_Boolean_" data-uid="AGS.API.IUIFactory.GetPanelAsync(System.String,System.String,System.Single,System.Single,AGS.API.ILoadImageConfig,System.Boolean)">GetPanelAsync(String, String, Single, Single, ILoadImageConfig, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Create a panel asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;IPanel&gt; GetPanelAsync(string id, string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the panel (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">imagePath</span></td>
+        <td><p>A resource/file path (see cref=&quot;IResourceLoader&quot;) for the panel&#39;s background image/&gt;.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>The configuration for loading the image.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to the game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.IPanel.html">IPanel</a>&gt;</td>
+        <td><p>The panel.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetSlider_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetSlider(System.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.ITextConfig%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L222">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetSlider_" data-uid="AGS.API.IUIFactory.GetSlider*"></a>
+  <h4 id="AGS_API_IUIFactory_GetSlider_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_" data-uid="AGS.API.IUIFactory.GetSlider(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)">GetSlider(String, String, String, Single, Single, Single, ITextConfig, ILoadImageConfig, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates a slider</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max, ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the slider (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">imagePath</span></td>
+        <td><p>Image resource/file path for the slider.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">handleImagePath</span></td>
+        <td><p>Resource/file path for the handle&#39;s image (the item which you drag across the sliding line).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The slider&#39;s initial value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">min</span></td>
+        <td><p>The slider&#39;s minimum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">max</span></td>
+        <td><p>The slider&#39;s maximum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>A configuration for rendering the slider&#39;s value as text (if null than the slider&#39;s value will not be rendered as text, but just the handle will be shown).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Load configuration for the slider&#39;s images.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ISlider.html">ISlider</a></td>
+        <td><p>The slider.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetSliderAsync_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetSliderAsync(System.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.ITextConfig%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L238">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetSliderAsync_" data-uid="AGS.API.IUIFactory.GetSliderAsync*"></a>
+  <h4 id="AGS_API_IUIFactory_GetSliderAsync_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_" data-uid="AGS.API.IUIFactory.GetSliderAsync(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)">GetSliderAsync(String, String, String, Single, Single, Single, ITextConfig, ILoadImageConfig, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates a slider asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;ISlider&gt; GetSliderAsync(string id, string imagePath, string handleImagePath, float value, float min, float max, ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the slider (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">imagePath</span></td>
+        <td><p>Image resource/file path for the slider.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">handleImagePath</span></td>
+        <td><p>Resource/file path for the handle&#39;s image (the item which you drag across the sliding line).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The slider&#39;s initial value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">min</span></td>
+        <td><p>The slider&#39;s minimum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">max</span></td>
+        <td><p>The slider&#39;s maximum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>A configuration for rendering the slider&#39;s value as text (if null than the slider&#39;s value will not be rendered as text, but just the handle will be shown).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Load configuration for the slider&#39;s images.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.ISlider.html">ISlider</a>&gt;</td>
+        <td><p>The slider.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory_GetTextBox_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetTextBox(System.String%2CSystem.Single%2CSystem.Single%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L138">View Source</a>
+  </span>
+  <a id="AGS_API_IUIFactory_GetTextBox_" data-uid="AGS.API.IUIFactory.GetTextBox*"></a>
+  <h4 id="AGS_API_IUIFactory_GetTextBox_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_" data-uid="AGS.API.IUIFactory.GetTextBox(System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)">GetTextBox(String, Single, Single, String, ITextConfig, Boolean, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Creats a textbox.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ITextBox GetTextBox(string id, float x, float y, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifer for the textbox (it has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>Text for the button.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>Configuration for rendering the text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to game&#39;s GUI list for rendering.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td><p>Width.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td><p>Height</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITextBox.html">ITextBox</a></td>
+        <td><p>The textbox.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIFactory.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IUIFactory.cs/#L9" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

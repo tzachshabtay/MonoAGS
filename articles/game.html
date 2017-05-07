@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Game Interface | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Game Interface | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="game-interface">Game Interface</h1>
+
+<p>The game interface (<code>IGame</code>) is the main entry point to everything (or almost everything) you can do with the engine.</p>
+<p>By calling <code>AGSGame.CreateEmpty</code> you&#39;ll get the game interface, which you can then use and pass around. You&#39;d usually want to subscribe to the game load event where you&#39;ll load up resources and show the first screen.
+Then you&#39;ll want to call <code>IGame.Start</code> for which you&#39;ll pass the game settings (name of the game, resolution, etc, see <a href="#settings">Settings</a>), which will start the game (and will call the game load event).</p>
+<p>After doing that, at any script, you can always get the <code>IGame</code> interface (assuming you don&#39;t want to pass it around) by calling <code>AGSGame.Game</code>.</p>
+<p>The game interface has the following systems you can interact with:</p>
+<h2 id="factory">Factory</h2>
+<p>The game factory is an interface to ease up creating game elements. The <code>IGameFactory</code> interface itself contains sub-factories which specialize in specific types of elements. The sub-factories that you can access there are:</p>
+<h3 id="graphics">Graphics</h3>
+<p>For loading images, <a href="animations.html">animations</a>, and <a href="animations.html#directional-animations">directional animations</a>.
+For example, you can call <code>game.Factory.Graphics.LoadAnimationFromFolder(animationFolder)</code> to load an animation (that&#39;s the short version of this function, with default configurations, there&#39;s a longer version for which you can pass animation configurations).</p>
+<h3 id="sound">Sound</h3>
+<p>For loading <a href="audio.html">audio clips</a>.</p>
+<h3 id="inventory">Inventory</h3>
+<p>For creating <a href="characters.html#inventory">inventory items</a> and <a href="guis.html#inventory-windows">inventory windows</a>.</p>
+<h3 id="ui">UI</h3>
+<p>For creating <a href="guis.html">UIs</a>, like panels, labels, checkboxes, textboxes, comboboxes and sliders.</p>
+<h3 id="fonts">Fonts</h3>
+<p>For loading and installing fonts.</p>
+<p>Note: installing fonts are needed specifically for Macs, as you must install and then restart the game on a Mac for the changes to take place, therefore it&#39;s recommended to call install fonts on the fonts you want to use at the start of the game where it will automatically restart if the fonts were not already installed (on Mac only, the game won&#39;t be restarted on other platforms).</p>
+<h3 id="objects">Objects</h3>
+<p>For creating <a href="objects.html">objects</a>, <a href="characters.html">characters</a> and hotspot areas (those will be converted to objects which are also <a href="hotspots.html">hotspots</a>).</p>
+<h3 id="rooms">Rooms</h3>
+<p>For creating <a href="rooms.html">rooms</a> and <a href="rooms.html#edges">edges</a>.</p>
+<h3 id="outfits">Outfits</h3>
+<p>For creating character <a href="characters.html#outfits">outfits</a>.</p>
+<h3 id="dialogs">Dialogs</h3>
+<p>For creating <a href="dialogs.html">dialogs</a> and <a href="dialogs.html#dialog-option">dialog options</a>.</p>
+<h2 id="game-state">Game State</h2>
+<p>Game state is the entry point for everything that can change in the game (when the user saves the game, we&#39;ll save the state and hopefully won&#39;t need to save anything else, because the state is the only thing that changes):
+This includes the player <a href="characters.html">character</a>, the <a href="rooms.html">rooms</a>, the <a href="guis.html">UI</a>, the <a href="guis.html#gui-focus">focused UI</a>, the <a href="#cutscene">cutscene</a>, the <a href="rooms.html#room-transitions">room transitions</a> and global variables.
+It also allows you to pause/resume the game, change its global speed and change the current room.</p>
+<h3 id="cutscene">Cutscene</h3>
+<p>As part of the game states, you can control the current cutscene. A cutscene is a scene in the game in which user interaction is disabled. Usually, you&#39;ll want to offer the user a way of skipping the scene as well. From the game, you can mark a start of a cutscene with <code>ICutscene.Start</code> and wrap it up with <code>ICutscene.End</code> (you must have a cutscene end for every start and you must ensure that every possible branch from the start will reach the end). You can set how the user triggers skipping a cutscene. The built in defaults are &quot;Escape key&quot;/&quot;Any key&quot;/&quot;Any key or mouse&quot;. Or you can implement your own cutscene skipping by calling <code>ICutscene.BeginSkip</code>.</p>
+<p>Finally, you can query to see if a cutscene is currently running, and if a cutscene is currently skipping.</p>
+<h2 id="input">Input</h2>
+<p>The input allows you to query the mouse/keyboard state (what key is pressed, what position is the mouse in, etc) and subscribe for events for the mouse/keyboard (a mouse button was pressed/released, mouse was moved, a keyboard key was pressed/released). Normally you wouldn&#39;t need to handle input here, as the available game components will do that for you (and they use the input API for this).</p>
+<p>Additionally, you can set the cursor from the input API (the cursor is actually an <a href="objects.html">object</a> so you can do with it everything you do with objects, like animating, rotating, scaling, etc). Usually you won&#39;t need to do that, the control scheme you&#39;ll choose (rotating cursors/two buttons for interact and look/verb coin) will do that for you.</p>
+<h2 id="settings">Settings</h2>
+<p>The game settings allows you to set:</p>
+<h3 id="title">Title</h3>
+<p>The title will appear in the title window of your game (if it&#39;s not full-screen).</p>
+<h3 id="virtual-resolution">Virtual Resolution</h3>
+<p>The virtual resolution in which you code your game. This is the coordinate system in which you&#39;ll move all of your objects (unless if you set a rendering layer with an <a href="render-layers.html#independent-resolution">independent resolution</a>).</p>
+<h3 id="window-size">Window Size</h3>
+<p>The size of the window (if the game is not showing full-screen).</p>
+<h3 id="window-border">Window Border</h3>
+<p>If the game is not in full-screen, you can have a fixed border, a re-sizable window (which will allow the user to resize the window), or a hidden border: you can use a hidden border with a maximized window to have the game on full-screen without actually having your game on full-screen. </p>
+<h3 id="window-state">Window State</h3>
+<p>You can set whether your window is normal, minimized, maximized or full-screen. If the window is full-screen then the border and size settings have no effect. Note that you can combined the maximized setting with the hidden border setting to have your game be full-screen without changing to full-screen mode.</p>
+<h4 id="full-screen-vs-maximized-with-hidden-border">Full-Screen vs Maximized with hidden border</h4>
+<p>There are a lot of discussions on <a href="https://gaming.stackexchange.com/questions/107028/is-there-a-difference-between-running-games-in-windowed-or-fullscreen-mode">what&#39;s better</a>. Full-screen might give your game a better performance in theory, whereas maximized window might be more stable (or work on more computers). In anyway, <code>MonoAGS</code> supports both.</p>
+<h3 id="preserve-aspect-ratio">Preserve Aspect Ratio</h3>
+<p>If the game is configured to preserve the aspect ratio, then in case the window is resized
+and the aspect ratio is changed, the screen will be letter-boxed or pillar-boxed so the
+aspect ratio for the actual content will remain the same. If not, then it will stretch to fit.</p>
+<h3 id="vsync">VSync</h3>
+<p>Allows to set the <a href="https://hardforum.com/threads/how-vsync-works-and-why-people-loathe-it.928593/">vsync</a> mode (synchronization of the frame update rate with screen refresh rate to prevent tearing).</p>
+<h3 id="audio-settings">Audio Settings</h3>
+<p>The audio settings allow you to change the master volume, and to control the <a href="rooms.html#music-clip-to-play">cross fading</a> between rooms.</p>
+<h2 id="game-events">Game Events</h2>
+<p>The game events allow you to subscribe to important events in the game.</p>
+<h3 id="game-load-event">Game Load Event</h3>
+<p>The game load event happens when you start your game. This is where you load your resources (at least the resources for the first room) and set the first room for the game to start in.</p>
+<h3 id="on-repeatedly-execute-event">On Repeatedly Execute Event</h3>
+<p>The on repeatedly execute event happens every tick and allows you to check for conditions 
+and do specific actions when the conditions fulfill.
+The frequency of this events depends on the FPS (frames per second). By default, if the hardware (and software) can handle it, we run at 60 FPS, meaning this event will be called 60 times per second.</p>
+<p>IMPORTANT: As this event runs 60 times per second (by default), it can be abused and deteriorate the performance of the game.
+So it&#39;s important to keep two rules:</p>
+<ol>
+<li>Don&#39;t perform long actions on each tick.</li>
+<li>Don&#39;t allocate memory on each tick.</li>
+</ol>
+<h3 id="on-before-render-event">On Before Render Event</h3>
+<p>This event is called on every render cycle before rendering starts.
+It can be used for native background drawings, or for native OpenGL calls
+for setting thins up (like setting <a href="objects.html#shader">shader</a> variables).</p>
+<h3 id="on-screen-resize">On Screen Resize</h3>
+<p>This event is called whenever the screen is resized.</p>
+<h3 id="default-interactions">Default Interactions</h3>
+<p>Allows setting the <a href="hotspots.html#default-interactions">default interactions</a>.</p>
+<h2 id="repeat">Repeat</h2>
+<p><code>Repeat</code> is a utility class for repeating actions a set number of times. <code>Repeat.OnceOnly(key)</code> is probably the most useful function there and is the equivalent of <code>Game.DoOnceOnly</code> from &quot;classic&quot; AGS.</p>
+<pre><code class="lang-csharp">private void onInteractWithMicrophone(object sender, AGSEventArgs args) {
+    if (Repeat.OnceOnly(&quot;sing_a_song&quot;)) {
+        cHero.Say(&quot;Mary had a little lamb!&quot;);
+    }
+    else cHero.Say(&quot;Nah, I already sang earlier...&quot;);
+}
+</code></pre><p>Other similar functions there include: <code>Repeat.Exactly(key, number_of_times)</code> for doing an action exactly X times, and also <code>Repeat.MoreThen(key, number_of_times)</code> and <code>Repeat.LessThen(key, number_of_times)</code> for repeating actions more than or less than X times.</p>
+<p>Another useful function is <code>Repeat.Rotate(key, actions)</code> which rotates around a list of actions to perform (i.e on each call it performs the next action on the list, and eventually goes back to the beginning). This can be useful when wanting to have multiple responses for an interaction which repeat themselves:</p>
+<pre><code class="lang-csharp">private void someDefaultInteraction()
+{
+    Repeat.Rotate(&quot;default interaction&quot;,
+        () =&gt; cHero.Say(&quot;I&#39;m not going to do that.&quot;),
+        () =&gt; cHero.Say(&quot;Nope, I don&#39;t think so.&quot;),
+        () =&gt; cHero.Say(&quot;I really don&#39;t want to, sorry.&quot;));
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/game.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

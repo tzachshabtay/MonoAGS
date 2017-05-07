@@ -1,0 +1,407 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ISliderComponent
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ISliderComponent
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ISliderComponent">
+  
+  
+  <h1 id="AGS_API_ISliderComponent" data-uid="AGS.API.ISliderComponent">Interface ISliderComponent
+  </h1>
+  <div class="markdown level0 summary"><p>A slider component allows selecting a numeric value between an allowed range, by dragging a handle across
+a line (usually).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_ISliderComponent_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ISliderComponent : IComponent, IDisposable</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISliderComponent_Graphics.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.Graphics%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L18">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_Graphics_" data-uid="AGS.API.ISliderComponent.Graphics*"></a>
+  <h4 id="AGS_API_ISliderComponent_Graphics" data-uid="AGS.API.ISliderComponent.Graphics">Graphics</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the graphics of the slider (on which the handle will be dragged).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IObject Graphics { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
+        <td><p>The graphics.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISliderComponent_HandleGraphics.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.HandleGraphics%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L24">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_HandleGraphics_" data-uid="AGS.API.ISliderComponent.HandleGraphics*"></a>
+  <h4 id="AGS_API_ISliderComponent_HandleGraphics" data-uid="AGS.API.ISliderComponent.HandleGraphics">HandleGraphics</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the handle graphics (the handle is the object the user drags to change the value).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IObject HandleGraphics { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
+        <td><p>The handle graphics.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISliderComponent_IsHorizontal.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.IsHorizontal%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L54">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_IsHorizontal_" data-uid="AGS.API.ISliderComponent.IsHorizontal*"></a>
+  <h4 id="AGS_API_ISliderComponent_IsHorizontal" data-uid="AGS.API.ISliderComponent.IsHorizontal">IsHorizontal</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.ISliderComponent.html">ISliderComponent</a> is horizontal (or vertical).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsHorizontal { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if is horizontal; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISliderComponent_Label.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.Label%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L30">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_Label_" data-uid="AGS.API.ISliderComponent.Label*"></a>
+  <h4 id="AGS_API_ISliderComponent_Label" data-uid="AGS.API.ISliderComponent.Label">Label</h4>
+  <div class="markdown level1 summary"><p>Gets or sets an optional label which shows the value as text.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ILabel Label { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILabel.html">ILabel</a></td>
+        <td><p>The label.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISliderComponent_MaxValue.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.MaxValue%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L42">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_MaxValue_" data-uid="AGS.API.ISliderComponent.MaxValue*"></a>
+  <h4 id="AGS_API_ISliderComponent_MaxValue" data-uid="AGS.API.ISliderComponent.MaxValue">MaxValue</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the allowed maximum value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float MaxValue { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><p>The max value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISliderComponent_MinValue.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.MinValue%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L36">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_MinValue_" data-uid="AGS.API.ISliderComponent.MinValue*"></a>
+  <h4 id="AGS_API_ISliderComponent_MinValue" data-uid="AGS.API.ISliderComponent.MinValue">MinValue</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the allowed minimum value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float MinValue { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><p>The minimum value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISliderComponent_OnValueChanged.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.OnValueChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L60">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_OnValueChanged_" data-uid="AGS.API.ISliderComponent.OnValueChanged*"></a>
+  <h4 id="AGS_API_ISliderComponent_OnValueChanged" data-uid="AGS.API.ISliderComponent.OnValueChanged">OnValueChanged</h4>
+  <div class="markdown level1 summary"><p>An event which is triggered when the slider value has changed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEvent&lt;SliderValueEventArgs&gt; OnValueChanged { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.SliderValueEventArgs.html">SliderValueEventArgs</a>&gt;</td>
+        <td><p>The on value changed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISliderComponent_Value.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.Value%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L48">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_Value_" data-uid="AGS.API.ISliderComponent.Value*"></a>
+  <h4 id="AGS_API_ISliderComponent_Value" data-uid="AGS.API.ISliderComponent.Value">Value</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the slider&#39;s value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float Value { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><p>The value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISliderComponent.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L7" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

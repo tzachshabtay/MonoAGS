@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Characters | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Characters | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="characters">Characters</h1>
+
+<p>Characters are both the player(s) and the NPCs (non player characters) that walk around on your screen (or just stand there, like many NPCs in adventure games) and interact with one another.</p>
+<h2 id="the-relationship-between-characters-and-objects">The relationship between characters and objects</h2>
+<p>Note that unlike &quot;classic&quot; AGS, characters are objects with more stuff added to them. I.E all characters are also objects, but not all objects are characters.
+This means that you can expect all properties and abilities that objects have to also belong the characters, and you can expect the syntax to be the same.
+Therefore we will not cover all the stuff that the characters can do here, but just what&#39;s added on top of being an object (and you can refer to the <a href="objects.html">Objects</a> section for the rest).</p>
+<h2 id="character-abilities">Character abilities</h2>
+<h3 id="walking">Walking</h3>
+<p>Allows your characters to walk around the screen. There are several things you can configure for your characters walk, so there&#39;s a dedicated section for walk configurations and abilities.
+Please refer to the <a href="walking.html">Walking</a> section for more details.</p>
+<h3 id="facing-directions">Facing directions</h3>
+<p>Allows your characters to face directions: either to face a specific point on screen, or face to a specific object in the room, or simply to face left, up, up-left, etc.
+This would change the current animation to use the most suited animation for the current direction (so, for example, if you face left but only has an &quot;up&quot;, &quot;left&quot; or &quot;down&quot; animations, 
+either &quot;up&quot; or &quot;down&quot; will be used).</p>
+<h3 id="following">Following</h3>
+<p>Allows commanding a character to follow another character/object in the room. 
+You can configure how the character performs a follow, to be able to accommodate different scenario (a companion, a spy or an enemy, for example).
+You can configure with the time range the character will wait before commencing a new walk towards the target, what&#39;s the distance range you&#39;d want to have your character away from the target, 
+what&#39;s the probability of having your character wander off somewhere else, and whether or not the character will move between rooms if the target moves to another room.</p>
+<h3 id="approaching">Approaching</h3>
+<p>Allows a character to approach an object/character. This is by default, only exists for the player character.
+When an interaction event is triggered for a hotspot, if this component is available for the player (which it is by default),
+then the character will approach the hotspot before the interaction logic code is triggered.
+You can configure what &quot;approach&quot; means to you per each different interaction verb (&quot;look&quot;, &quot;interact with&quot;, &quot;talk to&quot;, etc depending on which verbs you have in your game).
+You can set &quot;approach&quot; to do nothing (<code>NeverWalk</code>), face the direction of the target without walking (<code>FaceOnly</code>), walk to the target if the target has a walk point configured (<code>WalkIfHaveWalkPoint</code>),
+or always walk towards the target (<code>AlwaysWalk</code>).</p>
+<h3 id="speaking">Speaking</h3>
+<p>Allows a character to speak. You&#39;ll use either <code>Say</code> or <code>SayAsync</code> for the character to speak which basically does the following:</p>
+<ol>
+<li>Puts text on the screen for some time</li>
+<li>Change the character animation to the speaking animation</li>
+<li>Optionally display a portrait of the character</li>
+<li>Optionally play an audio clip</li>
+</ol>
+<h4 id="displaying-text">Displaying text</h4>
+<p>You can configure how the text is rendered (color, font, etc: see <a href="labels.html">Labels</a> section for more on the all the options that you have for text rendering), when the text is skipped
+(by time and how much, by mouse, both, or none which means you implement text skipping yourself), a label to host the text with a border (see the section about borders) and background color,
+and a text offset to offset the location of the text. That offset will be relative to the default text display location which will be selected by the engine: The engine, by default, tries to place
+the text above the character and a little to the side, unless the text won&#39;t fit the screen, then it changes the location to ensure the text fits the screen.
+If you don&#39;t like that behavior you can implement your own text location by implementing the <code>ISayLocationProvider</code> interface (and hooking it up, see the section about customizability).</p>
+<h4 id="displaying-portrait">Displaying portrait</h4>
+<p>As for the portrait, you can configure the object which shows the portrait (this is a standard object, so it can has everything a normal object has, including animations, scaling, rotations, etc),
+plus a strategy on where to position the portrait (SpeakerPosition- on the top, either left or right based on where the speaker is standing, Alternating- top right, then top left, then top right, etc 
+or Custom which leaves the portrait positioning to you) and custom offsets for both the portrait and for the text from the portrait.</p>
+<h4 id="playing-the-audio-clip">Playing the audio clip</h4>
+<p>In order to play an audio clip, the text you pass to the speech method should have a number at the beginning prefixed by an ampersand, for example, &quot;&amp;17 Hello there!&quot;.
+If the number exists, the engine will look for an audio file with the first four capital letters of your character&#39;s id followed by the number. So if the line was said by &quot;Christopher&quot;,
+the engine will look for the file &quot;CHRI17&quot;. Those files should be placed in a special folder, under Assets -&gt; Speech -&gt; English.
+Note: In future revisions we&#39;re planning on introducing multi-language support, and also other ways of building the speech &quot;database&quot;.
+If the engine does not find the file it will not play an audio clip, and in any way the &quot;&amp;17&quot; will be stripped away from the text and will not be displayed on screen. </p>
+<h3 id="outfits">Outfits</h3>
+<p>Allows a character to switch outfits.
+An outfit is a collection of animations that are associated with a character.
+The collection can be swapped with another collection when the character changes his look.</p>
+<p>Say, for example, your player can wear a jacket. You can create two outfits in advance, one with a jacket
+and the other without. Each outfit will have different walk, idle and speak animations (one with a jacket and 
+the other without).</p>
+<p>There walk, idle and speak animations that the engine might look for when walking, standing still and speaking.
+Additionally you can add more animations to an outfit (like &quot;Jump&quot;, or &quot;Swim&quot; for example), which you then need to draw per outfit, and will enable you
+to call your animation from whatever outfit the character is currently using.</p>
+<h3 id="inventory">Inventory</h3>
+<p>Allows your character to carry inventory. Those are the items that the character holds in his/her (usually) imaginary bag.
+It is composed of a list of inventory items, and one active item that the character holds in his/her hand.
+Those inventory items are usually displayed using an inventory window (see the GUI section).
+You can add or remove items from the inventory and get or set the currently active inventory item (a user typically chooses an inventory item from  the inventory window which makes it the active inventory item, and then try to &quot;use&quot; that item on an object on the screen, or on another inventory item).
+You can also subscribe to combination events on the inventory, which gives the 2 items that the player attempts to combine and let you code the desired behavior.
+And you can also subscribe to a default combination event, for those combination attempts which doesn&#39;t have special handling, allowing you, for example, to say something like
+&quot;This doesn&#39;t make any sense, I don&#39;t to use those 2 items together&quot; (but hopefully in a less boring way).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/characters.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

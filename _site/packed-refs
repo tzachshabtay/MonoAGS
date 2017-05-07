@@ -1,6 +1,0 @@
-# pack-refs with: peeled fully-peeled 
-8a2c59367da6e83d4f9686877764d8007132574d refs/remotes/origin/Fix_Build
-ddae441c7e3f7d6160636fffdedcf4a31a9312be refs/remotes/origin/IOS
-35cbab021ea0c60e8eaa2c6bd156f16cf07c1bd4 refs/remotes/origin/docs
-0602859b5fec4907aed93240bb1437e260c4f4de refs/remotes/origin/gh-pages
-b87298548205df4a5e22feab5a85945f81701a59 refs/remotes/origin/master

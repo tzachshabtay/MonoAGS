@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ICutscene
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ICutscene
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ICutscene">
+  
+  
+  <h1 id="AGS_API_ICutscene" data-uid="AGS.API.ICutscene">Interface ICutscene
+  </h1>
+  <div class="markdown level0 summary"><p>A cutscene is used to wrap a portion of the game together. This portion can then be skipped by the user.
+This is useful for things like introduction sequences, where you want the player to be able to skip over an intro that they&#39;ve seen before. </p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_ICutscene_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ICutscene</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ICutscene_IsRunning.md&amp;value=---%0Auid%3A%20AGS.API.ICutscene.IsRunning%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/ICutscene.cs/#L68">View Source</a>
+  </span>
+  <a id="AGS_API_ICutscene_IsRunning_" data-uid="AGS.API.ICutscene.IsRunning*"></a>
+  <h4 id="AGS_API_ICutscene_IsRunning" data-uid="AGS.API.ICutscene.IsRunning">IsRunning</h4>
+  <div class="markdown level1 summary"><p>When the player chooses to skip a cutscene all of the script code is run as usual, but any blocking commands are run through without the usual game cycle delays. 
+Therefore, you should never normally need to use this property since cutscenes should all be handled automatically, but it could be useful for script modules.
+<example>
+<pre><code>if (cutscene.IsRunning)
+{
+   //Do Something
+}</code></pre>
+</example></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsRunning { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ICutscene_IsSkipping.md&amp;value=---%0Auid%3A%20AGS.API.ICutscene.IsSkipping%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/ICutscene.cs/#L54">View Source</a>
+  </span>
+  <a id="AGS_API_ICutscene_IsSkipping_" data-uid="AGS.API.ICutscene.IsSkipping*"></a>
+  <h4 id="AGS_API_ICutscene_IsSkipping" data-uid="AGS.API.ICutscene.IsSkipping">IsSkipping</h4>
+  <div class="markdown level1 summary"><p>Returns whether the player has elected to skip the current cutscene. This will return true if the game is between a Start and End command, and the player has chosen to skip it.
+Although cutscene skipping is handled automatically by AGS, you can use this property to optimise the process by bypassing any lengthy blocks of code that don&#39;t need to 
+be run if the cutscene is being skipped over.        </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsSkipping { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_ICutscene_IsSkipping_examples">Examples</h5>
+  <pre><code>if (!cutscene.IsSkipping)
+{
+   aScaryMusic.Play();
+   Thread.Sleep(100);
+   aScaryMusic.Stop();
+}</code></pre>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ICutscene_SkipTrigger.md&amp;value=---%0Auid%3A%20AGS.API.ICutscene.SkipTrigger%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/ICutscene.cs/#L37">View Source</a>
+  </span>
+  <a id="AGS_API_ICutscene_SkipTrigger_" data-uid="AGS.API.ICutscene.SkipTrigger*"></a>
+  <h4 id="AGS_API_ICutscene_SkipTrigger" data-uid="AGS.API.ICutscene.SkipTrigger">SkipTrigger</h4>
+  <div class="markdown level1 summary"><p>Gets or sets what triggers skipping a cutscene (by default, pressing escape only to skip a scene,
+but this could be changed to be any key on the keyboard, any key or mouse click, or a custom skip trigger that you program yourself).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">SkipCutsceneTrigger SkipTrigger { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.SkipCutsceneTrigger.html">SkipCutsceneTrigger</a></td>
+        <td><p>The skip trigger.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ICutscene_BeginSkip.md&amp;value=---%0Auid%3A%20AGS.API.ICutscene.BeginSkip%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/ICutscene.cs/#L89">View Source</a>
+  </span>
+  <a id="AGS_API_ICutscene_BeginSkip_" data-uid="AGS.API.ICutscene.BeginSkip*"></a>
+  <h4 id="AGS_API_ICutscene_BeginSkip" data-uid="AGS.API.ICutscene.BeginSkip">BeginSkip()</h4>
+  <div class="markdown level1 summary"><p>Programmatically instructs the cutscene to start skipping (if a cutscene is running).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void BeginSkip()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ICutscene_CopyFrom_AGS_API_ICutscene_.md&amp;value=---%0Auid%3A%20AGS.API.ICutscene.CopyFrom(AGS.API.ICutscene)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/ICutscene.cs/#L95">View Source</a>
+  </span>
+  <a id="AGS_API_ICutscene_CopyFrom_" data-uid="AGS.API.ICutscene.CopyFrom*"></a>
+  <h4 id="AGS_API_ICutscene_CopyFrom_AGS_API_ICutscene_" data-uid="AGS.API.ICutscene.CopyFrom(AGS.API.ICutscene)">CopyFrom(ICutscene)</h4>
+  <div class="markdown level1 summary"><p>Copies data from a different cutscene object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void CopyFrom(ICutscene cutscene)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ICutscene.html">ICutscene</a></td>
+        <td><span class="parametername">cutscene</span></td>
+        <td><p>The cutscene object to copy data from.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ICutscene_End.md&amp;value=---%0Auid%3A%20AGS.API.ICutscene.End%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/ICutscene.cs/#L84">View Source</a>
+  </span>
+  <a id="AGS_API_ICutscene_End_" data-uid="AGS.API.ICutscene.End*"></a>
+  <h4 id="AGS_API_ICutscene_End" data-uid="AGS.API.ICutscene.End">End()</h4>
+  <div class="markdown level1 summary"><p>Marks the end of a cutscene. If the player skips the cutscene, the game will fast-forward to this point.
+Be very careful with where you place the corresponding End command. The script must pass through it in its normal run in order for the skipping to work - otherwise, when the player presses ESC the game could appear to hang.
+This function returns false if the player watched the cutscene, or true if they skipped it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool End()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ICutscene_Start.md&amp;value=---%0Auid%3A%20AGS.API.ICutscene.Start%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/ICutscene.cs/#L77">View Source</a>
+  </span>
+  <a id="AGS_API_ICutscene_Start_" data-uid="AGS.API.ICutscene.Start*"></a>
+  <h4 id="AGS_API_ICutscene_Start" data-uid="AGS.API.ICutscene.Start">Start()</h4>
+  <div class="markdown level1 summary"><p>Marks the start of a cutscene. Once your script passes this point, the player can choose to skip a portion by pressing a pre-configured button. 
+This is useful for things like introduction sequences, where you want the player to be able to skip over an intro that they&#39;ve seen before.</p>
+<p>You need to mark the end of the cutscene with the End command.
+Be very careful with where you place the corresponding End command. The script must pass through it in its normal run in order for the skipping to work - otherwise, when the player presses ESC the game could appear to hang.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Start()</code></pre>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ICutscene.md&amp;value=---%0Auid%3A%20AGS.API.ICutscene%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/ICutscene.cs/#L30" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

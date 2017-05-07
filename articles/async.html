@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Async &amp; Await | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Async &amp; Await | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="async--await">Async &amp; Await</h1>
+
+<p><a href="https://docs.microsoft.com/en-us/dotnet/articles/csharp/async">Async &amp; Await</a> is a model for asynchronous programming which is heavily used by the engine.</p>
+<p>It allows you to do things in parallel and wait for them asynchronously while still keeping the logical flow of the code in one sequence (thus avoiding the notorious <a href="http://callbackhell.com/">callback hell</a> which javascript developers know all too well).</p>
+<p>Before getting into the nitty gritty, let&#39;s look at a few examples.</p>
+<pre><code class="lang-csharp">
+cHero.Walk(100,100);
+
+await cHero.WalkAsync(100,100);
+</code></pre><p>Those 2 lines have the same logical meaning, the character will walk to (100,100), in terms of the user there&#39;s no difference.
+The key to understanding the benefit for the async model, is that we don&#39;t have to <code>await</code> the walk right away.
+The <code>await cHero.WalkAsync</code> is actually 2 parts: the <code>WalkAsync</code> starts the walk and the <code>await</code> waits for it to complete.
+So we can split it like this:</p>
+<pre><code class="lang-csharp">
+Task walking = cHero.WalkAsync(100,100);
+
+//We can do stuff here, while the character is walking
+
+//Doing some more stuff
+
+//Ok, done, now we can wait for the walk to complete before moving on
+await walking;
+
+//Now we can do more stuff, after the character finished walking
+</code></pre><p>The <code>WalkAsync</code> method returns a <a href="https://msdn.microsoft.com/en-us/library/dd537609(v=vs.110).aspx">task</a>, an asynchronous operation which we can wait for (or not), whenever we please. We can also benefit from the rich API the dot net task provides us, including <code>ContinueWith</code> for chaining tasks, and waiting for multiple tasks together, either with <code>Task.WhenAll</code> which will wait for all tasks to complete, or with <code>Task.WhenAny</code> which will wait for the first task to complete.</p>
+<p>We can think of a real game scenario which can be relatively difficult to code with the &quot;classic&quot; AGS, but trivial to code using async/await: A guard which walks in circles endlessly in the background:</p>
+<pre><code class="lang-csharp">
+private async Task guardWalk()
+{
+    while (someConditionApplies())
+    {
+        await cGuard.WalkAsync(100,100);
+        await cGuard.WalkAsync(200,100);
+        if (cHero.X &lt; 200) 
+        {
+            await cGuard.SayAsync(&quot;Go away!!&quot;);
+        }
+        await cGuard.WalkAsync(200,200);
+        await cGuard.WalkAsync(100,200);
+    }
+}
+</code></pre><p>Now think of what it takes to code something like this with &#39;classic&#39; AGS. You have to add and track state on each tick, remember where you were and where you&#39;re going, etc.
+Async &amp; Await helps you execute things in parallel with great ease.</p>
+<h2 id="the-nitty-gritty">The Nitty Gritty</h2>
+<p>The <code>async</code> keyword is used to mark a method that might run asynchronously, and the <code>await</code> keyword is used to &quot;asynchronously wait&quot; for an asynchronous method to complete.
+If I&#39;m awaiting an asynchronous method to complete, it means that my method is also asynchronous and should therefore be marked with <code>async</code>.</p>
+<p>If I&#39;m an asynchronous method, I can either return <code>void</code> (i.e nothing), a <code>Task</code> or a <code>Task&lt;TResult&gt;</code>. If I return <code>void</code> it means that my method cannot be awaited by another method, making my method a fire-and-forget method. It can be useful in some scenarios, but usually it&#39;s not desired.
+So usually the method will return <code>Task</code> which lets other methods <code>await</code> it, or <code>Task&lt;TResult&gt;</code> which allows the method to return an actual result (asynchronously):</p>
+<pre><code class="lang-csharp">
+private readonly HttpClient _httpClient = new HttpClient();
+var text = await _httpClient.GetStringAsync(url); //Will download text from a url asynchronously and return the text
+</code></pre><p>One important gotcha here, is that you might be tempted to synchronously wait (i.e block) on an asynchronous method. This can technically be done, for example:</p>
+<pre><code class="lang-csharp">
+cHero.WalkAsync(100,100).Wait();
+
+//or:
+
+var text = _httpClient.GetStringAsync(url).Result;
+</code></pre><p>However due to how async/await is implemented behind the scene (a complicated state machine) this might lead to deadlocks (the computer hanging) in some scenarios, especially if you try doing this from the rendering thread.
+Therefore it is not recommended blocking on an asynchronous method unless you really know what you&#39;re doing.</p>
+<p>The implication of this, is that usually once you go async, the entire calling chain should go async (everything calling you will go async, and so on until the end of the calling chain).
+The end of the calling chain, for <code>MonoAGS</code> is usually subscribing to an event. The <code>IEvent</code> method allows you to subscribe to an asynchronous callback (<code>SubscribeToAsync</code>) which you should use to &quot;end&quot; the chain.</p>
+<p>When subscribing to an event, if you suspect you might need it to be asynchronous in the future, you can subscribe to the async version even if you are not currently async:</p>
+<pre><code class="lang-csharp">
+oBottle.Interactions.OnInteract(AGSInteractions.Look).SubscribeToAsync(onLookBottle);
+
+private Task onLookBottle(object sender, ObjectEventArgs args)
+{
+    cHero.Say(&quot;It&#39;s a bottle.&quot;);
+    return Task.CompletedTask;
+}
+</code></pre><p>By returning <code>Task.CompletedTask</code>, I&#39;m &quot;faking&quot; an asynchronous result so other methods can still <code>await</code> my method, without knowing it isn&#39;t really asynchronous.</p>
+<p>Later on, when I add my asynchronous stuff, I&#39;ll remove it:</p>
+<pre><code class="lang-csharp">
+private async Task onLookBottle(object sender, ObjectEventArgs args)
+{
+    await cHero.SayAsync(&quot;It&#39;s a bottle.&quot;);
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/async.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

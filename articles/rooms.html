@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Rooms | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Rooms | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="rooms">Rooms</h1>
+
+<p>The rooms are where the game takes place. A room can be a room in a house, or an outdoor location, or anything in between.</p>
+<p>The game can show only one room at a time. This would usually be the room where the player is, though you can change to a different room than the one the player is in if you want. Note: this is different than &quot;Classic&quot; AGS in which the room is explicitly tied to where the player is.</p>
+<h2 id="each-room-has">Each room has:</h2>
+<h3 id="id">ID</h3>
+<p>Each rooms should have a unique id (string) which identifies it to the engine.</p>
+<h3 id="background">Background</h3>
+<p>A background graphic for the room. The background is actually just a regular object so it can be animated or use any of the properties available on regular objects (refer to the <a href="objects.html">Objects</a> section for more information).</p>
+<h3 id="show-player">Show Player?</h3>
+<p>A flag indicating whether the player is to be shown in the room, for hiding the player from a map, for example. This is a convenience flag as this can be achieved by simply switching the room without moving the player to another room.</p>
+<h3 id="music-clip-to-play">Music clip to play</h3>
+<p>An optional music clip you can play when switching to the room. If moved from another room with a music clip, there clips will be cross-faded, and you can configure the cross-fading duration and easing functions from <code>IGame.AudioSettings.RoomMusicCrossFading</code>.</p>
+<h3 id="viewport">Viewport</h3>
+<p>It might be that not all of the room is shown on the screen at once (for example, a scrolling room). A viewport to the room instructs the engine on what parts of the room to show. A viewport has the following properties:</p>
+<h4 id="xy">X,Y</h4>
+<p>The location (bottom-left) in the room from which to show the screen.</p>
+<h4 id="scalex-scaley">ScaleX, ScaleY</h4>
+<p>An optional zoom in/out into the room.</p>
+<h4 id="angle">Angle</h4>
+<p>An optional rotation of the viewport.</p>
+<h4 id="camera">Camera</h4>
+<p>A camera is a script that automatically moves the viewport, usually to track the player, although you can set the camera&#39;s target to track another character/object in the room. Or, you can disable the camera to manually set values in the viewport if needed. Note that you can also code your own camera script if you want to replace the default camera (and this can be done per-room).</p>
+<h3 id="areas">Areas</h3>
+<p>A list of areas (or regions) that exist in the room (like areas in the room that the characters can walk in). There are several types of areas and things you can do with them, refer the <a href="areas.html">Areas</a> section.</p>
+<h3 id="objects">Objects</h3>
+<p>A list of objects that are placed in the room (note that unlike &quot;Classic&quot; AGS, objects can be moved between rooms). Refer to the <a href="objects.html">Objects</a> section for more information.</p>
+<h3 id="edges">Edges</h3>
+<p>Room edges are a convenient way for scripting a room change once a player walks beyond an edge. You can set the &#39;X&#39; for the left and right edge, and the &#39;Y&#39; for the top and bottom edge and subscribe to events when the player crosses the edge to change the room.</p>
+<h3 id="events">Events</h3>
+<p>Each room has specific events which you can subscribe to and code stuff to happen on those events. The available events:</p>
+<h4 id="before-fade-in">Before fade in</h4>
+<p>After leaving the previous room, before the current room is visible.</p>
+<h4 id="after-fade-in">After fade in</h4>
+<p>After leaving the previous room, after the current room is visible.</p>
+<h4 id="before-fade-out">Before fade out</h4>
+<p>Before leaving the current room when it is still visible.</p>
+<h4 id="after-fade-out">After fade out</h4>
+<p>Before leaving the current room when it is no longer visible.</p>
+<h3 id="custom-properties">Custom Properties</h3>
+<p>Those are special properties which you can attach to a room which might be useful for special coding tasks.</p>
+<h2 id="room-transitions">Room Transitions</h2>
+<p>When switching between rooms, you can have an optional room transition effect to switch the room.
+The transition can be set from <code>IGame.State.RoomTransitions</code>, so for example you can set <code>game.State.RoomTransitions.Transition = AGSRoomTransitions.CrossFade()</code> where the built in transitions are:</p>
+<ul>
+<li>Instant (no transition)</li>
+<li>Fade (fade out old room, then fade in new room)</li>
+<li>Cross-Fade (fade out old room and fade in new room at the same time)</li>
+<li>Box Out (a black box scales up from the center, then scales down to reveal the new room)</li>
+<li>Dissolve (the old room dissolved into the new room)</li>
+<li>Slide (the old room slides as in a slide-show)</li>
+</ul>
+<p>All of those transitions can be configured with things like the duration and the easing function(s). 
+Also, you can code your custom room transition if you want by implementing the <code>IRoomTransition</code> interface.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/rooms.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

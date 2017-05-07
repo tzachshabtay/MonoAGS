@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>GUIs | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="GUIs | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="guis">GUIs</h1>
+
+<p>A GUI (graphical user interface, also referred to as a HUD- heads up display) is a control which is usually layered on top of the game, and allows the user to interact with the game in various ways.</p>
+<p>In <code>MonoAGS</code> all GUI controls are based off of <code>IUIControl</code> which is basically an object (<code>IObject</code>) with a few more components sprinkled on top.
+We already covered <a href="objects.html">objects</a>, so we will go over here on just the additional components.</p>
+<h2 id="ui-common-components">UI Common Components</h2>
+<h3 id="ui-events">UI Events</h3>
+<p>Each UI control allows you to subscribe to UI events and respond to mouse/touch input:</p>
+<h4 id="mouse-enterleave">Mouse Enter/Leave</h4>
+<p>When the users moves the mouse in/out the boundaries of the control. The boundaries of the control can be either its bounding box or pixel perfect (see <a href="objects.html#collisions">Collisions</a>).
+Those 2 events are good for hover effects, for example. 
+The event arguments will tell you the position of the mouse.</p>
+<h4 id="mouse-move">Mouse Move</h4>
+<p>When the user moves the mouse inside the boundaries of the control.
+The event arguments will tell you the position of the mouse.</p>
+<h4 id="mouse-downup">Mouse Down/Up</h4>
+<p>When the user presses a mouse button/releases a mouse button inside the boundaries of the control.
+The event arguments will tell you which button was pressed/release, and the position of the mouse.</p>
+<h4 id="mouse-clickeddouble-clicked">Mouse Clicked/Double Clicked</h4>
+<p>When the user clicks (a fast press and release) a mouse button or double clicks the mouse button inside the boundaries of the control.
+The event arguments will tell you which button was clicked, and the position of the mouse.</p>
+<h4 id="lost-focus">Lost Focus</h4>
+<p>When the user clicks a mouse button outside the boundaries of the control.</p>
+<h3 id="skinning">Skinning</h3>
+<p>Skinning provides you with the ability to provide a custom look/theme to your controls.
+<code>MonoAGS</code> currently comes with 2 basic themes, a blue theme (<code>AGSBlueSkin</code>) and a gray theme (<code>AGSGraySkin</code>), both used the generic <code>AGSColoredSkin</code> with a pre-defined set of rules for coloring
+various aspects of the GUIs. You can use <code>AGSColoredSkin</code> to define other skins, or just implement <code>ISkin</code> for complete skinning freedom (but do look at how <code>AGSColoredSkin</code> is implemented to get an idea of how to write your skin).</p>
+<p>Note that the 2 basic skins are currently written as a proof of concept, not as beautiful fully functional skins. If you have a passion for graphic design and wish to create a beautiful skin for the engine, please let us know.</p>
+<h2 id="gui-types">GUI Types</h2>
+<p>On top of the basic GUI control, several GUIs are available for use:</p>
+<h3 id="panels">Panels</h3>
+<p>A panel is a UI control which hosts other UI controls.
+Note: the panel is in fact completely unnecessary, as any other UI control can host UI controls as well, but it&#39;s useful as it provides a clear intent on its use.</p>
+<h3 id="labels">Labels</h3>
+<p>A label is used for showing text, see <a href="labels.html">Labels</a>.</p>
+<h3 id="buttons">Buttons</h3>
+<p>A button can be clicked to trigger an event (though as we saw, that&#39;s actually a property of all UI controls). The button gives you 3 animations that you need to assign, for idle/hover/pushed, which will trigger changing the button appearance based on its state, making it look like how a button usually looks.</p>
+<h3 id="checkboxes">Checkboxes</h3>
+<p>A checkbox can be either checked or not checked. For the checkbox you need to provide 4 animations: Not checked, Not checked and hovered, Checked, Checked and hovered.</p>
+<h3 id="textboxes">Textboxes</h3>
+<p>A textbox allows you to edit text. You can query/set the text that appears in the box, query/set the position of the (caret)[<a href="https://en.wikipedia.org/wiki/Caret_navigation">https://en.wikipedia.org/wiki/Caret_navigation</a>] and its flashing speed. You can also subscribe to an event which triggers on each key sent to the textbox and you can block the text from reaching the box (if you want a number only input, for example, you can only allow numbers to reach the box).</p>
+<h3 id="comboboxes">Comboboxes</h3>
+<p>A combobox (also referred to as a drop-down) is a text+button which when clicked, shows you a list of options to choose from. The selected option from the drop-down list appears as text next to the button. The combobox is therefore composed of several controls: A textbox for the text, a drop down button, a panel from the drop down list, and a button for each of the items in the drop down list. You can control all of those from the combobox, as well as getting/setting the selected item.</p>
+<h3 id="sliders">Sliders</h3>
+<p>A slider is useful for selecting a value from a range. The user usually slides a handle across a line (which is either horizontal or vertical) to select a value. The slider is composed of an object for the handle, and an object for the background (the line). You need to assign valid objects for both, which will then be shown and the handle can be dragged by the user. You&#39;ll also need to send minimum and maximum values for the slider, and you&#39;ll be able to get/set the selected value, set whether the slider is vertical/horizontal, assign an optional label which shows the selected value, and subscribe to an event for whenever the value in the slider changes.</p>
+<h3 id="inventory-windows">Inventory Windows</h3>
+<p>An inventory window is used for displaying a character&#39;s <a href="characters.html#inventory">inventory</a>.
+For displaying the window, you need to set the size allocated for displaying each inventory item 
+in the window and assign the window to an inventory (usually the player&#39;s). You then have the ability to scroll the window up/down (usually you&#39;ll add to buttons that when clicked will call the scroll up/down functions) or specifically set the top item which is shown in the window (those are for cases when the inventory contains too many items such that not all fit in the window).</p>
+<h3 id="message-boxes">Message Boxes</h3>
+<p>A message box is a dialog which is shown to the user with information. The dialog can also comes with buttons for selecting an action (like an &quot;Are you sure you want to quit?&quot; dialog, for example).
+For displaying message boxes, you can use <code>AGSMessageBox.Display</code> for which you give a text and a list of buttons. It will display the text and the buttons at the bottom of the box and it returns the button which was clicked so that you&#39;ll be able to trigger the desired action. For convenience, on top of <code>AGSMessageBox.Display</code>, there are 2 built in message boxes: <code>AGSMessageBox.YesNo</code> and <code>AGSMessageBox.OkCancel</code>, which will show you a yes/no question, or a ok/cancel dialog (they both use <code>AGSMessageBox.Display</code> internally), and those will return to you a boolean value indicating whether yes/ok or no/cancel were selected.</p>
+<h2 id="gui-focus">GUI Focus</h2>
+<p>The concept of focus for GUIs (or <a href="https://ux.stackexchange.com/questions/12045/what-is-a-modal-dialog-window">modal windows</a>), is for when you want a specific GUI control to force interaction with the user, thus you don&#39;t want any of the other GUIs responding to user input at that time. For example, when showing a yes/no question to the user, you don&#39;t want the user to be able to open the inventory window.
+When there&#39;s a textbox for editing text (for example, entering a save name), you don&#39;t want the keyboard input to move the character around the room.
+For the first scenario, you can add a modal window component (<code>IModalWindowComponent</code>) to your control which gives you the ability to grab focus and lose focus (<code>AGSMessageBox</code> does this automatically).
+For the second, keyboard preventing scenario, the <code>ITextBox</code> comes built in with this functionality. </p>
+<p>You can always query if there&#39;s a control/textbox which has focus by using <code>IGame.State.FocusedUI</code>, and either querying <code>FocusedWindow</code> or <code>FocusedTextBox</code>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/guis.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

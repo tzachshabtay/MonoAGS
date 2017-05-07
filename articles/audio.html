@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Audio | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Audio | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="audio">Audio</h1>
+
+<p>Playing music/sound effects is essential to any game.
+<code>MonoAGS</code> allows you to play and control audio using audio clips and sounds.</p>
+<h2 id="audio-clips">Audio Clips</h2>
+<p>An audio clip is loaded from a resource/file and can be played multiple times during the game.
+The audio clip should be loaded using the audio factory.
+You can then set its properties (volume, pitch, panning) which will be used for all sounds played
+from this clip.
+You can think of an audio clip as a &quot;template&quot; for a sound. You set the properties once (like the volume), and then every time you play it it will use that volume.</p>
+<p>When you tell the audio clip to play, you can use the template or provide a one-time property change. You can also tell the audio clip to play a looping sound (which will loop forever until you stop it).</p>
+<p>You can query an audio clip to see how many sounds for this clip (if any) are currently playing.</p>
+<h2 id="sounds">Sounds</h2>
+<p>When you play an audio clip, you&#39;ll get back a sound. A sound is an &quot;instance&quot; of the audio clip which is playing right now. The same properties that you can set for an audio clip (volume, pitch, panning) can also be set for a sound, only those will affect just this current sound, not future sounds that will be played from the clip, and also you can change those properties over and over as the sound running to achieve effect (like gradually reducing the volume for a fade-out effect, for example).</p>
+<p>You can also pause/stop/resume a sound, rewind a sound to the beginning or set the sound to a specific position within the file (by changing the &quot;seek&quot;).
+You can query and see whether the sound is looping or not and whether it&#39;s valid or not (an invalid sound might result if something is wrong with the user&#39;s computer and the engine was not able to play the sound).</p>
+<p>Lastly, you can query the sound to see if it was already completed, and asynchronously wait for the sound to complete playing.</p>
+<h2 id="additional-concepts">Additional Concepts</h2>
+<p>Some additional concepts related to audio are discussed in other sections, but will be briefly mentioned here:</p>
+<h3 id="speech">Speech</h3>
+<p>Allows you to configure speech sounds to be automatically played when the character speaks.
+See <a href="characters.html#playing-the-audio-clip">character&#39;s speech section</a>.</p>
+<h3 id="cross-fading">Cross-Fading</h3>
+<p>Allows you to configure how music clips are cross-faded when moving between rooms.
+See <a href="rooms.html#music-clip-to-play">cross-fading section in rooms</a>.</p>
+<h3 id="sound-emitter">Sound Emitter</h3>
+<p>Allows you to attach an audio clip to an object, and play a sound which will sound like it&#39;s coming from that object (via adjusting the panning and volume), and also optionally attach it to animation frames which will automatically trigger the sound (very useful for footsteps effects).
+See <a href="animations.html#sound-emitter">animation&#39;s sound emitter section</a>, and also <a href="areas.html#scaling-areas">scaling volume areas section</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/audio.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

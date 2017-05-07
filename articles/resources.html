@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Resources | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Resources | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="resources">Resources</h1>
+
+<p>Resources are all the media files which you load in the game to display content.</p>
+<h2 id="supported-resource-types">Supported resource types:</h2>
+<h3 id="graphics-">Graphics-</h3>
+<p>On Desktop: PNG (recommended), BMP, GIF, EXIF, JPG and TIFF.</p>
+<p>On Android: PNG (recommended), BMP, GIF, JPEG and WebP. </p>
+<p>On IOS: PNG (recommended), BMP, GIF, JPG/JPEG, TIFF, ICO, CUR and XBM.</p>
+<h3 id="audio-">Audio-</h3>
+<p>OGG Vorbis (recommended), WAV (PCM), FLAC.</p>
+<h3 id="fonts-">Fonts-</h3>
+<p>TTF (recommended), OTF with TrueType (not officially tested yet)</p>
+<p>Please let us know if you have more resource types you want support for.</p>
+<h2 id="adding-resources">Adding resources:</h2>
+<p>There are 2 ways you can have resources in your game. They can be embedded in the project or loaded from the file system. The advantage of having the resources embedded is that you can rest assured the resources will be distributed with your game and cannot be touched from outside, which is why it&#39;s the recommended method. Loading from file system might be useful if you need the resources to be loaded dynamically, for example you might want to download resources from the internet, or if you give the user the option to choose her/his avatar.</p>
+<p>To embed resources in your game project, first add the resource files to the &quot;Assets&quot; folder in your shared game project (it doesn&#39;t have to be in the root &quot;Assets&quot; folder, you can have any structure you want in there). Then, in the solution explorer, right click the &quot;Assets&quot; folder and &quot;Add Existing&quot; (there are options for adding files or complete folders, depending on what you want to do) and add those resources to the project. You should then see those resources in the tree. Lastly, right click those resources and select &quot;Embedded Resource&quot; as your &quot;Build Option&quot;.
+Note that even the resource is embedded, it&#39;s only embedded when compiling the game, so you cannot delete the file before deploying your game, and if you replace the file, it will be automatically replaced in the game on your next run.</p>
+<h2 id="loading-resources-in-the-game">Loading resources in the game:</h2>
+<p>Currently, all resources should be loaded explicitly from code, and you select when and how they are loaded. There&#39;s a low-level <code>ResourceLoader</code> class which loads any file into a stream of bytes, and on top of that a bunch of high-level methods to load specific types of resources. Most of those high-level methods sit under the <code>IGameFactory</code> interface (which can be accessed under the main <code>IGame</code> interface), so for example, you might have a <code>game.Factory.Sound.LoadAudioClip(pathToClip)</code>. 
+All those methods take a path to a file (though there are some convenient methods that take a folder, like <code>LoadAnimationFromFolder</code>) which has to be structured as so: if the resource is to be loaded from a file in the file system, then put the absolute path of the file. If the resource is embedded then put the relative path of the file (when the current folder is the folder where the executable sits, which is 2 folders above the &quot;Assets&quot; folder). So, for example, if you have an audio file called &quot;trumpet.ogg&quot; sitting under a &quot;Sounds&quot; folder in &quot;Assets&quot;, your path would be &quot;../../Assets/Sounds/trumpet.ogg&quot;. Note that this would work even if the file is sitting in that folder but not embedded. This is because <code>ResourceLoader</code> first searches for an embedded resource with that path, but if one is not found, it looks for the file in the file system.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/resources.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

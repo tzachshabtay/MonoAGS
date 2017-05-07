@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting Started | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting Started | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started">Getting Started</h1>
+
+<h2 id="get-the-code">Get the code:</h2>
+<p>As there is no release yet, the code needs to be downloaded from the <a href="https://github.com/tzachshabtay/MonoAGS">Github repository</a></p>
+<p>If you&#39;re developing from a Windows machine, you need to install <a href="https://www.visualstudio.com/downloads/">Visual Studio 2017</a> (Community edition is enough and free).</p>
+<p>If you&#39;re developing from a Mac, you need to install <a href="https://www.xamarin.com/download">Xamarin Studio</a> (Community edition is enough and free).</p>
+<p>After installing, open your IDE (either Visual Studio or Xamarin Studio) and open the MonoAGS.sln (the solution) file that&#39;s in the root folder of the code you downloaded.</p>
+<h2 id="compile-the-code">Compile the code:</h2>
+<p>When you want to compile for development purposes, choose the Debug configuration (from the top bar), but when you compile for deploying your game, choose DesktopRelease for desktop or AndroidRelease for android. As for platform, choose &quot;Any Cpu&quot; for desktop and &quot;ARM&quot; for android (note: on Xamarin Studio &quot;Any Cpu&quot; is actually the default option and nothing is written next to the configuration).</p>
+<h2 id="running-the-demo">Running the demo:</h2>
+<p>The game comes with a small demo which you can run to test that everything is working properly (and see a few of the features in action)- if you look at the solution explorer (the side bar) you&#39;ll see a demo folder, that contains a DemoQuest.Desktop (for the desktop build) and a DemoQuest.Droid (for the android build). Right click the project which you want to run, and select &quot;Set as startup project&quot;. After that, press the &quot;play&quot; button on the top bar (the arrow pointing right) for starting the game. Note that if you run the android version you need to either <a href="https://developer.xamarin.com/guides/android/getting_started/installation/set_up_device_for_development/">attach a device</a> or run with the <a href="https://developer.xamarin.com/guides/android/deployment,_testing,_and_metrics/debug-on-emulator/android-sdk-emulator/">emulator</a>.</p>
+<h2 id="solution-structure">Solution structure:</h2>
+<p>The demo folder contains several projects: </p>
+<p><em>DemoQuest</em>- this is the project that contains the core logic of the game. It is a shared project that is used by both the desktop and android projects, so you won&#39;t have to write your code twice (or more, once more platforms are added).</p>
+<p><em>DemoQuest.Desktop</em>- this is the desktop project that wraps around the shared DemoQuest project and allows you to run the game on a desktop computer. If you have code that you want to run only on desktop but not on other platforms, you&#39;ll place that code in this project.</p>
+<p><em>DemoQuest.Android</em> this is the android project, works the same way as the desktop project, only android specific code goes here.</p>
+<p>Besides the demo folder, there&#39;s also the Engine folder which contains <em>AGS.Engine</em>, <em>AGS.Engine.Desktop</em> and <em>AGS.Engine.Android</em> which as you can imagine follow the same pattern: <em>AGS.Engine</em> implements the core of the engine&#39;s logic while the other projects only add platform specific code.</p>
+<p>Additionally, in the root folder of the solution, you&#39;ll also find the <em>AGS.API</em> project and the <em>Tests</em> project. The tests project is for running tests that check that the engine is functioning properly, as a game developer you shouldn&#39;t touch that project (you can delete it if you want).</p>
+<p>The API project contain all of the definitions of what different systems and components of the game should do. This might also be referred to as contracts, or using the c# term of interfaces (it&#39;s a common convention in c# to start all interface names with an &quot;I&quot;). Those interfaces are then implemented by the engine. Ideally, the game is programmed against the interfaces, so plugin authors might implement those interfaces differently and your game will be able to run with those plugins as well.</p>
+<h2 id="create-your-own-game-project">Create your own game project:</h2>
+<p>It is recommended, for now, that you modify the demo game for developing your game and not create your own project. There will be tooling for creating your game, but it&#39;s not there yet, so if you want to create a separate project, there will be some legwork involved. Here&#39;s the instructions if you do want to start from a blank page:</p>
+<p>Right click the solution in the solution explorer, and create a new folder with your game (this is not mandatory, but recommended for better organization). Right click the folder and click to &quot;Add a new project&quot;.
+This gives you a window with selection of a lot of templates which you can use.
+You&#39;ll need to do this 3 times and create 3 projects: a shared project (multi-platform), a console project (.Net, this is the desktop project, only required if you want your game to run on desktop) and an Android App (only required if you want your game to run on android).
+Add references from the desktop and android projects to the shared project, AGS.API and AGS.Engine (to add references, there should be a references node under the project in the solution explorer, right click it and click on add a reference, which will show the list of project to choose from). Also add a reference to AGS.Engine.Desktop from the desktop project and to AGS.Engine.Android from the android project.
+Then copy the boilerplate code from the DemoQuest.Desktop and DemoQuest.Android to your desktop and android projects and whatever code you want from the DemoQuest shared project to your shared project.</p>
+<h2 id="coding-your-game">Coding your game:</h2>
+<p>The official language for coding your game is C#. There are a lot of resources online for learning c# if needed.
+While not officially supported, other languages might be used on some or all platforms (they should play nice with dot net, mono, and xamarin). F# would be the best bet as it&#39;s the modern functional language counter-part of c#, but other languages might be partially or fully supported.
+See the following links: </p>
+<ul>
+<li><a href="http://www.mono-project.com/docs/about-mono/languages/">http://www.mono-project.com/docs/about-mono/languages/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/List_of_CLI_languages">https://en.wikipedia.org/wiki/List_of_CLI_languages</a></li>
+</ul>
+<p>If you have tried using the engine with an alternative language, please let us know your findings.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/getting-started.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

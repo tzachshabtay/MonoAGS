@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Entities &amp; Components | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Entities &amp; Components | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="entities--components">Entities &amp; Components</h1>
+
+<p>We talked about <a href="objects.html">objects</a>, <a href="characters.html">characters</a>, <a href="guis.html">guis</a> and <a href="areas.html">room areas</a>, but what we haven&#39;t discussed is that those are all just entities with pre-set components added to them.</p>
+<p>An Entities &amp; Components system gives great flexibility to the engine to really let you fulfill even your craziest dreams. </p>
+<p>An entity is basically an empty canvas, until you start filling it up with components.
+Each component added to the entity gives it new skills, so you can pick and choose the skills you need your entity to have, and you can add/remove components from the entity at any time during the game.</p>
+<p>For example, the <code>object</code> is an entity with the following components:</p>
+<ul>
+<li><code>IHasRoom</code>: attaches the object to a room.</li>
+<li><code>IAnimationContainer</code>: adds the animation skill.</li>
+<li><code>IInObjectTree</code>: adds the composition skill.</li>
+<li><code>ICollider</code>: adds collision checking skill.</li>
+<li><code>ITranslateComponent</code>: adds (x,y,z).</li>
+<li>And so on...</li>
+</ul>
+<p>What this essentially means, is that an object does not have to stay an &quot;object&quot; during the whole course of the game. We can change it to a button, for example, by adding the necessary components for a button.</p>
+<p>Or we can add the <code>IDraggableComponent</code>, which will allow us to the drag the object using the mouse.
+We have multiple ways for adding components:</p>
+<pre><code class="lang-csharp">
+//Indirect: engine will create the component for you
+oInterestingBox.AddComponent&lt;IDraggableComponent&gt;();
+
+//Another indirect version:
+oInterestingBox.AddComponent(typeof(IDraggableComponent));
+
+//Direct: you create the component yourself
+IDraggableComponent component = doSomethingToCreateMyComponent();
+oInterestingBox.AddComponent(component);
+</code></pre><h2 id="writing-your-own-components">Writing your own components</h2>
+<p>You can write your own components by inheriting from <code>AGSComponent</code>.
+Here are some things you can do with your component:</p>
+<h3 id="constructor">Constructor</h3>
+<p>In your component class constructor, you can have parameters which will be auto-filled by the engine
+with correct values if somebody adds your component using the indirect version(s).
+The parameters which the engine can auto-fill are the ones which the engine knows about, usually all the built-in system interfaces. If you try having parameters that the engine doesn&#39;t know how to fill (like a string), it will throw an exception.</p>
+<pre><code class="lang-csharp">
+public MyComponent(IGame game) //this will work
+{
+    _game = game;
+}
+
+public MyComponent(int x) //this will crash
+{
+    _x = x;
+}
+</code></pre><h3 id="allow-multiple">Allow Multiple</h3>
+<p>By default each component type can only exist twice for an entity. If you try to add the same component twice, the engine will ignore the second addition (and will return <code>false</code> so you&#39;ll know it rejected the second add). You can override this behavior for your component by setting <code>AllowMultiple</code> to true.</p>
+<h3 id="component-dependencies">Component Dependencies</h3>
+<p>Your component might have a dependency on another component. For example, the <code>IDraggableComponent</code> has a dependency on the <code>ITranslateComponent</code>, as to drag an object you have to change its X and Y.</p>
+<p>To get the required component, we can override the <code>Init</code> method which passes us the entity:</p>
+<pre><code class="lang-csharp">
+public override Init(IEntity entity)
+{
+    _translateComponent = entity.GetComponent&lt;ITranslateComponent&gt;();
+}
+</code></pre><p>We might want to use that component right away, but note that during the <code>Init</code> method, the component we got might not be initialized itself (which might or might not be important for us).
+If we want to guarantee we&#39;ll only use the component after it was initialized, we can override the <code>AfterInit</code> method:</p>
+<pre><code class="lang-csharp">
+public override AfterInit()
+{
+    _translateComponent.X += 10;
+}
+</code></pre><p>Finally, we want to declare to the world (but mostly to the editor, one we have one) that we are dependent on the <code>ITranslateComponent</code>, for this we can use the <code>RequiredComponent</code> attribute which we use to decorate our class:</p>
+<pre><code class="lang-csharp">
+[RequiredComponent(typeof(ITranslateComponent))]
+public class MySuperUsefulComponent : AGSComponent
+{
+    //...
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/entities.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

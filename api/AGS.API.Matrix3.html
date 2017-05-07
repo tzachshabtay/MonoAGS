@@ -1,0 +1,2697 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Struct Matrix3
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct Matrix3
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.Matrix3">
+  
+  
+  <h1 id="AGS_API_Matrix3" data-uid="AGS.API.Matrix3">Struct Matrix3
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a 3x3 matrix containing 3D rotation and scale.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_Matrix3_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct Matrix3 : IEquatable&lt;Matrix3&gt;</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3__ctor_AGS_API_Matrix4_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.%23ctor(AGS.API.Matrix4)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L103">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3__ctor_" data-uid="AGS.API.Matrix3.#ctor*"></a>
+  <h4 id="AGS_API_Matrix3__ctor_AGS_API_Matrix4_" data-uid="AGS.API.Matrix3.#ctor(AGS.API.Matrix4)">Matrix3(Matrix4)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix3(Matrix4 matrix)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix4.html">Matrix4</a></td>
+        <td><span class="parametername">matrix</span></td>
+        <td><p>A Matrix4 to take the upper-left 3x3 from.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3__ctor_AGS_API_Vector3_AGS_API_Vector3_AGS_API_Vector3_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.%23ctor(AGS.API.Vector3%2CAGS.API.Vector3%2CAGS.API.Vector3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L70">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3__ctor_" data-uid="AGS.API.Matrix3.#ctor*"></a>
+  <h4 id="AGS_API_Matrix3__ctor_AGS_API_Vector3_AGS_API_Vector3_AGS_API_Vector3_" data-uid="AGS.API.Matrix3.#ctor(AGS.API.Vector3,AGS.API.Vector3,AGS.API.Vector3)">Matrix3(Vector3, Vector3, Vector3)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix3(Vector3 row0, Vector3 row1, Vector3 row2)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">row0</span></td>
+        <td><p>Top row of the matrix</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">row1</span></td>
+        <td><p>Second row of the matrix</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">row2</span></td>
+        <td><p>Bottom row of the matrix</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3__ctor_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.%23ctor(System.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L89">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3__ctor_" data-uid="AGS.API.Matrix3.#ctor*"></a>
+  <h4 id="AGS_API_Matrix3__ctor_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_" data-uid="AGS.API.Matrix3.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">Matrix3(Single, Single, Single, Single, Single, Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix3(float m00, float m01, float m02, float m10, float m11, float m12, float m20, float m21, float m22)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">m00</span></td>
+        <td><p>First item of the first row of the matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">m01</span></td>
+        <td><p>Second item of the first row of the matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">m02</span></td>
+        <td><p>Third item of the first row of the matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">m10</span></td>
+        <td><p>First item of the second row of the matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">m11</span></td>
+        <td><p>Second item of the second row of the matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">m12</span></td>
+        <td><p>Third item of the second row of the matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">m20</span></td>
+        <td><p>First item of the third row of the matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">m21</span></td>
+        <td><p>Second item of the third row of the matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">m22</span></td>
+        <td><p>Third item of the third row of the matrix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Identity.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Identity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L53">View Source</a>
+  </span>
+  <h4 id="AGS_API_Matrix3_Identity" data-uid="AGS.API.Matrix3.Identity">Identity</h4>
+  <div class="markdown level1 summary"><p>The identity matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly Matrix3 Identity</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Row0.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Row0%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L38">View Source</a>
+  </span>
+  <h4 id="AGS_API_Matrix3_Row0" data-uid="AGS.API.Matrix3.Row0">Row0</h4>
+  <div class="markdown level1 summary"><p>First row of the matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Row0</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Row1.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Row1%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L43">View Source</a>
+  </span>
+  <h4 id="AGS_API_Matrix3_Row1" data-uid="AGS.API.Matrix3.Row1">Row1</h4>
+  <div class="markdown level1 summary"><p>Second row of the matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Row1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Row2.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Row2%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L48">View Source</a>
+  </span>
+  <h4 id="AGS_API_Matrix3_Row2" data-uid="AGS.API.Matrix3.Row2">Row2</h4>
+  <div class="markdown level1 summary"><p>Third row of the matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Row2</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Zero.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Zero%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L58">View Source</a>
+  </span>
+  <h4 id="AGS_API_Matrix3_Zero" data-uid="AGS.API.Matrix3.Zero">Zero</h4>
+  <div class="markdown level1 summary"><p>The zero matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly Matrix3 Zero</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Column0.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Column0%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L135">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Column0_" data-uid="AGS.API.Matrix3.Column0*"></a>
+  <h4 id="AGS_API_Matrix3_Column0" data-uid="AGS.API.Matrix3.Column0">Column0</h4>
+  <div class="markdown level1 summary"><p>Gets the first column of this matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Column0 { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Column1.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Column1%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L143">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Column1_" data-uid="AGS.API.Matrix3.Column1*"></a>
+  <h4 id="AGS_API_Matrix3_Column1" data-uid="AGS.API.Matrix3.Column1">Column1</h4>
+  <div class="markdown level1 summary"><p>Gets the second column of this matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Column1 { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Column2.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Column2%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L151">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Column2_" data-uid="AGS.API.Matrix3.Column2*"></a>
+  <h4 id="AGS_API_Matrix3_Column2" data-uid="AGS.API.Matrix3.Column2">Column2</h4>
+  <div class="markdown level1 summary"><p>Gets the third column of this matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Column2 { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Determinant.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Determinant%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L119">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Determinant_" data-uid="AGS.API.Matrix3.Determinant*"></a>
+  <h4 id="AGS_API_Matrix3_Determinant" data-uid="AGS.API.Matrix3.Determinant">Determinant</h4>
+  <div class="markdown level1 summary"><p>Gets the determinant of this matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Determinant { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Diagonal.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Diagonal%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L204">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Diagonal_" data-uid="AGS.API.Matrix3.Diagonal*"></a>
+  <h4 id="AGS_API_Matrix3_Diagonal" data-uid="AGS.API.Matrix3.Diagonal">Diagonal</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the values along the main diagonal of the matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Diagonal { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Item_System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Item(System.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L230">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Item_" data-uid="AGS.API.Matrix3.Item*"></a>
+  <h4 id="AGS_API_Matrix3_Item_System_Int32_System_Int32_" data-uid="AGS.API.Matrix3.Item(System.Int32,System.Int32)">Item[Int32, Int32]</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value at a specified row and column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float this[int rowIndex, int columnIndex] { get; set; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">rowIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">columnIndex</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_M11.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.M11%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L159">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_M11_" data-uid="AGS.API.Matrix3.M11*"></a>
+  <h4 id="AGS_API_Matrix3_M11" data-uid="AGS.API.Matrix3.M11">M11</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value at row 1, column 1 of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float M11 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_M12.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.M12%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L164">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_M12_" data-uid="AGS.API.Matrix3.M12*"></a>
+  <h4 id="AGS_API_Matrix3_M12" data-uid="AGS.API.Matrix3.M12">M12</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value at row 1, column 2 of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float M12 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_M13.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.M13%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L169">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_M13_" data-uid="AGS.API.Matrix3.M13*"></a>
+  <h4 id="AGS_API_Matrix3_M13" data-uid="AGS.API.Matrix3.M13">M13</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value at row 1, column 3 of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float M13 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_M21.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.M21%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L174">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_M21_" data-uid="AGS.API.Matrix3.M21*"></a>
+  <h4 id="AGS_API_Matrix3_M21" data-uid="AGS.API.Matrix3.M21">M21</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value at row 2, column 1 of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float M21 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_M22.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.M22%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L179">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_M22_" data-uid="AGS.API.Matrix3.M22*"></a>
+  <h4 id="AGS_API_Matrix3_M22" data-uid="AGS.API.Matrix3.M22">M22</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value at row 2, column 2 of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float M22 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_M23.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.M23%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L184">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_M23_" data-uid="AGS.API.Matrix3.M23*"></a>
+  <h4 id="AGS_API_Matrix3_M23" data-uid="AGS.API.Matrix3.M23">M23</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value at row 2, column 3 of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float M23 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_M31.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.M31%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L189">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_M31_" data-uid="AGS.API.Matrix3.M31*"></a>
+  <h4 id="AGS_API_Matrix3_M31" data-uid="AGS.API.Matrix3.M31">M31</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value at row 3, column 1 of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float M31 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_M32.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.M32%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L194">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_M32_" data-uid="AGS.API.Matrix3.M32*"></a>
+  <h4 id="AGS_API_Matrix3_M32" data-uid="AGS.API.Matrix3.M32">M32</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value at row 3, column 2 of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float M32 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_M33.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.M33%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L199">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_M33_" data-uid="AGS.API.Matrix3.M33*"></a>
+  <h4 id="AGS_API_Matrix3_M33" data-uid="AGS.API.Matrix3.M33">M33</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value at row 3, column 3 of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float M33 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Trace.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Trace%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L221">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Trace_" data-uid="AGS.API.Matrix3.Trace*"></a>
+  <h4 id="AGS_API_Matrix3_Trace" data-uid="AGS.API.Matrix3.Trace">Trace</h4>
+  <div class="markdown level1 summary"><p>Gets the trace of the matrix, the sum of the values along the diagonal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Trace { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Add_AGS_API_Matrix3_AGS_API_Matrix3_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Add(AGS.API.Matrix3%2CAGS.API.Matrix3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L675">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Add_" data-uid="AGS.API.Matrix3.Add*"></a>
+  <h4 id="AGS_API_Matrix3_Add_AGS_API_Matrix3_AGS_API_Matrix3_" data-uid="AGS.API.Matrix3.Add(AGS.API.Matrix3,AGS.API.Matrix3)">Add(Matrix3, Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Adds two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 Add(Matrix3 left, Matrix3 right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left operand of the addition.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The right operand of the addition.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>A new instance that is the result of the addition.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Add_AGS_API_Matrix3__AGS_API_Matrix3__AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Add(AGS.API.Matrix3%40%2CAGS.API.Matrix3%40%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L688">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Add_" data-uid="AGS.API.Matrix3.Add*"></a>
+  <h4 id="AGS_API_Matrix3_Add_AGS_API_Matrix3__AGS_API_Matrix3__AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.Add(AGS.API.Matrix3@,AGS.API.Matrix3@,AGS.API.Matrix3@)">Add(ref Matrix3, ref Matrix3, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Adds two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Add(ref Matrix3 left, ref Matrix3 right, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left operand of the addition.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The right operand of the addition.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>A new instance that is the result of the addition.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_ClearRotation.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.ClearRotation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L322">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_ClearRotation_" data-uid="AGS.API.Matrix3.ClearRotation*"></a>
+  <h4 id="AGS_API_Matrix3_ClearRotation" data-uid="AGS.API.Matrix3.ClearRotation">ClearRotation()</h4>
+  <div class="markdown level1 summary"><p>Returns a copy of this Matrix3 without rotation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix3 ClearRotation()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_ClearScale.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.ClearScale%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L311">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_ClearScale_" data-uid="AGS.API.Matrix3.ClearScale*"></a>
+  <h4 id="AGS_API_Matrix3_ClearScale" data-uid="AGS.API.Matrix3.ClearScale">ClearScale()</h4>
+  <div class="markdown level1 summary"><p>Returns a copy of this Matrix3 without scale.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix3 ClearScale()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateFromAxisAngle_AGS_API_Vector3_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateFromAxisAngle(AGS.API.Vector3%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L455">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateFromAxisAngle_" data-uid="AGS.API.Matrix3.CreateFromAxisAngle*"></a>
+  <h4 id="AGS_API_Matrix3_CreateFromAxisAngle_AGS_API_Vector3_System_Single_" data-uid="AGS.API.Matrix3.CreateFromAxisAngle(AGS.API.Vector3,System.Single)">CreateFromAxisAngle(Vector3, Single)</h4>
+  <div class="markdown level1 summary"><p>Build a rotation matrix from the specified axis/angle rotation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 CreateFromAxisAngle(Vector3 axis, float angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td><p>The axis to rotate about.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>Angle in radians to rotate counter-clockwise (looking in the direction of the given axis).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>A matrix instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateFromAxisAngle_AGS_API_Vector3_System_Single_AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateFromAxisAngle(AGS.API.Vector3%2CSystem.Single%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L415">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateFromAxisAngle_" data-uid="AGS.API.Matrix3.CreateFromAxisAngle*"></a>
+  <h4 id="AGS_API_Matrix3_CreateFromAxisAngle_AGS_API_Vector3_System_Single_AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.CreateFromAxisAngle(AGS.API.Vector3,System.Single,AGS.API.Matrix3@)">CreateFromAxisAngle(Vector3, Single, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Build a rotation matrix from the specified axis/angle rotation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CreateFromAxisAngle(Vector3 axis, float angle, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td><p>The axis to rotate about.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>Angle in radians to rotate counter-clockwise (looking in the direction of the given axis).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>A matrix instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateFromQuaternion_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateFromQuaternion(AGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L484">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateFromQuaternion_" data-uid="AGS.API.Matrix3.CreateFromQuaternion*"></a>
+  <h4 id="AGS_API_Matrix3_CreateFromQuaternion_AGS_API_Quaternion_" data-uid="AGS.API.Matrix3.CreateFromQuaternion(AGS.API.Quaternion)">CreateFromQuaternion(Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Build a rotation matrix from the specified quaternion.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 CreateFromQuaternion(Quaternion q)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">q</span></td>
+        <td><p>Quaternion to translate.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>A matrix instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateFromQuaternion_AGS_API_Quaternion__AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateFromQuaternion(AGS.API.Quaternion%40%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L471">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateFromQuaternion_" data-uid="AGS.API.Matrix3.CreateFromQuaternion*"></a>
+  <h4 id="AGS_API_Matrix3_CreateFromQuaternion_AGS_API_Quaternion__AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.CreateFromQuaternion(AGS.API.Quaternion@,AGS.API.Matrix3@)">CreateFromQuaternion(ref Quaternion, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Build a rotation matrix from the specified quaternion.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CreateFromQuaternion(ref Quaternion q, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">q</span></td>
+        <td><p>Quaternion to translate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>Matrix result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateRotationX_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateRotationX(System.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L517">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateRotationX_" data-uid="AGS.API.Matrix3.CreateRotationX*"></a>
+  <h4 id="AGS_API_Matrix3_CreateRotationX_System_Single_" data-uid="AGS.API.Matrix3.CreateRotationX(System.Single)">CreateRotationX(Single)</h4>
+  <div class="markdown level1 summary"><p>Builds a rotation matrix for a rotation around the x-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 CreateRotationX(float angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>The counter-clockwise angle in radians.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>The resulting Matrix3 instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateRotationX_System_Single_AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateRotationX(System.Single%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L500">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateRotationX_" data-uid="AGS.API.Matrix3.CreateRotationX*"></a>
+  <h4 id="AGS_API_Matrix3_CreateRotationX_System_Single_AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.CreateRotationX(System.Single,AGS.API.Matrix3@)">CreateRotationX(Single, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Builds a rotation matrix for a rotation around the x-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CreateRotationX(float angle, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>The counter-clockwise angle in radians.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The resulting Matrix3 instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateRotationY_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateRotationY(System.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L546">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateRotationY_" data-uid="AGS.API.Matrix3.CreateRotationY*"></a>
+  <h4 id="AGS_API_Matrix3_CreateRotationY_System_Single_" data-uid="AGS.API.Matrix3.CreateRotationY(System.Single)">CreateRotationY(Single)</h4>
+  <div class="markdown level1 summary"><p>Builds a rotation matrix for a rotation around the y-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 CreateRotationY(float angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>The counter-clockwise angle in radians.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>The resulting Matrix3 instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateRotationY_System_Single_AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateRotationY(System.Single%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L529">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateRotationY_" data-uid="AGS.API.Matrix3.CreateRotationY*"></a>
+  <h4 id="AGS_API_Matrix3_CreateRotationY_System_Single_AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.CreateRotationY(System.Single,AGS.API.Matrix3@)">CreateRotationY(Single, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Builds a rotation matrix for a rotation around the y-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CreateRotationY(float angle, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>The counter-clockwise angle in radians.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The resulting Matrix3 instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateRotationZ_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateRotationZ(System.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L575">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateRotationZ_" data-uid="AGS.API.Matrix3.CreateRotationZ*"></a>
+  <h4 id="AGS_API_Matrix3_CreateRotationZ_System_Single_" data-uid="AGS.API.Matrix3.CreateRotationZ(System.Single)">CreateRotationZ(Single)</h4>
+  <div class="markdown level1 summary"><p>Builds a rotation matrix for a rotation around the z-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 CreateRotationZ(float angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>The counter-clockwise angle in radians.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>The resulting Matrix3 instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateRotationZ_System_Single_AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateRotationZ(System.Single%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L558">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateRotationZ_" data-uid="AGS.API.Matrix3.CreateRotationZ*"></a>
+  <h4 id="AGS_API_Matrix3_CreateRotationZ_System_Single_AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.CreateRotationZ(System.Single,AGS.API.Matrix3@)">CreateRotationZ(Single, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Builds a rotation matrix for a rotation around the z-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CreateRotationZ(float angle, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>The counter-clockwise angle in radians.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The resulting Matrix3 instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateScale_AGS_API_Vector3_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateScale(AGS.API.Vector3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L603">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateScale_" data-uid="AGS.API.Matrix3.CreateScale*"></a>
+  <h4 id="AGS_API_Matrix3_CreateScale_AGS_API_Vector3_" data-uid="AGS.API.Matrix3.CreateScale(AGS.API.Vector3)">CreateScale(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Creates a scale matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 CreateScale(Vector3 scale)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">scale</span></td>
+        <td><p>Scale factors for the x, y, and z axes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>A scale matrix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateScale_AGS_API_Vector3__AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateScale(AGS.API.Vector3%40%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L642">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateScale_" data-uid="AGS.API.Matrix3.CreateScale*"></a>
+  <h4 id="AGS_API_Matrix3_CreateScale_AGS_API_Vector3__AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.CreateScale(AGS.API.Vector3@,AGS.API.Matrix3@)">CreateScale(ref Vector3, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Creates a scale matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CreateScale(ref Vector3 scale, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">scale</span></td>
+        <td><p>Scale factors for the x, y, and z axes.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>A scale matrix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateScale_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateScale(System.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L591">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateScale_" data-uid="AGS.API.Matrix3.CreateScale*"></a>
+  <h4 id="AGS_API_Matrix3_CreateScale_System_Single_" data-uid="AGS.API.Matrix3.CreateScale(System.Single)">CreateScale(Single)</h4>
+  <div class="markdown level1 summary"><p>Creates a scale matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 CreateScale(float scale)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">scale</span></td>
+        <td><p>Single scale factor for the x, y, and z axes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>A scale matrix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateScale_System_Single_AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateScale(System.Single%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L629">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateScale_" data-uid="AGS.API.Matrix3.CreateScale*"></a>
+  <h4 id="AGS_API_Matrix3_CreateScale_System_Single_AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.CreateScale(System.Single,AGS.API.Matrix3@)">CreateScale(Single, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Creates a scale matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CreateScale(float scale, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">scale</span></td>
+        <td><p>Single scale factor for the x, y, and z axes.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>A scale matrix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateScale_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateScale(System.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L617">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateScale_" data-uid="AGS.API.Matrix3.CreateScale*"></a>
+  <h4 id="AGS_API_Matrix3_CreateScale_System_Single_System_Single_System_Single_" data-uid="AGS.API.Matrix3.CreateScale(System.Single,System.Single,System.Single)">CreateScale(Single, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Creates a scale matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 CreateScale(float x, float y, float z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>Scale factor for the x axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>Scale factor for the y axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">z</span></td>
+        <td><p>Scale factor for the z axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>A scale matrix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_CreateScale_System_Single_System_Single_System_Single_AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.CreateScale(System.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L657">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_CreateScale_" data-uid="AGS.API.Matrix3.CreateScale*"></a>
+  <h4 id="AGS_API_Matrix3_CreateScale_System_Single_System_Single_System_Single_AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.CreateScale(System.Single,System.Single,System.Single,AGS.API.Matrix3@)">CreateScale(Single, Single, Single, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Creates a scale matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CreateScale(float x, float y, float z, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>Scale factor for the x axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>Scale factor for the y axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">z</span></td>
+        <td><p>Scale factor for the z axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>A scale matrix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Equals_AGS_API_Matrix3_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Equals(AGS.API.Matrix3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L996">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Equals_" data-uid="AGS.API.Matrix3.Equals*"></a>
+  <h4 id="AGS_API_Matrix3_Equals_AGS_API_Matrix3_" data-uid="AGS.API.Matrix3.Equals(AGS.API.Matrix3)">Equals(Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Indicates whether the current matrix is equal to another matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(Matrix3 other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">other</span></td>
+        <td><p>A matrix to compare with this matrix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true if the current matrix is equal to the matrix parameter; otherwise, false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Equals_System_Object_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Equals(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L977">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Equals_" data-uid="AGS.API.Matrix3.Equals*"></a>
+  <h4 id="AGS_API_Matrix3_Equals_System_Object_" data-uid="AGS.API.Matrix3.Equals(System.Object)">Equals(Object)</h4>
+  <div class="markdown level1 summary"><p>Indicates whether this instance and a specified object are equal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object to compare to.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the instances are equal; false otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_ExtractRotation_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.ExtractRotation(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L340">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_ExtractRotation_" data-uid="AGS.API.Matrix3.ExtractRotation*"></a>
+  <h4 id="AGS_API_Matrix3_ExtractRotation_System_Boolean_" data-uid="AGS.API.Matrix3.ExtractRotation(System.Boolean)">ExtractRotation(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Returns the rotation component of this instance. Quite slow.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion ExtractRotation(bool row_normalise = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">row_normalise</span></td>
+        <td><p>Whether the method should row-normalise (i.e. remove scale from) the Matrix. Pass false if you know it&#39;s already normalised.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_ExtractScale.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.ExtractScale%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L334">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_ExtractScale_" data-uid="AGS.API.Matrix3.ExtractScale*"></a>
+  <h4 id="AGS_API_Matrix3_ExtractScale" data-uid="AGS.API.Matrix3.ExtractScale">ExtractScale()</h4>
+  <div class="markdown level1 summary"><p>Returns the scale component of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 ExtractScale()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_GetHashCode.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L957">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_GetHashCode_" data-uid="AGS.API.Matrix3.GetHashCode*"></a>
+  <h4 id="AGS_API_Matrix3_GetHashCode" data-uid="AGS.API.Matrix3.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"><p>Returns the hashcode for this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>A System.Int32 containing the unique hashcode for this instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Invert.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Invert%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L257">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Invert_" data-uid="AGS.API.Matrix3.Invert*"></a>
+  <h4 id="AGS_API_Matrix3_Invert" data-uid="AGS.API.Matrix3.Invert">Invert()</h4>
+  <div class="markdown level1 summary"><p>Converts this instance into its inverse.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Invert()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Invert_AGS_API_Matrix3_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Invert(AGS.API.Matrix3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L856">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Invert_" data-uid="AGS.API.Matrix3.Invert*"></a>
+  <h4 id="AGS_API_Matrix3_Invert_AGS_API_Matrix3_" data-uid="AGS.API.Matrix3.Invert(AGS.API.Matrix3)">Invert(Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Calculate the inverse of the given matrix</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 Invert(Matrix3 mat)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">mat</span></td>
+        <td><p>The matrix to invert</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>The inverse of the given matrix if it has one, or the input if it is singular</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Invert_AGS_API_Matrix3__AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Invert(AGS.API.Matrix3%40%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L748">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Invert_" data-uid="AGS.API.Matrix3.Invert*"></a>
+  <h4 id="AGS_API_Matrix3_Invert_AGS_API_Matrix3__AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.Invert(AGS.API.Matrix3@,AGS.API.Matrix3@)">Invert(ref Matrix3, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Calculate the inverse of the given matrix</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Invert(ref Matrix3 mat, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">mat</span></td>
+        <td><p>The matrix to invert</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The inverse of the given matrix if it has one, or the input if it is singular</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Inverted.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Inverted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L300">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Inverted_" data-uid="AGS.API.Matrix3.Inverted*"></a>
+  <h4 id="AGS_API_Matrix3_Inverted" data-uid="AGS.API.Matrix3.Inverted">Inverted()</h4>
+  <div class="markdown level1 summary"><p>Returns an inverted copy of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix3 Inverted()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Mult_AGS_API_Matrix3_AGS_API_Matrix3_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Mult(AGS.API.Matrix3%2CAGS.API.Matrix3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L705">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Mult_" data-uid="AGS.API.Matrix3.Mult*"></a>
+  <h4 id="AGS_API_Matrix3_Mult_AGS_API_Matrix3_AGS_API_Matrix3_" data-uid="AGS.API.Matrix3.Mult(AGS.API.Matrix3,AGS.API.Matrix3)">Mult(Matrix3, Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Multiplies two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 Mult(Matrix3 left, Matrix3 right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left operand of the multiplication.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The right operand of the multiplication.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>A new instance that is the result of the multiplication</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Mult_AGS_API_Matrix3__AGS_API_Matrix3__AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Mult(AGS.API.Matrix3%40%2CAGS.API.Matrix3%40%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L718">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Mult_" data-uid="AGS.API.Matrix3.Mult*"></a>
+  <h4 id="AGS_API_Matrix3_Mult_AGS_API_Matrix3__AGS_API_Matrix3__AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.Mult(AGS.API.Matrix3@,AGS.API.Matrix3@,AGS.API.Matrix3@)">Mult(ref Matrix3, ref Matrix3, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Multiplies two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Mult(ref Matrix3 left, ref Matrix3 right, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left operand of the multiplication.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The right operand of the multiplication.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>A new instance that is the result of the multiplication</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Normalize.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Normalize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L289">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Normalize_" data-uid="AGS.API.Matrix3.Normalize*"></a>
+  <h4 id="AGS_API_Matrix3_Normalize" data-uid="AGS.API.Matrix3.Normalize">Normalize()</h4>
+  <div class="markdown level1 summary"><p>Divides each element in the Matrix by the <a class="xref" href="AGS.API.Matrix3.html#AGS_API_Matrix3_Determinant">Determinant</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Normalize()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Normalized.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Normalized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L279">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Normalized_" data-uid="AGS.API.Matrix3.Normalized*"></a>
+  <h4 id="AGS_API_Matrix3_Normalized" data-uid="AGS.API.Matrix3.Normalized">Normalized()</h4>
+  <div class="markdown level1 summary"><p>Returns a normalised copy of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix3 Normalized()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_ToString.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L944">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_ToString_" data-uid="AGS.API.Matrix3.ToString*"></a>
+  <h4 id="AGS_API_Matrix3_ToString" data-uid="AGS.API.Matrix3.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a System.String that represents the current Matrix3d.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The string representation of the matrix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Transpose.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Transpose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L269">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Transpose_" data-uid="AGS.API.Matrix3.Transpose*"></a>
+  <h4 id="AGS_API_Matrix3_Transpose" data-uid="AGS.API.Matrix3.Transpose">Transpose()</h4>
+  <div class="markdown level1 summary"><p>Converts this instance into its transpose.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Transpose()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Transpose_AGS_API_Matrix3_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Transpose(AGS.API.Matrix3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L872">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Transpose_" data-uid="AGS.API.Matrix3.Transpose*"></a>
+  <h4 id="AGS_API_Matrix3_Transpose_AGS_API_Matrix3_" data-uid="AGS.API.Matrix3.Transpose(AGS.API.Matrix3)">Transpose(Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Calculate the transpose of the given matrix</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 Transpose(Matrix3 mat)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">mat</span></td>
+        <td><p>The matrix to transpose</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>The transpose of the given matrix</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_Transpose_AGS_API_Matrix3__AGS_API_Matrix3__.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.Transpose(AGS.API.Matrix3%40%2CAGS.API.Matrix3%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L882">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_Transpose_" data-uid="AGS.API.Matrix3.Transpose*"></a>
+  <h4 id="AGS_API_Matrix3_Transpose_AGS_API_Matrix3__AGS_API_Matrix3__" data-uid="AGS.API.Matrix3.Transpose(AGS.API.Matrix3@,AGS.API.Matrix3@)">Transpose(ref Matrix3, out Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Calculate the transpose of the given matrix</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Transpose(ref Matrix3 mat, out Matrix3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">mat</span></td>
+        <td><p>The matrix to transpose</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The result of the calculation</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_op_Equality_AGS_API_Matrix3_AGS_API_Matrix3_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.op_Equality(AGS.API.Matrix3%2CAGS.API.Matrix3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L918">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_op_Equality_" data-uid="AGS.API.Matrix3.op_Equality*"></a>
+  <h4 id="AGS_API_Matrix3_op_Equality_AGS_API_Matrix3_AGS_API_Matrix3_" data-uid="AGS.API.Matrix3.op_Equality(AGS.API.Matrix3,AGS.API.Matrix3)">Equality(Matrix3, Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Compares two instances for equality.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(Matrix3 left, Matrix3 right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True, if left equals right; false otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_op_Inequality_AGS_API_Matrix3_AGS_API_Matrix3_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.op_Inequality(AGS.API.Matrix3%2CAGS.API.Matrix3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L929">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_op_Inequality_" data-uid="AGS.API.Matrix3.op_Inequality*"></a>
+  <h4 id="AGS_API_Matrix3_op_Inequality_AGS_API_Matrix3_AGS_API_Matrix3_" data-uid="AGS.API.Matrix3.op_Inequality(AGS.API.Matrix3,AGS.API.Matrix3)">Inequality(Matrix3, Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Compares two instances for inequality.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(Matrix3 left, Matrix3 right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True, if left does not equal right; false otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3_op_Multiply_AGS_API_Matrix3_AGS_API_Matrix3_.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3.op_Multiply(AGS.API.Matrix3%2CAGS.API.Matrix3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L907">View Source</a>
+  </span>
+  <a id="AGS_API_Matrix3_op_Multiply_" data-uid="AGS.API.Matrix3.op_Multiply*"></a>
+  <h4 id="AGS_API_Matrix3_op_Multiply_AGS_API_Matrix3_AGS_API_Matrix3_" data-uid="AGS.API.Matrix3.op_Multiply(AGS.API.Matrix3,AGS.API.Matrix3)">Multiply(Matrix3, Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Matrix multiplication</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix3 operator *(Matrix3 left, Matrix3 right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>left-hand operand</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>right-hand operand</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><p>A new Matrix3d which holds the result of the multiplication</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Matrix3.md&amp;value=---%0Auid%3A%20AGS.API.Matrix3%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Matrix3.cs/#L30" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

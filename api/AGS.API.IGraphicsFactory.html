@@ -1,0 +1,892 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IGraphicsFactory
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IGraphicsFactory
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IGraphicsFactory">
+  
+  
+  <h1 id="AGS_API_IGraphicsFactory" data-uid="AGS.API.IGraphicsFactory">Interface IGraphicsFactory
+  </h1>
+  <div class="markdown level0 summary"><p>Factory to allow loading graphics (images/animations).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_IGraphicsFactory_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IGraphicsFactory</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_GetSprite.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.GetSprite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L14">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_GetSprite_" data-uid="AGS.API.IGraphicsFactory.GetSprite*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_GetSprite" data-uid="AGS.API.IGraphicsFactory.GetSprite">GetSprite()</h4>
+  <div class="markdown level1 summary"><p>Creates a new sprite</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISprite GetSprite()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ISprite.html">ISprite</a></td>
+        <td><p>The sprite.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_LoadAnimationFromFiles_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_System_String___.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.LoadAnimationFromFiles(AGS.API.IAnimationConfiguration%2CAGS.API.ILoadImageConfig%2CSystem.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L78">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_LoadAnimationFromFiles_" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromFiles*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_LoadAnimationFromFiles_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_System_String___" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromFiles(AGS.API.IAnimationConfiguration,AGS.API.ILoadImageConfig,System.String[])">LoadAnimationFromFiles(IAnimationConfiguration, ILoadImageConfig, String[])</h4>
+  <div class="markdown level1 summary"><p>Loads an animation from a list of resource/file paths (<a class="xref" href="AGS.API.IResourceLoader.html">IResourceLoader</a>).
+The order of the files/resources will decide the order of the animation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IAnimation LoadAnimationFromFiles(IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimationConfiguration.html">IAnimationConfiguration</a></td>
+        <td><span class="parametername">animationConfig</span></td>
+        <td><p>Animation configuration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Configuration for how to load the images.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">files</span></td>
+        <td><p>A list of resource/file paths.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></td>
+        <td><p>The animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_LoadAnimationFromFilesAsync_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_System_String___.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.LoadAnimationFromFilesAsync(AGS.API.IAnimationConfiguration%2CAGS.API.ILoadImageConfig%2CSystem.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L88">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_LoadAnimationFromFilesAsync_" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromFilesAsync*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_LoadAnimationFromFilesAsync_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_System_String___" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromFilesAsync(AGS.API.IAnimationConfiguration,AGS.API.ILoadImageConfig,System.String[])">LoadAnimationFromFilesAsync(IAnimationConfiguration, ILoadImageConfig, String[])</h4>
+  <div class="markdown level1 summary"><p>Loads an animation asynchronously from a list of resource/file paths (<a class="xref" href="AGS.API.IResourceLoader.html">IResourceLoader</a>).
+The order of the files/resources will decide the order of the animation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;IAnimation&gt; LoadAnimationFromFilesAsync(IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimationConfiguration.html">IAnimationConfiguration</a></td>
+        <td><span class="parametername">animationConfig</span></td>
+        <td><p>Animation configuration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Configuration for how to load the images.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">files</span></td>
+        <td><p>A list of resource/file paths.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.IAnimation.html">IAnimation</a>&gt;</td>
+        <td><p>The animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_LoadAnimationFromFolder_System_String_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.LoadAnimationFromFolder(System.String%2CAGS.API.IAnimationConfiguration%2CAGS.API.ILoadImageConfig)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L100">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_LoadAnimationFromFolder_" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromFolder*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_LoadAnimationFromFolder_System_String_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromFolder(System.String,AGS.API.IAnimationConfiguration,AGS.API.ILoadImageConfig)">LoadAnimationFromFolder(String, IAnimationConfiguration, ILoadImageConfig)</h4>
+  <div class="markdown level1 summary"><p>Loads an animation from a resource/file folder (<a class="xref" href="AGS.API.IResourceLoader.html">IResourceLoader</a>).
+The files/resources will be loaded in an alphabetical order which will determine the order of the animation.
+So if you list your files in the folder, for example: walk1.png, walk2.png, walk3.png, the animation
+will be ordered accordingly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IAnimation LoadAnimationFromFolder(string folderPath, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">folderPath</span></td>
+        <td><p>The resource/file folder path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimationConfiguration.html">IAnimationConfiguration</a></td>
+        <td><span class="parametername">animationConfig</span></td>
+        <td><p>Animation configuration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Configuration for how to load the images.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></td>
+        <td><p>The animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_LoadAnimationFromFolderAsync_System_String_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.LoadAnimationFromFolderAsync(System.String%2CAGS.API.IAnimationConfiguration%2CAGS.API.ILoadImageConfig)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L112">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_LoadAnimationFromFolderAsync_" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromFolderAsync*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_LoadAnimationFromFolderAsync_System_String_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromFolderAsync(System.String,AGS.API.IAnimationConfiguration,AGS.API.ILoadImageConfig)">LoadAnimationFromFolderAsync(String, IAnimationConfiguration, ILoadImageConfig)</h4>
+  <div class="markdown level1 summary"><p>Loads an animation asynchronously from a resource/file folder (<a class="xref" href="AGS.API.IResourceLoader.html">IResourceLoader</a>).
+The files/resources will be loaded in an alphabetical order which will determine the order of the animation.
+So if you list your files in the folder, for example: walk1.png, walk2.png, walk3.png, the animation
+will be ordered accordingly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;IAnimation&gt; LoadAnimationFromFolderAsync(string folderPath, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">folderPath</span></td>
+        <td><p>The resource/file folder path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimationConfiguration.html">IAnimationConfiguration</a></td>
+        <td><span class="parametername">animationConfig</span></td>
+        <td><p>Animation configuration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Configuration for how to load the images.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.IAnimation.html">IAnimation</a>&gt;</td>
+        <td><p>The animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_LoadAnimationFromSpriteSheet_AGS_API_ISpriteSheet_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.LoadAnimationFromSpriteSheet(AGS.API.ISpriteSheet%2CAGS.API.IAnimationConfiguration%2CAGS.API.ILoadImageConfig)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L121">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_LoadAnimationFromSpriteSheet_" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromSpriteSheet*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_LoadAnimationFromSpriteSheet_AGS_API_ISpriteSheet_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromSpriteSheet(AGS.API.ISpriteSheet,AGS.API.IAnimationConfiguration,AGS.API.ILoadImageConfig)">LoadAnimationFromSpriteSheet(ISpriteSheet, IAnimationConfiguration, ILoadImageConfig)</h4>
+  <div class="markdown level1 summary"><p>Loads an animation from a sprite sheet.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IAnimation LoadAnimationFromSpriteSheet(ISpriteSheet spriteSheet, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ISpriteSheet.html">ISpriteSheet</a></td>
+        <td><span class="parametername">spriteSheet</span></td>
+        <td><p>Sprite sheet.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimationConfiguration.html">IAnimationConfiguration</a></td>
+        <td><span class="parametername">animationConfig</span></td>
+        <td><p>Animation configuration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Configuration for how to load the images.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></td>
+        <td><p>The animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_LoadAnimationFromSpriteSheetAsync_AGS_API_ISpriteSheet_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.LoadAnimationFromSpriteSheetAsync(AGS.API.ISpriteSheet%2CAGS.API.IAnimationConfiguration%2CAGS.API.ILoadImageConfig)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L130">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_LoadAnimationFromSpriteSheetAsync_" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromSpriteSheetAsync*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_LoadAnimationFromSpriteSheetAsync_AGS_API_ISpriteSheet_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_" data-uid="AGS.API.IGraphicsFactory.LoadAnimationFromSpriteSheetAsync(AGS.API.ISpriteSheet,AGS.API.IAnimationConfiguration,AGS.API.ILoadImageConfig)">LoadAnimationFromSpriteSheetAsync(ISpriteSheet, IAnimationConfiguration, ILoadImageConfig)</h4>
+  <div class="markdown level1 summary"><p>Loads an animation asynchronously from a sprite sheet.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;IAnimation&gt; LoadAnimationFromSpriteSheetAsync(ISpriteSheet spriteSheet, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ISpriteSheet.html">ISpriteSheet</a></td>
+        <td><span class="parametername">spriteSheet</span></td>
+        <td><p>Sprite sheet.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimationConfiguration.html">IAnimationConfiguration</a></td>
+        <td><span class="parametername">animationConfig</span></td>
+        <td><p>Animation configuration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Configuration for how to load the images.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.IAnimation.html">IAnimation</a>&gt;</td>
+        <td><p>The animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_LoadDirectionalAnimationFromFolders_System_String_System_String_System_String_System_String_System_String_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.LoadDirectionalAnimationFromFolders(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.String%2CAGS.API.IAnimationConfiguration%2CAGS.API.ILoadImageConfig)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L51">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_LoadDirectionalAnimationFromFolders_" data-uid="AGS.API.IGraphicsFactory.LoadDirectionalAnimationFromFolders*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_LoadDirectionalAnimationFromFolders_System_String_System_String_System_String_System_String_System_String_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_" data-uid="AGS.API.IGraphicsFactory.LoadDirectionalAnimationFromFolders(System.String,System.String,System.String,System.String,System.String,AGS.API.IAnimationConfiguration,AGS.API.ILoadImageConfig)">LoadDirectionalAnimationFromFolders(String, String, String, String, String, IAnimationConfiguration, ILoadImageConfig)</h4>
+  <div class="markdown level1 summary"><p>Loads a directional animation from file/resource folders (<a class="xref" href="AGS.API.IResourceLoader.html">IResourceLoader</a> .</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IDirectionalAnimation LoadDirectionalAnimationFromFolders(string baseFolder, string leftFolder = null, string rightFolder = null, string downFolder = null, string upFolder = null, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">baseFolder</span></td>
+        <td><p>A base folder, from which all other folders will be relative to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">leftFolder</span></td>
+        <td><p>Left animation folder (null to not have a left animation).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">rightFolder</span></td>
+        <td><p>Right animation folder (null to not have a right animation).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">downFolder</span></td>
+        <td><p>Down animation folder (null to not have a down animation).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">upFolder</span></td>
+        <td><p>Up animation folder (null to not have an up animation).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimationConfiguration.html">IAnimationConfiguration</a></td>
+        <td><span class="parametername">animationConfig</span></td>
+        <td><p>Animation configuration (will be applied to all directions).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Configuration for loading the images (will be applied to all loaded images).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IDirectionalAnimation.html">IDirectionalAnimation</a></td>
+        <td><p>The directional animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_LoadDirectionalAnimationFromFoldersAsync_System_String_System_String_System_String_System_String_System_String_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.LoadDirectionalAnimationFromFoldersAsync(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.String%2CAGS.API.IAnimationConfiguration%2CAGS.API.ILoadImageConfig)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L66">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_LoadDirectionalAnimationFromFoldersAsync_" data-uid="AGS.API.IGraphicsFactory.LoadDirectionalAnimationFromFoldersAsync*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_LoadDirectionalAnimationFromFoldersAsync_System_String_System_String_System_String_System_String_System_String_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_" data-uid="AGS.API.IGraphicsFactory.LoadDirectionalAnimationFromFoldersAsync(System.String,System.String,System.String,System.String,System.String,AGS.API.IAnimationConfiguration,AGS.API.ILoadImageConfig)">LoadDirectionalAnimationFromFoldersAsync(String, String, String, String, String, IAnimationConfiguration, ILoadImageConfig)</h4>
+  <div class="markdown level1 summary"><p>Loads a directional animation asynchronously from file/resource folders (<a class="xref" href="AGS.API.IResourceLoader.html">IResourceLoader</a> .</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;IDirectionalAnimation&gt; LoadDirectionalAnimationFromFoldersAsync(string baseFolder, string leftFolder = null, string rightFolder = null, string downFolder = null, string upFolder = null, IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">baseFolder</span></td>
+        <td><p>A base folder, from which all other folders will be relative to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">leftFolder</span></td>
+        <td><p>Left animation folder (null to not have a left animation).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">rightFolder</span></td>
+        <td><p>Right animation folder (null to not have a right animation).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">downFolder</span></td>
+        <td><p>Down animation folder (null to not have a down animation).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">upFolder</span></td>
+        <td><p>Up animation folder (null to not have an up animation).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimationConfiguration.html">IAnimationConfiguration</a></td>
+        <td><span class="parametername">animationConfig</span></td>
+        <td><p>Animation configuration (will be applied to all directions).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Configuration for loading the images (will be applied to all loaded images).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.IDirectionalAnimation.html">IDirectionalAnimation</a>&gt;</td>
+        <td><p>The directional animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_LoadImage_AGS_API_IBitmap_AGS_API_ILoadImageConfig_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.LoadImage(AGS.API.IBitmap%2CAGS.API.ILoadImageConfig%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L38">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_LoadImage_" data-uid="AGS.API.IGraphicsFactory.LoadImage*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_LoadImage_AGS_API_IBitmap_AGS_API_ILoadImageConfig_System_String_" data-uid="AGS.API.IGraphicsFactory.LoadImage(AGS.API.IBitmap,AGS.API.ILoadImageConfig,System.String)">LoadImage(IBitmap, ILoadImageConfig, String)</h4>
+  <div class="markdown level1 summary"><p>Loads an image from a bitmap.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IImage LoadImage(IBitmap bitmap, ILoadImageConfig loadConfig = null, string id = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IBitmap.html">IBitmap</a></td>
+        <td><span class="parametername">bitmap</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Configuration on how to load the image.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>An optional unique id for the image (if not given, the engine will generate one automatically).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IImage.html">IImage</a></td>
+        <td><p>The image.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_LoadImage_System_String_AGS_API_ILoadImageConfig_.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.LoadImage(System.String%2CAGS.API.ILoadImageConfig)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L22">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_LoadImage_" data-uid="AGS.API.IGraphicsFactory.LoadImage*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_LoadImage_System_String_AGS_API_ILoadImageConfig_" data-uid="AGS.API.IGraphicsFactory.LoadImage(System.String,AGS.API.ILoadImageConfig)">LoadImage(String, ILoadImageConfig)</h4>
+  <div class="markdown level1 summary"><p>Loads an image from a resource/file path (<a class="xref" href="AGS.API.IResourceLoader.html">IResourceLoader</a>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IImage LoadImage(string filePath, ILoadImageConfig loadConfig = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filePath</span></td>
+        <td><p>File/resource path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Configuration on how to load the image.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IImage.html">IImage</a></td>
+        <td><p>The image.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory_LoadImageAsync_System_String_AGS_API_ILoadImageConfig_.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory.LoadImageAsync(System.String%2CAGS.API.ILoadImageConfig)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L30">View Source</a>
+  </span>
+  <a id="AGS_API_IGraphicsFactory_LoadImageAsync_" data-uid="AGS.API.IGraphicsFactory.LoadImageAsync*"></a>
+  <h4 id="AGS_API_IGraphicsFactory_LoadImageAsync_System_String_AGS_API_ILoadImageConfig_" data-uid="AGS.API.IGraphicsFactory.LoadImageAsync(System.String,AGS.API.ILoadImageConfig)">LoadImageAsync(String, ILoadImageConfig)</h4>
+  <div class="markdown level1 summary"><p>Loads an image asynchronously from a resource/file path (<a class="xref" href="AGS.API.IResourceLoader.html">IResourceLoader</a>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;IImage&gt; LoadImageAsync(string filePath, ILoadImageConfig loadConfig = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filePath</span></td>
+        <td><p>File/resource path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>Configuration on how to load the image.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.IImage.html">IImage</a>&gt;</td>
+        <td><p>The image.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IGraphicsFactory.md&amp;value=---%0Auid%3A%20AGS.API.IGraphicsFactory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Logic/IGraphicsFactory.cs/#L8" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

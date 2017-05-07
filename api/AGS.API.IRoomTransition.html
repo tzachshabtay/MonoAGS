@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IRoomTransition
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IRoomTransition
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IRoomTransition">
+  
+  
+  <h1 id="AGS_API_IRoomTransition" data-uid="AGS.API.IRoomTransition">Interface IRoomTransition
+  </h1>
+  <div class="markdown level0 summary"><p>This interface allows you to create custom room transitions, to build all kinds of special effects
+when transitioning from room to room.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_IRoomTransition_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IRoomTransition</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IRoomTransition_RenderAfterEnteringRoom_List_AGS_API_IObject__Action_AGS_API_IObject__.md&amp;value=---%0Auid%3A%20AGS.API.IRoomTransition.RenderAfterEnteringRoom(List%7BAGS.API.IObject%7D%2CAction%7BAGS.API.IObject%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/IRoomTransition.cs/#L79">View Source</a>
+  </span>
+  <a id="AGS_API_IRoomTransition_RenderAfterEnteringRoom_" data-uid="AGS.API.IRoomTransition.RenderAfterEnteringRoom*"></a>
+  <h4 id="AGS_API_IRoomTransition_RenderAfterEnteringRoom_List_AGS_API_IObject__Action_AGS_API_IObject__" data-uid="AGS.API.IRoomTransition.RenderAfterEnteringRoom(List{AGS.API.IObject},Action{AGS.API.IObject})">RenderAfterEnteringRoom(List&lt;IObject&gt;, Action&lt;IObject&gt;)</h4>
+  <div class="markdown level1 summary"><p>Will be called repeatedly after entering the new room, up until this function will return false.
+Once this function returns false, room rendering returns to AGS for a normal rendering loop (the transition is completed).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool RenderAfterEnteringRoom(List&lt;IObject&gt; displayList, Action&lt;IObject&gt; renderObj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
+        <td><span class="parametername">displayList</span></td>
+        <td><p>The display list of the room we are leaving. The display list contains
+all objects that are rendered in the scene, sorted by their order.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
+        <td><span class="parametername">renderObj</span></td>
+        <td><p>A convenience method that renders an object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code>, if we still want control, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_IRoomTransition_RenderAfterEnteringRoom_List_AGS_API_IObject__Action_AGS_API_IObject___examples">Examples</h5>
+  <p>Let&#39;s only render every 3rd object!
+<pre><code>for (int i = 0; i &lt; displayList.Count; i++)
+{
+    if (i %% 3 != 0) continue;
+    renderObj(displayList[i]);
+}<p>
+<p>return true; //Note that this room transition will never end if we always return true, at some point we need to return false...</code></pre></p>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IRoomTransition_RenderBeforeLeavingRoom_List_AGS_API_IObject__Action_AGS_API_IObject__.md&amp;value=---%0Auid%3A%20AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List%7BAGS.API.IObject%7D%2CAction%7BAGS.API.IObject%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/IRoomTransition.cs/#L35">View Source</a>
+  </span>
+  <a id="AGS_API_IRoomTransition_RenderBeforeLeavingRoom_" data-uid="AGS.API.IRoomTransition.RenderBeforeLeavingRoom*"></a>
+  <h4 id="AGS_API_IRoomTransition_RenderBeforeLeavingRoom_List_AGS_API_IObject__Action_AGS_API_IObject__" data-uid="AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List{AGS.API.IObject},Action{AGS.API.IObject})">RenderBeforeLeavingRoom(List&lt;IObject&gt;, Action&lt;IObject&gt;)</h4>
+  <div class="markdown level1 summary"><p>Will be called repeatedly before leaving the first room, up until this function will return false.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool RenderBeforeLeavingRoom(List&lt;IObject&gt; displayList, Action&lt;IObject&gt; renderObj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
+        <td><span class="parametername">displayList</span></td>
+        <td><p>The display list of the room we are leaving. The display list contains
+all objects that are rendered in the scene, sorted by their order.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
+        <td><span class="parametername">renderObj</span></td>
+        <td><p>A convenience method that renders an object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code>, if we still want control, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_IRoomTransition_RenderBeforeLeavingRoom_List_AGS_API_IObject__Action_AGS_API_IObject___examples">Examples</h5>
+  <p>Let&#39;s render all objects with a yellow tint:
+<pre><code>public bool RenderBeforeLeavingRoom(List&lt;IObject&gt; displayList, Action&lt;IObject&gt; renderObj)
+{
+    foreach (var obj in displayList)
+    {
+        var currentTint = obj.Tint;
+        obj.Tint = Colors.Yellow;
+        renderObj(obj);
+        obj.Tint = currentTint;
+    }
+    return true; //Note that this room transition will never end if we always return true, at some point we need to return false...
+}</code></pre></p>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IRoomTransition_RenderTransition_AGS_API_IFrameBuffer_AGS_API_IFrameBuffer_.md&amp;value=---%0Auid%3A%20AGS.API.IRoomTransition.RenderTransition(AGS.API.IFrameBuffer%2CAGS.API.IFrameBuffer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/IRoomTransition.cs/#L57">View Source</a>
+  </span>
+  <a id="AGS_API_IRoomTransition_RenderTransition_" data-uid="AGS.API.IRoomTransition.RenderTransition*"></a>
+  <h4 id="AGS_API_IRoomTransition_RenderTransition_AGS_API_IFrameBuffer_AGS_API_IFrameBuffer_" data-uid="AGS.API.IRoomTransition.RenderTransition(AGS.API.IFrameBuffer,AGS.API.IFrameBuffer)">RenderTransition(IFrameBuffer, IFrameBuffer)</h4>
+  <div class="markdown level1 summary"><p>Will be called repeatedly during the rooms transition, up until this function will return false.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool RenderTransition(IFrameBuffer from, IFrameBuffer to)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IFrameBuffer.html">IFrameBuffer</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>A screenshot of the room that we are leaving.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IFrameBuffer.html">IFrameBuffer</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>A screenshot of the room that we entering into.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code>, if we still want control, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_IRoomTransition_RenderTransition_AGS_API_IFrameBuffer_AGS_API_IFrameBuffer__examples">Examples</h5>
+  <p>Let&#39;s render the &quot;old&quot; screenshot with half opacity over the &quot;new&quot; screenshot:
+<pre><code>QuadVectors _screenVectors = new QuadVectors(AGSGame.Game); //will create a quad covering the entire screen<p>
+<p>public bool RenderTransition(IFrameBuffer from, IFrameBuffer to)
+{
+    _screenVectors.Render(to.Texture);
+    _screenVectors.Render(from.Texture, a: 0.5f);</p>
+<pre><code>return true; //Note that this room transition will never end if we always return true, at some point we need to return false...
+</code></pre><p>}</code></pre></p>
+
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IRoomTransition.md&amp;value=---%0Auid%3A%20AGS.API.IRoomTransition%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/IRoomTransition.cs/#L10" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

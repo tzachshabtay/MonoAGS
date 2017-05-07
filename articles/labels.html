@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Labels | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Labels | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="labels">Labels</h1>
+
+<p>Text can come in many forms in adventure games: Speech, hotspot label, dialogs, buttons, messages to the user, etc.</p>
+<p>In <code>MonoAGS</code>, text is always hosted by a label, and always comes with a text configuration object.
+The label gives the ability to have a background and a border for the text, and gives context for the text alignment configuration (i.e center aligning a text will put it in the center of the label).</p>
+<h2 id="text-configuration">Text Configuration</h2>
+<p>The text configuration object (<code>ITextConfig</code>) has the following options:</p>
+<h3 id="font">Font</h3>
+<p>A choice of font for rendering the text. This includes the font family, font size and font style (regular/bold/italic/underline/strikethrough).</p>
+<h3 id="brush">Brush</h3>
+<p>A brush which will used for drawing the text. Usually this will be a solid brush where you&#39;ll choose a color for the brush. However, other brush are available (though for desktop only currently) like a gradient brush or a texture brush.</p>
+<h3 id="alignment">Alignment</h3>
+<p>How the text will be aligned (in relation to the label), i.e centered, top-left, etc.</p>
+<h3 id="auto-fitting">Auto fitting</h3>
+<p>This gives several options regarding how to fit the label with its underlining text:</p>
+<h4 id="none">None</h4>
+<p>There will be no custom fitting: the user will select a label size, and the text size
+will be based on the font, it&#39;s size and the text.</p>
+<h4 id="label-should-fit-text">Label Should Fit Text</h4>
+<p>The label size will be ignored. The label will resize to fit the text inside it.</p>
+<h4 id="text-should-wrap-and-label-should-fit-height">Text Should Wrap And Label Should Fit Height</h4>
+<p>The text will be resized (but only downscaled, not upscaled) to fit the label size.
+This can be useful when you lay out multiple buttons when you want to have them at the same size, and have various lengths of text.</p>
+<h4 id="text-should-fit-label">Text Should Fit Label</h4>
+<p>The text will be resized (but only downscaled, not upscaled) to fit the label size.
+This can be useful when you lay out multiple buttons when you want to have them at the same size, and have various lengths of text.</p>
+<h4 id="text-should-crop">Text Should Crop</h4>
+<p>The text will be cropped to fit the label size.
+This is the default for textboxes.</p>
+<h3 id="outline">Outline</h3>
+<p>An outline is the same text drawn behind the original text, only slightly bigger
+and usually with a different color, to provide better contrast for the rendered text.
+You can provide a brush for the outline and an outline width.</p>
+<h3 id="shadow">Shadow</h3>
+<p>The shadow is the same text drawn behind the original text with an offset,
+giving the appearance of a shadow. You can provide a brush for the shadow, and
+an X and Y offsets from the original text.</p>
+<h3 id="padding">Padding</h3>
+<p>You can set padding from the left/right/top/bottom of the label (in pixels).</p>
+<h2 id="text-in-low-resolutions">Text in low resolutions</h2>
+<p>When your game is in a low resolution, the text might appear blurry as a result of the
+low resolution. Some &quot;pixel purists&quot; might like it as it stays true to the resolution,
+but other people might prefer to have their text sharp and crisp even if the game itself
+is in low resolution. If you want your text in high resolution (and don&#39;t want to put
+all text object in a specific high resolution label) there are properties in the engine
+for scaling the resolution for the text. Those are <code>GLText.TextResolutionFactorX</code> and <code>GLText.TextResolutionFactorY</code> which will be a factor of the game&#39;s resolution. In a future revision, we&#39;ll add support for automatically adjusting the text resolution to your physical resolution, which would save from calculating the text resolution factor needed.</p>
+<h2 id="built-in-labels">Built-in Labels</h2>
+<p>There are specific types of labels which are built in with the engine, designed to make it easier for completing common tasks.</p>
+<h3 id="hotspot-labels">Hotspot Labels</h3>
+<p>Those are labels that show the hotspot name when the mouse hovers over a hotspot. <code>HotspotLabel</code> will show the name of the hotspot (i.e &quot;Shiny Object&quot;), and <code>VerbOnHotspotLabel</code> will show the currently used verb with the name of the hotspot (i.e &quot;Look at Shiny Object&quot; or &quot;Walk to Shiny Object&quot; or &quot;Use Hammer on Shiny Object&quot;).</p>
+<h3 id="debug-labels">Debug Labels</h3>
+<p>Those are labels that can you help while you develop. <code>FPSCounter</code> will show the current FPS (frame per second), and can easily show you if the game is running too slow (slower than 60 FPS usually is considered too slow).
+<code>MousePositionLabel</code> will show you the current (x,y) position of the mouse cursor. <code>DebugLabel</code> (which is internally used by both <code>FPSCounter</code> and <code>MousePositionLabel</code>) lets you bind a function to a label. The function will be repeatedly called and the text result will be shown on the label.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/labels.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

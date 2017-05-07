@@ -1,0 +1,516 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ISoundEmitter
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ISoundEmitter
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ISoundEmitter">
+  
+  
+  <h1 id="AGS_API_ISoundEmitter" data-uid="AGS.API.ISoundEmitter">Interface ISoundEmitter
+  </h1>
+  <div class="markdown level0 summary"><p>A sound emitter allows to bind an audio clip to an entity which is moving on a screen.
+Playing a sound from the emitter will pan it or set the volume (both can be turned off) to sound like
+it coming from the same location the entity is in.
+You can also assign the emitter to automatically play the sound on specific animation frames (so it&#39;s a 
+perfect fit for footsteps, for example).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_Play_System_Boolean_AGS_API_ISoundProperties_">ISoundPlayer.Play(Boolean, ISoundProperties)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_Play_System_Single_System_Boolean_">ISoundPlayer.Play(Single, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_PlayAndWait_AGS_API_ISoundProperties_">ISoundPlayer.PlayAndWait(ISoundProperties)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_PlayAndWait_System_Single_">ISoundPlayer.PlayAndWait(Single)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_IsPlaying">ISoundPlayer.IsPlaying</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_NumOfCurrentlyPlayingSounds">ISoundPlayer.NumOfCurrentlyPlayingSounds</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_ISoundEmitter_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ISoundEmitter : ISoundPlayer</code></pre>
+  </div>
+  <h5 id="AGS_API_ISoundEmitter_examples"><strong>Examples</strong></h5>
+  <pre><code>var footstep = await game.Factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/footstep.ogg");
+ISoundEmitter emitter = new AGSSoundEmitter(game);
+emitter.AudioClip = footstep;
+emitter.Object = cHero;
+emitter.Assign(cHero.Outfit[AGSOutfit.Walk], 1, 5); //will play the footstep on frames 1 and 5 of the walking animation</code></pre>
+
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISoundEmitter_AudioClip.md&amp;value=---%0Auid%3A%20AGS.API.ISoundEmitter.AudioClip%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Audio/ISoundEmitter.cs/#L25">View Source</a>
+  </span>
+  <a id="AGS_API_ISoundEmitter_AudioClip_" data-uid="AGS.API.ISoundEmitter.AudioClip*"></a>
+  <h4 id="AGS_API_ISoundEmitter_AudioClip" data-uid="AGS.API.ISoundEmitter.AudioClip">AudioClip</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the audio clip that is bound to the emitter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IAudioClip AudioClip { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAudioClip.html">IAudioClip</a></td>
+        <td><p>The audio clip.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISoundEmitter_AutoAdjustVolume.md&amp;value=---%0Auid%3A%20AGS.API.ISoundEmitter.AutoAdjustVolume%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Audio/ISoundEmitter.cs/#L69">View Source</a>
+  </span>
+  <a id="AGS_API_ISoundEmitter_AutoAdjustVolume_" data-uid="AGS.API.ISoundEmitter.AutoAdjustVolume*"></a>
+  <h4 id="AGS_API_ISoundEmitter_AutoAdjustVolume" data-uid="AGS.API.ISoundEmitter.AutoAdjustVolume">AutoAdjustVolume</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.ISoundEmitter.html">ISoundEmitter</a> auto adjusts volume
+when the bound entity is standing on a volume changing area. This is on by default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool AutoAdjustVolume { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if auto adjust volume; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISoundEmitter_AutoPan.md&amp;value=---%0Auid%3A%20AGS.API.ISoundEmitter.AutoPan%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Audio/ISoundEmitter.cs/#L62">View Source</a>
+  </span>
+  <a id="AGS_API_ISoundEmitter_AutoPan_" data-uid="AGS.API.ISoundEmitter.AutoPan*"></a>
+  <h4 id="AGS_API_ISoundEmitter_AutoPan" data-uid="AGS.API.ISoundEmitter.AutoPan">AutoPan</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.ISoundEmitter.html">ISoundEmitter</a> auto pans the sound
+based on the location (panning is the act of distributing the sound across left/right speakers to make the 
+sound appear more to the left/right). This is on by default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool AutoPan { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if auto pan; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISoundEmitter_EntityID.md&amp;value=---%0Auid%3A%20AGS.API.ISoundEmitter.EntityID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Audio/ISoundEmitter.cs/#L54">View Source</a>
+  </span>
+  <a id="AGS_API_ISoundEmitter_EntityID_" data-uid="AGS.API.ISoundEmitter.EntityID*"></a>
+  <h4 id="AGS_API_ISoundEmitter_EntityID" data-uid="AGS.API.ISoundEmitter.EntityID">EntityID</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the entity identifier. This is used by the emitter to check if the entity is in a volume altering area,
+to change the volume of the sound accordingly.
+You can set the Object property instead a short-hand convience.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string EntityID { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The entity identifier.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISoundEmitter_HasRoom.md&amp;value=---%0Auid%3A%20AGS.API.ISoundEmitter.HasRoom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Audio/ISoundEmitter.cs/#L46">View Source</a>
+  </span>
+  <a id="AGS_API_ISoundEmitter_HasRoom_" data-uid="AGS.API.ISoundEmitter.HasRoom*"></a>
+  <h4 id="AGS_API_ISoundEmitter_HasRoom" data-uid="AGS.API.ISoundEmitter.HasRoom">HasRoom</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the room component, for the emitter to not play the sound if the entity is not in currently rendered room.
+You can set the Object property instead a short-hand convience.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IHasRoom HasRoom { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IHasRoom.html">IHasRoom</a></td>
+        <td><p>The has room.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISoundEmitter_Object.md&amp;value=---%0Auid%3A%20AGS.API.ISoundEmitter.Object%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Audio/ISoundEmitter.cs/#L32">View Source</a>
+  </span>
+  <a id="AGS_API_ISoundEmitter_Object_" data-uid="AGS.API.ISoundEmitter.Object*"></a>
+  <h4 id="AGS_API_ISoundEmitter_Object" data-uid="AGS.API.ISoundEmitter.Object">Object</h4>
+  <div class="markdown level1 summary"><p>Sets the object which is bound to the emitter. This is a short-hand to set
+the translate, room and entity id components.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IObject Object { set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
+        <td><p>The object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISoundEmitter_Translate.md&amp;value=---%0Auid%3A%20AGS.API.ISoundEmitter.Translate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Audio/ISoundEmitter.cs/#L39">View Source</a>
+  </span>
+  <a id="AGS_API_ISoundEmitter_Translate_" data-uid="AGS.API.ISoundEmitter.Translate*"></a>
+  <h4 id="AGS_API_ISoundEmitter_Translate" data-uid="AGS.API.ISoundEmitter.Translate">Translate</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the translate component (for binding to location).
+You can set the Object property instead a short-hand convience. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ITranslate Translate { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITranslate.html">ITranslate</a></td>
+        <td><p>The translate.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISoundEmitter_Assign_AGS_API_IAnimation_System_Int32___.md&amp;value=---%0Auid%3A%20AGS.API.ISoundEmitter.Assign(AGS.API.IAnimation%2CSystem.Int32%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Audio/ISoundEmitter.cs/#L84">View Source</a>
+  </span>
+  <a id="AGS_API_ISoundEmitter_Assign_" data-uid="AGS.API.ISoundEmitter.Assign*"></a>
+  <h4 id="AGS_API_ISoundEmitter_Assign_AGS_API_IAnimation_System_Int32___" data-uid="AGS.API.ISoundEmitter.Assign(AGS.API.IAnimation,System.Int32[])">Assign(IAnimation, Int32[])</h4>
+  <div class="markdown level1 summary"><p>Assign the specified animation frames to play the sound whenever the frames are showing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Assign(IAnimation animation, params int[] frames)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></td>
+        <td><span class="parametername">animation</span></td>
+        <td><p>The animation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span>[]</td>
+        <td><span class="parametername">frames</span></td>
+        <td><p>The frame numbers (where 0 is the first frame).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISoundEmitter_Assign_AGS_API_IAnimationFrame___.md&amp;value=---%0Auid%3A%20AGS.API.ISoundEmitter.Assign(AGS.API.IAnimationFrame%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Audio/ISoundEmitter.cs/#L90">View Source</a>
+  </span>
+  <a id="AGS_API_ISoundEmitter_Assign_" data-uid="AGS.API.ISoundEmitter.Assign*"></a>
+  <h4 id="AGS_API_ISoundEmitter_Assign_AGS_API_IAnimationFrame___" data-uid="AGS.API.ISoundEmitter.Assign(AGS.API.IAnimationFrame[])">Assign(IAnimationFrame[])</h4>
+  <div class="markdown level1 summary"><p>Assign the specified animation frames to play the sound whenever the frames are showing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Assign(params IAnimationFrame[] frames)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimationFrame.html">IAnimationFrame</a>[]</td>
+        <td><span class="parametername">frames</span></td>
+        <td><p>Frames.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISoundEmitter_Assign_AGS_API_IDirectionalAnimation_System_Int32___.md&amp;value=---%0Auid%3A%20AGS.API.ISoundEmitter.Assign(AGS.API.IDirectionalAnimation%2CSystem.Int32%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Audio/ISoundEmitter.cs/#L77">View Source</a>
+  </span>
+  <a id="AGS_API_ISoundEmitter_Assign_" data-uid="AGS.API.ISoundEmitter.Assign*"></a>
+  <h4 id="AGS_API_ISoundEmitter_Assign_AGS_API_IDirectionalAnimation_System_Int32___" data-uid="AGS.API.ISoundEmitter.Assign(AGS.API.IDirectionalAnimation,System.Int32[])">Assign(IDirectionalAnimation, Int32[])</h4>
+  <div class="markdown level1 summary"><p>Assign the specified animation frames (in all directions) to play the sound whenever the frames are showing.
+This assumes all animations in all directions have matching frames, otherwise use the more specific overloads.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Assign(IDirectionalAnimation animation, params int[] frames)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IDirectionalAnimation.html">IDirectionalAnimation</a></td>
+        <td><span class="parametername">animation</span></td>
+        <td><p>The animation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span>[]</td>
+        <td><span class="parametername">frames</span></td>
+        <td><p>The frame numbers (where 0 is the first frame).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_ISoundEmitter.md&amp;value=---%0Auid%3A%20AGS.API.ISoundEmitter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Audio/ISoundEmitter.cs/#L19" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

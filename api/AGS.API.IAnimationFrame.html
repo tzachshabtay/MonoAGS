@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IAnimationFrame
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IAnimationFrame
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IAnimationFrame">
+  
+  
+  <h1 id="AGS_API_IAnimationFrame" data-uid="AGS.API.IAnimationFrame">Interface IAnimationFrame
+  </h1>
+  <div class="markdown level0 summary"><p>An animation frame (an animation is composed from a list of frames, which change all the time
+to make the object looks like it&#39;s animated).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_IAnimationFrame_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IAnimationFrame</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IAnimationFrame_Delay.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationFrame.Delay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Animations/IAnimationFrame.cs/#L42">View Source</a>
+  </span>
+  <a id="AGS_API_IAnimationFrame_Delay_" data-uid="AGS.API.IAnimationFrame.Delay*"></a>
+  <h4 id="AGS_API_IAnimationFrame_Delay" data-uid="AGS.API.IAnimationFrame.Delay">Delay</h4>
+  <div class="markdown level1 summary"><p>An animation frame has 2 modes of delays (how much time to wait before moving on to the next frame).
+It&#39;s either a specific delay or a random delay with an allowed range.
+A random delay with an allowed range is useful for simulating talking, for example, when the mouth 
+is moving in random speeds, giving the illusion of actual talking, instead of repeating animation 
+that breaks the illusion fast.
+Anyways, the delay is added on top of the animation&#39;s overall delay (see cref=&quot;IAnimationConfiguration&quot;/&gt;)
+and measure in game ticks. So let&#39;s say we have an overall animation speed configured to be 5 (the default),
+and we have this frame delay configured to be also 5 (the default is 0) and the game is running with 60 FPS
+(frames per second- also the default), then the total delay for this frame will be 10 ticks, so it will run
+for 1/6 of a second.</p>
+<p>When setting the delay here, this means you want a deterministic delay (not randomly generated each time),
+and then you can also query the delay here.
+If you set the MinDelay and MaxDelay of a frame it means you want a random delay for the frame, so querying
+the delay here will give you a random value which will not be the actual current delay of the frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int Delay { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The delay.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IAnimationFrame_MaxDelay.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationFrame.MaxDelay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Animations/IAnimationFrame.cs/#L64">View Source</a>
+  </span>
+  <a id="AGS_API_IAnimationFrame_MaxDelay_" data-uid="AGS.API.IAnimationFrame.MaxDelay*"></a>
+  <h4 id="AGS_API_IAnimationFrame_MaxDelay" data-uid="AGS.API.IAnimationFrame.MaxDelay">MaxDelay</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the maximum delay for generating random frame delays.
+Both MinDelay and MaxDelay should be set for a random frame delay.
+If MinDelay is 5 and MaxDelay is 10, then each time this frame runs it will delay an extra 5-10 ticks
+before switching to the next frame.
+<a class="xref" href="AGS.API.IAnimationFrame.html#AGS_API_IAnimationFrame_Delay">Delay</a>
+<a class="xref" href="AGS.API.IAnimationFrame.html#AGS_API_IAnimationFrame_MinDelay">MinDelay</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int MaxDelay { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The maximum delay.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IAnimationFrame_MinDelay.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationFrame.MinDelay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Animations/IAnimationFrame.cs/#L53">View Source</a>
+  </span>
+  <a id="AGS_API_IAnimationFrame_MinDelay_" data-uid="AGS.API.IAnimationFrame.MinDelay*"></a>
+  <h4 id="AGS_API_IAnimationFrame_MinDelay" data-uid="AGS.API.IAnimationFrame.MinDelay">MinDelay</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the minimum delay for generating random frame delays.
+Both MinDelay and MaxDelay should be set for a random frame delay.
+If MinDelay is 5 and MaxDelay is 10, then each time this frame runs it will delay an extra 5-10 ticks
+before switching to the next frame.
+<a class="xref" href="AGS.API.IAnimationFrame.html#AGS_API_IAnimationFrame_Delay">Delay</a>
+<a class="xref" href="AGS.API.IAnimationFrame.html#AGS_API_IAnimationFrame_MaxDelay">MaxDelay</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int MinDelay { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The minimum delay.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IAnimationFrame_SoundEmitter.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationFrame.SoundEmitter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Animations/IAnimationFrame.cs/#L22">View Source</a>
+  </span>
+  <a id="AGS_API_IAnimationFrame_SoundEmitter_" data-uid="AGS.API.IAnimationFrame.SoundEmitter*"></a>
+  <h4 id="AGS_API_IAnimationFrame_SoundEmitter" data-uid="AGS.API.IAnimationFrame.SoundEmitter">SoundEmitter</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the sound emitter from this frame. If a sound emitter is attached to this frame
+and also has an attached audio clip, the audio clip will play when the frame is showing.
+You don&#39;t have to call this yourself, the sound emitter itself has convenience methods for assigning
+itself to several animations at once.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISoundEmitter SoundEmitter { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ISoundEmitter.html">ISoundEmitter</a></td>
+        <td><p>The sound emitter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IAnimationFrame_Sprite.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationFrame.Sprite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Animations/IAnimationFrame.cs/#L13">View Source</a>
+  </span>
+  <a id="AGS_API_IAnimationFrame_Sprite_" data-uid="AGS.API.IAnimationFrame.Sprite*"></a>
+  <h4 id="AGS_API_IAnimationFrame_Sprite" data-uid="AGS.API.IAnimationFrame.Sprite">Sprite</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the sprite that is shown for this frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISprite Sprite { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ISprite.html">ISprite</a></td>
+        <td><p>The sprite.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IAnimationFrame_Clone.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationFrame.Clone%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Animations/IAnimationFrame.cs/#L70">View Source</a>
+  </span>
+  <a id="AGS_API_IAnimationFrame_Clone_" data-uid="AGS.API.IAnimationFrame.Clone*"></a>
+  <h4 id="AGS_API_IAnimationFrame_Clone" data-uid="AGS.API.IAnimationFrame.Clone">Clone()</h4>
+  <div class="markdown level1 summary"><p>Clones the animation frame (performs a deep clone, so the new frame will be completely detached from the old frame).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IAnimationFrame Clone()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAnimationFrame.html">IAnimationFrame</a></td>
+        <td><p>The new cloned frame.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IAnimationFrame.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationFrame%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/Animations/IAnimationFrame.cs/#L7" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

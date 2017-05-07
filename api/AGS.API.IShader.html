@@ -1,0 +1,681 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IShader
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IShader
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IShader">
+  
+  
+  <h1 id="AGS_API_IShader" data-uid="AGS.API.IShader">Interface IShader
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a shader which is a user defined program that can be written to directly affect what&#39;s rendered on the screen.
+See here: <a href="https://www.opengl.org/wiki/Shader">https://www.opengl.org/wiki/Shader</a>
+We&#39;re currently supporting vertex &amp; fragment shaders.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_IShader_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IShader</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IShader_ProgramId.md&amp;value=---%0Auid%3A%20AGS.API.IShader.ProgramId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/IShader.cs/#L14">View Source</a>
+  </span>
+  <a id="AGS_API_IShader_ProgramId_" data-uid="AGS.API.IShader.ProgramId*"></a>
+  <h4 id="AGS_API_IShader_ProgramId" data-uid="AGS.API.IShader.ProgramId">ProgramId</h4>
+  <div class="markdown level1 summary"><p>Gets the program identifier for the shader (used by GLSL).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int ProgramId { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The program identifier.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IShader_Bind.md&amp;value=---%0Auid%3A%20AGS.API.IShader.Bind%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/IShader.cs/#L47">View Source</a>
+  </span>
+  <a id="AGS_API_IShader_Bind_" data-uid="AGS.API.IShader.Bind*"></a>
+  <h4 id="AGS_API_IShader_Bind" data-uid="AGS.API.IShader.Bind">Bind()</h4>
+  <div class="markdown level1 summary"><p>Binds the shader. This must be performed from the rendering thread.
+Once the shader is bound, all rendering activities will run through the shader until it is unbound (or when another shader is bound).
+Setting variables for the shader must also be performed when the shader is bound.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Bind()</code></pre>
+  </div>
+  <h5 id="AGS_API_IShader_Bind_examples">Examples</h5>
+  <pre><code>//assuming shader was already successfully compiled...
+shader.Bind(); //shader is now in control!        </code></pre>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IShader_Compile.md&amp;value=---%0Auid%3A%20AGS.API.IShader.Compile%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/IShader.cs/#L35">View Source</a>
+  </span>
+  <a id="AGS_API_IShader_Compile_" data-uid="AGS.API.IShader.Compile*"></a>
+  <h4 id="AGS_API_IShader_Compile" data-uid="AGS.API.IShader.Compile">Compile()</h4>
+  <div class="markdown level1 summary"><p>Compiles this shader. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IShader Compile()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IShader.html">IShader</a></td>
+        <td><p>Will return itself if compiled successfully or null if there are compilation errors (those will be logged to the screen).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_IShader_Compile_examples">Examples</h5>
+  <p>A common pattern will look like this:
+<pre><code>const string VERTEX_SHADER = "GLSL vertex shader code goes here";
+const string FRAGMENT_SHADER = "GLSL fragment shader code goes here";
+IShader shader = GLShader.FromText(VERTEX_SHADER, FRAGMENT_SHADER).Compile();
+if (shader == null)
+{
+  //oh oh, it did not compile!
+}</code></pre>
+There&#39;s also a possibility of loading the shader from a resource/file:
+<pre><code>IShader shader = await GLShader.FromResource("vertexShader.glsl", "fragmentShader.glsl");</code></pre></p>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IShader_SetTextureVariable_System_String_System_Int32_.md&amp;value=---%0Auid%3A%20AGS.API.IShader.SetTextureVariable(System.String%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/IShader.cs/#L167">View Source</a>
+  </span>
+  <a id="AGS_API_IShader_SetTextureVariable_" data-uid="AGS.API.IShader.SetTextureVariable*"></a>
+  <h4 id="AGS_API_IShader_SetTextureVariable_System_String_System_Int32_" data-uid="AGS.API.IShader.SetTextureVariable(System.String,System.Int32)">SetTextureVariable(String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Sets a texture variable in the shader program.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool SetTextureVariable(string name, int texture)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">texture</span></td>
+        <td><p>The texture.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the variable was found and set</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IShader_SetVariable_System_String_AGS_API_Color_.md&amp;value=---%0Auid%3A%20AGS.API.IShader.SetVariable(System.String%2CAGS.API.Color)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/IShader.cs/#L160">View Source</a>
+  </span>
+  <a id="AGS_API_IShader_SetVariable_" data-uid="AGS.API.IShader.SetVariable*"></a>
+  <h4 id="AGS_API_IShader_SetVariable_System_String_AGS_API_Color_" data-uid="AGS.API.IShader.SetVariable(System.String,AGS.API.Color)">SetVariable(String, Color)</h4>
+  <div class="markdown level1 summary"><p>Sets a color variable in the shader program (GLSL sees it as a 4d vector).
+This is just a convenience method that can be used instead of the 4d version for colors.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool SetVariable(string name, Color c)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the variable.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Color.html">Color</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the variable was found and set</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_IShader_SetVariable_System_String_AGS_API_Color__examples">Examples</h5>
+  <pre><code>//In GLSL shader:
+uniform vec4 myColor;
+//Do stuff with myColor...
+...
+...
+//In AGS code:
+shader.Bind();
+shader.SetVariable("myColor", Colors.White);</code></pre>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IShader_SetVariable_System_String_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IShader.SetVariable(System.String%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/IShader.cs/#L77">View Source</a>
+  </span>
+  <a id="AGS_API_IShader_SetVariable_" data-uid="AGS.API.IShader.SetVariable*"></a>
+  <h4 id="AGS_API_IShader_SetVariable_System_String_System_Single_" data-uid="AGS.API.IShader.SetVariable(System.String,System.Single)">SetVariable(String, Single)</h4>
+  <div class="markdown level1 summary"><p>Sets a float variable in the shader program.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool SetVariable(string name, float x)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the variable.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the variable was found and set</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_IShader_SetVariable_System_String_System_Single__examples">Examples</h5>
+  <pre><code>//In GLSL shader:
+uniform float myVariable;
+//Do stuff with myVariable...
+...
+...
+//In AGS code:
+shader.Bind();
+shader.SetVariable("myVariable", 5.5f);</code></pre>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IShader_SetVariable_System_String_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IShader.SetVariable(System.String%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/IShader.cs/#L97">View Source</a>
+  </span>
+  <a id="AGS_API_IShader_SetVariable_" data-uid="AGS.API.IShader.SetVariable*"></a>
+  <h4 id="AGS_API_IShader_SetVariable_System_String_System_Single_System_Single_" data-uid="AGS.API.IShader.SetVariable(System.String,System.Single,System.Single)">SetVariable(String, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Sets a 2d vector variable in the shader program.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool SetVariable(string name, float x, float y)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the variable.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the variable was found and set</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_IShader_SetVariable_System_String_System_Single_System_Single__examples">Examples</h5>
+  <pre><code>//In GLSL shader:
+uniform vec2 myVariable;
+//Do stuff with myVariable...
+...
+...
+//In AGS code:
+shader.Bind();
+shader.SetVariable("myVariable", 5.5f, 3f);</code></pre>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IShader_SetVariable_System_String_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IShader.SetVariable(System.String%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/IShader.cs/#L118">View Source</a>
+  </span>
+  <a id="AGS_API_IShader_SetVariable_" data-uid="AGS.API.IShader.SetVariable*"></a>
+  <h4 id="AGS_API_IShader_SetVariable_System_String_System_Single_System_Single_System_Single_" data-uid="AGS.API.IShader.SetVariable(System.String,System.Single,System.Single,System.Single)">SetVariable(String, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Sets a 3d vector variable in the shader program.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool SetVariable(string name, float x, float y, float z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the variable.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">z</span></td>
+        <td><p>The z value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the variable was found and set</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_IShader_SetVariable_System_String_System_Single_System_Single_System_Single__examples">Examples</h5>
+  <pre><code>//In GLSL shader:
+uniform vec3 myVariable;
+//Do stuff with myVariable...
+...
+...
+//In AGS code:
+shader.Bind();
+shader.SetVariable("myVariable", 5.5f, 3f, 0.1f);</code></pre>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IShader_SetVariable_System_String_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IShader.SetVariable(System.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/IShader.cs/#L140">View Source</a>
+  </span>
+  <a id="AGS_API_IShader_SetVariable_" data-uid="AGS.API.IShader.SetVariable*"></a>
+  <h4 id="AGS_API_IShader_SetVariable_System_String_System_Single_System_Single_System_Single_System_Single_" data-uid="AGS.API.IShader.SetVariable(System.String,System.Single,System.Single,System.Single,System.Single)">SetVariable(String, Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Sets a 4d vector variable in the shader program.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool SetVariable(string name, float x, float y, float z, float w)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the variable.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">z</span></td>
+        <td><p>The z value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">w</span></td>
+        <td><p>The w value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the variable was found and set</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_IShader_SetVariable_System_String_System_Single_System_Single_System_Single_System_Single__examples">Examples</h5>
+  <pre><code>//In GLSL shader:
+uniform vec4 myVariable;
+//Do stuff with myVariable...
+...
+...
+//In AGS code:
+shader.Bind();
+shader.SetVariable("myVariable", 5.5f, 3f, 0.1f, 2.5f);</code></pre>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IShader_Unbind.md&amp;value=---%0Auid%3A%20AGS.API.IShader.Unbind%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/IShader.cs/#L58">View Source</a>
+  </span>
+  <a id="AGS_API_IShader_Unbind_" data-uid="AGS.API.IShader.Unbind*"></a>
+  <h4 id="AGS_API_IShader_Unbind" data-uid="AGS.API.IShader.Unbind">Unbind()</h4>
+  <div class="markdown level1 summary"><p>Unbinds this shader, leaving control to the normal renderer. This must be performed from the rendering thread.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Unbind()</code></pre>
+  </div>
+  <h5 id="AGS_API_IShader_Unbind_examples">Examples</h5>
+  <pre><code>shader.Bind(); //shader is now in control!
+await Task.Delay(2000);
+shader.Unbind(); //shader is done, back to normal rendering.</code></pre>
+
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IShader.md&amp;value=---%0Auid%3A%20AGS.API.IShader%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Graphics/IShader.cs/#L8" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IUIControl
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IUIControl
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IUIControl">
+  
+  
+  <h1 id="AGS_API_IUIControl" data-uid="AGS.API.IUIControl">Interface IUIControl
+  </h1>
+  <div class="markdown level0 summary"><p>A UI control is an object which has events like mouse click, to help the user interact with it.
+A UI control also has a skin component, for customing its look.
+All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IUIEvents.html#AGS_API_IUIEvents_MouseEnter">IUIEvents.MouseEnter</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IUIEvents.html#AGS_API_IUIEvents_MouseLeave">IUIEvents.MouseLeave</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IUIEvents.html#AGS_API_IUIEvents_MouseMove">IUIEvents.MouseMove</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IUIEvents.html#AGS_API_IUIEvents_MouseClicked">IUIEvents.MouseClicked</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IUIEvents.html#AGS_API_IUIEvents_MouseDoubleClicked">IUIEvents.MouseDoubleClicked</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IUIEvents.html#AGS_API_IUIEvents_MouseDown">IUIEvents.MouseDown</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IUIEvents.html#AGS_API_IUIEvents_MouseUp">IUIEvents.MouseUp</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IUIEvents.html#AGS_API_IUIEvents_LostFocus">IUIEvents.LostFocus</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IUIEvents.html#AGS_API_IUIEvents_IsMouseIn">IUIEvents.IsMouseIn</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ISkinComponent.html#AGS_API_ISkinComponent_Skin">ISkinComponent.Skin</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ISkinComponent.html#AGS_API_ISkinComponent_SkinTags">ISkinComponent.SkinTags</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IEntity.html#AGS_API_IEntity_ID">IEntity.ID</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent__1">IComponentsCollection.AddComponent&lt;TComponent&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_Type_">IComponentsCollection.AddComponent(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent__1___0_">IComponentsCollection.AddComponent&lt;TComponent&gt;(TComponent)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponents__1">IComponentsCollection.RemoveComponents&lt;TComponent&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponents_Type_">IComponentsCollection.RemoveComponents(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_AGS_API_IComponent_">IComponentsCollection.RemoveComponent(IComponent)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent__1">IComponentsCollection.HasComponent&lt;TComponent&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_Type_">IComponentsCollection.HasComponent(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_AGS_API_IComponent_">IComponentsCollection.HasComponent(IComponent)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent__1">IComponentsCollection.GetComponent&lt;TComponent&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_Type_">IComponentsCollection.GetComponent(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponents__1">IComponentsCollection.GetComponents&lt;TComponent&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponents_Type_">IComponentsCollection.GetComponents(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Count">IComponentsCollection.Count</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_CountType_Type_">IComponentsCollection.CountType(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_CountType__1">IComponentsCollection.CountType&lt;TComponent&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_OnComponentsInitialized">IComponentsCollection.OnComponentsInitialized</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasRoom.html#AGS_API_IHasRoom_Room">IHasRoom.Room</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasRoom.html#AGS_API_IHasRoom_PreviousRoom">IHasRoom.PreviousRoom</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasRoom.html#AGS_API_IHasRoom_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single__">IHasRoom.ChangeRoomAsync(IRoom, Nullable&lt;Single&gt;, Nullable&lt;Single&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Animation">IAnimationContainer.Animation</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_DebugDrawAnchor">IAnimationContainer.DebugDrawAnchor</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_OnAnimationStarted">IAnimationContainer.OnAnimationStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Border">IAnimationContainer.Border</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_StartAnimation_AGS_API_IAnimation_">IAnimationContainer.StartAnimation(IAnimation)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Animate_AGS_API_IAnimation_">IAnimationContainer.Animate(IAnimation)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_AnimateAsync_AGS_API_IAnimation_">IAnimationContainer.AnimateAsync(IAnimation)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IInTree-1.html#AGS_API_IInTree_1_TreeNode">IInTree&lt;IObject&gt;.TreeNode</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ICollider.html#AGS_API_ICollider_BoundingBox">ICollider.BoundingBox</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ICollider.html#AGS_API_ICollider_CenterPoint">ICollider.CenterPoint</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ICollider.html#AGS_API_ICollider_CollidesWith_System_Single_System_Single_">ICollider.CollidesWith(Single, Single)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_Visible">IVisibleComponent.Visible</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_UnderlyingVisible">IVisibleComponent.UnderlyingVisible</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_Enabled">IEnabledComponent.Enabled</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_UnderlyingEnabled">IEnabledComponent.UnderlyingEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ICustomPropertiesComponent.html#AGS_API_ICustomPropertiesComponent_Properties">ICustomPropertiesComponent.Properties</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_RenderLayer">IDrawableInfo.RenderLayer</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_IgnoreViewport">IDrawableInfo.IgnoreViewport</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_IgnoreScalingArea">IDrawableInfo.IgnoreScalingArea</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnIgnoreScalingAreaChanged">IDrawableInfo.OnIgnoreScalingAreaChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnRenderLayerChanged">IDrawableInfo.OnRenderLayerChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_Interactions">IHotspotComponent.Interactions</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_WalkPoint">IHotspotComponent.WalkPoint</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_Hotspot">IHotspotComponent.Hotspot</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IShaderComponent.html#AGS_API_IShaderComponent_Shader">IShaderComponent.Shader</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IPixelPerfectCollidable.html#AGS_API_IPixelPerfectCollidable_PixelPerfectHitTestArea">IPixelPerfectCollidable.PixelPerfectHitTestArea</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IPixelPerfectCollidable.html#AGS_API_IPixelPerfectCollidable_PixelPerfect_System_Boolean_">IPixelPerfectCollidable.PixelPerfect(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_Height">IScale.Height</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_Width">IScale.Width</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleX">IScale.ScaleX</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleY">IScale.ScaleY</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_OnScaleChanged">IScale.OnScaleChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetBaseSize_System_Single_System_Single_">IScale.ResetBaseSize(Single, Single)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetScale">IScale.ResetScale()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetScale_System_Single_System_Single_">IScale.ResetScale(Single, Single)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleBy_System_Single_System_Single_">IScale.ScaleBy(Single, Single)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleTo_System_Single_System_Single_">IScale.ScaleTo(Single, Single)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_FlipHorizontally">IScale.FlipHorizontally()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_FlipVertically">IScale.FlipVertically()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IRotate.html#AGS_API_IRotate_Angle">IRotate.Angle</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IRotate.html#AGS_API_IRotate_OnAngleChanged">IRotate.OnAngleChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ITranslate.html#AGS_API_ITranslate_Location">ITranslate.Location</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ITranslate.html#AGS_API_ITranslate_X">ITranslate.X</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ITranslate.html#AGS_API_ITranslate_Y">ITranslate.Y</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ITranslate.html#AGS_API_ITranslate_Z">ITranslate.Z</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ITranslate.html#AGS_API_ITranslate_OnLocationChanged">ITranslate.OnLocationChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Opacity">IHasImage.Opacity</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Tint">IHasImage.Tint</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Anchor">IHasImage.Anchor</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Image">IHasImage.Image</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_CustomRenderer">IHasImage.CustomRenderer</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnImageChanged">IHasImage.OnImageChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnAnchorChanged">IHasImage.OnAnchorChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnTintChanged">IHasImage.OnTintChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IModelMatrixComponent.html#AGS_API_IModelMatrixComponent_GetModelMatrices">IModelMatrixComponent.GetModelMatrices()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IModelMatrixComponent.html#AGS_API_IModelMatrixComponent_OnMatrixChanged">IModelMatrixComponent.OnMatrixChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_IUIControl_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IUIControl : IUIEvents, ISkinComponent, IObject, IEntity, IComponentsCollection, IEnumerable&lt;IComponent&gt;, IHasRoom, IAnimationContainer, IInObjectTree, IInTree&lt;IObject&gt;, ICollider, IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfo, IHotspotComponent, IShaderComponent, ITranslateComponent, IImageComponent, IScaleComponent, IRotateComponent, IPixelPerfectComponent, IPixelPerfectCollidable, IHasModelMatrix, IScale, IRotate, ITranslate, IHasImage, IModelMatrixComponent, IComponent, IDisposable</code></pre>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IUIControl.md&amp;value=---%0Auid%3A%20AGS.API.IUIControl%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/UI/Controls/IUIControl.cs/#L75" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

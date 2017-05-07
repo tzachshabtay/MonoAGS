@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Areas | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Areas | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="areas">Areas</h1>
+
+<p>Areas are specific regions in a room that provide additional behaviors that apply only within that region.</p>
+<h2 id="basic-properties">Basic properties:</h2>
+<p>There are basic properties that all areas have:</p>
+<p>Mask- The mask is what maps specific pixels on the screen to that area. The mask is currently being fed to the engine via an image (<code>IMaskLoader</code> interface is used to load the mask).
+You can select whether the transparent pixels in the image indicate the area or the non-transparent pixels indicate the error (this is a parameter you give to the mask loader when loading the mask).
+Note: we plan to implement vector-based areas in the future, but currently only pixel masks are available.</p>
+<p>Enabled- Whether or not the special behavior of that area is to currently be applied. It can be switched on and off during the game as required.</p>
+<h2 id="area-types">Area types:</h2>
+<h3 id="walkable-areas">Walkable Areas</h3>
+<p>These are the areas that indicate where the characters can walk. There&#39;s an <code>IsWalkable</code> property for a walkable area which you can turn on/off during the game. Note that you can also turn the <code>Enabled</code> on/off
+to achieve the same effect. The difference is that if you have an area which is both a walkable area but also is a different kind an area (areas can have multiple roles) than <code>Enabled</code> controls all of area roles,
+and <code>IsWalkable</code> only affects the area&#39;s walk-ability. This same method is used to disable functionalities in other area types accordingly.</p>
+<p>As an example, if this is our room:</p>
+<p><img src="images/room.png" alt="Room"></p>
+<p>This might be a walkable area for that room:</p>
+<p><img src="images/walkable.png" alt="Walkable Area"></p>
+<h3 id="walk-behind-areas">Walk-behind Areas</h3>
+<p>These are areas that indicate that the background graphic of the room should be in front of the characters/objects. When rendering the engine will actually crop those up and render them on top.
+Walk-behinds have a <code>Baseline</code> property: The baseline is a horizontal line, which tells the game where the character has to be in order to be drawn behind the area. 
+For example, if you had a table in the middle of the room, you&#39;d only want him drawn behind the table if he was standing behind it.
+You normally place a baseline at the lowest point of the walk-behind area.</p>
+<p>Here&#39;s a possible walk-behind for our room:</p>
+<p><img src="images/walk-behind.png" alt="Walk-behind Area"></p>
+<p>This walk-behind area masks the car, so if the baseline of the area will be the bottom of the car, if the character is above the bottom line of the car she/he will appear behind the car.</p>
+<h3 id="scaling-areas">Scaling Areas</h3>
+<p>Scaling areas are currently used for 2 things: scaling the size of the characters/objects standing in the area, and scaling the volume emitted from those characters/objects. In the future
+we might split those to 2 different area types.
+You can turn on/off whether to scale the volume, scale on the x axis and scale on the y axis (usually you&#39;d want to scale both x and y, but you might choose only one of them if you want a stretch/squeeze effect).
+The <code>MinScaling</code> and <code>MaxScaling</code> correspond to the minimum factor and maximum factor that will be applied in the 2 edge points of the areas (so you can put &quot;1&quot; and &quot;1&quot; for no scaling, for example, or &quot;0.5&quot; and &quot;2&quot; for half size to double size),
+where the points in between will be interpolated for a smooth transition.
+Whether those edge points are vertical or horizontal depends on the <code>Axis</code> property which can be set as <code>X</code> or <code>Y</code>. The default is <code>Y</code>, meaning by default the scaling area is a vertical scaling area, which is common to have
+when drawing your background with perspective. For a vertical scaling area, the <code>MinScaling</code> property will match the top-most point in the area and the <code>MaxScaling</code> to the bottom-most point in the area, so this is composed
+by default to help you fake perspective (and scaling the emitted volume, like footsteps, by default does the same thing).
+Note that objects/characters have a <code>IgnoreScalingArea</code> property which can be turned on/off to not change scaling while in scaling areas.</p>
+<h3 id="zoom-areas">Zoom Areas</h3>
+<p>These are areas that indicate the camera should automatically zoom when the player (or whatever other target was chosen for the camera) is in that area. 
+This works along nicely with a vertical scaling area, to zoom the camera as the player moves farther away from the camera.
+Besides the <code>ZoomCamera</code> flag which can turn zooming on/off, there&#39;s a <code>MinZoom</code> and <code>MaxZoom</code> properties which correspond with the <code>Y</code> property of the camera&#39;s target. 
+The lowest point in the area, which usually corresponds to the closest distance to the camera (if your background has perspective) will match the <code>MinZoom</code> where the upper most point 
+in the area will match the <code>MaxZoom</code>. Any point in between will be interpolated to get the matching camera zoom.
+Note that the default implemented camera does not do any sharp movement, but slowly adjusts toward its goal for smooth movements. If you want a different behavior from your camera, you
+can code your own camera by implementing the <code>ICamera</code> interface. If you code your own, you&#39;ll need to adjust to the zoom areas in your camera&#39;s code (if you want that feature in your camera, that is).</p>
+<h2 id="area-restrictions">Area restrictions:</h2>
+<p>It is sometimes useful to have an area only affect specific objects/characters within it, but not all. For this purpose you can add an &quot;Area restriction&quot; component to your area.
+This component comes with a restriction list which you can provide with the IDs of the objects/characters/etc, and an additional <code>RestrictionType</code> which can be set to either a black list or a white list.
+A white list means that only those entities which are on the list will be affected by the area while other entities will not. A black list means that only those entities which are on the list will
+not be affected by the area while all other entities will be affected.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/areas.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

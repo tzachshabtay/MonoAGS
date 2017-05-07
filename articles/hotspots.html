@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Hotspots | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Hotspots | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="hotspots">Hotspots</h1>
+
+<p>You can make any object to be a &quot;hotspot&quot; which will allow the player to interact with it.</p>
+<h2 id="hotspot-text">Hotspot Text</h2>
+<p>You can supply a hotspot text for the object. This will be shown via a hotspot label (a label which shows the hotspot text of an object when the mouse hovers over it).</p>
+<h2 id="walk-point">Walk Point</h2>
+<p>You can also set a walk point for this object. This is the point to which the player character will walk to before triggering an interaction script. Note though that this depends on which &quot;Approach style&quot; (if any) you chose for your character, see <a href="characters.html#approaching">Approaching</a>.</p>
+<h2 id="interactions">Interactions</h2>
+<p>For each hotspot you should subscribe to interaction events, which define what happens when interacting with the hotspot. The interaction model, is very simple, you only have 2 types of interactions with objects:</p>
+<h3 id="interact-event">Interact Event</h3>
+<p>This is used for all &quot;verb&quot; interactions with the object. Depending on your game, you might have different verbs which you can use. A 2 buttons style game usually has 2 verbs, &quot;Look&quot; and &quot;Interact&quot;. A Sierra style game might have a rotating cursor system with &quot;Look&quot;, &quot;Interact&quot; and &quot;Talk&quot; verbs. A Monkey Island style game might have 9 different verbs to choose from, and a verb coin style game might have different verbs per object.</p>
+<p>The engine allows all of those modes. By using the <code>IInteractions</code> interface, you&#39;ll request an event for the verb you&#39;re interested in and subscribe to it.</p>
+<p>As an example, you can write:</p>
+<pre><code class="lang-csharp">oLockedDoor.Interactions.OnInteract(&quot;Look&quot;).Subscribe(onLookingAtLockedDoor);
+
+private void onLookingAtLockedDoor(object sender, ObjectEventArgs args)
+{
+    cHero.Say(&quot;This door is locked.&quot;);
+}
+</code></pre><p>Note that in c#, you can also write this in one line using anonymous functions:</p>
+<pre><code class="lang-csharp">oLockedDoor.Interactions.OnInteract(&quot;Look&quot;).Subscribe((sender, args) =&gt; cHero.Say(&quot;This door is locked.&quot;));
+</code></pre><p>Also note that for &quot;Look&quot; and &quot;Interact&quot;, the two most common verbs in adventure games today, the engine has some defaults built in, and it&#39;s recommended (but not mandatory) that you use the predefined <code>AGSInteractions.LOOK</code> and <code>AGSInteractions.INTERACT</code> instead of coming up with your own names.</p>
+<h3 id="inventory-interact-event">Inventory Interact Event</h3>
+<p>Inventory interactions is for when a character is holding an inventory item and wants to use it on an object. Depending on your game, you might have different verbs here too. Most games today only have a &quot;Use inventory item on object&quot; but some games might also additionally have a &quot;Give item to object&quot; for example. Therefore the inventory interact also gets a verb, and otherwise acts the same as the interact event, only you get the used inventory item as part of the event arguments:</p>
+<pre><code class="lang-csharp">oLockedDoor.Interactions.OnInventoryInteract(AGSInteractions.INTERACT).Subscribe(onUsingInventoryOnDoor);
+
+private void onUsingInventoryOnDoor(object sender, InventoryInteractEventArgs args)
+{
+    if (args.Item == iKey)
+    {
+        cHero.Say(&quot;Hooray! I opened the door.&quot;);
+    }
+    else
+    {
+        cHero.Say(&quot;I don&#39;t understand how this would help me to open the door.&quot;);
+    }
+}
+</code></pre><h3 id="default-interactions">Default Interactions</h3>
+<p>You might not want to write interactions for all your objects and verbs. Depending on the amount of objects, verbs and inventory items you have, this might prove an impossible task.
+The solution in this case is to have a fallback, usually a default generic sentence (or a random sentence out of a list) that the character says, something along the line of &quot;I can&#39;t do that&quot;.
+That being said, &quot;I can&#39;t do that&quot;, might be seem as a tad too generic, maybe we can do a little bit more.</p>
+<p>This is why, there are several ways you can configure defaults for your interactions. For once, for each hotspot object, with the 2 previous interaction events we showed, you can also pass <code>AGSInteractions.DEFAULT</code> as your verb. This will be used as the default interaction for this object when you did not subscribe to a specific verb.</p>
+<p>Additionally, there&#39;s also a global <code>IInteractions</code> object (you can find it in <code>IGame.Events.DefaultInteractions</code>) for which you can subscribe to supply default scripts which are not per a specific object. As this uses the same interface as the hotspot interactions, you use the same events as you saw on the examples here, to have a default per verb but not per object. Finally, you can also pass the <code>AGSInteractions.DEFAULT</code> verb to the default interactions object, for a super generic default behavior (&quot;I can&#39;t do that&quot;). This will be only used when everything else fails.</p>
+<p>To recap, when the engine tries to match an interaction to a script, this is the order it uses:</p>
+<ol>
+<li>Object&#39;s verb script</li>
+<li>Object&#39;s default verb script</li>
+<li>Default interactions verb script</li>
+<li>Default interactions default verb script</li>
+</ol>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/hotspots.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

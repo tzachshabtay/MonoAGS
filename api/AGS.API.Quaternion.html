@@ -1,0 +1,2473 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Struct Quaternion
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct Quaternion
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.Quaternion">
+  
+  
+  <h1 id="AGS_API_Quaternion" data-uid="AGS.API.Quaternion">Struct Quaternion
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a Quaternion.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_Quaternion_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct Quaternion : IEquatable&lt;Quaternion&gt;</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion__ctor_AGS_API_Vector3_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.%23ctor(AGS.API.Vector3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L96">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion__ctor_" data-uid="AGS.API.Quaternion.#ctor*"></a>
+  <h4 id="AGS_API_Quaternion__ctor_AGS_API_Vector3_" data-uid="AGS.API.Quaternion.#ctor(AGS.API.Vector3)">Quaternion(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Construct a new Quaternion from given Euler angles</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion(Vector3 eulerAngles)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">eulerAngles</span></td>
+        <td><p>The euler angles as a Vector3</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion__ctor_AGS_API_Vector3_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.%23ctor(AGS.API.Vector3%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L50">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion__ctor_" data-uid="AGS.API.Quaternion.#ctor*"></a>
+  <h4 id="AGS_API_Quaternion__ctor_AGS_API_Vector3_System_Single_" data-uid="AGS.API.Quaternion.#ctor(AGS.API.Vector3,System.Single)">Quaternion(Vector3, Single)</h4>
+  <div class="markdown level1 summary"><p>Construct a new Quaternion from vector and w components</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion(Vector3 v, float w)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">v</span></td>
+        <td><p>The vector part</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">w</span></td>
+        <td><p>The w part</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion__ctor_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.%23ctor(System.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L73">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion__ctor_" data-uid="AGS.API.Quaternion.#ctor*"></a>
+  <h4 id="AGS_API_Quaternion__ctor_System_Single_System_Single_System_Single_" data-uid="AGS.API.Quaternion.#ctor(System.Single,System.Single,System.Single)">Quaternion(Single, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Construct a new Quaternion from given Euler angles</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion(float pitch, float yaw, float roll)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">pitch</span></td>
+        <td><p>The pitch (attitude), rotation around X axis</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">yaw</span></td>
+        <td><p>The yaw (heading), rotation around Y axis</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">roll</span></td>
+        <td><p>The roll (bank), rotation around Z axis</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion__ctor_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.%23ctor(System.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L63">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion__ctor_" data-uid="AGS.API.Quaternion.#ctor*"></a>
+  <h4 id="AGS_API_Quaternion__ctor_System_Single_System_Single_System_Single_System_Single_" data-uid="AGS.API.Quaternion.#ctor(System.Single,System.Single,System.Single,System.Single)">Quaternion(Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Construct a new Quaternion</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion(float x, float y, float z, float w)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x component</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y component</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">z</span></td>
+        <td><p>The z component</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">w</span></td>
+        <td><p>The w component</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Identity.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Identity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L290">View Source</a>
+  </span>
+  <h4 id="AGS_API_Quaternion_Identity" data-uid="AGS.API.Quaternion.Identity">Identity</h4>
+  <div class="markdown level1 summary"><p>Defines the identity quaternion.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly Quaternion Identity</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Length.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Length%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L202">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Length_" data-uid="AGS.API.Quaternion.Length*"></a>
+  <h4 id="AGS_API_Quaternion_Length" data-uid="AGS.API.Quaternion.Length">Length</h4>
+  <div class="markdown level1 summary"><p>Gets the length (magnitude) of the quaternion.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Length { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_Quaternion_Length_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="AGS.API.Quaternion.html#AGS_API_Quaternion_LengthSquared">LengthSquared</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_LengthSquared.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.LengthSquared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L217">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_LengthSquared_" data-uid="AGS.API.Quaternion.LengthSquared*"></a>
+  <h4 id="AGS_API_Quaternion_LengthSquared" data-uid="AGS.API.Quaternion.LengthSquared">LengthSquared</h4>
+  <div class="markdown level1 summary"><p>Gets the square of the quaternion length (magnitude).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float LengthSquared { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_W.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.W%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L146">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_W_" data-uid="AGS.API.Quaternion.W*"></a>
+  <h4 id="AGS_API_Quaternion_W" data-uid="AGS.API.Quaternion.W">W</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the W component of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float W { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_X.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.X%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L128">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_X_" data-uid="AGS.API.Quaternion.X*"></a>
+  <h4 id="AGS_API_Quaternion_X" data-uid="AGS.API.Quaternion.X">X</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the X component of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float X { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Xyz.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Xyz%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L120">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Xyz_" data-uid="AGS.API.Quaternion.Xyz*"></a>
+  <h4 id="AGS_API_Quaternion_Xyz" data-uid="AGS.API.Quaternion.Xyz">Xyz</h4>
+  <div class="markdown level1 summary"><p>Gets or sets an OpenTK.Vector3 with the X, Y and Z components of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Xyz { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_XYZ.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.XYZ%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L111">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_XYZ_" data-uid="AGS.API.Quaternion.XYZ*"></a>
+  <h4 id="AGS_API_Quaternion_XYZ" data-uid="AGS.API.Quaternion.XYZ">XYZ</h4>
+  <div class="markdown level1 summary"><p>Gets or sets an OpenTK.Vector3 with the X, Y and Z components of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 XYZ { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Y.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Y%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L134">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Y_" data-uid="AGS.API.Quaternion.Y*"></a>
+  <h4 id="AGS_API_Quaternion_Y" data-uid="AGS.API.Quaternion.Y">Y</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the Y component of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Y { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Z.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Z%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L140">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Z_" data-uid="AGS.API.Quaternion.Z*"></a>
+  <h4 id="AGS_API_Quaternion_Z" data-uid="AGS.API.Quaternion.Z">Z</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the Z component of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Z { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Add_AGS_API_Quaternion_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Add(AGS.API.Quaternion%2CAGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L302">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Add_" data-uid="AGS.API.Quaternion.Add*"></a>
+  <h4 id="AGS_API_Quaternion_Add_AGS_API_Quaternion_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.Add(AGS.API.Quaternion,AGS.API.Quaternion)">Add(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Add two quaternions</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Add(Quaternion left, Quaternion right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first operand</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second operand</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>The result of the addition</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Add_AGS_API_Quaternion__AGS_API_Quaternion__AGS_API_Quaternion__.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Add(AGS.API.Quaternion%40%2CAGS.API.Quaternion%40%2CAGS.API.Quaternion%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L315">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Add_" data-uid="AGS.API.Quaternion.Add*"></a>
+  <h4 id="AGS_API_Quaternion_Add_AGS_API_Quaternion__AGS_API_Quaternion__AGS_API_Quaternion__" data-uid="AGS.API.Quaternion.Add(AGS.API.Quaternion@,AGS.API.Quaternion@,AGS.API.Quaternion@)">Add(ref Quaternion, ref Quaternion, out Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Add two quaternions</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Add(ref Quaternion left, ref Quaternion right, out Quaternion result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first operand</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second operand</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The result of the addition</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Conjugate.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Conjugate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L274">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Conjugate_" data-uid="AGS.API.Quaternion.Conjugate*"></a>
+  <h4 id="AGS_API_Quaternion_Conjugate" data-uid="AGS.API.Quaternion.Conjugate">Conjugate()</h4>
+  <div class="markdown level1 summary"><p>Inverts the Vector3 component of this Quaternion.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Conjugate()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Conjugate_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Conjugate(AGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L441">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Conjugate_" data-uid="AGS.API.Quaternion.Conjugate*"></a>
+  <h4 id="AGS_API_Quaternion_Conjugate_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.Conjugate(AGS.API.Quaternion)">Conjugate(Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Get the conjugate of the given quaternion</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Conjugate(Quaternion q)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">q</span></td>
+        <td><p>The quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>The conjugate of the given quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Conjugate_AGS_API_Quaternion__AGS_API_Quaternion__.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Conjugate(AGS.API.Quaternion%40%2CAGS.API.Quaternion%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L451">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Conjugate_" data-uid="AGS.API.Quaternion.Conjugate*"></a>
+  <h4 id="AGS_API_Quaternion_Conjugate_AGS_API_Quaternion__AGS_API_Quaternion__" data-uid="AGS.API.Quaternion.Conjugate(AGS.API.Quaternion@,AGS.API.Quaternion@)">Conjugate(ref Quaternion, out Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Get the conjugate of the given quaternion</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Conjugate(ref Quaternion q, out Quaternion result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">q</span></td>
+        <td><p>The quaternion</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The conjugate of the given quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Equals_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Equals(AGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L876">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Equals_" data-uid="AGS.API.Quaternion.Equals*"></a>
+  <h4 id="AGS_API_Quaternion_Equals_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.Equals(AGS.API.Quaternion)">Equals(Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Compares this Quaternion instance to another Quaternion for equality. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(Quaternion other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">other</span></td>
+        <td><p>The other Quaternion to be used in the comparison.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if both instances are equal; false otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Equals_System_Object_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Equals(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L841">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Equals_" data-uid="AGS.API.Quaternion.Equals*"></a>
+  <h4 id="AGS_API_Quaternion_Equals_System_Object_" data-uid="AGS.API.Quaternion.Equals(System.Object)">Equals(Object)</h4>
+  <div class="markdown level1 summary"><p>Compares this object instance to another object for equality. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">other</span></td>
+        <td><p>The other object to be used in the comparison.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if both objects are Quaternions of equal value. Otherwise it returns false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_FromAxisAngle_AGS_API_Vector3_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.FromAxisAngle(AGS.API.Vector3%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L528">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_FromAxisAngle_" data-uid="AGS.API.Quaternion.FromAxisAngle*"></a>
+  <h4 id="AGS_API_Quaternion_FromAxisAngle_AGS_API_Vector3_System_Single_" data-uid="AGS.API.Quaternion.FromAxisAngle(AGS.API.Vector3,System.Single)">FromAxisAngle(Vector3, Single)</h4>
+  <div class="markdown level1 summary"><p>Build a quaternion from the given axis and angle</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion FromAxisAngle(Vector3 axis, float angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td><p>The axis to rotate about</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>The rotation angle in radians</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>The equivalent quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_FromEulerAngles_AGS_API_Vector3_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.FromEulerAngles(AGS.API.Vector3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L564">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_FromEulerAngles_" data-uid="AGS.API.Quaternion.FromEulerAngles*"></a>
+  <h4 id="AGS_API_Quaternion_FromEulerAngles_AGS_API_Vector3_" data-uid="AGS.API.Quaternion.FromEulerAngles(AGS.API.Vector3)">FromEulerAngles(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Builds a Quaternion from the given euler angles</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion FromEulerAngles(Vector3 eulerAngles)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">eulerAngles</span></td>
+        <td><p>The euler angles as a vector</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>The equivalent Quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_FromEulerAngles_AGS_API_Vector3__AGS_API_Quaternion__.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.FromEulerAngles(AGS.API.Vector3%40%2CAGS.API.Quaternion%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L574">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_FromEulerAngles_" data-uid="AGS.API.Quaternion.FromEulerAngles*"></a>
+  <h4 id="AGS_API_Quaternion_FromEulerAngles_AGS_API_Vector3__AGS_API_Quaternion__" data-uid="AGS.API.Quaternion.FromEulerAngles(AGS.API.Vector3@,AGS.API.Quaternion@)">FromEulerAngles(ref Vector3, out Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Builds a Quaternion from the given euler angles</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FromEulerAngles(ref Vector3 eulerAngles, out Quaternion result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">eulerAngles</span></td>
+        <td><p>The euler angles a vector</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The equivalent Quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_FromEulerAngles_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.FromEulerAngles(System.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L554">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_FromEulerAngles_" data-uid="AGS.API.Quaternion.FromEulerAngles*"></a>
+  <h4 id="AGS_API_Quaternion_FromEulerAngles_System_Single_System_Single_System_Single_" data-uid="AGS.API.Quaternion.FromEulerAngles(System.Single,System.Single,System.Single)">FromEulerAngles(Single, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Builds a Quaternion from the given euler angles</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion FromEulerAngles(float pitch, float yaw, float roll)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">pitch</span></td>
+        <td><p>The pitch (attitude), rotation around X axis</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">yaw</span></td>
+        <td><p>The yaw (heading), rotation around Y axis</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">roll</span></td>
+        <td><p>The roll (bank), rotation around Z axis</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_FromMatrix_AGS_API_Matrix3_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.FromMatrix(AGS.API.Matrix3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L598">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_FromMatrix_" data-uid="AGS.API.Quaternion.FromMatrix*"></a>
+  <h4 id="AGS_API_Quaternion_FromMatrix_AGS_API_Matrix3_" data-uid="AGS.API.Quaternion.FromMatrix(AGS.API.Matrix3)">FromMatrix(Matrix3)</h4>
+  <div class="markdown level1 summary"><p>Builds a quaternion from the given rotation matrix</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion FromMatrix(Matrix3 matrix)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">matrix</span></td>
+        <td><p>A rotation matrix</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>The equivalent quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_FromMatrix_AGS_API_Matrix3__AGS_API_Quaternion__.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.FromMatrix(AGS.API.Matrix3%40%2CAGS.API.Quaternion%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L610">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_FromMatrix_" data-uid="AGS.API.Quaternion.FromMatrix*"></a>
+  <h4 id="AGS_API_Quaternion_FromMatrix_AGS_API_Matrix3__AGS_API_Quaternion__" data-uid="AGS.API.Quaternion.FromMatrix(AGS.API.Matrix3@,AGS.API.Quaternion@)">FromMatrix(ref Matrix3, out Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Builds a quaternion from the given rotation matrix</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FromMatrix(ref Matrix3 matrix, out Quaternion result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Matrix3.html">Matrix3</a></td>
+        <td><span class="parametername">matrix</span></td>
+        <td><p>A rotation matrix</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The equivalent quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_GetHashCode.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L855">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_GetHashCode_" data-uid="AGS.API.Quaternion.GetHashCode*"></a>
+  <h4 id="AGS_API_Quaternion_GetHashCode" data-uid="AGS.API.Quaternion.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"><p>Provides the hash code for this object. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>A hash code formed from the bitwise XOR of this objects members.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Invert.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Invert%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L240">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Invert_" data-uid="AGS.API.Quaternion.Invert*"></a>
+  <h4 id="AGS_API_Quaternion_Invert" data-uid="AGS.API.Quaternion.Invert">Invert()</h4>
+  <div class="markdown level1 summary"><p>Reverses the rotation angle of this Quaterniond.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Invert()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Invert_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Invert(AGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L465">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Invert_" data-uid="AGS.API.Quaternion.Invert*"></a>
+  <h4 id="AGS_API_Quaternion_Invert_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.Invert(AGS.API.Quaternion)">Invert(Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Get the inverse of the given quaternion</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Invert(Quaternion q)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">q</span></td>
+        <td><p>The quaternion to invert</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>The inverse of the given quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Invert_AGS_API_Quaternion__AGS_API_Quaternion__.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Invert(AGS.API.Quaternion%40%2CAGS.API.Quaternion%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L477">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Invert_" data-uid="AGS.API.Quaternion.Invert*"></a>
+  <h4 id="AGS_API_Quaternion_Invert_AGS_API_Quaternion__AGS_API_Quaternion__" data-uid="AGS.API.Quaternion.Invert(AGS.API.Quaternion@,AGS.API.Quaternion@)">Invert(ref Quaternion, out Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Get the inverse of the given quaternion</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Invert(ref Quaternion q, out Quaternion result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">q</span></td>
+        <td><p>The quaternion to invert</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The inverse of the given quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Inverted.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Inverted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L248">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Inverted_" data-uid="AGS.API.Quaternion.Inverted*"></a>
+  <h4 id="AGS_API_Quaternion_Inverted" data-uid="AGS.API.Quaternion.Inverted">Inverted()</h4>
+  <div class="markdown level1 summary"><p>Returns a copy of this Quaterniond with its rotation angle reversed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion Inverted()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Mult_AGS_API_Quaternion_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Mult(AGS.API.Quaternion%2CAGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L362">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Mult_" data-uid="AGS.API.Quaternion.Mult*"></a>
+  <h4 id="AGS_API_Quaternion_Mult_AGS_API_Quaternion_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.Mult(AGS.API.Quaternion,AGS.API.Quaternion)">Mult(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Multiplies two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Mult(Quaternion left, Quaternion right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>A new instance containing the result of the calculation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Mult_AGS_API_Quaternion__AGS_API_Quaternion__AGS_API_Quaternion__.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Mult(AGS.API.Quaternion%40%2CAGS.API.Quaternion%40%2CAGS.API.Quaternion%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L376">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Mult_" data-uid="AGS.API.Quaternion.Mult*"></a>
+  <h4 id="AGS_API_Quaternion_Mult_AGS_API_Quaternion__AGS_API_Quaternion__AGS_API_Quaternion__" data-uid="AGS.API.Quaternion.Mult(AGS.API.Quaternion@,AGS.API.Quaternion@,AGS.API.Quaternion@)">Mult(ref Quaternion, ref Quaternion, out Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Multiplies two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Mult(ref Quaternion left, ref Quaternion right, out Quaternion result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>A new instance containing the result of the calculation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Multiply_AGS_API_Quaternion_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Multiply(AGS.API.Quaternion%2CAGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L390">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Multiply_" data-uid="AGS.API.Quaternion.Multiply*"></a>
+  <h4 id="AGS_API_Quaternion_Multiply_AGS_API_Quaternion_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.Multiply(AGS.API.Quaternion,AGS.API.Quaternion)">Multiply(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Multiplies two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Multiply(Quaternion left, Quaternion right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>A new instance containing the result of the calculation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Multiply_AGS_API_Quaternion_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Multiply(AGS.API.Quaternion%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L427">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Multiply_" data-uid="AGS.API.Quaternion.Multiply*"></a>
+  <h4 id="AGS_API_Quaternion_Multiply_AGS_API_Quaternion_System_Single_" data-uid="AGS.API.Quaternion.Multiply(AGS.API.Quaternion,System.Single)">Multiply(Quaternion, Single)</h4>
+  <div class="markdown level1 summary"><p>Multiplies an instance by a scalar.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Multiply(Quaternion quaternion, float scale)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">quaternion</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">scale</span></td>
+        <td><p>The scalar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>A new instance containing the result of the calculation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Multiply_AGS_API_Quaternion__AGS_API_Quaternion__AGS_API_Quaternion__.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Multiply(AGS.API.Quaternion%40%2CAGS.API.Quaternion%40%2CAGS.API.Quaternion%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L403">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Multiply_" data-uid="AGS.API.Quaternion.Multiply*"></a>
+  <h4 id="AGS_API_Quaternion_Multiply_AGS_API_Quaternion__AGS_API_Quaternion__AGS_API_Quaternion__" data-uid="AGS.API.Quaternion.Multiply(AGS.API.Quaternion@,AGS.API.Quaternion@,AGS.API.Quaternion@)">Multiply(ref Quaternion, ref Quaternion, out Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Multiplies two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Multiply(ref Quaternion left, ref Quaternion right, out Quaternion result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>A new instance containing the result of the calculation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Multiply_AGS_API_Quaternion__System_Single_AGS_API_Quaternion__.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Multiply(AGS.API.Quaternion%40%2CSystem.Single%2CAGS.API.Quaternion%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L416">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Multiply_" data-uid="AGS.API.Quaternion.Multiply*"></a>
+  <h4 id="AGS_API_Quaternion_Multiply_AGS_API_Quaternion__System_Single_AGS_API_Quaternion__" data-uid="AGS.API.Quaternion.Multiply(AGS.API.Quaternion@,System.Single,AGS.API.Quaternion@)">Multiply(ref Quaternion, Single, out Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Multiplies an instance by a scalar.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Multiply(ref Quaternion quaternion, float scale, out Quaternion result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">quaternion</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">scale</span></td>
+        <td><p>The scalar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>A new instance containing the result of the calculation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Normalize.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Normalize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L260">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Normalize_" data-uid="AGS.API.Quaternion.Normalize*"></a>
+  <h4 id="AGS_API_Quaternion_Normalize" data-uid="AGS.API.Quaternion.Normalize">Normalize()</h4>
+  <div class="markdown level1 summary"><p>Scales the Quaternion to unit length.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Normalize()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Normalize_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Normalize(AGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L500">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Normalize_" data-uid="AGS.API.Quaternion.Normalize*"></a>
+  <h4 id="AGS_API_Quaternion_Normalize_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.Normalize(AGS.API.Quaternion)">Normalize(Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Scale the given quaternion to unit length</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Normalize(Quaternion q)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">q</span></td>
+        <td><p>The quaternion to normalize</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>The normalized quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Normalize_AGS_API_Quaternion__AGS_API_Quaternion__.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Normalize(AGS.API.Quaternion%40%2CAGS.API.Quaternion%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L512">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Normalize_" data-uid="AGS.API.Quaternion.Normalize*"></a>
+  <h4 id="AGS_API_Quaternion_Normalize_AGS_API_Quaternion__AGS_API_Quaternion__" data-uid="AGS.API.Quaternion.Normalize(AGS.API.Quaternion@,AGS.API.Quaternion@)">Normalize(ref Quaternion, out Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Scale the given quaternion to unit length</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Normalize(ref Quaternion q, out Quaternion result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">q</span></td>
+        <td><p>The quaternion to normalize</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The normalized quaternion</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Normalized.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Normalized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L230">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Normalized_" data-uid="AGS.API.Quaternion.Normalized*"></a>
+  <h4 id="AGS_API_Quaternion_Normalized" data-uid="AGS.API.Quaternion.Normalized">Normalized()</h4>
+  <div class="markdown level1 summary"><p>Returns a copy of the Quaternion scaled to unit length.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion Normalized()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Slerp_AGS_API_Quaternion_AGS_API_Quaternion_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Slerp(AGS.API.Quaternion%2CAGS.API.Quaternion%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L672">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Slerp_" data-uid="AGS.API.Quaternion.Slerp*"></a>
+  <h4 id="AGS_API_Quaternion_Slerp_AGS_API_Quaternion_AGS_API_Quaternion_System_Single_" data-uid="AGS.API.Quaternion.Slerp(AGS.API.Quaternion,AGS.API.Quaternion,System.Single)">Slerp(Quaternion, Quaternion, Single)</h4>
+  <div class="markdown level1 summary"><p>Do Spherical linear interpolation between two quaternions </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Slerp(Quaternion q1, Quaternion q2, float blend)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">q1</span></td>
+        <td><p>The first quaternion</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">q2</span></td>
+        <td><p>The second quaternion</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">blend</span></td>
+        <td><p>The blend factor</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>A smooth blend between the given quaternions</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Sub_AGS_API_Quaternion_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Sub(AGS.API.Quaternion%2CAGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L332">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Sub_" data-uid="AGS.API.Quaternion.Sub*"></a>
+  <h4 id="AGS_API_Quaternion_Sub_AGS_API_Quaternion_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.Sub(AGS.API.Quaternion,AGS.API.Quaternion)">Sub(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Subtracts two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Sub(Quaternion left, Quaternion right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The right instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>The result of the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_Sub_AGS_API_Quaternion__AGS_API_Quaternion__AGS_API_Quaternion__.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.Sub(AGS.API.Quaternion%40%2CAGS.API.Quaternion%40%2CAGS.API.Quaternion%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L345">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_Sub_" data-uid="AGS.API.Quaternion.Sub*"></a>
+  <h4 id="AGS_API_Quaternion_Sub_AGS_API_Quaternion__AGS_API_Quaternion__AGS_API_Quaternion__" data-uid="AGS.API.Quaternion.Sub(AGS.API.Quaternion@,AGS.API.Quaternion@,AGS.API.Quaternion@)">Sub(ref Quaternion, ref Quaternion, out Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Subtracts two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Sub(ref Quaternion left, ref Quaternion right, out Quaternion result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The right instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The result of the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_ToAxisAngle.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.ToAxisAngle%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L170">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_ToAxisAngle_" data-uid="AGS.API.Quaternion.ToAxisAngle*"></a>
+  <h4 id="AGS_API_Quaternion_ToAxisAngle" data-uid="AGS.API.Quaternion.ToAxisAngle">ToAxisAngle()</h4>
+  <div class="markdown level1 summary"><p>Convert this instance to an axis-angle representation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector4 ToAxisAngle()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector4.html">Vector4</a></td>
+        <td><p>A Vector4 that is the axis-angle representation of this quaternion.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_ToAxisAngle_AGS_API_Vector3__System_Single__.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.ToAxisAngle(AGS.API.Vector3%40%2CSystem.Single%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L159">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_ToAxisAngle_" data-uid="AGS.API.Quaternion.ToAxisAngle*"></a>
+  <h4 id="AGS_API_Quaternion_ToAxisAngle_AGS_API_Vector3__System_Single__" data-uid="AGS.API.Quaternion.ToAxisAngle(AGS.API.Vector3@,System.Single@)">ToAxisAngle(out Vector3, out Single)</h4>
+  <div class="markdown level1 summary"><p>Convert the current quaternion to axis angle representation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ToAxisAngle(out Vector3 axis, out float angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td><p>The resultant axis</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>The resultant angle</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_ToString.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L827">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_ToString_" data-uid="AGS.API.Quaternion.ToString*"></a>
+  <h4 id="AGS_API_Quaternion_ToString" data-uid="AGS.API.Quaternion.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a System.String that represents the current Quaternion.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_op_Addition_AGS_API_Quaternion_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.op_Addition(AGS.API.Quaternion%2CAGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L740">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_op_Addition_" data-uid="AGS.API.Quaternion.op_Addition*"></a>
+  <h4 id="AGS_API_Quaternion_op_Addition_AGS_API_Quaternion_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.op_Addition(AGS.API.Quaternion,AGS.API.Quaternion)">Addition(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Adds two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion operator +(Quaternion left, Quaternion right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>The result of the calculation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_op_Equality_AGS_API_Quaternion_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.op_Equality(AGS.API.Quaternion%2CAGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L801">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_op_Equality_" data-uid="AGS.API.Quaternion.op_Equality*"></a>
+  <h4 id="AGS_API_Quaternion_op_Equality_AGS_API_Quaternion_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.op_Equality(AGS.API.Quaternion,AGS.API.Quaternion)">Equality(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Compares two instances for equality.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(Quaternion left, Quaternion right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True, if left equals right; false otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_op_Inequality_AGS_API_Quaternion_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.op_Inequality(AGS.API.Quaternion%2CAGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L812">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_op_Inequality_" data-uid="AGS.API.Quaternion.op_Inequality*"></a>
+  <h4 id="AGS_API_Quaternion_op_Inequality_AGS_API_Quaternion_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.op_Inequality(AGS.API.Quaternion,AGS.API.Quaternion)">Inequality(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Compares two instances for inequality.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(Quaternion left, Quaternion right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True, if left does not equal right; false otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_op_Multiply_AGS_API_Quaternion_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.op_Multiply(AGS.API.Quaternion%2CAGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L766">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_op_Multiply_" data-uid="AGS.API.Quaternion.op_Multiply*"></a>
+  <h4 id="AGS_API_Quaternion_op_Multiply_AGS_API_Quaternion_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.op_Multiply(AGS.API.Quaternion,AGS.API.Quaternion)">Multiply(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Multiplies two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion operator *(Quaternion left, Quaternion right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>The result of the calculation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_op_Multiply_AGS_API_Quaternion_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.op_Multiply(AGS.API.Quaternion%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L778">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_op_Multiply_" data-uid="AGS.API.Quaternion.op_Multiply*"></a>
+  <h4 id="AGS_API_Quaternion_op_Multiply_AGS_API_Quaternion_System_Single_" data-uid="AGS.API.Quaternion.op_Multiply(AGS.API.Quaternion,System.Single)">Multiply(Quaternion, Single)</h4>
+  <div class="markdown level1 summary"><p>Multiplies an instance by a scalar.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion operator *(Quaternion quaternion, float scale)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">quaternion</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">scale</span></td>
+        <td><p>The scalar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>A new instance containing the result of the calculation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_op_Multiply_System_Single_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.op_Multiply(System.Single%2CAGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L790">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_op_Multiply_" data-uid="AGS.API.Quaternion.op_Multiply*"></a>
+  <h4 id="AGS_API_Quaternion_op_Multiply_System_Single_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.op_Multiply(System.Single,AGS.API.Quaternion)">Multiply(Single, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Multiplies an instance by a scalar.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion operator *(float scale, Quaternion quaternion)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">scale</span></td>
+        <td><p>The scalar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">quaternion</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>A new instance containing the result of the calculation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion_op_Subtraction_AGS_API_Quaternion_AGS_API_Quaternion_.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion.op_Subtraction(AGS.API.Quaternion%2CAGS.API.Quaternion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L753">View Source</a>
+  </span>
+  <a id="AGS_API_Quaternion_op_Subtraction_" data-uid="AGS.API.Quaternion.op_Subtraction*"></a>
+  <h4 id="AGS_API_Quaternion_op_Subtraction_AGS_API_Quaternion_AGS_API_Quaternion_" data-uid="AGS.API.Quaternion.op_Subtraction(AGS.API.Quaternion,AGS.API.Quaternion)">Subtraction(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Subtracts two instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion operator -(Quaternion left, Quaternion right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.Quaternion.html">Quaternion</a></td>
+        <td><p>The result of the calculation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_Quaternion.md&amp;value=---%0Auid%3A%20AGS.API.Quaternion%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Misc/Geometry/OpenTK/Quaternion.cs/#L33" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

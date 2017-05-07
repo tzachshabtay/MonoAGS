@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Dialogs | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Dialogs | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="dialogs">Dialogs</h1>
+
+<p>Dialogs are on-going conversation between two (or more) characters.
+The dialog is structured as a sequence of actions (usually the characters talking but not necessarily), followed by a list of choices for the player, where each choice branches to another sequence of actions, followed by another list of choices, and so on.</p>
+<p>You can configure a graphic object (see <a href="objects.html">Objects</a>) to serve as a background for the dialog, and you have various options for configuring the dialog options and actions.</p>
+<h2 id="dialog-option">Dialog option</h2>
+<p>A dialog option is one choice in a list of options for the player to choose from.
+For example, in a detective game, you might interrogate a suspect and get a few choices:</p>
+<ol>
+<li>Ask for an alibi</li>
+<li>&quot;What can you tell me about the murder weapon?&quot;</li>
+<li>&quot;Did you know the victim?&quot;</li>
+<li>Nothing more to ask</li>
+</ol>
+<p>For each option you can configure the following:</p>
+<h3 id="label">Label</h3>
+<p>Each dialog option is a text hosted in a label which you can configure to change various things, like its color, size, border, font, text color, text outline/shadow, etc (refer to the <a href="labels.html">Labels</a> section to learn more).</p>
+<h3 id="text-rendering-options">Text rendering options</h3>
+<p>You can also configure different text rendering options (like text color, font, outline, etc) for when the mouse is hovering over an option, and for when you&#39;ve already selected this option in the past (to maybe notify the player she/he does not need to click on this option again).
+By default the normal label text is white, the hovered text is yellow and the &quot;already selected&quot; text is gray.</p>
+<h3 id="show-once">Show Once</h3>
+<p>You can configure a dialog option to only be shown once (i.e only until selected once). Once selected, and in case the same dialog is shown again the option will be hidden.
+If an option is set as &quot;show once&quot;, then the text rendering configuration for &quot;already selected&quot; is irrelevant.</p>
+<h3 id="speak-option">Speak option</h3>
+<p>You can configure where the player will speak the text written in the option when chosen. In the example dialog above, options 2 and 3 are a good candidate for a &quot;speak option&quot;, but options 1 and 4 do not make sense as a &quot;speak option&quot; as those are not quoting the detective.</p>
+<h3 id="dialog-control">Dialog control</h3>
+<p>For each option you can set what happens after running the associated conversation (the dialog actions): you can either set to close the dialog or to switch to a new dialog (i.e a new set of options to choose from, which will continue to branch out the conversation). If neither one is configured, the dialog will show itself again after the dialog option runs out.</p>
+<p>Each of the options, when selected, will lead to a different conversation which involves both the detective and the suspect talking, with possible animations and other script actions: those are the dialog actions.</p>
+<h2 id="dialog-action">Dialog action</h2>
+<p>A dialog action is any action which runs as part of a sequence of actions. As this is a dialog between characters, the action is usually one of the characters saying something but it isn&#39;t always the case, it can also be an animation, or setting a variable to indicate a puzzle has completed, or anything really.</p>
+<p>The dialog option contains convenience methods for adding speaking actions, but also generic actions, which can be either synchronous (blocking) or asynchronous. Each action can also return a false value, indicating that the sequence of actions should be cancelled.
+Finally, each dialog action can also be disabled by the code which will skip the action and go to the next action in the sequence.</p>
+<h3 id="startup-actions">Startup actions</h3>
+<p>Dialog actions are configured per dialog option, but they can also be configured for the dialog as a whole. Those actions will run when starting the dialog, before showing the dialog options. This is useful, for example, if you want to have the characters greeting each other and/or setting up the stage for the conversation.</p>
+<h2 id="dialog-layout">Dialog layout</h2>
+<p>Besides configuring the graphics object for the dialog background, and configuring each dialog option rendering separately, you can also implement your own custom layout for the option. This is done by implementing the <code>IDialogLayout</code> interface and then hooking it up via the <code>Resolver</code> object (like you would hook up every other interface implementation that you wish to switch with your own).</p>
+<p>Another related configuration that you have, is whether to display the dialog options while the action sequence (i.e the conversation) is running. This is set via the <code>ShowWhileOptionsAreRunning</code> property of the dialog.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/dialogs.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

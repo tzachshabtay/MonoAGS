@@ -1,0 +1,415 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IScalingArea
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IScalingArea
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IScalingArea">
+  
+  
+  <h1 id="AGS_API_IScalingArea" data-uid="AGS.API.IScalingArea">Interface IScalingArea
+  </h1>
+  <div class="markdown level0 summary"><p>This component adds the ability for an area to automatically scale each object/character within it
+(and also &#39;scale&#39; the volume of sounds coming from that object).
+The most common use is for faking perspective, so that when a character walks to the top of the screen
+(closer to the horizon), he will appear smaller and make quieter sounds.
+For that common use case, you&#39;ll want to scale on the Y axis (which is why Y axis is the default),
+and scale both the object x &amp;&amp; y (to keep the aspect ration in tact).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_IScalingArea_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IScalingArea : IComponent, IDisposable</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IScalingArea_Axis.md&amp;value=---%0Auid%3A%20AGS.API.IScalingArea.Axis%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/Areas/IScalingArea.cs/#L77">View Source</a>
+  </span>
+  <a id="AGS_API_IScalingArea_Axis_" data-uid="AGS.API.IScalingArea.Axis*"></a>
+  <h4 id="AGS_API_IScalingArea_Axis" data-uid="AGS.API.IScalingArea.Axis">Axis</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the axis for the scaling.
+If the axis is y (the default), the scaling will be adjusted based on where the object is located on
+the area&#39;s vertical axis (so most common use is for fake perspective).
+If the axis is x, the scaling will be adjusted based on where the object is located on
+the area&#39;s horizontal axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ScalingAxis Axis { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ScalingAxis.html">ScalingAxis</a></td>
+        <td><p>The axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IScalingArea_MaxScaling.md&amp;value=---%0Auid%3A%20AGS.API.IScalingArea.MaxScaling%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/Areas/IScalingArea.cs/#L45">View Source</a>
+  </span>
+  <a id="AGS_API_IScalingArea_MaxScaling_" data-uid="AGS.API.IScalingArea.MaxScaling*"></a>
+  <h4 id="AGS_API_IScalingArea_MaxScaling" data-uid="AGS.API.IScalingArea.MaxScaling">MaxScaling</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the maximum scaling for this area.
+if the scaling axis is Y (the default), this is the scaling that will be performed at the very bottom of the area.
+if the scaling axis is X, this is the scaling that will be performed at the very right of the area.
+Note that if for some reason you want the opposite behavior for either of the axis, you can make MaxScaling smaller than MinScaling.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float MaxScaling { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><p>The max scaling.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IScalingArea_MinScaling.md&amp;value=---%0Auid%3A%20AGS.API.IScalingArea.MinScaling%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/Areas/IScalingArea.cs/#L36">View Source</a>
+  </span>
+  <a id="AGS_API_IScalingArea_MinScaling_" data-uid="AGS.API.IScalingArea.MinScaling*"></a>
+  <h4 id="AGS_API_IScalingArea_MinScaling" data-uid="AGS.API.IScalingArea.MinScaling">MinScaling</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the minimum scaling for this area.
+if the scaling axis is Y (the default), this is the scaling that will be performed at the very top of the area.
+if the scaling axis is X, this is the scaling that will be performed at the very left of the area.
+Note that if for some reason you want the opposite behavior for either of the axis, you can make MaxScaling smaller than MinScaling.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float MinScaling { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><p>The minimum scaling.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IScalingArea_ScaleObjectsX.md&amp;value=---%0Auid%3A%20AGS.API.IScalingArea.ScaleObjectsX%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/Areas/IScalingArea.cs/#L53">View Source</a>
+  </span>
+  <a id="AGS_API_IScalingArea_ScaleObjectsX_" data-uid="AGS.API.IScalingArea.ScaleObjectsX*"></a>
+  <h4 id="AGS_API_IScalingArea_ScaleObjectsX" data-uid="AGS.API.IScalingArea.ScaleObjectsX">ScaleObjectsX</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.IScalingArea.html">IScalingArea</a> should scale objects x.
+Usually you&#39;ll want both ScaleObjectsX and ScaleObjectsY to be on, but you can turn on only one of them
+to achieve a stretching effect.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool ScaleObjectsX { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if scale objects x; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IScalingArea_ScaleObjectsY.md&amp;value=---%0Auid%3A%20AGS.API.IScalingArea.ScaleObjectsY%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/Areas/IScalingArea.cs/#L61">View Source</a>
+  </span>
+  <a id="AGS_API_IScalingArea_ScaleObjectsY_" data-uid="AGS.API.IScalingArea.ScaleObjectsY*"></a>
+  <h4 id="AGS_API_IScalingArea_ScaleObjectsY" data-uid="AGS.API.IScalingArea.ScaleObjectsY">ScaleObjectsY</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.IScalingArea.html">IScalingArea</a> should scale objects y.
+Usually you&#39;ll want both ScaleObjectsX and ScaleObjectsY to be on, but you can turn on only one of them
+to achieve a stretching effect.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool ScaleObjectsY { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if scale objects x; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IScalingArea_ScaleVolume.md&amp;value=---%0Auid%3A%20AGS.API.IScalingArea.ScaleVolume%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/Areas/IScalingArea.cs/#L67">View Source</a>
+  </span>
+  <a id="AGS_API_IScalingArea_ScaleVolume_" data-uid="AGS.API.IScalingArea.ScaleVolume*"></a>
+  <h4 id="AGS_API_IScalingArea_ScaleVolume" data-uid="AGS.API.IScalingArea.ScaleVolume">ScaleVolume</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.IScalingArea.html">IScalingArea</a> should scale the volume.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool ScaleVolume { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if scale volume; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IScalingArea_GetScaling_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IScalingArea.GetScaling(System.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/Areas/IScalingArea.cs/#L86">View Source</a>
+  </span>
+  <a id="AGS_API_IScalingArea_GetScaling_" data-uid="AGS.API.IScalingArea.GetScaling*"></a>
+  <h4 id="AGS_API_IScalingArea_GetScaling_System_Single_" data-uid="AGS.API.IScalingArea.GetScaling(System.Single)">GetScaling(Single)</h4>
+  <div class="markdown level1 summary"><p>Gets the scaling based on a linear interpolation of the value into the vertical area (if the axis is y)
+or the horizontal area (if the axis is x).
+When calling this method, you should pass an x value if the axis is x and a y value if the axis is y.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float GetScaling(float value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><p>The scaling.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IScalingArea.md&amp;value=---%0Auid%3A%20AGS.API.IScalingArea%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Rooms/Areas/IScalingArea.cs/#L26" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

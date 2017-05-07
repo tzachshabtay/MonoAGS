@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Objects | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Objects | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="objects">Objects</h1>
+
+<p>Objects are basically everything that can move between rooms and can be interacted with.
+So characters and GUIs are also objects.</p>
+<h2 id="objects-components">Object&#39;s components:</h2>
+<h3 id="rooms">Rooms</h3>
+<p>You can query an object&#39;s current room, it&#39;s previous room, and move an object to a different room.</p>
+<h3 id="tree">Tree</h3>
+<p>You can compose an object to be a part of a hierarchy. So you can have an object which has a parent and/or children.
+Having an object in a tree has the following implications:</p>
+<ol>
+<li>The position of the object is relative to its parent, and not relative to the screen.</li>
+<li>If the parent is invisible the object will also be invisible (even if you made it visible).</li>
+<li>If the parent is disabled the object will also be disabled (even if you made it enabled).</li>
+</ol>
+<p>One practical use in games for object composition, for example, is to create a character while having each limb as a separate object,
+so 4 objects will represent both legs and hands, and those will be parented by a &quot;body&quot; object. You can then animate and move the hands and legs separately from the body, and whenever you move the body the hands and legs will move with it.</p>
+<p>Object composition is also useful for GUIs, so for example you can have a panel with 3 buttons: the panel will be the parent of those buttons,
+so if you move the panel around all the buttons will move with it, if you hide the panel it will hide all the buttons, and same for disabling.</p>
+<h3 id="scale">Scale</h3>
+<p>You can scale all objects to make them bigger or smaller. You can either scale by a factor (i.e scale by 2 to have double the size- note that this refers to scaling the original 
+size by 2, not the current size), or scale to a specific size (i.e I want my object to have a size of (200,500) pixels.
+There are also convenience methods for flipping the object vertically and/or horizontally (this will shift the scale and also change the anchor accordingly).</p>
+<p>Note that if the object is in a scaling area, then the scaling area takes over scaling, which you can disable by setting <code>IgnoreScalingArea</code> to true.</p>
+<h3 id="rotation">Rotation</h3>
+<p>You can set (and get) an angle (in degrees) for every object you desire.</p>
+<h3 id="anchor">Anchor</h3>
+<p>Anchor is the pivot point for the scale, rotation and position.
+The anchor&#39;s units are normalized to the object&#39;s size, so (0,0) is the bottom left and (1,1) is the top right.
+So if, for example your anchor is (0.5,0.5) and you rotate the object, the object will pivot on its center (so it would mainly stay in the same place), and all (x,y) positions for the object would refer to its center.</p>
+<h3 id="position-translate">Position (Translate)</h3>
+<p>Allows you to set (and get) the position of an object (x,y,z). (0,0) is the bottom left corner of the screen, and (max x, max y) for top right corner will be based on the virtual resolution
+you selected to work with (either the game&#39;s virtual resolution, or a specific resolution that your object&#39;s render layer might be using to override the global virtual resolution).</p>
+<p>Note that if the object is in a tree and have a parent, then the position will be relative to the parent and not to the screen. So if a button is in a panel and has an (0,0) position, it will always
+sit at the bottom-left corner of the panel, no matter how the panel moves around the screen.</p>
+<p>Also, the position is mapped to the position on the screen based on the viewport location (what the camera is looking at). So if the viewport is showing the room from (100,0) - (500, 0) and your object
+is in (150,0) it will be mapped to (50, 0) to adjust for the viewport. This is the default for all objects which basically means that they are part of the game world.
+This can be disabled by setting <code>IgnoreViewport</code> which is the default for UI objects, as you would normally want them to be static on the screen and not moving with the camera.</p>
+<p>As for the Z property, it controls the rendering order within the object&#39;s rendering layer. By default the Z property binds to the Y property, i.e when Y moves Z will move with it, which is what you
+would usually want for 2D perspective games (this way the more an object is further down the screen, the closer it will appear). 
+If you set Z to be something else than Y, then it will stop moving along with Y, so you can set it independently. If you set Z to be Y, then binding will re-commence as before.</p>
+<h3 id="tint-color">Tint (Color)</h3>
+<p>Sets (or gets) the color (either RGBA or HSLA) in which the object is tinted (the default is white, i.e not tinted). 
+You can also set the opacity (the alpha) separately, for convenience.</p>
+<h3 id="render-layer">Render Layer</h3>
+<p>A rendering layer is attached to each object. This decides rendering order, and also allow to set parallax effects and individual resolution. Please refer to the <a href="render-layers.html">Render Layers</a> section for more details. </p>
+<h3 id="visibleenabled">Visible/Enabled</h3>
+<p>Allows to show/hide an object, and to disable/enable an object (a disabled object will not respond to mouse hover/clicks). Note that if an object is part of a tree then setting the object to visible (and same goes for enabled) will not actually show (or enable) the object, if its parent (or grandparent, and so on) is not visible (or disabled). Refer to the <a href="#tree">Tree</a> section for more details.</p>
+<h3 id="animationimage">Animation/Image</h3>
+<p>You can set either an image or an animation for your object (an image is just a shorthand convenience for an animation with one frame). Refer to the <a href="animations.html">Animations</a> section for more details on animations.</p>
+<h4 id="custom-rendering">Custom Rendering</h4>
+<p>You can also set a custom renderer for your object and implement your own logic of how to render the image/animation (for that you need to implement the <code>ICustomRenderer</code> interface and set it to the object). This is for custom software rendering. For custom hardware rendering you should use a shader.</p>
+<h3 id="shader">Shader</h3>
+<p>A shader is a program for rendering graphics on the GPU, making it potentially extremely fast and capable of doing effect not plausible with simple software rendering.
+You can write a shader for a specific object (or objects) or for the entire game.
+The shaders are written with <a href="http://nehe.gamedev.net/article/glsl_an_introduction/25007/">GLSL</a>, a language specifically written for writing shaders for OpenGL. You should write a vertex shader and a fragment shader (those are the 2 common shaders, other shaders like the geometry shader which are less common are not currently supported). Then you can create your <code>IShader</code> object by either calling <code>GLShader.FromText</code> or <code>GLShader.FromResource</code> (from resource if you want to embed shader files).</p>
+<h3 id="border">Border</h3>
+<p>Each object can have a border which surrounds it. A border can be drawn both behind and in front of the object, which opens up a lot of possibilities. Refer to the <a href="borders.html">Borders</a> section for more details.</p>
+<h3 id="hotspot">Hotspot</h3>
+<p>Each object can be a hotspot with which the player can interact. Refer to the <a href="hotspots.html">Hotspots</a> section for more details.</p>
+<h3 id="collisions">Collisions</h3>
+<p>Each object can be checked for collisions with a specific point on the screen.
+This is used by the engine for interacting with <a href="hotspots.html">Hotspots</a>.
+You can select if the object&#39;s collisions will be based on a bounding box that surrounds the object, or a pixel-perfect collision, whereas the mouse has to specifically hover over a pixel which is not transparent to trigger the collision.</p>
+<p>Pixel perfect is the default, as it more suitable in most cases, but in specific incidents (imagine an object with a small amount pixels which is hard to touch) you can turn it off which will switch the collision checks to use the bounding box.</p>
+<h3 id="custom-properties">Custom Properties</h3>
+<p>You can set custom properties at run-time to any object (those can be strings, numbers, etc), which can be used for custom scripting purposes.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Docs/articles/objects.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

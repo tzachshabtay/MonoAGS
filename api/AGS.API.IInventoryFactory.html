@@ -1,0 +1,517 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IInventoryFactory
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IInventoryFactory
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.17.0.572">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IInventoryFactory">
+  
+  
+  <h1 id="AGS_API_IInventoryFactory" data-uid="AGS.API.IInventoryFactory">Interface IInventoryFactory
+  </h1>
+  <div class="markdown level0 summary"><p>A factory for creating inventory items and inventory windows.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>:AGS.API</h6>
+  <h6><strong>Assembly</strong>:AGS.API.dll</h6>
+  <h5 id="AGS_API_IInventoryFactory_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IInventoryFactory</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IInventoryFactory_GetInventoryItem_AGS_API_IObject_AGS_API_IObject_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IInventoryFactory.GetInventoryItem(AGS.API.IObject%2CAGS.API.IObject%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IInventoryFactory.cs/#L44">View Source</a>
+  </span>
+  <a id="AGS_API_IInventoryFactory_GetInventoryItem_" data-uid="AGS.API.IInventoryFactory.GetInventoryItem*"></a>
+  <h4 id="AGS_API_IInventoryFactory_GetInventoryItem_AGS_API_IObject_AGS_API_IObject_System_Boolean_" data-uid="AGS.API.IInventoryFactory.GetInventoryItem(AGS.API.IObject,AGS.API.IObject,System.Boolean)">GetInventoryItem(IObject, IObject, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates a new inventory item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IInventoryItem GetInventoryItem(IObject graphics, IObject cursorGraphics, bool playerStartsWithItem = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
+        <td><span class="parametername">graphics</span></td>
+        <td><p>Graphics object for the item.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
+        <td><span class="parametername">cursorGraphics</span></td>
+        <td><p>When the item is selected for using on other objects, the cursor will be using this graphics .</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">playerStartsWithItem</span></td>
+        <td><p>If set to <code>true</code> player will have the item at the beginning of the game.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IInventoryItem.html">IInventoryItem</a></td>
+        <td><p>The inventory item.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IInventoryFactory_GetInventoryItem_System_String_System_String_System_String_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IInventoryFactory.GetInventoryItem(System.String%2CSystem.String%2CSystem.String%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IInventoryFactory.cs/#L55">View Source</a>
+  </span>
+  <a id="AGS_API_IInventoryFactory_GetInventoryItem_" data-uid="AGS.API.IInventoryFactory.GetInventoryItem*"></a>
+  <h4 id="AGS_API_IInventoryFactory_GetInventoryItem_System_String_System_String_System_String_AGS_API_ILoadImageConfig_System_Boolean_" data-uid="AGS.API.IInventoryFactory.GetInventoryItem(System.String,System.String,System.String,AGS.API.ILoadImageConfig,System.Boolean)">GetInventoryItem(String, String, String, ILoadImageConfig, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates a new inventory item</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IInventoryItem GetInventoryItem(string hotspot, string graphicsFile, string cursorFile = null, ILoadImageConfig loadConfig = null, bool playerStartsWithItem = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">hotspot</span></td>
+        <td><p>The hotspot text (which will be shown when hovering the item if a hotspot label is in the game).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">graphicsFile</span></td>
+        <td><p>Graphics file to load the item graphics file.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">cursorFile</span></td>
+        <td><p>Cursor file to load the graphics for the cursor when the item is selected.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>A load configuration for the images.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">playerStartsWithItem</span></td>
+        <td><p>If set to <code>true</code> player will have the item at the beginning of the game.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IInventoryItem.html">IInventoryItem</a></td>
+        <td><p>The inventory item.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IInventoryFactory_GetInventoryItemAsync_System_String_System_String_System_String_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IInventoryFactory.GetInventoryItemAsync(System.String%2CSystem.String%2CSystem.String%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IInventoryFactory.cs/#L67">View Source</a>
+  </span>
+  <a id="AGS_API_IInventoryFactory_GetInventoryItemAsync_" data-uid="AGS.API.IInventoryFactory.GetInventoryItemAsync*"></a>
+  <h4 id="AGS_API_IInventoryFactory_GetInventoryItemAsync_System_String_System_String_System_String_AGS_API_ILoadImageConfig_System_Boolean_" data-uid="AGS.API.IInventoryFactory.GetInventoryItemAsync(System.String,System.String,System.String,AGS.API.ILoadImageConfig,System.Boolean)">GetInventoryItemAsync(String, String, String, ILoadImageConfig, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates a new inventory item asynchronously</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;IInventoryItem&gt; GetInventoryItemAsync(string hotspot, string graphicsFile, string cursorFile = null, ILoadImageConfig loadConfig = null, bool playerStartsWithItem = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">hotspot</span></td>
+        <td><p>The hotspot text (which will be shown when hovering the item if a hotspot label is in the game).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">graphicsFile</span></td>
+        <td><p>Graphics file to load the item graphics file.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">cursorFile</span></td>
+        <td><p>Cursor file to load the graphics for the cursor when the item is selected.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILoadImageConfig.html">ILoadImageConfig</a></td>
+        <td><span class="parametername">loadConfig</span></td>
+        <td><p>A load configuration for the images.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">playerStartsWithItem</span></td>
+        <td><p>If set to <code>true</code> player will have the item at the beginning of the game.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.IInventoryItem.html">IInventoryItem</a>&gt;</td>
+        <td><p>The inventory item.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IInventoryFactory_GetInventoryWindow_System_String_AGS_API_IImage_System_Single_System_Single_AGS_API_IInventory_.md&amp;value=---%0Auid%3A%20AGS.API.IInventoryFactory.GetInventoryWindow(System.String%2CAGS.API.IImage%2CSystem.Single%2CSystem.Single%2CAGS.API.IInventory)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IInventoryFactory.cs/#L35">View Source</a>
+  </span>
+  <a id="AGS_API_IInventoryFactory_GetInventoryWindow_" data-uid="AGS.API.IInventoryFactory.GetInventoryWindow*"></a>
+  <h4 id="AGS_API_IInventoryFactory_GetInventoryWindow_System_String_AGS_API_IImage_System_Single_System_Single_AGS_API_IInventory_" data-uid="AGS.API.IInventoryFactory.GetInventoryWindow(System.String,AGS.API.IImage,System.Single,System.Single,AGS.API.IInventory)">GetInventoryWindow(String, IImage, Single, Single, IInventory)</h4>
+  <div class="markdown level1 summary"><p>Creates a new inventory window</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IInventoryWindow GetInventoryWindow(string id, IImage image, float itemWidth, float itemHeight, IInventory inventory)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifier for the window.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IImage.html">IImage</a></td>
+        <td><span class="parametername">image</span></td>
+        <td><p>A background image for the inventory window.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">itemWidth</span></td>
+        <td><p>The width which will be allocated for each inventory item.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">itemHeight</span></td>
+        <td><p>The height which will be allocated for each inventory item.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IInventory.html">IInventory</a></td>
+        <td><span class="parametername">inventory</span></td>
+        <td><p>The inventory that the window will show on screen (usually the player&#39;s inventory).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IInventoryWindow.html">IInventoryWindow</a></td>
+        <td><p>The inventory window.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IInventoryFactory_GetInventoryWindow_System_String_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_AGS_API_IInventory_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IInventoryFactory.GetInventoryWindow(System.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.IInventory%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IInventoryFactory.cs/#L23">View Source</a>
+  </span>
+  <a id="AGS_API_IInventoryFactory_GetInventoryWindow_" data-uid="AGS.API.IInventoryFactory.GetInventoryWindow*"></a>
+  <h4 id="AGS_API_IInventoryFactory_GetInventoryWindow_System_String_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_AGS_API_IInventory_System_Boolean_" data-uid="AGS.API.IInventoryFactory.GetInventoryWindow(System.String,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,AGS.API.IInventory,System.Boolean)">GetInventoryWindow(String, Single, Single, Single, Single, Single, Single, IInventory, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates a new inventory window</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IInventoryWindow GetInventoryWindow(string id, float width, float height, float itemWidth, float itemHeight, float x, float y, IInventory inventory = null, bool addToUi = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>A unique identifier for the window.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td><p>The width of the window.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td><p>The height of the window.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">itemWidth</span></td>
+        <td><p>The width which will be allocated for each inventory item.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">itemHeight</span></td>
+        <td><p>The height which will be allocated for each inventory item.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate for the inventory window.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate for the inventory window.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IInventory.html">IInventory</a></td>
+        <td><span class="parametername">inventory</span></td>
+        <td><p>The inventory that the window will show on screen (usually the player&#39;s inventory).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">addToUi</span></td>
+        <td><p>If set to <code>true</code> add to the window to the GUI list of the game.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IInventoryWindow.html">IInventoryWindow</a></td>
+        <td><p>The inventory window.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/docs/apiSpec/new?filename=AGS_API_IInventoryFactory.md&amp;value=---%0Auid%3A%20AGS.API.IInventoryFactory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/docs/Source/AGS.API/Game/Factories/IInventoryFactory.cs/#L8" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
