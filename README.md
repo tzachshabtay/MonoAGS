@@ -32,3 +32,7 @@ To run the unit tests, please install the NUnit 2 Test Adapter (available from V
 
 Install the latest edition of Xamarin Studio Community Edition.
 Right click the solution and build.
+
+### Documentation
+
+Documentation is available at: https://tzachshabtay.github.io/MonoAGS/
