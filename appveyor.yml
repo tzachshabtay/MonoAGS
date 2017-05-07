@@ -69,5 +69,5 @@ after_build:
             CD Docs/_site
             git add -A 2>&1
             git commit -m "CI Updates" -q
-            git push origin gh-pages -q
+            git push origin HEAD:gh-pages -q
         }
