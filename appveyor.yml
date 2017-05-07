@@ -28,6 +28,7 @@ install:
   - ps: (New-Object Net.WebClient).DownloadFile('https://components.xamarin.com/submit/xpkg', $zipPath)
   - ps: 7z x $zipPath | Out-Null
   - ps: Set-Content -path "$env:USERPROFILE\.xamarin-credentials" -value "xamarin.com,$env:XAMARIN_COOKIE"
+  - npm install gh-pages -g
 before_build:
   - ps: dotnet restore
   - nuget restore ".\MonoAGS.sln"
@@ -60,14 +61,10 @@ after_build:
         {
             docfx Docs/docfx.json
             if($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode )  }
+            git config --global core.autocrlf input
             git config --global credential.helper store
             Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:git_token):x-oauth-basic@github.com`n"
             git config --global user.email %github_email%
             git config --global user.name "tzachshabtay"
-            git clone https://github.com/tzachshabtay/MonoAGS.git -b gh-pages origin_site -q
-            Copy-Item origin_site/.git _site -recurse
-            CD Docs/_site
-            git add -A 2>&1
-            git commit -m "CI Updates" -q
-            git push origin HEAD:gh-pages -q
+            gh-pages -d Docs\_site -m "CI Docs Updates" -q
         }
