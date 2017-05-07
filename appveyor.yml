@@ -56,12 +56,12 @@ after_build:
   - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $env:CONFIGURATION -eq "DOCS")
         {
-            docfx Docs/docfx.json --debug
+            docfx Docs/docfx.json
             if($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode )  }
             git config --global credential.helper store
             Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:git_token):x-oauth-basic@github.com`n"
-            git config --global user.email "tzachshabtay@users.noreply.github.com"
-            git config --global user.name "Tzach Shabtay"
+            git config --global user.email "tzachshabtay@gmail.com"
+            git config --global user.name "tzachshabtay"
             git clone https://github.com/tzachshabtay/MonoAGS.git -b gh-pages origin_site -q
             Copy-Item origin_site/.git _site -recurse
             CD Docs/_site

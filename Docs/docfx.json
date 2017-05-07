@@ -65,9 +65,6 @@
       "_appTitle": "MonoAGS Documentation",
       "_enableSearch": true
     },
-    "template": [
-      "statictoc"
-    ],
     "noLangKeyword": false
   }
 }
