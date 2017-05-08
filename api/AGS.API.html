@@ -167,6 +167,9 @@ attribute with the animation component.</p>
       <h4><a class="xref" href="AGS.API.Rectangle.html">Rectangle</a></h4>
       <section><p>Represents a rectangle in 2D space.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.RectangleF.html">RectangleF</a></h4>
+      <section><p>Represents a rectangle in 2D space.</p>
+</section>
       <h4><a class="xref" href="AGS.API.Size.html">Size</a></h4>
       <section><p>Represents an integer size (width and height).</p>
 </section>
@@ -631,6 +634,12 @@ Note: this is different than &quot;Classic&quot; AGS in which the room is explic
 </section>
       <h4><a class="xref" href="AGS.API.IRoomFactory.html">IRoomFactory</a></h4>
       <section><p>Factory for creating rooms and room specifics.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IRoomLimitsProvider.html">IRoomLimitsProvider</a></h4>
+      <section><p>Allow providing custom room limits. 
+The room limits are used to limit the camera from moving too much to the left or to the right.
+By default the room limits are bound to the room background size and start from (0,0), however this
+can be changed by setting a custom room limits provider to a room.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IRoomTransition.html">IRoomTransition</a></h4>
       <section><p>This interface allows you to create custom room transitions, to build all kinds of special effects

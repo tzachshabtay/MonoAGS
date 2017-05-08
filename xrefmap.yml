@@ -3237,12 +3237,12 @@ references:
   commentId: Overload:AGS.API.ICamera.Target
   fullName: AGS.API.ICamera.Target
   nameWithType: ICamera.Target
-- uid: AGS.API.ICamera.Tick(AGS.API.IViewport,AGS.API.Size,AGS.API.Size,System.Boolean)
-  name: Tick(IViewport, Size, Size, Boolean)
-  href: api/AGS.API.ICamera.html#AGS_API_ICamera_Tick_AGS_API_IViewport_AGS_API_Size_AGS_API_Size_System_Boolean_
-  commentId: M:AGS.API.ICamera.Tick(AGS.API.IViewport,AGS.API.Size,AGS.API.Size,System.Boolean)
-  fullName: AGS.API.ICamera.Tick(AGS.API.IViewport, AGS.API.Size, AGS.API.Size, System.Boolean)
-  nameWithType: ICamera.Tick(IViewport, Size, Size, Boolean)
+- uid: AGS.API.ICamera.Tick(AGS.API.IViewport,AGS.API.RectangleF,AGS.API.Size,System.Boolean)
+  name: Tick(IViewport, RectangleF, Size, Boolean)
+  href: api/AGS.API.ICamera.html#AGS_API_ICamera_Tick_AGS_API_IViewport_AGS_API_RectangleF_AGS_API_Size_System_Boolean_
+  commentId: M:AGS.API.ICamera.Tick(AGS.API.IViewport,AGS.API.RectangleF,AGS.API.Size,System.Boolean)
+  fullName: AGS.API.ICamera.Tick(AGS.API.IViewport, AGS.API.RectangleF, AGS.API.Size, System.Boolean)
+  nameWithType: ICamera.Tick(IViewport, RectangleF, Size, Boolean)
 - uid: AGS.API.ICamera.Tick*
   name: Tick
   href: api/AGS.API.ICamera.html#AGS_API_ICamera_Tick_
@@ -8403,6 +8403,18 @@ references:
   commentId: Overload:AGS.API.IRoom.ID
   fullName: AGS.API.IRoom.ID
   nameWithType: IRoom.ID
+- uid: AGS.API.IRoom.Limits
+  name: Limits
+  href: api/AGS.API.IRoom.html#AGS_API_IRoom_Limits
+  commentId: P:AGS.API.IRoom.Limits
+  fullName: AGS.API.IRoom.Limits
+  nameWithType: IRoom.Limits
+- uid: AGS.API.IRoom.Limits*
+  name: Limits
+  href: api/AGS.API.IRoom.html#AGS_API_IRoom_Limits_
+  commentId: Overload:AGS.API.IRoom.Limits
+  fullName: AGS.API.IRoom.Limits
+  nameWithType: IRoom.Limits
 - uid: AGS.API.IRoom.MusicOnLoad
   name: MusicOnLoad
   href: api/AGS.API.IRoom.html#AGS_API_IRoom_MusicOnLoad
@@ -8439,6 +8451,18 @@ references:
   commentId: Overload:AGS.API.IRoom.Properties
   fullName: AGS.API.IRoom.Properties
   nameWithType: IRoom.Properties
+- uid: AGS.API.IRoom.RoomLimitsProvider
+  name: RoomLimitsProvider
+  href: api/AGS.API.IRoom.html#AGS_API_IRoom_RoomLimitsProvider
+  commentId: P:AGS.API.IRoom.RoomLimitsProvider
+  fullName: AGS.API.IRoom.RoomLimitsProvider
+  nameWithType: IRoom.RoomLimitsProvider
+- uid: AGS.API.IRoom.RoomLimitsProvider*
+  name: RoomLimitsProvider
+  href: api/AGS.API.IRoom.html#AGS_API_IRoom_RoomLimitsProvider_
+  commentId: Overload:AGS.API.IRoom.RoomLimitsProvider
+  fullName: AGS.API.IRoom.RoomLimitsProvider
+  nameWithType: IRoom.RoomLimitsProvider
 - uid: AGS.API.IRoom.ShowPlayer
   name: ShowPlayer
   href: api/AGS.API.IRoom.html#AGS_API_IRoom_ShowPlayer
@@ -8547,6 +8571,24 @@ references:
   commentId: Overload:AGS.API.IRoomFactory.GetRoom
   fullName: AGS.API.IRoomFactory.GetRoom
   nameWithType: IRoomFactory.GetRoom
+- uid: AGS.API.IRoomLimitsProvider
+  name: IRoomLimitsProvider
+  href: api/AGS.API.IRoomLimitsProvider.html
+  commentId: T:AGS.API.IRoomLimitsProvider
+  fullName: AGS.API.IRoomLimitsProvider
+  nameWithType: IRoomLimitsProvider
+- uid: AGS.API.IRoomLimitsProvider.ProvideRoomLimits(AGS.API.IRoom)
+  name: ProvideRoomLimits(IRoom)
+  href: api/AGS.API.IRoomLimitsProvider.html#AGS_API_IRoomLimitsProvider_ProvideRoomLimits_AGS_API_IRoom_
+  commentId: M:AGS.API.IRoomLimitsProvider.ProvideRoomLimits(AGS.API.IRoom)
+  fullName: AGS.API.IRoomLimitsProvider.ProvideRoomLimits(AGS.API.IRoom)
+  nameWithType: IRoomLimitsProvider.ProvideRoomLimits(IRoom)
+- uid: AGS.API.IRoomLimitsProvider.ProvideRoomLimits*
+  name: ProvideRoomLimits
+  href: api/AGS.API.IRoomLimitsProvider.html#AGS_API_IRoomLimitsProvider_ProvideRoomLimits_
+  commentId: Overload:AGS.API.IRoomLimitsProvider.ProvideRoomLimits
+  fullName: AGS.API.IRoomLimitsProvider.ProvideRoomLimits
+  nameWithType: IRoomLimitsProvider.ProvideRoomLimits
 - uid: AGS.API.IRoomTransition
   name: IRoomTransition
   href: api/AGS.API.IRoomTransition.html
@@ -15489,6 +15531,72 @@ references:
   commentId: Overload:AGS.API.Rectangle.Y
   fullName: AGS.API.Rectangle.Y
   nameWithType: Rectangle.Y
+- uid: AGS.API.RectangleF
+  name: RectangleF
+  href: api/AGS.API.RectangleF.html
+  commentId: T:AGS.API.RectangleF
+  fullName: AGS.API.RectangleF
+  nameWithType: RectangleF
+- uid: AGS.API.RectangleF.#ctor(System.Single,System.Single,System.Single,System.Single)
+  name: RectangleF(Single, Single, Single, Single)
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF__ctor_System_Single_System_Single_System_Single_System_Single_
+  commentId: M:AGS.API.RectangleF.#ctor(System.Single,System.Single,System.Single,System.Single)
+  fullName: AGS.API.RectangleF.RectangleF(System.Single, System.Single, System.Single, System.Single)
+  nameWithType: RectangleF.RectangleF(Single, Single, Single, Single)
+- uid: AGS.API.RectangleF.#ctor*
+  name: RectangleF
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF__ctor_
+  commentId: Overload:AGS.API.RectangleF.#ctor
+  fullName: AGS.API.RectangleF.RectangleF
+  nameWithType: RectangleF.RectangleF
+- uid: AGS.API.RectangleF.Height
+  name: Height
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Height
+  commentId: P:AGS.API.RectangleF.Height
+  fullName: AGS.API.RectangleF.Height
+  nameWithType: RectangleF.Height
+- uid: AGS.API.RectangleF.Height*
+  name: Height
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Height_
+  commentId: Overload:AGS.API.RectangleF.Height
+  fullName: AGS.API.RectangleF.Height
+  nameWithType: RectangleF.Height
+- uid: AGS.API.RectangleF.Width
+  name: Width
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Width
+  commentId: P:AGS.API.RectangleF.Width
+  fullName: AGS.API.RectangleF.Width
+  nameWithType: RectangleF.Width
+- uid: AGS.API.RectangleF.Width*
+  name: Width
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Width_
+  commentId: Overload:AGS.API.RectangleF.Width
+  fullName: AGS.API.RectangleF.Width
+  nameWithType: RectangleF.Width
+- uid: AGS.API.RectangleF.X
+  name: X
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_X
+  commentId: P:AGS.API.RectangleF.X
+  fullName: AGS.API.RectangleF.X
+  nameWithType: RectangleF.X
+- uid: AGS.API.RectangleF.X*
+  name: X
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_X_
+  commentId: Overload:AGS.API.RectangleF.X
+  fullName: AGS.API.RectangleF.X
+  nameWithType: RectangleF.X
+- uid: AGS.API.RectangleF.Y
+  name: Y
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Y
+  commentId: P:AGS.API.RectangleF.Y
+  fullName: AGS.API.RectangleF.Y
+  nameWithType: RectangleF.Y
+- uid: AGS.API.RectangleF.Y*
+  name: Y
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Y_
+  commentId: Overload:AGS.API.RectangleF.Y
+  fullName: AGS.API.RectangleF.Y
+  nameWithType: RectangleF.Y
 - uid: AGS.API.RequiredComponentAttribute
   name: RequiredComponentAttribute
   href: api/AGS.API.RequiredComponentAttribute.html
