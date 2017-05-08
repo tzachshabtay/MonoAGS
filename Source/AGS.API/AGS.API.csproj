@@ -220,6 +220,8 @@
     <Compile Include="Misc\Geometry\OpenTK\Vector4.cs" />
     <Compile Include="Misc\Collections\HashSet\IConcurrentHashSet.cs" />
     <Compile Include="Misc\Collections\HashSet\AGSHashSetChangedEventArgs.cs" />
+    <Compile Include="Rooms\IRoomLimitsProvider.cs" />
+    <Compile Include="Misc\Geometry\RectangleF.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

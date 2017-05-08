@@ -232,7 +232,7 @@ namespace Tests
 			Mock<ICamera> camera = new Mock<ICamera> ();
 			AGS.API.PointF sourcePoint = new AGS.API.PointF (15f, 25f);
 			AGS.API.PointF targetPoint = new AGS.API.PointF (55f, 65f);
-			camera.Setup(f => f.Tick(_mocks.Viewport().Object, It.IsAny<AGS.API.Size>(), It.IsAny<AGS.API.Size>(),
+            camera.Setup(f => f.Tick(_mocks.Viewport().Object, It.IsAny<AGS.API.RectangleF>(), It.IsAny<AGS.API.Size>(),
 				It.IsAny<bool>())).Callback(() => 
 				{_mocks.Viewport().Object.X = targetPoint.X; _mocks.Viewport().Object.Y = targetPoint.Y; });
 			_mocks.Viewport().Setup(v => v.X).Returns(sourcePoint.X);

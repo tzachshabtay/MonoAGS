@@ -384,6 +384,9 @@
     <Compile Include="UI\Focus\AGSModalWindowComponent.cs" />
     <Compile Include="Objects\AGSModelMatrixComponent.cs" />
     <Compile Include="Graphics\Logic\GLMatrices.cs" />
+    <Compile Include="Rooms\RoomSizeProviders\RoomLimitsFromBackground.cs" />
+    <Compile Include="Rooms\RoomSizeProviders\AGSRoomLimits.cs" />
+    <Compile Include="Rooms\RoomSizeProviders\RoomCustomLimits.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -465,4 +468,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Rooms\RoomSizeProviders\" />
+  </ItemGroup>
 </Project>

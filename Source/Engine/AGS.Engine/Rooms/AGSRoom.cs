@@ -16,10 +16,12 @@ namespace AGS.Engine
         private List<IObject> _visibleObjectsWithUi = new List<IObject>(), _visibleObjectsWithoutUi = new List<IObject>();
 
 		public AGSRoom (string id, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents,
-                        IRoomEvents roomEvents, IGameState state, ICustomProperties properties)
+                        IRoomEvents roomEvents, IGameState state, ICustomProperties properties,
+                        IRoomLimitsProvider roomLimitsProvider)
 		{
-			this._sorter = new RenderOrderSelector { Backwards = true };
-			this._state = state;
+			_sorter = new RenderOrderSelector { Backwards = true };
+			_state = state;
+            RoomLimitsProvider = roomLimitsProvider;
 			_gameEvents = gameEvents;
 			Viewport = viewport;
 			Events = roomEvents;
@@ -41,6 +43,18 @@ namespace AGS.Engine
 		public bool ShowPlayer { get; set; }
 
 		public IAudioClip MusicOnLoad { get; set; }
+
+        public IRoomLimitsProvider RoomLimitsProvider { get; set; }
+
+        public RectangleF Limits
+        {
+            get
+            {
+                var provider = RoomLimitsProvider;
+                if (provider == null) return RoomCustomLimits.MaxLimits;
+                return RoomLimitsProvider.ProvideRoomLimits(this);
+            }
+        }
 
 		public IObject Background 
 		{ 

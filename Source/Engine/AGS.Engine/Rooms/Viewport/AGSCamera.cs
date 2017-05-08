@@ -8,7 +8,7 @@ namespace AGS.Engine
 		private float _speedX, _speedY, _speedScaleX, _speedScaleY;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Engine.AGSViewportFollower"/> class.
+		/// Initializes a new instance of the <see cref="AGSCamera"/> class.
 		/// </summary>
 		/// <param name="startSpeedX">Start speed x (in percentage, i.e 30 is 30% percent movement toward the target).</param>
 		/// <param name="startSpeedY">Start speed y (in percentage, i.e 30 is 30% percent movement toward the target).</param>
@@ -38,7 +38,7 @@ namespace AGS.Engine
 
 		#region ICamera implementation
 
-		public void Tick (IViewport viewport, AGS.API.Size roomSize, AGS.API.Size virtualResoution, bool resetPosition)
+        public void Tick (IViewport viewport, RectangleF roomLimits, Size virtualResoution, bool resetPosition)
 		{
 			IObject target = Target == null ? null : Target();
 			if (!Enabled || target == null) return;
@@ -50,8 +50,8 @@ namespace AGS.Engine
 			float targetY = target.Y;//target.CenterPoint == null ? target.Y : target.CenterPoint.Y;
 			float maxResolutionX = virtualResoution.Width / viewport.ScaleX;
 			float maxResolutionY = virtualResoution.Height / viewport.ScaleY;
-			targetX = getTargetPos(targetX, roomSize.Width, maxResolutionX);
-			targetY = getTargetPos(targetY, roomSize.Height, maxResolutionY);
+            targetX = getTargetPos(targetX, roomLimits.X, roomLimits.Width, maxResolutionX);
+            targetY = getTargetPos(targetY, roomLimits.Y, roomLimits.Height, maxResolutionY);
 			if (resetPosition)
 			{
 				viewport.X = targetX;
@@ -60,8 +60,8 @@ namespace AGS.Engine
 			}
 			float newX = getPos (viewport.X, targetX, StartSpeedX, 0.1f, ref _speedX);
 			float newY = getPos (viewport.Y, targetY, StartSpeedY, 0.1f, ref _speedY);
-			viewport.X = clamp(newX, roomSize.Width, maxResolutionX);
-			viewport.Y = clamp(newY, roomSize.Height, maxResolutionY);
+            viewport.X = clamp(newX, roomLimits.X, roomLimits.Width, maxResolutionX);
+            viewport.Y = clamp(newY, roomLimits.Y, roomLimits.Height, maxResolutionY);
 		}
 
 		public Func<IObject> Target { get; set; }
@@ -96,16 +96,16 @@ namespace AGS.Engine
 			return 1;
 		}
 
-		private float getTargetPos(float target, float maxRoom, float maxResolution)
+		private float getTargetPos(float target, float minRoom, float maxRoom, float maxResolution)
 		{
 			float value = target - maxResolution / 2;
-			return clamp(value, maxRoom, maxResolution);
+			return clamp(value, minRoom, maxRoom, maxResolution);
 		}
 
-		private float clamp(float target, float maxRoom, float maxResolution)
+		private float clamp(float target, float minRoom, float maxRoom, float maxResolution)
 		{
-			float max = Math.Max(0, maxRoom - maxResolution);
-			return MathUtils.Clamp(target, 0, max);
+			float max = Math.Max(minRoom, maxRoom - maxResolution);
+			return MathUtils.Clamp(target, minRoom, max);
 		}
 
 		private float getPos(float source, float target, float defaultSpeed, float minDistance, ref float speed)

@@ -60,12 +60,9 @@ namespace AGS.Engine
 		private void updateViewport (IRoom room, bool playerChangedRoom)
 		{
 			ICamera camera = room.Viewport.Camera;
-			if (camera != null && room.Background != null) 
+			if (camera != null) 
 			{
-				ISprite sprite = room.Background.Animation.Sprite;
-				camera.Tick (room.Viewport,
-					new AGS.API.Size((int)sprite.Width, (int)sprite.Height), _virtualResolution, 
-					playerChangedRoom);
+                camera.Tick(room.Viewport, room.Limits, _virtualResolution, playerChangedRoom);
 			}
 		}
 

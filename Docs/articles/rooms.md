@@ -14,6 +14,10 @@ Each rooms should have a unique id (string) which identifies it to the engine.
 
 A background graphic for the room. The background is actually just a regular object so it can be animated or use any of the properties available on regular objects (refer to the [Objects](objects.md) section for more information).
 
+### Limits
+
+The room limits specify the boundaries for the [camera](#Camera). By default the room starts from (0,0) and ends with the background image size, but this can changed if needed (for example, if you want to have a "never-ending" room).
+
 ### Show Player? 
 
 A flag indicating whether the player is to be shown in the room, for hiding the player from a map, for example. This is a convenience flag as this can be achieved by simply switching the room without moving the player to another room.

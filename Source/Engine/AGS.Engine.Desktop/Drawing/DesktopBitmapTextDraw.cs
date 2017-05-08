@@ -26,7 +26,7 @@ namespace AGS.Engine.Desktop
             return _gfx;
         }
 
-		public void DrawText(string text, ITextConfig config, AGS.API.SizeF textSize, AGS.API.SizeF baseSize, 
+		public void DrawText(string text, ITextConfig config, API.SizeF textSize, API.SizeF baseSize, 
 			int maxWidth, int height, float xOffset)
 		{
             _height = height;
@@ -92,7 +92,7 @@ namespace AGS.Engine.Desktop
 			else
 			{
 				alignWrap();
-				gfx.DrawString(_text, font, brush, new RectangleF(x, y, _maxWidth, _height),
+				gfx.DrawString(_text, font, brush, new System.Drawing.RectangleF(x, y, _maxWidth, _height),
 					_wrapFormat);
 			}
 		}

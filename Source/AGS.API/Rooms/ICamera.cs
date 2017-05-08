@@ -32,11 +32,11 @@ namespace AGS.API
         /// Executes the next tick. This is called on each tick by the engine, you don't need to call it yourself. 
         /// </summary>
         /// <param name="viewport">The viewport to manipulate.</param>
-        /// <param name="roomSize">Room size.</param>
+        /// <param name="roomLimits">Room limits, as provided by <see cref="IRoomLimitsProvider"/>.</param>
         /// <param name="virtualResolution">The game's virtual resolution.</param>
         /// <param name="resetPosition">If set to <c>true</c> reset position, i.e the camera will not do a smooth transition,
         /// but go straight to the target destination.</param>
-		void Tick(IViewport viewport, Size roomSize, Size virtualResolution, bool resetPosition);
+        void Tick(IViewport viewport, RectangleF roomLimits, Size virtualResolution, bool resetPosition);
 	}
 }
 

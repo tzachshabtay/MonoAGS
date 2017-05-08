@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using AGS.Engine;
 using AGS.API;
-using System.Drawing;
 
 namespace Tests
 {
@@ -53,8 +52,7 @@ namespace Tests
 			AGSViewport viewport = new AGSViewport ();
 			viewport.X = currentViewX;
 			viewport.Y = 0f;
-			camera.Tick(viewport, new AGS.API.Size (roomWidth, 200), 
-				new AGS.API.Size (screenWidth, 200), false);
+            camera.Tick(viewport, new RectangleF (0f, 0f, roomWidth, 200), new Size (screenWidth, 200), false);
 			return (int)viewport.X;
 		}
 	}

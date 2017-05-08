@@ -52,6 +52,34 @@ namespace AGS.API
 		IObject Background  { get; set; }
 
         /// <summary>
+        /// Gets the room limits (a rectangle defining the room area)
+        /// The room limits are used to limit the camera from moving too much to the left or to the right.
+        /// By default the room limits are bound to the room background size and start from (0,0).
+        /// This can be changed, however, by setting a custom <see cref="RoomLimitsProvider"/>. 
+        /// </summary>
+        /// <value>The limits.</value>
+        RectangleF Limits { get; }
+
+        /// <summary>
+        /// Allows changing the default behavior which defines how the room limits are provided.
+        /// The room <see cref="Limits"/>  are used to limit the camera from moving too much to the left or to the right.
+        /// By default the room limits are bound to the room background size and start from (0,0).
+        /// This can be changed, however, by setting this property to a different room limits provider.
+        /// </summary>
+        /// <example>
+        /// You can use the AGSRoomLimits class, which provides some built in options for room limits:
+        /// <code>
+        /// room.RoomLimitsProvider = AGSRoomLimits.FromBackground; //This is the default option
+        /// 
+        /// room.RoomLimitsProvider = AGSRoomLimits.Infinite; //A room "without" limits. The only limits enforced are due to the coordinates supplied in floating points, so the actual limits for the room will be -3.402823e38 - 3.402823e38 (i.e 3402823 + 38 zeroes).
+        /// 
+        /// room.RoomLimitsProvider = AGSRoomLimits.Custom(new RectangleF(-50f, 0f, 100f, 200f)); //The room starts at (-50,0) and has a size of (100,200).
+        /// </code>
+        /// </example>
+        /// <value>The room limits provider.</value>
+        IRoomLimitsProvider RoomLimitsProvider { get; set; }
+
+        /// <summary>
         /// A list of objects that are placed in the room (note that unlike "Classic" AGS, objects can be moved between rooms).
         /// </summary>
         /// <value>The objects.</value>
