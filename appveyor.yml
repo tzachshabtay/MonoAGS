@@ -36,8 +36,6 @@ before_build:
   - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $env:CONFIGURATION -eq "DOCS")
         {
-            #git checkout $env:APPVEYOR_REPO_BRANCH -q
-            git checkout docs -q
             cinst docfx -y
         }
 build:
