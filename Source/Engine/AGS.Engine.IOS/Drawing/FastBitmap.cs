@@ -49,6 +49,13 @@ namespace AGS.Engine.IOS
             return Color.FromRgba(red, green, blue, alpha);
         }
 
+        public bool IsOpaque(int x, int y)
+        {
+	        int offset = getOffset(x, y);
+	        byte alpha = _bitmapData[offset + 3];
+	        return alpha == 255;
+        }
+
         public void SetPixel(int x, int y, Color color)
         {
             int offset = getOffset(x, y);

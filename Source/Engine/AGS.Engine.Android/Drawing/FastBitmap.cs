@@ -10,11 +10,13 @@ namespace AGS.Engine.Android
 		private Bitmap _bitmap;
 		private bool _isDirty;
 		private IntPtr _scan0;
+        private int _bitmapWidth;
         const int BPP = 4;
 
 		public FastBitmap(Bitmap bitmap, bool cleanSlate = false)
 		{
-			int byteCount = bitmap.Width * bitmap.Height * BPP;
+            _bitmapWidth = bitmap.Width;
+			int byteCount = _bitmapWidth * bitmap.Height * BPP;
 
 			_bytes  = new byte[byteCount];
 			_bitmap = bitmap;
@@ -34,6 +36,13 @@ namespace AGS.Engine.Android
 			byte alpha = _bytes[offset + 3];
 			return new Color (red, green, blue, alpha);
 		}
+
+        public bool IsOpaque(int x, int y)
+        {
+            int offset = getOffset(x, y);
+            byte alpha = _bytes[offset + 3];
+            return alpha == 255;
+        }
 
 		public void SetPixel(int x, int y, Color color)
 		{
@@ -60,7 +69,7 @@ namespace AGS.Engine.Android
 
 		private int getOffset(int x, int y)
 		{
-			return (_bitmap.Width * y + x) * BPP;
+			return (_bitmapWidth * y + x) * BPP;
 		}
 	}
 }

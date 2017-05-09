@@ -12,6 +12,8 @@ namespace AGS.Engine.Android
         public AndroidBitmap(Bitmap bitmap, IGraphicsBackend graphics)
 		{
 			_bitmap = bitmap;
+            Width = _bitmap.Width;
+            Height = _bitmap.Height;
             _graphics = graphics;
 		}
 
@@ -38,9 +40,9 @@ namespace AGS.Engine.Android
 			global::Android.Graphics.Color transparent = global::Android.Graphics.Color.Transparent;
 			using (FastBitmap fastBitmap = new FastBitmap (_bitmap))
 			{
-				for (int x = 0; x < _bitmap.Width; x++)
+                for (int x = 0; x < Width; x++)
 				{
-					for (int y = 0; y < _bitmap.Height; y++)
+                    for (int y = 0; y < Height; y++)
 					{
 						if (fastBitmap.GetPixel(x, y) == c)
                             fastBitmap.SetPixel(x, y, transparent);
@@ -65,7 +67,7 @@ namespace AGS.Engine.Android
 			//todo: performance can be improved by only creating a bitmap the size of the area, and not the entire background.
 			//This will require to change the rendering as well to offset the location
 			byte zero = (byte)0;
-			Bitmap output = Bitmap.CreateBitmap(Width, Height, Bitmap.Config.Argb8888);
+            Bitmap output = Bitmap.CreateBitmap(Width, Height, Bitmap.Config.Argb8888);
 			using (FastBitmap inBmp = new FastBitmap (_bitmap))
 			{
 				using (FastBitmap outBmp = new FastBitmap (output, true))
@@ -96,30 +98,31 @@ namespace AGS.Engine.Android
 		{
 			Bitmap debugMask = null;
 			FastBitmap debugMaskFast = null;
+            int bitmapWidth = Width;
+            int bitmapHeight = Height;
 			if (saveMaskToFile != null || debugDrawColor != null)
 			{
-				debugMask = Bitmap.CreateBitmap (Width, Height, Bitmap.Config.Argb8888);
+                debugMask = Bitmap.CreateBitmap (bitmapWidth, bitmapHeight, Bitmap.Config.Argb8888);
 				debugMaskFast = new FastBitmap (debugMask, true);
 			}
 
-			bool[][] mask = new bool[Width][];
+			bool[][] mask = new bool[bitmapWidth][];
 			global::Android.Graphics.Color drawColor = debugDrawColor != null ? debugDrawColor.Value.Convert() : global::Android.Graphics.Color.Black;
 
 			using (FastBitmap bitmapData = new FastBitmap (_bitmap))
 			{
-				for (int x = 0; x < Width; x++)
+				for (int x = 0; x < bitmapWidth; x++)
 				{
-					for (int y = 0; y < Height; y++)
+					for (int y = 0; y < bitmapHeight; y++)
 					{
-						var pixelColor = bitmapData.GetPixel(x, y);
+                        bool masked = bitmapData.IsOpaque(x, y);
 
-						bool masked = pixelColor.A == 255;
 						if (transparentMeansMasked)
 							masked = !masked;
 
 						if (mask[x] == null)
-							mask[x] = new bool[Height];
-						mask[x][Height - y - 1] = masked;
+							mask[x] = new bool[bitmapHeight];
+						mask[x][bitmapHeight - y - 1] = masked;
 
 						if (debugMask != null)
 						{
@@ -163,9 +166,9 @@ namespace AGS.Engine.Android
                 _bitmap.Compress(Bitmap.CompressFormat.Png, 85, stream);
         }
 
-		public int Width { get { return _bitmap.Width; } }
+        public int Width { get; private set; }
 
-		public int Height { get { return _bitmap.Height; } }
+        public int Height { get; private set; }
 
 		#endregion
 	}

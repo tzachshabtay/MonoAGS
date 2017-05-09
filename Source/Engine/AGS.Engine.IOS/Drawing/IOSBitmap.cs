@@ -95,9 +95,7 @@ namespace AGS.Engine.IOS
                 {
                     for (int y = 0; y < Height; y++)
                     {
-                        var pixelColor = bitmapData.GetPixel(x, y);
-
-                        bool masked = pixelColor.A == 255;
+                        bool masked = bitmapData.IsOpaque(x, y);
                         if (transparentMeansMasked)
                             masked = !masked;
 

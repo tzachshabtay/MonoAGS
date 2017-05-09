@@ -12,6 +12,8 @@ namespace AGS.Engine.Desktop
         public DesktopBitmap(Bitmap bitmap, IGraphicsBackend graphics)
 		{
 			_bitmap = bitmap;
+            Width = bitmap.Width;
+            Height = bitmap.Height;
             _graphics = graphics;
 		}
 
@@ -147,9 +149,9 @@ namespace AGS.Engine.Desktop
             _bitmap.Save(path, ImageFormat.Png);
         }
 
-		public int Width { get { return _bitmap.Width; } }
+        public int Width { get; private set; }
 
-		public int Height { get { return _bitmap.Height; } }
+        public int Height { get; private set; }
 
 		#endregion
 	}
