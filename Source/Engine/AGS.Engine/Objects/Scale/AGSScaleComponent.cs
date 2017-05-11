@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using Autofac;
 
 namespace AGS.Engine
@@ -7,9 +6,9 @@ namespace AGS.Engine
     public class AGSScaleComponent : AGSComponent, IScaleComponent
     {
         private IScale _scale;
-        private readonly IContainer _resolver;
+        private readonly Resolver _resolver;
 
-        public AGSScaleComponent(IContainer resolver)
+        public AGSScaleComponent(Resolver resolver)
         {
             _resolver = resolver;
         }
@@ -19,7 +18,7 @@ namespace AGS.Engine
             base.Init(entity);
             IImageComponent image = entity.GetComponent<IImageComponent>();
             TypedParameter imageParam = new TypedParameter(typeof(IHasImage), image);
-            _scale = _resolver.Resolve<IScale>(imageParam);
+            _scale = _resolver.Container.Resolve<IScale>(imageParam);
         }
 
         public float Height { get { return _scale.Height; } }

@@ -10,28 +10,29 @@ namespace AGS.Engine
 	public class GLGraphicsFactory : IGraphicsFactory
 	{
         private readonly Dictionary<string, ITexture> _textures;
-		private readonly IContainer _resolver;
+        private readonly Resolver _resolver;
 		private readonly IResourceLoader _resources;
 		private readonly IBitmapLoader _bitmapLoader;
 		private readonly SpriteSheetLoader _spriteSheetLoader;
         private readonly IUIThread _uiThread;
 
-        public GLGraphicsFactory (Dictionary<string, ITexture> textures, IContainer resolver, IGLUtils glUtils, 
-                                  IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IUIThread uiThread)
+        public GLGraphicsFactory (Dictionary<string, ITexture> textures, Resolver resolver, IGLUtils glUtils, 
+                                  IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IUIThread uiThread,
+                                  IResourceLoader resources)
 		{
-            this._uiThread = uiThread;
-			this._textures = textures;
-			this._resolver = resolver;
-			this._resources = resolver.Resolve<IResourceLoader>();
-			this._bitmapLoader = bitmapLoader;
-            this._spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage, graphics);
+            _uiThread = uiThread;
+			_textures = textures;
+			_resolver = resolver;
+			_resources = resources;
+			_bitmapLoader = bitmapLoader;
+            _spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage, graphics);
             
             AGSGameSettings.CurrentSkin = new AGSBlueSkin(this, glUtils).CreateSkin();
 		}
 
 		public ISprite GetSprite()
 		{
-			ISprite sprite = _resolver.Resolve<ISprite>();
+			ISprite sprite = _resolver.Container.Resolve<ISprite>();
 			return sprite;
 		}
 
@@ -266,8 +267,8 @@ namespace AGS.Engine
 			if (config == null) return;
 			if (config.TransparentColorSamplePoint != null)
 			{
-				Color transparentColor = bitmap.GetPixel((int)config.TransparentColorSamplePoint.Value.X,
-					(int)config.TransparentColorSamplePoint.Value.Y);
+				Color transparentColor = bitmap.GetPixel(config.TransparentColorSamplePoint.Value.X,
+					config.TransparentColorSamplePoint.Value.Y);
 				bitmap.MakeTransparent(transparentColor);
 			}
 		}
@@ -276,7 +277,7 @@ namespace AGS.Engine
         {
             ITextureConfig textureConfig = config == null ? null : config.TextureConfig;
             TypedParameter textureConfigParam = new TypedParameter(typeof(ITextureConfig), textureConfig);
-            return _resolver.Resolve<ITexture>(textureConfigParam);
+            return _resolver.Container.Resolve<ITexture>(textureConfigParam);
         }
 	}
 }

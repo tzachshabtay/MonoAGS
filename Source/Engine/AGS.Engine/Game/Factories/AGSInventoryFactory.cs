@@ -1,20 +1,17 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using Autofac;
-
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
 	public class AGSInventoryFactory : IInventoryFactory
 	{
-		private IContainer _resolver;
-		private IGameState _gameState;
-		private IGraphicsFactory _graphics;
-		private IObjectFactory _object;
+        private readonly Resolver _resolver;
+		private readonly IGameState _gameState;
+		private readonly IGraphicsFactory _graphics;
+		private readonly IObjectFactory _object;
 
-		public AGSInventoryFactory(IContainer resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj)
+		public AGSInventoryFactory(Resolver resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj)
 		{
 			_resolver = resolver;
 			_gameState = gameState;
@@ -39,16 +36,16 @@ namespace AGS.Engine
 		{
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
 			TypedParameter imageParam = new TypedParameter (typeof(IImage), image);
-			IInventoryWindow inventoryWindow = _resolver.Resolve<IInventoryWindow>(idParam, imageParam);
+			IInventoryWindow inventoryWindow = _resolver.Container.Resolve<IInventoryWindow>(idParam, imageParam);
 			inventoryWindow.Tint =  Colors.Transparent;
-			inventoryWindow.ItemSize = new AGS.API.SizeF (itemWidth, itemHeight);
+			inventoryWindow.ItemSize = new SizeF (itemWidth, itemHeight);
             inventoryWindow.Inventory = inventory ?? _gameState.Player.Inventory;
 			return inventoryWindow;
 		}
 
 		public IInventoryItem GetInventoryItem(IObject graphics, IObject cursorGraphics, bool playerStartsWithItem = false)
 		{
-			IInventoryItem item = _resolver.Resolve<IInventoryItem>();
+			IInventoryItem item = _resolver.Container.Resolve<IInventoryItem>();
 			item.Graphics = graphics;
 			item.CursorGraphics = cursorGraphics;
 

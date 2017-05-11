@@ -8,12 +8,12 @@ namespace AGS.Engine
 {
 	public class AGSUIFactory : IUIFactory
 	{
-		private IContainer _resolver;
+        private Resolver _resolver;
 		private IGameState _gameState;
 		private IGraphicsFactory _graphics;
 		private IObjectFactory _object;
 
-		public AGSUIFactory(IContainer resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj)
+		public AGSUIFactory(Resolver resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj)
 		{
 			_resolver = resolver;
 			_gameState = gameState;
@@ -25,7 +25,7 @@ namespace AGS.Engine
 		{
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
 			TypedParameter imageParameter = new TypedParameter (typeof(IImage), image);
-			IPanel panel = _resolver.Resolve<IPanel>(idParam, imageParameter);
+			IPanel panel = _resolver.Container.Resolve<IPanel>(idParam, imageParameter);
 			panel.X = x;
 			panel.Y = y;
 			if (addToUi)
@@ -53,9 +53,9 @@ namespace AGS.Engine
 
 		public ILabel GetLabel(string id, string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
 		{
-			AGS.API.SizeF baseSize = new AGS.API.SizeF(width, height);			
+			SizeF baseSize = new SizeF(width, height);			
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			ILabel label = _resolver.Resolve<ILabel>(idParam);
+			ILabel label = _resolver.Container.Resolve<ILabel>(idParam);
             label.LabelRenderSize = baseSize;
 			label.Text = text;
 			label.X = x;
@@ -80,8 +80,8 @@ namespace AGS.Engine
 				height = idle.Frames[0].Sprite.Height;
 			}
 			TypedParameter idParam = new TypedParameter (typeof(string), id);			
-			IButton button = _resolver.Resolve <IButton>(idParam);
-            button.LabelRenderSize = new AGS.API.SizeF(width, height);
+			IButton button = _resolver.Container.Resolve <IButton>(idParam);
+            button.LabelRenderSize = new SizeF(width, height);
             if (idle != null && idle.Frames.Count > 0) button.IdleAnimation = idle;
             if (hovered != null && hovered.Frames.Count > 0) button.HoverAnimation = hovered;
             if (pushed != null && pushed.Frames.Count > 0) button.PushedAnimation = pushed;
@@ -125,7 +125,7 @@ namespace AGS.Engine
             float width = -1F, float height = -1F)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);            
-            ITextBox textbox = _resolver.Resolve<ITextBox>(idParam);
+            ITextBox textbox = _resolver.Container.Resolve<ITextBox>(idParam);
             textbox.LabelRenderSize = new SizeF(width, height);
             textbox.X = x;
             textbox.Y = y;
@@ -154,7 +154,7 @@ namespace AGS.Engine
                 height = notChecked.Frames[0].Sprite.Height;
             }
             TypedParameter idParam = new TypedParameter(typeof(string), id);            
-            ICheckBox checkbox = _resolver.Resolve<ICheckBox>(idParam);
+            ICheckBox checkbox = _resolver.Container.Resolve<ICheckBox>(idParam);
             checkbox.TextConfig = config;
             checkbox.Text = text;
             if (!isCheckButton)
@@ -205,7 +205,7 @@ namespace AGS.Engine
             Func<IButton> itemButtonFactory, bool addToUi = true)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
-            IComboBox comboBox = _resolver.Resolve<IComboBox>(idParam);
+            IComboBox comboBox = _resolver.Container.Resolve<IComboBox>(idParam);
             float defaultHeight = dropDownButton != null ? dropDownButton.Height : textBox != null ? textBox.Height : 20f;
             float itemWidth = textBox != null ? textBox.Width : 100f;
             dropDownButton = dropDownButton ?? GetButton(id + "_DropDownButton", (string)null, null, null, 0f, 0f, width: 20f, height: defaultHeight);
@@ -263,7 +263,7 @@ namespace AGS.Engine
 			handle.IgnoreViewport = true;
 
 			TypedParameter idParam = new TypedParameter (typeof (string), id);
-			ISlider slider = _resolver.Resolve<ISlider> (idParam, idParam);
+			ISlider slider = _resolver.Container.Resolve<ISlider> (idParam, idParam);
 			slider.Label = label;
 			slider.MinValue = min;
 			slider.MaxValue = max;

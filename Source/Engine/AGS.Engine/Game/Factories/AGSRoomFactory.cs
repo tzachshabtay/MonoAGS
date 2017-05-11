@@ -6,16 +6,16 @@ namespace AGS.Engine
 {
 	public class AGSRoomFactory : IRoomFactory
 	{
-		private IContainer _resolver;
+        private readonly Resolver _resolver;
 
-		public AGSRoomFactory(IContainer resolver)
+		public AGSRoomFactory(Resolver resolver)
 		{
 			_resolver = resolver;
 		}
 
 		public IEdge GetEdge(float value = 0f)
 		{
-			IEdge edge = _resolver.Resolve<IEdge>();
+			IEdge edge = _resolver.Container.Resolve<IEdge>();
 			edge.Value = value;
 			return edge;
 		}
@@ -25,9 +25,9 @@ namespace AGS.Engine
 			AGSEdges edges = new AGSEdges (GetEdge(leftEdge), GetEdge(rightEdge), GetEdge(topEdge), GetEdge(bottomEdge));
 			TypedParameter edgeParam = new TypedParameter (typeof(IAGSEdges), edges);
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			IRoom room = _resolver.Resolve<IRoom>(idParam, edgeParam);
-			room.Viewport.Camera = _resolver.Resolve<ICamera>();
-            IGameState state = _resolver.Resolve<IGameState>();
+			IRoom room = _resolver.Container.Resolve<IRoom>(idParam, edgeParam);
+			room.Viewport.Camera = _resolver.Container.Resolve<ICamera>();
+            IGameState state = _resolver.Container.Resolve<IGameState>();
             room.Viewport.Camera.Target = () => state.Player;
 			return room;
 		}

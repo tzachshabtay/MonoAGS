@@ -6,10 +6,10 @@ namespace AGS.Engine
 {
 	public class AGSOutfitFactory : IOutfitFactory
 	{
-		private IContainer _resolver;
-		private IGraphicsFactory _graphics;
+        private readonly Resolver _resolver;
+		private readonly IGraphicsFactory _graphics;
 
-		public AGSOutfitFactory(IContainer resolver, IGraphicsFactory graphics)
+		public AGSOutfitFactory(Resolver resolver, IGraphicsFactory graphics)
 		{
 			_resolver = resolver;
 			_graphics = graphics;
@@ -21,7 +21,7 @@ namespace AGS.Engine
 			string speakDownFolder = null, string speakUpFolder = null,
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			IOutfit outfit = _resolver.Resolve<IOutfit>();
+			IOutfit outfit = _resolver.Container.Resolve<IOutfit>();
 
             outfit[AGSOutfit.Idle] = _graphics.LoadDirectionalAnimationFromFolders(baseFolder, idleLeftFolder, idleRightFolder, 
 				idleDownFolder, idleUpFolder, animationConfig, loadConfig);
@@ -41,7 +41,7 @@ namespace AGS.Engine
 			string speakDownFolder = null, string speakUpFolder = null,
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
 		{
-			IOutfit outfit = _resolver.Resolve<IOutfit> ();
+			IOutfit outfit = _resolver.Container.Resolve<IOutfit> ();
 
             outfit[AGSOutfit.Idle] = await _graphics.LoadDirectionalAnimationFromFoldersAsync(baseFolder, idleLeftFolder, idleRightFolder,
 				idleDownFolder, idleUpFolder, animationConfig, loadConfig);

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using AGS.API;
 
 namespace AGS.Engine
@@ -8,11 +7,9 @@ namespace AGS.Engine
 	{
 		private readonly Predicate<IObject> _getProperty;
 		private IInObjectTree _tree;
-        private readonly IGameState _state;
 
-        public AGSObjectBoolParentProperty(Predicate<IObject> getProperty, IGameState state)
+        public AGSObjectBoolParentProperty(Predicate<IObject> getProperty)
 		{
-            _state = state;
 			_getProperty = getProperty;
             UnderlyingValue = true;
 		}
@@ -46,16 +43,14 @@ namespace AGS.Engine
 
 	public class VisibleProperty : AGSObjectBoolParentProperty, IVisibleComponent
 	{
-        public VisibleProperty(IGameState state) : 
-            base(o => o.Visible, state){}
+        public VisibleProperty() : base(o => o.Visible){}
 		public bool Visible { get { return Value; } set { Value = value; } }
 		public bool UnderlyingVisible { get { return UnderlyingValue; } }
 	}
 
 	public class EnabledProperty : AGSObjectBoolParentProperty, IEnabledComponent
 	{
-		public EnabledProperty(IGameState state) : 
-            base(o => o.Enabled, state){}
+		public EnabledProperty() : base(o => o.Enabled){}
 		public bool Enabled { get { return Value; } set { Value = value; } }
 		public bool UnderlyingEnabled { get { return UnderlyingValue; } }
 	}

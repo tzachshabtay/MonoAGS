@@ -6,9 +6,9 @@ namespace AGS.Engine
     public class AGSPixelPerfectComponent : AGSComponent, IPixelPerfectComponent
     {
         private IPixelPerfectCollidable _pixelPerfect;
-        private readonly IContainer _resolver;
+        private readonly Resolver _resolver;
 
-        public AGSPixelPerfectComponent(IContainer resolver)
+        public AGSPixelPerfectComponent(Resolver resolver)
         {
             _resolver = resolver;            
         }
@@ -19,7 +19,7 @@ namespace AGS.Engine
             IAnimationContainer animation = entity.GetComponent<IAnimationContainer>();
             TypedParameter animationParam = new TypedParameter(typeof(IAnimationContainer), animation);            
 
-            _pixelPerfect = _resolver.Resolve<IPixelPerfectCollidable>(animationParam);
+            _pixelPerfect = _resolver.Container.Resolve<IPixelPerfectCollidable>(animationParam);
         }
 
         public IArea PixelPerfectHitTestArea { get { return _pixelPerfect.PixelPerfectHitTestArea; } }

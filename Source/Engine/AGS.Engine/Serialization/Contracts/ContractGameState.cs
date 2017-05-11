@@ -62,8 +62,6 @@ namespace AGS.Engine
 			state.Cutscene.CopyFrom(Cutscene.ToItem(context));
 
             ICharacter player = Player.ToItem(context);
-			var updater = new ContainerBuilder ();
-			updater.Update(context.Resolver.Container);
 			state.Player = player;
 			state.Speed = GameSpeed;
             

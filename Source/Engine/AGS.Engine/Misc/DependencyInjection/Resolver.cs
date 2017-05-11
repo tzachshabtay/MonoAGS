@@ -86,12 +86,8 @@ namespace AGS.Engine
 
 		public void Build()
 		{
-			Container = Builder.Build();
-
-			var updater = new ContainerBuilder ();
-			updater.RegisterInstance(Container);
-			updater.RegisterInstance(this);
-			updater.Update(Container);
+			Builder.RegisterInstance(this);
+            Container = Builder.Build();
 		}
 
         private void registerDevice(IDevice device)
