@@ -6,7 +6,7 @@ namespace AGS.Engine
 	{
 		public AGSGameFactory(IGraphicsFactory graphics, IInventoryFactory inventory, IUIFactory ui,
 			IRoomFactory room, IOutfitFactory outfit, IObjectFactory obj, IDialogFactory dialog, 
-                              IAudioFactory sound, IFontLoader fontFactory)
+                              IAudioFactory sound, IFontLoader fontFactory, IResourceLoader resources)
 		{
 			Graphics = graphics;
 			Inventory = inventory;
@@ -17,9 +17,12 @@ namespace AGS.Engine
 			Dialog = dialog;
 			Sound = sound;
             Fonts = fontFactory;
+            Resources = resources;
 		}
 
 		#region IGameFactory implementation
+
+        public IResourceLoader Resources { get; private set; }
 
 		public IInventoryFactory Inventory { get; private set; }
 

@@ -36,7 +36,7 @@ namespace AGS.Engine
         public static async Task<GLShader> FromResource(string vertexResource, string fragmentResource, IGraphicsBackend graphics = null)
 		{
             graphics = graphics ?? AGSGame.Device.GraphicsBackend;
-            ResourceLoader loader = new ResourceLoader (AGSGame.Device.FileSystem, AGSGame.Device.Assemblies);
+            IResourceLoader loader = AGSGame.Game.Factory.Resources;
 			string vertexSource = await getSource(vertexResource, loader);
 			string fragmentSource = await getSource(fragmentResource, loader);
             return FromText(vertexSource, fragmentSource, graphics);
@@ -183,7 +183,7 @@ namespace AGS.Engine
 			});
 		}
 
-		private static async Task<string> getSource(string path, ResourceLoader loader)
+		private static async Task<string> getSource(string path, IResourceLoader loader)
 		{
 			if (path == null) return null;
 

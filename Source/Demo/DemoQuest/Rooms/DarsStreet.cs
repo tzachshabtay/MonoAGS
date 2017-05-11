@@ -27,7 +27,7 @@ namespace DemoGame
 			_room.Background = bg;
 
             var device = AGSGame.Device;
-            AGSMaskLoader maskLoader = new AGSMaskLoader (factory, new ResourceLoader(device.FileSystem, device.Assemblies), device.BitmapLoader);
+            AGSMaskLoader maskLoader = new AGSMaskLoader (factory, factory.Resources, device.BitmapLoader);
             _room.Areas.Add(AGSWalkableArea.Create("DarsStreetWalkable1", await maskLoader.LoadAsync(_baseFolder + "walkable1.png")));
             _room.Areas.Add(AGSWalkableArea.Create("DarsStreetWalkable2", await maskLoader.LoadAsync(_baseFolder + "walkable2.png")));
 			AGSScalingArea.Create(_room.Areas[0], 0.35f, 0.75f);

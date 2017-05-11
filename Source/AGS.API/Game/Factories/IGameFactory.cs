@@ -8,6 +8,12 @@
     public interface IGameFactory
 	{
         /// <summary>
+        /// Gets the resources factory (for loading resources).
+        /// </summary>
+        /// <value>The resources.</value>
+        IResourceLoader Resources { get; }
+
+        /// <summary>
         /// Gets the graphics factory (for loading images/animations).
         /// </summary>
         /// <value>The graphics factory.</value>

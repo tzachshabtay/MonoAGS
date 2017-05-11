@@ -52,6 +52,11 @@ For creating character [outfits](characters.md#outfits).
 
 For creating [dialogs](dialogs.md) and [dialog options](dialogs.md#dialog-option).
 
+### Resources
+
+For loading [resources](resources.md). Usually you won't have to actually use it, as the other factories provide
+higher level methods of loading your assets.
+
 ## Game State
 
 Game state is the entry point for everything that can change in the game (when the user saves the game, we'll save the state and hopefully won't need to save anything else, because the state is the only thing that changes):
