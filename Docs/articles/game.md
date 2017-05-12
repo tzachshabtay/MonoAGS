@@ -42,7 +42,7 @@ For creating [objects](objects.md), [characters](characters.md) and hotspot area
 
 ### Rooms
 
-For creating [rooms](rooms.md) and [edges](rooms.md#edges).
+For creating [rooms](rooms.md), [room areas](areas.md), and [edges](rooms.md#edges).
 
 ### Outfits
 

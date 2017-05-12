@@ -24,8 +24,8 @@ namespace DemoGame
 			_room.Background = bg;
 
             var device = AGSGame.Device;
-            _room.Areas.Add(AGSWalkableArea.Create("TrashcanStreetWalkable1", await factory.Masks.LoadAsync(_baseFolder + "walkable.png")));
-			AGSScalingArea.Create(_room.Areas[0], 0.50f, 0.90f);
+            _room.Areas.Add(await factory.Room.GetAreaAsync(_baseFolder + "walkable.png", isWalkable: true));
+            factory.Room.CreateScaleArea(_room.Areas[0], 0.50f, 0.90f);
 
 			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "HoleHotspot.png", "Hole"));
 			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "roadHotspot.png", "Road"));

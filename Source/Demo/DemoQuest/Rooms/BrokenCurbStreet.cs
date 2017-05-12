@@ -28,17 +28,17 @@ namespace DemoGame
 			_room.Background = bg;
 
             var device = AGSGame.Device;
-            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable1", await factory.Masks.LoadAsync(_baseFolder + "walkable1.png")));
-            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable2", await factory.Masks.LoadAsync(_baseFolder + "walkable2.png")));
-            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable3", await factory.Masks.LoadAsync(_baseFolder + "walkable3.png")));
-            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable4", await factory.Masks.LoadAsync(_baseFolder + "walkable4.png")));
+            _room.Areas.Add(await factory.Room.GetAreaAsync(_baseFolder + "walkable1.png", isWalkable: true));
+            _room.Areas.Add(await factory.Room.GetAreaAsync(_baseFolder + "walkable2.png", isWalkable: true));
+            _room.Areas.Add(await factory.Room.GetAreaAsync(_baseFolder + "walkable3.png", isWalkable: true));
+            _room.Areas.Add(await factory.Room.GetAreaAsync(_baseFolder + "walkable4.png", isWalkable: true));
             _room.Areas[1].Enabled = false;
-            AGSScalingArea.Create(_room.Areas[0], 0.50f, 0.90f);
-			AGSScalingArea.Create(_room.Areas[2], 0.40f, 0.50f);
-			AGSScalingArea.Create(_room.Areas[3], 1.20f, 1.20f);
+            factory.Room.CreateScaleArea(_room.Areas[0], 0.50f, 0.90f);
+            factory.Room.CreateScaleArea(_room.Areas[2], 0.40f, 0.50f);
+            factory.Room.CreateScaleArea(_room.Areas[3], 1.20f, 1.20f);
 
-            _room.Areas.Add(AGSWalkBehindArea.Create("BrokenCurbWalkBehind1", factory.Masks.Load(_baseFolder + "walkbehind1.png")));
-            _room.Areas.Add(AGSWalkBehindArea.Create("BrokenCurbWalkBehind2", factory.Masks.Load(_baseFolder + "walkbehind2.png")));
+            _room.Areas.Add(await factory.Room.GetAreaAsync(_baseFolder + "walkbehind1.png", isWalkBehind: true));
+            _room.Areas.Add(await factory.Room.GetAreaAsync(_baseFolder + "walkbehind2.png", isWalkBehind: true));
 
 			IObject wallHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "wallHotspot.png", "Wall");
 			IObject graffitiHotspot = await factory.Object.GetHotspotAsync (_baseFolder + "graffitiHotspot.png", "Graffiti");

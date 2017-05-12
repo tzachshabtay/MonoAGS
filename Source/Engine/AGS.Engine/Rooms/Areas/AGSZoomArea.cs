@@ -12,13 +12,6 @@ namespace AGS.Engine
             ZoomCamera = true;
         }
 
-        public static void Create(IArea area, float minZoom, float maxZoom)
-        {
-            var component = area.AddComponent<IZoomArea>();
-            component.MinZoom = minZoom;
-            component.MaxZoom = maxZoom;
-        }
-
         public override void Init(IEntity entity)
         {
             base.Init(entity);

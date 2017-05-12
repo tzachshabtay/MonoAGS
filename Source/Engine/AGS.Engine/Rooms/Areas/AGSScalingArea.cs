@@ -13,16 +13,6 @@ namespace AGS.Engine
             MaxScaling = 1f;
         }
 
-		public static void Create(IArea area, float minScaling, float maxScaling, bool scaleObjectsX = true, bool scaleObjectsY = true, bool scaleVolume = true)
-		{
-            var component = area.AddComponent<IScalingArea>();
-            component.MinScaling = minScaling;
-            component.MaxScaling = maxScaling;
-            component.ScaleObjectsX = scaleObjectsX;
-            component.ScaleObjectsY = scaleObjectsY;
-            component.ScaleVolume = scaleVolume;
-		}
-
 		public override void Init(IEntity entity)
         {
             base.Init(entity);

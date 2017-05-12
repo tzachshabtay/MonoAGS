@@ -9,13 +9,6 @@ namespace AGS.Engine
             IsWalkable = true;
         }
 
-        public static IArea Create(string id, IMask mask)
-        {
-            var area = new AGSArea(id, AGSGame.Resolver) { Mask = mask };
-            area.AddComponent<IWalkableArea>();
-            return area;
-        }
-
         public bool IsWalkable { get; set; }
     }
 }
