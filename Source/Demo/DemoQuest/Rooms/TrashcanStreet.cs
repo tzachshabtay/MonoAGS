@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -25,8 +24,7 @@ namespace DemoGame
 			_room.Background = bg;
 
             var device = AGSGame.Device;
-            AGSMaskLoader maskLoader = new AGSMaskLoader (factory, factory.Resources, device.BitmapLoader);
-            _room.Areas.Add(AGSWalkableArea.Create("TrashcanStreetWalkable1", await maskLoader.LoadAsync(_baseFolder + "walkable.png")));
+            _room.Areas.Add(AGSWalkableArea.Create("TrashcanStreetWalkable1", await factory.Masks.LoadAsync(_baseFolder + "walkable.png")));
 			AGSScalingArea.Create(_room.Areas[0], 0.50f, 0.90f);
 
 			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "HoleHotspot.png", "Hole"));

@@ -20,6 +20,12 @@
 		IGraphicsFactory Graphics { get; }
 
         /// <summary>
+        /// Gets the masks factory (for loading masks from bitmaps).
+        /// </summary>
+        /// <value>The masks.</value>
+        IMaskLoader Masks { get; }
+
+        /// <summary>
         /// Gets the audio factory (for loading sounds).
         /// </summary>
         /// <value>The sound factory.</value>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -29,18 +28,17 @@ namespace DemoGame
 			_room.Background = bg;
 
             var device = AGSGame.Device;
-            AGSMaskLoader maskLoader = new AGSMaskLoader (factory, factory.Resources, device.BitmapLoader);
-            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable1", await maskLoader.LoadAsync(_baseFolder + "walkable1.png")));
-            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable2", await maskLoader.LoadAsync(_baseFolder + "walkable2.png")));
-            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable3", await maskLoader.LoadAsync(_baseFolder + "walkable3.png")));
-            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable4", await maskLoader.LoadAsync(_baseFolder + "walkable4.png")));
+            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable1", await factory.Masks.LoadAsync(_baseFolder + "walkable1.png")));
+            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable2", await factory.Masks.LoadAsync(_baseFolder + "walkable2.png")));
+            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable3", await factory.Masks.LoadAsync(_baseFolder + "walkable3.png")));
+            _room.Areas.Add(AGSWalkableArea.Create("BrokenCurbWalkable4", await factory.Masks.LoadAsync(_baseFolder + "walkable4.png")));
             _room.Areas[1].Enabled = false;
             AGSScalingArea.Create(_room.Areas[0], 0.50f, 0.90f);
 			AGSScalingArea.Create(_room.Areas[2], 0.40f, 0.50f);
 			AGSScalingArea.Create(_room.Areas[3], 1.20f, 1.20f);
 
-            _room.Areas.Add(AGSWalkBehindArea.Create("BrokenCurbWalkBehind1", maskLoader.Load(_baseFolder + "walkbehind1.png")));
-            _room.Areas.Add(AGSWalkBehindArea.Create("BrokenCurbWalkBehind2", maskLoader.Load(_baseFolder + "walkbehind2.png")));
+            _room.Areas.Add(AGSWalkBehindArea.Create("BrokenCurbWalkBehind1", factory.Masks.Load(_baseFolder + "walkbehind1.png")));
+            _room.Areas.Add(AGSWalkBehindArea.Create("BrokenCurbWalkBehind2", factory.Masks.Load(_baseFolder + "walkbehind2.png")));
 
 			IObject wallHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "wallHotspot.png", "Wall");
 			IObject graffitiHotspot = await factory.Object.GetHotspotAsync (_baseFolder + "graffitiHotspot.png", "Graffiti");

@@ -57,6 +57,11 @@ For creating [dialogs](dialogs.md) and [dialog options](dialogs.md#dialog-option
 For loading [resources](resources.md). Usually you won't have to actually use it, as the other factories provide
 higher level methods of loading your assets.
 
+### Masks
+
+For loading bitmap masks. Those are used for masking room areas. Usually you won't have to actually use it, as 
+the other factories provide higher level methods for loading room areas.
+
 ## Game State
 
 Game state is the entry point for everything that can change in the game (when the user saves the game, we'll save the state and hopefully won't need to save anything else, because the state is the only thing that changes):

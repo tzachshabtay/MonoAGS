@@ -1,8 +1,6 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace DemoGame
 {
@@ -29,7 +27,7 @@ namespace DemoGame
 			IGameFactory factory = game.Factory;
 			_bottleEffectClip = await factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/254818__kwahmah-02__rattling-glass-bottles-impact.wav");
 
-            ILoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
+            ILoadImageConfig loadConfig = new AGSLoadImageConfig(new Point(0, 0));
 			_room = factory.Room.GetRoom(_roomId, 20f, 310f, 190f, 10f);
 			_room.MusicOnLoad = await factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/AMemoryAway.ogg");
 
@@ -40,14 +38,13 @@ namespace DemoGame
 			_room.Background = bg;
 
             var device = AGSGame.Device;
-            AGSMaskLoader maskLoader = new AGSMaskLoader (factory, new ResourceLoader(device.FileSystem, device.Assemblies), device.BitmapLoader);
-            _room.Areas.Add(AGSWalkableArea.Create("EmptyStreetWalkable1", await maskLoader.LoadAsync(_baseFolder + "walkable1.png")));
-            _room.Areas.Add(AGSWalkableArea.Create("EmptyStreetWalkable2", await maskLoader.LoadAsync (_baseFolder + "walkable2.png")));
+            _room.Areas.Add(AGSWalkableArea.Create("EmptyStreetWalkable1", await factory.Masks.LoadAsync(_baseFolder + "walkable1.png")));
+            _room.Areas.Add(AGSWalkableArea.Create("EmptyStreetWalkable2", await factory.Masks.LoadAsync (_baseFolder + "walkable2.png")));
 			AGSScalingArea.Create(_room.Areas[0], 0.50f, 0.75f);
 			AGSScalingArea.Create(_room.Areas[1], 0.75f, 0.90f);
 
 			IObject bottleHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "BottleHotspot.png", "Bottle");
-			bottleHotspot.WalkPoint = new AGS.API.PointF (140f, 50f);
+			bottleHotspot.WalkPoint = new PointF (140f, 50f);
 			_room.Objects.Add(await factory.Object.GetHotspotAsync (_baseFolder + "CurbHotspot.png", "Curb"));
 			_room.Objects.Add(bottleHotspot);
 			_room.Objects.Add(await factory.Object.GetHotspotAsync (_baseFolder + "GapHotspot.png", "Gap", new[]{"It's a gap!", "I wonder what's in there!"}));

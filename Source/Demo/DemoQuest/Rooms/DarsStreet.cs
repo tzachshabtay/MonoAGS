@@ -27,17 +27,16 @@ namespace DemoGame
 			_room.Background = bg;
 
             var device = AGSGame.Device;
-            AGSMaskLoader maskLoader = new AGSMaskLoader (factory, factory.Resources, device.BitmapLoader);
-            _room.Areas.Add(AGSWalkableArea.Create("DarsStreetWalkable1", await maskLoader.LoadAsync(_baseFolder + "walkable1.png")));
-            _room.Areas.Add(AGSWalkableArea.Create("DarsStreetWalkable2", await maskLoader.LoadAsync(_baseFolder + "walkable2.png")));
+            _room.Areas.Add(AGSWalkableArea.Create("DarsStreetWalkable1", await factory.Masks.LoadAsync(_baseFolder + "walkable1.png")));
+            _room.Areas.Add(AGSWalkableArea.Create("DarsStreetWalkable2", await factory.Masks.LoadAsync(_baseFolder + "walkable2.png")));
 			AGSScalingArea.Create(_room.Areas[0], 0.35f, 0.75f);
             AGSZoomArea.Create(_room.Areas[0], 1f, 1.2f);
 			AGSScalingArea.Create(_room.Areas[1], 0.10f, 0.35f);
 			AGSZoomArea.Create(_room.Areas[1], 1.2f, 1.8f);
 
-            _room.Areas.Add(AGSWalkBehindArea.Create("DarsStreetWalkBehind1", await maskLoader.LoadAsync(_baseFolder + "walkbehind1.png")));
-			_room.Areas.Add(AGSWalkBehindArea.Create("DarsStreetWalkBehind2", await maskLoader.LoadAsync (_baseFolder + "walkbehind2.png")));
-			_room.Areas.Add(AGSWalkBehindArea.Create("DarsStreetWalkBehind3", await maskLoader.LoadAsync (_baseFolder + "walkbehind3.png")));
+            _room.Areas.Add(AGSWalkBehindArea.Create("DarsStreetWalkBehind1", await factory.Masks.LoadAsync(_baseFolder + "walkbehind1.png")));
+			_room.Areas.Add(AGSWalkBehindArea.Create("DarsStreetWalkBehind2", await factory.Masks.LoadAsync (_baseFolder + "walkbehind2.png")));
+			_room.Areas.Add(AGSWalkBehindArea.Create("DarsStreetWalkBehind3", await factory.Masks.LoadAsync (_baseFolder + "walkbehind3.png")));
 		
 			IObject buildingHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "buildingHotspot.png", "Building");
 			IObject doorHotspot = await factory.Object.GetHotspotAsync (_baseFolder + "doorHotspot.png", "Door");

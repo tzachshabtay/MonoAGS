@@ -1,4 +1,5 @@
 ﻿using AGS.API;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -6,7 +7,7 @@ namespace AGS.Engine
 	{
 		public AGSGameFactory(IGraphicsFactory graphics, IInventoryFactory inventory, IUIFactory ui,
 			IRoomFactory room, IOutfitFactory outfit, IObjectFactory obj, IDialogFactory dialog, 
-                              IAudioFactory sound, IFontLoader fontFactory, IResourceLoader resources)
+            IAudioFactory sound, IFontLoader fontFactory, IResourceLoader resources, Resolver resolver)
 		{
 			Graphics = graphics;
 			Inventory = inventory;
@@ -18,11 +19,15 @@ namespace AGS.Engine
 			Sound = sound;
             Fonts = fontFactory;
             Resources = resources;
+            TypedParameter gameFactoryParam = new TypedParameter(typeof(IGameFactory), this);
+            Masks = resolver.Container.Resolve<IMaskLoader>(gameFactoryParam);
 		}
 
 		#region IGameFactory implementation
 
         public IResourceLoader Resources { get; private set; }
+
+        public IMaskLoader Masks { get; private set; }
 
 		public IInventoryFactory Inventory { get; private set; }
 
