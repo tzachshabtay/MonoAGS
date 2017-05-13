@@ -222,6 +222,7 @@
     <Compile Include="Misc\Collections\HashSet\AGSHashSetChangedEventArgs.cs" />
     <Compile Include="Rooms\IRoomLimitsProvider.cs" />
     <Compile Include="Misc\Geometry\RectangleF.cs" />
+    <Compile Include="Game\Factories\IShaderFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

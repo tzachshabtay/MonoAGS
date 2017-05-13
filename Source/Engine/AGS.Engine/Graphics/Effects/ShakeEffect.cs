@@ -42,15 +42,13 @@ namespace AGS.Engine
 
 		private readonly IObject _target;
 		private readonly float _decay;
-        private readonly IGraphicsBackend _graphics;
 		private float _strength;
 
 		private IShader _shakeShader, _previousShader;
 		private TaskCompletionSource<object> _taskCompletionSource;
 
-        public ShakeEffect(float strength = 0.05f, float decay = 0.99f, IObject target = null, IGraphicsBackend graphics = null)
+        public ShakeEffect(float strength = 0.05f, float decay = 0.99f, IObject target = null)
 		{
-            _graphics = graphics ?? AGSGame.Device.GraphicsBackend;
 			_target = target;
 			_strength = strength;
 			_decay = decay;
@@ -60,8 +58,7 @@ namespace AGS.Engine
 		{
 			_previousShader = getActiveShader();
 			_taskCompletionSource = new TaskCompletionSource<object> (null);
-            _shakeShader = GLShader.FromText(VERTEX_SHADER_SHAKE, 
-                                             _graphics.GetStandardFragmentShader(), _graphics);
+            _shakeShader = AGSGame.Game.Factory.Shaders.FromText(VERTEX_SHADER_SHAKE, null);
 			AGSGame.Game.Events.OnBeforeRender.Subscribe(onBeforeRender);
 			setActiveShader(_shakeShader);
 		}

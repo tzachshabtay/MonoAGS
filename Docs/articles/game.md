@@ -52,6 +52,10 @@ For creating character [outfits](characters.md#outfits).
 
 For creating [dialogs](dialogs.md) and [dialog options](dialogs.md#dialog-option).
 
+### Shaders
+
+For loading [shaders](objects.md#shader).
+
 ### Resources
 
 For loading [resources](resources.md). Usually you won't have to actually use it, as the other factories provide

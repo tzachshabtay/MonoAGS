@@ -18,28 +18,13 @@ namespace AGS.Engine
 		private static int _maxTextureUnits = -1;
         private readonly IGraphicsBackend _graphics;
 
-        private GLShader(string vertexSource, string fragmentSource, IGraphicsBackend graphics)
+        public GLShader(string vertexSource, string fragmentSource, IGraphicsBackend graphics)
 		{
             _graphics = graphics;
 			_vertexSource = vertexSource;
 			_fragmentSource = fragmentSource;
 			_variables = new Dictionary<string, int> ();
 			_textures = new Dictionary<int, int> ();
-		}
-
-        public static GLShader FromText(string vertexSource, string fragmentSource, IGraphicsBackend graphics = null)
-		{
-            graphics = graphics ?? AGSGame.Device.GraphicsBackend;
-            return new GLShader (vertexSource, fragmentSource, graphics);
-		}
-
-        public static async Task<GLShader> FromResource(string vertexResource, string fragmentResource, IGraphicsBackend graphics = null)
-		{
-            graphics = graphics ?? AGSGame.Device.GraphicsBackend;
-            IResourceLoader loader = AGSGame.Game.Factory.Resources;
-			string vertexSource = await getSource(vertexResource, loader);
-			string fragmentSource = await getSource(fragmentResource, loader);
-            return FromText(vertexSource, fragmentSource, graphics);
 		}
 
         public int ProgramId { get { return _program; } }
@@ -181,17 +166,6 @@ namespace AGS.Engine
 				Debug.WriteLineIf(location == -1, string.Format("Variable name {0} not found in shader program.", name));
 				return location;
 			});
-		}
-
-		private static async Task<string> getSource(string path, IResourceLoader loader)
-		{
-			if (path == null) return null;
-
-			var resource = loader.LoadResource(path);
-			using (StreamReader rdr = new StreamReader (resource.Stream))
-			{
-				return await rdr.ReadToEndAsync();
-			}
 		}
 
 		private bool compileShader(string source, ShaderMode shaderType)

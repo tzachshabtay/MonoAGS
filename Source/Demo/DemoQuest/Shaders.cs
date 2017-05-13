@@ -4,9 +4,11 @@ using AGS.API;
 
 namespace DemoQuest
 {
-	//Shaders source taken from: https://github.com/mattdesl/lwjgl-basics/wiki/ShaderLesson3 & https://www.youtube.com/watch?v=qNM0k522R7o
-	public static class Shaders
-	{
+    //Shaders source taken from: https://github.com/mattdesl/lwjgl-basics/wiki/ShaderLesson3 & https://www.youtube.com/watch?v=qNM0k522R7o
+    public static class Shaders
+    {
+        private static IShaderFactory _shaders { get { return AGSGame.Game.Factory.Shaders; } }
+
 		const string FRAGMENT_SHADER_GRAYSCALE = 
 @"
 #ifdef GL_ES
@@ -161,45 +163,40 @@ namespace DemoQuest
             	gl_FragColor = (sum / vec4(25));	
             }";
 
-        private static string getVertexShader()
-        {
-            return AGSGame.Device.GraphicsBackend.GetStandardVertexShader(); 
-        }
-
 		public static void SetStandardShader()
 		{
 			unbindVignetteShader();
-            AGSGame.Shader = GLShader.FromText(getVertexShader(), AGSGame.Device.GraphicsBackend.GetStandardFragmentShader());
+            AGSGame.Shader = _shaders.FromText(null, null);
 		}
 
 		public static void SetGrayscaleShader()
 		{
 			unbindVignetteShader();
-			AGSGame.Shader =  GLShader.FromText(getVertexShader(), FRAGMENT_SHADER_GRAYSCALE);
+			AGSGame.Shader =  _shaders.FromText(null, FRAGMENT_SHADER_GRAYSCALE);
 		}
 
 		public static void SetSepiaShader()
 		{
 			unbindVignetteShader();
-			AGSGame.Shader =  GLShader.FromText(getVertexShader(), FRAGMENT_SHADER_SEPIA);
+			AGSGame.Shader =  _shaders.FromText(null, FRAGMENT_SHADER_SEPIA);
 		}
 
 		public static void SetSoftSepiaShader()
 		{
 			unbindVignetteShader();
-			AGSGame.Shader =  GLShader.FromText(getVertexShader(), FRAGMENT_SHADER_SOFT_SEPIA);
+			AGSGame.Shader =  _shaders.FromText(null, FRAGMENT_SHADER_SOFT_SEPIA);
 		}
 
 		public static void SetBlurShader()
 		{
 			unbindVignetteShader();
-			AGSGame.Game.State.Player.Shader = GLShader.FromText(getVertexShader(), FRAGMENT_SHADER_BLUR);
+			AGSGame.Game.State.Player.Shader = _shaders.FromText(null, FRAGMENT_SHADER_BLUR);
 		}
 
-		private static GLShader _vignetteShader;
+		private static IShader _vignetteShader;
 		public static void SetVignetteShader()
 		{
-			_vignetteShader = GLShader.FromText(getVertexShader(), FRAGMENT_SHADER_VIGNETTE);
+			_vignetteShader = _shaders.FromText(null, FRAGMENT_SHADER_VIGNETTE);
 			AGSGame.Game.Events.OnBeforeRender.Subscribe(firstSetupVignette);
 			AGSGame.Shader = _vignetteShader;
 		}

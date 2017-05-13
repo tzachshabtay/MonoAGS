@@ -20,6 +20,12 @@
 		IGraphicsFactory Graphics { get; }
 
         /// <summary>
+        /// Gets the shaders factory (for loading graphics hardware rendering shaders).
+        /// </summary>
+        /// <value>The shaders.</value>
+        IShaderFactory Shaders { get; }
+
+        /// <summary>
         /// Gets the masks factory (for loading masks from bitmaps).
         /// </summary>
         /// <value>The masks.</value>

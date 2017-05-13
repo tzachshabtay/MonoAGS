@@ -78,7 +78,8 @@ namespace Tests
             var resolver = ObjectTests.GetResolver();
             resolver.Build();
             var area = new AGSArea("Area", resolver) { Mask = new AGSMask(new bool[][] { }, null) };
-            AGSScalingArea.Create(area, 1f, 1f);
+            AGSRoomFactory roomFactory = new AGSRoomFactory(resolver);
+            roomFactory.CreateScaleArea(area, 1f, 1f);
             area.AddComponent<IWalkBehindArea>();
             return area;
         }

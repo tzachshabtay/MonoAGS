@@ -67,7 +67,7 @@ namespace AGS.Engine
 
 		public static IRoomTransition Dissolve(float timeInSeconds = 1f, Func<float, float> ease = null)
 		{
-            return new RoomTransitionDissolve (AGSGame.GLUtils, AGSGame.Device.GraphicsBackend, timeInSeconds, ease);
+            return new RoomTransitionDissolve (AGSGame.GLUtils, timeInSeconds, ease);
 		}
 
 		public static IRoomTransition BoxOut(float timeInSeconds = 1f, Func<float, float> easeBoxOut = null,

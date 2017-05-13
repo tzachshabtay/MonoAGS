@@ -7,7 +7,8 @@ namespace AGS.Engine
 	{
 		public AGSGameFactory(IGraphicsFactory graphics, IInventoryFactory inventory, IUIFactory ui,
 			IRoomFactory room, IOutfitFactory outfit, IObjectFactory obj, IDialogFactory dialog, 
-            IAudioFactory sound, IFontLoader fontFactory, IResourceLoader resources, Resolver resolver)
+            IAudioFactory sound, IFontLoader fontFactory, IResourceLoader resources, IShaderFactory shaders, 
+            Resolver resolver)
 		{
 			Graphics = graphics;
 			Inventory = inventory;
@@ -21,6 +22,7 @@ namespace AGS.Engine
             Resources = resources;
             TypedParameter gameFactoryParam = new TypedParameter(typeof(IGameFactory), this);
             Masks = resolver.Container.Resolve<IMaskLoader>(gameFactoryParam);
+            Shaders = shaders;
 		}
 
 		#region IGameFactory implementation
@@ -28,6 +30,8 @@ namespace AGS.Engine
         public IResourceLoader Resources { get; private set; }
 
         public IMaskLoader Masks { get; private set; }
+
+        public IShaderFactory Shaders { get; private set; }
 
 		public IInventoryFactory Inventory { get; private set; }
 
