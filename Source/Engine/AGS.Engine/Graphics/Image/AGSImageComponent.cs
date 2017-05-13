@@ -29,7 +29,10 @@ namespace AGS.Engine
             set
             {
                 AGSSingleFrameAnimation animation = new AGSSingleFrameAnimation(value, _factory);
-                _scale.ResetBaseSize(value.Width, value.Height);
+                if (value != null)
+                {
+                    _scale.ResetBaseSize(value.Width, value.Height);
+                }
                 _animationContainer.StartAnimation(animation);
             }
         }
