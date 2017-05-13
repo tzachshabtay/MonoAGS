@@ -8,7 +8,7 @@
     <title>Game Interface | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Game Interface | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.17.1.2">
+    <meta name="generator" content="docfx 2.17.4.2">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -98,11 +98,19 @@ For example, you can call <code>game.Factory.Graphics.LoadAnimationFromFolder(an
 <h3 id="objects">Objects</h3>
 <p>For creating <a href="objects.html">objects</a>, <a href="characters.html">characters</a> and hotspot areas (those will be converted to objects which are also <a href="hotspots.html">hotspots</a>).</p>
 <h3 id="rooms">Rooms</h3>
-<p>For creating <a href="rooms.html">rooms</a> and <a href="rooms.html#edges">edges</a>.</p>
+<p>For creating <a href="rooms.html">rooms</a>, <a href="areas.html">room areas</a>, and <a href="rooms.html#edges">edges</a>.</p>
 <h3 id="outfits">Outfits</h3>
 <p>For creating character <a href="characters.html#outfits">outfits</a>.</p>
 <h3 id="dialogs">Dialogs</h3>
 <p>For creating <a href="dialogs.html">dialogs</a> and <a href="dialogs.html#dialog-option">dialog options</a>.</p>
+<h3 id="shaders">Shaders</h3>
+<p>For loading <a href="objects.html#shader">shaders</a>.</p>
+<h3 id="resources">Resources</h3>
+<p>For loading <a href="resources.html">resources</a>. Usually you won&#39;t have to actually use it, as the other factories provide
+higher level methods of loading your assets.</p>
+<h3 id="masks">Masks</h3>
+<p>For loading bitmap masks. Those are used for masking room areas. Usually you won&#39;t have to actually use it, as 
+the other factories provide higher level methods for loading room areas.</p>
 <h2 id="game-state">Game State</h2>
 <p>Game state is the entry point for everything that can change in the game (when the user saves the game, we&#39;ll save the state and hopefully won&#39;t need to save anything else, because the state is the only thing that changes):
 This includes the player <a href="characters.html">character</a>, the <a href="rooms.html">rooms</a>, the <a href="guis.html">UI</a>, the <a href="guis.html#gui-focus">focused UI</a>, the <a href="#cutscene">cutscene</a>, the <a href="rooms.html#room-transitions">room transitions</a> and global variables.

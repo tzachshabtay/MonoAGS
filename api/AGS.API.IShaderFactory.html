@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class ObjectEventArgs
+    <title>Interface IShaderFactory
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class ObjectEventArgs
+    <meta name="title" content="Interface IShaderFactory
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.17.4.2">
     
@@ -75,49 +75,39 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.ObjectEventArgs">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IShaderFactory">
   
   
-  <h1 id="AGS_API_ObjectEventArgs" data-uid="AGS.API.ObjectEventArgs">Class ObjectEventArgs
+  <h1 id="AGS_API_IShaderFactory" data-uid="AGS.API.IShaderFactory">Interface IShaderFactory
   </h1>
-  <div class="markdown level0 summary"><p>Event arguments for interacting with an object.</p>
+  <div class="markdown level0 summary"><p>Factory for creating shaders (<a class="xref" href="AGS.API.IShader.html">IShader</a>). </p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><a class="xref" href="AGS.API.AGSEventArgs.html">AGSEventArgs</a></div>
-    <div class="level2"><span class="xref">ObjectEventArgs</span></div>
-  </div>
-      <div class="level3"><a class="xref" href="AGS.API.InventoryInteractEventArgs.html">InventoryInteractEventArgs</a></div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="AGS.API.AGSEventArgs.html#AGS_API_AGSEventArgs_TimesInvoked">AGSEventArgs.TimesInvoked</a>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>:AGS.API</h6>
   <h6><strong>Assembly</strong>:AGS.API.dll</h6>
-  <h5 id="AGS_API_ObjectEventArgs_syntax">Syntax</h5>
+  <h5 id="AGS_API_IShaderFactory_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ObjectEventArgs : AGSEventArgs</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IShaderFactory</code></pre>
   </div>
-  <h3 id="constructors">Constructors
+  <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_ObjectEventArgs__ctor_AGS_API_IObject_.md&amp;value=---%0Auid%3A%20AGS.API.ObjectEventArgs.%23ctor(AGS.API.IObject)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IShaderFactory_FromResource_System_String_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IShaderFactory.FromResource(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Interactions/ObjectEventArgs.cs/#L8">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Game/Factories/IShaderFactory.cs/#L27">View Source</a>
   </span>
-  <a id="AGS_API_ObjectEventArgs__ctor_" data-uid="AGS.API.ObjectEventArgs.#ctor*"></a>
-  <h4 id="AGS_API_ObjectEventArgs__ctor_AGS_API_IObject_" data-uid="AGS.API.ObjectEventArgs.#ctor(AGS.API.IObject)">ObjectEventArgs(IObject)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="AGS_API_IShaderFactory_FromResource_" data-uid="AGS.API.IShaderFactory.FromResource*"></a>
+  <h4 id="AGS_API_IShaderFactory_FromResource_System_String_System_String_" data-uid="AGS.API.IShaderFactory.FromResource(System.String,System.String)">FromResource(String, String)</h4>
+  <div class="markdown level1 summary"><p>Creates a shader asynchronously from the source code of the vertex and fragment shaders, 
+which should be passed as the paths for the shader files (either an embedded resource path
+or a file system path).</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ObjectEventArgs(IObject obj)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;IShader&gt; FromResource(string vertexResource, string fragmentResource)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -130,63 +120,19 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
-        <td><span class="parametername">obj</span></td>
-        <td></td>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">vertexResource</span></td>
+        <td><p>Vertex resource path (pass null for using the standard vertex shader).</p>
+</td>
       </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_ObjectEventArgs_Object.md&amp;value=---%0Auid%3A%20AGS.API.ObjectEventArgs.Object%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Interactions/ObjectEventArgs.cs/#L17">View Source</a>
-  </span>
-  <a id="AGS_API_ObjectEventArgs_Object_" data-uid="AGS.API.ObjectEventArgs.Object*"></a>
-  <h4 id="AGS_API_ObjectEventArgs_Object" data-uid="AGS.API.ObjectEventArgs.Object">Object</h4>
-  <div class="markdown level1 summary"><p>The object being interacted with.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IObject Object { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
-        <td><p>The object.</p>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fragmentResource</span></td>
+        <td><p>Fragment resource path (pass null for using the standard fragment shader).</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="methods">Methods
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_ObjectEventArgs_ToString.md&amp;value=---%0Auid%3A%20AGS.API.ObjectEventArgs.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Interactions/ObjectEventArgs.cs/#L19">View Source</a>
-  </span>
-  <a id="AGS_API_ObjectEventArgs_ToString_" data-uid="AGS.API.ObjectEventArgs.ToString*"></a>
-  <h4 id="AGS_API_ObjectEventArgs_ToString" data-uid="AGS.API.ObjectEventArgs.ToString">ToString()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
-  </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -197,8 +143,66 @@
     </thead>
     <tbody>
       <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.IShader.html">IShader</a>&gt;</td>
+        <td><p>The shader.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IShaderFactory_FromText_System_String_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IShaderFactory.FromText(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Game/Factories/IShaderFactory.cs/#L17">View Source</a>
+  </span>
+  <a id="AGS_API_IShaderFactory_FromText_" data-uid="AGS.API.IShaderFactory.FromText*"></a>
+  <h4 id="AGS_API_IShaderFactory_FromText_System_String_System_String_" data-uid="AGS.API.IShaderFactory.FromText(System.String,System.String)">FromText(String, String)</h4>
+  <div class="markdown level1 summary"><p>Creates a shader from the source code of the vertex and fragment shaders, which
+should be passed as regular text.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IShader FromText(string vertexSource, string fragmentSource)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><span class="parametername">vertexSource</span></td>
+        <td><p>Vertex source (pass null for using the standard vertex shader).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fragmentSource</span></td>
+        <td><p>Fragment source (pass null for using the standard fragment shader).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IShader.html">IShader</a></td>
+        <td><p>The shader.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -210,10 +214,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_ObjectEventArgs.md&amp;value=---%0Auid%3A%20AGS.API.ObjectEventArgs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IShaderFactory.md&amp;value=---%0Auid%3A%20AGS.API.IShaderFactory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Interactions/ObjectEventArgs.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Game/Factories/IShaderFactory.cs/#L8" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

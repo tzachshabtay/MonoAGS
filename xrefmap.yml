@@ -5906,6 +5906,18 @@ references:
   commentId: Overload:AGS.API.IGameFactory.Inventory
   fullName: AGS.API.IGameFactory.Inventory
   nameWithType: IGameFactory.Inventory
+- uid: AGS.API.IGameFactory.Masks
+  name: Masks
+  href: api/AGS.API.IGameFactory.html#AGS_API_IGameFactory_Masks
+  commentId: P:AGS.API.IGameFactory.Masks
+  fullName: AGS.API.IGameFactory.Masks
+  nameWithType: IGameFactory.Masks
+- uid: AGS.API.IGameFactory.Masks*
+  name: Masks
+  href: api/AGS.API.IGameFactory.html#AGS_API_IGameFactory_Masks_
+  commentId: Overload:AGS.API.IGameFactory.Masks
+  fullName: AGS.API.IGameFactory.Masks
+  nameWithType: IGameFactory.Masks
 - uid: AGS.API.IGameFactory.Object
   name: Object
   href: api/AGS.API.IGameFactory.html#AGS_API_IGameFactory_Object
@@ -5930,6 +5942,18 @@ references:
   commentId: Overload:AGS.API.IGameFactory.Outfit
   fullName: AGS.API.IGameFactory.Outfit
   nameWithType: IGameFactory.Outfit
+- uid: AGS.API.IGameFactory.Resources
+  name: Resources
+  href: api/AGS.API.IGameFactory.html#AGS_API_IGameFactory_Resources
+  commentId: P:AGS.API.IGameFactory.Resources
+  fullName: AGS.API.IGameFactory.Resources
+  nameWithType: IGameFactory.Resources
+- uid: AGS.API.IGameFactory.Resources*
+  name: Resources
+  href: api/AGS.API.IGameFactory.html#AGS_API_IGameFactory_Resources_
+  commentId: Overload:AGS.API.IGameFactory.Resources
+  fullName: AGS.API.IGameFactory.Resources
+  nameWithType: IGameFactory.Resources
 - uid: AGS.API.IGameFactory.Room
   name: Room
   href: api/AGS.API.IGameFactory.html#AGS_API_IGameFactory_Room
@@ -5942,6 +5966,18 @@ references:
   commentId: Overload:AGS.API.IGameFactory.Room
   fullName: AGS.API.IGameFactory.Room
   nameWithType: IGameFactory.Room
+- uid: AGS.API.IGameFactory.Shaders
+  name: Shaders
+  href: api/AGS.API.IGameFactory.html#AGS_API_IGameFactory_Shaders
+  commentId: P:AGS.API.IGameFactory.Shaders
+  fullName: AGS.API.IGameFactory.Shaders
+  nameWithType: IGameFactory.Shaders
+- uid: AGS.API.IGameFactory.Shaders*
+  name: Shaders
+  href: api/AGS.API.IGameFactory.html#AGS_API_IGameFactory_Shaders_
+  commentId: Overload:AGS.API.IGameFactory.Shaders
+  fullName: AGS.API.IGameFactory.Shaders
+  nameWithType: IGameFactory.Shaders
 - uid: AGS.API.IGameFactory.Sound
   name: Sound
   href: api/AGS.API.IGameFactory.html#AGS_API_IGameFactory_Sound
@@ -8547,6 +8583,54 @@ references:
   commentId: T:AGS.API.IRoomFactory
   fullName: AGS.API.IRoomFactory
   nameWithType: IRoomFactory
+- uid: AGS.API.IRoomFactory.CreateScaleArea(AGS.API.IArea,System.Single,System.Single,System.Boolean,System.Boolean,System.Boolean)
+  name: CreateScaleArea(IArea, Single, Single, Boolean, Boolean, Boolean)
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_CreateScaleArea_AGS_API_IArea_System_Single_System_Single_System_Boolean_System_Boolean_System_Boolean_
+  commentId: M:AGS.API.IRoomFactory.CreateScaleArea(AGS.API.IArea,System.Single,System.Single,System.Boolean,System.Boolean,System.Boolean)
+  fullName: AGS.API.IRoomFactory.CreateScaleArea(AGS.API.IArea, System.Single, System.Single, System.Boolean, System.Boolean, System.Boolean)
+  nameWithType: IRoomFactory.CreateScaleArea(IArea, Single, Single, Boolean, Boolean, Boolean)
+- uid: AGS.API.IRoomFactory.CreateScaleArea*
+  name: CreateScaleArea
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_CreateScaleArea_
+  commentId: Overload:AGS.API.IRoomFactory.CreateScaleArea
+  fullName: AGS.API.IRoomFactory.CreateScaleArea
+  nameWithType: IRoomFactory.CreateScaleArea
+- uid: AGS.API.IRoomFactory.CreateZoomArea(AGS.API.IArea,System.Single,System.Single)
+  name: CreateZoomArea(IArea, Single, Single)
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_CreateZoomArea_AGS_API_IArea_System_Single_System_Single_
+  commentId: M:AGS.API.IRoomFactory.CreateZoomArea(AGS.API.IArea,System.Single,System.Single)
+  fullName: AGS.API.IRoomFactory.CreateZoomArea(AGS.API.IArea, System.Single, System.Single)
+  nameWithType: IRoomFactory.CreateZoomArea(IArea, Single, Single)
+- uid: AGS.API.IRoomFactory.CreateZoomArea*
+  name: CreateZoomArea
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_CreateZoomArea_
+  commentId: Overload:AGS.API.IRoomFactory.CreateZoomArea
+  fullName: AGS.API.IRoomFactory.CreateZoomArea
+  nameWithType: IRoomFactory.CreateZoomArea
+- uid: AGS.API.IRoomFactory.GetArea(System.String,System.Boolean,System.Boolean)
+  name: GetArea(String, Boolean, Boolean)
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetArea_System_String_System_Boolean_System_Boolean_
+  commentId: M:AGS.API.IRoomFactory.GetArea(System.String,System.Boolean,System.Boolean)
+  fullName: AGS.API.IRoomFactory.GetArea(System.String, System.Boolean, System.Boolean)
+  nameWithType: IRoomFactory.GetArea(String, Boolean, Boolean)
+- uid: AGS.API.IRoomFactory.GetArea*
+  name: GetArea
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetArea_
+  commentId: Overload:AGS.API.IRoomFactory.GetArea
+  fullName: AGS.API.IRoomFactory.GetArea
+  nameWithType: IRoomFactory.GetArea
+- uid: AGS.API.IRoomFactory.GetAreaAsync(System.String,System.Boolean,System.Boolean)
+  name: GetAreaAsync(String, Boolean, Boolean)
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetAreaAsync_System_String_System_Boolean_System_Boolean_
+  commentId: M:AGS.API.IRoomFactory.GetAreaAsync(System.String,System.Boolean,System.Boolean)
+  fullName: AGS.API.IRoomFactory.GetAreaAsync(System.String, System.Boolean, System.Boolean)
+  nameWithType: IRoomFactory.GetAreaAsync(String, Boolean, Boolean)
+- uid: AGS.API.IRoomFactory.GetAreaAsync*
+  name: GetAreaAsync
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetAreaAsync_
+  commentId: Overload:AGS.API.IRoomFactory.GetAreaAsync
+  fullName: AGS.API.IRoomFactory.GetAreaAsync
+  nameWithType: IRoomFactory.GetAreaAsync
 - uid: AGS.API.IRoomFactory.GetEdge(System.Single)
   name: GetEdge(Single)
   href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetEdge_System_Single_
@@ -9447,6 +9531,36 @@ references:
   commentId: Overload:AGS.API.IShaderComponent.Shader
   fullName: AGS.API.IShaderComponent.Shader
   nameWithType: IShaderComponent.Shader
+- uid: AGS.API.IShaderFactory
+  name: IShaderFactory
+  href: api/AGS.API.IShaderFactory.html
+  commentId: T:AGS.API.IShaderFactory
+  fullName: AGS.API.IShaderFactory
+  nameWithType: IShaderFactory
+- uid: AGS.API.IShaderFactory.FromResource(System.String,System.String)
+  name: FromResource(String, String)
+  href: api/AGS.API.IShaderFactory.html#AGS_API_IShaderFactory_FromResource_System_String_System_String_
+  commentId: M:AGS.API.IShaderFactory.FromResource(System.String,System.String)
+  fullName: AGS.API.IShaderFactory.FromResource(System.String, System.String)
+  nameWithType: IShaderFactory.FromResource(String, String)
+- uid: AGS.API.IShaderFactory.FromResource*
+  name: FromResource
+  href: api/AGS.API.IShaderFactory.html#AGS_API_IShaderFactory_FromResource_
+  commentId: Overload:AGS.API.IShaderFactory.FromResource
+  fullName: AGS.API.IShaderFactory.FromResource
+  nameWithType: IShaderFactory.FromResource
+- uid: AGS.API.IShaderFactory.FromText(System.String,System.String)
+  name: FromText(String, String)
+  href: api/AGS.API.IShaderFactory.html#AGS_API_IShaderFactory_FromText_System_String_System_String_
+  commentId: M:AGS.API.IShaderFactory.FromText(System.String,System.String)
+  fullName: AGS.API.IShaderFactory.FromText(System.String, System.String)
+  nameWithType: IShaderFactory.FromText(String, String)
+- uid: AGS.API.IShaderFactory.FromText*
+  name: FromText
+  href: api/AGS.API.IShaderFactory.html#AGS_API_IShaderFactory_FromText_
+  commentId: Overload:AGS.API.IShaderFactory.FromText
+  fullName: AGS.API.IShaderFactory.FromText
+  nameWithType: IShaderFactory.FromText
 - uid: AGS.API.IShouldBlockInput
   name: IShouldBlockInput
   href: api/AGS.API.IShouldBlockInput.html
