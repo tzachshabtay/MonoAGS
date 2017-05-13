@@ -25,7 +25,7 @@ namespace AGS.API
         /// Gets the items contained in the children.
         /// </summary>
         /// <value>The children.</value>
-		IEnumerable<TItem> Children { get; }
+        IAGSBindingList<TItem> Children { get; }
 
         /// <summary>
         /// An event which fires whenever the parent for a node changes.
