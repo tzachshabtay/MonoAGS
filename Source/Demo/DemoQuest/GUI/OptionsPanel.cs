@@ -9,7 +9,8 @@ namespace DemoGame
     {
         private const string _sliderFolder = "../../Assets/Gui/Sliders/";
         private const string _panelId = "Options Panel";
-        private IPanel _panel;
+        private const string _buttonsPanelId = "Options Buttons Panel";
+        private IPanel _panel, _buttonsPanel;
         private IGame _game;
 
         AGSTextConfig _textConfig = new AGSTextConfig(font: AGSGame.Game.Factory.Fonts.LoadFont(null, 10f),
@@ -68,32 +69,38 @@ namespace DemoGame
 
 #if __IOS__
             const int top = 85;
-            const int step = 25;
+            const int step = -25;
 #else
             const int top = 95;
-            const int step = 20;
+            const int step = -20;
 #endif
-            await loadButton("Resume", top, Hide);
-            await loadButton("Restart", top - step, restart);
-            await loadButton("Load", top - step * 2, load);
-            await loadButton("Save", top - step * 3, save);
+            _buttonsPanel = factory.UI.GetPanel(_buttonsPanelId, (IImage)null, 15f, top);
+            var layout = _buttonsPanel.AddComponent<IStackLayoutComponent>();
+            layout.RelativeSpacing = new PointF();
+            layout.AbsoluteSpacing = new PointF(0f, step);                                     
+            _buttonsPanel.TreeNode.SetParent(_panel.TreeNode);
+            await loadButton("Resume", Hide);
+            await loadButton("Restart", restart);
+            await loadButton("Load", load);
+            await loadButton("Save", save);
 #if !__IOS__ //IOS does not allow for a quit button in its guidelines
-            await loadButton("Quit", top - step * 4, quit);
+            await loadButton("Quit", quit);
 #endif
         }
 
 		private void findPanel()
 		{
 			_panel = _game.Find<IPanel>(_panelId);
+            _buttonsPanel = _game.Find<IPanel>(_buttonsPanelId);
 		}
 
-		private async Task loadButton(string text, float y, Action onClick)
+		private async Task loadButton(string text, Action onClick)
 		{
 			const string folder = "../../Assets/Gui/Buttons/buttonSmall/";
 			string buttonId = string.Format("{0} Button", text);
-			IButton button = await _game.Factory.UI.GetButtonAsync(buttonId, folder + "normal.bmp", folder + "hovered.bmp", 
-				folder + "pushed.bmp", 15f, y, text, _buttonTextConfig);
-			button.TreeNode.SetParent(_panel.TreeNode);
+			IButton button = await _game.Factory.UI.GetButtonAsync(buttonId, folder + "normal.bmp", folder + "hovered.bmp",
+                folder + "pushed.bmp", 15f, 0f, text, _buttonTextConfig);
+			button.TreeNode.SetParent(_buttonsPanel.TreeNode);
 			button.OnMouseClick(onClick, _game);
 		}
 

@@ -87,6 +87,9 @@ namespace AGS.Engine
         {
             base.Init(entity);
             DropDownPanel = _uiFactory.GetPanel(entity.ID + "_Panel", new EmptyImage(1f, 1f), 0f, 0f);
+            var layout = DropDownPanel.AddComponent<IStackLayoutComponent>();
+            layout.AbsoluteSpacing = new PointF();
+            layout.RelativeSpacing = new PointF(0f, -1f);
             DropDownPanel.Visible = false;
             _tree = entity.GetComponent<IInObjectTree>();
         }
@@ -114,12 +117,6 @@ namespace AGS.Engine
         private void refreshItemsLayout()
         {
             DropDownPanel.Y = -DropDownButton.Height;
-            float y = 0f;
-            foreach (var button in _itemButtons)
-            {
-                button.Y = y;
-                y -= button.Height;
-            }
         }
 
         private void refreshDropDownLayout()

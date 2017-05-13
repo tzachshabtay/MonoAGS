@@ -388,6 +388,7 @@
     <Compile Include="Rooms\RoomSizeProviders\AGSRoomLimits.cs" />
     <Compile Include="Rooms\RoomSizeProviders\RoomCustomLimits.cs" />
     <Compile Include="Game\Factories\AGSShaderFactory.cs" />
+    <Compile Include="UI\Layouts\AGSStackLayoutComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -471,5 +472,6 @@
   <ItemGroup />
   <ItemGroup>
     <Folder Include="Rooms\RoomSizeProviders\" />
+    <Folder Include="UI\Layouts\" />
   </ItemGroup>
 </Project>
