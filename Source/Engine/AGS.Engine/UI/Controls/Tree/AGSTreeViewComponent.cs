@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -10,8 +9,8 @@ namespace AGS.Engine
         private Node _root;
         private IGameState _state;
         private IInObjectTree _entity;
-        Stopwatch sw = new Stopwatch();
-
+        private bool _duringUpdate;
+        
         public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameEvents gameEvents, IGameState state)
         {
             HorizontalSpacing = 5f;
@@ -35,17 +34,16 @@ namespace AGS.Engine
             _entity = entity.GetComponent<IInObjectTree>();
         }
 
-        private bool duringUpdate;
         private void onRepeatedlyExecute(object sender, AGSEventArgs args)
         {
-            if (duringUpdate) return;
-            duringUpdate = true;
+            if (_duringUpdate) return;
+            _duringUpdate = true;
             var tree = Tree;
             _root = buildTree(_root, tree);
             processTree(_root);
             var root = _root;
             if (root != null) root.ResetOffsets(0f, 0f, HorizontalSpacing, -VerticalSpacing);
-            duringUpdate = false;
+            _duringUpdate = false;
         }
 
         private void processTree(Node node)

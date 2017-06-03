@@ -21,7 +21,8 @@ namespace AGS.Engine
             {
                 expandButton.TextConfig = nodeView.TreeItem.TextConfig;
                 expandButton.Text = isCollapsed ? "+" : "-";
-                expandButton.Visible = item.TreeNode.ChildrenCount > 0;
+                expandButton.TextVisible = item.TreeNode.ChildrenCount > 0;
+                expandButton.Enabled = expandButton.TextVisible;
             }
         }
 
