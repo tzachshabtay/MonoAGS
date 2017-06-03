@@ -133,11 +133,6 @@ namespace AGS.Engine
                 IsCollapsed = true;
                 IsNew = true;
 
-                /*var layout = view.ParentPanel.AddComponent<IStackLayoutComponent>();
-                if (layout != null) //Adds default vertical layout for the children if the view provider didn't already add a stack layout
-                {
-                    layout.RelativeSpacing = new PointF(0f, -1f);
-                }*/
                 if (parentNode != null)
                 {
                     view.ParentPanel.TreeNode.SetParent(parentNode.View.VerticalPanel.TreeNode);

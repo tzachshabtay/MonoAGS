@@ -49,6 +49,7 @@ namespace AGS.Engine
             verticalPanel.Tint = Colors.Transparent;
             expandButton.Tint = Colors.Transparent;
             label.Tint = Colors.Transparent;
+            label.Enabled = true;
             expandButton.TreeNode.SetParent(horizontalPanel.TreeNode);
             expandButton.PixelPerfect(false);
             label.TreeNode.SetParent(horizontalPanel.TreeNode);
