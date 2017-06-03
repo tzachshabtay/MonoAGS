@@ -1,10 +1,11 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
 	public struct AGSSquare : ISquare
 	{
+        private readonly bool _isEmpty;
+
 		public AGSSquare (PointF bottomLeft, PointF bottomRight, PointF topLeft, PointF topRight) : this()
 		{
 			BottomLeft = bottomLeft;
@@ -16,13 +17,19 @@ namespace AGS.Engine
 			MaxX = MathUtils.Max(bottomLeft.X, bottomRight.X, topLeft.X, topRight.X);
 			MinY = MathUtils.Min(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
 			MaxY = MathUtils.Max(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
-		}
+
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            _isEmpty = MinX == MaxX || MinY == MaxY;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+        }
 
 		#region ISquare implementation
 
 		//http://www.emanueleferonato.com/2012/03/09/algorithm-to-determine-if-a-point-is-inside-a-square-with-mathematics-no-hit-test-involved/
 		public bool Contains (PointF p)
 		{
+            if (_isEmpty) return false;
+
 			PointF a = BottomLeft;
 			PointF b = BottomRight;
 			PointF c = TopRight;

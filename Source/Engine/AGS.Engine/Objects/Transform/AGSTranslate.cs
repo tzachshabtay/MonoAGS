@@ -15,7 +15,8 @@ namespace AGS.Engine
 
         public ILocation Location { get { return _location; } set { _location = value; fireLocationChange(); } }
 
-        public float X { get { return Location.X; } set { Location = new AGSLocation(value, Y, Z); } }
+        public float X { get { return Location.X; } 
+            set { Location = new AGSLocation(value, Y, Z); } }
 
         public float Y { get { return Location.Y; } set { Location = new AGSLocation(X, value, Z == Y ? value : Z); } }
 

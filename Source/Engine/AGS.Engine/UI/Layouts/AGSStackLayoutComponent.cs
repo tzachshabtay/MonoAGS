@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -8,12 +9,14 @@ namespace AGS.Engine
 
         public AGSStackLayoutComponent(IGame game)
         {
-            RelativeSpacing = new PointF(0f, -1f); //a simple vertical layout top to bottom by default.
+            Direction = LayoutDirection.Vertical;
+            RelativeSpacing = -1f; //a simple vertical layout top to bottom by default.
             game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
-        public PointF AbsoluteSpacing { get; set; }
-        public PointF RelativeSpacing { get; set; }
+        public LayoutDirection Direction { get; set; }
+        public float AbsoluteSpacing { get; set; }
+        public float RelativeSpacing { get; set; }
 
         public override void Init(IEntity entity)
         {
@@ -21,17 +24,59 @@ namespace AGS.Engine
             _tree = entity.GetComponent<IInObjectTree>();
         }
 
-		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
-		{
-            float x = 0f;
-            float y = 0f;
+        private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+        {
+            float location = 0f;
 
-            foreach (var child in _tree.TreeNode.Children) 
+            foreach (var child in _tree.TreeNode.Children)
             {
-                child.Location = new AGSLocation(x, y, child.Z);
-                x += child.Width * RelativeSpacing.X + AbsoluteSpacing.X;
-                y += child.Height * RelativeSpacing.Y + AbsoluteSpacing.Y;
+                if (!child.Visible) continue;
+                float step;
+                if (Direction == LayoutDirection.Vertical)
+                {
+                    child.Y = location;
+                    step = getHeightWithChildren(child);
+                }
+                else
+                {
+                    child.X = location;
+                    step = getWidthWithChildren(child);
+                }
+                location += step * RelativeSpacing + AbsoluteSpacing;
             }
-		}
+        }
+
+        private float getWidthWithChildren(IObject obj)
+        {
+            return getObjLength(obj, o => o.X, o => o.Width);
+        }
+
+        private float getHeightWithChildren(IObject obj)
+        {
+            return getObjLength(obj, o => o.Y, o => o.Height);
+        }
+
+        private float getObjLength(IObject obj, Func<IObject, float> getMin, Func<IObject, float> getLength)
+        {
+            var minMax = getMinMax(obj, getMin, getLength);
+            return minMax.Item2 - minMax.Item1;
+        }
+
+        private Tuple<float, float> getMinMax(IObject obj, Func<IObject, float> getMin, Func<IObject, float> getLength)
+        {
+            float length = getLength(obj);
+            float min = getMin(obj);
+            float max = min + length;
+
+            foreach (var child in obj.TreeNode.Children)
+            {
+                if (!child.Visible) continue;
+                var minMax = getMinMax(child, getMin, getLength);
+                if (minMax.Item1 < min) min = minMax.Item1;
+                if (minMax.Item2 > max) max = minMax.Item2;
+            }
+
+            return new Tuple<float, float>(min, max);
+        }
 	}
 }

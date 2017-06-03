@@ -389,6 +389,10 @@
     <Compile Include="Rooms\RoomSizeProviders\RoomCustomLimits.cs" />
     <Compile Include="Game\Factories\AGSShaderFactory.cs" />
     <Compile Include="UI\Layouts\AGSStackLayoutComponent.cs" />
+    <Compile Include="UI\Controls\Tree\AGSTreeViewComponent.cs" />
+    <Compile Include="UI\Controls\Tree\AGSTreeNodeViewProvider.cs" />
+    <Compile Include="UI\Controls\Tree\AGSTreeNodeView.cs" />
+    <Compile Include="UI\Controls\Tree\AGSTreeStringNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -473,5 +477,6 @@
   <ItemGroup>
     <Folder Include="Rooms\RoomSizeProviders\" />
     <Folder Include="UI\Layouts\" />
+    <Folder Include="UI\Controls\Tree\" />
   </ItemGroup>
 </Project>

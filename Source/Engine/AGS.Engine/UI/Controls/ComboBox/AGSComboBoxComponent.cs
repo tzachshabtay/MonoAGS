@@ -87,9 +87,7 @@ namespace AGS.Engine
         {
             base.Init(entity);
             DropDownPanel = _uiFactory.GetPanel(entity.ID + "_Panel", new EmptyImage(1f, 1f), 0f, 0f);
-            var layout = DropDownPanel.AddComponent<IStackLayoutComponent>();
-            layout.AbsoluteSpacing = new PointF();
-            layout.RelativeSpacing = new PointF(0f, -1f);
+            DropDownPanel.AddComponent<IStackLayoutComponent>();
             DropDownPanel.Visible = false;
             _tree = entity.GetComponent<IInObjectTree>();
         }

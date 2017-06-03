@@ -224,6 +224,10 @@
     <Compile Include="Misc\Geometry\RectangleF.cs" />
     <Compile Include="Game\Factories\IShaderFactory.cs" />
     <Compile Include="UI\Layouts\IStackLayoutComponent.cs" />
+    <Compile Include="UI\Controls\Tree\ITreeViewComponent.cs" />
+    <Compile Include="UI\Controls\Tree\ITreeNodeView.cs" />
+    <Compile Include="UI\Controls\Tree\ITreeNodeViewProvider.cs" />
+    <Compile Include="UI\Controls\Tree\ITreeStringNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
@@ -236,6 +240,7 @@
     <Folder Include="Misc\Geometry\OpenTK\" />
     <Folder Include="Misc\Collections\HashSet\" />
     <Folder Include="UI\Layouts\" />
+    <Folder Include="UI\Controls\Tree\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

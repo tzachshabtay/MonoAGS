@@ -13,6 +13,7 @@ namespace AGS.Engine
 		private readonly Assembly _assembly;
         private Dictionary<string, List<string>> _resourceFolders, _externalFolders;
         private readonly IFileSystem _fileSystem;
+        private readonly List<IResource> _emptyResources = new List<IResource>(1);
 
         public ResourceLoader(IFileSystem fileSystem, IAssemblies assemblies)
 		{
@@ -45,6 +46,10 @@ namespace AGS.Engine
 
 		public List<IResource> LoadResources(params string[] paths)
 		{
+            if (paths.Length == 0)
+            {
+                return _emptyResources;
+            }
             Debug.WriteLine("Loading resources from paths " + string.Join(", ", paths));
 			List<IResource> resources = new List<IResource> (paths.Length);
 			foreach (string path in paths)
