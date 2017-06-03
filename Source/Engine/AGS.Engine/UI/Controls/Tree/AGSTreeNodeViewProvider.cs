@@ -43,19 +43,17 @@ namespace AGS.Engine
             var horizontalPanel = _factory.UI.GetPanel("TreeNodeHorizontalPanel_" + itemTextId, 0f, 0f, 0f, 0f, false);
             var verticalPanel = _factory.UI.GetPanel("TreeNodeVerticalPanel_" + itemTextId, 0f, 0f, 0f, 0f, false);
             var parentPanel = _factory.UI.GetPanel("TreeNodeParentPanel_" + itemTextId, 0f, 0f, 0f, 0f, false);
-            horizontalPanel.Tint = Colors.Blue;
-            parentPanel.Tint = Colors.Green;
-            verticalPanel.Tint = Colors.Red;
-            expandButton.Tint = Colors.Yellow;
-            label.Tint = Colors.Pink;
-            verticalPanel.Y -= 40f;
+            horizontalPanel.Tint = Colors.Transparent;
+            parentPanel.Tint = Colors.Transparent;
+            verticalPanel.Tint = Colors.Transparent;
+            expandButton.Tint = Colors.Transparent;
+            label.Tint = Colors.Transparent;
             expandButton.TreeNode.SetParent(horizontalPanel.TreeNode);
             expandButton.PixelPerfect(false);
             label.TreeNode.SetParent(horizontalPanel.TreeNode);
             var layout = horizontalPanel.AddComponent<IStackLayoutComponent>();
             layout.RelativeSpacing = 1f;
             layout.Direction = LayoutDirection.Horizontal;
-            layout = verticalPanel.AddComponent<IStackLayoutComponent>();
             horizontalPanel.TreeNode.SetParent(parentPanel.TreeNode);
             verticalPanel.TreeNode.SetParent(parentPanel.TreeNode);
 

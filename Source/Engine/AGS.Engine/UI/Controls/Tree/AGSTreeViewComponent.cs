@@ -9,13 +9,13 @@ namespace AGS.Engine
     {
         private Node _root;
         private IGameState _state;
-        private float _horizontalSpacing;
         private IInObjectTree _entity;
         Stopwatch sw = new Stopwatch();
 
         public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameEvents gameEvents, IGameState state)
         {
-            _horizontalSpacing = 5f;
+            HorizontalSpacing = 5f;
+            VerticalSpacing = 25f;
             _state = state;
             NodeViewProvider = provider;
             gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
@@ -25,16 +25,9 @@ namespace AGS.Engine
 
         public ITreeNodeViewProvider NodeViewProvider { get; set; }
 
-        public float HorizontalSpacing
-        {
-            get { return _horizontalSpacing; }
-            set
-            {
-                _horizontalSpacing = value;
-                var root = _root;
-                if (root != null) root.ResetXOffset(0f, value);
-            }
-        }
+        public float HorizontalSpacing { get; set; }
+
+        public float VerticalSpacing { get; set; }
 
         public override void Init(IEntity entity)
         {
@@ -50,6 +43,8 @@ namespace AGS.Engine
             var tree = Tree;
             _root = buildTree(_root, tree);
             processTree(_root);
+            var root = _root;
+            if (root != null) root.ResetOffsets(0f, 0f, HorizontalSpacing, -VerticalSpacing);
             duringUpdate = false;
         }
 
@@ -72,10 +67,8 @@ namespace AGS.Engine
                 if (currentNode != null) removeFromUI(currentNode);
                 currentNode = new Node(actualNode, NodeViewProvider.CreateNode(actualNode), null);
                 currentNode.View.ParentPanel.TreeNode.SetParent(_entity.TreeNode);
-                //if (currentNode != null) addToUI(currentNode);
             }
             int maxChildren = Math.Max(currentNode.Children.Count, actualNode.TreeNode.Children.Count);
-            bool addedNewChild = false;
             for (int i = 0; i < maxChildren; i++)
             {
                 var nodeChild = childOrNull(currentNode.Children, i);
@@ -84,9 +77,7 @@ namespace AGS.Engine
                 if (nodeChild == null)
                 {
                     var newNode = new Node(actualChild, NodeViewProvider.CreateNode(actualChild), currentNode);
-                    addedNewChild = true;
 					newNode = buildTree(newNode, actualChild);
-					//addToUI(newNode);
                     currentNode.Children.Add(newNode);
                     continue;
                 }
@@ -101,7 +92,6 @@ namespace AGS.Engine
 				currentNode.Children.RemoveAt(i);
 				i--;
             }
-            if (addedNewChild) currentNode.ResetXOffset(currentNode.XOffset, HorizontalSpacing);
             return currentNode;
         }
 
@@ -189,16 +179,18 @@ namespace AGS.Engine
                 getExpandButton().MouseClicked.Unsubscribe(onMouseClicked);
             }
 
-            public void ResetXOffset(float xOffset, float spacing)
+            public float ResetOffsets(float xOffset, float yOffset, float spacingX, float spacingY)
             {
-                //XOffset = xOffset;
-                var panel = View.VerticalPanel;
-                panel.X = spacing;
-                //xOffset += spacing;
+                xOffset += spacingX;
+                View.VerticalPanel.X = xOffset;
+                View.ParentPanel.Y = yOffset;
+                var childYOffset = spacingY;
                 foreach (var child in Children)
                 {
-                    child.ResetXOffset(spacing, spacing);
+                    childYOffset = child.ResetOffsets(xOffset, childYOffset, spacingX, spacingY);
                 }
+                if (!View.ParentPanel.Visible) return yOffset;
+                return yOffset + childYOffset;
             }
 
             private IUIEvents getExpandButton()

@@ -7,5 +7,7 @@
         ITreeNodeViewProvider NodeViewProvider { get; set; }
 
         float HorizontalSpacing { get; set; }
+
+        float VerticalSpacing { get; set; }
     }
 }
