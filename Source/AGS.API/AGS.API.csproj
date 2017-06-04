@@ -228,6 +228,7 @@
     <Compile Include="UI\Controls\Tree\ITreeNodeView.cs" />
     <Compile Include="UI\Controls\Tree\ITreeNodeViewProvider.cs" />
     <Compile Include="UI\Controls\Tree\ITreeStringNode.cs" />
+    <Compile Include="UI\Controls\Tree\NodeEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

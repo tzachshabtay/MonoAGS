@@ -12,10 +12,12 @@ namespace AGS.Engine
             _factory = factory;
         }
 
-        public void BeforeDisplayingNode(ITreeStringNode item, ITreeNodeView nodeView, bool isCollapsed, bool isHovered)
+        public void BeforeDisplayingNode(ITreeStringNode item, ITreeNodeView nodeView, 
+                                         bool isCollapsed, bool isHovered, bool isSelected)
         {
             nodeView.TreeItem.TextConfig = isHovered ? item.HoverTextConfig : item.IdleTextConfig;
             nodeView.TreeItem.Text = item.Text;
+            nodeView.TreeItem.Tint = isSelected ? Colors.DarkSlateBlue : Colors.Transparent;
             var expandButton = nodeView.ExpandButton;
             if (expandButton != null)
             {
@@ -40,7 +42,8 @@ namespace AGS.Engine
             pushed.Sprite.Tint = Colors.DarkSlateBlue;
             var itemTextId = item.Text ?? "" + "_" + Guid.NewGuid();
             var expandButton = _factory.UI.GetButton("ExpandButton_" + itemTextId, idle, hovered, pushed, 0f, 0f, addToUi: false);
-            var label = _factory.UI.GetLabel("TreeNodeLabel_" + itemTextId, item.Text, labelWidth, labelHeight, buttonWidth, 0f, addToUi: false);
+            var label = _factory.UI.GetLabel("TreeNodeLabel_" + itemTextId, item.Text, labelWidth, labelHeight, buttonWidth, 0f, 
+                                             new AGSTextConfig(paddingTop: 0f, paddingBottom: 0f), addToUi: false);
             var horizontalPanel = _factory.UI.GetPanel("TreeNodeHorizontalPanel_" + itemTextId, 0f, 0f, 0f, 0f, false);
             var verticalPanel = _factory.UI.GetPanel("TreeNodeVerticalPanel_" + itemTextId, 0f, 0f, 0f, 0f, false);
             var parentPanel = _factory.UI.GetPanel("TreeNodeParentPanel_" + itemTextId, 0f, 0f, 0f, 0f, false);

@@ -4,6 +4,7 @@
     {
         ITreeNodeView CreateNode(ITreeStringNode node);
 
-        void BeforeDisplayingNode(ITreeStringNode item, ITreeNodeView nodeView, bool isCollapsed, bool isHovered);
+        void BeforeDisplayingNode(ITreeStringNode item, ITreeNodeView nodeView, 
+                                  bool isCollapsed, bool isHovered, bool isSelected);
     }
 }

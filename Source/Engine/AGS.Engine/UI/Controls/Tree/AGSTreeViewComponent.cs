@@ -15,6 +15,8 @@ namespace AGS.Engine
         {
             HorizontalSpacing = 5f;
             VerticalSpacing = 25f;
+            OnNodeSelected = new AGSEvent<NodeEventArgs>();
+            AllowSelection = SelectionType.Single;
             _state = state;
             NodeViewProvider = provider;
             gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
@@ -27,6 +29,10 @@ namespace AGS.Engine
         public float HorizontalSpacing { get; set; }
 
         public float VerticalSpacing { get; set; }
+
+        public SelectionType AllowSelection { get; set; }
+
+        public IEvent<NodeEventArgs> OnNodeSelected { get; private set; }
 
         public override void Init(IEntity entity)
         {
@@ -63,7 +69,7 @@ namespace AGS.Engine
             if (currentNode == null || currentNode.Item != actualNode)
             {
                 if (currentNode != null) removeFromUI(currentNode);
-                currentNode = new Node(actualNode, NodeViewProvider.CreateNode(actualNode), null);
+                currentNode = new Node(actualNode, NodeViewProvider.CreateNode(actualNode), null, this);
                 currentNode.View.ParentPanel.TreeNode.SetParent(_entity.TreeNode);
             }
             int maxChildren = Math.Max(currentNode.Children.Count, actualNode.TreeNode.Children.Count);
@@ -74,7 +80,7 @@ namespace AGS.Engine
                 if (nodeChild == null && actualChild == null) continue;
                 if (nodeChild == null)
                 {
-                    var newNode = new Node(actualChild, NodeViewProvider.CreateNode(actualChild), currentNode);
+                    var newNode = new Node(actualChild, NodeViewProvider.CreateNode(actualChild), currentNode, this);
 					newNode = buildTree(newNode, actualChild);
                     currentNode.Children.Add(newNode);
                     continue;
@@ -101,7 +107,8 @@ namespace AGS.Engine
 
         private void addToUI(Node node)
         {
-            NodeViewProvider.BeforeDisplayingNode(node.Item, node.View, node.IsCollapsed, node.IsHovered);
+            NodeViewProvider.BeforeDisplayingNode(node.Item, node.View, 
+                                                  node.IsCollapsed, node.IsHovered, node.IsSelected);
             if (!node.IsNew) return;
             node.IsNew = false;
             _state.UI.Add(node.View.ParentPanel);
@@ -125,10 +132,14 @@ namespace AGS.Engine
 
         private class Node : IDisposable
         {
-            public Node(ITreeStringNode item, ITreeNodeView view, Node parentNode)
+            private ITreeViewComponent _tree;
+
+            public Node(ITreeStringNode item, ITreeNodeView view, Node parentNode, ITreeViewComponent tree)
             {
+                _tree = tree;
                 Item = item;
                 View = view;
+                Parent = parentNode;
                 Children = new List<Node>();
                 IsCollapsed = true;
                 IsNew = true;
@@ -141,6 +152,7 @@ namespace AGS.Engine
 
                 view.TreeItem.MouseEnter.Subscribe(onMouseEnter);
                 view.TreeItem.MouseLeave.Subscribe(onMouseLeave);
+                View.TreeItem.MouseClicked.Subscribe(onItemSelected);
                 var expandButton = View.ExpandButton;
                 if (expandButton != null)
                 {
@@ -153,16 +165,19 @@ namespace AGS.Engine
             public ITreeStringNode Item { get; private set; }
             public ITreeNodeView View { get; private set; }
             public List<Node> Children { get; private set; }
+            public Node Parent { get; private set; }
 
             public bool IsNew { get; set; }
             public bool IsCollapsed { get; set; }
             public bool IsHovered { get; set; }
+            public bool IsSelected { get; private set; }
             public float XOffset { get; private set; }
 
             public void Dispose()
             {
                 View.TreeItem.MouseEnter.Unsubscribe(onMouseEnter);
                 View.TreeItem.MouseLeave.Unsubscribe(onMouseLeave);
+                View.TreeItem.MouseClicked.Unsubscribe(onItemSelected);
                 var expandButton = View.ExpandButton;
                 if (expandButton != null)
                 {
@@ -184,6 +199,22 @@ namespace AGS.Engine
                 }
                 if (!View.ParentPanel.Visible) return yOffset;
                 return yOffset + childYOffset;
+            }
+
+            public void ResetSelection()
+            {
+                IsSelected = false;
+                foreach (var child in Children)
+                {
+                    child.ResetSelection();
+                }
+            }
+
+            private Node getRoot()
+            {
+                var root = this;
+                while (root.Parent != null) root = root.Parent;
+                return root;
             }
 
             private IUIEvents getExpandButton()
@@ -208,6 +239,14 @@ namespace AGS.Engine
                 {
                     child.View.ParentPanel.Visible = !IsCollapsed;
                 }
+            }
+
+            private void onItemSelected(object sender, MouseButtonEventArgs args)
+            {
+                getRoot().ResetSelection();
+                if (_tree.AllowSelection == SelectionType.None) return;
+                IsSelected = true;
+                _tree.OnNodeSelected.Invoke(this, new NodeEventArgs(Item));
             }
         }
     }
