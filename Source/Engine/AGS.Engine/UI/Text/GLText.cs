@@ -20,6 +20,7 @@ namespace AGS.Engine
         private bool _cropText, _renderCaret;
         private readonly IGraphicsBackend _graphics;
         private readonly IFontLoader _fonts;
+        private PointF _textResolutionFactor = new PointF(TextResolutionFactorX, TextResolutionFactorY);
 
         /// <summary>
         /// The factor in which the text will be rendered (and then will be downscaled to match the resolution so it would look sharper)
@@ -29,8 +30,6 @@ namespace AGS.Engine
         /// The factor in which the text will be rendered (and then will be downscaled to match the resolution so it would look sharper)
         /// </summary>
         public static int TextResolutionFactorY = 1;
-        public static int TextResolutionWidth { get { return AGSGame.Game.Settings.VirtualResolution.Width * TextResolutionFactorX; } }
-        public static int TextResolutionHeight { get { return AGSGame.Game.Settings.VirtualResolution.Height * TextResolutionFactorY; } }
 
         public GLText (IGraphicsBackend graphics, IFontLoader fonts, BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
 		{
@@ -55,7 +54,7 @@ namespace AGS.Engine
 		public float Height { get; private set; }        
 
 		public void SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null, 
-            int caretPosition = 0, bool renderCaret = false, bool? cropText = null)
+            PointF? textResolutionFactor = null, int caretPosition = 0, bool renderCaret = false, bool? cropText = null)
 		{
 			bool changeNeeded = 
 				(text != null && text != _text)
@@ -64,7 +63,8 @@ namespace AGS.Engine
 				|| !baseSize.Equals(_baseSize)
                 || _caretPosition != caretPosition
                 || _renderCaret != renderCaret
-                || (cropText != null && cropText.Value != _cropText);
+                || (cropText != null && cropText.Value != _cropText)
+                || (textResolutionFactor != null && !textResolutionFactor.Value.Equals(_textResolutionFactor));
 			if (!changeNeeded) return;
 
 			_text = text;
@@ -75,7 +75,9 @@ namespace AGS.Engine
             }
 			if (maxWidth != null) _maxWidth = maxWidth.Value;
             if (cropText != null) _cropText = cropText.Value;
-			_baseSize = baseSize;
+            if (textResolutionFactor != null) _textResolutionFactor = textResolutionFactor.Value;
+
+            _baseSize = baseSize;
             _caretPosition = caretPosition;
             _renderCaret = renderCaret;
 
@@ -147,8 +149,8 @@ namespace AGS.Engine
             string originalText = _text ?? "";
             string text = _text;
 
-            var config = AGSTextConfig.ScaleConfig(_config, TextResolutionFactorX);
-            int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : _maxWidth * TextResolutionFactorX;
+            var config = AGSTextConfig.ScaleConfig(_config, _textResolutionFactor.X);
+            int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : (int)(_maxWidth * _textResolutionFactor.X);
             SizeF originalTextSize = config.Font.MeasureString(text, _cropText ? int.MaxValue : maxWidth);
             SizeF textSize = originalTextSize;
             if (_cropText && textSize.Width > maxWidth)
@@ -160,11 +162,11 @@ namespace AGS.Engine
             float heightOffset = Math.Max(config.OutlineWidth, Math.Abs(config.ShadowOffsetY));
             float widthF = textSize.Width + widthOffset + config.PaddingLeft + config.PaddingRight;
             float heightF = textSize.Height + heightOffset + config.PaddingTop + config.PaddingBottom;
-            SizeF baseSize = new SizeF(_baseSize.Width == EmptySize.Width ? widthF : _baseSize.Width * TextResolutionFactorX,
-                _baseSize.Height == EmptySize.Height ? heightF : _baseSize.Height * TextResolutionFactorY);
+            SizeF baseSize = new SizeF(_baseSize.Width == EmptySize.Width ? widthF : _baseSize.Width * _textResolutionFactor.X,
+                                       _baseSize.Height == EmptySize.Height ? heightF : _baseSize.Height * _textResolutionFactor.Y);
 
-            Width = (widthF / GLText.TextResolutionFactorX);
-            Height = (heightF / GLText.TextResolutionFactorY);
+            Width = (widthF / _textResolutionFactor.X);
+            Height = (heightF / _textResolutionFactor.Y);
             int bitmapWidth = MathUtils.GetNextPowerOf2(Math.Max((int)widthF + 1, (int)baseSize.Width + 1));
             int bitmapHeight = MathUtils.GetNextPowerOf2(Math.Max((int)heightF + 1, (int)baseSize.Height + 1));
             IBitmap bitmap = _bitmap;
@@ -200,7 +202,7 @@ namespace AGS.Engine
         private float measureSpace()
         {
             //hack to measure the size of spaces. For some reason MeasureString returns bad results when string ends with a space.
-            IFont font = _fonts.LoadFont(_config.Font.FontFamily, _config.Font.SizeInPoints * TextResolutionFactorX, _config.Font.Style);
+            IFont font = _fonts.LoadFont(_config.Font.FontFamily, _config.Font.SizeInPoints * _textResolutionFactor.X, _config.Font.Style);
             return font.MeasureString(" a").Width - font.MeasureString("a").Width;
         }
 			

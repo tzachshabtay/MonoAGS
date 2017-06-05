@@ -28,7 +28,7 @@ namespace AGS.Engine
             }
         }
 
-        public ITreeNodeView CreateNode(ITreeStringNode item)
+        public ITreeNodeView CreateNode(ITreeStringNode item, IRenderLayer layer)
         {
             var buttonWidth = 15f;
             var buttonHeight = 15f;
@@ -47,6 +47,11 @@ namespace AGS.Engine
             var horizontalPanel = _factory.UI.GetPanel("TreeNodeHorizontalPanel_" + itemTextId, 0f, 0f, 0f, 0f, false);
             var verticalPanel = _factory.UI.GetPanel("TreeNodeVerticalPanel_" + itemTextId, 0f, 0f, 0f, 0f, false);
             var parentPanel = _factory.UI.GetPanel("TreeNodeParentPanel_" + itemTextId, 0f, 0f, 0f, 0f, false);
+            horizontalPanel.RenderLayer = layer;
+            verticalPanel.RenderLayer = layer;
+            parentPanel.RenderLayer = layer;
+            expandButton.RenderLayer = layer;
+            label.RenderLayer = layer;
             horizontalPanel.Tint = Colors.Transparent;
             parentPanel.Tint = Colors.Transparent;
             verticalPanel.Tint = Colors.Transparent;

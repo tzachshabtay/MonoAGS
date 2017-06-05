@@ -8,7 +8,8 @@ namespace AGS.Engine
     {
         private Node _root;
         private IGameState _state;
-        private IInObjectTree _entity;
+        private IInObjectTree _tree;
+        private IDrawableInfo _drawable;
         private bool _duringUpdate;
         
         public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameEvents gameEvents, IGameState state)
@@ -37,7 +38,8 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _entity = entity.GetComponent<IInObjectTree>();
+            _tree = entity.GetComponent<IInObjectTree>();
+            _drawable = entity.GetComponent<IDrawableInfo>();
         }
 
         private void onRepeatedlyExecute(object sender, AGSEventArgs args)
@@ -69,8 +71,8 @@ namespace AGS.Engine
             if (currentNode == null || currentNode.Item != actualNode)
             {
                 if (currentNode != null) removeFromUI(currentNode);
-                currentNode = new Node(actualNode, NodeViewProvider.CreateNode(actualNode), null, this);
-                currentNode.View.ParentPanel.TreeNode.SetParent(_entity.TreeNode);
+                currentNode = new Node(actualNode, NodeViewProvider.CreateNode(actualNode, _drawable.RenderLayer), null, this);
+                currentNode.View.ParentPanel.TreeNode.SetParent(_tree.TreeNode);
             }
             int maxChildren = Math.Max(currentNode.Children.Count, actualNode.TreeNode.Children.Count);
             for (int i = 0; i < maxChildren; i++)
@@ -80,7 +82,7 @@ namespace AGS.Engine
                 if (nodeChild == null && actualChild == null) continue;
                 if (nodeChild == null)
                 {
-                    var newNode = new Node(actualChild, NodeViewProvider.CreateNode(actualChild), currentNode, this);
+                    var newNode = new Node(actualChild, NodeViewProvider.CreateNode(actualChild, _drawable.RenderLayer), currentNode, this);
 					newNode = buildTree(newNode, actualChild);
                     currentNode.Children.Add(newNode);
                     continue;

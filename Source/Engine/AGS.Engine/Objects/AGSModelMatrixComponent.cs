@@ -75,6 +75,34 @@ namespace AGS.Engine
 
         public IEvent<AGSEventArgs> OnMatrixChanged { get; private set; }
 
+        public static bool GetVirtualResolution(Size virtualResolution, IDrawableInfo drawable, 
+                                         PointF? customResolutionFactor, out PointF resolutionFactor, out Size resolution)
+        {
+            //Priorities for virtual resolution: layer's resolution comes first, if not then the custom resolution (which is the text scaling resolution for text, otherwise null),
+            //and if not use the virtual resolution.
+            var renderLayer = drawable.RenderLayer;
+            var layerResolution = renderLayer == null ? null : renderLayer.IndependentResolution;
+            if (layerResolution != null)
+            {
+                resolution = layerResolution.Value;
+                resolutionFactor = new PointF(resolution.Width / (float)virtualResolution.Width, resolution.Height / (float)virtualResolution.Height);
+                return layerResolution.Equals(virtualResolution);
+            }
+            else if (customResolutionFactor != null)
+            {
+                resolutionFactor = customResolutionFactor.Value;
+                resolution = new Size((int)(virtualResolution.Width * customResolutionFactor.Value.X), 
+                                      (int)(virtualResolution.Height * customResolutionFactor.Value.Y));
+                return customResolutionFactor.Value.Equals(NoScaling);
+            }
+            else
+            {
+                resolutionFactor = NoScaling;
+                resolution = virtualResolution;
+                return true;
+            }
+        }
+
         private void onSomethingChanged(object sender, AGSEventArgs args)
         {
             _isDirty = true;
@@ -160,15 +188,10 @@ namespace AGS.Engine
 
         private void recalculate()
         {
-            var objResolution = _drawable.RenderLayer == null ? _virtualResolution : _drawable.RenderLayer.IndependentResolution ?? _virtualResolution;
-            var resolutionMatches = _customResolutionFactor == null ? 
-                objResolution.Equals(_virtualResolution) : 
-                _customResolutionFactor.Value.Equals(NoScaling);
-            var resolutionFactor = _customResolutionFactor ?? new PointF(objResolution.Width / _virtualResolution.Width, objResolution.Height / _virtualResolution.Height);
-
-            if (_entity.ID == "Quit Button")
-            {
-            }
+            PointF resolutionFactor;
+            Size resolution;
+            bool resolutionMatches = GetVirtualResolution(_virtualResolution, _drawable, _customResolutionFactor,
+                                                   out resolutionFactor, out resolution);
 
             var renderMatrix = getMatrix(resolutionFactor);
             var hitTestMatrix = resolutionMatches ? renderMatrix : getMatrix(NoScaling);
