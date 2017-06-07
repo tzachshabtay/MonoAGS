@@ -14,8 +14,8 @@ namespace AGS.Engine
         
         public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameEvents gameEvents, IGameState state)
         {
-            HorizontalSpacing = 5f;
-            VerticalSpacing = 25f;
+            HorizontalSpacing = 4f;
+            VerticalSpacing = 8f;
             OnNodeSelected = new AGSEvent<NodeEventArgs>();
             AllowSelection = SelectionType.Single;
             _state = state;
@@ -46,11 +46,22 @@ namespace AGS.Engine
         {
             if (_duringUpdate) return;
             _duringUpdate = true;
-            var tree = Tree;
-            _root = buildTree(_root, tree);
-            processTree(_root);
-            var root = _root;
-            if (root != null) root.ResetOffsets(0f, 0f, HorizontalSpacing, -VerticalSpacing);
+            try
+            {
+                var tree = Tree;
+                _root = buildTree(_root, tree);
+                processTree(_root);
+                var root = _root;
+                if (root != null) root.ResetOffsets(0f, 0f, HorizontalSpacing, -VerticalSpacing);
+            }
+            //todo: Currently we rebuild the tree on each tick which can be slow.
+            //If it's too slow and the next game tick comes before we finished building, one of the children
+            //in the tree might change from another component while we're iterating on it, 
+            //which can cause the exception, which we currently ignore and the tree will be rebuilt on
+            //the next tick.
+            //We don't need to rebuild the tree on each tick, we can listen to events and only build when
+            //something actually changes in the tree, so we might be able to remove this ugly catch.
+            catch (InvalidOperationException) { } 
             _duringUpdate = false;
         }
 
