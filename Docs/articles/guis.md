@@ -88,6 +88,11 @@ in the window and assign the window to an inventory (usually the player's). You 
 A message box is a dialog which is shown to the user with information. The dialog can also comes with buttons for selecting an action (like an "Are you sure you want to quit?" dialog, for example).
 For displaying message boxes, you can use `AGSMessageBox.Display` for which you give a text and a list of buttons. It will display the text and the buttons at the bottom of the box and it returns the button which was clicked so that you'll be able to trigger the desired action. For convenience, on top of `AGSMessageBox.Display`, there are 2 built in message boxes: `AGSMessageBox.YesNo` and `AGSMessageBox.OkCancel`, which will show you a yes/no question, or a ok/cancel dialog (they both use `AGSMessageBox.Display` internally), and those will return to you a boolean value indicating whether yes/ok or no/cancel were selected.
 
+### Trees
+
+A tree can be used for displaying a hierarchical collection of text labels.
+Each label is a node in the tree which can be collapsed/expanded to hide/show its children.
+
 ## GUI Focus
 
 The concept of focus for GUIs (or [modal windows](https://ux.stackexchange.com/questions/12045/what-is-a-modal-dialog-window)), is for when you want a specific GUI control to force interaction with the user, thus you don't want any of the other GUIs responding to user input at that time. For example, when showing a yes/no question to the user, you don't want the user to be able to open the inventory window.
