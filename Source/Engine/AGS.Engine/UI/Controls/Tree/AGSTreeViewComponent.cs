@@ -14,8 +14,8 @@ namespace AGS.Engine
         
         public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameEvents gameEvents, IGameState state)
         {
-            HorizontalSpacing = 4f;
-            VerticalSpacing = 8f;
+            HorizontalSpacing = 15f;
+            VerticalSpacing = 30f;
             OnNodeSelected = new AGSEvent<NodeEventArgs>();
             AllowSelection = SelectionType.Single;
             _state = state;

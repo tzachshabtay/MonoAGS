@@ -106,7 +106,7 @@ namespace AGS.Engine
 		public void Render(IObject obj, IViewport viewport)
 		{
             PointF resolutionFactor; Size resolution;
-            AGSModelMatrixComponent.GetVirtualResolution(_virtualResolution, obj,
+            AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, obj,
                new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY), out resolutionFactor,
                out resolution);
             
@@ -145,7 +145,7 @@ namespace AGS.Engine
                 hitTestResolutionFactor = noFactor;
                 resolutionMatches = true;
             }
-            else resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(_virtualResolution, drawable,
+            else resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, drawable,
                                                                                   renderResolutionFactor, out hitTestResolutionFactor,
                                                                                   out resolution);
             if (!renderResolutionFactor.Equals(hitTestResolutionFactor))
@@ -168,8 +168,8 @@ namespace AGS.Engine
 
             var modelMatrices = obj.GetModelMatrices();
 
-            IGLMatrices textRenderMatrices = new GLMatrices { ModelMatrix = modelMatrices.InObjResolutionMatrix, ViewportMatrix = viewportMatrix }; //_textRenderMatrixBuilder.Build(_labelMatrixRenderTarget, sprite, parent, matrix, areaScaling, resolutionFactor);
-            IGLMatrices labelRenderMatrices = new GLMatrices { ModelMatrix = modelMatrices.InVirtualResolutionMatrix, ViewportMatrix = viewportMatrix }; // _labelRenderMatrixBuilder.Build(_labelMatrixRenderTarget, sprite, parent, matrix, areaScaling, noFactor);
+            IGLMatrices textRenderMatrices = new GLMatrices { ModelMatrix = modelMatrices.InObjResolutionMatrix, ViewportMatrix = viewportMatrix };
+            IGLMatrices labelRenderMatrices = new GLMatrices { ModelMatrix = modelMatrices.InVirtualResolutionMatrix, ViewportMatrix = viewportMatrix };
             IGLMatrices textHitTestMatrices = resolutionMatches ? textRenderMatrices : labelRenderMatrices;
             IGLMatrices labelHitTestMatrices = labelRenderMatrices;
 

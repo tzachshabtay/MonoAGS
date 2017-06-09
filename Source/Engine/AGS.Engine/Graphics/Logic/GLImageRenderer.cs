@@ -59,9 +59,10 @@ namespace AGS.Engine
 			}
 
 			var layerViewport = _layerViewports.GetViewport(obj.RenderLayer.Z);
-            var gameResolution = AGSGame.Game.Settings.VirtualResolution;
-            var resolution = obj.RenderLayer.IndependentResolution ?? gameResolution;
-            bool resolutionMatches = resolution.Equals(gameResolution);
+            Size resolution;
+            PointF resolutionFactor;
+            bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, AGSGame.Game.Settings.VirtualResolution,
+                                                         obj, null, out resolutionFactor, out resolution);
 
             var viewportMatrix = obj.IgnoreViewport ? Matrix4.Identity : layerViewport.GetMatrix(viewport, obj.RenderLayer.ParallaxSpeed);
 
@@ -69,8 +70,8 @@ namespace AGS.Engine
             _matrices.ModelMatrix = modelMatrices.InVirtualResolutionMatrix;
             _matrices.ViewportMatrix = viewportMatrix;
 
-            _boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width,
-				sprite.Image.Height, _matrices, resolutionMatches, true);
+            _boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width / resolutionFactor.X,
+                  sprite.Image.Height / resolutionFactor.Y, _matrices, resolutionMatches, true);
 			IGLBoundingBox hitTestBox = BoundingBoxes.HitTestBox;
             
             if (!resolutionMatches)

@@ -30,8 +30,8 @@ namespace AGS.Engine
 
         public ITreeNodeView CreateNode(ITreeStringNode item, IRenderLayer layer)
         {
-            var buttonWidth = 5f;
-            var buttonHeight = 15f;
+            var buttonWidth = 20f;
+            var buttonHeight = 60f;
             IAnimation idle = new AGSSingleFrameAnimation(new EmptyImage(buttonWidth, buttonHeight), _factory.Graphics);
             idle.Sprite.Tint = Colors.Black;
             IAnimation hovered = new AGSSingleFrameAnimation(new EmptyImage(buttonWidth, buttonHeight), _factory.Graphics);

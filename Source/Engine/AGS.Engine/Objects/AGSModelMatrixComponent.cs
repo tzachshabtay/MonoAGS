@@ -75,7 +75,7 @@ namespace AGS.Engine
 
         public IEvent<AGSEventArgs> OnMatrixChanged { get; private set; }
 
-        public static bool GetVirtualResolution(Size virtualResolution, IDrawableInfo drawable, 
+        public static bool GetVirtualResolution(bool flattenLayerResolution, Size virtualResolution, IDrawableInfo drawable, 
                                          PointF? customResolutionFactor, out PointF resolutionFactor, out Size resolution)
         {
             //Priorities for virtual resolution: layer's resolution comes first, if not then the custom resolution (which is the text scaling resolution for text, otherwise null),
@@ -84,6 +84,12 @@ namespace AGS.Engine
             var layerResolution = renderLayer == null ? null : renderLayer.IndependentResolution;
             if (layerResolution != null)
             {
+                if (flattenLayerResolution)
+                {
+                    resolutionFactor = NoScaling;
+                    resolution = virtualResolution;
+                    return false;
+                }
                 resolution = layerResolution.Value;
                 resolutionFactor = new PointF(resolution.Width / (float)virtualResolution.Width, resolution.Height / (float)virtualResolution.Height);
                 return layerResolution.Equals(virtualResolution);
@@ -190,11 +196,12 @@ namespace AGS.Engine
         {
             PointF resolutionFactor;
             Size resolution;
-            bool resolutionMatches = GetVirtualResolution(_virtualResolution, _drawable, _customResolutionFactor,
+            bool resolutionMatches = GetVirtualResolution(true, _virtualResolution, _drawable, _customResolutionFactor,
                                                    out resolutionFactor, out resolution);
 
             var renderMatrix = getMatrix(resolutionFactor);
-            var hitTestMatrix = resolutionMatches ? renderMatrix : getMatrix(NoScaling);
+            var hitTestMatrix = resolutionMatches ? renderMatrix : resolutionFactor.Equals(NoScaling) ? getMatrix(new PointF((float)_virtualResolution.Width/_drawable.RenderLayer.IndependentResolution.Value.Width,
+                                                                                                                             (float)_virtualResolution.Height/_drawable.RenderLayer.IndependentResolution.Value.Height)) : getMatrix(NoScaling);
             _matrices.InObjResolutionMatrix = renderMatrix;
             _matrices.InVirtualResolutionMatrix = hitTestMatrix;
             _isDirty = false;
