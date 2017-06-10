@@ -2,7 +2,7 @@
 
 namespace AGS.Engine
 {
-    public class FolderIcon : IBorderStyle
+    public class FolderIcon : ISelectableIcon
     {
         /*     ++++++++
          *     **++++**
@@ -25,10 +25,16 @@ namespace AGS.Engine
         private readonly GLVertex[] _quad = new GLVertex[4];
         private bool _isSelected;
 
-        public FolderIcon(IGLUtils glUtils, IRuntimeSettings settings)
+        public FolderIcon(IGLUtils glUtils, IRuntimeSettings settings, Color? color = null, Color? foldColor = null, 
+                          Color? selectedColor = null, Color? selectedFoldColor = null)
         {
             _glUtils = glUtils;
             _settings = settings;
+
+            _color = (color ?? (Color?)Colors.Gold).Value.ToGLColor();
+            _foldColor = (foldColor ?? (Color?)Colors.DarkGoldenrod).Value.ToGLColor();
+            _selectedColor = (selectedColor ?? (Color?)Colors.DeepSkyBlue).Value.ToGLColor();
+            _selectedFoldColor = (selectedFoldColor ?? (Color?)Colors.Blue).Value.ToGLColor();
         }
 
         public float WidthBottom { get { return 0f; } }

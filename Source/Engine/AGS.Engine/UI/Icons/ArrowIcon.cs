@@ -13,14 +13,14 @@ namespace AGS.Engine
         private ArrowDirection _direction;
         private IGLColor _color;
 
-        public ArrowIcon(IGLUtils glUtils, IRuntimeSettings settings)
+        public ArrowIcon(IGLUtils glUtils, IRuntimeSettings settings, ArrowDirection direction = default(ArrowDirection),
+                        Color? color = null)
         {
             _glUtils = glUtils;
             _settings = settings;
-            ArrowColor = Colors.White.ToGLColor();
+            ArrowColor = (color ?? (Color?)Colors.White).Value.ToGLColor();
+            _direction = direction;
         }
-
-        public enum ArrowDirection { Up, Down, Right, Left }
 
         public float WidthBottom { get { return 0f; } }
         public float WidthLeft { get { return 0f; } }

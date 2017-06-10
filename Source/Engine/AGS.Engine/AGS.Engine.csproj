@@ -393,6 +393,8 @@
     <Compile Include="UI\Controls\Tree\AGSTreeNodeViewProvider.cs" />
     <Compile Include="UI\Controls\Tree\AGSTreeNodeView.cs" />
     <Compile Include="UI\Controls\Tree\AGSTreeStringNode.cs" />
+    <Compile Include="UI\Icons\XIcon.cs" />
+    <Compile Include="Graphics\Logic\GLIconFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

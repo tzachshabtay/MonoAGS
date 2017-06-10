@@ -18,8 +18,10 @@ namespace AGS.Engine
 
         public GLGraphicsFactory (Dictionary<string, ITexture> textures, Resolver resolver, IGLUtils glUtils, 
                                   IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IUIThread uiThread,
-                                  IResourceLoader resources)
+                                  IResourceLoader resources, IIconFactory icons, IBrushLoader brushes)
 		{
+            Icons = icons;
+            Brushes = brushes;
             _uiThread = uiThread;
 			_textures = textures;
 			_resolver = resolver;
@@ -29,6 +31,10 @@ namespace AGS.Engine
             
             AGSGameSettings.CurrentSkin = new AGSBlueSkin(this, glUtils).CreateSkin();
 		}
+
+        public IIconFactory Icons { get; private set; }
+
+        public IBrushLoader Brushes { get; private set; }
 
 		public ISprite GetSprite()
 		{
