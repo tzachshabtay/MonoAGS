@@ -12,17 +12,20 @@ namespace DemoGame
 		private readonly RotatingCursorScheme _scheme;
 		private InventoryPanel _invPanel;
 		private OptionsPanel _optionsPanel;
+        private FeaturesTopWindow _featuresPanel;
 
 		private IInventoryItem _lastInventoryItem;
 		private IObject _inventoryItemIcon;
         private ICharacter _player;
 		private IGame _game;
 
-		public TopBar(RotatingCursorScheme scheme, InventoryPanel invPanel, OptionsPanel optionsPanel)
+        public TopBar(RotatingCursorScheme scheme, InventoryPanel invPanel, OptionsPanel optionsPanel, 
+                      FeaturesTopWindow featuresPanel)
 		{
 			_scheme = scheme;
 			_invPanel = invPanel;
 			_optionsPanel = optionsPanel;
+            _featuresPanel = featuresPanel;
 		}
 
 		public async Task<IPanel> LoadAsync(IGame game)
@@ -41,11 +44,12 @@ namespace DemoGame
 			IButton invButton = await loadButton("Inventory Button", factory, "inventory/", 80f);
 			IButton activeInvButton = await loadButton("Active Inventory Button", factory, "activeInventory/", 100f, RotatingCursorScheme.INVENTORY_MODE);
 			activeInvButton.Z = 1f;
-			await loadButton("Help Button", factory, "help/", 280f);
+			IButton helpButton = await loadButton("Help Button", factory, "help/", 280f);
 			IButton optionsButton = await loadButton("Settings Button", factory, "settings/", 300f);
 
 			invButton.OnMouseClick(() => _invPanel.Show(), _game);
 			optionsButton.OnMouseClick(() => _optionsPanel.Show(), _game);
+            helpButton.OnMouseClick(() => _featuresPanel.Show(), _game);
 
 			game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 			_inventoryItemIcon = factory.Object.GetObject("Inventory Item Icon");

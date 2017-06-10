@@ -375,6 +375,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Dialogs\" />
     <Folder Include="$(MSBuildThisFileDirectory)GUI\" />
     <Folder Include="$(MSBuildThisFileDirectory)Rooms\" />
+    <Folder Include="$(MSBuildThisFileDirectory)GUI\FeaturesWindow\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Characters\Beman.cs" />
@@ -395,5 +396,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)DefaultInteractions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Program.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shaders.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\FeaturesWindow\FeaturesTopWindow.cs" />
   </ItemGroup>
 </Project>

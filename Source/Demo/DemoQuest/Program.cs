@@ -78,7 +78,11 @@ namespace DemoGame
 			await options.LoadAsync(game);
             Debug.WriteLine("Startup: Loaded Options Panel");
 
-			TopBar topBar = new TopBar(cursors.Scheme, inventory, options);
+            FeaturesTopWindow features = new FeaturesTopWindow(cursors.Scheme);
+            features.Load(game);
+            Debug.WriteLine("Startup: Loaded Features Panel");
+
+            TopBar topBar = new TopBar(cursors.Scheme, inventory, options, features);
 			var topPanel = await topBar.LoadAsync(game);
             Debug.WriteLine("Startup: Loaded Top Bar");
 

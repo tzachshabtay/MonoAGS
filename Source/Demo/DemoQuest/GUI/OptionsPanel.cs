@@ -76,10 +76,10 @@ namespace DemoGame
 #endif
             _buttonsPanel = factory.UI.GetPanel(_buttonsPanelId, (IImage)null, 15f, top);
             var layout = _buttonsPanel.AddComponent<IStackLayoutComponent>();
-            layout.RelativeSpacing = new PointF();
-            layout.AbsoluteSpacing = new PointF(0f, step);                                     
+            layout.RelativeSpacing = 0f;
+            layout.AbsoluteSpacing = step;                                     
             _buttonsPanel.TreeNode.SetParent(_panel.TreeNode);
-            await loadButton("Resume", Hide);
+            await loadButton("Resume", hide);
             await loadButton("Restart", restart);
             await loadButton("Load", load);
             await loadButton("Save", save);
@@ -123,7 +123,7 @@ namespace DemoGame
             _panel.GetComponent<IModalWindowComponent>().GrabFocus();
 		}
 
-		public void Hide()
+        private void hide()
 		{
 			_scheme.RotatingEnabled = true;
 			if (_game.State.Player.Inventory.ActiveItem == null)
@@ -140,7 +140,7 @@ namespace DemoGame
             AGSGameSettings.CurrentSkin = null;
             if (file == null) return;
             _game.SaveLoad.Save(file);
-			Hide();
+			hide();
 		}
 
 		private async void load()
@@ -150,7 +150,7 @@ namespace DemoGame
             AGSGameSettings.CurrentSkin = null;
             if (file == null) return;
             _game.SaveLoad.Load(file);
-			Hide();
+			hide();
 		}
 
 		private void restart()
