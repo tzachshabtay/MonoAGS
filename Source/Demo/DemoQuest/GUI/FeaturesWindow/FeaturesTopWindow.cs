@@ -36,9 +36,21 @@ namespace DemoGame
             var headerLabel = factory.UI.GetLabel("FeaturesHeaderLabel", "Guided Tour", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
                                                   new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
             headerLabel.TreeNode.SetParent(_panel.TreeNode);
-            headerLabel.Tint = _panel.Tint;
+            headerLabel.Tint = Colors.Transparent;
             headerLabel.Border = _panel.Border;
             headerLabel.RenderLayer = _layer;
+
+            var xButton = factory.UI.GetButton("FeaturesCloseButton", (IAnimation)null, null, null, 0f, _panel.Height - headerHeight + 5f, "X", 
+                                               new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
+                                                                 autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter), 
+                                                                 width: 40f, height: 40f);
+            xButton.Anchor = new PointF();
+            xButton.TreeNode.SetParent(_panel.TreeNode);
+            xButton.RenderLayer = _layer;
+            xButton.Tint = Colors.Transparent;
+            xButton.MouseEnter.Subscribe((_, __) => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
+            xButton.MouseLeave.Subscribe((_, __) => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Red, Colors.Transparent, 0f));
+            xButton.OnMouseClick(hide, _game);
 
             var sidePanel = factory.UI.GetPanel("FeaturesSidePanel", _panel.Width / 4f, _panel.Height - headerHeight - borderWidth, 0f, 0f); 
             sidePanel.TreeNode.SetParent(_panel.TreeNode);
