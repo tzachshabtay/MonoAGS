@@ -44,19 +44,19 @@
         /// can potentially be a different brush (like a gradient brush).
         /// </summary>
         /// <value>The brush.</value>
-		IBrush Brush { get; }
+        IBrush Brush { get; set; }
 
         /// <summary>
         /// Gets the font used to render the text.
         /// </summary>
         /// <value>The font.</value>
-		IFont Font { get; }
+        IFont Font { get; set; }
 
         /// <summary>
         /// Gets the alignment of the text (the text will be aligned to its hosting label.
         /// </summary>
         /// <value>The alignment.</value>
-		Alignment Alignment { get; }
+        Alignment Alignment { get; set; }
 
         /// <summary>
         /// Gets an optional brush for drawing an outline for the text.
@@ -64,13 +64,13 @@
         /// and usually with a different color, to provide better contrast for the rendered text.
         /// </summary>
         /// <value>The outline brush.</value>
-		IBrush OutlineBrush { get; }
+        IBrush OutlineBrush { get; set; }
 
         /// <summary>
         /// Gets the width of the outline.
         /// </summary>
         /// <value>The width of the outline.</value>
-		float OutlineWidth { get; }
+        float OutlineWidth { get; set; }
 
         /// <summary>
         /// Gets an optional brush for drawing a shadow for the text.
@@ -80,50 +80,50 @@
         /// <seealso cref="ShadowOffsetX"/>
         /// <seealso cref="ShadowOffsetY"/>
         /// <value>The shadow brush.</value>
-		IBrush ShadowBrush  { get; }
+        IBrush ShadowBrush { get; set; }
 
         /// <summary>
         /// Gets the shadow x offset. This is the number of horizontal pixels that the shadow
         /// will be drawn away from the text (assuming <see cref="ShadowBrush"/> is used). 
         /// </summary>
         /// <value>The shadow x offset.</value>
-		float ShadowOffsetX { get; }
+        float ShadowOffsetX { get; set; }
 
         /// <summary>
         /// Gets the shadow y offset. This is the number of vertical pixels that the shadow
         /// will be drawn away from the text (assuming <see cref="ShadowBrush"/> is used). 
         /// </summary>
         /// <value>The shadow y offset.</value>
-		float ShadowOffsetY { get; }
+        float ShadowOffsetY { get; set; }
 
         /// <summary>
         /// Allows for a label and its text to fit together in various way  
         /// </summary>
-		AutoFit AutoFit { get; }
+        AutoFit AutoFit { get; set; }
 
         /// <summary>
         /// Gets a left padding (in pixels) for the text from its hosting label.
         /// </summary>
         /// <value>The left padding.</value>
-		float PaddingLeft { get; }
+        float PaddingLeft { get; set; }
 
         /// <summary>
         /// Gets a right padding (in pixels) for the text from its hosting label.
         /// </summary>
         /// <value>The right padding.</value>
-		float PaddingRight { get; }
+        float PaddingRight { get; set; }
 
         /// <summary>
         /// Gets a top padding (in pixels) for the text from its hosting label.
         /// </summary>
         /// <value>The top padding.</value>
-		float PaddingTop { get; }
+        float PaddingTop { get; set; }
 
         /// <summary>
         /// Gets a bottom padding (in pixels) for the text from its hosting label.
         /// </summary>
         /// <value>The bottom padding.</value>
-		float PaddingBottom { get; }
+        float PaddingBottom { get; set; }
 	}
 }
 

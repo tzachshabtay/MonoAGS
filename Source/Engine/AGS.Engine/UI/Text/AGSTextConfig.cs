@@ -46,13 +46,6 @@ namespace AGS.Engine
             return textConfig;
         }
 
-		public static AGSTextConfig FromConfig(ITextConfig config, float paddingBottomOffset = 0f)
-		{
-            AGSTextConfig textConfig = Clone(config);
-            textConfig.PaddingBottom += paddingBottomOffset;
-			return textConfig;
-		}
-
         public static AGSTextConfig ScaleConfig(ITextConfig config, float sizeFactor)
         {
             AGSTextConfig textConfig = Clone(config);
@@ -78,26 +71,26 @@ namespace AGS.Engine
 
         #region ITextConfig implementation
 
-        public IBrush Brush { get; private set; }
+        public IBrush Brush { get; set; }
 
-		public IFont Font { get; private set; }
+		public IFont Font { get; set; }
 
-		public Alignment Alignment { get; private set; }
+		public Alignment Alignment { get; set; }
 
-		public IBrush OutlineBrush { get; private set; }
+		public IBrush OutlineBrush { get; set; }
 
-		public float OutlineWidth { get; private set; }
+		public float OutlineWidth { get; set; }
 
-		public IBrush ShadowBrush { get; private set; }
+		public IBrush ShadowBrush { get; set; }
 
-		public float ShadowOffsetX { get; private set; }
-		public float ShadowOffsetY { get; private set; }
+		public float ShadowOffsetX { get; set; }
+		public float ShadowOffsetY { get; set; }
 
-		public AutoFit AutoFit { get; private set; }
-		public float PaddingLeft { get; private set; }
-		public float PaddingRight { get; private set; }
-		public float PaddingTop { get; private set; }
-		public float PaddingBottom { get; private set; }
+		public AutoFit AutoFit { get; set; }
+		public float PaddingLeft { get; set; }
+		public float PaddingRight { get; set; }
+		public float PaddingTop { get; set; }
+		public float PaddingBottom { get; set; }
 
 		#endregion
 	}
