@@ -87,24 +87,18 @@ namespace AGS.Engine
             panel.SkinTags.Add(AGSSkin.DialogBoxTag);
             panel.Skin.Apply(panel);
             panel.AddComponent<IModalWindowComponent>().GrabFocus();
-            ILabel titleLabel = factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, _buttonsTextConfig);
-            _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, _startPath, textBoxConfig, width: panelWidth, height: textBoxHeight);
+            ILabel titleLabel = factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, panel, _buttonsTextConfig);
+            _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, panel, _startPath, textBoxConfig, width: panelWidth, height: textBoxHeight);
 
             _inventory = new AGSInventory();
             IInventoryWindow invWindow = factory.Inventory.GetInventoryWindow("SelectFileInventory", panelWidth - scrollButtonWidth - scrollButtonOffsetX * 2,
                                                                               panelHeight - labelHeight - buttonHeight - textBoxHeight - okButtonPaddingY, ITEM_WIDTH + itemPaddingX, itemHeight + itemPaddingY, 0f, okButtonPaddingY + okButtonHeight, _inventory);
             invWindow.Z = 1;
-            IButton okButton = factory.UI.GetButton("SelectFileOkButton", (string)null, null, null, okButtonX, okButtonPaddingY, "OK", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
-            IButton cancelButton = factory.UI.GetButton("SelectFileCancelButton", (string)null, null, null, cancelButtonX, okButtonPaddingY, "Cancel", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
-            IButton scrollDownButton = factory.UI.GetButton("SelectFileScrollDown", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, okButton.Y + okButtonHeight + scrollButtonOffsetY, "", _buttonsTextConfig, width: scrollButtonWidth, height: scrollButtonHeight);
-            IButton scrollUpButton = factory.UI.GetButton("SelectFileScrollUp", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, panelHeight - labelHeight - textBoxHeight - scrollButtonHeight - scrollButtonOffsetY, "", _buttonsTextConfig, width: scrollButtonWidth, height: scrollButtonHeight);
-            titleLabel.TreeNode.SetParent(panel.TreeNode);
-            _fileTextBox.TreeNode.SetParent(panel.TreeNode);
+            IButton okButton = factory.UI.GetButton("SelectFileOkButton", (string)null, null, null, okButtonX, okButtonPaddingY, panel, "OK", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
+            IButton cancelButton = factory.UI.GetButton("SelectFileCancelButton", (string)null, null, null, cancelButtonX, okButtonPaddingY, panel, "Cancel", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
+            IButton scrollDownButton = factory.UI.GetButton("SelectFileScrollDown", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, okButton.Y + okButtonHeight + scrollButtonOffsetY, panel, "", _buttonsTextConfig, width: scrollButtonWidth, height: scrollButtonHeight);
+            IButton scrollUpButton = factory.UI.GetButton("SelectFileScrollUp", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, panelHeight - labelHeight - textBoxHeight - scrollButtonHeight - scrollButtonOffsetY, panel, "", _buttonsTextConfig, width: scrollButtonWidth, height: scrollButtonHeight);
             invWindow.TreeNode.SetParent(panel.TreeNode);
-            okButton.TreeNode.SetParent(panel.TreeNode);
-            cancelButton.TreeNode.SetParent(panel.TreeNode);
-            scrollDownButton.TreeNode.SetParent(panel.TreeNode);
-            scrollUpButton.TreeNode.SetParent(panel.TreeNode);
 
             cancelButton.MouseClicked.Subscribe(onCancelClicked);
             okButton.MouseClicked.Subscribe(onOkClicked);
@@ -274,8 +268,8 @@ namespace AGS.Engine
         {
             graphics = clone("FileItem_" + file, _game.Factory, graphics);
             graphics.Properties.Strings.SetValue(PATH_PROPERTY, file);
-            ILabel fileLabel = _game.Factory.UI.GetLabel("FileItemLabel_" + file, getLastName(file), ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, 0f, _filesTextConfig);
-            fileLabel.TreeNode.SetParent(graphics.TreeNode);
+            ILabel fileLabel = _game.Factory.UI.GetLabel("FileItemLabel_" + file, getLastName(file), 
+                ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, 0f, graphics, _filesTextConfig);
             graphics.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1);
             fileLabel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 2);
             var item = _game.Factory.Inventory.GetInventoryItem(graphics, null);

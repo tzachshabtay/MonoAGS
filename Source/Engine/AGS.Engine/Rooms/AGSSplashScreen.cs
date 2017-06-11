@@ -22,7 +22,7 @@ namespace AGS.Engine
 			_label = game.Factory.UI.GetLabel ("Splash Label", LoadingText, 1f,
 			                                   1f, game.Settings.VirtualResolution.Width/2f, 
 			                                   game.Settings.VirtualResolution.Height / 2f,
-											   TextConfig, false);
+                                               config: TextConfig, addToUi: false);
 			_label.Anchor = new PointF(0.5f, 0.5f);
 			_splashScreen = game.Factory.Room.GetRoom ("Splash Screen");
 			_splashScreen.Objects.Add (_label);

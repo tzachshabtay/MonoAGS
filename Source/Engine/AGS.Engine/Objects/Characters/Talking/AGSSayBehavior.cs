@@ -66,8 +66,8 @@ namespace AGS.Engine
             ISayLocation location = getLocation(text);
             IObject portrait = showPortrait(location);
 			ILabel label = _factory.UI.GetLabel(string.Format("Say: {0}", text), text, SpeechConfig.LabelSize.Width, 
-                SpeechConfig.LabelSize.Height, location.TextLocation.X, location.TextLocation.Y, 
-                SpeechConfig.TextConfig, false);
+                SpeechConfig.LabelSize.Height, location.TextLocation.X, location.TextLocation.Y,
+                config: SpeechConfig.TextConfig, addToUi: false);
 			label.RenderLayer = AGSLayers.Speech;
 			label.Border = SpeechConfig.Border;
 			label.Tint = SpeechConfig.BackgroundColor;

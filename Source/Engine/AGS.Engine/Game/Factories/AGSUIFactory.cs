@@ -21,37 +21,38 @@ namespace AGS.Engine
             _object = obj;
         }
 
-        public IPanel GetPanel(string id, IImage image, float x, float y, bool addToUi = true)
+        public IPanel GetPanel(string id, IImage image, float x, float y, IObject parent = null, bool addToUi = true)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             TypedParameter imageParameter = new TypedParameter(typeof(IImage), image);
             IPanel panel = _resolver.Container.Resolve<IPanel>(idParam, imageParameter);
             panel.X = x;
             panel.Y = y;
+            setParent(panel, parent);
             if (addToUi)
                 _gameState.UI.Add(panel);
             return panel;
         }
 
-        public IPanel GetPanel(string id, float width, float height, float x, float y, bool addToUi = true)
+        public IPanel GetPanel(string id, float width, float height, float x, float y, IObject parent = null, bool addToUi = true)
         {
             EmptyImage image = new EmptyImage(width, height);
-            return GetPanel(id, image, x, y, addToUi);
+            return GetPanel(id, image, x, y, parent, addToUi);
         }
 
-        public IPanel GetPanel(string id, string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true)
+        public IPanel GetPanel(string id, string imagePath, float x, float y, IObject parent = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
         {
             IImage image = _graphics.LoadImage(imagePath, loadConfig);
-            return GetPanel(id, image, x, y, addToUi);
+            return GetPanel(id, image, x, y, parent, addToUi);
         }
 
-        public async Task<IPanel> GetPanelAsync(string id, string imagePath, float x, float y, ILoadImageConfig loadConfig = null, bool addToUi = true)
+        public async Task<IPanel> GetPanelAsync(string id, string imagePath, float x, float y, IObject parent = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
         {
             IImage image = await _graphics.LoadImageAsync(imagePath, loadConfig);
-            return GetPanel(id, image, x, y, addToUi);
+            return GetPanel(id, image, x, y, parent, addToUi);
         }
 
-        public ILabel GetLabel(string id, string text, float width, float height, float x, float y, ITextConfig config = null, bool addToUi = true)
+        public ILabel GetLabel(string id, string text, float width, float height, float x, float y, IObject parent = null, ITextConfig config = null, bool addToUi = true)
         {
             SizeF baseSize = new SizeF(width, height);
             TypedParameter idParam = new TypedParameter(typeof(string), id);
@@ -62,13 +63,14 @@ namespace AGS.Engine
             label.Y = y;
             label.Tint = Colors.Transparent;
             label.TextConfig = config ?? new AGSTextConfig();
+            setParent(label, parent);
             if (addToUi)
                 _gameState.UI.Add(label);
             return label;
         }
 
         public IButton GetButton(string id, IAnimation idle, IAnimation hovered, IAnimation pushed,
-            float x, float y, string text = "", ITextConfig config = null, bool addToUi = true,
+            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
             if (width == -1f && idle != null && idle.Frames.Count > 0)
@@ -96,6 +98,7 @@ namespace AGS.Engine
             button.Y = y;
             button.TextConfig = config;
             button.Text = text;
+            setParent(button, parent);
 
             if (addToUi)
                 _gameState.UI.Add(button);
@@ -104,29 +107,29 @@ namespace AGS.Engine
         }
 
         public IButton GetButton(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath,
-            float x, float y, string text = "", ITextConfig config = null, bool addToUi = true,
+            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
             IAnimation idle = _graphics.LoadAnimationFromFiles(files: new[] { idleImagePath });
             IAnimation hovered = _graphics.LoadAnimationFromFiles(files: new[] { hoveredImagePath });
             IAnimation pushed = _graphics.LoadAnimationFromFiles(files: new[] { pushedImagePath });
 
-            return GetButton(id, idle, hovered, pushed, x, y, text, config, addToUi, width, height);
+            return GetButton(id, idle, hovered, pushed, x, y, parent, text, config, addToUi, width, height);
         }
 
         public async Task<IButton> GetButtonAsync(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath,
-            float x, float y, string text = "", ITextConfig config = null, bool addToUi = true,
+            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
             IAnimation idle = await _graphics.LoadAnimationFromFilesAsync(files: new[] { idleImagePath });
             IAnimation hovered = await _graphics.LoadAnimationFromFilesAsync(files: new[] { hoveredImagePath });
             IAnimation pushed = await _graphics.LoadAnimationFromFilesAsync(files: new[] { pushedImagePath });
 
-            return GetButton(id, idle, hovered, pushed, x, y, text, config, addToUi, width, height);
+            return GetButton(id, idle, hovered, pushed, x, y, parent, text, config, addToUi, width, height);
         }
 
-        public ITextBox GetTextBox(string id, float x, float y, string text = "", ITextConfig config = null, bool addToUi = true,
-            float width = -1F, float height = -1F)
+        public ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string text = "", ITextConfig config = null,
+            bool addToUi = true, float width = -1F, float height = -1F)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             ITextBox textbox = _resolver.Container.Resolve<ITextBox>(idParam);
@@ -139,6 +142,7 @@ namespace AGS.Engine
             }
             textbox.TextConfig = config;
             textbox.Text = text;
+            setParent(textbox, parent);
 
             if (addToUi)
                 _gameState.UI.Add(textbox);
@@ -147,7 +151,7 @@ namespace AGS.Engine
         }
 
         public ICheckBox GetCheckBox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation @checked, IAnimation checkedHovered,
-            float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
+            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
         {
             if (width == -1f && notChecked != null && notChecked.Frames.Count > 0)
             {
@@ -180,6 +184,7 @@ namespace AGS.Engine
             checkbox.Tint = Colors.White;
             checkbox.X = x;
             checkbox.Y = y;
+            setParent(checkbox, parent);
 
             if (addToUi)
                 _gameState.UI.Add(checkbox);
@@ -188,38 +193,38 @@ namespace AGS.Engine
         }
 
         public ICheckBox GetCheckBox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
-            float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
+            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
         {
             IAnimation notChecked = _graphics.LoadAnimationFromFiles(files: new[] { notCheckedPath });
             IAnimation notCheckedHovered = _graphics.LoadAnimationFromFiles(files: new[] { notCheckedHoveredPath });
             IAnimation @checked = _graphics.LoadAnimationFromFiles(files: new[] { checkedPath });
             IAnimation checkedHovered = _graphics.LoadAnimationFromFiles(files: new[] { checkedHoveredPath });
 
-            return GetCheckBox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, text, config, addToUi, width, height, isCheckButton);
+            return GetCheckBox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, parent, text, config, addToUi, width, height, isCheckButton);
         }
 
         public async Task<ICheckBox> GetCheckBoxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
-            float x, float y, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
+            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
         {
             IAnimation notChecked = await _graphics.LoadAnimationFromFilesAsync(files: new[] { notCheckedPath });
             IAnimation notCheckedHovered = await _graphics.LoadAnimationFromFilesAsync(files: new[] { notCheckedHoveredPath });
             IAnimation @checked = await _graphics.LoadAnimationFromFilesAsync(files: new[] { checkedPath });
             IAnimation checkedHovered = await _graphics.LoadAnimationFromFilesAsync(files: new[] { checkedHoveredPath });
 
-            return GetCheckBox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, text, config, addToUi, width, height, isCheckButton);
+            return GetCheckBox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, parent, text, config, addToUi, width, height, isCheckButton);
         }
 
         public IComboBox GetComboBox(string id, IButton dropDownButton, ITextBox textBox,
-            Func<IButton> itemButtonFactory, bool addToUi = true)
+            Func<IButton> itemButtonFactory, IObject parent = null, bool addToUi = true)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IComboBox comboBox = _resolver.Container.Resolve<IComboBox>(idParam);
             float defaultHeight = dropDownButton != null ? dropDownButton.Height : textBox != null ? textBox.Height : 20f;
             float itemWidth = textBox != null ? textBox.Width : 100f;
-            dropDownButton = dropDownButton ?? GetButton(id + "_DropDownButton", (string)null, null, null, 0f, 0f, width: 20f, height: defaultHeight);
+            dropDownButton = dropDownButton ?? GetButton(id + "_DropDownButton", (string)null, null, null, 0f, 0f, comboBox, width: 20f, height: defaultHeight);
             dropDownButton.SkinTags.Add(AGSSkin.DropDownButtonTag);
             if (dropDownButton.Skin != null) dropDownButton.Skin.Apply(dropDownButton);
-            textBox = textBox ?? GetTextBox(id + "_TextBox", 0f, 0f, width: itemWidth, height: defaultHeight);
+            textBox = textBox ?? GetTextBox(id + "_TextBox", 0f, 0f, comboBox, width: itemWidth, height: defaultHeight);
             textBox.Enabled = false;
             itemButtonFactory = itemButtonFactory ?? (() => GetButton(id + "_" + Guid.NewGuid().ToString(), (string)null, null, null, 0f, 0f, width: itemWidth,
                 height: defaultHeight));
@@ -227,8 +232,7 @@ namespace AGS.Engine
             comboBox.TextBox = textBox;
             comboBox.ItemButtonFactory = itemButtonFactory;
 
-            comboBox.TreeNode.AddChild(textBox);
-            comboBox.TreeNode.AddChild(dropDownButton);
+            setParent(comboBox, parent);
 
             if (addToUi)
             {
@@ -239,23 +243,23 @@ namespace AGS.Engine
         }
 
         public ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max,
-            ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
+            IObject parent = null, ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
         {
             var image = _graphics.LoadImage(imagePath, loadConfig);
             var handleImage = _graphics.LoadImage(handleImagePath, loadConfig);
-            return getSlider(id, image, handleImage, value, min, max, config, addToUi);
+            return getSlider(id, image, handleImage, value, min, max, parent, config, addToUi);
         }
 
         public async Task<ISlider> GetSliderAsync(string id, string imagePath, string handleImagePath, float value, float min, float max,
-            ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
+            IObject parent = null, ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
         {
             var image = await _graphics.LoadImageAsync(imagePath, loadConfig);
             var handleImage = await _graphics.LoadImageAsync(handleImagePath, loadConfig);
-            return getSlider(id, image, handleImage, value, min, max, config, addToUi);
+            return getSlider(id, image, handleImage, value, min, max, parent, config, addToUi);
         }
 
         private ISlider getSlider(string id, IImage image, IImage handleImage, float value, float min, float max,
-            ITextConfig config = null, bool addToUi = true)
+            IObject parent = null, ITextConfig config = null, bool addToUi = true)
         {
             IObject graphics = _object.GetObject(string.Format("{0}(graphics)", id));
             graphics.Image = image;
@@ -263,7 +267,7 @@ namespace AGS.Engine
             ILabel label = null;
             if (config != null)
             {
-                label = GetLabel(string.Format("{0}(label)", id), "", graphics.Width, 30f, 0f, -30f, config, false);
+                label = GetLabel(string.Format("{0}(label)", id), "", graphics.Width, 30f, 0f, -30f, parent, config, false);
                 label.Anchor = new PointF(0.5f, 0f);
             }
 
@@ -280,6 +284,7 @@ namespace AGS.Engine
             slider.Graphics = graphics;
             slider.HandleGraphics = handle;
             slider.IgnoreViewport = true;
+            setParent(slider, parent);
 
             if (addToUi)
                 _gameState.UI.Add(slider);
@@ -294,6 +299,12 @@ namespace AGS.Engine
                 throw new InvalidOperationException("No animation and no size was supplied for GUI control " + id);
             }
             return new AGSSingleFrameAnimation(new EmptyImage(width, height), _graphics);
+        }
+
+        private void setParent(IObject ui, IObject parent)
+        {
+            if (parent == null) return;
+            ui.TreeNode.SetParent(parent.TreeNode);
         }
     }
 }

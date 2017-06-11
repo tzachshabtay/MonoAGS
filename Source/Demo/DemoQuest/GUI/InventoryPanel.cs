@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -68,8 +67,8 @@ namespace DemoGame
 		private async Task<IButton> loadButton(string id, IGameFactory factory, string folder, float x, string mode = null)
 		{
 			folder = _baseFolder + folder;
-			IButton button = await factory.UI.GetButtonAsync(id, folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 4f);
-			button.TreeNode.SetParent(_panel.TreeNode);
+			IButton button = await factory.UI.GetButtonAsync(id, folder + "normal.bmp", folder + "hovered.bmp", 
+                                                             folder + "pushed.bmp", x, 4f, _panel);
 			if (mode != null)
 			{
 				button.OnMouseClick(() =>

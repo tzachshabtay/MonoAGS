@@ -49,6 +49,7 @@ namespace AGS.Engine
 							selectedButton = button;
 							args.Skip();
 						});
+                        AGSGame.Game.State.UI.Add(button);
 					}
 				});
 			}
@@ -73,8 +74,8 @@ namespace AGS.Engine
             var border = AGSBorders.Gradient(AGSGame.Resolver.Container.Resolve<IGLUtils>(), new FourCorners<Color>(Colors.DarkOliveGreen,
 				Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
 			
-			IButton yesButton = factory.UI.GetButton("Dialog Yes Button", idle, hovered, pushed, 0f, 0f, yes, ButtonConfig);
-			IButton noButton = factory.UI.GetButton("Dialog No Button", idle, hovered, pushed, 0f, 0f, no, ButtonConfig);
+			IButton yesButton = factory.UI.GetButton("Dialog Yes Button", idle, hovered, pushed, 0f, 0f, null, yes, ButtonConfig, false);
+			IButton noButton = factory.UI.GetButton("Dialog No Button", idle, hovered, pushed, 0f, 0f, null, no, ButtonConfig, false);
 			yesButton.Border = border;
 			noButton.Border = border;
 			return Display(text, yesButton, noButton) == yesButton;

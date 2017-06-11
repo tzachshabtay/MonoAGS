@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -63,11 +62,10 @@ namespace DemoGame
             _inventoryItemIcon.IgnoreViewport = true;
 			game.State.UI.Add(_inventoryItemIcon);
 
-            ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 150f, 20f, 200f, 0f, new AGSTextConfig(brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen),
+            ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 150f, 20f, 200f, 0f, _panel, new AGSTextConfig(brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen),
                 alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, paddingBottom: 5f,
                 font: game.Factory.Fonts.LoadFont(AGSGameSettings.DefaultTextFont.FontFamily, 10f)));
             label.Anchor = new AGS.API.PointF(0.5f, 0f);
-            label.TreeNode.SetParent(_panel.TreeNode);
             VerbOnHotspotLabel hotspotLabel = new VerbOnHotspotLabel(() => _scheme.CurrentMode, game, label);
             hotspotLabel.Start();
 
@@ -85,8 +83,8 @@ namespace DemoGame
 		private async Task<IButton> loadButton(string id, IGameFactory factory, string folder, float x, string mode = null)
 		{
 			folder = _baseFolder + folder;
-			IButton button = await factory.UI.GetButtonAsync(id, folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 0f);
-			button.TreeNode.SetParent(_panel.TreeNode);
+			IButton button = await factory.UI.GetButtonAsync(id, folder + "normal.bmp", folder + "hovered.bmp", 
+                folder + "pushed.bmp", x, 0f, _panel);
 			if (mode != null)
 			{
 				button.OnMouseClick(() => _scheme.CurrentMode = mode, _game);
@@ -104,7 +102,7 @@ namespace DemoGame
 			if (_lastInventoryItem != null)
 			{
 				_inventoryItemIcon.Image = _lastInventoryItem.CursorGraphics.Image;
-				_inventoryItemIcon.Animation.Sprite.Anchor = new AGS.API.PointF (0.5f, 0.5f);
+				_inventoryItemIcon.Animation.Sprite.Anchor = new PointF (0.5f, 0.5f);
 				_inventoryItemIcon.ScaleTo(15f, 15f);
 			}
 			_inventoryItemIcon.Visible = (_lastInventoryItem != null);

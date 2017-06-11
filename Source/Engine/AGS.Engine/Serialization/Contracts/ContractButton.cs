@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 
 namespace AGS.Engine
@@ -37,7 +36,7 @@ namespace AGS.Engine
 		{
             var textComponent = TextComponent.ToItem(context);
 			IButton button = context.Factory.UI.GetButton(Object.ID, IdleAnimation.ToItem(context), HoverAnimation.ToItem(context),
-				PushedAnimation.ToItem(context), 0,0, "", null, false, textComponent.LabelRenderSize.Width, textComponent.LabelRenderSize.Height);
+				PushedAnimation.ToItem(context), 0,0, null, "", null, false, textComponent.LabelRenderSize.Width, textComponent.LabelRenderSize.Height);
 			Object.ToItem(context, button);
             button.TextConfig = textComponent.TextConfig;
 			button.Text = textComponent.Text;
