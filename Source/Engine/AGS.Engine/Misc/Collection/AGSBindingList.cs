@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using AGS.API;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -93,8 +94,20 @@ namespace AGS.Engine
 		public bool Remove(TItem item)
 		{
 			int index = IndexOf(item);
-			if (index < 0) return false;
-			_list.RemoveAt(index);
+            if (index < 0) return false;
+            try
+            {
+                _list.RemoveAt(index);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                if (Repeat.LessThan("AGSBindingList.Remove Exception", 5))
+                {
+                    Debug.WriteLine("Tried to remove an already removed item from the binding list. Item: {0}, Exception: {1}", 
+                                    item, e);
+                }
+                return false;
+            }
 			onListChanged(item, index, ListChangeType.Remove);
 			return true;
 		}
