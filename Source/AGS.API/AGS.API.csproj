@@ -231,6 +231,7 @@
     <Compile Include="UI\Controls\Tree\NodeEventArgs.cs" />
     <Compile Include="Game\Factories\IIconFactory.cs" />
     <Compile Include="Graphics\Icons\ISelectableIcon.cs" />
+    <Compile Include="UI\Controls\Combobox\ComboboxItemArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

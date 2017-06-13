@@ -20,6 +20,7 @@ namespace AGS.Engine
             _itemButtons = new List<IButton>();
             _items = new AGSBindingList<object>(10);
             _items.OnListChanged.Subscribe(onListChanged);
+            OnSelectedItemChanged = new AGSEvent<ComboboxItemArgs>();
             gameEvents.OnRepeatedlyExecute.Subscribe((_, __) => refreshDropDownLayout());
         }
 
@@ -61,10 +62,13 @@ namespace AGS.Engine
             {
                 _selectedIndex = value;
                 var textBox = TextBox;
-                if (value >= 0 && value < Items.Count && textBox != null)
+                if (value >= 0 && value < Items.Count)
                 {
-                    textBox.Text = Items[value].ToString();
+                    var selectedItem = Items[value];
+                    if (textBox != null) textBox.Text = selectedItem.ToString();
+                    OnSelectedItemChanged.Invoke(this, new ComboboxItemArgs(selectedItem, value));
                 }
+                else OnSelectedItemChanged.Invoke(this, new ComboboxItemArgs(null, value));
             }
         }
 
@@ -82,6 +86,8 @@ namespace AGS.Engine
                 }
             }
         }
+
+        public IEvent<ComboboxItemArgs> OnSelectedItemChanged { get; private set; }
 
         public override void Init(IEntity entity)
         {

@@ -119,6 +119,11 @@ namespace AGS.Engine
             get { return _comboBoxComponent.ItemButtons; } 
         }
 
+        public IEvent<ComboboxItemArgs> OnSelectedItemChanged
+        {
+            get { return _comboBoxComponent.OnSelectedItemChanged; }
+        }
+
         #endregion
 
         #region IUIEvents implementation

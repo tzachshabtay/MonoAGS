@@ -57,5 +57,12 @@ namespace AGS.API
         /// </summary>
         /// <value>The item buttons.</value>
         IEnumerable<IButton> ItemButtons { get; }
+
+        /// <summary>
+        /// An event which fires whenever the selected item in the dropdown was changed
+        /// (this can be because the user selected an item, or because the <see cref="SelectedIndex"/> was set from code). 
+        /// </summary>
+        /// <value>The on selected item changed event.</value>
+        IEvent<ComboboxItemArgs> OnSelectedItemChanged { get; }
     }
 }
