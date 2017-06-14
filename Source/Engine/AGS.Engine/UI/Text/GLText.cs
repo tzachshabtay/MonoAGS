@@ -53,17 +53,17 @@ namespace AGS.Engine
 		public float Width { get; private set; }
 		public float Height { get; private set; }        
 
-		public void SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null, 
-            PointF? textResolutionFactor = null, int caretPosition = 0, bool renderCaret = false, bool? cropText = null)
+		public void SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null,
+            PointF? textResolutionFactor = null, int caretPosition = 0, bool renderCaret = false, bool cropText = false)
 		{
 			bool changeNeeded = 
 				(text != null && text != _text)
-				|| (config != null && config != _config)
+                || (config != null && !config.Equals(_config))
 				|| (maxWidth != null && maxWidth.Value != _maxWidth)
 				|| !baseSize.Equals(_baseSize)
                 || _caretPosition != caretPosition
                 || _renderCaret != renderCaret
-                || (cropText != null && cropText.Value != _cropText)
+                || cropText != _cropText
                 || (textResolutionFactor != null && !textResolutionFactor.Value.Equals(_textResolutionFactor));
 			if (!changeNeeded) return;
 
@@ -74,7 +74,7 @@ namespace AGS.Engine
                 _spaceWidth = measureSpace();
             }
 			if (maxWidth != null) _maxWidth = maxWidth.Value;
-            if (cropText != null) _cropText = cropText.Value;
+            _cropText = cropText;
             if (textResolutionFactor != null) _textResolutionFactor = textResolutionFactor.Value;
 
             _baseSize = baseSize;

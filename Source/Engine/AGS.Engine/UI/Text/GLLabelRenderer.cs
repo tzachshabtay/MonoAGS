@@ -244,7 +244,7 @@ namespace AGS.Engine
             }
         }
 
-		private void updateText(GLText glText, SizeF baseSize, PointF resolutionFactor, int? maxWidth, bool? cropText = null)
+		private void updateText(GLText glText, SizeF baseSize, PointF resolutionFactor, int? maxWidth, bool cropText = false)
 		{
 			if (TextVisible)
 			{
