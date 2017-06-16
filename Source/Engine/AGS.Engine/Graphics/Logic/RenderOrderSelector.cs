@@ -1,8 +1,5 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AGS.API;
-using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -63,7 +60,14 @@ namespace AGS.Engine
 				{
 					z1 = newParent1 == null ? parent1 == null ? 0 : getZ(parent1) : getZ(newParent1);
 					z2 = newParent2 == null ? parent2 == null ? 0 : getZ(parent2) : getZ(newParent2);
-					return z2 - z1;
+                    if (z2 != z1)
+                    {
+                        return z2 - z1;
+                    }
+                    //Trying to avoid ambiguity, so using X as a last resort
+                    var x1 = newParent1 == null ? parent1 == null ? 0 : getX(parent1) : getX(newParent1);
+                    var x2 = newParent2 == null ? parent2 == null ? 0 : getX(parent2) : getX(newParent2);
+                    return x2 - x1;
 				}
 				parent1 = newParent1;
 				parent2 = newParent2;
@@ -104,6 +108,12 @@ namespace AGS.Engine
 			float zAnimation = obj.Animation == null ? 0f : obj.Animation.Sprite.Z;
 			return obj.Z + zAnimation;
 		}
+
+        private float getX(IObject obj)
+        {
+            float xAnimation = obj.Animation == null ? 0f : obj.Animation.Sprite.X;
+            return obj.X + xAnimation;
+        }
 	}
 }
 
