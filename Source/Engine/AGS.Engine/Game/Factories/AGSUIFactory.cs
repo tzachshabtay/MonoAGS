@@ -277,6 +277,7 @@ namespace AGS.Engine
 
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             ISlider slider = _resolver.Container.Resolve<ISlider>(idParam, idParam);
+            setParent(slider, parent);
             slider.Label = label;
             slider.MinValue = min;
             slider.MaxValue = max;
@@ -284,7 +285,6 @@ namespace AGS.Engine
             slider.Graphics = graphics;
             slider.HandleGraphics = handle;
             slider.IgnoreViewport = true;
-            setParent(slider, parent);
 
             if (addToUi)
                 _gameState.UI.Add(slider);
