@@ -6,7 +6,6 @@ namespace AGS.Engine
     public class AGSScale : IScale
     {
         private IHasImage _image;
-        private float _initialWidth, _initialHeight;
         private readonly AGSEventArgs _args = new AGSEventArgs();
 
         public AGSScale(IHasImage image) : this(image, true)
@@ -29,7 +28,7 @@ namespace AGS.Engine
             if (!shouldSubscribeToImageChange) return;
             image.OnImageChanged.Subscribe((sender, args) =>
             {
-                if (_initialWidth == 0f) ResetBaseSize(_image.Image.Width, _image.Image.Height);
+                if (BaseSize.Width == 0f) ResetBaseSize(_image.Image.Width, _image.Image.Height);
             });
         }
 
@@ -41,21 +40,22 @@ namespace AGS.Engine
 
         public float ScaleY { get; private set; }
 
+        public SizeF BaseSize { get; private set; }
+
         public IEvent<AGSEventArgs> OnScaleChanged { get; private set; }
 
         public void ResetBaseSize(float initialWidth, float initialHeight)
         {
             Width = initialWidth * ScaleX;
             Height = initialHeight * ScaleY;
-            _initialWidth = initialWidth;
-            _initialHeight = initialHeight;
+            BaseSize = new SizeF(initialWidth, initialHeight);
             fireScaleChange();
         }
 
         public void ResetScale()
         {
-            Width = _initialWidth;
-            Height = _initialHeight;
+            Width = BaseSize.Width;
+            Height = BaseSize.Height;
             ScaleX = 1;
             ScaleY = 1;
             fireScaleChange();
@@ -63,8 +63,7 @@ namespace AGS.Engine
 
         public void ResetScale(float initialWidth, float initialHeight)
         {
-            _initialWidth = initialWidth;
-            _initialHeight = initialHeight;
+            BaseSize = new SizeF(initialWidth, initialHeight);
             ResetScale();
         }
 
@@ -73,8 +72,8 @@ namespace AGS.Engine
             validateScaleInitialized();
             ScaleX = scaleX;
             ScaleY = scaleY;
-            Width = _initialWidth * ScaleX;
-            Height = _initialHeight * ScaleY;
+            Width = BaseSize.Width * ScaleX;
+            Height = BaseSize.Height * ScaleY;
             fireScaleChange();
         }
 
@@ -83,8 +82,8 @@ namespace AGS.Engine
             validateScaleInitialized();
             Width = width;
             Height = height;
-            ScaleX = Width / _initialWidth;
-            ScaleY = Height / _initialHeight;
+            ScaleX = Width / BaseSize.Width;
+            ScaleY = Height / BaseSize.Height;
             fireScaleChange();
         }
 
@@ -104,7 +103,7 @@ namespace AGS.Engine
 
         private void validateScaleInitialized()
         {
-            if (_initialWidth == 0f)
+            if (BaseSize.Width == 0f)
             {
                 throw new InvalidOperationException(
                     "Initial size was not set. Either assign an animation/image to the object, use ResetBaseSize or use the appropriate constructor.");

@@ -423,6 +423,11 @@ namespace AGS.Engine
             get { return _scaleComponent.ScaleY; } 
         }
 
+        public SizeF BaseSize
+        {
+            get { return _scaleComponent.BaseSize; }
+        }
+
         public void ResetBaseSize(Single initialWidth, Single initialHeight)
         {
             _scaleComponent.ResetBaseSize(initialWidth, initialHeight);

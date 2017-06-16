@@ -10,6 +10,7 @@ namespace AGS.Engine
         private readonly IMaskLoader _maskLoader;
         private readonly Resolver _resolver;
         private readonly AGSEventArgs _args = new AGSEventArgs();
+        private static readonly SizeF _emptySize = new SizeF(1f, 1f);
 
 		public AGSSprite (Resolver resolver, IMaskLoader maskLoader)
 		{
@@ -125,6 +126,16 @@ namespace AGS.Engine
         public float ScaleX { get; private set; }
 
         public float ScaleY { get; private set; }
+
+        public SizeF BaseSize 
+        { 
+            get 
+            {
+                var image = _hasImage.Image;
+                if (image == null) return _emptySize;
+                return new SizeF(image.Width, image.Height);
+            } 
+        }
 
         public float Angle { get { return _rotate.Angle; } set { _rotate.Angle = value; } }
 
