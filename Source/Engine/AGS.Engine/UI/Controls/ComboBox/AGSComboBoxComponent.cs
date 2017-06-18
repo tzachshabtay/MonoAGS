@@ -1,6 +1,7 @@
 ﻿using AGS.API;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AGS.Engine
 {
@@ -36,6 +37,10 @@ namespace AGS.Engine
                 _dropDownButton = newDropDownButton;
                 if (newDropDownButton != null)
                 {
+                    if (DropDownPanel != null)
+                    {
+                        DropDownPanel.RenderLayer = value.RenderLayer;
+                    }
                     newDropDownButton.MouseClicked.Subscribe(onDropDownClicked);
                 }
             }
@@ -93,7 +98,9 @@ namespace AGS.Engine
         {
             base.Init(entity);
             DropDownPanel = _uiFactory.GetPanel(entity.ID + "_Panel", new EmptyImage(1f, 1f), 0f, 0f);
-            DropDownPanel.AddComponent<IStackLayoutComponent>();
+            DropDownPanel.Anchor = new PointF(0f, 1f);
+            DropDownPanel.Y = -1f;
+            DropDownPanel.AddComponent<IStackLayoutComponent>().RelativeSpacing = 1f;
             DropDownPanel.Visible = false;
             _tree = entity.GetComponent<IInObjectTree>();
         }
@@ -120,7 +127,14 @@ namespace AGS.Engine
 
         private void refreshItemsLayout()
         {
-            DropDownPanel.Y = -DropDownButton.Height;
+            if (_itemButtons.Count == 0) return;
+            DropDownPanel.ResetBaseSize(_itemButtons.Max(i => Math.Max(i.Width, i.TextWidth)), 
+                                        _itemButtons.Sum(i => Math.Max(i.Height, i.TextHeight)));
+            if (DropDownPanel.Image.Width != DropDownPanel.BaseSize.Width ||
+                DropDownPanel.Image.Height != DropDownPanel.BaseSize.Height)
+            {
+                DropDownPanel.Image = new EmptyImage(DropDownPanel.BaseSize.Width, DropDownPanel.BaseSize.Height);
+            }
         }
 
         private void refreshDropDownLayout()
@@ -128,7 +142,16 @@ namespace AGS.Engine
             var textbox = TextBox;
             var dropDownButton = DropDownButton;
             if (dropDownButton == null) return;
-            dropDownButton.X = textbox == null ? 0f : textbox.Width < 0 ? textbox.TextWidth : textbox.Width;
+            if (textbox == null)
+            {
+                dropDownButton.X = 0;
+            }
+            else 
+            {
+                float dropBorderLeft = 0f;
+                if (dropDownButton.Border != null) dropBorderLeft = dropDownButton.Border.WidthLeft;
+                dropDownButton.X = textbox.X + (textbox.Width < 0 ? textbox.TextWidth : textbox.Width) + dropBorderLeft;
+            }
         }
 
         private void onItemClicked(object sender, MouseButtonEventArgs args)
