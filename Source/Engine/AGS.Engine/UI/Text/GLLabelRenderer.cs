@@ -199,7 +199,7 @@ namespace AGS.Engine
                     _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, labelMatrices, buildRenderBox, buildHitTestBox);
                     updateText(glText, GLText.EmptySize, resolutionFactor, (int?)BaseSize.Width);
                     _boundingBoxBuilder.Build(_textBoundingBoxes, glText.BitmapWidth, glText.BitmapHeight, textMatrices, buildRenderBox, buildHitTestBox);
-                    _boundingBoxBuilder.Build(_labelBoundingBoxes, glText.Width, glText.Height, labelMatrices, buildRenderBox, buildHitTestBox);
+                    _boundingBoxBuilder.Build(_labelBoundingBoxes, glText.Width / resolutionFactor.X, glText.Height / resolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
 
                     _usedLabelBoundingBoxes = _labelBoundingBoxes;
                     _usedTextBoundingBoxes = _textBoundingBoxes;
