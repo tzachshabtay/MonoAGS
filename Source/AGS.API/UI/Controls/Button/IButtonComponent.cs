@@ -5,25 +5,27 @@
     /// </summary>
 	[RequiredComponent(typeof(IUIEvents))]
 	[RequiredComponent(typeof(IAnimationContainer))]
+    [RequiredComponent(typeof(ITextComponent), false)]
+    [RequiredComponent(typeof(IImageComponent), false)]
 	public interface IButtonComponent : IComponent
 	{
         /// <summary>
         /// Gets or sets the idle animation of the button (the animation when a button is not pushed or hovered).
         /// </summary>
         /// <value>The idle animation.</value>
-		IAnimation IdleAnimation { get; set; }
+        ButtonAnimation IdleAnimation { get; set; }
 
         /// <summary>
         /// Gets or sets the hover animation of the button (when the mouse hovers over the button).
         /// </summary>
         /// <value>The hover animation.</value>
-		IAnimation HoverAnimation { get; set; }
+        ButtonAnimation HoverAnimation { get; set; }
 
         /// <summary>
         /// Gets or sets the pushed animation of the button (when the user clicks the button).
         /// </summary>
         /// <value>The pushed animation.</value>
-		IAnimation PushedAnimation { get; set; }
+        ButtonAnimation PushedAnimation { get; set; }
 	}
 }
 

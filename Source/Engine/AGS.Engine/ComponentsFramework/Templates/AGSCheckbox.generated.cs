@@ -550,25 +550,25 @@ namespace AGS.Engine
             get { return _checkboxComponent.OnCheckChanged; } 
         }
 
-        public IAnimation NotCheckedAnimation 
+        public ButtonAnimation NotCheckedAnimation 
         {  
             get { return _checkboxComponent.NotCheckedAnimation; }  
             set { _checkboxComponent.NotCheckedAnimation = value; } 
         }
 
-        public IAnimation HoverNotCheckedAnimation 
+        public ButtonAnimation HoverNotCheckedAnimation 
         {  
             get { return _checkboxComponent.HoverNotCheckedAnimation; }  
             set { _checkboxComponent.HoverNotCheckedAnimation = value; } 
         }
 
-        public IAnimation CheckedAnimation 
+        public ButtonAnimation CheckedAnimation 
         {  
             get { return _checkboxComponent.CheckedAnimation; }  
             set { _checkboxComponent.CheckedAnimation = value; } 
         }
 
-        public IAnimation HoverCheckedAnimation 
+        public ButtonAnimation HoverCheckedAnimation 
         {  
             get { return _checkboxComponent.HoverCheckedAnimation; }  
             set { _checkboxComponent.HoverCheckedAnimation = value; } 

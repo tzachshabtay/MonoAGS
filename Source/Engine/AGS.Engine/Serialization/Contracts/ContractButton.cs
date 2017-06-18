@@ -19,13 +19,13 @@ namespace AGS.Engine
 		public ContractObject Object { get; set; }
 
 		[ProtoMember(2)]
-		public IContract<IAnimation> IdleAnimation { get; set; }
+        public IContract<ButtonAnimation> IdleAnimation { get; set; }
 
 		[ProtoMember(3)]
-		public IContract<IAnimation> HoverAnimation { get; set; }
+		public IContract<ButtonAnimation> HoverAnimation { get; set; }
 
 		[ProtoMember(4)]
-		public IContract<IAnimation> PushedAnimation { get; set; }
+		public IContract<ButtonAnimation> PushedAnimation { get; set; }
 
         [ProtoMember(5)]
         public ContractTextComponent TextComponent { get; set; }

@@ -539,19 +539,19 @@ namespace AGS.Engine
 
         #region IButtonComponent implementation
 
-        public IAnimation IdleAnimation 
+        public ButtonAnimation IdleAnimation 
         {  
             get { return _buttonComponent.IdleAnimation; }  
             set { _buttonComponent.IdleAnimation = value; } 
         }
 
-        public IAnimation HoverAnimation 
+        public ButtonAnimation HoverAnimation 
         {  
             get { return _buttonComponent.HoverAnimation; }  
             set { _buttonComponent.HoverAnimation = value; } 
         }
 
-        public IAnimation PushedAnimation 
+        public ButtonAnimation PushedAnimation 
         {  
             get { return _buttonComponent.PushedAnimation; }  
             set { _buttonComponent.PushedAnimation = value; } 

@@ -129,6 +129,24 @@ namespace AGS.Engine
             if (ev == null) return;
             await ev.InvokeAsync(sender, args);
         }
+
+        public static void StartAnimation(this ButtonAnimation button, IAnimationContainer animationComponent, 
+                                          ITextComponent textComponent, IImageComponent imageComponent)
+        {
+            if (button == null) return;
+
+            var animation = button.Animation;
+            if (animation != null && animation.Frames.Count > 0 && animationComponent != null) animationComponent.StartAnimation(animation);
+
+            var border = button.Border;
+            if (border != null && animationComponent != null) animationComponent.Border = border;
+
+            var textConfig = button.TextConfig;
+            if (textConfig != null && textComponent != null) textComponent.TextConfig = textConfig;
+
+            var tint = button.Tint;
+            if (tint != null && imageComponent != null) imageComponent.Tint = tint.Value;
+        }
 	}
 }
 

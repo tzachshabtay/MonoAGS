@@ -35,14 +35,14 @@ namespace AGS.Engine
 
             skin.AddRule<IButtonComponent>(button => 
             {               
-                button.IdleAnimation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
-                button.IdleAnimation.Sprite.Tint = ButtonIdleBackColor;
+                button.IdleAnimation.Animation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
+                button.IdleAnimation.Animation.Sprite.Tint = ButtonIdleBackColor;
 
-                button.HoverAnimation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
-                button.HoverAnimation.Sprite.Tint = ButtonHoverBackColor;
+                button.HoverAnimation.Animation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
+                button.HoverAnimation.Animation.Sprite.Tint = ButtonHoverBackColor;
 
-                button.PushedAnimation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
-                button.PushedAnimation.Sprite.Tint = ButtonPushedBackColor;                                                
+                button.PushedAnimation.Animation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
+                button.PushedAnimation.Animation.Sprite.Tint = ButtonPushedBackColor;                                                
             });
 
             skin.AddRule<IButtonComponent>(entity =>
@@ -54,17 +54,17 @@ namespace AGS.Engine
 
             skin.AddRule<ICheckboxComponent>(checkBox =>
             {
-                checkBox.NotCheckedAnimation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
-                checkBox.NotCheckedAnimation.Sprite.Tint = CheckboxNotCheckedColor;
+                checkBox.NotCheckedAnimation.Animation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
+                checkBox.NotCheckedAnimation.Animation.Sprite.Tint = CheckboxNotCheckedColor;
                 
-                checkBox.CheckedAnimation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
-                checkBox.CheckedAnimation.Sprite.Tint = CheckboxCheckedColor;
+                checkBox.CheckedAnimation.Animation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
+                checkBox.CheckedAnimation.Animation.Sprite.Tint = CheckboxCheckedColor;
                 
-                checkBox.HoverNotCheckedAnimation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
-                checkBox.HoverNotCheckedAnimation.Sprite.Tint = CheckboxHoverNotCheckedColor;
+                checkBox.HoverNotCheckedAnimation.Animation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
+                checkBox.HoverNotCheckedAnimation.Animation.Sprite.Tint = CheckboxHoverNotCheckedColor;
 
-                checkBox.HoverCheckedAnimation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
-                checkBox.HoverCheckedAnimation.Sprite.Tint = CheckboxHoverCheckedColor;
+                checkBox.HoverCheckedAnimation.Animation = new AGSSingleFrameAnimation(new EmptyImage(DefaultItemSize), _factory);
+                checkBox.HoverCheckedAnimation.Animation.Sprite.Tint = CheckboxHoverCheckedColor;
             });
 
             skin.AddRule<ICheckboxComponent>(entity =>

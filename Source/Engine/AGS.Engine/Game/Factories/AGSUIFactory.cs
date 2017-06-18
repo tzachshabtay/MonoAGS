@@ -69,30 +69,30 @@ namespace AGS.Engine
             return label;
         }
 
-        public IButton GetButton(string id, IAnimation idle, IAnimation hovered, IAnimation pushed,
+        public IButton GetButton(string id, ButtonAnimation idle, ButtonAnimation hovered, ButtonAnimation pushed,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
-            if (width == -1f && idle != null && idle.Frames.Count > 0)
+            if (width == -1f && idle != null && idle.Animation != null && idle.Animation.Frames.Count > 0)
             {
-                width = idle.Frames[0].Sprite.Width;
+                width = idle.Animation.Frames[0].Sprite.Width;
             }
-            if (height == -1f && idle != null && idle.Frames.Count > 0)
+            if (height == -1f && idle != null && idle.Animation != null && idle.Animation.Frames.Count > 0)
             {
-                height = idle.Frames[0].Sprite.Height;
+                height = idle.Animation.Frames[0].Sprite.Height;
             }
-            idle = getAnimation(id, idle, width, height);
-            hovered = getAnimation(id, hovered, width, height);
-            pushed = getAnimation(id, pushed, width, height);
+            idle = validateAnimation(id, idle, width, height);
+            hovered = validateAnimation(id, hovered, width, height);
+            pushed = validateAnimation(id, pushed, width, height);
 
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IButton button = _resolver.Container.Resolve<IButton>(idParam);
             button.LabelRenderSize = new SizeF(width, height);
-            if (idle != null && idle.Frames.Count > 0) button.IdleAnimation = idle;
-            if (hovered != null && hovered.Frames.Count > 0) button.HoverAnimation = hovered;
-            if (pushed != null && pushed.Frames.Count > 0) button.PushedAnimation = pushed;
+            button.IdleAnimation = idle;
+            button.HoverAnimation = hovered;
+            button.PushedAnimation = pushed;
 
-            button.StartAnimation(button.IdleAnimation);
+            button.StartAnimation(button.IdleAnimation.Animation);
             button.Tint = Colors.White;
             button.X = x;
             button.Y = y;
@@ -104,6 +104,14 @@ namespace AGS.Engine
                 _gameState.UI.Add(button);
 
             return button;
+        }
+
+        public IButton GetButton(string id, IAnimation idle, IAnimation hovered, IAnimation pushed,
+            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
+            float width = -1f, float height = -1f)
+        {
+            return GetButton(id, new ButtonAnimation(idle), new ButtonAnimation(hovered), new ButtonAnimation(pushed),
+                             x, y, parent, text, config, addToUi, width, height);
         }
 
         public IButton GetButton(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath,
@@ -150,21 +158,21 @@ namespace AGS.Engine
             return textbox;
         }
 
-        public ICheckBox GetCheckBox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation @checked, IAnimation checkedHovered,
+        public ICheckBox GetCheckBox(string id, ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation @checked, ButtonAnimation checkedHovered,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
         {
-            if (width == -1f && notChecked != null && notChecked.Frames.Count > 0)
+            if (width == -1f && notChecked != null && notChecked.Animation != null && notChecked.Animation.Frames.Count > 0)
             {
-                width = notChecked.Frames[0].Sprite.Width;
+                width = notChecked.Animation.Frames[0].Sprite.Width;
             }
-            if (height == -1f && notChecked != null && notChecked.Frames.Count > 0)
+            if (height == -1f && notChecked != null && notChecked.Animation != null && notChecked.Animation.Frames.Count > 0)
             {
-                height = notChecked.Frames[0].Sprite.Height;
+                height = notChecked.Animation.Frames[0].Sprite.Height;
             }
-            notChecked = getAnimation(id, notChecked, width, height);
-            notCheckedHovered = getAnimation(id, notCheckedHovered, width, height);
-            @checked = getAnimation(id, @checked, width, height);
-            checkedHovered = getAnimation(id, checkedHovered, width, height);
+            notChecked = validateAnimation(id, notChecked, width, height);
+            notCheckedHovered = validateAnimation(id, notCheckedHovered, width, height);
+            @checked = validateAnimation(id, @checked, width, height);
+            checkedHovered = validateAnimation(id, checkedHovered, width, height);
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             ICheckBox checkbox = _resolver.Container.Resolve<ICheckBox>(idParam);
             checkbox.TextConfig = config;
@@ -180,7 +188,7 @@ namespace AGS.Engine
             if (@checked != null) checkbox.CheckedAnimation = @checked;
             if (checkedHovered != null) checkbox.HoverCheckedAnimation = checkedHovered;
 
-            checkbox.StartAnimation(checkbox.NotCheckedAnimation);
+            checkbox.StartAnimation(checkbox.NotCheckedAnimation.Animation);
             checkbox.Tint = Colors.White;
             checkbox.X = x;
             checkbox.Y = y;
@@ -190,6 +198,14 @@ namespace AGS.Engine
                 _gameState.UI.Add(checkbox);
 
             return checkbox;
+        }
+
+        public ICheckBox GetCheckBox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation @checked, IAnimation checkedHovered,
+            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
+        {
+            return GetCheckBox(id, new ButtonAnimation(notChecked), new ButtonAnimation(notCheckedHovered),
+                               new ButtonAnimation(@checked), new ButtonAnimation(checkedHovered), x, y, parent,
+                               text, config, addToUi, width, height, isCheckButton);
         }
 
         public ICheckBox GetCheckBox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
@@ -291,14 +307,16 @@ namespace AGS.Engine
             return slider;
         }
 
-        private IAnimation getAnimation(string id, IAnimation animation, float width, float height)
+        private ButtonAnimation validateAnimation(string id, ButtonAnimation button, float width, float height)
         {
-            if (animation != null) return animation;
+            button = button ?? new ButtonAnimation(null);
+            if (button.Animation != null) return button;
             if (width == -1f || height == -1)
             {
                 throw new InvalidOperationException("No animation and no size was supplied for GUI control " + id);
             }
-            return new AGSSingleFrameAnimation(new EmptyImage(width, height), _graphics);
+            button.Animation = new AGSSingleFrameAnimation(new EmptyImage(width, height), _graphics);
+            return button;
         }
 
         private void setParent(IObject ui, IObject parent)

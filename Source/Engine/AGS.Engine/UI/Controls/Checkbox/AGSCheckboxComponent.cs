@@ -7,6 +7,8 @@ namespace AGS.Engine.UI.Controls
         private bool _checked;
         private IUIEvents _events;
         private IAnimationContainer _animation;
+        private ITextComponent _text;
+        private IImageComponent _image;
 
         public AGSCheckboxComponent()
         {
@@ -34,13 +36,13 @@ namespace AGS.Engine.UI.Controls
             }
         }
 
-        public IAnimation CheckedAnimation { get; set; }
+        public ButtonAnimation CheckedAnimation { get; set; }
 
-        public IAnimation HoverCheckedAnimation { get; set; }
+        public ButtonAnimation HoverCheckedAnimation { get; set; }
 
-        public IAnimation HoverNotCheckedAnimation { get; set; }
+        public ButtonAnimation HoverNotCheckedAnimation { get; set; }
 
-        public IAnimation NotCheckedAnimation { get; set; }
+        public ButtonAnimation NotCheckedAnimation { get; set; }
 
         public IEvent<CheckBoxEventArgs> OnCheckChanged { get; private set; }
 
@@ -53,12 +55,12 @@ namespace AGS.Engine.UI.Controls
 
         private void onMouseEnter(object sender, MousePositionEventArgs e)
         {
-            _animation.StartAnimation(Checked ? HoverCheckedAnimation : HoverNotCheckedAnimation);
+            startAnimation(Checked ? HoverCheckedAnimation ?? CheckedAnimation : HoverNotCheckedAnimation ?? NotCheckedAnimation);
         }
 
         private void onMouseLeave(object sender, MousePositionEventArgs e)
         {
-            _animation.StartAnimation(Checked ? CheckedAnimation : NotCheckedAnimation);
+            startAnimation(Checked ? CheckedAnimation : NotCheckedAnimation);
         }
 
         private void onMouseUp(object sender, MouseButtonEventArgs e)
@@ -72,9 +74,15 @@ namespace AGS.Engine.UI.Controls
 
         private void onCheckChange()
         {
-            _animation.StartAnimation(_events.IsMouseIn ? (Checked ? HoverCheckedAnimation : HoverNotCheckedAnimation) :
+            startAnimation(_events.IsMouseIn ? (Checked ? HoverCheckedAnimation ?? CheckedAnimation : 
+                                                          HoverNotCheckedAnimation ?? NotCheckedAnimation) :
                 (Checked ? CheckedAnimation : NotCheckedAnimation));
             OnCheckChanged.Invoke(this, new CheckBoxEventArgs(Checked));
+        }
+
+        private void startAnimation(ButtonAnimation button)
+        {
+	        button.StartAnimation(_animation, _text, _image);
         }
     }
 }
