@@ -275,6 +275,36 @@ references:
   commentId: F:AGS.API.ApproachHotspots.WalkIfHaveWalkPoint
   fullName: AGS.API.ApproachHotspots.WalkIfHaveWalkPoint
   nameWithType: ApproachHotspots.WalkIfHaveWalkPoint
+- uid: AGS.API.ArrowDirection
+  name: ArrowDirection
+  href: api/AGS.API.ArrowDirection.html
+  commentId: T:AGS.API.ArrowDirection
+  fullName: AGS.API.ArrowDirection
+  nameWithType: ArrowDirection
+- uid: AGS.API.ArrowDirection.Down
+  name: Down
+  href: api/AGS.API.ArrowDirection.html#AGS_API_ArrowDirection_Down
+  commentId: F:AGS.API.ArrowDirection.Down
+  fullName: AGS.API.ArrowDirection.Down
+  nameWithType: ArrowDirection.Down
+- uid: AGS.API.ArrowDirection.Left
+  name: Left
+  href: api/AGS.API.ArrowDirection.html#AGS_API_ArrowDirection_Left
+  commentId: F:AGS.API.ArrowDirection.Left
+  fullName: AGS.API.ArrowDirection.Left
+  nameWithType: ArrowDirection.Left
+- uid: AGS.API.ArrowDirection.Right
+  name: Right
+  href: api/AGS.API.ArrowDirection.html#AGS_API_ArrowDirection_Right
+  commentId: F:AGS.API.ArrowDirection.Right
+  fullName: AGS.API.ArrowDirection.Right
+  nameWithType: ArrowDirection.Right
+- uid: AGS.API.ArrowDirection.Up
+  name: Up
+  href: api/AGS.API.ArrowDirection.html#AGS_API_ArrowDirection_Up
+  commentId: F:AGS.API.ArrowDirection.Up
+  fullName: AGS.API.ArrowDirection.Up
+  nameWithType: ArrowDirection.Up
 - uid: AGS.API.AutoFit
   name: AutoFit
   href: api/AGS.API.AutoFit.html
@@ -317,11 +347,11 @@ references:
   commentId: T:AGS.API.BeforeSayEventArgs
   fullName: AGS.API.BeforeSayEventArgs
   nameWithType: BeforeSayEventArgs
-- uid: AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,Action)
+- uid: AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,System.Action)
   name: BeforeSayEventArgs(ILabel, Action)
-  href: api/AGS.API.BeforeSayEventArgs.html#AGS_API_BeforeSayEventArgs__ctor_AGS_API_ILabel_Action_
-  commentId: M:AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,Action)
-  fullName: AGS.API.BeforeSayEventArgs.BeforeSayEventArgs(AGS.API.ILabel, Action)
+  href: api/AGS.API.BeforeSayEventArgs.html#AGS_API_BeforeSayEventArgs__ctor_AGS_API_ILabel_System_Action_
+  commentId: M:AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,System.Action)
+  fullName: AGS.API.BeforeSayEventArgs.BeforeSayEventArgs(AGS.API.ILabel, System.Action)
   nameWithType: BeforeSayEventArgs.BeforeSayEventArgs(ILabel, Action)
 - uid: AGS.API.BeforeSayEventArgs.#ctor*
   name: BeforeSayEventArgs
@@ -389,6 +419,81 @@ references:
   commentId: F:AGS.API.BrushType.Texture
   fullName: AGS.API.BrushType.Texture
   nameWithType: BrushType.Texture
+- uid: AGS.API.ButtonAnimation
+  name: ButtonAnimation
+  href: api/AGS.API.ButtonAnimation.html
+  commentId: T:AGS.API.ButtonAnimation
+  fullName: AGS.API.ButtonAnimation
+  nameWithType: ButtonAnimation
+- uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation)
+  name: ButtonAnimation(IAnimation)
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IAnimation_
+  commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation)
+  fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation)
+  nameWithType: ButtonAnimation.ButtonAnimation(IAnimation)
+- uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
+  name: ButtonAnimation(IBorderStyle, ITextConfig, Nullable<Color>)
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IBorderStyle_AGS_API_ITextConfig_System_Nullable_AGS_API_Color__
+  commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
+  name.vb: ButtonAnimation(IBorderStyle, ITextConfig, Nullable(Of Color))
+  fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable<AGS.API.Color>)
+  fullName.vb: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable(Of AGS.API.Color))
+  nameWithType: ButtonAnimation.ButtonAnimation(IBorderStyle, ITextConfig, Nullable<Color>)
+  nameWithType.vb: ButtonAnimation.ButtonAnimation(IBorderStyle, ITextConfig, Nullable(Of Color))
+- uid: AGS.API.ButtonAnimation.#ctor*
+  name: ButtonAnimation
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_
+  commentId: Overload:AGS.API.ButtonAnimation.#ctor
+  fullName: AGS.API.ButtonAnimation.ButtonAnimation
+  nameWithType: ButtonAnimation.ButtonAnimation
+- uid: AGS.API.ButtonAnimation.Animation
+  name: Animation
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation_Animation
+  commentId: P:AGS.API.ButtonAnimation.Animation
+  fullName: AGS.API.ButtonAnimation.Animation
+  nameWithType: ButtonAnimation.Animation
+- uid: AGS.API.ButtonAnimation.Animation*
+  name: Animation
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation_Animation_
+  commentId: Overload:AGS.API.ButtonAnimation.Animation
+  fullName: AGS.API.ButtonAnimation.Animation
+  nameWithType: ButtonAnimation.Animation
+- uid: AGS.API.ButtonAnimation.Border
+  name: Border
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation_Border
+  commentId: P:AGS.API.ButtonAnimation.Border
+  fullName: AGS.API.ButtonAnimation.Border
+  nameWithType: ButtonAnimation.Border
+- uid: AGS.API.ButtonAnimation.Border*
+  name: Border
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation_Border_
+  commentId: Overload:AGS.API.ButtonAnimation.Border
+  fullName: AGS.API.ButtonAnimation.Border
+  nameWithType: ButtonAnimation.Border
+- uid: AGS.API.ButtonAnimation.TextConfig
+  name: TextConfig
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation_TextConfig
+  commentId: P:AGS.API.ButtonAnimation.TextConfig
+  fullName: AGS.API.ButtonAnimation.TextConfig
+  nameWithType: ButtonAnimation.TextConfig
+- uid: AGS.API.ButtonAnimation.TextConfig*
+  name: TextConfig
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation_TextConfig_
+  commentId: Overload:AGS.API.ButtonAnimation.TextConfig
+  fullName: AGS.API.ButtonAnimation.TextConfig
+  nameWithType: ButtonAnimation.TextConfig
+- uid: AGS.API.ButtonAnimation.Tint
+  name: Tint
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation_Tint
+  commentId: P:AGS.API.ButtonAnimation.Tint
+  fullName: AGS.API.ButtonAnimation.Tint
+  nameWithType: ButtonAnimation.Tint
+- uid: AGS.API.ButtonAnimation.Tint*
+  name: Tint
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation_Tint_
+  commentId: Overload:AGS.API.ButtonAnimation.Tint
+  fullName: AGS.API.ButtonAnimation.Tint
+  nameWithType: ButtonAnimation.Tint
 - uid: AGS.API.CheckBoxEventArgs
   name: CheckBoxEventArgs
   href: api/AGS.API.CheckBoxEventArgs.html
@@ -581,6 +686,18 @@ references:
   commentId: Overload:AGS.API.Color.Value
   fullName: AGS.API.Color.Value
   nameWithType: Color.Value
+- uid: AGS.API.Color.WithAlpha(System.Byte)
+  name: WithAlpha(Byte)
+  href: api/AGS.API.Color.html#AGS_API_Color_WithAlpha_System_Byte_
+  commentId: M:AGS.API.Color.WithAlpha(System.Byte)
+  fullName: AGS.API.Color.WithAlpha(System.Byte)
+  nameWithType: Color.WithAlpha(Byte)
+- uid: AGS.API.Color.WithAlpha*
+  name: WithAlpha
+  href: api/AGS.API.Color.html#AGS_API_Color_WithAlpha_
+  commentId: Overload:AGS.API.Color.WithAlpha
+  fullName: AGS.API.Color.WithAlpha
+  nameWithType: Color.WithAlpha
 - uid: AGS.API.Colors
   name: Colors
   href: api/AGS.API.Colors.html
@@ -1433,6 +1550,48 @@ references:
   commentId: F:AGS.API.Colors.YellowGreen
   fullName: AGS.API.Colors.YellowGreen
   nameWithType: Colors.YellowGreen
+- uid: AGS.API.ComboboxItemArgs
+  name: ComboboxItemArgs
+  href: api/AGS.API.ComboboxItemArgs.html
+  commentId: T:AGS.API.ComboboxItemArgs
+  fullName: AGS.API.ComboboxItemArgs
+  nameWithType: ComboboxItemArgs
+- uid: AGS.API.ComboboxItemArgs.#ctor(System.Object,System.Int32)
+  name: ComboboxItemArgs(Object, Int32)
+  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs__ctor_System_Object_System_Int32_
+  commentId: M:AGS.API.ComboboxItemArgs.#ctor(System.Object,System.Int32)
+  fullName: AGS.API.ComboboxItemArgs.ComboboxItemArgs(System.Object, System.Int32)
+  nameWithType: ComboboxItemArgs.ComboboxItemArgs(Object, Int32)
+- uid: AGS.API.ComboboxItemArgs.#ctor*
+  name: ComboboxItemArgs
+  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs__ctor_
+  commentId: Overload:AGS.API.ComboboxItemArgs.#ctor
+  fullName: AGS.API.ComboboxItemArgs.ComboboxItemArgs
+  nameWithType: ComboboxItemArgs.ComboboxItemArgs
+- uid: AGS.API.ComboboxItemArgs.Index
+  name: Index
+  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs_Index
+  commentId: P:AGS.API.ComboboxItemArgs.Index
+  fullName: AGS.API.ComboboxItemArgs.Index
+  nameWithType: ComboboxItemArgs.Index
+- uid: AGS.API.ComboboxItemArgs.Index*
+  name: Index
+  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs_Index_
+  commentId: Overload:AGS.API.ComboboxItemArgs.Index
+  fullName: AGS.API.ComboboxItemArgs.Index
+  nameWithType: ComboboxItemArgs.Index
+- uid: AGS.API.ComboboxItemArgs.Item
+  name: Item
+  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs_Item
+  commentId: P:AGS.API.ComboboxItemArgs.Item
+  fullName: AGS.API.ComboboxItemArgs.Item
+  nameWithType: ComboboxItemArgs.Item
+- uid: AGS.API.ComboboxItemArgs.Item*
+  name: Item
+  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs_Item_
+  commentId: Overload:AGS.API.ComboboxItemArgs.Item
+  fullName: AGS.API.ComboboxItemArgs.Item
+  nameWithType: ComboboxItemArgs.Item
 - uid: AGS.API.Direction
   name: Direction
   href: api/AGS.API.Direction.html
@@ -2703,18 +2862,18 @@ references:
   commentId: T:AGS.API.IBitmapLoader
   fullName: AGS.API.IBitmapLoader
   nameWithType: IBitmapLoader
-- uid: AGS.API.IBitmapLoader.Load(Stream)
-  name: Load(Stream)
-  href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_Stream_
-  commentId: M:AGS.API.IBitmapLoader.Load(Stream)
-  fullName: AGS.API.IBitmapLoader.Load(Stream)
-  nameWithType: IBitmapLoader.Load(Stream)
 - uid: AGS.API.IBitmapLoader.Load(System.Int32,System.Int32)
   name: Load(Int32, Int32)
   href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_System_Int32_System_Int32_
   commentId: M:AGS.API.IBitmapLoader.Load(System.Int32,System.Int32)
   fullName: AGS.API.IBitmapLoader.Load(System.Int32, System.Int32)
   nameWithType: IBitmapLoader.Load(Int32, Int32)
+- uid: AGS.API.IBitmapLoader.Load(System.IO.Stream)
+  name: Load(Stream)
+  href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_System_IO_Stream_
+  commentId: M:AGS.API.IBitmapLoader.Load(System.IO.Stream)
+  fullName: AGS.API.IBitmapLoader.Load(System.IO.Stream)
+  nameWithType: IBitmapLoader.Load(Stream)
 - uid: AGS.API.IBitmapLoader.Load*
   name: Load
   href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_
@@ -2806,13 +2965,13 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Invoke
   nameWithType: IBlockingEvent<TEventArgs>.Invoke
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Invoke
-- uid: AGS.API.IBlockingEvent`1.Subscribe(Action{System.Object,`0})
+- uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action{System.Object,`0})
   name: Subscribe(Action<Object, TEventArgs>)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_Action_System_Object__0__
-  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(Action{System.Object,`0})
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action_System_Object__0__
+  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(System.Action{System.Object,`0})
   name.vb: Subscribe(Action(Of Object, TEventArgs))
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(Action<System.Object, TEventArgs>)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(Action(Of System.Object, TEventArgs))
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(System.Action<System.Object, TEventArgs>)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(System.Action(Of System.Object, TEventArgs))
   nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action<Object, TEventArgs>)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action(Of Object, TEventArgs))
 - uid: AGS.API.IBlockingEvent`1.Subscribe*
@@ -2839,13 +2998,13 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).SubscribersCount
   nameWithType: IBlockingEvent<TEventArgs>.SubscribersCount
   nameWithType.vb: IBlockingEvent(Of TEventArgs).SubscribersCount
-- uid: AGS.API.IBlockingEvent`1.Unsubscribe(Action{System.Object,`0})
+- uid: AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{System.Object,`0})
   name: Unsubscribe(Action<Object, TEventArgs>)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_Action_System_Object__0__
-  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(Action{System.Object,`0})
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action_System_Object__0__
+  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{System.Object,`0})
   name.vb: Unsubscribe(Action(Of Object, TEventArgs))
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(Action<System.Object, TEventArgs>)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(Action(Of System.Object, TEventArgs))
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(System.Action<System.Object, TEventArgs>)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(System.Action(Of System.Object, TEventArgs))
   nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(Action<Object, TEventArgs>)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(Action(Of Object, TEventArgs))
 - uid: AGS.API.IBlockingEvent`1.Unsubscribe*
@@ -3537,6 +3696,18 @@ references:
   commentId: Overload:AGS.API.IComboBoxComponent.Items
   fullName: AGS.API.IComboBoxComponent.Items
   nameWithType: IComboBoxComponent.Items
+- uid: AGS.API.IComboBoxComponent.OnSelectedItemChanged
+  name: OnSelectedItemChanged
+  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_OnSelectedItemChanged
+  commentId: P:AGS.API.IComboBoxComponent.OnSelectedItemChanged
+  fullName: AGS.API.IComboBoxComponent.OnSelectedItemChanged
+  nameWithType: IComboBoxComponent.OnSelectedItemChanged
+- uid: AGS.API.IComboBoxComponent.OnSelectedItemChanged*
+  name: OnSelectedItemChanged
+  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_OnSelectedItemChanged_
+  commentId: Overload:AGS.API.IComboBoxComponent.OnSelectedItemChanged
+  fullName: AGS.API.IComboBoxComponent.OnSelectedItemChanged
+  nameWithType: IComboBoxComponent.OnSelectedItemChanged
 - uid: AGS.API.IComboBoxComponent.SelectedIndex
   name: SelectedIndex
   href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_SelectedIndex
@@ -3633,11 +3804,11 @@ references:
   commentId: T:AGS.API.IComponentsCollection
   fullName: AGS.API.IComponentsCollection
   nameWithType: IComponentsCollection
-- uid: AGS.API.IComponentsCollection.AddComponent(Type)
+- uid: AGS.API.IComponentsCollection.AddComponent(System.Type)
   name: AddComponent(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_Type_
-  commentId: M:AGS.API.IComponentsCollection.AddComponent(Type)
-  fullName: AGS.API.IComponentsCollection.AddComponent(Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_System_Type_
+  commentId: M:AGS.API.IComponentsCollection.AddComponent(System.Type)
+  fullName: AGS.API.IComponentsCollection.AddComponent(System.Type)
   nameWithType: IComponentsCollection.AddComponent(Type)
 - uid: AGS.API.IComponentsCollection.AddComponent*
   name: AddComponent
@@ -3675,11 +3846,11 @@ references:
   commentId: Overload:AGS.API.IComponentsCollection.Count
   fullName: AGS.API.IComponentsCollection.Count
   nameWithType: IComponentsCollection.Count
-- uid: AGS.API.IComponentsCollection.CountType(Type)
+- uid: AGS.API.IComponentsCollection.CountType(System.Type)
   name: CountType(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_CountType_Type_
-  commentId: M:AGS.API.IComponentsCollection.CountType(Type)
-  fullName: AGS.API.IComponentsCollection.CountType(Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_CountType_System_Type_
+  commentId: M:AGS.API.IComponentsCollection.CountType(System.Type)
+  fullName: AGS.API.IComponentsCollection.CountType(System.Type)
   nameWithType: IComponentsCollection.CountType(Type)
 - uid: AGS.API.IComponentsCollection.CountType*
   name: CountType
@@ -3696,11 +3867,11 @@ references:
   fullName.vb: AGS.API.IComponentsCollection.CountType(Of TComponent)()
   nameWithType: IComponentsCollection.CountType<TComponent>()
   nameWithType.vb: IComponentsCollection.CountType(Of TComponent)()
-- uid: AGS.API.IComponentsCollection.GetComponent(Type)
+- uid: AGS.API.IComponentsCollection.GetComponent(System.Type)
   name: GetComponent(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_Type_
-  commentId: M:AGS.API.IComponentsCollection.GetComponent(Type)
-  fullName: AGS.API.IComponentsCollection.GetComponent(Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_System_Type_
+  commentId: M:AGS.API.IComponentsCollection.GetComponent(System.Type)
+  fullName: AGS.API.IComponentsCollection.GetComponent(System.Type)
   nameWithType: IComponentsCollection.GetComponent(Type)
 - uid: AGS.API.IComponentsCollection.GetComponent*
   name: GetComponent
@@ -3717,11 +3888,11 @@ references:
   fullName.vb: AGS.API.IComponentsCollection.GetComponent(Of TComponent)()
   nameWithType: IComponentsCollection.GetComponent<TComponent>()
   nameWithType.vb: IComponentsCollection.GetComponent(Of TComponent)()
-- uid: AGS.API.IComponentsCollection.GetComponents(Type)
+- uid: AGS.API.IComponentsCollection.GetComponents(System.Type)
   name: GetComponents(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponents_Type_
-  commentId: M:AGS.API.IComponentsCollection.GetComponents(Type)
-  fullName: AGS.API.IComponentsCollection.GetComponents(Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponents_System_Type_
+  commentId: M:AGS.API.IComponentsCollection.GetComponents(System.Type)
+  fullName: AGS.API.IComponentsCollection.GetComponents(System.Type)
   nameWithType: IComponentsCollection.GetComponents(Type)
 - uid: AGS.API.IComponentsCollection.GetComponents*
   name: GetComponents
@@ -3744,11 +3915,11 @@ references:
   commentId: M:AGS.API.IComponentsCollection.HasComponent(AGS.API.IComponent)
   fullName: AGS.API.IComponentsCollection.HasComponent(AGS.API.IComponent)
   nameWithType: IComponentsCollection.HasComponent(IComponent)
-- uid: AGS.API.IComponentsCollection.HasComponent(Type)
+- uid: AGS.API.IComponentsCollection.HasComponent(System.Type)
   name: HasComponent(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_Type_
-  commentId: M:AGS.API.IComponentsCollection.HasComponent(Type)
-  fullName: AGS.API.IComponentsCollection.HasComponent(Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_System_Type_
+  commentId: M:AGS.API.IComponentsCollection.HasComponent(System.Type)
+  fullName: AGS.API.IComponentsCollection.HasComponent(System.Type)
   nameWithType: IComponentsCollection.HasComponent(Type)
 - uid: AGS.API.IComponentsCollection.HasComponent*
   name: HasComponent
@@ -3789,11 +3960,11 @@ references:
   commentId: Overload:AGS.API.IComponentsCollection.RemoveComponent
   fullName: AGS.API.IComponentsCollection.RemoveComponent
   nameWithType: IComponentsCollection.RemoveComponent
-- uid: AGS.API.IComponentsCollection.RemoveComponents(Type)
+- uid: AGS.API.IComponentsCollection.RemoveComponents(System.Type)
   name: RemoveComponents(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponents_Type_
-  commentId: M:AGS.API.IComponentsCollection.RemoveComponents(Type)
-  fullName: AGS.API.IComponentsCollection.RemoveComponents(Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponents_System_Type_
+  commentId: M:AGS.API.IComponentsCollection.RemoveComponents(System.Type)
+  fullName: AGS.API.IComponentsCollection.RemoveComponents(System.Type)
   nameWithType: IComponentsCollection.RemoveComponents(Type)
 - uid: AGS.API.IComponentsCollection.RemoveComponents*
   name: RemoveComponents
@@ -3915,13 +4086,13 @@ references:
   fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).Remove
   nameWithType: IConcurrentHashSet<TItem>.Remove
   nameWithType.vb: IConcurrentHashSet(Of TItem).Remove
-- uid: AGS.API.IConcurrentHashSet`1.RemoveAll(Predicate{`0})
+- uid: AGS.API.IConcurrentHashSet`1.RemoveAll(System.Predicate{`0})
   name: RemoveAll(Predicate<TItem>)
-  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_RemoveAll_Predicate__0__
-  commentId: M:AGS.API.IConcurrentHashSet`1.RemoveAll(Predicate{`0})
+  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_RemoveAll_System_Predicate__0__
+  commentId: M:AGS.API.IConcurrentHashSet`1.RemoveAll(System.Predicate{`0})
   name.vb: RemoveAll(Predicate(Of TItem))
-  fullName: AGS.API.IConcurrentHashSet<TItem>.RemoveAll(Predicate<TItem>)
-  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).RemoveAll(Predicate(Of TItem))
+  fullName: AGS.API.IConcurrentHashSet<TItem>.RemoveAll(System.Predicate<TItem>)
+  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).RemoveAll(System.Predicate(Of TItem))
   nameWithType: IConcurrentHashSet<TItem>.RemoveAll(Predicate<TItem>)
   nameWithType.vb: IConcurrentHashSet(Of TItem).RemoveAll(Predicate(Of TItem))
 - uid: AGS.API.IConcurrentHashSet`1.RemoveAll*
@@ -4483,15 +4654,6 @@ references:
   commentId: Overload:AGS.API.IDialogActions.Actions
   fullName: AGS.API.IDialogActions.Actions
   nameWithType: IDialogActions.Actions
-- uid: AGS.API.IDialogActions.AddActions(Action[])
-  name: AddActions(Action[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_Action___
-  commentId: M:AGS.API.IDialogActions.AddActions(Action[])
-  name.vb: AddActions(Action())
-  fullName: AGS.API.IDialogActions.AddActions(Action[])
-  fullName.vb: AGS.API.IDialogActions.AddActions(Action())
-  nameWithType: IDialogActions.AddActions(Action[])
-  nameWithType.vb: IDialogActions.AddActions(Action())
 - uid: AGS.API.IDialogActions.AddActions(AGS.API.IDialogAction[])
   name: AddActions(IDialogAction[])
   href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_AGS_API_IDialogAction___
@@ -4501,19 +4663,28 @@ references:
   fullName.vb: AGS.API.IDialogActions.AddActions(AGS.API.IDialogAction())
   nameWithType: IDialogActions.AddActions(IDialogAction[])
   nameWithType.vb: IDialogActions.AddActions(IDialogAction())
+- uid: AGS.API.IDialogActions.AddActions(System.Action[])
+  name: AddActions(Action[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_System_Action___
+  commentId: M:AGS.API.IDialogActions.AddActions(System.Action[])
+  name.vb: AddActions(Action())
+  fullName: AGS.API.IDialogActions.AddActions(System.Action[])
+  fullName.vb: AGS.API.IDialogActions.AddActions(System.Action())
+  nameWithType: IDialogActions.AddActions(Action[])
+  nameWithType.vb: IDialogActions.AddActions(Action())
 - uid: AGS.API.IDialogActions.AddActions*
   name: AddActions
   href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_
   commentId: Overload:AGS.API.IDialogActions.AddActions
   fullName: AGS.API.IDialogActions.AddActions
   nameWithType: IDialogActions.AddActions
-- uid: AGS.API.IDialogActions.AddAsyncActions(Func{Task}[])
+- uid: AGS.API.IDialogActions.AddAsyncActions(System.Func{System.Threading.Tasks.Task}[])
   name: AddAsyncActions(Func<Task>[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncActions_Func_Task____
-  commentId: M:AGS.API.IDialogActions.AddAsyncActions(Func{Task}[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncActions_System_Func_System_Threading_Tasks_Task____
+  commentId: M:AGS.API.IDialogActions.AddAsyncActions(System.Func{System.Threading.Tasks.Task}[])
   name.vb: AddAsyncActions(Func(Of Task)())
-  fullName: AGS.API.IDialogActions.AddAsyncActions(Func<Task>[])
-  fullName.vb: AGS.API.IDialogActions.AddAsyncActions(Func(Of Task)())
+  fullName: AGS.API.IDialogActions.AddAsyncActions(System.Func<System.Threading.Tasks.Task>[])
+  fullName.vb: AGS.API.IDialogActions.AddAsyncActions(System.Func(Of System.Threading.Tasks.Task)())
   nameWithType: IDialogActions.AddAsyncActions(Func<Task>[])
   nameWithType.vb: IDialogActions.AddAsyncActions(Func(Of Task)())
 - uid: AGS.API.IDialogActions.AddAsyncActions*
@@ -4522,13 +4693,13 @@ references:
   commentId: Overload:AGS.API.IDialogActions.AddAsyncActions
   fullName: AGS.API.IDialogActions.AddAsyncActions
   nameWithType: IDialogActions.AddAsyncActions
-- uid: AGS.API.IDialogActions.AddAsyncConditionalActions(Func{Task{System.Boolean}}[])
+- uid: AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func{System.Threading.Tasks.Task{System.Boolean}}[])
   name: AddAsyncConditionalActions(Func<Task<Boolean>>[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncConditionalActions_Func_Task_System_Boolean_____
-  commentId: M:AGS.API.IDialogActions.AddAsyncConditionalActions(Func{Task{System.Boolean}}[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncConditionalActions_System_Func_System_Threading_Tasks_Task_System_Boolean_____
+  commentId: M:AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func{System.Threading.Tasks.Task{System.Boolean}}[])
   name.vb: AddAsyncConditionalActions(Func(Of Task(Of Boolean))())
-  fullName: AGS.API.IDialogActions.AddAsyncConditionalActions(Func<Task<System.Boolean>>[])
-  fullName.vb: AGS.API.IDialogActions.AddAsyncConditionalActions(Func(Of Task(Of System.Boolean))())
+  fullName: AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func<System.Threading.Tasks.Task<System.Boolean>>[])
+  fullName.vb: AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func(Of System.Threading.Tasks.Task(Of System.Boolean))())
   nameWithType: IDialogActions.AddAsyncConditionalActions(Func<Task<Boolean>>[])
   nameWithType.vb: IDialogActions.AddAsyncConditionalActions(Func(Of Task(Of Boolean))())
 - uid: AGS.API.IDialogActions.AddAsyncConditionalActions*
@@ -4537,13 +4708,13 @@ references:
   commentId: Overload:AGS.API.IDialogActions.AddAsyncConditionalActions
   fullName: AGS.API.IDialogActions.AddAsyncConditionalActions
   nameWithType: IDialogActions.AddAsyncConditionalActions
-- uid: AGS.API.IDialogActions.AddConditionalActions(Func{System.Boolean}[])
+- uid: AGS.API.IDialogActions.AddConditionalActions(System.Func{System.Boolean}[])
   name: AddConditionalActions(Func<Boolean>[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddConditionalActions_Func_System_Boolean____
-  commentId: M:AGS.API.IDialogActions.AddConditionalActions(Func{System.Boolean}[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddConditionalActions_System_Func_System_Boolean____
+  commentId: M:AGS.API.IDialogActions.AddConditionalActions(System.Func{System.Boolean}[])
   name.vb: AddConditionalActions(Func(Of Boolean)())
-  fullName: AGS.API.IDialogActions.AddConditionalActions(Func<System.Boolean>[])
-  fullName.vb: AGS.API.IDialogActions.AddConditionalActions(Func(Of System.Boolean)())
+  fullName: AGS.API.IDialogActions.AddConditionalActions(System.Func<System.Boolean>[])
+  fullName.vb: AGS.API.IDialogActions.AddConditionalActions(System.Func(Of System.Boolean)())
   nameWithType: IDialogActions.AddConditionalActions(Func<Boolean>[])
   nameWithType.vb: IDialogActions.AddConditionalActions(Func(Of Boolean)())
 - uid: AGS.API.IDialogActions.AddConditionalActions*
@@ -4633,13 +4804,13 @@ references:
   commentId: T:AGS.API.IDialogLayout
   fullName: AGS.API.IDialogLayout
   nameWithType: IDialogLayout
-- uid: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,IList{AGS.API.IDialogOption})
+- uid: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,System.Collections.Generic.IList{AGS.API.IDialogOption})
   name: LayoutAsync(IObject, IList<IDialogOption>)
-  href: api/AGS.API.IDialogLayout.html#AGS_API_IDialogLayout_LayoutAsync_AGS_API_IObject_IList_AGS_API_IDialogOption__
-  commentId: M:AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,IList{AGS.API.IDialogOption})
+  href: api/AGS.API.IDialogLayout.html#AGS_API_IDialogLayout_LayoutAsync_AGS_API_IObject_System_Collections_Generic_IList_AGS_API_IDialogOption__
+  commentId: M:AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,System.Collections.Generic.IList{AGS.API.IDialogOption})
   name.vb: LayoutAsync(IObject, IList(Of IDialogOption))
-  fullName: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, IList<AGS.API.IDialogOption>)
-  fullName.vb: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, IList(Of AGS.API.IDialogOption))
+  fullName: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, System.Collections.Generic.IList<AGS.API.IDialogOption>)
+  fullName.vb: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, System.Collections.Generic.IList(Of AGS.API.IDialogOption))
   nameWithType: IDialogLayout.LayoutAsync(IObject, IList<IDialogOption>)
   nameWithType.vb: IDialogLayout.LayoutAsync(IObject, IList(Of IDialogOption))
 - uid: AGS.API.IDialogLayout.LayoutAsync*
@@ -5189,13 +5360,13 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).InvokeAsync
   nameWithType: IEvent<TEventArgs>.InvokeAsync
   nameWithType.vb: IEvent(Of TEventArgs).InvokeAsync
-- uid: AGS.API.IEvent`1.SubscribeToAsync(Func{System.Object,`0,Task})
+- uid: AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Object,`0,System.Threading.Tasks.Task})
   name: SubscribeToAsync(Func<Object, TEventArgs, Task>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_Func_System_Object__0_Task__
-  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(Func{System.Object,`0,Task})
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_System_Func_System_Object__0_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Object,`0,System.Threading.Tasks.Task})
   name.vb: SubscribeToAsync(Func(Of Object, TEventArgs, Task))
-  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(Func<System.Object, TEventArgs, Task>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(Func(Of System.Object, TEventArgs, Task))
+  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(System.Func<System.Object, TEventArgs, System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of System.Object, TEventArgs, System.Threading.Tasks.Task))
   nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<Object, TEventArgs, Task>)
   nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of Object, TEventArgs, Task))
 - uid: AGS.API.IEvent`1.SubscribeToAsync*
@@ -5206,13 +5377,13 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync
   nameWithType: IEvent<TEventArgs>.SubscribeToAsync
   nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync
-- uid: AGS.API.IEvent`1.UnsubscribeToAsync(Func{System.Object,`0,Task})
+- uid: AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Object,`0,System.Threading.Tasks.Task})
   name: UnsubscribeToAsync(Func<Object, TEventArgs, Task>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_Func_System_Object__0_Task__
-  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(Func{System.Object,`0,Task})
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_System_Func_System_Object__0_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Object,`0,System.Threading.Tasks.Task})
   name.vb: UnsubscribeToAsync(Func(Of Object, TEventArgs, Task))
-  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(Func<System.Object, TEventArgs, Task>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of System.Object, TEventArgs, Task))
+  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(System.Func<System.Object, TEventArgs, System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of System.Object, TEventArgs, System.Threading.Tasks.Task))
   nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<Object, TEventArgs, Task>)
   nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of Object, TEventArgs, Task))
 - uid: AGS.API.IEvent`1.UnsubscribeToAsync*
@@ -5223,13 +5394,13 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync
   nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync
   nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync
-- uid: AGS.API.IEvent`1.WaitUntilAsync(Predicate{`0})
+- uid: AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0})
   name: WaitUntilAsync(Predicate<TEventArgs>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_WaitUntilAsync_Predicate__0__
-  commentId: M:AGS.API.IEvent`1.WaitUntilAsync(Predicate{`0})
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_WaitUntilAsync_System_Predicate__0__
+  commentId: M:AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0})
   name.vb: WaitUntilAsync(Predicate(Of TEventArgs))
-  fullName: AGS.API.IEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs))
+  fullName: AGS.API.IEvent<TEventArgs>.WaitUntilAsync(System.Predicate<TEventArgs>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).WaitUntilAsync(System.Predicate(Of TEventArgs))
   nameWithType: IEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>)
   nameWithType.vb: IEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs))
 - uid: AGS.API.IEvent`1.WaitUntilAsync*
@@ -6116,11 +6287,11 @@ references:
   commentId: T:AGS.API.IGameState
   fullName: AGS.API.IGameState
   nameWithType: IGameState
-- uid: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,Action)
+- uid: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,System.Action)
   name: ChangeRoomAsync(IRoom, Action)
-  href: api/AGS.API.IGameState.html#AGS_API_IGameState_ChangeRoomAsync_AGS_API_IRoom_Action_
-  commentId: M:AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,Action)
-  fullName: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom, Action)
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_ChangeRoomAsync_AGS_API_IRoom_System_Action_
+  commentId: M:AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,System.Action)
+  fullName: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom, System.Action)
   nameWithType: IGameState.ChangeRoomAsync(IRoom, Action)
 - uid: AGS.API.IGameState.ChangeRoomAsync*
   name: ChangeRoomAsync
@@ -6293,6 +6464,18 @@ references:
   commentId: T:AGS.API.IGraphicsFactory
   fullName: AGS.API.IGraphicsFactory
   nameWithType: IGraphicsFactory
+- uid: AGS.API.IGraphicsFactory.Brushes
+  name: Brushes
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_Brushes
+  commentId: P:AGS.API.IGraphicsFactory.Brushes
+  fullName: AGS.API.IGraphicsFactory.Brushes
+  nameWithType: IGraphicsFactory.Brushes
+- uid: AGS.API.IGraphicsFactory.Brushes*
+  name: Brushes
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_Brushes_
+  commentId: Overload:AGS.API.IGraphicsFactory.Brushes
+  fullName: AGS.API.IGraphicsFactory.Brushes
+  nameWithType: IGraphicsFactory.Brushes
 - uid: AGS.API.IGraphicsFactory.GetSprite
   name: GetSprite()
   href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_GetSprite
@@ -6305,6 +6488,18 @@ references:
   commentId: Overload:AGS.API.IGraphicsFactory.GetSprite
   fullName: AGS.API.IGraphicsFactory.GetSprite
   nameWithType: IGraphicsFactory.GetSprite
+- uid: AGS.API.IGraphicsFactory.Icons
+  name: Icons
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_Icons
+  commentId: P:AGS.API.IGraphicsFactory.Icons
+  fullName: AGS.API.IGraphicsFactory.Icons
+  nameWithType: IGraphicsFactory.Icons
+- uid: AGS.API.IGraphicsFactory.Icons*
+  name: Icons
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_Icons_
+  commentId: Overload:AGS.API.IGraphicsFactory.Icons
+  fullName: AGS.API.IGraphicsFactory.Icons
+  nameWithType: IGraphicsFactory.Icons
 - uid: AGS.API.IGraphicsFactory.LoadAnimationFromFiles(AGS.API.IAnimationConfiguration,AGS.API.ILoadImageConfig,System.String[])
   name: LoadAnimationFromFiles(IAnimationConfiguration, ILoadImageConfig, String[])
   href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadAnimationFromFiles_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_System_String___
@@ -6686,6 +6881,72 @@ references:
   commentId: Overload:AGS.API.IHotspotComponent.WalkPoint
   fullName: AGS.API.IHotspotComponent.WalkPoint
   nameWithType: IHotspotComponent.WalkPoint
+- uid: AGS.API.IIconFactory
+  name: IIconFactory
+  href: api/AGS.API.IIconFactory.html
+  commentId: T:AGS.API.IIconFactory
+  fullName: AGS.API.IIconFactory
+  nameWithType: IIconFactory
+- uid: AGS.API.IIconFactory.GetArrowIcon(AGS.API.ArrowDirection,System.Nullable{AGS.API.Color})
+  name: GetArrowIcon(ArrowDirection, Nullable<Color>)
+  href: api/AGS.API.IIconFactory.html#AGS_API_IIconFactory_GetArrowIcon_AGS_API_ArrowDirection_System_Nullable_AGS_API_Color__
+  commentId: M:AGS.API.IIconFactory.GetArrowIcon(AGS.API.ArrowDirection,System.Nullable{AGS.API.Color})
+  name.vb: GetArrowIcon(ArrowDirection, Nullable(Of Color))
+  fullName: AGS.API.IIconFactory.GetArrowIcon(AGS.API.ArrowDirection, System.Nullable<AGS.API.Color>)
+  fullName.vb: AGS.API.IIconFactory.GetArrowIcon(AGS.API.ArrowDirection, System.Nullable(Of AGS.API.Color))
+  nameWithType: IIconFactory.GetArrowIcon(ArrowDirection, Nullable<Color>)
+  nameWithType.vb: IIconFactory.GetArrowIcon(ArrowDirection, Nullable(Of Color))
+- uid: AGS.API.IIconFactory.GetArrowIcon*
+  name: GetArrowIcon
+  href: api/AGS.API.IIconFactory.html#AGS_API_IIconFactory_GetArrowIcon_
+  commentId: Overload:AGS.API.IIconFactory.GetArrowIcon
+  fullName: AGS.API.IIconFactory.GetArrowIcon
+  nameWithType: IIconFactory.GetArrowIcon
+- uid: AGS.API.IIconFactory.GetFileIcon(System.Boolean,System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color})
+  name: GetFileIcon(Boolean, Nullable<Color>, Nullable<Color>, Nullable<Color>, Nullable<Color>)
+  href: api/AGS.API.IIconFactory.html#AGS_API_IIconFactory_GetFileIcon_System_Boolean_System_Nullable_AGS_API_Color__System_Nullable_AGS_API_Color__System_Nullable_AGS_API_Color__System_Nullable_AGS_API_Color__
+  commentId: M:AGS.API.IIconFactory.GetFileIcon(System.Boolean,System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color})
+  name.vb: GetFileIcon(Boolean, Nullable(Of Color), Nullable(Of Color), Nullable(Of Color), Nullable(Of Color))
+  fullName: AGS.API.IIconFactory.GetFileIcon(System.Boolean, System.Nullable<AGS.API.Color>, System.Nullable<AGS.API.Color>, System.Nullable<AGS.API.Color>, System.Nullable<AGS.API.Color>)
+  fullName.vb: AGS.API.IIconFactory.GetFileIcon(System.Boolean, System.Nullable(Of AGS.API.Color), System.Nullable(Of AGS.API.Color), System.Nullable(Of AGS.API.Color), System.Nullable(Of AGS.API.Color))
+  nameWithType: IIconFactory.GetFileIcon(Boolean, Nullable<Color>, Nullable<Color>, Nullable<Color>, Nullable<Color>)
+  nameWithType.vb: IIconFactory.GetFileIcon(Boolean, Nullable(Of Color), Nullable(Of Color), Nullable(Of Color), Nullable(Of Color))
+- uid: AGS.API.IIconFactory.GetFileIcon*
+  name: GetFileIcon
+  href: api/AGS.API.IIconFactory.html#AGS_API_IIconFactory_GetFileIcon_
+  commentId: Overload:AGS.API.IIconFactory.GetFileIcon
+  fullName: AGS.API.IIconFactory.GetFileIcon
+  nameWithType: IIconFactory.GetFileIcon
+- uid: AGS.API.IIconFactory.GetFolderIcon(System.Boolean,System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color})
+  name: GetFolderIcon(Boolean, Nullable<Color>, Nullable<Color>, Nullable<Color>, Nullable<Color>)
+  href: api/AGS.API.IIconFactory.html#AGS_API_IIconFactory_GetFolderIcon_System_Boolean_System_Nullable_AGS_API_Color__System_Nullable_AGS_API_Color__System_Nullable_AGS_API_Color__System_Nullable_AGS_API_Color__
+  commentId: M:AGS.API.IIconFactory.GetFolderIcon(System.Boolean,System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color},System.Nullable{AGS.API.Color})
+  name.vb: GetFolderIcon(Boolean, Nullable(Of Color), Nullable(Of Color), Nullable(Of Color), Nullable(Of Color))
+  fullName: AGS.API.IIconFactory.GetFolderIcon(System.Boolean, System.Nullable<AGS.API.Color>, System.Nullable<AGS.API.Color>, System.Nullable<AGS.API.Color>, System.Nullable<AGS.API.Color>)
+  fullName.vb: AGS.API.IIconFactory.GetFolderIcon(System.Boolean, System.Nullable(Of AGS.API.Color), System.Nullable(Of AGS.API.Color), System.Nullable(Of AGS.API.Color), System.Nullable(Of AGS.API.Color))
+  nameWithType: IIconFactory.GetFolderIcon(Boolean, Nullable<Color>, Nullable<Color>, Nullable<Color>, Nullable<Color>)
+  nameWithType.vb: IIconFactory.GetFolderIcon(Boolean, Nullable(Of Color), Nullable(Of Color), Nullable(Of Color), Nullable(Of Color))
+- uid: AGS.API.IIconFactory.GetFolderIcon*
+  name: GetFolderIcon
+  href: api/AGS.API.IIconFactory.html#AGS_API_IIconFactory_GetFolderIcon_
+  commentId: Overload:AGS.API.IIconFactory.GetFolderIcon
+  fullName: AGS.API.IIconFactory.GetFolderIcon
+  nameWithType: IIconFactory.GetFolderIcon
+- uid: AGS.API.IIconFactory.GetXIcon(System.Single,System.Single,System.Nullable{AGS.API.Color})
+  name: GetXIcon(Single, Single, Nullable<Color>)
+  href: api/AGS.API.IIconFactory.html#AGS_API_IIconFactory_GetXIcon_System_Single_System_Single_System_Nullable_AGS_API_Color__
+  commentId: M:AGS.API.IIconFactory.GetXIcon(System.Single,System.Single,System.Nullable{AGS.API.Color})
+  name.vb: GetXIcon(Single, Single, Nullable(Of Color))
+  fullName: AGS.API.IIconFactory.GetXIcon(System.Single, System.Single, System.Nullable<AGS.API.Color>)
+  fullName.vb: AGS.API.IIconFactory.GetXIcon(System.Single, System.Single, System.Nullable(Of AGS.API.Color))
+  nameWithType: IIconFactory.GetXIcon(Single, Single, Nullable<Color>)
+  nameWithType.vb: IIconFactory.GetXIcon(Single, Single, Nullable(Of Color))
+- uid: AGS.API.IIconFactory.GetXIcon*
+  name: GetXIcon
+  href: api/AGS.API.IIconFactory.html#AGS_API_IIconFactory_GetXIcon_
+  commentId: Overload:AGS.API.IIconFactory.GetXIcon
+  fullName: AGS.API.IIconFactory.GetXIcon
+  nameWithType: IIconFactory.GetXIcon
 - uid: AGS.API.IImage
   name: IImage
   href: api/AGS.API.IImage.html
@@ -8679,13 +8940,13 @@ references:
   commentId: T:AGS.API.IRoomTransition
   fullName: AGS.API.IRoomTransition
   nameWithType: IRoomTransition
-- uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom(List{AGS.API.IObject},Action{AGS.API.IObject})
+- uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
   name: RenderAfterEnteringRoom(List<IObject>, Action<IObject>)
-  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderAfterEnteringRoom_List_AGS_API_IObject__Action_AGS_API_IObject__
-  commentId: M:AGS.API.IRoomTransition.RenderAfterEnteringRoom(List{AGS.API.IObject},Action{AGS.API.IObject})
+  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderAfterEnteringRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject__
+  commentId: M:AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
   name.vb: RenderAfterEnteringRoom(List(Of IObject), Action(Of IObject))
-  fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom(List<AGS.API.IObject>, Action<AGS.API.IObject>)
-  fullName.vb: AGS.API.IRoomTransition.RenderAfterEnteringRoom(List(Of AGS.API.IObject), Action(Of AGS.API.IObject))
+  fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List<AGS.API.IObject>, System.Action<AGS.API.IObject>)
+  fullName.vb: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List(Of AGS.API.IObject), System.Action(Of AGS.API.IObject))
   nameWithType: IRoomTransition.RenderAfterEnteringRoom(List<IObject>, Action<IObject>)
   nameWithType.vb: IRoomTransition.RenderAfterEnteringRoom(List(Of IObject), Action(Of IObject))
 - uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom*
@@ -8694,13 +8955,13 @@ references:
   commentId: Overload:AGS.API.IRoomTransition.RenderAfterEnteringRoom
   fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom
   nameWithType: IRoomTransition.RenderAfterEnteringRoom
-- uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List{AGS.API.IObject},Action{AGS.API.IObject})
+- uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
   name: RenderBeforeLeavingRoom(List<IObject>, Action<IObject>)
-  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderBeforeLeavingRoom_List_AGS_API_IObject__Action_AGS_API_IObject__
-  commentId: M:AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List{AGS.API.IObject},Action{AGS.API.IObject})
+  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderBeforeLeavingRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject__
+  commentId: M:AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
   name.vb: RenderBeforeLeavingRoom(List(Of IObject), Action(Of IObject))
-  fullName: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List<AGS.API.IObject>, Action<AGS.API.IObject>)
-  fullName.vb: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List(Of AGS.API.IObject), Action(Of AGS.API.IObject))
+  fullName: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List<AGS.API.IObject>, System.Action<AGS.API.IObject>)
+  fullName.vb: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List(Of AGS.API.IObject), System.Action(Of AGS.API.IObject))
   nameWithType: IRoomTransition.RenderBeforeLeavingRoom(List<IObject>, Action<IObject>)
   nameWithType.vb: IRoomTransition.RenderBeforeLeavingRoom(List(Of IObject), Action(Of IObject))
 - uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom*
@@ -9177,6 +9438,18 @@ references:
   commentId: T:AGS.API.IScale
   fullName: AGS.API.IScale
   nameWithType: IScale
+- uid: AGS.API.IScale.BaseSize
+  name: BaseSize
+  href: api/AGS.API.IScale.html#AGS_API_IScale_BaseSize
+  commentId: P:AGS.API.IScale.BaseSize
+  fullName: AGS.API.IScale.BaseSize
+  nameWithType: IScale.BaseSize
+- uid: AGS.API.IScale.BaseSize*
+  name: BaseSize
+  href: api/AGS.API.IScale.html#AGS_API_IScale_BaseSize_
+  commentId: Overload:AGS.API.IScale.BaseSize
+  fullName: AGS.API.IScale.BaseSize
+  nameWithType: IScale.BaseSize
 - uid: AGS.API.IScale.FlipHorizontally
   name: FlipHorizontally()
   href: api/AGS.API.IScale.html#AGS_API_IScale_FlipHorizontally
@@ -9411,6 +9684,24 @@ references:
   commentId: Overload:AGS.API.IScalingArea.ScaleVolume
   fullName: AGS.API.IScalingArea.ScaleVolume
   nameWithType: IScalingArea.ScaleVolume
+- uid: AGS.API.ISelectableIcon
+  name: ISelectableIcon
+  href: api/AGS.API.ISelectableIcon.html
+  commentId: T:AGS.API.ISelectableIcon
+  fullName: AGS.API.ISelectableIcon
+  nameWithType: ISelectableIcon
+- uid: AGS.API.ISelectableIcon.IsSelected
+  name: IsSelected
+  href: api/AGS.API.ISelectableIcon.html#AGS_API_ISelectableIcon_IsSelected
+  commentId: P:AGS.API.ISelectableIcon.IsSelected
+  fullName: AGS.API.ISelectableIcon.IsSelected
+  nameWithType: ISelectableIcon.IsSelected
+- uid: AGS.API.ISelectableIcon.IsSelected*
+  name: IsSelected
+  href: api/AGS.API.ISelectableIcon.html#AGS_API_ISelectableIcon_IsSelected_
+  commentId: Overload:AGS.API.ISelectableIcon.IsSelected
+  fullName: AGS.API.ISelectableIcon.IsSelected
+  nameWithType: ISelectableIcon.IsSelected
 - uid: AGS.API.IShader
   name: IShader
   href: api/AGS.API.IShader.html
@@ -10374,6 +10665,48 @@ references:
   commentId: Overload:AGS.API.ISquare.TopRight
   fullName: AGS.API.ISquare.TopRight
   nameWithType: ISquare.TopRight
+- uid: AGS.API.IStackLayoutComponent
+  name: IStackLayoutComponent
+  href: api/AGS.API.IStackLayoutComponent.html
+  commentId: T:AGS.API.IStackLayoutComponent
+  fullName: AGS.API.IStackLayoutComponent
+  nameWithType: IStackLayoutComponent
+- uid: AGS.API.IStackLayoutComponent.AbsoluteSpacing
+  name: AbsoluteSpacing
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_AbsoluteSpacing
+  commentId: P:AGS.API.IStackLayoutComponent.AbsoluteSpacing
+  fullName: AGS.API.IStackLayoutComponent.AbsoluteSpacing
+  nameWithType: IStackLayoutComponent.AbsoluteSpacing
+- uid: AGS.API.IStackLayoutComponent.AbsoluteSpacing*
+  name: AbsoluteSpacing
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_AbsoluteSpacing_
+  commentId: Overload:AGS.API.IStackLayoutComponent.AbsoluteSpacing
+  fullName: AGS.API.IStackLayoutComponent.AbsoluteSpacing
+  nameWithType: IStackLayoutComponent.AbsoluteSpacing
+- uid: AGS.API.IStackLayoutComponent.Direction
+  name: Direction
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_Direction
+  commentId: P:AGS.API.IStackLayoutComponent.Direction
+  fullName: AGS.API.IStackLayoutComponent.Direction
+  nameWithType: IStackLayoutComponent.Direction
+- uid: AGS.API.IStackLayoutComponent.Direction*
+  name: Direction
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_Direction_
+  commentId: Overload:AGS.API.IStackLayoutComponent.Direction
+  fullName: AGS.API.IStackLayoutComponent.Direction
+  nameWithType: IStackLayoutComponent.Direction
+- uid: AGS.API.IStackLayoutComponent.RelativeSpacing
+  name: RelativeSpacing
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_RelativeSpacing
+  commentId: P:AGS.API.IStackLayoutComponent.RelativeSpacing
+  fullName: AGS.API.IStackLayoutComponent.RelativeSpacing
+  nameWithType: IStackLayoutComponent.RelativeSpacing
+- uid: AGS.API.IStackLayoutComponent.RelativeSpacing*
+  name: RelativeSpacing
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_RelativeSpacing_
+  commentId: Overload:AGS.API.IStackLayoutComponent.RelativeSpacing
+  fullName: AGS.API.IStackLayoutComponent.RelativeSpacing
+  nameWithType: IStackLayoutComponent.RelativeSpacing
 - uid: AGS.API.ITextBox
   name: ITextBox
   href: api/AGS.API.ITextBox.html
@@ -11031,6 +11364,210 @@ references:
   fullName.vb: AGS.API.ITreeNode(Of TItem).StealParent
   nameWithType: ITreeNode<TItem>.StealParent
   nameWithType.vb: ITreeNode(Of TItem).StealParent
+- uid: AGS.API.ITreeNodeView
+  name: ITreeNodeView
+  href: api/AGS.API.ITreeNodeView.html
+  commentId: T:AGS.API.ITreeNodeView
+  fullName: AGS.API.ITreeNodeView
+  nameWithType: ITreeNodeView
+- uid: AGS.API.ITreeNodeView.ExpandButton
+  name: ExpandButton
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_ExpandButton
+  commentId: P:AGS.API.ITreeNodeView.ExpandButton
+  fullName: AGS.API.ITreeNodeView.ExpandButton
+  nameWithType: ITreeNodeView.ExpandButton
+- uid: AGS.API.ITreeNodeView.ExpandButton*
+  name: ExpandButton
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_ExpandButton_
+  commentId: Overload:AGS.API.ITreeNodeView.ExpandButton
+  fullName: AGS.API.ITreeNodeView.ExpandButton
+  nameWithType: ITreeNodeView.ExpandButton
+- uid: AGS.API.ITreeNodeView.ParentPanel
+  name: ParentPanel
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_ParentPanel
+  commentId: P:AGS.API.ITreeNodeView.ParentPanel
+  fullName: AGS.API.ITreeNodeView.ParentPanel
+  nameWithType: ITreeNodeView.ParentPanel
+- uid: AGS.API.ITreeNodeView.ParentPanel*
+  name: ParentPanel
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_ParentPanel_
+  commentId: Overload:AGS.API.ITreeNodeView.ParentPanel
+  fullName: AGS.API.ITreeNodeView.ParentPanel
+  nameWithType: ITreeNodeView.ParentPanel
+- uid: AGS.API.ITreeNodeView.TreeItem
+  name: TreeItem
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_TreeItem
+  commentId: P:AGS.API.ITreeNodeView.TreeItem
+  fullName: AGS.API.ITreeNodeView.TreeItem
+  nameWithType: ITreeNodeView.TreeItem
+- uid: AGS.API.ITreeNodeView.TreeItem*
+  name: TreeItem
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_TreeItem_
+  commentId: Overload:AGS.API.ITreeNodeView.TreeItem
+  fullName: AGS.API.ITreeNodeView.TreeItem
+  nameWithType: ITreeNodeView.TreeItem
+- uid: AGS.API.ITreeNodeView.VerticalPanel
+  name: VerticalPanel
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_VerticalPanel
+  commentId: P:AGS.API.ITreeNodeView.VerticalPanel
+  fullName: AGS.API.ITreeNodeView.VerticalPanel
+  nameWithType: ITreeNodeView.VerticalPanel
+- uid: AGS.API.ITreeNodeView.VerticalPanel*
+  name: VerticalPanel
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_VerticalPanel_
+  commentId: Overload:AGS.API.ITreeNodeView.VerticalPanel
+  fullName: AGS.API.ITreeNodeView.VerticalPanel
+  nameWithType: ITreeNodeView.VerticalPanel
+- uid: AGS.API.ITreeNodeViewProvider
+  name: ITreeNodeViewProvider
+  href: api/AGS.API.ITreeNodeViewProvider.html
+  commentId: T:AGS.API.ITreeNodeViewProvider
+  fullName: AGS.API.ITreeNodeViewProvider
+  nameWithType: ITreeNodeViewProvider
+- uid: AGS.API.ITreeNodeViewProvider.BeforeDisplayingNode(AGS.API.ITreeStringNode,AGS.API.ITreeNodeView,System.Boolean,System.Boolean,System.Boolean)
+  name: BeforeDisplayingNode(ITreeStringNode, ITreeNodeView, Boolean, Boolean, Boolean)
+  href: api/AGS.API.ITreeNodeViewProvider.html#AGS_API_ITreeNodeViewProvider_BeforeDisplayingNode_AGS_API_ITreeStringNode_AGS_API_ITreeNodeView_System_Boolean_System_Boolean_System_Boolean_
+  commentId: M:AGS.API.ITreeNodeViewProvider.BeforeDisplayingNode(AGS.API.ITreeStringNode,AGS.API.ITreeNodeView,System.Boolean,System.Boolean,System.Boolean)
+  fullName: AGS.API.ITreeNodeViewProvider.BeforeDisplayingNode(AGS.API.ITreeStringNode, AGS.API.ITreeNodeView, System.Boolean, System.Boolean, System.Boolean)
+  nameWithType: ITreeNodeViewProvider.BeforeDisplayingNode(ITreeStringNode, ITreeNodeView, Boolean, Boolean, Boolean)
+- uid: AGS.API.ITreeNodeViewProvider.BeforeDisplayingNode*
+  name: BeforeDisplayingNode
+  href: api/AGS.API.ITreeNodeViewProvider.html#AGS_API_ITreeNodeViewProvider_BeforeDisplayingNode_
+  commentId: Overload:AGS.API.ITreeNodeViewProvider.BeforeDisplayingNode
+  fullName: AGS.API.ITreeNodeViewProvider.BeforeDisplayingNode
+  nameWithType: ITreeNodeViewProvider.BeforeDisplayingNode
+- uid: AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode,AGS.API.IRenderLayer)
+  name: CreateNode(ITreeStringNode, IRenderLayer)
+  href: api/AGS.API.ITreeNodeViewProvider.html#AGS_API_ITreeNodeViewProvider_CreateNode_AGS_API_ITreeStringNode_AGS_API_IRenderLayer_
+  commentId: M:AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode,AGS.API.IRenderLayer)
+  fullName: AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode, AGS.API.IRenderLayer)
+  nameWithType: ITreeNodeViewProvider.CreateNode(ITreeStringNode, IRenderLayer)
+- uid: AGS.API.ITreeNodeViewProvider.CreateNode*
+  name: CreateNode
+  href: api/AGS.API.ITreeNodeViewProvider.html#AGS_API_ITreeNodeViewProvider_CreateNode_
+  commentId: Overload:AGS.API.ITreeNodeViewProvider.CreateNode
+  fullName: AGS.API.ITreeNodeViewProvider.CreateNode
+  nameWithType: ITreeNodeViewProvider.CreateNode
+- uid: AGS.API.ITreeStringNode
+  name: ITreeStringNode
+  href: api/AGS.API.ITreeStringNode.html
+  commentId: T:AGS.API.ITreeStringNode
+  fullName: AGS.API.ITreeStringNode
+  nameWithType: ITreeStringNode
+- uid: AGS.API.ITreeStringNode.HoverTextConfig
+  name: HoverTextConfig
+  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_HoverTextConfig
+  commentId: P:AGS.API.ITreeStringNode.HoverTextConfig
+  fullName: AGS.API.ITreeStringNode.HoverTextConfig
+  nameWithType: ITreeStringNode.HoverTextConfig
+- uid: AGS.API.ITreeStringNode.HoverTextConfig*
+  name: HoverTextConfig
+  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_HoverTextConfig_
+  commentId: Overload:AGS.API.ITreeStringNode.HoverTextConfig
+  fullName: AGS.API.ITreeStringNode.HoverTextConfig
+  nameWithType: ITreeStringNode.HoverTextConfig
+- uid: AGS.API.ITreeStringNode.IdleTextConfig
+  name: IdleTextConfig
+  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_IdleTextConfig
+  commentId: P:AGS.API.ITreeStringNode.IdleTextConfig
+  fullName: AGS.API.ITreeStringNode.IdleTextConfig
+  nameWithType: ITreeStringNode.IdleTextConfig
+- uid: AGS.API.ITreeStringNode.IdleTextConfig*
+  name: IdleTextConfig
+  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_IdleTextConfig_
+  commentId: Overload:AGS.API.ITreeStringNode.IdleTextConfig
+  fullName: AGS.API.ITreeStringNode.IdleTextConfig
+  nameWithType: ITreeStringNode.IdleTextConfig
+- uid: AGS.API.ITreeStringNode.Text
+  name: Text
+  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_Text
+  commentId: P:AGS.API.ITreeStringNode.Text
+  fullName: AGS.API.ITreeStringNode.Text
+  nameWithType: ITreeStringNode.Text
+- uid: AGS.API.ITreeStringNode.Text*
+  name: Text
+  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_Text_
+  commentId: Overload:AGS.API.ITreeStringNode.Text
+  fullName: AGS.API.ITreeStringNode.Text
+  nameWithType: ITreeStringNode.Text
+- uid: AGS.API.ITreeViewComponent
+  name: ITreeViewComponent
+  href: api/AGS.API.ITreeViewComponent.html
+  commentId: T:AGS.API.ITreeViewComponent
+  fullName: AGS.API.ITreeViewComponent
+  nameWithType: ITreeViewComponent
+- uid: AGS.API.ITreeViewComponent.AllowSelection
+  name: AllowSelection
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_AllowSelection
+  commentId: P:AGS.API.ITreeViewComponent.AllowSelection
+  fullName: AGS.API.ITreeViewComponent.AllowSelection
+  nameWithType: ITreeViewComponent.AllowSelection
+- uid: AGS.API.ITreeViewComponent.AllowSelection*
+  name: AllowSelection
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_AllowSelection_
+  commentId: Overload:AGS.API.ITreeViewComponent.AllowSelection
+  fullName: AGS.API.ITreeViewComponent.AllowSelection
+  nameWithType: ITreeViewComponent.AllowSelection
+- uid: AGS.API.ITreeViewComponent.HorizontalSpacing
+  name: HorizontalSpacing
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_HorizontalSpacing
+  commentId: P:AGS.API.ITreeViewComponent.HorizontalSpacing
+  fullName: AGS.API.ITreeViewComponent.HorizontalSpacing
+  nameWithType: ITreeViewComponent.HorizontalSpacing
+- uid: AGS.API.ITreeViewComponent.HorizontalSpacing*
+  name: HorizontalSpacing
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_HorizontalSpacing_
+  commentId: Overload:AGS.API.ITreeViewComponent.HorizontalSpacing
+  fullName: AGS.API.ITreeViewComponent.HorizontalSpacing
+  nameWithType: ITreeViewComponent.HorizontalSpacing
+- uid: AGS.API.ITreeViewComponent.NodeViewProvider
+  name: NodeViewProvider
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_NodeViewProvider
+  commentId: P:AGS.API.ITreeViewComponent.NodeViewProvider
+  fullName: AGS.API.ITreeViewComponent.NodeViewProvider
+  nameWithType: ITreeViewComponent.NodeViewProvider
+- uid: AGS.API.ITreeViewComponent.NodeViewProvider*
+  name: NodeViewProvider
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_NodeViewProvider_
+  commentId: Overload:AGS.API.ITreeViewComponent.NodeViewProvider
+  fullName: AGS.API.ITreeViewComponent.NodeViewProvider
+  nameWithType: ITreeViewComponent.NodeViewProvider
+- uid: AGS.API.ITreeViewComponent.OnNodeSelected
+  name: OnNodeSelected
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_OnNodeSelected
+  commentId: P:AGS.API.ITreeViewComponent.OnNodeSelected
+  fullName: AGS.API.ITreeViewComponent.OnNodeSelected
+  nameWithType: ITreeViewComponent.OnNodeSelected
+- uid: AGS.API.ITreeViewComponent.OnNodeSelected*
+  name: OnNodeSelected
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_OnNodeSelected_
+  commentId: Overload:AGS.API.ITreeViewComponent.OnNodeSelected
+  fullName: AGS.API.ITreeViewComponent.OnNodeSelected
+  nameWithType: ITreeViewComponent.OnNodeSelected
+- uid: AGS.API.ITreeViewComponent.Tree
+  name: Tree
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_Tree
+  commentId: P:AGS.API.ITreeViewComponent.Tree
+  fullName: AGS.API.ITreeViewComponent.Tree
+  nameWithType: ITreeViewComponent.Tree
+- uid: AGS.API.ITreeViewComponent.Tree*
+  name: Tree
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_Tree_
+  commentId: Overload:AGS.API.ITreeViewComponent.Tree
+  fullName: AGS.API.ITreeViewComponent.Tree
+  nameWithType: ITreeViewComponent.Tree
+- uid: AGS.API.ITreeViewComponent.VerticalSpacing
+  name: VerticalSpacing
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_VerticalSpacing
+  commentId: P:AGS.API.ITreeViewComponent.VerticalSpacing
+  fullName: AGS.API.ITreeViewComponent.VerticalSpacing
+  nameWithType: ITreeViewComponent.VerticalSpacing
+- uid: AGS.API.ITreeViewComponent.VerticalSpacing*
+  name: VerticalSpacing
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_VerticalSpacing_
+  commentId: Overload:AGS.API.ITreeViewComponent.VerticalSpacing
+  fullName: AGS.API.ITreeViewComponent.VerticalSpacing
+  nameWithType: ITreeViewComponent.VerticalSpacing
 - uid: AGS.API.IUIControl
   name: IUIControl
   href: api/AGS.API.IUIControl.html
@@ -11157,159 +11694,171 @@ references:
   commentId: T:AGS.API.IUIFactory
   fullName: AGS.API.IUIFactory
   nameWithType: IUIFactory
-- uid: AGS.API.IUIFactory.GetButton(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
-  name: GetButton(String, IAnimation, IAnimation, IAnimation, Single, Single, String, ITextConfig, Boolean, Single, Single)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetButton_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_
-  commentId: M:AGS.API.IUIFactory.GetButton(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
-  fullName: AGS.API.IUIFactory.GetButton(System.String, AGS.API.IAnimation, AGS.API.IAnimation, AGS.API.IAnimation, System.Single, System.Single, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single)
-  nameWithType: IUIFactory.GetButton(String, IAnimation, IAnimation, IAnimation, Single, Single, String, ITextConfig, Boolean, Single, Single)
-- uid: AGS.API.IUIFactory.GetButton(System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
-  name: GetButton(String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetButton_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_
-  commentId: M:AGS.API.IUIFactory.GetButton(System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
-  fullName: AGS.API.IUIFactory.GetButton(System.String, System.String, System.String, System.String, System.Single, System.Single, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single)
-  nameWithType: IUIFactory.GetButton(String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single)
+- uid: AGS.API.IUIFactory.GetButton(System.String,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
+  name: GetButton(String, ButtonAnimation, ButtonAnimation, ButtonAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetButton_System_String_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_
+  commentId: M:AGS.API.IUIFactory.GetButton(System.String,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
+  fullName: AGS.API.IUIFactory.GetButton(System.String, AGS.API.ButtonAnimation, AGS.API.ButtonAnimation, AGS.API.ButtonAnimation, System.Single, System.Single, AGS.API.IObject, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single)
+  nameWithType: IUIFactory.GetButton(String, ButtonAnimation, ButtonAnimation, ButtonAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
+- uid: AGS.API.IUIFactory.GetButton(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
+  name: GetButton(String, IAnimation, IAnimation, IAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetButton_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_
+  commentId: M:AGS.API.IUIFactory.GetButton(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
+  fullName: AGS.API.IUIFactory.GetButton(System.String, AGS.API.IAnimation, AGS.API.IAnimation, AGS.API.IAnimation, System.Single, System.Single, AGS.API.IObject, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single)
+  nameWithType: IUIFactory.GetButton(String, IAnimation, IAnimation, IAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
+- uid: AGS.API.IUIFactory.GetButton(System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
+  name: GetButton(String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetButton_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_
+  commentId: M:AGS.API.IUIFactory.GetButton(System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
+  fullName: AGS.API.IUIFactory.GetButton(System.String, System.String, System.String, System.String, System.Single, System.Single, AGS.API.IObject, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single)
+  nameWithType: IUIFactory.GetButton(String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
 - uid: AGS.API.IUIFactory.GetButton*
   name: GetButton
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetButton_
   commentId: Overload:AGS.API.IUIFactory.GetButton
   fullName: AGS.API.IUIFactory.GetButton
   nameWithType: IUIFactory.GetButton
-- uid: AGS.API.IUIFactory.GetButtonAsync(System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
-  name: GetButtonAsync(String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetButtonAsync_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_
-  commentId: M:AGS.API.IUIFactory.GetButtonAsync(System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
-  fullName: AGS.API.IUIFactory.GetButtonAsync(System.String, System.String, System.String, System.String, System.Single, System.Single, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single)
-  nameWithType: IUIFactory.GetButtonAsync(String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single)
+- uid: AGS.API.IUIFactory.GetButtonAsync(System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
+  name: GetButtonAsync(String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetButtonAsync_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_
+  commentId: M:AGS.API.IUIFactory.GetButtonAsync(System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
+  fullName: AGS.API.IUIFactory.GetButtonAsync(System.String, System.String, System.String, System.String, System.Single, System.Single, AGS.API.IObject, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single)
+  nameWithType: IUIFactory.GetButtonAsync(String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
 - uid: AGS.API.IUIFactory.GetButtonAsync*
   name: GetButtonAsync
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetButtonAsync_
   commentId: Overload:AGS.API.IUIFactory.GetButtonAsync
   fullName: AGS.API.IUIFactory.GetButtonAsync
   nameWithType: IUIFactory.GetButtonAsync
-- uid: AGS.API.IUIFactory.GetCheckBox(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
-  name: GetCheckBox(String, IAnimation, IAnimation, IAnimation, IAnimation, Single, Single, String, ITextConfig, Boolean, Single, Single, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetCheckBox_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetCheckBox(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
-  fullName: AGS.API.IUIFactory.GetCheckBox(System.String, AGS.API.IAnimation, AGS.API.IAnimation, AGS.API.IAnimation, AGS.API.IAnimation, System.Single, System.Single, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single, System.Boolean)
-  nameWithType: IUIFactory.GetCheckBox(String, IAnimation, IAnimation, IAnimation, IAnimation, Single, Single, String, ITextConfig, Boolean, Single, Single, Boolean)
-- uid: AGS.API.IUIFactory.GetCheckBox(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
-  name: GetCheckBox(String, String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetCheckBox_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetCheckBox(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
-  fullName: AGS.API.IUIFactory.GetCheckBox(System.String, System.String, System.String, System.String, System.String, System.Single, System.Single, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single, System.Boolean)
-  nameWithType: IUIFactory.GetCheckBox(String, String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single, Boolean)
+- uid: AGS.API.IUIFactory.GetCheckBox(System.String,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
+  name: GetCheckBox(String, ButtonAnimation, ButtonAnimation, ButtonAnimation, ButtonAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetCheckBox_System_String_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetCheckBox(System.String,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetCheckBox(System.String, AGS.API.ButtonAnimation, AGS.API.ButtonAnimation, AGS.API.ButtonAnimation, AGS.API.ButtonAnimation, System.Single, System.Single, AGS.API.IObject, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single, System.Boolean)
+  nameWithType: IUIFactory.GetCheckBox(String, ButtonAnimation, ButtonAnimation, ButtonAnimation, ButtonAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)
+- uid: AGS.API.IUIFactory.GetCheckBox(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
+  name: GetCheckBox(String, IAnimation, IAnimation, IAnimation, IAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetCheckBox_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetCheckBox(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetCheckBox(System.String, AGS.API.IAnimation, AGS.API.IAnimation, AGS.API.IAnimation, AGS.API.IAnimation, System.Single, System.Single, AGS.API.IObject, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single, System.Boolean)
+  nameWithType: IUIFactory.GetCheckBox(String, IAnimation, IAnimation, IAnimation, IAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)
+- uid: AGS.API.IUIFactory.GetCheckBox(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
+  name: GetCheckBox(String, String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetCheckBox_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetCheckBox(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetCheckBox(System.String, System.String, System.String, System.String, System.String, System.Single, System.Single, AGS.API.IObject, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single, System.Boolean)
+  nameWithType: IUIFactory.GetCheckBox(String, String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)
 - uid: AGS.API.IUIFactory.GetCheckBox*
   name: GetCheckBox
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetCheckBox_
   commentId: Overload:AGS.API.IUIFactory.GetCheckBox
   fullName: AGS.API.IUIFactory.GetCheckBox
   nameWithType: IUIFactory.GetCheckBox
-- uid: AGS.API.IUIFactory.GetCheckBoxAsync(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
-  name: GetCheckBoxAsync(String, String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetCheckBoxAsync_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetCheckBoxAsync(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
-  fullName: AGS.API.IUIFactory.GetCheckBoxAsync(System.String, System.String, System.String, System.String, System.String, System.Single, System.Single, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single, System.Boolean)
-  nameWithType: IUIFactory.GetCheckBoxAsync(String, String, String, String, String, Single, Single, String, ITextConfig, Boolean, Single, Single, Boolean)
+- uid: AGS.API.IUIFactory.GetCheckBoxAsync(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
+  name: GetCheckBoxAsync(String, String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetCheckBoxAsync_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetCheckBoxAsync(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetCheckBoxAsync(System.String, System.String, System.String, System.String, System.String, System.Single, System.Single, AGS.API.IObject, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single, System.Boolean)
+  nameWithType: IUIFactory.GetCheckBoxAsync(String, String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)
 - uid: AGS.API.IUIFactory.GetCheckBoxAsync*
   name: GetCheckBoxAsync
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetCheckBoxAsync_
   commentId: Overload:AGS.API.IUIFactory.GetCheckBoxAsync
   fullName: AGS.API.IUIFactory.GetCheckBoxAsync
   nameWithType: IUIFactory.GetCheckBoxAsync
-- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{AGS.API.IButton},System.Boolean)
-  name: GetComboBox(String, IButton, ITextBox, Func<IButton>, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_Func_AGS_API_IButton__System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{AGS.API.IButton},System.Boolean)
-  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of IButton), Boolean)
-  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, Func<AGS.API.IButton>, System.Boolean)
-  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, Func(Of AGS.API.IButton), System.Boolean)
-  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<IButton>, Boolean)
-  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of IButton), Boolean)
+- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{AGS.API.IButton},AGS.API.IObject,System.Boolean)
+  name: GetComboBox(String, IButton, ITextBox, Func<IButton>, IObject, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_AGS_API_IButton__AGS_API_IObject_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{AGS.API.IButton},AGS.API.IObject,System.Boolean)
+  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of IButton), IObject, Boolean)
+  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func<AGS.API.IButton>, AGS.API.IObject, System.Boolean)
+  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func(Of AGS.API.IButton), AGS.API.IObject, System.Boolean)
+  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<IButton>, IObject, Boolean)
+  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of IButton), IObject, Boolean)
 - uid: AGS.API.IUIFactory.GetComboBox*
   name: GetComboBox
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_
   commentId: Overload:AGS.API.IUIFactory.GetComboBox
   fullName: AGS.API.IUIFactory.GetComboBox
   nameWithType: IUIFactory.GetComboBox
-- uid: AGS.API.IUIFactory.GetLabel(System.String,System.String,System.Single,System.Single,System.Single,System.Single,AGS.API.ITextConfig,System.Boolean)
-  name: GetLabel(String, String, Single, Single, Single, Single, ITextConfig, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetLabel_System_String_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_ITextConfig_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetLabel(System.String,System.String,System.Single,System.Single,System.Single,System.Single,AGS.API.ITextConfig,System.Boolean)
-  fullName: AGS.API.IUIFactory.GetLabel(System.String, System.String, System.Single, System.Single, System.Single, System.Single, AGS.API.ITextConfig, System.Boolean)
-  nameWithType: IUIFactory.GetLabel(String, String, Single, Single, Single, Single, ITextConfig, Boolean)
+- uid: AGS.API.IUIFactory.GetLabel(System.String,System.String,System.Single,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,System.Boolean)
+  name: GetLabel(String, String, Single, Single, Single, Single, IObject, ITextConfig, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetLabel_System_String_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetLabel(System.String,System.String,System.Single,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetLabel(System.String, System.String, System.Single, System.Single, System.Single, System.Single, AGS.API.IObject, AGS.API.ITextConfig, System.Boolean)
+  nameWithType: IUIFactory.GetLabel(String, String, Single, Single, Single, Single, IObject, ITextConfig, Boolean)
 - uid: AGS.API.IUIFactory.GetLabel*
   name: GetLabel
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetLabel_
   commentId: Overload:AGS.API.IUIFactory.GetLabel
   fullName: AGS.API.IUIFactory.GetLabel
   nameWithType: IUIFactory.GetLabel
-- uid: AGS.API.IUIFactory.GetPanel(System.String,AGS.API.IImage,System.Single,System.Single,System.Boolean)
-  name: GetPanel(String, IImage, Single, Single, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetPanel_System_String_AGS_API_IImage_System_Single_System_Single_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetPanel(System.String,AGS.API.IImage,System.Single,System.Single,System.Boolean)
-  fullName: AGS.API.IUIFactory.GetPanel(System.String, AGS.API.IImage, System.Single, System.Single, System.Boolean)
-  nameWithType: IUIFactory.GetPanel(String, IImage, Single, Single, Boolean)
-- uid: AGS.API.IUIFactory.GetPanel(System.String,System.Single,System.Single,System.Single,System.Single,System.Boolean)
-  name: GetPanel(String, Single, Single, Single, Single, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetPanel_System_String_System_Single_System_Single_System_Single_System_Single_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetPanel(System.String,System.Single,System.Single,System.Single,System.Single,System.Boolean)
-  fullName: AGS.API.IUIFactory.GetPanel(System.String, System.Single, System.Single, System.Single, System.Single, System.Boolean)
-  nameWithType: IUIFactory.GetPanel(String, Single, Single, Single, Single, Boolean)
-- uid: AGS.API.IUIFactory.GetPanel(System.String,System.String,System.Single,System.Single,AGS.API.ILoadImageConfig,System.Boolean)
-  name: GetPanel(String, String, Single, Single, ILoadImageConfig, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetPanel_System_String_System_String_System_Single_System_Single_AGS_API_ILoadImageConfig_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetPanel(System.String,System.String,System.Single,System.Single,AGS.API.ILoadImageConfig,System.Boolean)
-  fullName: AGS.API.IUIFactory.GetPanel(System.String, System.String, System.Single, System.Single, AGS.API.ILoadImageConfig, System.Boolean)
-  nameWithType: IUIFactory.GetPanel(String, String, Single, Single, ILoadImageConfig, Boolean)
+- uid: AGS.API.IUIFactory.GetPanel(System.String,AGS.API.IImage,System.Single,System.Single,AGS.API.IObject,System.Boolean)
+  name: GetPanel(String, IImage, Single, Single, IObject, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetPanel_System_String_AGS_API_IImage_System_Single_System_Single_AGS_API_IObject_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetPanel(System.String,AGS.API.IImage,System.Single,System.Single,AGS.API.IObject,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetPanel(System.String, AGS.API.IImage, System.Single, System.Single, AGS.API.IObject, System.Boolean)
+  nameWithType: IUIFactory.GetPanel(String, IImage, Single, Single, IObject, Boolean)
+- uid: AGS.API.IUIFactory.GetPanel(System.String,System.Single,System.Single,System.Single,System.Single,AGS.API.IObject,System.Boolean)
+  name: GetPanel(String, Single, Single, Single, Single, IObject, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetPanel_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_IObject_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetPanel(System.String,System.Single,System.Single,System.Single,System.Single,AGS.API.IObject,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetPanel(System.String, System.Single, System.Single, System.Single, System.Single, AGS.API.IObject, System.Boolean)
+  nameWithType: IUIFactory.GetPanel(String, Single, Single, Single, Single, IObject, Boolean)
+- uid: AGS.API.IUIFactory.GetPanel(System.String,System.String,System.Single,System.Single,AGS.API.IObject,AGS.API.ILoadImageConfig,System.Boolean)
+  name: GetPanel(String, String, Single, Single, IObject, ILoadImageConfig, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetPanel_System_String_System_String_System_Single_System_Single_AGS_API_IObject_AGS_API_ILoadImageConfig_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetPanel(System.String,System.String,System.Single,System.Single,AGS.API.IObject,AGS.API.ILoadImageConfig,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetPanel(System.String, System.String, System.Single, System.Single, AGS.API.IObject, AGS.API.ILoadImageConfig, System.Boolean)
+  nameWithType: IUIFactory.GetPanel(String, String, Single, Single, IObject, ILoadImageConfig, Boolean)
 - uid: AGS.API.IUIFactory.GetPanel*
   name: GetPanel
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetPanel_
   commentId: Overload:AGS.API.IUIFactory.GetPanel
   fullName: AGS.API.IUIFactory.GetPanel
   nameWithType: IUIFactory.GetPanel
-- uid: AGS.API.IUIFactory.GetPanelAsync(System.String,System.String,System.Single,System.Single,AGS.API.ILoadImageConfig,System.Boolean)
-  name: GetPanelAsync(String, String, Single, Single, ILoadImageConfig, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetPanelAsync_System_String_System_String_System_Single_System_Single_AGS_API_ILoadImageConfig_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetPanelAsync(System.String,System.String,System.Single,System.Single,AGS.API.ILoadImageConfig,System.Boolean)
-  fullName: AGS.API.IUIFactory.GetPanelAsync(System.String, System.String, System.Single, System.Single, AGS.API.ILoadImageConfig, System.Boolean)
-  nameWithType: IUIFactory.GetPanelAsync(String, String, Single, Single, ILoadImageConfig, Boolean)
+- uid: AGS.API.IUIFactory.GetPanelAsync(System.String,System.String,System.Single,System.Single,AGS.API.IObject,AGS.API.ILoadImageConfig,System.Boolean)
+  name: GetPanelAsync(String, String, Single, Single, IObject, ILoadImageConfig, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetPanelAsync_System_String_System_String_System_Single_System_Single_AGS_API_IObject_AGS_API_ILoadImageConfig_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetPanelAsync(System.String,System.String,System.Single,System.Single,AGS.API.IObject,AGS.API.ILoadImageConfig,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetPanelAsync(System.String, System.String, System.Single, System.Single, AGS.API.IObject, AGS.API.ILoadImageConfig, System.Boolean)
+  nameWithType: IUIFactory.GetPanelAsync(String, String, Single, Single, IObject, ILoadImageConfig, Boolean)
 - uid: AGS.API.IUIFactory.GetPanelAsync*
   name: GetPanelAsync
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetPanelAsync_
   commentId: Overload:AGS.API.IUIFactory.GetPanelAsync
   fullName: AGS.API.IUIFactory.GetPanelAsync
   nameWithType: IUIFactory.GetPanelAsync
-- uid: AGS.API.IUIFactory.GetSlider(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)
-  name: GetSlider(String, String, String, Single, Single, Single, ITextConfig, ILoadImageConfig, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetSlider_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetSlider(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)
-  fullName: AGS.API.IUIFactory.GetSlider(System.String, System.String, System.String, System.Single, System.Single, System.Single, AGS.API.ITextConfig, AGS.API.ILoadImageConfig, System.Boolean)
-  nameWithType: IUIFactory.GetSlider(String, String, String, Single, Single, Single, ITextConfig, ILoadImageConfig, Boolean)
+- uid: AGS.API.IUIFactory.GetSlider(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)
+  name: GetSlider(String, String, String, Single, Single, Single, IObject, ITextConfig, ILoadImageConfig, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetSlider_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetSlider(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetSlider(System.String, System.String, System.String, System.Single, System.Single, System.Single, AGS.API.IObject, AGS.API.ITextConfig, AGS.API.ILoadImageConfig, System.Boolean)
+  nameWithType: IUIFactory.GetSlider(String, String, String, Single, Single, Single, IObject, ITextConfig, ILoadImageConfig, Boolean)
 - uid: AGS.API.IUIFactory.GetSlider*
   name: GetSlider
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetSlider_
   commentId: Overload:AGS.API.IUIFactory.GetSlider
   fullName: AGS.API.IUIFactory.GetSlider
   nameWithType: IUIFactory.GetSlider
-- uid: AGS.API.IUIFactory.GetSliderAsync(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)
-  name: GetSliderAsync(String, String, String, Single, Single, Single, ITextConfig, ILoadImageConfig, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetSliderAsync_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetSliderAsync(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)
-  fullName: AGS.API.IUIFactory.GetSliderAsync(System.String, System.String, System.String, System.Single, System.Single, System.Single, AGS.API.ITextConfig, AGS.API.ILoadImageConfig, System.Boolean)
-  nameWithType: IUIFactory.GetSliderAsync(String, String, String, Single, Single, Single, ITextConfig, ILoadImageConfig, Boolean)
+- uid: AGS.API.IUIFactory.GetSliderAsync(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)
+  name: GetSliderAsync(String, String, String, Single, Single, Single, IObject, ITextConfig, ILoadImageConfig, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetSliderAsync_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetSliderAsync(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetSliderAsync(System.String, System.String, System.String, System.Single, System.Single, System.Single, AGS.API.IObject, AGS.API.ITextConfig, AGS.API.ILoadImageConfig, System.Boolean)
+  nameWithType: IUIFactory.GetSliderAsync(String, String, String, Single, Single, Single, IObject, ITextConfig, ILoadImageConfig, Boolean)
 - uid: AGS.API.IUIFactory.GetSliderAsync*
   name: GetSliderAsync
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetSliderAsync_
   commentId: Overload:AGS.API.IUIFactory.GetSliderAsync
   fullName: AGS.API.IUIFactory.GetSliderAsync
   nameWithType: IUIFactory.GetSliderAsync
-- uid: AGS.API.IUIFactory.GetTextBox(System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
-  name: GetTextBox(String, Single, Single, String, ITextConfig, Boolean, Single, Single)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetTextBox_System_String_System_Single_System_Single_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_
-  commentId: M:AGS.API.IUIFactory.GetTextBox(System.String,System.Single,System.Single,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
-  fullName: AGS.API.IUIFactory.GetTextBox(System.String, System.Single, System.Single, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single)
-  nameWithType: IUIFactory.GetTextBox(String, Single, Single, String, ITextConfig, Boolean, Single, Single)
+- uid: AGS.API.IUIFactory.GetTextBox(System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
+  name: GetTextBox(String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetTextBox_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_
+  commentId: M:AGS.API.IUIFactory.GetTextBox(System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
+  fullName: AGS.API.IUIFactory.GetTextBox(System.String, System.Single, System.Single, AGS.API.IObject, System.String, AGS.API.ITextConfig, System.Boolean, System.Single, System.Single)
+  nameWithType: IUIFactory.GetTextBox(String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
 - uid: AGS.API.IUIFactory.GetTextBox*
   name: GetTextBox
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetTextBox_
@@ -12558,6 +13107,24 @@ references:
   commentId: Overload:AGS.API.KeyboardEventArgs.Key
   fullName: AGS.API.KeyboardEventArgs.Key
   nameWithType: KeyboardEventArgs.Key
+- uid: AGS.API.LayoutDirection
+  name: LayoutDirection
+  href: api/AGS.API.LayoutDirection.html
+  commentId: T:AGS.API.LayoutDirection
+  fullName: AGS.API.LayoutDirection
+  nameWithType: LayoutDirection
+- uid: AGS.API.LayoutDirection.Horizontal
+  name: Horizontal
+  href: api/AGS.API.LayoutDirection.html#AGS_API_LayoutDirection_Horizontal
+  commentId: F:AGS.API.LayoutDirection.Horizontal
+  fullName: AGS.API.LayoutDirection.Horizontal
+  nameWithType: LayoutDirection.Horizontal
+- uid: AGS.API.LayoutDirection.Vertical
+  name: Vertical
+  href: api/AGS.API.LayoutDirection.html#AGS_API_LayoutDirection_Vertical
+  commentId: F:AGS.API.LayoutDirection.Vertical
+  fullName: AGS.API.LayoutDirection.Vertical
+  nameWithType: LayoutDirection.Vertical
 - uid: AGS.API.ListChangeType
   name: ListChangeType
   href: api/AGS.API.ListChangeType.html
@@ -14778,6 +15345,36 @@ references:
   commentId: Overload:AGS.API.MousePositionEventArgs.Y
   fullName: AGS.API.MousePositionEventArgs.Y
   nameWithType: MousePositionEventArgs.Y
+- uid: AGS.API.NodeEventArgs
+  name: NodeEventArgs
+  href: api/AGS.API.NodeEventArgs.html
+  commentId: T:AGS.API.NodeEventArgs
+  fullName: AGS.API.NodeEventArgs
+  nameWithType: NodeEventArgs
+- uid: AGS.API.NodeEventArgs.#ctor(AGS.API.ITreeStringNode)
+  name: NodeEventArgs(ITreeStringNode)
+  href: api/AGS.API.NodeEventArgs.html#AGS_API_NodeEventArgs__ctor_AGS_API_ITreeStringNode_
+  commentId: M:AGS.API.NodeEventArgs.#ctor(AGS.API.ITreeStringNode)
+  fullName: AGS.API.NodeEventArgs.NodeEventArgs(AGS.API.ITreeStringNode)
+  nameWithType: NodeEventArgs.NodeEventArgs(ITreeStringNode)
+- uid: AGS.API.NodeEventArgs.#ctor*
+  name: NodeEventArgs
+  href: api/AGS.API.NodeEventArgs.html#AGS_API_NodeEventArgs__ctor_
+  commentId: Overload:AGS.API.NodeEventArgs.#ctor
+  fullName: AGS.API.NodeEventArgs.NodeEventArgs
+  nameWithType: NodeEventArgs.NodeEventArgs
+- uid: AGS.API.NodeEventArgs.Node
+  name: Node
+  href: api/AGS.API.NodeEventArgs.html#AGS_API_NodeEventArgs_Node
+  commentId: P:AGS.API.NodeEventArgs.Node
+  fullName: AGS.API.NodeEventArgs.Node
+  nameWithType: NodeEventArgs.Node
+- uid: AGS.API.NodeEventArgs.Node*
+  name: Node
+  href: api/AGS.API.NodeEventArgs.html#AGS_API_NodeEventArgs_Node_
+  commentId: Overload:AGS.API.NodeEventArgs.Node
+  fullName: AGS.API.NodeEventArgs.Node
+  nameWithType: NodeEventArgs.Node
 - uid: AGS.API.ObjectEventArgs
   name: ObjectEventArgs
   href: api/AGS.API.ObjectEventArgs.html
@@ -14886,11 +15483,11 @@ references:
   commentId: M:AGS.API.PointF.Equals(AGS.API.PointF)
   fullName: AGS.API.PointF.Equals(AGS.API.PointF)
   nameWithType: PointF.Equals(PointF)
-- uid: AGS.API.PointF.Equals(Object)
+- uid: AGS.API.PointF.Equals(System.Object)
   name: Equals(Object)
-  href: api/AGS.API.PointF.html#AGS_API_PointF_Equals_Object_
-  commentId: M:AGS.API.PointF.Equals(Object)
-  fullName: AGS.API.PointF.Equals(Object)
+  href: api/AGS.API.PointF.html#AGS_API_PointF_Equals_System_Object_
+  commentId: M:AGS.API.PointF.Equals(System.Object)
+  fullName: AGS.API.PointF.Equals(System.Object)
   nameWithType: PointF.Equals(Object)
 - uid: AGS.API.PointF.Equals*
   name: Equals
@@ -15537,24 +16134,12 @@ references:
   commentId: P:AGS.API.Quaternion.Xyz
   fullName: AGS.API.Quaternion.Xyz
   nameWithType: Quaternion.Xyz
-- uid: AGS.API.Quaternion.XYZ
-  name: XYZ
-  href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_XYZ
-  commentId: P:AGS.API.Quaternion.XYZ
-  fullName: AGS.API.Quaternion.XYZ
-  nameWithType: Quaternion.XYZ
 - uid: AGS.API.Quaternion.Xyz*
   name: Xyz
   href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_Xyz_
   commentId: Overload:AGS.API.Quaternion.Xyz
   fullName: AGS.API.Quaternion.Xyz
   nameWithType: Quaternion.Xyz
-- uid: AGS.API.Quaternion.XYZ*
-  name: XYZ
-  href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_XYZ_
-  commentId: Overload:AGS.API.Quaternion.XYZ
-  fullName: AGS.API.Quaternion.XYZ
-  nameWithType: Quaternion.XYZ
 - uid: AGS.API.Quaternion.Y
   name: Y
   href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_Y
@@ -15717,11 +16302,11 @@ references:
   commentId: T:AGS.API.RequiredComponentAttribute
   fullName: AGS.API.RequiredComponentAttribute
   nameWithType: RequiredComponentAttribute
-- uid: AGS.API.RequiredComponentAttribute.#ctor(Type,System.Boolean)
+- uid: AGS.API.RequiredComponentAttribute.#ctor(System.Type,System.Boolean)
   name: RequiredComponentAttribute(Type, Boolean)
-  href: api/AGS.API.RequiredComponentAttribute.html#AGS_API_RequiredComponentAttribute__ctor_Type_System_Boolean_
-  commentId: M:AGS.API.RequiredComponentAttribute.#ctor(Type,System.Boolean)
-  fullName: AGS.API.RequiredComponentAttribute.RequiredComponentAttribute(Type, System.Boolean)
+  href: api/AGS.API.RequiredComponentAttribute.html#AGS_API_RequiredComponentAttribute__ctor_System_Type_System_Boolean_
+  commentId: M:AGS.API.RequiredComponentAttribute.#ctor(System.Type,System.Boolean)
+  fullName: AGS.API.RequiredComponentAttribute.RequiredComponentAttribute(System.Type, System.Boolean)
   nameWithType: RequiredComponentAttribute.RequiredComponentAttribute(Type, Boolean)
 - uid: AGS.API.RequiredComponentAttribute.#ctor*
   name: RequiredComponentAttribute
@@ -15885,6 +16470,24 @@ references:
   commentId: F:AGS.API.ScalingAxis.Y
   fullName: AGS.API.ScalingAxis.Y
   nameWithType: ScalingAxis.Y
+- uid: AGS.API.SelectionType
+  name: SelectionType
+  href: api/AGS.API.SelectionType.html
+  commentId: T:AGS.API.SelectionType
+  fullName: AGS.API.SelectionType
+  nameWithType: SelectionType
+- uid: AGS.API.SelectionType.None
+  name: None
+  href: api/AGS.API.SelectionType.html#AGS_API_SelectionType_None
+  commentId: F:AGS.API.SelectionType.None
+  fullName: AGS.API.SelectionType.None
+  nameWithType: SelectionType.None
+- uid: AGS.API.SelectionType.Single
+  name: Single
+  href: api/AGS.API.SelectionType.html#AGS_API_SelectionType_Single
+  commentId: F:AGS.API.SelectionType.Single
+  fullName: AGS.API.SelectionType.Single
+  nameWithType: SelectionType.Single
 - uid: AGS.API.Size
   name: Size
   href: api/AGS.API.Size.html
@@ -18711,13 +19314,13 @@ references:
   commentId: Overload:AGS.API.Vector4.op_Equality
   fullName: AGS.API.Vector4.Equality
   nameWithType: Vector4.Equality
-- uid: AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~IntPtr
+- uid: AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~System.IntPtr
   name: Explicit(Vector4 to IntPtr)
-  href: api/AGS.API.Vector4.html#AGS_API_Vector4_op_Explicit_AGS_API_Vector4__IntPtr
-  commentId: M:AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~IntPtr
+  href: api/AGS.API.Vector4.html#AGS_API_Vector4_op_Explicit_AGS_API_Vector4__System_IntPtr
+  commentId: M:AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~System.IntPtr
   name.vb: Narrowing(Vector4 to IntPtr)
-  fullName: AGS.API.Vector4.Explicit(AGS.API.Vector4 to IntPtr)
-  fullName.vb: AGS.API.Vector4.Narrowing(AGS.API.Vector4 to IntPtr)
+  fullName: AGS.API.Vector4.Explicit(AGS.API.Vector4 to System.IntPtr)
+  fullName.vb: AGS.API.Vector4.Narrowing(AGS.API.Vector4 to System.IntPtr)
   nameWithType: Vector4.Explicit(Vector4 to IntPtr)
   nameWithType.vb: Vector4.Narrowing(Vector4 to IntPtr)
 - uid: AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~System.Single*

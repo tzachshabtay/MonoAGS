@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ITreeViewComponent
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ITreeViewComponent
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.18.5.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ITreeViewComponent">
+  
+  
+  <h1 id="AGS_API_ITreeViewComponent" data-uid="AGS.API.ITreeViewComponent">Interface ITreeViewComponent
+  </h1>
+  <div class="markdown level0 summary"><p>A component for displaying a hierarchical collection of text labels.
+Each label is a node in the tree which can be collapsed/expanded to hide/show its children.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
+    </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
+  <h6><strong>Assembly</strong>: AGS.API.dll</h6>
+  <h5 id="AGS_API_ITreeViewComponent_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IInObjectTree), true)]
+[RequiredComponent(typeof (IDrawableInfo), true)]
+public interface ITreeViewComponent : IComponent, IDisposable</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_ITreeViewComponent_AllowSelection.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.AllowSelection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L46">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeViewComponent_AllowSelection_" data-uid="AGS.API.ITreeViewComponent.AllowSelection*"></a>
+  <h4 id="AGS_API_ITreeViewComponent_AllowSelection" data-uid="AGS.API.ITreeViewComponent.AllowSelection">AllowSelection</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether to allow selecting nodes in the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">SelectionType AllowSelection { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.SelectionType.html">SelectionType</a></td>
+        <td><p>The allow selection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_ITreeViewComponent_HorizontalSpacing.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.HorizontalSpacing%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L34">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeViewComponent_HorizontalSpacing_" data-uid="AGS.API.ITreeViewComponent.HorizontalSpacing*"></a>
+  <h4 id="AGS_API_ITreeViewComponent_HorizontalSpacing" data-uid="AGS.API.ITreeViewComponent.HorizontalSpacing">HorizontalSpacing</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the horizontal spacing between each level in the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float HorizontalSpacing { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><p>The horizontal spacing.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_ITreeViewComponent_NodeViewProvider.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.NodeViewProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L28">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeViewComponent_NodeViewProvider_" data-uid="AGS.API.ITreeViewComponent.NodeViewProvider*"></a>
+  <h4 id="AGS_API_ITreeViewComponent_NodeViewProvider" data-uid="AGS.API.ITreeViewComponent.NodeViewProvider">NodeViewProvider</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the node view provider, which is responsible for displaying a node in the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ITreeNodeViewProvider NodeViewProvider { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITreeNodeViewProvider.html">ITreeNodeViewProvider</a></td>
+        <td><p>The node view provider.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_ITreeViewComponent_OnNodeSelected.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.OnNodeSelected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L52">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeViewComponent_OnNodeSelected_" data-uid="AGS.API.ITreeViewComponent.OnNodeSelected*"></a>
+  <h4 id="AGS_API_ITreeViewComponent_OnNodeSelected" data-uid="AGS.API.ITreeViewComponent.OnNodeSelected">OnNodeSelected</h4>
+  <div class="markdown level1 summary"><p>An event which fires every time a node is selected (if <a class="xref" href="AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_AllowSelection">AllowSelection</a> is set to allow selection).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEvent&lt;NodeEventArgs&gt; OnNodeSelected { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a>&gt;</td>
+        <td><p>The on node selected.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_ITreeViewComponent_Tree.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.Tree%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L22">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeViewComponent_Tree_" data-uid="AGS.API.ITreeViewComponent.Tree*"></a>
+  <h4 id="AGS_API_ITreeViewComponent_Tree" data-uid="AGS.API.ITreeViewComponent.Tree">Tree</h4>
+  <div class="markdown level1 summary"><p>The tree of text items to show.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ITreeStringNode Tree { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITreeStringNode.html">ITreeStringNode</a></td>
+        <td><p>The tree.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_ITreeViewComponent_VerticalSpacing.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.VerticalSpacing%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L40">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeViewComponent_VerticalSpacing_" data-uid="AGS.API.ITreeViewComponent.VerticalSpacing*"></a>
+  <h4 id="AGS_API_ITreeViewComponent_VerticalSpacing" data-uid="AGS.API.ITreeViewComponent.VerticalSpacing">VerticalSpacing</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the vertical spacing between each child in the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float VerticalSpacing { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><p>The vertical spacing.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_ITreeViewComponent.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L14" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

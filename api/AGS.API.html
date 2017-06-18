@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace AGS.API
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.17.4.2">
+    <meta name="generator" content="docfx 2.18.5.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -99,11 +99,19 @@
       <section><p>Event arguments which allows you to modify how/where the text is rendered and control
 how the speech is skipped (assuming you configure <a class="xref" href="AGS.API.SkipText.html#AGS_API_SkipText_External">External</a>  in your <a class="xref" href="AGS.API.ISayConfig.html">ISayConfig</a>).</p>
 </section>
+      <h4><a class="xref" href="AGS.API.ButtonAnimation.html">ButtonAnimation</a></h4>
+      <section><p>Allows changing properties of the button to &quot;animate&quot; it as it moves between states (idle, hover, pushed).
+Each <a class="xref" href="AGS.API.ButtonAnimation.html">ButtonAnimation</a> represents one of this states, and can have a different animation,
+border, background color (tint) or text rendering configuration (font, shadows, etc- <a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a>).</p>
+</section>
       <h4><a class="xref" href="AGS.API.CheckBoxEventArgs.html">CheckBoxEventArgs</a></h4>
       <section><p>Event arguments for a checkbox check change.</p>
 </section>
       <h4><a class="xref" href="AGS.API.Colors.html">Colors</a></h4>
       <section><p>A list of colors to choose from.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ComboboxItemArgs.html">ComboboxItemArgs</a></h4>
+      <section><p>Event arguments for when a selected item changes in a combobox.</p>
 </section>
       <h4><a class="xref" href="AGS.API.InventoryCombinationEventArgs.html">InventoryCombinationEventArgs</a></h4>
       <section><p>The event arguments for the inventory combination events.
@@ -123,6 +131,9 @@ The arguments carry with the two combined items.</p>
 </section>
       <h4><a class="xref" href="AGS.API.MousePositionEventArgs.html">MousePositionEventArgs</a></h4>
       <section><p>Event arguments for mouse move to indicate the mouse&#39;s position.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a></h4>
+      <section><p>Event arguments which contain a tree node.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ObjectEventArgs.html">ObjectEventArgs</a></h4>
       <section><p>Event arguments for interacting with an object.</p>
@@ -468,6 +479,9 @@ It means that the entity can be belong to a room and moved between rooms.</p>
       <h4><a class="xref" href="AGS.API.IHotspotComponent.html">IHotspotComponent</a></h4>
       <section><p>Allows an entity to act as a hotspot (i.e can be interacted with).</p>
 </section>
+      <h4><a class="xref" href="AGS.API.IIconFactory.html">IIconFactory</a></h4>
+      <section><p>A factory for creating icons.</p>
+</section>
       <h4><a class="xref" href="AGS.API.IImage.html">IImage</a></h4>
       <section><p>Represents an image that can be rendered on screen (usually as part of an animation).</p>
 </section>
@@ -687,6 +701,9 @@ The most common use is for faking perspective, so that when a character walks to
 For that common use case, you&#39;ll want to scale on the Y axis (which is why Y axis is the default),
 and scale both the object x &amp;&amp; y (to keep the aspect ration in tact).</p>
 </section>
+      <h4><a class="xref" href="AGS.API.ISelectableIcon.html">ISelectableIcon</a></h4>
+      <section><p>An icon which has two modes: selected and not selected.</p>
+</section>
       <h4><a class="xref" href="AGS.API.IShader.html">IShader</a></h4>
       <section><p>Represents a shader which is a user defined program that can be written to directly affect what&#39;s rendered on the screen.
 See here: <a href="https://www.opengl.org/wiki/Shader">https://www.opengl.org/wiki/Shader</a>
@@ -759,6 +776,11 @@ We use these descriptors for convenience, since each square in our engine was co
 a rectangle which does have bottom left, etc.
 Also, the order of the points is important for the &quot;Contains&quot; calculation.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.IStackLayoutComponent.html">IStackLayoutComponent</a></h4>
+      <section><p>The stack layout component organizes its children in a one-dimensional line (&quot;stack&quot;), 
+either horizontally, or vertically.
+The default is a simple vertical layout (top to bottom).</p>
+</section>
       <h4><a class="xref" href="AGS.API.ITextBox.html">ITextBox</a></h4>
       <section><p>A pre-set entity with all of the UI control components, plus a text and textbox component,
 for allowing editing/inserting text.</p>
@@ -789,6 +811,22 @@ for allowing editing/inserting text.</p>
       <section><p>A node in a tree.
 A tree is a structure in which every node can have one parent (or no parent if it&#39;s the root)
 and several children (or no children, which will make it a leaf in the tree).</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ITreeNodeView.html">ITreeNodeView</a></h4>
+      <section><p>Encapsulates all the UI controls needed to show a tree node in a <a class="xref" href="AGS.API.ITreeViewComponent.html">ITreeViewComponent</a>.
+Each node has a parent panel with two additional panels: a horizontal stack layout panel
+with an expand/collapse button and the text label, and a vertical panel for holding the children
+of the node.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ITreeNodeViewProvider.html">ITreeNodeViewProvider</a></h4>
+      <section><p>The tree node view provider is responsible for displaying a node in a <a class="xref" href="AGS.API.ITreeViewComponent.html">ITreeViewComponent</a> control.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ITreeStringNode.html">ITreeStringNode</a></h4>
+      <section><p>A string tree node, which will be shown in a <a class="xref" href="AGS.API.ITreeViewComponent.html">ITreeViewComponent</a> .</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ITreeViewComponent.html">ITreeViewComponent</a></h4>
+      <section><p>A component for displaying a hierarchical collection of text labels.
+Each label is a node in the tree which can be collapsed/expanded to hide/show its children.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IUIControl.html">IUIControl</a></h4>
       <section><p>A UI control is an object which has events like mouse click, to help the user interact with it.
@@ -832,6 +870,8 @@ away from the camera.</p>
       <h4><a class="xref" href="AGS.API.ApproachHotspots.html">ApproachHotspots</a></h4>
       <section><p>How to approach hotspots?</p>
 </section>
+      <h4><a class="xref" href="AGS.API.ArrowDirection.html">ArrowDirection</a></h4>
+      <section></section>
       <h4><a class="xref" href="AGS.API.AutoFit.html">AutoFit</a></h4>
       <section><p>Allows for a label and its text to fit together in various way.</p>
 </section>
@@ -848,6 +888,8 @@ away from the camera.</p>
       <h4><a class="xref" href="AGS.API.Key.html">Key</a></h4>
       <section><p>The keyboard keys.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.LayoutDirection.html">LayoutDirection</a></h4>
+      <section></section>
       <h4><a class="xref" href="AGS.API.ListChangeType.html">ListChangeType</a></h4>
       <section><p>How did the list change?</p>
 </section>
@@ -875,6 +917,8 @@ away from the camera.</p>
       <h4><a class="xref" href="AGS.API.ScalingAxis.html">ScalingAxis</a></h4>
       <section><p>Scaling axis on which the scaling takes place.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.SelectionType.html">SelectionType</a></h4>
+      <section></section>
       <h4><a class="xref" href="AGS.API.SkipCutsceneTrigger.html">SkipCutsceneTrigger</a></h4>
       <section><p>Different options of how to trigger skipping a cutscene.</p>
 </section>
