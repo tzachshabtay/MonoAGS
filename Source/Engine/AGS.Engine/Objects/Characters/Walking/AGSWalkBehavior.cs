@@ -297,7 +297,9 @@ namespace AGS.Engine
 
         private IEnumerable<IArea> getWalkableAreas()
         {
-            return _obj.Room.Areas.Where(area => 
+            var room = _obj.Room;
+            if (room == null) return Array.Empty<IArea>();
+            return room.Areas.Where(area => 
             {
                 if (!area.Enabled) return false;
                 var walkable = area.GetComponent<IWalkableArea>();
