@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IAnimationContainer
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IAnimationContainer">
   
   
-  <h1 id="AGS_API_IAnimationContainer" data-uid="AGS.API.IAnimationContainer">Interface IAnimationContainer
+  <h1 id="AGS_API_IAnimationContainer" data-uid="AGS.API.IAnimationContainer" class="text-break">Interface IAnimationContainer
   </h1>
   <div class="markdown level0 summary"><p>An animation container. This gives access to the animation, and allows to start a new animation
 which will replace the old animation.</p>
@@ -303,7 +303,7 @@ Note: if an animation is an endless loop, this method will never return (unless 
   <h4 id="AGS_API_IAnimationContainer_AnimateAsync_AGS_API_IAnimation_" data-uid="AGS.API.IAnimationContainer.AnimateAsync(AGS.API.IAnimation)">AnimateAsync(IAnimation)</h4>
   <div class="markdown level1 summary"><p>Starts a new animation and returns a task for allowing asynchronously waiting for the animation to complete.
 This allows for doing more things in parallel while the animation is playing, while still having the power 
-to wait for the animation when you&#39;re done.
+to wait for the animation when you&apos;re done.
 Note: if an animation is an endless loop, this task will never complete (unless the animation is stopped manually).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -346,19 +346,20 @@ Note: if an animation is an endless loop, this task will never complete (unless 
     </tbody>
   </table>
   <h5 id="AGS_API_IAnimationContainer_AnimateAsync_AGS_API_IAnimation__examples">Examples</h5>
-  <p>Let&#39;s animate our 3 musical instruments to play at the same time and wait for the first one to complete.
+  <p>Let&apos;s animate our 3 musical instruments to play at the same time and wait for the first one to complete.</p>
 <pre><code>var trumpetTask = player1.AnimateAsync(trumpetAnimation);
 var pianoTask = player2.AnimateAsync(pianoAnimation);
 var drumsTask = player3.AnimateAsync(drumAnimation);
-//As we didn&#39;t await the tasks yet, the trumpet, piano and drums are playing at the same time.
-//Now let&#39;s see who finishes first:
+//As we didn&apos;t await the tasks yet, the trumpet, piano and drums are playing at the same time.
+//Now let&apos;s see who finishes first:
 var firstTaskToComplete = await Task.WhenAny(trumpetTask, pianoTask, drumsTask);
 if (firstTaskToComplete == trumpetTask) await player4.SayAsync(&quot;Nice job, trumpet dude!&quot;);
 else if (firstTaskToComplete == pianoTask) await player4.SayAsync(&quot;Nice job, piano dude!&quot;);
-else await player4.SayAsync(&quot;Nice job, drums dude!&quot;);<p>
-<p>//Now let&#39;s wait for all animations to complete:
+else await player4.SayAsync(&quot;Nice job, drums dude!&quot;);
+
+//Now let&apos;s wait for all animations to complete:
 await Task.WhenAll(trumpetTask, pianoTask, drumsTask);
-await player4.SayAsync(&quot;Nice job, everybody!&quot;);</code></pre></p>
+await player4.SayAsync(&quot;Nice job, everybody!&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>

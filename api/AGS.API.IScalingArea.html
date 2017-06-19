@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IScalingArea
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,13 +78,13 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IScalingArea">
   
   
-  <h1 id="AGS_API_IScalingArea" data-uid="AGS.API.IScalingArea">Interface IScalingArea
+  <h1 id="AGS_API_IScalingArea" data-uid="AGS.API.IScalingArea" class="text-break">Interface IScalingArea
   </h1>
   <div class="markdown level0 summary"><p>This component adds the ability for an area to automatically scale each object/character within it
-(and also &#39;scale&#39; the volume of sounds coming from that object).
+(and also &apos;scale&apos; the volume of sounds coming from that object).
 The most common use is for faking perspective, so that when a character walks to the top of the screen
 (closer to the horizon), he will appear smaller and make quieter sounds.
-For that common use case, you&#39;ll want to scale on the Y axis (which is why Y axis is the default),
+For that common use case, you&apos;ll want to scale on the Y axis (which is why Y axis is the default),
 and scale both the object x &amp;&amp; y (to keep the aspect ration in tact).</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -126,9 +126,9 @@ public interface IScalingArea : IComponent, IDisposable</code></pre>
   <h4 id="AGS_API_IScalingArea_Axis" data-uid="AGS.API.IScalingArea.Axis">Axis</h4>
   <div class="markdown level1 summary"><p>Gets or sets the axis for the scaling.
 If the axis is y (the default), the scaling will be adjusted based on where the object is located on
-the area&#39;s vertical axis (so most common use is for fake perspective).
+the area&apos;s vertical axis (so most common use is for fake perspective).
 If the axis is x, the scaling will be adjusted based on where the object is located on
-the area&#39;s horizontal axis.</p>
+the area&apos;s horizontal axis.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -231,7 +231,7 @@ Note that if for some reason you want the opposite behavior for either of the ax
   <a id="AGS_API_IScalingArea_ScaleObjectsX_" data-uid="AGS.API.IScalingArea.ScaleObjectsX*"></a>
   <h4 id="AGS_API_IScalingArea_ScaleObjectsX" data-uid="AGS.API.IScalingArea.ScaleObjectsX">ScaleObjectsX</h4>
   <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.IScalingArea.html">IScalingArea</a> should scale objects x.
-Usually you&#39;ll want both ScaleObjectsX and ScaleObjectsY to be on, but you can turn on only one of them
+Usually you&apos;ll want both ScaleObjectsX and ScaleObjectsY to be on, but you can turn on only one of them
 to achieve a stretching effect.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -265,7 +265,7 @@ to achieve a stretching effect.</p>
   <a id="AGS_API_IScalingArea_ScaleObjectsY_" data-uid="AGS.API.IScalingArea.ScaleObjectsY*"></a>
   <h4 id="AGS_API_IScalingArea_ScaleObjectsY" data-uid="AGS.API.IScalingArea.ScaleObjectsY">ScaleObjectsY</h4>
   <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.IScalingArea.html">IScalingArea</a> should scale objects y.
-Usually you&#39;ll want both ScaleObjectsX and ScaleObjectsY to be on, but you can turn on only one of them
+Usually you&apos;ll want both ScaleObjectsX and ScaleObjectsY to be on, but you can turn on only one of them
 to achieve a stretching effect.</p>
 </div>
   <div class="markdown level1 conceptual"></div>

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface ISoundPlayer
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.ISoundPlayer">
   
   
-  <h1 id="AGS_API_ISoundPlayer" data-uid="AGS.API.ISoundPlayer">Interface ISoundPlayer
+  <h1 id="AGS_API_ISoundPlayer" data-uid="AGS.API.ISoundPlayer" class="text-break">Interface ISoundPlayer
   </h1>
   <div class="markdown level0 summary"><p>Allows to play a sound.</p>
 </div>
@@ -213,14 +213,14 @@
     </tbody>
   </table>
   <h5 id="AGS_API_ISoundPlayer_Play_System_Boolean_AGS_API_ISoundProperties__examples">Examples</h5>
-  <p>In order to play a sound and then asynchronously wait for it to finish:
+  <p>In order to play a sound and then asynchronously wait for it to finish:</p>
 <pre><code>private async Task onSpecificTrigger()
 {
     ISound sound = myAudioClip.Play();
     doStuffWhileSoundIsPlaying(); //This happens in parallel to the playing sound
     await sound.Completed;
     doStuffAfterSoundFinishedPlaying();
-}</code></pre></p>
+}</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>

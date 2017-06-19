@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface ISoundEmitter
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,12 +78,12 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.ISoundEmitter">
   
   
-  <h1 id="AGS_API_ISoundEmitter" data-uid="AGS.API.ISoundEmitter">Interface ISoundEmitter
+  <h1 id="AGS_API_ISoundEmitter" data-uid="AGS.API.ISoundEmitter" class="text-break">Interface ISoundEmitter
   </h1>
   <div class="markdown level0 summary"><p>A sound emitter allows to bind an audio clip to an entity which is moving on a screen.
 Playing a sound from the emitter will pan it or set the volume (both can be turned off) to sound like
 it coming from the same location the entity is in.
-You can also assign the emitter to automatically play the sound on specific animation frames (so it&#39;s a 
+You can also assign the emitter to automatically play the sound on specific animation frames (so it&apos;s a 
 perfect fit for footsteps, for example).</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -115,7 +115,7 @@ perfect fit for footsteps, for example).</p>
     <pre><code class="lang-csharp hljs">public interface ISoundEmitter : ISoundPlayer</code></pre>
   </div>
   <h5 id="AGS_API_ISoundEmitter_examples"><strong>Examples</strong></h5>
-  <pre><code>var footstep = await game.Factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/footstep.ogg");
+  <pre><code>var footstep = await game.Factory.Sound.LoadAudioClipAsync(&quot;../../Assets/Sounds/footstep.ogg&quot;);
 ISoundEmitter emitter = new AGSSoundEmitter(game);
 emitter.AudioClip = footstep;
 emitter.Object = cHero;

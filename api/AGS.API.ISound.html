@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface ISound
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,10 +78,10 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.ISound">
   
   
-  <h1 id="AGS_API_ISound" data-uid="AGS.API.ISound">Interface ISound
+  <h1 id="AGS_API_ISound" data-uid="AGS.API.ISound" class="text-break">Interface ISound
   </h1>
   <div class="markdown level0 summary"><p>An instance of a playing sound.
-You&#39;ll usually use an <a class="xref" href="AGS.API.IAudioClip.html">IAudioClip</a> to play a sound, and control the playing sound from this interface. </p>
+You&apos;ll usually use an <a class="xref" href="AGS.API.IAudioClip.html">IAudioClip</a> to play a sound, and control the playing sound from this interface. </p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritedMembers">
@@ -140,9 +140,9 @@ You&#39;ll usually use an <a class="xref" href="AGS.API.IAudioClip.html">IAudioC
   <pre><code>private async Task onMusicBoxInteract(object sender, AGSEventArgs args)
 {
     ISound sound = musicBoxAudioClip.Play();
-    await cHero.SayAsync("The music box is currently playing a song..."); //We didn't wait for the sound to complete yet, so the character is speaking in parallel
+    await cHero.SayAsync(&quot;The music box is currently playing a song...&quot;); //We didn&apos;t wait for the sound to complete yet, so the character is speaking in parallel
     await sound.Completed;
-    await cHero.SayAsync("What a nice song that was!");
+    await cHero.SayAsync(&quot;What a nice song that was!&quot;);
 }</code></pre>
 
   <span class="small pull-right mobile-hide">

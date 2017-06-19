@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IResourceLoader
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,22 +78,22 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IResourceLoader">
   
   
-  <h1 id="AGS_API_IResourceLoader" data-uid="AGS.API.IResourceLoader">Interface IResourceLoader
+  <h1 id="AGS_API_IResourceLoader" data-uid="AGS.API.IResourceLoader" class="text-break">Interface IResourceLoader
   </h1>
   <div class="markdown level0 summary"><p>There are 2 ways you can have resources in your game: 
 They can be embedded in the project or loaded from the file system.
 This interface allows for loading resource either from the embedded project files or from the file system.</p>
 <p>The advantage of having the resources embedded is that you can rest assured the resources will be distributed with your game and cannot be touched from outside, 
-which is why it&#39;s the recommended method. Loading from file system might be useful if you need the resources to 
+which is why it&apos;s the recommended method. Loading from file system might be useful if you need the resources to 
 be loaded dynamically, for example you might want to download resources from the internet, or if you give the 
 user the option to choose her/his avatar.
 To embed resources in your game project, first add the resource files to the &quot;Assets&quot; folder in your shared game 
-project(it doesn&#39;t have to be in the root &quot;Assets&quot; folder, you can have any structure you want in there). 
+project(it doesn&apos;t have to be in the root &quot;Assets&quot; folder, you can have any structure you want in there). 
 Then, in the solution explorer, right click the &quot;Assets&quot; folder and &quot;Add Existing&quot; (there are options for 
 adding files or complete folders, depending on what you want to do) and add those resources to the project. 
 You should then see those resources in the tree. Lastly, right click those resources and select 
 &quot;Embedded Resource&quot; as your &quot;Build Option&quot;.
-Note that even the resource is embedded, it&#39;s only embedded when compiling the game, so you cannot delete the 
+Note that even the resource is embedded, it&apos;s only embedded when compiling the game, so you cannot delete the 
 file before deploying your game, and if you replace the file, it will be automatically replaced in the game 
 on your next run.</p>
 <p>The path used by the loading methods has to be structured as so: if the resource is to be loaded from a file 

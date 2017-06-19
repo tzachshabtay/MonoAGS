@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IInventory
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,9 +78,9 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IInventory">
   
   
-  <h1 id="AGS_API_IInventory" data-uid="AGS.API.IInventory">Interface IInventory
+  <h1 id="AGS_API_IInventory" data-uid="AGS.API.IInventory" class="text-break">Interface IInventory
   </h1>
-  <div class="markdown level0 summary"><p>The character&#39;s inventory. Those are the items that the character holds in his/her (usually) imaginary bag.
+  <div class="markdown level0 summary"><p>The character&apos;s inventory. Those are the items that the character holds in his/her (usually) imaginary bag.
 It is composed of a list of inventory items, and one active item that the character holds in his/her hand.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -101,7 +101,7 @@ It is composed of a list of inventory items, and one active item that the charac
   </span>
   <a id="AGS_API_IInventory_ActiveItem_" data-uid="AGS.API.IInventory.ActiveItem*"></a>
   <h4 id="AGS_API_IInventory_ActiveItem" data-uid="AGS.API.IInventory.ActiveItem">ActiveItem</h4>
-  <div class="markdown level1 summary"><p>Gets/sets the character&#39;s current active inventory item (for example the item that character currently holds in his/her hand). Setting it will update the mouse cursor if appropriate.
+  <div class="markdown level1 summary"><p>Gets/sets the character&apos;s current active inventory item (for example the item that character currently holds in his/her hand). Setting it will update the mouse cursor if appropriate.
 To deselect the current inventory, set it to null.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -126,11 +126,11 @@ To deselect the current inventory, set it to null.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IInventory_ActiveItem_examples">Examples</h5>
-  <pre><code>cEgo.ActiveInventory = iKey; //The character is now "holding" the key.</code></pre>
+  <pre><code>cEgo.ActiveInventory = iKey; //The character is now &quot;holding&quot; the key.</code></pre>
 <pre><code>private void onDoorClicked()
 {
     if (cEgo.ActiveInventory == iKey) openDoor();
-    else cEgo.Say("I can't open the door without holding the key!");
+    else cEgo.Say(&quot;I can&apos;t open the door without holding the key!&quot;);
 }</code></pre>
 
   <span class="small pull-right mobile-hide">
@@ -166,9 +166,9 @@ To deselect the current inventory, set it to null.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IInventory_Items_examples">Examples</h5>
-  <p>Do I have the key?
-<pre><code>if (Items.Any(item =&gt; item == iKey)) cEgo.Say("I have the key!");
-else cEgo.Say("I don't have the key!");</code></pre></p>
+  <p>Do I have the key?</p>
+<pre><code>if (Items.Any(item => item == iKey)) cEgo.Say(&quot;I have the key!&quot;);
+else cEgo.Say(&quot;I don&apos;t have the key!&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -203,13 +203,13 @@ else cEgo.Say("I don't have the key!");</code></pre></p>
     </tbody>
   </table>
   <h5 id="AGS_API_IInventory_OnDefaultCombination_examples">Examples</h5>
-  <p>First, we subscribe to the event:
+  <p>First, we subscribe to the event:</p>
 <pre><code>cEgo.Inventory.OnDefaultCombination.Subscribe(onDefaultCombination);</code></pre>
-Then, we define the event (what do we do when the user tried to combine two random items?):
+<p>Then, we define the event (what do we do when the user tried to combine two random items?):</p>
 <pre><code>private void onDefaultCombination(object sender, InventoryCombinationEventArgs args)
 {
-    cEgo.Say(string.Format("I can't use {0} on {1}. It doesn't make sense!", args.ActiveItem.Graphics.Hotspot, args.PassiveItem.Graphics.Hotspot));
-}</code></pre></p>
+    cEgo.Say(string.Format(&quot;I can&apos;t use {0} on {1}. It doesn&apos;t make sense!&quot;, args.ActiveItem.Graphics.Hotspot, args.PassiveItem.Graphics.Hotspot));
+}</code></pre>
 
   <h3 id="methods">Methods
   </h3>
@@ -248,7 +248,7 @@ Then, we define the event (what do we do when the user tried to combine two rand
       <tr>
         <td><a class="xref" href="AGS.API.IInventoryItem.html">IInventoryItem</a></td>
         <td><span class="parametername">item2</span></td>
-        <td><p>The &quot;passive&quot; inventory item (the item we&#39;re using the &quot;active&quot; item on).</p>
+        <td><p>The &quot;passive&quot; inventory item (the item we&apos;re using the &quot;active&quot; item on).</p>
 </td>
       </tr>
     </tbody>
@@ -270,15 +270,15 @@ Then, we define the event (what do we do when the user tried to combine two rand
     </tbody>
   </table>
   <h5 id="AGS_API_IInventory_OnCombination_AGS_API_IInventoryItem_AGS_API_IInventoryItem__examples">Examples</h5>
-  <p>First, we subscribe to the event:
+  <p>First, we subscribe to the event:</p>
 <pre><code>cEgo.Inventory.OnCombination(iScissors, iRope).Subscribe(cutRope);
-cEgo.Inventory.OnCombination(iRope, iScissors).Subscribe(cutRope); //Assuming we want a symmetrical combination, we don't care which item is used on which</code></pre>
-Then, we define the event (we describe what happens when using the scissors and the rope together:
+cEgo.Inventory.OnCombination(iRope, iScissors).Subscribe(cutRope); //Assuming we want a symmetrical combination, we don&apos;t care which item is used on which</code></pre>
+<p>Then, we define the event (we describe what happens when using the scissors and the rope together:</p>
 <pre><code>private void cutRope(object sender, InventoryCombinationEventArgs args)
 {
     displayCutRopeAnimation();
     cEgo.Inventory.Items.Remove(iRope); //No more rope for us!
-}</code></pre></p>
+}</code></pre>
 
 </article>
           </div>

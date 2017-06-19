@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IScale
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IScale">
   
   
-  <h1 id="AGS_API_IScale" data-uid="AGS.API.IScale">Interface IScale
+  <h1 id="AGS_API_IScale" data-uid="AGS.API.IScale" class="text-break">Interface IScale
   </h1>
   <div class="markdown level0 summary"><p>Allows scaling (changing the size of) entities/sprites.</p>
 </div>
@@ -295,7 +295,7 @@ To reset the base size to a new size, use <a class="xref" href="AGS.API.IScale.h
   </span>
   <a id="AGS_API_IScale_FlipHorizontally_" data-uid="AGS.API.IScale.FlipHorizontally*"></a>
   <h4 id="AGS_API_IScale_FlipHorizontally" data-uid="AGS.API.IScale.FlipHorizontally">FlipHorizontally()</h4>
-  <div class="markdown level1 summary"><p>Flips the scale horizontally (this is done by negating <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleX">ScaleX</a> and <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Anchor">Anchor</a>&#39;s X).</p>
+  <div class="markdown level1 summary"><p>Flips the scale horizontally (this is done by negating <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleX">ScaleX</a> and <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Anchor">Anchor</a>&apos;s X).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -311,7 +311,7 @@ To reset the base size to a new size, use <a class="xref" href="AGS.API.IScale.h
   </span>
   <a id="AGS_API_IScale_FlipVertically_" data-uid="AGS.API.IScale.FlipVertically*"></a>
   <h4 id="AGS_API_IScale_FlipVertically" data-uid="AGS.API.IScale.FlipVertically">FlipVertically()</h4>
-  <div class="markdown level1 summary"><p>Flips the scale vertucally (this is done by negating <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleY">ScaleY</a> and <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Anchor">Anchor</a>&#39;s Y).  </p>
+  <div class="markdown level1 summary"><p>Flips the scale vertucally (this is done by negating <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleY">ScaleY</a> and <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Anchor">Anchor</a>&apos;s Y).  </p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -459,9 +459,9 @@ not the current size.</p>
   <h5 id="AGS_API_IScale_ScaleBy_System_Single_System_Single__examples">Examples</h5>
   <pre><code>sprite.ResetScale(10f,10f);
 sprite.ScaleBy(2f, 1f);
-Debug.WriteLine("Size of sprite is ({0},{1})", sprite.Width, sprite.Height); //prints "Size of sprite is (20,10)"
+Debug.WriteLine(&quot;Size of sprite is ({0},{1})&quot;, sprite.Width, sprite.Height); //prints &quot;Size of sprite is (20,10)&quot;
 sprite.ScaleBy(3f, 4f);
-Debug.WriteLine("Size of sprite is ({0},{1})", sprite.Width, sprite.Height); //prints "Size of sprite is (30,40)"</code></pre>
+Debug.WriteLine(&quot;Size of sprite is ({0},{1})&quot;, sprite.Width, sprite.Height); //prints &quot;Size of sprite is (30,40)&quot;</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -506,7 +506,7 @@ Debug.WriteLine("Size of sprite is ({0},{1})", sprite.Width, sprite.Height); //p
   <h5 id="AGS_API_IScale_ScaleTo_System_Single_System_Single__examples">Examples</h5>
   <pre><code>sprite.ResetScale(10f,10f);
 sprite.ScaleTo(20f,30f);
-Debug.WriteLine("Sprite is scaled by ({0},{1})", sprite.ScaleX, sprite.ScaleY); //prints "Sprite is scaled by (2,3)"</code></pre>
+Debug.WriteLine(&quot;Sprite is scaled by ({0},{1})&quot;, sprite.ScaleX, sprite.ScaleY); //prints &quot;Sprite is scaled by (2,3)&quot;</code></pre>
 
 </article>
           </div>

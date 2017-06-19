@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IShader
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,11 +78,11 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IShader">
   
   
-  <h1 id="AGS_API_IShader" data-uid="AGS.API.IShader">Interface IShader
+  <h1 id="AGS_API_IShader" data-uid="AGS.API.IShader" class="text-break">Interface IShader
   </h1>
-  <div class="markdown level0 summary"><p>Represents a shader which is a user defined program that can be written to directly affect what&#39;s rendered on the screen.
+  <div class="markdown level0 summary"><p>Represents a shader which is a user defined program that can be written to directly affect what&apos;s rendered on the screen.
 See here: <a href="https://www.opengl.org/wiki/Shader">https://www.opengl.org/wiki/Shader</a>
-We&#39;re currently supporting vertex &amp; fragment shaders.</p>
+We&apos;re currently supporting vertex &amp; fragment shaders.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
@@ -182,16 +182,16 @@ shader.Bind(); //shader is now in control!        </code></pre>
     </tbody>
   </table>
   <h5 id="AGS_API_IShader_Compile_examples">Examples</h5>
-  <p>A common pattern will look like this:
-<pre><code>const string VERTEX_SHADER = "GLSL vertex shader code goes here";
-const string FRAGMENT_SHADER = "GLSL fragment shader code goes here";
+  <p>A common pattern will look like this:</p>
+<pre><code>const string VERTEX_SHADER = &quot;GLSL vertex shader code goes here&quot;;
+const string FRAGMENT_SHADER = &quot;GLSL fragment shader code goes here&quot;;
 IShader shader = GLShader.FromText(VERTEX_SHADER, FRAGMENT_SHADER).Compile();
 if (shader == null)
 {
   //oh oh, it did not compile!
 }</code></pre>
-There&#39;s also a possibility of loading the shader from a resource/file:
-<pre><code>IShader shader = await GLShader.FromResource("vertexShader.glsl", "fragmentShader.glsl");</code></pre></p>
+<p>There&apos;s also a possibility of loading the shader from a resource/file:</p>
+<pre><code>IShader shader = await GLShader.FromResource(&quot;vertexShader.glsl&quot;, &quot;fragmentShader.glsl&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -314,7 +314,7 @@ uniform vec4 myColor;
 ...
 //In AGS code:
 shader.Bind();
-shader.SetVariable("myColor", Colors.White);</code></pre>
+shader.SetVariable(&quot;myColor&quot;, Colors.White);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -380,7 +380,7 @@ uniform float myVariable;
 ...
 //In AGS code:
 shader.Bind();
-shader.SetVariable("myVariable", 5.5f);</code></pre>
+shader.SetVariable(&quot;myVariable&quot;, 5.5f);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -452,7 +452,7 @@ uniform vec2 myVariable;
 ...
 //In AGS code:
 shader.Bind();
-shader.SetVariable("myVariable", 5.5f, 3f);</code></pre>
+shader.SetVariable(&quot;myVariable&quot;, 5.5f, 3f);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -530,7 +530,7 @@ uniform vec3 myVariable;
 ...
 //In AGS code:
 shader.Bind();
-shader.SetVariable("myVariable", 5.5f, 3f, 0.1f);</code></pre>
+shader.SetVariable(&quot;myVariable&quot;, 5.5f, 3f, 0.1f);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -614,7 +614,7 @@ uniform vec4 myVariable;
 ...
 //In AGS code:
 shader.Bind();
-shader.SetVariable("myVariable", 5.5f, 3f, 0.1f, 2.5f);</code></pre>
+shader.SetVariable(&quot;myVariable&quot;, 5.5f, 3f, 0.1f, 2.5f);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IAnimationFrame
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,10 +78,10 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IAnimationFrame">
   
   
-  <h1 id="AGS_API_IAnimationFrame" data-uid="AGS.API.IAnimationFrame">Interface IAnimationFrame
+  <h1 id="AGS_API_IAnimationFrame" data-uid="AGS.API.IAnimationFrame" class="text-break">Interface IAnimationFrame
   </h1>
   <div class="markdown level0 summary"><p>An animation frame (an animation is composed from a list of frames, which change all the time
-to make the object looks like it&#39;s animated).</p>
+to make the object looks like it&apos;s animated).</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
@@ -102,12 +102,12 @@ to make the object looks like it&#39;s animated).</p>
   <a id="AGS_API_IAnimationFrame_Delay_" data-uid="AGS.API.IAnimationFrame.Delay*"></a>
   <h4 id="AGS_API_IAnimationFrame_Delay" data-uid="AGS.API.IAnimationFrame.Delay">Delay</h4>
   <div class="markdown level1 summary"><p>An animation frame has 2 modes of delays (how much time to wait before moving on to the next frame).
-It&#39;s either a specific delay or a random delay with an allowed range.
+It&apos;s either a specific delay or a random delay with an allowed range.
 A random delay with an allowed range is useful for simulating talking, for example, when the mouth 
 is moving in random speeds, giving the illusion of actual talking, instead of repeating animation 
 that breaks the illusion fast.
-Anyways, the delay is added on top of the animation&#39;s overall delay (see cref=&quot;IAnimationConfiguration&quot;/&gt;)
-and measure in game ticks. So let&#39;s say we have an overall animation speed configured to be 5 (the default),
+Anyways, the delay is added on top of the animation&apos;s overall delay (see cref=&quot;IAnimationConfiguration&quot;/&gt;)
+and measure in game ticks. So let&apos;s say we have an overall animation speed configured to be 5 (the default),
 and we have this frame delay configured to be also 5 (the default is 0) and the game is running with 60 FPS
 (frames per second- also the default), then the total delay for this frame will be 10 ticks, so it will run
 for 1/6 of a second.</p>
@@ -222,7 +222,7 @@ before switching to the next frame.
   <h4 id="AGS_API_IAnimationFrame_SoundEmitter" data-uid="AGS.API.IAnimationFrame.SoundEmitter">SoundEmitter</h4>
   <div class="markdown level1 summary"><p>Gets or sets the sound emitter from this frame. If a sound emitter is attached to this frame
 and also has an attached audio clip, the audio clip will play when the frame is showing.
-You don&#39;t have to call this yourself, the sound emitter itself has convenience methods for assigning
+You don&apos;t have to call this yourself, the sound emitter itself has convenience methods for assigning
 itself to several animations at once.</p>
 </div>
   <div class="markdown level1 conceptual"></div>

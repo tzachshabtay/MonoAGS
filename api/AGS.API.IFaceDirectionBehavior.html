@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IFaceDirectionBehavior
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IFaceDirectionBehavior">
   
   
-  <h1 id="AGS_API_IFaceDirectionBehavior" data-uid="AGS.API.IFaceDirectionBehavior">Interface IFaceDirectionBehavior
+  <h1 id="AGS_API_IFaceDirectionBehavior" data-uid="AGS.API.IFaceDirectionBehavior" class="text-break">Interface IFaceDirectionBehavior
   </h1>
   <div class="markdown level0 summary"><p>Gives the ability for a character to change the direction he/she is facing.</p>
 </div>
@@ -160,7 +160,7 @@ cEgo.FaceDirection(Direction.Down); //character is now doing a dance right to ou
   <h4 id="AGS_API_IFaceDirectionBehavior_Direction" data-uid="AGS.API.IFaceDirectionBehavior.Direction">Direction</h4>
   <div class="markdown level1 summary"><p>Gets the current direction that the character is facing.
 Down -&gt; the character is looking directly at the camera.
-Up -&gt; The character&#39;s back is facing the camera.</p>
+Up -&gt; The character&apos;s back is facing the camera.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -186,7 +186,7 @@ Up -&gt; The character&#39;s back is facing the camera.</p>
   <h5 id="AGS_API_IFaceDirectionBehavior_Direction_examples">Examples</h5>
   <pre><code>if (cEgo.Direction == Direction.Down)
 {
-    cEgo.Say("I'm looking right at you!");
+    cEgo.Say(&quot;I&apos;m looking right at you!&quot;);
 }</code></pre>
 
   <h3 id="methods">Methods
@@ -227,7 +227,7 @@ Up -&gt; The character&#39;s back is facing the camera.</p>
   </table>
   <h5 id="AGS_API_IFaceDirectionBehavior_FaceDirection_AGS_API_Direction__examples">Examples</h5>
   <pre><code>cEgo.FaceDirection(Direction.Up);
-cEgo.Say("I'm standing with my back at you.");</code></pre>
+cEgo.Say(&quot;I&apos;m standing with my back at you.&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -265,7 +265,7 @@ cEgo.Say("I'm standing with my back at you.");</code></pre>
   </table>
   <h5 id="AGS_API_IFaceDirectionBehavior_FaceDirection_AGS_API_IObject__examples">Examples</h5>
   <pre><code>cEgo.FaceDirection(oMirror);
-cEgo.Say("Mirror mirror on the wall, I'm watching you!");</code></pre>
+cEgo.Say(&quot;Mirror mirror on the wall, I&apos;m watching you!&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -363,7 +363,7 @@ cEgo.Say("Mirror mirror on the wall, I'm watching you!");</code></pre>
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionBehavior_FaceDirection_System_Single_System_Single_System_Single_System_Single__examples">Examples</h5>
-  <pre><code>cGeneral.Say("Everybody, look at the way I'm looking.");
+  <pre><code>cGeneral.Say(&quot;Everybody, look at the way I&apos;m looking.&quot;);
 cGeneral.FaceDirection(150f, 150f);
 foreach (var soldier in soldiers)
 {
@@ -428,9 +428,9 @@ foreach (var soldier in soldiers)
 <pre><code>private async Task faceDownAndDoStuffInBetween()
 {
     Task faceDirectionCompleted = cEgo.FaceDirectionAsync(Direction.Down);
-    cSomeOtherDude.Say("Let me know when you finished turning around..");
+    cSomeOtherDude.Say(&quot;Let me know when you finished turning around..&quot;);
     await faceDirectionCompleted;;
-    cEgo.Say("All done!");
+    cEgo.Say(&quot;All done!&quot;);
 }</code></pre>
 
   <span class="small pull-right mobile-hide">
@@ -491,9 +491,9 @@ foreach (var soldier in soldiers)
 <pre><code>private async Task lookAtMirrorAndDoStuffInBetween()
 {
     Task faceMirrorCompleted = cEgo.FaceDirectionAsync(oMirror);
-    cSomeOtherDude.Say("Let me know when you see the mirror.");
+    cSomeOtherDude.Say(&quot;Let me know when you see the mirror.&quot;);
     await faceMirrorCompleted;
-    cEgo.Say("Yes, I see it now!");
+    cEgo.Say(&quot;Yes, I see it now!&quot;);
 }</code></pre>
 
   <span class="small pull-right mobile-hide">
@@ -628,17 +628,17 @@ foreach (var soldier in soldiers)
   <h5 id="AGS_API_IFaceDirectionBehavior_FaceDirectionAsync_System_Single_System_Single_System_Single_System_Single__examples">Examples</h5>
   <pre><code>private async Task armyLookOneByOne()
 {
-    cGeneral.Say("Everybody, look at the way I'm looking.");
+    cGeneral.Say(&quot;Everybody, look at the way I&apos;m looking.&quot;);
     cGeneral.FaceDirection(150f, 150f);
     foreach (var soldier in soldiers)
     {
         await soldier.FaceDirectionAsync(cGeneral.X, cGeneral.Y, 150f, 150f); //Awaiting each soldier before going over to the next, meaning the will change directions one by one.
     }    
-    cGeneral.Say("Took you long enough!");    
+    cGeneral.Say(&quot;Took you long enough!&quot;);    
 }</code></pre>
 <pre><code>private async Task armyLookAtTheSameTime()
 {
-    cGeneral.Say("Everybody, look at the way I'm looking.");
+    cGeneral.Say(&quot;Everybody, look at the way I&apos;m looking.&quot;);
     cGeneral.FaceDirection(150f, 150f);
     List{Task} tasks = new List{Task}(soldiers.Count);
     foreach (var soldier in soldiers)
@@ -646,11 +646,11 @@ foreach (var soldier in soldiers)
         tasks.Add(soldier.FaceDirectionAsync(cGeneral.X, cGeneral.Y, 150f, 150f)); 
     }
     await Task.WhenAll(tasks);
-    cGeneral.Say("Took you long enough!");
+    cGeneral.Say(&quot;Took you long enough!&quot;);
 }</code></pre>
 <pre><code>private async Task armyLookAtRandomTimes()
 {
-    cGeneral.Say("Everybody, look at the way I'm looking.");
+    cGeneral.Say(&quot;Everybody, look at the way I&apos;m looking.&quot;);
     cGeneral.FaceDirection(150f, 150f);
     List{Task} tasks = new List{Task}(soldiers.Count);
     foreach (var soldier in soldiers)
@@ -658,7 +658,7 @@ foreach (var soldier in soldiers)
         tasks.Add(Task.Delay(MathUtils.Random().Next(10,50)).ContinueWith(soldier.FaceDirectionAsync(cGeneral.X, cGeneral.Y, 150f, 150f))); 
     }
     await Task.WhenAll(tasks);
-    cGeneral.Say("Took you long enough!");
+    cGeneral.Say(&quot;Took you long enough!&quot;);
 }</code></pre>
 
   <h3 id="seealso">See Also</h3>

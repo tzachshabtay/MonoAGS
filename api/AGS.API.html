@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace AGS.API
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -77,7 +77,7 @@
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="AGS.API">
   
-  <h1 id="AGS_API" data-uid="AGS.API">Namespace AGS.API
+  <h1 id="AGS_API" data-uid="AGS.API" class="text-break">Namespace AGS.API
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
@@ -130,7 +130,7 @@ The arguments carry with the two combined items.</p>
       <section><p>Mouse button down/up event arguments.</p>
 </section>
       <h4><a class="xref" href="AGS.API.MousePositionEventArgs.html">MousePositionEventArgs</a></h4>
-      <section><p>Event arguments for mouse move to indicate the mouse&#39;s position.</p>
+      <section><p>Event arguments for mouse move to indicate the mouse&apos;s position.</p>
 </section>
       <h4><a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a></h4>
       <section><p>Event arguments which contain a tree node.</p>
@@ -203,7 +203,7 @@ attribute with the animation component.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IAnimation.html">IAnimation</a></h4>
       <section><p>Represents an animation. This allows you to configure an animation, and also to query/control animation
-when it&#39;s running.</p>
+when it&apos;s running.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IAnimationConfiguration.html">IAnimationConfiguration</a></h4>
       <section><p>Allows to configure various aspects of the animation.</p>
@@ -214,7 +214,7 @@ which will replace the old animation.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IAnimationFrame.html">IAnimationFrame</a></h4>
       <section><p>An animation frame (an animation is composed from a list of frames, which change all the time
-to make the object looks like it&#39;s animated).</p>
+to make the object looks like it&apos;s animated).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IAnimationState.html">IAnimationState</a></h4>
       <section><p>Control and query the animation current state.</p>
@@ -310,7 +310,7 @@ to depict adventure game characters.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ICollider.html">ICollider</a></h4>
       <section><p>Adds the ability for an entity to check collisions (i.e check whether it collides with a point in the room).
-The collision is checked via either the entity&#39;s bounding box, or via a pixel perfect collision
+The collision is checked via either the entity&apos;s bounding box, or via a pixel perfect collision
 if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectComponent</a> exists and enabled.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IColorBlend.html">IColorBlend</a></h4>
@@ -347,7 +347,7 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
       <section></section>
       <h4><a class="xref" href="AGS.API.ICutscene.html">ICutscene</a></h4>
       <section><p>A cutscene is used to wrap a portion of the game together. This portion can then be skipped by the user.
-This is useful for things like introduction sequences, where you want the player to be able to skip over an intro that they&#39;ve seen before. </p>
+This is useful for things like introduction sequences, where you want the player to be able to skip over an intro that they&apos;ve seen before. </p>
 </section>
       <h4><a class="xref" href="AGS.API.IDialog.html">IDialog</a></h4>
       <section><p>Represents a dialog (an on-going conversation) between two (or more) characters.
@@ -376,7 +376,7 @@ where the user needs to choose one of the options.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IDirectionalAnimation.html">IDirectionalAnimation</a></h4>
       <section><p>Allows grouping animations for different directions together (for example, walking left and right).
-This is used by the character when choosing a directional animation: if you don&#39;t assign all of the
+This is used by the character when choosing a directional animation: if you don&apos;t assign all of the
 directions, the engine will attempt to choose the best direction based on what you have assigned.
 So, for example, if you only assign Left and Right animations for your walk animation, and the player
 is attempting to walk down-right, the engine will use the Right animation.</p>
@@ -393,7 +393,7 @@ Each room has 4 edges, and this interface represents any of those edges.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IEdges.html">IEdges</a></h4>
       <section><p>Room edges are a convenient way for scripting a room change once a player walks beyond an edge. 
-You can set the &#39;X&#39; for the left and right edge, and the &#39;Y&#39; for the top and bottom edge and 
+You can set the &apos;X&apos; for the left and right edge, and the &apos;Y&apos; for the top and bottom edge and 
 subscribe to events when the player crosses the edge to change the room.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IEnabledComponent.html">IEnabledComponent</a></h4>
@@ -402,7 +402,7 @@ Only enabled entities can be interacted with by the player.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IEntity.html">IEntity</a></h4>
       <section><p>An entity is the most basic unit for composition.
-On itself it doesn&#39;t do anything except be a collection of components.
+On itself it doesn&apos;t do anything except be a collection of components.
 Each added component adds more abilities to the entity.
 For example, adding a &quot;talk&quot; component to the entity, will give the entity the ability to talk.</p>
 </section>
@@ -473,7 +473,7 @@ This can be useful for having special &quot;Exit&quot; cursors for doors (for ex
       <section><p>Gives an entity the ability to have an outfit (and be able to change outfits).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IHasRoom.html">IHasRoom</a></h4>
-      <section><p>This component associates an entity with the game&#39;s room system.
+      <section><p>This component associates an entity with the game&apos;s room system.
 It means that the entity can be belong to a room and moved between rooms.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IHotspotComponent.html">IHotspotComponent</a></h4>
@@ -489,12 +489,12 @@ It means that the entity can be belong to a room and moved between rooms.</p>
       <section><p>A component which allows setting an image to the entity.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IImageRenderer.html">IImageRenderer</a></h4>
-      <section><p>An interface for rendering image on screen. There&#39;s a default renderer
+      <section><p>An interface for rendering image on screen. There&apos;s a default renderer
 which is used for object, which you can override with your own implementation (though
 this will require advanced coding knowledge).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IInObjectTree.html">IInObjectTree</a></h4>
-      <section><p>A component which adds the ability for an entity to be a part of an object&#39;s tree.</p>
+      <section><p>A component which adds the ability for an entity to be a part of an object&apos;s tree.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IInput.html">IInput</a></h4>
       <section><p>The entry point for getting input from the user (keyboard/mouse/touch).</p>
@@ -506,10 +506,10 @@ this will require advanced coding knowledge).</p>
       <section><p>Allows subscribing interaction events (to define what happens when an object is looked at/interacted with/etc). </p>
 </section>
       <h4><a class="xref" href="AGS.API.IInTree-1.html">IInTree&lt;TItem&gt;</a></h4>
-      <section><p>A component which adds the ability for an entity to be a part of an entity&#39;s tree.</p>
+      <section><p>A component which adds the ability for an entity to be a part of an entity&apos;s tree.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IInventory.html">IInventory</a></h4>
-      <section><p>The character&#39;s inventory. Those are the items that the character holds in his/her (usually) imaginary bag.
+      <section><p>The character&apos;s inventory. Those are the items that the character holds in his/her (usually) imaginary bag.
 It is composed of a list of inventory items, and one active item that the character holds in his/her hand.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IInventoryFactory.html">IInventoryFactory</a></h4>
@@ -545,8 +545,8 @@ for displaying inventory items in a window.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IModalWindowComponent.html">IModalWindowComponent</a></h4>
       <section><p>Adds the ability for a window to be modal (blocks input from other windows).
-For example, if you create a &quot;Save Game&quot; dialog, you wouldn&#39;t want to be able to open the inventory
-when the dialog is showing, so you&#39;ll make the dialog a modal window, then you can grab focus 
+For example, if you create a &quot;Save Game&quot; dialog, you wouldn&apos;t want to be able to open the inventory
+when the dialog is showing, so you&apos;ll make the dialog a modal window, then you can grab focus 
 when the window is shown, and lose focus when the window is closed.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IModelMatrixComponent.html">IModelMatrixComponent</a></h4>
@@ -571,7 +571,7 @@ where other animations can be added to the outfit manually.</p>
       <h4><a class="xref" href="AGS.API.IPanel.html">IPanel</a></h4>
       <section><p>A panel is a UI control which hosts other UI controls.
 Note: the panel is in fact completely unnecessary, as any other UI control can host UI controls as well,
-but it&#39;s here as it provides a clear intent on its use.</p>
+but it&apos;s here as it provides a clear intent on its use.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IPathFinder.html">IPathFinder</a></h4>
       <section><p>This implements a path finder, to find a walking path from a position in 2D space to another position,
@@ -601,10 +601,10 @@ In addition, render layers add support for assigning different parallax speeds, 
 Speech layer is in front to ensure that displayed text can always be seen. This is the default layer used for Character.Say.
 UI layer is next, to ensure that it can always be seen (unless obstructed by text). This is the default layer used for all UI controls.
 This is followed by the Foreground layer, which is the default for all non UI objects.
-And lastly the Background layer, which is the default for the room&#39;s background graphics.
-You can assign those layers yourself, using AGSLayers static class:<br><example>
+And lastly the Background layer, which is the default for the room&apos;s background graphics.
+You can assign those layers yourself, using AGSLayers static class:<br><example><p>
 <pre><code>cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!</code></pre>
-</example></p>
+<p></example></p>
 </section>
       <h4><a class="xref" href="AGS.API.IResource.html">IResource</a></h4>
       <section><p>A resource is any asset which is loaded from a stream of data (could be from a file, or embedded in memory, or network stream,
@@ -615,16 +615,16 @@ or any other stream).</p>
 They can be embedded in the project or loaded from the file system.
 This interface allows for loading resource either from the embedded project files or from the file system.</p>
 <p>The advantage of having the resources embedded is that you can rest assured the resources will be distributed with your game and cannot be touched from outside, 
-which is why it&#39;s the recommended method. Loading from file system might be useful if you need the resources to 
+which is why it&apos;s the recommended method. Loading from file system might be useful if you need the resources to 
 be loaded dynamically, for example you might want to download resources from the internet, or if you give the 
 user the option to choose her/his avatar.
 To embed resources in your game project, first add the resource files to the &quot;Assets&quot; folder in your shared game 
-project(it doesn&#39;t have to be in the root &quot;Assets&quot; folder, you can have any structure you want in there). 
+project(it doesn&apos;t have to be in the root &quot;Assets&quot; folder, you can have any structure you want in there). 
 Then, in the solution explorer, right click the &quot;Assets&quot; folder and &quot;Add Existing&quot; (there are options for 
 adding files or complete folders, depending on what you want to do) and add those resources to the project. 
 You should then see those resources in the tree. Lastly, right click those resources and select 
 &quot;Embedded Resource&quot; as your &quot;Build Option&quot;.
-Note that even the resource is embedded, it&#39;s only embedded when compiling the game, so you cannot delete the 
+Note that even the resource is embedded, it&apos;s only embedded when compiling the game, so you cannot delete the 
 file before deploying your game, and if you replace the file, it will be automatically replaced in the game 
 on your next run.</p>
 <p>The path used by the loading methods has to be structured as so: if the resource is to be loaded from a file 
@@ -695,19 +695,19 @@ the text (and the portrait, if portrait rendering is desired) will be rendered. 
 </section>
       <h4><a class="xref" href="AGS.API.IScalingArea.html">IScalingArea</a></h4>
       <section><p>This component adds the ability for an area to automatically scale each object/character within it
-(and also &#39;scale&#39; the volume of sounds coming from that object).
+(and also &apos;scale&apos; the volume of sounds coming from that object).
 The most common use is for faking perspective, so that when a character walks to the top of the screen
 (closer to the horizon), he will appear smaller and make quieter sounds.
-For that common use case, you&#39;ll want to scale on the Y axis (which is why Y axis is the default),
+For that common use case, you&apos;ll want to scale on the Y axis (which is why Y axis is the default),
 and scale both the object x &amp;&amp; y (to keep the aspect ration in tact).</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISelectableIcon.html">ISelectableIcon</a></h4>
       <section><p>An icon which has two modes: selected and not selected.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IShader.html">IShader</a></h4>
-      <section><p>Represents a shader which is a user defined program that can be written to directly affect what&#39;s rendered on the screen.
+      <section><p>Represents a shader which is a user defined program that can be written to directly affect what&apos;s rendered on the screen.
 See here: <a href="https://www.opengl.org/wiki/Shader">https://www.opengl.org/wiki/Shader</a>
-We&#39;re currently supporting vertex &amp; fragment shaders.</p>
+We&apos;re currently supporting vertex &amp; fragment shaders.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IShaderComponent.html">IShaderComponent</a></h4>
       <section><p>This component provides a way to attach a shader to your entities</p>
@@ -726,7 +726,7 @@ up with the Resolver.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISkinComponent.html">ISkinComponent</a></h4>
       <section><p>Allows skinning (providing a common custom theme to) an entity.
-It&#39;s usually used for GUIs.
+It&apos;s usually used for GUIs.
 For example, you might have a blue themed skin which gives all controls a common blue-ish look.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISlider.html">ISlider</a></h4>
@@ -739,13 +739,13 @@ a line (usually).</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISound.html">ISound</a></h4>
       <section><p>An instance of a playing sound.
-You&#39;ll usually use an <a class="xref" href="AGS.API.IAudioClip.html">IAudioClip</a> to play a sound, and control the playing sound from this interface. </p>
+You&apos;ll usually use an <a class="xref" href="AGS.API.IAudioClip.html">IAudioClip</a> to play a sound, and control the playing sound from this interface. </p>
 </section>
       <h4><a class="xref" href="AGS.API.ISoundEmitter.html">ISoundEmitter</a></h4>
       <section><p>A sound emitter allows to bind an audio clip to an entity which is moving on a screen.
 Playing a sound from the emitter will pan it or set the volume (both can be turned off) to sound like
 it coming from the same location the entity is in.
-You can also assign the emitter to automatically play the sound on specific animation frames (so it&#39;s a 
+You can also assign the emitter to automatically play the sound on specific animation frames (so it&apos;s a 
 perfect fit for footsteps, for example).</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISoundPlayer.html">ISoundPlayer</a></h4>
@@ -756,7 +756,7 @@ perfect fit for footsteps, for example).</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISpeechCache.html">ISpeechCache</a></h4>
       <section><p>The speech cache is responsible for providing the correct audio clips to play for a specific text 
-that&#39;s being said.</p>
+that&apos;s being said.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISpeechLine.html">ISpeechLine</a></h4>
       <section><p>Represents a line of speech (text and sound).</p>
@@ -770,8 +770,8 @@ rules on how to read the sprites to perform an animation (usually).</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISquare.html">ISquare</a></h4>
       <section><p>Represents a square.</p>
-<p>Note: the points are listed as bottom left, bottom right, etc, even though it&#39;s not accurate.
-A square doesn&#39;t really have bottom left, it just has 4 points. 
+<p>Note: the points are listed as bottom left, bottom right, etc, even though it&apos;s not accurate.
+A square doesn&apos;t really have bottom left, it just has 4 points. 
 We use these descriptors for convenience, since each square in our engine was converted from
 a rectangle which does have bottom left, etc.
 Also, the order of the points is important for the &quot;Contains&quot; calculation.</p>
@@ -809,7 +809,7 @@ for allowing editing/inserting text.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ITreeNode-1.html">ITreeNode&lt;TItem&gt;</a></h4>
       <section><p>A node in a tree.
-A tree is a structure in which every node can have one parent (or no parent if it&#39;s the root)
+A tree is a structure in which every node can have one parent (or no parent if it&apos;s the root)
 and several children (or no children, which will make it a leaf in the tree).</p>
 </section>
       <h4><a class="xref" href="AGS.API.ITreeNodeView.html">ITreeNodeView</a></h4>

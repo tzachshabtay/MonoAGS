@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IWalkBehavior
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IWalkBehavior">
   
   
-  <h1 id="AGS_API_IWalkBehavior" data-uid="AGS.API.IWalkBehavior">Interface IWalkBehavior
+  <h1 id="AGS_API_IWalkBehavior" data-uid="AGS.API.IWalkBehavior" class="text-break">Interface IWalkBehavior
   </h1>
   <div class="markdown level0 summary"><p>Gives an entity the ability to walk around the room.</p>
 </div>
@@ -120,7 +120,7 @@ public interface IWalkBehavior : IComponent, IDisposable</code></pre>
   <a id="AGS_API_IWalkBehavior_AdjustWalkSpeedToScaleArea_" data-uid="AGS.API.IWalkBehavior.AdjustWalkSpeedToScaleArea*"></a>
   <h4 id="AGS_API_IWalkBehavior_AdjustWalkSpeedToScaleArea" data-uid="AGS.API.IWalkBehavior.AdjustWalkSpeedToScaleArea">AdjustWalkSpeedToScaleArea</h4>
   <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.IWalkBehavior.html">IWalkBehavior</a> adjust the walk speed to
-the scaling area (i.e for a scaling area that shrinks the character to simulate a far away place, you&#39;ll want the character to walk slower).</p>
+the scaling area (i.e for a scaling area that shrinks the character to simulate a far away place, you&apos;ll want the character to walk slower).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -221,7 +221,7 @@ This can be useful for debugging issues with the path finder algorithm.</p>
 This is on by default, meaning that the walk step would only be performed when the walk animation frame changes.
 For the walk to look right, the images need to be drawn so that a foot touching the ground moves back a 
 constant amount of pixels in between frames. This amount should then be entered as the <a class="xref" href="AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_WalkStep">WalkStep</a>, 
-and not touched any further. Any speed adjustment should only done by changing the animation speed (the animation&#39;s <a class="xref" href="AGS.API.IAnimationConfiguration.html#AGS_API_IAnimationConfiguration_DelayBetweenFrames">DelayBetweenFrames</a> property 
+and not touched any further. Any speed adjustment should only done by changing the animation speed (the animation&apos;s <a class="xref" href="AGS.API.IAnimationConfiguration.html#AGS_API_IAnimationConfiguration_DelayBetweenFrames">DelayBetweenFrames</a> property 
 and an optional additional delay for the actual running frame).</p>
 <p>If this is turned off, then the walk step would be performed on each frame making for a smooth movement.
 Note that if the walk animation only has a single frame, then the engine will ignore the configuration
@@ -231,7 +231,7 @@ and will treat it as false.</p>
 If you turn this off (for a character which has legs) while the movement will look smoother, it
 will also cause a gliding effect, caused by the fact that the movement is not in sync with the animation
 of the moving feet.
-If your character doesn&#39;t have legs (a robot, a floating ghost, etc), turning this off would make
+If your character doesn&apos;t have legs (a robot, a floating ghost, etc), turning this off would make
 for a smoother looking walk.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -300,10 +300,10 @@ or the last destination the character was walking to (if currently not walking).
   <div class="markdown level1 summary"><p>Gets or sets the walk step.
 The walk speed is actually the number of pixels the character moves each time he/she/it moves.
 If <a class="xref" href="AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_MovementLinkedToAnimation">MovementLinkedToAnimation</a> is turned off, the step would be made on each frame, making for a smooth movement.
-This means that for this state, the walk step is the sole &#39;decision maker&#39; for the walking speed of the character.
+This means that for this state, the walk step is the sole &apos;decision maker&apos; for the walking speed of the character.
 If <a class="xref" href="AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_MovementLinkedToAnimation">MovementLinkedToAnimation</a> is turned on (the default), the step would be made each time the animation frame changes.
 This means that for this state, the walk step should be setup once (it needs to match exactly the amount of pixels the leg moves in the drawings)
-when the actual controller of the walk speed is the animation&#39;s speed (the animation&#39;s <a class="xref" href="AGS.API.IAnimationConfiguration.html#AGS_API_IAnimationConfiguration_DelayBetweenFrames">DelayBetweenFrames</a> property 
+when the actual controller of the walk speed is the animation&apos;s speed (the animation&apos;s <a class="xref" href="AGS.API.IAnimationConfiguration.html#AGS_API_IAnimationConfiguration_DelayBetweenFrames">DelayBetweenFrames</a> property 
 and an optional additional delay for the actual running frame).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -405,20 +405,20 @@ Otherwise it would try to place it on a walkable area close by.</p>
   <h4 id="AGS_API_IWalkBehavior_WalkAsync_AGS_API_ILocation_" data-uid="AGS.API.IWalkBehavior.WalkAsync(AGS.API.ILocation)">WalkAsync(ILocation)</h4>
   <div class="markdown level1 summary"><p>Walks asynchronously to the specified location.
 <example>
-Let&#39;s start walking to the chair, say something about it while we&#39;re walking,
-and then properly respond if the user decided they want to walk somewhere else before we got to the chair.
-<pre><code>Task&lt;bool&gt; walkSuccessful = cHero.WalkAsync(oChair.Location);
-await cHero.SayAsync("I'm walking to the chair!");
+Let&apos;s start walking to the chair, say something about it while we&apos;re walking,
+and then properly respond if the user decided they want to walk somewhere else before we got to the chair.<p>
+<pre><code>Task&lt;bool> walkSuccessful = cHero.WalkAsync(oChair.Location);
+await cHero.SayAsync(&quot;I&apos;m walking to the chair!&quot;);
 if (await walkSuccessful)
 {
-    cHero.Say("And now I'm sitting!");
+    cHero.Say(&quot;And now I&apos;m sitting!&quot;);
     sitOnChair();
 }
 else
 {
-    cHero.Say("You know what, that the chair doesn't look too comfortable, I think I'll pass.");
+    cHero.Say(&quot;You know what, that the chair doesn&apos;t look too comfortable, I think I&apos;ll pass.&quot;);
 }</code></pre>
-</example></p>
+<p></example></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>

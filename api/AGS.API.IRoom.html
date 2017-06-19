@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IRoom
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IRoom">
   
   
-  <h1 id="AGS_API_IRoom" data-uid="AGS.API.IRoom">Interface IRoom
+  <h1 id="AGS_API_IRoom" data-uid="AGS.API.IRoom" class="text-break">Interface IRoom
   </h1>
   <div class="markdown level0 summary"><p>The rooms are where the game takes place. A room can be a room in a house, or an outdoor location, or 
 anything in between.
@@ -191,7 +191,7 @@ available on regular objects.</p>
   <a id="AGS_API_IRoom_Edges_" data-uid="AGS.API.IRoom.Edges*"></a>
   <h4 id="AGS_API_IRoom_Edges" data-uid="AGS.API.IRoom.Edges">Edges</h4>
   <div class="markdown level1 summary"><p>Room edges are a convenient way for scripting a room change once a player walks beyond an edge. 
-You can set the &#39;X&#39; for the left and right edge, and the &#39;Y&#39; for the top and bottom edge and subscribe to 
+You can set the &apos;X&apos; for the left and right edge, and the &apos;Y&apos; for the top and bottom edge and subscribe to 
 events when the player crosses the edge to change the room.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -449,10 +449,12 @@ This can be changed, however, by setting this property to a different room limit
     </tbody>
   </table>
   <h5 id="AGS_API_IRoom_RoomLimitsProvider_examples">Examples</h5>
-  <p>You can use the AGSRoomLimits class, which provides some built in options for room limits:
-<pre><code>room.RoomLimitsProvider = AGSRoomLimits.FromBackground; //This is the default option<p>
-<p>room.RoomLimitsProvider = AGSRoomLimits.Infinite; //A room &quot;without&quot; limits. The only limits enforced are due to the coordinates supplied in floating points, so the actual limits for the room will be -3.402823e38 - 3.402823e38 (i.e 3402823 + 38 zeroes).</p>
-<p>room.RoomLimitsProvider = AGSRoomLimits.Custom(new RectangleF(-50f, 0f, 100f, 200f)); //The room starts at (-50,0) and has a size of (100,200).</code></pre></p>
+  <p>You can use the AGSRoomLimits class, which provides some built in options for room limits:</p>
+<pre><code>room.RoomLimitsProvider = AGSRoomLimits.FromBackground; //This is the default option
+
+room.RoomLimitsProvider = AGSRoomLimits.Infinite; //A room &quot;without&quot; limits. The only limits enforced are due to the coordinates supplied in floating points, so the actual limits for the room will be -3.402823e38 - 3.402823e38 (i.e 3402823 + 38 zeroes).
+
+room.RoomLimitsProvider = AGSRoomLimits.Custom(new RectangleF(-50f, 0f, 100f, 200f)); //The room starts at (-50,0) and has a size of (100,200).</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -584,7 +586,7 @@ A viewport to the room instructs the engine on what parts of the room to show.</
     <tbody>
       <tr>
         <td><span class="parametername">TObject</span></td>
-        <td><p>The object&#39;s type.</p>
+        <td><p>The object&apos;s type.</p>
 </td>
       </tr>
     </tbody>

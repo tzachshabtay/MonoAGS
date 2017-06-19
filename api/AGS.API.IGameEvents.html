@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IGameEvents
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IGameEvents">
   
   
-  <h1 id="AGS_API_IGameEvents" data-uid="AGS.API.IGameEvents">Interface IGameEvents
+  <h1 id="AGS_API_IGameEvents" data-uid="AGS.API.IGameEvents" class="text-break">Interface IGameEvents
   </h1>
   <div class="markdown level0 summary"><p>The game events, allows you to subscribe to important events that happen in the game.</p>
 </div>
@@ -100,7 +100,7 @@
   </span>
   <a id="AGS_API_IGameEvents_DefaultInteractions_" data-uid="AGS.API.IGameEvents.DefaultInteractions*"></a>
   <h4 id="AGS_API_IGameEvents_DefaultInteractions" data-uid="AGS.API.IGameEvents.DefaultInteractions">DefaultInteractions</h4>
-  <div class="markdown level1 summary"><p>Defines the default interactions for objects on the screen that can be interacted in some way, but for which we haven&#39;t
+  <div class="markdown level1 summary"><p>Defines the default interactions for objects on the screen that can be interacted in some way, but for which we haven&apos;t
 defined specific interactions.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -205,10 +205,10 @@ and do specific actions when the conditions fulfill.
 The frequency of this events depends on the FPS (frames per second). By default, if the hardware (and software) can handle it,
 we run at 60 FPS, meaning this event will be called 60 times per second.</p>
 <p>IMPORTANT: As this event runs 60 times per second (by default), it can be abused and deteriorate the performance of the game.
-So it&#39;s important to keep two rules:</p>
+So it&apos;s important to keep two rules:</p>
 <ol>
-<li>Don&#39;t perform long actions on each tick.</li>
-<li>Don&#39;t allocate memory on each tick.</li>
+<li>Don&apos;t perform long actions on each tick.</li>
+<li>Don&apos;t allocate memory on each tick.</li>
 </ol>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -233,23 +233,25 @@ So it&#39;s important to keep two rules:</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IGameEvents_OnRepeatedlyExecute_examples">Examples</h5>
-  <p>Let&#39;s look at some bad and good examples on how to use the event:
+  <p>Let&apos;s look at some bad and good examples on how to use the event:</p>
 <pre><code>private void onRepeatedlyExecute(object sender, AGSEventArgs)
-{<br>    //BAD!! running the dance animation on every tick will make the game run incredibly slow! 
-    performDanceAnimation(); <p>
-<pre><code>//BAD!! It&#39;s better than the previous line, but still, if the IsDancing will return true, we will be running the dance animation on every tick!
-if (cEgo.IsDancing()) performDanceAnimation(); 
+{        
+    //BAD!! running the dance animation on every tick will make the game run incredibly slow! 
+    performDanceAnimation(); 
 
-//GOOD! We only running the dance animation once, not every tick, so we should be ok.
-if (cEgo.IsDancing() &amp;amp;&amp;amp; Repeat.OnceOnly(&quot;DanceAnimation!!&quot;)) performDanceAnimation(); 
+    //BAD!! It&apos;s better than the previous line, but still, if the IsDancing will return true, we will be running the dance animation on every tick!
+    if (cEgo.IsDancing()) performDanceAnimation(); 
 
-//BAD!! We&#39;re allocating memory on every tick (the memory that we&#39;re allocating is the class we created called CheckShouldRunDance).
-CheckShouldRunDance shouldRunDance = new CheckShouldRunDance();
-if (shouldRunDance.ShouldDance() &amp;amp;&amp;amp; Repeat.OnceOnly(&quot;DanecAnimation!!&quot;)) performDanceAnimation();
+    //GOOD! We only running the dance animation once, not every tick, so we should be ok.
+    if (cEgo.IsDancing() &amp;&amp; Repeat.OnceOnly(&quot;DanceAnimation!!&quot;)) performDanceAnimation(); 
 
-//GOOD!! We allocated this class outside the method once, and now we can use it (note the underscore prefix is just a convention used for class variables)...
-if (_shouldRunDance.ShouldDance() &amp;amp;&amp;amp; Repeat.OnceOnly(&quot;DanceAnimation!!&quot;)) performDanceAnimation();
-</code></pre><p>}</code></pre>        </p>
+    //BAD!! We&apos;re allocating memory on every tick (the memory that we&apos;re allocating is the class we created called CheckShouldRunDance).
+    CheckShouldRunDance shouldRunDance = new CheckShouldRunDance();
+    if (shouldRunDance.ShouldDance() &amp;&amp; Repeat.OnceOnly(&quot;DanecAnimation!!&quot;)) performDanceAnimation();
+
+    //GOOD!! We allocated this class outside the method once, and now we can use it (note the underscore prefix is just a convention used for class variables)...
+    if (_shouldRunDance.ShouldDance() &amp;&amp; Repeat.OnceOnly(&quot;DanceAnimation!!&quot;)) performDanceAnimation();
+}</code></pre>        
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -286,57 +288,66 @@ This event can be used to rewire external code back to the game, and to make cha
   </table>
   <h5 id="AGS_API_IGameEvents_OnSavedGameLoad_examples">Examples</h5>
   <p>This examples show how we rewire external code back to the saved game.
-Let&#39;s say we saved the player to an external variable which is used outside the game state:
-<pre><code>IPlayer _player;<p>
-<p>public void LoadModule(IGame game)
+Let&apos;s say we saved the player to an external variable which is used outside the game state:</p>
+<pre><code>IPlayer _player;
+
+public void LoadModule(IGame game)
 {
     _player = game.State.Player;
-}</code></pre></p>
+}</code></pre>
+
 <p>All is nice and well, but if we load a saved game, _player will point to the player from before the save.
-We want to &quot;rewire&quot; it back to hold the correct player after the save, so we can rewrite the code like this:
+We want to &quot;rewire&quot; it back to hold the correct player after the save, so we can rewrite the code like this:</p>
 <pre><code>private IPlayer _player;
-private IGame _game;<p>
-<p>public void LoadModule(IGame game)
+private IGame _game;
+
+public void LoadModule(IGame game)
 {
     _game = game;
     _player = game.State.Player;
     game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoad);
-}</p>
-<p>public void DisposeModule()
+}
+
+public void DisposeModule()
 {
-    //Whenever we subscribe to an event we need to remember to unsubscribe when we don&#39;t need it anymore, to avoid memory leaks.
+    //Whenever we subscribe to an event we need to remember to unsubscribe when we don&apos;t need it anymore, to avoid memory leaks.
     game.Events.OnSavedGameLoad.Unsubscribe(onSavedGameLoad);
-}</p>
-<p>private void onSavedGameLoad(object sender, AGSEventArgs args)
+}
+
+private void onSavedGameLoad(object sender, AGSEventArgs args)
 {
     _player = game.State.Player; //We rewire the _player variable to refer to the correct player!
-}</code></pre></p>
+}</code></pre>
 
-  <p>Let&#39;s look at an example of loading an incompatible save (a save from a previous version of the game).
-Let&#39;s say that we added a new version of our game with a new inventory item: a bowling ball.
+  <p>Let&apos;s look at an example of loading an incompatible save (a save from a previous version of the game).
+Let&apos;s say that we added a new version of our game with a new inventory item: a bowling ball.
 That bowling ball did not exist in the previous version of the game, but since we added a new puzzle it is now needed.
 But the player might saved a game after the last point he/she could have acquired the bowling ball.
-We, as game designers, might decide, that if we have the candle, then it&#39;s not possible for us not to have the bowling ball.
-So we can code it like this:
-<pre><code><br>private IGame _game;<p>
-<p>public void LoadModule(IGame game)
+We, as game designers, might decide, that if we have the candle, then it&apos;s not possible for us not to have the bowling ball.
+So we can code it like this:</p>
+<pre><code>        
+private IGame _game;
+
+public void LoadModule(IGame game)
 {
     _game = game;
     game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoad);
-}</p>
-<p>public void DisposeModule()
+}
+
+public void DisposeModule()
 {
-    //Whenever we subscribe to an event we need to remember to unsubscribe when we don&#39;t need it anymore, to avoid memory leaks.
+    //Whenever we subscribe to an event we need to remember to unsubscribe when we don&apos;t need it anymore, to avoid memory leaks.
     _game.Events.OnSavedGameLoad.Unsubscribe(onSavedGameLoad);
-}</p>
-<p>private void onSavedGameLoad(object sender, AGSEventArgs args)
+}
+
+private void onSavedGameLoad(object sender, AGSEventArgs args)
 {
     var inventory = _game.State.Player.Character.Inventory;
     if (inventory.Contains(iCandle) &amp;&amp; !inventory.Contains(iBowlingBall))
     {
         inventory.Add(iBowlingBall);
     }
-}</code></pre></p>
+}</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>

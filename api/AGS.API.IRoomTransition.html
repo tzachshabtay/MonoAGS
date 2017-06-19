@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IRoomTransition
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IRoomTransition">
   
   
-  <h1 id="AGS_API_IRoomTransition" data-uid="AGS.API.IRoomTransition">Interface IRoomTransition
+  <h1 id="AGS_API_IRoomTransition" data-uid="AGS.API.IRoomTransition" class="text-break">Interface IRoomTransition
   </h1>
   <div class="markdown level0 summary"><p>This interface allows you to create custom room transitions, to build all kinds of special effects
 when transitioning from room to room.</p>
@@ -151,13 +151,14 @@ all objects that are rendered in the scene, sorted by their order.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IRoomTransition_RenderAfterEnteringRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject___examples">Examples</h5>
-  <p>Let&#39;s only render every 3rd object!
+  <p>Let&apos;s only render every 3rd object!</p>
 <pre><code>for (int i = 0; i &lt; displayList.Count; i++)
 {
     if (i %% 3 != 0) continue;
     renderObj(displayList[i]);
-}<p>
-<p>return true; //Note that this room transition will never end if we always return true, at some point we need to return false...</code></pre></p>
+}
+
+return true; //Note that this room transition will never end if we always return true, at some point we need to return false...</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -217,8 +218,8 @@ all objects that are rendered in the scene, sorted by their order.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IRoomTransition_RenderBeforeLeavingRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject___examples">Examples</h5>
-  <p>Let&#39;s render all objects with a yellow tint:
-<pre><code>public bool RenderBeforeLeavingRoom(List&lt;IObject&gt; displayList, Action&lt;IObject&gt; renderObj)
+  <p>Let&apos;s render all objects with a yellow tint:</p>
+<pre><code>public bool RenderBeforeLeavingRoom(List&lt;IObject> displayList, Action&lt;IObject> renderObj)
 {
     foreach (var obj in displayList)
     {
@@ -228,7 +229,7 @@ all objects that are rendered in the scene, sorted by their order.</p>
         obj.Tint = currentTint;
     }
     return true; //Note that this room transition will never end if we always return true, at some point we need to return false...
-}</code></pre></p>
+}</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -287,14 +288,16 @@ all objects that are rendered in the scene, sorted by their order.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IRoomTransition_RenderTransition_AGS_API_IFrameBuffer_AGS_API_IFrameBuffer__examples">Examples</h5>
-  <p>Let&#39;s render the &quot;old&quot; screenshot with half opacity over the &quot;new&quot; screenshot:
-<pre><code>QuadVectors _screenVectors = new QuadVectors(AGSGame.Game); //will create a quad covering the entire screen<p>
-<p>public bool RenderTransition(IFrameBuffer from, IFrameBuffer to)
+  <p>Let&apos;s render the &quot;old&quot; screenshot with half opacity over the &quot;new&quot; screenshot:</p>
+<pre><code>QuadVectors _screenVectors = new QuadVectors(AGSGame.Game); //will create a quad covering the entire screen
+
+public bool RenderTransition(IFrameBuffer from, IFrameBuffer to)
 {
     _screenVectors.Render(to.Texture);
-    _screenVectors.Render(from.Texture, a: 0.5f);</p>
-<pre><code>return true; //Note that this room transition will never end if we always return true, at some point we need to return false...
-</code></pre><p>}</code></pre></p>
+    _screenVectors.Render(from.Texture, a: 0.5f);
+
+    return true; //Note that this room transition will never end if we always return true, at some point we need to return false...
+}</code></pre>
 
 </article>
           </div>

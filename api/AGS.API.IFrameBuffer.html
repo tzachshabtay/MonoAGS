@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IFrameBuffer
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IFrameBuffer">
   
   
-  <h1 id="AGS_API_IFrameBuffer" data-uid="AGS.API.IFrameBuffer">Interface IFrameBuffer
+  <h1 id="AGS_API_IFrameBuffer" data-uid="AGS.API.IFrameBuffer" class="text-break">Interface IFrameBuffer
   </h1>
   <div class="markdown level0 summary"><p>Allows rendering into a texture instead of rendering to screen</p>
 </div>
@@ -135,7 +135,7 @@
   <a id="AGS_API_IFrameBuffer_Begin_" data-uid="AGS.API.IFrameBuffer.Begin*"></a>
   <h4 id="AGS_API_IFrameBuffer_Begin" data-uid="AGS.API.IFrameBuffer.Begin">Begin()</h4>
   <div class="markdown level1 summary"><p>Signals that all following renders will be performed into the buffer instead of into the screen.
-&#39;Begin&#39; must be called from the rendering thread.
+&apos;Begin&apos; must be called from the rendering thread.
 Note: for room transition implementations, the frame buffer is already rendered with the room data, 
 prepared to be used, so calling Begin + End is not needed.
 <returns>Returns true if the frame buffer was correctly initialized, false if some error has occured.</returns></p>
@@ -171,7 +171,7 @@ prepared to be used, so calling Begin + End is not needed.
   <h4 id="AGS_API_IFrameBuffer_End" data-uid="AGS.API.IFrameBuffer.End">End()</h4>
   <div class="markdown level1 summary"><p>Signals that all following renders will no longer be performed into the buffer, 
 they will return to render into the screen (as usual).
-&#39;End&#39; must be called from the rendering thread (and after &#39;Begin&#39; or it has no value).
+&apos;End&apos; must be called from the rendering thread (and after &apos;Begin&apos; or it has no value).
 Note: for room transition implementations, the frame buffer is already rendered with the room data, 
 prepared to be used, so calling Begin + End is not needed.</p>
 </div>

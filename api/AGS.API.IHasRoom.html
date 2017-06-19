@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IHasRoom
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,9 +78,9 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IHasRoom">
   
   
-  <h1 id="AGS_API_IHasRoom" data-uid="AGS.API.IHasRoom">Interface IHasRoom
+  <h1 id="AGS_API_IHasRoom" data-uid="AGS.API.IHasRoom" class="text-break">Interface IHasRoom
   </h1>
-  <div class="markdown level0 summary"><p>This component associates an entity with the game&#39;s room system.
+  <div class="markdown level0 summary"><p>This component associates an entity with the game&apos;s room system.
 It means that the entity can be belong to a room and moved between rooms.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -152,7 +152,7 @@ This will be null if the entity has never moved rooms.</p>
   <a id="AGS_API_IHasRoom_Room_" data-uid="AGS.API.IHasRoom.Room*"></a>
   <h4 id="AGS_API_IHasRoom_Room" data-uid="AGS.API.IHasRoom.Room">Room</h4>
   <div class="markdown level1 summary"><p>The current room that the entity resides in.
-If this is entity is to be rendered to the screen it will only be rendered if it&#39;s in the same room as the player (or if it&#39;s in the UI).       </p>
+If this is entity is to be rendered to the screen it will only be rendered if it&apos;s in the same room as the player (or if it&apos;s in the UI).       </p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -186,7 +186,7 @@ If this is entity is to be rendered to the screen it will only be rendered if it
   <a id="AGS_API_IHasRoom_ChangeRoomAsync_" data-uid="AGS.API.IHasRoom.ChangeRoomAsync*"></a>
   <h4 id="AGS_API_IHasRoom_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single__" data-uid="AGS.API.IHasRoom.ChangeRoomAsync(AGS.API.IRoom,System.Nullable{System.Single},System.Nullable{System.Single})">ChangeRoomAsync(IRoom, Nullable&lt;Single&gt;, Nullable&lt;Single&gt;)</h4>
   <div class="markdown level1 summary"><p>Move the entity to a new room.
-If the entity that&#39;s moved to a new room is the player, the new room will be the one shown on the screen.</p>
+If the entity that&apos;s moved to a new room is the player, the new room will be the one shown on the screen.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -241,7 +241,7 @@ If the entity that&#39;s moved to a new room is the player, the new room will be
   <h5 id="AGS_API_IHasRoom_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single___examples">Examples</h5>
   <pre><code>private void onDoorHotspotClicked()
 {
-    cPlayer.Say("Ok, time to get inside the house.");
+    cPlayer.Say(&quot;Ok, time to get inside the house.&quot;);
     cPlayer.ChangeRoom(rHouse, 120, 100); //Will move the player to the house (to co-ordinates: 120,100).
 }</code></pre>
 

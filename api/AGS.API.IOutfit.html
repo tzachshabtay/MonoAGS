@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IOutfit
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IOutfit">
   
   
-  <h1 id="AGS_API_IOutfit" data-uid="AGS.API.IOutfit">Interface IOutfit
+  <h1 id="AGS_API_IOutfit" data-uid="AGS.API.IOutfit" class="text-break">Interface IOutfit
   </h1>
   <div class="markdown level0 summary"><p>An outfit is a collection of animations that are associated with a character.
 The collection can be swapped with another collection when the character changes his look.</p>
@@ -109,16 +109,17 @@ the other without).</p>
   <div class="markdown level1 summary"><p>Gets or sets an animation that will be associated with a specific key for this outfit.
 Some built in keys are expected by some components to change animations (idle, walk, speak).
 Custom animations can be added and accessed from the outfit as needed.
-<example>
+<example><p>
 <pre><code>cPlayer.Outfit[AGSOutfit.Walk] = aCrazyWalkAnimation;
 cPlayer.Outfit[AGSOutfit.Idle] = aPlayingYoyoAnimation;
 cPlayer.Outfit[AGSOutfit.Speak] = aScaryAnimation;
-cPlayer.Outfit[&quot;Jump&quot;] = aJumpAnimation;<p>
-<p>cPlayer.Walk(100, 200); //The crazy walk animation will now be used for walking to (100,200).
+cPlayer.Outfit[&quot;Jump&quot;] = aJumpAnimation;
+
+cPlayer.Walk(100, 200); //The crazy walk animation will now be used for walking to (100,200).
 Thread.Sleep(5000); //The player has finished walking, and sitting idle for 5 seconds during which the playing yoyo animation is playing
 cPlayer.Say(&quot;Do I scare you?&quot;); //The character will speak with the scary animation
 cPlayer.StartAnimation(cPlayer.Outfit[&quot;Jump&quot;].Left); //The character will do a jump left animation.</code></pre>
-</example></p>
+<p></example></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>

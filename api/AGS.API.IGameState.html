@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IGameState
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IGameState">
   
   
-  <h1 id="AGS_API_IGameState" data-uid="AGS.API.IGameState">Interface IGameState
+  <h1 id="AGS_API_IGameState" data-uid="AGS.API.IGameState" class="text-break">Interface IGameState
   </h1>
   <div class="markdown level0 summary"><p>The game state. This is the entry point for all &quot;changing&quot; things in the game.</p>
 </div>
@@ -132,8 +132,8 @@
   </span>
   <a id="AGS_API_IGameState_FocusedUI_" data-uid="AGS.API.IGameState.FocusedUI*"></a>
   <h4 id="AGS_API_IGameState_FocusedUI" data-uid="AGS.API.IGameState.FocusedUI">FocusedUI</h4>
-  <div class="markdown level1 summary"><p>Gets the UI controls which are currently getting focus (for example if a yes/no dialog pops up, it&#39;s focused
-and &quot;takes&quot; away the input from the game. If a text box is currently in use, it&#39;s focused and &quot;takes&quot; away
+  <div class="markdown level1 summary"><p>Gets the UI controls which are currently getting focus (for example if a yes/no dialog pops up, it&apos;s focused
+and &quot;takes&quot; away the input from the game. If a text box is currently in use, it&apos;s focused and &quot;takes&quot; away
 keyboard input from the game.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -263,7 +263,7 @@ For example, you can add a &quot;Score&quot; variable here, to keep the game sco
   </span>
   <a id="AGS_API_IGameState_Room_" data-uid="AGS.API.IGameState.Room*"></a>
   <h4 id="AGS_API_IGameState_Room" data-uid="AGS.API.IGameState.Room">Room</h4>
-  <div class="markdown level1 summary"><p>The game&#39;s current room.</p>
+  <div class="markdown level1 summary"><p>The game&apos;s current room.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -359,7 +359,7 @@ For example, you can add a &quot;Score&quot; variable here, to keep the game sco
   </span>
   <a id="AGS_API_IGameState_Speed_" data-uid="AGS.API.IGameState.Speed*"></a>
   <h4 id="AGS_API_IGameState_Speed" data-uid="AGS.API.IGameState.Speed">Speed</h4>
-  <div class="markdown level1 summary"><p>The speed of the game&#39;s updates. This is listed in percentage from 60 FPS. By default,
+  <div class="markdown level1 summary"><p>The speed of the game&apos;s updates. This is listed in percentage from 60 FPS. By default,
 this is 100, so 100% of 60 FPS which is 60 FPS. For 30 FPS, put 50 as your speed. Note
 that this is the target FPS, the target which the engine will attempt to accomplish, 
 there is no guarantee that it will actually succeed, though (that depends on the hardware
@@ -430,7 +430,7 @@ even if you switch between rooms (like the top bar, a hotspot label, inventory w
   </span>
   <a id="AGS_API_IGameState_ChangeRoomAsync_" data-uid="AGS.API.IGameState.ChangeRoomAsync*"></a>
   <h4 id="AGS_API_IGameState_ChangeRoomAsync_AGS_API_IRoom_System_Action_" data-uid="AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,System.Action)">ChangeRoomAsync(IRoom, Action)</h4>
-  <div class="markdown level1 summary"><p>Changes the game&#39;s room to a new room. This will trigger the room transition,
+  <div class="markdown level1 summary"><p>Changes the game&apos;s room to a new room. This will trigger the room transition,
 and then switch the camera to render the new room.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -557,7 +557,7 @@ and then switch the camera to render the new room.</p>
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">id</span></td>
-        <td><p>The entity&#39;s unique identifier.</p>
+        <td><p>The entity&apos;s unique identifier.</p>
 </td>
       </tr>
     </tbody>
@@ -589,7 +589,7 @@ and then switch the camera to render the new room.</p>
     <tbody>
       <tr>
         <td><span class="parametername">TEntity</span></td>
-        <td><p>The entity&#39;s type.</p>
+        <td><p>The entity&apos;s type.</p>
 </td>
       </tr>
     </tbody>

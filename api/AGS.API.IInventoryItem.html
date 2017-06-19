@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IInventoryItem
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IInventoryItem">
   
   
-  <h1 id="AGS_API_IInventoryItem" data-uid="AGS.API.IInventoryItem">Interface IInventoryItem
+  <h1 id="AGS_API_IInventoryItem" data-uid="AGS.API.IInventoryItem" class="text-break">Interface IInventoryItem
   </h1>
   <div class="markdown level0 summary"><p>Represents an inventory item that a character can hold in his/her inventory.</p>
 </div>
@@ -103,7 +103,7 @@
   <div class="markdown level1 summary"><p>Gets or sets the graphics that represents the inventory item when the mouse cursor is to be shaped like the inventory item
 (i.e when the character holds the inventory and wants to use it on something).
 The graphics can be a single image or an animation.
-This is only relevant when using a mouse cursor (in touch platforms it won&#39;t be used, unless we&#39;re simulating a mouse).</p>
+This is only relevant when using a mouse cursor (in touch platforms it won&apos;t be used, unless we&apos;re simulating a mouse).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -169,7 +169,7 @@ The graphics can be a single image or an animation.</p>
   <a id="AGS_API_IInventoryItem_Qty_" data-uid="AGS.API.IInventoryItem.Qty*"></a>
   <h4 id="AGS_API_IInventoryItem_Qty" data-uid="AGS.API.IInventoryItem.Qty">Qty</h4>
   <div class="markdown level1 summary"><p>Gets or sets the quantity of the item of the inventory.
-Most inventory items don&#39;t have quantity, they&#39;re either there or not.
+Most inventory items don&apos;t have quantity, they&apos;re either there or not.
 But, if the inventory item is money, for example, you can use the &quot;Qty&quot; variable to
 indicate how much money you currently have in your inventory.</p>
 </div>
@@ -206,7 +206,7 @@ indicate how much money you currently have in your inventory.</p>
   <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this inventory item is an inventory item that you can only interact with but not 
 combine with other items or objects in the room.
 Most items will have this as false, but it might be useful in rare cases.
-For example, if you have a trumpet, and you want the character to be able to play the trumpet at any given time, but don&#39;t actually
+For example, if you have a trumpet, and you want the character to be able to play the trumpet at any given time, but don&apos;t actually
 want to use the trumpet on other items, you can assign ShouldInteract = true, and subscribe to the interact event, in order to play the music.</p>
 </div>
   <div class="markdown level1 conceptual"></div>

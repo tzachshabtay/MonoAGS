@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IHasOutfit
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -78,7 +78,7 @@
             <article class="content wrap" id="_content" data-uid="AGS.API.IHasOutfit">
   
   
-  <h1 id="AGS_API_IHasOutfit" data-uid="AGS.API.IHasOutfit">Interface IHasOutfit
+  <h1 id="AGS_API_IHasOutfit" data-uid="AGS.API.IHasOutfit" class="text-break">Interface IHasOutfit
   </h1>
   <div class="markdown level0 summary"><p>Gives an entity the ability to have an outfit (and be able to change outfits).</p>
 </div>
@@ -142,13 +142,13 @@
     </tbody>
   </table>
   <h5 id="AGS_API_IHasOutfit_Outfit_examples">Examples</h5>
-  <pre><code>cHero.Say("Let's try on this cool hat."); //Hero speaks with the normal outfit- without the hat
+  <pre><code>cHero.Say(&quot;Let&apos;s try on this cool hat.&quot;); //Hero speaks with the normal outfit- without the hat
 var normalOutfit = cHero.Outfit; //Saving the current outfit so we can wear it back later
 cHero.Outfit = outfitWithHat;
-cHero.Say("Hmm, it looks nice, but not sure if it's comfortable."); //Character's animation now uses the hat for speaking.
-cHero.Walk(walkPoint); //Character's walk animation now includes the hat.
+cHero.Say(&quot;Hmm, it looks nice, but not sure if it&apos;s comfortable.&quot;); //Character&apos;s animation now uses the hat for speaking.
+cHero.Walk(walkPoint); //Character&apos;s walk animation now includes the hat.
 cHero.Outfit = normalOutfit;
-cHero.Say("Yeah, it's not comfortable, I took it down."); //Character's animation is now again without the hat</code></pre>
+cHero.Say(&quot;Yeah, it&apos;s not comfortable, I took it down.&quot;); //Character&apos;s animation is now again without the hat</code></pre>
 
   <h5 id="AGS_API_IHasOutfit_Outfit_seealso">See Also</h5>
   <div class="seealso">
