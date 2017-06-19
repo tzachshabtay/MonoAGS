@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using AGS.API;
-
 using Autofac;
 using System;
 
@@ -73,11 +72,12 @@ namespace AGS.Engine
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
-            if (width == -1f && idle != null && idle.Animation != null && idle.Animation.Frames.Count > 0)
+            bool pixelArtButton = idle != null && idle.Animation != null && idle.Animation.Frames.Count > 0;
+            if (width == -1f && pixelArtButton)
             {
                 width = idle.Animation.Frames[0].Sprite.Width;
             }
-            if (height == -1f && idle != null && idle.Animation != null && idle.Animation.Frames.Count > 0)
+            if (height == -1f && pixelArtButton)
             {
                 height = idle.Animation.Frames[0].Sprite.Height;
             }
@@ -92,13 +92,15 @@ namespace AGS.Engine
             button.HoverAnimation = hovered;
             button.PushedAnimation = pushed;
 
-            button.StartAnimation(button.IdleAnimation.Animation);
-            button.Tint = Colors.White;
+            button.Tint = pixelArtButton ? Colors.White : Colors.Transparent;
             button.X = x;
             button.Y = y;
             button.TextConfig = config;
             button.Text = text;
             setParent(button, parent);
+
+            if (button.Skin != null) button.Skin.Apply(button);
+            button.IdleAnimation.StartAnimation(button, button, button);
 
             if (addToUi)
                 _gameState.UI.Add(button);
@@ -161,11 +163,12 @@ namespace AGS.Engine
         public ICheckBox GetCheckBox(string id, ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation @checked, ButtonAnimation checkedHovered,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
         {
-            if (width == -1f && notChecked != null && notChecked.Animation != null && notChecked.Animation.Frames.Count > 0)
+            bool pixelArtButton = notChecked != null && notChecked.Animation != null && notChecked.Animation.Frames.Count > 0;
+            if (width == -1f && pixelArtButton)
             {
                 width = notChecked.Animation.Frames[0].Sprite.Width;
             }
-            if (height == -1f && notChecked != null && notChecked.Animation != null && notChecked.Animation.Frames.Count > 0)
+            if (height == -1f && pixelArtButton)
             {
                 height = notChecked.Animation.Frames[0].Sprite.Height;
             }
@@ -188,11 +191,13 @@ namespace AGS.Engine
             if (@checked != null) checkbox.CheckedAnimation = @checked;
             if (checkedHovered != null) checkbox.HoverCheckedAnimation = checkedHovered;
 
-            checkbox.StartAnimation(checkbox.NotCheckedAnimation.Animation);
-            checkbox.Tint = Colors.White;
+            checkbox.Tint = pixelArtButton ? Colors.White : Colors.Transparent;
             checkbox.X = x;
             checkbox.Y = y;
             setParent(checkbox, parent);
+
+            if (checkbox.Skin != null) checkbox.Skin.Apply(checkbox);
+            checkbox.StartAnimation(checkbox.NotCheckedAnimation.Animation);
 
             if (addToUi)
                 _gameState.UI.Add(checkbox);

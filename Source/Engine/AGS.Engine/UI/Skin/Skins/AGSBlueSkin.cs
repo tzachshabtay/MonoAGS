@@ -8,19 +8,18 @@ namespace AGS.Engine
 
         public AGSBlueSkin(IGraphicsFactory factory, IGLUtils glUtils)
         {
+            var buttonBorder = AGSBorders.SolidColor(glUtils, Colors.DarkBlue, 1f);
             _skin = new AGSColoredSkin(factory)
             {
-                ButtonIdleBackColor = Colors.CornflowerBlue,
-                ButtonHoverBackColor = Colors.Blue,
-                ButtonPushedBackColor = Colors.DarkSlateBlue,
-                ButtonBorderStyle = AGSBorders.SolidColor(glUtils, Colors.DarkBlue, 1f),
+                ButtonIdleAnimation = new ButtonAnimation(buttonBorder, null, Colors.CornflowerBlue),
+                ButtonHoverAnimation = new ButtonAnimation(buttonBorder, null, Colors.Blue),
+                ButtonPushedAnimation = new ButtonAnimation(buttonBorder, null, Colors.DarkSlateBlue),
                 TextBoxBackColor = Colors.CornflowerBlue,                
                 TextBoxBorderStyle = AGSBorders.SolidColor(glUtils, Colors.DarkBlue, 1f),
-                CheckboxCheckedColor = Colors.DarkSlateBlue,
-                CheckboxNotCheckedColor = Colors.CornflowerBlue,
-                CheckboxHoverCheckedColor = Colors.Blue,
-                CheckboxHoverNotCheckedColor = Colors.Blue,
-                CheckboxBorderStyle = AGSBorders.SolidColor(glUtils, Colors.DarkBlue, 1f),
+                CheckboxCheckedAnimation = new ButtonAnimation(buttonBorder, null, Colors.DarkSlateBlue),
+                CheckboxNotCheckedAnimation = new ButtonAnimation(buttonBorder, null, Colors.CornflowerBlue),
+                CheckboxHoverCheckedAnimation = new ButtonAnimation(buttonBorder, null, Colors.Blue),
+                CheckboxHoverNotCheckedAnimation = new ButtonAnimation(buttonBorder, null, Colors.Blue),
                 DialogBoxColor = Colors.DarkSlateBlue,
                 DialogBoxBorder = AGSBorders.SolidColor(glUtils, Colors.DarkBlue, 2f)
             };
