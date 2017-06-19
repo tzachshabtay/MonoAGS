@@ -34,8 +34,8 @@ namespace AGS.Engine
         {
             if (_glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
 
-            float width = _settings.VirtualResolution.Width;
-            float height = _settings.VirtualResolution.Height;
+            float width = _glUtils.CurrentResolution.Width;
+            float height = _glUtils.CurrentResolution.Height;
             float arrowWidth = width * (1f/2f);
             float arrowHeight = height * (1f/2f);
             float remainingWidth = width - arrowWidth;

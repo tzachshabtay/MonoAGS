@@ -15,22 +15,22 @@ namespace AGS.Engine
 
         private int _vbo, _ebo;
 
-        private int _lastResolutionWidth, _lastResolutionHeight;
-
         private readonly IGraphicsBackend _graphics;
 
         public GLUtils(IGraphicsBackend graphics)
         {
             _graphics = graphics;
+            CurrentResolution = new Size();
         }
 
         public static Rectangle ScreenViewport { get; private set; }
 
+        public Size CurrentResolution { get; private set; }
+
         public void AdjustResolution(int width, int height)
         {
-            if (_lastResolutionWidth == width && _lastResolutionHeight == height) return;
-            _lastResolutionWidth = width;
-            _lastResolutionHeight = height;
+            if (CurrentResolution.Width == width && CurrentResolution.Height == height) return;
+            CurrentResolution = new Size(width, height);
 
             _graphics.MatrixMode(MatrixType.Projection);
             _graphics.LoadIdentity();
@@ -140,8 +140,8 @@ namespace AGS.Engine
         {
             float width = square.MaxX - square.MinX;
             float height = square.MaxY - square.MinY;
-            var aspectRatio = new SizeF(settings.WindowSize.Width / (float)settings.VirtualResolution.Width,
-                                        settings.WindowSize.Height / (float)settings.VirtualResolution.Height);
+            var aspectRatio = new SizeF(settings.WindowSize.Width / CurrentResolution.Width,
+                                        settings.WindowSize.Height / CurrentResolution.Height);
 
             var frameBuffer = new GLFrameBuffer(new Size((int)Math.Ceiling(width * aspectRatio.Width),
                                                          (int)Math.Ceiling(height * aspectRatio.Height)), _graphics);

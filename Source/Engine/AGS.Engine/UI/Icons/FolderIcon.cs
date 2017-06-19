@@ -49,8 +49,8 @@ namespace AGS.Engine
         {
             if (_glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
 
-            float width = _settings.VirtualResolution.Width;
-            float height = _settings.VirtualResolution.Height;
+            float width = _glUtils.CurrentResolution.Width;
+            float height = _glUtils.CurrentResolution.Height;
             IGLColor color = IsSelected ? _selectedColor : _color;
             IGLColor foldColor = IsSelected ? _selectedFoldColor : _foldColor;
             float foldHeight = height * (1f / 5f);

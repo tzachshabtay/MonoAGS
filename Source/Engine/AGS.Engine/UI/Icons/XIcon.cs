@@ -9,7 +9,6 @@ namespace AGS.Engine
 
         private readonly IGLColor _color;
 
-        private readonly Vector2 _emptyVector = new Vector2();
         private IFrameBuffer _frameBuffer;
         private readonly GLVertex[] _quad = new GLVertex[4];
         private readonly float _lineWidth, _padding;
@@ -35,8 +34,8 @@ namespace AGS.Engine
         {
             if (_glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
 
-            float width = _settings.VirtualResolution.Width - _padding;
-            float height = _settings.VirtualResolution.Height - _padding;
+            float width = _glUtils.CurrentResolution.Width - _padding;
+            float height = _glUtils.CurrentResolution.Height - _padding;
 
             _frameBuffer = _glUtils.BeginFrameBuffer(square, _settings);
             _glUtils.DrawLine(_padding, _padding, width, height, _lineWidth, _color.R, _color.G, _color.B, _color.A);
