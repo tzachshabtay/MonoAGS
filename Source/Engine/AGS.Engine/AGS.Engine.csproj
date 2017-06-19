@@ -396,6 +396,7 @@
     <Compile Include="UI\Icons\XIcon.cs" />
     <Compile Include="Graphics\Logic\GLIconFactory.cs" />
     <Compile Include="Serialization\Contracts\ContractButtonAnimation.cs" />
+    <Compile Include="UI\Borders\AGSMultipleBorders.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
