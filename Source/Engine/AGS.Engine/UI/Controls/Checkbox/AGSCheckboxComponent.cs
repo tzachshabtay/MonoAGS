@@ -20,6 +20,8 @@ namespace AGS.Engine.UI.Controls
             base.Init(entity);
             _events = entity.GetComponent<IUIEvents>();
             _animation = entity.GetComponent<IAnimationContainer>();
+            _text = entity.GetComponent<ITextComponent>();
+            _image = entity.GetComponent<IImageComponent>();
 
             _events.MouseEnter.Subscribe(onMouseEnter);
             _events.MouseLeave.Subscribe(onMouseLeave);
