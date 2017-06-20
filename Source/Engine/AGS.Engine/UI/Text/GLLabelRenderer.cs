@@ -140,12 +140,7 @@ namespace AGS.Engine
             PointF hitTestResolutionFactor;
             Size resolution;
             PointF renderResolutionFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
-            if (string.IsNullOrEmpty(Text))
-            {
-                hitTestResolutionFactor = noFactor;
-                resolutionMatches = true;
-            }
-            else resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, drawable,
+            resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, drawable,
                                                                                   renderResolutionFactor, out hitTestResolutionFactor,
                                                                                   out resolution);
             if (!renderResolutionFactor.Equals(hitTestResolutionFactor))
