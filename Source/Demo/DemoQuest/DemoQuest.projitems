@@ -397,5 +397,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Program.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shaders.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GUI\FeaturesWindow\FeaturesTopWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\FeaturesWindow\FeaturesLabelsPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\FeaturesWindow\IFeaturesPanel.cs" />
   </ItemGroup>
 </Project>

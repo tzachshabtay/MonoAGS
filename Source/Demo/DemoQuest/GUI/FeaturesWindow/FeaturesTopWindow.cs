@@ -1,4 +1,6 @@
-﻿using AGS.API;
+﻿using System;
+using System.Collections.Generic;
+using AGS.API;
 using AGS.Engine;
 
 namespace DemoGame
@@ -6,17 +8,20 @@ namespace DemoGame
     public class FeaturesTopWindow
     {
 		private const string _panelId = "Features Panel";
-		private IPanel _panel;
+		private IPanel _panel, _rightSidePanel;
 		private IGame _game;
 
 		private string _lastMode;
 		private readonly RotatingCursorScheme _scheme;
         private readonly IRenderLayer _layer;
+        private Dictionary<string, Lazy<IFeaturesPanel>> _panels;
+        private IFeaturesPanel _currentPanel;
 
 		public FeaturesTopWindow(RotatingCursorScheme scheme)
 		{
 			_scheme = scheme;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z, independentResolution: new Size(1200, 800));
+            _panels = new Dictionary<string, Lazy<IFeaturesPanel>>();
 		}
 
         public void Load(IGame game)
@@ -34,33 +39,33 @@ namespace DemoGame
 			_panel.AddComponent<IModalWindowComponent>();
 
             var headerLabel = factory.UI.GetLabel("FeaturesHeaderLabel", "Guided Tour", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
-                                                  new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
-            headerLabel.TreeNode.SetParent(_panel.TreeNode);
+                                                  _panel, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
             headerLabel.Tint = Colors.Transparent;
             headerLabel.Border = _panel.Border;
             headerLabel.RenderLayer = _layer;
 
-            var xButton = factory.UI.GetButton("FeaturesCloseButton", (IAnimation)null, null, null, 0f, _panel.Height - headerHeight + 5f, "X", 
+            var xButton = factory.UI.GetButton("FeaturesCloseButton", (IAnimation)null, null, null, 0f, _panel.Height - headerHeight + 5f, _panel, "X", 
                                                new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
                                                                  autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter), 
                                                                  width: 40f, height: 40f);
             xButton.Anchor = new PointF();
-            xButton.TreeNode.SetParent(_panel.TreeNode);
             xButton.RenderLayer = _layer;
             xButton.Tint = Colors.Transparent;
             xButton.MouseEnter.Subscribe((_, __) => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
             xButton.MouseLeave.Subscribe((_, __) => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Red, Colors.Transparent, 0f));
             xButton.OnMouseClick(hide, _game);
 
-            var sidePanel = factory.UI.GetPanel("FeaturesSidePanel", _panel.Width / 4f, _panel.Height - headerHeight - borderWidth, 0f, 0f); 
-            sidePanel.TreeNode.SetParent(_panel.TreeNode);
-            sidePanel.Tint = _panel.Tint;
-            sidePanel.RenderLayer = _layer;
-            sidePanel.Border = _panel.Border;
+            var leftSidePanel = factory.UI.GetPanel("FeaturesLeftSidePanel", _panel.Width / 4f, _panel.Height - headerHeight - borderWidth, 0f, 0f, _panel); 
+            leftSidePanel.Tint = Colors.Transparent;
+            leftSidePanel.RenderLayer = _layer;
+            leftSidePanel.Border = _panel.Border;
 
-            var treePanel = factory.UI.GetPanel("FeaturesTreePanel", 1f, 1f, 0f, _panel.Height - headerHeight - 40f);
+            _rightSidePanel = factory.UI.GetPanel("FeaturesRightSidePanel", _panel.Width - leftSidePanel.Width, leftSidePanel.Height, leftSidePanel.Width, 0f, _panel);
+            _rightSidePanel.RenderLayer = _layer;
+            _rightSidePanel.Tint = Colors.Green.WithAlpha(50);
+
+            var treePanel = factory.UI.GetPanel("FeaturesTreePanel", 1f, 1f, 0f, _panel.Height - headerHeight - 40f, leftSidePanel);
             treePanel.Tint = Colors.Transparent;
-            treePanel.TreeNode.SetParent(sidePanel.TreeNode);
             treePanel.RenderLayer = _layer;
 
             var tree = createFeaturesLabel("Features", null);
@@ -68,7 +73,7 @@ namespace DemoGame
             var treeView = treePanel.AddComponent<ITreeViewComponent>();
 
             var uiLabel = createFeaturesLabel("GUIs", tree);
-            createFeaturesLabel("Labels", uiLabel);
+            createFeaturesLabel("Labels", uiLabel, () => new FeaturesLabelsPanel(_game, _rightSidePanel));
             createFeaturesLabel("Buttons", uiLabel);
             createFeaturesLabel("Skins", uiLabel);
 
@@ -77,6 +82,7 @@ namespace DemoGame
             createFeaturesLabel("Transforms", objLabel);
 
             treeView.Tree = tree;
+            treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
 
             _game.Events.OnSavedGameLoad.Subscribe((sender, args) => findPanel());
         }
@@ -90,10 +96,21 @@ namespace DemoGame
 			_panel.GetComponent<IModalWindowComponent>().GrabFocus();
 		}
 
-        private ITreeStringNode createFeaturesLabel(string text, ITreeStringNode parent)
+        private void onTreeNodeSelected(object sender, NodeEventArgs args)
+        {
+            var current = _currentPanel;
+            if (current != null) current.Close(); 
+            Lazy<IFeaturesPanel> panel;
+            if (!_panels.TryGetValue(args.Node.Text, out panel) || panel == null) return;
+            panel.Value.Show();
+            _currentPanel = panel.Value;
+        }
+
+        private ITreeStringNode createFeaturesLabel(string text, ITreeStringNode parent, Func<IFeaturesPanel> panel = null)
         {
             var node = new AGSTreeStringNode { Text = text };
             if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
+            _panels[text] = panel == null ? null : new Lazy<IFeaturesPanel>(panel);
             return node;
         }
 
