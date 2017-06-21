@@ -80,7 +80,7 @@ namespace Tests
             Mock<IFocusedUI> focusedUi = new Mock<IFocusedUI>();
             label.Setup(l => l.TreeNode).Returns(tree.Object);
             uiFactory.Setup(u => u.GetLabel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<float>(),
-                It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<ITextConfig>(), It.IsAny<bool>())).
+                It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<IObject>(), It.IsAny<ITextConfig>(), It.IsAny<bool>())).
                 Returns(label.Object);
             
 

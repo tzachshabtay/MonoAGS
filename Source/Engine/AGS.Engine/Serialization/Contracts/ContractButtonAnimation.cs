@@ -3,8 +3,11 @@ using ProtoBuf;
 
 namespace AGS.Engine
 {
+    [ProtoContract]
     public class ContractButtonAnimation : IContract<ButtonAnimation>
     {
+        public ContractButtonAnimation() { }
+
         [ProtoMember(1)]
         public IContract<IAnimation> Animation { get; set; }
 

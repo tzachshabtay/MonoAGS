@@ -51,7 +51,7 @@ namespace AGS.Engine
             skin.AddRule(entity => entity.GetComponent<ICheckboxComponent>() != null, entity => 
             {
                 var animContainer = entity.GetComponent<IAnimationContainer>();
-                var button = entity.GetComponent<ICheckBox>();
+                var button = entity.GetComponent<ICheckboxComponent>();
                 button.NotCheckedAnimation = getAnimation(animContainer, CheckboxNotCheckedAnimation);
                 button.CheckedAnimation = getAnimation(animContainer, CheckboxCheckedAnimation);
                 button.HoverCheckedAnimation = getAnimation(animContainer, CheckboxHoverCheckedAnimation);
