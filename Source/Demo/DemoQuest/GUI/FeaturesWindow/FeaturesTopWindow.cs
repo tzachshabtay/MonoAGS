@@ -30,7 +30,8 @@ namespace DemoGame
             const float borderWidth = 3f;
             _game = game;
             IGameFactory factory = game.Factory;
-            _panel = factory.UI.GetPanel(_panelId, 800, 600, 600f, 400f);
+            _panel = factory.UI.GetPanel(_panelId, 800, 600, 
+                 _layer.IndependentResolution.Value.Width / 2f, _layer.IndependentResolution.Value.Height / 2f);
 			_panel.Anchor = new PointF(0.5f, 0.5f);
 			_panel.Visible = false;
             _panel.Tint = Colors.Black;

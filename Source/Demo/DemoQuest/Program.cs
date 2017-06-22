@@ -3,14 +3,23 @@ using System.Threading.Tasks;
 using AGS.API;
 using System.Diagnostics;
 using DemoQuest;
+using System;
 
 namespace DemoGame
 {
 	public class DemoStarter
 	{
+        private static Lazy<GameDebugTree> _gameDebugTree;
+
 		public static void Run()
 		{
 			IGame game = AGSGame.CreateEmpty();
+            _gameDebugTree = new Lazy<GameDebugTree>(() =>
+            {
+                var gameDebugTree = new GameDebugTree(game);
+                gameDebugTree.Load();
+                return gameDebugTree;
+            });
 
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
             GLText.TextResolutionFactorX = 4;
@@ -60,6 +69,12 @@ namespace DemoGame
                 {
                     if (game.State.Cutscene.IsRunning) return;
                     game.Quit();
+                }
+                else if (args.Key == Key.G && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
+                {
+                    var gameDebug = _gameDebugTree.Value;
+                    if (gameDebug.Visible) gameDebug.Hide();
+                    else gameDebug.Show();
                 }
             });
         }
