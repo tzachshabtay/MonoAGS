@@ -47,6 +47,12 @@ namespace AGS.API
 		void StealParent(ITreeNode<TItem> victim);
 
         /// <summary>
+        /// Returns the root of the tree (the node which has no parent).
+        /// </summary>
+        /// <returns>The root.</returns>
+        TItem GetRoot();
+
+        /// <summary>
         /// Gets the number of children this node has.
         /// </summary>
         /// <value>The children count.</value>

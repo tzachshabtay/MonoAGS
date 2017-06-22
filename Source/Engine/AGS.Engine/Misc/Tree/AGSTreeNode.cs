@@ -83,6 +83,13 @@ namespace AGS.Engine
             fireParentChanged();
 		}
 
+        public TItem GetRoot()
+        {
+            var root = Node;
+            while (root.TreeNode.Parent != null) root = root.TreeNode.Parent;
+            return root;
+        }
+
         public IEvent<AGSEventArgs> OnParentChanged { get; private set; }
 			
 		public int ChildrenCount
