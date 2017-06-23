@@ -8,10 +8,10 @@ namespace AGS.Engine
     {
         private Node _root;
         private IGameState _state;
-        private IInObjectTree _tree;
+        private IInObjectTree _treeComponent;
+        private ITreeStringNode _tree;
         private IDrawableInfo _drawable;
-        private bool _duringUpdate;
-        
+
         public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameEvents gameEvents, IGameState state)
         {
             HorizontalSpacing = 10f;
@@ -23,7 +23,18 @@ namespace AGS.Engine
             gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
-        public ITreeStringNode Tree { get; set; }
+        public ITreeStringNode Tree
+        {
+            get { return _tree; }
+            set 
+            {
+                clearTreeFromUi(_root);
+                unsubscribeTree(_tree);
+                _tree = value;
+                subscribeTree(_tree);
+                RebuildTree();
+            }
+        }
 
         public ITreeNodeViewProvider NodeViewProvider { get; set; }
 
@@ -38,31 +49,64 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _tree = entity.GetComponent<IInObjectTree>();
+            _treeComponent = entity.GetComponent<IInObjectTree>();
             _drawable = entity.GetComponent<IDrawableInfo>();
         }
 
-        private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+        public void RebuildTree()
         {
-            if (_duringUpdate) return;
-            _duringUpdate = true;
-            try
+            var tree = Tree;
+            _root = buildTree(_root, tree);
+        }
+
+        private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+        { 
+            processTree(_root);
+            var root = _root;
+            if (root != null) root.ResetOffsets(0f, 0f, HorizontalSpacing, -VerticalSpacing);
+        }
+
+        private void subscribeTree(ITreeStringNode node)
+        {
+            if (node == null) return;
+            node.TreeNode.Children.OnListChanged.Subscribe(onNodeListChanged);
+            foreach (var child in node.TreeNode.Children)
             {
-                var tree = Tree;
-                _root = buildTree(_root, tree);
-                processTree(_root);
-                var root = _root;
-                if (root != null) root.ResetOffsets(0f, 0f, HorizontalSpacing, -VerticalSpacing);
+                subscribeTree(child);
             }
-            //todo: Currently we rebuild the tree on each tick which can be slow.
-            //If it's too slow and the next game tick comes before we finished building, one of the children
-            //in the tree might change from another component while we're iterating on it, 
-            //which can cause the exception, which we currently ignore and the tree will be rebuilt on
-            //the next tick.
-            //We don't need to rebuild the tree on each tick, we can listen to events and only build when
-            //something actually changes in the tree, so we might be able to remove this ugly catch.
-            catch (InvalidOperationException) { } 
-            _duringUpdate = false;
+        }
+
+        private void unsubscribeTree(ITreeStringNode node)
+        {
+            if (node == null) return;
+            node.TreeNode.Children.OnListChanged.Unsubscribe(onNodeListChanged);
+            foreach (var child in node.TreeNode.Children)
+            {
+                unsubscribeTree(child);
+            }
+        }
+
+        private void onNodeListChanged(object sender, AGSListChangedEventArgs<ITreeStringNode> args)
+        {
+            if (args.ChangeType == ListChangeType.Add)
+            {
+                subscribeTree(args.Item);
+            }
+            else
+            {
+                unsubscribeTree(args.Item);
+            }
+            RebuildTree();
+        }
+
+        private void clearTreeFromUi(Node node)
+        {
+            if (node == null) return;
+            foreach (var child in node.Children)
+            {
+                clearTreeFromUi(child);
+            }
+            removeFromUI(node);
         }
 
         private void processTree(Node node)
@@ -83,7 +127,7 @@ namespace AGS.Engine
             {
                 if (currentNode != null) removeFromUI(currentNode);
                 currentNode = new Node(actualNode, NodeViewProvider.CreateNode(actualNode, _drawable.RenderLayer), null, this);
-                currentNode.View.ParentPanel.TreeNode.SetParent(_tree.TreeNode);
+                currentNode.View.ParentPanel.TreeNode.SetParent(_treeComponent.TreeNode);
             }
             int maxChildren = Math.Max(currentNode.Children.Count, actualNode.TreeNode.Children.Count);
             for (int i = 0; i < maxChildren; i++)
@@ -135,12 +179,18 @@ namespace AGS.Engine
 
         private void removeFromUI(Node node) 
         {
-            var obj = node.Item as IObject;
-            if (obj != null)
-            {
-                _state.UI.Remove(obj);
-            }
+            node.View.ParentPanel.Visible = false;
+            removeFromUI(node.View.ParentPanel);
+            removeFromUI(node.View.ExpandButton);
+            removeFromUI(node.View.TreeItem);
+            removeFromUI(node.View.VerticalPanel);
             node.Dispose();
+        }
+
+        private void removeFromUI(IObject obj)
+        {
+            if (obj == null) return;
+            _state.UI.Remove(obj);
         }
 
         private class Node : IDisposable
