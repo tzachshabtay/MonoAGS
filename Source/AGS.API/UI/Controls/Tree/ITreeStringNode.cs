@@ -22,5 +22,11 @@
         /// </summary>
         /// <value>The hover text config.</value>
         ITextConfig HoverTextConfig { get; set; }
+
+        /// <summary>
+        /// Custom properties which can be assigned to the node and give more context.
+        /// </summary>
+        /// <value>The tag.</value>
+        ICustomProperties Properties { get; }
     }
 }
