@@ -278,9 +278,9 @@
     <Compile Include="UI\Controls\Slider\AGSSliderComponent.cs" />
     <Compile Include="UI\Controls\Textbox\AGSTextbox.cs" />
     <Compile Include="UI\Controls\Textbox\AGSTextboxComponent.cs" />
-    <Compile Include="UI\Debug\DebugLabel.cs" />
-    <Compile Include="UI\Debug\FPSCounter.cs" />
-    <Compile Include="UI\Debug\MousePositionLabel.cs" />
+    <Compile Include="UI\DebugControls\DebugLabel.cs" />
+    <Compile Include="UI\DebugControls\FPSCounter.cs" />
+    <Compile Include="UI\DebugControls\MousePositionLabel.cs" />
     <Compile Include="UI\DialogBoxes\AGSSelectFileDialog.cs" />
     <Compile Include="UI\HotspotLabels\HotspotLabel.cs" />
     <Compile Include="UI\HotspotLabels\VerbOnHotspotLabel.cs" />
@@ -397,7 +397,7 @@
     <Compile Include="Graphics\Logic\GLIconFactory.cs" />
     <Compile Include="Serialization\Contracts\ContractButtonAnimation.cs" />
     <Compile Include="UI\Borders\AGSMultipleBorders.cs" />
-    <Compile Include="UI\Debug\GameDebugTree.cs" />
+    <Compile Include="UI\DebugControls\GameDebugTree.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
