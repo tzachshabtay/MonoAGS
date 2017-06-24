@@ -12,9 +12,11 @@ namespace AGS.Engine
         private readonly IConcurrentHashSet<string> _addedObjects;
 
         private IAnimationContainer _lastSelectedObject;
+        private IVisibleComponent _lastSelectedMaskVisible;
+        private IImageComponent _lastSelectedMaskImage;
         private IBorderStyle _lastObjectBorder;
-        private IObject _lastSelectedAreaDebugDraw;
-        private bool _lastAreaDebugVisible;
+        private bool _lastMaskVisible;
+        private byte _lastOpacity;
 
         public GameDebugTree(IGame game)
         {
@@ -93,14 +95,31 @@ namespace AGS.Engine
         { 
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
             var animation = obj.GetComponent<IAnimationContainer>();
-            _lastSelectedObject = animation;
-            IBorderStyle border = null;
-            if (animation != null) border = animation.Border;
-            _lastObjectBorder = border;
-            IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
-																				  Colors.Yellow.WithAlpha(150), Colors.Yellow), 1, true);
-            if (border == null) animation.Border = hoverBorder;
-            else animation.Border = AGSBorders.Multiple(border, hoverBorder);
+            var visibleComponent = obj.GetComponent<IVisibleComponent>();
+            var image = obj.GetComponent<IImageComponent>();
+            if (animation != null)
+            {
+                _lastSelectedObject = animation;
+                IBorderStyle border = null;          
+                border = animation.Border;
+                _lastObjectBorder = border;
+                IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
+                                                                                      Colors.Yellow.WithAlpha(150), Colors.Yellow), 1, true);
+                if (border == null) animation.Border = hoverBorder;
+                else animation.Border = AGSBorders.Multiple(border, hoverBorder);
+            }
+            if (visibleComponent != null)
+            {
+                _lastMaskVisible = visibleComponent.Visible;
+                _lastSelectedMaskVisible = visibleComponent;
+                visibleComponent.Visible = true;
+            }
+            if (image != null && image.Opacity == 0)
+            {
+                _lastOpacity = image.Opacity;
+                _lastSelectedMaskImage = image;
+                image.Opacity = 100;
+            }
         }
 
         private void selectArea(ITreeStringNode node)
@@ -110,8 +129,8 @@ namespace AGS.Engine
             var debugMask = area.Mask.DebugDraw;
             if (debugMask != null)
             {
-                _lastAreaDebugVisible = debugMask.Visible;
-                _lastSelectedAreaDebugDraw = debugMask;
+                _lastMaskVisible = debugMask.Visible;
+                _lastSelectedMaskVisible = debugMask;
                 debugMask.Visible = true;
             }
         }
@@ -119,12 +138,15 @@ namespace AGS.Engine
         private void unselect()
         {
             var lastSelectedObject = _lastSelectedObject;
-            var lastSelectedArea = _lastSelectedAreaDebugDraw;
+            var lastSelectedMaskVisible = _lastSelectedMaskVisible;
+            var lastSelectedMaskImage = _lastSelectedMaskImage;
             if (lastSelectedObject != null) lastSelectedObject.Border = _lastObjectBorder;
-            if (lastSelectedArea != null) lastSelectedArea.Visible = _lastAreaDebugVisible;
+            if (lastSelectedMaskVisible != null) lastSelectedMaskVisible.Visible = _lastMaskVisible;
+            if (lastSelectedMaskImage != null) lastSelectedMaskImage.Opacity = _lastOpacity;
             _lastSelectedObject = null;
             _lastObjectBorder = null;
-            _lastAreaDebugVisible = false;
+            _lastMaskVisible = false;
+            _lastOpacity = 0;
         }
 
         private void refresh()
