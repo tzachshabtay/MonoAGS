@@ -13,6 +13,8 @@ namespace AGS.Engine
 
         private IAnimationContainer _lastSelectedObject;
         private IBorderStyle _lastObjectBorder;
+        private IObject _lastSelectedAreaDebugDraw;
+        private bool _lastAreaDebugVisible;
 
         public GameDebugTree(IGame game)
         {
@@ -73,26 +75,56 @@ namespace AGS.Engine
 
         private void onTreeNodeSelected(object sender, NodeEventArgs args)
         {
+            unselect();
             string nodeType = args.Node.Properties.Strings.GetValue(Fields.Type);
             if (nodeType == null) return;
             switch (nodeType)
             {
                 case NodeType.Object:
-                    var obj = args.Node.Properties.Entities.GetValue(Fields.Entity);
-                    if (_lastSelectedObject != null) _lastSelectedObject.Border = _lastObjectBorder;
-                    var animation = obj.GetComponent<IAnimationContainer>();
-                    _lastSelectedObject = animation;
-                    IBorderStyle border = null;
-                    if (animation != null) border = animation.Border;
-                    _lastObjectBorder = border;
-                    IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
-                                                                                          Colors.Yellow.WithAlpha(150), Colors.Yellow), 3, true);
-                    if (border == null) animation.Border = hoverBorder;
-                    else animation.Border = AGSBorders.Multiple(border, hoverBorder);
+                    selectObject(args.Node);
                     break;
                 case NodeType.Area:
+                    selectArea(args.Node);
                     break;
             }
+        }
+
+        private void selectObject(ITreeStringNode node)
+        { 
+            var obj = node.Properties.Entities.GetValue(Fields.Entity);
+            var animation = obj.GetComponent<IAnimationContainer>();
+            _lastSelectedObject = animation;
+            IBorderStyle border = null;
+            if (animation != null) border = animation.Border;
+            _lastObjectBorder = border;
+            IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
+																				  Colors.Yellow.WithAlpha(150), Colors.Yellow), 1, true);
+            if (border == null) animation.Border = hoverBorder;
+            else animation.Border = AGSBorders.Multiple(border, hoverBorder);
+        }
+
+        private void selectArea(ITreeStringNode node)
+        { 
+            var obj = node.Properties.Entities.GetValue(Fields.Entity);
+            var area = obj.GetComponent<IAreaComponent>();
+            var debugMask = area.Mask.DebugDraw;
+            if (debugMask != null)
+            {
+                _lastAreaDebugVisible = debugMask.Visible;
+                _lastSelectedAreaDebugDraw = debugMask;
+                debugMask.Visible = true;
+            }
+        }
+
+        private void unselect()
+        {
+            var lastSelectedObject = _lastSelectedObject;
+            var lastSelectedArea = _lastSelectedAreaDebugDraw;
+            if (lastSelectedObject != null) lastSelectedObject.Border = _lastObjectBorder;
+            if (lastSelectedArea != null) lastSelectedArea.Visible = _lastAreaDebugVisible;
+            _lastSelectedObject = null;
+            _lastObjectBorder = null;
+            _lastAreaDebugVisible = false;
         }
 
         private void refresh()
