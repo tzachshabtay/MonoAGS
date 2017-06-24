@@ -108,7 +108,7 @@ namespace AGS.Engine
             set { _comboBoxComponent.DropDownButton = value; } 
         }
 
-        public Func<IButton> ItemButtonFactory 
+        public Func<string, IButton> ItemButtonFactory 
         {  
             get { return _comboBoxComponent.ItemButtonFactory; }  
             set { _comboBoxComponent.ItemButtonFactory = value; } 

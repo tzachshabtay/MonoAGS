@@ -47,10 +47,10 @@ namespace AGS.API
 
         /// <summary>
         /// Gets or sets the factory function for creating buttons which will be displayed for each item
-        /// in the dropdown list.
+        /// in the dropdown list. The function gets the text of the button (useful for giving a button id) and should return a button.
         /// </summary>
         /// <value>The item button factory.</value>
-        Func<IButton> ItemButtonFactory { get; set; }
+        Func<string, IButton> ItemButtonFactory { get; set; }
 
         /// <summary>
         /// Gets the dropdown list item buttons.

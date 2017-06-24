@@ -236,7 +236,7 @@ namespace AGS.Engine
         }
 
         public IComboBox GetComboBox(string id, IButton dropDownButton, ITextBox textBox,
-            Func<IButton> itemButtonFactory, IObject parent = null, bool addToUi = true)
+            Func<string, IButton> itemButtonFactory, IObject parent = null, bool addToUi = true)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IComboBox comboBox = _resolver.Container.Resolve<IComboBox>(idParam);
@@ -247,7 +247,7 @@ namespace AGS.Engine
             if (dropDownButton.Skin != null) dropDownButton.Skin.Apply(dropDownButton);
             textBox = textBox ?? GetTextBox(id + "_TextBox", 0f, 0f, comboBox, width: itemWidth, height: defaultHeight);
             textBox.Enabled = false;
-            itemButtonFactory = itemButtonFactory ?? (() => GetButton(id + "_" + Guid.NewGuid().ToString(), (string)null, null, null, 0f, 0f, width: itemWidth,
+            itemButtonFactory = itemButtonFactory ?? (text => GetButton(id + "_" + text, (string)null, null, null, 0f, 0f, width: itemWidth,
                 height: defaultHeight));
             comboBox.DropDownButton = dropDownButton;
             comboBox.TextBox = textBox;

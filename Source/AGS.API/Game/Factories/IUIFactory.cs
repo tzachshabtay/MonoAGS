@@ -256,7 +256,7 @@ namespace AGS.API
         /// <param name="itemButtonFactory">A function for creating a button for the drop down list.</param>
         /// <param name="parent">The UI control's parent.</param>
         /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
-        IComboBox GetComboBox(string id, IButton dropDownButton, ITextBox textBox, Func<IButton> itemButtonFactory, 
+        IComboBox GetComboBox(string id, IButton dropDownButton, ITextBox textBox, Func<string, IButton> itemButtonFactory, 
                               IObject parent = null, bool addToUi = true);
 
         /// <summary>

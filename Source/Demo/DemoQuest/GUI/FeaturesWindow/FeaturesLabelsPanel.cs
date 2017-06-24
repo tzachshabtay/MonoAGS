@@ -53,9 +53,9 @@ namespace DemoGame
 
             var yellowBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow);
             var whiteBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.White);
-            Func<IButton> itemButtonFactory = () =>
+            Func<string, IButton> itemButtonFactory = text =>
             {
-                var button = factory.UI.GetButton("FeaturesAutoFitItem" + Guid.NewGuid(), 
+                var button = factory.UI.GetButton("FeaturesAutoFitItem_" + text,
                                                   new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null),
                                                   new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null), 
                                                   new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null), 

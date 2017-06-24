@@ -54,7 +54,7 @@ namespace AGS.Engine
 
         public IPanel DropDownPanel { get; private set; }
 
-        public Func<IButton> ItemButtonFactory { get; set; }
+        public Func<string, IButton> ItemButtonFactory { get; set; }
 
         public IEnumerable<IButton> ItemButtons { get { return _itemButtons; } }
 
@@ -116,8 +116,9 @@ namespace AGS.Engine
             }
             else
             {
-                var newButton = ItemButtonFactory();
-                newButton.Text = args.Item.ToString();
+                string buttonText = args.Item.ToString();
+                var newButton = ItemButtonFactory(buttonText);
+                newButton.Text = buttonText;
                 newButton.MouseClicked.Subscribe(onItemClicked);
                 _itemButtons.Insert(args.Index, newButton);
                 DropDownPanel.TreeNode.AddChild(newButton);
