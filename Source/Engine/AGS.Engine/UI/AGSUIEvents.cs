@@ -81,7 +81,7 @@ namespace AGS.Engine
 
 			PointF position = _input.MousePosition;
 
-            var obj = room.GetObjectAt(position.X, position.Y);
+            var obj = room.GetObjectAtMousePosition();
             bool mouseIn = obj == _entity;
 
 			bool leftMouseDown = _input.LeftMouseButtonDown;

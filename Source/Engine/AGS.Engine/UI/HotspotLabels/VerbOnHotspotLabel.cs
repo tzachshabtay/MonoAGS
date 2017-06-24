@@ -9,7 +9,6 @@ namespace AGS.Engine
 		private readonly Func<string> _getMode;
 		private readonly IGameEvents _events;
 		private ILabel _label;
-		private readonly IInput _input;
 		private IGameState _state;
 		private readonly IGame _game;
 		private readonly Dictionary<string, string> _verbFormats;
@@ -19,7 +18,6 @@ namespace AGS.Engine
 			_getMode = getMode;
 			_label = label;
 			_events = game.Events;
-			_input = game.Input;
 			_state = game.State;
 			_game = game;
 
@@ -53,9 +51,8 @@ namespace AGS.Engine
 
 		private void onTick(object sender, EventArgs args)
 		{
-			if (_label == null || _state.Player == null) return;
-			PointF position = _input.MousePosition;
-			IObject obj = _state.Room.GetObjectAt (position.X, position.Y);
+			if (_label == null || _state.Player == null) return;		
+            IObject obj = _state.Room.GetObjectAtMousePosition();
 			if (obj == null || obj.Hotspot == null) 
 			{
 				_label.Visible = false;

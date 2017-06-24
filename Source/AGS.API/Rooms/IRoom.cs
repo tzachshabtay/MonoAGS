@@ -144,6 +144,12 @@ namespace AGS.API
 		IObject GetObjectAt(float x, float y, bool onlyEnabled = true, bool includeUi = true);
 
         /// <summary>
+        /// Gets the top-most visible and enabled object at the current mouse position (includes UI objects).
+        /// </summary>
+        /// <returns>The top-most visible <see cref="T:AGS.API.IObject"/>.</returns>
+        IObject GetObjectAtMousePosition();
+
+        /// <summary>
         /// Fins a room object with the specified id.
         /// </summary>
         /// <returns>The object if found, null otherwise.</returns>
