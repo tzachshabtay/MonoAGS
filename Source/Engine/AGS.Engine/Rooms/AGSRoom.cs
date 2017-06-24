@@ -150,7 +150,7 @@ namespace AGS.Engine
             if (focusedWindow == null) return true;
             while (obj != null)
             {
-                if (obj == focusedWindow) return true;
+                if (obj == focusedWindow || _state.FocusedUI.CannotLoseFocus.Contains(obj.ID)) return true;
                 obj = obj.TreeNode.Parent;
             }
             return false;
