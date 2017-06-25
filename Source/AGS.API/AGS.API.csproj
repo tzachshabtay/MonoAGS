@@ -231,8 +231,10 @@
     <Compile Include="UI\Controls\Tree\NodeEventArgs.cs" />
     <Compile Include="Game\Factories\IIconFactory.cs" />
     <Compile Include="Graphics\Icons\ISelectableIcon.cs" />
-    <Compile Include="UI\Controls\Combobox\ComboboxItemArgs.cs" />
     <Compile Include="UI\Controls\Button\ButtonAnimation.cs" />
+    <Compile Include="UI\Controls\Listbox\IStringItem.cs" />
+    <Compile Include="UI\Controls\Listbox\IListboxComponent.cs" />
+    <Compile Include="UI\Controls\Listbox\ListboxItemArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
@@ -247,6 +249,7 @@
     <Folder Include="UI\Layouts\" />
     <Folder Include="UI\Controls\Tree\" />
     <Folder Include="Graphics\Icons\" />
+    <Folder Include="UI\Controls\Listbox\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

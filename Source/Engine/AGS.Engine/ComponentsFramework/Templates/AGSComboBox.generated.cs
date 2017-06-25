@@ -75,25 +75,15 @@ namespace AGS.Engine
 
         #region IComboBoxComponent implementation
 
-        public Object SelectedItem 
+        public IListboxComponent DropDownPanelList 
         {  
-            get { return _comboBoxComponent.SelectedItem; } 
+            get { return _comboBoxComponent.DropDownPanelList; } 
         }
 
-        public Int32 SelectedIndex 
-        {  
-            get { return _comboBoxComponent.SelectedIndex; }  
-            set { _comboBoxComponent.SelectedIndex = value; } 
-        }
-
-        public IList<Object> Items 
-        {  
-            get { return _comboBoxComponent.Items; } 
-        }
-
-        public IPanel DropDownPanel 
-        {  
-            get { return _comboBoxComponent.DropDownPanel; } 
+        public IEntity DropDownPanel
+        {
+            get { return _comboBoxComponent.DropDownPanel; }
+            set { _comboBoxComponent.DropDownPanel = value; }
         }
 
         public ITextBox TextBox 
@@ -106,22 +96,6 @@ namespace AGS.Engine
         {  
             get { return _comboBoxComponent.DropDownButton; }  
             set { _comboBoxComponent.DropDownButton = value; } 
-        }
-
-        public Func<string, IButton> ItemButtonFactory 
-        {  
-            get { return _comboBoxComponent.ItemButtonFactory; }  
-            set { _comboBoxComponent.ItemButtonFactory = value; } 
-        }
-
-        public IEnumerable<IButton> ItemButtons 
-        {  
-            get { return _comboBoxComponent.ItemButtons; } 
-        }
-
-        public IEvent<ComboboxItemArgs> OnSelectedItemChanged
-        {
-            get { return _comboBoxComponent.OnSelectedItemChanged; }
         }
 
         #endregion

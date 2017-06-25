@@ -398,6 +398,8 @@
     <Compile Include="Serialization\Contracts\ContractButtonAnimation.cs" />
     <Compile Include="UI\Borders\AGSMultipleBorders.cs" />
     <Compile Include="UI\DebugControls\GameDebugTree.cs" />
+    <Compile Include="UI\Controls\Listbox\AGSStringItem.cs" />
+    <Compile Include="UI\Controls\Listbox\AGSListboxComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -483,5 +485,6 @@
     <Folder Include="Rooms\RoomSizeProviders\" />
     <Folder Include="UI\Layouts\" />
     <Folder Include="UI\Controls\Tree\" />
+    <Folder Include="UI\Controls\Listbox\" />
   </ItemGroup>
 </Project>

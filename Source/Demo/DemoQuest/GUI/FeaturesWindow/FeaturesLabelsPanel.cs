@@ -68,14 +68,16 @@ namespace DemoGame
                                    itemButtonFactory, parent, false);
             _featuresAutoFitCombobox.X = autoFitX;
             _featuresAutoFitCombobox.Y = autoFitY;
+            var autoFitList = _featuresAutoFitCombobox.DropDownPanelList;
             foreach (var autoFitOption in Enum.GetValues(typeof(AutoFit)))
             {
-                _featuresAutoFitCombobox.Items.Add(autoFitOption);
+                autoFitList.Items.Add(new AGSStringItem { Text = autoFitOption.ToString() });
             }
-            _featuresAutoFitCombobox.DropDownPanel.Border = AGSBorders.SolidColor(Colors.Green, 3f);
-            _featuresAutoFitCombobox.DropDownPanel.Tint = Colors.DarkGreen;
+            var autoFitPanel = _featuresAutoFitCombobox.DropDownPanel;
+            autoFitPanel.GetComponent<IAnimationContainer>().Border = AGSBorders.SolidColor(Colors.Green, 3f);
+            autoFitPanel.GetComponent<IImageComponent>().Tint = Colors.DarkGreen;
 
-            _featuresAutoFitCombobox.OnSelectedItemChanged.Subscribe((_, args) => _label.TextConfig.AutoFit = (AutoFit)args.Item);
+            autoFitList.OnSelectedItemChanged.Subscribe((_, args) => _label.TextConfig.AutoFit = (AutoFit)Enum.Parse(typeof(AutoFit), args.Item.Text));
         }
 
         public void Show() 

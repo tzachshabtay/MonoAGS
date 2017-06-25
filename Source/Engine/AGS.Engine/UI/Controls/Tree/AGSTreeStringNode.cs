@@ -4,21 +4,21 @@ namespace AGS.Engine
 {
     public class AGSTreeStringNode : AGSComponent, ITreeStringNode
     {
+        private readonly IStringItem _item;
+
         public AGSTreeStringNode()
         {
             TreeNode = new AGSTreeNode<ITreeStringNode>(this);
-            IdleTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, font: AGSGameSettings.DefaultSpeechFont);
-            HoverTextConfig = AGSTextConfig.ChangeColor(IdleTextConfig, Colors.Yellow, Colors.Black, 1f);
-            Properties = new AGSCustomProperties();
+            _item = new AGSStringItem();
         }
 
-        public ITextConfig HoverTextConfig { get; set; }
+        public ITextConfig HoverTextConfig { get { return _item.HoverTextConfig; } set { _item.HoverTextConfig = value; } }
 
-        public ITextConfig IdleTextConfig { get; set; }
+        public ITextConfig IdleTextConfig { get { return _item.IdleTextConfig; } set { _item.IdleTextConfig = value; } }
 
-        public string Text { get; set; }
+        public string Text { get { return _item.Text; } set { _item.Text = value; } }
 
-        public ICustomProperties Properties { get; private set; }
+        public ICustomProperties Properties { get { return _item.Properties; } }
 
         public ITreeNode<ITreeStringNode> TreeNode { get; private set; }
     }

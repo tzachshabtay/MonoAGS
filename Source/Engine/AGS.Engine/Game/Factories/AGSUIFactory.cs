@@ -249,9 +249,15 @@ namespace AGS.Engine
             textBox.Enabled = false;
             itemButtonFactory = itemButtonFactory ?? (text => GetButton(id + "_" + text, (string)null, null, null, 0f, 0f, width: itemWidth,
                 height: defaultHeight));
+
+            var dropDownPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, comboBox);
+            dropDownPanel.AddComponent<IStackLayoutComponent>();
+            var listBox = dropDownPanel.AddComponent<IListboxComponent>();
+            listBox.ItemButtonFactory = itemButtonFactory;
+
             comboBox.DropDownButton = dropDownButton;
             comboBox.TextBox = textBox;
-            comboBox.ItemButtonFactory = itemButtonFactory;
+            comboBox.DropDownPanel = dropDownPanel;
 
             setParent(comboBox, parent);
 
