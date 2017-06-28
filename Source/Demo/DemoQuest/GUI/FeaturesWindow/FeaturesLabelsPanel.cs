@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -12,19 +13,23 @@ namespace DemoGame
         private IComboBox _featuresAutoFitCombobox;
         private IGame _game;
         private IObject _parent;
+        private const string LABEL_TEXT = "The quick brown fox jumps over the lazy dog.";
 
         public FeaturesLabelsPanel(IGame game, IObject parent)
         {
             _game = game;
             _parent = parent;
             var factory = game.Factory;
-            _label = factory.UI.GetLabel("FeaturesLabel", "The quick brown fox jumps over the lazy dog.",
+            _label = factory.UI.GetLabel("FeaturesLabel", LABEL_TEXT,
                                          200f, 50f, 25f, _parent.Height - 25f, parent, 
                                          new AGSTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), false);
             _label.RenderLayer = parent.RenderLayer;
             _label.Anchor = new PointF(0f, 1f);
             _label.Tint = Colors.DarkOliveGreen;
             _label.Border = AGSBorders.SolidColor(Colors.LightSeaGreen, 3f);
+            _label.MouseEnter.Subscribe((_, __) => _label.Tint = Colors.DarkGoldenrod);
+            _label.MouseLeave.Subscribe((_, __) => _label.Tint = Colors.DarkOliveGreen);
+            _label.Enabled = true;
 
             float autoFitX = _label.X;
             float autoFitY = _label.Y - _label.Height - 100f;
@@ -78,6 +83,7 @@ namespace DemoGame
             autoFitPanel.GetComponent<IImageComponent>().Tint = Colors.DarkGreen;
 
             autoFitList.OnSelectedItemChanged.Subscribe((_, args) => _label.TextConfig.AutoFit = (AutoFit)Enum.Parse(typeof(AutoFit), args.Item.Text));
+            animateText();
         }
 
         public void Show() 
@@ -94,6 +100,15 @@ namespace DemoGame
             _game.State.UI.Remove(_featuresAutoFitTextbox);
             _game.State.UI.Remove(_featuresAutoFitDropDownButton);
             _game.State.UI.Remove(_featuresAutoFitCombobox);
+        }
+
+        private async void animateText()
+        {
+            var textLen = _label.Text.Length + 1;
+            if (textLen > LABEL_TEXT.Length) textLen = 0;
+            _label.Text = LABEL_TEXT.Substring(0, textLen);
+            await Task.Delay(200);
+            animateText();
         }
     }
 }

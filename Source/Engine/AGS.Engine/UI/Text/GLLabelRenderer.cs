@@ -152,8 +152,8 @@ namespace AGS.Engine
 			float width = obj.Width;
             if (autoFit == AutoFit.LabelShouldFitText)
             {
-                updateText(_glTextHitTest, GLText.EmptySize, renderResolutionFactor, null);
-                updateText(_glTextRender, GLText.EmptySize, renderResolutionFactor, null);
+                updateText(_glTextHitTest, GLText.EmptySize, renderResolutionFactor, noFactor, int.MaxValue);
+                updateText(_glTextRender, GLText.EmptySize, renderResolutionFactor, noFactor, int.MaxValue);
                 CustomImageSize = new SizeF(_glTextHitTest.Width, _glTextHitTest.Height);
             }
             else CustomImageSize = BaseSize;
@@ -168,27 +168,30 @@ namespace AGS.Engine
             IGLMatrices textHitTestMatrices = resolutionMatches ? textRenderMatrices : obj.RenderLayer.IndependentResolution == null ? labelRenderMatrices : new GLMatrices { ModelMatrix = modelMatrices.InVirtualResolutionMatrix, ViewportMatrix = viewportMatrix };
             IGLMatrices labelHitTestMatrices = obj.RenderLayer.IndependentResolution == null ? labelRenderMatrices : textHitTestMatrices;
 
+            var scaleUpText = hitTestResolutionFactor;
+            var scaleDownText = renderResolutionFactor.Equals(noFactor) ? hitTestResolutionFactor : noFactor;
             if (autoFit == AutoFit.LabelShouldFitText)
             {
                 hitTestResolutionFactor = new PointF(1f / hitTestResolutionFactor.X, 1f / hitTestResolutionFactor.Y);
             }
-            var textRenderResolutionFactor = renderResolutionFactor;
-            if (autoFit == AutoFit.TextShouldWrapAndLabelShouldFitHeight)
+            else
             {
+                if (renderResolutionFactor.Equals(hitTestResolutionFactor)) hitTestResolutionFactor = noFactor;
                 renderResolutionFactor = noFactor;
             }
-            updateBoundingBoxes(_glTextHitTest, autoFit, textHitTestMatrices, labelHitTestMatrices, hitTestResolutionFactor, hitTestResolutionFactor, resolutionMatches, true);
-            if (!resolutionMatches) updateBoundingBoxes(_glTextRender, autoFit, textRenderMatrices, labelRenderMatrices, textRenderResolutionFactor, renderResolutionFactor, true, false);            
+
+            updateBoundingBoxes(_glTextHitTest, autoFit, textHitTestMatrices, labelHitTestMatrices, scaleUpText, noFactor, hitTestResolutionFactor, resolutionMatches, true);
+            if (!resolutionMatches) updateBoundingBoxes(_glTextRender, autoFit, textRenderMatrices, labelRenderMatrices, scaleUpText, scaleDownText, renderResolutionFactor, true, false);            
 		}
 
 
-        private void updateBoundingBoxes(GLText glText, AutoFit autoFit, IGLMatrices textMatrices, IGLMatrices labelMatrices, PointF textResolutionFactor, PointF labelResolutionFactor, bool buildRenderBox, bool buildHitTestBox)
+        private void updateBoundingBoxes(GLText glText, AutoFit autoFit, IGLMatrices textMatrices, IGLMatrices labelMatrices, PointF textScaleUp, PointF textScaleDown, PointF labelResolutionFactor, bool buildRenderBox, bool buildHitTestBox)
         {
             switch (autoFit)
             {
                 case AutoFit.NoFitting:
-                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, labelMatrices, buildRenderBox, buildHitTestBox);
-                    updateText(glText, GLText.EmptySize, textResolutionFactor, null);
+                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.X, BaseSize.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
+                    updateText(glText, GLText.EmptySize, textScaleUp, textScaleDown, int.MaxValue);
                     _boundingBoxBuilder.Build(_textBoundingBoxes, glText.BitmapWidth, glText.BitmapHeight, textMatrices, buildRenderBox, buildHitTestBox);
 
                     _usedLabelBoundingBoxes = _labelBoundingBoxes;
@@ -196,18 +199,18 @@ namespace AGS.Engine
                     break;
 
                 case AutoFit.TextShouldWrapAndLabelShouldFitHeight:
-                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, labelMatrices, buildRenderBox, buildHitTestBox);
-                    updateText(glText, GLText.EmptySize, textResolutionFactor, (int?)BaseSize.Width);
+                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.X, BaseSize.Height, labelMatrices, buildRenderBox, buildHitTestBox);
+                    updateText(glText, GLText.EmptySize, textScaleUp, textScaleDown, (int?)BaseSize.Width);
                     _boundingBoxBuilder.Build(_textBoundingBoxes, glText.BitmapWidth, glText.BitmapHeight, textMatrices, buildRenderBox, buildHitTestBox);
-                    _boundingBoxBuilder.Build(_labelBoundingBoxes, glText.Width / labelResolutionFactor.X, glText.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
+                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.Y, glText.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
 
                     _usedLabelBoundingBoxes = _labelBoundingBoxes;
                     _usedTextBoundingBoxes = _textBoundingBoxes;
                     break;
 
                 case AutoFit.TextShouldFitLabel:
-                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, labelMatrices, buildRenderBox, buildHitTestBox);
-                    updateText(glText, glText.Width > BaseSize.Width ? GLText.EmptySize : new SizeF(BaseSize.Width, GLText.EmptySize.Height), textResolutionFactor, null);
+                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.X, BaseSize.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
+                    updateText(glText, glText.Width > BaseSize.Width ? GLText.EmptySize : new SizeF(BaseSize.Width, GLText.EmptySize.Height), textScaleUp, textScaleDown, int.MaxValue);
 
                     float textWidth = glText.Width < BaseSize.Width ? glText.BitmapWidth : MathUtils.Lerp(0f, 0f, glText.Width, BaseSize.Width, glText.BitmapWidth);
                     float textHeight = glText.Height < BaseSize.Height ? glText.BitmapHeight : MathUtils.Lerp(0f, 0f, glText.Height, BaseSize.Height, glText.BitmapHeight);
@@ -228,8 +231,8 @@ namespace AGS.Engine
                     break;
 
                 case AutoFit.TextShouldCrop:
-                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width, BaseSize.Height, labelMatrices, buildRenderBox, buildHitTestBox);
-                    updateText(glText, glText.Width > BaseSize.Width ? GLText.EmptySize : new SizeF(BaseSize.Width, GLText.EmptySize.Height), textResolutionFactor, (int)BaseSize.Width, true);
+                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.X, BaseSize.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
+                    updateText(glText, glText.Width > BaseSize.Width ? GLText.EmptySize : new SizeF(BaseSize.Width, GLText.EmptySize.Height), textScaleUp, textScaleDown, (int)BaseSize.Width, true);
 
                     float heightOfText = glText.Height < BaseSize.Height ? glText.BitmapHeight : MathUtils.Lerp(0f, 0f, glText.Height, BaseSize.Height, glText.BitmapHeight);
 
@@ -244,12 +247,12 @@ namespace AGS.Engine
             }
         }
 
-		private void updateText(GLText glText, SizeF baseSize, PointF resolutionFactor, int? maxWidth, bool cropText = false)
+        private void updateText(GLText glText, SizeF baseSize, PointF scaleUp, PointF scaleDown, int? maxWidth, bool cropText = false)
 		{
 			if (TextVisible)
 			{
                 if (Text == null) return;
-                glText.SetProperties(baseSize, Text, Config, maxWidth, resolutionFactor, CaretPosition, RenderCaret, cropText);
+                glText.SetProperties(baseSize, Text, Config, maxWidth, scaleUp, scaleDown, CaretPosition, RenderCaret, cropText);
 				glText.Refresh();
 			}
 		}
