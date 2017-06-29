@@ -110,10 +110,6 @@ namespace AGS.Engine
                new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY), out resolutionFactor,
                out resolution);
             
-            if (getAutoFit() == AutoFit.LabelShouldFitText)
-            {
-                _glUtils.AdjustResolution(resolution.Width, resolution.Height);
-            }
             _bgRenderer.Render(obj, viewport);
 
             if (TextVisible && Text != "")
@@ -150,10 +146,14 @@ namespace AGS.Engine
             AutoFit autoFit = getAutoFit();
 			float height = obj.Height;
 			float width = obj.Width;
+
+            var scaleUpText = hitTestResolutionFactor;
+            var scaleDownText = renderResolutionFactor.Equals(noFactor) ? hitTestResolutionFactor : noFactor;
+
             if (autoFit == AutoFit.LabelShouldFitText)
             {
-                updateText(_glTextHitTest, GLText.EmptySize, renderResolutionFactor, noFactor, int.MaxValue);
-                updateText(_glTextRender, GLText.EmptySize, renderResolutionFactor, noFactor, int.MaxValue);
+                updateText(_glTextHitTest, GLText.EmptySize, scaleUpText, scaleDownText, int.MaxValue);
+                updateText(_glTextRender, GLText.EmptySize, scaleUpText, scaleDownText, int.MaxValue);
                 CustomImageSize = new SizeF(_glTextHitTest.Width, _glTextHitTest.Height);
             }
             else CustomImageSize = BaseSize;
@@ -168,17 +168,8 @@ namespace AGS.Engine
             IGLMatrices textHitTestMatrices = resolutionMatches ? textRenderMatrices : obj.RenderLayer.IndependentResolution == null ? labelRenderMatrices : new GLMatrices { ModelMatrix = modelMatrices.InVirtualResolutionMatrix, ViewportMatrix = viewportMatrix };
             IGLMatrices labelHitTestMatrices = obj.RenderLayer.IndependentResolution == null ? labelRenderMatrices : textHitTestMatrices;
 
-            var scaleUpText = hitTestResolutionFactor;
-            var scaleDownText = renderResolutionFactor.Equals(noFactor) ? hitTestResolutionFactor : noFactor;
-            if (autoFit == AutoFit.LabelShouldFitText)
-            {
-                hitTestResolutionFactor = new PointF(1f / hitTestResolutionFactor.X, 1f / hitTestResolutionFactor.Y);
-            }
-            else
-            {
-                if (renderResolutionFactor.Equals(hitTestResolutionFactor)) hitTestResolutionFactor = noFactor;
-                renderResolutionFactor = noFactor;
-            }
+            if (renderResolutionFactor.Equals(hitTestResolutionFactor)) hitTestResolutionFactor = noFactor;
+            renderResolutionFactor = noFactor;
 
             updateBoundingBoxes(_glTextHitTest, autoFit, textHitTestMatrices, labelHitTestMatrices, scaleUpText, noFactor, hitTestResolutionFactor, resolutionMatches, true);
             if (!resolutionMatches) updateBoundingBoxes(_glTextRender, autoFit, textRenderMatrices, labelRenderMatrices, scaleUpText, scaleDownText, renderResolutionFactor, true, false);            
@@ -202,7 +193,7 @@ namespace AGS.Engine
                     _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.X, BaseSize.Height, labelMatrices, buildRenderBox, buildHitTestBox);
                     updateText(glText, GLText.EmptySize, textScaleUp, textScaleDown, (int?)BaseSize.Width);
                     _boundingBoxBuilder.Build(_textBoundingBoxes, glText.BitmapWidth, glText.BitmapHeight, textMatrices, buildRenderBox, buildHitTestBox);
-                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.Y, glText.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
+                    _boundingBoxBuilder.Build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.X, glText.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
 
                     _usedLabelBoundingBoxes = _labelBoundingBoxes;
                     _usedTextBoundingBoxes = _textBoundingBoxes;
@@ -223,8 +214,7 @@ namespace AGS.Engine
 
                 case AutoFit.LabelShouldFitText:
                     _boundingBoxBuilder.Build(_textBoundingBoxes, glText.BitmapWidth, glText.BitmapHeight, textMatrices, buildRenderBox, buildHitTestBox);
-                    _boundingBoxBuilder.Build(_labelBoundingBoxes, glText.Width * labelResolutionFactor.X, glText.Height * labelResolutionFactor.Y,
-                        textMatrices, buildRenderBox, buildHitTestBox);
+                    _boundingBoxBuilder.Build(_labelBoundingBoxes, glText.Width / labelResolutionFactor.X, glText.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
 
                     _usedLabelBoundingBoxes = _labelBoundingBoxes;
                     _usedTextBoundingBoxes = _textBoundingBoxes;
