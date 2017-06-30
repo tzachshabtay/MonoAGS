@@ -1550,48 +1550,6 @@ references:
   commentId: F:AGS.API.Colors.YellowGreen
   fullName: AGS.API.Colors.YellowGreen
   nameWithType: Colors.YellowGreen
-- uid: AGS.API.ComboboxItemArgs
-  name: ComboboxItemArgs
-  href: api/AGS.API.ComboboxItemArgs.html
-  commentId: T:AGS.API.ComboboxItemArgs
-  fullName: AGS.API.ComboboxItemArgs
-  nameWithType: ComboboxItemArgs
-- uid: AGS.API.ComboboxItemArgs.#ctor(System.Object,System.Int32)
-  name: ComboboxItemArgs(Object, Int32)
-  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs__ctor_System_Object_System_Int32_
-  commentId: M:AGS.API.ComboboxItemArgs.#ctor(System.Object,System.Int32)
-  fullName: AGS.API.ComboboxItemArgs.ComboboxItemArgs(System.Object, System.Int32)
-  nameWithType: ComboboxItemArgs.ComboboxItemArgs(Object, Int32)
-- uid: AGS.API.ComboboxItemArgs.#ctor*
-  name: ComboboxItemArgs
-  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs__ctor_
-  commentId: Overload:AGS.API.ComboboxItemArgs.#ctor
-  fullName: AGS.API.ComboboxItemArgs.ComboboxItemArgs
-  nameWithType: ComboboxItemArgs.ComboboxItemArgs
-- uid: AGS.API.ComboboxItemArgs.Index
-  name: Index
-  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs_Index
-  commentId: P:AGS.API.ComboboxItemArgs.Index
-  fullName: AGS.API.ComboboxItemArgs.Index
-  nameWithType: ComboboxItemArgs.Index
-- uid: AGS.API.ComboboxItemArgs.Index*
-  name: Index
-  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs_Index_
-  commentId: Overload:AGS.API.ComboboxItemArgs.Index
-  fullName: AGS.API.ComboboxItemArgs.Index
-  nameWithType: ComboboxItemArgs.Index
-- uid: AGS.API.ComboboxItemArgs.Item
-  name: Item
-  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs_Item
-  commentId: P:AGS.API.ComboboxItemArgs.Item
-  fullName: AGS.API.ComboboxItemArgs.Item
-  nameWithType: ComboboxItemArgs.Item
-- uid: AGS.API.ComboboxItemArgs.Item*
-  name: Item
-  href: api/AGS.API.ComboboxItemArgs.html#AGS_API_ComboboxItemArgs_Item_
-  commentId: Overload:AGS.API.ComboboxItemArgs.Item
-  fullName: AGS.API.ComboboxItemArgs.Item
-  nameWithType: ComboboxItemArgs.Item
 - uid: AGS.API.Direction
   name: Direction
   href: api/AGS.API.Direction.html
@@ -1646,6 +1604,39 @@ references:
   commentId: F:AGS.API.Direction.UpRight
   fullName: AGS.API.Direction.UpRight
   nameWithType: Direction.UpRight
+- uid: AGS.API.DisplayListEventArgs
+  name: DisplayListEventArgs
+  href: api/AGS.API.DisplayListEventArgs.html
+  commentId: T:AGS.API.DisplayListEventArgs
+  fullName: AGS.API.DisplayListEventArgs
+  nameWithType: DisplayListEventArgs
+- uid: AGS.API.DisplayListEventArgs.#ctor(System.Collections.Generic.List{AGS.API.IObject})
+  name: DisplayListEventArgs(List<IObject>)
+  href: api/AGS.API.DisplayListEventArgs.html#AGS_API_DisplayListEventArgs__ctor_System_Collections_Generic_List_AGS_API_IObject__
+  commentId: M:AGS.API.DisplayListEventArgs.#ctor(System.Collections.Generic.List{AGS.API.IObject})
+  name.vb: DisplayListEventArgs(List(Of IObject))
+  fullName: AGS.API.DisplayListEventArgs.DisplayListEventArgs(System.Collections.Generic.List<AGS.API.IObject>)
+  fullName.vb: AGS.API.DisplayListEventArgs.DisplayListEventArgs(System.Collections.Generic.List(Of AGS.API.IObject))
+  nameWithType: DisplayListEventArgs.DisplayListEventArgs(List<IObject>)
+  nameWithType.vb: DisplayListEventArgs.DisplayListEventArgs(List(Of IObject))
+- uid: AGS.API.DisplayListEventArgs.#ctor*
+  name: DisplayListEventArgs
+  href: api/AGS.API.DisplayListEventArgs.html#AGS_API_DisplayListEventArgs__ctor_
+  commentId: Overload:AGS.API.DisplayListEventArgs.#ctor
+  fullName: AGS.API.DisplayListEventArgs.DisplayListEventArgs
+  nameWithType: DisplayListEventArgs.DisplayListEventArgs
+- uid: AGS.API.DisplayListEventArgs.DisplayList
+  name: DisplayList
+  href: api/AGS.API.DisplayListEventArgs.html#AGS_API_DisplayListEventArgs_DisplayList
+  commentId: P:AGS.API.DisplayListEventArgs.DisplayList
+  fullName: AGS.API.DisplayListEventArgs.DisplayList
+  nameWithType: DisplayListEventArgs.DisplayList
+- uid: AGS.API.DisplayListEventArgs.DisplayList*
+  name: DisplayList
+  href: api/AGS.API.DisplayListEventArgs.html#AGS_API_DisplayListEventArgs_DisplayList_
+  commentId: Overload:AGS.API.DisplayListEventArgs.DisplayList
+  fullName: AGS.API.DisplayListEventArgs.DisplayList
+  nameWithType: DisplayListEventArgs.DisplayList
 - uid: AGS.API.FontStyle
   name: FontStyle
   href: api/AGS.API.FontStyle.html
@@ -3660,78 +3651,18 @@ references:
   commentId: Overload:AGS.API.IComboBoxComponent.DropDownPanel
   fullName: AGS.API.IComboBoxComponent.DropDownPanel
   nameWithType: IComboBoxComponent.DropDownPanel
-- uid: AGS.API.IComboBoxComponent.ItemButtonFactory
-  name: ItemButtonFactory
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_ItemButtonFactory
-  commentId: P:AGS.API.IComboBoxComponent.ItemButtonFactory
-  fullName: AGS.API.IComboBoxComponent.ItemButtonFactory
-  nameWithType: IComboBoxComponent.ItemButtonFactory
-- uid: AGS.API.IComboBoxComponent.ItemButtonFactory*
-  name: ItemButtonFactory
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_ItemButtonFactory_
-  commentId: Overload:AGS.API.IComboBoxComponent.ItemButtonFactory
-  fullName: AGS.API.IComboBoxComponent.ItemButtonFactory
-  nameWithType: IComboBoxComponent.ItemButtonFactory
-- uid: AGS.API.IComboBoxComponent.ItemButtons
-  name: ItemButtons
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_ItemButtons
-  commentId: P:AGS.API.IComboBoxComponent.ItemButtons
-  fullName: AGS.API.IComboBoxComponent.ItemButtons
-  nameWithType: IComboBoxComponent.ItemButtons
-- uid: AGS.API.IComboBoxComponent.ItemButtons*
-  name: ItemButtons
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_ItemButtons_
-  commentId: Overload:AGS.API.IComboBoxComponent.ItemButtons
-  fullName: AGS.API.IComboBoxComponent.ItemButtons
-  nameWithType: IComboBoxComponent.ItemButtons
-- uid: AGS.API.IComboBoxComponent.Items
-  name: Items
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_Items
-  commentId: P:AGS.API.IComboBoxComponent.Items
-  fullName: AGS.API.IComboBoxComponent.Items
-  nameWithType: IComboBoxComponent.Items
-- uid: AGS.API.IComboBoxComponent.Items*
-  name: Items
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_Items_
-  commentId: Overload:AGS.API.IComboBoxComponent.Items
-  fullName: AGS.API.IComboBoxComponent.Items
-  nameWithType: IComboBoxComponent.Items
-- uid: AGS.API.IComboBoxComponent.OnSelectedItemChanged
-  name: OnSelectedItemChanged
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_OnSelectedItemChanged
-  commentId: P:AGS.API.IComboBoxComponent.OnSelectedItemChanged
-  fullName: AGS.API.IComboBoxComponent.OnSelectedItemChanged
-  nameWithType: IComboBoxComponent.OnSelectedItemChanged
-- uid: AGS.API.IComboBoxComponent.OnSelectedItemChanged*
-  name: OnSelectedItemChanged
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_OnSelectedItemChanged_
-  commentId: Overload:AGS.API.IComboBoxComponent.OnSelectedItemChanged
-  fullName: AGS.API.IComboBoxComponent.OnSelectedItemChanged
-  nameWithType: IComboBoxComponent.OnSelectedItemChanged
-- uid: AGS.API.IComboBoxComponent.SelectedIndex
-  name: SelectedIndex
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_SelectedIndex
-  commentId: P:AGS.API.IComboBoxComponent.SelectedIndex
-  fullName: AGS.API.IComboBoxComponent.SelectedIndex
-  nameWithType: IComboBoxComponent.SelectedIndex
-- uid: AGS.API.IComboBoxComponent.SelectedIndex*
-  name: SelectedIndex
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_SelectedIndex_
-  commentId: Overload:AGS.API.IComboBoxComponent.SelectedIndex
-  fullName: AGS.API.IComboBoxComponent.SelectedIndex
-  nameWithType: IComboBoxComponent.SelectedIndex
-- uid: AGS.API.IComboBoxComponent.SelectedItem
-  name: SelectedItem
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_SelectedItem
-  commentId: P:AGS.API.IComboBoxComponent.SelectedItem
-  fullName: AGS.API.IComboBoxComponent.SelectedItem
-  nameWithType: IComboBoxComponent.SelectedItem
-- uid: AGS.API.IComboBoxComponent.SelectedItem*
-  name: SelectedItem
-  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_SelectedItem_
-  commentId: Overload:AGS.API.IComboBoxComponent.SelectedItem
-  fullName: AGS.API.IComboBoxComponent.SelectedItem
-  nameWithType: IComboBoxComponent.SelectedItem
+- uid: AGS.API.IComboBoxComponent.DropDownPanelList
+  name: DropDownPanelList
+  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_DropDownPanelList
+  commentId: P:AGS.API.IComboBoxComponent.DropDownPanelList
+  fullName: AGS.API.IComboBoxComponent.DropDownPanelList
+  nameWithType: IComboBoxComponent.DropDownPanelList
+- uid: AGS.API.IComboBoxComponent.DropDownPanelList*
+  name: DropDownPanelList
+  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_DropDownPanelList_
+  commentId: Overload:AGS.API.IComboBoxComponent.DropDownPanelList
+  fullName: AGS.API.IComboBoxComponent.DropDownPanelList
+  nameWithType: IComboBoxComponent.DropDownPanelList
 - uid: AGS.API.IComboBoxComponent.TextBox
   name: TextBox
   href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_TextBox
@@ -5507,6 +5438,18 @@ references:
   commentId: T:AGS.API.IFocusedUI
   fullName: AGS.API.IFocusedUI
   nameWithType: IFocusedUI
+- uid: AGS.API.IFocusedUI.CannotLoseFocus
+  name: CannotLoseFocus
+  href: api/AGS.API.IFocusedUI.html#AGS_API_IFocusedUI_CannotLoseFocus
+  commentId: P:AGS.API.IFocusedUI.CannotLoseFocus
+  fullName: AGS.API.IFocusedUI.CannotLoseFocus
+  nameWithType: IFocusedUI.CannotLoseFocus
+- uid: AGS.API.IFocusedUI.CannotLoseFocus*
+  name: CannotLoseFocus
+  href: api/AGS.API.IFocusedUI.html#AGS_API_IFocusedUI_CannotLoseFocus_
+  commentId: Overload:AGS.API.IFocusedUI.CannotLoseFocus
+  fullName: AGS.API.IFocusedUI.CannotLoseFocus
+  nameWithType: IFocusedUI.CannotLoseFocus
 - uid: AGS.API.IFocusedUI.FocusedTextBox
   name: FocusedTextBox
   href: api/AGS.API.IFocusedUI.html#AGS_API_IFocusedUI_FocusedTextBox
@@ -5897,6 +5840,18 @@ references:
   commentId: Overload:AGS.API.IGame.Quit
   fullName: AGS.API.IGame.Quit
   nameWithType: IGame.Quit
+- uid: AGS.API.IGame.RenderLoop
+  name: RenderLoop
+  href: api/AGS.API.IGame.html#AGS_API_IGame_RenderLoop
+  commentId: P:AGS.API.IGame.RenderLoop
+  fullName: AGS.API.IGame.RenderLoop
+  nameWithType: IGame.RenderLoop
+- uid: AGS.API.IGame.RenderLoop*
+  name: RenderLoop
+  href: api/AGS.API.IGame.html#AGS_API_IGame_RenderLoop_
+  commentId: Overload:AGS.API.IGame.RenderLoop
+  fullName: AGS.API.IGame.RenderLoop
+  nameWithType: IGame.RenderLoop
 - uid: AGS.API.IGame.SaveLoad
   name: SaveLoad
   href: api/AGS.API.IGame.html#AGS_API_IGame_SaveLoad
@@ -7716,6 +7671,84 @@ references:
   commentId: Overload:AGS.API.ILabelRenderer.Width
   fullName: AGS.API.ILabelRenderer.Width
   nameWithType: ILabelRenderer.Width
+- uid: AGS.API.IListboxComponent
+  name: IListboxComponent
+  href: api/AGS.API.IListboxComponent.html
+  commentId: T:AGS.API.IListboxComponent
+  fullName: AGS.API.IListboxComponent
+  nameWithType: IListboxComponent
+- uid: AGS.API.IListboxComponent.ItemButtonFactory
+  name: ItemButtonFactory
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ItemButtonFactory
+  commentId: P:AGS.API.IListboxComponent.ItemButtonFactory
+  fullName: AGS.API.IListboxComponent.ItemButtonFactory
+  nameWithType: IListboxComponent.ItemButtonFactory
+- uid: AGS.API.IListboxComponent.ItemButtonFactory*
+  name: ItemButtonFactory
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ItemButtonFactory_
+  commentId: Overload:AGS.API.IListboxComponent.ItemButtonFactory
+  fullName: AGS.API.IListboxComponent.ItemButtonFactory
+  nameWithType: IListboxComponent.ItemButtonFactory
+- uid: AGS.API.IListboxComponent.ItemButtons
+  name: ItemButtons
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ItemButtons
+  commentId: P:AGS.API.IListboxComponent.ItemButtons
+  fullName: AGS.API.IListboxComponent.ItemButtons
+  nameWithType: IListboxComponent.ItemButtons
+- uid: AGS.API.IListboxComponent.ItemButtons*
+  name: ItemButtons
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ItemButtons_
+  commentId: Overload:AGS.API.IListboxComponent.ItemButtons
+  fullName: AGS.API.IListboxComponent.ItemButtons
+  nameWithType: IListboxComponent.ItemButtons
+- uid: AGS.API.IListboxComponent.Items
+  name: Items
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_Items
+  commentId: P:AGS.API.IListboxComponent.Items
+  fullName: AGS.API.IListboxComponent.Items
+  nameWithType: IListboxComponent.Items
+- uid: AGS.API.IListboxComponent.Items*
+  name: Items
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_Items_
+  commentId: Overload:AGS.API.IListboxComponent.Items
+  fullName: AGS.API.IListboxComponent.Items
+  nameWithType: IListboxComponent.Items
+- uid: AGS.API.IListboxComponent.OnSelectedItemChanged
+  name: OnSelectedItemChanged
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_OnSelectedItemChanged
+  commentId: P:AGS.API.IListboxComponent.OnSelectedItemChanged
+  fullName: AGS.API.IListboxComponent.OnSelectedItemChanged
+  nameWithType: IListboxComponent.OnSelectedItemChanged
+- uid: AGS.API.IListboxComponent.OnSelectedItemChanged*
+  name: OnSelectedItemChanged
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_OnSelectedItemChanged_
+  commentId: Overload:AGS.API.IListboxComponent.OnSelectedItemChanged
+  fullName: AGS.API.IListboxComponent.OnSelectedItemChanged
+  nameWithType: IListboxComponent.OnSelectedItemChanged
+- uid: AGS.API.IListboxComponent.SelectedIndex
+  name: SelectedIndex
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_SelectedIndex
+  commentId: P:AGS.API.IListboxComponent.SelectedIndex
+  fullName: AGS.API.IListboxComponent.SelectedIndex
+  nameWithType: IListboxComponent.SelectedIndex
+- uid: AGS.API.IListboxComponent.SelectedIndex*
+  name: SelectedIndex
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_SelectedIndex_
+  commentId: Overload:AGS.API.IListboxComponent.SelectedIndex
+  fullName: AGS.API.IListboxComponent.SelectedIndex
+  nameWithType: IListboxComponent.SelectedIndex
+- uid: AGS.API.IListboxComponent.SelectedItem
+  name: SelectedItem
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_SelectedItem
+  commentId: P:AGS.API.IListboxComponent.SelectedItem
+  fullName: AGS.API.IListboxComponent.SelectedItem
+  nameWithType: IListboxComponent.SelectedItem
+- uid: AGS.API.IListboxComponent.SelectedItem*
+  name: SelectedItem
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_SelectedItem_
+  commentId: Overload:AGS.API.IListboxComponent.SelectedItem
+  fullName: AGS.API.IListboxComponent.SelectedItem
+  nameWithType: IListboxComponent.SelectedItem
 - uid: AGS.API.ILoadImageConfig
   name: ILoadImageConfig
   href: api/AGS.API.ILoadImageConfig.html
@@ -8448,6 +8481,18 @@ references:
   commentId: T:AGS.API.IRendererLoop
   fullName: AGS.API.IRendererLoop
   nameWithType: IRendererLoop
+- uid: AGS.API.IRendererLoop.OnBeforeRenderingDisplayList
+  name: OnBeforeRenderingDisplayList
+  href: api/AGS.API.IRendererLoop.html#AGS_API_IRendererLoop_OnBeforeRenderingDisplayList
+  commentId: P:AGS.API.IRendererLoop.OnBeforeRenderingDisplayList
+  fullName: AGS.API.IRendererLoop.OnBeforeRenderingDisplayList
+  nameWithType: IRendererLoop.OnBeforeRenderingDisplayList
+- uid: AGS.API.IRendererLoop.OnBeforeRenderingDisplayList*
+  name: OnBeforeRenderingDisplayList
+  href: api/AGS.API.IRendererLoop.html#AGS_API_IRendererLoop_OnBeforeRenderingDisplayList_
+  commentId: Overload:AGS.API.IRendererLoop.OnBeforeRenderingDisplayList
+  fullName: AGS.API.IRendererLoop.OnBeforeRenderingDisplayList
+  nameWithType: IRendererLoop.OnBeforeRenderingDisplayList
 - uid: AGS.API.IRendererLoop.Tick
   name: Tick()
   href: api/AGS.API.IRendererLoop.html#AGS_API_IRendererLoop_Tick
@@ -8676,6 +8721,18 @@ references:
   commentId: Overload:AGS.API.IRoom.GetObjectAt
   fullName: AGS.API.IRoom.GetObjectAt
   nameWithType: IRoom.GetObjectAt
+- uid: AGS.API.IRoom.GetObjectAtMousePosition
+  name: GetObjectAtMousePosition()
+  href: api/AGS.API.IRoom.html#AGS_API_IRoom_GetObjectAtMousePosition
+  commentId: M:AGS.API.IRoom.GetObjectAtMousePosition
+  fullName: AGS.API.IRoom.GetObjectAtMousePosition()
+  nameWithType: IRoom.GetObjectAtMousePosition()
+- uid: AGS.API.IRoom.GetObjectAtMousePosition*
+  name: GetObjectAtMousePosition
+  href: api/AGS.API.IRoom.html#AGS_API_IRoom_GetObjectAtMousePosition_
+  commentId: Overload:AGS.API.IRoom.GetObjectAtMousePosition
+  fullName: AGS.API.IRoom.GetObjectAtMousePosition
+  nameWithType: IRoom.GetObjectAtMousePosition
 - uid: AGS.API.IRoom.GetVisibleObjectsFrontToBack(System.Boolean)
   name: GetVisibleObjectsFrontToBack(Boolean)
   href: api/AGS.API.IRoom.html#AGS_API_IRoom_GetVisibleObjectsFrontToBack_System_Boolean_
@@ -10707,6 +10764,60 @@ references:
   commentId: Overload:AGS.API.IStackLayoutComponent.RelativeSpacing
   fullName: AGS.API.IStackLayoutComponent.RelativeSpacing
   nameWithType: IStackLayoutComponent.RelativeSpacing
+- uid: AGS.API.IStringItem
+  name: IStringItem
+  href: api/AGS.API.IStringItem.html
+  commentId: T:AGS.API.IStringItem
+  fullName: AGS.API.IStringItem
+  nameWithType: IStringItem
+- uid: AGS.API.IStringItem.HoverTextConfig
+  name: HoverTextConfig
+  href: api/AGS.API.IStringItem.html#AGS_API_IStringItem_HoverTextConfig
+  commentId: P:AGS.API.IStringItem.HoverTextConfig
+  fullName: AGS.API.IStringItem.HoverTextConfig
+  nameWithType: IStringItem.HoverTextConfig
+- uid: AGS.API.IStringItem.HoverTextConfig*
+  name: HoverTextConfig
+  href: api/AGS.API.IStringItem.html#AGS_API_IStringItem_HoverTextConfig_
+  commentId: Overload:AGS.API.IStringItem.HoverTextConfig
+  fullName: AGS.API.IStringItem.HoverTextConfig
+  nameWithType: IStringItem.HoverTextConfig
+- uid: AGS.API.IStringItem.IdleTextConfig
+  name: IdleTextConfig
+  href: api/AGS.API.IStringItem.html#AGS_API_IStringItem_IdleTextConfig
+  commentId: P:AGS.API.IStringItem.IdleTextConfig
+  fullName: AGS.API.IStringItem.IdleTextConfig
+  nameWithType: IStringItem.IdleTextConfig
+- uid: AGS.API.IStringItem.IdleTextConfig*
+  name: IdleTextConfig
+  href: api/AGS.API.IStringItem.html#AGS_API_IStringItem_IdleTextConfig_
+  commentId: Overload:AGS.API.IStringItem.IdleTextConfig
+  fullName: AGS.API.IStringItem.IdleTextConfig
+  nameWithType: IStringItem.IdleTextConfig
+- uid: AGS.API.IStringItem.Properties
+  name: Properties
+  href: api/AGS.API.IStringItem.html#AGS_API_IStringItem_Properties
+  commentId: P:AGS.API.IStringItem.Properties
+  fullName: AGS.API.IStringItem.Properties
+  nameWithType: IStringItem.Properties
+- uid: AGS.API.IStringItem.Properties*
+  name: Properties
+  href: api/AGS.API.IStringItem.html#AGS_API_IStringItem_Properties_
+  commentId: Overload:AGS.API.IStringItem.Properties
+  fullName: AGS.API.IStringItem.Properties
+  nameWithType: IStringItem.Properties
+- uid: AGS.API.IStringItem.Text
+  name: Text
+  href: api/AGS.API.IStringItem.html#AGS_API_IStringItem_Text
+  commentId: P:AGS.API.IStringItem.Text
+  fullName: AGS.API.IStringItem.Text
+  nameWithType: IStringItem.Text
+- uid: AGS.API.IStringItem.Text*
+  name: Text
+  href: api/AGS.API.IStringItem.html#AGS_API_IStringItem_Text_
+  commentId: Overload:AGS.API.IStringItem.Text
+  fullName: AGS.API.IStringItem.Text
+  nameWithType: IStringItem.Text
 - uid: AGS.API.ITextBox
   name: ITextBox
   href: api/AGS.API.ITextBox.html
@@ -11250,6 +11361,22 @@ references:
   fullName.vb: AGS.API.ITreeNode(Of TItem).ChildrenCount
   nameWithType: ITreeNode<TItem>.ChildrenCount
   nameWithType.vb: ITreeNode(Of TItem).ChildrenCount
+- uid: AGS.API.ITreeNode`1.GetRoot
+  name: GetRoot()
+  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_GetRoot
+  commentId: M:AGS.API.ITreeNode`1.GetRoot
+  fullName: AGS.API.ITreeNode<TItem>.GetRoot()
+  fullName.vb: AGS.API.ITreeNode(Of TItem).GetRoot()
+  nameWithType: ITreeNode<TItem>.GetRoot()
+  nameWithType.vb: ITreeNode(Of TItem).GetRoot()
+- uid: AGS.API.ITreeNode`1.GetRoot*
+  name: GetRoot
+  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_GetRoot_
+  commentId: Overload:AGS.API.ITreeNode`1.GetRoot
+  fullName: AGS.API.ITreeNode<TItem>.GetRoot
+  fullName.vb: AGS.API.ITreeNode(Of TItem).GetRoot
+  nameWithType: ITreeNode<TItem>.GetRoot
+  nameWithType.vb: ITreeNode(Of TItem).GetRoot
 - uid: AGS.API.ITreeNode`1.HasChild(`0)
   name: HasChild(TItem)
   href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_HasChild__0_
@@ -11454,42 +11581,6 @@ references:
   commentId: T:AGS.API.ITreeStringNode
   fullName: AGS.API.ITreeStringNode
   nameWithType: ITreeStringNode
-- uid: AGS.API.ITreeStringNode.HoverTextConfig
-  name: HoverTextConfig
-  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_HoverTextConfig
-  commentId: P:AGS.API.ITreeStringNode.HoverTextConfig
-  fullName: AGS.API.ITreeStringNode.HoverTextConfig
-  nameWithType: ITreeStringNode.HoverTextConfig
-- uid: AGS.API.ITreeStringNode.HoverTextConfig*
-  name: HoverTextConfig
-  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_HoverTextConfig_
-  commentId: Overload:AGS.API.ITreeStringNode.HoverTextConfig
-  fullName: AGS.API.ITreeStringNode.HoverTextConfig
-  nameWithType: ITreeStringNode.HoverTextConfig
-- uid: AGS.API.ITreeStringNode.IdleTextConfig
-  name: IdleTextConfig
-  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_IdleTextConfig
-  commentId: P:AGS.API.ITreeStringNode.IdleTextConfig
-  fullName: AGS.API.ITreeStringNode.IdleTextConfig
-  nameWithType: ITreeStringNode.IdleTextConfig
-- uid: AGS.API.ITreeStringNode.IdleTextConfig*
-  name: IdleTextConfig
-  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_IdleTextConfig_
-  commentId: Overload:AGS.API.ITreeStringNode.IdleTextConfig
-  fullName: AGS.API.ITreeStringNode.IdleTextConfig
-  nameWithType: ITreeStringNode.IdleTextConfig
-- uid: AGS.API.ITreeStringNode.Text
-  name: Text
-  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_Text
-  commentId: P:AGS.API.ITreeStringNode.Text
-  fullName: AGS.API.ITreeStringNode.Text
-  nameWithType: ITreeStringNode.Text
-- uid: AGS.API.ITreeStringNode.Text*
-  name: Text
-  href: api/AGS.API.ITreeStringNode.html#AGS_API_ITreeStringNode_Text_
-  commentId: Overload:AGS.API.ITreeStringNode.Text
-  fullName: AGS.API.ITreeStringNode.Text
-  nameWithType: ITreeStringNode.Text
 - uid: AGS.API.ITreeViewComponent
   name: ITreeViewComponent
   href: api/AGS.API.ITreeViewComponent.html
@@ -11766,15 +11857,15 @@ references:
   commentId: Overload:AGS.API.IUIFactory.GetCheckBoxAsync
   fullName: AGS.API.IUIFactory.GetCheckBoxAsync
   nameWithType: IUIFactory.GetCheckBoxAsync
-- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{AGS.API.IButton},AGS.API.IObject,System.Boolean)
-  name: GetComboBox(String, IButton, ITextBox, Func<IButton>, IObject, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_AGS_API_IButton__AGS_API_IObject_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{AGS.API.IButton},AGS.API.IObject,System.Boolean)
-  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of IButton), IObject, Boolean)
-  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func<AGS.API.IButton>, AGS.API.IObject, System.Boolean)
-  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func(Of AGS.API.IButton), AGS.API.IObject, System.Boolean)
-  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<IButton>, IObject, Boolean)
-  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of IButton), IObject, Boolean)
+- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean)
+  name: GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean)
+  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean)
+  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func<System.String, AGS.API.IButton>, AGS.API.IObject, System.Boolean)
+  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func(Of System.String, AGS.API.IButton), AGS.API.IObject, System.Boolean)
+  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean)
+  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean)
 - uid: AGS.API.IUIFactory.GetComboBox*
   name: GetComboBox
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_
@@ -13125,6 +13216,48 @@ references:
   commentId: F:AGS.API.LayoutDirection.Vertical
   fullName: AGS.API.LayoutDirection.Vertical
   nameWithType: LayoutDirection.Vertical
+- uid: AGS.API.ListboxItemArgs
+  name: ListboxItemArgs
+  href: api/AGS.API.ListboxItemArgs.html
+  commentId: T:AGS.API.ListboxItemArgs
+  fullName: AGS.API.ListboxItemArgs
+  nameWithType: ListboxItemArgs
+- uid: AGS.API.ListboxItemArgs.#ctor(AGS.API.IStringItem,System.Int32)
+  name: ListboxItemArgs(IStringItem, Int32)
+  href: api/AGS.API.ListboxItemArgs.html#AGS_API_ListboxItemArgs__ctor_AGS_API_IStringItem_System_Int32_
+  commentId: M:AGS.API.ListboxItemArgs.#ctor(AGS.API.IStringItem,System.Int32)
+  fullName: AGS.API.ListboxItemArgs.ListboxItemArgs(AGS.API.IStringItem, System.Int32)
+  nameWithType: ListboxItemArgs.ListboxItemArgs(IStringItem, Int32)
+- uid: AGS.API.ListboxItemArgs.#ctor*
+  name: ListboxItemArgs
+  href: api/AGS.API.ListboxItemArgs.html#AGS_API_ListboxItemArgs__ctor_
+  commentId: Overload:AGS.API.ListboxItemArgs.#ctor
+  fullName: AGS.API.ListboxItemArgs.ListboxItemArgs
+  nameWithType: ListboxItemArgs.ListboxItemArgs
+- uid: AGS.API.ListboxItemArgs.Index
+  name: Index
+  href: api/AGS.API.ListboxItemArgs.html#AGS_API_ListboxItemArgs_Index
+  commentId: P:AGS.API.ListboxItemArgs.Index
+  fullName: AGS.API.ListboxItemArgs.Index
+  nameWithType: ListboxItemArgs.Index
+- uid: AGS.API.ListboxItemArgs.Index*
+  name: Index
+  href: api/AGS.API.ListboxItemArgs.html#AGS_API_ListboxItemArgs_Index_
+  commentId: Overload:AGS.API.ListboxItemArgs.Index
+  fullName: AGS.API.ListboxItemArgs.Index
+  nameWithType: ListboxItemArgs.Index
+- uid: AGS.API.ListboxItemArgs.Item
+  name: Item
+  href: api/AGS.API.ListboxItemArgs.html#AGS_API_ListboxItemArgs_Item
+  commentId: P:AGS.API.ListboxItemArgs.Item
+  fullName: AGS.API.ListboxItemArgs.Item
+  nameWithType: ListboxItemArgs.Item
+- uid: AGS.API.ListboxItemArgs.Item*
+  name: Item
+  href: api/AGS.API.ListboxItemArgs.html#AGS_API_ListboxItemArgs_Item_
+  commentId: Overload:AGS.API.ListboxItemArgs.Item
+  fullName: AGS.API.ListboxItemArgs.Item
+  nameWithType: ListboxItemArgs.Item
 - uid: AGS.API.ListChangeType
   name: ListChangeType
   href: api/AGS.API.ListChangeType.html

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IComboBoxComponent
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.19.0.0">
+    <meta name="generator" content="docfx 2.19.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -105,8 +105,7 @@
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IComboBoxComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IInObjectTree), true)]
-public interface IComboBoxComponent : IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IComboBoxComponent : IComponent, IDisposable</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -115,7 +114,7 @@ public interface IComboBoxComponent : IComponent, IDisposable</code></pre>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IComboBoxComponent_DropDownButton.md&amp;value=---%0Auid%3A%20AGS.API.IComboBoxComponent.DropDownButton%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L46">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L18">View Source</a>
   </span>
   <a id="AGS_API_IComboBoxComponent_DropDownButton_" data-uid="AGS.API.IComboBoxComponent.DropDownButton*"></a>
   <h4 id="AGS_API_IComboBoxComponent_DropDownButton" data-uid="AGS.API.IComboBoxComponent.DropDownButton">DropDownButton</h4>
@@ -147,16 +146,19 @@ public interface IComboBoxComponent : IComponent, IDisposable</code></pre>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IComboBoxComponent_DropDownPanel.md&amp;value=---%0Auid%3A%20AGS.API.IComboBoxComponent.DropDownPanel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L34">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L26">View Source</a>
   </span>
   <a id="AGS_API_IComboBoxComponent_DropDownPanel_" data-uid="AGS.API.IComboBoxComponent.DropDownPanel*"></a>
   <h4 id="AGS_API_IComboBoxComponent_DropDownPanel" data-uid="AGS.API.IComboBoxComponent.DropDownPanel">DropDownPanel</h4>
-  <div class="markdown level1 summary"><p>Gets the drop down panel, which hosts the selection textbox and the dropdown button.</p>
+  <div class="markdown level1 summary"><p>Sets the drop down panel which hosts the selection item.
+The entity is expected to have the following components:
+<a class="xref" href="AGS.API.IListboxComponent.html">IListboxComponent</a> , <a class="xref" href="AGS.API.IVisibleComponent.html">IVisibleComponent</a> , <a class="xref" href="AGS.API.IDrawableInfo.html">IDrawableInfo</a>,
+<a class="xref" href="AGS.API.IImageComponent.html">IImageComponent</a> , <a class="xref" href="AGS.API.ITranslateComponent.html">ITranslateComponent</a>   </p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IPanel DropDownPanel { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IEntity DropDownPanel { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -168,202 +170,39 @@ public interface IComboBoxComponent : IComponent, IDisposable</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IPanel.html">IPanel</a></td>
+        <td><a class="xref" href="AGS.API.IEntity.html">IEntity</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IComboBoxComponent_DropDownPanelList.md&amp;value=---%0Auid%3A%20AGS.API.IComboBoxComponent.DropDownPanelList%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L32">View Source</a>
+  </span>
+  <a id="AGS_API_IComboBoxComponent_DropDownPanelList_" data-uid="AGS.API.IComboBoxComponent.DropDownPanelList*"></a>
+  <h4 id="AGS_API_IComboBoxComponent_DropDownPanelList" data-uid="AGS.API.IComboBoxComponent.DropDownPanelList">DropDownPanelList</h4>
+  <div class="markdown level1 summary"><p>Gets the drop down panel list of items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IListboxComponent DropDownPanelList { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IListboxComponent.html">IListboxComponent</a></td>
         <td><p>The drop down panel.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IComboBoxComponent_ItemButtonFactory.md&amp;value=---%0Auid%3A%20AGS.API.IComboBoxComponent.ItemButtonFactory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L53">View Source</a>
-  </span>
-  <a id="AGS_API_IComboBoxComponent_ItemButtonFactory_" data-uid="AGS.API.IComboBoxComponent.ItemButtonFactory*"></a>
-  <h4 id="AGS_API_IComboBoxComponent_ItemButtonFactory" data-uid="AGS.API.IComboBoxComponent.ItemButtonFactory">ItemButtonFactory</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the factory function for creating buttons which will be displayed for each item
-in the dropdown list.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Func&lt;IButton&gt; ItemButtonFactory { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Func</span>&lt;<a class="xref" href="AGS.API.IButton.html">IButton</a>&gt;</td>
-        <td><p>The item button factory.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IComboBoxComponent_ItemButtons.md&amp;value=---%0Auid%3A%20AGS.API.IComboBoxComponent.ItemButtons%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L59">View Source</a>
-  </span>
-  <a id="AGS_API_IComboBoxComponent_ItemButtons_" data-uid="AGS.API.IComboBoxComponent.ItemButtons*"></a>
-  <h4 id="AGS_API_IComboBoxComponent_ItemButtons" data-uid="AGS.API.IComboBoxComponent.ItemButtons">ItemButtons</h4>
-  <div class="markdown level1 summary"><p>Gets the dropdown list item buttons.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEnumerable&lt;IButton&gt; ItemButtons { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="AGS.API.IButton.html">IButton</a>&gt;</td>
-        <td><p>The item buttons.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IComboBoxComponent_Items.md&amp;value=---%0Auid%3A%20AGS.API.IComboBoxComponent.Items%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L28">View Source</a>
-  </span>
-  <a id="AGS_API_IComboBoxComponent_Items_" data-uid="AGS.API.IComboBoxComponent.Items*"></a>
-  <h4 id="AGS_API_IComboBoxComponent_Items" data-uid="AGS.API.IComboBoxComponent.Items">Items</h4>
-  <div class="markdown level1 summary"><p>Gets the list of items which are up for selection.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IList&lt;object&gt; Items { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IList</span>&lt;<span class="xref">System.Object</span>&gt;</td>
-        <td><p>The items.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IComboBoxComponent_OnSelectedItemChanged.md&amp;value=---%0Auid%3A%20AGS.API.IComboBoxComponent.OnSelectedItemChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L66">View Source</a>
-  </span>
-  <a id="AGS_API_IComboBoxComponent_OnSelectedItemChanged_" data-uid="AGS.API.IComboBoxComponent.OnSelectedItemChanged*"></a>
-  <h4 id="AGS_API_IComboBoxComponent_OnSelectedItemChanged" data-uid="AGS.API.IComboBoxComponent.OnSelectedItemChanged">OnSelectedItemChanged</h4>
-  <div class="markdown level1 summary"><p>An event which fires whenever the selected item in the dropdown was changed
-(this can be because the user selected an item, or because the <a class="xref" href="AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_SelectedIndex">SelectedIndex</a> was set from code). </p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent&lt;ComboboxItemArgs&gt; OnSelectedItemChanged { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.ComboboxItemArgs.html">ComboboxItemArgs</a>&gt;</td>
-        <td><p>The on selected item changed event.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IComboBoxComponent_SelectedIndex.md&amp;value=---%0Auid%3A%20AGS.API.IComboBoxComponent.SelectedIndex%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L22">View Source</a>
-  </span>
-  <a id="AGS_API_IComboBoxComponent_SelectedIndex_" data-uid="AGS.API.IComboBoxComponent.SelectedIndex*"></a>
-  <h4 id="AGS_API_IComboBoxComponent_SelectedIndex" data-uid="AGS.API.IComboBoxComponent.SelectedIndex">SelectedIndex</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the selected item index (a 0 based index of the items list).</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">int SelectedIndex { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><p>The index of the selected.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IComboBoxComponent_SelectedItem.md&amp;value=---%0Auid%3A%20AGS.API.IComboBoxComponent.SelectedItem%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L16">View Source</a>
-  </span>
-  <a id="AGS_API_IComboBoxComponent_SelectedItem_" data-uid="AGS.API.IComboBoxComponent.SelectedItem*"></a>
-  <h4 id="AGS_API_IComboBoxComponent_SelectedItem" data-uid="AGS.API.IComboBoxComponent.SelectedItem">SelectedItem</h4>
-  <div class="markdown level1 summary"><p>Gets the selected item.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">object SelectedItem { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Object</span></td>
-        <td><p>The selected item.</p>
 </td>
       </tr>
     </tbody>
@@ -373,7 +212,7 @@ in the dropdown list.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IComboBoxComponent_TextBox.md&amp;value=---%0Auid%3A%20AGS.API.IComboBoxComponent.TextBox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L40">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L12">View Source</a>
   </span>
   <a id="AGS_API_IComboBoxComponent_TextBox_" data-uid="AGS.API.IComboBoxComponent.TextBox*"></a>
   <h4 id="AGS_API_IComboBoxComponent_TextBox" data-uid="AGS.API.IComboBoxComponent.TextBox">TextBox</h4>
@@ -411,7 +250,7 @@ in the dropdown list.</p>
                     <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IComboBoxComponent.md&amp;value=---%0Auid%3A%20AGS.API.IComboBoxComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/UI/Controls/Combobox/IComboBoxComponent.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
