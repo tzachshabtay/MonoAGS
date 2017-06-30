@@ -397,9 +397,12 @@
     <Compile Include="Graphics\Logic\GLIconFactory.cs" />
     <Compile Include="Serialization\Contracts\ContractButtonAnimation.cs" />
     <Compile Include="UI\Borders\AGSMultipleBorders.cs" />
-    <Compile Include="UI\DebugControls\GameDebugTree.cs" />
     <Compile Include="UI\Controls\Listbox\AGSStringItem.cs" />
     <Compile Include="UI\Controls\Listbox\AGSListboxComponent.cs" />
+    <Compile Include="UI\DebugControls\DebugView\GameDebugDisplayList.cs" />
+    <Compile Include="UI\DebugControls\DebugView\GameDebugTree.cs" />
+    <Compile Include="UI\DebugControls\DebugView\GameDebugView.cs" />
+    <Compile Include="UI\DebugControls\DebugView\IDebugTab.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -486,5 +489,6 @@
     <Folder Include="UI\Layouts\" />
     <Folder Include="UI\Controls\Tree\" />
     <Folder Include="UI\Controls\Listbox\" />
+    <Folder Include="UI\DebugControls\DebugView\" />
   </ItemGroup>
 </Project>

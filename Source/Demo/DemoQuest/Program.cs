@@ -9,16 +9,16 @@ namespace DemoGame
 {
 	public class DemoStarter
 	{
-        private static Lazy<GameDebugTree> _gameDebugTree;
+        private static Lazy<GameDebugView> _gameDebugView;
 
 		public static void Run()
 		{
 			IGame game = AGSGame.CreateEmpty();
-            _gameDebugTree = new Lazy<GameDebugTree>(() =>
+            _gameDebugView = new Lazy<GameDebugView>(() =>
             {
-                var gameDebugTree = new GameDebugTree(game);
-                gameDebugTree.Load();
-                return gameDebugTree;
+                var gameDebugView = new GameDebugView(game);
+                gameDebugView.Load();
+                return gameDebugView;
             });
 
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
@@ -72,7 +72,7 @@ namespace DemoGame
                 }
                 else if (args.Key == Key.G && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
                 {
-                    var gameDebug = _gameDebugTree.Value;
+                    var gameDebug = _gameDebugView.Value;
                     if (gameDebug.Visible) gameDebug.Hide();
                     else gameDebug.Show();
                 }

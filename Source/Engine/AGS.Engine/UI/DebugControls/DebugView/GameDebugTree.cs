@@ -2,14 +2,14 @@
 
 namespace AGS.Engine
 {
-    public class GameDebugTree
+    public class GameDebugTree : IDebugTab
     {
         private readonly IRenderLayer _layer;
-        private const string _panelId = "Game Debug Tree Panel";
-        private IPanel _panel;
+        private const string _panelId = "GameDebugTreePanel";
         private ITreeViewComponent _treeView;
         private readonly IGame _game;
         private readonly IConcurrentHashSet<string> _addedObjects;
+        private IPanel _treePanel;
 
         private IAnimationContainer _lastSelectedObject;
         private IVisibleComponent _lastSelectedMaskVisible;
@@ -18,62 +18,32 @@ namespace AGS.Engine
         private bool _lastMaskVisible;
         private byte _lastOpacity;
 
-        public GameDebugTree(IGame game)
+        public GameDebugTree(IGame game, IRenderLayer layer)
         {
             _game = game;
             _addedObjects = new AGSConcurrentHashSet<string>(100, false);
-            _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: new Size(1800, 1200));
+            _layer = layer;
         }
 
-        public void Load()
+        public void Load(IPanel parent)
         {
-            const float headerHeight = 50f;
-            const float borderWidth = 3f;
-            IGameFactory factory = _game.Factory;
-            _panel = factory.UI.GetPanel(_panelId, _layer.IndependentResolution.Value.Width / 4f, _layer.IndependentResolution.Value.Height, 
-                                         0f, _layer.IndependentResolution.Value.Height / 2f);
-            _panel.Anchor = new PointF(0f, 0.5f);
-            _panel.Visible = false;
-            _panel.Tint = Colors.Black.WithAlpha(150);
-            _panel.Border = AGSBorders.SolidColor(Colors.Green, borderWidth, hasRoundCorners: true);
-            _panel.RenderLayer = _layer;
-            _game.State.FocusedUI.CannotLoseFocus.Add(_panelId);
-
-            var headerLabel = factory.UI.GetLabel("GameDebugTreeLabel", "Game Debug", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
-									  _panel, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
-            headerLabel.Tint = Colors.Transparent;
-            headerLabel.Border = _panel.Border;
-            headerLabel.RenderLayer = _layer;
-
-            var xButton = factory.UI.GetButton("GameDebugTreeCloseButton", (IAnimation)null, null, null, 0f, _panel.Height - headerHeight + 5f, _panel, "X",
-            								   new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
-            													 autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter),
-            													 width: 40f, height: 40f);
-            xButton.Anchor = new PointF();
-            xButton.RenderLayer = _layer;
-            xButton.Tint = Colors.Transparent;
-            xButton.MouseEnter.Subscribe((_, __) => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
-            xButton.MouseLeave.Subscribe((_, __) => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Red, Colors.Transparent, 0f));
-            xButton.MouseClicked.Subscribe((_, __) => Hide());
-
-            var treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, _panel.Height - headerHeight - 40f, _panel);
-            treePanel.Tint = Colors.Transparent;
-            treePanel.RenderLayer = _layer;
-            _treeView = treePanel.AddComponent<ITreeViewComponent>();
+            var factory = _game.Factory;
+            _treePanel = factory.UI.GetPanel(_panelId, 1f, 1f, 0f, parent.Height, parent);
+            _treePanel.Tint = Colors.Transparent;
+            _treePanel.RenderLayer = _layer;
+            _treeView = _treePanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
         }
-
-        public bool Visible { get { return _panel.Visible; } }
 
         public void Show()
         {
             refresh();
-            _panel.Visible = true;
+            _treePanel.Visible = true;
         }
 
         public void Hide()
         {
-	        _panel.Visible = false;
+	        _treePanel.Visible = false;
         }
 
         private void onTreeNodeSelected(object sender, NodeEventArgs args)
