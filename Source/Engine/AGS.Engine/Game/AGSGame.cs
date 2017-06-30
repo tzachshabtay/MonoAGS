@@ -10,7 +10,6 @@ namespace AGS.Engine
 	public class AGSGame : IGame
 	{
 		private Resolver _resolver;
-		private IRendererLoop _renderLoop;
 		private int _relativeSpeed;
 		private AGSEventArgs _renderEventArgs;
 		private readonly IMessagePump _messagePump;
@@ -68,6 +67,8 @@ namespace AGS.Engine
 
 		public IGameLoop GameLoop { get; private set; } 
 
+        public IRendererLoop RenderLoop { get; private set; }
+
 		public ISaveLoad SaveLoad { get; private set; } 
 
 		public IInput Input { get; private set; } 
@@ -110,7 +111,7 @@ namespace AGS.Engine
                         Input = _resolver.Container.Resolve<IInput>(gameWindowParameter, sizeParameter);
                         TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
                         TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
-                        _renderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter);
+                        RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter);
                         updateResolver();
                         AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
                         SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
@@ -153,14 +154,14 @@ namespace AGS.Engine
 
                     GameWindow.RenderFrame += (sender, e) =>
                     {
-                        if (_renderLoop == null) return;
+                        if (RenderLoop == null) return;
                         try
                         {
                             // render graphics
                             _graphics.ClearScreen();
                             Events.OnBeforeRender.Invoke(sender, _renderEventArgs);
 
-                            if (_renderLoop.Tick())
+                            if (RenderLoop.Tick())
                             {
                                 GameWindow.SwapBuffers();
                             }
@@ -209,7 +210,7 @@ namespace AGS.Engine
 		{
 			var updater = new ContainerBuilder ();
 			updater.RegisterInstance(Input).As<IInput>();
-			updater.RegisterInstance(_renderLoop).As<IRendererLoop>();
+			updater.RegisterInstance(RenderLoop).As<IRendererLoop>();
 			updater.RegisterInstance(this).As<IGame>();
             updater.RegisterInstance(Settings).As<IGameSettings>();
             updater.RegisterInstance(Settings).As<IRuntimeSettings>();

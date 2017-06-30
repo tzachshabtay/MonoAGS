@@ -25,6 +25,13 @@
 		IGameLoop GameLoop { get; }
 
         /// <summary>
+        /// Gets the render loop. This is used by the engine for rendering to the screen on each tick, and should
+        /// not be used by the player.
+        /// </summary>
+        /// <value>The renderer loop.</value>
+        IRendererLoop RenderLoop { get; }
+
+        /// <summary>
         /// Interface for saving/loading the game.
         /// </summary>
         /// <value>The save load.</value>
