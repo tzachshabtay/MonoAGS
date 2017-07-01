@@ -236,6 +236,7 @@
     <Compile Include="UI\Controls\Listbox\IListboxComponent.cs" />
     <Compile Include="UI\Controls\Listbox\ListboxItemArgs.cs" />
     <Compile Include="Graphics\Logic\DisplayListEventArgs.cs" />
+    <Compile Include="Misc\Collections\BindingList\AGSListItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

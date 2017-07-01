@@ -90,11 +90,11 @@ namespace AGS.Engine
         {
             if (args.ChangeType == ListChangeType.Add)
             {
-                subscribeTree(args.Item);
+                foreach (var item in args.Items) subscribeTree(item.Item);
             }
             else
             {
-                unsubscribeTree(args.Item);
+                foreach (var item in args.Items) unsubscribeTree(item.Item);
             }
             RebuildTree();
         }

@@ -75,19 +75,27 @@ namespace AGS.Engine
         {
             if (args.ChangeType == ListChangeType.Remove)
             {
-                var button = _itemButtons[args.Index];
-                button.MouseClicked.Unsubscribe(onItemClicked);
-                _tree.TreeNode.RemoveChild(button);
-                _itemButtons.RemoveAt(args.Index);
+                var items = args.Items.OrderByDescending(i => i.Index);
+                foreach (var item in items)
+                {
+                    var button = _itemButtons[item.Index];
+                    button.MouseClicked.Unsubscribe(onItemClicked);
+                    _tree.TreeNode.RemoveChild(button);
+                    _itemButtons.RemoveAt(item.Index);
+                }
             }
             else
             {
-                string buttonText = args.Item.Text;
-                var newButton = ItemButtonFactory(buttonText);
-                newButton.Text = buttonText;
-                newButton.MouseClicked.Subscribe(onItemClicked);
-                _itemButtons.Insert(args.Index, newButton);
-                _tree.TreeNode.AddChild(newButton);
+                var items = args.Items.OrderBy(i => i.Index);
+                foreach (var item in items)
+                {
+                    string buttonText = item.Item.Text;
+                    var newButton = ItemButtonFactory(buttonText);
+                    newButton.Text = buttonText;
+                    newButton.MouseClicked.Subscribe(onItemClicked);
+                    _itemButtons.Insert(item.Index, newButton);
+                    _tree.TreeNode.AddChild(newButton);
+                }
             }
             refreshItemsLayout();
         }

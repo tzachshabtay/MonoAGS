@@ -25,8 +25,13 @@ namespace AGS.Engine
 
 		private void onListChanged(TItem item, int index, ListChangeType changeType)
 		{
-			OnListChanged.Invoke(this, new AGSListChangedEventArgs<TItem>(changeType, item, index));
+            OnListChanged.Invoke(this, new AGSListChangedEventArgs<TItem>(changeType, new AGSListItem<TItem>(item, index)));
 		}
+
+        private void onListChanged(IEnumerable<AGSListItem<TItem>> items, ListChangeType changeType)
+        {
+	        OnListChanged.Invoke(this, new AGSListChangedEventArgs<TItem>(changeType, items));
+        }
 
 		#region IList implementation
 
@@ -63,7 +68,20 @@ namespace AGS.Engine
 			}
 		}
 
-		#endregion
+        #endregion
+
+        public void AddRange(List<TItem> items)
+        {
+            List<AGSListItem<TItem>> pairs = new List<AGSListItem<TItem>>(items.Count);
+            int index = _list.Count;
+            foreach (var item in items)
+            {
+                _list.Add(item);
+                pairs.Add(new AGSListItem<TItem>(item, index));
+                index++;
+            }
+            onListChanged(pairs, ListChangeType.Add);
+        }
 
 		#region ICollection implementation
 
