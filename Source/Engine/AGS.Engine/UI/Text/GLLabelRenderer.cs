@@ -21,6 +21,9 @@ namespace AGS.Engine
 		private readonly BitmapPool _bitmapPool;
         private readonly IFontLoader _fonts;
         private readonly Size _virtualResolution;
+        private readonly AGSEventArgs _emptyEventArgs = new AGSEventArgs();
+
+        private float _lastWidth = 1f, _lastHeight = 1f;
 
         public GLLabelRenderer(Dictionary<string, ITexture> textures, 
 			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
@@ -29,6 +32,7 @@ namespace AGS.Engine
                                IGLUtils glUtils, IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IFontLoader fonts, 
                                IRuntimeSettings settings)
 		{
+            OnLabelSizeChanged = new AGSEvent<AGSEventArgs>();
             _glUtils = glUtils;
             _graphics = graphics;
             _fonts = fonts;
@@ -87,6 +91,8 @@ namespace AGS.Engine
 				return _glTextHitTest == null ? 1f : _glTextHitTest.Height;
 			}
 		}
+
+        public IEvent<AGSEventArgs> OnLabelSizeChanged { get; private set; }
 
 		#region IImageRenderer implementation
 
@@ -172,7 +178,14 @@ namespace AGS.Engine
             renderResolutionFactor = noFactor;
 
             updateBoundingBoxes(_glTextHitTest, autoFit, textHitTestMatrices, labelHitTestMatrices, scaleUpText, noFactor, hitTestResolutionFactor, resolutionMatches, true);
-            if (!resolutionMatches) updateBoundingBoxes(_glTextRender, autoFit, textRenderMatrices, labelRenderMatrices, scaleUpText, scaleDownText, renderResolutionFactor, true, false);            
+            if (!resolutionMatches) updateBoundingBoxes(_glTextRender, autoFit, textRenderMatrices, labelRenderMatrices, scaleUpText, scaleDownText, renderResolutionFactor, true, false);
+
+            if (_lastWidth != Width || _lastHeight != Height)
+            {
+                OnLabelSizeChanged.Invoke(this, _emptyEventArgs); 
+            }
+            _lastWidth = Width;
+            _lastHeight = Height;
 		}
 
 

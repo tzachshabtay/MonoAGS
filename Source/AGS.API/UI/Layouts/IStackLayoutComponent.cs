@@ -39,5 +39,15 @@
         /// </summary>
         /// <value>The relative spacing.</value>
         float RelativeSpacing { get; set; }
+
+        /// <summary>
+        /// Starts applying the layout to its children (this needs to be called at least once).
+        /// </summary>
+        void StartLayout();
+
+        /// <summary>
+        /// Stops applying the layout to its children.
+        /// </summary>
+        void StopLayout();
     }
 }

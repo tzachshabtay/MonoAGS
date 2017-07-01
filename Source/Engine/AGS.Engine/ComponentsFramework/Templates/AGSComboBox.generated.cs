@@ -270,6 +270,11 @@ namespace AGS.Engine
             get { return _visibleComponent.UnderlyingVisible; } 
         }
 
+        public IEvent<AGSEventArgs> OnUnderlyingVisibleChanged
+        {
+            get { return _visibleComponent.OnUnderlyingVisibleChanged; }
+        }
+
         #endregion
 
         #region IEnabledComponent implementation

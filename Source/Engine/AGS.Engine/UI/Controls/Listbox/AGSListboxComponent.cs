@@ -30,7 +30,10 @@ namespace AGS.Engine
             _scale = entity.GetComponent<IScaleComponent>();
             _tree = entity.GetComponent<IInObjectTree>();
             _image = entity.GetComponent<IImageComponent>();
-            entity.GetComponent<IStackLayoutComponent>().RelativeSpacing = 1f;
+
+            var stackLayout = entity.GetComponent<IStackLayoutComponent>();
+            stackLayout.RelativeSpacing = 1f;
+            stackLayout.StartLayout();
         }
 
         public Func<string, IButton> ItemButtonFactory { get; set; }

@@ -73,7 +73,8 @@ namespace DemoGame
             _buttonsPanel = factory.UI.GetPanel(_buttonsPanelId, (IImage)null, 15f, top, _panel);
             var layout = _buttonsPanel.AddComponent<IStackLayoutComponent>();
             layout.RelativeSpacing = 0f;
-            layout.AbsoluteSpacing = step;                                     
+            layout.AbsoluteSpacing = step;
+            layout.StartLayout();
             await loadButton("Resume", hide);
             await loadButton("Restart", restart);
             await loadButton("Load", load);

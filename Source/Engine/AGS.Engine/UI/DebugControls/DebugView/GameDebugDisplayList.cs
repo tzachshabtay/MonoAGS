@@ -25,7 +25,7 @@ namespace AGS.Engine
             _listPanel.Tint = Colors.Transparent;
             _listPanel.RenderLayer = _layer;
             _listPanel.Anchor = new PointF(0f, 1f);
-            _listPanel.AddComponent<IStackLayoutComponent>();
+            _listPanel.AddComponent<IStackLayoutComponent>().StartLayout();
             _listBox = _listPanel.AddComponent<IListboxComponent>();
             var yellowBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow);
             var whiteBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.White);

@@ -5,32 +5,113 @@ namespace AGS.Engine
 {
     public class AGSStackLayoutComponent : AGSComponent, IStackLayoutComponent
     {
-        IInObjectTree _tree;
+        private IInObjectTree _tree;
+        private float _absoluteSpacing, _relativeSpacing;
+        private LayoutDirection _direction;
+        private bool _isPaused;
 
-        public AGSStackLayoutComponent(IGame game)
+        public AGSStackLayoutComponent()
         {
-            Direction = LayoutDirection.Vertical;
-            RelativeSpacing = -1f; //a simple vertical layout top to bottom by default.
-            game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+            _isPaused = true;
+            _direction = LayoutDirection.Vertical;
+            _relativeSpacing = -1f; //a simple vertical layout top to bottom by default.
         }
 
-        public LayoutDirection Direction { get; set; }
-        public float AbsoluteSpacing { get; set; }
-        public float RelativeSpacing { get; set; }
+        public LayoutDirection Direction { get { return _direction; } set { _direction = value; adjustLayout(); } }
+        public float AbsoluteSpacing { get { return _absoluteSpacing; } set { _absoluteSpacing = value; adjustLayout(); } }
+        public float RelativeSpacing { get { return _relativeSpacing; } set { _relativeSpacing = value; adjustLayout(); } }
 
         public override void Init(IEntity entity)
         {
             base.Init(entity);
             _tree = entity.GetComponent<IInObjectTree>();
+            subscribeTree(_tree.TreeNode);
+            adjustLayout();
         }
 
-        private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+        public void StartLayout()
         {
+            _isPaused = false;
+            adjustLayout();
+        }
+
+        public void StopLayout()
+        {
+            _isPaused = true;
+        }
+
+        private void onTreeChanged(object sender, AGSListChangedEventArgs<IObject> args)
+        {
+            if (args.ChangeType == ListChangeType.Add)
+            {
+                foreach (var item in args.Items)
+                {
+                    subscribeObject(item.Item);
+                    subscribeTree(item.Item.TreeNode);
+                }
+            }
+            else
+            {
+                foreach (var item in args.Items)
+                {
+                    unsubscribeObject(item.Item);
+                    unsubscribeTree(item.Item.TreeNode);
+                }
+            }
+            adjustLayout();
+        }
+
+        private void onObjectChanged(object sender, AGSEventArgs args)
+        {
+            adjustLayout();
+        }
+
+        private void subscribeTree(ITreeNode<IObject> node)
+        {
+            node.Children.OnListChanged.Subscribe(onTreeChanged);
+            foreach (var child in node.Children)
+            {
+                subscribeObject(child);
+                subscribeTree(child.TreeNode);
+            }
+        }
+
+        private void unsubscribeTree(ITreeNode<IObject> node)
+        {
+            node.Children.OnListChanged.Subscribe(onTreeChanged);
+            foreach (var child in node.Children)
+            {
+                unsubscribeObject(child);
+                unsubscribeTree(child.TreeNode);
+            }
+        }
+
+        private void subscribeObject(IObject obj)
+        {
+            obj.OnScaleChanged.Subscribe(onObjectChanged);
+            obj.OnImageChanged.Subscribe(onObjectChanged);
+            obj.OnUnderlyingVisibleChanged.Subscribe(onObjectChanged);
+            var labelRenderer = obj.CustomRenderer as ILabelRenderer;
+            if (labelRenderer != null) labelRenderer.OnLabelSizeChanged.Subscribe(onObjectChanged);
+        }
+
+        private void unsubscribeObject(IObject obj)
+        {
+            obj.OnImageChanged.Unsubscribe(onObjectChanged);
+            obj.OnScaleChanged.Unsubscribe(onObjectChanged);
+            obj.OnUnderlyingVisibleChanged.Unsubscribe(onObjectChanged);
+            var labelRenderer = obj.CustomRenderer as ILabelRenderer;
+            if (labelRenderer != null) labelRenderer.OnLabelSizeChanged.Unsubscribe(onObjectChanged);
+        }
+
+        private void adjustLayout()
+        {
+            if (_isPaused) return;
             float location = 0f;
 
             foreach (var child in _tree.TreeNode.Children)
             {
-                if (!child.Visible) continue;
+                if (!child.UnderlyingVisible) continue;
                 float step;
                 if (Direction == LayoutDirection.Vertical)
                 {
@@ -70,7 +151,7 @@ namespace AGS.Engine
 
             foreach (var child in obj.TreeNode.Children)
             {
-                if (!child.Visible) continue;
+                if (!child.UnderlyingVisible) continue;
                 var minMax = getMinMax(child, getMin, getLength);
                 if (minMax.Item1 < min) min = minMax.Item1;
                 if (minMax.Item2 > max) max = minMax.Item2;

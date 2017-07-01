@@ -60,6 +60,7 @@ namespace AGS.Engine
             var layout = horizontalPanel.AddComponent<IStackLayoutComponent>();
             layout.RelativeSpacing = 1f;
             layout.Direction = LayoutDirection.Horizontal;
+            layout.StartLayout();
 
             var nodeView = new AGSTreeNodeView(label, expandButton, parentPanel, verticalPanel);
             return nodeView;
