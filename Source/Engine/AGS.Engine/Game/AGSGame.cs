@@ -16,6 +16,7 @@ namespace AGS.Engine
         private readonly IGraphicsBackend _graphics;
         private readonly IGLUtils _glUtils;
 		public const double UPDATE_RATE = 60.0;
+        private int _updateFrameRetries = 0, _renderFrameRetries = 0;
 
         public AGSGame(IGameState state, IGameEvents gameEvents, IMessagePump messagePump, 
                        IGraphicsBackend graphics, IGLUtils glUtils)
@@ -130,6 +131,7 @@ namespace AGS.Engine
 
                     GameWindow.UpdateFrame += async (sender, e) =>
                     {
+                        if (_updateFrameRetries > 3) return;
                         try
                         {
                             _messagePump.PumpMessages();
@@ -147,6 +149,7 @@ namespace AGS.Engine
                         }
                         catch (Exception ex)
                         {
+                            _updateFrameRetries++;
                             Debug.WriteLine(ex.ToString());
                             throw ex;
                         }
@@ -154,7 +157,7 @@ namespace AGS.Engine
 
                     GameWindow.RenderFrame += (sender, e) =>
                     {
-                        if (RenderLoop == null) return;
+                        if (RenderLoop == null || _renderFrameRetries > 3) return;
                         try
                         {
                             // render graphics
@@ -172,6 +175,7 @@ namespace AGS.Engine
                         }
                         catch (Exception ex)
     					{
+                            _renderFrameRetries++;
     						Debug.WriteLine("Exception when rendering:");
     						Debug.WriteLine(ex.ToString());
     						throw;
