@@ -62,7 +62,7 @@ namespace AGS.Engine
             layout.Direction = LayoutDirection.Horizontal;
             layout.StartLayout();
 
-            var nodeView = new AGSTreeNodeView(label, expandButton, parentPanel, verticalPanel);
+            var nodeView = new AGSTreeNodeView(label, expandButton, parentPanel, verticalPanel, horizontalPanel);
             return nodeView;
         }
     }

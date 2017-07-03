@@ -31,5 +31,11 @@
         /// </summary>
         /// <value>The vertical panel.</value>
         IPanel VerticalPanel { get; }
+
+        /// <summary>
+        /// Gets the horizontal panel which contains the expand/collapse button and the text label.
+        /// </summary>
+        /// <value>The horizontal panel.</value>
+        IPanel HorizontalPanel { get; }
     }
 }

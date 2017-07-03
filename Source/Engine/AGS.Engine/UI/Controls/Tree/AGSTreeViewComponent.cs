@@ -184,6 +184,8 @@ namespace AGS.Engine
             removeFromUI(node.View.ExpandButton);
             removeFromUI(node.View.TreeItem);
             removeFromUI(node.View.VerticalPanel);
+            removeFromUI(node.View.HorizontalPanel);
+            node.View.ParentPanel.TreeNode.SetParent(null);
             node.Dispose();
         }
 
