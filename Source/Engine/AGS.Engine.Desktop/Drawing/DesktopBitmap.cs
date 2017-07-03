@@ -1,10 +1,11 @@
 ﻿using AGS.API;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System;
 
 namespace AGS.Engine.Desktop
 {
-	public class DesktopBitmap : IBitmap
+    public class DesktopBitmap : IBitmap, IDisposable
 	{
 		private readonly Bitmap _bitmap;
         private readonly IGraphicsBackend _graphics;
@@ -16,6 +17,11 @@ namespace AGS.Engine.Desktop
             Height = bitmap.Height;
             _graphics = graphics;
 		}
+
+        ~DesktopBitmap()
+        {
+            dispose(false);
+        }
 
 		#region IBitmap implementation
 
@@ -149,11 +155,23 @@ namespace AGS.Engine.Desktop
             _bitmap.Save(path, ImageFormat.Png);
         }
 
+        public void Dispose()
+        {
+            dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         public int Width { get; private set; }
 
         public int Height { get; private set; }
 
-		#endregion
+        #endregion
+
+        private void dispose(bool disposing)
+        { 
+            var bitmap = _bitmap;
+            if (bitmap != null) bitmap.Dispose();
+        }
 	}
 }
 

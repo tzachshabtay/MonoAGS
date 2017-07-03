@@ -22,6 +22,11 @@ namespace AGS.Engine
             OnComponentsInitialized = new AGSEvent<AGSEventArgs>();
         }
 
+        ~AGSEntity()
+        {
+            dispose(false);
+        }
+
         public string ID { get; private set; }
 
         public IEvent<AGSEventArgs> OnComponentsInitialized { get; private set; }
@@ -153,11 +158,8 @@ namespace AGS.Engine
 
         public void Dispose()
         {
-            foreach (var component in this)
-            {
-                component.Dispose();
-            }
-            _components.Clear();
+            dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion
@@ -191,6 +193,17 @@ namespace AGS.Engine
             if (!_componentsInitialized) return;
             component.Init(this);
             component.AfterInit();
+        }
+
+        private void dispose(bool disposing)
+        {
+            var components = _components;
+            if (components == null) return;
+            foreach (var component in components.SelectMany(c => c.Value))
+            {
+                component.Dispose();
+            }
+            _components = null;
         }
     }
 }

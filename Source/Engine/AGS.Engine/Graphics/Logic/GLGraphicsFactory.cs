@@ -18,7 +18,7 @@ namespace AGS.Engine
 
         public GLGraphicsFactory (Dictionary<string, ITexture> textures, Resolver resolver, IGLUtils glUtils, 
                                   IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IUIThread uiThread,
-                                  IResourceLoader resources, IIconFactory icons, IBrushLoader brushes)
+                                  IResourceLoader resources, IIconFactory icons, IBrushLoader brushes, IMessagePump messagePump)
 		{
             Icons = icons;
             Brushes = brushes;
@@ -27,7 +27,7 @@ namespace AGS.Engine
 			_resolver = resolver;
 			_resources = resources;
 			_bitmapLoader = bitmapLoader;
-            _spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage, graphics);
+            _spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage, graphics, messagePump);
             
             AGSGameSettings.CurrentSkin = new AGSBlueSkin(this, glUtils).CreateSkin();
 		}
@@ -263,8 +263,11 @@ namespace AGS.Engine
 			bitmap.LoadTexture(null);
 			GLImage image = new GLImage (bitmap, id, texture, spriteSheet, config);
 
+            string imageId = image.ID;
 			if (_textures != null)
-                _textures.GetOrAdd (image.ID, () => image.Texture);
+                _textures.GetOrAdd (imageId, () => image.Texture);
+            image.OnImageDisposed.Subscribe((_, __) => 
+                                            _textures.Remove(imageId));
 			return image;
 		}
 

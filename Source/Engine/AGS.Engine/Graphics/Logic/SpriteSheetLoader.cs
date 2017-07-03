@@ -11,13 +11,15 @@ namespace AGS.Engine
         private readonly Action<IImage, AGSAnimation> _addAnimationFrame;
         private readonly Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, IImage> _loadImage;
         private readonly IGraphicsBackend _graphics;
+        private readonly IMessagePump _messagePump;
 
 		public SpriteSheetLoader (IResourceLoader resources, IBitmapLoader bitmapLoader, 
                                   Action<IImage, AGSAnimation> addAnimationFrame,
                                   Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, IImage> loadImage,
-                                  IGraphicsBackend graphics)
+                                  IGraphicsBackend graphics, IMessagePump messagePump)
 		{
             _graphics = graphics;
+            _messagePump = messagePump;
 			_resources = resources;
 			_bitmapLoader = bitmapLoader;
 			_addAnimationFrame = addAnimationFrame;
@@ -112,7 +114,7 @@ namespace AGS.Engine
                                   ILoadImageConfig loadConfig, string filePath, 
                                   out Rectangle rect, out IBitmap clone, out string path, out ITexture texture)
 		{
-            texture = new GLTexture(loadConfig.TextureConfig, _graphics);
+            texture = new GLTexture(loadConfig.TextureConfig, _graphics, _messagePump);
 			rect = new Rectangle (cellX * spriteSheet.CellWidth,
 										cellY * spriteSheet.CellHeight, spriteSheet.CellWidth, spriteSheet.CellHeight);
 			clone = bitmap.Crop (rect);

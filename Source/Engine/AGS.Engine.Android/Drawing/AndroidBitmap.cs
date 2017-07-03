@@ -1,10 +1,11 @@
 ﻿using AGS.API;
 using Android.Graphics;
 using System.IO;
+using System;
 
 namespace AGS.Engine.Android
 {
-	public class AndroidBitmap : IBitmap
+	public class AndroidBitmap : IBitmap, IDisposable
 	{
 		private readonly Bitmap _bitmap;
         private readonly IGraphicsBackend _graphics;
@@ -16,6 +17,11 @@ namespace AGS.Engine.Android
             Height = _bitmap.Height;
             _graphics = graphics;
 		}
+
+        ~AndroidBitmap()
+        {
+            dispose(false);
+        }
 
 		#region IBitmap implementation
 
@@ -170,7 +176,19 @@ namespace AGS.Engine.Android
 
         public int Height { get; private set; }
 
-		#endregion
+        #endregion
+
+        public void Dispose()
+        {
+            dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void dispose(bool disposing)
+        {
+            var bitmap = _bitmap;
+            if (bitmap != null) bitmap.Dispose();
+        }
 	}
 }
 

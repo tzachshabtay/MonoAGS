@@ -16,10 +16,12 @@ namespace AGS.Engine
         private int _vbo, _ebo;
 
         private readonly IGraphicsBackend _graphics;
+        private readonly IMessagePump _messagePump;
 
-        public GLUtils(IGraphicsBackend graphics)
+        public GLUtils(IGraphicsBackend graphics, IMessagePump messagePump)
         {
             _graphics = graphics;
+            _messagePump = messagePump;
             CurrentResolution = new Size();
         }
 
@@ -144,7 +146,7 @@ namespace AGS.Engine
                                         settings.WindowSize.Height / CurrentResolution.Height);
 
             var frameBuffer = new GLFrameBuffer(new Size((int)Math.Ceiling(width * aspectRatio.Width),
-                                                         (int)Math.Ceiling(height * aspectRatio.Height)), _graphics);
+                                                         (int)Math.Ceiling(height * aspectRatio.Height)), _graphics, _messagePump);
             frameBuffer.Begin();
             return frameBuffer;
         }
