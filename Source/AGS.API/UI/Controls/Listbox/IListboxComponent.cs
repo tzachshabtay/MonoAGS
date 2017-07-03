@@ -28,7 +28,7 @@ namespace AGS.API
         /// Gets the list of items which are up for selection.
         /// </summary>
         /// <value>The items.</value>
-        IList<IStringItem> Items { get; }
+        IAGSBindingList<IStringItem> Items { get; }
 
         /// <summary>
         /// Gets or sets the factory function for creating buttons which will be displayed for each item

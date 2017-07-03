@@ -14,9 +14,11 @@ namespace AGS.Engine
         private IScaleComponent _scale;
         private IInObjectTree _tree;
         private IImageComponent _image;
+        private IGameState _state;
 
-        public AGSListboxComponent(IUIFactory factory)
+        public AGSListboxComponent(IUIFactory factory, IGameState state)
         {
+            _state = state;
             _uiFactory = factory;
             _itemButtons = new List<IButton>();
             _items = new AGSBindingList<IStringItem>(10);
@@ -40,7 +42,7 @@ namespace AGS.Engine
         
         public IEnumerable<IButton> ItemButtons { get { return _itemButtons; } }
         
-        public IList<IStringItem> Items { get { return _items; } }
+        public IAGSBindingList<IStringItem> Items { get { return _items; } }
 
         public int SelectedIndex
         {
@@ -84,6 +86,7 @@ namespace AGS.Engine
                     var button = _itemButtons[item.Index];
                     button.MouseClicked.Unsubscribe(onItemClicked);
                     _tree.TreeNode.RemoveChild(button);
+                    _state.UI.Remove(button);
                     _itemButtons.RemoveAt(item.Index);
                 }
             }
