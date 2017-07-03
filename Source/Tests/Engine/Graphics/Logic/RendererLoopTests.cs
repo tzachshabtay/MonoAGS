@@ -70,7 +70,7 @@ namespace Tests
             _renderer = new Mock<IImageRenderer>();
             return new AGSRendererLoop(_resolver, _mocks.Game().Object, _renderer.Object,
                                         _mocks.Input().Object, new AGSWalkBehindsMap(null), _transitions.Object,
-                                        new Mock<IGLUtils>().Object);
+                                       new Mock<IGLUtils>().Object, new AGSEvent<DisplayListEventArgs>());
         }
 
         private IArea getArea()
