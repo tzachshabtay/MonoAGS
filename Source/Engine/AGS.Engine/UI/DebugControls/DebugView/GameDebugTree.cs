@@ -1,11 +1,12 @@
-﻿using AGS.API;
+﻿using System.Threading.Tasks;
+using AGS.API;
 
 namespace AGS.Engine
 {
     public class GameDebugTree : IDebugTab
     {
         private readonly IRenderLayer _layer;
-        private const string _panelId = "GameDebugTreePanel";
+        private string _panelId;
         private ITreeViewComponent _treeView;
         private readonly IGame _game;
         private readonly IConcurrentHashSet<string> _addedObjects;
@@ -27,23 +28,25 @@ namespace AGS.Engine
 
         public void Load(IPanel parent)
         {
+            _panelId = parent.TreeNode.GetRoot().ID;
             var factory = _game.Factory;
-            _treePanel = factory.UI.GetPanel(_panelId, 1f, 1f, 0f, parent.Height, parent);
+            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, parent.Height, parent);
             _treePanel.Tint = Colors.Transparent;
             _treePanel.RenderLayer = _layer;
             _treeView = _treePanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
         }
 
-        public void Show()
+        public async Task Show()
         {
-            refresh();
+            await Task.Run(() => refresh());
             _treePanel.Visible = true;
         }
 
         public void Hide()
         {
 	        _treePanel.Visible = false;
+            _treeView.Tree = null;
         }
 
         private void onTreeNodeSelected(object sender, NodeEventArgs args)
@@ -164,9 +167,9 @@ namespace AGS.Engine
         private IObject getRoot(IObject obj)
         {
             if (obj == null) return null;
-            obj = obj.TreeNode.GetRoot();
-            if (obj.ID == _panelId) return null;
-            return obj;
+            var root = obj.TreeNode.GetRoot();
+            if (root.ID == _panelId) return null;
+            return root;
         }
 
         private void addObjectToTree(IObject obj, ITreeStringNode parent)
@@ -182,7 +185,7 @@ namespace AGS.Engine
         }
 
         private ITreeStringNode addToTree(string text, ITreeStringNode parent)
-        { 
+        {
             var node = new AGSTreeStringNode { Text = text };
             if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
             return node;

@@ -1,8 +1,10 @@
-﻿namespace AGS.Engine
+﻿using System.Threading.Tasks;
+
+namespace AGS.Engine
 {
     public interface IDebugTab
     {
-        void Show();
+        Task Show();
         void Hide();
     }
 }

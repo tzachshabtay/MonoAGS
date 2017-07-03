@@ -49,7 +49,7 @@ namespace DemoGame
         private static void setKeyboardEvents(IGame game)
         {
             game.State.Cutscene.SkipTrigger = SkipCutsceneTrigger.AnyKey;
-            game.Input.KeyDown.Subscribe((sender, args) =>
+            game.Input.KeyDown.SubscribeToAsync(async (sender, args) =>
             {
                 if (args.Key == Key.Enter && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
                 {
@@ -74,7 +74,7 @@ namespace DemoGame
                 {
                     var gameDebug = _gameDebugView.Value;
                     if (gameDebug.Visible) gameDebug.Hide();
-                    else gameDebug.Show();
+                    else await gameDebug.Show();
                 }
             });
         }

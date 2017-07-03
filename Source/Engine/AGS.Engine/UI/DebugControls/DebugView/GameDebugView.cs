@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.Threading.Tasks;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -62,7 +63,7 @@ namespace AGS.Engine
             _panesButton.Tint = Colors.Black;
             _panesButton.MouseEnter.Subscribe((_, __) => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
             _panesButton.MouseLeave.Subscribe((_, __) => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.White, Colors.Transparent, 0f));
-            _panesButton.MouseClicked.Subscribe(onPaneSwitch);
+            _panesButton.MouseClicked.SubscribeToAsync(onPaneSwitch);
 
             var parentPanel = factory.UI.GetPanel("GameDebugParentPanel", 1f, 1f, 0f, _panel.Height - headerHeight - 40f, _panel);
             parentPanel.Tint = Colors.Transparent;
@@ -73,10 +74,10 @@ namespace AGS.Engine
             _currentTab = _debugTree;
         }
 
-        public void Show()
+        public Task Show()
         {
             _panel.Visible = true;
-            _currentTab.Show();
+            return _currentTab.Show();
         }
 
         public void Hide()
@@ -85,12 +86,12 @@ namespace AGS.Engine
             _currentTab.Hide();
         }
 
-        private void onPaneSwitch(object sender, MouseButtonEventArgs args)
+        private Task onPaneSwitch(object sender, MouseButtonEventArgs args)
         {
             _currentTab.Hide();
             _currentTab = (_currentTab == _debugTree) ? (IDebugTab)_displayList : _debugTree;
             _panesButton.Text = _currentTab == _debugTree ? "Display List" : "Scene Tree";
-            _currentTab.Show();
+            return _currentTab.Show();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -41,15 +42,16 @@ namespace AGS.Engine
             };
         }
 
-        public void Show()
+        public async Task Show()
         {
-            refresh();
+            await Task.Run(() => refresh());
             _listPanel.Visible = true;
         }
 
         public void Hide()
         {
             _listPanel.Visible = false;
+            _listBox.Items.Clear();
         }
 
         private void refresh()
