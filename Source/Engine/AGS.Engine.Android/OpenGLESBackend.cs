@@ -49,6 +49,7 @@ namespace AGS.Engine
                           PixelType.UnsignedByte, scan0);
         }
         public int GenTexture() { return GL.GenTexture(); }
+        public void DeleteTexture(int textureId) { GL.DeleteTexture(textureId); }
         public void SetTextureMinFilter(ScaleDownFilters filter) { GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, getMinFilter(filter)); }
         public void SetTextureMagFilter(ScaleUpFilters filter) { GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, getMaxFilter(filter)); }
         public void SetTextureWrapS(TextureWrap wrap) { GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, getWrapMode(wrap)); }

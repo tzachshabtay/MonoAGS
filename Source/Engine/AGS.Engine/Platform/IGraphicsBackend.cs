@@ -67,6 +67,7 @@ namespace AGS.Engine
         void BindTexture2D(int textureId);
         void TexImage2D(int width, int height, IntPtr scan0);
         int GenTexture();
+        void DeleteTexture(int textureId);
         void SetTextureMinFilter(ScaleDownFilters filter);
         void SetTextureMagFilter(ScaleUpFilters filter);
         void SetTextureWrapS(TextureWrap wrap);
