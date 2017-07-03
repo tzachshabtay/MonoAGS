@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AGS.Engine
 {
-	public class GLText
+    public class GLText : IDisposable
 	{
 		private string _text;
 		private int _maxWidth;
@@ -17,9 +17,10 @@ namespace AGS.Engine
 		private AGS.API.SizeF _baseSize;
         private int _caretPosition;
         private float _spaceWidth;
-        private bool _cropText, _renderCaret;
+        private bool _cropText, _renderCaret, _measureOnly;
         private readonly IGraphicsBackend _graphics;
         private readonly IFontLoader _fonts;
+        private readonly IMessagePump _messagePump;
         private PointF _scaleUp = new PointF(TextResolutionFactorX, TextResolutionFactorY);
         private PointF _scaleDown = AGSModelMatrixComponent.NoScaling;
 
@@ -32,8 +33,9 @@ namespace AGS.Engine
         /// </summary>
         public static int TextResolutionFactorY = 1;
 
-        public GLText (IGraphicsBackend graphics, IFontLoader fonts, BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
+        public GLText (IGraphicsBackend graphics, IMessagePump messagePump, IFontLoader fonts, BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
 		{
+            _messagePump = messagePump;
             _fonts = fonts;
             _graphics = graphics;
 			this._maxWidth = maxWidth;
@@ -45,6 +47,11 @@ namespace AGS.Engine
 			drawToBitmap();
 		}
 
+        ~GLText()
+        {
+            dispose(false);
+        }
+
 		public static AGS.API.SizeF EmptySize = new AGS.API.SizeF (0f, 0f);
 
 		public int Texture { get { return _texture; } }
@@ -55,7 +62,8 @@ namespace AGS.Engine
 		public float Height { get; private set; }        
 
 		public void SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null,
-              PointF? scaleUp = null, PointF? scaleDown = null, int caretPosition = 0, bool renderCaret = false, bool cropText = false)
+              PointF? scaleUp = null, PointF? scaleDown = null, int caretPosition = 0, bool renderCaret = false,
+              bool cropText = false, bool measureOnly = false)
 		{
 			bool changeNeeded = 
 				(text != null && text != _text)
@@ -65,6 +73,7 @@ namespace AGS.Engine
                 || _caretPosition != caretPosition
                 || _renderCaret != renderCaret
                 || cropText != _cropText
+                || measureOnly != _measureOnly
                 || (scaleUp != null && !scaleUp.Value.Equals(_scaleUp))
                 || (scaleDown != null && !scaleDown.Value.Equals(_scaleDown));
 
@@ -78,6 +87,7 @@ namespace AGS.Engine
             }
 			if (maxWidth != null) _maxWidth = maxWidth.Value;
             _cropText = cropText;
+            _measureOnly = measureOnly;
             if (scaleUp != null) _scaleUp = scaleUp.Value;
             if (scaleDown != null) _scaleDown = scaleDown.Value;
 
@@ -88,12 +98,10 @@ namespace AGS.Engine
 			drawToBitmap();
 		}
 
-		public void Destroy()
+		public void Dispose()
 		{
-			IBitmap bitmap = _bitmap;
-			if (bitmap != null) _bitmapPool.Release(bitmap);
-			//todo: uncomment and remove from our textures map
-			//GL.DeleteTexture (texture);
+            dispose(true);
+            GC.SuppressFinalize(this);
 		}
 
 		public void Refresh()
@@ -180,6 +188,7 @@ namespace AGS.Engine
                 _bitmap = _bitmapPool.Acquire(bitmapWidth, bitmapHeight);
                 bitmap = _bitmap;
             }
+            if (_measureOnly) return;
             IBitmapTextDraw textDraw = bitmap.GetTextDraw();
             using (var context = textDraw.CreateContext())
             {
@@ -224,6 +233,16 @@ namespace AGS.Engine
 				throw;
 			}
 		}
+
+        private void dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                IBitmap bitmap = _bitmap;
+                if (bitmap != null) try { _bitmapPool.Release(bitmap); } catch (ArgumentException e) { Debug.WriteLine(e.ToString()); }
+            }
+            if (_texture != 0) _messagePump.Post(_ => _graphics.DeleteTexture(_texture), null);
+        }
 	}
 }
 
