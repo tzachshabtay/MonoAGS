@@ -91,14 +91,24 @@ references:
   fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem)
   nameWithType: AGSListChangedEventArgs<TItem>
   nameWithType.vb: AGSListChangedEventArgs(Of TItem)
-- uid: AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,`0,System.Int32)
-  name: AGSListChangedEventArgs(ListChangeType, TItem, Int32)
-  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1__ctor_AGS_API_ListChangeType__0_System_Int32_
-  commentId: M:AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,`0,System.Int32)
-  fullName: AGS.API.AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(AGS.API.ListChangeType, TItem, System.Int32)
-  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(AGS.API.ListChangeType, TItem, System.Int32)
-  nameWithType: AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(ListChangeType, TItem, Int32)
-  nameWithType.vb: AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(ListChangeType, TItem, Int32)
+- uid: AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,AGS.API.AGSListItem{`0})
+  name: AGSListChangedEventArgs(ListChangeType, AGSListItem<TItem>)
+  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1__ctor_AGS_API_ListChangeType_AGS_API_AGSListItem__0__
+  commentId: M:AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,AGS.API.AGSListItem{`0})
+  name.vb: AGSListChangedEventArgs(ListChangeType, AGSListItem(Of TItem))
+  fullName: AGS.API.AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(AGS.API.ListChangeType, AGS.API.AGSListItem<TItem>)
+  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(AGS.API.ListChangeType, AGS.API.AGSListItem(Of TItem))
+  nameWithType: AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(ListChangeType, AGSListItem<TItem>)
+  nameWithType.vb: AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(ListChangeType, AGSListItem(Of TItem))
+- uid: AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,System.Collections.Generic.IEnumerable{AGS.API.AGSListItem{`0}})
+  name: AGSListChangedEventArgs(ListChangeType, IEnumerable<AGSListItem<TItem>>)
+  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1__ctor_AGS_API_ListChangeType_System_Collections_Generic_IEnumerable_AGS_API_AGSListItem__0___
+  commentId: M:AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,System.Collections.Generic.IEnumerable{AGS.API.AGSListItem{`0}})
+  name.vb: AGSListChangedEventArgs(ListChangeType, IEnumerable(Of AGSListItem(Of TItem)))
+  fullName: AGS.API.AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(AGS.API.ListChangeType, System.Collections.Generic.IEnumerable<AGS.API.AGSListItem<TItem>>)
+  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(AGS.API.ListChangeType, System.Collections.Generic.IEnumerable(Of AGS.API.AGSListItem(Of TItem)))
+  nameWithType: AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(ListChangeType, IEnumerable<AGSListItem<TItem>>)
+  nameWithType.vb: AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(ListChangeType, IEnumerable(Of AGSListItem(Of TItem)))
 - uid: AGS.API.AGSListChangedEventArgs`1.#ctor*
   name: AGSListChangedEventArgs
   href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1__ctor_
@@ -123,38 +133,79 @@ references:
   fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).ChangeType
   nameWithType: AGSListChangedEventArgs<TItem>.ChangeType
   nameWithType.vb: AGSListChangedEventArgs(Of TItem).ChangeType
-- uid: AGS.API.AGSListChangedEventArgs`1.Index
+- uid: AGS.API.AGSListChangedEventArgs`1.Items
+  name: Items
+  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1_Items
+  commentId: P:AGS.API.AGSListChangedEventArgs`1.Items
+  fullName: AGS.API.AGSListChangedEventArgs<TItem>.Items
+  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).Items
+  nameWithType: AGSListChangedEventArgs<TItem>.Items
+  nameWithType.vb: AGSListChangedEventArgs(Of TItem).Items
+- uid: AGS.API.AGSListChangedEventArgs`1.Items*
+  name: Items
+  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1_Items_
+  commentId: Overload:AGS.API.AGSListChangedEventArgs`1.Items
+  fullName: AGS.API.AGSListChangedEventArgs<TItem>.Items
+  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).Items
+  nameWithType: AGSListChangedEventArgs<TItem>.Items
+  nameWithType.vb: AGSListChangedEventArgs(Of TItem).Items
+- uid: AGS.API.AGSListItem`1
+  name: AGSListItem<TItem>
+  href: api/AGS.API.AGSListItem-1.html
+  commentId: T:AGS.API.AGSListItem`1
+  name.vb: AGSListItem(Of TItem)
+  fullName: AGS.API.AGSListItem<TItem>
+  fullName.vb: AGS.API.AGSListItem(Of TItem)
+  nameWithType: AGSListItem<TItem>
+  nameWithType.vb: AGSListItem(Of TItem)
+- uid: AGS.API.AGSListItem`1.#ctor(`0,System.Int32)
+  name: AGSListItem(TItem, Int32)
+  href: api/AGS.API.AGSListItem-1.html#AGS_API_AGSListItem_1__ctor__0_System_Int32_
+  commentId: M:AGS.API.AGSListItem`1.#ctor(`0,System.Int32)
+  fullName: AGS.API.AGSListItem<TItem>.AGSListItem(TItem, System.Int32)
+  fullName.vb: AGS.API.AGSListItem(Of TItem).AGSListItem(TItem, System.Int32)
+  nameWithType: AGSListItem<TItem>.AGSListItem(TItem, Int32)
+  nameWithType.vb: AGSListItem(Of TItem).AGSListItem(TItem, Int32)
+- uid: AGS.API.AGSListItem`1.#ctor*
+  name: AGSListItem
+  href: api/AGS.API.AGSListItem-1.html#AGS_API_AGSListItem_1__ctor_
+  commentId: Overload:AGS.API.AGSListItem`1.#ctor
+  fullName: AGS.API.AGSListItem<TItem>.AGSListItem
+  fullName.vb: AGS.API.AGSListItem(Of TItem).AGSListItem
+  nameWithType: AGSListItem<TItem>.AGSListItem
+  nameWithType.vb: AGSListItem(Of TItem).AGSListItem
+- uid: AGS.API.AGSListItem`1.Index
   name: Index
-  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1_Index
-  commentId: P:AGS.API.AGSListChangedEventArgs`1.Index
-  fullName: AGS.API.AGSListChangedEventArgs<TItem>.Index
-  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).Index
-  nameWithType: AGSListChangedEventArgs<TItem>.Index
-  nameWithType.vb: AGSListChangedEventArgs(Of TItem).Index
-- uid: AGS.API.AGSListChangedEventArgs`1.Index*
+  href: api/AGS.API.AGSListItem-1.html#AGS_API_AGSListItem_1_Index
+  commentId: P:AGS.API.AGSListItem`1.Index
+  fullName: AGS.API.AGSListItem<TItem>.Index
+  fullName.vb: AGS.API.AGSListItem(Of TItem).Index
+  nameWithType: AGSListItem<TItem>.Index
+  nameWithType.vb: AGSListItem(Of TItem).Index
+- uid: AGS.API.AGSListItem`1.Index*
   name: Index
-  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1_Index_
-  commentId: Overload:AGS.API.AGSListChangedEventArgs`1.Index
-  fullName: AGS.API.AGSListChangedEventArgs<TItem>.Index
-  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).Index
-  nameWithType: AGSListChangedEventArgs<TItem>.Index
-  nameWithType.vb: AGSListChangedEventArgs(Of TItem).Index
-- uid: AGS.API.AGSListChangedEventArgs`1.Item
+  href: api/AGS.API.AGSListItem-1.html#AGS_API_AGSListItem_1_Index_
+  commentId: Overload:AGS.API.AGSListItem`1.Index
+  fullName: AGS.API.AGSListItem<TItem>.Index
+  fullName.vb: AGS.API.AGSListItem(Of TItem).Index
+  nameWithType: AGSListItem<TItem>.Index
+  nameWithType.vb: AGSListItem(Of TItem).Index
+- uid: AGS.API.AGSListItem`1.Item
   name: Item
-  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1_Item
-  commentId: P:AGS.API.AGSListChangedEventArgs`1.Item
-  fullName: AGS.API.AGSListChangedEventArgs<TItem>.Item
-  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).Item
-  nameWithType: AGSListChangedEventArgs<TItem>.Item
-  nameWithType.vb: AGSListChangedEventArgs(Of TItem).Item
-- uid: AGS.API.AGSListChangedEventArgs`1.Item*
+  href: api/AGS.API.AGSListItem-1.html#AGS_API_AGSListItem_1_Item
+  commentId: P:AGS.API.AGSListItem`1.Item
+  fullName: AGS.API.AGSListItem<TItem>.Item
+  fullName.vb: AGS.API.AGSListItem(Of TItem).Item
+  nameWithType: AGSListItem<TItem>.Item
+  nameWithType.vb: AGSListItem(Of TItem).Item
+- uid: AGS.API.AGSListItem`1.Item*
   name: Item
-  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1_Item_
-  commentId: Overload:AGS.API.AGSListChangedEventArgs`1.Item
-  fullName: AGS.API.AGSListChangedEventArgs<TItem>.Item
-  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).Item
-  nameWithType: AGSListChangedEventArgs<TItem>.Item
-  nameWithType.vb: AGSListChangedEventArgs(Of TItem).Item
+  href: api/AGS.API.AGSListItem-1.html#AGS_API_AGSListItem_1_Item_
+  commentId: Overload:AGS.API.AGSListItem`1.Item
+  fullName: AGS.API.AGSListItem<TItem>.Item
+  fullName.vb: AGS.API.AGSListItem(Of TItem).Item
+  nameWithType: AGSListItem<TItem>.Item
+  nameWithType.vb: AGSListItem(Of TItem).Item
 - uid: AGS.API.Alignment
   name: Alignment
   href: api/AGS.API.Alignment.html
@@ -2024,6 +2075,23 @@ references:
   fullName.vb: AGS.API.IAGSBindingList(Of TItem)
   nameWithType: IAGSBindingList<TItem>
   nameWithType.vb: IAGSBindingList(Of TItem)
+- uid: AGS.API.IAGSBindingList`1.AddRange(System.Collections.Generic.List{`0})
+  name: AddRange(List<TItem>)
+  href: api/AGS.API.IAGSBindingList-1.html#AGS_API_IAGSBindingList_1_AddRange_System_Collections_Generic_List__0__
+  commentId: M:AGS.API.IAGSBindingList`1.AddRange(System.Collections.Generic.List{`0})
+  name.vb: AddRange(List(Of TItem))
+  fullName: AGS.API.IAGSBindingList<TItem>.AddRange(System.Collections.Generic.List<TItem>)
+  fullName.vb: AGS.API.IAGSBindingList(Of TItem).AddRange(System.Collections.Generic.List(Of TItem))
+  nameWithType: IAGSBindingList<TItem>.AddRange(List<TItem>)
+  nameWithType.vb: IAGSBindingList(Of TItem).AddRange(List(Of TItem))
+- uid: AGS.API.IAGSBindingList`1.AddRange*
+  name: AddRange
+  href: api/AGS.API.IAGSBindingList-1.html#AGS_API_IAGSBindingList_1_AddRange_
+  commentId: Overload:AGS.API.IAGSBindingList`1.AddRange
+  fullName: AGS.API.IAGSBindingList<TItem>.AddRange
+  fullName.vb: AGS.API.IAGSBindingList(Of TItem).AddRange
+  nameWithType: IAGSBindingList<TItem>.AddRange
+  nameWithType.vb: IAGSBindingList(Of TItem).AddRange
 - uid: AGS.API.IAGSBindingList`1.OnListChanged
   name: OnListChanged
   href: api/AGS.API.IAGSBindingList-1.html#AGS_API_IAGSBindingList_1_OnListChanged
@@ -7599,6 +7667,18 @@ references:
   commentId: Overload:AGS.API.ILabelRenderer.Height
   fullName: AGS.API.ILabelRenderer.Height
   nameWithType: ILabelRenderer.Height
+- uid: AGS.API.ILabelRenderer.OnLabelSizeChanged
+  name: OnLabelSizeChanged
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_OnLabelSizeChanged
+  commentId: P:AGS.API.ILabelRenderer.OnLabelSizeChanged
+  fullName: AGS.API.ILabelRenderer.OnLabelSizeChanged
+  nameWithType: ILabelRenderer.OnLabelSizeChanged
+- uid: AGS.API.ILabelRenderer.OnLabelSizeChanged*
+  name: OnLabelSizeChanged
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_OnLabelSizeChanged_
+  commentId: Overload:AGS.API.ILabelRenderer.OnLabelSizeChanged
+  fullName: AGS.API.ILabelRenderer.OnLabelSizeChanged
+  nameWithType: ILabelRenderer.OnLabelSizeChanged
 - uid: AGS.API.ILabelRenderer.RenderCaret
   name: RenderCaret
   href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_RenderCaret
@@ -10764,6 +10844,30 @@ references:
   commentId: Overload:AGS.API.IStackLayoutComponent.RelativeSpacing
   fullName: AGS.API.IStackLayoutComponent.RelativeSpacing
   nameWithType: IStackLayoutComponent.RelativeSpacing
+- uid: AGS.API.IStackLayoutComponent.StartLayout
+  name: StartLayout()
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_StartLayout
+  commentId: M:AGS.API.IStackLayoutComponent.StartLayout
+  fullName: AGS.API.IStackLayoutComponent.StartLayout()
+  nameWithType: IStackLayoutComponent.StartLayout()
+- uid: AGS.API.IStackLayoutComponent.StartLayout*
+  name: StartLayout
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_StartLayout_
+  commentId: Overload:AGS.API.IStackLayoutComponent.StartLayout
+  fullName: AGS.API.IStackLayoutComponent.StartLayout
+  nameWithType: IStackLayoutComponent.StartLayout
+- uid: AGS.API.IStackLayoutComponent.StopLayout
+  name: StopLayout()
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_StopLayout
+  commentId: M:AGS.API.IStackLayoutComponent.StopLayout
+  fullName: AGS.API.IStackLayoutComponent.StopLayout()
+  nameWithType: IStackLayoutComponent.StopLayout()
+- uid: AGS.API.IStackLayoutComponent.StopLayout*
+  name: StopLayout
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_StopLayout_
+  commentId: Overload:AGS.API.IStackLayoutComponent.StopLayout
+  fullName: AGS.API.IStackLayoutComponent.StopLayout
+  nameWithType: IStackLayoutComponent.StopLayout
 - uid: AGS.API.IStringItem
   name: IStringItem
   href: api/AGS.API.IStringItem.html
@@ -11509,6 +11613,18 @@ references:
   commentId: Overload:AGS.API.ITreeNodeView.ExpandButton
   fullName: AGS.API.ITreeNodeView.ExpandButton
   nameWithType: ITreeNodeView.ExpandButton
+- uid: AGS.API.ITreeNodeView.HorizontalPanel
+  name: HorizontalPanel
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_HorizontalPanel
+  commentId: P:AGS.API.ITreeNodeView.HorizontalPanel
+  fullName: AGS.API.ITreeNodeView.HorizontalPanel
+  nameWithType: ITreeNodeView.HorizontalPanel
+- uid: AGS.API.ITreeNodeView.HorizontalPanel*
+  name: HorizontalPanel
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_HorizontalPanel_
+  commentId: Overload:AGS.API.ITreeNodeView.HorizontalPanel
+  fullName: AGS.API.ITreeNodeView.HorizontalPanel
+  nameWithType: ITreeNodeView.HorizontalPanel
 - uid: AGS.API.ITreeNodeView.ParentPanel
   name: ParentPanel
   href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_ParentPanel
@@ -12040,6 +12156,18 @@ references:
   commentId: T:AGS.API.IVisibleComponent
   fullName: AGS.API.IVisibleComponent
   nameWithType: IVisibleComponent
+- uid: AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged
+  name: OnUnderlyingVisibleChanged
+  href: api/AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_OnUnderlyingVisibleChanged
+  commentId: P:AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged
+  fullName: AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged
+  nameWithType: IVisibleComponent.OnUnderlyingVisibleChanged
+- uid: AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged*
+  name: OnUnderlyingVisibleChanged
+  href: api/AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_OnUnderlyingVisibleChanged_
+  commentId: Overload:AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged
+  fullName: AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged
+  nameWithType: IVisibleComponent.OnUnderlyingVisibleChanged
 - uid: AGS.API.IVisibleComponent.UnderlyingVisible
   name: UnderlyingVisible
   href: api/AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_UnderlyingVisible
