@@ -22,6 +22,7 @@ namespace AGS.Engine
         private readonly IFontLoader _fonts;
         private readonly Size _virtualResolution;
         private readonly IMessagePump _messagePump;
+        private readonly GLMatrices[] _matricesPool;
 
         private float _lastWidth = 1f, _lastHeight = 1f;
 
@@ -32,6 +33,7 @@ namespace AGS.Engine
                                IGLUtils glUtils, IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IFontLoader fonts, 
                                IRuntimeSettings settings, IMessagePump messagePump)
 		{
+            _matricesPool = new GLMatrices[3];
             _messagePump = messagePump;
             OnLabelSizeChanged = new AGSEvent<object>();
             _glUtils = glUtils;
@@ -170,9 +172,9 @@ namespace AGS.Engine
 
             var modelMatrices = obj.GetModelMatrices();
 
-            IGLMatrices textRenderMatrices = new GLMatrices { ModelMatrix = modelMatrices.InObjResolutionMatrix, ViewportMatrix = viewportMatrix };
-            IGLMatrices labelRenderMatrices = obj.RenderLayer.IndependentResolution != null ? textRenderMatrices : new GLMatrices { ModelMatrix = modelMatrices.InVirtualResolutionMatrix, ViewportMatrix = viewportMatrix };
-            IGLMatrices textHitTestMatrices = resolutionMatches ? textRenderMatrices : obj.RenderLayer.IndependentResolution == null ? labelRenderMatrices : new GLMatrices { ModelMatrix = modelMatrices.InVirtualResolutionMatrix, ViewportMatrix = viewportMatrix };
+            IGLMatrices textRenderMatrices = acquireMatrix(0).SetMatrices(modelMatrices.InObjResolutionMatrix, viewportMatrix);
+            IGLMatrices labelRenderMatrices = obj.RenderLayer.IndependentResolution != null ? textRenderMatrices : acquireMatrix(1).SetMatrices(modelMatrices.InVirtualResolutionMatrix, viewportMatrix);
+            IGLMatrices textHitTestMatrices = resolutionMatches ? textRenderMatrices : obj.RenderLayer.IndependentResolution == null ? labelRenderMatrices : acquireMatrix(2).SetMatrices(modelMatrices.InVirtualResolutionMatrix, viewportMatrix);
             IGLMatrices labelHitTestMatrices = obj.RenderLayer.IndependentResolution == null ? labelRenderMatrices : textHitTestMatrices;
 
             if (renderResolutionFactor.Equals(hitTestResolutionFactor)) hitTestResolutionFactor = noFactor;
@@ -189,6 +191,19 @@ namespace AGS.Engine
             _lastHeight = Height;
 		}
 
+        //A very simple "object pool" for the possible 3 matrices a label renderer can create, 
+        //to avoid allocating the matrices object on each tick.
+        //Each possible matrix creation has a cell reserved for it.
+        private GLMatrices acquireMatrix(int index)
+        {
+            GLMatrices matrices = _matricesPool[index];
+            if (matrices == null)
+            {
+                matrices = new GLMatrices();
+                _matricesPool[index] = matrices;
+            }
+            return matrices;
+        }
 
         private void updateBoundingBoxes(GLText glText, AutoFit autoFit, IGLMatrices textMatrices, IGLMatrices labelMatrices, PointF textScaleUp, PointF textScaleDown, PointF labelResolutionFactor, bool buildRenderBox, bool buildHitTestBox)
         {
