@@ -127,7 +127,7 @@ namespace AGS.Engine
             _graphics.DrawElements(PrimitiveMode.Triangles, 6, _quadIndices);
         }
 
-        public bool DrawQuad(IFrameBuffer frameBuffer, ISquare square, GLVertex[] vertices)
+        public bool DrawQuad(IFrameBuffer frameBuffer, AGSSquare square, GLVertex[] vertices)
         {
             if (frameBuffer == null) return false;
             vertices[0] = new GLVertex(square.BottomLeft.ToVector2(), _bottomLeft, Colors.White);
@@ -138,7 +138,7 @@ namespace AGS.Engine
             return true;
         }
 
-        public IFrameBuffer BeginFrameBuffer(ISquare square, IRuntimeSettings settings)
+        public IFrameBuffer BeginFrameBuffer(AGSSquare square, IRuntimeSettings settings)
         {
             float width = square.MaxX - square.MinX;
             float height = square.MaxY - square.MinY;

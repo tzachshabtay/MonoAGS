@@ -30,7 +30,7 @@ namespace AGS.Engine
         public ArrowDirection Direction { get { return _direction; } set { if (_direction == value) return; _direction = value; _frameBuffer = null; } }
         public IGLColor ArrowColor { get { return _color; } set { if (_color == value) return; _color = value; _frameBuffer = null; } }
 
-        public void RenderBorderBack(ISquare square)
+        public void RenderBorderBack(AGSSquare square)
         {
             if (_glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
 
@@ -76,7 +76,7 @@ namespace AGS.Engine
             _glUtils.DrawQuad(_frameBuffer, square, _quad);
         }
 
-        public void RenderBorderFront(ISquare square)
+        public void RenderBorderFront(AGSSquare square)
         {
         }
     }

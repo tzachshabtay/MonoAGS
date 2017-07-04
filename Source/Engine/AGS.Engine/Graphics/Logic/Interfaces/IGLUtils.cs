@@ -16,8 +16,8 @@ namespace AGS.Engine
         void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight,
                       Vector3 topLeft, Vector3 topRight, IGLColor color, FourCorners<Vector2> texturePos);
         void DrawQuad(int texture, GLVertex[] vertices);
-        bool DrawQuad(IFrameBuffer frameBuffer, ISquare square, GLVertex[] vertices);
-        IFrameBuffer BeginFrameBuffer(ISquare square, IRuntimeSettings settings);
+        bool DrawQuad(IFrameBuffer frameBuffer, AGSSquare square, GLVertex[] vertices);
+        IFrameBuffer BeginFrameBuffer(AGSSquare square, IRuntimeSettings settings);
         void DrawTriangleFan(int texture, GLVertex[] vertices);
         void DrawTriangle(int texture, GLVertex[] vertices);
         void DrawCross(float x, float y, float width, float height,

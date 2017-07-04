@@ -12,7 +12,7 @@ namespace AGS.Engine
 		float Width { get; }
 		float Height { get; }
 
-		ISquare ToSquare();
+		AGSSquare ToSquare();
 	}
 }
 

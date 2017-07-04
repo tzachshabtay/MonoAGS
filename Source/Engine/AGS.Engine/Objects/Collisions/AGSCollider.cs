@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -25,13 +24,12 @@ namespace AGS.Engine
             _pixelPerfect = entity.GetComponent<IPixelPerfectComponent>();
 		}
 
-		public ISquare BoundingBox { get; set; }
+		public AGSSquare BoundingBox { get; set; }
 
 		public PointF? CenterPoint
 		{
 			get
 			{
-				if (BoundingBox == null) return null;
 				float minX = BoundingBox.MinX;
 				float minY = BoundingBox.MinY;
 				float offsetX = _pixelPerfect.PixelPerfectHitTestArea == null ? (BoundingBox.MaxX - BoundingBox.MinX) / 2f :
@@ -45,9 +43,7 @@ namespace AGS.Engine
 
 		public bool CollidesWith(float x, float y)
 		{
-			ISquare boundingBox = BoundingBox;
-			if (boundingBox == null)
-				return false;
+			AGSSquare boundingBox = BoundingBox;
 			IArea pixelPerfect = _pixelPerfect.PixelPerfectHitTestArea;
 
 			if (_drawableInfo.IgnoreViewport && _state != null) 

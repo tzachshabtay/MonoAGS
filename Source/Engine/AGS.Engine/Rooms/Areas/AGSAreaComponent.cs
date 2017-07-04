@@ -33,7 +33,7 @@ namespace AGS.Engine
 			return Mask.IsMasked(point);
 		}
 
-		public bool IsInArea(PointF point, ISquare projectionBox, float scaleX, float scaleY)
+		public bool IsInArea(PointF point, AGSSquare projectionBox, float scaleX, float scaleY)
 		{
 			return Mask.IsMasked(point, projectionBox, scaleX, scaleY);
 		}

@@ -94,7 +94,6 @@
     <Compile Include="Misc\Drawing\SizeF.cs" />
     <Compile Include="Misc\Drawing\WrapMode.cs" />
     <Compile Include="Misc\Events\IEvent.cs" />
-    <Compile Include="Misc\Geometry\ISquare.cs" />
     <Compile Include="Misc\ILocation.cs" />
     <Compile Include="Misc\Resources\IResource.cs" />
     <Compile Include="Misc\Resources\IResourceLoader.cs" />
@@ -236,6 +235,8 @@
     <Compile Include="UI\Controls\Listbox\ListboxItemArgs.cs" />
     <Compile Include="Graphics\Logic\DisplayListEventArgs.cs" />
     <Compile Include="Misc\Collections\BindingList\AGSListItem.cs" />
+    <Compile Include="Misc\Geometry\AGSSquare.cs" />
+    <Compile Include="Misc\Geometry\MathUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

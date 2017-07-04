@@ -92,7 +92,7 @@ namespace Tests
 		{
 			bool[][] array = GetArray(width, height, true, pointsInMask);
 			AGSMask mask = new AGSMask(array, null);
-			Mock<ISquare> square = new Mock<ISquare> ();
+			Mock<AGSSquare> square = new Mock<AGSSquare> ();
 
 			AGS.API.PointF bottomLeft = new AGS.API.PointF (projectionLeft, projectionBottom);
 			AGS.API.PointF bottomRight = new AGS.API.PointF (projectionLeft + width * Math.Abs(scaleX), projectionBottom);

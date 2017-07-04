@@ -46,7 +46,7 @@ namespace AGS.Engine
 
 		#region IBorderStyle implementation
 
-		public void RenderBorderBack(ISquare square)
+		public void RenderBorderBack(AGSSquare square)
 		{
 			runAnimation();
 
@@ -73,14 +73,14 @@ namespace AGS.Engine
 			if (DrawBorderBehind) drawBorders(square);
 		}
 
-		public void RenderBorderFront(ISquare square)
+		public void RenderBorderFront(AGSSquare square)
 		{
 			if (!DrawBorderBehind) drawBorders(square);
 		}
 
 		#endregion
 
-		private void drawBorders(ISquare square)
+		private void drawBorders(AGSSquare square)
 		{
 			var slice = Slice.ToPercentage(_width, _height);
 			var width = Width.ToPixels(_width, _height);
@@ -138,7 +138,7 @@ namespace AGS.Engine
 				new Vector2(1f - slice.Right.Value, slice.Bottom.Value), new Vector2(1f, slice.Bottom.Value)));
 		}
 
-		private void drawQuad(ISquare quad, FourCorners<Vector2> texturePos)
+		private void drawQuad(AGSSquare quad, FourCorners<Vector2> texturePos)
 		{
             _glUtils.DrawQuad(_texture, quad.BottomLeft.ToVector3(), quad.BottomRight.ToVector3(),
 				quad.TopLeft.ToVector3(), quad.TopRight.ToVector3(), _white, texturePos); 

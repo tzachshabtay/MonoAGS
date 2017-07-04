@@ -30,19 +30,19 @@ namespace AGS.Engine
 
 		#region IBorderStyle implementation
 
-		public void RenderBorderBack(ISquare square)
+		public void RenderBorderBack(AGSSquare square)
 		{
 			if (DrawBorderBehind) drawBorders(square);
 		}
 
-		public void RenderBorderFront(ISquare square)
+		public void RenderBorderFront(AGSSquare square)
 		{
 			if (!DrawBorderBehind) drawBorders(square);
 		}
 
 		#endregion
 
-		private void drawBorders(ISquare square)
+		private void drawBorders(AGSSquare square)
 		{
 			FourCorners<IGLColor> colors = Color.Convert(c => c.ToGLColor());
 
@@ -87,7 +87,7 @@ namespace AGS.Engine
 			drawQuad(rightQuad, border, colors);
 		}
 
-		private void drawQuad(ISquare quad, ISquare border, FourCorners<IGLColor> colors)
+		private void drawQuad(AGSSquare quad, AGSSquare border, FourCorners<IGLColor> colors)
 		{
 			GLColor bottomLeftColor = getColor(colors, border, quad.BottomLeft); 
 			GLColor bottomRightColor = getColor(colors, border, quad.BottomRight);
@@ -98,7 +98,7 @@ namespace AGS.Engine
 				quad.TopLeft.ToVector3(), quad.TopRight.ToVector3(), bottomLeftColor, bottomRightColor, topLeftColor, topRightColor);
 		}
 
-		private void drawRoundCorner(PointF center, float radius, float angle, ISquare border, FourCorners<IGLColor> colors)
+		private void drawRoundCorner(PointF center, float radius, float angle, AGSSquare border, FourCorners<IGLColor> colors)
 		{
 			Vector2 tex = new Vector2 ();
 			GLVertex centerVertex = new GLVertex (center.ToVector2(), tex, getColor(colors, border, center));
@@ -117,7 +117,7 @@ namespace AGS.Engine
             _glUtils.DrawTriangleFan(0, _roundCorner);
 		}
 
-		private GLColor getColor(FourCorners<IGLColor> colors, ISquare border, PointF point)
+		private GLColor getColor(FourCorners<IGLColor> colors, AGSSquare border, PointF point)
 		{
 			return getColor(colors, MathUtils.Lerp(border.BottomLeft.X, 0f, border.BottomRight.X, 1f, point.X),
 				MathUtils.Lerp(border.BottomRight.Y, 0f, border.TopRight.Y, 1f, point.Y));

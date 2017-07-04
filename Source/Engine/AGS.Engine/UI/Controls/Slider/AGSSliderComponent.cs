@@ -14,6 +14,7 @@ namespace AGS.Engine
 		private readonly IInput _input;
 		private readonly IGameState _state;
 		private readonly IGameEvents _gameEvents;
+        private readonly AGSSquare _emptySquare = default(AGSSquare);
 		private ICollider _collider;
 		private IDrawableInfo _drawableInfo;
 		private IInObjectTree _tree;
@@ -156,9 +157,9 @@ namespace AGS.Engine
 
 		private void onRepeatedlyExecute(object args)
 		{
-			if (!_visible.Visible || !_enabled.Enabled || _collider.BoundingBox == null || 
+            if (!_visible.Visible || !_enabled.Enabled || _collider.BoundingBox.Equals(_emptySquare) || 
                 (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
-                Graphics.BoundingBox == null || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
+                Graphics.BoundingBox.Equals(_emptySquare) || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
                 HandleGraphics == null)
 			{
 				if (_isSliding)

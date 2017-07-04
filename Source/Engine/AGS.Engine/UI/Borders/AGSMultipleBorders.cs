@@ -21,7 +21,7 @@ namespace AGS.Engine
 
         public float WidthRight { get { return Borders.Max(b => b.WidthRight); } }
 
-        public void RenderBorderBack(ISquare square)
+        public void RenderBorderBack(AGSSquare square)
         {
             for (int i = Borders.Count - 1; i >= 0; i--)
             {
@@ -29,7 +29,7 @@ namespace AGS.Engine
             }
         }
 
-        public void RenderBorderFront(ISquare square)
+        public void RenderBorderFront(AGSSquare square)
         {
             foreach (var border in Borders)
             {

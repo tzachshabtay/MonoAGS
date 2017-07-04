@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace AGS.Engine
+namespace AGS.API
 {
 	public static class MathUtils
 	{

@@ -1,4 +1,4 @@
-﻿using AGS.API;
+using AGS.API;
 using System.Collections.Generic;
 using System;
 
@@ -16,6 +16,7 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private readonly IBitmapLoader _bitmapLoader;
         private readonly GLMatrices _matrices = new GLMatrices();
+        private readonly AGSSquare _emptySquare = default(AGSSquare);
 
         public GLImageRenderer (Dictionary<string, ITexture> textures, 
 			IGLBoundingBoxBuilder boundingBoxBuilder,
@@ -87,7 +88,7 @@ namespace AGS.Engine
 			IGLColor color = _colorBuilder.Build(sprite, obj);
 
             IBorderStyle border = obj.Border;
-			ISquare renderSquare = null;
+            AGSSquare renderSquare = _emptySquare;
 			if (border != null)
 			{
 				renderSquare = renderBox.ToSquare();

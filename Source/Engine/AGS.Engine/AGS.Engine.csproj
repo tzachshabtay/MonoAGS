@@ -157,7 +157,6 @@
     <Compile Include="Misc\Drawing\AGSColorBlend.cs" />
     <Compile Include="Misc\Drawing\AGSTransformMatrix.cs" />
     <Compile Include="Misc\Events\AGSEvent.cs" />
-    <Compile Include="Misc\Geometry\AGSSquare.cs" />
     <Compile Include="Misc\Pool\BitmapPool.cs" />
     <Compile Include="Misc\Pool\ObjectPool.cs" />
     <Compile Include="Misc\Resources\AGSResource.cs" />
@@ -165,7 +164,6 @@
     <Compile Include="Misc\Tree\AGSTreeNode.cs" />
     <Compile Include="Misc\Tree\InObjectTreeComponent.cs" />
     <Compile Include="Misc\Utils\Extensions.cs" />
-    <Compile Include="Misc\Utils\MathUtils.cs" />
     <Compile Include="Misc\Utils\Repeat.cs" />
     <Compile Include="Objects\Collisions\AGSCollider.cs" />
     <Compile Include="Objects\AGSDrawableInfoComponent.cs" />
