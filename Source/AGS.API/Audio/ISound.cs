@@ -43,7 +43,7 @@ namespace AGS.API
         /// </summary>
         /// <example>
         /// <code>
-        /// private async Task onMusicBoxInteract(object sender, AGSEventArgs args)
+        /// private async Task onMusicBoxInteract(object args)
         /// {
         ///     ISound sound = musicBoxAudioClip.Play();
         ///     await cHero.SayAsync("The music box is currently playing a song..."); //We didn't wait for the sound to complete yet, so the character is speaking in parallel

@@ -23,7 +23,7 @@ namespace AGS.Engine
 
         private ILabel _withCaret;
 
-        public AGSTextBoxComponent(IEvent<AGSEventArgs> onFocusChanged, IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
+        public AGSTextBoxComponent(IEvent<object> onFocusChanged, IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
                                    IInput input, IGame game, IKeyboardState keyboardState, IFocusedUI focusedUi)
         {
             CaretFlashDelay = 10;
@@ -46,7 +46,7 @@ namespace AGS.Engine
             _tree = entity.GetComponent<IInObjectTree>();
             _room = entity.GetComponent<IHasRoom>();
             var visible = entity.GetComponent<IVisibleComponent>();
-            _game.Events.OnRepeatedlyExecute.Subscribe((_, __) =>
+            _game.Events.OnRepeatedlyExecute.Subscribe(_ =>
             {
                 if (!visible.Visible) IsFocused = false;
             });
@@ -80,35 +80,35 @@ namespace AGS.Engine
                     if (_focusedUi.FocusedTextBox == this)
                         _focusedUi.FocusedTextBox = null;
                 }
-                OnFocusChanged.Invoke(this, new AGSEventArgs());
+                OnFocusChanged.Invoke(null);
             }
         }
 
         public int CaretPosition { get; set; }
         public uint CaretFlashDelay { get; set; }
 
-        public IEvent<AGSEventArgs> OnFocusChanged { get; private set; }
+        public IEvent<object> OnFocusChanged { get; private set; }
 
         public IEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; private set; }
 
-        private void onSoftKeyboardHidden(object sender, AGSEventArgs args)
+        private void onSoftKeyboardHidden(object args)
         {
             _keyboardState.OnSoftKeyboardHidden.Unsubscribe(onSoftKeyboardHidden);
             IsFocused = false;
         }
 
-        private void onMouseDown(object sender, MouseButtonEventArgs args)
+        private void onMouseDown(MouseButtonEventArgs args)
         {
             Debug.WriteLine("{0} is focused", _textComponent.Text);
             IsFocused = true;
         }
 
-        private void onMouseDownOutside(object sender, MouseButtonEventArgs args)
+        private void onMouseDownOutside(MouseButtonEventArgs args)
         {
             IsFocused = false;
         }
 
-        private void onBeforeRender(object sender, AGSEventArgs args)
+        private void onBeforeRender(object args)
         {
             if (_room.Room != null && _room.Room != _game.State.Room) return;
             if (_withCaret.TreeNode.Parent == null) _withCaret.TreeNode.SetParent(_tree.TreeNode);
@@ -143,20 +143,20 @@ namespace AGS.Engine
             }
         }
 
-        private void onKeyUp(object sender, KeyboardEventArgs args)
+        private void onKeyUp(KeyboardEventArgs args)
         {
             if (args.Key == Key.ShiftLeft) { _leftShiftOn = false; return; }
             if (args.Key == Key.ShiftRight) { _rightShiftOn = false; return; }
         }
 
-        private void onKeyDown(object sender, KeyboardEventArgs args)
+        private void onKeyDown(KeyboardEventArgs args)
         {
             if (args.Key == Key.ShiftLeft) { _leftShiftOn = true; return; }
             if (args.Key == Key.ShiftRight) { _rightShiftOn = true; return; }
 
             if (!IsFocused) return;
             TextBoxKeyPressingEventArgs pressingArgs = new TextBoxKeyPressingEventArgs(args.Key);
-            OnPressingKey.Invoke(this, pressingArgs);
+            OnPressingKey.Invoke(pressingArgs);
             if (pressingArgs.ShouldCancel) return;
 
             processKey(args.Key);

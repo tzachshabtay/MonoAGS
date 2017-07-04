@@ -49,7 +49,7 @@ namespace AGS.Engine
             _treeView.Tree = null;
         }
 
-        private void onTreeNodeSelected(object sender, NodeEventArgs args)
+        private void onTreeNodeSelected(NodeEventArgs args)
         {
             unselect();
             string nodeType = args.Node.Properties.Strings.GetValue(Fields.Type);

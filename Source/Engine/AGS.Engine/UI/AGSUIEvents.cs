@@ -73,7 +73,7 @@ namespace AGS.Engine
 			_gameEvents.OnRepeatedlyExecute.UnsubscribeToAsync(onRepeatedlyExecute);
 		}
 
-		private async Task onRepeatedlyExecute(object sender, EventArgs args)
+		private async Task onRepeatedlyExecute(object args)
 		{
 			if (!_enabled.Enabled || !_visible.Visible) return;
             IRoom room = _state.Room;
@@ -103,9 +103,9 @@ namespace AGS.Engine
             await handleMouseButton(_leftMouseClickTimer, _leftMouseDoubleClickTimer, wasLeftMouseDown, leftMouseDown, MouseButton.Left);
 			await handleMouseButton(_rightMouseClickTimer, _rightMouseDoubleClickTimer, wasRightMouseDown, rightMouseDown, MouseButton.Right);
 
-			if (fireMouseEnter) await MouseEnter.InvokeAsync(_entity, new MousePositionEventArgs (position.X, position.Y));
-			else if (fireMouseLeave) await MouseLeave.InvokeAsync(_entity, new MousePositionEventArgs (position.X, position.Y));
-			if (fireMouseMove) await MouseMove.InvokeAsync(_entity, new MousePositionEventArgs(position.X, position.Y));
+			if (fireMouseEnter) await MouseEnter.InvokeAsync(new MousePositionEventArgs (position.X, position.Y));
+			else if (fireMouseLeave) await MouseLeave.InvokeAsync(new MousePositionEventArgs (position.X, position.Y));
+			if (fireMouseMove) await MouseMove.InvokeAsync(new MousePositionEventArgs(position.X, position.Y));
 		}
 
 		private async Task handleMouseButton(Stopwatch sw, Stopwatch doubleClickSw, bool wasDown, bool isDown, MouseButton button)
@@ -145,12 +145,12 @@ namespace AGS.Engine
 
             if (fireDown || fireUp || fireClick || fireDownOutside)
 			{
-                MouseButtonEventArgs args = new MouseButtonEventArgs (button, _mouseX, _mouseY);
-                if (fireDown) await MouseDown.InvokeAsync(_entity, args);
-                else if (fireUp) await MouseUp.InvokeAsync(_entity, args);
-                else if (fireDownOutside) await LostFocus.InvokeAsync(_entity, args);
-				if (fireClick) await MouseClicked.InvokeAsync(_entity, args);
-                if (fireDoubleClick) await MouseDoubleClicked.InvokeAsync(_entity, args);
+                MouseButtonEventArgs args = new MouseButtonEventArgs (_entity, button, _mouseX, _mouseY);
+                if (fireDown) await MouseDown.InvokeAsync(args);
+                else if (fireUp) await MouseUp.InvokeAsync(args);
+                else if (fireDownOutside) await LostFocus.InvokeAsync(args);
+				if (fireClick) await MouseClicked.InvokeAsync(args);
+                if (fireDoubleClick) await MouseDoubleClicked.InvokeAsync(args);
             }
 		}
 	}

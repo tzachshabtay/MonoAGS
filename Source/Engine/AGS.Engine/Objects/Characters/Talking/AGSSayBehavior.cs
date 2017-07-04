@@ -73,7 +73,7 @@ namespace AGS.Engine
 			label.Tint = SpeechConfig.BackgroundColor;
 			TaskCompletionSource<object> externalSkipToken = new TaskCompletionSource<object> (null);
 			BeforeSayEventArgs args = new BeforeSayEventArgs (label, () => externalSkipToken.TrySetResult(null));
-			OnBeforeSay.Invoke(this, args);
+			OnBeforeSay.Invoke(args);
 			label = args.Label;
             _state.UI.Add(label);
 			ISound sound = null;

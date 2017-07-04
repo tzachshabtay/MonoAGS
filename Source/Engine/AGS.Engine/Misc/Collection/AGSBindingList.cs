@@ -25,12 +25,12 @@ namespace AGS.Engine
 
 		private void onListChanged(TItem item, int index, ListChangeType changeType)
 		{
-            OnListChanged.Invoke(this, new AGSListChangedEventArgs<TItem>(changeType, new AGSListItem<TItem>(item, index)));
+            OnListChanged.Invoke(new AGSListChangedEventArgs<TItem>(changeType, new AGSListItem<TItem>(item, index)));
 		}
 
         private void onListChanged(IEnumerable<AGSListItem<TItem>> items, ListChangeType changeType)
         {
-	        OnListChanged.Invoke(this, new AGSListChangedEventArgs<TItem>(changeType, items));
+	        OnListChanged.Invoke(new AGSListChangedEventArgs<TItem>(changeType, items));
         }
 
 		#region IList implementation

@@ -64,7 +64,7 @@ namespace AGS.Engine
             }
         }
 
-        private void onBeforeRenderingDisplayList(object sender, DisplayListEventArgs args)
+        private void onBeforeRenderingDisplayList(DisplayListEventArgs args)
         {
             SortDebugger.DebugIfNeeded(args.DisplayList);
             _lastDisplayList = args.DisplayList;

@@ -156,7 +156,7 @@ namespace AGS.Engine
             return false;
         }
 
-		private void onRepeatedlyExecute(object sender, EventArgs args)
+		private void onRepeatedlyExecute(object args)
 		{
             if (_player == null || _player.Room != this) return;
             cacheVisibleObjects();

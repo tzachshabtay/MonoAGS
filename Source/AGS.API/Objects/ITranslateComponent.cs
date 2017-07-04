@@ -42,7 +42,7 @@
         /// An event which fires whenever the location is changed.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnLocationChanged { get; }
+        IEvent<object> OnLocationChanged { get; }
     }
 
     /// <summary>

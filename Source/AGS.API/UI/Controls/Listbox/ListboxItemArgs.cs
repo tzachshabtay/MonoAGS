@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Event arguments for when a selected item changes in a listbox/combobox.
 	/// </summary>
-	public class ListboxItemArgs : AGSEventArgs
+	public class ListboxItemArgs
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:AGS.API.ListboxItemArgs"/> class.

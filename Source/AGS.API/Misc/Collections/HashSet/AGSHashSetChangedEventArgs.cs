@@ -3,7 +3,7 @@
     /// <summary>
     /// Event arguments for a hash set change event.
     /// </summary>
-    public class AGSHashSetChangedEventArgs<TItem> : AGSEventArgs
+    public class AGSHashSetChangedEventArgs<TItem>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:AGS.API.AGSHashSetChangedEventArgs`1"/> class.

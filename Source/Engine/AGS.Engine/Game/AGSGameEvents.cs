@@ -6,9 +6,9 @@ namespace AGS.Engine
 {
 	public class AGSGameEvents : IGameEvents
 	{
-		public AGSGameEvents(IEvent<AGSEventArgs> onLoad, IEvent<AGSEventArgs> onRepeatedlyExecute,
-			IBlockingEvent<AGSEventArgs> onBeforeRender, IBlockingEvent<AGSEventArgs> onScreenResize,
-			IEvent<AGSEventArgs> onSavedGameLoad, Resolver resolver)
+		public AGSGameEvents(IEvent<object> onLoad, IEvent<object> onRepeatedlyExecute,
+			IBlockingEvent<object> onBeforeRender, IBlockingEvent<object> onScreenResize,
+			IEvent<object> onSavedGameLoad, Resolver resolver)
 		{
 			OnLoad = onLoad;
 			OnRepeatedlyExecute = onRepeatedlyExecute;
@@ -23,15 +23,15 @@ namespace AGS.Engine
 
 		#region IGameEvents implementation
 
-		public IEvent<AGSEventArgs> OnLoad { get; private set; }
+		public IEvent<object> OnLoad { get; private set; }
 
-		public IEvent<AGSEventArgs> OnRepeatedlyExecute { get; private set; }
+		public IEvent<object> OnRepeatedlyExecute { get; private set; }
 
-		public IBlockingEvent<AGSEventArgs> OnBeforeRender { get; private set; }
+		public IBlockingEvent<object> OnBeforeRender { get; private set; }
 
-		public IBlockingEvent<AGSEventArgs> OnScreenResize { get; private set; }
+		public IBlockingEvent<object> OnScreenResize { get; private set; }
 
-		public IEvent<AGSEventArgs> OnSavedGameLoad { get; private set; }
+		public IEvent<object> OnSavedGameLoad { get; private set; }
 
 		public IInteractions DefaultInteractions { get; private set; }
 

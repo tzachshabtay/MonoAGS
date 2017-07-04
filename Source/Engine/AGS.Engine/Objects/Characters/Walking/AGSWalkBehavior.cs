@@ -144,7 +144,7 @@ namespace AGS.Engine
 
         #endregion
 
-        private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+        private void onRepeatedlyExecute(object args)
         {
             WalkLineInstruction currentLine = _currentWalkLine;
             if (currentLine == null) return;

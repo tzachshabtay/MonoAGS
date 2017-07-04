@@ -11,7 +11,6 @@ namespace AGS.Engine
 	{
 		private Resolver _resolver;
 		private int _relativeSpeed;
-		private AGSEventArgs _renderEventArgs;
 		private readonly IMessagePump _messagePump;
         private readonly IGraphicsBackend _graphics;
         private readonly IGLUtils _glUtils;
@@ -26,7 +25,6 @@ namespace AGS.Engine
 			State = state;
 			Events = gameEvents;
 			_relativeSpeed = state.Speed;
-			_renderEventArgs = new AGSEventArgs ();
             _graphics = graphics;
             _glUtils = glUtils;
             GLUtils = _glUtils;
@@ -119,14 +117,14 @@ namespace AGS.Engine
 
                         _glUtils.AdjustResolution(settings.VirtualResolution.Width, settings.VirtualResolution.Height);
 
-                        Events.OnLoad.Invoke(sender, new AGSEventArgs());
+                        Events.OnLoad.Invoke(null);
                     };
 
                     GameWindow.Resize += async (sender, e) =>
                     {
                         await Task.Delay(10); //todo: For some reason on the Mac, the GL Viewport assignment is overridden without this delay (so aspect ratio is not preserved), a bug in OpenTK?
                         resize();
-                        Events.OnScreenResize.Invoke(sender, new AGSEventArgs());
+                        Events.OnScreenResize.Invoke(null);
                     };
 
                     GameWindow.UpdateFrame += async (sender, e) =>
@@ -138,14 +136,14 @@ namespace AGS.Engine
                             if (State.Paused) return;
                             adjustSpeed();
                             await GameLoop.UpdateAsync().ConfigureAwait(false);
-                            AGSEventArgs args = new AGSEventArgs();
+                            object args = new object();
 
                             //Invoking repeatedly execute asynchronously, as if one subscriber is waiting on another subscriber the event will 
                             //never get to it (for example: calling ChangeRoom from within RepeatedlyExecute calls StopWalking which 
                             //waits for the walk to stop, only the walk also happens on RepeatedlyExecute and we'll hang.
                             //Since we're running asynchronously, the next UpdateFrame will call RepeatedlyExecute for the walk cycle to stop itself and we're good.
                             ///The downside of this approach is that we need to look out for re-entrancy issues.
-                            await Events.OnRepeatedlyExecute.InvokeAsync(sender, args);
+                            await Events.OnRepeatedlyExecute.InvokeAsync(args);
                         }
                         catch (Exception ex)
                         {
@@ -162,7 +160,7 @@ namespace AGS.Engine
                         {
                             // render graphics
                             _graphics.ClearScreen();
-                            Events.OnBeforeRender.Invoke(sender, _renderEventArgs);
+                            Events.OnBeforeRender.Invoke(null);
 
                             if (RenderLoop.Tick())
                             {

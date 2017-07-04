@@ -61,7 +61,7 @@ namespace DemoGame
             ILabel speedLabel = factory.UI.GetLabel("Speed Label", "Speed", 50f, 30f, 180f, 85f, _panel, _textConfig);
             speedLabel.Anchor = new PointF(0.5f, 0f);
 
-            _game.Events.OnSavedGameLoad.Subscribe((sender, args) => findPanel());
+            _game.Events.OnSavedGameLoad.Subscribe(_ => findPanel());
 
 #if __IOS__
             const int top = 85;

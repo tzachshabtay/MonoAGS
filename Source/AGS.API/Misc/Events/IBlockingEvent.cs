@@ -7,7 +7,7 @@ namespace AGS.API
     /// An event is a notification for something that has happened.
     /// Interested parties can subscribe to the event and be notified when it triggers (https://en.wikipedia.org/wiki/Event-driven_programming).
     /// </summary>
-	public interface IBlockingEvent<TEventArgs> where TEventArgs : AGSEventArgs
+	public interface IBlockingEvent<TEventArgs>
 	{
         /// <summary>
         /// Gets the number of subscribers to the event.
@@ -20,21 +20,20 @@ namespace AGS.API
         /// Once subscribed, whenever the event happens this callback will be called.
         /// </summary>
         /// <param name="callback">Callback.</param>
-		void Subscribe(Action<object, TEventArgs> callback);
+		void Subscribe(Action<TEventArgs> callback);
 
         /// <summary>
         /// Unsubscribe the specified callback from the event.
         /// This will stops notifications to call this callback.
         /// </summary>
         /// <param name="callback">Callback.</param>
-		void Unsubscribe(Action<object, TEventArgs> callback);
+		void Unsubscribe(Action<TEventArgs> callback);
 
         /// <summary>
         /// Invoke the event synchronously (i.e will wait for all subscribers to process the event before moving on).
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
         /// <param name="args">Event arguments which can be used to provide additional data.</param>
-		void Invoke(object sender, TEventArgs args);
+		void Invoke(TEventArgs args);
 	}
 }
 

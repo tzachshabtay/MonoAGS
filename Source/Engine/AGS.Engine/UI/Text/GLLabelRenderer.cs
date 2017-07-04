@@ -21,7 +21,6 @@ namespace AGS.Engine
 		private readonly BitmapPool _bitmapPool;
         private readonly IFontLoader _fonts;
         private readonly Size _virtualResolution;
-        private readonly AGSEventArgs _emptyEventArgs = new AGSEventArgs();
         private readonly IMessagePump _messagePump;
 
         private float _lastWidth = 1f, _lastHeight = 1f;
@@ -34,7 +33,7 @@ namespace AGS.Engine
                                IRuntimeSettings settings, IMessagePump messagePump)
 		{
             _messagePump = messagePump;
-            OnLabelSizeChanged = new AGSEvent<AGSEventArgs>();
+            OnLabelSizeChanged = new AGSEvent<object>();
             _glUtils = glUtils;
             _graphics = graphics;
             _fonts = fonts;
@@ -94,7 +93,7 @@ namespace AGS.Engine
 			}
 		}
 
-        public IEvent<AGSEventArgs> OnLabelSizeChanged { get; private set; }
+        public IEvent<object> OnLabelSizeChanged { get; private set; }
 
 		#region IImageRenderer implementation
 
@@ -184,7 +183,7 @@ namespace AGS.Engine
 
             if (_lastWidth != Width || _lastHeight != Height)
             {
-                OnLabelSizeChanged.Invoke(this, _emptyEventArgs); 
+                OnLabelSizeChanged.Invoke(null); 
             }
             _lastWidth = Width;
             _lastHeight = Height;

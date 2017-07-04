@@ -19,7 +19,7 @@ namespace AGS.Engine
             ID = id;
             _resolver = resolver;
             _components = new ConcurrentDictionary<Type, List<IComponent>>();
-            OnComponentsInitialized = new AGSEvent<AGSEventArgs>();
+            OnComponentsInitialized = new AGSEvent<object>();
         }
 
         ~AGSEntity()
@@ -29,14 +29,14 @@ namespace AGS.Engine
 
         public string ID { get; private set; }
 
-        public IEvent<AGSEventArgs> OnComponentsInitialized { get; private set; }
+        public IEvent<object> OnComponentsInitialized { get; private set; }
 
         protected void InitComponents()
         {
             foreach (var component in this) component.Init(this);
             foreach (var component in this) component.AfterInit();
             _componentsInitialized = true;
-            OnComponentsInitialized.Invoke(this, new AGSEventArgs());
+            OnComponentsInitialized.Invoke(null);
         }
 
         #region IComponentsCollection implementation

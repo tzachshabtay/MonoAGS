@@ -7,7 +7,6 @@ namespace AGS.Engine
     {
         private bool _isDirty;
         private ModelMatrices _matrices;
-        private readonly AGSEventArgs _args = new AGSEventArgs();
 
         private IAnimationContainer _animation;
         private IInObjectTree _tree;
@@ -32,7 +31,7 @@ namespace AGS.Engine
             _isDirty = true;
             _matrices = new ModelMatrices();
             _virtualResolution = settings.VirtualResolution;
-            OnMatrixChanged = new AGSEvent<AGSEventArgs>();
+            OnMatrixChanged = new AGSEvent<object>();
         }
 
         public static readonly PointF NoScaling = new PointF(1f, 1f);
@@ -73,7 +72,7 @@ namespace AGS.Engine
             return shouldRecalculate() ? recalculateMatrices() : _matrices; 
         }
 
-        public IEvent<AGSEventArgs> OnMatrixChanged { get; private set; }
+        public IEvent<object> OnMatrixChanged { get; private set; }
 
         public static bool GetVirtualResolution(bool flattenLayerResolution, Size virtualResolution, IDrawableInfo drawable, 
                                          PointF? customResolutionFactor, out PointF resolutionFactor, out Size resolution)
@@ -109,17 +108,17 @@ namespace AGS.Engine
             }
         }
 
-        private void onSomethingChanged(object sender, AGSEventArgs args)
+        private void onSomethingChanged(object args)
         {
             _isDirty = true;
         }
 
-        private void onParentChanged(object sender, AGSEventArgs args)
+        private void onParentChanged(object args)
         {
             if (_parent != null) _parent.OnMatrixChanged.Unsubscribe(onSomethingChanged);
             _parent = _tree.TreeNode.Parent;
             if (_parent != null) _parent.OnMatrixChanged.Subscribe(onSomethingChanged);
-            onSomethingChanged(sender, args);
+            onSomethingChanged(args);
         }
 
         private ISprite getSprite()
@@ -137,7 +136,7 @@ namespace AGS.Engine
             changeSpriteSubscription(sprite, (ev) => ev.Unsubscribe(onSomethingChanged));
         }
 
-        private void changeSpriteSubscription(ISprite sprite, Action<IEvent<AGSEventArgs>> change)
+        private void changeSpriteSubscription(ISprite sprite, Action<IEvent<object>> change)
         {
             if (sprite == null) return;
             change(sprite.OnLocationChanged);
@@ -188,7 +187,7 @@ namespace AGS.Engine
         private ModelMatrices recalculateMatrices()
         {
             recalculate();
-            OnMatrixChanged.FireEvent(this, _args);
+            OnMatrixChanged.FireEvent(null);
             return _matrices;
         }
 

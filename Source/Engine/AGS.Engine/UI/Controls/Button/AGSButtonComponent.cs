@@ -37,22 +37,22 @@ namespace AGS.Engine
 			_events.MouseUp.Unsubscribe(onMouseUp);
 		}
 
-		private void onMouseEnter(object sender, MousePositionEventArgs e)
+		private void onMouseEnter(MousePositionEventArgs e)
 		{
             startAnimation(HoverAnimation ?? IdleAnimation ?? PushedAnimation);
 		}
 
-		private void onMouseLeave(object sender, MousePositionEventArgs e)
+		private void onMouseLeave(MousePositionEventArgs e)
 		{
             startAnimation(IdleAnimation ?? PushedAnimation ?? HoverAnimation);
 		}
 
-		private void onMouseDown(object sender, MouseButtonEventArgs e)
+		private void onMouseDown(MouseButtonEventArgs e)
 		{
             startAnimation(PushedAnimation ?? HoverAnimation ?? IdleAnimation);
 		}
 
-		private void onMouseUp(object sender, MouseButtonEventArgs e)
+		private void onMouseUp(MouseButtonEventArgs e)
 		{
             startAnimation(_events.IsMouseIn ?
                            HoverAnimation ?? IdleAnimation ?? PushedAnimation :

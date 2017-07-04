@@ -32,8 +32,8 @@ namespace AGS.Engine
 				{
 					if (changedRoom)
 					{
-						if (_lastRoom != null) _lastRoom.Events.OnAfterFadeOut.Invoke(this, new AGSEventArgs ());
-						room.Events.OnBeforeFadeIn.Invoke(this, new AGSEventArgs ());
+						if (_lastRoom != null) _lastRoom.Events.OnAfterFadeOut.Invoke(null);
+						room.Events.OnBeforeFadeIn.Invoke(null);
 						updateViewport(room, changedRoom);
 						if (_lastRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
 						else _roomTransitions.State = RoomTransitionState.InTransition;
@@ -70,7 +70,7 @@ namespace AGS.Engine
 		{
 			if (_lastRoom == room) return;
             _lastRoom = room;
-            await room.Events.OnAfterFadeIn.InvokeAsync(this, new AGSEventArgs ());
+            await room.Events.OnAfterFadeIn.InvokeAsync(null);
 		}
 
 		private void runAnimation(IAnimation animation)

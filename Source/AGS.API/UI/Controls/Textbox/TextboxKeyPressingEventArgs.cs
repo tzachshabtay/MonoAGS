@@ -3,7 +3,7 @@
     /// <summary>
     /// Event arguments for when a key is pressed on the textbox.
     /// </summary>
-    public class TextBoxKeyPressingEventArgs : AGSEventArgs
+    public class TextBoxKeyPressingEventArgs
     {
         public TextBoxKeyPressingEventArgs(Key pressedKey)
         {

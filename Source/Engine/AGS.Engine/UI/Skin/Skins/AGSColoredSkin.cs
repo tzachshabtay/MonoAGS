@@ -95,7 +95,7 @@ namespace AGS.Engine
                 {
                     textComponent.Text = (checkBoxComponent.Checked ? checkedStr : notCheckedStr) + textComponent.Text;
                 }
-                checkBoxComponent.OnCheckChanged.Subscribe((sender, args) => 
+                checkBoxComponent.OnCheckChanged.Subscribe(_ => 
                 {
                     textComponent.Text = (checkBoxComponent.Checked ? checkedStr : notCheckedStr) + textComponent.Text.Substring(1);
                 });                

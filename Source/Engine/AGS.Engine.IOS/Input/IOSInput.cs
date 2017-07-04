@@ -39,7 +39,7 @@ namespace AGS.Engine.IOS
                 _lastDrag = now;
                 IsTouchDrag = true;
                 setMousePosition(e);
-                await MouseMove.InvokeAsync(sender, new MousePositionEventArgs(MouseX, MouseY));
+                await MouseMove.InvokeAsync(new MousePositionEventArgs(MouseX, MouseY));
                 await Task.Delay(300);
                 if (_lastDrag <= now) IsTouchDrag = false;
             };
@@ -48,9 +48,9 @@ namespace AGS.Engine.IOS
                 if (isInputBlocked()) return;
                 setMousePosition(e);
                 LeftMouseButtonDown = true;
-                await MouseDown.InvokeAsync(sender, new MouseButtonEventArgs(MouseButton.Left, MouseX, MouseY));
+                await MouseDown.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MouseX, MouseY));
                 await Task.Delay(250);
-                await MouseUp.InvokeAsync(sender, new MouseButtonEventArgs(MouseButton.Left, MouseX, MouseY));
+                await MouseUp.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MouseX, MouseY));
                 LeftMouseButtonDown = false;
             };
         }
@@ -144,14 +144,14 @@ namespace AGS.Engine.IOS
             var keyUp = KeyUp;
             if (keyDown != null)
             {
-                if (isShift) await keyDown.InvokeAsync(this, new KeyboardEventArgs(Key.ShiftLeft));
-                await keyDown.InvokeAsync(this, new KeyboardEventArgs(key));
+                if (isShift) await keyDown.InvokeAsync(new KeyboardEventArgs(Key.ShiftLeft));
+                await keyDown.InvokeAsync(new KeyboardEventArgs(key));
             }
             await Task.Delay(5);
             if (keyUp != null)
             {
-                await keyUp.InvokeAsync(this, new KeyboardEventArgs(key));
-                if (isShift) await keyUp.InvokeAsync(this, new KeyboardEventArgs(Key.ShiftLeft));
+                await keyUp.InvokeAsync(new KeyboardEventArgs(key));
+                if (isShift) await keyUp.InvokeAsync(new KeyboardEventArgs(Key.ShiftLeft));
             }
         }
 

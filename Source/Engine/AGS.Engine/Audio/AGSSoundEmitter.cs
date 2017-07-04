@@ -104,7 +104,7 @@ namespace AGS.Engine
 
 		#endregion
 
-		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+		private void onRepeatedlyExecute(object args)
 		{
 			if (_game.State.Paused) return;
             var obj = Translate;

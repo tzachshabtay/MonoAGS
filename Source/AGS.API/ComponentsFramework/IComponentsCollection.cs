@@ -125,7 +125,7 @@ namespace AGS.API
         /// An event that fires after all components were initialized.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnComponentsInitialized { get; }
+        IEvent<object> OnComponentsInitialized { get; }
 	}
 }
 

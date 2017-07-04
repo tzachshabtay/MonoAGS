@@ -266,8 +266,7 @@ namespace AGS.Engine
             string imageId = image.ID;
 			if (_textures != null)
                 _textures.GetOrAdd (imageId, () => image.Texture);
-            image.OnImageDisposed.Subscribe((_, __) => 
-                                            _textures.Remove(imageId));
+            image.OnImageDisposed.Subscribe(_ => _textures.Remove(imageId));
 			return image;
 		}
 

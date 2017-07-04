@@ -154,7 +154,7 @@ namespace AGS.Engine
 			_state.UI.Add(newGraphics);
 		}
 
-		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+		private void onRepeatedlyExecute(object args)
 		{
 			if (!_visible.Visible || !_enabled.Enabled || _collider.BoundingBox == null || 
                 (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
@@ -208,7 +208,7 @@ namespace AGS.Engine
 
 		private void onValueChanged()
 		{
-			OnValueChanged.Invoke(this, new SliderValueEventArgs (_value));
+			OnValueChanged.Invoke(new SliderValueEventArgs (_value));
 		}
 	}
 }

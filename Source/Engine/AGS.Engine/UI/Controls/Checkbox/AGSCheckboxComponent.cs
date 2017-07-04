@@ -55,17 +55,17 @@ namespace AGS.Engine.UI.Controls
             _events.MouseUp.Unsubscribe(onMouseUp);
         }
 
-        private void onMouseEnter(object sender, MousePositionEventArgs e)
+        private void onMouseEnter(MousePositionEventArgs e)
         {
             startAnimation(Checked ? HoverCheckedAnimation ?? CheckedAnimation : HoverNotCheckedAnimation ?? NotCheckedAnimation);
         }
 
-        private void onMouseLeave(object sender, MousePositionEventArgs e)
+        private void onMouseLeave(MousePositionEventArgs e)
         {
             startAnimation(Checked ? CheckedAnimation : NotCheckedAnimation);
         }
 
-        private void onMouseUp(object sender, MouseButtonEventArgs e)
+        private void onMouseUp(MouseButtonEventArgs e)
         {
             if (_events.IsMouseIn)
             {
@@ -79,7 +79,7 @@ namespace AGS.Engine.UI.Controls
             startAnimation(_events.IsMouseIn ? (Checked ? HoverCheckedAnimation ?? CheckedAnimation : 
                                                           HoverNotCheckedAnimation ?? NotCheckedAnimation) :
                 (Checked ? CheckedAnimation : NotCheckedAnimation));
-            OnCheckChanged.Invoke(this, new CheckBoxEventArgs(Checked));
+            OnCheckChanged.Invoke(new CheckBoxEventArgs(Checked));
         }
 
         private void startAnimation(ButtonAnimation button)

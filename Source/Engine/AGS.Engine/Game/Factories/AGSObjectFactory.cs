@@ -85,7 +85,7 @@ namespace AGS.Engine
 		{
 			if (sentences == null || e == null) return;
 
-			e.SubscribeToAsync(async (sender, args) =>
+			e.SubscribeToAsync(async (_) =>
 			{
 				foreach (string sentence in sentences)
 				{

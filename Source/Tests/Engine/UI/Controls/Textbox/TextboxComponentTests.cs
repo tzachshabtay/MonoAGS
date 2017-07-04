@@ -70,8 +70,8 @@ namespace Tests
             Mock<IGameFactory> factory = new Mock<IGameFactory>();
             Mock<IUIFactory> uiFactory = new Mock<IUIFactory>();
             Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();
-            gameEvents.Setup(g => g.OnBeforeRender).Returns(new Mock<IBlockingEvent<AGSEventArgs>>().Object);
-            gameEvents.Setup(g => g.OnRepeatedlyExecute).Returns(new Mock<IEvent<AGSEventArgs>>().Object);
+            gameEvents.Setup(g => g.OnBeforeRender).Returns(new Mock<IBlockingEvent<object>>().Object);
+            gameEvents.Setup(g => g.OnRepeatedlyExecute).Returns(new Mock<IEvent<object>>().Object);
             game.Setup(g => g.Events).Returns(gameEvents.Object);
             game.Setup(g => g.Factory).Returns(factory.Object);
             factory.Setup(f => f.UI).Returns(uiFactory.Object);
@@ -84,7 +84,7 @@ namespace Tests
                 Returns(label.Object);
             
 
-            AGSTextBoxComponent textbox = new AGSTextBoxComponent(new AGSEvent<AGSEventArgs>(), new AGSEvent<TextBoxKeyPressingEventArgs>(), 
+            AGSTextBoxComponent textbox = new AGSTextBoxComponent(new AGSEvent<object>(), new AGSEvent<TextBoxKeyPressingEventArgs>(), 
                                                   input.Object, game.Object, new DesktopKeyboardState(), focusedUi.Object);
             textbox.Init(entity.Object);
             textbox.IsFocused = true;
@@ -95,9 +95,9 @@ namespace Tests
                 if (key == Key.ShiftLeft || key == Key.ShiftRight)
                 {
                     isShiftDown = !isShiftDown;
-                    if (!isShiftDown) { keyUp.Invoke(this, new KeyboardEventArgs(key)); continue; }
+                    if (!isShiftDown) { keyUp.Invoke(new KeyboardEventArgs(key)); continue; }
                 }
-                keyDown.Invoke(this, new KeyboardEventArgs(key));
+                keyDown.Invoke(new KeyboardEventArgs(key));
             }
 
             Assert.AreEqual(expectedText, actualText);

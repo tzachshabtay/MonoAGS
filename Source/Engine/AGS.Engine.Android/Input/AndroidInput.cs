@@ -37,7 +37,7 @@ namespace AGS.Engine.Android
                 _lastDrag = now;
                 IsTouchDrag = true;
                 setMousePosition(e);
-                await MouseMove.InvokeAsync(sender, new MousePositionEventArgs(MouseX, MouseY));
+                await MouseMove.InvokeAsync(new MousePositionEventArgs(MouseX, MouseY));
                 await Task.Delay(300);
                 if (_lastDrag <= now) IsTouchDrag = false;
             };
@@ -46,9 +46,9 @@ namespace AGS.Engine.Android
                 if (isInputBlocked()) return;
                 setMousePosition(e);
                 LeftMouseButtonDown = true;
-                await MouseDown.InvokeAsync(sender, new MouseButtonEventArgs(MouseButton.Left, MouseX, MouseY));
+                await MouseDown.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MouseX, MouseY));
                 await Task.Delay(250);
-                await MouseUp.InvokeAsync(sender, new MouseButtonEventArgs(MouseButton.Left, MouseX, MouseY));
+                await MouseUp.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MouseX, MouseY));
                 LeftMouseButtonDown = false;
             };
             AndroidGameWindow.Instance.OnNewView += onViewChanged;
@@ -103,14 +103,14 @@ namespace AGS.Engine.Android
         { 
             var key = args.Item1.Convert();
             if (key == null) return;
-            await KeyDown.InvokeAsync(sender, new KeyboardEventArgs(key.Value));
+            await KeyDown.InvokeAsync(new KeyboardEventArgs(key.Value));
         }
 
         private async void onKeyUp(object sender, Tuple<Keycode, KeyEvent> args)
         {
             var key = args.Item1.Convert();
             if (key == null) return;
-            await KeyUp.InvokeAsync(sender, new KeyboardEventArgs(key.Value));
+            await KeyUp.InvokeAsync(new KeyboardEventArgs(key.Value));
         }
 
         private bool isInputBlocked()

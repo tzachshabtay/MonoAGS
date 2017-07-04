@@ -98,7 +98,7 @@ When subscribing to an event, if you suspect you might need it to be asynchronou
 
 oBottle.Interactions.OnInteract(AGSInteractions.Look).SubscribeToAsync(onLookBottle);
 
-private Task onLookBottle(object sender, ObjectEventArgs args)
+private Task onLookBottle(ObjectEventArgs args)
 {
     cHero.Say("It's a bottle.");
     return Task.CompletedTask;
@@ -112,7 +112,7 @@ Later on, when I add my asynchronous stuff, I'll remove it:
 
 ```csharp
 
-private async Task onLookBottle(object sender, ObjectEventArgs args)
+private async Task onLookBottle(ObjectEventArgs args)
 {
     await cHero.SayAsync("It's a bottle.");
 }

@@ -7,16 +7,16 @@ namespace AGS.Engine
         private IImage _image;
         private PointF _anchor;
         private Color _tint;
-        private AGSEventArgs _imageArgs, _anchorArgs, _tintArgs;
+        private object _imageArgs, _anchorArgs, _tintArgs;
 
         public AGSHasImage()
         {
-            OnImageChanged = new AGSEvent<AGSEventArgs>();
-            OnAnchorChanged = new AGSEvent<AGSEventArgs>();
-            OnTintChanged = new AGSEvent<AGSEventArgs>();
-            _imageArgs = new AGSEventArgs();
-            _anchorArgs = new AGSEventArgs();
-            _tintArgs = new AGSEventArgs();
+            OnImageChanged = new AGSEvent<object>();
+            OnAnchorChanged = new AGSEvent<object>();
+            OnTintChanged = new AGSEvent<object>();
+            _imageArgs = new object();
+            _anchorArgs = new object();
+            _tintArgs = new object();
             Anchor = new PointF(0.5f, 0f);
             Tint = Colors.White;
         }
@@ -33,7 +33,7 @@ namespace AGS.Engine
             set
             {
                 _tint = value;
-                OnTintChanged.FireEvent(this, _tintArgs);
+                OnTintChanged.FireEvent(_tintArgs);
             }
         }
 
@@ -43,7 +43,7 @@ namespace AGS.Engine
             set 
             { 
                 _anchor = value; 
-                OnAnchorChanged.FireEvent(this, _anchorArgs); 
+                OnAnchorChanged.FireEvent(_anchorArgs); 
             } 
         }
 
@@ -53,17 +53,17 @@ namespace AGS.Engine
             set
             {
                 _image = value;
-                OnImageChanged.FireEvent(this, _imageArgs);
+                OnImageChanged.FireEvent(_imageArgs);
             }
         }
 
         public IImageRenderer CustomRenderer { get; set; }
 
-        public IEvent<AGSEventArgs> OnImageChanged { get; private set; }
+        public IEvent<object> OnImageChanged { get; private set; }
 
-        public IEvent<AGSEventArgs> OnAnchorChanged { get; private set; }
+        public IEvent<object> OnAnchorChanged { get; private set; }
 
-        public IEvent<AGSEventArgs> OnTintChanged { get; private set; }
+        public IEvent<object> OnTintChanged { get; private set; }
 
         public override string ToString()
         {

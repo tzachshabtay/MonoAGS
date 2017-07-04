@@ -40,7 +40,7 @@
         /// An event which fires whenever the scale changes
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnScaleChanged { get; }
+        IEvent<object> OnScaleChanged { get; }
 
         /// <summary>
         /// Resets the base size (the "original" size), on top of which the scale is calculated.

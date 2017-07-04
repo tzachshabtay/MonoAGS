@@ -25,7 +25,7 @@ namespace DemoGame
             GLText.TextResolutionFactorX = 4;
             GLText.TextResolutionFactorY = 4;
 
-			game.Events.OnLoad.Subscribe(async (sender, e) =>
+			game.Events.OnLoad.Subscribe(async _ =>
             {
                 game.Factory.Fonts.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
                 AGSGameSettings.DefaultSpeechFont = game.Factory.Fonts.LoadFontFromPath("../../Assets/Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
@@ -49,7 +49,7 @@ namespace DemoGame
         private static void setKeyboardEvents(IGame game)
         {
             game.State.Cutscene.SkipTrigger = SkipCutsceneTrigger.AnyKey;
-            game.Input.KeyDown.SubscribeToAsync(async (sender, args) =>
+            game.Input.KeyDown.SubscribeToAsync(async args =>
             {
                 if (args.Key == Key.Enter && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
                 {
@@ -136,7 +136,7 @@ namespace DemoGame
             AGSSplashScreen splashScreen = new AGSSplashScreen();
             Rooms.SplashScreen = splashScreen.Load(game);
             game.State.Rooms.Add(Rooms.SplashScreen);
-            Rooms.SplashScreen.Events.OnAfterFadeIn.SubscribeToAsync(async (object sender, AGSEventArgs args) => 
+            Rooms.SplashScreen.Events.OnAfterFadeIn.SubscribeToAsync(async _ => 
             { 
                 await loadRooms(game);
                 Debug.WriteLine("Startup: Loaded Rooms");

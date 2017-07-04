@@ -51,7 +51,7 @@ namespace AGS.Engine
             _game.Events.OnRepeatedlyExecute.UnsubscribeToAsync(onRepeatedlyExecute);
 		}
 
-        private async Task onRepeatedlyExecute (object sender, AGSEventArgs args)
+        private async Task onRepeatedlyExecute (object args)
 		{
             var target = TargetBeingFollowed;
 			var currentWalk = _currentWalk;

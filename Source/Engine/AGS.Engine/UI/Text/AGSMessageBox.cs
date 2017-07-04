@@ -22,13 +22,13 @@ namespace AGS.Engine
             ILabel label = null;
 			if (buttons.Length > 0)
 			{
-				sayBehavior.OnBeforeSay.Subscribe((sender, args) =>
+				sayBehavior.OnBeforeSay.Subscribe(args =>
 				{
                     label = args.Label;
 					args.Label.Enabled = true;
                     args.Label.AddComponent<IModalWindowComponent>().GrabFocus();
                     var textConfig = sayBehavior.SpeechConfig.TextConfig;
-                    SizeF textSize = textConfig.GetTextSize(text, sayBehavior.SpeechConfig.LabelSize);
+                    SizeF textSize = textConfig .GetTextSize(text, sayBehavior.SpeechConfig.LabelSize);
                     float labelWidth = textSize.Width + textConfig.PaddingLeft + textConfig.PaddingRight;
 
                     float buttonsWidth = buttons.Sum(b => b.Width) + ButtonXPadding * (buttons.Length - 1);
@@ -44,7 +44,7 @@ namespace AGS.Engine
 						button.Y = ButtonYPadding;
 						button.RenderLayer = args.Label.RenderLayer;
 						buttonX += button.Width + ButtonXPadding;
-						button.MouseClicked.Subscribe((s, e) =>
+						button.MouseClicked.Subscribe(_ =>
 						{
 							selectedButton = button;
 							args.Skip();

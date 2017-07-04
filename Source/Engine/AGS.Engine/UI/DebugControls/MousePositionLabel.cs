@@ -17,7 +17,7 @@ namespace AGS.Engine
 		public void Start()
 		{
 			_game.Input.MouseMove.Subscribe(onMouseMove);
-			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
+			_game.Events.OnSavedGameLoad.Subscribe(_ => onSaveGameLoaded());
 		}
 
 		private void onSaveGameLoaded()
@@ -25,7 +25,7 @@ namespace AGS.Engine
 			_label = _game.Find<ILabel>(_label.ID);
 		}
 
-		private void onMouseMove(object sender, MousePositionEventArgs args)
+		private void onMouseMove(MousePositionEventArgs args)
 		{
 			_label.Text = new PointF (args.X, args.Y).ToString();
 		}

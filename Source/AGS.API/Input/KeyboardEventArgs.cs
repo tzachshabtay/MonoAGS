@@ -157,7 +157,7 @@
     /// <summary>
     /// Event arguments for keyboard key press/release.
     /// </summary>
-	public class KeyboardEventArgs : AGSEventArgs
+	public class KeyboardEventArgs
 	{
 		public KeyboardEventArgs (Key key)
 		{

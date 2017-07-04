@@ -31,7 +31,7 @@ namespace AGS.Engine
 
         public SizeF BaseSize { get { return _scale.BaseSize; } }
 
-        public IEvent<AGSEventArgs> OnScaleChanged { get { return _scale.OnScaleChanged; } }
+        public IEvent<object> OnScaleChanged { get { return _scale.OnScaleChanged; } }
 
         public void ResetBaseSize(float initialWidth, float initialHeight)
         {

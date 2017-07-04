@@ -52,7 +52,7 @@ namespace AGS.Engine
                 await _roomTransitions.OnStateChanged.WaitUntilAsync(canCompleteRoomTransition);
 		}
 
-        private bool canCompleteRoomTransition(AGSEventArgs args)
+        private bool canCompleteRoomTransition(object args)
         {
             return _roomTransitions.State == RoomTransitionState.NotInTransition;
         }

@@ -31,7 +31,7 @@ namespace AGS.API
         /// An event which fires whenever the parent for a node changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnParentChanged { get; }
+        IEvent<object> OnParentChanged { get; }
 
         /// <summary>
         /// Sets a new parent for the node.

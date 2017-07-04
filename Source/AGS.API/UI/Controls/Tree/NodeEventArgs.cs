@@ -3,7 +3,7 @@
     /// <summary>
     /// Event arguments which contain a tree node.
     /// </summary>
-    public class NodeEventArgs : AGSEventArgs
+    public class NodeEventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:AGS.API.NodeEventArgs"/> class.

@@ -63,7 +63,7 @@ namespace AGS.Engine
 		public KeyboardMovementMode Mode { get; set; }
 		public Direction? CurrentDirection { get; private set; }
 
-		private async Task onKeyDown(object sender, KeyboardEventArgs args)
+		private async Task onKeyDown(KeyboardEventArgs args)
 		{
             if (!Enabled || _focusedUi.FocusedTextBox != null) return;
 			_keysDown.Add(args.Key);
@@ -87,7 +87,7 @@ namespace AGS.Engine
 			await _character.WalkAsync(getTarget(direction.Value));
 		}
 
-		private async Task onKeyUp(object sender, KeyboardEventArgs args)
+		private async Task onKeyUp(KeyboardEventArgs args)
 		{
             if (!Enabled || _focusedUi.FocusedTextBox != null) return;
 			_keysDown.Remove(args.Key);

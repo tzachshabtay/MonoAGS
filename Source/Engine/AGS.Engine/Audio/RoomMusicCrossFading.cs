@@ -39,7 +39,7 @@ namespace AGS.Engine
 
 		#endregion
 
-		private void onRoomsChange(object sender, AGSListChangedEventArgs<IRoom> args)
+		private void onRoomsChange(AGSListChangedEventArgs<IRoom> args)
 		{
             foreach (var item in args.Items)
             {
@@ -53,7 +53,7 @@ namespace AGS.Engine
             }
 		}
 
-		private void onSavedGameLoad(object sender, AGSEventArgs args)
+		private void onSavedGameLoad(object args)
 		{
 			_state.Rooms.OnListChanged.Unsubscribe(onRoomsChange);
 			foreach (var fader in _map.Values)
@@ -94,7 +94,7 @@ namespace AGS.Engine
 				room.Events.OnBeforeFadeIn.Unsubscribe(onBeforeFadeIn);
 			}
 
-			private void onBeforeFadeOut(object sender, AGSEventArgs args)
+			private void onBeforeFadeOut(object args)
 			{
 				var music = _music;
 				if (music == null || music.HasCompleted) return;
@@ -109,7 +109,7 @@ namespace AGS.Engine
 				});
 			}
 
-			private void onBeforeFadeIn(object sender, AGSEventArgs args)
+			private void onBeforeFadeIn(object args)
 			{
 				var room = Room;
 				if (room == null) return;

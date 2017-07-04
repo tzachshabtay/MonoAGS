@@ -27,8 +27,8 @@ namespace DemoGame
             _label.Anchor = new PointF(0f, 1f);
             _label.Tint = Colors.DarkOliveGreen;
             _label.Border = AGSBorders.SolidColor(Colors.LightSeaGreen, 3f);
-            _label.MouseEnter.Subscribe((_, __) => _label.Tint = Colors.DarkGoldenrod);
-            _label.MouseLeave.Subscribe((_, __) => _label.Tint = Colors.DarkOliveGreen);
+            _label.MouseEnter.Subscribe(_ => _label.Tint = Colors.DarkGoldenrod);
+            _label.MouseLeave.Subscribe(_ => _label.Tint = Colors.DarkOliveGreen);
             _label.Enabled = true;
 
             float autoFitX = _label.X;
@@ -82,7 +82,7 @@ namespace DemoGame
             autoFitPanel.GetComponent<IAnimationContainer>().Border = AGSBorders.SolidColor(Colors.Green, 3f);
             autoFitPanel.GetComponent<IImageComponent>().Tint = Colors.DarkGreen;
 
-            autoFitList.OnSelectedItemChanged.Subscribe((_, args) => _label.TextConfig.AutoFit = (AutoFit)Enum.Parse(typeof(AutoFit), args.Item.Text));
+            autoFitList.OnSelectedItemChanged.Subscribe(args => _label.TextConfig.AutoFit = (AutoFit)Enum.Parse(typeof(AutoFit), args.Item.Text));
             animateText();
         }
 

@@ -37,11 +37,11 @@ namespace AGS.Engine
             }
         }
 
-        public IEvent<AGSEventArgs> OnImageChanged { get { return _image.OnImageChanged; } }
+        public IEvent<object> OnImageChanged { get { return _image.OnImageChanged; } }
 
-        public IEvent<AGSEventArgs> OnAnchorChanged { get { return _image.OnAnchorChanged; } }
+        public IEvent<object> OnAnchorChanged { get { return _image.OnAnchorChanged; } }
 
-        public IEvent<AGSEventArgs> OnTintChanged { get { return _image.OnTintChanged; } }
+        public IEvent<object> OnTintChanged { get { return _image.OnTintChanged; } }
 
         public byte Opacity { get { return _image.Opacity; } set { _image.Opacity = value; } }
 

@@ -215,10 +215,10 @@ namespace Tests
 			if (_roomEvents == null)
 			{
 				_roomEvents = new Mock<IRoomEvents> ();
-				_roomEvents.Setup(r => r.OnAfterFadeIn).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
-				_roomEvents.Setup(r => r.OnAfterFadeOut).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
-				_roomEvents.Setup(r => r.OnBeforeFadeIn).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
-				_roomEvents.Setup(r => r.OnBeforeFadeOut).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
+				_roomEvents.Setup(r => r.OnAfterFadeIn).Returns(new Mock<IEvent<object>> ().Object);
+				_roomEvents.Setup(r => r.OnAfterFadeOut).Returns(new Mock<IEvent<object>> ().Object);
+				_roomEvents.Setup(r => r.OnBeforeFadeIn).Returns(new Mock<IEvent<object>> ().Object);
+				_roomEvents.Setup(r => r.OnBeforeFadeOut).Returns(new Mock<IEvent<object>> ().Object);
 			}
 			return _roomEvents;
 		}

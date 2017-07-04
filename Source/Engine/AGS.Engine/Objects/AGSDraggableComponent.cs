@@ -45,7 +45,7 @@ namespace AGS.Engine
             _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
         }
 
-        private void onMouseDown(object sender, MouseButtonEventArgs args)
+        private void onMouseDown(MouseButtonEventArgs args)
         {
             if (!IsDragEnabled || args.Button != MouseButton.Left) return;
             IsCurrentlyDragged = true;
@@ -55,7 +55,7 @@ namespace AGS.Engine
             _dragMouseStartY = _input.MouseY;
         }
 
-        private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+        private void onRepeatedlyExecute(object args)
         {
             if (!IsCurrentlyDragged) return;
             if (!IsDragEnabled || !_input.LeftMouseButtonDown)

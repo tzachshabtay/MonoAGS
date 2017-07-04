@@ -10,7 +10,7 @@ namespace AGS.Engine
         public AGSPixelPerfectCollidable(IAnimationContainer animation)
         {
             _animation = animation;
-            _animation.OnAnimationStarted.Subscribe((sender, args) => PixelPerfect(_pixelPerfect));
+            _animation.OnAnimationStarted.Subscribe(_ => PixelPerfect(_pixelPerfect));
         }
 
         public IArea PixelPerfectHitTestArea

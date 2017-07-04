@@ -10,25 +10,25 @@
         /// This event is triggered after leaving the previous room, before the current room is visible.
         /// </summary>
         /// <value>The event.</value>
-		IEvent<AGSEventArgs> OnBeforeFadeIn { get; }
+		IEvent<object> OnBeforeFadeIn { get; }
 
         /// <summary>
         /// This event is triggered after leaving the previous room, after the current room is visible.
         /// </summary>
         /// <value>The event.</value>
-		IEvent<AGSEventArgs> OnAfterFadeIn { get; }
+		IEvent<object> OnAfterFadeIn { get; }
 
         /// <summary>
         /// This event is triggered before leaving the current room when it is still visible.
         /// </summary>
         /// <value>The event.</value>
-		IEvent<AGSEventArgs> OnBeforeFadeOut { get; }
+		IEvent<object> OnBeforeFadeOut { get; }
 
         /// <summary>
         /// This event is triggered before leaving the current room when it is no longer visible.
         /// </summary>
         /// <value>The event.</value>
-		IEvent<AGSEventArgs> OnAfterFadeOut { get; }
+		IEvent<object> OnAfterFadeOut { get; }
 	}
 }
 

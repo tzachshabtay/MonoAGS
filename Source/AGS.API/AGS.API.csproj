@@ -93,7 +93,6 @@
     <Compile Include="Misc\Drawing\Size.cs" />
     <Compile Include="Misc\Drawing\SizeF.cs" />
     <Compile Include="Misc\Drawing\WrapMode.cs" />
-    <Compile Include="Misc\Events\AGSEventArgs.cs" />
     <Compile Include="Misc\Events\IEvent.cs" />
     <Compile Include="Misc\Geometry\ISquare.cs" />
     <Compile Include="Misc\ILocation.cs" />

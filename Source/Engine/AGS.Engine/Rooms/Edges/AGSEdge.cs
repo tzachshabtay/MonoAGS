@@ -7,7 +7,7 @@ namespace AGS.Engine
 	{
 		public AGSEdge()
 		{
-			OnEdgeCrossed = new AGSEvent<AGSEventArgs> ();
+			OnEdgeCrossed = new AGSEvent<object> ();
             Enabled = true;
 		}
 
@@ -15,7 +15,7 @@ namespace AGS.Engine
 
 		public float Value { get; set; }
 
-		public IEvent<AGSEventArgs> OnEdgeCrossed { get; private set; }
+		public IEvent<object> OnEdgeCrossed { get; private set; }
 
         public bool Enabled { get; set; }
 

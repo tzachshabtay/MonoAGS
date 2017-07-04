@@ -59,7 +59,7 @@ namespace AGS.Engine
             _root = buildTree(_root, tree);
         }
 
-        private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+        private void onRepeatedlyExecute(object args)
         { 
             processTree(_root);
             var root = _root;
@@ -86,7 +86,7 @@ namespace AGS.Engine
             }
         }
 
-        private void onNodeListChanged(object sender, AGSListChangedEventArgs<ITreeStringNode> args)
+        private void onNodeListChanged(AGSListChangedEventArgs<ITreeStringNode> args)
         {
             if (args.ChangeType == ListChangeType.Add)
             {
@@ -287,17 +287,17 @@ namespace AGS.Engine
                 return (IUIEvents)View.ExpandButton ?? View.TreeItem;
             }
 
-            private void onMouseEnter(object sender, MousePositionEventArgs args)
+            private void onMouseEnter(MousePositionEventArgs args)
             {
                 IsHovered = true;
             }
 
-            private void onMouseLeave(object sender, MousePositionEventArgs args)
+            private void onMouseLeave(MousePositionEventArgs args)
             {
                 IsHovered = false;                
             }
 
-            private void onMouseClicked(object sender, MouseButtonEventArgs args)
+            private void onMouseClicked(MouseButtonEventArgs args)
             {
                 IsCollapsed = !IsCollapsed;
                 foreach (var child in Children)
@@ -306,12 +306,12 @@ namespace AGS.Engine
                 }
             }
 
-            private void onItemSelected(object sender, MouseButtonEventArgs args)
+            private void onItemSelected(MouseButtonEventArgs args)
             {
                 getRoot().ResetSelection();
                 if (_tree.AllowSelection == SelectionType.None) return;
                 IsSelected = true;
-                _tree.OnNodeSelected.Invoke(this, new NodeEventArgs(Item));
+                _tree.OnNodeSelected.Invoke(new NodeEventArgs(Item));
             }
         }
     }

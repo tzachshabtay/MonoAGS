@@ -15,7 +15,7 @@
         /// An event which is fired when the angle is changed.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnAngleChanged { get; }
+        IEvent<object> OnAngleChanged { get; }
     }
 
     /// <summary>

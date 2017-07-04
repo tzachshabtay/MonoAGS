@@ -1,13 +1,12 @@
 ﻿using System;
 using AGS.API;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
 namespace AGS.Engine
 {
-	public class AGSEvent<TEventArgs> : IEvent<TEventArgs> where TEventArgs : AGSEventArgs
+	public class AGSEvent<TEventArgs> : IEvent<TEventArgs>
 	{
 		private readonly Guid _id;
 		private readonly IConcurrentHashSet<Callback> _invocationList;
@@ -23,7 +22,7 @@ namespace AGS.Engine
 
 		public int SubscribersCount { get { return _invocationList.Count; } }
 
-		public void Subscribe (Action<object, TEventArgs> callback)
+		public void Subscribe (Action<TEventArgs> callback)
 		{
 			if (_invocationList.Count > MAX_SUBSCRIPTIONS)
 			{
@@ -33,19 +32,19 @@ namespace AGS.Engine
 			_invocationList.Add (new Callback (callback));
 		}
 
-		public void Unsubscribe (Action<object, TEventArgs> callback)
+		public void Unsubscribe (Action<TEventArgs> callback)
 		{
 			if (!_invocationList.Remove(new Callback (callback)))
 			{
 			}
 		}
 
-		public void SubscribeToAsync (Func<object, TEventArgs, Task> callback)
+		public void SubscribeToAsync (Func<TEventArgs, Task> callback)
 		{
 			subscribeToAsync(new Callback (callback));
 		}
 
-		public void UnsubscribeToAsync (Func<object, TEventArgs, Task> callback)
+		public void UnsubscribeToAsync (Func<TEventArgs, Task> callback)
 		{
 			unsubscribeToAsync(new Callback (callback));
 		}
@@ -59,16 +58,14 @@ namespace AGS.Engine
 			unsubscribeToAsync(callback);
 		}
 
-		public async Task InvokeAsync (object sender, TEventArgs args)
+		public async Task InvokeAsync (TEventArgs args)
 		{
 			try
 			{
 				await Task.Delay(1).ConfigureAwait(false); //Ensuring that the event is invoked on a non-UI thread
-				if (args != null)
-					args.TimesInvoked = Repeat.Do(_id.ToString());
 				foreach (var target in _invocationList) 
 				{
-					await target.Event (sender, args);
+					await target.Event (args);
 				}
 			}
 			catch (Exception e) 
@@ -79,16 +76,14 @@ namespace AGS.Engine
 			}
 		}
 
-		public void Invoke (object sender, TEventArgs args)
+		public void Invoke (TEventArgs args)
 		{
 			try
 			{
-				if (args != null)
-					args.TimesInvoked = Repeat.Do(_id.ToString());
 				foreach (var target in _invocationList) 
 				{
-					if (target.BlockingEvent != null) target.BlockingEvent(sender, args);
-					else Task.Run(async () =>  await target.Event(sender, args).ConfigureAwait(true)).Wait();
+					if (target.BlockingEvent != null) target.BlockingEvent(args);
+					else Task.Run(async () =>  await target.Event(args).ConfigureAwait(true)).Wait();
 				}
 			}
 			catch (Exception e) 
@@ -120,15 +115,15 @@ namespace AGS.Engine
 
 		private class Callback
 		{
-			private Delegate _origObject;
+			private readonly Delegate _origObject;
 
-			public Callback(Func<object, TEventArgs, Task> callback)
+			public Callback(Func<TEventArgs, Task> callback)
 			{
 				_origObject = callback;
 				Event = callback;
 			}
 
-			public Callback(Action<object, TEventArgs> callback)
+			public Callback(Action<TEventArgs> callback)
 			{
 				_origObject = callback;
 				Event = convert(callback);
@@ -141,8 +136,8 @@ namespace AGS.Engine
 				Event = convert(condition, tcs);
 			}
 
-			public Func<object, TEventArgs, Task> Event { get; private set; }
-			public Action<object, TEventArgs> BlockingEvent { get; private set; }
+			public Func<TEventArgs, Task> Event { get; private set; }
+			public Action<TEventArgs> BlockingEvent { get; private set; }
 
 			public override bool Equals(object obj)
 			{
@@ -169,18 +164,18 @@ namespace AGS.Engine
 				return RuntimeReflectionExtensions.GetMethodInfo(del).Name;
 			}
 
-			private Func<object, TEventArgs, Task> convert(Action<object, TEventArgs> callback)
+			private Func<TEventArgs, Task> convert(Action<TEventArgs> callback)
 			{
-				return (sender, e) => 
+				return e => 
 				{
-					callback (sender, e);
+					callback (e);
 					return Task.FromResult (true);
 				};
 			}
 
-			private Func<object, TEventArgs, Task> convert(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
+			private Func<TEventArgs, Task> convert(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
 			{
-				return (sender, e) => 
+				return e => 
 				{
 					if (!condition(e)) return Task.FromResult(true);
 					tcs.TrySetResult(null);

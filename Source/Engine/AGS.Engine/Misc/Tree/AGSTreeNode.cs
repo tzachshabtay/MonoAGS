@@ -7,11 +7,10 @@ namespace AGS.Engine
 	{
         private readonly IAGSBindingList<TItem> _children;
 		private ITreeNode<TItem> _parent;
-        private readonly AGSEventArgs _args = new AGSEventArgs();
 
 		public AGSTreeNode(TItem node = null, IAGSBindingList<TItem> children = null)
 		{
-            OnParentChanged = new AGSEvent<AGSEventArgs>();
+            OnParentChanged = new AGSEvent<object>();
             _children = children ?? new AGSBindingList<TItem>(5);
 			Node = node;
 		}
@@ -90,7 +89,7 @@ namespace AGS.Engine
             return root;
         }
 
-        public IEvent<AGSEventArgs> OnParentChanged { get; private set; }
+        public IEvent<object> OnParentChanged { get; private set; }
 			
 		public int ChildrenCount
 		{
@@ -104,7 +103,7 @@ namespace AGS.Engine
 
         private void fireParentChanged()
         {
-            OnParentChanged.FireEvent(this, _args);
+            OnParentChanged.FireEvent(null);
         }
 	}
 }

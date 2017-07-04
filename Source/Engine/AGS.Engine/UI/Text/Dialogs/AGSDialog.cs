@@ -67,11 +67,11 @@ namespace AGS.Engine
 		private async Task dialogLoop()
 		{
 			TaskCompletionSource<IDialogOption> selectedOptionTask = new TaskCompletionSource<IDialogOption> (null);
-			List<Action<object, MouseButtonEventArgs>> callbacks = 
-				new List<Action<object, MouseButtonEventArgs>> (Options.Count);
+			List<Action<MouseButtonEventArgs>> callbacks = 
+				new List<Action<MouseButtonEventArgs>> (Options.Count);
 			foreach (var option in Options)
 			{
-				Action<object, MouseButtonEventArgs> callback = (sender, args) => selectedOptionTask.TrySetResult(option);
+				Action<MouseButtonEventArgs> callback = _ => selectedOptionTask.TrySetResult(option);
 				callbacks.Add(callback);
 				option.Label.MouseClicked.Subscribe(callback);
 			}

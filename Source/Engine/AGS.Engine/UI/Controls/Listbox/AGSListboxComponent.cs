@@ -53,9 +53,9 @@ namespace AGS.Engine
                 if (value >= 0 && value < Items.Count)
                 {
                     var selectedItem = Items[value];
-                    OnSelectedItemChanged.Invoke(this, new ListboxItemArgs(selectedItem, value));
+                    OnSelectedItemChanged.Invoke(new ListboxItemArgs(selectedItem, value));
                 }
-                else OnSelectedItemChanged.Invoke(this, new ListboxItemArgs(null, value));    
+                else OnSelectedItemChanged.Invoke(new ListboxItemArgs(null, value));    
             }
         }
 
@@ -76,7 +76,7 @@ namespace AGS.Engine
 
         public IEvent<ListboxItemArgs> OnSelectedItemChanged { get; private set; }
 
-        private void onListChanged(object sender, AGSListChangedEventArgs<IStringItem> args)
+        private void onListChanged(AGSListChangedEventArgs<IStringItem> args)
         {
             if (args.ChangeType == ListChangeType.Remove)
             {
@@ -118,9 +118,9 @@ namespace AGS.Engine
             }
         }
 
-        private void onItemClicked(object sender, MouseButtonEventArgs args)
+        private void onItemClicked(MouseButtonEventArgs args)
         {
-	        SelectedIndex = _itemButtons.IndexOf((IButton)sender);
+            SelectedIndex = _itemButtons.IndexOf((IButton)args.ClickedEntity);
         }
     }
 }

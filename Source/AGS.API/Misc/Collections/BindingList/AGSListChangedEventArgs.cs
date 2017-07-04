@@ -20,7 +20,7 @@ namespace AGS.API
     /// <summary>
     /// Event arguments for a list change.
     /// </summary>
-	public class AGSListChangedEventArgs<TItem> : AGSEventArgs
+	public class AGSListChangedEventArgs<TItem>
 	{
         private IEnumerable<AGSListItem<TItem>> _items;
         private AGSListItem<TItem> _singleItem;

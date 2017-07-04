@@ -9,12 +9,12 @@ namespace AGS.Engine
 
 		public AGSAnimationContainer()
 		{
-            OnAnimationStarted = new AGSEvent<AGSEventArgs>();
+            OnAnimationStarted = new AGSEvent<object>();
 		}		
 
 		public IAnimation Animation { get; private set; }
 
-        public IEvent<AGSEventArgs> OnAnimationStarted { get; private set; }
+        public IEvent<object> OnAnimationStarted { get; private set; }
 
 		public bool DebugDrawAnchor { get; set; }
 
@@ -38,7 +38,7 @@ namespace AGS.Engine
 				currentAnimation.State.OnAnimationCompleted.TrySetResult (new AnimationCompletedEventArgs (false));
 			}
 			Animation = animation;
-            OnAnimationStarted.Invoke(this, new AGSEventArgs());
+            OnAnimationStarted.Invoke(null);
 		}
 
 		public AnimationCompletedEventArgs Animate (IAnimation animation)

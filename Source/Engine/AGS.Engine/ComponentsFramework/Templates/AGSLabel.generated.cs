@@ -207,7 +207,7 @@ namespace AGS.Engine
             set { _animationContainer.DebugDrawAnchor = value; } 
         }
 
-        public IEvent<AGSEventArgs> OnAnimationStarted 
+        public IEvent<object> OnAnimationStarted 
         {  
             get { return _animationContainer.OnAnimationStarted; } 
         }
@@ -281,7 +281,7 @@ namespace AGS.Engine
             get { return _visibleComponent.UnderlyingVisible; } 
         }
 
-        public IEvent<AGSEventArgs> OnUnderlyingVisibleChanged
+        public IEvent<object> OnUnderlyingVisibleChanged
         {
             get { return _visibleComponent.OnUnderlyingVisibleChanged; }
         }
@@ -433,7 +433,7 @@ namespace AGS.Engine
             set { _imageComponent.CustomRenderer = value; } 
         }
 
-        public IEvent<AGSEventArgs> OnImageChanged 
+        public IEvent<object> OnImageChanged 
         {  
             get { return _imageComponent.OnImageChanged; } 
         }
@@ -542,14 +542,14 @@ namespace AGS.Engine
 
         public ModelMatrices GetModelMatrices() { return _modelMatrixComponent.GetModelMatrices(); }
 
-        public IEvent<AGSEventArgs> OnMatrixChanged { get { return _modelMatrixComponent.OnMatrixChanged; } }
-        public IEvent<AGSEventArgs> OnIgnoreScalingAreaChanged { get { return _drawableInfo.OnIgnoreScalingAreaChanged; } }
-        public IEvent<AGSEventArgs> OnRenderLayerChanged { get { return _drawableInfo.OnRenderLayerChanged; } }
-        public IEvent<AGSEventArgs> OnLocationChanged { get { return _translateComponent.OnLocationChanged; } }
-        public IEvent<AGSEventArgs> OnScaleChanged { get { return _scaleComponent.OnScaleChanged; } }
-        public IEvent<AGSEventArgs> OnAnchorChanged { get { return _imageComponent.OnAnchorChanged; } }
-        public IEvent<AGSEventArgs> OnTintChanged { get { return _imageComponent.OnTintChanged; } }
-        public IEvent<AGSEventArgs> OnAngleChanged { get { return _rotateComponent.OnAngleChanged; } }
+        public IEvent<object> OnMatrixChanged { get { return _modelMatrixComponent.OnMatrixChanged; } }
+        public IEvent<object> OnIgnoreScalingAreaChanged { get { return _drawableInfo.OnIgnoreScalingAreaChanged; } }
+        public IEvent<object> OnRenderLayerChanged { get { return _drawableInfo.OnRenderLayerChanged; } }
+        public IEvent<object> OnLocationChanged { get { return _translateComponent.OnLocationChanged; } }
+        public IEvent<object> OnScaleChanged { get { return _scaleComponent.OnScaleChanged; } }
+        public IEvent<object> OnAnchorChanged { get { return _imageComponent.OnAnchorChanged; } }
+        public IEvent<object> OnTintChanged { get { return _imageComponent.OnTintChanged; } }
+        public IEvent<object> OnAngleChanged { get { return _rotateComponent.OnAngleChanged; } }
     }
 }
 

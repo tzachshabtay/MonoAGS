@@ -30,7 +30,7 @@ namespace DemoGame
 		public async Task<IPanel> LoadAsync(IGame game)
 		{
 			_game = game;
-			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
+			_game.Events.OnSavedGameLoad.Subscribe(_ => onSaveGameLoaded());
 			IGameFactory factory = game.Factory;
 			_player = game.State.Player;
 			_panel = await factory.UI.GetPanelAsync("Toolbar", "../../Assets/Gui/DialogBox/toolbar.bmp", 0f, 180f);
@@ -92,7 +92,7 @@ namespace DemoGame
 			return button;
 		}
 
-		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+		private void onRepeatedlyExecute(object args)
 		{
             if (_player == null) return;
 			if (_lastInventoryItem == _player.Inventory.ActiveItem) return;

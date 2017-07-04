@@ -63,7 +63,7 @@ namespace Tests
 		{
 			IEdge edge = getEdge(edgeName);
 			bool edgeCrossed = false;
-			edge.OnEdgeCrossed.Subscribe((sender, e) => edgeCrossed = true);
+			edge.OnEdgeCrossed.Subscribe(_ => edgeCrossed = true);
 			Mock<ICharacter> character = _mocks.Character();
 
 			setPosition(character, previous, edgeName);

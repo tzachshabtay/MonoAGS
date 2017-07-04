@@ -120,7 +120,7 @@ namespace AGS.Engine
 		{
 			List<IObject> displayList = getDisplayList(room);
             _displayListEventArgs.DisplayList = displayList;
-            OnBeforeRenderingDisplayList.Invoke(this, _displayListEventArgs);
+            OnBeforeRenderingDisplayList.Invoke(_displayListEventArgs);
             displayList = _displayListEventArgs.DisplayList;
 
 			foreach (IObject obj in displayList) 

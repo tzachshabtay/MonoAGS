@@ -6,7 +6,6 @@ namespace AGS.Engine
     public class AGSScale : IScale
     {
         private IHasImage _image;
-        private readonly AGSEventArgs _args = new AGSEventArgs();
 
         public AGSScale(IHasImage image) : this(image, true)
         {
@@ -20,13 +19,13 @@ namespace AGS.Engine
         private AGSScale(IHasImage image, bool shouldSubscribeToImageChange)
         { 
             _image = image;
-            OnScaleChanged = new AGSEvent<AGSEventArgs>();
+            OnScaleChanged = new AGSEvent<object>();
 
             ScaleX = 1;
             ScaleY = 1;
 
             if (!shouldSubscribeToImageChange) return;
-            image.OnImageChanged.Subscribe((sender, args) =>
+            image.OnImageChanged.Subscribe(args =>
             {
                 if (BaseSize.Width == 0f) ResetBaseSize(_image.Image.Width, _image.Image.Height);
             });
@@ -42,7 +41,7 @@ namespace AGS.Engine
 
         public SizeF BaseSize { get; private set; }
 
-        public IEvent<AGSEventArgs> OnScaleChanged { get; private set; }
+        public IEvent<object> OnScaleChanged { get; private set; }
 
         public void ResetBaseSize(float initialWidth, float initialHeight)
         {
@@ -112,7 +111,7 @@ namespace AGS.Engine
 
         private void fireScaleChange()
         {
-            OnScaleChanged.FireEvent(this, _args);
+            OnScaleChanged.FireEvent(null);
         }
     }
 }

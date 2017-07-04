@@ -25,7 +25,7 @@ namespace AGS.API
         /// An event when fires whenever an animation is started on this container.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnAnimationStarted { get; }
+        IEvent<object> OnAnimationStarted { get; }
 
         /// <summary>
         /// Gets or sets a border that will (optionally) surround the animation.

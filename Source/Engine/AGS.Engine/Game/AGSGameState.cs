@@ -60,7 +60,7 @@ namespace AGS.Engine
                     }
                     if (Room == newRoom) return; //somebody already changed to this room, no need to change again.
                 }
-                Room.Events.OnBeforeFadeOut.Invoke(this, new AGSEventArgs());
+                Room.Events.OnBeforeFadeOut.Invoke(null);
                 _roomTransitions.State = RoomTransitionState.BeforeLeavingRoom;
                 if (_roomTransitions.Transition != null)
                     await _roomTransitions.OnStateChanged.WaitUntilAsync(canContinueRoomTransition);
@@ -113,7 +113,7 @@ namespace AGS.Engine
 			return (Rooms.SelectMany(r => r.Objects).FirstOrDefault(o => o.ID == id)) as TEntity;
 		}
 
-        private bool canContinueRoomTransition(AGSEventArgs args)
+        private bool canContinueRoomTransition(object args)
         {
             return _roomTransitions.State == RoomTransitionState.PreparingTransition ||
                    _roomTransitions.State == RoomTransitionState.NotInTransition;

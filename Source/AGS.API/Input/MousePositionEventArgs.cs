@@ -3,7 +3,7 @@
     /// <summary>
     /// Event arguments for mouse move to indicate the mouse's position.
     /// </summary>
-    public class MousePositionEventArgs : AGSEventArgs
+    public class MousePositionEventArgs
 	{
 		public MousePositionEventArgs (float x, float y)
 		{

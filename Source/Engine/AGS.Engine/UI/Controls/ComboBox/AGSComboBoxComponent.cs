@@ -13,7 +13,7 @@ namespace AGS.Engine
 
         public AGSComboBoxComponent(IGameEvents gameEvents)
         {
-            gameEvents.OnRepeatedlyExecute.Subscribe((_, __) => refreshDropDownLayout());
+            gameEvents.OnRepeatedlyExecute.Subscribe(_ => refreshDropDownLayout());
         }
 
         public IButton DropDownButton
@@ -89,7 +89,7 @@ namespace AGS.Engine
                 drawableComponent.RenderLayer = DropDownButton.RenderLayer;
         }
 
-        private void onSelectedItemChanged(object sender, ListboxItemArgs args)
+        private void onSelectedItemChanged(ListboxItemArgs args)
         {
             var textBox = TextBox;
             if (textBox != null) textBox.Text = args.Item == null ? "" : args.Item.Text;
@@ -113,7 +113,7 @@ namespace AGS.Engine
             }
         }
 
-        private void onDropDownClicked(object sender, MouseButtonEventArgs args)
+        private void onDropDownClicked(MouseButtonEventArgs args)
         {
             if (_dropDownPanelVisible != null) _dropDownPanelVisible.Visible = !_dropDownPanelVisible.Visible;
         }

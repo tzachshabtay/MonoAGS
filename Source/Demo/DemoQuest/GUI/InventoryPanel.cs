@@ -21,7 +21,7 @@ namespace DemoGame
 		public async Task LoadAsync(IGame game)
 		{
 			_game = game;
-			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
+			_game.Events.OnSavedGameLoad.Subscribe(_ => onSaveGameLoaded());
 			IGameFactory factory = game.Factory;
 
 			_panel = await factory.UI.GetPanelAsync("Inventory Panel", "../../Assets/Gui/DialogBox/inventory.bmp", 160f, 100f);

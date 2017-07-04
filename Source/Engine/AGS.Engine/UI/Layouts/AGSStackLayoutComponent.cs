@@ -40,7 +40,7 @@ namespace AGS.Engine
             _isPaused = true;
         }
 
-        private void onTreeChanged(object sender, AGSListChangedEventArgs<IObject> args)
+        private void onTreeChanged(AGSListChangedEventArgs<IObject> args)
         {
             if (args.ChangeType == ListChangeType.Add)
             {
@@ -61,7 +61,7 @@ namespace AGS.Engine
             adjustLayout();
         }
 
-        private void onObjectChanged(object sender, AGSEventArgs args)
+        private void onObjectChanged(object args)
         {
             adjustLayout();
         }

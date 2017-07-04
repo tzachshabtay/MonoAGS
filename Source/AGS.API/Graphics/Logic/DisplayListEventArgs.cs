@@ -2,7 +2,7 @@
 
 namespace AGS.API
 {
-    public class DisplayListEventArgs : AGSEventArgs
+    public class DisplayListEventArgs
     {
         public DisplayListEventArgs(List<IObject> displayList)
         {

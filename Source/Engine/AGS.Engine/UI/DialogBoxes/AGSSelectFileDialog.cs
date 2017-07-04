@@ -103,8 +103,8 @@ namespace AGS.Engine
             cancelButton.MouseClicked.Subscribe(onCancelClicked);
             okButton.MouseClicked.Subscribe(onOkClicked);
 
-            scrollDownButton.MouseClicked.Subscribe((sender, args) => invWindow.ScrollDown());
-            scrollUpButton.MouseClicked.Subscribe((sender, args) => invWindow.ScrollUp());
+            scrollDownButton.MouseClicked.Subscribe(_ => invWindow.ScrollDown());
+            scrollUpButton.MouseClicked.Subscribe(_ => invWindow.ScrollUp());
 
             var iconFactory = factory.Graphics.Icons;
             _fileIcon = iconFactory.GetFileIcon();
@@ -163,13 +163,13 @@ namespace AGS.Engine
             }
         }
 
-        private void onCancelClicked(object sender, MouseButtonEventArgs args)
+        private void onCancelClicked(MouseButtonEventArgs args)
         {
             if (args.Button != MouseButton.Left) return;
             _tcs.TrySetResult(false);
         }
 
-        private void onOkClicked(object sender, MouseButtonEventArgs args)
+        private void onOkClicked(MouseButtonEventArgs args)
         {
             if (args.Button != MouseButton.Left) return;
             var item = _selectedItem ?? _fileTextBox.Text;
@@ -190,7 +190,7 @@ namespace AGS.Engine
             _tcs.TrySetResult(true);
         }
 
-        private void onTextBoxKeyPressed(object sender, TextBoxKeyPressingEventArgs args)
+        private void onTextBoxKeyPressed(TextBoxKeyPressingEventArgs args)
         {
             if (args.PressedKey != Key.Enter) return;
             args.ShouldCancel = true;
@@ -226,14 +226,14 @@ namespace AGS.Engine
                 var fileObj = addFileItem(dir, _folderGraphics);
                 dirItems.Add(fileObj);
                 var dirTmp = dir;
-                Action<object, MouseButtonEventArgs> onDoubleClick = (sender, args) =>
+                Action<MouseButtonEventArgs> onDoubleClick = _ =>
                 {
                     string path = (dirTmp == back) ? goBack(folder) : combine(folder, getLastName(dirTmp));
                     _fileTextBox.Text = path;
                     //todo: unsubscribe all events on current files + dirs
                     fillAllFiles(path);
                 };
-                Action<object, MouseButtonEventArgs> onClick = (sender, args) =>
+                Action<MouseButtonEventArgs> onClick = _ =>
                 {
                     foreach (var fileItem in fileItems) fileItem.Border = _fileIcon;
                     foreach (var dirItem in dirItems) dirItem.Border = _folderIcon;
@@ -248,11 +248,11 @@ namespace AGS.Engine
             {
                 var fileObj = addFileItem(file, _fileGraphics);
                 fileItems.Add(fileObj);
-                Action<object, MouseButtonEventArgs> onDoubleClick = (sender, args) =>
+                Action<MouseButtonEventArgs> onDoubleClick = _ =>
                 {
                     onFileSelected(fileObj.Properties.Strings.GetValue(PATH_PROPERTY));
                 };
-                Action<object, MouseButtonEventArgs> onClick = (sender, args) =>
+                Action<MouseButtonEventArgs> onClick = _ =>
                 {
                     foreach (var fileItem in fileItems) fileItem.Border = _fileIcon;
                     foreach (var dirItem in dirItems) dirItem.Border = _folderIcon;

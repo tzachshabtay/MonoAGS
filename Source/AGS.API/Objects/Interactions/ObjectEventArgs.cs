@@ -3,7 +3,7 @@
     /// <summary>
     /// Event arguments for interacting with an object.
     /// </summary>
-    public class ObjectEventArgs : AGSEventArgs
+    public class ObjectEventArgs
 	{
 		public ObjectEventArgs (IObject obj)
 		{

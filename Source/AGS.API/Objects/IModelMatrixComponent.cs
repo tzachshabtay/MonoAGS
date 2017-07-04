@@ -39,6 +39,6 @@
         /// An event that fires whenever the matrix changes.
         /// </summary>
         /// <value>The on matrix changed.</value>
-        IEvent<AGSEventArgs> OnMatrixChanged { get; }
+        IEvent<object> OnMatrixChanged { get; }
     }
 }

@@ -76,14 +76,14 @@ namespace AGS.Engine
 			_game.Input.Cursor = _cursors[_currentMode].Animation;
 		}
 
-		private void onSavedGameLoad(object sender, AGSEventArgs e)
+		private void onSavedGameLoad(object e)
 		{
 			_currentMode = 0;
 			setCursor();
 			RotatingEnabled = true;
 		}
 
-		private async Task onMouseDown(object sender, MouseButtonEventArgs e)
+		private async Task onMouseDown(MouseButtonEventArgs e)
 		{
 			var state = _game.State;
 			if (_handlingClick || !state.Player.Enabled)
@@ -140,15 +140,15 @@ namespace AGS.Engine
 
 						if (mode == LOOK_MODE)
 						{
-                            await hotspot.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(this, new ObjectEventArgs (hotspot));
+                            await hotspot.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(new ObjectEventArgs (hotspot));
 						}
 						else if (mode == INTERACT_MODE)
 						{
-                            await hotspot.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(this, new ObjectEventArgs (hotspot));
+                            await hotspot.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(new ObjectEventArgs (hotspot));
 						}
 						else
 						{
-                            await hotspot.Interactions.OnInteract(mode).InvokeAsync(this, new ObjectEventArgs (hotspot));
+                            await hotspot.Interactions.OnInteract(mode).InvokeAsync(new ObjectEventArgs (hotspot));
 						}
 					}
 					finally
@@ -166,13 +166,13 @@ namespace AGS.Engine
 					if (inventoryItem != null)
 					{
 						await state.Player.Inventory.OnCombination(state.Player.Inventory.ActiveItem,
-							inventoryItem).InvokeAsync(this, new InventoryCombinationEventArgs (
+							inventoryItem).InvokeAsync(new InventoryCombinationEventArgs (
 							state.Player.Inventory.ActiveItem, inventoryItem));
 					}
 					return;
 				}
 
-                await hotspot.Interactions.OnInventoryInteract(AGSInteractions.INTERACT).InvokeAsync(this, new InventoryInteractEventArgs(hotspot,
+                await hotspot.Interactions.OnInventoryInteract(AGSInteractions.INTERACT).InvokeAsync(new InventoryInteractEventArgs(hotspot,
 					state.Player.Inventory.ActiveItem));
 			}
 		}

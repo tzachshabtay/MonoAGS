@@ -52,8 +52,8 @@ namespace DemoGame
             xButton.Anchor = new PointF();
             xButton.RenderLayer = _layer;
             xButton.Tint = Colors.Transparent;
-            xButton.MouseEnter.Subscribe((_, __) => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
-            xButton.MouseLeave.Subscribe((_, __) => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Red, Colors.Transparent, 0f));
+            xButton.MouseEnter.Subscribe(_ => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
+            xButton.MouseLeave.Subscribe(_ => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Red, Colors.Transparent, 0f));
             xButton.OnMouseClick(hide, _game);
 
             var leftSidePanel = factory.UI.GetPanel("FeaturesLeftSidePanel", _panel.Width / 4f, _panel.Height - headerHeight - borderWidth, 0f, 0f, _panel); 
@@ -85,7 +85,7 @@ namespace DemoGame
             treeView.Tree = tree;
             treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
 
-            _game.Events.OnSavedGameLoad.Subscribe((sender, args) => findPanel());
+            _game.Events.OnSavedGameLoad.Subscribe(_ => findPanel());
         }
 
 		public void Show()
@@ -97,7 +97,7 @@ namespace DemoGame
 			_panel.GetComponent<IModalWindowComponent>().GrabFocus();
 		}
 
-        private void onTreeNodeSelected(object sender, NodeEventArgs args)
+        private void onTreeNodeSelected(NodeEventArgs args)
         {
             var current = _currentPanel;
             if (current != null) current.Close(); 

@@ -51,9 +51,9 @@ namespace AGS.Engine
             xButton.Anchor = new PointF();
             xButton.RenderLayer = _layer;
             xButton.Tint = Colors.Transparent;
-            xButton.MouseEnter.Subscribe((_, __) => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
-            xButton.MouseLeave.Subscribe((_, __) => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Red, Colors.Transparent, 0f));
-            xButton.MouseClicked.Subscribe((_, __) => Hide());
+            xButton.MouseEnter.Subscribe(_ => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
+            xButton.MouseLeave.Subscribe(_ => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Red, Colors.Transparent, 0f));
+            xButton.MouseClicked.Subscribe(_ => Hide());
 
             _panesButton = factory.UI.GetButton("GameDebugViewPanesButton", (IAnimation)null, null, null, _panel.Width, xButton.Y, _panel, "Display List",
                                                    new AGSTextConfig(autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleRight),
@@ -61,8 +61,8 @@ namespace AGS.Engine
             _panesButton.Anchor = new PointF(1f, 0f);
             _panesButton.RenderLayer = _layer;
             _panesButton.Tint = Colors.Black;
-            _panesButton.MouseEnter.Subscribe((_, __) => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
-            _panesButton.MouseLeave.Subscribe((_, __) => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.White, Colors.Transparent, 0f));
+            _panesButton.MouseEnter.Subscribe(_ => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
+            _panesButton.MouseLeave.Subscribe(_ => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.White, Colors.Transparent, 0f));
             _panesButton.MouseClicked.SubscribeToAsync(onPaneSwitch);
 
             var parentPanel = factory.UI.GetPanel("GameDebugParentPanel", 1f, 1f, 0f, _panel.Height - headerHeight - 40f, _panel);
@@ -86,7 +86,7 @@ namespace AGS.Engine
             _currentTab.Hide();
         }
 
-        private Task onPaneSwitch(object sender, MouseButtonEventArgs args)
+        private Task onPaneSwitch(MouseButtonEventArgs args)
         {
             _currentTab.Hide();
             _currentTab = (_currentTab == _debugTree) ? (IDebugTab)_displayList : _debugTree;

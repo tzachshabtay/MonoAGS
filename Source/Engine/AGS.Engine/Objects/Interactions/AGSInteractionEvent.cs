@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace AGS.Engine
 {
-    public class AGSInteractionEvent<TEventArgs> : IEvent<TEventArgs> where TEventArgs : AGSEventArgs
+    public class AGSInteractionEvent<TEventArgs> : IEvent<TEventArgs>
     {
         private readonly IEvent<TEventArgs> _ev;
         private readonly List<IEvent<TEventArgs>> _events;
@@ -28,12 +28,12 @@ namespace AGS.Engine
 
         public int SubscribersCount { get { return _ev.SubscribersCount; } }
 
-        public void Subscribe(Action<object, TEventArgs> callback)
+        public void Subscribe(Action<TEventArgs> callback)
         {
             _ev.Subscribe(callback);
         }
 
-        public void Unsubscribe(Action<object, TEventArgs> callback)
+        public void Unsubscribe(Action<TEventArgs> callback)
         {
             _ev.Unsubscribe(callback);
         }
@@ -43,12 +43,12 @@ namespace AGS.Engine
             Task.Run(async () => await WaitUntilAsync(condition)).Wait();
         }
 
-        public void SubscribeToAsync(Func<object, TEventArgs, Task> callback)
+        public void SubscribeToAsync(Func<TEventArgs, Task> callback)
         {
             _ev.SubscribeToAsync(callback);
         }
 
-        public void UnsubscribeToAsync(Func<object, TEventArgs, Task> callback)
+        public void UnsubscribeToAsync(Func<TEventArgs, Task> callback)
         {
             _ev.UnsubscribeToAsync(callback);
         }
@@ -61,17 +61,17 @@ namespace AGS.Engine
             await ev.WaitUntilAsync(condition);
         }
 
-        public async Task InvokeAsync(object sender, TEventArgs args)
+        public async Task InvokeAsync(TEventArgs args)
         {
             var ev = getEvent();
             if (ev == null) return;
             if (!await approachHotspot(ev)) return;
-            await ev.InvokeAsync(sender, args);
+            await ev.InvokeAsync(args);
         }
 
-        public void Invoke(object sender, TEventArgs args)
+        public void Invoke(TEventArgs args)
         {
-            Task.Run(async () => await InvokeAsync(sender, args)).Wait();
+            Task.Run(async () => await InvokeAsync(args)).Wait();
         }
 
         #endregion
