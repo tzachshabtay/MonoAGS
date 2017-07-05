@@ -17,11 +17,14 @@ namespace AGS.Engine
 
         private readonly IGraphicsBackend _graphics;
         private readonly IMessagePump _messagePump;
+        private readonly GLVertex[] _quad, _line;
 
         public GLUtils(IGraphicsBackend graphics, IMessagePump messagePump)
         {
             _graphics = graphics;
             _messagePump = messagePump;
+            _quad = new GLVertex[4];
+            _line = new GLVertex[2];
             CurrentResolution = new Size();
         }
 
@@ -85,32 +88,33 @@ namespace AGS.Engine
 		public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
 			Vector3 topLeft, Vector3 topRight, float r, float g, float b, float a)
 		{
-			GLVertex[] vertices = new GLVertex[]{ new GLVertex(bottomLeft.Xy, _bottomLeft, r,g,b,a), 
-				new GLVertex(bottomRight.Xy, _bottomRight, r,g,b,a), new GLVertex(topRight.Xy, _topRight, r,g,b,a),
-				new GLVertex(topLeft.Xy, _topLeft, r,g,b,a)};
-
-            DrawQuad(texture, vertices);
+            _quad[0] = new GLVertex(bottomLeft.Xy, _bottomLeft, r, g, b, a);
+            _quad[1] = new GLVertex(bottomRight.Xy, _bottomRight, r, g, b, a);
+            _quad[2] = new GLVertex(topRight.Xy, _topRight, r, g, b, a);
+            _quad[3] = new GLVertex(topLeft.Xy, _topLeft, r, g, b, a);
+            DrawQuad(texture, _quad);
 		}
 
 		public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
 			Vector3 topLeft, Vector3 topRight, IGLColor bottomLeftColor, IGLColor bottomRightColor,
 			IGLColor topLeftColor, IGLColor topRightColor)
 		{
-			GLVertex[] vertices = new GLVertex[]{ new GLVertex(bottomLeft.Xy, _bottomLeft, bottomLeftColor), 
-				new GLVertex(bottomRight.Xy, _bottomRight, bottomRightColor), new GLVertex(topRight.Xy, _topRight, topRightColor),
-				new GLVertex(topLeft.Xy, _topLeft, topLeftColor)};
-
-            DrawQuad(texture, vertices);
+            _quad[0] = new GLVertex(bottomLeft.Xy, _bottomLeft, bottomLeftColor);
+            _quad[1] = new GLVertex(bottomRight.Xy, _bottomRight, bottomRightColor);
+            _quad[2] = new GLVertex(topRight.Xy, _topRight, topRightColor);
+            _quad[3] = new GLVertex(topLeft.Xy, _topLeft, topLeftColor);
+            DrawQuad(texture, _quad);
 		}
 
         public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
 			Vector3 topLeft, Vector3 topRight, IGLColor color, FourCorners<Vector2> texturePos)
 		{
-			GLVertex[] vertices = new GLVertex[]{ new GLVertex(bottomLeft.Xy, texturePos.BottomLeft, color), 
-				new GLVertex(bottomRight.Xy, texturePos.BottomRight, color), new GLVertex(topRight.Xy, texturePos.TopRight, color),
-				new GLVertex(topLeft.Xy, texturePos.TopLeft, color)};
+            _quad[0] = new GLVertex(bottomLeft.Xy, texturePos.BottomLeft, color);
+            _quad[1] = new GLVertex(bottomRight.Xy, texturePos.BottomRight, color);
+            _quad[2] = new GLVertex(topRight.Xy, texturePos.TopRight, color);
+            _quad[3] = new GLVertex(topLeft.Xy, texturePos.TopLeft, color);
 
-            DrawQuad(texture, vertices);
+            DrawQuad(texture, _quad);
 		}
 
         public void DrawQuad(int texture, GLVertex[] vertices)
@@ -170,22 +174,17 @@ namespace AGS.Engine
 		public void DrawCross(float x, float y, float width, float height,
 			float r, float g, float b, float a)
 		{
-            GLVertex[] vertices = new GLVertex[]{
-                new GLVertex(new Vector2(x - width, y - height/10), _bottomLeft, r,g,b,a),
-                new GLVertex(new Vector2(x + width, y - height/10), _bottomRight, r,g,b,a),
-                new GLVertex(new Vector2(x + width, y + height/10), _topRight, r,g,b,a),
-                new GLVertex(new Vector2(x - width, y + height/10), _topLeft, r,g,b,a)
-            };
-            DrawQuad(0, vertices);
+            _quad[0] = new GLVertex(new Vector2(x - width, y - height/10), _bottomLeft, r,g,b,a);
+            _quad[1] = new GLVertex(new Vector2(x + width, y - height/10), _bottomRight, r,g,b,a);
+            _quad[2] = new GLVertex(new Vector2(x + width, y + height/10), _topRight, r,g,b,a);
+            _quad[3] = new GLVertex(new Vector2(x - width, y + height/10), _topLeft, r,g,b,a);
+            DrawQuad(0, _quad);
 
-            vertices = new GLVertex[]{
-				new GLVertex(new Vector2(x - width/10, y - height), _bottomLeft, r,g,b,a), 
-				new GLVertex(new Vector2(x + width/10, y - height), _bottomRight, r,g,b,a), 
-				new GLVertex(new Vector2(x + width/10, y + height), _topRight, r,g,b,a),
-				new GLVertex(new Vector2(x - width/10, y + height), _topLeft, r,g,b,a)
-			};
-
-            DrawQuad(0, vertices);
+            _quad[0] = new GLVertex(new Vector2(x - width/10, y - height), _bottomLeft, r,g,b,a);
+            _quad[1] = new GLVertex(new Vector2(x + width/10, y - height), _bottomRight, r,g,b,a);
+            _quad[2] = new GLVertex(new Vector2(x + width/10, y + height), _topRight, r,g,b,a);
+            _quad[3] = new GLVertex(new Vector2(x - width/10, y + height), _topLeft, r,g,b,a);
+            DrawQuad(0, _quad);
 		}
 
 		public void DrawLine(float x1, float y1, float x2, float y2, 
@@ -194,10 +193,10 @@ namespace AGS.Engine
             int texture = getTexture(0);
             _graphics.BindTexture2D(texture);
 			_graphics.LineWidth (width);
-			GLVertex[] vertices = new GLVertex[]{ new GLVertex(new Vector2(x1,y1), _bottomLeft, r,g,b,a), 
-				new GLVertex(new Vector2(x2,y2), _bottomRight, r,g,b,a)};
+            _line[0] = new GLVertex(new Vector2(x1, y1), _bottomLeft, r, g, b, a);
+            _line[1] = new GLVertex(new Vector2(x2, y2), _bottomRight, r, g, b, a);
 
-            drawArrays(PrimitiveMode.Lines, vertices);
+            drawArrays(PrimitiveMode.Lines, _line);
 		}
 
         private void drawArrays(PrimitiveMode primitive, GLVertex[] vertices)
