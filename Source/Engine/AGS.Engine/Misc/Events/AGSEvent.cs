@@ -8,13 +8,11 @@ namespace AGS.Engine
 {
 	public class AGSEvent<TEventArgs> : IEvent<TEventArgs>
 	{
-		private readonly Guid _id;
 		private readonly IConcurrentHashSet<Callback> _invocationList;
 		private const int MAX_SUBSCRIPTIONS = 10000;
 
 		public AGSEvent ()
 		{
-			_id = Guid.NewGuid();
             _invocationList = new AGSConcurrentHashSet<Callback>(fireListChangedEvent: false);
 		}
 
