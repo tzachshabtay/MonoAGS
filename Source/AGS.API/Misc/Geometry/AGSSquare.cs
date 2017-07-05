@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System;
+
+namespace AGS.API
 {
 	/// <summary>
 	/// Represents a square.
@@ -13,17 +15,18 @@
 	{
 		private readonly bool _isEmpty;
 
-		public AGSSquare(PointF bottomLeft, PointF bottomRight, PointF topLeft, PointF topRight) : this()
+		public AGSSquare(PointF bottomLeft, PointF bottomRight, PointF topLeft, PointF topRight)
 		{
 			BottomLeft = bottomLeft;
 			BottomRight = bottomRight;
 			TopLeft = topLeft;
 			TopRight = topRight;
 
-			MinX = MathUtils.Min(bottomLeft.X, bottomRight.X, topLeft.X, topRight.X);
-			MaxX = MathUtils.Max(bottomLeft.X, bottomRight.X, topLeft.X, topRight.X);
-			MinY = MathUtils.Min(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
-			MaxY = MathUtils.Max(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
+            //Using min & max specific versions with 4 values and not using params (with MathUtils.Min & Max) as it allocates an array each time
+			MinX = min(bottomLeft.X, bottomRight.X, topLeft.X, topRight.X);
+			MaxX = max(bottomLeft.X, bottomRight.X, topLeft.X, topRight.X);
+			MinY = min(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
+			MaxY = max(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
 
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
 			_isEmpty = MinX == MaxX || MinY == MaxY;
@@ -119,6 +122,16 @@
 		{
 			return (c.X * b.Y - b.X * c.Y) - (c.X * a.Y - a.X * c.Y) + (b.X * a.Y - a.X * b.Y);
 		}
+
+        private static float min(float x1, float x2, float x3, float x4)
+        {
+            return Math.Min(x1, Math.Min(x2, Math.Min(x3, x4)));
+        }
+
+        private static float max(float x1, float x2, float x3, float x4)
+        {
+            return Math.Max(x1, Math.Max(x2, Math.Max(x3, x4)));
+        }
 	}
 }
 
