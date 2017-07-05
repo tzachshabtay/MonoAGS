@@ -91,7 +91,7 @@ namespace AGS.Engine
                 }
                 resolution = layerResolution.Value;
                 resolutionFactor = new PointF(resolution.Width / (float)virtualResolution.Width, resolution.Height / (float)virtualResolution.Height);
-                return layerResolution.Equals(virtualResolution);
+                return layerResolution.Value.Equals(virtualResolution);
             }
             else if (customResolutionFactor != null)
             {
