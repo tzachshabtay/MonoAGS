@@ -9,6 +9,8 @@ namespace AGS.Engine
 		private IAnimationContainer _obj;
         private IScale _scale;
         private IPixelPerfectCollidable _pixelPerfect;
+        private IEntity _entity;
+        private AGSSquare _emptyBox = default(AGSSquare);
 
 		public AGSCollider(IGameState state)
 		{
@@ -18,6 +20,7 @@ namespace AGS.Engine
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
+            _entity = entity;
 			_drawableInfo = entity.GetComponent<IDrawableInfo>();
 			_obj = entity.GetComponent<IAnimationContainer>();
             _scale = entity.GetComponent<IScaleComponent>();
@@ -30,6 +33,7 @@ namespace AGS.Engine
 		{
 			get
 			{
+                if (BoundingBox.Equals(_emptyBox)) return null;
 				float minX = BoundingBox.MinX;
 				float minY = BoundingBox.MinY;
 				float offsetX = _pixelPerfect.PixelPerfectHitTestArea == null ? (BoundingBox.MaxX - BoundingBox.MinX) / 2f :
@@ -44,6 +48,7 @@ namespace AGS.Engine
 		public bool CollidesWith(float x, float y)
 		{
 			AGSSquare boundingBox = BoundingBox;
+            if (boundingBox.Equals(_emptyBox)) return false;
 			IArea pixelPerfect = _pixelPerfect.PixelPerfectHitTestArea;
 
 			if (_drawableInfo.IgnoreViewport && _state != null) 

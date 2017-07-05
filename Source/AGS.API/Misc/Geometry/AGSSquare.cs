@@ -118,6 +118,24 @@ namespace AGS.API
 			return string.Format("[A={0}, B={1}, C={2}, D={3}]", BottomLeft, BottomRight, TopLeft, TopRight);
 		}
 
+        public override bool Equals(object obj)
+        {
+            if (obj is AGSSquare) return Equals((AGSSquare)obj);
+            return false;
+
+        }
+
+        public override int GetHashCode()
+        {
+            return (BottomLeft.GetHashCode() * 397) ^ TopRight.GetHashCode();
+        }
+
+        public bool Equals(AGSSquare square)
+        {
+            return BottomLeft.Equals(square.BottomLeft) && BottomRight.Equals(square.BottomRight)
+                 && TopLeft.Equals(square.TopLeft) && TopRight.Equals(square.TopRight);
+        }
+
 		private float triangleArea(PointF a, PointF b, PointF c)
 		{
 			return (c.X * b.Y - b.X * c.Y) - (c.X * a.Y - a.X * c.Y) + (b.X * a.Y - a.X * b.Y);
