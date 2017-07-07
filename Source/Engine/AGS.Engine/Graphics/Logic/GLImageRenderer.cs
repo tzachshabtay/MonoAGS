@@ -17,6 +17,8 @@ namespace AGS.Engine
         private readonly IBitmapLoader _bitmapLoader;
         private readonly GLMatrices _matrices = new GLMatrices();
         private readonly AGSSquare _emptySquare = default(AGSSquare);
+        private readonly Func<string, ITexture> _createTextureFunc;
+        private readonly IHasImage[] _colorAdjusters;
 
         public GLImageRenderer (Dictionary<string, ITexture> textures, 
 			IGLBoundingBoxBuilder boundingBoxBuilder,
@@ -25,6 +27,7 @@ namespace AGS.Engine
             IBitmapLoader bitmapLoader)
 		{
             _graphicsFactory = graphicsFactory;
+            _createTextureFunc = createNewTexture; //Creating a delegate in advance to avoid memory allocations on critical path
 			_textures = textures;
 			_boundingBoxBuilder = boundingBoxBuilder;
 			_colorBuilder = colorBuilder;
@@ -34,6 +37,7 @@ namespace AGS.Engine
             _glUtils = glUtils;
             _bitmapLoader = bitmapLoader;
             _emptyTexture = new Lazy<ITexture>(() => initEmptyTexture());
+            _colorAdjusters = new IHasImage[2];
 		}
 
 		public IGLBoundingBoxes BoundingBoxes { get; set; }
@@ -83,9 +87,11 @@ namespace AGS.Engine
             }
             IGLBoundingBox renderBox = BoundingBoxes.RenderBox;
 
-            ITexture texture = _textures.GetOrAdd (sprite.Image.ID, () => createNewTexture (sprite.Image.ID));
+            ITexture texture = _textures.GetOrAdd (sprite.Image.ID, _createTextureFunc);
 
-			IGLColor color = _colorBuilder.Build(sprite, obj);
+            _colorAdjusters[0] = sprite;
+            _colorAdjusters[1] = obj;
+			IGLColor color = _colorBuilder.Build(_colorAdjusters);
 
             IBorderStyle border = obj.Border;
             AGSSquare renderSquare = _emptySquare;

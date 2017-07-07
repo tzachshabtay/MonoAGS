@@ -19,6 +19,17 @@ namespace AGS.Engine
 			return value;
 		}
 
+        public static TValue GetOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> map, TKey key, Func<TKey, TValue> getValue)
+        {
+            TValue value;
+            if (!map.TryGetValue(key, out value))
+            {
+                value = getValue(key);
+                map[key] = value;
+            }
+            return value;
+        }
+
 		public static TEntity Remember<TEntity>(this TEntity entity, IGame game, 
 			Action<TEntity> resetEntity) where TEntity : class, IEntity
 		{
