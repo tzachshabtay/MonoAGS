@@ -17,7 +17,7 @@ namespace AGS.Engine
         public ICustomPropertiesPerType<float> Floats { get { _floats = _floats ?? new AGSCustomPropertiesPerType<float>(); return _floats; } }
         public ICustomPropertiesPerType<string> Strings { get { _strings = _strings ?? new AGSCustomPropertiesPerType<string>(); return _strings; } }
         public ICustomPropertiesPerType<bool> Bools { get { _bools = _bools ?? new AGSCustomPropertiesPerType<bool>(); return _bools; } }
-        public ICustomPropertiesPerType<IEntity> Entities { get { _entities = _entities = new AGSCustomPropertiesPerType<IEntity>(); return _entities; } }
+        public ICustomPropertiesPerType<IEntity> Entities { get { _entities = _entities ?? new AGSCustomPropertiesPerType<IEntity>(); return _entities; } }
 
         public void RegisterCustomData(ICustomSerializable customData)
         {
