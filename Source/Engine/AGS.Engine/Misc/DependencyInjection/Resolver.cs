@@ -49,6 +49,7 @@ namespace AGS.Engine
             Builder.RegisterType<GLUtils>().SingleInstance().As<IGLUtils>();
             Builder.RegisterType<AGSFocusedUI>().SingleInstance().As<IFocusedUI>().As<IModalWindows>();
             Builder.RegisterType<RoomLimitsFromBackground>().SingleInstance().As<IRoomLimitsProvider>();
+            Builder.RegisterType<UIEventsAggregator>().SingleInstance();
 
 			registerComponents();
 

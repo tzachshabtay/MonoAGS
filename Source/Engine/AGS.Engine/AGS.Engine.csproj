@@ -401,6 +401,7 @@
     <Compile Include="UI\DebugControls\DebugView\GameDebugTree.cs" />
     <Compile Include="UI\DebugControls\DebugView\GameDebugView.cs" />
     <Compile Include="UI\DebugControls\DebugView\IDebugTab.cs" />
+    <Compile Include="UI\UIEventsAggregator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
