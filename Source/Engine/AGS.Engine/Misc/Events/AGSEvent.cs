@@ -167,7 +167,7 @@ namespace AGS.Engine
 				return e => 
 				{
 					callback (e);
-					return Task.FromResult (true);
+                    return Task.CompletedTask;
 				};
 			}
 
@@ -175,9 +175,9 @@ namespace AGS.Engine
 			{
 				return e => 
 				{
-					if (!condition(e)) return Task.FromResult(true);
+                    if (!condition(e)) return Task.CompletedTask;
 					tcs.TrySetResult(null);
-					return Task.FromResult(true);
+                    return Task.CompletedTask;
 				};
 			}
 		}
