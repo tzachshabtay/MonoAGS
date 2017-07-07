@@ -128,12 +128,22 @@ namespace AGS.Engine
 
         private void subscribeSprite(ISprite sprite)
         {
-            changeSpriteSubscription(sprite, (ev) => ev.Subscribe(onSomethingChanged));
+            changeSpriteSubscription(sprite, subscribeSpriteEvent);
         }
 
         private void unsubscribeSprite(ISprite sprite)
         {
-            changeSpriteSubscription(sprite, (ev) => ev.Unsubscribe(onSomethingChanged));
+            changeSpriteSubscription(sprite, unsubscribeSpriteEvent);
+        }
+
+        private void subscribeSpriteEvent(IEvent<object> ev)
+        {
+            ev.Subscribe(onSomethingChanged);
+        }
+
+        private void unsubscribeSpriteEvent(IEvent<object> ev)
+        {
+            ev.Unsubscribe(onSomethingChanged);
         }
 
         private void changeSpriteSubscription(ISprite sprite, Action<IEvent<object>> change)
