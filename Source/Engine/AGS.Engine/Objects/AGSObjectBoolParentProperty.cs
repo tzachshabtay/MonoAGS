@@ -38,6 +38,7 @@ namespace AGS.Engine
             get { return _underlyingValue; }
             private set
             {
+                if (_underlyingValue == value) return;
                 _underlyingValue = value;
                 OnUnderlyingValueChanged.Invoke(null);
             }
