@@ -161,28 +161,28 @@ The event handler lookup is as follows: </p>
     oTeapot.Interactions.OnInteract(AGSInteractions.Default).Subscribe(onTeapotDefault);
 }
 
-private void onDefaultTalk(object sender, ObjectEventArgs args)
+private void onDefaultTalk(ObjectEventArgs args)
 {
     cEgo.Say(string.Format(&quot;{0}? No, I don&apos;t think it&apos;s going to talk back.&quot;, args.Object.Hotspot));
 }
 
-private void onTeapotLook(object sender, ObjectEventArgs args)
+private void onTeapotLook(ObjectEventArgs args)
 {
     cEgo.Say(&quot;What a lovely looking teapot!&quot;);
 }
 
-private async Task onTeapotInteract(object sender, ObjectEventArgs args)
+private async Task onTeapotInteract(ObjectEventArgs args)
 {
     await cEgo.SayAsync(&quot;I&apos;m going to pour some tea now.&quot;);
     oTeapot.StartAnimation(aPourTea);
 }
 
-private void onTeapotThrow(object sender, ObjectEventArgs args)
+private void onTeapotThrow(ObjectEventArgs args)
 {
     cEgo.Say(&quot;No way, I&apos;m not throwing the teapot.&quot;);
 }
 
-private void onTeapotDefault(object sender, ObjectEventArgs args)
+private void onTeapotDefault(ObjectEventArgs args)
 {
     cEgo.Say(&quot;I&apos;m not doing anything like that to the teapot.&quot;);
 }</code></pre>
@@ -254,7 +254,7 @@ The event handler lookup is as follows: </p>
     game.Events.DefaultInteractions.OnInventoryInteract(AGSInteractions.Interact).Subscribe(onDefaultInventoryInteract);
 }
 
-private void onTeapotInventoryInteract(object sender, InventoryInteractEventArgs args)
+private void onTeapotInventoryInteract(InventoryInteractEventArgs args)
 {
     if (args.Item == iCup)
     {
@@ -272,7 +272,7 @@ private void onTeapotInventoryInteract(object sender, InventoryInteractEventArgs
         cEgo.Say(&quot;This is not what you&apos;d usually use on a teapot...&quot;);
     }
 }
-private void onDefaultInventoryInteract(object sender, InventoryInteractEventArgs args)
+private void onDefaultInventoryInteract(InventoryInteractEventArgs args)
 {
     cEgo.Say(string.Format(&quot;Using {0} on {1}? No, I don&apos;t think so.&quot;, args.Item.Graphics.Hotspot, args.Object.Hotspot));
 }</code></pre>

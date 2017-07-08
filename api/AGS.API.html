@@ -84,8 +84,6 @@
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">Classes
   </h3>
-      <h4><a class="xref" href="AGS.API.AGSEventArgs.html">AGSEventArgs</a></h4>
-      <section></section>
       <h4><a class="xref" href="AGS.API.AGSHashSetChangedEventArgs-1.html">AGSHashSetChangedEventArgs&lt;TItem&gt;</a></h4>
       <section><p>Event arguments for a hash set change event.</p>
 </section>
@@ -128,6 +126,8 @@ The arguments carry with the two combined items.</p>
       <h4><a class="xref" href="AGS.API.MathHelper.html">MathHelper</a></h4>
       <section><p>Contains common mathematical functions and constants.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.MathUtils.html">MathUtils</a></h4>
+      <section></section>
       <h4><a class="xref" href="AGS.API.MouseButtonEventArgs.html">MouseButtonEventArgs</a></h4>
       <section><p>Mouse button down/up event arguments.</p>
 </section>
@@ -158,6 +158,14 @@ attribute with the animation component.</p>
   </h3>
       <h4><a class="xref" href="AGS.API.AGSListItem-1.html">AGSListItem&lt;TItem&gt;</a></h4>
       <section><p>Represents an item in a list</p>
+</section>
+      <h4><a class="xref" href="AGS.API.AGSSquare.html">AGSSquare</a></h4>
+      <section><p>Represents a square.</p>
+<p>Note: the points are listed as bottom left, bottom right, etc, even though it&apos;s not accurate.
+A square doesn&apos;t really have bottom left, it just has 4 points. 
+We use these descriptors for convenience, since each square in our engine was converted from
+a rectangle which does have bottom left, etc.
+Also, the order of the points is important for the &quot;Contains&quot; calculation.</p>
 </section>
       <h4><a class="xref" href="AGS.API.Color.html">Color</a></h4>
       <section><p>Represents a color.</p>
@@ -775,14 +783,6 @@ that&apos;s being said.</p>
       <h4><a class="xref" href="AGS.API.ISpriteSheet.html">ISpriteSheet</a></h4>
       <section><p>Represents a sprite sheet: An image that contains multiple sprites in it, with some
 rules on how to read the sprites to perform an animation (usually).</p>
-</section>
-      <h4><a class="xref" href="AGS.API.ISquare.html">ISquare</a></h4>
-      <section><p>Represents a square.</p>
-<p>Note: the points are listed as bottom left, bottom right, etc, even though it&apos;s not accurate.
-A square doesn&apos;t really have bottom left, it just has 4 points. 
-We use these descriptors for convenience, since each square in our engine was converted from
-a rectangle which does have bottom left, etc.
-Also, the order of the points is important for the &quot;Contains&quot; calculation.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IStackLayoutComponent.html">IStackLayoutComponent</a></h4>
       <section><p>The stack layout component organizes its children in a one-dimensional line (&quot;stack&quot;), 

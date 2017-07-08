@@ -140,7 +140,7 @@ The end of the calling chain, for <code>MonoAGS</code> is usually subscribing to
 <pre><code class="lang-csharp">
 oBottle.Interactions.OnInteract(AGSInteractions.Look).SubscribeToAsync(onLookBottle);
 
-private Task onLookBottle(object sender, ObjectEventArgs args)
+private Task onLookBottle(ObjectEventArgs args)
 {
     cHero.Say(&quot;It&#39;s a bottle.&quot;);
     return Task.CompletedTask;
@@ -148,7 +148,7 @@ private Task onLookBottle(object sender, ObjectEventArgs args)
 </code></pre><p>By returning <code>Task.CompletedTask</code>, I&#39;m &quot;faking&quot; an asynchronous result so other methods can still <code>await</code> my method, without knowing it isn&#39;t really asynchronous.</p>
 <p>Later on, when I add my asynchronous stuff, I&#39;ll remove it:</p>
 <pre><code class="lang-csharp">
-private async Task onLookBottle(object sender, ObjectEventArgs args)
+private async Task onLookBottle(ObjectEventArgs args)
 {
     await cHero.SayAsync(&quot;It&#39;s a bottle.&quot;);
 }

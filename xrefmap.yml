@@ -7,24 +7,6 @@ references:
   commentId: N:AGS.API
   fullName: AGS.API
   nameWithType: AGS.API
-- uid: AGS.API.AGSEventArgs
-  name: AGSEventArgs
-  href: api/AGS.API.AGSEventArgs.html
-  commentId: T:AGS.API.AGSEventArgs
-  fullName: AGS.API.AGSEventArgs
-  nameWithType: AGSEventArgs
-- uid: AGS.API.AGSEventArgs.TimesInvoked
-  name: TimesInvoked
-  href: api/AGS.API.AGSEventArgs.html#AGS_API_AGSEventArgs_TimesInvoked
-  commentId: P:AGS.API.AGSEventArgs.TimesInvoked
-  fullName: AGS.API.AGSEventArgs.TimesInvoked
-  nameWithType: AGSEventArgs.TimesInvoked
-- uid: AGS.API.AGSEventArgs.TimesInvoked*
-  name: TimesInvoked
-  href: api/AGS.API.AGSEventArgs.html#AGS_API_AGSEventArgs_TimesInvoked_
-  commentId: Overload:AGS.API.AGSEventArgs.TimesInvoked
-  fullName: AGS.API.AGSEventArgs.TimesInvoked
-  nameWithType: AGSEventArgs.TimesInvoked
 - uid: AGS.API.AGSHashSetChangedEventArgs`1
   name: AGSHashSetChangedEventArgs<TItem>
   href: api/AGS.API.AGSHashSetChangedEventArgs-1.html
@@ -206,6 +188,186 @@ references:
   fullName.vb: AGS.API.AGSListItem(Of TItem).Item
   nameWithType: AGSListItem<TItem>.Item
   nameWithType.vb: AGSListItem(Of TItem).Item
+- uid: AGS.API.AGSSquare
+  name: AGSSquare
+  href: api/AGS.API.AGSSquare.html
+  commentId: T:AGS.API.AGSSquare
+  fullName: AGS.API.AGSSquare
+  nameWithType: AGSSquare
+- uid: AGS.API.AGSSquare.#ctor(AGS.API.PointF,AGS.API.PointF,AGS.API.PointF,AGS.API.PointF)
+  name: AGSSquare(PointF, PointF, PointF, PointF)
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare__ctor_AGS_API_PointF_AGS_API_PointF_AGS_API_PointF_AGS_API_PointF_
+  commentId: M:AGS.API.AGSSquare.#ctor(AGS.API.PointF,AGS.API.PointF,AGS.API.PointF,AGS.API.PointF)
+  fullName: AGS.API.AGSSquare.AGSSquare(AGS.API.PointF, AGS.API.PointF, AGS.API.PointF, AGS.API.PointF)
+  nameWithType: AGSSquare.AGSSquare(PointF, PointF, PointF, PointF)
+- uid: AGS.API.AGSSquare.#ctor*
+  name: AGSSquare
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare__ctor_
+  commentId: Overload:AGS.API.AGSSquare.#ctor
+  fullName: AGS.API.AGSSquare.AGSSquare
+  nameWithType: AGSSquare.AGSSquare
+- uid: AGS.API.AGSSquare.BottomLeft
+  name: BottomLeft
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_BottomLeft
+  commentId: P:AGS.API.AGSSquare.BottomLeft
+  fullName: AGS.API.AGSSquare.BottomLeft
+  nameWithType: AGSSquare.BottomLeft
+- uid: AGS.API.AGSSquare.BottomLeft*
+  name: BottomLeft
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_BottomLeft_
+  commentId: Overload:AGS.API.AGSSquare.BottomLeft
+  fullName: AGS.API.AGSSquare.BottomLeft
+  nameWithType: AGSSquare.BottomLeft
+- uid: AGS.API.AGSSquare.BottomRight
+  name: BottomRight
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_BottomRight
+  commentId: P:AGS.API.AGSSquare.BottomRight
+  fullName: AGS.API.AGSSquare.BottomRight
+  nameWithType: AGSSquare.BottomRight
+- uid: AGS.API.AGSSquare.BottomRight*
+  name: BottomRight
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_BottomRight_
+  commentId: Overload:AGS.API.AGSSquare.BottomRight
+  fullName: AGS.API.AGSSquare.BottomRight
+  nameWithType: AGSSquare.BottomRight
+- uid: AGS.API.AGSSquare.Contains(AGS.API.PointF)
+  name: Contains(PointF)
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_Contains_AGS_API_PointF_
+  commentId: M:AGS.API.AGSSquare.Contains(AGS.API.PointF)
+  fullName: AGS.API.AGSSquare.Contains(AGS.API.PointF)
+  nameWithType: AGSSquare.Contains(PointF)
+- uid: AGS.API.AGSSquare.Contains*
+  name: Contains
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_Contains_
+  commentId: Overload:AGS.API.AGSSquare.Contains
+  fullName: AGS.API.AGSSquare.Contains
+  nameWithType: AGSSquare.Contains
+- uid: AGS.API.AGSSquare.Equals(AGS.API.AGSSquare)
+  name: Equals(AGSSquare)
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_Equals_AGS_API_AGSSquare_
+  commentId: M:AGS.API.AGSSquare.Equals(AGS.API.AGSSquare)
+  fullName: AGS.API.AGSSquare.Equals(AGS.API.AGSSquare)
+  nameWithType: AGSSquare.Equals(AGSSquare)
+- uid: AGS.API.AGSSquare.Equals(System.Object)
+  name: Equals(Object)
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_Equals_System_Object_
+  commentId: M:AGS.API.AGSSquare.Equals(System.Object)
+  fullName: AGS.API.AGSSquare.Equals(System.Object)
+  nameWithType: AGSSquare.Equals(Object)
+- uid: AGS.API.AGSSquare.Equals*
+  name: Equals
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_Equals_
+  commentId: Overload:AGS.API.AGSSquare.Equals
+  fullName: AGS.API.AGSSquare.Equals
+  nameWithType: AGSSquare.Equals
+- uid: AGS.API.AGSSquare.FlipHorizontal
+  name: FlipHorizontal()
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_FlipHorizontal
+  commentId: M:AGS.API.AGSSquare.FlipHorizontal
+  fullName: AGS.API.AGSSquare.FlipHorizontal()
+  nameWithType: AGSSquare.FlipHorizontal()
+- uid: AGS.API.AGSSquare.FlipHorizontal*
+  name: FlipHorizontal
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_FlipHorizontal_
+  commentId: Overload:AGS.API.AGSSquare.FlipHorizontal
+  fullName: AGS.API.AGSSquare.FlipHorizontal
+  nameWithType: AGSSquare.FlipHorizontal
+- uid: AGS.API.AGSSquare.GetHashCode
+  name: GetHashCode()
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_GetHashCode
+  commentId: M:AGS.API.AGSSquare.GetHashCode
+  fullName: AGS.API.AGSSquare.GetHashCode()
+  nameWithType: AGSSquare.GetHashCode()
+- uid: AGS.API.AGSSquare.GetHashCode*
+  name: GetHashCode
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_GetHashCode_
+  commentId: Overload:AGS.API.AGSSquare.GetHashCode
+  fullName: AGS.API.AGSSquare.GetHashCode
+  nameWithType: AGSSquare.GetHashCode
+- uid: AGS.API.AGSSquare.MaxX
+  name: MaxX
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MaxX
+  commentId: P:AGS.API.AGSSquare.MaxX
+  fullName: AGS.API.AGSSquare.MaxX
+  nameWithType: AGSSquare.MaxX
+- uid: AGS.API.AGSSquare.MaxX*
+  name: MaxX
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MaxX_
+  commentId: Overload:AGS.API.AGSSquare.MaxX
+  fullName: AGS.API.AGSSquare.MaxX
+  nameWithType: AGSSquare.MaxX
+- uid: AGS.API.AGSSquare.MaxY
+  name: MaxY
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MaxY
+  commentId: P:AGS.API.AGSSquare.MaxY
+  fullName: AGS.API.AGSSquare.MaxY
+  nameWithType: AGSSquare.MaxY
+- uid: AGS.API.AGSSquare.MaxY*
+  name: MaxY
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MaxY_
+  commentId: Overload:AGS.API.AGSSquare.MaxY
+  fullName: AGS.API.AGSSquare.MaxY
+  nameWithType: AGSSquare.MaxY
+- uid: AGS.API.AGSSquare.MinX
+  name: MinX
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MinX
+  commentId: P:AGS.API.AGSSquare.MinX
+  fullName: AGS.API.AGSSquare.MinX
+  nameWithType: AGSSquare.MinX
+- uid: AGS.API.AGSSquare.MinX*
+  name: MinX
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MinX_
+  commentId: Overload:AGS.API.AGSSquare.MinX
+  fullName: AGS.API.AGSSquare.MinX
+  nameWithType: AGSSquare.MinX
+- uid: AGS.API.AGSSquare.MinY
+  name: MinY
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MinY
+  commentId: P:AGS.API.AGSSquare.MinY
+  fullName: AGS.API.AGSSquare.MinY
+  nameWithType: AGSSquare.MinY
+- uid: AGS.API.AGSSquare.MinY*
+  name: MinY
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MinY_
+  commentId: Overload:AGS.API.AGSSquare.MinY
+  fullName: AGS.API.AGSSquare.MinY
+  nameWithType: AGSSquare.MinY
+- uid: AGS.API.AGSSquare.TopLeft
+  name: TopLeft
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_TopLeft
+  commentId: P:AGS.API.AGSSquare.TopLeft
+  fullName: AGS.API.AGSSquare.TopLeft
+  nameWithType: AGSSquare.TopLeft
+- uid: AGS.API.AGSSquare.TopLeft*
+  name: TopLeft
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_TopLeft_
+  commentId: Overload:AGS.API.AGSSquare.TopLeft
+  fullName: AGS.API.AGSSquare.TopLeft
+  nameWithType: AGSSquare.TopLeft
+- uid: AGS.API.AGSSquare.TopRight
+  name: TopRight
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_TopRight
+  commentId: P:AGS.API.AGSSquare.TopRight
+  fullName: AGS.API.AGSSquare.TopRight
+  nameWithType: AGSSquare.TopRight
+- uid: AGS.API.AGSSquare.TopRight*
+  name: TopRight
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_TopRight_
+  commentId: Overload:AGS.API.AGSSquare.TopRight
+  fullName: AGS.API.AGSSquare.TopRight
+  nameWithType: AGSSquare.TopRight
+- uid: AGS.API.AGSSquare.ToString
+  name: ToString()
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_ToString
+  commentId: M:AGS.API.AGSSquare.ToString
+  fullName: AGS.API.AGSSquare.ToString()
+  nameWithType: AGSSquare.ToString()
+- uid: AGS.API.AGSSquare.ToString*
+  name: ToString
+  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_ToString_
+  commentId: Overload:AGS.API.AGSSquare.ToString
+  fullName: AGS.API.AGSSquare.ToString
+  nameWithType: AGSSquare.ToString
 - uid: AGS.API.Alignment
   name: Alignment
   href: api/AGS.API.Alignment.html
@@ -2615,12 +2777,12 @@ references:
   commentId: M:AGS.API.IAreaComponent.IsInArea(AGS.API.PointF)
   fullName: AGS.API.IAreaComponent.IsInArea(AGS.API.PointF)
   nameWithType: IAreaComponent.IsInArea(PointF)
-- uid: AGS.API.IAreaComponent.IsInArea(AGS.API.PointF,AGS.API.ISquare,System.Single,System.Single)
-  name: IsInArea(PointF, ISquare, Single, Single)
-  href: api/AGS.API.IAreaComponent.html#AGS_API_IAreaComponent_IsInArea_AGS_API_PointF_AGS_API_ISquare_System_Single_System_Single_
-  commentId: M:AGS.API.IAreaComponent.IsInArea(AGS.API.PointF,AGS.API.ISquare,System.Single,System.Single)
-  fullName: AGS.API.IAreaComponent.IsInArea(AGS.API.PointF, AGS.API.ISquare, System.Single, System.Single)
-  nameWithType: IAreaComponent.IsInArea(PointF, ISquare, Single, Single)
+- uid: AGS.API.IAreaComponent.IsInArea(AGS.API.PointF,AGS.API.AGSSquare,System.Single,System.Single)
+  name: IsInArea(PointF, AGSSquare, Single, Single)
+  href: api/AGS.API.IAreaComponent.html#AGS_API_IAreaComponent_IsInArea_AGS_API_PointF_AGS_API_AGSSquare_System_Single_System_Single_
+  commentId: M:AGS.API.IAreaComponent.IsInArea(AGS.API.PointF,AGS.API.AGSSquare,System.Single,System.Single)
+  fullName: AGS.API.IAreaComponent.IsInArea(AGS.API.PointF, AGS.API.AGSSquare, System.Single, System.Single)
+  nameWithType: IAreaComponent.IsInArea(PointF, AGSSquare, Single, Single)
 - uid: AGS.API.IAreaComponent.IsInArea*
   name: IsInArea
   href: api/AGS.API.IAreaComponent.html#AGS_API_IAreaComponent_IsInArea_
@@ -3008,14 +3170,14 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs)
   nameWithType: IBlockingEvent<TEventArgs>
   nameWithType.vb: IBlockingEvent(Of TEventArgs)
-- uid: AGS.API.IBlockingEvent`1.Invoke(System.Object,`0)
-  name: Invoke(Object, TEventArgs)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Invoke_System_Object__0_
-  commentId: M:AGS.API.IBlockingEvent`1.Invoke(System.Object,`0)
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Invoke(System.Object, TEventArgs)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Invoke(System.Object, TEventArgs)
-  nameWithType: IBlockingEvent<TEventArgs>.Invoke(Object, TEventArgs)
-  nameWithType.vb: IBlockingEvent(Of TEventArgs).Invoke(Object, TEventArgs)
+- uid: AGS.API.IBlockingEvent`1.Invoke(`0)
+  name: Invoke(TEventArgs)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Invoke__0_
+  commentId: M:AGS.API.IBlockingEvent`1.Invoke(`0)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Invoke(TEventArgs)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Invoke(TEventArgs)
+  nameWithType: IBlockingEvent<TEventArgs>.Invoke(TEventArgs)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Invoke(TEventArgs)
 - uid: AGS.API.IBlockingEvent`1.Invoke*
   name: Invoke
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Invoke_
@@ -3024,15 +3186,15 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Invoke
   nameWithType: IBlockingEvent<TEventArgs>.Invoke
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Invoke
-- uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action{System.Object,`0})
-  name: Subscribe(Action<Object, TEventArgs>)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action_System_Object__0__
-  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(System.Action{System.Object,`0})
-  name.vb: Subscribe(Action(Of Object, TEventArgs))
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(System.Action<System.Object, TEventArgs>)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(System.Action(Of System.Object, TEventArgs))
-  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action<Object, TEventArgs>)
-  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action(Of Object, TEventArgs))
+- uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0})
+  name: Subscribe(Action<TEventArgs>)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action__0__
+  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0})
+  name.vb: Subscribe(Action(Of TEventArgs))
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(System.Action<TEventArgs>)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(System.Action(Of TEventArgs))
+  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action<TEventArgs>)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs))
 - uid: AGS.API.IBlockingEvent`1.Subscribe*
   name: Subscribe
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_
@@ -3057,15 +3219,15 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).SubscribersCount
   nameWithType: IBlockingEvent<TEventArgs>.SubscribersCount
   nameWithType.vb: IBlockingEvent(Of TEventArgs).SubscribersCount
-- uid: AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{System.Object,`0})
-  name: Unsubscribe(Action<Object, TEventArgs>)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action_System_Object__0__
-  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{System.Object,`0})
-  name.vb: Unsubscribe(Action(Of Object, TEventArgs))
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(System.Action<System.Object, TEventArgs>)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(System.Action(Of System.Object, TEventArgs))
-  nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(Action<Object, TEventArgs>)
-  nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(Action(Of Object, TEventArgs))
+- uid: AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0})
+  name: Unsubscribe(Action<TEventArgs>)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action__0__
+  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0})
+  name.vb: Unsubscribe(Action(Of TEventArgs))
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(System.Action<TEventArgs>)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(System.Action(Of TEventArgs))
+  nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs))
 - uid: AGS.API.IBlockingEvent`1.Unsubscribe*
   name: Unsubscribe
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_
@@ -3080,24 +3242,24 @@ references:
   commentId: T:AGS.API.IBorderStyle
   fullName: AGS.API.IBorderStyle
   nameWithType: IBorderStyle
-- uid: AGS.API.IBorderStyle.RenderBorderBack(AGS.API.ISquare)
-  name: RenderBorderBack(ISquare)
-  href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderBack_AGS_API_ISquare_
-  commentId: M:AGS.API.IBorderStyle.RenderBorderBack(AGS.API.ISquare)
-  fullName: AGS.API.IBorderStyle.RenderBorderBack(AGS.API.ISquare)
-  nameWithType: IBorderStyle.RenderBorderBack(ISquare)
+- uid: AGS.API.IBorderStyle.RenderBorderBack(AGS.API.AGSSquare)
+  name: RenderBorderBack(AGSSquare)
+  href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderBack_AGS_API_AGSSquare_
+  commentId: M:AGS.API.IBorderStyle.RenderBorderBack(AGS.API.AGSSquare)
+  fullName: AGS.API.IBorderStyle.RenderBorderBack(AGS.API.AGSSquare)
+  nameWithType: IBorderStyle.RenderBorderBack(AGSSquare)
 - uid: AGS.API.IBorderStyle.RenderBorderBack*
   name: RenderBorderBack
   href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderBack_
   commentId: Overload:AGS.API.IBorderStyle.RenderBorderBack
   fullName: AGS.API.IBorderStyle.RenderBorderBack
   nameWithType: IBorderStyle.RenderBorderBack
-- uid: AGS.API.IBorderStyle.RenderBorderFront(AGS.API.ISquare)
-  name: RenderBorderFront(ISquare)
-  href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderFront_AGS_API_ISquare_
-  commentId: M:AGS.API.IBorderStyle.RenderBorderFront(AGS.API.ISquare)
-  fullName: AGS.API.IBorderStyle.RenderBorderFront(AGS.API.ISquare)
-  nameWithType: IBorderStyle.RenderBorderFront(ISquare)
+- uid: AGS.API.IBorderStyle.RenderBorderFront(AGS.API.AGSSquare)
+  name: RenderBorderFront(AGSSquare)
+  href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderFront_AGS_API_AGSSquare_
+  commentId: M:AGS.API.IBorderStyle.RenderBorderFront(AGS.API.AGSSquare)
+  fullName: AGS.API.IBorderStyle.RenderBorderFront(AGS.API.AGSSquare)
+  nameWithType: IBorderStyle.RenderBorderFront(AGSSquare)
 - uid: AGS.API.IBorderStyle.RenderBorderFront*
   name: RenderBorderFront
   href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderFront_
@@ -5343,14 +5505,14 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs)
   nameWithType: IEvent<TEventArgs>
   nameWithType.vb: IEvent(Of TEventArgs)
-- uid: AGS.API.IEvent`1.InvokeAsync(System.Object,`0)
-  name: InvokeAsync(Object, TEventArgs)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_InvokeAsync_System_Object__0_
-  commentId: M:AGS.API.IEvent`1.InvokeAsync(System.Object,`0)
-  fullName: AGS.API.IEvent<TEventArgs>.InvokeAsync(System.Object, TEventArgs)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).InvokeAsync(System.Object, TEventArgs)
-  nameWithType: IEvent<TEventArgs>.InvokeAsync(Object, TEventArgs)
-  nameWithType.vb: IEvent(Of TEventArgs).InvokeAsync(Object, TEventArgs)
+- uid: AGS.API.IEvent`1.InvokeAsync(`0)
+  name: InvokeAsync(TEventArgs)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_InvokeAsync__0_
+  commentId: M:AGS.API.IEvent`1.InvokeAsync(`0)
+  fullName: AGS.API.IEvent<TEventArgs>.InvokeAsync(TEventArgs)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).InvokeAsync(TEventArgs)
+  nameWithType: IEvent<TEventArgs>.InvokeAsync(TEventArgs)
+  nameWithType.vb: IEvent(Of TEventArgs).InvokeAsync(TEventArgs)
 - uid: AGS.API.IEvent`1.InvokeAsync*
   name: InvokeAsync
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_InvokeAsync_
@@ -5359,15 +5521,15 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).InvokeAsync
   nameWithType: IEvent<TEventArgs>.InvokeAsync
   nameWithType.vb: IEvent(Of TEventArgs).InvokeAsync
-- uid: AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Object,`0,System.Threading.Tasks.Task})
-  name: SubscribeToAsync(Func<Object, TEventArgs, Task>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_System_Func_System_Object__0_System_Threading_Tasks_Task__
-  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Object,`0,System.Threading.Tasks.Task})
-  name.vb: SubscribeToAsync(Func(Of Object, TEventArgs, Task))
-  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(System.Func<System.Object, TEventArgs, System.Threading.Tasks.Task>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of System.Object, TEventArgs, System.Threading.Tasks.Task))
-  nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<Object, TEventArgs, Task>)
-  nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of Object, TEventArgs, Task))
+- uid: AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
+  name: SubscribeToAsync(Func<TEventArgs, Task>)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
+  name.vb: SubscribeToAsync(Func(Of TEventArgs, Task))
+  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(System.Func<TEventArgs, System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task))
+  nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<TEventArgs, Task>)
+  nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of TEventArgs, Task))
 - uid: AGS.API.IEvent`1.SubscribeToAsync*
   name: SubscribeToAsync
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_
@@ -5376,15 +5538,15 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync
   nameWithType: IEvent<TEventArgs>.SubscribeToAsync
   nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync
-- uid: AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Object,`0,System.Threading.Tasks.Task})
-  name: UnsubscribeToAsync(Func<Object, TEventArgs, Task>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_System_Func_System_Object__0_System_Threading_Tasks_Task__
-  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Object,`0,System.Threading.Tasks.Task})
-  name.vb: UnsubscribeToAsync(Func(Of Object, TEventArgs, Task))
-  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(System.Func<System.Object, TEventArgs, System.Threading.Tasks.Task>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of System.Object, TEventArgs, System.Threading.Tasks.Task))
-  nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<Object, TEventArgs, Task>)
-  nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of Object, TEventArgs, Task))
+- uid: AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
+  name: UnsubscribeToAsync(Func<TEventArgs, Task>)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
+  name.vb: UnsubscribeToAsync(Func(Of TEventArgs, Task))
+  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(System.Func<TEventArgs, System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task))
+  nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<TEventArgs, Task>)
+  nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of TEventArgs, Task))
 - uid: AGS.API.IEvent`1.UnsubscribeToAsync*
   name: UnsubscribeToAsync
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_
@@ -7988,12 +8150,12 @@ references:
   commentId: M:AGS.API.IMask.IsMasked(AGS.API.PointF)
   fullName: AGS.API.IMask.IsMasked(AGS.API.PointF)
   nameWithType: IMask.IsMasked(PointF)
-- uid: AGS.API.IMask.IsMasked(AGS.API.PointF,AGS.API.ISquare,System.Single,System.Single)
-  name: IsMasked(PointF, ISquare, Single, Single)
-  href: api/AGS.API.IMask.html#AGS_API_IMask_IsMasked_AGS_API_PointF_AGS_API_ISquare_System_Single_System_Single_
-  commentId: M:AGS.API.IMask.IsMasked(AGS.API.PointF,AGS.API.ISquare,System.Single,System.Single)
-  fullName: AGS.API.IMask.IsMasked(AGS.API.PointF, AGS.API.ISquare, System.Single, System.Single)
-  nameWithType: IMask.IsMasked(PointF, ISquare, Single, Single)
+- uid: AGS.API.IMask.IsMasked(AGS.API.PointF,AGS.API.AGSSquare,System.Single,System.Single)
+  name: IsMasked(PointF, AGSSquare, Single, Single)
+  href: api/AGS.API.IMask.html#AGS_API_IMask_IsMasked_AGS_API_PointF_AGS_API_AGSSquare_System_Single_System_Single_
+  commentId: M:AGS.API.IMask.IsMasked(AGS.API.PointF,AGS.API.AGSSquare,System.Single,System.Single)
+  fullName: AGS.API.IMask.IsMasked(AGS.API.PointF, AGS.API.AGSSquare, System.Single, System.Single)
+  nameWithType: IMask.IsMasked(PointF, AGSSquare, Single, Single)
 - uid: AGS.API.IMask.IsMasked*
   name: IsMasked
   href: api/AGS.API.IMask.html#AGS_API_IMask_IsMasked_
@@ -10676,132 +10838,6 @@ references:
   commentId: Overload:AGS.API.ISpriteSheet.StartFromCell
   fullName: AGS.API.ISpriteSheet.StartFromCell
   nameWithType: ISpriteSheet.StartFromCell
-- uid: AGS.API.ISquare
-  name: ISquare
-  href: api/AGS.API.ISquare.html
-  commentId: T:AGS.API.ISquare
-  fullName: AGS.API.ISquare
-  nameWithType: ISquare
-- uid: AGS.API.ISquare.BottomLeft
-  name: BottomLeft
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_BottomLeft
-  commentId: P:AGS.API.ISquare.BottomLeft
-  fullName: AGS.API.ISquare.BottomLeft
-  nameWithType: ISquare.BottomLeft
-- uid: AGS.API.ISquare.BottomLeft*
-  name: BottomLeft
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_BottomLeft_
-  commentId: Overload:AGS.API.ISquare.BottomLeft
-  fullName: AGS.API.ISquare.BottomLeft
-  nameWithType: ISquare.BottomLeft
-- uid: AGS.API.ISquare.BottomRight
-  name: BottomRight
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_BottomRight
-  commentId: P:AGS.API.ISquare.BottomRight
-  fullName: AGS.API.ISquare.BottomRight
-  nameWithType: ISquare.BottomRight
-- uid: AGS.API.ISquare.BottomRight*
-  name: BottomRight
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_BottomRight_
-  commentId: Overload:AGS.API.ISquare.BottomRight
-  fullName: AGS.API.ISquare.BottomRight
-  nameWithType: ISquare.BottomRight
-- uid: AGS.API.ISquare.Contains(AGS.API.PointF)
-  name: Contains(PointF)
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_Contains_AGS_API_PointF_
-  commentId: M:AGS.API.ISquare.Contains(AGS.API.PointF)
-  fullName: AGS.API.ISquare.Contains(AGS.API.PointF)
-  nameWithType: ISquare.Contains(PointF)
-- uid: AGS.API.ISquare.Contains*
-  name: Contains
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_Contains_
-  commentId: Overload:AGS.API.ISquare.Contains
-  fullName: AGS.API.ISquare.Contains
-  nameWithType: ISquare.Contains
-- uid: AGS.API.ISquare.FlipHorizontal
-  name: FlipHorizontal()
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_FlipHorizontal
-  commentId: M:AGS.API.ISquare.FlipHorizontal
-  fullName: AGS.API.ISquare.FlipHorizontal()
-  nameWithType: ISquare.FlipHorizontal()
-- uid: AGS.API.ISquare.FlipHorizontal*
-  name: FlipHorizontal
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_FlipHorizontal_
-  commentId: Overload:AGS.API.ISquare.FlipHorizontal
-  fullName: AGS.API.ISquare.FlipHorizontal
-  nameWithType: ISquare.FlipHorizontal
-- uid: AGS.API.ISquare.MaxX
-  name: MaxX
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_MaxX
-  commentId: P:AGS.API.ISquare.MaxX
-  fullName: AGS.API.ISquare.MaxX
-  nameWithType: ISquare.MaxX
-- uid: AGS.API.ISquare.MaxX*
-  name: MaxX
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_MaxX_
-  commentId: Overload:AGS.API.ISquare.MaxX
-  fullName: AGS.API.ISquare.MaxX
-  nameWithType: ISquare.MaxX
-- uid: AGS.API.ISquare.MaxY
-  name: MaxY
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_MaxY
-  commentId: P:AGS.API.ISquare.MaxY
-  fullName: AGS.API.ISquare.MaxY
-  nameWithType: ISquare.MaxY
-- uid: AGS.API.ISquare.MaxY*
-  name: MaxY
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_MaxY_
-  commentId: Overload:AGS.API.ISquare.MaxY
-  fullName: AGS.API.ISquare.MaxY
-  nameWithType: ISquare.MaxY
-- uid: AGS.API.ISquare.MinX
-  name: MinX
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_MinX
-  commentId: P:AGS.API.ISquare.MinX
-  fullName: AGS.API.ISquare.MinX
-  nameWithType: ISquare.MinX
-- uid: AGS.API.ISquare.MinX*
-  name: MinX
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_MinX_
-  commentId: Overload:AGS.API.ISquare.MinX
-  fullName: AGS.API.ISquare.MinX
-  nameWithType: ISquare.MinX
-- uid: AGS.API.ISquare.MinY
-  name: MinY
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_MinY
-  commentId: P:AGS.API.ISquare.MinY
-  fullName: AGS.API.ISquare.MinY
-  nameWithType: ISquare.MinY
-- uid: AGS.API.ISquare.MinY*
-  name: MinY
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_MinY_
-  commentId: Overload:AGS.API.ISquare.MinY
-  fullName: AGS.API.ISquare.MinY
-  nameWithType: ISquare.MinY
-- uid: AGS.API.ISquare.TopLeft
-  name: TopLeft
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_TopLeft
-  commentId: P:AGS.API.ISquare.TopLeft
-  fullName: AGS.API.ISquare.TopLeft
-  nameWithType: ISquare.TopLeft
-- uid: AGS.API.ISquare.TopLeft*
-  name: TopLeft
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_TopLeft_
-  commentId: Overload:AGS.API.ISquare.TopLeft
-  fullName: AGS.API.ISquare.TopLeft
-  nameWithType: ISquare.TopLeft
-- uid: AGS.API.ISquare.TopRight
-  name: TopRight
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_TopRight
-  commentId: P:AGS.API.ISquare.TopRight
-  fullName: AGS.API.ISquare.TopRight
-  nameWithType: ISquare.TopRight
-- uid: AGS.API.ISquare.TopRight*
-  name: TopRight
-  href: api/AGS.API.ISquare.html#AGS_API_ISquare_TopRight_
-  commentId: Overload:AGS.API.ISquare.TopRight
-  fullName: AGS.API.ISquare.TopRight
-  nameWithType: ISquare.TopRight
 - uid: AGS.API.IStackLayoutComponent
   name: IStackLayoutComponent
   href: api/AGS.API.IStackLayoutComponent.html
@@ -13656,6 +13692,102 @@ references:
   commentId: F:AGS.API.MathHelper.TwoPi
   fullName: AGS.API.MathHelper.TwoPi
   nameWithType: MathHelper.TwoPi
+- uid: AGS.API.MathUtils
+  name: MathUtils
+  href: api/AGS.API.MathUtils.html
+  commentId: T:AGS.API.MathUtils
+  fullName: AGS.API.MathUtils
+  nameWithType: MathUtils
+- uid: AGS.API.MathUtils.Clamp(System.Single,System.Single,System.Single)
+  name: Clamp(Single, Single, Single)
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Clamp_System_Single_System_Single_System_Single_
+  commentId: M:AGS.API.MathUtils.Clamp(System.Single,System.Single,System.Single)
+  fullName: AGS.API.MathUtils.Clamp(System.Single, System.Single, System.Single)
+  nameWithType: MathUtils.Clamp(Single, Single, Single)
+- uid: AGS.API.MathUtils.Clamp*
+  name: Clamp
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Clamp_
+  commentId: Overload:AGS.API.MathUtils.Clamp
+  fullName: AGS.API.MathUtils.Clamp
+  nameWithType: MathUtils.Clamp
+- uid: AGS.API.MathUtils.GetNextPowerOf2(System.Int32)
+  name: GetNextPowerOf2(Int32)
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_GetNextPowerOf2_System_Int32_
+  commentId: M:AGS.API.MathUtils.GetNextPowerOf2(System.Int32)
+  fullName: AGS.API.MathUtils.GetNextPowerOf2(System.Int32)
+  nameWithType: MathUtils.GetNextPowerOf2(Int32)
+- uid: AGS.API.MathUtils.GetNextPowerOf2*
+  name: GetNextPowerOf2
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_GetNextPowerOf2_
+  commentId: Overload:AGS.API.MathUtils.GetNextPowerOf2
+  fullName: AGS.API.MathUtils.GetNextPowerOf2
+  nameWithType: MathUtils.GetNextPowerOf2
+- uid: AGS.API.MathUtils.IsPowerOf2(System.Int32)
+  name: IsPowerOf2(Int32)
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_IsPowerOf2_System_Int32_
+  commentId: M:AGS.API.MathUtils.IsPowerOf2(System.Int32)
+  fullName: AGS.API.MathUtils.IsPowerOf2(System.Int32)
+  nameWithType: MathUtils.IsPowerOf2(Int32)
+- uid: AGS.API.MathUtils.IsPowerOf2*
+  name: IsPowerOf2
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_IsPowerOf2_
+  commentId: Overload:AGS.API.MathUtils.IsPowerOf2
+  fullName: AGS.API.MathUtils.IsPowerOf2
+  nameWithType: MathUtils.IsPowerOf2
+- uid: AGS.API.MathUtils.Lerp(System.Single,System.Single,System.Single,System.Single,System.Single)
+  name: Lerp(Single, Single, Single, Single, Single)
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Lerp_System_Single_System_Single_System_Single_System_Single_System_Single_
+  commentId: M:AGS.API.MathUtils.Lerp(System.Single,System.Single,System.Single,System.Single,System.Single)
+  fullName: AGS.API.MathUtils.Lerp(System.Single, System.Single, System.Single, System.Single, System.Single)
+  nameWithType: MathUtils.Lerp(Single, Single, Single, Single, Single)
+- uid: AGS.API.MathUtils.Lerp*
+  name: Lerp
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Lerp_
+  commentId: Overload:AGS.API.MathUtils.Lerp
+  fullName: AGS.API.MathUtils.Lerp
+  nameWithType: MathUtils.Lerp
+- uid: AGS.API.MathUtils.Max(System.Single[])
+  name: Max(Single[])
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Max_System_Single___
+  commentId: M:AGS.API.MathUtils.Max(System.Single[])
+  name.vb: Max(Single())
+  fullName: AGS.API.MathUtils.Max(System.Single[])
+  fullName.vb: AGS.API.MathUtils.Max(System.Single())
+  nameWithType: MathUtils.Max(Single[])
+  nameWithType.vb: MathUtils.Max(Single())
+- uid: AGS.API.MathUtils.Max*
+  name: Max
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Max_
+  commentId: Overload:AGS.API.MathUtils.Max
+  fullName: AGS.API.MathUtils.Max
+  nameWithType: MathUtils.Max
+- uid: AGS.API.MathUtils.Min(System.Single[])
+  name: Min(Single[])
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Min_System_Single___
+  commentId: M:AGS.API.MathUtils.Min(System.Single[])
+  name.vb: Min(Single())
+  fullName: AGS.API.MathUtils.Min(System.Single[])
+  fullName.vb: AGS.API.MathUtils.Min(System.Single())
+  nameWithType: MathUtils.Min(Single[])
+  nameWithType.vb: MathUtils.Min(Single())
+- uid: AGS.API.MathUtils.Min*
+  name: Min
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Min_
+  commentId: Overload:AGS.API.MathUtils.Min
+  fullName: AGS.API.MathUtils.Min
+  nameWithType: MathUtils.Min
+- uid: AGS.API.MathUtils.Random
+  name: Random()
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Random
+  commentId: M:AGS.API.MathUtils.Random
+  fullName: AGS.API.MathUtils.Random()
+  nameWithType: MathUtils.Random()
+- uid: AGS.API.MathUtils.Random*
+  name: Random
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Random_
+  commentId: Overload:AGS.API.MathUtils.Random
+  fullName: AGS.API.MathUtils.Random
+  nameWithType: MathUtils.Random
 - uid: AGS.API.Matrix3
   name: Matrix3
   href: api/AGS.API.Matrix3.html
@@ -15516,12 +15648,12 @@ references:
   commentId: T:AGS.API.MouseButtonEventArgs
   fullName: AGS.API.MouseButtonEventArgs
   nameWithType: MouseButtonEventArgs
-- uid: AGS.API.MouseButtonEventArgs.#ctor(AGS.API.MouseButton,System.Single,System.Single)
-  name: MouseButtonEventArgs(MouseButton, Single, Single)
-  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs__ctor_AGS_API_MouseButton_System_Single_System_Single_
-  commentId: M:AGS.API.MouseButtonEventArgs.#ctor(AGS.API.MouseButton,System.Single,System.Single)
-  fullName: AGS.API.MouseButtonEventArgs.MouseButtonEventArgs(AGS.API.MouseButton, System.Single, System.Single)
-  nameWithType: MouseButtonEventArgs.MouseButtonEventArgs(MouseButton, Single, Single)
+- uid: AGS.API.MouseButtonEventArgs.#ctor(AGS.API.IEntity,AGS.API.MouseButton,System.Single,System.Single)
+  name: MouseButtonEventArgs(IEntity, MouseButton, Single, Single)
+  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs__ctor_AGS_API_IEntity_AGS_API_MouseButton_System_Single_System_Single_
+  commentId: M:AGS.API.MouseButtonEventArgs.#ctor(AGS.API.IEntity,AGS.API.MouseButton,System.Single,System.Single)
+  fullName: AGS.API.MouseButtonEventArgs.MouseButtonEventArgs(AGS.API.IEntity, AGS.API.MouseButton, System.Single, System.Single)
+  nameWithType: MouseButtonEventArgs.MouseButtonEventArgs(IEntity, MouseButton, Single, Single)
 - uid: AGS.API.MouseButtonEventArgs.#ctor*
   name: MouseButtonEventArgs
   href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs__ctor_
@@ -15540,6 +15672,18 @@ references:
   commentId: Overload:AGS.API.MouseButtonEventArgs.Button
   fullName: AGS.API.MouseButtonEventArgs.Button
   nameWithType: MouseButtonEventArgs.Button
+- uid: AGS.API.MouseButtonEventArgs.ClickedEntity
+  name: ClickedEntity
+  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_ClickedEntity
+  commentId: P:AGS.API.MouseButtonEventArgs.ClickedEntity
+  fullName: AGS.API.MouseButtonEventArgs.ClickedEntity
+  nameWithType: MouseButtonEventArgs.ClickedEntity
+- uid: AGS.API.MouseButtonEventArgs.ClickedEntity*
+  name: ClickedEntity
+  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_ClickedEntity_
+  commentId: Overload:AGS.API.MouseButtonEventArgs.ClickedEntity
+  fullName: AGS.API.MouseButtonEventArgs.ClickedEntity
+  nameWithType: MouseButtonEventArgs.ClickedEntity
 - uid: AGS.API.MouseButtonEventArgs.X
   name: X
   href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_X
@@ -16767,6 +16911,36 @@ references:
   commentId: Overload:AGS.API.Size.#ctor
   fullName: AGS.API.Size.Size
   nameWithType: Size.Size
+- uid: AGS.API.Size.Equals(AGS.API.Size)
+  name: Equals(Size)
+  href: api/AGS.API.Size.html#AGS_API_Size_Equals_AGS_API_Size_
+  commentId: M:AGS.API.Size.Equals(AGS.API.Size)
+  fullName: AGS.API.Size.Equals(AGS.API.Size)
+  nameWithType: Size.Equals(Size)
+- uid: AGS.API.Size.Equals(System.Object)
+  name: Equals(Object)
+  href: api/AGS.API.Size.html#AGS_API_Size_Equals_System_Object_
+  commentId: M:AGS.API.Size.Equals(System.Object)
+  fullName: AGS.API.Size.Equals(System.Object)
+  nameWithType: Size.Equals(Object)
+- uid: AGS.API.Size.Equals*
+  name: Equals
+  href: api/AGS.API.Size.html#AGS_API_Size_Equals_
+  commentId: Overload:AGS.API.Size.Equals
+  fullName: AGS.API.Size.Equals
+  nameWithType: Size.Equals
+- uid: AGS.API.Size.GetHashCode
+  name: GetHashCode()
+  href: api/AGS.API.Size.html#AGS_API_Size_GetHashCode
+  commentId: M:AGS.API.Size.GetHashCode
+  fullName: AGS.API.Size.GetHashCode()
+  nameWithType: Size.GetHashCode()
+- uid: AGS.API.Size.GetHashCode*
+  name: GetHashCode
+  href: api/AGS.API.Size.html#AGS_API_Size_GetHashCode_
+  commentId: Overload:AGS.API.Size.GetHashCode
+  fullName: AGS.API.Size.GetHashCode
+  nameWithType: Size.GetHashCode
 - uid: AGS.API.Size.Height
   name: Height
   href: api/AGS.API.Size.html#AGS_API_Size_Height

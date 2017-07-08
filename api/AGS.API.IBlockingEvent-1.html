@@ -89,8 +89,7 @@ Interested parties can subscribe to the event and be notified when it triggers (
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IBlockingEvent_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IBlockingEvent&lt;TEventArgs&gt;
-    where TEventArgs : AGSEventArgs</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IBlockingEvent&lt;TEventArgs&gt;</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -145,19 +144,19 @@ Interested parties can subscribe to the event and be notified when it triggers (
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IBlockingEvent_1_Invoke_System_Object__0_.md&amp;value=---%0Auid%3A%20AGS.API.IBlockingEvent%601.Invoke(System.Object%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IBlockingEvent_1_Invoke__0_.md&amp;value=---%0Auid%3A%20AGS.API.IBlockingEvent%601.Invoke(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/Misc/Events/IBlockingEvent.cs/#L37">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/Misc/Events/IBlockingEvent.cs/#L36">View Source</a>
   </span>
   <a id="AGS_API_IBlockingEvent_1_Invoke_" data-uid="AGS.API.IBlockingEvent`1.Invoke*"></a>
-  <h4 id="AGS_API_IBlockingEvent_1_Invoke_System_Object__0_" data-uid="AGS.API.IBlockingEvent`1.Invoke(System.Object,`0)">Invoke(Object, TEventArgs)</h4>
+  <h4 id="AGS_API_IBlockingEvent_1_Invoke__0_" data-uid="AGS.API.IBlockingEvent`1.Invoke(`0)">Invoke(TEventArgs)</h4>
   <div class="markdown level1 summary"><p>Invoke the event synchronously (i.e will wait for all subscribers to process the event before moving on).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Invoke(object sender, TEventArgs args)</code></pre>
+    <pre><code class="lang-csharp hljs">void Invoke(TEventArgs args)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -169,12 +168,6 @@ Interested parties can subscribe to the event and be notified when it triggers (
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><span class="xref">System.Object</span></td>
-        <td><span class="parametername">sender</span></td>
-        <td><p>The source of the event.</p>
-</td>
-      </tr>
       <tr>
         <td><span class="xref">TEventArgs</span></td>
         <td><span class="parametername">args</span></td>
@@ -185,20 +178,20 @@ Interested parties can subscribe to the event and be notified when it triggers (
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IBlockingEvent_1_Subscribe_System_Action_System_Object__0__.md&amp;value=---%0Auid%3A%20AGS.API.IBlockingEvent%601.Subscribe(System.Action%7BSystem.Object%2C%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IBlockingEvent_1_Subscribe_System_Action__0__.md&amp;value=---%0Auid%3A%20AGS.API.IBlockingEvent%601.Subscribe(System.Action%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/Misc/Events/IBlockingEvent.cs/#L23">View Source</a>
   </span>
   <a id="AGS_API_IBlockingEvent_1_Subscribe_" data-uid="AGS.API.IBlockingEvent`1.Subscribe*"></a>
-  <h4 id="AGS_API_IBlockingEvent_1_Subscribe_System_Action_System_Object__0__" data-uid="AGS.API.IBlockingEvent`1.Subscribe(System.Action{System.Object,`0})">Subscribe(Action&lt;Object, TEventArgs&gt;)</h4>
+  <h4 id="AGS_API_IBlockingEvent_1_Subscribe_System_Action__0__" data-uid="AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0})">Subscribe(Action&lt;TEventArgs&gt;)</h4>
   <div class="markdown level1 summary"><p>Subscribe the specified callback to the event.
 Once subscribed, whenever the event happens this callback will be called.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Subscribe(Action&lt;object, TEventArgs&gt; callback)</code></pre>
+    <pre><code class="lang-csharp hljs">void Subscribe(Action&lt;TEventArgs&gt; callback)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -211,7 +204,7 @@ Once subscribed, whenever the event happens this callback will be called.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Action</span>&lt;<span class="xref">System.Object</span>, TEventArgs&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;TEventArgs&gt;</td>
         <td><span class="parametername">callback</span></td>
         <td><p>Callback.</p>
 </td>
@@ -220,20 +213,20 @@ Once subscribed, whenever the event happens this callback will be called.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IBlockingEvent_1_Unsubscribe_System_Action_System_Object__0__.md&amp;value=---%0Auid%3A%20AGS.API.IBlockingEvent%601.Unsubscribe(System.Action%7BSystem.Object%2C%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/FeaturesWindow/apiSpec/new?filename=AGS_API_IBlockingEvent_1_Unsubscribe_System_Action__0__.md&amp;value=---%0Auid%3A%20AGS.API.IBlockingEvent%601.Unsubscribe(System.Action%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/FeaturesWindow/Source/AGS.API/Misc/Events/IBlockingEvent.cs/#L30">View Source</a>
   </span>
   <a id="AGS_API_IBlockingEvent_1_Unsubscribe_" data-uid="AGS.API.IBlockingEvent`1.Unsubscribe*"></a>
-  <h4 id="AGS_API_IBlockingEvent_1_Unsubscribe_System_Action_System_Object__0__" data-uid="AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{System.Object,`0})">Unsubscribe(Action&lt;Object, TEventArgs&gt;)</h4>
+  <h4 id="AGS_API_IBlockingEvent_1_Unsubscribe_System_Action__0__" data-uid="AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0})">Unsubscribe(Action&lt;TEventArgs&gt;)</h4>
   <div class="markdown level1 summary"><p>Unsubscribe the specified callback from the event.
 This will stops notifications to call this callback.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Unsubscribe(Action&lt;object, TEventArgs&gt; callback)</code></pre>
+    <pre><code class="lang-csharp hljs">void Unsubscribe(Action&lt;TEventArgs&gt; callback)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -246,7 +239,7 @@ This will stops notifications to call this callback.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Action</span>&lt;<span class="xref">System.Object</span>, TEventArgs&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;TEventArgs&gt;</td>
         <td><span class="parametername">callback</span></td>
         <td><p>Callback.</p>
 </td>

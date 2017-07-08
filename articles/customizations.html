@@ -154,7 +154,7 @@ Resolver.Override(resolver =&gt;
 </li>
 </ul>
 <pre><code class="lang-csharp">
-cHero.OnBeforeSay.Subscribe((sender, args) =&gt; 
+cHero.OnBeforeSay.Subscribe(args =&gt; 
 {
     args.Label.X = 400f;
     args.Label.Y = 100f;

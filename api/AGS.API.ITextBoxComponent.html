@@ -229,7 +229,7 @@ The textbox automatically gets focus when clicked, and loses focus when the user
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent&lt;AGSEventArgs&gt; OnFocusChanged { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IEvent&lt;object&gt; OnFocusChanged { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -241,7 +241,7 @@ The textbox automatically gets focus when clicked, and loses focus when the user
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.AGSEventArgs.html">AGSEventArgs</a>&gt;</td>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<span class="xref">System.Object</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -265,7 +265,7 @@ We&apos;ll listen to the enter key in the same dialog to close it.<p>
 <pre><code>_myTextbox.OnPressingKey.Subscribe(onPressingKey);
 ...
 ...
-private void onPressingKey(object sender, TextboxKeyPressingEventArgs args)
+private void onPressingKey(TextboxKeyPressingEventArgs args)
 {
     if (args.Key == Key.Space)
     {
