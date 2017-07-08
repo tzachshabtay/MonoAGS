@@ -46,7 +46,6 @@ namespace AGS.Engine
         private List<Subscriber> _subscribers;
         private readonly ConcurrentQueue<Subscriber> _subscribersToAdd;
         private readonly ConcurrentQueue<string> _subscribersToRemove;
-        private List<Task> _fireEventTasks;
         private float _mouseX, _mouseY;
         private bool _leftMouseDown, _rightMouseDown;
         private int _inUpdate; //For preventing re-entrancy
@@ -59,15 +58,13 @@ namespace AGS.Engine
             _state = state;
             _gameEvents = gameEvents;
             _subscribers = new List<Subscriber>(100);
-            _fireEventTasks = new List<Task>(100);
-            gameEvents.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
+            gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
         public void Dispose()
         {
-            _gameEvents.OnRepeatedlyExecute.UnsubscribeToAsync(onRepeatedlyExecute);
+            _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
             _subscribers = null;
-            _fireEventTasks = null;
         }
 
         public void Subscribe(IEntity entity, Action<bool> setMouseIn, IUIEvents uiEvents, IEnabledComponent enabled, IVisibleComponent visible)
@@ -81,7 +78,7 @@ namespace AGS.Engine
             _subscribersToRemove.Enqueue(entity.ID);
         }
 
-        private async Task onRepeatedlyExecute(object args)
+        private void onRepeatedlyExecute(object args)
         {
             if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
             try
@@ -125,15 +122,11 @@ namespace AGS.Engine
                 _leftMouseDown = leftMouseDown;
                 _rightMouseDown = rightMouseDown;
 
-                var fireEventTasks = _fireEventTasks;
-                fireEventTasks.Clear();
                 foreach (var subscriber in subscribers)
                 {
                     if (!subscriber.Enabled.Enabled || !subscriber.Visible.Visible) continue;
-                    var task = fireEvents(subscriber, position, wasLeftMouseDown, wasRightMouseDown, leftMouseDown, rightMouseDown);
-                    if (task != null) fireEventTasks.Add(task);
+                    fireAndForgetEvents(subscriber, position, wasLeftMouseDown, wasRightMouseDown, leftMouseDown, rightMouseDown);
                 }
-                await Task.WhenAll(fireEventTasks);
             }
             finally
             {
@@ -141,7 +134,10 @@ namespace AGS.Engine
             }
         }
 
-        private async Task fireEvents(Subscriber subscriber, PointF position, bool wasLeftMouseDown, bool wasRightMouseDown, bool leftMouseDown, bool rightMouseDown)
+        //We can't await the events, as inside the events somebody might block waiting for a UI event,
+        //for example call AGSMessageBox.YesNo dialog. As we have the _inUpdate variable for preventing re-entrancy,
+        //we'll have a race condition.
+        private async void fireAndForgetEvents(Subscriber subscriber, PointF position, bool wasLeftMouseDown, bool wasRightMouseDown, bool leftMouseDown, bool rightMouseDown)
         {
             await handleMouseButton(subscriber, subscriber.LeftMouseClickTimer, subscriber.LeftMouseDoubleClickTimer, wasLeftMouseDown, leftMouseDown, MouseButton.Left);
             await handleMouseButton(subscriber, subscriber.RightMouseClickTimer, subscriber.RightMouseDoubleClickTimer, wasRightMouseDown, rightMouseDown, MouseButton.Right);
