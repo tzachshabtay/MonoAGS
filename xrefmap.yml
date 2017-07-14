@@ -4264,6 +4264,36 @@ references:
   fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).RemoveAll
   nameWithType: IConcurrentHashSet<TItem>.RemoveAll
   nameWithType.vb: IConcurrentHashSet(Of TItem).RemoveAll
+- uid: AGS.API.ICropSelfComponent
+  name: ICropSelfComponent
+  href: api/AGS.API.ICropSelfComponent.html
+  commentId: T:AGS.API.ICropSelfComponent
+  fullName: AGS.API.ICropSelfComponent
+  nameWithType: ICropSelfComponent
+- uid: AGS.API.ICropSelfComponent.CropArea
+  name: CropArea
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_CropArea
+  commentId: P:AGS.API.ICropSelfComponent.CropArea
+  fullName: AGS.API.ICropSelfComponent.CropArea
+  nameWithType: ICropSelfComponent.CropArea
+- uid: AGS.API.ICropSelfComponent.CropArea*
+  name: CropArea
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_CropArea_
+  commentId: Overload:AGS.API.ICropSelfComponent.CropArea
+  fullName: AGS.API.ICropSelfComponent.CropArea
+  nameWithType: ICropSelfComponent.CropArea
+- uid: AGS.API.ICropSelfComponent.OnCropAreaChanged
+  name: OnCropAreaChanged
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_OnCropAreaChanged
+  commentId: P:AGS.API.ICropSelfComponent.OnCropAreaChanged
+  fullName: AGS.API.ICropSelfComponent.OnCropAreaChanged
+  nameWithType: ICropSelfComponent.OnCropAreaChanged
+- uid: AGS.API.ICropSelfComponent.OnCropAreaChanged*
+  name: OnCropAreaChanged
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_OnCropAreaChanged_
+  commentId: Overload:AGS.API.ICropSelfComponent.OnCropAreaChanged
+  fullName: AGS.API.ICropSelfComponent.OnCropAreaChanged
+  nameWithType: ICropSelfComponent.OnCropAreaChanged
 - uid: AGS.API.ICrossFading
   name: ICrossFading
   href: api/AGS.API.ICrossFading.html
@@ -15882,6 +15912,12 @@ references:
   commentId: Overload:AGS.API.PointF.#ctor
   fullName: AGS.API.PointF.PointF
   nameWithType: PointF.PointF
+- uid: AGS.API.PointF.Empty
+  name: Empty
+  href: api/AGS.API.PointF.html#AGS_API_PointF_Empty
+  commentId: F:AGS.API.PointF.Empty
+  fullName: AGS.API.PointF.Empty
+  nameWithType: PointF.Empty
 - uid: AGS.API.PointF.Equals(AGS.API.PointF)
   name: Equals(PointF)
   href: api/AGS.API.PointF.html#AGS_API_PointF_Equals_AGS_API_PointF_

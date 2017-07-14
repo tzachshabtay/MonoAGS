@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IOutfit
+    <title>Interface ICropSelfComponent
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IOutfit
+    <meta name="title" content="Interface ICropSelfComponent
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.20.0.0">
     
@@ -75,75 +75,56 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.IOutfit">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ICropSelfComponent">
   
   
-  <h1 id="AGS_API_IOutfit" data-uid="AGS.API.IOutfit" class="text-break">Interface IOutfit
+  <h1 id="AGS_API_ICropSelfComponent" data-uid="AGS.API.ICropSelfComponent" class="text-break">Interface ICropSelfComponent
   </h1>
-  <div class="markdown level0 summary"><p>An outfit is a collection of animations that are associated with a character.
-The collection can be swapped with another collection when the character changes his look.</p>
+  <div class="markdown level0 summary"><p>Adds the ability to crop the shown image (only show part of the image).</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
+    </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_IOutfit_syntax">Syntax</h5>
+  <h5 id="AGS_API_ICropSelfComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IOutfit</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ICropSelfComponent : IComponent, IDisposable</code></pre>
   </div>
-  <h5 id="AGS_API_IOutfit_examples"><strong>Examples</strong></h5>
-  <p>Say your player can wear a jacket. You can create two outfits in advance, one with a jacket
-and the other without. Each outfit will have different walk, idle and speak animations (one with a jacket and 
-the other without).</p>
-
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IOutfit_Item_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IOutfit.Item(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_ICropSelfComponent_CropArea.md&amp;value=---%0Auid%3A%20AGS.API.ICropSelfComponent.CropArea%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/Objects/Characters/IOutfit.cs/#L43">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/UI/Controls/Panel/ICropSelfComponent.cs/#L11">View Source</a>
   </span>
-  <a id="AGS_API_IOutfit_Item_" data-uid="AGS.API.IOutfit.Item*"></a>
-  <h4 id="AGS_API_IOutfit_Item_System_String_" data-uid="AGS.API.IOutfit.Item(System.String)">Item[String]</h4>
-  <div class="markdown level1 summary"><p>Gets or sets an animation that will be associated with a specific key for this outfit.
-Some built in keys are expected by some components to change animations (idle, walk, speak).
-Custom animations can be added and accessed from the outfit as needed.
-<example><p>
-<pre><code>cPlayer.Outfit[AGSOutfit.Walk] = aCrazyWalkAnimation;
-cPlayer.Outfit[AGSOutfit.Idle] = aPlayingYoyoAnimation;
-cPlayer.Outfit[AGSOutfit.Speak] = aScaryAnimation;
-cPlayer.Outfit[&quot;Jump&quot;] = aJumpAnimation;
-
-cPlayer.Walk(100, 200); //The crazy walk animation will now be used for walking to (100,200).
-Thread.Sleep(5000); //The player has finished walking, and sitting idle for 5 seconds during which the playing yoyo animation is playing
-cPlayer.Say(&quot;Do I scare you?&quot;); //The character will speak with the scary animation
-cPlayer.StartAnimation(cPlayer.Outfit[&quot;Jump&quot;].Left); //The character will do a jump left animation.</code></pre>
-<p></example></p>
+  <a id="AGS_API_ICropSelfComponent_CropArea_" data-uid="AGS.API.ICropSelfComponent.CropArea*"></a>
+  <h4 id="AGS_API_ICropSelfComponent_CropArea" data-uid="AGS.API.ICropSelfComponent.CropArea">CropArea</h4>
+  <div class="markdown level1 summary"><p>The visible area (everything else will be cropped).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IDirectionalAnimation this[string key] { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">RectangleF CropArea { get; set; }</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">key</span></td>
-        <td><p>Key.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -154,30 +135,28 @@ cPlayer.StartAnimation(cPlayer.Outfit[&quot;Jump&quot;].Left); //The character w
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IDirectionalAnimation.html">IDirectionalAnimation</a></td>
+        <td><a class="xref" href="AGS.API.RectangleF.html">RectangleF</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <h3 id="methods">Methods
-  </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IOutfit_ToDictionary.md&amp;value=---%0Auid%3A%20AGS.API.IOutfit.ToDictionary%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_ICropSelfComponent_OnCropAreaChanged.md&amp;value=---%0Auid%3A%20AGS.API.ICropSelfComponent.OnCropAreaChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/Objects/Characters/IOutfit.cs/#L49">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/UI/Controls/Panel/ICropSelfComponent.cs/#L16">View Source</a>
   </span>
-  <a id="AGS_API_IOutfit_ToDictionary_" data-uid="AGS.API.IOutfit.ToDictionary*"></a>
-  <h4 id="AGS_API_IOutfit_ToDictionary" data-uid="AGS.API.IOutfit.ToDictionary">ToDictionary()</h4>
-  <div class="markdown level1 summary"><p>Gets all the animations as a dictionary;</p>
+  <a id="AGS_API_ICropSelfComponent_OnCropAreaChanged_" data-uid="AGS.API.ICropSelfComponent.OnCropAreaChanged*"></a>
+  <h4 id="AGS_API_ICropSelfComponent_OnCropAreaChanged" data-uid="AGS.API.ICropSelfComponent.OnCropAreaChanged">OnCropAreaChanged</h4>
+  <div class="markdown level1 summary"><p>An event which fires whenever the crop area changes.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IDictionary&lt;string, IDirectionalAnimation&gt; ToDictionary()</code></pre>
+    <pre><code class="lang-csharp hljs">IEvent&lt;object&gt; OnCropAreaChanged { get; }</code></pre>
   </div>
-  <h5 class="returns">Returns</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -187,9 +166,8 @@ cPlayer.StartAnimation(cPlayer.Outfit[&quot;Jump&quot;].Left); //The character w
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <a class="xref" href="AGS.API.IDirectionalAnimation.html">IDirectionalAnimation</a>&gt;</td>
-        <td><p>The dictionary.</p>
-</td>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<span class="xref">System.Object</span>&gt;</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -201,10 +179,10 @@ cPlayer.StartAnimation(cPlayer.Outfit[&quot;Jump&quot;].Left); //The character w
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IOutfit.md&amp;value=---%0Auid%3A%20AGS.API.IOutfit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_ICropSelfComponent.md&amp;value=---%0Auid%3A%20AGS.API.ICropSelfComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/Objects/Characters/IOutfit.cs/#L22" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/UI/Controls/Panel/ICropSelfComponent.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
