@@ -13,6 +13,7 @@ namespace AGS.Engine
 		float Height { get; }
 
 		AGSSquare ToSquare();
+        FourCorners<Vector2> Crop(ICropSelfComponent crop, PointF resolutionFactor, PointF adjustedScale);
 	}
 }
 

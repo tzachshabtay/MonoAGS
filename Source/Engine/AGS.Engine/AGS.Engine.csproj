@@ -271,7 +271,8 @@
     <Compile Include="UI\Controls\InventoryWindow\AGSInventoryWindow.cs" />
     <Compile Include="UI\Controls\InventoryWindow\AGSInventoryWindowComponent.cs" />
     <Compile Include="UI\Controls\AGSLabel.cs" />
-    <Compile Include="UI\Controls\AGSPanel.cs" />
+    <Compile Include="UI\Controls\Panel\AGSCropSelfComponent.cs" />
+    <Compile Include="UI\Controls\Panel\AGSPanel.cs" />
     <Compile Include="UI\Controls\Slider\AGSSlider.cs" />
     <Compile Include="UI\Controls\Slider\AGSSliderComponent.cs" />
     <Compile Include="UI\Controls\Textbox\AGSTextbox.cs" />
@@ -483,11 +484,5 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Rooms\RoomSizeProviders\" />
-    <Folder Include="UI\Layouts\" />
-    <Folder Include="UI\Controls\Tree\" />
-    <Folder Include="UI\Controls\Listbox\" />
-    <Folder Include="UI\DebugControls\DebugView\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

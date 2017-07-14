@@ -27,6 +27,7 @@
     [RequiredComponent(typeof(IHasRoom))]
     [RequiredComponent(typeof(IDrawableInfo))]
     [RequiredComponent(typeof(IInObjectTree))]
+    [RequiredComponent(typeof(ICropSelfComponent), false)]
     public interface IModelMatrixComponent : IComponent
     {
         /// <summary>

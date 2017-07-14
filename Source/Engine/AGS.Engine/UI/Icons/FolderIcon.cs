@@ -57,6 +57,7 @@ namespace AGS.Engine
             PointF foldBottom = new PointF(width / 2f, foldHeight);
 
             _frameBuffer = _glUtils.BeginFrameBuffer(square, _settings);
+            if (_frameBuffer == null) return;
             _glUtils.DrawQuad(0, new Vector3(0,height,0), new Vector3(width,height,0),
                               new Vector3(), new Vector3(width,0,0),
                     color, color, color, color);

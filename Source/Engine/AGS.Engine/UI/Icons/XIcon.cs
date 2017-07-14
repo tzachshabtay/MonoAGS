@@ -38,6 +38,7 @@ namespace AGS.Engine
             float height = _glUtils.CurrentResolution.Height - _padding;
 
             _frameBuffer = _glUtils.BeginFrameBuffer(square, _settings);
+            if (_frameBuffer == null) return;
             _glUtils.DrawLine(_padding, _padding, width, height, _lineWidth, _color.R, _color.G, _color.B, _color.A);
             _glUtils.DrawLine(_padding, height, width, 0f, _lineWidth, _color.R, _color.G, _color.B, _color.A);
 

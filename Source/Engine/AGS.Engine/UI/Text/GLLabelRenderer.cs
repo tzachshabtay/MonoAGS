@@ -118,7 +118,7 @@ namespace AGS.Engine
             AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, obj,
                new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY), out resolutionFactor,
                out resolution);
-            
+
             _bgRenderer.Render(obj, viewport);
 
             if (TextVisible && Text != "")
@@ -126,7 +126,9 @@ namespace AGS.Engine
                 if (!string.IsNullOrEmpty(Text)) _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
-				_textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, color);
+                var cropArea = _usedTextBoundingBoxes.RenderBox.Crop(obj.GetComponent<ICropSelfComponent>(), resolutionFactor, AGSModelMatrixComponent.NoScaling);
+
+                _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropArea, color);
 			}
 		}
 
@@ -279,8 +281,9 @@ namespace AGS.Engine
 		private class BoundingBoxesEmptyBuilder : IGLBoundingBoxBuilder
 		{
 			#region IGLBoundingBoxBuilder implementation
-			public void Build(IGLBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
+			public PointF Build(IGLBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
 			{
+                return AGSModelMatrixComponent.NoScaling;
 			}
 			#endregion
 

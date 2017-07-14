@@ -75,9 +75,13 @@ namespace AGS.Engine
             _matrices.ModelMatrix = modelMatrices.InVirtualResolutionMatrix;
             _matrices.ViewportMatrix = viewportMatrix;
 
-            _boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width / resolutionFactor.X,
-                  sprite.Image.Height / resolutionFactor.Y, _matrices, resolutionMatches, true);
-			IGLBoundingBox hitTestBox = BoundingBoxes.HitTestBox;
+            float width = sprite.Image.Width / resolutionFactor.X;
+            float height = sprite.Image.Height / resolutionFactor.Y;
+
+            var scale = _boundingBoxBuilder.Build(BoundingBoxes, width, height, _matrices, resolutionMatches, true);
+            var crop = obj.GetComponent<ICropSelfComponent>();
+            var textureBox = BoundingBoxes.RenderBox.Crop(crop, resolutionFactor, scale);
+            IGLBoundingBox hitTestBox = BoundingBoxes.HitTestBox;
             
             if (!resolutionMatches)
             {
@@ -100,7 +104,7 @@ namespace AGS.Engine
 				renderSquare = renderBox.ToSquare();
 				border.RenderBorderBack(renderSquare);
 			}
-            _renderer.Render(texture.ID, renderBox, color);
+            _renderer.Render(texture.ID, renderBox, textureBox, color);
 
             Vector3 bottomLeft = hitTestBox.BottomLeft;
             Vector3 topLeft = hitTestBox.TopLeft;

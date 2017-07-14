@@ -139,7 +139,8 @@
     <Compile Include="UI\Controls\InventoryWindow\IInventoryWindow.cs" />
     <Compile Include="UI\Controls\InventoryWindow\IInventoryWindowComponent.cs" />
     <Compile Include="UI\Controls\ILabel.cs" />
-    <Compile Include="UI\Controls\IPanel.cs" />
+    <Compile Include="UI\Controls\Panel\ICropSelfComponent.cs" />
+    <Compile Include="UI\Controls\Panel\IPanel.cs" />
     <Compile Include="UI\Controls\ITextComponent.cs" />
     <Compile Include="UI\Controls\IUIControl.cs" />
     <Compile Include="UI\Controls\Slider\ISlider.cs" />
@@ -240,19 +241,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Game\Settings\" />
-    <Folder Include="Rooms\Areas\" />
-    <Folder Include="Misc\CustomProperties\" />
-    <Folder Include="Player\Approach\" />
-    <Folder Include="UI\Focus\" />
-    <Folder Include="Misc\Geometry\OpenTK\" />
-    <Folder Include="Misc\Collections\HashSet\" />
-    <Folder Include="UI\Layouts\" />
-    <Folder Include="UI\Controls\Tree\" />
-    <Folder Include="Graphics\Icons\" />
-    <Folder Include="UI\Controls\Listbox\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>

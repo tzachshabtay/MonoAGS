@@ -6,7 +6,7 @@ namespace AGS.Engine
 	{
 		#region IGLBoundingBoxBuilder implementation
 
-		public void Build(IGLBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
+		public PointF Build(IGLBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
 		{
 			float left = 0f;
 			float right = width;
@@ -18,8 +18,12 @@ namespace AGS.Engine
 			Vector3 topRight = Vector3.Transform(new Vector3 (right, top, 0f), matrices.ModelMatrix);
 
 			if (buildHitTestBox) buildForHitTest(boxes.HitTestBox, bottomLeft, topLeft, bottomRight, topRight);
-            if (buildRenderBox)  buildForRender(boxes.RenderBox, matrices, bottomLeft, topLeft, bottomRight, topRight);            
-		}
+            if (buildRenderBox)  buildForRender(boxes.RenderBox, matrices, bottomLeft, topLeft, bottomRight, topRight);
+
+            var scaleX = boxes.RenderBox.Width / width;
+            var scaleY = boxes.RenderBox.Height / height;
+            return new PointF(scaleX, scaleY);
+        }
 
         private void buildForRender(IGLBoundingBox renderBox, IGLMatrices matrices, Vector3 bottomLeft, Vector3 topLeft, Vector3 bottomRight, Vector3 topRight)
         {

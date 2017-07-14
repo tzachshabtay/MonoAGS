@@ -58,6 +58,7 @@ namespace AGS.Engine
             Vector3 foldTopRight = new Vector3(width, foldHeight, 0);
 
             _frameBuffer = _glUtils.BeginFrameBuffer(square, _settings);
+            if (_frameBuffer == null) return;
             _glUtils.DrawQuad(0, new Vector3(0f,height,0), new Vector3(width - foldWidth,height,0),
                 new Vector3(), foldTopLeft,
                 color, color, color, color);

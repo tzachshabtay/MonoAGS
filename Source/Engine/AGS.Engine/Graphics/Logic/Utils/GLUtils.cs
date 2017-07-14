@@ -25,17 +25,17 @@ namespace AGS.Engine
             _messagePump = messagePump;
             _quad = new GLVertex[4];
             _line = new GLVertex[2];
-            CurrentResolution = new Size();
+            CurrentResolution = new SizeF();
         }
 
         public static Rectangle ScreenViewport { get; private set; }
 
-        public Size CurrentResolution { get; private set; }
+        public SizeF CurrentResolution { get; private set; }
 
         public void AdjustResolution(int width, int height)
         {
             if (CurrentResolution.Width == width && CurrentResolution.Height == height) return;
-            CurrentResolution = new Size(width, height);
+            CurrentResolution = new SizeF(width, height);
 
             _graphics.MatrixMode(MatrixType.Projection);
             _graphics.LoadIdentity();
@@ -151,7 +151,11 @@ namespace AGS.Engine
 
             var frameBuffer = new GLFrameBuffer(new Size((int)Math.Ceiling(width * aspectRatio.Width),
                                                          (int)Math.Ceiling(height * aspectRatio.Height)), _graphics, _messagePump);
-            frameBuffer.Begin();
+            if (!frameBuffer.Begin())
+            {
+                frameBuffer.End();
+                return null;
+            }
             return frameBuffer;
         }
 
