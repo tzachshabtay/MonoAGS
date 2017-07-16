@@ -41,33 +41,64 @@ namespace AGS.Engine
         {
             base.Init(entity);
             _entity = entity;
-            _animation = entity.GetComponent<IAnimationContainer>();
-            _tree = entity.GetComponent<IInObjectTree>();
-            _scale = entity.GetComponent<IScaleComponent>();
-            _translate = entity.GetComponent<ITranslateComponent>();
-            _rotate = entity.GetComponent<IRotateComponent>();
-            _image = entity.GetComponent<IImageComponent>();
-            _room = entity.GetComponent<IHasRoom>();
-            _drawable = entity.GetComponent<IDrawableInfo>();
-            _crop = entity.GetComponent<ICropSelfComponent>();
-        }
+            entity.Bind<IAnimationContainer>(
+                c => { _animation = c; onSomethingChanged(null); },
+                c => { _animation = null; onSomethingChanged(null); });
+            entity.Bind<IHasRoom>(
+                c => { _room = c; onSomethingChanged(null); },
+                c => { _room = null; onSomethingChanged(null); });
+            
+            entity.Bind<IScaleComponent>(
+                c => { _scale = c; c.OnScaleChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
+                c => { c.OnScaleChanged.Unsubscribe(onSomethingChanged); _scale = null; onSomethingChanged(null);});
+            entity.Bind<ITranslateComponent>(
+                c => { _translate = c; c.OnLocationChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
+                c => { c.OnLocationChanged.Unsubscribe(onSomethingChanged); _translate = null; onSomethingChanged(null);}
+            );
+            entity.Bind<IRotateComponent>(
+                c => { _rotate = c; c.OnAngleChanged.Subscribe(onSomethingChanged); onSomethingChanged(null);},
+                c => { c.OnAngleChanged.Unsubscribe(onSomethingChanged); _rotate = null; onSomethingChanged(null);}
+            );
+			entity.Bind<IImageComponent>(
+                c => { _image = c; c.OnAnchorChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
+                c => { c.OnAnchorChanged.Unsubscribe(onSomethingChanged); _image = null; onSomethingChanged(null); }
+			);
+            entity.Bind<ICropSelfComponent>(
+                c => { _crop = c; c.OnCropAreaChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
+				c => { c.OnCropAreaChanged.Unsubscribe(onSomethingChanged); _crop = null; onSomethingChanged(null); }
+			);
 
-        public override void AfterInit()
-        {
-            base.AfterInit();
-            _parent = _tree.TreeNode.Parent;
-            _sprite = getSprite();
+            entity.Bind<IDrawableInfo>(
+                c => 
+            {
+                _drawable = c;
+				c.OnIgnoreScalingAreaChanged.Subscribe(onSomethingChanged);
+				c.OnRenderLayerChanged.Subscribe(onSomethingChanged);
+                onSomethingChanged(null);
+            },c =>
+            {
+                c.OnIgnoreScalingAreaChanged.Unsubscribe(onSomethingChanged);
+				c.OnRenderLayerChanged.Unsubscribe(onSomethingChanged);
+                _drawable = null;
+				onSomethingChanged(null);
+            });
 
-            subscribeSprite(_sprite);
-            _tree.TreeNode.OnParentChanged.Subscribe(onParentChanged);
-            if (_parent != null) _parent.OnMatrixChanged.Subscribe(onSomethingChanged);
-            _scale.OnScaleChanged.Subscribe(onSomethingChanged);
-            _translate.OnLocationChanged.Subscribe(onSomethingChanged);
-            _rotate.OnAngleChanged.Subscribe(onSomethingChanged);
-            _image.OnAnchorChanged.Subscribe(onSomethingChanged);
-            _drawable.OnIgnoreScalingAreaChanged.Subscribe(onSomethingChanged);
-            _drawable.OnRenderLayerChanged.Subscribe(onSomethingChanged);
-            if (_crop != null) _crop.OnCropAreaChanged.Subscribe(onSomethingChanged);
+			entity.Bind<IInObjectTree>(
+				c =>
+			{
+				_tree = c;
+				_parent = _tree.TreeNode.Parent;
+				_tree.TreeNode.OnParentChanged.Subscribe(onParentChanged);
+				if (_parent != null) _parent.OnMatrixChanged.Subscribe(onSomethingChanged);
+				onSomethingChanged(null);
+			}, c =>
+			{
+				c.TreeNode.OnParentChanged.Unsubscribe(onParentChanged);
+				if (c.TreeNode.Parent != null) c.TreeNode.Parent.OnMatrixChanged.Unsubscribe(onSomethingChanged);
+				_tree = null;
+				_parent = null;
+				onSomethingChanged(null);
+			});
         }
 
         public ModelMatrices GetModelMatrices() 
@@ -82,7 +113,7 @@ namespace AGS.Engine
         {
             //Priorities for virtual resolution: layer's resolution comes first, if not then the custom resolution (which is the text scaling resolution for text, otherwise null),
             //and if not use the virtual resolution.
-            var renderLayer = drawable.RenderLayer;
+            var renderLayer = drawable == null ? null : drawable.RenderLayer;
             var layerResolution = renderLayer == null ? null : renderLayer.IndependentResolution;
             if (layerResolution != null)
             {
@@ -119,14 +150,14 @@ namespace AGS.Engine
         private void onParentChanged(object args)
         {
             if (_parent != null) _parent.OnMatrixChanged.Unsubscribe(onSomethingChanged);
-            _parent = _tree.TreeNode.Parent;
+            _parent = _tree == null ? null : _tree.TreeNode.Parent;
             if (_parent != null) _parent.OnMatrixChanged.Subscribe(onSomethingChanged);
             onSomethingChanged(args);
         }
 
         private ISprite getSprite()
         {
-            return _animation.Animation == null ? null : _animation.Animation.Sprite;
+            return _animation == null || _animation.Animation == null ? null : _animation.Animation.Sprite;
         }
 
         private void subscribeSprite(ISprite sprite)
@@ -228,7 +259,7 @@ namespace AGS.Engine
                                                _image, _crop == null ? PointF.Empty : new PointF(_crop.CropArea.X, _crop.CropArea.Y), _areaScaling, resolutionFactor, true);
 
             var modelMatrix = spriteMatrix * objMatrix;
-            var parent = _tree.TreeNode.Parent;
+            var parent = _tree == null ? null : _tree.TreeNode.Parent;
             while (parent != null)
             {
                 //var parentMatrices = parent.GetModelMatrices();
@@ -251,13 +282,14 @@ namespace AGS.Engine
                 _nullFloat : _customImageSize.Value.Height;
             float width = (customWidth ?? scale.Width) * resolutionTransform.X;
             float height = (customHeight ?? scale.Height) * resolutionTransform.Y;
-            PointF anchorOffsets = getAnchorOffsets(image.Anchor, width - cropTranslate.X, height - cropTranslate.Y);
+            PointF anchorOffsets = getAnchorOffsets(image == null ? PointF.Empty : image.Anchor, 
+                                                    width - cropTranslate.X, height - cropTranslate.Y);
             Matrix4 anchor = Matrix4.CreateTranslation(new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
             Matrix4 scaleMat = Matrix4.CreateScale(new Vector3(scale.ScaleX * areaScaling.X,
                 scale.ScaleY * areaScaling.Y, 1f));
-            Matrix4 rotation = Matrix4.CreateRotationZ(rotate.Angle);            
-            float x = translate.X * resolutionTransform.X;
-            float y = translate.Y * resolutionTransform.Y;
+            Matrix4 rotation = Matrix4.CreateRotationZ(rotate == null ? 0f : rotate.Angle);            
+            float x = translate == null ? 0f : translate.X * resolutionTransform.X;
+            float y = translate == null ? 0f : translate.Y * resolutionTransform.Y;
             Matrix4 transform = Matrix4.CreateTranslation(new Vector3(x, y, 0f));
             return anchor * scaleMat * rotation * transform;
         }
@@ -271,7 +303,7 @@ namespace AGS.Engine
 
         private PointF getAreaScaling()
         {
-            if (_drawable.IgnoreScalingArea) return NoScaling;
+            if (_room == null || (_drawable != null && _drawable.IgnoreScalingArea)) return NoScaling;
             foreach (IArea area in _room.Room.GetMatchingAreas(_translate.Location.XY, _entity.ID))
             {
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();
