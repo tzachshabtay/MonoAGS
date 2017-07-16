@@ -79,8 +79,6 @@ namespace AGS.Engine
             float height = sprite.Image.Height / resolutionFactor.Y;
 
             var scale = _boundingBoxBuilder.Build(BoundingBoxes, width, height, _matrices, resolutionMatches, true);
-            var crop = obj.GetComponent<ICropSelfComponent>();
-            var textureBox = BoundingBoxes.RenderBox.Crop(crop, resolutionFactor, scale);
             IGLBoundingBox hitTestBox = BoundingBoxes.HitTestBox;
             
             if (!resolutionMatches)
@@ -90,8 +88,11 @@ namespace AGS.Engine
                     sprite.Image.Height, _matrices, true, false);
             }
             IGLBoundingBox renderBox = BoundingBoxes.RenderBox;
+			var crop = obj.GetComponent<ICropSelfComponent>();
+			var textureBox = renderBox.Crop(crop, resolutionFactor, scale);
+            hitTestBox.Crop(crop, AGSModelMatrixComponent.NoScaling, scale);
 
-            ITexture texture = _textures.GetOrAdd (sprite.Image.ID, _createTextureFunc);
+			ITexture texture = _textures.GetOrAdd (sprite.Image.ID, _createTextureFunc);
 
             _colorAdjusters[0] = sprite;
             _colorAdjusters[1] = obj;
