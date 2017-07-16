@@ -238,6 +238,7 @@
     <Compile Include="Misc\Collections\BindingList\AGSListItem.cs" />
     <Compile Include="Misc\Geometry\AGSSquare.cs" />
     <Compile Include="Misc\Geometry\MathUtils.cs" />
+    <Compile Include="ComponentsFramework\IComponentBinding.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

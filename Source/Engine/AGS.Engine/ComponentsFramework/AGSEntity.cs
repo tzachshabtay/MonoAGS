@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using AGS.API;
 using System.Collections.Generic;
 using System.Collections;
@@ -11,6 +11,7 @@ namespace AGS.Engine
     public class AGSEntity : IEntity
     {
         private ConcurrentDictionary<Type, List<IComponent>> _components;
+        private List<IComponentBinding> _bindings;
         private Resolver _resolver;
         private bool _componentsInitialized;
 
@@ -19,7 +20,9 @@ namespace AGS.Engine
             ID = id;
             _resolver = resolver;
             _components = new ConcurrentDictionary<Type, List<IComponent>>();
+            _bindings = new List<IComponentBinding>();
             OnComponentsInitialized = new AGSEvent<object>();
+            OnComponentsChanged = new AGSEvent<AGSListChangedEventArgs<IComponent>>();
         }
 
         ~AGSEntity()
@@ -30,6 +33,8 @@ namespace AGS.Engine
         public string ID { get; private set; }
 
         public IEvent<object> OnComponentsInitialized { get; private set; }
+
+        public IEvent<AGSListChangedEventArgs<IComponent>> OnComponentsChanged { get; private set; }
 
         protected void InitComponents()
         {
@@ -79,10 +84,13 @@ namespace AGS.Engine
         public bool RemoveComponents(Type componentType)
         {
             List<IComponent> ofType;
+            int count = Count;
             if (!_components.TryRemove(componentType, out ofType) || ofType.Count == 0) return false;
             foreach (var component in ofType)
             {
                 component.Dispose();
+				OnComponentsChanged.FireEvent(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove,
+																	  new AGSListItem<IComponent>(component, count--)));
             }
             return true;
         }
@@ -92,7 +100,13 @@ namespace AGS.Engine
             List<IComponent> ofType;
             if (!_components.TryGetValue(component.GetType(), out ofType)) return false;
             component.Dispose();
-            return ofType.Remove(component);
+            if (ofType.Remove(component))
+            {
+                OnComponentsChanged.FireEvent(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove, 
+                                                                      new AGSListItem<IComponent>(component, Count)));
+                return true;
+            }
+            return false;
         }
 
         public bool HasComponent<TComponent>() where TComponent : IComponent
@@ -148,6 +162,13 @@ namespace AGS.Engine
             return CountType(typeof(TComponent));
         }
 
+        public IComponentBinding Bind<TComponent>(Action<TComponent> onAdded, Action<TComponent> onRemoved) where TComponent : IComponent
+        {
+            AGSComponentBinding<TComponent> binding = new AGSComponentBinding<TComponent>(this, onAdded, onRemoved);
+            _bindings.Add(binding);
+            return binding;
+        }
+
         public int Count
         {
             get
@@ -193,6 +214,8 @@ namespace AGS.Engine
             if (!_componentsInitialized) return;
             component.Init(this);
             component.AfterInit();
+            OnComponentsChanged.FireEvent(new AGSListChangedEventArgs<IComponent>(ListChangeType.Add,
+                                                          new AGSListItem<IComponent>(component, Count)));
         }
 
         private void dispose(bool disposing)
@@ -204,6 +227,14 @@ namespace AGS.Engine
                 component.Dispose();
             }
             _components = null;
+
+            var bindings = _bindings;
+            if (bindings == null) return;
+            foreach (var binding in bindings)
+            {
+                binding.Unbind();
+            }
+            _bindings = null;
         }
     }
 }
