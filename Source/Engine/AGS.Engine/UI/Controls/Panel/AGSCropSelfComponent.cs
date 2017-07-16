@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using AGS.API;
 
 namespace AGS.Engine
@@ -30,7 +30,9 @@ namespace AGS.Engine
             height = spriteHeight;
             if (crop == null) return null;
             width = Math.Min(width, crop.CropArea.Width);
+            if (crop.CropArea.X + width > spriteWidth) width = spriteWidth - crop.CropArea.X;
             height = Math.Min(height, crop.CropArea.Height);
+            if (crop.CropArea.Y + height > spriteHeight) height = spriteHeight - crop.CropArea.Y;
             float left = MathUtils.Lerp(0f, 0f, spriteWidth, 1f, crop.CropArea.X);
             float right = MathUtils.Lerp(0f, 0f, spriteWidth, 1f, crop.CropArea.X + width);
             float top = MathUtils.Lerp(0f, 0f, spriteHeight, 1f, crop.CropArea.Y);

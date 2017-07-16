@@ -23,6 +23,7 @@ namespace AGS.Engine
         private readonly Size _virtualResolution;
         private readonly IMessagePump _messagePump;
         private readonly GLMatrices[] _matricesPool;
+        private readonly BoundingBoxesEmptyBuilder _labelBoundingBoxFakeBuilder;
 
         private float _lastWidth = 1f, _lastHeight = 1f;
 
@@ -46,8 +47,9 @@ namespace AGS.Engine
 			_textBoundingBoxes = textBoundingBoxes;
 			_boundingBoxBuilder = boundingBoxBuilder;
             _virtualResolution = settings.VirtualResolution;
+            _labelBoundingBoxFakeBuilder = new BoundingBoxesEmptyBuilder();
 			_bgRenderer = new GLImageRenderer(textures,
-				new BoundingBoxesEmptyBuilder(), colorBuilder, _textureRenderer, _labelBoundingBoxes,
+				_labelBoundingBoxFakeBuilder, colorBuilder, _textureRenderer, _labelBoundingBoxes,
                                               viewportMatrix, graphicsFactory, glUtils, bitmapLoader);
 
 			_colorBuilder = colorBuilder;
@@ -118,8 +120,15 @@ namespace AGS.Engine
             AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, obj,
                new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY), out resolutionFactor,
                out resolution);
+			PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
+            if (!resolutionFactor.Equals(textScaleFactor))
+            {
+                _labelBoundingBoxFakeBuilder.CropScale = new PointF(1f / resolutionFactor.X, 1f / resolutionFactor.Y);
+                resolutionFactor = AGSModelMatrixComponent.NoScaling;
+            }
+            else _labelBoundingBoxFakeBuilder.CropScale = AGSModelMatrixComponent.NoScaling;
 
-            _bgRenderer.Render(obj, viewport);
+			_bgRenderer.Render(obj, viewport);
 
             if (TextVisible && Text != "")
 			{
@@ -146,20 +155,20 @@ namespace AGS.Engine
             bool resolutionMatches;
             PointF hitTestResolutionFactor;
             Size resolution;
-            PointF renderResolutionFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
+            PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
             resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, drawable,
-                                                                                  renderResolutionFactor, out hitTestResolutionFactor,
+                                                                                  textScaleFactor, out hitTestResolutionFactor,
                                                                                   out resolution);
-            if (!renderResolutionFactor.Equals(hitTestResolutionFactor))
+			var scaleUpText = hitTestResolutionFactor;
+			var scaleDownText = noFactor;
+            if (!textScaleFactor.Equals(hitTestResolutionFactor))
             {
-                renderResolutionFactor = noFactor;
+                textScaleFactor = noFactor;
+                scaleDownText = hitTestResolutionFactor;
             }
             AutoFit autoFit = getAutoFit();
 			float height = obj.Height;
 			float width = obj.Width;
-
-            var scaleUpText = hitTestResolutionFactor;
-            var scaleDownText = renderResolutionFactor.Equals(noFactor) ? hitTestResolutionFactor : noFactor;
 
             if (autoFit == AutoFit.LabelShouldFitText)
             {
@@ -179,11 +188,11 @@ namespace AGS.Engine
             IGLMatrices textHitTestMatrices = resolutionMatches ? textRenderMatrices : obj.RenderLayer.IndependentResolution == null ? labelRenderMatrices : acquireMatrix(2).SetMatrices(modelMatrices.InVirtualResolutionMatrix, viewportMatrix);
             IGLMatrices labelHitTestMatrices = obj.RenderLayer.IndependentResolution == null ? labelRenderMatrices : textHitTestMatrices;
 
-            if (renderResolutionFactor.Equals(hitTestResolutionFactor)) hitTestResolutionFactor = noFactor;
-            renderResolutionFactor = noFactor;
+            if (textScaleFactor.Equals(hitTestResolutionFactor)) 
+                hitTestResolutionFactor = noFactor;
 
             updateBoundingBoxes(_glTextHitTest, autoFit, textHitTestMatrices, labelHitTestMatrices, scaleUpText, noFactor, hitTestResolutionFactor, resolutionMatches, true);
-            if (!resolutionMatches) updateBoundingBoxes(_glTextRender, autoFit, textRenderMatrices, labelRenderMatrices, scaleUpText, scaleDownText, renderResolutionFactor, true, false);
+            if (!resolutionMatches) updateBoundingBoxes(_glTextRender, autoFit, textRenderMatrices, labelRenderMatrices, scaleUpText, scaleDownText, noFactor, true, false);
 
             if (_lastWidth != Width || _lastHeight != Height)
             {
@@ -280,10 +289,12 @@ namespace AGS.Engine
 
 		private class BoundingBoxesEmptyBuilder : IGLBoundingBoxBuilder
 		{
+            public PointF CropScale { get; set; }
+
 			#region IGLBoundingBoxBuilder implementation
 			public PointF Build(IGLBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
 			{
-                return AGSModelMatrixComponent.NoScaling;
+                return CropScale;
 			}
 			#endregion
 
