@@ -78,7 +78,8 @@ namespace AGS.Engine
                 {
                     _keyboardState.OnSoftKeyboardHidden.Subscribe(onSoftKeyboardHidden);
                     _keyboardState.ShowSoftKeyboard();
-                    CaretPosition = _textComponent.Text.Length;
+                    var textComponent = _textComponent;
+                    CaretPosition = textComponent == null ? 0 : textComponent.Text.Length;
                     _focusedUi.FocusedTextBox = this;
                 }
                 else
@@ -130,6 +131,7 @@ namespace AGS.Engine
 
         private void onBeforeRender(object args)
         {
+            if (_textComponent == null) return;
             if (_room.Room != null && _room.Room != _game.State.Room) return;
             if (_withCaret.TreeNode.Parent == null) _withCaret.TreeNode.SetParent(_tree.TreeNode);
             bool isVisible = IsFocused;
@@ -156,7 +158,8 @@ namespace AGS.Engine
                 renderer.RenderCaret = true;
             }
             _textComponent.TextVisible = !isVisible;
-            renderer = _imageComponent.CustomRenderer as ILabelRenderer;
+            var imageComponent = _imageComponent;
+            renderer = imageComponent == null ? null : imageComponent.CustomRenderer as ILabelRenderer;
             if (renderer != null)
             {
                 renderer.CaretPosition = CaretPosition;
@@ -174,7 +177,7 @@ namespace AGS.Engine
             if (args.Key == Key.ShiftLeft) { _leftShiftOn = true; return; }
             if (args.Key == Key.ShiftRight) { _rightShiftOn = true; return; }
 
-            if (!IsFocused) return;
+            if (!IsFocused || _textComponent == null) return;
             TextBoxKeyPressingEventArgs pressingArgs = new TextBoxKeyPressingEventArgs(args.Key);
             OnPressingKey.Invoke(pressingArgs);
             if (pressingArgs.ShouldCancel) return;

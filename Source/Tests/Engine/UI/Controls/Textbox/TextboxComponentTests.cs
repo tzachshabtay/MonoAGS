@@ -3,6 +3,7 @@ using AGS.Engine;
 using NUnit.Framework;
 using Moq;
 using AGS.Engine.Desktop;
+using System;
 
 namespace Tests
 {
@@ -66,6 +67,12 @@ namespace Tests
             entity.Setup(e => e.GetComponent<ITextComponent>()).Returns(textComponent.Object);
             entity.Setup(e => e.GetComponent<IUIEvents>()).Returns(uiEvents.Object);
             entity.Setup(e => e.GetComponent<IInObjectTree>()).Returns(inTree.Object);
+            entity.Setup(e => e.Bind(It.IsAny<Action<ITextComponent>>(), It.IsAny<Action<ITextComponent>>()))
+                  .Callback<Action<ITextComponent>, Action<ITextComponent>>((addComponent,_) => addComponent(textComponent.Object));
+			entity.Setup(e => e.Bind(It.IsAny<Action<IUIEvents>>(), It.IsAny<Action<IUIEvents>>()))
+				  .Callback<Action<IUIEvents>, Action<IUIEvents>>((addComponent, _) => addComponent(uiEvents.Object));
+			entity.Setup(e => e.Bind(It.IsAny<Action<IInObjectTree>>(), It.IsAny<Action<IInObjectTree>>()))
+				  .Callback<Action<IInObjectTree>, Action<IInObjectTree>>((addComponent, _) => addComponent(inTree.Object));
             Mock<IGame> game = new Mock<IGame>();
             Mock<IGameFactory> factory = new Mock<IGameFactory>();
             Mock<IUIFactory> uiFactory = new Mock<IUIFactory>();
