@@ -8,13 +8,16 @@ namespace AGS.Engine
         private readonly Action<TComponent> onAdded, onRemoved;
         private readonly IComponentsCollection _collection;
 
-        public AGSComponentBinding(IComponentsCollection collection, Action<TComponent> onAdded, Action<TComponent> onRemoved)
+        public AGSComponentBinding(IComponentsCollection collection, Action<TComponent> onAdded, 
+                                   Action<TComponent> onRemoved, bool componentsInitialized)
         {
             _collection = collection;
             this.onAdded = onAdded;
             this.onRemoved = onRemoved;
             collection.OnComponentsChanged.Subscribe(onComponentsChanged);
-            collection.OnComponentsInitialized.Subscribe(onComponentsInitialized);
+			TComponent component = collection.GetComponent<TComponent>();
+            if (component != null) onAdded.Invoke(component);
+            if (!componentsInitialized) collection.OnComponentsInitialized.Subscribe(onComponentsInitialized);
         }
 
         private void onComponentsChanged(AGSListChangedEventArgs<IComponent> args)

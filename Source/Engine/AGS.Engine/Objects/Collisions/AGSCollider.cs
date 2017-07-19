@@ -21,10 +21,10 @@ namespace AGS.Engine
 		{
 			base.Init(entity);
             _entity = entity;
-			_drawableInfo = entity.GetComponent<IDrawableInfo>();
-			_obj = entity.GetComponent<IAnimationContainer>();
-            _scale = entity.GetComponent<IScaleComponent>();
-            _pixelPerfect = entity.GetComponent<IPixelPerfectComponent>();
+            entity.Bind<IDrawableInfo>(c => _drawableInfo = c, _ => _drawableInfo = null);
+            entity.Bind<IAnimationContainer>(c => _obj = c, _ => _obj = null);
+            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            entity.Bind<IPixelPerfectComponent>(c => _pixelPerfect = c, _ => _pixelPerfect = null);
 		}
 
 		public AGSSquare BoundingBox { get; set; }
@@ -34,12 +34,14 @@ namespace AGS.Engine
 			get
 			{
                 if (BoundingBox.Equals(_emptyBox)) return null;
+                var pixelPerfectComponent = _pixelPerfect;
+                var pixelPerfect = pixelPerfectComponent == null ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 				float minX = BoundingBox.MinX;
 				float minY = BoundingBox.MinY;
-				float offsetX = _pixelPerfect.PixelPerfectHitTestArea == null ? (BoundingBox.MaxX - BoundingBox.MinX) / 2f :
-                    _pixelPerfect.PixelPerfectHitTestArea.Mask.MinX + (_pixelPerfect.PixelPerfectHitTestArea.Mask.MaxX - _pixelPerfect.PixelPerfectHitTestArea.Mask.MinX) / 2f;
-				float offsetY = _pixelPerfect.PixelPerfectHitTestArea == null ? (BoundingBox.MaxY - BoundingBox.MinY) / 2f :
-                    _pixelPerfect.PixelPerfectHitTestArea.Mask.MinY + (_pixelPerfect.PixelPerfectHitTestArea.Mask.MaxY - _pixelPerfect.PixelPerfectHitTestArea.Mask.MinY) / 2f;
+				float offsetX = pixelPerfect == null ? (BoundingBox.MaxX - BoundingBox.MinX) / 2f :
+                    pixelPerfect.Mask.MinX + (pixelPerfect.Mask.MaxX - pixelPerfect.Mask.MinX) / 2f;
+				float offsetY = pixelPerfect == null ? (BoundingBox.MaxY - BoundingBox.MinY) / 2f :
+                    pixelPerfect.Mask.MinY + (pixelPerfect.Mask.MaxY - pixelPerfect.Mask.MinY) / 2f;
 
 				return new PointF (minX + offsetX, minY + offsetY);
 			}
@@ -49,9 +51,11 @@ namespace AGS.Engine
 		{
 			AGSSquare boundingBox = BoundingBox;
             if (boundingBox.Equals(_emptyBox)) return false;
-			IArea pixelPerfect = _pixelPerfect.PixelPerfectHitTestArea;
+            var pixelPerfectComponent = _pixelPerfect;
+			IArea pixelPerfect = pixelPerfectComponent == null ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 
-			if (_drawableInfo.IgnoreViewport && _state != null) 
+            var drawableInfo = _drawableInfo;
+            if (drawableInfo != null && drawableInfo.IgnoreViewport && _state != null) 
 			{
 				var viewport = _state.Room.Viewport;
 				//todo: Support viewport rotation (+ ignore scaling areas = false?)
@@ -66,8 +70,13 @@ namespace AGS.Engine
 			}
 			else
 			{
-				if (pixelPerfect.IsInArea(new PointF (x, y), boundingBox, _scale.ScaleX * _obj.Animation.Sprite.ScaleX,
-					_scale.ScaleY * _obj.Animation.Sprite.ScaleY))
+                var obj = _obj;
+                float objScaleX = obj == null ? 1f : obj.Animation.Sprite.ScaleX;
+                float objScaleY = obj == null ? 1f : obj.Animation.Sprite.ScaleY;
+                var scale = _scale;
+                float scaleX = scale == null ? 1f : scale.ScaleX;
+                float scaleY = scale == null ? 1f : scale.ScaleY;
+				if (pixelPerfect.IsInArea(new PointF (x, y), boundingBox, scaleX * objScaleX, scaleY * objScaleY))
 					return true;
 			}
 			return false;

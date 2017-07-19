@@ -32,11 +32,11 @@ namespace AGS.Engine
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-			_collider = entity.GetComponent<ICollider>();
-			_drawableInfo = entity.GetComponent<IDrawableInfo>();
-			_tree = entity.GetComponent<IInObjectTree>();
-			_visible = entity.GetComponent<IVisibleComponent>();
-			_enabled = entity.GetComponent<IEnabledComponent>();
+            entity.Bind<ICollider>(c => _collider = c, _ => _collider = null);
+            entity.Bind<IDrawableInfo>(c => _drawableInfo = c, _ => _drawableInfo = null);
+            entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
+            entity.Bind<IVisibleComponent>(c => _visible = c, _ => _visible = null);
+            entity.Bind<IEnabledComponent>(c => _enabled = c, _ => _enabled = null);
 			_gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		} 
 
@@ -149,15 +149,22 @@ namespace AGS.Engine
 				oldGraphics.TreeNode.SetParent(null);
 			}
 			if (newGraphics == null) return;
-			newGraphics.RenderLayer = _drawableInfo.RenderLayer;
+            var drawableInfo = _drawableInfo;
+            if (drawableInfo != null) newGraphics.RenderLayer = drawableInfo.RenderLayer;
 			newGraphics.Z = z;
-			newGraphics.TreeNode.SetParent(_tree.TreeNode);
+            var tree = _tree;
+            if (tree != null) newGraphics.TreeNode.SetParent(tree.TreeNode);
 			_state.UI.Add(newGraphics);
 		}
 
 		private void onRepeatedlyExecute(object args)
 		{
-            if (!_visible.Visible || !_enabled.Enabled || _collider.BoundingBox.Equals(_emptySquare) || 
+            var collider = _collider;
+            if (collider == null) return;
+            var visible = _visible;
+            var enabled = _enabled;
+            if (visible == null || !visible.Visible || enabled == null || !enabled.Enabled || 
+                collider.BoundingBox.Equals(_emptySquare) || 
                 (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
                 Graphics.BoundingBox.Equals(_emptySquare) || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
                 HandleGraphics == null)
@@ -170,8 +177,8 @@ namespace AGS.Engine
 				return;
 			}
 			_isSliding = true;
-			if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - _collider.BoundingBox.MinX, 0f, Graphics.Width)));
-			else setValue(getSliderValue(MathUtils.Clamp(_input.MouseY - _collider.BoundingBox.MinY
+			if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - collider.BoundingBox.MinX, 0f, Graphics.Width)));
+			else setValue(getSliderValue(MathUtils.Clamp(_input.MouseY - collider.BoundingBox.MinY
 				, 0f, Graphics.Height)));
 		}
 

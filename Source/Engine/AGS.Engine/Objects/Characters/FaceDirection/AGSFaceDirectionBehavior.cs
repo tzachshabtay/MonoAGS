@@ -7,13 +7,13 @@ namespace AGS.Engine
 	public class AGSFaceDirectionBehavior : AGSComponent, IFaceDirectionBehavior
 	{
 		private IAnimationContainer _obj;
-        private ITranslate _transform;
+        private ITranslate _translate;
 
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-			_obj = entity.GetComponent<IAnimationContainer>();
-            _transform = entity.GetComponent<ITranslateComponent>();
+            entity.Bind<IAnimationContainer>(c => _obj = c, _ => _obj = null);
+            entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
 		}
 
 		#region IFaceDirectionBehavior implementation
@@ -77,12 +77,16 @@ namespace AGS.Engine
 
 		public void FaceDirection(float x, float y)
 		{
-			FaceDirection(_transform.X, _transform.Y, x, y);
+            var translate = _translate;
+            if (translate == null) return;
+			FaceDirection(translate.X, translate.Y, x, y);
 		}
 
 		public async Task FaceDirectionAsync(float x, float y)
 		{
-			await FaceDirectionAsync(_transform.X, _transform.Y, x, y);
+			var translate = _translate;
+			if (translate == null) return;
+			await FaceDirectionAsync(translate.X, translate.Y, x, y);
 		}
 
 		public void FaceDirection(float fromX, float fromY, float toX, float toY)
@@ -191,10 +195,12 @@ namespace AGS.Engine
 
 		private async Task changeAnimationIfNeeded(IAnimation animation)
 		{
-			if (animation == _obj.Animation)
+            var obj = _obj;
+            if (obj == null) return;
+			if (animation == obj.Animation)
 				return;
 			await Task.Delay (1);
-			_obj.StartAnimation (animation);
+			obj.StartAnimation (animation);
 			await Task.Delay (1);
 		}
 

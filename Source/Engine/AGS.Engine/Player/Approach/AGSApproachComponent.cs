@@ -19,32 +19,34 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _faceDirection = entity.GetComponent<IFaceDirectionBehavior>();
-            _walk = entity.GetComponent<IWalkBehavior>();
+            entity.Bind<IFaceDirectionBehavior>(c => _faceDirection = c, _ => _faceDirection = null);
+            entity.Bind<IWalkBehavior>(c => _walk = c, _ => _walk = null);
         }
 
         public async Task<bool> ApproachAsync(string verb, IObject obj)
         {
             ApproachHotspots approachStyle = getApproachStyle(verb);
+            var faceDirection = _faceDirection;
+            var walk = _walk;
             switch (approachStyle)
             {
                 case ApproachHotspots.NeverWalk:
                     break;
                 case ApproachHotspots.FaceOnly:
-                    await _faceDirection.FaceDirectionAsync(obj);
+                    if (faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
                     break;
                 case ApproachHotspots.WalkIfHaveWalkPoint:
-                    if (obj.WalkPoint == null) await _faceDirection.FaceDirectionAsync(obj);
+                    if (obj.WalkPoint == null && faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
                     else
                     {
-                        if (!await _walk.WalkAsync(new AGSLocation(obj.WalkPoint.Value))) return false;
-                        await _faceDirection.FaceDirectionAsync(obj);
+                        if (walk != null && !await walk.WalkAsync(new AGSLocation(obj.WalkPoint.Value))) return false;
+                        if (faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
                     }
                     break;
                 case ApproachHotspots.AlwaysWalk:
                     PointF? walkPoint = obj.WalkPoint ?? obj.CenterPoint ?? obj.Location.XY;
-                    if (!await _walk.WalkAsync(new AGSLocation(walkPoint.Value))) return false;
-                    await _faceDirection.FaceDirectionAsync(obj);
+                    if (walk != null && !await walk.WalkAsync(new AGSLocation(walkPoint.Value))) return false;
+                    if (faceDirection != null) await _faceDirection.FaceDirectionAsync(obj);
                     break;
                 default:
                     throw new NotSupportedException("Approach style is not supported: " + approachStyle.ToString());

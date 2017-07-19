@@ -18,14 +18,22 @@ namespace AGS.Engine.UI.Controls
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _events = entity.GetComponent<IUIEvents>();
-            _animation = entity.GetComponent<IAnimationContainer>();
-            _text = entity.GetComponent<ITextComponent>();
-            _image = entity.GetComponent<IImageComponent>();
-
-            _events.MouseEnter.Subscribe(onMouseEnter);
-            _events.MouseLeave.Subscribe(onMouseLeave);
-            _events.MouseUp.Subscribe(onMouseUp);
+			entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
+			entity.Bind<ITextComponent>(c => _text = c, _ => _text = null);
+			entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
+			entity.Bind<IUIEvents>(c =>
+			{
+				_events = c;
+				c.MouseEnter.Subscribe(onMouseEnter);
+				c.MouseLeave.Subscribe(onMouseLeave);
+				c.MouseUp.Subscribe(onMouseUp);
+			}, c =>
+			{
+				_events = null;
+				c.MouseEnter.Unsubscribe(onMouseEnter);
+				c.MouseLeave.Unsubscribe(onMouseLeave);
+				c.MouseUp.Unsubscribe(onMouseUp);
+			});
         }
 
         public bool Checked
@@ -48,13 +56,6 @@ namespace AGS.Engine.UI.Controls
 
         public IEvent<CheckBoxEventArgs> OnCheckChanged { get; private set; }
 
-        public override void Dispose()
-        {
-            _events.MouseEnter.Unsubscribe(onMouseEnter);
-            _events.MouseLeave.Unsubscribe(onMouseLeave);          
-            _events.MouseUp.Unsubscribe(onMouseUp);
-        }
-
         private void onMouseEnter(MousePositionEventArgs e)
         {
             startAnimation(Checked ? HoverCheckedAnimation ?? CheckedAnimation : HoverNotCheckedAnimation ?? NotCheckedAnimation);
@@ -67,7 +68,8 @@ namespace AGS.Engine.UI.Controls
 
         private void onMouseUp(MouseButtonEventArgs e)
         {
-            if (_events.IsMouseIn)
+            var events = _events;
+            if (events != null && events.IsMouseIn)
             {
                 _checked = !_checked;
             }
@@ -76,7 +78,8 @@ namespace AGS.Engine.UI.Controls
 
         private void onCheckChange()
         {
-            startAnimation(_events.IsMouseIn ? (Checked ? HoverCheckedAnimation ?? CheckedAnimation : 
+            var events = _events;
+            startAnimation(events != null && events.IsMouseIn ? (Checked ? HoverCheckedAnimation ?? CheckedAnimation : 
                                                           HoverNotCheckedAnimation ?? NotCheckedAnimation) :
                 (Checked ? CheckedAnimation : NotCheckedAnimation));
             OnCheckChanged.Invoke(new CheckBoxEventArgs(Checked));

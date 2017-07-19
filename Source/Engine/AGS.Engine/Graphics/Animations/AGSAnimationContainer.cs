@@ -23,14 +23,15 @@ namespace AGS.Engine
 		public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _scale = entity.GetComponent<IScaleComponent>();            
+            entity.Bind<IScaleComponent>(c => _scale = c, c => _scale = null);
         }        
 
         public void StartAnimation(IAnimation animation)
 		{
-			if (_scale.Width == 0f && animation.Frames.Count > 0) 
+            var scale = _scale;
+            if (scale != null && scale.Width == 0f && animation.Frames.Count > 0) 
 			{
-				_scale.ResetBaseSize(animation.Frames [0].Sprite.Width, animation.Frames [0].Sprite.Height);
+				scale.ResetBaseSize(animation.Frames[0].Sprite.Width, animation.Frames[0].Sprite.Height);
 			}
 			IAnimation currentAnimation = Animation;
 			if (currentAnimation != null) 

@@ -15,7 +15,7 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _area = entity.GetComponent<IAreaComponent>();
+            entity.Bind<IAreaComponent>(c => _area = c, _ => _area = null);
         }
 
         public float MinZoom { get; set; }

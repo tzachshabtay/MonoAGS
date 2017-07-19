@@ -19,7 +19,7 @@ namespace AGS.Engine
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-			_tree = entity.GetComponent<IInObjectTree>();
+            entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
 		}
 			
 		public bool Value 

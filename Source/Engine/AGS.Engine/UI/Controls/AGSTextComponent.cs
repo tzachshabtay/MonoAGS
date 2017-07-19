@@ -15,8 +15,7 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _obj = entity.GetComponent<IImageComponent>();
-            _obj.CustomRenderer = _labelRenderer;
+            entity.Bind<IImageComponent>(c => { _obj = c; c.CustomRenderer = _labelRenderer; }, _ => _obj = null);
         }
 
         public ITextConfig TextConfig
@@ -43,7 +42,8 @@ namespace AGS.Engine
             set
             {
                 _labelRenderer.BaseSize = value;
-                if (_obj != null && _obj.Image == null) _obj.Image = new EmptyImage(value.Width, value.Height);                
+                var obj = _obj;
+                if (obj != null && obj.Image == null) obj.Image = new EmptyImage(value.Width, value.Height);                
             }
         }
 

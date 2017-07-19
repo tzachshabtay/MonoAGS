@@ -29,13 +29,10 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _scale = entity.GetComponent<IScaleComponent>();
-            _tree = entity.GetComponent<IInObjectTree>();
-            _image = entity.GetComponent<IImageComponent>();
-
-            var stackLayout = entity.GetComponent<IStackLayoutComponent>();
-            stackLayout.RelativeSpacing = 1f;
-            stackLayout.StartLayout();
+            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
+            entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
+            entity.Bind<IStackLayoutComponent>(c => { c.RelativeSpacing = 1f; c.StartLayout();}, null);
         }
 
         public Func<string, IButton> ItemButtonFactory { get; set; }
@@ -78,6 +75,7 @@ namespace AGS.Engine
 
         private void onListChanged(AGSListChangedEventArgs<IStringItem> args)
         {
+            var tree = _tree;
             if (args.ChangeType == ListChangeType.Remove)
             {
                 var items = args.Items.OrderByDescending(i => i.Index);
@@ -85,7 +83,7 @@ namespace AGS.Engine
                 {
                     var button = _itemButtons[item.Index];
                     button.MouseClicked.Unsubscribe(onItemClicked);
-                    _tree.TreeNode.RemoveChild(button);
+                    if (tree != null) tree.TreeNode.RemoveChild(button);
                     _state.UI.Remove(button);
                     _itemButtons.RemoveAt(item.Index);
                 }
@@ -100,7 +98,7 @@ namespace AGS.Engine
                     newButton.Text = buttonText;
                     newButton.MouseClicked.Subscribe(onItemClicked);
                     _itemButtons.Insert(item.Index, newButton);
-                    _tree.TreeNode.AddChild(newButton);
+                    if (tree != null) tree.TreeNode.AddChild(newButton);
                 }
             }
             refreshItemsLayout();
@@ -109,12 +107,16 @@ namespace AGS.Engine
         private void refreshItemsLayout()
         {
             if (_itemButtons.Count == 0) return;
-            _scale.ResetBaseSize(_itemButtons.Max(i => Math.Max(i.Width, i.TextWidth)),
+            var scale = _scale;
+            if (scale == null) return;
+            scale.ResetBaseSize(_itemButtons.Max(i => Math.Max(i.Width, i.TextWidth)),
                                         _itemButtons.Sum(i => Math.Max(i.Height, i.TextHeight)));
-            if (_image.Image.Width != _scale.BaseSize.Width ||
-                _image.Image.Height != _scale.BaseSize.Height)
+            var image = _image;
+            if (image == null) return;
+            if (_image.Image.Width != scale.BaseSize.Width ||
+                _image.Image.Height != scale.BaseSize.Height)
             {
-                _image.Image = new EmptyImage(_scale.BaseSize.Width, _scale.BaseSize.Height);
+                _image.Image = new EmptyImage(scale.BaseSize.Width, scale.BaseSize.Height);
             }
         }
 

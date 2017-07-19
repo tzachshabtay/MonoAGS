@@ -24,8 +24,8 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _tree = entity.GetComponent<IInObjectTree>();
-            subscribeTree(_tree.TreeNode);
+            entity.Bind<IInObjectTree>(c => { _tree = c; subscribeTree(c.TreeNode); adjustLayout(); }, 
+                                       c => { unsubscribeTree(c.TreeNode); _tree = null; });
             adjustLayout();
         }
 
@@ -109,7 +109,9 @@ namespace AGS.Engine
             if (_isPaused) return;
             float location = 0f;
 
-            foreach (var child in _tree.TreeNode.Children)
+            var tree = _tree;
+            if (tree == null) return;
+            foreach (var child in tree.TreeNode.Children)
             {
                 if (!child.UnderlyingVisible) continue;
                 float step;

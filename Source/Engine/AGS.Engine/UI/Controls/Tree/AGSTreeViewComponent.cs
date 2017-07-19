@@ -49,8 +49,8 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _treeComponent = entity.GetComponent<IInObjectTree>();
-            _drawable = entity.GetComponent<IDrawableInfo>();
+            entity.Bind<IInObjectTree>(c => _treeComponent = c, _ => _treeComponent = null);
+            entity.Bind<IDrawableInfo>(c => _drawable = c, _ => _drawable = null);
         }
 
         public void RebuildTree()
@@ -126,8 +126,14 @@ namespace AGS.Engine
             if (currentNode == null || currentNode.Item != actualNode)
             {
                 if (currentNode != null) removeFromUI(currentNode);
-                currentNode = new Node(actualNode, NodeViewProvider.CreateNode(actualNode, _drawable.RenderLayer), null, this);
-                currentNode.View.ParentPanel.TreeNode.SetParent(_treeComponent.TreeNode);
+                var drawable = _drawable;
+                currentNode = new Node(actualNode, NodeViewProvider.CreateNode(actualNode, 
+                                           drawable == null ? AGSLayers.UI : drawable.RenderLayer), null, this);
+                var treeComponent = _treeComponent;
+                if (treeComponent != null)
+                {
+                    currentNode.View.ParentPanel.TreeNode.SetParent(treeComponent.TreeNode);
+                }
             }
             int maxChildren = Math.Max(currentNode.Children.Count, actualNode.TreeNode.Children.Count);
             for (int i = 0; i < maxChildren; i++)
@@ -137,7 +143,9 @@ namespace AGS.Engine
                 if (nodeChild == null && actualChild == null) continue;
                 if (nodeChild == null)
                 {
-                    var newNode = new Node(actualChild, NodeViewProvider.CreateNode(actualChild, _drawable.RenderLayer), currentNode, this);
+                    var drawable = _drawable;
+                    var newNode = new Node(actualChild, NodeViewProvider.CreateNode(actualChild, 
+                                        drawable == null ? AGSLayers.UI : drawable.RenderLayer), currentNode, this);
 					newNode = buildTree(newNode, actualChild);
                     currentNode.Children.Add(newNode);
                     continue;

@@ -42,8 +42,8 @@ namespace AGS.Engine
         {
             base.Init(entity);
             _characterName = entity.ID;
-            _emitter.Translate = entity.GetComponent<ITranslateComponent>();
-            _emitter.HasRoom = entity.GetComponent<IHasRoom>();
+            entity.Bind<ITranslateComponent>(c => _emitter.Translate = c, _ => _emitter.Translate = null);
+            entity.Bind<IHasRoom>(c => _emitter.HasRoom = c, _ => _emitter.HasRoom = null);
         }
 
 		public void Say(string text)

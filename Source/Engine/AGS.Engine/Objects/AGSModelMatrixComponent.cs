@@ -41,34 +41,38 @@ namespace AGS.Engine
         {
             base.Init(entity);
             _entity = entity;
-            entity.Bind<IAnimationContainer>(
+        }
+
+        public override void AfterInit()
+        {
+            _entity.Bind<IAnimationContainer>(
                 c => { _animation = c; onSomethingChanged(null); },
                 c => { _animation = null; onSomethingChanged(null); });
-            entity.Bind<IHasRoom>(
+            _entity.Bind<IHasRoom>(
                 c => { _room = c; onSomethingChanged(null); },
                 c => { _room = null; onSomethingChanged(null); });
             
-            entity.Bind<IScaleComponent>(
+            _entity.Bind<IScaleComponent>(
                 c => { _scale = c; c.OnScaleChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
                 c => { c.OnScaleChanged.Unsubscribe(onSomethingChanged); _scale = null; onSomethingChanged(null);});
-            entity.Bind<ITranslateComponent>(
+            _entity.Bind<ITranslateComponent>(
                 c => { _translate = c; c.OnLocationChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
                 c => { c.OnLocationChanged.Unsubscribe(onSomethingChanged); _translate = null; onSomethingChanged(null);}
             );
-            entity.Bind<IRotateComponent>(
+            _entity.Bind<IRotateComponent>(
                 c => { _rotate = c; c.OnAngleChanged.Subscribe(onSomethingChanged); onSomethingChanged(null);},
                 c => { c.OnAngleChanged.Unsubscribe(onSomethingChanged); _rotate = null; onSomethingChanged(null);}
             );
-			entity.Bind<IImageComponent>(
+			_entity.Bind<IImageComponent>(
                 c => { _image = c; c.OnAnchorChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
                 c => { c.OnAnchorChanged.Unsubscribe(onSomethingChanged); _image = null; onSomethingChanged(null); }
 			);
-            entity.Bind<ICropSelfComponent>(
+            _entity.Bind<ICropSelfComponent>(
                 c => { _crop = c; c.OnCropAreaChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
 				c => { c.OnCropAreaChanged.Unsubscribe(onSomethingChanged); _crop = null; onSomethingChanged(null); }
 			);
 
-            entity.Bind<IDrawableInfo>(
+            _entity.Bind<IDrawableInfo>(
                 c => 
             {
                 _drawable = c;
@@ -83,7 +87,7 @@ namespace AGS.Engine
 				onSomethingChanged(null);
             });
 
-			entity.Bind<IInObjectTree>(
+			_entity.Bind<IInObjectTree>(
 				c =>
 			{
 				_tree = c;
@@ -253,10 +257,10 @@ namespace AGS.Engine
         private Matrix4 getMatrix(PointF resolutionFactor) 
         {
             var sprite = _animation.Animation.Sprite;
-            Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, PointF.Empty, 
+            Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, 
                                                   NoScaling, NoScaling, true);
             Matrix4 objMatrix = getModelMatrix(_scale, _rotate, _translate,
-                                               _image, _crop == null ? PointF.Empty : new PointF(_crop.CropArea.X, _crop.CropArea.Y), _areaScaling, resolutionFactor, true);
+                                               _image, _areaScaling, resolutionFactor, true);
 
             var modelMatrix = spriteMatrix * objMatrix;
             var parent = _tree == null ? null : _tree.TreeNode.Parent;
@@ -264,7 +268,7 @@ namespace AGS.Engine
             {
                 //var parentMatrices = parent.GetModelMatrices();
                 //Matrix4 parentMatrix = resolutionFactor.Equals(GLMatrixBuilder.NoScaling) ? parentMatrices.InVirtualResolutionMatrix : parentMatrices.InObjResolutionMatrix;
-                Matrix4 parentMatrix = getModelMatrix(parent, parent, parent, parent, PointF.Empty, 
+                Matrix4 parentMatrix = getModelMatrix(parent, parent, parent, parent, 
                     NoScaling, resolutionFactor, false);
                 modelMatrix = modelMatrix * parentMatrix;
                 parent = parent.TreeNode.Parent;
@@ -272,7 +276,7 @@ namespace AGS.Engine
             return modelMatrix;
         }
 
-        private Matrix4 getModelMatrix(IScale scale, IRotate rotate, ITranslate translate, IHasImage image, PointF cropTranslate,
+        private Matrix4 getModelMatrix(IScale scale, IRotate rotate, ITranslate translate, IHasImage image,
                                        PointF areaScaling, PointF resolutionTransform, bool useCustomImageSize)
         {
             if (scale == null) return Matrix4.Identity;
@@ -283,7 +287,7 @@ namespace AGS.Engine
             float width = (customWidth ?? scale.Width) * resolutionTransform.X;
             float height = (customHeight ?? scale.Height) * resolutionTransform.Y;
             PointF anchorOffsets = getAnchorOffsets(image == null ? PointF.Empty : image.Anchor, 
-                                                    width - cropTranslate.X, height - cropTranslate.Y);
+                                                    width, height);
             Matrix4 anchor = Matrix4.CreateTranslation(new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
             Matrix4 scaleMat = Matrix4.CreateScale(new Vector3(scale.ScaleX * areaScaling.X,
                 scale.ScaleY * areaScaling.Y, 1f));

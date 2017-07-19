@@ -8,6 +8,7 @@ namespace AGS.Engine
         private bool _isFocused;
         private ITextComponent _textComponent;
         private IImageComponent _imageComponent;
+        private IVisibleComponent _visibleComponent;
         private IUIEvents _uiEvents;        
         private IInObjectTree _tree;
         private IHasRoom _room;
@@ -40,24 +41,30 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _textComponent = entity.GetComponent<ITextComponent>();
-            _imageComponent = entity.GetComponent<IImageComponent>();
-            _uiEvents = entity.GetComponent<IUIEvents>();
-            _tree = entity.GetComponent<IInObjectTree>();
-            _room = entity.GetComponent<IHasRoom>();
-            var visible = entity.GetComponent<IVisibleComponent>();
-            _game.Events.OnRepeatedlyExecute.Subscribe(_ =>
+            entity.Bind<ITextComponent>(c => _textComponent = c, _ => _textComponent = null);
+            entity.Bind<IImageComponent>(c => _imageComponent = c, _ => _imageComponent = null);
+            entity.Bind<IUIEvents>(c =>
             {
-                if (!visible.Visible) IsFocused = false;
+                _uiEvents = c;
+                c.MouseDown.Subscribe(onMouseDown);
+                c.LostFocus.Subscribe(onMouseDownOutside);
+            }, c =>
+            {
+                _uiEvents = null;
+				c.MouseDown.Unsubscribe(onMouseDown);
+				c.LostFocus.Unsubscribe(onMouseDownOutside);
             });
+            entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
+            entity.Bind<IHasRoom>(c => _room = c, _ => _room = null);
+            entity.Bind<IVisibleComponent>(c => _visibleComponent = c, _ => _visibleComponent = null);
+
+            _game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 
             _caretFlashCounter = (int)CaretFlashDelay;
             _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _withCaret.Anchor = new PointF(0f, 0f);
 
             _game.Events.OnBeforeRender.Subscribe(onBeforeRender);
-            _uiEvents.MouseDown.Subscribe(onMouseDown);
-            _uiEvents.LostFocus.Subscribe(onMouseDownOutside);
         }
 
         public bool IsFocused
@@ -90,6 +97,19 @@ namespace AGS.Engine
         public IEvent<object> OnFocusChanged { get; private set; }
 
         public IEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; private set; }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _game.Events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+            _game.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
+        }
+
+        private void onRepeatedlyExecute(object args)
+        {
+            var visible = _visibleComponent;
+            if (visible == null || !visible.Visible) IsFocused = false;
+        }
 
         private void onSoftKeyboardHidden(object args)
         {

@@ -26,9 +26,9 @@ namespace AGS.Engine
 		{
 			base.Init (entity);
             _follower = entity;
-			_walk = entity.GetComponent<IWalkBehavior>();
-			_hasRoom = entity.GetComponent<IHasRoom> ();
-			_obj = entity.GetComponent<ITranslateComponent> ();
+            entity.Bind<IWalkBehavior>(c => _walk = c, _ => _walk = null);
+            entity.Bind<IHasRoom>(c => _hasRoom = c, _ => _hasRoom = null);
+            entity.Bind<ITranslateComponent>(c => _obj = c, _ => _obj = null);
 		}
 
 		public void Follow (IObject obj, IFollowSettings settings)
@@ -53,12 +53,15 @@ namespace AGS.Engine
 
         private async Task onRepeatedlyExecute (object args)
 		{
+            var walk = _walk;
+            if (walk == null) return;
+            var hasRoom = _hasRoom;
             var target = TargetBeingFollowed;
 			var currentWalk = _currentWalk;
 			var followSettings = _followSettings;
 			if (target == null || followSettings == null) 
 			{
-				if (currentWalk != null) _walk.StopWalking ();
+				if (currentWalk != null) walk.StopWalking ();
 				return;
 			}
 			if (target == _lastTarget) 
@@ -68,7 +71,7 @@ namespace AGS.Engine
 			_lastTarget = target;
 			if (_counter > 0) 
 			{
-				if (_hasRoom.Room != target.Room && _newRoomX == null) 
+				if (hasRoom != null && hasRoom.Room != target.Room && _newRoomX == null) 
 				{
 					_newRoomX = target.X;
 					_newRoomY = target.Y;
@@ -77,21 +80,21 @@ namespace AGS.Engine
 				return;
 			}
 			_counter = MathUtils.Random ().Next (_followSettings.MinWaitBetweenWalks, _followSettings.MaxWaitBetweenWalks);
-			if (_hasRoom.Room != target.Room) 
+			if (hasRoom != null && hasRoom.Room != target.Room) 
 			{
 				if (_followSettings.FollowBetweenRooms) 
 				{
-					await _hasRoom.ChangeRoomAsync(target.Room, _newRoomX, _newRoomY);
-					_walk.PlaceOnWalkableArea ();
+					await hasRoom.ChangeRoomAsync(target.Room, _newRoomX, _newRoomY);
+					walk.PlaceOnWalkableArea ();
 					_newRoomX = null;
 					_newRoomY = null;
 				}
 				return;
 			}
-			setNextWalk (target, followSettings);
+			setNextWalk (target, followSettings, walk);
 		}
 
-		private void setNextWalk (IObject target, IFollowSettings settings)
+        private void setNextWalk (IObject target, IFollowSettings settings, IWalkBehavior walk)
 		{
 			PointF targetPoint;
 			if (MathUtils.Random ().Next (100) <= settings.WanderOffPercentage) 
@@ -100,7 +103,7 @@ namespace AGS.Engine
 			} 
 			else targetPoint = follow (target, settings);
 
-			_currentWalk = _walk.WalkAsync (new AGSLocation (targetPoint.X, targetPoint.Y));
+			_currentWalk = walk.WalkAsync (new AGSLocation (targetPoint.X, targetPoint.Y));
 		}
 
 		private PointF wanderOff()
@@ -115,8 +118,9 @@ namespace AGS.Engine
 			float yOffset = MathUtils.Lerp (0f, settings.MinYOffset, 1f, settings.MaxYOffset, (float)MathUtils.Random ().NextDouble ());
 			float xOffset = MathUtils.Lerp (0f, settings.MinXOffset, 1f, settings.MaxXOffset, (float)MathUtils.Random ().NextDouble ());
 
-			float x = _obj.X > target.X ? target.X + xOffset : target.X - xOffset;
-			float y = _obj.Y > target.Y ? target.Y + yOffset : target.Y - yOffset;
+            var obj = _obj;
+			float x = obj != null && obj.X > target.X ? target.X + xOffset : target.X - xOffset;
+			float y = obj != null && obj.Y > target.Y ? target.Y + yOffset : target.Y - yOffset;
 			return new PointF (x, y);
 		}
 	}

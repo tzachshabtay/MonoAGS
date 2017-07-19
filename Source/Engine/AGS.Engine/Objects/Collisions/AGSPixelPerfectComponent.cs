@@ -16,10 +16,13 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            IAnimationContainer animation = entity.GetComponent<IAnimationContainer>();
-            TypedParameter animationParam = new TypedParameter(typeof(IAnimationContainer), animation);            
 
-            _pixelPerfect = _resolver.Container.Resolve<IPixelPerfectCollidable>(animationParam);
+            entity.Bind<IAnimationContainer>(c =>
+            {
+                IAnimationContainer animation = entity.GetComponent<IAnimationContainer>();
+                TypedParameter animationParam = new TypedParameter(typeof(IAnimationContainer), animation);
+                _pixelPerfect = _resolver.Container.Resolve<IPixelPerfectCollidable>(animationParam);
+            }, _ => _pixelPerfect = null);
         }
 
         public IArea PixelPerfectHitTestArea { get { return _pixelPerfect.PixelPerfectHitTestArea; } }

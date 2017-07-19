@@ -59,7 +59,7 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _animation = entity.GetComponent<IAnimationContainer>();
+            entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
         }
 
         #region IWalkBehavior implementation

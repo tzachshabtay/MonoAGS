@@ -28,8 +28,8 @@ namespace AGS.Engine
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-			_scale = entity.GetComponent<IScaleComponent>();
-			_tree = entity.GetComponent<IInObjectTree>();
+            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
 		}
 
 		public override void Dispose()
@@ -90,12 +90,14 @@ namespace AGS.Engine
 		{
 			if (Inventory == null) return;
 			if (!isRefreshNeeded()) return;
+            var tree = _tree;
+            if (tree == null) return;
 			_refreshNeeded = false;
 
 			foreach (var obj in _inventoryItems)
 			{
                 obj.Visible = false;	
-                _tree.TreeNode.AddChild(obj);
+                tree.TreeNode.AddChild(obj);
             }
 			List<IObject> items = new List<IObject> (Inventory.Items.Count);
 			foreach (var item in Inventory.Items)
