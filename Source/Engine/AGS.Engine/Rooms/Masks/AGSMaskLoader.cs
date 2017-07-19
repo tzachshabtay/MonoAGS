@@ -50,11 +50,12 @@ namespace AGS.Engine
             Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
         {
 #if DEBUG
-            debugDrawColor = debugDrawColor ?? Colors.Blue.WithAlpha(150);
+            bool hasColor = debugDrawColor != null;
+            debugDrawColor = debugDrawColor ?? Colors.Blue.WithAlpha(150); //for the debug display list window
 #endif
             var mask = image.CreateMask(_factory, path, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
 #if DEBUG
-            mask.DebugDraw.Visible = false;
+            if (!hasColor) mask.DebugDraw.Visible = false;
 #endif
             return mask;
 		}
