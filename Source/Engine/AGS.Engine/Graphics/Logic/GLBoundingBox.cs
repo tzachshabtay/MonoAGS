@@ -32,7 +32,7 @@ namespace AGS.Engine
 
         public FourCorners<Vector2> Crop(ICropSelfComponent crop, PointF resolutionFactor, PointF adjustedScale)
         {
-            if (crop == null) return null;
+            if (crop == null || !crop.CropEnabled) return null;
             float width, height;
             float scaleX = resolutionFactor.X * adjustedScale.X;
             float scaleY = resolutionFactor.Y * adjustedScale.Y;

@@ -6,10 +6,23 @@ namespace AGS.Engine
     public class AGSCropSelfComponent : AGSComponent, ICropSelfComponent
     {
         private RectangleF _cropArea;
+        private bool _cropEnabled;
 
         public AGSCropSelfComponent()
         {
             OnCropAreaChanged = new AGSEvent<object>();
+            _cropEnabled = true;
+        }
+
+        public bool CropEnabled 
+        { 
+            get { return _cropEnabled; }
+            set 
+            {
+                if (_cropEnabled == value) return;
+                _cropEnabled = value;
+                OnCropAreaChanged.Invoke(null);
+            }
         }
 
         public RectangleF CropArea
@@ -28,7 +41,7 @@ namespace AGS.Engine
         {
             width = spriteWidth;
             height = spriteHeight;
-            if (crop == null) return null;
+            if (crop == null || !crop.CropEnabled) return null;
             width = Math.Min(width, crop.CropArea.Width);
             if (crop.CropArea.X + width > spriteWidth) width = spriteWidth - crop.CropArea.X;
             height = Math.Min(height, crop.CropArea.Height);

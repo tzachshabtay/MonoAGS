@@ -6,6 +6,12 @@
     public interface ICropSelfComponent : IComponent
     {
         /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.ICropSelfComponent"/> crop is enabled.
+        /// </summary>
+        /// <value><c>true</c> if crop enabled; otherwise, <c>false</c>.</value>
+        bool CropEnabled { get; set; }
+
+        /// <summary>
         /// The visible area (everything else will be cropped).
         /// </summary>
         RectangleF CropArea { get; set; }
