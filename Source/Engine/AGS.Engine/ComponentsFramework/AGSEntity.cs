@@ -61,7 +61,7 @@ namespace AGS.Engine
                 initComponentIfNeeded(component);
                 return component;
             }
-            return null;
+            return ofType[0];
         }
 
         public bool AddComponent<TComponent>(TComponent component) where TComponent : IComponent

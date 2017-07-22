@@ -34,6 +34,8 @@ namespace AGS.Engine
                                IGLUtils glUtils, IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IFontLoader fonts, 
                                IRuntimeSettings settings, IMessagePump messagePump)
 		{
+            Width = 1f;
+            Height = 1f;
             _matricesPool = new GLMatrices[3];
             _messagePump = messagePump;
             OnLabelSizeChanged = new AGSEvent<object>();
@@ -65,21 +67,9 @@ namespace AGS.Engine
         public int CaretPosition { get; set; }
         public bool RenderCaret { get; set; }
 
-		public float Width 
-		{ 
-			get 
-			{ 
-				return _usedLabelBoundingBoxes == null || _usedLabelBoundingBoxes.RenderBox == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Width; 
-			}
-		}
+        public float Width { get; private set; }
 
-		public float Height 
-		{ 
-			get 
-			{ 
-				return _usedLabelBoundingBoxes == null || _usedLabelBoundingBoxes.RenderBox == null ? 1f :  _usedLabelBoundingBoxes.RenderBox.Height; 
-			}
-		}
+        public float Height { get; private set; }
 
 		public float TextWidth 
 		{ 
@@ -112,6 +102,8 @@ namespace AGS.Engine
 			updateBoundingBoxes(obj, drawable, viewport);
 			_bgRenderer.BoundingBoxes = _usedLabelBoundingBoxes;
 			_bgRenderer.Prepare(obj, drawable, viewport);
+            Width = _usedLabelBoundingBoxes == null || _usedLabelBoundingBoxes.RenderBox == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Width;
+            Height = _usedLabelBoundingBoxes == null || _usedLabelBoundingBoxes.RenderBox == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Height;
 		}
 
 		public void Render(IObject obj, IViewport viewport)

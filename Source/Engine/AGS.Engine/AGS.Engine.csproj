@@ -404,6 +404,7 @@
     <Compile Include="UI\DebugControls\DebugView\IDebugTab.cs" />
     <Compile Include="UI\UIEventsAggregator.cs" />
     <Compile Include="ComponentsFramework\AGSComponentBinding.cs" />
+    <Compile Include="UI\Controls\Panel\AGSCropChildrenComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

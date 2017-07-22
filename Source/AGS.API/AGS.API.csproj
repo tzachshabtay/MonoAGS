@@ -239,6 +239,7 @@
     <Compile Include="Misc\Geometry\AGSSquare.cs" />
     <Compile Include="Misc\Geometry\MathUtils.cs" />
     <Compile Include="ComponentsFramework\IComponentBinding.cs" />
+    <Compile Include="UI\Controls\Panel\ICropChildrenComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
