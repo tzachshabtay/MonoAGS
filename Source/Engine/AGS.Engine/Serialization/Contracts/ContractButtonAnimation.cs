@@ -18,19 +18,20 @@ namespace AGS.Engine
         public IContract<ITextConfig> TextConfig { get; set; }
 
         [ProtoMember(4)]
-        public Color? Tint { get; set; }
+        public uint? Tint { get; set; }
 
         public void FromItem(AGSSerializationContext context, ButtonAnimation item)
         {
             Animation = context.GetContract(item.Animation);
             Border = context.GetContract(item.Border);
             TextConfig = context.GetContract(item.TextConfig);
-            Tint = item.Tint;
+            Tint = item.Tint == null ? (uint?)null : item.Tint.Value.Value;
         }
 
         public ButtonAnimation ToItem(AGSSerializationContext context)
         {
-            var button = new ButtonAnimation(Border.ToItem(context), TextConfig.ToItem(context), Tint);
+            var button = new ButtonAnimation(Border.ToItem(context), TextConfig.ToItem(context),
+                                             Tint == null ? (Color?)null : Color.FromHexa(Tint.Value));
             button.Animation = Animation.ToItem(context);
             return button;
         }
