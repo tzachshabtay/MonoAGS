@@ -214,7 +214,7 @@ namespace AGS.Engine
 
         #region ICollider implementation
 
-        public AGSSquare BoundingBox 
+        public AGSBoundingBox BoundingBox 
         {  
             get { return _collider.BoundingBox; }  
             set { _collider.BoundingBox = value; } 

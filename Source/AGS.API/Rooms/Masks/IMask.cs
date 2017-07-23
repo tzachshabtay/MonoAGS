@@ -62,7 +62,7 @@
         /// <param name="projectionBox">Projection box.</param>
         /// <param name="scaleX">The projection box x scaling (is only needed to know if the projection box is flipped horizontally).</param>
         /// <param name="scaleY">The projection box y scaling (is only need to know if the projection box is flipped vertically).</param>
-		bool IsMasked(PointF point, AGSSquare projectionBox, float scaleX, float scaleY);
+		bool IsMasked(PointF point, AGSBoundingBox projectionBox, float scaleX, float scaleY);
 
         /// <summary>
         /// Returns the mask as a jagged array (https://msdn.microsoft.com/en-us/library/2s05feca.aspx).

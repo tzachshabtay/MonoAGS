@@ -28,9 +28,9 @@ namespace AGS.Engine
         public float WidthRight { get { return 0f; } }
         public float WidthTop { get { return 0f; } }
 
-        public void RenderBorderFront(AGSSquare square) { }
+        public void RenderBorderFront(AGSBoundingBox square) { }
 
-        public void RenderBorderBack(AGSSquare square)
+        public void RenderBorderBack(AGSBoundingBox square)
         {
             if (_glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
 

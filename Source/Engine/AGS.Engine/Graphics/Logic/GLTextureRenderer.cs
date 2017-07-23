@@ -13,7 +13,7 @@ namespace AGS.Engine
 
 		#region IGLTextureRenderer implementation
 
-		public void Render(int texture, IGLBoundingBox boundingBox, FourCorners<Vector2> textureBox, IGLColor color)
+		public void Render(int texture, AGSBoundingBox boundingBox, FourCorners<Vector2> textureBox, IGLColor color)
 		{
 			Vector3 bottomLeft = boundingBox.BottomLeft;
 			Vector3 topLeft = boundingBox.TopLeft;

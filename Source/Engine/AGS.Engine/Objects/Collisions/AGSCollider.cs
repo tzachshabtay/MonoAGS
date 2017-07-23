@@ -10,7 +10,7 @@ namespace AGS.Engine
         private IScale _scale;
         private IPixelPerfectCollidable _pixelPerfect;
         private IEntity _entity;
-        private AGSSquare _emptyBox = default(AGSSquare);
+        private AGSBoundingBox _emptyBox = default(AGSBoundingBox);
 
 		public AGSCollider(IGameState state)
 		{
@@ -27,7 +27,7 @@ namespace AGS.Engine
             entity.Bind<IPixelPerfectComponent>(c => _pixelPerfect = c, _ => _pixelPerfect = null);
 		}
 
-		public AGSSquare BoundingBox { get; set; }
+		public AGSBoundingBox BoundingBox { get; set; }
 
 		public PointF? CenterPoint
 		{
@@ -49,7 +49,7 @@ namespace AGS.Engine
 
 		public bool CollidesWith(float x, float y)
 		{
-			AGSSquare boundingBox = BoundingBox;
+			AGSBoundingBox boundingBox = BoundingBox;
             if (boundingBox.Equals(_emptyBox)) return false;
             var pixelPerfectComponent = _pixelPerfect;
 			IArea pixelPerfect = pixelPerfectComponent == null ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
@@ -65,7 +65,7 @@ namespace AGS.Engine
 
 			if (pixelPerfect == null || !pixelPerfect.Enabled)
 			{
-				if (boundingBox.Contains(new PointF (x, y)))
+                if (boundingBox.Contains(new Vector2 (x, y)))
 					return true;
 			}
 			else

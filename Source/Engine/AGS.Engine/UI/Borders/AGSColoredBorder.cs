@@ -30,19 +30,19 @@ namespace AGS.Engine
 
 		#region IBorderStyle implementation
 
-		public void RenderBorderBack(AGSSquare square)
+		public void RenderBorderBack(AGSBoundingBox square)
 		{
 			if (DrawBorderBehind) drawBorders(square);
 		}
 
-		public void RenderBorderFront(AGSSquare square)
+		public void RenderBorderFront(AGSBoundingBox square)
 		{
 			if (!DrawBorderBehind) drawBorders(square);
 		}
 
 		#endregion
 
-		private void drawBorders(AGSSquare square)
+		private void drawBorders(AGSBoundingBox square)
 		{
 			FourCorners<IGLColor> colors = Color.Convert(c => c.ToGLColor());
 
@@ -51,31 +51,31 @@ namespace AGS.Engine
 			float farTop = square.TopLeft.Y + LineWidth;
 			float farBottom = square.BottomLeft.Y - LineWidth;
 
-			AGSSquare border = new AGSSquare (new PointF (farLeft, farBottom), new PointF (farRight, farBottom),
-				new PointF (farLeft, farTop), new PointF (farRight, farTop));
+			AGSBoundingBox border = new AGSBoundingBox (new Vector2 (farLeft, farBottom), new Vector2 (farRight, farBottom),
+				new Vector2 (farLeft, farTop), new Vector2 (farRight, farTop));
 
 			float topQuadBottomY = square.TopLeft.Y;
 			float topQuadLeftX = HasRoundCorner.TopLeft ? square.TopLeft.X : farLeft;
 			float topQuadRightX = HasRoundCorner.TopRight ? square.TopRight.X : farRight;
-			AGSSquare topQuad = new AGSSquare (new PointF (topQuadLeftX, topQuadBottomY), new PointF (topQuadRightX, topQuadBottomY),
-				new PointF (topQuadLeftX, farTop), new PointF (topQuadRightX, farTop));
+			AGSBoundingBox topQuad = new AGSBoundingBox (new Vector2 (topQuadLeftX, topQuadBottomY), new Vector2 (topQuadRightX, topQuadBottomY),
+				new Vector2 (topQuadLeftX, farTop), new Vector2 (topQuadRightX, farTop));
 
 			float bottomQuadTopY = square.BottomLeft.Y;
 			float bottomQuadLeftX = HasRoundCorner.BottomLeft ? square.BottomLeft.X : farLeft;
 			float bottomQuadRightX = HasRoundCorner.BottomRight ? square.BottomRight.X : farRight;
-			AGSSquare bottomQuad = new AGSSquare (new PointF (bottomQuadLeftX, farBottom), new PointF (bottomQuadRightX, farBottom),
-				new PointF (bottomQuadLeftX, bottomQuadTopY), new PointF (bottomQuadRightX, bottomQuadTopY));
+			AGSBoundingBox bottomQuad = new AGSBoundingBox (new Vector2 (bottomQuadLeftX, farBottom), new Vector2 (bottomQuadRightX, farBottom),
+				new Vector2 (bottomQuadLeftX, bottomQuadTopY), new Vector2 (bottomQuadRightX, bottomQuadTopY));
 
 			float horizQuadTop = square.TopLeft.Y;
 			float horizQuadBottom = square.BottomLeft.Y;
 
 			float leftQuadRightX = square.BottomLeft.X;
-			AGSSquare leftQuad = new AGSSquare (new PointF (farLeft, horizQuadBottom), new PointF (leftQuadRightX, horizQuadBottom),
-				new PointF (farLeft, horizQuadTop), new PointF (leftQuadRightX, horizQuadTop));
+			AGSBoundingBox leftQuad = new AGSBoundingBox (new Vector2 (farLeft, horizQuadBottom), new Vector2 (leftQuadRightX, horizQuadBottom),
+				new Vector2 (farLeft, horizQuadTop), new Vector2 (leftQuadRightX, horizQuadTop));
 
 			float rightQuadLeftX = square.BottomRight.X;
-			AGSSquare rightQuad = new AGSSquare (new PointF (rightQuadLeftX, horizQuadBottom), new PointF (farRight, horizQuadBottom),
-				new PointF (rightQuadLeftX, horizQuadTop), new PointF (farRight, horizQuadTop));
+			AGSBoundingBox rightQuad = new AGSBoundingBox (new Vector2 (rightQuadLeftX, horizQuadBottom), new Vector2 (farRight, horizQuadBottom),
+				new Vector2 (rightQuadLeftX, horizQuadTop), new Vector2 (farRight, horizQuadTop));
 
 			if (HasRoundCorner.TopLeft) drawRoundCorner(square.TopLeft, LineWidth, 270f, border, colors);
 			if (HasRoundCorner.TopRight) drawRoundCorner(square.TopRight, LineWidth, 0f, border, colors);
@@ -87,21 +87,21 @@ namespace AGS.Engine
 			drawQuad(rightQuad, border, colors);
 		}
 
-		private void drawQuad(AGSSquare quad, AGSSquare border, FourCorners<IGLColor> colors)
+		private void drawQuad(AGSBoundingBox quad, AGSBoundingBox border, FourCorners<IGLColor> colors)
 		{
 			GLColor bottomLeftColor = getColor(colors, border, quad.BottomLeft); 
 			GLColor bottomRightColor = getColor(colors, border, quad.BottomRight);
 			GLColor topRightColor = getColor(colors, border, quad.TopRight);
 			GLColor topLeftColor = getColor(colors, border, quad.TopLeft);
 
-            _glUtils.DrawQuad(0, quad.BottomLeft.ToVector3(), quad.BottomRight.ToVector3(),
-				quad.TopLeft.ToVector3(), quad.TopRight.ToVector3(), bottomLeftColor, bottomRightColor, topLeftColor, topRightColor);
+            _glUtils.DrawQuad(0, quad.BottomLeft, quad.BottomRight,
+				quad.TopLeft, quad.TopRight, bottomLeftColor, bottomRightColor, topLeftColor, topRightColor);
 		}
 
-		private void drawRoundCorner(PointF center, float radius, float angle, AGSSquare border, FourCorners<IGLColor> colors)
+        private void drawRoundCorner(Vector3 center, float radius, float angle, AGSBoundingBox border, FourCorners<IGLColor> colors)
 		{
 			Vector2 tex = new Vector2 ();
-			GLVertex centerVertex = new GLVertex (center.ToVector2(), tex, getColor(colors, border, center));
+            GLVertex centerVertex = new GLVertex (center.Xy, tex, getColor(colors, border, center));
 			_roundCorner[0] = centerVertex;
 			float step = (90f / (_roundCorner.Length - 2));
 			for (int i = 1; i < _roundCorner.Length; i++)
@@ -110,14 +110,14 @@ namespace AGS.Engine
 				float x = (float)Math.Sin(anglerad) * radius; 
 				float y = (float)Math.Cos(anglerad) * radius;
 				angle += step;
-				PointF point = new PointF (x + center.X, y + center.Y);
-				_roundCorner[i] = new GLVertex (point.ToVector2(), tex, getColor(colors, border, point));
+                Vector3 point = new Vector3 (x + center.X, y + center.Y, 0f);
+                _roundCorner[i] = new GLVertex (point.Xy, tex, getColor(colors, border, point));
 			}
 
             _glUtils.DrawTriangleFan(0, _roundCorner);
 		}
 
-		private GLColor getColor(FourCorners<IGLColor> colors, AGSSquare border, PointF point)
+        private GLColor getColor(FourCorners<IGLColor> colors, AGSBoundingBox border, Vector3 point)
 		{
 			return getColor(colors, MathUtils.Lerp(border.BottomLeft.X, 0f, border.BottomRight.X, 1f, point.X),
 				MathUtils.Lerp(border.BottomRight.Y, 0f, border.TopRight.Y, 1f, point.Y));

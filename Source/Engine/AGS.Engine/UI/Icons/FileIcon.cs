@@ -40,9 +40,9 @@ namespace AGS.Engine
         public float WidthTop { get { return 0f; } }
         public bool IsSelected { get { return _isSelected; } set { if (_isSelected == value) return; _isSelected = value; _frameBuffer = null; } }
 
-        public void RenderBorderFront(AGSSquare square) { }
+        public void RenderBorderFront(AGSBoundingBox square) { }
 
-        public void RenderBorderBack(AGSSquare square)
+        public void RenderBorderBack(AGSBoundingBox square)
         {
             if (_glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
 

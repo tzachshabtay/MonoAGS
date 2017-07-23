@@ -14,7 +14,7 @@ namespace AGS.Engine
 		private readonly IInput _input;
 		private readonly IGameState _state;
 		private readonly IGameEvents _gameEvents;
-        private readonly AGSSquare _emptySquare = default(AGSSquare);
+        private readonly AGSBoundingBox _emptySquare = default(AGSBoundingBox);
 		private ICollider _collider;
 		private IDrawableInfo _drawableInfo;
 		private IInObjectTree _tree;

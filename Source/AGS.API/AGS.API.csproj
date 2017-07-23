@@ -236,10 +236,12 @@
     <Compile Include="UI\Controls\Listbox\ListboxItemArgs.cs" />
     <Compile Include="Graphics\Logic\DisplayListEventArgs.cs" />
     <Compile Include="Misc\Collections\BindingList\AGSListItem.cs" />
-    <Compile Include="Misc\Geometry\AGSSquare.cs" />
     <Compile Include="Misc\Geometry\MathUtils.cs" />
     <Compile Include="ComponentsFramework\IComponentBinding.cs" />
     <Compile Include="UI\Controls\Panel\ICropChildrenComponent.cs" />
+    <Compile Include="Misc\Geometry\AGSBoundingBox.cs" />
+    <Compile Include="Misc\Geometry\FourCorners.cs" />
+    <Compile Include="UI\Controls\Panel\AGSCropInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

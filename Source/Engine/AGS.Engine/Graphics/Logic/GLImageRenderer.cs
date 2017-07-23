@@ -1,4 +1,4 @@
-using AGS.API;
+﻿using AGS.API;
 using System.Collections.Generic;
 using System;
 
@@ -8,7 +8,7 @@ namespace AGS.Engine
 	{
         private readonly Dictionary<string, ITexture> _textures;
         private static Lazy<ITexture> _emptyTexture;
-		private readonly IGLBoundingBoxBuilder _boundingBoxBuilder;
+		private readonly IBoundingBoxBuilder _boundingBoxBuilder;
 		private readonly IGLColorBuilder _colorBuilder;
 		private readonly IGLTextureRenderer _renderer;
 		private readonly IGLViewportMatrixFactory _layerViewports;
@@ -16,13 +16,13 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private readonly IBitmapLoader _bitmapLoader;
         private readonly GLMatrices _matrices = new GLMatrices();
-        private readonly AGSSquare _emptySquare = default(AGSSquare);
+        private readonly AGSBoundingBox _emptySquare = default(AGSBoundingBox);
         private readonly Func<string, ITexture> _createTextureFunc;
         private readonly IHasImage[] _colorAdjusters;
 
         public GLImageRenderer (Dictionary<string, ITexture> textures, 
-			IGLBoundingBoxBuilder boundingBoxBuilder,
-			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer, IGLBoundingBoxes bgBoxes,
+			IBoundingBoxBuilder boundingBoxBuilder,
+			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer, AGSBoundingBoxes bgBoxes,
             IGLViewportMatrixFactory layerViewports, IGraphicsFactory graphicsFactory, IGLUtils glUtils, 
             IBitmapLoader bitmapLoader)
 		{
@@ -40,7 +40,7 @@ namespace AGS.Engine
             _colorAdjusters = new IHasImage[2];
 		}
 
-		public IGLBoundingBoxes BoundingBoxes { get; set; }
+		public AGSBoundingBoxes BoundingBoxes { get; set; }
 
         public static ITexture EmptyTexture { get { return _emptyTexture.Value; } }
 
@@ -79,7 +79,7 @@ namespace AGS.Engine
             float height = sprite.Image.Height / resolutionFactor.Y;
 
             var scale = _boundingBoxBuilder.Build(BoundingBoxes, width, height, _matrices, resolutionMatches, true);
-            IGLBoundingBox hitTestBox = BoundingBoxes.HitTestBox;
+            AGSBoundingBox hitTestBox = BoundingBoxes.HitTestBox;
             
             if (!resolutionMatches)
             {
@@ -87,10 +87,11 @@ namespace AGS.Engine
                 _boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width,
                     sprite.Image.Height, _matrices, true, false);
             }
-            IGLBoundingBox renderBox = BoundingBoxes.RenderBox;
+            AGSBoundingBox renderBox = BoundingBoxes.RenderBox;
 			var crop = obj.GetComponent<ICropSelfComponent>();
-			var textureBox = renderBox.Crop(crop, resolutionFactor, scale);
-            hitTestBox.Crop(crop, AGSModelMatrixComponent.NoScaling, scale);
+			var cropInfo = renderBox.Crop(crop, resolutionFactor, scale);
+            renderBox = cropInfo.BoundingBox;
+            hitTestBox = hitTestBox.Crop(crop, AGSModelMatrixComponent.NoScaling, scale).BoundingBox;
 
 			ITexture texture = _textures.GetOrAdd (sprite.Image.ID, _createTextureFunc);
 
@@ -99,27 +100,21 @@ namespace AGS.Engine
 			IGLColor color = _colorBuilder.Build(_colorAdjusters);
 
             IBorderStyle border = obj.Border;
-            AGSSquare renderSquare = _emptySquare;
+            AGSBoundingBox borderBox = _emptySquare;
 			if (border != null)
 			{
-				renderSquare = renderBox.ToSquare();
-				border.RenderBorderBack(renderSquare);
+                if (renderBox.BottomLeft.X > renderBox.BottomRight.X) borderBox = renderBox.FlipHorizontal();
+                else borderBox = renderBox;
+
+				border.RenderBorderBack(borderBox);
 			}
-            _renderer.Render(texture.ID, renderBox, textureBox, color);
+            _renderer.Render(texture.ID, renderBox, cropInfo.TextureBox, color);
 
-            Vector3 bottomLeft = hitTestBox.BottomLeft;
-            Vector3 topLeft = hitTestBox.TopLeft;
-            Vector3 bottomRight = hitTestBox.BottomRight;
-            Vector3 topRight = hitTestBox.TopRight;
-
-            AGSSquare square = new AGSSquare (new PointF (bottomLeft.X, bottomLeft.Y),
-				new PointF (bottomRight.X, bottomRight.Y), new PointF (topLeft.X, topLeft.Y),
-				new PointF (topRight.X, topRight.Y));
-			obj.BoundingBox = square;
+			obj.BoundingBox = hitTestBox;
 
 			if (border != null)
 			{
-				border.RenderBorderFront(renderSquare);
+				border.RenderBorderFront(borderBox);
 			}
 			if (obj.DebugDrawAnchor)
 			{

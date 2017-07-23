@@ -54,7 +54,7 @@ namespace AGS.Engine
 			registerComponents();
 
 			Builder.RegisterType<AGSSprite>().As<ISprite>();
-            Builder.RegisterType<GLBoundingBoxesBuilder>().As<IGLBoundingBoxBuilder>();
+            Builder.RegisterType<AGSBoundingBoxesBuilder>().As<IBoundingBoxBuilder>();
             Builder.RegisterType<AGSPixelPerfectCollidable>().As<IPixelPerfectCollidable>();
             Builder.RegisterType<AGSTranslate>().As<ITranslate>();
             Builder.RegisterType<AGSScale>().As<IScale>();

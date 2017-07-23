@@ -49,7 +49,7 @@ namespace AGS.Engine
             return _areaComponent.IsInArea(point);
         }
 
-        public bool IsInArea(PointF point, AGSSquare projectionBox, float scaleX, float scaleY)
+        public bool IsInArea(PointF point, AGSBoundingBox projectionBox, float scaleX, float scaleY)
         {
             return _areaComponent.IsInArea(point, projectionBox, scaleX, scaleY);
         }

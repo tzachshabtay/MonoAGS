@@ -12,12 +12,12 @@ namespace AGS.Engine
         private readonly IGraphicsBackend _graphics;
 		private GLText _glTextRender, _glTextHitTest;
 
-		private readonly IGLBoundingBoxBuilder _boundingBoxBuilder;
+		private readonly IBoundingBoxBuilder _boundingBoxBuilder;
 		private readonly IGLColorBuilder _colorBuilder;
 		private readonly IGLTextureRenderer _textureRenderer;
-		private readonly IGLBoundingBoxes _labelBoundingBoxes, _textBoundingBoxes;
+		private readonly AGSBoundingBoxes _labelBoundingBoxes, _textBoundingBoxes;
 		private readonly IGLViewportMatrixFactory _viewport;
-		private IGLBoundingBoxes _usedLabelBoundingBoxes, _usedTextBoundingBoxes;
+		private AGSBoundingBoxes _usedLabelBoundingBoxes, _usedTextBoundingBoxes;
 		private readonly BitmapPool _bitmapPool;
         private readonly IFontLoader _fonts;
         private readonly Size _virtualResolution;
@@ -28,9 +28,9 @@ namespace AGS.Engine
         private float _lastWidth = 1f, _lastHeight = 1f;
 
         public GLLabelRenderer(Dictionary<string, ITexture> textures, 
-			IGLBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
+			IBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
 			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrixFactory viewportMatrix,
-            IGLBoundingBoxes labelBoundingBoxes, IGLBoundingBoxes textBoundingBoxes, IGraphicsFactory graphicsFactory,
+            AGSBoundingBoxes labelBoundingBoxes, AGSBoundingBoxes textBoundingBoxes, IGraphicsFactory graphicsFactory,
                                IGLUtils glUtils, IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IFontLoader fonts, 
                                IRuntimeSettings settings, IMessagePump messagePump)
 		{
@@ -102,8 +102,8 @@ namespace AGS.Engine
 			updateBoundingBoxes(obj, drawable, viewport);
 			_bgRenderer.BoundingBoxes = _usedLabelBoundingBoxes;
 			_bgRenderer.Prepare(obj, drawable, viewport);
-            Width = _usedLabelBoundingBoxes == null || _usedLabelBoundingBoxes.RenderBox == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Width;
-            Height = _usedLabelBoundingBoxes == null || _usedLabelBoundingBoxes.RenderBox == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Height;
+            Width = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Width;
+            Height = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Height;
 		}
 
 		public void Render(IObject obj, IViewport viewport)
@@ -128,8 +128,9 @@ namespace AGS.Engine
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
                 var cropArea = _usedTextBoundingBoxes.RenderBox.Crop(obj.GetComponent<ICropSelfComponent>(), resolutionFactor, AGSModelMatrixComponent.NoScaling);
+                _usedTextBoundingBoxes.RenderBox = cropArea.BoundingBox;
 
-                _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropArea, color);
+                _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropArea.TextureBox, color);
 			}
 		}
 
@@ -279,12 +280,12 @@ namespace AGS.Engine
 			}
 		}
 
-		private class BoundingBoxesEmptyBuilder : IGLBoundingBoxBuilder
+		private class BoundingBoxesEmptyBuilder : IBoundingBoxBuilder
 		{
             public PointF CropScale { get; set; }
 
-			#region IGLBoundingBoxBuilder implementation
-			public PointF Build(IGLBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
+			#region AGSBoundingBoxBuilder implementation
+			public PointF Build(AGSBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
 			{
                 return CropScale;
 			}

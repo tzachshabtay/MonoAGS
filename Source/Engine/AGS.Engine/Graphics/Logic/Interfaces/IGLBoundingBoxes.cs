@@ -2,10 +2,10 @@
 
 namespace AGS.Engine
 {
-	public interface IGLBoundingBoxes
+	public interface AGSBoundingBoxes
 	{
-		IGLBoundingBox RenderBox { get; }
-		IGLBoundingBox HitTestBox { get; }
+		AGSBoundingBox RenderBox { get; }
+		AGSBoundingBox HitTestBox { get; }
 	}
 }
 

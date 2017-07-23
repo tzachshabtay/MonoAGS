@@ -39,7 +39,7 @@
         /// <param name="projectionBox">Projection box.</param>
         /// <param name="scaleX">Scale x.</param>
         /// <param name="scaleY">Scale y.</param>
-		bool IsInArea(PointF point, AGSSquare projectionBox, float scaleX, float scaleY);
+        bool IsInArea(PointF point, AGSBoundingBox projectionBox, float scaleX, float scaleY);
 
         /// <summary>
         /// Finds the closest point in the area to the specified point, and also

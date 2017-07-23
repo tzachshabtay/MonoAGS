@@ -94,11 +94,11 @@ namespace Tests
 			AGSMask mask = new AGSMask(array, null);
 		
 
-			AGS.API.PointF bottomLeft = new AGS.API.PointF (projectionLeft, projectionBottom);
-			AGS.API.PointF bottomRight = new AGS.API.PointF (projectionLeft + width * Math.Abs(scaleX), projectionBottom);
-			AGS.API.PointF topLeft = new AGS.API.PointF (projectionLeft, projectionBottom + height * Math.Abs(scaleY));
-			AGS.API.PointF topRight = new AGS.API.PointF (projectionLeft + width * Math.Abs(scaleX), projectionBottom + height * Math.Abs(scaleY));
-            AGSSquare square = new AGSSquare(bottomLeft, bottomRight, topLeft, topRight);
+			Vector2 bottomLeft = new Vector2 (projectionLeft, projectionBottom);
+			Vector2 bottomRight = new Vector2 (projectionLeft + width * Math.Abs(scaleX), projectionBottom);
+			Vector2 topLeft = new Vector2 (projectionLeft, projectionBottom + height * Math.Abs(scaleY));
+			Vector2 topRight = new Vector2 (projectionLeft + width * Math.Abs(scaleX), projectionBottom + height * Math.Abs(scaleY));
+            AGSBoundingBox square = new AGSBoundingBox(bottomLeft, bottomRight, topLeft, topRight);
 			
 			return mask.IsMasked(new AGS.API.PointF (x, y), square, scaleX, scaleY);
 		}
