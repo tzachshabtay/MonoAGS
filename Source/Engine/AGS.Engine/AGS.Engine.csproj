@@ -125,7 +125,6 @@
     <Compile Include="Graphics\Logic\AGSLoadImageConfig.cs" />
     <Compile Include="Graphics\Logic\AGSRendererLoop.cs" />
     <Compile Include="Graphics\Logic\EmptyImage.cs" />
-    <Compile Include="Graphics\Logic\AGSBoundingBoxes.cs" />
     <Compile Include="Graphics\Logic\AGSBoundingBoxesBuilder.cs" />
     <Compile Include="Graphics\Logic\GLColor.cs" />
     <Compile Include="Graphics\Logic\GLGraphicsFactory.cs" />

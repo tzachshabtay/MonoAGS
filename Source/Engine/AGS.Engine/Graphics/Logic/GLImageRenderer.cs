@@ -110,7 +110,12 @@ namespace AGS.Engine
 			}
             _renderer.Render(texture.ID, renderBox, cropInfo.TextureBox, color);
 
-			obj.BoundingBox = hitTestBox;
+            if (obj.BoundingBoxes == null)
+            {
+                obj.BoundingBoxes = new AGSBoundingBoxes();
+            }
+            obj.BoundingBoxes.RenderBox = renderBox;
+            obj.BoundingBoxes.HitTestBox = hitTestBox;
 
 			if (border != null)
 			{

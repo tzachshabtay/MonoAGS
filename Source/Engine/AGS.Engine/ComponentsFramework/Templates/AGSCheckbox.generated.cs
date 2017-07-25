@@ -210,15 +210,15 @@ namespace AGS.Engine
             get { return _inObjectTree.TreeNode; } 
         }
 
-        #endregion
+		#endregion
 
-        #region ICollider implementation
+		#region ICollider implementation
 
-        public AGSBoundingBox BoundingBox 
-        {  
-            get { return _collider.BoundingBox; }  
-            set { _collider.BoundingBox = value; } 
-        }
+		public AGSBoundingBoxes BoundingBoxes
+		{
+			get { return _collider.BoundingBoxes; }
+			set { _collider.BoundingBoxes = value; }
+		}
 
         public Nullable<PointF> CenterPoint 
         {  

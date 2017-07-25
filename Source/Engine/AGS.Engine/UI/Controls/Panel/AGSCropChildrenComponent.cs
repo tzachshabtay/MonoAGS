@@ -76,21 +76,23 @@ namespace AGS.Engine
         private void crop(IObject obj)
         {
             var scale = _scale;
-            if (scale == null) return;
+            if (scale == null || obj.BoundingBoxes == null) return;
             var collider = _collider;
-            if (collider == null) return;
+            if (collider == null || collider.BoundingBoxes == null) return;
 			if (obj.Width == 0f || obj.Height == 0f) return;
-            if (obj.BoundingBox.MaxX == obj.BoundingBox.MinX && obj.BoundingBox.MaxY == obj.BoundingBox.MinY) return;
-            if (collider.BoundingBox.MaxX == collider.BoundingBox.MinX && collider.BoundingBox.MaxY == collider.BoundingBox.MinY) return;
+            var childBox = obj.BoundingBoxes.RenderBox;
+            var parentBox = collider.BoundingBoxes.RenderBox;
+            if (childBox.MaxX == childBox.MinX && childBox.MaxY == childBox.MinY) return;
+            if (parentBox.MaxX == parentBox.MinX && parentBox.MaxY == parentBox.MinY) return;
 			var cropSelf = obj.AddComponent<ICropSelfComponent>();
-            float minXParent = collider.BoundingBox.MinX;
-            float maxXParent = minXParent + _scale.Width; //collider.BoundingBox.MaxX;
-			float minYParent = collider.BoundingBox.MinY;
-            float maxYParent = minYParent + _scale.Height; //collider.BoundingBox.MaxY;
-            float minXChild = obj.BoundingBox.MinX;
-            float maxXChild = minXChild + obj.Width; //obj.BoundingBox.MaxX;
-            float minYChild = obj.BoundingBox.MinY;
-            float maxYChild = minYChild + obj.Height; //obj.BoundingBox.MaxY;
+            float minXParent = parentBox.MinX;
+            float maxXParent = parentBox.MaxX;
+			float minYParent = parentBox.MinY;
+            float maxYParent = parentBox.MaxY;
+            float minXChild = childBox.MinX;
+            float maxXChild = childBox.MaxX;
+            float minYChild = childBox.MinY;
+            float maxYChild = childBox.MaxY;
             float width = Math.Min(maxXParent, maxXChild) - Math.Max(minXParent, minXChild);
             float height = Math.Min(maxYParent, maxYChild) - Math.Max(minYParent, minYChild);
             float x = 0f;

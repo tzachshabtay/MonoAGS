@@ -10,7 +10,6 @@ namespace AGS.Engine
         private IScale _scale;
         private IPixelPerfectCollidable _pixelPerfect;
         private IEntity _entity;
-        private AGSBoundingBox _emptyBox = default(AGSBoundingBox);
 
 		public AGSCollider(IGameState state)
 		{
@@ -27,20 +26,21 @@ namespace AGS.Engine
             entity.Bind<IPixelPerfectComponent>(c => _pixelPerfect = c, _ => _pixelPerfect = null);
 		}
 
-		public AGSBoundingBox BoundingBox { get; set; }
+		public AGSBoundingBoxes BoundingBoxes { get; set; }
 
 		public PointF? CenterPoint
 		{
 			get
 			{
-                if (BoundingBox.Equals(_emptyBox)) return null;
+                if (BoundingBoxes == null) return null;
+                var boundingBox = BoundingBoxes.HitTestBox;
                 var pixelPerfectComponent = _pixelPerfect;
                 var pixelPerfect = pixelPerfectComponent == null ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
-				float minX = BoundingBox.MinX;
-				float minY = BoundingBox.MinY;
-				float offsetX = pixelPerfect == null ? (BoundingBox.MaxX - BoundingBox.MinX) / 2f :
+				float minX = boundingBox.MinX;
+				float minY = boundingBox.MinY;
+				float offsetX = pixelPerfect == null ? (boundingBox.MaxX - boundingBox.MinX) / 2f :
                     pixelPerfect.Mask.MinX + (pixelPerfect.Mask.MaxX - pixelPerfect.Mask.MinX) / 2f;
-				float offsetY = pixelPerfect == null ? (BoundingBox.MaxY - BoundingBox.MinY) / 2f :
+				float offsetY = pixelPerfect == null ? (boundingBox.MaxY - boundingBox.MinY) / 2f :
                     pixelPerfect.Mask.MinY + (pixelPerfect.Mask.MaxY - pixelPerfect.Mask.MinY) / 2f;
 
 				return new PointF (minX + offsetX, minY + offsetY);
@@ -49,8 +49,9 @@ namespace AGS.Engine
 
 		public bool CollidesWith(float x, float y)
 		{
-			AGSBoundingBox boundingBox = BoundingBox;
-            if (boundingBox.Equals(_emptyBox)) return false;
+			AGSBoundingBoxes boundingBoxes = BoundingBoxes;
+            if (boundingBoxes == null) return false;
+            AGSBoundingBox boundingBox = boundingBoxes.HitTestBox;
             var pixelPerfectComponent = _pixelPerfect;
 			IArea pixelPerfect = pixelPerfectComponent == null ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 

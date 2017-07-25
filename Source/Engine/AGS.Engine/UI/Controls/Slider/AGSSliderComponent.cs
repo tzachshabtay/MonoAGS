@@ -14,7 +14,6 @@ namespace AGS.Engine
 		private readonly IInput _input;
 		private readonly IGameState _state;
 		private readonly IGameEvents _gameEvents;
-        private readonly AGSBoundingBox _emptySquare = default(AGSBoundingBox);
 		private ICollider _collider;
 		private IDrawableInfo _drawableInfo;
 		private IInObjectTree _tree;
@@ -164,9 +163,9 @@ namespace AGS.Engine
             var visible = _visible;
             var enabled = _enabled;
             if (visible == null || !visible.Visible || enabled == null || !enabled.Enabled || 
-                collider.BoundingBox.Equals(_emptySquare) || 
+                collider.BoundingBoxes == null || 
                 (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
-                Graphics.BoundingBox.Equals(_emptySquare) || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
+                Graphics.BoundingBoxes == null || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
                 HandleGraphics == null)
 			{
 				if (_isSliding)
@@ -177,8 +176,8 @@ namespace AGS.Engine
 				return;
 			}
 			_isSliding = true;
-			if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - collider.BoundingBox.MinX, 0f, Graphics.Width)));
-			else setValue(getSliderValue(MathUtils.Clamp(_input.MouseY - collider.BoundingBox.MinY
+            if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - collider.BoundingBoxes.HitTestBox.MinX, 0f, Graphics.Width)));
+			else setValue(getSliderValue(MathUtils.Clamp(_input.MouseY - collider.BoundingBoxes.HitTestBox.MinY
 				, 0f, Graphics.Height)));
 		}
 

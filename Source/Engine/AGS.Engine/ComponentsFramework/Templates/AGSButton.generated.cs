@@ -214,10 +214,10 @@ namespace AGS.Engine
 
         #region ICollider implementation
 
-        public AGSBoundingBox BoundingBox 
+        public AGSBoundingBoxes BoundingBoxes 
         {  
-            get { return _collider.BoundingBox; }  
-            set { _collider.BoundingBox = value; } 
+            get { return _collider.BoundingBoxes; }  
+            set { _collider.BoundingBoxes = value; } 
         }
 
         public Nullable<PointF> CenterPoint 
