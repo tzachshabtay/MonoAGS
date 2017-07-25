@@ -79,25 +79,46 @@ namespace AGS.Engine
             if (scale == null || obj.BoundingBoxes == null) return;
             var collider = _collider;
             if (collider == null || collider.BoundingBoxes == null) return;
-			if (obj.Width == 0f || obj.Height == 0f) return;
-            var childBox = obj.BoundingBoxes.RenderBox;
-            var parentBox = collider.BoundingBoxes.RenderBox;
+			var childBox = obj.BoundingBoxes.RenderBox;
+			var parentBox = collider.BoundingBoxes.RenderBox;
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            if (obj.Width == 0f || obj.Height == 0f) return;
             if (childBox.MaxX == childBox.MinX && childBox.MaxY == childBox.MinY) return;
             if (parentBox.MaxX == parentBox.MinX && parentBox.MaxY == parentBox.MinY) return;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
 			var cropSelf = obj.AddComponent<ICropSelfComponent>();
-            float minXParent = parentBox.MinX;
-            float maxXParent = parentBox.MaxX;
+            crop(cropSelf, parentBox, childBox);
+
+            var labelRenderer = obj.CustomRenderer as GLLabelRenderer;
+            if (labelRenderer != null)
+            {
+                cropSelf = labelRenderer.CustomTextCrop;
+                if (cropSelf == null)
+                {
+                    cropSelf = new AGSCropSelfComponent();
+                    cropSelf.Init(obj);
+                    cropSelf.AfterInit();
+                    labelRenderer.CustomTextCrop = cropSelf;
+                }
+                crop(cropSelf, parentBox, labelRenderer.TextBoundingBoxes.RenderBox);
+            }
+        }
+
+        private void crop(ICropSelfComponent cropSelf, AGSBoundingBox parentBox, AGSBoundingBox childBox)
+        {
+			float minXParent = parentBox.MinX;
+			float maxXParent = parentBox.MaxX;
 			float minYParent = parentBox.MinY;
-            float maxYParent = parentBox.MaxY;
-            float minXChild = childBox.MinX;
-            float maxXChild = childBox.MaxX;
-            float minYChild = childBox.MinY;
-            float maxYChild = childBox.MaxY;
-            float width = Math.Min(maxXParent, maxXChild) - Math.Max(minXParent, minXChild);
-            float height = Math.Min(maxYParent, maxYChild) - Math.Max(minYParent, minYChild);
-            float x = 0f;
-            float y = 0f;
-            cropSelf.CropArea = new RectangleF(x, y, width, height);
+			float maxYParent = parentBox.MaxY;
+			float minXChild = childBox.MinX;
+			float maxXChild = childBox.MaxX;
+			float minYChild = childBox.MinY;
+			float maxYChild = childBox.MaxY;
+			float width = Math.Min(maxXParent, maxXChild) - Math.Max(minXParent, minXChild);
+			float height = Math.Min(maxYParent, maxYChild) - Math.Max(minYParent, minYChild);
+			float x = 0f;
+			float y = 0f;
+			cropSelf.CropArea = new RectangleF(x, y, width, height);
         }
     }
 }

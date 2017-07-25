@@ -93,6 +93,8 @@ namespace AGS.Engine
 
         public SizeF? CustomImageSize { get; private set; }
         public PointF? CustomImageResolutionFactor { get; private set; }
+        public ICropSelfComponent CustomTextCrop { get; set; }
+        public AGSBoundingBoxes TextBoundingBoxes { get { return _usedTextBoundingBoxes; }}
 
 		public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
 		{
@@ -127,7 +129,7 @@ namespace AGS.Engine
                 if (!string.IsNullOrEmpty(Text)) _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
-                var cropArea = _usedTextBoundingBoxes.RenderBox.Crop(obj.GetComponent<ICropSelfComponent>(), resolutionFactor, AGSModelMatrixComponent.NoScaling);
+                var cropArea = _usedTextBoundingBoxes.RenderBox.Crop(CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), resolutionFactor, AGSModelMatrixComponent.NoScaling);
                 _usedTextBoundingBoxes.RenderBox = cropArea.BoundingBox;
 
                 _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropArea.TextureBox, color);
