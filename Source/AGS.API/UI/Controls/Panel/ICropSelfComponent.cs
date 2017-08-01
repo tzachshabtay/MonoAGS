@@ -22,13 +22,20 @@
         IEvent<object> OnCropAreaChanged { get; }
 
         /// <summary>
+        /// An event which fires before cropping the area, allows to change the crop configuration.
+        /// </summary>
+        /// <value>The on before crop.</value>
+        IEvent<BeforeCropEventArgs> OnBeforeCrop { get; }
+
+        /// <summary>
         /// Calculates and crops both the texture and the bounding box (used by the engine).
         /// </summary>
         /// <returns>The texture area to render.</returns>
+        /// <param name="eventArgs">The event arguments which will be fired by the component before cropping</param>
         /// <param name="spriteWidth">Sprite width.</param>
         /// <param name="spriteHeight">Sprite height.</param>
         /// <param name="width">The bounding box width.</param>
         /// <param name="height">The bounding box height.</param>
-        FourCorners<Vector2> GetCropArea(float spriteWidth, float spriteHeight, out float width, out float height);
+        FourCorners<Vector2> GetCropArea(BeforeCropEventArgs eventArgs, float spriteWidth, float spriteHeight, out float width, out float height);
     }
 }

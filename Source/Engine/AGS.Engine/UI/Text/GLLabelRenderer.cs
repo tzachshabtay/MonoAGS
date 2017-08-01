@@ -129,10 +129,11 @@ namespace AGS.Engine
                 if (!string.IsNullOrEmpty(Text)) _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
-                var cropArea = _usedTextBoundingBoxes.RenderBox.Crop(CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), resolutionFactor, AGSModelMatrixComponent.NoScaling);
-                _usedTextBoundingBoxes.RenderBox = cropArea.BoundingBox;
+                var cropInfo = _usedTextBoundingBoxes.RenderBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), resolutionFactor, AGSModelMatrixComponent.NoScaling);
+                if (cropInfo.Equals(default(AGSCropInfo))) return;
+                _usedTextBoundingBoxes.RenderBox = cropInfo.BoundingBox;
 
-                _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropArea.TextureBox, color);
+                _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropInfo.TextureBox, color);
 			}
 		}
 

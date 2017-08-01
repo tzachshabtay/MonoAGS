@@ -115,22 +115,24 @@ namespace AGS.API
         /// <param name="crop">Crop.</param>
         /// <param name="resolutionFactor">Resolution factor.</param>
         /// <param name="adjustedScale">Adjusted scale.</param>
-        public AGSCropInfo Crop(ICropSelfComponent crop, PointF resolutionFactor, PointF adjustedScale)
+        public AGSCropInfo Crop(BoundingBoxType boundingBoxType, ICropSelfComponent crop, PointF resolutionFactor, PointF adjustedScale)
 		{
-            if (crop == null || !crop.CropEnabled) return new AGSCropInfo(this, null);
+            if (crop == null) return new AGSCropInfo(this, null);
 			float scaleX = resolutionFactor.X * adjustedScale.X;
 			float scaleY = resolutionFactor.Y * adjustedScale.Y;
             float spriteWidth = Width / scaleX;
             float spriteHeight = Height / scaleY;
             float width = spriteWidth;
             float height = spriteHeight;
-            FourCorners<Vector2> cropArea = null;
-            if (crop != null)
-            {
-                cropArea = crop.GetCropArea(spriteWidth, spriteHeight, out width, out height);
-            }
+            FourCorners<Vector2> cropArea = crop.GetCropArea(new BeforeCropEventArgs(this, boundingBoxType), spriteWidth, spriteHeight, out width, out height);
+            if (!crop.CropEnabled) return new AGSCropInfo(this, null);
+            if (width <= 0f || height <= 0f) return default(AGSCropInfo);
 			width *= scaleX;
 			height *= scaleY;
+            if (float.IsNaN(width) || float.IsNaN(height))
+            {
+                return default(AGSCropInfo);
+            }
 
 			float boxWidth = Width;
 			float boxHeight = Height;

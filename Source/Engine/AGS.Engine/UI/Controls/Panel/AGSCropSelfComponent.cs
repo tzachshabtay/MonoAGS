@@ -11,6 +11,7 @@ namespace AGS.Engine
         public AGSCropSelfComponent()
         {
             OnCropAreaChanged = new AGSEvent<object>();
+            OnBeforeCrop = new AGSEvent<BeforeCropEventArgs>();
             _cropEnabled = true;
         }
 
@@ -37,14 +38,19 @@ namespace AGS.Engine
 
         public IEvent<object> OnCropAreaChanged { get; private set; }
 
-        public FourCorners<Vector2> GetCropArea(float spriteWidth, float spriteHeight, out float width, out float height)
+        public IEvent<BeforeCropEventArgs> OnBeforeCrop { get; private set; }
+
+        public FourCorners<Vector2> GetCropArea(BeforeCropEventArgs eventArgs, float spriteWidth, float spriteHeight, out float width, out float height)
         {
             width = spriteWidth;
             height = spriteHeight;
+            OnBeforeCrop.Invoke(eventArgs);
             if (!CropEnabled) return null;
             width = Math.Min(width, CropArea.Width);
+            if (width <= 0f) return null;
             if (CropArea.X + width > spriteWidth) width = spriteWidth - CropArea.X;
             height = Math.Min(height, CropArea.Height);
+            if (height <= 0f) return null;
             if (CropArea.Y + height > spriteHeight) height = spriteHeight - CropArea.Y;
             float left = MathUtils.Lerp(0f, 0f, spriteWidth, 1f, CropArea.X);
             float right = MathUtils.Lerp(0f, 0f, spriteWidth, 1f, CropArea.X + width);

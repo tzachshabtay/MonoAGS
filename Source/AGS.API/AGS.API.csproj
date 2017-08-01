@@ -243,6 +243,8 @@
     <Compile Include="Misc\Geometry\FourCorners.cs" />
     <Compile Include="UI\Controls\Panel\AGSCropInfo.cs" />
     <Compile Include="Misc\Geometry\AGSBoundingBoxes.cs" />
+    <Compile Include="Objects\IJumpOffsetComponent.cs" />
+    <Compile Include="UI\Controls\Panel\BeforeCropEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

@@ -23,6 +23,7 @@ namespace AGS.Engine
         {
             var factory = _game.Factory;
             _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, parent.Height, parent);
+            _listPanel.Visible = false;
             _listPanel.Tint = Colors.Transparent;
             _listPanel.RenderLayer = _layer;
             _listPanel.Anchor = new PointF(0f, 1f);

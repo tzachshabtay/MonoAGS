@@ -51,7 +51,7 @@ namespace AGS.Engine
 		{
 		}
 
-		public void Render(IObject obj, IViewport viewport)
+        public void Render(IObject obj, IViewport viewport)
 		{
 			if (obj.Animation == null)
 			{
@@ -89,9 +89,10 @@ namespace AGS.Engine
             }
             AGSBoundingBox renderBox = BoundingBoxes.RenderBox;
 			var crop = obj.GetComponent<ICropSelfComponent>();
-			var cropInfo = renderBox.Crop(crop, resolutionFactor, scale);
+            var cropInfo = renderBox.Crop(BoundingBoxType.Render, crop, resolutionFactor, scale);
+            if (cropInfo.Equals(default(AGSCropInfo))) return;
             renderBox = cropInfo.BoundingBox;
-            hitTestBox = hitTestBox.Crop(crop, AGSModelMatrixComponent.NoScaling, scale).BoundingBox;
+            hitTestBox = hitTestBox.Crop(BoundingBoxType.HitTest, crop, AGSModelMatrixComponent.NoScaling, scale).BoundingBox;
 
 			ITexture texture = _textures.GetOrAdd (sprite.Image.ID, _createTextureFunc);
 

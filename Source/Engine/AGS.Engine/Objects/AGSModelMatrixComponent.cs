@@ -20,6 +20,7 @@ namespace AGS.Engine
         private IObject _parent;
         private ISprite _sprite;
         private ICropSelfComponent _crop;
+        private IJumpOffsetComponent _jump;
 
         private readonly Size _virtualResolution;
         private PointF _areaScaling;
@@ -58,6 +59,10 @@ namespace AGS.Engine
             _entity.Bind<ITranslateComponent>(
                 c => { _translate = c; c.OnLocationChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
                 c => { c.OnLocationChanged.Unsubscribe(onSomethingChanged); _translate = null; onSomethingChanged(null);}
+            );
+            _entity.Bind<IJumpOffsetComponent>(
+                c => { _jump = c; c.OnJumpOffsetChanged.Subscribe(onSomethingChanged); onSomethingChanged(null);},
+                c => { c.OnJumpOffsetChanged.Unsubscribe(onSomethingChanged); _jump = null; onSomethingChanged(null);}
             );
             _entity.Bind<IRotateComponent>(
                 c => { _rotate = c; c.OnAngleChanged.Subscribe(onSomethingChanged); onSomethingChanged(null);},
@@ -257,10 +262,10 @@ namespace AGS.Engine
         private Matrix4 getMatrix(PointF resolutionFactor) 
         {
             var sprite = _animation.Animation.Sprite;
-            Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, 
+            Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, null,
                                                   NoScaling, NoScaling, true);
-            Matrix4 objMatrix = getModelMatrix(_scale, _rotate, _translate,
-                                               _image, _areaScaling, resolutionFactor, true);
+            Matrix4 objMatrix = getModelMatrix(_scale, _rotate, _translate, _image,
+                                               _jump, _areaScaling, resolutionFactor, true);
 
             var modelMatrix = spriteMatrix * objMatrix;
             var parent = _tree == null ? null : _tree.TreeNode.Parent;
@@ -268,7 +273,7 @@ namespace AGS.Engine
             {
                 //var parentMatrices = parent.GetModelMatrices();
                 //Matrix4 parentMatrix = resolutionFactor.Equals(GLMatrixBuilder.NoScaling) ? parentMatrices.InVirtualResolutionMatrix : parentMatrices.InObjResolutionMatrix;
-                Matrix4 parentMatrix = getModelMatrix(parent, parent, parent, parent, 
+                Matrix4 parentMatrix = getModelMatrix(parent, parent, parent, parent, parent.GetComponent<IJumpOffsetComponent>(),
                     NoScaling, resolutionFactor, false);
                 modelMatrix = modelMatrix * parentMatrix;
                 parent = parent.TreeNode.Parent;
@@ -277,7 +282,7 @@ namespace AGS.Engine
         }
 
         private Matrix4 getModelMatrix(IScale scale, IRotate rotate, ITranslate translate, IHasImage image,
-                                       PointF areaScaling, PointF resolutionTransform, bool useCustomImageSize)
+                                       IJumpOffsetComponent jump, PointF areaScaling, PointF resolutionTransform, bool useCustomImageSize)
         {
             if (scale == null) return Matrix4.Identity;
             float? customWidth = _customImageSize == null || !useCustomImageSize ? 
@@ -288,12 +293,17 @@ namespace AGS.Engine
             float height = (customHeight ?? scale.Height) * resolutionTransform.Y;
             PointF anchorOffsets = getAnchorOffsets(image == null ? PointF.Empty : image.Anchor, 
                                                     width, height);
-            Matrix4 anchor = Matrix4.CreateTranslation(new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
+			Matrix4 anchor = Matrix4.CreateTranslation(new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
             Matrix4 scaleMat = Matrix4.CreateScale(new Vector3(scale.ScaleX * areaScaling.X,
                 scale.ScaleY * areaScaling.Y, 1f));
             Matrix4 rotation = Matrix4.CreateRotationZ(rotate == null ? 0f : rotate.Angle);            
             float x = translate == null ? 0f : translate.X * resolutionTransform.X;
             float y = translate == null ? 0f : translate.Y * resolutionTransform.Y;
+            if (jump != null)
+            {
+                x += jump.JumpOffset.X * resolutionTransform.X;
+                y += jump.JumpOffset.Y * resolutionTransform.Y;
+            }
             Matrix4 transform = Matrix4.CreateTranslation(new Vector3(x, y, 0f));
             return anchor * scaleMat * rotation * transform;
         }
