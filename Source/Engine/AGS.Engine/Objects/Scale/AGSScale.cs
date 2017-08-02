@@ -45,29 +45,43 @@ namespace AGS.Engine
 
         public void ResetBaseSize(float initialWidth, float initialHeight)
         {
-            Width = initialWidth * ScaleX;
-            Height = initialHeight * ScaleY;
+            float width = initialWidth * ScaleX;
+            float height = initialHeight * ScaleY;
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            if (width == Width && height == Height) return;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            Width = width;
+            Height = height;
             BaseSize = new SizeF(initialWidth, initialHeight);
             fireScaleChange();
         }
 
         public void ResetScale()
         {
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            if (Width == BaseSize.Width && Height == BaseSize.Height && ScaleX == 1f && ScaleY == 1f) return;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
             Width = BaseSize.Width;
             Height = BaseSize.Height;
-            ScaleX = 1;
-            ScaleY = 1;
+            ScaleX = 1f;
+            ScaleY = 1f;
             fireScaleChange();
         }
 
         public void ResetScale(float initialWidth, float initialHeight)
         {
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            if (BaseSize.Width == initialWidth && BaseSize.Height == initialHeight && ScaleX == 1f && ScaleY == 1f) return;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
             BaseSize = new SizeF(initialWidth, initialHeight);
             ResetScale();
         }
 
         public void ScaleBy(float scaleX, float scaleY)
         {
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            if (ScaleX == scaleX && ScaleY == scaleY) return;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
             validateScaleInitialized();
             ScaleX = scaleX;
             ScaleY = scaleY;
@@ -78,6 +92,9 @@ namespace AGS.Engine
 
         public void ScaleTo(float width, float height)
         {
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            if (Width == width && Height == height) return;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
             validateScaleInitialized();
             Width = width;
             Height = height;
