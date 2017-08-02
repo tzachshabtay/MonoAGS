@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace AGS.API
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.20.0.0">
+    <meta name="generator" content="docfx 2.22.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -84,6 +84,8 @@
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">Classes
   </h3>
+      <h4><a class="xref" href="AGS.API.AGSBoundingBoxes.html">AGSBoundingBoxes</a></h4>
+      <section></section>
       <h4><a class="xref" href="AGS.API.AGSHashSetChangedEventArgs-1.html">AGSHashSetChangedEventArgs&lt;TItem&gt;</a></h4>
       <section><p>Event arguments for a hash set change event.</p>
 </section>
@@ -110,6 +112,9 @@ border, background color (tint) or text rendering configuration (font, shadows, 
 </section>
       <h4><a class="xref" href="AGS.API.DisplayListEventArgs.html">DisplayListEventArgs</a></h4>
       <section></section>
+      <h4><a class="xref" href="AGS.API.FourCorners-1.html">FourCorners&lt;TValue&gt;</a></h4>
+      <section><p>Represents four values of &quot;something&quot; that matches four corners of a bounding box (for example, four colors for a gradient border).</p>
+</section>
       <h4><a class="xref" href="AGS.API.InventoryCombinationEventArgs.html">InventoryCombinationEventArgs</a></h4>
       <section><p>The event arguments for the inventory combination events.
 The arguments carry with the two combined items.</p>
@@ -156,16 +161,17 @@ attribute with the animation component.</p>
 </section>
     <h3 id="structs">Structs
   </h3>
+      <h4><a class="xref" href="AGS.API.AGSBoundingBox.html">AGSBoundingBox</a></h4>
+      <section><p>A bounding box (a square that bounds something)- used for rendering and hit-tests.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.AGSCropInfo.html">AGSCropInfo</a></h4>
+      <section><p>Information about how to crop entities.</p>
+</section>
       <h4><a class="xref" href="AGS.API.AGSListItem-1.html">AGSListItem&lt;TItem&gt;</a></h4>
       <section><p>Represents an item in a list</p>
 </section>
-      <h4><a class="xref" href="AGS.API.AGSSquare.html">AGSSquare</a></h4>
-      <section><p>Represents a square.</p>
-<p>Note: the points are listed as bottom left, bottom right, etc, even though it&apos;s not accurate.
-A square doesn&apos;t really have bottom left, it just has 4 points. 
-We use these descriptors for convenience, since each square in our engine was converted from
-a rectangle which does have bottom left, etc.
-Also, the order of the points is important for the &quot;Contains&quot; calculation.</p>
+      <h4><a class="xref" href="AGS.API.BeforeCropEventArgs.html">BeforeCropEventArgs</a></h4>
+      <section><p>Event arguments for the &quot;before crop&quot; event.</p>
 </section>
       <h4><a class="xref" href="AGS.API.Color.html">Color</a></h4>
       <section><p>Represents a color.</p>
@@ -337,11 +343,19 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
       <h4><a class="xref" href="AGS.API.IComponent.html">IComponent</a></h4>
       <section><p>A component can be added to an entity (object/character/button/etc), and add additional behavior to it.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.IComponentBinding.html">IComponentBinding</a></h4>
+      <section><p>Represents binding of actions to be performed when a component is added/removed.</p>
+</section>
       <h4><a class="xref" href="AGS.API.IComponentsCollection.html">IComponentsCollection</a></h4>
       <section><p>A collection of componenets: allows you to add, remove, get and iterate components.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IConcurrentHashSet-1.html">IConcurrentHashSet&lt;TItem&gt;</a></h4>
       <section><p>A hashed set which can be write/read concurrently.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ICropChildrenComponent.html">ICropChildrenComponent</a></h4>
+      <section><p>This component allows cropping all children to the parent&apos;s size.
+For example, you can have an object to represent a TV, then crop all of its children entities,
+so the entities will not get out of the boundaries of the TV (giving the appearance that it&apos;s really a TV).</p>
 </section>
       <h4><a class="xref" href="AGS.API.ICropSelfComponent.html">ICropSelfComponent</a></h4>
       <section><p>Adds the ability to crop the shown image (only show part of the image).</p>
@@ -540,6 +554,13 @@ for displaying inventory items in a window.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IInventoryWindowComponent.html">IInventoryWindowComponent</a></h4>
       <section><p>An inventory window allows displaying inventory items in a window.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IJumpOffsetComponent.html">IJumpOffsetComponent</a></h4>
+      <section><p>Jump offset allows changing the position of the entity without affecting its X,Y and Z co-ordinates.
+This means that it won&apos;t affect the rendering order, collision tests, etc.
+This can be used for having a character jump in the air, for example, without causing it to appear 
+behind objects which shouldn&apos;t be in front.
+This is also used by the engine for scrolling contents inside a scrolling panel.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ILabel.html">ILabel</a></h4>
       <section><p>A pre-set entity with all of the UI control components, plus a text component for displaying text.</p>
@@ -888,6 +909,9 @@ away from the camera.</p>
       <section></section>
       <h4><a class="xref" href="AGS.API.AutoFit.html">AutoFit</a></h4>
       <section><p>Allows for a label and its text to fit together in various way.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.BoundingBoxType.html">BoundingBoxType</a></h4>
+      <section><p>Bounding box type.</p>
 </section>
       <h4><a class="xref" href="AGS.API.BrushType.html">BrushType</a></h4>
       <section></section>

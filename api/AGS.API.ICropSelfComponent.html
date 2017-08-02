@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface ICropSelfComponent
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.20.0.0">
+    <meta name="generator" content="docfx 2.22.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -114,11 +114,11 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_ICropSelfComponent_CropArea.md&amp;value=---%0Auid%3A%20AGS.API.ICropSelfComponent.CropArea%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/UI/Controls/Panel/ICropSelfComponent.cs/#L11">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/UI/Controls/Panel/ICropSelfComponent.cs/#L17">View Source</a>
   </span>
   <a id="AGS_API_ICropSelfComponent_CropArea_" data-uid="AGS.API.ICropSelfComponent.CropArea*"></a>
   <h4 id="AGS_API_ICropSelfComponent_CropArea" data-uid="AGS.API.ICropSelfComponent.CropArea">CropArea</h4>
-  <div class="markdown level1 summary"><p>The visible area (everything else will be cropped).</p>
+  <div class="markdown level1 summary"><p>The visible area (everything else will be cropped), where (0,0) is the top left corner.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -142,10 +142,74 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_ICropSelfComponent_CropEnabled.md&amp;value=---%0Auid%3A%20AGS.API.ICropSelfComponent.CropEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/UI/Controls/Panel/ICropSelfComponent.cs/#L12">View Source</a>
+  </span>
+  <a id="AGS_API_ICropSelfComponent_CropEnabled_" data-uid="AGS.API.ICropSelfComponent.CropEnabled*"></a>
+  <h4 id="AGS_API_ICropSelfComponent_CropEnabled" data-uid="AGS.API.ICropSelfComponent.CropEnabled">CropEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.ICropSelfComponent.html">ICropSelfComponent</a> crop is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool CropEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if crop enabled; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_ICropSelfComponent_OnBeforeCrop.md&amp;value=---%0Auid%3A%20AGS.API.ICropSelfComponent.OnBeforeCrop%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/UI/Controls/Panel/ICropSelfComponent.cs/#L28">View Source</a>
+  </span>
+  <a id="AGS_API_ICropSelfComponent_OnBeforeCrop_" data-uid="AGS.API.ICropSelfComponent.OnBeforeCrop*"></a>
+  <h4 id="AGS_API_ICropSelfComponent_OnBeforeCrop" data-uid="AGS.API.ICropSelfComponent.OnBeforeCrop">OnBeforeCrop</h4>
+  <div class="markdown level1 summary"><p>An event which fires before cropping the area, allows to change the crop configuration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEvent&lt;BeforeCropEventArgs&gt; OnBeforeCrop { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.BeforeCropEventArgs.html">BeforeCropEventArgs</a>&gt;</td>
+        <td><p>The on before crop.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_ICropSelfComponent_OnCropAreaChanged.md&amp;value=---%0Auid%3A%20AGS.API.ICropSelfComponent.OnCropAreaChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/UI/Controls/Panel/ICropSelfComponent.cs/#L16">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/UI/Controls/Panel/ICropSelfComponent.cs/#L22">View Source</a>
   </span>
   <a id="AGS_API_ICropSelfComponent_OnCropAreaChanged_" data-uid="AGS.API.ICropSelfComponent.OnCropAreaChanged*"></a>
   <h4 id="AGS_API_ICropSelfComponent_OnCropAreaChanged" data-uid="AGS.API.ICropSelfComponent.OnCropAreaChanged">OnCropAreaChanged</h4>
@@ -168,6 +232,82 @@
       <tr>
         <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<span class="xref">System.Object</span>&gt;</td>
         <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_ICropSelfComponent_GetCropArea_AGS_API_BeforeCropEventArgs_System_Single_System_Single_System_Single__System_Single__.md&amp;value=---%0Auid%3A%20AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs%2CSystem.Single%2CSystem.Single%2CSystem.Single%40%2CSystem.Single%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/UI/Controls/Panel/ICropSelfComponent.cs/#L39">View Source</a>
+  </span>
+  <a id="AGS_API_ICropSelfComponent_GetCropArea_" data-uid="AGS.API.ICropSelfComponent.GetCropArea*"></a>
+  <h4 id="AGS_API_ICropSelfComponent_GetCropArea_AGS_API_BeforeCropEventArgs_System_Single_System_Single_System_Single__System_Single__" data-uid="AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs,System.Single,System.Single,System.Single@,System.Single@)">GetCropArea(BeforeCropEventArgs, Single, Single, out Single, out Single)</h4>
+  <div class="markdown level1 summary"><p>Calculates and crops both the texture and the bounding box (used by the engine).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">FourCorners&lt;Vector2&gt; GetCropArea(BeforeCropEventArgs eventArgs, float spriteWidth, float spriteHeight, out float width, out float height)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.BeforeCropEventArgs.html">BeforeCropEventArgs</a></td>
+        <td><span class="parametername">eventArgs</span></td>
+        <td><p>The event arguments which will be fired by the component before cropping</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">spriteWidth</span></td>
+        <td><p>Sprite width.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">spriteHeight</span></td>
+        <td><p>Sprite height.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td><p>The bounding box width.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td><p>The bounding box height.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.FourCorners-1.html">FourCorners</a>&lt;<a class="xref" href="AGS.API.Vector2.html">Vector2</a>&gt;</td>
+        <td><p>The texture area to render.</p>
+</td>
       </tr>
     </tbody>
   </table>

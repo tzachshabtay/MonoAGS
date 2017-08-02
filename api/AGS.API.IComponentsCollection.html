@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IComponentsCollection
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.20.0.0">
+    <meta name="generator" content="docfx 2.22.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -105,7 +105,7 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IComponentsCollection_Count.md&amp;value=---%0Auid%3A%20AGS.API.IComponentsCollection.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/ComponentsFramework/IComponentsCollection.cs/#L108">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/ComponentsFramework/IComponentsCollection.cs/#L117">View Source</a>
   </span>
   <a id="AGS_API_IComponentsCollection_Count_" data-uid="AGS.API.IComponentsCollection.Count*"></a>
   <h4 id="AGS_API_IComponentsCollection_Count" data-uid="AGS.API.IComponentsCollection.Count">Count</h4>
@@ -134,10 +134,42 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IComponentsCollection_OnComponentsChanged.md&amp;value=---%0Auid%3A%20AGS.API.IComponentsCollection.OnComponentsChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/ComponentsFramework/IComponentsCollection.cs/#L143">View Source</a>
+  </span>
+  <a id="AGS_API_IComponentsCollection_OnComponentsChanged_" data-uid="AGS.API.IComponentsCollection.OnComponentsChanged*"></a>
+  <h4 id="AGS_API_IComponentsCollection_OnComponentsChanged" data-uid="AGS.API.IComponentsCollection.OnComponentsChanged">OnComponentsChanged</h4>
+  <div class="markdown level1 summary"><p>An event which is triggered whenever a component is added/removed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEvent&lt;AGSListChangedEventArgs&lt;IComponent&gt;&gt; OnComponentsChanged { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.AGSListChangedEventArgs-1.html">AGSListChangedEventArgs</a>&lt;<a class="xref" href="AGS.API.IComponent.html">IComponent</a>&gt;&gt;</td>
+        <td><p>The event.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IComponentsCollection_OnComponentsInitialized.md&amp;value=---%0Auid%3A%20AGS.API.IComponentsCollection.OnComponentsInitialized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/ComponentsFramework/IComponentsCollection.cs/#L128">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/ComponentsFramework/IComponentsCollection.cs/#L137">View Source</a>
   </span>
   <a id="AGS_API_IComponentsCollection_OnComponentsInitialized_" data-uid="AGS.API.IComponentsCollection.OnComponentsInitialized*"></a>
   <h4 id="AGS_API_IComponentsCollection_OnComponentsInitialized" data-uid="AGS.API.IComponentsCollection.OnComponentsInitialized">OnComponentsInitialized</h4>
@@ -332,10 +364,82 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IComponentsCollection_Bind__1_System_Action___0__System_Action___0__.md&amp;value=---%0Auid%3A%20AGS.API.IComponentsCollection.Bind%60%601(System.Action%7B%60%600%7D%2CSystem.Action%7B%60%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/ComponentsFramework/IComponentsCollection.cs/#L111">View Source</a>
+  </span>
+  <a id="AGS_API_IComponentsCollection_Bind_" data-uid="AGS.API.IComponentsCollection.Bind*"></a>
+  <h4 id="AGS_API_IComponentsCollection_Bind__1_System_Action___0__System_Action___0__" data-uid="AGS.API.IComponentsCollection.Bind``1(System.Action{``0},System.Action{``0})">Bind&lt;TComponent&gt;(Action&lt;TComponent&gt;, Action&lt;TComponent&gt;)</h4>
+  <div class="markdown level1 summary"><p>Bind actions to when a component is added/removed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IComponentBinding Bind&lt;TComponent&gt;(Action&lt;TComponent&gt; onAdded, Action&lt;TComponent&gt; onRemoved)where TComponent : IComponent</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;TComponent&gt;</td>
+        <td><span class="parametername">onAdded</span></td>
+        <td><p>Callback to be called when component is added.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;TComponent&gt;</td>
+        <td><span class="parametername">onRemoved</span></td>
+        <td><p>Callback to be called when component is removed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IComponentBinding.html">IComponentBinding</a></td>
+        <td><p>The binding.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TComponent</span></td>
+        <td><p>The 1st type parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IComponentsCollection_CountType_System_Type_.md&amp;value=---%0Auid%3A%20AGS.API.IComponentsCollection.CountType(System.Type)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/ComponentsFramework/IComponentsCollection.cs/#L115">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/ComponentsFramework/IComponentsCollection.cs/#L124">View Source</a>
   </span>
   <a id="AGS_API_IComponentsCollection_CountType_" data-uid="AGS.API.IComponentsCollection.CountType*"></a>
   <h4 id="AGS_API_IComponentsCollection_CountType_System_Type_" data-uid="AGS.API.IComponentsCollection.CountType(System.Type)">CountType(Type)</h4>
@@ -385,7 +489,7 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IComponentsCollection_CountType__1.md&amp;value=---%0Auid%3A%20AGS.API.IComponentsCollection.CountType%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/ComponentsFramework/IComponentsCollection.cs/#L122">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/ComponentsFramework/IComponentsCollection.cs/#L131">View Source</a>
   </span>
   <a id="AGS_API_IComponentsCollection_CountType_" data-uid="AGS.API.IComponentsCollection.CountType*"></a>
   <h4 id="AGS_API_IComponentsCollection_CountType__1" data-uid="AGS.API.IComponentsCollection.CountType``1">CountType&lt;TComponent&gt;()</h4>
@@ -423,7 +527,8 @@
     <tbody>
       <tr>
         <td><span class="parametername">TComponent</span></td>
-        <td></td>
+        <td><p>Component type.</p>
+</td>
       </tr>
     </tbody>
   </table>

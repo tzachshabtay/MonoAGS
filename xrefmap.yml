@@ -7,6 +7,303 @@ references:
   commentId: N:AGS.API
   fullName: AGS.API
   nameWithType: AGS.API
+- uid: AGS.API.AGSBoundingBox
+  name: AGSBoundingBox
+  href: api/AGS.API.AGSBoundingBox.html
+  commentId: T:AGS.API.AGSBoundingBox
+  fullName: AGS.API.AGSBoundingBox
+  nameWithType: AGSBoundingBox
+- uid: AGS.API.AGSBoundingBox.#ctor(AGS.API.Vector2,AGS.API.Vector2,AGS.API.Vector2,AGS.API.Vector2)
+  name: AGSBoundingBox(Vector2, Vector2, Vector2, Vector2)
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox__ctor_AGS_API_Vector2_AGS_API_Vector2_AGS_API_Vector2_AGS_API_Vector2_
+  commentId: M:AGS.API.AGSBoundingBox.#ctor(AGS.API.Vector2,AGS.API.Vector2,AGS.API.Vector2,AGS.API.Vector2)
+  fullName: AGS.API.AGSBoundingBox.AGSBoundingBox(AGS.API.Vector2, AGS.API.Vector2, AGS.API.Vector2, AGS.API.Vector2)
+  nameWithType: AGSBoundingBox.AGSBoundingBox(Vector2, Vector2, Vector2, Vector2)
+- uid: AGS.API.AGSBoundingBox.#ctor(AGS.API.Vector3,AGS.API.Vector3,AGS.API.Vector3,AGS.API.Vector3)
+  name: AGSBoundingBox(Vector3, Vector3, Vector3, Vector3)
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox__ctor_AGS_API_Vector3_AGS_API_Vector3_AGS_API_Vector3_AGS_API_Vector3_
+  commentId: M:AGS.API.AGSBoundingBox.#ctor(AGS.API.Vector3,AGS.API.Vector3,AGS.API.Vector3,AGS.API.Vector3)
+  fullName: AGS.API.AGSBoundingBox.AGSBoundingBox(AGS.API.Vector3, AGS.API.Vector3, AGS.API.Vector3, AGS.API.Vector3)
+  nameWithType: AGSBoundingBox.AGSBoundingBox(Vector3, Vector3, Vector3, Vector3)
+- uid: AGS.API.AGSBoundingBox.#ctor*
+  name: AGSBoundingBox
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox__ctor_
+  commentId: Overload:AGS.API.AGSBoundingBox.#ctor
+  fullName: AGS.API.AGSBoundingBox.AGSBoundingBox
+  nameWithType: AGSBoundingBox.AGSBoundingBox
+- uid: AGS.API.AGSBoundingBox.BottomLeft
+  name: BottomLeft
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_BottomLeft
+  commentId: P:AGS.API.AGSBoundingBox.BottomLeft
+  fullName: AGS.API.AGSBoundingBox.BottomLeft
+  nameWithType: AGSBoundingBox.BottomLeft
+- uid: AGS.API.AGSBoundingBox.BottomLeft*
+  name: BottomLeft
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_BottomLeft_
+  commentId: Overload:AGS.API.AGSBoundingBox.BottomLeft
+  fullName: AGS.API.AGSBoundingBox.BottomLeft
+  nameWithType: AGSBoundingBox.BottomLeft
+- uid: AGS.API.AGSBoundingBox.BottomRight
+  name: BottomRight
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_BottomRight
+  commentId: P:AGS.API.AGSBoundingBox.BottomRight
+  fullName: AGS.API.AGSBoundingBox.BottomRight
+  nameWithType: AGSBoundingBox.BottomRight
+- uid: AGS.API.AGSBoundingBox.BottomRight*
+  name: BottomRight
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_BottomRight_
+  commentId: Overload:AGS.API.AGSBoundingBox.BottomRight
+  fullName: AGS.API.AGSBoundingBox.BottomRight
+  nameWithType: AGSBoundingBox.BottomRight
+- uid: AGS.API.AGSBoundingBox.Contains(AGS.API.Vector2)
+  name: Contains(Vector2)
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Contains_AGS_API_Vector2_
+  commentId: M:AGS.API.AGSBoundingBox.Contains(AGS.API.Vector2)
+  fullName: AGS.API.AGSBoundingBox.Contains(AGS.API.Vector2)
+  nameWithType: AGSBoundingBox.Contains(Vector2)
+- uid: AGS.API.AGSBoundingBox.Contains*
+  name: Contains
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Contains_
+  commentId: Overload:AGS.API.AGSBoundingBox.Contains
+  fullName: AGS.API.AGSBoundingBox.Contains
+  nameWithType: AGSBoundingBox.Contains
+- uid: AGS.API.AGSBoundingBox.Crop(AGS.API.BoundingBoxType,AGS.API.ICropSelfComponent,AGS.API.PointF,AGS.API.PointF)
+  name: Crop(BoundingBoxType, ICropSelfComponent, PointF, PointF)
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Crop_AGS_API_BoundingBoxType_AGS_API_ICropSelfComponent_AGS_API_PointF_AGS_API_PointF_
+  commentId: M:AGS.API.AGSBoundingBox.Crop(AGS.API.BoundingBoxType,AGS.API.ICropSelfComponent,AGS.API.PointF,AGS.API.PointF)
+  fullName: AGS.API.AGSBoundingBox.Crop(AGS.API.BoundingBoxType, AGS.API.ICropSelfComponent, AGS.API.PointF, AGS.API.PointF)
+  nameWithType: AGSBoundingBox.Crop(BoundingBoxType, ICropSelfComponent, PointF, PointF)
+- uid: AGS.API.AGSBoundingBox.Crop*
+  name: Crop
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Crop_
+  commentId: Overload:AGS.API.AGSBoundingBox.Crop
+  fullName: AGS.API.AGSBoundingBox.Crop
+  nameWithType: AGSBoundingBox.Crop
+- uid: AGS.API.AGSBoundingBox.Equals(AGS.API.AGSBoundingBox)
+  name: Equals(AGSBoundingBox)
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Equals_AGS_API_AGSBoundingBox_
+  commentId: M:AGS.API.AGSBoundingBox.Equals(AGS.API.AGSBoundingBox)
+  fullName: AGS.API.AGSBoundingBox.Equals(AGS.API.AGSBoundingBox)
+  nameWithType: AGSBoundingBox.Equals(AGSBoundingBox)
+- uid: AGS.API.AGSBoundingBox.Equals(System.Object)
+  name: Equals(Object)
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Equals_System_Object_
+  commentId: M:AGS.API.AGSBoundingBox.Equals(System.Object)
+  fullName: AGS.API.AGSBoundingBox.Equals(System.Object)
+  nameWithType: AGSBoundingBox.Equals(Object)
+- uid: AGS.API.AGSBoundingBox.Equals*
+  name: Equals
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Equals_
+  commentId: Overload:AGS.API.AGSBoundingBox.Equals
+  fullName: AGS.API.AGSBoundingBox.Equals
+  nameWithType: AGSBoundingBox.Equals
+- uid: AGS.API.AGSBoundingBox.FlipHorizontal
+  name: FlipHorizontal()
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_FlipHorizontal
+  commentId: M:AGS.API.AGSBoundingBox.FlipHorizontal
+  fullName: AGS.API.AGSBoundingBox.FlipHorizontal()
+  nameWithType: AGSBoundingBox.FlipHorizontal()
+- uid: AGS.API.AGSBoundingBox.FlipHorizontal*
+  name: FlipHorizontal
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_FlipHorizontal_
+  commentId: Overload:AGS.API.AGSBoundingBox.FlipHorizontal
+  fullName: AGS.API.AGSBoundingBox.FlipHorizontal
+  nameWithType: AGSBoundingBox.FlipHorizontal
+- uid: AGS.API.AGSBoundingBox.GetHashCode
+  name: GetHashCode()
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_GetHashCode
+  commentId: M:AGS.API.AGSBoundingBox.GetHashCode
+  fullName: AGS.API.AGSBoundingBox.GetHashCode()
+  nameWithType: AGSBoundingBox.GetHashCode()
+- uid: AGS.API.AGSBoundingBox.GetHashCode*
+  name: GetHashCode
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_GetHashCode_
+  commentId: Overload:AGS.API.AGSBoundingBox.GetHashCode
+  fullName: AGS.API.AGSBoundingBox.GetHashCode
+  nameWithType: AGSBoundingBox.GetHashCode
+- uid: AGS.API.AGSBoundingBox.Height
+  name: Height
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Height
+  commentId: P:AGS.API.AGSBoundingBox.Height
+  fullName: AGS.API.AGSBoundingBox.Height
+  nameWithType: AGSBoundingBox.Height
+- uid: AGS.API.AGSBoundingBox.Height*
+  name: Height
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Height_
+  commentId: Overload:AGS.API.AGSBoundingBox.Height
+  fullName: AGS.API.AGSBoundingBox.Height
+  nameWithType: AGSBoundingBox.Height
+- uid: AGS.API.AGSBoundingBox.MaxX
+  name: MaxX
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_MaxX
+  commentId: P:AGS.API.AGSBoundingBox.MaxX
+  fullName: AGS.API.AGSBoundingBox.MaxX
+  nameWithType: AGSBoundingBox.MaxX
+- uid: AGS.API.AGSBoundingBox.MaxX*
+  name: MaxX
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_MaxX_
+  commentId: Overload:AGS.API.AGSBoundingBox.MaxX
+  fullName: AGS.API.AGSBoundingBox.MaxX
+  nameWithType: AGSBoundingBox.MaxX
+- uid: AGS.API.AGSBoundingBox.MaxY
+  name: MaxY
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_MaxY
+  commentId: P:AGS.API.AGSBoundingBox.MaxY
+  fullName: AGS.API.AGSBoundingBox.MaxY
+  nameWithType: AGSBoundingBox.MaxY
+- uid: AGS.API.AGSBoundingBox.MaxY*
+  name: MaxY
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_MaxY_
+  commentId: Overload:AGS.API.AGSBoundingBox.MaxY
+  fullName: AGS.API.AGSBoundingBox.MaxY
+  nameWithType: AGSBoundingBox.MaxY
+- uid: AGS.API.AGSBoundingBox.MinX
+  name: MinX
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_MinX
+  commentId: P:AGS.API.AGSBoundingBox.MinX
+  fullName: AGS.API.AGSBoundingBox.MinX
+  nameWithType: AGSBoundingBox.MinX
+- uid: AGS.API.AGSBoundingBox.MinX*
+  name: MinX
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_MinX_
+  commentId: Overload:AGS.API.AGSBoundingBox.MinX
+  fullName: AGS.API.AGSBoundingBox.MinX
+  nameWithType: AGSBoundingBox.MinX
+- uid: AGS.API.AGSBoundingBox.MinY
+  name: MinY
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_MinY
+  commentId: P:AGS.API.AGSBoundingBox.MinY
+  fullName: AGS.API.AGSBoundingBox.MinY
+  nameWithType: AGSBoundingBox.MinY
+- uid: AGS.API.AGSBoundingBox.MinY*
+  name: MinY
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_MinY_
+  commentId: Overload:AGS.API.AGSBoundingBox.MinY
+  fullName: AGS.API.AGSBoundingBox.MinY
+  nameWithType: AGSBoundingBox.MinY
+- uid: AGS.API.AGSBoundingBox.TopLeft
+  name: TopLeft
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_TopLeft
+  commentId: P:AGS.API.AGSBoundingBox.TopLeft
+  fullName: AGS.API.AGSBoundingBox.TopLeft
+  nameWithType: AGSBoundingBox.TopLeft
+- uid: AGS.API.AGSBoundingBox.TopLeft*
+  name: TopLeft
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_TopLeft_
+  commentId: Overload:AGS.API.AGSBoundingBox.TopLeft
+  fullName: AGS.API.AGSBoundingBox.TopLeft
+  nameWithType: AGSBoundingBox.TopLeft
+- uid: AGS.API.AGSBoundingBox.TopRight
+  name: TopRight
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_TopRight
+  commentId: P:AGS.API.AGSBoundingBox.TopRight
+  fullName: AGS.API.AGSBoundingBox.TopRight
+  nameWithType: AGSBoundingBox.TopRight
+- uid: AGS.API.AGSBoundingBox.TopRight*
+  name: TopRight
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_TopRight_
+  commentId: Overload:AGS.API.AGSBoundingBox.TopRight
+  fullName: AGS.API.AGSBoundingBox.TopRight
+  nameWithType: AGSBoundingBox.TopRight
+- uid: AGS.API.AGSBoundingBox.ToString
+  name: ToString()
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_ToString
+  commentId: M:AGS.API.AGSBoundingBox.ToString
+  fullName: AGS.API.AGSBoundingBox.ToString()
+  nameWithType: AGSBoundingBox.ToString()
+- uid: AGS.API.AGSBoundingBox.ToString*
+  name: ToString
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_ToString_
+  commentId: Overload:AGS.API.AGSBoundingBox.ToString
+  fullName: AGS.API.AGSBoundingBox.ToString
+  nameWithType: AGSBoundingBox.ToString
+- uid: AGS.API.AGSBoundingBox.Width
+  name: Width
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Width
+  commentId: P:AGS.API.AGSBoundingBox.Width
+  fullName: AGS.API.AGSBoundingBox.Width
+  nameWithType: AGSBoundingBox.Width
+- uid: AGS.API.AGSBoundingBox.Width*
+  name: Width
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Width_
+  commentId: Overload:AGS.API.AGSBoundingBox.Width
+  fullName: AGS.API.AGSBoundingBox.Width
+  nameWithType: AGSBoundingBox.Width
+- uid: AGS.API.AGSBoundingBoxes
+  name: AGSBoundingBoxes
+  href: api/AGS.API.AGSBoundingBoxes.html
+  commentId: T:AGS.API.AGSBoundingBoxes
+  fullName: AGS.API.AGSBoundingBoxes
+  nameWithType: AGSBoundingBoxes
+- uid: AGS.API.AGSBoundingBoxes.HitTestBox
+  name: HitTestBox
+  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_HitTestBox
+  commentId: P:AGS.API.AGSBoundingBoxes.HitTestBox
+  fullName: AGS.API.AGSBoundingBoxes.HitTestBox
+  nameWithType: AGSBoundingBoxes.HitTestBox
+- uid: AGS.API.AGSBoundingBoxes.HitTestBox*
+  name: HitTestBox
+  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_HitTestBox_
+  commentId: Overload:AGS.API.AGSBoundingBoxes.HitTestBox
+  fullName: AGS.API.AGSBoundingBoxes.HitTestBox
+  nameWithType: AGSBoundingBoxes.HitTestBox
+- uid: AGS.API.AGSBoundingBoxes.RenderBox
+  name: RenderBox
+  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_RenderBox
+  commentId: P:AGS.API.AGSBoundingBoxes.RenderBox
+  fullName: AGS.API.AGSBoundingBoxes.RenderBox
+  nameWithType: AGSBoundingBoxes.RenderBox
+- uid: AGS.API.AGSBoundingBoxes.RenderBox*
+  name: RenderBox
+  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_RenderBox_
+  commentId: Overload:AGS.API.AGSBoundingBoxes.RenderBox
+  fullName: AGS.API.AGSBoundingBoxes.RenderBox
+  nameWithType: AGSBoundingBoxes.RenderBox
+- uid: AGS.API.AGSCropInfo
+  name: AGSCropInfo
+  href: api/AGS.API.AGSCropInfo.html
+  commentId: T:AGS.API.AGSCropInfo
+  fullName: AGS.API.AGSCropInfo
+  nameWithType: AGSCropInfo
+- uid: AGS.API.AGSCropInfo.#ctor(AGS.API.AGSBoundingBox,AGS.API.FourCorners{AGS.API.Vector2})
+  name: AGSCropInfo(AGSBoundingBox, FourCorners<Vector2>)
+  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo__ctor_AGS_API_AGSBoundingBox_AGS_API_FourCorners_AGS_API_Vector2__
+  commentId: M:AGS.API.AGSCropInfo.#ctor(AGS.API.AGSBoundingBox,AGS.API.FourCorners{AGS.API.Vector2})
+  name.vb: AGSCropInfo(AGSBoundingBox, FourCorners(Of Vector2))
+  fullName: AGS.API.AGSCropInfo.AGSCropInfo(AGS.API.AGSBoundingBox, AGS.API.FourCorners<AGS.API.Vector2>)
+  fullName.vb: AGS.API.AGSCropInfo.AGSCropInfo(AGS.API.AGSBoundingBox, AGS.API.FourCorners(Of AGS.API.Vector2))
+  nameWithType: AGSCropInfo.AGSCropInfo(AGSBoundingBox, FourCorners<Vector2>)
+  nameWithType.vb: AGSCropInfo.AGSCropInfo(AGSBoundingBox, FourCorners(Of Vector2))
+- uid: AGS.API.AGSCropInfo.#ctor*
+  name: AGSCropInfo
+  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo__ctor_
+  commentId: Overload:AGS.API.AGSCropInfo.#ctor
+  fullName: AGS.API.AGSCropInfo.AGSCropInfo
+  nameWithType: AGSCropInfo.AGSCropInfo
+- uid: AGS.API.AGSCropInfo.BoundingBox
+  name: BoundingBox
+  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo_BoundingBox
+  commentId: P:AGS.API.AGSCropInfo.BoundingBox
+  fullName: AGS.API.AGSCropInfo.BoundingBox
+  nameWithType: AGSCropInfo.BoundingBox
+- uid: AGS.API.AGSCropInfo.BoundingBox*
+  name: BoundingBox
+  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo_BoundingBox_
+  commentId: Overload:AGS.API.AGSCropInfo.BoundingBox
+  fullName: AGS.API.AGSCropInfo.BoundingBox
+  nameWithType: AGSCropInfo.BoundingBox
+- uid: AGS.API.AGSCropInfo.TextureBox
+  name: TextureBox
+  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo_TextureBox
+  commentId: P:AGS.API.AGSCropInfo.TextureBox
+  fullName: AGS.API.AGSCropInfo.TextureBox
+  nameWithType: AGSCropInfo.TextureBox
+- uid: AGS.API.AGSCropInfo.TextureBox*
+  name: TextureBox
+  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo_TextureBox_
+  commentId: Overload:AGS.API.AGSCropInfo.TextureBox
+  fullName: AGS.API.AGSCropInfo.TextureBox
+  nameWithType: AGSCropInfo.TextureBox
 - uid: AGS.API.AGSHashSetChangedEventArgs`1
   name: AGSHashSetChangedEventArgs<TItem>
   href: api/AGS.API.AGSHashSetChangedEventArgs-1.html
@@ -188,186 +485,6 @@ references:
   fullName.vb: AGS.API.AGSListItem(Of TItem).Item
   nameWithType: AGSListItem<TItem>.Item
   nameWithType.vb: AGSListItem(Of TItem).Item
-- uid: AGS.API.AGSSquare
-  name: AGSSquare
-  href: api/AGS.API.AGSSquare.html
-  commentId: T:AGS.API.AGSSquare
-  fullName: AGS.API.AGSSquare
-  nameWithType: AGSSquare
-- uid: AGS.API.AGSSquare.#ctor(AGS.API.PointF,AGS.API.PointF,AGS.API.PointF,AGS.API.PointF)
-  name: AGSSquare(PointF, PointF, PointF, PointF)
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare__ctor_AGS_API_PointF_AGS_API_PointF_AGS_API_PointF_AGS_API_PointF_
-  commentId: M:AGS.API.AGSSquare.#ctor(AGS.API.PointF,AGS.API.PointF,AGS.API.PointF,AGS.API.PointF)
-  fullName: AGS.API.AGSSquare.AGSSquare(AGS.API.PointF, AGS.API.PointF, AGS.API.PointF, AGS.API.PointF)
-  nameWithType: AGSSquare.AGSSquare(PointF, PointF, PointF, PointF)
-- uid: AGS.API.AGSSquare.#ctor*
-  name: AGSSquare
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare__ctor_
-  commentId: Overload:AGS.API.AGSSquare.#ctor
-  fullName: AGS.API.AGSSquare.AGSSquare
-  nameWithType: AGSSquare.AGSSquare
-- uid: AGS.API.AGSSquare.BottomLeft
-  name: BottomLeft
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_BottomLeft
-  commentId: P:AGS.API.AGSSquare.BottomLeft
-  fullName: AGS.API.AGSSquare.BottomLeft
-  nameWithType: AGSSquare.BottomLeft
-- uid: AGS.API.AGSSquare.BottomLeft*
-  name: BottomLeft
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_BottomLeft_
-  commentId: Overload:AGS.API.AGSSquare.BottomLeft
-  fullName: AGS.API.AGSSquare.BottomLeft
-  nameWithType: AGSSquare.BottomLeft
-- uid: AGS.API.AGSSquare.BottomRight
-  name: BottomRight
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_BottomRight
-  commentId: P:AGS.API.AGSSquare.BottomRight
-  fullName: AGS.API.AGSSquare.BottomRight
-  nameWithType: AGSSquare.BottomRight
-- uid: AGS.API.AGSSquare.BottomRight*
-  name: BottomRight
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_BottomRight_
-  commentId: Overload:AGS.API.AGSSquare.BottomRight
-  fullName: AGS.API.AGSSquare.BottomRight
-  nameWithType: AGSSquare.BottomRight
-- uid: AGS.API.AGSSquare.Contains(AGS.API.PointF)
-  name: Contains(PointF)
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_Contains_AGS_API_PointF_
-  commentId: M:AGS.API.AGSSquare.Contains(AGS.API.PointF)
-  fullName: AGS.API.AGSSquare.Contains(AGS.API.PointF)
-  nameWithType: AGSSquare.Contains(PointF)
-- uid: AGS.API.AGSSquare.Contains*
-  name: Contains
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_Contains_
-  commentId: Overload:AGS.API.AGSSquare.Contains
-  fullName: AGS.API.AGSSquare.Contains
-  nameWithType: AGSSquare.Contains
-- uid: AGS.API.AGSSquare.Equals(AGS.API.AGSSquare)
-  name: Equals(AGSSquare)
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_Equals_AGS_API_AGSSquare_
-  commentId: M:AGS.API.AGSSquare.Equals(AGS.API.AGSSquare)
-  fullName: AGS.API.AGSSquare.Equals(AGS.API.AGSSquare)
-  nameWithType: AGSSquare.Equals(AGSSquare)
-- uid: AGS.API.AGSSquare.Equals(System.Object)
-  name: Equals(Object)
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_Equals_System_Object_
-  commentId: M:AGS.API.AGSSquare.Equals(System.Object)
-  fullName: AGS.API.AGSSquare.Equals(System.Object)
-  nameWithType: AGSSquare.Equals(Object)
-- uid: AGS.API.AGSSquare.Equals*
-  name: Equals
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_Equals_
-  commentId: Overload:AGS.API.AGSSquare.Equals
-  fullName: AGS.API.AGSSquare.Equals
-  nameWithType: AGSSquare.Equals
-- uid: AGS.API.AGSSquare.FlipHorizontal
-  name: FlipHorizontal()
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_FlipHorizontal
-  commentId: M:AGS.API.AGSSquare.FlipHorizontal
-  fullName: AGS.API.AGSSquare.FlipHorizontal()
-  nameWithType: AGSSquare.FlipHorizontal()
-- uid: AGS.API.AGSSquare.FlipHorizontal*
-  name: FlipHorizontal
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_FlipHorizontal_
-  commentId: Overload:AGS.API.AGSSquare.FlipHorizontal
-  fullName: AGS.API.AGSSquare.FlipHorizontal
-  nameWithType: AGSSquare.FlipHorizontal
-- uid: AGS.API.AGSSquare.GetHashCode
-  name: GetHashCode()
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_GetHashCode
-  commentId: M:AGS.API.AGSSquare.GetHashCode
-  fullName: AGS.API.AGSSquare.GetHashCode()
-  nameWithType: AGSSquare.GetHashCode()
-- uid: AGS.API.AGSSquare.GetHashCode*
-  name: GetHashCode
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_GetHashCode_
-  commentId: Overload:AGS.API.AGSSquare.GetHashCode
-  fullName: AGS.API.AGSSquare.GetHashCode
-  nameWithType: AGSSquare.GetHashCode
-- uid: AGS.API.AGSSquare.MaxX
-  name: MaxX
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MaxX
-  commentId: P:AGS.API.AGSSquare.MaxX
-  fullName: AGS.API.AGSSquare.MaxX
-  nameWithType: AGSSquare.MaxX
-- uid: AGS.API.AGSSquare.MaxX*
-  name: MaxX
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MaxX_
-  commentId: Overload:AGS.API.AGSSquare.MaxX
-  fullName: AGS.API.AGSSquare.MaxX
-  nameWithType: AGSSquare.MaxX
-- uid: AGS.API.AGSSquare.MaxY
-  name: MaxY
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MaxY
-  commentId: P:AGS.API.AGSSquare.MaxY
-  fullName: AGS.API.AGSSquare.MaxY
-  nameWithType: AGSSquare.MaxY
-- uid: AGS.API.AGSSquare.MaxY*
-  name: MaxY
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MaxY_
-  commentId: Overload:AGS.API.AGSSquare.MaxY
-  fullName: AGS.API.AGSSquare.MaxY
-  nameWithType: AGSSquare.MaxY
-- uid: AGS.API.AGSSquare.MinX
-  name: MinX
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MinX
-  commentId: P:AGS.API.AGSSquare.MinX
-  fullName: AGS.API.AGSSquare.MinX
-  nameWithType: AGSSquare.MinX
-- uid: AGS.API.AGSSquare.MinX*
-  name: MinX
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MinX_
-  commentId: Overload:AGS.API.AGSSquare.MinX
-  fullName: AGS.API.AGSSquare.MinX
-  nameWithType: AGSSquare.MinX
-- uid: AGS.API.AGSSquare.MinY
-  name: MinY
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MinY
-  commentId: P:AGS.API.AGSSquare.MinY
-  fullName: AGS.API.AGSSquare.MinY
-  nameWithType: AGSSquare.MinY
-- uid: AGS.API.AGSSquare.MinY*
-  name: MinY
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_MinY_
-  commentId: Overload:AGS.API.AGSSquare.MinY
-  fullName: AGS.API.AGSSquare.MinY
-  nameWithType: AGSSquare.MinY
-- uid: AGS.API.AGSSquare.TopLeft
-  name: TopLeft
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_TopLeft
-  commentId: P:AGS.API.AGSSquare.TopLeft
-  fullName: AGS.API.AGSSquare.TopLeft
-  nameWithType: AGSSquare.TopLeft
-- uid: AGS.API.AGSSquare.TopLeft*
-  name: TopLeft
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_TopLeft_
-  commentId: Overload:AGS.API.AGSSquare.TopLeft
-  fullName: AGS.API.AGSSquare.TopLeft
-  nameWithType: AGSSquare.TopLeft
-- uid: AGS.API.AGSSquare.TopRight
-  name: TopRight
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_TopRight
-  commentId: P:AGS.API.AGSSquare.TopRight
-  fullName: AGS.API.AGSSquare.TopRight
-  nameWithType: AGSSquare.TopRight
-- uid: AGS.API.AGSSquare.TopRight*
-  name: TopRight
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_TopRight_
-  commentId: Overload:AGS.API.AGSSquare.TopRight
-  fullName: AGS.API.AGSSquare.TopRight
-  nameWithType: AGSSquare.TopRight
-- uid: AGS.API.AGSSquare.ToString
-  name: ToString()
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_ToString
-  commentId: M:AGS.API.AGSSquare.ToString
-  fullName: AGS.API.AGSSquare.ToString()
-  nameWithType: AGSSquare.ToString()
-- uid: AGS.API.AGSSquare.ToString*
-  name: ToString
-  href: api/AGS.API.AGSSquare.html#AGS_API_AGSSquare_ToString_
-  commentId: Overload:AGS.API.AGSSquare.ToString
-  fullName: AGS.API.AGSSquare.ToString
-  nameWithType: AGSSquare.ToString
 - uid: AGS.API.Alignment
   name: Alignment
   href: api/AGS.API.Alignment.html
@@ -554,6 +671,48 @@ references:
   commentId: F:AGS.API.AutoFit.TextShouldWrapAndLabelShouldFitHeight
   fullName: AGS.API.AutoFit.TextShouldWrapAndLabelShouldFitHeight
   nameWithType: AutoFit.TextShouldWrapAndLabelShouldFitHeight
+- uid: AGS.API.BeforeCropEventArgs
+  name: BeforeCropEventArgs
+  href: api/AGS.API.BeforeCropEventArgs.html
+  commentId: T:AGS.API.BeforeCropEventArgs
+  fullName: AGS.API.BeforeCropEventArgs
+  nameWithType: BeforeCropEventArgs
+- uid: AGS.API.BeforeCropEventArgs.#ctor(AGS.API.AGSBoundingBox,AGS.API.BoundingBoxType)
+  name: BeforeCropEventArgs(AGSBoundingBox, BoundingBoxType)
+  href: api/AGS.API.BeforeCropEventArgs.html#AGS_API_BeforeCropEventArgs__ctor_AGS_API_AGSBoundingBox_AGS_API_BoundingBoxType_
+  commentId: M:AGS.API.BeforeCropEventArgs.#ctor(AGS.API.AGSBoundingBox,AGS.API.BoundingBoxType)
+  fullName: AGS.API.BeforeCropEventArgs.BeforeCropEventArgs(AGS.API.AGSBoundingBox, AGS.API.BoundingBoxType)
+  nameWithType: BeforeCropEventArgs.BeforeCropEventArgs(AGSBoundingBox, BoundingBoxType)
+- uid: AGS.API.BeforeCropEventArgs.#ctor*
+  name: BeforeCropEventArgs
+  href: api/AGS.API.BeforeCropEventArgs.html#AGS_API_BeforeCropEventArgs__ctor_
+  commentId: Overload:AGS.API.BeforeCropEventArgs.#ctor
+  fullName: AGS.API.BeforeCropEventArgs.BeforeCropEventArgs
+  nameWithType: BeforeCropEventArgs.BeforeCropEventArgs
+- uid: AGS.API.BeforeCropEventArgs.BoundingBox
+  name: BoundingBox
+  href: api/AGS.API.BeforeCropEventArgs.html#AGS_API_BeforeCropEventArgs_BoundingBox
+  commentId: P:AGS.API.BeforeCropEventArgs.BoundingBox
+  fullName: AGS.API.BeforeCropEventArgs.BoundingBox
+  nameWithType: BeforeCropEventArgs.BoundingBox
+- uid: AGS.API.BeforeCropEventArgs.BoundingBox*
+  name: BoundingBox
+  href: api/AGS.API.BeforeCropEventArgs.html#AGS_API_BeforeCropEventArgs_BoundingBox_
+  commentId: Overload:AGS.API.BeforeCropEventArgs.BoundingBox
+  fullName: AGS.API.BeforeCropEventArgs.BoundingBox
+  nameWithType: BeforeCropEventArgs.BoundingBox
+- uid: AGS.API.BeforeCropEventArgs.BoundingBoxType
+  name: BoundingBoxType
+  href: api/AGS.API.BeforeCropEventArgs.html#AGS_API_BeforeCropEventArgs_BoundingBoxType
+  commentId: P:AGS.API.BeforeCropEventArgs.BoundingBoxType
+  fullName: AGS.API.BeforeCropEventArgs.BoundingBoxType
+  nameWithType: BeforeCropEventArgs.BoundingBoxType
+- uid: AGS.API.BeforeCropEventArgs.BoundingBoxType*
+  name: BoundingBoxType
+  href: api/AGS.API.BeforeCropEventArgs.html#AGS_API_BeforeCropEventArgs_BoundingBoxType_
+  commentId: Overload:AGS.API.BeforeCropEventArgs.BoundingBoxType
+  fullName: AGS.API.BeforeCropEventArgs.BoundingBoxType
+  nameWithType: BeforeCropEventArgs.BoundingBoxType
 - uid: AGS.API.BeforeSayEventArgs
   name: BeforeSayEventArgs
   href: api/AGS.API.BeforeSayEventArgs.html
@@ -596,6 +755,24 @@ references:
   commentId: Overload:AGS.API.BeforeSayEventArgs.Skip
   fullName: AGS.API.BeforeSayEventArgs.Skip
   nameWithType: BeforeSayEventArgs.Skip
+- uid: AGS.API.BoundingBoxType
+  name: BoundingBoxType
+  href: api/AGS.API.BoundingBoxType.html
+  commentId: T:AGS.API.BoundingBoxType
+  fullName: AGS.API.BoundingBoxType
+  nameWithType: BoundingBoxType
+- uid: AGS.API.BoundingBoxType.HitTest
+  name: HitTest
+  href: api/AGS.API.BoundingBoxType.html#AGS_API_BoundingBoxType_HitTest
+  commentId: F:AGS.API.BoundingBoxType.HitTest
+  fullName: AGS.API.BoundingBoxType.HitTest
+  nameWithType: BoundingBoxType.HitTest
+- uid: AGS.API.BoundingBoxType.Render
+  name: Render
+  href: api/AGS.API.BoundingBoxType.html#AGS_API_BoundingBoxType_Render
+  commentId: F:AGS.API.BoundingBoxType.Render
+  fullName: AGS.API.BoundingBoxType.Render
+  nameWithType: BoundingBoxType.Render
 - uid: AGS.API.BrushType
   name: BrushType
   href: api/AGS.API.BrushType.html
@@ -1886,6 +2063,120 @@ references:
   commentId: F:AGS.API.FontStyle.Underline
   fullName: AGS.API.FontStyle.Underline
   nameWithType: FontStyle.Underline
+- uid: AGS.API.FourCorners`1
+  name: FourCorners<TValue>
+  href: api/AGS.API.FourCorners-1.html
+  commentId: T:AGS.API.FourCorners`1
+  name.vb: FourCorners(Of TValue)
+  fullName: AGS.API.FourCorners<TValue>
+  fullName.vb: AGS.API.FourCorners(Of TValue)
+  nameWithType: FourCorners<TValue>
+  nameWithType.vb: FourCorners(Of TValue)
+- uid: AGS.API.FourCorners`1.#ctor(`0)
+  name: FourCorners(TValue)
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1__ctor__0_
+  commentId: M:AGS.API.FourCorners`1.#ctor(`0)
+  fullName: AGS.API.FourCorners<TValue>.FourCorners(TValue)
+  fullName.vb: AGS.API.FourCorners(Of TValue).FourCorners(TValue)
+  nameWithType: FourCorners<TValue>.FourCorners(TValue)
+  nameWithType.vb: FourCorners(Of TValue).FourCorners(TValue)
+- uid: AGS.API.FourCorners`1.#ctor(`0,`0,`0,`0)
+  name: FourCorners(TValue, TValue, TValue, TValue)
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1__ctor__0__0__0__0_
+  commentId: M:AGS.API.FourCorners`1.#ctor(`0,`0,`0,`0)
+  fullName: AGS.API.FourCorners<TValue>.FourCorners(TValue, TValue, TValue, TValue)
+  fullName.vb: AGS.API.FourCorners(Of TValue).FourCorners(TValue, TValue, TValue, TValue)
+  nameWithType: FourCorners<TValue>.FourCorners(TValue, TValue, TValue, TValue)
+  nameWithType.vb: FourCorners(Of TValue).FourCorners(TValue, TValue, TValue, TValue)
+- uid: AGS.API.FourCorners`1.#ctor*
+  name: FourCorners
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1__ctor_
+  commentId: Overload:AGS.API.FourCorners`1.#ctor
+  fullName: AGS.API.FourCorners<TValue>.FourCorners
+  fullName.vb: AGS.API.FourCorners(Of TValue).FourCorners
+  nameWithType: FourCorners<TValue>.FourCorners
+  nameWithType.vb: FourCorners(Of TValue).FourCorners
+- uid: AGS.API.FourCorners`1.BottomLeft
+  name: BottomLeft
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_BottomLeft
+  commentId: P:AGS.API.FourCorners`1.BottomLeft
+  fullName: AGS.API.FourCorners<TValue>.BottomLeft
+  fullName.vb: AGS.API.FourCorners(Of TValue).BottomLeft
+  nameWithType: FourCorners<TValue>.BottomLeft
+  nameWithType.vb: FourCorners(Of TValue).BottomLeft
+- uid: AGS.API.FourCorners`1.BottomLeft*
+  name: BottomLeft
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_BottomLeft_
+  commentId: Overload:AGS.API.FourCorners`1.BottomLeft
+  fullName: AGS.API.FourCorners<TValue>.BottomLeft
+  fullName.vb: AGS.API.FourCorners(Of TValue).BottomLeft
+  nameWithType: FourCorners<TValue>.BottomLeft
+  nameWithType.vb: FourCorners(Of TValue).BottomLeft
+- uid: AGS.API.FourCorners`1.BottomRight
+  name: BottomRight
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_BottomRight
+  commentId: P:AGS.API.FourCorners`1.BottomRight
+  fullName: AGS.API.FourCorners<TValue>.BottomRight
+  fullName.vb: AGS.API.FourCorners(Of TValue).BottomRight
+  nameWithType: FourCorners<TValue>.BottomRight
+  nameWithType.vb: FourCorners(Of TValue).BottomRight
+- uid: AGS.API.FourCorners`1.BottomRight*
+  name: BottomRight
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_BottomRight_
+  commentId: Overload:AGS.API.FourCorners`1.BottomRight
+  fullName: AGS.API.FourCorners<TValue>.BottomRight
+  fullName.vb: AGS.API.FourCorners(Of TValue).BottomRight
+  nameWithType: FourCorners<TValue>.BottomRight
+  nameWithType.vb: FourCorners(Of TValue).BottomRight
+- uid: AGS.API.FourCorners`1.Convert*
+  name: Convert
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_Convert_
+  commentId: Overload:AGS.API.FourCorners`1.Convert
+  fullName: AGS.API.FourCorners<TValue>.Convert
+  fullName.vb: AGS.API.FourCorners(Of TValue).Convert
+  nameWithType: FourCorners<TValue>.Convert
+  nameWithType.vb: FourCorners(Of TValue).Convert
+- uid: AGS.API.FourCorners`1.Convert``1(System.Func{`0,``0})
+  name: Convert<TNewValue>(Func<TValue, TNewValue>)
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_Convert__1_System_Func__0___0__
+  commentId: M:AGS.API.FourCorners`1.Convert``1(System.Func{`0,``0})
+  name.vb: Convert(Of TNewValue)(Func(Of TValue, TNewValue))
+  fullName: AGS.API.FourCorners<TValue>.Convert<TNewValue>(System.Func<TValue, TNewValue>)
+  fullName.vb: AGS.API.FourCorners(Of TValue).Convert(Of TNewValue)(System.Func(Of TValue, TNewValue))
+  nameWithType: FourCorners<TValue>.Convert<TNewValue>(Func<TValue, TNewValue>)
+  nameWithType.vb: FourCorners(Of TValue).Convert(Of TNewValue)(Func(Of TValue, TNewValue))
+- uid: AGS.API.FourCorners`1.TopLeft
+  name: TopLeft
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_TopLeft
+  commentId: P:AGS.API.FourCorners`1.TopLeft
+  fullName: AGS.API.FourCorners<TValue>.TopLeft
+  fullName.vb: AGS.API.FourCorners(Of TValue).TopLeft
+  nameWithType: FourCorners<TValue>.TopLeft
+  nameWithType.vb: FourCorners(Of TValue).TopLeft
+- uid: AGS.API.FourCorners`1.TopLeft*
+  name: TopLeft
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_TopLeft_
+  commentId: Overload:AGS.API.FourCorners`1.TopLeft
+  fullName: AGS.API.FourCorners<TValue>.TopLeft
+  fullName.vb: AGS.API.FourCorners(Of TValue).TopLeft
+  nameWithType: FourCorners<TValue>.TopLeft
+  nameWithType.vb: FourCorners(Of TValue).TopLeft
+- uid: AGS.API.FourCorners`1.TopRight
+  name: TopRight
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_TopRight
+  commentId: P:AGS.API.FourCorners`1.TopRight
+  fullName: AGS.API.FourCorners<TValue>.TopRight
+  fullName.vb: AGS.API.FourCorners(Of TValue).TopRight
+  nameWithType: FourCorners<TValue>.TopRight
+  nameWithType.vb: FourCorners(Of TValue).TopRight
+- uid: AGS.API.FourCorners`1.TopRight*
+  name: TopRight
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_TopRight_
+  commentId: Overload:AGS.API.FourCorners`1.TopRight
+  fullName: AGS.API.FourCorners<TValue>.TopRight
+  fullName.vb: AGS.API.FourCorners(Of TValue).TopRight
+  nameWithType: FourCorners<TValue>.TopRight
+  nameWithType.vb: FourCorners(Of TValue).TopRight
 - uid: AGS.API.HatchStyle
   name: HatchStyle
   href: api/AGS.API.HatchStyle.html
@@ -2777,12 +3068,12 @@ references:
   commentId: M:AGS.API.IAreaComponent.IsInArea(AGS.API.PointF)
   fullName: AGS.API.IAreaComponent.IsInArea(AGS.API.PointF)
   nameWithType: IAreaComponent.IsInArea(PointF)
-- uid: AGS.API.IAreaComponent.IsInArea(AGS.API.PointF,AGS.API.AGSSquare,System.Single,System.Single)
-  name: IsInArea(PointF, AGSSquare, Single, Single)
-  href: api/AGS.API.IAreaComponent.html#AGS_API_IAreaComponent_IsInArea_AGS_API_PointF_AGS_API_AGSSquare_System_Single_System_Single_
-  commentId: M:AGS.API.IAreaComponent.IsInArea(AGS.API.PointF,AGS.API.AGSSquare,System.Single,System.Single)
-  fullName: AGS.API.IAreaComponent.IsInArea(AGS.API.PointF, AGS.API.AGSSquare, System.Single, System.Single)
-  nameWithType: IAreaComponent.IsInArea(PointF, AGSSquare, Single, Single)
+- uid: AGS.API.IAreaComponent.IsInArea(AGS.API.PointF,AGS.API.AGSBoundingBox,System.Single,System.Single)
+  name: IsInArea(PointF, AGSBoundingBox, Single, Single)
+  href: api/AGS.API.IAreaComponent.html#AGS_API_IAreaComponent_IsInArea_AGS_API_PointF_AGS_API_AGSBoundingBox_System_Single_System_Single_
+  commentId: M:AGS.API.IAreaComponent.IsInArea(AGS.API.PointF,AGS.API.AGSBoundingBox,System.Single,System.Single)
+  fullName: AGS.API.IAreaComponent.IsInArea(AGS.API.PointF, AGS.API.AGSBoundingBox, System.Single, System.Single)
+  nameWithType: IAreaComponent.IsInArea(PointF, AGSBoundingBox, Single, Single)
 - uid: AGS.API.IAreaComponent.IsInArea*
   name: IsInArea
   href: api/AGS.API.IAreaComponent.html#AGS_API_IAreaComponent_IsInArea_
@@ -3242,24 +3533,24 @@ references:
   commentId: T:AGS.API.IBorderStyle
   fullName: AGS.API.IBorderStyle
   nameWithType: IBorderStyle
-- uid: AGS.API.IBorderStyle.RenderBorderBack(AGS.API.AGSSquare)
-  name: RenderBorderBack(AGSSquare)
-  href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderBack_AGS_API_AGSSquare_
-  commentId: M:AGS.API.IBorderStyle.RenderBorderBack(AGS.API.AGSSquare)
-  fullName: AGS.API.IBorderStyle.RenderBorderBack(AGS.API.AGSSquare)
-  nameWithType: IBorderStyle.RenderBorderBack(AGSSquare)
+- uid: AGS.API.IBorderStyle.RenderBorderBack(AGS.API.AGSBoundingBox)
+  name: RenderBorderBack(AGSBoundingBox)
+  href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderBack_AGS_API_AGSBoundingBox_
+  commentId: M:AGS.API.IBorderStyle.RenderBorderBack(AGS.API.AGSBoundingBox)
+  fullName: AGS.API.IBorderStyle.RenderBorderBack(AGS.API.AGSBoundingBox)
+  nameWithType: IBorderStyle.RenderBorderBack(AGSBoundingBox)
 - uid: AGS.API.IBorderStyle.RenderBorderBack*
   name: RenderBorderBack
   href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderBack_
   commentId: Overload:AGS.API.IBorderStyle.RenderBorderBack
   fullName: AGS.API.IBorderStyle.RenderBorderBack
   nameWithType: IBorderStyle.RenderBorderBack
-- uid: AGS.API.IBorderStyle.RenderBorderFront(AGS.API.AGSSquare)
-  name: RenderBorderFront(AGSSquare)
-  href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderFront_AGS_API_AGSSquare_
-  commentId: M:AGS.API.IBorderStyle.RenderBorderFront(AGS.API.AGSSquare)
-  fullName: AGS.API.IBorderStyle.RenderBorderFront(AGS.API.AGSSquare)
-  nameWithType: IBorderStyle.RenderBorderFront(AGSSquare)
+- uid: AGS.API.IBorderStyle.RenderBorderFront(AGS.API.AGSBoundingBox)
+  name: RenderBorderFront(AGSBoundingBox)
+  href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderFront_AGS_API_AGSBoundingBox_
+  commentId: M:AGS.API.IBorderStyle.RenderBorderFront(AGS.API.AGSBoundingBox)
+  fullName: AGS.API.IBorderStyle.RenderBorderFront(AGS.API.AGSBoundingBox)
+  nameWithType: IBorderStyle.RenderBorderFront(AGSBoundingBox)
 - uid: AGS.API.IBorderStyle.RenderBorderFront*
   name: RenderBorderFront
   href: api/AGS.API.IBorderStyle.html#AGS_API_IBorderStyle_RenderBorderFront_
@@ -3779,18 +4070,18 @@ references:
   commentId: T:AGS.API.ICollider
   fullName: AGS.API.ICollider
   nameWithType: ICollider
-- uid: AGS.API.ICollider.BoundingBox
-  name: BoundingBox
-  href: api/AGS.API.ICollider.html#AGS_API_ICollider_BoundingBox
-  commentId: P:AGS.API.ICollider.BoundingBox
-  fullName: AGS.API.ICollider.BoundingBox
-  nameWithType: ICollider.BoundingBox
-- uid: AGS.API.ICollider.BoundingBox*
-  name: BoundingBox
-  href: api/AGS.API.ICollider.html#AGS_API_ICollider_BoundingBox_
-  commentId: Overload:AGS.API.ICollider.BoundingBox
-  fullName: AGS.API.ICollider.BoundingBox
-  nameWithType: ICollider.BoundingBox
+- uid: AGS.API.ICollider.BoundingBoxes
+  name: BoundingBoxes
+  href: api/AGS.API.ICollider.html#AGS_API_ICollider_BoundingBoxes
+  commentId: P:AGS.API.ICollider.BoundingBoxes
+  fullName: AGS.API.ICollider.BoundingBoxes
+  nameWithType: ICollider.BoundingBoxes
+- uid: AGS.API.ICollider.BoundingBoxes*
+  name: BoundingBoxes
+  href: api/AGS.API.ICollider.html#AGS_API_ICollider_BoundingBoxes_
+  commentId: Overload:AGS.API.ICollider.BoundingBoxes
+  fullName: AGS.API.ICollider.BoundingBoxes
+  nameWithType: ICollider.BoundingBoxes
 - uid: AGS.API.ICollider.CenterPoint
   name: CenterPoint
   href: api/AGS.API.ICollider.html#AGS_API_ICollider_CenterPoint
@@ -3959,6 +4250,24 @@ references:
   commentId: Overload:AGS.API.IComponent.Name
   fullName: AGS.API.IComponent.Name
   nameWithType: IComponent.Name
+- uid: AGS.API.IComponentBinding
+  name: IComponentBinding
+  href: api/AGS.API.IComponentBinding.html
+  commentId: T:AGS.API.IComponentBinding
+  fullName: AGS.API.IComponentBinding
+  nameWithType: IComponentBinding
+- uid: AGS.API.IComponentBinding.Unbind
+  name: Unbind()
+  href: api/AGS.API.IComponentBinding.html#AGS_API_IComponentBinding_Unbind
+  commentId: M:AGS.API.IComponentBinding.Unbind
+  fullName: AGS.API.IComponentBinding.Unbind()
+  nameWithType: IComponentBinding.Unbind()
+- uid: AGS.API.IComponentBinding.Unbind*
+  name: Unbind
+  href: api/AGS.API.IComponentBinding.html#AGS_API_IComponentBinding_Unbind_
+  commentId: Overload:AGS.API.IComponentBinding.Unbind
+  fullName: AGS.API.IComponentBinding.Unbind
+  nameWithType: IComponentBinding.Unbind
 - uid: AGS.API.IComponentsCollection
   name: IComponentsCollection
   href: api/AGS.API.IComponentsCollection.html
@@ -3995,6 +4304,21 @@ references:
   fullName.vb: AGS.API.IComponentsCollection.AddComponent(Of TComponent)(TComponent)
   nameWithType: IComponentsCollection.AddComponent<TComponent>(TComponent)
   nameWithType.vb: IComponentsCollection.AddComponent(Of TComponent)(TComponent)
+- uid: AGS.API.IComponentsCollection.Bind*
+  name: Bind
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind_
+  commentId: Overload:AGS.API.IComponentsCollection.Bind
+  fullName: AGS.API.IComponentsCollection.Bind
+  nameWithType: IComponentsCollection.Bind
+- uid: AGS.API.IComponentsCollection.Bind``1(System.Action{``0},System.Action{``0})
+  name: Bind<TComponent>(Action<TComponent>, Action<TComponent>)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind__1_System_Action___0__System_Action___0__
+  commentId: M:AGS.API.IComponentsCollection.Bind``1(System.Action{``0},System.Action{``0})
+  name.vb: Bind(Of TComponent)(Action(Of TComponent), Action(Of TComponent))
+  fullName: AGS.API.IComponentsCollection.Bind<TComponent>(System.Action<TComponent>, System.Action<TComponent>)
+  fullName.vb: AGS.API.IComponentsCollection.Bind(Of TComponent)(System.Action(Of TComponent), System.Action(Of TComponent))
+  nameWithType: IComponentsCollection.Bind<TComponent>(Action<TComponent>, Action<TComponent>)
+  nameWithType.vb: IComponentsCollection.Bind(Of TComponent)(Action(Of TComponent), Action(Of TComponent))
 - uid: AGS.API.IComponentsCollection.Count
   name: Count
   href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Count
@@ -4097,6 +4421,18 @@ references:
   fullName.vb: AGS.API.IComponentsCollection.HasComponent(Of TComponent)()
   nameWithType: IComponentsCollection.HasComponent<TComponent>()
   nameWithType.vb: IComponentsCollection.HasComponent(Of TComponent)()
+- uid: AGS.API.IComponentsCollection.OnComponentsChanged
+  name: OnComponentsChanged
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_OnComponentsChanged
+  commentId: P:AGS.API.IComponentsCollection.OnComponentsChanged
+  fullName: AGS.API.IComponentsCollection.OnComponentsChanged
+  nameWithType: IComponentsCollection.OnComponentsChanged
+- uid: AGS.API.IComponentsCollection.OnComponentsChanged*
+  name: OnComponentsChanged
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_OnComponentsChanged_
+  commentId: Overload:AGS.API.IComponentsCollection.OnComponentsChanged
+  fullName: AGS.API.IComponentsCollection.OnComponentsChanged
+  nameWithType: IComponentsCollection.OnComponentsChanged
 - uid: AGS.API.IComponentsCollection.OnComponentsInitialized
   name: OnComponentsInitialized
   href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_OnComponentsInitialized
@@ -4264,6 +4600,36 @@ references:
   fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).RemoveAll
   nameWithType: IConcurrentHashSet<TItem>.RemoveAll
   nameWithType.vb: IConcurrentHashSet(Of TItem).RemoveAll
+- uid: AGS.API.ICropChildrenComponent
+  name: ICropChildrenComponent
+  href: api/AGS.API.ICropChildrenComponent.html
+  commentId: T:AGS.API.ICropChildrenComponent
+  fullName: AGS.API.ICropChildrenComponent
+  nameWithType: ICropChildrenComponent
+- uid: AGS.API.ICropChildrenComponent.CropChildrenEnabled
+  name: CropChildrenEnabled
+  href: api/AGS.API.ICropChildrenComponent.html#AGS_API_ICropChildrenComponent_CropChildrenEnabled
+  commentId: P:AGS.API.ICropChildrenComponent.CropChildrenEnabled
+  fullName: AGS.API.ICropChildrenComponent.CropChildrenEnabled
+  nameWithType: ICropChildrenComponent.CropChildrenEnabled
+- uid: AGS.API.ICropChildrenComponent.CropChildrenEnabled*
+  name: CropChildrenEnabled
+  href: api/AGS.API.ICropChildrenComponent.html#AGS_API_ICropChildrenComponent_CropChildrenEnabled_
+  commentId: Overload:AGS.API.ICropChildrenComponent.CropChildrenEnabled
+  fullName: AGS.API.ICropChildrenComponent.CropChildrenEnabled
+  nameWithType: ICropChildrenComponent.CropChildrenEnabled
+- uid: AGS.API.ICropChildrenComponent.StartPoint
+  name: StartPoint
+  href: api/AGS.API.ICropChildrenComponent.html#AGS_API_ICropChildrenComponent_StartPoint
+  commentId: P:AGS.API.ICropChildrenComponent.StartPoint
+  fullName: AGS.API.ICropChildrenComponent.StartPoint
+  nameWithType: ICropChildrenComponent.StartPoint
+- uid: AGS.API.ICropChildrenComponent.StartPoint*
+  name: StartPoint
+  href: api/AGS.API.ICropChildrenComponent.html#AGS_API_ICropChildrenComponent_StartPoint_
+  commentId: Overload:AGS.API.ICropChildrenComponent.StartPoint
+  fullName: AGS.API.ICropChildrenComponent.StartPoint
+  nameWithType: ICropChildrenComponent.StartPoint
 - uid: AGS.API.ICropSelfComponent
   name: ICropSelfComponent
   href: api/AGS.API.ICropSelfComponent.html
@@ -4282,6 +4648,45 @@ references:
   commentId: Overload:AGS.API.ICropSelfComponent.CropArea
   fullName: AGS.API.ICropSelfComponent.CropArea
   nameWithType: ICropSelfComponent.CropArea
+- uid: AGS.API.ICropSelfComponent.CropEnabled
+  name: CropEnabled
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_CropEnabled
+  commentId: P:AGS.API.ICropSelfComponent.CropEnabled
+  fullName: AGS.API.ICropSelfComponent.CropEnabled
+  nameWithType: ICropSelfComponent.CropEnabled
+- uid: AGS.API.ICropSelfComponent.CropEnabled*
+  name: CropEnabled
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_CropEnabled_
+  commentId: Overload:AGS.API.ICropSelfComponent.CropEnabled
+  fullName: AGS.API.ICropSelfComponent.CropEnabled
+  nameWithType: ICropSelfComponent.CropEnabled
+- uid: AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs,System.Single,System.Single,System.Single@,System.Single@)
+  name: GetCropArea(BeforeCropEventArgs, Single, Single, out Single, out Single)
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_GetCropArea_AGS_API_BeforeCropEventArgs_System_Single_System_Single_System_Single__System_Single__
+  commentId: M:AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs,System.Single,System.Single,System.Single@,System.Single@)
+  name.vb: GetCropArea(BeforeCropEventArgs, Single, Single, ByRef Single, ByRef Single)
+  fullName: AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs, System.Single, System.Single, out System.Single, out System.Single)
+  fullName.vb: AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs, System.Single, System.Single, ByRef System.Single, ByRef System.Single)
+  nameWithType: ICropSelfComponent.GetCropArea(BeforeCropEventArgs, Single, Single, out Single, out Single)
+  nameWithType.vb: ICropSelfComponent.GetCropArea(BeforeCropEventArgs, Single, Single, ByRef Single, ByRef Single)
+- uid: AGS.API.ICropSelfComponent.GetCropArea*
+  name: GetCropArea
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_GetCropArea_
+  commentId: Overload:AGS.API.ICropSelfComponent.GetCropArea
+  fullName: AGS.API.ICropSelfComponent.GetCropArea
+  nameWithType: ICropSelfComponent.GetCropArea
+- uid: AGS.API.ICropSelfComponent.OnBeforeCrop
+  name: OnBeforeCrop
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_OnBeforeCrop
+  commentId: P:AGS.API.ICropSelfComponent.OnBeforeCrop
+  fullName: AGS.API.ICropSelfComponent.OnBeforeCrop
+  nameWithType: ICropSelfComponent.OnBeforeCrop
+- uid: AGS.API.ICropSelfComponent.OnBeforeCrop*
+  name: OnBeforeCrop
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_OnBeforeCrop_
+  commentId: Overload:AGS.API.ICropSelfComponent.OnBeforeCrop
+  fullName: AGS.API.ICropSelfComponent.OnBeforeCrop
+  nameWithType: ICropSelfComponent.OnBeforeCrop
 - uid: AGS.API.ICropSelfComponent.OnCropAreaChanged
   name: OnCropAreaChanged
   href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_OnCropAreaChanged
@@ -7799,6 +8204,36 @@ references:
   commentId: Overload:AGS.API.IInventoryWindowComponent.TopItem
   fullName: AGS.API.IInventoryWindowComponent.TopItem
   nameWithType: IInventoryWindowComponent.TopItem
+- uid: AGS.API.IJumpOffsetComponent
+  name: IJumpOffsetComponent
+  href: api/AGS.API.IJumpOffsetComponent.html
+  commentId: T:AGS.API.IJumpOffsetComponent
+  fullName: AGS.API.IJumpOffsetComponent
+  nameWithType: IJumpOffsetComponent
+- uid: AGS.API.IJumpOffsetComponent.JumpOffset
+  name: JumpOffset
+  href: api/AGS.API.IJumpOffsetComponent.html#AGS_API_IJumpOffsetComponent_JumpOffset
+  commentId: P:AGS.API.IJumpOffsetComponent.JumpOffset
+  fullName: AGS.API.IJumpOffsetComponent.JumpOffset
+  nameWithType: IJumpOffsetComponent.JumpOffset
+- uid: AGS.API.IJumpOffsetComponent.JumpOffset*
+  name: JumpOffset
+  href: api/AGS.API.IJumpOffsetComponent.html#AGS_API_IJumpOffsetComponent_JumpOffset_
+  commentId: Overload:AGS.API.IJumpOffsetComponent.JumpOffset
+  fullName: AGS.API.IJumpOffsetComponent.JumpOffset
+  nameWithType: IJumpOffsetComponent.JumpOffset
+- uid: AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged
+  name: OnJumpOffsetChanged
+  href: api/AGS.API.IJumpOffsetComponent.html#AGS_API_IJumpOffsetComponent_OnJumpOffsetChanged
+  commentId: P:AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged
+  fullName: AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged
+  nameWithType: IJumpOffsetComponent.OnJumpOffsetChanged
+- uid: AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged*
+  name: OnJumpOffsetChanged
+  href: api/AGS.API.IJumpOffsetComponent.html#AGS_API_IJumpOffsetComponent_OnJumpOffsetChanged_
+  commentId: Overload:AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged
+  fullName: AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged
+  nameWithType: IJumpOffsetComponent.OnJumpOffsetChanged
 - uid: AGS.API.ILabel
   name: ILabel
   href: api/AGS.API.ILabel.html
@@ -8180,12 +8615,12 @@ references:
   commentId: M:AGS.API.IMask.IsMasked(AGS.API.PointF)
   fullName: AGS.API.IMask.IsMasked(AGS.API.PointF)
   nameWithType: IMask.IsMasked(PointF)
-- uid: AGS.API.IMask.IsMasked(AGS.API.PointF,AGS.API.AGSSquare,System.Single,System.Single)
-  name: IsMasked(PointF, AGSSquare, Single, Single)
-  href: api/AGS.API.IMask.html#AGS_API_IMask_IsMasked_AGS_API_PointF_AGS_API_AGSSquare_System_Single_System_Single_
-  commentId: M:AGS.API.IMask.IsMasked(AGS.API.PointF,AGS.API.AGSSquare,System.Single,System.Single)
-  fullName: AGS.API.IMask.IsMasked(AGS.API.PointF, AGS.API.AGSSquare, System.Single, System.Single)
-  nameWithType: IMask.IsMasked(PointF, AGSSquare, Single, Single)
+- uid: AGS.API.IMask.IsMasked(AGS.API.PointF,AGS.API.AGSBoundingBox,System.Single,System.Single)
+  name: IsMasked(PointF, AGSBoundingBox, Single, Single)
+  href: api/AGS.API.IMask.html#AGS_API_IMask_IsMasked_AGS_API_PointF_AGS_API_AGSBoundingBox_System_Single_System_Single_
+  commentId: M:AGS.API.IMask.IsMasked(AGS.API.PointF,AGS.API.AGSBoundingBox,System.Single,System.Single)
+  fullName: AGS.API.IMask.IsMasked(AGS.API.PointF, AGS.API.AGSBoundingBox, System.Single, System.Single)
+  nameWithType: IMask.IsMasked(PointF, AGSBoundingBox, Single, Single)
 - uid: AGS.API.IMask.IsMasked*
   name: IsMasked
   href: api/AGS.API.IMask.html#AGS_API_IMask_IsMasked_
@@ -10898,6 +11333,18 @@ references:
   commentId: Overload:AGS.API.IStackLayoutComponent.Direction
   fullName: AGS.API.IStackLayoutComponent.Direction
   nameWithType: IStackLayoutComponent.Direction
+- uid: AGS.API.IStackLayoutComponent.OnLayoutChanged
+  name: OnLayoutChanged
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_OnLayoutChanged
+  commentId: P:AGS.API.IStackLayoutComponent.OnLayoutChanged
+  fullName: AGS.API.IStackLayoutComponent.OnLayoutChanged
+  nameWithType: IStackLayoutComponent.OnLayoutChanged
+- uid: AGS.API.IStackLayoutComponent.OnLayoutChanged*
+  name: OnLayoutChanged
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_OnLayoutChanged_
+  commentId: Overload:AGS.API.IStackLayoutComponent.OnLayoutChanged
+  fullName: AGS.API.IStackLayoutComponent.OnLayoutChanged
+  nameWithType: IStackLayoutComponent.OnLayoutChanged
 - uid: AGS.API.IStackLayoutComponent.RelativeSpacing
   name: RelativeSpacing
   href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_RelativeSpacing

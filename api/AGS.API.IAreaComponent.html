@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IAreaComponent
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.20.0.0">
+    <meta name="generator" content="docfx 2.22.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -286,19 +286,19 @@ returns the distance between the points.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IAreaComponent_IsInArea_AGS_API_PointF_AGS_API_AGSSquare_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IAreaComponent.IsInArea(AGS.API.PointF%2CAGS.API.AGSSquare%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IAreaComponent_IsInArea_AGS_API_PointF_AGS_API_AGSBoundingBox_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IAreaComponent.IsInArea(AGS.API.PointF%2CAGS.API.AGSBoundingBox%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/Rooms/Areas/IArea.cs/#L42">View Source</a>
   </span>
   <a id="AGS_API_IAreaComponent_IsInArea_" data-uid="AGS.API.IAreaComponent.IsInArea*"></a>
-  <h4 id="AGS_API_IAreaComponent_IsInArea_AGS_API_PointF_AGS_API_AGSSquare_System_Single_System_Single_" data-uid="AGS.API.IAreaComponent.IsInArea(AGS.API.PointF,AGS.API.AGSSquare,System.Single,System.Single)">IsInArea(PointF, AGSSquare, Single, Single)</h4>
+  <h4 id="AGS_API_IAreaComponent_IsInArea_AGS_API_PointF_AGS_API_AGSBoundingBox_System_Single_System_Single_" data-uid="AGS.API.IAreaComponent.IsInArea(AGS.API.PointF,AGS.API.AGSBoundingBox,System.Single,System.Single)">IsInArea(PointF, AGSBoundingBox, Single, Single)</h4>
   <div class="markdown level1 summary"><p>Is the specified point inside the area after being projected and scaled?</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool IsInArea(PointF point, AGSSquare projectionBox, float scaleX, float scaleY)</code></pre>
+    <pre><code class="lang-csharp hljs">bool IsInArea(PointF point, AGSBoundingBox projectionBox, float scaleX, float scaleY)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -317,7 +317,7 @@ returns the distance between the points.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="AGS.API.AGSSquare.html">AGSSquare</a></td>
+        <td><a class="xref" href="AGS.API.AGSBoundingBox.html">AGSBoundingBox</a></td>
         <td><span class="parametername">projectionBox</span></td>
         <td><p>Projection box.</p>
 </td>
