@@ -9,6 +9,7 @@ namespace AGS.Engine
         private List<IObject> _lastDisplayList;
         private IListboxComponent _listBox;
         private IPanel _listPanel;
+        private IStackLayoutComponent _layout;
         private readonly IRenderLayer _layer;
         private readonly IGame _game;
 
@@ -27,7 +28,7 @@ namespace AGS.Engine
             _listPanel.Tint = Colors.Transparent;
             _listPanel.RenderLayer = _layer;
             _listPanel.Anchor = new PointF(0f, 1f);
-            _listPanel.AddComponent<IStackLayoutComponent>().StartLayout();
+            _layout = _listPanel.AddComponent<IStackLayoutComponent>();
             _listBox = _listPanel.AddComponent<IListboxComponent>();
             var yellowBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow);
             var whiteBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.White);
@@ -46,12 +47,14 @@ namespace AGS.Engine
         public async Task Show()
         {
             await Task.Run(() => refresh());
+            _layout.StartLayout();
             _listPanel.Visible = true;
         }
 
         public void Hide()
         {
             _listPanel.Visible = false;
+            _layout.StopLayout();
             _listBox.Items.Clear();
         }
 

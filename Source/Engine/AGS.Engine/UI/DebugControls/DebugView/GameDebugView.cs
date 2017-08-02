@@ -65,9 +65,12 @@ namespace AGS.Engine
             _panesButton.MouseLeave.Subscribe(_ => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.White, Colors.Transparent, 0f));
             _panesButton.MouseClicked.SubscribeToAsync(onPaneSwitch);
 
-            var parentPanel = factory.UI.GetPanel("GameDebugParentPanel", 1f, 1f, 0f, _panel.Height - headerHeight - 40f, _panel);
+            var parentPanelHeight = _panel.Height - headerHeight;
+            var parentPanel = factory.UI.GetPanel("GameDebugParentPanel", _panel.Width, parentPanelHeight, 0f, parentPanelHeight, _panel);
+            parentPanel.Anchor = new PointF(0f, 1f);
             parentPanel.Tint = Colors.Transparent;
             parentPanel.RenderLayer = _layer;
+            parentPanel.AddComponent<ICropChildrenComponent>();
 
             _debugTree.Load(parentPanel);
             _displayList.Load(parentPanel);

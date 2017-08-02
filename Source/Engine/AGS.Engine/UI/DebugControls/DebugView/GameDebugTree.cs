@@ -30,7 +30,7 @@ namespace AGS.Engine
         {
             _panelId = parent.TreeNode.GetRoot().ID;
             var factory = _game.Factory;
-            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, parent.Height, parent);
+            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, parent.Height - 40, parent);
             _treePanel.Tint = Colors.Transparent;
             _treePanel.RenderLayer = _layer;
             _treeView = _treePanel.AddComponent<ITreeViewComponent>();
