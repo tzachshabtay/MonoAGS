@@ -49,5 +49,11 @@
         /// Stops applying the layout to its children.
         /// </summary>
         void StopLayout();
+
+        /// <summary>
+        /// An event which fires whenever the layout changes.
+        /// </summary>
+        /// <value>The on layout changed event.</value>
+        IEvent<object> OnLayoutChanged { get; }
     }
 }

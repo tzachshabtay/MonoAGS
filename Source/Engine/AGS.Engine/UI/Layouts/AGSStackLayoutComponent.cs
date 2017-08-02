@@ -9,10 +9,12 @@ namespace AGS.Engine
         private float _absoluteSpacing, _relativeSpacing;
         private LayoutDirection _direction;
         private bool _isPaused;
+        private IEntity _entity;
 
         public AGSStackLayoutComponent()
         {
             _isPaused = true;
+            OnLayoutChanged = new AGSEvent<object>();
             _direction = LayoutDirection.Vertical;
             _relativeSpacing = -1f; //a simple vertical layout top to bottom by default.
         }
@@ -20,9 +22,11 @@ namespace AGS.Engine
         public LayoutDirection Direction { get { return _direction; } set { _direction = value; adjustLayout(); } }
         public float AbsoluteSpacing { get { return _absoluteSpacing; } set { _absoluteSpacing = value; adjustLayout(); } }
         public float RelativeSpacing { get { return _relativeSpacing; } set { _relativeSpacing = value; adjustLayout(); } }
+        public IEvent<object> OnLayoutChanged { get; private set; }
 
         public override void Init(IEntity entity)
         {
+            _entity = entity;
             base.Init(entity);
             entity.Bind<IInObjectTree>(c => { _tree = c; subscribeTree(c.TreeNode); adjustLayout(); }, 
                                        c => { unsubscribeTree(c.TreeNode); _tree = null; });
@@ -127,6 +131,7 @@ namespace AGS.Engine
                 }
                 location += step * RelativeSpacing + AbsoluteSpacing;
             }
+            OnLayoutChanged.Invoke(null);
         }
 
         private float getWidthWithChildren(IObject obj)

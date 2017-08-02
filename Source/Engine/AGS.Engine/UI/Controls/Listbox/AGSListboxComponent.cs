@@ -15,6 +15,7 @@ namespace AGS.Engine
         private IInObjectTree _tree;
         private IImageComponent _image;
         private IGameState _state;
+        private IStackLayoutComponent _layout;
 
         public AGSListboxComponent(IUIFactory factory, IGameState state)
         {
@@ -32,7 +33,18 @@ namespace AGS.Engine
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
             entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
             entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
-            entity.Bind<IStackLayoutComponent>(c => { c.RelativeSpacing = 1f; c.StartLayout();}, null);
+            entity.Bind<IStackLayoutComponent>(c => 
+            { 
+                c.RelativeSpacing = 1f; 
+                c.OnLayoutChanged.Subscribe(onLayoutChanged); 
+                c.StartLayout();
+                _layout = c;
+            }, c => 
+            {
+                c.StopLayout();
+                c.OnLayoutChanged.Unsubscribe(onLayoutChanged);
+                _layout = null;
+            });
         }
 
         public Func<string, IButton> ItemButtonFactory { get; set; }
@@ -101,6 +113,11 @@ namespace AGS.Engine
                     if (tree != null) tree.TreeNode.AddChild(newButton);
                 }
             }
+            refreshItemsLayout();
+        }
+
+        private void onLayoutChanged(object state)
+        {
             refreshItemsLayout();
         }
 

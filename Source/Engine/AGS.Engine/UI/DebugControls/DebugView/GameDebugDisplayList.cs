@@ -23,7 +23,7 @@ namespace AGS.Engine
         public void Load(IPanel parent)
         {
             var factory = _game.Factory;
-            _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, parent.Height, parent);
+            _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, parent.Height - 10, parent);
             _listPanel.Visible = false;
             _listPanel.Tint = Colors.Transparent;
             _listPanel.RenderLayer = _layer;
