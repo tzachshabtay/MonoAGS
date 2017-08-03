@@ -201,25 +201,35 @@ namespace DemoGame
 		[Conditional("DEBUG")]
 		private static void addDebugLabels(IGame game)
 		{
-			ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, 320, 25, config: new AGSTextConfig(alignment: Alignment.TopLeft,
+			ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, 320, 32, config: new AGSTextConfig(alignment: Alignment.TopLeft,
 				autoFit: AutoFit.LabelShouldFitText));
-			fpsLabel.Anchor = new AGS.API.PointF (1f, 0f);
-			fpsLabel.ScaleBy(0.7f, 0.7f);
+			fpsLabel.Anchor = new PointF (1f, 0f);
+			fpsLabel.ScaleBy(0.5f, 0.5f);
             fpsLabel.RenderLayer = new AGSRenderLayer(-99999);
-            var red = Colors.IndianRed;
-            fpsLabel.Tint = Color.FromRgba(red.R, red.G, red.B, 125);
+            fpsLabel.Enabled = true;
+            fpsLabel.MouseEnter.Subscribe(_ => fpsLabel.Tint = Colors.Indigo);
+            fpsLabel.MouseLeave.Subscribe(_ => fpsLabel.Tint = Colors.IndianRed.WithAlpha(125));
+            fpsLabel.Tint = Colors.IndianRed.WithAlpha(125);
 			FPSCounter fps = new FPSCounter(game, fpsLabel);
 			fps.Start();
 
-			ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 30, 25, 320, 5, config: new AGSTextConfig(alignment: Alignment.TopRight,
+			ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 1, 1, 320, 17, config: new AGSTextConfig(alignment: Alignment.TopRight,
 				autoFit: AutoFit.LabelShouldFitText));
-            var blue = Colors.SlateBlue;
-            label.Tint = Color.FromRgba(blue.R, blue.G, blue.B, 125);
-			label.Anchor = new AGS.API.PointF (1f, 0f);
-			label.ScaleBy(0.7f, 0.7f);
-            label.RenderLayer = new AGSRenderLayer(-99999);
+            label.Tint = Colors.SlateBlue.WithAlpha(125);
+			label.Anchor = new PointF (1f, 0f);
+			label.ScaleBy(0.5f, 0.5f);
+            label.RenderLayer = fpsLabel.RenderLayer;
             MousePositionLabel mouseLabel = new MousePositionLabel(game, label);
 			mouseLabel.Start();
+
+            ILabel debugHotspotLabel = game.Factory.UI.GetLabel("Debug Hotspot Label", "", 1f, 1f, 320, 2, config: new AGSTextConfig(alignment: Alignment.TopRight,
+              autoFit: AutoFit.LabelShouldFitText));
+            debugHotspotLabel.Tint = Colors.DarkSeaGreen.WithAlpha(125);
+            debugHotspotLabel.Anchor = new PointF(1f, 0f);
+            debugHotspotLabel.ScaleBy(0.5f, 0.5f);
+            debugHotspotLabel.RenderLayer = fpsLabel.RenderLayer;
+            HotspotLabel hotspot = new HotspotLabel(game, debugHotspotLabel) { DebugMode = true };
+            hotspot.Start();
 		}
 	}
 }

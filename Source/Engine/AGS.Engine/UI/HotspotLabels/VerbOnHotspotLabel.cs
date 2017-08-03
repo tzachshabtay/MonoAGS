@@ -51,7 +51,7 @@ namespace AGS.Engine
 
 		private void onTick(object args)
 		{
-			if (_label == null || _state.Player == null) return;		
+            if (_label == null || _state.Player == null || _state.Room == null) return;
             IObject obj = _state.Room.GetObjectAtMousePosition();
 			if (obj == null || obj.Hotspot == null) 
 			{

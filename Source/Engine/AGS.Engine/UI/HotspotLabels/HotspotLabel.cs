@@ -19,6 +19,12 @@ namespace AGS.Engine
 			_game = game;
 		}
 
+        /// <summary>
+        /// Activating debug mode will show all objects under the mouse, not just the hotspots.
+        /// </summary>
+        /// <value><c>true</c> if debug mode; otherwise, <c>false</c>.</value>
+        public bool DebugMode { get; set; }
+
 		public void Start()
 		{
 			_events.OnRepeatedlyExecute.Subscribe(onTick);
@@ -34,14 +40,14 @@ namespace AGS.Engine
 
 		private void onTick(object args)
 		{
-			if (_label == null) return;
+            if (_label == null || _state.Room == null) return;
             IObject obj = _state.Room.GetObjectAtMousePosition();
-			if (obj == null || obj.Hotspot == null) 
+            if (obj == null || (obj.Hotspot == null && !DebugMode)) 
 			{
 				_label.Visible = false;
 				return;
 			}
-			_label.Text = obj.Hotspot;
+            _label.Text = obj.Hotspot ?? obj.ID ?? "???";
 			_label.Visible = true;
 		}
 	}
