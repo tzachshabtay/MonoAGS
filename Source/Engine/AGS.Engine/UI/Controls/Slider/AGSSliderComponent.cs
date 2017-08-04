@@ -31,7 +31,9 @@ namespace AGS.Engine
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-            entity.Bind<ICollider>(c => _collider = c, _ => _collider = null);
+            var graphics = Graphics;
+            if (graphics != null)
+                graphics.Bind<ICollider>(c => _collider = c, _ => _collider = null);
             entity.Bind<IDrawableInfo>(c => _drawableInfo = c, _ => _drawableInfo = null);
             entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
             entity.Bind<IVisibleComponent>(c => _visible = c, _ => _visible = null);
@@ -49,6 +51,7 @@ namespace AGS.Engine
 			{
 				updateGraphics(_graphics, value, -50f);
 				_graphics = value;
+                if (value != null) value.Bind<ICollider>(c => _collider = c, _ => _collider = null);
 				refresh();
 			}
 		}
@@ -159,7 +162,7 @@ namespace AGS.Engine
 		private void onRepeatedlyExecute(object args)
 		{
             var collider = _collider;
-            if (collider == null) return;
+            if (collider == null || collider.BoundingBoxes == null) return;
             var visible = _visible;
             var enabled = _enabled;
             if (visible == null || !visible.Visible || enabled == null || !enabled.Enabled || 
@@ -176,28 +179,34 @@ namespace AGS.Engine
 				return;
 			}
 			_isSliding = true;
-            if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - collider.BoundingBoxes.HitTestBox.MinX, 0f, Graphics.Width)));
+            if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - collider.BoundingBoxes.HitTestBox.MinX, 
+                                                                      0f, collider.BoundingBoxes.HitTestBox.Width), collider));
 			else setValue(getSliderValue(MathUtils.Clamp(_input.MouseY - collider.BoundingBoxes.HitTestBox.MinY
-				, 0f, Graphics.Height)));
+                                                         , 0f, collider.BoundingBoxes.HitTestBox.Height), collider));
 		}
 
 		private void refresh()
 		{
-			if (Graphics == null || HandleGraphics == null) return;
+            var collider = _collider;
+            if (collider == null || collider.BoundingBoxes == null || HandleGraphics == null) return;
 
-			if (IsHorizontal) HandleGraphics.X = MathUtils.Clamp(getHandlePos(Value), 0f, Graphics.Width);
-			else HandleGraphics.Y = MathUtils.Clamp(getHandlePos(Value), 0f, Graphics.Height);
+            if (IsHorizontal) HandleGraphics.X = MathUtils.Clamp(getHandlePos(Value, collider), 0f, collider.BoundingBoxes.RenderBox.Width);
+            else HandleGraphics.Y = MathUtils.Clamp(getHandlePos(Value, collider), 0f, collider.BoundingBoxes.RenderBox.Height);
 			setText();
 		}
 
-		private float getSliderValue(float handlePos)
+        private float getSliderValue(float handlePos, ICollider collider)
 		{
-			return MathUtils.Lerp(0f, MinValue, IsHorizontal ? Graphics.Width : Graphics.Height, MaxValue, handlePos);
+			return MathUtils.Lerp(0f, MinValue, IsHorizontal ? 
+                                  collider.BoundingBoxes.HitTestBox.Width : collider.BoundingBoxes.HitTestBox.Height, 
+                                  MaxValue, handlePos);
 		}
 
-		private float getHandlePos(float value)
+		private float getHandlePos(float value, ICollider collider)
 		{
-			return MathUtils.Lerp(MinValue, 0f, MaxValue, IsHorizontal ? Graphics.Width : Graphics.Height, value);
+			return MathUtils.Lerp(MinValue, 0f, MaxValue, IsHorizontal ? 
+                                  collider.BoundingBoxes.RenderBox.Width : collider.BoundingBoxes.RenderBox.Height, 
+                                  value);
 		}
 
 		private void setText()

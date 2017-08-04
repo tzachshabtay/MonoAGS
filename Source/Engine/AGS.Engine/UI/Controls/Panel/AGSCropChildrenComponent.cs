@@ -11,9 +11,17 @@ namespace AGS.Engine
         private ICollider _collider;
         private bool _isDirty;
 
+        public AGSCropChildrenComponent()
+        {
+            EntitiesToSkipCrop = new AGSConcurrentHashSet<string>();
+            EntitiesToSkipCrop.OnListChanged.Subscribe(_ => rebuildTree(_tree));
+        }
+
         public bool CropChildrenEnabled { get; set; }
 
         public PointF StartPoint { get { return _startPoint; } set { _startPoint = value; rebuildTree(_tree); } }
+
+        public IConcurrentHashSet<string> EntitiesToSkipCrop { get; private set; }
 
         public override void Init(IEntity entity)
         {
@@ -84,7 +92,7 @@ namespace AGS.Engine
             rebuildJump(tree);
             foreach (var child in tree.TreeNode.Children)
             {
-                if (!child.Visible) continue;
+                if (!child.Visible || EntitiesToSkipCrop.Contains(child.ID)) continue;
                 prepareCrop(child);
                 rebuildTree(child);
             }
@@ -94,7 +102,7 @@ namespace AGS.Engine
         {
 			foreach (var child in tree.TreeNode.Children)
 			{
-				if (!child.Visible) continue;
+				if (!child.Visible || EntitiesToSkipCrop.Contains(child.ID)) continue;
 				var jump = child.AddComponent<IJumpOffsetComponent>();
 				jump.JumpOffset = new PointF(-StartPoint.X, -StartPoint.Y);
                 rebuildJump(child);

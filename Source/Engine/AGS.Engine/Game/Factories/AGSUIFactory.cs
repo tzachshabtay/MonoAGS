@@ -272,16 +272,16 @@ namespace AGS.Engine
         public ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max,
             IObject parent = null, ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
         {
-            var image = _graphics.LoadImage(imagePath, loadConfig);
-            var handleImage = _graphics.LoadImage(handleImagePath, loadConfig);
+            var image = imagePath == null ? null : _graphics.LoadImage(imagePath, loadConfig);
+            var handleImage = handleImagePath == null ? null : _graphics.LoadImage(handleImagePath, loadConfig);
             return getSlider(id, image, handleImage, value, min, max, parent, config, addToUi);
         }
 
         public async Task<ISlider> GetSliderAsync(string id, string imagePath, string handleImagePath, float value, float min, float max,
             IObject parent = null, ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
         {
-            var image = await _graphics.LoadImageAsync(imagePath, loadConfig);
-            var handleImage = await _graphics.LoadImageAsync(handleImagePath, loadConfig);
+            var image = imagePath == null ? null : await _graphics.LoadImageAsync(imagePath, loadConfig);
+            var handleImage = handleImagePath == null ? null : await _graphics.LoadImageAsync(handleImagePath, loadConfig);
             return getSlider(id, image, handleImage, value, min, max, parent, config, addToUi);
         }
 
@@ -289,7 +289,7 @@ namespace AGS.Engine
             IObject parent = null, ITextConfig config = null, bool addToUi = true)
         {
             IObject graphics = _object.GetObject(string.Format("{0}(graphics)", id));
-            graphics.Image = image;
+            graphics.Image = image ?? new EmptyImage(10f, 100f);
             graphics.IgnoreViewport = true;
             ILabel label = null;
             if (config != null)
@@ -299,7 +299,7 @@ namespace AGS.Engine
             }
 
             IObject handle = _object.GetObject(string.Format("{0}(handle)", id));
-            handle.Image = handleImage;
+            handle.Image = handleImage ?? new EmptyImage(20f, 20f);
             handle.IgnoreViewport = true;
 
             TypedParameter idParam = new TypedParameter(typeof(string), id);

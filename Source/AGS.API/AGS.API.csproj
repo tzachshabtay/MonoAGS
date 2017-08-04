@@ -245,6 +245,7 @@
     <Compile Include="Misc\Geometry\AGSBoundingBoxes.cs" />
     <Compile Include="Objects\IJumpOffsetComponent.cs" />
     <Compile Include="UI\Controls\Panel\BeforeCropEventArgs.cs" />
+    <Compile Include="UI\Controls\Panel\IScrollingComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

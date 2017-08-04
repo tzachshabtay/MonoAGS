@@ -71,6 +71,23 @@ namespace AGS.Engine
             parentPanel.Tint = Colors.Transparent;
             parentPanel.RenderLayer = _layer;
             parentPanel.AddComponent<ICropChildrenComponent>();
+            IScrollingComponent scroll = parentPanel.AddComponent<IScrollingComponent>();
+            var horizSlider = factory.UI.GetSlider("DebugPanel_HorizSlider", null, null, 0f, 0f, 100f, parentPanel);
+            horizSlider.X = 20f;
+            horizSlider.Y = 20f;
+			horizSlider.RenderLayer = _layer;
+			horizSlider.Graphics.RenderLayer = _layer;
+			horizSlider.HandleGraphics.RenderLayer = _layer;
+            horizSlider.HandleGraphics.Anchor = new PointF(0f, 0.5f);
+			horizSlider.IsHorizontal = true;
+            horizSlider.Graphics.Anchor = new PointF(0f, 0.5f);
+            horizSlider.Graphics.Image = new EmptyImage(parentPanel.Width - 40f, 10f);
+            horizSlider.Graphics.Tint = Colors.Gray;
+            horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
+            horizSlider.HandleGraphics.Tint = Colors.DarkGray;
+            horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
+
+            scroll.HorizontalScrollBar = horizSlider;
 
             _debugTree.Load(parentPanel);
             _displayList.Load(parentPanel);

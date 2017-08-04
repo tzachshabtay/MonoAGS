@@ -21,5 +21,11 @@
         /// </summary>
         /// <value>The start point.</value>
         PointF StartPoint { get; set; }
+
+        /// <summary>
+        /// A list of child entities (their IDs) that will not be cropped by the component.
+        /// </summary>
+        /// <value>The entities to skip crop.</value>
+        IConcurrentHashSet<string> EntitiesToSkipCrop { get; }
     }
 }
