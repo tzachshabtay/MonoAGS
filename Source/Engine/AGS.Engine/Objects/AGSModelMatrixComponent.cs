@@ -111,7 +111,9 @@ namespace AGS.Engine
         }
 
         public ModelMatrices GetModelMatrices() 
-        { 
+        {
+            var parent = _parent;
+            if (parent != null) parent.GetModelMatrices(); //If the parent's matrix is different we want to make sure it fires the matrix change event so we know that we also need to recalculate
             return shouldRecalculate() ? recalculateMatrices() : _matrices; 
         }
 
@@ -220,7 +222,8 @@ namespace AGS.Engine
                 var customImageSize = renderer.CustomImageSize;
                 if ((customImageSize == null && _customImageSize != null) || 
                     (customImageSize != null && _customImageSize == null) ||
-                    !customImageSize.Value.Equals(_customImageSize.Value))
+                    (customImageSize != null && _customImageSize != null && 
+                     !customImageSize.Value.Equals(_customImageSize.Value)))
                 {
                     _customImageSize = customImageSize;
                     _isDirty = true;
@@ -228,7 +231,8 @@ namespace AGS.Engine
                 var customFactor = renderer.CustomImageResolutionFactor;
                 if ((customFactor == null && _customResolutionFactor != null) ||
                     (customFactor != null && _customResolutionFactor == null) ||
-                    !customFactor.Value.Equals(_customResolutionFactor.Value))
+                    (customFactor != null && _customResolutionFactor != null &&
+                     !customFactor.Value.Equals(_customResolutionFactor.Value)))
                 {
                     _customResolutionFactor = customFactor;
                     _isDirty = true;
@@ -261,7 +265,9 @@ namespace AGS.Engine
 
         private Matrix4 getMatrix(PointF resolutionFactor) 
         {
-            var sprite = _animation.Animation.Sprite;
+            var animation = _animation;
+            if (animation == null || animation.Animation == null) return Matrix4.Identity;
+            var sprite = animation.Animation.Sprite;
             Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, null,
                                                   NoScaling, NoScaling, true);
             Matrix4 objMatrix = getModelMatrix(_scale, _rotate, _translate, _image,
