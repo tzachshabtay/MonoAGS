@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using AGS.API;
 
 namespace AGS.Engine
@@ -112,8 +112,6 @@ namespace AGS.Engine
 
         public ModelMatrices GetModelMatrices() 
         {
-            var parent = _parent;
-            if (parent != null) parent.GetModelMatrices(); //If the parent's matrix is different we want to make sure it fires the matrix change event so we know that we also need to recalculate
             return shouldRecalculate() ? recalculateMatrices() : _matrices; 
         }
 

@@ -16,6 +16,7 @@ namespace AGS.Engine
 		private readonly Resolver _resolver;
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly DisplayListEventArgs _displayListEventArgs;
+        private readonly Stack<IObject> _parentStack;
         private IGLUtils _glUtils;
         private IShader _lastShaderUsed;
 		private IObject _mouseCursorContainer;
@@ -34,6 +35,7 @@ namespace AGS.Engine
 			this._comparer = new RenderOrderSelector ();
 			this._roomTransitions = roomTransitions;
             this._displayListEventArgs = new DisplayListEventArgs(null);
+            this._parentStack = new Stack<IObject>();
             OnBeforeRenderingDisplayList = onBeforeRenderingDisplayList;
 			_roomTransitions.Transition = new RoomTransitionInstant ();
 		}
@@ -131,6 +133,7 @@ namespace AGS.Engine
 
 		private void renderObject(IRoom room, IObject obj)
 		{
+            refreshParentMatrices(obj);
             Size resolution = obj.RenderLayer == null || obj.RenderLayer.IndependentResolution == null ? 
                 _game.Settings.VirtualResolution :
                 obj.RenderLayer.IndependentResolution.Value;
@@ -146,6 +149,20 @@ namespace AGS.Engine
 
 			removeObjectShader(shader);
 		}
+
+        private void refreshParentMatrices(IObject obj)
+        {
+            //Making sure all of the parents have their matrix refreshed before rendering the object,
+            //as if they need a new matrix the object will need to recalculate its matrix as well.
+            //todo: find a more performant solution, to only visit each object once.
+			var parent = obj.TreeNode.Parent;
+			while (parent != null)
+			{
+                _parentStack.Push(parent);
+				parent = parent.TreeNode.Parent;
+			}
+			while (_parentStack.Count > 0) _parentStack.Pop().GetModelMatrices();
+        }
 
 		private static IShader applyObjectShader(IObject obj)
 		{
