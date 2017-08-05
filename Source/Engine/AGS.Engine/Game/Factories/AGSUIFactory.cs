@@ -251,6 +251,7 @@ namespace AGS.Engine
                 height: defaultHeight));
 
             var dropDownPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, comboBox);
+            dropDownPanel.AddComponent<ISizeWithChildrenComponent>();
             dropDownPanel.AddComponent<IStackLayoutComponent>();
             var listBox = dropDownPanel.AddComponent<IListboxComponent>();
             listBox.ItemButtonFactory = itemButtonFactory;

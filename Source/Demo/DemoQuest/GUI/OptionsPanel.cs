@@ -71,6 +71,7 @@ namespace DemoGame
             const int step = -20;
 #endif
             _buttonsPanel = factory.UI.GetPanel(_buttonsPanelId, (IImage)null, 15f, top, _panel);
+            _buttonsPanel.AddComponent<ISizeWithChildrenComponent>();
             var layout = _buttonsPanel.AddComponent<IStackLayoutComponent>();
             layout.RelativeSpacing = 0f;
             layout.AbsoluteSpacing = step;

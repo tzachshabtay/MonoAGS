@@ -57,6 +57,7 @@ namespace AGS.Engine
             label.Tint = Colors.Transparent;
             label.Enabled = true;
             expandButton.PixelPerfect(false);
+            horizontalPanel.AddComponent<ISizeWithChildrenComponent>();
             var layout = horizontalPanel.AddComponent<IStackLayoutComponent>();
             layout.RelativeSpacing = 1f;
             layout.Direction = LayoutDirection.Horizontal;

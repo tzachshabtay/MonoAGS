@@ -402,6 +402,7 @@
     <Compile Include="UI\Controls\Panel\AGSCropChildrenComponent.cs" />
     <Compile Include="Objects\AGSJumpOffsetComponent.cs" />
     <Compile Include="UI\Controls\Panel\AGSScrollingComponent.cs" />
+    <Compile Include="Objects\AGSSizeWithChildrenComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
