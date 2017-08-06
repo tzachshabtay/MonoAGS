@@ -5,6 +5,8 @@
     /// scroll the content (i.e the children) of the entity.
     /// </summary>
     [RequiredComponent(typeof(ICropChildrenComponent))]
+    [RequiredComponent(typeof(ISizeWithChildrenComponent), false)]
+    [RequiredComponent(typeof(IScaleComponent), false)]
     public interface IScrollingComponent : IComponent
     {
         /// <summary>

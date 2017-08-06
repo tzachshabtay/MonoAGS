@@ -92,9 +92,23 @@ namespace AGS.Engine
             rebuildJump(tree);
             foreach (var child in tree.TreeNode.Children)
             {
-                if (!child.Visible || EntitiesToSkipCrop.Contains(child.ID)) continue;
+                if (!child.Visible) continue;
+                if (EntitiesToSkipCrop.Contains(child.ID))
+                {
+                    if (child.HasComponent<ICropSelfComponent>()) removeCrop(child);
+                    continue;
+                }
                 prepareCrop(child);
                 rebuildTree(child);
+            }
+        }
+
+        private void removeCrop(IObject obj)
+        {
+            obj.RemoveComponents<ICropSelfComponent>();
+            foreach (var child in obj.TreeNode.Children)
+            {
+                removeCrop(child);
             }
         }
 
