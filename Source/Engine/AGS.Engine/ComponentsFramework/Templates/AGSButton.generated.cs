@@ -35,6 +35,7 @@ namespace AGS.Engine
         private ITextComponent _textComponent;
         private IButtonComponent _buttonComponent;
         private IModelMatrixComponent _modelMatrixComponent;
+        private IBoundingBoxComponent _boundingBoxComponent;
 
         public AGSButton(string id, Resolver resolver) : base(id, resolver)
         {            
@@ -58,6 +59,7 @@ namespace AGS.Engine
             _textComponent = AddComponent<ITextComponent>();            
             _buttonComponent = AddComponent<IButtonComponent>();
             _modelMatrixComponent = AddComponent<IModelMatrixComponent>();
+            _boundingBoxComponent = AddComponent<IBoundingBoxComponent>();
 			beforeInitComponents(resolver);            
 			InitComponents();
             afterInitComponents(resolver);            
@@ -151,6 +153,11 @@ namespace AGS.Engine
             get { return _hasRoom.PreviousRoom; } 
         }
 
+        public IEvent<object> OnRoomChanged
+        {
+            get { return _hasRoom.OnRoomChanged; }
+        }
+
         public Task ChangeRoomAsync(IRoom room, Nullable<Single> x, Nullable<Single> y)
         {
             return _hasRoom.ChangeRoomAsync(room, x, y);
@@ -213,12 +220,6 @@ namespace AGS.Engine
         #endregion
 
         #region ICollider implementation
-
-        public AGSBoundingBoxes BoundingBoxes 
-        {  
-            get { return _collider.BoundingBoxes; }  
-            set { _collider.BoundingBoxes = value; } 
-        }
 
         public Nullable<PointF> CenterPoint 
         {  
@@ -564,10 +565,19 @@ namespace AGS.Engine
 
         #endregion
 
-        public ModelMatrices GetModelMatrices() { return _modelMatrixComponent.GetModelMatrices(); } 
+        public ModelMatrices GetModelMatrices() { return _modelMatrixComponent.GetModelMatrices(); }
+
+        #region IBoundingBoxComponent implementation
+
+        public AGSBoundingBoxes GetBoundingBoxes() { return _boundingBoxComponent.GetBoundingBoxes(); }
+
+        public IEvent<object> OnBoundingBoxesChanged { get { return _boundingBoxComponent.OnBoundingBoxesChanged; } }
+
+        #endregion
 
         public IEvent<object> OnMatrixChanged { get { return _modelMatrixComponent.OnMatrixChanged; } }
         public IEvent<object> OnIgnoreScalingAreaChanged { get { return _drawableInfo.OnIgnoreScalingAreaChanged; } }
+        public IEvent<object> OnIgnoreViewportChanged { get { return _drawableInfo.OnIgnoreViewportChanged; } }
         public IEvent<object> OnRenderLayerChanged { get { return _drawableInfo.OnRenderLayerChanged; } }
         public IEvent<object> OnLocationChanged { get { return _translateComponent.OnLocationChanged; } }
         public IEvent<object> OnScaleChanged { get { return _scaleComponent.OnScaleChanged; } }

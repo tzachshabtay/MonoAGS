@@ -247,6 +247,7 @@
     <Compile Include="UI\Controls\Panel\BeforeCropEventArgs.cs" />
     <Compile Include="UI\Controls\Panel\IScrollingComponent.cs" />
     <Compile Include="Objects\ISizeWithChildrenComponent.cs" />
+    <Compile Include="Objects\Collisions\IBoundingBoxComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

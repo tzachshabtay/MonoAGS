@@ -10,6 +10,7 @@ namespace AGS.Engine
         private IScale _scale;
         private IPixelPerfectCollidable _pixelPerfect;
         private IEntity _entity;
+        private IBoundingBoxComponent _boundingBox;
 
 		public AGSCollider(IGameState state)
 		{
@@ -24,16 +25,18 @@ namespace AGS.Engine
             entity.Bind<IAnimationContainer>(c => _obj = c, _ => _obj = null);
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
             entity.Bind<IPixelPerfectComponent>(c => _pixelPerfect = c, _ => _pixelPerfect = null);
+            entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
 		}
-
-		public AGSBoundingBoxes BoundingBoxes { get; set; }
 
 		public PointF? CenterPoint
 		{
 			get
 			{
-                if (BoundingBoxes == null) return null;
-                var boundingBox = BoundingBoxes.HitTestBox;
+                var boundingBoxesComponent = _boundingBox;
+                if (boundingBoxesComponent == null) return null;
+                var boundingBoxes = boundingBoxesComponent.GetBoundingBoxes();
+                if (boundingBoxes == null) return null;
+                var boundingBox = boundingBoxes.HitTestBox;
                 var pixelPerfectComponent = _pixelPerfect;
                 var pixelPerfect = pixelPerfectComponent == null ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 				float minX = boundingBox.MinX;
@@ -49,7 +52,9 @@ namespace AGS.Engine
 
 		public bool CollidesWith(float x, float y)
 		{
-			AGSBoundingBoxes boundingBoxes = BoundingBoxes;
+			var boundingBoxesComponent = _boundingBox;
+            if (boundingBoxesComponent == null) return false;
+			var boundingBoxes = boundingBoxesComponent.GetBoundingBoxes();
             if (boundingBoxes == null) return false;
             AGSBoundingBox boundingBox = boundingBoxes.HitTestBox;
             var pixelPerfectComponent = _pixelPerfect;

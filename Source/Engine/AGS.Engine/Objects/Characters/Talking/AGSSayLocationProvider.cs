@@ -26,10 +26,11 @@ namespace AGS.Engine
 		{
             var portraitLocation = getPortraitLocation(config);
             _lastSpeaker = _obj;
-            float x = portraitLocation == null ? (_obj.BoundingBoxes.HitTestBox.MaxX - (_obj.IgnoreViewport ? 0 : _obj.Room.Viewport.X)) 
+            var boundingBoxes = _obj.GetBoundingBoxes();
+            float x = portraitLocation == null ? (boundingBoxes.HitTestBox.MaxX - (_obj.IgnoreViewport ? 0 : _obj.Room.Viewport.X)) 
                                                   : portraitLocation.Value.X;
             if (portraitLocation != null && _lastSpeakerOnLeft) x += config.PortraitConfig.Portrait.Width + getBorderWidth(config.PortraitConfig, true).X;
-            float y = portraitLocation == null ? (_obj.BoundingBoxes.HitTestBox.MaxY - (_obj.IgnoreViewport ? 0 : _obj.Room.Viewport.Y)) 
+            float y = portraitLocation == null ? (boundingBoxes.HitTestBox.MaxY - (_obj.IgnoreViewport ? 0 : _obj.Room.Viewport.Y)) 
                                                   : _settings.VirtualResolution.Height;
             return new AGSSayLocation(getTextLocation(text, config, x, y), portraitLocation);
 		}

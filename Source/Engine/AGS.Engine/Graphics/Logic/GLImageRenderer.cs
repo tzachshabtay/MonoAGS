@@ -8,10 +8,8 @@ namespace AGS.Engine
 	{
         private readonly Dictionary<string, ITexture> _textures;
         private static Lazy<ITexture> _emptyTexture;
-		private readonly IBoundingBoxBuilder _boundingBoxBuilder;
 		private readonly IGLColorBuilder _colorBuilder;
 		private readonly IGLTextureRenderer _renderer;
-		private readonly IGLViewportMatrixFactory _layerViewports;
         private readonly IGraphicsFactory _graphicsFactory;
         private readonly IGLUtils _glUtils;
         private readonly IBitmapLoader _bitmapLoader;
@@ -21,26 +19,20 @@ namespace AGS.Engine
         private readonly IHasImage[] _colorAdjusters;
 
         public GLImageRenderer (Dictionary<string, ITexture> textures, 
-			IBoundingBoxBuilder boundingBoxBuilder,
-			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer, AGSBoundingBoxes bgBoxes,
-            IGLViewportMatrixFactory layerViewports, IGraphicsFactory graphicsFactory, IGLUtils glUtils, 
+			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer,
+            IGraphicsFactory graphicsFactory, IGLUtils glUtils, 
             IBitmapLoader bitmapLoader)
 		{
             _graphicsFactory = graphicsFactory;
             _createTextureFunc = createNewTexture; //Creating a delegate in advance to avoid memory allocations on critical path
 			_textures = textures;
-			_boundingBoxBuilder = boundingBoxBuilder;
 			_colorBuilder = colorBuilder;
 			_renderer = renderer;
-			_layerViewports = layerViewports;
-			BoundingBoxes = bgBoxes;
             _glUtils = glUtils;
             _bitmapLoader = bitmapLoader;
             _emptyTexture = new Lazy<ITexture>(() => initEmptyTexture());
             _colorAdjusters = new IHasImage[2];
 		}
-
-		public AGSBoundingBoxes BoundingBoxes { get; set; }
 
         public static ITexture EmptyTexture { get { return _emptyTexture.Value; } }
 
@@ -62,37 +54,11 @@ namespace AGS.Engine
 			{
 				return;
 			}
-
-			var layerViewport = _layerViewports.GetViewport(obj.RenderLayer.Z);
-            Size resolution;
-            PointF resolutionFactor;
-            bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, AGSGame.Game.Settings.VirtualResolution,
-                                                         obj, null, out resolutionFactor, out resolution);
-
-            var viewportMatrix = obj.IgnoreViewport ? Matrix4.Identity : layerViewport.GetMatrix(viewport, obj.RenderLayer.ParallaxSpeed);
-
-            var modelMatrices = obj.GetModelMatrices();
-            _matrices.ModelMatrix = modelMatrices.InVirtualResolutionMatrix;
-            _matrices.ViewportMatrix = viewportMatrix;
-
-            float width = sprite.Image.Width / resolutionFactor.X;
-            float height = sprite.Image.Height / resolutionFactor.Y;
-
-            var scale = _boundingBoxBuilder.Build(BoundingBoxes, width, height, _matrices, resolutionMatches, true);
-            AGSBoundingBox hitTestBox = BoundingBoxes.HitTestBox;
-            
-            if (!resolutionMatches)
-            {
-                _matrices.ModelMatrix = modelMatrices.InObjResolutionMatrix;
-                _boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width,
-                    sprite.Image.Height, _matrices, true, false);
-            }
-            AGSBoundingBox renderBox = BoundingBoxes.RenderBox;
-			var crop = obj.GetComponent<ICropSelfComponent>();
-            var cropInfo = renderBox.Crop(BoundingBoxType.Render, crop, resolutionFactor, scale);
-            if (cropInfo.Equals(default(AGSCropInfo))) return;
-            renderBox = cropInfo.BoundingBox;
-            hitTestBox = hitTestBox.Crop(BoundingBoxType.HitTest, crop, AGSModelMatrixComponent.NoScaling, scale).BoundingBox;
+            obj.GetModelMatrices();
+            var boundingBoxes = obj.GetBoundingBoxes();
+            if (boundingBoxes == null) return;
+            var renderBox = boundingBoxes.RenderBox;
+            var hitTestBox = boundingBoxes.HitTestBox;
 
 			ITexture texture = _textures.GetOrAdd (sprite.Image.ID, _createTextureFunc);
 
@@ -109,14 +75,7 @@ namespace AGS.Engine
 
 				border.RenderBorderBack(borderBox);
 			}
-            _renderer.Render(texture.ID, renderBox, cropInfo.TextureBox, color);
-
-            if (obj.BoundingBoxes == null)
-            {
-                obj.BoundingBoxes = new AGSBoundingBoxes();
-            }
-            obj.BoundingBoxes.RenderBox = renderBox;
-            obj.BoundingBoxes.HitTestBox = hitTestBox;
+            _renderer.Render(texture.ID, renderBox, boundingBoxes.TextureBox, color);
 
 			if (border != null)
 			{

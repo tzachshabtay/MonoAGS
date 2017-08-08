@@ -8,7 +8,7 @@ namespace AGS.Engine
         private IInObjectTree _tree;
         private IScaleComponent _scale;
         private PointF _startPoint;
-        private ICollider _collider;
+        private IBoundingBoxComponent _boundingBox;
         private bool _isDirty;
 
         public AGSCropChildrenComponent()
@@ -26,7 +26,7 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            entity.Bind<ICollider>(c => { _collider = c; }, _ => { _collider = null; });
+            entity.Bind<IBoundingBoxComponent>(c => { _boundingBox = c; }, _ => { _boundingBox = null; });
             entity.Bind<IInObjectTree>(c => { subscribeTree(c); _tree = c; }, c => { unsubscribeTree(c); _tree = null; });
             entity.Bind<IScaleComponent>(c => { c.OnScaleChanged.Subscribe(onTreeChanged); _scale = c; rebuildTree(_tree); },
                                          c => { c.OnScaleChanged.Unsubscribe(onTreeChanged); _scale = null; });
@@ -125,8 +125,10 @@ namespace AGS.Engine
 
         private void prepareCrop(IObject obj)
         {
-            var collider = _collider;
-            if (collider == null || collider.BoundingBoxes == null || obj.BoundingBoxes == null) return;
+            var boundingBox = _boundingBox;
+            if (boundingBox == null) return;
+            var boundingBoxes = boundingBox.GetBoundingBoxes();
+            if (boundingBoxes == null || obj.GetBoundingBoxes() == null) return;
             ICropSelfComponent cropSelf;
             var labelRenderer = obj.CustomRenderer as GLLabelRenderer;
             if (labelRenderer != null && labelRenderer.TextBoundingBoxes != null)
@@ -135,7 +137,7 @@ namespace AGS.Engine
                 if (cropSelf == null)
                 {
                     cropSelf = new AGSCropSelfComponent();
-                    ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, cropSelf, () => _collider.BoundingBoxes.RenderBox,
+                    ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.RenderBox,
                                                             () => StartPoint);
                     cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
                     cropSelf.Init(obj);
@@ -148,7 +150,7 @@ namespace AGS.Engine
             {
                 cropSelf = new AGSCropSelfComponent();
                 cropSelf.CropEnabled = false;
-                ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, () => _collider.BoundingBoxes.RenderBox,
+                ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.RenderBox,
 															() => StartPoint);
                 cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
                 obj.AddComponent(cropSelf);

@@ -14,7 +14,7 @@ namespace AGS.Engine
 		private readonly IInput _input;
 		private readonly IGameState _state;
 		private readonly IGameEvents _gameEvents;
-		private ICollider _collider;
+        private IBoundingBoxComponent _boundingBox;
 		private IDrawableInfo _drawableInfo;
 		private IInObjectTree _tree;
 		private IVisibleComponent _visible;
@@ -33,7 +33,7 @@ namespace AGS.Engine
 			base.Init(entity);
             var graphics = Graphics;
             if (graphics != null)
-                graphics.Bind<ICollider>(c => _collider = c, _ => _collider = null);
+                graphics.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
             entity.Bind<IDrawableInfo>(c => _drawableInfo = c, _ => _drawableInfo = null);
             entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
             entity.Bind<IVisibleComponent>(c => _visible = c, _ => _visible = null);
@@ -51,7 +51,7 @@ namespace AGS.Engine
 			{
 				updateGraphics(_graphics, value, -50f);
 				_graphics = value;
-                if (value != null) value.Bind<ICollider>(c => _collider = c, _ => _collider = null);
+                if (value != null) value.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
 				refresh();
 			}
 		}
@@ -161,14 +161,15 @@ namespace AGS.Engine
 
 		private void onRepeatedlyExecute(object args)
 		{
-            var collider = _collider;
-            if (collider == null || collider.BoundingBoxes == null) return;
+            var boundingBox = _boundingBox;
+            if (boundingBox == null) return;
+            var boundingBoxes = boundingBox.GetBoundingBoxes();
             var visible = _visible;
             var enabled = _enabled;
             if (visible == null || !visible.Visible || enabled == null || !enabled.Enabled || 
-                collider.BoundingBoxes == null || 
+                boundingBoxes == null || 
                 (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
-                Graphics.BoundingBoxes == null || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
+                Graphics.GetBoundingBoxes() == null || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
                 HandleGraphics == null)
 			{
 				if (_isSliding)
@@ -179,33 +180,35 @@ namespace AGS.Engine
 				return;
 			}
 			_isSliding = true;
-            if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - collider.BoundingBoxes.HitTestBox.MinX, 
-                                                                      0f, collider.BoundingBoxes.HitTestBox.Width), collider));
-			else setValue(getSliderValue(MathUtils.Clamp(_input.MouseY - collider.BoundingBoxes.HitTestBox.MinY
-                                                         , 0f, collider.BoundingBoxes.HitTestBox.Height), collider));
+            if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - boundingBoxes.HitTestBox.MinX, 
+                                                                      0f, boundingBoxes.HitTestBox.Width), boundingBoxes));
+			else setValue(getSliderValue(MathUtils.Clamp(_input.MouseY - boundingBoxes.HitTestBox.MinY
+                                                         , 0f, boundingBoxes.HitTestBox.Height), boundingBoxes));
 		}
 
 		private void refresh()
 		{
-            var collider = _collider;
-            if (collider == null || collider.BoundingBoxes == null || HandleGraphics == null) return;
+            var boundingBox = _boundingBox;
+            if (boundingBox == null) return;
+            var boundingBoxes = boundingBox.GetBoundingBoxes();
+            if (boundingBoxes == null || HandleGraphics == null) return;
 
-            if (IsHorizontal) HandleGraphics.X = MathUtils.Clamp(getHandlePos(Value, collider), 0f, collider.BoundingBoxes.RenderBox.Width);
-            else HandleGraphics.Y = MathUtils.Clamp(getHandlePos(Value, collider), 0f, collider.BoundingBoxes.RenderBox.Height);
+            if (IsHorizontal) HandleGraphics.X = MathUtils.Clamp(getHandlePos(Value, boundingBoxes), 0f, boundingBoxes.RenderBox.Width);
+            else HandleGraphics.Y = MathUtils.Clamp(getHandlePos(Value, boundingBoxes), 0f, boundingBoxes.RenderBox.Height);
 			setText();
 		}
 
-        private float getSliderValue(float handlePos, ICollider collider)
+        private float getSliderValue(float handlePos, AGSBoundingBoxes boundingBoxes)
 		{
 			return MathUtils.Lerp(0f, MinValue, IsHorizontal ? 
-                                  collider.BoundingBoxes.HitTestBox.Width : collider.BoundingBoxes.HitTestBox.Height, 
+                                  boundingBoxes.HitTestBox.Width : boundingBoxes.HitTestBox.Height, 
                                   MaxValue, handlePos);
 		}
 
-		private float getHandlePos(float value, ICollider collider)
+		private float getHandlePos(float value, AGSBoundingBoxes boundingBoxes)
 		{
 			return MathUtils.Lerp(MinValue, 0f, MaxValue, IsHorizontal ? 
-                                  collider.BoundingBoxes.RenderBox.Width : collider.BoundingBoxes.RenderBox.Height, 
+                                  boundingBoxes.RenderBox.Width : boundingBoxes.RenderBox.Height, 
                                   value);
 		}
 

@@ -7,7 +7,7 @@
     /// </summary>
     [RequiredComponent(typeof(IInObjectTree))]
     [RequiredComponent(typeof(IScaleComponent))]
-    [RequiredComponent(typeof(ICollider))]
+    [RequiredComponent(typeof(IBoundingBoxComponent))]
     public interface ICropChildrenComponent : IComponent
     {
         /// <summary>

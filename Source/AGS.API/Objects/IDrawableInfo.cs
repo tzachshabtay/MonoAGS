@@ -35,6 +35,12 @@
         IEvent<object> OnIgnoreScalingAreaChanged { get; }
 
         /// <summary>
+        /// An event which triggers when the <see cref="IgnoreViewport"/> property changes.
+        /// </summary>
+        /// <value>The event.</value>
+        IEvent<object> OnIgnoreViewportChanged { get; }
+
+        /// <summary>
         /// An event which triggers when the <see cref="RenderLayer"/> property changes.
         /// </summary>
         /// <value>The event.</value>

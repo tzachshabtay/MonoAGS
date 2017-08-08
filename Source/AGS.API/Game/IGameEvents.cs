@@ -56,7 +56,7 @@
 		/// <summary>
 		/// This event is called on every render cycle before rendering starts.
 		/// It can be used for native background drawings, or for native OpenGL calls
-		/// for setting thins up (like setting shader variables).
+		/// for setting things up (like setting shader variables).
 		/// </summary>
 		/// <value>The on before render event.</value>
 		IBlockingEvent<object> OnBeforeRender { get; }
@@ -153,6 +153,14 @@
         /// The default interactions.
         /// </value>
         IInteractions DefaultInteractions { get; }
+
+        /// <summary>
+        /// This event is fired whenever the visible room of the game is changing.
+        /// The event is fired after the current room's fade-out event, and before the new room's fade-in event 
+        /// (and after the viewport for the new room was updated).
+        /// </summary>
+        /// <value>The on room changing.</value>
+        IEvent<object> OnRoomChanging { get; }
 	}
 }
 
