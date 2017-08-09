@@ -53,7 +53,7 @@ namespace Tests
 			builder.RegisterInstance(mocks.RoomTransitions().Object);
 			builder.RegisterInstance(mocks.AudioSystem().Object);
 			builder.RegisterInstance(new Mock<IMessagePump> ().Object);
-
+            builder.RegisterInstance(new Mock<IGameEvents>().Object);
 			builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 
 			mocks.container = builder.Build();
@@ -251,6 +251,9 @@ namespace Tests
 			if (_viewport == null)
 			{
 				_viewport = new Mock<IViewport> ();
+                _viewport.Setup(v => v.OnAngleChanged).Returns(new AGSEvent<object>());
+                _viewport.Setup(v => v.OnScaleChanged).Returns(new AGSEvent<object>());
+                _viewport.Setup(v => v.OnPositionChanged).Returns(new AGSEvent<object>());
 			}
 			return _viewport;
 		}

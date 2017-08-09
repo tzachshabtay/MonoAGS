@@ -23,7 +23,7 @@ namespace AGS.Engine
         private readonly Size _virtualResolution;
         private readonly IMessagePump _messagePump;
         private readonly GLMatrices[] _matricesPool;
-        private readonly IGameSettings _settings;
+        private readonly IRuntimeSettings _settings;
         private readonly BoundingBoxesEmptyBuilder _labelBoundingBoxFakeBuilder;
         private readonly IGameState _state;
         private readonly IGameEvents _events;

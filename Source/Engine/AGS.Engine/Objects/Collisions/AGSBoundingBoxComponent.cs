@@ -17,7 +17,7 @@ namespace AGS.Engine
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
         private readonly IGameState _state;
 
-        public AGSBoundingBoxComponent(IGameSettings settings, IGLViewportMatrixFactory layerViewports,
+        public AGSBoundingBoxComponent(IRuntimeSettings settings, IGLViewportMatrixFactory layerViewports,
                                        IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events)
         {
             _settings = settings;
