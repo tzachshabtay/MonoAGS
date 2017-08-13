@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -30,7 +32,7 @@ namespace AGS.Engine
             const float borderWidth = 3f;
             IGameFactory factory = _game.Factory;
             _panel = factory.UI.GetPanel(_panelId, _layer.IndependentResolution.Value.Width / 4f, _layer.IndependentResolution.Value.Height,
-                                                     0f, _layer.IndependentResolution.Value.Height / 2f);
+                                                     5f, _layer.IndependentResolution.Value.Height / 2f);
             _panel.Anchor = new PointF(0f, 0.5f);
             _panel.Visible = false;
             _panel.Tint = Colors.Black.WithAlpha(150);
@@ -71,8 +73,9 @@ namespace AGS.Engine
             parentPanel.Tint = Colors.Transparent;
             parentPanel.RenderLayer = _layer;
             parentPanel.AddComponent<ICropChildrenComponent>();
+            parentPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
             IScrollingComponent scroll = parentPanel.AddComponent<IScrollingComponent>();
-            var horizSlider = factory.UI.GetSlider("DebugPanel_HorizSlider", null, null, 0f, 0f, 100f, parentPanel);
+            var horizSlider = factory.UI.GetSlider("DebugPanel_HorizSlider", null, null, 0f, 0f, 0f, parentPanel);
             horizSlider.X = 20f;
             horizSlider.Y = 20f;
 			horizSlider.RenderLayer = _layer;
@@ -82,12 +85,29 @@ namespace AGS.Engine
 			horizSlider.IsHorizontal = true;
             horizSlider.Graphics.Anchor = new PointF(0f, 0.5f);
             horizSlider.Graphics.Image = new EmptyImage(parentPanel.Width - 40f, 10f);
-            horizSlider.Graphics.Tint = Colors.Gray;
             horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
-            horizSlider.HandleGraphics.Tint = Colors.DarkGray;
             horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
+            addHoverEffect(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
+            addHoverEffect(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
             scroll.HorizontalScrollBar = horizSlider;
+
+			var verSlider = factory.UI.GetSlider("DebugPanel_VerticalSlider", null, null, 0f, 0f, 0f, parentPanel);
+            verSlider.X = parentPanel.Width - 20f;
+			verSlider.Y = 40f;
+			verSlider.RenderLayer = _layer;
+			verSlider.Graphics.RenderLayer = _layer;
+			verSlider.HandleGraphics.RenderLayer = _layer;
+			verSlider.HandleGraphics.Anchor = new PointF(0.5f, 0f);
+            verSlider.IsHorizontal = false;
+			verSlider.Graphics.Anchor = new PointF(0.5f, 0f);
+            verSlider.Graphics.Image = new EmptyImage(10f, parentPanel.Height - 80f);
+			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
+			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
+			addHoverEffect(verSlider.Graphics, Colors.Gray, Colors.LightGray);
+			addHoverEffect(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
+
+            scroll.VerticalScrollBar = verSlider;
 
             _debugTree.Load(parentPanel);
             _displayList.Load(parentPanel);
@@ -112,6 +132,14 @@ namespace AGS.Engine
             _currentTab = (_currentTab == _debugTree) ? (IDebugTab)_displayList : _debugTree;
             _panesButton.Text = _currentTab == _debugTree ? "Display List" : "Scene Tree";
             return _currentTab.Show();
+        }
+
+        private void addHoverEffect(IObject obj, Color idleTint, Color hoverTint)
+        {
+            obj.Tint = idleTint;
+            var uiEvents = obj.AddComponent<IUIEvents>();
+            uiEvents.MouseEnter.Subscribe(_ => obj.Tint = hoverTint);
+            uiEvents.MouseLeave.Subscribe(_ => obj.Tint = idleTint);
         }
     }
 }
