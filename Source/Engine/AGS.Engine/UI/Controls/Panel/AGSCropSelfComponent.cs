@@ -31,6 +31,7 @@ namespace AGS.Engine
             get { return _cropArea; }
             set
             {
+                if (_cropArea.Equals(value)) return;
                 _cropArea = value;
                 OnCropAreaChanged.Invoke(null);
             }

@@ -6,8 +6,8 @@ namespace AGS.Engine
     public class AGSScrollingComponent : AGSComponent, IScrollingComponent
     {
         private ICropChildrenComponent _crop;
-        private ISizeWithChildrenComponent _sizeWithChildren;
-        private IScaleComponent _size;
+        private IBoundingBoxWithChildrenComponent _boundingBoxWithChildren;
+        private IBoundingBoxComponent _boundingBox;
         private ISlider _verticalScrollBar, _horizontalScrollBar;
 
         public ISlider VerticalScrollBar 
@@ -62,12 +62,12 @@ namespace AGS.Engine
                     c.EntitiesToSkipCrop.Add(horizontalScrollBar.ID);
                 }
             }, _ => _crop = null);
-            entity.Bind<ISizeWithChildrenComponent>(
-                c => { _sizeWithChildren = c; c.OnSizeWithChildrenChanged.Subscribe(onSizeChanged); }, 
-                c => { c.OnSizeWithChildrenChanged.Unsubscribe(onSizeChanged); _sizeWithChildren = null; });
-            entity.Bind<IScaleComponent>(
-                c => { _size = c; c.OnScaleChanged.Subscribe(onSizeChanged); },
-                c => { c.OnScaleChanged.Unsubscribe(onSizeChanged); _size = null; });
+            entity.Bind<IBoundingBoxWithChildrenComponent>(
+                c => { _boundingBoxWithChildren = c; c.OnBoundingBoxWithChildrenChanged.Subscribe(onSizeChanged); refreshSliderLimits(); }, 
+                c => { c.OnBoundingBoxWithChildrenChanged.Unsubscribe(onSizeChanged); _boundingBoxWithChildren = null; });
+            entity.Bind<IBoundingBoxComponent>(
+                c => { _boundingBox = c; refreshSliderLimits(); },
+                _ => { _boundingBox = null; });
         }
 
         private void onSizeChanged(object args)
@@ -77,20 +77,27 @@ namespace AGS.Engine
 
         private void refreshSliderLimits()
         {
-            var sizeWithChildren = _sizeWithChildren;
-            var size = _size;
-            if (sizeWithChildren == null || size == null) return;
-            var verticalScrollBar = _verticalScrollBar;
+            var boundingBoxWithChildren = _boundingBoxWithChildren;
+            var boundingBox = _boundingBox;
+            if (boundingBoxWithChildren == null || boundingBox == null) return;
+            var boundingBoxes = boundingBox.GetBoundingBoxes();
+            if (boundingBoxes == null) return;
+			var withChildren = boundingBoxWithChildren.PreCropBoundingBoxWithChildren;
+			var container = boundingBoxes.RenderBox;
+
+			var verticalScrollBar = _verticalScrollBar;
             if (verticalScrollBar != null)
             {
-                verticalScrollBar.MaxValue = sizeWithChildren.SizeWithChildren.Height - size.Height;
-                verticalScrollBar.Visible = (Math.Abs(verticalScrollBar.MinValue - verticalScrollBar.MaxValue) > 0.0000001f);
+                float maxValue = withChildren.Height - container.Height;
+                verticalScrollBar.MaxValue = maxValue;
+                verticalScrollBar.Visible = (Math.Abs(verticalScrollBar.MinValue - maxValue) > 0.0000001f);
             }
             var horizontalScrollBar = _horizontalScrollBar;
             if (horizontalScrollBar != null)
             {
-                horizontalScrollBar.MaxValue = sizeWithChildren.SizeWithChildren.Width - size.Width;
-                horizontalScrollBar.Visible = (Math.Abs(horizontalScrollBar.MinValue - horizontalScrollBar.MaxValue) > 0.0000001f);
+                float maxValue = withChildren.Width - container.Width;
+                horizontalScrollBar.MaxValue = maxValue;
+                horizontalScrollBar.Visible = (Math.Abs(horizontalScrollBar.MinValue - maxValue) > 0.0000001f);
             }
         }
 
@@ -100,7 +107,7 @@ namespace AGS.Engine
             if (crop == null) return;
             var slider = _verticalScrollBar;
             if (slider == null) return;
-            crop.StartPoint = new PointF(crop.StartPoint.X, slider.Value);
+            crop.StartPoint = new PointF(crop.StartPoint.X, -(slider.MaxValue - slider.Value));
         }
 
         private void onHorizontalSliderChanged(SliderValueEventArgs args)

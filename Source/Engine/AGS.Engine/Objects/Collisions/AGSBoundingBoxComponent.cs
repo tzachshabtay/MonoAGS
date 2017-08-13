@@ -16,6 +16,7 @@ namespace AGS.Engine
         private readonly IGLViewportMatrixFactory _layerViewports;
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
         private readonly IGameState _state;
+        private IEntity _entity;
 
         public AGSBoundingBoxComponent(IRuntimeSettings settings, IGLViewportMatrixFactory layerViewports,
                                        IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events)
@@ -33,6 +34,7 @@ namespace AGS.Engine
 
         public override void Init(IEntity entity)
         {
+            _entity = entity;
             base.Init(entity);
             entity.Bind<IModelMatrixComponent>(c => { c.OnMatrixChanged.Subscribe(onSomethingChanged); _matrix = c; },
                                                c => { c.OnMatrixChanged.Unsubscribe(onSomethingChanged); _matrix = null; });
@@ -87,17 +89,18 @@ namespace AGS.Engine
 			}
 			AGSBoundingBox renderBox = boundingBoxes.RenderBox;
 			var cropInfo = renderBox.Crop(BoundingBoxType.Render, crop, resolutionFactor, scale);
+			boundingBoxes.PreCropRenderBox = renderBox;
+			renderBox = cropInfo.BoundingBox;
+            boundingBoxes.RenderBox = renderBox;
+            boundingBoxes.TextureBox = cropInfo.TextureBox;
             if (cropInfo.Equals(default(AGSCropInfo)))
             {
-                boundingBoxes = null;
+                boundingBoxes.HitTestBox = default(AGSBoundingBox);
             }
             else
             {
-                renderBox = cropInfo.BoundingBox;
                 hitTestBox = hitTestBox.Crop(BoundingBoxType.HitTest, crop, AGSModelMatrixComponent.NoScaling, scale).BoundingBox;
-                boundingBoxes.RenderBox = renderBox;
                 boundingBoxes.HitTestBox = hitTestBox;
-                boundingBoxes.TextureBox = cropInfo.TextureBox;
             }
             _isDirty = false;
             _boundingBoxes = boundingBoxes;

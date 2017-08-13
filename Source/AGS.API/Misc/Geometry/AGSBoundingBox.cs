@@ -7,8 +7,6 @@ namespace AGS.API
     /// </summary>
 	public struct AGSBoundingBox
 	{
-		private readonly bool _isEmpty;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="T:AGS.API.AGSBoundingBox"/> struct.
         /// </summary>
@@ -42,7 +40,22 @@ namespace AGS.API
 			MaxY = max(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
 
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-			_isEmpty = MinX == MaxX || MinY == MaxY;
+            IsInvalid = MinX == MaxX || MinY == MaxY;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+		}
+
+        public AGSBoundingBox(float minX, float maxX, float minY, float maxY)
+        {
+            BottomLeft = new Vector3(minX, minY, 0f);
+            BottomRight = new Vector3(maxX, minY, 0f);
+            TopLeft = new Vector3(minX, maxY, 0f);
+            TopRight = new Vector3(maxX, maxY, 0f);
+            MinX = minX;
+            MaxX = maxX;
+            MinY = minY;
+            MaxY = maxY;
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+			IsInvalid = MinX == MaxX || MinY == MaxY;
 #pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
 		}
 
@@ -109,6 +122,12 @@ namespace AGS.API
 		public float MaxY { get; private set; }
 
         /// <summary>
+        /// Gets a value indicating whether this <see cref="T:AGS.API.AGSBoundingBox"/> is invalid (i.e max is not bigger than min).
+        /// </summary>
+        /// <value><c>true</c> if is empty; otherwise, <c>false</c>.</value>
+        public bool IsInvalid { get; private set; }
+
+        /// <summary>
         /// Create a cropped bounding box.
         /// </summary>
         /// <returns>The crop info.</returns>
@@ -160,7 +179,7 @@ namespace AGS.API
 		public bool Contains(Vector2 point)
 		{
 			//http://www.emanueleferonato.com/2012/03/09/algorithm-to-determine-if-a-point-is-inside-a-square-with-mathematics-no-hit-test-involved/       
-			if (_isEmpty) return false;
+			if (IsInvalid) return false;
 
 			Vector3 a = BottomLeft;
 			Vector3 b = BottomRight;

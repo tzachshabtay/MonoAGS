@@ -56,6 +56,7 @@ namespace AGS.Engine
             _pixelPerfectComponent = AddComponent<IPixelPerfectComponent>();
             _modelMatrixComponent = AddComponent<IModelMatrixComponent>();
             _boundingBoxComponent = AddComponent<IBoundingBoxComponent>();
+            Bind<IBoundingBoxComponent>(c => _boundingBoxComponent = c, _ => { });
 			beforeInitComponents(resolver, image);            
 			InitComponents();
             afterInitComponents(resolver, image);            

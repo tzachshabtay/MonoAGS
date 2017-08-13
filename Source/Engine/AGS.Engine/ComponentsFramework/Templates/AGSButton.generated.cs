@@ -60,6 +60,7 @@ namespace AGS.Engine
             _buttonComponent = AddComponent<IButtonComponent>();
             _modelMatrixComponent = AddComponent<IModelMatrixComponent>();
             _boundingBoxComponent = AddComponent<IBoundingBoxComponent>();
+            Bind<IBoundingBoxComponent>(c => _boundingBoxComponent = c, _ => { });
 			beforeInitComponents(resolver);            
 			InitComponents();
             afterInitComponents(resolver);            

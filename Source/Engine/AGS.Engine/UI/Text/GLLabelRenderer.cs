@@ -309,8 +309,11 @@ namespace AGS.Engine
 			#region AGSBoundingBoxBuilder implementation
 			public PointF Build(AGSBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
 			{
-                boxes.RenderBox = BoundingBoxes.RenderBox;
-                boxes.HitTestBox = BoundingBoxes.HitTestBox;
+                if (BoundingBoxes != null)
+                {
+                    boxes.RenderBox = BoundingBoxes.RenderBox;
+                    boxes.HitTestBox = BoundingBoxes.HitTestBox;
+                }
                 return CropScale;
 			}
 			#endregion

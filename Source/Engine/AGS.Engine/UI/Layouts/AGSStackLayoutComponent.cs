@@ -1,11 +1,10 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
     public class AGSStackLayoutComponent : AGSComponent, IStackLayoutComponent
     {
-        private ISizeWithChildrenComponent _size;
+        private IBoundingBoxWithChildrenComponent _boundingBoxWithChildren;
         private IInObjectTree _tree;
         private float _absoluteSpacing, _relativeSpacing;
         private LayoutDirection _direction;
@@ -29,8 +28,8 @@ namespace AGS.Engine
         {
             _entity = entity;
             base.Init(entity);
-            entity.Bind<ISizeWithChildrenComponent>(c => { _size = c; c.OnSizeWithChildrenChanged.Subscribe(onSizeChanged); adjustLayout(); }, 
-                                                    c => { c.OnSizeWithChildrenChanged.Unsubscribe(onSizeChanged); _size = null; });
+            entity.Bind<IBoundingBoxWithChildrenComponent>(c => { _boundingBoxWithChildren = c; c.OnBoundingBoxWithChildrenChanged.Subscribe(onSizeChanged); adjustLayout(); }, 
+                                                    c => { c.OnBoundingBoxWithChildrenChanged.Unsubscribe(onSizeChanged); _boundingBoxWithChildren = null; });
             entity.Bind<IInObjectTree>(c => { _tree = c; adjustLayout(); }, _ => _tree = null);
         }
 
@@ -64,12 +63,12 @@ namespace AGS.Engine
                 if (Direction == LayoutDirection.Vertical)
                 {
                     child.Y = location;
-                    step = child.AddComponent<ISizeWithChildrenComponent>().SizeWithChildren.Height;
+                    step = child.AddComponent<IBoundingBoxWithChildrenComponent>().BoundingBoxWithChildren.Height;
                 }
                 else
                 {
                     child.X = location;
-                    step = child.AddComponent<ISizeWithChildrenComponent>().SizeWithChildren.Width;
+                    step = child.AddComponent<IBoundingBoxWithChildrenComponent>().BoundingBoxWithChildren.Width;
                 }
                 location += step * RelativeSpacing + AbsoluteSpacing;
             }

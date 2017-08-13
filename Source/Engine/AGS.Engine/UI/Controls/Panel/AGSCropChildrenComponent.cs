@@ -86,10 +86,10 @@ namespace AGS.Engine
             _isDirty = true;
         }
 
-        private void rebuildTree(IInObjectTree tree)
+        private void rebuildTree(IInObjectTree tree, bool shouldRebuildJump = true)
         {
             if (tree == null) return;
-            rebuildJump(tree);
+            if (shouldRebuildJump) rebuildJump(tree);
             foreach (var child in tree.TreeNode.Children)
             {
                 if (!child.Visible) continue;
@@ -99,7 +99,7 @@ namespace AGS.Engine
                     continue;
                 }
                 prepareCrop(child);
-                rebuildTree(child);
+                rebuildTree(child, false);
             }
         }
 
@@ -119,7 +119,6 @@ namespace AGS.Engine
 				if (!child.Visible || EntitiesToSkipCrop.Contains(child.ID)) continue;
 				var jump = child.AddComponent<IJumpOffsetComponent>();
 				jump.JumpOffset = new PointF(-StartPoint.X, -StartPoint.Y);
-                rebuildJump(child);
 			}
         }
 
@@ -137,8 +136,7 @@ namespace AGS.Engine
                 if (cropSelf == null)
                 {
                     cropSelf = new AGSCropSelfComponent();
-                    ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.RenderBox,
-                                                            () => StartPoint);
+                    ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.RenderBox);
                     cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
                     cropSelf.Init(obj);
                     cropSelf.AfterInit();
@@ -150,8 +148,7 @@ namespace AGS.Engine
             {
                 cropSelf = new AGSCropSelfComponent();
                 cropSelf.CropEnabled = false;
-                ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.RenderBox,
-															() => StartPoint);
+                ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.RenderBox);
                 cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
                 obj.AddComponent(cropSelf);
             }
@@ -162,17 +159,14 @@ namespace AGS.Engine
             private readonly Func<bool> _isDirty;
             private readonly ICropSelfComponent _crop;
             private readonly Func<AGSBoundingBox> _parentBox;
-            private readonly Func<PointF> _startPoint;
             private readonly string _id;
 
-            public ChildCropper(string id, Func<bool> isDirty, ICropSelfComponent crop, Func<AGSBoundingBox> parentBox, 
-                                Func<PointF> startPoint)
+            public ChildCropper(string id, Func<bool> isDirty, ICropSelfComponent crop, Func<AGSBoundingBox> parentBox)
             {
                 _id = id;
                 _isDirty = isDirty;
                 _crop = crop;
                 _parentBox = parentBox;
-                _startPoint = startPoint;
             }
 
             public void CropIfNeeded(BeforeCropEventArgs eventArgs)
@@ -181,16 +175,15 @@ namespace AGS.Engine
                 _crop.CropEnabled = true;
                 var parentBox = _parentBox();
                 var childBox = eventArgs.BoundingBox;
-                var startPoint = _startPoint();
 
 				float minXParent = parentBox.MinX;
 				float maxXParent = parentBox.MaxX;
 				float minYParent = parentBox.MinY;
 				float maxYParent = parentBox.MaxY;
-				float minXChild = childBox.MinX - startPoint.X;
-				float maxXChild = childBox.MaxX - startPoint.X;
-				float minYChild = childBox.MinY - startPoint.Y;
-				float maxYChild = childBox.MaxY - startPoint.Y;
+				float minXChild = childBox.MinX;
+				float maxXChild = childBox.MaxX;
+				float minYChild = childBox.MinY;
+				float maxYChild = childBox.MaxY;
 				float startX = minXParent;
                 float startY = minYParent;
                 float x = childBox.MinX > startX ? 0f : startX - childBox.MinX;

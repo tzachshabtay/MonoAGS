@@ -89,6 +89,7 @@ namespace AGS.Engine
 			}
 			set
 			{
+                if (_minValue == value) return;
 				_minValue = value;
 				refresh();
 			}
@@ -102,6 +103,7 @@ namespace AGS.Engine
 			}
 			set
 			{
+                if (_maxValue == value) return;
 				_maxValue = value;
 				refresh();
 			}
@@ -115,7 +117,7 @@ namespace AGS.Engine
 			}
 			set
 			{
-				setValue(value);
+                if (!setValue(value)) return;
 				onValueChanged();
 			}
 		}
@@ -193,6 +195,10 @@ namespace AGS.Engine
             var boundingBoxes = boundingBox.GetBoundingBoxes();
             if (boundingBoxes == null || HandleGraphics == null) return;
 
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            if (MinValue == MaxValue) return;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+
             if (IsHorizontal) HandleGraphics.X = MathUtils.Clamp(getHandlePos(Value, boundingBoxes), 0f, boundingBoxes.RenderBox.Width);
             else HandleGraphics.Y = MathUtils.Clamp(getHandlePos(Value, boundingBoxes), 0f, boundingBoxes.RenderBox.Height);
 			setText();
@@ -218,11 +224,12 @@ namespace AGS.Engine
 			_label.Text = ((int)Value).ToString();
 		}
 
-		private void setValue(float value)
+		private bool setValue(float value)
 		{
-			if (_value == value) return;
+            if (_value == value) return false;
 			_value = value;
 			refresh();
+            return true;
 		}
 
 		private void onValueChanged()

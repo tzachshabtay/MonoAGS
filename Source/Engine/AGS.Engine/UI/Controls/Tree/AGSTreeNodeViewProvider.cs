@@ -50,6 +50,7 @@ namespace AGS.Engine
             parentPanel.RenderLayer = layer;
             expandButton.RenderLayer = layer;
             label.RenderLayer = layer;
+            expandButton.Z = label.Z - 1;
             horizontalPanel.Tint = Colors.Transparent;
             parentPanel.Tint = Colors.Transparent;
             verticalPanel.Tint = Colors.Transparent;
@@ -57,7 +58,7 @@ namespace AGS.Engine
             label.Tint = Colors.Transparent;
             label.Enabled = true;
             expandButton.PixelPerfect(false);
-            horizontalPanel.AddComponent<ISizeWithChildrenComponent>();
+            horizontalPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
             var layout = horizontalPanel.AddComponent<IStackLayoutComponent>();
             layout.RelativeSpacing = 1f;
             layout.Direction = LayoutDirection.Horizontal;

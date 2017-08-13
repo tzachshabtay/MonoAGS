@@ -31,6 +31,14 @@
 		/// <value>The texture box.</value>
 		public FourCorners<Vector2> TextureBox { get; set; }
 
+        /// <summary>
+        /// Gets or sets the render box before the object was cropped.
+        /// This will usually be the same as the render box unless the object was actually cropped (i.e if
+        /// it had the <see cref="ICropSelfComponent"/> attached, maybe inside a scrolling panel, for example).
+        /// </summary>
+        /// <value>The pre crop render box.</value>
+        public AGSBoundingBox PreCropRenderBox { get; set; }
+
 		#endregion
 	}
 }

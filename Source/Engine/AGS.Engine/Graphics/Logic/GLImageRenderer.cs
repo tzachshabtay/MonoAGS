@@ -56,7 +56,7 @@ namespace AGS.Engine
 			}
             obj.GetModelMatrices();
             var boundingBoxes = obj.GetBoundingBoxes();
-            if (boundingBoxes == null) return;
+            if (boundingBoxes == null || boundingBoxes.RenderBox.Equals(default(AGSBoundingBox))) return;
             var renderBox = boundingBoxes.RenderBox;
             var hitTestBox = boundingBoxes.HitTestBox;
 
