@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IGameEvents
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.22.0.0">
+    <meta name="generator" content="docfx 2.22.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -135,7 +135,7 @@ defined specific interactions.</p>
   <h4 id="AGS_API_IGameEvents_OnBeforeRender" data-uid="AGS.API.IGameEvents.OnBeforeRender">OnBeforeRender</h4>
   <div class="markdown level1 summary"><p>This event is called on every render cycle before rendering starts.
 It can be used for native background drawings, or for native OpenGL calls
-for setting thins up (like setting shader variables).</p>
+for setting things up (like setting shader variables).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -253,6 +253,40 @@ So it&apos;s important to keep two rules:</p>
     if (_shouldRunDance.ShouldDance() &amp;&amp; Repeat.OnceOnly(&quot;DanceAnimation!!&quot;)) performDanceAnimation();
 }</code></pre>        
 
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IGameEvents_OnRoomChanging.md&amp;value=---%0Auid%3A%20AGS.API.IGameEvents.OnRoomChanging%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/Game/IGameEvents.cs/#L163">View Source</a>
+  </span>
+  <a id="AGS_API_IGameEvents_OnRoomChanging_" data-uid="AGS.API.IGameEvents.OnRoomChanging*"></a>
+  <h4 id="AGS_API_IGameEvents_OnRoomChanging" data-uid="AGS.API.IGameEvents.OnRoomChanging">OnRoomChanging</h4>
+  <div class="markdown level1 summary"><p>This event is fired whenever the visible room of the game is changing.
+The event is fired after the current room&apos;s fade-out event, and before the new room&apos;s fade-in event 
+(and after the viewport for the new room was updated).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEvent&lt;object&gt; OnRoomChanging { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<span class="xref">System.Object</span>&gt;</td>
+        <td><p>The on room changing.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IGameEvents_OnSavedGameLoad.md&amp;value=---%0Auid%3A%20AGS.API.IGameEvents.OnSavedGameLoad%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>

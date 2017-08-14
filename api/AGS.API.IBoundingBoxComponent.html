@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class KeyboardEventArgs
+    <title>Interface IBoundingBoxComponent
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class KeyboardEventArgs
+    <meta name="title" content="Interface IBoundingBoxComponent
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.22.2.0">
     
@@ -75,99 +75,62 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.KeyboardEventArgs">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IBoundingBoxComponent">
   
   
-  <h1 id="AGS_API_KeyboardEventArgs" data-uid="AGS.API.KeyboardEventArgs" class="text-break">Class KeyboardEventArgs
+  <h1 id="AGS_API_IBoundingBoxComponent" data-uid="AGS.API.IBoundingBoxComponent" class="text-break">Interface IBoundingBoxComponent
   </h1>
-  <div class="markdown level0 summary"><p>Event arguments for keyboard key press/release.</p>
+  <div class="markdown level0 summary"><p>A component that calculates the bounding box of the entity.
+This is for both the bounding box used to render the entity, and for collision checks.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">KeyboardEventArgs</span></div>
-  </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
     </div>
     <div>
-      <span class="xref">System.Object.GetHashCode()</span>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
     </div>
     <div>
-      <span class="xref">System.Object.GetType()</span>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
     </div>
     <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
+      <span class="xref">System.IDisposable.Dispose()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_KeyboardEventArgs_syntax">Syntax</h5>
+  <h5 id="AGS_API_IBoundingBoxComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class KeyboardEventArgs</code></pre>
+    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IModelMatrixComponent), true)]
+[RequiredComponent(typeof (IImageComponent), true)]
+[RequiredComponent(typeof (IAnimationContainer), true)]
+[RequiredComponent(typeof (IDrawableInfo), true)]
+[RequiredComponent(typeof (IHasRoom), true)]
+[RequiredComponent(typeof (ICropSelfComponent), false)]
+public interface IBoundingBoxComponent : IComponent, IDisposable</code></pre>
   </div>
-  <h3 id="constructors">Constructors
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_KeyboardEventArgs__ctor_AGS_API_Key_.md&amp;value=---%0Auid%3A%20AGS.API.KeyboardEventArgs.%23ctor(AGS.API.Key)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/Input/KeyboardEventArgs.cs/#L162">View Source</a>
-  </span>
-  <a id="AGS_API_KeyboardEventArgs__ctor_" data-uid="AGS.API.KeyboardEventArgs.#ctor*"></a>
-  <h4 id="AGS_API_KeyboardEventArgs__ctor_AGS_API_Key_" data-uid="AGS.API.KeyboardEventArgs.#ctor(AGS.API.Key)">KeyboardEventArgs(Key)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public KeyboardEventArgs(Key key)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.Key.html">Key</a></td>
-        <td><span class="parametername">key</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_KeyboardEventArgs_Key.md&amp;value=---%0Auid%3A%20AGS.API.KeyboardEventArgs.Key%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IBoundingBoxComponent_OnBoundingBoxesChanged.md&amp;value=---%0Auid%3A%20AGS.API.IBoundingBoxComponent.OnBoundingBoxesChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/Input/KeyboardEventArgs.cs/#L167">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/Objects/Collisions/IBoundingBoxComponent.cs/#L26">View Source</a>
   </span>
-  <a id="AGS_API_KeyboardEventArgs_Key_" data-uid="AGS.API.KeyboardEventArgs.Key*"></a>
-  <h4 id="AGS_API_KeyboardEventArgs_Key" data-uid="AGS.API.KeyboardEventArgs.Key">Key</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="AGS_API_IBoundingBoxComponent_OnBoundingBoxesChanged_" data-uid="AGS.API.IBoundingBoxComponent.OnBoundingBoxesChanged*"></a>
+  <h4 id="AGS_API_IBoundingBoxComponent_OnBoundingBoxesChanged" data-uid="AGS.API.IBoundingBoxComponent.OnBoundingBoxesChanged">OnBoundingBoxesChanged</h4>
+  <div class="markdown level1 summary"><p>An event which fires whenever the bounding boxes for the entity change.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Key Key { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IEvent&lt;object&gt; OnBoundingBoxesChanged { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -179,8 +142,44 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.Key.html">Key</a></td>
-        <td></td>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<span class="xref">System.Object</span>&gt;</td>
+        <td><p>The on bounding boxes changed event.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IBoundingBoxComponent_GetBoundingBoxes.md&amp;value=---%0Auid%3A%20AGS.API.IBoundingBoxComponent.GetBoundingBoxes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/Objects/Collisions/IBoundingBoxComponent.cs/#L20">View Source</a>
+  </span>
+  <a id="AGS_API_IBoundingBoxComponent_GetBoundingBoxes_" data-uid="AGS.API.IBoundingBoxComponent.GetBoundingBoxes*"></a>
+  <h4 id="AGS_API_IBoundingBoxComponent_GetBoundingBoxes" data-uid="AGS.API.IBoundingBoxComponent.GetBoundingBoxes">GetBoundingBoxes()</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the bounding box which surrounds the entity.
+The bounding box is set by the engine, and should not be set by the user.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">AGSBoundingBoxes GetBoundingBoxes()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.AGSBoundingBoxes.html">AGSBoundingBoxes</a></td>
+        <td><p>The bounding boxes.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -192,10 +191,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_KeyboardEventArgs.md&amp;value=---%0Auid%3A%20AGS.API.KeyboardEventArgs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/CropComponent/apiSpec/new?filename=AGS_API_IBoundingBoxComponent.md&amp;value=---%0Auid%3A%20AGS.API.IBoundingBoxComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/Input/KeyboardEventArgs.cs/#L160" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CropComponent/Source/AGS.API/Objects/Collisions/IBoundingBoxComponent.cs/#L7" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace AGS.API
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.22.0.0">
+    <meta name="generator" content="docfx 2.22.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -85,7 +85,8 @@
     <h3 id="classes">Classes
   </h3>
       <h4><a class="xref" href="AGS.API.AGSBoundingBoxes.html">AGSBoundingBoxes</a></h4>
-      <section></section>
+      <section><p>The bounding boxes used for the entity.</p>
+</section>
       <h4><a class="xref" href="AGS.API.AGSHashSetChangedEventArgs-1.html">AGSHashSetChangedEventArgs&lt;TItem&gt;</a></h4>
       <section><p>Event arguments for a hash set change event.</p>
 </section>
@@ -295,6 +296,14 @@ see what can be done with a 9-slice image: <a href="https://css-tricks.com/alman
 </ol>
 <p>You can also implement your own custom border style by implementing this interface, which can then be used
 for all objects.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IBoundingBoxComponent.html">IBoundingBoxComponent</a></h4>
+      <section><p>A component that calculates the bounding box of the entity.
+This is for both the bounding box used to render the entity, and for collision checks.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IBoundingBoxWithChildrenComponent.html">IBoundingBoxWithChildrenComponent</a></h4>
+      <section><p>Allows to query the size of the entity combined with all its children (i.e the size
+of the minimal bounding box that surrounds them all).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IBrush.html">IBrush</a></h4>
       <section><p>A brush which can be used to draw. </p>
@@ -740,6 +749,10 @@ The most common use is for faking perspective, so that when a character walks to
 (closer to the horizon), he will appear smaller and make quieter sounds.
 For that common use case, you&apos;ll want to scale on the Y axis (which is why Y axis is the default),
 and scale both the object x &amp;&amp; y (to keep the aspect ration in tact).</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IScrollingComponent.html">IScrollingComponent</a></h4>
+      <section><p>This component gives the ability to attach scrollbars to an entity, which will then
+scroll the content (i.e the children) of the entity.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISelectableIcon.html">ISelectableIcon</a></h4>
       <section><p>An icon which has two modes: selected and not selected.</p>

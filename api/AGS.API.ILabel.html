@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface ILabel
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.22.0.0">
+    <meta name="generator" content="docfx 2.22.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -206,6 +206,9 @@
       <a class="xref" href="AGS.API.IHasRoom.html#AGS_API_IHasRoom_PreviousRoom">IHasRoom.PreviousRoom</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IHasRoom.html#AGS_API_IHasRoom_OnRoomChanged">IHasRoom.OnRoomChanged</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IHasRoom.html#AGS_API_IHasRoom_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single__">IHasRoom.ChangeRoomAsync(IRoom, Nullable&lt;Single&gt;, Nullable&lt;Single&gt;)</a>
     </div>
     <div>
@@ -231,9 +234,6 @@
     </div>
     <div>
       <a class="xref" href="AGS.API.IInTree-1.html#AGS_API_IInTree_1_TreeNode">IInTree&lt;IObject&gt;.TreeNode</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.ICollider.html#AGS_API_ICollider_BoundingBoxes">ICollider.BoundingBoxes</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.ICollider.html#AGS_API_ICollider_CenterPoint">ICollider.CenterPoint</a>
@@ -270,6 +270,9 @@
     </div>
     <div>
       <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnIgnoreScalingAreaChanged">IDrawableInfo.OnIgnoreScalingAreaChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnIgnoreViewportChanged">IDrawableInfo.OnIgnoreViewportChanged</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnRenderLayerChanged">IDrawableInfo.OnRenderLayerChanged</a>
@@ -383,6 +386,12 @@
       <a class="xref" href="AGS.API.IModelMatrixComponent.html#AGS_API_IModelMatrixComponent_OnMatrixChanged">IModelMatrixComponent.OnMatrixChanged</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_GetBoundingBoxes">IBoundingBoxComponent.GetBoundingBoxes()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_OnBoundingBoxesChanged">IBoundingBoxComponent.OnBoundingBoxesChanged</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
@@ -402,7 +411,7 @@
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_ILabel_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ILabel : ITextComponent, IUIControl, IUIEvents, ISkinComponent, IObject, IEntity, IComponentsCollection, IEnumerable&lt;IComponent&gt;, IEnumerable, IHasRoom, IAnimationContainer, IInObjectTree, IInTree&lt;IObject&gt;, ICollider, IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfo, IHotspotComponent, IShaderComponent, ITranslateComponent, IImageComponent, IScaleComponent, IRotateComponent, IPixelPerfectComponent, IPixelPerfectCollidable, IHasModelMatrix, IScale, IRotate, ITranslate, IHasImage, IModelMatrixComponent, IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ILabel : ITextComponent, IUIControl, IUIEvents, ISkinComponent, IObject, IEntity, IComponentsCollection, IEnumerable&lt;IComponent&gt;, IEnumerable, IHasRoom, IAnimationContainer, IInObjectTree, IInTree&lt;IObject&gt;, ICollider, IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfo, IHotspotComponent, IShaderComponent, ITranslateComponent, IImageComponent, IScaleComponent, IRotateComponent, IPixelPerfectComponent, IPixelPerfectCollidable, IHasModelMatrix, IScale, IRotate, ITranslate, IHasImage, IModelMatrixComponent, IBoundingBoxComponent, IComponent, IDisposable</code></pre>
   </div>
 </article>
           </div>
