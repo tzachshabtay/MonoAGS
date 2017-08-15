@@ -3494,6 +3494,60 @@ references:
   commentId: Overload:AGS.API.IBlend.Positions
   fullName: AGS.API.IBlend.Positions
   nameWithType: IBlend.Positions
+- uid: AGS.API.IBlockingEvent
+  name: IBlockingEvent
+  href: api/AGS.API.IBlockingEvent.html
+  commentId: T:AGS.API.IBlockingEvent
+  fullName: AGS.API.IBlockingEvent
+  nameWithType: IBlockingEvent
+- uid: AGS.API.IBlockingEvent.Invoke
+  name: Invoke()
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Invoke
+  commentId: M:AGS.API.IBlockingEvent.Invoke
+  fullName: AGS.API.IBlockingEvent.Invoke()
+  nameWithType: IBlockingEvent.Invoke()
+- uid: AGS.API.IBlockingEvent.Invoke*
+  name: Invoke
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Invoke_
+  commentId: Overload:AGS.API.IBlockingEvent.Invoke
+  fullName: AGS.API.IBlockingEvent.Invoke
+  nameWithType: IBlockingEvent.Invoke
+- uid: AGS.API.IBlockingEvent.Subscribe(System.Action)
+  name: Subscribe(Action)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_System_Action_
+  commentId: M:AGS.API.IBlockingEvent.Subscribe(System.Action)
+  fullName: AGS.API.IBlockingEvent.Subscribe(System.Action)
+  nameWithType: IBlockingEvent.Subscribe(Action)
+- uid: AGS.API.IBlockingEvent.Subscribe*
+  name: Subscribe
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_
+  commentId: Overload:AGS.API.IBlockingEvent.Subscribe
+  fullName: AGS.API.IBlockingEvent.Subscribe
+  nameWithType: IBlockingEvent.Subscribe
+- uid: AGS.API.IBlockingEvent.SubscribersCount
+  name: SubscribersCount
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_SubscribersCount
+  commentId: P:AGS.API.IBlockingEvent.SubscribersCount
+  fullName: AGS.API.IBlockingEvent.SubscribersCount
+  nameWithType: IBlockingEvent.SubscribersCount
+- uid: AGS.API.IBlockingEvent.SubscribersCount*
+  name: SubscribersCount
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_SubscribersCount_
+  commentId: Overload:AGS.API.IBlockingEvent.SubscribersCount
+  fullName: AGS.API.IBlockingEvent.SubscribersCount
+  nameWithType: IBlockingEvent.SubscribersCount
+- uid: AGS.API.IBlockingEvent.Unsubscribe(System.Action)
+  name: Unsubscribe(Action)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_System_Action_
+  commentId: M:AGS.API.IBlockingEvent.Unsubscribe(System.Action)
+  fullName: AGS.API.IBlockingEvent.Unsubscribe(System.Action)
+  nameWithType: IBlockingEvent.Unsubscribe(Action)
+- uid: AGS.API.IBlockingEvent.Unsubscribe*
+  name: Unsubscribe
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_
+  commentId: Overload:AGS.API.IBlockingEvent.Unsubscribe
+  fullName: AGS.API.IBlockingEvent.Unsubscribe
+  nameWithType: IBlockingEvent.Unsubscribe
 - uid: AGS.API.IBlockingEvent`1
   name: IBlockingEvent<TEventArgs>
   href: api/AGS.API.IBlockingEvent-1.html
@@ -6057,6 +6111,69 @@ references:
   commentId: Overload:AGS.API.IEntity.ID
   fullName: AGS.API.IEntity.ID
   nameWithType: IEntity.ID
+- uid: AGS.API.IEvent
+  name: IEvent
+  href: api/AGS.API.IEvent.html
+  commentId: T:AGS.API.IEvent
+  fullName: AGS.API.IEvent
+  nameWithType: IEvent
+- uid: AGS.API.IEvent.InvokeAsync
+  name: InvokeAsync()
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_InvokeAsync
+  commentId: M:AGS.API.IEvent.InvokeAsync
+  fullName: AGS.API.IEvent.InvokeAsync()
+  nameWithType: IEvent.InvokeAsync()
+- uid: AGS.API.IEvent.InvokeAsync*
+  name: InvokeAsync
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_InvokeAsync_
+  commentId: Overload:AGS.API.IEvent.InvokeAsync
+  fullName: AGS.API.IEvent.InvokeAsync
+  nameWithType: IEvent.InvokeAsync
+- uid: AGS.API.IEvent.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})
+  name: SubscribeToAsync(Func<Task>)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})
+  name.vb: SubscribeToAsync(Func(Of Task))
+  fullName: AGS.API.IEvent.SubscribeToAsync(System.Func<System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent.SubscribeToAsync(System.Func(Of System.Threading.Tasks.Task))
+  nameWithType: IEvent.SubscribeToAsync(Func<Task>)
+  nameWithType.vb: IEvent.SubscribeToAsync(Func(Of Task))
+- uid: AGS.API.IEvent.SubscribeToAsync*
+  name: SubscribeToAsync
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_SubscribeToAsync_
+  commentId: Overload:AGS.API.IEvent.SubscribeToAsync
+  fullName: AGS.API.IEvent.SubscribeToAsync
+  nameWithType: IEvent.SubscribeToAsync
+- uid: AGS.API.IEvent.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})
+  name: UnsubscribeToAsync(Func<Task>)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})
+  name.vb: UnsubscribeToAsync(Func(Of Task))
+  fullName: AGS.API.IEvent.UnsubscribeToAsync(System.Func<System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent.UnsubscribeToAsync(System.Func(Of System.Threading.Tasks.Task))
+  nameWithType: IEvent.UnsubscribeToAsync(Func<Task>)
+  nameWithType.vb: IEvent.UnsubscribeToAsync(Func(Of Task))
+- uid: AGS.API.IEvent.UnsubscribeToAsync*
+  name: UnsubscribeToAsync
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_UnsubscribeToAsync_
+  commentId: Overload:AGS.API.IEvent.UnsubscribeToAsync
+  fullName: AGS.API.IEvent.UnsubscribeToAsync
+  nameWithType: IEvent.UnsubscribeToAsync
+- uid: AGS.API.IEvent.WaitUntilAsync(System.Func{System.Boolean})
+  name: WaitUntilAsync(Func<Boolean>)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_WaitUntilAsync_System_Func_System_Boolean__
+  commentId: M:AGS.API.IEvent.WaitUntilAsync(System.Func{System.Boolean})
+  name.vb: WaitUntilAsync(Func(Of Boolean))
+  fullName: AGS.API.IEvent.WaitUntilAsync(System.Func<System.Boolean>)
+  fullName.vb: AGS.API.IEvent.WaitUntilAsync(System.Func(Of System.Boolean))
+  nameWithType: IEvent.WaitUntilAsync(Func<Boolean>)
+  nameWithType.vb: IEvent.WaitUntilAsync(Func(Of Boolean))
+- uid: AGS.API.IEvent.WaitUntilAsync*
+  name: WaitUntilAsync
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_WaitUntilAsync_
+  commentId: Overload:AGS.API.IEvent.WaitUntilAsync
+  fullName: AGS.API.IEvent.WaitUntilAsync
+  nameWithType: IEvent.WaitUntilAsync
 - uid: AGS.API.IEvent`1
   name: IEvent<TEventArgs>
   href: api/AGS.API.IEvent-1.html
