@@ -107,6 +107,8 @@ various aspects of the GUIs. You can use <code>AGSColoredSkin</code> to define o
 <h3 id="panels">Panels</h3>
 <p>A panel is a UI control which hosts other UI controls.
 Note: the panel is in fact completely unnecessary, as any other UI control can host UI controls as well, but it&#39;s useful as it provides a clear intent on its use.</p>
+<h3 id="scrolling-panels">Scrolling Panels</h3>
+<p>A panel might contain contents bigger than the size of the panel itself. In that case a panel can be made scrollable, with either horizontal or vertical sliders (or both) to scroll through the inner contents of the panel.</p>
 <h3 id="labels">Labels</h3>
 <p>A label is used for showing text, see <a href="labels.html">Labels</a>.</p>
 <h3 id="buttons">Buttons</h3>
@@ -115,8 +117,10 @@ Note: the panel is in fact completely unnecessary, as any other UI control can h
 <p>A checkbox can be either checked or not checked. For the checkbox you need to provide 4 animations: Not checked, Not checked and hovered, Checked, Checked and hovered.</p>
 <h3 id="textboxes">Textboxes</h3>
 <p>A textbox allows you to edit text. You can query/set the text that appears in the box, query/set the position of the (caret)[<a href="https://en.wikipedia.org/wiki/Caret_navigation">https://en.wikipedia.org/wiki/Caret_navigation</a>] and its flashing speed. You can also subscribe to an event which triggers on each key sent to the textbox and you can block the text from reaching the box (if you want a number only input, for example, you can only allow numbers to reach the box).</p>
+<h3 id="listboxes">Listboxes</h3>
+<p>A listbox allows you to select an option from a list of options.</p>
 <h3 id="comboboxes">Comboboxes</h3>
-<p>A combobox (also referred to as a drop-down) is a text+button which when clicked, shows you a list of options to choose from. The selected option from the drop-down list appears as text next to the button. The combobox is therefore composed of several controls: A textbox for the text, a drop down button, a panel from the drop down list, and a button for each of the items in the drop down list. You can control all of those from the combobox, as well as getting/setting the selected item.</p>
+<p>A combobox (also referred to as a drop-down) is a text+button which when clicked, shows you a list of options to choose from (a listbox). The selected option from the drop-down list appears as text next to the button. The combobox is therefore composed of several controls: A textbox for the text, a drop down button, a panel from the drop down list, and a button for each of the items in the drop down list. You can control all of those from the combobox, as well as getting/setting the selected item.</p>
 <h3 id="sliders">Sliders</h3>
 <p>A slider is useful for selecting a value from a range. The user usually slides a handle across a line (which is either horizontal or vertical) to select a value. The slider is composed of an object for the handle, and an object for the background (the line). You need to assign valid objects for both, which will then be shown and the handle can be dragged by the user. You&#39;ll also need to send minimum and maximum values for the slider, and you&#39;ll be able to get/set the selected value, set whether the slider is vertical/horizontal, assign an optional label which shows the selected value, and subscribe to an event for whenever the value in the slider changes.</p>
 <h3 id="inventory-windows">Inventory Windows</h3>
@@ -129,6 +133,8 @@ For displaying message boxes, you can use <code>AGSMessageBox.Display</code> for
 <h3 id="trees">Trees</h3>
 <p>A tree can be used for displaying a hierarchical collection of text labels.
 Each label is a node in the tree which can be collapsed/expanded to hide/show its children.</p>
+<h3 id="stack-layouts">Stack Layouts</h3>
+<p>A stack layout allows you to automatically lay out entities on the screen, one after the other, with fixed spacing in between, either horizontally or vertically.</p>
 <h2 id="gui-focus">GUI Focus</h2>
 <p>The concept of focus for GUIs (or <a href="https://ux.stackexchange.com/questions/12045/what-is-a-modal-dialog-window">modal windows</a>), is for when you want a specific GUI control to force interaction with the user, thus you don&#39;t want any of the other GUIs responding to user input at that time. For example, when showing a yes/no question to the user, you don&#39;t want the user to be able to open the inventory window.
 When there&#39;s a textbox for editing text (for example, entering a save name), you don&#39;t want the keyboard input to move the character around the room.
