@@ -53,6 +53,10 @@ On top of the basic GUI control, several GUIs are available for use:
 A panel is a UI control which hosts other UI controls.
 Note: the panel is in fact completely unnecessary, as any other UI control can host UI controls as well, but it's useful as it provides a clear intent on its use.
 
+### Scrolling Panels
+
+A panel might contain contents bigger than the size of the panel itself. In that case a panel can be made scrollable, with either horizontal or vertical sliders (or both) to scroll through the inner contents of the panel.
+
 ### Labels
 
 A label is used for showing text, see [Labels](labels.md).
@@ -69,9 +73,13 @@ A checkbox can be either checked or not checked. For the checkbox you need to pr
 
 A textbox allows you to edit text. You can query/set the text that appears in the box, query/set the position of the (caret)[https://en.wikipedia.org/wiki/Caret_navigation] and its flashing speed. You can also subscribe to an event which triggers on each key sent to the textbox and you can block the text from reaching the box (if you want a number only input, for example, you can only allow numbers to reach the box).
 
+### Listboxes
+
+A listbox allows you to select an option from a list of options.
+
 ### Comboboxes 
 
-A combobox (also referred to as a drop-down) is a text+button which when clicked, shows you a list of options to choose from. The selected option from the drop-down list appears as text next to the button. The combobox is therefore composed of several controls: A textbox for the text, a drop down button, a panel from the drop down list, and a button for each of the items in the drop down list. You can control all of those from the combobox, as well as getting/setting the selected item.
+A combobox (also referred to as a drop-down) is a text+button which when clicked, shows you a list of options to choose from (a listbox). The selected option from the drop-down list appears as text next to the button. The combobox is therefore composed of several controls: A textbox for the text, a drop down button, a panel from the drop down list, and a button for each of the items in the drop down list. You can control all of those from the combobox, as well as getting/setting the selected item.
 
 ### Sliders
 
@@ -92,6 +100,10 @@ For displaying message boxes, you can use `AGSMessageBox.Display` for which you 
 
 A tree can be used for displaying a hierarchical collection of text labels.
 Each label is a node in the tree which can be collapsed/expanded to hide/show its children.
+
+### Stack Layouts
+
+A stack layout allows you to automatically lay out entities on the screen, one after the other, with fixed spacing in between, either horizontally or vertically.
 
 ## GUI Focus
 
