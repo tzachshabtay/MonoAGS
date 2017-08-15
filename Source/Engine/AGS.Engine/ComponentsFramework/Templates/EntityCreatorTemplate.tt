@@ -102,15 +102,16 @@ namespace <#= NamespaceName #>
             if (!
             WriteInitComponent(component)) continue;#>
             
-            <#= getVarName(component) #> = AddComponent<<#= helper.GetTypeName(component) #>>();<#+    
-        }
+            <#= getVarName(component) #> = AddComponent<<#= helper.GetTypeName(component) #>>();
+            Bind<<#= helper.GetTypeName(component) #>>(c => <#= getVarName(component) #> = c, _ => {});<#+
+            }
         WriteAdditionalInits();
         #>
 
-			beforeInitComponents(resolver<#+ WriteAdditionalConstructorParamsCall(); #>);            
-			InitComponents();
-            afterInitComponents(resolver<#+ WriteAdditionalConstructorParamsCall(); #>);            
-        }
+			beforeInitComponents(resolver<#+ WriteAdditionalConstructorParamsCall(); #>);
+            InitComponents();
+            afterInitComponents(resolver<#+ WriteAdditionalConstructorParamsCall(); #>);
+            }
 
         public string Name { get { return ID; } }
         public bool AllowMultiple { get { return false; } }

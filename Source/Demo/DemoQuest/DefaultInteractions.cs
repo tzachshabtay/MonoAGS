@@ -1,6 +1,5 @@
 ﻿using AGS.API;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using AGS.Engine;
 
 namespace DemoGame
@@ -18,7 +17,7 @@ namespace DemoGame
 
 		public void Load()
 		{
-			_gameEvents.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
+            _gameEvents.OnSavedGameLoad.Subscribe(() => onSaveGameLoaded());
             _gameEvents.DefaultInteractions.OnInteract(AGSInteractions.LOOK).SubscribeToAsync(onLook);
             _gameEvents.DefaultInteractions.OnInteract(AGSInteractions.DEFAULT).SubscribeToAsync(onInteract);
             _gameEvents.DefaultInteractions.OnInventoryInteract(AGSInteractions.DEFAULT).SubscribeToAsync(onInventoryInteract);
@@ -35,7 +34,7 @@ namespace DemoGame
 			_game.State.Player.Inventory.OnDefaultCombination.SubscribeToAsync(onInventoryCombination);
 		}
 
-		private async Task onLook(object sender, ObjectEventArgs args)
+		private async Task onLook(ObjectEventArgs args)
 		{
             await Repeat.RotateAsync("Look Default", 
                                      () => sayAsync("&1 It looks nice."), 
@@ -45,7 +44,7 @@ namespace DemoGame
 
 
 
-		private async Task onInteract(object sender, ObjectEventArgs args)
+		private async Task onInteract(ObjectEventArgs args)
 		{
             await Repeat.RotateAsync("Interact Default",
                                      () => sayAsync("I can't do that."), 
@@ -54,12 +53,12 @@ namespace DemoGame
 
 		}
 
-		private Task onInventoryInteract(object sender, InventoryInteractEventArgs args)
+		private Task onInventoryInteract(InventoryInteractEventArgs args)
 		{
-            return onInteract(sender, args);
+            return onInteract(args);
 		}
 
-		private async Task onInventoryCombination(object sender, InventoryCombinationEventArgs args)
+		private async Task onInventoryCombination(InventoryCombinationEventArgs args)
 		{
 			if (string.IsNullOrEmpty(args.ActiveItem.Graphics.Hotspot) ||
 			    string.IsNullOrEmpty(args.PassiveItem.Graphics.Hotspot))

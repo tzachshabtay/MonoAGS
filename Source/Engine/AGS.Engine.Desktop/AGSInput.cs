@@ -41,7 +41,7 @@ namespace AGS.Engine.Desktop
                 var button = convert(e.Button);
                 if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = true;
                 else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = true;
-                await MouseDown.InvokeAsync(sender, new AGS.API.MouseButtonEventArgs(button, convertX(e.X), convertY(e.Y)));
+                await MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, convertX(e.X), convertY(e.Y)));
             };
             game.MouseUp += async (sender, e) =>
             {
@@ -49,26 +49,26 @@ namespace AGS.Engine.Desktop
                 var button = convert(e.Button);
                 if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = false;
                 else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = false;
-                await MouseUp.InvokeAsync(sender, new AGS.API.MouseButtonEventArgs(button, convertX(e.X), convertY(e.Y)));
+                await MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, convertX(e.X), convertY(e.Y)));
             };
             game.MouseMove += async (sender, e) =>
             {
                 if (isInputBlocked()) return;
-                await MouseMove.InvokeAsync(sender, new MousePositionEventArgs(convertX(e.X), convertY(e.Y)));
+                await MouseMove.InvokeAsync(new MousePositionEventArgs(convertX(e.X), convertY(e.Y)));
             };
             game.KeyDown += async (sender, e) =>
             {
                 Key key = convert(e.Key);
                 _keysDown.Add(key);
                 if (isInputBlocked()) return;
-                await KeyDown.InvokeAsync(sender, new KeyboardEventArgs(key));
+                await KeyDown.InvokeAsync(new KeyboardEventArgs(key));
             };
             game.KeyUp += async (sender, e) =>
             {
                 Key key = convert(e.Key);
                 _keysDown.Remove(key);
                 if (isInputBlocked()) return;
-                await KeyUp.InvokeAsync(sender, new KeyboardEventArgs(key));
+                await KeyUp.InvokeAsync(new KeyboardEventArgs(key));
             };
         }
 

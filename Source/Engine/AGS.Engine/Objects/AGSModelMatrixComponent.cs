@@ -7,7 +7,6 @@ namespace AGS.Engine
     {
         private bool _isDirty;
         private ModelMatrices _matrices;
-        private readonly AGSEventArgs _args = new AGSEventArgs();
 
         private IAnimationContainer _animation;
         private IInObjectTree _tree;
@@ -20,6 +19,8 @@ namespace AGS.Engine
         private IEntity _entity;
         private IObject _parent;
         private ISprite _sprite;
+        private ICropSelfComponent _crop;
+        private IJumpOffsetComponent _jump;
 
         private readonly Size _virtualResolution;
         private PointF _areaScaling;
@@ -32,7 +33,7 @@ namespace AGS.Engine
             _isDirty = true;
             _matrices = new ModelMatrices();
             _virtualResolution = settings.VirtualResolution;
-            OnMatrixChanged = new AGSEvent<AGSEventArgs>();
+            OnMatrixChanged = new AGSEvent();
         }
 
         public static readonly PointF NoScaling = new PointF(1f, 1f);
@@ -41,69 +42,154 @@ namespace AGS.Engine
         {
             base.Init(entity);
             _entity = entity;
-            _animation = entity.GetComponent<IAnimationContainer>();
-            _tree = entity.GetComponent<IInObjectTree>();
-            _scale = entity.GetComponent<IScaleComponent>();
-            _translate = entity.GetComponent<ITranslateComponent>();
-            _rotate = entity.GetComponent<IRotateComponent>();
-            _image = entity.GetComponent<IImageComponent>();
-            _room = entity.GetComponent<IHasRoom>();
-            _drawable = entity.GetComponent<IDrawableInfo>();
         }
 
         public override void AfterInit()
         {
-            base.AfterInit();
-            _parent = _tree.TreeNode.Parent;
-            _sprite = getSprite();
+            _entity.Bind<IAnimationContainer>(
+                c => { _animation = c; onSomethingChanged(); },
+                c => { _animation = null; onSomethingChanged(); });
+            _entity.Bind<IHasRoom>(
+                c => { _room = c; onSomethingChanged(); },
+                c => { _room = null; onSomethingChanged(); });
+            
+            _entity.Bind<IScaleComponent>(
+                c => { _scale = c; c.OnScaleChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
+                c => { c.OnScaleChanged.Unsubscribe(onSomethingChanged); _scale = null; onSomethingChanged();});
+            _entity.Bind<ITranslateComponent>(
+                c => { _translate = c; c.OnLocationChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
+                c => { c.OnLocationChanged.Unsubscribe(onSomethingChanged); _translate = null; onSomethingChanged();}
+            );
+            _entity.Bind<IJumpOffsetComponent>(
+                c => { _jump = c; c.OnJumpOffsetChanged.Subscribe(onSomethingChanged); onSomethingChanged();},
+                c => { c.OnJumpOffsetChanged.Unsubscribe(onSomethingChanged); _jump = null; onSomethingChanged();}
+            );
+            _entity.Bind<IRotateComponent>(
+                c => { _rotate = c; c.OnAngleChanged.Subscribe(onSomethingChanged); onSomethingChanged();},
+                c => { c.OnAngleChanged.Unsubscribe(onSomethingChanged); _rotate = null; onSomethingChanged();}
+            );
+			_entity.Bind<IImageComponent>(
+                c => { _image = c; c.OnAnchorChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
+                c => { c.OnAnchorChanged.Unsubscribe(onSomethingChanged); _image = null; onSomethingChanged(); }
+			);
+            _entity.Bind<ICropSelfComponent>(
+                c => { _crop = c; c.OnCropAreaChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
+				c => { c.OnCropAreaChanged.Unsubscribe(onSomethingChanged); _crop = null; onSomethingChanged(); }
+			);
 
-            subscribeSprite(_sprite);
-            _tree.TreeNode.OnParentChanged.Subscribe(onParentChanged);
-            if (_parent != null) _parent.OnMatrixChanged.Subscribe(onSomethingChanged);
-            _scale.OnScaleChanged.Subscribe(onSomethingChanged);
-            _translate.OnLocationChanged.Subscribe(onSomethingChanged);
-            _rotate.OnAngleChanged.Subscribe(onSomethingChanged);
-            _image.OnAnchorChanged.Subscribe(onSomethingChanged);
-            _drawable.OnIgnoreScalingAreaChanged.Subscribe(onSomethingChanged);
-            _drawable.OnRenderLayerChanged.Subscribe(onSomethingChanged);
+            _entity.Bind<IDrawableInfo>(
+                c => 
+            {
+                _drawable = c;
+				c.OnIgnoreScalingAreaChanged.Subscribe(onSomethingChanged);
+				c.OnRenderLayerChanged.Subscribe(onSomethingChanged);
+                onSomethingChanged();
+            },c =>
+            {
+                c.OnIgnoreScalingAreaChanged.Unsubscribe(onSomethingChanged);
+				c.OnRenderLayerChanged.Unsubscribe(onSomethingChanged);
+                _drawable = null;
+				onSomethingChanged();
+            });
+
+			_entity.Bind<IInObjectTree>(
+				c =>
+			{
+				_tree = c;
+				_parent = _tree.TreeNode.Parent;
+				_tree.TreeNode.OnParentChanged.Subscribe(onParentChanged);
+				if (_parent != null) _parent.OnMatrixChanged.Subscribe(onSomethingChanged);
+				onSomethingChanged();
+			}, c =>
+			{
+				c.TreeNode.OnParentChanged.Unsubscribe(onParentChanged);
+				if (c.TreeNode.Parent != null) c.TreeNode.Parent.OnMatrixChanged.Unsubscribe(onSomethingChanged);
+				_tree = null;
+				_parent = null;
+				onSomethingChanged();
+			});
         }
 
         public ModelMatrices GetModelMatrices() 
-        { 
+        {
             return shouldRecalculate() ? recalculateMatrices() : _matrices; 
         }
 
-        public IEvent<AGSEventArgs> OnMatrixChanged { get; private set; }
+        public IEvent OnMatrixChanged { get; private set; }
 
-        private void onSomethingChanged(object sender, AGSEventArgs args)
+        public static bool GetVirtualResolution(bool flattenLayerResolution, Size virtualResolution, IDrawableInfo drawable, 
+                                         PointF? customResolutionFactor, out PointF resolutionFactor, out Size resolution)
+        {
+            //Priorities for virtual resolution: layer's resolution comes first, if not then the custom resolution (which is the text scaling resolution for text, otherwise null),
+            //and if not use the virtual resolution.
+            var renderLayer = drawable == null ? null : drawable.RenderLayer;
+            var layerResolution = renderLayer == null ? null : renderLayer.IndependentResolution;
+            if (layerResolution != null)
+            {
+                if (flattenLayerResolution)
+                {
+                    resolutionFactor = NoScaling;
+                    resolution = virtualResolution;
+                    return false;
+                }
+                resolution = layerResolution.Value;
+                resolutionFactor = new PointF(resolution.Width / (float)virtualResolution.Width, resolution.Height / (float)virtualResolution.Height);
+                return layerResolution.Value.Equals(virtualResolution);
+            }
+            else if (customResolutionFactor != null)
+            {
+                resolutionFactor = customResolutionFactor.Value;
+                resolution = new Size((int)(virtualResolution.Width * customResolutionFactor.Value.X), 
+                                      (int)(virtualResolution.Height * customResolutionFactor.Value.Y));
+                return customResolutionFactor.Value.Equals(NoScaling);
+            }
+            else
+            {
+                resolutionFactor = NoScaling;
+                resolution = virtualResolution;
+                return true;
+            }
+        }
+
+        private void onSomethingChanged()
         {
             _isDirty = true;
         }
 
-        private void onParentChanged(object sender, AGSEventArgs args)
+        private void onParentChanged()
         {
             if (_parent != null) _parent.OnMatrixChanged.Unsubscribe(onSomethingChanged);
-            _parent = _tree.TreeNode.Parent;
+            _parent = _tree == null ? null : _tree.TreeNode.Parent;
             if (_parent != null) _parent.OnMatrixChanged.Subscribe(onSomethingChanged);
-            onSomethingChanged(sender, args);
+            onSomethingChanged();
         }
 
         private ISprite getSprite()
         {
-            return _animation.Animation == null ? null : _animation.Animation.Sprite;
+            return _animation == null || _animation.Animation == null ? null : _animation.Animation.Sprite;
         }
 
         private void subscribeSprite(ISprite sprite)
         {
-            changeSpriteSubscription(sprite, (ev) => ev.Subscribe(onSomethingChanged));
+            changeSpriteSubscription(sprite, subscribeSpriteEvent);
         }
 
         private void unsubscribeSprite(ISprite sprite)
         {
-            changeSpriteSubscription(sprite, (ev) => ev.Unsubscribe(onSomethingChanged));
+            changeSpriteSubscription(sprite, unsubscribeSpriteEvent);
         }
 
-        private void changeSpriteSubscription(ISprite sprite, Action<IEvent<AGSEventArgs>> change)
+        private void subscribeSpriteEvent(IEvent ev)
+        {
+            ev.Subscribe(onSomethingChanged);
+        }
+
+        private void unsubscribeSpriteEvent(IEvent ev)
+        {
+            ev.Unsubscribe(onSomethingChanged);
+        }
+
+        private void changeSpriteSubscription(ISprite sprite, Action<IEvent> change)
         {
             if (sprite == null) return;
             change(sprite.OnLocationChanged);
@@ -134,7 +220,8 @@ namespace AGS.Engine
                 var customImageSize = renderer.CustomImageSize;
                 if ((customImageSize == null && _customImageSize != null) || 
                     (customImageSize != null && _customImageSize == null) ||
-                    !customImageSize.Value.Equals(_customImageSize.Value))
+                    (customImageSize != null && _customImageSize != null && 
+                     !customImageSize.Value.Equals(_customImageSize.Value)))
                 {
                     _customImageSize = customImageSize;
                     _isDirty = true;
@@ -142,7 +229,8 @@ namespace AGS.Engine
                 var customFactor = renderer.CustomImageResolutionFactor;
                 if ((customFactor == null && _customResolutionFactor != null) ||
                     (customFactor != null && _customResolutionFactor == null) ||
-                    !customFactor.Value.Equals(_customResolutionFactor.Value))
+                    (customFactor != null && _customResolutionFactor != null &&
+                     !customFactor.Value.Equals(_customResolutionFactor.Value)))
                 {
                     _customResolutionFactor = customFactor;
                     _isDirty = true;
@@ -154,24 +242,20 @@ namespace AGS.Engine
         private ModelMatrices recalculateMatrices()
         {
             recalculate();
-            OnMatrixChanged.FireEvent(this, _args);
+            OnMatrixChanged.Invoke();
             return _matrices;
         }
 
         private void recalculate()
         {
-            var objResolution = _drawable.RenderLayer == null ? _virtualResolution : _drawable.RenderLayer.IndependentResolution ?? _virtualResolution;
-            var resolutionMatches = _customResolutionFactor == null ? 
-                objResolution.Equals(_virtualResolution) : 
-                _customResolutionFactor.Value.Equals(NoScaling);
-            var resolutionFactor = _customResolutionFactor ?? new PointF(objResolution.Width / _virtualResolution.Width, objResolution.Height / _virtualResolution.Height);
-
-            if (_entity.ID == "Quit Button")
-            {
-            }
+            PointF resolutionFactor;
+            Size resolution;
+            bool resolutionMatches = GetVirtualResolution(true, _virtualResolution, _drawable, _customResolutionFactor,
+                                                   out resolutionFactor, out resolution);
 
             var renderMatrix = getMatrix(resolutionFactor);
-            var hitTestMatrix = resolutionMatches ? renderMatrix : getMatrix(NoScaling);
+            var hitTestMatrix = resolutionMatches ? renderMatrix : resolutionFactor.Equals(NoScaling) ? getMatrix(new PointF((float)_virtualResolution.Width/_drawable.RenderLayer.IndependentResolution.Value.Width,
+                                                                                                                             (float)_virtualResolution.Height/_drawable.RenderLayer.IndependentResolution.Value.Height)) : getMatrix(NoScaling);
             _matrices.InObjResolutionMatrix = renderMatrix;
             _matrices.InVirtualResolutionMatrix = hitTestMatrix;
             _isDirty = false;
@@ -179,27 +263,30 @@ namespace AGS.Engine
 
         private Matrix4 getMatrix(PointF resolutionFactor) 
         {
-            var sprite = _animation.Animation.Sprite;
-            Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, 
+            var animation = _animation;
+            if (animation == null || animation.Animation == null) return Matrix4.Identity;
+            var sprite = animation.Animation.Sprite;
+            Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, null,
                                                   NoScaling, NoScaling, true);
-            Matrix4 objMatrix = getModelMatrix(_scale, _rotate, _translate, 
-                                               _image, _areaScaling, resolutionFactor, true);
+            Matrix4 objMatrix = getModelMatrix(_scale, _rotate, _translate, _image,
+                                               _jump, _areaScaling, resolutionFactor, true);
 
             var modelMatrix = spriteMatrix * objMatrix;
-            var parent = _tree.TreeNode.Parent;
+            var parent = _tree == null ? null : _tree.TreeNode.Parent;
             while (parent != null)
             {
                 //var parentMatrices = parent.GetModelMatrices();
                 //Matrix4 parentMatrix = resolutionFactor.Equals(GLMatrixBuilder.NoScaling) ? parentMatrices.InVirtualResolutionMatrix : parentMatrices.InObjResolutionMatrix;
-                Matrix4 parentMatrix = getModelMatrix(parent, parent, parent, parent, NoScaling, resolutionFactor, false);
+                Matrix4 parentMatrix = getModelMatrix(parent, parent, parent, parent, parent.GetComponent<IJumpOffsetComponent>(),
+                    NoScaling, resolutionFactor, false);
                 modelMatrix = modelMatrix * parentMatrix;
                 parent = parent.TreeNode.Parent;
             }
             return modelMatrix;
         }
 
-        private Matrix4 getModelMatrix(IScale scale, IRotate rotate, ITranslate translate, IHasImage image, 
-                                       PointF areaScaling, PointF resolutionTransform, bool useCustomImageSize)
+        private Matrix4 getModelMatrix(IScale scale, IRotate rotate, ITranslate translate, IHasImage image,
+                                       IJumpOffsetComponent jump, PointF areaScaling, PointF resolutionTransform, bool useCustomImageSize)
         {
             if (scale == null) return Matrix4.Identity;
             float? customWidth = _customImageSize == null || !useCustomImageSize ? 
@@ -208,13 +295,19 @@ namespace AGS.Engine
                 _nullFloat : _customImageSize.Value.Height;
             float width = (customWidth ?? scale.Width) * resolutionTransform.X;
             float height = (customHeight ?? scale.Height) * resolutionTransform.Y;
-            PointF anchorOffsets = getAnchorOffsets(image.Anchor, width, height);
-            Matrix4 anchor = Matrix4.CreateTranslation(new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
+            PointF anchorOffsets = getAnchorOffsets(image == null ? PointF.Empty : image.Anchor, 
+                                                    width, height);
+			Matrix4 anchor = Matrix4.CreateTranslation(new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
             Matrix4 scaleMat = Matrix4.CreateScale(new Vector3(scale.ScaleX * areaScaling.X,
                 scale.ScaleY * areaScaling.Y, 1f));
-            Matrix4 rotation = Matrix4.CreateRotationZ(rotate.Angle);
-            float x = translate.X * resolutionTransform.X;
-            float y = translate.Y * resolutionTransform.Y;
+            Matrix4 rotation = Matrix4.CreateRotationZ(rotate == null ? 0f : rotate.Angle);            
+            float x = translate == null ? 0f : translate.X * resolutionTransform.X;
+            float y = translate == null ? 0f : translate.Y * resolutionTransform.Y;
+            if (jump != null)
+            {
+                x += jump.JumpOffset.X * resolutionTransform.X;
+                y += jump.JumpOffset.Y * resolutionTransform.Y;
+            }
             Matrix4 transform = Matrix4.CreateTranslation(new Vector3(x, y, 0f));
             return anchor * scaleMat * rotation * transform;
         }
@@ -228,7 +321,7 @@ namespace AGS.Engine
 
         private PointF getAreaScaling()
         {
-            if (_drawable.IgnoreScalingArea) return NoScaling;
+            if (_room == null || (_drawable != null && _drawable.IgnoreScalingArea)) return NoScaling;
             foreach (IArea area in _room.Room.GetMatchingAreas(_translate.Location.XY, _entity.ID))
             {
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();

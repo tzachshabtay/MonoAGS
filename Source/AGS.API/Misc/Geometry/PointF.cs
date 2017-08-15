@@ -7,6 +7,8 @@ namespace AGS.API
     /// </summary>
 	public struct PointF
 	{
+        public static PointF Empty = new PointF();
+
 		private readonly float _x, _y;
 
         /// <summary>

@@ -20,5 +20,12 @@
         /// </summary>
         /// <value>The focused window.</value>
         IEntity FocusedWindow { get; }
+
+        /// <summary>
+        /// A list of entities that cannot lose focus. Those will still grab input even if there's a grabbing focus dialog
+        /// showing. This is useful for debugging tools, for example.
+        /// </summary>
+        /// <value>The cannot lose focus.</value>
+        IConcurrentHashSet<string> CannotLoseFocus { get; }
     }
 }

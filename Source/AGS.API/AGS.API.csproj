@@ -93,9 +93,7 @@
     <Compile Include="Misc\Drawing\Size.cs" />
     <Compile Include="Misc\Drawing\SizeF.cs" />
     <Compile Include="Misc\Drawing\WrapMode.cs" />
-    <Compile Include="Misc\Events\AGSEventArgs.cs" />
     <Compile Include="Misc\Events\IEvent.cs" />
-    <Compile Include="Misc\Geometry\ISquare.cs" />
     <Compile Include="Misc\ILocation.cs" />
     <Compile Include="Misc\Resources\IResource.cs" />
     <Compile Include="Misc\Resources\IResourceLoader.cs" />
@@ -141,7 +139,8 @@
     <Compile Include="UI\Controls\InventoryWindow\IInventoryWindow.cs" />
     <Compile Include="UI\Controls\InventoryWindow\IInventoryWindowComponent.cs" />
     <Compile Include="UI\Controls\ILabel.cs" />
-    <Compile Include="UI\Controls\IPanel.cs" />
+    <Compile Include="UI\Controls\Panel\ICropSelfComponent.cs" />
+    <Compile Include="UI\Controls\Panel\IPanel.cs" />
     <Compile Include="UI\Controls\ITextComponent.cs" />
     <Compile Include="UI\Controls\IUIControl.cs" />
     <Compile Include="UI\Controls\Slider\ISlider.cs" />
@@ -223,18 +222,36 @@
     <Compile Include="Rooms\IRoomLimitsProvider.cs" />
     <Compile Include="Misc\Geometry\RectangleF.cs" />
     <Compile Include="Game\Factories\IShaderFactory.cs" />
+    <Compile Include="UI\Layouts\IStackLayoutComponent.cs" />
+    <Compile Include="UI\Controls\Tree\ITreeViewComponent.cs" />
+    <Compile Include="UI\Controls\Tree\ITreeNodeView.cs" />
+    <Compile Include="UI\Controls\Tree\ITreeNodeViewProvider.cs" />
+    <Compile Include="UI\Controls\Tree\ITreeStringNode.cs" />
+    <Compile Include="UI\Controls\Tree\NodeEventArgs.cs" />
+    <Compile Include="Game\Factories\IIconFactory.cs" />
+    <Compile Include="Graphics\Icons\ISelectableIcon.cs" />
+    <Compile Include="UI\Controls\Button\ButtonAnimation.cs" />
+    <Compile Include="UI\Controls\Listbox\IStringItem.cs" />
+    <Compile Include="UI\Controls\Listbox\IListboxComponent.cs" />
+    <Compile Include="UI\Controls\Listbox\ListboxItemArgs.cs" />
+    <Compile Include="Graphics\Logic\DisplayListEventArgs.cs" />
+    <Compile Include="Misc\Collections\BindingList\AGSListItem.cs" />
+    <Compile Include="Misc\Geometry\MathUtils.cs" />
+    <Compile Include="ComponentsFramework\IComponentBinding.cs" />
+    <Compile Include="UI\Controls\Panel\ICropChildrenComponent.cs" />
+    <Compile Include="Misc\Geometry\AGSBoundingBox.cs" />
+    <Compile Include="Misc\Geometry\FourCorners.cs" />
+    <Compile Include="UI\Controls\Panel\AGSCropInfo.cs" />
+    <Compile Include="Misc\Geometry\AGSBoundingBoxes.cs" />
+    <Compile Include="Objects\IJumpOffsetComponent.cs" />
+    <Compile Include="UI\Controls\Panel\BeforeCropEventArgs.cs" />
+    <Compile Include="UI\Controls\Panel\IScrollingComponent.cs" />
+    <Compile Include="Objects\IBoundingBoxWithChildrenComponent.cs" />
+    <Compile Include="Objects\Collisions\IBoundingBoxComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Game\Settings\" />
-    <Folder Include="Rooms\Areas\" />
-    <Folder Include="Misc\CustomProperties\" />
-    <Folder Include="Player\Approach\" />
-    <Folder Include="UI\Focus\" />
-    <Folder Include="Misc\Geometry\OpenTK\" />
-    <Folder Include="Misc\Collections\HashSet\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>

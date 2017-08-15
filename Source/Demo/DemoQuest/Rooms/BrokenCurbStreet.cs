@@ -15,7 +15,7 @@ namespace DemoGame
 		public async Task<IRoom> LoadAsync(IGame game)
 		{
 			_game = game;
-			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
+            _game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoaded);
 			_player = game.State.Player;
 			IGameFactory factory = game.Factory;
 			_room = factory.Room.GetRoom ("Broken Curb Street", 20f, 310f, 190f, 10f);
@@ -70,7 +70,7 @@ namespace DemoGame
 			panel.X = 195;
 			panel.Y = 145;
 			panel.Z = 110;
-            panel.Interactions.OnInteract(AGSInteractions.INTERACT).Subscribe((sender, args) => panel.Animation.State.IsPaused = !panel.Animation.State.IsPaused);
+            panel.Interactions.OnInteract(AGSInteractions.INTERACT).Subscribe(_ => panel.Animation.State.IsPaused = !panel.Animation.State.IsPaused);
 			_room.Objects.Add(panel);
 
 			subscribeEvents();
@@ -91,12 +91,12 @@ namespace DemoGame
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 		}
 
-		private async Task onLeftEdgeCrossed(object sender, AGSEventArgs args)
+		private async Task onLeftEdgeCrossed()
 		{
 			await _player.ChangeRoomAsync(Rooms.EmptyStreet.Result, 310);
 		}
 
-		private void onBeforeFadeIn(object sender, AGSEventArgs args)
+		private void onBeforeFadeIn()
 		{
 			_player.PlaceOnWalkableArea();
 		}

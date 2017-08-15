@@ -5,6 +5,8 @@
     /// </summary>
     [RequiredComponent(typeof(IUIEvents))]
     [RequiredComponent(typeof(IAnimationContainer))]
+    [RequiredComponent(typeof(ITextComponent), false)]
+    [RequiredComponent(typeof(IImageComponent), false)]
     public interface ICheckboxComponent : IComponent
     {
         /// <summary>
@@ -23,24 +25,24 @@
         /// Gets or sets the animation when the checkbox is not checked.
         /// </summary>
         /// <value>The not checked animation.</value>
-        IAnimation NotCheckedAnimation { get; set; }
+        ButtonAnimation NotCheckedAnimation { get; set; }
 
         /// <summary>
         /// Gets or sets the animation when the checkbox is not checked and the mouse is hovering over it.
         /// </summary>
         /// <value>The hover not checked animation.</value>
-        IAnimation HoverNotCheckedAnimation { get; set; }
+        ButtonAnimation HoverNotCheckedAnimation { get; set; }
 
         /// <summary>
         /// Gets or sets the animation when the checkbox is checked.
         /// </summary>
         /// <value>The checked animation.</value>
-        IAnimation CheckedAnimation { get; set; }
+        ButtonAnimation CheckedAnimation { get; set; }
 
         /// <summary>
         /// Gets or sets the animation when the checkbox is checked and the mouse is hovering over it.
         /// </summary>
         /// <value>The hover checked animation.</value>
-        IAnimation HoverCheckedAnimation { get; set; }
+        ButtonAnimation HoverCheckedAnimation { get; set; }
     }
 }

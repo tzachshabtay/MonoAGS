@@ -21,14 +21,14 @@
         /// This is called on every game tick.
         /// </summary>
         /// <param name="square">Square.</param>
-		void RenderBorderBack(ISquare square);
+		void RenderBorderBack(AGSBoundingBox square);
 
         /// <summary>
         /// Renders border graphics which will appear in front of the entity.
         /// This is called on every game tick.
         /// </summary>
         /// <param name="square">Square.</param>
-		void RenderBorderFront(ISquare square);
+		void RenderBorderFront(AGSBoundingBox square);
 
         /// <summary>
         /// Gets the left edge width of the border.

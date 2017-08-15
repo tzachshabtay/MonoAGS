@@ -25,6 +25,11 @@ namespace AGS.Engine
         {
             return new AGSColoredBorder(glUtils, lineWidth, color, new FourCorners<bool>(hasRoundCorners));
         }
+
+        public static AGSMultipleBorders Multiple(params IBorderStyle[] borders)
+        {
+            return new AGSMultipleBorders(borders);
+        }
 	}
 }
 

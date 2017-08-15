@@ -10,13 +10,12 @@ namespace AGS.Engine
 	public class AGSGame : IGame
 	{
 		private Resolver _resolver;
-		private IRendererLoop _renderLoop;
 		private int _relativeSpeed;
-		private AGSEventArgs _renderEventArgs;
 		private readonly IMessagePump _messagePump;
         private readonly IGraphicsBackend _graphics;
         private readonly IGLUtils _glUtils;
 		public const double UPDATE_RATE = 60.0;
+        private int _updateFrameRetries = 0, _renderFrameRetries = 0;
 
         public AGSGame(IGameState state, IGameEvents gameEvents, IMessagePump messagePump, 
                        IGraphicsBackend graphics, IGLUtils glUtils)
@@ -26,7 +25,6 @@ namespace AGS.Engine
 			State = state;
 			Events = gameEvents;
 			_relativeSpeed = state.Speed;
-			_renderEventArgs = new AGSEventArgs ();
             _graphics = graphics;
             _glUtils = glUtils;
             GLUtils = _glUtils;
@@ -67,6 +65,8 @@ namespace AGS.Engine
 		public IGameState State { get; private set; } 
 
 		public IGameLoop GameLoop { get; private set; } 
+
+        public IRendererLoop RenderLoop { get; private set; }
 
 		public ISaveLoad SaveLoad { get; private set; } 
 
@@ -110,42 +110,43 @@ namespace AGS.Engine
                         Input = _resolver.Container.Resolve<IInput>(gameWindowParameter, sizeParameter);
                         TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
                         TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
-                        _renderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter);
+                        RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter);
                         updateResolver();
                         AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
                         SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
 
                         _glUtils.AdjustResolution(settings.VirtualResolution.Width, settings.VirtualResolution.Height);
 
-                        Events.OnLoad.Invoke(sender, new AGSEventArgs());
+                        Events.OnLoad.Invoke();
                     };
 
                     GameWindow.Resize += async (sender, e) =>
                     {
                         await Task.Delay(10); //todo: For some reason on the Mac, the GL Viewport assignment is overridden without this delay (so aspect ratio is not preserved), a bug in OpenTK?
                         resize();
-                        Events.OnScreenResize.Invoke(sender, new AGSEventArgs());
+                        Events.OnScreenResize.Invoke();
                     };
 
                     GameWindow.UpdateFrame += async (sender, e) =>
                     {
+                        if (_updateFrameRetries > 3) return;
                         try
                         {
                             _messagePump.PumpMessages();
                             if (State.Paused) return;
                             adjustSpeed();
                             await GameLoop.UpdateAsync().ConfigureAwait(false);
-                            AGSEventArgs args = new AGSEventArgs();
 
                             //Invoking repeatedly execute asynchronously, as if one subscriber is waiting on another subscriber the event will 
                             //never get to it (for example: calling ChangeRoom from within RepeatedlyExecute calls StopWalking which 
                             //waits for the walk to stop, only the walk also happens on RepeatedlyExecute and we'll hang.
                             //Since we're running asynchronously, the next UpdateFrame will call RepeatedlyExecute for the walk cycle to stop itself and we're good.
                             ///The downside of this approach is that we need to look out for re-entrancy issues.
-                            await Events.OnRepeatedlyExecute.InvokeAsync(sender, args);
+                            await Events.OnRepeatedlyExecute.InvokeAsync();
                         }
                         catch (Exception ex)
                         {
+                            _updateFrameRetries++;
                             Debug.WriteLine(ex.ToString());
                             throw ex;
                         }
@@ -153,14 +154,14 @@ namespace AGS.Engine
 
                     GameWindow.RenderFrame += (sender, e) =>
                     {
-                        if (_renderLoop == null) return;
+                        if (RenderLoop == null || _renderFrameRetries > 3) return;
                         try
                         {
                             // render graphics
                             _graphics.ClearScreen();
-                            Events.OnBeforeRender.Invoke(sender, _renderEventArgs);
+                            Events.OnBeforeRender.Invoke();
 
-                            if (_renderLoop.Tick())
+                            if (RenderLoop.Tick())
                             {
                                 GameWindow.SwapBuffers();
                             }
@@ -171,6 +172,7 @@ namespace AGS.Engine
                         }
                         catch (Exception ex)
     					{
+                            _renderFrameRetries++;
     						Debug.WriteLine("Exception when rendering:");
     						Debug.WriteLine(ex.ToString());
     						throw;
@@ -209,7 +211,7 @@ namespace AGS.Engine
 		{
 			var updater = new ContainerBuilder ();
 			updater.RegisterInstance(Input).As<IInput>();
-			updater.RegisterInstance(_renderLoop).As<IRendererLoop>();
+			updater.RegisterInstance(RenderLoop).As<IRendererLoop>();
 			updater.RegisterInstance(this).As<IGame>();
             updater.RegisterInstance(Settings).As<IGameSettings>();
             updater.RegisterInstance(Settings).As<IRuntimeSettings>();

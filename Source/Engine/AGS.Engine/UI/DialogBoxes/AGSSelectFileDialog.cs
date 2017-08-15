@@ -87,45 +87,40 @@ namespace AGS.Engine
             panel.SkinTags.Add(AGSSkin.DialogBoxTag);
             panel.Skin.Apply(panel);
             panel.AddComponent<IModalWindowComponent>().GrabFocus();
-            ILabel titleLabel = factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, _buttonsTextConfig);
-            _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, _startPath, textBoxConfig, width: panelWidth, height: textBoxHeight);
+            ILabel titleLabel = factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, panel, _buttonsTextConfig);
+            _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, panel, _startPath, textBoxConfig, width: panelWidth, height: textBoxHeight);
 
             _inventory = new AGSInventory();
             IInventoryWindow invWindow = factory.Inventory.GetInventoryWindow("SelectFileInventory", panelWidth - scrollButtonWidth - scrollButtonOffsetX * 2,
                                                                               panelHeight - labelHeight - buttonHeight - textBoxHeight - okButtonPaddingY, ITEM_WIDTH + itemPaddingX, itemHeight + itemPaddingY, 0f, okButtonPaddingY + okButtonHeight, _inventory);
             invWindow.Z = 1;
-            IButton okButton = factory.UI.GetButton("SelectFileOkButton", (string)null, null, null, okButtonX, okButtonPaddingY, "OK", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
-            IButton cancelButton = factory.UI.GetButton("SelectFileCancelButton", (string)null, null, null, cancelButtonX, okButtonPaddingY, "Cancel", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
-            IButton scrollDownButton = factory.UI.GetButton("SelectFileScrollDown", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, okButton.Y + okButtonHeight + scrollButtonOffsetY, "", _buttonsTextConfig, width: scrollButtonWidth, height: scrollButtonHeight);
-            IButton scrollUpButton = factory.UI.GetButton("SelectFileScrollUp", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, panelHeight - labelHeight - textBoxHeight - scrollButtonHeight - scrollButtonOffsetY, "", _buttonsTextConfig, width: scrollButtonWidth, height: scrollButtonHeight);
-            titleLabel.TreeNode.SetParent(panel.TreeNode);
-            _fileTextBox.TreeNode.SetParent(panel.TreeNode);
+            IButton okButton = factory.UI.GetButton("SelectFileOkButton", (string)null, null, null, okButtonX, okButtonPaddingY, panel, "OK", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
+            IButton cancelButton = factory.UI.GetButton("SelectFileCancelButton", (string)null, null, null, cancelButtonX, okButtonPaddingY, panel, "Cancel", _buttonsTextConfig, width: okButtonWidth, height: okButtonHeight);
+            IButton scrollDownButton = factory.UI.GetButton("SelectFileScrollDown", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, okButton.Y + okButtonHeight + scrollButtonOffsetY, panel, "", _buttonsTextConfig, width: scrollButtonWidth, height: scrollButtonHeight);
+            IButton scrollUpButton = factory.UI.GetButton("SelectFileScrollUp", (string)null, null, null, panelWidth - scrollButtonWidth - scrollButtonOffsetX, panelHeight - labelHeight - textBoxHeight - scrollButtonHeight - scrollButtonOffsetY, panel, "", _buttonsTextConfig, width: scrollButtonWidth, height: scrollButtonHeight);
             invWindow.TreeNode.SetParent(panel.TreeNode);
-            okButton.TreeNode.SetParent(panel.TreeNode);
-            cancelButton.TreeNode.SetParent(panel.TreeNode);
-            scrollDownButton.TreeNode.SetParent(panel.TreeNode);
-            scrollUpButton.TreeNode.SetParent(panel.TreeNode);
 
             cancelButton.MouseClicked.Subscribe(onCancelClicked);
             okButton.MouseClicked.Subscribe(onOkClicked);
 
-            scrollDownButton.MouseClicked.Subscribe((sender, args) => invWindow.ScrollDown());
-            scrollUpButton.MouseClicked.Subscribe((sender, args) => invWindow.ScrollUp());
+            scrollDownButton.MouseClicked.Subscribe(_ => invWindow.ScrollDown());
+            scrollUpButton.MouseClicked.Subscribe(_ => invWindow.ScrollUp());
 
-            _fileIcon = new FileIcon(_glUtils, _game.Settings);
-            _fileIconSelected = new FileIcon(_glUtils, _game.Settings) { IsSelected = true };
-            _folderIcon = new FolderIcon(_glUtils, _game.Settings);
-            _folderIconSelected = new FolderIcon(_glUtils, _game.Settings) { IsSelected = true };
+            var iconFactory = factory.Graphics.Icons;
+            _fileIcon = iconFactory.GetFileIcon();
+            _fileIconSelected = iconFactory.GetFileIcon(true);
+            _folderIcon = iconFactory.GetFolderIcon();
+            _folderIconSelected = iconFactory.GetFolderIcon(true);
 
             var arrowDownIcon = getIcon("ArrowDown", factory, scrollButtonWidth, scrollButtonHeight, 
-                                        new ArrowIcon(_glUtils, _game.Settings) { Direction = ArrowIcon.ArrowDirection.Down });
+                                        iconFactory.GetArrowIcon(ArrowDirection.Down));
             arrowDownIcon.Anchor = new PointF();
             arrowDownIcon.Enabled = false;
             arrowDownIcon.TreeNode.SetParent(scrollDownButton.TreeNode);
             _game.State.UI.Add(arrowDownIcon);
 
             var arrowUpIcon = getIcon("ArrowUp", factory, scrollButtonWidth, scrollButtonHeight,
-                                      new ArrowIcon(_glUtils, _game.Settings) { Direction = ArrowIcon.ArrowDirection.Up });
+                                      iconFactory.GetArrowIcon(ArrowDirection.Up));
             arrowUpIcon.Anchor = new PointF();
             arrowUpIcon.Enabled = false;
             arrowUpIcon.TreeNode.SetParent(scrollUpButton.TreeNode);
@@ -168,13 +163,13 @@ namespace AGS.Engine
             }
         }
 
-        private void onCancelClicked(object sender, MouseButtonEventArgs args)
+        private void onCancelClicked(MouseButtonEventArgs args)
         {
             if (args.Button != MouseButton.Left) return;
             _tcs.TrySetResult(false);
         }
 
-        private void onOkClicked(object sender, MouseButtonEventArgs args)
+        private void onOkClicked(MouseButtonEventArgs args)
         {
             if (args.Button != MouseButton.Left) return;
             var item = _selectedItem ?? _fileTextBox.Text;
@@ -195,7 +190,7 @@ namespace AGS.Engine
             _tcs.TrySetResult(true);
         }
 
-        private void onTextBoxKeyPressed(object sender, TextBoxKeyPressingEventArgs args)
+        private void onTextBoxKeyPressed(TextBoxKeyPressingEventArgs args)
         {
             if (args.PressedKey != Key.Enter) return;
             args.ShouldCancel = true;
@@ -231,14 +226,14 @@ namespace AGS.Engine
                 var fileObj = addFileItem(dir, _folderGraphics);
                 dirItems.Add(fileObj);
                 var dirTmp = dir;
-                Action<object, MouseButtonEventArgs> onDoubleClick = (sender, args) =>
+                Action<MouseButtonEventArgs> onDoubleClick = _ =>
                 {
                     string path = (dirTmp == back) ? goBack(folder) : combine(folder, getLastName(dirTmp));
                     _fileTextBox.Text = path;
                     //todo: unsubscribe all events on current files + dirs
                     fillAllFiles(path);
                 };
-                Action<object, MouseButtonEventArgs> onClick = (sender, args) =>
+                Action<MouseButtonEventArgs> onClick = _ =>
                 {
                     foreach (var fileItem in fileItems) fileItem.Border = _fileIcon;
                     foreach (var dirItem in dirItems) dirItem.Border = _folderIcon;
@@ -253,11 +248,11 @@ namespace AGS.Engine
             {
                 var fileObj = addFileItem(file, _fileGraphics);
                 fileItems.Add(fileObj);
-                Action<object, MouseButtonEventArgs> onDoubleClick = (sender, args) =>
+                Action<MouseButtonEventArgs> onDoubleClick = _ =>
                 {
                     onFileSelected(fileObj.Properties.Strings.GetValue(PATH_PROPERTY));
                 };
-                Action<object, MouseButtonEventArgs> onClick = (sender, args) =>
+                Action<MouseButtonEventArgs> onClick = _ =>
                 {
                     foreach (var fileItem in fileItems) fileItem.Border = _fileIcon;
                     foreach (var dirItem in dirItems) dirItem.Border = _folderIcon;
@@ -273,8 +268,8 @@ namespace AGS.Engine
         {
             graphics = clone("FileItem_" + file, _game.Factory, graphics);
             graphics.Properties.Strings.SetValue(PATH_PROPERTY, file);
-            ILabel fileLabel = _game.Factory.UI.GetLabel("FileItemLabel_" + file, getLastName(file), ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, 0f, _filesTextConfig);
-            fileLabel.TreeNode.SetParent(graphics.TreeNode);
+            ILabel fileLabel = _game.Factory.UI.GetLabel("FileItemLabel_" + file, getLastName(file), 
+                ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, 0f, graphics, _filesTextConfig);
             graphics.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1);
             fileLabel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 2);
             var item = _game.Factory.Inventory.GetInventoryItem(graphics, null);

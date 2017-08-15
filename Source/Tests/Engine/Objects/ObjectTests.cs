@@ -228,9 +228,9 @@ namespace Tests
 
             Mock<IImage> image = new Mock<IImage>();
             Mock<IButtonComponent> buttonComponent = new Mock<IButtonComponent>();
-            buttonComponent.Setup(b => b.HoverAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
-            buttonComponent.Setup(b => b.IdleAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
-            buttonComponent.Setup(b => b.PushedAnimation).Returns(new AGSSingleFrameAnimation(getSprite()));
+            buttonComponent.Setup(b => b.HoverAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
+            buttonComponent.Setup(b => b.IdleAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
+            buttonComponent.Setup(b => b.PushedAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
             Mock<IAudioSystem> audioSystem = new Mock<IAudioSystem>();
             Mock<IRuntimeSettings> settings = mocks.Settings();
             Mock<IUIThread> uiThread = new Mock<IUIThread>();

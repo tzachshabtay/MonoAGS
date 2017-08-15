@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using AGS.API;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -24,8 +25,13 @@ namespace AGS.Engine
 
 		private void onListChanged(TItem item, int index, ListChangeType changeType)
 		{
-			OnListChanged.Invoke(this, new AGSListChangedEventArgs<TItem>(changeType, item, index));
+            OnListChanged.Invoke(new AGSListChangedEventArgs<TItem>(changeType, new AGSListItem<TItem>(item, index)));
 		}
+
+        private void onListChanged(IEnumerable<AGSListItem<TItem>> items, ListChangeType changeType)
+        {
+	        OnListChanged.Invoke(new AGSListChangedEventArgs<TItem>(changeType, items));
+        }
 
 		#region IList implementation
 
@@ -62,7 +68,20 @@ namespace AGS.Engine
 			}
 		}
 
-		#endregion
+        #endregion
+
+        public void AddRange(List<TItem> items)
+        {
+            List<AGSListItem<TItem>> pairs = new List<AGSListItem<TItem>>(items.Count);
+            int index = _list.Count;
+            foreach (var item in items)
+            {
+                _list.Add(item);
+                pairs.Add(new AGSListItem<TItem>(item, index));
+                index++;
+            }
+            onListChanged(pairs, ListChangeType.Add);
+        }
 
 		#region ICollection implementation
 
@@ -93,8 +112,20 @@ namespace AGS.Engine
 		public bool Remove(TItem item)
 		{
 			int index = IndexOf(item);
-			if (index < 0) return false;
-			_list.RemoveAt(index);
+            if (index < 0) return false;
+            try
+            {
+                _list.RemoveAt(index);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                if (Repeat.LessThan("AGSBindingList.Remove Exception", 5))
+                {
+                    Debug.WriteLine("Tried to remove an already removed item from the binding list. Item: {0}, Exception: {1}", 
+                                    item, e);
+                }
+                return false;
+            }
 			onListChanged(item, index, ListChangeType.Remove);
 			return true;
 		}

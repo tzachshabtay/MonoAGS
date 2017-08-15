@@ -66,5 +66,11 @@
         /// </summary>
         /// <value>The height of the text.</value>
 		float TextHeight { get; }
+
+        /// <summary>
+        /// Event which fires whenever the label size changes.
+        /// </summary>
+        /// <value>The on label size changed.</value>
+        IEvent OnLabelSizeChanged { get; }
 	}
 }

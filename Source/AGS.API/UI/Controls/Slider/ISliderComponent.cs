@@ -4,7 +4,7 @@
     /// A slider component allows selecting a numeric value between an allowed range, by dragging a handle across
     /// a line (usually).
     /// </summary>
-	[RequiredComponent(typeof(ICollider))]
+    [RequiredComponent(typeof(IBoundingBoxComponent))]
 	[RequiredComponent(typeof(IDrawableInfo))]
 	[RequiredComponent(typeof(IInObjectTree))]
 	[RequiredComponent(typeof(IVisibleComponent))]

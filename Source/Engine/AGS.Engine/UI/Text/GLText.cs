@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AGS.Engine
 {
-	public class GLText
+    public class GLText : IDisposable
 	{
 		private string _text;
 		private int _maxWidth;
@@ -17,9 +17,12 @@ namespace AGS.Engine
 		private AGS.API.SizeF _baseSize;
         private int _caretPosition;
         private float _spaceWidth;
-        private bool _cropText, _renderCaret;
+        private bool _cropText, _renderCaret, _measureOnly;
         private readonly IGraphicsBackend _graphics;
         private readonly IFontLoader _fonts;
+        private readonly IMessagePump _messagePump;
+        private PointF _scaleUp = new PointF(TextResolutionFactorX, TextResolutionFactorY);
+        private PointF _scaleDown = AGSModelMatrixComponent.NoScaling;
 
         /// <summary>
         /// The factor in which the text will be rendered (and then will be downscaled to match the resolution so it would look sharper)
@@ -29,11 +32,10 @@ namespace AGS.Engine
         /// The factor in which the text will be rendered (and then will be downscaled to match the resolution so it would look sharper)
         /// </summary>
         public static int TextResolutionFactorY = 1;
-        public static int TextResolutionWidth { get { return AGSGame.Game.Settings.VirtualResolution.Width * TextResolutionFactorX; } }
-        public static int TextResolutionHeight { get { return AGSGame.Game.Settings.VirtualResolution.Height * TextResolutionFactorY; } }
 
-        public GLText (IGraphicsBackend graphics, IFontLoader fonts, BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
+        public GLText (IGraphicsBackend graphics, IMessagePump messagePump, IFontLoader fonts, BitmapPool pool, string text = "", int maxWidth = int.MaxValue)
 		{
+            _messagePump = messagePump;
             _fonts = fonts;
             _graphics = graphics;
 			this._maxWidth = maxWidth;
@@ -45,27 +47,37 @@ namespace AGS.Engine
 			drawToBitmap();
 		}
 
+        ~GLText()
+        {
+            dispose(false);
+        }
+
 		public static AGS.API.SizeF EmptySize = new AGS.API.SizeF (0f, 0f);
 
 		public int Texture { get { return _texture; } }
 
-		public int BitmapWidth { get { return _bitmap.Width / 1; } }
-		public int BitmapHeight { get { return _bitmap.Height / 1; } }
+        public int BitmapWidth { get { return (int)(_bitmap.Width / _scaleDown.X); } }
+        public int BitmapHeight { get { return (int)(_bitmap.Height / _scaleDown.Y); } }
 		public float Width { get; private set; }
 		public float Height { get; private set; }        
 
-		public void SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null, 
-            int caretPosition = 0, bool renderCaret = false, bool? cropText = null)
+		public void SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null,
+              PointF? scaleUp = null, PointF? scaleDown = null, int caretPosition = 0, bool renderCaret = false,
+              bool cropText = false, bool measureOnly = false)
 		{
 			bool changeNeeded = 
 				(text != null && text != _text)
-				|| (config != null && config != _config)
+                || (config != null && !config.Equals(_config))
 				|| (maxWidth != null && maxWidth.Value != _maxWidth)
 				|| !baseSize.Equals(_baseSize)
                 || _caretPosition != caretPosition
                 || _renderCaret != renderCaret
-                || (cropText != null && cropText.Value != _cropText);
-			if (!changeNeeded) return;
+                || cropText != _cropText
+                || measureOnly != _measureOnly
+                || (scaleUp != null && !scaleUp.Value.Equals(_scaleUp))
+                || (scaleDown != null && !scaleDown.Value.Equals(_scaleDown));
+
+            if (!changeNeeded) return;
 
 			_text = text;
             if (config != null && config != _config)
@@ -74,20 +86,22 @@ namespace AGS.Engine
                 _spaceWidth = measureSpace();
             }
 			if (maxWidth != null) _maxWidth = maxWidth.Value;
-            if (cropText != null) _cropText = cropText.Value;
-			_baseSize = baseSize;
+            _cropText = cropText;
+            _measureOnly = measureOnly;
+            if (scaleUp != null) _scaleUp = scaleUp.Value;
+            if (scaleDown != null) _scaleDown = scaleDown.Value;
+
+            _baseSize = baseSize;
             _caretPosition = caretPosition;
             _renderCaret = renderCaret;
 
 			drawToBitmap();
 		}
 
-		public void Destroy()
+		public void Dispose()
 		{
-			IBitmap bitmap = _bitmap;
-			if (bitmap != null) _bitmapPool.Release(bitmap);
-			//todo: uncomment and remove from our textures map
-			//GL.DeleteTexture (texture);
+            dispose(true);
+            GC.SuppressFinalize(this);
 		}
 
 		public void Refresh()
@@ -147,8 +161,8 @@ namespace AGS.Engine
             string originalText = _text ?? "";
             string text = _text;
 
-            var config = AGSTextConfig.ScaleConfig(_config, TextResolutionFactorX);
-            int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : _maxWidth * TextResolutionFactorX;
+            var config = AGSTextConfig.ScaleConfig(_config, _scaleUp.X);
+            int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : (int)(_maxWidth * _scaleUp.X);
             SizeF originalTextSize = config.Font.MeasureString(text, _cropText ? int.MaxValue : maxWidth);
             SizeF textSize = originalTextSize;
             if (_cropText && textSize.Width > maxWidth)
@@ -160,13 +174,13 @@ namespace AGS.Engine
             float heightOffset = Math.Max(config.OutlineWidth, Math.Abs(config.ShadowOffsetY));
             float widthF = textSize.Width + widthOffset + config.PaddingLeft + config.PaddingRight;
             float heightF = textSize.Height + heightOffset + config.PaddingTop + config.PaddingBottom;
-            SizeF baseSize = new SizeF(_baseSize.Width == EmptySize.Width ? widthF : _baseSize.Width * TextResolutionFactorX,
-                _baseSize.Height == EmptySize.Height ? heightF : _baseSize.Height * TextResolutionFactorY);
+            SizeF baseSize = new SizeF(_baseSize.Width == EmptySize.Width ? widthF : _baseSize.Width * _scaleUp.X,
+                                       _baseSize.Height == EmptySize.Height ? heightF : _baseSize.Height * _scaleUp.Y);
 
-            Width = (widthF / GLText.TextResolutionFactorX);
-            Height = (heightF / GLText.TextResolutionFactorY);
-            int bitmapWidth = MathUtils.GetNextPowerOf2(Math.Max((int)widthF + 1, (int)baseSize.Width + 1));
-            int bitmapHeight = MathUtils.GetNextPowerOf2(Math.Max((int)heightF + 1, (int)baseSize.Height + 1));
+            Width = (widthF / _scaleUp.X);
+            Height = (heightF / _scaleUp.Y);
+            int bitmapWidth = MathUtils.GetNextPowerOf2(Math.Max((int)(widthF) + 1, (int)(baseSize.Width) + 1));
+            int bitmapHeight = MathUtils.GetNextPowerOf2(Math.Max((int)(heightF) + 1, (int)(baseSize.Height) + 1));
             IBitmap bitmap = _bitmap;
             if (bitmap == null || bitmap.Width != bitmapWidth || bitmap.Height != bitmapHeight)
             {
@@ -174,6 +188,7 @@ namespace AGS.Engine
                 _bitmap = _bitmapPool.Acquire(bitmapWidth, bitmapHeight);
                 bitmap = _bitmap;
             }
+            if (_measureOnly) return;
             IBitmapTextDraw textDraw = bitmap.GetTextDraw();
             using (var context = textDraw.CreateContext())
             {
@@ -200,7 +215,7 @@ namespace AGS.Engine
         private float measureSpace()
         {
             //hack to measure the size of spaces. For some reason MeasureString returns bad results when string ends with a space.
-            IFont font = _fonts.LoadFont(_config.Font.FontFamily, _config.Font.SizeInPoints * TextResolutionFactorX, _config.Font.Style);
+            IFont font = _fonts.LoadFont(_config.Font.FontFamily, _config.Font.SizeInPoints * _scaleUp.X, _config.Font.Style);
             return font.MeasureString(" a").Width - font.MeasureString("a").Width;
         }
 			
@@ -218,6 +233,16 @@ namespace AGS.Engine
 				throw;
 			}
 		}
+
+        private void dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                IBitmap bitmap = _bitmap;
+                if (bitmap != null) try { _bitmapPool.Release(bitmap); } catch (ArgumentException e) { Debug.WriteLine(e.ToString()); }
+            }
+            if (_texture != 0) _messagePump.Post(_ => _graphics.DeleteTexture(_texture), null);
+        }
 	}
 }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -22,7 +21,7 @@ namespace DemoGame
 		public async Task LoadAsync(IGame game)
 		{
 			_game = game;
-			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded());
+            _game.Events.OnSavedGameLoad.Subscribe(onSaveGameLoaded);
 			IGameFactory factory = game.Factory;
 
 			_panel = await factory.UI.GetPanelAsync("Inventory Panel", "../../Assets/Gui/DialogBox/inventory.bmp", 160f, 100f);
@@ -68,8 +67,8 @@ namespace DemoGame
 		private async Task<IButton> loadButton(string id, IGameFactory factory, string folder, float x, string mode = null)
 		{
 			folder = _baseFolder + folder;
-			IButton button = await factory.UI.GetButtonAsync(id, folder + "normal.bmp", folder + "hovered.bmp", folder + "pushed.bmp", x, 4f);
-			button.TreeNode.SetParent(_panel.TreeNode);
+			IButton button = await factory.UI.GetButtonAsync(id, folder + "normal.bmp", folder + "hovered.bmp", 
+                                                             folder + "pushed.bmp", x, 4f, _panel);
 			if (mode != null)
 			{
 				button.OnMouseClick(() =>

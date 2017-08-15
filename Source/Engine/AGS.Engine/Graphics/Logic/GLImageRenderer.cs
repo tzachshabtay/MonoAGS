@@ -8,34 +8,31 @@ namespace AGS.Engine
 	{
         private readonly Dictionary<string, ITexture> _textures;
         private static Lazy<ITexture> _emptyTexture;
-		private readonly IGLBoundingBoxBuilder _boundingBoxBuilder;
 		private readonly IGLColorBuilder _colorBuilder;
 		private readonly IGLTextureRenderer _renderer;
-		private readonly IGLViewportMatrixFactory _layerViewports;
         private readonly IGraphicsFactory _graphicsFactory;
         private readonly IGLUtils _glUtils;
         private readonly IBitmapLoader _bitmapLoader;
         private readonly GLMatrices _matrices = new GLMatrices();
+        private readonly AGSBoundingBox _emptySquare = default(AGSBoundingBox);
+        private readonly Func<string, ITexture> _createTextureFunc;
+        private readonly IHasImage[] _colorAdjusters;
 
         public GLImageRenderer (Dictionary<string, ITexture> textures, 
-			IGLBoundingBoxBuilder boundingBoxBuilder,
-			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer, IGLBoundingBoxes bgBoxes,
-            IGLViewportMatrixFactory layerViewports, IGraphicsFactory graphicsFactory, IGLUtils glUtils, 
+			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer,
+            IGraphicsFactory graphicsFactory, IGLUtils glUtils, 
             IBitmapLoader bitmapLoader)
 		{
             _graphicsFactory = graphicsFactory;
+            _createTextureFunc = createNewTexture; //Creating a delegate in advance to avoid memory allocations on critical path
 			_textures = textures;
-			_boundingBoxBuilder = boundingBoxBuilder;
 			_colorBuilder = colorBuilder;
 			_renderer = renderer;
-			_layerViewports = layerViewports;
-			BoundingBoxes = bgBoxes;
             _glUtils = glUtils;
             _bitmapLoader = bitmapLoader;
             _emptyTexture = new Lazy<ITexture>(() => initEmptyTexture());
+            _colorAdjusters = new IHasImage[2];
 		}
-
-		public IGLBoundingBoxes BoundingBoxes { get; set; }
 
         public static ITexture EmptyTexture { get { return _emptyTexture.Value; } }
 
@@ -46,7 +43,7 @@ namespace AGS.Engine
 		{
 		}
 
-		public void Render(IObject obj, IViewport viewport)
+        public void Render(IObject obj, IViewport viewport)
 		{
 			if (obj.Animation == null)
 			{
@@ -57,56 +54,32 @@ namespace AGS.Engine
 			{
 				return;
 			}
+            obj.GetModelMatrices();
+            var boundingBoxes = obj.GetBoundingBoxes();
+            if (boundingBoxes == null || boundingBoxes.RenderBox.Equals(default(AGSBoundingBox))) return;
+            var renderBox = boundingBoxes.RenderBox;
+            var hitTestBox = boundingBoxes.HitTestBox;
 
-			var layerViewport = _layerViewports.GetViewport(obj.RenderLayer.Z);
-            var gameResolution = AGSGame.Game.Settings.VirtualResolution;
-            var resolution = obj.RenderLayer.IndependentResolution ?? gameResolution;
-            bool resolutionMatches = resolution.Equals(gameResolution);
+			ITexture texture = _textures.GetOrAdd (sprite.Image.ID, _createTextureFunc);
 
-            var viewportMatrix = obj.IgnoreViewport ? Matrix4.Identity : layerViewport.GetMatrix(viewport, obj.RenderLayer.ParallaxSpeed);
-
-            var modelMatrices = obj.GetModelMatrices();
-            _matrices.ModelMatrix = modelMatrices.InVirtualResolutionMatrix;
-            _matrices.ViewportMatrix = viewportMatrix;
-
-            _boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width,
-				sprite.Image.Height, _matrices, resolutionMatches, true);
-			IGLBoundingBox hitTestBox = BoundingBoxes.HitTestBox;
-            
-            if (!resolutionMatches)
-            {
-                _matrices.ModelMatrix = modelMatrices.InObjResolutionMatrix;
-                _boundingBoxBuilder.Build(BoundingBoxes, sprite.Image.Width,
-                    sprite.Image.Height, _matrices, true, false);
-            }
-            IGLBoundingBox renderBox = BoundingBoxes.RenderBox;
-
-            ITexture texture = _textures.GetOrAdd (sprite.Image.ID, () => createNewTexture (sprite.Image.ID));
-
-			IGLColor color = _colorBuilder.Build(sprite, obj);
+            _colorAdjusters[0] = sprite;
+            _colorAdjusters[1] = obj;
+			IGLColor color = _colorBuilder.Build(_colorAdjusters);
 
             IBorderStyle border = obj.Border;
-			ISquare renderSquare = null;
+            AGSBoundingBox borderBox = _emptySquare;
 			if (border != null)
 			{
-				renderSquare = renderBox.ToSquare();
-				border.RenderBorderBack(renderSquare);
+                if (renderBox.BottomLeft.X > renderBox.BottomRight.X) borderBox = renderBox.FlipHorizontal();
+                else borderBox = renderBox;
+
+				border.RenderBorderBack(borderBox);
 			}
-            _renderer.Render(texture.ID, renderBox, color);
-
-            Vector3 bottomLeft = hitTestBox.BottomLeft;
-            Vector3 topLeft = hitTestBox.TopLeft;
-            Vector3 bottomRight = hitTestBox.BottomRight;
-            Vector3 topRight = hitTestBox.TopRight;
-
-            AGSSquare square = new AGSSquare (new PointF (bottomLeft.X, bottomLeft.Y),
-				new PointF (bottomRight.X, bottomRight.Y), new PointF (topLeft.X, topLeft.Y),
-				new PointF (topRight.X, topRight.Y));
-			obj.BoundingBox = square;
+            _renderer.Render(texture.ID, renderBox, boundingBoxes.TextureBox, color);
 
 			if (border != null)
 			{
-				border.RenderBorderFront(renderSquare);
+				border.RenderBorderFront(borderBox);
 			}
 			if (obj.DebugDrawAnchor)
 			{

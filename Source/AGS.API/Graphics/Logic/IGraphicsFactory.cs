@@ -8,6 +8,18 @@ namespace AGS.API
     public interface IGraphicsFactory
 	{
         /// <summary>
+        /// Factory for creating icons.
+        /// </summary>
+        /// <value>The icons.</value>
+        IIconFactory Icons { get; }
+
+        /// <summary>
+        /// Factory for creating brushes.
+        /// </summary>
+        /// <value>The brushes.</value>
+        IBrushLoader Brushes { get; }
+
+        /// <summary>
         /// Creates a new sprite
         /// </summary>
         /// <returns>The sprite.</returns>

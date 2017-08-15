@@ -53,7 +53,7 @@ namespace Tests
 			builder.RegisterInstance(mocks.RoomTransitions().Object);
 			builder.RegisterInstance(mocks.AudioSystem().Object);
 			builder.RegisterInstance(new Mock<IMessagePump> ().Object);
-
+            builder.RegisterInstance(new Mock<IGameEvents>().Object);
 			builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 
 			mocks.container = builder.Build();
@@ -215,10 +215,10 @@ namespace Tests
 			if (_roomEvents == null)
 			{
 				_roomEvents = new Mock<IRoomEvents> ();
-				_roomEvents.Setup(r => r.OnAfterFadeIn).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
-				_roomEvents.Setup(r => r.OnAfterFadeOut).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
-				_roomEvents.Setup(r => r.OnBeforeFadeIn).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
-				_roomEvents.Setup(r => r.OnBeforeFadeOut).Returns(new Mock<IEvent<AGSEventArgs>> ().Object);
+				_roomEvents.Setup(r => r.OnAfterFadeIn).Returns(new Mock<IEvent> ().Object);
+				_roomEvents.Setup(r => r.OnAfterFadeOut).Returns(new Mock<IEvent> ().Object);
+				_roomEvents.Setup(r => r.OnBeforeFadeIn).Returns(new Mock<IEvent> ().Object);
+				_roomEvents.Setup(r => r.OnBeforeFadeOut).Returns(new Mock<IEvent> ().Object);
 			}
 			return _roomEvents;
 		}
@@ -251,6 +251,9 @@ namespace Tests
 			if (_viewport == null)
 			{
 				_viewport = new Mock<IViewport> ();
+                _viewport.Setup(v => v.OnAngleChanged).Returns(new AGSEvent());
+                _viewport.Setup(v => v.OnScaleChanged).Returns(new AGSEvent());
+                _viewport.Setup(v => v.OnPositionChanged).Returns(new AGSEvent());
 			}
 			return _viewport;
 		}

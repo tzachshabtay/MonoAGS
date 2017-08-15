@@ -8,6 +8,7 @@ namespace AGS.Engine
         public AGSFocusedUI()
         {
             ModalWindows = new ConcurrentStack<IEntity>();
+            CannotLoseFocus = new AGSConcurrentHashSet<string>();
         }
 
         public ITextBoxComponent FocusedTextBox { get; set; }
@@ -23,5 +24,7 @@ namespace AGS.Engine
         }
 
         public ConcurrentStack<IEntity> ModalWindows { get; }
+
+        public IConcurrentHashSet<string> CannotLoseFocus { get; }
     }
 }

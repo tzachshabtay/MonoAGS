@@ -10,13 +10,13 @@ namespace Tests
     [TestFixture]
     public class WalkBehaviorTests
 	{
-		private AGSEvent<AGSEventArgs> _onRepeatedlyExecute;
+		private AGSEvent _onRepeatedlyExecute;
 		private bool _testCompleted;
 
 		[TestFixtureSetUp]
 		public void Init()
 		{
-			_onRepeatedlyExecute = new AGSEvent<AGSEventArgs>();
+			_onRepeatedlyExecute = new AGSEvent();
 			startTicks();
 		}
 
@@ -120,7 +120,7 @@ namespace Tests
 		{
 			if (_testCompleted) return;
 			await Task.Delay(10);
-			await _onRepeatedlyExecute.InvokeAsync(this, new AGSEventArgs());
+			await _onRepeatedlyExecute.InvokeAsync();
 			await tick();
 		}
 	}

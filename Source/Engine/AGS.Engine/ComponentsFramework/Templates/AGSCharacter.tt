@@ -73,7 +73,7 @@
         protected override bool ShouldWriteMethod(MethodInfo method)
         {
         	if (!base.ShouldWriteMethod(method)) return false;
-        	if (method.Name != "ChangeRoom") return true;
+        	if (method.Name != "ChangeRoomAsync") return true;
 			return false;
         }
 	}

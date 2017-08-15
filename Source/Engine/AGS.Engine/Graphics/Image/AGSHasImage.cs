@@ -7,16 +7,12 @@ namespace AGS.Engine
         private IImage _image;
         private PointF _anchor;
         private Color _tint;
-        private AGSEventArgs _imageArgs, _anchorArgs, _tintArgs;
 
         public AGSHasImage()
         {
-            OnImageChanged = new AGSEvent<AGSEventArgs>();
-            OnAnchorChanged = new AGSEvent<AGSEventArgs>();
-            OnTintChanged = new AGSEvent<AGSEventArgs>();
-            _imageArgs = new AGSEventArgs();
-            _anchorArgs = new AGSEventArgs();
-            _tintArgs = new AGSEventArgs();
+            OnImageChanged = new AGSEvent();
+            OnAnchorChanged = new AGSEvent();
+            OnTintChanged = new AGSEvent();
             Anchor = new PointF(0.5f, 0f);
             Tint = Colors.White;
         }
@@ -33,7 +29,7 @@ namespace AGS.Engine
             set
             {
                 _tint = value;
-                OnTintChanged.FireEvent(this, _tintArgs);
+                OnTintChanged.Invoke();
             }
         }
 
@@ -43,7 +39,7 @@ namespace AGS.Engine
             set 
             { 
                 _anchor = value; 
-                OnAnchorChanged.FireEvent(this, _anchorArgs); 
+                OnAnchorChanged.Invoke(); 
             } 
         }
 
@@ -53,17 +49,17 @@ namespace AGS.Engine
             set
             {
                 _image = value;
-                OnImageChanged.FireEvent(this, _imageArgs);
+                OnImageChanged.Invoke();
             }
         }
 
         public IImageRenderer CustomRenderer { get; set; }
 
-        public IEvent<AGSEventArgs> OnImageChanged { get; private set; }
+        public IEvent OnImageChanged { get; private set; }
 
-        public IEvent<AGSEventArgs> OnAnchorChanged { get; private set; }
+        public IEvent OnAnchorChanged { get; private set; }
 
-        public IEvent<AGSEventArgs> OnTintChanged { get; private set; }
+        public IEvent OnTintChanged { get; private set; }
 
         public override string ToString()
         {

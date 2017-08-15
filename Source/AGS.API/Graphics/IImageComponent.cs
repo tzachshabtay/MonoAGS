@@ -60,19 +60,19 @@
         /// An event that triggers whenever the image changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnImageChanged { get; }
+        IEvent OnImageChanged { get; }
 
         /// <summary>
         /// An event that triggers whenever the anchor changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnAnchorChanged { get; }
+        IEvent OnAnchorChanged { get; }
 
         /// <summary>
         /// An event that triggers whenever the tint changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnTintChanged { get; }
+        IEvent OnTintChanged { get; }
     }
 
     /// <summary>

@@ -9,13 +9,13 @@ namespace AGS.Engine
         private readonly IRotate _rotate;
         private readonly IMaskLoader _maskLoader;
         private readonly Resolver _resolver;
-        private readonly AGSEventArgs _args = new AGSEventArgs();
+        private static readonly SizeF _emptySize = new SizeF(1f, 1f);
 
 		public AGSSprite (Resolver resolver, IMaskLoader maskLoader)
 		{
             _maskLoader = maskLoader;
             _resolver = resolver;
-            OnScaleChanged = new AGSEvent<AGSEventArgs>();
+            OnScaleChanged = new AGSEvent();
 
             //todo: abstract it to the constructor
             _translate = new AGSTranslate();
@@ -25,7 +25,7 @@ namespace AGS.Engine
 
             ScaleX = 1;
             ScaleY = 1;
-            _hasImage.OnImageChanged.Subscribe((sender, args) => ScaleBy(ScaleX, ScaleY));
+            _hasImage.OnImageChanged.Subscribe(() => ScaleBy(ScaleX, ScaleY));
         }
 
         private AGSSprite(AGSSprite sprite) : this(sprite._resolver, sprite._maskLoader)
@@ -62,7 +62,7 @@ namespace AGS.Engine
                 Width = _hasImage.Image.Width;
                 Height = _hasImage.Image.Height;
             }
-            OnScaleChanged.FireEvent(this, _args);
+            OnScaleChanged.Invoke();
         }
 
         public void ScaleBy(float scaleX, float scaleY)
@@ -75,7 +75,7 @@ namespace AGS.Engine
                 Width = _hasImage.Image.Width * ScaleX;
                 Height = _hasImage.Image.Height * ScaleY;
             }
-            OnScaleChanged.FireEvent(this, _args);
+            OnScaleChanged.Invoke();
         }
 
         public void ScaleTo(float width, float height)
@@ -88,21 +88,21 @@ namespace AGS.Engine
                 ScaleX = Width / _hasImage.Image.Width;
                 ScaleY = Height / _hasImage.Image.Height;
             }
-            OnScaleChanged.FireEvent(this, _args);
+            OnScaleChanged.Invoke();
         }
 
         public void FlipHorizontally()
         {
             ScaleBy(-ScaleX, ScaleY);
             _hasImage.Anchor = new PointF(-_hasImage.Anchor.X, _hasImage.Anchor.Y);
-            OnScaleChanged.FireEvent(this, _args);
+            OnScaleChanged.Invoke();
         }
 
         public void FlipVertically()
         {
             ScaleBy(ScaleX, -ScaleY);
             _hasImage.Anchor = new PointF(_hasImage.Anchor.X, -_hasImage.Anchor.Y);
-            OnScaleChanged.FireEvent(this, _args);
+            OnScaleChanged.Invoke();
         }
 
         public ISprite Clone()
@@ -126,6 +126,16 @@ namespace AGS.Engine
 
         public float ScaleY { get; private set; }
 
+        public SizeF BaseSize 
+        { 
+            get 
+            {
+                var image = _hasImage.Image;
+                if (image == null) return _emptySize;
+                return new SizeF(image.Width, image.Height);
+            } 
+        }
+
         public float Angle { get { return _rotate.Angle; } set { _rotate.Angle = value; } }
 
         public PointF Anchor { get { return _hasImage.Anchor; } set { _hasImage.Anchor = value; } }
@@ -134,17 +144,17 @@ namespace AGS.Engine
 
         public IImage Image { get { return _hasImage.Image; } set { _hasImage.Image = value; } }
 
-        public IEvent<AGSEventArgs> OnImageChanged { get { return _hasImage.OnImageChanged; } }
+        public IEvent OnImageChanged { get { return _hasImage.OnImageChanged; } }
 
         public byte Opacity { get { return _hasImage.Opacity; } set { _hasImage.Opacity = value; } }
 
         public Color Tint { get { return _hasImage.Tint; } set { _hasImage.Tint = value; } }
 
-        public IEvent<AGSEventArgs> OnLocationChanged { get { return _translate.OnLocationChanged; } }
-        public IEvent<AGSEventArgs> OnAngleChanged { get { return _rotate.OnAngleChanged; } }
-        public IEvent<AGSEventArgs> OnAnchorChanged { get { return _hasImage.OnAnchorChanged; } }
-        public IEvent<AGSEventArgs> OnTintChanged { get { return _hasImage.OnTintChanged; } }
-        public IEvent<AGSEventArgs> OnScaleChanged { get; private set; }
+        public IEvent OnLocationChanged { get { return _translate.OnLocationChanged; } }
+        public IEvent OnAngleChanged { get { return _rotate.OnAngleChanged; } }
+        public IEvent OnAnchorChanged { get { return _hasImage.OnAnchorChanged; } }
+        public IEvent OnTintChanged { get { return _hasImage.OnTintChanged; } }
+        public IEvent OnScaleChanged { get; private set; }
 
         public IArea PixelPerfectHitTestArea { get; private set; }
         public void PixelPerfect(bool pixelPerfect)

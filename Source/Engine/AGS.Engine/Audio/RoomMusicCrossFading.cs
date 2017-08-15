@@ -39,19 +39,21 @@ namespace AGS.Engine
 
 		#endregion
 
-		private void onRoomsChange(object sender, AGSListChangedEventArgs<IRoom> args)
+		private void onRoomsChange(AGSListChangedEventArgs<IRoom> args)
 		{
-			var fader = _map.GetOrAdd(args.Item.ID, _ => new RoomCrossFader (this, args.Item));
-			if (args.ChangeType == ListChangeType.Remove)
-			{
-				RoomCrossFader val;
-				_map.TryRemove(args.Item.ID, out val);
-				fader.Dispose();
-			}
-			_game.State.Rooms.OnListChanged.Subscribe(onRoomsChange);
+            foreach (var item in args.Items)
+            {
+                var fader = _map.GetOrAdd(item.Item.ID, _ => new RoomCrossFader(this, item.Item));
+                if (args.ChangeType == ListChangeType.Remove)
+                {
+                    RoomCrossFader val;
+                    _map.TryRemove(item.Item.ID, out val);
+                    fader.Dispose();
+                }
+            }
 		}
 
-		private void onSavedGameLoad(object sender, AGSEventArgs args)
+		private void onSavedGameLoad()
 		{
 			_state.Rooms.OnListChanged.Unsubscribe(onRoomsChange);
 			foreach (var fader in _map.Values)
@@ -92,7 +94,7 @@ namespace AGS.Engine
 				room.Events.OnBeforeFadeIn.Unsubscribe(onBeforeFadeIn);
 			}
 
-			private void onBeforeFadeOut(object sender, AGSEventArgs args)
+			private void onBeforeFadeOut()
 			{
 				var music = _music;
 				if (music == null || music.HasCompleted) return;
@@ -107,7 +109,7 @@ namespace AGS.Engine
 				});
 			}
 
-			private void onBeforeFadeIn(object sender, AGSEventArgs args)
+			private void onBeforeFadeIn()
 			{
 				var room = Room;
 				if (room == null) return;

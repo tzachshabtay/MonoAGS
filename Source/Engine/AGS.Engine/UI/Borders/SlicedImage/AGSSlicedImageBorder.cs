@@ -46,7 +46,7 @@ namespace AGS.Engine
 
 		#region IBorderStyle implementation
 
-		public void RenderBorderBack(ISquare square)
+		public void RenderBorderBack(AGSBoundingBox square)
 		{
 			runAnimation();
 
@@ -61,10 +61,10 @@ namespace AGS.Engine
 			float farTop = square.TopLeft.Y + outset.Top.Value;
 			float farBottom = square.BottomLeft.Y - outset.Bottom.Value;
 
-			var quad = new AGSSquare (new PointF (farLeft + width.Left.Value, farBottom + width.Bottom.Value),
-				           new PointF (farRight - width.Right.Value, farBottom + width.Bottom.Value),
-				           new PointF (farLeft + width.Left.Value, farTop - width.Top.Value), 
-				           new PointF (farRight - width.Right.Value, farTop - width.Top.Value));
+            var quad = new AGSBoundingBox (new Vector2 (farLeft + width.Left.Value, farBottom + width.Bottom.Value),
+				           new Vector2 (farRight - width.Right.Value, farBottom + width.Bottom.Value),
+				           new Vector2 (farLeft + width.Left.Value, farTop - width.Top.Value), 
+				           new Vector2 (farRight - width.Right.Value, farTop - width.Top.Value));
 
 			drawQuad(quad, new FourCorners<Vector2> (new Vector2 (slice.Left.Value, slice.Bottom.Value),
 				new Vector2 (1f - slice.Right.Value, slice.Bottom.Value), new Vector2 (slice.Left.Value, 1f - slice.Top.Value),
@@ -73,14 +73,14 @@ namespace AGS.Engine
 			if (DrawBorderBehind) drawBorders(square);
 		}
 
-		public void RenderBorderFront(ISquare square)
+		public void RenderBorderFront(AGSBoundingBox square)
 		{
 			if (!DrawBorderBehind) drawBorders(square);
 		}
 
 		#endregion
 
-		private void drawBorders(ISquare square)
+		private void drawBorders(AGSBoundingBox square)
 		{
 			var slice = Slice.ToPercentage(_width, _height);
 			var width = Width.ToPixels(_width, _height);
@@ -109,21 +109,21 @@ namespace AGS.Engine
 
 		private void drawCorners(SliceValues border, SliceValues slice, SliceValues width)
 		{
-			var topLeftQuad = new AGSSquare(new PointF(border.Left.Value, border.Top.Value - width.Top.Value),
-				new PointF(border.Left.Value + width.Top.Value, border.Top.Value - width.Top.Value),
-				new PointF(border.Left.Value, border.Top.Value), new PointF(border.Left.Value + width.Top.Value, border.Top.Value));
+			var topLeftQuad = new AGSBoundingBox(new Vector2(border.Left.Value, border.Top.Value - width.Top.Value),
+				new Vector2(border.Left.Value + width.Top.Value, border.Top.Value - width.Top.Value),
+				new Vector2(border.Left.Value, border.Top.Value), new Vector2(border.Left.Value + width.Top.Value, border.Top.Value));
 
-			var topRightQuad = new AGSSquare(new PointF(border.Right.Value - width.Right.Value, border.Top.Value - width.Top.Value),
-				new PointF(border.Right.Value, border.Top.Value - width.Top.Value),
-				new PointF(border.Right.Value - width.Right.Value, border.Top.Value), new PointF(border.Right.Value, border.Top.Value));
+			var topRightQuad = new AGSBoundingBox(new Vector2(border.Right.Value - width.Right.Value, border.Top.Value - width.Top.Value),
+				new Vector2(border.Right.Value, border.Top.Value - width.Top.Value),
+				new Vector2(border.Right.Value - width.Right.Value, border.Top.Value), new Vector2(border.Right.Value, border.Top.Value));
 
-			var bottomLeftQuad = new AGSSquare(new PointF(border.Left.Value, border.Bottom.Value),
-				new PointF(border.Left.Value + width.Top.Value, border.Bottom.Value), new PointF(border.Left.Value, border.Bottom.Value + width.Bottom.Value), 
-				new PointF(border.Left.Value + width.Top.Value, border.Bottom.Value + width.Bottom.Value));
+			var bottomLeftQuad = new AGSBoundingBox(new Vector2(border.Left.Value, border.Bottom.Value),
+				new Vector2(border.Left.Value + width.Top.Value, border.Bottom.Value), new Vector2(border.Left.Value, border.Bottom.Value + width.Bottom.Value), 
+				new Vector2(border.Left.Value + width.Top.Value, border.Bottom.Value + width.Bottom.Value));
 
-			var bottomRightQuad = new AGSSquare(new PointF(border.Right.Value - width.Right.Value, border.Bottom.Value),
-				new PointF(border.Right.Value, border.Bottom.Value), new PointF(border.Right.Value - width.Right.Value, border.Bottom.Value + width.Bottom.Value), 
-				new PointF(border.Right.Value, border.Bottom.Value + width.Bottom.Value));
+			var bottomRightQuad = new AGSBoundingBox(new Vector2(border.Right.Value - width.Right.Value, border.Bottom.Value),
+				new Vector2(border.Right.Value, border.Bottom.Value), new Vector2(border.Right.Value - width.Right.Value, border.Bottom.Value + width.Bottom.Value), 
+				new Vector2(border.Right.Value, border.Bottom.Value + width.Bottom.Value));
 
 			drawQuad(topLeftQuad, new FourCorners<Vector2> (new Vector2(0f, 1f - slice.Top.Value), new Vector2(slice.Left.Value, 1f - slice.Top.Value), 
 				new Vector2(0f, 1f), new Vector2(slice.Left.Value, 1f)));
@@ -138,34 +138,34 @@ namespace AGS.Engine
 				new Vector2(1f - slice.Right.Value, slice.Bottom.Value), new Vector2(1f, slice.Bottom.Value)));
 		}
 
-		private void drawQuad(ISquare quad, FourCorners<Vector2> texturePos)
+		private void drawQuad(AGSBoundingBox quad, FourCorners<Vector2> texturePos)
 		{
-            _glUtils.DrawQuad(_texture, quad.BottomLeft.ToVector3(), quad.BottomRight.ToVector3(),
-				quad.TopLeft.ToVector3(), quad.TopRight.ToVector3(), _white, texturePos); 
+            _glUtils.DrawQuad(_texture, quad.BottomLeft, quad.BottomRight,
+				quad.TopLeft, quad.TopRight, _white, texturePos); 
 		}
 
 		private void drawStretch(SliceValues border, SliceValues slice, SliceValues width)
 		{
-			var topQuad = new AGSSquare (new PointF (border.Left.Value + width.Left.Value, border.Top.Value - width.Top.Value),
-				              new PointF (border.Right.Value - width.Right.Value, border.Top.Value - width.Top.Value), 
-				              new PointF (border.Left.Value + width.Left.Value, border.Top.Value),
-				              new PointF (border.Right.Value - width.Right.Value, border.Top.Value));
+			var topQuad = new AGSBoundingBox (new Vector2 (border.Left.Value + width.Left.Value, border.Top.Value - width.Top.Value),
+				              new Vector2 (border.Right.Value - width.Right.Value, border.Top.Value - width.Top.Value), 
+				              new Vector2 (border.Left.Value + width.Left.Value, border.Top.Value),
+				              new Vector2 (border.Right.Value - width.Right.Value, border.Top.Value));
 
 
-			var bottomQuad = new AGSSquare (new PointF (border.Left.Value + width.Left.Value, border.Bottom.Value),
-				                 new PointF (border.Right.Value - width.Right.Value, border.Bottom.Value), 
-				                 new PointF (border.Left.Value + width.Left.Value, border.Bottom.Value + width.Bottom.Value),
-				                 new PointF (border.Right.Value - width.Right.Value, border.Bottom.Value + width.Bottom.Value));
+			var bottomQuad = new AGSBoundingBox (new Vector2 (border.Left.Value + width.Left.Value, border.Bottom.Value),
+				                 new Vector2 (border.Right.Value - width.Right.Value, border.Bottom.Value), 
+				                 new Vector2 (border.Left.Value + width.Left.Value, border.Bottom.Value + width.Bottom.Value),
+				                 new Vector2 (border.Right.Value - width.Right.Value, border.Bottom.Value + width.Bottom.Value));
 
-			var leftQuad = new AGSSquare (new PointF (border.Left.Value, border.Bottom.Value + width.Bottom.Value),
-				               new PointF (border.Left.Value + width.Left.Value, border.Bottom.Value + width.Bottom.Value), 
-				               new PointF (border.Left.Value, border.Top.Value - width.Top.Value),
-				               new PointF (border.Left.Value + width.Left.Value, border.Top.Value - width.Top.Value));
+			var leftQuad = new AGSBoundingBox (new Vector2 (border.Left.Value, border.Bottom.Value + width.Bottom.Value),
+				               new Vector2 (border.Left.Value + width.Left.Value, border.Bottom.Value + width.Bottom.Value), 
+				               new Vector2 (border.Left.Value, border.Top.Value - width.Top.Value),
+				               new Vector2 (border.Left.Value + width.Left.Value, border.Top.Value - width.Top.Value));
 
-			var rightQuad = new AGSSquare (new PointF (border.Right.Value - width.Right.Value, border.Bottom.Value + width.Bottom.Value),
-				                new PointF (border.Right.Value, border.Bottom.Value + width.Bottom.Value), 
-				                new PointF (border.Right.Value - width.Right.Value, border.Top.Value - width.Top.Value),
-				                new PointF (border.Right.Value, border.Top.Value - width.Top.Value));
+			var rightQuad = new AGSBoundingBox (new Vector2 (border.Right.Value - width.Right.Value, border.Bottom.Value + width.Bottom.Value),
+				                new Vector2 (border.Right.Value, border.Bottom.Value + width.Bottom.Value), 
+				                new Vector2 (border.Right.Value - width.Right.Value, border.Top.Value - width.Top.Value),
+				                new Vector2 (border.Right.Value, border.Top.Value - width.Top.Value));
 
 			drawQuad(topQuad, new FourCorners<Vector2> (new Vector2 (slice.Left.Value, 1f - slice.Top.Value),
 				new Vector2 (1f - slice.Right.Value, 1f - slice.Top.Value), new Vector2 (slice.Left.Value, 1f),
@@ -287,7 +287,7 @@ namespace AGS.Engine
 		{
 			for (int i = 0; i < steps; i++)
 			{
-				var quad = new AGSSquare (new PointF (x, y), new PointF (x + width, y), new PointF (x, y + height), new PointF (x + width, y + height));
+				var quad = new AGSBoundingBox (new Vector2 (x, y), new Vector2 (x + width, y), new Vector2 (x, y + height), new Vector2 (x + width, y + height));
 				drawQuad(quad, new FourCorners<Vector2> (new Vector2 (textureX, textureY), new Vector2 (textureX + textureWidth, textureY),
 					new Vector2 (textureX, textureY + textureHeight), new Vector2 (textureX + textureWidth, textureY + textureHeight)));
 				x += stepX;

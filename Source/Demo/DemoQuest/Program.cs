@@ -3,20 +3,29 @@ using System.Threading.Tasks;
 using AGS.API;
 using System.Diagnostics;
 using DemoQuest;
+using System;
 
 namespace DemoGame
 {
 	public class DemoStarter
 	{
+        private static Lazy<GameDebugView> _gameDebugView;
+
 		public static void Run()
 		{
 			IGame game = AGSGame.CreateEmpty();
+            _gameDebugView = new Lazy<GameDebugView>(() =>
+            {
+                var gameDebugView = new GameDebugView(game);
+                gameDebugView.Load();
+                return gameDebugView;
+            });
 
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
             GLText.TextResolutionFactorX = 4;
             GLText.TextResolutionFactorY = 4;
 
-			game.Events.OnLoad.Subscribe(async (sender, e) =>
+            game.Events.OnLoad.Subscribe(async () =>
             {
                 game.Factory.Fonts.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
                 AGSGameSettings.DefaultSpeechFont = game.Factory.Fonts.LoadFontFromPath("../../Assets/Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
@@ -40,7 +49,7 @@ namespace DemoGame
         private static void setKeyboardEvents(IGame game)
         {
             game.State.Cutscene.SkipTrigger = SkipCutsceneTrigger.AnyKey;
-            game.Input.KeyDown.Subscribe((sender, args) =>
+            game.Input.KeyDown.SubscribeToAsync(async args =>
             {
                 if (args.Key == Key.Enter && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
                 {
@@ -61,6 +70,12 @@ namespace DemoGame
                     if (game.State.Cutscene.IsRunning) return;
                     game.Quit();
                 }
+                else if (args.Key == Key.G && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
+                {
+                    var gameDebug = _gameDebugView.Value;
+                    if (gameDebug.Visible) gameDebug.Hide();
+                    else await gameDebug.Show();
+                }
             });
         }
 
@@ -78,7 +93,11 @@ namespace DemoGame
 			await options.LoadAsync(game);
             Debug.WriteLine("Startup: Loaded Options Panel");
 
-			TopBar topBar = new TopBar(cursors.Scheme, inventory, options);
+            FeaturesTopWindow features = new FeaturesTopWindow(cursors.Scheme);
+            features.Load(game);
+            Debug.WriteLine("Startup: Loaded Features Panel");
+
+            TopBar topBar = new TopBar(cursors.Scheme, inventory, options, features);
 			var topPanel = await topBar.LoadAsync(game);
             Debug.WriteLine("Startup: Loaded Top Bar");
 
@@ -117,7 +136,7 @@ namespace DemoGame
             AGSSplashScreen splashScreen = new AGSSplashScreen();
             Rooms.SplashScreen = splashScreen.Load(game);
             game.State.Rooms.Add(Rooms.SplashScreen);
-            Rooms.SplashScreen.Events.OnAfterFadeIn.SubscribeToAsync(async (object sender, AGSEventArgs args) => 
+            Rooms.SplashScreen.Events.OnAfterFadeIn.SubscribeToAsync(async () => 
             { 
                 await loadRooms(game);
                 Debug.WriteLine("Startup: Loaded Rooms");
@@ -182,25 +201,35 @@ namespace DemoGame
 		[Conditional("DEBUG")]
 		private static void addDebugLabels(IGame game)
 		{
-			ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, 320, 25, config: new AGSTextConfig(alignment: Alignment.TopLeft,
+			ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, 320, 2, config: new AGSTextConfig(alignment: Alignment.TopLeft,
 				autoFit: AutoFit.LabelShouldFitText));
-			fpsLabel.Anchor = new AGS.API.PointF (1f, 0f);
-			fpsLabel.ScaleBy(0.7f, 0.7f);
+			fpsLabel.Anchor = new PointF (1f, 0f);
+			fpsLabel.ScaleBy(0.5f, 0.5f);
             fpsLabel.RenderLayer = new AGSRenderLayer(-99999);
-            var red = Colors.IndianRed;
-            fpsLabel.Tint = Color.FromRgba(red.R, red.G, red.B, 125);
+            fpsLabel.Enabled = true;
+            fpsLabel.MouseEnter.Subscribe(_ => fpsLabel.Tint = Colors.Indigo);
+            fpsLabel.MouseLeave.Subscribe(_ => fpsLabel.Tint = Colors.IndianRed.WithAlpha(125));
+            fpsLabel.Tint = Colors.IndianRed.WithAlpha(125);
 			FPSCounter fps = new FPSCounter(game, fpsLabel);
 			fps.Start();
 
-			ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 30, 25, 320, 5, config: new AGSTextConfig(alignment: Alignment.TopRight,
+			ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 1, 1, 320, 17, config: new AGSTextConfig(alignment: Alignment.TopRight,
 				autoFit: AutoFit.LabelShouldFitText));
-            var blue = Colors.SlateBlue;
-            label.Tint = Color.FromRgba(blue.R, blue.G, blue.B, 125);
-			label.Anchor = new AGS.API.PointF (1f, 0f);
-			label.ScaleBy(0.7f, 0.7f);
-            label.RenderLayer = new AGSRenderLayer(-99999);
+            label.Tint = Colors.SlateBlue.WithAlpha(125);
+			label.Anchor = new PointF (1f, 0f);
+			label.ScaleBy(0.5f, 0.5f);
+            label.RenderLayer = fpsLabel.RenderLayer;
             MousePositionLabel mouseLabel = new MousePositionLabel(game, label);
 			mouseLabel.Start();
+
+            ILabel debugHotspotLabel = game.Factory.UI.GetLabel("Debug Hotspot Label", "", 1f, 1f, 320, 32, config: new AGSTextConfig(alignment: Alignment.TopRight,
+              autoFit: AutoFit.LabelShouldFitText));
+            debugHotspotLabel.Tint = Colors.DarkSeaGreen.WithAlpha(125);
+            debugHotspotLabel.Anchor = new PointF(1f, 0f);
+            debugHotspotLabel.ScaleBy(0.5f, 0.5f);
+            debugHotspotLabel.RenderLayer = fpsLabel.RenderLayer;
+            HotspotLabel hotspot = new HotspotLabel(game, debugHotspotLabel) { DebugMode = true };
+            hotspot.Start();
 		}
 	}
 }

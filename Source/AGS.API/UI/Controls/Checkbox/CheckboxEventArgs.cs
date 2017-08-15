@@ -3,7 +3,7 @@
     /// <summary>
     /// Event arguments for a checkbox check change.
     /// </summary>
-    public class CheckBoxEventArgs : AGSEventArgs
+    public class CheckBoxEventArgs
     {
         public CheckBoxEventArgs(bool isChecked)
         {

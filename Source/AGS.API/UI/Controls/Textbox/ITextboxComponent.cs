@@ -25,7 +25,7 @@
         /// _myTextbox.OnPressingKey.Subscribe(onPressingKey);
         /// ...
         /// ...
-        /// private void onPressingKey(object sender, TextboxKeyPressingEventArgs args)
+        /// private void onPressingKey(TextboxKeyPressingEventArgs args)
         /// {
         ///     if (args.Key == Key.Space)
         ///     {
@@ -48,7 +48,7 @@
         /// <summary>
         /// This event can be subscribed to get notifications for when the textbox gets or a loses focus.
         /// </summary>
-        IEvent<AGSEventArgs> OnFocusChanged { get; }
+        IEvent OnFocusChanged { get; }
 
         /// <summary>
         /// Gets or sets whether the textbox is focused or not. Only when the textbox is focused it can receive input from the keyboard 

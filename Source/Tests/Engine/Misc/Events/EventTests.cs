@@ -1,8 +1,6 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using AGS.Engine;
 using System.Threading.Tasks;
-using AGS.API;
 
 namespace Tests
 {
@@ -22,8 +20,8 @@ namespace Tests
 		[Test ()]
 		public void NoSubscribersTest ()
 		{
-			AGSEvent<AGSEventArgs> ev = new AGSEvent<AGSEventArgs> ();
-			ev.Invoke (this, null);
+			AGSEvent ev = new AGSEvent ();
+			ev.Invoke();
 			Assert.AreEqual (0, syncEvents);
 			Assert.AreEqual (0, asyncEvents);
 		}
@@ -31,8 +29,8 @@ namespace Tests
 		[Test ()]
 		public async Task NoSubscribersAsyncTest ()
 		{
-			AGSEvent<AGSEventArgs> ev = new AGSEvent<AGSEventArgs> ();
-			await ev.InvokeAsync (this, null);
+			AGSEvent ev = new AGSEvent ();
+			await ev.InvokeAsync ();
 			Assert.AreEqual (0, syncEvents);
 			Assert.AreEqual (0, asyncEvents);
 		}
@@ -42,7 +40,7 @@ namespace Tests
 		{
 			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
 			ev.Subscribe (onEvent);
-			ev.Invoke (this, new MockEventArgs(x));
+			ev.Invoke (new MockEventArgs(x));
 			Assert.AreEqual (1, syncEvents);
 			Assert.AreEqual (0, asyncEvents);
 		}
@@ -52,7 +50,7 @@ namespace Tests
 		{
 			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
 			ev.SubscribeToAsync (onEventAsync);
-			ev.Invoke (this, new MockEventArgs(x));
+			ev.Invoke (new MockEventArgs(x));
 			Assert.AreEqual (0, syncEvents);
 			Assert.AreEqual (1, asyncEvents);
 		}
@@ -62,7 +60,7 @@ namespace Tests
 		{
 			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
 			ev.Subscribe (onEvent);
-			await ev.InvokeAsync (this, new MockEventArgs(x));
+			await ev.InvokeAsync (new MockEventArgs(x));
 			Assert.AreEqual (1, syncEvents);
 			Assert.AreEqual (0, asyncEvents);
 		}
@@ -72,7 +70,7 @@ namespace Tests
 		{
 			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
 			ev.SubscribeToAsync (onEventAsync);
-			await ev.InvokeAsync (this, new MockEventArgs(x));
+			await ev.InvokeAsync (new MockEventArgs(x));
 			Assert.AreEqual (0, syncEvents);
 			Assert.AreEqual (1, asyncEvents);
 		}
@@ -82,10 +80,10 @@ namespace Tests
 		{
 			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
 			ev.Subscribe (onEvent);
-			ev.Subscribe ((sender, e) => onEvent(sender, e));
+			ev.Subscribe (e => onEvent(e));
 			ev.SubscribeToAsync (onEventAsync);
-			ev.SubscribeToAsync (async (sender, e) => await onEventAsync(sender, e));
-			ev.Invoke (this, new MockEventArgs(x));
+			ev.SubscribeToAsync (async e => await onEventAsync(e));
+			ev.Invoke (new MockEventArgs(x));
 			Assert.AreEqual (2, syncEvents);
 			Assert.AreEqual (2, asyncEvents);
 		}
@@ -95,10 +93,10 @@ namespace Tests
 		{
 			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
 			ev.Subscribe (onEvent);
-			ev.Subscribe ((sender, e) => onEvent(sender, e));
+			ev.Subscribe (e => onEvent(e));
 			ev.SubscribeToAsync (onEventAsync);
-			ev.SubscribeToAsync (async (sender, e) => await onEventAsync(sender, e));
-			await ev.InvokeAsync (this, new MockEventArgs(x));
+			ev.SubscribeToAsync (async e => await onEventAsync(e));
+			await ev.InvokeAsync (new MockEventArgs(x));
 			Assert.AreEqual (2, syncEvents);
 			Assert.AreEqual (2, asyncEvents);
 		}
@@ -141,20 +139,20 @@ namespace Tests
 			Assert.AreEqual(1, ev.SubscribersCount);
 		}
 
-		private void onEvent(object sender, MockEventArgs e)
+		private void onEvent(MockEventArgs e)
 		{
 			Assert.AreEqual (x, e.X);
 			syncEvents++;
 		}
 
-		private async Task onEventAsync(object sender, MockEventArgs e)
+		private async Task onEventAsync(MockEventArgs e)
 		{
 			await Task.Delay (1);
 			Assert.AreEqual (x, e.X);
 			asyncEvents++;
 		}
 
-		private class MockEventArgs : AGSEventArgs
+		private class MockEventArgs
 		{
 			public MockEventArgs(int x)
 			{

@@ -15,7 +15,14 @@ namespace AGS.Engine
 
         public TValue GetValue(string name, TValue defaultValue = default(TValue))
         {
-            return _properties.GetOrAdd(name, _ => defaultValue);
+            TValue val;
+            //Tempting to use GetOrAdd here, but unfortunately it results in memory allocation which we want to avoid as this can be part of a critical path
+            if (!_properties.TryGetValue(name, out val))
+            {
+                val = defaultValue;
+                _properties.TryAdd(name, val);
+            }
+            return val;
         }
 
         public void SetValue(string name, TValue value)

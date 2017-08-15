@@ -21,6 +21,12 @@ namespace AGS.API
         IRoom PreviousRoom { get; }
 
         /// <summary>
+        /// An event which fires whenever the room is changed.
+        /// </summary>
+        /// <value>The on room changed event.</value>
+        IEvent OnRoomChanged { get; }
+
+        /// <summary>
         /// Move the entity to a new room.
         /// If the entity that's moved to a new room is the player, the new room will be the one shown on the screen.
         /// </summary>

@@ -38,6 +38,12 @@
         /// <seealso cref="Visible"/>
         /// <value><c>true</c> if underlying visible; otherwise, <c>false</c>.</value>
 		bool UnderlyingVisible { get; }
+
+        /// <summary>
+        /// An event which fires whenever underlying visible has changed for the entity.
+        /// </summary>
+        /// <value>The on underlying visible changed.</value>
+        IEvent OnUnderlyingVisibleChanged { get; }
 	}
 }
 

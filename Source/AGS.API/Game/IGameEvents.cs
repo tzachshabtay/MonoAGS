@@ -12,7 +12,7 @@
         /// <value>
         /// The on load event.
         /// </value>
-        IEvent<AGSEventArgs> OnLoad { get; }
+        IEvent OnLoad { get; }
 
         /// <summary>
         /// The on repeatedly execute event happens every tick and allows you to check for conditions 
@@ -31,7 +31,7 @@
         /// <example>
         /// Let's look at some bad and good examples on how to use the event:
         /// <code>
-        /// private void onRepeatedlyExecute(object sender, AGSEventArgs)
+        /// private void onRepeatedlyExecute()
         /// {        
         ///     //BAD!! running the dance animation on every tick will make the game run incredibly slow! 
         ///     performDanceAnimation(); 
@@ -51,21 +51,21 @@
         /// }
         /// </code>        
         /// </example>
-        IEvent<AGSEventArgs> OnRepeatedlyExecute { get; }
+        IEvent OnRepeatedlyExecute { get; }
 
 		/// <summary>
 		/// This event is called on every render cycle before rendering starts.
 		/// It can be used for native background drawings, or for native OpenGL calls
-		/// for setting thins up (like setting shader variables).
+		/// for setting things up (like setting shader variables).
 		/// </summary>
 		/// <value>The on before render event.</value>
-		IBlockingEvent<AGSEventArgs> OnBeforeRender { get; }
+		IBlockingEvent OnBeforeRender { get; }
 
 		/// <summary>
 		/// This event is called whenever the screen is resized.
 		/// </summary>
 		/// <value>The on screen resize.</value>
-		IBlockingEvent<AGSEventArgs> OnScreenResize { get; }
+		IBlockingEvent OnScreenResize { get; }
 
         /// <summary>
         /// The on saved game load is called whenever a saved game was loaded.
@@ -105,7 +105,7 @@
         ///     game.Events.OnSavedGameLoad.Unsubscribe(onSavedGameLoad);
         /// }
         /// 
-        /// private void onSavedGameLoad(object sender, AGSEventArgs args)
+        /// private void onSavedGameLoad()
         /// {
         ///     _player = game.State.Player; //We rewire the _player variable to refer to the correct player!
         /// }
@@ -133,7 +133,7 @@
         ///     _game.Events.OnSavedGameLoad.Unsubscribe(onSavedGameLoad);
         /// }
         /// 
-        /// private void onSavedGameLoad(object sender, AGSEventArgs args)
+        /// private void onSavedGameLoad()
         /// {
         ///     var inventory = _game.State.Player.Character.Inventory;
         ///     if (inventory.Contains(iCandle) &amp;&amp; !inventory.Contains(iBowlingBall))
@@ -143,7 +143,7 @@
         /// }
         /// </code>
         /// </example>
-        IEvent<AGSEventArgs> OnSavedGameLoad { get; }
+        IEvent OnSavedGameLoad { get; }
 
         /// <summary>
         /// Defines the default interactions for objects on the screen that can be interacted in some way, but for which we haven't
@@ -153,6 +153,14 @@
         /// The default interactions.
         /// </value>
         IInteractions DefaultInteractions { get; }
+
+        /// <summary>
+        /// This event is fired whenever the visible room of the game is changing.
+        /// The event is fired after the current room's fade-out event, and before the new room's fade-in event 
+        /// (and after the viewport for the new room was updated).
+        /// </summary>
+        /// <value>The on room changing.</value>
+        IEvent OnRoomChanging { get; }
 	}
 }
 

@@ -13,14 +13,14 @@ namespace AGS.Engine
         private ArrowDirection _direction;
         private IGLColor _color;
 
-        public ArrowIcon(IGLUtils glUtils, IRuntimeSettings settings)
+        public ArrowIcon(IGLUtils glUtils, IRuntimeSettings settings, ArrowDirection direction = default(ArrowDirection),
+                        Color? color = null)
         {
             _glUtils = glUtils;
             _settings = settings;
-            ArrowColor = Colors.White.ToGLColor();
+            ArrowColor = (color ?? (Color?)Colors.White).Value.ToGLColor();
+            _direction = direction;
         }
-
-        public enum ArrowDirection { Up, Down, Right, Left }
 
         public float WidthBottom { get { return 0f; } }
         public float WidthLeft { get { return 0f; } }
@@ -30,12 +30,12 @@ namespace AGS.Engine
         public ArrowDirection Direction { get { return _direction; } set { if (_direction == value) return; _direction = value; _frameBuffer = null; } }
         public IGLColor ArrowColor { get { return _color; } set { if (_color == value) return; _color = value; _frameBuffer = null; } }
 
-        public void RenderBorderBack(ISquare square)
+        public void RenderBorderBack(AGSBoundingBox square)
         {
             if (_glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
 
-            float width = _settings.VirtualResolution.Width;
-            float height = _settings.VirtualResolution.Height;
+            float width = _glUtils.CurrentResolution.Width;
+            float height = _glUtils.CurrentResolution.Height;
             float arrowWidth = width * (1f/2f);
             float arrowHeight = height * (1f/2f);
             float remainingWidth = width - arrowWidth;
@@ -69,6 +69,7 @@ namespace AGS.Engine
             }
 
             _frameBuffer = _glUtils.BeginFrameBuffer(square, _settings);
+            if (_frameBuffer == null) return;
             _glUtils.DrawTriangle(0, new GLVertex[] { new GLVertex((point1).ToVector2(), _emptyVector, ArrowColor),
                 new GLVertex((point2).ToVector2(), _emptyVector, ArrowColor), new GLVertex((point3).ToVector2(), _emptyVector, ArrowColor)});
             _frameBuffer.End();
@@ -76,7 +77,7 @@ namespace AGS.Engine
             _glUtils.DrawQuad(_frameBuffer, square, _quad);
         }
 
-        public void RenderBorderFront(ISquare square)
+        public void RenderBorderFront(AGSBoundingBox square)
         {
         }
     }

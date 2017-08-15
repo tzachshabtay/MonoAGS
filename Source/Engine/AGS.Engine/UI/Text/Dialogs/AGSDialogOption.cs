@@ -120,12 +120,12 @@ namespace AGS.Engine
 
 		#endregion
 
-		private void onMouseEnter(object sender, MousePositionEventArgs e)
+		private void onMouseEnter(MousePositionEventArgs e)
 		{
 			Label.TextConfig = HoverConfig ?? getNormalTextConfig();
 		}
 
-		private void onMouseLeave(object sender, MousePositionEventArgs e)
+		private void onMouseLeave(MousePositionEventArgs e)
 		{
 			Label.TextConfig = getNormalTextConfig();
 		}

@@ -13,14 +13,17 @@ namespace AGS.Engine
 		private readonly RenderOrderSelector _sorter;
 		private readonly IGameState _state;
 		private readonly IGameEvents _gameEvents;
+        private readonly IInput _input;
         private List<IObject> _visibleObjectsWithUi = new List<IObject>(), _visibleObjectsWithoutUi = new List<IObject>();
+        private IObject _objectAtMousePosition;
 
 		public AGSRoom (string id, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents,
                         IRoomEvents roomEvents, IGameState state, ICustomProperties properties,
-                        IRoomLimitsProvider roomLimitsProvider)
+                        IRoomLimitsProvider roomLimitsProvider, IInput input)
 		{
 			_sorter = new RenderOrderSelector { Backwards = true };
 			_state = state;
+            _input = input;
             RoomLimitsProvider = roomLimitsProvider;
 			_gameEvents = gameEvents;
 			Viewport = viewport;
@@ -115,6 +118,11 @@ namespace AGS.Engine
             return null;
 		}
 
+        public IObject GetObjectAtMousePosition()
+        {
+            return _objectAtMousePosition;
+        }
+
 		public TObject Find<TObject>(string id) where TObject : class, IObject
 		{
 			return Objects.FirstOrDefault(o => o.ID == id) as TObject;
@@ -142,13 +150,13 @@ namespace AGS.Engine
             if (focusedWindow == null) return true;
             while (obj != null)
             {
-                if (obj == focusedWindow) return true;
+                if (obj == focusedWindow || _state.FocusedUI.CannotLoseFocus.Contains(obj.ID)) return true;
                 obj = obj.TreeNode.Parent;
             }
             return false;
         }
 
-		private void onRepeatedlyExecute(object sender, EventArgs args)
+		private void onRepeatedlyExecute()
 		{
             if (_player == null || _player.Room != this) return;
             cacheVisibleObjects();
@@ -164,6 +172,7 @@ namespace AGS.Engine
             visibleWithUi.Sort(_sorter);
             _visibleObjectsWithUi = visibleWithUi;
             _visibleObjectsWithoutUi = visibleObjects;
+            _objectAtMousePosition = GetObjectAt(_input.MouseX, _input.MouseY);
         }
     }
 }

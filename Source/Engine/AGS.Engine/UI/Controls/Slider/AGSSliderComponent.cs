@@ -14,7 +14,7 @@ namespace AGS.Engine
 		private readonly IInput _input;
 		private readonly IGameState _state;
 		private readonly IGameEvents _gameEvents;
-		private ICollider _collider;
+        private IBoundingBoxComponent _boundingBox;
 		private IDrawableInfo _drawableInfo;
 		private IInObjectTree _tree;
 		private IVisibleComponent _visible;
@@ -31,11 +31,13 @@ namespace AGS.Engine
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-			_collider = entity.GetComponent<ICollider>();
-			_drawableInfo = entity.GetComponent<IDrawableInfo>();
-			_tree = entity.GetComponent<IInObjectTree>();
-			_visible = entity.GetComponent<IVisibleComponent>();
-			_enabled = entity.GetComponent<IEnabledComponent>();
+            var graphics = Graphics;
+            if (graphics != null)
+                graphics.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
+            entity.Bind<IDrawableInfo>(c => _drawableInfo = c, _ => _drawableInfo = null);
+            entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
+            entity.Bind<IVisibleComponent>(c => _visible = c, _ => _visible = null);
+            entity.Bind<IEnabledComponent>(c => _enabled = c, _ => _enabled = null);
 			_gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		} 
 
@@ -49,6 +51,7 @@ namespace AGS.Engine
 			{
 				updateGraphics(_graphics, value, -50f);
 				_graphics = value;
+                if (value != null) value.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
 				refresh();
 			}
 		}
@@ -86,6 +89,7 @@ namespace AGS.Engine
 			}
 			set
 			{
+                if (_minValue == value) return;
 				_minValue = value;
 				refresh();
 			}
@@ -99,6 +103,7 @@ namespace AGS.Engine
 			}
 			set
 			{
+                if (_maxValue == value) return;
 				_maxValue = value;
 				refresh();
 			}
@@ -112,7 +117,7 @@ namespace AGS.Engine
 			}
 			set
 			{
-				setValue(value);
+                if (!setValue(value)) return;
 				onValueChanged();
 			}
 		}
@@ -148,17 +153,25 @@ namespace AGS.Engine
 				oldGraphics.TreeNode.SetParent(null);
 			}
 			if (newGraphics == null) return;
-			newGraphics.RenderLayer = _drawableInfo.RenderLayer;
+            var drawableInfo = _drawableInfo;
+            if (drawableInfo != null) newGraphics.RenderLayer = drawableInfo.RenderLayer;
 			newGraphics.Z = z;
-			newGraphics.TreeNode.SetParent(_tree.TreeNode);
+            var tree = _tree;
+            if (tree != null) newGraphics.TreeNode.SetParent(tree.TreeNode);
 			_state.UI.Add(newGraphics);
 		}
 
-		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+		private void onRepeatedlyExecute()
 		{
-			if (!_visible.Visible || !_enabled.Enabled || _collider.BoundingBox == null || 
+            var boundingBox = _boundingBox;
+            if (boundingBox == null) return;
+            var boundingBoxes = boundingBox.GetBoundingBoxes();
+            var visible = _visible;
+            var enabled = _enabled;
+            if (visible == null || !visible.Visible || enabled == null || !enabled.Enabled || 
+                boundingBoxes == null || 
                 (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
-                Graphics.BoundingBox == null || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
+                Graphics.GetBoundingBoxes() == null || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
                 HandleGraphics == null)
 			{
 				if (_isSliding)
@@ -169,28 +182,40 @@ namespace AGS.Engine
 				return;
 			}
 			_isSliding = true;
-			if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - _collider.BoundingBox.MinX, 0f, Graphics.Width)));
-			else setValue(getSliderValue(MathUtils.Clamp(_input.MouseY - _collider.BoundingBox.MinY
-				, 0f, Graphics.Height)));
+            if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - boundingBoxes.HitTestBox.MinX, 
+                                                                      0f, boundingBoxes.HitTestBox.Width), boundingBoxes));
+			else setValue(getSliderValue(MathUtils.Clamp(_input.MouseY - boundingBoxes.HitTestBox.MinY
+                                                         , 0f, boundingBoxes.HitTestBox.Height), boundingBoxes));
 		}
 
 		private void refresh()
 		{
-			if (Graphics == null || HandleGraphics == null) return;
+            var boundingBox = _boundingBox;
+            if (boundingBox == null) return;
+            var boundingBoxes = boundingBox.GetBoundingBoxes();
+            if (boundingBoxes == null || HandleGraphics == null) return;
 
-			if (IsHorizontal) HandleGraphics.X = MathUtils.Clamp(getHandlePos(Value), 0f, Graphics.Width);
-			else HandleGraphics.Y = MathUtils.Clamp(getHandlePos(Value), 0f, Graphics.Height);
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            if (MinValue == MaxValue) return;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+
+            if (IsHorizontal) HandleGraphics.X = MathUtils.Clamp(getHandlePos(Value, boundingBoxes), 0f, boundingBoxes.RenderBox.Width);
+            else HandleGraphics.Y = MathUtils.Clamp(getHandlePos(Value, boundingBoxes), 0f, boundingBoxes.RenderBox.Height);
 			setText();
 		}
 
-		private float getSliderValue(float handlePos)
+        private float getSliderValue(float handlePos, AGSBoundingBoxes boundingBoxes)
 		{
-			return MathUtils.Lerp(0f, MinValue, IsHorizontal ? Graphics.Width : Graphics.Height, MaxValue, handlePos);
+			return MathUtils.Lerp(0f, MinValue, IsHorizontal ? 
+                                  boundingBoxes.HitTestBox.Width : boundingBoxes.HitTestBox.Height, 
+                                  MaxValue, handlePos);
 		}
 
-		private float getHandlePos(float value)
+		private float getHandlePos(float value, AGSBoundingBoxes boundingBoxes)
 		{
-			return MathUtils.Lerp(MinValue, 0f, MaxValue, IsHorizontal ? Graphics.Width : Graphics.Height, value);
+			return MathUtils.Lerp(MinValue, 0f, MaxValue, IsHorizontal ? 
+                                  boundingBoxes.RenderBox.Width : boundingBoxes.RenderBox.Height, 
+                                  value);
 		}
 
 		private void setText()
@@ -199,16 +224,17 @@ namespace AGS.Engine
 			_label.Text = ((int)Value).ToString();
 		}
 
-		private void setValue(float value)
+		private bool setValue(float value)
 		{
-			if (_value == value) return;
+            if (_value == value) return false;
 			_value = value;
 			refresh();
+            return true;
 		}
 
 		private void onValueChanged()
 		{
-			OnValueChanged.Invoke(this, new SliderValueEventArgs (_value));
+			OnValueChanged.Invoke(new SliderValueEventArgs (_value));
 		}
 	}
 }

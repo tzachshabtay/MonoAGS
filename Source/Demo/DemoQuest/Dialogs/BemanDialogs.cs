@@ -16,7 +16,7 @@ namespace DemoGame
 		public void Load(IGame game)
 		{
 			_game = game;
-			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
+            _game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoaded);
 			initDialogs();
 		}
 

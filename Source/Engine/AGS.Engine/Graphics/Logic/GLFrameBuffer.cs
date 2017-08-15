@@ -8,11 +8,11 @@ namespace AGS.Engine
 		private readonly int _fbo, _width, _height;
         private readonly IGraphicsBackend _graphics;
 
-        public GLFrameBuffer(Size size, IGraphicsBackend graphics)
+        public GLFrameBuffer(Size size, IGraphicsBackend graphics, IMessagePump messagePump)
 		{
             _width = size.Width;
             _height = size.Height;
-            Texture = new GLTexture(null, graphics);
+            Texture = new GLTexture(null, graphics, messagePump);
             _graphics = graphics;
             _graphics.TexImage2D(_width, _height, IntPtr.Zero);
 

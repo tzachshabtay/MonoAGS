@@ -12,13 +12,6 @@
 	public interface ICollider : IComponent
 	{
         /// <summary>
-        /// Gets or sets the bounding box which surrounds the entity.
-        /// The bounding box is set by the engine, and should not be set by the user.
-        /// </summary>
-        /// <value>The bounding box.</value>
-		ISquare BoundingBox { get; set; } //todo: find a way to remove the setter (only the engine should use the setter)
-
-        /// <summary>
         /// Gets the center point of the entity.
         /// </summary>
         /// <value>The center point.</value>

@@ -67,7 +67,7 @@ namespace AGS.Engine
 		{
             if (!edge.Enabled) return false;
 			if (!check(edge,previous,current)) return false;
-			edge.OnEdgeCrossed.Invoke(edge, new AGSEventArgs());
+			edge.OnEdgeCrossed.Invoke();
 			return true;
 		}
 

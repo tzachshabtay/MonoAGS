@@ -1,26 +1,19 @@
 ﻿using AGS.API;
-using System;
-using System.Collections.Generic;
 
 namespace AGS.Engine
 {
     public class AGSComboBoxComponent : AGSComponent, IComboBoxComponent
     {
-        private AGSBindingList<object> _items;
-        private List<IButton> _itemButtons;
-        private IInObjectTree _tree;
         private ITextBox _textBox;
         private IButton _dropDownButton;
-        private IUIFactory _uiFactory;
-        private int _selectedIndex;
+        private IListboxComponent _dropDownPanelList;
+        private IVisibleComponent _dropDownPanelVisible;
+        private IDrawableInfo _dropDownPanelDrawable;
+        private IEntity _dropDownPanel;
 
-        public AGSComboBoxComponent(IUIFactory factory, IGameEvents gameEvents)
+        public AGSComboBoxComponent(IGameEvents gameEvents)
         {
-            _uiFactory = factory;
-            _itemButtons = new List<IButton>();
-            _items = new AGSBindingList<object>(10);
-            _items.OnListChanged.Subscribe(onListChanged);
-            gameEvents.OnRepeatedlyExecute.Subscribe((_, __) => refreshDropDownLayout());
+            gameEvents.OnRepeatedlyExecute.Subscribe(refreshDropDownLayout);
         }
 
         public IButton DropDownButton
@@ -35,6 +28,10 @@ namespace AGS.Engine
                 _dropDownButton = newDropDownButton;
                 if (newDropDownButton != null)
                 {
+                    if (_dropDownPanelDrawable != null)
+                    {
+                        _dropDownPanelDrawable.RenderLayer = value.RenderLayer;
+                    }
                     newDropDownButton.MouseClicked.Subscribe(onDropDownClicked);
                 }
             }
@@ -46,80 +43,57 @@ namespace AGS.Engine
             set { _textBox = value; }
         }
 
-        public IPanel DropDownPanel { get; private set; }
+        public IListboxComponent DropDownPanelList { get { return _dropDownPanelList; } }
 
-        public Func<IButton> ItemButtonFactory { get; set; }
-
-        public IEnumerable<IButton> ItemButtons { get { return _itemButtons; } }
-
-        public IList<object> Items { get { return _items; } }
-
-        public int SelectedIndex
-        {
-            get { return _selectedIndex; }
-            set
+        public IEntity DropDownPanel 
+        { 
+            get { return _dropDownPanel; }
+            set 
             {
-                _selectedIndex = value;
-                var textBox = TextBox;
-                if (value >= 0 && value < Items.Count && textBox != null)
-                {
-                    textBox.Text = Items[value].ToString();
-                }
+                _dropDownPanel = value;
+                var visibleComponent = value.GetComponent<IVisibleComponent>();
+                var drawableComponent = value.GetComponent<IDrawableInfo>();
+                var listBoxComponent = value.GetComponent<IListboxComponent>();
+                var imageComponent = value.GetComponent<IImageComponent>();
+                var translateComponent = value.GetComponent<ITranslateComponent>();
+                _dropDownPanelVisible = visibleComponent;
+                _dropDownPanelDrawable = drawableComponent;
+
+                var oldPanel = _dropDownPanelList;
+                if (oldPanel != null) oldPanel.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
+                _dropDownPanelList = listBoxComponent;
+                if (listBoxComponent != null) listBoxComponent.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
+                if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
+                if (translateComponent != null) translateComponent.Y = -1f;
+                if (visibleComponent != null) visibleComponent.Visible = false;
+                if (drawableComponent != null && DropDownButton != null) 
+                    drawableComponent.RenderLayer = DropDownButton.RenderLayer;
             }
         }
 
-        public object SelectedItem
+        public void SetDropDownPanel(IListboxComponent listBoxComponent, IVisibleComponent visibleComponent,
+                                     IDrawableInfo drawableComponent, IImageComponent imageComponent,
+                                     ITranslateComponent translateComponent)
         {
-            get
-            {
-                try
-                {
-                    return Items[SelectedIndex];
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    return null;
-                }
-            }
+            _dropDownPanelVisible = visibleComponent;
+            _dropDownPanelDrawable = drawableComponent;
+
+            var oldPanel = _dropDownPanelList;
+            if (oldPanel != null) oldPanel.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
+            _dropDownPanelList = listBoxComponent;
+            if (listBoxComponent != null) listBoxComponent.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
+            if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
+            if (translateComponent != null) translateComponent.Y = -1f;
+            if (visibleComponent != null) visibleComponent.Visible = false;
+            if (drawableComponent != null && DropDownButton != null) 
+                drawableComponent.RenderLayer = DropDownButton.RenderLayer;
         }
 
-        public override void Init(IEntity entity)
+        private void onSelectedItemChanged(ListboxItemArgs args)
         {
-            base.Init(entity);
-            DropDownPanel = _uiFactory.GetPanel(entity.ID + "_Panel", new EmptyImage(1f, 1f), 0f, 0f);
-            DropDownPanel.Visible = false;
-            _tree = entity.GetComponent<IInObjectTree>();
-        }
-
-        private void onListChanged(object sender, AGSListChangedEventArgs<object> args)
-        {
-            if (args.ChangeType == ListChangeType.Remove)
-            {
-                var button = _itemButtons[args.Index];
-                button.MouseClicked.Unsubscribe(onItemClicked);
-                DropDownPanel.TreeNode.RemoveChild(button);
-                _itemButtons.RemoveAt(args.Index);
-            }
-            else
-            {
-                var newButton = ItemButtonFactory();
-                newButton.Text = args.Item.ToString();
-                newButton.MouseClicked.Subscribe(onItemClicked);
-                _itemButtons.Insert(args.Index, newButton);
-                DropDownPanel.TreeNode.AddChild(newButton);
-            }
-            refreshItemsLayout();
-        }
-
-        private void refreshItemsLayout()
-        {
-            DropDownPanel.Y = -DropDownButton.Height;
-            float y = 0f;
-            foreach (var button in _itemButtons)
-            {
-                button.Y = y;
-                y -= button.Height;
-            }
+            var textBox = TextBox;
+            if (textBox != null) textBox.Text = args.Item == null ? "" : args.Item.Text;
+            if (_dropDownPanelVisible != null) _dropDownPanelVisible.Visible = false;
         }
 
         private void refreshDropDownLayout()
@@ -127,31 +101,21 @@ namespace AGS.Engine
             var textbox = TextBox;
             var dropDownButton = DropDownButton;
             if (dropDownButton == null) return;
-            dropDownButton.X = textbox == null ? 0f : textbox.Width < 0 ? textbox.TextWidth : textbox.Width;
+            if (textbox == null)
+            {
+                dropDownButton.X = 0;
+            }
+            else 
+            {
+                float dropBorderLeft = 0f;
+                if (dropDownButton.Border != null) dropBorderLeft = dropDownButton.Border.WidthLeft;
+                dropDownButton.X = textbox.X + (textbox.Width < 0 ? textbox.TextWidth : textbox.Width) + dropBorderLeft;
+            }
         }
 
-        private void onItemClicked(object sender, MouseButtonEventArgs args)
+        private void onDropDownClicked(MouseButtonEventArgs args)
         {
-            SelectedIndex = _itemButtons.IndexOf((IButton)sender);
-            hidePanel();
-        }
-
-        private void onDropDownClicked(object sender, MouseButtonEventArgs args)
-        {
-            if (_tree.TreeNode.HasChild(DropDownPanel)) hidePanel();
-            else showPanel();
-        }
-
-        private void hidePanel()
-        {            
-            DropDownPanel.Visible = false;
-            _tree.TreeNode.RemoveChild(DropDownPanel);
-        }
-
-        private void showPanel()
-        {            
-            DropDownPanel.Visible = true;
-            _tree.TreeNode.AddChild(DropDownPanel);
+            if (_dropDownPanelVisible != null) _dropDownPanelVisible.Visible = !_dropDownPanelVisible.Visible;
         }
     }
 }

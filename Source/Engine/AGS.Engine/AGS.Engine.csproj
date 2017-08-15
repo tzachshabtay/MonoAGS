@@ -125,18 +125,14 @@
     <Compile Include="Graphics\Logic\AGSLoadImageConfig.cs" />
     <Compile Include="Graphics\Logic\AGSRendererLoop.cs" />
     <Compile Include="Graphics\Logic\EmptyImage.cs" />
-    <Compile Include="Graphics\Logic\GLBoundingBox.cs" />
-    <Compile Include="Graphics\Logic\GLBoundingBoxes.cs" />
-    <Compile Include="Graphics\Logic\GLBoundingBoxesBuilder.cs" />
+    <Compile Include="Graphics\Logic\AGSBoundingBoxesBuilder.cs" />
     <Compile Include="Graphics\Logic\GLColor.cs" />
     <Compile Include="Graphics\Logic\GLGraphicsFactory.cs" />
     <Compile Include="Graphics\Logic\GLImageRenderer.cs" />
     <Compile Include="Graphics\Logic\GLTextureRenderer.cs" />
     <Compile Include="Graphics\Logic\Utils\GLUtils.cs" />
     <Compile Include="Graphics\Logic\GLViewportMatrix.cs" />
-    <Compile Include="Graphics\Logic\Interfaces\IGLBoundingBox.cs" />
-    <Compile Include="Graphics\Logic\Interfaces\IGLBoundingBoxBuilder.cs" />
-    <Compile Include="Graphics\Logic\Interfaces\IGLBoundingBoxes.cs" />
+    <Compile Include="Graphics\Logic\Interfaces\IBoundingBoxBuilder.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLColor.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLColorBuilder.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLMatrices.cs" />
@@ -157,7 +153,6 @@
     <Compile Include="Misc\Drawing\AGSColorBlend.cs" />
     <Compile Include="Misc\Drawing\AGSTransformMatrix.cs" />
     <Compile Include="Misc\Events\AGSEvent.cs" />
-    <Compile Include="Misc\Geometry\AGSSquare.cs" />
     <Compile Include="Misc\Pool\BitmapPool.cs" />
     <Compile Include="Misc\Pool\ObjectPool.cs" />
     <Compile Include="Misc\Resources\AGSResource.cs" />
@@ -165,7 +160,6 @@
     <Compile Include="Misc\Tree\AGSTreeNode.cs" />
     <Compile Include="Misc\Tree\InObjectTreeComponent.cs" />
     <Compile Include="Misc\Utils\Extensions.cs" />
-    <Compile Include="Misc\Utils\MathUtils.cs" />
     <Compile Include="Misc\Utils\Repeat.cs" />
     <Compile Include="Objects\Collisions\AGSCollider.cs" />
     <Compile Include="Objects\AGSDrawableInfoComponent.cs" />
@@ -273,14 +267,15 @@
     <Compile Include="UI\Controls\InventoryWindow\AGSInventoryWindow.cs" />
     <Compile Include="UI\Controls\InventoryWindow\AGSInventoryWindowComponent.cs" />
     <Compile Include="UI\Controls\AGSLabel.cs" />
-    <Compile Include="UI\Controls\AGSPanel.cs" />
+    <Compile Include="UI\Controls\Panel\AGSCropSelfComponent.cs" />
+    <Compile Include="UI\Controls\Panel\AGSPanel.cs" />
     <Compile Include="UI\Controls\Slider\AGSSlider.cs" />
     <Compile Include="UI\Controls\Slider\AGSSliderComponent.cs" />
     <Compile Include="UI\Controls\Textbox\AGSTextbox.cs" />
     <Compile Include="UI\Controls\Textbox\AGSTextboxComponent.cs" />
-    <Compile Include="UI\DebugLabels\DebugLabel.cs" />
-    <Compile Include="UI\DebugLabels\FPSCounter.cs" />
-    <Compile Include="UI\DebugLabels\MousePositionLabel.cs" />
+    <Compile Include="UI\DebugControls\DebugLabel.cs" />
+    <Compile Include="UI\DebugControls\FPSCounter.cs" />
+    <Compile Include="UI\DebugControls\MousePositionLabel.cs" />
     <Compile Include="UI\DialogBoxes\AGSSelectFileDialog.cs" />
     <Compile Include="UI\HotspotLabels\HotspotLabel.cs" />
     <Compile Include="UI\HotspotLabels\VerbOnHotspotLabel.cs" />
@@ -319,7 +314,6 @@
     <Compile Include="UI\Borders\SlicedImage\AGSSlicedImageBorder.cs" />
     <Compile Include="UI\Borders\SlicedImage\SliceMeasureUnit.cs" />
     <Compile Include="UI\Borders\SlicedImage\SliceValues.cs" />
-    <Compile Include="UI\Borders\FourCorners.cs" />
     <Compile Include="UI\Borders\AGSBorders.cs" />
     <Compile Include="UI\Text\AGSMessageBox.cs" />
     <Compile Include="Input\Schemes\KeyboardMovement.cs" />
@@ -388,6 +382,28 @@
     <Compile Include="Rooms\RoomSizeProviders\AGSRoomLimits.cs" />
     <Compile Include="Rooms\RoomSizeProviders\RoomCustomLimits.cs" />
     <Compile Include="Game\Factories\AGSShaderFactory.cs" />
+    <Compile Include="UI\Layouts\AGSStackLayoutComponent.cs" />
+    <Compile Include="UI\Controls\Tree\AGSTreeViewComponent.cs" />
+    <Compile Include="UI\Controls\Tree\AGSTreeNodeViewProvider.cs" />
+    <Compile Include="UI\Controls\Tree\AGSTreeNodeView.cs" />
+    <Compile Include="UI\Controls\Tree\AGSTreeStringNode.cs" />
+    <Compile Include="UI\Icons\XIcon.cs" />
+    <Compile Include="Graphics\Logic\GLIconFactory.cs" />
+    <Compile Include="Serialization\Contracts\ContractButtonAnimation.cs" />
+    <Compile Include="UI\Borders\AGSMultipleBorders.cs" />
+    <Compile Include="UI\Controls\Listbox\AGSStringItem.cs" />
+    <Compile Include="UI\Controls\Listbox\AGSListboxComponent.cs" />
+    <Compile Include="UI\DebugControls\DebugView\GameDebugDisplayList.cs" />
+    <Compile Include="UI\DebugControls\DebugView\GameDebugTree.cs" />
+    <Compile Include="UI\DebugControls\DebugView\GameDebugView.cs" />
+    <Compile Include="UI\DebugControls\DebugView\IDebugTab.cs" />
+    <Compile Include="UI\UIEventsAggregator.cs" />
+    <Compile Include="ComponentsFramework\AGSComponentBinding.cs" />
+    <Compile Include="UI\Controls\Panel\AGSCropChildrenComponent.cs" />
+    <Compile Include="Objects\AGSJumpOffsetComponent.cs" />
+    <Compile Include="UI\Controls\Panel\AGSScrollingComponent.cs" />
+    <Compile Include="Objects\AGSBoundingBoxWithChildrenComponent.cs" />
+    <Compile Include="Objects\Collisions\AGSBoundingBoxComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -469,7 +485,5 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Rooms\RoomSizeProviders\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

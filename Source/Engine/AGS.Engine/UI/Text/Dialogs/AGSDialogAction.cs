@@ -33,7 +33,7 @@ namespace AGS.Engine
 			:this(() =>
 			{
 				action();
-				return Task.FromResult(true);
+                return Task.CompletedTask;
 			})
 		{
 		}

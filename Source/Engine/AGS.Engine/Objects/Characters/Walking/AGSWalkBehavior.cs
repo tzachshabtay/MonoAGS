@@ -59,7 +59,7 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _animation = entity.GetComponent<IAnimationContainer>();
+            entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
         }
 
         #region IWalkBehavior implementation
@@ -144,7 +144,7 @@ namespace AGS.Engine
 
         #endregion
 
-        private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+        private void onRepeatedlyExecute()
         {
             WalkLineInstruction currentLine = _currentWalkLine;
             if (currentLine == null) return;
@@ -297,7 +297,9 @@ namespace AGS.Engine
 
         private IEnumerable<IArea> getWalkableAreas()
         {
-            return _obj.Room.Areas.Where(area => 
+            var room = _obj.Room;
+            if (room == null) return Array.Empty<IArea>();
+            return room.Areas.Where(area => 
             {
                 if (!area.Enabled) return false;
                 var walkable = area.GetComponent<IWalkableArea>();

@@ -22,13 +22,13 @@ namespace AGS.Engine
             ILabel label = null;
 			if (buttons.Length > 0)
 			{
-				sayBehavior.OnBeforeSay.Subscribe((sender, args) =>
+				sayBehavior.OnBeforeSay.Subscribe(args =>
 				{
                     label = args.Label;
 					args.Label.Enabled = true;
                     args.Label.AddComponent<IModalWindowComponent>().GrabFocus();
                     var textConfig = sayBehavior.SpeechConfig.TextConfig;
-                    SizeF textSize = textConfig.GetTextSize(text, sayBehavior.SpeechConfig.LabelSize);
+                    SizeF textSize = textConfig .GetTextSize(text, sayBehavior.SpeechConfig.LabelSize);
                     float labelWidth = textSize.Width + textConfig.PaddingLeft + textConfig.PaddingRight;
 
                     float buttonsWidth = buttons.Sum(b => b.Width) + ButtonXPadding * (buttons.Length - 1);
@@ -44,11 +44,12 @@ namespace AGS.Engine
 						button.Y = ButtonYPadding;
 						button.RenderLayer = args.Label.RenderLayer;
 						buttonX += button.Width + ButtonXPadding;
-						button.MouseClicked.Subscribe((s, e) =>
+						button.MouseClicked.Subscribe(_ =>
 						{
 							selectedButton = button;
 							args.Skip();
 						});
+                        AGSGame.Game.State.UI.Add(button);
 					}
 				});
 			}
@@ -73,8 +74,8 @@ namespace AGS.Engine
             var border = AGSBorders.Gradient(AGSGame.Resolver.Container.Resolve<IGLUtils>(), new FourCorners<Color>(Colors.DarkOliveGreen,
 				Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
 			
-			IButton yesButton = factory.UI.GetButton("Dialog Yes Button", idle, hovered, pushed, 0f, 0f, yes, ButtonConfig);
-			IButton noButton = factory.UI.GetButton("Dialog No Button", idle, hovered, pushed, 0f, 0f, no, ButtonConfig);
+			IButton yesButton = factory.UI.GetButton("Dialog Yes Button", idle, hovered, pushed, 0f, 0f, null, yes, ButtonConfig, false);
+			IButton noButton = factory.UI.GetButton("Dialog No Button", idle, hovered, pushed, 0f, 0f, null, no, ButtonConfig, false);
 			yesButton.Border = border;
 			noButton.Border = border;
 			return Display(text, yesButton, noButton) == yesButton;

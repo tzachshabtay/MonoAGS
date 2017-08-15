@@ -7,7 +7,7 @@ namespace AGS.Engine
 	{
 		new RoomTransitionState State { get; set; }
 
-		IEvent<AGSEventArgs> OnStateChanged { get; }
+		IEvent OnStateChanged { get; }
 	}
 }
 

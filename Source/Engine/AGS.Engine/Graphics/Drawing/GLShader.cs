@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Collections.Generic;
 using AGS.API;
@@ -17,6 +15,7 @@ namespace AGS.Engine
 		private bool _hadCompilationErrors;
 		private static int _maxTextureUnits = -1;
         private readonly IGraphicsBackend _graphics;
+        private readonly Func<string, int> _queryVariableLocationFunc;
 
         public GLShader(string vertexSource, string fragmentSource, IGraphicsBackend graphics)
 		{
@@ -25,6 +24,7 @@ namespace AGS.Engine
 			_fragmentSource = fragmentSource;
 			_variables = new Dictionary<string, int> ();
 			_textures = new Dictionary<int, int> ();
+            _queryVariableLocationFunc = queryVariableLocation; //Caching delegate to avoid memory allocations on critical path
 		}
 
         public int ProgramId { get { return _program; } }
@@ -160,13 +160,15 @@ namespace AGS.Engine
 		private int getVariableLocation(string name)
 		{
 			if (_program == 0) return -1;
-			return _variables.GetOrAdd(name, () =>
-			{
-				int location = _graphics.GetUniformLocation(_program, name);
-				Debug.WriteLineIf(location == -1, string.Format("Variable name {0} not found in shader program.", name));
-				return location;
-			});
+            return _variables.GetOrAdd(name, _queryVariableLocationFunc);
 		}
+
+        private int queryVariableLocation(string name)
+        {
+            int location = _graphics.GetUniformLocation(_program, name);
+            Debug.WriteLineIf(location == -1, string.Format("Variable name {0} not found in shader program.", name));
+            return location;
+        }
 
 		private bool compileShader(string source, ShaderMode shaderType)
 		{

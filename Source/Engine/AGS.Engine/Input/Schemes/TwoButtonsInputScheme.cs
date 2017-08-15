@@ -20,7 +20,7 @@ namespace AGS.Engine
 			_input.MouseDown.SubscribeToAsync(onMouseDown);
 		}
 			
-		private async Task onMouseDown(object sender, MouseButtonEventArgs e)
+		private async Task onMouseDown(MouseButtonEventArgs e)
 		{
 			if (!_state.Player.Enabled)
 				return;

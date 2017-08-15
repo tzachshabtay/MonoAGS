@@ -5,22 +5,19 @@ namespace AGS.Engine
 {
     public class AGSCustomProperties : AGSComponent, ICustomProperties
     {
-        public AGSCustomProperties()
-        {
-            Ints = new AGSCustomPropertiesPerType<int>();
-            Floats = new AGSCustomPropertiesPerType<float>();
-            Strings = new AGSCustomPropertiesPerType<string>();
-            Bools = new AGSCustomPropertiesPerType<bool>();
-            Entities = new AGSCustomPropertiesPerType<IEntity>();
-        }
+        private AGSCustomPropertiesPerType<int> _ints;
+        private AGSCustomPropertiesPerType<float> _floats;
+        private AGSCustomPropertiesPerType<string> _strings;
+        private AGSCustomPropertiesPerType<bool> _bools;
+        private AGSCustomPropertiesPerType<IEntity> _entities;
 
         #region ICustomProperties implementation
 
-        public ICustomPropertiesPerType<int> Ints { get; private set; }
-        public ICustomPropertiesPerType<float> Floats { get; private set; }
-        public ICustomPropertiesPerType<string> Strings { get; private set; }
-        public ICustomPropertiesPerType<bool> Bools { get; private set; }
-        public ICustomPropertiesPerType<IEntity> Entities { get; private set; }
+        public ICustomPropertiesPerType<int> Ints { get { _ints = _ints ?? new AGSCustomPropertiesPerType<int>(); return _ints; } }
+        public ICustomPropertiesPerType<float> Floats { get { _floats = _floats ?? new AGSCustomPropertiesPerType<float>(); return _floats; } }
+        public ICustomPropertiesPerType<string> Strings { get { _strings = _strings ?? new AGSCustomPropertiesPerType<string>(); return _strings; } }
+        public ICustomPropertiesPerType<bool> Bools { get { _bools = _bools ?? new AGSCustomPropertiesPerType<bool>(); return _bools; } }
+        public ICustomPropertiesPerType<IEntity> Entities { get { _entities = _entities ?? new AGSCustomPropertiesPerType<IEntity>(); return _entities; } }
 
         public void RegisterCustomData(ICustomSerializable customData)
         {

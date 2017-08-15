@@ -60,7 +60,7 @@ namespace AGS.Engine
 			return timeInSeconds * (float)AGSGame.UPDATE_RATE;
 		}
 
-		private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+		private void onRepeatedlyExecute()
 		{
 			visit();
 		}

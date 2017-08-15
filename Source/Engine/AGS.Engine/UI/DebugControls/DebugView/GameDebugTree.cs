@@ -1,0 +1,206 @@
+﻿using System.Threading.Tasks;
+using AGS.API;
+
+namespace AGS.Engine
+{
+    public class GameDebugTree : IDebugTab
+    {
+        private readonly IRenderLayer _layer;
+        private string _panelId;
+        private ITreeViewComponent _treeView;
+        private readonly IGame _game;
+        private readonly IConcurrentHashSet<string> _addedObjects;
+        private IPanel _treePanel;
+
+        private IAnimationContainer _lastSelectedObject;
+        private IVisibleComponent _lastSelectedMaskVisible;
+        private IImageComponent _lastSelectedMaskImage;
+        private IBorderStyle _lastObjectBorder;
+        private bool _lastMaskVisible;
+        private byte _lastOpacity;
+
+        public GameDebugTree(IGame game, IRenderLayer layer)
+        {
+            _game = game;
+            _addedObjects = new AGSConcurrentHashSet<string>(100, false);
+            _layer = layer;
+        }
+
+        public void Load(IPanel parent)
+        {
+            _panelId = parent.TreeNode.GetRoot().ID;
+            var factory = _game.Factory;
+            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, parent.Height - 40, parent);
+            _treePanel.Tint = Colors.Transparent;
+            _treePanel.RenderLayer = _layer;
+            _treeView = _treePanel.AddComponent<ITreeViewComponent>();
+            _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
+        }
+
+        public async Task Show()
+        {
+            await Task.Run(() => refresh());
+            _treePanel.Visible = true;
+        }
+
+        public void Hide()
+        {
+	        _treePanel.Visible = false;
+            _treeView.Tree = null;
+        }
+
+        private void onTreeNodeSelected(NodeEventArgs args)
+        {
+            unselect();
+            string nodeType = args.Node.Properties.Strings.GetValue(Fields.Type);
+            if (nodeType == null) return;
+            switch (nodeType)
+            {
+                case NodeType.Object:
+                    selectObject(args.Node);
+                    break;
+                case NodeType.Area:
+                    selectArea(args.Node);
+                    break;
+            }
+        }
+
+        private void selectObject(ITreeStringNode node)
+        { 
+            var obj = node.Properties.Entities.GetValue(Fields.Entity);
+            var animation = obj.GetComponent<IAnimationContainer>();
+            var visibleComponent = obj.GetComponent<IVisibleComponent>();
+            var image = obj.GetComponent<IImageComponent>();
+            if (animation != null)
+            {
+                _lastSelectedObject = animation;
+                IBorderStyle border = null;          
+                border = animation.Border;
+                _lastObjectBorder = border;
+                IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
+                                                                                      Colors.Yellow.WithAlpha(150), Colors.Yellow), 1, true);
+                if (border == null) animation.Border = hoverBorder;
+                else animation.Border = AGSBorders.Multiple(border, hoverBorder);
+            }
+            if (visibleComponent != null)
+            {
+                _lastMaskVisible = visibleComponent.Visible;
+                _lastSelectedMaskVisible = visibleComponent;
+                visibleComponent.Visible = true;
+            }
+            if (image != null && image.Opacity == 0)
+            {
+                _lastOpacity = image.Opacity;
+                _lastSelectedMaskImage = image;
+                image.Opacity = 100;
+            }
+        }
+
+        private void selectArea(ITreeStringNode node)
+        { 
+            var obj = node.Properties.Entities.GetValue(Fields.Entity);
+            var area = obj.GetComponent<IAreaComponent>();
+            var debugMask = area.Mask.DebugDraw;
+            if (debugMask != null)
+            {
+                _lastMaskVisible = debugMask.Visible;
+                _lastSelectedMaskVisible = debugMask;
+                debugMask.Visible = true;
+            }
+        }
+
+        private void unselect()
+        {
+            var lastSelectedObject = _lastSelectedObject;
+            var lastSelectedMaskVisible = _lastSelectedMaskVisible;
+            var lastSelectedMaskImage = _lastSelectedMaskImage;
+            if (lastSelectedObject != null) lastSelectedObject.Border = _lastObjectBorder;
+            if (lastSelectedMaskVisible != null) lastSelectedMaskVisible.Visible = _lastMaskVisible;
+            if (lastSelectedMaskImage != null) lastSelectedMaskImage.Opacity = _lastOpacity;
+            _lastSelectedObject = null;
+            _lastObjectBorder = null;
+            _lastMaskVisible = false;
+            _lastOpacity = 0;
+        }
+
+        private void refresh()
+        {
+            _addedObjects.Clear();
+            var root = addToTree("Game", null);
+            var ui = addToTree("UI", root);
+
+            foreach (var obj in _game.State.UI)
+            {
+                addObjectToTree(getRoot(obj), ui);
+            }
+            addRoomToTree(_game.State.Room, root);
+
+            var rooms = addToTree("More Rooms", root);
+            foreach (var room in _game.State.Rooms)
+            {
+                if (room == _game.State.Room) continue;
+                addRoomToTree(room, rooms);
+            }
+
+            _treeView.Tree = root;
+        }
+
+        private void addRoomToTree(IRoom room, ITreeStringNode parent)
+        {
+            var roomNode = addToTree(string.Format("Room: {0}", room.ID), parent);
+            var objects = addToTree("Objects", roomNode);
+            var areas = addToTree("Areas", roomNode);
+
+            addObjectToTree(getRoot(room.Background), objects);
+            foreach (var obj in room.Objects)
+            {
+                addObjectToTree(getRoot(obj), objects);
+            }
+            foreach (var area in room.Areas)
+            {
+                var node = addToTree(area.ID, areas);
+                node.Properties.Strings.SetValue(Fields.Type, NodeType.Area);
+                node.Properties.Entities.SetValue(Fields.Entity, area);
+            }
+        }
+
+        private IObject getRoot(IObject obj)
+        {
+            if (obj == null) return null;
+            var root = obj.TreeNode.GetRoot();
+            if (root.ID == _panelId) return null;
+            return root;
+        }
+
+        private void addObjectToTree(IObject obj, ITreeStringNode parent)
+        {
+            if (obj == null || !_addedObjects.Add(obj.ID)) return;
+            var node = addToTree(obj.ID, parent);
+            node.Properties.Strings.SetValue(Fields.Type, NodeType.Object);
+            node.Properties.Entities.SetValue(Fields.Entity, obj);
+            foreach (var child in obj.TreeNode.Children)
+            {
+                addObjectToTree(child, node);
+            }
+        }
+
+        private ITreeStringNode addToTree(string text, ITreeStringNode parent)
+        {
+            var node = new AGSTreeStringNode { Text = text };
+            if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
+            return node;
+        }
+
+        private static class Fields
+        {
+            public const string Type = "Type";
+            public const string Entity = "Entity";
+        }
+
+        private static class NodeType
+        {
+            public const string Object = "Object";
+            public const string Area = "Area";
+        }
+    }
+}

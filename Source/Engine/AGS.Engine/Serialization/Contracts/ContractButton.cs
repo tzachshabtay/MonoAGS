@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 
 namespace AGS.Engine
@@ -20,13 +19,13 @@ namespace AGS.Engine
 		public ContractObject Object { get; set; }
 
 		[ProtoMember(2)]
-		public IContract<IAnimation> IdleAnimation { get; set; }
+        public IContract<ButtonAnimation> IdleAnimation { get; set; }
 
 		[ProtoMember(3)]
-		public IContract<IAnimation> HoverAnimation { get; set; }
+		public IContract<ButtonAnimation> HoverAnimation { get; set; }
 
 		[ProtoMember(4)]
-		public IContract<IAnimation> PushedAnimation { get; set; }
+		public IContract<ButtonAnimation> PushedAnimation { get; set; }
 
         [ProtoMember(5)]
         public ContractTextComponent TextComponent { get; set; }
@@ -37,7 +36,7 @@ namespace AGS.Engine
 		{
             var textComponent = TextComponent.ToItem(context);
 			IButton button = context.Factory.UI.GetButton(Object.ID, IdleAnimation.ToItem(context), HoverAnimation.ToItem(context),
-				PushedAnimation.ToItem(context), 0,0, "", null, false, textComponent.LabelRenderSize.Width, textComponent.LabelRenderSize.Height);
+				PushedAnimation.ToItem(context), 0,0, null, "", null, false, textComponent.LabelRenderSize.Width, textComponent.LabelRenderSize.Height);
 			Object.ToItem(context, button);
             button.TextConfig = textComponent.TextConfig;
 			button.Text = textComponent.Text;

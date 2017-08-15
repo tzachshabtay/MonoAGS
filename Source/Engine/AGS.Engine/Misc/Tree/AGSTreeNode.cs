@@ -5,14 +5,13 @@ namespace AGS.Engine
 {
 	public class AGSTreeNode<TItem> : ITreeNode<TItem> where TItem : class, IInTree<TItem>
 	{
-		private readonly IConcurrentHashSet<TItem> _children;
+        private readonly IAGSBindingList<TItem> _children;
 		private ITreeNode<TItem> _parent;
-        private readonly AGSEventArgs _args = new AGSEventArgs();
 
-		public AGSTreeNode(TItem node = null, IConcurrentHashSet<TItem> children = null)
+		public AGSTreeNode(TItem node = null, IAGSBindingList<TItem> children = null)
 		{
-            OnParentChanged = new AGSEvent<AGSEventArgs>();
-			_children = children ?? new AGSConcurrentHashSet<TItem>();
+            OnParentChanged = new AGSEvent();
+            _children = children ?? new AGSBindingList<TItem>(5);
 			Node = node;
 		}
 
@@ -20,9 +19,11 @@ namespace AGS.Engine
 
 		public void AddChild(TItem child)
 		{
-			//Adding a child is a two step process (Parent property for the child changes first)
-			if (child.TreeNode.Parent == Node)
-				_children.Add(child);
+            //Adding a child is a two step process (Parent property for the child changes first)
+            if (child.TreeNode.Parent == Node)
+            {
+                if (!HasChild(child)) _children.Add(child);
+            }
 			else child.TreeNode.SetParent(this);
 		}
 
@@ -51,7 +52,7 @@ namespace AGS.Engine
 			}
 		}
 
-		public IEnumerable<TItem> Children { get { return _children; } }
+        public IAGSBindingList<TItem> Children { get { return _children; } }
 
 		public void SetParent(ITreeNode<TItem> parent)
 		{
@@ -81,7 +82,14 @@ namespace AGS.Engine
             fireParentChanged();
 		}
 
-        public IEvent<AGSEventArgs> OnParentChanged { get; private set; }
+        public TItem GetRoot()
+        {
+            var root = Node;
+            while (root.TreeNode.Parent != null) root = root.TreeNode.Parent;
+            return root;
+        }
+
+        public IEvent OnParentChanged { get; private set; }
 			
 		public int ChildrenCount
 		{
@@ -95,7 +103,7 @@ namespace AGS.Engine
 
         private void fireParentChanged()
         {
-            OnParentChanged.FireEvent(this, _args);
+            OnParentChanged.Invoke();
         }
 	}
 }

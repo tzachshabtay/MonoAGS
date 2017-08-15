@@ -102,6 +102,15 @@ namespace AGS.API
 		IEnumerable<IComponent> GetComponents(Type componentType);
 
         /// <summary>
+        /// Bind actions to when a component is added/removed.
+        /// </summary>
+        /// <returns>The binding.</returns>
+        /// <param name="onAdded">Callback to be called when component is added.</param>
+        /// <param name="onRemoved">Callback to be called when component is removed.</param>
+        /// <typeparam name="TComponent">The 1st type parameter.</typeparam>
+        IComponentBinding Bind<TComponent>(Action<TComponent> onAdded, Action<TComponent> onRemoved) where TComponent : IComponent;
+
+        /// <summary>
         /// Gets the number of components.
         /// </summary>
         /// <value>The count.</value>
@@ -114,18 +123,24 @@ namespace AGS.API
         /// <param name="componentType">Component type.</param>
 		int CountType(Type componentType);
 
-        /// <summary>
-        /// Gets the number of components with the specified type
-        /// </summary>
-        /// <returns>The type.</returns>
-        /// <param name="componentType">Component type.</param>
+		/// <summary>
+		/// Gets the number of components with the specified type
+		/// </summary>
+		/// <returns>The type.</returns>
+		/// <typeparam name="TComponent">Component type.</typeparam>
 		int CountType<TComponent>() where TComponent : IComponent;
 
         /// <summary>
         /// An event that fires after all components were initialized.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnComponentsInitialized { get; }
+        IEvent OnComponentsInitialized { get; }
+
+        /// <summary>
+        /// An event which is triggered whenever a component is added/removed.
+        /// </summary>
+        /// <value>The event.</value>
+        IEvent<AGSListChangedEventArgs<IComponent>> OnComponentsChanged { get; }
 	}
 }
 

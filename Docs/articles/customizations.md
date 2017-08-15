@@ -103,7 +103,7 @@ Resolver.Override(resolver =>
 
 ```csharp
 
-cHero.OnBeforeSay.Subscribe((sender, args) => 
+cHero.OnBeforeSay.Subscribe(args => 
 {
     args.Label.X = 400f;
     args.Label.Y = 100f;

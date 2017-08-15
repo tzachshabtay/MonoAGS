@@ -3,7 +3,7 @@
     /// <summary>
     /// Event arguments for slider value change.
     /// </summary>
-    public class SliderValueEventArgs : AGSEventArgs
+    public class SliderValueEventArgs
 	{
 		public SliderValueEventArgs(float value)
 		{

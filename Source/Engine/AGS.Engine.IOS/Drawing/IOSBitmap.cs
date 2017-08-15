@@ -8,7 +8,7 @@ using IOS::UIKit;
 
 namespace AGS.Engine.IOS
 {
-    public class IOSBitmap : IBitmap
+    public class IOSBitmap : IBitmap, IDisposable
     {
         private UIImage _uiImage;
         private CGImage _cgImage;
@@ -18,6 +18,11 @@ namespace AGS.Engine.IOS
         {
             setImage(image);
             _graphics = graphics;
+        }
+
+        ~IOSBitmap()
+        {
+            dispose(false);
         }
 
         public int Height { get; private set; }
@@ -225,6 +230,21 @@ namespace AGS.Engine.IOS
             context.FillRect(new CGRect(x, y, 1, 1));
             context.RestoreState();
             setImage(UIGraphics.GetImageFromCurrentImageContext());
+        }
+
+        public void Dispose()
+        {
+            dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void dispose(bool disposing)
+        {
+            var uiImage = _uiImage;
+            if (uiImage != null) uiImage.Dispose();
+
+            var cgImage = _cgImage;
+            if (cgImage != null) cgImage.Dispose();
         }
 
         private void saveToFile(UIImage image, string path)

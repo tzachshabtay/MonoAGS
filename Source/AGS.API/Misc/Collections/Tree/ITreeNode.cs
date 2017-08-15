@@ -25,13 +25,13 @@ namespace AGS.API
         /// Gets the items contained in the children.
         /// </summary>
         /// <value>The children.</value>
-		IEnumerable<TItem> Children { get; }
+        IAGSBindingList<TItem> Children { get; }
 
         /// <summary>
         /// An event which fires whenever the parent for a node changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnParentChanged { get; }
+        IEvent OnParentChanged { get; }
 
         /// <summary>
         /// Sets a new parent for the node.
@@ -45,6 +45,12 @@ namespace AGS.API
         /// </summary>
         /// <param name="victim">Victim.</param>
 		void StealParent(ITreeNode<TItem> victim);
+
+        /// <summary>
+        /// Returns the root of the tree (the node which has no parent).
+        /// </summary>
+        /// <returns>The root.</returns>
+        TItem GetRoot();
 
         /// <summary>
         /// Gets the number of children this node has.

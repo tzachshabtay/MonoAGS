@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AGS.API;
 
@@ -15,7 +14,7 @@ namespace DemoGame
 
 		public static void Init(IGame game)
 		{
-			game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSaveGameLoaded(game.State));
+            game.Events.OnSavedGameLoad.Subscribe(() => onSaveGameLoaded(game.State));
 		}
 
 		public static IRoom Find(IGameState state, IRoom oldRoom)

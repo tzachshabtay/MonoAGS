@@ -13,12 +13,15 @@ namespace AGS.Engine
 		private readonly Assembly _assembly;
         private Dictionary<string, List<string>> _resourceFolders, _externalFolders;
         private readonly IFileSystem _fileSystem;
+        private readonly List<IResource> _emptyResources = new List<IResource>(1);
+        private readonly Func<string, List<string>> _getFilesInFolderFunc;
 
         public ResourceLoader(IFileSystem fileSystem, IAssemblies assemblies)
 		{
             _fileSystem = fileSystem;
 			_assembly = assemblies.EntryAssembly;
             _externalFolders = new Dictionary<string, List<string>>(10);
+            _getFilesInFolderFunc = getFilesInFolder; //Caching delegate to avoid memory allocations in critical path
 		}
 
 		public static string CustomAssemblyName;
@@ -45,6 +48,10 @@ namespace AGS.Engine
 
 		public List<IResource> LoadResources(params string[] paths)
 		{
+            if (paths.Length == 0)
+            {
+                return _emptyResources;
+            }
             Debug.WriteLine("Loading resources from paths " + string.Join(", ", paths));
 			List<IResource> resources = new List<IResource> (paths.Length);
 			foreach (string path in paths)
@@ -116,9 +123,14 @@ namespace AGS.Engine
                 if (matchingResource != null) return matchingResource;
             }
 
-            files = _externalFolders.GetOrAdd(folder, () => _fileSystem.GetFiles(folder).ToList());
+            files = _externalFolders.GetOrAdd(folder, _getFilesInFolderFunc);
             var matchingFile = files.FirstOrDefault(f => f.ToUpperInvariant().Contains(filename));
             return matchingFile;
+        }
+
+        private List<string> getFilesInFolder(string folder)
+        {
+            return _fileSystem.GetFiles(folder).ToList();
         }
 
 		private bool shouldIgnoreFile(string path)

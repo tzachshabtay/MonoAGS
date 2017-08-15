@@ -48,7 +48,7 @@ namespace AGS.Engine
 
 		#endregion
 
-		private void onKeyUp(object sender, KeyboardEventArgs args)
+		private void onKeyUp(KeyboardEventArgs args)
 		{
             switch (SkipTrigger)
             {
@@ -60,7 +60,7 @@ namespace AGS.Engine
             BeginSkip();
 		}
 
-        private void onMouseUp(object sender, MouseButtonEventArgs args)
+        private void onMouseUp(MouseButtonEventArgs args)
         {
             if (SkipTrigger != SkipCutsceneTrigger.AnyKeyOrMouse) return;
             BeginSkip();

@@ -31,28 +31,28 @@
         ///     oTeapot.Interactions.OnInteract(AGSInteractions.Default).Subscribe(onTeapotDefault);
         /// }
         /// 
-        /// private void onDefaultTalk(object sender, ObjectEventArgs args)
+        /// private void onDefaultTalk(ObjectEventArgs args)
         /// {
         ///     cEgo.Say(string.Format("{0}? No, I don't think it's going to talk back.", args.Object.Hotspot));
         /// }
         /// 
-        /// private void onTeapotLook(object sender, ObjectEventArgs args)
+        /// private void onTeapotLook(ObjectEventArgs args)
         /// {
         ///     cEgo.Say("What a lovely looking teapot!");
         /// }
         /// 
-        /// private async Task onTeapotInteract(object sender, ObjectEventArgs args)
+        /// private async Task onTeapotInteract(ObjectEventArgs args)
         /// {
         ///     await cEgo.SayAsync("I'm going to pour some tea now.");
         ///     oTeapot.StartAnimation(aPourTea);
         /// }
         /// 
-        /// private void onTeapotThrow(object sender, ObjectEventArgs args)
+        /// private void onTeapotThrow(ObjectEventArgs args)
         /// {
         ///     cEgo.Say("No way, I'm not throwing the teapot.");
         /// }
         /// 
-        /// private void onTeapotDefault(object sender, ObjectEventArgs args)
+        /// private void onTeapotDefault(ObjectEventArgs args)
         /// {
         ///     cEgo.Say("I'm not doing anything like that to the teapot.");
         /// }
@@ -83,7 +83,7 @@
         ///     game.Events.DefaultInteractions.OnInventoryInteract(AGSInteractions.Interact).Subscribe(onDefaultInventoryInteract);
         /// }
         /// 
-        /// private void onTeapotInventoryInteract(object sender, InventoryInteractEventArgs args)
+        /// private void onTeapotInventoryInteract(InventoryInteractEventArgs args)
         /// {
         ///     if (args.Item == iCup)
         ///     {
@@ -101,7 +101,7 @@
         ///         cEgo.Say("This is not what you'd usually use on a teapot...");
         ///     }
         /// }
-        /// private void onDefaultInventoryInteract(object sender, InventoryInteractEventArgs args)
+        /// private void onDefaultInventoryInteract(InventoryInteractEventArgs args)
         /// {
         ///     cEgo.Say(string.Format("Using {0} on {1}? No, I don't think so.", args.Item.Graphics.Hotspot, args.Object.Hotspot));
         /// }

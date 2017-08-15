@@ -15,13 +15,15 @@ namespace AGS.Engine
 		private readonly IInput _input;
 		private readonly Resolver _resolver;
 		private readonly IAGSRoomTransitions _roomTransitions;
+        private readonly DisplayListEventArgs _displayListEventArgs;
+        private readonly Stack<IObject> _parentStack;
         private IGLUtils _glUtils;
         private IShader _lastShaderUsed;
 		private IObject _mouseCursorContainer;
         private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
 
 		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer, IInput input, AGSWalkBehindsMap walkBehinds,
-			IAGSRoomTransitions roomTransitions, IGLUtils glUtils)
+            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IEvent<DisplayListEventArgs> onBeforeRenderingDisplayList)
 		{
             this._glUtils = glUtils;
 			this._resolver = resolver;
@@ -32,10 +34,15 @@ namespace AGS.Engine
 			this._input = input;
 			this._comparer = new RenderOrderSelector ();
 			this._roomTransitions = roomTransitions;
+            this._displayListEventArgs = new DisplayListEventArgs(null);
+            this._parentStack = new Stack<IObject>();
+            OnBeforeRenderingDisplayList = onBeforeRenderingDisplayList;
 			_roomTransitions.Transition = new RoomTransitionInstant ();
 		}
 
 		#region IRendererLoop implementation
+
+        public IEvent<DisplayListEventArgs> OnBeforeRenderingDisplayList { get; private set; }
 
 		public bool Tick ()
 		{
@@ -114,7 +121,9 @@ namespace AGS.Engine
 		private void renderRoom(IRoom room)
 		{
 			List<IObject> displayList = getDisplayList(room);
-            SortDebugger.DebugIfNeeded(displayList);
+            _displayListEventArgs.DisplayList = displayList;
+            OnBeforeRenderingDisplayList.Invoke(_displayListEventArgs);
+            displayList = _displayListEventArgs.DisplayList;
 
 			foreach (IObject obj in displayList) 
 			{
@@ -124,6 +133,7 @@ namespace AGS.Engine
 
 		private void renderObject(IRoom room, IObject obj)
 		{
+            refreshParentMatrices(obj);
             Size resolution = obj.RenderLayer == null || obj.RenderLayer.IndependentResolution == null ? 
                 _game.Settings.VirtualResolution :
                 obj.RenderLayer.IndependentResolution.Value;
@@ -139,6 +149,20 @@ namespace AGS.Engine
 
 			removeObjectShader(shader);
 		}
+
+        private void refreshParentMatrices(IObject obj)
+        {
+            //Making sure all of the parents have their matrix refreshed before rendering the object,
+            //as if they need a new matrix the object will need to recalculate its matrix as well.
+            //todo: find a more performant solution, to only visit each object once.
+			var parent = obj.TreeNode.Parent;
+			while (parent != null)
+			{
+                _parentStack.Push(parent);
+				parent = parent.TreeNode.Parent;
+			}
+			while (_parentStack.Count > 0) _parentStack.Pop().GetModelMatrices();
+        }
 
 		private static IShader applyObjectShader(IObject obj)
 		{

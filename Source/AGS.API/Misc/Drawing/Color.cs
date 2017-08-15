@@ -205,6 +205,16 @@ namespace AGS.API
 			decimal cmin = Math.Min(r, Math.Min(g, b));
 			return (float)(cmax + cmin) / 2f;
 		}
+
+        /// <summary>
+        /// Gets a new color with a changed alpha (transparency).
+        /// </summary>
+        /// <returns>The color.</returns>
+        /// <param name="a">The alpha component. 0 is fully transparent and 255 is fully opaque.</param>
+        public Color WithAlpha(byte a)
+        {
+            return Color.FromArgb(a, R, G, B);
+        }
 	}
 }
 

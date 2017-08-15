@@ -6,17 +6,27 @@ namespace AGS.Engine
     {
         private ILabelRenderer _labelRenderer;
         private IImageComponent _obj;
+        private IScaleComponent _scale;
+        private readonly IGameEvents _events;
 
-        public AGSTextComponent(ILabelRenderer labelRenderer)
+        public AGSTextComponent(ILabelRenderer labelRenderer, IGameEvents events)
         {
             _labelRenderer = labelRenderer;
+            _events = events;
         }
 
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _obj = entity.GetComponent<IImageComponent>();
-            _obj.CustomRenderer = _labelRenderer;
+            entity.Bind<IImageComponent>(c => { _obj = c; c.CustomRenderer = _labelRenderer; }, _ => _obj = null);
+            entity.Bind<IScaleComponent>(c => { _scale = c; }, _ => { _scale = null; });
+            _events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
         }
 
         public ITextConfig TextConfig
@@ -43,12 +53,24 @@ namespace AGS.Engine
             set
             {
                 _labelRenderer.BaseSize = value;
-                if (_obj != null && _obj.Image == null) _obj.Image = new EmptyImage(value.Width, value.Height);                
+                var obj = _obj;
+                if (obj != null && obj.Image == null) obj.Image = new EmptyImage(value.Width, value.Height);                
             }
         }
 
         public float TextHeight { get { return _labelRenderer.TextHeight; } }
 
         public float TextWidth { get { return _labelRenderer.TextWidth; } }
+
+        private void onRepeatedlyExecute()
+        {
+            var config = TextConfig;
+            if (config == null) return;
+            if (config.AutoFit != AutoFit.LabelShouldFitText && 
+                config.AutoFit != AutoFit.TextShouldWrapAndLabelShouldFitHeight) return;
+            var scale = _scale;
+            if (scale == null) return;
+            scale.ResetBaseSize(_labelRenderer.Width, _labelRenderer.Height);
+        }
     }
 }

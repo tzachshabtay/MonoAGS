@@ -30,7 +30,7 @@ namespace AGS.Engine
             ITextComponent textComponent = TextComponent.ToItem(context);
 			ILabel label = context.Factory.UI.GetLabel(Object.ID, textComponent.Text, 
                 textComponent.LabelRenderSize.Width, textComponent.LabelRenderSize.Height, 0, 0, 
-				textComponent.TextConfig, false);
+				null, textComponent.TextConfig, false);
 			Object.ToItem(context, label);
 			label.Visible = Object.Visible;
 			return label;

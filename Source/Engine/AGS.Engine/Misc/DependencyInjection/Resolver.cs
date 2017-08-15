@@ -49,16 +49,19 @@ namespace AGS.Engine
             Builder.RegisterType<GLUtils>().SingleInstance().As<IGLUtils>();
             Builder.RegisterType<AGSFocusedUI>().SingleInstance().As<IFocusedUI>().As<IModalWindows>();
             Builder.RegisterType<RoomLimitsFromBackground>().SingleInstance().As<IRoomLimitsProvider>();
+            Builder.RegisterType<UIEventsAggregator>().SingleInstance();
 
 			registerComponents();
 
 			Builder.RegisterType<AGSSprite>().As<ISprite>();
-            Builder.RegisterType<GLBoundingBoxesBuilder>().As<IGLBoundingBoxBuilder>();
+            Builder.RegisterType<AGSBoundingBoxesBuilder>().As<IBoundingBoxBuilder>();
             Builder.RegisterType<AGSPixelPerfectCollidable>().As<IPixelPerfectCollidable>();
             Builder.RegisterType<AGSTranslate>().As<ITranslate>();
             Builder.RegisterType<AGSScale>().As<IScale>();
             Builder.RegisterType<AGSRotate>().As<IRotate>();
             Builder.RegisterType<AGSHasImage>().As<IHasImage>();
+            Builder.RegisterType<AGSEvent>().As<IEvent>();
+            Builder.RegisterType<AGSEvent>().As<IBlockingEvent>();
 
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IBlockingEvent<>));

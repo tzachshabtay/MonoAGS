@@ -6,7 +6,7 @@ namespace AGS.API
     /// Event arguments which allows you to modify how/where the text is rendered and control
     /// how the speech is skipped (assuming you configure <see cref="SkipText.External"/>  in your <see cref="ISayConfig"/>).
     /// </summary>
-	public class BeforeSayEventArgs : AGSEventArgs
+	public class BeforeSayEventArgs
 	{
         /// <summary>
         /// Initializes a new instance of the <see cref="T:AGS.API.BeforeSayEventArgs"/> class.

@@ -27,6 +27,7 @@
     [RequiredComponent(typeof(IHasRoom))]
     [RequiredComponent(typeof(IDrawableInfo))]
     [RequiredComponent(typeof(IInObjectTree))]
+    [RequiredComponent(typeof(ICropSelfComponent), false)]
     public interface IModelMatrixComponent : IComponent
     {
         /// <summary>
@@ -39,6 +40,6 @@
         /// An event that fires whenever the matrix changes.
         /// </summary>
         /// <value>The on matrix changed.</value>
-        IEvent<AGSEventArgs> OnMatrixChanged { get; }
+        IEvent OnMatrixChanged { get; }
     }
 }

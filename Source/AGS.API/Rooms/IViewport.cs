@@ -42,6 +42,24 @@
         /// </summary>
         /// <value>The camera.</value>
 		ICamera Camera { get; set; }
+
+        /// <summary>
+        /// An event which fires when the position of the viewport has changed.
+        /// </summary>
+        /// <value>The on position changed.</value>
+        IEvent OnPositionChanged { get; }
+
+        /// <summary>
+        /// An event which fires when the size of the viewport has changed.
+        /// </summary>
+        /// <value>The on scale changed.</value>
+        IEvent OnScaleChanged { get; }
+
+        /// <summary>
+        /// An event which fires when the angle of the viewport has changed.
+        /// </summary>
+        /// <value>The on angle changed.</value>
+        IEvent OnAngleChanged { get; }
 	}
 }
 

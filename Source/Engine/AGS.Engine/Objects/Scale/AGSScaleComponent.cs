@@ -16,9 +16,11 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            IImageComponent image = entity.GetComponent<IImageComponent>();
-            TypedParameter imageParam = new TypedParameter(typeof(IHasImage), image);
-            _scale = _resolver.Container.Resolve<IScale>(imageParam);
+            entity.Bind<IImageComponent>(c =>
+            {
+                TypedParameter imageParam = new TypedParameter(typeof(IHasImage), c);
+                _scale = _resolver.Container.Resolve<IScale>(imageParam);
+            }, _ => _scale = null);
         }
 
         public float Height { get { return _scale.Height; } }
@@ -29,7 +31,9 @@ namespace AGS.Engine
 
         public float ScaleY { get { return _scale.ScaleY; } }
 
-        public IEvent<AGSEventArgs> OnScaleChanged { get { return _scale.OnScaleChanged; } }
+        public SizeF BaseSize { get { return _scale.BaseSize; } }
+
+        public IEvent OnScaleChanged { get { return _scale.OnScaleChanged; } }
 
         public void ResetBaseSize(float initialWidth, float initialHeight)
         {

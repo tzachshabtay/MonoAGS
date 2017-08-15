@@ -1,31 +1,48 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
 	public class AGSViewport : IViewport
 	{
+        private float _x, _y, _scaleX, _scaleY, _angle;
+
 		public AGSViewport ()
 		{
-			ScaleX = 1f;
-			ScaleY = 1f;
+			_scaleX = 1f;
+			_scaleY = 1f;
+            OnPositionChanged = new AGSEvent();
+            OnScaleChanged = new AGSEvent();
+            OnAngleChanged = new AGSEvent();
 		}
 
 		#region IViewport implementation
 
-		public float X { get; set; }
+        public float X { get { return _x; } set { refreshValue(ref _x, value, OnPositionChanged);} }
 
-		public float Y { get; set; }
+        public float Y { get { return _y; } set { refreshValue(ref _y, value, OnPositionChanged);} }
 
-		public float ScaleX { get; set; }
+        public float ScaleX { get { return _scaleX; } set { refreshValue(ref _scaleX, value, OnScaleChanged);} }
 
-		public float ScaleY { get; set; }
+        public float ScaleY { get { return _scaleY; } set { refreshValue(ref _scaleY, value, OnScaleChanged);} }
 
-		public float Angle { get; set; }
+        public float Angle { get { return _angle; } set { refreshValue(ref _angle, value, OnAngleChanged);} }
 
 		public ICamera Camera { get; set; }
 
+        public IEvent OnPositionChanged { get; private set; }
+        public IEvent OnScaleChanged { get; private set; }
+        public IEvent OnAngleChanged { get; private set; }
+
 		#endregion
+
+        private void refreshValue(ref float currentValue, float newValue, IEvent changeEvent)
+        {
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            if (currentValue == newValue) return;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            currentValue = newValue;
+            changeEvent.Invoke();
+        }
 	}
 }
 

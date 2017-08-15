@@ -9,12 +9,12 @@ namespace AGS.Engine
 
 		public AGSAnimationContainer()
 		{
-            OnAnimationStarted = new AGSEvent<AGSEventArgs>();
+            OnAnimationStarted = new AGSEvent();
 		}		
 
 		public IAnimation Animation { get; private set; }
 
-        public IEvent<AGSEventArgs> OnAnimationStarted { get; private set; }
+        public IEvent OnAnimationStarted { get; private set; }
 
 		public bool DebugDrawAnchor { get; set; }
 
@@ -23,14 +23,15 @@ namespace AGS.Engine
 		public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _scale = entity.GetComponent<IScaleComponent>();            
+            entity.Bind<IScaleComponent>(c => _scale = c, c => _scale = null);
         }        
 
         public void StartAnimation(IAnimation animation)
 		{
-			if (_scale.Width == 0f && animation.Frames.Count > 0) 
+            var scale = _scale;
+            if (scale != null && scale.Width == 0f && animation.Frames.Count > 0) 
 			{
-				_scale.ResetBaseSize(animation.Frames [0].Sprite.Width, animation.Frames [0].Sprite.Height);
+				scale.ResetBaseSize(animation.Frames[0].Sprite.Width, animation.Frames[0].Sprite.Height);
 			}
 			IAnimation currentAnimation = Animation;
 			if (currentAnimation != null) 
@@ -38,7 +39,7 @@ namespace AGS.Engine
 				currentAnimation.State.OnAnimationCompleted.TrySetResult (new AnimationCompletedEventArgs (false));
 			}
 			Animation = animation;
-            OnAnimationStarted.Invoke(this, new AGSEventArgs());
+            OnAnimationStarted.Invoke();
 		}
 
 		public AnimationCompletedEventArgs Animate (IAnimation animation)

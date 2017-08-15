@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -7,56 +6,64 @@ namespace AGS.Engine
 	{
 		private IUIEvents _events;
 		private IAnimationContainer _animation;
-
-		public AGSButtonComponent()
-		{
-		}
+        private ITextComponent _text;
+        private IImageComponent _image;
 
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-			_events = entity.GetComponent<IUIEvents>();
-			_animation = entity.GetComponent<IAnimationContainer>();
-
-			_events.MouseEnter.Subscribe(onMouseEnter);
-			_events.MouseLeave.Subscribe(onMouseLeave);
-			_events.MouseDown.Subscribe(onMouseDown);
-			_events.MouseUp.Subscribe(onMouseUp);
+            entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
+            entity.Bind<ITextComponent>(c => _text = c, _ => _text = null);
+            entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
+            entity.Bind<IUIEvents>(c =>
+            {
+                _events = c;
+                c.MouseEnter.Subscribe(onMouseEnter);
+                c.MouseLeave.Subscribe(onMouseLeave);
+                c.MouseDown.Subscribe(onMouseDown);
+                c.MouseUp.Subscribe(onMouseUp);
+            }, c =>
+            {
+                _events = null;
+                c.MouseEnter.Unsubscribe(onMouseEnter);
+                c.MouseLeave.Unsubscribe(onMouseLeave);
+                c.MouseDown.Unsubscribe(onMouseDown);
+                c.MouseUp.Unsubscribe(onMouseUp);
+            });
 		}
 
-		public IAnimation IdleAnimation { get; set; }
+        public ButtonAnimation IdleAnimation { get; set; }
 
-		public IAnimation HoverAnimation { get; set; }
+        public ButtonAnimation HoverAnimation { get; set; }
 
-		public IAnimation PushedAnimation { get; set; }
+        public ButtonAnimation PushedAnimation { get; set; }
 
-		public override void Dispose()
+		private void onMouseEnter(MousePositionEventArgs e)
 		{
-			_events.MouseEnter.Unsubscribe(onMouseEnter);
-			_events.MouseLeave.Unsubscribe(onMouseLeave);
-			_events.MouseDown.Unsubscribe(onMouseDown);
-			_events.MouseUp.Unsubscribe(onMouseUp);
+            startAnimation(HoverAnimation ?? IdleAnimation ?? PushedAnimation);
 		}
 
-		private void onMouseEnter(object sender, MousePositionEventArgs e)
+		private void onMouseLeave(MousePositionEventArgs e)
 		{
-			_animation.StartAnimation(HoverAnimation);
+            startAnimation(IdleAnimation ?? PushedAnimation ?? HoverAnimation);
 		}
 
-		private void onMouseLeave(object sender, MousePositionEventArgs e)
+		private void onMouseDown(MouseButtonEventArgs e)
 		{
-			_animation.StartAnimation(IdleAnimation);
+            startAnimation(PushedAnimation ?? HoverAnimation ?? IdleAnimation);
 		}
 
-		private void onMouseDown(object sender, MouseButtonEventArgs e)
+		private void onMouseUp(MouseButtonEventArgs e)
 		{
-			_animation.StartAnimation(PushedAnimation);
+            startAnimation(_events.IsMouseIn ?
+                           HoverAnimation ?? IdleAnimation ?? PushedAnimation :
+                           IdleAnimation ?? HoverAnimation ?? PushedAnimation);
 		}
 
-		private void onMouseUp(object sender, MouseButtonEventArgs e)
-		{
-			_animation.StartAnimation(_events.IsMouseIn ? HoverAnimation : IdleAnimation);
-		}
+        private void startAnimation(ButtonAnimation button)
+        {
+            button.StartAnimation(_animation, _text, _image);
+        }
 	}
 }
 

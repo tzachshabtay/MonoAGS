@@ -11,12 +11,15 @@ namespace AGS.Engine
 		private AGS.API.Size _virtualResolution;
 		private IRoom _lastRoom;
 		private IAGSRoomTransitions _roomTransitions;
+        private IGameEvents _events;
 
-		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution, IAGSRoomTransitions roomTransitions)
+		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution, 
+                            IAGSRoomTransitions roomTransitions, IGameEvents events)
 		{
-			this._gameState = gameState;
-			this._virtualResolution = virtualResolution;
-			this._roomTransitions = roomTransitions;
+			_gameState = gameState;
+            _events = events;
+			_virtualResolution = virtualResolution;
+			_roomTransitions = roomTransitions;
 		}
 
 		#region IGameLoop implementation
@@ -32,9 +35,10 @@ namespace AGS.Engine
 				{
 					if (changedRoom)
 					{
-						if (_lastRoom != null) _lastRoom.Events.OnAfterFadeOut.Invoke(this, new AGSEventArgs ());
-						room.Events.OnBeforeFadeIn.Invoke(this, new AGSEventArgs ());
+						if (_lastRoom != null) _lastRoom.Events.OnAfterFadeOut.Invoke();
+						room.Events.OnBeforeFadeIn.Invoke();
 						updateViewport(room, changedRoom);
+                        _events.OnRoomChanging.Invoke();
 						if (_lastRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
 						else _roomTransitions.State = RoomTransitionState.InTransition;
 					}
@@ -70,7 +74,7 @@ namespace AGS.Engine
 		{
 			if (_lastRoom == room) return;
             _lastRoom = room;
-            await room.Events.OnAfterFadeIn.InvokeAsync(this, new AGSEventArgs ());
+            await room.Events.OnAfterFadeIn.InvokeAsync();
 		}
 
 		private void runAnimation(IAnimation animation)

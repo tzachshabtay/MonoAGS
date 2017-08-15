@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using ProtoBuf;
 
 namespace AGS.Engine
@@ -21,7 +20,7 @@ namespace AGS.Engine
 
 		public IObject ToItem(AGSSerializationContext context)
 		{
-			IPanel panel = context.Factory.UI.GetPanel(Object.ID, new EmptyImage(1f,1f), 0f, 0f, false);
+			IPanel panel = context.Factory.UI.GetPanel(Object.ID, new EmptyImage(1f,1f), 0f, 0f, null, false);
             Object.ToItem(context, panel);
 			return panel;
 		}

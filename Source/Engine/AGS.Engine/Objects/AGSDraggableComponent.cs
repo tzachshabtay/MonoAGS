@@ -6,9 +6,8 @@ namespace AGS.Engine
     {
         private readonly IInput _input;
         private readonly IGameEvents _gameEvents;
-        private IUIEvents _uiEvents;
         private float _dragObjectStartX, _dragObjectStartY, _dragMouseStartX, _dragMouseStartY;
-        private ITranslate _transform;
+        private ITranslate _translate;
 
         public AGSDraggableComponent(IInput input, IGameEvents gameEvents)
         {
@@ -33,29 +32,27 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _transform = entity.GetComponent<ITranslateComponent>();
-            _uiEvents = entity.GetComponent<IUIEvents>();
-            _uiEvents.MouseDown.Subscribe(onMouseDown);
+            entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
+            entity.Bind<IUIEvents>(c => c.MouseDown.Subscribe(onMouseDown), c => c.MouseDown.Unsubscribe(onMouseDown));
         }
 
         public override void Dispose()
         {
             base.Dispose();
-            _uiEvents.MouseDown.Unsubscribe(onMouseDown);
             _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
         }
 
-        private void onMouseDown(object sender, MouseButtonEventArgs args)
+        private void onMouseDown(MouseButtonEventArgs args)
         {
             if (!IsDragEnabled || args.Button != MouseButton.Left) return;
             IsCurrentlyDragged = true;
-            _dragObjectStartX = _transform.X;
-            _dragObjectStartY = _transform.Y;
+            _dragObjectStartX = _translate.X;
+            _dragObjectStartY = _translate.Y;
             _dragMouseStartX = _input.MouseX;
             _dragMouseStartY = _input.MouseY;
         }
 
-        private void onRepeatedlyExecute(object sender, AGSEventArgs args)
+        private void onRepeatedlyExecute()
         {
             if (!IsCurrentlyDragged) return;
             if (!IsDragEnabled || !_input.LeftMouseButtonDown)
@@ -71,9 +68,11 @@ namespace AGS.Engine
             if (DragMaxX != null && mouseX > DragMaxX.Value) return;
             if (DragMinY != null && mouseY < DragMinY.Value) return;
             if (DragMaxY != null && mouseY > DragMaxY.Value) return;
+            var translate = _translate;
+            if (translate == null) return;
 
-            _transform.X = _dragObjectStartX + (mouseX - _dragMouseStartX);
-            _transform.Y = _dragObjectStartY + (mouseY - _dragMouseStartY);
+            translate.X = _dragObjectStartX + (mouseX - _dragMouseStartX);
+            translate.Y = _dragObjectStartY + (mouseY - _dragMouseStartY);
         }        
     }
 }

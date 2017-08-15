@@ -18,7 +18,7 @@
         /// An event which is fired when the player character crosses the edge from inside to outside.
         /// </summary>
         /// <value>The on edge crossed.</value>
-		IEvent<AGSEventArgs> OnEdgeCrossed { get; }
+		IEvent OnEdgeCrossed { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:AGS.API.IEdge"/> is enabled.

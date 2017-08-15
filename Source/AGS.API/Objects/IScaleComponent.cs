@@ -30,10 +30,17 @@
         float ScaleY { get; }
 
         /// <summary>
+        /// Gets the base size (the "original" size), on top of which the scale is calculated.
+        /// To reset the base size to a new size, use <see cref="ResetBaseSize"/>.
+        /// </summary>
+        /// <value>The size of the base.</value>
+        SizeF BaseSize { get; }
+
+        /// <summary>
         /// An event which fires whenever the scale changes
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSEventArgs> OnScaleChanged { get; }
+        IEvent OnScaleChanged { get; }
 
         /// <summary>
         /// Resets the base size (the "original" size), on top of which the scale is calculated.

@@ -3,6 +3,7 @@ using AGS.Engine;
 using NUnit.Framework;
 using Moq;
 using AGS.Engine.Desktop;
+using System;
 
 namespace Tests
 {
@@ -66,12 +67,18 @@ namespace Tests
             entity.Setup(e => e.GetComponent<ITextComponent>()).Returns(textComponent.Object);
             entity.Setup(e => e.GetComponent<IUIEvents>()).Returns(uiEvents.Object);
             entity.Setup(e => e.GetComponent<IInObjectTree>()).Returns(inTree.Object);
+            entity.Setup(e => e.Bind(It.IsAny<Action<ITextComponent>>(), It.IsAny<Action<ITextComponent>>()))
+                  .Callback<Action<ITextComponent>, Action<ITextComponent>>((addComponent,_) => addComponent(textComponent.Object));
+			entity.Setup(e => e.Bind(It.IsAny<Action<IUIEvents>>(), It.IsAny<Action<IUIEvents>>()))
+				  .Callback<Action<IUIEvents>, Action<IUIEvents>>((addComponent, _) => addComponent(uiEvents.Object));
+			entity.Setup(e => e.Bind(It.IsAny<Action<IInObjectTree>>(), It.IsAny<Action<IInObjectTree>>()))
+				  .Callback<Action<IInObjectTree>, Action<IInObjectTree>>((addComponent, _) => addComponent(inTree.Object));
             Mock<IGame> game = new Mock<IGame>();
             Mock<IGameFactory> factory = new Mock<IGameFactory>();
             Mock<IUIFactory> uiFactory = new Mock<IUIFactory>();
             Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();
-            gameEvents.Setup(g => g.OnBeforeRender).Returns(new Mock<IBlockingEvent<AGSEventArgs>>().Object);
-            gameEvents.Setup(g => g.OnRepeatedlyExecute).Returns(new Mock<IEvent<AGSEventArgs>>().Object);
+            gameEvents.Setup(g => g.OnBeforeRender).Returns(new Mock<IBlockingEvent>().Object);
+            gameEvents.Setup(g => g.OnRepeatedlyExecute).Returns(new Mock<IEvent>().Object);
             game.Setup(g => g.Events).Returns(gameEvents.Object);
             game.Setup(g => g.Factory).Returns(factory.Object);
             factory.Setup(f => f.UI).Returns(uiFactory.Object);
@@ -80,11 +87,11 @@ namespace Tests
             Mock<IFocusedUI> focusedUi = new Mock<IFocusedUI>();
             label.Setup(l => l.TreeNode).Returns(tree.Object);
             uiFactory.Setup(u => u.GetLabel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<float>(),
-                It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<ITextConfig>(), It.IsAny<bool>())).
+                It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<IObject>(), It.IsAny<ITextConfig>(), It.IsAny<bool>())).
                 Returns(label.Object);
             
 
-            AGSTextBoxComponent textbox = new AGSTextBoxComponent(new AGSEvent<AGSEventArgs>(), new AGSEvent<TextBoxKeyPressingEventArgs>(), 
+            AGSTextBoxComponent textbox = new AGSTextBoxComponent(new AGSEvent(), new AGSEvent<TextBoxKeyPressingEventArgs>(), 
                                                   input.Object, game.Object, new DesktopKeyboardState(), focusedUi.Object);
             textbox.Init(entity.Object);
             textbox.IsFocused = true;
@@ -95,9 +102,9 @@ namespace Tests
                 if (key == Key.ShiftLeft || key == Key.ShiftRight)
                 {
                     isShiftDown = !isShiftDown;
-                    if (!isShiftDown) { keyUp.Invoke(this, new KeyboardEventArgs(key)); continue; }
+                    if (!isShiftDown) { keyUp.Invoke(new KeyboardEventArgs(key)); continue; }
                 }
-                keyDown.Invoke(this, new KeyboardEventArgs(key));
+                keyDown.Invoke(new KeyboardEventArgs(key));
             }
 
             Assert.AreEqual(expectedText, actualText);

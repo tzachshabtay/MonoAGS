@@ -31,7 +31,7 @@ namespace DemoGame
 			_room = factory.Room.GetRoom(_roomId, 20f, 310f, 190f, 10f);
 			_room.MusicOnLoad = await factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/AMemoryAway.ogg");
 
-			_game.Events.OnSavedGameLoad.Subscribe((sender, e) => onSavedGameLoaded());
+            _game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoaded);
 
 			IObject bg = factory.Object.GetObject("Empty Street BG");
 			bg.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bg.png");
@@ -79,31 +79,31 @@ namespace DemoGame
             if (_bottle != null) _bottle.Interactions.OnInteract(AGSInteractions.INTERACT).SubscribeToAsync(onBottleInteract);
 		}
 
-		private async Task onBottleInteract(object sender, AGSEventArgs args)
+		private async Task onBottleInteract(ObjectEventArgs args)
 		{
 			_bottleEffectClip.Play();
 			await _bottle.ChangeRoomAsync(null);
 			_player.Inventory.Items.Add(InventoryItems.Bottle);
 		}
 
-        private async Task onLeftEdgeCrossed(object sender, AGSEventArgs args)
+        private async Task onLeftEdgeCrossed()
 		{
 			await _player.ChangeRoomAsync(Rooms.TrashcanStreet.Result, 310);
 		}
 
-        private async Task onRightEdgeCrossed(object sender, AGSEventArgs args)
+        private async Task onRightEdgeCrossed()
 		{
 			await _player.ChangeRoomAsync(Rooms.BrokenCurbStreet.Result, 30);
 		}
 
-		private void onBeforeFadeIn(object sender, AGSEventArgs args)
+		private void onBeforeFadeIn()
 		{
 			_player.PlaceOnWalkableArea();
 		}
 
-		private void onAfterFadeIn (object sender, AGSEventArgs args)
+		private void onAfterFadeIn ()
 		{
-			if (args.TimesInvoked == 1) 
+            if (Repeat.OnceOnly("EmptyStreet_FadeIn")) 
 			{
                 _game.State.RoomTransitions.Transition = AGSRoomTransitions.Dissolve ();
 			}

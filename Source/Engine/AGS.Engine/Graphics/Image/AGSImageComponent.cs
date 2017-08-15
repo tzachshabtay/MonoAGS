@@ -23,22 +23,29 @@ namespace AGS.Engine
         {
             get
             {
-                if (_animationContainer.Animation == null || _animationContainer.Animation.Sprite == null) return null;
-                return _animationContainer.Animation.Sprite.Image;
+                var animationContainer = _animationContainer;
+                if (animationContainer == null || animationContainer.Animation == null || 
+                    animationContainer.Animation.Sprite == null) return null;
+                return animationContainer.Animation.Sprite.Image;
             }
             set
             {
                 AGSSingleFrameAnimation animation = new AGSSingleFrameAnimation(value, _factory);
-                _scale.ResetBaseSize(value.Width, value.Height);
-                _animationContainer.StartAnimation(animation);
+                if (value != null)
+                {
+                    var scale = _scale;
+                    if (scale != null) scale.ResetBaseSize(value.Width, value.Height);
+                }
+                var animationContainer = _animationContainer;
+                if (animationContainer != null) animationContainer.StartAnimation(animation);
             }
         }
 
-        public IEvent<AGSEventArgs> OnImageChanged { get { return _image.OnImageChanged; } }
+        public IEvent OnImageChanged { get { return _image.OnImageChanged; } }
 
-        public IEvent<AGSEventArgs> OnAnchorChanged { get { return _image.OnAnchorChanged; } }
+        public IEvent OnAnchorChanged { get { return _image.OnAnchorChanged; } }
 
-        public IEvent<AGSEventArgs> OnTintChanged { get { return _image.OnTintChanged; } }
+        public IEvent OnTintChanged { get { return _image.OnTintChanged; } }
 
         public byte Opacity { get { return _image.Opacity; } set { _image.Opacity = value; } }
 
@@ -47,8 +54,8 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _animationContainer = entity.GetComponent<IAnimationContainer>();
-            _scale = entity.GetComponent<IScaleComponent>();
+            entity.Bind<IAnimationContainer>(c => _animationContainer = c, _ => _animationContainer = null);
+            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
         }
     }
 }
