@@ -26,7 +26,9 @@ namespace AGS.Engine
 
         private void onListChanged(TItem item, ListChangeType changeType)
         {
-            OnListChanged.FireEvent(new AGSHashSetChangedEventArgs<TItem>(changeType, item));
+            var onListChanged = OnListChanged;
+            if (onListChanged == null) return;
+            onListChanged.Invoke(new AGSHashSetChangedEventArgs<TItem>(changeType, item));
         } 
 
 		public bool Add(TItem item)

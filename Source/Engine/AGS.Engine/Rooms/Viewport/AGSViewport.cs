@@ -10,9 +10,9 @@ namespace AGS.Engine
 		{
 			_scaleX = 1f;
 			_scaleY = 1f;
-            OnPositionChanged = new AGSEvent<object>();
-            OnScaleChanged = new AGSEvent<object>();
-            OnAngleChanged = new AGSEvent<object>();
+            OnPositionChanged = new AGSEvent();
+            OnScaleChanged = new AGSEvent();
+            OnAngleChanged = new AGSEvent();
 		}
 
 		#region IViewport implementation
@@ -29,19 +29,19 @@ namespace AGS.Engine
 
 		public ICamera Camera { get; set; }
 
-        public IEvent<object> OnPositionChanged { get; private set; }
-        public IEvent<object> OnScaleChanged { get; private set; }
-        public IEvent<object> OnAngleChanged { get; private set; }
+        public IEvent OnPositionChanged { get; private set; }
+        public IEvent OnScaleChanged { get; private set; }
+        public IEvent OnAngleChanged { get; private set; }
 
 		#endregion
 
-        private void refreshValue(ref float currentValue, float newValue, IEvent<object> changeEvent)
+        private void refreshValue(ref float currentValue, float newValue, IEvent changeEvent)
         {
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
             if (currentValue == newValue) return;
 #pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
             currentValue = newValue;
-            changeEvent.FireEvent(null);
+            changeEvent.Invoke();
         }
 	}
 }

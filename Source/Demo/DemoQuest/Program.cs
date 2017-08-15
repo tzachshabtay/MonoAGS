@@ -25,7 +25,7 @@ namespace DemoGame
             GLText.TextResolutionFactorX = 4;
             GLText.TextResolutionFactorY = 4;
 
-			game.Events.OnLoad.Subscribe(async _ =>
+            game.Events.OnLoad.Subscribe(async () =>
             {
                 game.Factory.Fonts.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
                 AGSGameSettings.DefaultSpeechFont = game.Factory.Fonts.LoadFontFromPath("../../Assets/Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
@@ -136,7 +136,7 @@ namespace DemoGame
             AGSSplashScreen splashScreen = new AGSSplashScreen();
             Rooms.SplashScreen = splashScreen.Load(game);
             game.State.Rooms.Add(Rooms.SplashScreen);
-            Rooms.SplashScreen.Events.OnAfterFadeIn.SubscribeToAsync(async _ => 
+            Rooms.SplashScreen.Events.OnAfterFadeIn.SubscribeToAsync(async () => 
             { 
                 await loadRooms(game);
                 Debug.WriteLine("Startup: Loaded Rooms");

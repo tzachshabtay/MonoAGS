@@ -51,7 +51,7 @@ namespace AGS.Engine
             _game.Events.OnRepeatedlyExecute.UnsubscribeToAsync(onRepeatedlyExecute);
 		}
 
-        private async Task onRepeatedlyExecute (object args)
+        private async Task onRepeatedlyExecute ()
 		{
             var walk = _walk;
             if (walk == null) return;

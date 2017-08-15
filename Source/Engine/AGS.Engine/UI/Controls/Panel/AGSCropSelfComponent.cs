@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using AGS.API;
 
 namespace AGS.Engine
@@ -10,7 +10,7 @@ namespace AGS.Engine
 
         public AGSCropSelfComponent()
         {
-            OnCropAreaChanged = new AGSEvent<object>();
+            OnCropAreaChanged = new AGSEvent();
             OnBeforeCrop = new AGSEvent<BeforeCropEventArgs>();
             _cropEnabled = true;
         }
@@ -22,7 +22,7 @@ namespace AGS.Engine
             {
                 if (_cropEnabled == value) return;
                 _cropEnabled = value;
-                OnCropAreaChanged.Invoke(null);
+                OnCropAreaChanged.Invoke();
             }
         }
 
@@ -33,11 +33,11 @@ namespace AGS.Engine
             {
                 if (_cropArea.Equals(value)) return;
                 _cropArea = value;
-                OnCropAreaChanged.Invoke(null);
+                OnCropAreaChanged.Invoke();
             }
         }
 
-        public IEvent<object> OnCropAreaChanged { get; private set; }
+        public IEvent OnCropAreaChanged { get; private set; }
 
         public IEvent<BeforeCropEventArgs> OnBeforeCrop { get; private set; }
 

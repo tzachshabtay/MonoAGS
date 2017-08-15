@@ -60,6 +60,8 @@ namespace AGS.Engine
             Builder.RegisterType<AGSScale>().As<IScale>();
             Builder.RegisterType<AGSRotate>().As<IRotate>();
             Builder.RegisterType<AGSHasImage>().As<IHasImage>();
+            Builder.RegisterType<AGSEvent>().As<IEvent>();
+            Builder.RegisterType<AGSEvent>().As<IBlockingEvent>();
 
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IBlockingEvent<>));

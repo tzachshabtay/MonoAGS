@@ -15,7 +15,7 @@ namespace DemoGame
 		public async Task<IRoom> LoadAsync(IGame game)
 		{
 			_game = game;
-			_game.Events.OnSavedGameLoad.Subscribe(_ => onSavedGameLoaded());
+            _game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoaded);
 			_player = _game.State.Player;
 			IGameFactory factory = game.Factory;
 			_room = factory.Room.GetRoom("Dars Street", 20f, 490f, 190f, 10f);
@@ -76,12 +76,12 @@ namespace DemoGame
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 		}
 
-        private async Task onRightEdgeCrossed(object args)
+        private async Task onRightEdgeCrossed()
 		{
 			await _player.ChangeRoomAsync(Rooms.TrashcanStreet.Result, 30);
 		}
 
-		private void onBeforeFadeIn(object args)
+		private void onBeforeFadeIn()
 		{
 			_player.PlaceOnWalkableArea();
 		}
@@ -105,7 +105,7 @@ namespace DemoGame
 			}
 		}
 
-		private async Task lookOnWindow(object args)
+		private async Task lookOnWindow(ObjectEventArgs args)
 		{
 			_room.Viewport.Camera.Enabled = false;
 

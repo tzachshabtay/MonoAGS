@@ -38,7 +38,7 @@ namespace AGS.Engine
 			}
         }
 
-        private void onComponentsInitialized(object args)
+        private void onComponentsInitialized()
         {
             if (onAdded == null) return;
             foreach (var component in _collection)

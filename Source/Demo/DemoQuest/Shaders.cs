@@ -201,14 +201,14 @@ namespace DemoQuest
 			AGSGame.Shader = _vignetteShader;
 		}
 
-		private static void firstSetupVignette(object args)
+		private static void firstSetupVignette()
 		{
 			setVignetteResolution();
 			AGSGame.Game.Events.OnBeforeRender.Unsubscribe(firstSetupVignette);
 			AGSGame.Game.Events.OnScreenResize.Subscribe(onVignetteShaderResize);
 		}
 
-		private static void onVignetteShaderResize(object args)
+		private static void onVignetteShaderResize()
 		{
 			setVignetteResolution();
 		}

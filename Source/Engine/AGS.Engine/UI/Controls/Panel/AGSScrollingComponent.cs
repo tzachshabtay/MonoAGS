@@ -70,7 +70,7 @@ namespace AGS.Engine
                 _ => { _boundingBox = null; });
         }
 
-        private void onSizeChanged(object args)
+        private void onSizeChanged()
         {
             refreshSliderLimits();
         }

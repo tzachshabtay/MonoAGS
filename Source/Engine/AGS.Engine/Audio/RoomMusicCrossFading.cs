@@ -53,7 +53,7 @@ namespace AGS.Engine
             }
 		}
 
-		private void onSavedGameLoad(object args)
+		private void onSavedGameLoad()
 		{
 			_state.Rooms.OnListChanged.Unsubscribe(onRoomsChange);
 			foreach (var fader in _map.Values)
@@ -94,7 +94,7 @@ namespace AGS.Engine
 				room.Events.OnBeforeFadeIn.Unsubscribe(onBeforeFadeIn);
 			}
 
-			private void onBeforeFadeOut(object args)
+			private void onBeforeFadeOut()
 			{
 				var music = _music;
 				if (music == null || music.HasCompleted) return;
@@ -109,7 +109,7 @@ namespace AGS.Engine
 				});
 			}
 
-			private void onBeforeFadeIn(object args)
+			private void onBeforeFadeIn()
 			{
 				var room = Room;
 				if (room == null) return;

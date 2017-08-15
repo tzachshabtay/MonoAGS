@@ -10,13 +10,13 @@ namespace Tests
 	[TestFixture]
 	public class TweensTests
 	{
-		private AGSEvent<object> _onRepeatedlyExecute;
+		private AGSEvent _onRepeatedlyExecute;
 		private bool _testCompleted;
 
 		[TestFixtureSetUp]
 		public void Init()
 		{
-			_onRepeatedlyExecute = new AGSEvent<object>();
+			_onRepeatedlyExecute = new AGSEvent();
 			startTicks();
 			Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();
 
@@ -69,7 +69,7 @@ namespace Tests
 		{
 			if (_testCompleted) return;
 			await Task.Delay(10);
-			await _onRepeatedlyExecute.InvokeAsync(null);
+			await _onRepeatedlyExecute.InvokeAsync();
 			await tick();
 		}
 	}

@@ -32,19 +32,19 @@
         /// An event which triggers when the <see cref="IgnoreScalingArea"/> property changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<object> OnIgnoreScalingAreaChanged { get; }
+        IEvent OnIgnoreScalingAreaChanged { get; }
 
         /// <summary>
         /// An event which triggers when the <see cref="IgnoreViewport"/> property changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<object> OnIgnoreViewportChanged { get; }
+        IEvent OnIgnoreViewportChanged { get; }
 
         /// <summary>
         /// An event which triggers when the <see cref="RenderLayer"/> property changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<object> OnRenderLayerChanged { get; }
+        IEvent OnRenderLayerChanged { get; }
 	}
 }
 

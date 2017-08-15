@@ -16,7 +16,7 @@ namespace DemoGame
 		{
 			_game = game;
 			_player = _game.State.Player;
-			_game.Events.OnSavedGameLoad.Subscribe(_ => onSavedGameLoaded());
+            _game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoaded);
 			IGameFactory factory = game.Factory;
 			_room = factory.Room.GetRoom("Trashcan Street", 20f, 310f, 190f, 10f);
 			IObject bg = factory.Object.GetObject("Trashcan Street BG");
@@ -51,17 +51,17 @@ namespace DemoGame
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 		}
 
-        private async Task onLeftEdgeCrossed(object args)
+        private async Task onLeftEdgeCrossed()
 		{
             await _player.ChangeRoomAsync(Rooms.DarsStreet.Result, 490);
 		}
 
-		private async Task onRightEdgeCrossed(object args)
+		private async Task onRightEdgeCrossed()
 		{
 			await _player.ChangeRoomAsync(Rooms.EmptyStreet.Result, 30);
 		}
 
-		private void onBeforeFadeIn(object args)
+		private void onBeforeFadeIn()
 		{
 			_player.PlaceOnWalkableArea();
 		}

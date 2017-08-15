@@ -71,6 +71,6 @@
         /// Event which fires whenever the label size changes.
         /// </summary>
         /// <value>The on label size changed.</value>
-        IEvent<object> OnLabelSizeChanged { get; }
+        IEvent OnLabelSizeChanged { get; }
 	}
 }

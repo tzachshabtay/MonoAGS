@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using AGS.API;
 using System.Collections.Generic;
 using System.Collections;
@@ -21,7 +21,7 @@ namespace AGS.Engine
             _resolver = resolver;
             _components = new ConcurrentDictionary<Type, AGSConcurrentHashSet<IComponent>>();
             _bindings = new List<IComponentBinding>();
-            OnComponentsInitialized = new AGSEvent<object>();
+            OnComponentsInitialized = new AGSEvent();
             OnComponentsChanged = new AGSEvent<AGSListChangedEventArgs<IComponent>>();
         }
 
@@ -32,7 +32,7 @@ namespace AGS.Engine
 
         public string ID { get; private set; }
 
-        public IEvent<object> OnComponentsInitialized { get; private set; }
+        public IEvent OnComponentsInitialized { get; private set; }
 
         public IEvent<AGSListChangedEventArgs<IComponent>> OnComponentsChanged { get; private set; }
 
@@ -41,7 +41,7 @@ namespace AGS.Engine
             foreach (var component in this) component.Init(this);
             foreach (var component in this) component.AfterInit();
             _componentsInitialized = true;
-            OnComponentsInitialized.Invoke(null);
+            OnComponentsInitialized.Invoke();
         }
 
         #region IComponentsCollection implementation
@@ -91,7 +91,7 @@ namespace AGS.Engine
             foreach (var component in ofType)
             {
                 component.Dispose();
-				OnComponentsChanged.FireEvent(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove,
+				OnComponentsChanged.Invoke(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove,
 																	  new AGSListItem<IComponent>(component, count--)));
             }
             return true;
@@ -104,7 +104,7 @@ namespace AGS.Engine
             component.Dispose();
             if (ofType.Remove(component))
             {
-                OnComponentsChanged.FireEvent(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove, 
+                OnComponentsChanged.Invoke(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove, 
                                                                       new AGSListItem<IComponent>(component, Count)));
                 return true;
             }
@@ -216,7 +216,7 @@ namespace AGS.Engine
             if (!_componentsInitialized) return;
             component.Init(this);
             component.AfterInit();
-            OnComponentsChanged.FireEvent(new AGSListChangedEventArgs<IComponent>(ListChangeType.Add,
+            OnComponentsChanged.Invoke(new AGSListChangedEventArgs<IComponent>(ListChangeType.Add,
                                                           new AGSListItem<IComponent>(component, Count)));
         }
 

@@ -19,6 +19,6 @@
         /// An event which is fired whenever the jump offset changes.
         /// </summary>
         /// <value>The on jump offset changed event.</value>
-        IEvent<object> OnJumpOffsetChanged { get; }
+        IEvent OnJumpOffsetChanged { get; }
     }
 }

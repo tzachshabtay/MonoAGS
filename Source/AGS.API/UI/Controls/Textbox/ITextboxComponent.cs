@@ -48,7 +48,7 @@
         /// <summary>
         /// This event can be subscribed to get notifications for when the textbox gets or a loses focus.
         /// </summary>
-        IEvent<object> OnFocusChanged { get; }
+        IEvent OnFocusChanged { get; }
 
         /// <summary>
         /// Gets or sets whether the textbox is focused or not. Only when the textbox is focused it can receive input from the keyboard 

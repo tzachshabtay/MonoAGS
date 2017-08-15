@@ -24,7 +24,7 @@ namespace AGS.Engine
 
         private ILabel _withCaret;
 
-        public AGSTextBoxComponent(IEvent<object> onFocusChanged, IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
+        public AGSTextBoxComponent(IEvent onFocusChanged, IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
                                    IInput input, IGame game, IKeyboardState keyboardState, IFocusedUI focusedUi)
         {
             CaretFlashDelay = 10;
@@ -88,14 +88,14 @@ namespace AGS.Engine
                     if (_focusedUi.FocusedTextBox == this)
                         _focusedUi.FocusedTextBox = null;
                 }
-                OnFocusChanged.Invoke(null);
+                OnFocusChanged.Invoke();
             }
         }
 
         public int CaretPosition { get; set; }
         public uint CaretFlashDelay { get; set; }
 
-        public IEvent<object> OnFocusChanged { get; private set; }
+        public IEvent OnFocusChanged { get; private set; }
 
         public IEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; private set; }
 
@@ -106,13 +106,13 @@ namespace AGS.Engine
             _game.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
         }
 
-        private void onRepeatedlyExecute(object args)
+        private void onRepeatedlyExecute()
         {
             var visible = _visibleComponent;
             if (visible == null || !visible.Visible) IsFocused = false;
         }
 
-        private void onSoftKeyboardHidden(object args)
+        private void onSoftKeyboardHidden()
         {
             _keyboardState.OnSoftKeyboardHidden.Unsubscribe(onSoftKeyboardHidden);
             IsFocused = false;
@@ -129,7 +129,7 @@ namespace AGS.Engine
             IsFocused = false;
         }
 
-        private void onBeforeRender(object args)
+        private void onBeforeRender()
         {
             if (_textComponent == null) return;
             if (_room.Room != null && _room.Room != _game.State.Room) return;

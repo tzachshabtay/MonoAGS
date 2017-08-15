@@ -17,7 +17,7 @@ namespace DemoGame
 
 		public void Load()
 		{
-			_gameEvents.OnSavedGameLoad.Subscribe(_ => onSaveGameLoaded());
+            _gameEvents.OnSavedGameLoad.Subscribe(() => onSaveGameLoaded());
             _gameEvents.DefaultInteractions.OnInteract(AGSInteractions.LOOK).SubscribeToAsync(onLook);
             _gameEvents.DefaultInteractions.OnInteract(AGSInteractions.DEFAULT).SubscribeToAsync(onInteract);
             _gameEvents.DefaultInteractions.OnInventoryInteract(AGSInteractions.DEFAULT).SubscribeToAsync(onInventoryInteract);

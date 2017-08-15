@@ -86,7 +86,7 @@ namespace AGS.Engine
 
 		#endregion
 
-		private void onRepeatedlyExecute(object args)
+		private void onRepeatedlyExecute()
 		{
 			if (Inventory == null) return;
 			if (!isRefreshNeeded()) return;

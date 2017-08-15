@@ -8,13 +8,13 @@ namespace DemoGame
 		public static void OnMouseClick(this IButton button, Action action, IGame game)
 		{
 			subscribeButton(button, action);
-			game.Events.OnSavedGameLoad.Subscribe(_ => subscribeButton(game.Find<IButton>(button.ID), action));
+            game.Events.OnSavedGameLoad.Subscribe(() => subscribeButton(game.Find<IButton>(button.ID), action));
 		}
 
 		public static void OnValueChanged(this ISlider slider, Action<float> action, IGame game)
 		{
 			subscribeSlider(slider, action);
-			game.Events.OnSavedGameLoad.Subscribe(_ => subscribeSlider(game.Find<ISlider>(slider.ID), action));
+            game.Events.OnSavedGameLoad.Subscribe(() => subscribeSlider(game.Find<ISlider>(slider.ID), action));
 		}
 
 		private static void subscribeButton(IButton button, Action action)

@@ -52,7 +52,7 @@ namespace AGS.Engine
             _dragMouseStartY = _input.MouseY;
         }
 
-        private void onRepeatedlyExecute(object args)
+        private void onRepeatedlyExecute()
         {
             if (!IsCurrentlyDragged) return;
             if (!IsDragEnabled || !_input.LeftMouseButtonDown)

@@ -78,7 +78,7 @@ namespace AGS.Engine
             _subscribersToRemove.Enqueue(entity.ID);
         }
 
-        private void onRepeatedlyExecute(object args)
+        private void onRepeatedlyExecute()
         {
             if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
             try

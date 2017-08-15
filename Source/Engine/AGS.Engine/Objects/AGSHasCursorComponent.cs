@@ -16,7 +16,7 @@ namespace AGS.Engine
 
         public IObject SpecialCursor { get; set; }
 
-        private void onRepeatedlyExecute(object args)
+        private void onRepeatedlyExecute()
         {
             var state = _game.State;
             IObject hotspot = state.Room.GetObjectAtMousePosition();

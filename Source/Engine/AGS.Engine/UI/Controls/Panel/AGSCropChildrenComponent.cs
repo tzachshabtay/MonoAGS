@@ -80,7 +80,7 @@ namespace AGS.Engine
             _isDirty = true;
         }
 
-        private void onTreeChanged(object obj)
+        private void onTreeChanged()
         {
             rebuildTree(_tree);
             _isDirty = true;

@@ -11,7 +11,7 @@ namespace AGS.Engine
 
         public AGSObjectBoolParentProperty(Predicate<IObject> getProperty)
 		{
-            OnUnderlyingValueChanged = new AGSEvent<object>();
+            OnUnderlyingValueChanged = new AGSEvent();
 			_getProperty = getProperty;
             UnderlyingValue = true;
 		}
@@ -40,11 +40,11 @@ namespace AGS.Engine
             {
                 if (_underlyingValue == value) return;
                 _underlyingValue = value;
-                OnUnderlyingValueChanged.Invoke(null);
+                OnUnderlyingValueChanged.Invoke();
             }
         }
 
-        public IEvent<object> OnUnderlyingValueChanged { get; private set; }
+        public IEvent OnUnderlyingValueChanged { get; private set; }
 
 		private bool getBooleanFromParentIfNeeded(IObject parent)
 		{
@@ -59,7 +59,7 @@ namespace AGS.Engine
         public VisibleProperty() : base(o => o.Visible){}
 		public bool Visible { get { return Value; } set { Value = value; } }
 		public bool UnderlyingVisible { get { return UnderlyingValue; } }
-        public IEvent<object> OnUnderlyingVisibleChanged { get { return OnUnderlyingValueChanged; } }
+        public IEvent OnUnderlyingVisibleChanged { get { return OnUnderlyingValueChanged; } }
 	}
 
 	public class EnabledProperty : AGSObjectBoolParentProperty, IEnabledComponent

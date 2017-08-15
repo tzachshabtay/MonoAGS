@@ -8,8 +8,8 @@ namespace AGS.Engine
 
         public AGSTranslate()
         {
-            Location = AGSLocation.Empty();
-            OnLocationChanged = new AGSEvent<object>();
+            _location = AGSLocation.Empty();
+            OnLocationChanged = new AGSEvent();
         }
 
         public ILocation Location { get { return _location; } set { _location = value; fireLocationChange(); } }
@@ -21,11 +21,11 @@ namespace AGS.Engine
 
         public float Z { get { return Location.Z; } set { if (value == Z) return; Location = new AGSLocation(X, Y, value); } }
 
-        public IEvent<object> OnLocationChanged { get; private set; }
+        public IEvent OnLocationChanged { get; private set; }
 
         private void fireLocationChange()
         {
-            OnLocationChanged.FireEvent(null);
+            OnLocationChanged.Invoke();
         }
     }
 }

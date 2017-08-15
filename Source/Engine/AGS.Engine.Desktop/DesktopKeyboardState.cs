@@ -7,12 +7,12 @@ namespace AGS.Engine.Desktop
     {
         public DesktopKeyboardState()
         {
-            OnSoftKeyboardHidden = new AGSEvent<object>();
+            OnSoftKeyboardHidden = new AGSEvent();
         }
 
         public bool CapslockOn { get { return Console.CapsLock; } }
 
-        public IEvent<object> OnSoftKeyboardHidden { get; private set; }
+        public IEvent OnSoftKeyboardHidden { get; private set; }
 
         public bool SoftKeyboardVisible { get { return false; } }
 

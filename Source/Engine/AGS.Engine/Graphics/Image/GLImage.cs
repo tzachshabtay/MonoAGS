@@ -10,12 +10,12 @@ namespace AGS.Engine
             Width = 1f;
             Height = 1f;
             ID = "";
-            OnImageDisposed = new AGSEvent<object>();
+            OnImageDisposed = new AGSEvent();
         }
 
         public GLImage(IBitmap bitmap, string id, ITexture texture, ISpriteSheet spriteSheet, ILoadImageConfig loadConfig)
         {
-            OnImageDisposed = new AGSEvent<object>();
+            OnImageDisposed = new AGSEvent();
             OriginalBitmap = bitmap;
             Width = bitmap.Width;
             Height = bitmap.Height;
@@ -41,7 +41,7 @@ namespace AGS.Engine
         public ISpriteSheet SpriteSheet { get; private set; }
         public ILoadImageConfig LoadConfig { get; private set; }
 
-        public IEvent<object> OnImageDisposed { get; private set; }
+        public IEvent OnImageDisposed { get; private set; }
 
         public override string ToString()
         {
@@ -58,7 +58,7 @@ namespace AGS.Engine
         {
             Texture = null;
             var onImageDisposed = OnImageDisposed;
-            if (onImageDisposed != null) onImageDisposed.Invoke(null);
+            if (onImageDisposed != null) onImageDisposed.Invoke();
             OnImageDisposed = null;
         }
 	}

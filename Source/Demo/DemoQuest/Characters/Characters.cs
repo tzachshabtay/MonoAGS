@@ -9,7 +9,7 @@ namespace DemoGame
 
 		public static void Init(IGame game)
 		{
-			game.Events.OnSavedGameLoad.Subscribe(_ => onSaveGameLoaded(game.State));
+            game.Events.OnSavedGameLoad.Subscribe(() => onSaveGameLoaded(game.State));
 		}
 
 		public static void RandomAnimationDelay(IAnimation animation)

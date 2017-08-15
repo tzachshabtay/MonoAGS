@@ -168,7 +168,7 @@ namespace AGS.Engine
             get { return _hasRoom.PreviousRoom; } 
         }
 
-        public IEvent<Object> OnRoomChanged 
+        public IEvent OnRoomChanged 
         {  
             get { return _hasRoom.OnRoomChanged; } 
         }
@@ -193,7 +193,7 @@ namespace AGS.Engine
             set { _animationContainer.DebugDrawAnchor = value; } 
         }
 
-        public IEvent<Object> OnAnimationStarted 
+        public IEvent OnAnimationStarted 
         {  
             get { return _animationContainer.OnAnimationStarted; } 
         }
@@ -261,7 +261,7 @@ namespace AGS.Engine
             get { return _visibleComponent.UnderlyingVisible; } 
         }
 
-        public IEvent<Object> OnUnderlyingVisibleChanged 
+        public IEvent OnUnderlyingVisibleChanged 
         {  
             get { return _visibleComponent.OnUnderlyingVisibleChanged; } 
         }
@@ -312,17 +312,17 @@ namespace AGS.Engine
             set { _drawableInfo.IgnoreScalingArea = value; } 
         }
 
-        public IEvent<Object> OnIgnoreScalingAreaChanged 
+        public IEvent OnIgnoreScalingAreaChanged 
         {  
             get { return _drawableInfo.OnIgnoreScalingAreaChanged; } 
         }
 
-        public IEvent<Object> OnIgnoreViewportChanged 
+        public IEvent OnIgnoreViewportChanged 
         {  
             get { return _drawableInfo.OnIgnoreViewportChanged; } 
         }
 
-        public IEvent<Object> OnRenderLayerChanged 
+        public IEvent OnRenderLayerChanged 
         {  
             get { return _drawableInfo.OnRenderLayerChanged; } 
         }
@@ -390,7 +390,7 @@ namespace AGS.Engine
             set { _translateComponent.Z = value; } 
         }
 
-        public IEvent<Object> OnLocationChanged 
+        public IEvent OnLocationChanged 
         {  
             get { return _translateComponent.OnLocationChanged; } 
         }
@@ -433,17 +433,17 @@ namespace AGS.Engine
             set { _imageComponent.CustomRenderer = value; } 
         }
 
-        public IEvent<Object> OnImageChanged 
+        public IEvent OnImageChanged 
         {  
             get { return _imageComponent.OnImageChanged; } 
         }
 
-        public IEvent<Object> OnAnchorChanged 
+        public IEvent OnAnchorChanged 
         {  
             get { return _imageComponent.OnAnchorChanged; } 
         }
 
-        public IEvent<Object> OnTintChanged 
+        public IEvent OnTintChanged 
         {  
             get { return _imageComponent.OnTintChanged; } 
         }
@@ -481,7 +481,7 @@ namespace AGS.Engine
             get { return _scaleComponent.BaseSize; } 
         }
 
-        public IEvent<Object> OnScaleChanged 
+        public IEvent OnScaleChanged 
         {  
             get { return _scaleComponent.OnScaleChanged; } 
         }
@@ -535,7 +535,7 @@ namespace AGS.Engine
             set { _rotateComponent.Angle = value; } 
         }
 
-        public IEvent<Object> OnAngleChanged 
+        public IEvent OnAngleChanged 
         {  
             get { return _rotateComponent.OnAngleChanged; } 
         }
@@ -562,7 +562,7 @@ namespace AGS.Engine
 
         #region IModelMatrixComponent implementation
 
-        public IEvent<Object> OnMatrixChanged 
+        public IEvent OnMatrixChanged 
         {  
             get { return _modelMatrixComponent.OnMatrixChanged; } 
         }
@@ -576,7 +576,7 @@ namespace AGS.Engine
 
         #region IBoundingBoxComponent implementation
 
-        public IEvent<Object> OnBoundingBoxesChanged 
+        public IEvent OnBoundingBoxesChanged 
         {  
             get { return _boundingBoxComponent.OnBoundingBoxesChanged; } 
         }

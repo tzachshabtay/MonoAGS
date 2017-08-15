@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using AGS.API;
 
 namespace AGS.Engine
@@ -11,14 +11,14 @@ namespace AGS.Engine
 
         public AGSBoundingBoxWithChildrenComponent()
         {
-            OnBoundingBoxWithChildrenChanged = new AGSEvent<object>();
+            OnBoundingBoxWithChildrenChanged = new AGSEvent();
         }
 
         public AGSBoundingBox BoundingBoxWithChildren { get; private set; }
 
         public AGSBoundingBox PreCropBoundingBoxWithChildren { get; private set; }
 
-        public IEvent<object> OnBoundingBoxWithChildrenChanged { get; private set; }
+        public IEvent OnBoundingBoxWithChildrenChanged { get; private set; }
 
         public override void Init(IEntity entity)
         {
@@ -55,7 +55,7 @@ namespace AGS.Engine
             refresh();
         }
 
-        private void onObjectChanged(object args)
+        private void onObjectChanged()
         {
             refresh();
         }
@@ -101,7 +101,7 @@ namespace AGS.Engine
         {
             BoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.RenderBox);
             PreCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox);
-            OnBoundingBoxWithChildrenChanged.Invoke(null);
+            OnBoundingBoxWithChildrenChanged.Invoke();
         }
 
         private AGSBoundingBox getBoundingBox(IInObjectTree tree, IBoundingBoxComponent box, Func<AGSBoundingBoxes, AGSBoundingBox> getBox)

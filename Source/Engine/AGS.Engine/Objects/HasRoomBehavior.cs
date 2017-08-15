@@ -15,7 +15,7 @@ namespace AGS.Engine
 		{
 			_state = state;
 			_roomTransitions = roomTransitions;
-            OnRoomChanged = new AGSEvent<object>();
+            OnRoomChanged = new AGSEvent();
 			refreshRoom();
 		}
 
@@ -29,7 +29,7 @@ namespace AGS.Engine
 
 		public IRoom PreviousRoom { get; private set; }
 
-        public IEvent<object> OnRoomChanged { get; private set; }
+        public IEvent OnRoomChanged { get; private set; }
 
         public async Task ChangeRoomAsync(IRoom newRoom, float? x = null, float? y = null)
 		{
@@ -55,7 +55,7 @@ namespace AGS.Engine
                 await _roomTransitions.OnStateChanged.WaitUntilAsync(canCompleteRoomTransition);
 		}
 
-        private bool canCompleteRoomTransition(object args)
+        private bool canCompleteRoomTransition()
         {
             return _roomTransitions.State == RoomTransitionState.NotInTransition;
         }
@@ -63,7 +63,7 @@ namespace AGS.Engine
         private void refreshRoom()
 		{
 			_cachedRoom = new Lazy<IRoom> (getRoom, true);
-            OnRoomChanged.FireEvent(null);
+            OnRoomChanged.Invoke();
 		}
 
 		private IRoom getRoom()

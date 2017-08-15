@@ -13,7 +13,7 @@ namespace AGS.Engine
 
         public AGSComboBoxComponent(IGameEvents gameEvents)
         {
-            gameEvents.OnRepeatedlyExecute.Subscribe(_ => refreshDropDownLayout());
+            gameEvents.OnRepeatedlyExecute.Subscribe(refreshDropDownLayout);
         }
 
         public IButton DropDownButton

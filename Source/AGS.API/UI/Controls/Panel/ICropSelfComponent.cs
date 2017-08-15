@@ -19,7 +19,7 @@
         /// <summary>
         /// An event which fires whenever the crop area changes.
         /// </summary>
-        IEvent<object> OnCropAreaChanged { get; }
+        IEvent OnCropAreaChanged { get; }
 
         /// <summary>
         /// An event which fires before cropping the area, allows to change the crop configuration.

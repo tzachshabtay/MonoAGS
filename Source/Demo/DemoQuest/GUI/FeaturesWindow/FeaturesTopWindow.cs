@@ -85,7 +85,7 @@ namespace DemoGame
             treeView.Tree = tree;
             treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
 
-            _game.Events.OnSavedGameLoad.Subscribe(_ => findPanel());
+            _game.Events.OnSavedGameLoad.Subscribe(findPanel);
         }
 
 		public void Show()

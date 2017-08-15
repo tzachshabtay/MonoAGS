@@ -23,7 +23,7 @@
         /// An event which fires whenever the bounding boxes for the entity change.
         /// </summary>
         /// <value>The on bounding boxes changed event.</value>
-        IEvent<object> OnBoundingBoxesChanged { get; }
+        IEvent OnBoundingBoxesChanged { get; }
 
 	}
 }

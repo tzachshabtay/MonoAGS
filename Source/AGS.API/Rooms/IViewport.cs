@@ -47,19 +47,19 @@
         /// An event which fires when the position of the viewport has changed.
         /// </summary>
         /// <value>The on position changed.</value>
-        IEvent<object> OnPositionChanged { get; }
+        IEvent OnPositionChanged { get; }
 
         /// <summary>
         /// An event which fires when the size of the viewport has changed.
         /// </summary>
         /// <value>The on scale changed.</value>
-        IEvent<object> OnScaleChanged { get; }
+        IEvent OnScaleChanged { get; }
 
         /// <summary>
         /// An event which fires when the angle of the viewport has changed.
         /// </summary>
         /// <value>The on angle changed.</value>
-        IEvent<object> OnAngleChanged { get; }
+        IEvent OnAngleChanged { get; }
 	}
 }
 

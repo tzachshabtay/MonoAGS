@@ -15,7 +15,7 @@ namespace DemoGame
 		public async Task<IRoom> LoadAsync(IGame game)
 		{
 			_game = game;
-			_game.Events.OnSavedGameLoad.Subscribe(_ => onSavedGameLoaded());
+            _game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoaded);
 			_player = game.State.Player;
 			IGameFactory factory = game.Factory;
 			_room = factory.Room.GetRoom ("Broken Curb Street", 20f, 310f, 190f, 10f);
@@ -91,12 +91,12 @@ namespace DemoGame
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 		}
 
-		private async Task onLeftEdgeCrossed(object args)
+		private async Task onLeftEdgeCrossed()
 		{
 			await _player.ChangeRoomAsync(Rooms.EmptyStreet.Result, 310);
 		}
 
-		private void onBeforeFadeIn(object args)
+		private void onBeforeFadeIn()
 		{
 			_player.PlaceOnWalkableArea();
 		}

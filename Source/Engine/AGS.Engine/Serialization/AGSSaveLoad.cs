@@ -92,7 +92,7 @@ namespace AGS.Engine
 				context.Rewire(newState);
 				_state.CopyFrom(newState);
 
-				_events.OnSavedGameLoad.Invoke(null);
+				_events.OnSavedGameLoad.Invoke();
 
 				_state.Paused = false;
 			}

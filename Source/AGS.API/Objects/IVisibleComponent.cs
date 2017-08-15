@@ -43,7 +43,7 @@
         /// An event which fires whenever underlying visible has changed for the entity.
         /// </summary>
         /// <value>The on underlying visible changed.</value>
-        IEvent<object> OnUnderlyingVisibleChanged { get; }
+        IEvent OnUnderlyingVisibleChanged { get; }
 	}
 }
 

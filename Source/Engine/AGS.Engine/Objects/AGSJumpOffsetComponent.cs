@@ -8,7 +8,7 @@ namespace AGS.Engine
 
         public AGSJumpOffsetComponent()
         {
-            OnJumpOffsetChanged = new AGSEvent<object>();
+            OnJumpOffsetChanged = new AGSEvent();
         }
 
         public PointF JumpOffset 
@@ -18,10 +18,10 @@ namespace AGS.Engine
             {
                 if (_jumpOffset.Equals(value)) return;
                 _jumpOffset = value;
-                OnJumpOffsetChanged.Invoke(null);
+                OnJumpOffsetChanged.Invoke();
             }
         }
 
-        public IEvent<object> OnJumpOffsetChanged { get; private set; }
+        public IEvent OnJumpOffsetChanged { get; private set; }
      }
 }

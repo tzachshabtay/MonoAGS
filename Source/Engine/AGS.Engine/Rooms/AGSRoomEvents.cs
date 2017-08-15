@@ -5,9 +5,9 @@ namespace AGS.Engine
 {
 	public class AGSRoomEvents : IRoomEvents
 	{
-		public AGSRoomEvents(IEvent<object> onBeforeFadeIn,
-			IEvent<object> onAfterFadeIn, IEvent<object> onBeforeFadeOut,
-			IEvent<object> onAfterFadeOut)
+		public AGSRoomEvents(IEvent onBeforeFadeIn,
+			IEvent onAfterFadeIn, IEvent onBeforeFadeOut,
+			IEvent onAfterFadeOut)
 		{
 			OnBeforeFadeIn = onBeforeFadeIn;
 			OnAfterFadeIn = onAfterFadeIn;
@@ -17,13 +17,13 @@ namespace AGS.Engine
 
 		#region IRoomEvents implementation
 
-		public IEvent<object> OnBeforeFadeIn { get; private set; }
+		public IEvent OnBeforeFadeIn { get; private set; }
 
-		public IEvent<object> OnAfterFadeIn { get; private set; }
+		public IEvent OnAfterFadeIn { get; private set; }
 
-		public IEvent<object> OnBeforeFadeOut { get; private set; }
+		public IEvent OnBeforeFadeOut { get; private set; }
 
-		public IEvent<object> OnAfterFadeOut { get; private set; }
+		public IEvent OnAfterFadeOut { get; private set; }
 
 		#endregion
 	}

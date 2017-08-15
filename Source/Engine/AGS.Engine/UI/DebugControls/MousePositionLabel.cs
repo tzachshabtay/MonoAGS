@@ -17,7 +17,7 @@ namespace AGS.Engine
 		public void Start()
 		{
 			_game.Input.MouseMove.Subscribe(onMouseMove);
-			_game.Events.OnSavedGameLoad.Subscribe(_ => onSaveGameLoaded());
+			_game.Events.OnSavedGameLoad.Subscribe(() => onSaveGameLoaded());
 		}
 
 		private void onSaveGameLoaded()

@@ -34,7 +34,7 @@ namespace AGS.Engine
             Action<TEntity> resetEntity) where TEntity : class, IEntity
         {
             resetEntity(entity);
-            game.Events.OnSavedGameLoad.Subscribe(e =>
+            game.Events.OnSavedGameLoad.Subscribe(() =>
             {
                 entity = game.Find<TEntity>(entity.ID);
                 resetEntity(entity);
@@ -127,18 +127,6 @@ namespace AGS.Engine
                 default:
                     return config.Font.MeasureString(text).Scale(scaleBackX, scaleBackY);
             }
-        }
-
-        public static void FireEvent<TEventArgs>(this IEvent<TEventArgs> ev, TEventArgs args)
-        {
-            if (ev == null) return;
-            ev.Invoke(args);
-        }
-
-        public static async Task FireEventAsync<TEventArgs>(this IEvent<TEventArgs> ev, TEventArgs args)
-        {
-            if (ev == null) return;
-            await ev.InvokeAsync(args);
         }
 
         public static void StartAnimation(this ButtonAnimation button, IAnimationContainer animationComponent,

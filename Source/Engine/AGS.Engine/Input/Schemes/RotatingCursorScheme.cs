@@ -76,7 +76,7 @@ namespace AGS.Engine
 			_game.Input.Cursor = _cursors[_currentMode].Animation;
 		}
 
-		private void onSavedGameLoad(object e)
+		private void onSavedGameLoad()
 		{
 			_currentMode = 0;
 			setCursor();

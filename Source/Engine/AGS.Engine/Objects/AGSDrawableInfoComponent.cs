@@ -9,22 +9,22 @@ namespace AGS.Engine
 
 		public AGSDrawableInfoComponent()
 		{
-            OnIgnoreScalingAreaChanged = new AGSEvent<object>();
-            OnIgnoreViewportChanged = new AGSEvent<object>();
-            OnRenderLayerChanged = new AGSEvent<object>();
+            OnIgnoreScalingAreaChanged = new AGSEvent();
+            OnIgnoreViewportChanged = new AGSEvent();
+            OnRenderLayerChanged = new AGSEvent();
 		}
 
-        public IRenderLayer RenderLayer { get { return _renderLayer; } set { _renderLayer = value; OnRenderLayerChanged.FireEvent(null); } }
+        public IRenderLayer RenderLayer { get { return _renderLayer; } set { _renderLayer = value; OnRenderLayerChanged.Invoke(); } }
 
-        public bool IgnoreViewport { get { return _ignoreViewport; } set { _ignoreViewport = value; OnIgnoreViewportChanged.FireEvent(null);} }
+        public bool IgnoreViewport { get { return _ignoreViewport; } set { _ignoreViewport = value; OnIgnoreViewportChanged.Invoke();} }
 
-        public bool IgnoreScalingArea { get { return _ignoreScalingArea; } set { _ignoreScalingArea = value; OnIgnoreScalingAreaChanged.FireEvent(null); } }
+        public bool IgnoreScalingArea { get { return _ignoreScalingArea; } set { _ignoreScalingArea = value; OnIgnoreScalingAreaChanged.Invoke(); } }
 
-        public IEvent<object> OnIgnoreScalingAreaChanged { get; private set; }
+        public IEvent OnIgnoreScalingAreaChanged { get; private set; }
 
-        public IEvent<object> OnIgnoreViewportChanged { get; private set; }
+        public IEvent OnIgnoreViewportChanged { get; private set; }
 
-        public IEvent<object> OnRenderLayerChanged { get; private set; }
+        public IEvent OnRenderLayerChanged { get; private set; }
 	}
 }
 

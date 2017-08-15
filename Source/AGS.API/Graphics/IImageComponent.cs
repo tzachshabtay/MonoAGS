@@ -60,19 +60,19 @@
         /// An event that triggers whenever the image changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<object> OnImageChanged { get; }
+        IEvent OnImageChanged { get; }
 
         /// <summary>
         /// An event that triggers whenever the anchor changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<object> OnAnchorChanged { get; }
+        IEvent OnAnchorChanged { get; }
 
         /// <summary>
         /// An event that triggers whenever the tint changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<object> OnTintChanged { get; }
+        IEvent OnTintChanged { get; }
     }
 
     /// <summary>

@@ -116,7 +116,7 @@ namespace AGS.Engine
             refreshItemsLayout();
         }
 
-        private void onLayoutChanged(object state)
+        private void onLayoutChanged()
         {
             refreshItemsLayout();
         }

@@ -25,7 +25,7 @@ namespace AGS.Engine
 			_stopwatch = new Stopwatch ();
 			_stopwatch.Restart();
 			_game.Events.OnRepeatedlyExecute.Subscribe(onTick);
-			_game.Events.OnSavedGameLoad.Subscribe(_ => onSaveGameLoaded());
+			_game.Events.OnSavedGameLoad.Subscribe(() => onSaveGameLoaded());
 		}
 
 		private void onSaveGameLoaded()
@@ -33,7 +33,7 @@ namespace AGS.Engine
 			_label = _game.Find<ILabel>(_label.ID);
 		}
 
-		private void onTick(object e)
+		private void onTick()
 		{
 			_numSamples++;
 			if (_stopwatch.ElapsedMilliseconds > 1000)

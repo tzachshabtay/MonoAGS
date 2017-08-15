@@ -39,7 +39,7 @@ namespace AGS.Engine
 		public void Start()
 		{		
 			_events.OnRepeatedlyExecute.Subscribe(onTick);
-			_events.OnSavedGameLoad.Subscribe(_ => onSavedGameLoaded());
+			_events.OnSavedGameLoad.Subscribe(() => onSavedGameLoaded());
 		}
 
 		private void onSavedGameLoaded()
@@ -49,7 +49,7 @@ namespace AGS.Engine
 			_label = _game.Find<ILabel>(oldLabel.ID);
 		}
 
-		private void onTick(object args)
+		private void onTick()
 		{
             if (_label == null || _state.Player == null || _state.Room == null) return;
             IObject obj = _state.Room.GetObjectAtMousePosition();

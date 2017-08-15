@@ -59,7 +59,7 @@ namespace AGS.Engine
             _root = buildTree(_root, tree);
         }
 
-        private void onRepeatedlyExecute(object args)
+        private void onRepeatedlyExecute()
         { 
             processTree(_root);
             var root = _root;

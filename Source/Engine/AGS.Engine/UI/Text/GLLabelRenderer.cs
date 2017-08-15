@@ -44,7 +44,7 @@ namespace AGS.Engine
             Height = 1f;
             _matricesPool = new GLMatrices[3];
             _messagePump = messagePump;
-            OnLabelSizeChanged = new AGSEvent<object>();
+            OnLabelSizeChanged = new AGSEvent();
             _glUtils = glUtils;
             _graphics = graphics;
             _fonts = fonts;
@@ -93,7 +93,7 @@ namespace AGS.Engine
 			}
 		}
 
-        public IEvent<object> OnLabelSizeChanged { get; private set; }
+        public IEvent OnLabelSizeChanged { get; private set; }
 
 		#region IImageRenderer implementation
 
@@ -212,7 +212,7 @@ namespace AGS.Engine
 
             if (_lastWidth != Width || _lastHeight != Height)
             {
-                OnLabelSizeChanged.Invoke(null); 
+                OnLabelSizeChanged.Invoke(); 
             }
             _lastWidth = Width;
             _lastHeight = Height;

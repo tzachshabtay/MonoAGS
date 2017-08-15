@@ -10,11 +10,11 @@ namespace AGS.Engine.IOS
     {
         public IOSKeyboardState()
         {
-            OnSoftKeyboardHidden = new AGSEvent<object>();
+            OnSoftKeyboardHidden = new AGSEvent();
             NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, onKeyboardHidden);
         }
 
-        public IEvent<object> OnSoftKeyboardHidden { get; private set; }
+        public IEvent OnSoftKeyboardHidden { get; private set; }
 
         public bool CapslockOn { get { return false; } }
 
@@ -34,7 +34,7 @@ namespace AGS.Engine.IOS
         private async void onKeyboardHidden(NSNotification obj)
         {
             var onSoftKeyboardHidden = OnSoftKeyboardHidden;
-            if (onSoftKeyboardHidden != null) await onSoftKeyboardHidden.InvokeAsync(null);
+            if (onSoftKeyboardHidden != null) await onSoftKeyboardHidden.InvokeAsync();
         }
     }
 }

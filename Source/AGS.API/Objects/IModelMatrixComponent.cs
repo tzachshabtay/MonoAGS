@@ -40,6 +40,6 @@
         /// An event that fires whenever the matrix changes.
         /// </summary>
         /// <value>The on matrix changed.</value>
-        IEvent<object> OnMatrixChanged { get; }
+        IEvent OnMatrixChanged { get; }
     }
 }

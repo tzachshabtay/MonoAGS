@@ -84,7 +84,7 @@ namespace AGS.Engine
 			Stop();
 		}
 
-		private void onBeforeRender(object args)
+		private void onBeforeRender()
 		{
 			var shader = _shakeShader;
 			if (shader != null) shader = shader.Compile();

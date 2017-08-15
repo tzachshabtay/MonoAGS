@@ -8,16 +8,16 @@ namespace AGS.Engine
 
         public AGSRotate()
         {
-            OnAngleChanged = new AGSEvent<object>();
+            OnAngleChanged = new AGSEvent();
         }
 
         public float Angle { get { return _angle; } set { _angle = value; fireAngleChanged(); } }
 
-        public IEvent<object> OnAngleChanged { get; private set; }
+        public IEvent OnAngleChanged { get; private set; }
 
         private void fireAngleChanged()
         {
-            OnAngleChanged.FireEvent(null);
+            OnAngleChanged.Invoke();
         }
     }
 }

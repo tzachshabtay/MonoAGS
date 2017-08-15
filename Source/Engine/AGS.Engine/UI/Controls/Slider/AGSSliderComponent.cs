@@ -161,7 +161,7 @@ namespace AGS.Engine
 			_state.UI.Add(newGraphics);
 		}
 
-		private void onRepeatedlyExecute(object args)
+		private void onRepeatedlyExecute()
 		{
             var boundingBox = _boundingBox;
             if (boundingBox == null) return;

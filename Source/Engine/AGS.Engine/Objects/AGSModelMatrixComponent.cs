@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using AGS.API;
 
 namespace AGS.Engine
@@ -33,7 +33,7 @@ namespace AGS.Engine
             _isDirty = true;
             _matrices = new ModelMatrices();
             _virtualResolution = settings.VirtualResolution;
-            OnMatrixChanged = new AGSEvent<object>();
+            OnMatrixChanged = new AGSEvent();
         }
 
         public static readonly PointF NoScaling = new PointF(1f, 1f);
@@ -47,34 +47,34 @@ namespace AGS.Engine
         public override void AfterInit()
         {
             _entity.Bind<IAnimationContainer>(
-                c => { _animation = c; onSomethingChanged(null); },
-                c => { _animation = null; onSomethingChanged(null); });
+                c => { _animation = c; onSomethingChanged(); },
+                c => { _animation = null; onSomethingChanged(); });
             _entity.Bind<IHasRoom>(
-                c => { _room = c; onSomethingChanged(null); },
-                c => { _room = null; onSomethingChanged(null); });
+                c => { _room = c; onSomethingChanged(); },
+                c => { _room = null; onSomethingChanged(); });
             
             _entity.Bind<IScaleComponent>(
-                c => { _scale = c; c.OnScaleChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
-                c => { c.OnScaleChanged.Unsubscribe(onSomethingChanged); _scale = null; onSomethingChanged(null);});
+                c => { _scale = c; c.OnScaleChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
+                c => { c.OnScaleChanged.Unsubscribe(onSomethingChanged); _scale = null; onSomethingChanged();});
             _entity.Bind<ITranslateComponent>(
-                c => { _translate = c; c.OnLocationChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
-                c => { c.OnLocationChanged.Unsubscribe(onSomethingChanged); _translate = null; onSomethingChanged(null);}
+                c => { _translate = c; c.OnLocationChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
+                c => { c.OnLocationChanged.Unsubscribe(onSomethingChanged); _translate = null; onSomethingChanged();}
             );
             _entity.Bind<IJumpOffsetComponent>(
-                c => { _jump = c; c.OnJumpOffsetChanged.Subscribe(onSomethingChanged); onSomethingChanged(null);},
-                c => { c.OnJumpOffsetChanged.Unsubscribe(onSomethingChanged); _jump = null; onSomethingChanged(null);}
+                c => { _jump = c; c.OnJumpOffsetChanged.Subscribe(onSomethingChanged); onSomethingChanged();},
+                c => { c.OnJumpOffsetChanged.Unsubscribe(onSomethingChanged); _jump = null; onSomethingChanged();}
             );
             _entity.Bind<IRotateComponent>(
-                c => { _rotate = c; c.OnAngleChanged.Subscribe(onSomethingChanged); onSomethingChanged(null);},
-                c => { c.OnAngleChanged.Unsubscribe(onSomethingChanged); _rotate = null; onSomethingChanged(null);}
+                c => { _rotate = c; c.OnAngleChanged.Subscribe(onSomethingChanged); onSomethingChanged();},
+                c => { c.OnAngleChanged.Unsubscribe(onSomethingChanged); _rotate = null; onSomethingChanged();}
             );
 			_entity.Bind<IImageComponent>(
-                c => { _image = c; c.OnAnchorChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
-                c => { c.OnAnchorChanged.Unsubscribe(onSomethingChanged); _image = null; onSomethingChanged(null); }
+                c => { _image = c; c.OnAnchorChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
+                c => { c.OnAnchorChanged.Unsubscribe(onSomethingChanged); _image = null; onSomethingChanged(); }
 			);
             _entity.Bind<ICropSelfComponent>(
-                c => { _crop = c; c.OnCropAreaChanged.Subscribe(onSomethingChanged); onSomethingChanged(null); },
-				c => { c.OnCropAreaChanged.Unsubscribe(onSomethingChanged); _crop = null; onSomethingChanged(null); }
+                c => { _crop = c; c.OnCropAreaChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
+				c => { c.OnCropAreaChanged.Unsubscribe(onSomethingChanged); _crop = null; onSomethingChanged(); }
 			);
 
             _entity.Bind<IDrawableInfo>(
@@ -83,13 +83,13 @@ namespace AGS.Engine
                 _drawable = c;
 				c.OnIgnoreScalingAreaChanged.Subscribe(onSomethingChanged);
 				c.OnRenderLayerChanged.Subscribe(onSomethingChanged);
-                onSomethingChanged(null);
+                onSomethingChanged();
             },c =>
             {
                 c.OnIgnoreScalingAreaChanged.Unsubscribe(onSomethingChanged);
 				c.OnRenderLayerChanged.Unsubscribe(onSomethingChanged);
                 _drawable = null;
-				onSomethingChanged(null);
+				onSomethingChanged();
             });
 
 			_entity.Bind<IInObjectTree>(
@@ -99,14 +99,14 @@ namespace AGS.Engine
 				_parent = _tree.TreeNode.Parent;
 				_tree.TreeNode.OnParentChanged.Subscribe(onParentChanged);
 				if (_parent != null) _parent.OnMatrixChanged.Subscribe(onSomethingChanged);
-				onSomethingChanged(null);
+				onSomethingChanged();
 			}, c =>
 			{
 				c.TreeNode.OnParentChanged.Unsubscribe(onParentChanged);
 				if (c.TreeNode.Parent != null) c.TreeNode.Parent.OnMatrixChanged.Unsubscribe(onSomethingChanged);
 				_tree = null;
 				_parent = null;
-				onSomethingChanged(null);
+				onSomethingChanged();
 			});
         }
 
@@ -115,7 +115,7 @@ namespace AGS.Engine
             return shouldRecalculate() ? recalculateMatrices() : _matrices; 
         }
 
-        public IEvent<object> OnMatrixChanged { get; private set; }
+        public IEvent OnMatrixChanged { get; private set; }
 
         public static bool GetVirtualResolution(bool flattenLayerResolution, Size virtualResolution, IDrawableInfo drawable, 
                                          PointF? customResolutionFactor, out PointF resolutionFactor, out Size resolution)
@@ -151,17 +151,17 @@ namespace AGS.Engine
             }
         }
 
-        private void onSomethingChanged(object args)
+        private void onSomethingChanged()
         {
             _isDirty = true;
         }
 
-        private void onParentChanged(object args)
+        private void onParentChanged()
         {
             if (_parent != null) _parent.OnMatrixChanged.Unsubscribe(onSomethingChanged);
             _parent = _tree == null ? null : _tree.TreeNode.Parent;
             if (_parent != null) _parent.OnMatrixChanged.Subscribe(onSomethingChanged);
-            onSomethingChanged(args);
+            onSomethingChanged();
         }
 
         private ISprite getSprite()
@@ -179,17 +179,17 @@ namespace AGS.Engine
             changeSpriteSubscription(sprite, unsubscribeSpriteEvent);
         }
 
-        private void subscribeSpriteEvent(IEvent<object> ev)
+        private void subscribeSpriteEvent(IEvent ev)
         {
             ev.Subscribe(onSomethingChanged);
         }
 
-        private void unsubscribeSpriteEvent(IEvent<object> ev)
+        private void unsubscribeSpriteEvent(IEvent ev)
         {
             ev.Unsubscribe(onSomethingChanged);
         }
 
-        private void changeSpriteSubscription(ISprite sprite, Action<IEvent<object>> change)
+        private void changeSpriteSubscription(ISprite sprite, Action<IEvent> change)
         {
             if (sprite == null) return;
             change(sprite.OnLocationChanged);
@@ -242,7 +242,7 @@ namespace AGS.Engine
         private ModelMatrices recalculateMatrices()
         {
             recalculate();
-            OnMatrixChanged.FireEvent(null);
+            OnMatrixChanged.Invoke();
             return _matrices;
         }
 

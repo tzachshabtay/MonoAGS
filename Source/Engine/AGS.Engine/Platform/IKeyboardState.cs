@@ -4,7 +4,7 @@ namespace AGS.Engine
 {
     public interface IKeyboardState
     {
-        IEvent<object> OnSoftKeyboardHidden { get; }
+        IEvent OnSoftKeyboardHidden { get; }
         bool CapslockOn { get; }
         bool SoftKeyboardVisible { get; }
         void ShowSoftKeyboard();

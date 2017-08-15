@@ -62,7 +62,7 @@ namespace AGS.Engine
 
         public float TextWidth { get { return _labelRenderer.TextWidth; } }
 
-        private void onRepeatedlyExecute(object args)
+        private void onRepeatedlyExecute()
         {
             var config = TextConfig;
             if (config == null) return;

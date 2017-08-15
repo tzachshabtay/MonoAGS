@@ -23,7 +23,7 @@ namespace AGS.Engine
             entity.OnComponentsInitialized.Subscribe(onComponentsInitialized);
         }
 
-        private void onComponentsInitialized(object args)
+        private void onComponentsInitialized()
         {
             var skin = Skin;
             if (skin == null) return;

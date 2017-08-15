@@ -23,14 +23,14 @@ namespace AGS.Engine
         {
             _settings = settings;
             _state = state;
-            OnBoundingBoxesChanged = new AGSEvent<object>();
+            OnBoundingBoxesChanged = new AGSEvent();
             _layerViewports = layerViewports;
             _boundingBoxBuilder = boundingBoxBuilder;
             events.OnRoomChanging.Subscribe(onRoomChanged);
-            onRoomChanged(null);
+            onRoomChanged();
         }
 
-        public IEvent<object> OnBoundingBoxesChanged { get; private set; }
+        public IEvent OnBoundingBoxesChanged { get; private set; }
 
         public override void Init(IEntity entity)
         {
@@ -104,11 +104,11 @@ namespace AGS.Engine
             }
             _isDirty = false;
             _boundingBoxes = boundingBoxes;
-            OnBoundingBoxesChanged.Invoke(null);
+            OnBoundingBoxesChanged.Invoke();
             return _boundingBoxes;
 		}
 
-        private void onRoomChanged(object state)
+        private void onRoomChanged()
         {
             var room = _room;
             IViewport viewport = null;
@@ -129,10 +129,10 @@ namespace AGS.Engine
 				viewport.OnScaleChanged.Subscribe(onSomethingChanged);
 				viewport.OnPositionChanged.Subscribe(onSomethingChanged);
 			}
-            onSomethingChanged(state);    
+            onSomethingChanged();    
         }
 
-        private void onSomethingChanged(object state)
+        private void onSomethingChanged()
         {
             _isDirty = true;
         }

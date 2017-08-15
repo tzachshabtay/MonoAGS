@@ -20,8 +20,8 @@ namespace Tests
 		[Test ()]
 		public void NoSubscribersTest ()
 		{
-			AGSEvent<object> ev = new AGSEvent<object> ();
-			ev.Invoke (null);
+			AGSEvent ev = new AGSEvent ();
+			ev.Invoke();
 			Assert.AreEqual (0, syncEvents);
 			Assert.AreEqual (0, asyncEvents);
 		}
@@ -29,8 +29,8 @@ namespace Tests
 		[Test ()]
 		public async Task NoSubscribersAsyncTest ()
 		{
-			AGSEvent<object> ev = new AGSEvent<object> ();
-			await ev.InvokeAsync (null);
+			AGSEvent ev = new AGSEvent ();
+			await ev.InvokeAsync ();
 			Assert.AreEqual (0, syncEvents);
 			Assert.AreEqual (0, asyncEvents);
 		}
