@@ -404,6 +404,7 @@
     <Compile Include="UI\Controls\Panel\AGSScrollingComponent.cs" />
     <Compile Include="Objects\AGSBoundingBoxWithChildrenComponent.cs" />
     <Compile Include="Objects\Collisions\AGSBoundingBoxComponent.cs" />
+    <Compile Include="Graphics\Logic\AGSDisplayList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

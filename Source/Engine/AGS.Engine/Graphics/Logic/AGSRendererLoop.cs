@@ -10,32 +10,29 @@ namespace AGS.Engine
 		private readonly IGameState _gameState;
         private readonly IGame _game;
 		private readonly IImageRenderer _renderer;
-		private readonly IComparer<IObject> _comparer;
-		private readonly AGSWalkBehindsMap _walkBehinds;
-		private readonly IInput _input;
 		private readonly Resolver _resolver;
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly DisplayListEventArgs _displayListEventArgs;
         private readonly Stack<IObject> _parentStack;
+        private readonly IDisplayList _displayList;
         private IGLUtils _glUtils;
         private IShader _lastShaderUsed;
-		private IObject _mouseCursorContainer;
+		
         private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
 
-		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer, IInput input, AGSWalkBehindsMap walkBehinds,
-            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IEvent<DisplayListEventArgs> onBeforeRenderingDisplayList)
+		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer,
+            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, 
+            IEvent<DisplayListEventArgs> onBeforeRenderingDisplayList, IDisplayList displayList)
 		{
-            this._glUtils = glUtils;
-			this._resolver = resolver;
-			this._walkBehinds = walkBehinds;
-            this._game = game;
-			this._gameState = game.State;
-			this._renderer = renderer;
-			this._input = input;
-			this._comparer = new RenderOrderSelector ();
-			this._roomTransitions = roomTransitions;
-            this._displayListEventArgs = new DisplayListEventArgs(null);
-            this._parentStack = new Stack<IObject>();
+            _glUtils = glUtils;
+			_resolver = resolver;
+            _game = game;
+			_gameState = game.State;
+			_renderer = renderer;
+			_roomTransitions = roomTransitions;
+            _displayListEventArgs = new DisplayListEventArgs(null);
+            _parentStack = new Stack<IObject>();
+            _displayList = displayList;
             OnBeforeRenderingDisplayList = onBeforeRenderingDisplayList;
 			_roomTransitions.Transition = new RoomTransitionInstant ();
 		}
@@ -66,7 +63,7 @@ namespace AGS.Engine
                         _roomTransitions.State = RoomTransitionState.PreparingTransition;
                         return false;
                     }
-					else if (!_roomTransitions.Transition.RenderBeforeLeavingRoom(getDisplayList(room), obj => renderObject(room, obj)))
+                    else if (!_roomTransitions.Transition.RenderBeforeLeavingRoom(_displayList.GetDisplayList(room), obj => renderObject(room, obj)))
 					{
 						if (_fromTransitionBuffer == null) _fromTransitionBuffer = renderToBuffer(room);
 						_roomTransitions.State = RoomTransitionState.PreparingTransition;
@@ -93,7 +90,7 @@ namespace AGS.Engine
 					}
 					break;
 				case RoomTransitionState.AfterEnteringRoom:
-                    if (_gameState.Cutscene.IsSkipping || !_roomTransitions.Transition.RenderAfterEnteringRoom(getDisplayList(room), obj => renderObject(room, obj)))
+                    if (_gameState.Cutscene.IsSkipping || !_roomTransitions.Transition.RenderAfterEnteringRoom(_displayList.GetDisplayList(room), obj => renderObject(room, obj)))
 					{
 						_roomTransitions.SetOneTimeNextTransition(null);
 						_roomTransitions.State = RoomTransitionState.NotInTransition;
@@ -120,7 +117,7 @@ namespace AGS.Engine
 
 		private void renderRoom(IRoom room)
 		{
-			List<IObject> displayList = getDisplayList(room);
+            List<IObject> displayList = _displayList.GetDisplayList(room);
             _displayListEventArgs.DisplayList = displayList;
             OnBeforeRenderingDisplayList.Invoke(_displayListEventArgs);
             displayList = _displayListEventArgs.DisplayList;
@@ -193,6 +190,7 @@ namespace AGS.Engine
 			shader.Bind();
 		}
 
+        //todo: duplicate code with AGSDisplayList
 		private IImageRenderer getImageRenderer(IObject obj)
 		{
 			return obj.CustomRenderer ?? getAnimationRenderer(obj) ?? _renderer;
@@ -204,78 +202,9 @@ namespace AGS.Engine
 			return obj.Animation.Sprite.CustomRenderer;
 		}
 
-		private void addCursor(List<IObject> displayList, IRoom room)
-		{
-			IObject cursor = _input.Cursor;
-			if (cursor == null) return;
-			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
-			{
-                _mouseCursorContainer = cursor;
-			}
-			_mouseCursorContainer.X = (_input.MouseX - room.Viewport.X) * room.Viewport.ScaleX;
-			_mouseCursorContainer.Y = (_input.MouseY - room.Viewport.Y) * room.Viewport.ScaleY;
-			addToDisplayList(displayList, _mouseCursorContainer, room);
-		}
+		
 
-		private List<IObject> getDisplayList(IRoom room)
-		{
-			int count = 1 + room.Objects.Count + _gameState.UI.Count;
-
-			List<IObject> displayList = new List<IObject> (count);
-
-			if (room.Background != null)
-				addToDisplayList(displayList, room.Background);
-
-			foreach (IObject obj in room.Objects) 
-			{
-				if (!room.ShowPlayer && obj == _gameState.Player) 
-					continue;
-				addToDisplayList(displayList, obj, room);
-			}
-
-			foreach (var area in room.Areas) addDebugDrawArea(displayList, area, room);
-            foreach (var area in room.Areas)
-			{
-                if (!area.Enabled || room.Background == null || room.Background.Image == null) continue;
-                IObject drawable = _walkBehinds.GetDrawable(area, room.Background.Image.OriginalBitmap);
-                if (drawable == null) continue;
-                addToDisplayList(displayList, drawable, room);
-			}
-
-			foreach (IObject ui in _gameState.UI)
-			{
-				addToDisplayList(displayList, ui, room);
-			}
-
-			displayList.Sort(_comparer);
-			addCursor(displayList, room);
-			return displayList;
-		}
-
-		private void addDebugDrawArea(List<IObject> displayList, IArea area, IRoom room)
-		{
-			if (area.Mask.DebugDraw == null) return;
-			addToDisplayList(displayList, area.Mask.DebugDraw, room);
-		}
-
-		private void addToDisplayList(List<IObject> displayList, IObject obj, IRoom room)
-		{
-			if (!obj.Visible)
-			{
-				IImageRenderer imageRenderer = getImageRenderer(obj);
-
-				imageRenderer.Prepare(obj, obj, room.Viewport);
-				return;
-			}
-
-            addToDisplayList(displayList, obj);
-		}
-
-        private void addToDisplayList(List<IObject> displayList, IObject obj)
-        {
-            obj.Properties.Ints.SetValue(RenderOrderSelector.SortDefaultIndex, displayList.Count);
-            displayList.Add(obj);
-        }
+		
 	}
 }
 
