@@ -112,9 +112,11 @@ namespace AGS.Engine
 				List<string> chain = findCycle(item.ID, map, visited, recStack);
 				if (chain != null)
 				{
-					Debug.WriteLine(string.Join("=>", chain));
+                    Debug.WriteLine(string.Format("Cycle detected: {0}", string.Join("=>", chain)));
+                    return;
 				}
 			}
+            Debug.WriteLine("No cycles detected.");
 		}
 
 		private static List<string> findCycle(string id, Dictionary<string, List<string>> map,
