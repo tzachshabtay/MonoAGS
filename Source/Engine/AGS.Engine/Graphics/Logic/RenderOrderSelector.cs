@@ -11,22 +11,12 @@ namespace AGS.Engine
 
 		public bool Backwards { get; set; }
 
-        /// <summary>
-        /// Applying a default sort index (the index the rendered item was added to the display list) will help 
-        /// to reduce inconsistencies in the sorting when two items have the same z index and render layer (if the sorting 
-        /// result is 0 for 2 items, they can be randomly sorted  which can effect other sorted items).
-        /// </summary>
-        public const string SortDefaultIndex = "SortDefaultIndex";
-
 		#region IComparer implementation
 
 		public int Compare(IObject s1, IObject s2)
 		{
-			int result = (int)compare(s1, s2);
-            if (result == 0)
-            {
-                result = s2.Properties.Ints.GetValue(SortDefaultIndex) - s1.Properties.Ints.GetValue(SortDefaultIndex);
-            }
+            float resultF = compare(s1, s2);
+            int result = resultF > 0f ? 1 : resultF < 0 ? -1 : string.Compare(s1.ID, s2.ID);
 			if (Backwards) result *= -1;
 			#if DEBUG
             s1.Properties.Ints.SetValue(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s2.ID ?? "null"), result);
@@ -39,40 +29,40 @@ namespace AGS.Engine
 
 		private float compare(IObject s1, IObject s2)
 		{
-			if (s1 == s2) return 0;
+            if (s1 == s2) return 0f;
 			int layer1 = getRenderLayer(s1);
 			int layer2 = getRenderLayer(s2);
 			if (layer1 != layer2) return layer2 - layer1;
 
-			if (isParentOf(s1, s2)) return 1;
-			if (isParentOf(s2, s1)) return -1;
+			if (isParentOf(s1, s2)) return 1f;
+            if (isParentOf(s2, s1)) return -1f;
 
 			IObject parent1 = null;
 			IObject parent2 = null;
 			while (true)
 			{
-				IObject newParent1;
-				IObject newParent2;
-				float z1 = getZ(parent1, s1, out newParent1);
-				float z2 = getZ(parent2, s2, out newParent2);
-				if (z1 != z2) return z2 - z1;
-                if (newParent1 == null || newParent2 == null || (newParent1 == s1 && newParent2 == s2))
-				{
-					z1 = newParent1 == null ? parent1 == null ? 0 : getZ(parent1) : getZ(newParent1);
-					z2 = newParent2 == null ? parent2 == null ? 0 : getZ(parent2) : getZ(newParent2);
-                    if (z2 != z1)
-                    {
-                        return z2 - z1;
-                    }
-                    //Trying to avoid ambiguity, so using X as a last resort
-                    var x1 = newParent1 == null ? parent1 == null ? 0 : getX(parent1) : getX(newParent1);
-                    var x2 = newParent2 == null ? parent2 == null ? 0 : getX(parent2) : getX(newParent2);
-                    return x2 - x1;
-				}
+                IObject newParent1 = getNewParent(parent1, s1);
+                IObject newParent2 = getNewParent(parent2, s2);
+                if (newParent1 != newParent2)
+                {
+                    return finalCompare(newParent1, newParent2);
+                }
 				parent1 = newParent1;
 				parent2 = newParent2;
 			}
 		}
+
+        private float finalCompare(IObject o1, IObject o2)
+        {
+			float z1 = getZ(o1);
+			float z2 = getZ(o2);
+            if (z1 != z2) return z2 - z1;
+
+			//Trying to avoid ambiguity, so using X as a last resort
+			float x1 = getX(o1);
+			float x2 = getX(o2);
+			return x2 - x1;
+        }
 
 		private bool isParentOf(IObject child, IObject parent)
 		{
@@ -89,8 +79,19 @@ namespace AGS.Engine
 		{
 			if (obj == null) return 0;
 			if (obj.RenderLayer != null) return obj.RenderLayer.Z;
-			return getRenderLayer(obj.TreeNode.Parent);
+            return 0;
 		}
+
+        private IObject getNewParent(IObject parent, IObject obj)
+        {
+			var newParent = obj;
+
+			while (newParent != null && newParent.TreeNode.Parent != (parent == null ? null : parent.TreeNode.Node))
+			{
+				newParent = newParent.TreeNode.Parent;
+			}
+            return newParent;
+        }
 
 		private float getZ(IObject parent, IObject obj, out IObject newParent)
 		{

@@ -96,11 +96,10 @@ namespace AGS.Engine
 
 		private void addToDisplayList(List<IObject> displayList, IObject obj)
 		{
-			obj.Properties.Ints.SetValue(RenderOrderSelector.SortDefaultIndex, displayList.Count);
 			displayList.Add(obj);
 		}
 
-		//todo: duplicate code with AGSDisplayList
+		//todo: duplicate code with AGSRendererLoop
 		private IImageRenderer getImageRenderer(IObject obj)
 		{
 			return obj.CustomRenderer ?? getAnimationRenderer(obj) ?? _renderer;
