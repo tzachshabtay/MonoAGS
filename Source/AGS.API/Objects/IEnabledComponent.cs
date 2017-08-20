@@ -39,6 +39,18 @@
         /// <seealso cref="Enabled"/>
         /// <value><c>true</c> if underlying enabled; otherwise, <c>false</c>.</value>
 		bool UnderlyingEnabled { get; }
+
+		/// <summary>
+		/// An event which fires whenever enabled has changed for the entity.
+		/// </summary>
+		/// <value>The on visible changed.</value>
+		IEvent OnEnabledChanged { get; }
+
+		/// <summary>
+		/// An event which fires whenever underlying enabled has changed for the entity.
+		/// </summary>
+		/// <value>The on underlying visible changed.</value>
+		IEvent OnUnderlyingEnabledChanged { get; }
 	}
 }
 
