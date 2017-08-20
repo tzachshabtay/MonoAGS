@@ -2,6 +2,7 @@
 using AGS.API;
 
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -303,8 +304,26 @@ namespace AGS.Engine
 
 		private class BoundingBoxesEmptyBuilder : IBoundingBoxBuilder
 		{
+            private AGSBoundingBoxes _boundingBoxes;
+            private AGSBoundingBoxes _previousBoxes;
+
+            public BoundingBoxesEmptyBuilder()
+            {
+                OnNewBoxBuildRequired = new AGSEvent();
+            }
+
             public PointF CropScale { private get; set; }
-            public AGSBoundingBoxes BoundingBoxes { private get; set; }
+            public AGSBoundingBoxes BoundingBoxes { private get { return _boundingBoxes; } 
+                set
+                {
+                    if (value.Equals(_previousBoxes)) return;
+                    _boundingBoxes = value;
+                    _previousBoxes = _previousBoxes ?? new AGSBoundingBoxes();
+                    _previousBoxes.CopyFrom(value);
+                    OnNewBoxBuildRequired.Invoke();
+                }
+            }
+            public IEvent OnNewBoxBuildRequired { get; private set; }
 
 			#region AGSBoundingBoxBuilder implementation
 			public PointF Build(AGSBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)

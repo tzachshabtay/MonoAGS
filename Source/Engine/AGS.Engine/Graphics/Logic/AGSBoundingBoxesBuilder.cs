@@ -4,7 +4,14 @@ namespace AGS.Engine
 {
 	public class AGSBoundingBoxesBuilder : IBoundingBoxBuilder
 	{
+        public AGSBoundingBoxesBuilder()
+        {
+            OnNewBoxBuildRequired = new AGSEvent();
+        }
+
 		#region AGSBoundingBoxBuilder implementation
+
+        public IEvent OnNewBoxBuildRequired { get; private set; }
 
 		public PointF Build(AGSBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
 		{
