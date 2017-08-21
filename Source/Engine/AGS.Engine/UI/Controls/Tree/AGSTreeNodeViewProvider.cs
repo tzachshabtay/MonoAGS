@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using AGS.API;
 
 namespace AGS.Engine
@@ -6,6 +7,7 @@ namespace AGS.Engine
     public class AGSTreeNodeViewProvider : ITreeNodeViewProvider
     {
         private readonly IGameFactory _factory;
+        private static int _nextNodeId;
 
         public AGSTreeNodeViewProvider(IGameFactory factory)
         {
@@ -38,7 +40,8 @@ namespace AGS.Engine
             hovered.Sprite.Tint = Colors.Yellow;
             IAnimation pushed = new AGSSingleFrameAnimation(new EmptyImage(buttonWidth, buttonHeight), _factory.Graphics);
             pushed.Sprite.Tint = Colors.DarkSlateBlue;
-            var itemTextId = item.Text ?? "" + "_" + Guid.NewGuid();
+            int nodeId = Interlocked.Increment(ref _nextNodeId);
+            var itemTextId = (item.Text ?? "") + "_" + nodeId;
             var parentPanel = _factory.UI.GetPanel("TreeNodeParentPanel_" + itemTextId, 0f, 0f, 0f, 0f, addToUi: false);
             var horizontalPanel = _factory.UI.GetPanel("TreeNodeHorizontalPanel_" + itemTextId, 0f, 0f, 0f, 0f, parentPanel, false);
             var expandButton = _factory.UI.GetButton("ExpandButton_" + itemTextId, idle, hovered, pushed, 0f, 0f, horizontalPanel, addToUi: false);
