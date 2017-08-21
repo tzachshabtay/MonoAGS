@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IRoomTransition
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.22.2.0">
+    <meta name="generator" content="docfx 2.23.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -94,13 +94,13 @@ when transitioning from room to room.</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenderOrder/apiSpec/new?filename=AGS_API_IRoomTransition_RenderAfterEnteringRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject__.md&amp;value=---%0Auid%3A%20AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List%7BAGS.API.IObject%7D%2CSystem.Action%7BAGS.API.IObject%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenderOrder/apiSpec/new?filename=AGS_API_IRoomTransition_RenderAfterEnteringRoom_List_AGS_API_IObject__Action_AGS_API_IObject__.md&amp;value=---%0Auid%3A%20AGS.API.IRoomTransition.RenderAfterEnteringRoom(List%7BAGS.API.IObject%7D%2CAction%7BAGS.API.IObject%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenderOrder/Source/AGS.API/Rooms/IRoomTransition.cs/#L79">View Source</a>
   </span>
   <a id="AGS_API_IRoomTransition_RenderAfterEnteringRoom_" data-uid="AGS.API.IRoomTransition.RenderAfterEnteringRoom*"></a>
-  <h4 id="AGS_API_IRoomTransition_RenderAfterEnteringRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject__" data-uid="AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})">RenderAfterEnteringRoom(List&lt;IObject&gt;, Action&lt;IObject&gt;)</h4>
+  <h4 id="AGS_API_IRoomTransition_RenderAfterEnteringRoom_List_AGS_API_IObject__Action_AGS_API_IObject__" data-uid="AGS.API.IRoomTransition.RenderAfterEnteringRoom(List{AGS.API.IObject},Action{AGS.API.IObject})">RenderAfterEnteringRoom(List&lt;IObject&gt;, Action&lt;IObject&gt;)</h4>
   <div class="markdown level1 summary"><p>Will be called repeatedly after entering the new room, up until this function will return false.
 Once this function returns false, room rendering returns to AGS for a normal rendering loop (the transition is completed).</p>
 </div>
@@ -120,14 +120,14 @@ Once this function returns false, room rendering returns to AGS for a normal ren
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
         <td><span class="parametername">displayList</span></td>
         <td><p>The display list of the room we are leaving. The display list contains
 all objects that are rendered in the scene, sorted by their order.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
+        <td><span class="xref">Action</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
         <td><span class="parametername">renderObj</span></td>
         <td><p>A convenience method that renders an object.</p>
 </td>
@@ -150,7 +150,7 @@ all objects that are rendered in the scene, sorted by their order.</p>
       </tr>
     </tbody>
   </table>
-  <h5 id="AGS_API_IRoomTransition_RenderAfterEnteringRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject___examples">Examples</h5>
+  <h5 id="AGS_API_IRoomTransition_RenderAfterEnteringRoom_List_AGS_API_IObject__Action_AGS_API_IObject___examples">Examples</h5>
   <p>Let&apos;s only render every 3rd object!</p>
 <pre><code>for (int i = 0; i &lt; displayList.Count; i++)
 {
@@ -162,13 +162,13 @@ return true; //Note that this room transition will never end if we always return
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenderOrder/apiSpec/new?filename=AGS_API_IRoomTransition_RenderBeforeLeavingRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject__.md&amp;value=---%0Auid%3A%20AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List%7BAGS.API.IObject%7D%2CSystem.Action%7BAGS.API.IObject%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenderOrder/apiSpec/new?filename=AGS_API_IRoomTransition_RenderBeforeLeavingRoom_List_AGS_API_IObject__Action_AGS_API_IObject__.md&amp;value=---%0Auid%3A%20AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List%7BAGS.API.IObject%7D%2CAction%7BAGS.API.IObject%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenderOrder/Source/AGS.API/Rooms/IRoomTransition.cs/#L35">View Source</a>
   </span>
   <a id="AGS_API_IRoomTransition_RenderBeforeLeavingRoom_" data-uid="AGS.API.IRoomTransition.RenderBeforeLeavingRoom*"></a>
-  <h4 id="AGS_API_IRoomTransition_RenderBeforeLeavingRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject__" data-uid="AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})">RenderBeforeLeavingRoom(List&lt;IObject&gt;, Action&lt;IObject&gt;)</h4>
+  <h4 id="AGS_API_IRoomTransition_RenderBeforeLeavingRoom_List_AGS_API_IObject__Action_AGS_API_IObject__" data-uid="AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List{AGS.API.IObject},Action{AGS.API.IObject})">RenderBeforeLeavingRoom(List&lt;IObject&gt;, Action&lt;IObject&gt;)</h4>
   <div class="markdown level1 summary"><p>Will be called repeatedly before leaving the first room, up until this function will return false.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -187,14 +187,14 @@ return true; //Note that this room transition will never end if we always return
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
         <td><span class="parametername">displayList</span></td>
         <td><p>The display list of the room we are leaving. The display list contains
 all objects that are rendered in the scene, sorted by their order.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
+        <td><span class="xref">Action</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
         <td><span class="parametername">renderObj</span></td>
         <td><p>A convenience method that renders an object.</p>
 </td>
@@ -217,7 +217,7 @@ all objects that are rendered in the scene, sorted by their order.</p>
       </tr>
     </tbody>
   </table>
-  <h5 id="AGS_API_IRoomTransition_RenderBeforeLeavingRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject___examples">Examples</h5>
+  <h5 id="AGS_API_IRoomTransition_RenderBeforeLeavingRoom_List_AGS_API_IObject__Action_AGS_API_IObject___examples">Examples</h5>
   <p>Let&apos;s render all objects with a yellow tint:</p>
 <pre><code>public bool RenderBeforeLeavingRoom(List&lt;IObject> displayList, Action&lt;IObject> renderObj)
 {

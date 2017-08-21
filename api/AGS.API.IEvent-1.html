@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IEvent&lt;TEventArgs&gt;
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.22.2.0">
+    <meta name="generator" content="docfx 2.23.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -91,10 +91,10 @@ Interested parties can subscribe to the event and be notified when it triggers (
       <a class="xref" href="AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_SubscribersCount">IBlockingEvent&lt;TEventArgs&gt;.SubscribersCount</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action__0__">IBlockingEvent&lt;TEventArgs&gt;.Subscribe(Action&lt;TEventArgs&gt;)</a>
+      <a class="xref" href="AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_Action__0__">IBlockingEvent&lt;TEventArgs&gt;.Subscribe(Action&lt;TEventArgs&gt;)</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action__0__">IBlockingEvent&lt;TEventArgs&gt;.Unsubscribe(Action&lt;TEventArgs&gt;)</a>
+      <a class="xref" href="AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_Action__0__">IBlockingEvent&lt;TEventArgs&gt;.Unsubscribe(Action&lt;TEventArgs&gt;)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Invoke__0_">IBlockingEvent&lt;TEventArgs&gt;.Invoke(TEventArgs)</a>
@@ -167,20 +167,20 @@ Interested parties can subscribe to the event and be notified when it triggers (
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><span class="xref">Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenderOrder/apiSpec/new?filename=AGS_API_IEvent_1_SubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.SubscribeToAsync(System.Func%7B%600%2CSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenderOrder/apiSpec/new?filename=AGS_API_IEvent_1_SubscribeToAsync_Func__0_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.SubscribeToAsync(Func%7B%600%2CTask%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenderOrder/Source/AGS.API/Misc/Events/IEvent.cs/#L18">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_SubscribeToAsync_" data-uid="AGS.API.IEvent`1.SubscribeToAsync*"></a>
-  <h4 id="AGS_API_IEvent_1_SubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__" data-uid="AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})">SubscribeToAsync(Func&lt;TEventArgs, Task&gt;)</h4>
+  <h4 id="AGS_API_IEvent_1_SubscribeToAsync_Func__0_Task__" data-uid="AGS.API.IEvent`1.SubscribeToAsync(Func{`0,Task})">SubscribeToAsync(Func&lt;TEventArgs, Task&gt;)</h4>
   <div class="markdown level1 summary"><p>Subscribe the specified asynchronous callback to the event.
 Once subscribed, whenever the event happens this callback will be called.</p>
 </div>
@@ -200,7 +200,7 @@ Once subscribed, whenever the event happens this callback will be called.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;TEventArgs, <span class="xref">System.Threading.Tasks.Task</span>&gt;</td>
+        <td><span class="xref">Func</span>&lt;TEventArgs, <span class="xref">Task</span>&gt;</td>
         <td><span class="parametername">callback</span></td>
         <td><p>Callback.</p>
 </td>
@@ -209,13 +209,13 @@ Once subscribed, whenever the event happens this callback will be called.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenderOrder/apiSpec/new?filename=AGS_API_IEvent_1_UnsubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.UnsubscribeToAsync(System.Func%7B%600%2CSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenderOrder/apiSpec/new?filename=AGS_API_IEvent_1_UnsubscribeToAsync_Func__0_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.UnsubscribeToAsync(Func%7B%600%2CTask%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenderOrder/Source/AGS.API/Misc/Events/IEvent.cs/#L25">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_UnsubscribeToAsync_" data-uid="AGS.API.IEvent`1.UnsubscribeToAsync*"></a>
-  <h4 id="AGS_API_IEvent_1_UnsubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__" data-uid="AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})">UnsubscribeToAsync(Func&lt;TEventArgs, Task&gt;)</h4>
+  <h4 id="AGS_API_IEvent_1_UnsubscribeToAsync_Func__0_Task__" data-uid="AGS.API.IEvent`1.UnsubscribeToAsync(Func{`0,Task})">UnsubscribeToAsync(Func&lt;TEventArgs, Task&gt;)</h4>
   <div class="markdown level1 summary"><p>Unsubscribe the specified asynchronous callback from the event.
 This will stops notifications to call this callback.</p>
 </div>
@@ -235,7 +235,7 @@ This will stops notifications to call this callback.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;TEventArgs, <span class="xref">System.Threading.Tasks.Task</span>&gt;</td>
+        <td><span class="xref">Func</span>&lt;TEventArgs, <span class="xref">Task</span>&gt;</td>
         <td><span class="parametername">callback</span></td>
         <td><p>Callback.</p>
 </td>
@@ -244,13 +244,13 @@ This will stops notifications to call this callback.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenderOrder/apiSpec/new?filename=AGS_API_IEvent_1_WaitUntilAsync_System_Predicate__0__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.WaitUntilAsync(System.Predicate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenderOrder/apiSpec/new?filename=AGS_API_IEvent_1_WaitUntilAsync_Predicate__0__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.WaitUntilAsync(Predicate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenderOrder/Source/AGS.API/Misc/Events/IEvent.cs/#L32">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_WaitUntilAsync_" data-uid="AGS.API.IEvent`1.WaitUntilAsync*"></a>
-  <h4 id="AGS_API_IEvent_1_WaitUntilAsync_System_Predicate__0__" data-uid="AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0})">WaitUntilAsync(Predicate&lt;TEventArgs&gt;)</h4>
+  <h4 id="AGS_API_IEvent_1_WaitUntilAsync_Predicate__0__" data-uid="AGS.API.IEvent`1.WaitUntilAsync(Predicate{`0})">WaitUntilAsync(Predicate&lt;TEventArgs&gt;)</h4>
   <div class="markdown level1 summary"><p>Asynchronously wait until the event fires and the specific condition applies.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -269,7 +269,7 @@ This will stops notifications to call this callback.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Predicate</span>&lt;TEventArgs&gt;</td>
+        <td><span class="xref">Predicate</span>&lt;TEventArgs&gt;</td>
         <td><span class="parametername">condition</span></td>
         <td><p>The condition we are waiting to apply before moving on.</p>
 </td>
@@ -286,7 +286,7 @@ This will stops notifications to call this callback.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><span class="xref">Task</span></td>
         <td><p>The task to be awaited.</p>
 </td>
       </tr>
