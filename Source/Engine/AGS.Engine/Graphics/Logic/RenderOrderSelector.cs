@@ -45,23 +45,29 @@ namespace AGS.Engine
                 IObject newParent2 = getNewParent(parent2, s2);
                 if (newParent1 != newParent2)
                 {
-                    return finalCompare(newParent1, newParent2);
+                    float result = compareObj(newParent1, newParent2);
+                    if (result != 0f) return result;
+                }
+                if (newParent1 == null || newParent2 == null || (newParent1 == s1 && newParent2 == s2))
+                {
+					//Trying to avoid ambiguity, so using X as a last resort
+					return getX(s2) - getX(s1);
                 }
 				parent1 = newParent1;
-				parent2 = newParent2;
+                parent2 = newParent2;
 			}
 		}
 
-        private float finalCompare(IObject o1, IObject o2)
+        private float compareObj(IObject o1, IObject o2)
         {
+			int layer1 = getRenderLayer(o1);
+			int layer2 = getRenderLayer(o2);
+			if (layer1 != layer2) return layer2 - layer1;
+
 			float z1 = getZ(o1);
 			float z2 = getZ(o2);
             if (z1 != z2) return z2 - z1;
-
-			//Trying to avoid ambiguity, so using X as a last resort
-			float x1 = getX(o1);
-			float x2 = getX(o2);
-			return x2 - x1;
+            return 0f;
         }
 
 		private bool isParentOf(IObject child, IObject parent)
