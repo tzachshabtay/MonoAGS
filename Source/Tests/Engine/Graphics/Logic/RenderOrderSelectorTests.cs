@@ -48,19 +48,19 @@ namespace Tests
 
 		//Objects in same layer with different Zs/SpriteZs, parents have the same Zs/SpriteZs
 		[TestCase(0,null,null, 0,0,null,    0f,0f,null, 1f,0f,null, 0f,0f,null, 0f,0f,null, Result=true)]
-		[TestCase(0,0,null,    0,1,null,    1f,1f,null, 0f,1f,null, 0f,0f,null, 0f,0f,null, Result=false)]
+		[TestCase(0,1,null,    0,1,null,    1f,1f,null, 0f,1f,null, 0f,0f,null, 0f,0f,null, Result=false)]
 
-		[TestCase(0,1,null,    0,null,null, 0f,0f,null, 0f,0f,null, 0f,1f,null, 1f,1f,null, Result=true)]
+		[TestCase(0,1,null,    0,1,null,    0f,0f,null, 0f,0f,null, 0f,1f,null, 1f,1f,null, Result=true)]
 		[TestCase(0,null,null, 0,0,null,    0f,0f,null, 0f,1f,null, 1f,1f,null, 0f,0f,null, Result=false)]
 
 		[TestCase(0,0,null,    0,null,null, 0f,1f,null, 1f,0f,null, 0f,0f,null, 1f,1f,null, Result=true)]
 		[TestCase(0,1,null,    0,1,null,    1f,5f,null, 0f,2f,null, 1f,0f,null, 0f,3f,null, Result=false)]
 
-		[TestCase(0,null,null, 0,1,null,    0f,2f,null, 2f,5f,null, 1f,3f,null, 0f,0f,null, Result=true)]
+		[TestCase(0,1,null,    0,1,null,    0f,2f,null, 2f,5f,null, 1f,3f,null, 0f,0f,null, Result=true)]
 		[TestCase(0,0,null,    0,null,null, 2f,1f,null, 0f,1f,null, 0f,1f,null, 1f,1f,null, Result=false)]
 
-		[TestCase(0,1,null,    0,0,null,    1f,2f,null, 0f,2f,null, 0f,2f,null, 2f,2f,null, Result=true)]
-		[TestCase(0,null,null, 0,1,null,    0f,3f,null, 1f,3f,null, 2f,3f,null, 0f,3f,null, Result=false)]
+		[TestCase(0,1,null,    0,1,null,    1f,2f,null, 0f,2f,null, 0f,2f,null, 2f,2f,null, Result=true)]
+		[TestCase(0,1,null,    0,1,null,    0f,3f,null, 1f,3f,null, 2f,3f,null, 0f,3f,null, Result=false)]
 
 		//Objects in same layer, parents have different Zs/SpriteZs (parents should win regardless of objects Zs/SpriteZs)
 		[TestCase(0,null,null, 0,0,null,    0f,1f,null, 1f,0f,null, 0f,0f,null, 0f,0f,null, Result=false)]
@@ -79,11 +79,11 @@ namespace Tests
 		[TestCase(1,1,0, 0,0,1, 0f,0f,1f, 1f,1f,0f, 0f,0f,0f, 0f,0f,0f, Result=false)]
 		[TestCase(1,0,0, 0,1,1, 1f,1f,0f, 0f,0f,1f, 0f,0f,0f, 0f,0f,0f, Result=false)]
 
-		//Objects have no layer, parent in different layer, grandparents should not matter
-		[TestCase(null,0,1, null,1,0, 1f,1f,0f, 0f,0f,1f, 0f,0f,0f, 0f,0f,0f, Result=true)]
-		[TestCase(null,0,1, null,1,0, 0f,0f,1f, 1f,1f,0f, 0f,0f,0f, 0f,0f,0f, Result=true)]
-		[TestCase(null,1,0, null,0,1, 0f,0f,1f, 1f,1f,0f, 0f,0f,0f, 0f,0f,0f, Result=false)]
-		[TestCase(null,1,0, null,0,1, 1f,1f,0f, 0f,0f,1f, 0f,0f,0f, 0f,0f,0f, Result=false)]
+		//Objects have no layer, parent in different layer
+		[TestCase(null,0,1, null,1,1, 1f,1f,0f, 0f,0f,1f, 0f,0f,0f, 0f,0f,0f, Result=true)]
+		[TestCase(null,0,1, null,1,1, 0f,0f,1f, 1f,1f,0f, 0f,0f,0f, 0f,0f,0f, Result=false)]
+		[TestCase(null,1,0, null,0,0, 0f,0f,1f, 1f,1f,0f, 0f,0f,0f, 0f,0f,0f, Result=false)]
+		[TestCase(null,1,0, null,0,0, 1f,1f,0f, 0f,0f,1f, 0f,0f,0f, 0f,0f,0f, Result=true)]
 
 		//Objects and parents have no layer, grandparents in different layer
 		[TestCase(null,null,0, null,null,1, 1f,0f,1f, 0f,1f,0f, 0f,0f,0f, 0f,0f,0f, Result=true)]
@@ -95,7 +95,7 @@ namespace Tests
 		[TestCase(0,null,1,    0,0,null, 0f,1f,0f, 1f,0f,0f, 0f,0f,0f, 0f,0f,0f, Result=false)]
 		[TestCase(0,0,null,    0,1,0,    1f,0f,1f, 0f,1f,1f, 0f,0f,1f, 0f,0f,1f, Result=true)]
 
-		[TestCase(0,1,0,       0,null,1, 0f,0f,0f, 0f,0f,1f, 0f,1f,1f, 1f,0f,0f, Result=false)]
+		[TestCase(0,1,0,       0,1,0,    0f,0f,0f, 0f,0f,1f, 0f,1f,1f, 1f,0f,0f, Result=false)]
 		[TestCase(0,null,null, 0,0,null, 0f,1f,1f, 0f,1f,0f, 1f,0f,0f, 0f,1f,1f, Result=true)]
 
 		[TestCase(0,0,1,       0,null,1, 0f,1f,5f, 1f,0f,2f, 0f,1f,0f, 1f,0f,3f, Result=false)]
@@ -105,7 +105,7 @@ namespace Tests
 		[TestCase(0,null,1,    0,0,null, 0f,0f,1f, 1f,1f,0f, 0f,0f,0f, 0f,0f,0f, Result=false)]
 		[TestCase(0,0,null,    0,1,0,    1f,1f,0f, 0f,0f,1f, 0f,0f,0f, 0f,0f,0f, Result=true)]
 
-		[TestCase(0,1,0,       0,null,1, 0f,0f,0f, 0f,0f,0f, 0f,1f,1f, 1f,0f,0f, Result=false)]
+		[TestCase(0,1,0,       0,1,0,    0f,0f,0f, 0f,0f,0f, 0f,1f,1f, 1f,0f,0f, Result=false)]
 		[TestCase(0,null,null, 0,0,null, 0f,1f,1f, 0f,0f,1f, 1f,0f,0f, 0f,1f,1f, Result=true)]
 
 		[TestCase(0,0,1,       0,null,1, 0f,2f,1f, 1f,1f,0f, 0f,1f,1f, 1f,0f,0f, Result=false)]
