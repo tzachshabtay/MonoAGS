@@ -63,7 +63,11 @@ namespace AGS.Engine
             _caretFlashCounter = (int)CaretFlashDelay;
             _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _withCaret.Anchor = new PointF(0f, 0f);
+        }
 
+        public override void AfterInit()
+        {
+            base.AfterInit();
             _game.Events.OnBeforeRender.Subscribe(onBeforeRender);
         }
 
@@ -120,7 +124,7 @@ namespace AGS.Engine
 
         private void onMouseDown(MouseButtonEventArgs args)
         {
-            Debug.WriteLine("{0} is focused", _textComponent.Text);
+            Debug.WriteLine(string.Format("{0} is focused", _textComponent.Text));
             IsFocused = true;
         }
 

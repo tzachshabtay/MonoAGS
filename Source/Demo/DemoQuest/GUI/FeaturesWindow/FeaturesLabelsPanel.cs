@@ -34,7 +34,7 @@ namespace DemoGame
             float autoFitX = _label.X;
             float autoFitY = _label.Y - _label.Height - 100f;
 
-            _featuresAutoFitTextbox = factory.UI.GetTextBox("FeaturesAutoFitTextbox", autoFitX, autoFitY, parent, 
+            _featuresAutoFitTextbox = factory.UI.GetTextBox("FeaturesAutoFitTextbox", 0f, 0f, parent, 
                                                             nameof(AutoFit.TextShouldWrapAndLabelShouldFitHeight),
                                                             new AGSTextConfig(alignment: Alignment.MiddleCenter), 
                                                             false, 500f, 40f);
@@ -46,11 +46,11 @@ namespace DemoGame
                                                  factory.Graphics.Icons.GetArrowIcon(ArrowDirection.Down, Colors.WhiteSmoke));
             var yellowArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.Yellow, 3f), 
                                                   factory.Graphics.Icons.GetArrowIcon(ArrowDirection.Down, Colors.Yellow));
-            _featuresAutoFitDropDownButton = factory.UI.GetButton("FeaturesAutoFitDropDownButton", 
-                                                                  new ButtonAnimation(whiteArrow, null, Colors.Transparent), 
-                                                                  new ButtonAnimation(yellowArrow, null, Colors.Transparent), 
+            _featuresAutoFitDropDownButton = factory.UI.GetButton("FeaturesAutoFitDropDownButton",
+                                                                  new ButtonAnimation(whiteArrow, null, Colors.Transparent),
+                                                                  new ButtonAnimation(yellowArrow, null, Colors.Transparent),
                                                                   new ButtonAnimation(yellowArrow, null, Colors.White.WithAlpha(100)),
-                                                                  autoFitX, autoFitY, parent, "", null, 
+                                                                  0f, 0f, parent, "", null, 
                                                                   false, 30f, 40f);
             _featuresAutoFitDropDownButton.Border = whiteArrow;
             _featuresAutoFitDropDownButton.RenderLayer = parent.RenderLayer;

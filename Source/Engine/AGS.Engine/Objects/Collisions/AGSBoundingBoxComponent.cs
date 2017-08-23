@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.Diagnostics;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -26,6 +27,7 @@ namespace AGS.Engine
             OnBoundingBoxesChanged = new AGSEvent();
             _layerViewports = layerViewports;
             _boundingBoxBuilder = boundingBoxBuilder;
+            boundingBoxBuilder.OnNewBoxBuildRequired.Subscribe(onSomethingChanged);
             events.OnRoomChanging.Subscribe(onRoomChanged);
             onRoomChanged();
         }
@@ -45,6 +47,7 @@ namespace AGS.Engine
             entity.Bind<IAnimationContainer>(c => _animation = c, _animation => _animation = null);
             entity.Bind<IDrawableInfo>(c => { c.OnRenderLayerChanged.Subscribe(onSomethingChanged); c.OnIgnoreViewportChanged.Subscribe(onSomethingChanged); _drawable = c; },
                                        c => { c.OnRenderLayerChanged.Unsubscribe(onSomethingChanged); c.OnIgnoreViewportChanged.Unsubscribe(onSomethingChanged); _drawable = null; });
+            
         }
 
 		public AGSBoundingBoxes GetBoundingBoxes()

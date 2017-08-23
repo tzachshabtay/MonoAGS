@@ -68,9 +68,11 @@ namespace Tests
         private IRendererLoop getLoop()
         { 
             _renderer = new Mock<IImageRenderer>();
+            AGSDisplayList displayList = new AGSDisplayList(_mocks.GameState().Object, _mocks.Input().Object,
+                                                            new AGSWalkBehindsMap(null), _renderer.Object);
             return new AGSRendererLoop(_resolver, _mocks.Game().Object, _renderer.Object,
-                                        _mocks.Input().Object, new AGSWalkBehindsMap(null), _transitions.Object,
-                                       new Mock<IGLUtils>().Object, new AGSEvent<DisplayListEventArgs>());
+                                       _transitions.Object, new Mock<IGLUtils>().Object, 
+                                       new AGSEvent<DisplayListEventArgs>(), displayList);
         }
 
         private IArea getArea()

@@ -242,10 +242,12 @@ namespace AGS.Engine
             IComboBox comboBox = _resolver.Container.Resolve<IComboBox>(idParam);
             float defaultHeight = dropDownButton != null ? dropDownButton.Height : textBox != null ? textBox.Height : 20f;
             float itemWidth = textBox != null ? textBox.Width : 100f;
-            dropDownButton = dropDownButton ?? GetButton(id + "_DropDownButton", (string)null, null, null, 0f, 0f, comboBox, width: 20f, height: defaultHeight);
+            if (dropDownButton == null) dropDownButton = GetButton(id + "_DropDownButton", (string)null, null, null, 0f, 0f, comboBox, width: 20f, height: defaultHeight);
+            else setParent(dropDownButton, comboBox);
             dropDownButton.SkinTags.Add(AGSSkin.DropDownButtonTag);
             if (dropDownButton.Skin != null) dropDownButton.Skin.Apply(dropDownButton);
-            textBox = textBox ?? GetTextBox(id + "_TextBox", 0f, 0f, comboBox, width: itemWidth, height: defaultHeight);
+            if (textBox == null) textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, width: itemWidth, height: defaultHeight);
+            else setParent(textBox, comboBox);
             textBox.Enabled = false;
             itemButtonFactory = itemButtonFactory ?? (text => GetButton(id + "_" + text, (string)null, null, null, 0f, 0f, width: itemWidth,
                 height: defaultHeight));

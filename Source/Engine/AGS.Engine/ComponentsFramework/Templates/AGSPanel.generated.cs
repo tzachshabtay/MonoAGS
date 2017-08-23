@@ -261,6 +261,11 @@ namespace AGS.Engine
             get { return _visibleComponent.UnderlyingVisible; } 
         }
 
+		public IEvent OnVisibleChanged
+		{
+			get { return _visibleComponent.OnVisibleChanged; }
+		}
+
         public IEvent OnUnderlyingVisibleChanged 
         {  
             get { return _visibleComponent.OnUnderlyingVisibleChanged; } 
@@ -281,11 +286,21 @@ namespace AGS.Engine
             get { return _enabledComponent.UnderlyingEnabled; } 
         }
 
-        #endregion
+		public IEvent OnEnabledChanged
+		{
+			get { return _enabledComponent.OnEnabledChanged; }
+		}
 
-        #region ICustomPropertiesComponent implementation
+		public IEvent OnUnderlyingEnabledChanged
+		{
+			get { return _enabledComponent.OnUnderlyingEnabledChanged; }
+		}
 
-        public ICustomProperties Properties 
+		#endregion
+
+		#region ICustomPropertiesComponent implementation
+
+		public ICustomProperties Properties 
         {  
             get { return _customPropertiesComponent.Properties; } 
         }
