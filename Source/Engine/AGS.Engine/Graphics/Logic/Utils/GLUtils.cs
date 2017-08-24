@@ -46,14 +46,18 @@ namespace AGS.Engine
             _graphics.LoadIdentity();
         }
 
-        public void RefreshViewport(IGameSettings settings, IGameWindow gameWindow)
-        { 
+        public void RefreshViewport(IGameSettings settings, IGameWindow gameWindow, RectangleF projectionBox)
+        {
+            int viewX = 0;
+            int viewY = 0;
+            int width = gameWindow.Width;
+            int height = gameWindow.Height;
             if (settings.PreserveAspectRatio) //http://www.david-amador.com/2013/04/opengl-2d-independent-resolution-rendering/
             {
                 float targetAspectRatio = (float)settings.VirtualResolution.Width / settings.VirtualResolution.Height;
                 Size screen = new Size(gameWindow.Width, gameWindow.Height);
-                int width = screen.Width;
-                int height = (int)(width / targetAspectRatio + 0.5f);
+                width = screen.Width;
+                height = (int)(width / targetAspectRatio + 0.5f);
                 if (height > screen.Height)
                 {
                     //It doesn't fit our height, we must switch to pillarbox then
@@ -62,17 +66,16 @@ namespace AGS.Engine
                 }
 
                 // set up the new viewport centered in the backbuffer
-                int viewX = (screen.Width / 2) - (width / 2);
-                int viewY = (screen.Height / 2) - (height / 2);
+                viewX = (screen.Width / 2) - (width / 2);
+                viewY = (screen.Height / 2) - (height / 2);
+            }
 
-                ScreenViewport = new Rectangle(viewX, viewY, width, height);
-                _graphics.Viewport(viewX, viewY, width, height);
-            }
-            else
-            {
-                ScreenViewport = new Rectangle(0, 0, gameWindow.Width, gameWindow.Height);
-                _graphics.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-            }
+            ScreenViewport = new Rectangle(viewX, viewY, width, height);
+			viewX = (int)Math.Round(viewX + (float)(viewX + width) * projectionBox.X);
+			viewY = (int)Math.Round(viewY + (float)(viewY + height) * projectionBox.Y);
+			width = (int)Math.Round((float)width * projectionBox.Width);
+			height = (int)Math.Round((float)height * projectionBox.Height);
+			_graphics.Viewport(viewX, viewY, width, height);
         }
 
 		public void GenBuffers()

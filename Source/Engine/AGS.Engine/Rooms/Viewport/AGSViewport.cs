@@ -10,6 +10,7 @@ namespace AGS.Engine
 		{
 			_scaleX = 1f;
 			_scaleY = 1f;
+            ProjectionBox = new RectangleF(0f, 0f, 1f, 1f);
             OnPositionChanged = new AGSEvent();
             OnScaleChanged = new AGSEvent();
             OnAngleChanged = new AGSEvent();
@@ -26,6 +27,8 @@ namespace AGS.Engine
         public float ScaleY { get { return _scaleY; } set { refreshValue(ref _scaleY, value, OnScaleChanged);} }
 
         public float Angle { get { return _angle; } set { refreshValue(ref _angle, value, OnAngleChanged);} }
+
+        public RectangleF ProjectionBox { get; set; }
 
 		public ICamera Camera { get; set; }
 

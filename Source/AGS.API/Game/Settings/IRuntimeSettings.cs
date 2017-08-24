@@ -43,11 +43,5 @@ namespace AGS.API
         /// </summary>
         /// <value>The vsync.</value>
         new VsyncMode Vsync { get; set; }
-
-        /// <summary>
-        /// Resets the viewport. This is called by the engine when the window is resized and the viewport needs to be re-adjusted.
-        /// You can call it if you changed a setting which requires resetting the window (like preserver aspect ratio).
-        /// </summary>
-        void ResetViewport();
     }
 }

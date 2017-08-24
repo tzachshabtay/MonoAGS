@@ -15,16 +15,18 @@ namespace AGS.Engine
         private readonly DisplayListEventArgs _displayListEventArgs;
         private readonly Stack<IObject> _parentStack;
         private readonly IDisplayList _displayList;
+        private readonly IGameWindow _gameWindow;
         private IGLUtils _glUtils;
         private IShader _lastShaderUsed;
 		
         private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
 
 		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer,
-            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, 
+            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IGameWindow gameWindow,
             IEvent<DisplayListEventArgs> onBeforeRenderingDisplayList, IDisplayList displayList)
 		{
             _glUtils = glUtils;
+            _gameWindow = gameWindow;
 			_resolver = resolver;
             _game = game;
 			_gameState = game.State;
@@ -45,6 +47,7 @@ namespace AGS.Engine
 		{
             if (_gameState.Room == null) return false;
 			IRoom room = _gameState.Room;
+            _glUtils.RefreshViewport(_game.Settings, _gameWindow, room.Viewport.ProjectionBox);
 
 			switch (_roomTransitions.State)
 			{
@@ -122,7 +125,7 @@ namespace AGS.Engine
             OnBeforeRenderingDisplayList.Invoke(_displayListEventArgs);
             displayList = _displayListEventArgs.DisplayList;
 
-			foreach (IObject obj in displayList) 
+            foreach (IObject obj in displayList)
 			{
 				renderObject(room, obj);
 			}

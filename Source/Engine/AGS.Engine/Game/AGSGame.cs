@@ -120,10 +120,8 @@ namespace AGS.Engine
                         Events.OnLoad.Invoke();
                     };
 
-                    GameWindow.Resize += async (sender, e) =>
+                    GameWindow.Resize += (sender, e) =>
                     {
-                        await Task.Delay(10); //todo: For some reason on the Mac, the GL Viewport assignment is overridden without this delay (so aspect ratio is not preserved), a bug in OpenTK?
-                        resize();
                         Events.OnScreenResize.Invoke();
                     };
 
@@ -200,12 +198,6 @@ namespace AGS.Engine
 		}
 
         #endregion
-
-        private void resize()
-        {
-            var settings = Settings;
-            if (settings != null) Settings.ResetViewport();
-        }
 
 		private void updateResolver()
 		{

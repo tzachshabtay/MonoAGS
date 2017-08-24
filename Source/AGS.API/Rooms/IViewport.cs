@@ -44,6 +44,19 @@
 		ICamera Camera { get; set; }
 
         /// <summary>
+        /// Gets or sets the box into which the viewport will project into. The measurement for the box is
+        /// the overall factor to the window size. So, for example, a rectangle with (x,y) = (0,0) and 
+        /// (width,height) = (1,1) will be projected onto the entire window (this is the default), 
+        /// and a rectangle with (x,y) = (0.25,0.25) and (width,height) = (0.5,0.5) will be projected on
+        /// half the window and will be centered.
+        /// 
+        /// Note: the projection box respects the "keep aspect ratio" setting (<see cref="IGameSettings.PreserveAspectRatio"/>),
+        /// so if that option is enabled in the settings (on by default), the "window size" is without the black side-bars.
+        /// </summary>
+        /// <value>The projection box.</value>
+        RectangleF ProjectionBox { get; set; }
+
+        /// <summary>
         /// An event which fires when the position of the viewport has changed.
         /// </summary>
         /// <value>The on position changed.</value>

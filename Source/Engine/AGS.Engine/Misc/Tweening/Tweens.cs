@@ -116,6 +116,34 @@ namespace AGS.Engine
 			return Tween.Run(viewport.ScaleY, toScaleY, y => viewport.ScaleY = y, timeInSeconds, easing);
 		}
 
+        public static Tween TweenProjectX(this IViewport viewport, float toProjectX, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return Tween.Run(viewport.ProjectionBox.X, toProjectX,
+                             x => viewport.ProjectionBox = new RectangleF(x, viewport.ProjectionBox.Y, viewport.ProjectionBox.Width, viewport.ProjectionBox.Height),
+                             timeInSeconds, easing);
+        }
+
+		public static Tween TweenProjectY(this IViewport viewport, float toProjectY, float timeInSeconds, Func<float, float> easing = null)
+		{
+			return Tween.Run(viewport.ProjectionBox.Y, toProjectY,
+                             y => viewport.ProjectionBox = new RectangleF(viewport.ProjectionBox.X, y, viewport.ProjectionBox.Width, viewport.ProjectionBox.Height),
+							 timeInSeconds, easing);
+		}
+
+		public static Tween TweenProjectWidth(this IViewport viewport, float toProjectWidth, float timeInSeconds, Func<float, float> easing = null)
+		{
+            return Tween.Run(viewport.ProjectionBox.Width, toProjectWidth,
+                             width => viewport.ProjectionBox = new RectangleF(viewport.ProjectionBox.X, viewport.ProjectionBox.Y, width, viewport.ProjectionBox.Height),
+							 timeInSeconds, easing);
+		}
+
+		public static Tween TweenProjectHeight(this IViewport viewport, float toProjectHeight, float timeInSeconds, Func<float, float> easing = null)
+		{
+			return Tween.Run(viewport.ProjectionBox.Width, toProjectHeight,
+                             height => viewport.ProjectionBox = new RectangleF(viewport.ProjectionBox.X, viewport.ProjectionBox.Y, viewport.ProjectionBox.Width, height),
+							 timeInSeconds, easing);
+		}
+
 		public static Tween TweenAngle(this IViewport viewport, float toAngle, float timeInSeconds, Func<float, float> easing = null)
 		{
 			return Tween.Run(viewport.Angle, toAngle, a => viewport.Angle = a, timeInSeconds, easing);
