@@ -73,6 +73,9 @@ namespace DemoGame
 
             var treeView = treePanel.AddComponent<ITreeViewComponent>();
 
+            var roomsLabel = createFeaturesLabel("Rooms", tree);
+            createFeaturesLabel("Viewports", roomsLabel, () => new FeaturesViewportsPanel(_game, _rightSidePanel));
+
             var uiLabel = createFeaturesLabel("GUIs", tree);
             createFeaturesLabel("Labels", uiLabel, () => new FeaturesLabelsPanel(_game, _rightSidePanel));
             createFeaturesLabel("Buttons", uiLabel);

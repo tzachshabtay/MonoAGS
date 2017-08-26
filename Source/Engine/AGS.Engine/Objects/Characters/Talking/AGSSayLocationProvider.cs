@@ -6,18 +6,20 @@ namespace AGS.Engine
 {
 	public class AGSSayLocationProvider : ISayLocationProvider
 	{
-		private IObject _obj;
-        private IGameSettings _settings;
+		private readonly IObject _obj;
+        private readonly IGameSettings _settings;
+        private readonly IGameState _state;
 
         private static bool _lastSpeakerOnLeft;
         private static IObject _lastSpeaker;
 
         private static readonly PointF _emptyPoint = new PointF(0f, 0f);
 
-        public AGSSayLocationProvider(IGameSettings settings, IObject obj)
+        public AGSSayLocationProvider(IGameSettings settings, IGameState state, IObject obj)
 		{
             _settings = settings;
 			_obj = obj;
+            _state = state;
 		}
 
 		#region ISayLocation implementation
@@ -27,10 +29,10 @@ namespace AGS.Engine
             var portraitLocation = getPortraitLocation(config);
             _lastSpeaker = _obj;
             var boundingBoxes = _obj.GetBoundingBoxes();
-            float x = portraitLocation == null ? (boundingBoxes.HitTestBox.MaxX - (_obj.IgnoreViewport ? 0 : _obj.Room.Viewport.X)) 
+            float x = portraitLocation == null ? (boundingBoxes.HitTestBox.MaxX - (_obj.IgnoreViewport ? 0 : _state.Viewport.X)) 
                                                   : portraitLocation.Value.X;
             if (portraitLocation != null && _lastSpeakerOnLeft) x += config.PortraitConfig.Portrait.Width + getBorderWidth(config.PortraitConfig, true).X;
-            float y = portraitLocation == null ? (boundingBoxes.HitTestBox.MaxY - (_obj.IgnoreViewport ? 0 : _obj.Room.Viewport.Y)) 
+            float y = portraitLocation == null ? (boundingBoxes.HitTestBox.MaxY - (_obj.IgnoreViewport ? 0 : _state.Viewport.Y)) 
                                                   : _settings.VirtualResolution.Height;
             return new AGSSayLocation(getTextLocation(text, config, x, y), portraitLocation);
 		}

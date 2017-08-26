@@ -36,13 +36,6 @@ namespace AGS.API
 		IAudioClip MusicOnLoad { get; set; }
 
         /// <summary>
-        /// It might be that not all of the room is shown on the screen at once (for example, a scrolling room). 
-        /// A viewport to the room instructs the engine on what parts of the room to show.
-        /// </summary>
-        /// <value>The viewport.</value>
-		IViewport Viewport { get; }
-
-        /// <summary>
         /// A background graphic for the room. 
         /// The background is actually just a regular object so it can be animated or use any of the properties 
         /// available on regular objects.

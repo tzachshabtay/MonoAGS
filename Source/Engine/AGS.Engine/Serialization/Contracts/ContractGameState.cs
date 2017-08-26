@@ -34,11 +34,27 @@ namespace AGS.Engine
 		[ProtoMember(7)]
 		public int GameSpeed { get; set; }
 
+		[ProtoMember(8)]
+		public IContract<IViewport> Viewport { get; set; }
+
+		[ProtoMember(9)]
+		public IList<IContract<IViewport>> SecondaryViewports { get; set; }
+
 		#region IContract implementation
 
 		public IGameState ToItem(AGSSerializationContext context)
 		{
-			IGameState state = context.Resolver.Container.Resolve<IGameState>();
+            TypedParameter viewParam = new TypedParameter(typeof(IViewport), Viewport.ToItem(context));
+			IGameState state = context.Resolver.Container.Resolve<IGameState>(viewParam);
+
+            state.SecondaryViewports.Clear();
+            if (SecondaryViewports != null)
+            {
+                foreach (var viewport in SecondaryViewports)
+                {
+                    state.SecondaryViewports.Add(viewport.ToItem(context));
+                }
+            }
 
 			state.Rooms.Clear();
 			if (Rooms != null)
@@ -94,6 +110,12 @@ namespace AGS.Engine
 			Cutscene = context.GetContract(item.Cutscene);
             RepeatCounters = Repeat.ToDictionary();
 			GameSpeed = item.Speed;
+            Viewport = context.GetContract(item.Viewport);
+            SecondaryViewports = new List<IContract<IViewport>>(item.SecondaryViewports.Count);
+            foreach (var viewport in item.SecondaryViewports)
+            {
+                SecondaryViewports.Add(context.GetContract(viewport));
+            }
 		}
 
 		#endregion

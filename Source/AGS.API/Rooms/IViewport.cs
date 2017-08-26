@@ -57,6 +57,18 @@
         RectangleF ProjectionBox { get; set; }
 
         /// <summary>
+        /// Gets or sets the room provider, which returns the room currently shown by the viewport.
+        /// </summary>
+        /// <value>The room provider.</value>
+        IRoomProvider RoomProvider { get; set; }
+
+        /// <summary>
+        /// Allows to control what will be seen via the viewport.
+        /// </summary>
+        /// <value>The display list settings.</value>
+        IDisplayListSettings DisplayListSettings { get; }
+
+        /// <summary>
         /// An event which fires when the position of the viewport has changed.
         /// </summary>
         /// <value>The on position changed.</value>

@@ -17,7 +17,7 @@ namespace AGS.Engine
         private List<IObject> _visibleObjectsWithUi = new List<IObject>(), _visibleObjectsWithoutUi = new List<IObject>();
         private IObject _objectAtMousePosition;
 
-		public AGSRoom (string id, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents,
+		public AGSRoom (string id, IAGSEdges edges, IGameEvents gameEvents,
                         IRoomEvents roomEvents, IGameState state, ICustomProperties properties,
                         IRoomLimitsProvider roomLimitsProvider, IInput input)
 		{
@@ -26,7 +26,6 @@ namespace AGS.Engine
             _input = input;
             RoomLimitsProvider = roomLimitsProvider;
 			_gameEvents = gameEvents;
-			Viewport = viewport;
 			Events = roomEvents;
 			ID = id;
 			Objects = new AGSConcurrentHashSet<IObject> ();
@@ -79,8 +78,6 @@ namespace AGS.Engine
 		public IConcurrentHashSet<IObject> Objects { get; private set; }
 
 		public IList<IArea> Areas { get; private set; }
-
-		public IViewport Viewport { get; private set; }
 
 		public IEdges Edges { get { return _edges; } }
 

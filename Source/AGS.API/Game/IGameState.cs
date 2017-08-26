@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AGS.API
@@ -6,7 +7,7 @@ namespace AGS.API
     /// <summary>
     /// The game state. This is the entry point for all "changing" things in the game.
     /// </summary>
-    public interface IGameState
+    public interface IGameState : IRoomProvider
 	{
         /// <summary>
         /// The player character.
@@ -15,16 +16,24 @@ namespace AGS.API
         ICharacter Player { get; set; }
 
         /// <summary>
-        /// The game's current room.
-        /// </summary>
-        /// <value>The room.</value>
-        IRoom Room { get; }
-
-        /// <summary>
         /// All of the rooms in the game.
         /// </summary>
         /// <value>The rooms.</value>
 		IAGSBindingList<IRoom> Rooms { get; }
+
+        /// <summary>
+        /// The viewport decides what part of the room is actually seen on screen, and also
+        /// where it's projected on the screen..
+        /// </summary>
+        /// <value>The viewport.</value>
+        IViewport Viewport { get; }
+
+        /// <summary>
+        /// Allows adding multiple viewports to the game (so you can have split-screen functionality, for example,
+        /// or having a TV in one room showing things happenning in another room).
+        /// </summary>
+        /// <value>The secondary viewports.</value>
+        IAGSBindingList<IViewport> SecondaryViewports { get; }
 
         /// <summary>
         /// All of the non-room objects in the game. Those are usually GUIs which stay on the screen

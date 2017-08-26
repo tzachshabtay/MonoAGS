@@ -249,6 +249,8 @@
     <Compile Include="Objects\IBoundingBoxWithChildrenComponent.cs" />
     <Compile Include="Objects\Collisions\IBoundingBoxComponent.cs" />
     <Compile Include="Graphics\Logic\IDisplayList.cs" />
+    <Compile Include="Graphics\Logic\IDisplayListSettings.cs" />
+    <Compile Include="Rooms\IRoomProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

@@ -20,21 +20,18 @@ namespace AGS.Engine
 		public bool ShowPlayer { get; set; }
 
 		[ProtoMember(3)]
-		public IContract<IViewport> Viewport { get; set; }
-
-		[ProtoMember(4)]
 		public IContract<IObject> Background  { get; set; }
 
-		[ProtoMember(5, AsReference = true)]
+		[ProtoMember(4, AsReference = true)]
 		public IList<IContract<IObject>> Objects { get; set; }
 
-		[ProtoMember(6)]
+		[ProtoMember(5)]
 		public IContract<ICustomProperties> Properties { get; set; }
 
-		[ProtoMember(7)]
+		[ProtoMember(6)]
 		public IList<IContract<IArea>> Areas { get; set; }
 
-		[ProtoMember(8)]
+		[ProtoMember(7)]
 		public IContract<IAGSEdges> Edges { get; set; }
 
 		#region IContract implementation
@@ -42,9 +39,8 @@ namespace AGS.Engine
 		public IRoom ToItem(AGSSerializationContext context)
 		{
 			TypedParameter idParam = new TypedParameter (typeof(string), ID);
-			TypedParameter viewParam = new TypedParameter (typeof(IViewport), Viewport.ToItem(context));
 			TypedParameter edgesParam = new TypedParameter (typeof(IAGSEdges), Edges.ToItem(context));
-			IRoom room = context.Resolver.Container.Resolve<IRoom>(idParam, viewParam, edgesParam);
+			IRoom room = context.Resolver.Container.Resolve<IRoom>(idParam, edgesParam);
 
 			room.ShowPlayer = ShowPlayer;
 			room.Background = Background.ToItem(context);
@@ -72,8 +68,6 @@ namespace AGS.Engine
 		{
 			ID = item.ID;
 			ShowPlayer = item.ShowPlayer;
-
-			Viewport = context.GetContract(item.Viewport);
 
 			Background = context.GetContract(item.Background);
 

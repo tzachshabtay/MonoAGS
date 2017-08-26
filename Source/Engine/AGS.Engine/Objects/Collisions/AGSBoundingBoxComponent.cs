@@ -11,7 +11,6 @@ namespace AGS.Engine
         private ICropSelfComponent _crop;
         private IAnimationContainer _animation;
         private IDrawableInfo _drawable;
-        private IRoom _room;
         private IGameSettings _settings;
         private readonly GLMatrices _matrices = new GLMatrices();
         private readonly IGLViewportMatrixFactory _layerViewports;
@@ -28,8 +27,12 @@ namespace AGS.Engine
             _layerViewports = layerViewports;
             _boundingBoxBuilder = boundingBoxBuilder;
             boundingBoxBuilder.OnNewBoxBuildRequired.Subscribe(onSomethingChanged);
-            events.OnRoomChanging.Subscribe(onRoomChanged);
-            onRoomChanged();
+            events.OnRoomChanging.Subscribe(onSomethingChanged);
+            var viewport = state.Viewport;
+			viewport.OnAngleChanged.Subscribe(onSomethingChanged);
+			viewport.OnScaleChanged.Subscribe(onSomethingChanged);
+			viewport.OnPositionChanged.Subscribe(onSomethingChanged);
+            onSomethingChanged();
         }
 
         public IEvent OnBoundingBoxesChanged { get; private set; }
@@ -54,7 +57,6 @@ namespace AGS.Engine
 		{
             if (!_isDirty) return _boundingBoxes;
             var animation = _animation;
-            var room = _room;
             var drawable = _drawable;
             var matrix = _matrix;
             var crop = _crop;
@@ -67,8 +69,7 @@ namespace AGS.Engine
 			bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
                                                  drawable, null, out resolutionFactor, out resolution);
 
-            var viewport = room == null ? null : room.Viewport;
-            if (viewport == null) return null;
+            var viewport = _state.Viewport;
             var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : layerViewport.GetMatrix(viewport, drawable.RenderLayer.ParallaxSpeed);
 
             var modelMatrices = matrix.GetModelMatrices();
@@ -110,30 +111,6 @@ namespace AGS.Engine
             OnBoundingBoxesChanged.Invoke();
             return _boundingBoxes;
 		}
-
-        private void onRoomChanged()
-        {
-            var room = _room;
-            IViewport viewport = null;
-            if (room != null) viewport = room.Viewport;
-            if (viewport != null)
-            {
-                viewport.OnAngleChanged.Unsubscribe(onSomethingChanged);
-                viewport.OnScaleChanged.Unsubscribe(onSomethingChanged);
-                viewport.OnPositionChanged.Unsubscribe(onSomethingChanged);
-            }
-            _room = _state.Room;
-            room = _room;
-            viewport = null;
-            if (room != null) viewport = room.Viewport;
-            if (viewport != null)
-            {
-				viewport.OnAngleChanged.Subscribe(onSomethingChanged);
-				viewport.OnScaleChanged.Subscribe(onSomethingChanged);
-				viewport.OnPositionChanged.Subscribe(onSomethingChanged);
-			}
-            onSomethingChanged();    
-        }
 
         private void onSomethingChanged()
         {

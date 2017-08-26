@@ -6,14 +6,16 @@ namespace AGS.Engine
 	{
         private float _x, _y, _scaleX, _scaleY, _angle;
 
-		public AGSViewport ()
+        public AGSViewport(IDisplayListSettings displayListSettings, ICamera camera)
 		{
 			_scaleX = 1f;
 			_scaleY = 1f;
+            Camera = camera;
             ProjectionBox = new RectangleF(0f, 0f, 1f, 1f);
             OnPositionChanged = new AGSEvent();
             OnScaleChanged = new AGSEvent();
             OnAngleChanged = new AGSEvent();
+            DisplayListSettings = displayListSettings;
 		}
 
 		#region IViewport implementation
@@ -35,8 +37,10 @@ namespace AGS.Engine
         public IEvent OnPositionChanged { get; private set; }
         public IEvent OnScaleChanged { get; private set; }
         public IEvent OnAngleChanged { get; private set; }
+        public IRoomProvider RoomProvider { get; set; }
+        public IDisplayListSettings DisplayListSettings { get; set; }
 
-		#endregion
+        #endregion
 
         private void refreshValue(ref float currentValue, float newValue, IEvent changeEvent)
         {

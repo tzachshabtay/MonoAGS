@@ -165,7 +165,7 @@ namespace AGS.Engine.Desktop
 
 		private IViewport getViewport()
 		{
-			return _state.Room.Viewport;
+			return _state.Viewport;
 		}
 	}
 }
