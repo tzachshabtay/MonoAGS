@@ -118,7 +118,7 @@ namespace DemoGame
 
 			Tween zoomX = viewport.TweenScaleX(4f, 2f);
 			Tween zoomY = viewport.TweenScaleY(4f, 2f);
-			Task rotate = viewport.TweenAngle(0.1f, 1f, Ease.QuadOut).Task.
+			Task rotate = viewport.TweenAngle(6f, 1f, Ease.QuadOut).Task.
 				ContinueWith(t => viewport.TweenAngle(angle, 1f, Ease.QuadIn).Task);
 			Tween translateX = viewport.TweenX(240f, 2f);
 			Tween translateY = viewport.TweenY(100f, 2f);
@@ -130,7 +130,7 @@ namespace DemoGame
 
 			zoomX = viewport.TweenScaleX(scaleX, 2f);
 			zoomY = viewport.TweenScaleY(scaleY, 2f);
-			rotate = viewport.TweenAngle(0.1f, 1f, Ease.QuadIn).Task.
+			rotate = viewport.TweenAngle(6f, 1f, Ease.QuadIn).Task.
 				ContinueWith(t => viewport.TweenAngle(angle, 1f, Ease.QuadOut).Task);
 			translateX = viewport.TweenX(x, 2f);
 			translateY = viewport.TweenY(y, 2f);

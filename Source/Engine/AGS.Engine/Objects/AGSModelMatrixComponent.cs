@@ -300,6 +300,7 @@ namespace AGS.Engine
 			Matrix4 anchor = Matrix4.CreateTranslation(new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
             Matrix4 scaleMat = Matrix4.CreateScale(new Vector3(scale.ScaleX * areaScaling.X,
                 scale.ScaleY * areaScaling.Y, 1f));
+            float radians = rotate == null ? 0f : MathUtils.DegreesToRadians(rotate.Angle);
             Matrix4 rotation = Matrix4.CreateRotationZ(rotate == null ? 0f : rotate.Angle);            
             float x = translate == null ? 0f : translate.X * resolutionTransform.X;
             float y = translate == null ? 0f : translate.Y * resolutionTransform.Y;
