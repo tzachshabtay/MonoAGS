@@ -5,13 +5,15 @@ namespace AGS.Engine
 	public class AGSViewport : IViewport
 	{
         private float _x, _y, _scaleX, _scaleY, _angle;
+        private RectangleF _projectionBox;
 
         public AGSViewport(IDisplayListSettings displayListSettings, ICamera camera)
 		{
 			_scaleX = 1f;
 			_scaleY = 1f;
             Camera = camera;
-            ProjectionBox = new RectangleF(0f, 0f, 1f, 1f);
+            _projectionBox = new RectangleF(0f, 0f, 1f, 1f);
+            OnProjectionBoxChanged = new AGSEvent();
             OnPositionChanged = new AGSEvent();
             OnScaleChanged = new AGSEvent();
             OnAngleChanged = new AGSEvent();
@@ -30,13 +32,23 @@ namespace AGS.Engine
 
         public float Angle { get { return _angle; } set { refreshValue(ref _angle, value, OnAngleChanged);} }
 
-        public RectangleF ProjectionBox { get; set; }
+        public RectangleF ProjectionBox 
+        { 
+            get { return _projectionBox; } 
+            set
+            {
+                if (_projectionBox.Equals(value)) return;
+                _projectionBox = value;
+                OnProjectionBoxChanged.Invoke();
+            }
+        }
 
 		public ICamera Camera { get; set; }
 
         public IEvent OnPositionChanged { get; private set; }
         public IEvent OnScaleChanged { get; private set; }
         public IEvent OnAngleChanged { get; private set; }
+        public IEvent OnProjectionBoxChanged { get; private set; }
         public IRoomProvider RoomProvider { get; set; }
         public IDisplayListSettings DisplayListSettings { get; set; }
 

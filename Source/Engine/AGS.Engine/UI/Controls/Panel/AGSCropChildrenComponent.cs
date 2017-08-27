@@ -10,9 +10,11 @@ namespace AGS.Engine
         private PointF _startPoint;
         private IBoundingBoxComponent _boundingBox;
         private bool _isDirty;
+        private readonly IGameState _state;
 
-        public AGSCropChildrenComponent()
+        public AGSCropChildrenComponent(IGameState state)
         {
+            _state = state;
             EntitiesToSkipCrop = new AGSConcurrentHashSet<string>();
             EntitiesToSkipCrop.OnListChanged.Subscribe(_ => rebuildTree(_tree));
         }
@@ -126,8 +128,8 @@ namespace AGS.Engine
         {
             var boundingBox = _boundingBox;
             if (boundingBox == null) return;
-            var boundingBoxes = boundingBox.GetBoundingBoxes();
-            if (boundingBoxes == null || obj.GetBoundingBoxes() == null) return;
+            var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
+            if (boundingBoxes == null || obj.GetBoundingBoxes(_state.Viewport) == null) return;
             ICropSelfComponent cropSelf;
             var labelRenderer = obj.CustomRenderer as GLLabelRenderer;
             if (labelRenderer != null && labelRenderer.TextBoundingBoxes != null)

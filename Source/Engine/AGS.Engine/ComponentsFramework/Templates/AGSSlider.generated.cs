@@ -650,10 +650,10 @@ namespace AGS.Engine
             get { return _boundingBoxComponent.OnBoundingBoxesChanged; } 
         }
 
-        public AGSBoundingBoxes GetBoundingBoxes()
-        {
-            return _boundingBoxComponent.GetBoundingBoxes();
-        }
+		public AGSBoundingBoxes GetBoundingBoxes(IViewport viewport)
+		{
+			return _boundingBoxComponent.GetBoundingBoxes(viewport);
+		}
 
         #endregion
     }

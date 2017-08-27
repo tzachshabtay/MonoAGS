@@ -9,6 +9,12 @@ namespace AGS.Engine
         private IBoundingBoxWithChildrenComponent _boundingBoxWithChildren;
         private IBoundingBoxComponent _boundingBox;
         private ISlider _verticalScrollBar, _horizontalScrollBar;
+        private readonly IGameState _state;
+
+        public AGSScrollingComponent(IGameState state)
+        {
+            _state = state;
+        }
 
         public ISlider VerticalScrollBar 
         { 
@@ -80,7 +86,7 @@ namespace AGS.Engine
             var boundingBoxWithChildren = _boundingBoxWithChildren;
             var boundingBox = _boundingBox;
             if (boundingBoxWithChildren == null || boundingBox == null) return;
-            var boundingBoxes = boundingBox.GetBoundingBoxes();
+            var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
             if (boundingBoxes == null) return;
 			var withChildren = boundingBoxWithChildren.PreCropBoundingBoxWithChildren;
 			var container = boundingBoxes.RenderBox;

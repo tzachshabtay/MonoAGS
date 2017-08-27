@@ -165,13 +165,13 @@ namespace AGS.Engine
 		{
             var boundingBox = _boundingBox;
             if (boundingBox == null) return;
-            var boundingBoxes = boundingBox.GetBoundingBoxes();
+            var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
             var visible = _visible;
             var enabled = _enabled;
             if (visible == null || !visible.Visible || enabled == null || !enabled.Enabled || 
                 boundingBoxes == null || 
                 (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
-                Graphics.GetBoundingBoxes() == null || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
+                Graphics.GetBoundingBoxes(_state.Viewport) == null || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
                 HandleGraphics == null)
 			{
 				if (_isSliding)
@@ -192,7 +192,7 @@ namespace AGS.Engine
 		{
             var boundingBox = _boundingBox;
             if (boundingBox == null) return;
-            var boundingBoxes = boundingBox.GetBoundingBoxes();
+            var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
             if (boundingBoxes == null || HandleGraphics == null) return;
 
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator

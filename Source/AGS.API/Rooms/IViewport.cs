@@ -85,6 +85,12 @@
         /// </summary>
         /// <value>The on angle changed.</value>
         IEvent OnAngleChanged { get; }
+
+        /// <summary>
+        /// An event which fires when the projection box of the viewport has changed.
+        /// </summary>
+        /// <value>The on projection box changed.</value>
+        IEvent OnProjectionBoxChanged { get; }
 	}
 }
 

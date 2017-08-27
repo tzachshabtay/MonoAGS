@@ -34,7 +34,7 @@ namespace AGS.Engine
 			{
                 var boundingBoxesComponent = _boundingBox;
                 if (boundingBoxesComponent == null) return null;
-                var boundingBoxes = boundingBoxesComponent.GetBoundingBoxes();
+                var boundingBoxes = boundingBoxesComponent.GetBoundingBoxes(_state.Viewport);
                 if (boundingBoxes == null) return null;
                 var boundingBox = boundingBoxes.HitTestBox;
                 var pixelPerfectComponent = _pixelPerfect;
@@ -54,7 +54,7 @@ namespace AGS.Engine
 		{
 			var boundingBoxesComponent = _boundingBox;
             if (boundingBoxesComponent == null) return false;
-			var boundingBoxes = boundingBoxesComponent.GetBoundingBoxes();
+            var boundingBoxes = boundingBoxesComponent.GetBoundingBoxes(_state.Viewport);
             if (boundingBoxes == null) return false;
             AGSBoundingBox boundingBox = boundingBoxes.HitTestBox;
             var pixelPerfectComponent = _pixelPerfect;

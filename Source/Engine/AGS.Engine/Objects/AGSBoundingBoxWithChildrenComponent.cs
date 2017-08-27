@@ -8,9 +8,11 @@ namespace AGS.Engine
         private IBoundingBoxComponent _boundingBox;
         private IInObjectTree _tree;
         private IEntity _entity;
+        private readonly IGameState _state;
 
-        public AGSBoundingBoxWithChildrenComponent()
+        public AGSBoundingBoxWithChildrenComponent(IGameState state)
         {
+            _state = state;
             OnBoundingBoxWithChildrenChanged = new AGSEvent();
         }
 
@@ -112,7 +114,7 @@ namespace AGS.Engine
             float maxY = float.MinValue;
             if (box != null)
             {
-                var boxes = box.GetBoundingBoxes();
+                var boxes = box.GetBoundingBoxes(_state.Viewport);
                 if (boxes != null)
                 {
                     var boundingBox = getBox(boxes);
