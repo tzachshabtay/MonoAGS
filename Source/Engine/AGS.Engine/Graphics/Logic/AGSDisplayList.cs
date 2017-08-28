@@ -10,7 +10,6 @@ namespace AGS.Engine
         private readonly IImageRenderer _renderer;
         private readonly AGSWalkBehindsMap _walkBehinds;
         private readonly IComparer<IObject> _comparer;
-        private IObject _mouseCursorContainer;
 
         public AGSDisplayList(IGameState gameState, IInput input, AGSWalkBehindsMap walkBehinds, 
                               IImageRenderer renderer)
@@ -61,24 +60,7 @@ namespace AGS.Engine
             }
 
 			displayList.Sort(_comparer);
-            if (settings.DisplayCursor)
-            {
-                addCursor(displayList, viewport);
-            }
 			return displayList;
-		}
-
-        private void addCursor(List<IObject> displayList, IViewport viewport)
-		{
-			IObject cursor = _input.Cursor;
-			if (cursor == null) return;
-			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
-			{
-				_mouseCursorContainer = cursor;
-			}
-            _mouseCursorContainer.X = (_input.MouseX - viewport.X) * viewport.ScaleX;
-			_mouseCursorContainer.Y = (_input.MouseY - viewport.Y) * viewport.ScaleY;
-			addToDisplayList(displayList, _mouseCursorContainer, viewport);
 		}
 
         private void addDebugDrawArea(List<IObject> displayList, IArea area, IViewport viewport)

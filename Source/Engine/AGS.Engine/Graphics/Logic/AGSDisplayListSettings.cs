@@ -6,11 +6,10 @@ namespace AGS.Engine
     {
         public AGSDisplayListSettings()
         {
-            DisplayRoom = DisplayGUIs = DisplayCursor = true;
+            DisplayRoom = DisplayGUIs = true;
         }
 
         public bool DisplayRoom { get; set; }
         public bool DisplayGUIs { get; set; }
-        public bool DisplayCursor { get; set; }
     }
 }

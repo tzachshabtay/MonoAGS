@@ -28,7 +28,6 @@ namespace DemoGame
             _isShowing = true;
             AGSDisplayListSettings settings = new AGSDisplayListSettings 
             { 
-                DisplayCursor = false,
                 DisplayGUIs = false 
             };
             _viewport1 = new AGSViewport(settings, null);

@@ -16,11 +16,5 @@
         /// </summary>
         /// <value><c>true</c> if display GUI; otherwise, <c>false</c>.</value>
         bool DisplayGUIs { get; set; }
-
-        /// <summary>
-        /// Should we display the mouse cursor?
-        /// </summary>
-        /// <value><c>true</c> if display cursor; otherwise, <c>false</c>.</value>
-        bool DisplayCursor { get; set; }
     }
 }

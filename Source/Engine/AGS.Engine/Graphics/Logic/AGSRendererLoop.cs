@@ -16,15 +16,19 @@ namespace AGS.Engine
         private readonly Stack<IObject> _parentStack;
         private readonly IGameWindow _gameWindow;
         private readonly IDisplayList _displayList;
+        private readonly IInput _input;
         private IGLUtils _glUtils;
         private IShader _lastShaderUsed;
+        private IObject _mouseCursorContainer;
 		
         private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
 
 		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer,
             IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IGameWindow gameWindow,
-            IEvent<DisplayListEventArgs> onBeforeRenderingDisplayList, IDisplayList displayList)
+            IEvent<DisplayListEventArgs> onBeforeRenderingDisplayList, IDisplayList displayList, 
+            IInput input)
 		{
+            _input = input;
             _displayList = displayList;
             _glUtils = glUtils;
             _gameWindow = gameWindow;
@@ -133,6 +137,7 @@ namespace AGS.Engine
                 }
             }
             catch (InvalidOperationException) {} //can be triggered if a viewport was added/removed while enumerating- this should be resolved on next tick
+            renderCursor();
 		}
 
         private void renderViewport(IViewport viewport)
@@ -147,6 +152,21 @@ namespace AGS.Engine
 			{
 				renderObject(viewport, obj);
 			}
+        }
+
+        private void renderCursor()
+        {
+			IObject cursor = _input.Cursor;
+			if (cursor == null) return;
+			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
+			{
+				_mouseCursorContainer = cursor;
+			}
+            var viewport = _gameState.Viewport;
+			_mouseCursorContainer.X = (_input.MouseX - viewport.X) * viewport.ScaleX;
+			_mouseCursorContainer.Y = (_input.MouseY - viewport.Y) * viewport.ScaleY;
+            _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport.ProjectionBox);
+            renderObject(viewport, _mouseCursorContainer);
         }
 
         private void renderObject(IViewport viewport, IObject obj)

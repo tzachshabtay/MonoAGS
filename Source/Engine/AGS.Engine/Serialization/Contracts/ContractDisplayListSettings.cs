@@ -18,14 +18,10 @@ namespace AGS.Engine
         [ProtoMember(2)]
         public bool DisplayGUIs { get; set; }
 
-        [ProtoMember(3)]
-        public bool DisplayCursor { get; set; }
-
         public void FromItem(AGSSerializationContext context, IDisplayListSettings item)
         {
             DisplayRoom = item.DisplayRoom;
             DisplayGUIs = item.DisplayGUIs;
-            DisplayCursor = item.DisplayCursor;
         }
 
         public IDisplayListSettings ToItem(AGSSerializationContext context)
@@ -33,7 +29,6 @@ namespace AGS.Engine
             var list = context.Resolver.Container.Resolve<IDisplayListSettings>();
             list.DisplayGUIs = DisplayGUIs;
             list.DisplayRoom = DisplayRoom;
-            list.DisplayCursor = DisplayCursor;
             return list;
         }
     }
