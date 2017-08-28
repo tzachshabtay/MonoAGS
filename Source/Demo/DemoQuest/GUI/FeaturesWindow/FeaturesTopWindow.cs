@@ -120,6 +120,8 @@ namespace DemoGame
 
         private void hide()
 		{
+            var currentPanel = _currentPanel;
+            if (currentPanel != null) currentPanel.Close();
 			_scheme.RotatingEnabled = true;
 			if (_game.State.Player.Inventory.ActiveItem == null)
 				_scheme.CurrentMode = _lastMode;
