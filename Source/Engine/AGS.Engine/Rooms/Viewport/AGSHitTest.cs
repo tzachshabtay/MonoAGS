@@ -46,10 +46,11 @@ namespace AGS.Engine
             for (int i = _state.SecondaryViewports.Count - 1; i >= 0; i--)
             {
                 IViewport viewport = _state.SecondaryViewports[i];
+                if (!viewport.Interactive) continue;
                 obj = findObject(viewport);
                 if (obj != null) break;
             }
-            if (obj == null) 
+            if (obj == null && _state.Viewport.Interactive) 
             {
                 obj = findObject(_state.Viewport);
             }

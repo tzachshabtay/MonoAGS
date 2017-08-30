@@ -63,6 +63,12 @@
         IRoomProvider RoomProvider { get; set; }
 
         /// <summary>
+        /// Can the user interact with objects in the viewport?
+        /// </summary>
+        /// <value><c>true</c> if interactive; otherwise, <c>false</c>.</value>
+        bool Interactive { get; set; }
+
+        /// <summary>
         /// Allows to control what will be seen via the viewport.
         /// </summary>
         /// <value>The display list settings.</value>

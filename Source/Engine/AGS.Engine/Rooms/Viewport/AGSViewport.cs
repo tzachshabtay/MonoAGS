@@ -18,6 +18,7 @@ namespace AGS.Engine
             OnScaleChanged = new AGSEvent();
             OnAngleChanged = new AGSEvent();
             DisplayListSettings = displayListSettings;
+            Interactive = true;
 		}
 
 		#region IViewport implementation
@@ -31,6 +32,8 @@ namespace AGS.Engine
         public float ScaleY { get { return _scaleY; } set { refreshValue(ref _scaleY, value, OnScaleChanged);} }
 
         public float Angle { get { return _angle; } set { refreshValue(ref _angle, value, OnAngleChanged);} }
+
+        public bool Interactive { get; set; }
 
         public RectangleF ProjectionBox 
         { 
