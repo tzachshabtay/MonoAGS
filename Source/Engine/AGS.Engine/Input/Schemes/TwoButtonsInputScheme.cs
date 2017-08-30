@@ -6,12 +6,12 @@ namespace AGS.Engine
 {
 	public class TwoButtonsInputScheme
 	{
-		private IGameState _state;
+		private IGame _game;
 		private IInputEvents _input;
 
-		public TwoButtonsInputScheme (IGameState state, IInputEvents input)
+		public TwoButtonsInputScheme (IGame game, IInputEvents input)
 		{
-			this._state = state;
+            this._game = game;
 			this._input = input;
 		}
 
@@ -22,16 +22,18 @@ namespace AGS.Engine
 			
 		private async Task onMouseDown(MouseButtonEventArgs e)
 		{
-			if (!_state.Player.Enabled)
+            IGameState state = _game.State;
+			if (!state.Player.Enabled)
 				return;
 
 			if (e.Button == MouseButton.Left)
 			{
-				if (_state.Player.Inventory == null || 
-					_state.Player.Inventory.ActiveItem == null)
+				if (state.Player.Inventory == null || 
+					state.Player.Inventory.ActiveItem == null)
 				{
-					AGSLocation location = new AGSLocation(e.X, e.Y, _state.Player.Z);
-					await _state.Player.WalkAsync(location).ConfigureAwait(true);
+                    AGSLocation location = new AGSLocation(e.MousePosition.XMainViewport, 
+                                                           e.MousePosition.YMainViewport, state.Player.Z);
+					await state.Player.WalkAsync(location).ConfigureAwait(true);
 				}
 				else
 				{
@@ -40,11 +42,11 @@ namespace AGS.Engine
 			}
 			else if (e.Button == MouseButton.Right)
 			{
-				IInventory inventory = _state.Player.Inventory;
+				IInventory inventory = state.Player.Inventory;
 				if (inventory == null) return;
 				if (inventory.ActiveItem == null)
 				{
-					IObject hotspot = _state.Room.GetObjectAt(e.X, e.Y);
+                    IObject hotspot = _game.HitTest.ObjectAtMousePosition;
 					if (hotspot == null) return;
 				}
 				else

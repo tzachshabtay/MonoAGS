@@ -86,12 +86,13 @@ namespace AGS.Engine
 		private async Task onMouseDown(MouseButtonEventArgs e)
 		{
 			var state = _game.State;
+            var hitTest = _game.HitTest;
 			if (_handlingClick || !state.Player.Enabled)
 				return;
 
 			if (e.Button == MouseButton.Left)
 			{
-				await onLeftMouseDown(e, state);
+				await onLeftMouseDown(e, state, hitTest);
 			}
 			else if (e.Button == MouseButton.Right)
 			{
@@ -99,10 +100,10 @@ namespace AGS.Engine
 			}
 		}
 
-		private async Task onLeftMouseDown(MouseButtonEventArgs e, IGameState state)
+        private async Task onLeftMouseDown(MouseButtonEventArgs e, IGameState state, IHitTest hitTest)
 		{
 			string mode = CurrentMode;
-			IObject hotspot = state.Room.GetObjectAt(e.X, e.Y);
+            IObject hotspot = hitTest.ObjectAtMousePosition;
 
 			if (_game.Input.Cursor != _inventoryCursor.Animation)
 			{
@@ -128,7 +129,8 @@ namespace AGS.Engine
 
 				if (mode == WALK_MODE)
 				{
-                    AGSLocation location = new AGSLocation (e.X, e.Y, state.Player.Z);
+                    AGSLocation location = new AGSLocation (e.MousePosition.XMainViewport, 
+                                                            e.MousePosition.YMainViewport, state.Player.Z);
 					await state.Player.WalkAsync(location).ConfigureAwait(true);
 				}
 				else if (mode != WAIT_MODE)

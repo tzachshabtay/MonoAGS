@@ -10,21 +10,7 @@
         /// after adjusting for the viewport.
         /// </summary>
         /// <value>The mouse position.</value>
-		PointF MousePosition { get; }
-
-        /// <summary>
-        /// Gets the mouse's x position in the room's co-ordinates (based on the game's virtual resolution), 
-        /// after adjusting for the viewport.
-        /// </summary>
-        /// <value>The mouse x.</value>
-		float MouseX { get; }
-
-        /// <summary>
-        /// Gets the mouse's y position in the room's co-ordinates (based on the game's virtual resolution), 
-        /// after adjusting for the viewport.
-        /// </summary>
-        /// <value>The mouse y.</value>
-		float MouseY { get; }
+        MousePosition MousePosition { get; }
 
         /// <summary>
         /// Is the left mouse button currently pressed down?

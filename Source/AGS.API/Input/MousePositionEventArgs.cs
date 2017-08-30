@@ -5,25 +5,16 @@
     /// </summary>
     public class MousePositionEventArgs
 	{
-		public MousePositionEventArgs (float x, float y)
+        public MousePositionEventArgs (MousePosition position)
 		{
-			X = x;
-			Y = y;
+            MousePosition = position;
 		}
 
         /// <summary>
-        /// Gets the mouse's x position in the room's co-ordinates (based on the game's virtual resolution), 
-        /// after adjusting for the viewport.
+        /// The position of the mouse on the screen.
         /// </summary>
-        /// <value>The mouse x.</value>
-		public float X { get; private set; }
-
-        /// <summary>
-        /// Gets the mouse's y position in the room's co-ordinates (based on the game's virtual resolution), 
-        /// after adjusting for the viewport.
-        /// </summary>
-        /// <value>The mouse y.</value>
-		public float Y { get; private set; }
+        /// <value>The mouse position.</value>
+        public MousePosition MousePosition { get; private set; }
 	}
 }
 

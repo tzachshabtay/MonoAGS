@@ -78,6 +78,8 @@ namespace AGS.Engine
 
         public IRuntimeSettings Settings { get; private set; }
 
+        public IHitTest HitTest { get; private set; }
+
         public void Start(IGameSettings settings)
 		{
 			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), settings.VirtualResolution));
@@ -112,6 +114,7 @@ namespace AGS.Engine
                         TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
                         RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter);
                         updateResolver();
+                        HitTest = _resolver.Container.Resolve<IHitTest>();
                         AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
                         SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
 

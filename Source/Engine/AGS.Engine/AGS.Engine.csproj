@@ -409,6 +409,7 @@
     <Compile Include="Serialization\Contracts\ContractDisplayListSettings.cs" />
     <Compile Include="Serialization\Contracts\ContractRectangleF.cs" />
     <Compile Include="Rooms\AGSSingleRoomProvider.cs" />
+    <Compile Include="Rooms\Viewport\AGSHitTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
