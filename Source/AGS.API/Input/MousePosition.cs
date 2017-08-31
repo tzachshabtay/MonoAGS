@@ -59,6 +59,16 @@ namespace AGS.API
             float windowWidth = GetWindowWidth();
             var projectLeft = viewport.ProjectionBox.X * windowWidth;
             var projectRight = projectLeft + viewport.ProjectionBox.Width * windowWidth;
+			var parent = viewport.Parent;
+			if (parent != null)
+			{
+				var boundingBoxes = parent.GetBoundingBoxes(_mainViewport);
+				if (boundingBoxes != null)
+				{
+					projectLeft += boundingBoxes.RenderBox.MinX;
+					projectRight += boundingBoxes.RenderBox.MinX;
+				}
+			}
             var virtualWidth = VirtualResolution.Width / viewport.ScaleX;
             float x = MathUtils.Lerp(projectLeft, 0f, projectRight, virtualWidth, XWindow);
 			return x + viewport.X;
@@ -74,6 +84,16 @@ namespace AGS.API
             float windowHeight = GetWindowHeight();
             var projectBottom = windowHeight - viewport.ProjectionBox.Y * windowHeight;
             var projectTop = projectBottom - viewport.ProjectionBox.Height * windowHeight;
+            var parent = viewport.Parent;
+            if (parent != null)
+            {
+                var boundingBoxes = parent.GetBoundingBoxes(_mainViewport);
+                if (boundingBoxes != null)
+                {
+                    projectBottom -= boundingBoxes.RenderBox.MinY;
+                    projectTop -= boundingBoxes.RenderBox.MinY;
+                }
+            }
             var virtualHeight = VirtualResolution.Height / viewport.ScaleY;
             float y = MathUtils.Lerp(projectTop, virtualHeight, projectBottom, 0f, YWindow);
 			return y + viewport.Y;

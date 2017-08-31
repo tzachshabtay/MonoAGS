@@ -32,12 +32,14 @@ namespace DemoGame
             };
             _viewport1 = new AGSViewport(settings, null);
             _viewport1.RoomProvider = new AGSSingleRoomProvider(await Rooms.BrokenCurbStreet);
-            _viewport1.ProjectionBox = new RectangleF(0.45f, 0.2f, 0.25f, 0.25f);
+            _viewport1.ProjectionBox = new RectangleF(0.15f, 0.07f, 0.25f, 0.25f);
+            _viewport1.Parent = _parent;
             _game.State.SecondaryViewports.Add(_viewport1);
 
 			_viewport2 = new AGSViewport(settings, null);
             _viewport2.RoomProvider = new AGSSingleRoomProvider(await Rooms.DarsStreet);
-			_viewport2.ProjectionBox = new RectangleF(0.45f, 0.5f, 0.25f, 0.25f);
+			_viewport2.ProjectionBox = new RectangleF(0.15f, 0.37f, 0.25f, 0.25f);
+            _viewport2.Parent = _parent;
 			_game.State.SecondaryViewports.Add(_viewport2);
 
             animate();
@@ -48,8 +50,8 @@ namespace DemoGame
             await Task.Delay(2000);
             if (!_isShowing) return;
 
-            var task1 = _viewport1.TweenProjectY(0.5f, 1f, Ease.QuadIn).Task;
-            var task2 = _viewport2.TweenProjectY(0.2f, 1f, Ease.QuadIn).Task;
+            var task1 = _viewport1.TweenProjectY(0.37f, 1f, Ease.QuadIn).Task;
+            var task2 = _viewport2.TweenProjectY(0.07f, 1f, Ease.QuadIn).Task;
             await Task.WhenAll(task1, task2);
             await Task.Delay(1000);
             if (!_isShowing) return;
@@ -60,8 +62,8 @@ namespace DemoGame
 			await Task.Delay(1000);
 			if (!_isShowing) return;
 
-			task1 = _viewport1.TweenProjectY(0.2f, 1f, Ease.SineInOut).Task;
-			task2 = _viewport2.TweenProjectY(0.5f, 1f, Ease.SineInOut).Task;
+			task1 = _viewport1.TweenProjectY(0.07f, 1f, Ease.SineInOut).Task;
+			task2 = _viewport2.TweenProjectY(0.37f, 1f, Ease.SineInOut).Task;
 			var task3 = _viewport1.TweenProjectWidth(0.25f, 1.5f, Ease.SineInOut).Task;
 			var task4 = _viewport2.TweenProjectWidth(0.25f, 1.5f, Ease.SineInOut).Task;
 			await Task.WhenAll(task1, task2, task3, task4);

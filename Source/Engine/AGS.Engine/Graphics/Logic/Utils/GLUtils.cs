@@ -18,9 +18,11 @@ namespace AGS.Engine
         private readonly IGraphicsBackend _graphics;
         private readonly IMessagePump _messagePump;
         private readonly GLVertex[] _quad, _line;
+        private readonly IGameState _state;
 
-        public GLUtils(IGraphicsBackend graphics, IMessagePump messagePump)
+        public GLUtils(IGraphicsBackend graphics, IMessagePump messagePump, IGameState state)
         {
+            _state = state;
             _graphics = graphics;
             _messagePump = messagePump;
             _quad = new GLVertex[4];
@@ -46,7 +48,7 @@ namespace AGS.Engine
             _graphics.LoadIdentity();
         }
 
-        public void RefreshViewport(IGameSettings settings, IGameWindow gameWindow, RectangleF projectionBox)
+        public void RefreshViewport(IGameSettings settings, IGameWindow gameWindow, IViewport viewport)
         {
             int viewX = 0;
             int viewY = 0;
@@ -71,8 +73,20 @@ namespace AGS.Engine
             }
 
             ScreenViewport = new Rectangle(viewX, viewY, width, height);
+
+			var projectionBox = viewport.ProjectionBox;
 			viewX = (int)Math.Round(viewX + (float)(viewX + width) * projectionBox.X);
 			viewY = (int)Math.Round(viewY + (float)(viewY + height) * projectionBox.Y);
+			var parent = viewport.Parent;
+			if (parent != null)
+			{
+				var boundingBoxes = parent.GetBoundingBoxes(_state.Viewport);
+				if (boundingBoxes != null)
+				{
+                    viewX += (int)boundingBoxes.RenderBox.MinX;
+                    viewY += (int)boundingBoxes.RenderBox.MinY;
+				}
+			}
 			width = (int)Math.Round((float)width * projectionBox.Width);
 			height = (int)Math.Round((float)height * projectionBox.Height);
 			_graphics.Viewport(viewX, viewY, width, height);

@@ -69,6 +69,13 @@
         bool Interactive { get; set; }
 
         /// <summary>
+        /// Adds the ability to attach a viewport to an object. 
+        /// This makes the <see cref="ProjectionBox"/> of the viewport be relative to that object.
+        /// </summary>
+        /// <value>The parent.</value>
+        IObject Parent { get; set; }
+
+        /// <summary>
         /// Allows to control what will be seen via the viewport.
         /// </summary>
         /// <value>The display list settings.</value>
@@ -97,6 +104,12 @@
         /// </summary>
         /// <value>The on projection box changed.</value>
         IEvent OnProjectionBoxChanged { get; }
+
+        /// <summary>
+        /// An event which fires when the parent of the viewport has changed.
+        /// </summary>
+        /// <value>The on parent changed.</value>
+        IEvent OnParentChanged { get; }
 	}
 }
 

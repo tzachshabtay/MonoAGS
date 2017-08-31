@@ -6,6 +6,7 @@ namespace AGS.Engine
 	{
         private float _x, _y, _scaleX, _scaleY, _angle;
         private RectangleF _projectionBox;
+        private IObject _parent;
 
         public AGSViewport(IDisplayListSettings displayListSettings, ICamera camera)
 		{
@@ -17,6 +18,7 @@ namespace AGS.Engine
             OnPositionChanged = new AGSEvent();
             OnScaleChanged = new AGSEvent();
             OnAngleChanged = new AGSEvent();
+            OnParentChanged = new AGSEvent();
             DisplayListSettings = displayListSettings;
             Interactive = true;
 		}
@@ -48,10 +50,13 @@ namespace AGS.Engine
 
 		public ICamera Camera { get; set; }
 
+        public IObject Parent { get { return _parent; } set { if (_parent == value) return; _parent = value; OnParentChanged.Invoke();} }
+
         public IEvent OnPositionChanged { get; private set; }
         public IEvent OnScaleChanged { get; private set; }
         public IEvent OnAngleChanged { get; private set; }
         public IEvent OnProjectionBoxChanged { get; private set; }
+        public IEvent OnParentChanged { get; private set; }
         public IRoomProvider RoomProvider { get; set; }
         public IDisplayListSettings DisplayListSettings { get; set; }
 

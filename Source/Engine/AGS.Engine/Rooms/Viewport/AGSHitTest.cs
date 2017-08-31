@@ -79,7 +79,7 @@ namespace AGS.Engine
 
                 if (!obj.CollidesWith(x, y, viewport)) continue;
 
-				if (!hasFocus(obj)) continue;
+                if (!hasFocus(obj) && (viewport.Parent == null || !hasFocus(viewport.Parent))) continue;
 
 				return obj;
 			}

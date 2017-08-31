@@ -51,7 +51,7 @@ namespace AGS.Engine
 		{
             if (_gameState.Room == null) return false;
 			IRoom room = _gameState.Room;
-            _glUtils.RefreshViewport(_game.Settings, _gameWindow, _gameState.Viewport.ProjectionBox);
+            _glUtils.RefreshViewport(_game.Settings, _gameWindow, _gameState.Viewport);
 
 			switch (_roomTransitions.State)
 			{
@@ -142,7 +142,7 @@ namespace AGS.Engine
 
         private void renderViewport(IViewport viewport)
         {
-            _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport.ProjectionBox);
+            _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport);
             List<IObject> displayList = _displayList.GetDisplayList(viewport);
 			_displayListEventArgs.DisplayList = displayList;
 			OnBeforeRenderingDisplayList.Invoke(_displayListEventArgs);
@@ -165,7 +165,7 @@ namespace AGS.Engine
             var viewport = _gameState.Viewport;
             _mouseCursorContainer.X = (_input.MousePosition.XMainViewport - viewport.X) * viewport.ScaleX;
             _mouseCursorContainer.Y = (_input.MousePosition.YMainViewport - viewport.Y) * viewport.ScaleY;
-            _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport.ProjectionBox);
+            _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport);
             renderObject(viewport, _mouseCursorContainer);
         }
 

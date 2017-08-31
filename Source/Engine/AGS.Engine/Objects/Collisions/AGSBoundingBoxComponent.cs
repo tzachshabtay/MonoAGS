@@ -184,6 +184,7 @@ namespace AGS.Engine
 				viewport.OnScaleChanged.Subscribe(onViewportChanged);
 				viewport.OnPositionChanged.Subscribe(onViewportChanged);
                 viewport.OnProjectionBoxChanged.Subscribe(onViewportChanged);
+                viewport.OnParentChanged.Subscribe(onViewportChanged);
             }
 
             public AGSBoundingBoxes BoundingBoxes { get; set; }
