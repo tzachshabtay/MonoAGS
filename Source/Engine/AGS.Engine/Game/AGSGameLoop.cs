@@ -45,15 +45,6 @@ namespace AGS.Engine
 				}
 				return;
 			}
-			if (room.Background != null) runAnimation (room.Background.Animation);
-			foreach (var obj in room.Objects) 
-			{
-				if (!obj.Visible)
-					continue;
-				if (!room.ShowPlayer && obj == _gameState.Player)
-					continue;
-				runAnimation (obj.Animation);
-			}
 
 			updateViewports(changedRoom);
 			await updateRoom(room);
@@ -76,6 +67,7 @@ namespace AGS.Engine
 
         private void updateViewport (IViewport viewport, bool playerChangedRoom)
 		{
+            runAnimations(viewport.RoomProvider.Room);
             ICamera camera = viewport.Camera;
 			if (camera != null) 
 			{
@@ -83,7 +75,21 @@ namespace AGS.Engine
 			}
 		}
 
-        private async Task updateRoom(IRoom room)
+		private void runAnimations(IRoom room)
+		{
+            if (room == null) return;
+			if (room.Background != null) runAnimation(room.Background.Animation);
+			foreach (var obj in room.Objects)
+			{
+				if (!obj.Visible)
+					continue;
+				if (!room.ShowPlayer && obj == _gameState.Player)
+					continue;
+				runAnimation(obj.Animation);
+			}
+		}
+
+		private async Task updateRoom(IRoom room)
 		{
 			if (_lastRoom == room) return;
             _lastRoom = room;
