@@ -16,5 +16,11 @@
         /// </summary>
         /// <value><c>true</c> if display GUI; otherwise, <c>false</c>.</value>
         bool DisplayGUIs { get; set; }
+
+        /// <summary>
+        /// Allows fine grain control over which entities will be displayed.
+        /// </summary>
+        /// <value>The restriction list.</value>
+        IRestrictionList RestrictionList { get; }
     }
 }

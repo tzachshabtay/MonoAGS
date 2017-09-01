@@ -4,20 +4,20 @@ namespace AGS.Engine
 {
     public class AGSAreaRestriction : AGSComponent, IAreaRestriction
     {
-        public AGSAreaRestriction()
+        private IRestrictionList _list;
+
+        public AGSAreaRestriction(IRestrictionList list)
         {
-            RestrictionList = new AGSConcurrentHashSet<string>();
+            _list = list;
         }
 
-        public IConcurrentHashSet<string> RestrictionList { get; private set; }
+        public IConcurrentHashSet<string> RestrictionList { get { return _list.RestrictionList; } }
 
-        public RestrictionListType RestrictionType { get; set; }
+        public RestrictionListType RestrictionType { get { return _list.RestrictionType; } set { _list.RestrictionType = value; } }
 
         public bool IsRestricted(string id)
         {
-            if (id == null || RestrictionList == null || RestrictionList.Count == 0) return false;
-            return RestrictionType == RestrictionListType.BlackList ?
-                         RestrictionList.Contains(id) : !RestrictionList.Contains(id);
+            return _list.IsRestricted(id);
         }
     }
 }

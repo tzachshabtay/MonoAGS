@@ -32,7 +32,7 @@ namespace AGS.Engine
             if (settings.DisplayRoom)
             {
                 if (room.Background != null)
-                    addToDisplayList(displayList, room.Background);
+                    addToDisplayList(displayList, room.Background, viewport);
 
                 foreach (IObject obj in room.Objects)
                 {
@@ -71,7 +71,7 @@ namespace AGS.Engine
 
         private void addToDisplayList(List<IObject> displayList, IObject obj, IViewport viewport)
 		{
-			if (!obj.Visible)
+            if (!obj.Visible || viewport.DisplayListSettings.RestrictionList.IsRestricted(obj.ID))
 			{
 				IImageRenderer imageRenderer = getImageRenderer(obj);
 

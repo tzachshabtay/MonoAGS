@@ -26,18 +26,22 @@ namespace DemoGame
         public async void Show()
         {
             _isShowing = true;
-            AGSDisplayListSettings settings = new AGSDisplayListSettings 
+            AGSDisplayListSettings settings1 = new AGSDisplayListSettings 
             { 
                 DisplayGUIs = false 
             };
-            _viewport1 = new AGSViewport(settings, null);
-            _viewport1.RoomProvider = new AGSSingleRoomProvider(await Rooms.BrokenCurbStreet);
+            _viewport1 = new AGSViewport(settings1, null);
+            _viewport1.RoomProvider = new AGSSingleRoomProvider(await Rooms.DarsStreet);
             _viewport1.ProjectionBox = new RectangleF(0.15f, 0.07f, 0.25f, 0.25f);
             _viewport1.Parent = _parent;
             _game.State.SecondaryViewports.Add(_viewport1);
 
-			_viewport2 = new AGSViewport(settings, null);
-            _viewport2.RoomProvider = new AGSSingleRoomProvider(await Rooms.DarsStreet);
+			AGSDisplayListSettings settings2 = new AGSDisplayListSettings
+			{
+				DisplayGUIs = false
+			};
+			_viewport2 = new AGSViewport(settings2, null);
+            _viewport2.RoomProvider = new AGSSingleRoomProvider(await Rooms.BrokenCurbStreet);
 			_viewport2.ProjectionBox = new RectangleF(0.15f, 0.37f, 0.25f, 0.25f);
             _viewport2.Parent = _parent;
 			_game.State.SecondaryViewports.Add(_viewport2);
@@ -70,17 +74,26 @@ namespace DemoGame
 			await Task.Delay(1000);
 			if (!_isShowing) return;
 
-            task1 = _viewport1.TweenAngle(45f, 1f, Ease.ExpoOut).Task;
-            task2 = _viewport2.TweenScaleX(2f, 1f, Ease.CircIn).Task;
-            task3 = _viewport2.TweenScaleY(2f, 1f, Ease.CircIn).Task;
+            task1 = _viewport1.TweenScaleX(2f, 1f, Ease.CircIn).Task;
+            task2 = _viewport1.TweenScaleY(2f, 1f, Ease.CircIn).Task;
+            task3 = _viewport2.TweenAngle(45f, 1f, Ease.ExpoOut).Task;
             await Task.WhenAll(task1, task2, task3);
             await Task.Delay(1000);
             if (!_isShowing) return;
 
-			task1 = _viewport1.TweenAngle(0f, 1f, Ease.ExpoIn).Task;
-			task2 = _viewport2.TweenScaleX(1f, 1f, Ease.CircOut).Task;
-			task3 = _viewport2.TweenScaleY(1f, 1f, Ease.CircOut).Task;
-			await Task.WhenAll(task1, task2, task3);
+			task1 = _viewport1.TweenScaleX(1f, 1f, Ease.CircOut).Task;
+			task2 = _viewport1.TweenScaleY(1f, 1f, Ease.CircOut).Task;
+			task3 = _viewport2.TweenAngle(0f, 1f, Ease.ExpoIn).Task;
+            await Task.WhenAll(task1, task2, task3);
+            await Task.Delay(1000);
+
+            var restrictionList = _viewport2.DisplayListSettings.RestrictionList;
+            if (restrictionList.RestrictionList.Count == 0)
+            {
+                restrictionList.RestrictionType = RestrictionListType.WhiteList;
+                restrictionList.RestrictionList.Add("Beman");
+            }
+            else restrictionList.RestrictionList.Clear();
 
             animate();
         }
