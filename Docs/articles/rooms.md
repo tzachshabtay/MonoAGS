@@ -28,26 +28,12 @@ An optional music clip you can play when switching to the room. If moved from an
 
 ### Viewport
 
-It might be that not all of the room is shown on the screen at once (for example, a scrolling room). A viewport to the room instructs the engine on what parts of the room to show. A viewport has the following properties:
-#### X,Y
-
-The location (bottom-left) in the room from which to show the screen.
-
-#### ScaleX, ScaleY
-
-An optional zoom in/out into the room.
-
-#### Angle
-
-An optional rotation of the viewport.
-
-#### Camera
-
-A camera is a script that automatically moves the viewport, usually to track the player, although you can set the camera's target to track another character/object in the room. Or, you can disable the camera to manually set values in the viewport if needed. Note that you can also code your own camera script if you want to replace the default camera (and this can be done per-room).
+Instructs what part of the room to show on the screen.
+Refer to the [Viewports](viewports.md) section for more information.
 	
 ### Areas
 
-A list of areas (or regions) that exist in the room (like areas in the room that the characters can walk in). There are several types of areas and things you can do with them, refer the [Areas](areas.md) section.
+A list of areas (or regions) that exist in the room (like areas in the room that the characters can walk in). There are several types of areas and things you can do with them, refer to the [Areas](areas.md) section.
 
 ### Objects
 

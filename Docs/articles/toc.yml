@@ -12,6 +12,8 @@
       items:
         - name: Areas
           href: areas.md
+        - name: Viewports
+          href: viewports.md
     - name: Objects
       href: objects.md
       items:
