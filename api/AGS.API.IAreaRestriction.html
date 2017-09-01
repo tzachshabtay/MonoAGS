@@ -86,6 +86,15 @@
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
+      <a class="xref" href="AGS.API.IRestrictionList.html#AGS_API_IRestrictionList_RestrictionType">IRestrictionList.RestrictionType</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IRestrictionList.html#AGS_API_IRestrictionList_RestrictionList">IRestrictionList.RestrictionList</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IRestrictionList.html#AGS_API_IRestrictionList_IsRestricted_System_String_">IRestrictionList.IsRestricted(String)</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
@@ -102,128 +111,8 @@
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IAreaRestriction_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IAreaRestriction : IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IAreaRestriction : IRestrictionList, IComponent, IDisposable</code></pre>
   </div>
-  <h3 id="properties">Properties
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IAreaRestriction_RestrictionList.md&amp;value=---%0Auid%3A%20AGS.API.IAreaRestriction.RestrictionList%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L38">View Source</a>
-  </span>
-  <a id="AGS_API_IAreaRestriction_RestrictionList_" data-uid="AGS.API.IAreaRestriction.RestrictionList*"></a>
-  <h4 id="AGS_API_IAreaRestriction_RestrictionList" data-uid="AGS.API.IAreaRestriction.RestrictionList">RestrictionList</h4>
-  <div class="markdown level1 summary"><p>Gets list of restricted entities (if it&apos;s a black list), or permitted entities (if it&apos;s a white list).
-If the list is empty then the component is effectively ignored (everybody is permitted).</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IConcurrentHashSet&lt;string&gt; RestrictionList { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IConcurrentHashSet-1.html">IConcurrentHashSet</a>&lt;<span class="xref">System.String</span>&gt;</td>
-        <td><p>The restriction list.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IAreaRestriction_RestrictionType.md&amp;value=---%0Auid%3A%20AGS.API.IAreaRestriction.RestrictionType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L31">View Source</a>
-  </span>
-  <a id="AGS_API_IAreaRestriction_RestrictionType_" data-uid="AGS.API.IAreaRestriction.RestrictionType*"></a>
-  <h4 id="AGS_API_IAreaRestriction_RestrictionType" data-uid="AGS.API.IAreaRestriction.RestrictionType">RestrictionType</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the type of the restriction, black list (everybody in the list is restricted)
-or white list (everybody not in the list is restricted).</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">RestrictionListType RestrictionType { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.RestrictionListType.html">RestrictionListType</a></td>
-        <td><p>The type of the restriction.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IAreaRestriction_IsRestricted_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IAreaRestriction.IsRestricted(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L45">View Source</a>
-  </span>
-  <a id="AGS_API_IAreaRestriction_IsRestricted_" data-uid="AGS.API.IAreaRestriction.IsRestricted*"></a>
-  <h4 id="AGS_API_IAreaRestriction_IsRestricted_System_String_" data-uid="AGS.API.IAreaRestriction.IsRestricted(System.String)">IsRestricted(String)</h4>
-  <div class="markdown level1 summary"><p>Checks if an entity is restricted to this area (based on the restriction type and list).</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool IsRestricted(string entityId)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">entityId</span></td>
-        <td><p>Entity identifier.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code>, if entity is restricted, <code>false</code> otherwise.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
 </article>
           </div>
           
@@ -235,7 +124,7 @@ or white list (everybody not in the list is restricted).</p>
                     <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IAreaRestriction.md&amp;value=---%0Auid%3A%20AGS.API.IAreaRestriction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L23" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L51" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

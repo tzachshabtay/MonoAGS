@@ -90,17 +90,10 @@
 <h3 id="music-clip-to-play">Music clip to play</h3>
 <p>An optional music clip you can play when switching to the room. If moved from another room with a music clip, there clips will be cross-faded, and you can configure the cross-fading duration and easing functions from <code>IGame.AudioSettings.RoomMusicCrossFading</code>.</p>
 <h3 id="viewport">Viewport</h3>
-<p>It might be that not all of the room is shown on the screen at once (for example, a scrolling room). A viewport to the room instructs the engine on what parts of the room to show. A viewport has the following properties:</p>
-<h4 id="xy">X,Y</h4>
-<p>The location (bottom-left) in the room from which to show the screen.</p>
-<h4 id="scalex-scaley">ScaleX, ScaleY</h4>
-<p>An optional zoom in/out into the room.</p>
-<h4 id="angle">Angle</h4>
-<p>An optional rotation of the viewport.</p>
-<h4 id="camera">Camera</h4>
-<p>A camera is a script that automatically moves the viewport, usually to track the player, although you can set the camera&#39;s target to track another character/object in the room. Or, you can disable the camera to manually set values in the viewport if needed. Note that you can also code your own camera script if you want to replace the default camera (and this can be done per-room).</p>
+<p>Instructs what part of the room to show on the screen.
+Refer to the <a href="viewports.html">Viewports</a> section for more information.</p>
 <h3 id="areas">Areas</h3>
-<p>A list of areas (or regions) that exist in the room (like areas in the room that the characters can walk in). There are several types of areas and things you can do with them, refer the <a href="areas.html">Areas</a> section.</p>
+<p>A list of areas (or regions) that exist in the room (like areas in the room that the characters can walk in). There are several types of areas and things you can do with them, refer to the <a href="areas.html">Areas</a> section.</p>
 <h3 id="objects">Objects</h3>
 <p>A list of objects that are placed in the room (note that unlike &quot;Classic&quot; AGS, objects can be moved between rooms). Refer to the <a href="objects.html">Objects</a> section for more information.</p>
 <h3 id="edges">Edges</h3>

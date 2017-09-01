@@ -114,7 +114,7 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IInput_Cursor.md&amp;value=---%0Auid%3A%20AGS.API.IInput.Cursor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L51">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L37">View Source</a>
   </span>
   <a id="AGS_API_IInput_Cursor_" data-uid="AGS.API.IInput.Cursor*"></a>
   <h4 id="AGS_API_IInput_Cursor" data-uid="AGS.API.IInput.Cursor">Cursor</h4>
@@ -146,7 +146,7 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IInput_IsTouchDrag.md&amp;value=---%0Auid%3A%20AGS.API.IInput.IsTouchDrag%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L45">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L31">View Source</a>
   </span>
   <a id="AGS_API_IInput_IsTouchDrag_" data-uid="AGS.API.IInput.IsTouchDrag*"></a>
   <h4 id="AGS_API_IInput_IsTouchDrag" data-uid="AGS.API.IInput.IsTouchDrag">IsTouchDrag</h4>
@@ -178,7 +178,7 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IInput_LeftMouseButtonDown.md&amp;value=---%0Auid%3A%20AGS.API.IInput.LeftMouseButtonDown%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L33">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L19">View Source</a>
   </span>
   <a id="AGS_API_IInput_LeftMouseButtonDown_" data-uid="AGS.API.IInput.LeftMouseButtonDown*"></a>
   <h4 id="AGS_API_IInput_LeftMouseButtonDown" data-uid="AGS.API.IInput.LeftMouseButtonDown">LeftMouseButtonDown</h4>
@@ -220,7 +220,7 @@ after adjusting for the viewport.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">PointF MousePosition { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">MousePosition MousePosition { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -232,74 +232,8 @@ after adjusting for the viewport.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.PointF.html">PointF</a></td>
+        <td><a class="xref" href="AGS.API.MousePosition.html">MousePosition</a></td>
         <td><p>The mouse position.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IInput_MouseX.md&amp;value=---%0Auid%3A%20AGS.API.IInput.MouseX%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L20">View Source</a>
-  </span>
-  <a id="AGS_API_IInput_MouseX_" data-uid="AGS.API.IInput.MouseX*"></a>
-  <h4 id="AGS_API_IInput_MouseX" data-uid="AGS.API.IInput.MouseX">MouseX</h4>
-  <div class="markdown level1 summary"><p>Gets the mouse&apos;s x position in the room&apos;s co-ordinates (based on the game&apos;s virtual resolution), 
-after adjusting for the viewport.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">float MouseX { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><p>The mouse x.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IInput_MouseY.md&amp;value=---%0Auid%3A%20AGS.API.IInput.MouseY%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L27">View Source</a>
-  </span>
-  <a id="AGS_API_IInput_MouseY_" data-uid="AGS.API.IInput.MouseY*"></a>
-  <h4 id="AGS_API_IInput_MouseY" data-uid="AGS.API.IInput.MouseY">MouseY</h4>
-  <div class="markdown level1 summary"><p>Gets the mouse&apos;s y position in the room&apos;s co-ordinates (based on the game&apos;s virtual resolution), 
-after adjusting for the viewport.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">float MouseY { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><p>The mouse y.</p>
 </td>
       </tr>
     </tbody>
@@ -309,7 +243,7 @@ after adjusting for the viewport.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IInput_RightMouseButtonDown.md&amp;value=---%0Auid%3A%20AGS.API.IInput.RightMouseButtonDown%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L39">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L25">View Source</a>
   </span>
   <a id="AGS_API_IInput_RightMouseButtonDown_" data-uid="AGS.API.IInput.RightMouseButtonDown*"></a>
   <h4 id="AGS_API_IInput_RightMouseButtonDown" data-uid="AGS.API.IInput.RightMouseButtonDown">RightMouseButtonDown</h4>
@@ -343,7 +277,7 @@ after adjusting for the viewport.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IInput_IsKeyDown_AGS_API_Key_.md&amp;value=---%0Auid%3A%20AGS.API.IInput.IsKeyDown(AGS.API.Key)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L58">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Input/IInput.cs/#L44">View Source</a>
   </span>
   <a id="AGS_API_IInput_IsKeyDown_" data-uid="AGS.API.IInput.IsKeyDown*"></a>
   <h4 id="AGS_API_IInput_IsKeyDown_AGS_API_Key_" data-uid="AGS.API.IInput.IsKeyDown(AGS.API.Key)">IsKeyDown(Key)</h4>

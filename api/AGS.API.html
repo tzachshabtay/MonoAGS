@@ -186,6 +186,10 @@ attribute with the animation component.</p>
       <h4><a class="xref" href="AGS.API.ModelMatrices.html">ModelMatrices</a></h4>
       <section><p>The model matrix is used for rendering and hit-testing the object.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.MousePosition.html">MousePosition</a></h4>
+      <section><p>Represents a mouse position on the screen.
+Allows to get the position in either window coordinates or viewport coordinates.</p>
+</section>
       <h4><a class="xref" href="AGS.API.Point.html">Point</a></h4>
       <section><p>Represents an integer point in 2D space.</p>
 </section>
@@ -428,6 +432,9 @@ is attempting to walk down-right, the engine will use the Right animation.</p>
       <h4><a class="xref" href="AGS.API.IDisplayList.html">IDisplayList</a></h4>
       <section><p>Represents an ordered list of objects that will be displayed on screen.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.IDisplayListSettings.html">IDisplayListSettings</a></h4>
+      <section><p>Controls what is shown on screen for this display list.</p>
+</section>
       <h4><a class="xref" href="AGS.API.IDraggableComponent.html">IDraggableComponent</a></h4>
       <section><p>Adds the ability for an entity to be dragged on the screen with the mouse/touch.</p>
 </section>
@@ -527,6 +534,9 @@ This can be useful for having special &quot;Exit&quot; cursors for doors (for ex
       <h4><a class="xref" href="AGS.API.IHasRoom.html">IHasRoom</a></h4>
       <section><p>This component associates an entity with the game&apos;s room system.
 It means that the entity can be belong to a room and moved between rooms.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IHitTest.html">IHitTest</a></h4>
+      <section><p>Responsible for returning the current object that is located under the mouse position.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IHotspotComponent.html">IHotspotComponent</a></h4>
       <section><p>Allows an entity to act as a hotspot (i.e can be interacted with).</p>
@@ -698,6 +708,10 @@ work even if the file is sitting in that folder but not embedded. This is becaus
 searches for an embedded resource with that path, but if one is not found, it looks for the file in the 
 file system.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.IRestrictionList.html">IRestrictionList</a></h4>
+      <section><p>Adds the ability to restrict certain entities from being affected by &quot;something&quot;.
+That &quot;something&quot; can be an area, for example, or a display list for a viewport.</p>
+</section>
       <h4><a class="xref" href="AGS.API.IRoom.html">IRoom</a></h4>
       <section><p>The rooms are where the game takes place. A room can be a room in a house, or an outdoor location, or 
 anything in between.
@@ -716,6 +730,9 @@ Note: this is different than &quot;Classic&quot; AGS in which the room is explic
 The room limits are used to limit the camera from moving too much to the left or to the right.
 By default the room limits are bound to the room background size and start from (0,0), however this
 can be changed by setting a custom room limits provider to a room.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IRoomProvider.html">IRoomProvider</a></h4>
+      <section><p>Provides a room.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IRoomTransition.html">IRoomTransition</a></h4>
       <section><p>This interface allows you to create custom room transitions, to build all kinds of special effects
@@ -967,7 +984,7 @@ away from the camera.</p>
       <section><p>Configures how the portraits will be positioned.</p>
 </section>
       <h4><a class="xref" href="AGS.API.RestrictionListType.html">RestrictionListType</a></h4>
-      <section><p>Defines how an area restriction list is interpreted.</p>
+      <section><p>Defines how a restriction list (<a class="xref" href="AGS.API.IRestrictionList.html">IRestrictionList</a>) is interpreted.</p>
 </section>
       <h4><a class="xref" href="AGS.API.RoomTransitionState.html">RoomTransitionState</a></h4>
       <section><p>The room transition state.</p>

@@ -80,7 +80,7 @@
   
   <h1 id="AGS_API_RestrictionListType" data-uid="AGS.API.RestrictionListType" class="text-break">Enum RestrictionListType
   </h1>
-  <div class="markdown level0 summary"><p>Defines how an area restriction list is interpreted.</p>
+  <div class="markdown level0 summary"><p>Defines how a restriction list (<a class="xref" href="AGS.API.IRestrictionList.html">IRestrictionList</a>) is interpreted.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
@@ -101,14 +101,14 @@
     <tbody>
       <tr>
         <td id="AGS_API_RestrictionListType_BlackList">BlackList</td>
-        <td><p>Using a black list means that everybody on the list are restricted and will not be affected by the area,
-everybody else will be &apos;welcome&apos; and will be affected by the area.</p>
+        <td><p>Using a black list means that everybody on the list are restricted and will not be affected (by the area, viewport, or whatever the context of the list is),
+everybody else will be &apos;welcome&apos; and will be affected (by the area, viewport, or whatever the context of the list is).</p>
 </td>
       </tr>
       <tr>
         <td id="AGS_API_RestrictionListType_WhiteList">WhiteList</td>
-        <td><p>Using a white list means that everybody on the list are &apos;welcome&apos; and will be affected by the area,
-everybody else will be restricted and will not be affected by the area.</p>
+        <td><p>Using a white list means that everybody on the list are &apos;welcome&apos; and will be affected  (by the area, viewport, or whatever the context of the list is),
+everybody else will be restricted and will not be affected  (by the area, viewport, or whatever the context of the list is).</p>
 </td>
       </tr>
     </tbody>

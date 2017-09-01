@@ -3181,42 +3181,6 @@ references:
   commentId: T:AGS.API.IAreaRestriction
   fullName: AGS.API.IAreaRestriction
   nameWithType: IAreaRestriction
-- uid: AGS.API.IAreaRestriction.IsRestricted(System.String)
-  name: IsRestricted(String)
-  href: api/AGS.API.IAreaRestriction.html#AGS_API_IAreaRestriction_IsRestricted_System_String_
-  commentId: M:AGS.API.IAreaRestriction.IsRestricted(System.String)
-  fullName: AGS.API.IAreaRestriction.IsRestricted(System.String)
-  nameWithType: IAreaRestriction.IsRestricted(String)
-- uid: AGS.API.IAreaRestriction.IsRestricted*
-  name: IsRestricted
-  href: api/AGS.API.IAreaRestriction.html#AGS_API_IAreaRestriction_IsRestricted_
-  commentId: Overload:AGS.API.IAreaRestriction.IsRestricted
-  fullName: AGS.API.IAreaRestriction.IsRestricted
-  nameWithType: IAreaRestriction.IsRestricted
-- uid: AGS.API.IAreaRestriction.RestrictionList
-  name: RestrictionList
-  href: api/AGS.API.IAreaRestriction.html#AGS_API_IAreaRestriction_RestrictionList
-  commentId: P:AGS.API.IAreaRestriction.RestrictionList
-  fullName: AGS.API.IAreaRestriction.RestrictionList
-  nameWithType: IAreaRestriction.RestrictionList
-- uid: AGS.API.IAreaRestriction.RestrictionList*
-  name: RestrictionList
-  href: api/AGS.API.IAreaRestriction.html#AGS_API_IAreaRestriction_RestrictionList_
-  commentId: Overload:AGS.API.IAreaRestriction.RestrictionList
-  fullName: AGS.API.IAreaRestriction.RestrictionList
-  nameWithType: IAreaRestriction.RestrictionList
-- uid: AGS.API.IAreaRestriction.RestrictionType
-  name: RestrictionType
-  href: api/AGS.API.IAreaRestriction.html#AGS_API_IAreaRestriction_RestrictionType
-  commentId: P:AGS.API.IAreaRestriction.RestrictionType
-  fullName: AGS.API.IAreaRestriction.RestrictionType
-  nameWithType: IAreaRestriction.RestrictionType
-- uid: AGS.API.IAreaRestriction.RestrictionType*
-  name: RestrictionType
-  href: api/AGS.API.IAreaRestriction.html#AGS_API_IAreaRestriction_RestrictionType_
-  commentId: Overload:AGS.API.IAreaRestriction.RestrictionType
-  fullName: AGS.API.IAreaRestriction.RestrictionType
-  nameWithType: IAreaRestriction.RestrictionType
 - uid: AGS.API.IAudioClip
   name: IAudioClip
   href: api/AGS.API.IAudioClip.html
@@ -3748,12 +3712,12 @@ references:
   commentId: T:AGS.API.IBoundingBoxComponent
   fullName: AGS.API.IBoundingBoxComponent
   nameWithType: IBoundingBoxComponent
-- uid: AGS.API.IBoundingBoxComponent.GetBoundingBoxes
-  name: GetBoundingBoxes()
-  href: api/AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_GetBoundingBoxes
-  commentId: M:AGS.API.IBoundingBoxComponent.GetBoundingBoxes
-  fullName: AGS.API.IBoundingBoxComponent.GetBoundingBoxes()
-  nameWithType: IBoundingBoxComponent.GetBoundingBoxes()
+- uid: AGS.API.IBoundingBoxComponent.GetBoundingBoxes(AGS.API.IViewport)
+  name: GetBoundingBoxes(IViewport)
+  href: api/AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_GetBoundingBoxes_AGS_API_IViewport_
+  commentId: M:AGS.API.IBoundingBoxComponent.GetBoundingBoxes(AGS.API.IViewport)
+  fullName: AGS.API.IBoundingBoxComponent.GetBoundingBoxes(AGS.API.IViewport)
+  nameWithType: IBoundingBoxComponent.GetBoundingBoxes(IViewport)
 - uid: AGS.API.IBoundingBoxComponent.GetBoundingBoxes*
   name: GetBoundingBoxes
   href: api/AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_GetBoundingBoxes_
@@ -4291,12 +4255,12 @@ references:
   commentId: Overload:AGS.API.ICollider.CenterPoint
   fullName: AGS.API.ICollider.CenterPoint
   nameWithType: ICollider.CenterPoint
-- uid: AGS.API.ICollider.CollidesWith(System.Single,System.Single)
-  name: CollidesWith(Single, Single)
-  href: api/AGS.API.ICollider.html#AGS_API_ICollider_CollidesWith_System_Single_System_Single_
-  commentId: M:AGS.API.ICollider.CollidesWith(System.Single,System.Single)
-  fullName: AGS.API.ICollider.CollidesWith(System.Single, System.Single)
-  nameWithType: ICollider.CollidesWith(Single, Single)
+- uid: AGS.API.ICollider.CollidesWith(System.Single,System.Single,AGS.API.IViewport)
+  name: CollidesWith(Single, Single, IViewport)
+  href: api/AGS.API.ICollider.html#AGS_API_ICollider_CollidesWith_System_Single_System_Single_AGS_API_IViewport_
+  commentId: M:AGS.API.ICollider.CollidesWith(System.Single,System.Single,AGS.API.IViewport)
+  fullName: AGS.API.ICollider.CollidesWith(System.Single, System.Single, AGS.API.IViewport)
+  nameWithType: ICollider.CollidesWith(Single, Single, IViewport)
 - uid: AGS.API.ICollider.CollidesWith*
   name: CollidesWith
   href: api/AGS.API.ICollider.html#AGS_API_ICollider_CollidesWith_
@@ -5858,18 +5822,60 @@ references:
   commentId: T:AGS.API.IDisplayList
   fullName: AGS.API.IDisplayList
   nameWithType: IDisplayList
-- uid: AGS.API.IDisplayList.GetDisplayList(AGS.API.IRoom)
-  name: GetDisplayList(IRoom)
-  href: api/AGS.API.IDisplayList.html#AGS_API_IDisplayList_GetDisplayList_AGS_API_IRoom_
-  commentId: M:AGS.API.IDisplayList.GetDisplayList(AGS.API.IRoom)
-  fullName: AGS.API.IDisplayList.GetDisplayList(AGS.API.IRoom)
-  nameWithType: IDisplayList.GetDisplayList(IRoom)
+- uid: AGS.API.IDisplayList.GetDisplayList(AGS.API.IViewport)
+  name: GetDisplayList(IViewport)
+  href: api/AGS.API.IDisplayList.html#AGS_API_IDisplayList_GetDisplayList_AGS_API_IViewport_
+  commentId: M:AGS.API.IDisplayList.GetDisplayList(AGS.API.IViewport)
+  fullName: AGS.API.IDisplayList.GetDisplayList(AGS.API.IViewport)
+  nameWithType: IDisplayList.GetDisplayList(IViewport)
 - uid: AGS.API.IDisplayList.GetDisplayList*
   name: GetDisplayList
   href: api/AGS.API.IDisplayList.html#AGS_API_IDisplayList_GetDisplayList_
   commentId: Overload:AGS.API.IDisplayList.GetDisplayList
   fullName: AGS.API.IDisplayList.GetDisplayList
   nameWithType: IDisplayList.GetDisplayList
+- uid: AGS.API.IDisplayListSettings
+  name: IDisplayListSettings
+  href: api/AGS.API.IDisplayListSettings.html
+  commentId: T:AGS.API.IDisplayListSettings
+  fullName: AGS.API.IDisplayListSettings
+  nameWithType: IDisplayListSettings
+- uid: AGS.API.IDisplayListSettings.DisplayGUIs
+  name: DisplayGUIs
+  href: api/AGS.API.IDisplayListSettings.html#AGS_API_IDisplayListSettings_DisplayGUIs
+  commentId: P:AGS.API.IDisplayListSettings.DisplayGUIs
+  fullName: AGS.API.IDisplayListSettings.DisplayGUIs
+  nameWithType: IDisplayListSettings.DisplayGUIs
+- uid: AGS.API.IDisplayListSettings.DisplayGUIs*
+  name: DisplayGUIs
+  href: api/AGS.API.IDisplayListSettings.html#AGS_API_IDisplayListSettings_DisplayGUIs_
+  commentId: Overload:AGS.API.IDisplayListSettings.DisplayGUIs
+  fullName: AGS.API.IDisplayListSettings.DisplayGUIs
+  nameWithType: IDisplayListSettings.DisplayGUIs
+- uid: AGS.API.IDisplayListSettings.DisplayRoom
+  name: DisplayRoom
+  href: api/AGS.API.IDisplayListSettings.html#AGS_API_IDisplayListSettings_DisplayRoom
+  commentId: P:AGS.API.IDisplayListSettings.DisplayRoom
+  fullName: AGS.API.IDisplayListSettings.DisplayRoom
+  nameWithType: IDisplayListSettings.DisplayRoom
+- uid: AGS.API.IDisplayListSettings.DisplayRoom*
+  name: DisplayRoom
+  href: api/AGS.API.IDisplayListSettings.html#AGS_API_IDisplayListSettings_DisplayRoom_
+  commentId: Overload:AGS.API.IDisplayListSettings.DisplayRoom
+  fullName: AGS.API.IDisplayListSettings.DisplayRoom
+  nameWithType: IDisplayListSettings.DisplayRoom
+- uid: AGS.API.IDisplayListSettings.RestrictionList
+  name: RestrictionList
+  href: api/AGS.API.IDisplayListSettings.html#AGS_API_IDisplayListSettings_RestrictionList
+  commentId: P:AGS.API.IDisplayListSettings.RestrictionList
+  fullName: AGS.API.IDisplayListSettings.RestrictionList
+  nameWithType: IDisplayListSettings.RestrictionList
+- uid: AGS.API.IDisplayListSettings.RestrictionList*
+  name: RestrictionList
+  href: api/AGS.API.IDisplayListSettings.html#AGS_API_IDisplayListSettings_RestrictionList_
+  commentId: Overload:AGS.API.IDisplayListSettings.RestrictionList
+  fullName: AGS.API.IDisplayListSettings.RestrictionList
+  nameWithType: IDisplayListSettings.RestrictionList
 - uid: AGS.API.IDraggableComponent
   name: IDraggableComponent
   href: api/AGS.API.IDraggableComponent.html
@@ -6807,6 +6813,18 @@ references:
   commentId: Overload:AGS.API.IGame.GameLoop
   fullName: AGS.API.IGame.GameLoop
   nameWithType: IGame.GameLoop
+- uid: AGS.API.IGame.HitTest
+  name: HitTest
+  href: api/AGS.API.IGame.html#AGS_API_IGame_HitTest
+  commentId: P:AGS.API.IGame.HitTest
+  fullName: AGS.API.IGame.HitTest
+  nameWithType: IGame.HitTest
+- uid: AGS.API.IGame.HitTest*
+  name: HitTest
+  href: api/AGS.API.IGame.html#AGS_API_IGame_HitTest_
+  commentId: Overload:AGS.API.IGame.HitTest
+  fullName: AGS.API.IGame.HitTest
+  nameWithType: IGame.HitTest
 - uid: AGS.API.IGame.Input
   name: Input
   href: api/AGS.API.IGame.html#AGS_API_IGame_Input
@@ -7356,18 +7374,6 @@ references:
   commentId: Overload:AGS.API.IGameState.Player
   fullName: AGS.API.IGameState.Player
   nameWithType: IGameState.Player
-- uid: AGS.API.IGameState.Room
-  name: Room
-  href: api/AGS.API.IGameState.html#AGS_API_IGameState_Room
-  commentId: P:AGS.API.IGameState.Room
-  fullName: AGS.API.IGameState.Room
-  nameWithType: IGameState.Room
-- uid: AGS.API.IGameState.Room*
-  name: Room
-  href: api/AGS.API.IGameState.html#AGS_API_IGameState_Room_
-  commentId: Overload:AGS.API.IGameState.Room
-  fullName: AGS.API.IGameState.Room
-  nameWithType: IGameState.Room
 - uid: AGS.API.IGameState.Rooms
   name: Rooms
   href: api/AGS.API.IGameState.html#AGS_API_IGameState_Rooms
@@ -7392,6 +7398,18 @@ references:
   commentId: Overload:AGS.API.IGameState.RoomTransitions
   fullName: AGS.API.IGameState.RoomTransitions
   nameWithType: IGameState.RoomTransitions
+- uid: AGS.API.IGameState.SecondaryViewports
+  name: SecondaryViewports
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_SecondaryViewports
+  commentId: P:AGS.API.IGameState.SecondaryViewports
+  fullName: AGS.API.IGameState.SecondaryViewports
+  nameWithType: IGameState.SecondaryViewports
+- uid: AGS.API.IGameState.SecondaryViewports*
+  name: SecondaryViewports
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_SecondaryViewports_
+  commentId: Overload:AGS.API.IGameState.SecondaryViewports
+  fullName: AGS.API.IGameState.SecondaryViewports
+  nameWithType: IGameState.SecondaryViewports
 - uid: AGS.API.IGameState.Speed
   name: Speed
   href: api/AGS.API.IGameState.html#AGS_API_IGameState_Speed
@@ -7416,6 +7434,18 @@ references:
   commentId: Overload:AGS.API.IGameState.UI
   fullName: AGS.API.IGameState.UI
   nameWithType: IGameState.UI
+- uid: AGS.API.IGameState.Viewport
+  name: Viewport
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_Viewport
+  commentId: P:AGS.API.IGameState.Viewport
+  fullName: AGS.API.IGameState.Viewport
+  nameWithType: IGameState.Viewport
+- uid: AGS.API.IGameState.Viewport*
+  name: Viewport
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_Viewport_
+  commentId: Overload:AGS.API.IGameState.Viewport
+  fullName: AGS.API.IGameState.Viewport
+  nameWithType: IGameState.Viewport
 - uid: AGS.API.IGraphicsFactory
   name: IGraphicsFactory
   href: api/AGS.API.IGraphicsFactory.html
@@ -7809,6 +7839,24 @@ references:
   commentId: Overload:AGS.API.IHasRoom.Room
   fullName: AGS.API.IHasRoom.Room
   nameWithType: IHasRoom.Room
+- uid: AGS.API.IHitTest
+  name: IHitTest
+  href: api/AGS.API.IHitTest.html
+  commentId: T:AGS.API.IHitTest
+  fullName: AGS.API.IHitTest
+  nameWithType: IHitTest
+- uid: AGS.API.IHitTest.ObjectAtMousePosition
+  name: ObjectAtMousePosition
+  href: api/AGS.API.IHitTest.html#AGS_API_IHitTest_ObjectAtMousePosition
+  commentId: P:AGS.API.IHitTest.ObjectAtMousePosition
+  fullName: AGS.API.IHitTest.ObjectAtMousePosition
+  nameWithType: IHitTest.ObjectAtMousePosition
+- uid: AGS.API.IHitTest.ObjectAtMousePosition*
+  name: ObjectAtMousePosition
+  href: api/AGS.API.IHitTest.html#AGS_API_IHitTest_ObjectAtMousePosition_
+  commentId: Overload:AGS.API.IHitTest.ObjectAtMousePosition
+  fullName: AGS.API.IHitTest.ObjectAtMousePosition
+  nameWithType: IHitTest.ObjectAtMousePosition
 - uid: AGS.API.IHotspotComponent
   name: IHotspotComponent
   href: api/AGS.API.IHotspotComponent.html
@@ -8139,30 +8187,6 @@ references:
   commentId: Overload:AGS.API.IInput.MousePosition
   fullName: AGS.API.IInput.MousePosition
   nameWithType: IInput.MousePosition
-- uid: AGS.API.IInput.MouseX
-  name: MouseX
-  href: api/AGS.API.IInput.html#AGS_API_IInput_MouseX
-  commentId: P:AGS.API.IInput.MouseX
-  fullName: AGS.API.IInput.MouseX
-  nameWithType: IInput.MouseX
-- uid: AGS.API.IInput.MouseX*
-  name: MouseX
-  href: api/AGS.API.IInput.html#AGS_API_IInput_MouseX_
-  commentId: Overload:AGS.API.IInput.MouseX
-  fullName: AGS.API.IInput.MouseX
-  nameWithType: IInput.MouseX
-- uid: AGS.API.IInput.MouseY
-  name: MouseY
-  href: api/AGS.API.IInput.html#AGS_API_IInput_MouseY
-  commentId: P:AGS.API.IInput.MouseY
-  fullName: AGS.API.IInput.MouseY
-  nameWithType: IInput.MouseY
-- uid: AGS.API.IInput.MouseY*
-  name: MouseY
-  href: api/AGS.API.IInput.html#AGS_API_IInput_MouseY_
-  commentId: Overload:AGS.API.IInput.MouseY
-  fullName: AGS.API.IInput.MouseY
-  nameWithType: IInput.MouseY
 - uid: AGS.API.IInput.RightMouseButtonDown
   name: RightMouseButtonDown
   href: api/AGS.API.IInput.html#AGS_API_IInput_RightMouseButtonDown
@@ -9685,6 +9709,48 @@ references:
   commentId: Overload:AGS.API.IResourceLoader.LoadResources
   fullName: AGS.API.IResourceLoader.LoadResources
   nameWithType: IResourceLoader.LoadResources
+- uid: AGS.API.IRestrictionList
+  name: IRestrictionList
+  href: api/AGS.API.IRestrictionList.html
+  commentId: T:AGS.API.IRestrictionList
+  fullName: AGS.API.IRestrictionList
+  nameWithType: IRestrictionList
+- uid: AGS.API.IRestrictionList.IsRestricted(System.String)
+  name: IsRestricted(String)
+  href: api/AGS.API.IRestrictionList.html#AGS_API_IRestrictionList_IsRestricted_System_String_
+  commentId: M:AGS.API.IRestrictionList.IsRestricted(System.String)
+  fullName: AGS.API.IRestrictionList.IsRestricted(System.String)
+  nameWithType: IRestrictionList.IsRestricted(String)
+- uid: AGS.API.IRestrictionList.IsRestricted*
+  name: IsRestricted
+  href: api/AGS.API.IRestrictionList.html#AGS_API_IRestrictionList_IsRestricted_
+  commentId: Overload:AGS.API.IRestrictionList.IsRestricted
+  fullName: AGS.API.IRestrictionList.IsRestricted
+  nameWithType: IRestrictionList.IsRestricted
+- uid: AGS.API.IRestrictionList.RestrictionList
+  name: RestrictionList
+  href: api/AGS.API.IRestrictionList.html#AGS_API_IRestrictionList_RestrictionList
+  commentId: P:AGS.API.IRestrictionList.RestrictionList
+  fullName: AGS.API.IRestrictionList.RestrictionList
+  nameWithType: IRestrictionList.RestrictionList
+- uid: AGS.API.IRestrictionList.RestrictionList*
+  name: RestrictionList
+  href: api/AGS.API.IRestrictionList.html#AGS_API_IRestrictionList_RestrictionList_
+  commentId: Overload:AGS.API.IRestrictionList.RestrictionList
+  fullName: AGS.API.IRestrictionList.RestrictionList
+  nameWithType: IRestrictionList.RestrictionList
+- uid: AGS.API.IRestrictionList.RestrictionType
+  name: RestrictionType
+  href: api/AGS.API.IRestrictionList.html#AGS_API_IRestrictionList_RestrictionType
+  commentId: P:AGS.API.IRestrictionList.RestrictionType
+  fullName: AGS.API.IRestrictionList.RestrictionType
+  nameWithType: IRestrictionList.RestrictionType
+- uid: AGS.API.IRestrictionList.RestrictionType*
+  name: RestrictionType
+  href: api/AGS.API.IRestrictionList.html#AGS_API_IRestrictionList_RestrictionType_
+  commentId: Overload:AGS.API.IRestrictionList.RestrictionType
+  fullName: AGS.API.IRestrictionList.RestrictionType
+  nameWithType: IRestrictionList.RestrictionType
 - uid: AGS.API.IRoom
   name: IRoom
   href: api/AGS.API.IRoom.html
@@ -9766,42 +9832,6 @@ references:
   commentId: Overload:AGS.API.IRoom.GetMatchingAreas
   fullName: AGS.API.IRoom.GetMatchingAreas
   nameWithType: IRoom.GetMatchingAreas
-- uid: AGS.API.IRoom.GetObjectAt(System.Single,System.Single,System.Boolean,System.Boolean)
-  name: GetObjectAt(Single, Single, Boolean, Boolean)
-  href: api/AGS.API.IRoom.html#AGS_API_IRoom_GetObjectAt_System_Single_System_Single_System_Boolean_System_Boolean_
-  commentId: M:AGS.API.IRoom.GetObjectAt(System.Single,System.Single,System.Boolean,System.Boolean)
-  fullName: AGS.API.IRoom.GetObjectAt(System.Single, System.Single, System.Boolean, System.Boolean)
-  nameWithType: IRoom.GetObjectAt(Single, Single, Boolean, Boolean)
-- uid: AGS.API.IRoom.GetObjectAt*
-  name: GetObjectAt
-  href: api/AGS.API.IRoom.html#AGS_API_IRoom_GetObjectAt_
-  commentId: Overload:AGS.API.IRoom.GetObjectAt
-  fullName: AGS.API.IRoom.GetObjectAt
-  nameWithType: IRoom.GetObjectAt
-- uid: AGS.API.IRoom.GetObjectAtMousePosition
-  name: GetObjectAtMousePosition()
-  href: api/AGS.API.IRoom.html#AGS_API_IRoom_GetObjectAtMousePosition
-  commentId: M:AGS.API.IRoom.GetObjectAtMousePosition
-  fullName: AGS.API.IRoom.GetObjectAtMousePosition()
-  nameWithType: IRoom.GetObjectAtMousePosition()
-- uid: AGS.API.IRoom.GetObjectAtMousePosition*
-  name: GetObjectAtMousePosition
-  href: api/AGS.API.IRoom.html#AGS_API_IRoom_GetObjectAtMousePosition_
-  commentId: Overload:AGS.API.IRoom.GetObjectAtMousePosition
-  fullName: AGS.API.IRoom.GetObjectAtMousePosition
-  nameWithType: IRoom.GetObjectAtMousePosition
-- uid: AGS.API.IRoom.GetVisibleObjectsFrontToBack(System.Boolean)
-  name: GetVisibleObjectsFrontToBack(Boolean)
-  href: api/AGS.API.IRoom.html#AGS_API_IRoom_GetVisibleObjectsFrontToBack_System_Boolean_
-  commentId: M:AGS.API.IRoom.GetVisibleObjectsFrontToBack(System.Boolean)
-  fullName: AGS.API.IRoom.GetVisibleObjectsFrontToBack(System.Boolean)
-  nameWithType: IRoom.GetVisibleObjectsFrontToBack(Boolean)
-- uid: AGS.API.IRoom.GetVisibleObjectsFrontToBack*
-  name: GetVisibleObjectsFrontToBack
-  href: api/AGS.API.IRoom.html#AGS_API_IRoom_GetVisibleObjectsFrontToBack_
-  commentId: Overload:AGS.API.IRoom.GetVisibleObjectsFrontToBack
-  fullName: AGS.API.IRoom.GetVisibleObjectsFrontToBack
-  nameWithType: IRoom.GetVisibleObjectsFrontToBack
 - uid: AGS.API.IRoom.ID
   name: ID
   href: api/AGS.API.IRoom.html#AGS_API_IRoom_ID
@@ -9886,18 +9916,6 @@ references:
   commentId: Overload:AGS.API.IRoom.ShowPlayer
   fullName: AGS.API.IRoom.ShowPlayer
   nameWithType: IRoom.ShowPlayer
-- uid: AGS.API.IRoom.Viewport
-  name: Viewport
-  href: api/AGS.API.IRoom.html#AGS_API_IRoom_Viewport
-  commentId: P:AGS.API.IRoom.Viewport
-  fullName: AGS.API.IRoom.Viewport
-  nameWithType: IRoom.Viewport
-- uid: AGS.API.IRoom.Viewport*
-  name: Viewport
-  href: api/AGS.API.IRoom.html#AGS_API_IRoom_Viewport_
-  commentId: Overload:AGS.API.IRoom.Viewport
-  fullName: AGS.API.IRoom.Viewport
-  nameWithType: IRoom.Viewport
 - uid: AGS.API.IRoomEvents
   name: IRoomEvents
   href: api/AGS.API.IRoomEvents.html
@@ -10048,6 +10066,24 @@ references:
   commentId: Overload:AGS.API.IRoomLimitsProvider.ProvideRoomLimits
   fullName: AGS.API.IRoomLimitsProvider.ProvideRoomLimits
   nameWithType: IRoomLimitsProvider.ProvideRoomLimits
+- uid: AGS.API.IRoomProvider
+  name: IRoomProvider
+  href: api/AGS.API.IRoomProvider.html
+  commentId: T:AGS.API.IRoomProvider
+  fullName: AGS.API.IRoomProvider
+  nameWithType: IRoomProvider
+- uid: AGS.API.IRoomProvider.Room
+  name: Room
+  href: api/AGS.API.IRoomProvider.html#AGS_API_IRoomProvider_Room
+  commentId: P:AGS.API.IRoomProvider.Room
+  fullName: AGS.API.IRoomProvider.Room
+  nameWithType: IRoomProvider.Room
+- uid: AGS.API.IRoomProvider.Room*
+  name: Room
+  href: api/AGS.API.IRoomProvider.html#AGS_API_IRoomProvider_Room_
+  commentId: Overload:AGS.API.IRoomProvider.Room
+  fullName: AGS.API.IRoomProvider.Room
+  nameWithType: IRoomProvider.Room
 - uid: AGS.API.IRoomTransition
   name: IRoomTransition
   href: api/AGS.API.IRoomTransition.html
@@ -10192,18 +10228,6 @@ references:
   commentId: Overload:AGS.API.IRuntimeSettings.PreserveAspectRatio
   fullName: AGS.API.IRuntimeSettings.PreserveAspectRatio
   nameWithType: IRuntimeSettings.PreserveAspectRatio
-- uid: AGS.API.IRuntimeSettings.ResetViewport
-  name: ResetViewport()
-  href: api/AGS.API.IRuntimeSettings.html#AGS_API_IRuntimeSettings_ResetViewport
-  commentId: M:AGS.API.IRuntimeSettings.ResetViewport
-  fullName: AGS.API.IRuntimeSettings.ResetViewport()
-  nameWithType: IRuntimeSettings.ResetViewport()
-- uid: AGS.API.IRuntimeSettings.ResetViewport*
-  name: ResetViewport
-  href: api/AGS.API.IRuntimeSettings.html#AGS_API_IRuntimeSettings_ResetViewport_
-  commentId: Overload:AGS.API.IRuntimeSettings.ResetViewport
-  fullName: AGS.API.IRuntimeSettings.ResetViewport
-  nameWithType: IRuntimeSettings.ResetViewport
 - uid: AGS.API.IRuntimeSettings.Title
   name: Title
   href: api/AGS.API.IRuntimeSettings.html#AGS_API_IRuntimeSettings_Title
@@ -12995,6 +13019,30 @@ references:
   commentId: Overload:AGS.API.IViewport.Camera
   fullName: AGS.API.IViewport.Camera
   nameWithType: IViewport.Camera
+- uid: AGS.API.IViewport.DisplayListSettings
+  name: DisplayListSettings
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_DisplayListSettings
+  commentId: P:AGS.API.IViewport.DisplayListSettings
+  fullName: AGS.API.IViewport.DisplayListSettings
+  nameWithType: IViewport.DisplayListSettings
+- uid: AGS.API.IViewport.DisplayListSettings*
+  name: DisplayListSettings
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_DisplayListSettings_
+  commentId: Overload:AGS.API.IViewport.DisplayListSettings
+  fullName: AGS.API.IViewport.DisplayListSettings
+  nameWithType: IViewport.DisplayListSettings
+- uid: AGS.API.IViewport.Interactive
+  name: Interactive
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_Interactive
+  commentId: P:AGS.API.IViewport.Interactive
+  fullName: AGS.API.IViewport.Interactive
+  nameWithType: IViewport.Interactive
+- uid: AGS.API.IViewport.Interactive*
+  name: Interactive
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_Interactive_
+  commentId: Overload:AGS.API.IViewport.Interactive
+  fullName: AGS.API.IViewport.Interactive
+  nameWithType: IViewport.Interactive
 - uid: AGS.API.IViewport.OnAngleChanged
   name: OnAngleChanged
   href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnAngleChanged
@@ -13007,6 +13055,18 @@ references:
   commentId: Overload:AGS.API.IViewport.OnAngleChanged
   fullName: AGS.API.IViewport.OnAngleChanged
   nameWithType: IViewport.OnAngleChanged
+- uid: AGS.API.IViewport.OnParentChanged
+  name: OnParentChanged
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnParentChanged
+  commentId: P:AGS.API.IViewport.OnParentChanged
+  fullName: AGS.API.IViewport.OnParentChanged
+  nameWithType: IViewport.OnParentChanged
+- uid: AGS.API.IViewport.OnParentChanged*
+  name: OnParentChanged
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnParentChanged_
+  commentId: Overload:AGS.API.IViewport.OnParentChanged
+  fullName: AGS.API.IViewport.OnParentChanged
+  nameWithType: IViewport.OnParentChanged
 - uid: AGS.API.IViewport.OnPositionChanged
   name: OnPositionChanged
   href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnPositionChanged
@@ -13019,6 +13079,18 @@ references:
   commentId: Overload:AGS.API.IViewport.OnPositionChanged
   fullName: AGS.API.IViewport.OnPositionChanged
   nameWithType: IViewport.OnPositionChanged
+- uid: AGS.API.IViewport.OnProjectionBoxChanged
+  name: OnProjectionBoxChanged
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnProjectionBoxChanged
+  commentId: P:AGS.API.IViewport.OnProjectionBoxChanged
+  fullName: AGS.API.IViewport.OnProjectionBoxChanged
+  nameWithType: IViewport.OnProjectionBoxChanged
+- uid: AGS.API.IViewport.OnProjectionBoxChanged*
+  name: OnProjectionBoxChanged
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnProjectionBoxChanged_
+  commentId: Overload:AGS.API.IViewport.OnProjectionBoxChanged
+  fullName: AGS.API.IViewport.OnProjectionBoxChanged
+  nameWithType: IViewport.OnProjectionBoxChanged
 - uid: AGS.API.IViewport.OnScaleChanged
   name: OnScaleChanged
   href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnScaleChanged
@@ -13031,6 +13103,42 @@ references:
   commentId: Overload:AGS.API.IViewport.OnScaleChanged
   fullName: AGS.API.IViewport.OnScaleChanged
   nameWithType: IViewport.OnScaleChanged
+- uid: AGS.API.IViewport.Parent
+  name: Parent
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_Parent
+  commentId: P:AGS.API.IViewport.Parent
+  fullName: AGS.API.IViewport.Parent
+  nameWithType: IViewport.Parent
+- uid: AGS.API.IViewport.Parent*
+  name: Parent
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_Parent_
+  commentId: Overload:AGS.API.IViewport.Parent
+  fullName: AGS.API.IViewport.Parent
+  nameWithType: IViewport.Parent
+- uid: AGS.API.IViewport.ProjectionBox
+  name: ProjectionBox
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_ProjectionBox
+  commentId: P:AGS.API.IViewport.ProjectionBox
+  fullName: AGS.API.IViewport.ProjectionBox
+  nameWithType: IViewport.ProjectionBox
+- uid: AGS.API.IViewport.ProjectionBox*
+  name: ProjectionBox
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_ProjectionBox_
+  commentId: Overload:AGS.API.IViewport.ProjectionBox
+  fullName: AGS.API.IViewport.ProjectionBox
+  nameWithType: IViewport.ProjectionBox
+- uid: AGS.API.IViewport.RoomProvider
+  name: RoomProvider
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_RoomProvider
+  commentId: P:AGS.API.IViewport.RoomProvider
+  fullName: AGS.API.IViewport.RoomProvider
+  nameWithType: IViewport.RoomProvider
+- uid: AGS.API.IViewport.RoomProvider*
+  name: RoomProvider
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_RoomProvider_
+  commentId: Overload:AGS.API.IViewport.RoomProvider
+  fullName: AGS.API.IViewport.RoomProvider
+  nameWithType: IViewport.RoomProvider
 - uid: AGS.API.IViewport.ScaleX
   name: ScaleX
   href: api/AGS.API.IViewport.html#AGS_API_IViewport_ScaleX
@@ -14615,6 +14723,18 @@ references:
   commentId: Overload:AGS.API.MathUtils.Clamp
   fullName: AGS.API.MathUtils.Clamp
   nameWithType: MathUtils.Clamp
+- uid: AGS.API.MathUtils.DegreesToRadians(System.Single)
+  name: DegreesToRadians(Single)
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_DegreesToRadians_System_Single_
+  commentId: M:AGS.API.MathUtils.DegreesToRadians(System.Single)
+  fullName: AGS.API.MathUtils.DegreesToRadians(System.Single)
+  nameWithType: MathUtils.DegreesToRadians(Single)
+- uid: AGS.API.MathUtils.DegreesToRadians*
+  name: DegreesToRadians
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_DegreesToRadians_
+  commentId: Overload:AGS.API.MathUtils.DegreesToRadians
+  fullName: AGS.API.MathUtils.DegreesToRadians
+  nameWithType: MathUtils.DegreesToRadians
 - uid: AGS.API.MathUtils.GetNextPowerOf2(System.Int32)
   name: GetNextPowerOf2(Int32)
   href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_GetNextPowerOf2_System_Int32_
@@ -16553,12 +16673,12 @@ references:
   commentId: T:AGS.API.MouseButtonEventArgs
   fullName: AGS.API.MouseButtonEventArgs
   nameWithType: MouseButtonEventArgs
-- uid: AGS.API.MouseButtonEventArgs.#ctor(AGS.API.IEntity,AGS.API.MouseButton,System.Single,System.Single)
-  name: MouseButtonEventArgs(IEntity, MouseButton, Single, Single)
-  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs__ctor_AGS_API_IEntity_AGS_API_MouseButton_System_Single_System_Single_
-  commentId: M:AGS.API.MouseButtonEventArgs.#ctor(AGS.API.IEntity,AGS.API.MouseButton,System.Single,System.Single)
-  fullName: AGS.API.MouseButtonEventArgs.MouseButtonEventArgs(AGS.API.IEntity, AGS.API.MouseButton, System.Single, System.Single)
-  nameWithType: MouseButtonEventArgs.MouseButtonEventArgs(IEntity, MouseButton, Single, Single)
+- uid: AGS.API.MouseButtonEventArgs.#ctor(AGS.API.IEntity,AGS.API.MouseButton,AGS.API.MousePosition)
+  name: MouseButtonEventArgs(IEntity, MouseButton, MousePosition)
+  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs__ctor_AGS_API_IEntity_AGS_API_MouseButton_AGS_API_MousePosition_
+  commentId: M:AGS.API.MouseButtonEventArgs.#ctor(AGS.API.IEntity,AGS.API.MouseButton,AGS.API.MousePosition)
+  fullName: AGS.API.MouseButtonEventArgs.MouseButtonEventArgs(AGS.API.IEntity, AGS.API.MouseButton, AGS.API.MousePosition)
+  nameWithType: MouseButtonEventArgs.MouseButtonEventArgs(IEntity, MouseButton, MousePosition)
 - uid: AGS.API.MouseButtonEventArgs.#ctor*
   name: MouseButtonEventArgs
   href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs__ctor_
@@ -16589,72 +16709,174 @@ references:
   commentId: Overload:AGS.API.MouseButtonEventArgs.ClickedEntity
   fullName: AGS.API.MouseButtonEventArgs.ClickedEntity
   nameWithType: MouseButtonEventArgs.ClickedEntity
-- uid: AGS.API.MouseButtonEventArgs.X
-  name: X
-  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_X
-  commentId: P:AGS.API.MouseButtonEventArgs.X
-  fullName: AGS.API.MouseButtonEventArgs.X
-  nameWithType: MouseButtonEventArgs.X
-- uid: AGS.API.MouseButtonEventArgs.X*
-  name: X
-  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_X_
-  commentId: Overload:AGS.API.MouseButtonEventArgs.X
-  fullName: AGS.API.MouseButtonEventArgs.X
-  nameWithType: MouseButtonEventArgs.X
-- uid: AGS.API.MouseButtonEventArgs.Y
-  name: Y
-  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_Y
-  commentId: P:AGS.API.MouseButtonEventArgs.Y
-  fullName: AGS.API.MouseButtonEventArgs.Y
-  nameWithType: MouseButtonEventArgs.Y
-- uid: AGS.API.MouseButtonEventArgs.Y*
-  name: Y
-  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_Y_
-  commentId: Overload:AGS.API.MouseButtonEventArgs.Y
-  fullName: AGS.API.MouseButtonEventArgs.Y
-  nameWithType: MouseButtonEventArgs.Y
+- uid: AGS.API.MouseButtonEventArgs.MousePosition
+  name: MousePosition
+  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_MousePosition
+  commentId: P:AGS.API.MouseButtonEventArgs.MousePosition
+  fullName: AGS.API.MouseButtonEventArgs.MousePosition
+  nameWithType: MouseButtonEventArgs.MousePosition
+- uid: AGS.API.MouseButtonEventArgs.MousePosition*
+  name: MousePosition
+  href: api/AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_MousePosition_
+  commentId: Overload:AGS.API.MouseButtonEventArgs.MousePosition
+  fullName: AGS.API.MouseButtonEventArgs.MousePosition
+  nameWithType: MouseButtonEventArgs.MousePosition
+- uid: AGS.API.MousePosition
+  name: MousePosition
+  href: api/AGS.API.MousePosition.html
+  commentId: T:AGS.API.MousePosition
+  fullName: AGS.API.MousePosition
+  nameWithType: MousePosition
+- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport)
+  name: MousePosition(Single, Single, IViewport)
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_
+  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport)
+  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport)
+  nameWithType: MousePosition.MousePosition(Single, Single, IViewport)
+- uid: AGS.API.MousePosition.#ctor*
+  name: MousePosition
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_
+  commentId: Overload:AGS.API.MousePosition.#ctor
+  fullName: AGS.API.MousePosition.MousePosition
+  nameWithType: MousePosition.MousePosition
+- uid: AGS.API.MousePosition.GetViewportX(AGS.API.IViewport)
+  name: GetViewportX(IViewport)
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetViewportX_AGS_API_IViewport_
+  commentId: M:AGS.API.MousePosition.GetViewportX(AGS.API.IViewport)
+  fullName: AGS.API.MousePosition.GetViewportX(AGS.API.IViewport)
+  nameWithType: MousePosition.GetViewportX(IViewport)
+- uid: AGS.API.MousePosition.GetViewportX*
+  name: GetViewportX
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetViewportX_
+  commentId: Overload:AGS.API.MousePosition.GetViewportX
+  fullName: AGS.API.MousePosition.GetViewportX
+  nameWithType: MousePosition.GetViewportX
+- uid: AGS.API.MousePosition.GetViewportY(AGS.API.IViewport)
+  name: GetViewportY(IViewport)
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetViewportY_AGS_API_IViewport_
+  commentId: M:AGS.API.MousePosition.GetViewportY(AGS.API.IViewport)
+  fullName: AGS.API.MousePosition.GetViewportY(AGS.API.IViewport)
+  nameWithType: MousePosition.GetViewportY(IViewport)
+- uid: AGS.API.MousePosition.GetViewportY*
+  name: GetViewportY
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetViewportY_
+  commentId: Overload:AGS.API.MousePosition.GetViewportY
+  fullName: AGS.API.MousePosition.GetViewportY
+  nameWithType: MousePosition.GetViewportY
+- uid: AGS.API.MousePosition.GetWindowHeight
+  name: GetWindowHeight
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowHeight
+  commentId: P:AGS.API.MousePosition.GetWindowHeight
+  fullName: AGS.API.MousePosition.GetWindowHeight
+  nameWithType: MousePosition.GetWindowHeight
+- uid: AGS.API.MousePosition.GetWindowHeight*
+  name: GetWindowHeight
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowHeight_
+  commentId: Overload:AGS.API.MousePosition.GetWindowHeight
+  fullName: AGS.API.MousePosition.GetWindowHeight
+  nameWithType: MousePosition.GetWindowHeight
+- uid: AGS.API.MousePosition.GetWindowWidth
+  name: GetWindowWidth
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowWidth
+  commentId: P:AGS.API.MousePosition.GetWindowWidth
+  fullName: AGS.API.MousePosition.GetWindowWidth
+  nameWithType: MousePosition.GetWindowWidth
+- uid: AGS.API.MousePosition.GetWindowWidth*
+  name: GetWindowWidth
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowWidth_
+  commentId: Overload:AGS.API.MousePosition.GetWindowWidth
+  fullName: AGS.API.MousePosition.GetWindowWidth
+  nameWithType: MousePosition.GetWindowWidth
+- uid: AGS.API.MousePosition.VirtualResolution
+  name: VirtualResolution
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_VirtualResolution
+  commentId: P:AGS.API.MousePosition.VirtualResolution
+  fullName: AGS.API.MousePosition.VirtualResolution
+  nameWithType: MousePosition.VirtualResolution
+- uid: AGS.API.MousePosition.VirtualResolution*
+  name: VirtualResolution
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_VirtualResolution_
+  commentId: Overload:AGS.API.MousePosition.VirtualResolution
+  fullName: AGS.API.MousePosition.VirtualResolution
+  nameWithType: MousePosition.VirtualResolution
+- uid: AGS.API.MousePosition.XMainViewport
+  name: XMainViewport
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_XMainViewport
+  commentId: P:AGS.API.MousePosition.XMainViewport
+  fullName: AGS.API.MousePosition.XMainViewport
+  nameWithType: MousePosition.XMainViewport
+- uid: AGS.API.MousePosition.XMainViewport*
+  name: XMainViewport
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_XMainViewport_
+  commentId: Overload:AGS.API.MousePosition.XMainViewport
+  fullName: AGS.API.MousePosition.XMainViewport
+  nameWithType: MousePosition.XMainViewport
+- uid: AGS.API.MousePosition.XWindow
+  name: XWindow
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_XWindow
+  commentId: P:AGS.API.MousePosition.XWindow
+  fullName: AGS.API.MousePosition.XWindow
+  nameWithType: MousePosition.XWindow
+- uid: AGS.API.MousePosition.XWindow*
+  name: XWindow
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_XWindow_
+  commentId: Overload:AGS.API.MousePosition.XWindow
+  fullName: AGS.API.MousePosition.XWindow
+  nameWithType: MousePosition.XWindow
+- uid: AGS.API.MousePosition.YMainViewport
+  name: YMainViewport
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_YMainViewport
+  commentId: P:AGS.API.MousePosition.YMainViewport
+  fullName: AGS.API.MousePosition.YMainViewport
+  nameWithType: MousePosition.YMainViewport
+- uid: AGS.API.MousePosition.YMainViewport*
+  name: YMainViewport
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_YMainViewport_
+  commentId: Overload:AGS.API.MousePosition.YMainViewport
+  fullName: AGS.API.MousePosition.YMainViewport
+  nameWithType: MousePosition.YMainViewport
+- uid: AGS.API.MousePosition.YWindow
+  name: YWindow
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_YWindow
+  commentId: P:AGS.API.MousePosition.YWindow
+  fullName: AGS.API.MousePosition.YWindow
+  nameWithType: MousePosition.YWindow
+- uid: AGS.API.MousePosition.YWindow*
+  name: YWindow
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_YWindow_
+  commentId: Overload:AGS.API.MousePosition.YWindow
+  fullName: AGS.API.MousePosition.YWindow
+  nameWithType: MousePosition.YWindow
 - uid: AGS.API.MousePositionEventArgs
   name: MousePositionEventArgs
   href: api/AGS.API.MousePositionEventArgs.html
   commentId: T:AGS.API.MousePositionEventArgs
   fullName: AGS.API.MousePositionEventArgs
   nameWithType: MousePositionEventArgs
-- uid: AGS.API.MousePositionEventArgs.#ctor(System.Single,System.Single)
-  name: MousePositionEventArgs(Single, Single)
-  href: api/AGS.API.MousePositionEventArgs.html#AGS_API_MousePositionEventArgs__ctor_System_Single_System_Single_
-  commentId: M:AGS.API.MousePositionEventArgs.#ctor(System.Single,System.Single)
-  fullName: AGS.API.MousePositionEventArgs.MousePositionEventArgs(System.Single, System.Single)
-  nameWithType: MousePositionEventArgs.MousePositionEventArgs(Single, Single)
+- uid: AGS.API.MousePositionEventArgs.#ctor(AGS.API.MousePosition)
+  name: MousePositionEventArgs(MousePosition)
+  href: api/AGS.API.MousePositionEventArgs.html#AGS_API_MousePositionEventArgs__ctor_AGS_API_MousePosition_
+  commentId: M:AGS.API.MousePositionEventArgs.#ctor(AGS.API.MousePosition)
+  fullName: AGS.API.MousePositionEventArgs.MousePositionEventArgs(AGS.API.MousePosition)
+  nameWithType: MousePositionEventArgs.MousePositionEventArgs(MousePosition)
 - uid: AGS.API.MousePositionEventArgs.#ctor*
   name: MousePositionEventArgs
   href: api/AGS.API.MousePositionEventArgs.html#AGS_API_MousePositionEventArgs__ctor_
   commentId: Overload:AGS.API.MousePositionEventArgs.#ctor
   fullName: AGS.API.MousePositionEventArgs.MousePositionEventArgs
   nameWithType: MousePositionEventArgs.MousePositionEventArgs
-- uid: AGS.API.MousePositionEventArgs.X
-  name: X
-  href: api/AGS.API.MousePositionEventArgs.html#AGS_API_MousePositionEventArgs_X
-  commentId: P:AGS.API.MousePositionEventArgs.X
-  fullName: AGS.API.MousePositionEventArgs.X
-  nameWithType: MousePositionEventArgs.X
-- uid: AGS.API.MousePositionEventArgs.X*
-  name: X
-  href: api/AGS.API.MousePositionEventArgs.html#AGS_API_MousePositionEventArgs_X_
-  commentId: Overload:AGS.API.MousePositionEventArgs.X
-  fullName: AGS.API.MousePositionEventArgs.X
-  nameWithType: MousePositionEventArgs.X
-- uid: AGS.API.MousePositionEventArgs.Y
-  name: Y
-  href: api/AGS.API.MousePositionEventArgs.html#AGS_API_MousePositionEventArgs_Y
-  commentId: P:AGS.API.MousePositionEventArgs.Y
-  fullName: AGS.API.MousePositionEventArgs.Y
-  nameWithType: MousePositionEventArgs.Y
-- uid: AGS.API.MousePositionEventArgs.Y*
-  name: Y
-  href: api/AGS.API.MousePositionEventArgs.html#AGS_API_MousePositionEventArgs_Y_
-  commentId: Overload:AGS.API.MousePositionEventArgs.Y
-  fullName: AGS.API.MousePositionEventArgs.Y
-  nameWithType: MousePositionEventArgs.Y
+- uid: AGS.API.MousePositionEventArgs.MousePosition
+  name: MousePosition
+  href: api/AGS.API.MousePositionEventArgs.html#AGS_API_MousePositionEventArgs_MousePosition
+  commentId: P:AGS.API.MousePositionEventArgs.MousePosition
+  fullName: AGS.API.MousePositionEventArgs.MousePosition
+  nameWithType: MousePositionEventArgs.MousePosition
+- uid: AGS.API.MousePositionEventArgs.MousePosition*
+  name: MousePosition
+  href: api/AGS.API.MousePositionEventArgs.html#AGS_API_MousePositionEventArgs_MousePosition_
+  commentId: Overload:AGS.API.MousePositionEventArgs.MousePosition
+  fullName: AGS.API.MousePositionEventArgs.MousePosition
+  nameWithType: MousePositionEventArgs.MousePosition
 - uid: AGS.API.NodeEventArgs
   name: NodeEventArgs
   href: api/AGS.API.NodeEventArgs.html

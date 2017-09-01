@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface ICollider
+    <title>Interface IRestrictionList
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface ICollider
+    <meta name="title" content="Interface IRestrictionList
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.23.1.0">
     
@@ -75,54 +75,39 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.ICollider">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IRestrictionList">
   
   
-  <h1 id="AGS_API_ICollider" data-uid="AGS.API.ICollider" class="text-break">Interface ICollider
+  <h1 id="AGS_API_IRestrictionList" data-uid="AGS.API.IRestrictionList" class="text-break">Interface IRestrictionList
   </h1>
-  <div class="markdown level0 summary"><p>Adds the ability for an entity to check collisions (i.e check whether it collides with a point in the room).
-The collision is checked via either the entity&apos;s bounding box, or via a pixel perfect collision
-if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectComponent</a> exists and enabled.</p>
+  <div class="markdown level0 summary"><p>Adds the ability to restrict certain entities from being affected by &quot;something&quot;.
+That &quot;something&quot; can be an area, for example, or a display list for a viewport.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_ICollider_syntax">Syntax</h5>
+  <h5 id="AGS_API_IRestrictionList_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ICollider : IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IRestrictionList</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_ICollider_CenterPoint.md&amp;value=---%0Auid%3A%20AGS.API.ICollider.CenterPoint%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IRestrictionList_RestrictionList.md&amp;value=---%0Auid%3A%20AGS.API.IRestrictionList.RestrictionList%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Objects/Collisions/ICollider.cs/#L18">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L38">View Source</a>
   </span>
-  <a id="AGS_API_ICollider_CenterPoint_" data-uid="AGS.API.ICollider.CenterPoint*"></a>
-  <h4 id="AGS_API_ICollider_CenterPoint" data-uid="AGS.API.ICollider.CenterPoint">CenterPoint</h4>
-  <div class="markdown level1 summary"><p>Gets the center point of the entity.</p>
+  <a id="AGS_API_IRestrictionList_RestrictionList_" data-uid="AGS.API.IRestrictionList.RestrictionList*"></a>
+  <h4 id="AGS_API_IRestrictionList_RestrictionList" data-uid="AGS.API.IRestrictionList.RestrictionList">RestrictionList</h4>
+  <div class="markdown level1 summary"><p>Gets list of restricted entities (if it&apos;s a black list), or permitted entities (if it&apos;s a white list).
+If the list is empty then the component is effectively ignored (everybody is permitted).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">PointF? CenterPoint { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IConcurrentHashSet&lt;string&gt; RestrictionList { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -134,8 +119,41 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Nullable</span>&lt;<a class="xref" href="AGS.API.PointF.html">PointF</a>&gt;</td>
-        <td><p>The center point.</p>
+        <td><a class="xref" href="AGS.API.IConcurrentHashSet-1.html">IConcurrentHashSet</a>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><p>The restriction list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IRestrictionList_RestrictionType.md&amp;value=---%0Auid%3A%20AGS.API.IRestrictionList.RestrictionType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L31">View Source</a>
+  </span>
+  <a id="AGS_API_IRestrictionList_RestrictionType_" data-uid="AGS.API.IRestrictionList.RestrictionType*"></a>
+  <h4 id="AGS_API_IRestrictionList_RestrictionType" data-uid="AGS.API.IRestrictionList.RestrictionType">RestrictionType</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the type of the restriction, black list (everybody in the list is restricted)
+or white list (everybody not in the list is restricted).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">RestrictionListType RestrictionType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.RestrictionListType.html">RestrictionListType</a></td>
+        <td><p>The type of the restriction.</p>
 </td>
       </tr>
     </tbody>
@@ -144,22 +162,19 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_ICollider_CollidesWith_System_Single_System_Single_AGS_API_IViewport_.md&amp;value=---%0Auid%3A%20AGS.API.ICollider.CollidesWith(System.Single%2CSystem.Single%2CAGS.API.IViewport)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IRestrictionList_IsRestricted_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IRestrictionList.IsRestricted(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Objects/Collisions/ICollider.cs/#L30">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L45">View Source</a>
   </span>
-  <a id="AGS_API_ICollider_CollidesWith_" data-uid="AGS.API.ICollider.CollidesWith*"></a>
-  <h4 id="AGS_API_ICollider_CollidesWith_System_Single_System_Single_AGS_API_IViewport_" data-uid="AGS.API.ICollider.CollidesWith(System.Single,System.Single,AGS.API.IViewport)">CollidesWith(Single, Single, IViewport)</h4>
-  <div class="markdown level1 summary"><p>Does the entity collide with point (x,y)?
-The (x,y) is expected in room-coordinates after adjusting for the viewport.
-The collision is checked via either the entity&apos;s bounding box, or via a pixel perfect collision
-if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectComponent</a> exists and enabled.</p>
+  <a id="AGS_API_IRestrictionList_IsRestricted_" data-uid="AGS.API.IRestrictionList.IsRestricted*"></a>
+  <h4 id="AGS_API_IRestrictionList_IsRestricted_System_String_" data-uid="AGS.API.IRestrictionList.IsRestricted(System.String)">IsRestricted(String)</h4>
+  <div class="markdown level1 summary"><p>Checks if an entity is restricted to this area (based on the restriction type and list).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool CollidesWith(float x, float y, IViewport viewport)</code></pre>
+    <pre><code class="lang-csharp hljs">bool IsRestricted(string entityId)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -172,21 +187,9 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">x</span></td>
-        <td><p>The x coordinate.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">y</span></td>
-        <td><p>The y coordinate.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="AGS.API.IViewport.html">IViewport</a></td>
-        <td><span class="parametername">viewport</span></td>
-        <td><p>The viewport to check the collisions against</p>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">entityId</span></td>
+        <td><p>Entity identifier.</p>
 </td>
       </tr>
     </tbody>
@@ -202,7 +205,7 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code>, if it collides with the point, <code>false</code> otherwise.</p>
+        <td><p><code>true</code>, if entity is restricted, <code>false</code> otherwise.</p>
 </td>
       </tr>
     </tbody>
@@ -215,10 +218,10 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_ICollider.md&amp;value=---%0Auid%3A%20AGS.API.ICollider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Viewports/apiSpec/new?filename=AGS_API_IRestrictionList.md&amp;value=---%0Auid%3A%20AGS.API.IRestrictionList%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Objects/Collisions/ICollider.cs/#L8" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Viewports/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L24" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
