@@ -2,9 +2,8 @@
 {
     /// <summary>
     /// The event arguments for the inventory combination events.
-    /// The arguments carry with the two combined items.
+    /// The arguments contain the two combined items.
     /// </summary>
-    /// <seealso cref="AGS.API.object" />
     public class InventoryCombinationEventArgs
 	{
         /// <summary>
