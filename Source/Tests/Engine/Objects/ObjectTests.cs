@@ -51,7 +51,7 @@ namespace Tests
 		[Test]
 		public async Task ChangeRoom_WhenInRoom_Test()
 		{
-			Mock<IGameState> state = new Mock<IGameState> ();
+			Mock<IGameState> state = _mocks.GameState();
 			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
 			state.Setup(s => s.Rooms).Returns(rooms);
 			state.Setup(s => s.Player).Returns(_mocks.Player().Object);
@@ -73,7 +73,7 @@ namespace Tests
 		[Test]
 		public async Task ChangeRoom_ToSameRoom_Test()
 		{
-			Mock<IGameState> state = new Mock<IGameState> ();
+			Mock<IGameState> state = _mocks.GameState();
 			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
 			state.Setup(s => s.Rooms).Returns(rooms);
 			state.Setup(s => s.Player).Returns(_mocks.Player().Object);
@@ -95,7 +95,7 @@ namespace Tests
 		[Test]
 		public async Task ChangeRoom_ToNullRoom_Test()
 		{
-			Mock<IGameState> state = new Mock<IGameState> ();
+			Mock<IGameState> state = _mocks.GameState();
 			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
 			state.Setup(s => s.Rooms).Returns(rooms);
 			state.Setup(s => s.Player).Returns(_mocks.Player().Object);
@@ -144,7 +144,7 @@ namespace Tests
 		[TestCase("Enabled", true, true, true, true)]
 		public void ObjectBoolProperties_Test(string propertyName, bool isObj, bool? isParent, bool? isGrandParent, bool result)
 		{
-			Mock<IGameState> state = new Mock<IGameState> ();
+			Mock<IGameState> state = _mocks.GameState();
 			AGSBindingList<IRoom> rooms = new AGSBindingList<IRoom> (10);
 			state.Setup(s => s.Rooms).Returns(rooms);
 
