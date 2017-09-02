@@ -21,6 +21,9 @@ namespace AGS.Engine.Desktop
         {
             _windowSize = windowSize;
             this._shouldBlockInput = shouldBlockInput;
+            API.MousePosition.VirtualResolution = virtualResolution;
+            API.MousePosition.GetWindowWidth = () => _windowSize.GetWidth(_game);
+            API.MousePosition.GetWindowHeight = () => _windowSize.GetHeight(_game);
             this._virtualWidth = virtualResolution.Width;
             this._virtualHeight = virtualResolution.Height;
             this._state = state;
@@ -41,7 +44,7 @@ namespace AGS.Engine.Desktop
                 var button = convert(e.Button);
                 if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = true;
                 else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = true;
-                await MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, convertX(e.X), convertY(e.Y)));
+                await MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition));
             };
             game.MouseUp += async (sender, e) =>
             {
@@ -49,12 +52,12 @@ namespace AGS.Engine.Desktop
                 var button = convert(e.Button);
                 if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = false;
                 else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = false;
-                await MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, convertX(e.X), convertY(e.Y)));
+                await MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition));
             };
             game.MouseMove += async (sender, e) =>
             {
                 if (isInputBlocked()) return;
-                await MouseMove.InvokeAsync(new MousePositionEventArgs(convertX(e.X), convertY(e.Y)));
+                await MouseMove.InvokeAsync(new MousePositionEventArgs(MousePosition));
             };
             game.KeyDown += async (sender, e) =>
             {
@@ -91,27 +94,24 @@ namespace AGS.Engine.Desktop
             return _keysDown.Contains(key);
         }
 
-		public API.PointF MousePosition
-		{
-			get 
-			{
-				return new API.PointF(MouseX, MouseY);
-			}
-		}
-
-		public bool LeftMouseButtonDown { get; private set; }
-		public bool RightMouseButtonDown { get; private set; }
-        public bool IsTouchDrag { get { return false; } } //todo: support touch screens on desktops
-
 		//For some reason GameWindow.Mouse is obsolete.
 		//From the warning it should be replaced by Input.Mouse which returns screen coordinates
 		//and not window coordinates. Changing will require us to gather the screen monitor coordinates
 		//and take multiple monitor issues into account, so for now we'll stick with the obsolete GameWindow.Mouse
 		//in the hope that future versions will keep it alive.
-		#pragma warning disable 618
-		public float MouseX { get { return convertX(_game.Mouse.X); } }
-		public float MouseY { get { return convertY(_game.Mouse.Y); } }
-		#pragma warning restore 618
+#pragma warning disable 618
+		public MousePosition MousePosition
+		{
+			get 
+			{
+                return new MousePosition(_game.Mouse.X, _game.Mouse.Y, _state.Viewport);
+			}
+		}
+#pragma warning restore 618
+
+		public bool LeftMouseButtonDown { get; private set; }
+		public bool RightMouseButtonDown { get; private set; }
+        public bool IsTouchDrag { get { return false; } } //todo: support touch screens on desktops
 
 		public IObject Cursor
 		{ 
@@ -145,27 +145,6 @@ namespace AGS.Engine.Desktop
 		private AGS.API.Key convert(OpenTK.Input.Key key)
 		{
 			return (AGS.API.Key)(int)key;
-		}
-
-		private float convertX(float x)
-		{
-			var viewport = getViewport();
-			var virtualWidth = _virtualWidth / viewport.ScaleX;
-            x = MathUtils.Lerp (0f, 0f, _windowSize.GetWidth(_game), virtualWidth, x);
-			return x + viewport.X;
-		}
-
-		private float convertY(float y)
-		{
-			var viewport = getViewport();
-			var virtualHeight = _virtualHeight / viewport.ScaleY;
-            y = MathUtils.Lerp (0f, virtualHeight, _windowSize.GetHeight(_game), 0f, y);
-			return y + viewport.Y;
-		}
-
-		private IViewport getViewport()
-		{
-			return _state.Room.Viewport;
 		}
 	}
 }

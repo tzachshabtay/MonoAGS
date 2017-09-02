@@ -99,6 +99,12 @@ namespace AGS.API
 			}
 			return maxValue;
 		}
+
+        public static float DegreesToRadians(float degrees)
+        {
+            const float factor = (float)(Math.PI / 180d);
+            return degrees * factor;
+        }
 	}
 }
 

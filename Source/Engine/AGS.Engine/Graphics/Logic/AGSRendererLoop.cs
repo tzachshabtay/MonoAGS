@@ -14,17 +14,24 @@ namespace AGS.Engine
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly DisplayListEventArgs _displayListEventArgs;
         private readonly Stack<IObject> _parentStack;
+        private readonly IGameWindow _gameWindow;
         private readonly IDisplayList _displayList;
+        private readonly IInput _input;
         private IGLUtils _glUtils;
         private IShader _lastShaderUsed;
+        private IObject _mouseCursorContainer;
 		
         private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
 
 		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer,
-            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, 
-            IEvent<DisplayListEventArgs> onBeforeRenderingDisplayList, IDisplayList displayList)
+            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IGameWindow gameWindow,
+            IEvent<DisplayListEventArgs> onBeforeRenderingDisplayList, IDisplayList displayList, 
+            IInput input)
 		{
+            _input = input;
+            _displayList = displayList;
             _glUtils = glUtils;
+            _gameWindow = gameWindow;
 			_resolver = resolver;
             _game = game;
 			_gameState = game.State;
@@ -32,7 +39,6 @@ namespace AGS.Engine
 			_roomTransitions = roomTransitions;
             _displayListEventArgs = new DisplayListEventArgs(null);
             _parentStack = new Stack<IObject>();
-            _displayList = displayList;
             OnBeforeRenderingDisplayList = onBeforeRenderingDisplayList;
 			_roomTransitions.Transition = new RoomTransitionInstant ();
 		}
@@ -45,12 +51,13 @@ namespace AGS.Engine
 		{
             if (_gameState.Room == null) return false;
 			IRoom room = _gameState.Room;
+            _glUtils.RefreshViewport(_game.Settings, _gameWindow, _gameState.Viewport);
 
 			switch (_roomTransitions.State)
 			{
 				case RoomTransitionState.NotInTransition:
 					activateShader();
-					renderRoom(room);
+					renderRoom();
 					break;
 				case RoomTransitionState.BeforeLeavingRoom:
                     if (_roomTransitions.Transition == null)
@@ -63,9 +70,11 @@ namespace AGS.Engine
                         _roomTransitions.State = RoomTransitionState.PreparingTransition;
                         return false;
                     }
-                    else if (!_roomTransitions.Transition.RenderBeforeLeavingRoom(_displayList.GetDisplayList(room), obj => renderObject(room, obj)))
+                    else if (!_roomTransitions.Transition.RenderBeforeLeavingRoom(
+                        _displayList.GetDisplayList(_gameState.Viewport), 
+                        obj => renderObject(_gameState.Viewport, obj)))
 					{
-						if (_fromTransitionBuffer == null) _fromTransitionBuffer = renderToBuffer(room);
+						if (_fromTransitionBuffer == null) _fromTransitionBuffer = renderToBuffer();
 						_roomTransitions.State = RoomTransitionState.PreparingTransition;
 						return false;
 					}
@@ -80,7 +89,7 @@ namespace AGS.Engine
                         _roomTransitions.State = RoomTransitionState.AfterEnteringRoom;
                         return false;
                     }
-					if (_toTransitionBuffer == null) _toTransitionBuffer = renderToBuffer(room);
+					if (_toTransitionBuffer == null) _toTransitionBuffer = renderToBuffer();
 					if (!_roomTransitions.Transition.RenderTransition(_fromTransitionBuffer, _toTransitionBuffer))
 					{
 						_fromTransitionBuffer = null;
@@ -90,7 +99,9 @@ namespace AGS.Engine
 					}
 					break;
 				case RoomTransitionState.AfterEnteringRoom:
-                    if (_gameState.Cutscene.IsSkipping || !_roomTransitions.Transition.RenderAfterEnteringRoom(_displayList.GetDisplayList(room), obj => renderObject(room, obj)))
+                    if (_gameState.Cutscene.IsSkipping || !_roomTransitions.Transition.RenderAfterEnteringRoom(
+                        _displayList.GetDisplayList(_gameState.Viewport), 
+                        obj => renderObject(_gameState.Viewport, obj)))
 					{
 						_roomTransitions.SetOneTimeNextTransition(null);
 						_roomTransitions.State = RoomTransitionState.NotInTransition;
@@ -105,30 +116,60 @@ namespace AGS.Engine
 
 		#endregion
 
-        private IFrameBuffer renderToBuffer(IRoom room)
+        private IFrameBuffer renderToBuffer()
 		{
             TypedParameter sizeParam = new TypedParameter(typeof(Size), _game.Settings.WindowSize);
             IFrameBuffer frameBuffer = _resolver.Container.Resolve<IFrameBuffer>(sizeParam);
 			frameBuffer.Begin();
-			renderRoom(room);
+			renderRoom();
 			frameBuffer.End();
 			return frameBuffer;
 		}
 
-		private void renderRoom(IRoom room)
+		private void renderRoom()
 		{
-            List<IObject> displayList = _displayList.GetDisplayList(room);
-            _displayListEventArgs.DisplayList = displayList;
-            OnBeforeRenderingDisplayList.Invoke(_displayListEventArgs);
-            displayList = _displayListEventArgs.DisplayList;
-
-			foreach (IObject obj in displayList) 
-			{
-				renderObject(room, obj);
-			}
+            renderViewport(_gameState.Viewport);
+            try
+            {
+                foreach (var viewport in _gameState.SecondaryViewports)
+                {
+                    renderViewport(viewport);
+                }
+            }
+            catch (InvalidOperationException) {} //can be triggered if a viewport was added/removed while enumerating- this should be resolved on next tick
+            renderCursor();
 		}
 
-		private void renderObject(IRoom room, IObject obj)
+        private void renderViewport(IViewport viewport)
+        {
+            _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport);
+            List<IObject> displayList = _displayList.GetDisplayList(viewport);
+			_displayListEventArgs.DisplayList = displayList;
+			OnBeforeRenderingDisplayList.Invoke(_displayListEventArgs);
+			displayList = _displayListEventArgs.DisplayList;
+
+			foreach (IObject obj in displayList)
+			{
+				renderObject(viewport, obj);
+			}
+        }
+
+        private void renderCursor()
+        {
+			IObject cursor = _input.Cursor;
+			if (cursor == null) return;
+			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
+			{
+				_mouseCursorContainer = cursor;
+			}
+            var viewport = _gameState.Viewport;
+            _mouseCursorContainer.X = (_input.MousePosition.XMainViewport - viewport.X) * viewport.ScaleX;
+            _mouseCursorContainer.Y = (_input.MousePosition.YMainViewport - viewport.Y) * viewport.ScaleY;
+            _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport);
+            renderObject(viewport, _mouseCursorContainer);
+        }
+
+        private void renderObject(IViewport viewport, IObject obj)
 		{
             refreshParentMatrices(obj);
             Size resolution = obj.RenderLayer == null || obj.RenderLayer.IndependentResolution == null ? 
@@ -138,11 +179,11 @@ namespace AGS.Engine
 
             IImageRenderer imageRenderer = getImageRenderer(obj);
 
-			imageRenderer.Prepare(obj, obj, room.Viewport);
+			imageRenderer.Prepare(obj, obj, viewport);
 
 			var shader = applyObjectShader(obj);
 
-			imageRenderer.Render (obj, room.Viewport);
+			imageRenderer.Render (obj, viewport);
 
 			removeObjectShader(shader);
 		}

@@ -36,13 +36,6 @@ namespace AGS.API
 		IAudioClip MusicOnLoad { get; set; }
 
         /// <summary>
-        /// It might be that not all of the room is shown on the screen at once (for example, a scrolling room). 
-        /// A viewport to the room instructs the engine on what parts of the room to show.
-        /// </summary>
-        /// <value>The viewport.</value>
-		IViewport Viewport { get; }
-
-        /// <summary>
         /// A background graphic for the room. 
         /// The background is actually just a regular object so it can be animated or use any of the properties 
         /// available on regular objects.
@@ -125,29 +118,6 @@ namespace AGS.API
         /// <param name="point">Point.</param>
         /// <param name="entityId">Entity identifier.</param>
         IEnumerable<IArea> GetMatchingAreas(PointF point, string entityId);
-
-        /// <summary>
-        /// Gets all the visible objects in the room, ordered from front to back.
-        /// </summary>
-        /// <returns>The visible objects front to back.</returns>
-        /// <param name="includeUi">If set to <c>true</c> include global user interface objects (<see cref="IGameState.UI"/>) as well as room objects.</param>
-		IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true);
-
-        /// <summary>
-        /// Gets the top-most visible object at the specified point (in room coordinates).
-        /// </summary>
-        /// <returns>The top-most visible <see cref="T:AGS.API.IObject"/>.</returns>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-        /// <param name="onlyEnabled">If set to <c>true</c> then ignore disabled objects.</param>
-        /// <param name="includeUi">If set to <c>true</c> include global user interface objects (<see cref="IGameState.UI"/>).</param>
-		IObject GetObjectAt(float x, float y, bool onlyEnabled = true, bool includeUi = true);
-
-        /// <summary>
-        /// Gets the top-most visible and enabled object at the current mouse position (includes UI objects).
-        /// </summary>
-        /// <returns>The top-most visible <see cref="T:AGS.API.IObject"/>.</returns>
-        IObject GetObjectAtMousePosition();
 
         /// <summary>
         /// Fins a room object with the specified id.

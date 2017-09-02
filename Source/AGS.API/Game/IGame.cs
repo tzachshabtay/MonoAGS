@@ -62,6 +62,12 @@
         IRuntimeSettings Settings { get; }
 
         /// <summary>
+        /// Gets the object under the mouse's position.
+        /// </summary>
+        /// <value>The hit test.</value>
+        IHitTest HitTest { get; }
+
+        /// <summary>
         /// Starts the game.
         /// </summary>
         /// <param name="settings">Settings.</param>

@@ -40,7 +40,6 @@ namespace AGS.Engine
             set 
             { 
                 _preserveAspectRatio = value;
-                ResetViewport();
             }
         }
 
@@ -54,11 +53,6 @@ namespace AGS.Engine
         { 
             get { return (AGS.API.WindowBorder)_gameWindow.WindowBorder; } 
             set { _messagePump.Post(_ => _gameWindow.WindowBorder = value, null); } 
-        }
-
-        public void ResetViewport()
-        {
-            _glUtils.RefreshViewport(this, _gameWindow);
         }
     }
 }

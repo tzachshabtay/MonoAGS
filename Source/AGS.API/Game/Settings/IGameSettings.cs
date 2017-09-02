@@ -101,7 +101,7 @@
         /// <summary>
         /// If the game is configured to preserve the aspect ratio, then in case the window is resized
         /// and the aspect ratio is changed, the screen will be letterboxed or pillarboxed so the
-        /// aspect ratio for the actual content will remain the same.
+        /// aspect ratio for the actual content will remain the same (preserve aspect ratio is on by default).
         /// </summary>
         bool PreserveAspectRatio { get; }
         /// <summary>

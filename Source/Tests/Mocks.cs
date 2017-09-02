@@ -168,6 +168,9 @@ namespace Tests
 				_gameState = new Mock<IGameState> ();
 				_gameState.Setup(m => m.Player).Returns(Player().Object);
                 _gameState.Setup(m => m.Room).Returns(() => Player().Object.Room);
+                _gameState.Setup(m => m.Viewport).Returns(Viewport().Object);
+                _gameState.Setup(m => m.SecondaryViewports).Returns(new AGSBindingList<IViewport>(0));
+                Viewport().Setup(v => v.RoomProvider).Returns(_gameState.Object);
 				_gameState.Setup(m => m.Cutscene).Returns(Cutscene().Object);
 			}
 			return _gameState;
@@ -201,7 +204,6 @@ namespace Tests
 				AGSConcurrentHashSet<IObject> roomObjects = new AGSConcurrentHashSet<IObject> ();
 				_room = new Mock<IRoom> ();
 				_room.Setup(m => m.Background).Returns(Object().Object);
-				_room.Setup(m => m.Viewport).Returns(Viewport().Object);
 				_room.Setup(m => m.Objects).Returns(roomObjects);
 				_room.Setup(m => m.ShowPlayer).Returns(true);
 				_room.Setup(m => m.Events).Returns(RoomEvents().Object);
@@ -254,6 +256,9 @@ namespace Tests
                 _viewport.Setup(v => v.OnAngleChanged).Returns(new AGSEvent());
                 _viewport.Setup(v => v.OnScaleChanged).Returns(new AGSEvent());
                 _viewport.Setup(v => v.OnPositionChanged).Returns(new AGSEvent());
+                _viewport.Setup(v => v.OnParentChanged).Returns(new AGSEvent());
+                _viewport.Setup(v => v.OnProjectionBoxChanged).Returns(new AGSEvent());
+                _viewport.Setup(v => v.DisplayListSettings).Returns(new AGSDisplayListSettings());
 			}
 			return _viewport;
 		}

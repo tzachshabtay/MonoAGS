@@ -37,7 +37,7 @@ namespace AGS.Engine
 					{
 						if (_lastRoom != null) _lastRoom.Events.OnAfterFadeOut.Invoke();
 						room.Events.OnBeforeFadeIn.Invoke();
-						updateViewport(room, changedRoom);
+						updateViewports(changedRoom);
                         _events.OnRoomChanging.Invoke();
 						if (_lastRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
 						else _roomTransitions.State = RoomTransitionState.InTransition;
@@ -45,32 +45,51 @@ namespace AGS.Engine
 				}
 				return;
 			}
-			if (room.Background != null) runAnimation (room.Background.Animation);
-			foreach (var obj in room.Objects) 
-			{
-				if (!obj.Visible)
-					continue;
-				if (!room.ShowPlayer && obj == _gameState.Player)
-					continue;
-				runAnimation (obj.Animation);
-			}
 
-			updateViewport (room, changedRoom);
+			updateViewports(changedRoom);
 			await updateRoom(room);
 		}
 
 		#endregion
 
-		private void updateViewport (IRoom room, bool playerChangedRoom)
+        private void updateViewports(bool playerChangedRoom)
+        {
+            updateViewport(_gameState.Viewport, playerChangedRoom);
+            try
+            {
+                foreach (var viewport in _gameState.SecondaryViewports)
+                {
+                    updateViewport(viewport, playerChangedRoom);
+                }
+            }
+            catch (InvalidOperationException) { } //can be triggered if a viewport was added/removed while enumerating- this should be resolved on next tick
+		}
+
+        private void updateViewport (IViewport viewport, bool playerChangedRoom)
 		{
-			ICamera camera = room.Viewport.Camera;
+            runAnimations(viewport.RoomProvider.Room);
+            ICamera camera = viewport.Camera;
 			if (camera != null) 
 			{
-                camera.Tick(room.Viewport, room.Limits, _virtualResolution, playerChangedRoom);
+                camera.Tick(viewport, viewport.RoomProvider.Room.Limits, _virtualResolution, playerChangedRoom);
 			}
 		}
 
-        private async Task updateRoom(IRoom room)
+		private void runAnimations(IRoom room)
+		{
+            if (room == null) return;
+			if (room.Background != null) runAnimation(room.Background.Animation);
+			foreach (var obj in room.Objects)
+			{
+				if (!obj.Visible)
+					continue;
+				if (!room.ShowPlayer && obj == _gameState.Player)
+					continue;
+				runAnimation(obj.Animation);
+			}
+		}
+
+		private async Task updateRoom(IRoom room)
 		{
 			if (_lastRoom == room) return;
             _lastRoom = room;

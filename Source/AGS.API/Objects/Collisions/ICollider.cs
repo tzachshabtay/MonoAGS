@@ -26,7 +26,8 @@
         /// <returns><c>true</c>, if it collides with the point, <c>false</c> otherwise.</returns>
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
-		bool CollidesWith(float x, float y);
+        /// <param name="viewport">The viewport to check the collisions against</param>
+        bool CollidesWith(float x, float y, IViewport viewport);
 	}
 }
 

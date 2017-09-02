@@ -5,19 +5,17 @@
     /// </summary>
     public class MouseButtonEventArgs
 	{
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:AGS.API.MouseButtonEventArgs"/> class.
-        /// </summary>
-        /// <param name="clickedEntity">The entity which was clicked on.</param>
-        /// <param name="button">Button.</param>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-		public MouseButtonEventArgs (IEntity clickedEntity, MouseButton button, float x, float y)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="T:AGS.API.MouseButtonEventArgs"/> class.
+		/// </summary>
+		/// <param name="clickedEntity">The entity which was clicked on.</param>
+		/// <param name="button">Button.</param>
+		/// <param name="mousePosition">The mouse position.</param>
+		public MouseButtonEventArgs (IEntity clickedEntity, MouseButton button, MousePosition mousePosition)
 		{
             ClickedEntity = clickedEntity;
 			Button = button;
-			X = x;
-			Y = y;
+            MousePosition = mousePosition;
 		}
 
         /// <summary>
@@ -33,18 +31,10 @@
 		public MouseButton Button { get; private set; }
 
         /// <summary>
-        /// Gets the mouse's x position in the room's co-ordinates (based on the game's virtual resolution), 
-        /// after adjusting for the viewport.
+        /// The position of the mouse on the screen at the time the button was clicked.
         /// </summary>
-        /// <value>The mouse x.</value>
-		public float X { get; private set; }
-
-        /// <summary>
-        /// Gets the mouse's y position in the room's co-ordinates (based on the game's virtual resolution), 
-        /// after adjusting for the viewport.
-        /// </summary>
-        /// <value>The mouse y.</value>
-		public float Y { get; private set; }
+        /// <value>The mouse position.</value>
+        public MousePosition MousePosition { get; private set; }
 	}
 }
 

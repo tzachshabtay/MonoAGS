@@ -4,7 +4,9 @@ namespace AGS.Engine
 {
 	public interface IBoundingBoxBuilder
 	{
-		PointF Build(AGSBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox);
+        AGSBoundingBox BuildIntermediateBox(float width, float height, Matrix4 modelMatrix);
+        AGSBoundingBox BuildHitTestBox(AGSBoundingBox intermediateBox);
+        AGSBoundingBox BuildRenderBox(AGSBoundingBox intermediateBox, Matrix4 viewportMatrix, out PointF scale);
         IEvent OnNewBoxBuildRequired { get; }
 	}
 }

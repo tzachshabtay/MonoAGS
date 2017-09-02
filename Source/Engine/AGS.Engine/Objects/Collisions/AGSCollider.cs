@@ -34,7 +34,7 @@ namespace AGS.Engine
 			{
                 var boundingBoxesComponent = _boundingBox;
                 if (boundingBoxesComponent == null) return null;
-                var boundingBoxes = boundingBoxesComponent.GetBoundingBoxes();
+                var boundingBoxes = boundingBoxesComponent.GetBoundingBoxes(_state.Viewport);
                 if (boundingBoxes == null) return null;
                 var boundingBox = boundingBoxes.HitTestBox;
                 var pixelPerfectComponent = _pixelPerfect;
@@ -50,20 +50,19 @@ namespace AGS.Engine
 			}
 		}
 
-		public bool CollidesWith(float x, float y)
+        public bool CollidesWith(float x, float y, IViewport viewport)
 		{
 			var boundingBoxesComponent = _boundingBox;
             if (boundingBoxesComponent == null) return false;
-			var boundingBoxes = boundingBoxesComponent.GetBoundingBoxes();
+            var boundingBoxes = boundingBoxesComponent.GetBoundingBoxes(viewport);
             if (boundingBoxes == null) return false;
             AGSBoundingBox boundingBox = boundingBoxes.HitTestBox;
             var pixelPerfectComponent = _pixelPerfect;
 			IArea pixelPerfect = pixelPerfectComponent == null ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 
             var drawableInfo = _drawableInfo;
-            if (drawableInfo != null && drawableInfo.IgnoreViewport && _state != null) 
+            if (drawableInfo != null && drawableInfo.IgnoreViewport) 
 			{
-				var viewport = _state.Room.Viewport;
 				//todo: Support viewport rotation (+ ignore scaling areas = false?)
 				x = (x - viewport.X) * viewport.ScaleX;
 				y = (y - viewport.Y) * viewport.ScaleY;

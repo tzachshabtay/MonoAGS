@@ -48,8 +48,8 @@ namespace AGS.Engine
             IsCurrentlyDragged = true;
             _dragObjectStartX = _translate.X;
             _dragObjectStartY = _translate.Y;
-            _dragMouseStartX = _input.MouseX;
-            _dragMouseStartY = _input.MouseY;
+            _dragMouseStartX = _input.MousePosition.XMainViewport;
+            _dragMouseStartY = _input.MousePosition.YMainViewport;
         }
 
         private void onRepeatedlyExecute()
@@ -61,8 +61,8 @@ namespace AGS.Engine
                 return;
             }            
 
-            float mouseX = _input.MouseX;
-            float mouseY = _input.MouseY;
+            float mouseX = _input.MousePosition.XMainViewport;
+            float mouseY = _input.MousePosition.YMainViewport;
 
             if (DragMinX != null && mouseX < DragMinX.Value) return;
             if (DragMaxX != null && mouseX > DragMaxX.Value) return;

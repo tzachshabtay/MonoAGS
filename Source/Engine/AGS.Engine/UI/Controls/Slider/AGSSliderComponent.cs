@@ -165,13 +165,14 @@ namespace AGS.Engine
 		{
             var boundingBox = _boundingBox;
             if (boundingBox == null) return;
-            var boundingBoxes = boundingBox.GetBoundingBoxes();
+            var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
             var visible = _visible;
             var enabled = _enabled;
             if (visible == null || !visible.Visible || enabled == null || !enabled.Enabled || 
                 boundingBoxes == null || 
                 (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
-                Graphics.GetBoundingBoxes() == null || !Graphics.CollidesWith(_input.MouseX, _input.MouseY) || 
+                Graphics.GetBoundingBoxes(_state.Viewport) == null || !Graphics.CollidesWith(
+                    _input.MousePosition.XMainViewport, _input.MousePosition.YMainViewport, _state.Viewport) || 
                 HandleGraphics == null)
 			{
 				if (_isSliding)
@@ -182,9 +183,9 @@ namespace AGS.Engine
 				return;
 			}
 			_isSliding = true;
-            if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MouseX - boundingBoxes.HitTestBox.MinX, 
+            if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.XMainViewport - boundingBoxes.HitTestBox.MinX, 
                                                                       0f, boundingBoxes.HitTestBox.Width), boundingBoxes));
-			else setValue(getSliderValue(MathUtils.Clamp(_input.MouseY - boundingBoxes.HitTestBox.MinY
+            else setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.YMainViewport - boundingBoxes.HitTestBox.MinY
                                                          , 0f, boundingBoxes.HitTestBox.Height), boundingBoxes));
 		}
 
@@ -192,7 +193,7 @@ namespace AGS.Engine
 		{
             var boundingBox = _boundingBox;
             if (boundingBox == null) return;
-            var boundingBoxes = boundingBox.GetBoundingBoxes();
+            var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
             if (boundingBoxes == null || HandleGraphics == null) return;
 
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator

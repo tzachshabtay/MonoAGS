@@ -36,7 +36,7 @@ namespace AGS.Engine
 		public void End()
 		{
             _graphics.BindFrameBuffer(0);
-            AGSGame.Game.Settings.ResetViewport();
+            _graphics.UndoLastViewport();
 		}
 
 		#region IDisposable implementation

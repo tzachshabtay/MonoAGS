@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AGS.API;
 using System.Collections.Generic;
 
@@ -10,23 +9,18 @@ namespace AGS.Engine
         private ICharacter _player { get { return _state.Player; } }
 		private IObject _background;
 		private readonly IAGSEdges _edges;
-		private readonly RenderOrderSelector _sorter;
 		private readonly IGameState _state;
 		private readonly IGameEvents _gameEvents;
         private readonly IInput _input;
-        private List<IObject> _visibleObjectsWithUi = new List<IObject>(), _visibleObjectsWithoutUi = new List<IObject>();
-        private IObject _objectAtMousePosition;
 
-		public AGSRoom (string id, IViewport viewport, IAGSEdges edges, IGameEvents gameEvents,
+		public AGSRoom (string id, IAGSEdges edges, IGameEvents gameEvents,
                         IRoomEvents roomEvents, IGameState state, ICustomProperties properties,
                         IRoomLimitsProvider roomLimitsProvider, IInput input)
 		{
-			_sorter = new RenderOrderSelector { Backwards = true };
 			_state = state;
             _input = input;
             RoomLimitsProvider = roomLimitsProvider;
 			_gameEvents = gameEvents;
-			Viewport = viewport;
 			Events = roomEvents;
 			ID = id;
 			Objects = new AGSConcurrentHashSet<IObject> ();
@@ -80,8 +74,6 @@ namespace AGS.Engine
 
 		public IList<IArea> Areas { get; private set; }
 
-		public IViewport Viewport { get; private set; }
-
 		public IEdges Edges { get { return _edges; } }
 
 		public IRoomEvents Events { get; private set; }
@@ -95,32 +87,6 @@ namespace AGS.Engine
                 IAreaRestriction areaRestriction = area.GetComponent<IAreaRestriction>();
                 return (areaRestriction == null || !areaRestriction.IsRestricted(entityId));
             });
-        }
-
-		public IEnumerable<IObject> GetVisibleObjectsFrontToBack(bool includeUi = true)
-		{
-            return includeUi ? _visibleObjectsWithUi : _visibleObjectsWithoutUi;
-		}
-
-		public IObject GetObjectAt(float x, float y, bool onlyEnabled = true, bool includeUi = true)
-		{
-            foreach (IObject obj in GetVisibleObjectsFrontToBack())
-            {
-                if (onlyEnabled && !obj.Enabled)
-                    continue;
-
-                if (!obj.CollidesWith(x, y)) continue;
-
-                if (!hasFocus(obj)) continue;
-
-                return obj;
-            }
-            return null;
-		}
-
-        public IObject GetObjectAtMousePosition()
-        {
-            return _objectAtMousePosition;
         }
 
 		public TObject Find<TObject>(string id) where TObject : class, IObject
@@ -144,36 +110,11 @@ namespace AGS.Engine
 
         #endregion
 
-        private bool hasFocus(IObject obj)
-        {
-            var focusedWindow = _state.FocusedUI.FocusedWindow;
-            if (focusedWindow == null) return true;
-            while (obj != null)
-            {
-                if (obj == focusedWindow || _state.FocusedUI.CannotLoseFocus.Contains(obj.ID)) return true;
-                obj = obj.TreeNode.Parent;
-            }
-            return false;
-        }
-
-		private void onRepeatedlyExecute()
+        private void onRepeatedlyExecute()
 		{
             if (_player == null || _player.Room != this) return;
-            cacheVisibleObjects();
 			_edges.OnRepeatedlyExecute(_player);
 		}
-
-        private void cacheVisibleObjects()
-        { 
-            List<IObject> visibleObjects = Objects.Where(o => o.Visible && (ShowPlayer || o != _player)).ToList();
-            List<IObject> visibleWithUi = new List<IObject>(visibleObjects);
-            visibleWithUi.AddRange(_state.UI.Where(o => o.Visible));
-            visibleObjects.Sort(_sorter);
-            visibleWithUi.Sort(_sorter);
-            _visibleObjectsWithUi = visibleWithUi;
-            _visibleObjectsWithoutUi = visibleObjects;
-            _objectAtMousePosition = GetObjectAt(_input.MouseX, _input.MouseY);
-        }
     }
 }
 

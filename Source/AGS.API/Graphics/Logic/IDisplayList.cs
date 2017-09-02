@@ -7,11 +7,11 @@ namespace AGS.API
     /// </summary>
     public interface IDisplayList
     {
-        /// <summary>
-        /// Gets an ordered list of objects to display on screen.
-        /// </summary>
-        /// <returns>The display list.</returns>
-        /// <param name="room">Room.</param>
-        List<IObject> GetDisplayList(IRoom room);
+		/// <summary>
+		/// Gets an ordered list of objects to display on screen.
+		/// </summary>
+		/// <returns>The display list.</returns>
+		/// <param name="viewport">Viewport.</param>
+		List<IObject> GetDisplayList(IViewport viewport);
     }
 }

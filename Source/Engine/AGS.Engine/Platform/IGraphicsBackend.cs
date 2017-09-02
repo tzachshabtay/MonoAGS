@@ -87,6 +87,7 @@ namespace AGS.Engine
         void DeleteFrameBuffer(int frameBufferId);
 
         void Viewport(int x, int y, int width, int height);
+        void UndoLastViewport();
         void MatrixMode(MatrixType matrix);
         void LoadIdentity();
         void Ortho(double left, double right, double bottom, double top, double zNear, double zFar);

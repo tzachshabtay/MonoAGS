@@ -17,7 +17,7 @@
         /// The bounding box is set by the engine, and should not be set by the user.
         /// </summary>
         /// <value>The bounding boxes.</value>
-        AGSBoundingBoxes GetBoundingBoxes();
+        AGSBoundingBoxes GetBoundingBoxes(IViewport viewport);
 
         /// <summary>
         /// An event which fires whenever the bounding boxes for the entity change.

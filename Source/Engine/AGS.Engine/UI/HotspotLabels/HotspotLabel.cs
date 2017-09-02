@@ -8,14 +8,12 @@ namespace AGS.Engine
 	{
 		private readonly IGameEvents _events;
 		private ILabel _label;
-		private IGameState _state;
 		private readonly IGame _game;
 
 		public HotspotLabel(IGame game, ILabel label)
 		{
 			_label = label;
 			_events = game.Events;
-			_state = game.State;
 			_game = game;
 		}
 
@@ -34,14 +32,13 @@ namespace AGS.Engine
 		private void onSavedGameLoaded()
 		{
 			ILabel oldLabel = _label;
-			_state = _game.State;
 			_label = _game.Find<ILabel>(oldLabel.ID);
 		}
 
 		private void onTick()
 		{
-            if (_label == null || _state.Room == null) return;
-            IObject obj = _state.Room.GetObjectAtMousePosition();
+            if (_label == null) return;
+            IObject obj = _game.HitTest.ObjectAtMousePosition;
             if (obj == null || (obj.Hotspot == null && !DebugMode)) 
 			{
 				_label.Visible = false;

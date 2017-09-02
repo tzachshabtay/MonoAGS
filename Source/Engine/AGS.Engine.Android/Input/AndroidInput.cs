@@ -11,7 +11,6 @@ namespace AGS.Engine.Android
     {
         private IGameWindowSize _windowSize;
         private IGameState _state;
-        private int _virtualWidth, _virtualHeight;
         private IShouldBlockInput _shouldBlockInput;
         private DateTime _lastDrag;
         private AGSGameView _view;
@@ -19,12 +18,15 @@ namespace AGS.Engine.Android
         public AndroidInput(AndroidSimpleGestures gestures, AGS.API.Size virtualResolution, 
                             IGameState state, IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
         {
+            MousePosition = new MousePosition(0f, 0f, state.Viewport);
             _shouldBlockInput = shouldBlockInput;
             _windowSize = windowSize;
             _state = state;
-            this._virtualWidth = virtualResolution.Width;
-            this._virtualHeight = virtualResolution.Height;
-            MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
+			API.MousePosition.VirtualResolution = virtualResolution;
+            float density = Resources.System.DisplayMetrics.Density;
+            API.MousePosition.GetWindowWidth = () => (int)(_windowSize.GetWidth(null) - ((GLUtils.ScreenViewport.X * 2) / density));
+            API.MousePosition.GetWindowHeight = () => (int)(_windowSize.GetHeight(null) - ((GLUtils.ScreenViewport.Y * 2) / density));
+			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseMove = new AGSEvent<MousePositionEventArgs>();
             KeyDown = new AGSEvent<KeyboardEventArgs>();
@@ -37,7 +39,7 @@ namespace AGS.Engine.Android
                 _lastDrag = now;
                 IsTouchDrag = true;
                 setMousePosition(e);
-                await MouseMove.InvokeAsync(new MousePositionEventArgs(MouseX, MouseY));
+                await MouseMove.InvokeAsync(new MousePositionEventArgs(MousePosition));
                 await Task.Delay(300);
                 if (_lastDrag <= now) IsTouchDrag = false;
             };
@@ -46,9 +48,9 @@ namespace AGS.Engine.Android
                 if (isInputBlocked()) return;
                 setMousePosition(e);
                 LeftMouseButtonDown = true;
-                await MouseDown.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MouseX, MouseY));
+                await MouseDown.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MousePosition));
                 await Task.Delay(250);
-                await MouseUp.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MouseX, MouseY));
+                await MouseUp.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MousePosition));
                 LeftMouseButtonDown = false;
             };
             AndroidGameWindow.Instance.OnNewView += onViewChanged;
@@ -69,11 +71,7 @@ namespace AGS.Engine.Android
 
         public IEvent<MouseButtonEventArgs> MouseUp { get; private set; }
 
-        public PointF MousePosition { get; private set; }
-
-        public float MouseX { get { return MousePosition.X; } }
-
-        public float MouseY { get { return MousePosition.Y; } }
+        public MousePosition MousePosition { get; private set; }
 
         public bool RightMouseButtonDown { get; private set; }
 
@@ -122,34 +120,21 @@ namespace AGS.Engine.Android
         { 
             float x = convertX(e.GetX());
             float y = convertY(e.GetY());
-            MousePosition = new PointF(x, y);
+            MousePosition = new MousePosition(x, y, _state.Viewport);
         }
 
         private float convertX(float x)
         {
-            var viewport = getViewport();
-            var virtualWidth = _virtualWidth / viewport.ScaleX;
             float density = Resources.System.DisplayMetrics.Density;
             x = (x - GLUtils.ScreenViewport.X) / density;
-            float width = _windowSize.GetWidth(null) - ((GLUtils.ScreenViewport.X * 2) / density);
-            x = MathUtils.Lerp(0f, 0f, width, virtualWidth, x);
-            return x + viewport.X;
+            return x;
         }
 
         private float convertY(float y)
         {
-            var viewport = getViewport();
-            var virtualHeight = _virtualHeight / viewport.ScaleY;
             float density = Resources.System.DisplayMetrics.Density;
             y = (y - GLUtils.ScreenViewport.Y) / density;
-            float height = _windowSize.GetHeight(null) - ((GLUtils.ScreenViewport.Y * 2) / density);
-            y = MathUtils.Lerp(0f, virtualHeight, height, 0f, y);
-            return y + viewport.Y;
-        }
-
-        private IViewport getViewport()
-        {
-            return _state.Room.Viewport;
+            return y;
         }
     }
 }

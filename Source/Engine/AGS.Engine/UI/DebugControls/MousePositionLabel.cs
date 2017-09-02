@@ -27,7 +27,7 @@ namespace AGS.Engine
 
 		private void onMouseMove(MousePositionEventArgs args)
 		{
-			_label.Text = new PointF (args.X, args.Y).ToString();
+            _label.Text = new PointF (args.MousePosition.XMainViewport, args.MousePosition.YMainViewport).ToString();
 		}
 	}
 }

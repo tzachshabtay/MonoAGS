@@ -44,9 +44,10 @@ namespace AGS.Engine
 
 		private void buildMatrix()
 		{
+            var radians = MathUtils.DegreesToRadians(_lastRotation);
 			_lastMatrix = 
 				Matrix4.CreateTranslation(new Vector3(-_lastX * _lastParallaxSpeedX, -_lastY * _lastParallaxSpeedY, 0f)) * 
-				Matrix4.CreateRotationZ(_lastRotation) *
+				Matrix4.CreateRotationZ(radians) *
 				Matrix4.CreateScale(_lastScaleX, _lastScaleY, 1f);
 		}
 	}

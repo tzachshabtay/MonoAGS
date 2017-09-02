@@ -11,19 +11,20 @@ namespace AGS.Engine.IOS
     {
         private IGameWindow _gameWindow;
         private IGameState _state;
-        private int _virtualWidth, _virtualHeight;
         private IShouldBlockInput _shouldBlockInput;
         private DateTime _lastDrag;
 
         public IOSInput(IOSGestures gestures, AGS.API.Size virtualResolution,
                         IGameState state, IShouldBlockInput shouldBlockInput, IGameWindow gameWindow)
         {
+            MousePosition = new MousePosition(0f, 0f, state.Viewport);
             _shouldBlockInput = shouldBlockInput;
             _gameWindow = gameWindow;
             _state = state;
-            this._virtualWidth = virtualResolution.Width;
-            this._virtualHeight = virtualResolution.Height;
-            MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
+			API.MousePosition.VirtualResolution = virtualResolution;
+            updateWindowSizeFunctions();
+
+			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseMove = new AGSEvent<MousePositionEventArgs>();
             KeyDown = new AGSEvent<KeyboardEventArgs>();
@@ -39,7 +40,7 @@ namespace AGS.Engine.IOS
                 _lastDrag = now;
                 IsTouchDrag = true;
                 setMousePosition(e);
-                await MouseMove.InvokeAsync(new MousePositionEventArgs(MouseX, MouseY));
+                await MouseMove.InvokeAsync(new MousePositionEventArgs(MousePosition));
                 await Task.Delay(300);
                 if (_lastDrag <= now) IsTouchDrag = false;
             };
@@ -48,9 +49,9 @@ namespace AGS.Engine.IOS
                 if (isInputBlocked()) return;
                 setMousePosition(e);
                 LeftMouseButtonDown = true;
-                await MouseDown.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MouseX, MouseY));
+                await MouseDown.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MousePosition));
                 await Task.Delay(250);
-                await MouseUp.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MouseX, MouseY));
+                await MouseUp.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MousePosition));
                 LeftMouseButtonDown = false;
             };
         }
@@ -69,11 +70,7 @@ namespace AGS.Engine.IOS
 
         public IEvent<MouseButtonEventArgs> MouseUp { get; private set; }
 
-        public PointF MousePosition { get; private set; }
-
-        public float MouseX { get { return MousePosition.X; } }
-
-        public float MouseY { get { return MousePosition.Y; } }
+        public MousePosition MousePosition { get; private set; }
 
         public bool RightMouseButtonDown { get; private set; }
 
@@ -91,36 +88,35 @@ namespace AGS.Engine.IOS
 
         private void setMousePosition(MousePositionEventArgs e)
         {
-            float x = convertX(e.X);
-            float y = convertY(e.Y);
-            MousePosition = new PointF(x, y);
+            float x = convertX(e.MousePosition.XWindow);
+            float y = convertY(e.MousePosition.YWindow);
+            updateWindowSizeFunctions();
+            MousePosition = new MousePosition(x, y, _state.Viewport);
+        }
+
+        private void updateWindowSizeFunctions()
+        {
+			//we have to statically evaluate the window size, because _gameWindow.Width & Height must be called from the UI thread.
+            float density = (float)UIScreen.MainScreen.Scale;
+			int windowWidth = _gameWindow.Width;
+            int windowHeight = _gameWindow.Height;
+
+            API.MousePosition.GetWindowWidth = () => (int)((windowWidth - (GLUtils.ScreenViewport.X * 2)) / density);
+            API.MousePosition.GetWindowHeight = () => (int)((windowHeight - (GLUtils.ScreenViewport.Y * 2)) / density);
         }
 
         private float convertX(float x)
         {
-            var viewport = getViewport();
-            var virtualWidth = _virtualWidth / viewport.ScaleX;
             float density = (float)UIScreen.MainScreen.Scale;
             x = x - (GLUtils.ScreenViewport.X / density);
-            float width = (_gameWindow.Width - (GLUtils.ScreenViewport.X * 2)) / density;
-            x = MathUtils.Lerp(0f, 0f, width, virtualWidth, x);
-            return x + viewport.X;
+            return x;
         }
 
         private float convertY(float y)
         {
-            var viewport = getViewport();
-            var virtualHeight = _virtualHeight / viewport.ScaleY;
             float density = (float)UIScreen.MainScreen.Scale;
             y = y - (GLUtils.ScreenViewport.Y / density);
-            float height = (_gameWindow.Height - (GLUtils.ScreenViewport.Y * 2)) / density;
-            y = MathUtils.Lerp(0f, virtualHeight, height, 0f, y);
-            return y + viewport.Y;
-        }
-
-        private IViewport getViewport()
-        {
-            return _state.Room.Viewport;
+            return y;
         }
 
         private async void onInsertText(object sender, string text)

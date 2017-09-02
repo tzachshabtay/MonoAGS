@@ -41,21 +41,21 @@ namespace AGS.Engine
         }
 
         private readonly IInput _input;
-        private readonly IGameState _state;
+        private readonly IHitTest _hitTest;
         private readonly IGameEvents _gameEvents;
         private List<Subscriber> _subscribers;
         private readonly ConcurrentQueue<Subscriber> _subscribersToAdd;
         private readonly ConcurrentQueue<string> _subscribersToRemove;
-        private float _mouseX, _mouseY;
+        private MousePosition _mousePosition;
         private bool _leftMouseDown, _rightMouseDown;
         private int _inUpdate; //For preventing re-entrancy
 
-        public UIEventsAggregator(IInput input, IGameState state, IGameEvents gameEvents)
+        public UIEventsAggregator(IInput input, IHitTest hitTest, IGameEvents gameEvents)
         {
+            _hitTest = hitTest;
             _subscribersToAdd = new ConcurrentQueue<Subscriber>();
             _subscribersToRemove = new ConcurrentQueue<string>();
             _input = input;
-            _state = state;
             _gameEvents = gameEvents;
             _subscribers = new List<Subscriber>(100);
             gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
@@ -83,12 +83,9 @@ namespace AGS.Engine
             if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
             try
             {
-                IRoom room = _state.Room;
-                if (room == null) return;
+                MousePosition position = _input.MousePosition;
 
-                PointF position = _input.MousePosition;
-
-                var obj = room.GetObjectAtMousePosition();
+                var obj = _hitTest.ObjectAtMousePosition;
                 bool leftMouseDown = _input.LeftMouseButtonDown;
                 bool rightMouseDown = _input.RightMouseButtonDown;
                 var subscribers = _subscribers;
@@ -108,14 +105,13 @@ namespace AGS.Engine
                     if (!subscriber.Enabled.Enabled || !subscriber.Visible.Visible) continue;
                     bool mouseIn = obj == subscriber.Entity;
 
-                    subscriber.FireMouseMove = mouseIn && (_mouseX != position.X || _mouseY != position.Y);
+                    subscriber.FireMouseMove = mouseIn && !_mousePosition.Equals(position);
                     subscriber.FireMouseEnter = mouseIn && !subscriber.Events.IsMouseIn;
                     subscriber.FireMouseLeave = !mouseIn && subscriber.Events.IsMouseIn;
                     subscriber.SetMouseIn(mouseIn);
                 }
 
-                _mouseX = position.X;
-                _mouseY = position.Y;
+                _mousePosition = position;
 
                 bool wasLeftMouseDown = _leftMouseDown;
                 bool wasRightMouseDown = _rightMouseDown;
@@ -137,14 +133,14 @@ namespace AGS.Engine
         //We can't await the events, as inside the events somebody might block waiting for a UI event,
         //for example call AGSMessageBox.YesNo dialog. As we have the _inUpdate variable for preventing re-entrancy,
         //we'll have a race condition.
-        private async void fireAndForgetEvents(Subscriber subscriber, PointF position, bool wasLeftMouseDown, bool wasRightMouseDown, bool leftMouseDown, bool rightMouseDown)
+        private async void fireAndForgetEvents(Subscriber subscriber, MousePosition position, bool wasLeftMouseDown, bool wasRightMouseDown, bool leftMouseDown, bool rightMouseDown)
         {
             await handleMouseButton(subscriber, subscriber.LeftMouseClickTimer, subscriber.LeftMouseDoubleClickTimer, wasLeftMouseDown, leftMouseDown, MouseButton.Left);
             await handleMouseButton(subscriber, subscriber.RightMouseClickTimer, subscriber.RightMouseDoubleClickTimer, wasRightMouseDown, rightMouseDown, MouseButton.Right);
 
-            if (subscriber.FireMouseEnter) await subscriber.Events.MouseEnter.InvokeAsync(new MousePositionEventArgs(position.X, position.Y));
-            else if (subscriber.FireMouseLeave) await subscriber.Events.MouseLeave.InvokeAsync(new MousePositionEventArgs(position.X, position.Y));
-            if (subscriber.FireMouseMove) await subscriber.Events.MouseMove.InvokeAsync(new MousePositionEventArgs(position.X, position.Y));
+            if (subscriber.FireMouseEnter) await subscriber.Events.MouseEnter.InvokeAsync(new MousePositionEventArgs(position));
+            else if (subscriber.FireMouseLeave) await subscriber.Events.MouseLeave.InvokeAsync(new MousePositionEventArgs(position));
+            if (subscriber.FireMouseMove) await subscriber.Events.MouseMove.InvokeAsync(new MousePositionEventArgs(position));
         }
 
         private async Task handleMouseButton(Subscriber subscriber, Stopwatch sw, Stopwatch doubleClickSw, bool wasDown, bool isDown, MouseButton button)
@@ -184,7 +180,7 @@ namespace AGS.Engine
 
             if (fireDown || fireUp || fireClick || fireDownOutside)
             {
-                MouseButtonEventArgs args = new MouseButtonEventArgs(subscriber.Entity, button, _mouseX, _mouseY);
+                MouseButtonEventArgs args = new MouseButtonEventArgs(subscriber.Entity, button, _mousePosition);
                 if (fireDown) await subscriber.Events.MouseDown.InvokeAsync(args);
                 else if (fireUp) await subscriber.Events.MouseUp.InvokeAsync(args);
                 else if (fireDownOutside) await subscriber.Events.LostFocus.InvokeAsync(args);

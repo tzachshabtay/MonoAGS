@@ -171,10 +171,10 @@ namespace AGS.Engine
             get { return _collider.CenterPoint; } 
         }
 
-        public Boolean CollidesWith(Single x, Single y)
-        {
-            return _collider.CollidesWith(x, y);
-        }
+		public Boolean CollidesWith(Single x, Single y, IViewport viewport)
+		{
+			return _collider.CollidesWith(x, y, viewport);
+		}
 
         #endregion
 
@@ -526,10 +526,10 @@ namespace AGS.Engine
             get { return _boundingBoxComponent.OnBoundingBoxesChanged; } 
         }
 
-        public AGSBoundingBoxes GetBoundingBoxes()
-        {
-            return _boundingBoxComponent.GetBoundingBoxes();
-        }
+		public AGSBoundingBoxes GetBoundingBoxes(IViewport viewport)
+		{
+			return _boundingBoxComponent.GetBoundingBoxes(viewport);
+		}
 
         #endregion
     }

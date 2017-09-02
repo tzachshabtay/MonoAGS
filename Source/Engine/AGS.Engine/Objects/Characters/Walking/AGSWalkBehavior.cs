@@ -176,12 +176,12 @@ namespace AGS.Engine
             {
                 //If the movement is linked to the animation and the animation speed is slower the the viewport movement, it can lead to flickering
                 //so we do a smooth movement for this scenario.
-                _obj.X += compensateForViewScrollIfNeeded(_obj.Room.Viewport.X, xStep, ref _compensateScrollX, ref _lastViewportX);
-                _obj.Y += compensateForViewScrollIfNeeded(_obj.Room.Viewport.Y, yStep, ref _compensateScrollY, ref _lastViewportY);
+                _obj.X += compensateForViewScrollIfNeeded(_state.Viewport.X, xStep, ref _compensateScrollX, ref _lastViewportX);
+                _obj.Y += compensateForViewScrollIfNeeded(_state.Viewport.Y, yStep, ref _compensateScrollY, ref _lastViewportY);
                 return;
             }
             if (_animation != null) _lastFrame = _animation.Animation.Sprite;
-            _lastViewportX = _obj.Room.Viewport.X;
+            _lastViewportX = _state.Viewport.X;
 
             currentLine.NumSteps -= Math.Abs(currentLine.IsBaseStepX ? xStep : yStep);
 			if (currentLine.NumSteps >= 0f)
