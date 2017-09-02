@@ -9,9 +9,11 @@ namespace AGS.Engine.IOS
     public class IOSGestures
     {
         private readonly IOSGameView _view;
+        private readonly IGameState _state;
 
-        public IOSGestures(IOSGameView view)
+        public IOSGestures(IOSGameView view, IGameState state)
         {
+            _state = state;
             _view = view;
 
             UIPanGestureRecognizer dragGesture = new UIPanGestureRecognizer(onDrag);
@@ -77,7 +79,7 @@ namespace AGS.Engine.IOS
         private void fireEvent(EventHandler<MousePositionEventArgs> ev, UIGestureRecognizer gesture)
         {
             var point = gesture.LocationInView(_view);
-            if (ev != null) ev(this, new MousePositionEventArgs((float)point.X, (float)point.Y));
+            if (ev != null) ev(this, new MousePositionEventArgs(new MousePosition((float)point.X, (float)point.Y, _state.Viewport)));
         }
     }
 }
