@@ -22,5 +22,11 @@
         /// </summary>
         /// <value>The restriction list.</value>
         IRestrictionList RestrictionList { get; }
+
+        /// <summary>
+        /// Allows configuring depth clipping (i.e hiding objects if they are too close or too far from the camera).
+        /// </summary>
+        /// <value>The depth clipping.</value>
+        IDepthClipping DepthClipping { get; }
     }
 }

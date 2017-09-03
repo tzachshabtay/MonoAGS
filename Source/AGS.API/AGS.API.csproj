@@ -234,7 +234,6 @@
     <Compile Include="UI\Controls\Listbox\IStringItem.cs" />
     <Compile Include="UI\Controls\Listbox\IListboxComponent.cs" />
     <Compile Include="UI\Controls\Listbox\ListboxItemArgs.cs" />
-    <Compile Include="Graphics\Logic\DisplayListEventArgs.cs" />
     <Compile Include="Misc\Collections\BindingList\AGSListItem.cs" />
     <Compile Include="Misc\Geometry\MathUtils.cs" />
     <Compile Include="ComponentsFramework\IComponentBinding.cs" />
@@ -248,16 +247,22 @@
     <Compile Include="UI\Controls\Panel\IScrollingComponent.cs" />
     <Compile Include="Objects\IBoundingBoxWithChildrenComponent.cs" />
     <Compile Include="Objects\Collisions\IBoundingBoxComponent.cs" />
-    <Compile Include="Graphics\Logic\IDisplayList.cs" />
-    <Compile Include="Graphics\Logic\IDisplayListSettings.cs" />
     <Compile Include="Rooms\IRoomProvider.cs" />
     <Compile Include="Input\MousePosition.cs" />
     <Compile Include="Rooms\IHitTest.cs" />
+    <Compile Include="Graphics\Logic\DisplayList\DisplayListEventArgs.cs" />
+    <Compile Include="Graphics\Logic\DisplayList\IDisplayList.cs" />
+    <Compile Include="Graphics\Logic\DisplayList\IDisplayListSettings.cs" />
+    <Compile Include="Graphics\Logic\DisplayList\IDepthClipping.cs" />
+    <Compile Include="Graphics\Logic\DisplayList\IClippingPlane.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
   <ItemGroup />
   <ItemGroup>
     <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Graphics\Logic\DisplayList\" />
   </ItemGroup>
 </Project>

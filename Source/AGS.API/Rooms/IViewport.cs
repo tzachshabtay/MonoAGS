@@ -110,6 +110,13 @@
         /// </summary>
         /// <value>The on parent changed.</value>
         IEvent OnParentChanged { get; }
+
+        /// <summary>
+        /// Checks whether a given object should be visible in the viewport.
+        /// </summary>
+        /// <returns><c>true</c>, if object should be visible, <c>false</c> otherwise.</returns>
+        /// <param name="obj">Object.</param>
+        bool IsObjectVisible(IObject obj);
 	}
 }
 

@@ -61,9 +61,9 @@ namespace AGS.Engine
         {
             var room = viewport.RoomProvider.Room;
             List<IObject> visibleObjects = room != null && viewport.DisplayListSettings.DisplayRoom ?
-                                                   room.Objects.Where(o => o.Visible && (room.ShowPlayer || o != _state.Player)).ToList() 
+                                                           room.Objects.Where(o => viewport.IsObjectVisible(o) && (room.ShowPlayer || o != _state.Player)).ToList() 
                                                                    : new List<IObject>(_state.UI.Count);
-            if (viewport.DisplayListSettings.DisplayGUIs) visibleObjects.AddRange(_state.UI.Where(o => o.Visible));
+            if (viewport.DisplayListSettings.DisplayGUIs) visibleObjects.AddRange(_state.UI.Where(o => viewport.IsObjectVisible(o)));
             visibleObjects.Sort(_sorter);
             return getObjectAt(visibleObjects, _input.MousePosition.GetViewportX(viewport),
                                _input.MousePosition.GetViewportY(viewport), viewport);
