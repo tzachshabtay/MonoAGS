@@ -4,11 +4,11 @@ namespace AGS.Engine
 {
     public class AGSDisplayListSettings : IDisplayListSettings
     {
-        public AGSDisplayListSettings()
+        public AGSDisplayListSettings(IRestrictionList restrictionList = null, IDepthClipping depthClipping = null)
         {
             DisplayRoom = DisplayGUIs = true;
-            RestrictionList = new AGSRestrictionList();
-            DepthClipping = new AGSDepthClipping();
+            RestrictionList = restrictionList ?? new AGSRestrictionList();
+            DepthClipping = depthClipping ?? new AGSDepthClipping();
         }
 
         public bool DisplayRoom { get; set; }

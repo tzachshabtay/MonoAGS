@@ -413,6 +413,9 @@
     <Compile Include="Graphics\Logic\DisplayList\AGSDisplayListSettings.cs" />
     <Compile Include="Graphics\Logic\DisplayList\AGSDepthClipping.cs" />
     <Compile Include="Graphics\Logic\DisplayList\AGSClippingPlane.cs" />
+    <Compile Include="Serialization\Contracts\ContractRestrictionList.cs" />
+    <Compile Include="Serialization\Contracts\ContractDepthClipping.cs" />
+    <Compile Include="Serialization\Contracts\ContractClippingPlane.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
