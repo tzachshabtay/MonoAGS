@@ -4237,6 +4237,48 @@ references:
   commentId: Overload:AGS.API.IChildrenCollection.RemoveChild
   fullName: AGS.API.IChildrenCollection.RemoveChild
   nameWithType: IChildrenCollection.RemoveChild
+- uid: AGS.API.IClippingPlane
+  name: IClippingPlane
+  href: api/AGS.API.IClippingPlane.html
+  commentId: T:AGS.API.IClippingPlane
+  fullName: AGS.API.IClippingPlane
+  nameWithType: IClippingPlane
+- uid: AGS.API.IClippingPlane.IsPlaneObjectClipped
+  name: IsPlaneObjectClipped
+  href: api/AGS.API.IClippingPlane.html#AGS_API_IClippingPlane_IsPlaneObjectClipped
+  commentId: P:AGS.API.IClippingPlane.IsPlaneObjectClipped
+  fullName: AGS.API.IClippingPlane.IsPlaneObjectClipped
+  nameWithType: IClippingPlane.IsPlaneObjectClipped
+- uid: AGS.API.IClippingPlane.IsPlaneObjectClipped*
+  name: IsPlaneObjectClipped
+  href: api/AGS.API.IClippingPlane.html#AGS_API_IClippingPlane_IsPlaneObjectClipped_
+  commentId: Overload:AGS.API.IClippingPlane.IsPlaneObjectClipped
+  fullName: AGS.API.IClippingPlane.IsPlaneObjectClipped
+  nameWithType: IClippingPlane.IsPlaneObjectClipped
+- uid: AGS.API.IClippingPlane.LayersToClip
+  name: LayersToClip
+  href: api/AGS.API.IClippingPlane.html#AGS_API_IClippingPlane_LayersToClip
+  commentId: P:AGS.API.IClippingPlane.LayersToClip
+  fullName: AGS.API.IClippingPlane.LayersToClip
+  nameWithType: IClippingPlane.LayersToClip
+- uid: AGS.API.IClippingPlane.LayersToClip*
+  name: LayersToClip
+  href: api/AGS.API.IClippingPlane.html#AGS_API_IClippingPlane_LayersToClip_
+  commentId: Overload:AGS.API.IClippingPlane.LayersToClip
+  fullName: AGS.API.IClippingPlane.LayersToClip
+  nameWithType: IClippingPlane.LayersToClip
+- uid: AGS.API.IClippingPlane.PlaneObject
+  name: PlaneObject
+  href: api/AGS.API.IClippingPlane.html#AGS_API_IClippingPlane_PlaneObject
+  commentId: P:AGS.API.IClippingPlane.PlaneObject
+  fullName: AGS.API.IClippingPlane.PlaneObject
+  nameWithType: IClippingPlane.PlaneObject
+- uid: AGS.API.IClippingPlane.PlaneObject*
+  name: PlaneObject
+  href: api/AGS.API.IClippingPlane.html#AGS_API_IClippingPlane_PlaneObject_
+  commentId: Overload:AGS.API.IClippingPlane.PlaneObject
+  fullName: AGS.API.IClippingPlane.PlaneObject
+  nameWithType: IClippingPlane.PlaneObject
 - uid: AGS.API.ICollider
   name: ICollider
   href: api/AGS.API.ICollider.html
@@ -5282,6 +5324,48 @@ references:
   commentId: Overload:AGS.API.ICutscene.Start
   fullName: AGS.API.ICutscene.Start
   nameWithType: ICutscene.Start
+- uid: AGS.API.IDepthClipping
+  name: IDepthClipping
+  href: api/AGS.API.IDepthClipping.html
+  commentId: T:AGS.API.IDepthClipping
+  fullName: AGS.API.IDepthClipping
+  nameWithType: IDepthClipping
+- uid: AGS.API.IDepthClipping.FarClippingPlane
+  name: FarClippingPlane
+  href: api/AGS.API.IDepthClipping.html#AGS_API_IDepthClipping_FarClippingPlane
+  commentId: P:AGS.API.IDepthClipping.FarClippingPlane
+  fullName: AGS.API.IDepthClipping.FarClippingPlane
+  nameWithType: IDepthClipping.FarClippingPlane
+- uid: AGS.API.IDepthClipping.FarClippingPlane*
+  name: FarClippingPlane
+  href: api/AGS.API.IDepthClipping.html#AGS_API_IDepthClipping_FarClippingPlane_
+  commentId: Overload:AGS.API.IDepthClipping.FarClippingPlane
+  fullName: AGS.API.IDepthClipping.FarClippingPlane
+  nameWithType: IDepthClipping.FarClippingPlane
+- uid: AGS.API.IDepthClipping.IsObjectClipped(AGS.API.IObject)
+  name: IsObjectClipped(IObject)
+  href: api/AGS.API.IDepthClipping.html#AGS_API_IDepthClipping_IsObjectClipped_AGS_API_IObject_
+  commentId: M:AGS.API.IDepthClipping.IsObjectClipped(AGS.API.IObject)
+  fullName: AGS.API.IDepthClipping.IsObjectClipped(AGS.API.IObject)
+  nameWithType: IDepthClipping.IsObjectClipped(IObject)
+- uid: AGS.API.IDepthClipping.IsObjectClipped*
+  name: IsObjectClipped
+  href: api/AGS.API.IDepthClipping.html#AGS_API_IDepthClipping_IsObjectClipped_
+  commentId: Overload:AGS.API.IDepthClipping.IsObjectClipped
+  fullName: AGS.API.IDepthClipping.IsObjectClipped
+  nameWithType: IDepthClipping.IsObjectClipped
+- uid: AGS.API.IDepthClipping.NearClippingPlane
+  name: NearClippingPlane
+  href: api/AGS.API.IDepthClipping.html#AGS_API_IDepthClipping_NearClippingPlane
+  commentId: P:AGS.API.IDepthClipping.NearClippingPlane
+  fullName: AGS.API.IDepthClipping.NearClippingPlane
+  nameWithType: IDepthClipping.NearClippingPlane
+- uid: AGS.API.IDepthClipping.NearClippingPlane*
+  name: NearClippingPlane
+  href: api/AGS.API.IDepthClipping.html#AGS_API_IDepthClipping_NearClippingPlane_
+  commentId: Overload:AGS.API.IDepthClipping.NearClippingPlane
+  fullName: AGS.API.IDepthClipping.NearClippingPlane
+  nameWithType: IDepthClipping.NearClippingPlane
 - uid: AGS.API.IDialog
   name: IDialog
   href: api/AGS.API.IDialog.html
@@ -5840,6 +5924,18 @@ references:
   commentId: T:AGS.API.IDisplayListSettings
   fullName: AGS.API.IDisplayListSettings
   nameWithType: IDisplayListSettings
+- uid: AGS.API.IDisplayListSettings.DepthClipping
+  name: DepthClipping
+  href: api/AGS.API.IDisplayListSettings.html#AGS_API_IDisplayListSettings_DepthClipping
+  commentId: P:AGS.API.IDisplayListSettings.DepthClipping
+  fullName: AGS.API.IDisplayListSettings.DepthClipping
+  nameWithType: IDisplayListSettings.DepthClipping
+- uid: AGS.API.IDisplayListSettings.DepthClipping*
+  name: DepthClipping
+  href: api/AGS.API.IDisplayListSettings.html#AGS_API_IDisplayListSettings_DepthClipping_
+  commentId: Overload:AGS.API.IDisplayListSettings.DepthClipping
+  fullName: AGS.API.IDisplayListSettings.DepthClipping
+  nameWithType: IDisplayListSettings.DepthClipping
 - uid: AGS.API.IDisplayListSettings.DisplayGUIs
   name: DisplayGUIs
   href: api/AGS.API.IDisplayListSettings.html#AGS_API_IDisplayListSettings_DisplayGUIs
@@ -13043,6 +13139,18 @@ references:
   commentId: Overload:AGS.API.IViewport.Interactive
   fullName: AGS.API.IViewport.Interactive
   nameWithType: IViewport.Interactive
+- uid: AGS.API.IViewport.IsObjectVisible(AGS.API.IObject)
+  name: IsObjectVisible(IObject)
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_IsObjectVisible_AGS_API_IObject_
+  commentId: M:AGS.API.IViewport.IsObjectVisible(AGS.API.IObject)
+  fullName: AGS.API.IViewport.IsObjectVisible(AGS.API.IObject)
+  nameWithType: IViewport.IsObjectVisible(IObject)
+- uid: AGS.API.IViewport.IsObjectVisible*
+  name: IsObjectVisible
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_IsObjectVisible_
+  commentId: Overload:AGS.API.IViewport.IsObjectVisible
+  fullName: AGS.API.IViewport.IsObjectVisible
+  nameWithType: IViewport.IsObjectVisible
 - uid: AGS.API.IViewport.OnAngleChanged
   name: OnAngleChanged
   href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnAngleChanged

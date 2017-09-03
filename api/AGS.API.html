@@ -112,13 +112,14 @@ border, background color (tint) or text rendering configuration (font, shadows, 
       <section><p>A list of colors to choose from.</p>
 </section>
       <h4><a class="xref" href="AGS.API.DisplayListEventArgs.html">DisplayListEventArgs</a></h4>
-      <section></section>
+      <section><p>Event arguments for retrieiving (and possibly modifying) the display list before rendering it.</p>
+</section>
       <h4><a class="xref" href="AGS.API.FourCorners-1.html">FourCorners&lt;TValue&gt;</a></h4>
       <section><p>Represents four values of &quot;something&quot; that matches four corners of a bounding box (for example, four colors for a gradient border).</p>
 </section>
       <h4><a class="xref" href="AGS.API.InventoryCombinationEventArgs.html">InventoryCombinationEventArgs</a></h4>
       <section><p>The event arguments for the inventory combination events.
-The arguments carry with the two combined items.</p>
+The arguments contain the two combined items.</p>
 </section>
       <h4><a class="xref" href="AGS.API.InventoryInteractEventArgs.html">InventoryInteractEventArgs</a></h4>
       <section><p>Event arguments for inventory interaction</p>
@@ -345,6 +346,11 @@ to depict adventure game characters.</p>
       <h4><a class="xref" href="AGS.API.IChildrenCollection.html">IChildrenCollection</a></h4>
       <section><p>A collection of children (to be used in a tree like structure).</p>
 </section>
+      <h4><a class="xref" href="AGS.API.IClippingPlane.html">IClippingPlane</a></h4>
+      <section><p>A clipping plane allows clipping objects (i.e hiding objects) if they&apos;re on the wrong side of the plane.
+A near clipping plane is for clipping objects which are too close to the camera, and a far clipping plane
+is for clipping objects which are too far from the camera.</p>
+</section>
       <h4><a class="xref" href="AGS.API.ICollider.html">ICollider</a></h4>
       <section><p>Adds the ability for an entity to check collisions (i.e check whether it collides with a point in the room).
 The collision is checked via either the entity&apos;s bounding box, or via a pixel perfect collision
@@ -396,6 +402,11 @@ so the entities will not get out of the boundaries of the TV (giving the appeara
       <h4><a class="xref" href="AGS.API.ICutscene.html">ICutscene</a></h4>
       <section><p>A cutscene is used to wrap a portion of the game together. This portion can then be skipped by the user.
 This is useful for things like introduction sequences, where you want the player to be able to skip over an intro that they&apos;ve seen before. </p>
+</section>
+      <h4><a class="xref" href="AGS.API.IDepthClipping.html">IDepthClipping</a></h4>
+      <section><p>Depth clipping allows clipping objects (i.e hiding objects) if they&apos;re either too close or too far from the camera.
+A near clipping plane is for clipping objects which are too close to the camera, and a far clipping plane
+is for clipping objects which are too far from the camera.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IDialog.html">IDialog</a></h4>
       <section><p>Represents a dialog (an on-going conversation) between two (or more) characters.

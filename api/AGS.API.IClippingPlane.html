@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IClippingPlane
+   | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IClippingPlane
+   | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.23.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IClippingPlane">
+  
+  
+  <h1 id="AGS_API_IClippingPlane" data-uid="AGS.API.IClippingPlane" class="text-break">Interface IClippingPlane
+  </h1>
+  <div class="markdown level0 summary"><p>A clipping plane allows clipping objects (i.e hiding objects) if they&apos;re on the wrong side of the plane.
+A near clipping plane is for clipping objects which are too close to the camera, and a far clipping plane
+is for clipping objects which are too far from the camera.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
+  <h6><strong>Assembly</strong>: AGS.API.dll</h6>
+  <h5 id="AGS_API_IClippingPlane_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IClippingPlane</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/DepthClipping/apiSpec/new?filename=AGS_API_IClippingPlane_IsPlaneObjectClipped.md&amp;value=---%0Auid%3A%20AGS.API.IClippingPlane.IsPlaneObjectClipped%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DepthClipping/Source/AGS.API/Graphics/Logic/DisplayList/IClippingPlane.cs/#L25">View Source</a>
+  </span>
+  <a id="AGS_API_IClippingPlane_IsPlaneObjectClipped_" data-uid="AGS.API.IClippingPlane.IsPlaneObjectClipped*"></a>
+  <h4 id="AGS_API_IClippingPlane_IsPlaneObjectClipped" data-uid="AGS.API.IClippingPlane.IsPlaneObjectClipped">IsPlaneObjectClipped</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the <a class="xref" href="AGS.API.IClippingPlane.html#AGS_API_IClippingPlane_PlaneObject">PlaneObject</a> (i.e the object representing the plane) 
+should be clipped or not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsPlaneObjectClipped { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if is plane object clipped; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/DepthClipping/apiSpec/new?filename=AGS_API_IClippingPlane_LayersToClip.md&amp;value=---%0Auid%3A%20AGS.API.IClippingPlane.LayersToClip%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DepthClipping/Source/AGS.API/Graphics/Logic/DisplayList/IClippingPlane.cs/#L32">View Source</a>
+  </span>
+  <a id="AGS_API_IClippingPlane_LayersToClip_" data-uid="AGS.API.IClippingPlane.LayersToClip*"></a>
+  <h4 id="AGS_API_IClippingPlane_LayersToClip" data-uid="AGS.API.IClippingPlane.LayersToClip">LayersToClip</h4>
+  <div class="markdown level1 summary"><p>Gets a list of layers on which to check clipping against this plane.
+If this is null, all layers will be checked.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IReadOnlyList&lt;IRenderLayer&gt; LayersToClip { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="AGS.API.IRenderLayer.html">IRenderLayer</a>&gt;</td>
+        <td><p>The layers to clip.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/DepthClipping/apiSpec/new?filename=AGS_API_IClippingPlane_PlaneObject.md&amp;value=---%0Auid%3A%20AGS.API.IClippingPlane.PlaneObject%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DepthClipping/Source/AGS.API/Graphics/Logic/DisplayList/IClippingPlane.cs/#L18">View Source</a>
+  </span>
+  <a id="AGS_API_IClippingPlane_PlaneObject_" data-uid="AGS.API.IClippingPlane.PlaneObject*"></a>
+  <h4 id="AGS_API_IClippingPlane_PlaneObject" data-uid="AGS.API.IClippingPlane.PlaneObject">PlaneObject</h4>
+  <div class="markdown level1 summary"><p>Gets an object to which the plane will be bound. 
+All objects that are to be rendered behind the object will not be shown if the clipping plane in question is a far clipping plane,
+and all objects that are to be rendered in front of the object will not be shown if the clipping plane in question is a near clipping plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IObject PlaneObject { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
+        <td><p>The plane object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/DepthClipping/apiSpec/new?filename=AGS_API_IClippingPlane.md&amp;value=---%0Auid%3A%20AGS.API.IClippingPlane%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DepthClipping/Source/AGS.API/Graphics/Logic/DisplayList/IClippingPlane.cs/#L10" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

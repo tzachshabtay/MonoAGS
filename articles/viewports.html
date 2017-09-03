@@ -98,7 +98,8 @@ use to show a single room in your secondary viewport, or you can implement your 
 <h3 id="display-list-control">Display List Control</h3>
 <p>You can control whether to show the room objects, the global GUIs, or both (default is both). The main viewport, by default, shows both. 
 For a secondary viewport, you&#39;d probably want to hide the global GUIs.</p>
-<p>Additionally, you also have fine grain control with the ability to show/hide specific objects for that specific viewports. So, for example, you can show the same room twice on the screen, one with the player and one without.</p>
+<p>Additionally, you can set depth clipping: set a near clipping plane, a far clipping plane, or both, for clipping (i.e hiding) objects which are too close or too far from the camera.</p>
+<p>Finally, you also have fine grain control with the ability to show/hide specific objects for that specific viewports. So, for example, you can show the same room twice on the screen, one with the player and one without.</p>
 <h3 id="projection-box">Projection Box</h3>
 <p>You can control what part of the screen a viewport will be shown in. For a vertical split screen, for example, you&#39;ll configure the main viewport to have a projection box on the left side, and an additional viewport to have a projection box on the right side.</p>
 <h3 id="parent">Parent</h3>
