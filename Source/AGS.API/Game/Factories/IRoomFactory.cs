@@ -39,6 +39,20 @@ namespace AGS.API
         /// <param name="isWalkBehind">If set to <c>true</c> the should be made a walk-behind area.</param>
         IArea GetArea(string maskPath, bool isWalkable = false, bool isWalkBehind = false);
 
+		/// <summary>
+		/// Creates an area from a mask, which can be made walkable and/or walk-behind (or none of the above).
+		/// A walkable area is an area in which characters can walk.
+		/// A walk-behind area is an area which puts the characters behind the room's background, if their Y property
+		/// is under the walk-behind area's baseline (usually the bottom of the mask). This is useful if part of your
+		/// background image contains spots which should actually be in the front.
+		/// </summary>
+		/// <returns>The area.</returns>
+		/// <param name="id">Unique identifier for the area.</param>
+		/// <param name="mask">Mask.</param>
+		/// <param name="isWalkable">If set to <c>true</c> is walkable.</param>
+		/// <param name="isWalkBehind">If set to <c>true</c> is walk behind.</param>
+		IArea GetArea(string id, IMask mask, bool isWalkable = false, bool isWalkBehind = false);
+
         /// <summary>
         /// Creates an area asynchronously, which can be made walkable and/or walk-behind (or none of the above).
         /// A walkable area is an area in which characters can walk.

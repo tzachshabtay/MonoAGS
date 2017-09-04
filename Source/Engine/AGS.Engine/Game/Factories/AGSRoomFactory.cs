@@ -37,6 +37,11 @@ namespace AGS.Engine
             return createArea(maskPath, _masks.Value.Load(maskPath), isWalkable, isWalkBehind);
         }
 
+        public IArea GetArea(string id, IMask mask, bool isWalkable = false, bool isWalkBehind = false)
+        {
+            return createArea(id, mask, isWalkable, isWalkBehind);
+        }
+
         public async Task<IArea> GetAreaAsync(string maskPath, bool isWalkable = false, bool isWalkBehind = false)
         {
             return createArea(maskPath, await _masks.Value.LoadAsync(maskPath), isWalkable, isWalkBehind);

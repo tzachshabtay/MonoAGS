@@ -41,6 +41,17 @@ namespace AGS.API
         /// <param name="saveMaskToFile">Whether to save the mask to file (for debugging purposes).</param>
 		IMask Load(IBitmap image, bool transparentMeansMasked = false, Color? debugDrawColor = null, 
 			string saveMaskToFile = null);
+
+        /// <summary>
+        /// Load the mask from the specified 2d array.
+        /// </summary>
+        /// <returns>The load.</returns>
+        /// <param name="mask">Mask.</param>
+        /// <param name="id">Identifier.</param>
+        /// <param name="inverseMask">If set to <c>true</c> inverse mask.</param>
+        /// <param name="debugDrawColor">Debug draw color.</param>
+        /// <param name="saveMaskToFile">Save mask to file.</param>
+        IMask Load(bool[,] mask, string id, bool inverseMask = false, Color? debugDrawColor = null, string saveMaskToFile = null);
 	}
 }
 
