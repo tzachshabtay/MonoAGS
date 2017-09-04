@@ -40,7 +40,9 @@ use to show a single room in your secondary viewport, or you can implement your 
 You can control whether to show the room objects, the global GUIs, or both (default is both). The main viewport, by default, shows both. 
 For a secondary viewport, you'd probably want to hide the global GUIs.
 
-Additionally, you also have fine grain control with the ability to show/hide specific objects for that specific viewports. So, for example, you can show the same room twice on the screen, one with the player and one without.
+Additionally, you can set depth clipping: set a near clipping plane, a far clipping plane, or both, for clipping (i.e hiding) objects which are too close or too far from the camera.
+
+Finally, you also have fine grain control with the ability to show/hide specific objects for that specific viewports. So, for example, you can show the same room twice on the screen, one with the player and one without.
 
 ### Projection Box
 

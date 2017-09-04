@@ -63,6 +63,7 @@ namespace AGS.Engine
             Builder.RegisterType<AGSHasImage>().As<IHasImage>();
             Builder.RegisterType<AGSEvent>().As<IEvent>();
             Builder.RegisterType<AGSEvent>().As<IBlockingEvent>();
+            Builder.RegisterType<AGSRestrictionList>().As<IRestrictionList>();
 
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IBlockingEvent<>));

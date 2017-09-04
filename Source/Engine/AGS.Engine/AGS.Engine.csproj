@@ -404,13 +404,18 @@
     <Compile Include="UI\Controls\Panel\AGSScrollingComponent.cs" />
     <Compile Include="Objects\AGSBoundingBoxWithChildrenComponent.cs" />
     <Compile Include="Objects\Collisions\AGSBoundingBoxComponent.cs" />
-    <Compile Include="Graphics\Logic\AGSDisplayList.cs" />
-    <Compile Include="Graphics\Logic\AGSDisplayListSettings.cs" />
     <Compile Include="Serialization\Contracts\ContractDisplayListSettings.cs" />
     <Compile Include="Serialization\Contracts\ContractRectangleF.cs" />
     <Compile Include="Rooms\AGSSingleRoomProvider.cs" />
     <Compile Include="Rooms\Viewport\AGSHitTest.cs" />
     <Compile Include="Rooms\Areas\AGSRestrictionList.cs" />
+    <Compile Include="Graphics\Logic\DisplayList\AGSDisplayList.cs" />
+    <Compile Include="Graphics\Logic\DisplayList\AGSDisplayListSettings.cs" />
+    <Compile Include="Graphics\Logic\DisplayList\AGSDepthClipping.cs" />
+    <Compile Include="Graphics\Logic\DisplayList\AGSClippingPlane.cs" />
+    <Compile Include="Serialization\Contracts\ContractRestrictionList.cs" />
+    <Compile Include="Serialization\Contracts\ContractDepthClipping.cs" />
+    <Compile Include="Serialization\Contracts\ContractClippingPlane.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -493,4 +498,7 @@
   <ItemGroup />
   <ItemGroup />
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Graphics\Logic\DisplayList\" />
+  </ItemGroup>
 </Project>

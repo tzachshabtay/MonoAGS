@@ -56,6 +56,9 @@ namespace Tests
         public void RoomProperlyRendered_Test()
         { 
             _mocks.Room().Setup(m => m.ShowPlayer).Returns(false);
+            AGSViewport viewport = new AGSViewport(new AGSDisplayListSettings(), new AGSCamera());
+            viewport.RoomProvider = new AGSSingleRoomProvider(_mocks.Room().Object);
+            _mocks.GameState().Setup(m => m.Viewport).Returns(viewport);
             _areas.Clear(); _areas.Add(getArea());
             _roomObjects.Clear(); _roomObjects.Add(_mocks.Object(true).Object);
             _uiObjects.Clear(); _uiObjects.Add(_mocks.Object(true).Object);

@@ -25,11 +25,11 @@ namespace AGS.Engine
         {
             var settings = viewport.DisplayListSettings;
             var room = viewport.RoomProvider.Room;
-			int count = 1 + room.Objects.Count + _gameState.UI.Count;
+            int count = 1 + (room == null ? 0 : room.Objects.Count) + _gameState.UI.Count;
 
 			List<IObject> displayList = new List<IObject>(count);
 
-            if (settings.DisplayRoom)
+            if (settings.DisplayRoom && room != null)
             {
                 if (room.Background != null)
                     addToDisplayList(displayList, room.Background, viewport);
@@ -71,7 +71,7 @@ namespace AGS.Engine
 
         private void addToDisplayList(List<IObject> displayList, IObject obj, IViewport viewport)
 		{
-            if (!obj.Visible || viewport.DisplayListSettings.RestrictionList.IsRestricted(obj.ID))
+            if (!viewport.IsObjectVisible(obj))
 			{
 				IImageRenderer imageRenderer = getImageRenderer(obj);
 
@@ -87,7 +87,7 @@ namespace AGS.Engine
 			displayList.Add(obj);
 		}
 
-		//todo: duplicate code with AGSRendererLoop
+        //todo: duplicate code with AGSRendererLoop
 		private IImageRenderer getImageRenderer(IObject obj)
 		{
 			return obj.CustomRenderer ?? getAnimationRenderer(obj) ?? _renderer;

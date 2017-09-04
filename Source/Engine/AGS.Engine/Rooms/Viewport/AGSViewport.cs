@@ -60,6 +60,12 @@ namespace AGS.Engine
         public IRoomProvider RoomProvider { get; set; }
         public IDisplayListSettings DisplayListSettings { get; set; }
 
+        public bool IsObjectVisible(IObject obj)
+        {
+            return obj.Visible && !DisplayListSettings.RestrictionList.IsRestricted(obj.ID)
+                      && !DisplayListSettings.DepthClipping.IsObjectClipped(obj);
+        }
+
         #endregion
 
         private void refreshValue(ref float currentValue, float newValue, IEvent changeEvent)
