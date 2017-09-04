@@ -2,6 +2,7 @@
 using Android.Graphics;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 namespace AGS.Engine.Android
 {
@@ -39,6 +40,17 @@ namespace AGS.Engine.Android
         {
             _bitmap.SetPixel(x, y, color.Convert());
         }
+
+		public void SetPixels(AGS.API.Color color, List<API.Point> points)
+		{
+			using (FastBitmap bmp = new FastBitmap(_bitmap))
+			{
+				foreach (var point in points)
+				{
+					bmp.SetPixel(point.X, point.Y, color.Convert());
+				}
+			}
+		}
 
 		public void MakeTransparent(AGS.API.Color color)
 		{

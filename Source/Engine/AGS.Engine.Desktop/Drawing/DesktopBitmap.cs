@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System;
+using System.Collections.Generic;
 
 namespace AGS.Engine.Desktop
 {
@@ -38,6 +39,17 @@ namespace AGS.Engine.Desktop
         public void SetPixel(AGS.API.Color color, int x, int y)
         {
             _bitmap.SetPixel(x, y, color.Convert());
+        }
+
+        public void SetPixels(AGS.API.Color color, List<API.Point> points)
+        {
+            using (FastBitmap bmp = new FastBitmap(_bitmap, ImageLockMode.WriteOnly))
+            {
+                foreach (var point in points)
+                {
+                    bmp.SetPixel(point.X, point.Y, color.Convert());
+                }
+            }
         }
 
 		public void MakeTransparent(AGS.API.Color color)
