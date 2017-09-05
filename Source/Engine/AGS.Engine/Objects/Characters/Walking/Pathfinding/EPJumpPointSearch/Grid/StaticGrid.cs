@@ -123,7 +123,14 @@ namespace AGS.Engine
 
         public override Node GetNodeAt(int iX, int iY)
         {
-            return this.m_nodes[iX][iY];
+			try
+            {
+                return this.m_nodes[iX][iY];
+            }
+            catch (IndexOutOfRangeException) //Can happen if we're dealing with a moving area: from the time we "get closes walk points" to the time we check the grid, it might have changed.
+            {
+                return null;
+            }
         }
 
         public override bool IsWalkableAt(int iX, int iY)

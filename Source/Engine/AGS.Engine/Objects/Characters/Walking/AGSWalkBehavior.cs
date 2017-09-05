@@ -149,7 +149,7 @@ namespace AGS.Engine
             WalkLineInstruction currentLine = _currentWalkLine;
             if (currentLine == null) return;
 
-            if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 1f)
+            if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 1f || !isWalkable(_obj.Location))
             {
                 _currentWalkLine = null; //Possible race condition here? If so, need to replace with concurrent queue
                 _lastFrame = null;
@@ -365,7 +365,7 @@ namespace AGS.Engine
                 return false;
             }
 
-            if (instruction.CancelToken.IsCancellationRequested)
+            if (instruction.CancelToken.IsCancellationRequested || !isWalkable(_obj.Location))
                 return false;
 			
 			_obj.X = destination.X;

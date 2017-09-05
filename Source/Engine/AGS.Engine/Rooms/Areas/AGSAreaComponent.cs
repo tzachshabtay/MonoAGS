@@ -7,6 +7,7 @@ namespace AGS.Engine
     public class AGSAreaComponent : AGSComponent, IAreaComponent
 	{
 		private static List<Tuple<int,int>> _searchVectors;
+        private ITranslateComponent _translate;
 
 		static AGSAreaComponent()
 		{
@@ -26,20 +27,34 @@ namespace AGS.Engine
 			Enabled = true;
 		}
 
+        public override void Init(IEntity entity)
+        {
+            base.Init(entity);
+            entity.Bind<ITranslateComponent>(
+                c => { _translate = c; c.OnLocationChanged.Subscribe(onLocationChanged); },
+                c => { _translate = null; c.OnLocationChanged.Unsubscribe(onLocationChanged); });
+        }
+
 		#region IArea implementation
 
 		public bool IsInArea (PointF point)
 		{
+            var translate = _translate;
+            if (translate != null) point = new PointF(point.X - translate.X, point.Y - translate.Y);
 			return Mask.IsMasked(point);
 		}
 
 		public bool IsInArea(PointF point, AGSBoundingBox projectionBox, float scaleX, float scaleY)
 		{
+			var translate = _translate;
+			if (translate != null) point = new PointF(point.X - translate.X, point.Y - translate.Y);
 			return Mask.IsMasked(point, projectionBox, scaleX, scaleY);
 		}
 
 		public PointF? FindClosestPoint (PointF point, out float distance)
 		{
+			var translate = _translate;
+			if (translate != null) point = new PointF(point.X - translate.X, point.Y - translate.Y);
 			int x = (int)point.X;
 			int y = (int)point.Y;
 			int width = Mask.Width;
@@ -76,6 +91,14 @@ namespace AGS.Engine
 		public bool Enabled { get; set; }
 
 		#endregion
+
+        private void onLocationChanged()
+        {
+            var translate = _translate;
+            var obj = Mask.DebugDraw;
+            if (translate == null || obj == null) return;
+            obj.Location = translate.Location;
+        }
 
 		private PointF? findClosestPoint(int x, int y, int width, int height, out float distance)
 		{
