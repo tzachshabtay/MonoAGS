@@ -83,10 +83,10 @@ namespace AGS.Engine
 
             var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : layerViewport.GetMatrix(viewport, drawable.RenderLayer.ParallaxSpeed);
             AGSBoundingBox intermediateBox, hitTestBox;
+            hitTestBox = _hitTestBox;
             if (resolutionMatches)
             {
                 intermediateBox = _intermediateBox;
-                hitTestBox = _hitTestBox;
             }
             else
             {
@@ -96,7 +96,6 @@ namespace AGS.Engine
 				var modelMatrices = matrix.GetModelMatrices();
                 var modelMatrix = modelMatrices.InObjResolutionMatrix;
                 intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, modelMatrix);
-                hitTestBox = _boundingBoxBuilder.BuildHitTestBox(intermediateBox);
             }
 
             PointF scale;
