@@ -3403,6 +3403,21 @@ references:
   commentId: Overload:AGS.API.IBitmap.SetPixel
   fullName: AGS.API.IBitmap.SetPixel
   nameWithType: IBitmap.SetPixel
+- uid: AGS.API.IBitmap.SetPixels(AGS.API.Color,List{AGS.API.Point})
+  name: SetPixels(Color, List<Point>)
+  href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_SetPixels_AGS_API_Color_List_AGS_API_Point__
+  commentId: M:AGS.API.IBitmap.SetPixels(AGS.API.Color,List{AGS.API.Point})
+  name.vb: SetPixels(Color, List(Of Point))
+  fullName: AGS.API.IBitmap.SetPixels(AGS.API.Color, List<AGS.API.Point>)
+  fullName.vb: AGS.API.IBitmap.SetPixels(AGS.API.Color, List(Of AGS.API.Point))
+  nameWithType: IBitmap.SetPixels(Color, List<Point>)
+  nameWithType.vb: IBitmap.SetPixels(Color, List(Of Point))
+- uid: AGS.API.IBitmap.SetPixels*
+  name: SetPixels
+  href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_SetPixels_
+  commentId: Overload:AGS.API.IBitmap.SetPixels
+  fullName: AGS.API.IBitmap.SetPixels
+  nameWithType: IBitmap.SetPixels
 - uid: AGS.API.IBitmap.Width
   name: Width
   href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_Width
@@ -6230,6 +6245,18 @@ references:
   commentId: T:AGS.API.IEnabledComponent
   fullName: AGS.API.IEnabledComponent
   nameWithType: IEnabledComponent
+- uid: AGS.API.IEnabledComponent.ClickThrough
+  name: ClickThrough
+  href: api/AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_ClickThrough
+  commentId: P:AGS.API.IEnabledComponent.ClickThrough
+  fullName: AGS.API.IEnabledComponent.ClickThrough
+  nameWithType: IEnabledComponent.ClickThrough
+- uid: AGS.API.IEnabledComponent.ClickThrough*
+  name: ClickThrough
+  href: api/AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_ClickThrough_
+  commentId: Overload:AGS.API.IEnabledComponent.ClickThrough
+  fullName: AGS.API.IEnabledComponent.ClickThrough
+  nameWithType: IEnabledComponent.ClickThrough
 - uid: AGS.API.IEnabledComponent.Enabled
   name: Enabled
   href: api/AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_Enabled
@@ -9184,6 +9211,15 @@ references:
   fullName.vb: AGS.API.IMaskLoader.Load(AGS.API.IBitmap, System.Boolean, System.Nullable(Of AGS.API.Color), System.String)
   nameWithType: IMaskLoader.Load(IBitmap, Boolean, Nullable<Color>, String)
   nameWithType.vb: IMaskLoader.Load(IBitmap, Boolean, Nullable(Of Color), String)
+- uid: AGS.API.IMaskLoader.Load(System.Boolean[0:,0:],System.String,System.Boolean,System.Nullable{AGS.API.Color},System.String)
+  name: Load(Boolean[,], String, Boolean, Nullable<Color>, String)
+  href: api/AGS.API.IMaskLoader.html#AGS_API_IMaskLoader_Load_System_Boolean_0__0___System_String_System_Boolean_System_Nullable_AGS_API_Color__System_String_
+  commentId: M:AGS.API.IMaskLoader.Load(System.Boolean[0:,0:],System.String,System.Boolean,System.Nullable{AGS.API.Color},System.String)
+  name.vb: Load(Boolean(,), String, Boolean, Nullable(Of Color), String)
+  fullName: AGS.API.IMaskLoader.Load(System.Boolean[,], System.String, System.Boolean, System.Nullable<AGS.API.Color>, System.String)
+  fullName.vb: AGS.API.IMaskLoader.Load(System.Boolean(,), System.String, System.Boolean, System.Nullable(Of AGS.API.Color), System.String)
+  nameWithType: IMaskLoader.Load(Boolean[,], String, Boolean, Nullable<Color>, String)
+  nameWithType.vb: IMaskLoader.Load(Boolean(,), String, Boolean, Nullable(Of Color), String)
 - uid: AGS.API.IMaskLoader.Load(System.String,System.Boolean,System.Nullable{AGS.API.Color},System.String,System.String)
   name: Load(String, Boolean, Nullable<Color>, String, String)
   href: api/AGS.API.IMaskLoader.html#AGS_API_IMaskLoader_Load_System_String_System_Boolean_System_Nullable_AGS_API_Color__System_String_System_String_
@@ -10096,6 +10132,12 @@ references:
   commentId: Overload:AGS.API.IRoomFactory.CreateZoomArea
   fullName: AGS.API.IRoomFactory.CreateZoomArea
   nameWithType: IRoomFactory.CreateZoomArea
+- uid: AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IMask,System.Boolean,System.Boolean)
+  name: GetArea(String, IMask, Boolean, Boolean)
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetArea_System_String_AGS_API_IMask_System_Boolean_System_Boolean_
+  commentId: M:AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IMask,System.Boolean,System.Boolean)
+  fullName: AGS.API.IRoomFactory.GetArea(System.String, AGS.API.IMask, System.Boolean, System.Boolean)
+  nameWithType: IRoomFactory.GetArea(String, IMask, Boolean, Boolean)
 - uid: AGS.API.IRoomFactory.GetArea(System.String,System.Boolean,System.Boolean)
   name: GetArea(String, Boolean, Boolean)
   href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetArea_System_String_System_Boolean_System_Boolean_
@@ -16847,6 +16889,18 @@ references:
   commentId: Overload:AGS.API.MousePosition.#ctor
   fullName: AGS.API.MousePosition.MousePosition
   nameWithType: MousePosition.MousePosition
+- uid: AGS.API.MousePosition.GetProjectedPoint(AGS.API.IViewport,AGS.API.IObject)
+  name: GetProjectedPoint(IViewport, IObject)
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetProjectedPoint_AGS_API_IViewport_AGS_API_IObject_
+  commentId: M:AGS.API.MousePosition.GetProjectedPoint(AGS.API.IViewport,AGS.API.IObject)
+  fullName: AGS.API.MousePosition.GetProjectedPoint(AGS.API.IViewport, AGS.API.IObject)
+  nameWithType: MousePosition.GetProjectedPoint(IViewport, IObject)
+- uid: AGS.API.MousePosition.GetProjectedPoint*
+  name: GetProjectedPoint
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetProjectedPoint_
+  commentId: Overload:AGS.API.MousePosition.GetProjectedPoint
+  fullName: AGS.API.MousePosition.GetProjectedPoint
+  nameWithType: MousePosition.GetProjectedPoint
 - uid: AGS.API.MousePosition.GetViewportX(AGS.API.IViewport)
   name: GetViewportX(IViewport)
   href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetViewportX_AGS_API_IViewport_
