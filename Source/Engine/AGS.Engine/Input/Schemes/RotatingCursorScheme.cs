@@ -129,8 +129,8 @@ namespace AGS.Engine
 
 				if (mode == WALK_MODE)
 				{
-                    AGSLocation location = new AGSLocation (e.MousePosition.XMainViewport, 
-                                                            e.MousePosition.YMainViewport, state.Player.Z);
+                    Vector2 xy = e.MousePosition.GetProjectedPoint(state.Viewport, state.Player);
+                    AGSLocation location = new AGSLocation (xy.X, xy.Y, state.Player.Z);
 					await state.Player.WalkAsync(location).ConfigureAwait(true);
 				}
 				else if (mode != WAIT_MODE)
