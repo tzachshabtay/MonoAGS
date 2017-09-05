@@ -169,7 +169,7 @@ namespace AGS.Engine
             var visible = _visible;
             var enabled = _enabled;
             if (visible == null || !visible.Visible || enabled == null || !enabled.Enabled || 
-                boundingBoxes == null || 
+                enabled.ClickThrough || boundingBoxes == null || 
                 (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
                 Graphics.GetBoundingBoxes(_state.Viewport) == null || !Graphics.CollidesWith(
                     _input.MousePosition.XMainViewport, _input.MousePosition.YMainViewport, _state.Viewport) || 

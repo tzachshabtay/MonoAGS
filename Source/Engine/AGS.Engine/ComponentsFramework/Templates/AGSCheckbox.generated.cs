@@ -287,6 +287,12 @@ namespace AGS.Engine
             set { _enabledComponent.Enabled = value; } 
         }
 
+		public Boolean ClickThrough
+		{
+			get { return _enabledComponent.ClickThrough; }
+			set { _enabledComponent.ClickThrough = value; }
+		}
+
         public Boolean UnderlyingEnabled 
         {  
             get { return _enabledComponent.UnderlyingEnabled; } 

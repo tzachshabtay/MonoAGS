@@ -102,7 +102,7 @@ namespace AGS.Engine
 
                 foreach (var subscriber in subscribers)
                 {
-                    if (!subscriber.Enabled.Enabled || !subscriber.Visible.Visible) continue;
+                    if (!subscriber.Enabled.Enabled || !subscriber.Visible.Visible || subscriber.Enabled.ClickThrough) continue;
                     bool mouseIn = obj == subscriber.Entity;
 
                     subscriber.FireMouseMove = mouseIn && !_mousePosition.Equals(position);
@@ -120,7 +120,7 @@ namespace AGS.Engine
 
                 foreach (var subscriber in subscribers)
                 {
-                    if (!subscriber.Enabled.Enabled || !subscriber.Visible.Visible) continue;
+                    if (!subscriber.Enabled.Enabled || !subscriber.Visible.Visible || subscriber.Enabled.ClickThrough) continue;
                     fireAndForgetEvents(subscriber, position, wasLeftMouseDown, wasRightMouseDown, leftMouseDown, rightMouseDown);
                 }
             }

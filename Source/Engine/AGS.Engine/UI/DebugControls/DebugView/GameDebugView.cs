@@ -38,6 +38,7 @@ namespace AGS.Engine
             _panel.Tint = Colors.Black.WithAlpha(150);
             _panel.Border = AGSBorders.SolidColor(Colors.Green, borderWidth, hasRoundCorners: true);
             _panel.RenderLayer = _layer;
+            _panel.ClickThrough = false;
             _game.State.FocusedUI.CannotLoseFocus.Add(_panelId);
 
             var headerLabel = factory.UI.GetLabel("GameDebugTreeLabel", "Game Debug", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,

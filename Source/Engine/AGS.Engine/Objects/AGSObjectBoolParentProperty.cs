@@ -113,8 +113,9 @@ namespace AGS.Engine
 	public class EnabledProperty : AGSObjectBoolParentProperty, IEnabledComponent
 	{
         public EnabledProperty() : base(o => o.Enabled, o => o.OnEnabledChanged){}
-		public bool Enabled { get { return Value; } set { Value = value; } }
+        public bool Enabled { get { return Value; } set { Value = value; } }
 		public bool UnderlyingEnabled { get { return UnderlyingValue; } }
+        public bool ClickThrough { get; set; }
 		public IEvent OnUnderlyingEnabledChanged { get { return OnUnderlyingValueChanged; } }
 		public IEvent OnEnabledChanged { get { return OnValueChanged; } }
 	}

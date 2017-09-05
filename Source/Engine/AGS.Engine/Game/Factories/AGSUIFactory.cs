@@ -27,6 +27,7 @@ namespace AGS.Engine
             IPanel panel = _resolver.Container.Resolve<IPanel>(idParam, imageParameter);
             panel.X = x;
             panel.Y = y;
+            panel.ClickThrough = true;
             setParent(panel, parent);
             if (addToUi)
                 _gameState.UI.Add(panel);
