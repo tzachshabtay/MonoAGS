@@ -25,6 +25,13 @@ namespace AGS.Engine
             }, _ => _pixelPerfect = null);
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            var pixelPerfect = _pixelPerfect;
+            if (pixelPerfect != null) pixelPerfect.Dispose();
+        }
+
         public IArea PixelPerfectHitTestArea { get { return _pixelPerfect.PixelPerfectHitTestArea; } }
 
         public void PixelPerfect(bool pixelPerfect)

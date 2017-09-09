@@ -58,10 +58,10 @@ namespace AGS.Engine
             return load(path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
         }
 
-        public IMask Load(IBitmap image, bool transparentMeansMasked = false,
+        public IMask Load(string id, IBitmap image, bool transparentMeansMasked = false,
             Color? debugDrawColor = null, string saveMaskToFile = null)
         {
-            return load(null, image, transparentMeansMasked, debugDrawColor, saveMaskToFile);
+            return load(null, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
         }
 
         #endregion

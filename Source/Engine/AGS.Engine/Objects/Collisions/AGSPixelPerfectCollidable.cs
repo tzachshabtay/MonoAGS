@@ -10,7 +10,7 @@ namespace AGS.Engine
         public AGSPixelPerfectCollidable(IAnimationContainer animation)
         {
             _animation = animation;
-            _animation.OnAnimationStarted.Subscribe(() => PixelPerfect(_pixelPerfect));
+            _animation.OnAnimationStarted.Subscribe(refreshPixelPerfect);
         }
 
         public IArea PixelPerfectHitTestArea
@@ -30,6 +30,16 @@ namespace AGS.Engine
             {
                 frame.Sprite.PixelPerfect(pixelPerfect);
             }
+        }
+
+        public void Dispose()
+        {
+            _animation.OnAnimationStarted.Unsubscribe(refreshPixelPerfect);
+        }
+
+        private void refreshPixelPerfect()
+        {
+            PixelPerfect(_pixelPerfect);
         }
     }
 }

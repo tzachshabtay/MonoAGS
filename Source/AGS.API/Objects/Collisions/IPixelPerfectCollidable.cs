@@ -1,9 +1,11 @@
-﻿namespace AGS.API
+﻿using System;
+
+namespace AGS.API
 {
     /// <summary>
     /// Adds the ability for pixel perfect collision checks (https://wiki.allegro.cc/index.php?title=Pixel_Perfect_Collision)
     /// </summary>
-    public interface IPixelPerfectCollidable
+    public interface IPixelPerfectCollidable : IDisposable
     {
         /// <summary>
         /// Gets the pixel perfect hit test area.
