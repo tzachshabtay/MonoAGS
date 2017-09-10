@@ -24,7 +24,7 @@ namespace AGS.Engine
         private ISprite _lastFrame;
         private float _lastViewportX, _lastViewportY, _compensateScrollX, _compensateScrollY;
         private readonly IGLUtils _glUtils;
-        
+
 		public AGSWalkBehavior(IObject obj, IPathFinder pathFinder, IFaceDirectionBehavior faceDirection, 
                                IHasOutfit outfit, IObjectFactory objFactory, IGame game, IGLUtils glUtils)
 		{
@@ -261,15 +261,18 @@ namespace AGS.Engine
 
 			closestPoints.AddRange(getClosestWalkablePoints (destination.XY));
 			if (closestPoints.Count == 0)
-				return new List<ILocation> ();
-			
-			bool[][] mask = getWalkableMask ();
-			_pathFinder.Init (mask);
+				return new List<ILocation>();
+
+            Point offset;
+			bool[][] mask = getWalkableMask(out offset);
+            var from = _obj.Location;
+            from = new AGSLocation(from.X - offset.X, from.Y - offset.Y, from.Z);
+			_pathFinder.Init(mask);
 			foreach (var closest in closestPoints)
 			{
-				destination = new AGSLocation (closest, destination.Z);
-				var walkPoints = _pathFinder.GetWalkPoints(_obj.Location, destination);
-				if (walkPoints.Any()) return walkPoints;
+                destination = new AGSLocation (closest.X - offset.X, closest.Y - offset.Y, destination.Z);
+				var walkPoints = _pathFinder.GetWalkPoints(from, destination);
+                if (walkPoints.Any()) return walkPoints.Select(w => (ILocation)new AGSLocation(w.X + offset.X, w.Y + offset.Y, w.Z));
 			}
 			return new List<ILocation> ();
 		}
@@ -283,14 +286,21 @@ namespace AGS.Engine
 			return false;
 		}
 
-		private bool[][] getWalkableMask()
+		private bool[][] getWalkableMask(out Point offset)
 		{
             var walkables = getWalkableAreas().ToList();
-			int maxWidth = walkables.Max(a => a.Mask.Width);
-			bool[][] mask = new bool[maxWidth][];
+            var minX = (int)walkables.Min(a => a.Mask.MinX);
+            var maxX = (int)walkables.Max(a => a.Mask.MaxX);
+            var minY = (int)walkables.Min(a => a.Mask.MinY);
+            var maxY = (int)walkables.Max(a => a.Mask.MaxY);
+            int width = maxX - minX;
+            int height = maxY - minY;
+            offset = new Point(minX, minY);
+			bool[][] mask = new bool[width][];
+            for (int i = 0; i < mask.Length; i++) mask[i] = new bool[height];
 			foreach (var area in walkables) 
 			{
-				area.Mask.ApplyToMask (mask);
+				area.Mask.ApplyToMask(mask, offset);
 			}
 			return mask;
 		}

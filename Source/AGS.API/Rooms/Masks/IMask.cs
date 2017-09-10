@@ -80,7 +80,15 @@
         /// Adds the current mask to the target specified mask (i.e all true values in the current mask will be set to true in the target mask).
         /// </summary>
         /// <param name="mask">Mask.</param>
-		void ApplyToMask(bool[][] mask);
+        /// <param name="offset">The offset of the mask from the (0,0) co-ordinate</param>
+        void ApplyToMask(bool[][] mask, Point offset);
+
+        /// <summary>
+        /// Transform the mask (by moving and/or rotating it).
+        /// </summary>
+        /// <param name="translate">Translate.</param>
+        /// <param name="rotate">Rotate.</param>
+        void Transform(ITranslate translate, IRotate rotate);
 
         /// <summary>
         /// Returns a display string with the mask contents as asterisks, for debugging purposes.

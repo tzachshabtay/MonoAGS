@@ -8,6 +8,7 @@ namespace AGS.Engine
 	{
 		private static List<Tuple<int,int>> _searchVectors;
         private ITranslateComponent _translate;
+        private IRotateComponent _rotate;
 
 		static AGSAreaComponent()
 		{
@@ -33,28 +34,25 @@ namespace AGS.Engine
             entity.Bind<ITranslateComponent>(
                 c => { _translate = c; c.OnLocationChanged.Subscribe(onLocationChanged); },
                 c => { _translate = null; c.OnLocationChanged.Unsubscribe(onLocationChanged); });
+            entity.Bind<IRotateComponent>(
+                c => { _rotate = c; c.OnAngleChanged.Subscribe(onAngleChanged); },
+                c => { _rotate = null; c.OnAngleChanged.Unsubscribe(onAngleChanged); });
         }
 
 		#region IArea implementation
 
 		public bool IsInArea (PointF point)
 		{
-            var translate = _translate;
-            if (translate != null) point = new PointF(point.X - translate.X, point.Y - translate.Y);
 			return Mask.IsMasked(point);
 		}
 
 		public bool IsInArea(PointF point, AGSBoundingBox projectionBox, float scaleX, float scaleY)
 		{
-			var translate = _translate;
-			if (translate != null) point = new PointF(point.X - translate.X, point.Y - translate.Y);
 			return Mask.IsMasked(point, projectionBox, scaleX, scaleY);
 		}
 
 		public PointF? FindClosestPoint (PointF point, out float distance)
 		{
-			var translate = _translate;
-			if (translate != null) point = new PointF(point.X - translate.X, point.Y - translate.Y);
 			int x = (int)point.X;
 			int y = (int)point.Y;
 			int width = Mask.Width;
@@ -98,6 +96,16 @@ namespace AGS.Engine
             var obj = Mask.DebugDraw;
             if (translate == null || obj == null) return;
             obj.Location = translate.Location;
+            Mask.Transform(_translate, _rotate);
+        }
+
+        private void onAngleChanged()
+        {
+            var rotate = _rotate;
+            var obj = Mask.DebugDraw;
+            if (rotate == null || obj == null) return;
+            obj.Angle = rotate.Angle;
+            Mask.Transform(_translate, _rotate);
         }
 
 		private PointF? findClosestPoint(int x, int y, int width, int height, out float distance)
@@ -123,9 +131,7 @@ namespace AGS.Engine
 			out float distance)
 		{
 			distance = 0f;
-			bool[][] mask = Mask.AsJaggedArray();
-
-			while (!mask [x] [y]) 
+            while (!Mask.IsMasked(new PointF(x, y)))
 			{
 				x += stepX;
 				y += stepY;
