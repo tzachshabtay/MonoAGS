@@ -75,15 +75,10 @@ namespace DemoGame
 
             var roomsLabel = createFeaturesLabel("Rooms", tree);
             createFeaturesLabel("Viewports", roomsLabel, () => new FeaturesViewportsPanel(_game, _rightSidePanel));
+            createFeaturesLabel("Moving Areas", roomsLabel, () => new FeaturesMoveAreaPanel(_game, _rightSidePanel, _scheme));
 
             var uiLabel = createFeaturesLabel("GUIs", tree);
             createFeaturesLabel("Labels", uiLabel, () => new FeaturesLabelsPanel(_game, _rightSidePanel));
-            createFeaturesLabel("Buttons", uiLabel);
-            createFeaturesLabel("Skins", uiLabel);
-
-            var objLabel = createFeaturesLabel("Objects", tree);
-            createFeaturesLabel("Animations", objLabel);
-            createFeaturesLabel("Transforms", objLabel);
 
             treeView.Tree = tree;
             treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
