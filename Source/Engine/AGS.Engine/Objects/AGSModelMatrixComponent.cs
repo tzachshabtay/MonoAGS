@@ -267,7 +267,7 @@ namespace AGS.Engine
             if (animation == null || animation.Animation == null) return Matrix4.Identity;
             var sprite = animation.Animation.Sprite;
             Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, null,
-                                                  NoScaling, NoScaling, true);
+                                                  NoScaling, resolutionFactor, true);
             Matrix4 objMatrix = getModelMatrix(_scale, _rotate, _translate, _image,
                                                _jump, _areaScaling, resolutionFactor, true);
 
@@ -275,8 +275,8 @@ namespace AGS.Engine
             var parent = _tree == null ? null : _tree.TreeNode.Parent;
             while (parent != null)
             {
-                //var parentMatrices = parent.GetModelMatrices();
-                //Matrix4 parentMatrix = resolutionFactor.Equals(GLMatrixBuilder.NoScaling) ? parentMatrices.InVirtualResolutionMatrix : parentMatrices.InObjResolutionMatrix;
+                //var parentMatrices = parent.GetModelMatrices(); todo: figure out how to reuse parent matrix instead of recalculating it here (need to change the while to if)
+                //Matrix4 parentMatrix = resolutionFactor.Equals(NoScaling) ? parentMatrices.InVirtualResolutionMatrix : parentMatrices.InObjResolutionMatrix;
                 Matrix4 parentMatrix = getModelMatrix(parent, parent, parent, parent, parent.GetComponent<IJumpOffsetComponent>(),
                     NoScaling, resolutionFactor, false);
                 modelMatrix = modelMatrix * parentMatrix;
