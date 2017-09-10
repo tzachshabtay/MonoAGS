@@ -177,6 +177,7 @@ namespace AGS.Engine
             PixelPerfectHitTestArea = new AGSArea(areaId, _resolver) { Mask = _maskLoader.Load(maskId, _hasImage.Image.OriginalBitmap) };
             var debugDraw = PixelPerfectHitTestArea.Mask.DebugDraw;
             if (debugDraw != null) debugDraw.RemoveComponents<IPixelPerfectComponent>(); //Removing the pixel perfect from the debug draw mask, otherwise it disables the pixel perfect for the images which can be used by actual characters
+            PixelPerfectHitTestArea.Enabled = true;
         }
         #endregion
 

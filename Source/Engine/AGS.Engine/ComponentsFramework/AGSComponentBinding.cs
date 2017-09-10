@@ -17,7 +17,7 @@ namespace AGS.Engine
             collection.OnComponentsChanged.Subscribe(onComponentsChanged);
 			TComponent component = collection.GetComponent<TComponent>();
             if (component != null) onAdded.Invoke(component);
-            if (!componentsInitialized) collection.OnComponentsInitialized.Subscribe(onComponentsInitialized);
+            else if (!componentsInitialized) collection.OnComponentsInitialized.Subscribe(onComponentsInitialized);
         }
 
         private void onComponentsChanged(AGSListChangedEventArgs<IComponent> args)

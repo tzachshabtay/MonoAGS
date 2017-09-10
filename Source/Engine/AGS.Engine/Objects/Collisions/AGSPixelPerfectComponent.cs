@@ -22,7 +22,7 @@ namespace AGS.Engine
                 IAnimationContainer animation = entity.GetComponent<IAnimationContainer>();
                 TypedParameter animationParam = new TypedParameter(typeof(IAnimationContainer), animation);
                 _pixelPerfect = _resolver.Container.Resolve<IPixelPerfectCollidable>(animationParam);
-            }, _ => _pixelPerfect = null);
+            }, c => { c.Dispose(); _pixelPerfect = null; });
         }
 
         public override void Dispose()
