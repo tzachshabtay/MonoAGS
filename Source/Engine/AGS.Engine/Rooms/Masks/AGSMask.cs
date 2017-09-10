@@ -20,15 +20,14 @@ namespace AGS.Engine
 
 		#region IMask implementation
 
-        public void Transform(ITranslate translate, IRotate rotate)
+        public void Transform(Matrix4 transformation)
         {
-            if (translate == null && rotate == null)
+            if (transformation.Equals(Matrix4.Identity))
             {
                 _transformedMask = _mask;
                 return;
             }
-            Matrix4 transformation = createMatrix(translate, rotate, false);
-            Matrix4 inverseTransform = createMatrix(translate, rotate, true);
+            Matrix4 inverseTransform = transformation.Inverted();
 
             var corner1 = Vector3.Transform(new Vector3(0f, 0f, 0f), transformation);
             var corner2 = Vector3.Transform(new Vector3(0f, _mask[0].Length, 0f), transformation);
@@ -149,20 +148,6 @@ namespace AGS.Engine
 		public float MaxY { get; private set; }
 
 		#endregion
-
-		private Matrix4 createMatrix(ITranslate translate, IRotate rotate, bool inverse)
-		{
-			if (translate == null && rotate == null) return Matrix4.Identity;
-			float factor = inverse ? -1f : 1f;
-
-            var radians = rotate == null ? 0f : MathUtils.DegreesToRadians(rotate.Angle);
-			Matrix4 rotation;
-			Matrix4.CreateRotationZ(radians * factor, out rotation);
-			Matrix4 translation = Matrix4.CreateTranslation(new Vector3(translate == null ? 0f : translate.X * factor,
-																	  translate == null ? 0f : translate.Y * factor, 0f));
-			Matrix4 transformation = inverse ? translation * rotation : rotation * translation;
-			return transformation;
-		}
 
 		private bool isMasked(PointF point)
 		{

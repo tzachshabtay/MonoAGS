@@ -96,7 +96,7 @@ namespace AGS.Engine
             var obj = Mask.DebugDraw;
             if (translate == null || obj == null) return;
             obj.Location = translate.Location;
-            Mask.Transform(_translate, _rotate);
+            Mask.Transform(createMatrix(_translate, _rotate));
         }
 
         private void onAngleChanged()
@@ -105,8 +105,21 @@ namespace AGS.Engine
             var obj = Mask.DebugDraw;
             if (rotate == null || obj == null) return;
             obj.Angle = rotate.Angle;
-            Mask.Transform(_translate, _rotate);
+            Mask.Transform(createMatrix(_translate, _rotate));
         }
+
+		private Matrix4 createMatrix(ITranslate translate, IRotate rotate)
+		{
+			if (translate == null && rotate == null) return Matrix4.Identity;
+
+			var radians = rotate == null ? 0f : MathUtils.DegreesToRadians(rotate.Angle);
+			Matrix4 rotation;
+			Matrix4.CreateRotationZ(radians, out rotation);
+			Matrix4 translation = Matrix4.CreateTranslation(new Vector3(translate == null ? 0f : translate.X,
+																	  translate == null ? 0f : translate.Y, 0f));
+			Matrix4 transformation = rotation * translation;
+			return transformation;
+		}
 
 		private PointF? findClosestPoint(int x, int y, int width, int height, out float distance)
 		{

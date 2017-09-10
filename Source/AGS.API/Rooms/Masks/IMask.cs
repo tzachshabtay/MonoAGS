@@ -86,9 +86,8 @@
         /// <summary>
         /// Transform the mask (by moving and/or rotating it).
         /// </summary>
-        /// <param name="translate">Translate.</param>
-        /// <param name="rotate">Rotate.</param>
-        void Transform(ITranslate translate, IRotate rotate);
+        /// <param name="matrix">The transform matrix.</param>
+        void Transform(Matrix4 matrix);
 
         /// <summary>
         /// Returns a display string with the mask contents as asterisks, for debugging purposes.
