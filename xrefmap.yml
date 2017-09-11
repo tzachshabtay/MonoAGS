@@ -9043,15 +9043,15 @@ references:
   commentId: T:AGS.API.IMask
   fullName: AGS.API.IMask
   nameWithType: IMask
-- uid: AGS.API.IMask.ApplyToMask(System.Boolean[][])
-  name: ApplyToMask(Boolean[][])
-  href: api/AGS.API.IMask.html#AGS_API_IMask_ApplyToMask_System_Boolean_____
-  commentId: M:AGS.API.IMask.ApplyToMask(System.Boolean[][])
-  name.vb: ApplyToMask(Boolean()())
-  fullName: AGS.API.IMask.ApplyToMask(System.Boolean[][])
-  fullName.vb: AGS.API.IMask.ApplyToMask(System.Boolean()())
-  nameWithType: IMask.ApplyToMask(Boolean[][])
-  nameWithType.vb: IMask.ApplyToMask(Boolean()())
+- uid: AGS.API.IMask.ApplyToMask(System.Boolean[][],AGS.API.Point)
+  name: ApplyToMask(Boolean[][], Point)
+  href: api/AGS.API.IMask.html#AGS_API_IMask_ApplyToMask_System_Boolean_____AGS_API_Point_
+  commentId: M:AGS.API.IMask.ApplyToMask(System.Boolean[][],AGS.API.Point)
+  name.vb: ApplyToMask(Boolean()(), Point)
+  fullName: AGS.API.IMask.ApplyToMask(System.Boolean[][], AGS.API.Point)
+  fullName.vb: AGS.API.IMask.ApplyToMask(System.Boolean()(), AGS.API.Point)
+  nameWithType: IMask.ApplyToMask(Boolean[][], Point)
+  nameWithType.vb: IMask.ApplyToMask(Boolean()(), Point)
 - uid: AGS.API.IMask.ApplyToMask*
   name: ApplyToMask
   href: api/AGS.API.IMask.html#AGS_API_IMask_ApplyToMask_
@@ -9184,6 +9184,18 @@ references:
   commentId: Overload:AGS.API.IMask.To2DArray
   fullName: AGS.API.IMask.To2DArray
   nameWithType: IMask.To2DArray
+- uid: AGS.API.IMask.Transform(AGS.API.Matrix4)
+  name: Transform(Matrix4)
+  href: api/AGS.API.IMask.html#AGS_API_IMask_Transform_AGS_API_Matrix4_
+  commentId: M:AGS.API.IMask.Transform(AGS.API.Matrix4)
+  fullName: AGS.API.IMask.Transform(AGS.API.Matrix4)
+  nameWithType: IMask.Transform(Matrix4)
+- uid: AGS.API.IMask.Transform*
+  name: Transform
+  href: api/AGS.API.IMask.html#AGS_API_IMask_Transform_
+  commentId: Overload:AGS.API.IMask.Transform
+  fullName: AGS.API.IMask.Transform
+  nameWithType: IMask.Transform
 - uid: AGS.API.IMask.Width
   name: Width
   href: api/AGS.API.IMask.html#AGS_API_IMask_Width
@@ -9202,15 +9214,6 @@ references:
   commentId: T:AGS.API.IMaskLoader
   fullName: AGS.API.IMaskLoader
   nameWithType: IMaskLoader
-- uid: AGS.API.IMaskLoader.Load(AGS.API.IBitmap,System.Boolean,System.Nullable{AGS.API.Color},System.String)
-  name: Load(IBitmap, Boolean, Nullable<Color>, String)
-  href: api/AGS.API.IMaskLoader.html#AGS_API_IMaskLoader_Load_AGS_API_IBitmap_System_Boolean_System_Nullable_AGS_API_Color__System_String_
-  commentId: M:AGS.API.IMaskLoader.Load(AGS.API.IBitmap,System.Boolean,System.Nullable{AGS.API.Color},System.String)
-  name.vb: Load(IBitmap, Boolean, Nullable(Of Color), String)
-  fullName: AGS.API.IMaskLoader.Load(AGS.API.IBitmap, System.Boolean, System.Nullable<AGS.API.Color>, System.String)
-  fullName.vb: AGS.API.IMaskLoader.Load(AGS.API.IBitmap, System.Boolean, System.Nullable(Of AGS.API.Color), System.String)
-  nameWithType: IMaskLoader.Load(IBitmap, Boolean, Nullable<Color>, String)
-  nameWithType.vb: IMaskLoader.Load(IBitmap, Boolean, Nullable(Of Color), String)
 - uid: AGS.API.IMaskLoader.Load(System.Boolean[0:,0:],System.String,System.Boolean,System.Nullable{AGS.API.Color},System.String)
   name: Load(Boolean[,], String, Boolean, Nullable<Color>, String)
   href: api/AGS.API.IMaskLoader.html#AGS_API_IMaskLoader_Load_System_Boolean_0__0___System_String_System_Boolean_System_Nullable_AGS_API_Color__System_String_
@@ -9220,6 +9223,15 @@ references:
   fullName.vb: AGS.API.IMaskLoader.Load(System.Boolean(,), System.String, System.Boolean, System.Nullable(Of AGS.API.Color), System.String)
   nameWithType: IMaskLoader.Load(Boolean[,], String, Boolean, Nullable<Color>, String)
   nameWithType.vb: IMaskLoader.Load(Boolean(,), String, Boolean, Nullable(Of Color), String)
+- uid: AGS.API.IMaskLoader.Load(System.String,AGS.API.IBitmap,System.Boolean,System.Nullable{AGS.API.Color},System.String)
+  name: Load(String, IBitmap, Boolean, Nullable<Color>, String)
+  href: api/AGS.API.IMaskLoader.html#AGS_API_IMaskLoader_Load_System_String_AGS_API_IBitmap_System_Boolean_System_Nullable_AGS_API_Color__System_String_
+  commentId: M:AGS.API.IMaskLoader.Load(System.String,AGS.API.IBitmap,System.Boolean,System.Nullable{AGS.API.Color},System.String)
+  name.vb: Load(String, IBitmap, Boolean, Nullable(Of Color), String)
+  fullName: AGS.API.IMaskLoader.Load(System.String, AGS.API.IBitmap, System.Boolean, System.Nullable<AGS.API.Color>, System.String)
+  fullName.vb: AGS.API.IMaskLoader.Load(System.String, AGS.API.IBitmap, System.Boolean, System.Nullable(Of AGS.API.Color), System.String)
+  nameWithType: IMaskLoader.Load(String, IBitmap, Boolean, Nullable<Color>, String)
+  nameWithType.vb: IMaskLoader.Load(String, IBitmap, Boolean, Nullable(Of Color), String)
 - uid: AGS.API.IMaskLoader.Load(System.String,System.Boolean,System.Nullable{AGS.API.Color},System.String,System.String)
   name: Load(String, Boolean, Nullable<Color>, String, String)
   href: api/AGS.API.IMaskLoader.html#AGS_API_IMaskLoader_Load_System_String_System_Boolean_System_Nullable_AGS_API_Color__System_String_System_String_
