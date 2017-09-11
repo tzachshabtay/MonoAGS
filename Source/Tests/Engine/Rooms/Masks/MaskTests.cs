@@ -121,7 +121,7 @@ namespace Tests
 			bool[][] targetMask = GetArray(width, height, true, 0,0, 1,1, 2,2);
 			bool[][] sourceMask = GetArray(width, height, true, pointsInMask);
 			AGSMask mask = new AGSMask (sourceMask, null);
-			mask.ApplyToMask(targetMask);
+            mask.ApplyToMask(targetMask, new Point(0, 0));
 
 			return targetMask[xToTest][yToTest];
 		}
