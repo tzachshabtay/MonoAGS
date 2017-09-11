@@ -69,3 +69,11 @@ It is sometimes useful to have an area only affect specific objects/characters w
 This component comes with a restriction list which you can provide with the IDs of the objects/characters/etc, and an additional `RestrictionType` which can be set to either a black list or a white list.
 A white list means that only those entities which are on the list will be affected by the area while other entities will not. A black list means that only those entities which are on the list will
 not be affected by the area while all other entities will be affected.
+
+## Modifying Areas at Run-Time:
+
+Areas don't have to remain static. If needed, you can move, rotate or even completely reshape an area during the game (and also, you can remove/add areas during the game).
+For moving/rotating the area, add the translate and rotate components to the area. Those are the same components attached to objects and allow you to change the position/angle of the area in the same way you do to objects (including tweening).
+To completely change the shape of an area, you can just set its mask to a new mask anytime during the game.
+
+Another possible scenario for moving areas, might involve moving the area and the player at the same time, which can be useful, for example, to have a moving elevator (that the player can walk inside as it's moving). For that, you don't need to add the translate/rotate components, but rather add a parent object to the player, and then move that parent object (you can even rotate it, which will rotate both the player and the area so they will remain "parallel" to one another).
