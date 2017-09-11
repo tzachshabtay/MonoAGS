@@ -7,15 +7,28 @@ namespace AGS.Engine
 	public class AGSMask : IMask
 	{
 		private readonly bool[][] _mask;
-        private bool[][] _transformedMask;
-        private Vector2 _offset;
+
+        struct MaskInfo
+        {
+            public bool[][] Mask;
+            public Vector2 Offset;
+            public int Width;
+            public int Height;
+            public float MinX;
+            public float MaxX;
+            public float MinY;
+            public float MaxY;
+        }
+
+        private MaskInfo _maskInfo;
+        private bool[][] _transformedMask { get { return _maskInfo.Mask; }}
+        private Vector2 _offset { get { return _maskInfo.Offset; }}
 
 		public AGSMask(bool[][] mask, IObject debugMask)
 		{
 			_mask = mask;
-            _transformedMask = mask;
 			DebugDraw = debugMask;
-			refreshMaskBounds(_transformedMask);
+            refreshMaskBounds(mask, Vector2.Zero);
 		}
 
 		#region IMask implementation
@@ -24,7 +37,7 @@ namespace AGS.Engine
         {
             if (transformation.Equals(Matrix4.Identity))
             {
-                _transformedMask = _mask;
+                refreshMaskBounds(_mask, Vector2.Zero);
                 return;
             }
             Matrix4 inverseTransform = transformation.Inverted();
@@ -43,7 +56,7 @@ namespace AGS.Engine
             int height = (int)(maxY - minY) + 1;
             var offsetX = minX;
             var offsetY = minY;
-            _offset = new Vector2(offsetX, offsetY);
+            var offset = new Vector2(offsetX, offsetY);
             var transformedMask = new bool[width][];
             for (int col = 0; col < width; col++)
             {
@@ -61,8 +74,7 @@ namespace AGS.Engine
                     else column[row] = _mask[x][y];
                 }
             }
-            refreshMaskBounds(transformedMask);
-            _transformedMask = transformedMask;
+            refreshMaskBounds(transformedMask, offset);
         }
 
         public bool IsMasked(PointF point, AGSBoundingBox projectionBox, float scaleX, float scaleY)
@@ -136,16 +148,16 @@ namespace AGS.Engine
 			return sb.ToString();
 		}
 
-		public int Width { get; private set; }
+        public int Width { get { return _maskInfo.Width; } }
 
-		public int Height { get; private set; }
+        public int Height { get { return _maskInfo.Height; } }
 
 		public IObject DebugDraw { get; private set; }
 
-		public float MinX { get; private set; }
-		public float MaxX { get; private set; }
-		public float MinY { get; private set; }
-		public float MaxY { get; private set; }
+        public float MinX { get { return _maskInfo.MinX; } }
+        public float MaxX { get { return _maskInfo.MaxX; } }
+        public float MinY { get { return _maskInfo.MinY; } }
+        public float MaxY { get { return _maskInfo.MaxY; } }
 
 		#endregion
 
@@ -160,14 +172,25 @@ namespace AGS.Engine
 			return _transformedMask[x][y];
 		}
 
-		private void refreshMaskBounds(bool[][] mask)
+        private void refreshMaskBounds(bool[][] mask, Vector2 offset)
 		{
-            Width = mask.Length;
-			Height = Width == 0 ? 0 : mask[0].Length;
-            MinX = refreshBoundsUpwards(mask, Width, Height, isThereMaskInRow) + (int)_offset.X;
-            MaxX = refreshBoundsDownwards(mask, Width, Height, isThereMaskInRow) + (int)_offset.X;
-            MinY = refreshBoundsUpwards(mask, Height, Width, isThereMaskInColumn) + (int)_offset.Y;
-            MaxY = refreshBoundsDownwards(mask, Height, Width, isThereMaskInColumn) + (int)_offset.Y;
+            int width = mask.Length;
+			int height = width == 0 ? 0 : mask[0].Length;
+            float minX = refreshBoundsUpwards(mask, width, height, isThereMaskInRow) + (int)offset.X;
+            float maxX = refreshBoundsDownwards(mask, width, height, isThereMaskInRow) + (int)offset.X;
+            float minY = refreshBoundsUpwards(mask, height, width, isThereMaskInColumn) + (int)offset.Y;
+            float maxY = refreshBoundsDownwards(mask, height, width, isThereMaskInColumn) + (int)offset.Y;
+            _maskInfo = new MaskInfo
+            {
+                Width = width,
+                Height = height,
+                Offset = offset,
+                Mask = mask,
+                MinX = minX,
+                MaxX = maxX,
+                MinY = minY,
+                MaxY = maxY
+            };
 		}
 
 		private int refreshBoundsUpwards(bool[][] mask, int length, int crossingLength, Func<bool[][], int, int, bool> isMasked)
