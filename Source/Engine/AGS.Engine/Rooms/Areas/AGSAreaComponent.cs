@@ -7,6 +7,8 @@ namespace AGS.Engine
     public class AGSAreaComponent : AGSComponent, IAreaComponent
 	{
 		private static List<Tuple<int,int>> _searchVectors;
+        private ITranslateComponent _translate;
+        private IRotateComponent _rotate;
 
 		static AGSAreaComponent()
 		{
@@ -25,6 +27,17 @@ namespace AGS.Engine
 		{
 			Enabled = true;
 		}
+
+        public override void Init(IEntity entity)
+        {
+            base.Init(entity);
+            entity.Bind<ITranslateComponent>(
+                c => { _translate = c; c.OnLocationChanged.Subscribe(onLocationChanged); },
+                c => { _translate = null; c.OnLocationChanged.Unsubscribe(onLocationChanged); });
+            entity.Bind<IRotateComponent>(
+                c => { _rotate = c; c.OnAngleChanged.Subscribe(onAngleChanged); },
+                c => { _rotate = null; c.OnAngleChanged.Unsubscribe(onAngleChanged); });
+        }
 
 		#region IArea implementation
 
@@ -77,6 +90,37 @@ namespace AGS.Engine
 
 		#endregion
 
+        private void onLocationChanged()
+        {
+            var translate = _translate;
+            var obj = Mask.DebugDraw;
+            if (translate == null || obj == null) return;
+            obj.Location = translate.Location;
+            Mask.Transform(createMatrix(_translate, _rotate));
+        }
+
+        private void onAngleChanged()
+        {
+            var rotate = _rotate;
+            var obj = Mask.DebugDraw;
+            if (rotate == null || obj == null) return;
+            obj.Angle = rotate.Angle;
+            Mask.Transform(createMatrix(_translate, _rotate));
+        }
+
+		private Matrix4 createMatrix(ITranslate translate, IRotate rotate)
+		{
+			if (translate == null && rotate == null) return Matrix4.Identity;
+
+			var radians = rotate == null ? 0f : MathUtils.DegreesToRadians(rotate.Angle);
+			Matrix4 rotation;
+			Matrix4.CreateRotationZ(radians, out rotation);
+			Matrix4 translation = Matrix4.CreateTranslation(new Vector3(translate == null ? 0f : translate.X,
+																	  translate == null ? 0f : translate.Y, 0f));
+			Matrix4 transformation = rotation * translation;
+			return transformation;
+		}
+
 		private PointF? findClosestPoint(int x, int y, int width, int height, out float distance)
 		{
 			//todo: This will not always give the real closest position.
@@ -100,9 +144,7 @@ namespace AGS.Engine
 			out float distance)
 		{
 			distance = 0f;
-			bool[][] mask = Mask.AsJaggedArray();
-
-			while (!mask [x] [y]) 
+            while (!Mask.IsMasked(new PointF(x, y)))
 			{
 				x += stepX;
 				y += stepY;

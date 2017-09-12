@@ -66,6 +66,8 @@ namespace Tests
 			area.Setup(a => a.Enabled).Returns(true);
 			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == fromX && p.Y == fromY))).Returns(fromWalkable);
 			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == toX && p.Y == toY))).Returns(toWalkable);
+            area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == toX - 1 && p.Y == toY - 1))).Returns(toWalkable);
+            area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == toX + 1 && p.Y == toY + 1))).Returns(toWalkable);
 			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == closeToX && p.Y == closeToY))).Returns(hasCloseToWalkable);
 			area.Setup(a => a.Mask).Returns(mask.Object);
             area.Setup(a => a.GetComponent<IWalkableArea>()).Returns(walkableArea.Object);
@@ -108,7 +110,7 @@ namespace Tests
 			{				
 				Assert.AreEqual(toWalkable ? toX : closeToX, x, 0.1f);
 				Assert.AreEqual(toWalkable ? toY : closeToY, y, 0.1f);
-			}				
+			}
 		}
 
 		private async void startTicks()

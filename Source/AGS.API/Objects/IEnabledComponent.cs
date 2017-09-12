@@ -7,27 +7,27 @@
 	[RequiredComponent(typeof(IInObjectTree))]
 	public interface IEnabledComponent : IComponent
 	{
-        /// <summary>
-        /// Gets or sets a value indicating whether this entity is enabled.
-        /// Note that even if you set the entity to be enabled, it might still appear as disabled if
-        /// it's part of a tree and its parent (or the parent's parent, or the parent's grandparent, and so on) 
-        /// is itself disabled.
-        /// However the setting will be remembered (via the <see cref="UnderlyingEnabled"/> property) so if the parent will become enabled the entity will also
-        /// become enabled if was set to be enabled before.
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// button.TreeNode.SetParent(null); // the button has no parent
-        /// button.Enabled = true;
-        /// Debug.WriteLine("Is button enabled? {0}, button.Enabled); //This will print "Is button enabled? True".
-        /// button.TreeNode.SetParent(panel); // the panel is now the parent of the button.
-        /// panel.Enabled = false;
-        /// Debug.WriteLine("Is button enabled? {0}, button.Enabled); //This will print "Is button enabled? False" because the parent is disabled.
-        /// panel.Enabled = true;
-        /// Debug.WriteLine("Is button enabled? {0}, button.Enabled); //This will print "Is button enabled? True" because both the parent and the button are enabled.
-        /// </code>
-        /// </example>
-        /// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
+		/// <summary>
+		/// Gets or sets a value indicating whether this entity is enabled.
+		/// Note that even if you set the entity to be enabled, it might still appear as disabled if
+		/// it's part of a tree and its parent (or the parent's parent, or the parent's grandparent, and so on) 
+		/// is itself disabled.
+		/// However the setting will be remembered (via the <see cref="UnderlyingEnabled"/> property) so if the parent will become enabled the entity will also
+		/// become enabled if was set to be enabled before.
+		/// </summary>
+		/// <example>
+		/// <code>
+		/// button.TreeNode.SetParent(null); // the button has no parent
+		/// button.Enabled = true;
+		/// Debug.WriteLine("Is button enabled? {0}, button.Enabled); //This will print "Is button enabled? True".
+		/// button.TreeNode.SetParent(panel); // the panel is now the parent of the button.
+		/// panel.Enabled = false;
+		/// Debug.WriteLine("Is button enabled? {0}, button.Enabled); //This will print "Is button enabled? False" because the parent is disabled.
+		/// panel.Enabled = true;
+		/// Debug.WriteLine("Is button enabled? {0}, button.Enabled); //This will print "Is button enabled? True" because both the parent and the button are enabled.
+		/// </code>
+		/// </example>
+		/// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
 		bool Enabled { get; set; }
 
         /// <summary>
@@ -39,6 +39,15 @@
         /// <seealso cref="Enabled"/>
         /// <value><c>true</c> if underlying enabled; otherwise, <c>false</c>.</value>
 		bool UnderlyingEnabled { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this entity is click-through, meaning it can't be clicked.
+        /// The difference between setting an entity to be click-through and between disabling it (by setting its
+        /// <see cref="Enabled"/> property to be false), is that unlike disabling, the children of the entity
+        /// will not be affected.  
+        /// </summary>
+        /// <value><c>true</c> if click through; otherwise, <c>false</c>.</value>
+        bool ClickThrough { get; set; }
 
 		/// <summary>
 		/// An event which fires whenever enabled has changed for the entity.

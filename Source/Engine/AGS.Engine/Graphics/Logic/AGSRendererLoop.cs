@@ -133,6 +133,7 @@ namespace AGS.Engine
             {
                 foreach (var viewport in _gameState.SecondaryViewports)
                 {
+                    if (viewport == null) continue;
                     renderViewport(viewport);
                 }
             }
@@ -242,10 +243,6 @@ namespace AGS.Engine
 			if (obj.Animation == null) return null;
 			return obj.Animation.Sprite.CustomRenderer;
 		}
-
-		
-
-		
 	}
 }
 

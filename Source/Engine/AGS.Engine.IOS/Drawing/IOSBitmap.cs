@@ -1,6 +1,7 @@
 ﻿extern alias IOS;
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using AGS.API;
 using IOS::CoreGraphics;
@@ -231,6 +232,18 @@ namespace AGS.Engine.IOS
             context.RestoreState();
             setImage(UIGraphics.GetImageFromCurrentImageContext());
         }
+
+		public void SetPixels(AGS.API.Color color, List<API.Point> points)
+		{
+            using (FastBitmap bmp = new FastBitmap(_cgImage))
+			{
+				foreach (var point in points)
+				{
+					bmp.SetPixel(point.X, point.Y, color);
+				}
+                setImage(bmp.GetImage());
+			}
+		}
 
         public void Dispose()
         {

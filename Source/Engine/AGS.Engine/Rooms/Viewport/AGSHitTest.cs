@@ -74,7 +74,7 @@ namespace AGS.Engine
 		{
 			foreach (IObject obj in objects)
 			{
-				if (!obj.Enabled)
+                if (!obj.Enabled || obj.ClickThrough)
 					continue;
 
                 if (!obj.CollidesWith(x, y, viewport)) continue;

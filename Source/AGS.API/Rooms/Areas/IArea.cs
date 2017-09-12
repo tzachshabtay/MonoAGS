@@ -8,6 +8,8 @@
     /// <seealso cref="IScalingArea"/>
     /// <seealso cref="IZoomArea"/>
     /// <seealso cref="IAreaRestriction"/>
+    [RequiredComponent(typeof(ITranslateComponent), false)]
+    [RequiredComponent(typeof(IRotateComponent), false)]
     public interface IAreaComponent : IComponent
 	{
         /// <summary>

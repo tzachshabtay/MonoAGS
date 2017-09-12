@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.Collections.Generic;
+
+namespace AGS.API
 {
     /// <summary>
     /// A low level bitmap which can be manipulated.
@@ -37,6 +39,13 @@
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
         void SetPixel(Color color, int x, int y);
+
+        /// <summary>
+        /// Sets multiple pixels with the specified color.
+        /// </summary>
+        /// <param name="color">Color.</param>
+        /// <param name="points">Points.</param>
+        void SetPixels(Color color, List<Point> points);
 
         /// <summary>
         /// Replaces all pixels with the specified color to be transparent.

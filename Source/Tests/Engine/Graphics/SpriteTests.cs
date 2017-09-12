@@ -91,7 +91,7 @@ namespace Tests
                 Mock<IGraphicsBackend> graphics = new Mock<IGraphicsBackend>();
                 DesktopBitmap ibitmap = new DesktopBitmap (bitmap, graphics.Object);
 				_mocks.Image().Setup(i => i.OriginalBitmap).Returns(ibitmap);
-				_mocks.MaskLoader().Setup(m => m.Load(ibitmap, false, null, null)).Returns(mask.Object);
+				_mocks.MaskLoader().Setup(m => m.Load(It.IsAny<string>(), ibitmap, false, null, null)).Returns(mask.Object);
 
 				sprite.Model.Image = _mocks.Image().Object;
 
@@ -108,13 +108,14 @@ namespace Tests
 			int count = 0;
 			foreach (var sprite in getPixelPerfectImplementors())
 			{
-				_mocks.MaskLoader().Setup(m => m.Load((IBitmap)null, false, null, null)).Returns((IMask)null);
+				Mock<IMask> mask = new Mock<IMask>();
+				_mocks.MaskLoader().Setup(m => m.Load(It.IsAny<string>(), (IBitmap)null, false, null, null)).Returns(mask.Object);
 				sprite.Model.Image = _mocks.Image().Object;
 
 				sprite.PixelPerfect.PixelPerfect(true);
 				count++;
 
-				_mocks.MaskLoader().Verify(m => m.Load((IBitmap)null, false, null, null), Times.Exactly(count));
+				_mocks.MaskLoader().Verify(m => m.Load(It.IsAny<string>(), (IBitmap)null, false, null, null), Times.Exactly(count));
 			}
 		}
 
@@ -133,7 +134,8 @@ namespace Tests
 		{
 			foreach (var sprite in getPixelPerfectImplementors())
 			{
-				_mocks.MaskLoader().Setup(m => m.Load((IBitmap)null, false, null, null)).Returns((IMask)null);                
+                Mock<IMask> mask = new Mock<IMask>();
+                _mocks.MaskLoader().Setup(m => m.Load(It.IsAny<string>(), (IBitmap)null, false, null, null)).Returns(mask.Object);
 				sprite.Model.Image = _mocks.Image().Object;
 
 				sprite.PixelPerfect.PixelPerfect(true);

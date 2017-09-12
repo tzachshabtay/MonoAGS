@@ -98,5 +98,37 @@ namespace AGS.API
             float y = MathUtils.Lerp(projectTop, virtualHeight, projectBottom, 0f, YWindow);
 			return y + viewport.Y;
         }
+
+        /// <summary>
+        /// Get the mouse position in a specific viewport coordinates, projected onto
+        /// a specific object's world. 
+        /// </summary>
+        /// <returns>The projected point.</returns>
+        /// <param name="viewport">Viewport.</param>
+        /// <param name="projectedInto">Projected into.</param>
+        public Vector2 GetProjectedPoint(IViewport viewport, IObject projectedInto)
+        {
+			var parent = projectedInto.TreeNode.Parent;
+            float x = GetViewportX(viewport);
+            float y = GetViewportY(viewport);
+			if (parent != null)
+			{
+                var boundingBoxes = parent.GetBoundingBoxes(viewport);
+				if (boundingBoxes != null && !boundingBoxes.RenderBox.IsInvalid)
+				{
+					x -= boundingBoxes.HitTestBox.MinX;
+					y -= boundingBoxes.HitTestBox.MinY;
+				}
+			}
+            var renderLayer = projectedInto.RenderLayer;
+			if (renderLayer != null && renderLayer.IndependentResolution != null)
+			{
+				float maxX = renderLayer.IndependentResolution.Value.Width;
+				float maxY = renderLayer.IndependentResolution.Value.Height;
+				x = MathUtils.Lerp(0f, 0f, VirtualResolution.Width, maxX, x);
+				y = MathUtils.Lerp(0f, 0f, VirtualResolution.Height, maxY, y);
+			}
+            return new Vector2(x, y);
+        }
     }
 }
