@@ -43,6 +43,11 @@ namespace AGS.Engine
 						else _roomTransitions.State = RoomTransitionState.InTransition;
 					}
 				}
+				else if (_roomTransitions.State == RoomTransitionState.InTransition)
+				{
+					runAnimations(_lastRoom);
+                    runAnimations(room);
+				}
 				return;
 			}
 
