@@ -40,8 +40,8 @@ namespace AGS.API
         /// Note that if the walk animation only has a single frame, then the engine will ignore the configuration
         /// and will treat it as false.
         /// 
-        /// How to decide if this should be on or off?
-        /// ------------------------------------------
+        /// ##### How to decide if this should be on or off?
+        /// 
         /// As a rule of thumb, if the character has legs you would want this on.
         /// If you turn this off (for a character which has legs) while the movement will look smoother, it
         /// will also cause a gliding effect, caused by the fact that the movement is not in sync with the animation
