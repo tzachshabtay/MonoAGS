@@ -1,11 +1,13 @@
-﻿namespace AGS.API
+﻿using System;
+
+namespace AGS.API
 {
     /// <summary>
     /// It might be that not all of the room is shown on the screen at once (for example, a scrolling room). 
     /// A viewport to the room instructs the engine on what parts of the room to show.
     /// </summary>
     /// <seealso cref="IRoom"/>
-    public interface IViewport
+    public interface IViewport : IDisposable
 	{
         /// <summary>
         /// The left location of the room from which to show the screen.
@@ -110,6 +112,12 @@
         /// </summary>
         /// <value>The on parent changed.</value>
         IEvent OnParentChanged { get; }
+
+        /// <summary>
+        /// An event which fires when (and if) a viewport is disposed.
+        /// </summary>
+        /// <value>The on disposed.</value>
+        IEvent OnDisposed { get; }
 
         /// <summary>
         /// Checks whether a given object should be visible in the viewport.

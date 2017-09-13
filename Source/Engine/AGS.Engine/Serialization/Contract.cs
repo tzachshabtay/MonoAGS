@@ -3,6 +3,7 @@ using ProtoBuf;
 using Autofac;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 
 namespace AGS.Engine
 {
@@ -41,7 +42,11 @@ namespace AGS.Engine
 
 		public TItem ToItem(AGSSerializationContext context)
 		{
-			if (_item != null) return _item;
+            if (_item != null)
+            {
+                if (!typeof(TItem).GetTypeInfo().IsValueType) return _item;
+                if (!_item.Equals(default(TItem))) return _item;
+            }
 			if (Item == null) _item = default(TItem);
 			else _item = Item.ToItem(context);
 			return _item;

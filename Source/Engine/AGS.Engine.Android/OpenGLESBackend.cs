@@ -10,7 +10,7 @@ namespace AGS.Engine
         private OpenTK.Matrix4 _ortho, _view;
         private IShader _activeShader;
         private int _activeTexture;
-        private Rectangle _lastViewport, _currentViewport;
+        private Rectangle _currentViewport;
 
         public void Init()
         {
@@ -104,13 +104,13 @@ namespace AGS.Engine
         }
         public void DeleteFrameBuffer(int frameBufferId) { GL.DeleteFramebuffer(frameBufferId); }
 
-        public void Viewport(int x, int y, int width, int height) 
+        public Rectangle Viewport(int x, int y, int width, int height) 
         {
-            _lastViewport = _currentViewport;
+            var lastViewport = _currentViewport;
             _currentViewport = new Rectangle(x, y, width, height);
-            GL.Viewport(x, y, width, height); 
+            GL.Viewport(x, y, width, height);
+            return lastViewport;
         }
-        public void UndoLastViewport() { Viewport(_lastViewport.X, _lastViewport.Y, _lastViewport.Width, _lastViewport.Height); }
         public void MatrixMode(MatrixType matrix) { /*GL.MatrixMode(getMatrixMode(matrix));*/ }
         public void LoadIdentity() { /*GL.LoadIdentity();*/ }
         public void Ortho(double left, double right, double bottom, double top, double zNear, double zFar)

@@ -56,7 +56,15 @@ namespace AGS.Engine
 
         public AGSBoundingBoxes GetBoundingBoxes(IViewport viewport)
 		{
-            var viewportBoxes = _boundingBoxes.GetOrAdd(viewport,_ => new ViewportBoundingBoxes(viewport));
+            var viewportBoxes = _boundingBoxes.GetOrAdd(viewport, _ =>
+             {
+                 viewport.OnDisposed.Subscribe(() =>
+                 {
+                     ViewportBoundingBoxes boxes;
+                     _boundingBoxes.TryRemove(viewport, out boxes);
+                 });
+                 return new ViewportBoundingBoxes(viewport);
+             });
             var boundingBoxes = viewportBoxes.BoundingBoxes;
             if (!_isHitTestBoxDirty && !_isCropDirty && !_areViewportsDirty && !viewportBoxes.IsDirty)
                 return boundingBoxes;

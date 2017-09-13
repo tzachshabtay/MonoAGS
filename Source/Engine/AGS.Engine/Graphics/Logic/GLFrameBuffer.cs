@@ -7,6 +7,7 @@ namespace AGS.Engine
 	{
 		private readonly int _fbo, _width, _height;
         private readonly IGraphicsBackend _graphics;
+        private Rectangle _lastViewport;
 
         public GLFrameBuffer(Size size, IGraphicsBackend graphics, IMessagePump messagePump)
 		{
@@ -29,14 +30,17 @@ namespace AGS.Engine
             _graphics.BindTexture2D(0);
             if (!_graphics.DrawFrameBuffer()) return false;
 
-            _graphics.Viewport(0, 0, _width, _height);
+            _lastViewport = _graphics.Viewport(0, 0, _width, _height);
 			return true;
 		}
 
 		public void End()
 		{
             _graphics.BindFrameBuffer(0);
-            _graphics.UndoLastViewport();
+            if (!_lastViewport.Equals(default(Rectangle)))
+            {
+                _graphics.Viewport(_lastViewport.X, _lastViewport.Y, _lastViewport.Width, _lastViewport.Height);
+            }
 		}
 
 		#region IDisposable implementation

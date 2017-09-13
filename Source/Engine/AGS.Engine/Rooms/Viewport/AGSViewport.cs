@@ -19,6 +19,7 @@ namespace AGS.Engine
             OnScaleChanged = new AGSEvent();
             OnAngleChanged = new AGSEvent();
             OnParentChanged = new AGSEvent();
+            OnDisposed = new AGSEvent();
             DisplayListSettings = displayListSettings;
             Interactive = true;
 		}
@@ -57,6 +58,7 @@ namespace AGS.Engine
         public IEvent OnAngleChanged { get; private set; }
         public IEvent OnProjectionBoxChanged { get; private set; }
         public IEvent OnParentChanged { get; private set; }
+        public IEvent OnDisposed { get; private set; }
         public IRoomProvider RoomProvider { get; set; }
         public IDisplayListSettings DisplayListSettings { get; set; }
 
@@ -64,6 +66,11 @@ namespace AGS.Engine
         {
             return obj.Visible && !DisplayListSettings.RestrictionList.IsRestricted(obj.ID)
                       && !DisplayListSettings.DepthClipping.IsObjectClipped(obj);
+        }
+
+        public void Dispose()
+        {
+            OnDisposed.Invoke();
         }
 
         #endregion

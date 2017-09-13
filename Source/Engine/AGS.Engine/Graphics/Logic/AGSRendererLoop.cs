@@ -22,6 +22,7 @@ namespace AGS.Engine
         private IShader _lastShaderUsed;
         private IObject _mouseCursorContainer;
         private List<IObject> _prevRoomDisplayList;
+        private IViewport _prevViewport;
 
 		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer,
             IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IGameWindow gameWindow,
@@ -58,7 +59,7 @@ namespace AGS.Engine
 			{
 				case RoomTransitionState.NotInTransition:
 					activateShader();
-					renderRoom(null);
+					renderRoom(null, null);
 					break;
 				case RoomTransitionState.BeforeLeavingRoom:
                     if (_roomTransitions.Transition == null)
@@ -75,7 +76,16 @@ namespace AGS.Engine
                         _displayList.GetDisplayList(_gameState.Viewport), 
                         obj => renderObject(_gameState.Viewport, obj)))
 					{
-                        if (_prevRoomDisplayList == null) _prevRoomDisplayList = _displayList.GetDisplayList(_gameState.Viewport);
+                        if (_prevRoomDisplayList == null)
+                        {
+                            var viewport = _gameState.Viewport;
+                            _prevRoomDisplayList = _displayList.GetDisplayList(viewport);
+                            TypedParameter viewportParam = new TypedParameter(typeof(IViewport), viewport);
+                            var cloner = _resolver.Container.Resolve<AGSCloner<IViewport>>(viewportParam);
+                            _prevViewport = cloner.Clone();
+                            _prevViewport.Camera = viewport.Camera;
+                            _prevViewport.RoomProvider = new AGSSingleRoomProvider(viewport.RoomProvider.Room);
+                        }
 						_roomTransitions.State = RoomTransitionState.PreparingTransition;
 						return false;
 					}
@@ -88,14 +98,17 @@ namespace AGS.Engine
                         _roomTransitions.State = RoomTransitionState.AfterEnteringRoom;
                         return false;
                     }
-                    var fromTransitionBuffer = renderToBuffer(_prevRoomDisplayList);
-					var toTransitionBuffer = renderToBuffer(null);
+                    var fromTransitionBuffer = renderToBuffer(_prevViewport, _prevRoomDisplayList);
+                    var toTransitionBuffer = renderToBuffer(null, null);
                     bool continueRendering = _roomTransitions.Transition.RenderTransition(fromTransitionBuffer, toTransitionBuffer);
                     _graphics.DeleteTexture(fromTransitionBuffer.Texture.ID);
                     _graphics.DeleteTexture(toTransitionBuffer.Texture.ID);
 					if (!continueRendering)
 					{
                         _prevRoomDisplayList = null;
+                        var prevViewport = _prevViewport;
+                        if (prevViewport != null) prevViewport.Dispose();
+                        _prevViewport = null;
 						_roomTransitions.State = RoomTransitionState.AfterEnteringRoom;
 						return false;
 					}
@@ -118,22 +131,22 @@ namespace AGS.Engine
 
 		#endregion
 
-        private IFrameBuffer renderToBuffer(List<IObject> alternativeDisplayList)
+        private IFrameBuffer renderToBuffer(IViewport alternativeViewport, List<IObject> alternativeDisplayList)
 		{
             TypedParameter sizeParam = new TypedParameter(typeof(Size), _game.Settings.WindowSize);
             IFrameBuffer frameBuffer = _resolver.Container.Resolve<IFrameBuffer>(sizeParam);
             using (frameBuffer)
             {
                 frameBuffer.Begin();
-                renderRoom(alternativeDisplayList);
+                renderRoom(alternativeViewport, alternativeDisplayList);
                 frameBuffer.End();
             }
 			return frameBuffer;
 		}
 
-        private void renderRoom(List<IObject> alternativeDisplayList)
+        private void renderRoom(IViewport alternativeViewport, List<IObject> alternativeDisplayList)
 		{
-            renderViewport(_gameState.Viewport, alternativeDisplayList);
+            renderViewport(alternativeViewport ?? _gameState.Viewport, alternativeDisplayList);
             try
             {
                 foreach (var secondaryViewport in _gameState.SecondaryViewports)

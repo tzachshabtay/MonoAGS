@@ -7,7 +7,7 @@ namespace AGS.Engine
 {
     public class OpenGLBackend : IGraphicsBackend
     {
-        private Rectangle _lastViewport, _currentViewport;
+        private Rectangle _currentViewport;
 
         public void Init()
         {
@@ -85,8 +85,7 @@ namespace AGS.Engine
         }
         public void DeleteFrameBuffer(int frameBufferId) { GL.DeleteFramebuffer(frameBufferId); }
 
-        public void Viewport(int x, int y, int width, int height) { _lastViewport = _currentViewport; _currentViewport = new Rectangle(x, y, width, height); GL.Viewport(x, y, width, height); }
-        public void UndoLastViewport() { Viewport(_lastViewport.X, _lastViewport.Y, _lastViewport.Width, _lastViewport.Height);}
+        public Rectangle Viewport(int x, int y, int width, int height) { var lastViewport = _currentViewport; _currentViewport = new Rectangle(x, y, width, height); GL.Viewport(x, y, width, height); return lastViewport; }
         public void MatrixMode(MatrixType matrix) { GL.MatrixMode(getMatrixMode(matrix)); }
         public void LoadIdentity() { GL.LoadIdentity(); }
         public void Ortho(double left, double right, double bottom, double top, double zNear, double zFar)
