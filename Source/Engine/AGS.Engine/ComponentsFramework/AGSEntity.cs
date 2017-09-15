@@ -67,11 +67,11 @@ namespace AGS.Engine
             return existingComponent;
         }
 
-        public bool AddComponent<TComponent>(TComponent component) where TComponent : IComponent
+        public bool AddComponent(IComponent component)
         {
 			var components = _components;
             if (components == null) return false;
-            AGSConcurrentHashSet<IComponent> ofType = components.GetOrAdd(typeof(TComponent), _ => new AGSConcurrentHashSet<IComponent>());
+            AGSConcurrentHashSet<IComponent> ofType = components.GetOrAdd(component.GetType(), _ => new AGSConcurrentHashSet<IComponent>());
             IComponent existingComponent = ofType.FirstOrDefault();
             if (existingComponent == null || existingComponent.AllowMultiple)
             {

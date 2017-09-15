@@ -27,8 +27,7 @@ namespace AGS.API
         /// </summary>
         /// <returns><c>true</c>, if component was added, <c>false</c> otherwise (if a component with this type already exists, and only one component of this type is allowed).</returns>
         /// <param name="component">Component.</param>
-        /// <typeparam name="TComponent">The component type.</typeparam>
-		bool AddComponent<TComponent> (TComponent component) where TComponent : IComponent;
+		bool AddComponent(IComponent component);
 
         /// <summary>
         /// Removes all components with the specified type.
