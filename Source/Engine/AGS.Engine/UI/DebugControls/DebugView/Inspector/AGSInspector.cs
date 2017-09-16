@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AGS.API;
@@ -45,6 +46,7 @@ namespace AGS.Engine
             foreach (var prop in props)
             {
                 var attr = prop.GetCustomAttribute<PropertyAttribute>();
+                if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IEvent", StringComparison.Ordinal)) continue; //filtering all events from the inspector by default
                 Category cat = defaultCategory;
                 string name = prop.Name;
                 if (attr != null)
