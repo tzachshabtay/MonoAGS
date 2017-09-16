@@ -14,7 +14,7 @@ namespace AGS.Engine
 
 		#region IComponent implementation
 
-		public virtual string Name { get { return _type.Name; } }
+        public virtual string Name { get { return friendlyName(); } }
 
 		public virtual void Init(IEntity entity) {}
         public virtual void AfterInit() { }
@@ -28,6 +28,15 @@ namespace AGS.Engine
 		}
 
 		#endregion
+
+        private string friendlyName()
+        {
+            return _type.Name
+                        .Replace("AGS", "")
+                        .Replace("Component", "")
+                        .Replace("Behavior", "")
+                        .Replace("Property", "");
+        }
 	}
 }
 
