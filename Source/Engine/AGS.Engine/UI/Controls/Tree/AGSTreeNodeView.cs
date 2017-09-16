@@ -13,7 +13,7 @@ namespace AGS.Engine
             HorizontalPanel = horizontalPanel;
         }
 
-        public ILabel TreeItem { get; private set; }
+        public IUIControl TreeItem { get; private set; }
 
         public IButton ExpandButton { get; private set; }
 
