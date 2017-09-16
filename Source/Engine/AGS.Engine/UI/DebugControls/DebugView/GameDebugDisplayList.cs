@@ -8,7 +8,7 @@ namespace AGS.Engine
     {
         private List<IObject> _lastDisplayList;
         private IListboxComponent _listBox;
-        private IPanel _listPanel;
+        private IPanel _listPanel, _scrollingPanel;
         private IStackLayoutComponent _layout;
         private readonly IRenderLayer _layer;
         private readonly IGame _game;
@@ -23,8 +23,14 @@ namespace AGS.Engine
         public void Load(IPanel parent)
         {
             var factory = _game.Factory;
-            _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, parent.Height - 10, parent);
-            _listPanel.Visible = false;
+			_scrollingPanel = factory.UI.GetPanel("GameDebugDisplayListScrollingPanel", parent.Width, (3f / 4f) * parent.Height, 0f, parent.Height, parent);
+			_scrollingPanel.RenderLayer = _layer;
+			_scrollingPanel.Anchor = new PointF(0f, 1f);
+			_scrollingPanel.Tint = Colors.Transparent;
+			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
+            _scrollingPanel.Visible = false;
+
+            _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, _scrollingPanel.Height - 10, _scrollingPanel);
             _listPanel.Tint = Colors.Transparent;
             _listPanel.RenderLayer = _layer;
             _listPanel.Anchor = new PointF(0f, 1f);
@@ -43,18 +49,19 @@ namespace AGS.Engine
                 button.RenderLayer = parent.RenderLayer;
                 return button;
             };
+            factory.UI.CreateScollingPanel(_scrollingPanel);
         }
 
         public async Task Show()
         {
             await Task.Run(() => refresh());
             _layout.StartLayout();
-            _listPanel.Visible = true;
+            _scrollingPanel.Visible = true;
         }
 
         public void Hide()
         {
-            _listPanel.Visible = false;
+            _scrollingPanel.Visible = false;
             _layout.StopLayout();
             _listBox.Items.Clear();
         }

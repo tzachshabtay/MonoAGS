@@ -76,8 +76,6 @@ namespace AGS.Engine
             parentPanel.Tint = Colors.Transparent;
             parentPanel.RenderLayer = _layer;
 
-            factory.UI.CreateScollingPanel(parentPanel);
-
             _debugTree.Load(parentPanel);
             _displayList.Load(parentPanel);
             _inspector.Load(parentPanel);

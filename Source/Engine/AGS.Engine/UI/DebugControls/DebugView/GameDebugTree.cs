@@ -11,7 +11,7 @@ namespace AGS.Engine
         private readonly IGame _game;
         private readonly IConcurrentHashSet<string> _addedObjects;
         private readonly InspectorPanel _inspector;
-        private IPanel _treePanel;
+        private IPanel _treePanel, _scrollingPanel;
 
         private IAnimationContainer _lastSelectedObject;
         private IVisibleComponent _lastSelectedMaskVisible;
@@ -32,22 +32,28 @@ namespace AGS.Engine
         {
             _panelId = parent.TreeNode.GetRoot().ID;
             var factory = _game.Factory;
-            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, parent.Height - 40, parent);
+            _scrollingPanel = factory.UI.GetPanel("GameDebugTreeScrollingPanel", parent.Width, (3f / 4f) * parent.Height, 0f, parent.Height, parent);
+            _scrollingPanel.RenderLayer = _layer;
+            _scrollingPanel.Anchor = new PointF(0f, 1f);
+            _scrollingPanel.Tint = Colors.Transparent;
+            _scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
+            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, _scrollingPanel.Height - 40, _scrollingPanel);
             _treePanel.Tint = Colors.Transparent;
             _treePanel.RenderLayer = _layer;
             _treeView = _treePanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
+            factory.UI.CreateScollingPanel(_scrollingPanel);
         }
 
         public async Task Show()
         {
             await Task.Run(() => refresh());
-            _treePanel.Visible = true;
+            _scrollingPanel.Visible = true;
         }
 
         public void Hide()
         {
-	        _treePanel.Visible = false;
+	        _scrollingPanel.Visible = false;
             _treeView.Tree = null;
         }
 

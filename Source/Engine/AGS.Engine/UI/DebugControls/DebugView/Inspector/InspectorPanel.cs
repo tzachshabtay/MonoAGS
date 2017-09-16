@@ -6,7 +6,7 @@ namespace AGS.Engine
     {
 		private readonly IRenderLayer _layer;
 		private readonly IGame _game;
-        private IPanel _panel;
+        private IPanel _panel, _scrollingPanel;
 
         public InspectorPanel(IGame game, IRenderLayer layer)
         {
@@ -20,12 +20,20 @@ namespace AGS.Engine
         {
 			var factory = _game.Factory;
             var height = parent.Height / 4f;
-            _panel = factory.UI.GetPanel("GameDebugInspectorPanel", parent.Width, height, 0f, height, parent);
+            _scrollingPanel = factory.UI.GetPanel("GameDebugInspectorScrollingPanel", parent.Width, height, 0f, height, parent);
+			_scrollingPanel.RenderLayer = _layer;
+			_scrollingPanel.Anchor = new PointF(0f, 1f);
+			_scrollingPanel.Tint = Colors.Transparent;
+			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
+
+            _panel = factory.UI.GetPanel("GameDebugInspectorPanel", parent.Width, height - 40f, 0f, height - 40f, _scrollingPanel);
 			_panel.Tint = Colors.Transparent;
 			_panel.RenderLayer = _layer;
 			_panel.AddComponent<ITreeViewComponent>();
+
             Inspector = new AGSInspector();
             _panel.AddComponent(Inspector);
+            factory.UI.CreateScollingPanel(_scrollingPanel);
         }
     }
 }
