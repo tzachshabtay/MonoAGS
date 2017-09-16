@@ -107,7 +107,7 @@ namespace AGS.Engine
 
         private void removeCrop(IObject obj)
         {
-            obj.RemoveComponents<ICropSelfComponent>();
+            obj.RemoveComponent<ICropSelfComponent>();
             foreach (var child in obj.TreeNode.Children)
             {
                 removeCrop(child);

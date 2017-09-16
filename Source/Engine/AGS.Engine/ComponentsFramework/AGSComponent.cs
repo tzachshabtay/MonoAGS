@@ -16,8 +16,6 @@ namespace AGS.Engine
 
 		public virtual string Name { get { return _type.Name; } }
 
-		public virtual bool AllowMultiple { get { return false; } }
-
 		public virtual void Init(IEntity entity) {}
         public virtual void AfterInit() { }
 

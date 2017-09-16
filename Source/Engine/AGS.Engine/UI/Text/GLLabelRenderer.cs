@@ -109,7 +109,7 @@ namespace AGS.Engine
             {
                 AGSBoundingBoxComponent box = new AGSBoundingBoxComponent(_settings, _viewport, 
                                                                           _labelBoundingBoxFakeBuilder, _state, _events);
-                obj.RemoveComponents<IBoundingBoxComponent>();
+                obj.RemoveComponent<IBoundingBoxComponent>();
                 obj.AddComponent(box);
                 _lastObject = obj;
             }
