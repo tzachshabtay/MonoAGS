@@ -44,8 +44,17 @@ namespace AGS.Engine
             var props = obj.GetType().GetRuntimeProperties().ToList();
             foreach (var prop in props)
             {
-                Property property = new Property(obj, prop);
-                _props.GetOrAdd(defaultCategory, () => new List<Property>(props.Count)).Add(property);
+                var attr = prop.GetCustomAttribute<PropertyAttribute>();
+                Category cat = defaultCategory;
+                string name = prop.Name;
+                if (attr != null)
+                {
+                    if (!attr.Browsable) continue;
+                    if (attr.Category != null) cat = new Category(attr.Category);
+                    if (attr.DisplayName != null) name = attr.DisplayName;
+                }
+                Property property = new Property(obj, name, prop);
+                _props.GetOrAdd(cat, () => new List<Property>(props.Count)).Add(property);
             }
         }
 
@@ -63,7 +72,7 @@ namespace AGS.Engine
             var root = new AGSTreeStringNode();
             foreach (var pair in _props)
             {
-                var cat = addToTree(pair.Key.Name, root);
+                ITreeStringNode cat = addToTree(pair.Key.Name, root);
                 foreach (var prop in pair.Value)
                 {
                     addToTree(string.Format("{0}: {1}", prop.Name, prop.Value), cat);
@@ -91,10 +100,10 @@ namespace AGS.Engine
 
         private class Property
         {
-            public Property(object obj, PropertyInfo prop)
+            public Property(object obj, string name, PropertyInfo prop)
             {
                 Prop = prop;
-                Name = prop.Name;
+                Name = name;
                 Object = obj;
                 Refresh();
             }

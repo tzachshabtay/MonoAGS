@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using AGS.API;
 
 namespace AGS.Engine
@@ -14,6 +15,7 @@ namespace AGS.Engine
 
 		#region IComponent implementation
 
+        [Property(Browsable = false)]
         public virtual string Name { get { return friendlyName(); } }
 
 		public virtual void Init(IEntity entity) {}
