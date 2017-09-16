@@ -75,42 +75,8 @@ namespace AGS.Engine
             parentPanel.Anchor = new PointF(0f, 1f);
             parentPanel.Tint = Colors.Transparent;
             parentPanel.RenderLayer = _layer;
-            parentPanel.AddComponent<ICropChildrenComponent>();
-            parentPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
-            IScrollingComponent scroll = parentPanel.AddComponent<IScrollingComponent>();
-            var horizSlider = factory.UI.GetSlider("DebugPanel_HorizSlider", null, null, 0f, 0f, 0f, parentPanel);
-            horizSlider.X = 20f;
-            horizSlider.Y = 20f;
-			horizSlider.RenderLayer = _layer;
-			horizSlider.Graphics.RenderLayer = _layer;
-			horizSlider.HandleGraphics.RenderLayer = _layer;
-            horizSlider.HandleGraphics.Anchor = new PointF(0f, 0.5f);
-			horizSlider.IsHorizontal = true;
-            horizSlider.Graphics.Anchor = new PointF(0f, 0.5f);
-            horizSlider.Graphics.Image = new EmptyImage(parentPanel.Width - 40f, 10f);
-            horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
-            horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
-            addHoverEffect(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
-            addHoverEffect(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
-            scroll.HorizontalScrollBar = horizSlider;
-
-			var verSlider = factory.UI.GetSlider("DebugPanel_VerticalSlider", null, null, 0f, 0f, 0f, parentPanel);
-            verSlider.X = parentPanel.Width - 20f;
-			verSlider.Y = 40f;
-			verSlider.RenderLayer = _layer;
-			verSlider.Graphics.RenderLayer = _layer;
-			verSlider.HandleGraphics.RenderLayer = _layer;
-			verSlider.HandleGraphics.Anchor = new PointF(0.5f, 0f);
-            verSlider.IsHorizontal = false;
-			verSlider.Graphics.Anchor = new PointF(0.5f, 0f);
-            verSlider.Graphics.Image = new EmptyImage(10f, parentPanel.Height - 80f);
-			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
-			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
-			addHoverEffect(verSlider.Graphics, Colors.Gray, Colors.LightGray);
-			addHoverEffect(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
-
-            scroll.VerticalScrollBar = verSlider;
+            factory.UI.CreateScollingPanel(parentPanel);
 
             _debugTree.Load(parentPanel);
             _displayList.Load(parentPanel);
@@ -136,14 +102,6 @@ namespace AGS.Engine
             _currentTab = (_currentTab == _debugTree) ? (IDebugTab)_displayList : _debugTree;
             _panesButton.Text = _currentTab == _debugTree ? "Display List" : "Scene Tree";
             return _currentTab.Show();
-        }
-
-        private void addHoverEffect(IObject obj, Color idleTint, Color hoverTint)
-        {
-            obj.Tint = idleTint;
-            var uiEvents = obj.AddComponent<IUIEvents>();
-            uiEvents.MouseEnter.Subscribe(_ => obj.Tint = hoverTint);
-            uiEvents.MouseLeave.Subscribe(_ => obj.Tint = idleTint);
         }
     }
 }
