@@ -11,6 +11,7 @@ namespace AGS.Engine
         private readonly IGame _game;
         private readonly GameDebugTree _debugTree;
         private readonly GameDebugDisplayList _displayList;
+        private readonly InspectorPanel _inspector;
         private const string _panelId = "Game Debug Tree Panel";
         private IPanel _panel;
         private IDebugTab _currentTab;
@@ -20,7 +21,8 @@ namespace AGS.Engine
         {
             _game = game;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: new Size(1800, 1200));
-            _debugTree = new GameDebugTree(game, _layer);
+            _inspector = new InspectorPanel(game, _layer);
+            _debugTree = new GameDebugTree(game, _layer, _inspector);
             _displayList = new GameDebugDisplayList(game, _layer);
         }
 
@@ -112,6 +114,7 @@ namespace AGS.Engine
 
             _debugTree.Load(parentPanel);
             _displayList.Load(parentPanel);
+            _inspector.Load(parentPanel);
             _currentTab = _debugTree;
         }
 

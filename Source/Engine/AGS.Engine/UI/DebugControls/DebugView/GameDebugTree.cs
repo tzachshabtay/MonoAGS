@@ -10,6 +10,7 @@ namespace AGS.Engine
         private ITreeViewComponent _treeView;
         private readonly IGame _game;
         private readonly IConcurrentHashSet<string> _addedObjects;
+        private readonly InspectorPanel _inspector;
         private IPanel _treePanel;
 
         private IAnimationContainer _lastSelectedObject;
@@ -19,9 +20,10 @@ namespace AGS.Engine
         private bool _lastMaskVisible;
         private byte _lastOpacity;
 
-        public GameDebugTree(IGame game, IRenderLayer layer)
+        public GameDebugTree(IGame game, IRenderLayer layer, InspectorPanel inspector)
         {
             _game = game;
+            _inspector = inspector;
             _addedObjects = new AGSConcurrentHashSet<string>(100, false);
             _layer = layer;
         }
@@ -68,6 +70,7 @@ namespace AGS.Engine
         private void selectObject(ITreeStringNode node)
         { 
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
+            _inspector.Inspector.Show(obj);
             var animation = obj.GetComponent<IAnimationContainer>();
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
@@ -99,6 +102,7 @@ namespace AGS.Engine
         private void selectArea(ITreeStringNode node)
         { 
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
+            _inspector.Inspector.Show(obj);
             var area = obj.GetComponent<IAreaComponent>();
             var debugMask = area.Mask.DebugDraw;
             if (debugMask != null)

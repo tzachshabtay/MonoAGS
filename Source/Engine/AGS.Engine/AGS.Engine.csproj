@@ -416,6 +416,8 @@
     <Compile Include="Serialization\Contracts\ContractRestrictionList.cs" />
     <Compile Include="Serialization\Contracts\ContractDepthClipping.cs" />
     <Compile Include="Serialization\Contracts\ContractClippingPlane.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\AGSInspector.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorPanel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -500,5 +502,6 @@
   <ItemGroup />
   <ItemGroup>
     <Folder Include="Graphics\Logic\DisplayList\" />
+    <Folder Include="UI\DebugControls\DebugView\Inspector\" />
   </ItemGroup>
 </Project>
