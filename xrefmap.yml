@@ -4432,18 +4432,6 @@ references:
   commentId: Overload:AGS.API.IComponent.AfterInit
   fullName: AGS.API.IComponent.AfterInit
   nameWithType: IComponent.AfterInit
-- uid: AGS.API.IComponent.AllowMultiple
-  name: AllowMultiple
-  href: api/AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple
-  commentId: P:AGS.API.IComponent.AllowMultiple
-  fullName: AGS.API.IComponent.AllowMultiple
-  nameWithType: IComponent.AllowMultiple
-- uid: AGS.API.IComponent.AllowMultiple*
-  name: AllowMultiple
-  href: api/AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple_
-  commentId: Overload:AGS.API.IComponent.AllowMultiple
-  fullName: AGS.API.IComponent.AllowMultiple
-  nameWithType: IComponent.AllowMultiple
 - uid: AGS.API.IComponent.Init(AGS.API.IEntity)
   name: Init(IEntity)
   href: api/AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_
@@ -4492,6 +4480,12 @@ references:
   commentId: T:AGS.API.IComponentsCollection
   fullName: AGS.API.IComponentsCollection
   nameWithType: IComponentsCollection
+- uid: AGS.API.IComponentsCollection.AddComponent(AGS.API.IComponent)
+  name: AddComponent(IComponent)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_AGS_API_IComponent_
+  commentId: M:AGS.API.IComponentsCollection.AddComponent(AGS.API.IComponent)
+  fullName: AGS.API.IComponentsCollection.AddComponent(AGS.API.IComponent)
+  nameWithType: IComponentsCollection.AddComponent(IComponent)
 - uid: AGS.API.IComponentsCollection.AddComponent(Type)
   name: AddComponent(Type)
   href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_Type_
@@ -4513,15 +4507,6 @@ references:
   fullName.vb: AGS.API.IComponentsCollection.AddComponent(Of TComponent)()
   nameWithType: IComponentsCollection.AddComponent<TComponent>()
   nameWithType.vb: IComponentsCollection.AddComponent(Of TComponent)()
-- uid: AGS.API.IComponentsCollection.AddComponent``1(``0)
-  name: AddComponent<TComponent>(TComponent)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent__1___0_
-  commentId: M:AGS.API.IComponentsCollection.AddComponent``1(``0)
-  name.vb: AddComponent(Of TComponent)(TComponent)
-  fullName: AGS.API.IComponentsCollection.AddComponent<TComponent>(TComponent)
-  fullName.vb: AGS.API.IComponentsCollection.AddComponent(Of TComponent)(TComponent)
-  nameWithType: IComponentsCollection.AddComponent<TComponent>(TComponent)
-  nameWithType.vb: IComponentsCollection.AddComponent(Of TComponent)(TComponent)
 - uid: AGS.API.IComponentsCollection.Bind*
   name: Bind
   href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind_
@@ -4549,27 +4534,6 @@ references:
   commentId: Overload:AGS.API.IComponentsCollection.Count
   fullName: AGS.API.IComponentsCollection.Count
   nameWithType: IComponentsCollection.Count
-- uid: AGS.API.IComponentsCollection.CountType(Type)
-  name: CountType(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_CountType_Type_
-  commentId: M:AGS.API.IComponentsCollection.CountType(Type)
-  fullName: AGS.API.IComponentsCollection.CountType(Type)
-  nameWithType: IComponentsCollection.CountType(Type)
-- uid: AGS.API.IComponentsCollection.CountType*
-  name: CountType
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_CountType_
-  commentId: Overload:AGS.API.IComponentsCollection.CountType
-  fullName: AGS.API.IComponentsCollection.CountType
-  nameWithType: IComponentsCollection.CountType
-- uid: AGS.API.IComponentsCollection.CountType``1
-  name: CountType<TComponent>()
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_CountType__1
-  commentId: M:AGS.API.IComponentsCollection.CountType``1
-  name.vb: CountType(Of TComponent)()
-  fullName: AGS.API.IComponentsCollection.CountType<TComponent>()
-  fullName.vb: AGS.API.IComponentsCollection.CountType(Of TComponent)()
-  nameWithType: IComponentsCollection.CountType<TComponent>()
-  nameWithType.vb: IComponentsCollection.CountType(Of TComponent)()
 - uid: AGS.API.IComponentsCollection.GetComponent(Type)
   name: GetComponent(Type)
   href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_Type_
@@ -4591,27 +4555,6 @@ references:
   fullName.vb: AGS.API.IComponentsCollection.GetComponent(Of TComponent)()
   nameWithType: IComponentsCollection.GetComponent<TComponent>()
   nameWithType.vb: IComponentsCollection.GetComponent(Of TComponent)()
-- uid: AGS.API.IComponentsCollection.GetComponents(Type)
-  name: GetComponents(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponents_Type_
-  commentId: M:AGS.API.IComponentsCollection.GetComponents(Type)
-  fullName: AGS.API.IComponentsCollection.GetComponents(Type)
-  nameWithType: IComponentsCollection.GetComponents(Type)
-- uid: AGS.API.IComponentsCollection.GetComponents*
-  name: GetComponents
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponents_
-  commentId: Overload:AGS.API.IComponentsCollection.GetComponents
-  fullName: AGS.API.IComponentsCollection.GetComponents
-  nameWithType: IComponentsCollection.GetComponents
-- uid: AGS.API.IComponentsCollection.GetComponents``1
-  name: GetComponents<TComponent>()
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponents__1
-  commentId: M:AGS.API.IComponentsCollection.GetComponents``1
-  name.vb: GetComponents(Of TComponent)()
-  fullName: AGS.API.IComponentsCollection.GetComponents<TComponent>()
-  fullName.vb: AGS.API.IComponentsCollection.GetComponents(Of TComponent)()
-  nameWithType: IComponentsCollection.GetComponents<TComponent>()
-  nameWithType.vb: IComponentsCollection.GetComponents(Of TComponent)()
 - uid: AGS.API.IComponentsCollection.HasComponent(AGS.API.IComponent)
   name: HasComponent(IComponent)
   href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_AGS_API_IComponent_
@@ -4669,33 +4612,27 @@ references:
   commentId: M:AGS.API.IComponentsCollection.RemoveComponent(AGS.API.IComponent)
   fullName: AGS.API.IComponentsCollection.RemoveComponent(AGS.API.IComponent)
   nameWithType: IComponentsCollection.RemoveComponent(IComponent)
+- uid: AGS.API.IComponentsCollection.RemoveComponent(Type)
+  name: RemoveComponent(Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_Type_
+  commentId: M:AGS.API.IComponentsCollection.RemoveComponent(Type)
+  fullName: AGS.API.IComponentsCollection.RemoveComponent(Type)
+  nameWithType: IComponentsCollection.RemoveComponent(Type)
 - uid: AGS.API.IComponentsCollection.RemoveComponent*
   name: RemoveComponent
   href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_
   commentId: Overload:AGS.API.IComponentsCollection.RemoveComponent
   fullName: AGS.API.IComponentsCollection.RemoveComponent
   nameWithType: IComponentsCollection.RemoveComponent
-- uid: AGS.API.IComponentsCollection.RemoveComponents(Type)
-  name: RemoveComponents(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponents_Type_
-  commentId: M:AGS.API.IComponentsCollection.RemoveComponents(Type)
-  fullName: AGS.API.IComponentsCollection.RemoveComponents(Type)
-  nameWithType: IComponentsCollection.RemoveComponents(Type)
-- uid: AGS.API.IComponentsCollection.RemoveComponents*
-  name: RemoveComponents
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponents_
-  commentId: Overload:AGS.API.IComponentsCollection.RemoveComponents
-  fullName: AGS.API.IComponentsCollection.RemoveComponents
-  nameWithType: IComponentsCollection.RemoveComponents
-- uid: AGS.API.IComponentsCollection.RemoveComponents``1
-  name: RemoveComponents<TComponent>()
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponents__1
-  commentId: M:AGS.API.IComponentsCollection.RemoveComponents``1
-  name.vb: RemoveComponents(Of TComponent)()
-  fullName: AGS.API.IComponentsCollection.RemoveComponents<TComponent>()
-  fullName.vb: AGS.API.IComponentsCollection.RemoveComponents(Of TComponent)()
-  nameWithType: IComponentsCollection.RemoveComponents<TComponent>()
-  nameWithType.vb: IComponentsCollection.RemoveComponents(Of TComponent)()
+- uid: AGS.API.IComponentsCollection.RemoveComponent``1
+  name: RemoveComponent<TComponent>()
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent__1
+  commentId: M:AGS.API.IComponentsCollection.RemoveComponent``1
+  name.vb: RemoveComponent(Of TComponent)()
+  fullName: AGS.API.IComponentsCollection.RemoveComponent<TComponent>()
+  fullName.vb: AGS.API.IComponentsCollection.RemoveComponent(Of TComponent)()
+  nameWithType: IComponentsCollection.RemoveComponent<TComponent>()
+  nameWithType.vb: IComponentsCollection.RemoveComponent(Of TComponent)()
 - uid: AGS.API.IConcurrentHashSet`1
   name: IConcurrentHashSet<TItem>
   href: api/AGS.API.IConcurrentHashSet-1.html
@@ -11761,6 +11698,48 @@ references:
   commentId: Overload:AGS.API.ISpeechLine.Text
   fullName: AGS.API.ISpeechLine.Text
   nameWithType: ISpeechLine.Text
+- uid: AGS.API.ISplitPanelComponent
+  name: ISplitPanelComponent
+  href: api/AGS.API.ISplitPanelComponent.html
+  commentId: T:AGS.API.ISplitPanelComponent
+  fullName: AGS.API.ISplitPanelComponent
+  nameWithType: ISplitPanelComponent
+- uid: AGS.API.ISplitPanelComponent.BottomPanel
+  name: BottomPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_BottomPanel
+  commentId: P:AGS.API.ISplitPanelComponent.BottomPanel
+  fullName: AGS.API.ISplitPanelComponent.BottomPanel
+  nameWithType: ISplitPanelComponent.BottomPanel
+- uid: AGS.API.ISplitPanelComponent.BottomPanel*
+  name: BottomPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_BottomPanel_
+  commentId: Overload:AGS.API.ISplitPanelComponent.BottomPanel
+  fullName: AGS.API.ISplitPanelComponent.BottomPanel
+  nameWithType: ISplitPanelComponent.BottomPanel
+- uid: AGS.API.ISplitPanelComponent.IsHorizontal
+  name: IsHorizontal
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_IsHorizontal
+  commentId: P:AGS.API.ISplitPanelComponent.IsHorizontal
+  fullName: AGS.API.ISplitPanelComponent.IsHorizontal
+  nameWithType: ISplitPanelComponent.IsHorizontal
+- uid: AGS.API.ISplitPanelComponent.IsHorizontal*
+  name: IsHorizontal
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_IsHorizontal_
+  commentId: Overload:AGS.API.ISplitPanelComponent.IsHorizontal
+  fullName: AGS.API.ISplitPanelComponent.IsHorizontal
+  nameWithType: ISplitPanelComponent.IsHorizontal
+- uid: AGS.API.ISplitPanelComponent.TopPanel
+  name: TopPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_TopPanel
+  commentId: P:AGS.API.ISplitPanelComponent.TopPanel
+  fullName: AGS.API.ISplitPanelComponent.TopPanel
+  nameWithType: ISplitPanelComponent.TopPanel
+- uid: AGS.API.ISplitPanelComponent.TopPanel*
+  name: TopPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_TopPanel_
+  commentId: Overload:AGS.API.ISplitPanelComponent.TopPanel
+  fullName: AGS.API.ISplitPanelComponent.TopPanel
+  nameWithType: ISplitPanelComponent.TopPanel
 - uid: AGS.API.ISprite
   name: ISprite
   href: api/AGS.API.ISprite.html
@@ -12968,6 +12947,18 @@ references:
   commentId: T:AGS.API.IUIFactory
   fullName: AGS.API.IUIFactory
   nameWithType: IUIFactory
+- uid: AGS.API.IUIFactory.CreateScollingPanel(AGS.API.IPanel)
+  name: CreateScollingPanel(IPanel)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScollingPanel_AGS_API_IPanel_
+  commentId: M:AGS.API.IUIFactory.CreateScollingPanel(AGS.API.IPanel)
+  fullName: AGS.API.IUIFactory.CreateScollingPanel(AGS.API.IPanel)
+  nameWithType: IUIFactory.CreateScollingPanel(IPanel)
+- uid: AGS.API.IUIFactory.CreateScollingPanel*
+  name: CreateScollingPanel
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScollingPanel_
+  commentId: Overload:AGS.API.IUIFactory.CreateScollingPanel
+  fullName: AGS.API.IUIFactory.CreateScollingPanel
+  nameWithType: IUIFactory.CreateScollingPanel
 - uid: AGS.API.IUIFactory.GetButton(System.String,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
   name: GetButton(String, ButtonAnimation, ButtonAnimation, ButtonAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetButton_System_String_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_
@@ -17339,6 +17330,72 @@ references:
   commentId: F:AGS.API.PortraitPositioning.SpeakerPosition
   fullName: AGS.API.PortraitPositioning.SpeakerPosition
   nameWithType: PortraitPositioning.SpeakerPosition
+- uid: AGS.API.PropertyAttribute
+  name: PropertyAttribute
+  href: api/AGS.API.PropertyAttribute.html
+  commentId: T:AGS.API.PropertyAttribute
+  fullName: AGS.API.PropertyAttribute
+  nameWithType: PropertyAttribute
+- uid: AGS.API.PropertyAttribute.#ctor
+  name: PropertyAttribute()
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute__ctor
+  commentId: M:AGS.API.PropertyAttribute.#ctor
+  fullName: AGS.API.PropertyAttribute.PropertyAttribute()
+  nameWithType: PropertyAttribute.PropertyAttribute()
+- uid: AGS.API.PropertyAttribute.#ctor*
+  name: PropertyAttribute
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute__ctor_
+  commentId: Overload:AGS.API.PropertyAttribute.#ctor
+  fullName: AGS.API.PropertyAttribute.PropertyAttribute
+  nameWithType: PropertyAttribute.PropertyAttribute
+- uid: AGS.API.PropertyAttribute.Browsable
+  name: Browsable
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_Browsable
+  commentId: P:AGS.API.PropertyAttribute.Browsable
+  fullName: AGS.API.PropertyAttribute.Browsable
+  nameWithType: PropertyAttribute.Browsable
+- uid: AGS.API.PropertyAttribute.Browsable*
+  name: Browsable
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_Browsable_
+  commentId: Overload:AGS.API.PropertyAttribute.Browsable
+  fullName: AGS.API.PropertyAttribute.Browsable
+  nameWithType: PropertyAttribute.Browsable
+- uid: AGS.API.PropertyAttribute.Category
+  name: Category
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_Category
+  commentId: P:AGS.API.PropertyAttribute.Category
+  fullName: AGS.API.PropertyAttribute.Category
+  nameWithType: PropertyAttribute.Category
+- uid: AGS.API.PropertyAttribute.Category*
+  name: Category
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_Category_
+  commentId: Overload:AGS.API.PropertyAttribute.Category
+  fullName: AGS.API.PropertyAttribute.Category
+  nameWithType: PropertyAttribute.Category
+- uid: AGS.API.PropertyAttribute.Description
+  name: Description
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_Description
+  commentId: P:AGS.API.PropertyAttribute.Description
+  fullName: AGS.API.PropertyAttribute.Description
+  nameWithType: PropertyAttribute.Description
+- uid: AGS.API.PropertyAttribute.Description*
+  name: Description
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_Description_
+  commentId: Overload:AGS.API.PropertyAttribute.Description
+  fullName: AGS.API.PropertyAttribute.Description
+  nameWithType: PropertyAttribute.Description
+- uid: AGS.API.PropertyAttribute.DisplayName
+  name: DisplayName
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_DisplayName
+  commentId: P:AGS.API.PropertyAttribute.DisplayName
+  fullName: AGS.API.PropertyAttribute.DisplayName
+  nameWithType: PropertyAttribute.DisplayName
+- uid: AGS.API.PropertyAttribute.DisplayName*
+  name: DisplayName
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_DisplayName_
+  commentId: Overload:AGS.API.PropertyAttribute.DisplayName
+  fullName: AGS.API.PropertyAttribute.DisplayName
+  nameWithType: PropertyAttribute.DisplayName
 - uid: AGS.API.Quaternion
   name: Quaternion
   href: api/AGS.API.Quaternion.html
@@ -17972,6 +18029,18 @@ references:
   commentId: Overload:AGS.API.RectangleF.#ctor
   fullName: AGS.API.RectangleF.RectangleF
   nameWithType: RectangleF.RectangleF
+- uid: AGS.API.RectangleF.Contains(AGS.API.Vector2)
+  name: Contains(Vector2)
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Contains_AGS_API_Vector2_
+  commentId: M:AGS.API.RectangleF.Contains(AGS.API.Vector2)
+  fullName: AGS.API.RectangleF.Contains(AGS.API.Vector2)
+  nameWithType: RectangleF.Contains(Vector2)
+- uid: AGS.API.RectangleF.Contains*
+  name: Contains
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Contains_
+  commentId: Overload:AGS.API.RectangleF.Contains
+  fullName: AGS.API.RectangleF.Contains
+  nameWithType: RectangleF.Contains
 - uid: AGS.API.RectangleF.Height
   name: Height
   href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Height
