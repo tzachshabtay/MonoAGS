@@ -72,7 +72,7 @@ namespace AGS.Engine
         {
             var treeView = _treeView;
             if (treeView == null) return;
-            var root = new AGSTreeStringNode();
+            var root = new AGSTreeStringNode { Text = ""};
             foreach (var pair in _props)
             {
                 ITreeStringNode cat = addToTree(pair.Key.Name, root);
@@ -82,6 +82,7 @@ namespace AGS.Engine
                 }
             }
             treeView.Tree = root;
+            treeView.Expand(root);
         }
 
 		private ITreeStringNode addToTree(string text, ITreeStringNode parent)

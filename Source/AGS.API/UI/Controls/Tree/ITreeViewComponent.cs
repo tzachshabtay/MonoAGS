@@ -50,5 +50,17 @@
         /// </summary>
         /// <value>The on node selected.</value>
         IEvent<NodeEventArgs> OnNodeSelected { get; }
+
+        /// <summary>
+        /// Expand the specified node.
+        /// </summary>
+        /// <param name="node">Node.</param>
+        void Expand(ITreeStringNode node);
+
+        /// <summary>
+        /// Collapse the specified node.
+        /// </summary>
+        /// <param name="node">Node.</param>
+        void Collapse(ITreeStringNode node);
     }
 }

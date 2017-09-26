@@ -59,6 +59,34 @@ namespace AGS.Engine
             _root = buildTree(_root, tree);
         }
 
+        public void Expand(ITreeStringNode node)
+        {
+            var nodeView = findNodeView(node);
+            if (nodeView != null) nodeView.Expand();
+        }
+
+        public void Collapse(ITreeStringNode node)
+        {
+			var nodeView = findNodeView(node);
+            if (nodeView != null) nodeView.Collapse();
+        }
+
+        private Node findNodeView(ITreeStringNode node)
+        {
+            return findNodeView(_root, node);
+        }
+
+		private Node findNodeView(Node nodeView, ITreeStringNode node)
+		{
+            if (nodeView.Item == node) return nodeView;
+            foreach (var child in nodeView.Children)
+            {
+                var result = findNodeView(child, node);
+                if (result != null) return result;
+            }
+            return null;
+		}
+
         private void onRepeatedlyExecute()
         { 
             processTree(_root);
@@ -283,6 +311,18 @@ namespace AGS.Engine
                 }
             }
 
+            public void Expand()
+            {
+                IsCollapsed = false;
+                refreshCollapseExpand();
+            }
+
+            public void Collapse()
+            {
+                IsCollapsed = true;
+                refreshCollapseExpand();
+            }
+
             private Node getRoot()
             {
                 var root = this;
@@ -308,10 +348,15 @@ namespace AGS.Engine
             private void onMouseClicked(MouseButtonEventArgs args)
             {
                 IsCollapsed = !IsCollapsed;
-                foreach (var child in Children)
-                {
-                    child.View.ParentPanel.Visible = !IsCollapsed;
-                }
+                refreshCollapseExpand();
+            }
+
+            private void refreshCollapseExpand()
+            {
+				foreach (var child in Children)
+				{
+					child.View.ParentPanel.Visible = !IsCollapsed;
+				}
             }
 
             private void onItemSelected(MouseButtonEventArgs args)

@@ -29,7 +29,8 @@ namespace AGS.Engine
 			_scrollingPanel.Tint = Colors.Transparent;
 			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
 
-            _panel = factory.UI.GetPanel("GameDebugInspectorPanel", parent.Width, height - 42f, 0f, height - 42f, _scrollingPanel);
+            const float padding = 10f;
+            _panel = factory.UI.GetPanel("GameDebugInspectorPanel", parent.Width, height - padding, 0f, height - padding, _scrollingPanel);
 			_panel.Tint = Colors.Transparent;
 			_panel.RenderLayer = _layer;
 			_panel.AddComponent<ITreeViewComponent>();
@@ -39,7 +40,7 @@ namespace AGS.Engine
             factory.UI.CreateScollingPanel(_scrollingPanel);
 			_scrollingPanel.OnScaleChanged.Subscribe(() =>
 			{
-				_panel.Y = _scrollingPanel.Height - 42f;
+                _panel.Y = _scrollingPanel.Height - padding;
 			});
         }
 
