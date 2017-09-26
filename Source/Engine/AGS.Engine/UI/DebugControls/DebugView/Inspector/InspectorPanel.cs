@@ -6,7 +6,7 @@ namespace AGS.Engine
     {
 		private readonly IRenderLayer _layer;
 		private readonly IGame _game;
-        private IPanel _panel, _scrollingPanel;
+        private IPanel _panel, _scrollingPanel, _parent;
 
         public InspectorPanel(IGame game, IRenderLayer layer)
         {
@@ -20,6 +20,7 @@ namespace AGS.Engine
 
         public void Load(IPanel parent)
         {
+            _parent = parent;
 			var factory = _game.Factory;
             var height = parent.Height / 4f;
             _scrollingPanel = factory.UI.GetPanel("GameDebugInspectorScrollingPanel", parent.Width, height, 0f, height, parent);
@@ -41,5 +42,10 @@ namespace AGS.Engine
 				_panel.Y = _scrollingPanel.Height - 42f;
 			});
         }
+
+		public void Resize()
+		{
+			_scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
+		}
     }
 }

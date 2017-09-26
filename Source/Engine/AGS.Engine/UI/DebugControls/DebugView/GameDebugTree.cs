@@ -11,7 +11,7 @@ namespace AGS.Engine
         private readonly IGame _game;
         private readonly IConcurrentHashSet<string> _addedObjects;
         private readonly InspectorPanel _inspector;
-        private IPanel _treePanel, _scrollingPanel;
+        private IPanel _treePanel, _scrollingPanel, _parent;
 
         private IAnimationContainer _lastSelectedObject;
         private IVisibleComponent _lastSelectedMaskVisible;
@@ -32,6 +32,7 @@ namespace AGS.Engine
 
         public void Load(IPanel parent)
         {
+            _parent = parent;
             _panelId = parent.TreeNode.GetRoot().ID;
             var factory = _game.Factory;
             _scrollingPanel = factory.UI.GetPanel("GameDebugTreeScrollingPanel", parent.Width, (3f / 4f) * parent.Height, 0f, parent.Height / 4f, parent);
@@ -61,6 +62,11 @@ namespace AGS.Engine
         {
 	        _scrollingPanel.Visible = false;
             _treeView.Tree = null;
+        }
+
+        public void Resize()
+        {
+            _scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
         }
 
         private void onTreeNodeSelected(NodeEventArgs args)

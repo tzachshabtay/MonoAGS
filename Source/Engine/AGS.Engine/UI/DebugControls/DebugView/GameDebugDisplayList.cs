@@ -8,7 +8,7 @@ namespace AGS.Engine
     {
         private List<IObject> _lastDisplayList;
         private IListboxComponent _listBox;
-        private IPanel _listPanel, _scrollingPanel;
+        private IPanel _listPanel, _scrollingPanel, _parent;
         private IStackLayoutComponent _layout;
         private readonly IRenderLayer _layer;
         private readonly IGame _game;
@@ -24,6 +24,7 @@ namespace AGS.Engine
 
         public void Load(IPanel parent)
         {
+            _parent = parent;
             var factory = _game.Factory;
 			_scrollingPanel = factory.UI.GetPanel("GameDebugDisplayListScrollingPanel", parent.Width, (3f / 4f) * parent.Height, 0f, parent.Height / 4f, parent);
 			_scrollingPanel.RenderLayer = _layer;
@@ -71,6 +72,11 @@ namespace AGS.Engine
             _layout.StopLayout();
             _listBox.Items.Clear();
         }
+
+		public void Resize()
+		{
+			_scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
+		}
 
         private void refresh()
         {

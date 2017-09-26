@@ -8,5 +8,6 @@ namespace AGS.Engine
         IPanel Panel { get; }
         Task Show();
         void Hide();
+        void Resize();
     }
 }

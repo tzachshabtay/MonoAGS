@@ -82,6 +82,19 @@ namespace AGS.Engine
             _splitPanel = parentPanel.AddComponent<ISplitPanelComponent>();
             _splitPanel.TopPanel = _debugTree.Panel;
             _splitPanel.BottomPanel = _inspector.Panel;
+
+            var horizSplit = _panel.AddComponent<ISplitPanelComponent>();
+            horizSplit.IsHorizontal = true;
+            horizSplit.TopPanel = _panel;
+
+            _panel.OnScaleChanged.Subscribe(() => 
+            {
+                _panesButton.X = _panel.Width;
+                headerLabel.LabelRenderSize = new SizeF(_panel.Width, headerLabel.LabelRenderSize.Height);
+                parentPanel.ResetBaseSize(_panel.Width, parentPanel.Height);
+                _currentTab.Resize();
+                _inspector.Resize();
+            });
         }
 
         public Task Show()

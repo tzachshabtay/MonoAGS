@@ -89,6 +89,8 @@ namespace AGS.Engine
             {
                 horizSlider.Graphics.Image = new EmptyImage(panel.Width - 40f, 10f);
                 verSlider.Graphics.Image = new EmptyImage(10f, panel.Height - 80f);
+                horizSlider.X = -panel.Width * panel.Anchor.X + 20f;
+                verSlider.X = panel.Width - 20f;
             });
         }
 

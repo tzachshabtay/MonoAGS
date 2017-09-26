@@ -71,42 +71,50 @@ namespace AGS.Engine
 			if (topPanel == null) return;
 
             const float lineWidth = 10f;
-            var obj = _factory.Object.GetObject(string.Format("{0}_SplitLine", topPanel.ID));
-            obj.RenderLayer = topPanel.RenderLayer;
+            var splitLine = _factory.Object.GetObject(string.Format("{0}_SplitLine", topPanel.ID));
+            splitLine.RenderLayer = topPanel.RenderLayer;
 			var crop = topPanel.GetComponent<ICropChildrenComponent>();
-			if (crop != null) crop.EntitiesToSkipCrop.Add(obj.ID);
-            HoverEffect.Add(obj, Colors.Transparent, Colors.Yellow.WithAlpha(100));
-            var boundingBoxes = topPanel.GetBoundingBoxes(_state.Viewport);
-            var box = boundingBoxes.RenderBox;
-            float width = IsHorizontal ? lineWidth : box.Width;
-            float height = IsHorizontal ? box.Height : lineWidth;
-            obj.Anchor = new PointF(0f, 0f);
-            obj.Image = new EmptyImage(width, height);
-            float anchorX = -topPanel.Width * topPanel.Anchor.X;
-            obj.X = IsHorizontal ? anchorX + topPanel.X + box.Width - lineWidth / 2f : anchorX;
-            obj.Y = box.MinY;
-            obj.Z = -1;
-            _startPositionDragLine = new Vector2(obj.X, obj.Y);
-            obj.AddComponent<IUIEvents>();
-            var draggable = obj.AddComponent<IDraggableComponent>();
-            draggable.DragMinX = IsHorizontal ? (float?)null : obj.X;
-            draggable.DragMaxX = IsHorizontal ? (float?)null : obj.X;
-            draggable.DragMinY = IsHorizontal ? obj.Y : (float?)null;
-            draggable.DragMaxY = IsHorizontal ? obj.Y : (float?)null;
+			if (crop != null) crop.EntitiesToSkipCrop.Add(splitLine.ID);
+            HoverEffect.Add(splitLine, Colors.Transparent, Colors.Yellow.WithAlpha(100));
+			splitLine.Anchor = new PointF(0f, 0f);
+            positionSplitLine(splitLine, topPanel, lineWidth);
+            splitLine.Z = -1;
+            topPanel.OnBoundingBoxesChanged.Subscribe(() => 
+            {
+                positionSplitLine(splitLine, topPanel, lineWidth);    
+            });
+            _startPositionDragLine = new Vector2(splitLine.X, splitLine.Y);
+            splitLine.AddComponent<IUIEvents>();
+            var draggable = splitLine.AddComponent<IDraggableComponent>();
+            draggable.DragMinX = IsHorizontal ? (float?)null : splitLine.X;
+            draggable.DragMaxX = IsHorizontal ? (float?)null : splitLine.X;
+            draggable.DragMinY = IsHorizontal ? splitLine.Y : (float?)null;
+            draggable.DragMaxY = IsHorizontal ? splitLine.Y : (float?)null;
 
             var room = topPanel.Room;
-            if (room != null) room.Objects.Add(obj);
-            else _state.UI.Add(obj);
-            obj.OnLocationChanged.Subscribe(onSplitLineMoved);
-            DragLine = obj;
+            if (room != null) room.Objects.Add(splitLine);
+            else _state.UI.Add(splitLine);
+            splitLine.OnLocationChanged.Subscribe(onSplitLineMoved);
+            DragLine = splitLine;
+        }
+
+        private void positionSplitLine(IObject splitLine, IPanel topPanel, float lineWidth)
+        {
+			var boundingBoxes = topPanel.GetBoundingBoxes(_state.Viewport);
+			var box = boundingBoxes.RenderBox;
+			float width = IsHorizontal ? lineWidth : box.Width;
+			float height = IsHorizontal ? box.Height : lineWidth;
+			splitLine.Image = new EmptyImage(width, height);
+			float anchorX = -topPanel.Width * topPanel.Anchor.X;
+			splitLine.X = IsHorizontal ? anchorX + topPanel.X + box.Width - lineWidth / 2f : anchorX;
+			splitLine.Y = box.MinY;
         }
 
         private void onSplitLineMoved()
         {
 			var topPanel = TopPanel;
-			if (topPanel == null) return;
-            var bottomPanel = BottomPanel;
-            if (bottomPanel == null) return;
+            if (topPanel == null) return;
+			var bottomPanel = BottomPanel;
             var dragLine = DragLine;
             if (dragLine == null) return;
 
@@ -114,16 +122,22 @@ namespace AGS.Engine
             {
                 float delta = _startPositionDragLine.X - dragLine.X;
                 topPanel.Image = new EmptyImage(_startSizeTopPanel.Width - delta, topPanel.Height);
-                bottomPanel.Image = new EmptyImage(_startSizeBottomPanel.Height + delta, bottomPanel.Height);
-				bottomPanel.X = _startPositionBottomPanel.X + delta;
+                if (bottomPanel != null)
+                {
+                    bottomPanel.Image = new EmptyImage(_startSizeBottomPanel.Height + delta, bottomPanel.Height);
+                    bottomPanel.X = _startPositionBottomPanel.X + delta;
+                }
             }
             else
             {
                 float delta = dragLine.Y - _startPositionDragLine.Y;
                 topPanel.Image = new EmptyImage(topPanel.Width, _startSizeTopPanel.Height - delta);
                 topPanel.Y = _startPositionBottomPanel.Y + delta;
-                bottomPanel.Image = new EmptyImage(bottomPanel.Width, _startSizeBottomPanel.Height + delta);
-                bottomPanel.Y = _startPositionBottomPanel.Y + delta;
+                if (bottomPanel != null)
+                {
+                    bottomPanel.Image = new EmptyImage(bottomPanel.Width, _startSizeBottomPanel.Height + delta);
+                    bottomPanel.Y = _startPositionBottomPanel.Y + delta;
+                }
             }
         }
 	}
