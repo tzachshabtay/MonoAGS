@@ -20,12 +20,14 @@ namespace AGS.Engine
             game.RenderLoop.OnBeforeRenderingDisplayList.Subscribe(onBeforeRenderingDisplayList);
         }
 
+        public IPanel Panel { get { return _scrollingPanel; } }
+
         public void Load(IPanel parent)
         {
             var factory = _game.Factory;
-			_scrollingPanel = factory.UI.GetPanel("GameDebugDisplayListScrollingPanel", parent.Width, (3f / 4f) * parent.Height, 0f, parent.Height, parent);
+			_scrollingPanel = factory.UI.GetPanel("GameDebugDisplayListScrollingPanel", parent.Width, (3f / 4f) * parent.Height, 0f, parent.Height / 4f, parent);
 			_scrollingPanel.RenderLayer = _layer;
-			_scrollingPanel.Anchor = new PointF(0f, 1f);
+			_scrollingPanel.Anchor = new PointF(0f, 0f);
 			_scrollingPanel.Tint = Colors.Transparent;
 			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
             _scrollingPanel.Visible = false;
@@ -50,6 +52,10 @@ namespace AGS.Engine
                 return button;
             };
             factory.UI.CreateScollingPanel(_scrollingPanel);
+			_scrollingPanel.OnScaleChanged.Subscribe(() =>
+			{
+                _listPanel.Y = _scrollingPanel.Height - 10f;
+			});
         }
 
         public async Task Show()

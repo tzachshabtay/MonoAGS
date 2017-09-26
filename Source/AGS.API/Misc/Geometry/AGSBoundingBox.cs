@@ -155,18 +155,25 @@ namespace AGS.API
 
 			float boxWidth = Width;
 			float boxHeight = Height;
+
+			float leftForBottomLeft = BottomLeft.X;
+			float bottomForBottomLeft = BottomLeft.Y;
+
+			float leftForTopLeft = TopLeft.X;
+			float topForTopLeft = MathUtils.Lerp(0f, BottomLeft.Y, boxHeight, TopLeft.Y, height);
+
 			float rightForTopRight = MathUtils.Lerp(0f, TopLeft.X, boxWidth, TopRight.X, width);
+			float topForTopRight = MathUtils.Lerp(0f, BottomRight.Y, boxHeight, TopRight.Y, height);
+
 			float rightForBottomRight = MathUtils.Lerp(0f, BottomLeft.X, boxWidth, BottomRight.X, width);
-			float bottomForBottomLeft = MathUtils.Lerp(0f, TopLeft.Y, boxHeight, BottomLeft.Y, height);
-			float bottomForBottomRight = MathUtils.Lerp(0f, TopRight.Y, boxHeight, BottomRight.Y, height);
-			float topForTopRight = MathUtils.Lerp(0f, Math.Min(TopLeft.Y, TopRight.Y), boxWidth, Math.Max(TopLeft.Y, TopRight.Y), width);
-			float leftForBottomLeft = MathUtils.Lerp(0f, Math.Min(TopLeft.X, BottomLeft.X), boxHeight, Math.Max(TopLeft.X, BottomLeft.X), height);
+			float bottomForBottomRight = BottomRight.Y;
+
 			float offsetX = crop.CropArea.X * scaleX;
 			float offsetY = crop.CropArea.Y * scaleY;
-            AGSBoundingBox croppedBox = new AGSBoundingBox(new Vector3(leftForBottomLeft + offsetX, bottomForBottomLeft - offsetY, BottomLeft.Z),
-                                                       new Vector3(rightForBottomRight + offsetX, bottomForBottomRight - offsetY, BottomRight.Z),
-                                                        new Vector3(TopLeft.X + offsetX, TopLeft.Y - offsetY, TopLeft.Z),
-                                                        new Vector3(rightForTopRight + offsetX, topForTopRight - offsetY, TopRight.Z)
+            AGSBoundingBox croppedBox = new AGSBoundingBox(new Vector3(leftForBottomLeft + offsetX, bottomForBottomLeft + offsetY, BottomLeft.Z),
+                                                       new Vector3(rightForBottomRight + offsetX, bottomForBottomRight + offsetY, BottomRight.Z),
+                                                           new Vector3(leftForTopLeft + offsetX, topForTopLeft + offsetY, TopLeft.Z),
+                                                        new Vector3(rightForTopRight + offsetX, topForTopRight + offsetY, TopRight.Z)
                                                        );
             return new AGSCropInfo(croppedBox, cropArea);
 		}

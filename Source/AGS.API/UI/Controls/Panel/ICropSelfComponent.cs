@@ -12,7 +12,7 @@
         bool CropEnabled { get; set; }
 
         /// <summary>
-        /// The visible area (everything else will be cropped), where (0,0) is the top left corner.
+        /// The visible area (everything else will be cropped), where (0,0) is the bottom-left corner.
         /// </summary>
         RectangleF CropArea { get; set; }
 

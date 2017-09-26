@@ -58,32 +58,38 @@ namespace AGS.Engine
 			panel.AddComponent<IBoundingBoxWithChildrenComponent>();
 			IScrollingComponent scroll = panel.AddComponent<IScrollingComponent>();
             var horizSlider = GetSlider(string.Format("{0}_HorizontalSlider", panel.ID), null, null, 0f, 0f, 0f, panel);
-			horizSlider.X = 20f;
-			horizSlider.Y = 20f;
+			horizSlider.X = -panel.Width * panel.Anchor.X + 20f;
+            horizSlider.Y = 20f;
 			horizSlider.HandleGraphics.Anchor = new PointF(0f, 0.5f);
 			horizSlider.IsHorizontal = true;
 			horizSlider.Graphics.Anchor = new PointF(0f, 0.5f);
 			horizSlider.Graphics.Image = new EmptyImage(panel.Width - 40f, 10f);
 			horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
 			horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
-			addHoverEffect(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
-			addHoverEffect(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
+            HoverEffect.Add(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
+			HoverEffect.Add(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
 			scroll.HorizontalScrollBar = horizSlider;
 
             var verSlider = GetSlider(string.Format("{0}_VerticalSlider", panel.ID), null, null, 0f, 0f, 0f, panel);
 			verSlider.X = panel.Width - 20f;
-			verSlider.Y = 40f;
+            verSlider.Y = 40f;
 			verSlider.HandleGraphics.Anchor = new PointF(0.5f, 0f);
 			verSlider.IsHorizontal = false;
 			verSlider.Graphics.Anchor = new PointF(0.5f, 0f);
 			verSlider.Graphics.Image = new EmptyImage(10f, panel.Height - 80f);
 			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
 			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
-			addHoverEffect(verSlider.Graphics, Colors.Gray, Colors.LightGray);
-			addHoverEffect(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
+			HoverEffect.Add(verSlider.Graphics, Colors.Gray, Colors.LightGray);
+			HoverEffect.Add(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
 			scroll.VerticalScrollBar = verSlider;
+
+            panel.OnScaleChanged.Subscribe(() => 
+            {
+                horizSlider.Graphics.Image = new EmptyImage(panel.Width - 40f, 10f);
+                verSlider.Graphics.Image = new EmptyImage(10f, panel.Height - 80f);
+            });
         }
 
         public ILabel GetLabel(string id, string text, float width, float height, float x, float y, IObject parent = null, ITextConfig config = null, bool addToUi = true)
@@ -323,15 +329,7 @@ namespace AGS.Engine
             return getSlider(id, image, handleImage, value, min, max, parent, config, addToUi);
         }
 
-		private void addHoverEffect(IObject obj, Color idleTint, Color hoverTint)
-		{
-			obj.Tint = idleTint;
-			var uiEvents = obj.AddComponent<IUIEvents>();
-			uiEvents.MouseEnter.Subscribe(_ => obj.Tint = hoverTint);
-			uiEvents.MouseLeave.Subscribe(_ => obj.Tint = idleTint);
-		}
-
-        private ISlider getSlider(string id, IImage image, IImage handleImage, float value, float min, float max,
+		private ISlider getSlider(string id, IImage image, IImage handleImage, float value, float min, float max,
             IObject parent = null, ITextConfig config = null, bool addToUi = true)
         {
             IObject graphics = _object.GetObject(string.Format("{0}(graphics)", id));

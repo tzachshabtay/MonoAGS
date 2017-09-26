@@ -418,6 +418,8 @@
     <Compile Include="Serialization\Contracts\ContractClippingPlane.cs" />
     <Compile Include="UI\DebugControls\DebugView\Inspector\AGSInspector.cs" />
     <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorPanel.cs" />
+    <Compile Include="UI\Controls\Panel\AGSSplitPanelComponent.cs" />
+    <Compile Include="Graphics\Effects\HoverEffect.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

@@ -45,6 +45,16 @@
 		/// </summary>
 		/// <value>The height.</value>
 		public float Height { get { return _height; } }
+
+        /// <summary>
+        /// Checkes if the rectangle contains the specified point.
+        /// </summary>
+        /// <returns>The contains.</returns>
+        /// <param name="point">Point.</param>
+        public bool Contains(Vector2 point)
+        {
+            return point.X >= X && point.X <= X + Height && point.Y <= Y && point.Y >= Y - Height;
+        }
 	}
 }
 

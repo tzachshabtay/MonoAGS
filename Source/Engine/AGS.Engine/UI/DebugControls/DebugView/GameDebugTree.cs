@@ -28,21 +28,27 @@ namespace AGS.Engine
             _layer = layer;
         }
 
+        public IPanel Panel { get { return _scrollingPanel; }}
+
         public void Load(IPanel parent)
         {
             _panelId = parent.TreeNode.GetRoot().ID;
             var factory = _game.Factory;
-            _scrollingPanel = factory.UI.GetPanel("GameDebugTreeScrollingPanel", parent.Width, (3f / 4f) * parent.Height, 0f, parent.Height, parent);
+            _scrollingPanel = factory.UI.GetPanel("GameDebugTreeScrollingPanel", parent.Width, (3f / 4f) * parent.Height, 0f, parent.Height / 4f, parent);
             _scrollingPanel.RenderLayer = _layer;
-            _scrollingPanel.Anchor = new PointF(0f, 1f);
+            _scrollingPanel.Anchor = new PointF(0f, 0f);
             _scrollingPanel.Tint = Colors.Transparent;
             _scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
-            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, _scrollingPanel.Height - 40, _scrollingPanel);
+            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, _scrollingPanel.Height - 42f, _scrollingPanel);
             _treePanel.Tint = Colors.Transparent;
             _treePanel.RenderLayer = _layer;
             _treeView = _treePanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
             factory.UI.CreateScollingPanel(_scrollingPanel);
+            _scrollingPanel.OnScaleChanged.Subscribe(() => 
+            {
+                _treePanel.Y = _scrollingPanel.Height - 42f;
+            });
         }
 
         public async Task Show()

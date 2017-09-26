@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -14,6 +12,7 @@ namespace AGS.Engine
         private readonly InspectorPanel _inspector;
         private const string _panelId = "Game Debug Tree Panel";
         private IPanel _panel;
+        private ISplitPanelComponent _splitPanel;
         private IDebugTab _currentTab;
         private IButton _panesButton;
 
@@ -80,11 +79,15 @@ namespace AGS.Engine
             _displayList.Load(parentPanel);
             _inspector.Load(parentPanel);
             _currentTab = _debugTree;
+            _splitPanel = parentPanel.AddComponent<ISplitPanelComponent>();
+            _splitPanel.TopPanel = _debugTree.Panel;
+            _splitPanel.BottomPanel = _inspector.Panel;
         }
 
         public Task Show()
         {
             _panel.Visible = true;
+            _splitPanel.TopPanel = _currentTab.Panel;
             return _currentTab.Show();
         }
 
@@ -99,6 +102,7 @@ namespace AGS.Engine
             _currentTab.Hide();
             _currentTab = (_currentTab == _debugTree) ? (IDebugTab)_displayList : _debugTree;
             _panesButton.Text = _currentTab == _debugTree ? "Display List" : "Scene Tree";
+            _splitPanel.TopPanel = _currentTab.Panel;
             return _currentTab.Show();
         }
     }
