@@ -2154,7 +2154,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ISlider.html",
-          "hash": "rs3+xJ6+sH6nnTALz3piiQ=="
+          "hash": "qyenWSZmPhkZs4iZyITk6g=="
         }
       },
       "is_incremental": false,
@@ -2166,7 +2166,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ISliderComponent.html",
-          "hash": "Nz6dAAHk8OfT+oA7EArQqw=="
+          "hash": "pZI/n4B30U24ztQ92b5eIA=="
         }
       },
       "is_incremental": false,
@@ -2466,7 +2466,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ITreeViewComponent.html",
-          "hash": "HF547i7a/AsabRsY7R6fIg=="
+          "hash": "kTmngZ1dSNPXNE62LnfmxQ=="
         }
       },
       "is_incremental": false,
@@ -2502,7 +2502,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IUIFactory.html",
-          "hash": "T4RudAC8rmtWcTCTvUAOog=="
+          "hash": "xuclytQyXY9hDw8QMTegRQ=="
         }
       },
       "is_incremental": false,
@@ -3026,6 +3026,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.SliderDirection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.SliderDirection.html",
+          "hash": "4LmNwKMY4ZKW1Q4YgIMBsQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AGS.API.SliderValueEventArgs.yml",
       "output": {
         ".html": {
@@ -3162,7 +3174,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.html",
-          "hash": "paDqybAyL4J2d8yy+4HYcw=="
+          "hash": "gYQ+MiqVtSkMt6ISFpU0Vg=="
         }
       },
       "is_incremental": false,
@@ -3174,7 +3186,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "9oKfHmb2+JxD3ZVNvoWhXQ=="
+          "hash": "pQFIS1EqfJomS4IF5Yugzw=="
         }
       },
       "is_incremental": false,

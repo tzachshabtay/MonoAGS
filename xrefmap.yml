@@ -11185,6 +11185,18 @@ references:
   commentId: T:AGS.API.ISliderComponent
   fullName: AGS.API.ISliderComponent
   nameWithType: ISliderComponent
+- uid: AGS.API.ISliderComponent.Direction
+  name: Direction
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Direction
+  commentId: P:AGS.API.ISliderComponent.Direction
+  fullName: AGS.API.ISliderComponent.Direction
+  nameWithType: ISliderComponent.Direction
+- uid: AGS.API.ISliderComponent.Direction*
+  name: Direction
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Direction_
+  commentId: Overload:AGS.API.ISliderComponent.Direction
+  fullName: AGS.API.ISliderComponent.Direction
+  nameWithType: ISliderComponent.Direction
 - uid: AGS.API.ISliderComponent.Graphics
   name: Graphics
   href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Graphics
@@ -11209,18 +11221,6 @@ references:
   commentId: Overload:AGS.API.ISliderComponent.HandleGraphics
   fullName: AGS.API.ISliderComponent.HandleGraphics
   nameWithType: ISliderComponent.HandleGraphics
-- uid: AGS.API.ISliderComponent.IsHorizontal
-  name: IsHorizontal
-  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_IsHorizontal
-  commentId: P:AGS.API.ISliderComponent.IsHorizontal
-  fullName: AGS.API.ISliderComponent.IsHorizontal
-  nameWithType: ISliderComponent.IsHorizontal
-- uid: AGS.API.ISliderComponent.IsHorizontal*
-  name: IsHorizontal
-  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_IsHorizontal_
-  commentId: Overload:AGS.API.ISliderComponent.IsHorizontal
-  fullName: AGS.API.ISliderComponent.IsHorizontal
-  nameWithType: ISliderComponent.IsHorizontal
 - uid: AGS.API.ISliderComponent.Label
   name: Label
   href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Label
@@ -12761,6 +12761,30 @@ references:
   commentId: Overload:AGS.API.ITreeViewComponent.AllowSelection
   fullName: AGS.API.ITreeViewComponent.AllowSelection
   nameWithType: ITreeViewComponent.AllowSelection
+- uid: AGS.API.ITreeViewComponent.Collapse(AGS.API.ITreeStringNode)
+  name: Collapse(ITreeStringNode)
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_Collapse_AGS_API_ITreeStringNode_
+  commentId: M:AGS.API.ITreeViewComponent.Collapse(AGS.API.ITreeStringNode)
+  fullName: AGS.API.ITreeViewComponent.Collapse(AGS.API.ITreeStringNode)
+  nameWithType: ITreeViewComponent.Collapse(ITreeStringNode)
+- uid: AGS.API.ITreeViewComponent.Collapse*
+  name: Collapse
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_Collapse_
+  commentId: Overload:AGS.API.ITreeViewComponent.Collapse
+  fullName: AGS.API.ITreeViewComponent.Collapse
+  nameWithType: ITreeViewComponent.Collapse
+- uid: AGS.API.ITreeViewComponent.Expand(AGS.API.ITreeStringNode)
+  name: Expand(ITreeStringNode)
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_Expand_AGS_API_ITreeStringNode_
+  commentId: M:AGS.API.ITreeViewComponent.Expand(AGS.API.ITreeStringNode)
+  fullName: AGS.API.ITreeViewComponent.Expand(AGS.API.ITreeStringNode)
+  nameWithType: ITreeViewComponent.Expand(ITreeStringNode)
+- uid: AGS.API.ITreeViewComponent.Expand*
+  name: Expand
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_Expand_
+  commentId: Overload:AGS.API.ITreeViewComponent.Expand
+  fullName: AGS.API.ITreeViewComponent.Expand
+  nameWithType: ITreeViewComponent.Expand
 - uid: AGS.API.ITreeViewComponent.HorizontalSpacing
   name: HorizontalSpacing
   href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_HorizontalSpacing
@@ -12947,18 +12971,18 @@ references:
   commentId: T:AGS.API.IUIFactory
   fullName: AGS.API.IUIFactory
   nameWithType: IUIFactory
-- uid: AGS.API.IUIFactory.CreateScollingPanel(AGS.API.IPanel)
-  name: CreateScollingPanel(IPanel)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScollingPanel_AGS_API_IPanel_
-  commentId: M:AGS.API.IUIFactory.CreateScollingPanel(AGS.API.IPanel)
-  fullName: AGS.API.IUIFactory.CreateScollingPanel(AGS.API.IPanel)
-  nameWithType: IUIFactory.CreateScollingPanel(IPanel)
-- uid: AGS.API.IUIFactory.CreateScollingPanel*
-  name: CreateScollingPanel
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScollingPanel_
-  commentId: Overload:AGS.API.IUIFactory.CreateScollingPanel
-  fullName: AGS.API.IUIFactory.CreateScollingPanel
-  nameWithType: IUIFactory.CreateScollingPanel
+- uid: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel)
+  name: CreateScrollingPanel(IPanel)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScrollingPanel_AGS_API_IPanel_
+  commentId: M:AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel)
+  fullName: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel)
+  nameWithType: IUIFactory.CreateScrollingPanel(IPanel)
+- uid: AGS.API.IUIFactory.CreateScrollingPanel*
+  name: CreateScrollingPanel
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScrollingPanel_
+  commentId: Overload:AGS.API.IUIFactory.CreateScrollingPanel
+  fullName: AGS.API.IUIFactory.CreateScrollingPanel
+  nameWithType: IUIFactory.CreateScrollingPanel
 - uid: AGS.API.IUIFactory.GetButton(System.String,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)
   name: GetButton(String, ButtonAnimation, ButtonAnimation, ButtonAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetButton_System_String_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_
@@ -18521,6 +18545,36 @@ references:
   commentId: F:AGS.API.SkipText.External
   fullName: AGS.API.SkipText.External
   nameWithType: SkipText.External
+- uid: AGS.API.SliderDirection
+  name: SliderDirection
+  href: api/AGS.API.SliderDirection.html
+  commentId: T:AGS.API.SliderDirection
+  fullName: AGS.API.SliderDirection
+  nameWithType: SliderDirection
+- uid: AGS.API.SliderDirection.BottomToTop
+  name: BottomToTop
+  href: api/AGS.API.SliderDirection.html#AGS_API_SliderDirection_BottomToTop
+  commentId: F:AGS.API.SliderDirection.BottomToTop
+  fullName: AGS.API.SliderDirection.BottomToTop
+  nameWithType: SliderDirection.BottomToTop
+- uid: AGS.API.SliderDirection.LeftToRight
+  name: LeftToRight
+  href: api/AGS.API.SliderDirection.html#AGS_API_SliderDirection_LeftToRight
+  commentId: F:AGS.API.SliderDirection.LeftToRight
+  fullName: AGS.API.SliderDirection.LeftToRight
+  nameWithType: SliderDirection.LeftToRight
+- uid: AGS.API.SliderDirection.RightToLeft
+  name: RightToLeft
+  href: api/AGS.API.SliderDirection.html#AGS_API_SliderDirection_RightToLeft
+  commentId: F:AGS.API.SliderDirection.RightToLeft
+  fullName: AGS.API.SliderDirection.RightToLeft
+  nameWithType: SliderDirection.RightToLeft
+- uid: AGS.API.SliderDirection.TopToBottom
+  name: TopToBottom
+  href: api/AGS.API.SliderDirection.html#AGS_API_SliderDirection_TopToBottom
+  commentId: F:AGS.API.SliderDirection.TopToBottom
+  fullName: AGS.API.SliderDirection.TopToBottom
+  nameWithType: SliderDirection.TopToBottom
 - uid: AGS.API.SliderValueEventArgs
   name: SliderValueEventArgs
   href: api/AGS.API.SliderValueEventArgs.html
