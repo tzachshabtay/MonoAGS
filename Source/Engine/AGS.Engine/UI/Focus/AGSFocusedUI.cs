@@ -11,7 +11,7 @@ namespace AGS.Engine
             CannotLoseFocus = new AGSConcurrentHashSet<string>();
         }
 
-        public ITextBoxComponent FocusedTextBox { get; set; }
+        public IEntity HasKeyboardFocus { get; set; }
 
         public IEntity FocusedWindow
         {

@@ -65,7 +65,7 @@ namespace AGS.Engine
 
 		private async Task onKeyDown(KeyboardEventArgs args)
 		{
-            if (!Enabled || _focusedUi.FocusedTextBox != null) return;
+            if (!Enabled || _focusedUi.HasKeyboardFocus != null) return;
 			_keysDown.Add(args.Key);
 			Direction? direction = getDirection();
 			if (Mode == KeyboardMovementMode.Pressing)
@@ -89,7 +89,7 @@ namespace AGS.Engine
 
 		private async Task onKeyUp(KeyboardEventArgs args)
 		{
-            if (!Enabled || _focusedUi.FocusedTextBox != null) return;
+            if (!Enabled || _focusedUi.HasKeyboardFocus != null) return;
 			_keysDown.Remove(args.Key);
 			if (Mode == KeyboardMovementMode.Tapping) return;
 			Direction? direction = getDirection();

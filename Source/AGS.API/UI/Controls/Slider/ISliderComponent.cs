@@ -32,6 +32,7 @@
 	[RequiredComponent(typeof(IInObjectTree))]
 	[RequiredComponent(typeof(IVisibleComponent))]
 	[RequiredComponent(typeof(IEnabledComponent))]
+    [RequiredComponent(typeof(IUIEvents))]
 	public interface ISliderComponent : IComponent
 	{
         /// <summary>
@@ -69,6 +70,13 @@
         /// </summary>
         /// <value>The value.</value>
 		float Value { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.ISliderComponent"/> allows keyboard control for moving the slider when it is in focus (i.e after the user clicked on the slider).
+        /// Default is true.
+        /// </summary>
+        /// <value><c>true</c> if allow keyboard control; otherwise, <c>false</c>.</value>
+        bool AllowKeyboardControl { get; set; }
 
         /// <summary>
         /// Gets or sets the direction of the slider. If, for example, the slider's direction is bottom-to-top then the minimum value will correspond with the bottom most location on the slider

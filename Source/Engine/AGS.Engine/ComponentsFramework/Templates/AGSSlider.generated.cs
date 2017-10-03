@@ -139,6 +139,12 @@ namespace AGS.Engine
             set { _sliderComponent.Direction = value; } 
         }
 
+        public bool AllowKeyboardControl
+        {
+            get { return _sliderComponent.AllowKeyboardControl; }
+            set { _sliderComponent.AllowKeyboardControl = value; }
+        }
+
         public IEvent<SliderValueEventArgs> OnValueChanged 
         {  
             get { return _sliderComponent.OnValueChanged; } 

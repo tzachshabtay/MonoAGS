@@ -41,6 +41,9 @@ namespace AGS.Engine
 		[ProtoMember(8)]
         public SliderDirection Direction { get; set; }
 
+        [ProtoMember(9)]
+        public bool AllowKeyboardControl { get; set; }
+
 		#region IContract implementation
 
 		public IObject ToItem(AGSSerializationContext context)
@@ -58,6 +61,7 @@ namespace AGS.Engine
 			slider.MaxValue = MaxValue;
 			slider.Value = Value;
             slider.Direction = Direction;
+            slider.AllowKeyboardControl = AllowKeyboardControl;
 
 			context.Rewire(state =>
 			{
@@ -96,6 +100,7 @@ namespace AGS.Engine
 			MaxValue = item.MaxValue;
 			Value = item.Value;
             Direction = item.Direction;
+            AllowKeyboardControl = item.AllowKeyboardControl;
 		}
 
 		#endregion

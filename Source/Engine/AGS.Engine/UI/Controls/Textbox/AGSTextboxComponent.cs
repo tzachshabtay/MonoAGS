@@ -12,6 +12,7 @@ namespace AGS.Engine
         private IUIEvents _uiEvents;        
         private IInObjectTree _tree;
         private IHasRoom _room;
+        private IEntity _entity;
         private readonly IKeyboardState _keyboardState;
         private readonly IGame _game;
         private readonly IFocusedUI _focusedUi;
@@ -41,6 +42,7 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
+            _entity = entity;
             entity.Bind<ITextComponent>(c => _textComponent = c, _ => _textComponent = null);
             entity.Bind<IImageComponent>(c => _imageComponent = c, _ => _imageComponent = null);
             entity.Bind<IUIEvents>(c =>
@@ -84,13 +86,13 @@ namespace AGS.Engine
                     _keyboardState.ShowSoftKeyboard();
                     var textComponent = _textComponent;
                     CaretPosition = textComponent == null ? 0 : textComponent.Text.Length;
-                    _focusedUi.FocusedTextBox = this;
+                    _focusedUi.HasKeyboardFocus = _entity;
                 }
                 else
                 {
                     _keyboardState.HideSoftKeyboard();
-                    if (_focusedUi.FocusedTextBox == this)
-                        _focusedUi.FocusedTextBox = null;
+                    if (_focusedUi.HasKeyboardFocus == this)
+                        _focusedUi.HasKeyboardFocus = null;
                 }
                 OnFocusChanged.Invoke();
             }

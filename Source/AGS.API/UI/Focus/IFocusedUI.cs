@@ -6,11 +6,11 @@
     public interface IFocusedUI
     {
         /// <summary>
-        /// Gets or sets the focused text box.
-        /// If a text box is focused, then keyboard input should go to the text box and not to anywhere else.
+        /// Gets or sets the control which receives keyboard events.
+        /// If there's a control with keyboard focus, then keyboard input should go to that control and not to anywhere else.
         /// </summary>
         /// <value>The focused text box.</value>
-        ITextBoxComponent FocusedTextBox { get; set; }
+        IEntity HasKeyboardFocus { get; set; }
 
         /// <summary>
         /// Gets the focused window (useful for modal dialogs).
