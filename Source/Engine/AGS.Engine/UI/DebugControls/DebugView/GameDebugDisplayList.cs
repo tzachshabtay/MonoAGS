@@ -52,7 +52,7 @@ namespace AGS.Engine
                 button.RenderLayer = parent.RenderLayer;
                 return button;
             };
-            factory.UI.CreateScollingPanel(_scrollingPanel);
+            factory.UI.CreateScrollingPanel(_scrollingPanel);
 			_scrollingPanel.OnScaleChanged.Subscribe(() =>
 			{
                 _listPanel.Y = _scrollingPanel.Height - 10f;

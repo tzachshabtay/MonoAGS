@@ -64,7 +64,7 @@ namespace AGS.API
         /// The scrollbars are only shown if the contents is bigger than panel.
         /// </summary>
         /// <param name="panel">Panel.</param>
-        void CreateScollingPanel(IPanel panel);
+        void CreateScrollingPanel(IPanel panel);
 
         /// <summary>
         /// Creates a label.

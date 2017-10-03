@@ -46,7 +46,7 @@ namespace AGS.Engine
             _treePanel.RenderLayer = _layer;
             _treeView = _treePanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
-            factory.UI.CreateScollingPanel(_scrollingPanel);
+            factory.UI.CreateScrollingPanel(_scrollingPanel);
             _scrollingPanel.OnScaleChanged.Subscribe(() => 
             {
                 _treePanel.Y = _scrollingPanel.Height - lineHeight;

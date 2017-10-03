@@ -133,10 +133,10 @@ namespace AGS.Engine
             set { _sliderComponent.Value = value; } 
         }
 
-        public Boolean IsHorizontal 
+        public SliderDirection Direction 
         {  
-            get { return _sliderComponent.IsHorizontal; }  
-            set { _sliderComponent.IsHorizontal = value; } 
+            get { return _sliderComponent.Direction; }  
+            set { _sliderComponent.Direction = value; } 
         }
 
         public IEvent<SliderValueEventArgs> OnValueChanged 

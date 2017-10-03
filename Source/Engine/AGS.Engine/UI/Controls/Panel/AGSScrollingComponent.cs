@@ -113,7 +113,7 @@ namespace AGS.Engine
             if (crop == null) return;
             var slider = _verticalScrollBar;
             if (slider == null) return;
-            crop.StartPoint = new PointF(crop.StartPoint.X, -(slider.MaxValue - slider.Value));
+            crop.StartPoint = new PointF(crop.StartPoint.X, -slider.Value);
         }
 
         private void onHorizontalSliderChanged(SliderValueEventArgs args)

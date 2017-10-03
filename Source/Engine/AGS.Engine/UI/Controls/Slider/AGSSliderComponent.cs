@@ -9,7 +9,7 @@ namespace AGS.Engine
 		private IObject _graphics, _handleGraphics;
 		private ILabel _label;
 		private float _minValue, _maxValue, _value;
-		private bool _isHorizontal;
+        private SliderDirection _direction;
 
 		private readonly IInput _input;
 		private readonly IGameState _state;
@@ -51,7 +51,8 @@ namespace AGS.Engine
 			{
 				updateGraphics(_graphics, value, -50f);
 				_graphics = value;
-                if (value != null) value.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
+                if (value != null) value.Bind<IBoundingBoxComponent>(c => { _boundingBox = c; c.OnBoundingBoxesChanged.Subscribe(refresh); },
+                                                                     c => { _boundingBox = null; c.OnBoundingBoxesChanged.Unsubscribe(refresh); });
 				refresh();
 			}
 		}
@@ -122,15 +123,15 @@ namespace AGS.Engine
 			}
 		}
 
-		public bool IsHorizontal
+        public SliderDirection Direction
 		{
 			get 
 			{ 
-				return _isHorizontal; 
+                return _direction; 
 			}
 			set 
 			{
-				_isHorizontal = value;
+				_direction = value;
 				refresh();
 			}
 		}
@@ -183,7 +184,7 @@ namespace AGS.Engine
 				return;
 			}
 			_isSliding = true;
-            if (IsHorizontal) setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.XMainViewport - boundingBoxes.HitTestBox.MinX, 
+            if (isHorizontal()) setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.XMainViewport - boundingBoxes.HitTestBox.MinX, 
                                                                       0f, boundingBoxes.HitTestBox.Width), boundingBoxes));
             else setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.YMainViewport - boundingBoxes.HitTestBox.MinY
                                                          , 0f, boundingBoxes.HitTestBox.Height), boundingBoxes));
@@ -200,21 +201,26 @@ namespace AGS.Engine
             if (MinValue == MaxValue) return;
 #pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
 
-            if (IsHorizontal) HandleGraphics.X = MathUtils.Clamp(getHandlePos(Value, boundingBoxes), 0f, boundingBoxes.RenderBox.Width);
-            else HandleGraphics.Y = MathUtils.Clamp(getHandlePos(Value, boundingBoxes), 0f, boundingBoxes.RenderBox.Height);
+            var handlePos = getHandlePos(Value, boundingBoxes);
+            if (isHorizontal()) HandleGraphics.X = MathUtils.Clamp(handlePos, 0f, boundingBoxes.RenderBox.Width);
+            else HandleGraphics.Y = MathUtils.Clamp(handlePos, 0f, boundingBoxes.RenderBox.Height);
 			setText();
 		}
 
         private float getSliderValue(float handlePos, AGSBoundingBoxes boundingBoxes)
 		{
-			return MathUtils.Lerp(0f, MinValue, IsHorizontal ? 
+            float min = isReverse() ? MaxValue : MinValue;
+            float max = isReverse() ? MinValue : MaxValue;
+            return MathUtils.Lerp(0f, min, isHorizontal() ? 
                                   boundingBoxes.HitTestBox.Width : boundingBoxes.HitTestBox.Height, 
-                                  MaxValue, handlePos);
+                                  max, handlePos);
 		}
 
 		private float getHandlePos(float value, AGSBoundingBoxes boundingBoxes)
 		{
-			return MathUtils.Lerp(MinValue, 0f, MaxValue, IsHorizontal ? 
+			float min = isReverse() ? MaxValue : MinValue;
+			float max = isReverse() ? MinValue : MaxValue;
+            return MathUtils.Lerp(min, 0f, max, isHorizontal() ? 
                                   boundingBoxes.RenderBox.Width : boundingBoxes.RenderBox.Height, 
                                   value);
 		}
@@ -227,8 +233,10 @@ namespace AGS.Engine
 
 		private bool setValue(float value)
 		{
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
             if (_value == value) return false;
-			_value = value;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            _value = value;
 			refresh();
             return true;
 		}
@@ -237,6 +245,16 @@ namespace AGS.Engine
 		{
 			OnValueChanged.Invoke(new SliderValueEventArgs (_value));
 		}
+
+        private bool isHorizontal()
+        {
+            return _direction == SliderDirection.LeftToRight || _direction == SliderDirection.RightToLeft;
+        }
+
+        private bool isReverse()
+        {
+            return _direction == SliderDirection.RightToLeft || _direction == SliderDirection.TopToBottom;
+        }
 	}
 }
 

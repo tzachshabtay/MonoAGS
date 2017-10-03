@@ -37,7 +37,7 @@ namespace AGS.Engine
 
             Inspector = new AGSInspector();
             _panel.AddComponent(Inspector);
-            factory.UI.CreateScollingPanel(_scrollingPanel);
+            factory.UI.CreateScrollingPanel(_scrollingPanel);
 			_scrollingPanel.OnScaleChanged.Subscribe(() =>
 			{
                 _panel.Y = _scrollingPanel.Height - padding;

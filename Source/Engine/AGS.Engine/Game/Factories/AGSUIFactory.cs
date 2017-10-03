@@ -52,7 +52,7 @@ namespace AGS.Engine
             return GetPanel(id, image, x, y, parent, addToUi);
         }
 
-        public void CreateScollingPanel(IPanel panel)
+        public void CreateScrollingPanel(IPanel panel)
         {
 			panel.AddComponent<ICropChildrenComponent>();
 			panel.AddComponent<IBoundingBoxWithChildrenComponent>();
@@ -61,7 +61,7 @@ namespace AGS.Engine
 			horizSlider.X = -panel.Width * panel.Anchor.X + 20f;
             horizSlider.Y = 20f;
 			horizSlider.HandleGraphics.Anchor = new PointF(0f, 0.5f);
-			horizSlider.IsHorizontal = true;
+            horizSlider.Direction = SliderDirection.LeftToRight;
 			horizSlider.Graphics.Anchor = new PointF(0f, 0.5f);
 			horizSlider.Graphics.Image = new EmptyImage(panel.Width - 40f, 10f);
 			horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
@@ -75,7 +75,7 @@ namespace AGS.Engine
 			verSlider.X = panel.Width - 20f;
             verSlider.Y = 40f;
 			verSlider.HandleGraphics.Anchor = new PointF(0.5f, 0f);
-			verSlider.IsHorizontal = false;
+            verSlider.Direction = SliderDirection.TopToBottom;
 			verSlider.Graphics.Anchor = new PointF(0.5f, 0f);
 			verSlider.Graphics.Image = new EmptyImage(10f, panel.Height - 80f);
 			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);

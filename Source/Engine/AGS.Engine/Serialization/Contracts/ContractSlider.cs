@@ -39,7 +39,7 @@ namespace AGS.Engine
 		public float Value { get; set; }
 
 		[ProtoMember(8)]
-		public bool IsHorizontal { get; set; }
+        public SliderDirection Direction { get; set; }
 
 		#region IContract implementation
 
@@ -57,7 +57,7 @@ namespace AGS.Engine
 			slider.MinValue = MinValue;
 			slider.MaxValue = MaxValue;
 			slider.Value = Value;
-			slider.IsHorizontal = IsHorizontal;
+            slider.Direction = Direction;
 
 			context.Rewire(state =>
 			{
@@ -95,7 +95,7 @@ namespace AGS.Engine
 			MinValue = item.MinValue;
 			MaxValue = item.MaxValue;
 			Value = item.Value;
-			IsHorizontal = item.IsHorizontal;
+            Direction = item.Direction;
 		}
 
 		#endregion
