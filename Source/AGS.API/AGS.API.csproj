@@ -257,6 +257,7 @@
     <Compile Include="Graphics\Logic\DisplayList\IClippingPlane.cs" />
     <Compile Include="Editor\PropertyAttribute.cs" />
     <Compile Include="UI\Controls\Panel\ISplitPanelComponent.cs" />
+    <Compile Include="Editor\PropertyFolderAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

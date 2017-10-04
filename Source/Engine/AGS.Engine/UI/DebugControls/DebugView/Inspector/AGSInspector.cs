@@ -46,19 +46,39 @@ namespace AGS.Engine
             var props = obj.GetType().GetRuntimeProperties().ToList();
             foreach (var prop in props)
             {
-                var attr = prop.GetCustomAttribute<PropertyAttribute>();
-                if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IEvent", StringComparison.Ordinal)) continue; //filtering all events from the inspector by default
-                Category cat = defaultCategory;
-                string name = prop.Name;
-                if (attr != null)
-                {
-                    if (!attr.Browsable) continue;
-                    if (attr.Category != null) cat = new Category(attr.Category);
-                    if (attr.DisplayName != null) name = attr.DisplayName;
-                }
-                Property property = new Property(obj, name, prop);
+                var cat = defaultCategory;
+                Property property = addProp(obj, prop, ref cat);
+                if (property == null) continue;
                 _props.GetOrAdd(cat, () => new List<Property>(props.Count)).Add(property);
             }
+        }
+
+        private Property addProp(object obj, PropertyInfo prop, ref Category cat)
+        {
+			var attr = prop.GetCustomAttribute<PropertyAttribute>();
+			if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
+			string name = prop.Name;
+			if (attr != null)
+			{
+				if (!attr.Browsable) return null;
+				if (attr.Category != null) cat = new Category(attr.Category);
+				if (attr.DisplayName != null) name = attr.DisplayName;
+			}
+			Property property = new Property(obj, name, prop);
+            var val = prop.GetValue(obj);
+            if (val == null) return property;
+            var objType = val.GetType();
+			if (objType.GetTypeInfo().GetCustomAttribute<PropertyFolderAttribute>(true) != null)
+			{
+				var props = objType.GetRuntimeProperties().ToList();
+				foreach (var childProp in props)
+				{
+                    Category dummyCat = null;
+					var childProperty = addProp(val, childProp, ref dummyCat);
+                    property.Children.Add(childProperty);
+				}
+			}
+            return property;
         }
 
         private void configureTree()
@@ -78,11 +98,20 @@ namespace AGS.Engine
                 ITreeStringNode cat = addToTree(pair.Key.Name, root);
                 foreach (var prop in pair.Value)
                 {
-                    addToTree(string.Format("{0}: {1}", prop.Name, prop.Value), cat);
+                    addToTree(cat, prop);
                 }
             }
             treeView.Tree = root;
             treeView.Expand(root);
+        }
+
+        private void addToTree(ITreeStringNode parent, Property prop)
+        {
+			var node = addToTree(string.Format("{0}: {1}", prop.Name, prop.Value), parent);
+            foreach (var child in prop.Children)
+            {
+                addToTree(node, child);
+            }
         }
 
 		private ITreeStringNode addToTree(string text, ITreeStringNode parent)
@@ -109,6 +138,7 @@ namespace AGS.Engine
                 Prop = prop;
                 Name = name;
                 Object = obj;
+                Children = new List<Property>();
                 Refresh();
             }
 
@@ -116,6 +146,7 @@ namespace AGS.Engine
             public string Value { get; private set; }
             public PropertyInfo Prop { get; private set; }
             public object Object { get; private set; }
+            public List<Property> Children { get; private set; }
 
             public void Refresh()
             {
