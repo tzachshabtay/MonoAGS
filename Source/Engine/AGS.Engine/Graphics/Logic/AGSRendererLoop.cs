@@ -49,15 +49,15 @@ namespace AGS.Engine
 
 		public bool Tick ()
 		{
-            if (_gameState.Room == null) return false;
-			IRoom room = _gameState.Room;
             _glUtils.RefreshViewport(_game.Settings, _gameWindow, _gameState.Viewport);
 
-			switch (_roomTransitions.State)
+			var transitionState = _roomTransitions.State;
+            if (_gameState.Room == null) transitionState = RoomTransitionState.NotInTransition; //If there's no room, then room transition state is meaningless -> we'll interpret as not in transition, which will render the viewports, without a room (so GUIs will still be rendered).
+			switch (transitionState)
 			{
 				case RoomTransitionState.NotInTransition:
 					activateShader();
-					renderRoom();
+					renderAllViewports();
 					break;
 				case RoomTransitionState.BeforeLeavingRoom:
                     if (_roomTransitions.Transition == null)
@@ -121,12 +121,12 @@ namespace AGS.Engine
             TypedParameter sizeParam = new TypedParameter(typeof(Size), _game.Settings.WindowSize);
             IFrameBuffer frameBuffer = _resolver.Container.Resolve<IFrameBuffer>(sizeParam);
 			frameBuffer.Begin();
-			renderRoom();
+			renderAllViewports();
 			frameBuffer.End();
 			return frameBuffer;
 		}
 
-		private void renderRoom()
+        private void renderAllViewports()
 		{
             renderViewport(_gameState.Viewport);
             try
