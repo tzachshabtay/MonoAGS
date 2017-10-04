@@ -6507,18 +6507,6 @@ references:
   commentId: Overload:AGS.API.IFocusedUI.CannotLoseFocus
   fullName: AGS.API.IFocusedUI.CannotLoseFocus
   nameWithType: IFocusedUI.CannotLoseFocus
-- uid: AGS.API.IFocusedUI.FocusedTextBox
-  name: FocusedTextBox
-  href: api/AGS.API.IFocusedUI.html#AGS_API_IFocusedUI_FocusedTextBox
-  commentId: P:AGS.API.IFocusedUI.FocusedTextBox
-  fullName: AGS.API.IFocusedUI.FocusedTextBox
-  nameWithType: IFocusedUI.FocusedTextBox
-- uid: AGS.API.IFocusedUI.FocusedTextBox*
-  name: FocusedTextBox
-  href: api/AGS.API.IFocusedUI.html#AGS_API_IFocusedUI_FocusedTextBox_
-  commentId: Overload:AGS.API.IFocusedUI.FocusedTextBox
-  fullName: AGS.API.IFocusedUI.FocusedTextBox
-  nameWithType: IFocusedUI.FocusedTextBox
 - uid: AGS.API.IFocusedUI.FocusedWindow
   name: FocusedWindow
   href: api/AGS.API.IFocusedUI.html#AGS_API_IFocusedUI_FocusedWindow
@@ -6531,6 +6519,18 @@ references:
   commentId: Overload:AGS.API.IFocusedUI.FocusedWindow
   fullName: AGS.API.IFocusedUI.FocusedWindow
   nameWithType: IFocusedUI.FocusedWindow
+- uid: AGS.API.IFocusedUI.HasKeyboardFocus
+  name: HasKeyboardFocus
+  href: api/AGS.API.IFocusedUI.html#AGS_API_IFocusedUI_HasKeyboardFocus
+  commentId: P:AGS.API.IFocusedUI.HasKeyboardFocus
+  fullName: AGS.API.IFocusedUI.HasKeyboardFocus
+  nameWithType: IFocusedUI.HasKeyboardFocus
+- uid: AGS.API.IFocusedUI.HasKeyboardFocus*
+  name: HasKeyboardFocus
+  href: api/AGS.API.IFocusedUI.html#AGS_API_IFocusedUI_HasKeyboardFocus_
+  commentId: Overload:AGS.API.IFocusedUI.HasKeyboardFocus
+  fullName: AGS.API.IFocusedUI.HasKeyboardFocus
+  nameWithType: IFocusedUI.HasKeyboardFocus
 - uid: AGS.API.IFollowBehavior
   name: IFollowBehavior
   href: api/AGS.API.IFollowBehavior.html
@@ -11185,6 +11185,18 @@ references:
   commentId: T:AGS.API.ISliderComponent
   fullName: AGS.API.ISliderComponent
   nameWithType: ISliderComponent
+- uid: AGS.API.ISliderComponent.AllowKeyboardControl
+  name: AllowKeyboardControl
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_AllowKeyboardControl
+  commentId: P:AGS.API.ISliderComponent.AllowKeyboardControl
+  fullName: AGS.API.ISliderComponent.AllowKeyboardControl
+  nameWithType: ISliderComponent.AllowKeyboardControl
+- uid: AGS.API.ISliderComponent.AllowKeyboardControl*
+  name: AllowKeyboardControl
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_AllowKeyboardControl_
+  commentId: Overload:AGS.API.ISliderComponent.AllowKeyboardControl
+  fullName: AGS.API.ISliderComponent.AllowKeyboardControl
+  nameWithType: ISliderComponent.AllowKeyboardControl
 - uid: AGS.API.ISliderComponent.Direction
   name: Direction
   href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Direction
@@ -17420,6 +17432,24 @@ references:
   commentId: Overload:AGS.API.PropertyAttribute.DisplayName
   fullName: AGS.API.PropertyAttribute.DisplayName
   nameWithType: PropertyAttribute.DisplayName
+- uid: AGS.API.PropertyFolderAttribute
+  name: PropertyFolderAttribute
+  href: api/AGS.API.PropertyFolderAttribute.html
+  commentId: T:AGS.API.PropertyFolderAttribute
+  fullName: AGS.API.PropertyFolderAttribute
+  nameWithType: PropertyFolderAttribute
+- uid: AGS.API.PropertyFolderAttribute.#ctor
+  name: PropertyFolderAttribute()
+  href: api/AGS.API.PropertyFolderAttribute.html#AGS_API_PropertyFolderAttribute__ctor
+  commentId: M:AGS.API.PropertyFolderAttribute.#ctor
+  fullName: AGS.API.PropertyFolderAttribute.PropertyFolderAttribute()
+  nameWithType: PropertyFolderAttribute.PropertyFolderAttribute()
+- uid: AGS.API.PropertyFolderAttribute.#ctor*
+  name: PropertyFolderAttribute
+  href: api/AGS.API.PropertyFolderAttribute.html#AGS_API_PropertyFolderAttribute__ctor_
+  commentId: Overload:AGS.API.PropertyFolderAttribute.#ctor
+  fullName: AGS.API.PropertyFolderAttribute.PropertyFolderAttribute
+  nameWithType: PropertyFolderAttribute.PropertyFolderAttribute
 - uid: AGS.API.Quaternion
   name: Quaternion
   href: api/AGS.API.Quaternion.html
