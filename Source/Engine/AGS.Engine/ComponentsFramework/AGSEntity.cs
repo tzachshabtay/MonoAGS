@@ -142,8 +142,10 @@ namespace AGS.Engine
 
         public IComponentBinding Bind<TComponent>(Action<TComponent> onAdded, Action<TComponent> onRemoved) where TComponent : IComponent
         {
+            var bindings = _bindings;
+            if (bindings == null) return null; //Entity was already disposed -> not binding
             AGSComponentBinding<TComponent> binding = new AGSComponentBinding<TComponent>(this, onAdded, onRemoved, _componentsInitialized);
-            _bindings.Add(binding);
+            bindings.Add(binding);
             return binding;
         }
 
