@@ -17,6 +17,8 @@ namespace AGS.Engine
             HorizontalSpacing = 10f;
             VerticalSpacing = 30f;
             OnNodeSelected = new AGSEvent<NodeEventArgs>();
+            OnNodeExpanded = new AGSEvent<NodeEventArgs>();
+            OnNodeCollapsed = new AGSEvent<NodeEventArgs>();
             AllowSelection = SelectionType.Single;
             _state = state;
             NodeViewProvider = provider;
@@ -45,6 +47,10 @@ namespace AGS.Engine
         public SelectionType AllowSelection { get; set; }
 
         public IEvent<NodeEventArgs> OnNodeSelected { get; private set; }
+
+        public IEvent<NodeEventArgs> OnNodeExpanded { get; private set; }
+
+        public IEvent<NodeEventArgs> OnNodeCollapsed { get; private set; }
 
         public override void Init(IEntity entity)
         {
@@ -234,6 +240,7 @@ namespace AGS.Engine
         private class Node : IDisposable
         {
             private ITreeViewComponent _tree;
+            private bool _isCollapsed;
 
             public Node(ITreeStringNode item, ITreeNodeView view, Node parentNode, ITreeViewComponent tree)
             {
@@ -242,7 +249,7 @@ namespace AGS.Engine
                 View = view;
                 Parent = parentNode;
                 Children = new List<Node>();
-                IsCollapsed = true;
+                _isCollapsed = true;
                 IsNew = true;
 
                 if (parentNode != null)
@@ -269,7 +276,17 @@ namespace AGS.Engine
             public Node Parent { get; private set; }
 
             public bool IsNew { get; set; }
-            public bool IsCollapsed { get; set; }
+            public bool IsCollapsed 
+            { 
+                get { return _isCollapsed; } 
+                set
+                {
+                    if (_isCollapsed == value) return;
+                    _isCollapsed = value;
+                    if (value) _tree.OnNodeCollapsed.Invoke(new NodeEventArgs(Item));
+                    else _tree.OnNodeExpanded.Invoke(new NodeEventArgs(Item));
+                }
+            }
             public bool IsHovered { get; set; }
             public bool IsSelected { get; private set; }
             public float XOffset { get; private set; }
