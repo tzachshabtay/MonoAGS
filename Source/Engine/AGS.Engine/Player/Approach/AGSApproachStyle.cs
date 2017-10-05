@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using AGS.API;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSApproachStyle : IApproachStyle
 	{
 		public AGSApproachStyle()

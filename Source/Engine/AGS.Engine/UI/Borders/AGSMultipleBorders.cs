@@ -4,6 +4,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
     public class AGSMultipleBorders : IBorderStyle
     {
         public AGSMultipleBorders(params IBorderStyle[] borders)

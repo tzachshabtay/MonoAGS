@@ -5,6 +5,7 @@ using System.Collections.Concurrent;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSInventory : IInventory
 	{
 		private ConcurrentDictionary<Tuple<IInventoryItem, IInventoryItem>, IEvent<InventoryCombinationEventArgs>> _eventsMap;

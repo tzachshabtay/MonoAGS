@@ -3,6 +3,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
     public class AGSCustomProperties : AGSComponent, ICustomProperties
     {
         private AGSCustomPropertiesPerType<int> _ints;

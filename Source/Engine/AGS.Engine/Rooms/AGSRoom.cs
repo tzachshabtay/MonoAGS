@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSRoom : IRoom
 	{
         private ICharacter _player { get { return _state.Player; } }

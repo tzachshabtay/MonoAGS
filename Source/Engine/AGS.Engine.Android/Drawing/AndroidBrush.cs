@@ -4,6 +4,7 @@ using Android.Text;
 
 namespace AGS.Engine.Android
 {
+    [PropertyFolder]
 	public class AndroidBrush : IBrush
 	{
 		public AndroidBrush(TextPaint paint)

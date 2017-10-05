@@ -2,6 +2,7 @@
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
     public class AGSTextureConfig : ITextureConfig
     {
         public AGSTextureConfig(ScaleDownFilters scaleDown = ScaleDownFilters.Nearest,

@@ -2,6 +2,7 @@
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSRenderLayer : IRenderLayer
 	{
 		public AGSRenderLayer(int z, PointF? parallaxSpeed = null, Size? independentResolution = null)

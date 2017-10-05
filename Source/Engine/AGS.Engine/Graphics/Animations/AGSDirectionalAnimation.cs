@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AGS.API;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSDirectionalAnimation : IDirectionalAnimation
 	{
 		public AGSDirectionalAnimation ()

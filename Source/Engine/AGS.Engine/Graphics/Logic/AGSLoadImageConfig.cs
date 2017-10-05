@@ -2,6 +2,7 @@
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSLoadImageConfig : ILoadImageConfig
 	{
         public AGSLoadImageConfig(Point? transparentColorSamplePoint = null, ITextureConfig config = null)

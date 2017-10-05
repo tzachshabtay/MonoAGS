@@ -2,6 +2,7 @@
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSSprite : AGSComponent, ISprite
 	{
 		private readonly IHasImage _hasImage;

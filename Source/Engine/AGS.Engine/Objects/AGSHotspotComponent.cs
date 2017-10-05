@@ -23,6 +23,7 @@ namespace AGS.Engine
 			Interactions = _resolver.Container.Resolve<IInteractions>(defaults, objParam);
 		}
 
+        [Property(Browsable = false)]
 		public IInteractions Interactions { get; private set; }
 
 		public PointF? WalkPoint { get; set; }

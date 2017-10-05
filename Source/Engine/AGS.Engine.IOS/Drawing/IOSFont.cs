@@ -7,6 +7,7 @@ using IOS::Foundation;
 
 namespace AGS.Engine.IOS
 {
+    [PropertyFolder]
     public class IOSFont : IFont
     {
         private readonly FontStyle _style;

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class ALAudioClip : IAudioClip
 	{
 		private ISoundData _soundData;
