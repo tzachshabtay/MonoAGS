@@ -43,13 +43,13 @@ namespace AGS.Engine
 
         private void addProps(Category defaultCategory, object obj)
         {
-            var props = obj.GetType().GetRuntimeProperties().ToList();
+            var props = getProperties(obj.GetType());
             foreach (var prop in props)
             {
                 var cat = defaultCategory;
                 Property property = addProp(obj, prop, ref cat);
                 if (property == null) continue;
-                _props.GetOrAdd(cat, () => new List<Property>(props.Count)).Add(property);
+                _props.GetOrAdd(cat, () => new List<Property>(props.Length)).Add(property);
             }
         }
 
@@ -70,7 +70,7 @@ namespace AGS.Engine
             var objType = val.GetType();
 			if (objType.GetTypeInfo().GetCustomAttribute<PropertyFolderAttribute>(true) != null)
 			{
-				var props = objType.GetRuntimeProperties().ToList();
+                var props = getProperties(objType);
 				foreach (var childProp in props)
 				{
                     Category dummyCat = null;
@@ -79,6 +79,14 @@ namespace AGS.Engine
 				}
 			}
             return property;
+        }
+
+        private PropertyInfo[] getProperties(Type type)
+        {
+            return type.GetRuntimeProperties().Where(p => !p.GetMethod.IsStatic && p.GetMethod.IsPublic).ToArray();
+
+            //todo: if moving to dotnet standard 2.0, we can use this instead:
+            //return type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance);
         }
 
         private void configureTree()
