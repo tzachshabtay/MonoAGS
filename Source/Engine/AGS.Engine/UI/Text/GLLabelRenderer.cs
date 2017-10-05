@@ -141,6 +141,7 @@ namespace AGS.Engine
 
             if (TextVisible && Text != "")
 			{
+                _glTextHitTest.Refresh();
                 if (!string.IsNullOrEmpty(Text)) _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
@@ -312,7 +313,6 @@ namespace AGS.Engine
 			{
                 if (Text == null) return;
                 glText.SetProperties(baseSize, Text, Config, maxWidth, scaleUp, scaleDown, CaretPosition, RenderCaret, cropText, measureOnly);
-				glText.Refresh();
 			}
 		}
 
