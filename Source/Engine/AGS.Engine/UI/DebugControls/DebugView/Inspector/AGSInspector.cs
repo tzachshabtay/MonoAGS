@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using AGS.API;
@@ -75,6 +76,7 @@ namespace AGS.Engine
 				{
                     Category dummyCat = null;
 					var childProperty = addProp(val, childProp, ref dummyCat);
+                    if (childProperty == null) continue;
                     property.Children.Add(childProperty);
 				}
 			}
@@ -115,7 +117,7 @@ namespace AGS.Engine
 
         private void addToTree(ITreeStringNode parent, Property prop)
         {
-			var node = addToTree(string.Format("{0}: {1}", prop.Name, prop.Value), parent);
+            var node = addToTree(string.Format("{0}: {1}", prop.Name, prop.Value), parent);
             foreach (var child in prop.Children)
             {
                 addToTree(node, child);
