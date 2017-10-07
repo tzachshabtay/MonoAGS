@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IRotateComponent
+    <title>Enum SliderDirection
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IRotateComponent
+    <meta name="title" content="Enum SliderDirection
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.24.0.0">
     
@@ -76,38 +76,52 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.IRotateComponent">
+            <article class="content wrap" id="_content" data-uid="AGS.API.SliderDirection">
   
   
-  <h1 id="AGS_API_IRotateComponent" data-uid="AGS.API.IRotateComponent" class="text-break">Interface IRotateComponent
+  <h1 id="AGS_API_SliderDirection" data-uid="AGS.API.SliderDirection" class="text-break">Enum SliderDirection
   </h1>
-  <div class="markdown level0 summary"><p>A component which allows rotating an entity.</p>
+  <div class="markdown level0 summary"><p>The direction in which the slider moves from minimum to maximum.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="AGS.API.IRotate.html#AGS_API_IRotate_Angle">IRotate.Angle</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IRotate.html#AGS_API_IRotate_OnAngleChanged">IRotate.OnAngleChanged</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_IRotateComponent_syntax">Syntax</h5>
+  <h5 id="AGS_API_SliderDirection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IRotateComponent : IRotate, IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public enum SliderDirection : int</code></pre>
   </div>
+  <h3 id="fields">Fields
+  </h3>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    <tbody>
+      <tr>
+        <td id="AGS_API_SliderDirection_BottomToTop">BottomToTop</td>
+        <td><p>The slider is vertical and moves from bottom (minimum value) to top (maximum value).</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AGS_API_SliderDirection_LeftToRight">LeftToRight</td>
+        <td><p>The slider is horizontal and moves from left (minimum value) to right (maximum value).</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AGS_API_SliderDirection_RightToLeft">RightToLeft</td>
+        <td><p>The slider is horizontal and moves from right (minimum value) to left (maximum value).</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AGS_API_SliderDirection_TopToBottom">TopToBottom</td>
+        <td><p>The slider is vertical moves from top (minimum value) to bottom (maximum value).</p>
+</td>
+      </tr>
+    </tbody>
+  </thead></thead></table>
 </article>
           </div>
           
@@ -116,10 +130,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IRotateComponent.md&amp;value=---%0Auid%3A%20AGS.API.IRotateComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_SliderDirection.md&amp;value=---%0Auid%3A%20AGS.API.SliderDirection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/IRotateComponent.cs/#L24" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
