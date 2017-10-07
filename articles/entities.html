@@ -120,9 +120,7 @@ public MyComponent(int x) //this will crash
 {
     _x = x;
 }
-</code></pre><h3 id="allow-multiple">Allow Multiple</h3>
-<p>By default each component type can only exist twice for an entity. If you try to add the same component twice, the engine will ignore the second addition (and will return <code>false</code> so you&#39;ll know it rejected the second add). You can override this behavior for your component by setting <code>AllowMultiple</code> to true.</p>
-<h3 id="component-dependencies">Component Dependencies</h3>
+</code></pre><h3 id="component-dependencies">Component Dependencies</h3>
 <p>Your component might have a dependency on another component. For example, the <code>IDraggableComponent</code> has a dependency on the <code>ITranslateComponent</code>, as to drag an object you have to change its X and Y.</p>
 <p>To get the required component, we can override the <code>Init</code> method which passes us the entity:</p>
 <pre><code class="lang-csharp">
@@ -137,7 +135,20 @@ public override AfterInit()
 {
     _translateComponent.X += 10;
 }
-</code></pre><p>Finally, we want to declare to the world (but mostly to the editor, one we have one) that we are dependent on the <code>ITranslateComponent</code>, for this we can use the <code>RequiredComponent</code> attribute which we use to decorate our class:</p>
+</code></pre><p>Note, though, that components can also be removed from an entity at runtime, so if you have a dependency on a component, you can <code>Bind</code> to it and control how your own component handles a missing dependency. The <code>Bind</code> function gets 2 functions as  parameters, the first function gets called when the dependency component is added (it is also gets called if it&#39;s already there when you bind), and the second function gets called when the dependency component is removed.
+So let&#39;s rewrite our code with <code>Bind</code>:</p>
+<pre><code class="lang-csharp">
+public override Init(IEntity entity)
+{
+    entity.Bind&lt;ITranslateComponent&gt;(c =&gt; _translateComponent = c, _ =&gt; _translateComponent = null);
+}
+
+public override AfterInit()
+{
+    _translateComponent?.X += 10;
+}
+</code></pre><p>Note that we used the <a href="http://www.informit.com/articles/article.aspx?p=2421572">Elvis operator</a> when accessing <code>_translateComponent</code> to make sure we only change <code>X</code> if the translate component is available.</p>
+<p>Finally, we want to declare to the world (but mostly to the editor, when we&#39;ll have one) that we are dependent on the <code>ITranslateComponent</code>, for this we can use the <code>RequiredComponent</code> attribute which we use to decorate our class:</p>
 <pre><code class="lang-csharp">
 [RequiredComponent(typeof(ITranslateComponent))]
 public class MySuperUsefulComponent : AGSComponent
