@@ -48,7 +48,28 @@
         /// <summary>
         /// An event which fires every time a node is selected (if <see cref="AllowSelection"/> is set to allow selection).
         /// </summary>
-        /// <value>The on node selected.</value>
         IEvent<NodeEventArgs> OnNodeSelected { get; }
+
+		/// <summary>
+		/// An event which fires every time a node is expanded.
+		/// </summary>
+		IEvent<NodeEventArgs> OnNodeExpanded { get; }
+
+		/// <summary>
+		/// An event which fires every time a node is expanded.
+		/// </summary>
+		IEvent<NodeEventArgs> OnNodeCollapsed { get; }
+
+        /// <summary>
+        /// Expand the specified node.
+        /// </summary>
+        /// <param name="node">Node.</param>
+        void Expand(ITreeStringNode node);
+
+        /// <summary>
+        /// Collapse the specified node.
+        /// </summary>
+        /// <param name="node">Node.</param>
+        void Collapse(ITreeStringNode node);
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -11,8 +9,10 @@ namespace AGS.Engine
         private readonly IGame _game;
         private readonly GameDebugTree _debugTree;
         private readonly GameDebugDisplayList _displayList;
+        private readonly InspectorPanel _inspector;
         private const string _panelId = "Game Debug Tree Panel";
         private IPanel _panel;
+        private ISplitPanelComponent _splitPanel;
         private IDebugTab _currentTab;
         private IButton _panesButton;
 
@@ -20,7 +20,8 @@ namespace AGS.Engine
         {
             _game = game;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: new Size(1800, 1200));
-            _debugTree = new GameDebugTree(game, _layer);
+            _inspector = new InspectorPanel(game, _layer);
+            _debugTree = new GameDebugTree(game, _layer, _inspector);
             _displayList = new GameDebugDisplayList(game, _layer);
         }
 
@@ -73,51 +74,33 @@ namespace AGS.Engine
             parentPanel.Anchor = new PointF(0f, 1f);
             parentPanel.Tint = Colors.Transparent;
             parentPanel.RenderLayer = _layer;
-            parentPanel.AddComponent<ICropChildrenComponent>();
-            parentPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
-            IScrollingComponent scroll = parentPanel.AddComponent<IScrollingComponent>();
-            var horizSlider = factory.UI.GetSlider("DebugPanel_HorizSlider", null, null, 0f, 0f, 0f, parentPanel);
-            horizSlider.X = 20f;
-            horizSlider.Y = 20f;
-			horizSlider.RenderLayer = _layer;
-			horizSlider.Graphics.RenderLayer = _layer;
-			horizSlider.HandleGraphics.RenderLayer = _layer;
-            horizSlider.HandleGraphics.Anchor = new PointF(0f, 0.5f);
-			horizSlider.IsHorizontal = true;
-            horizSlider.Graphics.Anchor = new PointF(0f, 0.5f);
-            horizSlider.Graphics.Image = new EmptyImage(parentPanel.Width - 40f, 10f);
-            horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
-            horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
-            addHoverEffect(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
-            addHoverEffect(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
-
-            scroll.HorizontalScrollBar = horizSlider;
-
-			var verSlider = factory.UI.GetSlider("DebugPanel_VerticalSlider", null, null, 0f, 0f, 0f, parentPanel);
-            verSlider.X = parentPanel.Width - 20f;
-			verSlider.Y = 40f;
-			verSlider.RenderLayer = _layer;
-			verSlider.Graphics.RenderLayer = _layer;
-			verSlider.HandleGraphics.RenderLayer = _layer;
-			verSlider.HandleGraphics.Anchor = new PointF(0.5f, 0f);
-            verSlider.IsHorizontal = false;
-			verSlider.Graphics.Anchor = new PointF(0.5f, 0f);
-            verSlider.Graphics.Image = new EmptyImage(10f, parentPanel.Height - 80f);
-			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
-			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
-			addHoverEffect(verSlider.Graphics, Colors.Gray, Colors.LightGray);
-			addHoverEffect(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
-
-            scroll.VerticalScrollBar = verSlider;
 
             _debugTree.Load(parentPanel);
             _displayList.Load(parentPanel);
+            _inspector.Load(parentPanel);
             _currentTab = _debugTree;
+            _splitPanel = parentPanel.AddComponent<ISplitPanelComponent>();
+            _splitPanel.TopPanel = _debugTree.Panel;
+            _splitPanel.BottomPanel = _inspector.Panel;
+
+            var horizSplit = _panel.AddComponent<ISplitPanelComponent>();
+            horizSplit.IsHorizontal = true;
+            horizSplit.TopPanel = _panel;
+
+            _panel.OnScaleChanged.Subscribe(() => 
+            {
+                _panesButton.X = _panel.Width;
+                headerLabel.LabelRenderSize = new SizeF(_panel.Width, headerLabel.LabelRenderSize.Height);
+                parentPanel.ResetBaseSize(_panel.Width, parentPanel.Height);
+                _currentTab.Resize();
+                _inspector.Resize();
+            });
         }
 
         public Task Show()
         {
             _panel.Visible = true;
+            _splitPanel.TopPanel = _currentTab.Panel;
             return _currentTab.Show();
         }
 
@@ -132,15 +115,8 @@ namespace AGS.Engine
             _currentTab.Hide();
             _currentTab = (_currentTab == _debugTree) ? (IDebugTab)_displayList : _debugTree;
             _panesButton.Text = _currentTab == _debugTree ? "Display List" : "Scene Tree";
+            _splitPanel.TopPanel = _currentTab.Panel;
             return _currentTab.Show();
-        }
-
-        private void addHoverEffect(IObject obj, Color idleTint, Color hoverTint)
-        {
-            obj.Tint = idleTint;
-            var uiEvents = obj.AddComponent<IUIEvents>();
-            uiEvents.MouseEnter.Subscribe(_ => obj.Tint = hoverTint);
-            uiEvents.MouseLeave.Subscribe(_ => obj.Tint = idleTint);
         }
     }
 }

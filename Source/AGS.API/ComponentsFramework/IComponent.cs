@@ -13,11 +13,6 @@ namespace AGS.API
 		string Name { get; }
 
         /// <summary>
-        /// Do this component allow multiple instances of it attached to the entity?
-        /// </summary>
-		bool AllowMultiple { get; }
-
-        /// <summary>
         /// Initializes the component. If the component is dependant on other components, they should be retrieved here
         /// using entity.GetComponent.
         /// </summary>

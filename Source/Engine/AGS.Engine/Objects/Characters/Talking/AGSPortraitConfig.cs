@@ -2,6 +2,7 @@
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
     public class AGSPortraitConfig : IPortraitConfig
     {
         public AGSPortraitConfig()

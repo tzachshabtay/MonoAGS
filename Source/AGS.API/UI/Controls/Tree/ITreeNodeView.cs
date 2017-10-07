@@ -12,7 +12,7 @@
         /// Gets the text label for the node.
         /// </summary>
         /// <value>The tree item.</value>
-        ILabel TreeItem { get; }
+        IUIControl TreeItem { get; }
 
         /// <summary>
         /// Gets the expand/collapse button for the node.

@@ -12,6 +12,7 @@ namespace AGS.Engine
 	}
 
 	//Inspired from css: https://css-tricks.com/almanac/properties/b/border-image/
+    [PropertyFolder]
 	public class AGSSlicedImageBorder : IBorderStyle
 	{
 		private int _texture;

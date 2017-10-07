@@ -54,7 +54,7 @@ namespace AGS.Engine
 		private ObjectPool<IBitmap> getPool(int width, int height)
 		{
 			AGS.API.Size size = new AGS.API.Size (width, height);
-			return _bitmaps.GetOrAdd(size, _ => new ObjectPool<IBitmap> (() => _bitmapLoader.Load(width, height), 3,
+			return _bitmaps.GetOrAdd(size, _ => new ObjectPool<IBitmap> (__ => _bitmapLoader.Load(width, height), 3,
 				bitmap => bitmap.Clear()));
 		}
 

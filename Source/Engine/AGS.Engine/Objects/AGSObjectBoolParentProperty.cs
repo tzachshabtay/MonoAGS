@@ -3,38 +3,39 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class AGSObjectBoolParentProperty : AGSComponent
-	{
-		private readonly Predicate<IObject> _getProperty;
+    public class AGSObjectBoolParentProperty : AGSComponent
+    {
+        private readonly Predicate<IObject> _getProperty;
         private readonly Func<IObject, IEvent> _getOnValueChanged;
-		private IInObjectTree _tree;
+        private IInObjectTree _tree;
         private bool _underlyingValue, _lastValue, _initializedValue;
         private IObject _lastParent;
         private IEntity _entity;
 
         public AGSObjectBoolParentProperty(Predicate<IObject> getProperty, Func<IObject, IEvent> getOnValueChanged)
-		{
+        {
             OnUnderlyingValueChanged = new AGSEvent();
             OnValueChanged = new AGSEvent();
-			_getProperty = getProperty;
+            _getProperty = getProperty;
             _getOnValueChanged = getOnValueChanged;
             UnderlyingValue = true;
-		}
+        }
 
-		public override void Init(IEntity entity)
-		{
+        public override void Init(IEntity entity)
+        {
             _entity = entity;
-			base.Init(entity);
+            base.Init(entity);
 
-		}
+        }
 
         public override void AfterInit()
         {
             base.AfterInit();
-			_entity.Bind<IInObjectTree>(c => { _tree = c; c.TreeNode.OnParentChanged.Subscribe(onParentChanged); onParentChanged(); },
-									   c => { _tree = null; c.TreeNode.OnParentChanged.Unsubscribe(onParentChanged); });
+            _entity.Bind<IInObjectTree>(c => { _tree = c; c.TreeNode.OnParentChanged.Subscribe(onParentChanged); onParentChanged(); },
+                                       c => { _tree = null; c.TreeNode.OnParentChanged.Unsubscribe(onParentChanged); });
         }
-			
+
+        [Property(Browsable = false)]
 		public bool Value 
 		{
 			get 
@@ -46,6 +47,7 @@ namespace AGS.Engine
 			set { UnderlyingValue = value;}
 		}
 
+        [Property(Browsable = false)]
         public bool UnderlyingValue 
         { 
             get { return _underlyingValue; }

@@ -7,6 +7,7 @@ using System.Collections.Concurrent;
 
 namespace AGS.Engine.Android
 {
+    [PropertyFolder]
     public class AndroidFont : IFont
 	{
         private static ConcurrentDictionary<string, Typeface> _fontsFromFiles = new ConcurrentDictionary<string, Typeface>();

@@ -4,6 +4,7 @@ using System.Drawing;
 
 namespace AGS.Engine.Desktop
 {
+    [PropertyFolder]
 	public class DesktopFont : IFont
 	{
 		public DesktopFont(Font font)

@@ -1,8 +1,8 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSEdge : IEdge
 	{
 		public AGSEdge()

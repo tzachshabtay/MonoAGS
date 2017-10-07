@@ -10,7 +10,8 @@ namespace AGS.Engine
         private ITreeViewComponent _treeView;
         private readonly IGame _game;
         private readonly IConcurrentHashSet<string> _addedObjects;
-        private IPanel _treePanel;
+        private readonly InspectorPanel _inspector;
+        private IPanel _treePanel, _scrollingPanel, _parent;
 
         private IAnimationContainer _lastSelectedObject;
         private IVisibleComponent _lastSelectedMaskVisible;
@@ -19,34 +20,54 @@ namespace AGS.Engine
         private bool _lastMaskVisible;
         private byte _lastOpacity;
 
-        public GameDebugTree(IGame game, IRenderLayer layer)
+        public GameDebugTree(IGame game, IRenderLayer layer, InspectorPanel inspector)
         {
             _game = game;
+            _inspector = inspector;
             _addedObjects = new AGSConcurrentHashSet<string>(100, false);
             _layer = layer;
         }
 
+        public IPanel Panel { get { return _scrollingPanel; }}
+
         public void Load(IPanel parent)
         {
+            _parent = parent;
             _panelId = parent.TreeNode.GetRoot().ID;
             var factory = _game.Factory;
-            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, parent.Height - 40, parent);
+            _scrollingPanel = factory.UI.GetPanel("GameDebugTreeScrollingPanel", parent.Width, (3f / 4f) * parent.Height, 0f, parent.Height / 4f, parent);
+            _scrollingPanel.RenderLayer = _layer;
+            _scrollingPanel.Anchor = new PointF(0f, 0f);
+            _scrollingPanel.Tint = Colors.Transparent;
+            _scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
+            const float lineHeight = 42f;
+            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, _scrollingPanel.Height - lineHeight, _scrollingPanel);
             _treePanel.Tint = Colors.Transparent;
             _treePanel.RenderLayer = _layer;
             _treeView = _treePanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
+            factory.UI.CreateScrollingPanel(_scrollingPanel);
+            _scrollingPanel.OnScaleChanged.Subscribe(() => 
+            {
+                _treePanel.Y = _scrollingPanel.Height - lineHeight;
+            });
         }
 
         public async Task Show()
         {
             await Task.Run(() => refresh());
-            _treePanel.Visible = true;
+            _scrollingPanel.Visible = true;
         }
 
         public void Hide()
         {
-	        _treePanel.Visible = false;
+	        _scrollingPanel.Visible = false;
             _treeView.Tree = null;
+        }
+
+        public void Resize()
+        {
+            _scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
         }
 
         private void onTreeNodeSelected(NodeEventArgs args)
@@ -68,6 +89,7 @@ namespace AGS.Engine
         private void selectObject(ITreeStringNode node)
         { 
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
+            _inspector.Inspector.Show(obj);
             var animation = obj.GetComponent<IAnimationContainer>();
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
@@ -99,6 +121,7 @@ namespace AGS.Engine
         private void selectArea(ITreeStringNode node)
         { 
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
+            _inspector.Inspector.Show(obj);
             var area = obj.GetComponent<IAreaComponent>();
             var debugMask = area.Mask.DebugDraw;
             if (debugMask != null)

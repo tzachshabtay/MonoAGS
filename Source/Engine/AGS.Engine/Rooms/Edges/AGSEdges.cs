@@ -3,6 +3,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSEdges : IAGSEdges
 	{
 		private PlayerState _lastState;

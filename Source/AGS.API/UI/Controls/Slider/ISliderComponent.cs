@@ -1,6 +1,29 @@
 ﻿namespace AGS.API
 {
     /// <summary>
+    /// The direction in which the slider moves from minimum to maximum.
+    /// </summary>
+    public enum SliderDirection
+    {
+        /// <summary>
+        /// The slider is vertical and moves from bottom (minimum value) to top (maximum value).
+        /// </summary>
+        BottomToTop,
+        /// <summary>
+        /// The slider is vertical moves from top (minimum value) to bottom (maximum value).
+        /// </summary>
+        TopToBottom,
+        /// <summary>
+        /// The slider is horizontal and moves from left (minimum value) to right (maximum value).
+        /// </summary>
+        LeftToRight,
+        /// <summary>
+        /// The slider is horizontal and moves from right (minimum value) to left (maximum value).
+        /// </summary>
+        RightToLeft,
+    }
+
+    /// <summary>
     /// A slider component allows selecting a numeric value between an allowed range, by dragging a handle across
     /// a line (usually).
     /// </summary>
@@ -9,6 +32,7 @@
 	[RequiredComponent(typeof(IInObjectTree))]
 	[RequiredComponent(typeof(IVisibleComponent))]
 	[RequiredComponent(typeof(IEnabledComponent))]
+    [RequiredComponent(typeof(IUIEvents))]
 	public interface ISliderComponent : IComponent
 	{
         /// <summary>
@@ -48,10 +72,18 @@
 		float Value { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.ISliderComponent"/> is horizontal (or vertical).
+        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.ISliderComponent"/> allows keyboard control for moving the slider when it is in focus (i.e after the user clicked on the slider).
+        /// Default is true.
+        /// </summary>
+        /// <value><c>true</c> if allow keyboard control; otherwise, <c>false</c>.</value>
+        bool AllowKeyboardControl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the direction of the slider. If, for example, the slider's direction is bottom-to-top then the minimum value will correspond with the bottom most location on the slider
+        /// and the maximum value will correspond with the top most location on the slider.
         /// </summary>
         /// <value><c>true</c> if is horizontal; otherwise, <c>false</c>.</value>
-		bool IsHorizontal { get; set; }
+        SliderDirection Direction { get; set; }
 
         /// <summary>
         /// An event which is triggered when the slider value has changed.

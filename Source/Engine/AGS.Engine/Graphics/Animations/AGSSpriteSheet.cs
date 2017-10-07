@@ -1,8 +1,8 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSSpriteSheet : ISpriteSheet
 	{
 		public AGSSpriteSheet (string path, int cellWidth, int cellHeight, int startFromCell = 0, int cellsToGrab = -1, SpriteSheetOrder order = SpriteSheetOrder.TopLeftGoRight)

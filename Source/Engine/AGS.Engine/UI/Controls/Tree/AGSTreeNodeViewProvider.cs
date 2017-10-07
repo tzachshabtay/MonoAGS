@@ -17,13 +17,18 @@ namespace AGS.Engine
         public void BeforeDisplayingNode(ITreeStringNode item, ITreeNodeView nodeView, 
                                          bool isCollapsed, bool isHovered, bool isSelected)
         {
-            nodeView.TreeItem.TextConfig = isHovered ? item.HoverTextConfig : item.IdleTextConfig;
-            nodeView.TreeItem.Text = item.Text;
+            var textConfig = isHovered ? item.HoverTextConfig : item.IdleTextConfig;
+            var label = nodeView.TreeItem as ITextComponent;
+            if (label != null)
+            {
+                label.TextConfig = textConfig;
+                label.Text = item.Text;
+            }
             nodeView.TreeItem.Tint = isSelected ? Colors.DarkSlateBlue : Colors.Transparent;
             var expandButton = nodeView.ExpandButton;
             if (expandButton != null)
             {
-                expandButton.TextConfig = nodeView.TreeItem.TextConfig;
+                expandButton.TextConfig = textConfig;
                 expandButton.Text = isCollapsed ? "+" : "-";
                 expandButton.TextVisible = item.TreeNode.ChildrenCount > 0;
                 expandButton.Enabled = expandButton.TextVisible;

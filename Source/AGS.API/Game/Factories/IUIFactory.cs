@@ -60,6 +60,13 @@ namespace AGS.API
 		Task<IPanel> GetPanelAsync(string id, string imagePath, float x, float y, IObject parent = null, ILoadImageConfig loadConfig = null, bool addToUi = true);
 
         /// <summary>
+        /// Adds horizontal and vertical scrollbars on the edges of the panel that allow to scroll the contents on the panel.
+        /// The scrollbars are only shown if the contents is bigger than panel.
+        /// </summary>
+        /// <param name="panel">Panel.</param>
+        void CreateScrollingPanel(IPanel panel);
+
+        /// <summary>
         /// Creates a label.
         /// </summary>
         /// <returns>The label.</returns>

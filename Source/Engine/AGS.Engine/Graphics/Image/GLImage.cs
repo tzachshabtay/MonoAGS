@@ -3,6 +3,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
     public class GLImage : IImage, IDisposable
     {
         public GLImage()

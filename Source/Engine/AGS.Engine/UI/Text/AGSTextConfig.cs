@@ -3,6 +3,7 @@
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
     public class AGSTextConfig : ITextConfig
     {
         private static IBrushLoader _brushes { get { return AGSGame.Device.BrushLoader; } }

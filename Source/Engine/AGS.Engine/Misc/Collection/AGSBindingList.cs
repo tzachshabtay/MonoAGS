@@ -9,10 +9,12 @@ namespace AGS.Engine
 	public class AGSBindingList<TItem> : IAGSBindingList<TItem>
 	{
 		private List<TItem> _list;
+        private ObjectPool<ListEnumerator> _enumerators;
 
 		public AGSBindingList(int capacity)
 		{
 			_list = new List<TItem>(capacity);
+            _enumerators = new ObjectPool<ListEnumerator>(pool => new ListEnumerator(_list, pool), 10, null);
 			OnListChanged = new AGSEvent<AGSListChangedEventArgs<TItem>> ();
 		}
 
@@ -152,7 +154,9 @@ namespace AGS.Engine
 
 		public IEnumerator<TItem> GetEnumerator()
 		{
-			return _list.GetEnumerator();
+            var e = _enumerators.Acquire();
+            e.Reset();
+            return e;
 		}
 
 		#endregion
@@ -161,10 +165,61 @@ namespace AGS.Engine
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable)_list).GetEnumerator();
+			var e = _enumerators.Acquire();
+            e.Reset();
+            return e;
 		}
 
-		#endregion
-	}
+        #endregion
+
+        private class ListEnumerator : IEnumerator<TItem>, IEnumerator
+        {
+            private readonly List<TItem> _list;
+            private int _index;
+            private ObjectPool<ListEnumerator> _pool;
+
+            public ListEnumerator(List<TItem> list, ObjectPool<ListEnumerator> pool)
+            {
+                _pool = pool;
+                _list = list;
+                Current = default(TItem);
+            }
+
+            public TItem Current { get; private set; }
+
+            object IEnumerator.Current { get { return Current; }}
+
+            public bool MoveNext()
+            {
+                int count = _list.Count;
+                _index++;
+                if (_index >= count)
+                {
+                    Current = default(TItem);
+                    _pool.Release(this);
+                    return false;
+                }
+                try
+                {
+                    Current = _list[_index];
+                    return true;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Current = default(TItem);
+                    _pool.Release(this);
+                    return false;
+                }
+            }
+
+            public void Reset()
+            {
+                _index = -1;
+                Current = default(TItem);
+            }
+
+            public void Dispose(){}
+        }
+    }
 }
 

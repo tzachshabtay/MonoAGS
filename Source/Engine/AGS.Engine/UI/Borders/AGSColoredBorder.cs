@@ -3,6 +3,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSColoredBorder : IBorderStyle
 	{
 		private GLVertex[] _roundCorner;

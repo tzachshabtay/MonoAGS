@@ -10,7 +10,7 @@ namespace AGS.API
     /// So a walk component will have a required component attribute with translate compnent, and another 
     /// attribute with the animation component.
     /// </summary>
-	[AttributeUsage(AttributeTargets.Interface, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class, AllowMultiple = true)]
 	public class RequiredComponentAttribute : Attribute
 	{
 		public RequiredComponentAttribute(Type component, bool mandatory = true)

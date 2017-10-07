@@ -8,7 +8,7 @@ namespace AGS.Engine
     {
         private List<IObject> _lastDisplayList;
         private IListboxComponent _listBox;
-        private IPanel _listPanel;
+        private IPanel _listPanel, _scrollingPanel, _parent;
         private IStackLayoutComponent _layout;
         private readonly IRenderLayer _layer;
         private readonly IGame _game;
@@ -20,11 +20,20 @@ namespace AGS.Engine
             game.RenderLoop.OnBeforeRenderingDisplayList.Subscribe(onBeforeRenderingDisplayList);
         }
 
+        public IPanel Panel { get { return _scrollingPanel; } }
+
         public void Load(IPanel parent)
         {
+            _parent = parent;
             var factory = _game.Factory;
-            _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, parent.Height - 10, parent);
-            _listPanel.Visible = false;
+			_scrollingPanel = factory.UI.GetPanel("GameDebugDisplayListScrollingPanel", parent.Width, (3f / 4f) * parent.Height, 0f, parent.Height / 4f, parent);
+			_scrollingPanel.RenderLayer = _layer;
+			_scrollingPanel.Anchor = new PointF(0f, 0f);
+			_scrollingPanel.Tint = Colors.Transparent;
+			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
+            _scrollingPanel.Visible = false;
+
+            _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, _scrollingPanel.Height - 10, _scrollingPanel);
             _listPanel.Tint = Colors.Transparent;
             _listPanel.RenderLayer = _layer;
             _listPanel.Anchor = new PointF(0f, 1f);
@@ -43,21 +52,31 @@ namespace AGS.Engine
                 button.RenderLayer = parent.RenderLayer;
                 return button;
             };
+            factory.UI.CreateScrollingPanel(_scrollingPanel);
+			_scrollingPanel.OnScaleChanged.Subscribe(() =>
+			{
+                _listPanel.Y = _scrollingPanel.Height - 10f;
+			});
         }
 
         public async Task Show()
         {
             await Task.Run(() => refresh());
             _layout.StartLayout();
-            _listPanel.Visible = true;
+            _scrollingPanel.Visible = true;
         }
 
         public void Hide()
         {
-            _listPanel.Visible = false;
+            _scrollingPanel.Visible = false;
             _layout.StopLayout();
             _listBox.Items.Clear();
         }
+
+		public void Resize()
+		{
+			_scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
+		}
 
         private void refresh()
         {

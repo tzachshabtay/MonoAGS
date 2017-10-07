@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class AGSAnimation : IAnimation
 	{
 		public AGSAnimation (IAnimationConfiguration configuration, IAnimationState state, int estimatedNumberOfFrames = 8)

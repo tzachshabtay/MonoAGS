@@ -10,7 +10,7 @@ namespace AGS.Engine
 {
     public class AGSEntity : IEntity
     {
-        private ConcurrentDictionary<Type, AGSConcurrentHashSet<IComponent>> _components;
+        private ConcurrentDictionary<Type, IComponent> _components;
         private List<IComponentBinding> _bindings;
         private Resolver _resolver;
         private bool _componentsInitialized;
@@ -19,7 +19,7 @@ namespace AGS.Engine
         {
             ID = id;
             _resolver = resolver;
-            _components = new ConcurrentDictionary<Type, AGSConcurrentHashSet<IComponent>>();
+            _components = new ConcurrentDictionary<Type, IComponent>();
             _bindings = new List<IComponentBinding>();
             OnComponentsInitialized = new AGSEvent();
             OnComponentsChanged = new AGSEvent<AGSListChangedEventArgs<IComponent>>();
@@ -55,51 +55,45 @@ namespace AGS.Engine
         {
             var components = _components;
             if (components == null) return default(IComponent);
-            AGSConcurrentHashSet<IComponent> ofType = components.GetOrAdd(componentType, _ => new AGSConcurrentHashSet<IComponent>());
-            IComponent existingComponent = ofType.FirstOrDefault();
-            if (existingComponent == null || existingComponent.AllowMultiple)
+            return components.GetOrAdd(componentType, _ =>
             {
                 IComponent component = (IComponent)_resolver.Container.Resolve(componentType);
-                ofType.Add(component);
                 initComponentIfNeeded(component);
                 return component;
-            }
-            return existingComponent;
+            });
         }
 
-        public bool AddComponent<TComponent>(TComponent component) where TComponent : IComponent
+        public bool AddComponent(IComponent component)
         {
 			var components = _components;
             if (components == null) return false;
-            AGSConcurrentHashSet<IComponent> ofType = components.GetOrAdd(typeof(TComponent), _ => new AGSConcurrentHashSet<IComponent>());
-            IComponent existingComponent = ofType.FirstOrDefault();
-            if (existingComponent == null || existingComponent.AllowMultiple)
+            bool addedComponent = false;
+            components.GetOrAdd(component.GetType(), _ =>
             {
-                ofType.Add(component);
+                addedComponent = true;
                 initComponentIfNeeded(component);
-                return true;
-            }
-            return false;
+                return component;
+            });
+            return addedComponent;
         }
 
-        public bool RemoveComponents<TComponent>() where TComponent : IComponent
+        public bool RemoveComponent<TComponent>() where TComponent : IComponent
         {
-            return RemoveComponents(typeof(TComponent));
+            return RemoveComponent(typeof(TComponent));
         }
 
-        public bool RemoveComponents(Type componentType)
+        public bool RemoveComponent(Type componentType)
         {
 			var components = _components;
             if (components == null) return false;
-            AGSConcurrentHashSet<IComponent> ofType;
             int count = Count;
-            if (!components.TryRemove(componentType, out ofType) || ofType.Count == 0) return false;
-            foreach (var component in ofType)
-            {
-                component.Dispose();
-				OnComponentsChanged.Invoke(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove,
-																	  new AGSListItem<IComponent>(component, count--)));
-            }
+            IComponent component;
+            if (!components.TryRemove(componentType, out component)) return false;
+
+            component.Dispose();
+			OnComponentsChanged.Invoke(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove,
+																  new AGSListItem<IComponent>(component, count--)));
+            
             return true;
         }
 
@@ -107,16 +101,9 @@ namespace AGS.Engine
         {
 			var components = _components;
 			if (components == null) return false;
-            AGSConcurrentHashSet<IComponent> ofType;
-            if (!components.TryGetValue(component.GetType(), out ofType)) return false;
-            component.Dispose();
-            if (ofType.Remove(component))
-            {
-                OnComponentsChanged.Invoke(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove, 
-                                                                      new AGSListItem<IComponent>(component, Count)));
-                return true;
-            }
-            return false;
+            IComponent existing;
+            if (!components.TryGetValue(component.GetType(), out existing) || existing != component) return false;
+            return RemoveComponent(component.GetType());
         }
 
         public bool HasComponent<TComponent>() where TComponent : IComponent
@@ -128,16 +115,15 @@ namespace AGS.Engine
         {
 			var components = _components;
 			if (components == null) return false;
-            AGSConcurrentHashSet<IComponent> ofType;
-            return (components.TryGetValue(componentType, out ofType) && ofType.Count > 0);
+            return components.ContainsKey(componentType);
         }
 
         public bool HasComponent(IComponent component)
         {
 			var components = _components;
 			if (components == null) return false;
-            AGSConcurrentHashSet<IComponent> ofType;
-            return (components.TryGetValue(component.GetType(), out ofType) && ofType.Contains(component));
+            IComponent existing;
+            return components.TryGetValue(component.GetType(), out existing) && existing == component;
         }
 
         public TComponent GetComponent<TComponent>() where TComponent : IComponent
@@ -149,43 +135,17 @@ namespace AGS.Engine
         {
 			var components = _components;
             if (components == null) return default(IComponent);
-            AGSConcurrentHashSet<IComponent> ofType;
-            if (!components.TryGetValue(componentType, out ofType)) return null;
-            return ofType.FirstOrDefault();
-        }
-
-        public IEnumerable<TComponent> GetComponents<TComponent>() where TComponent : IComponent
-        {
-            return GetComponents(typeof(TComponent)).Cast<TComponent>();
-        }
-
-        public IEnumerable<IComponent> GetComponents(Type componentType)
-        {
-			var components = _components;
-            if (components == null) return new List<IComponent>();
-            AGSConcurrentHashSet<IComponent> ofType;
-            if (!components.TryGetValue(componentType, out ofType)) return new List<IComponent>();
-            return ofType;
-        }
-
-        public int CountType(Type componentType)
-        {
-			var components = _components;
-            if (components == null) return 0;
-            AGSConcurrentHashSet<IComponent> ofType;
-            if (!components.TryGetValue(componentType, out ofType)) return 0;
-            return ofType.Count;
-        }
-
-        public int CountType<TComponent>() where TComponent : IComponent
-        {
-            return CountType(typeof(TComponent));
+            IComponent component;
+            if (!components.TryGetValue(componentType, out component)) return null;
+            return component;
         }
 
         public IComponentBinding Bind<TComponent>(Action<TComponent> onAdded, Action<TComponent> onRemoved) where TComponent : IComponent
         {
+            var bindings = _bindings;
+            if (bindings == null) return null; //Entity was already disposed -> not binding
             AGSComponentBinding<TComponent> binding = new AGSComponentBinding<TComponent>(this, onAdded, onRemoved, _componentsInitialized);
-            _bindings.Add(binding);
+            bindings.Add(binding);
             return binding;
         }
 
@@ -195,7 +155,7 @@ namespace AGS.Engine
             {
 				var components = _components;
                 if (components == null) return 0;
-                return components.Sum(c => c.Value.Count);
+                return components.Count;
             }
         }
 
@@ -213,7 +173,7 @@ namespace AGS.Engine
         {
 			var components = _components;
 			if (components == null) return new List<IComponent>().GetEnumerator();
-            return components.SelectMany(c => c.Value).GetEnumerator();
+            return components.Values.GetEnumerator();
         }
 
         #endregion
@@ -224,7 +184,7 @@ namespace AGS.Engine
         {
 			var components = _components;
             if (components == null) return new List<IComponent>().GetEnumerator();
-            return ((IEnumerable)components.SelectMany(c => c.Value)).GetEnumerator();
+            return ((IEnumerable)components.Values).GetEnumerator();
         }
 
         #endregion
@@ -248,7 +208,7 @@ namespace AGS.Engine
         {
             var components = _components;
             if (components == null) return;
-            foreach (var component in components.SelectMany(c => c.Value))
+            foreach (var component in components.Values)
             {
                 component.Dispose();
             }

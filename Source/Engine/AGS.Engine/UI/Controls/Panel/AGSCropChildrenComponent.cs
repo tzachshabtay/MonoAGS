@@ -107,7 +107,7 @@ namespace AGS.Engine
 
         private void removeCrop(IObject obj)
         {
-            obj.RemoveComponents<ICropSelfComponent>();
+            obj.RemoveComponent<ICropSelfComponent>();
             foreach (var child in obj.TreeNode.Children)
             {
                 removeCrop(child);
@@ -186,15 +186,24 @@ namespace AGS.Engine
 				float maxXChild = childBox.MaxX;
 				float minYChild = childBox.MinY;
 				float maxYChild = childBox.MaxY;
-				float startX = minXParent;
-                float startY = minYParent;
-                float x = childBox.MinX > startX ? 0f : startX - childBox.MinX;
-                float y = childBox.MinY > startY ? 0f : startY - childBox.MinY;
+				float leftParent = minXParent;
+                float bottomParent = minYParent;
+                float leftChild = minXChild;
+                float bottomChild = minYChild;
+                float left = leftChild > leftParent ? 0f : leftParent - leftChild;
+                float bottom = bottomChild > bottomParent ? 0f : bottomParent - bottomChild;
 				float width = Math.Min(maxXParent, maxXChild) - Math.Max(minXParent, minXChild);
 				float height = Math.Min(maxYParent, maxYChild) - Math.Max(minYParent, minYChild);
 				if (width < 0) width = 0f;
 				if (height < 0) height = 0f;
-				_crop.CropArea = new RectangleF(x, y, width, height);
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+                if (_crop.CropArea.X == left && _crop.CropArea.Y == bottom && _crop.CropArea.Width == width
+                    && _crop.CropArea.Height == height)
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+				{
+                    return;
+                }
+				_crop.CropArea = new RectangleF(left, bottom, width, height);
             }
         }
     }

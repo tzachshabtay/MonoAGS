@@ -3,6 +3,7 @@ using AGS.API;
 
 namespace AGS.Engine.IOS
 {
+    [PropertyFolder]
     public class IOSBrush : IBrush
     {
         public IOSBrush(Color color)
