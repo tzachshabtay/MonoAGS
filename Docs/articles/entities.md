@@ -60,10 +60,6 @@ public MyComponent(int x) //this will crash
 
 ```
 
-### Allow Multiple
-
-By default each component type can only exist twice for an entity. If you try to add the same component twice, the engine will ignore the second addition (and will return `false` so you'll know it rejected the second add). You can override this behavior for your component by setting `AllowMultiple` to true.
-
 ### Component Dependencies
 
 Your component might have a dependency on another component. For example, the `IDraggableComponent` has a dependency on the `ITranslateComponent`, as to drag an object you have to change its X and Y.
@@ -91,7 +87,26 @@ public override AfterInit()
 
 ```
 
-Finally, we want to declare to the world (but mostly to the editor, one we have one) that we are dependent on the `ITranslateComponent`, for this we can use the `RequiredComponent` attribute which we use to decorate our class:
+Note, though, that components can also be removed from an entity at runtime, so if you have a dependency on a component, you can `Bind` to it and control how your own component handles a missing dependency. The `Bind` function gets 2 functions as  parameters, the first function gets called when the dependency component is added (it is also gets called if it's already there when you bind), and the second function gets called when the dependency component is removed.
+So let's rewrite our code with `Bind`:
+
+```csharp
+
+public override Init(IEntity entity)
+{
+    entity.Bind<ITranslateComponent>(c => _translateComponent = c, _ => _translateComponent = null);
+}
+
+public override AfterInit()
+{
+    _translateComponent?.X += 10;
+}
+
+```
+
+Note that we used the [Elvis operator](http://www.informit.com/articles/article.aspx?p=2421572) when accessing `_translateComponent` to make sure we only change `X` if the translate component is available.
+
+Finally, we want to declare to the world (but mostly to the editor, when we'll have one) that we are dependent on the `ITranslateComponent`, for this we can use the `RequiredComponent` attribute which we use to decorate our class:
 
 ```csharp
 
