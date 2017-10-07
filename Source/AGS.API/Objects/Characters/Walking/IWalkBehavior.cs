@@ -28,29 +28,29 @@ namespace AGS.API
         /// <value><c>true</c> if adjust walk speed to scale area; otherwise, <c>false</c>.</value>
         bool AdjustWalkSpeedToScaleArea { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.IWalkBehavior"/> movement is linked to the animation.
-        /// This is on by default, meaning that the walk step would only be performed when the walk animation frame changes.
-        /// For the walk to look right, the images need to be drawn so that a foot touching the ground moves back a 
-        /// constant amount of pixels in between frames. This amount should then be entered as the <see cref="WalkStep"/>, 
-        /// and not touched any further. Any speed adjustment should only done by changing the animation speed (the animation's <see cref="T:AGS.API.IAnimationConfiguration.DelayBetweenFrames"/> property 
-        /// and an optional additional delay for the actual running frame).
-        /// 
-        /// If this is turned off, then the walk step would be performed on each frame making for a smooth movement.
-        /// Note that if the walk animation only has a single frame, then the engine will ignore the configuration
-        /// and will treat it as false.
-        /// 
-        /// How to decide if this should be on or off?
-        /// ------------------------------------------
-        /// As a rule of thumb, if the character has legs you would want this on.
-        /// If you turn this off (for a character which has legs) while the movement will look smoother, it
-        /// will also cause a gliding effect, caused by the fact that the movement is not in sync with the animation
-        /// of the moving feet.
-        /// If your character doesn't have legs (a robot, a floating ghost, etc), turning this off would make
-        /// for a smoother looking walk.
-        /// </summary>
-        /// <value><c>true</c> if movement linked to animation; otherwise, <c>false</c>.</value>
-        bool MovementLinkedToAnimation { get; set; }
+		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="T:AGS.API.IWalkBehavior"/> movement is linked to the animation.
+		/// This is on by default, meaning that the walk step would only be performed when the walk animation frame changes.
+		/// For the walk to look right, the images need to be drawn so that a foot touching the ground moves back a 
+		/// constant amount of pixels in between frames. This amount should then be entered as the <see cref="WalkStep"/>, 
+		/// and not touched any further. Any speed adjustment should only done by changing the animation speed (the animation's <see cref="T:AGS.API.IAnimationConfiguration.DelayBetweenFrames"/> property 
+		/// and an optional additional delay for the actual running frame).
+		/// 
+		/// If this is turned off, then the walk step would be performed on each frame making for a smooth movement.
+		/// Note that if the walk animation only has a single frame, then the engine will ignore the configuration
+		/// and will treat it as false.
+		/// 
+		/// ##### How to decide if this should be on or off?
+		/// 
+		/// As a rule of thumb, if the character has legs you would want this on.
+		/// If you turn this off (for a character which has legs) while the movement will look smoother, it
+		/// will also cause a gliding effect, caused by the fact that the movement is not in sync with the animation
+		/// of the moving feet.
+		/// If your character doesn't have legs (a robot, a floating ghost, etc), turning this off would make
+		/// for a smoother looking walk.
+		/// </summary>
+		/// <value><c>true</c> if movement linked to animation; otherwise, <c>false</c>.</value>
+		bool MovementLinkedToAnimation { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether the character is walking.
