@@ -9,6 +9,7 @@ namespace AGS.Engine
         private ITextComponent _textComponent;
         private IImageComponent _imageComponent;
         private IVisibleComponent _visibleComponent;
+        private IDrawableInfo _drawableComponent;
         private IUIEvents _uiEvents;        
         private IInObjectTree _tree;
         private IHasRoom _room;
@@ -65,6 +66,13 @@ namespace AGS.Engine
             _caretFlashCounter = (int)CaretFlashDelay;
             _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _withCaret.Anchor = new PointF(0f, 0f);
+
+            entity.Bind<IDrawableInfo>(c =>
+            {
+                _drawableComponent = c;
+                c.OnRenderLayerChanged.Subscribe(onRenderLayerChanged);
+                onRenderLayerChanged();
+            }, c => _drawableComponent = null);
         }
 
         public override void AfterInit()
@@ -110,6 +118,15 @@ namespace AGS.Engine
             base.Dispose();
             _game.Events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
             _game.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
+        }
+
+        private void onRenderLayerChanged()
+        {
+            var drawable = _drawableComponent;
+            if (drawable == null) return;
+            var layer = drawable.RenderLayer;
+            if (layer == null) return;
+            _withCaret.RenderLayer = layer;
         }
 
         private void onRepeatedlyExecute()
