@@ -33,7 +33,8 @@ namespace AGS.Engine
             _panel = factory.UI.GetPanel("GameDebugInspectorPanel", parent.Width, height - padding, 0f, height - padding, _scrollingPanel);
 			_panel.Tint = Colors.Transparent;
 			_panel.RenderLayer = _layer;
-			_panel.AddComponent<ITreeViewComponent>();
+			var treeView = _panel.AddComponent<ITreeViewComponent>();
+            treeView.NodeViewProvider = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory);
 
             Inspector = new AGSInspector();
             _panel.AddComponent(Inspector);

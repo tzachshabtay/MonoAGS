@@ -4,7 +4,7 @@ namespace AGS.Engine
 {
     public class AGSTreeNodeView : ITreeNodeView
     {
-        public AGSTreeNodeView(ILabel treeItem, IButton expandButton, IPanel parentPanel, IPanel verticalPanel, IPanel horizontalPanel)
+        public AGSTreeNodeView(IUIControl treeItem, IButton expandButton, IPanel parentPanel, IPanel verticalPanel, IPanel horizontalPanel)
         {
             TreeItem = treeItem;
             ExpandButton = expandButton;

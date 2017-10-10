@@ -420,6 +420,9 @@
     <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorPanel.cs" />
     <Compile Include="UI\Controls\Panel\AGSSplitPanelComponent.cs" />
     <Compile Include="Graphics\Effects\HoverEffect.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorTreeNodeProvider.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorTreeNode.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\IInspectorTreeNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

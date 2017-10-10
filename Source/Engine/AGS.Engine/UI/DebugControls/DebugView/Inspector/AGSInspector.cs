@@ -105,7 +105,7 @@ namespace AGS.Engine
             var root = new AGSTreeStringNode { Text = ""};
             foreach (var pair in _props)
             {
-                ITreeStringNode cat = addToTree(pair.Key.Name, root);
+                ITreeStringNode cat = addToTree(pair.Key.Name, null, root);
                 foreach (var prop in pair.Value)
                 {
                     addToTree(cat, prop);
@@ -117,16 +117,18 @@ namespace AGS.Engine
 
         private void addToTree(ITreeStringNode parent, Property prop)
         {
-            var node = addToTree(string.Format("{0}: {1}", prop.Name, prop.Value), parent);
+            //var node = addToTree(string.Format("{0}: {1}", prop.Name, prop.Value), parent);
+            var node = addToTree(prop.Name, prop.Value, parent);
             foreach (var child in prop.Children)
             {
                 addToTree(node, child);
             }
         }
 
-		private ITreeStringNode addToTree(string text, ITreeStringNode parent)
+		private ITreeStringNode addToTree(string text, string value, ITreeStringNode parent)
 		{
-			var node = new AGSTreeStringNode { Text = text };
+            ITreeStringNode node = value == null ? (ITreeStringNode)new AGSTreeStringNode { Text = text } : 
+                    new InspectorTreeNode(text, value);
 			if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
 			return node;
 		}
