@@ -158,6 +158,16 @@ namespace AGS.Engine
 		{
 			return Tween.Run(sound.Pitch, toPitch, p => sound.Pitch = p, timeInSeconds, easing);
 		}
+
+        public static Tween TweenX(this ITextureOffsetComponent offset, float toX, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return Tween.Run(offset.TextureOffset.X, toX, x => offset.TextureOffset = new PointF(x, offset.TextureOffset.Y), timeInSeconds, easing);
+        }
+
+		public static Tween TweenY(this ITextureOffsetComponent offset, float toY, float timeInSeconds, Func<float, float> easing = null)
+		{
+			return Tween.Run(offset.TextureOffset.Y, toY, y => offset.TextureOffset = new PointF(offset.TextureOffset.X, y), timeInSeconds, easing);
+		}
 	}
 }
 

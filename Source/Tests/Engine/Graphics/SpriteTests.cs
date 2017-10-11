@@ -20,34 +20,19 @@ namespace Tests
 			_mocks = Mocks.Init();
 		}
 
-		[TestCase(200f,100f, 1f,1f, true, 200f,100f)]
-		[TestCase(200f,100f, 1f,1f, false, 200f,100f)]
-
-		[TestCase(200f,100f, 2f,1f, true, 400f,100f)]
-		[TestCase(200f,100f, 2f,1f, false, 400f,100f)]
-
-		[TestCase(200f,100f, 0.5f,2f, true, 100f,200f)]
-		[TestCase(200f,100f, 0.5f,2f, false, 100f,200f)]
+		[TestCase(200f,100f, 1f,1f, 200f,100f)]
+		[TestCase(200f,100f, 2f,1f, 400f,100f)]
+		[TestCase(200f,100f, 0.5f,2f, 100f,200f)]
 		public void ScaleByTest(float imageWidth, float imageHeight, float scaleX, float scaleY, 
-			bool imageBeforeScale, float expectedWidth, float expectedHeight)
+			float expectedWidth, float expectedHeight)
 		{
 			foreach (IHasModelMatrix sprite in getImplementors())
 			{
-				bool isSprite = sprite.GetType() == typeof(AGSSprite);
 				_mocks.Image().Setup(i => i.Width).Returns(imageWidth);
 				_mocks.Image().Setup(i => i.Height).Returns(imageHeight);
 
-				if (imageBeforeScale || !isSprite)
-				{
-					sprite.Image = _mocks.Image().Object;
-					sprite.ScaleBy(scaleX, scaleY);
-				}
-				else
-				{					
-					sprite.Image = new Mock<IImage> ().Object;
-					sprite.ScaleBy(scaleX, scaleY);
-					sprite.Image = _mocks.Image().Object;
-				}
+				sprite.Image = _mocks.Image().Object;
+				sprite.ScaleBy(scaleX, scaleY);
 
 				Assert.AreEqual(expectedWidth, sprite.Width, "Width doesn' match for " + sprite.GetType().Name);
 				Assert.AreEqual(expectedHeight, sprite.Height, "Height doesn't match for " + sprite.GetType().Name);

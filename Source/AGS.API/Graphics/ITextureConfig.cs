@@ -52,6 +52,7 @@
 
     /// <summary>
     /// How a texture is wrapped to fill an image.
+    /// <seealso cref="ITextureOffsetComponent"/>
     /// </summary>
     public enum TextureWrap
     {
@@ -84,11 +85,13 @@
         ScaleDownFilters ScaleDownFilter { get; }
         /// <summary>
         /// How would the texture be wrapped to match the image on its horizontal axis?
+        /// <seealso cref="ITextureOffsetComponent"/>
         /// </summary>
         TextureWrap WrapX { get; }
-        /// <summary>
-        /// How would the texture be wrapped to match the image on its vertical axis?
-        /// </summary>
-        TextureWrap WrapY { get; }
+		/// <summary>
+		/// How would the texture be wrapped to match the image on its vertical axis?
+		/// <seealso cref="ITextureOffsetComponent"/>
+		/// </summary>
+		TextureWrap WrapY { get; }
     }
 }

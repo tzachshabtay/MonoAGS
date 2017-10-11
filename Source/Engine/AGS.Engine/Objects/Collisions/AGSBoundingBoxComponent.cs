@@ -15,6 +15,7 @@ namespace AGS.Engine
         private ICropSelfComponent _crop;
         private IAnimationContainer _animation;
         private IDrawableInfo _drawable;
+        private ITextureOffsetComponent _textureOffset;
         private IGameSettings _settings;
         private readonly IGLViewportMatrixFactory _layerViewports;
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
@@ -51,6 +52,8 @@ namespace AGS.Engine
             entity.Bind<IAnimationContainer>(c => _animation = c, _animation => _animation = null);
             entity.Bind<IDrawableInfo>(c => { c.OnRenderLayerChanged.Subscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Subscribe(onAllViewportsShouldChange); _drawable = c; },
                                        c => { c.OnRenderLayerChanged.Unsubscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Unsubscribe(onAllViewportsShouldChange); _drawable = null; });
+            entity.Bind<ITextureOffsetComponent>(c => { c.OnTextureOffsetChanged.Subscribe(onAllViewportsShouldChange); _textureOffset = c; onAllViewportsShouldChange(); }, 
+                                                 c => { c.OnTextureOffsetChanged.Unsubscribe(onAllViewportsShouldChange); _textureOffset = null; onAllViewportsShouldChange(); });
             
         }
 
@@ -58,7 +61,8 @@ namespace AGS.Engine
 		{
             var viewportBoxes = _boundingBoxes.GetOrAdd(viewport,_ => new ViewportBoundingBoxes(viewport));
             var boundingBoxes = viewportBoxes.BoundingBoxes;
-            if (!_isHitTestBoxDirty && !_isCropDirty && !_areViewportsDirty && !viewportBoxes.IsDirty)
+            bool isHitTestBoxDirty = _isHitTestBoxDirty;
+            if (!isHitTestBoxDirty && !_isCropDirty && !_areViewportsDirty && !viewportBoxes.IsDirty)
                 return boundingBoxes;
             var animation = _animation;
 			var drawable = _drawable;
@@ -67,7 +71,7 @@ namespace AGS.Engine
 			if (animation == null || animation.Animation == null || animation.Animation.Sprite == null ||
                 animation.Animation.Sprite.Image == null || drawable == null || matrix == null) return boundingBoxes;
 
-            if (_isHitTestBoxDirty)
+            if (isHitTestBoxDirty)
             {
                 _isCropDirty = true;
                 updateHitTestBox(animation, drawable, matrix);
@@ -84,15 +88,17 @@ namespace AGS.Engine
             var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : layerViewport.GetMatrix(viewport, drawable.RenderLayer.ParallaxSpeed);
             AGSBoundingBox intermediateBox, hitTestBox;
             hitTestBox = _hitTestBox;
-            if (resolutionMatches)
+
+			var sprite = animation.Animation.Sprite;
+			float width = sprite.BaseSize.Width;
+			float height = sprite.BaseSize.Height;
+
+			if (resolutionMatches)
             {
                 intermediateBox = _intermediateBox;
             }
             else
             {
-				var sprite = animation.Animation.Sprite;
-                float width = sprite.Image.Width;
-                float height = sprite.Image.Height;
 				var modelMatrices = matrix.GetModelMatrices();
                 var modelMatrix = modelMatrices.InObjResolutionMatrix;
                 intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, modelMatrix);
@@ -105,7 +111,22 @@ namespace AGS.Engine
 			boundingBoxes.PreCropRenderBox = renderBox;
 			renderBox = cropInfo.BoundingBox;
             boundingBoxes.RenderBox = renderBox;
-            boundingBoxes.TextureBox = cropInfo.TextureBox;
+            if (cropInfo.TextureBox != null)
+            {
+                boundingBoxes.TextureBox = cropInfo.TextureBox;
+            }
+            else
+            {
+                var textureOffset = _textureOffset;
+                if (width != sprite.Image.Width || height != sprite.Image.Height ||
+                    (textureOffset != null && !textureOffset.TextureOffset.Equals(Vector2.Zero)))
+                {
+                    var offset = textureOffset == null ? PointF.Empty : textureOffset.TextureOffset;
+                    setProportionalTextureSize(boundingBoxes, sprite, width, height, offset);
+                }
+                else boundingBoxes.TextureBox = null;
+            }
+
             if (cropInfo.Equals(default(AGSCropInfo)))
             {
                 boundingBoxes.HitTestBox = default(AGSBoundingBox);
@@ -123,6 +144,17 @@ namespace AGS.Engine
             return boundingBoxes;
 		}
 
+        private static void setProportionalTextureSize(AGSBoundingBoxes boundingBoxes,
+                           ISprite sprite, float width, float height, PointF textureOffset)
+        {
+            float left = textureOffset.X;
+            float top = textureOffset.Y;
+            float right = width / sprite.Image.Width + textureOffset.X;
+            float bottom = height / sprite.Image.Height + textureOffset.Y;
+            boundingBoxes.TextureBox = new FourCorners<Vector2>(new Vector2(left, bottom), new Vector2(right, bottom),
+                                                                new Vector2(left, top), new Vector2(right, top));
+        }
+
         private void updateHitTestBox(IAnimationContainer animation, IDrawableInfo drawable, IModelMatrixComponent matrix)
         {
             var modelMatrices = matrix.GetModelMatrices();
@@ -134,8 +166,8 @@ namespace AGS.Engine
 												 drawable, null, out resolutionFactor, out resolution);
             
 			var sprite = animation.Animation.Sprite;
-			float width = sprite.Image.Width / resolutionFactor.X;
-			float height = sprite.Image.Height / resolutionFactor.Y;
+            float width = sprite.BaseSize.Width / resolutionFactor.X;
+			float height = sprite.BaseSize.Height / resolutionFactor.Y;
             _intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, modelMatrix);
             _hitTestBox = _boundingBoxBuilder.BuildHitTestBox(_intermediateBox);
 		}

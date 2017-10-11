@@ -7,6 +7,7 @@ namespace AGS.Engine
     {
         private IScale _scale;
         private readonly Resolver _resolver;
+        private IAnimationContainer _animation;
 
         public AGSScaleComponent(Resolver resolver)
         {
@@ -21,6 +22,7 @@ namespace AGS.Engine
                 TypedParameter imageParam = new TypedParameter(typeof(IHasImage), c);
                 _scale = _resolver.Container.Resolve<IScale>(imageParam);
             }, _ => _scale = null);
+            entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
         }
 
         public float Height { get { return _scale.Height; } }
@@ -37,11 +39,15 @@ namespace AGS.Engine
 
         public void ResetBaseSize(float initialWidth, float initialHeight)
         {
+            var sprite = getSprite();
+            if (sprite != null) sprite.ResetBaseSize(initialWidth, initialHeight);
             _scale.ResetBaseSize(initialWidth, initialHeight);
         }
 
         public void ResetScale(float initialWidth, float initialHeight)
         {
+			var sprite = getSprite();
+			if (sprite != null) sprite.ResetBaseSize(initialWidth, initialHeight);
             _scale.ResetScale(initialWidth, initialHeight);
         }
 
@@ -68,6 +74,13 @@ namespace AGS.Engine
         public void FlipVertically()
         {
             _scale.FlipVertically();
-        }        
+        }  
+
+        private ISprite getSprite()
+        {
+            var animation = _animation;
+            if (animation == null || animation.Animation == null) return null;
+            return animation.Animation.Sprite;
+        }
     }
 }
