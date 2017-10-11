@@ -401,5 +401,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)GUI\FeaturesWindow\IFeaturesPanel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GUI\FeaturesWindow\FeaturesViewportsPanel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GUI\FeaturesWindow\FeaturesMoveAreaPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\FeaturesWindow\FeaturesTexturesPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\FeaturesWindow\PlayerAsFeature.cs" />
   </ItemGroup>
 </Project>

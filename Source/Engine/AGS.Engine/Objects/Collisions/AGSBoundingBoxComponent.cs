@@ -58,7 +58,8 @@ namespace AGS.Engine
 		{
             var viewportBoxes = _boundingBoxes.GetOrAdd(viewport,_ => new ViewportBoundingBoxes(viewport));
             var boundingBoxes = viewportBoxes.BoundingBoxes;
-            if (!_isHitTestBoxDirty && !_isCropDirty && !_areViewportsDirty && !viewportBoxes.IsDirty)
+            bool isHitTestBoxDirty = _isHitTestBoxDirty;
+            if (!isHitTestBoxDirty && !_isCropDirty && !_areViewportsDirty && !viewportBoxes.IsDirty)
                 return boundingBoxes;
             var animation = _animation;
 			var drawable = _drawable;
@@ -67,7 +68,7 @@ namespace AGS.Engine
 			if (animation == null || animation.Animation == null || animation.Animation.Sprite == null ||
                 animation.Animation.Sprite.Image == null || drawable == null || matrix == null) return boundingBoxes;
 
-            if (_isHitTestBoxDirty)
+            if (isHitTestBoxDirty)
             {
                 _isCropDirty = true;
                 updateHitTestBox(animation, drawable, matrix);
@@ -84,15 +85,17 @@ namespace AGS.Engine
             var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : layerViewport.GetMatrix(viewport, drawable.RenderLayer.ParallaxSpeed);
             AGSBoundingBox intermediateBox, hitTestBox;
             hitTestBox = _hitTestBox;
-            if (resolutionMatches)
+
+			var sprite = animation.Animation.Sprite;
+			float width = sprite.BaseSize.Width;
+			float height = sprite.BaseSize.Height;
+
+			if (resolutionMatches)
             {
                 intermediateBox = _intermediateBox;
             }
             else
             {
-				var sprite = animation.Animation.Sprite;
-                float width = sprite.Image.Width;
-                float height = sprite.Image.Height;
 				var modelMatrices = matrix.GetModelMatrices();
                 var modelMatrix = modelMatrices.InObjResolutionMatrix;
                 intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, modelMatrix);
@@ -105,7 +108,16 @@ namespace AGS.Engine
 			boundingBoxes.PreCropRenderBox = renderBox;
 			renderBox = cropInfo.BoundingBox;
             boundingBoxes.RenderBox = renderBox;
-            boundingBoxes.TextureBox = cropInfo.TextureBox;
+            if (cropInfo.TextureBox != null)
+            {
+                boundingBoxes.TextureBox = cropInfo.TextureBox;
+            }
+            else if (width != sprite.Image.Width || height != sprite.Image.Height)
+            {
+                setProportionalTextureSize(boundingBoxes, sprite, width, height);
+            }
+            else boundingBoxes.TextureBox = null;
+
             if (cropInfo.Equals(default(AGSCropInfo)))
             {
                 boundingBoxes.HitTestBox = default(AGSBoundingBox);
@@ -123,6 +135,16 @@ namespace AGS.Engine
             return boundingBoxes;
 		}
 
+        private static void setProportionalTextureSize(AGSBoundingBoxes boundingBoxes, ISprite sprite, float width, float height)
+        {
+            float left = 0f;
+            float top = 0f;
+            float right = width / sprite.Image.Width;
+            float bottom = height / sprite.Image.Height;
+            boundingBoxes.TextureBox = new FourCorners<Vector2>(new Vector2(left, bottom), new Vector2(right, bottom),
+                                                                new Vector2(left, top), new Vector2(right, top));
+        }
+
         private void updateHitTestBox(IAnimationContainer animation, IDrawableInfo drawable, IModelMatrixComponent matrix)
         {
             var modelMatrices = matrix.GetModelMatrices();
@@ -134,8 +156,8 @@ namespace AGS.Engine
 												 drawable, null, out resolutionFactor, out resolution);
             
 			var sprite = animation.Animation.Sprite;
-			float width = sprite.Image.Width / resolutionFactor.X;
-			float height = sprite.Image.Height / resolutionFactor.Y;
+            float width = sprite.BaseSize.Width / resolutionFactor.X;
+			float height = sprite.BaseSize.Height / resolutionFactor.Y;
             _intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, modelMatrix);
             _hitTestBox = _boundingBoxBuilder.BuildHitTestBox(_intermediateBox);
 		}

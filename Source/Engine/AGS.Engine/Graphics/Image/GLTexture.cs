@@ -51,12 +51,21 @@ namespace AGS.Engine
 
         private void applyConfig()
         {
-            _graphics.BindTexture2D(ID);
-            _graphics.SetTextureMinFilter(_config.ScaleDownFilter);
-            _graphics.SetTextureMagFilter(_config.ScaleUpFilter);
-            _graphics.SetTextureWrapS(_config.WrapX);
-            _graphics.SetTextureWrapT(_config.WrapY);
+            if (Environment.CurrentManagedThreadId != AGSGame.UIThreadID)
+            {
+                _messagePump.Post(_ => applyConfigOnUiThread(), null);
+            }
+            else applyConfigOnUiThread();
         }
+
+		private void applyConfigOnUiThread()
+		{
+			_graphics.BindTexture2D(ID);
+			_graphics.SetTextureMinFilter(_config.ScaleDownFilter);
+			_graphics.SetTextureMagFilter(_config.ScaleUpFilter);
+			_graphics.SetTextureWrapS(_config.WrapX);
+			_graphics.SetTextureWrapT(_config.WrapY);
+		}
 
         private void dispose(bool disposing)
         {
