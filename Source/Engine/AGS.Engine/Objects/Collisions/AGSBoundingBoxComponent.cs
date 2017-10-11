@@ -15,6 +15,7 @@ namespace AGS.Engine
         private ICropSelfComponent _crop;
         private IAnimationContainer _animation;
         private IDrawableInfo _drawable;
+        private ITextureOffsetComponent _textureOffset;
         private IGameSettings _settings;
         private readonly IGLViewportMatrixFactory _layerViewports;
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
@@ -51,6 +52,8 @@ namespace AGS.Engine
             entity.Bind<IAnimationContainer>(c => _animation = c, _animation => _animation = null);
             entity.Bind<IDrawableInfo>(c => { c.OnRenderLayerChanged.Subscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Subscribe(onAllViewportsShouldChange); _drawable = c; },
                                        c => { c.OnRenderLayerChanged.Unsubscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Unsubscribe(onAllViewportsShouldChange); _drawable = null; });
+            entity.Bind<ITextureOffsetComponent>(c => { c.OnTextureOffsetChanged.Subscribe(onAllViewportsShouldChange); _textureOffset = c; onAllViewportsShouldChange(); }, 
+                                                 c => { c.OnTextureOffsetChanged.Unsubscribe(onAllViewportsShouldChange); _textureOffset = null; onAllViewportsShouldChange(); });
             
         }
 
@@ -112,11 +115,17 @@ namespace AGS.Engine
             {
                 boundingBoxes.TextureBox = cropInfo.TextureBox;
             }
-            else if (width != sprite.Image.Width || height != sprite.Image.Height)
+            else
             {
-                setProportionalTextureSize(boundingBoxes, sprite, width, height);
+                var textureOffset = _textureOffset;
+                if (width != sprite.Image.Width || height != sprite.Image.Height ||
+                    (textureOffset != null && !textureOffset.TextureOffset.Equals(Vector2.Zero)))
+                {
+                    var offset = textureOffset == null ? PointF.Empty : textureOffset.TextureOffset;
+                    setProportionalTextureSize(boundingBoxes, sprite, width, height, offset);
+                }
+                else boundingBoxes.TextureBox = null;
             }
-            else boundingBoxes.TextureBox = null;
 
             if (cropInfo.Equals(default(AGSCropInfo)))
             {
@@ -135,12 +144,13 @@ namespace AGS.Engine
             return boundingBoxes;
 		}
 
-        private static void setProportionalTextureSize(AGSBoundingBoxes boundingBoxes, ISprite sprite, float width, float height)
+        private static void setProportionalTextureSize(AGSBoundingBoxes boundingBoxes,
+                           ISprite sprite, float width, float height, PointF textureOffset)
         {
-            float left = 0f;
-            float top = 0f;
-            float right = width / sprite.Image.Width;
-            float bottom = height / sprite.Image.Height;
+            float left = textureOffset.X;
+            float top = textureOffset.Y;
+            float right = width / sprite.Image.Width + textureOffset.X;
+            float bottom = height / sprite.Image.Height + textureOffset.Y;
             boundingBoxes.TextureBox = new FourCorners<Vector2>(new Vector2(left, bottom), new Vector2(right, bottom),
                                                                 new Vector2(left, top), new Vector2(right, top));
         }

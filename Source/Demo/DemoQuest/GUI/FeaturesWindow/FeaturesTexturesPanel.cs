@@ -43,7 +43,8 @@ namespace DemoGame
             {
                 frame.Sprite.ResetBaseSize(200f, 200f);
             }
-            animate();
+            var textureOffset = player.AddComponent<ITextureOffsetComponent>();
+            animate(textureOffset);
         }
 
 		public void Close()
@@ -51,6 +52,7 @@ namespace DemoGame
 			var player = _game.State.Player;
             if (player != null)
             {
+                player.RemoveComponent<ITextureOffsetComponent>();
                 setConfig(player, ScaleUpFilters.Nearest, TextureWrap.Clamp, TextureWrap.Clamp);
                 var animation = player.Outfit[AGSOutfit.Walk].Down;
                 foreach (var frame in animation.Frames)
@@ -71,7 +73,7 @@ namespace DemoGame
 			}
 		}
 
-        private async void animate()
+        private async void animate(ITextureOffsetComponent textureOffset)
         {
             if (_isClosed) return;
 
@@ -88,7 +90,18 @@ namespace DemoGame
             setConfig(player, ScaleUpFilters.Linear, TextureWrap.Clamp, TextureWrap.MirroredRepeat);
 
             await Task.Delay(2000);
-            animate();
+            setConfig(player, ScaleUpFilters.Linear, TextureWrap.Repeat, TextureWrap.MirroredRepeat);
+
+            _label.Text = "Animating texture offset";
+            await textureOffset.TweenX(3f, 2f, Ease.Linear).Task;
+            await textureOffset.TweenY(3f, 2f, Ease.Linear).Task;
+            await Task.Delay(2000);
+
+            var task1 = textureOffset.TweenX(0f, 2f, Ease.QuadIn).Task;
+            var task2 = textureOffset.TweenY(0f, 2f, Ease.QuadIn).Task;
+            await Task.WhenAll(task1, task2);
+
+            animate(textureOffset);
         }
 
         private void setConfig(ICharacter player, ScaleUpFilters scaleUp, TextureWrap wrapX, TextureWrap wrapY)
