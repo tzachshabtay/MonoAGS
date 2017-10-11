@@ -900,6 +900,12 @@ for allowing editing/inserting text.</p>
       <h4><a class="xref" href="AGS.API.ITextureConfig.html">ITextureConfig</a></h4>
       <section><p>Various configurations for a texture.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.ITextureOffsetComponent.html">ITextureOffsetComponent</a></h4>
+      <section><p>Allows changing the starting offset from which the texture will be rendered.</p>
+<p>This can be useful, for example, when dealing with a tiled texture 
+(i.e when the <a class="xref" href="AGS.API.ITextureConfig.html">ITextureConfig</a> has either wrapX or wrapY as <a class="xref" href="AGS.API.TextureWrap.html#AGS_API_TextureWrap_Repeat">Repeat</a> or <a class="xref" href="AGS.API.TextureWrap.html#AGS_API_TextureWrap_MirroredRepeat">MirroredRepeat</a>)
+when you want to animate the tile.</p>
+</section>
       <h4><a class="xref" href="AGS.API.ITransformMatrix.html">ITransformMatrix</a></h4>
       <section></section>
       <h4><a class="xref" href="AGS.API.ITranslate.html">ITranslate</a></h4>
@@ -1036,7 +1042,8 @@ away from the camera.</p>
       <section><p>Determines the order in which a sprite sheet is read.</p>
 </section>
       <h4><a class="xref" href="AGS.API.TextureWrap.html">TextureWrap</a></h4>
-      <section><p>How a texture is wrapped to fill an image.</p>
+      <section><p>How a texture is wrapped to fill an image.
+<a class="xref" href="AGS.API.ITextureOffsetComponent.html">ITextureOffsetComponent</a></p>
 </section>
       <h4><a class="xref" href="AGS.API.VsyncMode.html">VsyncMode</a></h4>
       <section><p>Vsync mode- how the FPS and screen refresh rate are synchronized.</p>

@@ -12376,6 +12376,36 @@ references:
   commentId: Overload:AGS.API.ITextureConfig.WrapY
   fullName: AGS.API.ITextureConfig.WrapY
   nameWithType: ITextureConfig.WrapY
+- uid: AGS.API.ITextureOffsetComponent
+  name: ITextureOffsetComponent
+  href: api/AGS.API.ITextureOffsetComponent.html
+  commentId: T:AGS.API.ITextureOffsetComponent
+  fullName: AGS.API.ITextureOffsetComponent
+  nameWithType: ITextureOffsetComponent
+- uid: AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged
+  name: OnTextureOffsetChanged
+  href: api/AGS.API.ITextureOffsetComponent.html#AGS_API_ITextureOffsetComponent_OnTextureOffsetChanged
+  commentId: P:AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged
+  fullName: AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged
+  nameWithType: ITextureOffsetComponent.OnTextureOffsetChanged
+- uid: AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged*
+  name: OnTextureOffsetChanged
+  href: api/AGS.API.ITextureOffsetComponent.html#AGS_API_ITextureOffsetComponent_OnTextureOffsetChanged_
+  commentId: Overload:AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged
+  fullName: AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged
+  nameWithType: ITextureOffsetComponent.OnTextureOffsetChanged
+- uid: AGS.API.ITextureOffsetComponent.TextureOffset
+  name: TextureOffset
+  href: api/AGS.API.ITextureOffsetComponent.html#AGS_API_ITextureOffsetComponent_TextureOffset
+  commentId: P:AGS.API.ITextureOffsetComponent.TextureOffset
+  fullName: AGS.API.ITextureOffsetComponent.TextureOffset
+  nameWithType: ITextureOffsetComponent.TextureOffset
+- uid: AGS.API.ITextureOffsetComponent.TextureOffset*
+  name: TextureOffset
+  href: api/AGS.API.ITextureOffsetComponent.html#AGS_API_ITextureOffsetComponent_TextureOffset_
+  commentId: Overload:AGS.API.ITextureOffsetComponent.TextureOffset
+  fullName: AGS.API.ITextureOffsetComponent.TextureOffset
+  nameWithType: ITextureOffsetComponent.TextureOffset
 - uid: AGS.API.ITransformMatrix
   name: ITransformMatrix
   href: api/AGS.API.ITransformMatrix.html
