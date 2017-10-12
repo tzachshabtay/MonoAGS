@@ -43,6 +43,7 @@ namespace AGS.Engine
         private readonly IInput _input;
         private readonly IHitTest _hitTest;
         private readonly IGameEvents _gameEvents;
+        private readonly IFocusedUI _focus;
         private List<Subscriber> _subscribers;
         private readonly ConcurrentQueue<Subscriber> _subscribersToAdd;
         private readonly ConcurrentQueue<string> _subscribersToRemove;
@@ -50,9 +51,10 @@ namespace AGS.Engine
         private bool _leftMouseDown, _rightMouseDown;
         private int _inUpdate; //For preventing re-entrancy
 
-        public UIEventsAggregator(IInput input, IHitTest hitTest, IGameEvents gameEvents)
+        public UIEventsAggregator(IInput input, IHitTest hitTest, IGameEvents gameEvents, IFocusedUI focus)
         {
             _hitTest = hitTest;
+            _focus = focus;
             _subscribersToAdd = new ConcurrentQueue<Subscriber>();
             _subscribersToRemove = new ConcurrentQueue<string>();
             _input = input;
@@ -147,7 +149,7 @@ namespace AGS.Engine
         {
             bool fireDown = !wasDown && isDown && subscriber.Events.IsMouseIn;
             bool fireDownOutside = !wasDown && isDown && !subscriber.Events.IsMouseIn && subscriber.IsFocused;
-            subscriber.IsFocused = fireDown;
+            subscriber.IsFocused = fireDown || _focus.FocusedWindow == subscriber.Entity || _focus.HasKeyboardFocus == subscriber.Entity;
             bool fireUp = wasDown && !isDown;
             if (fireDown)
             {
