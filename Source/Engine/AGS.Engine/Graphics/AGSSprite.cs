@@ -1,4 +1,6 @@
-﻿using AGS.API;
+﻿using System.Diagnostics;
+using System.Threading;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -11,10 +13,14 @@ namespace AGS.Engine
         private readonly IMaskLoader _maskLoader;
         private readonly IScale _scale;
         private readonly Resolver _resolver;
+        private readonly int _id;
+        private static readonly IConcurrentHashSet<int> _registeredPixelPerfectIds = new AGSConcurrentHashSet<int>(1000);
         private static readonly SizeF _emptySize = new SizeF(1f, 1f);
+        private static int _lastId = 0;
 
 		public AGSSprite (Resolver resolver, IMaskLoader maskLoader)
 		{
+            _id = Interlocked.Increment(ref _lastId);
             _maskLoader = maskLoader;
             _resolver = resolver;
 
@@ -134,8 +140,15 @@ namespace AGS.Engine
                 return;
             }
 
-            string areaId = string.Format("Sprite_PixelPerfect_{0}", Image.ID);
-            string maskId = string.Format("Mask_{0}", areaId);
+            string areaId = string.Format("Sprite_PixelPerfect_{0}_{1}", Image.ID, _id);
+			if (!_registeredPixelPerfectIds.Add(_id))
+			{
+				//Without this check bitmap.LockBits can be called twice without unlocking in between which crashes GDI+: https://github.com/mono/libgdiplus/blob/0c0592d09c7393fc418fa7f65f54e8b3bcc14cf2/src/bitmap.c#L1960
+				Debug.WriteLine("2 concurrent commands were given at the same time for setting pixel perfect areas, ignoring one to set pixel perfect as {0} for {1}", pixelPerfect, areaId);
+				return;
+			}
+
+			string maskId = string.Format("Mask_{0}", areaId);
             PixelPerfectHitTestArea = new AGSArea(areaId, _resolver) { Mask = _maskLoader.Load(maskId, _hasImage.Image.OriginalBitmap) };
             var debugDraw = PixelPerfectHitTestArea.Mask.DebugDraw;
             if (debugDraw != null) debugDraw.RemoveComponent<IPixelPerfectComponent>(); //Removing the pixel perfect from the debug draw mask, otherwise it disables the pixel perfect for the images which can be used by actual characters
