@@ -9,6 +9,7 @@ namespace AGS.Engine
         private readonly ITranslate _translate;        
         private readonly IRotate _rotate;
         private readonly IMaskLoader _maskLoader;
+        private readonly IScale _scale;
         private readonly Resolver _resolver;
         private static readonly SizeF _emptySize = new SizeF(1f, 1f);
 
@@ -16,17 +17,13 @@ namespace AGS.Engine
 		{
             _maskLoader = maskLoader;
             _resolver = resolver;
-            OnScaleChanged = new AGSEvent();
 
             //todo: abstract it to the constructor
             _translate = new AGSTranslate();
             _hasImage = new AGSHasImage();
-            _hasImage.Anchor = new PointF();                        
+            _hasImage.Anchor = new PointF();
+            _scale = new AGSScale(_hasImage);
             _rotate = new AGSRotate();
-
-            ScaleX = 1;
-            ScaleY = 1;
-            _hasImage.OnImageChanged.Subscribe(() => ScaleBy(ScaleX, ScaleY));
         }
 
         private AGSSprite(AGSSprite sprite) : this(sprite._resolver, sprite._maskLoader)
@@ -37,73 +34,45 @@ namespace AGS.Engine
             _hasImage.Tint = sprite._hasImage.Tint;
             _hasImage.CustomRenderer = sprite._hasImage.CustomRenderer;
             _rotate.Angle = sprite._rotate.Angle;
-            ScaleX = sprite.ScaleX;
-            ScaleY = sprite.ScaleY;
-            Width = sprite.Width;
-            Height = sprite.Height;
+            ResetBaseSize(sprite.BaseSize.Width, sprite.BaseSize.Height);
+            ScaleBy(sprite.ScaleX, sprite.ScaleY);
         }
 
         #region ISprite implementation
 
         public void ResetBaseSize(float initialWidth, float initialHeight)
         {
+            _scale.ResetBaseSize(initialWidth, initialHeight);
         }
 
         public void ResetScale(float initialWidth, float initialHeight)
         {
+            _scale.ResetScale(initialWidth, initialHeight);
         }
 
         public void ResetScale()
         {
-            ScaleX = 1;
-            ScaleY = 1;
-            var image = _hasImage.Image;
-            if (image != null)
-            {
-                Width = _hasImage.Image.Width;
-                Height = _hasImage.Image.Height;
-            }
-            OnScaleChanged.Invoke();
+            _scale.ResetScale();
         }
 
         public void ScaleBy(float scaleX, float scaleY)
         {
-            ScaleX = scaleX;
-            ScaleY = scaleY;
-            var image = _hasImage.Image;
-            if (image != null)
-            {
-                Width = _hasImage.Image.Width * ScaleX;
-                Height = _hasImage.Image.Height * ScaleY;
-            }
-            OnScaleChanged.Invoke();
+            _scale.ScaleBy(scaleX, scaleY);
         }
 
         public void ScaleTo(float width, float height)
         {
-            Width = width;
-            Height = height;
-            var image = _hasImage.Image;
-            if (image != null)
-            {
-                ScaleX = Width / _hasImage.Image.Width;
-                ScaleY = Height / _hasImage.Image.Height;
-            }
-            OnScaleChanged.Invoke();
+            _scale.ScaleTo(width, height);
         }
 
         public void FlipHorizontally()
         {
-            ScaleBy(-ScaleX, ScaleY);
-            _hasImage.Anchor = new PointF(-_hasImage.Anchor.X, _hasImage.Anchor.Y);
-            OnScaleChanged.Invoke();
+            _scale.FlipHorizontally();
         }
 
         public void FlipVertically()
         {
-            ScaleBy(ScaleX, -ScaleY);
-            _hasImage.Anchor = new PointF(_hasImage.Anchor.X, -_hasImage.Anchor.Y);
-            OnScaleChanged.Invoke();
+            _scale.FlipVertically();
         }
 
         public ISprite Clone()
@@ -119,23 +88,15 @@ namespace AGS.Engine
 
         public float Z { get { return _translate.Z; } set { _translate.Z = value; } }
 
-        public float Height { get; private set; }
+        public float Height { get { return _scale.Height; } }
 
-        public float Width { get; private set; }
+        public float Width { get { return _scale.Width; } }
 
-        public float ScaleX { get; private set; }
+        public float ScaleX { get { return _scale.ScaleX; } }
 
-        public float ScaleY { get; private set; }
+        public float ScaleY { get { return _scale.ScaleY; } }
 
-        public SizeF BaseSize 
-        { 
-            get 
-            {
-                var image = _hasImage.Image;
-                if (image == null) return _emptySize;
-                return new SizeF(image.Width, image.Height);
-            } 
-        }
+        public SizeF BaseSize { get { return _scale.BaseSize; }}
 
         public float Angle { get { return _rotate.Angle; } set { _rotate.Angle = value; } }
 
@@ -155,7 +116,7 @@ namespace AGS.Engine
         public IEvent OnAngleChanged { get { return _rotate.OnAngleChanged; } }
         public IEvent OnAnchorChanged { get { return _hasImage.OnAnchorChanged; } }
         public IEvent OnTintChanged { get { return _hasImage.OnTintChanged; } }
-        public IEvent OnScaleChanged { get; private set; }
+        public IEvent OnScaleChanged { get { return _scale.OnScaleChanged; } }
 
         public IArea PixelPerfectHitTestArea { get; private set; }
         public void PixelPerfect(bool pixelPerfect)

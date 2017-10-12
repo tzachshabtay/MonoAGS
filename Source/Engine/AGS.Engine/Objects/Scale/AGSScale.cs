@@ -27,7 +27,7 @@ namespace AGS.Engine
             if (!shouldSubscribeToImageChange) return;
             image.OnImageChanged.Subscribe(() =>
             {
-                if (BaseSize.Width == 0f) ResetBaseSize(_image.Image.Width, _image.Image.Height);
+                if (BaseSize.Width == 0f && _image.Image != null) ResetBaseSize(_image.Image.Width, _image.Image.Height);
             });
         }
 

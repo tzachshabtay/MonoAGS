@@ -10,13 +10,10 @@ namespace DemoGame
         private readonly IObject _parent;
         private readonly RotatingCursorScheme _scheme;
 
-        private List<IArea> _lastAreas;
-        private IRenderLayer _lastLayer;
-        private IObject _lastParent;
-        private ILocation _lastLocation;
         private ILabel _label;
         private bool _shouldAnimate;
         private int _rotationStage;
+        private PlayerAsFeature _playerAsFeature;
 
         public FeaturesMoveAreaPanel(IGame game, IObject parent, RotatingCursorScheme scheme)
         {
@@ -29,10 +26,7 @@ namespace DemoGame
         {
             _shouldAnimate = true;
             var player = _game.State.Player;
-            _lastAreas = new List<IArea>(player.Room.Areas);
-            _lastLayer = player.RenderLayer;
-            _lastParent = player.TreeNode.Parent;
-            _lastLocation = player.Location;
+            _playerAsFeature = new PlayerAsFeature(player);
 
             var factory = _game.Factory;
             _label = factory.UI.GetLabel("MoveAreaLabel", "Try Walking!", 100f, 30f, 0f, _parent.Height - 30f, _parent);
@@ -50,11 +44,7 @@ namespace DemoGame
 			areaParent.TreeNode.SetParent(parent.TreeNode);
 			areaParent.RenderLayer = _parent.RenderLayer;
 
-            player.RenderLayer = _parent.RenderLayer;
-            player.Room.Areas.Clear();
-            player.Room.Edges.Left.Enabled = false;
-            player.Room.Edges.Right.Enabled = false;
-            player.TreeNode.SetParent(parent.TreeNode);
+            _playerAsFeature.PlaceInFeatureWindow(parent);
 
             bool[,] maskArr = new bool[200, 200];
             var mask = factory.Masks.Load(maskArr, "Elevator Mask", true, Colors.GreenYellow.WithAlpha(150));
@@ -81,14 +71,9 @@ namespace DemoGame
                 label.Dispose();
             }
 
-            var player = _game.State.Player;
-            player.RenderLayer = _lastLayer;
-            player.TreeNode.SetParent(_lastParent == null ? null : _lastParent.TreeNode);
-            player.Room.Areas.Clear();
-			player.Room.Edges.Left.Enabled = true;
-			player.Room.Edges.Right.Enabled = true;
-            foreach (var area in _lastAreas) player.Room.Areas.Add(area);
-            player.Location = _lastLocation;
+            var playerAsFeature = _playerAsFeature;
+            if (playerAsFeature != null) playerAsFeature.Restore();
+
             _scheme.CurrentMode = MouseCursors.POINT_MODE;
         }
 
