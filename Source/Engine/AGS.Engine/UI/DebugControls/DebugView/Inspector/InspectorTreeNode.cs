@@ -7,12 +7,13 @@ namespace AGS.Engine
     {
 		private readonly IStringItem _item;
 
-		public InspectorTreeNode(string text, string value)
+		public InspectorTreeNode(InspectorProperty property, IInspectorPropertyEditor editor)
 		{
 			TreeNode = new AGSTreeNode<ITreeStringNode>(this);
 			_item = new AGSStringItem();
-            Text = text;
-            Value = value;
+            Text = property.Name;
+            Property = property;
+            Editor = editor;
 		}
 
 		public ITextConfig HoverTextConfig { get { return _item.HoverTextConfig; } set { _item.HoverTextConfig = value; } }
@@ -25,6 +26,8 @@ namespace AGS.Engine
 
 		public ITreeNode<ITreeStringNode> TreeNode { get; private set; }
 
-        public string Value { get; private set; }
+        public InspectorProperty Property { get; private set; }
+
+        public IInspectorPropertyEditor Editor { get; private set; }
     }
 }

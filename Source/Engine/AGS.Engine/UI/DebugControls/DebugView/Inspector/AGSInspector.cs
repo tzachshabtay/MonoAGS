@@ -10,12 +10,14 @@ namespace AGS.Engine
     [RequiredComponent(typeof(ITreeViewComponent))]
     public class AGSInspector : AGSComponent
     {
-        private readonly Dictionary<Category, List<Property>> _props;
+        private readonly Dictionary<Category, List<InspectorProperty>> _props;
         private ITreeViewComponent _treeView;
+        private IUIFactory _factory;
 
-        public AGSInspector()
+        public AGSInspector(IUIFactory factory)
         {
-            _props = new Dictionary<Category, List<Property>>();
+            _props = new Dictionary<Category, List<InspectorProperty>>();
+            _factory = factory;
         }
 
         public override void Init(IEntity entity)
@@ -48,13 +50,13 @@ namespace AGS.Engine
             foreach (var prop in props)
             {
                 var cat = defaultCategory;
-                Property property = addProp(obj, prop, ref cat);
+                InspectorProperty property = addProp(obj, prop, ref cat);
                 if (property == null) continue;
-                _props.GetOrAdd(cat, () => new List<Property>(props.Length)).Add(property);
+                _props.GetOrAdd(cat, () => new List<InspectorProperty>(props.Length)).Add(property);
             }
         }
 
-        private Property addProp(object obj, PropertyInfo prop, ref Category cat)
+        private InspectorProperty addProp(object obj, PropertyInfo prop, ref Category cat)
         {
 			var attr = prop.GetCustomAttribute<PropertyAttribute>();
 			if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
@@ -65,7 +67,7 @@ namespace AGS.Engine
 				if (attr.Category != null) cat = new Category(attr.Category);
 				if (attr.DisplayName != null) name = attr.DisplayName;
 			}
-			Property property = new Property(obj, name, prop);
+			InspectorProperty property = new InspectorProperty(obj, name, prop);
             var val = prop.GetValue(obj);
             if (val == null) return property;
             var objType = val.GetType();
@@ -105,7 +107,7 @@ namespace AGS.Engine
             var root = new AGSTreeStringNode { Text = ""};
             foreach (var pair in _props)
             {
-                ITreeStringNode cat = addToTree(pair.Key.Name, null, root);
+                ITreeStringNode cat = addToTree(pair.Key.Name, root);
                 foreach (var prop in pair.Value)
                 {
                     addToTree(cat, prop);
@@ -115,23 +117,32 @@ namespace AGS.Engine
             treeView.Expand(root);
         }
 
-        private void addToTree(ITreeStringNode parent, Property prop)
+        private void addToTree(ITreeStringNode parent, InspectorProperty prop)
         {
-            //var node = addToTree(string.Format("{0}: {1}", prop.Name, prop.Value), parent);
-            var node = addToTree(prop.Name, prop.Value, parent);
+            var node = addToTree(prop, parent);
             foreach (var child in prop.Children)
             {
                 addToTree(node, child);
             }
         }
 
-		private ITreeStringNode addToTree(string text, string value, ITreeStringNode parent)
+		private ITreeStringNode addToTree(string text, ITreeStringNode parent)
 		{
-            ITreeStringNode node = value == null ? (ITreeStringNode)new AGSTreeStringNode { Text = text } : 
-                    new InspectorTreeNode(text, value);
+            ITreeStringNode node = (ITreeStringNode)new AGSTreeStringNode { Text = text };
+            return addToTree(node, parent);
+		}
+
+        private ITreeStringNode addToTree(InspectorProperty property, ITreeStringNode parent)
+		{
+            ITreeStringNode node = new InspectorTreeNode(property, new StringPropertyEditor(_factory));
+            return addToTree(node, parent);
+		}
+
+        private ITreeStringNode addToTree(ITreeStringNode node, ITreeStringNode parent)
+        {
 			if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
 			return node;
-		}
+        }
 
         private class Category
         {
@@ -141,30 +152,6 @@ namespace AGS.Engine
             }
 
             public string Name { get; private set; }
-        }
-
-        private class Property
-        {
-            public Property(object obj, string name, PropertyInfo prop)
-            {
-                Prop = prop;
-                Name = name;
-                Object = obj;
-                Children = new List<Property>();
-                Refresh();
-            }
-
-            public string Name { get; private set; }
-            public string Value { get; private set; }
-            public PropertyInfo Prop { get; private set; }
-            public object Object { get; private set; }
-            public List<Property> Children { get; private set; }
-
-            public void Refresh()
-            {
-				object val = Prop.GetValue(Object);
-				Value = val == null ? "(null)" : val.ToString();
-            }
         }
     }
 }

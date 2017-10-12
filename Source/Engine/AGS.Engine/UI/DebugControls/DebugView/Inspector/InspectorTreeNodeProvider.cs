@@ -28,13 +28,7 @@ namespace AGS.Engine
 
 			int nodeId = Interlocked.Increment(ref _nextNodeId);
 			var itemTextId = (item.Text ?? "") + "_" + nodeId;
-            var label = view.TreeItem;
-            var textbox = _factory.UI.GetTextBox("InspectorTreeNodeTextbox_" + itemTextId,
-                                                 label.X, label.Y, label.TreeNode.Parent,
-                                                 node.Value, width: 100f, height: 20f);
-            textbox.RenderLayer = label.RenderLayer;
-            textbox.Z = label.Z;
-            textbox.Tint = Colors.Transparent;
+            node.Editor.AddEditorUI("InspectorEditor_" + itemTextId, view, node.Property);
             return view;
         }
     }

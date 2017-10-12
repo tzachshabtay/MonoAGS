@@ -1,9 +1,12 @@
-﻿using AGS.API;
+﻿using System.Reflection;
+using AGS.API;
 
 namespace AGS.Engine
 {
     public interface IInspectorTreeNode : ITreeStringNode
     {
-        string Value { get; }
+        InspectorProperty Property { get; }
+
+        IInspectorPropertyEditor Editor { get; }
     }
 }

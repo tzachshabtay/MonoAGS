@@ -424,6 +424,9 @@
     <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorTreeNode.cs" />
     <Compile Include="UI\DebugControls\DebugView\Inspector\IInspectorTreeNode.cs" />
     <Compile Include="Objects\AGSTextureOffsetComponent.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\IInspectorPropertyEditor.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\StringPropertyEditor.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorProperty.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -509,5 +512,6 @@
   <ItemGroup>
     <Folder Include="Graphics\Logic\DisplayList\" />
     <Folder Include="UI\DebugControls\DebugView\Inspector\" />
+    <Folder Include="UI\DebugControls\DebugView\Inspector\Editors\" />
   </ItemGroup>
 </Project>
