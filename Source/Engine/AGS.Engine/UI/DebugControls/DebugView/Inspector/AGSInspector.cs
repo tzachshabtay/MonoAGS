@@ -144,7 +144,13 @@ namespace AGS.Engine
 
             var propType = property.Prop.PropertyType;
             if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory, _icons);
-            else editor = new StringPropertyEditor(_factory);
+            else
+            {
+                var typeInfo = propType.GetTypeInfo();
+                if (typeInfo.IsEnum)
+                    editor = new EnumPropertyEditor(_factory);
+                else editor = new StringPropertyEditor(_factory);
+            }
 
             ITreeStringNode node = new InspectorTreeNode(property, editor);
             return addToTree(node, parent);
