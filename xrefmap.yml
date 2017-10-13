@@ -13121,15 +13121,15 @@ references:
   commentId: Overload:AGS.API.IUIFactory.GetCheckBoxAsync
   fullName: AGS.API.IUIFactory.GetCheckBoxAsync
   nameWithType: IUIFactory.GetCheckBoxAsync
-- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean)
-  name: GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean)
-  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean)
-  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, Func<System.String, AGS.API.IButton>, AGS.API.IObject, System.Boolean)
-  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, Func(Of System.String, AGS.API.IButton), AGS.API.IObject, System.Boolean)
-  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean)
-  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean)
+- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single)
+  name: GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_
+  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single)
+  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single)
+  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, Func<System.String, AGS.API.IButton>, AGS.API.IObject, System.Boolean, System.Single, System.Single)
+  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, Func(Of System.String, AGS.API.IButton), AGS.API.IObject, System.Boolean, System.Single, System.Single)
+  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single)
+  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single)
 - uid: AGS.API.IUIFactory.GetComboBox*
   name: GetComboBox
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_
