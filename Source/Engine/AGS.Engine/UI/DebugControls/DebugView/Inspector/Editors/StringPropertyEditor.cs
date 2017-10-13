@@ -15,12 +15,13 @@ namespace AGS.Engine
         public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
         {
 			var label = view.TreeItem;
+            AGSTextConfig config = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText);
 			var textbox = _factory.GetTextBox(id,
 												 label.X, label.Y, label.TreeNode.Parent,
-												 property.Value, width: 100f, height: 20f);
+												 property.Value, config, width: 100f, height: 20f);
 			textbox.RenderLayer = label.RenderLayer;
 			textbox.Z = label.Z;
-			textbox.Tint = Colors.Transparent;
+            HoverEffect.Add(textbox, Colors.Transparent, Colors.DarkSlateBlue);
 			textbox.OnPressingKey.Subscribe(args =>
 			{
                 if (args.PressedKey != Key.Enter) return;
