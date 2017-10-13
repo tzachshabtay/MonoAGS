@@ -226,7 +226,6 @@ namespace AGS.Engine
             if (!isCheckButton)
             {
                 checkbox.SkinTags.Add(AGSSkin.CheckBoxTag);
-                checkbox.Skin.Apply(checkbox);
             }
             checkbox.LabelRenderSize = new AGS.API.SizeF(width, height);
             if (notChecked != null) checkbox.NotCheckedAnimation = notChecked;
@@ -239,7 +238,8 @@ namespace AGS.Engine
             checkbox.Y = y;
             setParent(checkbox, parent);
 
-            if (checkbox.Skin != null) checkbox.Skin.Apply(checkbox);
+			var skin = checkbox.Skin;
+			if (skin != null) skin.Apply(checkbox);
             checkbox.StartAnimation(checkbox.NotCheckedAnimation.Animation);
 
             if (addToUi)

@@ -427,6 +427,7 @@
     <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\IInspectorPropertyEditor.cs" />
     <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\StringPropertyEditor.cs" />
     <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorProperty.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\BoolPropertyEditor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

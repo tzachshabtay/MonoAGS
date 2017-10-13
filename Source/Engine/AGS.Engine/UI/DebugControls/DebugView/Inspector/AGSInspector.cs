@@ -13,11 +13,13 @@ namespace AGS.Engine
         private readonly Dictionary<Category, List<InspectorProperty>> _props;
         private ITreeViewComponent _treeView;
         private IUIFactory _factory;
+        private IIconFactory _icons;
 
-        public AGSInspector(IUIFactory factory)
+        public AGSInspector(IUIFactory factory, IIconFactory icons)
         {
             _props = new Dictionary<Category, List<InspectorProperty>>();
             _factory = factory;
+            _icons = icons;
         }
 
         public override void Init(IEntity entity)
@@ -134,7 +136,17 @@ namespace AGS.Engine
 
         private ITreeStringNode addToTree(InspectorProperty property, ITreeStringNode parent)
 		{
-            ITreeStringNode node = new InspectorTreeNode(property, new StringPropertyEditor(_factory));
+            if (!property.Prop.CanWrite)
+            {
+                return addToTree(string.Format("{0}: {1}", property.Name, property.Value), parent);
+            }
+            IInspectorPropertyEditor editor;
+
+            var propType = property.Prop.PropertyType;
+            if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory, _icons);
+            else editor = new StringPropertyEditor(_factory);
+
+            ITreeStringNode node = new InspectorTreeNode(property, editor);
             return addToTree(node, parent);
 		}
 

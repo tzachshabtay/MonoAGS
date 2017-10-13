@@ -26,6 +26,8 @@ namespace AGS.Engine
             var node = item as IInspectorTreeNode;
             if (node == null) return view;
 
+            var layout = view.HorizontalPanel.GetComponent<IStackLayoutComponent>();
+            layout.AbsoluteSpacing = 10f;
 			int nodeId = Interlocked.Increment(ref _nextNodeId);
 			var itemTextId = (item.Text ?? "") + "_" + nodeId;
             node.Editor.AddEditorUI("InspectorEditor_" + itemTextId, view, node.Property);
