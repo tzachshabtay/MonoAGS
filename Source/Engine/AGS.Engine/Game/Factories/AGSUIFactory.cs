@@ -327,9 +327,9 @@ namespace AGS.Engine
 				itemButtonFactory = text =>
 				{
 					var button = GetButton(id + "_" + text,
-													  new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null),
-													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null),
-													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null),
+                                           new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText), null),
+													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText), null),
+													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
                                                       0f, 0f, width: itemWidth, height: defaultHeight);
 					button.RenderLayer = dropDownPanelLayer;
 					return button;

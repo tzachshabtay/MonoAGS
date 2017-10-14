@@ -28,10 +28,6 @@ namespace AGS.Engine
                 _dropDownButton = newDropDownButton;
                 if (newDropDownButton != null)
                 {
-                    if (_dropDownPanelDrawable != null)
-                    {
-                        _dropDownPanelDrawable.RenderLayer = value.RenderLayer;
-                    }
                     newDropDownButton.MouseClicked.Subscribe(onDropDownClicked);
                 }
             }
@@ -66,8 +62,6 @@ namespace AGS.Engine
                 if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
                 if (translateComponent != null) translateComponent.Y = -1f;
                 if (visibleComponent != null) visibleComponent.Visible = false;
-                if (drawableComponent != null && DropDownButton != null) 
-                    drawableComponent.RenderLayer = DropDownButton.RenderLayer;
             }
         }
 
@@ -85,8 +79,6 @@ namespace AGS.Engine
             if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
             if (translateComponent != null) translateComponent.Y = -1f;
             if (visibleComponent != null) visibleComponent.Visible = false;
-            if (drawableComponent != null && DropDownButton != null) 
-                drawableComponent.RenderLayer = DropDownButton.RenderLayer;
         }
 
         private void onSelectedItemChanged(ListboxItemArgs args)
