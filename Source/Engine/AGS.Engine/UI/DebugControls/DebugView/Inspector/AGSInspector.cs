@@ -144,6 +144,8 @@ namespace AGS.Engine
 
             var propType = property.Prop.PropertyType;
             if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory, _icons);
+            else if (propType == typeof(int)) editor = new NumberPropertyEditor(_factory, true);
+            else if (propType == typeof(float)) editor = new NumberPropertyEditor(_factory, false);
             else
             {
                 var typeInfo = propType.GetTypeInfo();

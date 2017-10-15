@@ -429,6 +429,8 @@
     <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorProperty.cs" />
     <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\BoolPropertyEditor.cs" />
     <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\EnumPropertyEditor.cs" />
+    <Compile Include="UI\Controls\Editors\AGSNumberEditorComponent.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\NumberPropertyEditor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -515,5 +517,6 @@
     <Folder Include="Graphics\Logic\DisplayList\" />
     <Folder Include="UI\DebugControls\DebugView\Inspector\" />
     <Folder Include="UI\DebugControls\DebugView\Inspector\Editors\" />
+    <Folder Include="UI\Controls\Editors\" />
   </ItemGroup>
 </Project>
