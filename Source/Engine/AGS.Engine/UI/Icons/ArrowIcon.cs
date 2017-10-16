@@ -32,12 +32,16 @@ namespace AGS.Engine
 
         public void RenderBorderBack(AGSBoundingBox square)
         {
+        }
+
+        public void RenderBorderFront(AGSBoundingBox square)
+        {
             if (_glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
 
             float width = _glUtils.CurrentResolution.Width;
             float height = _glUtils.CurrentResolution.Height;
-            float arrowWidth = width * (1f/2f);
-            float arrowHeight = height * (1f/2f);
+            float arrowWidth = width * (1f / 2f);
+            float arrowHeight = height * (1f / 2f);
             float remainingWidth = width - arrowWidth;
             float remainingHeight = height - arrowHeight;
 
@@ -46,24 +50,24 @@ namespace AGS.Engine
             switch (Direction)
             {
                 case ArrowDirection.Right:
-                    point1 = new PointF(remainingWidth/2f, remainingHeight/2f);// square.TopLeft + new PointF(remainingWidth / 2f, -remainingHeight / 2f);
-                    point2 = new PointF(remainingWidth/2f, height - remainingHeight/2f); //square.BottomLeft + new PointF(remainingWidth / 2f, remainingHeight / 2f);
-                    point3 = new PointF(width - remainingWidth/2f, height/2f); //square.BottomRight + new PointF(-remainingWidth / 2f, height / 2f);
+                    point1 = new PointF(remainingWidth / 2f, remainingHeight / 2f);// square.TopLeft + new PointF(remainingWidth / 2f, -remainingHeight / 2f);
+                    point2 = new PointF(remainingWidth / 2f, height - remainingHeight / 2f); //square.BottomLeft + new PointF(remainingWidth / 2f, remainingHeight / 2f);
+                    point3 = new PointF(width - remainingWidth / 2f, height / 2f); //square.BottomRight + new PointF(-remainingWidth / 2f, height / 2f);
                     break;
                 case ArrowDirection.Down:
-                    point1 = new PointF(remainingWidth/2f, remainingHeight/2f);
-                    point2 = new PointF(width/2f, height - remainingHeight/2f);
-                    point3 = new PointF(width - remainingWidth/2f, remainingHeight/2f);
+                    point1 = new PointF(remainingWidth / 2f, remainingHeight / 2f);
+                    point2 = new PointF(width / 2f, height - remainingHeight / 2f);
+                    point3 = new PointF(width - remainingWidth / 2f, remainingHeight / 2f);
                     break;
                 case ArrowDirection.Left:
-                    point1 = new PointF(width - remainingWidth/2f,height - remainingHeight/2f);
-                    point2 = new PointF(width - remainingWidth/2f, remainingHeight/2f);
-                    point3 = new PointF(remainingWidth/2f,height/2f);
+                    point1 = new PointF(width - remainingWidth / 2f, height - remainingHeight / 2f);
+                    point2 = new PointF(width - remainingWidth / 2f, remainingHeight / 2f);
+                    point3 = new PointF(remainingWidth / 2f, height / 2f);
                     break;
                 case ArrowDirection.Up:
-                    point1 = new PointF(remainingWidth/2f, height - remainingHeight/2f);
-                    point2 = new PointF(width/2f, remainingHeight/2f);
-                    point3 = new PointF(width - remainingWidth/2f, height - remainingHeight/2f);
+                    point1 = new PointF(remainingWidth / 2f, height - remainingHeight / 2f);
+                    point2 = new PointF(width / 2f, remainingHeight / 2f);
+                    point3 = new PointF(width - remainingWidth / 2f, height - remainingHeight / 2f);
                     break;
                 default: throw new NotSupportedException(Direction.ToString());
             }
@@ -75,10 +79,6 @@ namespace AGS.Engine
             _frameBuffer.End();
 
             _glUtils.DrawQuad(_frameBuffer, square, _quad);
-        }
-
-        public void RenderBorderFront(AGSBoundingBox square)
-        {
         }
     }
 }

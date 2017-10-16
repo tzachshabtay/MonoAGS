@@ -107,7 +107,7 @@ namespace AGS.Engine
             var treeView = _treeView;
             if (treeView == null) return;
             var root = new AGSTreeStringNode { Text = ""};
-            foreach (var pair in _props)
+            foreach (var pair in _props.OrderBy(p => p.Key.Name))
             {
                 ITreeStringNode cat = addToTree(pair.Key.Name, root);
                 foreach (var prop in pair.Value)
@@ -144,8 +144,8 @@ namespace AGS.Engine
 
             var propType = property.Prop.PropertyType;
             if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory, _icons);
-            else if (propType == typeof(int)) editor = new NumberPropertyEditor(_factory, true);
-            else if (propType == typeof(float)) editor = new NumberPropertyEditor(_factory, false);
+            else if (propType == typeof(int)) editor = new NumberPropertyEditor(_factory, _icons, true);
+            else if (propType == typeof(float)) editor = new NumberPropertyEditor(_factory, _icons, false);
             else
             {
                 var typeInfo = propType.GetTypeInfo();
