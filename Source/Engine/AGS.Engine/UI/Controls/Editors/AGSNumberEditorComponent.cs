@@ -228,12 +228,12 @@ namespace AGS.Engine
 
         private float getMinValue()
         {
-            return MinValue ?? (EditWholeNumbersOnly ? int.MinValue : float.MinValue);
+            return MinValue ?? -1000f;
         }
 
         private float getMaxValue()
         {
-            return MaxValue ?? (EditWholeNumbersOnly ? int.MaxValue : float.MaxValue);
+            return MaxValue ?? 1000f;
         }
     }
 }

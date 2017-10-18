@@ -22,7 +22,7 @@ namespace AGS.Engine
         {
             _parent = parent;
 			var factory = _game.Factory;
-            var height = parent.Height / 4f;
+            var height = parent.Height / 2f;
             _scrollingPanel = factory.UI.GetPanel("GameDebugInspectorScrollingPanel", parent.Width, height, 0f, height, parent);
 			_scrollingPanel.RenderLayer = _layer;
 			_scrollingPanel.Anchor = new PointF(0f, 1f);
@@ -36,7 +36,7 @@ namespace AGS.Engine
 			var treeView = _panel.AddComponent<ITreeViewComponent>();
             treeView.NodeViewProvider = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory);
 
-            Inspector = new AGSInspector(_game.Factory.UI, _game.Factory.Graphics.Icons);
+            Inspector = new AGSInspector(_game.Factory);
             _panel.AddComponent(Inspector);
             factory.UI.CreateScrollingPanel(_scrollingPanel);
 			_scrollingPanel.OnScaleChanged.Subscribe(() =>

@@ -12,14 +12,12 @@ namespace AGS.Engine
     {
         private readonly Dictionary<Category, List<InspectorProperty>> _props;
         private ITreeViewComponent _treeView;
-        private IUIFactory _factory;
-        private IIconFactory _icons;
+        private IGameFactory _factory;
 
-        public AGSInspector(IUIFactory factory, IIconFactory icons)
+        public AGSInspector(IGameFactory factory)
         {
             _props = new Dictionary<Category, List<InspectorProperty>>();
             _factory = factory;
-            _icons = icons;
         }
 
         public override void Init(IEntity entity)
@@ -100,6 +98,7 @@ namespace AGS.Engine
 			var treeView = _treeView;
 			if (treeView == null) return;
             treeView.HorizontalSpacing = 1f;
+            treeView.VerticalSpacing = 40f;
         }
 
         private void refreshTree()
@@ -143,15 +142,15 @@ namespace AGS.Engine
             IInspectorPropertyEditor editor;
 
             var propType = property.Prop.PropertyType;
-            if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory, _icons);
-            else if (propType == typeof(int)) editor = new NumberPropertyEditor(_factory, _icons, true);
-            else if (propType == typeof(float)) editor = new NumberPropertyEditor(_factory, _icons, false);
+            if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory.UI, _factory.Graphics.Icons);
+            else if (propType == typeof(int)) editor = new NumberPropertyEditor(_factory, true);
+            else if (propType == typeof(float)) editor = new NumberPropertyEditor(_factory, false);
             else
             {
                 var typeInfo = propType.GetTypeInfo();
                 if (typeInfo.IsEnum)
-                    editor = new EnumPropertyEditor(_factory);
-                else editor = new StringPropertyEditor(_factory);
+                    editor = new EnumPropertyEditor(_factory.UI);
+                else editor = new StringPropertyEditor(_factory.UI);
             }
 
             ITreeStringNode node = new InspectorTreeNode(property, editor);
