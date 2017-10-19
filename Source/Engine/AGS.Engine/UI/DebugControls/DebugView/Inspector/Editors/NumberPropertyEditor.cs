@@ -64,7 +64,7 @@ namespace AGS.Engine
             buttonsPanel.RenderLayer = label.RenderLayer;
             buttonsPanel.Tint = Colors.Transparent;
             float halfRowHeight = ROW_HEIGHT / 2f;
-            float buttonBottomPadding = 4.5f;
+            float buttonBottomPadding = 12f;
             float betweenButtonsPadding = 1f;
             float buttonHeight = halfRowHeight - betweenButtonsPadding * 2;
             var upButton = _factory.UI.GetButton(id + "_UpButton", new ButtonAnimation(arrowUpIdle, null, Colors.Purple),
