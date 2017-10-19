@@ -107,6 +107,7 @@ namespace AGS.Engine
         private void refreshValue()
         {
             setText();
+            refreshSlider();
             OnValueChanged.Invoke();
         }
 
@@ -114,6 +115,16 @@ namespace AGS.Engine
         {
             var textBox = _text;
             if (textBox != null) textBox.Text = valueToString();
+        }
+
+        private void refreshSlider()
+        {
+            var slider = Slider;
+            if (slider == null) return;
+            slider.OnValueChanged.Unsubscribe(onSliderValueChanged);
+            slider.Value = Value > slider.MaxValue ? slider.MaxValue :
+                           Value < slider.MinValue ? slider.MinValue : Value;
+            slider.OnValueChanged.Subscribe(onSliderValueChanged);
         }
 
         private void refreshSliderLimits()
