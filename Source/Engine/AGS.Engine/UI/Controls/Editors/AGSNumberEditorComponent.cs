@@ -79,11 +79,11 @@ namespace AGS.Engine
                 if (currentSlider == value) return;
                 if (currentSlider != null)
                 {
-                    currentSlider.OnValueChanged.Unsubscribe(onSliderValueChanged);
+                    currentSlider.OnValueChanging.Unsubscribe(onSliderValueChanged);
                 }
                 _slider = value;
                 refreshSliderLimits();
-                value.OnValueChanged.Subscribe(onSliderValueChanged);
+                value.OnValueChanging.Subscribe(onSliderValueChanged);
             }
         }
 
@@ -121,10 +121,10 @@ namespace AGS.Engine
         {
             var slider = Slider;
             if (slider == null) return;
-            slider.OnValueChanged.Unsubscribe(onSliderValueChanged);
+            slider.OnValueChanging.Unsubscribe(onSliderValueChanged);
             slider.Value = Value > slider.MaxValue ? slider.MaxValue :
                            Value < slider.MinValue ? slider.MinValue : Value;
-            slider.OnValueChanged.Subscribe(onSliderValueChanged);
+            slider.OnValueChanging.Subscribe(onSliderValueChanged);
         }
 
         private void refreshSliderLimits()
