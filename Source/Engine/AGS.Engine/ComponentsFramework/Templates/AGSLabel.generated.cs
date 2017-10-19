@@ -121,6 +121,12 @@ namespace AGS.Engine
             set { _textComponent.TextVisible = value; } 
         }
 
+        public Boolean TextBackgroundVisible
+        {
+            get { return _textComponent.TextBackgroundVisible; }
+            set { _textComponent.TextBackgroundVisible = value; }
+        }
+
         public Single TextHeight 
         {  
             get { return _textComponent.TextHeight; } 

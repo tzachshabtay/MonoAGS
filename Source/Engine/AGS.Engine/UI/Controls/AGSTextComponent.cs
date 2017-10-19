@@ -47,6 +47,12 @@ namespace AGS.Engine
             set { _labelRenderer.TextVisible = value; }
         }
 
+        public bool TextBackgroundVisible
+        {
+            get { return _labelRenderer.TextBackgroundVisible; }
+            set { _labelRenderer.TextBackgroundVisible = value; }
+        }
+
         public SizeF LabelRenderSize
         {
             get { return _labelRenderer.BaseSize; }
