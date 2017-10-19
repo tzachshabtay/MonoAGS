@@ -118,8 +118,8 @@ namespace AGS.Engine
 
         private void refreshSliderLimits()
         {
-            float minValue = getMinValue();
-            float maxValue = getMaxValue();
+            float minValue = MinValue ?? -1000f;
+            float maxValue = MaxValue ?? 1000f;
             if (Value < minValue) Value = minValue;
             else if (Value > maxValue) Value = maxValue;
             var slider = _slider;
@@ -228,12 +228,12 @@ namespace AGS.Engine
 
         private float getMinValue()
         {
-            return MinValue ?? -1000f;
+            return MinValue ?? (EditWholeNumbersOnly ? int.MinValue : float.MinValue);
         }
 
         private float getMaxValue()
         {
-            return MaxValue ?? 1000f;
+            return MaxValue ?? (EditWholeNumbersOnly ? int.MaxValue : float.MaxValue);
         }
     }
 }

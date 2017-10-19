@@ -65,8 +65,8 @@
         /// <summary>
         /// Gets or sets an optional slider which will allow editing the value by sliding the handle.
         /// The range of the slider is determined by either <see cref="SuggestedMinValue"/> and <see cref="SuggestedMaxValue"/>
-        /// if those exist, otherwise by <see cref="MinValue"/> and <see cref="MaxValue"/> if those exist, otherwise by
-        /// the minimum and maximum allowed values for the data-type (depending on <see cref="EditWholeNumbersOnly"/>, either float or int).    
+        /// if those exist, otherwise by <see cref="MinValue"/> and <see cref="MaxValue"/> if those exist, otherwise the
+        /// arbitrary -1000 and 1000 are set as minimum and maximum.
         /// </summary>
         /// <value>The slider.</value>
         ISlider Slider { get; set; }
