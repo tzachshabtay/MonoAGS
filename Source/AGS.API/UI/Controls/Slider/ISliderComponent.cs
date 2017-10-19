@@ -87,9 +87,19 @@
 
         /// <summary>
         /// An event which is triggered when the slider value has changed.
+        /// This only gets called after user finishes dragging the handle on the slider.
+        /// For continous refreshes as the user drags the handle, <see cref="OnValueChanging"/>.
         /// </summary>
         /// <value>The on value changed.</value>
 		IEvent<SliderValueEventArgs> OnValueChanged { get; }
+
+        /// <summary>
+        /// An event which is triggered when the slider value is changing.
+        /// This will be fired continously as the user drags the handle on the slider.
+        /// If you need an event which fires only when the user finishes dragging, <see cref="OnValueChanged"/>. 
+        /// </summary>
+        /// <value>The on value changed.</value>
+        IEvent<SliderValueEventArgs> OnValueChanging { get; }
 	}
 }
 

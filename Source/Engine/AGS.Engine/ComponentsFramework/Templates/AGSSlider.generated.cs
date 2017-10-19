@@ -150,6 +150,11 @@ namespace AGS.Engine
             get { return _sliderComponent.OnValueChanged; } 
         }
 
+        public IEvent<SliderValueEventArgs> OnValueChanging
+        {
+            get { return _sliderComponent.OnValueChanging; }
+        }
+
         #endregion
 
         #region IUIEvents implementation

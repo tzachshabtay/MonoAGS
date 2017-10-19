@@ -29,6 +29,7 @@ namespace AGS.Engine
             _gameEvents = gameEvents;
             AllowKeyboardControl = true;
             OnValueChanged = new AGSEvent<SliderValueEventArgs>();
+            OnValueChanging = new AGSEvent<SliderValueEventArgs>();
             input.KeyUp.Subscribe(onKeyUp);
         }
 
@@ -149,6 +150,8 @@ namespace AGS.Engine
         public bool AllowKeyboardControl { get; set; }
 
         public IEvent<SliderValueEventArgs> OnValueChanged { get; private set; }
+
+        public IEvent<SliderValueEventArgs> OnValueChanging { get; private set; }
 
         public override void Dispose()
         {
@@ -305,13 +308,16 @@ namespace AGS.Engine
             if (_value == value || value < MinValue || value > MaxValue) return false;
 #pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
             _value = value;
+            OnValueChanging.Invoke(new SliderValueEventArgs(_value));
 			refresh();
             return true;
 		}
 
 		private void onValueChanged()
 		{
-			OnValueChanged.Invoke(new SliderValueEventArgs (_value));
+            var args = new SliderValueEventArgs(_value);
+            OnValueChanging.Invoke(args);
+			OnValueChanged.Invoke(args);
 		}
 
         private bool isHorizontal()
