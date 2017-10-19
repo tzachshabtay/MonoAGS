@@ -170,7 +170,9 @@ namespace AGS.Engine
                     }                    
                 }
             }
+            _withCaret.Tint = _imageComponent.Tint;
             _withCaret.Visible = isVisible;
+            _textComponent.TextVisible = _textComponent.TextBackgroundVisible = !isVisible;
             _withCaret.Text = _textComponent.Text;
             _withCaret.TextConfig = _textComponent.TextConfig;
             var renderer = _withCaret.CustomRenderer as ILabelRenderer;
