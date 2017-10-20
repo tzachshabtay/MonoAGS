@@ -64,8 +64,8 @@ namespace AGS.Engine
             horizSlider.Direction = SliderDirection.LeftToRight;
 			horizSlider.Graphics.Anchor = new PointF(0f, 0.5f);
 			horizSlider.Graphics.Image = new EmptyImage(panel.Width - 40f, 10f);
-			horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
-			horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
+			horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
+			horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
             HoverEffect.Add(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
 			HoverEffect.Add(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
@@ -78,8 +78,8 @@ namespace AGS.Engine
             verSlider.Direction = SliderDirection.TopToBottom;
 			verSlider.Graphics.Anchor = new PointF(0.5f, 0f);
 			verSlider.Graphics.Image = new EmptyImage(10f, panel.Height - 80f);
-			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
-			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
+			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
+			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
 			HoverEffect.Add(verSlider.Graphics, Colors.Gray, Colors.LightGray);
 			HoverEffect.Add(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
