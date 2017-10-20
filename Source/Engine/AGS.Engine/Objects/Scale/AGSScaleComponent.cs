@@ -29,25 +29,27 @@ namespace AGS.Engine
 
         public float Width { get { return _scale.Width; } }
 
-        public float ScaleX { get { return _scale.ScaleX; } }
+        public float ScaleX { get { return _scale.ScaleX; } set { _scale.ScaleX = value; } }
 
-        public float ScaleY { get { return _scale.ScaleY; } }
+        public float ScaleY { get { return _scale.ScaleY; } set { _scale.ScaleY = value; } }
 
-        public SizeF BaseSize { get { return _scale.BaseSize; } }
+        public SizeF BaseSize 
+        { 
+            get { return _scale.BaseSize; } 
+            set
+            {
+                var sprite = getSprite();
+                if (sprite != null) sprite.BaseSize = value;
+                _scale.BaseSize = value;
+            }
+        }
 
         public IEvent OnScaleChanged { get { return _scale.OnScaleChanged; } }
-
-        public void ResetBaseSize(float initialWidth, float initialHeight)
-        {
-            var sprite = getSprite();
-            if (sprite != null) sprite.ResetBaseSize(initialWidth, initialHeight);
-            _scale.ResetBaseSize(initialWidth, initialHeight);
-        }
 
         public void ResetScale(float initialWidth, float initialHeight)
         {
 			var sprite = getSprite();
-			if (sprite != null) sprite.ResetBaseSize(initialWidth, initialHeight);
+            if (sprite != null) sprite.BaseSize = new SizeF(initialWidth, initialHeight);
             _scale.ResetScale(initialWidth, initialHeight);
         }
 

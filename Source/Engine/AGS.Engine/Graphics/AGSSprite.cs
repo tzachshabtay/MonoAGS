@@ -40,16 +40,11 @@ namespace AGS.Engine
             _hasImage.Tint = sprite._hasImage.Tint;
             _hasImage.CustomRenderer = sprite._hasImage.CustomRenderer;
             _rotate.Angle = sprite._rotate.Angle;
-            ResetBaseSize(sprite.BaseSize.Width, sprite.BaseSize.Height);
+            BaseSize = sprite.BaseSize;
             ScaleBy(sprite.ScaleX, sprite.ScaleY);
         }
 
         #region ISprite implementation
-
-        public void ResetBaseSize(float initialWidth, float initialHeight)
-        {
-            _scale.ResetBaseSize(initialWidth, initialHeight);
-        }
 
         public void ResetScale(float initialWidth, float initialHeight)
         {
@@ -98,11 +93,11 @@ namespace AGS.Engine
 
         public float Width { get { return _scale.Width; } }
 
-        public float ScaleX { get { return _scale.ScaleX; } }
+        public float ScaleX { get { return _scale.ScaleX; } set { _scale.ScaleX = value; } }
 
-        public float ScaleY { get { return _scale.ScaleY; } }
+        public float ScaleY { get { return _scale.ScaleY; } set { _scale.ScaleY = value; }}
 
-        public SizeF BaseSize { get { return _scale.BaseSize; }}
+        public SizeF BaseSize { get { return _scale.BaseSize; } set { _scale.BaseSize = value; }}
 
         public float Angle { get { return _rotate.Angle; } set { _rotate.Angle = value; } }
 

@@ -323,7 +323,7 @@ namespace AGS.Engine
             newObj.IgnoreScalingArea = obj.IgnoreScalingArea;
             newObj.Border = obj.Border;
             if (obj.Animation != null) newObj.StartAnimation(obj.Animation.Clone());
-            newObj.ResetBaseSize(obj.Width / obj.ScaleX, obj.Height / obj.ScaleY);
+            newObj.BaseSize = new SizeF(obj.Width / obj.ScaleX, obj.Height / obj.ScaleY);
             newObj.ScaleBy(obj.ScaleX, obj.ScaleY);
             return newObj;
         }

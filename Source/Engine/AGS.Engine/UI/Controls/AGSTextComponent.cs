@@ -76,7 +76,7 @@ namespace AGS.Engine
                 config.AutoFit != AutoFit.TextShouldWrapAndLabelShouldFitHeight) return;
             var scale = _scale;
             if (scale == null) return;
-            scale.ResetBaseSize(_labelRenderer.Width, _labelRenderer.Height);
+            scale.BaseSize = new SizeF(_labelRenderer.Width, _labelRenderer.Height);
         }
     }
 }

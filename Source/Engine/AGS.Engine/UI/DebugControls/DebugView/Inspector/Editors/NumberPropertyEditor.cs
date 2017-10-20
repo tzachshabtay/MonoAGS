@@ -91,7 +91,7 @@ namespace AGS.Engine
             slider.Direction = SliderDirection.LeftToRight;
             slider.Graphics.Anchor = new PointF(0f, 0.5f);
             slider.Graphics.Image = new EmptyImage(20f, SLIDER_HEIGHT);
-            slider.Graphics.ResetBaseSize(panel.Width, SLIDER_HEIGHT);
+            slider.Graphics.BaseSize = new SizeF(panel.Width, SLIDER_HEIGHT);
             slider.HandleGraphics.Image = new EmptyImage(2f, SLIDER_HEIGHT);
             slider.RenderLayer = slider.Graphics.RenderLayer = slider.HandleGraphics.RenderLayer = panel.RenderLayer;
             HoverEffect.Add(slider.Graphics, Colors.Gray, Colors.LightGray);

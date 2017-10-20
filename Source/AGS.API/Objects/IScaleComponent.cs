@@ -18,23 +18,24 @@
         float Width { get; }
 
         /// <summary>
-        /// Gets the current horizontal scale (1 by default- meaning no scale).
+        /// Gets or sets the current horizontal scale (1 by default- meaning no scale).
+        /// The scaling is calculated based on the original size, meaning that ScaleX * <see cref="BaseSize"/>.Width = <see cref="Width"/>.  
         /// </summary>
         /// <value>The scale x.</value>
-        float ScaleX { get; }
+        float ScaleX { get; set; }
 
         /// <summary>
-        /// Gets the current vertical scale (1 by default- meaning no scale).
+        /// Gets or sets the current vertical scale (1 by default- meaning no scale).
+        /// The scaling is calculated based on the original size, meaning that ScaleY * <see cref="BaseSize"/>.Height = <see cref="Height"/>.  
         /// </summary>
         /// <value>The scale y.</value>
-        float ScaleY { get; }
+        float ScaleY { get; set; }
 
         /// <summary>
-        /// Gets the base size (the "original" size), on top of which the scale is calculated.
-        /// To reset the base size to a new size, use <see cref="ResetBaseSize"/>.
+        /// Gets or sets the base size (the "original" size), on top of which the scale is calculated.
         /// </summary>
         /// <value>The size of the base.</value>
-        SizeF BaseSize { get; }
+        SizeF BaseSize { get; set; }
 
         /// <summary>
         /// An event which fires whenever the scale changes
@@ -43,19 +44,12 @@
         IEvent OnScaleChanged { get; }
 
         /// <summary>
-        /// Resets the base size (the "original" size), on top of which the scale is calculated.
-        /// </summary>
-        /// <param name="initialWidth">Initial width.</param>
-        /// <param name="initialHeight">Initial height.</param>
-        void ResetBaseSize(float initialWidth, float initialHeight);
-
-        /// <summary>
         /// Resets the scale to (1,1), i.e no scaling.
         /// </summary>
         void ResetScale();
 
         /// <summary>
-        /// Resets the base size (the "original" size, <see cref="ResetBaseSize"/>) to the specified scale,
+        /// Resets the base size (the "original" size, <see cref="BaseSize"/>) to the specified scale,
         /// and then resets the scale to (1,1), i.e no scaling.
         /// </summary>
         /// <param name="initialWidth">Initial width.</param>

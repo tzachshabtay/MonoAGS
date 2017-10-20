@@ -34,7 +34,7 @@ namespace AGS.Engine
                 if (value != null)
                 {
                     var scale = _scale;
-                    if (scale != null) scale.ResetBaseSize(value.Width, value.Height);
+                    if (scale != null) scale.BaseSize = new SizeF(value.Width, value.Height);
                 }
                 var animationContainer = _animationContainer;
                 if (animationContainer != null) animationContainer.StartAnimation(animation);

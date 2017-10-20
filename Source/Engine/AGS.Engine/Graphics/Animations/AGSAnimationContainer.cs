@@ -31,7 +31,7 @@ namespace AGS.Engine
             var scale = _scale;
             if (scale != null && scale.Width == 0f && animation.Frames.Count > 0) 
 			{
-				scale.ResetBaseSize(animation.Frames[0].Sprite.Width, animation.Frames[0].Sprite.Height);
+                scale.BaseSize = new SizeF(animation.Frames[0].Sprite.Width, animation.Frames[0].Sprite.Height);
 			}
 			IAnimation currentAnimation = Animation;
 			if (currentAnimation != null) 
