@@ -153,7 +153,7 @@ namespace AGS.Engine
 #pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
             {
                 throw new InvalidOperationException(
-                    "Initial size was not set. Either assign an animation/image to the object, use ResetBaseSize or use the appropriate constructor.");
+                    "Initial size was not set. Either assign an animation/image to the object, or set BaseSize.");
             }
         }
 
