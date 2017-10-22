@@ -8764,6 +8764,18 @@ references:
   commentId: Overload:AGS.API.ILabelRenderer.Text
   fullName: AGS.API.ILabelRenderer.Text
   nameWithType: ILabelRenderer.Text
+- uid: AGS.API.ILabelRenderer.TextBackgroundVisible
+  name: TextBackgroundVisible
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_TextBackgroundVisible
+  commentId: P:AGS.API.ILabelRenderer.TextBackgroundVisible
+  fullName: AGS.API.ILabelRenderer.TextBackgroundVisible
+  nameWithType: ILabelRenderer.TextBackgroundVisible
+- uid: AGS.API.ILabelRenderer.TextBackgroundVisible*
+  name: TextBackgroundVisible
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_TextBackgroundVisible_
+  commentId: Overload:AGS.API.ILabelRenderer.TextBackgroundVisible
+  fullName: AGS.API.ILabelRenderer.TextBackgroundVisible
+  nameWithType: ILabelRenderer.TextBackgroundVisible
 - uid: AGS.API.ILabelRenderer.TextHeight
   name: TextHeight
   href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_TextHeight
@@ -9271,6 +9283,144 @@ references:
   commentId: Overload:AGS.API.IModelMatrixComponent.OnMatrixChanged
   fullName: AGS.API.IModelMatrixComponent.OnMatrixChanged
   nameWithType: IModelMatrixComponent.OnMatrixChanged
+- uid: AGS.API.INumberEditorComponent
+  name: INumberEditorComponent
+  href: api/AGS.API.INumberEditorComponent.html
+  commentId: T:AGS.API.INumberEditorComponent
+  fullName: AGS.API.INumberEditorComponent
+  nameWithType: INumberEditorComponent
+- uid: AGS.API.INumberEditorComponent.DownButton
+  name: DownButton
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_DownButton
+  commentId: P:AGS.API.INumberEditorComponent.DownButton
+  fullName: AGS.API.INumberEditorComponent.DownButton
+  nameWithType: INumberEditorComponent.DownButton
+- uid: AGS.API.INumberEditorComponent.DownButton*
+  name: DownButton
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_DownButton_
+  commentId: Overload:AGS.API.INumberEditorComponent.DownButton
+  fullName: AGS.API.INumberEditorComponent.DownButton
+  nameWithType: INumberEditorComponent.DownButton
+- uid: AGS.API.INumberEditorComponent.EditWholeNumbersOnly
+  name: EditWholeNumbersOnly
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_EditWholeNumbersOnly
+  commentId: P:AGS.API.INumberEditorComponent.EditWholeNumbersOnly
+  fullName: AGS.API.INumberEditorComponent.EditWholeNumbersOnly
+  nameWithType: INumberEditorComponent.EditWholeNumbersOnly
+- uid: AGS.API.INumberEditorComponent.EditWholeNumbersOnly*
+  name: EditWholeNumbersOnly
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_EditWholeNumbersOnly_
+  commentId: Overload:AGS.API.INumberEditorComponent.EditWholeNumbersOnly
+  fullName: AGS.API.INumberEditorComponent.EditWholeNumbersOnly
+  nameWithType: INumberEditorComponent.EditWholeNumbersOnly
+- uid: AGS.API.INumberEditorComponent.MaxValue
+  name: MaxValue
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_MaxValue
+  commentId: P:AGS.API.INumberEditorComponent.MaxValue
+  fullName: AGS.API.INumberEditorComponent.MaxValue
+  nameWithType: INumberEditorComponent.MaxValue
+- uid: AGS.API.INumberEditorComponent.MaxValue*
+  name: MaxValue
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_MaxValue_
+  commentId: Overload:AGS.API.INumberEditorComponent.MaxValue
+  fullName: AGS.API.INumberEditorComponent.MaxValue
+  nameWithType: INumberEditorComponent.MaxValue
+- uid: AGS.API.INumberEditorComponent.MinValue
+  name: MinValue
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_MinValue
+  commentId: P:AGS.API.INumberEditorComponent.MinValue
+  fullName: AGS.API.INumberEditorComponent.MinValue
+  nameWithType: INumberEditorComponent.MinValue
+- uid: AGS.API.INumberEditorComponent.MinValue*
+  name: MinValue
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_MinValue_
+  commentId: Overload:AGS.API.INumberEditorComponent.MinValue
+  fullName: AGS.API.INumberEditorComponent.MinValue
+  nameWithType: INumberEditorComponent.MinValue
+- uid: AGS.API.INumberEditorComponent.OnValueChanged
+  name: OnValueChanged
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_OnValueChanged
+  commentId: P:AGS.API.INumberEditorComponent.OnValueChanged
+  fullName: AGS.API.INumberEditorComponent.OnValueChanged
+  nameWithType: INumberEditorComponent.OnValueChanged
+- uid: AGS.API.INumberEditorComponent.OnValueChanged*
+  name: OnValueChanged
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_OnValueChanged_
+  commentId: Overload:AGS.API.INumberEditorComponent.OnValueChanged
+  fullName: AGS.API.INumberEditorComponent.OnValueChanged
+  nameWithType: INumberEditorComponent.OnValueChanged
+- uid: AGS.API.INumberEditorComponent.Slider
+  name: Slider
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_Slider
+  commentId: P:AGS.API.INumberEditorComponent.Slider
+  fullName: AGS.API.INumberEditorComponent.Slider
+  nameWithType: INumberEditorComponent.Slider
+- uid: AGS.API.INumberEditorComponent.Slider*
+  name: Slider
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_Slider_
+  commentId: Overload:AGS.API.INumberEditorComponent.Slider
+  fullName: AGS.API.INumberEditorComponent.Slider
+  nameWithType: INumberEditorComponent.Slider
+- uid: AGS.API.INumberEditorComponent.Step
+  name: Step
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_Step
+  commentId: P:AGS.API.INumberEditorComponent.Step
+  fullName: AGS.API.INumberEditorComponent.Step
+  nameWithType: INumberEditorComponent.Step
+- uid: AGS.API.INumberEditorComponent.Step*
+  name: Step
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_Step_
+  commentId: Overload:AGS.API.INumberEditorComponent.Step
+  fullName: AGS.API.INumberEditorComponent.Step
+  nameWithType: INumberEditorComponent.Step
+- uid: AGS.API.INumberEditorComponent.SuggestedMaxValue
+  name: SuggestedMaxValue
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_SuggestedMaxValue
+  commentId: P:AGS.API.INumberEditorComponent.SuggestedMaxValue
+  fullName: AGS.API.INumberEditorComponent.SuggestedMaxValue
+  nameWithType: INumberEditorComponent.SuggestedMaxValue
+- uid: AGS.API.INumberEditorComponent.SuggestedMaxValue*
+  name: SuggestedMaxValue
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_SuggestedMaxValue_
+  commentId: Overload:AGS.API.INumberEditorComponent.SuggestedMaxValue
+  fullName: AGS.API.INumberEditorComponent.SuggestedMaxValue
+  nameWithType: INumberEditorComponent.SuggestedMaxValue
+- uid: AGS.API.INumberEditorComponent.SuggestedMinValue
+  name: SuggestedMinValue
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_SuggestedMinValue
+  commentId: P:AGS.API.INumberEditorComponent.SuggestedMinValue
+  fullName: AGS.API.INumberEditorComponent.SuggestedMinValue
+  nameWithType: INumberEditorComponent.SuggestedMinValue
+- uid: AGS.API.INumberEditorComponent.SuggestedMinValue*
+  name: SuggestedMinValue
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_SuggestedMinValue_
+  commentId: Overload:AGS.API.INumberEditorComponent.SuggestedMinValue
+  fullName: AGS.API.INumberEditorComponent.SuggestedMinValue
+  nameWithType: INumberEditorComponent.SuggestedMinValue
+- uid: AGS.API.INumberEditorComponent.UpButton
+  name: UpButton
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_UpButton
+  commentId: P:AGS.API.INumberEditorComponent.UpButton
+  fullName: AGS.API.INumberEditorComponent.UpButton
+  nameWithType: INumberEditorComponent.UpButton
+- uid: AGS.API.INumberEditorComponent.UpButton*
+  name: UpButton
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_UpButton_
+  commentId: Overload:AGS.API.INumberEditorComponent.UpButton
+  fullName: AGS.API.INumberEditorComponent.UpButton
+  nameWithType: INumberEditorComponent.UpButton
+- uid: AGS.API.INumberEditorComponent.Value
+  name: Value
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_Value
+  commentId: P:AGS.API.INumberEditorComponent.Value
+  fullName: AGS.API.INumberEditorComponent.Value
+  nameWithType: INumberEditorComponent.Value
+- uid: AGS.API.INumberEditorComponent.Value*
+  name: Value
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_Value_
+  commentId: Overload:AGS.API.INumberEditorComponent.Value
+  fullName: AGS.API.INumberEditorComponent.Value
+  nameWithType: INumberEditorComponent.Value
 - uid: AGS.API.InventoryCombinationEventArgs
   name: InventoryCombinationEventArgs
   href: api/AGS.API.InventoryCombinationEventArgs.html
@@ -10723,18 +10873,6 @@ references:
   commentId: Overload:AGS.API.IScale.OnScaleChanged
   fullName: AGS.API.IScale.OnScaleChanged
   nameWithType: IScale.OnScaleChanged
-- uid: AGS.API.IScale.ResetBaseSize(System.Single,System.Single)
-  name: ResetBaseSize(Single, Single)
-  href: api/AGS.API.IScale.html#AGS_API_IScale_ResetBaseSize_System_Single_System_Single_
-  commentId: M:AGS.API.IScale.ResetBaseSize(System.Single,System.Single)
-  fullName: AGS.API.IScale.ResetBaseSize(System.Single, System.Single)
-  nameWithType: IScale.ResetBaseSize(Single, Single)
-- uid: AGS.API.IScale.ResetBaseSize*
-  name: ResetBaseSize
-  href: api/AGS.API.IScale.html#AGS_API_IScale_ResetBaseSize_
-  commentId: Overload:AGS.API.IScale.ResetBaseSize
-  fullName: AGS.API.IScale.ResetBaseSize
-  nameWithType: IScale.ResetBaseSize
 - uid: AGS.API.IScale.ResetScale
   name: ResetScale()
   href: api/AGS.API.IScale.html#AGS_API_IScale_ResetScale
@@ -11281,6 +11419,18 @@ references:
   commentId: Overload:AGS.API.ISliderComponent.OnValueChanged
   fullName: AGS.API.ISliderComponent.OnValueChanged
   nameWithType: ISliderComponent.OnValueChanged
+- uid: AGS.API.ISliderComponent.OnValueChanging
+  name: OnValueChanging
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_OnValueChanging
+  commentId: P:AGS.API.ISliderComponent.OnValueChanging
+  fullName: AGS.API.ISliderComponent.OnValueChanging
+  nameWithType: ISliderComponent.OnValueChanging
+- uid: AGS.API.ISliderComponent.OnValueChanging*
+  name: OnValueChanging
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_OnValueChanging_
+  commentId: Overload:AGS.API.ISliderComponent.OnValueChanging
+  fullName: AGS.API.ISliderComponent.OnValueChanging
+  nameWithType: ISliderComponent.OnValueChanging
 - uid: AGS.API.ISliderComponent.Value
   name: Value
   href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Value
@@ -12082,6 +12232,18 @@ references:
   commentId: Overload:AGS.API.ITextComponent.Text
   fullName: AGS.API.ITextComponent.Text
   nameWithType: ITextComponent.Text
+- uid: AGS.API.ITextComponent.TextBackgroundVisible
+  name: TextBackgroundVisible
+  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextBackgroundVisible
+  commentId: P:AGS.API.ITextComponent.TextBackgroundVisible
+  fullName: AGS.API.ITextComponent.TextBackgroundVisible
+  nameWithType: ITextComponent.TextBackgroundVisible
+- uid: AGS.API.ITextComponent.TextBackgroundVisible*
+  name: TextBackgroundVisible
+  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextBackgroundVisible_
+  commentId: Overload:AGS.API.ITextComponent.TextBackgroundVisible
+  fullName: AGS.API.ITextComponent.TextBackgroundVisible
+  nameWithType: ITextComponent.TextBackgroundVisible
 - uid: AGS.API.ITextComponent.TextConfig
   name: TextConfig
   href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextConfig
@@ -18749,18 +18911,30 @@ references:
   commentId: T:AGS.API.TextBoxKeyPressingEventArgs
   fullName: AGS.API.TextBoxKeyPressingEventArgs
   nameWithType: TextBoxKeyPressingEventArgs
-- uid: AGS.API.TextBoxKeyPressingEventArgs.#ctor(AGS.API.Key)
-  name: TextBoxKeyPressingEventArgs(Key)
-  href: api/AGS.API.TextBoxKeyPressingEventArgs.html#AGS_API_TextBoxKeyPressingEventArgs__ctor_AGS_API_Key_
-  commentId: M:AGS.API.TextBoxKeyPressingEventArgs.#ctor(AGS.API.Key)
-  fullName: AGS.API.TextBoxKeyPressingEventArgs.TextBoxKeyPressingEventArgs(AGS.API.Key)
-  nameWithType: TextBoxKeyPressingEventArgs.TextBoxKeyPressingEventArgs(Key)
+- uid: AGS.API.TextBoxKeyPressingEventArgs.#ctor(AGS.API.Key,AGS.API.TextboxState)
+  name: TextBoxKeyPressingEventArgs(Key, TextboxState)
+  href: api/AGS.API.TextBoxKeyPressingEventArgs.html#AGS_API_TextBoxKeyPressingEventArgs__ctor_AGS_API_Key_AGS_API_TextboxState_
+  commentId: M:AGS.API.TextBoxKeyPressingEventArgs.#ctor(AGS.API.Key,AGS.API.TextboxState)
+  fullName: AGS.API.TextBoxKeyPressingEventArgs.TextBoxKeyPressingEventArgs(AGS.API.Key, AGS.API.TextboxState)
+  nameWithType: TextBoxKeyPressingEventArgs.TextBoxKeyPressingEventArgs(Key, TextboxState)
 - uid: AGS.API.TextBoxKeyPressingEventArgs.#ctor*
   name: TextBoxKeyPressingEventArgs
   href: api/AGS.API.TextBoxKeyPressingEventArgs.html#AGS_API_TextBoxKeyPressingEventArgs__ctor_
   commentId: Overload:AGS.API.TextBoxKeyPressingEventArgs.#ctor
   fullName: AGS.API.TextBoxKeyPressingEventArgs.TextBoxKeyPressingEventArgs
   nameWithType: TextBoxKeyPressingEventArgs.TextBoxKeyPressingEventArgs
+- uid: AGS.API.TextBoxKeyPressingEventArgs.IntendedState
+  name: IntendedState
+  href: api/AGS.API.TextBoxKeyPressingEventArgs.html#AGS_API_TextBoxKeyPressingEventArgs_IntendedState
+  commentId: P:AGS.API.TextBoxKeyPressingEventArgs.IntendedState
+  fullName: AGS.API.TextBoxKeyPressingEventArgs.IntendedState
+  nameWithType: TextBoxKeyPressingEventArgs.IntendedState
+- uid: AGS.API.TextBoxKeyPressingEventArgs.IntendedState*
+  name: IntendedState
+  href: api/AGS.API.TextBoxKeyPressingEventArgs.html#AGS_API_TextBoxKeyPressingEventArgs_IntendedState_
+  commentId: Overload:AGS.API.TextBoxKeyPressingEventArgs.IntendedState
+  fullName: AGS.API.TextBoxKeyPressingEventArgs.IntendedState
+  nameWithType: TextBoxKeyPressingEventArgs.IntendedState
 - uid: AGS.API.TextBoxKeyPressingEventArgs.PressedKey
   name: PressedKey
   href: api/AGS.API.TextBoxKeyPressingEventArgs.html#AGS_API_TextBoxKeyPressingEventArgs_PressedKey
@@ -18785,6 +18959,48 @@ references:
   commentId: Overload:AGS.API.TextBoxKeyPressingEventArgs.ShouldCancel
   fullName: AGS.API.TextBoxKeyPressingEventArgs.ShouldCancel
   nameWithType: TextBoxKeyPressingEventArgs.ShouldCancel
+- uid: AGS.API.TextboxState
+  name: TextboxState
+  href: api/AGS.API.TextboxState.html
+  commentId: T:AGS.API.TextboxState
+  fullName: AGS.API.TextboxState
+  nameWithType: TextboxState
+- uid: AGS.API.TextboxState.#ctor(System.String,System.Int32)
+  name: TextboxState(String, Int32)
+  href: api/AGS.API.TextboxState.html#AGS_API_TextboxState__ctor_System_String_System_Int32_
+  commentId: M:AGS.API.TextboxState.#ctor(System.String,System.Int32)
+  fullName: AGS.API.TextboxState.TextboxState(System.String, System.Int32)
+  nameWithType: TextboxState.TextboxState(String, Int32)
+- uid: AGS.API.TextboxState.#ctor*
+  name: TextboxState
+  href: api/AGS.API.TextboxState.html#AGS_API_TextboxState__ctor_
+  commentId: Overload:AGS.API.TextboxState.#ctor
+  fullName: AGS.API.TextboxState.TextboxState
+  nameWithType: TextboxState.TextboxState
+- uid: AGS.API.TextboxState.CaretPosition
+  name: CaretPosition
+  href: api/AGS.API.TextboxState.html#AGS_API_TextboxState_CaretPosition
+  commentId: P:AGS.API.TextboxState.CaretPosition
+  fullName: AGS.API.TextboxState.CaretPosition
+  nameWithType: TextboxState.CaretPosition
+- uid: AGS.API.TextboxState.CaretPosition*
+  name: CaretPosition
+  href: api/AGS.API.TextboxState.html#AGS_API_TextboxState_CaretPosition_
+  commentId: Overload:AGS.API.TextboxState.CaretPosition
+  fullName: AGS.API.TextboxState.CaretPosition
+  nameWithType: TextboxState.CaretPosition
+- uid: AGS.API.TextboxState.Text
+  name: Text
+  href: api/AGS.API.TextboxState.html#AGS_API_TextboxState_Text
+  commentId: P:AGS.API.TextboxState.Text
+  fullName: AGS.API.TextboxState.Text
+  nameWithType: TextboxState.Text
+- uid: AGS.API.TextboxState.Text*
+  name: Text
+  href: api/AGS.API.TextboxState.html#AGS_API_TextboxState_Text_
+  commentId: Overload:AGS.API.TextboxState.Text
+  fullName: AGS.API.TextboxState.Text
+  nameWithType: TextboxState.Text
 - uid: AGS.API.TextureWrap
   name: TextureWrap
   href: api/AGS.API.TextureWrap.html

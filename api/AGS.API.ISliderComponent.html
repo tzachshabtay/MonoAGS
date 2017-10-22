@@ -336,16 +336,52 @@ and the maximum value will correspond with the top most location on the slider.<
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_ISliderComponent_OnValueChanged.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.OnValueChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L92">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L94">View Source</a>
   </span>
   <a id="AGS_API_ISliderComponent_OnValueChanged_" data-uid="AGS.API.ISliderComponent.OnValueChanged*"></a>
   <h4 id="AGS_API_ISliderComponent_OnValueChanged" data-uid="AGS.API.ISliderComponent.OnValueChanged">OnValueChanged</h4>
-  <div class="markdown level1 summary"><p>An event which is triggered when the slider value has changed.</p>
+  <div class="markdown level1 summary"><p>An event which is triggered when the slider value has changed.
+This only gets called after user finishes dragging the handle on the slider.
+For continous refreshes as the user drags the handle, <a class="xref" href="AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_OnValueChanging">OnValueChanging</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">IEvent&lt;SliderValueEventArgs&gt; OnValueChanged { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.SliderValueEventArgs.html">SliderValueEventArgs</a>&gt;</td>
+        <td><p>The on value changed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_ISliderComponent_OnValueChanging.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.OnValueChanging%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L102">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_OnValueChanging_" data-uid="AGS.API.ISliderComponent.OnValueChanging*"></a>
+  <h4 id="AGS_API_ISliderComponent_OnValueChanging" data-uid="AGS.API.ISliderComponent.OnValueChanging">OnValueChanging</h4>
+  <div class="markdown level1 summary"><p>An event which is triggered when the slider value is changing.
+This will be fired continously as the user drags the handle on the slider.
+If you need an event which fires only when the user finishes dragging, <a class="xref" href="AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_OnValueChanged">OnValueChanged</a>. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEvent&lt;SliderValueEventArgs&gt; OnValueChanging { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">

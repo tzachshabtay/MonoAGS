@@ -97,17 +97,16 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_IScale_BaseSize.md&amp;value=---%0Auid%3A%20AGS.API.IScale.BaseSize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L37">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L38">View Source</a>
   </span>
   <a id="AGS_API_IScale_BaseSize_" data-uid="AGS.API.IScale.BaseSize*"></a>
   <h4 id="AGS_API_IScale_BaseSize" data-uid="AGS.API.IScale.BaseSize">BaseSize</h4>
-  <div class="markdown level1 summary"><p>Gets the base size (the &quot;original&quot; size), on top of which the scale is calculated.
-To reset the base size to a new size, use <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetBaseSize_System_Single_System_Single_">ResetBaseSize(Single, Single)</a>.</p>
+  <div class="markdown level1 summary"><p>Gets or sets the base size (the &quot;original&quot; size), on top of which the scale is calculated.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">SizeF BaseSize { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">SizeF BaseSize { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -162,7 +161,7 @@ To reset the base size to a new size, use <a class="xref" href="AGS.API.IScale.h
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_IScale_OnScaleChanged.md&amp;value=---%0Auid%3A%20AGS.API.IScale.OnScaleChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L43">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L44">View Source</a>
   </span>
   <a id="AGS_API_IScale_OnScaleChanged_" data-uid="AGS.API.IScale.OnScaleChanged*"></a>
   <h4 id="AGS_API_IScale_OnScaleChanged" data-uid="AGS.API.IScale.OnScaleChanged">OnScaleChanged</h4>
@@ -194,16 +193,17 @@ To reset the base size to a new size, use <a class="xref" href="AGS.API.IScale.h
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_IScale_ScaleX.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ScaleX%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L24">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L25">View Source</a>
   </span>
   <a id="AGS_API_IScale_ScaleX_" data-uid="AGS.API.IScale.ScaleX*"></a>
   <h4 id="AGS_API_IScale_ScaleX" data-uid="AGS.API.IScale.ScaleX">ScaleX</h4>
-  <div class="markdown level1 summary"><p>Gets the current horizontal scale (1 by default- meaning no scale).</p>
+  <div class="markdown level1 summary"><p>Gets or sets the current horizontal scale (1 by default- meaning no scale).
+The scaling is calculated based on the original size, meaning that ScaleX * <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_BaseSize">BaseSize</a>.Width = <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_Width">Width</a>.  </p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">float ScaleX { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">float ScaleX { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -226,16 +226,17 @@ To reset the base size to a new size, use <a class="xref" href="AGS.API.IScale.h
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_IScale_ScaleY.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ScaleY%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L30">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L32">View Source</a>
   </span>
   <a id="AGS_API_IScale_ScaleY_" data-uid="AGS.API.IScale.ScaleY*"></a>
   <h4 id="AGS_API_IScale_ScaleY" data-uid="AGS.API.IScale.ScaleY">ScaleY</h4>
-  <div class="markdown level1 summary"><p>Gets the current vertical scale (1 by default- meaning no scale).</p>
+  <div class="markdown level1 summary"><p>Gets or sets the current vertical scale (1 by default- meaning no scale).
+The scaling is calculated based on the original size, meaning that ScaleY * <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_BaseSize">BaseSize</a>.Height = <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_Height">Height</a>.  </p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">float ScaleY { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">float ScaleY { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -292,7 +293,7 @@ To reset the base size to a new size, use <a class="xref" href="AGS.API.IScale.h
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_IScale_FlipHorizontally.md&amp;value=---%0Auid%3A%20AGS.API.IScale.FlipHorizontally%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L99">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L93">View Source</a>
   </span>
   <a id="AGS_API_IScale_FlipHorizontally_" data-uid="AGS.API.IScale.FlipHorizontally*"></a>
   <h4 id="AGS_API_IScale_FlipHorizontally" data-uid="AGS.API.IScale.FlipHorizontally">FlipHorizontally()</h4>
@@ -308,7 +309,7 @@ To reset the base size to a new size, use <a class="xref" href="AGS.API.IScale.h
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_IScale_FlipVertically.md&amp;value=---%0Auid%3A%20AGS.API.IScale.FlipVertically%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L104">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L98">View Source</a>
   </span>
   <a id="AGS_API_IScale_FlipVertically_" data-uid="AGS.API.IScale.FlipVertically*"></a>
   <h4 id="AGS_API_IScale_FlipVertically" data-uid="AGS.API.IScale.FlipVertically">FlipVertically()</h4>
@@ -321,50 +322,10 @@ To reset the base size to a new size, use <a class="xref" href="AGS.API.IScale.h
   </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_IScale_ResetBaseSize_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ResetBaseSize(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L50">View Source</a>
-  </span>
-  <a id="AGS_API_IScale_ResetBaseSize_" data-uid="AGS.API.IScale.ResetBaseSize*"></a>
-  <h4 id="AGS_API_IScale_ResetBaseSize_System_Single_System_Single_" data-uid="AGS.API.IScale.ResetBaseSize(System.Single,System.Single)">ResetBaseSize(Single, Single)</h4>
-  <div class="markdown level1 summary"><p>Resets the base size (the &quot;original&quot; size), on top of which the scale is calculated.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void ResetBaseSize(float initialWidth, float initialHeight)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">initialWidth</span></td>
-        <td><p>Initial width.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">initialHeight</span></td>
-        <td><p>Initial height.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_IScale_ResetScale.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ResetScale%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L55">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L49">View Source</a>
   </span>
   <a id="AGS_API_IScale_ResetScale_" data-uid="AGS.API.IScale.ResetScale*"></a>
   <h4 id="AGS_API_IScale_ResetScale" data-uid="AGS.API.IScale.ResetScale">ResetScale()</h4>
@@ -380,11 +341,11 @@ To reset the base size to a new size, use <a class="xref" href="AGS.API.IScale.h
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_IScale_ResetScale_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ResetScale(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L63">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L57">View Source</a>
   </span>
   <a id="AGS_API_IScale_ResetScale_" data-uid="AGS.API.IScale.ResetScale*"></a>
   <h4 id="AGS_API_IScale_ResetScale_System_Single_System_Single_" data-uid="AGS.API.IScale.ResetScale(System.Single,System.Single)">ResetScale(Single, Single)</h4>
-  <div class="markdown level1 summary"><p>Resets the base size (the &quot;original&quot; size, <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetBaseSize_System_Single_System_Single_">ResetBaseSize(Single, Single)</a>) to the specified scale,
+  <div class="markdown level1 summary"><p>Resets the base size (the &quot;original&quot; size, <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_BaseSize">BaseSize</a>) to the specified scale,
 and then resets the scale to (1,1), i.e no scaling.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -421,7 +382,7 @@ and then resets the scale to (1,1), i.e no scaling.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_IScale_ScaleBy_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ScaleBy(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L80">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L74">View Source</a>
   </span>
   <a id="AGS_API_IScale_ScaleBy_" data-uid="AGS.API.IScale.ScaleBy*"></a>
   <h4 id="AGS_API_IScale_ScaleBy_System_Single_System_Single_" data-uid="AGS.API.IScale.ScaleBy(System.Single,System.Single)">ScaleBy(Single, Single)</h4>
@@ -469,7 +430,7 @@ Debug.WriteLine(&quot;Size of sprite is ({0},{1})&quot;, sprite.Width, sprite.He
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorEditors/apiSpec/new?filename=AGS_API_IScale_ScaleTo_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ScaleTo(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L94">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorEditors/Source/AGS.API/Objects/IScaleComponent.cs/#L88">View Source</a>
   </span>
   <a id="AGS_API_IScale_ScaleTo_" data-uid="AGS.API.IScale.ScaleTo*"></a>
   <h4 id="AGS_API_IScale_ScaleTo_System_Single_System_Single_" data-uid="AGS.API.IScale.ScaleTo(System.Single,System.Single)">ScaleTo(Single, Single)</h4>
