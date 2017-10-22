@@ -145,6 +145,14 @@ namespace AGS.Engine
             if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory.UI, _factory.Graphics.Icons);
             else if (propType == typeof(int)) editor = new NumberPropertyEditor(_factory, true);
             else if (propType == typeof(float)) editor = new NumberPropertyEditor(_factory, false);
+            else if (propType == typeof(SizeF)) editor = new SizeFPropertyEditor(_factory);
+            else if (propType == typeof(Size)) editor = new SizePropertyEditor(_factory);
+            else if (propType == typeof(PointF)) editor = new PointFPropertyEditor(_factory);
+            else if (propType == typeof(Point)) editor = new PointPropertyEditor(_factory);
+            else if (propType == typeof(Vector2)) editor = new Vector2PropertyEditor(_factory);
+            else if (propType == typeof(ILocation)) editor = new LocationPropertyEditor(_factory);
+            else if (propType == typeof(RectangleF)) editor = new RectangleFPropertyEditor(_factory);
+            else if (propType == typeof(Rectangle)) editor = new RectanglePropertyEditor(_factory);
             else
             {
                 var typeInfo = propType.GetTypeInfo();
