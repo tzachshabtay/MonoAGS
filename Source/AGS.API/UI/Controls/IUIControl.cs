@@ -48,7 +48,7 @@
         IEvent<MouseButtonEventArgs> MouseDown { get; }
 
         /// <summary>
-        /// An event which is triggered whenever a mouse button is released within the boundaries of the entity.
+        /// An event which is triggered whenever a mouse button is released, if the button was pressed down within the boundaries of the entity.
         /// </summary>
         /// <value>The event.</value>
 		IEvent<MouseButtonEventArgs> MouseUp { get; }
