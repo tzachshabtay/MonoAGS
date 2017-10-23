@@ -4,6 +4,7 @@ using AGS.Engine;
 using AGS.API;
 using Moq;
 using System.Collections.Generic;
+using System;
 
 namespace Tests
 {
@@ -38,10 +39,13 @@ namespace Tests
 			                 float toX, float toY, bool toWalkable, 
 			                 float closeToX, float closeToY, bool hasCloseToWalkable)
 		{
-			//Setup:
-			Mock<IObject> obj = new Mock<IObject> ();
+            //Setup:
+            Mock<IEntity> entity = new Mock<IEntity>();
+            Mock<ITranslateComponent> translate = new Mock<ITranslateComponent>();
+            Mock<IHasRoom> hasRoom = new Mock<IHasRoom>();
 			Mock<IHasOutfit> outfitHolder = new Mock<IHasOutfit> ();
 			Mock<IOutfit> outfit = new Mock<IOutfit> ();
+            Mock<IDrawableInfo> drawable = new Mock<IDrawableInfo>();
 			Mock<IPathFinder> pathFinder = new Mock<IPathFinder> ();
 			Mock<IFaceDirectionBehavior> faceDirection = new Mock<IFaceDirectionBehavior> ();
 			Mock<IObjectFactory> objFactory = new Mock<IObjectFactory> ();
@@ -79,12 +83,18 @@ namespace Tests
 
 			float x = fromX;
 			float y = fromY;
-			obj.Setup(o => o.Room).Returns(room.Object);
-			obj.Setup(o => o.X).Returns(() => x);
-			obj.Setup(o => o.Y).Returns(() => y);
-			obj.Setup(o => o.Location).Returns(() => new AGSLocation (x, y));
-			obj.SetupSet(o => o.X = It.IsAny<float>()).Callback<float>(f => x = f);
-			obj.SetupSet(o => o.Y = It.IsAny<float>()).Callback<float>(f => y = f);
+            hasRoom.Setup(o => o.Room).Returns(room.Object);
+			translate.Setup(o => o.X).Returns(() => x);
+			translate.Setup(o => o.Y).Returns(() => y);
+			translate.Setup(o => o.Location).Returns(() => new AGSLocation (x, y));
+			translate.SetupSet(o => o.X = It.IsAny<float>()).Callback<float>(f => x = f);
+			translate.SetupSet(o => o.Y = It.IsAny<float>()).Callback<float>(f => y = f);
+
+            Mocks.Bind(entity, hasRoom);
+            Mocks.Bind(entity, translate);
+            Mocks.Bind(entity, faceDirection);
+            Mocks.Bind(entity, outfitHolder);
+            Mocks.Bind(entity, drawable);
 
 			ILocation toLocation = new AGSLocation (toX, toY);
 			ILocation closeLocation = new AGSLocation (closeToX, closeToY);
@@ -95,10 +105,13 @@ namespace Tests
 			pathFinder.Setup(p => p.GetWalkPoints(It.Is<ILocation>(l => l.X == fromX && l.Y == fromY),
 				It.Is<ILocation>(l => l.X == closeToX && l.Y == closeToY))).Returns(hasCloseToWalkable ? new List<ILocation> {closeLocation} : new List<ILocation>());
 			
-			AGSWalkBehavior walk = new AGSWalkBehavior (obj.Object, pathFinder.Object, faceDirection.Object,
-                                                        outfitHolder.Object, objFactory.Object, game.Object, glUtils.Object) { WalkStep = new PointF(4f, 4f), MovementLinkedToAnimation = false };
+			AGSWalkBehavior walk = new AGSWalkBehavior (pathFinder.Object, objFactory.Object, game.Object, 
+                                                        glUtils.Object) { WalkStep = new PointF(4f, 4f), MovementLinkedToAnimation = false };
 
 			bool walkShouldSucceed = fromWalkable && (toWalkable || hasCloseToWalkable);
+
+            walk.Init(entity.Object);
+            walk.AfterInit();
 
 			//Act:
 			bool walkSucceded = await walk.WalkAsync(toLocation);
