@@ -11,6 +11,7 @@ namespace AGS.Engine
             _rotate = rotate;
         }
 
+        [Property(Category = "Transform")]
         public float Angle {  get { return _rotate.Angle; } set { _rotate.Angle = value; } }
 
         public IEvent OnAngleChanged { get { return _rotate.OnAngleChanged; } }

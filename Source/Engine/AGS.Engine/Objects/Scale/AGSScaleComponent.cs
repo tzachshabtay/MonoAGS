@@ -25,14 +25,26 @@ namespace AGS.Engine
             entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
         }
 
+        [Property(Category = "Size")]
         public float Height { get { return _scale.Height; } }
 
+        [Property(Category = "Size")]
         public float Width { get { return _scale.Width; } }
 
+        [Property(Category = "Transform")]
+        public PointF Scale
+        {
+            get { return new PointF(ScaleX, ScaleY); }
+            set { ScaleBy(value.X, value.Y); }
+        }
+
+        [Property(Browsable = false)]
         public float ScaleX { get { return _scale.ScaleX; } set { _scale.ScaleX = value; } }
 
+        [Property(Browsable = false)]
         public float ScaleY { get { return _scale.ScaleY; } set { _scale.ScaleY = value; } }
 
+        [Property(Category = "Size")]
         public SizeF BaseSize 
         { 
             get { return _scale.BaseSize; } 

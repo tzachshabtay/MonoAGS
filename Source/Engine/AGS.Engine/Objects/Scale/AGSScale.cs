@@ -39,6 +39,13 @@ namespace AGS.Engine
 
         public float Width { get; private set; }
 
+        public PointF Scale 
+        { 
+            get { return new PointF(_scaleX, _scaleY); }
+            set { ScaleBy(value.X, value.Y);}
+        }
+
+        [Property(Browsable = false)]
         public float ScaleX 
         { 
             get { return _scaleX; } 
@@ -51,6 +58,7 @@ namespace AGS.Engine
             } 
         }
 
+        [Property(Browsable = false)]
         public float ScaleY
         {
             get { return _scaleY; }

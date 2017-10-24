@@ -191,6 +191,22 @@ namespace AGS.Engine
             }
 
             public string Name { get; private set; }
+
+            public override bool Equals(object obj)
+            {
+                return Equals(obj as Category);
+            }
+
+            public bool Equals(Category cat)
+            {
+                if (cat == null) return false;
+                return Name == cat.Name;
+            }
+
+            public override int GetHashCode()
+            {
+                return Name.GetHashCode();
+            }
         }
     }
 }
