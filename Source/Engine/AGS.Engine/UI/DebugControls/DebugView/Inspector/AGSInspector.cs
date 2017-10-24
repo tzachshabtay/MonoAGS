@@ -135,24 +135,36 @@ namespace AGS.Engine
 
         private ITreeStringNode addToTree(InspectorProperty property, ITreeStringNode parent)
 		{
-            if (!property.Prop.CanWrite)
+            if (property.IsReadonly)
             {
                 return addToTree(string.Format("{0}: {1}", property.Name, property.Value), parent);
             }
             IInspectorPropertyEditor editor;
 
             var propType = property.Prop.PropertyType;
-            if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory.UI, _factory.Graphics.Icons);
-            else if (propType == typeof(int)) editor = new NumberPropertyEditor(_factory, true);
-            else if (propType == typeof(float)) editor = new NumberPropertyEditor(_factory, false);
-            else if (propType == typeof(SizeF)) editor = new SizeFPropertyEditor(_factory);
-            else if (propType == typeof(Size)) editor = new SizePropertyEditor(_factory);
-            else if (propType == typeof(PointF)) editor = new PointFPropertyEditor(_factory);
-            else if (propType == typeof(Point)) editor = new PointPropertyEditor(_factory);
-            else if (propType == typeof(Vector2)) editor = new Vector2PropertyEditor(_factory);
-            else if (propType == typeof(ILocation)) editor = new LocationPropertyEditor(_factory);
-            else if (propType == typeof(RectangleF)) editor = new RectangleFPropertyEditor(_factory);
-            else if (propType == typeof(Rectangle)) editor = new RectanglePropertyEditor(_factory);
+            if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory);
+
+            else if (propType == typeof(int)) editor = new NumberPropertyEditor(_factory, true, false);
+            else if (propType == typeof(float)) editor = new NumberPropertyEditor(_factory, false, false);
+            else if (propType == typeof(SizeF)) editor = new SizeFPropertyEditor(_factory, false);
+            else if (propType == typeof(Size)) editor = new SizePropertyEditor(_factory, false);
+            else if (propType == typeof(PointF)) editor = new PointFPropertyEditor(_factory, false);
+            else if (propType == typeof(Point)) editor = new PointPropertyEditor(_factory, false);
+            else if (propType == typeof(Vector2)) editor = new Vector2PropertyEditor(_factory, false);
+            else if (propType == typeof(ILocation)) editor = new LocationPropertyEditor(_factory, false);
+            else if (propType == typeof(RectangleF)) editor = new RectangleFPropertyEditor(_factory, false);
+            else if (propType == typeof(Rectangle)) editor = new RectanglePropertyEditor(_factory, false);
+
+            else if (propType == typeof(int?)) editor = new NumberPropertyEditor(_factory, true, true);
+            else if (propType == typeof(float?)) editor = new NumberPropertyEditor(_factory, false, true);
+            else if (propType == typeof(SizeF?)) editor = new SizeFPropertyEditor(_factory, true);
+            else if (propType == typeof(Size?)) editor = new SizePropertyEditor(_factory, true);
+            else if (propType == typeof(PointF?)) editor = new PointFPropertyEditor(_factory, true);
+            else if (propType == typeof(Point?)) editor = new PointPropertyEditor(_factory, true);
+            else if (propType == typeof(Vector2?)) editor = new Vector2PropertyEditor(_factory, true);
+            else if (propType == typeof(RectangleF?)) editor = new RectangleFPropertyEditor(_factory, true);
+            else if (propType == typeof(Rectangle?)) editor = new RectanglePropertyEditor(_factory, true);
+
             else
             {
                 var typeInfo = propType.GetTypeInfo();

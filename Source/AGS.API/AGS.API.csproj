@@ -261,6 +261,7 @@
     <Compile Include="Objects\ITextureOffsetComponent.cs" />
     <Compile Include="UI\Controls\Editors\INumberEditorComponent.cs" />
     <Compile Include="UI\Controls\Textbox\TextboxState.cs" />
+    <Compile Include="Editor\CustomStringValueAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

@@ -8,7 +8,7 @@ namespace AGS.Engine
     public class NumberPropertyEditor : IInspectorPropertyEditor
     {
         private readonly IGameFactory _factory;
-        private readonly bool _wholeNumbers;
+        private readonly bool _wholeNumbers, _nullable;
         private readonly List<InternalNumberEditor> _internalEditors;
         private const float SLIDER_HEIGHT = 5f;
         private const float ROW_HEIGHT = 20f;
@@ -28,10 +28,11 @@ namespace AGS.Engine
             public string Text { get; private set; }
         }
 
-        public NumberPropertyEditor(IGameFactory factory, bool wholeNumbers, List<InternalNumberEditor> internalEditors = null)
+        public NumberPropertyEditor(IGameFactory factory, bool wholeNumbers, bool nullable, List<InternalNumberEditor> internalEditors = null)
         {
             _factory = factory;
             _wholeNumbers = wholeNumbers;
+            _nullable = nullable;
             _internalEditors = internalEditors ?? new List<InternalNumberEditor>
             {
                 new InternalNumberEditor(null, prop => prop.Value, (prop, value) =>
@@ -47,24 +48,60 @@ namespace AGS.Engine
 
         public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
         {
+            ICheckBox nullBox = null;
+            if (_nullable)
+            {
+                nullBox = BoolPropertyEditor.CreateCheckbox(view.TreeItem, _factory, id + "_NullBox");
+                nullBox.Checked = (property.Value != InspectorProperty.NullValue);
+            }
+            var panels = new List<Tuple<IUIControl, INumberEditorComponent>>(_internalEditors.Count);
             for (int i = 0; i < _internalEditors.Count; i++)
             {
                 var editor = _internalEditors[i];
-                addEditor(id + i, view, property, editor);
+                var panel = addEditor(id + i, view, property, editor);
+                panel.Item1.Visible = nullBox == null ? true : nullBox.Checked;
+                panels.Add(panel);
+            }
+            if (nullBox != null)
+            {
+                nullBox.OnCheckChanged.Subscribe(args =>
+                {
+                    if (!args.Checked)
+                    {
+                        property.Prop.SetValue(property.Object, null);
+                    }
+                    foreach (var panel in panels)
+                    {
+                        panel.Item1.Visible = nullBox.Checked;
+                        if (args.Checked)
+                        {
+                            float val = default(float);
+                            panel.Item2.Value = val;
+                        }
+                    }
+                });
             }
         }
 
-        private void addEditor(string id, ITreeNodeView view, InspectorProperty property, InternalNumberEditor editor)
+        private Tuple<IUIControl, INumberEditorComponent> addEditor(string id, ITreeNodeView view, InspectorProperty property, InternalNumberEditor editor)
         {
             var label = view.TreeItem;
+            var panel = _factory.UI.GetPanel(id + "EditPanel", 100f, ROW_HEIGHT, label.X, label.Y, label.TreeNode.Parent);
+            panel.RenderLayer = label.RenderLayer;
+            panel.Tint = Colors.Transparent;
+            panel.Z = label.Z;
+            var layout = panel.AddComponent<IStackLayoutComponent>();
+            layout.Direction = LayoutDirection.Horizontal;
+            layout.RelativeSpacing = 1f;
+            layout.StartLayout();
             if (editor.Text != null)
             {
-                var propLabel = _factory.UI.GetLabel(id + "_PropLabel", editor.Text, 1f, 1f, 0f, 0f, label.TreeNode.Parent, 
+                var propLabel = _factory.UI.GetLabel(id + "_PropLabel", editor.Text, 1f, 1f, 0f, 0f, panel, 
                                      new AGSTextConfig(paddingTop: 0f, paddingBottom: 0f, autoFit: AutoFit.LabelShouldFitText));
                 propLabel.Tint = Colors.Transparent;
                 propLabel.RenderLayer = label.RenderLayer;
             }
-            var textPanel = _factory.UI.GetPanel(id + "_TextPanel", 100f, ROW_HEIGHT, label.X, label.Y, label.TreeNode.Parent);
+            var textPanel = _factory.UI.GetPanel(id + "_TextPanel", 100f, ROW_HEIGHT, 0f, 0f, panel);
             textPanel.RenderLayer = label.RenderLayer;
             textPanel.Z = label.Z;
             textPanel.Tint = Colors.Transparent;
@@ -73,12 +110,16 @@ namespace AGS.Engine
             var numberEditor = textbox.AddComponent<INumberEditorComponent>();
             addSlider(id, textPanel, numberEditor);
             numberEditor.EditWholeNumbersOnly = _wholeNumbers;
-            numberEditor.Value = float.Parse(text);
+            if (text != InspectorProperty.NullValue)
+            {
+                numberEditor.Value = float.Parse(text);
+            }
             numberEditor.OnValueChanged.Subscribe(() =>
             {
                 editor.SetValue(property, numberEditor.Value);
             });
-            addArrowButtons(id, label, numberEditor);
+            addArrowButtons(id, panel, numberEditor);
+            return new Tuple<IUIControl, INumberEditorComponent>(panel, numberEditor);
         }
 
         private ITextBox addTextBox(string id, IUIControl panel, string text)
@@ -93,7 +134,7 @@ namespace AGS.Engine
             return textbox;
         }
 
-        private void addArrowButtons(string id, IUIControl label,
+        private void addArrowButtons(string id, IUIControl panel,
                                      INumberEditorComponent numberEditor)
         {
             var icons = _factory.Graphics.Icons;
@@ -101,8 +142,8 @@ namespace AGS.Engine
             var arrowDownIdle = icons.GetArrowIcon(ArrowDirection.Down, Colors.White);
             var arrowUpHovered = icons.GetArrowIcon(ArrowDirection.Up, Colors.Black);
             var arrowDownHovered = icons.GetArrowIcon(ArrowDirection.Down, Colors.Black);
-            var buttonsPanel = _factory.UI.GetPanel(id + "_ButtonsPanel", 1f, 1f, 0f, label.Y, label.TreeNode.Parent);
-            buttonsPanel.RenderLayer = label.RenderLayer;
+            var buttonsPanel = _factory.UI.GetPanel(id + "_ButtonsPanel", 1f, 1f, 0f, 0f, panel);
+            buttonsPanel.RenderLayer = panel.RenderLayer;
             buttonsPanel.Tint = Colors.Transparent;
             float halfRowHeight = ROW_HEIGHT / 2f;
             float buttonBottomPadding = 12f;
@@ -111,14 +152,14 @@ namespace AGS.Engine
             var upButton = _factory.UI.GetButton(id + "_UpButton", new ButtonAnimation(arrowUpIdle, null, Colors.Purple),
                                               new ButtonAnimation(arrowUpHovered, null, Colors.Yellow), new ButtonAnimation(arrowUpIdle, null, Colors.Blue),
                                               0f, buttonBottomPadding + buttonHeight + betweenButtonsPadding, buttonsPanel, width: 20f, height: buttonHeight);
-            upButton.RenderLayer = label.RenderLayer;
-            upButton.Z = label.Z;
+            upButton.RenderLayer = panel.RenderLayer;
+            upButton.Z = panel.Z;
 
             var downButton = _factory.UI.GetButton(id + "_DownButton", new ButtonAnimation(arrowDownIdle, null, Colors.Purple),
                                                 new ButtonAnimation(arrowDownHovered, null, Colors.Yellow), new ButtonAnimation(arrowDownIdle, null, Colors.Blue),
                                                 0f, buttonBottomPadding, buttonsPanel, width: 20f, height: buttonHeight);
-            downButton.RenderLayer = label.RenderLayer;
-            downButton.Z = label.Z;
+            downButton.RenderLayer = panel.RenderLayer;
+            downButton.Z = panel.Z;
             numberEditor.UpButton = upButton;
             numberEditor.DownButton = downButton;
         }
@@ -158,12 +199,14 @@ namespace AGS.Engine
 
     public class MultipleNumbersPropertyEditor<T> : NumberPropertyEditor
     {
-        public MultipleNumbersPropertyEditor(IGameFactory factory, bool wholeNumbers, params Tuple<string, Func<float, T, T>>[] creators) :
-        base(factory, wholeNumbers, creators.Select((creator, index) => 
-            new InternalNumberEditor(creator.Item1, prop => prop.Value.Split(',')[index],
+        public MultipleNumbersPropertyEditor(IGameFactory factory, bool wholeNumbers, bool nullable, params Tuple<string, Func<float, T, T>>[] creators) :
+        base(factory, wholeNumbers, nullable, creators.Select((creator, index) => 
+            new InternalNumberEditor(creator.Item1, prop => prop.Value == InspectorProperty.NullValue ? 
+                                     InspectorProperty.NullValue : prop.Value.Split(',')[index],
                                      (prop, value) => 
             {
-                T val = (T)prop.Prop.GetValue(prop.Object);
+                object objVal = prop.Prop.GetValue(prop.Object);
+                T val = objVal == null ? default(T) : (T)objVal;
                 prop.Prop.SetValue(prop.Object, creator.Item2(value, val));
             })
         ).ToList()){} 
@@ -171,29 +214,31 @@ namespace AGS.Engine
 
     public class SizeFPropertyEditor : MultipleNumbersPropertyEditor<SizeF>
     {
-        public SizeFPropertyEditor(IGameFactory factory): base(factory, false, 
+        public SizeFPropertyEditor(IGameFactory factory, bool nullable): base(factory, false, nullable,
                            new Tuple<string, Func<float, SizeF, SizeF>>("Width", (width, size) => new SizeF(width, size.Height)),
                            new Tuple<string, Func<float, SizeF, SizeF>>("Height", (height, size) => new SizeF(size.Width, height))){}
     }
 
     public class SizePropertyEditor : MultipleNumbersPropertyEditor<Size>
     {
-        public SizePropertyEditor(IGameFactory factory) : base(factory, true,
+        public SizePropertyEditor(IGameFactory factory, bool nullable) : base(factory, true, nullable,
                    new Tuple<string, Func<float, Size, Size>>("Width", (width, size) => new Size((int)Math.Round(width), size.Height)),
                    new Tuple<string, Func<float, Size, Size>>("Height", (height, size) => new Size(size.Width, (int)Math.Round(height)))){}
     }
 
     public class PointFPropertyEditor : MultipleNumbersPropertyEditor<PointF>
     {
-        public PointFPropertyEditor(IGameFactory factory) : base(factory, false,
-                           new Tuple<string, Func<float, PointF, PointF>>("X", (x, point) => new PointF(x, point.Y)),
-                           new Tuple<string, Func<float, PointF, PointF>>("Y", (y, point) => new PointF(point.X, y)))
+        public PointFPropertyEditor(IGameFactory factory, bool nullable) : base(factory, false, nullable,
+                           new Tuple<string, Func<float, PointF, PointF>>("X", (x, point) => 
+                                                                          new PointF(x, point.Y)),
+                           new Tuple<string, Func<float, PointF, PointF>>("Y", (y, point) => 
+                                                                          new PointF(point.X, y)))
         { }
     }
 
     public class PointPropertyEditor : MultipleNumbersPropertyEditor<Point>
     {
-        public PointPropertyEditor(IGameFactory factory) : base(factory, true,
+        public PointPropertyEditor(IGameFactory factory, bool nullable) : base(factory, true, nullable,
                    new Tuple<string, Func<float, Point, Point>>("X", (x, point) => new Point((int)Math.Round(x), point.Y)),
                    new Tuple<string, Func<float, Point, Point>>("Y", (y, point) => new Point(point.X, (int)Math.Round(y))))
         { }
@@ -201,7 +246,7 @@ namespace AGS.Engine
 
     public class Vector2PropertyEditor : MultipleNumbersPropertyEditor<Vector2>
     {
-        public Vector2PropertyEditor(IGameFactory factory) : base(factory, false,
+        public Vector2PropertyEditor(IGameFactory factory, bool nullable) : base(factory, false, nullable,
                            new Tuple<string, Func<float, Vector2, Vector2>>("X", (x, vector) => new Vector2(x, vector.Y)),
                            new Tuple<string, Func<float, Vector2, Vector2>>("Y", (y, vector) => new Vector2(vector.X, y)))
         { }
@@ -209,7 +254,7 @@ namespace AGS.Engine
 
     public class LocationPropertyEditor : MultipleNumbersPropertyEditor<ILocation>
     {
-        public LocationPropertyEditor(IGameFactory factory) : base(factory, false,
+        public LocationPropertyEditor(IGameFactory factory, bool nullable) : base(factory, false, nullable,
                            new Tuple<string, Func<float, ILocation, ILocation>>("X", (x, vector) => new AGSLocation(x, vector.Y, vector.Z)),
                            new Tuple<string, Func<float, ILocation, ILocation>>("Y", (y, vector) => new AGSLocation(vector.X, y, vector.Z)),
                            new Tuple<string, Func<float, ILocation, ILocation>>("Z", (z, vector) => new AGSLocation(vector.X, vector.Y, z)))
@@ -218,7 +263,7 @@ namespace AGS.Engine
 
     public class RectangleFPropertyEditor : MultipleNumbersPropertyEditor<RectangleF>
     {
-        public RectangleFPropertyEditor(IGameFactory factory) : base(factory, false,
+        public RectangleFPropertyEditor(IGameFactory factory, bool nullable) : base(factory, false, nullable,
                            new Tuple<string, Func<float, RectangleF, RectangleF>>("X", (x, rect) => new RectangleF(x, rect.Y, rect.Width, rect.Height)),
                            new Tuple<string, Func<float, RectangleF, RectangleF>>("Y", (y, rect) => new RectangleF(rect.X, y, rect.Width, rect.Height)),
                            new Tuple<string, Func<float, RectangleF, RectangleF>>("Width", (w, rect) => new RectangleF(rect.X, rect.Y, w, rect.Height)),
@@ -228,7 +273,7 @@ namespace AGS.Engine
 
     public class RectanglePropertyEditor : MultipleNumbersPropertyEditor<Rectangle>
     {
-        public RectanglePropertyEditor(IGameFactory factory) : base(factory, true,
+        public RectanglePropertyEditor(IGameFactory factory, bool nullable) : base(factory, true, nullable,
                            new Tuple<string, Func<float, Rectangle, Rectangle>>("X", (x, rect) => new Rectangle((int)Math.Round(x), rect.Y, rect.Width, rect.Height)),
                            new Tuple<string, Func<float, Rectangle, Rectangle>>("Y", (y, rect) => new Rectangle(rect.X, (int)Math.Round(y), rect.Width, rect.Height)),
                            new Tuple<string, Func<float, Rectangle, Rectangle>>("Width", (w, rect) => new Rectangle(rect.X, rect.Y, (int)Math.Round(w), rect.Height)),

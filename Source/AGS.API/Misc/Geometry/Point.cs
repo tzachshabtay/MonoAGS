@@ -29,6 +29,11 @@
         /// </summary>
         /// <value>The y.</value>
 		public int Y { get { return _y; } }
+
+        public override string ToString()
+        {
+            return string.Format("{0},{1}", X, Y);
+        }
 	}
 }
 

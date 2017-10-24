@@ -29,7 +29,7 @@ namespace AGS.API
 
         public override string ToString()
         {
-            return string.Format("[Size: Width={0}, Height={1}]", Width, Height);
+            return string.Format("{0},{1}", Width, Height);
         }
 
         public override bool Equals(Object obj)

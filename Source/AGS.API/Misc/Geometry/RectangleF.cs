@@ -55,6 +55,17 @@
         {
             return point.X >= X && point.X <= X + Height && point.Y <= Y && point.Y >= Y - Height;
         }
+
+        public override string ToString()
+        {
+            return string.Format("[RectangleF: X={0:0.##}, Y={1:0.##}, Width={2:0.##}, Height={3:0.##}]", X, Y, Width, Height);
+        }
+
+        [CustomStringValue(CustomStringApplyWhen.CanWrite)]
+        public string ToInspectorString()
+        {
+            return string.Format("{0:0.##},{1:0.##},{2:0.##},{3:0.##}", X, Y, Width, Height);
+        }
 	}
 }
 
