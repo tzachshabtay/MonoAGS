@@ -31,6 +31,7 @@ namespace AGS.Engine
             dispose(false);
         }
 
+        [Property(Browsable = false)]
         public IBitmap OriginalBitmap { get; private set; }
 
         public float Width { get; private set; }

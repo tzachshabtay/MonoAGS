@@ -77,6 +77,7 @@ namespace AGS.Engine
 
 		public IEdges Edges { get { return _edges; } }
 
+        [Property(Browsable = false)]
 		public IRoomEvents Events { get; private set; }
 
         public IEnumerable<IArea> GetMatchingAreas(PointF point, string entityId)

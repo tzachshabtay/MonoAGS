@@ -23,6 +23,7 @@ namespace AGS.Engine
 
 		public bool IsPaused { get; set; }
 
+        [Property(Browsable = false)]
 		public TaskCompletionSource<AnimationCompletedEventArgs> OnAnimationCompleted { get; private set; }
 
 		#endregion
