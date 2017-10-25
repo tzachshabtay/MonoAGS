@@ -2006,6 +2006,60 @@ references:
   commentId: F:AGS.API.Colors.YellowGreen
   fullName: AGS.API.Colors.YellowGreen
   nameWithType: Colors.YellowGreen
+- uid: AGS.API.CustomStringApplyWhen
+  name: CustomStringApplyWhen
+  href: api/AGS.API.CustomStringApplyWhen.html
+  commentId: T:AGS.API.CustomStringApplyWhen
+  fullName: AGS.API.CustomStringApplyWhen
+  nameWithType: CustomStringApplyWhen
+- uid: AGS.API.CustomStringApplyWhen.Both
+  name: Both
+  href: api/AGS.API.CustomStringApplyWhen.html#AGS_API_CustomStringApplyWhen_Both
+  commentId: F:AGS.API.CustomStringApplyWhen.Both
+  fullName: AGS.API.CustomStringApplyWhen.Both
+  nameWithType: CustomStringApplyWhen.Both
+- uid: AGS.API.CustomStringApplyWhen.CanWrite
+  name: CanWrite
+  href: api/AGS.API.CustomStringApplyWhen.html#AGS_API_CustomStringApplyWhen_CanWrite
+  commentId: F:AGS.API.CustomStringApplyWhen.CanWrite
+  fullName: AGS.API.CustomStringApplyWhen.CanWrite
+  nameWithType: CustomStringApplyWhen.CanWrite
+- uid: AGS.API.CustomStringApplyWhen.ReadOnly
+  name: ReadOnly
+  href: api/AGS.API.CustomStringApplyWhen.html#AGS_API_CustomStringApplyWhen_ReadOnly
+  commentId: F:AGS.API.CustomStringApplyWhen.ReadOnly
+  fullName: AGS.API.CustomStringApplyWhen.ReadOnly
+  nameWithType: CustomStringApplyWhen.ReadOnly
+- uid: AGS.API.CustomStringValueAttribute
+  name: CustomStringValueAttribute
+  href: api/AGS.API.CustomStringValueAttribute.html
+  commentId: T:AGS.API.CustomStringValueAttribute
+  fullName: AGS.API.CustomStringValueAttribute
+  nameWithType: CustomStringValueAttribute
+- uid: AGS.API.CustomStringValueAttribute.#ctor(AGS.API.CustomStringApplyWhen)
+  name: CustomStringValueAttribute(CustomStringApplyWhen)
+  href: api/AGS.API.CustomStringValueAttribute.html#AGS_API_CustomStringValueAttribute__ctor_AGS_API_CustomStringApplyWhen_
+  commentId: M:AGS.API.CustomStringValueAttribute.#ctor(AGS.API.CustomStringApplyWhen)
+  fullName: AGS.API.CustomStringValueAttribute.CustomStringValueAttribute(AGS.API.CustomStringApplyWhen)
+  nameWithType: CustomStringValueAttribute.CustomStringValueAttribute(CustomStringApplyWhen)
+- uid: AGS.API.CustomStringValueAttribute.#ctor*
+  name: CustomStringValueAttribute
+  href: api/AGS.API.CustomStringValueAttribute.html#AGS_API_CustomStringValueAttribute__ctor_
+  commentId: Overload:AGS.API.CustomStringValueAttribute.#ctor
+  fullName: AGS.API.CustomStringValueAttribute.CustomStringValueAttribute
+  nameWithType: CustomStringValueAttribute.CustomStringValueAttribute
+- uid: AGS.API.CustomStringValueAttribute.ApplyWhen
+  name: ApplyWhen
+  href: api/AGS.API.CustomStringValueAttribute.html#AGS_API_CustomStringValueAttribute_ApplyWhen
+  commentId: P:AGS.API.CustomStringValueAttribute.ApplyWhen
+  fullName: AGS.API.CustomStringValueAttribute.ApplyWhen
+  nameWithType: CustomStringValueAttribute.ApplyWhen
+- uid: AGS.API.CustomStringValueAttribute.ApplyWhen*
+  name: ApplyWhen
+  href: api/AGS.API.CustomStringValueAttribute.html#AGS_API_CustomStringValueAttribute_ApplyWhen_
+  commentId: Overload:AGS.API.CustomStringValueAttribute.ApplyWhen
+  fullName: AGS.API.CustomStringValueAttribute.ApplyWhen
+  nameWithType: CustomStringValueAttribute.ApplyWhen
 - uid: AGS.API.Direction
   name: Direction
   href: api/AGS.API.Direction.html
@@ -17324,6 +17378,48 @@ references:
   commentId: Overload:AGS.API.NodeEventArgs.Node
   fullName: AGS.API.NodeEventArgs.Node
   nameWithType: NodeEventArgs.Node
+- uid: AGS.API.NumberEditorSliderAttribute
+  name: NumberEditorSliderAttribute
+  href: api/AGS.API.NumberEditorSliderAttribute.html
+  commentId: T:AGS.API.NumberEditorSliderAttribute
+  fullName: AGS.API.NumberEditorSliderAttribute
+  nameWithType: NumberEditorSliderAttribute
+- uid: AGS.API.NumberEditorSliderAttribute.#ctor(System.Single,System.Single)
+  name: NumberEditorSliderAttribute(Single, Single)
+  href: api/AGS.API.NumberEditorSliderAttribute.html#AGS_API_NumberEditorSliderAttribute__ctor_System_Single_System_Single_
+  commentId: M:AGS.API.NumberEditorSliderAttribute.#ctor(System.Single,System.Single)
+  fullName: AGS.API.NumberEditorSliderAttribute.NumberEditorSliderAttribute(System.Single, System.Single)
+  nameWithType: NumberEditorSliderAttribute.NumberEditorSliderAttribute(Single, Single)
+- uid: AGS.API.NumberEditorSliderAttribute.#ctor*
+  name: NumberEditorSliderAttribute
+  href: api/AGS.API.NumberEditorSliderAttribute.html#AGS_API_NumberEditorSliderAttribute__ctor_
+  commentId: Overload:AGS.API.NumberEditorSliderAttribute.#ctor
+  fullName: AGS.API.NumberEditorSliderAttribute.NumberEditorSliderAttribute
+  nameWithType: NumberEditorSliderAttribute.NumberEditorSliderAttribute
+- uid: AGS.API.NumberEditorSliderAttribute.SliderMax
+  name: SliderMax
+  href: api/AGS.API.NumberEditorSliderAttribute.html#AGS_API_NumberEditorSliderAttribute_SliderMax
+  commentId: P:AGS.API.NumberEditorSliderAttribute.SliderMax
+  fullName: AGS.API.NumberEditorSliderAttribute.SliderMax
+  nameWithType: NumberEditorSliderAttribute.SliderMax
+- uid: AGS.API.NumberEditorSliderAttribute.SliderMax*
+  name: SliderMax
+  href: api/AGS.API.NumberEditorSliderAttribute.html#AGS_API_NumberEditorSliderAttribute_SliderMax_
+  commentId: Overload:AGS.API.NumberEditorSliderAttribute.SliderMax
+  fullName: AGS.API.NumberEditorSliderAttribute.SliderMax
+  nameWithType: NumberEditorSliderAttribute.SliderMax
+- uid: AGS.API.NumberEditorSliderAttribute.SliderMin
+  name: SliderMin
+  href: api/AGS.API.NumberEditorSliderAttribute.html#AGS_API_NumberEditorSliderAttribute_SliderMin
+  commentId: P:AGS.API.NumberEditorSliderAttribute.SliderMin
+  fullName: AGS.API.NumberEditorSliderAttribute.SliderMin
+  nameWithType: NumberEditorSliderAttribute.SliderMin
+- uid: AGS.API.NumberEditorSliderAttribute.SliderMin*
+  name: SliderMin
+  href: api/AGS.API.NumberEditorSliderAttribute.html#AGS_API_NumberEditorSliderAttribute_SliderMin_
+  commentId: Overload:AGS.API.NumberEditorSliderAttribute.SliderMin
+  fullName: AGS.API.NumberEditorSliderAttribute.SliderMin
+  nameWithType: NumberEditorSliderAttribute.SliderMin
 - uid: AGS.API.ObjectEventArgs
   name: ObjectEventArgs
   href: api/AGS.API.ObjectEventArgs.html
@@ -17384,6 +17480,18 @@ references:
   commentId: Overload:AGS.API.Point.#ctor
   fullName: AGS.API.Point.Point
   nameWithType: Point.Point
+- uid: AGS.API.Point.ToString
+  name: ToString()
+  href: api/AGS.API.Point.html#AGS_API_Point_ToString
+  commentId: M:AGS.API.Point.ToString
+  fullName: AGS.API.Point.ToString()
+  nameWithType: Point.ToString()
+- uid: AGS.API.Point.ToString*
+  name: ToString
+  href: api/AGS.API.Point.html#AGS_API_Point_ToString_
+  commentId: Overload:AGS.API.Point.ToString
+  fullName: AGS.API.Point.ToString
+  nameWithType: Point.ToString
 - uid: AGS.API.Point.X
   name: X
   href: api/AGS.API.Point.html#AGS_API_Point_X
@@ -18245,6 +18353,30 @@ references:
   commentId: Overload:AGS.API.Rectangle.Height
   fullName: AGS.API.Rectangle.Height
   nameWithType: Rectangle.Height
+- uid: AGS.API.Rectangle.ToInspectorString
+  name: ToInspectorString()
+  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_ToInspectorString
+  commentId: M:AGS.API.Rectangle.ToInspectorString
+  fullName: AGS.API.Rectangle.ToInspectorString()
+  nameWithType: Rectangle.ToInspectorString()
+- uid: AGS.API.Rectangle.ToInspectorString*
+  name: ToInspectorString
+  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_ToInspectorString_
+  commentId: Overload:AGS.API.Rectangle.ToInspectorString
+  fullName: AGS.API.Rectangle.ToInspectorString
+  nameWithType: Rectangle.ToInspectorString
+- uid: AGS.API.Rectangle.ToString
+  name: ToString()
+  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_ToString
+  commentId: M:AGS.API.Rectangle.ToString
+  fullName: AGS.API.Rectangle.ToString()
+  nameWithType: Rectangle.ToString()
+- uid: AGS.API.Rectangle.ToString*
+  name: ToString
+  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_ToString_
+  commentId: Overload:AGS.API.Rectangle.ToString
+  fullName: AGS.API.Rectangle.ToString
+  nameWithType: Rectangle.ToString
 - uid: AGS.API.Rectangle.Width
   name: Width
   href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_Width
@@ -18323,6 +18455,30 @@ references:
   commentId: Overload:AGS.API.RectangleF.Height
   fullName: AGS.API.RectangleF.Height
   nameWithType: RectangleF.Height
+- uid: AGS.API.RectangleF.ToInspectorString
+  name: ToInspectorString()
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_ToInspectorString
+  commentId: M:AGS.API.RectangleF.ToInspectorString
+  fullName: AGS.API.RectangleF.ToInspectorString()
+  nameWithType: RectangleF.ToInspectorString()
+- uid: AGS.API.RectangleF.ToInspectorString*
+  name: ToInspectorString
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_ToInspectorString_
+  commentId: Overload:AGS.API.RectangleF.ToInspectorString
+  fullName: AGS.API.RectangleF.ToInspectorString
+  nameWithType: RectangleF.ToInspectorString
+- uid: AGS.API.RectangleF.ToString
+  name: ToString()
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_ToString
+  commentId: M:AGS.API.RectangleF.ToString
+  fullName: AGS.API.RectangleF.ToString()
+  nameWithType: RectangleF.ToString()
+- uid: AGS.API.RectangleF.ToString*
+  name: ToString
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_ToString_
+  commentId: Overload:AGS.API.RectangleF.ToString
+  fullName: AGS.API.RectangleF.ToString
+  nameWithType: RectangleF.ToString
 - uid: AGS.API.RectangleF.Width
   name: Width
   href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Width
