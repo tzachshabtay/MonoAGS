@@ -32,6 +32,18 @@ namespace AGS.Engine
             if (pixelPerfect != null) pixelPerfect.Dispose();
         }
 
+        [Property(Category = "Collider")]
+        public bool IsPixelPerfect
+        {
+            get 
+            {
+                var area = PixelPerfectHitTestArea;
+                return area != null && area.Enabled;
+            }
+            set { PixelPerfect(value);}
+        }
+
+        [Property(Browsable = false)]
         public IArea PixelPerfectHitTestArea { get { return _pixelPerfect.PixelPerfectHitTestArea; } }
 
         public void PixelPerfect(bool pixelPerfect)
