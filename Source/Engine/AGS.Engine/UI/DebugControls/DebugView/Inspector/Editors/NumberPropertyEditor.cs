@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AGS.API;
+using System.Reflection;
 
 namespace AGS.Engine
 {
@@ -15,16 +16,30 @@ namespace AGS.Engine
 
         public class InternalNumberEditor
         {
-            public InternalNumberEditor(string text, Func<InspectorProperty, string> getValueString, 
-                                        Action<InspectorProperty, float> setValue)
+            public InternalNumberEditor(string text, Func<InspectorProperty, string> getValueString,
+                                        Action<InspectorProperty, float> setValue, Action<InternalNumberEditor, INumberEditorComponent> configureNumberEditor)
             {
                 Text = text;
                 GetValueString = getValueString;
                 SetValue = setValue;
+                ConfigureNumberEditor = (prop, editor) =>
+                {
+                    var slider = prop.Prop.GetCustomAttribute<NumberEditorSliderAttribute>();
+                    if (slider != null)
+                    {
+                        editor.SuggestedMinValue = slider.SliderMin;
+                        editor.SuggestedMaxValue = slider.SliderMax;
+                    }
+                    else if (configureNumberEditor != null)
+                    {
+                        configureNumberEditor(this, editor);
+                    }
+                };
             }
 
             public Func<InspectorProperty, string> GetValueString { get; private set; }
             public Action<InspectorProperty, float> SetValue { get; private set; }
+            public Action<InspectorProperty, INumberEditorComponent> ConfigureNumberEditor { get; private set; }
             public string Text { get; private set; }
         }
 
@@ -42,7 +57,7 @@ namespace AGS.Engine
                         prop.Prop.SetValue(prop.Object, (int)Math.Round(value));
                     }
                     else prop.Prop.SetValue(prop.Object, value);
-                })
+                }, null)
             };
         }
 
@@ -119,6 +134,7 @@ namespace AGS.Engine
                 editor.SetValue(property, numberEditor.Value);
             });
             addArrowButtons(id, panel, numberEditor);
+            editor.ConfigureNumberEditor(property, numberEditor);
             return new Tuple<IUIControl, INumberEditorComponent>(panel, numberEditor);
         }
 
@@ -199,36 +215,37 @@ namespace AGS.Engine
 
     public class MultipleNumbersPropertyEditor<T> : NumberPropertyEditor
     {
-        public MultipleNumbersPropertyEditor(IGameFactory factory, bool wholeNumbers, bool nullable, params Tuple<string, Func<float, T, T>>[] creators) :
+        public MultipleNumbersPropertyEditor(IGameFactory factory, bool wholeNumbers, bool nullable,
+                                             Action<InternalNumberEditor, INumberEditorComponent> configureNumberEditor, params Tuple<string, Func<float, T, T>>[] creators) :
         base(factory, wholeNumbers, nullable, creators.Select((creator, index) => 
-            new InternalNumberEditor(creator.Item1, prop => prop.Value == InspectorProperty.NullValue ? 
+            new InternalNumberEditor(creator.Item1, prop => prop.Value == InspectorProperty.NullValue ?
                                      InspectorProperty.NullValue : prop.Value.Split(',')[index],
-                                     (prop, value) => 
+                                     (prop, value) =>
             {
                 object objVal = prop.Prop.GetValue(prop.Object);
                 T val = objVal == null ? default(T) : (T)objVal;
                 prop.Prop.SetValue(prop.Object, creator.Item2(value, val));
-            })
+            }, configureNumberEditor)
         ).ToList()){} 
     }
 
     public class SizeFPropertyEditor : MultipleNumbersPropertyEditor<SizeF>
     {
-        public SizeFPropertyEditor(IGameFactory factory, bool nullable): base(factory, false, nullable,
+        public SizeFPropertyEditor(IGameFactory factory, bool nullable): base(factory, false, nullable, null,
                            new Tuple<string, Func<float, SizeF, SizeF>>("Width", (width, size) => new SizeF(width, size.Height)),
                            new Tuple<string, Func<float, SizeF, SizeF>>("Height", (height, size) => new SizeF(size.Width, height))){}
     }
 
     public class SizePropertyEditor : MultipleNumbersPropertyEditor<Size>
     {
-        public SizePropertyEditor(IGameFactory factory, bool nullable) : base(factory, true, nullable,
+        public SizePropertyEditor(IGameFactory factory, bool nullable) : base(factory, true, nullable, null,
                    new Tuple<string, Func<float, Size, Size>>("Width", (width, size) => new Size((int)Math.Round(width), size.Height)),
                    new Tuple<string, Func<float, Size, Size>>("Height", (height, size) => new Size(size.Width, (int)Math.Round(height)))){}
     }
 
     public class PointFPropertyEditor : MultipleNumbersPropertyEditor<PointF>
     {
-        public PointFPropertyEditor(IGameFactory factory, bool nullable) : base(factory, false, nullable,
+        public PointFPropertyEditor(IGameFactory factory, bool nullable) : base(factory, false, nullable, null,
                            new Tuple<string, Func<float, PointF, PointF>>("X", (x, point) => 
                                                                           new PointF(x, point.Y)),
                            new Tuple<string, Func<float, PointF, PointF>>("Y", (y, point) => 
@@ -238,7 +255,7 @@ namespace AGS.Engine
 
     public class PointPropertyEditor : MultipleNumbersPropertyEditor<Point>
     {
-        public PointPropertyEditor(IGameFactory factory, bool nullable) : base(factory, true, nullable,
+        public PointPropertyEditor(IGameFactory factory, bool nullable) : base(factory, true, nullable, null,
                    new Tuple<string, Func<float, Point, Point>>("X", (x, point) => new Point((int)Math.Round(x), point.Y)),
                    new Tuple<string, Func<float, Point, Point>>("Y", (y, point) => new Point(point.X, (int)Math.Round(y))))
         { }
@@ -246,7 +263,7 @@ namespace AGS.Engine
 
     public class Vector2PropertyEditor : MultipleNumbersPropertyEditor<Vector2>
     {
-        public Vector2PropertyEditor(IGameFactory factory, bool nullable) : base(factory, false, nullable,
+        public Vector2PropertyEditor(IGameFactory factory, bool nullable) : base(factory, false, nullable, null,
                            new Tuple<string, Func<float, Vector2, Vector2>>("X", (x, vector) => new Vector2(x, vector.Y)),
                            new Tuple<string, Func<float, Vector2, Vector2>>("Y", (y, vector) => new Vector2(vector.X, y)))
         { }
@@ -254,7 +271,20 @@ namespace AGS.Engine
 
     public class LocationPropertyEditor : MultipleNumbersPropertyEditor<ILocation>
     {
-        public LocationPropertyEditor(IGameFactory factory, bool nullable) : base(factory, false, nullable,
+        public LocationPropertyEditor(IGameFactory factory, bool nullable, IGameSettings settings, IDrawableInfo drawable) : base(factory, false, nullable, 
+                            (internalEditor, editor) => 
+                            {
+                                if (internalEditor.Text == "X")
+                                {
+                                    editor.SuggestedMinValue = 0f;
+                                    editor.SuggestedMaxValue = drawable == null || drawable.RenderLayer == null || drawable.RenderLayer.IndependentResolution == null ? settings.VirtualResolution.Width : drawable.RenderLayer.IndependentResolution.Value.Width;
+                                }
+                                else if (internalEditor.Text == "Y")
+                                {
+                                    editor.SuggestedMinValue = 0f;
+                                    editor.SuggestedMaxValue = drawable == null || drawable.RenderLayer == null || drawable.RenderLayer.IndependentResolution == null ? settings.VirtualResolution.Height : drawable.RenderLayer.IndependentResolution.Value.Height;
+                                }
+                            },
                            new Tuple<string, Func<float, ILocation, ILocation>>("X", (x, vector) => new AGSLocation(x, vector.Y, vector.Z)),
                            new Tuple<string, Func<float, ILocation, ILocation>>("Y", (y, vector) => new AGSLocation(vector.X, y, vector.Z)),
                            new Tuple<string, Func<float, ILocation, ILocation>>("Z", (z, vector) => new AGSLocation(vector.X, vector.Y, z)))
@@ -263,7 +293,7 @@ namespace AGS.Engine
 
     public class RectangleFPropertyEditor : MultipleNumbersPropertyEditor<RectangleF>
     {
-        public RectangleFPropertyEditor(IGameFactory factory, bool nullable) : base(factory, false, nullable,
+        public RectangleFPropertyEditor(IGameFactory factory, bool nullable) : base(factory, false, nullable, null,
                            new Tuple<string, Func<float, RectangleF, RectangleF>>("X", (x, rect) => new RectangleF(x, rect.Y, rect.Width, rect.Height)),
                            new Tuple<string, Func<float, RectangleF, RectangleF>>("Y", (y, rect) => new RectangleF(rect.X, y, rect.Width, rect.Height)),
                            new Tuple<string, Func<float, RectangleF, RectangleF>>("Width", (w, rect) => new RectangleF(rect.X, rect.Y, w, rect.Height)),
@@ -273,7 +303,7 @@ namespace AGS.Engine
 
     public class RectanglePropertyEditor : MultipleNumbersPropertyEditor<Rectangle>
     {
-        public RectanglePropertyEditor(IGameFactory factory, bool nullable) : base(factory, true, nullable,
+        public RectanglePropertyEditor(IGameFactory factory, bool nullable) : base(factory, true, nullable, null,
                            new Tuple<string, Func<float, Rectangle, Rectangle>>("X", (x, rect) => new Rectangle((int)Math.Round(x), rect.Y, rect.Width, rect.Height)),
                            new Tuple<string, Func<float, Rectangle, Rectangle>>("Y", (y, rect) => new Rectangle(rect.X, (int)Math.Round(y), rect.Width, rect.Height)),
                            new Tuple<string, Func<float, Rectangle, Rectangle>>("Width", (w, rect) => new Rectangle(rect.X, rect.Y, (int)Math.Round(w), rect.Height)),

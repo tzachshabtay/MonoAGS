@@ -12,12 +12,15 @@ namespace AGS.Engine
     {
         private readonly Dictionary<Category, List<InspectorProperty>> _props;
         private ITreeViewComponent _treeView;
-        private IGameFactory _factory;
+        private readonly IGameFactory _factory;
+        private readonly IGameSettings _settings;
+        private IEntity _currentEntity; 
 
-        public AGSInspector(IGameFactory factory)
+        public AGSInspector(IGameFactory factory, IGameSettings settings)
         {
             _props = new Dictionary<Category, List<InspectorProperty>>();
             _factory = factory;
+            _settings = settings;
         }
 
         public override void Init(IEntity entity)
@@ -30,6 +33,7 @@ namespace AGS.Engine
         {
             _props.Clear();
             var entity = obj as IEntity;
+            _currentEntity = entity;
             if (entity == null)
             {
                 Category cat = new Category("General");
@@ -151,7 +155,12 @@ namespace AGS.Engine
             else if (propType == typeof(PointF)) editor = new PointFPropertyEditor(_factory, false);
             else if (propType == typeof(Point)) editor = new PointPropertyEditor(_factory, false);
             else if (propType == typeof(Vector2)) editor = new Vector2PropertyEditor(_factory, false);
-            else if (propType == typeof(ILocation)) editor = new LocationPropertyEditor(_factory, false);
+            else if (propType == typeof(ILocation))
+            {
+                var entity = _currentEntity;
+                var drawable = entity == null ? null : entity.GetComponent<IDrawableInfo>();
+                editor = new LocationPropertyEditor(_factory, false, _settings, drawable);
+            }
             else if (propType == typeof(RectangleF)) editor = new RectangleFPropertyEditor(_factory, false);
             else if (propType == typeof(Rectangle)) editor = new RectanglePropertyEditor(_factory, false);
 

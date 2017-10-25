@@ -16,6 +16,7 @@ namespace AGS.Engine
         }
 
         [Property(Category = "Transform")]
+        [NumberEditorSlider(sliderMin: 0, sliderMax: 1f)]
         public PointF Anchor {  get { return _image.Anchor; } set { _image.Anchor = value; } }
 
         public IImageRenderer CustomRenderer { get { return _image.CustomRenderer; } set { _image.CustomRenderer = value; } }
