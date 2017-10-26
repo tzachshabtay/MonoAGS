@@ -47,6 +47,12 @@ namespace AGS.Engine
             set { _labelRenderer.TextVisible = value; }
         }
 
+        public bool TextBackgroundVisible
+        {
+            get { return _labelRenderer.TextBackgroundVisible; }
+            set { _labelRenderer.TextBackgroundVisible = value; }
+        }
+
         public SizeF LabelRenderSize
         {
             get { return _labelRenderer.BaseSize; }
@@ -70,7 +76,7 @@ namespace AGS.Engine
                 config.AutoFit != AutoFit.TextShouldWrapAndLabelShouldFitHeight) return;
             var scale = _scale;
             if (scale == null) return;
-            scale.ResetBaseSize(_labelRenderer.Width, _labelRenderer.Height);
+            scale.BaseSize = new SizeF(_labelRenderer.Width, _labelRenderer.Height);
         }
     }
 }

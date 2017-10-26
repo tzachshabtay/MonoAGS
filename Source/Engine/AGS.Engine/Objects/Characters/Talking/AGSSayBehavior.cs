@@ -11,15 +11,15 @@ namespace AGS.Engine
 		private readonly IInput _input;
 		private readonly ISayLocationProvider _location;
 		private readonly FastFingerChecker _fastFingerChecker;
-		private readonly IHasOutfit _outfit;
-		private readonly IFaceDirectionBehavior _faceDirection;
+		private IHasOutfit _outfit;
+		private IFaceDirectionBehavior _faceDirection;
         private readonly ISoundEmitter _emitter;
         private readonly ISpeechCache _speechCache;
         private string _characterName;
 
 		public AGSSayBehavior(IGameState state, IGameFactory factory, IInput input, ISayLocationProvider location,
-			                  FastFingerChecker fastFingerChecker, ISayConfig sayConfig, IHasOutfit outfit, 
-                              IFaceDirectionBehavior faceDirection, IBlockingEvent<BeforeSayEventArgs> onBeforeSay, 
+			                  FastFingerChecker fastFingerChecker, ISayConfig sayConfig,
+                              IBlockingEvent<BeforeSayEventArgs> onBeforeSay, 
                               ISoundEmitter emitter, ISpeechCache speechCache)
 		{
 			_state = state;
@@ -27,8 +27,6 @@ namespace AGS.Engine
 			_input = input;
 			_location = location;
 			_fastFingerChecker = fastFingerChecker;
-			_outfit = outfit;
-			_faceDirection = faceDirection;
             _emitter = emitter;
             _speechCache = speechCache;
 			SpeechConfig = sayConfig;
@@ -44,6 +42,8 @@ namespace AGS.Engine
             _characterName = entity.ID;
             entity.Bind<ITranslateComponent>(c => _emitter.Translate = c, _ => _emitter.Translate = null);
             entity.Bind<IHasRoom>(c => _emitter.HasRoom = c, _ => _emitter.HasRoom = null);
+            entity.Bind<IFaceDirectionBehavior>(c => _faceDirection = c, _ => _faceDirection = null);
+            entity.Bind<IHasOutfit>(c => _outfit = c, _ => _outfit = null);
         }
 
 		public void Say(string text)

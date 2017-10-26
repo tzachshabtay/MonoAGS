@@ -36,6 +36,7 @@ namespace AGS.Engine
             public bool FireMouseEnter { get; set; }
             public bool FireMouseLeave { get; set; }
             public bool IsFocused { get; set; }
+            public bool WasClickedIn { get; set; }
 
             public Stopwatch LeftMouseClickTimer, RightMouseClickTimer, LeftMouseDoubleClickTimer, RightMouseDoubleClickTimer;
         }
@@ -43,6 +44,7 @@ namespace AGS.Engine
         private readonly IInput _input;
         private readonly IHitTest _hitTest;
         private readonly IGameEvents _gameEvents;
+        private readonly IFocusedUI _focus;
         private List<Subscriber> _subscribers;
         private readonly ConcurrentQueue<Subscriber> _subscribersToAdd;
         private readonly ConcurrentQueue<string> _subscribersToRemove;
@@ -50,9 +52,10 @@ namespace AGS.Engine
         private bool _leftMouseDown, _rightMouseDown;
         private int _inUpdate; //For preventing re-entrancy
 
-        public UIEventsAggregator(IInput input, IHitTest hitTest, IGameEvents gameEvents)
+        public UIEventsAggregator(IInput input, IHitTest hitTest, IGameEvents gameEvents, IFocusedUI focus)
         {
             _hitTest = hitTest;
+            _focus = focus;
             _subscribersToAdd = new ConcurrentQueue<Subscriber>();
             _subscribersToRemove = new ConcurrentQueue<string>();
             _input = input;
@@ -88,6 +91,7 @@ namespace AGS.Engine
                 var obj = _hitTest.ObjectAtMousePosition;
                 bool leftMouseDown = _input.LeftMouseButtonDown;
                 bool rightMouseDown = _input.RightMouseButtonDown;
+                bool anyButtonDown = leftMouseDown || rightMouseDown;
                 var subscribers = _subscribers;
 
                 Subscriber subscriberToAdd;
@@ -109,6 +113,10 @@ namespace AGS.Engine
                     subscriber.FireMouseEnter = mouseIn && !subscriber.Events.IsMouseIn;
                     subscriber.FireMouseLeave = !mouseIn && subscriber.Events.IsMouseIn;
                     subscriber.SetMouseIn(mouseIn);
+                    if (anyButtonDown) 
+                    {
+                        subscriber.WasClickedIn = mouseIn && anyButtonDown;
+                    }
                 }
 
                 _mousePosition = position;
@@ -147,8 +155,8 @@ namespace AGS.Engine
         {
             bool fireDown = !wasDown && isDown && subscriber.Events.IsMouseIn;
             bool fireDownOutside = !wasDown && isDown && !subscriber.Events.IsMouseIn && subscriber.IsFocused;
-            subscriber.IsFocused = fireDown;
-            bool fireUp = wasDown && !isDown;
+            subscriber.IsFocused = fireDown || _focus.FocusedWindow == subscriber.Entity || _focus.HasKeyboardFocus == subscriber.Entity;
+            bool fireUp = wasDown && !isDown && subscriber.WasClickedIn;
             if (fireDown)
             {
                 sw.Restart();

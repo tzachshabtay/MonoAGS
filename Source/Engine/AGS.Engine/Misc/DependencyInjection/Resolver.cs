@@ -30,6 +30,7 @@ namespace AGS.Engine
 			Builder.RegisterType<GLImage>().As<IImage>();
 			Builder.RegisterType<AGSDialogActions>().As<IDialogActions>();
 			Builder.RegisterType<AGSSayLocationProvider>().As<ISayLocationProvider>();
+            Builder.RegisterType<AGSTreeNodeViewProvider>().As<ITreeNodeViewProvider>();
 
 			Builder.RegisterType<AGSGameState>().SingleInstance().As<IGameState>();
 			Builder.RegisterType<AGSGame>().SingleInstance().As<IGame>();

@@ -13,10 +13,13 @@ namespace AGS.Engine
         private WalkLineInstruction _currentWalkLine;
         private IPathFinder _pathFinder;
 		private List<IObject> _debugPath;
-		private IObject _obj;
 		private IFaceDirectionBehavior _faceDirection;
 		private IHasOutfit _outfit;
+        private IHasRoom _room;
+        private IDrawableInfo _drawable;
 		private IObjectFactory _objFactory;
+        private ITranslate _translate;
+        private IEntity _entity;
 		private ICutscene _cutscene;
 		private IGameState _state;
         private IGameEvents _events;
@@ -25,16 +28,12 @@ namespace AGS.Engine
         private float _lastViewportX, _lastViewportY, _compensateScrollX, _compensateScrollY;
         private readonly IGLUtils _glUtils;
 
-		public AGSWalkBehavior(IObject obj, IPathFinder pathFinder, IFaceDirectionBehavior faceDirection, 
-                               IHasOutfit outfit, IObjectFactory objFactory, IGame game, IGLUtils glUtils)
+		public AGSWalkBehavior(IPathFinder pathFinder, IObjectFactory objFactory, IGame game, IGLUtils glUtils)
 		{
             _state = game.State;
             _cutscene = _state.Cutscene;
             _events = game.Events;
-			_obj = obj;
 			_pathFinder = pathFinder;
-			_faceDirection = faceDirection;
-			_outfit = outfit;
 			_objFactory = objFactory;
             _glUtils = glUtils;
 
@@ -59,7 +58,13 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
+            _entity = entity;
             entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
+            entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
+            entity.Bind<IHasOutfit>(c => _outfit = c, _ => _outfit = null);
+            entity.Bind<IHasRoom>(c => _room = c, _ => _room = null);
+            entity.Bind<IDrawableInfo>(c => _drawable = c, _ => _drawable = null);
+            entity.Bind<IFaceDirectionBehavior>(c => _faceDirection = c, _ => _faceDirection = null);
         }
 
         #region IWalkBehavior implementation
@@ -79,8 +84,8 @@ namespace AGS.Engine
 			debugRenderers = DebugDrawWalkPath ? new List<IObject> () : null;
 			_debugPath = debugRenderers;
 			_walkCompleted = new TaskCompletionSource<object> (null);
-			float xSource = _obj.X;
-			float ySource = _obj.Y;
+            float xSource = _translate.X;
+            float ySource = _translate.Y;
 			bool completedWalk = false;
 			Exception caught = null;
 			try
@@ -114,12 +119,12 @@ namespace AGS.Engine
 
 		public void PlaceOnWalkableArea()
 		{
-			PointF current = new PointF (_obj.X, _obj.Y);
+            PointF current = new PointF (_translate.X, _translate.Y);
 			PointF? closestPoint = getClosestWalkablePoint (current);
 			if (closestPoint != null) 
 			{
-				_obj.X = closestPoint.Value.X;
-				_obj.Y = closestPoint.Value.Y;
+                _translate.X = closestPoint.Value.X;
+                _translate.Y = closestPoint.Value.Y;
 			}
 		}
 
@@ -149,7 +154,7 @@ namespace AGS.Engine
             WalkLineInstruction currentLine = _currentWalkLine;
             if (currentLine == null) return;
 
-            if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 1f || !isWalkable(_obj.Location))
+            if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 1f || !isWalkable(_translate.Location))
             {
                 _currentWalkLine = null; //Possible race condition here? If so, need to replace with concurrent queue
                 _lastFrame = null;
@@ -159,8 +164,8 @@ namespace AGS.Engine
             }
             if (_cutscene.IsSkipping)
             {
-                _obj.X = currentLine.Destination.X;
-                _obj.Y = currentLine.Destination.Y;
+                _translate.X = currentLine.Destination.X;
+                _translate.Y = currentLine.Destination.Y;
 
                 _currentWalkLine = null; //Possible race condition here? If so, need to replace with concurrent queue
                 _lastFrame = null;
@@ -176,8 +181,8 @@ namespace AGS.Engine
             {
                 //If the movement is linked to the animation and the animation speed is slower the the viewport movement, it can lead to flickering
                 //so we do a smooth movement for this scenario.
-                _obj.X += compensateForViewScrollIfNeeded(_state.Viewport.X, xStep, ref _compensateScrollX, ref _lastViewportX);
-                _obj.Y += compensateForViewScrollIfNeeded(_state.Viewport.Y, yStep, ref _compensateScrollY, ref _lastViewportY);
+                _translate.X += compensateForViewScrollIfNeeded(_state.Viewport.X, xStep, ref _compensateScrollX, ref _lastViewportX);
+                _translate.Y += compensateForViewScrollIfNeeded(_state.Viewport.Y, yStep, ref _compensateScrollY, ref _lastViewportY);
                 return;
             }
             if (_animation != null) _lastFrame = _animation.Animation.Sprite;
@@ -186,8 +191,8 @@ namespace AGS.Engine
             currentLine.NumSteps -= Math.Abs(currentLine.IsBaseStepX ? xStep : yStep);
 			if (currentLine.NumSteps >= 0f)
 			{
-                _obj.X += (xStep - _compensateScrollX);
-                _obj.Y += (yStep - _compensateScrollY);
+                _translate.X += (xStep - _compensateScrollX);
+                _translate.Y += (yStep - _compensateScrollY);
 			}
             _compensateScrollX = _compensateScrollY = 0f;
         }
@@ -209,7 +214,7 @@ namespace AGS.Engine
 				return false;
 			foreach (var point in walkPoints) 
 			{
-				if (point.X == _obj.X && point.Y == _obj.Y) continue;
+                if (point.X == _translate.X && point.Y == _translate.Y) continue;
                 if (!await walkStraightLine(point, token, debugRenderers))
                     return false;
 			}
@@ -238,7 +243,7 @@ namespace AGS.Engine
 
 		private List<PointF> getClosestWalkablePoints(PointF target)
 		{
-			List<Tuple<PointF, float>> points = new List<Tuple<PointF, float>> (_obj.Room.Areas.Count);
+            List<Tuple<PointF, float>> points = new List<Tuple<PointF, float>> (_room.Room.Areas.Count);
             foreach (IArea area in getWalkableAreas()) 
 			{
 				float distance;
@@ -251,9 +256,9 @@ namespace AGS.Engine
 
 		private IEnumerable<ILocation> getWalkPoints(ILocation destination)
 		{
-			if (!isWalkable(_obj.Location))
+            if (!isWalkable(_translate.Location))
 				return new List<ILocation> ();
-			List<PointF> closestPoints = new List<PointF> (_obj.Room.Areas.Count + 1);
+            List<PointF> closestPoints = new List<PointF> (_room.Room.Areas.Count + 1);
 			if (isWalkable(destination))
 			{
 				closestPoints.Add(destination.XY);
@@ -265,7 +270,7 @@ namespace AGS.Engine
 
             Point offset;
 			bool[][] mask = getWalkableMask(out offset);
-            var from = _obj.Location;
+            var from = _translate.Location;
             from = new AGSLocation(from.X - offset.X, from.Y - offset.Y, from.Z);
 			_pathFinder.Init(mask);
 			foreach (var closest in closestPoints)
@@ -307,7 +312,7 @@ namespace AGS.Engine
 
         private IEnumerable<IArea> getWalkableAreas()
         {
-            var room = _obj.Room;
+            var room = _room.Room;
             if (room == null) return Array.Empty<IArea>();
             return room.Areas.Where(area => 
             {
@@ -315,7 +320,7 @@ namespace AGS.Engine
                 var walkable = area.GetComponent<IWalkableArea>();
                 if (walkable == null || !walkable.IsWalkable) return false;
                 var restrictionArea = area.GetComponent<IAreaRestriction>();
-                return (restrictionArea == null || !restrictionArea.IsRestricted(_obj.ID));
+                return (restrictionArea == null || !restrictionArea.IsRestricted(_entity.ID));
             });
         }
 
@@ -324,17 +329,17 @@ namespace AGS.Engine
 		{
 			if (debugRenderers != null) 
 			{
-                GLLineRenderer line = new GLLineRenderer (_glUtils, _obj.X, _obj.Y, destination.X, destination.Y);
+                GLLineRenderer line = new GLLineRenderer (_glUtils, _translate.X, _translate.Y, destination.X, destination.Y);
 				IObject renderer = _objFactory.GetObject("Debug Line");
 				renderer.CustomRenderer = line;
-				await renderer.ChangeRoomAsync(_obj.Room);
+                await renderer.ChangeRoomAsync(_room.Room);
 				debugRenderers.Add (renderer);
 			}
 
             if (_cutscene.IsSkipping)
             {
-                _obj.X = destination.X;
-                _obj.Y = destination.Y;
+                _translate.X = destination.X;
+                _translate.Y = destination.Y;
                 return true;
             }
 
@@ -344,24 +349,24 @@ namespace AGS.Engine
                 var walkAnimation = _outfit.Outfit[AGSOutfit.Walk];
                 bool alreadyWalking = _faceDirection.CurrentDirectionalAnimation == walkAnimation;
                 _faceDirection.CurrentDirectionalAnimation = walkAnimation;
-				await _faceDirection.FaceDirectionAsync(_obj.X, _obj.Y, destination.X, destination.Y);
+                await _faceDirection.FaceDirectionAsync(_translate.X, _translate.Y, destination.X, destination.Y);
 				if (lastDirection != _faceDirection.Direction && alreadyWalking)
 				{
 					await Task.Delay(200);
 				}
 			}
 
-			float xSteps = Math.Abs (destination.X - _obj.X);
-			float ySteps = Math.Abs (destination.Y - _obj.Y);
+            float xSteps = Math.Abs (destination.X - _translate.X);
+            float ySteps = Math.Abs (destination.Y - _translate.Y);
 
 			float numSteps = Math.Max (xSteps, ySteps);
 			bool isBaseStepX = xSteps >= ySteps;
 
             float xStep = xSteps / numSteps;
-			if (_obj.X > destination.X) xStep = -xStep;
+            if (_translate.X > destination.X) xStep = -xStep;
 
 			float yStep = ySteps / numSteps;
-			if (_obj.Y > destination.Y) yStep = -yStep;
+            if (_translate.Y > destination.Y) yStep = -yStep;
 
 			WalkLineInstruction instruction = new WalkLineInstruction(token, numSteps, xStep, yStep, 
                                                                       isBaseStepX, destination);
@@ -375,18 +380,18 @@ namespace AGS.Engine
                 return false;
             }
 
-            if (instruction.CancelToken.IsCancellationRequested || !isWalkable(_obj.Location))
+            if (instruction.CancelToken.IsCancellationRequested || !isWalkable(_translate.Location))
                 return false;
 			
-			_obj.X = destination.X;
-			_obj.Y = destination.Y;
+            _translate.X = destination.X;
+            _translate.Y = destination.Y;
 			return true;
 		}
 
 		private bool isDistanceVeryShort(ILocation destination)
 		{
-			var deltaX = destination.X - _obj.X;
-			var deltaY = destination.Y - _obj.Y;
+            var deltaX = destination.X - _translate.X;
+            var deltaY = destination.Y - _translate.Y;
 			return (deltaX * deltaX) + (deltaY * deltaY) < 10;
 		}
 
@@ -398,15 +403,15 @@ namespace AGS.Engine
 
         private PointF adjustWalkSpeedBasedOnArea(PointF walkSpeed)
         {
-			if (_obj == null || _obj.Room == null || _obj.Room.Areas == null ||
-				_obj.IgnoreScalingArea || !AdjustWalkSpeedToScaleArea) return walkSpeed;
+            if (_room == null || _room.Room == null || _room.Room.Areas == null ||
+                _drawable.IgnoreScalingArea || !AdjustWalkSpeedToScaleArea) return walkSpeed;
             
-            foreach (var area in _obj.Room.Areas)
+            foreach (var area in _room.Room.Areas)
             {
-				if (!area.Enabled || !area.IsInArea(_obj.Location.XY)) continue;
+                if (!area.Enabled || !area.IsInArea(_translate.Location.XY)) continue;
                 var scalingArea = area.GetComponent<IScalingArea>();
                 if (scalingArea == null || (!scalingArea.ScaleObjectsX && !scalingArea.ScaleObjectsY)) continue;
-                float scale = scalingArea.GetScaling(scalingArea.Axis == ScalingAxis.X ? _obj.X : _obj.Y);
+                float scale = scalingArea.GetScaling(scalingArea.Axis == ScalingAxis.X ? _translate.X : _translate.Y);
                 if (scale != 1f)
                 {
                     walkSpeed = new PointF(walkSpeed.X * (scalingArea.ScaleObjectsX ? scale : 1f), 

@@ -255,10 +255,14 @@
     <Compile Include="Graphics\Logic\DisplayList\IDisplayListSettings.cs" />
     <Compile Include="Graphics\Logic\DisplayList\IDepthClipping.cs" />
     <Compile Include="Graphics\Logic\DisplayList\IClippingPlane.cs" />
-    <Compile Include="Editor\PropertyAttribute.cs" />
     <Compile Include="UI\Controls\Panel\ISplitPanelComponent.cs" />
-    <Compile Include="Editor\PropertyFolderAttribute.cs" />
     <Compile Include="Objects\ITextureOffsetComponent.cs" />
+    <Compile Include="UI\Controls\Editors\INumberEditorComponent.cs" />
+    <Compile Include="UI\Controls\Textbox\TextboxState.cs" />
+    <Compile Include="Editor\Attributes\CustomStringValueAttribute.cs" />
+    <Compile Include="Editor\Attributes\PropertyAttribute.cs" />
+    <Compile Include="Editor\Attributes\PropertyFolderAttribute.cs" />
+    <Compile Include="Editor\Attributes\NumberEditor\NumberEditorSliderAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
@@ -269,5 +273,8 @@
   <ItemGroup>
     <Folder Include="Graphics\Logic\DisplayList\" />
     <Folder Include="Editor\" />
+    <Folder Include="UI\Controls\Editors\" />
+    <Folder Include="Editor\Attributes\" />
+    <Folder Include="Editor\Attributes\NumberEditor\" />
   </ItemGroup>
 </Project>

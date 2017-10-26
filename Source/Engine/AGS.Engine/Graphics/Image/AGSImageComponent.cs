@@ -15,6 +15,8 @@ namespace AGS.Engine
             _factory = factory;
         }
 
+        [Property(Category = "Transform")]
+        [NumberEditorSlider(sliderMin: 0, sliderMax: 1f)]
         public PointF Anchor {  get { return _image.Anchor; } set { _image.Anchor = value; } }
 
         public IImageRenderer CustomRenderer { get { return _image.CustomRenderer; } set { _image.CustomRenderer = value; } }
@@ -34,7 +36,7 @@ namespace AGS.Engine
                 if (value != null)
                 {
                     var scale = _scale;
-                    if (scale != null) scale.ResetBaseSize(value.Width, value.Height);
+                    if (scale != null) scale.BaseSize = new SizeF(value.Width, value.Height);
                 }
                 var animationContainer = _animationContainer;
                 if (animationContainer != null) animationContainer.StartAnimation(animation);

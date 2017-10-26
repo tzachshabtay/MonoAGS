@@ -26,7 +26,7 @@ namespace AGS.Engine
         {
             _parent = parent;
             var factory = _game.Factory;
-			_scrollingPanel = factory.UI.GetPanel("GameDebugDisplayListScrollingPanel", parent.Width, (3f / 4f) * parent.Height, 0f, parent.Height / 4f, parent);
+			_scrollingPanel = factory.UI.GetPanel("GameDebugDisplayListScrollingPanel", parent.Width, parent.Height / 2f, 0f, parent.Height / 2f, parent);
 			_scrollingPanel.RenderLayer = _layer;
 			_scrollingPanel.Anchor = new PointF(0f, 0f);
 			_scrollingPanel.Tint = Colors.Transparent;

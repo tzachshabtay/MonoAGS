@@ -64,8 +64,8 @@ namespace AGS.Engine
             horizSlider.Direction = SliderDirection.LeftToRight;
 			horizSlider.Graphics.Anchor = new PointF(0f, 0.5f);
 			horizSlider.Graphics.Image = new EmptyImage(panel.Width - 40f, 10f);
-			horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
-			horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
+			horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
+			horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
             HoverEffect.Add(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
 			HoverEffect.Add(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
@@ -78,8 +78,8 @@ namespace AGS.Engine
             verSlider.Direction = SliderDirection.TopToBottom;
 			verSlider.Graphics.Anchor = new PointF(0.5f, 0f);
 			verSlider.Graphics.Image = new EmptyImage(10f, panel.Height - 80f);
-			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 3f, true);
-			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 2f, true);
+			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
+			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
 			HoverEffect.Add(verSlider.Graphics, Colors.Gray, Colors.LightGray);
 			HoverEffect.Add(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
@@ -226,7 +226,6 @@ namespace AGS.Engine
             if (!isCheckButton)
             {
                 checkbox.SkinTags.Add(AGSSkin.CheckBoxTag);
-                checkbox.Skin.Apply(checkbox);
             }
             checkbox.LabelRenderSize = new AGS.API.SizeF(width, height);
             if (notChecked != null) checkbox.NotCheckedAnimation = notChecked;
@@ -239,7 +238,8 @@ namespace AGS.Engine
             checkbox.Y = y;
             setParent(checkbox, parent);
 
-            if (checkbox.Skin != null) checkbox.Skin.Apply(checkbox);
+			var skin = checkbox.Skin;
+			if (skin != null) skin.Apply(checkbox);
             checkbox.StartAnimation(checkbox.NotCheckedAnimation.Animation);
 
             if (addToUi)
@@ -278,26 +278,70 @@ namespace AGS.Engine
             return GetCheckBox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, parent, text, config, addToUi, width, height, isCheckButton);
         }
 
-        public IComboBox GetComboBox(string id, IButton dropDownButton, ITextBox textBox,
-            Func<string, IButton> itemButtonFactory, IObject parent = null, bool addToUi = true)
+        public IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null,
+            Func<string, IButton> itemButtonFactory = null, IObject parent = null, bool addToUi = true, float defaultWidth = 500f, float defaultHeight = 40f)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IComboBox comboBox = _resolver.Container.Resolve<IComboBox>(idParam);
-            float defaultHeight = dropDownButton != null ? dropDownButton.Height : textBox != null ? textBox.Height : 20f;
-            float itemWidth = textBox != null ? textBox.Width : 100f;
-            if (dropDownButton == null) dropDownButton = GetButton(id + "_DropDownButton", (string)null, null, null, 0f, 0f, comboBox, width: 20f, height: defaultHeight);
-            else setParent(dropDownButton, comboBox);
-            dropDownButton.SkinTags.Add(AGSSkin.DropDownButtonTag);
-            if (dropDownButton.Skin != null) dropDownButton.Skin.Apply(dropDownButton);
-            if (textBox == null) textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, width: itemWidth, height: defaultHeight);
+            if (parent != null) comboBox.RenderLayer = parent.RenderLayer;
+            defaultHeight = dropDownButton != null ? dropDownButton.Height : textBox != null ? textBox.Height : defaultHeight;
+            float itemWidth = textBox != null ? textBox.Width : defaultWidth;
+
+            if (textBox == null)
+            {
+                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, "", new AGSTextConfig(alignment: Alignment.MiddleCenter),
+                                     false, itemWidth, defaultHeight);
+				textBox.Border = AGSBorders.SolidColor(Colors.WhiteSmoke, 3f);
+				textBox.Tint = Colors.Transparent;
+            }
             else setParent(textBox, comboBox);
-            textBox.Enabled = false;
-            itemButtonFactory = itemButtonFactory ?? (text => GetButton(id + "_" + text, (string)null, null, null, 0f, 0f, width: itemWidth,
-                height: defaultHeight));
+			textBox.RenderLayer = comboBox.RenderLayer;
+			textBox.Enabled = false;
+
+            if (dropDownButton == null)
+            {
+				var whiteArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.WhiteSmoke, 3f),
+												 _graphics.Icons.GetArrowIcon(ArrowDirection.Down, Colors.WhiteSmoke));
+				var yellowArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.Yellow, 3f),
+													  _graphics.Icons.GetArrowIcon(ArrowDirection.Down, Colors.Yellow));
+				dropDownButton = GetButton(id + "_DropDownButton",
+                                                                  new ButtonAnimation(whiteArrow, null, Colors.Transparent),
+                                                                  new ButtonAnimation(yellowArrow, null, Colors.Transparent),
+                                                                  new ButtonAnimation(yellowArrow, null, Colors.White.WithAlpha(100)),
+                                                                  0f, 0f, comboBox, "", null,
+                                                                  false, 30f, defaultHeight);
+
+				dropDownButton.Border = whiteArrow;
+			}
+			else setParent(dropDownButton, comboBox);
+            dropDownButton.RenderLayer = comboBox.RenderLayer;
+            dropDownButton.Z = textBox.Z - 1;
+			dropDownButton.SkinTags.Add(AGSSkin.DropDownButtonTag);
+			if (dropDownButton.Skin != null) dropDownButton.Skin.Apply(dropDownButton);
+
+            var dropDownPanelLayer = new AGSRenderLayer(comboBox.RenderLayer.Z - 1, comboBox.RenderLayer.ParallaxSpeed, comboBox.RenderLayer.IndependentResolution); //Making sure that the drop-down layer is rendered before the combobox layer, so that it will appear in front of other ui elements that may be below.
+			if (itemButtonFactory == null)
+            {
+                var yellowBrush = _graphics.Brushes.LoadSolidBrush(Colors.Yellow);
+				var whiteBrush = _graphics.Brushes.LoadSolidBrush(Colors.White);
+				itemButtonFactory = text =>
+				{
+					var button = GetButton(id + "_" + text,
+                                           new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText), null),
+													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText), null),
+													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
+                                                      0f, 0f, width: itemWidth, height: defaultHeight);
+					button.RenderLayer = dropDownPanelLayer;
+					return button;
+				};
+            }
 
             var dropDownPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, comboBox);
             dropDownPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
             dropDownPanel.AddComponent<IStackLayoutComponent>();
+            dropDownPanel.Border = AGSBorders.SolidColor(Colors.White, 3f);
+            dropDownPanel.Tint = Colors.Black;
+            dropDownPanel.RenderLayer = dropDownPanelLayer;
             var listBox = dropDownPanel.AddComponent<IListboxComponent>();
             listBox.ItemButtonFactory = itemButtonFactory;
 
@@ -309,6 +353,8 @@ namespace AGS.Engine
 
             if (addToUi)
             {
+                _gameState.UI.Add(textBox);
+                _gameState.UI.Add(dropDownButton);
                 _gameState.UI.Add(comboBox);
             }
 

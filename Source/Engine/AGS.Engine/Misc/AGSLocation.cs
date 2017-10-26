@@ -30,7 +30,7 @@ namespace AGS.Engine
 
 		public override string ToString ()
 		{
-			return string.Format ("{0},{1}", XY.ToString(), Z);
+            return string.Format ("{0},{1:0.##}", XY.ToString(), Z);
 		}
 	}
 }

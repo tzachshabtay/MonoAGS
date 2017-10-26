@@ -8,8 +8,6 @@ namespace DemoGame
     public class FeaturesLabelsPanel : IFeaturesPanel
     {
         private ILabel _label;
-        private IButton _featuresAutoFitDropDownButton;
-        private ITextBox _featuresAutoFitTextbox;
         private IComboBox _featuresAutoFitCombobox;
         private IGame _game;
         private IObject _parent;
@@ -34,43 +32,8 @@ namespace DemoGame
             float autoFitX = _label.X;
             float autoFitY = _label.Y - _label.Height - 100f;
 
-            _featuresAutoFitTextbox = factory.UI.GetTextBox("FeaturesAutoFitTextbox", 0f, 0f, parent, 
-                                                            nameof(AutoFit.TextShouldWrapAndLabelShouldFitHeight),
-                                                            new AGSTextConfig(alignment: Alignment.MiddleCenter), 
-                                                            false, 500f, 40f);
-            _featuresAutoFitTextbox.Border = AGSBorders.SolidColor(Colors.WhiteSmoke, 3f);
-            _featuresAutoFitTextbox.Tint = Colors.Transparent;
-            _featuresAutoFitTextbox.RenderLayer = parent.RenderLayer;
-
-            var whiteArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.WhiteSmoke, 3f), 
-                                                 factory.Graphics.Icons.GetArrowIcon(ArrowDirection.Down, Colors.WhiteSmoke));
-            var yellowArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.Yellow, 3f), 
-                                                  factory.Graphics.Icons.GetArrowIcon(ArrowDirection.Down, Colors.Yellow));
-            _featuresAutoFitDropDownButton = factory.UI.GetButton("FeaturesAutoFitDropDownButton",
-                                                                  new ButtonAnimation(whiteArrow, null, Colors.Transparent),
-                                                                  new ButtonAnimation(yellowArrow, null, Colors.Transparent),
-                                                                  new ButtonAnimation(yellowArrow, null, Colors.White.WithAlpha(100)),
-                                                                  0f, 0f, parent, "", null, 
-                                                                  false, 30f, 40f);
-            _featuresAutoFitDropDownButton.Border = whiteArrow;
-            _featuresAutoFitDropDownButton.RenderLayer = parent.RenderLayer;
-            _featuresAutoFitDropDownButton.Z = _featuresAutoFitTextbox.Z - 1;
-
-            var yellowBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow);
-            var whiteBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.White);
-            Func<string, IButton> itemButtonFactory = text =>
-            {
-                var button = factory.UI.GetButton("FeaturesAutoFitItem_" + text,
-                                                  new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null),
-                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null), 
-                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null), 
-                                                  0f, 0f, width: 500f, height: 50f);
-                button.RenderLayer = parent.RenderLayer;
-                return button;
-            };
-
-            _featuresAutoFitCombobox = factory.UI.GetComboBox("FeaturesAutoFitCombo", _featuresAutoFitDropDownButton, _featuresAutoFitTextbox,
-                                   itemButtonFactory, parent, false);
+            _featuresAutoFitCombobox = factory.UI.GetComboBox("FeaturesAutoFitCombo", null, null, null, parent, false);
+            _featuresAutoFitCombobox.TextBox.Text = nameof(AutoFit.TextShouldWrapAndLabelShouldFitHeight);
             _featuresAutoFitCombobox.X = autoFitX;
             _featuresAutoFitCombobox.Y = autoFitY;
             var autoFitList = _featuresAutoFitCombobox.DropDownPanelList;
@@ -79,8 +42,6 @@ namespace DemoGame
                 autoFitList.Items.Add(new AGSStringItem { Text = autoFitOption.ToString() });
             }
             var autoFitPanel = _featuresAutoFitCombobox.DropDownPanel;
-            autoFitPanel.GetComponent<IAnimationContainer>().Border = AGSBorders.SolidColor(Colors.Green, 3f);
-            autoFitPanel.GetComponent<IImageComponent>().Tint = Colors.DarkGreen;
 
             autoFitList.OnSelectedItemChanged.Subscribe(args => _label.TextConfig.AutoFit = (AutoFit)Enum.Parse(typeof(AutoFit), args.Item.Text));
             animateText();
@@ -89,16 +50,16 @@ namespace DemoGame
         public void Show() 
         {
             _game.State.UI.Add(_label);
-            _game.State.UI.Add(_featuresAutoFitTextbox);
-            _game.State.UI.Add(_featuresAutoFitDropDownButton);
+            _game.State.UI.Add(_featuresAutoFitCombobox.TextBox);
+            _game.State.UI.Add(_featuresAutoFitCombobox.DropDownButton);
             _game.State.UI.Add(_featuresAutoFitCombobox);
         }
 
         public void Close() 
         {
             _game.State.UI.Remove(_label);
-            _game.State.UI.Remove(_featuresAutoFitTextbox);
-            _game.State.UI.Remove(_featuresAutoFitDropDownButton);
+            _game.State.UI.Remove(_featuresAutoFitCombobox.TextBox);
+            _game.State.UI.Remove(_featuresAutoFitCombobox.DropDownButton);
             _game.State.UI.Remove(_featuresAutoFitCombobox);
         }
 

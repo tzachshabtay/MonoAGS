@@ -61,6 +61,11 @@ namespace Tests
 			return mocks;
 		}
 
+        public static void Bind<T>(Mock<IEntity> entity, Mock<T> mock) where T:class, IComponent
+        {
+            entity.Setup(e => e.Bind<T>(It.IsAny<Action<T>>(), It.IsAny<Action<T>>())).Callback<Action<T>, Action<T>>((a, b) => a(mock.Object));
+        }
+
         public static Resolver GetResolver()
         {
             Mock<IDevice> device = new Mock<IDevice>();

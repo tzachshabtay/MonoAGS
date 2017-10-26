@@ -25,29 +25,43 @@ namespace AGS.Engine
             entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
         }
 
+        [Property(Category = "Size")]
         public float Height { get { return _scale.Height; } }
 
+        [Property(Category = "Size")]
         public float Width { get { return _scale.Width; } }
 
-        public float ScaleX { get { return _scale.ScaleX; } }
+        [Property(Category = "Transform")]
+        public PointF Scale
+        {
+            get { return new PointF(ScaleX, ScaleY); }
+            set { ScaleBy(value.X, value.Y); }
+        }
 
-        public float ScaleY { get { return _scale.ScaleY; } }
+        [Property(Browsable = false)]
+        public float ScaleX { get { return _scale.ScaleX; } set { _scale.ScaleX = value; } }
 
-        public SizeF BaseSize { get { return _scale.BaseSize; } }
+        [Property(Browsable = false)]
+        public float ScaleY { get { return _scale.ScaleY; } set { _scale.ScaleY = value; } }
+
+        [Property(Category = "Size")]
+        public SizeF BaseSize 
+        { 
+            get { return _scale.BaseSize; } 
+            set
+            {
+                var sprite = getSprite();
+                if (sprite != null) sprite.BaseSize = value;
+                _scale.BaseSize = value;
+            }
+        }
 
         public IEvent OnScaleChanged { get { return _scale.OnScaleChanged; } }
-
-        public void ResetBaseSize(float initialWidth, float initialHeight)
-        {
-            var sprite = getSprite();
-            if (sprite != null) sprite.ResetBaseSize(initialWidth, initialHeight);
-            _scale.ResetBaseSize(initialWidth, initialHeight);
-        }
 
         public void ResetScale(float initialWidth, float initialHeight)
         {
 			var sprite = getSprite();
-			if (sprite != null) sprite.ResetBaseSize(initialWidth, initialHeight);
+            if (sprite != null) sprite.BaseSize = new SizeF(initialWidth, initialHeight);
             _scale.ResetScale(initialWidth, initialHeight);
         }
 

@@ -126,7 +126,7 @@ namespace AGS.Engine
             if (_itemButtons.Count == 0) return;
             var scale = _scale;
             if (scale == null) return;
-            scale.ResetBaseSize(_itemButtons.Max(i => Math.Max(i.Width, i.TextWidth)),
+            scale.BaseSize = new SizeF(_itemButtons.Max(i => Math.Max(i.Width, i.TextWidth)),
                                         _itemButtons.Sum(i => Math.Max(i.Height, i.TextHeight)));
             var image = _image;
             if (image == null) return;

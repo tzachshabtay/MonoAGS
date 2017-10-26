@@ -41,7 +41,7 @@ namespace DemoGame
 
             foreach (var frame in animation.Frames)
             {
-                frame.Sprite.ResetBaseSize(200f, 200f);
+                frame.Sprite.BaseSize = new SizeF(200f, 200f);
             }
             var textureOffset = player.AddComponent<ITextureOffsetComponent>();
             animate(textureOffset);
@@ -57,7 +57,7 @@ namespace DemoGame
                 var animation = player.Outfit[AGSOutfit.Walk].Down;
                 foreach (var frame in animation.Frames)
                 {
-                    frame.Sprite.ResetBaseSize(frame.Sprite.Image.Width, frame.Sprite.Image.Height);
+                    frame.Sprite.BaseSize = new SizeF(frame.Sprite.Image.Width, frame.Sprite.Image.Height);
                 }
                 player.StartAnimation(player.Outfit[AGSOutfit.Idle].Down);
 			}

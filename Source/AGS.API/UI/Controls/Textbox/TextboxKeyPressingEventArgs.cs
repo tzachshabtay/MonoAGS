@@ -5,9 +5,15 @@
     /// </summary>
     public class TextBoxKeyPressingEventArgs
     {
-        public TextBoxKeyPressingEventArgs(Key pressedKey)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:AGS.API.TextBoxKeyPressingEventArgs"/> class.
+        /// </summary>
+        /// <param name="pressedKey">Pressed key.</param>
+        /// <param name="intendedState">Intended state.</param>
+        public TextBoxKeyPressingEventArgs(Key pressedKey, TextboxState intendedState)
         {
             PressedKey = pressedKey;
+            IntendedState = intendedState;
         }
 
         /// <summary>
@@ -21,5 +27,13 @@
         /// </summary>
         /// <value><c>true</c> if should cancel; otherwise, <c>false</c>.</value>
         public bool ShouldCancel { get; set; }
+
+        /// <summary>
+        /// Gets the state the textbox is intending to move to once the current operation is completed.
+        /// You can edit this state when receiving an <see cref="ITextBoxComponent.OnPressingKey"/> event
+        /// to override the result (i.e change the text or caret position).
+        /// </summary>
+        /// <value>The state of the intended.</value>
+        public TextboxState IntendedState { get; private set; }
     }
 }

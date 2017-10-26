@@ -10,12 +10,17 @@ namespace AGS.Engine
     [RequiredComponent(typeof(ITreeViewComponent))]
     public class AGSInspector : AGSComponent
     {
-        private readonly Dictionary<Category, List<Property>> _props;
+        private readonly Dictionary<Category, List<InspectorProperty>> _props;
         private ITreeViewComponent _treeView;
+        private readonly IGameFactory _factory;
+        private readonly IGameSettings _settings;
+        private IEntity _currentEntity; 
 
-        public AGSInspector()
+        public AGSInspector(IGameFactory factory, IGameSettings settings)
         {
-            _props = new Dictionary<Category, List<Property>>();
+            _props = new Dictionary<Category, List<InspectorProperty>>();
+            _factory = factory;
+            _settings = settings;
         }
 
         public override void Init(IEntity entity)
@@ -28,6 +33,7 @@ namespace AGS.Engine
         {
             _props.Clear();
             var entity = obj as IEntity;
+            _currentEntity = entity;
             if (entity == null)
             {
                 Category cat = new Category("General");
@@ -48,13 +54,13 @@ namespace AGS.Engine
             foreach (var prop in props)
             {
                 var cat = defaultCategory;
-                Property property = addProp(obj, prop, ref cat);
+                InspectorProperty property = addProp(obj, prop, ref cat);
                 if (property == null) continue;
-                _props.GetOrAdd(cat, () => new List<Property>(props.Length)).Add(property);
+                _props.GetOrAdd(cat, () => new List<InspectorProperty>(props.Length)).Add(property);
             }
         }
 
-        private Property addProp(object obj, PropertyInfo prop, ref Category cat)
+        private InspectorProperty addProp(object obj, PropertyInfo prop, ref Category cat)
         {
 			var attr = prop.GetCustomAttribute<PropertyAttribute>();
 			if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
@@ -65,7 +71,7 @@ namespace AGS.Engine
 				if (attr.Category != null) cat = new Category(attr.Category);
 				if (attr.DisplayName != null) name = attr.DisplayName;
 			}
-			Property property = new Property(obj, name, prop);
+			InspectorProperty property = new InspectorProperty(obj, name, prop);
             var val = prop.GetValue(obj);
             if (val == null) return property;
             var objType = val.GetType();
@@ -96,6 +102,7 @@ namespace AGS.Engine
 			var treeView = _treeView;
 			if (treeView == null) return;
             treeView.HorizontalSpacing = 1f;
+            treeView.VerticalSpacing = 40f;
         }
 
         private void refreshTree()
@@ -103,7 +110,7 @@ namespace AGS.Engine
             var treeView = _treeView;
             if (treeView == null) return;
             var root = new AGSTreeStringNode { Text = ""};
-            foreach (var pair in _props)
+            foreach (var pair in _props.OrderBy(p => p.Key.Name))
             {
                 ITreeStringNode cat = addToTree(pair.Key.Name, root);
                 foreach (var prop in pair.Value)
@@ -115,9 +122,9 @@ namespace AGS.Engine
             treeView.Expand(root);
         }
 
-        private void addToTree(ITreeStringNode parent, Property prop)
+        private void addToTree(ITreeStringNode parent, InspectorProperty prop)
         {
-            var node = addToTree(string.Format("{0}: {1}", prop.Name, prop.Value), parent);
+            var node = addToTree(prop, parent);
             foreach (var child in prop.Children)
             {
                 addToTree(node, child);
@@ -126,10 +133,64 @@ namespace AGS.Engine
 
 		private ITreeStringNode addToTree(string text, ITreeStringNode parent)
 		{
-			var node = new AGSTreeStringNode { Text = text };
+            ITreeStringNode node = (ITreeStringNode)new AGSTreeStringNode { Text = text };
+            return addToTree(node, parent);
+		}
+
+        private ITreeStringNode addToTree(InspectorProperty property, ITreeStringNode parent)
+		{
+            if (property.IsReadonly)
+            {
+                return addToTree(string.Format("{0}: {1}", property.Name, property.Value), parent);
+            }
+            IInspectorPropertyEditor editor;
+
+            var propType = property.Prop.PropertyType;
+            if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory);
+
+            else if (propType == typeof(int)) editor = new NumberPropertyEditor(_factory, true, false);
+            else if (propType == typeof(float)) editor = new NumberPropertyEditor(_factory, false, false);
+            else if (propType == typeof(SizeF)) editor = new SizeFPropertyEditor(_factory, false);
+            else if (propType == typeof(Size)) editor = new SizePropertyEditor(_factory, false);
+            else if (propType == typeof(PointF)) editor = new PointFPropertyEditor(_factory, false);
+            else if (propType == typeof(Point)) editor = new PointPropertyEditor(_factory, false);
+            else if (propType == typeof(Vector2)) editor = new Vector2PropertyEditor(_factory, false);
+            else if (propType == typeof(ILocation))
+            {
+                var entity = _currentEntity;
+                var drawable = entity == null ? null : entity.GetComponent<IDrawableInfo>();
+                editor = new LocationPropertyEditor(_factory, false, _settings, drawable);
+            }
+            else if (propType == typeof(RectangleF)) editor = new RectangleFPropertyEditor(_factory, false);
+            else if (propType == typeof(Rectangle)) editor = new RectanglePropertyEditor(_factory, false);
+
+            else if (propType == typeof(int?)) editor = new NumberPropertyEditor(_factory, true, true);
+            else if (propType == typeof(float?)) editor = new NumberPropertyEditor(_factory, false, true);
+            else if (propType == typeof(SizeF?)) editor = new SizeFPropertyEditor(_factory, true);
+            else if (propType == typeof(Size?)) editor = new SizePropertyEditor(_factory, true);
+            else if (propType == typeof(PointF?)) editor = new PointFPropertyEditor(_factory, true);
+            else if (propType == typeof(Point?)) editor = new PointPropertyEditor(_factory, true);
+            else if (propType == typeof(Vector2?)) editor = new Vector2PropertyEditor(_factory, true);
+            else if (propType == typeof(RectangleF?)) editor = new RectangleFPropertyEditor(_factory, true);
+            else if (propType == typeof(Rectangle?)) editor = new RectanglePropertyEditor(_factory, true);
+
+            else
+            {
+                var typeInfo = propType.GetTypeInfo();
+                if (typeInfo.IsEnum)
+                    editor = new EnumPropertyEditor(_factory.UI);
+                else editor = new StringPropertyEditor(_factory.UI);
+            }
+
+            ITreeStringNode node = new InspectorTreeNode(property, editor);
+            return addToTree(node, parent);
+		}
+
+        private ITreeStringNode addToTree(ITreeStringNode node, ITreeStringNode parent)
+        {
 			if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
 			return node;
-		}
+        }
 
         private class Category
         {
@@ -139,29 +200,21 @@ namespace AGS.Engine
             }
 
             public string Name { get; private set; }
-        }
 
-        private class Property
-        {
-            public Property(object obj, string name, PropertyInfo prop)
+            public override bool Equals(object obj)
             {
-                Prop = prop;
-                Name = name;
-                Object = obj;
-                Children = new List<Property>();
-                Refresh();
+                return Equals(obj as Category);
             }
 
-            public string Name { get; private set; }
-            public string Value { get; private set; }
-            public PropertyInfo Prop { get; private set; }
-            public object Object { get; private set; }
-            public List<Property> Children { get; private set; }
-
-            public void Refresh()
+            public bool Equals(Category cat)
             {
-				object val = Prop.GetValue(Object);
-				Value = val == null ? "(null)" : val.ToString();
+                if (cat == null) return false;
+                return Name == cat.Name;
+            }
+
+            public override int GetHashCode()
+            {
+                return Name.GetHashCode();
             }
         }
     }

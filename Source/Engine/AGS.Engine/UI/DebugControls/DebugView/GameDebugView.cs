@@ -91,7 +91,7 @@ namespace AGS.Engine
             {
                 _panesButton.X = _panel.Width;
                 headerLabel.LabelRenderSize = new SizeF(_panel.Width, headerLabel.LabelRenderSize.Height);
-                parentPanel.ResetBaseSize(_panel.Width, parentPanel.Height);
+                parentPanel.BaseSize = new SizeF(_panel.Width, parentPanel.Height);
                 _currentTab.Resize();
                 _inspector.Resize();
             });

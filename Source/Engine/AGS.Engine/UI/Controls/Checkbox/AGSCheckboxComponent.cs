@@ -72,8 +72,8 @@ namespace AGS.Engine.UI.Controls
             if (events != null && events.IsMouseIn)
             {
                 _checked = !_checked;
+                onCheckChange();
             }
-            onCheckChange();
         }
 
         private void onCheckChange()

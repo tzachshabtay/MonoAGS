@@ -32,6 +32,12 @@
         bool TextVisible { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the background of the text should be rendered.
+        /// </summary>
+        /// <value><c>true</c> if label visible; otherwise, <c>false</c>.</value>
+        bool TextBackgroundVisible { get; set; }
+
+        /// <summary>
         /// Gets the height of the text.
         /// </summary>
         /// <value>The height of the text.</value>

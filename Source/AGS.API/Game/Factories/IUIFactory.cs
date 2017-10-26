@@ -253,18 +253,20 @@ namespace AGS.API
         Task<ICheckBox> GetCheckBoxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f, bool isCheckButton = false);
 
-        /// <summary>
-        /// Creates a combo box (drop down).
-        /// </summary>
-        /// <returns>The combo box.</returns>
-        /// <param name="id">A unique identifer for the combo box (it has to be globally unique across all entities).</param>
-        /// <param name="dropDownButton">Drop down button.</param>
-        /// <param name="textBox">The text box for showing the selected choice.</param>
-        /// <param name="itemButtonFactory">A function for creating a button for the drop down list.</param>
-        /// <param name="parent">The UI control's parent.</param>
-        /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
-        IComboBox GetComboBox(string id, IButton dropDownButton, ITextBox textBox, Func<string, IButton> itemButtonFactory, 
-                              IObject parent = null, bool addToUi = true);
+		/// <summary>
+		/// Creates a combo box (drop down).
+		/// </summary>
+		/// <returns>The combo box.</returns>
+		/// <param name="id">A unique identifer for the combo box (it has to be globally unique across all entities).</param>
+		/// <param name="dropDownButton">Drop down button. If not provided the a default one will be created.</param>
+		/// <param name="textBox">The text box for showing the selected choice. If not provided the a default one will be created.</param>
+		/// <param name="itemButtonFactory">A function for creating a button for the drop down list. If not provided the a default one will be created.</param>
+		/// <param name="parent">The UI control's parent.</param>
+		/// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
+		/// <param name="defaultWidth">If no textbox was provided, this will be the width of the textbox.</param>
+		/// <param name="defaultHeight">If no textbox or dropdown button was provided, this will be the height of the combobox.</param>
+		IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null, Func<string, IButton> itemButtonFactory = null,
+                              IObject parent = null, bool addToUi = true, float defaultWidth = 500f, float defaultHeight = 40f);
 
         /// <summary>
         /// Creates a slider

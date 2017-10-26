@@ -417,29 +417,27 @@ namespace AGS.Engine
             get { return _scaleComponent.Width; } 
         }
 
-        public Single ScaleX 
-        {  
-            get { return _scaleComponent.ScaleX; } 
-        }
-
-        public Single ScaleY 
-        {  
-            get { return _scaleComponent.ScaleY; } 
-        }
-
-        public SizeF BaseSize 
-        {  
-            get { return _scaleComponent.BaseSize; } 
-        }
-
-        public IEvent OnScaleChanged 
-        {  
-            get { return _scaleComponent.OnScaleChanged; } 
-        }
-
-        public void ResetBaseSize(Single initialWidth, Single initialHeight)
+        public Single ScaleX
         {
-            _scaleComponent.ResetBaseSize(initialWidth, initialHeight);
+            get { return _scaleComponent.ScaleX; }
+            set { _scaleComponent.ScaleX = value; }
+        }
+
+        public Single ScaleY
+        {
+            get { return _scaleComponent.ScaleY; }
+            set { _scaleComponent.ScaleY = value; }
+        }
+
+        public SizeF BaseSize
+        {
+            get { return _scaleComponent.BaseSize; }
+            set { _scaleComponent.BaseSize = value; }
+        }
+
+        public IEvent OnScaleChanged
+        {
+            get { return _scaleComponent.OnScaleChanged; }
         }
 
         public void ResetScale()

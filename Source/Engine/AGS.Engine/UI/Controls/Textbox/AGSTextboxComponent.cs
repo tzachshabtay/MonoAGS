@@ -9,6 +9,7 @@ namespace AGS.Engine
         private ITextComponent _textComponent;
         private IImageComponent _imageComponent;
         private IVisibleComponent _visibleComponent;
+        private IDrawableInfo _drawableComponent;
         private IUIEvents _uiEvents;        
         private IInObjectTree _tree;
         private IHasRoom _room;
@@ -65,6 +66,13 @@ namespace AGS.Engine
             _caretFlashCounter = (int)CaretFlashDelay;
             _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _withCaret.Anchor = new PointF(0f, 0f);
+
+            entity.Bind<IDrawableInfo>(c =>
+            {
+                _drawableComponent = c;
+                c.OnRenderLayerChanged.Subscribe(onRenderLayerChanged);
+                onRenderLayerChanged();
+            }, c => _drawableComponent = null);
         }
 
         public override void AfterInit()
@@ -112,6 +120,15 @@ namespace AGS.Engine
             _game.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
         }
 
+        private void onRenderLayerChanged()
+        {
+            var drawable = _drawableComponent;
+            if (drawable == null) return;
+            var layer = drawable.RenderLayer;
+            if (layer == null) return;
+            _withCaret.RenderLayer = layer;
+        }
+
         private void onRepeatedlyExecute()
         {
             var visible = _visibleComponent;
@@ -153,7 +170,9 @@ namespace AGS.Engine
                     }                    
                 }
             }
+            _withCaret.Tint = _imageComponent.Tint;
             _withCaret.Visible = isVisible;
+            _textComponent.TextVisible = _textComponent.TextBackgroundVisible = !isVisible;
             _withCaret.Text = _textComponent.Text;
             _withCaret.TextConfig = _textComponent.TextConfig;
             var renderer = _withCaret.CustomRenderer as ILabelRenderer;
@@ -184,107 +203,117 @@ namespace AGS.Engine
             if (args.Key == Key.ShiftRight) { _rightShiftOn = true; return; }
 
             if (!IsFocused || _textComponent == null) return;
-            TextBoxKeyPressingEventArgs pressingArgs = new TextBoxKeyPressingEventArgs(args.Key);
+            var intendedState = processKey(args.Key);
+            TextBoxKeyPressingEventArgs pressingArgs = new TextBoxKeyPressingEventArgs(args.Key, intendedState);
             OnPressingKey.Invoke(pressingArgs);
             if (pressingArgs.ShouldCancel) return;
 
-            processKey(args.Key);
+            _textComponent.Text = intendedState.Text;
+            int pos = intendedState.CaretPosition;
+            if (pos > intendedState.Text.Length) pos = intendedState.Text.Length;
+            CaretPosition = pos;
         }
 
-        private void processKey(Key key)
+        private TextboxState processKey(Key key)
         {
             switch (key)
             {
-                case Key.Home: CaretPosition = 0; break;
-                case Key.End: CaretPosition = _endOfLine; break;
-                case Key.Left: CaretPosition = CaretPosition > 0 ? CaretPosition - 1 : 0; break;
-                case Key.Right: CaretPosition = CaretPosition < _endOfLine ? CaretPosition + 1 : _endOfLine; break;
-                case Key.BackSpace: processBackspace(); break;
-                case Key.Delete: processDelete(); break;
+                case Key.Home: return new TextboxState(_textComponent.Text, 0);
+                case Key.End: return new TextboxState(_textComponent.Text, _endOfLine);
+                case Key.Left: return new TextboxState(_textComponent.Text, CaretPosition > 0 ? CaretPosition - 1 : 0);
+                case Key.Right: return new TextboxState(_textComponent.Text, CaretPosition < _endOfLine ? CaretPosition + 1 : _endOfLine);
+                case Key.BackSpace: return processBackspace();
+                case Key.Delete: return processDelete();
 
-                case Key.Tilde: addCharacter(_shiftOn ? '~' : '`'); break;
-                case Key.Minus: addCharacter(_shiftOn ? '_' : '-'); break;
-                case Key.Plus: addCharacter(_shiftOn ? '+' : '='); break;
-                case Key.BracketLeft: addCharacter(_shiftOn ? '{' : '['); break;
-                case Key.BracketRight: addCharacter(_shiftOn ? '}' : ']'); break;
-                case Key.BackSlash: case Key.NonUSBackSlash: addCharacter(_shiftOn ? '|' : '\\'); break;
-                case Key.Semicolon: addCharacter(_shiftOn ? ':' : ';'); break;
-                case Key.Quote: addCharacter(_shiftOn ? '"' : '\''); break;
-                case Key.Comma: addCharacter(_shiftOn ? '<' : ','); break;
-                case Key.Period: addCharacter(_shiftOn ? '>' : '.'); break;
-                case Key.Slash: addCharacter(_shiftOn ? '?' : '/'); break;
-                case Key.KeypadAdd: addCharacter('+'); break;
-                case Key.KeypadPeriod: addCharacter('.'); break;
-                case Key.KeypadDivide: addCharacter('/'); break;
-                case Key.KeypadMinus: addCharacter('-'); break;
-                case Key.KeypadMultiply: addCharacter('*'); break;
-                case Key.Space: addCharacter(' '); break;
+                case Key.Tilde: return addCharacter(_shiftOn ? '~' : '`');
+                case Key.Minus: return addCharacter(_shiftOn ? '_' : '-');
+                case Key.Plus: return addCharacter(_shiftOn ? '+' : '=');
+                case Key.BracketLeft: return addCharacter(_shiftOn ? '{' : '[');
+                case Key.BracketRight: return addCharacter(_shiftOn ? '}' : ']');
+                case Key.BackSlash: case Key.NonUSBackSlash: return addCharacter(_shiftOn ? '|' : '\\');
+                case Key.Semicolon: return addCharacter(_shiftOn ? ':' : ';');
+                case Key.Quote: return addCharacter(_shiftOn ? '"' : '\'');
+                case Key.Comma: return addCharacter(_shiftOn ? '<' : ',');
+                case Key.Period: return addCharacter(_shiftOn ? '>' : '.');
+                case Key.Slash: return addCharacter(_shiftOn ? '?' : '/');
+                case Key.KeypadAdd: return addCharacter('+');
+                case Key.KeypadPeriod: return addCharacter('.');
+                case Key.KeypadDivide: return addCharacter('/');
+                case Key.KeypadMinus: return addCharacter('-');
+                case Key.KeypadMultiply: return addCharacter('*');
+                case Key.Space: return addCharacter(' ');
                 default:
                     if (key >= Key.A && key <= Key.Z)
                     {
-                        processLetter(key);
+                        return processLetter(key);
                     }
                     if (key >= Key.Number0 && key <= Key.Number9)
                     {
-                        processDigit((char)((int)'0' + (key - Key.Number0)));
+                        return processDigit((char)((int)'0' + (key - Key.Number0)));
                     }
                     if (key >= Key.Keypad0 && key <= Key.Keypad9)
                     {
-                        addCharacter((char)((int)'0' + (key - Key.Keypad0)));
+                        return addCharacter((char)((int)'0' + (key - Key.Keypad0)));
                     }
-                    break;
+                    return getCurrentState();
             }
         }
 
-        private void processDigit(char c)
+        private TextboxState processDigit(char c)
         {
             if (!_shiftOn)
             {
-                addCharacter(c);
-                return;
+                return addCharacter(c);
             }
             switch (c)
             {
-                case '1': addCharacter('!'); break;
-                case '2': addCharacter('@'); break;
-                case '3': addCharacter('#'); break;
-                case '4': addCharacter('$'); break;
-                case '5': addCharacter('%');  break;
-                case '6': addCharacter('^'); break;
-                case '7': addCharacter('&'); break;
-                case '8': addCharacter('*'); break;
-                case '9': addCharacter('('); break;
-                case '0': addCharacter(')'); break;
+                case '1': return addCharacter('!');
+                case '2': return addCharacter('@');
+                case '3': return addCharacter('#');
+                case '4': return addCharacter('$');
+                case '5': return addCharacter('%');
+                case '6': return addCharacter('^');
+                case '7': return addCharacter('&');
+                case '8': return addCharacter('*');
+                case '9': return addCharacter('(');
+                case '0': return addCharacter(')');
             }
+            return getCurrentState();
         }
 
-        private void processLetter(Key key)
+        private TextboxState processLetter(Key key)
         {
             char c = (char)((int)'a' + (key - Key.A));
             if (_capslock || _shiftOn) c = char.ToUpperInvariant(c);
-            addCharacter(c);
+            return addCharacter(c);
         }
 
-        private void addCharacter(char c)
+        private TextboxState addCharacter(char c)
         {
             string text = _textComponent.Text;
-            _textComponent.Text = string.Format("{0}{1}{2}", text.Substring(0, CaretPosition), c, text.Substring(CaretPosition));
-            CaretPosition++;
+            text = string.Format("{0}{1}{2}", text.Substring(0, CaretPosition), c, text.Substring(CaretPosition));
+            return new TextboxState(text, CaretPosition + 1);
         }
 
-        private void processBackspace()
+        private TextboxState processBackspace()
         {
-            if (CaretPosition == 0) return;            
+            if (CaretPosition == 0) return getCurrentState();            
             string text = _textComponent.Text;
-            _textComponent.Text = string.Format("{0}{1}", text.Substring(0, CaretPosition - 1), text.Substring(CaretPosition));
-            CaretPosition--;
+            text = string.Format("{0}{1}", text.Substring(0, CaretPosition - 1), text.Substring(CaretPosition));
+            return new TextboxState(text, CaretPosition - 1);
         }
 
-        private void processDelete()
+        private TextboxState processDelete()
         {
-            if (CaretPosition == _endOfLine) return;
+            if (CaretPosition == _endOfLine) return getCurrentState();
             string text = _textComponent.Text;
-            _textComponent.Text = string.Format("{0}{1}", text.Substring(0, CaretPosition), text.Substring(CaretPosition + 1));            
+            text = string.Format("{0}{1}", text.Substring(0, CaretPosition), text.Substring(CaretPosition + 1));
+            return new TextboxState(text, CaretPosition);
+        }
+
+        private TextboxState getCurrentState()
+        {
+            return new TextboxState(_textComponent.Text, CaretPosition);
         }
     }
 }

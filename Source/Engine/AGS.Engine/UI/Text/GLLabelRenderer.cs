@@ -64,9 +64,11 @@ namespace AGS.Engine
 			_colorBuilder = colorBuilder;
 
 			TextVisible = true;
+            TextBackgroundVisible = true;
 		}
 
-		public bool TextVisible { get; set; }
+        public bool TextVisible { get; set; }
+        public bool TextBackgroundVisible { get; set; }
 		public string Text { get; set; }
 		public ITextConfig Config { get; set; }
 		public SizeF BaseSize { get; set; }
@@ -105,6 +107,7 @@ namespace AGS.Engine
 
 		public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
 		{
+            if (!TextBackgroundVisible && !TextVisible) return;
             if (_lastObject != obj)
             {
                 AGSBoundingBoxComponent box = new AGSBoundingBoxComponent(_settings, _viewport, 
@@ -125,6 +128,8 @@ namespace AGS.Engine
 
 		public void Render(IObject obj, IViewport viewport)
 		{
+            if (!TextBackgroundVisible && !TextVisible) return;
+
             PointF resolutionFactor; Size resolution;
             AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, obj,
                new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY), out resolutionFactor,
@@ -137,7 +142,10 @@ namespace AGS.Engine
             }
             else _labelBoundingBoxFakeBuilder.CropScale = AGSModelMatrixComponent.NoScaling;
 
-			_bgRenderer.Render(obj, viewport);
+            if (TextBackgroundVisible)
+            {
+                _bgRenderer.Render(obj, viewport);
+            }
 
             if (TextVisible && Text != "")
 			{

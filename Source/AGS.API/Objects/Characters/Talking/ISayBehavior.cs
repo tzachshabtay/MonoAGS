@@ -8,6 +8,8 @@ namespace AGS.API
     /// <seealso cref="IComponent"/>
     [RequiredComponent(typeof(ITranslateComponent), false)] //needed for speech sound panning and volume adjustment
     [RequiredComponent(typeof(IHasRoom), false)] //needed for speech sound volume adjustment
+    [RequiredComponent(typeof(IHasOutfit))]
+    [RequiredComponent(typeof(IFaceDirectionBehavior))]
     public interface ISayBehavior : IComponent
 	{
         /// <summary>

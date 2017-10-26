@@ -28,6 +28,7 @@ namespace AGS.Engine
             entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
 		}
 
+        [Property(Browsable = false)]
 		public PointF? CenterPoint
 		{
 			get

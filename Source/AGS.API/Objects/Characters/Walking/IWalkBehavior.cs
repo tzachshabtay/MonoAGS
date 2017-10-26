@@ -5,6 +5,11 @@ namespace AGS.API
     /// <summary>
     /// Gives an entity the ability to walk around the room.
     /// </summary>
+    [RequiredComponent(typeof(ITranslateComponent))]
+    [RequiredComponent(typeof(IFaceDirectionBehavior))]
+    [RequiredComponent(typeof(IHasOutfit))]
+    [RequiredComponent(typeof(IHasRoom))]
+    [RequiredComponent(typeof(IDrawableInfo))]
     [RequiredComponent(typeof(IAnimationContainer), false)] //Only needed if "MovementLinkedToAnimation" is enabled
 	public interface IWalkBehavior : IComponent
 	{

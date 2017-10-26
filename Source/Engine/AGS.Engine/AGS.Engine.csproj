@@ -420,7 +420,17 @@
     <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorPanel.cs" />
     <Compile Include="UI\Controls\Panel\AGSSplitPanelComponent.cs" />
     <Compile Include="Graphics\Effects\HoverEffect.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorTreeNodeProvider.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorTreeNode.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\IInspectorTreeNode.cs" />
     <Compile Include="Objects\AGSTextureOffsetComponent.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\IInspectorPropertyEditor.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\StringPropertyEditor.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\InspectorProperty.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\BoolPropertyEditor.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\EnumPropertyEditor.cs" />
+    <Compile Include="UI\Controls\Editors\AGSNumberEditorComponent.cs" />
+    <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\NumberPropertyEditor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -506,5 +516,7 @@
   <ItemGroup>
     <Folder Include="Graphics\Logic\DisplayList\" />
     <Folder Include="UI\DebugControls\DebugView\Inspector\" />
+    <Folder Include="UI\DebugControls\DebugView\Inspector\Editors\" />
+    <Folder Include="UI\Controls\Editors\" />
   </ItemGroup>
 </Project>

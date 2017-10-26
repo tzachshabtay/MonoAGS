@@ -31,6 +31,12 @@
         bool TextVisible { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the background of the text should be rendered.
+        /// </summary>
+        /// <value><c>true</c> if label visible; otherwise, <c>false</c>.</value>
+        bool TextBackgroundVisible { get; set; }
+
+        /// <summary>
         /// Gets or sets the caret position (for text input).
         /// The position is by number of characters (0 is before the first character).
         /// </summary>
