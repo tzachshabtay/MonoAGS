@@ -219,8 +219,7 @@ namespace AGS.Engine
 
         private void addToUI(Node node, List<IObject> uiObjectsToAdd)
         {
-            NodeViewProvider.BeforeDisplayingNode(node.Item, node.View, 
-                                                  node.IsCollapsed, node.IsHovered, node.IsSelected);
+            node.RefreshDisplay();
             if (!node.IsNew) return;
             node.IsNew = false;
             uiObjectsToAdd.Add(node.View.ParentPanel);
@@ -334,7 +333,11 @@ namespace AGS.Engine
 
             public void ResetSelection()
             {
-                IsSelected = false;
+                if (IsSelected)
+                {
+                    IsSelected = false;
+                    RefreshDisplay();
+                }
                 foreach (var child in Children)
                 {
                     child.ResetSelection();
@@ -353,6 +356,12 @@ namespace AGS.Engine
                 refreshCollapseExpand();
             }
 
+            public void RefreshDisplay()
+            {
+                _tree.NodeViewProvider.BeforeDisplayingNode(Item, View,
+                                                  IsCollapsed, IsHovered, IsSelected);
+            }
+
             private Node getRoot()
             {
                 var root = this;
@@ -368,8 +377,7 @@ namespace AGS.Engine
             private void onMouseEnter(MousePositionEventArgs args)
             {
                 IsHovered = true;
-                _tree.NodeViewProvider.BeforeDisplayingNode(Item, View,
-                                                  IsCollapsed, IsHovered, IsSelected);
+                RefreshDisplay();
             }
 
             private void onMouseLeave(MousePositionEventArgs args)
@@ -400,6 +408,7 @@ namespace AGS.Engine
                 if (_tree.AllowSelection == SelectionType.None) return;
                 IsSelected = true;
                 _tree.OnNodeSelected.Invoke(new NodeEventArgs(Item));
+                RefreshDisplay();
             }
         }
     }
