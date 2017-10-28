@@ -12,7 +12,7 @@ namespace AGS.Engine
         private ITreeStringNode _tree;
         private IDrawableInfo _drawable;
 
-        public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameEvents gameEvents, IGameState state)
+        public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameState state)
         {
             HorizontalSpacing = 10f;
             VerticalSpacing = 30f;
@@ -22,7 +22,6 @@ namespace AGS.Engine
             AllowSelection = SelectionType.Single;
             _state = state;
             NodeViewProvider = provider;
-            gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
         public ITreeStringNode Tree
@@ -63,6 +62,12 @@ namespace AGS.Engine
         {
             var tree = Tree;
             _root = buildTree(_root, tree);
+            refreshTree();
+        }
+
+        public void RefreshLayout()
+        {
+            refreshTree();
         }
 
         public void Expand(ITreeStringNode node)
@@ -93,11 +98,19 @@ namespace AGS.Engine
             return null;
 		}
 
-        private void onRepeatedlyExecute()
-        { 
-            processTree(_root);
+        private void refreshTree()
+        {
             var root = _root;
-            if (root != null) root.ResetOffsets(0f, 0f, HorizontalSpacing, -VerticalSpacing);
+            if (root != null)
+            {
+                root.ResetOffsets(0f, 0f, HorizontalSpacing, -VerticalSpacing);
+                List<IObject> uiObjectsToAdd = new List<IObject>();
+                processTree(root, uiObjectsToAdd);
+                if (uiObjectsToAdd.Count > 0)
+                {
+                    _state.UI.AddRange(uiObjectsToAdd);
+                }
+            }
         }
 
         private void subscribeTree(ITreeStringNode node)
@@ -143,13 +156,13 @@ namespace AGS.Engine
             removeFromUI(node);
         }
 
-        private void processTree(Node node)
+        private void processTree(Node node, List<IObject> uiObjectsToAdd)
         {
             if (node == null) return;
-            addToUI(node);
+            addToUI(node, uiObjectsToAdd);
             foreach (var child in node.Children)
             {
-                processTree(child);
+                processTree(child, uiObjectsToAdd);
             }
         }
 
@@ -204,18 +217,18 @@ namespace AGS.Engine
             return list[i];
         }
 
-        private void addToUI(Node node)
+        private void addToUI(Node node, List<IObject> uiObjectsToAdd)
         {
             NodeViewProvider.BeforeDisplayingNode(node.Item, node.View, 
                                                   node.IsCollapsed, node.IsHovered, node.IsSelected);
             if (!node.IsNew) return;
             node.IsNew = false;
-            _state.UI.Add(node.View.ParentPanel);
-            _state.UI.Add(node.View.TreeItem.TreeNode.Parent);
-            _state.UI.Add(node.View.TreeItem);
+            uiObjectsToAdd.Add(node.View.ParentPanel);
+            uiObjectsToAdd.Add(node.View.TreeItem.TreeNode.Parent);
+            uiObjectsToAdd.Add(node.View.TreeItem);
             if (node.View.ExpandButton != null)
             {
-                _state.UI.Add(node.View.ExpandButton);
+                uiObjectsToAdd.Add(node.View.ExpandButton);
             }
         }
 
@@ -355,11 +368,15 @@ namespace AGS.Engine
             private void onMouseEnter(MousePositionEventArgs args)
             {
                 IsHovered = true;
+                _tree.NodeViewProvider.BeforeDisplayingNode(Item, View,
+                                                  IsCollapsed, IsHovered, IsSelected);
             }
 
             private void onMouseLeave(MousePositionEventArgs args)
             {
-                IsHovered = false;                
+                IsHovered = false;
+                _tree.NodeViewProvider.BeforeDisplayingNode(Item, View,
+                                                  IsCollapsed, IsHovered, IsSelected);
             }
 
             private void onMouseClicked(MouseButtonEventArgs args)
@@ -374,6 +391,7 @@ namespace AGS.Engine
 				{
 					child.View.ParentPanel.Visible = !IsCollapsed;
 				}
+                _tree.RefreshLayout();
             }
 
             private void onItemSelected(MouseButtonEventArgs args)

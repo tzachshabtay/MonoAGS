@@ -28,6 +28,13 @@ namespace AGS.API
 		bool Add(TItem item);
 
         /// <summary>
+        /// Adds the specified items.
+        /// </summary>
+        /// <returns>The number of items that was actually added (were not already in the set).</returns>
+        /// <param name="items">Items.</param>
+        int AddRange(List<TItem> items);
+
+        /// <summary>
         /// Remove the specified item.
         /// </summary>
         /// <returns>True if item was removed, false if it was not in the set.</returns>
