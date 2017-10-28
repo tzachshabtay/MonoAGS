@@ -12,6 +12,24 @@ namespace AGS.Engine.Android
 	{
         private static ConcurrentDictionary<string, Typeface> _fontsFromFiles = new ConcurrentDictionary<string, Typeface>();
 
+        private struct TextMeasureKey
+        {
+            public TextMeasureKey(string text, Typeface font, float sizeInPoints, int maxWidth)
+            {
+                Text = text;
+                Font = font;
+                SizeInPoints = sizeInPoints;
+                MaxWidth = maxWidth;
+            }
+            public string Text;
+            public Typeface Font;
+            public float SizeInPoints;
+            public int MaxWidth;
+        }
+
+        private static readonly ConcurrentDictionary<TextMeasureKey, SizeF> _measurements =
+            new ConcurrentDictionary<TextMeasureKey, SizeF>();
+        
 		public static AndroidFont FromFamilyName(string familyName, FontStyle style, float sizeInPoints)
 		{
             AndroidFont font = new AndroidFont ();
@@ -53,11 +71,15 @@ namespace AGS.Engine.Android
 		//http://stackoverflow.com/questions/16082359/how-to-auto-adjust-text-size-on-a-multi-line-textview-according-to-the-view-max
 		public SizeF MeasureString(string text, int maxWidth = 2147483647)
 		{
-            TextPaint paint = AndroidBrush.CreateTextPaint();
-            paint.TextSize = SizeInPoints;
-            paint.SetTypeface(InnerFont);
-            AndroidTextLayout layout = new AndroidTextLayout(paint);
-            return layout.MeasureString(text, maxWidth);
+            var key = new TextMeasureKey(text, InnerFont, SizeInPoints, maxWidth);
+            return _measurements.GetOrAdd(key, k =>
+            {
+                TextPaint paint = AndroidBrush.CreateTextPaint();
+                paint.TextSize = k.SizeInPoints;
+                paint.SetTypeface(k.Font);
+                AndroidTextLayout layout = new AndroidTextLayout(paint);
+                return layout.MeasureString(k.Text, k.MaxWidth);
+            });
 		}
 
         public string FontFamily { get; private set; }
