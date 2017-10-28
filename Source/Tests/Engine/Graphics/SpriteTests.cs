@@ -144,9 +144,6 @@ namespace Tests
 		{
 			foreach (var sprite in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
 			{
-				//todo: Fix scaling for labels
-				if (sprite is AGSLabel || sprite is AGSButton) continue;
-
 				yield return sprite;
 			}
             var resolver = ObjectTests.GetResolver();
