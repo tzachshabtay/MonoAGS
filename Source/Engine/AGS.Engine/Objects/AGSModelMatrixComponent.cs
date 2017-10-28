@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -290,18 +291,18 @@ namespace AGS.Engine
         {
             if (scale == null) return Matrix4.Identity;
             float? customWidth = _customImageSize == null || !useCustomImageSize ? 
-                _nullFloat : _customImageSize.Value.Width;
+                _nullFloat : (_customImageSize.Value.Width * scale.ScaleX);
             float? customHeight = _customImageSize == null || !useCustomImageSize ? 
-                _nullFloat : _customImageSize.Value.Height;
-            float width = (customWidth ?? scale.Width) * resolutionTransform.X;
-            float height = (customHeight ?? scale.Height) * resolutionTransform.Y;
+                _nullFloat : (_customImageSize.Value.Height * scale.ScaleY);
+            float width = (customWidth ?? scale.Width) * areaScaling.X * resolutionTransform.X;
+            float height = (customHeight ?? scale.Height) * areaScaling.Y * resolutionTransform.Y;
             PointF anchorOffsets = getAnchorOffsets(image == null ? PointF.Empty : image.Anchor, 
                                                     width, height);
-			Matrix4 anchor = Matrix4.CreateTranslation(new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
+            Matrix4 anchorMat = Matrix4.CreateTranslation(new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
             Matrix4 scaleMat = Matrix4.CreateScale(new Vector3(scale.ScaleX * areaScaling.X,
                 scale.ScaleY * areaScaling.Y, 1f));
             float radians = rotate == null ? 0f : MathUtils.DegreesToRadians(rotate.Angle);
-            Matrix4 rotation = Matrix4.CreateRotationZ(radians);
+            Matrix4 rotationMat = Matrix4.CreateRotationZ(radians);
             float x = translate == null ? 0f : translate.X * resolutionTransform.X;
             float y = translate == null ? 0f : translate.Y * resolutionTransform.Y;
             if (jump != null)
@@ -309,8 +310,8 @@ namespace AGS.Engine
                 x += jump.JumpOffset.X * resolutionTransform.X;
                 y += jump.JumpOffset.Y * resolutionTransform.Y;
             }
-            Matrix4 transform = Matrix4.CreateTranslation(new Vector3(x, y, 0f));
-            return anchor * scaleMat * rotation * transform;
+            Matrix4 translateMat = Matrix4.CreateTranslation(new Vector3(x, y, 0f));
+            return scaleMat * anchorMat * rotationMat * translateMat;
         }
 
         private PointF getAnchorOffsets(PointF anchor, float width, float height)

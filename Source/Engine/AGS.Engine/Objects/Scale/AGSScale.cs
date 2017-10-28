@@ -143,15 +143,11 @@ namespace AGS.Engine
         public void FlipHorizontally()
         {
             ScaleBy(-ScaleX, ScaleY);
-            _image.Anchor = new PointF(-_image.Anchor.X, _image.Anchor.Y);
-            fireScaleChange();
         }
 
         public void FlipVertically()
         {
             ScaleBy(ScaleX, -ScaleY);
-            _image.Anchor = new PointF(_image.Anchor.X, -_image.Anchor.Y);
-            fireScaleChange();
         }        
 
         private void validateScaleInitialized()
