@@ -387,6 +387,15 @@ references:
   fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(AGS.API.ListChangeType, TItem)
   nameWithType: AGSHashSetChangedEventArgs<TItem>.AGSHashSetChangedEventArgs(ListChangeType, TItem)
   nameWithType.vb: AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(ListChangeType, TItem)
+- uid: AGS.API.AGSHashSetChangedEventArgs`1.#ctor(AGS.API.ListChangeType,IEnumerable{`0})
+  name: AGSHashSetChangedEventArgs(ListChangeType, IEnumerable<TItem>)
+  href: api/AGS.API.AGSHashSetChangedEventArgs-1.html#AGS_API_AGSHashSetChangedEventArgs_1__ctor_AGS_API_ListChangeType_IEnumerable__0__
+  commentId: M:AGS.API.AGSHashSetChangedEventArgs`1.#ctor(AGS.API.ListChangeType,IEnumerable{`0})
+  name.vb: AGSHashSetChangedEventArgs(ListChangeType, IEnumerable(Of TItem))
+  fullName: AGS.API.AGSHashSetChangedEventArgs<TItem>.AGSHashSetChangedEventArgs(AGS.API.ListChangeType, IEnumerable<TItem>)
+  fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(AGS.API.ListChangeType, IEnumerable(Of TItem))
+  nameWithType: AGSHashSetChangedEventArgs<TItem>.AGSHashSetChangedEventArgs(ListChangeType, IEnumerable<TItem>)
+  nameWithType.vb: AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(ListChangeType, IEnumerable(Of TItem))
 - uid: AGS.API.AGSHashSetChangedEventArgs`1.#ctor*
   name: AGSHashSetChangedEventArgs
   href: api/AGS.API.AGSHashSetChangedEventArgs-1.html#AGS_API_AGSHashSetChangedEventArgs_1__ctor_
@@ -411,22 +420,22 @@ references:
   fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).ChangeType
   nameWithType: AGSHashSetChangedEventArgs<TItem>.ChangeType
   nameWithType.vb: AGSHashSetChangedEventArgs(Of TItem).ChangeType
-- uid: AGS.API.AGSHashSetChangedEventArgs`1.Item
-  name: Item
-  href: api/AGS.API.AGSHashSetChangedEventArgs-1.html#AGS_API_AGSHashSetChangedEventArgs_1_Item
-  commentId: P:AGS.API.AGSHashSetChangedEventArgs`1.Item
-  fullName: AGS.API.AGSHashSetChangedEventArgs<TItem>.Item
-  fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).Item
-  nameWithType: AGSHashSetChangedEventArgs<TItem>.Item
-  nameWithType.vb: AGSHashSetChangedEventArgs(Of TItem).Item
-- uid: AGS.API.AGSHashSetChangedEventArgs`1.Item*
-  name: Item
-  href: api/AGS.API.AGSHashSetChangedEventArgs-1.html#AGS_API_AGSHashSetChangedEventArgs_1_Item_
-  commentId: Overload:AGS.API.AGSHashSetChangedEventArgs`1.Item
-  fullName: AGS.API.AGSHashSetChangedEventArgs<TItem>.Item
-  fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).Item
-  nameWithType: AGSHashSetChangedEventArgs<TItem>.Item
-  nameWithType.vb: AGSHashSetChangedEventArgs(Of TItem).Item
+- uid: AGS.API.AGSHashSetChangedEventArgs`1.Items
+  name: Items
+  href: api/AGS.API.AGSHashSetChangedEventArgs-1.html#AGS_API_AGSHashSetChangedEventArgs_1_Items
+  commentId: P:AGS.API.AGSHashSetChangedEventArgs`1.Items
+  fullName: AGS.API.AGSHashSetChangedEventArgs<TItem>.Items
+  fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).Items
+  nameWithType: AGSHashSetChangedEventArgs<TItem>.Items
+  nameWithType.vb: AGSHashSetChangedEventArgs(Of TItem).Items
+- uid: AGS.API.AGSHashSetChangedEventArgs`1.Items*
+  name: Items
+  href: api/AGS.API.AGSHashSetChangedEventArgs-1.html#AGS_API_AGSHashSetChangedEventArgs_1_Items_
+  commentId: Overload:AGS.API.AGSHashSetChangedEventArgs`1.Items
+  fullName: AGS.API.AGSHashSetChangedEventArgs<TItem>.Items
+  fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).Items
+  nameWithType: AGSHashSetChangedEventArgs<TItem>.Items
+  nameWithType.vb: AGSHashSetChangedEventArgs(Of TItem).Items
 - uid: AGS.API.AGSListChangedEventArgs`1
   name: AGSListChangedEventArgs<TItem>
   href: api/AGS.API.AGSListChangedEventArgs-1.html
@@ -4712,6 +4721,23 @@ references:
   fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).Add
   nameWithType: IConcurrentHashSet<TItem>.Add
   nameWithType.vb: IConcurrentHashSet(Of TItem).Add
+- uid: AGS.API.IConcurrentHashSet`1.AddRange(List{`0})
+  name: AddRange(List<TItem>)
+  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_AddRange_List__0__
+  commentId: M:AGS.API.IConcurrentHashSet`1.AddRange(List{`0})
+  name.vb: AddRange(List(Of TItem))
+  fullName: AGS.API.IConcurrentHashSet<TItem>.AddRange(List<TItem>)
+  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).AddRange(List(Of TItem))
+  nameWithType: IConcurrentHashSet<TItem>.AddRange(List<TItem>)
+  nameWithType.vb: IConcurrentHashSet(Of TItem).AddRange(List(Of TItem))
+- uid: AGS.API.IConcurrentHashSet`1.AddRange*
+  name: AddRange
+  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_AddRange_
+  commentId: Overload:AGS.API.IConcurrentHashSet`1.AddRange
+  fullName: AGS.API.IConcurrentHashSet<TItem>.AddRange
+  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).AddRange
+  nameWithType: IConcurrentHashSet<TItem>.AddRange
+  nameWithType.vb: IConcurrentHashSet(Of TItem).AddRange
 - uid: AGS.API.IConcurrentHashSet`1.Clear
   name: Clear()
   href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_Clear
@@ -13103,6 +13129,18 @@ references:
   commentId: Overload:AGS.API.ITreeViewComponent.OnNodeSelected
   fullName: AGS.API.ITreeViewComponent.OnNodeSelected
   nameWithType: ITreeViewComponent.OnNodeSelected
+- uid: AGS.API.ITreeViewComponent.RefreshLayout
+  name: RefreshLayout()
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_RefreshLayout
+  commentId: M:AGS.API.ITreeViewComponent.RefreshLayout
+  fullName: AGS.API.ITreeViewComponent.RefreshLayout()
+  nameWithType: ITreeViewComponent.RefreshLayout()
+- uid: AGS.API.ITreeViewComponent.RefreshLayout*
+  name: RefreshLayout
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_RefreshLayout_
+  commentId: Overload:AGS.API.ITreeViewComponent.RefreshLayout
+  fullName: AGS.API.ITreeViewComponent.RefreshLayout
+  nameWithType: ITreeViewComponent.RefreshLayout
 - uid: AGS.API.ITreeViewComponent.Tree
   name: Tree
   href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_Tree
