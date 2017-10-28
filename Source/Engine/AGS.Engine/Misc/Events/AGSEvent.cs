@@ -63,7 +63,8 @@ namespace AGS.Engine
 				await Task.Delay(1).ConfigureAwait(false); //Ensuring that the event is invoked on a non-UI thread
 				foreach (var target in _invocationList) 
 				{
-					await target.Event (args);
+                    if (target.BlockingEvent != null) target.BlockingEvent(args);
+					else await target.Event (args);
 				}
 			}
 			catch (Exception e) 
@@ -124,7 +125,6 @@ namespace AGS.Engine
 			public Callback(Action<TEventArgs> callback)
 			{
 				_origObject = callback;
-				Event = convert(callback);
 				BlockingEvent = callback;
 			}
 
@@ -160,15 +160,6 @@ namespace AGS.Engine
 			private string getMethodName(Delegate del)
 			{
 				return RuntimeReflectionExtensions.GetMethodInfo(del).Name;
-			}
-
-			private Func<TEventArgs, Task> convert(Action<TEventArgs> callback)
-			{
-				return e => 
-				{
-					callback (e);
-                    return Task.CompletedTask;
-				};
 			}
 
 			private Func<TEventArgs, Task> convert(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
