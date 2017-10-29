@@ -91,7 +91,10 @@ namespace AGS.Engine
 
 		public IEnumerator<TItem> GetEnumerator()
 		{
-			return _map.Keys.GetEnumerator();
+            foreach (var pair in _map)
+            {
+                yield return pair.Key;
+            }
 		}
 
 		#endregion
