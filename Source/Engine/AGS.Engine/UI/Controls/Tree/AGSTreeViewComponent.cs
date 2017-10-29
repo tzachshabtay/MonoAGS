@@ -173,14 +173,7 @@ namespace AGS.Engine
             if (currentNode == null || currentNode.Item != actualNode)
             {
                 if (currentNode != null) removeFromUI(currentNode);
-                var drawable = _drawable;
-                currentNode = new Node(actualNode, NodeViewProvider.CreateNode(actualNode, 
-                                           drawable == null ? AGSLayers.UI : drawable.RenderLayer), null, this);
-                var treeComponent = _treeComponent;
-                if (treeComponent != null)
-                {
-                    currentNode.View.ParentPanel.TreeNode.SetParent(treeComponent.TreeNode);
-                }
+                currentNode = new Node(actualNode, () => _drawable, () => _treeComponent, null, this);
             }
             int maxChildren = Math.Max(currentNode.Children.Count, actualNode.TreeNode.Children.Count);
             for (int i = 0; i < maxChildren; i++)
@@ -191,8 +184,7 @@ namespace AGS.Engine
                 if (nodeChild == null)
                 {
                     var drawable = _drawable;
-                    var newNode = new Node(actualChild, NodeViewProvider.CreateNode(actualChild, 
-                                        drawable == null ? AGSLayers.UI : drawable.RenderLayer), currentNode, this);
+                    var newNode = new Node(actualChild, () => _drawable, () => null, currentNode, this);
 					newNode = buildTree(newNode, actualChild);
                     currentNode.Children.Add(newNode);
                     continue;
@@ -221,25 +213,31 @@ namespace AGS.Engine
         {
             node.RefreshDisplay();
             if (!node.IsNew) return;
+            var view = node.View;
+            if (view == null) return;
             node.IsNew = false;
-            uiObjectsToAdd.Add(node.View.ParentPanel);
-            uiObjectsToAdd.Add(node.View.TreeItem.TreeNode.Parent);
-            uiObjectsToAdd.Add(node.View.TreeItem);
-            if (node.View.ExpandButton != null)
+            uiObjectsToAdd.Add(view.ParentPanel);
+            uiObjectsToAdd.Add(view.TreeItem.TreeNode.Parent);
+            uiObjectsToAdd.Add(view.TreeItem);
+            if (view.ExpandButton != null)
             {
-                uiObjectsToAdd.Add(node.View.ExpandButton);
+                uiObjectsToAdd.Add(view.ExpandButton);
             }
         }
 
         private void removeFromUI(Node node) 
         {
-            node.View.ParentPanel.Visible = false;
-            removeFromUI(node.View.ParentPanel);
-            removeFromUI(node.View.ExpandButton);
-            removeFromUI(node.View.TreeItem);
-            removeFromUI(node.View.VerticalPanel);
-            removeFromUI(node.View.HorizontalPanel);
-            node.View.ParentPanel.TreeNode.SetParent(null);
+            var view = node.View;
+            if (view != null)
+            {
+                view.ParentPanel.Visible = false;
+                removeFromUI(view.ParentPanel);
+                removeFromUI(view.ExpandButton);
+                removeFromUI(view.TreeItem);
+                removeFromUI(view.VerticalPanel);
+                removeFromUI(view.HorizontalPanel);
+                view.ParentPanel.TreeNode.SetParent(null);
+            }
             node.Dispose();
         }
 
@@ -253,33 +251,23 @@ namespace AGS.Engine
         {
             private ITreeViewComponent _tree;
             private bool _isCollapsed;
+            private Func<IDrawableInfo> _drawable;
+            private Func<IInObjectTree> _treeObj;
 
-            public Node(ITreeStringNode item, ITreeNodeView view, Node parentNode, ITreeViewComponent tree)
+            public Node(ITreeStringNode item, Func<IDrawableInfo> drawable, Func<IInObjectTree> treeObj, Node parentNode, ITreeViewComponent tree)
             {
                 _tree = tree;
+                _drawable = drawable;
+                _treeObj = treeObj;
                 Item = item;
-                View = view;
                 Parent = parentNode;
                 Children = new List<Node>();
                 _isCollapsed = true;
                 IsNew = true;
-
-                if (parentNode != null)
+                if (parentNode == null)
                 {
-                    view.ParentPanel.TreeNode.SetParent(parentNode.View.VerticalPanel.TreeNode);
-                    view.ParentPanel.Visible = !parentNode.IsCollapsed;
+                    initView();
                 }
-
-                view.TreeItem.MouseEnter.Subscribe(onMouseEnter);
-                view.TreeItem.MouseLeave.Subscribe(onMouseLeave);
-                View.TreeItem.MouseClicked.Subscribe(onItemSelected);
-                var expandButton = View.ExpandButton;
-                if (expandButton != null)
-                {
-                    expandButton.MouseEnter.Subscribe(onMouseEnter);
-                    expandButton.MouseLeave.Subscribe(onMouseLeave);
-                }
-                getExpandButton().MouseClicked.Subscribe(onMouseClicked);
             }
 
             public ITreeStringNode Item { get; private set; }
@@ -296,7 +284,14 @@ namespace AGS.Engine
                     if (_isCollapsed == value) return;
                     _isCollapsed = value;
                     if (value) _tree.OnNodeCollapsed.Invoke(new NodeEventArgs(Item));
-                    else _tree.OnNodeExpanded.Invoke(new NodeEventArgs(Item));
+                    else
+                    {
+                        foreach (var child in Children)
+                        {
+                            child.initView();
+                        }
+                        _tree.OnNodeExpanded.Invoke(new NodeEventArgs(Item));
+                    }
                 }
             }
             public bool IsHovered { get; set; }
@@ -305,29 +300,36 @@ namespace AGS.Engine
 
             public void Dispose()
             {
-                View.TreeItem.MouseEnter.Unsubscribe(onMouseEnter);
-                View.TreeItem.MouseLeave.Unsubscribe(onMouseLeave);
-                View.TreeItem.MouseClicked.Unsubscribe(onItemSelected);
-                var expandButton = View.ExpandButton;
+                var view = View;
+                if (view == null) return;
+                view.TreeItem.MouseEnter.Unsubscribe(onMouseEnter);
+                view.TreeItem.MouseLeave.Unsubscribe(onMouseLeave);
+                view.TreeItem.MouseClicked.Unsubscribe(onItemSelected);
+                var expandButton = view.ExpandButton;
                 if (expandButton != null)
                 {
                     expandButton.MouseEnter.Unsubscribe(onMouseEnter);
                     expandButton.MouseLeave.Unsubscribe(onMouseLeave);
                 }
-                getExpandButton().MouseClicked.Unsubscribe(onMouseClicked);
+                var button = getExpandButton();
+                if (button != null) button.MouseClicked.Unsubscribe(onMouseClicked);
             }
 
             public float ResetOffsets(float xOffset, float yOffset, float spacingX, float spacingY)
             {
                 xOffset += spacingX;
-                View.VerticalPanel.X = xOffset;
-                View.ParentPanel.Y = yOffset;
+                var view = View;
+                if (view != null)
+                {
+                    view.VerticalPanel.X = xOffset;
+                    view.ParentPanel.Y = yOffset;
+                }
                 var childYOffset = spacingY;
                 foreach (var child in Children)
                 {
                     childYOffset = child.ResetOffsets(xOffset, childYOffset, spacingX, spacingY);
                 }
-                if (!View.ParentPanel.Visible) return yOffset;
+                if (view == null || !view.ParentPanel.Visible) return yOffset;
                 return yOffset + childYOffset;
             }
 
@@ -358,8 +360,42 @@ namespace AGS.Engine
 
             public void RefreshDisplay()
             {
-                _tree.NodeViewProvider.BeforeDisplayingNode(Item, View,
+                var view = View;
+                if (view == null) return;
+                _tree.NodeViewProvider.BeforeDisplayingNode(Item, view,
                                                   IsCollapsed, IsHovered, IsSelected);
+            }
+
+            private void initView()
+            {
+                if (View != null) return;
+                var drawable = _drawable();
+                var view = _tree.NodeViewProvider.CreateNode(Item,
+                                     drawable == null ? AGSLayers.UI : drawable.RenderLayer);
+                var parentNode = Parent;
+                if (parentNode != null)
+                {
+                    view.ParentPanel.TreeNode.SetParent(parentNode.View.VerticalPanel.TreeNode);
+                    view.ParentPanel.Visible = !parentNode.IsCollapsed;
+                }
+
+                view.TreeItem.MouseEnter.Subscribe(onMouseEnter);
+                view.TreeItem.MouseLeave.Subscribe(onMouseLeave);
+                view.TreeItem.MouseClicked.Subscribe(onItemSelected);
+                var expandButton = view.ExpandButton;
+                if (expandButton != null)
+                {
+                    expandButton.MouseEnter.Subscribe(onMouseEnter);
+                    expandButton.MouseLeave.Subscribe(onMouseLeave);
+                }
+                View = view;
+                getExpandButton().MouseClicked.Subscribe(onMouseClicked);
+
+                var treeObj = _treeObj();
+                if (treeObj != null)
+                {
+                    view.ParentPanel.TreeNode.SetParent(treeObj.TreeNode);
+                }
             }
 
             private Node getRoot()
@@ -371,7 +407,9 @@ namespace AGS.Engine
 
             private IUIEvents getExpandButton()
             {
-                return (IUIEvents)View.ExpandButton ?? View.TreeItem;
+                var view = View;
+                if (view == null) return null;
+                return (IUIEvents)view.ExpandButton ?? view.TreeItem;
             }
 
             private void onMouseEnter(MousePositionEventArgs args)
