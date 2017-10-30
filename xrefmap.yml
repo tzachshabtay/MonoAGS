@@ -73,12 +73,12 @@ references:
   commentId: Overload:AGS.API.AGSBoundingBox.Contains
   fullName: AGS.API.AGSBoundingBox.Contains
   nameWithType: AGSBoundingBox.Contains
-- uid: AGS.API.AGSBoundingBox.Crop(AGS.API.BoundingBoxType,AGS.API.ICropSelfComponent,AGS.API.PointF,AGS.API.PointF)
-  name: Crop(BoundingBoxType, ICropSelfComponent, PointF, PointF)
-  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Crop_AGS_API_BoundingBoxType_AGS_API_ICropSelfComponent_AGS_API_PointF_AGS_API_PointF_
-  commentId: M:AGS.API.AGSBoundingBox.Crop(AGS.API.BoundingBoxType,AGS.API.ICropSelfComponent,AGS.API.PointF,AGS.API.PointF)
-  fullName: AGS.API.AGSBoundingBox.Crop(AGS.API.BoundingBoxType, AGS.API.ICropSelfComponent, AGS.API.PointF, AGS.API.PointF)
-  nameWithType: AGSBoundingBox.Crop(BoundingBoxType, ICropSelfComponent, PointF, PointF)
+- uid: AGS.API.AGSBoundingBox.Crop(AGS.API.BoundingBoxType,AGS.API.ICropSelfComponent,AGS.API.PointF)
+  name: Crop(BoundingBoxType, ICropSelfComponent, PointF)
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Crop_AGS_API_BoundingBoxType_AGS_API_ICropSelfComponent_AGS_API_PointF_
+  commentId: M:AGS.API.AGSBoundingBox.Crop(AGS.API.BoundingBoxType,AGS.API.ICropSelfComponent,AGS.API.PointF)
+  fullName: AGS.API.AGSBoundingBox.Crop(AGS.API.BoundingBoxType, AGS.API.ICropSelfComponent, AGS.API.PointF)
+  nameWithType: AGSBoundingBox.Crop(BoundingBoxType, ICropSelfComponent, PointF)
 - uid: AGS.API.AGSBoundingBox.Crop*
   name: Crop
   href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Crop_
@@ -4543,12 +4543,6 @@ references:
   commentId: T:AGS.API.IComponentsCollection
   fullName: AGS.API.IComponentsCollection
   nameWithType: IComponentsCollection
-- uid: AGS.API.IComponentsCollection.AddComponent(AGS.API.IComponent)
-  name: AddComponent(IComponent)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_AGS_API_IComponent_
-  commentId: M:AGS.API.IComponentsCollection.AddComponent(AGS.API.IComponent)
-  fullName: AGS.API.IComponentsCollection.AddComponent(AGS.API.IComponent)
-  nameWithType: IComponentsCollection.AddComponent(IComponent)
 - uid: AGS.API.IComponentsCollection.AddComponent(Type)
   name: AddComponent(Type)
   href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_Type_
@@ -4570,6 +4564,15 @@ references:
   fullName.vb: AGS.API.IComponentsCollection.AddComponent(Of TComponent)()
   nameWithType: IComponentsCollection.AddComponent<TComponent>()
   nameWithType.vb: IComponentsCollection.AddComponent(Of TComponent)()
+- uid: AGS.API.IComponentsCollection.AddComponent``1(AGS.API.IComponent)
+  name: AddComponent<TComponent>(IComponent)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent__1_AGS_API_IComponent_
+  commentId: M:AGS.API.IComponentsCollection.AddComponent``1(AGS.API.IComponent)
+  name.vb: AddComponent(Of TComponent)(IComponent)
+  fullName: AGS.API.IComponentsCollection.AddComponent<TComponent>(AGS.API.IComponent)
+  fullName.vb: AGS.API.IComponentsCollection.AddComponent(Of TComponent)(AGS.API.IComponent)
+  nameWithType: IComponentsCollection.AddComponent<TComponent>(IComponent)
+  nameWithType.vb: IComponentsCollection.AddComponent(Of TComponent)(IComponent)
 - uid: AGS.API.IComponentsCollection.Bind*
   name: Bind
   href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind_
