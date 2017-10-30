@@ -431,6 +431,7 @@
     <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\EnumPropertyEditor.cs" />
     <Compile Include="UI\Controls\Editors\AGSNumberEditorComponent.cs" />
     <Compile Include="UI\DebugControls\DebugView\Inspector\Editors\NumberPropertyEditor.cs" />
+    <Compile Include="ComponentsFramework\AGSEmptyEntity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

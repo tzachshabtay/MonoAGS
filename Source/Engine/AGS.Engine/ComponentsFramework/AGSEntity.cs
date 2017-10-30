@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace AGS.Engine
 {
-    public class AGSEntity : IEntity
+    public abstract class AGSEntity : IEntity
     {
         private ConcurrentDictionary<Type, IComponent> _components;
         private List<IComponentBinding> _bindings;
