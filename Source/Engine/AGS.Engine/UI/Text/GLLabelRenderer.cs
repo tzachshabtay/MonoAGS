@@ -113,7 +113,7 @@ namespace AGS.Engine
                 AGSBoundingBoxComponent box = new AGSBoundingBoxComponent(_settings, _viewport, 
                                                                           _labelBoundingBoxFakeBuilder, _state, _events);
                 obj.RemoveComponent<IBoundingBoxComponent>();
-                obj.AddComponent(box);
+                obj.AddComponent<IBoundingBoxComponent>(box);
                 _lastObject = obj;
             }
             _glTextHitTest = _glTextHitTest ?? new GLText (_graphics, _messagePump, _fonts, _bitmapPool, false);

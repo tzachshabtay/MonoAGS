@@ -8,7 +8,7 @@ using AGS.API;
 namespace AGS.Engine
 {
     [RequiredComponent(typeof(ITreeViewComponent))]
-    public class AGSInspector : AGSComponent
+    public class AGSInspector : AGSComponent, IInspectorComponent
     {
         private readonly Dictionary<Category, List<InspectorProperty>> _props;
         private ITreeViewComponent _treeView;

@@ -27,7 +27,30 @@ namespace AGS.API
         /// </summary>
         /// <returns><c>true</c>, if component was added, <c>false</c> otherwise (if a component with this type already exists).</returns>
         /// <param name="component">Component.</param>
-        bool AddComponent(IComponent component);
+        /// <typeparam name="TComponent">The component type (with which it will be registered and can be queried by other components).</typeparam>
+        /// <example>
+        /// The type parameter is used to specify under which type the component will be registed in the entity.
+        /// Suppose you want to replace an existing component in the entity, for example the rotation component.
+        /// By using `IRotateComponent` as your type parameter, other components will get your component back when querying for `IRotateComponent`. 
+        /// Your component should implement `IRotateComponent`.
+        /// <code>
+        /// public class MyRotateComponent : AGSComponent, IRotateComponent
+        /// {
+        ///  ...
+        /// }
+        /// 
+        /// var myRotate = new MyRotateComponent();
+        /// var existingRotate = obj.GetComponent<IRotateComponent>();
+        /// Console.WriteLine(myRotate == existingRotate); //Writes "false"
+        /// 
+        /// obj.RemoveComponent<IRotateComponent>();
+        /// obj.AddComponent<IRotateComponent>(myRotate);
+        /// 
+        /// existingRotate = obj.GetComponent<IRotateComponent>();
+        /// Console.WriteLine(myRotate == existingRotate); //Writes "true"
+        /// </code>
+        /// </example>
+        bool AddComponent<TComponent>(IComponent component) where TComponent : IComponent;
 
         /// <summary>
         /// Removes the component with the specified type (if it exists).

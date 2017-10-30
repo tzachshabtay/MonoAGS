@@ -63,12 +63,12 @@ namespace AGS.Engine
             });
         }
 
-        public bool AddComponent(IComponent component)
+        public bool AddComponent<TComponent>(IComponent component) where TComponent : IComponent
         {
 			var components = _components;
             if (components == null) return false;
             bool addedComponent = false;
-            components.GetOrAdd(component.GetType(), _ =>
+            components.GetOrAdd(typeof(TComponent), _ =>
             {
                 addedComponent = true;
                 initComponentIfNeeded(component);
