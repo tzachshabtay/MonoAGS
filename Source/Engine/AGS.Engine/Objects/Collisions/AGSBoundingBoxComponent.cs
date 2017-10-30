@@ -43,6 +43,7 @@ namespace AGS.Engine
         {
             _entity = entity;
             base.Init(entity);
+
             entity.Bind<IModelMatrixComponent>(c => { c.OnMatrixChanged.Subscribe(onHitTextBoxShouldChange); _matrix = c; },
                                                c => { c.OnMatrixChanged.Unsubscribe(onHitTextBoxShouldChange); _matrix = null; });
             entity.Bind<ICropSelfComponent>(c => { c.OnCropAreaChanged.Subscribe(onCropShouldChange); _crop = c; },
@@ -107,7 +108,7 @@ namespace AGS.Engine
             PointF scale;
             var renderBox = _boundingBoxBuilder.BuildRenderBox(intermediateBox, viewportMatrix, out scale);
 
-			var cropInfo = renderBox.Crop(BoundingBoxType.Render, crop, resolutionFactor, scale);
+			var cropInfo = renderBox.Crop(BoundingBoxType.Render, crop, scale);
 			boundingBoxes.PreCropRenderBox = renderBox;
 			renderBox = cropInfo.BoundingBox;
             boundingBoxes.RenderBox = renderBox;
@@ -133,7 +134,7 @@ namespace AGS.Engine
             }
             else
             {
-                hitTestBox = hitTestBox.Crop(BoundingBoxType.HitTest, crop, AGSModelMatrixComponent.NoScaling, scale).BoundingBox;
+                hitTestBox = hitTestBox.Crop(BoundingBoxType.HitTest, crop, scale).BoundingBox;
                 boundingBoxes.HitTestBox = hitTestBox;
             }
             _isCropDirty = false;

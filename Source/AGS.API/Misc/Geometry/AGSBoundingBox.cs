@@ -132,13 +132,12 @@ namespace AGS.API
         /// </summary>
         /// <returns>The crop info.</returns>
         /// <param name="crop">Crop.</param>
-        /// <param name="resolutionFactor">Resolution factor.</param>
         /// <param name="adjustedScale">Adjusted scale.</param>
-        public AGSCropInfo Crop(BoundingBoxType boundingBoxType, ICropSelfComponent crop, PointF resolutionFactor, PointF adjustedScale)
+        public AGSCropInfo Crop(BoundingBoxType boundingBoxType, ICropSelfComponent crop, PointF adjustedScale)
 		{
             if (crop == null) return new AGSCropInfo(this, null);
-			float scaleX = resolutionFactor.X * adjustedScale.X;
-			float scaleY = resolutionFactor.Y * adjustedScale.Y;
+			float scaleX = adjustedScale.X;
+			float scaleY = adjustedScale.Y;
             float spriteWidth = Width / scaleX;
             float spriteHeight = Height / scaleY;
             float width = spriteWidth;

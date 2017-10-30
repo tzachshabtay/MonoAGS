@@ -137,7 +137,7 @@ namespace AGS.Engine
 			PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
             if (!resolutionFactor.Equals(textScaleFactor))
             {
-                _labelBoundingBoxFakeBuilder.CropScale = new PointF(1f / resolutionFactor.X, 1f / resolutionFactor.Y);
+                _labelBoundingBoxFakeBuilder.CropScale = AGSModelMatrixComponent.NoScaling;
                 resolutionFactor = AGSModelMatrixComponent.NoScaling;
             }
             else _labelBoundingBoxFakeBuilder.CropScale = AGSModelMatrixComponent.NoScaling;
@@ -153,7 +153,7 @@ namespace AGS.Engine
                 if (!string.IsNullOrEmpty(Text)) _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
-                var cropInfo = _usedTextBoundingBoxes.RenderBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), resolutionFactor, AGSModelMatrixComponent.NoScaling);
+                var cropInfo = _usedTextBoundingBoxes.RenderBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), AGSModelMatrixComponent.NoScaling);
                 if (cropInfo.Equals(default(AGSCropInfo))) return;
                 _usedTextBoundingBoxes.RenderBox = cropInfo.BoundingBox;
 
