@@ -31,12 +31,33 @@ namespace AGS.Engine
             onListChanged.Invoke(new AGSHashSetChangedEventArgs<TItem>(changeType, item));
         } 
 
+        private void onListChanged(List<TItem> items, ListChangeType changeType)
+        {
+            var onListChanged = OnListChanged;
+            if (onListChanged == null) return;
+            onListChanged.Invoke(new AGSHashSetChangedEventArgs<TItem>(changeType, items));
+        }
+
 		public bool Add(TItem item)
 		{
 			bool added = _map.TryAdd(item, 0);
             if (added) onListChanged(item, ListChangeType.Add);
             return added;
 		}
+
+        public int AddRange(List<TItem> items)
+        {
+            List<TItem> addedItems = new List<TItem>(items.Count);
+            foreach (var item in items)
+            {
+                if (_map.TryAdd(item, 0))
+                {
+                    addedItems.Add(item);
+                }
+            }
+            if (addedItems.Count > 0) onListChanged(addedItems, ListChangeType.Add);
+            return addedItems.Count;
+        }
 
 		public bool Remove(TItem item)
 		{
@@ -70,7 +91,10 @@ namespace AGS.Engine
 
 		public IEnumerator<TItem> GetEnumerator()
 		{
-			return _map.Keys.GetEnumerator();
+            foreach (var pair in _map)
+            {
+                yield return pair.Key;
+            }
 		}
 
 		#endregion

@@ -10,6 +10,7 @@ namespace AGS.Engine
 	{
 		private readonly IConcurrentHashSet<Callback> _invocationList;
 		private const int MAX_SUBSCRIPTIONS = 10000;
+        private int _count;
 
 		public AGSEvent ()
 		{
@@ -22,7 +23,8 @@ namespace AGS.Engine
 
 		public void Subscribe (Action<TEventArgs> callback)
 		{
-			if (_invocationList.Count > MAX_SUBSCRIPTIONS)
+            _count++;
+            if (_count > MAX_SUBSCRIPTIONS)
 			{
 				Debug.WriteLine("Subscribe Overflow!");
 				return;
@@ -63,7 +65,8 @@ namespace AGS.Engine
 				await Task.Delay(1).ConfigureAwait(false); //Ensuring that the event is invoked on a non-UI thread
 				foreach (var target in _invocationList) 
 				{
-					await target.Event (args);
+                    if (target.BlockingEvent != null) target.BlockingEvent(args);
+					else await target.Event (args);
 				}
 			}
 			catch (Exception e) 
@@ -124,7 +127,6 @@ namespace AGS.Engine
 			public Callback(Action<TEventArgs> callback)
 			{
 				_origObject = callback;
-				Event = convert(callback);
 				BlockingEvent = callback;
 			}
 
@@ -160,15 +162,6 @@ namespace AGS.Engine
 			private string getMethodName(Delegate del)
 			{
 				return RuntimeReflectionExtensions.GetMethodInfo(del).Name;
-			}
-
-			private Func<TEventArgs, Task> convert(Action<TEventArgs> callback)
-			{
-				return e => 
-				{
-					callback (e);
-                    return Task.CompletedTask;
-				};
 			}
 
 			private Func<TEventArgs, Task> convert(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)

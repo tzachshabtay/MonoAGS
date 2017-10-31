@@ -71,5 +71,10 @@
         /// </summary>
         /// <param name="node">Node.</param>
         void Collapse(ITreeStringNode node);
+
+        /// <summary>
+        /// Forces a layout refresh for the tree (this usually should not be necessary, as the tree refreshes itself when it sees a need).
+        /// </summary>
+        void RefreshLayout();
     }
 }

@@ -16,7 +16,7 @@ namespace AGS.Engine
 
             //todo: refactor ISayLocationProvider into a component, then bind to it from say behavior, then add walk & say to the template and remove from here
             _walkBehavior = AddComponent<IWalkBehavior>();
-            AddComponent(_sayBehavior);
+            AddComponent<ISayBehavior>(_sayBehavior);
         }
 
         partial void afterInitComponents(Resolver resolver, IOutfit outfit)

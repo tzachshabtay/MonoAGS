@@ -4,12 +4,29 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Drawing.Drawing2D;
 using System.Threading;
+using System.Collections.Concurrent;
 
 namespace AGS.Engine.Desktop
 {
 	public static class Extensions
 	{
         private static readonly ThreadLocal<Graphics> _graphics;
+
+        private struct TextMeasureKey
+        {
+            public TextMeasureKey(string text, Font font, int maxWidth)
+            {
+                Text = text;
+                Font = font;
+                MaxWidth = maxWidth;
+            }
+            public string Text;
+            public Font Font;
+            public int MaxWidth;
+        }
+
+        private static readonly ConcurrentDictionary<TextMeasureKey, SizeF> _measurements = 
+            new ConcurrentDictionary<TextMeasureKey, SizeF>();
 
         static Extensions()
         {
@@ -44,7 +61,9 @@ namespace AGS.Engine.Desktop
 
         public static System.Drawing.SizeF Measure(this string text, Font font, int maxWidth = int.MaxValue)
 		{
-            var size = _graphics.Value.MeasureString(text, font, maxWidth, StringFormat.GenericTypographic);
+            var key = new TextMeasureKey(text, font, maxWidth);
+            var size = _measurements.GetOrAdd(key, 
+                      k => _graphics.Value.MeasureString(k.Text, k.Font, k.MaxWidth, StringFormat.GenericTypographic));
             return size;
 		}
 

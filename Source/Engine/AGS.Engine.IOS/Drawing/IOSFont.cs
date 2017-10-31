@@ -1,5 +1,6 @@
 ﻿extern alias IOS;
 
+using System.Collections.Concurrent;
 using AGS.API;
 using IOS::CoreGraphics;
 using IOS::CoreText;
@@ -12,6 +13,22 @@ namespace AGS.Engine.IOS
     {
         private readonly FontStyle _style;
 
+        private struct TextMeasureKey
+        {
+            public TextMeasureKey(string text, CTFont font, int maxWidth)
+            {
+                Text = text;
+                Font = font;
+                MaxWidth = maxWidth;
+            }
+            public string Text;
+            public CTFont Font;
+            public int MaxWidth;
+        }
+
+        private static readonly ConcurrentDictionary<TextMeasureKey, SizeF> _measurements =
+            new ConcurrentDictionary<TextMeasureKey, SizeF>();
+        
         public IOSFont(CTFont font, FontStyle style)
         {
             InnerFont = font;
@@ -28,22 +45,26 @@ namespace AGS.Engine.IOS
 
         public SizeF MeasureString(string text, int maxWidth = int.MaxValue)
         {
-            using (NSMutableAttributedString str = new NSMutableAttributedString(text))
+            var key = new TextMeasureKey(text, InnerFont, maxWidth);
+            return _measurements.GetOrAdd(key, k =>
             {
-                NSRange range = new NSRange(0, text.Length);
-
-                str.SetAttributes(new CTStringAttributes
+                using (NSMutableAttributedString str = new NSMutableAttributedString(text))
                 {
-                    Font = InnerFont,
-                }, range);
+                    NSRange range = new NSRange(0, k.Text.Length);
 
-                using (CTFramesetter frameSetter = new CTFramesetter(str))
-                {
-                    NSRange fitRange;
-                    CGSize size = frameSetter.SuggestFrameSize(range, null, new CGSize(maxWidth, float.MaxValue), out fitRange);
-                    return new SizeF((float)size.Width, (float)size.Height);
+                    str.SetAttributes(new CTStringAttributes
+                    {
+                        Font = k.Font,
+                    }, range);
+
+                    using (CTFramesetter frameSetter = new CTFramesetter(str))
+                    {
+                        NSRange fitRange;
+                        CGSize size = frameSetter.SuggestFrameSize(range, null, new CGSize(k.MaxWidth, float.MaxValue), out fitRange);
+                        return new SizeF((float)size.Width, (float)size.Height);
+                    }
                 }
-            }
+            });
         }
     }
 }

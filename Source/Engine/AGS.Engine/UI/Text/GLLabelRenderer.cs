@@ -113,11 +113,11 @@ namespace AGS.Engine
                 AGSBoundingBoxComponent box = new AGSBoundingBoxComponent(_settings, _viewport, 
                                                                           _labelBoundingBoxFakeBuilder, _state, _events);
                 obj.RemoveComponent<IBoundingBoxComponent>();
-                obj.AddComponent(box);
+                obj.AddComponent<IBoundingBoxComponent>(box);
                 _lastObject = obj;
             }
-            _glTextHitTest = _glTextHitTest ?? new GLText (_graphics, _messagePump, _fonts, _bitmapPool);
-            _glTextRender = _glTextRender ?? new GLText(_graphics, _messagePump, _fonts, _bitmapPool);
+            _glTextHitTest = _glTextHitTest ?? new GLText (_graphics, _messagePump, _fonts, _bitmapPool, false);
+            _glTextRender = _glTextRender ?? new GLText(_graphics, _messagePump, _fonts, _bitmapPool, true);
 
 			updateBoundingBoxes(obj, drawable, viewport);
             _labelBoundingBoxFakeBuilder.BoundingBoxes = _usedLabelBoundingBoxes;
@@ -137,7 +137,7 @@ namespace AGS.Engine
 			PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
             if (!resolutionFactor.Equals(textScaleFactor))
             {
-                _labelBoundingBoxFakeBuilder.CropScale = new PointF(1f / resolutionFactor.X, 1f / resolutionFactor.Y);
+                _labelBoundingBoxFakeBuilder.CropScale = AGSModelMatrixComponent.NoScaling;
                 resolutionFactor = AGSModelMatrixComponent.NoScaling;
             }
             else _labelBoundingBoxFakeBuilder.CropScale = AGSModelMatrixComponent.NoScaling;
@@ -148,17 +148,17 @@ namespace AGS.Engine
             }
 
             if (TextVisible && Text != "")
-			{
+            {
                 _glTextHitTest.Refresh();
                 if (!string.IsNullOrEmpty(Text)) _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
-                var cropInfo = _usedTextBoundingBoxes.RenderBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), resolutionFactor, AGSModelMatrixComponent.NoScaling);
+                var cropInfo = _usedTextBoundingBoxes.RenderBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), AGSModelMatrixComponent.NoScaling);
                 if (cropInfo.Equals(default(AGSCropInfo))) return;
                 _usedTextBoundingBoxes.RenderBox = cropInfo.BoundingBox;
 
                 _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropInfo.TextureBox, color);
-			}
+            }
 		}
 
         #endregion
@@ -193,13 +193,13 @@ namespace AGS.Engine
             if (autoFit == AutoFit.LabelShouldFitText)
             {
                 updateText(_glTextHitTest, resolutionMatches, GLText.EmptySize, scaleUpText, scaleDownText, int.MaxValue);
-                if (!resolutionMatches) updateText(_glTextRender, false, GLText.EmptySize, scaleUpText, scaleDownText, int.MaxValue);
+                if (!resolutionMatches) updateText(_glTextRender, true, GLText.EmptySize, scaleUpText, scaleDownText, int.MaxValue);
                 CustomImageSize = new SizeF(_glTextHitTest.Width, _glTextHitTest.Height);
             }
             else if (autoFit == AutoFit.TextShouldWrapAndLabelShouldFitHeight)
             {
                 updateText(_glTextHitTest, resolutionMatches, new SizeF(BaseSize.Width, GLText.EmptySize.Height), scaleUpText, scaleDownText, (int)BaseSize.Width);
-                if (!resolutionMatches) updateText(_glTextRender, false, new SizeF(BaseSize.Width, GLText.EmptySize.Height), scaleUpText, scaleDownText, (int)BaseSize.Width);
+                if (!resolutionMatches) updateText(_glTextRender, true, new SizeF(BaseSize.Width, GLText.EmptySize.Height), scaleUpText, scaleDownText, (int)BaseSize.Width);
                 CustomImageSize = new SizeF(BaseSize.Width, _glTextHitTest.Height);
             }
             else CustomImageSize = BaseSize;

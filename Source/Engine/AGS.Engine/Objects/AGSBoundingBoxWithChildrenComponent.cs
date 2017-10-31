@@ -129,7 +129,7 @@ namespace AGS.Engine
             {
                 foreach (var child in tree.TreeNode.Children)
                 {
-                    if (!child.UnderlyingVisible) continue;
+                    if (child == null || !child.UnderlyingVisible) continue;
                     var childBox = getBoundingBox(child, child, getBox);
                     if (childBox.IsInvalid) continue;
                     if (minX > childBox.MinX) minX = childBox.MinX;

@@ -73,6 +73,7 @@
     <Compile Include="Engine\Misc\Tweens\TweensTests.cs" />
     <Compile Include="API\Misc\Drawing\ColorTests.cs" />
     <Compile Include="Engine\Audio\ClassicSpeechCacheTests.cs" />
+    <Compile Include="Engine\ComponentsFramework\ComponentBindingTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -98,4 +99,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Engine\ComponentsFramework\" />
+  </ItemGroup>
 </Project>

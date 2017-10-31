@@ -152,7 +152,7 @@ namespace AGS.Engine
                 cropSelf.CropEnabled = false;
                 ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.RenderBox);
                 cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
-                obj.AddComponent(cropSelf);
+                obj.AddComponent<ICropSelfComponent>(cropSelf);
             }
         }
 
