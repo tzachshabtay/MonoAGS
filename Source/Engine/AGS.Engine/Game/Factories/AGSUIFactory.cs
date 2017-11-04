@@ -138,7 +138,7 @@ namespace AGS.Engine
             button.Tint = pixelArtButton ? Colors.White : Colors.Transparent;
             button.X = x;
             button.Y = y;
-            button.TextConfig = config;
+            button.TextConfig = config ?? new AGSTextConfig(alignment: Alignment.MiddleCenter);
             button.Text = text;
             setParent(button, parent);
 
@@ -289,7 +289,7 @@ namespace AGS.Engine
 
             if (textBox == null)
             {
-                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, "", new AGSTextConfig(alignment: Alignment.MiddleCenter),
+                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, "", new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel),
                                      false, itemWidth, defaultHeight);
 				textBox.Border = AGSBorders.SolidColor(Colors.WhiteSmoke, 3f);
 				textBox.Tint = Colors.Transparent;
@@ -398,6 +398,8 @@ namespace AGS.Engine
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             ISlider slider = _resolver.Container.Resolve<ISlider>(idParam, idParam);
             setParent(slider, parent);
+            setParent(handle, slider);
+            setParent(graphics, slider);
             slider.Label = label;
             slider.MinValue = min;
             slider.MaxValue = max;
@@ -433,6 +435,7 @@ namespace AGS.Engine
         {
             if (parent == null) return;
             ui.TreeNode.SetParent(parent.TreeNode);
+            ui.RenderLayer = parent.RenderLayer;
         }
     }
 }
