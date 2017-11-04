@@ -41,7 +41,6 @@ namespace DemoGame
             {
                 autoFitList.Items.Add(new AGSStringItem { Text = autoFitOption.ToString() });
             }
-            var autoFitPanel = _featuresAutoFitCombobox.DropDownPanel;
 
             autoFitList.OnSelectedItemChanged.Subscribe(args => _label.TextConfig.AutoFit = (AutoFit)Enum.Parse(typeof(AutoFit), args.Item.Text));
             animateText();
