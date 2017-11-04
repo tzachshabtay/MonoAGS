@@ -24,6 +24,7 @@ namespace AGS.Engine
             _itemButtons = new List<IButton>();
             _items = new AGSBindingList<IStringItem>(10);
             _items.OnListChanged.Subscribe(onListChanged);
+            _selectedIndex = -1;
             OnSelectedItemChanged = new AGSEvent<ListboxItemArgs>();
         }
 
@@ -74,6 +75,7 @@ namespace AGS.Engine
             {
                 try
                 {
+                    if (SelectedIndex < 0) return null;
                     return Items[SelectedIndex];
                 }
                 catch (IndexOutOfRangeException)
