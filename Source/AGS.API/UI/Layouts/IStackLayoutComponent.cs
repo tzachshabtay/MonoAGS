@@ -42,6 +42,12 @@
         float RelativeSpacing { get; set; }
 
         /// <summary>
+        /// Gets or sets the start location (the first item in the layout will be placed in that location).
+        /// </summary>
+        /// <value>The start location.</value>
+        float StartLocation { get; set; }
+
+        /// <summary>
         /// Starts applying the layout to its children (this needs to be called at least once).
         /// </summary>
         void StartLayout();

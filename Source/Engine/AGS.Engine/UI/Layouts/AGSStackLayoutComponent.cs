@@ -6,7 +6,7 @@ namespace AGS.Engine
     {
         private IBoundingBoxWithChildrenComponent _boundingBoxWithChildren;
         private IInObjectTree _tree;
-        private float _absoluteSpacing, _relativeSpacing;
+        private float _absoluteSpacing, _relativeSpacing, _startLocation;
         private LayoutDirection _direction;
         private bool _isPaused;
         private IEntity _entity;
@@ -22,6 +22,7 @@ namespace AGS.Engine
         public LayoutDirection Direction { get { return _direction; } set { _direction = value; adjustLayout(); } }
         public float AbsoluteSpacing { get { return _absoluteSpacing; } set { _absoluteSpacing = value; adjustLayout(); } }
         public float RelativeSpacing { get { return _relativeSpacing; } set { _relativeSpacing = value; adjustLayout(); } }
+        public float StartLocation { get { return _startLocation; } set { _startLocation = value; adjustLayout(); } }
         public IEvent OnLayoutChanged { get; private set; }
 
         public override void Init(IEntity entity)
@@ -52,10 +53,11 @@ namespace AGS.Engine
         private void adjustLayout()
         {
             if (_isPaused) return;
-            float location = 0f;
+            float location = StartLocation;
 
             var tree = _tree;
             if (tree == null) return;
+
             foreach (var child in tree.TreeNode.Children)
             {
                 if (!child.UnderlyingVisible) continue;
