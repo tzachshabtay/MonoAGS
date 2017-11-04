@@ -91,18 +91,25 @@ namespace AGS.Engine
         /// <summary>
         /// Gets the amount of time the tween has been running in game ticks (if the game is running at 60 FPS, then there should be 60 ticks each second).
         /// Note that if this is a repeating tween, the elapsed time refers to a single loop.
+        /// This can also be set for time manipulations.
         /// </summary>
         /// <value>The elapsed ticks.</value>
-		public float ElapsedTicks { get; private set; }
+		public float ElapsedTicks { get; set; }
 
         /// <summary>
         /// Gets the amount of time the tween has been running in seconds.
         /// Note that if this is a repeating tween, the elapsed time refers to a single loop.
         /// Also note that if this tween is running externally (via <see cref="RunWithExternalVisit"/>), 
         /// the timing of the tween's ticks is controlled by you and not the game, therefore the seconds might not be accurate. 
+        /// 
+        /// This can also be set for time manipulations.
         /// </summary>
         /// <value>The elapsed ticks.</value>
-        public float ElapsedSeconds { get { return toSeconds(ElapsedTicks); }}
+        public float ElapsedSeconds 
+        { 
+            get { return toSeconds(ElapsedTicks); }
+            set { ElapsedTicks = toTicks(value); }
+        }
 
         /// <summary>
         /// Gets the initial value for the tween.
@@ -364,6 +371,15 @@ namespace AGS.Engine
             State = TweenState.Playing;
 			_gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
+
+        /// <summary>
+        /// Rewind the tween to the beginning.
+        /// Note: if this is a repeating tween, it will rewind to the start of the current loop.
+        /// </summary>
+        public void Rewind()
+        {
+            ElapsedTicks = 0f;
+        }
 	}
 }
 
