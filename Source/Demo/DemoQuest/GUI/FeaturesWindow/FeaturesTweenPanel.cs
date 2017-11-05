@@ -65,6 +65,13 @@ namespace DemoGame
                 return list;
             };
 
+            Func<ISound> getMusic = () =>
+            {
+                var clip = _game.State.Room.MusicOnLoad;
+                if (clip == null) return null;
+                return clip.CurrentlyPlayingSounds.FirstOrDefault();
+            };
+
             _tweens = new Dictionary<string, List<Tuple<string, Func<Tween>>>>
             {
                 { "Button", getObjWithTextureTweens(TopBar.InventoryButton) },
@@ -80,6 +87,12 @@ namespace DemoGame
                         new Tuple<string, Func<Tween>>( "ProjectY", () => viewport.TweenProjectY(100f, time, ease())),
                         new Tuple<string, Func<Tween>>( "ProjectWidth", () => viewport.TweenProjectWidth(100f, time, ease())),
                         new Tuple<string, Func<Tween>>( "ProjectHeight", () => viewport.TweenProjectHeight(100f, time, ease())),
+                    }
+                },
+                { "Music", new List<Tuple<string, Func<Tween>>>{
+                        new Tuple<string, Func<Tween>>( "Volume", () => { var music = getMusic(); if (music != null) return music.TweenVolume(0f, time, ease()); else return null;}),
+                        new Tuple<string, Func<Tween>>( "Pitch", () => { var music = getMusic(); if (music != null) return music.TweenPitch(2f, time, ease()); else return null;}),
+                        new Tuple<string, Func<Tween>>( "Panning", () => { var music = getMusic(); if (music != null) return music.TweenPanning(-1f, time, ease()); else return null;}),
                     }
                 },
             };
@@ -137,7 +150,13 @@ namespace DemoGame
             var targetText = getSelection(_targetCombobox);
             var tweenText = getSelection(_tweenCombobox);
             var targetTweens = _tweens[targetText];
-            var tween = targetTweens.First(t => t.Item1 == tweenText).Item2().RepeatForever(looping, 3f);
+            var tween = targetTweens.First(t => t.Item1 == tweenText).Item2();
+            if (tween == null)
+            {
+                AGSMessageBox.Display("Can't play the tween (perhaps there is no music playing currently?)");
+                return;
+            }
+            tween = tween.RepeatForever(looping, 3f);
             _runningTweens.Add(new RunningTween(string.Format("{0}.{1}", targetText, tweenText), 
                                                 tween, _game, _tweensListPanel));
         }
