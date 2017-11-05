@@ -82,6 +82,10 @@ namespace AGS.Engine
                 {
                     return null;
                 }
+                catch (ArgumentOutOfRangeException)
+                {
+                    return null;
+                }
             }
         }
 
