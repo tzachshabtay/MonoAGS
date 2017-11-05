@@ -1,6 +1,9 @@
 ﻿using System;
 using AGS.API;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace AGS.Engine
 {
@@ -11,7 +14,7 @@ namespace AGS.Engine
 		private Lazy<int> _buffer;
 		private IAudioSystem _system;
 		private IAudioErrors _errors;
-        private volatile int _numPlayingSounds;
+        private AGSConcurrentHashSet<ISound> _playingSounds;
         private IAudioBackend _backend;
 
         public ALAudioClip(string id, ISoundData soundData, IAudioSystem system, IAudioErrors errors, IAudioBackend backend)
@@ -21,6 +24,7 @@ namespace AGS.Engine
             _backend = backend;
 			ID = id;
 			_buffer = new Lazy<int> (() => generateBuffer());
+            _playingSounds = new AGSConcurrentHashSet<ISound>();
 			_system = system;
 			Volume = 1f;
 			Pitch = 1f;
@@ -58,22 +62,22 @@ namespace AGS.Engine
 		public float Pitch { get; set; }
 		public float Panning { get; set; }
 
-        public bool IsPlaying { get { return _numPlayingSounds > 0; } }
-        public int NumOfCurrentlyPlayingSounds { get { return _numPlayingSounds; } }
+        public bool IsPlaying { get { return _playingSounds.Count > 0; } }
+        public ReadOnlyCollection<ISound> CurrentlyPlayingSounds { get { return _playingSounds.ToList().AsReadOnly(); } }
 
 		#endregion
 
 		private ISound playSound(float volume, float pitch, float panning, bool looping = false)
 		{
             //Debug.WriteLine("Playing Sound: " + ID);
-            _numPlayingSounds++;
 			int source = getSource();
             ALSound sound = new ALSound (source, volume, pitch, looping, panning, _errors, _backend);
+            _playingSounds.Add(sound);
 			sound.Play(_buffer.Value);
             sound.Completed.ContinueWith(_ =>
             {
                 _system.ReleaseSource(source);
-                _numPlayingSounds--;
+                _playingSounds.Remove(sound);
             });
 			return sound;
 		}
