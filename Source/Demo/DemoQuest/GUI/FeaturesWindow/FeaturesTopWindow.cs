@@ -82,6 +82,7 @@ namespace DemoGame
 
             var objLabel = createFeaturesLabel("Objects", tree);
             createFeaturesLabel("Textures", objLabel, () => new FeaturesTexturesPanel(_game, _rightSidePanel));
+            createFeaturesLabel("Tweens", objLabel, () => new FeaturesTweenPanel(_game, _rightSidePanel, _panel));
 
             treeView.Tree = tree;
             treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);

@@ -18,6 +18,8 @@ namespace DemoGame
         private ICharacter _player;
 		private IGame _game;
 
+        public static IButton InventoryButton { get; private set; }
+
         public TopBar(RotatingCursorScheme scheme, InventoryPanel invPanel, OptionsPanel optionsPanel, 
                       FeaturesTopWindow featuresPanel)
 		{
@@ -40,13 +42,13 @@ namespace DemoGame
 			await loadButton("Interact Button",factory, "hand/", 20f, RotatingCursorScheme.INTERACT_MODE);
 			await loadButton("Look Button",factory, "eye/", 40f, RotatingCursorScheme.LOOK_MODE);
 			await loadButton("Talk Button", factory, "talk/", 60f, MouseCursors.TALK_MODE);
-			IButton invButton = await loadButton("Inventory Button", factory, "inventory/", 80f);
+            InventoryButton = await loadButton("Inventory Button", factory, "inventory/", 80f);
 			IButton activeInvButton = await loadButton("Active Inventory Button", factory, "activeInventory/", 100f, RotatingCursorScheme.INVENTORY_MODE);
 			activeInvButton.Z = 1f;
 			IButton helpButton = await loadButton("Help Button", factory, "help/", 280f);
 			IButton optionsButton = await loadButton("Settings Button", factory, "settings/", 300f);
 
-			invButton.OnMouseClick(() => _invPanel.Show(), _game);
+            InventoryButton.OnMouseClick(() => _invPanel.Show(), _game);
 			optionsButton.OnMouseClick(() => _optionsPanel.Show(), _game);
             helpButton.OnMouseClick(() => _featuresPanel.Show(), _game);
 
