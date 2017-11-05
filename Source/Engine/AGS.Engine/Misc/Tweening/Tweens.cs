@@ -612,6 +612,28 @@ namespace AGS.Engine
 		}
 
         /// <summary>
+        /// Tweens the panning of a sound.
+        /// Note: Panning can only work on Mono sounds (it will not work for Stereo sounds).
+        /// <example>
+        /// <code>
+        /// var tween = sound.TweenPanning(-1f, 2f, Ease.CubeIn); //Pan the sound to the left speaker
+        /// await tween.Task;
+        /// </code>
+        /// </example>
+        /// <seealso cref="Tween"/>
+        /// <seealso cref="ISoundProperties.Panning"/>
+        /// </summary>
+        /// <returns>The tween.</returns>
+        /// <param name="sound">sound.</param>
+        /// <param name="toPanning">To panning.</param>
+        /// <param name="timeInSeconds">Time in seconds.</param>
+        /// <param name="easing">Easing function.</param>
+        public static Tween TweenPanning(this ISound sound, float toPanning, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return Tween.Run(sound.Panning, toPanning, p => sound.Panning = p, timeInSeconds, easing);
+        }
+
+        /// <summary>
         /// Tweens the x offset of a texture.
         /// <example>
         /// <code>
