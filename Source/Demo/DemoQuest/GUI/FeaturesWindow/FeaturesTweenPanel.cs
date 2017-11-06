@@ -57,11 +57,24 @@ namespace DemoGame
                 };
             };
 
+            Func<IObject, ICropSelfComponent> getCrop = o =>
+            {
+                var crop = o.GetComponent<ICropSelfComponent>();
+                if (crop != null) return crop;
+                crop = o.AddComponent<ICropSelfComponent>();
+                crop.CropArea = new RectangleF(0f, 0f, o.Width, o.Height);
+                return crop;
+            };
+
             Func<IObject, List<Tuple<string, Func<Tween>>>> getObjWithTextureTweens = o =>
             {
                 var list = getObjTweens(o);
                 list.Add(new Tuple<string, Func<Tween>>("TextureX", () => { setTextureWrap(o); return o.AddComponent<ITextureOffsetComponent>().TweenX(3f, time, ease()); }));
                 list.Add(new Tuple<string, Func<Tween>>("TextureY", () => { setTextureWrap(o); return o.AddComponent<ITextureOffsetComponent>().TweenY(3f, time, ease()); }));
+                list.Add(new Tuple<string, Func<Tween>>("CropX", () => getCrop(o).TweenX(15f, time, ease())));
+                list.Add(new Tuple<string, Func<Tween>>("CropY", () => getCrop(o).TweenY(15f, time, ease())));
+                list.Add(new Tuple<string, Func<Tween>>("CropWidth", () => getCrop(o).TweenWidth(0f, time, ease())));
+                list.Add(new Tuple<string, Func<Tween>>("CropHeight", () => getCrop(o).TweenHeight(0f, time, ease())));
                 return list;
             };
 

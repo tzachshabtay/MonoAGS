@@ -674,6 +674,90 @@ namespace AGS.Engine
 		{
 			return Tween.Run(offset.TextureOffset.Y, toY, y => offset.TextureOffset = new PointF(offset.TextureOffset.X, y), timeInSeconds, easing);
 		}
+
+        /// <summary>
+        /// Tweens the x offset (the left edge) of the crop area.
+        /// <example>
+        /// <code>
+        /// var tween = crop.TweenX(15f, 2f, Ease.CubeIn);
+        /// await tween.Task;
+        /// </code>
+        /// </example>
+        /// <seealso cref="Tween"/>
+        /// <seealso cref="ICropSelfComponent"/>
+        /// </summary>
+        /// <returns>The tween.</returns>
+        /// <param name="crop">Crop component.</param>
+        /// <param name="toX">To x.</param>
+        /// <param name="timeInSeconds">Time in seconds.</param>
+        /// <param name="easing">Easing function.</param>
+        public static Tween TweenX(this ICropSelfComponent crop, float toX, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return Tween.Run(crop.CropArea.X, toX, x => crop.CropArea = new RectangleF(x, crop.CropArea.Y, crop.CropArea.Width, crop.CropArea.Height), timeInSeconds, easing);
+        }
+
+        /// <summary>
+        /// Tweens the y offset (the bottom edge) of the crop area.
+        /// <example>
+        /// <code>
+        /// var tween = crop.TweenX(15f, 2f, Ease.CubeIn);
+        /// await tween.Task;
+        /// </code>
+        /// </example>
+        /// <seealso cref="Tween"/>
+        /// <seealso cref="ICropSelfComponent"/>
+        /// </summary>
+        /// <returns>The tween.</returns>
+        /// <param name="crop">Crop component.</param>
+        /// <param name="toY">To y.</param>
+        /// <param name="timeInSeconds">Time in seconds.</param>
+        /// <param name="easing">Easing function.</param>
+        public static Tween TweenY(this ICropSelfComponent crop, float toY, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return Tween.Run(crop.CropArea.Y, toY, y => crop.CropArea = new RectangleF(crop.CropArea.X, y, crop.CropArea.Width, crop.CropArea.Height), timeInSeconds, easing);
+        }
+
+        /// <summary>
+        /// Tweens the width of the crop area.
+        /// <example>
+        /// <code>
+        /// var tween = crop.TweenWidth(15f, 2f, Ease.CubeIn);
+        /// await tween.Task;
+        /// </code>
+        /// </example>
+        /// <seealso cref="Tween"/>
+        /// <seealso cref="ICropSelfComponent"/>
+        /// </summary>
+        /// <returns>The tween.</returns>
+        /// <param name="crop">Crop component.</param>
+        /// <param name="toWidth">To width.</param>
+        /// <param name="timeInSeconds">Time in seconds.</param>
+        /// <param name="easing">Easing function.</param>
+        public static Tween TweenWidth(this ICropSelfComponent crop, float toWidth, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return Tween.Run(crop.CropArea.Width, toWidth, width => crop.CropArea = new RectangleF(crop.CropArea.X, crop.CropArea.Y, width, crop.CropArea.Height), timeInSeconds, easing);
+        }
+
+        /// <summary>
+        /// Tweens the height of the crop area.
+        /// <example>
+        /// <code>
+        /// var tween = crop.TweenHeight(15f, 2f, Ease.CubeIn);
+        /// await tween.Task;
+        /// </code>
+        /// </example>
+        /// <seealso cref="Tween"/>
+        /// <seealso cref="ICropSelfComponent"/>
+        /// </summary>
+        /// <returns>The tween.</returns>
+        /// <param name="crop">Crop component.</param>
+        /// <param name="toHeight">To height.</param>
+        /// <param name="timeInSeconds">Time in seconds.</param>
+        /// <param name="easing">Easing function.</param>
+        public static Tween TweenHeight(this ICropSelfComponent crop, float toHeight, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return Tween.Run(crop.CropArea.Height, toHeight, height => crop.CropArea = new RectangleF(crop.CropArea.X, crop.CropArea.Y, crop.CropArea.Width, height), timeInSeconds, easing);
+        }
 	}
 }
 
