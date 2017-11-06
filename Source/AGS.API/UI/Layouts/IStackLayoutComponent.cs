@@ -62,5 +62,11 @@
         /// </summary>
         /// <value>The on layout changed event.</value>
         IEvent OnLayoutChanged { get; }
+
+        /// <summary>
+        /// Gets a list of entitiy IDs to ignore from the layout.
+        /// </summary>
+        /// <value>The entities to ignore.</value>
+        IConcurrentHashSet<string> EntitiesToIgnore { get; }
     }
 }

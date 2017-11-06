@@ -15,15 +15,19 @@ namespace AGS.Engine
         {
             _isPaused = true;
             OnLayoutChanged = new AGSEvent();
+            EntitiesToIgnore = new AGSConcurrentHashSet<string>();
             _direction = LayoutDirection.Vertical;
             _relativeSpacing = -1f; //a simple vertical layout top to bottom by default.
         }
 
-        public LayoutDirection Direction { get { return _direction; } set { _direction = value; adjustLayout(); } }
-        public float AbsoluteSpacing { get { return _absoluteSpacing; } set { _absoluteSpacing = value; adjustLayout(); } }
-        public float RelativeSpacing { get { return _relativeSpacing; } set { _relativeSpacing = value; adjustLayout(); } }
-        public float StartLocation { get { return _startLocation; } set { _startLocation = value; adjustLayout(); } }
+        public LayoutDirection Direction { get { return _direction; } set { if (_direction == value) return; _direction = value; adjustLayout(); } }
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+        public float AbsoluteSpacing { get { return _absoluteSpacing; } set { if (_absoluteSpacing == value) return; _absoluteSpacing = value; adjustLayout(); } }
+        public float RelativeSpacing { get { return _relativeSpacing; } set { if (_relativeSpacing == value) return; _relativeSpacing = value; adjustLayout(); } }
+        public float StartLocation { get { return _startLocation; } set { if (_startLocation == value) return; _startLocation = value; adjustLayout(); } }
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
         public IEvent OnLayoutChanged { get; private set; }
+        public IConcurrentHashSet<string> EntitiesToIgnore { get; private set; }
 
         public override void Init(IEntity entity)
         {
@@ -32,6 +36,7 @@ namespace AGS.Engine
             entity.Bind<IBoundingBoxWithChildrenComponent>(c => { _boundingBoxWithChildren = c; c.OnBoundingBoxWithChildrenChanged.Subscribe(onSizeChanged); adjustLayout(); }, 
                                                     c => { c.OnBoundingBoxWithChildrenChanged.Unsubscribe(onSizeChanged); _boundingBoxWithChildren = null; });
             entity.Bind<IInObjectTree>(c => { _tree = c; adjustLayout(); }, _ => _tree = null);
+            EntitiesToIgnore.OnListChanged.Subscribe(onEntitiesToIgnoreChanged);
         }
 
         public void StartLayout()
@@ -43,6 +48,11 @@ namespace AGS.Engine
         public void StopLayout()
         {
             _isPaused = true;
+        }
+
+        private void onEntitiesToIgnoreChanged(AGSHashSetChangedEventArgs<string> args)
+        {
+            adjustLayout();
         }
 
         private void onSizeChanged()
@@ -60,7 +70,7 @@ namespace AGS.Engine
 
             foreach (var child in tree.TreeNode.Children)
             {
-                if (!child.UnderlyingVisible) continue;
+                if (!child.UnderlyingVisible || EntitiesToIgnore.Contains(child.ID)) continue;
                 float step;
                 if (Direction == LayoutDirection.Vertical)
                 {
