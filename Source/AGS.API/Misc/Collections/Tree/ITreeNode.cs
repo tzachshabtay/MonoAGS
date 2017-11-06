@@ -65,6 +65,12 @@ namespace AGS.API
 		void AddChild(TItem child);
 
         /// <summary>
+        /// Adds the list of children to the node.
+        /// </summary>
+        /// <param name="children">Children.</param>
+        void AddChildren(List<TItem> children);
+
+        /// <summary>
         /// Removes the specified child from the node.
         /// </summary>
         /// <param name="child">Child.</param>
