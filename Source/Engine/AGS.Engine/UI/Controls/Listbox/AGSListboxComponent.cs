@@ -11,6 +11,7 @@ namespace AGS.Engine
         private List<IButton> _itemButtons;
         private IUIFactory _uiFactory;
         private int _selectedIndex;
+        private float _minHeight, _maxHeight;
         private IScaleComponent _scale;
         private IInObjectTree _tree;
         private IImageComponent _image;
@@ -25,6 +26,7 @@ namespace AGS.Engine
             _items = new AGSBindingList<IStringItem>(10);
             _items.OnListChanged.Subscribe(onListChanged);
             _selectedIndex = -1;
+            _maxHeight = float.MaxValue;
             OnSelectedItemChanged = new AGSEvent<ListboxItemArgs>();
         }
 
@@ -36,7 +38,7 @@ namespace AGS.Engine
             entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
             entity.Bind<IStackLayoutComponent>(c => 
             { 
-                c.RelativeSpacing = 1f; 
+                c.RelativeSpacing = -1f; 
                 c.OnLayoutChanged.Subscribe(onLayoutChanged); 
                 c.StartLayout();
                 _layout = c;
@@ -89,6 +91,32 @@ namespace AGS.Engine
             }
         }
 
+        public float MinHeight 
+        {
+            get { return _minHeight; }
+            set 
+            {
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+                if (_minHeight == value) return;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                _minHeight = value;
+                refreshItemsLayout();
+            }
+        }
+
+        public float MaxHeight
+        {
+            get { return _maxHeight; }
+            set
+            {
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+                if (_maxHeight == value) return;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                _maxHeight = value;
+                refreshItemsLayout();
+            }
+        }
+
         public IEvent<ListboxItemArgs> OnSelectedItemChanged { get; private set; }
 
         private void onListChanged(AGSListChangedEventArgs<IStringItem> args)
@@ -109,6 +137,7 @@ namespace AGS.Engine
             else
             {
                 var items = args.Items.OrderBy(i => i.Index);
+                var newButtons = new List<IObject>(10);
                 foreach (var item in items)
                 {
                     string buttonText = item.Item.Text;
@@ -116,8 +145,9 @@ namespace AGS.Engine
                     newButton.Text = buttonText;
                     newButton.MouseClicked.Subscribe(onItemClicked);
                     _itemButtons.Insert(item.Index, newButton);
-                    if (tree != null) tree.TreeNode.AddChild(newButton);
+                    newButtons.Add(newButton);
                 }
+                if (tree != null) tree.TreeNode.AddChildren(newButtons);
             }
             refreshItemsLayout();
         }
@@ -133,11 +163,14 @@ namespace AGS.Engine
             var scale = _scale;
             if (scale == null) return;
             scale.BaseSize = new SizeF(_itemButtons.Max(i => Math.Max(i.Width, i.TextWidth)),
-                                        _itemButtons.Sum(i => Math.Max(i.Height, i.TextHeight)));
+                                       MathUtils.Clamp(_itemButtons.Sum(i => Math.Max(i.Height, i.TextHeight)), _minHeight, _maxHeight));
+            _layout.StartLocation = scale.Height;
             var image = _image;
             if (image == null) return;
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
             if (_image.Image.Width != scale.BaseSize.Width ||
                 _image.Image.Height != scale.BaseSize.Height)
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
             {
                 _image.Image = new EmptyImage(scale.BaseSize.Width, scale.BaseSize.Height);
             }
