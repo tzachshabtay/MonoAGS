@@ -65,8 +65,8 @@ namespace AGS.Engine
                 new Vector2 (topQuadLeftX, square.TopLeft.Y), new Vector2 (topQuadRightX, square.TopRight.Y),
                 new Vector2 (topQuadLeftX, farTopLeftY), new Vector2 (topQuadRightX, farTopRightY));
 
-			float bottomQuadLeftX = HasRoundCorner.BottomLeft ? square.BottomLeft.X : farTopLeftX;
-			float bottomQuadRightX = HasRoundCorner.BottomRight ? square.BottomRight.X : farTopRightX;
+            float bottomQuadLeftX = HasRoundCorner.BottomLeft ? square.BottomLeft.X : farBottomLeftX;
+            float bottomQuadRightX = HasRoundCorner.BottomRight ? square.BottomRight.X : farBottomRightX;
             AGSBoundingBox bottomQuad = new AGSBoundingBox (
                 new Vector2 (bottomQuadLeftX, farBottomLeftY), new Vector2 (bottomQuadRightX, farBottomRightY),
                 new Vector2 (bottomQuadLeftX, square.BottomLeft.Y), new Vector2 (bottomQuadRightX, square.BottomRight.Y));
