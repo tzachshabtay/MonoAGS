@@ -75,12 +75,12 @@ namespace AGS.Engine
                 if (Direction == LayoutDirection.Vertical)
                 {
                     child.Y = location;
-                    step = child.AddComponent<IBoundingBoxWithChildrenComponent>().BoundingBoxWithChildren.Height;
+                    step = child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Height;
                 }
                 else
                 {
                     child.X = location;
-                    step = child.AddComponent<IBoundingBoxWithChildrenComponent>().BoundingBoxWithChildren.Width;
+                    step = child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Width;
                 }
                 location += step * RelativeSpacing + AbsoluteSpacing;
             }
