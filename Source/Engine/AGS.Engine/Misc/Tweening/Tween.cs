@@ -286,6 +286,7 @@ namespace AGS.Engine
 
 		private void visit()
 		{
+            if (State != TweenState.Playing) return;
             var repeat = RepeatInfo;
 			ElapsedTicks++;
 			if (ElapsedTicks >= DurationInTicks)
@@ -297,11 +298,11 @@ namespace AGS.Engine
                 }
                 else if (repeat.DelayBetweenLoopsInSeconds > 0f)
                 {
-                    Pause();
+                    _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
                     Task.Delay((int)(repeat.DelayBetweenLoopsInSeconds * 1000f)).ContinueWith(_ =>
                     {
                         ElapsedTicks = 0;
-                        Resume();
+                        _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
                     });
                 }
                 else
