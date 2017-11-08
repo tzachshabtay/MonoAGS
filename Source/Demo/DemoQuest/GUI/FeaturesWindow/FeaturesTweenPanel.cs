@@ -303,7 +303,7 @@ namespace DemoGame
 
                 _slider = factory.GetSlider(string.Format("FeaturesTweenSlider_{0}", tweenId), null, null, 0f, 0f, tween.DurationInTicks, _panel);
                 _slider.Location = new AGSLocation(20f, 10f);
-                _slider.HandleGraphics.Anchor = new PointF(0f, 0.5f);
+                _slider.HandleGraphics.Anchor = new PointF(0.5f, 0.5f);
                 _slider.Direction = SliderDirection.LeftToRight;
                 _slider.Graphics.Anchor = new PointF(0f, 0.5f);
                 _slider.Graphics.Image = new EmptyImage(_panel.Width - 100f, 10f);
