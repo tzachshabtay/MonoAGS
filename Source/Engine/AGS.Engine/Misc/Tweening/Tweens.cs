@@ -94,7 +94,7 @@ namespace AGS.Engine
         /// Tweens the opacity of the image.
         /// <example>
         /// <code>
-        /// var tween = obj.TweenAngle(0, 2f, Ease.Linear); //Fade out
+        /// var tween = obj.TweenOpacity(0, 2f, Ease.Linear); //Fade out
         /// await tween.Task;
         /// </code>
         /// </example>
@@ -110,6 +110,30 @@ namespace AGS.Engine
 		{
 			return Tween.Run(sprite.Opacity, (float)toOpacity, o => sprite.Opacity = (byte)o, timeInSeconds, easing);
 		}
+
+        /// <summary>
+        /// Fades in the object.
+        /// </summary>
+        /// <returns>The tween.</returns>
+        /// <param name="sprite">Sprite.</param>
+        /// <param name="timeInSeconds">Time in seconds.</param>
+        /// <param name="easing">Easing.</param>
+        public static Tween FadeIn(this IHasImage sprite, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return sprite.TweenOpacity(255, timeInSeconds, easing);
+        }
+
+        /// <summary>
+        /// Fades out the object.
+        /// </summary>
+        /// <returns>The out.</returns>
+        /// <param name="sprite">Sprite.</param>
+        /// <param name="timeInSeconds">Time in seconds.</param>
+        /// <param name="easing">Easing.</param>
+        public static Tween FadeOut(this IHasImage sprite, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return sprite.TweenOpacity(0, timeInSeconds, easing);
+        }
 
         /// <summary>
         /// Tweens the red tint of the image.

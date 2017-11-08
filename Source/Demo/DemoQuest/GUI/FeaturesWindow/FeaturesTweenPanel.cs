@@ -192,7 +192,7 @@ namespace DemoGame
             if (!_tweenCombobox.DropDownButton.Enabled)
             {
                 _tweenCombobox.DropDownButton.Enabled = true;
-                _tweenCombobox.TextBox.TweenOpacity(0, 0.5f);
+                _tweenCombobox.TextBox.FadeOut(0.25f);
             }
             else
             {
@@ -218,7 +218,7 @@ namespace DemoGame
                 hasSelection(_easeCombobox) && hasSelection(_repeatCombobox) && !_addTweenButton.Enabled)
             {
                 _addTweenButton.Enabled = true;
-                _addTweenButton.TweenOpacity(0, 0.5f);
+                _addTweenButton.FadeOut(0.25f);
             }
         }
 
