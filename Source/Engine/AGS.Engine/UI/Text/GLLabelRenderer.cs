@@ -129,6 +129,7 @@ namespace AGS.Engine
 		public void Render(IObject obj, IViewport viewport)
 		{
             if (!TextBackgroundVisible && !TextVisible) return;
+            if (!obj.Visible) return;
 
             PointF resolutionFactor; Size resolution;
             AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, obj,
