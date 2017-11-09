@@ -247,7 +247,7 @@ namespace AGS.Engine
             {
                 case AutoFit.NoFitting:
                     build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.X, BaseSize.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
-                    updateText(glText, buildRenderBox, GLText.EmptySize, textScaleUp, textScaleDown, int.MaxValue);
+                    updateText(glText, buildRenderBox, BaseSize, textScaleUp, textScaleDown, int.MaxValue);
                     build(_textBoundingBoxes, glText.BitmapWidth, glText.BitmapHeight, textMatrices, buildRenderBox, buildHitTestBox);
 
                     _usedLabelBoundingBoxes = _labelBoundingBoxes;
@@ -264,7 +264,7 @@ namespace AGS.Engine
 
                 case AutoFit.TextShouldFitLabel:
                     build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.X, BaseSize.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
-                    updateText(glText, buildRenderBox, glText.Width > BaseSize.Width ? GLText.EmptySize : new SizeF(BaseSize.Width, GLText.EmptySize.Height), textScaleUp, textScaleDown, int.MaxValue);
+                    updateText(glText, buildRenderBox, glText.Width > BaseSize.Width ? new SizeF(0f, BaseSize.Height) : BaseSize, textScaleUp, textScaleDown, int.MaxValue);
 
                     float textWidth = glText.Width < BaseSize.Width ? glText.BitmapWidth : MathUtils.Lerp(0f, 0f, glText.Width, BaseSize.Width, glText.BitmapWidth);
                     float textHeight = glText.Height < BaseSize.Height ? glText.BitmapHeight : MathUtils.Lerp(0f, 0f, glText.Height, BaseSize.Height, glText.BitmapHeight);
