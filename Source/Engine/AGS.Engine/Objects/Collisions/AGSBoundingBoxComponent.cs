@@ -105,10 +105,16 @@ namespace AGS.Engine
                 intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, modelMatrix);
             }
 
-            PointF scale;
-            var renderBox = _boundingBoxBuilder.BuildRenderBox(intermediateBox, viewportMatrix, out scale);
+            PointF renderCropScale;
+            var renderBox = _boundingBoxBuilder.BuildRenderBox(intermediateBox, viewportMatrix, out renderCropScale);
 
-			var cropInfo = renderBox.Crop(BoundingBoxType.Render, crop, scale);
+            PointF hitTestCropScale = renderCropScale;
+            if (MathUtils.FloatEquals(hitTestCropScale.X, 1f) && MathUtils.FloatEquals(hitTestCropScale.Y, 1f))
+            {
+                hitTestCropScale = new PointF(_hitTestBox.Width / renderBox.Width, _hitTestBox.Height / renderBox.Height);
+            }
+
+            var cropInfo = renderBox.Crop(BoundingBoxType.Render, crop, renderCropScale);
 			boundingBoxes.PreCropRenderBox = renderBox;
 			renderBox = cropInfo.BoundingBox;
             boundingBoxes.RenderBox = renderBox;
@@ -134,7 +140,7 @@ namespace AGS.Engine
             }
             else
             {
-                hitTestBox = hitTestBox.Crop(BoundingBoxType.HitTest, crop, scale).BoundingBox;
+                hitTestBox = hitTestBox.Crop(BoundingBoxType.HitTest, crop, hitTestCropScale).BoundingBox;
                 boundingBoxes.HitTestBox = hitTestBox;
             }
             _isCropDirty = false;

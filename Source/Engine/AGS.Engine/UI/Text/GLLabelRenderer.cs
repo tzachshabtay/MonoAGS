@@ -138,10 +138,8 @@ namespace AGS.Engine
 			PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
             if (!resolutionFactor.Equals(textScaleFactor))
             {
-                _labelBoundingBoxFakeBuilder.CropScale = AGSModelMatrixComponent.NoScaling;
                 resolutionFactor = AGSModelMatrixComponent.NoScaling;
             }
-            else _labelBoundingBoxFakeBuilder.CropScale = AGSModelMatrixComponent.NoScaling;
 
             if (TextBackgroundVisible)
             {
@@ -335,7 +333,6 @@ namespace AGS.Engine
                 OnNewBoxBuildRequired = new AGSEvent();
             }
 
-            public PointF CropScale { private get; set; }
             public AGSBoundingBoxes BoundingBoxes { private get { return _boundingBoxes; } 
                 set
                 {
@@ -363,7 +360,7 @@ namespace AGS.Engine
 
 			public AGSBoundingBox BuildRenderBox(AGSBoundingBox intermediateBox, Matrix4 viewportMatrix, out PointF scale)
             {
-                scale = CropScale;
+                scale = AGSModelMatrixComponent.NoScaling;
                 if (BoundingBoxes != null) return BoundingBoxes.RenderBox;
 				return default(AGSBoundingBox);
             }
