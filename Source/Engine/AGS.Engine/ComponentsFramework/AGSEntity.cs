@@ -11,7 +11,7 @@ namespace AGS.Engine
     public abstract class AGSEntity : IEntity
     {
         private ConcurrentDictionary<Type, IComponent> _components;
-        private List<IComponentBinding> _bindings;
+        private AGSConcurrentHashSet<IComponentBinding> _bindings;
         private Resolver _resolver;
         private bool _componentsInitialized;
 
@@ -20,7 +20,7 @@ namespace AGS.Engine
             ID = id;
             _resolver = resolver;
             _components = new ConcurrentDictionary<Type, IComponent>();
-            _bindings = new List<IComponentBinding>();
+            _bindings = new AGSConcurrentHashSet<IComponentBinding>();
             OnComponentsInitialized = new AGSEvent();
             OnComponentsChanged = new AGSEvent<AGSListChangedEventArgs<IComponent>>();
         }
