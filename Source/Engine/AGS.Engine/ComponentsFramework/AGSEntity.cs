@@ -10,7 +10,8 @@ namespace AGS.Engine
 {
     public abstract class AGSEntity : IEntity
     {
-        private ConcurrentDictionary<Type, IComponent> _components;
+        //storing the components as lazy values to avoid having the component binding kick in more than once, see here: https://andrewlock.net/making-getoradd-on-concurrentdictionary-thread-safe-using-lazy/ 
+        private ConcurrentDictionary<Type, Lazy<IComponent>> _components;
         private AGSConcurrentHashSet<IComponentBinding> _bindings;
         private Resolver _resolver;
         private bool _componentsInitialized;
@@ -19,7 +20,7 @@ namespace AGS.Engine
         {
             ID = id;
             _resolver = resolver;
-            _components = new ConcurrentDictionary<Type, IComponent>();
+            _components = new ConcurrentDictionary<Type, Lazy<IComponent>>();
             _bindings = new AGSConcurrentHashSet<IComponentBinding>();
             OnComponentsInitialized = new AGSEvent();
             OnComponentsChanged = new AGSEvent<AGSListChangedEventArgs<IComponent>>();
@@ -55,12 +56,12 @@ namespace AGS.Engine
         {
             var components = _components;
             if (components == null) return default(IComponent);
-            return components.GetOrAdd(componentType, _ =>
+            return components.GetOrAdd(componentType, _ => new Lazy<IComponent>(() =>
             {
                 IComponent component = (IComponent)_resolver.Container.Resolve(componentType);
                 initComponentIfNeeded(component);
                 return component;
-            });
+            })).Value;
         }
 
         public bool AddComponent<TComponent>(IComponent component) where TComponent : IComponent
@@ -68,12 +69,12 @@ namespace AGS.Engine
 			var components = _components;
             if (components == null) return false;
             bool addedComponent = false;
-            components.GetOrAdd(typeof(TComponent), _ =>
+            var _ = components.GetOrAdd(typeof(TComponent), __ => new Lazy<IComponent>(() =>
             {
                 addedComponent = true;
                 initComponentIfNeeded(component);
                 return component;
-            });
+            })).Value;
             return addedComponent;
         }
 
@@ -87,12 +88,12 @@ namespace AGS.Engine
 			var components = _components;
             if (components == null) return false;
             int count = Count;
-            IComponent component;
+            Lazy<IComponent> component;
             if (!components.TryRemove(componentType, out component)) return false;
 
-            component.Dispose();
+            component.Value.Dispose();
 			OnComponentsChanged.Invoke(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove,
-																  new AGSListItem<IComponent>(component, count--)));
+																  new AGSListItem<IComponent>(component.Value, count--)));
             
             return true;
         }
@@ -101,8 +102,8 @@ namespace AGS.Engine
         {
 			var components = _components;
 			if (components == null) return false;
-            IComponent existing;
-            if (!components.TryGetValue(component.GetType(), out existing) || existing != component) return false;
+            Lazy<IComponent> existing;
+            if (!components.TryGetValue(component.GetType(), out existing) || existing.Value != component) return false;
             return RemoveComponent(component.GetType());
         }
 
@@ -122,8 +123,8 @@ namespace AGS.Engine
         {
 			var components = _components;
 			if (components == null) return false;
-            IComponent existing;
-            return components.TryGetValue(component.GetType(), out existing) && existing == component;
+            Lazy<IComponent> existing;
+            return components.TryGetValue(component.GetType(), out existing) && existing.Value == component;
         }
 
         public TComponent GetComponent<TComponent>() where TComponent : IComponent
@@ -135,9 +136,9 @@ namespace AGS.Engine
         {
 			var components = _components;
             if (components == null) return default(IComponent);
-            IComponent component;
+            Lazy<IComponent> component;
             if (!components.TryGetValue(componentType, out component)) return null;
-            return component;
+            return component.Value;
         }
 
         public IComponentBinding Bind<TComponent>(Action<TComponent> onAdded, Action<TComponent> onRemoved) where TComponent : IComponent
@@ -173,7 +174,7 @@ namespace AGS.Engine
         {
 			var components = _components;
 			if (components == null) return new List<IComponent>().GetEnumerator();
-            return components.Values.GetEnumerator();
+            return components.Values.Select(c => c.Value).GetEnumerator();
         }
 
         #endregion
@@ -210,7 +211,7 @@ namespace AGS.Engine
             if (components == null) return;
             foreach (var component in components.Values)
             {
-                component.Dispose();
+                component.Value.Dispose();
             }
             _components = null;
 

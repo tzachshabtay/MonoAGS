@@ -75,6 +75,7 @@
     <Compile Include="Engine\Audio\ClassicSpeechCacheTests.cs" />
     <Compile Include="Engine\ComponentsFramework\ComponentBindingTests.cs" />
     <Compile Include="Engine\Misc\Collection\TreeNodeTests.cs" />
+    <Compile Include="Engine\ComponentsFramework\EntityTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
