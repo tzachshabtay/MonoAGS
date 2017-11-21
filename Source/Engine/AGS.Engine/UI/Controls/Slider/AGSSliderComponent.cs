@@ -95,9 +95,7 @@ namespace AGS.Engine
             }
             set
             {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (_minValue == value) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                if (MathUtils.FloatEquals(_minValue, value)) return;
                 _minValue = value;
                 refresh();
             }
@@ -111,9 +109,7 @@ namespace AGS.Engine
             }
             set
             {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (_maxValue == value) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                if (MathUtils.FloatEquals(_maxValue, value)) return;
                 _maxValue = value;
                 refresh();
             }
@@ -276,9 +272,7 @@ namespace AGS.Engine
             var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
             if (boundingBoxes == null || HandleGraphics == null) return;
 
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (MinValue == MaxValue) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (MathUtils.FloatEquals(MinValue, MaxValue)) return;
 
             var handlePos = getHandlePos(Value, scale);
             if (isHorizontal()) HandleGraphics.X = MathUtils.Clamp(handlePos, 0f, boundingBoxes.RenderBox.Width);
@@ -312,9 +306,7 @@ namespace AGS.Engine
 
 		private bool setValue(float value)
 		{
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (_value == value || value < MinValue || value > MaxValue) return false;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (MathUtils.FloatEquals(_value, value) || value < MinValue || value > MaxValue) return false;
             _value = value;
             OnValueChanging.Invoke(new SliderValueEventArgs(_value));
 			refresh();

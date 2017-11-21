@@ -96,9 +96,7 @@ namespace AGS.Engine
             get { return _minHeight; }
             set 
             {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (_minHeight == value) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                if (MathUtils.FloatEquals(_minHeight, value)) return;
                 _minHeight = value;
                 refreshItemsLayout();
             }
@@ -109,9 +107,7 @@ namespace AGS.Engine
             get { return _maxHeight; }
             set
             {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (_maxHeight == value) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                if (MathUtils.FloatEquals(_maxHeight, value)) return;
                 _maxHeight = value;
                 refreshItemsLayout();
             }
@@ -171,10 +167,8 @@ namespace AGS.Engine
             _layout.StartLocation = scale.Height;
             var image = _image;
             if (image == null) return;
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (_image.Image.Width != scale.BaseSize.Width ||
-                _image.Image.Height != scale.BaseSize.Height)
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (!MathUtils.FloatEquals(_image.Image.Width, scale.BaseSize.Width) ||
+                !MathUtils.FloatEquals(_image.Image.Height, scale.BaseSize.Height))
             {
                 _image.Image = new EmptyImage(scale.BaseSize.Width, scale.BaseSize.Height);
             }

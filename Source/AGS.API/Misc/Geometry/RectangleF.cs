@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System;
+
+namespace AGS.API
 {
 	/// <summary>
 	/// Represents a rectangle in 2D space.
@@ -65,6 +67,25 @@
         public string ToInspectorString()
         {
             return string.Format("{0:0.##},{1:0.##},{2:0.##},{3:0.##}", X, Y, Width, Height);
+        }
+
+        public override bool Equals(Object obj)
+        {
+            RectangleF? other = obj as RectangleF?;
+            if (other == null) return false;
+
+            return Equals(other.Value);
+        }
+
+        public bool Equals(RectangleF other)
+        {
+            return MathUtils.FloatEquals(X, other.X) && MathUtils.FloatEquals(Y, other.Y) &&
+                   MathUtils.FloatEquals(Width, other.Width) && MathUtils.FloatEquals(Height, other.Height);
+        }
+
+        public override int GetHashCode()
+        {
+            return (((int)X).GetHashCode() * 397) ^ ((int)Y).GetHashCode();
         }
 	}
 }

@@ -25,11 +25,9 @@ namespace AGS.Engine
         }
 
         public LayoutDirection Direction { get { return _direction; } set { if (_direction == value) return; _direction = value; adjustLayout(); } }
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-        public float AbsoluteSpacing { get { return _absoluteSpacing; } set { if (_absoluteSpacing == value) return; _absoluteSpacing = value; adjustLayout(); } }
-        public float RelativeSpacing { get { return _relativeSpacing; } set { if (_relativeSpacing == value) return; _relativeSpacing = value; adjustLayout(); } }
-        public float StartLocation { get { return _startLocation; } set { if (_startLocation == value) return; _startLocation = value; adjustLayout(); } }
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+        public float AbsoluteSpacing { get { return _absoluteSpacing; } set { if (MathUtils.FloatEquals(_absoluteSpacing, value)) return; _absoluteSpacing = value; adjustLayout(); } }
+        public float RelativeSpacing { get { return _relativeSpacing; } set { if (MathUtils.FloatEquals(_relativeSpacing, value)) return; _relativeSpacing = value; adjustLayout(); } }
+        public float StartLocation { get { return _startLocation; } set { if (MathUtils.FloatEquals(_startLocation, value)) return; _startLocation = value; adjustLayout(); } }
         public IEvent OnLayoutChanged { get; private set; }
         public IConcurrentHashSet<string> EntitiesToIgnore { get; private set; }
 

@@ -26,9 +26,7 @@ namespace AGS.Engine
             get { return _value; }
             set
             {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (_value == value || !validateValue(value)) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                if (MathUtils.FloatEquals(_value, value) || !validateValue(value)) return;
                 _value = value;
                 refreshValue();
             }

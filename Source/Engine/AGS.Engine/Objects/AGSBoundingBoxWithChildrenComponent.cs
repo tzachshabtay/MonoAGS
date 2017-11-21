@@ -195,9 +195,7 @@ namespace AGS.Engine
                     if (maxY < childBox.MaxY) maxY = childBox.MaxY;
                 }
             }
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (minX == float.MaxValue) return default(AGSBoundingBox);
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (MathUtils.FloatEquals(minX, float.MaxValue)) return default(AGSBoundingBox);
             return new AGSBoundingBox(minX, maxX, minY, maxY);
         }
     }

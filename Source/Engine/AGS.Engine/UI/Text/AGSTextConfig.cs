@@ -104,14 +104,12 @@ namespace AGS.Engine
         {
             if (config == null) return false;
             if (config == this) return true;
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
             return Brush == config.Brush && Font == config.Font && Alignment == config.Alignment
-                  && OutlineBrush == config.OutlineBrush && OutlineWidth == config.OutlineWidth
-                  && ShadowBrush == config.ShadowBrush && ShadowOffsetX == config.ShadowOffsetX
-                  && ShadowOffsetY == config.ShadowOffsetY && AutoFit == config.AutoFit
-                  && PaddingLeft == config.PaddingLeft && PaddingTop == config.PaddingTop
-                  && PaddingRight == config.PaddingRight && PaddingBottom == config.PaddingBottom;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                  && OutlineBrush == config.OutlineBrush && MathUtils.FloatEquals(OutlineWidth, config.OutlineWidth)
+                  && ShadowBrush == config.ShadowBrush && MathUtils.FloatEquals(ShadowOffsetX, config.ShadowOffsetX)
+                  && MathUtils.FloatEquals(ShadowOffsetY, config.ShadowOffsetY) && AutoFit == config.AutoFit
+                  && MathUtils.FloatEquals(PaddingLeft, config.PaddingLeft) && MathUtils.FloatEquals(PaddingTop, config.PaddingTop)
+                  && MathUtils.FloatEquals(PaddingRight, config.PaddingRight) && MathUtils.FloatEquals(PaddingBottom, config.PaddingBottom);
         }
 
         public override int GetHashCode()
