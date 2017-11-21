@@ -27,5 +27,17 @@
         /// </summary>
         /// <value>The on bounding box with children changed.</value>
         IEvent OnBoundingBoxWithChildrenChanged { get; }
+
+        /// <summary>
+        /// Allows excluding entities from the bounding box calculation.
+        /// </summary>
+        /// <value>The entities to skip.</value>
+        IConcurrentHashSet<string> EntitiesToSkip { get; }
+
+        /// <summary>
+        /// Allows locking the component from changing (to allow for changing multiple components "at once").
+        /// </summary>
+        /// <value>The lock step.</value>
+        ILockStep LockStep { get; }
     }
 }

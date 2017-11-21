@@ -1,4 +1,7 @@
-﻿using AGS.API;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -10,6 +13,7 @@ namespace AGS.Engine
         private LayoutDirection _direction;
         private bool _isPaused;
         private IEntity _entity;
+        private int _pendingLayouts;
 
         public AGSStackLayoutComponent()
         {
@@ -63,30 +67,55 @@ namespace AGS.Engine
         private void adjustLayout()
         {
             if (_isPaused) return;
-            float location = StartLocation;
 
             var tree = _tree;
             if (tree == null) return;
 
-            foreach (var child in tree.TreeNode.Children)
+            int pendingLayouts = Interlocked.Increment(ref _pendingLayouts);
+            if (pendingLayouts > 1)
             {
-                if (!child.UnderlyingVisible || EntitiesToIgnore.Contains(child.ID)) continue;
-                float step;
-                if (Direction == LayoutDirection.Vertical)
+                return;
+            }
+
+            adjustLayout(tree);
+        }
+
+        private void adjustLayout(IInObjectTree tree)
+        {
+            try
+            {
+                float location = StartLocation;
+                var lockStep = new TreeLockStep(tree, obj => obj.UnderlyingVisible && !EntitiesToIgnore.Contains(obj.ID));
+                lockStep.Lock();
+                foreach (var child in tree.TreeNode.Children)
                 {
-                    child.Y = location;
-                    step = child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Height;
+                    if (!child.UnderlyingVisible || EntitiesToIgnore.Contains(child.ID)) continue;
+                    float step;
+                    if (Direction == LayoutDirection.Vertical)
+                    {
+                        child.Y = location;
+                        step = child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Height;
+                    }
+                    else
+                    {
+                        child.X = location;
+                        step = child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Width;
+                    }
+                    location += step * RelativeSpacing + AbsoluteSpacing;
+                }
+                lockStep.Unlock();
+            }
+            finally
+            {
+                if (Interlocked.Exchange(ref _pendingLayouts, 0) <= 1)
+                {
+                    OnLayoutChanged.Invoke();
                 }
                 else
                 {
-                    child.X = location;
-                    step = child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Width;
+                    adjustLayout(tree);
                 }
-                location += step * RelativeSpacing + AbsoluteSpacing;
             }
-            OnLayoutChanged.Invoke();
         }
-
-
 	}
 }

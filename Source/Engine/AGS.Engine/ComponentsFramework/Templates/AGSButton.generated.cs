@@ -597,6 +597,11 @@ namespace AGS.Engine
             return _modelMatrixComponent.GetModelMatrices();
         }
 
+        public ILockStep ModelMatrixLockStep 
+        {
+            get { return _modelMatrixComponent.ModelMatrixLockStep; }
+        }
+
         #endregion
 
         #region IBoundingBoxComponent implementation
@@ -610,6 +615,11 @@ namespace AGS.Engine
 		{
 			return _boundingBoxComponent.GetBoundingBoxes(viewport);
 		}
+
+        public ILockStep BoundingBoxLockStep
+        {
+            get { return _boundingBoxComponent.BoundingBoxLockStep; }
+        }
 
         #endregion
 

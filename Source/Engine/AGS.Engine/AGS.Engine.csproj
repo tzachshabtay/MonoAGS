@@ -434,6 +434,7 @@
     <Compile Include="ComponentsFramework\AGSEmptyEntity.cs" />
     <Compile Include="UI\DebugControls\DebugView\Inspector\IInspectorComponent.cs" />
     <Compile Include="Misc\Tweening\TweenRepeatInfo.cs" />
+    <Compile Include="UI\Controls\Panel\TreeLockStep.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
