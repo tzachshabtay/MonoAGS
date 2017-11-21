@@ -125,28 +125,32 @@ namespace AGS.Engine
             if (args.ChangeType == ListChangeType.Remove)
             {
                 var items = args.Items.OrderByDescending(i => i.Index);
+                var buttons = new List<IButton>(_itemButtons);
                 foreach (var item in items)
                 {
                     var button = _itemButtons[item.Index];
                     button.MouseClicked.Unsubscribe(onItemClicked);
                     if (tree != null) tree.TreeNode.RemoveChild(button);
                     _state.UI.Remove(button);
-                    _itemButtons.RemoveAt(item.Index);
+                    buttons.RemoveAt(item.Index);
                 }
+                _itemButtons = buttons;
             }
             else
             {
                 var items = args.Items.OrderBy(i => i.Index);
                 var newButtons = new List<IObject>(10);
+                var buttons = new List<IButton>(_itemButtons);
                 foreach (var item in items)
                 {
                     string buttonText = item.Item.Text;
                     var newButton = ItemButtonFactory(buttonText);
                     newButton.Text = buttonText;
                     newButton.MouseClicked.Subscribe(onItemClicked);
-                    _itemButtons.Insert(item.Index, newButton);
+                    buttons.Insert(item.Index, newButton);
                     newButtons.Add(newButton);
                 }
+                _itemButtons = buttons;
                 if (tree != null) tree.TreeNode.AddChildren(newButtons);
             }
             refreshItemsLayout();
