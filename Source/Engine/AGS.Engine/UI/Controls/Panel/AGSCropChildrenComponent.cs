@@ -16,12 +16,12 @@ namespace AGS.Engine
         {
             _state = state;
             EntitiesToSkipCrop = new AGSConcurrentHashSet<string>();
-            EntitiesToSkipCrop.OnListChanged.Subscribe(_ => rebuildTree(_tree));
+            EntitiesToSkipCrop.OnListChanged.Subscribe(_ => rebuildEntireTree());
         }
 
         public bool CropChildrenEnabled { get; set; }
 
-        public PointF StartPoint { get { return _startPoint; } set { _startPoint = value; rebuildTree(_tree); } }
+        public PointF StartPoint { get { return _startPoint; } set { if (_startPoint.Equals(value)) return; _startPoint = value; rebuildJump(_tree); rebuildEntireTree(); } }
 
         public IConcurrentHashSet<string> EntitiesToSkipCrop { get; private set; }
 
@@ -30,7 +30,7 @@ namespace AGS.Engine
             base.Init(entity);
             entity.Bind<IBoundingBoxComponent>(c => { _boundingBox = c; }, _ => { _boundingBox = null; });
             entity.Bind<IInObjectTree>(c => { subscribeTree(c); _tree = c; }, c => { unsubscribeTree(c); _tree = null; });
-            entity.Bind<IScaleComponent>(c => { c.OnScaleChanged.Subscribe(onTreeChanged); _scale = c; rebuildTree(_tree); },
+            entity.Bind<IScaleComponent>(c => { c.OnScaleChanged.Subscribe(onTreeChanged); _scale = c; rebuildEntireTree(); },
                                          c => { c.OnScaleChanged.Unsubscribe(onTreeChanged); _scale = null; });
         }
 
@@ -59,13 +59,19 @@ namespace AGS.Engine
         private void subscribeObject(IObject obj)
         {
             obj.OnLocationChanged.Subscribe(onTreeChanged);
-            obj.OnUnderlyingVisibleChanged.Subscribe(onTreeChanged);
+            obj.OnVisibleChanged.Subscribe(onVisibleChanged);
         }
 
         private void unsubscribeObject(IObject obj)
         {
             obj.OnLocationChanged.Unsubscribe(onTreeChanged);
-            obj.OnUnderlyingVisibleChanged.Unsubscribe(onTreeChanged);
+            obj.OnVisibleChanged.Unsubscribe(onVisibleChanged);
+        }
+
+        private void onVisibleChanged()
+        {
+            rebuildJump(_tree);
+            onTreeChanged();
         }
 
         private void onTreeChanged(AGSListChangedEventArgs<IObject> args)
@@ -73,25 +79,30 @@ namespace AGS.Engine
             if (args.ChangeType == ListChangeType.Add)
             {
                 foreach (var item in args.Items) subscribeTree(item.Item);
+                rebuildJump(_tree);
             }
             else
             {
                 foreach (var item in args.Items) unsubscribeTree(item.Item);
             }
-            rebuildTree(_tree);
+            rebuildEntireTree();
             _isDirty = true;
         }
 
         private void onTreeChanged()
         {
-            rebuildTree(_tree);
+            rebuildEntireTree();
             _isDirty = true;
         }
 
-        private void rebuildTree(IInObjectTree tree, bool shouldRebuildJump = true)
+        private void rebuildEntireTree()
+        {
+            rebuildTree(_tree);
+        }
+
+        private void rebuildTree(IInObjectTree tree)
         {
             if (tree == null) return;
-            if (shouldRebuildJump) rebuildJump(tree);
             foreach (var child in tree.TreeNode.Children)
             {
                 if (!child.Visible) continue;
@@ -101,7 +112,7 @@ namespace AGS.Engine
                     continue;
                 }
                 prepareCrop(child);
-                rebuildTree(child, false);
+                rebuildTree(child);
             }
         }
 
@@ -116,9 +127,10 @@ namespace AGS.Engine
 
         private void rebuildJump(IInObjectTree tree)
         {
-			foreach (var child in tree.TreeNode.Children)
+            if (tree == null) return;
+            foreach (var child in tree.TreeNode.Children)
 			{
-				if (!child.Visible || EntitiesToSkipCrop.Contains(child.ID)) continue;
+                if (!child.Visible || EntitiesToSkipCrop.Contains(child.ID)) continue;
 				var jump = child.AddComponent<IJumpOffsetComponent>();
 				jump.JumpOffset = new PointF(-StartPoint.X, -StartPoint.Y);
 			}
@@ -196,13 +208,6 @@ namespace AGS.Engine
 				float height = Math.Min(maxYParent, maxYChild) - Math.Max(minYParent, minYChild);
 				if (width < 0) width = 0f;
 				if (height < 0) height = 0f;
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (_crop.CropArea.X == left && _crop.CropArea.Y == bottom && _crop.CropArea.Width == width
-                    && _crop.CropArea.Height == height)
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
-				{
-                    return;
-                }
 				_crop.CropArea = new RectangleF(left, bottom, width, height);
             }
         }
