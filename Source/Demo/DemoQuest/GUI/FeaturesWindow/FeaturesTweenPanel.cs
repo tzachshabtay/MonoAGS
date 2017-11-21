@@ -121,14 +121,15 @@ namespace DemoGame
             _addTweenButton.Enabled = false;
             _addTweenButton.Opacity = 100;
             _clearTweensButton = addButton("FeaturesTweenClearAll", "Clear All", _addTweenButton.X, 20f, clearTweens);
-            _tweensListPanel = _game.Factory.UI.GetPanel("FeaturesTweenListPanel", 300f, 300f, 0f, _parent.Height - 250f, parent, false);
+            _tweensListPanel = _game.Factory.UI.GetPanel("FeaturesTweenListPanel", 600f, 250f, 0f, _parent.Height - 200f, parent, false);
             _tweensListPanel.Tint = Colors.Transparent;
             _tweensListPanel.Anchor = new PointF(0f, 1f);
             _tweensListPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
+            _game.Factory.UI.CreateScrollingPanel(_tweensListPanel);
             var layout = _tweensListPanel.AddComponent<IStackLayoutComponent>();
             layout.Direction = LayoutDirection.Vertical;
             layout.AbsoluteSpacing = -10f;
-            layout.StartLocation = 300f;
+            layout.StartLocation = _tweensListPanel.Height - 20f;
             layout.StartLayout();
         }
 
@@ -298,11 +299,14 @@ namespace DemoGame
                 _tween = tween;
                 var factory = game.Factory.UI;
                 var tweenId = ++id;
-                _panel = factory.GetPanel(string.Format("FeaturesTweenPanel_{0}", tweenId), 300f, 20f, 0f, 0f, parent);
+                _panel = factory.GetPanel(string.Format("FeaturesTweenPanel_{0}", tweenId), 300f, 20f, 0f, 0f, null, false);
+                _panel.Visible = false;
+                _panel.RenderLayer = parent.RenderLayer;
                 _panel.Tint = Colors.Transparent;
+                _panel.Anchor = new PointF(0f, 1f);
 
                 _slider = factory.GetSlider(string.Format("FeaturesTweenSlider_{0}", tweenId), null, null, 0f, 0f, tween.DurationInTicks, _panel);
-                _slider.Location = new AGSLocation(20f, 10f);
+                _slider.Location = new AGSLocation(10f, 10f);
                 _slider.HandleGraphics.Anchor = new PointF(0.5f, 0.5f);
                 _slider.Direction = SliderDirection.LeftToRight;
                 _slider.Graphics.Anchor = new PointF(0f, 0.5f);
@@ -324,13 +328,18 @@ namespace DemoGame
                 var hovered = new ButtonAnimation(AGSBorders.SolidColor(Colors.Goldenrod, 2f), hoverConfig, Colors.Yellow);
                 var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.AliceBlue, 4f), idleConfig, Colors.Transparent);
 
-                _rewindButton = factory.GetButton(string.Format("FeaturesTweenRewindButton_{0}", tweenId), idle, hovered, pushed, 270f, 0f, _panel, "Rewind", width: 100f, height: 30f);
-                _playPauseButton = factory.GetButton(string.Format("FeaturesTweenPlayPauseButton_{0}", tweenId), idle, hovered, pushed, 380f, 0f, _panel, "Pause", width: 100f, height: 30f);
-                _stopButton = factory.GetButton(string.Format("FeaturesTweenStopButton_{0}", tweenId), idle, hovered, pushed, 490f, 0f, _panel, "Stop", width: 100f, height: 30f);
+                _rewindButton = factory.GetButton(string.Format("FeaturesTweenRewindButton_{0}", tweenId), idle, hovered, pushed, 235f, 0f, _panel, "Rewind", width: 100f, height: 30f);
+                _playPauseButton = factory.GetButton(string.Format("FeaturesTweenPlayPauseButton_{0}", tweenId), idle, hovered, pushed, 345f, 0f, _panel, "Pause", width: 100f, height: 30f);
+                _stopButton = factory.GetButton(string.Format("FeaturesTweenStopButton_{0}", tweenId), idle, hovered, pushed, 455f, 0f, _panel, "Stop", width: 100f, height: 30f);
                 _stopButton.MouseClicked.Subscribe(_ => Stop());
                 _rewindButton.MouseClicked.Subscribe(_ => _tween.Rewind());
                 _playPauseButton.MouseClicked.Subscribe(onPlayPauseClick);
                 _slider.OnValueChanging.Subscribe(onSliderValueChanging);
+
+                _panel.TreeNode.SetParent(parent.TreeNode);
+                game.State.UI.Add(_panel);
+                _panel.Visible = true;
+
                 game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
             }
 

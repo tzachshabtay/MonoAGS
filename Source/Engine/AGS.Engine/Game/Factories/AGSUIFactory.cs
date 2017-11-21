@@ -57,7 +57,7 @@ namespace AGS.Engine
         public void CreateScrollingPanel(IPanel panel)
         {
 			panel.AddComponent<ICropChildrenComponent>();
-			panel.AddComponent<IBoundingBoxWithChildrenComponent>();
+			var box = panel.AddComponent<IBoundingBoxWithChildrenComponent>();
 			IScrollingComponent scroll = panel.AddComponent<IScrollingComponent>();
 
             var horizSlider = GetSlider(string.Format("{0}_HorizontalSlider", panel.ID), null, null, 0f, 0f, 0f, panel);
@@ -76,7 +76,10 @@ namespace AGS.Engine
 			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
 			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
 			HoverEffect.Add(verSlider.Graphics, Colors.Gray, Colors.LightGray);
-			HoverEffect.Add(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
+            HoverEffect.Add(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
+
+            box.EntitiesToSkip.AddRange(new List<string>{ horizSlider.ID, horizSlider.HandleGraphics.ID, horizSlider.Graphics.ID,
+                verSlider.ID, verSlider.HandleGraphics.ID, verSlider.Graphics.ID});
 
             Action resize = () =>
             {
