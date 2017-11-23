@@ -57,7 +57,6 @@ namespace AGS.Engine
             this._maxWidth = maxWidth;
             this._text = text;
             this._bitmapPool = pool;
-            _texture = createTexture();
             _config = new AGSTextConfig();
 
             prepareBitmapDraw();
@@ -236,6 +235,7 @@ namespace AGS.Engine
 
         private void uploadBitmapToOpenGl()
         {
+            _texture = createTexture();
             IBitmap bitmap = _bitmapPool.Acquire(_draw.BitmapWidth, _draw.BitmapHeight);
             try
             {
