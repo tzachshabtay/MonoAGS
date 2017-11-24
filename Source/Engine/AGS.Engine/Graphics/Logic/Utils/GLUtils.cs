@@ -16,11 +16,11 @@ namespace AGS.Engine
         private int _vbo, _ebo;
 
         private readonly IGraphicsBackend _graphics;
-        private readonly IMessagePump _messagePump;
+        private readonly IRenderMessagePump _messagePump;
         private readonly GLVertex[] _quad, _line;
         private readonly IGameState _state;
 
-        public GLUtils(IGraphicsBackend graphics, IMessagePump messagePump, IGameState state)
+        public GLUtils(IGraphicsBackend graphics, IRenderMessagePump messagePump, IGameState state)
         {
             _state = state;
             _graphics = graphics;

@@ -11,12 +11,12 @@ namespace AGS.Engine
         private readonly Action<IImage, AGSAnimation> _addAnimationFrame;
         private readonly Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, IImage> _loadImage;
         private readonly IGraphicsBackend _graphics;
-        private readonly IMessagePump _messagePump;
+        private readonly IRenderMessagePump _messagePump;
 
 		public SpriteSheetLoader (IResourceLoader resources, IBitmapLoader bitmapLoader, 
                                   Action<IImage, AGSAnimation> addAnimationFrame,
                                   Func<ITexture, IBitmap, string, ILoadImageConfig, ISpriteSheet, IImage> loadImage,
-                                  IGraphicsBackend graphics, IMessagePump messagePump)
+                                  IGraphicsBackend graphics, IRenderMessagePump messagePump)
 		{
             _graphics = graphics;
             _messagePump = messagePump;

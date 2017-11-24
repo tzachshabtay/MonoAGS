@@ -372,7 +372,7 @@
     <Compile Include="Game\Factories\AGSFontFactory.cs" />
     <Compile Include="Platform\IDevice.cs" />
     <Compile Include="Platform\IAssemblies.cs" />
-    <Compile Include="Game\IUIThread.cs" />
+    <Compile Include="Game\IThreadInvoke.cs" />
     <Compile Include="UI\Focus\IModalWindows.cs" />
     <Compile Include="UI\Focus\AGSFocusedUI.cs" />
     <Compile Include="UI\Focus\AGSModalWindowComponent.cs" />
@@ -435,6 +435,7 @@
     <Compile Include="UI\DebugControls\DebugView\Inspector\IInspectorComponent.cs" />
     <Compile Include="Misc\Tweening\TweenRepeatInfo.cs" />
     <Compile Include="UI\Controls\Panel\TreeLockStep.cs" />
+    <Compile Include="Game\AGSUpdateThread.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

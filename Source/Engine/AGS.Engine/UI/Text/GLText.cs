@@ -19,7 +19,7 @@ namespace AGS.Engine
         private bool _cropText, _renderCaret, _measureOnly;
         private readonly IGraphicsBackend _graphics;
         private readonly IFontLoader _fonts;
-        private readonly IMessagePump _messagePump;
+        private readonly IRenderMessagePump _messagePump;
         private readonly bool _alwaysMeasureOnly;
         private PointF _scaleUp = new PointF(TextResolutionFactorX, TextResolutionFactorY);
         private PointF _scaleDown = AGSModelMatrixComponent.NoScaling;
@@ -47,7 +47,7 @@ namespace AGS.Engine
         /// </summary>
         public static int TextResolutionFactorY = 1;
 
-        public GLText(IGraphicsBackend graphics, IMessagePump messagePump, IFontLoader fonts, BitmapPool pool, 
+        public GLText(IGraphicsBackend graphics, IRenderMessagePump messagePump, IFontLoader fonts, BitmapPool pool, 
                       bool alwaysMeasureOnly, string text = "", int maxWidth = int.MaxValue)
         {
             _messagePump = messagePump;

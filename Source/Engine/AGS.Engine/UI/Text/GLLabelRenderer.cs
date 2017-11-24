@@ -22,7 +22,7 @@ namespace AGS.Engine
 		private readonly BitmapPool _bitmapPool;
         private readonly IFontLoader _fonts;
         private readonly Size _virtualResolution;
-        private readonly IMessagePump _messagePump;
+        private readonly IRenderMessagePump _messagePump;
         private readonly GLMatrices[] _matricesPool;
         private readonly IRuntimeSettings _settings;
         private readonly BoundingBoxesEmptyBuilder _labelBoundingBoxFakeBuilder;
@@ -37,7 +37,7 @@ namespace AGS.Engine
 			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrixFactory viewportMatrix,
             AGSBoundingBoxes labelBoundingBoxes, AGSBoundingBoxes textBoundingBoxes, IGraphicsFactory graphicsFactory,
             IGLUtils glUtils, IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IFontLoader fonts,
-            IRuntimeSettings settings, IMessagePump messagePump, IGameState state, IGameEvents events)
+            IRuntimeSettings settings, IRenderMessagePump messagePump, IGameState state, IGameEvents events)
 		{
             _state = state;
             _events = events;

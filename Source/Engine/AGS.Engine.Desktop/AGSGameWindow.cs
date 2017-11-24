@@ -45,6 +45,7 @@ namespace AGS.Engine.Desktop
         public double TargetUpdateFrequency { get { return _gameWindow.TargetUpdateFrequency; } set { _gameWindow.TargetUpdateFrequency = value; } }
         public string Title { get { return _gameWindow.Title; } set { _gameWindow.Title = value; } }
         public VsyncMode Vsync { get { return (VsyncMode)_gameWindow.VSync; } set { _gameWindow.VSync = (VSyncMode)value; } }
+        public bool IsExiting { get { return _gameWindow.IsExiting; }}
         public API.WindowState WindowState
         {
             get { return (API.WindowState)_gameWindow.WindowState; }

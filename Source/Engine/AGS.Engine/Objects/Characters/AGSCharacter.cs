@@ -37,10 +37,10 @@ namespace AGS.Engine
 			}
 		}
 
-		public Task ChangeRoomAsync(IRoom room, float? x = null, float? y = null)
+		public async Task ChangeRoomAsync(IRoom room, float? x = null, float? y = null)
 		{
-			StopWalking();
-			return _hasRoom.ChangeRoomAsync(room, x, y);
+			await StopWalkingAsync();
+			await _hasRoom.ChangeRoomAsync(room, x, y);
 		}
 	}
 }

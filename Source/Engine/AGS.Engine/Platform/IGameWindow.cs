@@ -24,6 +24,7 @@ namespace AGS.Engine
         int Height { get; }
         int ClientWidth { get; }
         int ClientHeight { get; }
+        bool IsExiting { get; }
         void SetSize(Size size);
 
         void Run(double updateRate);

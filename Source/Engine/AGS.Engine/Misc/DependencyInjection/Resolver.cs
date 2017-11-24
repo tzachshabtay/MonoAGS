@@ -44,7 +44,8 @@ namespace AGS.Engine
 			Builder.RegisterType<RoomMusicCrossFading>().SingleInstance().As<ICrossFading>();
 			Builder.RegisterType<AGSAudioSettings>().SingleInstance().As<IAudioSettings>();
 			Builder.RegisterType<ALListener>().SingleInstance().As<IAudioListener>();
-            Builder.RegisterType<AGSSyncContext>().SingleInstance().As<IMessagePump>().As<IUIThread>();
+            Builder.RegisterType<RenderThreadSyncContext>().SingleInstance().As<IRenderMessagePump>().As<IRenderThread>();
+            Builder.RegisterType<UpdateThreadSyncContext>().SingleInstance().As<IUpdateMessagePump>().As<IUpdateThread>();
             Builder.RegisterType<AGSClassicSpeechCache>().SingleInstance().As<ISpeechCache>();
             Builder.RegisterType<GLGraphicsFactory>().SingleInstance().As<IGraphicsFactory>();
             Builder.RegisterType<GLUtils>().SingleInstance().As<IGLUtils>();

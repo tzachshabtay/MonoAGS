@@ -66,6 +66,7 @@ namespace AGS.Engine.Android
         public double TargetUpdateFrequency { get { return 60f; } set { } } //todo
         public VsyncMode Vsync { get { return VsyncMode.Off; } set { } } //todo
         public string Title { get { return ""; } set { } } //todo
+        public bool IsExiting { get { return false; }} //todo
 
         public event EventHandler<EventArgs> Load;
         public event EventHandler<FrameEventArgs> RenderFrame;

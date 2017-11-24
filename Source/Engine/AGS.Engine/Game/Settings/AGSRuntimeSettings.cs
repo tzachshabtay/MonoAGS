@@ -5,11 +5,11 @@ namespace AGS.Engine
     public class AGSRuntimeSettings : IRuntimeSettings
     {
         private readonly IGameWindow _gameWindow;
-        private readonly IMessagePump _messagePump;
+        private readonly IRenderMessagePump _messagePump;
         private readonly IGLUtils _glUtils;
         private bool _preserveAspectRatio;
 
-        public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IMessagePump messagePump, IGLUtils glUtils)
+        public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IRenderMessagePump messagePump, IGLUtils glUtils)
         {
             _glUtils = glUtils;
             _gameWindow = gameWindow;

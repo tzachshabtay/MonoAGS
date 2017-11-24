@@ -62,7 +62,6 @@ namespace AGS.Engine
 		{
 			try
 			{
-				await Task.Delay(1).ConfigureAwait(false); //Ensuring that the event is invoked on a non-UI thread
 				foreach (var target in _invocationList) 
 				{
                     if (target.BlockingEvent != null) target.BlockingEvent(args);
@@ -83,8 +82,8 @@ namespace AGS.Engine
 			{
 				foreach (var target in _invocationList) 
 				{
-					if (target.BlockingEvent != null) target.BlockingEvent(args);
-					else Task.Run(async () =>  await target.Event(args).ConfigureAwait(true)).Wait();
+                    if (target.BlockingEvent != null) target.BlockingEvent(args);
+                    else target.Event(args);
 				}
 			}
 			catch (Exception e) 
@@ -230,7 +229,6 @@ namespace AGS.Engine
 		{
 			try
 			{
-				await Task.Delay(1).ConfigureAwait(false); //Ensuring that the event is invoked on a non-UI thread
 				foreach (var target in _invocationList)
 				{
 					await target.Event();
@@ -250,8 +248,8 @@ namespace AGS.Engine
 			{
 				foreach (var target in _invocationList)
 				{
-					if (target.BlockingEvent != null) target.BlockingEvent();
-					else Task.Run(async () => await target.Event().ConfigureAwait(true)).Wait();
+                    if (target.BlockingEvent != null) target.BlockingEvent();
+                    else target.Event();
 				}
 			}
 			catch (Exception e)
