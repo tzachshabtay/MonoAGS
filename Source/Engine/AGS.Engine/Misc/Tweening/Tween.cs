@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using AGS.API;
 
@@ -38,6 +39,11 @@ namespace AGS.Engine
         /// </summary>
         Paused,
         /// <summary>
+        /// The tween was manually ordered to stop and it's working on that. It cannot be replayed again.
+        /// The state will move to "Stopped" in the next tick.
+        /// </summary>
+        Stopping,
+        /// <summary>
         /// The tween was manually stopped. It cannot be replayed again.
         /// </summary>
         Stopped,
@@ -65,6 +71,7 @@ namespace AGS.Engine
 	{
 		private TaskCompletionSource<object> _tcs;
 		private static IGameEvents _gameEvents { get { return OverrideGameEvents ?? AGSGame.Game.Events; } }
+        private TweenCompletion _completeOnStop;
 
 		private Tween(bool subscribe)
 		{
@@ -91,6 +98,7 @@ namespace AGS.Engine
         /// <summary>
         /// Gets the amount of time the tween has been running in game ticks (if the game is running at 60 FPS, then there should be 60 ticks each second).
         /// Note that if this is a repeating tween, the elapsed time refers to a single loop.
+        /// Also, for a repeating tween, the elapsed ticks can be negative, meaning that it's currently in the delay between loops.
         /// This can also be set for time manipulations.
         /// </summary>
         /// <value>The elapsed ticks.</value>
@@ -286,24 +294,26 @@ namespace AGS.Engine
 
 		private void visit()
 		{
+            if (State == TweenState.Stopping)
+            {
+                State = TweenState.Stopped;
+                stop(_completeOnStop);
+            }
             if (State != TweenState.Playing) return;
             var repeat = RepeatInfo;
 			ElapsedTicks++;
+            if (ElapsedTicks < 0) return;
 			if (ElapsedTicks >= DurationInTicks)
 			{
                 if (repeat == null || !repeat.NextLoop())
                 {
+                    if (State != TweenState.Playing) return;
                     stop(TweenCompletion.Complete);
                     State = TweenState.Completed;
                 }
                 else if (repeat.DelayBetweenLoopsInSeconds > 0f)
                 {
-                    _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
-                    Task.Delay((int)(repeat.DelayBetweenLoopsInSeconds * 1000f)).ContinueWith(_ =>
-                    {
-                        ElapsedTicks = 0;
-                        _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
-                    });
+                    ElapsedTicks = -toTicks(repeat.DelayBetweenLoopsInSeconds);
                 }
                 else
                 {
@@ -320,6 +330,7 @@ namespace AGS.Engine
 
         private void stop(TweenCompletion completion)
         {
+            _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
             var repeat = RepeatInfo;
             if (completion == TweenCompletion.Complete)
             {
@@ -333,20 +344,18 @@ namespace AGS.Engine
             }
 
             _tcs.TrySetResult(null);
-            _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
         }
 
         /// <summary>
-        /// Stop the running tween. The tween completion describes where to set the tween value after stopping: 
-        /// should it complete the tween, rewind to the beginning or pause in its current position?
-        /// 
+        /// Stop the running tween. 
         /// <seealso cref="Resume"/>
         /// </summary>
-        /// <param name="completion">The tween completion.</param>
+        /// <param name="completion">The tween completion describes where to set the tween value after stopping: 
+        /// should it complete the tween, rewind to the beginning or pause in its current position?</param>
 		public void Stop(TweenCompletion completion)
 		{
-            State = TweenState.Stopped;
-            stop(completion);
+            _completeOnStop = completion;
+            State = TweenState.Stopping;
 		}
 
         /// <summary>
