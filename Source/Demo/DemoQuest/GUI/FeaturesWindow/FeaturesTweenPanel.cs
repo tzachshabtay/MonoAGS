@@ -97,10 +97,10 @@ namespace DemoGame
                         new Tuple<string, Func<Tween>>( "Angle", () => viewport.TweenAngle(45f, time, ease())),
                         new Tuple<string, Func<Tween>>( "ScaleX", () => viewport.TweenScaleX(2f, time, ease())),
                         new Tuple<string, Func<Tween>>( "ScaleY", () => viewport.TweenScaleY(2f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "ProjectX", () => viewport.TweenProjectX(100f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "ProjectY", () => viewport.TweenProjectY(100f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "ProjectWidth", () => viewport.TweenProjectWidth(100f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "ProjectHeight", () => viewport.TweenProjectHeight(100f, time, ease())),
+                        new Tuple<string, Func<Tween>>( "ProjectX", () => viewport.TweenProjectX(-0.5f, time, ease())),
+                        new Tuple<string, Func<Tween>>( "ProjectY", () => viewport.TweenProjectY(-0.5f, time, ease())),
+                        new Tuple<string, Func<Tween>>( "ProjectWidth", () => viewport.TweenProjectWidth(0.5f, time, ease())),
+                        new Tuple<string, Func<Tween>>( "ProjectHeight", () => viewport.TweenProjectHeight(0.5f, time, ease())),
                     }
                 },
                 { "Music", new List<Tuple<string, Func<Tween>>>{
