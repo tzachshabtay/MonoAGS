@@ -37,7 +37,8 @@ namespace AGS.Engine
             base.Init(entity);
             entity.Bind<IBoundingBoxWithChildrenComponent>(c => { _boundingBoxWithChildren = c; c.OnBoundingBoxWithChildrenChanged.Subscribe(onSizeChanged); adjustLayout(); }, 
                                                     c => { c.OnBoundingBoxWithChildrenChanged.Unsubscribe(onSizeChanged); _boundingBoxWithChildren = null; });
-            entity.Bind<IInObjectTree>(c => { _tree = c; adjustLayout(); }, _ => _tree = null);
+            entity.Bind<IInObjectTree>(c => { _tree = c; c.TreeNode.Children.OnListChanged.Subscribe(onChildrenChanged); adjustLayout(); },
+                                       c => { _tree = null; c.TreeNode.Children.OnListChanged.Unsubscribe(onChildrenChanged); });
             EntitiesToIgnore.OnListChanged.Subscribe(onEntitiesToIgnoreChanged);
         }
 
@@ -53,6 +54,11 @@ namespace AGS.Engine
         }
 
         private void onEntitiesToIgnoreChanged(AGSHashSetChangedEventArgs<string> args)
+        {
+            adjustLayout();
+        }
+
+        private void onChildrenChanged(AGSListChangedEventArgs<IObject> args)
         {
             adjustLayout();
         }
