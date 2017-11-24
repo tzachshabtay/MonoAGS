@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Reflection;
 using AGS.API;
 using AGS.Engine;
@@ -44,10 +45,10 @@ namespace DemoGame
                     new Tuple<string, Func<Tween>>( "Angle", () => o.TweenAngle(45f, time, ease())),
                     new Tuple<string, Func<Tween>>( "Opacity", () => o.TweenOpacity(0, time, ease())),
                     new Tuple<string, Func<Tween>>( "Red", () => o.TweenRed(0, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Green", () => o.TweenGreen(0, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Blue", () => o.TweenBlue(0, time, ease())),
+                    new Tuple<string, Func<Tween>>( "Green", () => o.TweenGreen(255, time, ease())),
+                    new Tuple<string, Func<Tween>>( "Blue", () => o.TweenBlue(255, time, ease())),
                     new Tuple<string, Func<Tween>>( "Hue", () => o.TweenHue(360, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Saturation", () => o.TweenSaturation(1f, time, ease())),
+                    new Tuple<string, Func<Tween>>( "Saturation", () => o.TweenSaturation(0f, time, ease())),
                     new Tuple<string, Func<Tween>>( "Lightness", () => o.TweenLightness(0f, time, ease())),
                     new Tuple<string, Func<Tween>>( "ScaleX", () => o.TweenScaleX(2f, time, ease())),
                     new Tuple<string, Func<Tween>>( "ScaleY", () => o.TweenScaleY(2f, time, ease())),
@@ -144,6 +145,9 @@ namespace DemoGame
             _game.State.UI.Remove(_clearTweensButton);
             _game.State.UI.Remove(_tweensListPanel);
             _game.State.Viewport.Camera.Enabled = true;
+            _game.State.Player.Tint = Colors.White;
+            TopBar.InventoryButton.Tint = Colors.White;
+            _window.Tint = Colors.Black;
         }
 
         public void Show()
@@ -156,6 +160,10 @@ namespace DemoGame
             _game.State.UI.Add(_clearTweensButton);
             _game.State.UI.Add(_tweensListPanel);
             _game.State.Viewport.Camera.Enabled = false;
+            AGSMessageBox.Display("Don't freak out! We're going to change some of the colors now to make the colored tween effects more visible.");
+            _game.State.Player.Tint = Color.FromHsla(0, 0.8f, 0.5f, 255);
+            TopBar.InventoryButton.Tint = _game.State.Player.Tint;
+            _window.Tint = _game.State.Player.Tint.WithAlpha(200);
         }
 
         private void addTween()
@@ -184,7 +192,7 @@ namespace DemoGame
             _runningTweens.Clear();
         }
 
-        private void onTargetSelected(ListboxItemArgs args)
+        private async Task onTargetSelected(ListboxItemArgs args)
         {
             var list = _tweenCombobox.DropDownPanelList;
             list.Items.Clear();
@@ -210,16 +218,16 @@ namespace DemoGame
                     _addTweenButton.TweenOpacity(100, 0.5f);
                 }
             }
-            onItemSelected(args);
+            await onItemSelected(args);
         }
 
-        private void onItemSelected(ListboxItemArgs args)
+        private async Task onItemSelected(ListboxItemArgs args)
         {
             if (hasSelection(_tweenCombobox) && hasSelection(_targetCombobox) &&
                 hasSelection(_easeCombobox) && hasSelection(_repeatCombobox) && !_addTweenButton.Enabled)
             {
+                await _addTweenButton.FadeOut(0.25f).Task;
                 _addTweenButton.Enabled = true;
-                _addTweenButton.FadeOut(0.25f);
             }
         }
 
@@ -235,7 +243,7 @@ namespace DemoGame
             return button;
         }
 
-        private IComboBox addCombobox(string id, float x, float y, string initialText, Action<ListboxItemArgs> callback, params string[] options)
+        private IComboBox addCombobox(string id, float x, float y, string initialText, Func<ListboxItemArgs, Task> callback, params string[] options)
         {
             var combo = _game.Factory.UI.GetComboBox(id, null, null, null, _parent, false, 220f);
             combo.TextBox.Text = initialText;
@@ -244,7 +252,7 @@ namespace DemoGame
             var list = combo.DropDownPanelList;
             list.Items.AddRange(options.Select(o => (IStringItem)new AGSStringItem { Text = o }).ToList());
 
-            if (callback != null) list.OnSelectedItemChanged.Subscribe(callback);
+            if (callback != null) list.OnSelectedItemChanged.SubscribeToAsync(callback);
             return combo;
         }
 
