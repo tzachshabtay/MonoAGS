@@ -177,7 +177,7 @@ namespace AGS.Engine
             string text = _text;
 
             var config = AGSTextConfig.ScaleConfig(_config, _scaleUp.X);
-            int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : (int)(_maxWidth * _scaleUp.X);
+            int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : (int)(_maxWidth * _scaleUp.X - config.PaddingLeft - config.PaddingRight);
             SizeF originalTextSize = config.Font.MeasureString(text, _cropText ? int.MaxValue : maxWidth);
             SizeF textSize = originalTextSize;
             if (_cropText && textSize.Width > maxWidth)

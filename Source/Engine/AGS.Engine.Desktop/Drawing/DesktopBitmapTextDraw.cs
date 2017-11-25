@@ -63,7 +63,7 @@ namespace AGS.Engine.Desktop
 					centerY + _config.ShadowOffsetY);
 			}
 			drawString(gfx, _config.Brush, centerX, centerY);
-                
+
             //This should be a better way to render the outline (DrawPath renders the outline, and FillPath renders the text)
             //but for some reason some lines are missing when we render like that, at least on the mac
             /*if (_outlineWidth > 0f)
@@ -91,7 +91,6 @@ namespace AGS.Engine.Desktop
 			}
 			else
 			{
-				alignWrap();
 				gfx.DrawString(_text, font, brush, new System.Drawing.RectangleF(x, y, _maxWidth, _height),
 					_wrapFormat);
 			}
@@ -105,26 +104,6 @@ namespace AGS.Engine.Desktop
 		private Font getFont(IFont font)
 		{
 			return ((DesktopFont)font).InnerFont;
-		}
-
-		private void alignWrap()
-		{
-			switch (_config.Alignment)
-			{
-				case Alignment.TopLeft:
-				case Alignment.MiddleLeft:
-				case Alignment.BottomLeft:
-					_wrapFormat.Alignment = StringAlignment.Near;
-					break;
-				case Alignment.TopCenter:
-				case Alignment.MiddleCenter:
-				case Alignment.BottomCenter:
-					_wrapFormat.Alignment = StringAlignment.Center;
-					break;
-				default:
-					_wrapFormat.Alignment = StringAlignment.Far;
-					break;
-			}
 		}
 	}
 }
