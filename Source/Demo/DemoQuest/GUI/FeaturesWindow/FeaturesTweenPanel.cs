@@ -150,7 +150,7 @@ namespace DemoGame
             _window.Tint = Colors.Black;
         }
 
-        public void Show()
+        public async void Show()
         {
             addComboboxToUI(_targetCombobox);
             addComboboxToUI(_tweenCombobox);
@@ -160,13 +160,13 @@ namespace DemoGame
             _game.State.UI.Add(_clearTweensButton);
             _game.State.UI.Add(_tweensListPanel);
             _game.State.Viewport.Camera.Enabled = false;
-            AGSMessageBox.Display("Don't freak out! We're going to change some of the colors now to make the colored tween effects more visible.");
+            await AGSMessageBox.DisplayAsync("Don't freak out! We're going to change some of the colors now to make the colored tween effects more visible.");
             _game.State.Player.Tint = Color.FromHsla(0, 0.8f, 0.5f, 255);
             TopBar.InventoryButton.Tint = _game.State.Player.Tint;
             _window.Tint = _game.State.Player.Tint.WithAlpha(200);
         }
 
-        private void addTween()
+        private async void addTween()
         {
             LoopingStyle looping = (LoopingStyle)Enum.Parse(typeof(LoopingStyle),getSelection(_repeatCombobox));
             var targetText = getSelection(_targetCombobox);
@@ -175,7 +175,7 @@ namespace DemoGame
             var tween = targetTweens.First(t => t.Item1 == tweenText).Item2();
             if (tween == null)
             {
-                AGSMessageBox.Display("Can't play the tween (perhaps there is no music playing currently?)");
+                await AGSMessageBox.DisplayAsync("Can't play the tween (perhaps there is no music playing currently?)");
                 return;
             }
             tween = tween.RepeatForever(looping, 3f);

@@ -101,7 +101,7 @@ namespace AGS.Engine
             invWindow.TreeNode.SetParent(panel.TreeNode);
 
             cancelButton.MouseClicked.Subscribe(onCancelClicked);
-            okButton.MouseClicked.Subscribe(onOkClicked);
+            okButton.MouseClicked.SubscribeToAsync(onOkClicked);
 
             scrollDownButton.MouseClicked.Subscribe(_ => invWindow.ScrollDown());
             scrollUpButton.MouseClicked.Subscribe(_ => invWindow.ScrollUp());
@@ -169,7 +169,7 @@ namespace AGS.Engine
             _tcs.TrySetResult(false);
         }
 
-        private void onOkClicked(MouseButtonEventArgs args)
+        private async Task onOkClicked(MouseButtonEventArgs args)
         {
             if (args.Button != MouseButton.Left) return;
             var item = _selectedItem ?? _fileTextBox.Text;
@@ -178,13 +178,13 @@ namespace AGS.Engine
             {
                 if (_fileSelection == FileSelection.FileOnly)
                 {
-                    AGSMessageBox.Display("Please select a file.");
+                    await AGSMessageBox.DisplayAsync("Please select a file.");
                     return;
                 }
             }
             else if (_fileSelection == FileSelection.FolderOnly)
             {
-                AGSMessageBox.Display("Please select a folder.");
+                await AGSMessageBox.DisplayAsync("Please select a folder.");
                 return;
             }
             _tcs.TrySetResult(true);

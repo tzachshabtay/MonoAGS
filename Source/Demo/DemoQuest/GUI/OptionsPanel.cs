@@ -154,9 +154,9 @@ namespace DemoGame
 			_game.SaveLoad.Restart();
 		}
 
-		private void quit()
+		private async void quit()
 		{
-			if (!AGSMessageBox.YesNo("Are you sure you want to quit?")) return;
+			if (!await AGSMessageBox.YesNoAsync("Are you sure you want to quit?")) return;
 			_game.Quit();
 		}
 	}
