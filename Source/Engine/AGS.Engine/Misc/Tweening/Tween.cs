@@ -366,7 +366,6 @@ namespace AGS.Engine
         {
             if (State != TweenState.Playing) return;
             State = TweenState.Paused;
-            _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
         }
 
         /// <summary>
@@ -379,7 +378,6 @@ namespace AGS.Engine
 		{
             if (State != TweenState.Paused) return;
             State = TweenState.Playing;
-			_gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
 
         /// <summary>
