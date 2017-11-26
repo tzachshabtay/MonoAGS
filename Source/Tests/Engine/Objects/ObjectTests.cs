@@ -233,8 +233,10 @@ namespace Tests
             buttonComponent.Setup(b => b.PushedAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
             Mock<IAudioSystem> audioSystem = new Mock<IAudioSystem>();
             Mock<IRuntimeSettings> settings = mocks.Settings();
-            Mock<IUIThread> uiThread = new Mock<IUIThread>();
-            uiThread.Setup(u => u.RunBlocking(It.IsAny<Action>())).Callback<Action>(a => a());
+            Mock<IRenderThread> renderThread = new Mock<IRenderThread>();
+            Mock<IUpdateThread> updateThread = new Mock<IUpdateThread>();
+            renderThread.Setup(u => u.RunBlocking(It.IsAny<Action>())).Callback<Action>(a => a());
+            updateThread.Setup(u => u.RunBlocking(It.IsAny<Action>())).Callback<Action>(a => a());
 
             resolver.Builder.RegisterInstance(input.Object);
             resolver.Builder.RegisterInstance(state);
@@ -242,8 +244,10 @@ namespace Tests
             resolver.Builder.RegisterInstance(animationContainer).As<IAnimationContainer>();
             resolver.Builder.RegisterInstance(buttonComponent.Object);
             resolver.Builder.RegisterInstance(audioSystem.Object);
-            resolver.Builder.RegisterInstance(new Mock<IMessagePump>().Object);
-            resolver.Builder.RegisterInstance(uiThread.Object);
+            resolver.Builder.RegisterInstance(new Mock<IRenderMessagePump>().Object);
+            resolver.Builder.RegisterInstance(new Mock<IUpdateMessagePump>().Object);
+            resolver.Builder.RegisterInstance(renderThread.Object);
+            resolver.Builder.RegisterInstance(updateThread.Object);
             resolver.Builder.RegisterInstance(new Mock<ILabelRenderer>().Object);
             resolver.Builder.RegisterInstance(new Mock<ITexture>().Object);
             resolver.Builder.RegisterInstance(mocks.MaskLoader().Object).As<IMaskLoader>();
