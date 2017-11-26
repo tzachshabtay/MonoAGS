@@ -72,13 +72,14 @@ namespace AGS.Engine
 
             const float lineWidth = 10f;
             var splitLine = _factory.Object.GetObject(string.Format("{0}_SplitLine", topPanel.ID));
+            _state.FocusedUI.CannotLoseFocus.Add(splitLine.ID);
             splitLine.RenderLayer = topPanel.RenderLayer;
 			var crop = topPanel.GetComponent<ICropChildrenComponent>();
 			if (crop != null) crop.EntitiesToSkipCrop.Add(splitLine.ID);
             HoverEffect.Add(splitLine, Colors.Transparent, Colors.Yellow.WithAlpha(100));
 			splitLine.Anchor = new PointF(0f, 0f);
             positionSplitLine(splitLine, topPanel, lineWidth);
-            splitLine.Z = -1;
+            splitLine.Z = -1f;
             topPanel.OnBoundingBoxesChanged.Subscribe(() => 
             {
                 positionSplitLine(splitLine, topPanel, lineWidth);    
