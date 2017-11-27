@@ -69,7 +69,7 @@ public class MyCustomSayLocationProvider : ISayLocationProvider
 
 ```
 
-- Sometimes you'd want your implementation to save state and then it's important to establish whether you can have multiple instances of your behavior or only one. For example, we could have written our previous example using a boolean variable instead of using [Repeat.OnceOnly](game.md#repeat):
+- Sometimes you'd want your implementation to save state and then it's important to establish whether you can have multiple instances of your behavior or only one. For example, we could have written our previous example using a boolean variable instead of using [Repeat.OnceOnly](repeat.md):
 
 ```csharp
 
