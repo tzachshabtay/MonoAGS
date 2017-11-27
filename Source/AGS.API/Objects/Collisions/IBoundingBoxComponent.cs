@@ -25,5 +25,11 @@
         /// <value>The on bounding boxes changed event.</value>
         IEvent OnBoundingBoxesChanged { get; }
 
+        /// <summary>
+        /// Allows locking the component from changing (to allow for changing multiple components "at once").
+        /// </summary>
+        /// <value>The lock step.</value>
+        ILockStep BoundingBoxLockStep { get; }
+
 	}
 }

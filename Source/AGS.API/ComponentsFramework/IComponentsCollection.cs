@@ -40,13 +40,13 @@ namespace AGS.API
         /// }
         /// 
         /// var myRotate = new MyRotateComponent();
-        /// var existingRotate = obj.GetComponent<IRotateComponent>();
+        /// var existingRotate = obj.GetComponent&lt;IRotateComponent&gt;();
         /// Console.WriteLine(myRotate == existingRotate); //Writes "false"
         /// 
-        /// obj.RemoveComponent<IRotateComponent>();
-        /// obj.AddComponent<IRotateComponent>(myRotate);
+        /// obj.RemoveComponent&lt;IRotateComponent&gt;();
+        /// obj.AddComponent&lt;IRotateComponent&gt;(myRotate);
         /// 
-        /// existingRotate = obj.GetComponent<IRotateComponent>();
+        /// existingRotate = obj.GetComponent&lt;IRotateComponent&gt;();
         /// Console.WriteLine(myRotate == existingRotate); //Writes "true"
         /// </code>
         /// </example>

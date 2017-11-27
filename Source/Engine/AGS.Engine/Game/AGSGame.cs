@@ -2,7 +2,6 @@
 using AGS.API;
 using Autofac;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Reflection;
 
 namespace AGS.Engine
@@ -11,17 +10,19 @@ namespace AGS.Engine
 	{
 		private Resolver _resolver;
 		private int _relativeSpeed;
-		private readonly IMessagePump _messagePump;
+		private readonly IMessagePump _renderMessagePump, _updateMessagePump;
         private readonly IGraphicsBackend _graphics;
         private readonly IGLUtils _glUtils;
 		public const double UPDATE_RATE = 60.0;
         private int _updateFrameRetries = 0, _renderFrameRetries = 0;
+        private AGSUpdateThread _updateThread;
 
-        public AGSGame(IGameState state, IGameEvents gameEvents, IMessagePump messagePump, 
+        public AGSGame(IGameState state, IGameEvents gameEvents, IRenderMessagePump renderMessagePump, IUpdateMessagePump updateMessagePump,
                        IGraphicsBackend graphics, IGLUtils glUtils)
 		{
-			_messagePump = messagePump;
-			_messagePump.SetSyncContext ();
+            _renderMessagePump = renderMessagePump;
+            _renderMessagePump.SetSyncContext ();
+            _updateMessagePump = updateMessagePump;
 			State = state;
 			Events = gameEvents;
 			_relativeSpeed = state.Speed;
@@ -91,6 +92,7 @@ namespace AGS.Engine
                 Debug.WriteLine(ese.ToString());
                 throw;
             }
+            _updateThread = new AGSUpdateThread(GameWindow);
 
             //using (GameWindow)
 			{
@@ -128,15 +130,20 @@ namespace AGS.Engine
                         Events.OnScreenResize.Invoke();
                     };
 
-                    GameWindow.UpdateFrame += async (sender, e) =>
+                    _updateThread.OnThreadStarted += (sender, e) =>
+                    {
+                        _updateMessagePump.SetSyncContext();
+                    };
+
+                    _updateThread.UpdateFrame += async (sender, e) =>
                     {
                         if (_updateFrameRetries > 3) return;
                         try
                         {
-                            _messagePump.PumpMessages();
+                            _updateMessagePump.PumpMessages();
                             if (State.Paused) return;
                             adjustSpeed();
-                            await GameLoop.UpdateAsync().ConfigureAwait(false);
+                            await GameLoop.UpdateAsync();
 
                             //Invoking repeatedly execute asynchronously, as if one subscriber is waiting on another subscriber the event will 
                             //never get to it (for example: calling ChangeRoom from within RepeatedlyExecute calls StopWalking which 
@@ -158,6 +165,7 @@ namespace AGS.Engine
                         if (RenderLoop == null || _renderFrameRetries > 3) return;
                         try
                         {
+                            _renderMessagePump.PumpMessages();
                             // render graphics
                             _graphics.ClearScreen();
                             Events.OnBeforeRender.Invoke();
@@ -181,6 +189,7 @@ namespace AGS.Engine
     				};
 
 				// Run the game at 60 updates per second
+                _updateThread.Run(UPDATE_RATE);
 				GameWindow.Run(UPDATE_RATE);
                 } catch (Exception exx)
                 {
@@ -220,6 +229,7 @@ namespace AGS.Engine
 
 			_relativeSpeed = State.Speed;
 			GameWindow.TargetUpdateFrequency = UPDATE_RATE * (_relativeSpeed / 100f);
+            _updateThread.TargetUpdateFrequency = UPDATE_RATE * (_relativeSpeed / 100f);
 		}
 
 		private static void printRuntime()

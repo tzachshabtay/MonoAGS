@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.Collections.ObjectModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// Allows to play a sound.
@@ -47,10 +49,10 @@
         /// <value><c>true</c> if is playing; otherwise, <c>false</c>.</value>
         bool IsPlaying { get; }
         /// <summary>
-        /// Gets the number of currently playing sounds.
+        /// Gets a list of currently playing sounds for this audio clip.
         /// </summary>
-        /// <value>The number of currently playing sounds.</value>
-        int NumOfCurrentlyPlayingSounds { get; }
+        /// <value>The list of currently playing sounds.</value>
+        ReadOnlyCollection<ISound> CurrentlyPlayingSounds { get; }
 	}
 }
 

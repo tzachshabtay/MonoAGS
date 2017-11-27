@@ -4,15 +4,12 @@ using System.Threading;
 
 namespace AGS.Engine
 {
-	public class AGSSyncContext : SynchronizationContext, IMessagePump, IUIThread
+	public abstract class AGSSyncContext : SynchronizationContext, IMessagePump, IThreadInvoke
 	{
 		private ConcurrentQueue<Action> _queue;
-		private static bool _initialized;
 
 		public AGSSyncContext ()
 		{
-			if (_initialized) throw new InvalidOperationException ("AGS Synchronization context was already initialized!");
-			_initialized = true;
 			_queue = new ConcurrentQueue<Action> ();
 		}
 
@@ -55,5 +52,27 @@ namespace AGS.Engine
             Send((state) => action(), null);
         }
 	}
+
+    public class RenderThreadSyncContext : AGSSyncContext, IRenderMessagePump, IRenderThread
+    {
+        private static bool _initialized;
+
+        public RenderThreadSyncContext()
+        {
+            if (_initialized) throw new InvalidOperationException("Render Synchronization context was already initialized!");
+            _initialized = true;
+        }
+    }
+
+    public class UpdateThreadSyncContext : AGSSyncContext, IUpdateMessagePump, IUpdateThread
+    {
+        private static bool _initialized;
+
+        public UpdateThreadSyncContext()
+        {
+            if (_initialized) throw new InvalidOperationException("Update Synchronization context was already initialized!");
+            _initialized = true;
+        }
+    }
 }
 

@@ -8,7 +8,7 @@ namespace AGS.Engine
 		private readonly int _fbo, _width, _height;
         private readonly IGraphicsBackend _graphics;
 
-        public GLFrameBuffer(Size size, IGraphicsBackend graphics, IMessagePump messagePump)
+        public GLFrameBuffer(Size size, IGraphicsBackend graphics, IRenderMessagePump messagePump)
 		{
             _width = size.Width;
             _height = size.Height;

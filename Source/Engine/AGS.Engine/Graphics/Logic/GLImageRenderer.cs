@@ -68,6 +68,7 @@ namespace AGS.Engine
 
             IBorderStyle border = obj.Border;
             AGSBoundingBox borderBox = _emptySquare;
+            if (!obj.Visible) return;
 			if (border != null)
 			{
                 if (renderBox.BottomLeft.X > renderBox.BottomRight.X) borderBox = renderBox.FlipHorizontal();

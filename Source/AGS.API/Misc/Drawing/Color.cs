@@ -95,13 +95,14 @@ namespace AGS.API
 		}
 
         /// <summary>
-        /// Gets a color from HSLA format (https://en.wikipedia.org/wiki/HSL_and_HSV)
+        /// Gets a color from HSLA format (https://en.wikipedia.org/wiki/HSL_and_HSV).
+        /// Also see: https://css-tricks.com/yay-for-hsla/, and a helpful calculator: https://www.w3schools.com/colors/colors_hsl.asp
         /// </summary>
         /// <returns>The color.</returns>
-        /// <param name="hue">Hue.</param>
-        /// <param name="saturation">Saturation.</param>
-        /// <param name="lightness">Lightness.</param>
-        /// <param name="a">The alpha component.</param>
+        /// <param name="hue">Hue: Think of a color wheel. Around 0o and 360o are reds 120o are greens, 240o are blues. Use anything in between 0-360. Values above and below will be modulus 360.</param>
+        /// <param name="saturation">Saturation: 0 is completely denatured (grayscale). 1 is fully saturated (full color).</param>
+        /// <param name="lightness">Lightness: 0 is completely dark (black). 1 is completely light (white).</param>
+        /// <param name="a">The alpha component: 0 is fully transparent. 255 is fully opaque.</param>
 		public static Color FromHsla(int hue, float saturation, float lightness, byte a)
 		{
 			float h = hue / 60f;

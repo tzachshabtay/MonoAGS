@@ -19,7 +19,7 @@ namespace AGS.Engine
         private bool _cropText, _renderCaret, _measureOnly;
         private readonly IGraphicsBackend _graphics;
         private readonly IFontLoader _fonts;
-        private readonly IMessagePump _messagePump;
+        private readonly IRenderMessagePump _messagePump;
         private readonly bool _alwaysMeasureOnly;
         private PointF _scaleUp = new PointF(TextResolutionFactorX, TextResolutionFactorY);
         private PointF _scaleDown = AGSModelMatrixComponent.NoScaling;
@@ -47,7 +47,7 @@ namespace AGS.Engine
         /// </summary>
         public static int TextResolutionFactorY = 1;
 
-        public GLText(IGraphicsBackend graphics, IMessagePump messagePump, IFontLoader fonts, BitmapPool pool, 
+        public GLText(IGraphicsBackend graphics, IRenderMessagePump messagePump, IFontLoader fonts, BitmapPool pool, 
                       bool alwaysMeasureOnly, string text = "", int maxWidth = int.MaxValue)
         {
             _messagePump = messagePump;
@@ -57,7 +57,6 @@ namespace AGS.Engine
             this._maxWidth = maxWidth;
             this._text = text;
             this._bitmapPool = pool;
-            _texture = createTexture();
             _config = new AGSTextConfig();
 
             prepareBitmapDraw();
@@ -178,7 +177,7 @@ namespace AGS.Engine
             string text = _text;
 
             var config = AGSTextConfig.ScaleConfig(_config, _scaleUp.X);
-            int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : (int)(_maxWidth * _scaleUp.X);
+            int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : (int)(_maxWidth * _scaleUp.X - config.PaddingLeft - config.PaddingRight);
             SizeF originalTextSize = config.Font.MeasureString(text, _cropText ? int.MaxValue : maxWidth);
             SizeF textSize = originalTextSize;
             if (_cropText && textSize.Width > maxWidth)
@@ -236,6 +235,7 @@ namespace AGS.Engine
 
         private void uploadBitmapToOpenGl()
         {
+            _texture = createTexture();
             IBitmap bitmap = _bitmapPool.Acquire(_draw.BitmapWidth, _draw.BitmapHeight);
             try
             {

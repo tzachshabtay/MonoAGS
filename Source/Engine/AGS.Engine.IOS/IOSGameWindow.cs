@@ -57,6 +57,7 @@ namespace AGS.Engine.IOS
         public double TargetUpdateFrequency { get { return 60f; } set { } } //todo
         public VsyncMode Vsync { get { return VsyncMode.Off; } set { } } //todo
         public string Title { get { return ""; } set { } } //todo
+        public bool IsExiting { get { return false; } } //todo
 
         public API.WindowBorder WindowBorder { get { return (API.WindowBorder)View.WindowBorder; } set { View.WindowBorder = (OpenTK.WindowBorder)value; } }
         public API.WindowState WindowState { get { return (API.WindowState)View.WindowState; } set { View.WindowState = (OpenTK.WindowState)value; } }

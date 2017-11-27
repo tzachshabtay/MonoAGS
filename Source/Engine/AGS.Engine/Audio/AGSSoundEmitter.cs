@@ -1,6 +1,8 @@
 ﻿using AGS.API;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace AGS.Engine
 {
@@ -70,7 +72,7 @@ namespace AGS.Engine
 		public bool AutoAdjustVolume { get; set; }
 
         public bool IsPlaying { get { return _playingSounds.Count > 0; } }
-        public int NumOfCurrentlyPlayingSounds { get { return _playingSounds.Count; } }
+        public ReadOnlyCollection<ISound> CurrentlyPlayingSounds { get { return _playingSounds.Select(p => p.Value.Sound).ToList().AsReadOnly(); } }
 
 		public void Assign(IDirectionalAnimation animation, params int[] frames)
 		{

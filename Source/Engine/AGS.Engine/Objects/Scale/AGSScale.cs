@@ -29,9 +29,7 @@ namespace AGS.Engine
             if (!shouldSubscribeToImageChange) return;
             image.OnImageChanged.Subscribe(() =>
             {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (BaseSize.Width == 0f && _image.Image != null) BaseSize = new SizeF(_image.Image.Width, _image.Image.Height);
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                if (MathUtils.FloatEquals(BaseSize.Width, 0f) && _image.Image != null) BaseSize = new SizeF(_image.Image.Width, _image.Image.Height);
             });
         }
 
@@ -51,9 +49,7 @@ namespace AGS.Engine
             get { return _scaleX; } 
             set 
             {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (_scaleX == value) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                if (MathUtils.FloatEquals(_scaleX, value)) return;
                 ScaleBy(value, ScaleY); 
             } 
         }
@@ -64,9 +60,7 @@ namespace AGS.Engine
             get { return _scaleY; }
             set
             {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (_scaleY == value) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                if (MathUtils.FloatEquals(_scaleY, value)) return;
                 ScaleBy(ScaleX, value);
             }
         }
@@ -76,14 +70,9 @@ namespace AGS.Engine
             get { return _baseSize; }
             set
             {
-//#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator                
-//                if (value.Width == _baseSize.Width && value.Height == _baseSize.Height) return;
-//#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
                 float width = value.Width * ScaleX;
                 float height = value.Height * ScaleY;
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (width == Width && height == Height) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                if (MathUtils.FloatEquals(width, Width) && MathUtils.FloatEquals(height, Height)) return;
                 Width = width;
                 Height = height;
                 _baseSize = new SizeF(value.Width, value.Height);
@@ -95,9 +84,8 @@ namespace AGS.Engine
 
         public void ResetScale()
         {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (Width == BaseSize.Width && Height == BaseSize.Height && ScaleX == 1f && ScaleY == 1f) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (MathUtils.FloatEquals(Width, BaseSize.Width) && MathUtils.FloatEquals(Height, BaseSize.Height) &&
+                MathUtils.FloatEquals(ScaleX, 1f) && MathUtils.FloatEquals(ScaleY, 1f)) return;
             Width = BaseSize.Width;
             Height = BaseSize.Height;
             _scaleX = 1f;
@@ -107,18 +95,15 @@ namespace AGS.Engine
 
         public void ResetScale(float initialWidth, float initialHeight)
         {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (BaseSize.Width == initialWidth && BaseSize.Height == initialHeight && ScaleX == 1f && ScaleY == 1f) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (MathUtils.FloatEquals(BaseSize.Width, initialWidth) && MathUtils.FloatEquals(BaseSize.Height, initialHeight) && 
+                MathUtils.FloatEquals(ScaleX, 1f) && MathUtils.FloatEquals(ScaleY, 1f)) return;
             _baseSize = new SizeF(initialWidth, initialHeight);
             ResetScale();
         }
 
         public void ScaleBy(float scaleX, float scaleY)
         {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (ScaleX == scaleX && ScaleY == scaleY) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (MathUtils.FloatEquals(ScaleX, scaleX) && MathUtils.FloatEquals(ScaleY, scaleY)) return;
             validateScaleInitialized();
             _scaleX = scaleX;
             _scaleY = scaleY;
@@ -129,9 +114,7 @@ namespace AGS.Engine
 
         public void ScaleTo(float width, float height)
         {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (Width == width && Height == height) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (MathUtils.FloatEquals(Width, width) && MathUtils.FloatEquals(Height, height)) return;
             validateScaleInitialized();
             Width = width;
             Height = height;
@@ -152,9 +135,7 @@ namespace AGS.Engine
 
         private void validateScaleInitialized()
         {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (BaseSize.Width == 0f)
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (MathUtils.FloatEquals(BaseSize.Width, 0f))
             {
                 throw new InvalidOperationException(
                     "Initial size was not set. Either assign an animation/image to the object, or set BaseSize.");

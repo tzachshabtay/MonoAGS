@@ -67,7 +67,7 @@ namespace AGS.Engine
                 case Alignment.BottomCenter:
                     float left = config.PaddingLeft;
                     float right = baseSize.Width - config.PaddingRight;
-                    return (left + (right - left) / 2f - width / 2f);
+                    return (left + right) / 2f - width / 2f;
                 default:
                     return baseSize.Width - width - config.PaddingRight;
             }

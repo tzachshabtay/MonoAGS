@@ -70,9 +70,7 @@ namespace AGS.Engine
 
         private void refreshValue(ref float currentValue, float newValue, IEvent changeEvent)
         {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (currentValue == newValue) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (MathUtils.FloatEquals(currentValue, newValue)) return;
             currentValue = newValue;
             changeEvent.Invoke();
         }

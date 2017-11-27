@@ -49,5 +49,19 @@ namespace AGS.API
         /// </summary>
         /// <value>The on selected item changed event.</value>
         IEvent<ListboxItemArgs> OnSelectedItemChanged { get; }
+
+        /// <summary>
+        /// Gets or sets the minimum height for the box.
+        /// </summary>
+        /// <value>The minimum height.</value>
+        float MinHeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum height of the box.
+        /// If it is expected for the items in the list to exceed the height, scrollbars 
+        /// should be added to the list (<see cref="IUIFactory.CreateScrollingPanel"/> ).
+        /// </summary>
+        /// <value>The height of the max.</value>
+        float MaxHeight { get; set; }
     }
 }

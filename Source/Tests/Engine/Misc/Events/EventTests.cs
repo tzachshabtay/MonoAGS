@@ -49,7 +49,7 @@ namespace Tests
 		public void SingleAsyncSubscriberTest ()
 		{
 			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
-			ev.SubscribeToAsync (onEventAsync);
+            ev.SubscribeToAsync (onEventAsyncWithBlockingInvoke);
 			ev.Invoke (new MockEventArgs(x));
 			Assert.AreEqual (0, syncEvents);
 			Assert.AreEqual (1, asyncEvents);
@@ -81,8 +81,8 @@ namespace Tests
 			AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs> ();
 			ev.Subscribe (onEvent);
 			ev.Subscribe (e => onEvent(e));
-			ev.SubscribeToAsync (onEventAsync);
-			ev.SubscribeToAsync (async e => await onEventAsync(e));
+            ev.SubscribeToAsync (onEventAsyncWithBlockingInvoke);
+            ev.SubscribeToAsync (async e => await onEventAsyncWithBlockingInvoke(e));
 			ev.Invoke (new MockEventArgs(x));
 			Assert.AreEqual (2, syncEvents);
 			Assert.AreEqual (2, asyncEvents);
@@ -151,6 +151,13 @@ namespace Tests
 			Assert.AreEqual (x, e.X);
 			asyncEvents++;
 		}
+
+        private Task onEventAsyncWithBlockingInvoke(MockEventArgs e)
+        {
+            Assert.AreEqual(x, e.X);
+            asyncEvents++;
+            return Task.FromResult(true);
+        }
 
 		private class MockEventArgs
 		{

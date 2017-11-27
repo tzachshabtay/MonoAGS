@@ -78,13 +78,13 @@ namespace AGS.API
 		}
 
         public bool Equals(PointF other)
-        { 
-            return (X == other.X) && (Y == other.Y);
+        {
+            return MathUtils.FloatEquals(X, other.X) && MathUtils.FloatEquals(Y, other.Y);
         }
 
 		public override int GetHashCode() 
 		{
-            return (X.GetHashCode() * 397) ^ Y.GetHashCode();
+            return (((int)X).GetHashCode() * 397) ^ ((int)Y).GetHashCode();
 		}
 	}
 }

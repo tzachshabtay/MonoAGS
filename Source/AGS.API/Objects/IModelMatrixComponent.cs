@@ -27,7 +27,6 @@
     [RequiredComponent(typeof(IHasRoom))]
     [RequiredComponent(typeof(IDrawableInfo))]
     [RequiredComponent(typeof(IInObjectTree))]
-    [RequiredComponent(typeof(ICropSelfComponent), false)]
     public interface IModelMatrixComponent : IComponent
     {
         /// <summary>
@@ -41,5 +40,11 @@
         /// </summary>
         /// <value>The on matrix changed.</value>
         IEvent OnMatrixChanged { get; }
+
+        /// <summary>
+        /// Allows locking the component from changing (to allow for changing multiple components "at once").
+        /// </summary>
+        /// <value>The lock step.</value>
+        ILockStep ModelMatrixLockStep { get; }
     }
 }

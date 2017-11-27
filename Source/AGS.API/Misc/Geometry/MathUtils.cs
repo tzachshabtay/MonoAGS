@@ -100,10 +100,26 @@ namespace AGS.API
 			return maxValue;
 		}
 
+        /// <summary>
+        /// Converts degrees to radians.
+        /// </summary>
+        /// <returns>The radians.</returns>
+        /// <param name="degrees">Degrees.</param>
         public static float DegreesToRadians(float degrees)
         {
             const float factor = (float)(Math.PI / 180d);
             return degrees * factor;
+        }
+
+        /// <summary>
+        /// Compare two floating numbers (with tolerance, as this is the only sensible way to compare floats: http://floating-point-gui.de/).
+        /// </summary>
+        /// <returns><c>true</c>, if equals was floated, <c>false</c> otherwise.</returns>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        public static bool FloatEquals(float x, float y)
+        {
+            return Math.Abs(x - y) < 0.0001f;
         }
 	}
 }

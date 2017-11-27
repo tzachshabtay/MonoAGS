@@ -1,5 +1,6 @@
 ﻿using AGS.API;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AGS.Engine
 {
@@ -26,6 +27,16 @@ namespace AGS.Engine
             }
 			else child.TreeNode.SetParent(this);
 		}
+
+        public void AddChildren(List<TItem> children)
+        {
+            foreach (var child in children)
+            {
+                if (HasChild(child)) continue;
+                ((AGSTreeNode<TItem>)child.TreeNode).setParentOneWay(this);
+            }
+            _children.AddRange(children);
+        }
 
 		public void RemoveChild(TItem child)
 		{
@@ -104,6 +115,18 @@ namespace AGS.Engine
         private void fireParentChanged()
         {
             OnParentChanged.Invoke();
+        }
+
+        private void setParentOneWay(ITreeNode<TItem> parent)
+        {
+            if (_parent == parent) return;
+            ITreeNode<TItem> prevParent = _parent;
+            _parent = parent;
+            if (prevParent != null)
+            {
+                prevParent.RemoveChild(Node);
+            }
+            fireParentChanged();
         }
 	}
 }

@@ -22,7 +22,7 @@ namespace AGS.Engine
 		private readonly BitmapPool _bitmapPool;
         private readonly IFontLoader _fonts;
         private readonly Size _virtualResolution;
-        private readonly IMessagePump _messagePump;
+        private readonly IRenderMessagePump _messagePump;
         private readonly GLMatrices[] _matricesPool;
         private readonly IRuntimeSettings _settings;
         private readonly BoundingBoxesEmptyBuilder _labelBoundingBoxFakeBuilder;
@@ -37,7 +37,7 @@ namespace AGS.Engine
 			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrixFactory viewportMatrix,
             AGSBoundingBoxes labelBoundingBoxes, AGSBoundingBoxes textBoundingBoxes, IGraphicsFactory graphicsFactory,
             IGLUtils glUtils, IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IFontLoader fonts,
-            IRuntimeSettings settings, IMessagePump messagePump, IGameState state, IGameEvents events)
+            IRuntimeSettings settings, IRenderMessagePump messagePump, IGameState state, IGameEvents events)
 		{
             _state = state;
             _events = events;
@@ -129,6 +129,7 @@ namespace AGS.Engine
 		public void Render(IObject obj, IViewport viewport)
 		{
             if (!TextBackgroundVisible && !TextVisible) return;
+            if (!obj.Visible) return;
 
             PointF resolutionFactor; Size resolution;
             AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, obj,
@@ -137,10 +138,8 @@ namespace AGS.Engine
 			PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
             if (!resolutionFactor.Equals(textScaleFactor))
             {
-                _labelBoundingBoxFakeBuilder.CropScale = AGSModelMatrixComponent.NoScaling;
                 resolutionFactor = AGSModelMatrixComponent.NoScaling;
             }
-            else _labelBoundingBoxFakeBuilder.CropScale = AGSModelMatrixComponent.NoScaling;
 
             if (TextBackgroundVisible)
             {
@@ -248,7 +247,7 @@ namespace AGS.Engine
             {
                 case AutoFit.NoFitting:
                     build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.X, BaseSize.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
-                    updateText(glText, buildRenderBox, GLText.EmptySize, textScaleUp, textScaleDown, int.MaxValue);
+                    updateText(glText, buildRenderBox, BaseSize, textScaleUp, textScaleDown, int.MaxValue);
                     build(_textBoundingBoxes, glText.BitmapWidth, glText.BitmapHeight, textMatrices, buildRenderBox, buildHitTestBox);
 
                     _usedLabelBoundingBoxes = _labelBoundingBoxes;
@@ -265,7 +264,7 @@ namespace AGS.Engine
 
                 case AutoFit.TextShouldFitLabel:
                     build(_labelBoundingBoxes, BaseSize.Width / labelResolutionFactor.X, BaseSize.Height / labelResolutionFactor.Y, labelMatrices, buildRenderBox, buildHitTestBox);
-                    updateText(glText, buildRenderBox, glText.Width > BaseSize.Width ? GLText.EmptySize : new SizeF(BaseSize.Width, GLText.EmptySize.Height), textScaleUp, textScaleDown, int.MaxValue);
+                    updateText(glText, buildRenderBox, glText.Width > BaseSize.Width ? new SizeF(0f, BaseSize.Height) : BaseSize, textScaleUp, textScaleDown, int.MaxValue);
 
                     float textWidth = glText.Width < BaseSize.Width ? glText.BitmapWidth : MathUtils.Lerp(0f, 0f, glText.Width, BaseSize.Width, glText.BitmapWidth);
                     float textHeight = glText.Height < BaseSize.Height ? glText.BitmapHeight : MathUtils.Lerp(0f, 0f, glText.Height, BaseSize.Height, glText.BitmapHeight);
@@ -334,7 +333,6 @@ namespace AGS.Engine
                 OnNewBoxBuildRequired = new AGSEvent();
             }
 
-            public PointF CropScale { private get; set; }
             public AGSBoundingBoxes BoundingBoxes { private get { return _boundingBoxes; } 
                 set
                 {
@@ -362,7 +360,7 @@ namespace AGS.Engine
 
 			public AGSBoundingBox BuildRenderBox(AGSBoundingBox intermediateBox, Matrix4 viewportMatrix, out PointF scale)
             {
-                scale = CropScale;
+                scale = AGSModelMatrixComponent.NoScaling;
                 if (BoundingBoxes != null) return BoundingBoxes.RenderBox;
 				return default(AGSBoundingBox);
             }

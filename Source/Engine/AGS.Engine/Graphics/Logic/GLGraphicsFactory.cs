@@ -14,15 +14,15 @@ namespace AGS.Engine
 		private readonly IResourceLoader _resources;
 		private readonly IBitmapLoader _bitmapLoader;
 		private readonly SpriteSheetLoader _spriteSheetLoader;
-        private readonly IUIThread _uiThread;
+        private readonly IRenderThread _renderThread;
 
         public GLGraphicsFactory (Dictionary<string, ITexture> textures, Resolver resolver, IGLUtils glUtils, 
-                                  IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IUIThread uiThread,
-                                  IResourceLoader resources, IIconFactory icons, IBrushLoader brushes, IMessagePump messagePump)
+                                  IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IRenderThread renderThread,
+                                  IResourceLoader resources, IIconFactory icons, IBrushLoader brushes, IRenderMessagePump messagePump)
 		{
             Icons = icons;
             Brushes = brushes;
-            _uiThread = uiThread;
+            _renderThread = renderThread;
 			_textures = textures;
 			_resolver = resolver;
 			_resources = resources;
@@ -208,7 +208,7 @@ namespace AGS.Engine
         {
             id = id ?? Guid.NewGuid().ToString();
             IImage image = null;
-            _uiThread.RunBlocking(() =>
+            _renderThread.RunBlocking(() =>
             {
                 ITexture tex = createTexture(config);
                 image = loadImage(tex, bitmap, id, config, null);
@@ -219,7 +219,7 @@ namespace AGS.Engine
         private IImage loadImage(IResource resource, ILoadImageConfig config = null)
 		{
             IImage image = null;
-            _uiThread.RunBlocking(() =>
+            _renderThread.RunBlocking(() =>
             {
                 ITexture tex = createTexture(config);
                 try
@@ -249,7 +249,7 @@ namespace AGS.Engine
 				return null;
 			}
             IImage image = null;
-            _uiThread.RunBlocking(() =>
+            _renderThread.RunBlocking(() =>
             {
                 ITexture tex = createTexture(config);
                 image = loadImage(tex, bitmap, resource.ID, config, null);

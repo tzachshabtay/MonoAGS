@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using AGS.API;
 
 namespace AGS.Engine
 {
-    public class AGSModelMatrixComponent : AGSComponent, IModelMatrixComponent
+    public class AGSModelMatrixComponent : AGSComponent, IModelMatrixComponent, ILockStep
     {
         private bool _isDirty;
-        private ModelMatrices _matrices;
+        private int _shouldFireOnUnlock, _pendingLocks;
+        private ModelMatrices _matrices, _preLockMatrices;
 
         private IAnimationContainer _animation;
         private IInObjectTree _tree;
@@ -20,7 +22,6 @@ namespace AGS.Engine
         private IEntity _entity;
         private IObject _parent;
         private ISprite _sprite;
-        private ICropSelfComponent _crop;
         private IJumpOffsetComponent _jump;
 
         private readonly Size _virtualResolution;
@@ -38,6 +39,9 @@ namespace AGS.Engine
         }
 
         public static readonly PointF NoScaling = new PointF(1f, 1f);
+
+        [Property(Browsable = false)]
+        public ILockStep ModelMatrixLockStep { get { return this; } }
 
         public override void Init(IEntity entity)
         {
@@ -72,10 +76,6 @@ namespace AGS.Engine
 			_entity.Bind<IImageComponent>(
                 c => { _image = c; c.OnAnchorChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
                 c => { c.OnAnchorChanged.Unsubscribe(onSomethingChanged); _image = null; onSomethingChanged(); }
-			);
-            _entity.Bind<ICropSelfComponent>(
-                c => { _crop = c; c.OnCropAreaChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
-				c => { c.OnCropAreaChanged.Unsubscribe(onSomethingChanged); _crop = null; onSomethingChanged(); }
 			);
 
             _entity.Bind<IDrawableInfo>(
@@ -113,7 +113,30 @@ namespace AGS.Engine
 
         public ModelMatrices GetModelMatrices() 
         {
+            if (_pendingLocks > 0) return _preLockMatrices;
             return shouldRecalculate() ? recalculateMatrices() : _matrices; 
+        }
+
+        public void Lock()
+        {
+            _preLockMatrices = _matrices;
+            Interlocked.Increment(ref _pendingLocks);
+        }
+
+        public void PrepareForUnlock()
+        {
+            _shouldFireOnUnlock += (_isDirty ? 1 : 0);
+            if (!_isDirty) return;
+            recalculate();
+        }
+
+        public void Unlock()
+        {
+            if (Interlocked.Decrement(ref _pendingLocks) > 0) return;
+            if (Interlocked.Exchange(ref _shouldFireOnUnlock, 0) >= 1)
+            {
+                OnMatrixChanged.Invoke();
+            }
         }
 
         public IEvent OnMatrixChanged { get; private set; }
@@ -251,6 +274,7 @@ namespace AGS.Engine
         {
             PointF resolutionFactor;
             Size resolution;
+            _isDirty = false;
             bool resolutionMatches = GetVirtualResolution(true, _virtualResolution, _drawable, _customResolutionFactor,
                                                    out resolutionFactor, out resolution);
 
@@ -259,7 +283,6 @@ namespace AGS.Engine
                                                                                                                              (float)_virtualResolution.Height/_drawable.RenderLayer.IndependentResolution.Value.Height)) : getMatrix(NoScaling);
             _matrices.InObjResolutionMatrix = renderMatrix;
             _matrices.InVirtualResolutionMatrix = hitTestMatrix;
-            _isDirty = false;
         }
 
         private Matrix4 getMatrix(PointF resolutionFactor) 

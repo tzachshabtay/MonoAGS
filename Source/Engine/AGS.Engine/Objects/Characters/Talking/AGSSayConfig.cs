@@ -17,6 +17,7 @@ namespace AGS.Engine
 		public static AGSSayConfig FromConfig(ISayConfig config, float paddingBottomOffset = 0f)
 		{
 			AGSSayConfig sayConfig = new AGSSayConfig();
+            sayConfig.TextConfig = config.TextConfig;
             sayConfig.TextConfig.PaddingBottom += paddingBottomOffset;
 			sayConfig.TextDelay = config.TextDelay;
 			sayConfig.SkipText = config.SkipText;

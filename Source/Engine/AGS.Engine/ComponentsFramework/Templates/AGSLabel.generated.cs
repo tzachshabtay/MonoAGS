@@ -638,19 +638,29 @@ namespace AGS.Engine
             return _modelMatrixComponent.GetModelMatrices();
         }
 
+        public ILockStep ModelMatrixLockStep
+        {
+            get { return _modelMatrixComponent.ModelMatrixLockStep; }
+        }
+
         #endregion
 
         #region IBoundingBoxComponent implementation
 
-        public IEvent OnBoundingBoxesChanged 
-        {  
-            get { return _boundingBoxComponent.OnBoundingBoxesChanged; } 
+        public IEvent OnBoundingBoxesChanged
+        {
+            get { return _boundingBoxComponent.OnBoundingBoxesChanged; }
         }
 
-		public AGSBoundingBoxes GetBoundingBoxes(IViewport viewport)
-		{
-			return _boundingBoxComponent.GetBoundingBoxes(viewport);
-		}
+        public AGSBoundingBoxes GetBoundingBoxes(IViewport viewport)
+        {
+            return _boundingBoxComponent.GetBoundingBoxes(viewport);
+        }
+
+        public ILockStep BoundingBoxLockStep
+        {
+            get { return _boundingBoxComponent.BoundingBoxLockStep; }
+        }
 
         #endregion
     }

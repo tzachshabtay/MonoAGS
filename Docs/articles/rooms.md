@@ -16,7 +16,7 @@ A background graphic for the room. The background is actually just a regular obj
 
 ### Limits
 
-The room limits specify the boundaries for the [camera](#Camera). By default the room starts from (0,0) and ends with the background image size, but this can changed if needed (for example, if you want to have a "never-ending" room).
+The room limits specify the boundaries for the [camera](viewports.md#camera). By default the room starts from (0,0) and ends with the background image size, but this can changed if needed (for example, if you want to have a "never-ending" room).
 
 ### Show Player? 
 

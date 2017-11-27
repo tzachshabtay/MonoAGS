@@ -3,29 +3,36 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class RenderOrderSelector : IComparer<IObject>
-	{
-		public RenderOrderSelector()
-		{
-		}
+    public class RenderOrderSelector : IComparer<IObject>
+    {
+        public RenderOrderSelector()
+        {
+        }
 
-		public bool Backwards { get; set; }
+        public bool Backwards { get; set; }
 
-		#region IComparer implementation
+#if DEBUG
+        public static bool Printouts { get; set; }
+#endif
 
-		public int Compare(IObject s1, IObject s2)
+        #region IComparer implementation
+
+        public int Compare(IObject s1, IObject s2)
 		{
             float resultF = compare(s1, s2);
             int result = resultF > 0f ? 1 : resultF < 0 ? -1 : string.Compare(s1.ID, s2.ID);
 			if (Backwards) result *= -1;
-			#if DEBUG
-            s1.Properties.Ints.SetValue(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s2.ID ?? "null"), result);
-            s2.Properties.Ints.SetValue(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s1.ID ?? "null"), -result);
-			#endif
+#if DEBUG
+            if (Printouts)
+            {
+                s1.Properties.Ints.SetValue(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s2.ID ?? "null"), result);
+                s2.Properties.Ints.SetValue(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s1.ID ?? "null"), -result);
+            }
+#endif
 			return result;
 		}
 			
-		#endregion
+#endregion
 
 		private float compare(IObject s1, IObject s2)
 		{

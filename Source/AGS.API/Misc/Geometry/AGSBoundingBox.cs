@@ -39,9 +39,7 @@ namespace AGS.API
 			MinY = min(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
 			MaxY = max(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
 
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            IsInvalid = MinX == MaxX || MinY == MaxY;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            IsInvalid = MathUtils.FloatEquals(MinX, MaxX) || MathUtils.FloatEquals(MinY, MaxY);
 		}
 
         public AGSBoundingBox(float minX, float maxX, float minY, float maxY)
@@ -54,9 +52,7 @@ namespace AGS.API
             MaxX = maxX;
             MinY = minY;
             MaxY = maxY;
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-			IsInvalid = MinX == MaxX || MinY == MaxY;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            IsInvalid = MathUtils.FloatEquals(MinX, MaxX) || MathUtils.FloatEquals(MinY, MaxY);
 		}
 
 		#region AGSBoundingBox implementation

@@ -16,6 +16,7 @@ namespace AGS.Engine
         private readonly IGameState _state;
         private readonly IGameEvents _gameEvents;
         private IBoundingBoxComponent _boundingBox;
+        private IScaleComponent _scale;
         private IDrawableInfo _drawableInfo;
         private IInObjectTree _tree;
         private IVisibleComponent _visible;
@@ -37,9 +38,7 @@ namespace AGS.Engine
         {
             base.Init(entity);
             _entity = entity;
-            var graphics = Graphics;
-            if (graphics != null)
-                graphics.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
+            bindGraphics(Graphics);
             entity.Bind<IDrawableInfo>(c => _drawableInfo = c, _ => _drawableInfo = null);
             entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
             entity.Bind<IVisibleComponent>(c => _visible = c, _ => _visible = null);
@@ -58,8 +57,7 @@ namespace AGS.Engine
             {
                 updateGraphics(_graphics, value, -50f);
                 _graphics = value;
-                if (value != null) value.Bind<IBoundingBoxComponent>(c => { _boundingBox = c; c.OnBoundingBoxesChanged.Subscribe(refresh); },
-                                                                     c => { _boundingBox = null; c.OnBoundingBoxesChanged.Unsubscribe(refresh); });
+                bindGraphics(value);
                 refresh();
             }
         }
@@ -97,9 +95,7 @@ namespace AGS.Engine
             }
             set
             {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (_minValue == value) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                if (MathUtils.FloatEquals(_minValue, value)) return;
                 _minValue = value;
                 refresh();
             }
@@ -113,9 +109,7 @@ namespace AGS.Engine
             }
             set
             {
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-                if (_maxValue == value) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+                if (MathUtils.FloatEquals(_maxValue, value)) return;
                 _maxValue = value;
                 refresh();
             }
@@ -159,6 +153,15 @@ namespace AGS.Engine
             if (_graphics != null) _graphics.Dispose();
             if (_handleGraphics != null) _handleGraphics.Dispose();
             if (_label != null) _label.Dispose();
+        }
+
+        private void bindGraphics(IObject graphics)
+        {
+            if (graphics == null) return;
+            graphics.Bind<IBoundingBoxComponent>(c => { _boundingBox = c; c.OnBoundingBoxesChanged.Subscribe(refresh); },
+                                                 c => { _boundingBox = null; c.OnBoundingBoxesChanged.Unsubscribe(refresh); });
+            graphics.Bind<IScaleComponent>(c => { _scale = c; c.OnScaleChanged.Subscribe(refresh); },
+                                           c => { _scale = null; c.OnScaleChanged.Unsubscribe(refresh); });
         }
 
         private void onLostFocus(MouseButtonEventArgs args)
@@ -264,15 +267,14 @@ namespace AGS.Engine
 		private void refresh()
 		{
             var boundingBox = _boundingBox;
-            if (boundingBox == null) return;
+            var scale = _scale;
+            if (boundingBox == null || scale == null) return;
             var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
             if (boundingBoxes == null || HandleGraphics == null) return;
 
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (MinValue == MaxValue) return;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (MathUtils.FloatEquals(MinValue, MaxValue)) return;
 
-            var handlePos = getHandlePos(Value, boundingBoxes);
+            var handlePos = getHandlePos(Value, scale);
             if (isHorizontal()) HandleGraphics.X = MathUtils.Clamp(handlePos, 0f, boundingBoxes.RenderBox.Width);
             else HandleGraphics.Y = MathUtils.Clamp(handlePos, 0f, boundingBoxes.RenderBox.Height);
 			setText();
@@ -287,12 +289,12 @@ namespace AGS.Engine
                                   max, handlePos);
 		}
 
-		private float getHandlePos(float value, AGSBoundingBoxes boundingBoxes)
+		private float getHandlePos(float value, IScale scale)
 		{
 			float min = isReverse() ? MaxValue : MinValue;
 			float max = isReverse() ? MinValue : MaxValue;
             return MathUtils.Lerp(min, 0f, max, isHorizontal() ? 
-                                  boundingBoxes.RenderBox.Width : boundingBoxes.RenderBox.Height, 
+                                  scale.Width : scale.Height, 
                                   value);
 		}
 
@@ -304,9 +306,7 @@ namespace AGS.Engine
 
 		private bool setValue(float value)
 		{
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
-            if (_value == value || value < MinValue || value > MaxValue) return false;
-#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+            if (MathUtils.FloatEquals(_value, value) || value < MinValue || value > MaxValue) return false;
             _value = value;
             OnValueChanging.Invoke(new SliderValueEventArgs(_value));
 			refresh();

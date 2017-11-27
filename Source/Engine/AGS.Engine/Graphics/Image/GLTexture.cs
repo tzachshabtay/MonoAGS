@@ -8,9 +8,9 @@ namespace AGS.Engine
     {
         private ITextureConfig _config;
         private IGraphicsBackend _graphics;
-        private IMessagePump _messagePump;
+        private IRenderMessagePump _messagePump;
 
-        public GLTexture(ITextureConfig config, IGraphicsBackend graphics, IMessagePump messagePump)
+        public GLTexture(ITextureConfig config, IGraphicsBackend graphics, IRenderMessagePump messagePump)
         {
             _graphics = graphics;
             _messagePump = messagePump;
