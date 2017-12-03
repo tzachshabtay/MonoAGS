@@ -261,16 +261,6 @@ namespace AGS.Engine
             get { return _visibleComponent.UnderlyingVisible; } 
         }
 
-		public IEvent OnVisibleChanged
-		{
-			get { return _visibleComponent.OnVisibleChanged; }
-		}
-
-        public IEvent OnUnderlyingVisibleChanged 
-        {  
-            get { return _visibleComponent.OnUnderlyingVisibleChanged; } 
-        }
-
         #endregion
 
         #region IEnabledComponent implementation
@@ -291,16 +281,6 @@ namespace AGS.Engine
         {  
             get { return _enabledComponent.UnderlyingEnabled; } 
         }
-
-		public IEvent OnEnabledChanged
-		{
-			get { return _enabledComponent.OnEnabledChanged; }
-		}
-
-		public IEvent OnUnderlyingEnabledChanged
-		{
-			get { return _enabledComponent.OnUnderlyingEnabledChanged; }
-		}
 
 		#endregion
 

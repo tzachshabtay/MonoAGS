@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.ComponentModel;
 using AGS.API;
 
 namespace AGS.Engine
@@ -11,10 +13,12 @@ namespace AGS.Engine
         private IBoundingBoxComponent _boundingBox;
         private bool _isDirty;
         private readonly IGameState _state;
+        private readonly ConcurrentDictionary<string, IComponentBinding> _bindings;
 
         public AGSCropChildrenComponent(IGameState state)
         {
             _state = state;
+            _bindings = new ConcurrentDictionary<string, IComponentBinding>();
             EntitiesToSkipCrop = new AGSConcurrentHashSet<string>();
             EntitiesToSkipCrop.OnListChanged.Subscribe(_ => rebuildEntireTree());
         }
@@ -59,17 +63,28 @@ namespace AGS.Engine
         private void subscribeObject(IObject obj)
         {
             obj.OnLocationChanged.Subscribe(onTreeChanged);
-            obj.OnVisibleChanged.Subscribe(onVisibleChanged);
+            var binding = obj.Bind<IVisibleComponent>(c => c.PropertyChanged += onVisibleChanged, c => c.PropertyChanged -= onVisibleChanged);
+            _bindings[obj.ID] = binding;
         }
 
         private void unsubscribeObject(IObject obj)
         {
             obj.OnLocationChanged.Unsubscribe(onTreeChanged);
-            obj.OnVisibleChanged.Unsubscribe(onVisibleChanged);
+            IComponentBinding binding;
+            if (_bindings.TryRemove(obj.ID, out binding))
+            {
+                binding.Unbind();
+            }
+            var visible = obj.GetComponent<IVisibleComponent>();
+            if (visible != null)
+            {
+                visible.PropertyChanged -= onVisibleChanged;
+            }
         }
 
-        private void onVisibleChanged()
+        private void onVisibleChanged(object sender, PropertyChangedEventArgs args)
         {
+            if (args.PropertyName != nameof(IVisibleComponent.Visible)) return;
             rebuildJump(_tree);
             onTreeChanged();
         }

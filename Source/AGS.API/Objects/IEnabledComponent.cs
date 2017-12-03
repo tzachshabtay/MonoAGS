@@ -48,18 +48,6 @@
         /// </summary>
         /// <value><c>true</c> if click through; otherwise, <c>false</c>.</value>
         bool ClickThrough { get; set; }
-
-		/// <summary>
-		/// An event which fires whenever enabled has changed for the entity.
-		/// </summary>
-		/// <value>The on visible changed.</value>
-		IEvent OnEnabledChanged { get; }
-
-		/// <summary>
-		/// An event which fires whenever underlying enabled has changed for the entity.
-		/// </summary>
-		/// <value>The on underlying visible changed.</value>
-		IEvent OnUnderlyingEnabledChanged { get; }
 	}
 }
 
