@@ -1,19 +1,25 @@
 ﻿using System;
 using AGS.API;
+using PropertyChanged;
 
 namespace AGS.Engine
 {
+    [DoNotNotify]
     public class AGSObjectBoolParentProperty : AGSComponent
     {
         private readonly Predicate<IObject> _getProperty;
         private readonly Func<IObject, IEvent> _getOnValueChanged;
+        private readonly string _valuePropertyName, _underlyingPropertyName;
         private IInObjectTree _tree;
         private bool _underlyingValue, _lastValue, _initializedValue;
         private IObject _lastParent;
         private IEntity _entity;
 
-        public AGSObjectBoolParentProperty(Predicate<IObject> getProperty, Func<IObject, IEvent> getOnValueChanged)
+        public AGSObjectBoolParentProperty(Predicate<IObject> getProperty, 
+                                           Func<IObject, IEvent> getOnValueChanged, string valuePropertyName, string underlyingPropertyName)
         {
+            _valuePropertyName = valuePropertyName;
+            _underlyingPropertyName = underlyingPropertyName;
             OnUnderlyingValueChanged = new AGSEvent();
             OnValueChanged = new AGSEvent();
             _getProperty = getProperty;
@@ -56,6 +62,7 @@ namespace AGS.Engine
                 if (_underlyingValue == value) return;
                 _underlyingValue = value;
                 OnUnderlyingValueChanged.Invoke();
+                OnPropertyChanged(_underlyingPropertyName);
                 refreshValue();
             }
         }
@@ -94,30 +101,43 @@ namespace AGS.Engine
 			{
                 _initializedValue = true;
                 _lastValue = newValue;
+                OnPropertyChanged(_valuePropertyName);
                 OnValueChanged.Invoke();
                 return;
 			}
             if (_lastValue == newValue) return;
             _lastValue = newValue;
+            OnPropertyChanged(_valuePropertyName);
             OnValueChanged.Invoke();
         }
 	}
 
 	public class VisibleProperty : AGSObjectBoolParentProperty, IVisibleComponent
 	{
-        public VisibleProperty() : base(o => o.Visible, o => o.OnVisibleChanged){}
+        public VisibleProperty() : base(o => o.Visible, o => o.OnVisibleChanged, nameof(Visible), nameof(UnderlyingVisible)){}
+
+        [DoNotNotify]
 		public bool Visible { get { return Value; } set { Value = value; } }
-		public bool UnderlyingVisible { get { return UnderlyingValue; } }
+
+        [DoNotNotify]
+        public bool UnderlyingVisible { get { return UnderlyingValue; } }
+
         public IEvent OnUnderlyingVisibleChanged { get { return OnUnderlyingValueChanged; } }
         public IEvent OnVisibleChanged { get { return OnValueChanged; } }
 	}
 
 	public class EnabledProperty : AGSObjectBoolParentProperty, IEnabledComponent
 	{
-        public EnabledProperty() : base(o => o.Enabled, o => o.OnEnabledChanged){}
+        public EnabledProperty() : base(o => o.Enabled, o => o.OnEnabledChanged, nameof(Enabled), nameof(UnderlyingEnabled)){}
+
+        [DoNotNotify]
         public bool Enabled { get { return Value; } set { Value = value; } }
+
+        [DoNotNotify]
 		public bool UnderlyingEnabled { get { return UnderlyingValue; } }
+
         public bool ClickThrough { get; set; }
+
 		public IEvent OnUnderlyingEnabledChanged { get { return OnUnderlyingValueChanged; } }
 		public IEvent OnEnabledChanged { get { return OnValueChanged; } }
 	}

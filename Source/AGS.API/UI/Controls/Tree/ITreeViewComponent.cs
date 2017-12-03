@@ -73,6 +73,13 @@
         void Collapse(ITreeStringNode node);
 
         /// <summary>
+        /// Is the specified node collapsed (or expanded)?
+        /// </summary>
+        /// <returns>Null if the node is not in the tree, false if expanded, true if collapsed.</returns>
+        /// <param name="node">Node.</param>
+        bool? IsCollapsed(ITreeStringNode node);
+
+        /// <summary>
         /// Forces a layout refresh for the tree (this usually should not be necessary, as the tree refreshes itself when it sees a need).
         /// </summary>
         void RefreshLayout();

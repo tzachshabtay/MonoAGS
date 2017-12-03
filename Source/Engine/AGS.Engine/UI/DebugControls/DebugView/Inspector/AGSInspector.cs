@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -72,21 +73,27 @@ namespace AGS.Engine
 				if (attr.DisplayName != null) name = attr.DisplayName;
 			}
 			InspectorProperty property = new InspectorProperty(obj, name, prop);
-            var val = prop.GetValue(obj);
-            if (val == null) return property;
+            refreshChildrenProperties(property);
+            return property;
+        }
+
+        private void refreshChildrenProperties(InspectorProperty property)
+        {
+            property.Children.Clear();
+            var val = property.Prop.GetValue(property.Object);
+            if (val == null) return;
             var objType = val.GetType();
-			if (objType.GetTypeInfo().GetCustomAttribute<PropertyFolderAttribute>(true) != null)
-			{
+            if (objType.GetTypeInfo().GetCustomAttribute<PropertyFolderAttribute>(true) != null)
+            {
                 var props = getProperties(objType);
-				foreach (var childProp in props)
-				{
+                foreach (var childProp in props)
+                {
                     Category dummyCat = null;
-					var childProperty = addProp(val, childProp, ref dummyCat);
+                    var childProperty = addProp(val, childProp, ref dummyCat);
                     if (childProperty == null) continue;
                     property.Children.Add(childProperty);
-				}
-			}
-            return property;
+                }
+            }
         }
 
         private PropertyInfo[] getProperties(Type type)
@@ -94,7 +101,7 @@ namespace AGS.Engine
             return type.GetRuntimeProperties().Where(p => !p.GetMethod.IsStatic && p.GetMethod.IsPublic).ToArray();
 
             //todo: if moving to dotnet standard 2.0, we can use this instead:
-            //return type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            //return type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
         }
 
         private void configureTree()
@@ -125,6 +132,11 @@ namespace AGS.Engine
         private void addToTree(ITreeStringNode parent, InspectorProperty prop)
         {
             var node = addToTree(prop, parent);
+            addChildrenToTree(node, prop);
+        }
+
+        private void addChildrenToTree(ITreeStringNode node, InspectorProperty prop)
+        {
             foreach (var child in prop.Children)
             {
                 addToTree(node, child);
@@ -137,11 +149,43 @@ namespace AGS.Engine
             return addToTree(node, parent);
 		}
 
+        private string getReadonlyNodeText(InspectorProperty property)
+        {
+            return string.Format("{0}: {1}", property.Name, property.Value);
+        }
+
+        private ITreeStringNode addReadonlyNodeToTree(InspectorProperty property, ITreeStringNode parent)
+        {
+            var node = addToTree(getReadonlyNodeText(property), parent);
+            var propertyChanged = property.Object as INotifyPropertyChanged;
+            if (propertyChanged != null)
+            {
+                propertyChanged.PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName != property.Name) return;
+                    bool isExpanded = _treeView.IsCollapsed(node) == false;
+                    if (isExpanded) _treeView.Collapse(node);
+                    property.Refresh();
+                    node.Text = getReadonlyNodeText(property);
+                    refreshChildrenProperties(property);
+                    node.TreeNode.Children.Clear();
+                    addChildrenToTree(node, property);
+
+                    //todo: we'd like to enable expanding a node that was previously expanded however there's a bug that needs to be investigated before that, to reproduce:
+                    //In the demo game, show the inspector for the character and expand its current room. Then move to another room.
+                    //For some reason this results in endless boundin box/matrix changes until stack overflow is reached.
+                    //if (isExpanded) 
+                      //  _treeView.Expand(node);
+                };
+            }
+            return node;
+        }
+
         private ITreeStringNode addToTree(InspectorProperty property, ITreeStringNode parent)
 		{
             if (property.IsReadonly)
             {
-                return addToTree(string.Format("{0}: {1}", property.Name, property.Value), parent);
+                return addReadonlyNodeToTree(property, parent);
             }
             IInspectorPropertyEditor editor;
 

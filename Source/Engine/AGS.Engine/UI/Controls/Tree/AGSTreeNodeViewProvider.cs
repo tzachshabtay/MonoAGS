@@ -23,6 +23,11 @@ namespace AGS.Engine
             {
                 label.TextConfig = textConfig;
                 label.Text = item.Text;
+                item.PropertyChanged += (sender, e) => 
+                {
+                    if (e.PropertyName != nameof(ITreeStringNode.Text)) return;
+                    label.Text = item.Text;
+                };
             }
             nodeView.TreeItem.Tint = isSelected ? Colors.DarkSlateBlue : Colors.Transparent;
             var expandButton = nodeView.ExpandButton;

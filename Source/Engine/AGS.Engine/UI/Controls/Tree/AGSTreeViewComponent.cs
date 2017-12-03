@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -80,6 +81,13 @@ namespace AGS.Engine
         {
 			var nodeView = findNodeView(node);
             if (nodeView != null) nodeView.Collapse();
+        }
+
+        public bool? IsCollapsed(ITreeStringNode node)
+        {
+            var nodeView = findNodeView(node);
+            if (nodeView == null) return null;
+            return nodeView.IsCollapsed;
         }
 
         private Node findNodeView(ITreeStringNode node)

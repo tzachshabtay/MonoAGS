@@ -63,6 +63,7 @@ namespace AGS.Engine
         private void refreshRoom()
 		{
 			_cachedRoom = new Lazy<IRoom> (getRoom, true);
+            OnPropertyChanged(nameof(Room));
             OnRoomChanged.Invoke();
 		}
 
