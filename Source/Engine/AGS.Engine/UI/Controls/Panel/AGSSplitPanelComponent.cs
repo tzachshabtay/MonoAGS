@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -84,6 +85,7 @@ namespace AGS.Engine
             {
                 positionSplitLine(splitLine, topPanel, lineWidth);    
             });
+            topPanel.Bind<IVisibleComponent>(c => c.PropertyChanged += onTopPanelVisibleChanged, c => c.PropertyChanged -= onTopPanelVisibleChanged);
             _startPositionDragLine = new Vector2(splitLine.X, splitLine.Y);
             splitLine.AddComponent<IUIEvents>();
             var draggable = splitLine.AddComponent<IDraggableComponent>();
@@ -97,6 +99,15 @@ namespace AGS.Engine
             else _state.UI.Add(splitLine);
             splitLine.OnLocationChanged.Subscribe(onSplitLineMoved);
             DragLine = splitLine;
+        }
+
+        private void onTopPanelVisibleChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IVisibleComponent.Visible)) return;
+            var line = DragLine;
+            if (line == null) return;
+            var panel = _topPanel;
+            line.Visible = panel != null && panel.Visible;
         }
 
         private void positionSplitLine(IObject splitLine, IPanel topPanel, float lineWidth)
