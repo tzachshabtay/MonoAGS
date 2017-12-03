@@ -265,14 +265,12 @@ namespace AGS.Engine
 
         private ModelMatrices recalculateMatrices()
         {
-            if (recalculate())
-            {
-                OnMatrixChanged.Invoke();
-            }
+            recalculate();
+            OnMatrixChanged.Invoke();
             return _matrices;
         }
 
-        private bool recalculate()
+        private void recalculate()
         {
             PointF resolutionFactor;
             Size resolution;
@@ -283,20 +281,14 @@ namespace AGS.Engine
             var renderMatrix = getMatrix(resolutionFactor);
             var hitTestMatrix = resolutionMatches ? renderMatrix : resolutionFactor.Equals(NoScaling) ? getMatrix(new PointF((float)_virtualResolution.Width/_drawable.RenderLayer.IndependentResolution.Value.Width,
                                                                                                                              (float)_virtualResolution.Height/_drawable.RenderLayer.IndependentResolution.Value.Height)) : getMatrix(NoScaling);
-            if (_matrices.InObjResolutionMatrix == renderMatrix && _matrices.InVirtualResolutionMatrix == hitTestMatrix)
-            {
-                return false;
-            }
             _matrices.InObjResolutionMatrix = renderMatrix;
             _matrices.InVirtualResolutionMatrix = hitTestMatrix;
-            return true;
         }
 
         private Matrix4 getMatrix(PointF resolutionFactor) 
         {
             var animation = _animation;
-            if (animation == null || animation.Animation == null) 
-                return Matrix4.Identity;
+            if (animation == null || animation.Animation == null) return Matrix4.Identity;
             var sprite = animation.Animation.Sprite;
             Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, null,
                                                   NoScaling, resolutionFactor, true);
