@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AGS.API;
 using System.Reflection;
+using System.ComponentModel;
 
 namespace AGS.Engine
 {
@@ -232,10 +233,13 @@ namespace AGS.Engine
             sliderColorImage.Z = slider.Graphics.Z - 1f;
             sliderColorImage.Tint = Colors.Purple;
             sliderColorImage.Anchor = slider.Graphics.Anchor;
-            slider.HandleGraphics.OnLocationChanged.Subscribe(() =>
+            PropertyChangedEventHandler onHandleLocationChanged = (_, args) =>
             {
+                if (args.PropertyName != nameof(ITranslateComponent.X)) return;
                 sliderColorImage.Image = new EmptyImage(slider.HandleGraphics.X, SLIDER_HEIGHT);
-            });
+            };
+            slider.HandleGraphics.Bind<ITranslateComponent>(c => c.PropertyChanged += onHandleLocationChanged,
+                                                            c => c.PropertyChanged -= onHandleLocationChanged);
             var uiEvents = slider.Graphics.GetComponent<IUIEvents>();
             uiEvents.MouseEnter.Subscribe(_ => sliderColorImage.Tint = Colors.MediumPurple);
             uiEvents.MouseLeave.Subscribe(_ => sliderColorImage.Tint = Colors.Purple);

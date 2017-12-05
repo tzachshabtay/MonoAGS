@@ -13,6 +13,7 @@ namespace AGS.Engine
         private bool _isHorizontal;
         private Vector2 _startPositionDragLine, _startPositionBottomPanel;
 		private SizeF _startSizeTopPanel, _startSizeBottomPanel;
+        private IComponentBinding _splitLineMoveBinding;
 
         public AGSSplitPanelComponent(IInput input, IGameState state, IGameFactory factory)
         {
@@ -61,7 +62,16 @@ namespace AGS.Engine
                 existing.Visible = false;
                 _state.UI.Remove(existing);
                 _state.Room.Objects.Remove(existing);
-                existing.OnLocationChanged.Unsubscribe(onSplitLineMoved);
+                var binding = _splitLineMoveBinding;
+                if (binding != null)
+                {
+                    binding.Unbind();
+                }
+                var translate = existing.GetComponent<ITranslateComponent>();
+                if (translate != null)
+                {
+                    translate.PropertyChanged -= onSplitLineMoved;
+                }
             }
         }
 
@@ -97,7 +107,9 @@ namespace AGS.Engine
             var room = topPanel.Room;
             if (room != null) room.Objects.Add(splitLine);
             else _state.UI.Add(splitLine);
-            splitLine.OnLocationChanged.Subscribe(onSplitLineMoved);
+            _splitLineMoveBinding = splitLine.Bind<ITranslateComponent>(
+                c => c.PropertyChanged += onSplitLineMoved,
+                c => c.PropertyChanged -= onSplitLineMoved);
             DragLine = splitLine;
         }
 
@@ -122,8 +134,9 @@ namespace AGS.Engine
 			splitLine.Y = box.MinY;
         }
 
-        private void onSplitLineMoved()
+        private void onSplitLineMoved(object sender, PropertyChangedEventArgs args)
         {
+            if (args.PropertyName != nameof(ITranslateComponent.Location)) return;
 			var topPanel = TopPanel;
             if (topPanel == null) return;
 			var bottomPanel = BottomPanel;

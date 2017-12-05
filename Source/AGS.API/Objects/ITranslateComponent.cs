@@ -37,12 +37,6 @@
         /// </summary>
         /// <value>The z.</value>
         float Z { get; set; }
-
-        /// <summary>
-        /// An event which fires whenever the location is changed.
-        /// </summary>
-        /// <value>The event.</value>
-        IEvent OnLocationChanged { get; }
     }
 
     /// <summary>

@@ -34,6 +34,15 @@ namespace AGS.Engine
             }
         }
 
+        public void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            var propertyChanged = PropertyChanged;
+            if (propertyChanged != null)
+            {
+                propertyChanged(this, args);
+            }
+        }
+
         #region IDisposable implementation
 
         public virtual void Dispose()

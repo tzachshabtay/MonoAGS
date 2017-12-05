@@ -43,7 +43,7 @@ namespace DemoGame
 			_player.Room.Edges.Right.Enabled = true;
 			foreach (var area in _lastAreas) _player.Room.Areas.Add(area);
 			_player.Location = _lastLocation;
-            _player.ScaleBy(_lastScaleX, _lastScaleY);
+            _player.Scale = new PointF(_lastScaleX, _lastScaleY);
         }
     }
 }

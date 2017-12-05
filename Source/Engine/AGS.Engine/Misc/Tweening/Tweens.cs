@@ -330,7 +330,7 @@ namespace AGS.Engine
         /// <param name="easing">Easing function.</param>
         public static Tween TweenScaleX(this IScale sprite, float toScaleX, float timeInSeconds, Func<float, float> easing = null)
 		{
-			return Tween.Run(sprite.ScaleX, toScaleX, x => sprite.ScaleBy(x, sprite.ScaleY), timeInSeconds, easing);
+            return Tween.Run(sprite.ScaleX, toScaleX, x => sprite.ScaleX = x, timeInSeconds, easing);
 		}
 
         /// <summary>
@@ -351,7 +351,7 @@ namespace AGS.Engine
         /// <param name="easing">Easing function.</param>
 		public static Tween TweenScaleY(this IScale sprite, float toScaleY, float timeInSeconds, Func<float, float> easing = null)
 		{
-			return Tween.Run(sprite.ScaleY, toScaleY, y => sprite.ScaleBy(sprite.ScaleX, y), timeInSeconds, easing);
+			return Tween.Run(sprite.ScaleY, toScaleY, y => sprite.ScaleY = y, timeInSeconds, easing);
 		}
 
         /// <summary>

@@ -37,7 +37,7 @@ namespace DemoGame
             player.StartAnimation(animation);
             player.X = 150f;
             player.Y = 50f;
-            player.ScaleBy(2f, 2f);
+            player.Scale = new PointF(2f, 2f);
 
             foreach (var frame in animation.Frames)
             {

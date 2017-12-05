@@ -1,6 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading;
 using AGS.API;
+using PropertyChanged;
 
 namespace AGS.Engine
 {
@@ -30,6 +33,8 @@ namespace AGS.Engine
             _hasImage.Anchor = new PointF();
             _scale = new AGSScale(_hasImage);
             _rotate = new AGSRotate();
+
+            _scale.PropertyChanged += onScalePropertyChanged;
         }
 
         private AGSSprite(AGSSprite sprite) : this(sprite._resolver, sprite._maskLoader)
@@ -41,10 +46,12 @@ namespace AGS.Engine
             _hasImage.CustomRenderer = sprite._hasImage.CustomRenderer;
             _rotate.Angle = sprite._rotate.Angle;
             BaseSize = sprite.BaseSize;
-            ScaleBy(sprite.ScaleX, sprite.ScaleY);
+            Scale = sprite.Scale;
         }
 
         #region ISprite implementation
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public void ResetScale(float initialWidth, float initialHeight)
         {
@@ -54,11 +61,6 @@ namespace AGS.Engine
         public void ResetScale()
         {
             _scale.ResetScale();
-        }
-
-        public void ScaleBy(float scaleX, float scaleY)
-        {
-            _scale.ScaleBy(scaleX, scaleY);
         }
 
         public void ScaleTo(float width, float height)
@@ -89,14 +91,22 @@ namespace AGS.Engine
 
         public float Z { get { return _translate.Z; } set { _translate.Z = value; } }
 
+        [DoNotNotify]
         public float Height { get { return _scale.Height; } }
 
+        [DoNotNotify]
         public float Width { get { return _scale.Width; } }
 
+        [DoNotNotify]
         public float ScaleX { get { return _scale.ScaleX; } set { _scale.ScaleX = value; } }
 
+        [DoNotNotify]
         public float ScaleY { get { return _scale.ScaleY; } set { _scale.ScaleY = value; }}
 
+        [DoNotNotify]
+        public PointF Scale { get { return _scale.Scale; } set { _scale.Scale = value; } }
+
+        [DoNotNotify]
         public SizeF BaseSize { get { return _scale.BaseSize; } set { _scale.BaseSize = value; }}
 
         public float Angle { get { return _rotate.Angle; } set { _rotate.Angle = value; } }
@@ -113,11 +123,8 @@ namespace AGS.Engine
 
         public Color Tint { get { return _hasImage.Tint; } set { _hasImage.Tint = value; } }
 
-        public IEvent OnLocationChanged { get { return _translate.OnLocationChanged; } }
-        public IEvent OnAngleChanged { get { return _rotate.OnAngleChanged; } }
         public IEvent OnAnchorChanged { get { return _hasImage.OnAnchorChanged; } }
         public IEvent OnTintChanged { get { return _hasImage.OnTintChanged; } }
-        public IEvent OnScaleChanged { get { return _scale.OnScaleChanged; } }
 
         public IArea PixelPerfectHitTestArea { get; private set; }
         public void PixelPerfect(bool pixelPerfect)
@@ -155,6 +162,20 @@ namespace AGS.Engine
 		{
             return _hasImage.ToString();
 		}
+
+        public void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            var propertyChanged = PropertyChanged;
+            if (propertyChanged != null)
+            {
+                propertyChanged(this, args);
+            }
+        }
+
+        private void onScalePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(e);
+        }
 	}
 }
 

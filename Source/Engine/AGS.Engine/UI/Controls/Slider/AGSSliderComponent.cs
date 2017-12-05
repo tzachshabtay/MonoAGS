@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -160,8 +161,15 @@ namespace AGS.Engine
             if (graphics == null) return;
             graphics.Bind<IBoundingBoxComponent>(c => { _boundingBox = c; c.OnBoundingBoxesChanged.Subscribe(refresh); },
                                                  c => { _boundingBox = null; c.OnBoundingBoxesChanged.Unsubscribe(refresh); });
-            graphics.Bind<IScaleComponent>(c => { _scale = c; c.OnScaleChanged.Subscribe(refresh); },
-                                           c => { _scale = null; c.OnScaleChanged.Unsubscribe(refresh); });
+            graphics.Bind<IScaleComponent>(c => { _scale = c; c.PropertyChanged += onScaleChanged; },
+                                           c => { _scale = null; c.PropertyChanged -= onScaleChanged; });
+        }
+
+        private void onScaleChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IScaleComponent.Width) &&
+                args.PropertyName != nameof(IScaleComponent.Height)) return;
+            refresh();
         }
 
         private void onLostFocus(MouseButtonEventArgs args)

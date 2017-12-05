@@ -10,12 +10,6 @@
         /// </summary>
         /// <value>The angle.</value>
         float Angle { get; set; }
-
-        /// <summary>
-        /// An event which is fired when the angle is changed.
-        /// </summary>
-        /// <value>The event.</value>
-        IEvent OnAngleChanged { get; }
     }
 
     /// <summary>

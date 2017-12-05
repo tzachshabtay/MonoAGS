@@ -46,12 +46,12 @@ namespace AGS.Engine
 		{
 			if (notInRoom ()) return;
 
-			var tween = Tween.RunWithExternalVisit(_label.ScaleX, 1.5f, scale => _label.ScaleBy(scale,scale), 
+            var tween = Tween.RunWithExternalVisit(_label.ScaleX, 1.5f, scale => _label.Scale = new PointF(scale,scale), 
 			                                       3f, Ease.BounceOut, out _visitTween);
 
 			await tween.Task;
 
-			tween = Tween.RunWithExternalVisit (_label.ScaleX, 1f, scale => _label.ScaleBy (scale, scale),
+            tween = Tween.RunWithExternalVisit (_label.ScaleX, 1f, scale => _label.Scale = new PointF(scale, scale),
 												   3f, Ease.BounceOut, out _visitTween);
 
 			await tween.Task;

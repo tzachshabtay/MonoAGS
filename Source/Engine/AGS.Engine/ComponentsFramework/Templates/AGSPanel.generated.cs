@@ -391,11 +391,6 @@ namespace AGS.Engine
             set { _translateComponent.Z = value; } 
         }
 
-        public IEvent OnLocationChanged 
-        {  
-            get { return _translateComponent.OnLocationChanged; } 
-        }
-
         #endregion
 
         #region IImageComponent implementation
@@ -479,15 +474,16 @@ namespace AGS.Engine
             set { _scaleComponent.ScaleY = value; }
         }
 
+        public PointF Scale
+        {
+            get { return _scaleComponent.Scale; }
+            set { _scaleComponent.Scale = value; }
+        }
+
         public SizeF BaseSize
         {
             get { return _scaleComponent.BaseSize; }
             set { _scaleComponent.BaseSize = value; }
-        }
-
-        public IEvent OnScaleChanged
-        {
-            get { return _scaleComponent.OnScaleChanged; }
         }
 
         public void ResetScale()
@@ -498,11 +494,6 @@ namespace AGS.Engine
         public void ResetScale(Single initialWidth, Single initialHeight)
         {
             _scaleComponent.ResetScale(initialWidth, initialHeight);
-        }
-
-        public void ScaleBy(Single scaleX, Single scaleY)
-        {
-            _scaleComponent.ScaleBy(scaleX, scaleY);
         }
 
         public void ScaleTo(Single width, Single height)
@@ -532,11 +523,6 @@ namespace AGS.Engine
         {  
             get { return _rotateComponent.Angle; }  
             set { _rotateComponent.Angle = value; } 
-        }
-
-        public IEvent OnAngleChanged 
-        {  
-            get { return _rotateComponent.OnAngleChanged; } 
         }
 
         #endregion

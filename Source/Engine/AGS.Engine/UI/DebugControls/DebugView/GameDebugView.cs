@@ -87,14 +87,15 @@ namespace AGS.Engine
             horizSplit.IsHorizontal = true;
             horizSplit.TopPanel = _panel;
 
-            _panel.OnScaleChanged.Subscribe(() => 
+            _panel.GetComponent<IScaleComponent>().PropertyChanged += (_, args) => 
             {
+                if (args.PropertyName != nameof(IScaleComponent.Width)) return;
                 _panesButton.X = _panel.Width;
                 headerLabel.LabelRenderSize = new SizeF(_panel.Width, headerLabel.LabelRenderSize.Height);
                 parentPanel.BaseSize = new SizeF(_panel.Width, parentPanel.Height);
                 _currentTab.Resize();
                 _inspector.Resize();
-            });
+            };
         }
 
         public Task Show()

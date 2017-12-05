@@ -8,17 +8,16 @@ namespace AGS.Engine
     public class AGSCropChildrenComponent : AGSComponent, ICropChildrenComponent
     {
         private IInObjectTree _tree;
-        private IScaleComponent _scale;
         private PointF _startPoint;
         private IBoundingBoxComponent _boundingBox;
         private bool _isDirty;
         private readonly IGameState _state;
-        private readonly ConcurrentDictionary<string, IComponentBinding> _bindings;
+        private readonly ConcurrentDictionary<string, IComponentBinding[]> _bindings;
 
         public AGSCropChildrenComponent(IGameState state)
         {
             _state = state;
-            _bindings = new ConcurrentDictionary<string, IComponentBinding>();
+            _bindings = new ConcurrentDictionary<string, IComponentBinding[]>();
             EntitiesToSkipCrop = new AGSConcurrentHashSet<string>();
             EntitiesToSkipCrop.OnListChanged.Subscribe(_ => rebuildEntireTree());
         }
@@ -34,8 +33,7 @@ namespace AGS.Engine
             base.Init(entity);
             entity.Bind<IBoundingBoxComponent>(c => { _boundingBox = c; }, _ => { _boundingBox = null; });
             entity.Bind<IInObjectTree>(c => { subscribeTree(c); _tree = c; }, c => { unsubscribeTree(c); _tree = null; });
-            entity.Bind<IScaleComponent>(c => { c.OnScaleChanged.Subscribe(onTreeChanged); _scale = c; rebuildEntireTree(); },
-                                         c => { c.OnScaleChanged.Unsubscribe(onTreeChanged); _scale = null; });
+            rebuildEntireTree();
         }
 
         private void subscribeTree(IInObjectTree node)
@@ -62,18 +60,21 @@ namespace AGS.Engine
 
         private void subscribeObject(IObject obj)
         {
-            obj.OnLocationChanged.Subscribe(onTreeChanged);
-            var binding = obj.Bind<IVisibleComponent>(c => c.PropertyChanged += onVisibleChanged, c => c.PropertyChanged -= onVisibleChanged);
-            _bindings[obj.ID] = binding;
+            var bindings = new IComponentBinding[2];
+            bindings[0] = obj.Bind<ITranslateComponent>(c => c.PropertyChanged += onLocationChanged, c => c.PropertyChanged -= onLocationChanged);
+            bindings[1] = obj.Bind<IVisibleComponent>(c => c.PropertyChanged += onVisibleChanged, c => c.PropertyChanged -= onVisibleChanged);
+            _bindings[obj.ID] = bindings;
         }
 
         private void unsubscribeObject(IObject obj)
         {
-            obj.OnLocationChanged.Unsubscribe(onTreeChanged);
-            IComponentBinding binding;
-            if (_bindings.TryRemove(obj.ID, out binding))
+            IComponentBinding[] bindings;
+            if (_bindings.TryRemove(obj.ID, out bindings))
             {
-                binding.Unbind();
+                foreach (var binding in bindings)
+                {
+                    binding.Unbind();
+                }
             }
             var visible = obj.GetComponent<IVisibleComponent>();
             if (visible != null)
@@ -86,6 +87,12 @@ namespace AGS.Engine
         {
             if (args.PropertyName != nameof(IVisibleComponent.Visible)) return;
             rebuildJump(_tree);
+            onTreeChanged();
+        }
+
+        private void onLocationChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(ITranslateComponent.Location)) return;
             onTreeChanged();
         }
 

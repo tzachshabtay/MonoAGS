@@ -1,9 +1,11 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// Allows scaling (changing the size of) entities/sprites.
     /// </summary>
-    public interface IScale
+    public interface IScale: INotifyPropertyChanged
     {
         /// <summary>
         /// Gets the height (in pixels).
@@ -32,16 +34,25 @@
         float ScaleY { get; set; }
 
         /// <summary>
+        /// Scales the size by a factor. The factor is calculated on top of the original size,
+        /// not the current size. (1,1) is the default, meaning no scale.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// sprite.ResetScale(10f,10f);
+        /// sprite.Scale = new PointF(2f, 1f);
+        /// Debug.WriteLine("Size of sprite is ({0},{1})", sprite.Width, sprite.Height); //prints "Size of sprite is (20,10)"
+        /// sprite.Scale = new PointF(3f, 4f);
+        /// Debug.WriteLine("Size of sprite is ({0},{1})", sprite.Width, sprite.Height); //prints "Size of sprite is (30,40)"
+        /// </code>
+        /// </example>
+        PointF Scale { get; set; }
+
+        /// <summary>
         /// Gets or sets the base size (the "original" size), on top of which the scale is calculated.
         /// </summary>
         /// <value>The size of the base.</value>
         SizeF BaseSize { get; set; }
-
-        /// <summary>
-        /// An event which fires whenever the scale changes
-        /// </summary>
-        /// <value>The event.</value>
-        IEvent OnScaleChanged { get; }
 
         /// <summary>
         /// Resets the scale to (1,1), i.e no scaling.
@@ -55,23 +66,6 @@
         /// <param name="initialWidth">Initial width.</param>
         /// <param name="initialHeight">Initial height.</param>
         void ResetScale(float initialWidth, float initialHeight);
-
-        /// <summary>
-        /// Scales the size by a factor. The factor is calculated on top of the original size,
-        /// not the current size.
-        /// </summary>
-        /// <param name="scaleX">Scale x.</param>
-        /// <param name="scaleY">Scale y.</param>
-        /// <example>
-        /// <code>
-        /// sprite.ResetScale(10f,10f);
-        /// sprite.ScaleBy(2f, 1f);
-        /// Debug.WriteLine("Size of sprite is ({0},{1})", sprite.Width, sprite.Height); //prints "Size of sprite is (20,10)"
-        /// sprite.ScaleBy(3f, 4f);
-        /// Debug.WriteLine("Size of sprite is ({0},{1})", sprite.Width, sprite.Height); //prints "Size of sprite is (30,40)"
-        /// </code>
-        /// </example>
-        void ScaleBy(float scaleX, float scaleY);
 
         /// <summary>
         /// Scales the size to a specific size. This will change <see cref="ScaleX"/> and <see cref="ScaleY"/> to fit.

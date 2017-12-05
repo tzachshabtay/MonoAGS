@@ -27,7 +27,5 @@ namespace AGS.Engine
         [Property(Browsable = false)]
         [AlsoNotifyFor(nameof(Location))]
         public float Z { get { return _translate.Z; } set { _translate.Z = value; } }
-
-        public IEvent OnLocationChanged { get { return _translate.OnLocationChanged; } }
     }
 }

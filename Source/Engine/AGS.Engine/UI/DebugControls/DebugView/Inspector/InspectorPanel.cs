@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -7,6 +8,7 @@ namespace AGS.Engine
 		private readonly IRenderLayer _layer;
 		private readonly IGame _game;
         private IPanel _panel, _scrollingPanel, _parent;
+        const float _padding = 10f;
 
         public InspectorPanel(IGame game, IRenderLayer layer)
         {
@@ -29,8 +31,7 @@ namespace AGS.Engine
 			_scrollingPanel.Tint = Colors.Transparent;
 			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
 
-            const float padding = 10f;
-            _panel = factory.UI.GetPanel("GameDebugInspectorPanel", parent.Width, height - padding, 0f, height - padding, _scrollingPanel);
+            _panel = factory.UI.GetPanel("GameDebugInspectorPanel", parent.Width, height - _padding, 0f, height - _padding, _scrollingPanel);
 			_panel.Tint = Colors.Transparent;
 			_panel.RenderLayer = _layer;
 			var treeView = _panel.AddComponent<ITreeViewComponent>();
@@ -39,15 +40,19 @@ namespace AGS.Engine
             Inspector = new AGSInspector(_game.Factory, _game.Settings);
             _panel.AddComponent<IInspectorComponent>(Inspector);
             factory.UI.CreateScrollingPanel(_scrollingPanel);
-			_scrollingPanel.OnScaleChanged.Subscribe(() =>
-			{
-                _panel.Y = _scrollingPanel.Height - padding;
-			});
+            _scrollingPanel.Bind<IScaleComponent>(c => c.PropertyChanged += onScrollingPanelScaleChanged,
+                                                  c => c.PropertyChanged -= onScrollingPanelScaleChanged);
         }
 
 		public void Resize()
 		{
 			_scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
 		}
+
+        private void onScrollingPanelScaleChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IScaleComponent.Height)) return;
+            _panel.Y = _scrollingPanel.Height - _padding;
+        }
     }
 }
