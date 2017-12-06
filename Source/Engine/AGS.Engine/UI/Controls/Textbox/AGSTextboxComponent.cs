@@ -27,13 +27,12 @@ namespace AGS.Engine
 
         private ILabel _withCaret;
 
-        public AGSTextBoxComponent(IEvent onFocusChanged, IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
+        public AGSTextBoxComponent(IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
                                    IInput input, IGame game, IKeyboardState keyboardState, IFocusedUI focusedUi)
         {
             CaretFlashDelay = 10;
             _keyboardState = keyboardState;
             _focusedUi = focusedUi;
-            OnFocusChanged = onFocusChanged;
             OnPressingKey = onPressingKey;
             _game = game;
             
@@ -91,7 +90,6 @@ namespace AGS.Engine
             get { return _isFocused; }
             set
             {
-                if (_isFocused == value) return;
                 _isFocused = value;
                 if (_isFocused)
                 {
@@ -107,14 +105,11 @@ namespace AGS.Engine
                     if (_focusedUi.HasKeyboardFocus == this)
                         _focusedUi.HasKeyboardFocus = null;
                 }
-                OnFocusChanged.Invoke();
             }
         }
 
         public int CaretPosition { get; set; }
         public uint CaretFlashDelay { get; set; }
-
-        public IEvent OnFocusChanged { get; private set; }
 
         public IEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; private set; }
 

@@ -46,11 +46,6 @@
         IEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; }
 
         /// <summary>
-        /// This event can be subscribed to get notifications for when the textbox gets or a loses focus.
-        /// </summary>
-        IEvent OnFocusChanged { get; }
-
-        /// <summary>
         /// Gets or sets whether the textbox is focused or not. Only when the textbox is focused it can receive input from the keyboard 
         /// (and the caret is shown).
         /// The textbox automatically gets focus when clicked, and loses focus when the user clicks somewhere else.

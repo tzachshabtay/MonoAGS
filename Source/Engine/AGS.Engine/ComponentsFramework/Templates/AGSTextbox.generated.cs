@@ -610,11 +610,6 @@ namespace AGS.Engine
             get { return _textBoxComponent.OnPressingKey; } 
         }
 
-        public IEvent OnFocusChanged 
-        {  
-            get { return _textBoxComponent.OnFocusChanged; } 
-        }
-
         public Boolean IsFocused 
         {  
             get { return _textBoxComponent.IsFocused; }  
