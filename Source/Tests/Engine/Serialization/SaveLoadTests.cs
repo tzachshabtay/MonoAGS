@@ -116,7 +116,7 @@ namespace Tests
 			obj.Location = new AGSLocation (0.5f, 0.6f, 0.7f);
 			obj.Angle = 0.8f;
 			obj.Image = new EmptyImage (100f, 50f);
-			obj.ScaleBy(2f, 2.5f);
+            obj.Scale = new PointF(2f, 2.5f);
 			obj.Tint = AGS.API.Color.FromHexa((uint)System.Drawing.Color.AliceBlue.ToArgb());
 
 			IRoom room = _mocks.Room().Object;

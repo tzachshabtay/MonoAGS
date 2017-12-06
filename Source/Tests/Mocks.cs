@@ -259,11 +259,6 @@ namespace Tests
 			if (_viewport == null)
 			{
 				_viewport = new Mock<IViewport> ();
-                _viewport.Setup(v => v.OnAngleChanged).Returns(new AGSEvent());
-                _viewport.Setup(v => v.OnScaleChanged).Returns(new AGSEvent());
-                _viewport.Setup(v => v.OnPositionChanged).Returns(new AGSEvent());
-                _viewport.Setup(v => v.OnParentChanged).Returns(new AGSEvent());
-                _viewport.Setup(v => v.OnProjectionBoxChanged).Returns(new AGSEvent());
                 _viewport.Setup(v => v.DisplayListSettings).Returns(new AGSDisplayListSettings());
 			}
 			return _viewport;

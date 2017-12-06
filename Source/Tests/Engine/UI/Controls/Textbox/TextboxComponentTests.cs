@@ -91,7 +91,7 @@ namespace Tests
                 Returns(label.Object);
             
 
-            AGSTextBoxComponent textbox = new AGSTextBoxComponent(new AGSEvent(), new AGSEvent<TextBoxKeyPressingEventArgs>(), 
+            AGSTextBoxComponent textbox = new AGSTextBoxComponent(new AGSEvent<TextBoxKeyPressingEventArgs>(), 
                                                   input.Object, game.Object, new DesktopKeyboardState(), focusedUi.Object);
             textbox.Init(entity.Object);
             textbox.IsFocused = true;
