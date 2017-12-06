@@ -310,6 +310,12 @@ namespace AGS.Engine
             set { _translateComponent.Z = value; } 
         }
 
+        public ILocation Location
+        {
+            get { return _translateComponent.Location; }
+            set { _translateComponent.Location = value; }
+        }
+
         #endregion
 
         #region IImageComponent implementation
@@ -550,11 +556,6 @@ namespace AGS.Engine
         public Task<Boolean> WalkAsync(ILocation location)
         {
             return _walkBehavior.WalkAsync(location);
-        }
-
-        public void StopWalking()
-        {
-            _walkBehavior.StopWalking();
         }
 
         public Task StopWalkingAsync()

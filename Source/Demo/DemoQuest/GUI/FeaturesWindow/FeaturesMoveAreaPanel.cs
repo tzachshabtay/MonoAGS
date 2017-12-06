@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -61,7 +62,7 @@ namespace DemoGame
             animate(parent, areaTranslate, areaRotate);
         }
 
-        public void Close()
+        public async Task Close()
         {
             _shouldAnimate = false;
             var label = _label;
@@ -72,7 +73,7 @@ namespace DemoGame
             }
 
             var playerAsFeature = _playerAsFeature;
-            if (playerAsFeature != null) playerAsFeature.Restore();
+            if (playerAsFeature != null) await playerAsFeature.Restore();
 
             _scheme.CurrentMode = MouseCursors.POINT_MODE;
         }

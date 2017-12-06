@@ -134,7 +134,7 @@ namespace DemoGame
             layout.StartLayout();
         }
 
-        public void Close()
+        public Task Close()
         {
             clearTweens();
             removeComboboxFromUI(_targetCombobox);
@@ -148,6 +148,7 @@ namespace DemoGame
             _game.State.Player.Tint = Colors.White;
             TopBar.InventoryButton.Tint = Colors.White;
             _window.Tint = Colors.Black;
+            return Task.CompletedTask;
         }
 
         public async void Show()

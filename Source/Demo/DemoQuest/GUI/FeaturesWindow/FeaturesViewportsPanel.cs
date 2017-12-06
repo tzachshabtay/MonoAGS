@@ -17,10 +17,11 @@ namespace DemoGame
 			_parent = parent;
         }
 
-        public void Close()
+        public Task Close()
         {
             _isShowing = false;
             _game.State.SecondaryViewports.Clear();
+            return Task.CompletedTask;
         }
 
         public async void Show()

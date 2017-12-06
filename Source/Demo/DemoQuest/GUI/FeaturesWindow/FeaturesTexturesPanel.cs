@@ -47,7 +47,7 @@ namespace DemoGame
             animate(textureOffset);
         }
 
-		public void Close()
+		public async Task Close()
 		{
 			var player = _game.State.Player;
             if (player != null)
@@ -63,7 +63,7 @@ namespace DemoGame
 			}
 			_isClosed = true;
 			var playerAsFeature = _playerAsFeature;
-            if (playerAsFeature != null) playerAsFeature.Restore();
+            if (playerAsFeature != null) await playerAsFeature.Restore();
 
 			var label = _label;
 			if (label != null)

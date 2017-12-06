@@ -54,12 +54,13 @@ namespace DemoGame
             _game.State.UI.Add(_featuresAutoFitCombobox);
         }
 
-        public void Close() 
+        public Task Close() 
         {
             _game.State.UI.Remove(_label);
             _game.State.UI.Remove(_featuresAutoFitCombobox.TextBox);
             _game.State.UI.Remove(_featuresAutoFitCombobox.DropDownButton);
             _game.State.UI.Remove(_featuresAutoFitCombobox);
+            return Task.CompletedTask;
         }
 
         private async void animateText()

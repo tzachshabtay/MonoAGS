@@ -27,16 +27,6 @@ namespace AGS.Engine
 			_hasOutfit.Outfit = outfit;
 		}
 
-		public ILocation Location
-		{
-			get { return _translateComponent.Location; } 
-			set
-			{
-				StopWalking();
-                _translateComponent.Location = value; 
-			}
-		}
-
 		public async Task ChangeRoomAsync(IRoom room, float? x = null, float? y = null)
 		{
 			await StopWalkingAsync();

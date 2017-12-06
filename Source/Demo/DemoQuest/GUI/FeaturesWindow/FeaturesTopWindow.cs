@@ -99,10 +99,10 @@ namespace DemoGame
 			_panel.GetComponent<IModalWindowComponent>().GrabFocus();
 		}
 
-        private void onTreeNodeSelected(NodeEventArgs args)
+        private async void onTreeNodeSelected(NodeEventArgs args)
         {
             var current = _currentPanel;
-            if (current != null) current.Close(); 
+            if (current != null) await current.Close(); 
             Lazy<IFeaturesPanel> panel;
             if (!_panels.TryGetValue(args.Node.Text, out panel) || panel == null) return;
             panel.Value.Show();
@@ -117,10 +117,10 @@ namespace DemoGame
             return node;
         }
 
-        private void hide()
+        private async void hide()
 		{
             var currentPanel = _currentPanel;
-            if (currentPanel != null) currentPanel.Close();
+            if (currentPanel != null) await currentPanel.Close();
 			_scheme.RotatingEnabled = true;
 			if (_game.State.Player.Inventory.ActiveItem == null)
 				_scheme.CurrentMode = _lastMode;

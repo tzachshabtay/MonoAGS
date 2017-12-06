@@ -61,7 +61,7 @@ namespace AGS.Engine
 			var followSettings = _followSettings;
 			if (target == null || followSettings == null) 
 			{
-				if (currentWalk != null) walk.StopWalking ();
+				if (currentWalk != null) await walk.StopWalkingAsync();
 				return;
 			}
 			if (target == _lastTarget) 
