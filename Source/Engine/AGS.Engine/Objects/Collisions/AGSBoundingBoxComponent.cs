@@ -302,18 +302,14 @@ namespace AGS.Engine
                 IsDirty = true;
                 _viewport = viewport;
                 BoundingBoxes = new AGSBoundingBoxes();
-				viewport.OnAngleChanged.Subscribe(onViewportChanged);
-				viewport.OnScaleChanged.Subscribe(onViewportChanged);
-				viewport.OnPositionChanged.Subscribe(onViewportChanged);
-                viewport.OnProjectionBoxChanged.Subscribe(onViewportChanged);
-                viewport.OnParentChanged.Subscribe(onViewportChanged);
+                viewport.PropertyChanged += onViewportChanged;
             }
 
             public AGSBoundingBoxes PreLockBoundingBoxes { get; set; }
             public AGSBoundingBoxes BoundingBoxes { get; set; }
             public bool IsDirty { get; set; }
 
-            private void onViewportChanged()
+            private void onViewportChanged(object sender, PropertyChangedEventArgs args)
             {
                 IsDirty = true;
             }
