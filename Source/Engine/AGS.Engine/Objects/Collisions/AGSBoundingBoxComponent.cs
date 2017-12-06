@@ -58,8 +58,8 @@ namespace AGS.Engine
             entity.Bind<IImageComponent>(c => c.PropertyChanged += onImageChanged,
                                          c => c.PropertyChanged -= onImageChanged);
             entity.Bind<IAnimationContainer>(c => _animation = c, _animation => _animation = null);
-            entity.Bind<IDrawableInfo>(c => { c.OnRenderLayerChanged.Subscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Subscribe(onAllViewportsShouldChange); _drawable = c; },
-                                       c => { c.OnRenderLayerChanged.Unsubscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Unsubscribe(onAllViewportsShouldChange); _drawable = null; });
+            entity.Bind<IDrawableInfo>(c => { c.PropertyChanged += onDrawableChanged; _drawable = c; },
+                                       c => { c.PropertyChanged -= onDrawableChanged; _drawable = null; });
             entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += onTextureOffsetChanged; _textureOffset = c; onAllViewportsShouldChange(); }, 
                                                  c => { c.PropertyChanged -= onTextureOffsetChanged; _textureOffset = null; onAllViewportsShouldChange(); });
             
@@ -271,6 +271,12 @@ namespace AGS.Engine
         {
             if (args.PropertyName != nameof(IImageComponent.Image)) return;
             onHitTextBoxShouldChange();
+        }
+
+        private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName == nameof(IDrawableInfo.RenderLayer)) onHitTextBoxShouldChange();
+            else if (args.PropertyName == nameof(IDrawableInfo.IgnoreViewport)) onAllViewportsShouldChange();
         }
 
 		//https://stackoverflow.com/questions/8946790/how-to-use-an-objects-identity-as-key-for-dictionaryk-v

@@ -1,5 +1,6 @@
 ﻿using AGS.API;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace AGS.Engine
 {
@@ -70,9 +71,13 @@ namespace AGS.Engine
             entity.Bind<IDrawableInfo>(c =>
             {
                 _drawableComponent = c;
-                c.OnRenderLayerChanged.Subscribe(onRenderLayerChanged);
+                c.PropertyChanged += onDrawableChanged;
                 onRenderLayerChanged();
-            }, c => _drawableComponent = null);
+            }, c => 
+            { 
+                c.PropertyChanged -= onDrawableChanged; 
+                _drawableComponent = null; 
+            });
         }
 
         public override void AfterInit()
@@ -118,6 +123,12 @@ namespace AGS.Engine
             base.Dispose();
             _game.Events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
             _game.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
+        }
+
+        private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IDrawableInfo.RenderLayer)) return;
+            onRenderLayerChanged();
         }
 
         private void onRenderLayerChanged()

@@ -243,21 +243,6 @@ namespace AGS.Engine
             set { _drawableInfo.IgnoreScalingArea = value; } 
         }
 
-        public IEvent OnIgnoreScalingAreaChanged 
-        {  
-            get { return _drawableInfo.OnIgnoreScalingAreaChanged; } 
-        }
-
-        public IEvent OnIgnoreViewportChanged 
-        {  
-            get { return _drawableInfo.OnIgnoreViewportChanged; } 
-        }
-
-        public IEvent OnRenderLayerChanged 
-        {  
-            get { return _drawableInfo.OnRenderLayerChanged; } 
-        }
-
         #endregion
 
         #region IHotspotComponent implementation

@@ -83,13 +83,11 @@ namespace AGS.Engine
                 c => 
             {
                 _drawable = c;
-				c.OnIgnoreScalingAreaChanged.Subscribe(onSomethingChanged);
-				c.OnRenderLayerChanged.Subscribe(onSomethingChanged);
+                c.PropertyChanged += onDrawableChanged;
                 onSomethingChanged();
             },c =>
             {
-                c.OnIgnoreScalingAreaChanged.Unsubscribe(onSomethingChanged);
-				c.OnRenderLayerChanged.Unsubscribe(onSomethingChanged);
+                c.PropertyChanged -= onDrawableChanged;
                 _drawable = null;
 				onSomethingChanged();
             });
@@ -213,6 +211,13 @@ namespace AGS.Engine
         private void onAnchorChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IImageComponent.Anchor)) return;
+            onSomethingChanged();
+        }
+
+        private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IDrawableInfo.RenderLayer) &&
+                args.PropertyName != nameof(IDrawableInfo.IgnoreScalingArea)) return;
             onSomethingChanged();
         }
 
