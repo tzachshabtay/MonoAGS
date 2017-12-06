@@ -14,11 +14,5 @@
         /// </summary>
         /// <value>The jump offset.</value>
         PointF JumpOffset { get; set; }
-
-        /// <summary>
-        /// An event which is fired whenever the jump offset changes.
-        /// </summary>
-        /// <value>The on jump offset changed event.</value>
-        IEvent OnJumpOffsetChanged { get; }
     }
 }

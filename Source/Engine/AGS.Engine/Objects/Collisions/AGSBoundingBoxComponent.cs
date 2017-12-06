@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -52,15 +53,15 @@ namespace AGS.Engine
 
             entity.Bind<IModelMatrixComponent>(c => { c.OnMatrixChanged.Subscribe(onHitTextBoxShouldChange); _matrix = c; },
                                                c => { c.OnMatrixChanged.Unsubscribe(onHitTextBoxShouldChange); _matrix = null; });
-            entity.Bind<ICropSelfComponent>(c => { c.OnCropAreaChanged.Subscribe(onCropShouldChange); _crop = c; },
-                                            c => { c.OnCropAreaChanged.Unsubscribe(onCropShouldChange); _crop = null; });
+            entity.Bind<ICropSelfComponent>(c => { c.PropertyChanged += onCropShouldChange; _crop = c; },
+                                            c => { c.PropertyChanged -= onCropShouldChange; _crop = null; });
             entity.Bind<IImageComponent>(c => c.OnImageChanged.Subscribe(onHitTextBoxShouldChange),
                                          c => c.OnImageChanged.Unsubscribe(onHitTextBoxShouldChange));
             entity.Bind<IAnimationContainer>(c => _animation = c, _animation => _animation = null);
             entity.Bind<IDrawableInfo>(c => { c.OnRenderLayerChanged.Subscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Subscribe(onAllViewportsShouldChange); _drawable = c; },
                                        c => { c.OnRenderLayerChanged.Unsubscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Unsubscribe(onAllViewportsShouldChange); _drawable = null; });
-            entity.Bind<ITextureOffsetComponent>(c => { c.OnTextureOffsetChanged.Subscribe(onAllViewportsShouldChange); _textureOffset = c; onAllViewportsShouldChange(); }, 
-                                                 c => { c.OnTextureOffsetChanged.Unsubscribe(onAllViewportsShouldChange); _textureOffset = null; onAllViewportsShouldChange(); });
+            entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += onTextureOffsetChanged; _textureOffset = c; onAllViewportsShouldChange(); }, 
+                                                 c => { c.PropertyChanged -= onTextureOffsetChanged; _textureOffset = null; onAllViewportsShouldChange(); });
             
         }
 
@@ -249,14 +250,21 @@ namespace AGS.Engine
             onAllViewportsShouldChange();
         }
 
-        private void onCropShouldChange()
+        private void onCropShouldChange(object sender, PropertyChangedEventArgs args)
         {
+            if (args.PropertyName != nameof(ICropSelfComponent.CropArea)) return;
             _isCropDirty = true;
         }
 
         private void onAllViewportsShouldChange()
         {
             _areViewportsDirty = true;
+        }
+
+        private void onTextureOffsetChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(ITextureOffsetComponent.TextureOffset)) return;
+            onAllViewportsShouldChange();
         }
 
 		//https://stackoverflow.com/questions/8946790/how-to-use-an-objects-identity-as-key-for-dictionaryk-v

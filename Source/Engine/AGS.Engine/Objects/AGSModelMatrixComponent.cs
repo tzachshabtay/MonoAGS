@@ -67,8 +67,8 @@ namespace AGS.Engine
                 c => { c.PropertyChanged -= onTranslateChanged; _translate = null; onSomethingChanged();}
             );
             _entity.Bind<IJumpOffsetComponent>(
-                c => { _jump = c; c.OnJumpOffsetChanged.Subscribe(onSomethingChanged); onSomethingChanged();},
-                c => { c.OnJumpOffsetChanged.Unsubscribe(onSomethingChanged); _jump = null; onSomethingChanged();}
+                c => { _jump = c; c.PropertyChanged += onJumpOffsetChanged; onSomethingChanged();},
+                c => { c.PropertyChanged -= onJumpOffsetChanged; _jump = null; onSomethingChanged();}
             );
             _entity.Bind<IRotateComponent>(
                 c => { _rotate = c; c.PropertyChanged += onRotateChanged; onSomethingChanged();},
@@ -201,6 +201,12 @@ namespace AGS.Engine
         private void onRotateChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IRotateComponent.Angle)) return;
+            onSomethingChanged();
+        }
+
+        private void onJumpOffsetChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IJumpOffsetComponent.JumpOffset)) return;
             onSomethingChanged();
         }
 

@@ -18,11 +18,5 @@ namespace AGS.API
         /// </summary>
         /// <value>The texture offset.</value>
         PointF TextureOffset { get; set; }
-
-        /// <summary>
-        /// An event which fires when the texture offset changes.
-        /// </summary>
-        /// <value>The event.</value>
-        IEvent OnTextureOffsetChanged { get; }
     }
 }

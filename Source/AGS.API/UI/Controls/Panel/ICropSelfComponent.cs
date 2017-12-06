@@ -17,11 +17,6 @@
         RectangleF CropArea { get; set; }
 
         /// <summary>
-        /// An event which fires whenever the crop area changes.
-        /// </summary>
-        IEvent OnCropAreaChanged { get; }
-
-        /// <summary>
         /// An event which fires before cropping the area, allows to change the crop configuration.
         /// </summary>
         /// <value>The on before crop.</value>

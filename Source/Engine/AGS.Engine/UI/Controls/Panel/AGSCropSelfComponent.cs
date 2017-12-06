@@ -5,7 +5,6 @@ namespace AGS.Engine
 { 
     public class AGSCropSelfComponent : AGSComponent, ICropSelfComponent
     {
-        private RectangleF _cropArea;
         private bool _cropEnabled;
         private IImageComponent _image;
         private IEntity _entity;
@@ -28,16 +27,7 @@ namespace AGS.Engine
             }
         }
 
-        public RectangleF CropArea
-        {
-            get { return _cropArea; }
-            set
-            {
-                if (_cropArea.Equals(value)) return;
-                _cropArea = value;
-                OnCropAreaChanged.Invoke();
-            }
-        }
+        public RectangleF CropArea { get; set; }
 
         public IEvent OnCropAreaChanged { get; private set; }
 
