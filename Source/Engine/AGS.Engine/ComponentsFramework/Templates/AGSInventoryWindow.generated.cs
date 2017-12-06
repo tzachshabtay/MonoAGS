@@ -432,21 +432,6 @@ namespace AGS.Engine
             set { _imageComponent.CustomRenderer = value; } 
         }
 
-        public IEvent OnImageChanged 
-        {  
-            get { return _imageComponent.OnImageChanged; } 
-        }
-
-        public IEvent OnAnchorChanged 
-        {  
-            get { return _imageComponent.OnAnchorChanged; } 
-        }
-
-        public IEvent OnTintChanged 
-        {  
-            get { return _imageComponent.OnTintChanged; } 
-        }
-
         #endregion
 
         #region IScaleComponent implementation

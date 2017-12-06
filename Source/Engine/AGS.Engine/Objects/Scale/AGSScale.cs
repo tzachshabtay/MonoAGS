@@ -25,8 +25,9 @@ namespace AGS.Engine
             _scaleX = 1;
             _scaleY = 1;
 
-            image.OnImageChanged.Subscribe(() =>
+            image.PropertyChanged += ((_, args) =>
             {
+                if (args.PropertyName != nameof(IHasImage.Image)) return;
                 if (MathUtils.FloatEquals(BaseSize.Width, 0f) && _image.Image != null) BaseSize = new SizeF(_image.Image.Width, _image.Image.Height);
             });
         }

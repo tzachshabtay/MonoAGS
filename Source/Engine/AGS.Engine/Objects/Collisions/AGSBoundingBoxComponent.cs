@@ -55,8 +55,8 @@ namespace AGS.Engine
                                                c => { c.OnMatrixChanged.Unsubscribe(onHitTextBoxShouldChange); _matrix = null; });
             entity.Bind<ICropSelfComponent>(c => { c.PropertyChanged += onCropShouldChange; _crop = c; },
                                             c => { c.PropertyChanged -= onCropShouldChange; _crop = null; });
-            entity.Bind<IImageComponent>(c => c.OnImageChanged.Subscribe(onHitTextBoxShouldChange),
-                                         c => c.OnImageChanged.Unsubscribe(onHitTextBoxShouldChange));
+            entity.Bind<IImageComponent>(c => c.PropertyChanged += onImageChanged,
+                                         c => c.PropertyChanged -= onImageChanged);
             entity.Bind<IAnimationContainer>(c => _animation = c, _animation => _animation = null);
             entity.Bind<IDrawableInfo>(c => { c.OnRenderLayerChanged.Subscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Subscribe(onAllViewportsShouldChange); _drawable = c; },
                                        c => { c.OnRenderLayerChanged.Unsubscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Unsubscribe(onAllViewportsShouldChange); _drawable = null; });
@@ -265,6 +265,12 @@ namespace AGS.Engine
         {
             if (args.PropertyName != nameof(ITextureOffsetComponent.TextureOffset)) return;
             onAllViewportsShouldChange();
+        }
+
+        private void onImageChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IImageComponent.Image)) return;
+            onHitTextBoxShouldChange();
         }
 
 		//https://stackoverflow.com/questions/8946790/how-to-use-an-objects-identity-as-key-for-dictionaryk-v

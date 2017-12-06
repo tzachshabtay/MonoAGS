@@ -34,7 +34,8 @@ namespace AGS.Engine
             _scale = new AGSScale(_hasImage);
             _rotate = new AGSRotate();
 
-            _scale.PropertyChanged += onScalePropertyChanged;
+            _scale.PropertyChanged += onPropertyChanged;
+            _hasImage.PropertyChanged += onPropertyChanged;
         }
 
         private AGSSprite(AGSSprite sprite) : this(sprite._resolver, sprite._maskLoader)
@@ -50,8 +51,6 @@ namespace AGS.Engine
         }
 
         #region ISprite implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public void ResetScale(float initialWidth, float initialHeight)
         {
@@ -113,18 +112,17 @@ namespace AGS.Engine
 
         public PointF Anchor { get { return _hasImage.Anchor; } set { _hasImage.Anchor = value; } }
 
+        [DoNotNotify]
         public IImageRenderer CustomRenderer { get { return _hasImage.CustomRenderer; } set { _hasImage.CustomRenderer = value; } }
 
+        [DoNotNotify]
         public IImage Image { get { return _hasImage.Image; } set { _hasImage.Image = value; } }
 
-        public IEvent OnImageChanged { get { return _hasImage.OnImageChanged; } }
-
+        [DoNotNotify]
         public byte Opacity { get { return _hasImage.Opacity; } set { _hasImage.Opacity = value; } }
 
+        [DoNotNotify]
         public Color Tint { get { return _hasImage.Tint; } set { _hasImage.Tint = value; } }
-
-        public IEvent OnAnchorChanged { get { return _hasImage.OnAnchorChanged; } }
-        public IEvent OnTintChanged { get { return _hasImage.OnTintChanged; } }
 
         public IArea PixelPerfectHitTestArea { get; private set; }
         public void PixelPerfect(bool pixelPerfect)
@@ -163,16 +161,7 @@ namespace AGS.Engine
             return _hasImage.ToString();
 		}
 
-        public void OnPropertyChanged(PropertyChangedEventArgs args)
-        {
-            var propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged(this, args);
-            }
-        }
-
-        private void onScalePropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void onPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(e);
         }

@@ -75,8 +75,8 @@ namespace AGS.Engine
                 c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged();}
             );
 			_entity.Bind<IImageComponent>(
-                c => { _image = c; c.OnAnchorChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
-                c => { c.OnAnchorChanged.Unsubscribe(onSomethingChanged); _image = null; onSomethingChanged(); }
+                c => { _image = c; c.PropertyChanged += onAnchorChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onAnchorChanged; _image = null; onSomethingChanged(); }
 			);
 
             _entity.Bind<IDrawableInfo>(
@@ -181,7 +181,7 @@ namespace AGS.Engine
             if (args.PropertyName != nameof(ISprite.X) && args.PropertyName != nameof(ISprite.Y) &&
                 args.PropertyName != nameof(ISprite.ScaleX) && args.PropertyName != nameof(ISprite.ScaleY) &&
                 args.PropertyName != nameof(ISprite.Width) && args.PropertyName != nameof(ISprite.Height) &&
-                args.PropertyName != nameof(ISprite.Angle)) return;
+                args.PropertyName != nameof(ISprite.Angle) && args.PropertyName != nameof(ISprite.Anchor)) return;
             onSomethingChanged();
         }
 
@@ -210,6 +210,12 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
+        private void onAnchorChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IImageComponent.Anchor)) return;
+            onSomethingChanged();
+        }
+
         private void onSomethingChanged()
         {
             _isDirty = true;
@@ -232,14 +238,12 @@ namespace AGS.Engine
         {
             if (sprite == null) return;
             sprite.PropertyChanged += onSpriteChanged;
-            sprite.OnAnchorChanged.Subscribe(onSomethingChanged);
         }
 
         private void unsubscribeSprite(ISprite sprite)
         {
             if (sprite == null) return;
             sprite.PropertyChanged -= onSpriteChanged;
-            sprite.OnAnchorChanged.Unsubscribe(onSomethingChanged);
         }
 
         private bool shouldRecalculate() 
