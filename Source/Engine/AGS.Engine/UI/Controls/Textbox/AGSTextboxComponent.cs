@@ -27,7 +27,7 @@ namespace AGS.Engine
 
         private ILabel _withCaret;
 
-        public AGSTextBoxComponent(IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
+        public AGSTextBoxComponent(IBlockingEvent<TextBoxKeyPressingEventArgs> onPressingKey,
                                    IInput input, IGame game, IKeyboardState keyboardState, IFocusedUI focusedUi)
         {
             CaretFlashDelay = 10;
@@ -111,7 +111,7 @@ namespace AGS.Engine
         public int CaretPosition { get; set; }
         public uint CaretFlashDelay { get; set; }
 
-        public IEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; private set; }
+        public IBlockingEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; private set; }
 
         public override void Dispose()
         {

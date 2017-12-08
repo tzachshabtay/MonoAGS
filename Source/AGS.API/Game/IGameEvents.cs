@@ -12,7 +12,7 @@
         /// <value>
         /// The on load event.
         /// </value>
-        IEvent OnLoad { get; }
+        IBlockingEvent OnLoad { get; }
 
         /// <summary>
         /// The on repeatedly execute event happens every tick and allows you to check for conditions 
@@ -143,7 +143,7 @@
         /// }
         /// </code>
         /// </example>
-        IEvent OnSavedGameLoad { get; }
+        IBlockingEvent OnSavedGameLoad { get; }
 
         /// <summary>
         /// Defines the default interactions for objects on the screen that can be interacted in some way, but for which we haven't
@@ -160,7 +160,7 @@
         /// (and after the viewport for the new room was updated).
         /// </summary>
         /// <value>The on room changing.</value>
-        IEvent OnRoomChanging { get; }
+        IBlockingEvent OnRoomChanging { get; }
 	}
 }
 

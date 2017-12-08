@@ -46,11 +46,11 @@ namespace AGS.Engine
 
         public SelectionType AllowSelection { get; set; }
 
-        public IEvent<NodeEventArgs> OnNodeSelected { get; private set; }
+        public IBlockingEvent<NodeEventArgs> OnNodeSelected { get; private set; }
 
-        public IEvent<NodeEventArgs> OnNodeExpanded { get; private set; }
+        public IBlockingEvent<NodeEventArgs> OnNodeExpanded { get; private set; }
 
-        public IEvent<NodeEventArgs> OnNodeCollapsed { get; private set; }
+        public IBlockingEvent<NodeEventArgs> OnNodeCollapsed { get; private set; }
 
         public override void Init(IEntity entity)
         {

@@ -15,7 +15,7 @@ namespace AGS.Engine
         private ITextBoxComponent _textBox;
         private ITextComponent _text;
 
-        public AGSNumberEditorComponent(IEvent onValueChanged)
+        public AGSNumberEditorComponent(IBlockingEvent onValueChanged)
         {
             OnValueChanged = onValueChanged;
             Step = 1f;
@@ -85,7 +85,7 @@ namespace AGS.Engine
             }
         }
 
-        public IEvent OnValueChanged { get; private set; }
+        public IBlockingEvent OnValueChanged { get; private set; }
 
         public override void Init(IEntity entity)
         {

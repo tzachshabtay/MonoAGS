@@ -25,7 +25,7 @@ namespace AGS.Engine
 
 		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer,
             IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IGameWindow gameWindow,
-            IEvent<DisplayListEventArgs> onBeforeRenderingDisplayList, IDisplayList displayList, 
+            IBlockingEvent<DisplayListEventArgs> onBeforeRenderingDisplayList, IDisplayList displayList, 
             IInput input)
 		{
             _input = input;
@@ -45,7 +45,7 @@ namespace AGS.Engine
 
 		#region IRendererLoop implementation
 
-        public IEvent<DisplayListEventArgs> OnBeforeRenderingDisplayList { get; private set; }
+        public IBlockingEvent<DisplayListEventArgs> OnBeforeRenderingDisplayList { get; private set; }
 
 		public bool Tick ()
 		{

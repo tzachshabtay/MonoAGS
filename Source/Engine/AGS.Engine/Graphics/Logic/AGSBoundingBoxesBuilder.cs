@@ -11,7 +11,7 @@ namespace AGS.Engine
 
 		#region AGSBoundingBoxBuilder implementation
 
-        public IEvent OnNewBoxBuildRequired { get; private set; }
+        public IBlockingEvent OnNewBoxBuildRequired { get; private set; }
 
 		public AGSBoundingBox BuildIntermediateBox(float width, float height, Matrix4 modelMatrix)
 		{

@@ -48,17 +48,17 @@
         /// <summary>
         /// An event which fires every time a node is selected (if <see cref="AllowSelection"/> is set to allow selection).
         /// </summary>
-        IEvent<NodeEventArgs> OnNodeSelected { get; }
+        IBlockingEvent<NodeEventArgs> OnNodeSelected { get; }
 
 		/// <summary>
 		/// An event which fires every time a node is expanded.
 		/// </summary>
-		IEvent<NodeEventArgs> OnNodeExpanded { get; }
+        IBlockingEvent<NodeEventArgs> OnNodeExpanded { get; }
 
 		/// <summary>
 		/// An event which fires every time a node is expanded.
 		/// </summary>
-		IEvent<NodeEventArgs> OnNodeCollapsed { get; }
+        IBlockingEvent<NodeEventArgs> OnNodeCollapsed { get; }
 
         /// <summary>
         /// Expand the specified node.

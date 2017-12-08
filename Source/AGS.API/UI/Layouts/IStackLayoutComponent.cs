@@ -61,7 +61,7 @@
         /// An event which fires whenever the layout changes.
         /// </summary>
         /// <value>The on layout changed event.</value>
-        IEvent OnLayoutChanged { get; }
+        IBlockingEvent OnLayoutChanged { get; }
 
         /// <summary>
         /// Gets a list of entitiy IDs to ignore from the layout.

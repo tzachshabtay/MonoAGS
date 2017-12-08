@@ -72,8 +72,8 @@ namespace DemoGame
 
 		private void subscribeEvents()
 		{
-            _room.Edges.Left.OnEdgeCrossed.SubscribeToAsync(onLeftEdgeCrossed);
-			_room.Edges.Right.OnEdgeCrossed.SubscribeToAsync(onRightEdgeCrossed);
+            _room.Edges.Left.OnEdgeCrossed.Subscribe(onLeftEdgeCrossed);
+			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 			_room.Events.OnAfterFadeIn.Subscribe(onAfterFadeIn);
             if (_bottle != null) _bottle.Interactions.OnInteract(AGSInteractions.INTERACT).SubscribeToAsync(onBottleInteract);
@@ -86,12 +86,12 @@ namespace DemoGame
 			_player.Inventory.Items.Add(InventoryItems.Bottle);
 		}
 
-        private async Task onLeftEdgeCrossed()
+        private async void onLeftEdgeCrossed()
 		{
 			await _player.ChangeRoomAsync(Rooms.TrashcanStreet.Result, 310);
 		}
 
-        private async Task onRightEdgeCrossed()
+        private async void onRightEdgeCrossed()
 		{
 			await _player.ChangeRoomAsync(Rooms.BrokenCurbStreet.Result, 30);
 		}

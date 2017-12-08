@@ -54,7 +54,7 @@ namespace AGS.Engine.UI.Controls
 
         public ButtonAnimation NotCheckedAnimation { get; set; }
 
-        public IEvent<CheckBoxEventArgs> OnCheckChanged { get; private set; }
+        public IBlockingEvent<CheckBoxEventArgs> OnCheckChanged { get; private set; }
 
         private void onMouseEnter(MousePositionEventArgs e)
         {

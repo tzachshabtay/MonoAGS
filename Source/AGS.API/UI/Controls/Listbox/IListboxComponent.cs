@@ -48,7 +48,7 @@ namespace AGS.API
         /// (this can be because the user selected an item, or because the <see cref="SelectedIndex"/> was set from code). 
         /// </summary>
         /// <value>The on selected item changed event.</value>
-        IEvent<ListboxItemArgs> OnSelectedItemChanged { get; }
+        IBlockingEvent<ListboxItemArgs> OnSelectedItemChanged { get; }
 
         /// <summary>
         /// Gets or sets the minimum height for the box.

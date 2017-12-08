@@ -23,7 +23,7 @@
         /// An event which fires whenever the bounding boxes for the entity change.
         /// </summary>
         /// <value>The on bounding boxes changed event.</value>
-        IEvent OnBoundingBoxesChanged { get; }
+        IBlockingEvent OnBoundingBoxesChanged { get; }
 
         /// <summary>
         /// Allows locking the component from changing (to allow for changing multiple components "at once").

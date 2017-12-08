@@ -75,6 +75,6 @@
         /// An event which fires whenever the value is changed.
         /// </summary>
         /// <value>The event.</value>
-        IEvent OnValueChanged { get; }
+        IBlockingEvent OnValueChanged { get; }
     }
 }

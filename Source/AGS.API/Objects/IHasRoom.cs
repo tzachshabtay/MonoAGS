@@ -24,7 +24,7 @@ namespace AGS.API
         /// An event which fires whenever the room is changed.
         /// </summary>
         /// <value>The on room changed event.</value>
-        IEvent OnRoomChanged { get; }
+        IBlockingEvent OnRoomChanged { get; }
 
         /// <summary>
         /// Move the entity to a new room.

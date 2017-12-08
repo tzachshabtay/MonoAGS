@@ -113,7 +113,7 @@ namespace AGS.Engine
             }
         }
 
-        public IEvent<ListboxItemArgs> OnSelectedItemChanged { get; private set; }
+        public IBlockingEvent<ListboxItemArgs> OnSelectedItemChanged { get; private set; }
 
         private void onListChanged(AGSListChangedEventArgs<IStringItem> args)
         {

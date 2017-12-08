@@ -44,9 +44,9 @@ namespace AGS.Engine
 
         public string ID { get; private set; }
 
-        public IEvent OnComponentsInitialized { get; private set; }
+        public IBlockingEvent OnComponentsInitialized { get; private set; }
 
-        public IEvent<AGSListChangedEventArgs<IComponent>> OnComponentsChanged { get; private set; }
+        public IBlockingEvent<AGSListChangedEventArgs<IComponent>> OnComponentsChanged { get; private set; }
 
         protected void InitComponents()
         {

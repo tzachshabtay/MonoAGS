@@ -41,7 +41,7 @@ namespace AGS.Engine
             onHitTextBoxShouldChange();
         }
 
-        public IEvent OnBoundingBoxesChanged { get; private set; }
+        public IBlockingEvent OnBoundingBoxesChanged { get; private set; }
 
         [Property(Browsable = false)]
         public ILockStep BoundingBoxLockStep { get { return this; }}

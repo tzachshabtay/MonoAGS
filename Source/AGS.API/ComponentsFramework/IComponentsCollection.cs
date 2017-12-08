@@ -127,13 +127,13 @@ namespace AGS.API
         /// An event that fires after all components were initialized.
         /// </summary>
         /// <value>The event.</value>
-        IEvent OnComponentsInitialized { get; }
+        IBlockingEvent OnComponentsInitialized { get; }
 
         /// <summary>
         /// An event which is triggered whenever a component is added/removed.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSListChangedEventArgs<IComponent>> OnComponentsChanged { get; }
+        IBlockingEvent<AGSListChangedEventArgs<IComponent>> OnComponentsChanged { get; }
 	}
 }
 

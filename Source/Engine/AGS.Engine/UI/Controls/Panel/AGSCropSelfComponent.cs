@@ -29,9 +29,9 @@ namespace AGS.Engine
 
         public RectangleF CropArea { get; set; }
 
-        public IEvent OnCropAreaChanged { get; private set; }
+        public IBlockingEvent OnCropAreaChanged { get; private set; }
 
-        public IEvent<BeforeCropEventArgs> OnBeforeCrop { get; private set; }
+        public IBlockingEvent<BeforeCropEventArgs> OnBeforeCrop { get; private set; }
 
         public override void Init(IEntity entity)
         {

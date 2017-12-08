@@ -96,7 +96,7 @@ namespace AGS.Engine
 			}
 		}
 
-        public IEvent OnLabelSizeChanged { get; private set; }
+        public IBlockingEvent OnLabelSizeChanged { get; private set; }
 
 		#region IImageRenderer implementation
 
@@ -343,7 +343,7 @@ namespace AGS.Engine
                     OnNewBoxBuildRequired.Invoke();
                 }
             }
-            public IEvent OnNewBoxBuildRequired { get; private set; }
+            public IBlockingEvent OnNewBoxBuildRequired { get; private set; }
 
             #region AGSBoundingBoxBuilder implementation
 

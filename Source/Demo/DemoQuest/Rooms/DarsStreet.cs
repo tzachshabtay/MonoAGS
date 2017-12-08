@@ -72,11 +72,11 @@ namespace DemoGame
 
 		private void subscribeEvents()
 		{
-            _room.Edges.Right.OnEdgeCrossed.SubscribeToAsync(onRightEdgeCrossed);
+            _room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 		}
 
-        private async Task onRightEdgeCrossed()
+        private async void onRightEdgeCrossed()
 		{
 			await _player.ChangeRoomAsync(Rooms.TrashcanStreet.Result, 30);
 		}

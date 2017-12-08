@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace AGS.API
 {
@@ -28,6 +29,13 @@ namespace AGS.API
         /// </summary>
         /// <param name="callback">Callback.</param>
 		void Unsubscribe(Action<TEventArgs> callback);
+
+        /// <summary>
+        /// Asynchronously wait until the event fires and the specific condition applies.
+        /// </summary>
+        /// <returns>The task to be awaited.</returns>
+        /// <param name="condition">The condition we are waiting to apply before moving on.</param>
+        Task WaitUntilAsync(Predicate<TEventArgs> condition);
 
         /// <summary>
         /// Invoke the event synchronously (i.e will wait for all subscribers to process the event before moving on).
@@ -62,6 +70,13 @@ namespace AGS.API
         /// </summary>
         /// <param name="callback">Callback.</param>
         void Unsubscribe(Action callback);
+
+        /// <summary>
+        /// Asynchronously wait until the event fires and the specific condition applies.
+        /// </summary>
+        /// <returns>The task to be awaited.</returns>
+        /// <param name="condition">The condition we are waiting to apply before moving on.</param>
+        Task WaitUntilAsync(Func<bool> condition);
 
         /// <summary>
         /// Invoke the event synchronously (i.e will wait for all subscribers to process the event before moving on).

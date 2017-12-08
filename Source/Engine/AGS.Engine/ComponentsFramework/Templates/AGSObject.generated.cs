@@ -98,7 +98,7 @@ namespace AGS.Engine
             get { return _hasRoom.PreviousRoom; } 
         }
 
-        public IEvent OnRoomChanged 
+        public IBlockingEvent OnRoomChanged 
         {  
             get { return _hasRoom.OnRoomChanged; } 
         }
@@ -123,7 +123,7 @@ namespace AGS.Engine
             set { _animationContainer.DebugDrawAnchor = value; } 
         }
 
-        public IEvent OnAnimationStarted 
+        public IBlockingEvent OnAnimationStarted 
         {  
             get { return _animationContainer.OnAnimationStarted; } 
         }
@@ -447,7 +447,7 @@ namespace AGS.Engine
 
         #region IModelMatrixComponent implementation
 
-        public IEvent OnMatrixChanged 
+        public IBlockingEvent OnMatrixChanged 
         {  
             get { return _modelMatrixComponent.OnMatrixChanged; } 
         }
@@ -466,7 +466,7 @@ namespace AGS.Engine
 
         #region IBoundingBoxComponent implementation
 
-        public IEvent OnBoundingBoxesChanged
+        public IBlockingEvent OnBoundingBoxesChanged
         {
             get { return _boundingBoxComponent.OnBoundingBoxesChanged; }
         }

@@ -22,7 +22,7 @@ namespace AGS.Engine
 
 		public int Count { get { return _map.Count; } }
 
-        public IEvent<AGSHashSetChangedEventArgs<TItem>> OnListChanged { get; private set; }
+        public IBlockingEvent<AGSHashSetChangedEventArgs<TItem>> OnListChanged { get; private set; }
 
         private void onListChanged(TItem item, ListChangeType changeType)
         {

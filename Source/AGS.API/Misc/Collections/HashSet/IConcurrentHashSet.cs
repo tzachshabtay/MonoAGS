@@ -18,7 +18,7 @@ namespace AGS.API
         /// An event which is triggered whenever the set is changed (an item is added or removed).
         /// </summary>
         /// <value>The event.</value>
-        IEvent<AGSHashSetChangedEventArgs<TItem>> OnListChanged { get; }
+        IBlockingEvent<AGSHashSetChangedEventArgs<TItem>> OnListChanged { get; }
 
         /// <summary>
         /// Add the specified item.

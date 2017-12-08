@@ -27,7 +27,7 @@ namespace AGS.Engine
 
         public AGSBoundingBox PreCropBoundingBoxWithChildren { get; private set; }
 
-        public IEvent OnBoundingBoxWithChildrenChanged { get; private set; }
+        public IBlockingEvent OnBoundingBoxWithChildrenChanged { get; private set; }
 
         public IConcurrentHashSet<string> EntitiesToSkip { get; private set; }
 

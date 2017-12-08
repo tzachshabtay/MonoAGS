@@ -12,7 +12,7 @@ namespace AGS.API
         /// or if <see cref="AddRange"/> was called, when multiple items were added).
         /// </summary>
         /// <value>The event.</value>
-		IEvent<AGSListChangedEventArgs<TItem>> OnListChanged { get; }
+        IBlockingEvent<AGSListChangedEventArgs<TItem>> OnListChanged { get; }
 
         /// <summary>
         /// Adds several items to the list together.

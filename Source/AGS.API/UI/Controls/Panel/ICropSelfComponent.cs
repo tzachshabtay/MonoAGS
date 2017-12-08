@@ -20,7 +20,7 @@
         /// An event which fires before cropping the area, allows to change the crop configuration.
         /// </summary>
         /// <value>The on before crop.</value>
-        IEvent<BeforeCropEventArgs> OnBeforeCrop { get; }
+        IBlockingEvent<BeforeCropEventArgs> OnBeforeCrop { get; }
 
         /// <summary>
         /// Calculates and crops both the texture and the bounding box (used by the engine).

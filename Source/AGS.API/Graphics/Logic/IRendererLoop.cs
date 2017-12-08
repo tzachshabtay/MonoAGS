@@ -17,7 +17,7 @@
         /// This allows viewing (and even modifying) the display list prior to rendering it.
         /// </summary>
         /// <returns>The event.</returns>
-        IEvent<DisplayListEventArgs> OnBeforeRenderingDisplayList { get; }
+        IBlockingEvent<DisplayListEventArgs> OnBeforeRenderingDisplayList { get; }
 	}
 }
 

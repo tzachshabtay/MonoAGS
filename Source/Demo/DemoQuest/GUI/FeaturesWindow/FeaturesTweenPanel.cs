@@ -193,7 +193,7 @@ namespace DemoGame
             _runningTweens.Clear();
         }
 
-        private async Task onTargetSelected(ListboxItemArgs args)
+        private void onTargetSelected(ListboxItemArgs args)
         {
             var list = _tweenCombobox.DropDownPanelList;
             list.Items.Clear();
@@ -219,10 +219,10 @@ namespace DemoGame
                     _addTweenButton.TweenOpacity(100, 0.5f);
                 }
             }
-            await onItemSelected(args);
+            onItemSelected(args);
         }
 
-        private async Task onItemSelected(ListboxItemArgs args)
+        private async void onItemSelected(ListboxItemArgs args)
         {
             if (hasSelection(_tweenCombobox) && hasSelection(_targetCombobox) &&
                 hasSelection(_easeCombobox) && hasSelection(_repeatCombobox) && !_addTweenButton.Enabled)
@@ -244,7 +244,7 @@ namespace DemoGame
             return button;
         }
 
-        private IComboBox addCombobox(string id, float x, float y, string initialText, Func<ListboxItemArgs, Task> callback, params string[] options)
+        private IComboBox addCombobox(string id, float x, float y, string initialText, Action<ListboxItemArgs> callback, params string[] options)
         {
             var combo = _game.Factory.UI.GetComboBox(id, null, null, null, _parent, false, 220f);
             combo.TextBox.Text = initialText;
@@ -253,7 +253,7 @@ namespace DemoGame
             var list = combo.DropDownPanelList;
             list.Items.AddRange(options.Select(o => (IStringItem)new AGSStringItem { Text = o }).ToList());
 
-            if (callback != null) list.OnSelectedItemChanged.SubscribeToAsync(callback);
+            if (callback != null) list.OnSelectedItemChanged.Subscribe(callback);
             return combo;
         }
 

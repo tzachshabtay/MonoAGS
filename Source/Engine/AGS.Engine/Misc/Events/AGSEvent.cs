@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace AGS.Engine
 {
-	public class AGSEvent<TEventArgs> : IEvent<TEventArgs>
+    public class AGSEvent<TEventArgs> : IEvent<TEventArgs>, IBlockingEvent<TEventArgs>
 	{
 		private readonly IConcurrentHashSet<Callback> _invocationList;
 		private const int MAX_SUBSCRIPTIONS = 10000;
@@ -175,7 +175,7 @@ namespace AGS.Engine
 		}
 	}
 
-	public class AGSEvent : IEvent
+    public class AGSEvent : IEvent, IBlockingEvent
 	{
 		private readonly IConcurrentHashSet<Callback> _invocationList;
 		private const int MAX_SUBSCRIPTIONS = 10000;

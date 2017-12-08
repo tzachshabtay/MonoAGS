@@ -43,7 +43,7 @@
         /// </code>
         /// </example>
         /// </summary>
-        IEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; }
+        IBlockingEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; }
 
         /// <summary>
         /// Gets or sets whether the textbox is focused or not. Only when the textbox is focused it can receive input from the keyboard 

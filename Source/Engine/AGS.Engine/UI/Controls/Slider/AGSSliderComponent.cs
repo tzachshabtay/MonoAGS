@@ -144,9 +144,9 @@ namespace AGS.Engine
 
         public bool AllowKeyboardControl { get; set; }
 
-        public IEvent<SliderValueEventArgs> OnValueChanged { get; private set; }
+        public IBlockingEvent<SliderValueEventArgs> OnValueChanged { get; private set; }
 
-        public IEvent<SliderValueEventArgs> OnValueChanging { get; private set; }
+        public IBlockingEvent<SliderValueEventArgs> OnValueChanging { get; private set; }
 
         public override void Dispose()
         {

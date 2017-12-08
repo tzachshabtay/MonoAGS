@@ -138,7 +138,7 @@ namespace AGS.Engine
             }
         }
 
-        public IEvent OnMatrixChanged { get; private set; }
+        public IBlockingEvent OnMatrixChanged { get; private set; }
 
         public static bool GetVirtualResolution(bool flattenLayerResolution, Size virtualResolution, IDrawableInfo drawable, 
                                          PointF? customResolutionFactor, out PointF resolutionFactor, out Size resolution)

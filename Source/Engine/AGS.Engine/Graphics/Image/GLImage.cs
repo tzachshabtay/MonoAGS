@@ -43,7 +43,7 @@ namespace AGS.Engine
         public ISpriteSheet SpriteSheet { get; private set; }
         public ILoadImageConfig LoadConfig { get; private set; }
 
-        public IEvent OnImageDisposed { get; private set; }
+        public IBlockingEvent OnImageDisposed { get; private set; }
 
         public override string ToString()
         {
