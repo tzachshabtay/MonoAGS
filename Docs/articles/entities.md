@@ -117,3 +117,81 @@ public class MySuperUsefulComponent : AGSComponent
 }
 
 ```
+
+### Property Change Notifications
+
+Let's say you want to add a property for your custom component. For this example, we'll create a score component so we'll want to have a score property:
+
+```csharp
+
+public class ScoreComponent : AGSComponent
+{
+    public int Score { get; set; }
+}
+
+```
+
+So now everybody with access to the entity with the score component can read and change the score:
+
+```csharp
+obj.GetComponent<IScoreComponent>().Score += 100; //You just got a 100 points!
+```
+
+Now what do I do if I want to get a notification whenever somebody changes the score?
+There's a `OnPropertyChanged` event for each component especially for that.
+Let's use it to play a sound whenever the score is changed:
+
+```csharp
+var scoreComponent = obj.GetComponent<IScoreComponent>();
+scoreComponent.OnPropertyChanged += (sender, args) => 
+{
+    if (args.PropertyName != nameof(IScoreComponent.Score)) return;
+
+    aCuteSound.Play();
+};
+```
+
+In this example, we get the score component, then we listen to the property change event. Each time we get that event, we check which property was changed as we're only interested in the score property (note that we didn't really have to do that as our score component only has 1 property so this will always be true, however it is good practice always to check for the property you're interested in).
+Once we see that the score is the property that was changed we play our cute sound.
+
+#### Property changes behind the scenes
+
+You might be wondering how this works. We didn't put any code in our property to fire the property change event, after all. You didn't have to do that because we use [Fody.PropertyChanged](https://github.com/Fody/PropertyChanged) to inject code for us every time we compile that does exactly that. The injected code for the score property will change the property to look like this:
+
+```csharp
+private int _score
+public int Score
+{
+    get { return _score; }
+    set
+    {
+        if (_score == value) return;
+        _score = value;
+        OnPropertyChanged(nameof(Score));
+    }
+}
+```
+
+Note that the code first checks that the new value we put in score is different than the current value. This is to avoid sending events when the property hasn't really changed.
+
+This usually works exactly how we want it to work, but sometime we might want to override `Fody.PropertyChanged` and handle the property change notifications ourselves (perhaps our property points at a private field which we update regardless of the property, for example, or maybe we want to batch multiple updates into one event for increasing performance, etc).
+You can look at the [documentation](https://github.com/Fody/PropertyChanged/wiki) of `Fody.PropertyChanged` to see how you can customize it to your liking.
+For example we can add a `[DoNotNotify]` attribute to our property to tell `Fody.PropertyChanged` we're handling this property notifications on our own:
+
+```csharp
+public class ScoreComponent : AGSComponent
+{
+    private int _score;
+
+    [DoNotNotify]
+    public int Score { get; private set; }
+
+    public void GiveScore(int score)
+    {
+        Score += score;
+        OnPropertyChanged(nameof(Score));
+    }
+}
+```
+
+Here we changed our score property to be read-only from everybody who's using it from outside (by using `private set`), and we only allow changing the score by calling the `GiveScore` function. We also decided we'd prefer sending the event ourselves and not use the services provided by `Fody.PropertyChanged` (although for this example we really didn't have to do that) so we added the `DoNotNotify` attribute to the property and we call the property changed event ourselves directly from the `GiveScore` method.
