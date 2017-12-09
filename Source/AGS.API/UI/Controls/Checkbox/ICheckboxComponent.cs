@@ -19,7 +19,7 @@
         /// An event which is triggered whenever the check state changes.
         /// </summary>
         /// <value>The event.</value>
-        IEvent<CheckBoxEventArgs> OnCheckChanged { get; }
+        IBlockingEvent<CheckBoxEventArgs> OnCheckChanged { get; }
 
         /// <summary>
         /// Gets or sets the animation when the checkbox is not checked.

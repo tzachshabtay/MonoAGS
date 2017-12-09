@@ -1,11 +1,13 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// It might be that not all of the room is shown on the screen at once (for example, a scrolling room). 
     /// A viewport to the room instructs the engine on what parts of the room to show.
     /// </summary>
     /// <seealso cref="IRoom"/>
-    public interface IViewport
+    public interface IViewport : INotifyPropertyChanged
 	{
         /// <summary>
         /// The left location of the room from which to show the screen.
@@ -80,36 +82,6 @@
         /// </summary>
         /// <value>The display list settings.</value>
         IDisplayListSettings DisplayListSettings { get; }
-
-        /// <summary>
-        /// An event which fires when the position of the viewport has changed.
-        /// </summary>
-        /// <value>The on position changed.</value>
-        IEvent OnPositionChanged { get; }
-
-        /// <summary>
-        /// An event which fires when the size of the viewport has changed.
-        /// </summary>
-        /// <value>The on scale changed.</value>
-        IEvent OnScaleChanged { get; }
-
-        /// <summary>
-        /// An event which fires when the angle of the viewport has changed.
-        /// </summary>
-        /// <value>The on angle changed.</value>
-        IEvent OnAngleChanged { get; }
-
-        /// <summary>
-        /// An event which fires when the projection box of the viewport has changed.
-        /// </summary>
-        /// <value>The on projection box changed.</value>
-        IEvent OnProjectionBoxChanged { get; }
-
-        /// <summary>
-        /// An event which fires when the parent of the viewport has changed.
-        /// </summary>
-        /// <value>The on parent changed.</value>
-        IEvent OnParentChanged { get; }
 
         /// <summary>
         /// Checks whether a given object should be visible in the viewport.

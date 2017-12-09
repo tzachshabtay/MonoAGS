@@ -28,7 +28,7 @@ namespace AGS.Engine
         public float AbsoluteSpacing { get { return _absoluteSpacing; } set { if (MathUtils.FloatEquals(_absoluteSpacing, value)) return; _absoluteSpacing = value; adjustLayout(); } }
         public float RelativeSpacing { get { return _relativeSpacing; } set { if (MathUtils.FloatEquals(_relativeSpacing, value)) return; _relativeSpacing = value; adjustLayout(); } }
         public float StartLocation { get { return _startLocation; } set { if (MathUtils.FloatEquals(_startLocation, value)) return; _startLocation = value; adjustLayout(); } }
-        public IEvent OnLayoutChanged { get; private set; }
+        public IBlockingEvent OnLayoutChanged { get; private set; }
         public IConcurrentHashSet<string> EntitiesToIgnore { get; private set; }
 
         public override void Init(IEntity entity)

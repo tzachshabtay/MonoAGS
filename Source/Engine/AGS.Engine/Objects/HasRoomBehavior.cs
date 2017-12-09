@@ -29,7 +29,7 @@ namespace AGS.Engine
 
 		public IRoom PreviousRoom { get; private set; }
 
-        public IEvent OnRoomChanged { get; private set; }
+        public IBlockingEvent OnRoomChanged { get; private set; }
 
         public async Task ChangeRoomAsync(IRoom newRoom, float? x = null, float? y = null)
 		{
@@ -63,6 +63,7 @@ namespace AGS.Engine
         private void refreshRoom()
 		{
 			_cachedRoom = new Lazy<IRoom> (getRoom, true);
+            OnPropertyChanged(nameof(Room));
             OnRoomChanged.Invoke();
 		}
 

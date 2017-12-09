@@ -1,4 +1,5 @@
 ﻿using AGS.API;
+using PropertyChanged;
 
 namespace AGS.Engine
 {
@@ -53,12 +54,15 @@ namespace AGS.Engine
             set { _labelRenderer.TextBackgroundVisible = value; }
         }
 
+        [DoNotNotify]
         public SizeF LabelRenderSize
         {
             get { return _labelRenderer.BaseSize; }
             set
             {
+                bool hasChanged = !_labelRenderer.BaseSize.Equals(value);
                 _labelRenderer.BaseSize = value;
+                if (hasChanged) OnPropertyChanged(nameof(LabelRenderSize));
                 var obj = _obj;
                 if (obj != null && obj.Image == null) obj.Image = new EmptyImage(value.Width, value.Height);                
             }

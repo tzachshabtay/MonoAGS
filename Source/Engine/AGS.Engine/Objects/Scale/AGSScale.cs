@@ -1,5 +1,7 @@
 ﻿using AGS.API;
 using System;
+using System.ComponentModel;
+using PropertyChanged;
 
 namespace AGS.Engine
 {
@@ -9,60 +11,54 @@ namespace AGS.Engine
         private float _scaleX, _scaleY;
         private SizeF _baseSize;
 
-        public AGSScale(IHasImage image) : this(image, true)
-        {
-        }
+        private static readonly PropertyChangedEventArgs _widthArgs = new PropertyChangedEventArgs(nameof(Width));
+        private static readonly PropertyChangedEventArgs _heightArgs = new PropertyChangedEventArgs(nameof(Height));
+        private static readonly PropertyChangedEventArgs _scaleXArgs = new PropertyChangedEventArgs(nameof(ScaleX));
+        private static readonly PropertyChangedEventArgs _scaleYArgs = new PropertyChangedEventArgs(nameof(ScaleY));
+        private static readonly PropertyChangedEventArgs _scaleArgs = new PropertyChangedEventArgs(nameof(Scale));
+        private static readonly PropertyChangedEventArgs _baseSizeArgs = new PropertyChangedEventArgs(nameof(BaseSize));
 
-        public AGSScale(IHasImage image, float width, float height) : this(image, false)
-        {
-            BaseSize = new SizeF(width, height);
-        }
-
-        private AGSScale(IHasImage image, bool shouldSubscribeToImageChange)
+        public AGSScale(IHasImage image)
         { 
             _image = image;
-            OnScaleChanged = new AGSEvent();
 
             _scaleX = 1;
             _scaleY = 1;
 
-            if (!shouldSubscribeToImageChange) return;
-            image.OnImageChanged.Subscribe(() =>
+            image.PropertyChanged += ((_, args) =>
             {
+                if (args.PropertyName != nameof(IHasImage.Image)) return;
                 if (MathUtils.FloatEquals(BaseSize.Width, 0f) && _image.Image != null) BaseSize = new SizeF(_image.Image.Width, _image.Image.Height);
             });
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public float Height { get; private set; }
 
         public float Width { get; private set; }
 
-        public PointF Scale 
-        { 
-            get { return new PointF(_scaleX, _scaleY); }
-            set { ScaleBy(value.X, value.Y);}
-        }
-
         [Property(Browsable = false)]
+        [AlsoNotifyFor(nameof(Scale))]
         public float ScaleX 
         { 
             get { return _scaleX; } 
-            set 
-            {
-                if (MathUtils.FloatEquals(_scaleX, value)) return;
-                ScaleBy(value, ScaleY); 
-            } 
+            set { scaleBy(value, ScaleY); } 
         }
 
         [Property(Browsable = false)]
+        [AlsoNotifyFor(nameof(Scale))]
         public float ScaleY
         {
             get { return _scaleY; }
-            set
-            {
-                if (MathUtils.FloatEquals(_scaleY, value)) return;
-                ScaleBy(ScaleX, value);
-            }
+            set { scaleBy(ScaleX, value); }
+        }
+
+        [AlsoNotifyFor(nameof(ScaleX), nameof(ScaleY))]
+        public PointF Scale
+        {
+            get { return new PointF(_scaleX, _scaleY); }
+            set { scaleBy(value.X, value.Y); }
         }
 
         public SizeF BaseSize
@@ -72,15 +68,11 @@ namespace AGS.Engine
             {
                 float width = value.Width * ScaleX;
                 float height = value.Height * ScaleY;
-                if (MathUtils.FloatEquals(width, Width) && MathUtils.FloatEquals(height, Height)) return;
                 Width = width;
                 Height = height;
                 _baseSize = new SizeF(value.Width, value.Height);
-                fireScaleChange();
             }
         }
-
-        public IEvent OnScaleChanged { get; private set; }
 
         public void ResetScale()
         {
@@ -90,7 +82,9 @@ namespace AGS.Engine
             Height = BaseSize.Height;
             _scaleX = 1f;
             _scaleY = 1f;
-            fireScaleChange();
+            OnPropertyChanged(_scaleXArgs);
+            OnPropertyChanged(_scaleYArgs);
+            OnPropertyChanged(_scaleArgs);
         }
 
         public void ResetScale(float initialWidth, float initialHeight)
@@ -98,18 +92,8 @@ namespace AGS.Engine
             if (MathUtils.FloatEquals(BaseSize.Width, initialWidth) && MathUtils.FloatEquals(BaseSize.Height, initialHeight) && 
                 MathUtils.FloatEquals(ScaleX, 1f) && MathUtils.FloatEquals(ScaleY, 1f)) return;
             _baseSize = new SizeF(initialWidth, initialHeight);
+            OnPropertyChanged(_baseSizeArgs);
             ResetScale();
-        }
-
-        public void ScaleBy(float scaleX, float scaleY)
-        {
-            if (MathUtils.FloatEquals(ScaleX, scaleX) && MathUtils.FloatEquals(ScaleY, scaleY)) return;
-            validateScaleInitialized();
-            _scaleX = scaleX;
-            _scaleY = scaleY;
-            Width = BaseSize.Width * ScaleX;
-            Height = BaseSize.Height * ScaleY;
-            fireScaleChange();
         }
 
         public void ScaleTo(float width, float height)
@@ -120,18 +104,29 @@ namespace AGS.Engine
             Height = height;
             _scaleX = Width / BaseSize.Width;
             _scaleY = Height / BaseSize.Height;
-            fireScaleChange();
+            OnPropertyChanged(_scaleXArgs);
+            OnPropertyChanged(_scaleYArgs);
+            OnPropertyChanged(_scaleArgs);
         }
 
         public void FlipHorizontally()
         {
-            ScaleBy(-ScaleX, ScaleY);
+            Scale = new PointF(-ScaleX, ScaleY);
         }
 
         public void FlipVertically()
         {
-            ScaleBy(ScaleX, -ScaleY);
-        }        
+            Scale = new PointF(ScaleX, -ScaleY);
+        }
+
+        public void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            var propertyChanged = PropertyChanged;
+            if (propertyChanged != null)
+            {
+                propertyChanged(this, args);
+            }
+        }
 
         private void validateScaleInitialized()
         {
@@ -142,9 +137,13 @@ namespace AGS.Engine
             }
         }
 
-        private void fireScaleChange()
+        private void scaleBy(float scaleX, float scaleY)
         {
-            OnScaleChanged.Invoke();
+            validateScaleInitialized();
+            _scaleX = scaleX;
+            _scaleY = scaleY;
+            Width = BaseSize.Width * ScaleX;
+            Height = BaseSize.Height * ScaleY;
         }
     }
 }

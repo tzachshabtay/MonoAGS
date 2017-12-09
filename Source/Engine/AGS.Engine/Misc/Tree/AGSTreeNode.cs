@@ -100,7 +100,7 @@ namespace AGS.Engine
             return root;
         }
 
-        public IEvent OnParentChanged { get; private set; }
+        public IBlockingEvent OnParentChanged { get; private set; }
 			
 		public int ChildrenCount
 		{

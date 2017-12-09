@@ -1,4 +1,5 @@
 ﻿﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using AGS.API;
@@ -26,7 +27,7 @@ namespace AGS.Engine
 
         public AGSBoundingBox PreCropBoundingBoxWithChildren { get; private set; }
 
-        public IEvent OnBoundingBoxWithChildrenChanged { get; private set; }
+        public IBlockingEvent OnBoundingBoxWithChildrenChanged { get; private set; }
 
         public IConcurrentHashSet<string> EntitiesToSkip { get; private set; }
 
@@ -122,7 +123,7 @@ namespace AGS.Engine
         private void subscribeObject(IObject obj)
         {
             obj.Bind<IBoundingBoxComponent>(c => c.OnBoundingBoxesChanged.Subscribe(onObjectChanged), c => c.OnBoundingBoxesChanged.Unsubscribe(onObjectChanged));
-            obj.OnUnderlyingVisibleChanged.Subscribe(onObjectChanged); //todo: bind
+            obj.Bind<IVisibleComponent>(c => c.PropertyChanged += onVisiblePropertyChanged, c => c.PropertyChanged -= onVisiblePropertyChanged);
             var labelRenderer = obj.CustomRenderer as ILabelRenderer;
             if (labelRenderer != null) labelRenderer.OnLabelSizeChanged.Subscribe(onObjectChanged);
         }
@@ -130,9 +131,16 @@ namespace AGS.Engine
         private void unsubscribeObject(IObject obj)
         {
             obj.OnBoundingBoxesChanged.Unsubscribe(onObjectChanged); //todo: unbind
-            obj.OnUnderlyingVisibleChanged.Unsubscribe(onObjectChanged);
+            var visible = obj.GetComponent<IVisibleComponent>();
+            if (visible != null) visible.PropertyChanged -= onVisiblePropertyChanged;
             var labelRenderer = obj.CustomRenderer as ILabelRenderer;
             if (labelRenderer != null) labelRenderer.OnLabelSizeChanged.Unsubscribe(onObjectChanged);
+        }
+
+        private void onVisiblePropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IVisibleComponent.UnderlyingVisible)) return;
+            onObjectChanged();
         }
 
         private void refresh()

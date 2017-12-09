@@ -4,6 +4,7 @@ using Autofac;
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace AGS.Engine
 {
@@ -81,8 +82,9 @@ namespace AGS.Engine
             box.EntitiesToSkip.AddRange(new List<string>{ horizSlider.ID, horizSlider.HandleGraphics.ID, horizSlider.Graphics.ID,
                 verSlider.ID, verSlider.HandleGraphics.ID, verSlider.Graphics.ID});
 
-            Action resize = () =>
+            PropertyChangedEventHandler resize = (_, args) =>
             {
+                if (args.PropertyName != nameof(IScaleComponent.Width) && args.PropertyName != nameof(IScaleComponent.Height)) return;
                 const float widthFactor = 25f;
                 const float heightFactor = 25f;
                 float widthUnit = panel.Width / widthFactor;
@@ -100,11 +102,11 @@ namespace AGS.Engine
             panel.Bind<IStackLayoutComponent>(
                 c => c.EntitiesToIgnore.AddRange(new List<string> { verSlider.ID, horizSlider.ID }), _ =>{});
 
-            resize();
+            resize(this, new PropertyChangedEventArgs(nameof(IScaleComponent.Width)));
             scroll.HorizontalScrollBar = horizSlider;
 			scroll.VerticalScrollBar = verSlider;
 
-            panel.OnScaleChanged.Subscribe(resize);
+            panel.Bind<IScaleComponent>(c => c.PropertyChanged += resize, c => c.PropertyChanged -= resize);
         }
 
         public ILabel GetLabel(string id, string text, float width, float height, float x, float y, IObject parent = null, ITextConfig config = null, bool addToUi = true)

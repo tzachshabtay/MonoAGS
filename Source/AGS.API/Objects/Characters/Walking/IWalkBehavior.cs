@@ -102,11 +102,6 @@ namespace AGS.API
 		Task<bool> WalkAsync(ILocation location);
 
         /// <summary>
-        /// Stops the current walk (if there is a walk to stop).
-        /// </summary>
-		void StopWalking();
-
-        /// <summary>
         /// Asynchronosly stops the current walk (if there is a walk to stop).
         /// </summary>
         /// <returns>The walking async.</returns>

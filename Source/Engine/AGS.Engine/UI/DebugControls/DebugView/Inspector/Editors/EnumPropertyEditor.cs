@@ -7,6 +7,8 @@ namespace AGS.Engine
     public class EnumPropertyEditor : IInspectorPropertyEditor
     {
         private readonly IUIFactory _factory;
+        private InspectorProperty _property;
+        private ITextComponent _text;
 
         public EnumPropertyEditor(IUIFactory factory)
         {
@@ -15,8 +17,10 @@ namespace AGS.Engine
 
         public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
         {
+            _property = property;
             var label = view.TreeItem;
             var combobox = _factory.GetComboBox(id, null, null, null, label.TreeNode.Parent, defaultWidth: 100f, defaultHeight: 25f);
+            _text = combobox.TextBox;
             var list = new List<IStringItem>();
             Type enumType = property.Prop.PropertyType;
             foreach (var option in Enum.GetValues(enumType))
@@ -31,6 +35,12 @@ namespace AGS.Engine
             {
                 property.Prop.SetValue(property.Object, Enum.Parse(enumType, args.Item.Text));
             });
+        }
+
+        public void RefreshUI()
+        {
+            if (_text == null) return;
+            _text.Text = _property.Value;
         }
     }
 }

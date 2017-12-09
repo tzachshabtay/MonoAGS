@@ -6,6 +6,8 @@ namespace AGS.Engine
     public class StringPropertyEditor : IInspectorPropertyEditor
     {
         private readonly IUIFactory _factory;
+        private InspectorProperty _property;
+        private ITextComponent _textbox;
 
         public StringPropertyEditor(IUIFactory factory)
         {
@@ -14,11 +16,13 @@ namespace AGS.Engine
 
         public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
         {
+            _property = property;
 			var label = view.TreeItem;
             AGSTextConfig config = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText);
 			var textbox = _factory.GetTextBox(id,
 												 label.X, label.Y, label.TreeNode.Parent,
 												 property.Value, config, width: 100f, height: 20f);
+            _textbox = textbox;
 			textbox.RenderLayer = label.RenderLayer;
 			textbox.Z = label.Z;
             HoverEffect.Add(textbox, Colors.Transparent, Colors.DarkSlateBlue);
@@ -29,6 +33,12 @@ namespace AGS.Engine
                 textbox.IsFocused = false;
                 property.Prop.SetValue(property.Object, textbox.Text);
 			});
+        }
+
+        public void RefreshUI()
+        {
+            if (_textbox == null) return;
+            _textbox.Text = _property.Value;
         }
     }
 }

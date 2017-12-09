@@ -26,7 +26,7 @@
         /// An event which fires whenever the bounding box with children changes.
         /// </summary>
         /// <value>The on bounding box with children changed.</value>
-        IEvent OnBoundingBoxWithChildrenChanged { get; }
+        IBlockingEvent OnBoundingBoxWithChildrenChanged { get; }
 
         /// <summary>
         /// Allows excluding entities from the bounding box calculation.

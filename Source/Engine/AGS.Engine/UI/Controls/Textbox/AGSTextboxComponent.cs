@@ -1,5 +1,6 @@
 ﻿using AGS.API;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace AGS.Engine
 {
@@ -26,13 +27,12 @@ namespace AGS.Engine
 
         private ILabel _withCaret;
 
-        public AGSTextBoxComponent(IEvent onFocusChanged, IEvent<TextBoxKeyPressingEventArgs> onPressingKey,
+        public AGSTextBoxComponent(IBlockingEvent<TextBoxKeyPressingEventArgs> onPressingKey,
                                    IInput input, IGame game, IKeyboardState keyboardState, IFocusedUI focusedUi)
         {
             CaretFlashDelay = 10;
             _keyboardState = keyboardState;
             _focusedUi = focusedUi;
-            OnFocusChanged = onFocusChanged;
             OnPressingKey = onPressingKey;
             _game = game;
             
@@ -70,9 +70,13 @@ namespace AGS.Engine
             entity.Bind<IDrawableInfo>(c =>
             {
                 _drawableComponent = c;
-                c.OnRenderLayerChanged.Subscribe(onRenderLayerChanged);
+                c.PropertyChanged += onDrawableChanged;
                 onRenderLayerChanged();
-            }, c => _drawableComponent = null);
+            }, c => 
+            { 
+                c.PropertyChanged -= onDrawableChanged; 
+                _drawableComponent = null; 
+            });
         }
 
         public override void AfterInit()
@@ -86,7 +90,6 @@ namespace AGS.Engine
             get { return _isFocused; }
             set
             {
-                if (_isFocused == value) return;
                 _isFocused = value;
                 if (_isFocused)
                 {
@@ -102,22 +105,25 @@ namespace AGS.Engine
                     if (_focusedUi.HasKeyboardFocus == this)
                         _focusedUi.HasKeyboardFocus = null;
                 }
-                OnFocusChanged.Invoke();
             }
         }
 
         public int CaretPosition { get; set; }
         public uint CaretFlashDelay { get; set; }
 
-        public IEvent OnFocusChanged { get; private set; }
-
-        public IEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; private set; }
+        public IBlockingEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; private set; }
 
         public override void Dispose()
         {
             base.Dispose();
             _game.Events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
             _game.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
+        }
+
+        private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IDrawableInfo.RenderLayer)) return;
+            onRenderLayerChanged();
         }
 
         private void onRenderLayerChanged()

@@ -48,17 +48,17 @@
         /// <summary>
         /// An event which fires every time a node is selected (if <see cref="AllowSelection"/> is set to allow selection).
         /// </summary>
-        IEvent<NodeEventArgs> OnNodeSelected { get; }
+        IBlockingEvent<NodeEventArgs> OnNodeSelected { get; }
 
 		/// <summary>
 		/// An event which fires every time a node is expanded.
 		/// </summary>
-		IEvent<NodeEventArgs> OnNodeExpanded { get; }
+        IBlockingEvent<NodeEventArgs> OnNodeExpanded { get; }
 
 		/// <summary>
 		/// An event which fires every time a node is expanded.
 		/// </summary>
-		IEvent<NodeEventArgs> OnNodeCollapsed { get; }
+        IBlockingEvent<NodeEventArgs> OnNodeCollapsed { get; }
 
         /// <summary>
         /// Expand the specified node.
@@ -71,6 +71,13 @@
         /// </summary>
         /// <param name="node">Node.</param>
         void Collapse(ITreeStringNode node);
+
+        /// <summary>
+        /// Is the specified node collapsed (or expanded)?
+        /// </summary>
+        /// <returns>Null if the node is not in the tree, false if expanded, true if collapsed.</returns>
+        /// <param name="node">Node.</param>
+        bool? IsCollapsed(ITreeStringNode node);
 
         /// <summary>
         /// Forces a layout refresh for the tree (this usually should not be necessary, as the tree refreshes itself when it sees a need).

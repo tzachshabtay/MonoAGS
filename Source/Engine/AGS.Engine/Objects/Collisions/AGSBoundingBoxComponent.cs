@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -40,7 +41,7 @@ namespace AGS.Engine
             onHitTextBoxShouldChange();
         }
 
-        public IEvent OnBoundingBoxesChanged { get; private set; }
+        public IBlockingEvent OnBoundingBoxesChanged { get; private set; }
 
         [Property(Browsable = false)]
         public ILockStep BoundingBoxLockStep { get { return this; }}
@@ -52,15 +53,15 @@ namespace AGS.Engine
 
             entity.Bind<IModelMatrixComponent>(c => { c.OnMatrixChanged.Subscribe(onHitTextBoxShouldChange); _matrix = c; },
                                                c => { c.OnMatrixChanged.Unsubscribe(onHitTextBoxShouldChange); _matrix = null; });
-            entity.Bind<ICropSelfComponent>(c => { c.OnCropAreaChanged.Subscribe(onCropShouldChange); _crop = c; },
-                                            c => { c.OnCropAreaChanged.Unsubscribe(onCropShouldChange); _crop = null; });
-            entity.Bind<IImageComponent>(c => c.OnImageChanged.Subscribe(onHitTextBoxShouldChange),
-                                         c => c.OnImageChanged.Unsubscribe(onHitTextBoxShouldChange));
+            entity.Bind<ICropSelfComponent>(c => { c.PropertyChanged += onCropShouldChange; _crop = c; },
+                                            c => { c.PropertyChanged -= onCropShouldChange; _crop = null; });
+            entity.Bind<IImageComponent>(c => c.PropertyChanged += onImageChanged,
+                                         c => c.PropertyChanged -= onImageChanged);
             entity.Bind<IAnimationContainer>(c => _animation = c, _animation => _animation = null);
-            entity.Bind<IDrawableInfo>(c => { c.OnRenderLayerChanged.Subscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Subscribe(onAllViewportsShouldChange); _drawable = c; },
-                                       c => { c.OnRenderLayerChanged.Unsubscribe(onHitTextBoxShouldChange); c.OnIgnoreViewportChanged.Unsubscribe(onAllViewportsShouldChange); _drawable = null; });
-            entity.Bind<ITextureOffsetComponent>(c => { c.OnTextureOffsetChanged.Subscribe(onAllViewportsShouldChange); _textureOffset = c; onAllViewportsShouldChange(); }, 
-                                                 c => { c.OnTextureOffsetChanged.Unsubscribe(onAllViewportsShouldChange); _textureOffset = null; onAllViewportsShouldChange(); });
+            entity.Bind<IDrawableInfo>(c => { c.PropertyChanged += onDrawableChanged; _drawable = c; },
+                                       c => { c.PropertyChanged -= onDrawableChanged; _drawable = null; });
+            entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += onTextureOffsetChanged; _textureOffset = c; onAllViewportsShouldChange(); }, 
+                                                 c => { c.PropertyChanged -= onTextureOffsetChanged; _textureOffset = null; onAllViewportsShouldChange(); });
             
         }
 
@@ -249,14 +250,33 @@ namespace AGS.Engine
             onAllViewportsShouldChange();
         }
 
-        private void onCropShouldChange()
+        private void onCropShouldChange(object sender, PropertyChangedEventArgs args)
         {
+            if (args.PropertyName != nameof(ICropSelfComponent.CropArea)) return;
             _isCropDirty = true;
         }
 
         private void onAllViewportsShouldChange()
         {
             _areViewportsDirty = true;
+        }
+
+        private void onTextureOffsetChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(ITextureOffsetComponent.TextureOffset)) return;
+            onAllViewportsShouldChange();
+        }
+
+        private void onImageChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IImageComponent.Image)) return;
+            onHitTextBoxShouldChange();
+        }
+
+        private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName == nameof(IDrawableInfo.RenderLayer)) onHitTextBoxShouldChange();
+            else if (args.PropertyName == nameof(IDrawableInfo.IgnoreViewport)) onAllViewportsShouldChange();
         }
 
 		//https://stackoverflow.com/questions/8946790/how-to-use-an-objects-identity-as-key-for-dictionaryk-v
@@ -282,18 +302,14 @@ namespace AGS.Engine
                 IsDirty = true;
                 _viewport = viewport;
                 BoundingBoxes = new AGSBoundingBoxes();
-				viewport.OnAngleChanged.Subscribe(onViewportChanged);
-				viewport.OnScaleChanged.Subscribe(onViewportChanged);
-				viewport.OnPositionChanged.Subscribe(onViewportChanged);
-                viewport.OnProjectionBoxChanged.Subscribe(onViewportChanged);
-                viewport.OnParentChanged.Subscribe(onViewportChanged);
+                viewport.PropertyChanged += onViewportChanged;
             }
 
             public AGSBoundingBoxes PreLockBoundingBoxes { get; set; }
             public AGSBoundingBoxes BoundingBoxes { get; set; }
             public bool IsDirty { get; set; }
 
-            private void onViewportChanged()
+            private void onViewportChanged(object sender, PropertyChangedEventArgs args)
             {
                 IsDirty = true;
             }

@@ -145,12 +145,12 @@ namespace AGS.Engine
             set { _sliderComponent.AllowKeyboardControl = value; }
         }
 
-        public IEvent<SliderValueEventArgs> OnValueChanged 
+        public IBlockingEvent<SliderValueEventArgs> OnValueChanged 
         {  
             get { return _sliderComponent.OnValueChanged; } 
         }
 
-        public IEvent<SliderValueEventArgs> OnValueChanging
+        public IBlockingEvent<SliderValueEventArgs> OnValueChanging
         {
             get { return _sliderComponent.OnValueChanging; }
         }
@@ -233,7 +233,7 @@ namespace AGS.Engine
             get { return _hasRoom.PreviousRoom; } 
         }
 
-        public IEvent OnRoomChanged 
+        public IBlockingEvent OnRoomChanged 
         {  
             get { return _hasRoom.OnRoomChanged; } 
         }
@@ -258,7 +258,7 @@ namespace AGS.Engine
             set { _animationContainer.DebugDrawAnchor = value; } 
         }
 
-        public IEvent OnAnimationStarted 
+        public IBlockingEvent OnAnimationStarted 
         {  
             get { return _animationContainer.OnAnimationStarted; } 
         }
@@ -326,16 +326,6 @@ namespace AGS.Engine
             get { return _visibleComponent.UnderlyingVisible; } 
         }
 
-		public IEvent OnVisibleChanged
-		{
-			get { return _visibleComponent.OnVisibleChanged; }
-		}
-
-        public IEvent OnUnderlyingVisibleChanged 
-        {  
-            get { return _visibleComponent.OnUnderlyingVisibleChanged; } 
-        }
-
         #endregion
 
         #region IEnabledComponent implementation
@@ -356,16 +346,6 @@ namespace AGS.Engine
         {  
             get { return _enabledComponent.UnderlyingEnabled; } 
         }
-
-		public IEvent OnEnabledChanged
-		{
-			get { return _enabledComponent.OnEnabledChanged; }
-		}
-
-		public IEvent OnUnderlyingEnabledChanged
-		{
-			get { return _enabledComponent.OnUnderlyingEnabledChanged; }
-		}
 
 		#endregion
 
@@ -396,21 +376,6 @@ namespace AGS.Engine
         {  
             get { return _drawableInfo.IgnoreScalingArea; }  
             set { _drawableInfo.IgnoreScalingArea = value; } 
-        }
-
-        public IEvent OnIgnoreScalingAreaChanged 
-        {  
-            get { return _drawableInfo.OnIgnoreScalingAreaChanged; } 
-        }
-
-        public IEvent OnIgnoreViewportChanged 
-        {  
-            get { return _drawableInfo.OnIgnoreViewportChanged; } 
-        }
-
-        public IEvent OnRenderLayerChanged 
-        {  
-            get { return _drawableInfo.OnRenderLayerChanged; } 
         }
 
         #endregion
@@ -476,11 +441,6 @@ namespace AGS.Engine
             set { _translateComponent.Z = value; } 
         }
 
-        public IEvent OnLocationChanged 
-        {  
-            get { return _translateComponent.OnLocationChanged; } 
-        }
-
         #endregion
 
         #region IImageComponent implementation
@@ -519,21 +479,6 @@ namespace AGS.Engine
             set { _imageComponent.CustomRenderer = value; } 
         }
 
-        public IEvent OnImageChanged 
-        {  
-            get { return _imageComponent.OnImageChanged; } 
-        }
-
-        public IEvent OnAnchorChanged 
-        {  
-            get { return _imageComponent.OnAnchorChanged; } 
-        }
-
-        public IEvent OnTintChanged 
-        {  
-            get { return _imageComponent.OnTintChanged; } 
-        }
-
         #endregion
 
         #region IScaleComponent implementation
@@ -564,15 +509,16 @@ namespace AGS.Engine
             set { _scaleComponent.ScaleY = value; }
         }
 
+        public PointF Scale
+        {
+            get { return _scaleComponent.Scale; }
+            set { _scaleComponent.Scale = value; }
+        }
+
         public SizeF BaseSize
         {
             get { return _scaleComponent.BaseSize; }
             set { _scaleComponent.BaseSize = value; }
-        }
-
-        public IEvent OnScaleChanged
-        {
-            get { return _scaleComponent.OnScaleChanged; }
         }
 
         public void ResetScale()
@@ -583,11 +529,6 @@ namespace AGS.Engine
         public void ResetScale(Single initialWidth, Single initialHeight)
         {
             _scaleComponent.ResetScale(initialWidth, initialHeight);
-        }
-
-        public void ScaleBy(Single scaleX, Single scaleY)
-        {
-            _scaleComponent.ScaleBy(scaleX, scaleY);
         }
 
         public void ScaleTo(Single width, Single height)
@@ -619,11 +560,6 @@ namespace AGS.Engine
             set { _rotateComponent.Angle = value; } 
         }
 
-        public IEvent OnAngleChanged 
-        {  
-            get { return _rotateComponent.OnAngleChanged; } 
-        }
-
         #endregion
 
         #region IPixelPerfectComponent implementation
@@ -646,7 +582,7 @@ namespace AGS.Engine
 
         #region IModelMatrixComponent implementation
 
-        public IEvent OnMatrixChanged 
+        public IBlockingEvent OnMatrixChanged 
         {  
             get { return _modelMatrixComponent.OnMatrixChanged; } 
         }
@@ -665,7 +601,7 @@ namespace AGS.Engine
 
         #region IBoundingBoxComponent implementation
 
-        public IEvent OnBoundingBoxesChanged
+        public IBlockingEvent OnBoundingBoxesChanged
         {
             get { return _boundingBoxComponent.OnBoundingBoxesChanged; }
         }

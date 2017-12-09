@@ -4,11 +4,13 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public abstract class AGSComponent : IComponent
+    public abstract class AGSComponent : IComponent, INotifyPropertyChanged
 	{
 		private Type _type;
 
-		public AGSComponent()
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public AGSComponent()
 		{
 			_type = GetType();
 		}
@@ -22,6 +24,24 @@ namespace AGS.Engine
         public virtual void AfterInit() { }
 
         #endregion
+
+        public void OnPropertyChanged(string propertyName)
+        {
+            var propertyChanged = PropertyChanged;
+            if (propertyChanged != null)
+            {
+                propertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            var propertyChanged = PropertyChanged;
+            if (propertyChanged != null)
+            {
+                propertyChanged(this, args);
+            }
+        }
 
         #region IDisposable implementation
 

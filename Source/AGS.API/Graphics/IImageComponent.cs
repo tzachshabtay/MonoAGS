@@ -1,10 +1,12 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// A container for an image.
     /// </summary>
     /// <seealso cref="AGS.API.IComponent" />
-    public interface IHasImage
+    public interface IHasImage : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets or sets the opacity of the object. 0 for fully transparent, 255 for fully opaque.
@@ -55,24 +57,6 @@
         /// </summary>
         /// <value>The custom renderer.</value>
         IImageRenderer CustomRenderer { get; set; }
-
-        /// <summary>
-        /// An event that triggers whenever the image changes.
-        /// </summary>
-        /// <value>The event.</value>
-        IEvent OnImageChanged { get; }
-
-        /// <summary>
-        /// An event that triggers whenever the anchor changes.
-        /// </summary>
-        /// <value>The event.</value>
-        IEvent OnAnchorChanged { get; }
-
-        /// <summary>
-        /// An event that triggers whenever the tint changes.
-        /// </summary>
-        /// <value>The event.</value>
-        IEvent OnTintChanged { get; }
     }
 
     /// <summary>

@@ -5,6 +5,8 @@ namespace AGS.Engine
     public class BoolPropertyEditor : IInspectorPropertyEditor
     {
         private readonly IGameFactory _factory;
+        private InspectorProperty _property;
+        private ICheckboxComponent _checkbox;
 
         public BoolPropertyEditor(IGameFactory factory)
         {
@@ -33,13 +35,21 @@ namespace AGS.Engine
 
         public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
         {
+            _property = property;
 			var label = view.TreeItem;
             var checkbox = CreateCheckbox(label, _factory, id);
+            _checkbox = checkbox;
             checkbox.Checked = bool.Parse(property.Value);
             checkbox.OnCheckChanged.Subscribe(args => 
             {
                 property.Prop.SetValue(property.Object, args.Checked);
             });
+        }
+
+        public void RefreshUI()
+        {
+            if (_checkbox == null) return;
+            _checkbox.Checked = bool.Parse(_property.Value);
         }
     }
 }

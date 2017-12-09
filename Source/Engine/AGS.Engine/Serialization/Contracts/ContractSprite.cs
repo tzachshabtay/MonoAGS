@@ -54,7 +54,7 @@ namespace AGS.Engine
 			if (image != null)
 			{
 				sprite.Image = image;
-				sprite.ScaleBy(ScaleX, ScaleY);
+                sprite.Scale = new PointF(ScaleX, ScaleY);
 			}
 			sprite.Location = new AGSLocation (Location.Item1, Location.Item2, Location.Item3);
 			sprite.Anchor = new PointF (Anchor.Item1, Anchor.Item2);

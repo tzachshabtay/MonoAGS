@@ -32,7 +32,7 @@ namespace Tests
 				_mocks.Image().Setup(i => i.Height).Returns(imageHeight);
 
 				sprite.Image = _mocks.Image().Object;
-				sprite.ScaleBy(scaleX, scaleY);
+                sprite.Scale = new AGS.API.PointF(scaleX, scaleY);
 
 				Assert.AreEqual(expectedWidth, sprite.Width, "Width doesn' match for " + sprite.GetType().Name);
 				Assert.AreEqual(expectedHeight, sprite.Height, "Height doesn't match for " + sprite.GetType().Name);

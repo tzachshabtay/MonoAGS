@@ -324,7 +324,7 @@ namespace AGS.Engine
             newObj.Border = obj.Border;
             if (obj.Animation != null) newObj.StartAnimation(obj.Animation.Clone());
             newObj.BaseSize = new SizeF(obj.Width / obj.ScaleX, obj.Height / obj.ScaleY);
-            newObj.ScaleBy(obj.ScaleX, obj.ScaleY);
+            newObj.Scale = obj.Scale;
             return newObj;
         }
     }

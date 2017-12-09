@@ -23,7 +23,7 @@ namespace AGS.Engine
 			_list = new List<TItem> (collection);
 		}
 
-		public IEvent<AGSListChangedEventArgs<TItem>> OnListChanged { get; private set; }
+        public IBlockingEvent<AGSListChangedEventArgs<TItem>> OnListChanged { get; private set; }
 
 		private void onListChanged(TItem item, int index, ListChangeType changeType)
 		{

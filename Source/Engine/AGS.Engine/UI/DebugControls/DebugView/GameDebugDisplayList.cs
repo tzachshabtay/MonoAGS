@@ -53,10 +53,11 @@ namespace AGS.Engine
                 return button;
             };
             factory.UI.CreateScrollingPanel(_scrollingPanel);
-			_scrollingPanel.OnScaleChanged.Subscribe(() =>
+            _scrollingPanel.GetComponent<IScaleComponent>().PropertyChanged += (_, args) =>
 			{
+                if (args.PropertyName != nameof(IScaleComponent.Height)) return;
                 _listPanel.Y = _scrollingPanel.Height - 10f;
-			});
+			};
         }
 
         public async Task Show()

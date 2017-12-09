@@ -107,11 +107,6 @@ namespace AGS.Engine
 			return completedWalk;
 		}
 
-		public void StopWalking()
-		{
-			Task.Run(async () => await StopWalkingAsync()).Wait();
-		}
-
 		public async Task StopWalkingAsync()
 		{
 			await stopWalkingAsync();

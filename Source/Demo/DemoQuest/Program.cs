@@ -204,7 +204,7 @@ namespace DemoGame
 			ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, 320, 2, config: new AGSTextConfig(alignment: Alignment.TopLeft,
 				autoFit: AutoFit.LabelShouldFitText));
 			fpsLabel.Anchor = new PointF (1f, 0f);
-			fpsLabel.ScaleBy(0.5f, 0.5f);
+            fpsLabel.Scale = new PointF(0.5f, 0.5f);
             fpsLabel.RenderLayer = new AGSRenderLayer(-99999);
             fpsLabel.Enabled = true;
             fpsLabel.MouseEnter.Subscribe(_ => fpsLabel.Tint = Colors.Indigo);
@@ -217,7 +217,7 @@ namespace DemoGame
 				autoFit: AutoFit.LabelShouldFitText));
             label.Tint = Colors.SlateBlue.WithAlpha(125);
 			label.Anchor = new PointF (1f, 0f);
-			label.ScaleBy(0.5f, 0.5f);
+            label.Scale = new PointF(0.5f, 0.5f);
             label.RenderLayer = fpsLabel.RenderLayer;
             MousePositionLabel mouseLabel = new MousePositionLabel(game, label);
 			mouseLabel.Start();
@@ -226,7 +226,7 @@ namespace DemoGame
               autoFit: AutoFit.LabelShouldFitText));
             debugHotspotLabel.Tint = Colors.DarkSeaGreen.WithAlpha(125);
             debugHotspotLabel.Anchor = new PointF(1f, 0f);
-            debugHotspotLabel.ScaleBy(0.5f, 0.5f);
+            debugHotspotLabel.Scale = new PointF(0.5f, 0.5f);
             debugHotspotLabel.RenderLayer = fpsLabel.RenderLayer;
             HotspotLabel hotspot = new HotspotLabel(game, debugHotspotLabel) { DebugMode = true };
             hotspot.Start();

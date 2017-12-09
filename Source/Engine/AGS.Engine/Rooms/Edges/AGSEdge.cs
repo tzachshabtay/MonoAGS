@@ -15,7 +15,7 @@ namespace AGS.Engine
 
 		public float Value { get; set; }
 
-		public IEvent OnEdgeCrossed { get; private set; }
+        public IBlockingEvent OnEdgeCrossed { get; private set; }
 
         public bool Enabled { get; set; }
 

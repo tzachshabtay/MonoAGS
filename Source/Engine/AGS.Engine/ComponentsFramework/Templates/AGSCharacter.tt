@@ -63,13 +63,6 @@
 
 	class CharacterInterfaceFlat : FlatEntityTemplate
 	{
-		protected override bool ShouldWriteProperty(PropertyInfo property)
-        {
-        	if (!base.ShouldWriteProperty(property)) return false;
-        	if (property.Name != "Location") return true;
-        	return false;
-        }
-
         protected override bool ShouldWriteMethod(MethodInfo method)
         {
         	if (!base.ShouldWriteMethod(method)) return false;

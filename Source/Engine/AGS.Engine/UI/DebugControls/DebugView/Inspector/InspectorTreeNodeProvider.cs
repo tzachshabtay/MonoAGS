@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
 using AGS.API;
 
 namespace AGS.Engine
@@ -31,6 +33,18 @@ namespace AGS.Engine
 			int nodeId = Interlocked.Increment(ref _nextNodeId);
 			var itemTextId = (item.Text ?? "") + "_" + nodeId;
             node.Editor.AddEditorUI("InspectorEditor_" + itemTextId, view, node.Property);
+
+            var propertyChanged = node.Property.Object as INotifyPropertyChanged;
+            if (propertyChanged != null)
+            {
+                propertyChanged.PropertyChanged += (sender, e) => 
+                {
+                    if (e.PropertyName != node.Property.Name) return;
+                    node.Property.Refresh();
+                    node.Editor.RefreshUI();
+                };
+            }
+
             return view;
         }
     }

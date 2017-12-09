@@ -14,7 +14,7 @@ namespace AGS.Engine
 
 		public IAnimation Animation { get; private set; }
 
-        public IEvent OnAnimationStarted { get; private set; }
+        public IBlockingEvent OnAnimationStarted { get; private set; }
 
 		public bool DebugDrawAnchor { get; set; }
 

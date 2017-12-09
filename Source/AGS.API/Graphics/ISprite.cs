@@ -1,10 +1,11 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// A sprite is an image which can be manipulated (scaled, rotated or translated in space).
     /// </summary>
-    public interface ISprite : IHasImage, ITranslate, IScale, IPixelPerfectCollidable, IRotate, 
-        IHasModelMatrix
+    public interface ISprite : IPixelPerfectCollidable, IHasModelMatrix, INotifyPropertyChanged
 	{
         /// <summary>
         /// Clone this sprite. This is a deep clone, meaning the generated sprite will be detached

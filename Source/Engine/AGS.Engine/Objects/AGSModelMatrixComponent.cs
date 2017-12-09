@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using AGS.API;
@@ -59,36 +60,34 @@ namespace AGS.Engine
                 c => { _room = null; onSomethingChanged(); });
             
             _entity.Bind<IScaleComponent>(
-                c => { _scale = c; c.OnScaleChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
-                c => { c.OnScaleChanged.Unsubscribe(onSomethingChanged); _scale = null; onSomethingChanged();});
+                c => { _scale = c; c.PropertyChanged += onScaleChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onScaleChanged; _scale = null; onSomethingChanged();});
             _entity.Bind<ITranslateComponent>(
-                c => { _translate = c; c.OnLocationChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
-                c => { c.OnLocationChanged.Unsubscribe(onSomethingChanged); _translate = null; onSomethingChanged();}
+                c => { _translate = c; c.PropertyChanged += onTranslateChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onTranslateChanged; _translate = null; onSomethingChanged();}
             );
             _entity.Bind<IJumpOffsetComponent>(
-                c => { _jump = c; c.OnJumpOffsetChanged.Subscribe(onSomethingChanged); onSomethingChanged();},
-                c => { c.OnJumpOffsetChanged.Unsubscribe(onSomethingChanged); _jump = null; onSomethingChanged();}
+                c => { _jump = c; c.PropertyChanged += onJumpOffsetChanged; onSomethingChanged();},
+                c => { c.PropertyChanged -= onJumpOffsetChanged; _jump = null; onSomethingChanged();}
             );
             _entity.Bind<IRotateComponent>(
-                c => { _rotate = c; c.OnAngleChanged.Subscribe(onSomethingChanged); onSomethingChanged();},
-                c => { c.OnAngleChanged.Unsubscribe(onSomethingChanged); _rotate = null; onSomethingChanged();}
+                c => { _rotate = c; c.PropertyChanged += onRotateChanged; onSomethingChanged();},
+                c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged();}
             );
 			_entity.Bind<IImageComponent>(
-                c => { _image = c; c.OnAnchorChanged.Subscribe(onSomethingChanged); onSomethingChanged(); },
-                c => { c.OnAnchorChanged.Unsubscribe(onSomethingChanged); _image = null; onSomethingChanged(); }
+                c => { _image = c; c.PropertyChanged += onAnchorChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onAnchorChanged; _image = null; onSomethingChanged(); }
 			);
 
             _entity.Bind<IDrawableInfo>(
                 c => 
             {
                 _drawable = c;
-				c.OnIgnoreScalingAreaChanged.Subscribe(onSomethingChanged);
-				c.OnRenderLayerChanged.Subscribe(onSomethingChanged);
+                c.PropertyChanged += onDrawableChanged;
                 onSomethingChanged();
             },c =>
             {
-                c.OnIgnoreScalingAreaChanged.Unsubscribe(onSomethingChanged);
-				c.OnRenderLayerChanged.Unsubscribe(onSomethingChanged);
+                c.PropertyChanged -= onDrawableChanged;
                 _drawable = null;
 				onSomethingChanged();
             });
@@ -139,7 +138,7 @@ namespace AGS.Engine
             }
         }
 
-        public IEvent OnMatrixChanged { get; private set; }
+        public IBlockingEvent OnMatrixChanged { get; private set; }
 
         public static bool GetVirtualResolution(bool flattenLayerResolution, Size virtualResolution, IDrawableInfo drawable, 
                                          PointF? customResolutionFactor, out PointF resolutionFactor, out Size resolution)
@@ -175,6 +174,53 @@ namespace AGS.Engine
             }
         }
 
+        private void onSpriteChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(ISprite.X) && args.PropertyName != nameof(ISprite.Y) &&
+                args.PropertyName != nameof(ISprite.ScaleX) && args.PropertyName != nameof(ISprite.ScaleY) &&
+                args.PropertyName != nameof(ISprite.Width) && args.PropertyName != nameof(ISprite.Height) &&
+                args.PropertyName != nameof(ISprite.Angle) && args.PropertyName != nameof(ISprite.Anchor)) return;
+            onSomethingChanged();
+        }
+
+        private void onTranslateChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(ITranslateComponent.X) && args.PropertyName != nameof(ITranslateComponent.Y)) return;
+            onSomethingChanged();
+        }
+
+        private void onScaleChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IScale.ScaleX) && args.PropertyName != nameof(IScale.ScaleY) &&
+                args.PropertyName != nameof(IScale.Width) && args.PropertyName != nameof(IScale.Height)) return;
+            onSomethingChanged();
+        }
+
+        private void onRotateChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IRotateComponent.Angle)) return;
+            onSomethingChanged();
+        }
+
+        private void onJumpOffsetChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IJumpOffsetComponent.JumpOffset)) return;
+            onSomethingChanged();
+        }
+
+        private void onAnchorChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IImageComponent.Anchor)) return;
+            onSomethingChanged();
+        }
+
+        private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IDrawableInfo.RenderLayer) &&
+                args.PropertyName != nameof(IDrawableInfo.IgnoreScalingArea)) return;
+            onSomethingChanged();
+        }
+
         private void onSomethingChanged()
         {
             _isDirty = true;
@@ -195,31 +241,14 @@ namespace AGS.Engine
 
         private void subscribeSprite(ISprite sprite)
         {
-            changeSpriteSubscription(sprite, subscribeSpriteEvent);
+            if (sprite == null) return;
+            sprite.PropertyChanged += onSpriteChanged;
         }
 
         private void unsubscribeSprite(ISprite sprite)
         {
-            changeSpriteSubscription(sprite, unsubscribeSpriteEvent);
-        }
-
-        private void subscribeSpriteEvent(IEvent ev)
-        {
-            ev.Subscribe(onSomethingChanged);
-        }
-
-        private void unsubscribeSpriteEvent(IEvent ev)
-        {
-            ev.Unsubscribe(onSomethingChanged);
-        }
-
-        private void changeSpriteSubscription(ISprite sprite, Action<IEvent> change)
-        {
             if (sprite == null) return;
-            change(sprite.OnLocationChanged);
-            change(sprite.OnAngleChanged);
-            change(sprite.OnScaleChanged);
-            change(sprite.OnAnchorChanged);
+            sprite.PropertyChanged -= onSpriteChanged;
         }
 
         private bool shouldRecalculate() 

@@ -39,7 +39,7 @@
         /// An event that fires whenever the matrix changes.
         /// </summary>
         /// <value>The on matrix changed.</value>
-        IEvent OnMatrixChanged { get; }
+        IBlockingEvent OnMatrixChanged { get; }
 
         /// <summary>
         /// Allows locking the component from changing (to allow for changing multiple components "at once").

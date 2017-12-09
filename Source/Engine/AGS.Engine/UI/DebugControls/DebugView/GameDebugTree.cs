@@ -47,10 +47,11 @@ namespace AGS.Engine
             _treeView = _treePanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
             factory.UI.CreateScrollingPanel(_scrollingPanel);
-            _scrollingPanel.OnScaleChanged.Subscribe(() => 
+            _scrollingPanel.GetComponent<IScaleComponent>().PropertyChanged += (_, args) => 
             {
+                if (args.PropertyName != nameof(IScaleComponent.Height)) return;
                 _treePanel.Y = _scrollingPanel.Height - lineHeight;
-            });
+            };
         }
 
         public async Task Show()

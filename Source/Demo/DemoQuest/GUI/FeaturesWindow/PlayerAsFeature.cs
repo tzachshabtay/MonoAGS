@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace DemoGame
@@ -34,7 +35,7 @@ namespace DemoGame
 			_player.TreeNode.SetParent(newParent.TreeNode);
         }
 
-        public void Restore()
+        public async Task Restore()
         {
 			_player.RenderLayer = _lastLayer;
             _player.TreeNode.SetParent(_lastParent == null ? null : _lastParent.TreeNode);
@@ -42,8 +43,9 @@ namespace DemoGame
 			_player.Room.Edges.Left.Enabled = true;
 			_player.Room.Edges.Right.Enabled = true;
 			foreach (var area in _lastAreas) _player.Room.Areas.Add(area);
+            await _player.StopWalkingAsync();
 			_player.Location = _lastLocation;
-            _player.ScaleBy(_lastScaleX, _lastScaleY);
+            _player.Scale = new PointF(_lastScaleX, _lastScaleY);
         }
     }
 }

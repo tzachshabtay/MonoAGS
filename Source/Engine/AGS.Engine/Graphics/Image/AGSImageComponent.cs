@@ -1,7 +1,10 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
+using PropertyChanged;
 
 namespace AGS.Engine
 {
+    [DoNotNotify]
     public class AGSImageComponent : AGSComponent, IImageComponent
     {
         private IHasImage _image;
@@ -13,6 +16,7 @@ namespace AGS.Engine
         {
             _image = image;
             _factory = factory;
+            _image.PropertyChanged += onPropertyChanged;
         }
 
         [Property(Category = "Transform")]
@@ -43,12 +47,6 @@ namespace AGS.Engine
             }
         }
 
-        public IEvent OnImageChanged { get { return _image.OnImageChanged; } }
-
-        public IEvent OnAnchorChanged { get { return _image.OnAnchorChanged; } }
-
-        public IEvent OnTintChanged { get { return _image.OnTintChanged; } }
-
         public byte Opacity { get { return _image.Opacity; } set { _image.Opacity = value; } }
 
         public Color Tint { get { return _image.Tint; } set { _image.Tint = value; } }
@@ -58,6 +56,11 @@ namespace AGS.Engine
             base.Init(entity);
             entity.Bind<IAnimationContainer>(c => _animationContainer = c, _ => _animationContainer = null);
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+        }
+
+        private void onPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(e);
         }
     }
 }

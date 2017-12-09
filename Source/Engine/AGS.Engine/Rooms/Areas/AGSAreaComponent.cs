@@ -1,6 +1,7 @@
 ﻿using System;
 using AGS.API;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace AGS.Engine
 {
@@ -32,11 +33,11 @@ namespace AGS.Engine
         {
             base.Init(entity);
             entity.Bind<ITranslateComponent>(
-                c => { _translate = c; c.OnLocationChanged.Subscribe(onLocationChanged); },
-                c => { _translate = null; c.OnLocationChanged.Unsubscribe(onLocationChanged); });
+                c => { _translate = c; c.PropertyChanged += onLocationChanged; },
+                c => { _translate = null; c.PropertyChanged -= onLocationChanged; });
             entity.Bind<IRotateComponent>(
-                c => { _rotate = c; c.OnAngleChanged.Subscribe(onAngleChanged); },
-                c => { _rotate = null; c.OnAngleChanged.Unsubscribe(onAngleChanged); });
+                c => { _rotate = c; c.PropertyChanged += onAngleChanged; },
+                c => { _rotate = null; c.PropertyChanged -= onAngleChanged; });
         }
 
 		#region IArea implementation
@@ -90,8 +91,9 @@ namespace AGS.Engine
 
 		#endregion
 
-        private void onLocationChanged()
+        private void onLocationChanged(object sender, PropertyChangedEventArgs args)
         {
+            if (args.PropertyName != nameof(ITranslateComponent.Location)) return;
             var translate = _translate;
             var obj = Mask.DebugDraw;
             if (translate == null || obj == null) return;
@@ -99,8 +101,9 @@ namespace AGS.Engine
             Mask.Transform(createMatrix(_translate, _rotate));
         }
 
-        private void onAngleChanged()
+        private void onAngleChanged(object sender, PropertyChangedEventArgs args)
         {
+            if (args.PropertyName != nameof(IRotateComponent.Angle)) return;
             var rotate = _rotate;
             var obj = Mask.DebugDraw;
             if (rotate == null || obj == null) return;

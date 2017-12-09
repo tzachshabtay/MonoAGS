@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AGS.API;
 using System.Reflection;
+using System.ComponentModel;
 
 namespace AGS.Engine
 {
@@ -11,6 +12,9 @@ namespace AGS.Engine
         private readonly IGameFactory _factory;
         private readonly bool _wholeNumbers, _nullable;
         private readonly List<InternalNumberEditor> _internalEditors;
+        private List<Tuple<IUIControl, INumberEditorComponent>> _panels;
+        private ICheckboxComponent _nullBox;
+        private InspectorProperty _property;
         private const float SLIDER_HEIGHT = 5f;
         private const float ROW_HEIGHT = 20f;
 
@@ -59,14 +63,17 @@ namespace AGS.Engine
                     else prop.Prop.SetValue(prop.Object, value);
                 }, null)
             };
+            _panels = new List<Tuple<IUIControl, INumberEditorComponent>>(_internalEditors.Count);
         }
 
         public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
         {
+            _property = property;
             ICheckBox nullBox = null;
             if (_nullable)
             {
                 nullBox = BoolPropertyEditor.CreateCheckbox(view.TreeItem, _factory, id + "_NullBox");
+                _nullBox = nullBox;
                 nullBox.Checked = (property.Value != InspectorProperty.NullValue);
             }
             var panels = new List<Tuple<IUIControl, INumberEditorComponent>>(_internalEditors.Count);
@@ -77,6 +84,7 @@ namespace AGS.Engine
                 panel.Item1.Visible = nullBox == null ? true : nullBox.Checked;
                 panels.Add(panel);
             }
+            _panels = panels;
             if (nullBox != null)
             {
                 nullBox.OnCheckChanged.Subscribe(args =>
@@ -95,6 +103,28 @@ namespace AGS.Engine
                         }
                     }
                 });
+            }
+        }
+
+        public void RefreshUI()
+        {
+            if (_property == null) return;
+            if (_nullBox != null)
+            {
+                _nullBox.Checked = (_property.Value != InspectorProperty.NullValue);
+            }
+
+            for (int i = 0; i < _panels.Count(); i++)
+            {
+                var panel = _panels[i];
+                var editor = _internalEditors[i];
+                var text = editor.GetValueString(_property);
+                if (text != InspectorProperty.NullValue)
+                {
+                    panel.Item2.Value = float.Parse(text);
+                    panel.Item1.Visible = true;
+                }
+                else panel.Item1.Visible = false;
             }
         }
 
@@ -203,10 +233,13 @@ namespace AGS.Engine
             sliderColorImage.Z = slider.Graphics.Z - 1f;
             sliderColorImage.Tint = Colors.Purple;
             sliderColorImage.Anchor = slider.Graphics.Anchor;
-            slider.HandleGraphics.OnLocationChanged.Subscribe(() =>
+            PropertyChangedEventHandler onHandleLocationChanged = (_, args) =>
             {
+                if (args.PropertyName != nameof(ITranslateComponent.X)) return;
                 sliderColorImage.Image = new EmptyImage(slider.HandleGraphics.X, SLIDER_HEIGHT);
-            });
+            };
+            slider.HandleGraphics.Bind<ITranslateComponent>(c => c.PropertyChanged += onHandleLocationChanged,
+                                                            c => c.PropertyChanged -= onHandleLocationChanged);
             var uiEvents = slider.Graphics.GetComponent<IUIEvents>();
             uiEvents.MouseEnter.Subscribe(_ => sliderColorImage.Tint = Colors.MediumPurple);
             uiEvents.MouseLeave.Subscribe(_ => sliderColorImage.Tint = Colors.Purple);

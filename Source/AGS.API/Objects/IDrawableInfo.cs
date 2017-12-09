@@ -27,24 +27,6 @@
         /// </summary>
         /// <value><c>true</c> if ignore scaling area; otherwise, <c>false</c>.</value>
 		bool IgnoreScalingArea { get; set; }
-
-        /// <summary>
-        /// An event which triggers when the <see cref="IgnoreScalingArea"/> property changes.
-        /// </summary>
-        /// <value>The event.</value>
-        IEvent OnIgnoreScalingAreaChanged { get; }
-
-        /// <summary>
-        /// An event which triggers when the <see cref="IgnoreViewport"/> property changes.
-        /// </summary>
-        /// <value>The event.</value>
-        IEvent OnIgnoreViewportChanged { get; }
-
-        /// <summary>
-        /// An event which triggers when the <see cref="RenderLayer"/> property changes.
-        /// </summary>
-        /// <value>The event.</value>
-        IEvent OnRenderLayerChanged { get; }
 	}
 }
 

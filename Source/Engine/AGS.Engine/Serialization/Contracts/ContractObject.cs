@@ -107,7 +107,7 @@ namespace AGS.Engine
             if (image != null)
             {
                 obj.Image = image;
-                obj.ScaleBy(ScaleX, ScaleY);
+                obj.Scale = new PointF(ScaleX, ScaleY);
             }
             obj.Location = new AGSLocation(Location.Item1, Location.Item2, Location.Item3);
             obj.Anchor = new PointF(Anchor.Item1, Anchor.Item2);
@@ -117,7 +117,7 @@ namespace AGS.Engine
             obj.PixelPerfect(IsPixelPerfect);            
             AnimationContainer.ToItem(context, obj);
             if (obj.Animation.Frames.Count > 0)
-                obj.ScaleBy(obj.ScaleX, obj.ScaleY);
+                obj.Scale = obj.Scale;
             obj.RenderLayer = RenderLayer.ToItem(context);
 			if (WalkPoint != null)
 			{
@@ -167,7 +167,7 @@ namespace AGS.Engine
                 item.ResetScale();
                 InitialWidth = item.Width;
                 InitialHeight = item.Height;
-                item.ScaleBy(scaleX, scaleY);
+                item.Scale = new PointF(scaleX, scaleY);
             }
             Image = new Contract<IImage>();
             Image.FromItem(context, item.Image);

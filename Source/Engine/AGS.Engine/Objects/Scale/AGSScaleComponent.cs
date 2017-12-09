@@ -1,8 +1,11 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 using Autofac;
+using PropertyChanged;
 
 namespace AGS.Engine
 {
+    [DoNotNotify]
     public class AGSScaleComponent : AGSComponent, IScaleComponent
     {
         private IScale _scale;
@@ -21,7 +24,12 @@ namespace AGS.Engine
             {
                 TypedParameter imageParam = new TypedParameter(typeof(IHasImage), c);
                 _scale = _resolver.Container.Resolve<IScale>(imageParam);
-            }, _ => _scale = null);
+                _scale.PropertyChanged += onScalePropertyChanged;
+            }, c =>
+            {
+                _scale = null;
+                c.PropertyChanged -= onScalePropertyChanged;
+            });
             entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
         }
 
@@ -34,8 +42,8 @@ namespace AGS.Engine
         [Property(Category = "Transform")]
         public PointF Scale
         {
-            get { return new PointF(ScaleX, ScaleY); }
-            set { ScaleBy(value.X, value.Y); }
+            get { return _scale.Scale; }
+            set { _scale.Scale = value; }
         }
 
         [Property(Browsable = false)]
@@ -56,8 +64,6 @@ namespace AGS.Engine
             }
         }
 
-        public IEvent OnScaleChanged { get { return _scale.OnScaleChanged; } }
-
         public void ResetScale(float initialWidth, float initialHeight)
         {
 			var sprite = getSprite();
@@ -68,11 +74,6 @@ namespace AGS.Engine
         public void ResetScale()
         {
             _scale.ResetScale();
-        }
-
-        public void ScaleBy(float scaleX, float scaleY)
-        {
-            _scale.ScaleBy(scaleX, scaleY);
         }
 
         public void ScaleTo(float width, float height)
@@ -95,6 +96,11 @@ namespace AGS.Engine
             var animation = _animation;
             if (animation == null || animation.Animation == null) return null;
             return animation.Animation.Sprite;
+        }
+
+        private void onScalePropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            OnPropertyChanged(args);
         }
     }
 }
