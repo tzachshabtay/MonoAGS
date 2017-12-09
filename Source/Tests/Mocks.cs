@@ -224,9 +224,9 @@ namespace Tests
 			{
 				_roomEvents = new Mock<IRoomEvents> ();
 				_roomEvents.Setup(r => r.OnAfterFadeIn).Returns(new Mock<IEvent> ().Object);
-				_roomEvents.Setup(r => r.OnAfterFadeOut).Returns(new Mock<IEvent> ().Object);
-				_roomEvents.Setup(r => r.OnBeforeFadeIn).Returns(new Mock<IEvent> ().Object);
-				_roomEvents.Setup(r => r.OnBeforeFadeOut).Returns(new Mock<IEvent> ().Object);
+				_roomEvents.Setup(r => r.OnAfterFadeOut).Returns(new Mock<IBlockingEvent> ().Object);
+				_roomEvents.Setup(r => r.OnBeforeFadeIn).Returns(new Mock<IBlockingEvent> ().Object);
+				_roomEvents.Setup(r => r.OnBeforeFadeOut).Returns(new Mock<IBlockingEvent> ().Object);
 			}
 			return _roomEvents;
 		}
