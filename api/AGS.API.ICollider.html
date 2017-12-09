@@ -92,6 +92,9 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
     </div>
     <div>
@@ -99,9 +102,6 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
     </div>
     <div>
       <span class="xref">System.IDisposable.Dispose()</span>
-    </div>
-    <div>
-      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
@@ -112,16 +112,16 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
 [RequiredComponent(typeof (IAnimationContainer), true)]
 [RequiredComponent(typeof (IScaleComponent), true)]
 [RequiredComponent(typeof (IPixelPerfectComponent), true)]
-public interface ICollider : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+public interface ICollider : IComponent, IDisposable</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ICollider_CenterPoint.md&amp;value=---%0Auid%3A%20AGS.API.ICollider.CenterPoint%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Build/apiSpec/new?filename=AGS_API_ICollider_CenterPoint.md&amp;value=---%0Auid%3A%20AGS.API.ICollider.CenterPoint%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/Collisions/ICollider.cs/#L18">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Source/AGS.API/Objects/Collisions/ICollider.cs/#L18">View Source</a>
   </span>
   <a id="AGS_API_ICollider_CenterPoint_" data-uid="AGS.API.ICollider.CenterPoint*"></a>
   <h4 id="AGS_API_ICollider_CenterPoint" data-uid="AGS.API.ICollider.CenterPoint">CenterPoint</h4>
@@ -152,13 +152,13 @@ public interface ICollider : IComponent, IDisposable, INotifyPropertyChanged</co
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ICollider_CollidesWith_System_Single_System_Single_AGS_API_IViewport_.md&amp;value=---%0Auid%3A%20AGS.API.ICollider.CollidesWith(System.Single%2CSystem.Single%2CAGS.API.IViewport)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Build/apiSpec/new?filename=AGS_API_ICollider_CollidesWith_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.ICollider.CollidesWith(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/Collisions/ICollider.cs/#L30">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Source/AGS.API/Objects/Collisions/ICollider.cs/#L29">View Source</a>
   </span>
   <a id="AGS_API_ICollider_CollidesWith_" data-uid="AGS.API.ICollider.CollidesWith*"></a>
-  <h4 id="AGS_API_ICollider_CollidesWith_System_Single_System_Single_AGS_API_IViewport_" data-uid="AGS.API.ICollider.CollidesWith(System.Single,System.Single,AGS.API.IViewport)">CollidesWith(Single, Single, IViewport)</h4>
+  <h4 id="AGS_API_ICollider_CollidesWith_System_Single_System_Single_" data-uid="AGS.API.ICollider.CollidesWith(System.Single,System.Single)">CollidesWith(Single, Single)</h4>
   <div class="markdown level1 summary"><p>Does the entity collide with point (x,y)?
 The (x,y) is expected in room-coordinates after adjusting for the viewport.
 The collision is checked via either the entity&apos;s bounding box, or via a pixel perfect collision
@@ -167,7 +167,7 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool CollidesWith(float x, float y, IViewport viewport)</code></pre>
+    <pre><code class="lang-csharp hljs">bool CollidesWith(float x, float y)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -189,12 +189,6 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
         <td><span class="xref">System.Single</span></td>
         <td><span class="parametername">y</span></td>
         <td><p>The y coordinate.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="AGS.API.IViewport.html">IViewport</a></td>
-        <td><span class="parametername">viewport</span></td>
-        <td><p>The viewport to check the collisions against</p>
 </td>
       </tr>
     </tbody>
@@ -223,10 +217,10 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ICollider.md&amp;value=---%0Auid%3A%20AGS.API.ICollider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Build/apiSpec/new?filename=AGS_API_ICollider.md&amp;value=---%0Auid%3A%20AGS.API.ICollider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/Collisions/ICollider.cs/#L8" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Source/AGS.API/Objects/Collisions/ICollider.cs/#L8" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

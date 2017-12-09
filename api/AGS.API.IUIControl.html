@@ -131,13 +131,13 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_System_Type_">IComponentsCollection.AddComponent(Type)</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent__1_AGS_API_IComponent_">IComponentsCollection.AddComponent&lt;TComponent&gt;(IComponent)</a>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent__1___0_">IComponentsCollection.AddComponent&lt;TComponent&gt;(TComponent)</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent__1">IComponentsCollection.RemoveComponent&lt;TComponent&gt;()</a>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponents__1">IComponentsCollection.RemoveComponents&lt;TComponent&gt;()</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_System_Type_">IComponentsCollection.RemoveComponent(Type)</a>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponents_System_Type_">IComponentsCollection.RemoveComponents(Type)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_AGS_API_IComponent_">IComponentsCollection.RemoveComponent(IComponent)</a>
@@ -158,10 +158,22 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_System_Type_">IComponentsCollection.GetComponent(Type)</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponents__1">IComponentsCollection.GetComponents&lt;TComponent&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponents_System_Type_">IComponentsCollection.GetComponents(Type)</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind__1_System_Action___0__System_Action___0__">IComponentsCollection.Bind&lt;TComponent&gt;(Action&lt;TComponent&gt;, Action&lt;TComponent&gt;)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Count">IComponentsCollection.Count</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_CountType_System_Type_">IComponentsCollection.CountType(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_CountType__1">IComponentsCollection.CountType&lt;TComponent&gt;()</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_OnComponentsInitialized">IComponentsCollection.OnComponentsInitialized</a>
@@ -212,7 +224,7 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
       <a class="xref" href="AGS.API.ICollider.html#AGS_API_ICollider_CenterPoint">ICollider.CenterPoint</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.ICollider.html#AGS_API_ICollider_CollidesWith_System_Single_System_Single_AGS_API_IViewport_">ICollider.CollidesWith(Single, Single, IViewport)</a>
+      <a class="xref" href="AGS.API.ICollider.html#AGS_API_ICollider_CollidesWith_System_Single_System_Single_">ICollider.CollidesWith(Single, Single)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_Visible">IVisibleComponent.Visible</a>
@@ -221,13 +233,13 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
       <a class="xref" href="AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_UnderlyingVisible">IVisibleComponent.UnderlyingVisible</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_OnUnderlyingVisibleChanged">IVisibleComponent.OnUnderlyingVisibleChanged</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_Enabled">IEnabledComponent.Enabled</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_UnderlyingEnabled">IEnabledComponent.UnderlyingEnabled</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_ClickThrough">IEnabledComponent.ClickThrough</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.ICustomPropertiesComponent.html#AGS_API_ICustomPropertiesComponent_Properties">ICustomPropertiesComponent.Properties</a>
@@ -240,6 +252,15 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
     </div>
     <div>
       <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_IgnoreScalingArea">IDrawableInfo.IgnoreScalingArea</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnIgnoreScalingAreaChanged">IDrawableInfo.OnIgnoreScalingAreaChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnIgnoreViewportChanged">IDrawableInfo.OnIgnoreViewportChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnRenderLayerChanged">IDrawableInfo.OnRenderLayerChanged</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_Interactions">IHotspotComponent.Interactions</a>
@@ -272,16 +293,22 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleY">IScale.ScaleY</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_Scale">IScale.Scale</a>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_BaseSize">IScale.BaseSize</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_BaseSize">IScale.BaseSize</a>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_OnScaleChanged">IScale.OnScaleChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetBaseSize_System_Single_System_Single_">IScale.ResetBaseSize(Single, Single)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetScale">IScale.ResetScale()</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetScale_System_Single_System_Single_">IScale.ResetScale(Single, Single)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleBy_System_Single_System_Single_">IScale.ScaleBy(Single, Single)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleTo_System_Single_System_Single_">IScale.ScaleTo(Single, Single)</a>
@@ -296,6 +323,9 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
       <a class="xref" href="AGS.API.IRotate.html#AGS_API_IRotate_Angle">IRotate.Angle</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IRotate.html#AGS_API_IRotate_OnAngleChanged">IRotate.OnAngleChanged</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.ITranslate.html#AGS_API_ITranslate_Location">ITranslate.Location</a>
     </div>
     <div>
@@ -306,6 +336,9 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
     </div>
     <div>
       <a class="xref" href="AGS.API.ITranslate.html#AGS_API_ITranslate_Z">ITranslate.Z</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ITranslate.html#AGS_API_ITranslate_OnLocationChanged">ITranslate.OnLocationChanged</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Opacity">IHasImage.Opacity</a>
@@ -323,25 +356,31 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
       <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_CustomRenderer">IHasImage.CustomRenderer</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnImageChanged">IHasImage.OnImageChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnAnchorChanged">IHasImage.OnAnchorChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnTintChanged">IHasImage.OnTintChanged</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IModelMatrixComponent.html#AGS_API_IModelMatrixComponent_GetModelMatrices">IModelMatrixComponent.GetModelMatrices()</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IModelMatrixComponent.html#AGS_API_IModelMatrixComponent_OnMatrixChanged">IModelMatrixComponent.OnMatrixChanged</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IModelMatrixComponent.html#AGS_API_IModelMatrixComponent_ModelMatrixLockStep">IModelMatrixComponent.ModelMatrixLockStep</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_GetBoundingBoxes_AGS_API_IViewport_">IBoundingBoxComponent.GetBoundingBoxes(IViewport)</a>
+      <a class="xref" href="AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_GetBoundingBoxes">IBoundingBoxComponent.GetBoundingBoxes()</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_OnBoundingBoxesChanged">IBoundingBoxComponent.OnBoundingBoxesChanged</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_BoundingBoxLockStep">IBoundingBoxComponent.BoundingBoxLockStep</a>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
@@ -352,15 +391,12 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
     <div>
       <span class="xref">System.IDisposable.Dispose()</span>
     </div>
-    <div>
-      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IUIControl_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IUIControl : IUIEvents, ISkinComponent, IObject, IEntity, IComponentsCollection, IEnumerable&lt;IComponent&gt;, IEnumerable, IHasRoom, IAnimationContainer, IInObjectTree, IInTree&lt;IObject&gt;, ICollider, IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfo, IHotspotComponent, IShaderComponent, ITranslateComponent, IImageComponent, IScaleComponent, IRotateComponent, IPixelPerfectComponent, IPixelPerfectCollidable, IHasModelMatrix, IScale, IRotate, ITranslate, IHasImage, IModelMatrixComponent, IBoundingBoxComponent, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IUIControl : IUIEvents, ISkinComponent, IObject, IEntity, IComponentsCollection, IEnumerable&lt;IComponent&gt;, IEnumerable, IHasRoom, IAnimationContainer, IInObjectTree, IInTree&lt;IObject&gt;, ICollider, IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfo, IHotspotComponent, IShaderComponent, ITranslateComponent, IImageComponent, IScaleComponent, IRotateComponent, IPixelPerfectComponent, IPixelPerfectCollidable, IHasModelMatrix, IScale, IRotate, ITranslate, IHasImage, IModelMatrixComponent, IBoundingBoxComponent, IComponent, IDisposable</code></pre>
   </div>
 </article>
           </div>
@@ -370,10 +406,10 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IUIControl.md&amp;value=---%0Auid%3A%20AGS.API.IUIControl%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Build/apiSpec/new?filename=AGS_API_IUIControl.md&amp;value=---%0Auid%3A%20AGS.API.IUIControl%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/IUIControl.cs/#L75" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Source/AGS.API/UI/Controls/IUIControl.cs/#L75" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

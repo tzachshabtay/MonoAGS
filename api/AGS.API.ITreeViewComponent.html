@@ -91,6 +91,9 @@ Each label is a node in the tree which can be collapsed/expanded to hide/show it
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
     </div>
     <div>
@@ -99,9 +102,6 @@ Each label is a node in the tree which can be collapsed/expanded to hide/show it
     <div>
       <span class="xref">System.IDisposable.Dispose()</span>
     </div>
-    <div>
-      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
@@ -109,16 +109,16 @@ Each label is a node in the tree which can be collapsed/expanded to hide/show it
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IInObjectTree), true)]
 [RequiredComponent(typeof (IDrawableInfo), true)]
-public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+public interface ITreeViewComponent : IComponent, IDisposable</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_AllowSelection.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.AllowSelection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Build/apiSpec/new?filename=AGS_API_ITreeViewComponent_AllowSelection.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.AllowSelection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L46">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L46">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_AllowSelection_" data-uid="AGS.API.ITreeViewComponent.AllowSelection*"></a>
   <h4 id="AGS_API_ITreeViewComponent_AllowSelection" data-uid="AGS.API.ITreeViewComponent.AllowSelection">AllowSelection</h4>
@@ -147,10 +147,10 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_HorizontalSpacing.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.HorizontalSpacing%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Build/apiSpec/new?filename=AGS_API_ITreeViewComponent_HorizontalSpacing.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.HorizontalSpacing%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L34">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L34">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_HorizontalSpacing_" data-uid="AGS.API.ITreeViewComponent.HorizontalSpacing*"></a>
   <h4 id="AGS_API_ITreeViewComponent_HorizontalSpacing" data-uid="AGS.API.ITreeViewComponent.HorizontalSpacing">HorizontalSpacing</h4>
@@ -179,10 +179,10 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_NodeViewProvider.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.NodeViewProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Build/apiSpec/new?filename=AGS_API_ITreeViewComponent_NodeViewProvider.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.NodeViewProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L28">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L28">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_NodeViewProvider_" data-uid="AGS.API.ITreeViewComponent.NodeViewProvider*"></a>
   <h4 id="AGS_API_ITreeViewComponent_NodeViewProvider" data-uid="AGS.API.ITreeViewComponent.NodeViewProvider">NodeViewProvider</h4>
@@ -211,72 +211,10 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_OnNodeCollapsed.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.OnNodeCollapsed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Build/apiSpec/new?filename=AGS_API_ITreeViewComponent_OnNodeSelected.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.OnNodeSelected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L61">View Source</a>
-  </span>
-  <a id="AGS_API_ITreeViewComponent_OnNodeCollapsed_" data-uid="AGS.API.ITreeViewComponent.OnNodeCollapsed*"></a>
-  <h4 id="AGS_API_ITreeViewComponent_OnNodeCollapsed" data-uid="AGS.API.ITreeViewComponent.OnNodeCollapsed">OnNodeCollapsed</h4>
-  <div class="markdown level1 summary"><p>An event which fires every time a node is expanded.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IBlockingEvent&lt;NodeEventArgs&gt; OnNodeCollapsed { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IBlockingEvent-1.html">IBlockingEvent</a>&lt;<a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_OnNodeExpanded.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.OnNodeExpanded%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L56">View Source</a>
-  </span>
-  <a id="AGS_API_ITreeViewComponent_OnNodeExpanded_" data-uid="AGS.API.ITreeViewComponent.OnNodeExpanded*"></a>
-  <h4 id="AGS_API_ITreeViewComponent_OnNodeExpanded" data-uid="AGS.API.ITreeViewComponent.OnNodeExpanded">OnNodeExpanded</h4>
-  <div class="markdown level1 summary"><p>An event which fires every time a node is expanded.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IBlockingEvent&lt;NodeEventArgs&gt; OnNodeExpanded { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IBlockingEvent-1.html">IBlockingEvent</a>&lt;<a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_OnNodeSelected.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.OnNodeSelected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L51">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L52">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_OnNodeSelected_" data-uid="AGS.API.ITreeViewComponent.OnNodeSelected*"></a>
   <h4 id="AGS_API_ITreeViewComponent_OnNodeSelected" data-uid="AGS.API.ITreeViewComponent.OnNodeSelected">OnNodeSelected</h4>
@@ -285,7 +223,7 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IBlockingEvent&lt;NodeEventArgs&gt; OnNodeSelected { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IEvent&lt;NodeEventArgs&gt; OnNodeSelected { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -297,17 +235,18 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IBlockingEvent-1.html">IBlockingEvent</a>&lt;<a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a>&gt;</td>
-        <td></td>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a>&gt;</td>
+        <td><p>The on node selected.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_Tree.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.Tree%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Build/apiSpec/new?filename=AGS_API_ITreeViewComponent_Tree.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.Tree%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L22">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L22">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_Tree_" data-uid="AGS.API.ITreeViewComponent.Tree*"></a>
   <h4 id="AGS_API_ITreeViewComponent_Tree" data-uid="AGS.API.ITreeViewComponent.Tree">Tree</h4>
@@ -336,10 +275,10 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_VerticalSpacing.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.VerticalSpacing%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Build/apiSpec/new?filename=AGS_API_ITreeViewComponent_VerticalSpacing.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.VerticalSpacing%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L40">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L40">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_VerticalSpacing_" data-uid="AGS.API.ITreeViewComponent.VerticalSpacing*"></a>
   <h4 id="AGS_API_ITreeViewComponent_VerticalSpacing" data-uid="AGS.API.ITreeViewComponent.VerticalSpacing">VerticalSpacing</h4>
@@ -366,142 +305,6 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
       </tr>
     </tbody>
   </table>
-  <h3 id="methods">Methods
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_Collapse_AGS_API_ITreeStringNode_.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.Collapse(AGS.API.ITreeStringNode)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L73">View Source</a>
-  </span>
-  <a id="AGS_API_ITreeViewComponent_Collapse_" data-uid="AGS.API.ITreeViewComponent.Collapse*"></a>
-  <h4 id="AGS_API_ITreeViewComponent_Collapse_AGS_API_ITreeStringNode_" data-uid="AGS.API.ITreeViewComponent.Collapse(AGS.API.ITreeStringNode)">Collapse(ITreeStringNode)</h4>
-  <div class="markdown level1 summary"><p>Collapse the specified node.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Collapse(ITreeStringNode node)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.ITreeStringNode.html">ITreeStringNode</a></td>
-        <td><span class="parametername">node</span></td>
-        <td><p>Node.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_Expand_AGS_API_ITreeStringNode_.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.Expand(AGS.API.ITreeStringNode)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L67">View Source</a>
-  </span>
-  <a id="AGS_API_ITreeViewComponent_Expand_" data-uid="AGS.API.ITreeViewComponent.Expand*"></a>
-  <h4 id="AGS_API_ITreeViewComponent_Expand_AGS_API_ITreeStringNode_" data-uid="AGS.API.ITreeViewComponent.Expand(AGS.API.ITreeStringNode)">Expand(ITreeStringNode)</h4>
-  <div class="markdown level1 summary"><p>Expand the specified node.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Expand(ITreeStringNode node)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.ITreeStringNode.html">ITreeStringNode</a></td>
-        <td><span class="parametername">node</span></td>
-        <td><p>Node.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_IsCollapsed_AGS_API_ITreeStringNode_.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.IsCollapsed(AGS.API.ITreeStringNode)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L80">View Source</a>
-  </span>
-  <a id="AGS_API_ITreeViewComponent_IsCollapsed_" data-uid="AGS.API.ITreeViewComponent.IsCollapsed*"></a>
-  <h4 id="AGS_API_ITreeViewComponent_IsCollapsed_AGS_API_ITreeStringNode_" data-uid="AGS.API.ITreeViewComponent.IsCollapsed(AGS.API.ITreeStringNode)">IsCollapsed(ITreeStringNode)</h4>
-  <div class="markdown level1 summary"><p>Is the specified node collapsed (or expanded)?</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool ? IsCollapsed(ITreeStringNode node)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.ITreeStringNode.html">ITreeStringNode</a></td>
-        <td><span class="parametername">node</span></td>
-        <td><p>Node.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
-        <td><p>Null if the node is not in the tree, false if expanded, true if collapsed.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent_RefreshLayout.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.RefreshLayout%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L85">View Source</a>
-  </span>
-  <a id="AGS_API_ITreeViewComponent_RefreshLayout_" data-uid="AGS.API.ITreeViewComponent.RefreshLayout*"></a>
-  <h4 id="AGS_API_ITreeViewComponent_RefreshLayout" data-uid="AGS.API.ITreeViewComponent.RefreshLayout">RefreshLayout()</h4>
-  <div class="markdown level1 summary"><p>Forces a layout refresh for the tree (this usually should not be necessary, as the tree refreshes itself when it sees a need).</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void RefreshLayout()</code></pre>
-  </div>
 </article>
           </div>
           
@@ -510,10 +313,10 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_ITreeViewComponent.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Build/apiSpec/new?filename=AGS_API_ITreeViewComponent.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L14" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L14" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

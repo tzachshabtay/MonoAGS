@@ -120,7 +120,9 @@ public MyComponent(int x) //this will crash
 {
     _x = x;
 }
-</code></pre><h3 id="component-dependencies">Component Dependencies</h3>
+</code></pre><h3 id="allow-multiple">Allow Multiple</h3>
+<p>By default each component type can only exist twice for an entity. If you try to add the same component twice, the engine will ignore the second addition (and will return <code>false</code> so you&#39;ll know it rejected the second add). You can override this behavior for your component by setting <code>AllowMultiple</code> to true.</p>
+<h3 id="component-dependencies">Component Dependencies</h3>
 <p>Your component might have a dependency on another component. For example, the <code>IDraggableComponent</code> has a dependency on the <code>ITranslateComponent</code>, as to drag an object you have to change its X and Y.</p>
 <p>To get the required component, we can override the <code>Init</code> method which passes us the entity:</p>
 <pre><code class="lang-csharp">
@@ -135,79 +137,14 @@ public override AfterInit()
 {
     _translateComponent.X += 10;
 }
-</code></pre><p>Note, though, that components can also be removed from an entity at runtime, so if you have a dependency on a component, you can <code>Bind</code> to it and control how your own component handles a missing dependency. The <code>Bind</code> function gets 2 functions as  parameters, the first function gets called when the dependency component is added (it is also gets called if it&#39;s already there when you bind), and the second function gets called when the dependency component is removed.
-So let&#39;s rewrite our code with <code>Bind</code>:</p>
-<pre><code class="lang-csharp">
-public override Init(IEntity entity)
-{
-    entity.Bind&lt;ITranslateComponent&gt;(c =&gt; _translateComponent = c, _ =&gt; _translateComponent = null);
-}
-
-public override AfterInit()
-{
-    _translateComponent?.X += 10;
-}
-</code></pre><p>Note that we used the <a href="http://www.informit.com/articles/article.aspx?p=2421572">Elvis operator</a> when accessing <code>_translateComponent</code> to make sure we only change <code>X</code> if the translate component is available.</p>
-<p>Finally, we want to declare to the world (but mostly to the editor, when we&#39;ll have one) that we are dependent on the <code>ITranslateComponent</code>, for this we can use the <code>RequiredComponent</code> attribute which we use to decorate our class:</p>
+</code></pre><p>Finally, we want to declare to the world (but mostly to the editor, one we have one) that we are dependent on the <code>ITranslateComponent</code>, for this we can use the <code>RequiredComponent</code> attribute which we use to decorate our class:</p>
 <pre><code class="lang-csharp">
 [RequiredComponent(typeof(ITranslateComponent))]
 public class MySuperUsefulComponent : AGSComponent
 {
     //...
 }
-</code></pre><h3 id="property-change-notifications">Property Change Notifications</h3>
-<p>Let&#39;s say you want to add a property for your custom component. For this example, we&#39;ll create a score component so we&#39;ll want to have a score property:</p>
-<pre><code class="lang-csharp">
-public class ScoreComponent : AGSComponent
-{
-    public int Score { get; set; }
-}
-</code></pre><p>So now everybody with access to the entity with the score component can read and change the score:</p>
-<pre><code class="lang-csharp">obj.GetComponent&lt;IScoreComponent&gt;().Score += 100; //You just got a 100 points!
-</code></pre><p>Now what do I do if I want to get a notification whenever somebody changes the score?
-There&#39;s a <code>OnPropertyChanged</code> event for each component especially for that.
-Let&#39;s use it to play a sound whenever the score is changed:</p>
-<pre><code class="lang-csharp">var scoreComponent = obj.GetComponent&lt;IScoreComponent&gt;();
-scoreComponent.OnPropertyChanged += (sender, args) =&gt; 
-{
-    if (args.PropertyName != nameof(IScoreComponent.Score)) return;
-
-    aCuteSound.Play();
-};
-</code></pre><p>In this example, we get the score component, then we listen to the property change event. Each time we get that event, we check which property was changed as we&#39;re only interested in the score property (note that we didn&#39;t really have to do that as our score component only has 1 property so this will always be true, however it is good practice always to check for the property you&#39;re interested in).
-Once we see that the score is the property that was changed we play our cute sound.</p>
-<h4 id="property-changes-behind-the-scenes">Property changes behind the scenes</h4>
-<p>You might be wondering how this works. We didn&#39;t put any code in our property to fire the property change event, after all. You didn&#39;t have to do that because we use <a href="https://github.com/Fody/PropertyChanged">Fody.PropertyChanged</a> to inject code for us every time we compile that does exactly that. The injected code for the score property will change the property to look like this:</p>
-<pre><code class="lang-csharp">private int _score
-public int Score
-{
-    get { return _score; }
-    set
-    {
-        if (_score == value) return;
-        _score = value;
-        OnPropertyChanged(nameof(Score));
-    }
-}
-</code></pre><p>Note that the code first checks that the new value we put in score is different than the current value. This is to avoid sending events when the property hasn&#39;t really changed.</p>
-<p>This usually works exactly how we want it to work, but sometime we might want to override <code>Fody.PropertyChanged</code> and handle the property change notifications ourselves (perhaps our property points at a private field which we update regardless of the property, for example, or maybe we want to batch multiple updates into one event for increasing performance, etc).
-You can look at the <a href="https://github.com/Fody/PropertyChanged/wiki">documentation</a> of <code>Fody.PropertyChanged</code> to see how you can customize it to your liking.
-For example we can add a <code>[DoNotNotify]</code> attribute to our property to tell <code>Fody.PropertyChanged</code> we&#39;re handling this property notifications on our own:</p>
-<pre><code class="lang-csharp">public class ScoreComponent : AGSComponent
-{
-    private int _score;
-
-    [DoNotNotify]
-    public int Score { get; private set; }
-
-    public void GiveScore(int score)
-    {
-        Score += score;
-        OnPropertyChanged(nameof(Score));
-    }
-}
-</code></pre><p>Here we changed our score property to be read-only from everybody who&#39;s using it from outside (by using <code>private set</code>), and we only allow changing the score by calling the <code>GiveScore</code> function. We also decided we&#39;d prefer sending the event ourselves and not use the services provided by <code>Fody.PropertyChanged</code> (although for this example we really didn&#39;t have to do that) so we added the <code>DoNotNotify</code> attribute to the property and we call the property changed event ourselves directly from the <code>GiveScore</code> method.</p>
-</article>
+</code></pre></article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
@@ -215,7 +152,7 @@ For example we can add a <code>[DoNotNotify]</code> attribute to our property to
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Docs/articles/entities.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Docs/articles/entities.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
