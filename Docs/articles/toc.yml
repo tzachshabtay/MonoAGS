@@ -57,3 +57,5 @@
       href: threading.md
     - name: Customizations
       href: customizations.md
+    - name: Dependencies
+      href: dependencies.md
