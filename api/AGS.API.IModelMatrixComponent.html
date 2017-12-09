@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IModelMatrixComponent
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -96,12 +96,26 @@ The matrix includes transormations, rotations and scale.</p>
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
     </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IModelMatrixComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IModelMatrixComponent : IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IScaleComponent), true)]
+[RequiredComponent(typeof (ITranslateComponent), true)]
+[RequiredComponent(typeof (IAnimationContainer), true)]
+[RequiredComponent(typeof (IRotateComponent), true)]
+[RequiredComponent(typeof (IImageComponent), true)]
+[RequiredComponent(typeof (IHasRoom), true)]
+[RequiredComponent(typeof (IDrawableInfo), true)]
+[RequiredComponent(typeof (IInObjectTree), true)]
+public interface IModelMatrixComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -151,7 +165,7 @@ The matrix includes transormations, rotations and scale.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnMatrixChanged { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IBlockingEvent OnMatrixChanged { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -163,7 +177,7 @@ The matrix includes transormations, rotations and scale.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
+        <td><a class="xref" href="AGS.API.IBlockingEvent.html">IBlockingEvent</a></td>
         <td><p>The on matrix changed.</p>
 </td>
       </tr>

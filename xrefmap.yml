@@ -387,13 +387,13 @@ references:
   fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(AGS.API.ListChangeType, TItem)
   nameWithType: AGSHashSetChangedEventArgs<TItem>.AGSHashSetChangedEventArgs(ListChangeType, TItem)
   nameWithType.vb: AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(ListChangeType, TItem)
-- uid: AGS.API.AGSHashSetChangedEventArgs`1.#ctor(AGS.API.ListChangeType,IEnumerable{`0})
+- uid: AGS.API.AGSHashSetChangedEventArgs`1.#ctor(AGS.API.ListChangeType,System.Collections.Generic.IEnumerable{`0})
   name: AGSHashSetChangedEventArgs(ListChangeType, IEnumerable<TItem>)
-  href: api/AGS.API.AGSHashSetChangedEventArgs-1.html#AGS_API_AGSHashSetChangedEventArgs_1__ctor_AGS_API_ListChangeType_IEnumerable__0__
-  commentId: M:AGS.API.AGSHashSetChangedEventArgs`1.#ctor(AGS.API.ListChangeType,IEnumerable{`0})
+  href: api/AGS.API.AGSHashSetChangedEventArgs-1.html#AGS_API_AGSHashSetChangedEventArgs_1__ctor_AGS_API_ListChangeType_System_Collections_Generic_IEnumerable__0__
+  commentId: M:AGS.API.AGSHashSetChangedEventArgs`1.#ctor(AGS.API.ListChangeType,System.Collections.Generic.IEnumerable{`0})
   name.vb: AGSHashSetChangedEventArgs(ListChangeType, IEnumerable(Of TItem))
-  fullName: AGS.API.AGSHashSetChangedEventArgs<TItem>.AGSHashSetChangedEventArgs(AGS.API.ListChangeType, IEnumerable<TItem>)
-  fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(AGS.API.ListChangeType, IEnumerable(Of TItem))
+  fullName: AGS.API.AGSHashSetChangedEventArgs<TItem>.AGSHashSetChangedEventArgs(AGS.API.ListChangeType, System.Collections.Generic.IEnumerable<TItem>)
+  fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(AGS.API.ListChangeType, System.Collections.Generic.IEnumerable(Of TItem))
   nameWithType: AGSHashSetChangedEventArgs<TItem>.AGSHashSetChangedEventArgs(ListChangeType, IEnumerable<TItem>)
   nameWithType.vb: AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(ListChangeType, IEnumerable(Of TItem))
 - uid: AGS.API.AGSHashSetChangedEventArgs`1.#ctor*
@@ -454,13 +454,13 @@ references:
   fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(AGS.API.ListChangeType, AGS.API.AGSListItem(Of TItem))
   nameWithType: AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(ListChangeType, AGSListItem<TItem>)
   nameWithType.vb: AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(ListChangeType, AGSListItem(Of TItem))
-- uid: AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,IEnumerable{AGS.API.AGSListItem{`0}})
+- uid: AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,System.Collections.Generic.IEnumerable{AGS.API.AGSListItem{`0}})
   name: AGSListChangedEventArgs(ListChangeType, IEnumerable<AGSListItem<TItem>>)
-  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1__ctor_AGS_API_ListChangeType_IEnumerable_AGS_API_AGSListItem__0___
-  commentId: M:AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,IEnumerable{AGS.API.AGSListItem{`0}})
+  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1__ctor_AGS_API_ListChangeType_System_Collections_Generic_IEnumerable_AGS_API_AGSListItem__0___
+  commentId: M:AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,System.Collections.Generic.IEnumerable{AGS.API.AGSListItem{`0}})
   name.vb: AGSListChangedEventArgs(ListChangeType, IEnumerable(Of AGSListItem(Of TItem)))
-  fullName: AGS.API.AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(AGS.API.ListChangeType, IEnumerable<AGS.API.AGSListItem<TItem>>)
-  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(AGS.API.ListChangeType, IEnumerable(Of AGS.API.AGSListItem(Of TItem)))
+  fullName: AGS.API.AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(AGS.API.ListChangeType, System.Collections.Generic.IEnumerable<AGS.API.AGSListItem<TItem>>)
+  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(AGS.API.ListChangeType, System.Collections.Generic.IEnumerable(Of AGS.API.AGSListItem(Of TItem)))
   nameWithType: AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(ListChangeType, IEnumerable<AGSListItem<TItem>>)
   nameWithType.vb: AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(ListChangeType, IEnumerable(Of AGSListItem(Of TItem)))
 - uid: AGS.API.AGSListChangedEventArgs`1.#ctor*
@@ -794,11 +794,11 @@ references:
   commentId: T:AGS.API.BeforeSayEventArgs
   fullName: AGS.API.BeforeSayEventArgs
   nameWithType: BeforeSayEventArgs
-- uid: AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,Action)
+- uid: AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,System.Action)
   name: BeforeSayEventArgs(ILabel, Action)
-  href: api/AGS.API.BeforeSayEventArgs.html#AGS_API_BeforeSayEventArgs__ctor_AGS_API_ILabel_Action_
-  commentId: M:AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,Action)
-  fullName: AGS.API.BeforeSayEventArgs.BeforeSayEventArgs(AGS.API.ILabel, Action)
+  href: api/AGS.API.BeforeSayEventArgs.html#AGS_API_BeforeSayEventArgs__ctor_AGS_API_ILabel_System_Action_
+  commentId: M:AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,System.Action)
+  fullName: AGS.API.BeforeSayEventArgs.BeforeSayEventArgs(AGS.API.ILabel, System.Action)
   nameWithType: BeforeSayEventArgs.BeforeSayEventArgs(ILabel, Action)
 - uid: AGS.API.BeforeSayEventArgs.#ctor*
   name: BeforeSayEventArgs
@@ -2129,13 +2129,13 @@ references:
   commentId: T:AGS.API.DisplayListEventArgs
   fullName: AGS.API.DisplayListEventArgs
   nameWithType: DisplayListEventArgs
-- uid: AGS.API.DisplayListEventArgs.#ctor(List{AGS.API.IObject})
+- uid: AGS.API.DisplayListEventArgs.#ctor(System.Collections.Generic.List{AGS.API.IObject})
   name: DisplayListEventArgs(List<IObject>)
-  href: api/AGS.API.DisplayListEventArgs.html#AGS_API_DisplayListEventArgs__ctor_List_AGS_API_IObject__
-  commentId: M:AGS.API.DisplayListEventArgs.#ctor(List{AGS.API.IObject})
+  href: api/AGS.API.DisplayListEventArgs.html#AGS_API_DisplayListEventArgs__ctor_System_Collections_Generic_List_AGS_API_IObject__
+  commentId: M:AGS.API.DisplayListEventArgs.#ctor(System.Collections.Generic.List{AGS.API.IObject})
   name.vb: DisplayListEventArgs(List(Of IObject))
-  fullName: AGS.API.DisplayListEventArgs.DisplayListEventArgs(List<AGS.API.IObject>)
-  fullName.vb: AGS.API.DisplayListEventArgs.DisplayListEventArgs(List(Of AGS.API.IObject))
+  fullName: AGS.API.DisplayListEventArgs.DisplayListEventArgs(System.Collections.Generic.List<AGS.API.IObject>)
+  fullName.vb: AGS.API.DisplayListEventArgs.DisplayListEventArgs(System.Collections.Generic.List(Of AGS.API.IObject))
   nameWithType: DisplayListEventArgs.DisplayListEventArgs(List<IObject>)
   nameWithType.vb: DisplayListEventArgs.DisplayListEventArgs(List(Of IObject))
 - uid: AGS.API.DisplayListEventArgs.#ctor*
@@ -2265,13 +2265,13 @@ references:
   fullName.vb: AGS.API.FourCorners(Of TValue).Convert
   nameWithType: FourCorners<TValue>.Convert
   nameWithType.vb: FourCorners(Of TValue).Convert
-- uid: AGS.API.FourCorners`1.Convert``1(Func{`0,``0})
+- uid: AGS.API.FourCorners`1.Convert``1(System.Func{`0,``0})
   name: Convert<TNewValue>(Func<TValue, TNewValue>)
-  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_Convert__1_Func__0___0__
-  commentId: M:AGS.API.FourCorners`1.Convert``1(Func{`0,``0})
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_Convert__1_System_Func__0___0__
+  commentId: M:AGS.API.FourCorners`1.Convert``1(System.Func{`0,``0})
   name.vb: Convert(Of TNewValue)(Func(Of TValue, TNewValue))
-  fullName: AGS.API.FourCorners<TValue>.Convert<TNewValue>(Func<TValue, TNewValue>)
-  fullName.vb: AGS.API.FourCorners(Of TValue).Convert(Of TNewValue)(Func(Of TValue, TNewValue))
+  fullName: AGS.API.FourCorners<TValue>.Convert<TNewValue>(System.Func<TValue, TNewValue>)
+  fullName.vb: AGS.API.FourCorners(Of TValue).Convert(Of TNewValue)(System.Func(Of TValue, TNewValue))
   nameWithType: FourCorners<TValue>.Convert<TNewValue>(Func<TValue, TNewValue>)
   nameWithType.vb: FourCorners(Of TValue).Convert(Of TNewValue)(Func(Of TValue, TNewValue))
 - uid: AGS.API.FourCorners`1.Equals(AGS.API.FourCorners{`0})
@@ -2674,13 +2674,13 @@ references:
   fullName.vb: AGS.API.IAGSBindingList(Of TItem)
   nameWithType: IAGSBindingList<TItem>
   nameWithType.vb: IAGSBindingList(Of TItem)
-- uid: AGS.API.IAGSBindingList`1.AddRange(List{`0})
+- uid: AGS.API.IAGSBindingList`1.AddRange(System.Collections.Generic.List{`0})
   name: AddRange(List<TItem>)
-  href: api/AGS.API.IAGSBindingList-1.html#AGS_API_IAGSBindingList_1_AddRange_List__0__
-  commentId: M:AGS.API.IAGSBindingList`1.AddRange(List{`0})
+  href: api/AGS.API.IAGSBindingList-1.html#AGS_API_IAGSBindingList_1_AddRange_System_Collections_Generic_List__0__
+  commentId: M:AGS.API.IAGSBindingList`1.AddRange(System.Collections.Generic.List{`0})
   name.vb: AddRange(List(Of TItem))
-  fullName: AGS.API.IAGSBindingList<TItem>.AddRange(List<TItem>)
-  fullName.vb: AGS.API.IAGSBindingList(Of TItem).AddRange(List(Of TItem))
+  fullName: AGS.API.IAGSBindingList<TItem>.AddRange(System.Collections.Generic.List<TItem>)
+  fullName.vb: AGS.API.IAGSBindingList(Of TItem).AddRange(System.Collections.Generic.List(Of TItem))
   nameWithType: IAGSBindingList<TItem>.AddRange(List<TItem>)
   nameWithType.vb: IAGSBindingList(Of TItem).AddRange(List(Of TItem))
 - uid: AGS.API.IAGSBindingList`1.AddRange*
@@ -3466,13 +3466,13 @@ references:
   commentId: Overload:AGS.API.IBitmap.SetPixel
   fullName: AGS.API.IBitmap.SetPixel
   nameWithType: IBitmap.SetPixel
-- uid: AGS.API.IBitmap.SetPixels(AGS.API.Color,List{AGS.API.Point})
+- uid: AGS.API.IBitmap.SetPixels(AGS.API.Color,System.Collections.Generic.List{AGS.API.Point})
   name: SetPixels(Color, List<Point>)
-  href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_SetPixels_AGS_API_Color_List_AGS_API_Point__
-  commentId: M:AGS.API.IBitmap.SetPixels(AGS.API.Color,List{AGS.API.Point})
+  href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_SetPixels_AGS_API_Color_System_Collections_Generic_List_AGS_API_Point__
+  commentId: M:AGS.API.IBitmap.SetPixels(AGS.API.Color,System.Collections.Generic.List{AGS.API.Point})
   name.vb: SetPixels(Color, List(Of Point))
-  fullName: AGS.API.IBitmap.SetPixels(AGS.API.Color, List<AGS.API.Point>)
-  fullName.vb: AGS.API.IBitmap.SetPixels(AGS.API.Color, List(Of AGS.API.Point))
+  fullName: AGS.API.IBitmap.SetPixels(AGS.API.Color, System.Collections.Generic.List<AGS.API.Point>)
+  fullName.vb: AGS.API.IBitmap.SetPixels(AGS.API.Color, System.Collections.Generic.List(Of AGS.API.Point))
   nameWithType: IBitmap.SetPixels(Color, List<Point>)
   nameWithType.vb: IBitmap.SetPixels(Color, List(Of Point))
 - uid: AGS.API.IBitmap.SetPixels*
@@ -3499,18 +3499,18 @@ references:
   commentId: T:AGS.API.IBitmapLoader
   fullName: AGS.API.IBitmapLoader
   nameWithType: IBitmapLoader
-- uid: AGS.API.IBitmapLoader.Load(Stream)
-  name: Load(Stream)
-  href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_Stream_
-  commentId: M:AGS.API.IBitmapLoader.Load(Stream)
-  fullName: AGS.API.IBitmapLoader.Load(Stream)
-  nameWithType: IBitmapLoader.Load(Stream)
 - uid: AGS.API.IBitmapLoader.Load(System.Int32,System.Int32)
   name: Load(Int32, Int32)
   href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_System_Int32_System_Int32_
   commentId: M:AGS.API.IBitmapLoader.Load(System.Int32,System.Int32)
   fullName: AGS.API.IBitmapLoader.Load(System.Int32, System.Int32)
   nameWithType: IBitmapLoader.Load(Int32, Int32)
+- uid: AGS.API.IBitmapLoader.Load(System.IO.Stream)
+  name: Load(Stream)
+  href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_System_IO_Stream_
+  commentId: M:AGS.API.IBitmapLoader.Load(System.IO.Stream)
+  fullName: AGS.API.IBitmapLoader.Load(System.IO.Stream)
+  nameWithType: IBitmapLoader.Load(Stream)
 - uid: AGS.API.IBitmapLoader.Load*
   name: Load
   href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_
@@ -3595,11 +3595,11 @@ references:
   commentId: Overload:AGS.API.IBlockingEvent.Invoke
   fullName: AGS.API.IBlockingEvent.Invoke
   nameWithType: IBlockingEvent.Invoke
-- uid: AGS.API.IBlockingEvent.Subscribe(Action)
+- uid: AGS.API.IBlockingEvent.Subscribe(System.Action)
   name: Subscribe(Action)
-  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_Action_
-  commentId: M:AGS.API.IBlockingEvent.Subscribe(Action)
-  fullName: AGS.API.IBlockingEvent.Subscribe(Action)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_System_Action_
+  commentId: M:AGS.API.IBlockingEvent.Subscribe(System.Action)
+  fullName: AGS.API.IBlockingEvent.Subscribe(System.Action)
   nameWithType: IBlockingEvent.Subscribe(Action)
 - uid: AGS.API.IBlockingEvent.Subscribe*
   name: Subscribe
@@ -3619,11 +3619,11 @@ references:
   commentId: Overload:AGS.API.IBlockingEvent.SubscribersCount
   fullName: AGS.API.IBlockingEvent.SubscribersCount
   nameWithType: IBlockingEvent.SubscribersCount
-- uid: AGS.API.IBlockingEvent.Unsubscribe(Action)
+- uid: AGS.API.IBlockingEvent.Unsubscribe(System.Action)
   name: Unsubscribe(Action)
-  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_Action_
-  commentId: M:AGS.API.IBlockingEvent.Unsubscribe(Action)
-  fullName: AGS.API.IBlockingEvent.Unsubscribe(Action)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_System_Action_
+  commentId: M:AGS.API.IBlockingEvent.Unsubscribe(System.Action)
+  fullName: AGS.API.IBlockingEvent.Unsubscribe(System.Action)
   nameWithType: IBlockingEvent.Unsubscribe(Action)
 - uid: AGS.API.IBlockingEvent.Unsubscribe*
   name: Unsubscribe
@@ -3631,6 +3631,21 @@ references:
   commentId: Overload:AGS.API.IBlockingEvent.Unsubscribe
   fullName: AGS.API.IBlockingEvent.Unsubscribe
   nameWithType: IBlockingEvent.Unsubscribe
+- uid: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func{System.Boolean})
+  name: WaitUntilAsync(Func<Boolean>)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_WaitUntilAsync_System_Func_System_Boolean__
+  commentId: M:AGS.API.IBlockingEvent.WaitUntilAsync(System.Func{System.Boolean})
+  name.vb: WaitUntilAsync(Func(Of Boolean))
+  fullName: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func<System.Boolean>)
+  fullName.vb: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func(Of System.Boolean))
+  nameWithType: IBlockingEvent.WaitUntilAsync(Func<Boolean>)
+  nameWithType.vb: IBlockingEvent.WaitUntilAsync(Func(Of Boolean))
+- uid: AGS.API.IBlockingEvent.WaitUntilAsync*
+  name: WaitUntilAsync
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_WaitUntilAsync_
+  commentId: Overload:AGS.API.IBlockingEvent.WaitUntilAsync
+  fullName: AGS.API.IBlockingEvent.WaitUntilAsync
+  nameWithType: IBlockingEvent.WaitUntilAsync
 - uid: AGS.API.IBlockingEvent`1
   name: IBlockingEvent<TEventArgs>
   href: api/AGS.API.IBlockingEvent-1.html
@@ -3656,13 +3671,13 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Invoke
   nameWithType: IBlockingEvent<TEventArgs>.Invoke
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Invoke
-- uid: AGS.API.IBlockingEvent`1.Subscribe(Action{`0})
+- uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0})
   name: Subscribe(Action<TEventArgs>)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_Action__0__
-  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(Action{`0})
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action__0__
+  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0})
   name.vb: Subscribe(Action(Of TEventArgs))
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(Action<TEventArgs>)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs))
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(System.Action<TEventArgs>)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(System.Action(Of TEventArgs))
   nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action<TEventArgs>)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs))
 - uid: AGS.API.IBlockingEvent`1.Subscribe*
@@ -3689,13 +3704,13 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).SubscribersCount
   nameWithType: IBlockingEvent<TEventArgs>.SubscribersCount
   nameWithType.vb: IBlockingEvent(Of TEventArgs).SubscribersCount
-- uid: AGS.API.IBlockingEvent`1.Unsubscribe(Action{`0})
+- uid: AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0})
   name: Unsubscribe(Action<TEventArgs>)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_Action__0__
-  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(Action{`0})
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action__0__
+  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0})
   name.vb: Unsubscribe(Action(Of TEventArgs))
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs))
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(System.Action<TEventArgs>)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(System.Action(Of TEventArgs))
   nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs))
 - uid: AGS.API.IBlockingEvent`1.Unsubscribe*
@@ -3706,6 +3721,23 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe
   nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe
+- uid: AGS.API.IBlockingEvent`1.WaitUntilAsync(System.Predicate{`0})
+  name: WaitUntilAsync(Predicate<TEventArgs>)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_WaitUntilAsync_System_Predicate__0__
+  commentId: M:AGS.API.IBlockingEvent`1.WaitUntilAsync(System.Predicate{`0})
+  name.vb: WaitUntilAsync(Predicate(Of TEventArgs))
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.WaitUntilAsync(System.Predicate<TEventArgs>)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).WaitUntilAsync(System.Predicate(Of TEventArgs))
+  nameWithType: IBlockingEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs))
+- uid: AGS.API.IBlockingEvent`1.WaitUntilAsync*
+  name: WaitUntilAsync
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_WaitUntilAsync_
+  commentId: Overload:AGS.API.IBlockingEvent`1.WaitUntilAsync
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.WaitUntilAsync
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).WaitUntilAsync
+  nameWithType: IBlockingEvent<TEventArgs>.WaitUntilAsync
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).WaitUntilAsync
 - uid: AGS.API.IBorderStyle
   name: IBorderStyle
   href: api/AGS.API.IBorderStyle.html
@@ -4579,11 +4611,11 @@ references:
   commentId: T:AGS.API.IComponentsCollection
   fullName: AGS.API.IComponentsCollection
   nameWithType: IComponentsCollection
-- uid: AGS.API.IComponentsCollection.AddComponent(Type)
+- uid: AGS.API.IComponentsCollection.AddComponent(System.Type)
   name: AddComponent(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_Type_
-  commentId: M:AGS.API.IComponentsCollection.AddComponent(Type)
-  fullName: AGS.API.IComponentsCollection.AddComponent(Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_System_Type_
+  commentId: M:AGS.API.IComponentsCollection.AddComponent(System.Type)
+  fullName: AGS.API.IComponentsCollection.AddComponent(System.Type)
   nameWithType: IComponentsCollection.AddComponent(Type)
 - uid: AGS.API.IComponentsCollection.AddComponent*
   name: AddComponent
@@ -4615,13 +4647,13 @@ references:
   commentId: Overload:AGS.API.IComponentsCollection.Bind
   fullName: AGS.API.IComponentsCollection.Bind
   nameWithType: IComponentsCollection.Bind
-- uid: AGS.API.IComponentsCollection.Bind``1(Action{``0},Action{``0})
+- uid: AGS.API.IComponentsCollection.Bind``1(System.Action{``0},System.Action{``0})
   name: Bind<TComponent>(Action<TComponent>, Action<TComponent>)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind__1_Action___0__Action___0__
-  commentId: M:AGS.API.IComponentsCollection.Bind``1(Action{``0},Action{``0})
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind__1_System_Action___0__System_Action___0__
+  commentId: M:AGS.API.IComponentsCollection.Bind``1(System.Action{``0},System.Action{``0})
   name.vb: Bind(Of TComponent)(Action(Of TComponent), Action(Of TComponent))
-  fullName: AGS.API.IComponentsCollection.Bind<TComponent>(Action<TComponent>, Action<TComponent>)
-  fullName.vb: AGS.API.IComponentsCollection.Bind(Of TComponent)(Action(Of TComponent), Action(Of TComponent))
+  fullName: AGS.API.IComponentsCollection.Bind<TComponent>(System.Action<TComponent>, System.Action<TComponent>)
+  fullName.vb: AGS.API.IComponentsCollection.Bind(Of TComponent)(System.Action(Of TComponent), System.Action(Of TComponent))
   nameWithType: IComponentsCollection.Bind<TComponent>(Action<TComponent>, Action<TComponent>)
   nameWithType.vb: IComponentsCollection.Bind(Of TComponent)(Action(Of TComponent), Action(Of TComponent))
 - uid: AGS.API.IComponentsCollection.Count
@@ -4636,11 +4668,11 @@ references:
   commentId: Overload:AGS.API.IComponentsCollection.Count
   fullName: AGS.API.IComponentsCollection.Count
   nameWithType: IComponentsCollection.Count
-- uid: AGS.API.IComponentsCollection.GetComponent(Type)
+- uid: AGS.API.IComponentsCollection.GetComponent(System.Type)
   name: GetComponent(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_Type_
-  commentId: M:AGS.API.IComponentsCollection.GetComponent(Type)
-  fullName: AGS.API.IComponentsCollection.GetComponent(Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_System_Type_
+  commentId: M:AGS.API.IComponentsCollection.GetComponent(System.Type)
+  fullName: AGS.API.IComponentsCollection.GetComponent(System.Type)
   nameWithType: IComponentsCollection.GetComponent(Type)
 - uid: AGS.API.IComponentsCollection.GetComponent*
   name: GetComponent
@@ -4663,11 +4695,11 @@ references:
   commentId: M:AGS.API.IComponentsCollection.HasComponent(AGS.API.IComponent)
   fullName: AGS.API.IComponentsCollection.HasComponent(AGS.API.IComponent)
   nameWithType: IComponentsCollection.HasComponent(IComponent)
-- uid: AGS.API.IComponentsCollection.HasComponent(Type)
+- uid: AGS.API.IComponentsCollection.HasComponent(System.Type)
   name: HasComponent(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_Type_
-  commentId: M:AGS.API.IComponentsCollection.HasComponent(Type)
-  fullName: AGS.API.IComponentsCollection.HasComponent(Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_System_Type_
+  commentId: M:AGS.API.IComponentsCollection.HasComponent(System.Type)
+  fullName: AGS.API.IComponentsCollection.HasComponent(System.Type)
   nameWithType: IComponentsCollection.HasComponent(Type)
 - uid: AGS.API.IComponentsCollection.HasComponent*
   name: HasComponent
@@ -4714,11 +4746,11 @@ references:
   commentId: M:AGS.API.IComponentsCollection.RemoveComponent(AGS.API.IComponent)
   fullName: AGS.API.IComponentsCollection.RemoveComponent(AGS.API.IComponent)
   nameWithType: IComponentsCollection.RemoveComponent(IComponent)
-- uid: AGS.API.IComponentsCollection.RemoveComponent(Type)
+- uid: AGS.API.IComponentsCollection.RemoveComponent(System.Type)
   name: RemoveComponent(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_Type_
-  commentId: M:AGS.API.IComponentsCollection.RemoveComponent(Type)
-  fullName: AGS.API.IComponentsCollection.RemoveComponent(Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_System_Type_
+  commentId: M:AGS.API.IComponentsCollection.RemoveComponent(System.Type)
+  fullName: AGS.API.IComponentsCollection.RemoveComponent(System.Type)
   nameWithType: IComponentsCollection.RemoveComponent(Type)
 - uid: AGS.API.IComponentsCollection.RemoveComponent*
   name: RemoveComponent
@@ -4760,13 +4792,13 @@ references:
   fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).Add
   nameWithType: IConcurrentHashSet<TItem>.Add
   nameWithType.vb: IConcurrentHashSet(Of TItem).Add
-- uid: AGS.API.IConcurrentHashSet`1.AddRange(List{`0})
+- uid: AGS.API.IConcurrentHashSet`1.AddRange(System.Collections.Generic.List{`0})
   name: AddRange(List<TItem>)
-  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_AddRange_List__0__
-  commentId: M:AGS.API.IConcurrentHashSet`1.AddRange(List{`0})
+  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_AddRange_System_Collections_Generic_List__0__
+  commentId: M:AGS.API.IConcurrentHashSet`1.AddRange(System.Collections.Generic.List{`0})
   name.vb: AddRange(List(Of TItem))
-  fullName: AGS.API.IConcurrentHashSet<TItem>.AddRange(List<TItem>)
-  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).AddRange(List(Of TItem))
+  fullName: AGS.API.IConcurrentHashSet<TItem>.AddRange(System.Collections.Generic.List<TItem>)
+  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).AddRange(System.Collections.Generic.List(Of TItem))
   nameWithType: IConcurrentHashSet<TItem>.AddRange(List<TItem>)
   nameWithType.vb: IConcurrentHashSet(Of TItem).AddRange(List(Of TItem))
 - uid: AGS.API.IConcurrentHashSet`1.AddRange*
@@ -4857,13 +4889,13 @@ references:
   fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).Remove
   nameWithType: IConcurrentHashSet<TItem>.Remove
   nameWithType.vb: IConcurrentHashSet(Of TItem).Remove
-- uid: AGS.API.IConcurrentHashSet`1.RemoveAll(Predicate{`0})
+- uid: AGS.API.IConcurrentHashSet`1.RemoveAll(System.Predicate{`0})
   name: RemoveAll(Predicate<TItem>)
-  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_RemoveAll_Predicate__0__
-  commentId: M:AGS.API.IConcurrentHashSet`1.RemoveAll(Predicate{`0})
+  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_RemoveAll_System_Predicate__0__
+  commentId: M:AGS.API.IConcurrentHashSet`1.RemoveAll(System.Predicate{`0})
   name.vb: RemoveAll(Predicate(Of TItem))
-  fullName: AGS.API.IConcurrentHashSet<TItem>.RemoveAll(Predicate<TItem>)
-  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).RemoveAll(Predicate(Of TItem))
+  fullName: AGS.API.IConcurrentHashSet<TItem>.RemoveAll(System.Predicate<TItem>)
+  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).RemoveAll(System.Predicate(Of TItem))
   nameWithType: IConcurrentHashSet<TItem>.RemoveAll(Predicate<TItem>)
   nameWithType.vb: IConcurrentHashSet(Of TItem).RemoveAll(Predicate(Of TItem))
 - uid: AGS.API.IConcurrentHashSet`1.RemoveAll*
@@ -4973,18 +5005,6 @@ references:
   commentId: Overload:AGS.API.ICropSelfComponent.OnBeforeCrop
   fullName: AGS.API.ICropSelfComponent.OnBeforeCrop
   nameWithType: ICropSelfComponent.OnBeforeCrop
-- uid: AGS.API.ICropSelfComponent.OnCropAreaChanged
-  name: OnCropAreaChanged
-  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_OnCropAreaChanged
-  commentId: P:AGS.API.ICropSelfComponent.OnCropAreaChanged
-  fullName: AGS.API.ICropSelfComponent.OnCropAreaChanged
-  nameWithType: ICropSelfComponent.OnCropAreaChanged
-- uid: AGS.API.ICropSelfComponent.OnCropAreaChanged*
-  name: OnCropAreaChanged
-  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_OnCropAreaChanged_
-  commentId: Overload:AGS.API.ICropSelfComponent.OnCropAreaChanged
-  fullName: AGS.API.ICropSelfComponent.OnCropAreaChanged
-  nameWithType: ICropSelfComponent.OnCropAreaChanged
 - uid: AGS.API.ICrossFading
   name: ICrossFading
   href: api/AGS.API.ICrossFading.html
@@ -5578,15 +5598,6 @@ references:
   commentId: Overload:AGS.API.IDialogActions.Actions
   fullName: AGS.API.IDialogActions.Actions
   nameWithType: IDialogActions.Actions
-- uid: AGS.API.IDialogActions.AddActions(Action[])
-  name: AddActions(Action[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_Action___
-  commentId: M:AGS.API.IDialogActions.AddActions(Action[])
-  name.vb: AddActions(Action())
-  fullName: AGS.API.IDialogActions.AddActions(Action[])
-  fullName.vb: AGS.API.IDialogActions.AddActions(Action())
-  nameWithType: IDialogActions.AddActions(Action[])
-  nameWithType.vb: IDialogActions.AddActions(Action())
 - uid: AGS.API.IDialogActions.AddActions(AGS.API.IDialogAction[])
   name: AddActions(IDialogAction[])
   href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_AGS_API_IDialogAction___
@@ -5596,19 +5607,28 @@ references:
   fullName.vb: AGS.API.IDialogActions.AddActions(AGS.API.IDialogAction())
   nameWithType: IDialogActions.AddActions(IDialogAction[])
   nameWithType.vb: IDialogActions.AddActions(IDialogAction())
+- uid: AGS.API.IDialogActions.AddActions(System.Action[])
+  name: AddActions(Action[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_System_Action___
+  commentId: M:AGS.API.IDialogActions.AddActions(System.Action[])
+  name.vb: AddActions(Action())
+  fullName: AGS.API.IDialogActions.AddActions(System.Action[])
+  fullName.vb: AGS.API.IDialogActions.AddActions(System.Action())
+  nameWithType: IDialogActions.AddActions(Action[])
+  nameWithType.vb: IDialogActions.AddActions(Action())
 - uid: AGS.API.IDialogActions.AddActions*
   name: AddActions
   href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_
   commentId: Overload:AGS.API.IDialogActions.AddActions
   fullName: AGS.API.IDialogActions.AddActions
   nameWithType: IDialogActions.AddActions
-- uid: AGS.API.IDialogActions.AddAsyncActions(Func{Task}[])
+- uid: AGS.API.IDialogActions.AddAsyncActions(System.Func{System.Threading.Tasks.Task}[])
   name: AddAsyncActions(Func<Task>[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncActions_Func_Task____
-  commentId: M:AGS.API.IDialogActions.AddAsyncActions(Func{Task}[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncActions_System_Func_System_Threading_Tasks_Task____
+  commentId: M:AGS.API.IDialogActions.AddAsyncActions(System.Func{System.Threading.Tasks.Task}[])
   name.vb: AddAsyncActions(Func(Of Task)())
-  fullName: AGS.API.IDialogActions.AddAsyncActions(Func<Task>[])
-  fullName.vb: AGS.API.IDialogActions.AddAsyncActions(Func(Of Task)())
+  fullName: AGS.API.IDialogActions.AddAsyncActions(System.Func<System.Threading.Tasks.Task>[])
+  fullName.vb: AGS.API.IDialogActions.AddAsyncActions(System.Func(Of System.Threading.Tasks.Task)())
   nameWithType: IDialogActions.AddAsyncActions(Func<Task>[])
   nameWithType.vb: IDialogActions.AddAsyncActions(Func(Of Task)())
 - uid: AGS.API.IDialogActions.AddAsyncActions*
@@ -5617,13 +5637,13 @@ references:
   commentId: Overload:AGS.API.IDialogActions.AddAsyncActions
   fullName: AGS.API.IDialogActions.AddAsyncActions
   nameWithType: IDialogActions.AddAsyncActions
-- uid: AGS.API.IDialogActions.AddAsyncConditionalActions(Func{Task{System.Boolean}}[])
+- uid: AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func{System.Threading.Tasks.Task{System.Boolean}}[])
   name: AddAsyncConditionalActions(Func<Task<Boolean>>[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncConditionalActions_Func_Task_System_Boolean_____
-  commentId: M:AGS.API.IDialogActions.AddAsyncConditionalActions(Func{Task{System.Boolean}}[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncConditionalActions_System_Func_System_Threading_Tasks_Task_System_Boolean_____
+  commentId: M:AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func{System.Threading.Tasks.Task{System.Boolean}}[])
   name.vb: AddAsyncConditionalActions(Func(Of Task(Of Boolean))())
-  fullName: AGS.API.IDialogActions.AddAsyncConditionalActions(Func<Task<System.Boolean>>[])
-  fullName.vb: AGS.API.IDialogActions.AddAsyncConditionalActions(Func(Of Task(Of System.Boolean))())
+  fullName: AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func<System.Threading.Tasks.Task<System.Boolean>>[])
+  fullName.vb: AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func(Of System.Threading.Tasks.Task(Of System.Boolean))())
   nameWithType: IDialogActions.AddAsyncConditionalActions(Func<Task<Boolean>>[])
   nameWithType.vb: IDialogActions.AddAsyncConditionalActions(Func(Of Task(Of Boolean))())
 - uid: AGS.API.IDialogActions.AddAsyncConditionalActions*
@@ -5632,13 +5652,13 @@ references:
   commentId: Overload:AGS.API.IDialogActions.AddAsyncConditionalActions
   fullName: AGS.API.IDialogActions.AddAsyncConditionalActions
   nameWithType: IDialogActions.AddAsyncConditionalActions
-- uid: AGS.API.IDialogActions.AddConditionalActions(Func{System.Boolean}[])
+- uid: AGS.API.IDialogActions.AddConditionalActions(System.Func{System.Boolean}[])
   name: AddConditionalActions(Func<Boolean>[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddConditionalActions_Func_System_Boolean____
-  commentId: M:AGS.API.IDialogActions.AddConditionalActions(Func{System.Boolean}[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddConditionalActions_System_Func_System_Boolean____
+  commentId: M:AGS.API.IDialogActions.AddConditionalActions(System.Func{System.Boolean}[])
   name.vb: AddConditionalActions(Func(Of Boolean)())
-  fullName: AGS.API.IDialogActions.AddConditionalActions(Func<System.Boolean>[])
-  fullName.vb: AGS.API.IDialogActions.AddConditionalActions(Func(Of System.Boolean)())
+  fullName: AGS.API.IDialogActions.AddConditionalActions(System.Func<System.Boolean>[])
+  fullName.vb: AGS.API.IDialogActions.AddConditionalActions(System.Func(Of System.Boolean)())
   nameWithType: IDialogActions.AddConditionalActions(Func<Boolean>[])
   nameWithType.vb: IDialogActions.AddConditionalActions(Func(Of Boolean)())
 - uid: AGS.API.IDialogActions.AddConditionalActions*
@@ -5728,13 +5748,13 @@ references:
   commentId: T:AGS.API.IDialogLayout
   fullName: AGS.API.IDialogLayout
   nameWithType: IDialogLayout
-- uid: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,IList{AGS.API.IDialogOption})
+- uid: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,System.Collections.Generic.IList{AGS.API.IDialogOption})
   name: LayoutAsync(IObject, IList<IDialogOption>)
-  href: api/AGS.API.IDialogLayout.html#AGS_API_IDialogLayout_LayoutAsync_AGS_API_IObject_IList_AGS_API_IDialogOption__
-  commentId: M:AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,IList{AGS.API.IDialogOption})
+  href: api/AGS.API.IDialogLayout.html#AGS_API_IDialogLayout_LayoutAsync_AGS_API_IObject_System_Collections_Generic_IList_AGS_API_IDialogOption__
+  commentId: M:AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,System.Collections.Generic.IList{AGS.API.IDialogOption})
   name.vb: LayoutAsync(IObject, IList(Of IDialogOption))
-  fullName: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, IList<AGS.API.IDialogOption>)
-  fullName.vb: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, IList(Of AGS.API.IDialogOption))
+  fullName: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, System.Collections.Generic.IList<AGS.API.IDialogOption>)
+  fullName.vb: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, System.Collections.Generic.IList(Of AGS.API.IDialogOption))
   nameWithType: IDialogLayout.LayoutAsync(IObject, IList<IDialogOption>)
   nameWithType.vb: IDialogLayout.LayoutAsync(IObject, IList(Of IDialogOption))
 - uid: AGS.API.IDialogLayout.LayoutAsync*
@@ -6151,42 +6171,6 @@ references:
   commentId: Overload:AGS.API.IDrawableInfo.IgnoreViewport
   fullName: AGS.API.IDrawableInfo.IgnoreViewport
   nameWithType: IDrawableInfo.IgnoreViewport
-- uid: AGS.API.IDrawableInfo.OnIgnoreScalingAreaChanged
-  name: OnIgnoreScalingAreaChanged
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnIgnoreScalingAreaChanged
-  commentId: P:AGS.API.IDrawableInfo.OnIgnoreScalingAreaChanged
-  fullName: AGS.API.IDrawableInfo.OnIgnoreScalingAreaChanged
-  nameWithType: IDrawableInfo.OnIgnoreScalingAreaChanged
-- uid: AGS.API.IDrawableInfo.OnIgnoreScalingAreaChanged*
-  name: OnIgnoreScalingAreaChanged
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnIgnoreScalingAreaChanged_
-  commentId: Overload:AGS.API.IDrawableInfo.OnIgnoreScalingAreaChanged
-  fullName: AGS.API.IDrawableInfo.OnIgnoreScalingAreaChanged
-  nameWithType: IDrawableInfo.OnIgnoreScalingAreaChanged
-- uid: AGS.API.IDrawableInfo.OnIgnoreViewportChanged
-  name: OnIgnoreViewportChanged
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnIgnoreViewportChanged
-  commentId: P:AGS.API.IDrawableInfo.OnIgnoreViewportChanged
-  fullName: AGS.API.IDrawableInfo.OnIgnoreViewportChanged
-  nameWithType: IDrawableInfo.OnIgnoreViewportChanged
-- uid: AGS.API.IDrawableInfo.OnIgnoreViewportChanged*
-  name: OnIgnoreViewportChanged
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnIgnoreViewportChanged_
-  commentId: Overload:AGS.API.IDrawableInfo.OnIgnoreViewportChanged
-  fullName: AGS.API.IDrawableInfo.OnIgnoreViewportChanged
-  nameWithType: IDrawableInfo.OnIgnoreViewportChanged
-- uid: AGS.API.IDrawableInfo.OnRenderLayerChanged
-  name: OnRenderLayerChanged
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnRenderLayerChanged
-  commentId: P:AGS.API.IDrawableInfo.OnRenderLayerChanged
-  fullName: AGS.API.IDrawableInfo.OnRenderLayerChanged
-  nameWithType: IDrawableInfo.OnRenderLayerChanged
-- uid: AGS.API.IDrawableInfo.OnRenderLayerChanged*
-  name: OnRenderLayerChanged
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnRenderLayerChanged_
-  commentId: Overload:AGS.API.IDrawableInfo.OnRenderLayerChanged
-  fullName: AGS.API.IDrawableInfo.OnRenderLayerChanged
-  nameWithType: IDrawableInfo.OnRenderLayerChanged
 - uid: AGS.API.IDrawableInfo.RenderLayer
   name: RenderLayer
   href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_RenderLayer
@@ -6325,30 +6309,6 @@ references:
   commentId: Overload:AGS.API.IEnabledComponent.Enabled
   fullName: AGS.API.IEnabledComponent.Enabled
   nameWithType: IEnabledComponent.Enabled
-- uid: AGS.API.IEnabledComponent.OnEnabledChanged
-  name: OnEnabledChanged
-  href: api/AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_OnEnabledChanged
-  commentId: P:AGS.API.IEnabledComponent.OnEnabledChanged
-  fullName: AGS.API.IEnabledComponent.OnEnabledChanged
-  nameWithType: IEnabledComponent.OnEnabledChanged
-- uid: AGS.API.IEnabledComponent.OnEnabledChanged*
-  name: OnEnabledChanged
-  href: api/AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_OnEnabledChanged_
-  commentId: Overload:AGS.API.IEnabledComponent.OnEnabledChanged
-  fullName: AGS.API.IEnabledComponent.OnEnabledChanged
-  nameWithType: IEnabledComponent.OnEnabledChanged
-- uid: AGS.API.IEnabledComponent.OnUnderlyingEnabledChanged
-  name: OnUnderlyingEnabledChanged
-  href: api/AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_OnUnderlyingEnabledChanged
-  commentId: P:AGS.API.IEnabledComponent.OnUnderlyingEnabledChanged
-  fullName: AGS.API.IEnabledComponent.OnUnderlyingEnabledChanged
-  nameWithType: IEnabledComponent.OnUnderlyingEnabledChanged
-- uid: AGS.API.IEnabledComponent.OnUnderlyingEnabledChanged*
-  name: OnUnderlyingEnabledChanged
-  href: api/AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_OnUnderlyingEnabledChanged_
-  commentId: Overload:AGS.API.IEnabledComponent.OnUnderlyingEnabledChanged
-  fullName: AGS.API.IEnabledComponent.OnUnderlyingEnabledChanged
-  nameWithType: IEnabledComponent.OnUnderlyingEnabledChanged
 - uid: AGS.API.IEnabledComponent.UnderlyingEnabled
   name: UnderlyingEnabled
   href: api/AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_UnderlyingEnabled
@@ -6397,13 +6357,37 @@ references:
   commentId: Overload:AGS.API.IEvent.InvokeAsync
   fullName: AGS.API.IEvent.InvokeAsync
   nameWithType: IEvent.InvokeAsync
-- uid: AGS.API.IEvent.SubscribeToAsync(Func{Task})
+- uid: AGS.API.IEvent.Subscribe(System.Action)
+  name: Subscribe(Action)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Subscribe_System_Action_
+  commentId: M:AGS.API.IEvent.Subscribe(System.Action)
+  fullName: AGS.API.IEvent.Subscribe(System.Action)
+  nameWithType: IEvent.Subscribe(Action)
+- uid: AGS.API.IEvent.Subscribe*
+  name: Subscribe
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Subscribe_
+  commentId: Overload:AGS.API.IEvent.Subscribe
+  fullName: AGS.API.IEvent.Subscribe
+  nameWithType: IEvent.Subscribe
+- uid: AGS.API.IEvent.SubscribersCount
+  name: SubscribersCount
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_SubscribersCount
+  commentId: P:AGS.API.IEvent.SubscribersCount
+  fullName: AGS.API.IEvent.SubscribersCount
+  nameWithType: IEvent.SubscribersCount
+- uid: AGS.API.IEvent.SubscribersCount*
+  name: SubscribersCount
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_SubscribersCount_
+  commentId: Overload:AGS.API.IEvent.SubscribersCount
+  fullName: AGS.API.IEvent.SubscribersCount
+  nameWithType: IEvent.SubscribersCount
+- uid: AGS.API.IEvent.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})
   name: SubscribeToAsync(Func<Task>)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_SubscribeToAsync_Func_Task__
-  commentId: M:AGS.API.IEvent.SubscribeToAsync(Func{Task})
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})
   name.vb: SubscribeToAsync(Func(Of Task))
-  fullName: AGS.API.IEvent.SubscribeToAsync(Func<Task>)
-  fullName.vb: AGS.API.IEvent.SubscribeToAsync(Func(Of Task))
+  fullName: AGS.API.IEvent.SubscribeToAsync(System.Func<System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent.SubscribeToAsync(System.Func(Of System.Threading.Tasks.Task))
   nameWithType: IEvent.SubscribeToAsync(Func<Task>)
   nameWithType.vb: IEvent.SubscribeToAsync(Func(Of Task))
 - uid: AGS.API.IEvent.SubscribeToAsync*
@@ -6412,13 +6396,25 @@ references:
   commentId: Overload:AGS.API.IEvent.SubscribeToAsync
   fullName: AGS.API.IEvent.SubscribeToAsync
   nameWithType: IEvent.SubscribeToAsync
-- uid: AGS.API.IEvent.UnsubscribeToAsync(Func{Task})
+- uid: AGS.API.IEvent.Unsubscribe(System.Action)
+  name: Unsubscribe(Action)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Unsubscribe_System_Action_
+  commentId: M:AGS.API.IEvent.Unsubscribe(System.Action)
+  fullName: AGS.API.IEvent.Unsubscribe(System.Action)
+  nameWithType: IEvent.Unsubscribe(Action)
+- uid: AGS.API.IEvent.Unsubscribe*
+  name: Unsubscribe
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Unsubscribe_
+  commentId: Overload:AGS.API.IEvent.Unsubscribe
+  fullName: AGS.API.IEvent.Unsubscribe
+  nameWithType: IEvent.Unsubscribe
+- uid: AGS.API.IEvent.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})
   name: UnsubscribeToAsync(Func<Task>)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_UnsubscribeToAsync_Func_Task__
-  commentId: M:AGS.API.IEvent.UnsubscribeToAsync(Func{Task})
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})
   name.vb: UnsubscribeToAsync(Func(Of Task))
-  fullName: AGS.API.IEvent.UnsubscribeToAsync(Func<Task>)
-  fullName.vb: AGS.API.IEvent.UnsubscribeToAsync(Func(Of Task))
+  fullName: AGS.API.IEvent.UnsubscribeToAsync(System.Func<System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent.UnsubscribeToAsync(System.Func(Of System.Threading.Tasks.Task))
   nameWithType: IEvent.UnsubscribeToAsync(Func<Task>)
   nameWithType.vb: IEvent.UnsubscribeToAsync(Func(Of Task))
 - uid: AGS.API.IEvent.UnsubscribeToAsync*
@@ -6427,13 +6423,13 @@ references:
   commentId: Overload:AGS.API.IEvent.UnsubscribeToAsync
   fullName: AGS.API.IEvent.UnsubscribeToAsync
   nameWithType: IEvent.UnsubscribeToAsync
-- uid: AGS.API.IEvent.WaitUntilAsync(Func{System.Boolean})
+- uid: AGS.API.IEvent.WaitUntilAsync(System.Func{System.Boolean})
   name: WaitUntilAsync(Func<Boolean>)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_WaitUntilAsync_Func_System_Boolean__
-  commentId: M:AGS.API.IEvent.WaitUntilAsync(Func{System.Boolean})
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_WaitUntilAsync_System_Func_System_Boolean__
+  commentId: M:AGS.API.IEvent.WaitUntilAsync(System.Func{System.Boolean})
   name.vb: WaitUntilAsync(Func(Of Boolean))
-  fullName: AGS.API.IEvent.WaitUntilAsync(Func<System.Boolean>)
-  fullName.vb: AGS.API.IEvent.WaitUntilAsync(Func(Of System.Boolean))
+  fullName: AGS.API.IEvent.WaitUntilAsync(System.Func<System.Boolean>)
+  fullName.vb: AGS.API.IEvent.WaitUntilAsync(System.Func(Of System.Boolean))
   nameWithType: IEvent.WaitUntilAsync(Func<Boolean>)
   nameWithType.vb: IEvent.WaitUntilAsync(Func(Of Boolean))
 - uid: AGS.API.IEvent.WaitUntilAsync*
@@ -6467,13 +6463,46 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).InvokeAsync
   nameWithType: IEvent<TEventArgs>.InvokeAsync
   nameWithType.vb: IEvent(Of TEventArgs).InvokeAsync
-- uid: AGS.API.IEvent`1.SubscribeToAsync(Func{`0,Task})
+- uid: AGS.API.IEvent`1.Subscribe(System.Action{`0})
+  name: Subscribe(Action<TEventArgs>)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_System_Action__0__
+  commentId: M:AGS.API.IEvent`1.Subscribe(System.Action{`0})
+  name.vb: Subscribe(Action(Of TEventArgs))
+  fullName: AGS.API.IEvent<TEventArgs>.Subscribe(System.Action<TEventArgs>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Subscribe(System.Action(Of TEventArgs))
+  nameWithType: IEvent<TEventArgs>.Subscribe(Action<TEventArgs>)
+  nameWithType.vb: IEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs))
+- uid: AGS.API.IEvent`1.Subscribe*
+  name: Subscribe
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_
+  commentId: Overload:AGS.API.IEvent`1.Subscribe
+  fullName: AGS.API.IEvent<TEventArgs>.Subscribe
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Subscribe
+  nameWithType: IEvent<TEventArgs>.Subscribe
+  nameWithType.vb: IEvent(Of TEventArgs).Subscribe
+- uid: AGS.API.IEvent`1.SubscribersCount
+  name: SubscribersCount
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribersCount
+  commentId: P:AGS.API.IEvent`1.SubscribersCount
+  fullName: AGS.API.IEvent<TEventArgs>.SubscribersCount
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribersCount
+  nameWithType: IEvent<TEventArgs>.SubscribersCount
+  nameWithType.vb: IEvent(Of TEventArgs).SubscribersCount
+- uid: AGS.API.IEvent`1.SubscribersCount*
+  name: SubscribersCount
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribersCount_
+  commentId: Overload:AGS.API.IEvent`1.SubscribersCount
+  fullName: AGS.API.IEvent<TEventArgs>.SubscribersCount
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribersCount
+  nameWithType: IEvent<TEventArgs>.SubscribersCount
+  nameWithType.vb: IEvent(Of TEventArgs).SubscribersCount
+- uid: AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
   name: SubscribeToAsync(Func<TEventArgs, Task>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_Func__0_Task__
-  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(Func{`0,Task})
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
   name.vb: SubscribeToAsync(Func(Of TEventArgs, Task))
-  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(Func<TEventArgs, Task>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(Func(Of TEventArgs, Task))
+  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(System.Func<TEventArgs, System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task))
   nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<TEventArgs, Task>)
   nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of TEventArgs, Task))
 - uid: AGS.API.IEvent`1.SubscribeToAsync*
@@ -6484,13 +6513,30 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync
   nameWithType: IEvent<TEventArgs>.SubscribeToAsync
   nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync
-- uid: AGS.API.IEvent`1.UnsubscribeToAsync(Func{`0,Task})
+- uid: AGS.API.IEvent`1.Unsubscribe(System.Action{`0})
+  name: Unsubscribe(Action<TEventArgs>)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_System_Action__0__
+  commentId: M:AGS.API.IEvent`1.Unsubscribe(System.Action{`0})
+  name.vb: Unsubscribe(Action(Of TEventArgs))
+  fullName: AGS.API.IEvent<TEventArgs>.Unsubscribe(System.Action<TEventArgs>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe(System.Action(Of TEventArgs))
+  nameWithType: IEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>)
+  nameWithType.vb: IEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs))
+- uid: AGS.API.IEvent`1.Unsubscribe*
+  name: Unsubscribe
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_
+  commentId: Overload:AGS.API.IEvent`1.Unsubscribe
+  fullName: AGS.API.IEvent<TEventArgs>.Unsubscribe
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe
+  nameWithType: IEvent<TEventArgs>.Unsubscribe
+  nameWithType.vb: IEvent(Of TEventArgs).Unsubscribe
+- uid: AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
   name: UnsubscribeToAsync(Func<TEventArgs, Task>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_Func__0_Task__
-  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(Func{`0,Task})
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
   name.vb: UnsubscribeToAsync(Func(Of TEventArgs, Task))
-  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(Func<TEventArgs, Task>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of TEventArgs, Task))
+  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(System.Func<TEventArgs, System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task))
   nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<TEventArgs, Task>)
   nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of TEventArgs, Task))
 - uid: AGS.API.IEvent`1.UnsubscribeToAsync*
@@ -6501,13 +6547,13 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync
   nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync
   nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync
-- uid: AGS.API.IEvent`1.WaitUntilAsync(Predicate{`0})
+- uid: AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0})
   name: WaitUntilAsync(Predicate<TEventArgs>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_WaitUntilAsync_Predicate__0__
-  commentId: M:AGS.API.IEvent`1.WaitUntilAsync(Predicate{`0})
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_WaitUntilAsync_System_Predicate__0__
+  commentId: M:AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0})
   name.vb: WaitUntilAsync(Predicate(Of TEventArgs))
-  fullName: AGS.API.IEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs))
+  fullName: AGS.API.IEvent<TEventArgs>.WaitUntilAsync(System.Predicate<TEventArgs>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).WaitUntilAsync(System.Predicate(Of TEventArgs))
   nameWithType: IEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>)
   nameWithType.vb: IEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs))
 - uid: AGS.API.IEvent`1.WaitUntilAsync*
@@ -7442,11 +7488,11 @@ references:
   commentId: T:AGS.API.IGameState
   fullName: AGS.API.IGameState
   nameWithType: IGameState
-- uid: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,Action)
+- uid: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,System.Action)
   name: ChangeRoomAsync(IRoom, Action)
-  href: api/AGS.API.IGameState.html#AGS_API_IGameState_ChangeRoomAsync_AGS_API_IRoom_Action_
-  commentId: M:AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,Action)
-  fullName: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom, Action)
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_ChangeRoomAsync_AGS_API_IRoom_System_Action_
+  commentId: M:AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,System.Action)
+  fullName: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom, System.Action)
   nameWithType: IGameState.ChangeRoomAsync(IRoom, Action)
 - uid: AGS.API.IGameState.ChangeRoomAsync*
   name: ChangeRoomAsync
@@ -7859,42 +7905,6 @@ references:
   commentId: Overload:AGS.API.IHasImage.Image
   fullName: AGS.API.IHasImage.Image
   nameWithType: IHasImage.Image
-- uid: AGS.API.IHasImage.OnAnchorChanged
-  name: OnAnchorChanged
-  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_OnAnchorChanged
-  commentId: P:AGS.API.IHasImage.OnAnchorChanged
-  fullName: AGS.API.IHasImage.OnAnchorChanged
-  nameWithType: IHasImage.OnAnchorChanged
-- uid: AGS.API.IHasImage.OnAnchorChanged*
-  name: OnAnchorChanged
-  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_OnAnchorChanged_
-  commentId: Overload:AGS.API.IHasImage.OnAnchorChanged
-  fullName: AGS.API.IHasImage.OnAnchorChanged
-  nameWithType: IHasImage.OnAnchorChanged
-- uid: AGS.API.IHasImage.OnImageChanged
-  name: OnImageChanged
-  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_OnImageChanged
-  commentId: P:AGS.API.IHasImage.OnImageChanged
-  fullName: AGS.API.IHasImage.OnImageChanged
-  nameWithType: IHasImage.OnImageChanged
-- uid: AGS.API.IHasImage.OnImageChanged*
-  name: OnImageChanged
-  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_OnImageChanged_
-  commentId: Overload:AGS.API.IHasImage.OnImageChanged
-  fullName: AGS.API.IHasImage.OnImageChanged
-  nameWithType: IHasImage.OnImageChanged
-- uid: AGS.API.IHasImage.OnTintChanged
-  name: OnTintChanged
-  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_OnTintChanged
-  commentId: P:AGS.API.IHasImage.OnTintChanged
-  fullName: AGS.API.IHasImage.OnTintChanged
-  nameWithType: IHasImage.OnTintChanged
-- uid: AGS.API.IHasImage.OnTintChanged*
-  name: OnTintChanged
-  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_OnTintChanged_
-  commentId: Overload:AGS.API.IHasImage.OnTintChanged
-  fullName: AGS.API.IHasImage.OnTintChanged
-  nameWithType: IHasImage.OnTintChanged
 - uid: AGS.API.IHasImage.Opacity
   name: Opacity
   href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_Opacity
@@ -8775,18 +8785,6 @@ references:
   commentId: Overload:AGS.API.IJumpOffsetComponent.JumpOffset
   fullName: AGS.API.IJumpOffsetComponent.JumpOffset
   nameWithType: IJumpOffsetComponent.JumpOffset
-- uid: AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged
-  name: OnJumpOffsetChanged
-  href: api/AGS.API.IJumpOffsetComponent.html#AGS_API_IJumpOffsetComponent_OnJumpOffsetChanged
-  commentId: P:AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged
-  fullName: AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged
-  nameWithType: IJumpOffsetComponent.OnJumpOffsetChanged
-- uid: AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged*
-  name: OnJumpOffsetChanged
-  href: api/AGS.API.IJumpOffsetComponent.html#AGS_API_IJumpOffsetComponent_OnJumpOffsetChanged_
-  commentId: Overload:AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged
-  fullName: AGS.API.IJumpOffsetComponent.OnJumpOffsetChanged
-  nameWithType: IJumpOffsetComponent.OnJumpOffsetChanged
 - uid: AGS.API.ILabel
   name: ILabel
   href: api/AGS.API.ILabel.html
@@ -10524,13 +10522,13 @@ references:
   commentId: T:AGS.API.IRoomTransition
   fullName: AGS.API.IRoomTransition
   nameWithType: IRoomTransition
-- uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom(List{AGS.API.IObject},Action{AGS.API.IObject})
+- uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
   name: RenderAfterEnteringRoom(List<IObject>, Action<IObject>)
-  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderAfterEnteringRoom_List_AGS_API_IObject__Action_AGS_API_IObject__
-  commentId: M:AGS.API.IRoomTransition.RenderAfterEnteringRoom(List{AGS.API.IObject},Action{AGS.API.IObject})
+  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderAfterEnteringRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject__
+  commentId: M:AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
   name.vb: RenderAfterEnteringRoom(List(Of IObject), Action(Of IObject))
-  fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom(List<AGS.API.IObject>, Action<AGS.API.IObject>)
-  fullName.vb: AGS.API.IRoomTransition.RenderAfterEnteringRoom(List(Of AGS.API.IObject), Action(Of AGS.API.IObject))
+  fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List<AGS.API.IObject>, System.Action<AGS.API.IObject>)
+  fullName.vb: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List(Of AGS.API.IObject), System.Action(Of AGS.API.IObject))
   nameWithType: IRoomTransition.RenderAfterEnteringRoom(List<IObject>, Action<IObject>)
   nameWithType.vb: IRoomTransition.RenderAfterEnteringRoom(List(Of IObject), Action(Of IObject))
 - uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom*
@@ -10539,13 +10537,13 @@ references:
   commentId: Overload:AGS.API.IRoomTransition.RenderAfterEnteringRoom
   fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom
   nameWithType: IRoomTransition.RenderAfterEnteringRoom
-- uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List{AGS.API.IObject},Action{AGS.API.IObject})
+- uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
   name: RenderBeforeLeavingRoom(List<IObject>, Action<IObject>)
-  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderBeforeLeavingRoom_List_AGS_API_IObject__Action_AGS_API_IObject__
-  commentId: M:AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List{AGS.API.IObject},Action{AGS.API.IObject})
+  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderBeforeLeavingRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject__
+  commentId: M:AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
   name.vb: RenderBeforeLeavingRoom(List(Of IObject), Action(Of IObject))
-  fullName: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List<AGS.API.IObject>, Action<AGS.API.IObject>)
-  fullName.vb: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List(Of AGS.API.IObject), Action(Of AGS.API.IObject))
+  fullName: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List<AGS.API.IObject>, System.Action<AGS.API.IObject>)
+  fullName.vb: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List(Of AGS.API.IObject), System.Action(Of AGS.API.IObject))
   nameWithType: IRoomTransition.RenderBeforeLeavingRoom(List<IObject>, Action<IObject>)
   nameWithType.vb: IRoomTransition.RenderBeforeLeavingRoom(List(Of IObject), Action(Of IObject))
 - uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom*
@@ -10626,18 +10624,6 @@ references:
   commentId: Overload:AGS.API.IRotate.Angle
   fullName: AGS.API.IRotate.Angle
   nameWithType: IRotate.Angle
-- uid: AGS.API.IRotate.OnAngleChanged
-  name: OnAngleChanged
-  href: api/AGS.API.IRotate.html#AGS_API_IRotate_OnAngleChanged
-  commentId: P:AGS.API.IRotate.OnAngleChanged
-  fullName: AGS.API.IRotate.OnAngleChanged
-  nameWithType: IRotate.OnAngleChanged
-- uid: AGS.API.IRotate.OnAngleChanged*
-  name: OnAngleChanged
-  href: api/AGS.API.IRotate.html#AGS_API_IRotate_OnAngleChanged_
-  commentId: Overload:AGS.API.IRotate.OnAngleChanged
-  fullName: AGS.API.IRotate.OnAngleChanged
-  nameWithType: IRotate.OnAngleChanged
 - uid: AGS.API.IRotateComponent
   name: IRotateComponent
   href: api/AGS.API.IRotateComponent.html
@@ -11058,18 +11044,6 @@ references:
   commentId: Overload:AGS.API.IScale.Height
   fullName: AGS.API.IScale.Height
   nameWithType: IScale.Height
-- uid: AGS.API.IScale.OnScaleChanged
-  name: OnScaleChanged
-  href: api/AGS.API.IScale.html#AGS_API_IScale_OnScaleChanged
-  commentId: P:AGS.API.IScale.OnScaleChanged
-  fullName: AGS.API.IScale.OnScaleChanged
-  nameWithType: IScale.OnScaleChanged
-- uid: AGS.API.IScale.OnScaleChanged*
-  name: OnScaleChanged
-  href: api/AGS.API.IScale.html#AGS_API_IScale_OnScaleChanged_
-  commentId: Overload:AGS.API.IScale.OnScaleChanged
-  fullName: AGS.API.IScale.OnScaleChanged
-  nameWithType: IScale.OnScaleChanged
 - uid: AGS.API.IScale.ResetScale
   name: ResetScale()
   href: api/AGS.API.IScale.html#AGS_API_IScale_ResetScale
@@ -11088,18 +11062,18 @@ references:
   commentId: Overload:AGS.API.IScale.ResetScale
   fullName: AGS.API.IScale.ResetScale
   nameWithType: IScale.ResetScale
-- uid: AGS.API.IScale.ScaleBy(System.Single,System.Single)
-  name: ScaleBy(Single, Single)
-  href: api/AGS.API.IScale.html#AGS_API_IScale_ScaleBy_System_Single_System_Single_
-  commentId: M:AGS.API.IScale.ScaleBy(System.Single,System.Single)
-  fullName: AGS.API.IScale.ScaleBy(System.Single, System.Single)
-  nameWithType: IScale.ScaleBy(Single, Single)
-- uid: AGS.API.IScale.ScaleBy*
-  name: ScaleBy
-  href: api/AGS.API.IScale.html#AGS_API_IScale_ScaleBy_
-  commentId: Overload:AGS.API.IScale.ScaleBy
-  fullName: AGS.API.IScale.ScaleBy
-  nameWithType: IScale.ScaleBy
+- uid: AGS.API.IScale.Scale
+  name: Scale
+  href: api/AGS.API.IScale.html#AGS_API_IScale_Scale
+  commentId: P:AGS.API.IScale.Scale
+  fullName: AGS.API.IScale.Scale
+  nameWithType: IScale.Scale
+- uid: AGS.API.IScale.Scale*
+  name: Scale
+  href: api/AGS.API.IScale.html#AGS_API_IScale_Scale_
+  commentId: Overload:AGS.API.IScale.Scale
+  fullName: AGS.API.IScale.Scale
+  nameWithType: IScale.Scale
 - uid: AGS.API.IScale.ScaleTo(System.Single,System.Single)
   name: ScaleTo(Single, Single)
   href: api/AGS.API.IScale.html#AGS_API_IScale_ScaleTo_System_Single_System_Single_
@@ -12399,18 +12373,6 @@ references:
   commentId: Overload:AGS.API.ITextBoxComponent.IsFocused
   fullName: AGS.API.ITextBoxComponent.IsFocused
   nameWithType: ITextBoxComponent.IsFocused
-- uid: AGS.API.ITextBoxComponent.OnFocusChanged
-  name: OnFocusChanged
-  href: api/AGS.API.ITextBoxComponent.html#AGS_API_ITextBoxComponent_OnFocusChanged
-  commentId: P:AGS.API.ITextBoxComponent.OnFocusChanged
-  fullName: AGS.API.ITextBoxComponent.OnFocusChanged
-  nameWithType: ITextBoxComponent.OnFocusChanged
-- uid: AGS.API.ITextBoxComponent.OnFocusChanged*
-  name: OnFocusChanged
-  href: api/AGS.API.ITextBoxComponent.html#AGS_API_ITextBoxComponent_OnFocusChanged_
-  commentId: Overload:AGS.API.ITextBoxComponent.OnFocusChanged
-  fullName: AGS.API.ITextBoxComponent.OnFocusChanged
-  nameWithType: ITextBoxComponent.OnFocusChanged
 - uid: AGS.API.ITextBoxComponent.OnPressingKey
   name: OnPressingKey
   href: api/AGS.API.ITextBoxComponent.html#AGS_API_ITextBoxComponent_OnPressingKey
@@ -12765,18 +12727,6 @@ references:
   commentId: T:AGS.API.ITextureOffsetComponent
   fullName: AGS.API.ITextureOffsetComponent
   nameWithType: ITextureOffsetComponent
-- uid: AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged
-  name: OnTextureOffsetChanged
-  href: api/AGS.API.ITextureOffsetComponent.html#AGS_API_ITextureOffsetComponent_OnTextureOffsetChanged
-  commentId: P:AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged
-  fullName: AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged
-  nameWithType: ITextureOffsetComponent.OnTextureOffsetChanged
-- uid: AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged*
-  name: OnTextureOffsetChanged
-  href: api/AGS.API.ITextureOffsetComponent.html#AGS_API_ITextureOffsetComponent_OnTextureOffsetChanged_
-  commentId: Overload:AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged
-  fullName: AGS.API.ITextureOffsetComponent.OnTextureOffsetChanged
-  nameWithType: ITextureOffsetComponent.OnTextureOffsetChanged
 - uid: AGS.API.ITextureOffsetComponent.TextureOffset
   name: TextureOffset
   href: api/AGS.API.ITextureOffsetComponent.html#AGS_API_ITextureOffsetComponent_TextureOffset
@@ -12825,18 +12775,6 @@ references:
   commentId: Overload:AGS.API.ITranslate.Location
   fullName: AGS.API.ITranslate.Location
   nameWithType: ITranslate.Location
-- uid: AGS.API.ITranslate.OnLocationChanged
-  name: OnLocationChanged
-  href: api/AGS.API.ITranslate.html#AGS_API_ITranslate_OnLocationChanged
-  commentId: P:AGS.API.ITranslate.OnLocationChanged
-  fullName: AGS.API.ITranslate.OnLocationChanged
-  nameWithType: ITranslate.OnLocationChanged
-- uid: AGS.API.ITranslate.OnLocationChanged*
-  name: OnLocationChanged
-  href: api/AGS.API.ITranslate.html#AGS_API_ITranslate_OnLocationChanged_
-  commentId: Overload:AGS.API.ITranslate.OnLocationChanged
-  fullName: AGS.API.ITranslate.OnLocationChanged
-  nameWithType: ITranslate.OnLocationChanged
 - uid: AGS.API.ITranslate.X
   name: X
   href: api/AGS.API.ITranslate.html#AGS_API_ITranslate_X
@@ -12904,13 +12842,13 @@ references:
   fullName.vb: AGS.API.ITreeNode(Of TItem).AddChild
   nameWithType: ITreeNode<TItem>.AddChild
   nameWithType.vb: ITreeNode(Of TItem).AddChild
-- uid: AGS.API.ITreeNode`1.AddChildren(List{`0})
+- uid: AGS.API.ITreeNode`1.AddChildren(System.Collections.Generic.List{`0})
   name: AddChildren(List<TItem>)
-  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_AddChildren_List__0__
-  commentId: M:AGS.API.ITreeNode`1.AddChildren(List{`0})
+  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_AddChildren_System_Collections_Generic_List__0__
+  commentId: M:AGS.API.ITreeNode`1.AddChildren(System.Collections.Generic.List{`0})
   name.vb: AddChildren(List(Of TItem))
-  fullName: AGS.API.ITreeNode<TItem>.AddChildren(List<TItem>)
-  fullName.vb: AGS.API.ITreeNode(Of TItem).AddChildren(List(Of TItem))
+  fullName: AGS.API.ITreeNode<TItem>.AddChildren(System.Collections.Generic.List<TItem>)
+  fullName.vb: AGS.API.ITreeNode(Of TItem).AddChildren(System.Collections.Generic.List(Of TItem))
   nameWithType: ITreeNode<TItem>.AddChildren(List<TItem>)
   nameWithType.vb: ITreeNode(Of TItem).AddChildren(List(Of TItem))
 - uid: AGS.API.ITreeNode`1.AddChildren*
@@ -13239,6 +13177,18 @@ references:
   commentId: Overload:AGS.API.ITreeViewComponent.HorizontalSpacing
   fullName: AGS.API.ITreeViewComponent.HorizontalSpacing
   nameWithType: ITreeViewComponent.HorizontalSpacing
+- uid: AGS.API.ITreeViewComponent.IsCollapsed(AGS.API.ITreeStringNode)
+  name: IsCollapsed(ITreeStringNode)
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_IsCollapsed_AGS_API_ITreeStringNode_
+  commentId: M:AGS.API.ITreeViewComponent.IsCollapsed(AGS.API.ITreeStringNode)
+  fullName: AGS.API.ITreeViewComponent.IsCollapsed(AGS.API.ITreeStringNode)
+  nameWithType: ITreeViewComponent.IsCollapsed(ITreeStringNode)
+- uid: AGS.API.ITreeViewComponent.IsCollapsed*
+  name: IsCollapsed
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_IsCollapsed_
+  commentId: Overload:AGS.API.ITreeViewComponent.IsCollapsed
+  fullName: AGS.API.ITreeViewComponent.IsCollapsed
+  nameWithType: ITreeViewComponent.IsCollapsed
 - uid: AGS.API.ITreeViewComponent.NodeViewProvider
   name: NodeViewProvider
   href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_NodeViewProvider
@@ -13533,13 +13483,13 @@ references:
   commentId: Overload:AGS.API.IUIFactory.GetCheckBoxAsync
   fullName: AGS.API.IUIFactory.GetCheckBoxAsync
   nameWithType: IUIFactory.GetCheckBoxAsync
-- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single)
+- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single)
   name: GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_
-  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_
+  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single)
   name.vb: GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single)
-  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, Func<System.String, AGS.API.IButton>, AGS.API.IObject, System.Boolean, System.Single, System.Single)
-  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, Func(Of System.String, AGS.API.IButton), AGS.API.IObject, System.Boolean, System.Single, System.Single)
+  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func<System.String, AGS.API.IButton>, AGS.API.IObject, System.Boolean, System.Single, System.Single)
+  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func(Of System.String, AGS.API.IButton), AGS.API.IObject, System.Boolean, System.Single, System.Single)
   nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single)
   nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single)
 - uid: AGS.API.IUIFactory.GetComboBox*
@@ -13698,66 +13648,6 @@ references:
   commentId: Overload:AGS.API.IViewport.IsObjectVisible
   fullName: AGS.API.IViewport.IsObjectVisible
   nameWithType: IViewport.IsObjectVisible
-- uid: AGS.API.IViewport.OnAngleChanged
-  name: OnAngleChanged
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnAngleChanged
-  commentId: P:AGS.API.IViewport.OnAngleChanged
-  fullName: AGS.API.IViewport.OnAngleChanged
-  nameWithType: IViewport.OnAngleChanged
-- uid: AGS.API.IViewport.OnAngleChanged*
-  name: OnAngleChanged
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnAngleChanged_
-  commentId: Overload:AGS.API.IViewport.OnAngleChanged
-  fullName: AGS.API.IViewport.OnAngleChanged
-  nameWithType: IViewport.OnAngleChanged
-- uid: AGS.API.IViewport.OnParentChanged
-  name: OnParentChanged
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnParentChanged
-  commentId: P:AGS.API.IViewport.OnParentChanged
-  fullName: AGS.API.IViewport.OnParentChanged
-  nameWithType: IViewport.OnParentChanged
-- uid: AGS.API.IViewport.OnParentChanged*
-  name: OnParentChanged
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnParentChanged_
-  commentId: Overload:AGS.API.IViewport.OnParentChanged
-  fullName: AGS.API.IViewport.OnParentChanged
-  nameWithType: IViewport.OnParentChanged
-- uid: AGS.API.IViewport.OnPositionChanged
-  name: OnPositionChanged
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnPositionChanged
-  commentId: P:AGS.API.IViewport.OnPositionChanged
-  fullName: AGS.API.IViewport.OnPositionChanged
-  nameWithType: IViewport.OnPositionChanged
-- uid: AGS.API.IViewport.OnPositionChanged*
-  name: OnPositionChanged
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnPositionChanged_
-  commentId: Overload:AGS.API.IViewport.OnPositionChanged
-  fullName: AGS.API.IViewport.OnPositionChanged
-  nameWithType: IViewport.OnPositionChanged
-- uid: AGS.API.IViewport.OnProjectionBoxChanged
-  name: OnProjectionBoxChanged
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnProjectionBoxChanged
-  commentId: P:AGS.API.IViewport.OnProjectionBoxChanged
-  fullName: AGS.API.IViewport.OnProjectionBoxChanged
-  nameWithType: IViewport.OnProjectionBoxChanged
-- uid: AGS.API.IViewport.OnProjectionBoxChanged*
-  name: OnProjectionBoxChanged
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnProjectionBoxChanged_
-  commentId: Overload:AGS.API.IViewport.OnProjectionBoxChanged
-  fullName: AGS.API.IViewport.OnProjectionBoxChanged
-  nameWithType: IViewport.OnProjectionBoxChanged
-- uid: AGS.API.IViewport.OnScaleChanged
-  name: OnScaleChanged
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnScaleChanged
-  commentId: P:AGS.API.IViewport.OnScaleChanged
-  fullName: AGS.API.IViewport.OnScaleChanged
-  nameWithType: IViewport.OnScaleChanged
-- uid: AGS.API.IViewport.OnScaleChanged*
-  name: OnScaleChanged
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_OnScaleChanged_
-  commentId: Overload:AGS.API.IViewport.OnScaleChanged
-  fullName: AGS.API.IViewport.OnScaleChanged
-  nameWithType: IViewport.OnScaleChanged
 - uid: AGS.API.IViewport.Parent
   name: Parent
   href: api/AGS.API.IViewport.html#AGS_API_IViewport_Parent
@@ -13848,30 +13738,6 @@ references:
   commentId: T:AGS.API.IVisibleComponent
   fullName: AGS.API.IVisibleComponent
   nameWithType: IVisibleComponent
-- uid: AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged
-  name: OnUnderlyingVisibleChanged
-  href: api/AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_OnUnderlyingVisibleChanged
-  commentId: P:AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged
-  fullName: AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged
-  nameWithType: IVisibleComponent.OnUnderlyingVisibleChanged
-- uid: AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged*
-  name: OnUnderlyingVisibleChanged
-  href: api/AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_OnUnderlyingVisibleChanged_
-  commentId: Overload:AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged
-  fullName: AGS.API.IVisibleComponent.OnUnderlyingVisibleChanged
-  nameWithType: IVisibleComponent.OnUnderlyingVisibleChanged
-- uid: AGS.API.IVisibleComponent.OnVisibleChanged
-  name: OnVisibleChanged
-  href: api/AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_OnVisibleChanged
-  commentId: P:AGS.API.IVisibleComponent.OnVisibleChanged
-  fullName: AGS.API.IVisibleComponent.OnVisibleChanged
-  nameWithType: IVisibleComponent.OnVisibleChanged
-- uid: AGS.API.IVisibleComponent.OnVisibleChanged*
-  name: OnVisibleChanged
-  href: api/AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_OnVisibleChanged_
-  commentId: Overload:AGS.API.IVisibleComponent.OnVisibleChanged
-  fullName: AGS.API.IVisibleComponent.OnVisibleChanged
-  nameWithType: IVisibleComponent.OnVisibleChanged
 - uid: AGS.API.IVisibleComponent.UnderlyingVisible
   name: UnderlyingVisible
   href: api/AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_UnderlyingVisible
@@ -13980,18 +13846,6 @@ references:
   commentId: Overload:AGS.API.IWalkBehavior.PlaceOnWalkableArea
   fullName: AGS.API.IWalkBehavior.PlaceOnWalkableArea
   nameWithType: IWalkBehavior.PlaceOnWalkableArea
-- uid: AGS.API.IWalkBehavior.StopWalking
-  name: StopWalking()
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_StopWalking
-  commentId: M:AGS.API.IWalkBehavior.StopWalking
-  fullName: AGS.API.IWalkBehavior.StopWalking()
-  nameWithType: IWalkBehavior.StopWalking()
-- uid: AGS.API.IWalkBehavior.StopWalking*
-  name: StopWalking
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_StopWalking_
-  commentId: Overload:AGS.API.IWalkBehavior.StopWalking
-  fullName: AGS.API.IWalkBehavior.StopWalking
-  nameWithType: IWalkBehavior.StopWalking
 - uid: AGS.API.IWalkBehavior.StopWalkingAsync
   name: StopWalkingAsync()
   href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_StopWalkingAsync
@@ -17754,11 +17608,11 @@ references:
   commentId: M:AGS.API.PointF.Equals(AGS.API.PointF)
   fullName: AGS.API.PointF.Equals(AGS.API.PointF)
   nameWithType: PointF.Equals(PointF)
-- uid: AGS.API.PointF.Equals(Object)
+- uid: AGS.API.PointF.Equals(System.Object)
   name: Equals(Object)
-  href: api/AGS.API.PointF.html#AGS_API_PointF_Equals_Object_
-  commentId: M:AGS.API.PointF.Equals(Object)
-  fullName: AGS.API.PointF.Equals(Object)
+  href: api/AGS.API.PointF.html#AGS_API_PointF_Equals_System_Object_
+  commentId: M:AGS.API.PointF.Equals(System.Object)
+  fullName: AGS.API.PointF.Equals(System.Object)
   nameWithType: PointF.Equals(Object)
 - uid: AGS.API.PointF.Equals*
   name: Equals
@@ -18489,24 +18343,12 @@ references:
   commentId: P:AGS.API.Quaternion.Xyz
   fullName: AGS.API.Quaternion.Xyz
   nameWithType: Quaternion.Xyz
-- uid: AGS.API.Quaternion.XYZ
-  name: XYZ
-  href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_XYZ
-  commentId: P:AGS.API.Quaternion.XYZ
-  fullName: AGS.API.Quaternion.XYZ
-  nameWithType: Quaternion.XYZ
 - uid: AGS.API.Quaternion.Xyz*
   name: Xyz
   href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_Xyz_
   commentId: Overload:AGS.API.Quaternion.Xyz
   fullName: AGS.API.Quaternion.Xyz
   nameWithType: Quaternion.Xyz
-- uid: AGS.API.Quaternion.XYZ*
-  name: XYZ
-  href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_XYZ_
-  commentId: Overload:AGS.API.Quaternion.XYZ
-  fullName: AGS.API.Quaternion.XYZ
-  nameWithType: Quaternion.XYZ
 - uid: AGS.API.Quaternion.Y
   name: Y
   href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_Y
@@ -18657,11 +18499,11 @@ references:
   commentId: M:AGS.API.RectangleF.Equals(AGS.API.RectangleF)
   fullName: AGS.API.RectangleF.Equals(AGS.API.RectangleF)
   nameWithType: RectangleF.Equals(RectangleF)
-- uid: AGS.API.RectangleF.Equals(Object)
+- uid: AGS.API.RectangleF.Equals(System.Object)
   name: Equals(Object)
-  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Equals_Object_
-  commentId: M:AGS.API.RectangleF.Equals(Object)
-  fullName: AGS.API.RectangleF.Equals(Object)
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Equals_System_Object_
+  commentId: M:AGS.API.RectangleF.Equals(System.Object)
+  fullName: AGS.API.RectangleF.Equals(System.Object)
   nameWithType: RectangleF.Equals(Object)
 - uid: AGS.API.RectangleF.Equals*
   name: Equals
@@ -18759,11 +18601,11 @@ references:
   commentId: T:AGS.API.RequiredComponentAttribute
   fullName: AGS.API.RequiredComponentAttribute
   nameWithType: RequiredComponentAttribute
-- uid: AGS.API.RequiredComponentAttribute.#ctor(Type,System.Boolean)
+- uid: AGS.API.RequiredComponentAttribute.#ctor(System.Type,System.Boolean)
   name: RequiredComponentAttribute(Type, Boolean)
-  href: api/AGS.API.RequiredComponentAttribute.html#AGS_API_RequiredComponentAttribute__ctor_Type_System_Boolean_
-  commentId: M:AGS.API.RequiredComponentAttribute.#ctor(Type,System.Boolean)
-  fullName: AGS.API.RequiredComponentAttribute.RequiredComponentAttribute(Type, System.Boolean)
+  href: api/AGS.API.RequiredComponentAttribute.html#AGS_API_RequiredComponentAttribute__ctor_System_Type_System_Boolean_
+  commentId: M:AGS.API.RequiredComponentAttribute.#ctor(System.Type,System.Boolean)
+  fullName: AGS.API.RequiredComponentAttribute.RequiredComponentAttribute(System.Type, System.Boolean)
   nameWithType: RequiredComponentAttribute.RequiredComponentAttribute(Type, Boolean)
 - uid: AGS.API.RequiredComponentAttribute.#ctor*
   name: RequiredComponentAttribute
@@ -18969,11 +18811,11 @@ references:
   commentId: M:AGS.API.Size.Equals(AGS.API.Size)
   fullName: AGS.API.Size.Equals(AGS.API.Size)
   nameWithType: Size.Equals(Size)
-- uid: AGS.API.Size.Equals(Object)
+- uid: AGS.API.Size.Equals(System.Object)
   name: Equals(Object)
-  href: api/AGS.API.Size.html#AGS_API_Size_Equals_Object_
-  commentId: M:AGS.API.Size.Equals(Object)
-  fullName: AGS.API.Size.Equals(Object)
+  href: api/AGS.API.Size.html#AGS_API_Size_Equals_System_Object_
+  commentId: M:AGS.API.Size.Equals(System.Object)
+  fullName: AGS.API.Size.Equals(System.Object)
   nameWithType: Size.Equals(Object)
 - uid: AGS.API.Size.Equals*
   name: Equals
@@ -21885,13 +21727,13 @@ references:
   commentId: Overload:AGS.API.Vector4.op_Equality
   fullName: AGS.API.Vector4.Equality
   nameWithType: Vector4.Equality
-- uid: AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~IntPtr
+- uid: AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~System.IntPtr
   name: Explicit(Vector4 to IntPtr)
-  href: api/AGS.API.Vector4.html#AGS_API_Vector4_op_Explicit_AGS_API_Vector4__IntPtr
-  commentId: M:AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~IntPtr
+  href: api/AGS.API.Vector4.html#AGS_API_Vector4_op_Explicit_AGS_API_Vector4__System_IntPtr
+  commentId: M:AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~System.IntPtr
   name.vb: Narrowing(Vector4 to IntPtr)
-  fullName: AGS.API.Vector4.Explicit(AGS.API.Vector4 to IntPtr)
-  fullName.vb: AGS.API.Vector4.Narrowing(AGS.API.Vector4 to IntPtr)
+  fullName: AGS.API.Vector4.Explicit(AGS.API.Vector4 to System.IntPtr)
+  fullName.vb: AGS.API.Vector4.Narrowing(AGS.API.Vector4 to System.IntPtr)
   nameWithType: Vector4.Explicit(Vector4 to IntPtr)
   nameWithType.vb: Vector4.Narrowing(Vector4 to IntPtr)
 - uid: AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~System.Single*

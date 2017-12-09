@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Dependencies | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Dependencies | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.28.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="dependencies">Dependencies</h1>
+
+<p><code>MonoAGS</code> currently depends on the following projects:</p>
+<h3 id="monohttpwwwmono-projectcom"><a href="http://www.mono-project.com/">Mono</a></h3>
+<p>This is the runtime used to run the game on Mac, Linux and mobile operating systems.</p>
+<h3 id="dot-net-frameworkhttpsdocsmicrosoftcomen-usdotnetframework"><a href="https://docs.microsoft.com/en-us/dotnet/framework/">Dot Net Framework</a></h3>
+<p>This is the runtime used to run the game on Windows OS.</p>
+<h3 id="xamarinhttpswwwxamarincom"><a href="https://www.xamarin.com">Xamarin</a></h3>
+<p>Xamrion.Android and Xamarin.IOS are c# bindings for the Android and IOS APIs.</p>
+<h3 id="opentkhttpsgithubcomopentkopentk"><a href="https://github.com/opentk/opentk">OpenTK</a></h3>
+<p>A cross-platform binding around OpenGL and OpenAL for displaying graphics and playing audio.
+OpenGL ES 2.0 is used for graphics on mobile platforms.</p>
+<h3 id="sdl2httpswwwlibsdlorg"><a href="https://www.libsdl.org/">SDL2</a></h3>
+<p>An optional dependency that OpenTK can depend on for windowing and input services (not currently used by default as OpenTK also provides native windowing and input services, but might used in the future). If you&#39;re intersted in using SDL2, read <a href="https://github.com/opentk/opentk-dependencies">here</a>.</p>
+<h3 id="openal-softhttpkcatstrangesoftnetopenalhtml"><a href="http://kcat.strangesoft.net/openal.html">OpenAL Soft</a></h3>
+<p>A software implementation of the OpenAL API, used to support OpenAL on mobile platforms.</p>
+<h3 id="autofachttpsgithubcomautofacautofac"><a href="https://github.com/autofac/Autofac">AutoFac</a></h3>
+<p>Inversion-of-control framework for injecting interfaces at runtime.</p>
+<h3 id="protobufnet">Protobuf.Net</h3>
+<p>Serialization framework used for saving and loading games.</p>
+<h3 id="fodypropertychangedhttpsgithubcomfodypropertychanged"><a href="https://github.com/Fody/PropertyChanged">Fody.PropertyChanged</a></h3>
+<p>Used to inject property notifications code into components.</p>
+<h3 id="nvorbishttpsgithubcomioctllrnvorbis"><a href="https://github.com/ioctlLR/NVorbis">NVorbis</a></h3>
+<p>Used to support playing OGG Vorbis files (audio file format).</p>
+<h3 id="csflachttpsgithubcomtzachshabtaycsflac"><a href="https://github.com/tzachshabtay/CSFlac">CSFlac</a></h3>
+<p>Used to support playing FLAC files (audio file format).</p>
+<h2 id="development-only-dependencies">Development only dependencies</h2>
+<h3 id="nunithttpnunitorg"><a href="http://nunit.org/">NUnit</a></h3>
+<p>A Unit Test framework.</p>
+<h3 id="moqhttpsgithubcommoqmoq4"><a href="https://github.com/moq/moq4">Moq</a></h3>
+<p>Allows to easily mock interfaces, used for unit tests.</p>
+<h3 id="opencoverhttpsgithubcomopencoveropencover"><a href="https://github.com/OpenCover/opencover">OpenCover</a></h3>
+<p>Analyzed the unit tests to create code coverage reports</p>
+<h3 id="coverallsnethttpsgithubcomcsmacnzcoverallsnet"><a href="https://github.com/csMACnz/coveralls.net">Coveralls.net</a></h3>
+<p>Uploads code coverage reports to the coveralls website for online viewing.</p>
+<h3 id="travishttpstravis-ciorg"><a href="https://travis-ci.org/">Travis</a></h3>
+<p>Automated CI build for Mac &amp; Linux.</p>
+<h3 id="appveyorhttpswwwappveyorcom"><a href="https://www.appveyor.com/">AppVeyor</a></h3>
+<p>Automated CI build for Windows &amp; Android, also used to build the documentation website.</p>
+<h3 id="docfxhttpsdotnetgithubiodocfx"><a href="https://dotnet.github.io/docfx/">DocFX</a></h3>
+<p>Used to generate the documentation website.</p>
+<h3 id="travis-matrix-badgeshttpsgithubcombjfishtravis-matrix-badges"><a href="https://github.com/bjfish/travis-matrix-badges">Travis Matrix Badges</a></h3>
+<p>A small service to display Travis CI build badges on Github.</p>
+<h3 id="appveyor-matrix-badgeshttpsgithubcomtzachshabtayappveyor-matrix-badges"><a href="https://github.com/tzachshabtay/appveyor-matrix-badges">AppVeyor Matrix Badges</a></h3>
+<p>A small service to display Appveyor CI build badges on Github.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Docs/articles/dependencies.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

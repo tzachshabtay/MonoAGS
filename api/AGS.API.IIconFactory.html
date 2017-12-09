@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IIconFactory
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -106,7 +106,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IBorderStyle GetArrowIcon(ArrowDirection direction, Color? color = null)</code></pre>
+    <pre><code class="lang-csharp hljs">IBorderStyle GetArrowIcon(ArrowDirection direction, Color? color = default (Color? ))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -162,7 +162,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ISelectableIcon GetFileIcon(bool isSelected = false, Color? color = null, Color? foldColor = null, Color? selectedColor = null, Color? selectedFoldColor = null)</code></pre>
+    <pre><code class="lang-csharp hljs">ISelectableIcon GetFileIcon(bool isSelected = false, Color? color = default (Color? ), Color? foldColor = default (Color? ), Color? selectedColor = default (Color? ), Color? selectedFoldColor = default (Color? ))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -236,7 +236,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ISelectableIcon GetFolderIcon(bool isSelected = false, Color? color = null, Color? foldColor = null, Color? selectedColor = null, Color? selectedFoldColor = null)</code></pre>
+    <pre><code class="lang-csharp hljs">ISelectableIcon GetFolderIcon(bool isSelected = false, Color? color = default (Color? ), Color? foldColor = default (Color? ), Color? selectedColor = default (Color? ), Color? selectedFoldColor = default (Color? ))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -310,7 +310,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IBorderStyle GetXIcon(float lineWidth = 3F, float padding = 3F, Color? color = null)</code></pre>
+    <pre><code class="lang-csharp hljs">IBorderStyle GetXIcon(float lineWidth = 3F, float padding = 3F, Color? color = default (Color? ))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

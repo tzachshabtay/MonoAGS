@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IScale
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -84,11 +84,17 @@
   <div class="markdown level0 summary"><p>Allows scaling (changing the size of) entities/sprites.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IScale_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IScale</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IScale : INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -97,7 +103,7 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_BaseSize.md&amp;value=---%0Auid%3A%20AGS.API.IScale.BaseSize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L38">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L55">View Source</a>
   </span>
   <a id="AGS_API_IScale_BaseSize_" data-uid="AGS.API.IScale.BaseSize*"></a>
   <h4 id="AGS_API_IScale_BaseSize" data-uid="AGS.API.IScale.BaseSize">BaseSize</h4>
@@ -129,7 +135,7 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_Height.md&amp;value=---%0Auid%3A%20AGS.API.IScale.Height%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L12">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L14">View Source</a>
   </span>
   <a id="AGS_API_IScale_Height_" data-uid="AGS.API.IScale.Height*"></a>
   <h4 id="AGS_API_IScale_Height" data-uid="AGS.API.IScale.Height">Height</h4>
@@ -158,19 +164,20 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_OnScaleChanged.md&amp;value=---%0Auid%3A%20AGS.API.IScale.OnScaleChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_Scale.md&amp;value=---%0Auid%3A%20AGS.API.IScale.Scale%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L44">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L49">View Source</a>
   </span>
-  <a id="AGS_API_IScale_OnScaleChanged_" data-uid="AGS.API.IScale.OnScaleChanged*"></a>
-  <h4 id="AGS_API_IScale_OnScaleChanged" data-uid="AGS.API.IScale.OnScaleChanged">OnScaleChanged</h4>
-  <div class="markdown level1 summary"><p>An event which fires whenever the scale changes</p>
+  <a id="AGS_API_IScale_Scale_" data-uid="AGS.API.IScale.Scale*"></a>
+  <h4 id="AGS_API_IScale_Scale" data-uid="AGS.API.IScale.Scale">Scale</h4>
+  <div class="markdown level1 summary"><p>Scales the size by a factor. The factor is calculated on top of the original size,
+not the current size. (1,1) is the default, meaning no scale.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnScaleChanged { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">PointF Scale { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -182,18 +189,24 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
-        <td><p>The event.</p>
-</td>
+        <td><a class="xref" href="AGS.API.PointF.html">PointF</a></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
+  <h5 id="AGS_API_IScale_Scale_examples">Examples</h5>
+  <pre><code>sprite.ResetScale(10f,10f);
+sprite.Scale = new PointF(2f, 1f);
+Debug.WriteLine(&quot;Size of sprite is ({0},{1})&quot;, sprite.Width, sprite.Height); //prints &quot;Size of sprite is (20,10)&quot;
+sprite.Scale = new PointF(3f, 4f);
+Debug.WriteLine(&quot;Size of sprite is ({0},{1})&quot;, sprite.Width, sprite.Height); //prints &quot;Size of sprite is (30,40)&quot;</code></pre>
+
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_ScaleX.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ScaleX%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L25">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L27">View Source</a>
   </span>
   <a id="AGS_API_IScale_ScaleX_" data-uid="AGS.API.IScale.ScaleX*"></a>
   <h4 id="AGS_API_IScale_ScaleX" data-uid="AGS.API.IScale.ScaleX">ScaleX</h4>
@@ -226,7 +239,7 @@ The scaling is calculated based on the original size, meaning that ScaleX * <a c
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_ScaleY.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ScaleY%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L32">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L34">View Source</a>
   </span>
   <a id="AGS_API_IScale_ScaleY_" data-uid="AGS.API.IScale.ScaleY*"></a>
   <h4 id="AGS_API_IScale_ScaleY" data-uid="AGS.API.IScale.ScaleY">ScaleY</h4>
@@ -259,7 +272,7 @@ The scaling is calculated based on the original size, meaning that ScaleY * <a c
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_Width.md&amp;value=---%0Auid%3A%20AGS.API.IScale.Width%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L18">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L20">View Source</a>
   </span>
   <a id="AGS_API_IScale_Width_" data-uid="AGS.API.IScale.Width*"></a>
   <h4 id="AGS_API_IScale_Width" data-uid="AGS.API.IScale.Width">Width</h4>
@@ -293,7 +306,7 @@ The scaling is calculated based on the original size, meaning that ScaleY * <a c
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_FlipHorizontally.md&amp;value=---%0Auid%3A%20AGS.API.IScale.FlipHorizontally%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L93">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L87">View Source</a>
   </span>
   <a id="AGS_API_IScale_FlipHorizontally_" data-uid="AGS.API.IScale.FlipHorizontally*"></a>
   <h4 id="AGS_API_IScale_FlipHorizontally" data-uid="AGS.API.IScale.FlipHorizontally">FlipHorizontally()</h4>
@@ -309,7 +322,7 @@ The scaling is calculated based on the original size, meaning that ScaleY * <a c
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_FlipVertically.md&amp;value=---%0Auid%3A%20AGS.API.IScale.FlipVertically%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L98">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L92">View Source</a>
   </span>
   <a id="AGS_API_IScale_FlipVertically_" data-uid="AGS.API.IScale.FlipVertically*"></a>
   <h4 id="AGS_API_IScale_FlipVertically" data-uid="AGS.API.IScale.FlipVertically">FlipVertically()</h4>
@@ -325,7 +338,7 @@ The scaling is calculated based on the original size, meaning that ScaleY * <a c
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_ResetScale.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ResetScale%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L49">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L60">View Source</a>
   </span>
   <a id="AGS_API_IScale_ResetScale_" data-uid="AGS.API.IScale.ResetScale*"></a>
   <h4 id="AGS_API_IScale_ResetScale" data-uid="AGS.API.IScale.ResetScale">ResetScale()</h4>
@@ -341,7 +354,7 @@ The scaling is calculated based on the original size, meaning that ScaleY * <a c
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_ResetScale_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ResetScale(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L57">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L68">View Source</a>
   </span>
   <a id="AGS_API_IScale_ResetScale_" data-uid="AGS.API.IScale.ResetScale*"></a>
   <h4 id="AGS_API_IScale_ResetScale_System_Single_System_Single_" data-uid="AGS.API.IScale.ResetScale(System.Single,System.Single)">ResetScale(Single, Single)</h4>
@@ -379,58 +392,10 @@ and then resets the scale to (1,1), i.e no scaling.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_ScaleBy_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ScaleBy(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L74">View Source</a>
-  </span>
-  <a id="AGS_API_IScale_ScaleBy_" data-uid="AGS.API.IScale.ScaleBy*"></a>
-  <h4 id="AGS_API_IScale_ScaleBy_System_Single_System_Single_" data-uid="AGS.API.IScale.ScaleBy(System.Single,System.Single)">ScaleBy(Single, Single)</h4>
-  <div class="markdown level1 summary"><p>Scales the size by a factor. The factor is calculated on top of the original size,
-not the current size.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void ScaleBy(float scaleX, float scaleY)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">scaleX</span></td>
-        <td><p>Scale x.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">scaleY</span></td>
-        <td><p>Scale y.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="AGS_API_IScale_ScaleBy_System_Single_System_Single__examples">Examples</h5>
-  <pre><code>sprite.ResetScale(10f,10f);
-sprite.ScaleBy(2f, 1f);
-Debug.WriteLine(&quot;Size of sprite is ({0},{1})&quot;, sprite.Width, sprite.Height); //prints &quot;Size of sprite is (20,10)&quot;
-sprite.ScaleBy(3f, 4f);
-Debug.WriteLine(&quot;Size of sprite is ({0},{1})&quot;, sprite.Width, sprite.Height); //prints &quot;Size of sprite is (30,40)&quot;</code></pre>
-
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale_ScaleTo_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IScale.ScaleTo(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L88">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L82">View Source</a>
   </span>
   <a id="AGS_API_IScale_ScaleTo_" data-uid="AGS.API.IScale.ScaleTo*"></a>
   <h4 id="AGS_API_IScale_ScaleTo_System_Single_System_Single_" data-uid="AGS.API.IScale.ScaleTo(System.Single,System.Single)">ScaleTo(Single, Single)</h4>
@@ -481,7 +446,7 @@ Debug.WriteLine(&quot;Sprite is scaled by ({0},{1})&quot;, sprite.ScaleX, sprite
                     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScale.md&amp;value=---%0Auid%3A%20AGS.API.IScale%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L8" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

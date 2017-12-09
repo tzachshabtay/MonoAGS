@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Struct Vector4
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -86,7 +86,19 @@
   <div class="markdown level0 conceptual"></div>
   <div classs="implements">
     <h5>Implements</h5>
-    <div><span class="xref">IEquatable</span>&lt;<a class="xref" href="AGS.API.Vector4.html">Vector4</a>&gt;</div>
+    <div><span class="xref">System.IEquatable</span>&lt;<a class="xref" href="AGS.API.Vector4.html">Vector4</a>&gt;</div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
@@ -2794,7 +2806,9 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Add(Vector4 right)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Add() method instead.&quot;)]
+public void Add(Vector4 right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2884,7 +2898,9 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Add(ref Vector4 right)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Add() method instead.&quot;)]
+public void Add(ref Vector4 right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -3318,7 +3334,8 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Div(float f)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Divide() method instead.&quot;)]
+public void Div(float f)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -3744,6 +3761,8 @@ for comparisons.</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.ValueType.Equals(System.Object)</span></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_Vector4_GetHashCode.md&amp;value=---%0Auid%3A%20AGS.API.Vector4.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
@@ -3776,6 +3795,8 @@ for comparisons.</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.ValueType.GetHashCode()</span></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_Vector4_Lerp_AGS_API_Vector4_AGS_API_Vector4_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Vector4.Lerp(AGS.API.Vector4%2CAGS.API.Vector4%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
@@ -4210,7 +4231,8 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Mult(float f)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Multiply() method instead.&quot;)]
+public void Mult(float f)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -4691,7 +4713,9 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Scale(Vector4 scale)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Multiply() method instead.&quot;)]
+public void Scale(Vector4 scale)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -4725,7 +4749,9 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Scale(ref Vector4 scale)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Multiply() method instead.&quot;)]
+public void Scale(ref Vector4 scale)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -4759,7 +4785,8 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Scale(float sx, float sy, float sz, float sw)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Multiply() method instead.&quot;)]
+public void Scale(float sx, float sy, float sz, float sw)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -4811,7 +4838,9 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Sub(Vector4 right)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Subtract() method instead.&quot;)]
+public void Sub(Vector4 right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -4901,7 +4930,9 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Sub(ref Vector4 right)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Subtract() method instead.&quot;)]
+public void Sub(ref Vector4 right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -5100,6 +5131,8 @@ for comparisons.</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.ValueType.ToString()</span></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_Vector4_Transform_AGS_API_Matrix4_AGS_API_Vector4_.md&amp;value=---%0Auid%3A%20AGS.API.Vector4.Transform(AGS.API.Matrix4%2CAGS.API.Vector4)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
@@ -5577,13 +5610,13 @@ for comparisons.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_Vector4_op_Explicit_AGS_API_Vector4__IntPtr.md&amp;value=---%0Auid%3A%20AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~IntPtr%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_Vector4_op_Explicit_AGS_API_Vector4__System_IntPtr.md&amp;value=---%0Auid%3A%20AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~System.IntPtr%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Misc/Geometry/OpenTK/Vector4.cs/#L1627">View Source</a>
   </span>
   <a id="AGS_API_Vector4_op_Explicit_" data-uid="AGS.API.Vector4.op_Explicit*"></a>
-  <h4 id="AGS_API_Vector4_op_Explicit_AGS_API_Vector4__IntPtr" data-uid="AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~IntPtr">Explicit(Vector4 to IntPtr)</h4>
+  <h4 id="AGS_API_Vector4_op_Explicit_AGS_API_Vector4__System_IntPtr" data-uid="AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~System.IntPtr">Explicit(Vector4 to IntPtr)</h4>
   <div class="markdown level1 summary"><p>Returns a pointer to the first element of the specified instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -5619,7 +5652,7 @@ for comparisons.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IntPtr</span></td>
+        <td><span class="xref">System.IntPtr</span></td>
         <td><p>A pointer to the first element of v.</p>
 </td>
       </tr>
@@ -5639,7 +5672,8 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static explicit operator float *(Vector4 v)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static explicit operator float *(Vector4 v)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -6175,7 +6209,7 @@ for comparisons.</p>
   </table>
   <h3 id="implements">Implements</h3>
   <div>
-      <span class="xref">IEquatable&lt;&gt;</span>
+      <span class="xref">System.IEquatable&lt;T&gt;</span>
   </div>
 </article>
           </div>

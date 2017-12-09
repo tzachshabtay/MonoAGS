@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IPixelPerfectComponent
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -102,12 +102,19 @@ See: <a href="https://wiki.allegro.cc/index.php?title=Pixel_Perfect_Collision">h
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
     </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IPixelPerfectComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IPixelPerfectComponent : IPixelPerfectCollidable, IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IAnimationContainer), true)]
+public interface IPixelPerfectComponent : IPixelPerfectCollidable, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
 </article>
           </div>

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IScaleComponent
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -99,19 +99,16 @@
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleY">IScale.ScaleY</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_BaseSize">IScale.BaseSize</a>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_Scale">IScale.Scale</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_OnScaleChanged">IScale.OnScaleChanged</a>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_BaseSize">IScale.BaseSize</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetScale">IScale.ResetScale()</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetScale_System_Single_System_Single_">IScale.ResetScale(Single, Single)</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleBy_System_Single_System_Single_">IScale.ScaleBy(Single, Single)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleTo_System_Single_System_Single_">IScale.ScaleTo(Single, Single)</a>
@@ -131,12 +128,20 @@
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
     </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IScaleComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IScaleComponent : IScale, IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IImageComponent), true)]
+[RequiredComponent(typeof (IAnimationContainer), false)]
+public interface IScaleComponent : IScale, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
 </article>
           </div>
@@ -149,7 +154,7 @@
                     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IScaleComponent.md&amp;value=---%0Auid%3A%20AGS.API.IScaleComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L104" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/IScaleComponent.cs/#L98" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

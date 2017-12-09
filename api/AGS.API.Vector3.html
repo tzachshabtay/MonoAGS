@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Struct Vector3
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -86,7 +86,19 @@
   <div class="markdown level0 conceptual"></div>
   <div classs="implements">
     <h5>Implements</h5>
-    <div><span class="xref">IEquatable</span>&lt;<a class="xref" href="AGS.API.Vector3.html">Vector3</a>&gt;</div>
+    <div><span class="xref">System.IEquatable</span>&lt;<a class="xref" href="AGS.API.Vector3.html">Vector3</a>&gt;</div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
@@ -1073,7 +1085,9 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Add(Vector3 right)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Add() method instead.&quot;)]
+public void Add(Vector3 right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1163,7 +1177,9 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Add(ref Vector3 right)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Add() method instead.&quot;)]
+public void Add(ref Vector3 right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1909,7 +1925,8 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vector3 Div(Vector3 a, float f)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Divide() method instead.&quot;)]
+public static Vector3 Div(Vector3 a, float f)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1965,7 +1982,8 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Div(ref Vector3 a, float f, out Vector3 result)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Divide() method instead.&quot;)]
+public static void Div(ref Vector3 a, float f, out Vector3 result)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2011,7 +2029,8 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Div(float f)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Divide() method instead.&quot;)]
+public void Div(float f)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2437,6 +2456,8 @@ for comparisons.</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.ValueType.Equals(System.Object)</span></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_Vector3_GetHashCode.md&amp;value=---%0Auid%3A%20AGS.API.Vector3.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
@@ -2469,6 +2490,8 @@ for comparisons.</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.ValueType.GetHashCode()</span></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_Vector3_Lerp_AGS_API_Vector3_AGS_API_Vector3_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.Vector3.Lerp(AGS.API.Vector3%2CAGS.API.Vector3%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
@@ -2709,7 +2732,8 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vector3 Mult(Vector3 a, float f)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Multiply() method instead.&quot;)]
+public static Vector3 Mult(Vector3 a, float f)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2765,7 +2789,8 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Mult(ref Vector3 a, float f, out Vector3 result)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Multiply() method instead.&quot;)]
+public static void Mult(ref Vector3 a, float f, out Vector3 result)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2811,7 +2836,8 @@ for comparisons.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Mult(float f)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Multiply() method instead.&quot;)]
+public void Mult(float f)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -3388,7 +3414,9 @@ Project(vector, -1, -1, 2, 2, -1, 1, worldViewProjection).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Scale(Vector3 scale)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Multiply() method instead.&quot;)]
+public void Scale(Vector3 scale)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -3422,7 +3450,9 @@ Project(vector, -1, -1, 2, 2, -1, 1, worldViewProjection).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Scale(ref Vector3 scale)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Multiply() method instead.&quot;)]
+public void Scale(ref Vector3 scale)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -3456,7 +3486,8 @@ Project(vector, -1, -1, 2, 2, -1, 1, worldViewProjection).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Scale(float sx, float sy, float sz)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Multiply() method instead.&quot;)]
+public void Scale(float sx, float sy, float sz)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -3502,7 +3533,9 @@ Project(vector, -1, -1, 2, 2, -1, 1, worldViewProjection).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Sub(Vector3 right)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Subtract() method instead.&quot;)]
+public void Sub(Vector3 right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -3536,7 +3569,8 @@ Project(vector, -1, -1, 2, 2, -1, 1, worldViewProjection).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vector3 Sub(Vector3 a, Vector3 b)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Subtract() method instead.&quot;)]
+public static Vector3 Sub(Vector3 a, Vector3 b)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -3592,7 +3626,9 @@ Project(vector, -1, -1, 2, 2, -1, 1, worldViewProjection).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Sub(ref Vector3 right)</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+[Obsolete(&quot;Use static Subtract() method instead.&quot;)]
+public void Sub(ref Vector3 right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -3626,7 +3662,8 @@ Project(vector, -1, -1, 2, 2, -1, 1, worldViewProjection).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Sub(ref Vector3 a, ref Vector3 b, out Vector3 result)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use static Subtract() method instead.&quot;)]
+public static void Sub(ref Vector3 a, ref Vector3 b, out Vector3 result)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -3791,6 +3828,8 @@ Project(vector, -1, -1, 2, 2, -1, 1, worldViewProjection).</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.ValueType.ToString()</span></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_Vector3_Transform_AGS_API_Matrix3_AGS_API_Vector3_.md&amp;value=---%0Auid%3A%20AGS.API.Vector3.Transform(AGS.API.Matrix3%2CAGS.API.Vector3)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
@@ -5487,7 +5526,7 @@ Project(vector, -1, -1, 2, 2, -1, 1, inverseWorldViewProjection).</p>
   </table>
   <h3 id="implements">Implements</h3>
   <div>
-      <span class="xref">IEquatable&lt;&gt;</span>
+      <span class="xref">System.IEquatable&lt;T&gt;</span>
   </div>
 </article>
           </div>

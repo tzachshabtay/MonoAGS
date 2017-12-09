@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IBoundingBoxComponent
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -96,12 +96,24 @@ This is for both the bounding box used to render the entity, and for collision c
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
     </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IBoundingBoxComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IBoundingBoxComponent : IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IModelMatrixComponent), true)]
+[RequiredComponent(typeof (IImageComponent), true)]
+[RequiredComponent(typeof (IAnimationContainer), true)]
+[RequiredComponent(typeof (IDrawableInfo), true)]
+[RequiredComponent(typeof (IHasRoom), true)]
+[RequiredComponent(typeof (ICropSelfComponent), false)]
+public interface IBoundingBoxComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -151,7 +163,7 @@ This is for both the bounding box used to render the entity, and for collision c
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnBoundingBoxesChanged { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IBlockingEvent OnBoundingBoxesChanged { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -163,7 +175,7 @@ This is for both the bounding box used to render the entity, and for collision c
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
+        <td><a class="xref" href="AGS.API.IBlockingEvent.html">IBlockingEvent</a></td>
         <td><p>The on bounding boxes changed event.</p>
 </td>
       </tr>

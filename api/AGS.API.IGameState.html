@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IGameState
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -464,13 +464,13 @@ where it&apos;s projected on the screen..</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IGameState_ChangeRoomAsync_AGS_API_IRoom_Action_.md&amp;value=---%0Auid%3A%20AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom%2CAction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IGameState_ChangeRoomAsync_AGS_API_IRoom_System_Action_.md&amp;value=---%0Auid%3A%20AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Game/IGameState.cs/#L95">View Source</a>
   </span>
   <a id="AGS_API_IGameState_ChangeRoomAsync_" data-uid="AGS.API.IGameState.ChangeRoomAsync*"></a>
-  <h4 id="AGS_API_IGameState_ChangeRoomAsync_AGS_API_IRoom_Action_" data-uid="AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,Action)">ChangeRoomAsync(IRoom, Action)</h4>
+  <h4 id="AGS_API_IGameState_ChangeRoomAsync_AGS_API_IRoom_System_Action_" data-uid="AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,System.Action)">ChangeRoomAsync(IRoom, Action)</h4>
   <div class="markdown level1 summary"><p>Changes the game&apos;s room to a new room. This will trigger the room transition,
 and then switch the camera to render the new room.</p>
 </div>
@@ -496,7 +496,7 @@ and then switch the camera to render the new room.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Action</span></td>
+        <td><span class="xref">System.Action</span></td>
         <td><span class="parametername">afterTransitionFadeOut</span></td>
         <td><p>A possible callback which triggers after the fade out of the old room, but before the fade in of the new room.</p>
 </td>
@@ -513,7 +513,7 @@ and then switch the camera to render the new room.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td><p>A task that can be awaited for the room switch to complete.</p>
 </td>
       </tr>

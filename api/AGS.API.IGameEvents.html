@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IGameEvents
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -174,7 +174,7 @@ This is where all the rooms, objects and events are setup.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnLoad { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IBlockingEvent OnLoad { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -186,7 +186,7 @@ This is where all the rooms, objects and events are setup.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
+        <td><a class="xref" href="AGS.API.IBlockingEvent.html">IBlockingEvent</a></td>
         <td><p>The on load event.</p>
 </td>
       </tr>
@@ -270,7 +270,7 @@ The event is fired after the current room&apos;s fade-out event, and before the 
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnRoomChanging { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IBlockingEvent OnRoomChanging { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -282,7 +282,7 @@ The event is fired after the current room&apos;s fade-out event, and before the 
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
+        <td><a class="xref" href="AGS.API.IBlockingEvent.html">IBlockingEvent</a></td>
         <td><p>The on room changing.</p>
 </td>
       </tr>
@@ -303,7 +303,7 @@ This event can be used to rewire external code back to the game, and to make cha
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnSavedGameLoad { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IBlockingEvent OnSavedGameLoad { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -315,7 +315,7 @@ This event can be used to rewire external code back to the game, and to make cha
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
+        <td><a class="xref" href="AGS.API.IBlockingEvent.html">IBlockingEvent</a></td>
         <td><p>The on saved game load event.</p>
 </td>
       </tr>

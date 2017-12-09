@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IWalkBehavior
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -95,12 +95,24 @@
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
     </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IWalkBehavior_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IWalkBehavior : IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (ITranslateComponent), true)]
+[RequiredComponent(typeof (IFaceDirectionBehavior), true)]
+[RequiredComponent(typeof (IHasOutfit), true)]
+[RequiredComponent(typeof (IHasRoom), true)]
+[RequiredComponent(typeof (IDrawableInfo), true)]
+[RequiredComponent(typeof (IAnimationContainer), false)]
+public interface IWalkBehavior : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -328,7 +340,7 @@ and an optional additional delay for the actual running frame).</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IWalkBehavior_PlaceOnWalkableArea.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.PlaceOnWalkableArea%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L119">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L114">View Source</a>
   </span>
   <a id="AGS_API_IWalkBehavior_PlaceOnWalkableArea_" data-uid="AGS.API.IWalkBehavior.PlaceOnWalkableArea*"></a>
   <h4 id="AGS_API_IWalkBehavior_PlaceOnWalkableArea" data-uid="AGS.API.IWalkBehavior.PlaceOnWalkableArea">PlaceOnWalkableArea()</h4>
@@ -342,26 +354,10 @@ Otherwise it would try to place it on a walkable area close by.</p>
   </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IWalkBehavior_StopWalking.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.StopWalking%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L107">View Source</a>
-  </span>
-  <a id="AGS_API_IWalkBehavior_StopWalking_" data-uid="AGS.API.IWalkBehavior.StopWalking*"></a>
-  <h4 id="AGS_API_IWalkBehavior_StopWalking" data-uid="AGS.API.IWalkBehavior.StopWalking">StopWalking()</h4>
-  <div class="markdown level1 summary"><p>Stops the current walk (if there is a walk to stop).</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void StopWalking()</code></pre>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorUpdates/apiSpec/new?filename=AGS_API_IWalkBehavior_StopWalkingAsync.md&amp;value=---%0Auid%3A%20AGS.API.IWalkBehavior.StopWalkingAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L113">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorUpdates/Source/AGS.API/Objects/Characters/Walking/IWalkBehavior.cs/#L108">View Source</a>
   </span>
   <a id="AGS_API_IWalkBehavior_StopWalkingAsync_" data-uid="AGS.API.IWalkBehavior.StopWalkingAsync*"></a>
   <h4 id="AGS_API_IWalkBehavior_StopWalkingAsync" data-uid="AGS.API.IWalkBehavior.StopWalkingAsync">StopWalkingAsync()</h4>
@@ -382,7 +378,7 @@ Otherwise it would try to place it on a walkable area close by.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td><p>The walking async.</p>
 </td>
       </tr>
@@ -447,7 +443,7 @@ else
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
         <td><p>Returns true if the walk was completed successfully, or false if the walk was cancelled (if the user clicked on something else).</p>
 </td>
       </tr>

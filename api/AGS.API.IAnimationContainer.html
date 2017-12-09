@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IAnimationContainer
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.27.0.0">
+    <meta name="generator" content="docfx 2.28.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -96,12 +96,18 @@ which will replace the old animation.</p>
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
     </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IAnimationContainer_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IAnimationContainer : IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IAnimationContainer : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -216,7 +222,7 @@ be drawn on the screen as a cross. This can be used for debugging the game.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnAnimationStarted { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IBlockingEvent OnAnimationStarted { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -228,7 +234,7 @@ be drawn on the screen as a cross. This can be used for debugging the game.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
+        <td><a class="xref" href="AGS.API.IBlockingEvent.html">IBlockingEvent</a></td>
         <td><p>The event.</p>
 </td>
       </tr>
@@ -334,7 +340,7 @@ Note: if an animation is an endless loop, this task will never complete (unless 
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.AnimationCompletedEventArgs.html">AnimationCompletedEventArgs</a>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="AGS.API.AnimationCompletedEventArgs.html">AnimationCompletedEventArgs</a>&gt;</td>
         <td><p>A result to indicate if the animation completed successfully or stopped abruptly.</p>
 </td>
       </tr>
