@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tweens | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Tweens | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.28.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tweens">Tweens</h1>
+
+<p>Tweening is the act of animating a property between two values (also called <a href="https://en.wikipedia.org/wiki/Inbetweening">&quot;inbetweening&quot;</a>).</p>
+<p><code>MonoAGS</code> comes with built in support for tweening a lot of properties, and an easy mechanism to create your own custom tweens.</p>
+<h2 id="built-in-tweens">Built-in Tweens</h2>
+<p>The built in tweens can be roughly put in the following categories:</p>
+<h3 id="transform">Transform</h3>
+<p>Those change the position, scale or rotation of either objects (including GUIs, characters, etc as everything is an object), viewports, or even individual animation frames.</p>
+<p>A few examples:</p>
+<pre><code class="lang-csharp">obj.TweenX(500f, 5f); //Animate the object&#39;s &quot;x&quot; to be x = 500 in the span of 5 seconds, and do it linearly
+
+obj.TweenX(500f, 5f, Ease.BounceIn); //Same animation, only use the &quot;bounce in&quot; for easing.
+
+obj.Animation.Frames[0].Sprite.TweenX(500f, 5f); //Same animation, only instead of animating the object, only animate the first frame of the object&#39;s animation.
+
+obj.TweenScaleX(2f, 3f); //Scale the object by a factor of 2 in the span of 3 seconds.
+
+obj.TweenWidth(200f, 3f); //Scale the object to make its width be 200 pixels in the span of 3 seconds.
+
+obj.TweenAngle(45f, 3f); //Rotate the object to an angle of 45 degrees in the span of 3 seconds.
+
+viewport.TweenScaleX(2f, 10.5f); //Zoom in the viewport by a factor of 2 in the span of 10 and a half seconds.
+</code></pre><h3 id="color">Color</h3>
+<p>Those change the color tint of the object, with existing methods to either modify the RGBA elements, or the HSLA elements, depending on which color scheme you want to work with. This also includes convenience methods for fading in/out objects.</p>
+<p>A few examples:</p>
+<pre><code class="lang-csharp">obj.TweenRed(255, 2f); //Animate the red component of the object&#39;s RGBA tint to be all the way red in the span of 2 seconds.
+
+obj.TweenSaturation(1f, 5f); //Animate the object to be fully saturated (fully colored) in the span of 5 seconds.
+
+obj.TweenOpacity(0, 2f); //Tweens the opacity of the object to be fully transparent in the span of 2 seconds.
+
+obj.FadeOut(2f); //The same as the previous TweenOpacity call, only easier on the eyes.
+</code></pre><h3 id="audio">Audio</h3>
+<p>Audio tweens exist to animate the volume, pitch or panning of a playing sound.</p>
+<p>A few examples:</p>
+<pre><code class="lang-csharp">sound.TweenVolume(0f, 2f); //Fades out the volume of the sound in the span of 2 seconds.
+
+sound.TweenPitch(2f, 10f); //Change the pitch of the sound to be twice as high in the span of 10 seconds.
+
+sound.TweenPanning(-1f, 5f); //Pans the sound to left speaker in the span of 5 seconds.
+</code></pre><h3 id="and-more">And More...</h3>
+<p>Even more tweens exist that don&#39;t fit into one of these above categories, like animating cropping of an object (if the object has the <code>ICropSelfComponent</code> attached to it).</p>
+<h2 id="easing">Easing</h2>
+<p>Each tween can be optionally supplied with an easing function. Easing functions specify the rate of change of a parameter over time, and so can be used to &quot;give more life&quot; to various animations. If you don&#39;t specify an easing function for the tween, the linear ease will be used by default, meaning the value will be changed by the same fixed amount on each tick.</p>
+<p><code>MonoAGS</code> comes built in with various easing functions, which you can use in all of your desired tweens. You can visualize how the easing functions work <a href="http://easings.net/">here</a>.</p>
+<p>You can also create your own custom easing function by specifying a function that gets a single <code>float</code> parameter (the time elapsed, from 0 at the beginning and 1 at the end) and returns a <code>float</code> (the new &quot;eased&quot; time).</p>
+<p>A few examples of using built-in ease functions or a custom function.</p>
+<pre><code class="lang-csharp">obj.TweenAngle(45f, 5f, Ease.ElasticIn);
+
+obj.TweenHeight(200f, 2f, Ease.SineInOut);
+
+private float myCustomEase(float t)
+{
+    //Some fancy graph building function goes here.
+}
+
+obj.TweenGreen(0, 5f, myCustomEase);
+</code></pre><h2 id="working-with-a-tween">Working with a tween</h2>
+<p>All the tween methods return a <code>Tween</code> object, which allows us to work with a tween. This includes waiting for a tween to complete, chaining multiple tweens, pausing/resuming a tween, rewinding a tween, repeating a tween, querying the state of the tween and stopping it.</p>
+<h3 id="waiting-for-a-tween">Waiting for a tween</h3>
+<p>All tweens are asynchronous, which means that the next line of the code won&#39;t wait for the tween to end by default.</p>
+<pre><code class="lang-csharp">obj.X = 1f;
+obj.TweenX(500f, 5f);
+Debug.WriteLine($&quot;Object is at {obj.X}&quot;); //This will print 1, not 500, because we didn&#39;t wait for the tween to complete.
+</code></pre><p>To wait for the tween the complete, we can <code>await</code> the <code>Task</code> property of the returned tween object.</p>
+<pre><code class="lang-csharp">obj.X = 1f;
+await obj.TweenX(500f, 5f).Task;
+Debug.WriteLine($&quot;Object is at {obj.X}&quot;); //This will print 500, because we waited for the tween to complete.
+</code></pre><h3 id="combining-multiple-tweens">Combining multiple tweens</h3>
+<p>Separating the act of starting the tween and waiting for a tween to complete gives us the power to combine tweens in multiple ways. So, for example, we can start 2 tweens in parallel, and then wait for both of them to complete.</p>
+<pre><code class="lang-csharp">var tween1 = obj.TweenX(500f, 5f);
+var tween2 = obj.TweenScaleY(2f, 3f);
+await tween1.Task;
+await tween2.Task;
+</code></pre><p>Note that instead of awaiting the 2 tweens separately, we could have also used the <code>Task.WhenAll</code> convenience method. Let&#39;s do that now, but also let&#39;s combine waiting for the tweens with waiting for a non-tween asynchronous action, like walking. Because all asynchronous actions return a <code>Task</code> object, the interface with working with them is the same.</p>
+<pre><code class="lang-csharp">var tween1 = obj.TweenAngle(45f, 5f);
+var tween2 = viewport.TweenScaleY(2f, 4f);
+await Task.Delay(1000); //Waiting for a second between tweens just to make the example a little more interesting
+var tween3 = sound.TweenVolume(0f, 2f);
+var task = cHero.WalkAsync(100f, 50f);
+
+await Task.WhenAll(tween1.Task, tween2.Task, tween3.Task, task);
+</code></pre><p>Another useful method for working with multiple asynchronous actions is <code>Task.WhenAny</code>. Instead of waiting for all tasks to complete, it will wait for the first one and return that task.</p>
+<pre><code class="lang-csharp">var tween1 = obj.TweenY(100f, 5f);
+var tween2 = obj.TweenX(100f, 3f);
+var tween3 = viewport.TweenProjectX(2f, 10f);
+
+var firstTask = await Task.WhenAny(tween1.Task, tween2.Task, tween3.Task);
+
+Debug.WriteLine($&quot;Is the first task tween x? {firstTask == tween2.Task}&quot;); //will print &quot;True&quot; as tween x will be completed first after 3 seconds.
+</code></pre><p>Except for awaiting the task object, you can also chain continuations by using the <code>ContinueWith</code> method, and query if the task was completed by using the <code>IsCompleted</code> property:</p>
+<pre><code class="lang-csharp">obj.TweenX(100f, 5f).Task.ContinueWith(_ =&gt; obj.TweenY(200f, 5f));
+
+var tween = obj.TweenAngle(45f, 3f);
+Debug.WriteLine($&quot;Is Completed? {tween.Task.IsCompleted}&quot;); //Will print false
+
+await tween.Task;
+Debug.WriteLine($&quot;Is Completed? {tween.Task.IsCompleted}&quot;); //Will print true
+</code></pre><h3 id="controlling-time">Controlling Time</h3>
+<p>You can pause a tween at any time by calling <code>Pause</code>, and resume it by calling <code>Resume</code>. You can rewind a tween to the beginning by calling <code>Rewind</code>, and even set the tween to a specific time by setting the <code>ElapsedTicks</code> (or <code>ElapsedSeconds</code>) property.</p>
+<pre><code class="lang-csharp">var tween = obj.TweenX(-50f, 10f);
+tween.Pause();
+tween.Resume();
+tween.ElapsedSeconds = 5f;
+tween.Rewind();
+</code></pre><h3 id="stopping-a-tween">Stopping a tween</h3>
+<p>You can stop a tween at any time by calling <code>Stop</code>. The <code>Stop</code> method receives a parameter that tells the tween what to do with the tween value: should we reset it as if the tween never happened (<code>Rewind</code>), should we set the value as if the tween was completed (<code>Complete</code>) or should we leave the value as it is now (<code>Stay</code>)?</p>
+<pre><code class="lang-csharp">var tween1 = obj.TweenX(-50f, 10f);
+var tween2 = obj.TweenY(50f, 10f);
+var tween3 = obj.TweenZ(50f, 10f);
+
+tween1.Stop(TweenCompletion.Rewind);
+tween2.Stop(TweenCompletion.Complete);
+tween3.Stop(TweenCompletion.Stay);
+</code></pre><h3 id="repeating-a-tween">Repeating a tween</h3>
+<p>You can set your tween to repeat multiple times (or forever). When repeating a tween you can set the looping style (should it only go forwards, or forwards then backwards, etc) and an optional delay between every loop start.</p>
+<pre><code class="lang-csharp">obj.TweenX(50.2f, 5f).RepeatTimes(3, LoopingStyle.Forwards); //Will repeat the tween 3 times (5 seconds for each loop, totalling 15 seconds)
+
+obj.TweenX(50.2f, 5f).RepeatTimes(4, LoopingStyle.ForwardsBackwards, 2f); //Will repeat the tween 4 times (forwards -&gt; backwards -&gt; forwards -&gt; backwards) with 2 seconds apart between each animation loop, and each loop taking 5 seconds (totalling 4 * 5 + (4 - 1) * 2 = 26 seconds).
+
+obj.TweenX(50.2f, 5f).RepeatForever(LoopingStyle.Backwards, 3f); //Will repeat the tween forever (always going backwards from end to beginning), with 3 seconds apart between each animation loop, and each loop taking 5 seconds.
+</code></pre><h3 id="querying-a-tween">Querying a tween</h3>
+<p>At each point in time of a running tween you can query it to see what it doing. <code>tween.State</code> will tell you the state of the tween: Is it playing, paused, stopped, stopping or completed?</p>
+<p>You can query <code>tween.ElapsedTicks</code> or <code>tween.ElapsedSeconds</code> to see how much time has passed since the tween started, you can query the original input for the tween by looking at <code>tween.From</code> (the beginning value), <code>tween.To</code> (the target end value), <code>tween.DurationInTicks</code> or <code>tween.DurationInSeconds</code> to see how much time the tween was configured to run for, <code>tween.Easing</code> (the easing function), and if you&#39;re dealing with a repeating tween you can look at <code>tween.RepeatInfo</code> to get more information (and even change it while the tween is running) like how many loops have passed, how many total loops should it animate for, is it currently running forwards or backwards, what looping style should it use and the delay to wait between each loop.</p>
+<h2 id="custom-tween">Custom Tween</h2>
+<p>If there&#39;s no built-in tween for your desired property, you can create your own custom tween for any possible numeric property, using <code>Tween.Run</code>. In fact, all of the built in tweens were written using the same <code>Tween.Run</code> function.
+A custom tween for a variable &quot;x&quot; can be written as: </p>
+<pre><code class="lang-csharp">float x = 1f;
+
+Tween.Run(x, 10f, val =&gt; x = val, 3f);
+</code></pre><p>The code above will tween the value of x from 1 to 10 in the span of 3 seconds.
+The third parameter for this function is a function itself which assigns the animated value back to x.</p>
+<p>Combining <code>Tween.Run</code> with <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods">extension methods</a> can create friendly reusable tweens. 
+For example, the <code>TweenX</code> method we showed earlier can be written as:</p>
+<pre><code class="lang-csharp">public static Tween TweenX(this IObject obj, float toX, float timeInSeconds, Func&lt;float, float&gt; easing = null)
+        {
+            return Tween.Run(obj.X, toX, x =&gt; obj.X = x, timeInSeconds, easing);
+        }
+</code></pre><p>This is almost an exact duplicate of the actual built-in tween method, and it only took a few simple lines of code to create (in fact, the only difference between the built in method, is that the built in method extends <code>ITranslate</code> instead of <code>IObject</code> which guarantees that it works on anything that implements <code>ITranslate</code> which includes both <code>IObject</code> and <code>ISprite</code> so you can run it on objects and individual animation frames).</p>
+<h3 id="custom-tween--controlling-the-time">Custom Tween- Controlling the time</h3>
+<p>All the tweens created with <code>Tween.Run</code> use the <a href="game.html#on-repeatedly-execute-event">Repeatedly Execute</a> event to &quot;visit&quot; the tween and move it forwards (so this includes all of the built in tweens as well).
+Usually this is exactly what you want. Sometimes, however, you might want to control yourself when the tween is moved forwards (for example, maybe you want to move the tween forwards every time you click a button). For this, you can use the <code>Tween.RunWithExternalVisit</code> method, which behaves like <code>Tween.Run</code> only returns one additional parameter, called <code>visitCallback</code>. The visit callback is an action that you can trigger on your own terms to move the tween to its next tick.</p>
+<p>Here&#39;s an example of how it can be used to move the tween forwards once a second instead of once a tick:</p>
+<pre><code class="lang-csharp">
+var tween = Tween.RunWithExternalVisit(x, 10f, val =&gt; x = val, 3f, out Action visitTween);
+
+//Tween hasn&#39;t actually started animating yet, because it&#39;s up to us to move it forwards. So let&#39;s do it now.
+while (!tween.Task.IsCompleted)
+{
+    visit(); //Moving the tween
+    await Task.Delay(1000); //Waiting a second before the next &quot;tick&quot;.
+}
+
+//Note that in this example, while we started the tween with &quot;10 seconds&quot;, the tween will actually take a lot more than 10 seconds, because we only move forwards one tick a second (instead of 60 ticks a second assuming 60 FPS).
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Docs/articles/tweens.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

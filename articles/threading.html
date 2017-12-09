@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Threading Model | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Threading Model | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.28.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="threading-model">Threading Model</h1>
+
+<p><code>MonoAGS</code> has 2 threads that are created at startup and live throughout the lifetime of the application: the render thread and the update thread.</p>
+<p>The render thread draws all of the game objects onto the screen, and the update thread processes all of the game logic to prepare all the objects to be drawn.</p>
+<p>The update thread is the thread in which the <a href="game.html#on-repeatedly-execute-event">Repeatedly Execute</a> event is triggered and all your logic code is running on. Naturally, this is the thread the modifies the game state.</p>
+<p>The rendering thread, is the thread that interacts with OpenGL.
+Due to limitations of OpenGL, only the rendering thread can access the OpenGL context and interact with it. Therefore, all custom rendering will be performed on the rendering thread. So if you implement your own custom renderer (<code>ICustomRenderer</code>), or your own border (<code>IBorderStyle</code>) or your own room transition (<code>IRoomTransition</code>) do be aware that those take place on the rendering thread, not on the update thread, and you should be very careful when working with the game state.</p>
+<h2 id="thread-pool">Thread Pool</h2>
+<p>Besides the 2 long living threads, short living tasks (like loading resources, for example) use the thread pool: a random thread from the thread pool will be &quot;borrowed&quot;, the task will be performed and the thread will return to the pool.
+This is done in order to do some heavy-lifting outside the main logic loop so not to slow it down needlessly. Note that the dotnet thread pool knows and utilizes available CPU cores on your machine to do work in parallel. If you need to, you can take a thread from the pool yourself with <code>Task.Run</code> and take advantage of this functionality.</p>
+<h2 id="integrating-with-asyncawait">Integrating with async/await</h2>
+<p>By default, if you run code on your own thread which awaits a task that runs from another thread, when the <code>await</code> returns, your code will run on a new thread (from the thread pool).</p>
+<p>Here&#39;s an example of that in action:</p>
+<pre><code class="lang-csharp">Debug.WriteLine($&quot;Hello, I&#39;m currently running in thread ${Environment.CurrentManagedThreadId}.&quot;);// running on thread 1
+await Task.Run(() =&gt; Debug.WriteLine($&quot;Now I&#39;m running in thread ${Environment.CurrentManagedThreadId}.&quot;)); //Now running in thread 2
+
+Debug.WriteLine($&quot;After await, I&#39;m now running in thread ${Environment.CurrentManagedThreadId}.&quot;); //Now running in thread 3
+</code></pre><p>If you&#39;ll run this code from either the render or the update thread, however, you&#39;ll see that the last line runs on the first thread and not on a new thread. This is done by utilizing the <a href="https://blogs.msdn.microsoft.com/pfxteam/2012/01/20/await-synchronizationcontext-and-console-apps/">synchronization context</a> concept. We&#39;re doing this in the rendering thread because if we await something on that thread we must go back to the same thread or we won&#39;t be able to interact with OpenGL in the follow-up code. We do it in the update thread because getting back to the same thread helps us avoid a plethora of potential multi-threading related bugs that might occur due to race conditions when accessing state.</p>
+<p>Note, however, that if you write some module code that awaits something on those threads, but is completely isolated and doesn&#39;t touch the game state, you might want the await to return on a thread pool thread (to take advantage of the thread pool). In this case you can accomplish this by using <code>ConfigureAwait(false)</code> which tells the runtime not to use the synchronization context here:</p>
+<pre><code class="lang-csharp">await Task.Run(() =&gt; doSomething()).ConfigureAwait(false);
+
+//Now (after thw await returns) we&#39;re DEFINITELY using a thread from the thread pool, no matter which thread we started this code on.
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Docs/articles/threading.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

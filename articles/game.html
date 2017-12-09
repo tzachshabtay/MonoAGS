@@ -166,24 +166,7 @@ for setting thins up (like setting <a href="objects.html#shader">shader</a> vari
 <p>This event is called whenever the screen is resized.</p>
 <h3 id="default-interactions">Default Interactions</h3>
 <p>Allows setting the <a href="hotspots.html#default-interactions">default interactions</a>.</p>
-<h2 id="repeat">Repeat</h2>
-<p><code>Repeat</code> is a utility class for repeating actions a set number of times. <code>Repeat.OnceOnly(key)</code> is probably the most useful function there and is the equivalent of <code>Game.DoOnceOnly</code> from &quot;classic&quot; AGS.</p>
-<pre><code class="lang-csharp">private void onInteractWithMicrophone(object sender, AGSEventArgs args) {
-    if (Repeat.OnceOnly(&quot;sing_a_song&quot;)) {
-        cHero.Say(&quot;Mary had a little lamb!&quot;);
-    }
-    else cHero.Say(&quot;Nah, I already sang earlier...&quot;);
-}
-</code></pre><p>Other similar functions there include: <code>Repeat.Exactly(key, number_of_times)</code> for doing an action exactly X times, and also <code>Repeat.MoreThen(key, number_of_times)</code> and <code>Repeat.LessThen(key, number_of_times)</code> for repeating actions more than or less than X times.</p>
-<p>Another useful function is <code>Repeat.Rotate(key, actions)</code> which rotates around a list of actions to perform (i.e on each call it performs the next action on the list, and eventually goes back to the beginning). This can be useful when wanting to have multiple responses for an interaction which repeat themselves:</p>
-<pre><code class="lang-csharp">private void someDefaultInteraction()
-{
-    Repeat.Rotate(&quot;default interaction&quot;,
-        () =&gt; cHero.Say(&quot;I&#39;m not going to do that.&quot;),
-        () =&gt; cHero.Say(&quot;Nope, I don&#39;t think so.&quot;),
-        () =&gt; cHero.Say(&quot;I really don&#39;t want to, sorry.&quot;));
-}
-</code></pre></article>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
@@ -191,7 +174,7 @@ for setting thins up (like setting <a href="objects.html#shader">shader</a> vari
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Build/Docs/articles/game.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Docs/articles/game.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

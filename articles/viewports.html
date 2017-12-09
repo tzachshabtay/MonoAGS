@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Viewports | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Viewports | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.28.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="viewports">Viewports</h1>
+
+<p>It might be that not all of the room is shown on the screen at once (for example, a scrolling room). A viewport to the room instructs the engine on what parts of the room to show. A viewport has the following properties:</p>
+<h2 id="each-viewport-has">Each viewport has:</h2>
+<h3 id="xy">X,Y</h3>
+<p>The location (bottom-left) in the room from which to show the screen.</p>
+<h3 id="scalex-scaley">ScaleX, ScaleY</h3>
+<p>An optional zoom in/out into the room.</p>
+<h3 id="angle">Angle</h3>
+<p>An optional rotation of the viewport.</p>
+<h3 id="camera">Camera</h3>
+<p>A camera is a script that automatically moves the viewport, usually to track the player, although you can set the camera&#39;s target to track another character/object in the room. Or, you can disable the camera to manually set values in the viewport if needed. Note that you can also code your own camera script if you want to replace the default camera (and this can be done per-room).</p>
+<h2 id="multiple-viewports">Multiple Viewports</h2>
+<p>You can show more than one viewport on the screen if you want. There are plenty of use cases for why you&#39;d want something like this: you can show a split-screen for a 2 player game, you can have a television in one room showing what&#39;s going on in another room, you can have a sophisticated animation sequence a-la &quot;24&quot; to show multiple going-ons at once, etc.</p>
+<p>If you look at the game state variable, you&#39;ll notice that there&#39;s a <code>Viewport</code> property, and a <code>SecondaryViewports</code> property. The <code>Viewport</code> property refers to the main viewport of the game (the game must have this viewport) and tracks the current room. For multiple viewports, add more viewports to the <code>SecondaryViewports</code> property.</p>
+<p>There are additional properties for each viewport which might not be very helpful if you only have one viewport (i.e the normal scenario), but are very useful for multiple viewports.</p>
+<h3 id="room-provider">Room Provider</h3>
+<p>The room provider provides a room for the viewport to track. 
+By default, the main viewport tracks the current room of the game.
+You can assign a room provider for a viewport to change the strategy of which room to show in that specific viewport. There&#39;s a built in <code>AGSSingleRoomProvider</code> which you can
+use to show a single room in your secondary viewport, or you can implement your own room provider with different logic. </p>
+<h3 id="display-list-control">Display List Control</h3>
+<p>You can control whether to show the room objects, the global GUIs, or both (default is both). The main viewport, by default, shows both. 
+For a secondary viewport, you&#39;d probably want to hide the global GUIs.</p>
+<p>Additionally, you can set depth clipping: set a near clipping plane, a far clipping plane, or both, for clipping (i.e hiding) objects which are too close or too far from the camera.</p>
+<p>Finally, you also have fine grain control with the ability to show/hide specific objects for that specific viewports. So, for example, you can show the same room twice on the screen, one with the player and one without.</p>
+<h3 id="projection-box">Projection Box</h3>
+<p>You can control what part of the screen a viewport will be shown in. For a vertical split screen, for example, you&#39;ll configure the main viewport to have a projection box on the left side, and an additional viewport to have a projection box on the right side.</p>
+<h3 id="parent">Parent</h3>
+<p>You can assign a parent object for the viewport. If a parent object is assigned, the projection box of the viewport will be bound to the location of that object. So, if, for example, you have a television set object which shows what happens in another room (via a secondary viewport), you&#39;ll set the TV as the parent for the secondary viewport, and that way moving the TV will also move the &quot;contents&quot; of the TV.</p>
+<h3 id="interactive">Interactive</h3>
+<p>For each viewport, you can decide if it allows interactions with its contents or not.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Docs/articles/viewports.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
