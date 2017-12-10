@@ -36,6 +36,7 @@ namespace AGS.Engine
 
             _scale.PropertyChanged += onPropertyChanged;
             _hasImage.PropertyChanged += onPropertyChanged;
+            _translate.PropertyChanged += onPropertyChanged;
         }
 
         private AGSSprite(AGSSprite sprite) : this(sprite._resolver, sprite._maskLoader)
@@ -82,12 +83,16 @@ namespace AGS.Engine
             return new AGSSprite(this);
 		}
 
+        [DoNotNotify]
         public ILocation Location { get { return _translate.Location; } set { _translate.Location = value; } }
 
+        [DoNotNotify]
         public float X { get { return _translate.X; } set { _translate.X = value; } }
 
+        [DoNotNotify]
         public float Y { get { return _translate.Y; } set { _translate.Y = value; } }
 
+        [DoNotNotify]
         public float Z { get { return _translate.Z; } set { _translate.Z = value; } }
 
         [DoNotNotify]

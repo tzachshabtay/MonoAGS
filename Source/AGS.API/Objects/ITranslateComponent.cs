@@ -1,9 +1,11 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// Allows changing the position of entities/sprites.
     /// </summary>
-    public interface ITranslate
+    public interface ITranslate : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets or sets the location.
