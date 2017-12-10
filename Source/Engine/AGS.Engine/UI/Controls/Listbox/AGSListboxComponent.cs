@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AGS.API;
+using PropertyChanged;
 
 namespace AGS.Engine
 {
@@ -56,6 +57,7 @@ namespace AGS.Engine
         
         public IAGSBindingList<IStringItem> Items { get { return _items; } }
 
+        [DoNotCheckEquality] //we skip equality checks as we want a combo box drop down to close even when we select the already selected item
         public int SelectedIndex
         {
             get { return _selectedIndex; }
