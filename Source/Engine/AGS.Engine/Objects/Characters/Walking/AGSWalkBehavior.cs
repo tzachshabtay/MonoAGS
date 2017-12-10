@@ -238,15 +238,15 @@ namespace AGS.Engine
 
 		private List<PointF> getClosestWalkablePoints(PointF target)
 		{
-            List<Tuple<PointF, float>> points = new List<Tuple<PointF, float>> (_room.Room.Areas.Count);
+            List<(PointF point, float distance)> points = new List<(PointF, float)> (_room.Room.Areas.Count);
             foreach (IArea area in getWalkableAreas()) 
 			{
 				float distance;
 				PointF? point = area.FindClosestPoint (target, out distance);
 				if (point == null) continue;
-				points.Add(new Tuple<PointF, float> (point.Value, distance));
+				points.Add((point.Value, distance));
 			}
-			return points.OrderBy(p => p.Item2).Select(p => p.Item1).ToList();
+            return points.OrderBy(p => p.distance).Select(p => p.point).ToList();
 		}
 
 		private IEnumerable<ILocation> getWalkPoints(ILocation destination)

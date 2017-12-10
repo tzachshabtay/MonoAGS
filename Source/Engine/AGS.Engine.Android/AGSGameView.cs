@@ -116,22 +116,22 @@ namespace AGS.Engine.Android
             return touchHandled || gestureHandled;
         }
 
-        public event EventHandler<Tuple<Keycode, KeyEvent>> KeyDown;
+        public event EventHandler<(Keycode, KeyEvent)> KeyDown;
         public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
         {
             CapslockOn = e.IsShiftPressed;
             var mappedKey = mapKey(keyCode);
             var keyDown = KeyDown;
-            if (keyDown != null) keyDown(this, new Tuple<Keycode, KeyEvent>(mappedKey, e));
+            if (keyDown != null) keyDown(this, (mappedKey, e));
             return base.OnKeyDown(keyCode, e);
         }
 
-        public event EventHandler<Tuple<Keycode, KeyEvent>> KeyUp;
+        public event EventHandler<(Keycode, KeyEvent)> KeyUp;
         public override bool OnKeyUp(Keycode keyCode, KeyEvent e)
         {
             var keyUp = KeyUp;
             var mappedKey = mapKey(keyCode);
-            if (keyUp != null) keyUp(this, new Tuple<Keycode, KeyEvent>(mappedKey, e));
+            if (keyUp != null) keyUp(this, (mappedKey, e));
             return base.OnKeyUp(keyCode, e);
         }
 

@@ -8,12 +8,12 @@ namespace AGS.Engine
     [PropertyFolder]
 	public class AGSInventory : IInventory
 	{
-		private ConcurrentDictionary<Tuple<IInventoryItem, IInventoryItem>, IEvent<InventoryCombinationEventArgs>> _eventsMap;
+        private ConcurrentDictionary<(IInventoryItem, IInventoryItem), IEvent<InventoryCombinationEventArgs>> _eventsMap;
 
 		public AGSInventory()
 		{
 			Items = new List<IInventoryItem> (20);
-			_eventsMap = new ConcurrentDictionary<Tuple<IInventoryItem, IInventoryItem>, IEvent<InventoryCombinationEventArgs>> (2, 400);
+            _eventsMap = new ConcurrentDictionary<(IInventoryItem, IInventoryItem), IEvent<InventoryCombinationEventArgs>> (2, 400);
 			OnDefaultCombination = new AGSEvent<InventoryCombinationEventArgs> ();
 		}
 
@@ -23,8 +23,8 @@ namespace AGS.Engine
 
 		public IEvent<InventoryCombinationEventArgs> OnCombination(IInventoryItem item1, IInventoryItem item2)
 		{
-			var tuple1 = new Tuple<IInventoryItem, IInventoryItem> (item1, item2);
-			var tuple2 = new Tuple<IInventoryItem, IInventoryItem> (item2, item1);
+			var tuple1 = (item1, item2);
+			var tuple2 = (item2, item1);
 
 			var combinationEvent = _eventsMap.GetOrAdd(tuple1, _ => new AGSInteractionEvent<InventoryCombinationEventArgs>
                                    (new List<IEvent<InventoryCombinationEventArgs>> { OnDefaultCombination }, 

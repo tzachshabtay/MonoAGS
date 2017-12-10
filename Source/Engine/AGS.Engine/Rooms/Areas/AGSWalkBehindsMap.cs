@@ -1,6 +1,6 @@
 ﻿using AGS.API;
 using System.Collections.Generic;
-using AreaKey = System.Tuple<AGS.API.IArea, AGS.API.IBitmap>;
+using AreaKey = System.ValueTuple<AGS.API.IArea, AGS.API.IBitmap>;
 using System;
 
 namespace AGS.Engine
