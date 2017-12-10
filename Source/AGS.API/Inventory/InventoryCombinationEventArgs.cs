@@ -34,7 +34,7 @@
 
 		public override string ToString ()
 		{
-			return string.Format ("{0} is combined with {1}", ActiveItem, PassiveItem);
+			return $"{ActiveItem} is combined with {PassiveItem}";
 		}
 	}
 }

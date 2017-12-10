@@ -89,7 +89,7 @@ namespace AGS.Engine
 
         public override string ToString()
         {
-            return string.Format("{0} ({1})", ID ?? "", GetType().Name);
+            return $"{ID ?? ""} ({GetType().Name})";
         }
 
         partial void beforeInitComponents(Resolver resolver, IImage image);

@@ -25,7 +25,7 @@ namespace AGS.Engine
 
 		public override string ToString()
 		{
-			return string.Format("Inventory Item: {0}", Graphics.ID ?? Graphics.Hotspot ?? Graphics.ToString());
+			return $"Inventory Item: {Graphics.ID ?? Graphics.Hotspot ?? Graphics.ToString()}";
 		}
 	}
 }

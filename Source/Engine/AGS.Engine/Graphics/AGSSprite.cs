@@ -145,7 +145,7 @@ namespace AGS.Engine
                 return;
             }
 
-            string areaId = string.Format("Sprite_PixelPerfect_{0}_{1}", Image.ID, _id);
+            string areaId = $"Sprite_PixelPerfect_{Image.ID}_{_id}";
 			if (!_registeredPixelPerfectIds.Add(_id))
 			{
 				//Without this check bitmap.LockBits can be called twice without unlocking in between which crashes GDI+: https://github.com/mono/libgdiplus/blob/0c0592d09c7393fc418fa7f65f54e8b3bcc14cf2/src/bitmap.c#L1960
@@ -153,7 +153,7 @@ namespace AGS.Engine
 				return;
 			}
 
-			string maskId = string.Format("Mask_{0}", areaId);
+			string maskId = $"Mask_{areaId}";
             PixelPerfectHitTestArea = new AGSArea(areaId, _resolver) { Mask = _maskLoader.Load(maskId, _hasImage.Image.OriginalBitmap) };
             var debugDraw = PixelPerfectHitTestArea.Mask.DebugDraw;
             if (debugDraw != null) debugDraw.RemoveComponent<IPixelPerfectComponent>(); //Removing the pixel perfect from the debug draw mask, otherwise it disables the pixel perfect for the images which can be used by actual characters

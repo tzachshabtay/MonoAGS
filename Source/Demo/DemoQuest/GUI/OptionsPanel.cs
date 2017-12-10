@@ -94,7 +94,7 @@ namespace DemoGame
 		private async Task loadButton(string text, Action onClick)
 		{
 			const string folder = "../../Assets/Gui/Buttons/buttonSmall/";
-			string buttonId = string.Format("{0} Button", text);
+			string buttonId = $"{text} Button";
 			IButton button = await _game.Factory.UI.GetButtonAsync(buttonId, folder + "normal.bmp", folder + "hovered.bmp",
                folder + "pushed.bmp", 15f, 0f, _buttonsPanel, text, _buttonTextConfig);
 			button.OnMouseClick(onClick, _game);

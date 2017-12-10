@@ -74,7 +74,7 @@ namespace AGS.Engine
 
 		private IInventoryItem getInventoryItem(string hotspot, IImage graphicsImage, IImage cursorImage, bool playerStartsWithItem = false)
 		{
-			IObject graphics = _object.GetObject (string.Format ("{0}(inventory item)", hotspot ?? ""));
+			IObject graphics = _object.GetObject ($"{hotspot ?? ""}(inventory item)");
 			graphics.Image = graphicsImage;
 			graphics.RenderLayer = AGSLayers.UI;
 			graphics.IgnoreViewport = true;
@@ -82,7 +82,7 @@ namespace AGS.Engine
 			graphics.Anchor = new PointF (0.5f, 0.5f);
 			graphics.Hotspot = hotspot;
 
-			IObject cursor = _object.GetObject (string.Format ("{0}(inventory item cursor)", hotspot ?? ""));
+			IObject cursor = _object.GetObject ($"{hotspot ?? ""}(inventory item cursor)");
 			cursor.Image = cursorImage;
             cursor.IgnoreViewport = true;
             cursor.IgnoreScalingArea = true;

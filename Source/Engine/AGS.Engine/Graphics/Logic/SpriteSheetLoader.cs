@@ -118,7 +118,7 @@ namespace AGS.Engine
 			rect = new Rectangle (cellX * spriteSheet.CellWidth,
 										cellY * spriteSheet.CellHeight, spriteSheet.CellWidth, spriteSheet.CellHeight);
 			clone = bitmap.Crop (rect);
-			path = string.Format ("{0}_{1}_{2}", rect.X, rect.Y, filePath);
+			path = $"{rect.X}_{rect.Y}_{filePath}";
 		}
 
 		private void nextCell (Point mainStep, Point secondStep, int cellsInRow, int cellsInCol, ref int cellX, ref int cellY)
@@ -192,7 +192,7 @@ namespace AGS.Engine
 					secondStep = new Point (0, 1);
 					break;
 				default:
-					throw new NotSupportedException (string.Format ("Sprite sheet order {0} is not supported", order));
+					throw new NotSupportedException ($"Sprite sheet order {order} is not supported");
 			}
 		}
 	}

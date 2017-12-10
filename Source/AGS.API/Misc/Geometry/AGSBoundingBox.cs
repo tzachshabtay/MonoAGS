@@ -207,7 +207,7 @@ namespace AGS.API
 
 		public override string ToString()
 		{
-			return string.Format("[A={0}, B={1}, C={2}, D={3}]", BottomLeft, BottomRight, TopLeft, TopRight);
+			return $"[A={BottomLeft}, B={BottomRight}, C={TopLeft}, D={TopRight}]";
 		}
 
 		public override bool Equals(object obj)

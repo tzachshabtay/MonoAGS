@@ -82,7 +82,7 @@ namespace AGS.Engine
 			if (topPanel == null) return;
 
             const float lineWidth = 10f;
-            var splitLine = _factory.Object.GetObject(string.Format("{0}_SplitLine", topPanel.ID));
+            var splitLine = _factory.Object.GetObject($"{topPanel.ID}_SplitLine");
             _state.FocusedUI.CannotLoseFocus.Add(splitLine.ID);
             splitLine.RenderLayer = topPanel.RenderLayer;
 			var crop = topPanel.GetComponent<ICropChildrenComponent>();

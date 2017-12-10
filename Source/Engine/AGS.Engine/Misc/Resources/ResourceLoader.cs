@@ -166,7 +166,7 @@ namespace AGS.Engine
 				if (assetsIndex < 0) return null;
 				string resourcePath = path.Substring(assetsIndex);
 				resourcePath = resourcePath.Replace('/', '.').Replace('\\', '.');
-				resourcePath = string.Format("{0}.{1}", assemblyName, resourcePath);
+				resourcePath = $"{assemblyName}.{resourcePath}";
 				return resourcePath;
 			}
 			catch (Exception e)

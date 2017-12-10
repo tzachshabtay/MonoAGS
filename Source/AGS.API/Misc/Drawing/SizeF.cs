@@ -27,7 +27,7 @@
 
         public override string ToString()
         {
-            return string.Format("{0:0.##},{1:0.##}", Width, Height);
+            return $"{Width:0.##},{Height:0.##}";
         }
 
         public override bool Equals(object obj)

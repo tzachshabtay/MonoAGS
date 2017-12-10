@@ -166,7 +166,7 @@ namespace AGS.Engine
         private int queryVariableLocation(string name)
         {
             int location = _graphics.GetUniformLocation(_program, name);
-            Debug.WriteLineIf(location == -1, string.Format("Variable name {0} not found in shader program.", name));
+            Debug.WriteLineIf(location == -1, $"Variable name {name} not found in shader program.");
             return location;
         }
 
@@ -182,8 +182,8 @@ namespace AGS.Engine
 
 			if (errorCode != 1)
 			{
-				Debug.WriteLine(string.Format("Failed to compile {0}.{4}Error code: {1}.{4}Error message(s): {2}.{4}Shader Source: {3}{4}",
-					shaderType, errorCode, info ?? "null", source, Environment.NewLine));
+				Debug.WriteLine($@"Failed to compile {shaderType}.{Environment.NewLine}Error code: {errorCode}.{Environment.NewLine}
+                    Error message(s): {info ?? "null"}.{Environment.NewLine}Shader Source: {source}{Environment.NewLine}");
 				_graphics.DeleteShader(shader);
 				_program = 0;
 				return false;
@@ -201,8 +201,8 @@ namespace AGS.Engine
             int errorCode = _graphics.GetProgramLinkErrorCode(_program);
 			if (errorCode != 1)
 			{
-				Debug.WriteLine(string.Format("Failed to link shader program. Error code: {0}.{2}Error message(s): {1}{2}",
-					errorCode, info ?? "null", Environment.NewLine));
+				Debug.WriteLine($@"Failed to link shader program. Error code: {errorCode}.{Environment.NewLine}
+                    Error message(s): {info ?? "null"}{Environment.NewLine}");
 				_graphics.DeleteProgram(_program);
 				_program = 0;
 				return false;

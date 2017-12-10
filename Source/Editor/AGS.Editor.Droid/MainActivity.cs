@@ -26,7 +26,7 @@ namespace AGS.Editor.Droid
 			Button button = FindViewById<Button> (Resource.Id.myButton);
 			
 			button.Click += delegate {
-				button.Text = string.Format ("{0} clicks!", count++);
+				button.Text = $"{count++} clicks!";
 			};
 		}
 	}

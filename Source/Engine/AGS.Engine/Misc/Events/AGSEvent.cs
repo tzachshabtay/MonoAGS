@@ -155,7 +155,7 @@ namespace AGS.Engine
 
 			public override string ToString()
 			{
-				return string.Format("[Event on {0} ({1})]", _origObject.Target.ToString(), getMethodName(_origObject));
+				return $"[Event on {_origObject.Target.ToString()} ({getMethodName(_origObject)})]";
 			}
 
 			private string getMethodName(Delegate del)
@@ -322,7 +322,7 @@ namespace AGS.Engine
 
 			public override string ToString()
 			{
-				return string.Format("[Event on {0} ({1})]", _origObject.Target.ToString(), getMethodName(_origObject));
+				return $"[Event on {_origObject.Target.ToString()} ({getMethodName(_origObject)})]";
 			}
 
 			private string getMethodName(Delegate del)

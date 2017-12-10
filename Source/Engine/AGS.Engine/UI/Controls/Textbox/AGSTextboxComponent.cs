@@ -149,7 +149,6 @@ namespace AGS.Engine
 
         private void onMouseDown(MouseButtonEventArgs args)
         {
-            Debug.WriteLine(string.Format("{0} is focused", _textComponent.Text));
             IsFocused = true;
         }
 
@@ -305,7 +304,7 @@ namespace AGS.Engine
         {
             if (CaretPosition == 0) return getCurrentState();            
             string text = _textComponent.Text;
-            text = string.Format("{0}{1}", text.Substring(0, CaretPosition - 1), text.Substring(CaretPosition));
+            text = $"{text.Substring(0, CaretPosition - 1)}{text.Substring(CaretPosition)}";
             return new TextboxState(text, CaretPosition - 1);
         }
 
@@ -313,7 +312,7 @@ namespace AGS.Engine
         {
             if (CaretPosition == _endOfLine) return getCurrentState();
             string text = _textComponent.Text;
-            text = string.Format("{0}{1}", text.Substring(0, CaretPosition), text.Substring(CaretPosition + 1));
+            text = $"{text.Substring(0, CaretPosition)}{text.Substring(CaretPosition + 1)}";
             return new TextboxState(text, CaretPosition);
         }
 

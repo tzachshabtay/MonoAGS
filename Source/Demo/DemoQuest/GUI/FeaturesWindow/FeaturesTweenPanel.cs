@@ -180,7 +180,7 @@ namespace DemoGame
                 return;
             }
             tween = tween.RepeatForever(looping, 3f);
-            _runningTweens.Add(new RunningTween(string.Format("{0}.{1}", targetText, tweenText), 
+            _runningTweens.Add(new RunningTween($"{targetText}.{tweenText}", 
                                                 tween, _game, _tweensListPanel));
         }
 
@@ -308,13 +308,13 @@ namespace DemoGame
                 _tween = tween;
                 var factory = game.Factory.UI;
                 var tweenId = ++id;
-                _panel = factory.GetPanel(string.Format("FeaturesTweenPanel_{0}", tweenId), 300f, 20f, 0f, 0f, null, false);
+                _panel = factory.GetPanel($"FeaturesTweenPanel_{tweenId}", 300f, 20f, 0f, 0f, null, false);
                 _panel.Visible = false;
                 _panel.RenderLayer = parent.RenderLayer;
                 _panel.Tint = Colors.Transparent;
                 _panel.Anchor = new PointF(0f, 1f);
 
-                _slider = factory.GetSlider(string.Format("FeaturesTweenSlider_{0}", tweenId), null, null, 0f, 0f, tween.DurationInTicks, _panel);
+                _slider = factory.GetSlider($"FeaturesTweenSlider_{tweenId}", null, null, 0f, 0f, tween.DurationInTicks, _panel);
                 _slider.Location = new AGSLocation(10f, 10f);
                 _slider.HandleGraphics.Anchor = new PointF(0.5f, 0.5f);
                 _slider.Direction = SliderDirection.LeftToRight;
@@ -325,7 +325,7 @@ namespace DemoGame
                 HoverEffect.Add(_slider.Graphics, Colors.Green, Colors.LightGray);
                 HoverEffect.Add(_slider.HandleGraphics, Colors.DarkGreen, Colors.WhiteSmoke);
 
-                _label = factory.GetLabel(string.Format("FeaturesTweenLabel_{0}", tweenId), name, 100f, 20f,
+                _label = factory.GetLabel($"FeaturesTweenLabel_{tweenId}", name, 100f, 20f,
                                           _slider.X + _slider.Graphics.Width / 2f, _slider.Y + 10f, _panel,
                                           new AGSTextConfig(autoFit: AutoFit.TextShouldFitLabel));
                 _label.Anchor = new PointF(0.5f, 0f);
@@ -337,9 +337,9 @@ namespace DemoGame
                 var hovered = new ButtonAnimation(AGSBorders.SolidColor(Colors.Goldenrod, 2f), hoverConfig, Colors.Yellow);
                 var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.AliceBlue, 4f), idleConfig, Colors.Transparent);
 
-                _rewindButton = factory.GetButton(string.Format("FeaturesTweenRewindButton_{0}", tweenId), idle, hovered, pushed, 235f, 0f, _panel, "Rewind", width: 100f, height: 30f);
-                _playPauseButton = factory.GetButton(string.Format("FeaturesTweenPlayPauseButton_{0}", tweenId), idle, hovered, pushed, 345f, 0f, _panel, "Pause", width: 100f, height: 30f);
-                _stopButton = factory.GetButton(string.Format("FeaturesTweenStopButton_{0}", tweenId), idle, hovered, pushed, 455f, 0f, _panel, "Stop", width: 100f, height: 30f);
+                _rewindButton = factory.GetButton($"FeaturesTweenRewindButton_{tweenId}", idle, hovered, pushed, 235f, 0f, _panel, "Rewind", width: 100f, height: 30f);
+                _playPauseButton = factory.GetButton($"FeaturesTweenPlayPauseButton_{tweenId}", idle, hovered, pushed, 345f, 0f, _panel, "Pause", width: 100f, height: 30f);
+                _stopButton = factory.GetButton($"FeaturesTweenStopButton_{tweenId}", idle, hovered, pushed, 455f, 0f, _panel, "Stop", width: 100f, height: 30f);
                 _stopButton.MouseClicked.Subscribe(_ => Stop());
                 _rewindButton.MouseClicked.Subscribe(_ => _tween.Rewind());
                 _playPauseButton.MouseClicked.Subscribe(onPlayPauseClick);

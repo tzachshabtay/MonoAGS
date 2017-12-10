@@ -66,7 +66,7 @@ namespace AGS.API
 
         public override string ToString ()
 		{
-			return string.Format ("{0:0.##},{1:0.##}", X, Y);
+			return $"{X:0.##},{Y:0.##}";
 		}
 
 		public override bool Equals(Object obj) 

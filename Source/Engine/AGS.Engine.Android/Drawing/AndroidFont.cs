@@ -57,7 +57,7 @@ namespace AGS.Engine.Android
             }
             catch (RuntimeException e)
             {
-                Debug.WriteLine(string.Format("Failed to load font from path: {0}, will resort to default font", path));
+                Debug.WriteLine($"Failed to load font from path: {path}, will resort to default font");
                 Debug.WriteLine(e.ToString());
                 return FromFamilyName("sans-serif", style, sizeInPoints);
             }

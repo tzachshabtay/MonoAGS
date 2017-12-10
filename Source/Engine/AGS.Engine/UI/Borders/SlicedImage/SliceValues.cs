@@ -48,8 +48,7 @@ namespace AGS.Engine
 
 		public override string ToString()
 		{
-			return string.Format("[SliceValues: Left={0}, Right={1}, Top={2}, Bottom={3}]", 
-				Left.Value, Right.Value, Top.Value, Bottom.Value);
+			return $"[SliceValues: Left={Left.Value}, Right={Right.Value}, Top={Top.Value}, Bottom={Bottom.Value}]";
 		}
 	}
 }

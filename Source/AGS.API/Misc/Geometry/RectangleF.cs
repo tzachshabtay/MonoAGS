@@ -60,13 +60,13 @@ namespace AGS.API
 
         public override string ToString()
         {
-            return string.Format("[RectangleF: X={0:0.##}, Y={1:0.##}, Width={2:0.##}, Height={3:0.##}]", X, Y, Width, Height);
+            return $"[RectangleF: X={X:0.##}, Y={Y:0.##}, Width={Width:0.##}, Height={Height:0.##}]";
         }
 
         [CustomStringValue(CustomStringApplyWhen.CanWrite)]
         public string ToInspectorString()
         {
-            return string.Format("{0:0.##},{1:0.##},{2:0.##},{3:0.##}", X, Y, Width, Height);
+            return $"{X:0.##},{Y:0.##},{Width:0.##},{Height:0.##}";
         }
 
         public override bool Equals(Object obj)

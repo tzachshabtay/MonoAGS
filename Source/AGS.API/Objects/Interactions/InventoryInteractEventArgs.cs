@@ -23,8 +23,7 @@
 
 		public override string ToString ()
 		{
-			return string.Format ("{0} interacted with {1}", base.ToString(), 
-				Item == null ? "null" : Item.ToString());
+			return $"{base.ToString()} interacted with {(Item == null ? "null" : Item.ToString())}";
 		}
 	}
 }

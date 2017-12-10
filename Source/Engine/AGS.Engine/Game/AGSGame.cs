@@ -241,7 +241,7 @@ namespace AGS.Engine
 				if (getDisplayName != null)
 				{
 					object displayName = getDisplayName.Invoke(null, null);
-					Debug.WriteLine(string.Format("Runtime: Mono- {0}", displayName)); 
+					Debug.WriteLine($"Runtime: Mono- {displayName}"); 
 				}
 			}
 		}

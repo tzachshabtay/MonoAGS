@@ -48,13 +48,13 @@
 
         public override string ToString()
         {
-            return string.Format("[Rectangle: X={0}, Y={1}, Width={2}, Height={3}]", X, Y, Width, Height);
+            return $"[Rectangle: X={X}, Y={Y}, Width={Width}, Height={Height}]";
         }
 
         [CustomStringValue(CustomStringApplyWhen.CanWrite)]
         public string ToInspectorString()
         {
-            return string.Format("{0},{1},{2},{3}", X, Y, Width, Height);
+            return $"{X},{Y},{Width},{Height}";
         }
 	}
 }

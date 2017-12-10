@@ -61,7 +61,7 @@ namespace AGS.Engine
 			var box = panel.AddComponent<IBoundingBoxWithChildrenComponent>();
 			IScrollingComponent scroll = panel.AddComponent<IScrollingComponent>();
 
-            var horizSlider = GetSlider(string.Format("{0}_HorizontalSlider", panel.ID), null, null, 0f, 0f, 0f, panel);
+            var horizSlider = GetSlider($"{panel.ID}_HorizontalSlider", null, null, 0f, 0f, 0f, panel);
 			horizSlider.HandleGraphics.Anchor = new PointF(0f, 0.5f);
             horizSlider.Direction = SliderDirection.LeftToRight;
 			horizSlider.Graphics.Anchor = new PointF(0f, 0.5f);
@@ -70,7 +70,7 @@ namespace AGS.Engine
             HoverEffect.Add(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
 			HoverEffect.Add(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
-            var verSlider = GetSlider(string.Format("{0}_VerticalSlider", panel.ID), null, null, 0f, 0f, 0f, panel);
+            var verSlider = GetSlider($"{panel.ID}_VerticalSlider", null, null, 0f, 0f, 0f, panel);
 			verSlider.HandleGraphics.Anchor = new PointF(0.5f, 0f);
             verSlider.Direction = SliderDirection.TopToBottom;
 			verSlider.Graphics.Anchor = new PointF(0.5f, 0f);
@@ -398,18 +398,18 @@ namespace AGS.Engine
 		private ISlider getSlider(string id, IImage image, IImage handleImage, float value, float min, float max,
             IObject parent = null, ITextConfig config = null, bool addToUi = true)
         {
-            IObject graphics = _object.GetObject(string.Format("{0}(graphics)", id));
+            IObject graphics = _object.GetObject($"{id}(graphics)");
             graphics.Image = image ?? new EmptyImage(10f, 100f);
             graphics.IgnoreViewport = true;
             ILabel label = null;
             if (config != null)
             {
-                label = GetLabel(string.Format("{0}(label)", id), "", graphics.Width, 30f, 0f, -30f, parent, config, false);
+                label = GetLabel($"{id}(label)", "", graphics.Width, 30f, 0f, -30f, parent, config, false);
                 if (parent != null) label.RenderLayer = parent.RenderLayer;
                 label.Anchor = new PointF(0.5f, 0f);
             }
 
-            IObject handle = _object.GetObject(string.Format("{0}(handle)", id));
+            IObject handle = _object.GetObject($"{id}(handle)");
             handle.Image = handleImage ?? new EmptyImage(20f, 20f);
             handle.IgnoreViewport = true;
 

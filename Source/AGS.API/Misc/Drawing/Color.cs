@@ -52,7 +52,7 @@ namespace AGS.API
 
 		public override string ToString()
 		{
-			return string.Format("[Color: Value={0}, R={1}, G={2}, B={3}, A={4}]", Value, R, G, B, A);
+			return $"[Color: Value={Value}, R={R}, G={G}, B={B}, A={A}]";
 		}
 
         /// <summary>
