@@ -13,7 +13,7 @@ namespace AGS.Engine
             _properties = new ConcurrentDictionary<string, TValue>();
         }
 
-        public TValue GetValue(string name, TValue defaultValue = default(TValue))
+        public TValue GetValue(string name, TValue defaultValue = default)
         {
             TValue val;
             //Tempting to use GetOrAdd here, but unfortunately it results in memory allocation which we want to avoid as this can be part of a critical path

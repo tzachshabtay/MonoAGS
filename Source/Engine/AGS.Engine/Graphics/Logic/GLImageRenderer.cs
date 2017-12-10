@@ -14,7 +14,7 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private readonly IBitmapLoader _bitmapLoader;
         private readonly GLMatrices _matrices = new GLMatrices();
-        private readonly AGSBoundingBox _emptySquare = default(AGSBoundingBox);
+        private readonly AGSBoundingBox _emptySquare = default;
         private readonly Func<string, ITexture> _createTextureFunc;
         private readonly IHasImage[] _colorAdjusters;
 
@@ -56,7 +56,7 @@ namespace AGS.Engine
 			}
             obj.GetModelMatrices();
             var boundingBoxes = obj.GetBoundingBoxes(viewport);
-            if (boundingBoxes == null || boundingBoxes.RenderBox.Equals(default(AGSBoundingBox))) return;
+            if (boundingBoxes == null || boundingBoxes.RenderBox.Equals(default)) return;
             var renderBox = boundingBoxes.RenderBox;
             var hitTestBox = boundingBoxes.HitTestBox;
 

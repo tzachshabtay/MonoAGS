@@ -66,7 +66,7 @@ namespace AGS.Engine
         public IComponent AddComponent(Type componentType)
         {
             var components = _components;
-            if (components == null) return default(IComponent);
+            if (components == null) return default;
             return components.GetOrAdd(componentType, _ => new Lazy<IComponent>(() =>
             {
                 IComponent component = (IComponent)_resolver.Container.Resolve(componentType);
@@ -146,7 +146,7 @@ namespace AGS.Engine
         public IComponent GetComponent(Type componentType)
         {
 			var components = _components;
-            if (components == null) return default(IComponent);
+            if (components == null) return default;
             Lazy<IComponent> component;
             if (!components.TryGetValue(componentType, out component)) return null;
             return component.Value;

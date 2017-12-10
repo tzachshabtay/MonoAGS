@@ -146,7 +146,7 @@ namespace AGS.Engine
 		{
 			if (InnerList.Count > 0)
 				return InnerList[0];
-			return default(T);
+			return default;
 		}
 
 		public void Clear()

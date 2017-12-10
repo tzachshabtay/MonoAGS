@@ -42,7 +42,7 @@ namespace AGS.Engine
 		public TItem ToItem(AGSSerializationContext context)
 		{
 			if (_item != null) return _item;
-			if (Item == null) _item = default(TItem);
+			if (Item == null) _item = default;
 			else _item = Item.ToItem(context);
 			return _item;
 		}

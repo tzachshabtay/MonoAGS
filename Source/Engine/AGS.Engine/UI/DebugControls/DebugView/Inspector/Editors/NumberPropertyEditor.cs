@@ -257,7 +257,7 @@ namespace AGS.Engine
                                      (prop, value) =>
             {
                 object objVal = prop.Prop.GetValue(prop.Object);
-                T val = objVal == null ? default(T) : (T)objVal;
+                T val = objVal == null ? default : (T)objVal;
                 prop.Prop.SetValue(prop.Object, creator.getValue(value, val));
             }, configureNumberEditor)
         ).ToList()){} 

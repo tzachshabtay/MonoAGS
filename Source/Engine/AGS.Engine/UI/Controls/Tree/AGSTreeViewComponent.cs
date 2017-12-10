@@ -213,7 +213,7 @@ namespace AGS.Engine
 
         private TChild childOrNull<TChild>(IList<TChild> list, int i)
         {
-            if (list.Count <= i) return default(TChild);
+            if (list.Count <= i) return default;
             return list[i];
         }
 

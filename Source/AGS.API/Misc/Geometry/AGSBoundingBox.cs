@@ -140,12 +140,12 @@ namespace AGS.API
             float height = spriteHeight;
             FourCorners<Vector2> cropArea = crop.GetCropArea(new BeforeCropEventArgs(this, boundingBoxType), spriteWidth, spriteHeight, out width, out height);
             if (!crop.CropEnabled) return new AGSCropInfo(this, null);
-            if (width <= 0f || height <= 0f) return default(AGSCropInfo);
+            if (width <= 0f || height <= 0f) return default;
 			width *= scaleX;
 			height *= scaleY;
             if (float.IsNaN(width) || float.IsNaN(height))
             {
-                return default(AGSCropInfo);
+                return default;
             }
 
 			float boxWidth = Width;

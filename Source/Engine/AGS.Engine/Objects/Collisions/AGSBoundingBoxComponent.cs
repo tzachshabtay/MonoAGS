@@ -203,9 +203,9 @@ namespace AGS.Engine
                 else boundingBoxes.TextureBox = null;
             }
 
-            if (cropInfo.Equals(default(AGSCropInfo)))
+            if (cropInfo.Equals(default))
             {
-                boundingBoxes.HitTestBox = default(AGSBoundingBox);
+                boundingBoxes.HitTestBox = default;
             }
             else
             {

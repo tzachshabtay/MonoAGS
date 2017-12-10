@@ -13,7 +13,7 @@ namespace AGS.Engine
         private ArrowDirection _direction;
         private IGLColor _color;
 
-        public ArrowIcon(IGLUtils glUtils, IRuntimeSettings settings, ArrowDirection direction = default(ArrowDirection),
+        public ArrowIcon(IGLUtils glUtils, IRuntimeSettings settings, ArrowDirection direction = default,
                         Color? color = null)
         {
             _glUtils = glUtils;

@@ -15,7 +15,7 @@ namespace AGS.API
         /// <returns>The value.</returns>
         /// <param name="name">Name.</param>
         /// <param name="defaultValue">Default value.</param>
-        TValue GetValue(string name, TValue defaultValue = default(TValue));
+        TValue GetValue(string name, TValue defaultValue = default);
 
         /// <summary>
         /// Stores a new value for the custom property with the specified name.

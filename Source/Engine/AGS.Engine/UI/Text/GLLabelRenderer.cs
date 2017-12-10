@@ -153,7 +153,7 @@ namespace AGS.Engine
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
                 var cropInfo = _usedTextBoundingBoxes.RenderBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), AGSModelMatrixComponent.NoScaling);
-                if (cropInfo.Equals(default(AGSCropInfo))) return;
+                if (cropInfo.Equals(default)) return;
                 _usedTextBoundingBoxes.RenderBox = cropInfo.BoundingBox;
 
                 _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropInfo.TextureBox, color);
@@ -349,20 +349,20 @@ namespace AGS.Engine
 
             public AGSBoundingBox BuildIntermediateBox(float width, float height, Matrix4 modelMatrix)
             {
-                return default(AGSBoundingBox);
+                return default;
             }
 
 			public AGSBoundingBox BuildHitTestBox(AGSBoundingBox intermediateBox)
             {
                 if (BoundingBoxes != null) return BoundingBoxes.HitTestBox;
-                return default(AGSBoundingBox);
+                return default;
             }
 
 			public AGSBoundingBox BuildRenderBox(AGSBoundingBox intermediateBox, Matrix4 viewportMatrix, out PointF scale)
             {
                 scale = AGSModelMatrixComponent.NoScaling;
                 if (BoundingBoxes != null) return BoundingBoxes.RenderBox;
-				return default(AGSBoundingBox);
+				return default;
             }
 
 			#endregion

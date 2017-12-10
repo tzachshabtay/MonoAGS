@@ -182,7 +182,7 @@ namespace AGS.Engine
             {
                 _pool = pool;
                 _list = list;
-                Current = default(TItem);
+                Current = default;
             }
 
             public TItem Current { get; private set; }
@@ -195,7 +195,7 @@ namespace AGS.Engine
                 _index++;
                 if (_index >= count)
                 {
-                    Current = default(TItem);
+                    Current = default;
                     _pool.Release(this);
                     return false;
                 }
@@ -206,7 +206,7 @@ namespace AGS.Engine
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    Current = default(TItem);
+                    Current = default;
                     _pool.Release(this);
                     return false;
                 }
@@ -215,7 +215,7 @@ namespace AGS.Engine
             public void Reset()
             {
                 _index = -1;
-                Current = default(TItem);
+                Current = default;
             }
 
             public void Dispose(){}

@@ -203,7 +203,7 @@ namespace AGS.Engine
                     if (maxY < childBox.MaxY) maxY = childBox.MaxY;
                 }
             }
-            if (MathUtils.FloatEquals(minX, float.MaxValue)) return default(AGSBoundingBox);
+            if (MathUtils.FloatEquals(minX, float.MaxValue)) return default;
             return new AGSBoundingBox(minX, maxX, minY, maxY);
         }
     }

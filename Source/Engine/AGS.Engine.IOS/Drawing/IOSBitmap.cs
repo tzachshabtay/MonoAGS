@@ -84,7 +84,7 @@ namespace AGS.Engine.IOS
             setImage(UIGraphics.GetImageFromCurrentImageContext());
         }
 
-        public IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, Color? debugDrawColor = default(Color?), string saveMaskToFile = null, string id = null)
+        public IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, Color? debugDrawColor = default, string saveMaskToFile = null, string id = null)
         {
             FastBitmap debugMaskFast = null;
             if (saveMaskToFile != null || debugDrawColor != null) 
