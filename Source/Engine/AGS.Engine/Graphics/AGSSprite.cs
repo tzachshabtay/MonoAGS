@@ -78,56 +78,53 @@ namespace AGS.Engine
             _scale.FlipVertically();
         }
 
-        public ISprite Clone()
-		{
-            return new AGSSprite(this);
-		}
+        public ISprite Clone() => new AGSSprite(this);
 
         [DoNotNotify]
-        public ILocation Location { get { return _translate.Location; } set { _translate.Location = value; } }
+        public ILocation Location { get => _translate.Location; set => _translate.Location = value; }
 
         [DoNotNotify]
-        public float X { get { return _translate.X; } set { _translate.X = value; } }
+        public float X { get => _translate.X; set => _translate.X = value; }
 
         [DoNotNotify]
-        public float Y { get { return _translate.Y; } set { _translate.Y = value; } }
+        public float Y { get => _translate.Y; set => _translate.Y = value; }
 
         [DoNotNotify]
-        public float Z { get { return _translate.Z; } set { _translate.Z = value; } }
+        public float Z { get => _translate.Z; set => _translate.Z = value; }
 
         [DoNotNotify]
-        public float Height { get { return _scale.Height; } }
+        public float Height => _scale.Height;
 
         [DoNotNotify]
-        public float Width { get { return _scale.Width; } }
+        public float Width => _scale.Width;
 
         [DoNotNotify]
-        public float ScaleX { get { return _scale.ScaleX; } set { _scale.ScaleX = value; } }
+        public float ScaleX { get => _scale.ScaleX; set => _scale.ScaleX = value; }
 
         [DoNotNotify]
-        public float ScaleY { get { return _scale.ScaleY; } set { _scale.ScaleY = value; }}
+        public float ScaleY { get => _scale.ScaleY; set => _scale.ScaleY = value; }
 
         [DoNotNotify]
-        public PointF Scale { get { return _scale.Scale; } set { _scale.Scale = value; } }
+        public PointF Scale { get => _scale.Scale; set => _scale.Scale = value; }
 
         [DoNotNotify]
-        public SizeF BaseSize { get { return _scale.BaseSize; } set { _scale.BaseSize = value; }}
+        public SizeF BaseSize { get => _scale.BaseSize; set => _scale.BaseSize = value; }
 
-        public float Angle { get { return _rotate.Angle; } set { _rotate.Angle = value; } }
+        public float Angle { get => _rotate.Angle; set => _rotate.Angle = value; }
 
-        public PointF Anchor { get { return _hasImage.Anchor; } set { _hasImage.Anchor = value; } }
-
-        [DoNotNotify]
-        public IImageRenderer CustomRenderer { get { return _hasImage.CustomRenderer; } set { _hasImage.CustomRenderer = value; } }
+        public PointF Anchor { get => _hasImage.Anchor; set => _hasImage.Anchor = value; }
 
         [DoNotNotify]
-        public IImage Image { get { return _hasImage.Image; } set { _hasImage.Image = value; } }
+        public IImageRenderer CustomRenderer { get => _hasImage.CustomRenderer; set => _hasImage.CustomRenderer = value; }
 
         [DoNotNotify]
-        public byte Opacity { get { return _hasImage.Opacity; } set { _hasImage.Opacity = value; } }
+        public IImage Image { get => _hasImage.Image; set => _hasImage.Image = value; }
 
         [DoNotNotify]
-        public Color Tint { get { return _hasImage.Tint; } set { _hasImage.Tint = value; } }
+        public byte Opacity { get => _hasImage.Opacity; set => _hasImage.Opacity = value; }
+
+        [DoNotNotify]
+        public Color Tint { get => _hasImage.Tint; set => _hasImage.Tint = value; }
 
         public IArea PixelPerfectHitTestArea { get; private set; }
         public void PixelPerfect(bool pixelPerfect)
@@ -161,10 +158,7 @@ namespace AGS.Engine
         }
         #endregion
 
-        public override string ToString()
-		{
-            return _hasImage.ToString();
-		}
+        public override string ToString() => _hasImage.ToString();
 
         private void onPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

@@ -52,15 +52,15 @@ namespace AGS.Engine
         }
 
         public Func<string, IButton> ItemButtonFactory { get; set; }
-        
-        public IEnumerable<IButton> ItemButtons { get { return _itemButtons; } }
-        
-        public IAGSBindingList<IStringItem> Items { get { return _items; } }
+
+        public IEnumerable<IButton> ItemButtons => _itemButtons;
+
+        public IAGSBindingList<IStringItem> Items => _items;
 
         [DoNotCheckEquality] //we skip equality checks as we want a combo box drop down to close even when we select the already selected item
         public int SelectedIndex
         {
-            get { return _selectedIndex; }
+            get => _selectedIndex;
             set
             {
                 _selectedIndex = value;
@@ -95,7 +95,7 @@ namespace AGS.Engine
 
         public float MinHeight 
         {
-            get { return _minHeight; }
+            get => _minHeight;
             set 
             {
                 if (MathUtils.FloatEquals(_minHeight, value)) return;
@@ -106,7 +106,7 @@ namespace AGS.Engine
 
         public float MaxHeight
         {
-            get { return _maxHeight; }
+            get => _maxHeight;
             set
             {
                 if (MathUtils.FloatEquals(_maxHeight, value)) return;
@@ -115,7 +115,7 @@ namespace AGS.Engine
             }
         }
 
-        public IBlockingEvent<ListboxItemArgs> OnSelectedItemChanged { get; private set; }
+        public IBlockingEvent<ListboxItemArgs> OnSelectedItemChanged { get; }
 
         private void onListChanged(AGSListChangedEventArgs<IStringItem> args)
         {

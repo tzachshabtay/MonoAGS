@@ -10,9 +10,9 @@ namespace AGS.Engine.Desktop
 	{
 		public bool DebugResolves
 		{
-			get { return readBool("DebugResolves", false); }
-			set { addUpdateAppSettings("DebugResolves", value.ToString()); }
-		}
+            get => readBool("DebugResolves", false);
+            set => addUpdateAppSettings("DebugResolves", value.ToString());
+        }
 
 		private void addUpdateAppSettings(string key, string value)
 		{

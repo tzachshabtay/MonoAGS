@@ -39,9 +39,9 @@ namespace AGS.Engine
             }
         }
 
-        public bool IsValid { get; private set; }
-        public int GenBuffer() { return _context == null ? 0 : AL.GenBuffer(); }
-        public int GenSource() { return _context == null ? 0 : AL.GenSource(); }
+        public bool IsValid { get; }
+        public int GenBuffer() => _context == null ? 0 : AL.GenBuffer();
+        public int GenSource() => _context == null ? 0 : AL.GenSource();
         public void BufferData(int bufferId, SoundFormat format, byte[] buffer, int size, int freq)
         {
             if (_context == null) return;

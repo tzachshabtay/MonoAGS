@@ -53,8 +53,8 @@ namespace AGS.Engine
 
         [Property(Browsable = false)]
         public bool UnderlyingValue 
-        { 
-            get { return _underlyingValue; }
+        {
+            get => _underlyingValue;
             private set
             {
                 if (_underlyingValue == value) return;
@@ -120,21 +120,21 @@ namespace AGS.Engine
         public VisibleProperty() : base(o => o.Visible, nameof(Visible), nameof(UnderlyingVisible)){}
 
         [DoNotNotify]
-		public bool Visible { get { return Value; } set { Value = value; } }
+		public bool Visible { get => Value; set => Value = value; }
 
         [DoNotNotify]
-        public bool UnderlyingVisible { get { return UnderlyingValue; } }
-	}
+        public bool UnderlyingVisible => UnderlyingValue;
+    }
 
 	public class EnabledProperty : AGSObjectBoolParentProperty<IEnabledComponent>, IEnabledComponent
 	{
         public EnabledProperty() : base(o => o.Enabled, nameof(Enabled), nameof(UnderlyingEnabled)){}
 
         [DoNotNotify]
-        public bool Enabled { get { return Value; } set { Value = value; } }
+        public bool Enabled { get => Value; set => Value = value; }
 
         [DoNotNotify]
-		public bool UnderlyingEnabled { get { return UnderlyingValue; } }
+        public bool UnderlyingEnabled => UnderlyingValue;
 
         public bool ClickThrough { get; set; }
 	}

@@ -34,28 +34,28 @@ namespace AGS.Engine
         }
 
         [Property(Category = "Size")]
-        public float Height { get { return _scale.Height; } }
+        public float Height => _scale.Height;
 
         [Property(Category = "Size")]
-        public float Width { get { return _scale.Width; } }
+        public float Width => _scale.Width;
 
         [Property(Category = "Transform")]
         public PointF Scale
         {
-            get { return _scale.Scale; }
-            set { _scale.Scale = value; }
+            get => _scale.Scale;
+            set => _scale.Scale = value;
         }
 
         [Property(Browsable = false)]
-        public float ScaleX { get { return _scale.ScaleX; } set { _scale.ScaleX = value; } }
+        public float ScaleX { get => _scale.ScaleX; set => _scale.ScaleX = value; }
 
         [Property(Browsable = false)]
-        public float ScaleY { get { return _scale.ScaleY; } set { _scale.ScaleY = value; } }
+        public float ScaleY { get => _scale.ScaleY; set => _scale.ScaleY = value; }
 
         [Property(Category = "Size")]
         public SizeF BaseSize 
-        { 
-            get { return _scale.BaseSize; } 
+        {
+            get => _scale.BaseSize;
             set
             {
                 var sprite = getSprite();

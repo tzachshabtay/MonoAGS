@@ -20,10 +20,10 @@ namespace AGS.Engine
         private readonly IFocusedUI _focusedUi;
         private int _caretFlashCounter;
 
-        private int _endOfLine { get { return _textComponent.Text.Length; } }
-        private bool _capslock {  get { return _keyboardState.CapslockOn; } }
+        private int _endOfLine => _textComponent.Text.Length;
+        private bool _capslock => _keyboardState.CapslockOn;
         private bool _leftShiftOn, _rightShiftOn;
-        private bool _shiftOn { get { return _leftShiftOn || _rightShiftOn || (_capslock && _keyboardState.SoftKeyboardVisible); } }
+        private bool _shiftOn => _leftShiftOn || _rightShiftOn || (_capslock && _keyboardState.SoftKeyboardVisible);
 
         private ILabel _withCaret;
 
@@ -87,7 +87,7 @@ namespace AGS.Engine
 
         public bool IsFocused
         {
-            get { return _isFocused; }
+            get => _isFocused;
             set
             {
                 _isFocused = value;
@@ -111,7 +111,7 @@ namespace AGS.Engine
         public int CaretPosition { get; set; }
         public uint CaretFlashDelay { get; set; }
 
-        public IBlockingEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; private set; }
+        public IBlockingEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; }
 
         public override void Dispose()
         {
@@ -316,9 +316,6 @@ namespace AGS.Engine
             return new TextboxState(text, CaretPosition);
         }
 
-        private TextboxState getCurrentState()
-        {
-            return new TextboxState(_textComponent.Text, CaretPosition);
-        }
+        private TextboxState getCurrentState() => new TextboxState(_textComponent.Text, CaretPosition);
     }
 }

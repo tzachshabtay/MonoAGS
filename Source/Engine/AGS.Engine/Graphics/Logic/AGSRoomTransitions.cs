@@ -18,9 +18,9 @@ namespace AGS.Engine
 		#region IRoomTransitions implementation
 
 		public IRoomTransition Transition 
-		{ 
-			get { return _oneTimeTransition ?? _transition; }
-			set { _transition = value; }
+		{
+            get => _oneTimeTransition ?? _transition;
+            set { _transition = value; }
 		}
 
 		public void SetOneTimeNextTransition(IRoomTransition transition)
@@ -30,8 +30,8 @@ namespace AGS.Engine
 
 		public RoomTransitionState State 
 		{
-			get { return _state; }
-			set 
+            get => _state;
+            set 
 			{
 				if (value == _state) return;
 				_state = value;
@@ -39,16 +39,13 @@ namespace AGS.Engine
 			}
 		}
 
-        public IBlockingEvent OnStateChanged { get; private set; }
+        public IBlockingEvent OnStateChanged { get; }
 
-		#endregion
+        #endregion
 
-		public static IRoomTransition Instant()
-		{
-			return new RoomTransitionInstant ();
-		}
+        public static IRoomTransition Instant() => new RoomTransitionInstant();
 
-		public static IRoomTransition Fade(float timeInSeconds = 1f, Func<float, float> easeFadeOut = null,
+        public static IRoomTransition Fade(float timeInSeconds = 1f, Func<float, float> easeFadeOut = null,
 			Func<float, float> easeFadeIn = null)
 		{
 			return new RoomTransitionFade (AGSGame.GLUtils, timeInSeconds, easeFadeOut, easeFadeIn);

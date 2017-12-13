@@ -162,13 +162,13 @@ namespace AGS.Engine.Android
 
         public new API.WindowState WindowState
         {
-            get { return (API.WindowState)base.WindowState; }
-            set { base.WindowState = (OpenTK.WindowState)value; }
+            get => (API.WindowState)base.WindowState;
+            set => base.WindowState = (OpenTK.WindowState)value;
         }
         public new API.WindowBorder WindowBorder
         {
-            get { return (API.WindowBorder)base.WindowBorder; }
-            set { base.WindowBorder = (OpenTK.WindowBorder)value; }
+            get => (API.WindowBorder)base.WindowBorder;
+            set => base.WindowBorder = (OpenTK.WindowBorder)value;
         }
 
         private Keycode mapKey(Keycode key)

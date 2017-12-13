@@ -20,8 +20,8 @@ namespace AGS.Engine
         }
 
         public ISlider VerticalScrollBar 
-        { 
-            get { return _verticalScrollBar; }
+        {
+            get => _verticalScrollBar;
             set 
             {
                 var scrollBar = _verticalScrollBar;
@@ -39,8 +39,8 @@ namespace AGS.Engine
 
         public ISlider HorizontalScrollBar
 		{
-            get { return _horizontalScrollBar; }
-			set
+            get => _horizontalScrollBar;
+            set
 			{
 				var scrollBar = _horizontalScrollBar;
 				if (scrollBar != null)

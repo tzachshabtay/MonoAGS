@@ -21,9 +21,9 @@ namespace AGS.Engine
 
         [Property(Category = "Transform")]
         [NumberEditorSlider(sliderMin: 0, sliderMax: 1f)]
-        public PointF Anchor {  get { return _image.Anchor; } set { _image.Anchor = value; } }
+        public PointF Anchor { get => _image.Anchor; set => _image.Anchor = value; }
 
-        public IImageRenderer CustomRenderer { get { return _image.CustomRenderer; } set { _image.CustomRenderer = value; } }
+        public IImageRenderer CustomRenderer { get => _image.CustomRenderer; set => _image.CustomRenderer = value; }
 
         public IImage Image
         {
@@ -47,9 +47,9 @@ namespace AGS.Engine
             }
         }
 
-        public byte Opacity { get { return _image.Opacity; } set { _image.Opacity = value; } }
+        public byte Opacity { get => _image.Opacity; set => _image.Opacity = value; }
 
-        public Color Tint { get { return _image.Tint; } set { _image.Tint = value; } }
+        public Color Tint { get => _image.Tint; set => _image.Tint = value; }
 
         public override void Init(IEntity entity)
         {

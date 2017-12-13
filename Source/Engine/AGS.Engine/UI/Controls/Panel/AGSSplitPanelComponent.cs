@@ -23,8 +23,8 @@ namespace AGS.Engine
         }
 
         public IPanel TopPanel 
-        { 
-            get { return _topPanel; } 
+        {
+            get => _topPanel;
             set 
             { 
                 if (_topPanel == value) return; 
@@ -37,8 +37,8 @@ namespace AGS.Engine
             } 
         }
         public IPanel BottomPanel 
-        { 
-            get { return _bottomPanel; } 
+        {
+            get => _bottomPanel;
             set 
             { 
                 if (_bottomPanel == value) return; 
@@ -51,7 +51,7 @@ namespace AGS.Engine
                 createNewSplitLine(); 
             } 
         }
-        public bool IsHorizontal { get { return _isHorizontal; } set { if (_isHorizontal == value) return; _isHorizontal = value; createNewSplitLine(); } }
+        public bool IsHorizontal { get => _isHorizontal; set { _isHorizontal = value; createNewSplitLine(); } }
         public IObject DragLine { get; private set; }
 
         private void disposeExistingSplitLine()

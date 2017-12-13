@@ -56,18 +56,18 @@ namespace AGS.Engine
 			Task.Run(async () => await sound.Completed).Wait();
 		}
 			
-		public string ID { get; private set; }
+		public string ID { get; }
 
 		public float Volume { get; set; }
 		public float Pitch { get; set; }
 		public float Panning { get; set; }
 
-        public bool IsPlaying { get { return _playingSounds.Count > 0; } }
-        public ReadOnlyCollection<ISound> CurrentlyPlayingSounds { get { return _playingSounds.ToList().AsReadOnly(); } }
+        public bool IsPlaying => _playingSounds.Count > 0;
+        public ReadOnlyCollection<ISound> CurrentlyPlayingSounds => _playingSounds.ToList().AsReadOnly();
 
-		#endregion
+        #endregion
 
-		private ISound playSound(float volume, float pitch, float panning, bool looping = false)
+        private ISound playSound(float volume, float pitch, float panning, bool looping = false)
 		{
             //Debug.WriteLine("Playing Sound: " + ID);
 			int source = getSource();
@@ -82,12 +82,9 @@ namespace AGS.Engine
 			return sound;
 		}
 
-		private int getSource()
-		{
-			return _system.AcquireSource();
-		}
+        private int getSource() => _system.AcquireSource();
 
-		private int generateBuffer()
+        private int generateBuffer()
 		{
 			_errors.HasErrors();
 

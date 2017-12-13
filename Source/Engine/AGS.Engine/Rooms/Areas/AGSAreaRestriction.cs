@@ -11,9 +11,9 @@ namespace AGS.Engine
             _list = list;
         }
 
-        public IConcurrentHashSet<string> RestrictionList { get { return _list.RestrictionList; } }
+        public IConcurrentHashSet<string> RestrictionList => _list.RestrictionList;
 
-        public RestrictionListType RestrictionType { get { return _list.RestrictionType; } set { _list.RestrictionType = value; } }
+        public RestrictionListType RestrictionType { get => _list.RestrictionType; set => _list.RestrictionType = value; }
 
         public bool IsRestricted(string id)
         {

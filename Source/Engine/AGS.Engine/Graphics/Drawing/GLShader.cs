@@ -27,9 +27,9 @@ namespace AGS.Engine
             _queryVariableLocationFunc = queryVariableLocation; //Caching delegate to avoid memory allocations on critical path
 		}
 
-        public int ProgramId { get { return _program; } }
+        public int ProgramId => _program;
 
-		public IShader Compile()
+        public IShader Compile()
 		{
 			if (_hadCompilationErrors) return null;
 			if (_isCompiled) return this;
@@ -78,12 +78,9 @@ namespace AGS.Engine
 			return true;
 		}
 
-		public bool SetVariable(string name, Vector2 v)
-		{
-			return SetVariable(name, v.X, v.Y);
-		}
+        public bool SetVariable(string name, Vector2 v) => SetVariable(name, v.X, v.Y);
 
-		public bool SetVariable(string name, float x, float y)
+        public bool SetVariable(string name, float x, float y)
 		{
 			int location = getVariableLocation(name);
 			if (location == -1) return false;

@@ -16,18 +16,18 @@ namespace AGS.Engine
             Editor = editor;
 		}
 
-		public ITextConfig HoverTextConfig { get { return _item.HoverTextConfig; } set { _item.HoverTextConfig = value; } }
+		public ITextConfig HoverTextConfig { get => _item.HoverTextConfig; set => _item.HoverTextConfig = value; }
 
-		public ITextConfig IdleTextConfig { get { return _item.IdleTextConfig; } set { _item.IdleTextConfig = value; } }
+		public ITextConfig IdleTextConfig { get => _item.IdleTextConfig; set => _item.IdleTextConfig = value; }
 
-		public string Text { get { return _item.Text; } set { _item.Text = value; } }
+		public string Text { get => _item.Text; set => _item.Text = value; }
 
-		public ICustomProperties Properties { get { return _item.Properties; } }
+        public ICustomProperties Properties => _item.Properties;
 
-		public ITreeNode<ITreeStringNode> TreeNode { get; private set; }
+        public ITreeNode<ITreeStringNode> TreeNode { get; }
 
-        public InspectorProperty Property { get; private set; }
+        public InspectorProperty Property { get; }
 
-        public IInspectorPropertyEditor Editor { get; private set; }
+        public IInspectorPropertyEditor Editor { get; }
     }
 }

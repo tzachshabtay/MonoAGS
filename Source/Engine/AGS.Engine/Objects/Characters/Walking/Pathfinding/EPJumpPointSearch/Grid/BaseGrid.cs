@@ -196,10 +196,7 @@ namespace AGS.Engine
         }
 
         protected GridRect m_gridRect;
-        public GridRect gridRect
-        {
-            get { return m_gridRect; }
-        }
+        public GridRect gridRect => m_gridRect;
 
         public abstract int width { get; protected set; }
 

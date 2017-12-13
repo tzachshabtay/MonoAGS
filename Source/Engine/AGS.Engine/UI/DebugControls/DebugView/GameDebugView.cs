@@ -25,7 +25,7 @@ namespace AGS.Engine
             _displayList = new GameDebugDisplayList(game, _layer);
         }
 
-        public bool Visible { get { return _panel.Visible; } }
+        public bool Visible => _panel.Visible;
 
         public void Load()
         {

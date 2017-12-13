@@ -46,12 +46,9 @@ namespace AGS.Engine
 			else child.TreeNode.SetParent(null);
 		}
 
-		public bool HasChild(TItem child)
-		{
-			return _children.Contains(child);
-		}
+        public bool HasChild(TItem child) => _children.Contains(child);
 
-		public TItem Node { get; set; }
+        public TItem Node { get; set; }
 
 		public TItem Parent
 		{
@@ -63,9 +60,9 @@ namespace AGS.Engine
 			}
 		}
 
-        public IAGSBindingList<TItem> Children { get { return _children; } }
+        public IAGSBindingList<TItem> Children => _children;
 
-		public void SetParent(ITreeNode<TItem> parent)
+        public void SetParent(ITreeNode<TItem> parent)
 		{
 			if (_parent == parent) return;
 			ITreeNode<TItem> prevParent = _parent;
@@ -100,15 +97,9 @@ namespace AGS.Engine
             return root;
         }
 
-        public IBlockingEvent OnParentChanged { get; private set; }
-			
-		public int ChildrenCount
-		{
-			get
-			{
-				return _children.Count;
-			}
-		}
+        public IBlockingEvent OnParentChanged { get; }
+
+        public int ChildrenCount => _children.Count;
 
         #endregion
 

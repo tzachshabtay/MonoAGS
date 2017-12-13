@@ -39,7 +39,7 @@ namespace AGS.Engine
 
 		public static IShader Shader { get; set; }
 
-		public static Resolver Resolver { get { return ((AGSGame)Game)._resolver; } }
+        public static Resolver Resolver => ((AGSGame)Game)._resolver;
 
         public static IGLUtils GLUtils { get; private set; }
 

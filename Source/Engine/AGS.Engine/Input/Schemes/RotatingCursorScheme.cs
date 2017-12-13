@@ -39,9 +39,9 @@ namespace AGS.Engine
 		public bool RotatingEnabled { get; set; }
 
 		public string CurrentMode 
-		{ 
-			get { return _cursors[_currentMode].Mode; }
-			set 
+		{
+            get => _cursors[_currentMode].Mode;
+            set 
 			{
 				int index = _cursors.FindIndex(c => c.Mode == value);
 				if (index < 0)

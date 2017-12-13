@@ -15,28 +15,25 @@ namespace AGS.Engine
             afterInitComponents(resolver);
         }
 
-        public string Name { get { return ID; } }
-        public bool AllowMultiple { get { return false; } }
+        public string Name => ID;
+        public bool AllowMultiple => false;
         public void Init(IEntity entity) { }
 
-        public override string ToString()
-        {
-            return $"{ID ?? ""} ({GetType().Name})";
-        }
+        public override string ToString() => $"{ID ?? ""} ({GetType().Name})";
 
         partial void beforeInitComponents(Resolver resolver);
         partial void afterInitComponents(Resolver resolver);
 
         public bool Enabled
         {
-            get { return _areaComponent.Enabled; }
-            set { _areaComponent.Enabled = value; }
+            get => _areaComponent.Enabled;
+            set => _areaComponent.Enabled = value;
         }
 
         public IMask Mask
         {
-            get { return _areaComponent.Mask; }
-            set { _areaComponent.Mask = value; }
+            get => _areaComponent.Mask;
+            set => _areaComponent.Mask = value;
         }
 
         public PointF? FindClosestPoint(PointF point, out float distance)
@@ -44,10 +41,7 @@ namespace AGS.Engine
             return _areaComponent.FindClosestPoint(point, out distance);
         }
 
-        public bool IsInArea(PointF point)
-        {
-            return _areaComponent.IsInArea(point);
-        }
+        public bool IsInArea(PointF point) => _areaComponent.IsInArea(point);
 
         public bool IsInArea(PointF point, AGSBoundingBox projectionBox, float scaleX, float scaleY)
         {

@@ -31,7 +31,7 @@ namespace AGS.Engine
 
         private TaskCompletionSource<bool> _tcs;
         private string _selectedItem;
-        private IDevice _device { get { return AGSGame.Device; } }
+        private IDevice _device => AGSGame.Device;
 
         private IBorderStyle _fileIcon, _fileIconSelected, _folderIcon, _folderIconSelected;
 

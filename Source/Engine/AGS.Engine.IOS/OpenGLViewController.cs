@@ -13,7 +13,7 @@ namespace AGS.Engine.IOS
         {
         }
 
-        new IOSGameView View { get { return (IOSGameView)base.View; } }
+        new IOSGameView View => (IOSGameView)base.View;
 
         public override void ViewDidLoad()
         {

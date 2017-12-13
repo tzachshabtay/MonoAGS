@@ -19,18 +19,15 @@ namespace AGS.API
         /// Gets the width.
         /// </summary>
         /// <value>The width.</value>
-		public int Width { get { return _width; } }
+		public int Width => _width;
 
         /// <summary>
         /// Gets the height.
         /// </summary>
         /// <value>The height.</value>
-		public int Height { get { return _height; } }
+        public int Height => _height;
 
-        public override string ToString()
-        {
-            return $"{Width},{Height}";
-        }
+        public override string ToString() => $"{Width},{Height}";
 
         public override bool Equals(Object obj)
         {
@@ -40,15 +37,9 @@ namespace AGS.API
             return Equals(other.Value);
         }
 
-        public bool Equals(Size other)
-        {
-            return (Width == other.Width) && (Height == other.Height);
-        }
+        public bool Equals(Size other) => (Width == other.Width) && (Height == other.Height);
 
-        public override int GetHashCode()
-        {
-            return (Width.GetHashCode() * 397) ^ Height.GetHashCode();
-        }
+        public override int GetHashCode() => (Width.GetHashCode() * 397) ^ Height.GetHashCode();
     }
 }
 

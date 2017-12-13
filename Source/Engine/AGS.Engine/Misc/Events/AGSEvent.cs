@@ -17,11 +17,11 @@ namespace AGS.Engine
             _invocationList = new AGSConcurrentHashSet<Callback>(fireListChangedEvent: false);
 		}
 
-		#region IEvent implementation
+        #region IEvent implementation
 
-		public int SubscribersCount { get { return _invocationList.Count; } }
+        public int SubscribersCount => _invocationList.Count;
 
-		public void Subscribe (Action<TEventArgs> callback)
+        public void Subscribe (Action<TEventArgs> callback)
 		{
             _count++;
             if (_count > MAX_SUBSCRIPTIONS)
@@ -135,8 +135,8 @@ namespace AGS.Engine
 				Event = convert(condition, tcs);
 			}
 
-			public Func<TEventArgs, Task> Event { get; private set; }
-			public Action<TEventArgs> BlockingEvent { get; private set; }
+			public Func<TEventArgs, Task> Event { get; }
+			public Action<TEventArgs> BlockingEvent { get; }
 
 			public override bool Equals(object obj)
 			{
@@ -158,12 +158,9 @@ namespace AGS.Engine
 				return $"[Event on {_origObject.Target.ToString()} ({getMethodName(_origObject)})]";
 			}
 
-			private string getMethodName(Delegate del)
-			{
-				return RuntimeReflectionExtensions.GetMethodInfo(del).Name;
-			}
+            private string getMethodName(Delegate del) => RuntimeReflectionExtensions.GetMethodInfo(del).Name;
 
-			private Func<TEventArgs, Task> convert(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
+            private Func<TEventArgs, Task> convert(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
 			{
 				return e => 
 				{
@@ -185,11 +182,11 @@ namespace AGS.Engine
 			_invocationList = new AGSConcurrentHashSet<Callback>(fireListChangedEvent: false);
 		}
 
-		#region IEvent implementation
+        #region IEvent implementation
 
-		public int SubscribersCount { get { return _invocationList.Count; } }
+        public int SubscribersCount => _invocationList.Count;
 
-		public void Subscribe(Action callback)
+        public void Subscribe(Action callback)
 		{
 			if (_invocationList.Count > MAX_SUBSCRIPTIONS)
 			{
@@ -302,8 +299,8 @@ namespace AGS.Engine
 				Event = convert(condition, tcs);
 			}
 
-			public Func<Task> Event { get; private set; }
-			public Action BlockingEvent { get; private set; }
+			public Func<Task> Event { get; }
+			public Action BlockingEvent { get; }
 
 			public override bool Equals(object obj)
 			{
@@ -325,12 +322,9 @@ namespace AGS.Engine
 				return $"[Event on {_origObject.Target.ToString()} ({getMethodName(_origObject)})]";
 			}
 
-			private string getMethodName(Delegate del)
-			{
-				return RuntimeReflectionExtensions.GetMethodInfo(del).Name;
-			}
+            private string getMethodName(Delegate del) => RuntimeReflectionExtensions.GetMethodInfo(del).Name;
 
-			private Func<Task> convert(Action callback)
+            private Func<Task> convert(Action callback)
 			{
 				return () =>
 				{

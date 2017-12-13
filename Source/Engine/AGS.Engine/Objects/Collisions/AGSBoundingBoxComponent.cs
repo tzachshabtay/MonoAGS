@@ -41,10 +41,10 @@ namespace AGS.Engine
             onHitTextBoxShouldChange();
         }
 
-        public IBlockingEvent OnBoundingBoxesChanged { get; private set; }
+        public IBlockingEvent OnBoundingBoxesChanged { get; }
 
         [Property(Browsable = false)]
-        public ILockStep BoundingBoxLockStep { get { return this; }}
+        public ILockStep BoundingBoxLockStep => this;
 
         public override void Init(IEntity entity)
         {
@@ -282,15 +282,9 @@ namespace AGS.Engine
 		//https://stackoverflow.com/questions/8946790/how-to-use-an-objects-identity-as-key-for-dictionaryk-v
 		private class IdentityEqualityComparer<T> : IEqualityComparer<T> where T : class
         {
-            public int GetHashCode(T value)
-            {
-                return RuntimeHelpers.GetHashCode(value);
-            }
+            public int GetHashCode(T value) => RuntimeHelpers.GetHashCode(value);
 
-            public bool Equals(T left, T right)
-            {
-                return left == right; // Reference identity comparison
-            }
+            public bool Equals(T left, T right) => left == right; // Reference identity comparison
         }
 
         private class ViewportBoundingBoxes

@@ -6,11 +6,11 @@ namespace AGS.Engine.Desktop
 {
 	public class DesktopFileSystem : IFileSystem
 	{
-		#region IFileSystem implementation
+        #region IFileSystem implementation
 
-        public string StorageFolder { get { return Directory.GetCurrentDirectory(); } } //todo: find a suitable save location on desktop
+        public string StorageFolder => Directory.GetCurrentDirectory();  //todo: find a suitable save location on desktop
 
-		public IEnumerable<string> GetFiles(string folder)
+        public IEnumerable<string> GetFiles(string folder)
 		{
             if (!Directory.Exists(folder)) return new List<string>();
 			return Directory.GetFiles(folder);
@@ -22,35 +22,17 @@ namespace AGS.Engine.Desktop
             return Directory.GetDirectories(folder);
         }
 
-        public IEnumerable<string> GetLogicalDrives()
-        {
-            return Directory.GetLogicalDrives();
-        }
+        public IEnumerable<string> GetLogicalDrives() => Directory.GetLogicalDrives();
 
-        public string GetCurrentDirectory()
-        {
-            return Directory.GetCurrentDirectory();
-        }
+        public string GetCurrentDirectory() => Directory.GetCurrentDirectory();
 
-        public bool DirectoryExists(string folder)
-        {
-            return Directory.Exists(folder);
-        }
+        public bool DirectoryExists(string folder) => Directory.Exists(folder);
 
-        public bool FileExists(string path)
-        {
-            return File.Exists(path);
-        }
+        public bool FileExists(string path) => File.Exists(path);
 
-		public Stream Open(string path)
-		{
-			return File.OpenRead(path);
-		}
+        public Stream Open(string path) => File.OpenRead(path);
 
-		public Stream Create(string path)
-		{
-			return File.Create(path);
-		}
+        public Stream Create(string path) => File.Create(path);
 
         public void Delete(string path)
         {

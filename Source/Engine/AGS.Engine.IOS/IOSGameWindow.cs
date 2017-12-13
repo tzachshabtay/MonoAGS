@@ -31,7 +31,7 @@ namespace AGS.Engine.IOS
 
         public IOSGameView View
         {
-            get { return _view; }
+            get => _view;
             set
             {
                 _view = value;
@@ -46,21 +46,21 @@ namespace AGS.Engine.IOS
 
         public Action StartGame { get; set; }
 
-        public int ClientHeight { get { return _size.Value.Height; } }
+        public int ClientHeight => _size.Value.Height;
 
-        public int ClientWidth { get { return _size.Value.Width; } }
+        public int ClientWidth => _size.Value.Width;
 
-        public int Height { get { return _size.Value.Height; } }
+        public int Height => _size.Value.Height;
 
-        public int Width { get { return _size.Value.Width; } }
+        public int Width => _size.Value.Width;
 
-        public double TargetUpdateFrequency { get { return 60f; } set { } } //todo
-        public VsyncMode Vsync { get { return VsyncMode.Off; } set { } } //todo
-        public string Title { get { return ""; } set { } } //todo
-        public bool IsExiting { get { return false; } } //todo
+        public double TargetUpdateFrequency { get => 60f; set { } } //todo
+        public VsyncMode Vsync { get => VsyncMode.Off; set { } } //todo
+        public string Title { get => ""; set { } } //todo
+        public bool IsExiting => false;  //todo
 
-        public API.WindowBorder WindowBorder { get { return (API.WindowBorder)View.WindowBorder; } set { View.WindowBorder = (OpenTK.WindowBorder)value; } }
-        public API.WindowState WindowState { get { return (API.WindowState)View.WindowState; } set { View.WindowState = (OpenTK.WindowState)value; } }
+        public API.WindowBorder WindowBorder { get => (API.WindowBorder)View.WindowBorder; set => View.WindowBorder = (OpenTK.WindowBorder)value; }
+        public API.WindowState WindowState { get => (API.WindowState)View.WindowState; set => View.WindowState = (OpenTK.WindowState)value; }
 
         public event EventHandler<EventArgs> Load;
         public event EventHandler<FrameEventArgs> RenderFrame;

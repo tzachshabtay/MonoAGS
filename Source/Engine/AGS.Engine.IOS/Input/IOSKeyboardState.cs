@@ -14,11 +14,11 @@ namespace AGS.Engine.IOS
             NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, onKeyboardHidden);
         }
 
-        public IEvent OnSoftKeyboardHidden { get; private set; }
+        public IEvent OnSoftKeyboardHidden { get; }
 
-        public bool CapslockOn { get { return false; } }
+        public bool CapslockOn => false;
 
-        public bool SoftKeyboardVisible { get { return IOSGameWindow.Instance.View.IsFirstResponder; } }
+        public bool SoftKeyboardVisible => IOSGameWindow.Instance.View.IsFirstResponder;
 
         public void HideSoftKeyboard()
         {

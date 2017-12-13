@@ -31,10 +31,10 @@ namespace AGS.Engine
 		public float StartSpeedY { get; set; }
 		public float StartSpeedScale { get; set; }
 
-		public float SpeedX { get { return _speedX; } set { _speedX = value; } }
-		public float SpeedY { get { return _speedY; } set { _speedY = value; } }
-		public float SpeedScaleX { get { return _speedScaleX; } set { _speedScaleX = value; } }
-		public float SpeedScaleY { get { return _speedScaleY; } set { _speedScaleY = value; } }
+		public float SpeedX { get => _speedX; set => _speedX = value; }
+		public float SpeedY { get => _speedY; set => _speedY = value; }
+		public float SpeedScaleX { get => _speedScaleX; set => _speedScaleX = value; }
+		public float SpeedScaleY { get => _speedScaleY; set => _speedScaleY = value; }
 
 		#region ICamera implementation
 

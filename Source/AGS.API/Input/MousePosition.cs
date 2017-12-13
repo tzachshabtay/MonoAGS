@@ -31,23 +31,23 @@ namespace AGS.API
         /// X position of the mouse in window coordinates.
         /// Usually this will be less helpful for interacting with the world, for that you'd want to use the viewport coordinates.
         /// </summary>
-        public float XWindow { get; private set; }
+        public float XWindow { get; }
 
 		/// <summary>
 		/// Y position of the mouse in window coordinates.
 		/// Usually this will be less helpful for interacting with the world, for that you'd want to use the viewport coordinates.
 		/// </summary>
-		public float YWindow { get; private set; }
+		public float YWindow { get; }
 
         /// <summary>
         /// X position of the mouse in the main viewport coordinates (i.e the world coordinates).
         /// </summary>
-        public float XMainViewport { get { return GetViewportX(_mainViewport); } }
+        public float XMainViewport => GetViewportX(_mainViewport);
 
         /// <summary>
         /// Y position of the mouse in the main viewport coordinates (i.e the world coordinates).
         /// </summary>
-        public float YMainViewport { get { return GetViewportY(_mainViewport); } }
+        public float YMainViewport => GetViewportY(_mainViewport);
 
         /// <summary>
         /// Gets the x position of the mouse in a specific viewport coordinates.

@@ -27,7 +27,7 @@ namespace AGS.Engine
 
         public ITreeStringNode Tree
         {
-            get { return _tree; }
+            get => _tree;
             set 
             {
                 clearTreeFromUi(_root);
@@ -46,11 +46,11 @@ namespace AGS.Engine
 
         public SelectionType AllowSelection { get; set; }
 
-        public IBlockingEvent<NodeEventArgs> OnNodeSelected { get; private set; }
+        public IBlockingEvent<NodeEventArgs> OnNodeSelected { get; }
 
-        public IBlockingEvent<NodeEventArgs> OnNodeExpanded { get; private set; }
+        public IBlockingEvent<NodeEventArgs> OnNodeExpanded { get; }
 
-        public IBlockingEvent<NodeEventArgs> OnNodeCollapsed { get; private set; }
+        public IBlockingEvent<NodeEventArgs> OnNodeCollapsed { get; }
 
         public override void Init(IEntity entity)
         {
@@ -90,12 +90,9 @@ namespace AGS.Engine
             return nodeView.IsCollapsed;
         }
 
-        private Node findNodeView(ITreeStringNode node)
-        {
-            return findNodeView(_root, node);
-        }
+        private Node findNodeView(ITreeStringNode node) => findNodeView(_root, node);
 
-		private Node findNodeView(Node nodeView, ITreeStringNode node)
+        private Node findNodeView(Node nodeView, ITreeStringNode node)
 		{
             if (nodeView.Item == node) return nodeView;
             foreach (var child in nodeView.Children)
@@ -278,18 +275,17 @@ namespace AGS.Engine
                 }
             }
 
-            public ITreeStringNode Item { get; private set; }
+            public ITreeStringNode Item { get; }
             public ITreeNodeView View { get; private set; }
-            public List<Node> Children { get; private set; }
-            public Node Parent { get; private set; }
+            public List<Node> Children { get; }
+            public Node Parent { get; }
 
             public bool IsNew { get; set; }
             public bool IsCollapsed 
-            { 
-                get { return _isCollapsed; } 
+            {
+                get => _isCollapsed;
                 set
                 {
-                    if (_isCollapsed == value) return;
                     _isCollapsed = value;
                     if (value) _tree.OnNodeCollapsed.Invoke(new NodeEventArgs(Item));
                     else

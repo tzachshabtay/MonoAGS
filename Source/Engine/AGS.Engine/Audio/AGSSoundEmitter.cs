@@ -71,10 +71,10 @@ namespace AGS.Engine
 		public bool AutoPan { get; set; }
 		public bool AutoAdjustVolume { get; set; }
 
-        public bool IsPlaying { get { return _playingSounds.Count > 0; } }
-        public ReadOnlyCollection<ISound> CurrentlyPlayingSounds { get { return _playingSounds.Select(p => p.Value.Sound).ToList().AsReadOnly(); } }
+        public bool IsPlaying => _playingSounds.Count > 0;
+        public ReadOnlyCollection<ISound> CurrentlyPlayingSounds => _playingSounds.Select(p => p.Value.Sound).ToList().AsReadOnly();
 
-		public void Assign(IDirectionalAnimation animation, params int[] frames)
+        public void Assign(IDirectionalAnimation animation, params int[] frames)
 		{
 			Assign(animation.Down, frames);
 			Assign(animation.Left, frames);
@@ -153,8 +153,8 @@ namespace AGS.Engine
 				runningId++;
 			}
 
-			public ISound Sound { get; private set; }
-			public int ID { get; private set; }
+			public ISound Sound { get; }
+			public int ID { get; }
 		}
 	}
 }

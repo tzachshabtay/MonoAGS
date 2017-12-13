@@ -10,11 +10,11 @@ namespace AGS.Engine.Android
             OnSoftKeyboardHidden = new AGSEvent();
         }
 
-        public bool CapslockOn { get { return AndroidGameWindow.Instance.View.CapslockOn; } }
+        public bool CapslockOn => AndroidGameWindow.Instance.View.CapslockOn;
 
-        public IEvent OnSoftKeyboardHidden { get; private set; }
+        public IEvent OnSoftKeyboardHidden { get; }
 
-        public bool SoftKeyboardVisible { get { return AndroidGameWindow.Instance.View.SoftKeyboardVisible; } }
+        public bool SoftKeyboardVisible => AndroidGameWindow.Instance.View.SoftKeyboardVisible;
 
         public void HideSoftKeyboard()
         {

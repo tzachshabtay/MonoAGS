@@ -16,18 +16,18 @@ namespace AGS.Engine
         public event PropertyChangedEventHandler PropertyChanged;
 
         [AlsoNotifyFor(nameof(X), nameof(Y), nameof(Z))]
-        public ILocation Location { get { return _location; } set { _location = value; } }
+        public ILocation Location { get => _location; set => _location = value; }
 
         [Property(Browsable = false)]
         [AlsoNotifyFor(nameof(Location))]
-        public float X { get { return Location.X; } set { _location = new AGSLocation(value, Y, Z); } }
+        public float X { get => Location.X; set => _location = new AGSLocation(value, Y, Z); }
 
         [Property(Browsable = false)]
         [AlsoNotifyFor(nameof(Location))]
-        public float Y { get { return Location.Y; } set { _location = new AGSLocation(X, value, Z == Y ? value : Z); } }
+        public float Y { get => Location.Y; set => _location = new AGSLocation(X, value, Z == Y ? value : Z); }
 
         [Property(Browsable = false)]
         [AlsoNotifyFor(nameof(Location))]
-        public float Z { get { return Location.Z; } set { _location = new AGSLocation(X, Y, value); } }
+        public float Z { get => Location.Z; set => _location = new AGSLocation(X, Y, value); }
     }
 }

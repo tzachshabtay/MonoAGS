@@ -15,12 +15,12 @@ namespace AGS.Engine
 			_type = GetType();
 		}
 
-		#region IComponent implementation
+        #region IComponent implementation
 
         [Property(Browsable = false)]
-        public virtual string Name { get { return friendlyName(); } }
+        public virtual string Name => friendlyName();
 
-		public virtual void Init(IEntity entity) {}
+        public virtual void Init(IEntity entity) {}
         public virtual void AfterInit() { }
 
         #endregion

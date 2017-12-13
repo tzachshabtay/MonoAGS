@@ -4,7 +4,6 @@ namespace AGS.Engine
 {
     public class AGSComboBoxComponent : AGSComponent, IComboBoxComponent
     {
-        private ITextBox _textBox;
         private IButton _dropDownButton;
         private IListboxComponent _dropDownPanelList;
         private IVisibleComponent _dropDownPanelVisible;
@@ -18,7 +17,7 @@ namespace AGS.Engine
 
         public IButton DropDownButton
         {
-            get { return _dropDownButton; }
+            get => _dropDownButton;
             set
             {
                 if (_dropDownButton == value) return;
@@ -33,17 +32,13 @@ namespace AGS.Engine
             }
         }
 
-        public ITextBox TextBox
-        {
-            get { return _textBox; }
-            set { _textBox = value; }
-        }
+        public ITextBox TextBox { get; set; }
 
-        public IListboxComponent DropDownPanelList { get { return _dropDownPanelList; } }
+        public IListboxComponent DropDownPanelList => _dropDownPanelList;
 
         public IEntity DropDownPanel 
-        { 
-            get { return _dropDownPanel; }
+        {
+            get => _dropDownPanel;
             set 
             {
                 _dropDownPanel = value;

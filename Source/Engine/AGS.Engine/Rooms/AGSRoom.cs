@@ -7,8 +7,8 @@ namespace AGS.Engine
     [PropertyFolder]
 	public class AGSRoom : IRoom
 	{
-        private ICharacter _player { get { return _state.Player; } }
-		private IObject _background;
+        private ICharacter _player => _state.Player;
+        private IObject _background;
 		private readonly IAGSEdges _edges;
 		private readonly IGameState _state;
 		private readonly IGameEvents _gameEvents;
@@ -34,9 +34,9 @@ namespace AGS.Engine
 
 		#region IRoom implementation
 
-		public string ID { get; private set; }
+		public string ID { get; }
 
-		public ICustomProperties Properties { get; private set; }
+		public ICustomProperties Properties { get; }
 
 		public bool ShowPlayer { get; set; }
 
@@ -55,9 +55,9 @@ namespace AGS.Engine
         }
 
 		public IObject Background 
-		{ 
-			get { return _background; } 
-			set 
+		{
+            get => _background;
+            set 
 			{ 
 				_background = value; 
 				if (_background != null && _background.RenderLayer == AGSLayers.Foreground)
@@ -71,14 +71,14 @@ namespace AGS.Engine
 			} 
 		}
 
-		public IConcurrentHashSet<IObject> Objects { get; private set; }
+		public IConcurrentHashSet<IObject> Objects { get; }
 
-		public IList<IArea> Areas { get; private set; }
+		public IList<IArea> Areas { get; }
 
-		public IEdges Edges { get { return _edges; } }
+        public IEdges Edges => _edges;
 
         [Property(Browsable = false)]
-		public IRoomEvents Events { get; private set; }
+		public IRoomEvents Events { get; }
 
         public IEnumerable<IArea> GetMatchingAreas(PointF point, string entityId)
         {
@@ -105,10 +105,7 @@ namespace AGS.Engine
 			}
 		}
 
-		public override string ToString()
-		{
-			return ID ?? base.ToString();
-		}
+        public override string ToString() => ID ?? base.ToString();
 
         #endregion
 

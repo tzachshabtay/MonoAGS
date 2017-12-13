@@ -28,7 +28,7 @@ namespace AGS.Engine
             _layer = layer;
         }
 
-        public IPanel Panel { get { return _scrollingPanel; }}
+        public IPanel Panel => _scrollingPanel;
 
         public void Load(IPanel parent)
         {

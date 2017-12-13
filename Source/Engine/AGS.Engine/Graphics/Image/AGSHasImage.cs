@@ -13,8 +13,8 @@ namespace AGS.Engine
 
         public byte Opacity
         {
-            get { return Tint.A; }
-            set { Tint = Color.FromArgb(value, Tint.R, Tint.G, Tint.B); }
+            get => Tint.A;
+            set => Tint = Color.FromArgb(value, Tint.R, Tint.G, Tint.B);
         }
 
         public Color Tint { get; set; }
@@ -27,9 +27,6 @@ namespace AGS.Engine
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public override string ToString()
-        {
-            return Image == null ? base.ToString() : Image.ToString();
-        }
+        public override string ToString() => Image == null ? base.ToString() : Image.ToString();
     }
 }

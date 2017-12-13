@@ -34,12 +34,12 @@ namespace AGS.Engine
             _colorAdjusters = new IHasImage[2];
 		}
 
-        public static ITexture EmptyTexture { get { return _emptyTexture.Value; } }
+        public static ITexture EmptyTexture => _emptyTexture.Value;
 
-        public SizeF? CustomImageSize { get { return null; } }
-        public PointF? CustomImageResolutionFactor { get { return null; } }
+        public SizeF? CustomImageSize => null;
+        public PointF? CustomImageResolutionFactor => null;
 
-		public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
+        public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
 		{
 		}
 

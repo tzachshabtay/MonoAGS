@@ -44,7 +44,7 @@ namespace AGS.Engine
         }
 
         [Property(Browsable = false)]
-        public IArea PixelPerfectHitTestArea { get { return _pixelPerfect.PixelPerfectHitTestArea; } }
+        public IArea PixelPerfectHitTestArea => _pixelPerfect.PixelPerfectHitTestArea;
 
         public void PixelPerfect(bool pixelPerfect)
         {

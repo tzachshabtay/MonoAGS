@@ -172,11 +172,11 @@ namespace AGS.Engine
 			}
 			return false;
 		}
-			
-		private bool isUp() { return _keysDown.Any(k => _up.Contains(k)); }
-		private bool isDown() { return _keysDown.Any(k => _down.Contains(k)); }
-		private bool isLeft() { return _keysDown.Any(k => _left.Contains(k)); }
-		private bool isRight() { return _keysDown.Any(k => _right.Contains(k)); }
-	}
+
+        private bool isUp() => _keysDown.Any(k => _up.Contains(k));
+        private bool isDown() => _keysDown.Any(k => _down.Contains(k));
+        private bool isLeft() => _keysDown.Any(k => _left.Contains(k));
+        private bool isRight() => _keysDown.Any(k => _right.Contains(k));
+    }
 }
 

@@ -12,15 +12,15 @@ namespace AGS.Engine
             Borders = new List<IBorderStyle>(borders);
         }
 
-        public List<IBorderStyle> Borders { get; private set; }
+        public List<IBorderStyle> Borders { get; }
 
-        public float WidthBottom { get { return Borders.Max(b => b.WidthBottom); } }
+        public float WidthBottom => Borders.Max(b => b.WidthBottom);
 
-        public float WidthTop { get { return Borders.Max(b => b.WidthTop); } }
+        public float WidthTop => Borders.Max(b => b.WidthTop);
 
-        public float WidthLeft { get { return Borders.Max(b => b.WidthLeft); } }
+        public float WidthLeft => Borders.Max(b => b.WidthLeft);
 
-        public float WidthRight { get { return Borders.Max(b => b.WidthRight); } }
+        public float WidthRight => Borders.Max(b => b.WidthRight);
 
         public void RenderBorderBack(AGSBoundingBox square)
         {

@@ -16,23 +16,23 @@ namespace AGS.Engine
         public EmptyImage(PointF size) : this (size.X, size.Y)
         { }
 
-		#region IImage implementation
+        #region IImage implementation
 
-		public IBitmap OriginalBitmap { get { return null; } }
+        public IBitmap OriginalBitmap => null;
 
-		public float Width { get; private set; }
+        public float Width { get; }
 
-		public float Height { get; private set; }
+		public float Height { get; }
 
-		public string ID { get { return ""; } }
+        public string ID => "";
 
-		public ISpriteSheet SpriteSheet { get { return null; } }
+        public ISpriteSheet SpriteSheet => null;
 
-		public ILoadImageConfig LoadConfig { get { return null; } }
+        public ILoadImageConfig LoadConfig => null;
 
-        public ITexture Texture { get { return null; } }
+        public ITexture Texture => null;
 
-		#endregion
-	}
+        #endregion
+    }
 }
 

@@ -23,7 +23,7 @@ namespace AGS.Engine
 
         public float Value
         {
-            get { return _value; }
+            get => _value;
             set
             {
                 if (MathUtils.FloatEquals(_value, value) || !validateValue(value)) return;
@@ -31,16 +31,16 @@ namespace AGS.Engine
                 refreshValue();
             }
         }
-        public bool EditWholeNumbersOnly { get { return _editWholeNumbers; } set { _editWholeNumbers = value; setText(); } }
+        public bool EditWholeNumbersOnly { get => _editWholeNumbers; set { _editWholeNumbers = value; setText(); } }
         public float Step { get; set; }
-        public float? MinValue { get { return _minValue; } set { if (_minValue == value) return; _minValue = value; refreshSliderLimits(); } }
-        public float? MaxValue { get { return _maxValue; } set { if (_maxValue == value) return; _maxValue = value; refreshSliderLimits(); } }
-        public float? SuggestedMinValue { get { return _suggestedMinValue; } set { if (_suggestedMinValue == value) return; _suggestedMinValue = value; refreshSliderLimits(); } }
-        public float? SuggestedMaxValue { get { return _suggestedMaxValue; } set { if (_suggestedMaxValue == value) return; _suggestedMaxValue = value; refreshSliderLimits(); } }
+        public float? MinValue { get => _minValue; set { _minValue = value; refreshSliderLimits(); } }
+        public float? MaxValue { get => _maxValue; set { _maxValue = value; refreshSliderLimits(); } }
+        public float? SuggestedMinValue { get => _suggestedMinValue; set { _suggestedMinValue = value; refreshSliderLimits(); } }
+        public float? SuggestedMaxValue { get => _suggestedMaxValue; set { _suggestedMaxValue = value; refreshSliderLimits(); } }
 
         public IButton UpButton
         {
-            get { return _upButton; }
+            get => _upButton;
             set
             {
                 var currentButton = _upButton;
@@ -55,7 +55,7 @@ namespace AGS.Engine
         }
         public IButton DownButton
         {
-            get { return _downButton; }
+            get => _downButton;
             set
             {
                 var currentButton = _downButton;
@@ -70,7 +70,7 @@ namespace AGS.Engine
         }
         public ISlider Slider
         {
-            get { return _slider; }
+            get => _slider;
             set
             {
                 var currentSlider = _slider;
@@ -85,7 +85,7 @@ namespace AGS.Engine
             }
         }
 
-        public IBlockingEvent OnValueChanged { get; private set; }
+        public IBlockingEvent OnValueChanged { get; }
 
         public override void Init(IEntity entity)
         {
@@ -235,14 +235,8 @@ namespace AGS.Engine
             else Value = valDown;
         }
 
-        private float getMinValue()
-        {
-            return MinValue ?? (EditWholeNumbersOnly ? int.MinValue : float.MinValue);
-        }
+        private float getMinValue() => MinValue ?? (EditWholeNumbersOnly ? int.MinValue : float.MinValue);
 
-        private float getMaxValue()
-        {
-            return MaxValue ?? (EditWholeNumbersOnly ? int.MaxValue : float.MaxValue);
-        }
+        private float getMaxValue() => MaxValue ?? (EditWholeNumbersOnly ? int.MaxValue : float.MaxValue);
     }
 }

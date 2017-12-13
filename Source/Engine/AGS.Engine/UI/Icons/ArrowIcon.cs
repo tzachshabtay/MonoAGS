@@ -22,13 +22,13 @@ namespace AGS.Engine
             _direction = direction;
         }
 
-        public float WidthBottom { get { return 0f; } }
-        public float WidthLeft { get { return 0f; } }
-        public float WidthRight { get { return 0f; } }
-        public float WidthTop { get { return 0f; } }
+        public float WidthBottom => 0f;
+        public float WidthLeft => 0f;
+        public float WidthRight => 0f;
+        public float WidthTop => 0f;
 
-        public ArrowDirection Direction { get { return _direction; } set { if (_direction == value) return; _direction = value; _frameBuffer = null; } }
-        public IGLColor ArrowColor { get { return _color; } set { if (_color == value) return; _color = value; _frameBuffer = null; } }
+        public ArrowDirection Direction { get => _direction; set { if (_direction == value) return; _direction = value; _frameBuffer = null; } }
+        public IGLColor ArrowColor { get => _color; set { if (_color == value) return; _color = value; _frameBuffer = null; } }
 
         public void RenderBorderBack(AGSBoundingBox square)
         {

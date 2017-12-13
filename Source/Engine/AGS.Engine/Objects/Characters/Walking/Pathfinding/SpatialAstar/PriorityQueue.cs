@@ -154,9 +154,6 @@ namespace AGS.Engine
 			InnerList.Clear();
 		}
 
-		public int Count
-		{
-			get { return InnerList.Count; }
-		}
-	}
+        public int Count => InnerList.Count;
+    }
 }
