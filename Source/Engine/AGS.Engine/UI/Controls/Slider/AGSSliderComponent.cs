@@ -151,9 +151,9 @@ namespace AGS.Engine
         public override void Dispose()
         {
             _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
-            if (_graphics != null) _graphics.Dispose();
-            if (_handleGraphics != null) _handleGraphics.Dispose();
-            if (_label != null) _label.Dispose();
+            _graphics?.Dispose();
+            _handleGraphics?.Dispose();
+            _label?.Dispose();
         }
 
         private void bindGraphics(IObject graphics)

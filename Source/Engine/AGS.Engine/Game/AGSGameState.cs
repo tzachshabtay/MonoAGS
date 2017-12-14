@@ -73,7 +73,7 @@ namespace AGS.Engine
                 if (_roomTransitions.Transition != null)
                     await _roomTransitions.OnStateChanged.WaitUntilAsync(canContinueRoomTransition);
             }
-            if (afterTransitionFadeOut != null) afterTransitionFadeOut();
+            afterTransitionFadeOut?.Invoke();
             Room = newRoom;
         }
 

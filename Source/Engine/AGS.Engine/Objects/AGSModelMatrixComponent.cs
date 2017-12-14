@@ -98,12 +98,12 @@ namespace AGS.Engine
 				_tree = c;
 				_parent = _tree.TreeNode.Parent;
 				_tree.TreeNode.OnParentChanged.Subscribe(onParentChanged);
-				if (_parent != null) _parent.OnMatrixChanged.Subscribe(onSomethingChanged);
+				_parent?.OnMatrixChanged.Subscribe(onSomethingChanged);
 				onSomethingChanged();
 			}, c =>
 			{
 				c.TreeNode.OnParentChanged.Unsubscribe(onParentChanged);
-				if (c.TreeNode.Parent != null) c.TreeNode.Parent.OnMatrixChanged.Unsubscribe(onSomethingChanged);
+				c.TreeNode.Parent?.OnMatrixChanged.Unsubscribe(onSomethingChanged);
 				_tree = null;
 				_parent = null;
 				onSomethingChanged();
@@ -228,9 +228,9 @@ namespace AGS.Engine
 
         private void onParentChanged()
         {
-            if (_parent != null) _parent.OnMatrixChanged.Unsubscribe(onSomethingChanged);
+            _parent?.OnMatrixChanged.Unsubscribe(onSomethingChanged);
             _parent = _tree == null ? null : _tree.TreeNode.Parent;
-            if (_parent != null) _parent.OnMatrixChanged.Subscribe(onSomethingChanged);
+            _parent?.OnMatrixChanged.Subscribe(onSomethingChanged);
             onSomethingChanged();
         }
 
@@ -270,7 +270,7 @@ namespace AGS.Engine
             var renderer = _image.CustomRenderer;
             if (renderer != null)
             {
-                var customImageSize = renderer.CustomImageSize;
+                var customImageSize = renderer?.CustomImageSize;
                 if ((customImageSize == null && _customImageSize != null) || 
                     (customImageSize != null && _customImageSize == null) ||
                     (customImageSize != null && _customImageSize != null && 
@@ -279,7 +279,7 @@ namespace AGS.Engine
                     _customImageSize = customImageSize;
                     _isDirty = true;
                 }
-                var customFactor = renderer.CustomImageResolutionFactor;
+                var customFactor = renderer?.CustomImageResolutionFactor;
                 if ((customFactor == null && _customResolutionFactor != null) ||
                     (customFactor != null && _customResolutionFactor == null) ||
                     (customFactor != null && _customResolutionFactor != null &&
@@ -375,7 +375,7 @@ namespace AGS.Engine
 
         private PointF getAreaScaling()
         {
-            if (_room == null || (_drawable != null && _drawable.IgnoreScalingArea)) return NoScaling;
+            if (_room == null || (_drawable?.IgnoreScalingArea ?? false)) return NoScaling;
             foreach (IArea area in _room.Room.GetMatchingAreas(_translate.Location.XY, _entity.ID))
             {
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();

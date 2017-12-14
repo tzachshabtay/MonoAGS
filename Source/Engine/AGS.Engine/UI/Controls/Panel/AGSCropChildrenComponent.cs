@@ -166,7 +166,7 @@ namespace AGS.Engine
             if (boundingBoxes == null || obj.GetBoundingBoxes(_state.Viewport) == null) return;
             ICropSelfComponent cropSelf;
             var labelRenderer = obj.CustomRenderer as GLLabelRenderer;
-            if (labelRenderer != null && labelRenderer.TextBoundingBoxes != null)
+            if (labelRenderer?.TextBoundingBoxes != null)
             {
                 cropSelf = labelRenderer.CustomTextCrop;
                 if (cropSelf == null)

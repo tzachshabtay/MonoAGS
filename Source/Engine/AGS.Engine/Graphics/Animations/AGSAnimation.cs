@@ -84,7 +84,7 @@ namespace AGS.Engine
 			var animationFrame = Frames[frame];
             State.TimeToNextFrame = getTimeForNextFrame(animationFrame);
 			var emitter = animationFrame.SoundEmitter;
-			if (emitter != null) emitter.Play();
+			emitter?.Play();
 			return true;
 		}
 

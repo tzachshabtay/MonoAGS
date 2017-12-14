@@ -61,8 +61,7 @@ namespace AGS.Engine
             var pixelPerfectComponent = _pixelPerfect;
 			IArea pixelPerfect = pixelPerfectComponent == null ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 
-            var drawableInfo = _drawableInfo;
-            if (drawableInfo != null && drawableInfo.IgnoreViewport) 
+            if (_drawableInfo?.IgnoreViewport ?? false) 
 			{
 				//todo: Support viewport rotation (+ ignore scaling areas = false?)
 				x = (x - viewport.X) * viewport.ScaleX;

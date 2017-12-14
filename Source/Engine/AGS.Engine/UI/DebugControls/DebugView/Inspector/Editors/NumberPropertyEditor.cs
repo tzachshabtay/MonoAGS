@@ -34,10 +34,7 @@ namespace AGS.Engine
                         editor.SuggestedMinValue = slider.SliderMin;
                         editor.SuggestedMaxValue = slider.SliderMax;
                     }
-                    else if (configureNumberEditor != null)
-                    {
-                        configureNumberEditor(this, editor);
-                    }
+                    else configureNumberEditor?.Invoke(this, editor);
                 };
             }
 
@@ -85,25 +82,23 @@ namespace AGS.Engine
                 panels.Add(panel);
             }
             _panels = panels;
-            if (nullBox != null)
+
+            nullBox?.OnCheckChanged.Subscribe(args =>
             {
-                nullBox.OnCheckChanged.Subscribe(args =>
+                if (!args.Checked)
                 {
-                    if (!args.Checked)
+                    property.Prop.SetValue(property.Object, null);
+                }
+                foreach (var panel in panels)
+                {
+                    panel.control.Visible = nullBox.Checked;
+                    if (args.Checked)
                     {
-                        property.Prop.SetValue(property.Object, null);
+                        float val = default;
+                        panel.editor.Value = val;
                     }
-                    foreach (var panel in panels)
-                    {
-                        panel.control.Visible = nullBox.Checked;
-                        if (args.Checked)
-                        {
-                            float val = default;
-                            panel.editor.Value = val;
-                        }
-                    }
-                });
-            }
+                }
+            });
         }
 
         public void RefreshUI()

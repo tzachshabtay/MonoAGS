@@ -207,7 +207,7 @@ namespace AGS.Engine
 		{
 			var shader = obj.Shader;
 			if (shader != null) shader = shader.Compile();
-			if (shader != null) shader.Bind();
+			shader?.Bind();
 			return shader;
 		}
 
@@ -225,7 +225,7 @@ namespace AGS.Engine
 			if (shader != null) shader = shader.Compile();
 			if (shader == null)
 			{
-				if (_lastShaderUsed != null) _lastShaderUsed.Unbind();
+		        _lastShaderUsed?.Unbind();
 				return;
 			}
 			_lastShaderUsed = shader;

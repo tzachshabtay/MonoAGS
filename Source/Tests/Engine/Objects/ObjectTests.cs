@@ -200,10 +200,7 @@ namespace Tests
         {
             if (state == null && stateMock != null) state = stateMock.Object;
             mocks.Game().Setup(g => g.State).Returns(state);
-            if (stateMock != null)
-            {
-                stateMock.Setup(s => s.UI).Returns(new AGSConcurrentHashSet<IObject>());
-            }
+            stateMock?.Setup(s => s.UI).Returns(new AGSConcurrentHashSet<IObject>());
             Mock<IInput> input = new Mock<IInput>();
             Resolver resolver = GetResolver();
             input.Setup(i => i.KeyUp).Returns(new Mock<IEvent<KeyboardEventArgs>>().Object);

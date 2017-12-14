@@ -27,20 +27,12 @@ namespace AGS.Engine
 
         public void OnPropertyChanged(string propertyName)
         {
-            var propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void OnPropertyChanged(PropertyChangedEventArgs args)
         {
-            var propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged(this, args);
-            }
+            PropertyChanged?.Invoke(this, args);
         }
 
         #region IDisposable implementation

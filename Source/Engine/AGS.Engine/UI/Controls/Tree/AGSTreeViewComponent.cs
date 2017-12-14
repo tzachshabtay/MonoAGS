@@ -74,13 +74,13 @@ namespace AGS.Engine
         public void Expand(ITreeStringNode node)
         {
             var nodeView = findNodeView(node);
-            if (nodeView != null) nodeView.Expand();
+            nodeView?.Expand();
         }
 
         public void Collapse(ITreeStringNode node)
         {
 			var nodeView = findNodeView(node);
-            if (nodeView != null) nodeView.Collapse();
+            nodeView?.Collapse();
         }
 
         public bool? IsCollapsed(ITreeStringNode node)
@@ -316,7 +316,7 @@ namespace AGS.Engine
                     expandButton.MouseLeave.Unsubscribe(onMouseLeave);
                 }
                 var button = getExpandButton();
-                if (button != null) button.MouseClicked.Unsubscribe(onMouseClicked);
+                button?.MouseClicked.Unsubscribe(onMouseClicked);
             }
 
             public float ResetOffsets(float xOffset, float yOffset, float spacingX, float spacingY)

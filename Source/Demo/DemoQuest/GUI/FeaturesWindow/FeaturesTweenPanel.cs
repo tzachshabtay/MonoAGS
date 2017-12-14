@@ -104,9 +104,9 @@ namespace DemoGame
                     }
                 },
                 { "Music", new List<(string, Func<Tween>)>{
-                        ( "Volume", () => { var music = getMusic(); if (music != null) return music.TweenVolume(0f, time, ease()); else return null;}),
-                        ( "Pitch", () => { var music = getMusic(); if (music != null) return music.TweenPitch(2f, time, ease()); else return null;}),
-                        ( "Panning", () => { var music = getMusic(); if (music != null) return music.TweenPanning(-1f, time, ease()); else return null;}),
+                        ( "Volume", () => { var music = getMusic(); return music?.TweenVolume(0f, time, ease()) ?? null;}),
+                        ( "Pitch", () => { var music = getMusic(); return music?.TweenPitch(2f, time, ease()) ?? null;}),
+                        ( "Panning", () => { var music = getMusic(); return music?.TweenPanning(-1f, time, ease()) ?? null;}),
                     }
                 },
             };

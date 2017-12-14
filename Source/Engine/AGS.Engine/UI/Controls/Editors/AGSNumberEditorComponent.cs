@@ -43,14 +43,9 @@ namespace AGS.Engine
             get => _upButton;
             set
             {
-                var currentButton = _upButton;
-                if (currentButton == value) return;
-                if (currentButton != null)
-                {
-                    currentButton.MouseClicked.Unsubscribe(onUpButtonClicked);
-                }
+                _upButton?.MouseClicked.Unsubscribe(onUpButtonClicked);
                 _upButton = value;
-                value.MouseClicked.Subscribe(onUpButtonClicked);
+                value?.MouseClicked.Subscribe(onUpButtonClicked);
             }
         }
         public IButton DownButton
@@ -58,14 +53,9 @@ namespace AGS.Engine
             get => _downButton;
             set
             {
-                var currentButton = _downButton;
-                if (currentButton == value) return;
-                if (currentButton != null)
-                {
-                    currentButton.MouseClicked.Unsubscribe(onDownButtonClicked);
-                }
+                _downButton?.MouseClicked.Unsubscribe(onDownButtonClicked);
                 _downButton = value;
-                value.MouseClicked.Subscribe(onDownButtonClicked);
+                value?.MouseClicked.Subscribe(onDownButtonClicked);
             }
         }
         public ISlider Slider
@@ -73,15 +63,10 @@ namespace AGS.Engine
             get => _slider;
             set
             {
-                var currentSlider = _slider;
-                if (currentSlider == value) return;
-                if (currentSlider != null)
-                {
-                    currentSlider.OnValueChanging.Unsubscribe(onSliderValueChanged);
-                }
+                _slider?.OnValueChanging.Unsubscribe(onSliderValueChanged);
                 _slider = value;
                 refreshSliderLimits();
-                value.OnValueChanging.Subscribe(onSliderValueChanged);
+                value?.OnValueChanging.Subscribe(onSliderValueChanged);
             }
         }
 

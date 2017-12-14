@@ -33,8 +33,7 @@ namespace AGS.Engine.IOS
 
         private async void onKeyboardHidden(NSNotification obj)
         {
-            var onSoftKeyboardHidden = OnSoftKeyboardHidden;
-            if (onSoftKeyboardHidden != null) await onSoftKeyboardHidden.InvokeAsync();
+            await OnSoftKeyboardHidden?.InvokeAsync();
         }
     }
 }

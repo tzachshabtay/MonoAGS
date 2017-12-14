@@ -88,16 +88,14 @@ namespace AGS.Engine
         {
 			float mouseX = _input.MousePosition.XMainViewport;
 			float mouseY = _input.MousePosition.YMainViewport;
-			var drawable = _drawable;
-			if (drawable != null)
+
+            var resolution = _drawable?.RenderLayer?.IndependentResolution;
+			if (resolution != null)
 			{
-				var resolution = drawable.RenderLayer == null ? null : drawable.RenderLayer.IndependentResolution;
-				if (resolution != null)
-				{
-					mouseX *= (resolution.Value.Width / _settings.VirtualResolution.Width);
-					mouseY *= (resolution.Value.Height / _settings.VirtualResolution.Height);
-				}
+				mouseX *= (resolution.Value.Width / _settings.VirtualResolution.Width);
+				mouseY *= (resolution.Value.Height / _settings.VirtualResolution.Height);
 			}
+			
             return new Vector2(mouseX, mouseY);
 		}
 

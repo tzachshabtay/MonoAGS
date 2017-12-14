@@ -29,15 +29,13 @@ namespace AGS.Engine
         public void StartAnimation(IAnimation animation)
 		{
             var scale = _scale;
-            if (scale != null && scale.Width == 0f && animation.Frames.Count > 0) 
+            if (scale?.Width == 0f && animation.Frames.Count > 0) 
 			{
                 scale.BaseSize = new SizeF(animation.Frames[0].Sprite.Width, animation.Frames[0].Sprite.Height);
 			}
 			IAnimation currentAnimation = Animation;
-			if (currentAnimation != null) 
-			{
-				currentAnimation.State.OnAnimationCompleted.TrySetResult (new AnimationCompletedEventArgs (false));
-			}
+			currentAnimation?.State.OnAnimationCompleted.TrySetResult (new AnimationCompletedEventArgs (false));
+			
 			Animation = animation;
             OnAnimationStarted.Invoke();
 		}

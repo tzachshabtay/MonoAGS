@@ -128,7 +128,7 @@ namespace AGS.Engine
                 {
                     var button = _itemButtons[item.Index];
                     button.MouseClicked.Unsubscribe(onItemClicked);
-                    if (tree != null) tree.TreeNode.RemoveChild(button);
+                    tree?.TreeNode.RemoveChild(button);
                     _state.UI.Remove(button);
                     buttons.RemoveAt(item.Index);
                 }
@@ -149,7 +149,7 @@ namespace AGS.Engine
                     newButtons.Add(newButton);
                 }
                 _itemButtons = buttons;
-                if (tree != null) tree.TreeNode.AddChildren(newButtons);
+                tree?.TreeNode.AddChildren(newButtons);
             }
             refreshItemsLayout();
         }

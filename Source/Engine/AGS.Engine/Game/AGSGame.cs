@@ -235,15 +235,11 @@ namespace AGS.Engine
 		private static void printRuntime()
 		{
 			Type type = Type.GetType("Mono.Runtime");
-			if (type != null)
-			{                                          
-				MethodInfo getDisplayName = type.GetRuntimeMethod("GetDisplayName", new Type[]{}); 
-				if (getDisplayName != null)
-				{
-					object displayName = getDisplayName.Invoke(null, null);
-					Debug.WriteLine($"Runtime: Mono- {displayName}"); 
-				}
-			}
+			
+			MethodInfo getDisplayName = type?.GetRuntimeMethod("GetDisplayName", new Type[]{}); 
+				
+            object displayName = getDisplayName?.Invoke(null, null);
+			Debug.WriteLine($"Runtime: Mono- {displayName ?? "Unknown"}"); 
 		}
 	}
 }

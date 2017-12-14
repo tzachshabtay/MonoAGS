@@ -78,10 +78,7 @@ namespace AGS.Engine
 			}
             _renderer.Render(texture.ID, renderBox, boundingBoxes.TextureBox, color);
 
-			if (border != null)
-			{
-				border.RenderBorderFront(borderBox);
-			}
+			border?.RenderBorderFront(borderBox);
 			if (obj.DebugDrawAnchor)
 			{
                 IObject parent = obj.TreeNode.Parent;

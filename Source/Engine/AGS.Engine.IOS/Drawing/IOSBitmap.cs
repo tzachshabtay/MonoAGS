@@ -39,7 +39,7 @@ namespace AGS.Engine.IOS
             var size = image.Size;
             Height = (int)_uiImage.Size.Height;
             Width = (int)_uiImage.Size.Width;
-            if (currentImage != null) currentImage.Dispose();
+            currentImage?.Dispose();
         }
 
         public IBitmap ApplyArea(IArea area)
@@ -109,10 +109,7 @@ namespace AGS.Engine.IOS
                             mask[x] = new bool[Height];
                         mask[x][Height - y - 1] = masked;
 
-                        if (debugMaskFast != null)
-                        {
-                            debugMaskFast.SetPixel(x, y, masked ? drawColor : Colors.Transparent);
-                        }
+                        debugMaskFast?.SetPixel(x, y, masked ? drawColor : Colors.Transparent);
                     }
                 }
             }
@@ -137,7 +134,7 @@ namespace AGS.Engine.IOS
                 debugDraw.Image = factory.Graphics.LoadImage(new IOSBitmap(debugMask, _graphics), null, path);
                 debugDraw.Anchor = new AGS.API.PointF();
             }
-            else if (debugMask != null) debugMask.Dispose();
+            else debugMask?.Dispose();
 
             return new AGSMask(mask, debugDraw);
         }
@@ -253,11 +250,8 @@ namespace AGS.Engine.IOS
 
         private void dispose(bool disposing)
         {
-            var uiImage = _uiImage;
-            if (uiImage != null) uiImage.Dispose();
-
-            var cgImage = _cgImage;
-            if (cgImage != null) cgImage.Dispose();
+            _uiImage?.Dispose();
+            _cgImage?.Dispose();
         }
 
         private void saveToFile(UIImage image, string path)

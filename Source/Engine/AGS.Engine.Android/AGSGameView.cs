@@ -121,17 +121,15 @@ namespace AGS.Engine.Android
         {
             CapslockOn = e.IsShiftPressed;
             var mappedKey = mapKey(keyCode);
-            var keyDown = KeyDown;
-            if (keyDown != null) keyDown(this, (mappedKey, e));
+            KeyDown?.Invoke(this, (mappedKey, e));
             return base.OnKeyDown(keyCode, e);
         }
 
         public event EventHandler<(Keycode, KeyEvent)> KeyUp;
         public override bool OnKeyUp(Keycode keyCode, KeyEvent e)
         {
-            var keyUp = KeyUp;
             var mappedKey = mapKey(keyCode);
-            if (keyUp != null) keyUp(this, (mappedKey, e));
+            KeyUp?.Invoke(this, (mappedKey, e));
             return base.OnKeyUp(keyCode, e);
         }
 

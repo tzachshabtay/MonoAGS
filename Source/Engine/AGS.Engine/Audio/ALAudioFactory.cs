@@ -25,9 +25,8 @@ namespace AGS.Engine
 				,{ ".OGG", new List<ISoundDecoder> { new OggDecoder() } }
 				,{ ".FLAC", new List<ISoundDecoder> { new FlacDecoder() } }
 			};
-			var registerExternlDecoders = RegisterExternalDecoders;
-			if (registerExternlDecoders != null) registerExternlDecoders(_decoders);
-		}
+            RegisterExternalDecoders?.Invoke(_decoders);
+        }
 
 		public static Action<Dictionary<string, List<ISoundDecoder>>> RegisterExternalDecoders { get; set; }
 

@@ -28,8 +28,7 @@ namespace AGS.Engine
         public override void Dispose()
         {
             base.Dispose();
-            var pixelPerfect = _pixelPerfect;
-            if (pixelPerfect != null) pixelPerfect.Dispose();
+            _pixelPerfect?.Dispose();
         }
 
         [Property(Category = "Collider")]
@@ -38,7 +37,7 @@ namespace AGS.Engine
             get 
             {
                 var area = PixelPerfectHitTestArea;
-                return area != null && area.Enabled;
+                return area?.Enabled ?? false;
             }
             set { PixelPerfect(value);}
         }

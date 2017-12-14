@@ -73,23 +73,17 @@ namespace AGS.Engine
 
         private void onParentChanged()
         {
-            var lastParentBinding = _lastParentBinding;
-            if (lastParentBinding != null)
-            {
-                lastParentBinding.Unbind();
-            }
+            _lastParentBinding?.Unbind();
             var lastParentComponent = _lastParentComponent;
             if (lastParentComponent != null)
             {
                 lastParentComponent.PropertyChanged -= onParentPropertyChanged;
             }
-            var newParent = _tree.TreeNode.Parent;
-            if (newParent != null)
-            {
-                _lastParentBinding = newParent.Bind<TComponent>(
+
+            _lastParentBinding = _tree.TreeNode.Parent?.Bind<TComponent>(
                     c => { _lastParentComponent = c; c.PropertyChanged += onParentPropertyChanged; },
                     c => { _lastParentComponent = null; c.PropertyChanged -= onParentPropertyChanged; });
-            }
+            
             refreshValue();
         }
 

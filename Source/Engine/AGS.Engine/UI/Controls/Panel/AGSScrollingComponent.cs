@@ -24,14 +24,12 @@ namespace AGS.Engine
             get => _verticalScrollBar;
             set 
             {
-                var scrollBar = _verticalScrollBar;
-                if (scrollBar != null)
+                _verticalScrollBar?.OnValueChanged.Unsubscribe(onVerticalSliderChanged);
+                if (value != null)
                 {
-                    scrollBar.OnValueChanged.Unsubscribe(onVerticalSliderChanged);
+                    _crop?.EntitiesToSkipCrop.Add(value.ID);
+                    value.OnValueChanged.Subscribe(onVerticalSliderChanged);
                 }
-                var crop = _crop;
-                if (crop != null) crop.EntitiesToSkipCrop.Add(value.ID);
-                value.OnValueChanged.Subscribe(onVerticalSliderChanged);
                 _verticalScrollBar = value;
                 refreshSliderLimits();
             }
@@ -42,14 +40,12 @@ namespace AGS.Engine
             get => _horizontalScrollBar;
             set
 			{
-				var scrollBar = _horizontalScrollBar;
-				if (scrollBar != null)
-				{
-					scrollBar.OnValueChanged.Unsubscribe(onHorizontalSliderChanged);
-				}
-				var crop = _crop;
-				if (crop != null) crop.EntitiesToSkipCrop.Add(value.ID);
-				value.OnValueChanged.Subscribe(onHorizontalSliderChanged);
+				_horizontalScrollBar?.OnValueChanged.Unsubscribe(onHorizontalSliderChanged);
+                if (value != null)
+                {
+                    _crop?.EntitiesToSkipCrop.Add(value.ID);
+                    value.OnValueChanged.Subscribe(onHorizontalSliderChanged);
+                }
 				_horizontalScrollBar = value;
                 refreshSliderLimits();
 			}
@@ -95,18 +91,14 @@ namespace AGS.Engine
         private void refreshSliderLimits()
         {
             if (_inEvent) return;
-            var boundingBoxWithChildren = _boundingBoxWithChildren;
-            var boundingBox = _boundingBox;
-            if (boundingBoxWithChildren == null || boundingBox == null) return;
-            var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
-            if (boundingBoxes == null) return;
-            var withChildren = boundingBoxWithChildren.PreCropBoundingBoxWithChildren;
-			var container = boundingBoxes.RenderBox;
+            var container = _boundingBox?.GetBoundingBoxes(_state.Viewport)?.RenderBox;
+            var withChildren = _boundingBoxWithChildren?.PreCropBoundingBoxWithChildren;
+            if (container == null || withChildren == null) return;
 
 			var verticalScrollBar = _verticalScrollBar;
             if (verticalScrollBar != null)
             {
-                float maxValue = withChildren.Height - container.Height;
+                float maxValue = withChildren.Value.Height - container.Value.Height;
                 bool visible = !MathUtils.FloatEquals(verticalScrollBar.MinValue, maxValue);
                 verticalScrollBar.Visible = visible;
                 verticalScrollBar.MaxValue = maxValue;
@@ -114,7 +106,7 @@ namespace AGS.Engine
             var horizontalScrollBar = _horizontalScrollBar;
             if (horizontalScrollBar != null)
             {
-                float maxValue = withChildren.Width - container.Width;
+                float maxValue = withChildren.Value.Width - container.Value.Width;
                 bool visible = !MathUtils.FloatEquals(horizontalScrollBar.MinValue, maxValue);
                 horizontalScrollBar.Visible = visible;
                 horizontalScrollBar.MaxValue = maxValue;
@@ -129,7 +121,7 @@ namespace AGS.Engine
             if (slider == null) return;
             var layout = _layout;
             var locker = new TreeLockStep(_tree, o => o.Visible);
-            if (layout != null) layout.StopLayout();
+            layout?.StopLayout();
             locker.Lock();
             _inEvent = true;
             crop.StartPoint = new PointF(crop.StartPoint.X, -slider.Value);
@@ -139,7 +131,7 @@ namespace AGS.Engine
         private void unlock(IStackLayoutComponent layout, TreeLockStep locker)
         {
             locker.Unlock();
-            if (layout != null) layout.StartLayout();
+            layout?.StartLayout();
             _inEvent = false;
             refreshSliderLimits();
         }
@@ -152,7 +144,7 @@ namespace AGS.Engine
 			if (slider == null) return;
             var layout = _layout;
             var locker = new TreeLockStep(_tree, o => o.Visible);
-            if (layout != null) layout.StopLayout();
+            layout?.StopLayout();
             locker.Lock();
             _inEvent = true;
             crop.StartPoint = new PointF(slider.Value, crop.StartPoint.Y);

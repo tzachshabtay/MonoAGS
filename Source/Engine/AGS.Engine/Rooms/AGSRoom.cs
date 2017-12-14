@@ -60,7 +60,7 @@ namespace AGS.Engine
             set 
 			{ 
 				_background = value; 
-				if (_background != null && _background.RenderLayer == AGSLayers.Foreground)
+				if (_background?.RenderLayer == AGSLayers.Foreground)
 				{
 					_background.RenderLayer = AGSLayers.Background;
 				}

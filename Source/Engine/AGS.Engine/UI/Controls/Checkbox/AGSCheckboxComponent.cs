@@ -69,7 +69,7 @@ namespace AGS.Engine.UI.Controls
         private void onMouseUp(MouseButtonEventArgs e)
         {
             var events = _events;
-            if (events != null && events.IsMouseIn)
+            if (events?.IsMouseIn ?? false)
             {
                 _checked = !_checked;
                 onCheckChange();

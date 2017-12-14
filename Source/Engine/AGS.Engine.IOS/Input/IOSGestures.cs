@@ -79,7 +79,7 @@ namespace AGS.Engine.IOS
         private void fireEvent(EventHandler<MousePositionEventArgs> ev, UIGestureRecognizer gesture)
         {
             var point = gesture.LocationInView(_view);
-            if (ev != null) ev(this, new MousePositionEventArgs(new MousePosition((float)point.X, (float)point.Y, _state.Viewport)));
+            ev?.Invoke(this, new MousePositionEventArgs(new MousePosition((float)point.X, (float)point.Y, _state.Viewport)));
         }
     }
 }

@@ -342,8 +342,7 @@ namespace AGS.Engine
             public AGSBoundingBox BuildRenderBox(AGSBoundingBox intermediateBox, Matrix4 viewportMatrix, out PointF scale)
             {
                 scale = AGSModelMatrixComponent.NoScaling;
-                if (BoundingBoxes != null) return BoundingBoxes.RenderBox;
-				return default;
+                return BoundingBoxes?.RenderBox ?? default;
             }
 
 			#endregion

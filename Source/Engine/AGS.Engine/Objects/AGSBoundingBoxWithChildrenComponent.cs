@@ -125,7 +125,7 @@ namespace AGS.Engine
             obj.Bind<IBoundingBoxComponent>(c => c.OnBoundingBoxesChanged.Subscribe(onObjectChanged), c => c.OnBoundingBoxesChanged.Unsubscribe(onObjectChanged));
             obj.Bind<IVisibleComponent>(c => c.PropertyChanged += onVisiblePropertyChanged, c => c.PropertyChanged -= onVisiblePropertyChanged);
             var labelRenderer = obj.CustomRenderer as ILabelRenderer;
-            if (labelRenderer != null) labelRenderer.OnLabelSizeChanged.Subscribe(onObjectChanged);
+            labelRenderer?.OnLabelSizeChanged.Subscribe(onObjectChanged);
         }
 
         private void unsubscribeObject(IObject obj)
@@ -134,7 +134,7 @@ namespace AGS.Engine
             var visible = obj.GetComponent<IVisibleComponent>();
             if (visible != null) visible.PropertyChanged -= onVisiblePropertyChanged;
             var labelRenderer = obj.CustomRenderer as ILabelRenderer;
-            if (labelRenderer != null) labelRenderer.OnLabelSizeChanged.Unsubscribe(onObjectChanged);
+            labelRenderer?.OnLabelSizeChanged.Unsubscribe(onObjectChanged);
         }
 
         private void onVisiblePropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -177,20 +177,19 @@ namespace AGS.Engine
             float maxX = float.MinValue;
             float minY = float.MaxValue;
             float maxY = float.MinValue;
-            if (box != null)
-            {
-                var boxes = box.GetBoundingBoxes(_state.Viewport);
-                if (boxes != null)
-                {
-                    var boundingBox = getBox(boxes);
 
-                    minX = boundingBox.MinX;
-                    maxX = boundingBox.MaxX;
-                    minY = boundingBox.MinY;
-                    maxY = boundingBox.MaxY;
-                }
+            var boxes = box?.GetBoundingBoxes(_state.Viewport);
+            if (boxes != null)
+            {
+                var boundingBox = getBox(boxes);
+
+                minX = boundingBox.MinX;
+                maxX = boundingBox.MaxX;
+                minY = boundingBox.MinY;
+                maxY = boundingBox.MaxY;
             }
-            if (tree != null && tree.TreeNode != null)
+
+            if (tree?.TreeNode != null)
             {
                 foreach (var child in tree.TreeNode.Children)
                 {

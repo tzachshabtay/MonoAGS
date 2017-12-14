@@ -135,7 +135,7 @@ namespace AGS.Engine
             if (button == null) return;
 
             var animation = button.Animation;
-            if (animation != null && animation.Frames.Count > 0 && animationComponent != null) animationComponent.StartAnimation(animation);
+            if (animation != null && animation.Frames.Count > 0) animationComponent?.StartAnimation(animation);
 
             var border = button.Border;
             if (border != null && animationComponent != null) animationComponent.Border = border;

@@ -195,9 +195,9 @@ namespace AGS.Engine
             {
                 var textureOffset = _textureOffset;
                 if (width != sprite.Image.Width || height != sprite.Image.Height ||
-                    (textureOffset != null && !textureOffset.TextureOffset.Equals(Vector2.Zero)))
+                    (!textureOffset?.TextureOffset.Equals(Vector2.Zero) ?? false))
                 {
-                    var offset = textureOffset == null ? PointF.Empty : textureOffset.TextureOffset;
+                    var offset = textureOffset?.TextureOffset ?? PointF.Empty;
                     setProportionalTextureSize(boundingBoxes, sprite, width, height, offset);
                 }
                 else boundingBoxes.TextureBox = null;

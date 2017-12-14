@@ -62,11 +62,7 @@ namespace AGS.Engine
                 existing.Visible = false;
                 _state.UI.Remove(existing);
                 _state.Room.Objects.Remove(existing);
-                var binding = _splitLineMoveBinding;
-                if (binding != null)
-                {
-                    binding.Unbind();
-                }
+                _splitLineMoveBinding?.Unbind();
                 var translate = existing.GetComponent<ITranslateComponent>();
                 if (translate != null)
                 {
@@ -86,7 +82,7 @@ namespace AGS.Engine
             _state.FocusedUI.CannotLoseFocus.Add(splitLine.ID);
             splitLine.RenderLayer = topPanel.RenderLayer;
 			var crop = topPanel.GetComponent<ICropChildrenComponent>();
-			if (crop != null) crop.EntitiesToSkipCrop.Add(splitLine.ID);
+			crop?.EntitiesToSkipCrop.Add(splitLine.ID);
             HoverEffect.Add(splitLine, Colors.Transparent, Colors.Yellow.WithAlpha(100));
 			splitLine.Anchor = new PointF(0f, 0f);
             positionSplitLine(splitLine, topPanel, lineWidth);

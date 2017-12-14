@@ -67,14 +67,8 @@ namespace AGS.Engine
 			if (_parent == parent) return;
 			ITreeNode<TItem> prevParent = _parent;
 			_parent = parent;
-			if (prevParent != null)
-			{
-				prevParent.RemoveChild(Node);
-			}
-			if (_parent != null)
-			{
-				_parent.AddChild(Node);
-			}
+			prevParent?.RemoveChild(Node);
+			_parent?.AddChild(Node);
             fireParentChanged();
 		}
 
@@ -113,10 +107,7 @@ namespace AGS.Engine
             if (_parent == parent) return;
             ITreeNode<TItem> prevParent = _parent;
             _parent = parent;
-            if (prevParent != null)
-            {
-                prevParent.RemoveChild(Node);
-            }
+            prevParent?.RemoveChild(Node);
             fireParentChanged();
         }
 	}

@@ -66,12 +66,12 @@ namespace AGS.Engine
 			}
 			if (target == _lastTarget) 
 			{
-				if (currentWalk != null && !currentWalk.IsCompleted) return;
+				if (!currentWalk?.IsCompleted ?? false) return;
 			}
 			_lastTarget = target;
 			if (_counter > 0) 
 			{
-				if (hasRoom != null && hasRoom.Room != target.Room && _newRoomX == null) 
+				if (hasRoom?.Room != target.Room && _newRoomX == null) 
 				{
 					_newRoomX = target.X;
 					_newRoomY = target.Y;
@@ -80,7 +80,7 @@ namespace AGS.Engine
 				return;
 			}
 			_counter = MathUtils.Random ().Next (_followSettings.MinWaitBetweenWalks, _followSettings.MaxWaitBetweenWalks);
-			if (hasRoom != null && hasRoom.Room != target.Room) 
+			if (hasRoom?.Room != target.Room) 
 			{
 				if (_followSettings.FollowBetweenRooms) 
 				{

@@ -121,11 +121,7 @@ namespace AGS.Engine
 
         public void OnPropertyChanged(PropertyChangedEventArgs args)
         {
-            var propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged(this, args);
-            }
+            PropertyChanged?.Invoke(this, args);
         }
 
         private void validateScaleInitialized()

@@ -70,15 +70,13 @@ namespace AGS.Engine.Desktop
         private void onUpdateFrame(object sender, OpenTK.FrameEventArgs args)
         {
             _updateFrameArgs.Time = args.Time;
-            var updateFrame = UpdateFrame;
-            if (updateFrame != null) updateFrame(sender, _updateFrameArgs);
+            UpdateFrame?.Invoke(sender, _updateFrameArgs);
         }
 
         private void onRenderFrame(object sender, OpenTK.FrameEventArgs args)
         {
             _renderFrameArgs.Time = args.Time;
-            var renderFrame = RenderFrame;
-            if (renderFrame != null) renderFrame(sender, _renderFrameArgs);
+            RenderFrame?.Invoke(sender, _renderFrameArgs);
         }
     }
 }

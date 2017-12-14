@@ -264,8 +264,7 @@ namespace AGS.Engine
 			GLImage image = new GLImage (bitmap, id, texture, spriteSheet, config);
 
             string imageId = image.ID;
-			if (_textures != null)
-                _textures.GetOrAdd (imageId, () => image.Texture);
+			_textures?.GetOrAdd (imageId, () => image.Texture);
             image.OnImageDisposed.Subscribe(() => _textures.Remove(imageId));
 			return image;
 		}

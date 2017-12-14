@@ -37,8 +37,7 @@ namespace AGS.Engine.IOS
                 _view = value;
                 _size = new Lazy<Size>(() => new Size((int)(View.Size.Width * View.ContentScaleFactor),
                                                       (int)(View.Size.Height * View.ContentScaleFactor)));
-                var onNewView = OnNewView;
-                if (onNewView != null) onNewView(this, value);
+                OnNewView?.Invoke(this, value);
             }
         }
 
@@ -74,11 +73,7 @@ namespace AGS.Engine.IOS
                 _started = true;
                 AGSEngineIOS.Init();
                 StartGame();
-                var onLoad = Load;
-                if (onLoad != null)
-                {
-                    onLoad(this, args);
-                }
+                Load?.Invoke(this, args);
             }
             else View.Run(_updateRate);
         }
@@ -90,8 +85,7 @@ namespace AGS.Engine.IOS
             float height = (float)size.Height;
             _size = new Lazy<Size>(() => new Size((int)(width * View.ContentScaleFactor),
                                                   (int)(height * View.ContentScaleFactor)));
-            var onResize = Resize;
-            if (onResize != null) onResize(this, new EventArgs());
+            Resize?.Invoke(this, new EventArgs());
         }
 
         public void OnRenderFrame(FrameEventArgs args)

@@ -21,14 +21,9 @@ namespace AGS.Engine
             set
             {
                 if (_dropDownButton == value) return;
-                var oldDropDownButton = _dropDownButton;
-                var newDropDownButton = value;
-                if (oldDropDownButton != null) oldDropDownButton.MouseClicked.Unsubscribe(onDropDownClicked);
-                _dropDownButton = newDropDownButton;
-                if (newDropDownButton != null)
-                {
-                    newDropDownButton.MouseClicked.Subscribe(onDropDownClicked);
-                }
+                _dropDownButton?.MouseClicked.Unsubscribe(onDropDownClicked);
+                _dropDownButton = value;
+                _dropDownButton?.MouseClicked.Subscribe(onDropDownClicked);
             }
         }
 
@@ -50,10 +45,9 @@ namespace AGS.Engine
                 _dropDownPanelVisible = visibleComponent;
                 _dropDownPanelDrawable = drawableComponent;
 
-                var oldPanel = _dropDownPanelList;
-                if (oldPanel != null) oldPanel.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
+                _dropDownPanelList?.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
                 _dropDownPanelList = listBoxComponent;
-                if (listBoxComponent != null) listBoxComponent.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
+                listBoxComponent?.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
                 if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
                 if (translateComponent != null) translateComponent.Y = -1f;
                 if (visibleComponent != null) visibleComponent.Visible = false;
@@ -67,10 +61,9 @@ namespace AGS.Engine
             _dropDownPanelVisible = visibleComponent;
             _dropDownPanelDrawable = drawableComponent;
 
-            var oldPanel = _dropDownPanelList;
-            if (oldPanel != null) oldPanel.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
+            _dropDownPanelList?.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
             _dropDownPanelList = listBoxComponent;
-            if (listBoxComponent != null) listBoxComponent.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
+            listBoxComponent?.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
             if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
             if (translateComponent != null) translateComponent.Y = -1f;
             if (visibleComponent != null) visibleComponent.Visible = false;
@@ -94,8 +87,7 @@ namespace AGS.Engine
             }
             else 
             {
-                float dropBorderLeft = 0f;
-                if (dropDownButton.Border != null) dropBorderLeft = dropDownButton.Border.WidthLeft;
+                float dropBorderLeft = dropDownButton.Border?.WidthLeft ?? 0f;
                 dropDownButton.X = textbox.X + (textbox.Width < 0 ? textbox.TextWidth : textbox.Width) + dropBorderLeft;
             }
         }

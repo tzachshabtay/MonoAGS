@@ -32,8 +32,7 @@ namespace AGS.Engine.Android
             set 
             { 
                 _view = value;
-                var onNewView = OnNewView;
-                if (onNewView != null) onNewView(this, value);
+                OnNewView?.Invoke(this, value);
             } 
         }
 
@@ -80,16 +79,14 @@ namespace AGS.Engine.Android
                 _started = true;
                 AGSEngineAndroid.Init();
                 StartGame();
-                var onLoad = Load;
-                if (onLoad != null) onLoad(this, args);
+                Load?.Invoke(this, args);
             }
             else View.Run(_updateRate);
         }
 
         public void OnResize(EventArgs args)
         {
-            var onResize = Resize;
-            if (onResize != null) onResize(this, args);
+            Resize?.Invoke(this, args);
         }
 
         public void OnRenderFrame(FrameEventArgs args)
