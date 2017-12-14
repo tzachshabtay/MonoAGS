@@ -88,21 +88,16 @@ namespace AGS.Engine
             float ySource = _translate.Y;
 			bool completedWalk = false;
 			Exception caught = null;
-			try
-			{
-				completedWalk = await walkAsync(location, token, debugRenderers);
-			}
-			catch (Exception e)
-			{
-				caught = e;
-			}
-
-			//On windows (assuming we're before c# 6.0), we can't await inside a finally, so we're using the workaround pattern
-            _faceDirection.CurrentDirectionalAnimation = _outfit.Outfit[AGSOutfit.Idle];
-			await _faceDirection.FaceDirectionAsync(_faceDirection.Direction);
-			_walkCompleted.TrySetResult(null);
-
-			if (caught != null) throw caught;
+            try
+            {
+                completedWalk = await walkAsync(location, token, debugRenderers);
+            }
+            finally
+            {
+                _faceDirection.CurrentDirectionalAnimation = _outfit.Outfit[AGSOutfit.Idle];
+                await _faceDirection.FaceDirectionAsync(_faceDirection.Direction);
+                _walkCompleted.TrySetResult(null);
+            }
 
 			return completedWalk;
 		}
