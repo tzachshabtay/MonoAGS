@@ -9,7 +9,7 @@ namespace AGS.Engine
     public class AGSBoundingBoxWithChildrenComponent : AGSComponent, IBoundingBoxWithChildrenComponent, ILockStep
     {
         private IBoundingBoxComponent _boundingBox;
-        private AGSBoundingBox _preUnlockBoundingBox, _preUnlockPreCropBoundingBox;
+        private AGSBoundingBox _preUnlockBoundingBox, _preUnlockPreCropBoundingBox, _boundingBoxWithChildren, _preCropBoundingBoxWithChildren;
         private int _shouldFireOnUnlock, _pendingLocks;
         private IInObjectTree _tree;
         private IEntity _entity;
@@ -23,9 +23,9 @@ namespace AGS.Engine
             OnBoundingBoxWithChildrenChanged = new AGSEvent();
         }
 
-        public AGSBoundingBox BoundingBoxWithChildren { get; private set; }
+        public ref AGSBoundingBox BoundingBoxWithChildren { get { return ref _boundingBoxWithChildren; } }
 
-        public AGSBoundingBox PreCropBoundingBoxWithChildren { get; private set; }
+        public ref AGSBoundingBox PreCropBoundingBoxWithChildren { get { return ref _preCropBoundingBoxWithChildren; } }
 
         public IBlockingEvent OnBoundingBoxWithChildrenChanged { get; private set; }
 
@@ -60,8 +60,8 @@ namespace AGS.Engine
             if (shouldFire)
             {
                 Interlocked.Increment(ref _shouldFireOnUnlock);
-                BoundingBoxWithChildren = _preUnlockBoundingBox;
-                PreCropBoundingBoxWithChildren = _preUnlockPreCropBoundingBox;
+                _boundingBoxWithChildren = _preUnlockBoundingBox;
+                _preCropBoundingBoxWithChildren = _preUnlockPreCropBoundingBox;
             }
         }
 
@@ -155,8 +155,8 @@ namespace AGS.Engine
             if (_pendingLocks > 0) return false;
             var lastBox = BoundingBoxWithChildren;
             var lastPreBox = PreCropBoundingBoxWithChildren;
-            BoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.RenderBox);
-            PreCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox);
+            _boundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.RenderBox);
+            _preCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox);
             _isDirty = false;
             return (!lastBox.Equals(BoundingBoxWithChildren) || !lastPreBox.Equals(PreCropBoundingBoxWithChildren));
         }

@@ -12,7 +12,7 @@
         /// Gets the bounding box which wraps around the entity and all its children.
         /// </summary>
         /// <value>The size with children.</value>
-        AGSBoundingBox BoundingBoxWithChildren { get; }
+        ref AGSBoundingBox BoundingBoxWithChildren { get; }
 
 		/// <summary>
 		/// Gets the bounding box which wraps around the entity and all its children
@@ -20,7 +20,7 @@
         /// attached to them. 
 		/// </summary>
 		/// <value>The pre crop bounding box with children.</value>
-		AGSBoundingBox PreCropBoundingBoxWithChildren { get; }
+		ref AGSBoundingBox PreCropBoundingBoxWithChildren { get; }
 
         /// <summary>
         /// An event which fires whenever the bounding box with children changes.

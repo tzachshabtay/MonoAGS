@@ -171,11 +171,11 @@ namespace AGS.Engine
             {
 				var modelMatrices = matrix.GetModelMatrices();
                 var modelMatrix = modelMatrices.InObjResolutionMatrix;
-                intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, modelMatrix);
+                intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, ref modelMatrix);
             }
 
             PointF renderCropScale;
-            var renderBox = _boundingBoxBuilder.BuildRenderBox(intermediateBox, viewportMatrix, out renderCropScale);
+            var renderBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out renderCropScale);
 
             PointF hitTestCropScale = renderCropScale;
             if (MathUtils.FloatEquals(hitTestCropScale.X, 1f) && MathUtils.FloatEquals(hitTestCropScale.Y, 1f))
@@ -240,8 +240,8 @@ namespace AGS.Engine
 			var sprite = animation.Animation.Sprite;
             float width = sprite.BaseSize.Width / resolutionFactor.X;
 			float height = sprite.BaseSize.Height / resolutionFactor.Y;
-            _intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, modelMatrix);
-            _hitTestBox = _boundingBoxBuilder.BuildHitTestBox(_intermediateBox);
+            _intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, ref modelMatrix);
+            _hitTestBox = _boundingBoxBuilder.BuildHitTestBox(ref _intermediateBox);
 		}
 
         private void onHitTextBoxShouldChange()

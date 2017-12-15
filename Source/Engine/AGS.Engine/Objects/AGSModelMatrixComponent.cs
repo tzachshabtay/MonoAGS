@@ -110,10 +110,14 @@ namespace AGS.Engine
 			});
         }
 
-        public ModelMatrices GetModelMatrices() 
+        public ref ModelMatrices GetModelMatrices() 
         {
-            if (_pendingLocks > 0) return _preLockMatrices;
-            return shouldRecalculate() ? recalculateMatrices() : _matrices; 
+            if (_pendingLocks > 0) return ref _preLockMatrices;
+            if (!shouldRecalculate())
+            {
+                return ref _matrices;
+            }
+            return ref recalculateMatrices();
         }
 
         public void Lock()
@@ -292,11 +296,11 @@ namespace AGS.Engine
             return _isDirty;
         }
 
-        private ModelMatrices recalculateMatrices()
+        private ref ModelMatrices recalculateMatrices()
         {
             recalculate();
             OnMatrixChanged.Invoke();
-            return _matrices;
+            return ref _matrices;
         }
 
         private void recalculate()

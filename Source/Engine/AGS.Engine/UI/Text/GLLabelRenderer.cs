@@ -290,15 +290,17 @@ namespace AGS.Engine
 
         private void build(AGSBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
         {
-            var intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, matrices.ModelMatrix);
+            var modelMatrix = matrices.ModelMatrix;
+            var intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, ref modelMatrix);
             if (buildHitTestBox)
             {
-                boxes.HitTestBox = _boundingBoxBuilder.BuildHitTestBox(intermediateBox);
+                boxes.HitTestBox = _boundingBoxBuilder.BuildHitTestBox(ref intermediateBox);
             }
             if (buildRenderBox)
             {
                 PointF scale;
-                boxes.RenderBox = _boundingBoxBuilder.BuildRenderBox(intermediateBox, matrices.ViewportMatrix, out scale);
+                var viewportMatrix = matrices.ViewportMatrix;
+                boxes.RenderBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out scale);
             }
         }
 
@@ -335,11 +337,11 @@ namespace AGS.Engine
 
             #region AGSBoundingBoxBuilder implementation
 
-            public AGSBoundingBox BuildIntermediateBox(float width, float height, Matrix4 modelMatrix) => default;
+            public AGSBoundingBox BuildIntermediateBox(float width, float height, ref Matrix4 modelMatrix) => default;
 
-            public AGSBoundingBox BuildHitTestBox(AGSBoundingBox intermediateBox) => BoundingBoxes?.HitTestBox ?? default;
+            public AGSBoundingBox BuildHitTestBox(ref AGSBoundingBox intermediateBox) => BoundingBoxes?.HitTestBox ?? default;
 
-            public AGSBoundingBox BuildRenderBox(AGSBoundingBox intermediateBox, Matrix4 viewportMatrix, out PointF scale)
+            public AGSBoundingBox BuildRenderBox(ref AGSBoundingBox intermediateBox, ref Matrix4 viewportMatrix, out PointF scale)
             {
                 scale = AGSModelMatrixComponent.NoScaling;
                 return BoundingBoxes?.RenderBox ?? default;

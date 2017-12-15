@@ -522,9 +522,9 @@ namespace AGS.Engine
             get { return _modelMatrixComponent.OnMatrixChanged; } 
         }
 
-        public ModelMatrices GetModelMatrices()
+        public ref ModelMatrices GetModelMatrices()
         {
-            return _modelMatrixComponent.GetModelMatrices();
+            return ref _modelMatrixComponent.GetModelMatrices();
         }
 
         public ILockStep ModelMatrixLockStep
