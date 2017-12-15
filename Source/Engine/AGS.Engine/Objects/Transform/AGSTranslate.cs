@@ -13,7 +13,9 @@ namespace AGS.Engine
             _location = AGSLocation.Empty();
         }
 
+#pragma warning disable CS0067
         public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
 
         [AlsoNotifyFor(nameof(X), nameof(Y), nameof(Z))]
         public ILocation Location { get => _location; set => _location = value; }

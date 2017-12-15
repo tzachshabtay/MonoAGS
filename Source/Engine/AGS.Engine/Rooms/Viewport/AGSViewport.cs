@@ -17,7 +17,9 @@ namespace AGS.Engine
 
 		#region IViewport implementation
 
+#pragma warning disable CS0067
         public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
 
         public float X { get; set; }
 

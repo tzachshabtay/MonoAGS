@@ -25,7 +25,9 @@ namespace AGS.Engine
 
         public IImageRenderer CustomRenderer { get; set; }
 
+#pragma warning disable CS0067
         public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
 
         public override string ToString() => Image == null ? base.ToString() : Image.ToString();
     }
