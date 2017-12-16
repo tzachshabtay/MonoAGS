@@ -28,7 +28,7 @@ namespace AGS.Engine
             var factory = _game.Factory;
 			_scrollingPanel = factory.UI.GetPanel("GameDebugDisplayListScrollingPanel", parent.Width, parent.Height / 2f, 0f, parent.Height / 2f, parent);
 			_scrollingPanel.RenderLayer = _layer;
-			_scrollingPanel.Anchor = new PointF(0f, 0f);
+			_scrollingPanel.Pivot = new PointF(0f, 0f);
 			_scrollingPanel.Tint = Colors.Transparent;
 			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
             _scrollingPanel.Visible = false;
@@ -36,7 +36,7 @@ namespace AGS.Engine
             _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, _scrollingPanel.Height - 10, _scrollingPanel);
             _listPanel.Tint = Colors.Transparent;
             _listPanel.RenderLayer = _layer;
-            _listPanel.Anchor = new PointF(0f, 1f);
+            _listPanel.Pivot = new PointF(0f, 1f);
             _listPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
             _layout = _listPanel.AddComponent<IStackLayoutComponent>();
             _listBox = _listPanel.AddComponent<IListboxComponent>();

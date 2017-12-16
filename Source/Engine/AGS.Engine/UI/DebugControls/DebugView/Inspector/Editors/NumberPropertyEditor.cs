@@ -210,9 +210,9 @@ namespace AGS.Engine
             var slider = _factory.UI.GetSlider(id + "_Slider", null, null, 0f, 0f, 0f, panel);
             slider.Y = 0f;
             slider.Z = panel.Z - 1f;
-            slider.HandleGraphics.Anchor = new PointF(0f, 0.5f);
+            slider.HandleGraphics.Pivot = new PointF(0f, 0.5f);
             slider.Direction = SliderDirection.LeftToRight;
-            slider.Graphics.Anchor = new PointF(0f, 0.5f);
+            slider.Graphics.Pivot = new PointF(0f, 0.5f);
             slider.Graphics.Image = new EmptyImage(20f, SLIDER_HEIGHT);
             slider.Graphics.BaseSize = new SizeF(panel.Width, SLIDER_HEIGHT);
             slider.HandleGraphics.Image = new EmptyImage(2f, SLIDER_HEIGHT);
@@ -227,7 +227,7 @@ namespace AGS.Engine
             sliderColorImage.ClickThrough = true;
             sliderColorImage.Z = slider.Graphics.Z - 1f;
             sliderColorImage.Tint = Colors.Purple;
-            sliderColorImage.Anchor = slider.Graphics.Anchor;
+            sliderColorImage.Pivot = slider.Graphics.Pivot;
             PropertyChangedEventHandler onHandleLocationChanged = (_, args) =>
             {
                 if (args.PropertyName != nameof(ITranslateComponent.X)) return;

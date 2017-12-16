@@ -48,7 +48,7 @@ namespace DemoGame
 		{
 			IAnimation animation = await factory.Graphics.LoadAnimationFromFilesAsync(loadConfig: _loadConfig, files: new[]{ _baseFolder + filename });
             var cursor = factory.Object.GetObject($"Cursor_{filename}");
-            cursor.Anchor = new PointF(0f, 1f);
+            cursor.Pivot = new PointF(0f, 1f);
             cursor.IgnoreScalingArea = true;
             cursor.IgnoreViewport = true;
             cursor.StartAnimation(animation);

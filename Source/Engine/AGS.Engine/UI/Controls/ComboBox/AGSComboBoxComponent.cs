@@ -48,7 +48,7 @@ namespace AGS.Engine
                 _dropDownPanelList?.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
                 _dropDownPanelList = listBoxComponent;
                 listBoxComponent?.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
-                if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
+                if (imageComponent != null) imageComponent.Pivot = new PointF(0f, 1f);
                 if (translateComponent != null) translateComponent.Y = -1f;
                 if (visibleComponent != null) visibleComponent.Visible = false;
             }
@@ -64,7 +64,7 @@ namespace AGS.Engine
             _dropDownPanelList?.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
             _dropDownPanelList = listBoxComponent;
             listBoxComponent?.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
-            if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
+            if (imageComponent != null) imageComponent.Pivot = new PointF(0f, 1f);
             if (translateComponent != null) translateComponent.Y = -1f;
             if (visibleComponent != null) visibleComponent.Visible = false;
         }

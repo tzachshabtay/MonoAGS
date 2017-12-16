@@ -52,8 +52,8 @@ namespace DemoGame
                     ( "Lightness", () => o.TweenLightness(0f, time, ease())),
                     ( "ScaleX", () => o.TweenScaleX(2f, time, ease())),
                     ( "ScaleY", () => o.TweenScaleY(2f, time, ease())),
-                    ( "AnchorX", () => o.TweenAnchorX(1f, time, ease())),
-                    ( "AnchorY", () => o.TweenAnchorY(1f, time, ease())),
+                    ( "PivotX", () => o.TweenPivotX(1f, time, ease())),
+                    ( "PivotY", () => o.TweenPivotY(1f, time, ease())),
 
                 };
             };
@@ -124,7 +124,7 @@ namespace DemoGame
             _clearTweensButton = addButton("FeaturesTweenClearAll", "Clear All", _addTweenButton.X, 20f, clearTweens);
             _tweensListPanel = _game.Factory.UI.GetPanel("FeaturesTweenListPanel", 600f, 250f, 0f, _parent.Height - 200f, parent, false);
             _tweensListPanel.Tint = Colors.Transparent;
-            _tweensListPanel.Anchor = new PointF(0f, 1f);
+            _tweensListPanel.Pivot = new PointF(0f, 1f);
             _tweensListPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
             _game.Factory.UI.CreateScrollingPanel(_tweensListPanel);
             var layout = _tweensListPanel.AddComponent<IStackLayoutComponent>();
@@ -312,13 +312,13 @@ namespace DemoGame
                 _panel.Visible = false;
                 _panel.RenderLayer = parent.RenderLayer;
                 _panel.Tint = Colors.Transparent;
-                _panel.Anchor = new PointF(0f, 1f);
+                _panel.Pivot = new PointF(0f, 1f);
 
                 _slider = factory.GetSlider($"FeaturesTweenSlider_{tweenId}", null, null, 0f, 0f, tween.DurationInTicks, _panel);
                 _slider.Location = new AGSLocation(10f, 10f);
-                _slider.HandleGraphics.Anchor = new PointF(0.5f, 0.5f);
+                _slider.HandleGraphics.Pivot = new PointF(0.5f, 0.5f);
                 _slider.Direction = SliderDirection.LeftToRight;
-                _slider.Graphics.Anchor = new PointF(0f, 0.5f);
+                _slider.Graphics.Pivot = new PointF(0f, 0.5f);
                 _slider.Graphics.Image = new EmptyImage(_panel.Width - 100f, 10f);
                 _slider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
                 _slider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
@@ -328,7 +328,7 @@ namespace DemoGame
                 _label = factory.GetLabel($"FeaturesTweenLabel_{tweenId}", name, 100f, 20f,
                                           _slider.X + _slider.Graphics.Width / 2f, _slider.Y + 10f, _panel,
                                           new AGSTextConfig(autoFit: AutoFit.TextShouldFitLabel));
-                _label.Anchor = new PointF(0.5f, 0f);
+                _label.Pivot = new PointF(0.5f, 0f);
 
                 AGSTextConfig idleConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
                 AGSTextConfig hoverConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));

@@ -82,12 +82,12 @@ namespace AGS.API
         void ScaleTo(float width, float height);
 
         /// <summary>
-        /// Flips the scale horizontally (this is done by negating <see cref="ScaleX"/> and <see cref="IHasImage.Anchor"/>'s X).
+        /// Flips the scale horizontally (this is done by negating <see cref="ScaleX"/> and <see cref="IHasImage.Pivot"/>'s X).
         /// </summary>
         void FlipHorizontally();
 
         /// <summary>
-        /// Flips the scale vertucally (this is done by negating <see cref="ScaleY"/> and <see cref="IHasImage.Anchor"/>'s Y).  
+        /// Flips the scale vertucally (this is done by negating <see cref="ScaleY"/> and <see cref="IHasImage.Pivot"/>'s Y).  
         /// </summary>
         void FlipVertically();
     }

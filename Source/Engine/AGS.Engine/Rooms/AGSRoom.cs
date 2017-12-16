@@ -66,7 +66,7 @@ namespace AGS.Engine
 				}
 				if (_background != null)
 				{
-					_background.Anchor = new PointF ();
+					_background.Pivot = new PointF ();
 				}
 			} 
 		}

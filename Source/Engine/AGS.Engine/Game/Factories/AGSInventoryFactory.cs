@@ -79,14 +79,14 @@ namespace AGS.Engine
 			graphics.RenderLayer = AGSLayers.UI;
 			graphics.IgnoreViewport = true;
 			graphics.IgnoreScalingArea = true;
-			graphics.Anchor = new PointF (0.5f, 0.5f);
+			graphics.Pivot = new PointF (0.5f, 0.5f);
 			graphics.Hotspot = hotspot;
 
 			IObject cursor = _object.GetObject ($"{hotspot ?? ""}(inventory item cursor)");
 			cursor.Image = cursorImage;
             cursor.IgnoreViewport = true;
             cursor.IgnoreScalingArea = true;
-            cursor.Anchor = new PointF(0f, 1f);
+            cursor.Pivot = new PointF(0f, 1f);
 
             return GetInventoryItem (graphics, cursor, playerStartsWithItem);
 		}

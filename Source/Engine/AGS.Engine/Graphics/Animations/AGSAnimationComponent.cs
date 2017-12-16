@@ -16,7 +16,7 @@ namespace AGS.Engine
 
         public IBlockingEvent OnAnimationStarted { get; private set; }
 
-		public bool DebugDrawAnchor { get; set; }
+		public bool DebugDrawPivot { get; set; }
 
 		public IBorderStyle Border { get; set; }
 

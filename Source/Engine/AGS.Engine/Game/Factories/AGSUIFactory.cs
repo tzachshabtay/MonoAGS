@@ -62,18 +62,18 @@ namespace AGS.Engine
 			IScrollingComponent scroll = panel.AddComponent<IScrollingComponent>();
 
             var horizSlider = GetSlider($"{panel.ID}_HorizontalSlider", null, null, 0f, 0f, 0f, panel);
-			horizSlider.HandleGraphics.Anchor = new PointF(0f, 0.5f);
+			horizSlider.HandleGraphics.Pivot = new PointF(0f, 0.5f);
             horizSlider.Direction = SliderDirection.LeftToRight;
-			horizSlider.Graphics.Anchor = new PointF(0f, 0.5f);
+			horizSlider.Graphics.Pivot = new PointF(0f, 0.5f);
 			horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
 			horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
             HoverEffect.Add(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
 			HoverEffect.Add(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
             var verSlider = GetSlider($"{panel.ID}_VerticalSlider", null, null, 0f, 0f, 0f, panel);
-			verSlider.HandleGraphics.Anchor = new PointF(0.5f, 0f);
+			verSlider.HandleGraphics.Pivot = new PointF(0.5f, 0f);
             verSlider.Direction = SliderDirection.TopToBottom;
-			verSlider.Graphics.Anchor = new PointF(0.5f, 0f);
+			verSlider.Graphics.Pivot = new PointF(0.5f, 0f);
 			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
 			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
 			HoverEffect.Add(verSlider.Graphics, Colors.Gray, Colors.LightGray);
@@ -93,7 +93,7 @@ namespace AGS.Engine
                 horizSlider.HandleGraphics.Image = new EmptyImage(widthUnit, heightUnit);
                 verSlider.Graphics.Image = new EmptyImage(widthUnit / 2f, panel.Height - heightUnit * 4f);
                 verSlider.HandleGraphics.Image = new EmptyImage(widthUnit, heightUnit);
-                horizSlider.X = -panel.Width * panel.Anchor.X + widthUnit;
+                horizSlider.X = -panel.Width * panel.Pivot.X + widthUnit;
                 horizSlider.Y = heightUnit;
                 verSlider.X = panel.Width - widthUnit;
                 verSlider.Y = heightUnit * 2f;
@@ -345,7 +345,7 @@ namespace AGS.Engine
 													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText), null),
 													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
                                                       0f, 0f, width: itemWidth, height: defaultHeight);
-                    button.Anchor = new PointF(0f, 1f);
+                    button.Pivot = new PointF(0f, 1f);
 					button.RenderLayer = dropDownPanelLayer;
 					return button;
 				};
@@ -405,7 +405,7 @@ namespace AGS.Engine
             {
                 label = GetLabel($"{id}(label)", "", graphics.Width, 30f, 0f, -30f, parent, config, false);
                 if (parent != null) label.RenderLayer = parent.RenderLayer;
-                label.Anchor = new PointF(0.5f, 0f);
+                label.Pivot = new PointF(0.5f, 0f);
             }
 
             IObject handle = _object.GetObject($"{id}(handle)");

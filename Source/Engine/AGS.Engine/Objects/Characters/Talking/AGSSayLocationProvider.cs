@@ -74,14 +74,14 @@ namespace AGS.Engine
             {
                 case PortraitPositioning.Custom: return null;
                 case PortraitPositioning.Alternating:
-                    portrait.Anchor = new PointF(0f, 0f);
+                    portrait.Pivot = new PointF(0f, 0f);
                     if (_obj != _lastSpeaker)
                     {
                         _lastSpeakerOnLeft = !_lastSpeakerOnLeft;
                     }
                     return getPortraitLocation(portraitConfig);
                 case PortraitPositioning.SpeakerPosition:
-                    portrait.Anchor = new PointF(0f, 0f);
+                    portrait.Pivot = new PointF(0f, 0f);
                     if (_obj.X < _settings.VirtualResolution.Width / 2) _lastSpeakerOnLeft = true;
                     else _lastSpeakerOnLeft = false;
                     return getPortraitLocation(portraitConfig);

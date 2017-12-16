@@ -114,14 +114,14 @@ namespace AGS.Engine
 
             var arrowDownIcon = getIcon("ArrowDown", factory, scrollButtonWidth, scrollButtonHeight, 
                                         iconFactory.GetArrowIcon(ArrowDirection.Down));
-            arrowDownIcon.Anchor = new PointF();
+            arrowDownIcon.Pivot = new PointF();
             arrowDownIcon.Enabled = false;
             arrowDownIcon.TreeNode.SetParent(scrollDownButton.TreeNode);
             _game.State.UI.Add(arrowDownIcon);
 
             var arrowUpIcon = getIcon("ArrowUp", factory, scrollButtonWidth, scrollButtonHeight,
                                       iconFactory.GetArrowIcon(ArrowDirection.Up));
-            arrowUpIcon.Anchor = new PointF();
+            arrowUpIcon.Pivot = new PointF();
             arrowUpIcon.Enabled = false;
             arrowUpIcon.TreeNode.SetParent(scrollUpButton.TreeNode);
             _game.State.UI.Add(arrowUpIcon);
@@ -147,7 +147,7 @@ namespace AGS.Engine
             obj.Tint = Colors.Transparent;
             obj.Image = new EmptyImage(width, height);
             obj.RenderLayer = AGSLayers.UI;
-            obj.Anchor = new PointF(0.5f, 0.5f);
+            obj.Pivot = new PointF(0.5f, 0.5f);
             obj.IgnoreScalingArea = true;
             obj.IgnoreViewport = true;
             obj.Border = icon;
@@ -314,7 +314,7 @@ namespace AGS.Engine
         private static IObject clone(string id, IGameFactory factory, IObject obj)
         {
             IObject newObj = factory.Object.GetObject(id);
-            newObj.Anchor = obj.Anchor;
+            newObj.Pivot = obj.Pivot;
             newObj.Location = obj.Location;
             newObj.Tint = obj.Tint;
             newObj.Hotspot = obj.Hotspot;

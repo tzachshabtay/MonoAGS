@@ -75,8 +75,8 @@ namespace AGS.Engine
                 c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged();}
             );
 			_entity.Bind<IImageComponent>(
-                c => { _image = c; c.PropertyChanged += onAnchorChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onAnchorChanged; _image = null; onSomethingChanged(); }
+                c => { _image = c; c.PropertyChanged += onPivotChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onPivotChanged; _image = null; onSomethingChanged(); }
 			);
 
             _entity.Bind<IDrawableInfoComponent>(
@@ -183,7 +183,7 @@ namespace AGS.Engine
             if (args.PropertyName != nameof(ISprite.X) && args.PropertyName != nameof(ISprite.Y) &&
                 args.PropertyName != nameof(ISprite.ScaleX) && args.PropertyName != nameof(ISprite.ScaleY) &&
                 args.PropertyName != nameof(ISprite.Width) && args.PropertyName != nameof(ISprite.Height) &&
-                args.PropertyName != nameof(ISprite.Angle) && args.PropertyName != nameof(ISprite.Anchor)) return;
+                args.PropertyName != nameof(ISprite.Angle) && args.PropertyName != nameof(ISprite.Pivot)) return;
             onSomethingChanged();
         }
 
@@ -212,9 +212,9 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
-        private void onAnchorChanged(object sender, PropertyChangedEventArgs args)
+        private void onPivotChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(IImageComponent.Anchor)) return;
+            if (args.PropertyName != nameof(IImageComponent.Pivot)) return;
             onSomethingChanged();
         }
 
@@ -352,9 +352,9 @@ namespace AGS.Engine
                 _nullFloat : (_customImageSize.Value.Height * scale.ScaleY);
             float width = (customWidth ?? scale.Width) * areaScaling.X * resolutionTransform.X;
             float height = (customHeight ?? scale.Height) * areaScaling.Y * resolutionTransform.Y;
-            PointF anchorOffsets = getAnchorOffsets(image == null ? PointF.Empty : image.Anchor, 
+            PointF pivotOffsets = getPivotOffsets(image == null ? PointF.Empty : image.Pivot, 
                                                     width, height);
-            Matrix4 anchorMat = Matrix4.CreateTranslation(new Vector3(-anchorOffsets.X, -anchorOffsets.Y, 0f));
+            Matrix4 pivotMat = Matrix4.CreateTranslation(new Vector3(-pivotOffsets.X, -pivotOffsets.Y, 0f));
             Matrix4 scaleMat = Matrix4.CreateScale(new Vector3(scale.ScaleX * areaScaling.X,
                 scale.ScaleY * areaScaling.Y, 1f));
             float radians = rotate == null ? 0f : MathUtils.DegreesToRadians(rotate.Angle);
@@ -367,13 +367,13 @@ namespace AGS.Engine
                 y += jump.JumpOffset.Y * resolutionTransform.Y;
             }
             Matrix4 translateMat = Matrix4.CreateTranslation(new Vector3(x, y, 0f));
-            return scaleMat * anchorMat * rotationMat * translateMat;
+            return scaleMat * pivotMat * rotationMat * translateMat;
         }
 
-        private PointF getAnchorOffsets(PointF anchor, float width, float height)
+        private PointF getPivotOffsets(PointF pivot, float width, float height)
         {
-            float x = MathUtils.Lerp(0f, 0f, 1f, width, anchor.X);
-            float y = MathUtils.Lerp(0f, 0f, 1f, height, anchor.Y);
+            float x = MathUtils.Lerp(0f, 0f, 1f, width, pivot.X);
+            float y = MathUtils.Lerp(0f, 0f, 1f, height, pivot.Y);
             return new PointF(x, y);
         }
 

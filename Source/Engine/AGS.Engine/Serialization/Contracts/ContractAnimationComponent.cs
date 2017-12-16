@@ -16,7 +16,7 @@ namespace AGS.Engine
 		public IContract<IAnimation> Animation { get; set; }
 
 		[ProtoMember(2)]
-		public bool DebugDrawAnchor { get; set; }
+        public bool DebugDrawPivot { get; set; }
 
 		[ProtoMember(3)]
 		public IContract<IBorderStyle> Border { get; set; }
@@ -32,7 +32,7 @@ namespace AGS.Engine
 
 		public void ToItem(AGSSerializationContext context, IAnimationComponent container)
 		{
-			container.DebugDrawAnchor = DebugDrawAnchor;
+			container.DebugDrawPivot = DebugDrawPivot;
 			container.Border = Border.ToItem(context);
 			IAnimation animation = Animation.ToItem(context);
 			if (animation != null)
@@ -46,7 +46,7 @@ namespace AGS.Engine
 			Animation = context.GetContract(item.Animation);
 			Border = context.GetContract(item.Border);
 
-			DebugDrawAnchor = item.DebugDrawAnchor;			
+			DebugDrawPivot = item.DebugDrawPivot;			
 		}
 
 		#endregion

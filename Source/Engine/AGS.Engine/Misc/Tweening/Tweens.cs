@@ -271,45 +271,45 @@ namespace AGS.Engine
 		}
 
         /// <summary>
-        /// Tweens the anchor (also called "pivot") point (its x position) of an image.
+        /// Tweens the pivot point (its x position) of an image.
         /// <example>
         /// <code>
-        /// var tween = obj.TweenAnchorX(0.5f, 2f, Ease.SineIn);
+        /// var tween = obj.TweenPivotX(0.5f, 2f, Ease.SineIn);
         /// await tween.Task;
         /// </code>
         /// </example>
         /// <seealso cref="Tween"/>
-        /// <seealso cref="IHasImage.Anchor"/>
+        /// <seealso cref="IHasImage.Pivot"/>
         /// </summary>
         /// <returns>The tween.</returns>
         /// <param name="sprite">Sprite.</param>
-        /// <param name="toAnchorX">To anchor x.</param>
+        /// <param name="toPivotX">To pivot x.</param>
         /// <param name="timeInSeconds">Time in seconds.</param>
         /// <param name="easing">Easing function.</param>
-		public static Tween TweenAnchorX(this IHasImage sprite, float toAnchorX, float timeInSeconds, Func<float, float> easing = null)
+		public static Tween TweenPivotX(this IHasImage sprite, float toPivotX, float timeInSeconds, Func<float, float> easing = null)
 		{
-			return Tween.Run(sprite.Anchor.X, toAnchorX, x => sprite.Anchor = new PointF (x, sprite.Anchor.Y), timeInSeconds, easing);
+			return Tween.Run(sprite.Pivot.X, toPivotX, x => sprite.Pivot = new PointF (x, sprite.Pivot.Y), timeInSeconds, easing);
 		}
 
         /// <summary>
-        /// Tweens the anchor (also called "pivot") point (its y position) of an image.
+        /// Tweens the pivot point (its y position) of an image.
         /// <example>
         /// <code>
-        /// var tween = obj.TweenAnchorY(0.5f, 2f, Ease.SineIn);
+        /// var tween = obj.TweenPivotY(0.5f, 2f, Ease.SineIn);
         /// await tween.Task;
         /// </code>
         /// </example>
         /// <seealso cref="Tween"/>
-        /// <seealso cref="IHasImage.Anchor"/>
+        /// <seealso cref="IHasImage.Pivot"/>
         /// </summary>
         /// <returns>The tween.</returns>
         /// <param name="sprite">Sprite.</param>
-        /// <param name="toAnchorY">To anchor y.</param>
+        /// <param name="toPivotY">To pivot y.</param>
         /// <param name="timeInSeconds">Time in seconds.</param>
         /// <param name="easing">Easing function.</param>
-		public static Tween TweenAnchorY(this IHasImage sprite, float toAnchorY, float timeInSeconds, Func<float, float> easing = null)
+		public static Tween TweenPivotY(this IHasImage sprite, float toPivotY, float timeInSeconds, Func<float, float> easing = null)
 		{
-			return Tween.Run(sprite.Anchor.Y, toAnchorY, y => sprite.Anchor = new PointF (sprite.Anchor.X, y), timeInSeconds, easing);
+			return Tween.Run(sprite.Pivot.Y, toPivotY, y => sprite.Pivot = new PointF (sprite.Pivot.X, y), timeInSeconds, easing);
 		}
 
         /// <summary>

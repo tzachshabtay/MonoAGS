@@ -44,7 +44,7 @@ namespace AGS.Engine
         private IObject createObject(string id)
 		{            
             var obj = _factory.Object.GetObject("Walk-Behind Drawable: " + id);
-			obj.Anchor = new PointF ();
+			obj.Pivot = new PointF ();
 			return obj;
 		}
 	}

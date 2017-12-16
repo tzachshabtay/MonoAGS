@@ -32,7 +32,7 @@ namespace AGS.Engine
 		public uint Tint { get; set; }
 
 		[ProtoMember(7)]
-		public Tuple<float, float> Anchor { get; set; }
+        public Tuple<float, float> Pivot { get; set; }
 
 		[ProtoMember(8)]
 		public Contract<IImage> Image { get; set; }
@@ -57,7 +57,7 @@ namespace AGS.Engine
                 sprite.Scale = new PointF(ScaleX, ScaleY);
 			}
 			sprite.Location = new AGSLocation (Location.Item1, Location.Item2, Location.Item3);
-			sprite.Anchor = new PointF (Anchor.Item1, Anchor.Item2);
+			sprite.Pivot = new PointF (Pivot.Item1, Pivot.Item2);
 			sprite.Angle = Angle;
 			sprite.Tint = Color.FromHexa(Tint);
 
@@ -68,7 +68,7 @@ namespace AGS.Engine
 		{
 			Image = new Contract<IImage> ();
 			Image.FromItem(context, sprite.Image);
-			Anchor = new Tuple<float, float> (sprite.Anchor.X, sprite.Anchor.Y);
+			Pivot = new Tuple<float, float> (sprite.Pivot.X, sprite.Pivot.Y);
 			Tint = sprite.Tint.Value;
 			Angle = sprite.Angle;
 			ScaleX = sprite.ScaleX;

@@ -30,7 +30,7 @@ namespace AGS.Engine
             //todo: abstract it to the constructor
             _translate = new AGSTranslate();
             _hasImage = new AGSHasImage();
-            _hasImage.Anchor = new PointF();
+            _hasImage.Pivot = new PointF();
             _scale = new AGSScale(_hasImage);
             _rotate = new AGSRotate();
 
@@ -42,7 +42,7 @@ namespace AGS.Engine
         private AGSSprite(AGSSprite sprite) : this(sprite._resolver, sprite._maskLoader)
         {
             _translate.Location = sprite._translate.Location;
-            _hasImage.Anchor = sprite._hasImage.Anchor;
+            _hasImage.Pivot = sprite._hasImage.Pivot;
             _hasImage.Image = sprite._hasImage.Image;
             _hasImage.Tint = sprite._hasImage.Tint;
             _hasImage.CustomRenderer = sprite._hasImage.CustomRenderer;
@@ -112,7 +112,7 @@ namespace AGS.Engine
 
         public float Angle { get => _rotate.Angle; set => _rotate.Angle = value; }
 
-        public PointF Anchor { get => _hasImage.Anchor; set => _hasImage.Anchor = value; }
+        public PointF Pivot { get => _hasImage.Pivot; set => _hasImage.Pivot = value; }
 
         [DoNotNotify]
         public IImageRenderer CustomRenderer { get => _hasImage.CustomRenderer; set => _hasImage.CustomRenderer = value; }

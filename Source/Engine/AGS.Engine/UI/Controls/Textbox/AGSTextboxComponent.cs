@@ -65,7 +65,7 @@ namespace AGS.Engine
 
             _caretFlashCounter = (int)CaretFlashDelay;
             _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
-            _withCaret.Anchor = new PointF(0f, 0f);
+            _withCaret.Pivot = new PointF(0f, 0f);
 
             entity.Bind<IDrawableInfoComponent>(c =>
             {

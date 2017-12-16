@@ -193,10 +193,10 @@ namespace AGS.Engine
             get { return _animationContainer.Animation; } 
         }
 
-        public Boolean DebugDrawAnchor 
+        public Boolean DebugDrawPivot 
         {  
-            get { return _animationContainer.DebugDrawAnchor; }  
-            set { _animationContainer.DebugDrawAnchor = value; } 
+            get { return _animationContainer.DebugDrawPivot; }  
+            set { _animationContainer.DebugDrawPivot = value; } 
         }
 
         public IBlockingEvent OnAnimationStarted 
@@ -402,10 +402,10 @@ namespace AGS.Engine
             set { _imageComponent.Tint = value; } 
         }
 
-        public PointF Anchor 
+        public PointF Pivot 
         {  
-            get { return _imageComponent.Anchor; }  
-            set { _imageComponent.Anchor = value; } 
+            get { return _imageComponent.Pivot; }  
+            set { _imageComponent.Pivot = value; } 
         }
 
         public IImage Image 

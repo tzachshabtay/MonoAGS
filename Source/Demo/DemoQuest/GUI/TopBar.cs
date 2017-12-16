@@ -56,7 +56,7 @@ namespace DemoGame
 			_inventoryItemIcon = factory.Object.GetObject("Inventory Item Icon");
 			_inventoryItemIcon.X = 10f;
 			_inventoryItemIcon.Y = 10f;
-			_inventoryItemIcon.Anchor = new AGS.API.PointF (0f, 0f);
+			_inventoryItemIcon.Pivot = new AGS.API.PointF (0f, 0f);
 			_inventoryItemIcon.TreeNode.SetParent(activeInvButton.TreeNode);
 			_inventoryItemIcon.RenderLayer = _panel.RenderLayer;
             _inventoryItemIcon.Enabled = false;
@@ -67,7 +67,7 @@ namespace DemoGame
             ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 150f, 20f, 200f, 0f, _panel, new AGSTextConfig(brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen),
                 alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, paddingBottom: 5f,
                 font: game.Factory.Fonts.LoadFont(AGSGameSettings.DefaultTextFont.FontFamily, 10f)));
-            label.Anchor = new AGS.API.PointF(0.5f, 0f);
+            label.Pivot = new AGS.API.PointF(0.5f, 0f);
             VerbOnHotspotLabel hotspotLabel = new VerbOnHotspotLabel(() => _scheme.CurrentMode, game, label);
             hotspotLabel.Start();
 
@@ -104,7 +104,7 @@ namespace DemoGame
 			if (_lastInventoryItem != null)
 			{
 				_inventoryItemIcon.Image = _lastInventoryItem.CursorGraphics.Image;
-				_inventoryItemIcon.Animation.Sprite.Anchor = new PointF (0.5f, 0.5f);
+				_inventoryItemIcon.Animation.Sprite.Pivot = new PointF (0.5f, 0.5f);
 				_inventoryItemIcon.ScaleTo(15f, 15f);
 			}
 			_inventoryItemIcon.Visible = (_lastInventoryItem != null);
