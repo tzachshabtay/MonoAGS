@@ -155,14 +155,12 @@ namespace AGS.Engine.IOS
         public void InsertText(string text)
         {
             HasText = true;
-            var onInsertText = OnInsertText;
-            if (onInsertText != null) onInsertText(this, text);
+            OnInsertText?.Invoke(this, text);
         }
 
         public void DeleteBackward()
         {
-            var onDeleteBackward = OnDeleteBackward;
-            if (onDeleteBackward != null) onDeleteBackward(this, null);
+            OnDeleteBackward?.Invoke(this, null);
         }
 
         private void onUpdateFrame(object sender, OpenTK.FrameEventArgs args)

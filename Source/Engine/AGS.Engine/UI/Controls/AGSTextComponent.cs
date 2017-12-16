@@ -32,32 +32,32 @@ namespace AGS.Engine
 
         public ITextConfig TextConfig
         {
-            get { return _labelRenderer.Config; }
-            set { _labelRenderer.Config = value; }
+            get => _labelRenderer.Config;
+            set => _labelRenderer.Config = value;
         }
 
         public string Text
         {
-            get { return _labelRenderer.Text; }
-            set { _labelRenderer.Text = value; }
+            get => _labelRenderer.Text;
+            set => _labelRenderer.Text = value;
         }
 
         public bool TextVisible
         {
-            get { return _labelRenderer.TextVisible; }
-            set { _labelRenderer.TextVisible = value; }
+            get => _labelRenderer.TextVisible;
+            set => _labelRenderer.TextVisible = value;
         }
 
         public bool TextBackgroundVisible
         {
-            get { return _labelRenderer.TextBackgroundVisible; }
-            set { _labelRenderer.TextBackgroundVisible = value; }
+            get => _labelRenderer.TextBackgroundVisible;
+            set => _labelRenderer.TextBackgroundVisible = value;
         }
 
         [DoNotNotify]
         public SizeF LabelRenderSize
         {
-            get { return _labelRenderer.BaseSize; }
+            get => _labelRenderer.BaseSize;
             set
             {
                 bool hasChanged = !_labelRenderer.BaseSize.Equals(value);
@@ -68,9 +68,9 @@ namespace AGS.Engine
             }
         }
 
-        public float TextHeight { get { return _labelRenderer.TextHeight; } }
+        public float TextHeight => _labelRenderer.TextHeight;
 
-        public float TextWidth { get { return _labelRenderer.TextWidth; } }
+        public float TextWidth => _labelRenderer.TextWidth;
 
         private void onRepeatedlyExecute()
         {

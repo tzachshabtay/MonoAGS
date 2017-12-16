@@ -52,10 +52,7 @@ namespace AGS.Engine
             m_nodes = new Dictionary<GridPos, Node>();
         }
 
-        public Dictionary<GridPos, Node> Nodes
-        {
-            get { return m_nodes; }
-        }
+        public Dictionary<GridPos, Node> Nodes => m_nodes;
         public Node GetNode(int iX, int iY)
         {
             GridPos pos = new GridPos(iX, iY);

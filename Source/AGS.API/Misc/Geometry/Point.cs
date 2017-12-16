@@ -22,18 +22,15 @@
         /// Gets the x coordinate.
         /// </summary>
         /// <value>The x.</value>
-		public int X { get { return _x; } }
+		public int X => _x;
 
         /// <summary>
         /// Gets the y coordinate.
         /// </summary>
         /// <value>The y.</value>
-		public int Y { get { return _y; } }
+        public int Y => _y;
 
-        public override string ToString()
-        {
-            return string.Format("{0},{1}", X, Y);
-        }
-	}
+        public override string ToString() => $"{X},{Y}";
+    }
 }
 

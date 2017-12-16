@@ -24,7 +24,7 @@ namespace AGS.Engine
         private Task _thread;
 
         private IGameWindow _window;
-        private bool _isExiting { get { return _window.IsExiting; }}
+        private bool _isExiting => _window.IsExiting;
 
         public AGSUpdateThread(IGameWindow window)
         {

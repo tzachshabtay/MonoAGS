@@ -113,7 +113,7 @@ namespace DemoGame
             {
                 frame.Sprite.Image.Texture.Config = new AGSTextureConfig(ScaleDownFilters.Nearest, scaleUp, wrapX, wrapY);
             }
-            _label.Text = string.Format("Scaling: {0}, Tiling: {1},{2}", scaleUp, wrapX, wrapY);
+            _label.Text = $"Scaling: {scaleUp}, Tiling: {wrapX},{wrapY}";
         }
 	}
 }

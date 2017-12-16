@@ -89,46 +89,34 @@ namespace AGS.Engine.Desktop
 
         #endregion
 
-        public bool IsKeyDown(Key key)
-        {
-            return _keysDown.Contains(key);
-        }
+        public bool IsKeyDown(Key key) => _keysDown.Contains(key);
 
-		//For some reason GameWindow.Mouse is obsolete.
-		//From the warning it should be replaced by Input.Mouse which returns screen coordinates
-		//and not window coordinates. Changing will require us to gather the screen monitor coordinates
-		//and take multiple monitor issues into account, so for now we'll stick with the obsolete GameWindow.Mouse
-		//in the hope that future versions will keep it alive.
+        //For some reason GameWindow.Mouse is obsolete.
+        //From the warning it should be replaced by Input.Mouse which returns screen coordinates
+        //and not window coordinates. Changing will require us to gather the screen monitor coordinates
+        //and take multiple monitor issues into account, so for now we'll stick with the obsolete GameWindow.Mouse
+        //in the hope that future versions will keep it alive.
 #pragma warning disable 618
-		public MousePosition MousePosition
-		{
-			get 
-			{
-                return new MousePosition(_game.Mouse.X, _game.Mouse.Y, _state.Viewport);
-			}
-		}
+        public MousePosition MousePosition => new MousePosition(_game.Mouse.X, _game.Mouse.Y, _state.Viewport);
 #pragma warning restore 618
 
-		public bool LeftMouseButtonDown { get; private set; }
+        public bool LeftMouseButtonDown { get; private set; }
 		public bool RightMouseButtonDown { get; private set; }
-        public bool IsTouchDrag { get { return false; } } //todo: support touch screens on desktops
+        public bool IsTouchDrag => false;  //todo: support touch screens on desktops
 
-		public IObject Cursor
-		{ 
-			get { return _mouseCursor; } 
-		  	set 
+        public IObject Cursor
+		{
+            get => _mouseCursor;
+            set 
 		  	{ 
 				_mouseCursor = value;
 				_game.Cursor = _mouseCursor == null ? _originalOSCursor : MouseCursor.Empty;
 		  	}
 		}
 
-		private bool isInputBlocked()
-		{
-            return _shouldBlockInput.ShouldBlockInput();
-		}
+        private bool isInputBlocked() => _shouldBlockInput.ShouldBlockInput();
 
-		private AGS.API.MouseButton convert(OpenTK.Input.MouseButton button)
+        private AGS.API.MouseButton convert(OpenTK.Input.MouseButton button)
 		{
 			switch (button) {
 			case OpenTK.Input.MouseButton.Left:
@@ -142,10 +130,7 @@ namespace AGS.Engine.Desktop
 			}
 		}
 
-		private AGS.API.Key convert(OpenTK.Input.Key key)
-		{
-			return (AGS.API.Key)(int)key;
-		}
-	}
+        private AGS.API.Key convert(OpenTK.Input.Key key) => (AGS.API.Key)(int)key;
+    }
 }
 

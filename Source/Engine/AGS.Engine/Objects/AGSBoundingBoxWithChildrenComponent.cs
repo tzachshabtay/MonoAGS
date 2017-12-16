@@ -9,7 +9,7 @@ namespace AGS.Engine
     public class AGSBoundingBoxWithChildrenComponent : AGSComponent, IBoundingBoxWithChildrenComponent, ILockStep
     {
         private IBoundingBoxComponent _boundingBox;
-        private AGSBoundingBox _preUnlockBoundingBox, _preUnlockPreCropBoundingBox;
+        private AGSBoundingBox _preUnlockBoundingBox, _preUnlockPreCropBoundingBox, _boundingBoxWithChildren, _preCropBoundingBoxWithChildren;
         private int _shouldFireOnUnlock, _pendingLocks;
         private IInObjectTree _tree;
         private IEntity _entity;
@@ -23,9 +23,9 @@ namespace AGS.Engine
             OnBoundingBoxWithChildrenChanged = new AGSEvent();
         }
 
-        public AGSBoundingBox BoundingBoxWithChildren { get; private set; }
+        public ref AGSBoundingBox BoundingBoxWithChildren { get { return ref _boundingBoxWithChildren; } }
 
-        public AGSBoundingBox PreCropBoundingBoxWithChildren { get; private set; }
+        public ref AGSBoundingBox PreCropBoundingBoxWithChildren { get { return ref _preCropBoundingBoxWithChildren; } }
 
         public IBlockingEvent OnBoundingBoxWithChildrenChanged { get; private set; }
 
@@ -60,8 +60,8 @@ namespace AGS.Engine
             if (shouldFire)
             {
                 Interlocked.Increment(ref _shouldFireOnUnlock);
-                BoundingBoxWithChildren = _preUnlockBoundingBox;
-                PreCropBoundingBoxWithChildren = _preUnlockPreCropBoundingBox;
+                _boundingBoxWithChildren = _preUnlockBoundingBox;
+                _preCropBoundingBoxWithChildren = _preUnlockPreCropBoundingBox;
             }
         }
 
@@ -125,7 +125,7 @@ namespace AGS.Engine
             obj.Bind<IBoundingBoxComponent>(c => c.OnBoundingBoxesChanged.Subscribe(onObjectChanged), c => c.OnBoundingBoxesChanged.Unsubscribe(onObjectChanged));
             obj.Bind<IVisibleComponent>(c => c.PropertyChanged += onVisiblePropertyChanged, c => c.PropertyChanged -= onVisiblePropertyChanged);
             var labelRenderer = obj.CustomRenderer as ILabelRenderer;
-            if (labelRenderer != null) labelRenderer.OnLabelSizeChanged.Subscribe(onObjectChanged);
+            labelRenderer?.OnLabelSizeChanged.Subscribe(onObjectChanged);
         }
 
         private void unsubscribeObject(IObject obj)
@@ -134,7 +134,7 @@ namespace AGS.Engine
             var visible = obj.GetComponent<IVisibleComponent>();
             if (visible != null) visible.PropertyChanged -= onVisiblePropertyChanged;
             var labelRenderer = obj.CustomRenderer as ILabelRenderer;
-            if (labelRenderer != null) labelRenderer.OnLabelSizeChanged.Unsubscribe(onObjectChanged);
+            labelRenderer?.OnLabelSizeChanged.Unsubscribe(onObjectChanged);
         }
 
         private void onVisiblePropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -155,8 +155,8 @@ namespace AGS.Engine
             if (_pendingLocks > 0) return false;
             var lastBox = BoundingBoxWithChildren;
             var lastPreBox = PreCropBoundingBoxWithChildren;
-            BoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.RenderBox);
-            PreCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox);
+            _boundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.RenderBox);
+            _preCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox);
             _isDirty = false;
             return (!lastBox.Equals(BoundingBoxWithChildren) || !lastPreBox.Equals(PreCropBoundingBoxWithChildren));
         }
@@ -177,20 +177,19 @@ namespace AGS.Engine
             float maxX = float.MinValue;
             float minY = float.MaxValue;
             float maxY = float.MinValue;
-            if (box != null)
-            {
-                var boxes = box.GetBoundingBoxes(_state.Viewport);
-                if (boxes != null)
-                {
-                    var boundingBox = getBox(boxes);
 
-                    minX = boundingBox.MinX;
-                    maxX = boundingBox.MaxX;
-                    minY = boundingBox.MinY;
-                    maxY = boundingBox.MaxY;
-                }
+            var boxes = box?.GetBoundingBoxes(_state.Viewport);
+            if (boxes != null)
+            {
+                var boundingBox = getBox(boxes);
+
+                minX = boundingBox.MinX;
+                maxX = boundingBox.MaxX;
+                minY = boundingBox.MinY;
+                maxY = boundingBox.MaxY;
             }
-            if (tree != null && tree.TreeNode != null)
+
+            if (tree?.TreeNode != null)
             {
                 foreach (var child in tree.TreeNode.Children)
                 {
@@ -203,7 +202,7 @@ namespace AGS.Engine
                     if (maxY < childBox.MaxY) maxY = childBox.MaxY;
                 }
             }
-            if (MathUtils.FloatEquals(minX, float.MaxValue)) return default(AGSBoundingBox);
+            if (MathUtils.FloatEquals(minX, float.MaxValue)) return default;
             return new AGSBoundingBox(minX, maxX, minY, maxY);
         }
     }

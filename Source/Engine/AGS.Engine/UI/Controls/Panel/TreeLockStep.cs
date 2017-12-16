@@ -8,7 +8,7 @@ namespace AGS.Engine
     {
         private readonly IInObjectTree _tree;
         private readonly List<ILockStep> _matrices, _boxes, _boxesWithChildren;
-        private readonly List<Tuple<IImageRenderer, IObject>> _renderers;
+        private readonly List<(IImageRenderer renderer, IObject obj)> _renderers;
         private readonly Func<IObject, bool> _shouldLock;
 
         public TreeLockStep(IInObjectTree tree, Func<IObject, bool> shouldLock)
@@ -17,8 +17,8 @@ namespace AGS.Engine
             _matrices = _tree == null ? new List<ILockStep>() : new List<ILockStep>(_tree.TreeNode.ChildrenCount);
             _boxes = _tree == null ? new List<ILockStep>() : new List<ILockStep>(_tree.TreeNode.ChildrenCount);
             _boxesWithChildren = _tree == null ? new List<ILockStep>() : new List<ILockStep>(_tree.TreeNode.ChildrenCount);
-            _renderers = _tree == null ? new List<Tuple<IImageRenderer, IObject>>() : 
-            new List<Tuple<IImageRenderer, IObject>>(_tree.TreeNode.ChildrenCount);
+            _renderers = _tree == null ? new List<(IImageRenderer, IObject)>() : 
+                new List<(IImageRenderer, IObject)>(_tree.TreeNode.ChildrenCount);
             _shouldLock = shouldLock;
         }
 
@@ -32,10 +32,10 @@ namespace AGS.Engine
             unlock(_matrices);
             foreach (var renderer in _renderers)
             {
-                renderer.Item1.Prepare(renderer.Item2, renderer.Item2, AGSGame.Game.State.Viewport);
+                renderer.renderer.Prepare(renderer.obj, renderer.obj, AGSGame.Game.State.Viewport);
                 foreach (var viewport in AGSGame.Game.State.SecondaryViewports)
                 {
-                    renderer.Item1.Prepare(renderer.Item2, renderer.Item2, viewport);
+                    renderer.renderer.Prepare(renderer.obj, renderer.obj, viewport);
                 }
             }
             unlock(_boxes);
@@ -82,7 +82,7 @@ namespace AGS.Engine
                 {
                     lockComponent(boxWithChildren.LockStep, _boxesWithChildren);
                 }
-                if (child.CustomRenderer != null) _renderers.Add(new Tuple<IImageRenderer, IObject>(child.CustomRenderer, child));
+                if (child.CustomRenderer != null) _renderers.Add((child.CustomRenderer, child));
                 lockTree(child);
             }
         }

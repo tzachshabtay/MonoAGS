@@ -151,7 +151,7 @@ namespace AGS.Engine
 
         private string getReadonlyNodeText(InspectorProperty property)
         {
-            return string.Format("{0}: {1}", property.Name, property.Value);
+            return $"{property.Name}: {property.Value}";
         }
 
         private ITreeStringNode addReadonlyNodeToTree(InspectorProperty property, ITreeStringNode parent)

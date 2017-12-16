@@ -17,18 +17,15 @@
         /// Gets the width.
         /// </summary>
         /// <value>The width.</value>
-		public float Width { get { return _width; } }
+		public float Width => _width;
 
         /// <summary>
         /// Gets the height.
         /// </summary>
         /// <value>The height.</value>
-		public float Height { get { return _height; } }
+        public float Height => _height;
 
-        public override string ToString()
-        {
-            return string.Format("{0:0.##},{1:0.##}", Width, Height);
-        }
+        public override string ToString() => $"{Width:0.##},{Height:0.##}";
 
         public override bool Equals(object obj)
         {
@@ -37,15 +34,9 @@
             return Equals(other.Value);
         }
 
-        public bool Equals(SizeF other)
-        { 
-            return other.Width == _width && other.Height == _height;
-        }
+        public bool Equals(SizeF other) => other.Width == _width && other.Height == _height;
 
-        public override int GetHashCode()
-        {
-            return (_width.GetHashCode() * 397) ^ _height.GetHashCode();
-        }
+        public override int GetHashCode() => (_width.GetHashCode() * 397) ^ _height.GetHashCode();
 
         /// <summary>
         /// Scale the size with specified factorX and factorY.
@@ -53,10 +44,7 @@
         /// <returns>The new size.</returns>
         /// <param name="factorX">The factor in which to scale the width.</param>
         /// <param name="factorY">The factor in which to scale the height.</param>
-        public SizeF Scale(float factorX, float factorY)
-        {
-            return new SizeF(_width * factorX, _height * factorY);
-        }
+        public SizeF Scale(float factorX, float factorY) => new SizeF(_width * factorX, _height * factorY);
     }
 }
 

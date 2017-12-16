@@ -19,22 +19,22 @@ namespace AGS.Engine.Desktop
             KeyboardState = new DesktopKeyboardState();
         }
 
-        public IAssemblies Assemblies { get; private set; }
+        public IAssemblies Assemblies { get; }
 
-        public IBitmapLoader BitmapLoader { get; private set; }
+        public IBitmapLoader BitmapLoader { get; }
 
-        public IBrushLoader BrushLoader { get; private set; }
+        public IBrushLoader BrushLoader { get; }
 
-        public IEngineConfigFile ConfigFile { get; private set; }
+        public IEngineConfigFile ConfigFile { get; }
 
-        public float DisplayDensity { get { return 1f; } }
+        public float DisplayDensity => 1f;
 
-        public IFileSystem FileSystem { get; private set; }
+        public IFileSystem FileSystem { get; }
 
-        public IFontLoader FontLoader { get; private set; }
+        public IFontLoader FontLoader { get; }
 
-        public IGraphicsBackend GraphicsBackend { get; private set; }
+        public IGraphicsBackend GraphicsBackend { get; }
 
-        public IKeyboardState KeyboardState { get; private set; }
+        public IKeyboardState KeyboardState { get; }
     }
 }

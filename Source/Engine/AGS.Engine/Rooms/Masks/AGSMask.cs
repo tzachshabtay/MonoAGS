@@ -21,10 +21,10 @@ namespace AGS.Engine
         }
 
         private MaskInfo _maskInfo;
-        private bool[][] _transformedMask { get { return _maskInfo.Mask; }}
-        private Vector2 _offset { get { return _maskInfo.Offset; }}
+        private bool[][] _transformedMask => _maskInfo.Mask;
+        private Vector2 _offset => _maskInfo.Offset;
 
-		public AGSMask(bool[][] mask, IObject debugMask)
+        public AGSMask(bool[][] mask, IObject debugMask)
 		{
 			_mask = mask;
 			DebugDraw = debugMask;
@@ -95,12 +95,9 @@ namespace AGS.Engine
             return isMasked(point);
 		}
 
-		public bool[][] AsJaggedArray()
-		{
-			return _transformedMask;
-		}
+        public bool[][] AsJaggedArray() => _transformedMask;
 
-		public bool[,] To2DArray()
+        public bool[,] To2DArray()
 		{
 			bool[,] result = new bool[Width, Height];
 			for (int row = 0; row < Height; row++)
@@ -148,20 +145,20 @@ namespace AGS.Engine
 			return sb.ToString();
 		}
 
-        public int Width { get { return _maskInfo.Width; } }
+        public int Width => _maskInfo.Width;
 
-        public int Height { get { return _maskInfo.Height; } }
+        public int Height => _maskInfo.Height;
 
-		public IObject DebugDraw { get; private set; }
+        public IObject DebugDraw { get; }
 
-        public float MinX { get { return _maskInfo.MinX; } }
-        public float MaxX { get { return _maskInfo.MaxX; } }
-        public float MinY { get { return _maskInfo.MinY; } }
-        public float MaxY { get { return _maskInfo.MaxY; } }
+        public float MinX => _maskInfo.MinX;
+        public float MaxX => _maskInfo.MaxX;
+        public float MinY => _maskInfo.MinY;
+        public float MaxY => _maskInfo.MaxY;
 
-		#endregion
+        #endregion
 
-		private bool isMasked(PointF point)
+        private bool isMasked(PointF point)
 		{
 			int x = (int)Math.Round(point.X, 0);
 			int y = (int)Math.Round(point.Y, 0);

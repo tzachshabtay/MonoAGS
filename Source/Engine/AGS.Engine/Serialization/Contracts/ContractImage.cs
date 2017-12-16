@@ -54,7 +54,7 @@ namespace AGS.Engine
 			}
 			catch (ArgumentException e)
 			{
-				Debug.WriteLine(string.Format("Failed to load image: {0}. Exception: {1}", ID, e.ToString()));
+				Debug.WriteLine($"Failed to load image: {ID}. Exception: {e.ToString()}");
 				return new EmptyImage (Width, Height);
 			}
 		}

@@ -61,67 +61,67 @@ namespace AGS.API
         /// Gets the bottom left point.
         /// </summary>
         /// <value>The bottom left point.</value>
-		public Vector3 BottomLeft { get; private set; }
+		public Vector3 BottomLeft { get; }
 
         /// <summary>
         /// Gets the top left point.
         /// </summary>
         /// <value>The top left point.</value>
-		public Vector3 TopLeft { get; private set; }
+		public Vector3 TopLeft { get; }
 
         /// <summary>
         /// Gets the bottom right point.
         /// </summary>
         /// <value>The bottom right point.</value>
-		public Vector3 BottomRight { get; private set; }
+		public Vector3 BottomRight { get; }
 
         /// <summary>
         /// Gets the top right point.
         /// </summary>
         /// <value>The top right point.</value>
-		public Vector3 TopRight { get; private set; }
+		public Vector3 TopRight { get; }
 
         /// <summary>
         /// Gets the width.
         /// </summary>
         /// <value>The width.</value>
-		public float Width { get { return distance(BottomLeft, BottomRight); } }
+		public float Width => distance(BottomLeft, BottomRight);
 
         /// <summary>
         /// Gets the height.
         /// </summary>
         /// <value>The height.</value>
-		public float Height { get { return distance(BottomLeft, TopLeft); } }
+        public float Height => distance(BottomLeft, TopLeft);
 
-		/// <summary>
-		/// Gets the minimum x of the square.
-		/// </summary>
-		/// <value>The minimum x.</value>
-		public float MinX { get; private set; }
+        /// <summary>
+        /// Gets the minimum x of the square.
+        /// </summary>
+        /// <value>The minimum x.</value>
+        public float MinX { get; }
 
 		/// <summary>
 		/// Gets the maximum x of the square.
 		/// </summary>
 		/// <value>The max x.</value>
-		public float MaxX { get; private set; }
+		public float MaxX { get; }
 
 		/// <summary>
 		/// Gets the minimum y of the square.
 		/// </summary>
 		/// <value>The minimum y.</value>
-		public float MinY { get; private set; }
+		public float MinY { get; }
 
 		/// <summary>
 		/// Gets the maximum y of the square.
 		/// </summary>
 		/// <value>The max y.</value>
-		public float MaxY { get; private set; }
+		public float MaxY { get; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="T:AGS.API.AGSBoundingBox"/> is invalid (i.e max is not bigger than min).
         /// </summary>
         /// <value><c>true</c> if is empty; otherwise, <c>false</c>.</value>
-        public bool IsInvalid { get; private set; }
+        public bool IsInvalid { get; }
 
         /// <summary>
         /// Create a cropped bounding box.
@@ -140,12 +140,12 @@ namespace AGS.API
             float height = spriteHeight;
             FourCorners<Vector2> cropArea = crop.GetCropArea(new BeforeCropEventArgs(this, boundingBoxType), spriteWidth, spriteHeight, out width, out height);
             if (!crop.CropEnabled) return new AGSCropInfo(this, null);
-            if (width <= 0f || height <= 0f) return default(AGSCropInfo);
+            if (width <= 0f || height <= 0f) return default;
 			width *= scaleX;
 			height *= scaleY;
             if (float.IsNaN(width) || float.IsNaN(height))
             {
-                return default(AGSCropInfo);
+                return default;
             }
 
 			float boxWidth = Width;
@@ -196,32 +196,23 @@ namespace AGS.API
 			return true;
 		}
 
-		/// <summary>
-		/// Create a new square which is flipped horizontally from the current square.
-		/// </summary>
-		/// <returns>The new flipped square.</returns>
-		public AGSBoundingBox FlipHorizontal()
-		{
-			return new AGSBoundingBox(BottomRight, BottomLeft, TopRight, TopLeft);
-		}
+        /// <summary>
+        /// Create a new square which is flipped horizontally from the current square.
+        /// </summary>
+        /// <returns>The new flipped square.</returns>
+        public AGSBoundingBox FlipHorizontal() => new AGSBoundingBox(BottomRight, BottomLeft, TopRight, TopLeft);
 
-		public override string ToString()
-		{
-			return string.Format("[A={0}, B={1}, C={2}, D={3}]", BottomLeft, BottomRight, TopLeft, TopRight);
-		}
+        public override string ToString() => $"[A={BottomLeft}, B={BottomRight}, C={TopLeft}, D={TopRight}]";
 
-		public override bool Equals(object obj)
+        public override bool Equals(object obj)
 		{
             if (obj is AGSBoundingBox) return Equals((AGSBoundingBox)obj);
 			return false;
 		}
 
-		public override int GetHashCode()
-		{
-			return (BottomLeft.GetHashCode() * 397) ^ TopRight.GetHashCode();
-		}
+        public override int GetHashCode() => (BottomLeft.GetHashCode() * 397) ^ TopRight.GetHashCode();
 
-		public bool Equals(AGSBoundingBox square)
+        public bool Equals(AGSBoundingBox square)
 		{
 			return BottomLeft.Equals(square.BottomLeft) && BottomRight.Equals(square.BottomRight)
 				 && TopLeft.Equals(square.TopLeft) && TopRight.Equals(square.TopRight);

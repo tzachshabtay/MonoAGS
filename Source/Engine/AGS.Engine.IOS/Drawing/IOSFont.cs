@@ -35,13 +35,13 @@ namespace AGS.Engine.IOS
             _style = style;
         }
 
-        public CTFont InnerFont { get; private set; }
+        public CTFont InnerFont { get; }
 
-        public string FontFamily { get { return InnerFont.FamilyName; } }
+        public string FontFamily => InnerFont.FamilyName;
 
-        public float SizeInPoints { get { return (float)InnerFont.Size; } }
+        public float SizeInPoints => (float)InnerFont.Size;
 
-        public FontStyle Style { get { return _style; } }
+        public FontStyle Style => _style;
 
         public SizeF MeasureString(string text, int maxWidth = int.MaxValue)
         {

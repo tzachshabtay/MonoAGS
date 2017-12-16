@@ -20,7 +20,7 @@ namespace AGS.Engine
             _entity = entity;
         }
 
-        public bool HasFocus { get { return _focusedUi.FocusedWindow == _entity; } }
+        public bool HasFocus => _focusedUi.FocusedWindow == _entity;
 
         public void GrabFocus()
         {

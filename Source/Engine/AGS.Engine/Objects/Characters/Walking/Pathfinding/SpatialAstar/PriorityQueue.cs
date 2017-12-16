@@ -146,7 +146,7 @@ namespace AGS.Engine
 		{
 			if (InnerList.Count > 0)
 				return InnerList[0];
-			return default(T);
+			return default;
 		}
 
 		public void Clear()
@@ -154,9 +154,6 @@ namespace AGS.Engine
 			InnerList.Clear();
 		}
 
-		public int Count
-		{
-			get { return InnerList.Count; }
-		}
-	}
+        public int Count => InnerList.Count;
+    }
 }

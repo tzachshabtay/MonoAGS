@@ -97,16 +97,16 @@ namespace AGS.Engine.Android
             _view = view;
         }
 
-        private async void onKeyDown(object sender, Tuple<Keycode, KeyEvent> args)
+        private async void onKeyDown(object sender, (Keycode code, KeyEvent) args)
         { 
-            var key = args.Item1.Convert();
+            var key = args.code.Convert();
             if (key == null) return;
             await KeyDown.InvokeAsync(new KeyboardEventArgs(key.Value));
         }
 
-        private async void onKeyUp(object sender, Tuple<Keycode, KeyEvent> args)
+        private async void onKeyUp(object sender, (Keycode code, KeyEvent) args)
         {
-            var key = args.Item1.Convert();
+            var key = args.code.Convert();
             if (key == null) return;
             await KeyUp.InvokeAsync(new KeyboardEventArgs(key.Value));
         }

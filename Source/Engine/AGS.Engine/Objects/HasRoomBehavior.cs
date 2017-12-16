@@ -25,25 +25,21 @@ namespace AGS.Engine
 			_obj = (IObject)entity;
 		}
 
-		public IRoom Room  { get { return _cachedRoom.Value; } }
+        public IRoom Room => _cachedRoom.Value;
 
-		public IRoom PreviousRoom { get; private set; }
+        public IRoom PreviousRoom { get; private set; }
 
-        public IBlockingEvent OnRoomChanged { get; private set; }
+        public IBlockingEvent OnRoomChanged { get; }
 
         public async Task ChangeRoomAsync(IRoom newRoom, float? x = null, float? y = null)
 		{
             bool firstRoom = PreviousRoom == null;
             Action changeRoom = () => 
             {
-                var room = Room;
-                if (room != null) room.Objects.Remove(_obj);
+                Room?.Objects.Remove(_obj);
                 if (x != null) _obj.X = x.Value;
                 if (y != null) _obj.Y = y.Value;
-                if (newRoom != null)
-                {
-                    newRoom.Objects.Add(_obj);
-                }
+                newRoom?.Objects.Add(_obj);
                 PreviousRoom = Room;
                 refreshRoom();
             };

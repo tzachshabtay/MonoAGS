@@ -14,7 +14,7 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private readonly IBitmapLoader _bitmapLoader;
         private readonly GLMatrices _matrices = new GLMatrices();
-        private readonly AGSBoundingBox _emptySquare = default(AGSBoundingBox);
+        private readonly AGSBoundingBox _emptySquare = default;
         private readonly Func<string, ITexture> _createTextureFunc;
         private readonly IHasImage[] _colorAdjusters;
 
@@ -34,12 +34,12 @@ namespace AGS.Engine
             _colorAdjusters = new IHasImage[2];
 		}
 
-        public static ITexture EmptyTexture { get { return _emptyTexture.Value; } }
+        public static ITexture EmptyTexture => _emptyTexture.Value;
 
-        public SizeF? CustomImageSize { get { return null; } }
-        public PointF? CustomImageResolutionFactor { get { return null; } }
+        public SizeF? CustomImageSize => null;
+        public PointF? CustomImageResolutionFactor => null;
 
-		public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
+        public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
 		{
 		}
 
@@ -56,7 +56,7 @@ namespace AGS.Engine
 			}
             obj.GetModelMatrices();
             var boundingBoxes = obj.GetBoundingBoxes(viewport);
-            if (boundingBoxes == null || boundingBoxes.RenderBox.Equals(default(AGSBoundingBox))) return;
+            if (boundingBoxes == null || boundingBoxes.RenderBox.Equals(default)) return;
             var renderBox = boundingBoxes.RenderBox;
             var hitTestBox = boundingBoxes.HitTestBox;
 
@@ -78,10 +78,7 @@ namespace AGS.Engine
 			}
             _renderer.Render(texture.ID, renderBox, boundingBoxes.TextureBox, color);
 
-			if (border != null)
-			{
-				border.RenderBorderFront(borderBox);
-			}
+			border?.RenderBorderFront(borderBox);
 			if (obj.DebugDrawAnchor)
 			{
                 IObject parent = obj.TreeNode.Parent;

@@ -34,9 +34,9 @@ namespace AGS.Engine
 		public float X2 { get; private set; }
 		public float Y2 { get; private set; }
 
-        public SizeF? CustomImageSize { get { return null; } }
+        public SizeF? CustomImageSize => null;
 
-        public PointF? CustomImageResolutionFactor { get { return null; } }
+        public PointF? CustomImageResolutionFactor => null;
 
         #endregion
     }

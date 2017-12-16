@@ -80,32 +80,20 @@ namespace AGS.Engine
 
         public float Height { get; private set; }
 
-		public float TextWidth 
-		{ 
-			get 
-			{ 
-				return _glTextHitTest == null ? 1f : _glTextHitTest.Width; 
-			}
-		}
+        public float TextWidth => _glTextHitTest == null ? 1f : _glTextHitTest.Width;
 
-		public float TextHeight 
-		{ 
-			get 
-			{ 
-				return _glTextHitTest == null ? 1f : _glTextHitTest.Height;
-			}
-		}
+        public float TextHeight => _glTextHitTest == null ? 1f : _glTextHitTest.Height;
 
-        public IBlockingEvent OnLabelSizeChanged { get; private set; }
+        public IBlockingEvent OnLabelSizeChanged { get; }
 
 		#region IImageRenderer implementation
 
         public SizeF? CustomImageSize { get; private set; }
         public PointF? CustomImageResolutionFactor { get; private set; }
         public ICropSelfComponent CustomTextCrop { get; set; }
-        public AGSBoundingBoxes TextBoundingBoxes { get { return _usedTextBoundingBoxes; }}
+        public AGSBoundingBoxes TextBoundingBoxes => _usedTextBoundingBoxes;
 
-		public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
+        public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
 		{
             if (!TextBackgroundVisible && !TextVisible) return;
             if (_lastObject != obj)
@@ -153,7 +141,7 @@ namespace AGS.Engine
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
                 var cropInfo = _usedTextBoundingBoxes.RenderBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), AGSModelMatrixComponent.NoScaling);
-                if (cropInfo.Equals(default(AGSCropInfo))) return;
+                if (cropInfo.Equals(default)) return;
                 _usedTextBoundingBoxes.RenderBox = cropInfo.BoundingBox;
 
                 _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropInfo.TextureBox, color);
@@ -302,15 +290,17 @@ namespace AGS.Engine
 
         private void build(AGSBoundingBoxes boxes, float width, float height, IGLMatrices matrices, bool buildRenderBox, bool buildHitTestBox)
         {
-            var intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, matrices.ModelMatrix);
+            var modelMatrix = matrices.ModelMatrix;
+            var intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, ref modelMatrix);
             if (buildHitTestBox)
             {
-                boxes.HitTestBox = _boundingBoxBuilder.BuildHitTestBox(intermediateBox);
+                boxes.HitTestBox = _boundingBoxBuilder.BuildHitTestBox(ref intermediateBox);
             }
             if (buildRenderBox)
             {
                 PointF scale;
-                boxes.RenderBox = _boundingBoxBuilder.BuildRenderBox(intermediateBox, matrices.ViewportMatrix, out scale);
+                var viewportMatrix = matrices.ViewportMatrix;
+                boxes.RenderBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out scale);
             }
         }
 
@@ -343,26 +333,18 @@ namespace AGS.Engine
                     OnNewBoxBuildRequired.Invoke();
                 }
             }
-            public IBlockingEvent OnNewBoxBuildRequired { get; private set; }
+            public IBlockingEvent OnNewBoxBuildRequired { get; }
 
             #region AGSBoundingBoxBuilder implementation
 
-            public AGSBoundingBox BuildIntermediateBox(float width, float height, Matrix4 modelMatrix)
-            {
-                return default(AGSBoundingBox);
-            }
+            public AGSBoundingBox BuildIntermediateBox(float width, float height, ref Matrix4 modelMatrix) => default;
 
-			public AGSBoundingBox BuildHitTestBox(AGSBoundingBox intermediateBox)
-            {
-                if (BoundingBoxes != null) return BoundingBoxes.HitTestBox;
-                return default(AGSBoundingBox);
-            }
+            public AGSBoundingBox BuildHitTestBox(ref AGSBoundingBox intermediateBox) => BoundingBoxes?.HitTestBox ?? default;
 
-			public AGSBoundingBox BuildRenderBox(AGSBoundingBox intermediateBox, Matrix4 viewportMatrix, out PointF scale)
+            public AGSBoundingBox BuildRenderBox(ref AGSBoundingBox intermediateBox, ref Matrix4 viewportMatrix, out PointF scale)
             {
                 scale = AGSModelMatrixComponent.NoScaling;
-                if (BoundingBoxes != null) return BoundingBoxes.RenderBox;
-				return default(AGSBoundingBox);
+                return BoundingBoxes?.RenderBox ?? default;
             }
 
 			#endregion

@@ -24,9 +24,9 @@ namespace AGS.Engine
 
         public bool CropChildrenEnabled { get; set; }
 
-        public PointF StartPoint { get { return _startPoint; } set { if (_startPoint.Equals(value)) return; _startPoint = value; rebuildJump(_tree); rebuildEntireTree(); } }
+        public PointF StartPoint { get => _startPoint; set { _startPoint = value; rebuildJump(_tree); rebuildEntireTree(); } }
 
-        public IConcurrentHashSet<string> EntitiesToSkipCrop { get; private set; }
+        public IConcurrentHashSet<string> EntitiesToSkipCrop { get; }
 
         public override void Init(IEntity entity)
         {
@@ -166,7 +166,7 @@ namespace AGS.Engine
             if (boundingBoxes == null || obj.GetBoundingBoxes(_state.Viewport) == null) return;
             ICropSelfComponent cropSelf;
             var labelRenderer = obj.CustomRenderer as GLLabelRenderer;
-            if (labelRenderer != null && labelRenderer.TextBoundingBoxes != null)
+            if (labelRenderer?.TextBoundingBoxes != null)
             {
                 cropSelf = labelRenderer.CustomTextCrop;
                 if (cropSelf == null)

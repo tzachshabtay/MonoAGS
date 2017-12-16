@@ -1637,7 +1637,7 @@ namespace AGS.API
         /// <returns></returns>
         public override string ToString()
         {
-            return String.Format("({0}{3} {1}{3} {2})", X, Y, Z, listSeparator);
+            return $"({X}{listSeparator} {Y}{listSeparator} {Z})";
         }
 
         #endregion

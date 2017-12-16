@@ -59,8 +59,7 @@ namespace AGS.Engine
         private void dispose(bool disposing)
         {
             Texture = null;
-            var onImageDisposed = OnImageDisposed;
-            if (onImageDisposed != null) onImageDisposed.Invoke();
+            OnImageDisposed?.Invoke();
             OnImageDisposed = null;
         }
 	}

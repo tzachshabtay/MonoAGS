@@ -54,7 +54,7 @@ namespace AGS.Engine
 
 		public override string ToString()
 		{
-			return string.Format("[GLColor: R={0}, G={1}, B={2}, A={3}]", R, G, B, A);
+			return $"[GLColor: R={R}, G={G}, B={B}, A={A}]";
 		}
 
 		#endregion

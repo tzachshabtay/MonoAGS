@@ -7,8 +7,8 @@ namespace AGS.Engine
 {
     public class InspectorProperty
     {
-        private static Dictionary<Type, Tuple<MethodInfo, CustomStringValueAttribute>> _customValueProviders = 
-            new Dictionary<Type, Tuple<MethodInfo, CustomStringValueAttribute>>();
+        private static Dictionary<Type, (MethodInfo, CustomStringValueAttribute)> _customValueProviders = 
+            new Dictionary<Type, (MethodInfo, CustomStringValueAttribute)>();
 
 		public InspectorProperty(object obj, string name, PropertyInfo prop)
 		{
@@ -41,28 +41,28 @@ namespace AGS.Engine
                     foreach (var candidate in methods)
                     {
                         var attr = candidate.GetCustomAttribute<CustomStringValueAttribute>();
-                        if (attr != null) return new Tuple<MethodInfo, CustomStringValueAttribute>(candidate, attr);
+                        if (attr != null) return (candidate, attr);
                     }
-                    return null;
+                    return default;
                 });
                 MethodInfo method = getCustomStringMethod(provider);
                 Value = method == null ? val.ToString() : method.Invoke(val, null).ToString();
             }
 		}
 
-        private MethodInfo getCustomStringMethod(Tuple<MethodInfo, CustomStringValueAttribute> provider)
+        private MethodInfo getCustomStringMethod((MethodInfo method, CustomStringValueAttribute attr)provider)
         {
-            if (provider == null) return null;
-            switch (provider.Item2.ApplyWhen)
+            if (provider.Equals(default)) return null;
+            switch (provider.attr.ApplyWhen)
             {
                 case CustomStringApplyWhen.Both:
-                    return provider.Item1;
+                    return provider.method;
                 case CustomStringApplyWhen.CanWrite:
-                    return IsReadonly ? null : provider.Item1;
+                    return IsReadonly ? null : provider.method;
                 case CustomStringApplyWhen.ReadOnly:
-                    return IsReadonly ? provider.Item1 : null;
+                    return IsReadonly ? provider.method : null;
                 default:
-                    throw new NotSupportedException(provider.Item2.ApplyWhen.ToString());
+                    throw new NotSupportedException(provider.attr.ApplyWhen.ToString());
             }
         }
     }

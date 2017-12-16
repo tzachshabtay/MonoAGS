@@ -70,7 +70,7 @@ namespace AGS.Engine
 	public class Tween
 	{
 		private TaskCompletionSource<object> _tcs;
-		private static IGameEvents _gameEvents { get { return OverrideGameEvents ?? AGSGame.Game.Events; } }
+        private static IGameEvents _gameEvents => OverrideGameEvents ?? AGSGame.Game.Events;
         private TweenCompletion _completeOnStop;
 
 		private Tween(bool subscribe)
@@ -93,7 +93,7 @@ namespace AGS.Engine
         /// the timing of the tween's ticks is controlled by you and not the game, therefore the seconds might not be accurate. 
         /// </summary>
         /// <value>The duration in seconds.</value>
-        public float DurationInSeconds { get { return toSeconds(DurationInTicks); } }
+        public float DurationInSeconds => toSeconds(DurationInTicks);
 
         /// <summary>
         /// Gets the amount of time the tween has been running in game ticks (if the game is running at 60 FPS, then there should be 60 ticks each second).
@@ -102,7 +102,7 @@ namespace AGS.Engine
         /// This can also be set for time manipulations.
         /// </summary>
         /// <value>The elapsed ticks.</value>
-		public float ElapsedTicks { get; set; }
+        public float ElapsedTicks { get; set; }
 
         /// <summary>
         /// Gets the amount of time the tween has been running in seconds.
@@ -114,9 +114,9 @@ namespace AGS.Engine
         /// </summary>
         /// <value>The elapsed ticks.</value>
         public float ElapsedSeconds 
-        { 
-            get { return toSeconds(ElapsedTicks); }
-            set { ElapsedTicks = toTicks(value); }
+        {
+            get => toSeconds(ElapsedTicks);
+            set => ElapsedTicks = toTicks(value);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace AGS.Engine
         /// 6. You can chain a callback to when it's completed ('tween.Task.ContinueWith(...)').
         /// </summary>
         /// <value>The task.</value>
-		public Task Task { get { return _tcs.Task; } }
+		public Task Task => _tcs.Task;
 
         /// <summary>
         /// Gets the tween's state.
@@ -277,17 +277,11 @@ namespace AGS.Engine
 			return tween;
 		}
 
-		private static float toTicks(float timeInSeconds)
-		{
-			return timeInSeconds * (float)AGSGame.UPDATE_RATE;
-		}
+        private static float toTicks(float timeInSeconds) => timeInSeconds * (float)AGSGame.UPDATE_RATE;
 
-        private static float toSeconds(float timeInTicks)
-        {
-            return timeInTicks / (float)AGSGame.UPDATE_RATE;
-        }
+        private static float toSeconds(float timeInTicks) => timeInTicks / (float)AGSGame.UPDATE_RATE;
 
-		private void onRepeatedlyExecute()
+        private void onRepeatedlyExecute()
 		{
 			visit();
 		}

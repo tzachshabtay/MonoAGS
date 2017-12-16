@@ -31,14 +31,13 @@ namespace AGS.Engine.IOS
 
         public IOSGameView View
         {
-            get { return _view; }
+            get => _view;
             set
             {
                 _view = value;
                 _size = new Lazy<Size>(() => new Size((int)(View.Size.Width * View.ContentScaleFactor),
                                                       (int)(View.Size.Height * View.ContentScaleFactor)));
-                var onNewView = OnNewView;
-                if (onNewView != null) onNewView(this, value);
+                OnNewView?.Invoke(this, value);
             }
         }
 
@@ -46,21 +45,21 @@ namespace AGS.Engine.IOS
 
         public Action StartGame { get; set; }
 
-        public int ClientHeight { get { return _size.Value.Height; } }
+        public int ClientHeight => _size.Value.Height;
 
-        public int ClientWidth { get { return _size.Value.Width; } }
+        public int ClientWidth => _size.Value.Width;
 
-        public int Height { get { return _size.Value.Height; } }
+        public int Height => _size.Value.Height;
 
-        public int Width { get { return _size.Value.Width; } }
+        public int Width => _size.Value.Width;
 
-        public double TargetUpdateFrequency { get { return 60f; } set { } } //todo
-        public VsyncMode Vsync { get { return VsyncMode.Off; } set { } } //todo
-        public string Title { get { return ""; } set { } } //todo
-        public bool IsExiting { get { return false; } } //todo
+        public double TargetUpdateFrequency { get => 60f; set { } } //todo
+        public VsyncMode Vsync { get => VsyncMode.Off; set { } } //todo
+        public string Title { get => ""; set { } } //todo
+        public bool IsExiting => false;  //todo
 
-        public API.WindowBorder WindowBorder { get { return (API.WindowBorder)View.WindowBorder; } set { View.WindowBorder = (OpenTK.WindowBorder)value; } }
-        public API.WindowState WindowState { get { return (API.WindowState)View.WindowState; } set { View.WindowState = (OpenTK.WindowState)value; } }
+        public API.WindowBorder WindowBorder { get => (API.WindowBorder)View.WindowBorder; set => View.WindowBorder = (OpenTK.WindowBorder)value; }
+        public API.WindowState WindowState { get => (API.WindowState)View.WindowState; set => View.WindowState = (OpenTK.WindowState)value; }
 
         public event EventHandler<EventArgs> Load;
         public event EventHandler<FrameEventArgs> RenderFrame;
@@ -74,11 +73,7 @@ namespace AGS.Engine.IOS
                 _started = true;
                 AGSEngineIOS.Init();
                 StartGame();
-                var onLoad = Load;
-                if (onLoad != null)
-                {
-                    onLoad(this, args);
-                }
+                Load?.Invoke(this, args);
             }
             else View.Run(_updateRate);
         }
@@ -90,8 +85,7 @@ namespace AGS.Engine.IOS
             float height = (float)size.Height;
             _size = new Lazy<Size>(() => new Size((int)(width * View.ContentScaleFactor),
                                                   (int)(height * View.ContentScaleFactor)));
-            var onResize = Resize;
-            if (onResize != null) onResize(this, new EventArgs());
+            Resize?.Invoke(this, new EventArgs());
         }
 
         public void OnRenderFrame(FrameEventArgs args)

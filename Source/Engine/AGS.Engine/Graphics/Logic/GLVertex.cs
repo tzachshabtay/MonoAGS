@@ -39,9 +39,9 @@ namespace AGS.Engine
 
         public static int Size;
 
-		public Vector2 Position { get { return _position; } }
-		public Vector2 TexCoord { get { return _texCoord; } }
-		public Vector4 Color { get { return _color; } }
-	}
+        public Vector2 Position => _position;
+        public Vector2 TexCoord => _texCoord;
+        public Vector4 Color => _color;
+    }
 }
 

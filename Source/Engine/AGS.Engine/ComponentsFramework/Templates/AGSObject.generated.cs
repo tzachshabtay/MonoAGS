@@ -80,7 +80,7 @@ namespace AGS.Engine
 
         public override string ToString()
         {
-            return string.Format("{0} ({1})", ID ?? "", GetType().Name);
+            return $"{ID ?? ""} ({GetType().Name})";
         }
 
         partial void beforeInitComponents(Resolver resolver);
@@ -452,9 +452,9 @@ namespace AGS.Engine
             get { return _modelMatrixComponent.OnMatrixChanged; } 
         }
 
-        public ModelMatrices GetModelMatrices()
+        public ref ModelMatrices GetModelMatrices()
         {
-            return _modelMatrixComponent.GetModelMatrices();
+            return ref _modelMatrixComponent.GetModelMatrices();
         }
 
         public ILockStep ModelMatrixLockStep

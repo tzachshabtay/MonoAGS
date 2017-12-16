@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -87,22 +88,16 @@ namespace AGS.Engine
             float xSource = _translate.X;
             float ySource = _translate.Y;
 			bool completedWalk = false;
-			Exception caught = null;
-			try
-			{
-				completedWalk = await walkAsync(location, token, debugRenderers);
-			}
-			catch (Exception e)
-			{
-				caught = e;
-			}
-
-			//On windows (assuming we're before c# 6.0), we can't await inside a finally, so we're using the workaround pattern
-            _faceDirection.CurrentDirectionalAnimation = _outfit.Outfit[AGSOutfit.Idle];
-			await _faceDirection.FaceDirectionAsync(_faceDirection.Direction);
-			_walkCompleted.TrySetResult(null);
-
-			if (caught != null) throw caught;
+            try
+            {
+                completedWalk = await walkAsync(location, token, debugRenderers);
+            }
+            finally
+            {
+                _faceDirection.CurrentDirectionalAnimation = _outfit.Outfit[AGSOutfit.Idle];
+                await _faceDirection.FaceDirectionAsync(_faceDirection.Direction);
+                _walkCompleted.TrySetResult(null);
+            }
 
 			return completedWalk;
 		}
@@ -176,9 +171,18 @@ namespace AGS.Engine
             {
                 //If the movement is linked to the animation and the animation speed is slower the the viewport movement, it can lead to flickering
                 //so we do a smooth movement for this scenario.
-                _translate.X += compensateForViewScrollIfNeeded(_state.Viewport.X, xStep, ref _compensateScrollX, ref _lastViewportX);
-                _translate.Y += compensateForViewScrollIfNeeded(_state.Viewport.Y, yStep, ref _compensateScrollY, ref _lastViewportY);
-                return;
+                var compensateX = _compensateScrollX;
+                var compensateY = _compensateScrollY;
+                var candidateX = _translate.X + compensateForViewScrollIfNeeded(_state.Viewport.X, xStep, ref compensateX, ref _lastViewportX);
+                var candidateY = _translate.Y + compensateForViewScrollIfNeeded(_state.Viewport.Y, yStep, ref compensateY, ref _lastViewportY);
+                if (isWalkable(new AGSLocation(candidateX, candidateY)))
+                {
+                    _compensateScrollX = compensateX;
+                    _compensateScrollY = compensateY;
+                    _translate.X = candidateX;
+                    _translate.Y = candidateY;
+                    return;
+                }
             }
             if (_animation != null) _lastFrame = _animation.Animation.Sprite;
             _lastViewportX = _state.Viewport.X;
@@ -238,15 +242,15 @@ namespace AGS.Engine
 
 		private List<PointF> getClosestWalkablePoints(PointF target)
 		{
-            List<Tuple<PointF, float>> points = new List<Tuple<PointF, float>> (_room.Room.Areas.Count);
+            List<(PointF point, float distance)> points = new List<(PointF, float)> (_room.Room.Areas.Count);
             foreach (IArea area in getWalkableAreas()) 
 			{
 				float distance;
 				PointF? point = area.FindClosestPoint (target, out distance);
 				if (point == null) continue;
-				points.Add(new Tuple<PointF, float> (point.Value, distance));
+				points.Add((point.Value, distance));
 			}
-			return points.OrderBy(p => p.Item2).Select(p => p.Item1).ToList();
+            return points.OrderBy(p => p.distance).Select(p => p.point).ToList();
 		}
 
 		private IEnumerable<ILocation> getWalkPoints(ILocation destination)
@@ -376,7 +380,9 @@ namespace AGS.Engine
             }
 
             if (instruction.CancelToken.IsCancellationRequested || !isWalkable(_translate.Location))
+            {
                 return false;
+            }
 			
             _translate.X = destination.X;
             _translate.Y = destination.Y;

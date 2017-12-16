@@ -36,21 +36,21 @@ namespace AGS.Engine
 
 		public IAGSBindingList<IRoom> Rooms { get; private set; }
 
-        public IViewport Viewport { get; private set; }
+        public IViewport Viewport { get; }
 
-        public IAGSBindingList<IViewport> SecondaryViewports { get; private set; }
+        public IAGSBindingList<IViewport> SecondaryViewports { get; }
 
 		public IConcurrentHashSet<IObject> UI { get; private set; }
 
-        public IFocusedUI FocusedUI { get; private set; }
+        public IFocusedUI FocusedUI { get; }
 
-		public ICustomProperties GlobalVariables { get; private set; }
+		public ICustomProperties GlobalVariables { get; }
 
-		public ICutscene Cutscene { get { return _cutscene.Value; } }
+        public ICutscene Cutscene => _cutscene.Value;
 
-        public IRoomTransitions RoomTransitions { get { return _roomTransitions; } }
+        public IRoomTransitions RoomTransitions => _roomTransitions;
 
-		public bool Paused { get; set; }
+        public bool Paused { get; set; }
 
 		public int Speed { get; set; }
 
@@ -73,7 +73,7 @@ namespace AGS.Engine
                 if (_roomTransitions.Transition != null)
                     await _roomTransitions.OnStateChanged.WaitUntilAsync(canContinueRoomTransition);
             }
-            if (afterTransitionFadeOut != null) afterTransitionFadeOut();
+            afterTransitionFadeOut?.Invoke();
             Room = newRoom;
         }
 

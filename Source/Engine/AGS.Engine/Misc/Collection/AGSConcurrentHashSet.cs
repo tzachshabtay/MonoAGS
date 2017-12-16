@@ -18,11 +18,11 @@ namespace AGS.Engine
                 OnListChanged = new AGSEvent<AGSHashSetChangedEventArgs<TItem>>();
 		}
 
-		#region IConcurrentCollection implementation
+        #region IConcurrentCollection implementation
 
-		public int Count { get { return _map.Count; } }
+        public int Count => _map.Count;
 
-        public IBlockingEvent<AGSHashSetChangedEventArgs<TItem>> OnListChanged { get; private set; }
+        public IBlockingEvent<AGSHashSetChangedEventArgs<TItem>> OnListChanged { get; }
 
         private void onListChanged(TItem item, ListChangeType changeType)
         {
@@ -75,12 +75,9 @@ namespace AGS.Engine
 			}
 		}
 
-		public bool Contains(TItem item)
-		{
-			return _map.ContainsKey(item);
-		}
+        public bool Contains(TItem item) => _map.ContainsKey(item);
 
-		public void Clear()
+        public void Clear()
 		{
             RemoveAll(_ => true);
 		}

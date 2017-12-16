@@ -88,8 +88,7 @@ namespace AGS.Engine
 			{
 				var room = Room;
 				if (room == null) return;
-				var music = _music;
-				if (music != null) music.Stop();
+                _music?.Stop();
 				room.Events.OnBeforeFadeOut.Unsubscribe(onBeforeFadeOut);
 				room.Events.OnBeforeFadeIn.Unsubscribe(onBeforeFadeIn);
 			}

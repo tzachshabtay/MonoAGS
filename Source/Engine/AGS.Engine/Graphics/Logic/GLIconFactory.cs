@@ -12,14 +12,14 @@ namespace AGS.Engine
             _resolver = resolver;
         }
 
-        public IBorderStyle GetArrowIcon(ArrowDirection direction, Color? color = default(Color?))
+        public IBorderStyle GetArrowIcon(ArrowDirection direction, Color? color = default)
         {
             TypedParameter dirParam = new TypedParameter(typeof(ArrowDirection), direction);
             TypedParameter colorParam = new TypedParameter(typeof(Color?), color);
             return _resolver.Container.Resolve<ArrowIcon>(dirParam, colorParam);
         }
 
-        public ISelectableIcon GetFileIcon(bool isSelected = false, Color? color = default(Color?), Color? foldColor = default(Color?), Color? selectedColor = default(Color?), Color? selectedFoldColor = default(Color?))
+        public ISelectableIcon GetFileIcon(bool isSelected = false, Color? color = default, Color? foldColor = default, Color? selectedColor = default, Color? selectedFoldColor = default)
         {
             NamedParameter colorParam = new NamedParameter(nameof(color), color);
             NamedParameter foldColorParam = new NamedParameter(nameof(foldColor), foldColor);
@@ -30,7 +30,7 @@ namespace AGS.Engine
             return icon;
         }
 
-        public ISelectableIcon GetFolderIcon(bool isSelected = false, Color? color = default(Color?), Color? foldColor = default(Color?), Color? selectedColor = default(Color?), Color? selectedFoldColor = default(Color?))
+        public ISelectableIcon GetFolderIcon(bool isSelected = false, Color? color = default, Color? foldColor = default, Color? selectedColor = default, Color? selectedFoldColor = default)
         {
             NamedParameter colorParam = new NamedParameter(nameof(color), color);
             NamedParameter foldColorParam = new NamedParameter(nameof(foldColor), foldColor);
@@ -41,7 +41,7 @@ namespace AGS.Engine
             return icon;
         }
 
-        public IBorderStyle GetXIcon(float lineWidth = 3, float padding = 3, Color? color = default(Color?))
+        public IBorderStyle GetXIcon(float lineWidth = 3, float padding = 3, Color? color = default)
         {
             TypedParameter colorParam = new TypedParameter(typeof(Color?), color);
             NamedParameter lineWidthParam = new NamedParameter(nameof(lineWidth), lineWidth);

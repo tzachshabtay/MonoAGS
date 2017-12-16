@@ -33,7 +33,7 @@
         /// Gets the model matrices.
         /// </summary>
         /// <returns>The model matrices.</returns>
-        ModelMatrices GetModelMatrices();
+        ref ModelMatrices GetModelMatrices();
 
         /// <summary>
         /// An event that fires whenever the matrix changes.

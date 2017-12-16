@@ -15,32 +15,24 @@ namespace AGS.Engine
 			_type = GetType();
 		}
 
-		#region IComponent implementation
+        #region IComponent implementation
 
         [Property(Browsable = false)]
-        public virtual string Name { get { return friendlyName(); } }
+        public virtual string Name => friendlyName();
 
-		public virtual void Init(IEntity entity) {}
+        public virtual void Init(IEntity entity) {}
         public virtual void AfterInit() { }
 
         #endregion
 
         public void OnPropertyChanged(string propertyName)
         {
-            var propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void OnPropertyChanged(PropertyChangedEventArgs args)
         {
-            var propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged(this, args);
-            }
+            PropertyChanged?.Invoke(this, args);
         }
 
         #region IDisposable implementation

@@ -61,7 +61,7 @@ namespace AGS.Engine
 			var box = panel.AddComponent<IBoundingBoxWithChildrenComponent>();
 			IScrollingComponent scroll = panel.AddComponent<IScrollingComponent>();
 
-            var horizSlider = GetSlider(string.Format("{0}_HorizontalSlider", panel.ID), null, null, 0f, 0f, 0f, panel);
+            var horizSlider = GetSlider($"{panel.ID}_HorizontalSlider", null, null, 0f, 0f, 0f, panel);
 			horizSlider.HandleGraphics.Anchor = new PointF(0f, 0.5f);
             horizSlider.Direction = SliderDirection.LeftToRight;
 			horizSlider.Graphics.Anchor = new PointF(0f, 0.5f);
@@ -70,7 +70,7 @@ namespace AGS.Engine
             HoverEffect.Add(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
 			HoverEffect.Add(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
-            var verSlider = GetSlider(string.Format("{0}_VerticalSlider", panel.ID), null, null, 0f, 0f, 0f, panel);
+            var verSlider = GetSlider($"{panel.ID}_VerticalSlider", null, null, 0f, 0f, 0f, panel);
 			verSlider.HandleGraphics.Anchor = new PointF(0.5f, 0f);
             verSlider.Direction = SliderDirection.TopToBottom;
 			verSlider.Graphics.Anchor = new PointF(0.5f, 0f);
@@ -130,7 +130,7 @@ namespace AGS.Engine
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
-            bool pixelArtButton = idle != null && idle.Animation != null && idle.Animation.Frames.Count > 0;
+            bool pixelArtButton = idle?.Animation != null && idle.Animation.Frames.Count > 0;
             if (width == -1f && pixelArtButton)
             {
                 width = idle.Animation.Frames[0].Sprite.Width;
@@ -157,7 +157,7 @@ namespace AGS.Engine
             button.Text = text;
             setParent(button, parent);
 
-            if (button.Skin != null) button.Skin.Apply(button);
+            button.Skin?.Apply(button);
             button.IdleAnimation.StartAnimation(button, button, button);
 
             if (addToUi)
@@ -221,7 +221,7 @@ namespace AGS.Engine
         public ICheckBox GetCheckBox(string id, ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation @checked, ButtonAnimation checkedHovered,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
         {
-            bool pixelArtButton = notChecked != null && notChecked.Animation != null && notChecked.Animation.Frames.Count > 0;
+            bool pixelArtButton = notChecked?.Animation != null && notChecked.Animation.Frames.Count > 0;
             if (width == -1f && pixelArtButton)
             {
                 width = notChecked.Animation.Frames[0].Sprite.Width;
@@ -253,8 +253,7 @@ namespace AGS.Engine
             checkbox.Y = y;
             setParent(checkbox, parent);
 
-			var skin = checkbox.Skin;
-			if (skin != null) skin.Apply(checkbox);
+            checkbox.Skin?.Apply(checkbox);
             checkbox.StartAnimation(checkbox.NotCheckedAnimation.Animation);
 
             if (addToUi)
@@ -299,8 +298,8 @@ namespace AGS.Engine
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IComboBox comboBox = _resolver.Container.Resolve<IComboBox>(idParam);
             if (parent != null) comboBox.RenderLayer = parent.RenderLayer;
-            defaultHeight = dropDownButton != null ? dropDownButton.Height : textBox != null ? textBox.Height : defaultHeight;
-            float itemWidth = textBox != null ? textBox.Width : defaultWidth;
+            defaultHeight = dropDownButton?.Height ?? textBox?.Height ?? defaultHeight;
+            float itemWidth = textBox?.Width ?? defaultWidth;
 
             if (textBox == null)
             {
@@ -332,7 +331,7 @@ namespace AGS.Engine
             dropDownButton.RenderLayer = comboBox.RenderLayer;
             dropDownButton.Z = textBox.Z - 1;
 			dropDownButton.SkinTags.Add(AGSSkin.DropDownButtonTag);
-			if (dropDownButton.Skin != null) dropDownButton.Skin.Apply(dropDownButton);
+			dropDownButton.Skin?.Apply(dropDownButton);
 
             var dropDownPanelLayer = new AGSRenderLayer(comboBox.RenderLayer.Z - 1, comboBox.RenderLayer.ParallaxSpeed, comboBox.RenderLayer.IndependentResolution); //Making sure that the drop-down layer is rendered before the combobox layer, so that it will appear in front of other ui elements that may be below.
 			if (itemButtonFactory == null)
@@ -398,18 +397,18 @@ namespace AGS.Engine
 		private ISlider getSlider(string id, IImage image, IImage handleImage, float value, float min, float max,
             IObject parent = null, ITextConfig config = null, bool addToUi = true)
         {
-            IObject graphics = _object.GetObject(string.Format("{0}(graphics)", id));
+            IObject graphics = _object.GetObject($"{id}(graphics)");
             graphics.Image = image ?? new EmptyImage(10f, 100f);
             graphics.IgnoreViewport = true;
             ILabel label = null;
             if (config != null)
             {
-                label = GetLabel(string.Format("{0}(label)", id), "", graphics.Width, 30f, 0f, -30f, parent, config, false);
+                label = GetLabel($"{id}(label)", "", graphics.Width, 30f, 0f, -30f, parent, config, false);
                 if (parent != null) label.RenderLayer = parent.RenderLayer;
                 label.Anchor = new PointF(0.5f, 0f);
             }
 
-            IObject handle = _object.GetObject(string.Format("{0}(handle)", id));
+            IObject handle = _object.GetObject($"{id}(handle)");
             handle.Image = handleImage ?? new EmptyImage(20f, 20f);
             handle.IgnoreViewport = true;
 

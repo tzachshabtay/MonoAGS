@@ -23,8 +23,8 @@ namespace AGS.Engine
         }
 
         public IPanel TopPanel 
-        { 
-            get { return _topPanel; } 
+        {
+            get => _topPanel;
             set 
             { 
                 if (_topPanel == value) return; 
@@ -37,8 +37,8 @@ namespace AGS.Engine
             } 
         }
         public IPanel BottomPanel 
-        { 
-            get { return _bottomPanel; } 
+        {
+            get => _bottomPanel;
             set 
             { 
                 if (_bottomPanel == value) return; 
@@ -51,7 +51,7 @@ namespace AGS.Engine
                 createNewSplitLine(); 
             } 
         }
-        public bool IsHorizontal { get { return _isHorizontal; } set { if (_isHorizontal == value) return; _isHorizontal = value; createNewSplitLine(); } }
+        public bool IsHorizontal { get => _isHorizontal; set { _isHorizontal = value; createNewSplitLine(); } }
         public IObject DragLine { get; private set; }
 
         private void disposeExistingSplitLine()
@@ -62,11 +62,7 @@ namespace AGS.Engine
                 existing.Visible = false;
                 _state.UI.Remove(existing);
                 _state.Room.Objects.Remove(existing);
-                var binding = _splitLineMoveBinding;
-                if (binding != null)
-                {
-                    binding.Unbind();
-                }
+                _splitLineMoveBinding?.Unbind();
                 var translate = existing.GetComponent<ITranslateComponent>();
                 if (translate != null)
                 {
@@ -82,11 +78,11 @@ namespace AGS.Engine
 			if (topPanel == null) return;
 
             const float lineWidth = 10f;
-            var splitLine = _factory.Object.GetObject(string.Format("{0}_SplitLine", topPanel.ID));
+            var splitLine = _factory.Object.GetObject($"{topPanel.ID}_SplitLine");
             _state.FocusedUI.CannotLoseFocus.Add(splitLine.ID);
             splitLine.RenderLayer = topPanel.RenderLayer;
 			var crop = topPanel.GetComponent<ICropChildrenComponent>();
-			if (crop != null) crop.EntitiesToSkipCrop.Add(splitLine.ID);
+			crop?.EntitiesToSkipCrop.Add(splitLine.ID);
             HoverEffect.Add(splitLine, Colors.Transparent, Colors.Yellow.WithAlpha(100));
 			splitLine.Anchor = new PointF(0f, 0f);
             positionSplitLine(splitLine, topPanel, lineWidth);

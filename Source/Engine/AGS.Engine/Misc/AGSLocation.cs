@@ -23,14 +23,14 @@ namespace AGS.Engine
 			return new AGSLocation (new PointF (), null);
 		}
 
-		public float X { get { return XY.X; } }
-		public float Y { get { return XY.Y; } }
-		public float Z { get { return _z.HasValue ? _z.Value : Y; } }
-		public PointF XY { get { return _xy; } }
+        public float X => XY.X;
+        public float Y => XY.Y;
+        public float Z => _z.HasValue ? _z.Value : Y;
+        public PointF XY => _xy;
 
-		public override string ToString ()
+        public override string ToString ()
 		{
-            return string.Format ("{0},{1:0.##}", XY.ToString(), Z);
+            return $"{XY.ToString()},{Z:0.##}";
 		}
 	}
 }

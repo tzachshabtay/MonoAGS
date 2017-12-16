@@ -23,10 +23,10 @@ namespace AGS.Engine
             _padding = padding;
         }
 
-        public float WidthBottom { get { return 0f; } }
-        public float WidthLeft { get { return 0f; } }
-        public float WidthRight { get { return 0f; } }
-        public float WidthTop { get { return 0f; } }
+        public float WidthBottom => 0f;
+        public float WidthLeft => 0f;
+        public float WidthRight => 0f;
+        public float WidthTop => 0f;
 
         public void RenderBorderFront(AGSBoundingBox square) { }
 

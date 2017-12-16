@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -41,10 +42,10 @@ namespace AGS.Engine
             onHitTextBoxShouldChange();
         }
 
-        public IBlockingEvent OnBoundingBoxesChanged { get; private set; }
+        public IBlockingEvent OnBoundingBoxesChanged { get; }
 
         [Property(Browsable = false)]
-        public ILockStep BoundingBoxLockStep { get { return this; }}
+        public ILockStep BoundingBoxLockStep => this;
 
         public override void Init(IEntity entity)
         {
@@ -103,7 +104,7 @@ namespace AGS.Engine
         private bool anyChangesForLock()
         {
             return (_isHitTestBoxDirty || _isCropDirty || _areViewportsDirty ||
-                _boundingBoxes.Values.Any(v => v.IsDirty));
+                    (!(_drawable?.IgnoreViewport ?? false) && _boundingBoxes.Values.Any(v => v.IsDirty)));
         }
 
         public AGSBoundingBoxes GetBoundingBoxes(IViewport viewport)
@@ -116,6 +117,11 @@ namespace AGS.Engine
             var boundingBoxes = viewportBoxes.BoundingBoxes;
             if (!_isHitTestBoxDirty && !_isCropDirty && !_areViewportsDirty && !viewportBoxes.IsDirty)
                 return boundingBoxes;
+            if (!_isHitTestBoxDirty && !_isCropDirty && !_areViewportsDirty)
+            {
+                if (!viewportBoxes.IsDirty) return boundingBoxes;
+                if (_drawable?.IgnoreViewport ?? false) return boundingBoxes;
+            }
             var animation = _animation;
             var drawable = _drawable;
             var matrix = _matrix;
@@ -171,11 +177,11 @@ namespace AGS.Engine
             {
 				var modelMatrices = matrix.GetModelMatrices();
                 var modelMatrix = modelMatrices.InObjResolutionMatrix;
-                intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, modelMatrix);
+                intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, ref modelMatrix);
             }
 
             PointF renderCropScale;
-            var renderBox = _boundingBoxBuilder.BuildRenderBox(intermediateBox, viewportMatrix, out renderCropScale);
+            var renderBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out renderCropScale);
 
             PointF hitTestCropScale = renderCropScale;
             if (MathUtils.FloatEquals(hitTestCropScale.X, 1f) && MathUtils.FloatEquals(hitTestCropScale.Y, 1f))
@@ -195,17 +201,17 @@ namespace AGS.Engine
             {
                 var textureOffset = _textureOffset;
                 if (width != sprite.Image.Width || height != sprite.Image.Height ||
-                    (textureOffset != null && !textureOffset.TextureOffset.Equals(Vector2.Zero)))
+                    (!textureOffset?.TextureOffset.Equals(Vector2.Zero) ?? false))
                 {
-                    var offset = textureOffset == null ? PointF.Empty : textureOffset.TextureOffset;
+                    var offset = textureOffset?.TextureOffset ?? PointF.Empty;
                     setProportionalTextureSize(boundingBoxes, sprite, width, height, offset);
                 }
                 else boundingBoxes.TextureBox = null;
             }
 
-            if (cropInfo.Equals(default(AGSCropInfo)))
+            if (cropInfo.Equals(default))
             {
-                boundingBoxes.HitTestBox = default(AGSBoundingBox);
+                boundingBoxes.HitTestBox = default;
             }
             else
             {
@@ -240,8 +246,8 @@ namespace AGS.Engine
 			var sprite = animation.Animation.Sprite;
             float width = sprite.BaseSize.Width / resolutionFactor.X;
 			float height = sprite.BaseSize.Height / resolutionFactor.Y;
-            _intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, modelMatrix);
-            _hitTestBox = _boundingBoxBuilder.BuildHitTestBox(_intermediateBox);
+            _intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, ref modelMatrix);
+            _hitTestBox = _boundingBoxBuilder.BuildHitTestBox(ref _intermediateBox);
 		}
 
         private void onHitTextBoxShouldChange()
@@ -282,15 +288,9 @@ namespace AGS.Engine
 		//https://stackoverflow.com/questions/8946790/how-to-use-an-objects-identity-as-key-for-dictionaryk-v
 		private class IdentityEqualityComparer<T> : IEqualityComparer<T> where T : class
         {
-            public int GetHashCode(T value)
-            {
-                return RuntimeHelpers.GetHashCode(value);
-            }
+            public int GetHashCode(T value) => RuntimeHelpers.GetHashCode(value);
 
-            public bool Equals(T left, T right)
-            {
-                return left == right; // Reference identity comparison
-            }
+            public bool Equals(T left, T right) => left == right; // Reference identity comparison
         }
 
         private class ViewportBoundingBoxes

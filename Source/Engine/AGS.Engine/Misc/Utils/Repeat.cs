@@ -19,10 +19,7 @@ namespace AGS.Engine
         /// </summary>
         /// <returns><c>true</c>, for the first time that it is called with this key, <c>false</c> otherwise.</returns>
         /// <param name="key">Key.</param>
-		public static bool OnceOnly(string key)
-		{
-			return Do(key) == 1;
-		}
+		public static bool OnceOnly(string key) => Do(key) == 1;
 
         /// <summary>
         /// This function allows you to make some code run exactly X times.
@@ -33,10 +30,7 @@ namespace AGS.Engine
         /// <returns><c>true</c> if this was called "times" times with this key, <c>false</c> otherwise.</returns>
         /// <param name="key">Key.</param>
         /// <param name="times">Times.</param>
-		public static bool Exactly(string key, int times)
-		{
-			return Do(key) == times;
-		}
+		public static bool Exactly(string key, int times) => Do(key) == times;
 
         /// <summary>
         /// This function allows you to make some code run more than X times.
@@ -47,10 +41,7 @@ namespace AGS.Engine
         /// <returns><c>true</c> if this was called more than "times" times with this key, <c>false</c> otherwise.</returns>
         /// <param name="key">Key.</param>
         /// <param name="times">Times.</param>
-		public static bool MoreThan(string key, int times)
-		{
-			return Do(key) > times;
-		}
+		public static bool MoreThan(string key, int times) => Do(key) > times;
 
         /// <summary>
         /// This function allows you to make some code run less than X times.
@@ -61,10 +52,7 @@ namespace AGS.Engine
         /// <returns><c>true</c> if this was called less than "times" times with this key, <c>false</c> otherwise.</returns>
         /// <param name="key">Key.</param>
         /// <param name="times">Times.</param>
-		public static bool LessThan(string key, int times)
-		{
-			return Do(key) < times;
-		}
+		public static bool LessThan(string key, int times) => Do(key) < times;
 
         /// <summary>
         /// This counts how many times this function was called with the given key.
@@ -74,10 +62,7 @@ namespace AGS.Engine
         /// </summary>
         /// <returns>The number of times this was called with this key.</returns>
         /// <param name="key">Key.</param>
-		public static int Do(string key)
-		{
-			return getCounter(key).Increment();
-		}
+		public static int Do(string key) => getCounter(key).Increment();
 
         /// <summary>
         /// Rotates around a list of actions to perform (i.e on each call it performs the next action on the list, 
@@ -135,21 +120,15 @@ namespace AGS.Engine
             return actions[times % actions.Length]();
         }
 
-		public static int Current(string key)
-		{
-			return getCounter(key).Value;
-		}
+        public static int Current(string key) => getCounter(key).Value;
 
-		public static void Reset(string key)
-		{
-			getCounter(key).Reset();
-		}
-        
-        public static Dictionary<string, int> ToDictionary()
+        public static void Reset(string key)
         {
-            return _times.ToDictionary(k => k.Key, v => v.Value.Value);
+            getCounter(key).Reset();
         }
-        
+
+        public static Dictionary<string, int> ToDictionary() => _times.ToDictionary(k => k.Key, v => v.Value.Value);
+
         public static void FromDictionary(Dictionary<string, int> counters)
         {
 			_times = new ConcurrentDictionary<string, Counter> ();
@@ -173,9 +152,9 @@ namespace AGS.Engine
             
 			private int _value;
 
-			public int Value { get { return _value; }}
+            public int Value => _value;
 
-			public int Increment()
+            public int Increment()
 			{
 				return Interlocked.Increment(ref _value);
 			}

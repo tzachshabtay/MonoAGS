@@ -56,7 +56,7 @@ namespace AGS.Engine
 			});
 			
 			await sayBehavior.SayAsync(text);
-            if (label != null) label.GetComponent<IModalWindowComponent>().LoseFocus();
+            label?.GetComponent<IModalWindowComponent>().LoseFocus();
 			foreach (var button in buttons)
 			{
 				AGSGame.Game.State.UI.Remove(button);

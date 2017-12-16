@@ -52,8 +52,8 @@ namespace AGS.Engine
 
 		public AGS.API.SizeF ItemSize
 		{
-			get { return _itemSize; }
-			set
+            get => _itemSize;
+            set
 			{
 				_itemSize = value;
 				_refreshNeeded = true;
@@ -62,8 +62,8 @@ namespace AGS.Engine
 
         public IInventory Inventory 
 		{
-            get { return _inventory; }
-			set
+            get => _inventory;
+            set
 			{
 				_inventory = value;
 				_refreshNeeded = true;
@@ -72,21 +72,21 @@ namespace AGS.Engine
 
 		public int TopItem 
 		{
-			get { return _topItem; }
-			set
+            get => _topItem;
+            set
 			{
 				_topItem = value;
 				_refreshNeeded = true;
 			}
 		}
 
-		public int ItemsPerRow { get { return (int)(_scale.Width / ItemSize.Width); } }
+        public int ItemsPerRow => (int)(_scale.Width / ItemSize.Width);
 
-		public int RowCount { get { return (int)(_scale.Height / ItemSize.Height); } }
+        public int RowCount => (int)(_scale.Height / ItemSize.Height);
 
-		#endregion
+        #endregion
 
-		private void onRepeatedlyExecute()
+        private void onRepeatedlyExecute()
 		{
 			if (Inventory == null) return;
 			if (!isRefreshNeeded()) return;

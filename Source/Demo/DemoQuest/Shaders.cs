@@ -7,9 +7,9 @@ namespace DemoQuest
     //Shaders source taken from: https://github.com/mattdesl/lwjgl-basics/wiki/ShaderLesson3 & https://www.youtube.com/watch?v=qNM0k522R7o
     public static class Shaders
     {
-        private static IShaderFactory _shaders { get { return AGSGame.Game.Factory.Shaders; } }
+        private static IShaderFactory _shaders => AGSGame.Game.Factory.Shaders;
 
-		const string FRAGMENT_SHADER_GRAYSCALE = 
+        const string FRAGMENT_SHADER_GRAYSCALE = 
 @"
 #ifdef GL_ES
             precision mediump float;
@@ -85,8 +85,8 @@ namespace DemoQuest
             	gl_FragColor = col * vColor;
             }";
 
-		const string FRAGMENT_SHADER_VIGNETTE = 
-			@"
+        const string FRAGMENT_SHADER_VIGNETTE =
+            @"
 #ifdef GL_ES
             precision mediump float;
 #endif        
@@ -129,7 +129,7 @@ namespace DemoQuest
             	gl_FragColor = col * vColor;
             }
             ";
-		const string FRAGMENT_SHADER_BLUR = 
+        const string FRAGMENT_SHADER_BLUR = 
 			@"
 #ifdef GL_ES
             precision mediump float;

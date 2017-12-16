@@ -27,7 +27,7 @@ namespace AGS.Engine
 
         public ITreeStringNode Tree
         {
-            get { return _tree; }
+            get => _tree;
             set 
             {
                 clearTreeFromUi(_root);
@@ -46,11 +46,11 @@ namespace AGS.Engine
 
         public SelectionType AllowSelection { get; set; }
 
-        public IBlockingEvent<NodeEventArgs> OnNodeSelected { get; private set; }
+        public IBlockingEvent<NodeEventArgs> OnNodeSelected { get; }
 
-        public IBlockingEvent<NodeEventArgs> OnNodeExpanded { get; private set; }
+        public IBlockingEvent<NodeEventArgs> OnNodeExpanded { get; }
 
-        public IBlockingEvent<NodeEventArgs> OnNodeCollapsed { get; private set; }
+        public IBlockingEvent<NodeEventArgs> OnNodeCollapsed { get; }
 
         public override void Init(IEntity entity)
         {
@@ -74,13 +74,13 @@ namespace AGS.Engine
         public void Expand(ITreeStringNode node)
         {
             var nodeView = findNodeView(node);
-            if (nodeView != null) nodeView.Expand();
+            nodeView?.Expand();
         }
 
         public void Collapse(ITreeStringNode node)
         {
 			var nodeView = findNodeView(node);
-            if (nodeView != null) nodeView.Collapse();
+            nodeView?.Collapse();
         }
 
         public bool? IsCollapsed(ITreeStringNode node)
@@ -90,12 +90,9 @@ namespace AGS.Engine
             return nodeView.IsCollapsed;
         }
 
-        private Node findNodeView(ITreeStringNode node)
-        {
-            return findNodeView(_root, node);
-        }
+        private Node findNodeView(ITreeStringNode node) => findNodeView(_root, node);
 
-		private Node findNodeView(Node nodeView, ITreeStringNode node)
+        private Node findNodeView(Node nodeView, ITreeStringNode node)
 		{
             if (nodeView.Item == node) return nodeView;
             foreach (var child in nodeView.Children)
@@ -213,7 +210,7 @@ namespace AGS.Engine
 
         private TChild childOrNull<TChild>(IList<TChild> list, int i)
         {
-            if (list.Count <= i) return default(TChild);
+            if (list.Count <= i) return default;
             return list[i];
         }
 
@@ -278,18 +275,17 @@ namespace AGS.Engine
                 }
             }
 
-            public ITreeStringNode Item { get; private set; }
+            public ITreeStringNode Item { get; }
             public ITreeNodeView View { get; private set; }
-            public List<Node> Children { get; private set; }
-            public Node Parent { get; private set; }
+            public List<Node> Children { get; }
+            public Node Parent { get; }
 
             public bool IsNew { get; set; }
             public bool IsCollapsed 
-            { 
-                get { return _isCollapsed; } 
+            {
+                get => _isCollapsed;
                 set
                 {
-                    if (_isCollapsed == value) return;
                     _isCollapsed = value;
                     if (value) _tree.OnNodeCollapsed.Invoke(new NodeEventArgs(Item));
                     else
@@ -320,7 +316,7 @@ namespace AGS.Engine
                     expandButton.MouseLeave.Unsubscribe(onMouseLeave);
                 }
                 var button = getExpandButton();
-                if (button != null) button.MouseClicked.Unsubscribe(onMouseClicked);
+                button?.MouseClicked.Unsubscribe(onMouseClicked);
             }
 
             public float ResetOffsets(float xOffset, float yOffset, float spacingX, float spacingY)

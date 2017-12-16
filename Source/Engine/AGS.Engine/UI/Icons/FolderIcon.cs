@@ -37,11 +37,11 @@ namespace AGS.Engine
             _selectedFoldColor = (selectedFoldColor ?? (Color?)Colors.Blue).Value.ToGLColor();
         }
 
-        public float WidthBottom { get { return 0f; } }
-        public float WidthLeft { get { return 0f; } }
-        public float WidthRight { get { return 0f; } }
-        public float WidthTop { get { return 0f; } }
-        public bool IsSelected { get { return _isSelected; } set { if (_isSelected == value) return; _isSelected = value; _frameBuffer = null; } }
+        public float WidthBottom => 0f;
+        public float WidthLeft => 0f;
+        public float WidthRight => 0f;
+        public float WidthTop => 0f;
+        public bool IsSelected { get => _isSelected; set { if (_isSelected == value) return; _isSelected = value; _frameBuffer = null; } }
 
         public void RenderBorderFront(AGSBoundingBox square) { }
 

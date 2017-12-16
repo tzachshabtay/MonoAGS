@@ -80,7 +80,7 @@ namespace AGS.Engine
 			}
 			finally
 			{
-				if (reader != null) reader.Dispose();
+				reader?.Dispose();
 			}
 		}
 

@@ -26,50 +26,29 @@ namespace AGS.API
         /// Gets the x coordinate.
         /// </summary>
         /// <value>The x.</value>
-		public float X { get { return _x; } }
+		public float X => _x;
 
         /// <summary>
         /// Gets the y coordinate.
         /// </summary>
         /// <value>The y.</value>
-		public float Y { get { return _y; } }
+        public float Y => _y;
 
-        public static PointF operator +(PointF p1, PointF p2)
-        {
-            return new PointF(p1.X + p2.X, p1.Y + p2.Y);
-        }
+        public static PointF operator +(PointF p1, PointF p2) => new PointF(p1.X + p2.X, p1.Y + p2.Y);
 
-        public static PointF operator -(PointF p1, PointF p2)
-        {
-            return new PointF(p1.X - p2.X, p1.Y - p2.Y);
-        }
+        public static PointF operator -(PointF p1, PointF p2) => new PointF(p1.X - p2.X, p1.Y - p2.Y);
 
-        public static PointF operator *(PointF p1, PointF p2)
-        {
-            return new PointF(p1.X * p2.X, p1.Y * p2.Y);
-        }
+        public static PointF operator *(PointF p1, PointF p2) => new PointF(p1.X * p2.X, p1.Y * p2.Y);
 
-        public static PointF operator /(PointF p1, PointF p2)
-        {
-            return new PointF(p1.X / p2.X, p1.Y / p2.Y);
-        }
+        public static PointF operator /(PointF p1, PointF p2) => new PointF(p1.X / p2.X, p1.Y / p2.Y);
 
-        public static PointF operator *(PointF p1, float factor)
-        {
-            return new PointF(p1.X * factor, p1.Y * factor);
-        }
+        public static PointF operator *(PointF p1, float factor) => new PointF(p1.X * factor, p1.Y * factor);
 
-        public static PointF operator /(PointF p1, float factor)
-        {
-            return new PointF(p1.X / factor, p1.Y / factor);
-        }
+        public static PointF operator /(PointF p1, float factor) => new PointF(p1.X / factor, p1.Y / factor);
 
-        public override string ToString ()
-		{
-			return string.Format ("{0:0.##},{1:0.##}", X, Y);
-		}
+        public override string ToString() => $"{X:0.##},{Y:0.##}";
 
-		public override bool Equals(Object obj) 
+        public override bool Equals(Object obj) 
 		{
             PointF? other = obj as PointF?;
 			if (other == null) return false;
@@ -77,15 +56,9 @@ namespace AGS.API
             return Equals(other.Value);
 		}
 
-        public bool Equals(PointF other)
-        {
-            return MathUtils.FloatEquals(X, other.X) && MathUtils.FloatEquals(Y, other.Y);
-        }
+        public bool Equals(PointF other) => MathUtils.FloatEquals(X, other.X) && MathUtils.FloatEquals(Y, other.Y);
 
-		public override int GetHashCode() 
-		{
-            return (((int)X).GetHashCode() * 397) ^ ((int)Y).GetHashCode();
-		}
-	}
+        public override int GetHashCode() => (((int)X).GetHashCode() * 397) ^ ((int)Y).GetHashCode();
+    }
 }
 

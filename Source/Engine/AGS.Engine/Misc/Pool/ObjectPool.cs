@@ -26,8 +26,8 @@ namespace AGS.Engine
 
 		public void Release(TPoolItem item)
 		{
-			if (_release != null) _release(item);
-			_queue.Enqueue(item);
+            _release?.Invoke(item);
+            _queue.Enqueue(item);
 		}
 	}
 }

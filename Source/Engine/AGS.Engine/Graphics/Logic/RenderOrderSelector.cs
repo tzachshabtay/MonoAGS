@@ -25,8 +25,8 @@ namespace AGS.Engine
 #if DEBUG
             if (Printouts)
             {
-                s1.Properties.Ints.SetValue(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s2.ID ?? "null"), result);
-                s2.Properties.Ints.SetValue(string.Format("Sort {0}{1}", Backwards ? "backwards " : "", s1.ID ?? "null"), -result);
+                s1.Properties.Ints.SetValue($"Sort {(Backwards ? "backwards " : "")}{s2.ID ?? "null"}", result);
+                s2.Properties.Ints.SetValue($"Sort {(Backwards ? "backwards " : "")}{s1.ID ?? "null"}", -result);
             }
 #endif
 			return result;

@@ -39,7 +39,7 @@ namespace AGS.Engine
 
 		public static IShader Shader { get; set; }
 
-		public static Resolver Resolver { get { return ((AGSGame)Game)._resolver; } }
+        public static Resolver Resolver => ((AGSGame)Game)._resolver;
 
         public static IGLUtils GLUtils { get; private set; }
 
@@ -235,15 +235,11 @@ namespace AGS.Engine
 		private static void printRuntime()
 		{
 			Type type = Type.GetType("Mono.Runtime");
-			if (type != null)
-			{                                          
-				MethodInfo getDisplayName = type.GetRuntimeMethod("GetDisplayName", new Type[]{}); 
-				if (getDisplayName != null)
-				{
-					object displayName = getDisplayName.Invoke(null, null);
-					Debug.WriteLine(string.Format("Runtime: Mono- {0}", displayName)); 
-				}
-			}
+			
+			MethodInfo getDisplayName = type?.GetRuntimeMethod("GetDisplayName", new Type[]{}); 
+				
+            object displayName = getDisplayName?.Invoke(null, null);
+			Debug.WriteLine($"Runtime: Mono- {displayName ?? "Unknown"}"); 
 		}
 	}
 }

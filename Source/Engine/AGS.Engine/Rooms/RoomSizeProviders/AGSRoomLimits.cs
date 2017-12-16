@@ -19,7 +19,7 @@ namespace AGS.Engine
         /// </summary>
         /// <returns>The custom.</returns>
         /// <param name="customLimits">Custom limits.</param>
-        public static IRoomLimitsProvider Custom(RectangleF customLimits) { return new RoomCustomLimits(customLimits); }
+        public static IRoomLimitsProvider Custom(RectangleF customLimits) => new RoomCustomLimits(customLimits);
 
         /// <summary>
         /// A room "without" limits. 

@@ -4,7 +4,6 @@ namespace AGS.Engine
 {
     public class AGSComboBoxComponent : AGSComponent, IComboBoxComponent
     {
-        private ITextBox _textBox;
         private IButton _dropDownButton;
         private IListboxComponent _dropDownPanelList;
         private IVisibleComponent _dropDownPanelVisible;
@@ -18,32 +17,23 @@ namespace AGS.Engine
 
         public IButton DropDownButton
         {
-            get { return _dropDownButton; }
+            get => _dropDownButton;
             set
             {
                 if (_dropDownButton == value) return;
-                var oldDropDownButton = _dropDownButton;
-                var newDropDownButton = value;
-                if (oldDropDownButton != null) oldDropDownButton.MouseClicked.Unsubscribe(onDropDownClicked);
-                _dropDownButton = newDropDownButton;
-                if (newDropDownButton != null)
-                {
-                    newDropDownButton.MouseClicked.Subscribe(onDropDownClicked);
-                }
+                _dropDownButton?.MouseClicked.Unsubscribe(onDropDownClicked);
+                _dropDownButton = value;
+                _dropDownButton?.MouseClicked.Subscribe(onDropDownClicked);
             }
         }
 
-        public ITextBox TextBox
-        {
-            get { return _textBox; }
-            set { _textBox = value; }
-        }
+        public ITextBox TextBox { get; set; }
 
-        public IListboxComponent DropDownPanelList { get { return _dropDownPanelList; } }
+        public IListboxComponent DropDownPanelList => _dropDownPanelList;
 
         public IEntity DropDownPanel 
-        { 
-            get { return _dropDownPanel; }
+        {
+            get => _dropDownPanel;
             set 
             {
                 _dropDownPanel = value;
@@ -55,10 +45,9 @@ namespace AGS.Engine
                 _dropDownPanelVisible = visibleComponent;
                 _dropDownPanelDrawable = drawableComponent;
 
-                var oldPanel = _dropDownPanelList;
-                if (oldPanel != null) oldPanel.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
+                _dropDownPanelList?.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
                 _dropDownPanelList = listBoxComponent;
-                if (listBoxComponent != null) listBoxComponent.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
+                listBoxComponent?.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
                 if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
                 if (translateComponent != null) translateComponent.Y = -1f;
                 if (visibleComponent != null) visibleComponent.Visible = false;
@@ -72,10 +61,9 @@ namespace AGS.Engine
             _dropDownPanelVisible = visibleComponent;
             _dropDownPanelDrawable = drawableComponent;
 
-            var oldPanel = _dropDownPanelList;
-            if (oldPanel != null) oldPanel.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
+            _dropDownPanelList?.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
             _dropDownPanelList = listBoxComponent;
-            if (listBoxComponent != null) listBoxComponent.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
+            listBoxComponent?.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
             if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
             if (translateComponent != null) translateComponent.Y = -1f;
             if (visibleComponent != null) visibleComponent.Visible = false;
@@ -99,8 +87,7 @@ namespace AGS.Engine
             }
             else 
             {
-                float dropBorderLeft = 0f;
-                if (dropDownButton.Border != null) dropBorderLeft = dropDownButton.Border.WidthLeft;
+                float dropBorderLeft = dropDownButton.Border?.WidthLeft ?? 0f;
                 dropDownButton.X = textbox.X + (textbox.Width < 0 ? textbox.TextWidth : textbox.Width) + dropBorderLeft;
             }
         }

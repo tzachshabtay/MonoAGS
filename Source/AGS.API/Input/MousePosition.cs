@@ -31,23 +31,23 @@ namespace AGS.API
         /// X position of the mouse in window coordinates.
         /// Usually this will be less helpful for interacting with the world, for that you'd want to use the viewport coordinates.
         /// </summary>
-        public float XWindow { get; private set; }
+        public float XWindow { get; }
 
 		/// <summary>
 		/// Y position of the mouse in window coordinates.
 		/// Usually this will be less helpful for interacting with the world, for that you'd want to use the viewport coordinates.
 		/// </summary>
-		public float YWindow { get; private set; }
+		public float YWindow { get; }
 
         /// <summary>
         /// X position of the mouse in the main viewport coordinates (i.e the world coordinates).
         /// </summary>
-        public float XMainViewport { get { return GetViewportX(_mainViewport); } }
+        public float XMainViewport => GetViewportX(_mainViewport);
 
         /// <summary>
         /// Y position of the mouse in the main viewport coordinates (i.e the world coordinates).
         /// </summary>
-        public float YMainViewport { get { return GetViewportY(_mainViewport); } }
+        public float YMainViewport => GetViewportY(_mainViewport);
 
         /// <summary>
         /// Gets the x position of the mouse in a specific viewport coordinates.
@@ -84,15 +84,11 @@ namespace AGS.API
             float windowHeight = GetWindowHeight();
             var projectBottom = windowHeight - viewport.ProjectionBox.Y * windowHeight;
             var projectTop = projectBottom - viewport.ProjectionBox.Height * windowHeight;
-            var parent = viewport.Parent;
-            if (parent != null)
+            var boundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
+            if (boundingBoxes != null)
             {
-                var boundingBoxes = parent.GetBoundingBoxes(_mainViewport);
-                if (boundingBoxes != null)
-                {
-                    projectBottom -= boundingBoxes.RenderBox.MinY;
-                    projectTop -= boundingBoxes.RenderBox.MinY;
-                }
+                projectBottom -= boundingBoxes.RenderBox.MinY;
+                projectTop -= boundingBoxes.RenderBox.MinY;
             }
             var virtualHeight = VirtualResolution.Height / viewport.ScaleY;
             float y = MathUtils.Lerp(projectTop, virtualHeight, projectBottom, 0f, YWindow);
@@ -108,20 +104,16 @@ namespace AGS.API
         /// <param name="projectedInto">Projected into.</param>
         public Vector2 GetProjectedPoint(IViewport viewport, IObject projectedInto)
         {
-			var parent = projectedInto.TreeNode.Parent;
             float x = GetViewportX(viewport);
             float y = GetViewportY(viewport);
-			if (parent != null)
+			var boundingBoxes = projectedInto.TreeNode.Parent?.GetBoundingBoxes(viewport);
+			if (boundingBoxes != null && !boundingBoxes.RenderBox.IsInvalid)
 			{
-                var boundingBoxes = parent.GetBoundingBoxes(viewport);
-				if (boundingBoxes != null && !boundingBoxes.RenderBox.IsInvalid)
-				{
-					x -= boundingBoxes.HitTestBox.MinX;
-					y -= boundingBoxes.HitTestBox.MinY;
-				}
+				x -= boundingBoxes.HitTestBox.MinX;
+				y -= boundingBoxes.HitTestBox.MinY;
 			}
             var renderLayer = projectedInto.RenderLayer;
-			if (renderLayer != null && renderLayer.IndependentResolution != null)
+			if (renderLayer?.IndependentResolution != null)
 			{
 				float maxX = renderLayer.IndependentResolution.Value.Width;
 				float maxY = renderLayer.IndependentResolution.Value.Height;

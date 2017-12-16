@@ -8,9 +8,9 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractBrush : IContract<IBrush>
 	{
-        private IBrushLoader _brushes { get { return AGSGame.Device.BrushLoader; } }
+        private IBrushLoader _brushes => AGSGame.Device.BrushLoader;
 
-		[ProtoMember(1)]
+        [ProtoMember(1)]
 		public BrushType Type { get; set; }
 
 		[ProtoMember(2)]

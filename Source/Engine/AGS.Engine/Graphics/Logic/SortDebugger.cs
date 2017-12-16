@@ -68,8 +68,8 @@ namespace AGS.Engine
 				}
 			}
 			string chain = getChain(whyIsThis, behindThis, map, new HashSet<string>());
-			Debug.WriteLine(chain == null ? string.Format("{0} is not behind {1}", whyIsThis, behindThis) :
-				string.Format("{0}{1}", whyIsThis, chain));
+			Debug.WriteLine(chain == null ? $"{whyIsThis} is not behind {behindThis}" :
+				$"{whyIsThis}{chain}");
         }
 
         private static string getChain(string from, string to, Dictionary<string, List<string>> map, HashSet<string> checkedChain)
@@ -78,10 +78,10 @@ namespace AGS.Engine
             if (!map.TryGetValue(from, out mapped)) return null;
             foreach (string item in mapped)
             {
-                if (item == to) return string.Format("-->{0}", to);
+                if (item == to) return $"-->{to}";
                 if (!checkedChain.Add(item)) continue;
                 string chain = getChain(item, to, map, checkedChain);
-                if (chain != null) return string.Format("-->{0}{1}", item, chain);
+                if (chain != null) return $"-->{item}{chain}";
             }
             return null;
         }
@@ -112,7 +112,7 @@ namespace AGS.Engine
 				List<string> chain = findCycle(item.ID, map, visited, recStack);
 				if (chain != null)
 				{
-                    Debug.WriteLine(string.Format("Cycle detected: {0}", string.Join("=>", chain)));
+                    Debug.WriteLine($"Cycle detected: {string.Join("=>", chain)}");
                     return;
 				}
 			}

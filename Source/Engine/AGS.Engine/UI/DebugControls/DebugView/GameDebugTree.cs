@@ -28,7 +28,7 @@ namespace AGS.Engine
             _layer = layer;
         }
 
-        public IPanel Panel { get { return _scrollingPanel; }}
+        public IPanel Panel => _scrollingPanel;
 
         public void Load(IPanel parent)
         {
@@ -171,7 +171,7 @@ namespace AGS.Engine
 
         private void addRoomToTree(IRoom room, ITreeStringNode parent)
         {
-            var roomNode = addToTree(string.Format("Room: {0}", room.ID), parent);
+            var roomNode = addToTree($"Room: {room.ID}", parent);
             var objects = addToTree("Objects", roomNode);
             var areas = addToTree("Areas", roomNode);
 

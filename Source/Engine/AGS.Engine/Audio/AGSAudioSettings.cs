@@ -16,12 +16,12 @@ namespace AGS.Engine
 		#region IAudioSettings implementation
 
 		public float MasterVolume
-		{ 
-			get { return _system.Listener.Volume; }
-			set { _system.Listener.Volume = value; }
-		}
+		{
+            get => _system.Listener.Volume;
+            set => _system.Listener.Volume = value;
+        }
 
-		public ICrossFading RoomMusicCrossFading { get; private set; }
+		public ICrossFading RoomMusicCrossFading { get; }
 
 		#endregion
 	}

@@ -6,7 +6,7 @@ namespace AGS.Engine
     [PropertyFolder]
     public class AGSTextConfig : ITextConfig
     {
-        private static IBrushLoader _brushes { get { return AGSGame.Device.BrushLoader; } }
+        private static IBrushLoader _brushes => AGSGame.Device.BrushLoader;
 
         public AGSTextConfig(IBrush brush = null, IFont font = null, IBrush outlineBrush = null, float outlineWidth = 0f,
             IBrush shadowBrush = null, float shadowOffsetX = 0f, float shadowOffsetY = 0f,
@@ -95,10 +95,7 @@ namespace AGS.Engine
 
         #endregion
 
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as ITextConfig);
-        }
+        public override bool Equals(object obj) => Equals(obj as ITextConfig);
 
         public bool Equals(ITextConfig config)
         {
@@ -112,10 +109,7 @@ namespace AGS.Engine
                   && MathUtils.FloatEquals(PaddingRight, config.PaddingRight) && MathUtils.FloatEquals(PaddingBottom, config.PaddingBottom);
         }
 
-        public override int GetHashCode()
-        {
-            return Font.GetHashCode();
-        }
-	}
+        public override int GetHashCode() => Font.GetHashCode();
+    }
 }
 

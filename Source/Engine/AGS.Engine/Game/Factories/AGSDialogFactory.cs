@@ -33,7 +33,7 @@ namespace AGS.Engine
 				brush: _brushLoader.LoadSolidBrush(Colors.Yellow), font: _fontLoader.LoadFont(null, 10f));
             if (hasBeenChosenConfig == null) hasBeenChosenConfig = new AGSTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
                 brush: _brushLoader.LoadSolidBrush(Colors.Gray), font: _fontLoader.LoadFont(null, 10f));
-            ILabel label = _ui.GetLabel(string.Format("Dialog option: {0}", text), text, game.Settings.VirtualResolution.Width, 20f, 0f, 0f, 
+            ILabel label = _ui.GetLabel($"Dialog option: {text}", text, game.Settings.VirtualResolution.Width, 20f, 0f, 0f, 
                                         config: config, addToUi: false);
 			label.Enabled = true;
 			TypedParameter labelParam = new TypedParameter (typeof(ILabel), label);

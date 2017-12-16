@@ -13,6 +13,6 @@ namespace AGS.Engine
 
         [Property(Category = "Transform")]
         [NumberEditorSlider(sliderMin: -180f, sliderMax: 180f)]
-        public float Angle {  get { return _rotate.Angle; } set { _rotate.Angle = value; } }
+        public float Angle { get => _rotate.Angle; set => _rotate.Angle = value; }
     }
 }

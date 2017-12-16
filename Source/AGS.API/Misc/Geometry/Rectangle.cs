@@ -26,36 +26,30 @@
         /// Gets the x coordinate.
         /// </summary>
         /// <value>The x.</value>
-		public int X { get { return _x; } }
+		public int X => _x;
 
         /// <summary>
         /// Gets the y coordinate.
         /// </summary>
         /// <value>The y.</value>
-		public int Y { get { return _y; } }
+        public int Y => _y;
 
         /// <summary>
         /// Gets the width.
         /// </summary>
         /// <value>The width.</value>
-		public int Width { get { return _width; } }
+        public int Width => _width;
 
         /// <summary>
         /// Gets the height.
         /// </summary>
         /// <value>The height.</value>
-		public int Height { get { return _height; } }
+        public int Height => _height;
 
-        public override string ToString()
-        {
-            return string.Format("[Rectangle: X={0}, Y={1}, Width={2}, Height={3}]", X, Y, Width, Height);
-        }
+        public override string ToString() => $"[Rectangle: X={X}, Y={Y}, Width={Width}, Height={Height}]";
 
         [CustomStringValue(CustomStringApplyWhen.CanWrite)]
-        public string ToInspectorString()
-        {
-            return string.Format("{0},{1},{2},{3}", X, Y, Width, Height);
-        }
-	}
+        public string ToInspectorString() => $"{X},{Y},{Width},{Height}";
+    }
 }
 

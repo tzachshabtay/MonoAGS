@@ -187,7 +187,7 @@ namespace AGS.Engine
 		{
             if (resourcesCount == 0 && samplePath != null)
             {
-                throw new InvalidOperationException(string.Format("Failed to load animation from: {0}", samplePath));
+                throw new InvalidOperationException($"Failed to load animation from: {samplePath}");
             }
 			animationConfig = animationConfig ?? new AGSAnimationConfiguration ();
 			AGSAnimationState state = new AGSAnimationState ();
@@ -264,8 +264,7 @@ namespace AGS.Engine
 			GLImage image = new GLImage (bitmap, id, texture, spriteSheet, config);
 
             string imageId = image.ID;
-			if (_textures != null)
-                _textures.GetOrAdd (imageId, () => image.Texture);
+			_textures?.GetOrAdd (imageId, () => image.Texture);
             image.OnImageDisposed.Subscribe(() => _textures.Remove(imageId));
 			return image;
 		}

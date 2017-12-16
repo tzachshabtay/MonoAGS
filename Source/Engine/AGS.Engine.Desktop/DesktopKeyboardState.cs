@@ -10,11 +10,11 @@ namespace AGS.Engine.Desktop
             OnSoftKeyboardHidden = new AGSEvent();
         }
 
-        public bool CapslockOn { get { return Console.CapsLock; } }
+        public bool CapslockOn => Console.CapsLock;
 
-        public IEvent OnSoftKeyboardHidden { get; private set; }
+        public IEvent OnSoftKeyboardHidden { get; }
 
-        public bool SoftKeyboardVisible { get { return false; } }
+        public bool SoftKeyboardVisible => false;
 
         public void HideSoftKeyboard() { }
 

@@ -61,8 +61,7 @@ namespace AGS.Engine
             var pixelPerfectComponent = _pixelPerfect;
 			IArea pixelPerfect = pixelPerfectComponent == null ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 
-            var drawableInfo = _drawableInfo;
-            if (drawableInfo != null && drawableInfo.IgnoreViewport) 
+            if (_drawableInfo?.IgnoreViewport ?? false) 
 			{
 				//todo: Support viewport rotation (+ ignore scaling areas = false?)
 				x = (x - viewport.X) * viewport.ScaleX;
@@ -71,7 +70,7 @@ namespace AGS.Engine
 
 			if (pixelPerfect == null || !pixelPerfect.Enabled)
 			{
-                if (boundingBox.Equals(default(AGSBoundingBox))) return false;
+                if (boundingBox.Equals(default)) return false;
                 if (boundingBox.Contains(new Vector2 (x, y)))
 					return true;
 			}

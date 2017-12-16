@@ -35,7 +35,7 @@ namespace AGS.Engine
 				{
 					if (changedRoom)
 					{
-						if (_lastRoom != null) _lastRoom.Events.OnAfterFadeOut.Invoke();
+						_lastRoom?.Events.OnAfterFadeOut.Invoke();
 						room.Events.OnBeforeFadeIn.Invoke();
 						updateViewports(changedRoom);
                         _events.OnRoomChanging.Invoke();
@@ -68,11 +68,7 @@ namespace AGS.Engine
         private void updateViewport (IViewport viewport, bool playerChangedRoom)
 		{
             runAnimations(viewport.RoomProvider.Room);
-            ICamera camera = viewport.Camera;
-			if (camera != null) 
-			{
-                camera.Tick(viewport, viewport.RoomProvider.Room.Limits, _virtualResolution, playerChangedRoom);
-			}
+            viewport.Camera?.Tick(viewport, viewport.RoomProvider.Room.Limits, _virtualResolution, playerChangedRoom);
 		}
 
 		private void runAnimations(IRoom room)

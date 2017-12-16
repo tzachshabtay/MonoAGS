@@ -20,7 +20,7 @@ namespace AGS.Engine
         /// <param name="follower">Follower.</param>
         public static void AddTag(IObject target, IEntity follower)
         {
-            target.Properties.Entities.SetValue(string.Format("{0}{1}", FOLLOWER_PREFIX, follower.ID), follower);   
+            target.Properties.Entities.SetValue($"{FOLLOWER_PREFIX}{follower.ID}", follower);   
         }
 
 
@@ -31,7 +31,7 @@ namespace AGS.Engine
         /// <param name="follower">Follower.</param>
         public static void RemoveTag(IObject target, IEntity follower)
         {
-            target.Properties.Entities.SetValue(string.Format("{0}{1}", FOLLOWER_PREFIX, follower.ID), null);
+            target.Properties.Entities.SetValue($"{FOLLOWER_PREFIX}{follower.ID}", null);
         }
 
         /// <summary>

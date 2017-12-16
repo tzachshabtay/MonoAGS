@@ -15,7 +15,7 @@ namespace AGS.Engine
 
 		public override string ToString ()
 		{
-			return string.Format ("[MyPathNode: X={0}, Y={1}, IsWall={2}]", X, Y, IsWall);
+			return $"[MyPathNode: X={X}, Y={Y}, IsWall={IsWall}]";
 		}
 	}
 

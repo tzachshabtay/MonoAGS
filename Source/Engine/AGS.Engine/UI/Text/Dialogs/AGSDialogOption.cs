@@ -92,25 +92,25 @@ namespace AGS.Engine
 			Label.MouseLeave.Unsubscribe(onMouseLeave);
 		}
 
-		public ILabel Label { get; private set; }
+		public ILabel Label { get; }
 
-		public ITextConfig HoverConfig { get; private set; }
+		public ITextConfig HoverConfig { get; }
 
-        public ITextConfig HasBeenChosenConfig { get; private set; }
+        public ITextConfig HasBeenChosenConfig { get; }
 
-		public bool SpeakOption { get; private set; }
+		public bool SpeakOption { get; }
 
-		public bool ShowOnce { get; private set; }
+		public bool ShowOnce { get; }
 
 		public bool ExitDialogWhenFinished { get; set; }
 
 		public IDialog ChangeDialogWhenFinished { get; set; }
 
-		public IList<IDialogAction> Actions { get { return _actions.Actions; } }
+        public IList<IDialogAction> Actions => _actions.Actions;
 
         public bool HasOptionBeenChosen 
-        { 
-            get { return _hasBeenChosen; } 
+        {
+            get => _hasBeenChosen;
             set 
             { 
                 _hasBeenChosen = value; 

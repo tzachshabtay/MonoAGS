@@ -69,7 +69,7 @@ namespace AGS.Engine
 
         public static AGS.API.SizeF EmptySize = new AGS.API.SizeF(0f, 0f);
 
-        public int Texture { get { return _texture; } }
+        public int Texture => _texture;
 
         public int BitmapWidth { get; private set; }
         public int BitmapHeight { get; private set; }

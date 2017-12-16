@@ -9,8 +9,8 @@ namespace AGS.Engine
 		public AGSCutscene(IInput input)
 		{
 			_input = input;
-			if (_input.KeyUp != null) _input.KeyUp.Subscribe(onKeyUp);
-            if (_input.MouseUp != null) _input.MouseUp.Subscribe(onMouseUp);
+			_input.KeyUp?.Subscribe(onKeyUp);
+            _input.MouseUp?.Subscribe(onMouseUp);
 		}
 
 		#region ICutscene implementation

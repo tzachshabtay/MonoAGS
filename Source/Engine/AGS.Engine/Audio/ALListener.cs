@@ -19,8 +19,8 @@ namespace AGS.Engine
 
 		public float Volume
 		{
-			get { return _volume; }
-			set 
+            get => _volume;
+            set 
 			{
 				_volume = value;
                 _backend.ListenerSetGain(value);
@@ -30,8 +30,8 @@ namespace AGS.Engine
 
 		public ILocation Location
 		{
-			get { return _location; }
-			set
+            get => _location;
+            set
 			{
 				_location = value;
                 _backend.ListenerSetPosition(value.X, value.Y, value.Z);

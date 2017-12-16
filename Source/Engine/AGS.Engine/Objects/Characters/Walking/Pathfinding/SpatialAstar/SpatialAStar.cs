@@ -59,7 +59,7 @@ namespace AGS.Engine
 
 		protected class PathNode : IPathNode<TUserContext>, IComparer<PathNode>, IIndexedObject
 		{
-			public static readonly PathNode Comparer = new PathNode(0, 0, default(TPathNode));
+			public static readonly PathNode Comparer = new PathNode(0, 0, default);
 
 			public TPathNode UserContext { get; internal set; }
 			public Double G { get; internal set; }

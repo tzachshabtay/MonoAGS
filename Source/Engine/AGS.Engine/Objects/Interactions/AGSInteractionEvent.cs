@@ -26,7 +26,7 @@ namespace AGS.Engine
 
         #region IInteractionEvent implementation
 
-        public int SubscribersCount { get { return _ev.SubscribersCount; } }
+        public int SubscribersCount => _ev.SubscribersCount;
 
         public void Subscribe(Action<TEventArgs> callback)
         {
@@ -76,10 +76,7 @@ namespace AGS.Engine
 
         #endregion
 
-        private IEvent<TEventArgs> getEvent()
-        {
-            return _events.FirstOrDefault(ev => ev.SubscribersCount > 0);
-        }
+        private IEvent<TEventArgs> getEvent() => _events.FirstOrDefault(ev => ev.SubscribersCount > 0);
 
         private async Task<bool> approachHotspot(IEvent<TEventArgs> ev)
         {

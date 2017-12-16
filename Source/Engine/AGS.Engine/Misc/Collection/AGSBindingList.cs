@@ -18,12 +18,9 @@ namespace AGS.Engine
 			OnListChanged = new AGSEvent<AGSListChangedEventArgs<TItem>> ();
 		}
 
-		public AGSBindingList(IEnumerable<TItem> collection)
-		{
-			_list = new List<TItem> (collection);
-		}
+        public AGSBindingList(IEnumerable<TItem> collection) => _list = new List<TItem>(collection);
 
-        public IBlockingEvent<AGSListChangedEventArgs<TItem>> OnListChanged { get; private set; }
+        public IBlockingEvent<AGSListChangedEventArgs<TItem>> OnListChanged { get; }
 
 		private void onListChanged(TItem item, int index, ListChangeType changeType)
 		{
@@ -35,14 +32,11 @@ namespace AGS.Engine
 	        OnListChanged.Invoke(new AGSListChangedEventArgs<TItem>(changeType, items));
         }
 
-		#region IList implementation
+        #region IList implementation
 
-		public int IndexOf(TItem item)
-		{
-			return _list.IndexOf(item);
-		}
+        public int IndexOf(TItem item) => _list.IndexOf(item);
 
-		public void Insert(int index, TItem item)
+        public void Insert(int index, TItem item)
 		{
 			_list.Insert(index, item);
 			onListChanged(item, index, ListChangeType.Add);
@@ -57,11 +51,8 @@ namespace AGS.Engine
 
 		public TItem this[int index]
 		{
-			get
-			{
-				return _list[index];
-			}
-			set
+            get => _list[index];
+            set
 			{
 				var item = _list[index];
 				_list[index] = value;
@@ -101,17 +92,11 @@ namespace AGS.Engine
 			}
 		}
 
-		public bool Contains(TItem item)
-		{
-			return _list.Contains(item);
-		}
+        public bool Contains(TItem item) => _list.Contains(item);
 
-		public void CopyTo(TItem[] array, int arrayIndex)
-		{
-			_list.CopyTo(array, arrayIndex);
-		}
+        public void CopyTo(TItem[] array, int arrayIndex) => _list.CopyTo(array, arrayIndex);
 
-		public bool Remove(TItem item)
+        public bool Remove(TItem item)
 		{
 			int index = IndexOf(item);
             if (index < 0) return false;
@@ -132,27 +117,15 @@ namespace AGS.Engine
 			return true;
 		}
 
-		public int Count
-		{
-			get
-			{
-				return _list.Count;
-			}
-		}
+        public int Count => _list.Count;
 
-		public bool IsReadOnly
-		{
-			get
-			{
-				return ((ICollection<TItem>)_list).IsReadOnly;
-			}
-		}
+        public bool IsReadOnly => ((ICollection<TItem>)_list).IsReadOnly;
 
-		#endregion
+        #endregion
 
-		#region IEnumerable implementation
+        #region IEnumerable implementation
 
-		public IEnumerator<TItem> GetEnumerator()
+        public IEnumerator<TItem> GetEnumerator()
 		{
             var e = _enumerators.Acquire();
             e.Reset();
@@ -182,12 +155,12 @@ namespace AGS.Engine
             {
                 _pool = pool;
                 _list = list;
-                Current = default(TItem);
+                Current = default;
             }
 
             public TItem Current { get; private set; }
 
-            object IEnumerator.Current { get { return Current; }}
+            object IEnumerator.Current => Current;
 
             public bool MoveNext()
             {
@@ -195,7 +168,7 @@ namespace AGS.Engine
                 _index++;
                 if (_index >= count)
                 {
-                    Current = default(TItem);
+                    Current = default;
                     _pool.Release(this);
                     return false;
                 }
@@ -206,7 +179,7 @@ namespace AGS.Engine
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    Current = default(TItem);
+                    Current = default;
                     _pool.Release(this);
                     return false;
                 }
@@ -215,7 +188,7 @@ namespace AGS.Engine
             public void Reset()
             {
                 _index = -1;
-                Current = default(TItem);
+                Current = default;
             }
 
             public void Dispose(){}

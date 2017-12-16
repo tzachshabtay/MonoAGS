@@ -75,7 +75,7 @@ namespace AGS.Engine
 						frame = runningBackwards ? Frames.Count - 1 : 0;
 						break;
 					default:
-						throw new NotSupportedException (string.Format ("{0} is not a supported looping style", Configuration.Looping));
+						throw new NotSupportedException ($"{Configuration.Looping} is not a supported looping style");
 				}
 				State.CurrentLoop++;
 			}
@@ -84,7 +84,7 @@ namespace AGS.Engine
 			var animationFrame = Frames[frame];
             State.TimeToNextFrame = getTimeForNextFrame(animationFrame);
 			var emitter = animationFrame.SoundEmitter;
-			if (emitter != null) emitter.Play();
+			emitter?.Play();
 			return true;
 		}
 

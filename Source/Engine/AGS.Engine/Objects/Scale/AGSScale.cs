@@ -41,29 +41,29 @@ namespace AGS.Engine
         [Property(Browsable = false)]
         [AlsoNotifyFor(nameof(Scale))]
         public float ScaleX 
-        { 
-            get { return _scaleX; } 
-            set { scaleBy(value, ScaleY); } 
+        {
+            get => _scaleX;
+            set => scaleBy(value, ScaleY);
         }
 
         [Property(Browsable = false)]
         [AlsoNotifyFor(nameof(Scale))]
         public float ScaleY
         {
-            get { return _scaleY; }
-            set { scaleBy(ScaleX, value); }
+            get => _scaleY;
+            set => scaleBy(ScaleX, value);
         }
 
         [AlsoNotifyFor(nameof(ScaleX), nameof(ScaleY))]
         public PointF Scale
         {
-            get { return new PointF(_scaleX, _scaleY); }
-            set { scaleBy(value.X, value.Y); }
+            get => new PointF(_scaleX, _scaleY);
+            set => scaleBy(value.X, value.Y);
         }
 
         public SizeF BaseSize
         {
-            get { return _baseSize; }
+            get => _baseSize;
             set
             {
                 float width = value.Width * ScaleX;
@@ -121,11 +121,7 @@ namespace AGS.Engine
 
         public void OnPropertyChanged(PropertyChangedEventArgs args)
         {
-            var propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged(this, args);
-            }
+            PropertyChanged?.Invoke(this, args);
         }
 
         private void validateScaleInitialized()

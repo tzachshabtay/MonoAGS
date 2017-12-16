@@ -67,8 +67,7 @@ namespace AGS.Engine
 		{
 			_shakeShader = null;
 			setActiveShader(_previousShader);
-			var tcs = _taskCompletionSource;
-			if (tcs != null) tcs.TrySetResult(null);
+            _taskCompletionSource?.TrySetResult(null);
 		}
 
 		public void RunBlocking(TimeSpan time)
@@ -103,8 +102,7 @@ namespace AGS.Engine
 
 		private IShader getActiveShader()
 		{
-			if (_target != null) return _target.Shader;
-			return AGSGame.Shader;
+			return _target?.Shader ?? AGSGame.Shader;
 		}
 
 		private void setActiveShader(IShader shader)

@@ -47,11 +47,11 @@ namespace AGS.Engine
 			_tcs.TrySetResult(null);
 		}
 
-		#region ISound implementation
+        #region ISound implementation
 
-        public bool IsValid { get { return _backend.IsValid; } }
+        public bool IsValid => _backend.IsValid;
 
-		public void Pause()
+        public void Pause()
 		{
 			if (HasCompleted) return;
 			IsPaused = true;
@@ -81,27 +81,24 @@ namespace AGS.Engine
 			_errors.HasErrors();
 		}
 
-		public int SourceID { get { return _source; } }
+        public int SourceID => _source;
 
-		public bool IsPaused { get; private set; }
+        public bool IsPaused { get; private set; }
 
-		public bool IsLooping { get; private set; }
+		public bool IsLooping { get; }
 
-		public bool HasCompleted 
-		{ 
-			get { return _tcs.Task.IsCompleted; }
-		}
+        public bool HasCompleted => _tcs.Task.IsCompleted;
 
-		public Task Completed { get { return _tcs.Task; } }
+        public Task Completed => _tcs.Task;
 
-		#endregion
+        #endregion
 
-		#region ISoundProperties implementation
+        #region ISoundProperties implementation
 
-		public float Volume
+        public float Volume
 		{
-			get { return _volume; }
-			set
+            get => _volume;
+            set
 			{
 				_volume = value;
                 _backend.SourceSetGain(_source, _volume);
@@ -111,8 +108,8 @@ namespace AGS.Engine
 
 		public float Pitch
 		{
-			get { return _pitch; }
-			set
+            get => _pitch;
+            set
 			{
 				_pitch = value;
                 _backend.SourceSetPitch(_source, _pitch);
@@ -138,8 +135,8 @@ namespace AGS.Engine
 
 		public float Panning
 		{
-			get { return _panning; }
-			set 
+            get => _panning;
+            set 
 			{
 				_panning = value;
 				//formula from: https://code.google.com/archive/p/libgdx/issues/1183

@@ -27,13 +27,12 @@ namespace AGS.Engine.Android
         }
 
         public AGSGameView View 
-        { 
-            get { return _view; } 
+        {
+            get => _view;
             set 
             { 
                 _view = value;
-                var onNewView = OnNewView;
-                if (onNewView != null) onNewView(this, value);
+                OnNewView?.Invoke(this, value);
             } 
         }
 
@@ -58,15 +57,15 @@ namespace AGS.Engine.Android
             }
         }
 
-        public int Height { get { return View.Height; } }
-        public int Width { get { return View.Width; } }
-        public API.WindowBorder WindowBorder { get { return View.WindowBorder; } set { View.WindowBorder = value; } }
-        public API.WindowState WindowState { get { return View.WindowState; } set { View.WindowState = value; } }
+        public int Height => View.Height;
+        public int Width => View.Width;
+        public API.WindowBorder WindowBorder { get => View.WindowBorder; set => View.WindowBorder = value; }
+        public API.WindowState WindowState { get => View.WindowState; set => View.WindowState = value; }
 
-        public double TargetUpdateFrequency { get { return 60f; } set { } } //todo
-        public VsyncMode Vsync { get { return VsyncMode.Off; } set { } } //todo
-        public string Title { get { return ""; } set { } } //todo
-        public bool IsExiting { get { return false; }} //todo
+        public double TargetUpdateFrequency { get => 60f; set { } } //todo
+        public VsyncMode Vsync { get => VsyncMode.Off; set { } } //todo
+        public string Title { get => ""; set { } } //todo
+        public bool IsExiting => false;  //todo
 
         public event EventHandler<EventArgs> Load;
         public event EventHandler<FrameEventArgs> RenderFrame;
@@ -80,16 +79,14 @@ namespace AGS.Engine.Android
                 _started = true;
                 AGSEngineAndroid.Init();
                 StartGame();
-                var onLoad = Load;
-                if (onLoad != null) onLoad(this, args);
+                Load?.Invoke(this, args);
             }
             else View.Run(_updateRate);
         }
 
         public void OnResize(EventArgs args)
         {
-            var onResize = Resize;
-            if (onResize != null) onResize(this, args);
+            Resize?.Invoke(this, args);
         }
 
         public void OnRenderFrame(FrameEventArgs args)

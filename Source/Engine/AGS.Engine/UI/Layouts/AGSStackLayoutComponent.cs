@@ -24,12 +24,12 @@ namespace AGS.Engine
             _relativeSpacing = -1f; //a simple vertical layout top to bottom by default.
         }
 
-        public LayoutDirection Direction { get { return _direction; } set { if (_direction == value) return; _direction = value; adjustLayout(); } }
-        public float AbsoluteSpacing { get { return _absoluteSpacing; } set { if (MathUtils.FloatEquals(_absoluteSpacing, value)) return; _absoluteSpacing = value; adjustLayout(); } }
-        public float RelativeSpacing { get { return _relativeSpacing; } set { if (MathUtils.FloatEquals(_relativeSpacing, value)) return; _relativeSpacing = value; adjustLayout(); } }
-        public float StartLocation { get { return _startLocation; } set { if (MathUtils.FloatEquals(_startLocation, value)) return; _startLocation = value; adjustLayout(); } }
-        public IBlockingEvent OnLayoutChanged { get; private set; }
-        public IConcurrentHashSet<string> EntitiesToIgnore { get; private set; }
+        public LayoutDirection Direction { get => _direction; set { _direction = value; adjustLayout(); } }
+        public float AbsoluteSpacing { get => _absoluteSpacing; set { _absoluteSpacing = value; adjustLayout(); } }
+        public float RelativeSpacing { get => _relativeSpacing; set { _relativeSpacing = value; adjustLayout(); } }
+        public float StartLocation { get { return _startLocation; } set { _startLocation = value; adjustLayout(); } }
+        public IBlockingEvent OnLayoutChanged { get; }
+        public IConcurrentHashSet<string> EntitiesToIgnore { get; }
 
         public override void Init(IEntity entity)
         {

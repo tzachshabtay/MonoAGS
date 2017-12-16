@@ -16,7 +16,7 @@ namespace DemoGame
         private IGame _game;
         private IObject _parent;
         private IPanel _tweensListPanel, _window;
-        private readonly Dictionary<string, List<Tuple<string, Func<Tween>>>> _tweens;
+        private readonly Dictionary<string, List<(string propertyName, Func<Tween> getTween)>> _tweens;
         private readonly Dictionary<string, Func<float, float>> _eases;
         private readonly List<RunningTween> _runningTweens;
 
@@ -37,23 +37,23 @@ namespace DemoGame
 
             Func<Func<float, float>> ease = () => _eases[_easeCombobox.DropDownPanelList.SelectedItem.Text];
 
-            Func<IObject, List<Tuple<string, Func<Tween>>>> getObjTweens = o =>
+            Func<IObject, List<(string, Func<Tween>)>> getObjTweens = o =>
             {
-                return new List<Tuple<string, Func<Tween>>>{
-                    new Tuple<string, Func<Tween>>( "X", () => o.TweenX(100f, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Y", () => o.TweenY(100f, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Angle", () => o.TweenAngle(45f, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Opacity", () => o.TweenOpacity(0, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Red", () => o.TweenRed(0, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Green", () => o.TweenGreen(255, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Blue", () => o.TweenBlue(255, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Hue", () => o.TweenHue(360, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Saturation", () => o.TweenSaturation(0f, time, ease())),
-                    new Tuple<string, Func<Tween>>( "Lightness", () => o.TweenLightness(0f, time, ease())),
-                    new Tuple<string, Func<Tween>>( "ScaleX", () => o.TweenScaleX(2f, time, ease())),
-                    new Tuple<string, Func<Tween>>( "ScaleY", () => o.TweenScaleY(2f, time, ease())),
-                    new Tuple<string, Func<Tween>>( "AnchorX", () => o.TweenAnchorX(1f, time, ease())),
-                    new Tuple<string, Func<Tween>>( "AnchorY", () => o.TweenAnchorY(1f, time, ease())),
+                return new List<(string, Func<Tween>)>{
+                    ( "X", () => o.TweenX(100f, time, ease())),
+                    ( "Y", () => o.TweenY(100f, time, ease())),
+                    ( "Angle", () => o.TweenAngle(45f, time, ease())),
+                    ( "Opacity", () => o.TweenOpacity(0, time, ease())),
+                    ( "Red", () => o.TweenRed(0, time, ease())),
+                    ( "Green", () => o.TweenGreen(255, time, ease())),
+                    ( "Blue", () => o.TweenBlue(255, time, ease())),
+                    ( "Hue", () => o.TweenHue(360, time, ease())),
+                    ( "Saturation", () => o.TweenSaturation(0f, time, ease())),
+                    ( "Lightness", () => o.TweenLightness(0f, time, ease())),
+                    ( "ScaleX", () => o.TweenScaleX(2f, time, ease())),
+                    ( "ScaleY", () => o.TweenScaleY(2f, time, ease())),
+                    ( "AnchorX", () => o.TweenAnchorX(1f, time, ease())),
+                    ( "AnchorY", () => o.TweenAnchorY(1f, time, ease())),
 
                 };
             };
@@ -67,15 +67,15 @@ namespace DemoGame
                 return crop;
             };
 
-            Func<IObject, List<Tuple<string, Func<Tween>>>> getObjWithTextureTweens = o =>
+            Func<IObject, List<(string, Func<Tween>)>> getObjWithTextureTweens = o =>
             {
                 var list = getObjTweens(o);
-                list.Add(new Tuple<string, Func<Tween>>("TextureX", () => { setTextureWrap(o); return o.AddComponent<ITextureOffsetComponent>().TweenX(3f, time, ease()); }));
-                list.Add(new Tuple<string, Func<Tween>>("TextureY", () => { setTextureWrap(o); return o.AddComponent<ITextureOffsetComponent>().TweenY(3f, time, ease()); }));
-                list.Add(new Tuple<string, Func<Tween>>("CropX", () => getCrop(o).TweenX(15f, time, ease())));
-                list.Add(new Tuple<string, Func<Tween>>("CropY", () => getCrop(o).TweenY(15f, time, ease())));
-                list.Add(new Tuple<string, Func<Tween>>("CropWidth", () => getCrop(o).TweenWidth(0f, time, ease())));
-                list.Add(new Tuple<string, Func<Tween>>("CropHeight", () => getCrop(o).TweenHeight(0f, time, ease())));
+                list.Add(("TextureX", () => { setTextureWrap(o); return o.AddComponent<ITextureOffsetComponent>().TweenX(3f, time, ease()); }));
+                list.Add(("TextureY", () => { setTextureWrap(o); return o.AddComponent<ITextureOffsetComponent>().TweenY(3f, time, ease()); }));
+                list.Add(("CropX", () => getCrop(o).TweenX(15f, time, ease())));
+                list.Add(("CropY", () => getCrop(o).TweenY(15f, time, ease())));
+                list.Add(("CropWidth", () => getCrop(o).TweenWidth(0f, time, ease())));
+                list.Add(("CropHeight", () => getCrop(o).TweenHeight(0f, time, ease())));
                 return list;
             };
 
@@ -86,27 +86,27 @@ namespace DemoGame
                 return clip.CurrentlyPlayingSounds.FirstOrDefault();
             };
 
-            _tweens = new Dictionary<string, List<Tuple<string, Func<Tween>>>>
+            _tweens = new Dictionary<string, List<(string, Func<Tween>)>>
             {
                 { "Button", getObjWithTextureTweens(TopBar.InventoryButton) },
                 { "Character", getObjWithTextureTweens(player) },
                 { "Window", getObjTweens(_window) },
-                { "Viewport", new List<Tuple<string, Func<Tween>>>{
-                        new Tuple<string, Func<Tween>>( "X", () => viewport.TweenX(100f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "Y", () => viewport.TweenY(100f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "Angle", () => viewport.TweenAngle(45f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "ScaleX", () => viewport.TweenScaleX(2f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "ScaleY", () => viewport.TweenScaleY(2f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "ProjectX", () => viewport.TweenProjectX(-0.5f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "ProjectY", () => viewport.TweenProjectY(-0.5f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "ProjectWidth", () => viewport.TweenProjectWidth(0.5f, time, ease())),
-                        new Tuple<string, Func<Tween>>( "ProjectHeight", () => viewport.TweenProjectHeight(0.5f, time, ease())),
+                { "Viewport", new List<(string, Func<Tween>)>{
+                        ( "X", () => viewport.TweenX(100f, time, ease())),
+                        ( "Y", () => viewport.TweenY(100f, time, ease())),
+                        ( "Angle", () => viewport.TweenAngle(45f, time, ease())),
+                        ( "ScaleX", () => viewport.TweenScaleX(2f, time, ease())),
+                        ( "ScaleY", () => viewport.TweenScaleY(2f, time, ease())),
+                        ( "ProjectX", () => viewport.TweenProjectX(-0.5f, time, ease())),
+                        ( "ProjectY", () => viewport.TweenProjectY(-0.5f, time, ease())),
+                        ( "ProjectWidth", () => viewport.TweenProjectWidth(0.5f, time, ease())),
+                        ( "ProjectHeight", () => viewport.TweenProjectHeight(0.5f, time, ease())),
                     }
                 },
-                { "Music", new List<Tuple<string, Func<Tween>>>{
-                        new Tuple<string, Func<Tween>>( "Volume", () => { var music = getMusic(); if (music != null) return music.TweenVolume(0f, time, ease()); else return null;}),
-                        new Tuple<string, Func<Tween>>( "Pitch", () => { var music = getMusic(); if (music != null) return music.TweenPitch(2f, time, ease()); else return null;}),
-                        new Tuple<string, Func<Tween>>( "Panning", () => { var music = getMusic(); if (music != null) return music.TweenPanning(-1f, time, ease()); else return null;}),
+                { "Music", new List<(string, Func<Tween>)>{
+                        ( "Volume", () => { var music = getMusic(); return music?.TweenVolume(0f, time, ease()) ?? null;}),
+                        ( "Pitch", () => { var music = getMusic(); return music?.TweenPitch(2f, time, ease()) ?? null;}),
+                        ( "Panning", () => { var music = getMusic(); return music?.TweenPanning(-1f, time, ease()) ?? null;}),
                     }
                 },
             };
@@ -173,14 +173,14 @@ namespace DemoGame
             var targetText = getSelection(_targetCombobox);
             var tweenText = getSelection(_tweenCombobox);
             var targetTweens = _tweens[targetText];
-            var tween = targetTweens.First(t => t.Item1 == tweenText).Item2();
+            var tween = targetTweens.First(t => t.propertyName == tweenText).getTween();
             if (tween == null)
             {
                 await AGSMessageBox.DisplayAsync("Can't play the tween (perhaps there is no music playing currently?)");
                 return;
             }
             tween = tween.RepeatForever(looping, 3f);
-            _runningTweens.Add(new RunningTween(string.Format("{0}.{1}", targetText, tweenText), 
+            _runningTweens.Add(new RunningTween($"{targetText}.{tweenText}", 
                                                 tween, _game, _tweensListPanel));
         }
 
@@ -198,7 +198,7 @@ namespace DemoGame
             var list = _tweenCombobox.DropDownPanelList;
             list.Items.Clear();
             list.Items.AddRange(_tweens[getSelection(_targetCombobox)]
-                                .Select(k => new AGSStringItem { Text = k.Item1}).Cast<IStringItem>().ToList());
+                                .Select(k => new AGSStringItem { Text = k.propertyName}).Cast<IStringItem>().ToList());
             if (!_tweenCombobox.DropDownButton.Enabled)
             {
                 _tweenCombobox.DropDownButton.Enabled = true;
@@ -308,13 +308,13 @@ namespace DemoGame
                 _tween = tween;
                 var factory = game.Factory.UI;
                 var tweenId = ++id;
-                _panel = factory.GetPanel(string.Format("FeaturesTweenPanel_{0}", tweenId), 300f, 20f, 0f, 0f, null, false);
+                _panel = factory.GetPanel($"FeaturesTweenPanel_{tweenId}", 300f, 20f, 0f, 0f, null, false);
                 _panel.Visible = false;
                 _panel.RenderLayer = parent.RenderLayer;
                 _panel.Tint = Colors.Transparent;
                 _panel.Anchor = new PointF(0f, 1f);
 
-                _slider = factory.GetSlider(string.Format("FeaturesTweenSlider_{0}", tweenId), null, null, 0f, 0f, tween.DurationInTicks, _panel);
+                _slider = factory.GetSlider($"FeaturesTweenSlider_{tweenId}", null, null, 0f, 0f, tween.DurationInTicks, _panel);
                 _slider.Location = new AGSLocation(10f, 10f);
                 _slider.HandleGraphics.Anchor = new PointF(0.5f, 0.5f);
                 _slider.Direction = SliderDirection.LeftToRight;
@@ -325,7 +325,7 @@ namespace DemoGame
                 HoverEffect.Add(_slider.Graphics, Colors.Green, Colors.LightGray);
                 HoverEffect.Add(_slider.HandleGraphics, Colors.DarkGreen, Colors.WhiteSmoke);
 
-                _label = factory.GetLabel(string.Format("FeaturesTweenLabel_{0}", tweenId), name, 100f, 20f,
+                _label = factory.GetLabel($"FeaturesTweenLabel_{tweenId}", name, 100f, 20f,
                                           _slider.X + _slider.Graphics.Width / 2f, _slider.Y + 10f, _panel,
                                           new AGSTextConfig(autoFit: AutoFit.TextShouldFitLabel));
                 _label.Anchor = new PointF(0.5f, 0f);
@@ -337,9 +337,9 @@ namespace DemoGame
                 var hovered = new ButtonAnimation(AGSBorders.SolidColor(Colors.Goldenrod, 2f), hoverConfig, Colors.Yellow);
                 var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.AliceBlue, 4f), idleConfig, Colors.Transparent);
 
-                _rewindButton = factory.GetButton(string.Format("FeaturesTweenRewindButton_{0}", tweenId), idle, hovered, pushed, 235f, 0f, _panel, "Rewind", width: 100f, height: 30f);
-                _playPauseButton = factory.GetButton(string.Format("FeaturesTweenPlayPauseButton_{0}", tweenId), idle, hovered, pushed, 345f, 0f, _panel, "Pause", width: 100f, height: 30f);
-                _stopButton = factory.GetButton(string.Format("FeaturesTweenStopButton_{0}", tweenId), idle, hovered, pushed, 455f, 0f, _panel, "Stop", width: 100f, height: 30f);
+                _rewindButton = factory.GetButton($"FeaturesTweenRewindButton_{tweenId}", idle, hovered, pushed, 235f, 0f, _panel, "Rewind", width: 100f, height: 30f);
+                _playPauseButton = factory.GetButton($"FeaturesTweenPlayPauseButton_{tweenId}", idle, hovered, pushed, 345f, 0f, _panel, "Pause", width: 100f, height: 30f);
+                _stopButton = factory.GetButton($"FeaturesTweenStopButton_{tweenId}", idle, hovered, pushed, 455f, 0f, _panel, "Stop", width: 100f, height: 30f);
                 _stopButton.MouseClicked.Subscribe(_ => Stop());
                 _rewindButton.MouseClicked.Subscribe(_ => _tween.Rewind());
                 _playPauseButton.MouseClicked.Subscribe(onPlayPauseClick);

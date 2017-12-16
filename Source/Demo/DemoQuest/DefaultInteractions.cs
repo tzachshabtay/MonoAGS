@@ -67,8 +67,7 @@ namespace DemoGame
 				return;
 			}
 
-			await _game.State.Player.SayAsync(string.Format("Use {0} on {1}? I don't get it...",
-				args.ActiveItem.Graphics.Hotspot, args.PassiveItem.Graphics.Hotspot));
+			await _game.State.Player.SayAsync($"Use {args.ActiveItem.Graphics.Hotspot} on {args.PassiveItem.Graphics.Hotspot}? I don't get it...");
 		}
 
         private Task sayAsync(string text)

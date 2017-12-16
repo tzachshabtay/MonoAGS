@@ -131,16 +131,12 @@ namespace AGS.Engine.Desktop
 							mask[x] = new bool[bitmapHeight];
 						mask[x][bitmapHeight - y - 1] = masked;
 
-						if (debugMask != null)
-						{
-							debugMaskFast.SetPixel(x, y, masked ? drawColor : System.Drawing.Color.Transparent);
-						}
+						debugMaskFast?.SetPixel(x, y, masked ? drawColor : System.Drawing.Color.Transparent);
 					}
 				}
 			}
 
-			if (debugMask != null)
-				debugMaskFast.Dispose();
+			debugMaskFast?.Dispose();
 
 			//Save the duplicate
 			if (saveMaskToFile != null)
@@ -181,8 +177,7 @@ namespace AGS.Engine.Desktop
 
         private void dispose(bool disposing)
         { 
-            var bitmap = _bitmap;
-            if (bitmap != null) bitmap.Dispose();
+            _bitmap?.Dispose();
         }
 	}
 }

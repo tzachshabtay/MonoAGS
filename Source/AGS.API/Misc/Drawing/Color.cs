@@ -24,36 +24,33 @@ namespace AGS.API
         /// where the order is A (alpha)-R (red)-G (green)-B (blue).
         /// </summary>
         /// <value>The color value.</value>
-		public uint Value { get { return _value; } }
+		public uint Value => _value;
 
         /// <summary>
         /// Gets the red element of the color. 0 is no red and 255 is fully red.
         /// </summary>
         /// <value>The red element of the color.</value>
-		public byte R { get { return(byte)((Value >> SHIFT_R)); } }
+        public byte R => (byte)((Value >> SHIFT_R));
 
         /// <summary>
         /// Gets the green element of the color. 0 is no red and 255 is fully green.
         /// </summary>
         /// <value>The green element of the color.</value>
-		public byte G { get { return(byte)((Value >> SHIFT_G)); } }
+        public byte G => (byte)((Value >> SHIFT_G));
 
         /// <summary>
         /// Gets the blue element of the color. 0 is no red and 255 is fully blue.
         /// </summary>
         /// <value>The blue element of the color.</value>
-		public byte B { get { return(byte)((Value >> SHIFT_B)); } }
+        public byte B => (byte)((Value >> SHIFT_B));
 
         /// <summary>
         /// Gets the alpha element of the color. 0 is fully transparent and 255 is fully opaque.
         /// </summary>
         /// <value>The alpha element of the color.</value>
-		public byte A { get { return(byte)((Value >> SHIFT_A)); } }
+        public byte A => (byte)((Value >> SHIFT_A));
 
-		public override string ToString()
-		{
-			return string.Format("[Color: Value={0}, R={1}, G={2}, B={3}, A={4}]", Value, R, G, B, A);
-		}
+        public override string ToString() => $"[Color: Value={Value}, R={R}, G={G}, B={B}, A={A}]";
 
         /// <summary>
         /// Gets a color from ARGB elements (alpha, red, green, blue).
@@ -79,20 +76,14 @@ namespace AGS.API
         /// <param name="g">The green component.</param>
         /// <param name="b">The blue component.</param>
         /// <param name="a">The alpha component.</param>
-		public static Color FromRgba(byte r, byte g, byte b, byte a)
-		{
-			return FromArgb(a, r, g, b);
-		}
+		public static Color FromRgba(byte r, byte g, byte b, byte a) => FromArgb(a, r, g, b);
 
         /// <summary>
         /// Gets a color from a hexa value (in ARGB format).
         /// </summary>
         /// <returns>The hexa.</returns>
         /// <param name="argb">ARGB.</param>
-		public static Color FromHexa(uint argb)
-		{
-			return new Color (argb);
-		}
+		public static Color FromHexa(uint argb) => new Color(argb);
 
         /// <summary>
         /// Gets a color from HSLA format (https://en.wikipedia.org/wiki/HSL_and_HSV).
@@ -212,10 +203,7 @@ namespace AGS.API
         /// </summary>
         /// <returns>The color.</returns>
         /// <param name="a">The alpha component. 0 is fully transparent and 255 is fully opaque.</param>
-        public Color WithAlpha(byte a)
-        {
-            return Color.FromArgb(a, R, G, B);
-        }
-	}
+        public Color WithAlpha(byte a) => Color.FromArgb(a, R, G, B);
+    }
 }
 

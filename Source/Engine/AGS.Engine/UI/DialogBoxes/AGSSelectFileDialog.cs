@@ -31,7 +31,7 @@ namespace AGS.Engine
 
         private TaskCompletionSource<bool> _tcs;
         private string _selectedItem;
-        private IDevice _device { get { return AGSGame.Device; } }
+        private IDevice _device => AGSGame.Device;
 
         private IBorderStyle _fileIcon, _fileIconSelected, _folderIcon, _folderIconSelected;
 
@@ -286,15 +286,15 @@ namespace AGS.Engine
                 return "";
             }
             path = path.Substring(0, index);
-            if (getFolderIndex(path) < 0) return string.Format("{0}\\", path);
+            if (getFolderIndex(path) < 0) return $"{path}\\";
             return path;
         }
 
         private static string combine(string folder, string childFolder)
         {
             if (string.IsNullOrEmpty(folder)) return childFolder;
-            if (folder.Contains("/")) return string.Format("{0}/{1}", folder, childFolder);
-            return string.Format("{0}\\{1}", folder, childFolder);
+            if (folder.Contains("/")) return $"{folder}/{childFolder}";
+            return $"{folder}\\{childFolder}";
         }
 
         private static string getLastName(string path)

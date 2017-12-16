@@ -41,7 +41,7 @@ namespace AGS.Engine.Android
 
         private void fireEvent(EventHandler<MotionEvent> ev, MotionEvent e)
         {
-            if (ev != null) ev(this, e);
+            ev?.Invoke(this, e);
         }
     }
 }
