@@ -109,9 +109,9 @@ This is for both the bounding box used to render the entity, and for collision c
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IModelMatrixComponent), true)]
 [RequiredComponent(typeof (IImageComponent), true)]
-[RequiredComponent(typeof (IAnimationContainer), true)]
-[RequiredComponent(typeof (IDrawableInfo), true)]
-[RequiredComponent(typeof (IHasRoom), true)]
+[RequiredComponent(typeof (IAnimationComponent), true)]
+[RequiredComponent(typeof (IDrawableInfoComponent), true)]
+[RequiredComponent(typeof (IHasRoomComponent), true)]
 [RequiredComponent(typeof (ICropSelfComponent), false)]
 public interface IBoundingBoxComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>

@@ -2809,6 +2809,96 @@ references:
   commentId: Overload:AGS.API.IAnimation.State
   fullName: AGS.API.IAnimation.State
   nameWithType: IAnimation.State
+- uid: AGS.API.IAnimationComponent
+  name: IAnimationComponent
+  href: api/AGS.API.IAnimationComponent.html
+  commentId: T:AGS.API.IAnimationComponent
+  fullName: AGS.API.IAnimationComponent
+  nameWithType: IAnimationComponent
+- uid: AGS.API.IAnimationComponent.Animate(AGS.API.IAnimation)
+  name: Animate(IAnimation)
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Animate_AGS_API_IAnimation_
+  commentId: M:AGS.API.IAnimationComponent.Animate(AGS.API.IAnimation)
+  fullName: AGS.API.IAnimationComponent.Animate(AGS.API.IAnimation)
+  nameWithType: IAnimationComponent.Animate(IAnimation)
+- uid: AGS.API.IAnimationComponent.Animate*
+  name: Animate
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Animate_
+  commentId: Overload:AGS.API.IAnimationComponent.Animate
+  fullName: AGS.API.IAnimationComponent.Animate
+  nameWithType: IAnimationComponent.Animate
+- uid: AGS.API.IAnimationComponent.AnimateAsync(AGS.API.IAnimation)
+  name: AnimateAsync(IAnimation)
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_AnimateAsync_AGS_API_IAnimation_
+  commentId: M:AGS.API.IAnimationComponent.AnimateAsync(AGS.API.IAnimation)
+  fullName: AGS.API.IAnimationComponent.AnimateAsync(AGS.API.IAnimation)
+  nameWithType: IAnimationComponent.AnimateAsync(IAnimation)
+- uid: AGS.API.IAnimationComponent.AnimateAsync*
+  name: AnimateAsync
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_AnimateAsync_
+  commentId: Overload:AGS.API.IAnimationComponent.AnimateAsync
+  fullName: AGS.API.IAnimationComponent.AnimateAsync
+  nameWithType: IAnimationComponent.AnimateAsync
+- uid: AGS.API.IAnimationComponent.Animation
+  name: Animation
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Animation
+  commentId: P:AGS.API.IAnimationComponent.Animation
+  fullName: AGS.API.IAnimationComponent.Animation
+  nameWithType: IAnimationComponent.Animation
+- uid: AGS.API.IAnimationComponent.Animation*
+  name: Animation
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Animation_
+  commentId: Overload:AGS.API.IAnimationComponent.Animation
+  fullName: AGS.API.IAnimationComponent.Animation
+  nameWithType: IAnimationComponent.Animation
+- uid: AGS.API.IAnimationComponent.Border
+  name: Border
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Border
+  commentId: P:AGS.API.IAnimationComponent.Border
+  fullName: AGS.API.IAnimationComponent.Border
+  nameWithType: IAnimationComponent.Border
+- uid: AGS.API.IAnimationComponent.Border*
+  name: Border
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Border_
+  commentId: Overload:AGS.API.IAnimationComponent.Border
+  fullName: AGS.API.IAnimationComponent.Border
+  nameWithType: IAnimationComponent.Border
+- uid: AGS.API.IAnimationComponent.DebugDrawPivot
+  name: DebugDrawPivot
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_DebugDrawPivot
+  commentId: P:AGS.API.IAnimationComponent.DebugDrawPivot
+  fullName: AGS.API.IAnimationComponent.DebugDrawPivot
+  nameWithType: IAnimationComponent.DebugDrawPivot
+- uid: AGS.API.IAnimationComponent.DebugDrawPivot*
+  name: DebugDrawPivot
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_DebugDrawPivot_
+  commentId: Overload:AGS.API.IAnimationComponent.DebugDrawPivot
+  fullName: AGS.API.IAnimationComponent.DebugDrawPivot
+  nameWithType: IAnimationComponent.DebugDrawPivot
+- uid: AGS.API.IAnimationComponent.OnAnimationStarted
+  name: OnAnimationStarted
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_OnAnimationStarted
+  commentId: P:AGS.API.IAnimationComponent.OnAnimationStarted
+  fullName: AGS.API.IAnimationComponent.OnAnimationStarted
+  nameWithType: IAnimationComponent.OnAnimationStarted
+- uid: AGS.API.IAnimationComponent.OnAnimationStarted*
+  name: OnAnimationStarted
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_OnAnimationStarted_
+  commentId: Overload:AGS.API.IAnimationComponent.OnAnimationStarted
+  fullName: AGS.API.IAnimationComponent.OnAnimationStarted
+  nameWithType: IAnimationComponent.OnAnimationStarted
+- uid: AGS.API.IAnimationComponent.StartAnimation(AGS.API.IAnimation)
+  name: StartAnimation(IAnimation)
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_StartAnimation_AGS_API_IAnimation_
+  commentId: M:AGS.API.IAnimationComponent.StartAnimation(AGS.API.IAnimation)
+  fullName: AGS.API.IAnimationComponent.StartAnimation(AGS.API.IAnimation)
+  nameWithType: IAnimationComponent.StartAnimation(IAnimation)
+- uid: AGS.API.IAnimationComponent.StartAnimation*
+  name: StartAnimation
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_StartAnimation_
+  commentId: Overload:AGS.API.IAnimationComponent.StartAnimation
+  fullName: AGS.API.IAnimationComponent.StartAnimation
+  nameWithType: IAnimationComponent.StartAnimation
 - uid: AGS.API.IAnimationConfiguration
   name: IAnimationConfiguration
   href: api/AGS.API.IAnimationConfiguration.html
@@ -2851,96 +2941,6 @@ references:
   commentId: Overload:AGS.API.IAnimationConfiguration.Loops
   fullName: AGS.API.IAnimationConfiguration.Loops
   nameWithType: IAnimationConfiguration.Loops
-- uid: AGS.API.IAnimationContainer
-  name: IAnimationContainer
-  href: api/AGS.API.IAnimationContainer.html
-  commentId: T:AGS.API.IAnimationContainer
-  fullName: AGS.API.IAnimationContainer
-  nameWithType: IAnimationContainer
-- uid: AGS.API.IAnimationContainer.Animate(AGS.API.IAnimation)
-  name: Animate(IAnimation)
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Animate_AGS_API_IAnimation_
-  commentId: M:AGS.API.IAnimationContainer.Animate(AGS.API.IAnimation)
-  fullName: AGS.API.IAnimationContainer.Animate(AGS.API.IAnimation)
-  nameWithType: IAnimationContainer.Animate(IAnimation)
-- uid: AGS.API.IAnimationContainer.Animate*
-  name: Animate
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Animate_
-  commentId: Overload:AGS.API.IAnimationContainer.Animate
-  fullName: AGS.API.IAnimationContainer.Animate
-  nameWithType: IAnimationContainer.Animate
-- uid: AGS.API.IAnimationContainer.AnimateAsync(AGS.API.IAnimation)
-  name: AnimateAsync(IAnimation)
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_AnimateAsync_AGS_API_IAnimation_
-  commentId: M:AGS.API.IAnimationContainer.AnimateAsync(AGS.API.IAnimation)
-  fullName: AGS.API.IAnimationContainer.AnimateAsync(AGS.API.IAnimation)
-  nameWithType: IAnimationContainer.AnimateAsync(IAnimation)
-- uid: AGS.API.IAnimationContainer.AnimateAsync*
-  name: AnimateAsync
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_AnimateAsync_
-  commentId: Overload:AGS.API.IAnimationContainer.AnimateAsync
-  fullName: AGS.API.IAnimationContainer.AnimateAsync
-  nameWithType: IAnimationContainer.AnimateAsync
-- uid: AGS.API.IAnimationContainer.Animation
-  name: Animation
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Animation
-  commentId: P:AGS.API.IAnimationContainer.Animation
-  fullName: AGS.API.IAnimationContainer.Animation
-  nameWithType: IAnimationContainer.Animation
-- uid: AGS.API.IAnimationContainer.Animation*
-  name: Animation
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Animation_
-  commentId: Overload:AGS.API.IAnimationContainer.Animation
-  fullName: AGS.API.IAnimationContainer.Animation
-  nameWithType: IAnimationContainer.Animation
-- uid: AGS.API.IAnimationContainer.Border
-  name: Border
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Border
-  commentId: P:AGS.API.IAnimationContainer.Border
-  fullName: AGS.API.IAnimationContainer.Border
-  nameWithType: IAnimationContainer.Border
-- uid: AGS.API.IAnimationContainer.Border*
-  name: Border
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Border_
-  commentId: Overload:AGS.API.IAnimationContainer.Border
-  fullName: AGS.API.IAnimationContainer.Border
-  nameWithType: IAnimationContainer.Border
-- uid: AGS.API.IAnimationContainer.DebugDrawAnchor
-  name: DebugDrawAnchor
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_DebugDrawAnchor
-  commentId: P:AGS.API.IAnimationContainer.DebugDrawAnchor
-  fullName: AGS.API.IAnimationContainer.DebugDrawAnchor
-  nameWithType: IAnimationContainer.DebugDrawAnchor
-- uid: AGS.API.IAnimationContainer.DebugDrawAnchor*
-  name: DebugDrawAnchor
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_DebugDrawAnchor_
-  commentId: Overload:AGS.API.IAnimationContainer.DebugDrawAnchor
-  fullName: AGS.API.IAnimationContainer.DebugDrawAnchor
-  nameWithType: IAnimationContainer.DebugDrawAnchor
-- uid: AGS.API.IAnimationContainer.OnAnimationStarted
-  name: OnAnimationStarted
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_OnAnimationStarted
-  commentId: P:AGS.API.IAnimationContainer.OnAnimationStarted
-  fullName: AGS.API.IAnimationContainer.OnAnimationStarted
-  nameWithType: IAnimationContainer.OnAnimationStarted
-- uid: AGS.API.IAnimationContainer.OnAnimationStarted*
-  name: OnAnimationStarted
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_OnAnimationStarted_
-  commentId: Overload:AGS.API.IAnimationContainer.OnAnimationStarted
-  fullName: AGS.API.IAnimationContainer.OnAnimationStarted
-  nameWithType: IAnimationContainer.OnAnimationStarted
-- uid: AGS.API.IAnimationContainer.StartAnimation(AGS.API.IAnimation)
-  name: StartAnimation(IAnimation)
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_StartAnimation_AGS_API_IAnimation_
-  commentId: M:AGS.API.IAnimationContainer.StartAnimation(AGS.API.IAnimation)
-  fullName: AGS.API.IAnimationContainer.StartAnimation(AGS.API.IAnimation)
-  nameWithType: IAnimationContainer.StartAnimation(IAnimation)
-- uid: AGS.API.IAnimationContainer.StartAnimation*
-  name: StartAnimation
-  href: api/AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_StartAnimation_
-  commentId: Overload:AGS.API.IAnimationContainer.StartAnimation
-  fullName: AGS.API.IAnimationContainer.StartAnimation
-  nameWithType: IAnimationContainer.StartAnimation
 - uid: AGS.API.IAnimationFrame
   name: IAnimationFrame
   href: api/AGS.API.IAnimationFrame.html
@@ -4425,36 +4425,36 @@ references:
   commentId: Overload:AGS.API.IClippingPlane.PlaneObject
   fullName: AGS.API.IClippingPlane.PlaneObject
   nameWithType: IClippingPlane.PlaneObject
-- uid: AGS.API.ICollider
-  name: ICollider
-  href: api/AGS.API.ICollider.html
-  commentId: T:AGS.API.ICollider
-  fullName: AGS.API.ICollider
-  nameWithType: ICollider
-- uid: AGS.API.ICollider.CenterPoint
+- uid: AGS.API.IColliderComponent
+  name: IColliderComponent
+  href: api/AGS.API.IColliderComponent.html
+  commentId: T:AGS.API.IColliderComponent
+  fullName: AGS.API.IColliderComponent
+  nameWithType: IColliderComponent
+- uid: AGS.API.IColliderComponent.CenterPoint
   name: CenterPoint
-  href: api/AGS.API.ICollider.html#AGS_API_ICollider_CenterPoint
-  commentId: P:AGS.API.ICollider.CenterPoint
-  fullName: AGS.API.ICollider.CenterPoint
-  nameWithType: ICollider.CenterPoint
-- uid: AGS.API.ICollider.CenterPoint*
+  href: api/AGS.API.IColliderComponent.html#AGS_API_IColliderComponent_CenterPoint
+  commentId: P:AGS.API.IColliderComponent.CenterPoint
+  fullName: AGS.API.IColliderComponent.CenterPoint
+  nameWithType: IColliderComponent.CenterPoint
+- uid: AGS.API.IColliderComponent.CenterPoint*
   name: CenterPoint
-  href: api/AGS.API.ICollider.html#AGS_API_ICollider_CenterPoint_
-  commentId: Overload:AGS.API.ICollider.CenterPoint
-  fullName: AGS.API.ICollider.CenterPoint
-  nameWithType: ICollider.CenterPoint
-- uid: AGS.API.ICollider.CollidesWith(System.Single,System.Single,AGS.API.IViewport)
+  href: api/AGS.API.IColliderComponent.html#AGS_API_IColliderComponent_CenterPoint_
+  commentId: Overload:AGS.API.IColliderComponent.CenterPoint
+  fullName: AGS.API.IColliderComponent.CenterPoint
+  nameWithType: IColliderComponent.CenterPoint
+- uid: AGS.API.IColliderComponent.CollidesWith(System.Single,System.Single,AGS.API.IViewport)
   name: CollidesWith(Single, Single, IViewport)
-  href: api/AGS.API.ICollider.html#AGS_API_ICollider_CollidesWith_System_Single_System_Single_AGS_API_IViewport_
-  commentId: M:AGS.API.ICollider.CollidesWith(System.Single,System.Single,AGS.API.IViewport)
-  fullName: AGS.API.ICollider.CollidesWith(System.Single, System.Single, AGS.API.IViewport)
-  nameWithType: ICollider.CollidesWith(Single, Single, IViewport)
-- uid: AGS.API.ICollider.CollidesWith*
+  href: api/AGS.API.IColliderComponent.html#AGS_API_IColliderComponent_CollidesWith_System_Single_System_Single_AGS_API_IViewport_
+  commentId: M:AGS.API.IColliderComponent.CollidesWith(System.Single,System.Single,AGS.API.IViewport)
+  fullName: AGS.API.IColliderComponent.CollidesWith(System.Single, System.Single, AGS.API.IViewport)
+  nameWithType: IColliderComponent.CollidesWith(Single, Single, IViewport)
+- uid: AGS.API.IColliderComponent.CollidesWith*
   name: CollidesWith
-  href: api/AGS.API.ICollider.html#AGS_API_ICollider_CollidesWith_
-  commentId: Overload:AGS.API.ICollider.CollidesWith
-  fullName: AGS.API.ICollider.CollidesWith
-  nameWithType: ICollider.CollidesWith
+  href: api/AGS.API.IColliderComponent.html#AGS_API_IColliderComponent_CollidesWith_
+  commentId: Overload:AGS.API.IColliderComponent.CollidesWith
+  fullName: AGS.API.IColliderComponent.CollidesWith
+  nameWithType: IColliderComponent.CollidesWith
 - uid: AGS.API.IColorBlend
   name: IColorBlend
   href: api/AGS.API.IColorBlend.html
@@ -6141,48 +6141,48 @@ references:
   commentId: Overload:AGS.API.IDraggableComponent.IsDragEnabled
   fullName: AGS.API.IDraggableComponent.IsDragEnabled
   nameWithType: IDraggableComponent.IsDragEnabled
-- uid: AGS.API.IDrawableInfo
-  name: IDrawableInfo
-  href: api/AGS.API.IDrawableInfo.html
-  commentId: T:AGS.API.IDrawableInfo
-  fullName: AGS.API.IDrawableInfo
-  nameWithType: IDrawableInfo
-- uid: AGS.API.IDrawableInfo.IgnoreScalingArea
+- uid: AGS.API.IDrawableInfoComponent
+  name: IDrawableInfoComponent
+  href: api/AGS.API.IDrawableInfoComponent.html
+  commentId: T:AGS.API.IDrawableInfoComponent
+  fullName: AGS.API.IDrawableInfoComponent
+  nameWithType: IDrawableInfoComponent
+- uid: AGS.API.IDrawableInfoComponent.IgnoreScalingArea
   name: IgnoreScalingArea
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_IgnoreScalingArea
-  commentId: P:AGS.API.IDrawableInfo.IgnoreScalingArea
-  fullName: AGS.API.IDrawableInfo.IgnoreScalingArea
-  nameWithType: IDrawableInfo.IgnoreScalingArea
-- uid: AGS.API.IDrawableInfo.IgnoreScalingArea*
+  href: api/AGS.API.IDrawableInfoComponent.html#AGS_API_IDrawableInfoComponent_IgnoreScalingArea
+  commentId: P:AGS.API.IDrawableInfoComponent.IgnoreScalingArea
+  fullName: AGS.API.IDrawableInfoComponent.IgnoreScalingArea
+  nameWithType: IDrawableInfoComponent.IgnoreScalingArea
+- uid: AGS.API.IDrawableInfoComponent.IgnoreScalingArea*
   name: IgnoreScalingArea
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_IgnoreScalingArea_
-  commentId: Overload:AGS.API.IDrawableInfo.IgnoreScalingArea
-  fullName: AGS.API.IDrawableInfo.IgnoreScalingArea
-  nameWithType: IDrawableInfo.IgnoreScalingArea
-- uid: AGS.API.IDrawableInfo.IgnoreViewport
+  href: api/AGS.API.IDrawableInfoComponent.html#AGS_API_IDrawableInfoComponent_IgnoreScalingArea_
+  commentId: Overload:AGS.API.IDrawableInfoComponent.IgnoreScalingArea
+  fullName: AGS.API.IDrawableInfoComponent.IgnoreScalingArea
+  nameWithType: IDrawableInfoComponent.IgnoreScalingArea
+- uid: AGS.API.IDrawableInfoComponent.IgnoreViewport
   name: IgnoreViewport
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_IgnoreViewport
-  commentId: P:AGS.API.IDrawableInfo.IgnoreViewport
-  fullName: AGS.API.IDrawableInfo.IgnoreViewport
-  nameWithType: IDrawableInfo.IgnoreViewport
-- uid: AGS.API.IDrawableInfo.IgnoreViewport*
+  href: api/AGS.API.IDrawableInfoComponent.html#AGS_API_IDrawableInfoComponent_IgnoreViewport
+  commentId: P:AGS.API.IDrawableInfoComponent.IgnoreViewport
+  fullName: AGS.API.IDrawableInfoComponent.IgnoreViewport
+  nameWithType: IDrawableInfoComponent.IgnoreViewport
+- uid: AGS.API.IDrawableInfoComponent.IgnoreViewport*
   name: IgnoreViewport
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_IgnoreViewport_
-  commentId: Overload:AGS.API.IDrawableInfo.IgnoreViewport
-  fullName: AGS.API.IDrawableInfo.IgnoreViewport
-  nameWithType: IDrawableInfo.IgnoreViewport
-- uid: AGS.API.IDrawableInfo.RenderLayer
+  href: api/AGS.API.IDrawableInfoComponent.html#AGS_API_IDrawableInfoComponent_IgnoreViewport_
+  commentId: Overload:AGS.API.IDrawableInfoComponent.IgnoreViewport
+  fullName: AGS.API.IDrawableInfoComponent.IgnoreViewport
+  nameWithType: IDrawableInfoComponent.IgnoreViewport
+- uid: AGS.API.IDrawableInfoComponent.RenderLayer
   name: RenderLayer
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_RenderLayer
-  commentId: P:AGS.API.IDrawableInfo.RenderLayer
-  fullName: AGS.API.IDrawableInfo.RenderLayer
-  nameWithType: IDrawableInfo.RenderLayer
-- uid: AGS.API.IDrawableInfo.RenderLayer*
+  href: api/AGS.API.IDrawableInfoComponent.html#AGS_API_IDrawableInfoComponent_RenderLayer
+  commentId: P:AGS.API.IDrawableInfoComponent.RenderLayer
+  fullName: AGS.API.IDrawableInfoComponent.RenderLayer
+  nameWithType: IDrawableInfoComponent.RenderLayer
+- uid: AGS.API.IDrawableInfoComponent.RenderLayer*
   name: RenderLayer
-  href: api/AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_RenderLayer_
-  commentId: Overload:AGS.API.IDrawableInfo.RenderLayer
-  fullName: AGS.API.IDrawableInfo.RenderLayer
-  nameWithType: IDrawableInfo.RenderLayer
+  href: api/AGS.API.IDrawableInfoComponent.html#AGS_API_IDrawableInfoComponent_RenderLayer_
+  commentId: Overload:AGS.API.IDrawableInfoComponent.RenderLayer
+  fullName: AGS.API.IDrawableInfoComponent.RenderLayer
+  nameWithType: IDrawableInfoComponent.RenderLayer
 - uid: AGS.API.IEdge
   name: IEdge
   href: api/AGS.API.IEdge.html
@@ -6564,96 +6564,96 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).WaitUntilAsync
   nameWithType: IEvent<TEventArgs>.WaitUntilAsync
   nameWithType.vb: IEvent(Of TEventArgs).WaitUntilAsync
-- uid: AGS.API.IFaceDirectionBehavior
-  name: IFaceDirectionBehavior
-  href: api/AGS.API.IFaceDirectionBehavior.html
-  commentId: T:AGS.API.IFaceDirectionBehavior
-  fullName: AGS.API.IFaceDirectionBehavior
-  nameWithType: IFaceDirectionBehavior
-- uid: AGS.API.IFaceDirectionBehavior.CurrentDirectionalAnimation
+- uid: AGS.API.IFaceDirectionComponent
+  name: IFaceDirectionComponent
+  href: api/AGS.API.IFaceDirectionComponent.html
+  commentId: T:AGS.API.IFaceDirectionComponent
+  fullName: AGS.API.IFaceDirectionComponent
+  nameWithType: IFaceDirectionComponent
+- uid: AGS.API.IFaceDirectionComponent.CurrentDirectionalAnimation
   name: CurrentDirectionalAnimation
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_CurrentDirectionalAnimation
-  commentId: P:AGS.API.IFaceDirectionBehavior.CurrentDirectionalAnimation
-  fullName: AGS.API.IFaceDirectionBehavior.CurrentDirectionalAnimation
-  nameWithType: IFaceDirectionBehavior.CurrentDirectionalAnimation
-- uid: AGS.API.IFaceDirectionBehavior.CurrentDirectionalAnimation*
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_CurrentDirectionalAnimation
+  commentId: P:AGS.API.IFaceDirectionComponent.CurrentDirectionalAnimation
+  fullName: AGS.API.IFaceDirectionComponent.CurrentDirectionalAnimation
+  nameWithType: IFaceDirectionComponent.CurrentDirectionalAnimation
+- uid: AGS.API.IFaceDirectionComponent.CurrentDirectionalAnimation*
   name: CurrentDirectionalAnimation
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_CurrentDirectionalAnimation_
-  commentId: Overload:AGS.API.IFaceDirectionBehavior.CurrentDirectionalAnimation
-  fullName: AGS.API.IFaceDirectionBehavior.CurrentDirectionalAnimation
-  nameWithType: IFaceDirectionBehavior.CurrentDirectionalAnimation
-- uid: AGS.API.IFaceDirectionBehavior.Direction
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_CurrentDirectionalAnimation_
+  commentId: Overload:AGS.API.IFaceDirectionComponent.CurrentDirectionalAnimation
+  fullName: AGS.API.IFaceDirectionComponent.CurrentDirectionalAnimation
+  nameWithType: IFaceDirectionComponent.CurrentDirectionalAnimation
+- uid: AGS.API.IFaceDirectionComponent.Direction
   name: Direction
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_Direction
-  commentId: P:AGS.API.IFaceDirectionBehavior.Direction
-  fullName: AGS.API.IFaceDirectionBehavior.Direction
-  nameWithType: IFaceDirectionBehavior.Direction
-- uid: AGS.API.IFaceDirectionBehavior.Direction*
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_Direction
+  commentId: P:AGS.API.IFaceDirectionComponent.Direction
+  fullName: AGS.API.IFaceDirectionComponent.Direction
+  nameWithType: IFaceDirectionComponent.Direction
+- uid: AGS.API.IFaceDirectionComponent.Direction*
   name: Direction
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_Direction_
-  commentId: Overload:AGS.API.IFaceDirectionBehavior.Direction
-  fullName: AGS.API.IFaceDirectionBehavior.Direction
-  nameWithType: IFaceDirectionBehavior.Direction
-- uid: AGS.API.IFaceDirectionBehavior.FaceDirection(AGS.API.Direction)
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_Direction_
+  commentId: Overload:AGS.API.IFaceDirectionComponent.Direction
+  fullName: AGS.API.IFaceDirectionComponent.Direction
+  nameWithType: IFaceDirectionComponent.Direction
+- uid: AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.Direction)
   name: FaceDirection(Direction)
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_FaceDirection_AGS_API_Direction_
-  commentId: M:AGS.API.IFaceDirectionBehavior.FaceDirection(AGS.API.Direction)
-  fullName: AGS.API.IFaceDirectionBehavior.FaceDirection(AGS.API.Direction)
-  nameWithType: IFaceDirectionBehavior.FaceDirection(Direction)
-- uid: AGS.API.IFaceDirectionBehavior.FaceDirection(AGS.API.IObject)
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirection_AGS_API_Direction_
+  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.Direction)
+  fullName: AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.Direction)
+  nameWithType: IFaceDirectionComponent.FaceDirection(Direction)
+- uid: AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.IObject)
   name: FaceDirection(IObject)
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_FaceDirection_AGS_API_IObject_
-  commentId: M:AGS.API.IFaceDirectionBehavior.FaceDirection(AGS.API.IObject)
-  fullName: AGS.API.IFaceDirectionBehavior.FaceDirection(AGS.API.IObject)
-  nameWithType: IFaceDirectionBehavior.FaceDirection(IObject)
-- uid: AGS.API.IFaceDirectionBehavior.FaceDirection(System.Single,System.Single)
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirection_AGS_API_IObject_
+  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.IObject)
+  fullName: AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.IObject)
+  nameWithType: IFaceDirectionComponent.FaceDirection(IObject)
+- uid: AGS.API.IFaceDirectionComponent.FaceDirection(System.Single,System.Single)
   name: FaceDirection(Single, Single)
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_FaceDirection_System_Single_System_Single_
-  commentId: M:AGS.API.IFaceDirectionBehavior.FaceDirection(System.Single,System.Single)
-  fullName: AGS.API.IFaceDirectionBehavior.FaceDirection(System.Single, System.Single)
-  nameWithType: IFaceDirectionBehavior.FaceDirection(Single, Single)
-- uid: AGS.API.IFaceDirectionBehavior.FaceDirection(System.Single,System.Single,System.Single,System.Single)
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirection_System_Single_System_Single_
+  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirection(System.Single,System.Single)
+  fullName: AGS.API.IFaceDirectionComponent.FaceDirection(System.Single, System.Single)
+  nameWithType: IFaceDirectionComponent.FaceDirection(Single, Single)
+- uid: AGS.API.IFaceDirectionComponent.FaceDirection(System.Single,System.Single,System.Single,System.Single)
   name: FaceDirection(Single, Single, Single, Single)
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_FaceDirection_System_Single_System_Single_System_Single_System_Single_
-  commentId: M:AGS.API.IFaceDirectionBehavior.FaceDirection(System.Single,System.Single,System.Single,System.Single)
-  fullName: AGS.API.IFaceDirectionBehavior.FaceDirection(System.Single, System.Single, System.Single, System.Single)
-  nameWithType: IFaceDirectionBehavior.FaceDirection(Single, Single, Single, Single)
-- uid: AGS.API.IFaceDirectionBehavior.FaceDirection*
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirection_System_Single_System_Single_System_Single_System_Single_
+  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirection(System.Single,System.Single,System.Single,System.Single)
+  fullName: AGS.API.IFaceDirectionComponent.FaceDirection(System.Single, System.Single, System.Single, System.Single)
+  nameWithType: IFaceDirectionComponent.FaceDirection(Single, Single, Single, Single)
+- uid: AGS.API.IFaceDirectionComponent.FaceDirection*
   name: FaceDirection
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_FaceDirection_
-  commentId: Overload:AGS.API.IFaceDirectionBehavior.FaceDirection
-  fullName: AGS.API.IFaceDirectionBehavior.FaceDirection
-  nameWithType: IFaceDirectionBehavior.FaceDirection
-- uid: AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(AGS.API.Direction)
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirection_
+  commentId: Overload:AGS.API.IFaceDirectionComponent.FaceDirection
+  fullName: AGS.API.IFaceDirectionComponent.FaceDirection
+  nameWithType: IFaceDirectionComponent.FaceDirection
+- uid: AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.Direction)
   name: FaceDirectionAsync(Direction)
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_FaceDirectionAsync_AGS_API_Direction_
-  commentId: M:AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(AGS.API.Direction)
-  fullName: AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(AGS.API.Direction)
-  nameWithType: IFaceDirectionBehavior.FaceDirectionAsync(Direction)
-- uid: AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(AGS.API.IObject)
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_Direction_
+  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.Direction)
+  fullName: AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.Direction)
+  nameWithType: IFaceDirectionComponent.FaceDirectionAsync(Direction)
+- uid: AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.IObject)
   name: FaceDirectionAsync(IObject)
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_FaceDirectionAsync_AGS_API_IObject_
-  commentId: M:AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(AGS.API.IObject)
-  fullName: AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(AGS.API.IObject)
-  nameWithType: IFaceDirectionBehavior.FaceDirectionAsync(IObject)
-- uid: AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(System.Single,System.Single)
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_IObject_
+  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.IObject)
+  fullName: AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.IObject)
+  nameWithType: IFaceDirectionComponent.FaceDirectionAsync(IObject)
+- uid: AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single,System.Single)
   name: FaceDirectionAsync(Single, Single)
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_FaceDirectionAsync_System_Single_System_Single_
-  commentId: M:AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(System.Single,System.Single)
-  fullName: AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(System.Single, System.Single)
-  nameWithType: IFaceDirectionBehavior.FaceDirectionAsync(Single, Single)
-- uid: AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(System.Single,System.Single,System.Single,System.Single)
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single_
+  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single,System.Single)
+  fullName: AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single, System.Single)
+  nameWithType: IFaceDirectionComponent.FaceDirectionAsync(Single, Single)
+- uid: AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single,System.Single,System.Single,System.Single)
   name: FaceDirectionAsync(Single, Single, Single, Single)
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_FaceDirectionAsync_System_Single_System_Single_System_Single_System_Single_
-  commentId: M:AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(System.Single,System.Single,System.Single,System.Single)
-  fullName: AGS.API.IFaceDirectionBehavior.FaceDirectionAsync(System.Single, System.Single, System.Single, System.Single)
-  nameWithType: IFaceDirectionBehavior.FaceDirectionAsync(Single, Single, Single, Single)
-- uid: AGS.API.IFaceDirectionBehavior.FaceDirectionAsync*
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single_System_Single_System_Single_
+  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single,System.Single,System.Single,System.Single)
+  fullName: AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single, System.Single, System.Single, System.Single)
+  nameWithType: IFaceDirectionComponent.FaceDirectionAsync(Single, Single, Single, Single)
+- uid: AGS.API.IFaceDirectionComponent.FaceDirectionAsync*
   name: FaceDirectionAsync
-  href: api/AGS.API.IFaceDirectionBehavior.html#AGS_API_IFaceDirectionBehavior_FaceDirectionAsync_
-  commentId: Overload:AGS.API.IFaceDirectionBehavior.FaceDirectionAsync
-  fullName: AGS.API.IFaceDirectionBehavior.FaceDirectionAsync
-  nameWithType: IFaceDirectionBehavior.FaceDirectionAsync
+  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirectionAsync_
+  commentId: Overload:AGS.API.IFaceDirectionComponent.FaceDirectionAsync
+  fullName: AGS.API.IFaceDirectionComponent.FaceDirectionAsync
+  nameWithType: IFaceDirectionComponent.FaceDirectionAsync
 - uid: AGS.API.IFocusedUI
   name: IFocusedUI
   href: api/AGS.API.IFocusedUI.html
@@ -6696,36 +6696,36 @@ references:
   commentId: Overload:AGS.API.IFocusedUI.HasKeyboardFocus
   fullName: AGS.API.IFocusedUI.HasKeyboardFocus
   nameWithType: IFocusedUI.HasKeyboardFocus
-- uid: AGS.API.IFollowBehavior
-  name: IFollowBehavior
-  href: api/AGS.API.IFollowBehavior.html
-  commentId: T:AGS.API.IFollowBehavior
-  fullName: AGS.API.IFollowBehavior
-  nameWithType: IFollowBehavior
-- uid: AGS.API.IFollowBehavior.Follow(AGS.API.IObject,AGS.API.IFollowSettings)
+- uid: AGS.API.IFollowComponent
+  name: IFollowComponent
+  href: api/AGS.API.IFollowComponent.html
+  commentId: T:AGS.API.IFollowComponent
+  fullName: AGS.API.IFollowComponent
+  nameWithType: IFollowComponent
+- uid: AGS.API.IFollowComponent.Follow(AGS.API.IObject,AGS.API.IFollowSettings)
   name: Follow(IObject, IFollowSettings)
-  href: api/AGS.API.IFollowBehavior.html#AGS_API_IFollowBehavior_Follow_AGS_API_IObject_AGS_API_IFollowSettings_
-  commentId: M:AGS.API.IFollowBehavior.Follow(AGS.API.IObject,AGS.API.IFollowSettings)
-  fullName: AGS.API.IFollowBehavior.Follow(AGS.API.IObject, AGS.API.IFollowSettings)
-  nameWithType: IFollowBehavior.Follow(IObject, IFollowSettings)
-- uid: AGS.API.IFollowBehavior.Follow*
+  href: api/AGS.API.IFollowComponent.html#AGS_API_IFollowComponent_Follow_AGS_API_IObject_AGS_API_IFollowSettings_
+  commentId: M:AGS.API.IFollowComponent.Follow(AGS.API.IObject,AGS.API.IFollowSettings)
+  fullName: AGS.API.IFollowComponent.Follow(AGS.API.IObject, AGS.API.IFollowSettings)
+  nameWithType: IFollowComponent.Follow(IObject, IFollowSettings)
+- uid: AGS.API.IFollowComponent.Follow*
   name: Follow
-  href: api/AGS.API.IFollowBehavior.html#AGS_API_IFollowBehavior_Follow_
-  commentId: Overload:AGS.API.IFollowBehavior.Follow
-  fullName: AGS.API.IFollowBehavior.Follow
-  nameWithType: IFollowBehavior.Follow
-- uid: AGS.API.IFollowBehavior.TargetBeingFollowed
+  href: api/AGS.API.IFollowComponent.html#AGS_API_IFollowComponent_Follow_
+  commentId: Overload:AGS.API.IFollowComponent.Follow
+  fullName: AGS.API.IFollowComponent.Follow
+  nameWithType: IFollowComponent.Follow
+- uid: AGS.API.IFollowComponent.TargetBeingFollowed
   name: TargetBeingFollowed
-  href: api/AGS.API.IFollowBehavior.html#AGS_API_IFollowBehavior_TargetBeingFollowed
-  commentId: P:AGS.API.IFollowBehavior.TargetBeingFollowed
-  fullName: AGS.API.IFollowBehavior.TargetBeingFollowed
-  nameWithType: IFollowBehavior.TargetBeingFollowed
-- uid: AGS.API.IFollowBehavior.TargetBeingFollowed*
+  href: api/AGS.API.IFollowComponent.html#AGS_API_IFollowComponent_TargetBeingFollowed
+  commentId: P:AGS.API.IFollowComponent.TargetBeingFollowed
+  fullName: AGS.API.IFollowComponent.TargetBeingFollowed
+  nameWithType: IFollowComponent.TargetBeingFollowed
+- uid: AGS.API.IFollowComponent.TargetBeingFollowed*
   name: TargetBeingFollowed
-  href: api/AGS.API.IFollowBehavior.html#AGS_API_IFollowBehavior_TargetBeingFollowed_
-  commentId: Overload:AGS.API.IFollowBehavior.TargetBeingFollowed
-  fullName: AGS.API.IFollowBehavior.TargetBeingFollowed
-  nameWithType: IFollowBehavior.TargetBeingFollowed
+  href: api/AGS.API.IFollowComponent.html#AGS_API_IFollowComponent_TargetBeingFollowed_
+  commentId: Overload:AGS.API.IFollowComponent.TargetBeingFollowed
+  fullName: AGS.API.IFollowComponent.TargetBeingFollowed
+  nameWithType: IFollowComponent.TargetBeingFollowed
 - uid: AGS.API.IFollowSettings
   name: IFollowSettings
   href: api/AGS.API.IFollowSettings.html
@@ -7869,18 +7869,6 @@ references:
   commentId: T:AGS.API.IHasImage
   fullName: AGS.API.IHasImage
   nameWithType: IHasImage
-- uid: AGS.API.IHasImage.Anchor
-  name: Anchor
-  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_Anchor
-  commentId: P:AGS.API.IHasImage.Anchor
-  fullName: AGS.API.IHasImage.Anchor
-  nameWithType: IHasImage.Anchor
-- uid: AGS.API.IHasImage.Anchor*
-  name: Anchor
-  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_Anchor_
-  commentId: Overload:AGS.API.IHasImage.Anchor
-  fullName: AGS.API.IHasImage.Anchor
-  nameWithType: IHasImage.Anchor
 - uid: AGS.API.IHasImage.CustomRenderer
   name: CustomRenderer
   href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_CustomRenderer
@@ -7917,6 +7905,18 @@ references:
   commentId: Overload:AGS.API.IHasImage.Opacity
   fullName: AGS.API.IHasImage.Opacity
   nameWithType: IHasImage.Opacity
+- uid: AGS.API.IHasImage.Pivot
+  name: Pivot
+  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_Pivot
+  commentId: P:AGS.API.IHasImage.Pivot
+  fullName: AGS.API.IHasImage.Pivot
+  nameWithType: IHasImage.Pivot
+- uid: AGS.API.IHasImage.Pivot*
+  name: Pivot
+  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_Pivot_
+  commentId: Overload:AGS.API.IHasImage.Pivot
+  fullName: AGS.API.IHasImage.Pivot
+  nameWithType: IHasImage.Pivot
 - uid: AGS.API.IHasImage.Tint
   name: Tint
   href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_Tint
@@ -7929,105 +7929,69 @@ references:
   commentId: Overload:AGS.API.IHasImage.Tint
   fullName: AGS.API.IHasImage.Tint
   nameWithType: IHasImage.Tint
-- uid: AGS.API.IHasInventory
-  name: IHasInventory
-  href: api/AGS.API.IHasInventory.html
-  commentId: T:AGS.API.IHasInventory
-  fullName: AGS.API.IHasInventory
-  nameWithType: IHasInventory
-- uid: AGS.API.IHasInventory.Inventory
-  name: Inventory
-  href: api/AGS.API.IHasInventory.html#AGS_API_IHasInventory_Inventory
-  commentId: P:AGS.API.IHasInventory.Inventory
-  fullName: AGS.API.IHasInventory.Inventory
-  nameWithType: IHasInventory.Inventory
-- uid: AGS.API.IHasInventory.Inventory*
-  name: Inventory
-  href: api/AGS.API.IHasInventory.html#AGS_API_IHasInventory_Inventory_
-  commentId: Overload:AGS.API.IHasInventory.Inventory
-  fullName: AGS.API.IHasInventory.Inventory
-  nameWithType: IHasInventory.Inventory
 - uid: AGS.API.IHasModelMatrix
   name: IHasModelMatrix
   href: api/AGS.API.IHasModelMatrix.html
   commentId: T:AGS.API.IHasModelMatrix
   fullName: AGS.API.IHasModelMatrix
   nameWithType: IHasModelMatrix
-- uid: AGS.API.IHasOutfit
-  name: IHasOutfit
-  href: api/AGS.API.IHasOutfit.html
-  commentId: T:AGS.API.IHasOutfit
-  fullName: AGS.API.IHasOutfit
-  nameWithType: IHasOutfit
-- uid: AGS.API.IHasOutfit.Outfit
-  name: Outfit
-  href: api/AGS.API.IHasOutfit.html#AGS_API_IHasOutfit_Outfit
-  commentId: P:AGS.API.IHasOutfit.Outfit
-  fullName: AGS.API.IHasOutfit.Outfit
-  nameWithType: IHasOutfit.Outfit
-- uid: AGS.API.IHasOutfit.Outfit*
-  name: Outfit
-  href: api/AGS.API.IHasOutfit.html#AGS_API_IHasOutfit_Outfit_
-  commentId: Overload:AGS.API.IHasOutfit.Outfit
-  fullName: AGS.API.IHasOutfit.Outfit
-  nameWithType: IHasOutfit.Outfit
-- uid: AGS.API.IHasRoom
-  name: IHasRoom
-  href: api/AGS.API.IHasRoom.html
-  commentId: T:AGS.API.IHasRoom
-  fullName: AGS.API.IHasRoom
-  nameWithType: IHasRoom
-- uid: AGS.API.IHasRoom.ChangeRoomAsync(AGS.API.IRoom,System.Nullable{System.Single},System.Nullable{System.Single})
+- uid: AGS.API.IHasRoomComponent
+  name: IHasRoomComponent
+  href: api/AGS.API.IHasRoomComponent.html
+  commentId: T:AGS.API.IHasRoomComponent
+  fullName: AGS.API.IHasRoomComponent
+  nameWithType: IHasRoomComponent
+- uid: AGS.API.IHasRoomComponent.ChangeRoomAsync(AGS.API.IRoom,System.Nullable{System.Single},System.Nullable{System.Single})
   name: ChangeRoomAsync(IRoom, Nullable<Single>, Nullable<Single>)
-  href: api/AGS.API.IHasRoom.html#AGS_API_IHasRoom_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single__
-  commentId: M:AGS.API.IHasRoom.ChangeRoomAsync(AGS.API.IRoom,System.Nullable{System.Single},System.Nullable{System.Single})
+  href: api/AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single__
+  commentId: M:AGS.API.IHasRoomComponent.ChangeRoomAsync(AGS.API.IRoom,System.Nullable{System.Single},System.Nullable{System.Single})
   name.vb: ChangeRoomAsync(IRoom, Nullable(Of Single), Nullable(Of Single))
-  fullName: AGS.API.IHasRoom.ChangeRoomAsync(AGS.API.IRoom, System.Nullable<System.Single>, System.Nullable<System.Single>)
-  fullName.vb: AGS.API.IHasRoom.ChangeRoomAsync(AGS.API.IRoom, System.Nullable(Of System.Single), System.Nullable(Of System.Single))
-  nameWithType: IHasRoom.ChangeRoomAsync(IRoom, Nullable<Single>, Nullable<Single>)
-  nameWithType.vb: IHasRoom.ChangeRoomAsync(IRoom, Nullable(Of Single), Nullable(Of Single))
-- uid: AGS.API.IHasRoom.ChangeRoomAsync*
+  fullName: AGS.API.IHasRoomComponent.ChangeRoomAsync(AGS.API.IRoom, System.Nullable<System.Single>, System.Nullable<System.Single>)
+  fullName.vb: AGS.API.IHasRoomComponent.ChangeRoomAsync(AGS.API.IRoom, System.Nullable(Of System.Single), System.Nullable(Of System.Single))
+  nameWithType: IHasRoomComponent.ChangeRoomAsync(IRoom, Nullable<Single>, Nullable<Single>)
+  nameWithType.vb: IHasRoomComponent.ChangeRoomAsync(IRoom, Nullable(Of Single), Nullable(Of Single))
+- uid: AGS.API.IHasRoomComponent.ChangeRoomAsync*
   name: ChangeRoomAsync
-  href: api/AGS.API.IHasRoom.html#AGS_API_IHasRoom_ChangeRoomAsync_
-  commentId: Overload:AGS.API.IHasRoom.ChangeRoomAsync
-  fullName: AGS.API.IHasRoom.ChangeRoomAsync
-  nameWithType: IHasRoom.ChangeRoomAsync
-- uid: AGS.API.IHasRoom.OnRoomChanged
+  href: api/AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_ChangeRoomAsync_
+  commentId: Overload:AGS.API.IHasRoomComponent.ChangeRoomAsync
+  fullName: AGS.API.IHasRoomComponent.ChangeRoomAsync
+  nameWithType: IHasRoomComponent.ChangeRoomAsync
+- uid: AGS.API.IHasRoomComponent.OnRoomChanged
   name: OnRoomChanged
-  href: api/AGS.API.IHasRoom.html#AGS_API_IHasRoom_OnRoomChanged
-  commentId: P:AGS.API.IHasRoom.OnRoomChanged
-  fullName: AGS.API.IHasRoom.OnRoomChanged
-  nameWithType: IHasRoom.OnRoomChanged
-- uid: AGS.API.IHasRoom.OnRoomChanged*
+  href: api/AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_OnRoomChanged
+  commentId: P:AGS.API.IHasRoomComponent.OnRoomChanged
+  fullName: AGS.API.IHasRoomComponent.OnRoomChanged
+  nameWithType: IHasRoomComponent.OnRoomChanged
+- uid: AGS.API.IHasRoomComponent.OnRoomChanged*
   name: OnRoomChanged
-  href: api/AGS.API.IHasRoom.html#AGS_API_IHasRoom_OnRoomChanged_
-  commentId: Overload:AGS.API.IHasRoom.OnRoomChanged
-  fullName: AGS.API.IHasRoom.OnRoomChanged
-  nameWithType: IHasRoom.OnRoomChanged
-- uid: AGS.API.IHasRoom.PreviousRoom
+  href: api/AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_OnRoomChanged_
+  commentId: Overload:AGS.API.IHasRoomComponent.OnRoomChanged
+  fullName: AGS.API.IHasRoomComponent.OnRoomChanged
+  nameWithType: IHasRoomComponent.OnRoomChanged
+- uid: AGS.API.IHasRoomComponent.PreviousRoom
   name: PreviousRoom
-  href: api/AGS.API.IHasRoom.html#AGS_API_IHasRoom_PreviousRoom
-  commentId: P:AGS.API.IHasRoom.PreviousRoom
-  fullName: AGS.API.IHasRoom.PreviousRoom
-  nameWithType: IHasRoom.PreviousRoom
-- uid: AGS.API.IHasRoom.PreviousRoom*
+  href: api/AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_PreviousRoom
+  commentId: P:AGS.API.IHasRoomComponent.PreviousRoom
+  fullName: AGS.API.IHasRoomComponent.PreviousRoom
+  nameWithType: IHasRoomComponent.PreviousRoom
+- uid: AGS.API.IHasRoomComponent.PreviousRoom*
   name: PreviousRoom
-  href: api/AGS.API.IHasRoom.html#AGS_API_IHasRoom_PreviousRoom_
-  commentId: Overload:AGS.API.IHasRoom.PreviousRoom
-  fullName: AGS.API.IHasRoom.PreviousRoom
-  nameWithType: IHasRoom.PreviousRoom
-- uid: AGS.API.IHasRoom.Room
+  href: api/AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_PreviousRoom_
+  commentId: Overload:AGS.API.IHasRoomComponent.PreviousRoom
+  fullName: AGS.API.IHasRoomComponent.PreviousRoom
+  nameWithType: IHasRoomComponent.PreviousRoom
+- uid: AGS.API.IHasRoomComponent.Room
   name: Room
-  href: api/AGS.API.IHasRoom.html#AGS_API_IHasRoom_Room
-  commentId: P:AGS.API.IHasRoom.Room
-  fullName: AGS.API.IHasRoom.Room
-  nameWithType: IHasRoom.Room
-- uid: AGS.API.IHasRoom.Room*
+  href: api/AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_Room
+  commentId: P:AGS.API.IHasRoomComponent.Room
+  fullName: AGS.API.IHasRoomComponent.Room
+  nameWithType: IHasRoomComponent.Room
+- uid: AGS.API.IHasRoomComponent.Room*
   name: Room
-  href: api/AGS.API.IHasRoom.html#AGS_API_IHasRoom_Room_
-  commentId: Overload:AGS.API.IHasRoom.Room
-  fullName: AGS.API.IHasRoom.Room
-  nameWithType: IHasRoom.Room
+  href: api/AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_Room_
+  commentId: Overload:AGS.API.IHasRoomComponent.Room
+  fullName: AGS.API.IHasRoomComponent.Room
+  nameWithType: IHasRoomComponent.Room
 - uid: AGS.API.IHitTest
   name: IHitTest
   href: api/AGS.API.IHitTest.html
@@ -8280,12 +8244,12 @@ references:
   commentId: Overload:AGS.API.IImageRenderer.CustomImageSize
   fullName: AGS.API.IImageRenderer.CustomImageSize
   nameWithType: IImageRenderer.CustomImageSize
-- uid: AGS.API.IImageRenderer.Prepare(AGS.API.IObject,AGS.API.IDrawableInfo,AGS.API.IViewport)
-  name: Prepare(IObject, IDrawableInfo, IViewport)
-  href: api/AGS.API.IImageRenderer.html#AGS_API_IImageRenderer_Prepare_AGS_API_IObject_AGS_API_IDrawableInfo_AGS_API_IViewport_
-  commentId: M:AGS.API.IImageRenderer.Prepare(AGS.API.IObject,AGS.API.IDrawableInfo,AGS.API.IViewport)
-  fullName: AGS.API.IImageRenderer.Prepare(AGS.API.IObject, AGS.API.IDrawableInfo, AGS.API.IViewport)
-  nameWithType: IImageRenderer.Prepare(IObject, IDrawableInfo, IViewport)
+- uid: AGS.API.IImageRenderer.Prepare(AGS.API.IObject,AGS.API.IDrawableInfoComponent,AGS.API.IViewport)
+  name: Prepare(IObject, IDrawableInfoComponent, IViewport)
+  href: api/AGS.API.IImageRenderer.html#AGS_API_IImageRenderer_Prepare_AGS_API_IObject_AGS_API_IDrawableInfoComponent_AGS_API_IViewport_
+  commentId: M:AGS.API.IImageRenderer.Prepare(AGS.API.IObject,AGS.API.IDrawableInfoComponent,AGS.API.IViewport)
+  fullName: AGS.API.IImageRenderer.Prepare(AGS.API.IObject, AGS.API.IDrawableInfoComponent, AGS.API.IViewport)
+  nameWithType: IImageRenderer.Prepare(IObject, IDrawableInfoComponent, IViewport)
 - uid: AGS.API.IImageRenderer.Prepare*
   name: Prepare
   href: api/AGS.API.IImageRenderer.html#AGS_API_IImageRenderer_Prepare_
@@ -8304,12 +8268,12 @@ references:
   commentId: Overload:AGS.API.IImageRenderer.Render
   fullName: AGS.API.IImageRenderer.Render
   nameWithType: IImageRenderer.Render
-- uid: AGS.API.IInObjectTree
-  name: IInObjectTree
-  href: api/AGS.API.IInObjectTree.html
-  commentId: T:AGS.API.IInObjectTree
-  fullName: AGS.API.IInObjectTree
-  nameWithType: IInObjectTree
+- uid: AGS.API.IInObjectTreeComponent
+  name: IInObjectTreeComponent
+  href: api/AGS.API.IInObjectTreeComponent.html
+  commentId: T:AGS.API.IInObjectTreeComponent
+  fullName: AGS.API.IInObjectTreeComponent
+  nameWithType: IInObjectTreeComponent
 - uid: AGS.API.IInput
   name: IInput
   href: api/AGS.API.IInput.html
@@ -8563,6 +8527,24 @@ references:
   commentId: Overload:AGS.API.IInventory.OnDefaultCombination
   fullName: AGS.API.IInventory.OnDefaultCombination
   nameWithType: IInventory.OnDefaultCombination
+- uid: AGS.API.IInventoryComponent
+  name: IInventoryComponent
+  href: api/AGS.API.IInventoryComponent.html
+  commentId: T:AGS.API.IInventoryComponent
+  fullName: AGS.API.IInventoryComponent
+  nameWithType: IInventoryComponent
+- uid: AGS.API.IInventoryComponent.Inventory
+  name: Inventory
+  href: api/AGS.API.IInventoryComponent.html#AGS_API_IInventoryComponent_Inventory
+  commentId: P:AGS.API.IInventoryComponent.Inventory
+  fullName: AGS.API.IInventoryComponent.Inventory
+  nameWithType: IInventoryComponent.Inventory
+- uid: AGS.API.IInventoryComponent.Inventory*
+  name: Inventory
+  href: api/AGS.API.IInventoryComponent.html#AGS_API_IInventoryComponent_Inventory_
+  commentId: Overload:AGS.API.IInventoryComponent.Inventory
+  fullName: AGS.API.IInventoryComponent.Inventory
+  nameWithType: IInventoryComponent.Inventory
 - uid: AGS.API.IInventoryFactory
   name: IInventoryFactory
   href: api/AGS.API.IInventoryFactory.html
@@ -9724,12 +9706,12 @@ references:
   commentId: T:AGS.API.IObjectFactory
   fullName: AGS.API.IObjectFactory
   nameWithType: IObjectFactory
-- uid: AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IAnimationContainer)
-  name: GetCharacter(String, IOutfit, IAnimationContainer)
-  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IAnimationContainer_
-  commentId: M:AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IAnimationContainer)
-  fullName: AGS.API.IObjectFactory.GetCharacter(System.String, AGS.API.IOutfit, AGS.API.IAnimationContainer)
-  nameWithType: IObjectFactory.GetCharacter(String, IOutfit, IAnimationContainer)
+- uid: AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IAnimationComponent)
+  name: GetCharacter(String, IOutfit, IAnimationComponent)
+  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IAnimationComponent_
+  commentId: M:AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IAnimationComponent)
+  fullName: AGS.API.IObjectFactory.GetCharacter(System.String, AGS.API.IOutfit, AGS.API.IAnimationComponent)
+  nameWithType: IObjectFactory.GetCharacter(String, IOutfit, IAnimationComponent)
 - uid: AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,System.String[],System.String[])
   name: GetCharacter(String, IOutfit, String[], String[])
   href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_System_String___System_String___
@@ -9823,6 +9805,24 @@ references:
   commentId: Overload:AGS.API.IOutfit.ToDictionary
   fullName: AGS.API.IOutfit.ToDictionary
   nameWithType: IOutfit.ToDictionary
+- uid: AGS.API.IOutfitComponent
+  name: IOutfitComponent
+  href: api/AGS.API.IOutfitComponent.html
+  commentId: T:AGS.API.IOutfitComponent
+  fullName: AGS.API.IOutfitComponent
+  nameWithType: IOutfitComponent
+- uid: AGS.API.IOutfitComponent.Outfit
+  name: Outfit
+  href: api/AGS.API.IOutfitComponent.html#AGS_API_IOutfitComponent_Outfit
+  commentId: P:AGS.API.IOutfitComponent.Outfit
+  fullName: AGS.API.IOutfitComponent.Outfit
+  nameWithType: IOutfitComponent.Outfit
+- uid: AGS.API.IOutfitComponent.Outfit*
+  name: Outfit
+  href: api/AGS.API.IOutfitComponent.html#AGS_API_IOutfitComponent_Outfit_
+  commentId: Overload:AGS.API.IOutfitComponent.Outfit
+  fullName: AGS.API.IOutfitComponent.Outfit
+  nameWithType: IOutfitComponent.Outfit
 - uid: AGS.API.IOutfitFactory
   name: IOutfitFactory
   href: api/AGS.API.IOutfitFactory.html
@@ -10786,60 +10786,60 @@ references:
   commentId: Overload:AGS.API.ISaveLoad.SetRestartPoint
   fullName: AGS.API.ISaveLoad.SetRestartPoint
   nameWithType: ISaveLoad.SetRestartPoint
-- uid: AGS.API.ISayBehavior
-  name: ISayBehavior
-  href: api/AGS.API.ISayBehavior.html
-  commentId: T:AGS.API.ISayBehavior
-  fullName: AGS.API.ISayBehavior
-  nameWithType: ISayBehavior
-- uid: AGS.API.ISayBehavior.OnBeforeSay
+- uid: AGS.API.ISayComponent
+  name: ISayComponent
+  href: api/AGS.API.ISayComponent.html
+  commentId: T:AGS.API.ISayComponent
+  fullName: AGS.API.ISayComponent
+  nameWithType: ISayComponent
+- uid: AGS.API.ISayComponent.OnBeforeSay
   name: OnBeforeSay
-  href: api/AGS.API.ISayBehavior.html#AGS_API_ISayBehavior_OnBeforeSay
-  commentId: P:AGS.API.ISayBehavior.OnBeforeSay
-  fullName: AGS.API.ISayBehavior.OnBeforeSay
-  nameWithType: ISayBehavior.OnBeforeSay
-- uid: AGS.API.ISayBehavior.OnBeforeSay*
+  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_OnBeforeSay
+  commentId: P:AGS.API.ISayComponent.OnBeforeSay
+  fullName: AGS.API.ISayComponent.OnBeforeSay
+  nameWithType: ISayComponent.OnBeforeSay
+- uid: AGS.API.ISayComponent.OnBeforeSay*
   name: OnBeforeSay
-  href: api/AGS.API.ISayBehavior.html#AGS_API_ISayBehavior_OnBeforeSay_
-  commentId: Overload:AGS.API.ISayBehavior.OnBeforeSay
-  fullName: AGS.API.ISayBehavior.OnBeforeSay
-  nameWithType: ISayBehavior.OnBeforeSay
-- uid: AGS.API.ISayBehavior.Say(System.String)
+  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_OnBeforeSay_
+  commentId: Overload:AGS.API.ISayComponent.OnBeforeSay
+  fullName: AGS.API.ISayComponent.OnBeforeSay
+  nameWithType: ISayComponent.OnBeforeSay
+- uid: AGS.API.ISayComponent.Say(System.String)
   name: Say(String)
-  href: api/AGS.API.ISayBehavior.html#AGS_API_ISayBehavior_Say_System_String_
-  commentId: M:AGS.API.ISayBehavior.Say(System.String)
-  fullName: AGS.API.ISayBehavior.Say(System.String)
-  nameWithType: ISayBehavior.Say(String)
-- uid: AGS.API.ISayBehavior.Say*
+  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_Say_System_String_
+  commentId: M:AGS.API.ISayComponent.Say(System.String)
+  fullName: AGS.API.ISayComponent.Say(System.String)
+  nameWithType: ISayComponent.Say(String)
+- uid: AGS.API.ISayComponent.Say*
   name: Say
-  href: api/AGS.API.ISayBehavior.html#AGS_API_ISayBehavior_Say_
-  commentId: Overload:AGS.API.ISayBehavior.Say
-  fullName: AGS.API.ISayBehavior.Say
-  nameWithType: ISayBehavior.Say
-- uid: AGS.API.ISayBehavior.SayAsync(System.String)
+  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_Say_
+  commentId: Overload:AGS.API.ISayComponent.Say
+  fullName: AGS.API.ISayComponent.Say
+  nameWithType: ISayComponent.Say
+- uid: AGS.API.ISayComponent.SayAsync(System.String)
   name: SayAsync(String)
-  href: api/AGS.API.ISayBehavior.html#AGS_API_ISayBehavior_SayAsync_System_String_
-  commentId: M:AGS.API.ISayBehavior.SayAsync(System.String)
-  fullName: AGS.API.ISayBehavior.SayAsync(System.String)
-  nameWithType: ISayBehavior.SayAsync(String)
-- uid: AGS.API.ISayBehavior.SayAsync*
+  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_SayAsync_System_String_
+  commentId: M:AGS.API.ISayComponent.SayAsync(System.String)
+  fullName: AGS.API.ISayComponent.SayAsync(System.String)
+  nameWithType: ISayComponent.SayAsync(String)
+- uid: AGS.API.ISayComponent.SayAsync*
   name: SayAsync
-  href: api/AGS.API.ISayBehavior.html#AGS_API_ISayBehavior_SayAsync_
-  commentId: Overload:AGS.API.ISayBehavior.SayAsync
-  fullName: AGS.API.ISayBehavior.SayAsync
-  nameWithType: ISayBehavior.SayAsync
-- uid: AGS.API.ISayBehavior.SpeechConfig
+  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_SayAsync_
+  commentId: Overload:AGS.API.ISayComponent.SayAsync
+  fullName: AGS.API.ISayComponent.SayAsync
+  nameWithType: ISayComponent.SayAsync
+- uid: AGS.API.ISayComponent.SpeechConfig
   name: SpeechConfig
-  href: api/AGS.API.ISayBehavior.html#AGS_API_ISayBehavior_SpeechConfig
-  commentId: P:AGS.API.ISayBehavior.SpeechConfig
-  fullName: AGS.API.ISayBehavior.SpeechConfig
-  nameWithType: ISayBehavior.SpeechConfig
-- uid: AGS.API.ISayBehavior.SpeechConfig*
+  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_SpeechConfig
+  commentId: P:AGS.API.ISayComponent.SpeechConfig
+  fullName: AGS.API.ISayComponent.SpeechConfig
+  nameWithType: ISayComponent.SpeechConfig
+- uid: AGS.API.ISayComponent.SpeechConfig*
   name: SpeechConfig
-  href: api/AGS.API.ISayBehavior.html#AGS_API_ISayBehavior_SpeechConfig_
-  commentId: Overload:AGS.API.ISayBehavior.SpeechConfig
-  fullName: AGS.API.ISayBehavior.SpeechConfig
-  nameWithType: ISayBehavior.SpeechConfig
+  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_SpeechConfig_
+  commentId: Overload:AGS.API.ISayComponent.SpeechConfig
+  fullName: AGS.API.ISayComponent.SpeechConfig
+  nameWithType: ISayComponent.SpeechConfig
 - uid: AGS.API.ISayConfig
   name: ISayConfig
   href: api/AGS.API.ISayConfig.html
@@ -13780,120 +13780,6 @@ references:
   commentId: Overload:AGS.API.IWalkableArea.IsWalkable
   fullName: AGS.API.IWalkableArea.IsWalkable
   nameWithType: IWalkableArea.IsWalkable
-- uid: AGS.API.IWalkBehavior
-  name: IWalkBehavior
-  href: api/AGS.API.IWalkBehavior.html
-  commentId: T:AGS.API.IWalkBehavior
-  fullName: AGS.API.IWalkBehavior
-  nameWithType: IWalkBehavior
-- uid: AGS.API.IWalkBehavior.AdjustWalkSpeedToScaleArea
-  name: AdjustWalkSpeedToScaleArea
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_AdjustWalkSpeedToScaleArea
-  commentId: P:AGS.API.IWalkBehavior.AdjustWalkSpeedToScaleArea
-  fullName: AGS.API.IWalkBehavior.AdjustWalkSpeedToScaleArea
-  nameWithType: IWalkBehavior.AdjustWalkSpeedToScaleArea
-- uid: AGS.API.IWalkBehavior.AdjustWalkSpeedToScaleArea*
-  name: AdjustWalkSpeedToScaleArea
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_AdjustWalkSpeedToScaleArea_
-  commentId: Overload:AGS.API.IWalkBehavior.AdjustWalkSpeedToScaleArea
-  fullName: AGS.API.IWalkBehavior.AdjustWalkSpeedToScaleArea
-  nameWithType: IWalkBehavior.AdjustWalkSpeedToScaleArea
-- uid: AGS.API.IWalkBehavior.DebugDrawWalkPath
-  name: DebugDrawWalkPath
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_DebugDrawWalkPath
-  commentId: P:AGS.API.IWalkBehavior.DebugDrawWalkPath
-  fullName: AGS.API.IWalkBehavior.DebugDrawWalkPath
-  nameWithType: IWalkBehavior.DebugDrawWalkPath
-- uid: AGS.API.IWalkBehavior.DebugDrawWalkPath*
-  name: DebugDrawWalkPath
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_DebugDrawWalkPath_
-  commentId: Overload:AGS.API.IWalkBehavior.DebugDrawWalkPath
-  fullName: AGS.API.IWalkBehavior.DebugDrawWalkPath
-  nameWithType: IWalkBehavior.DebugDrawWalkPath
-- uid: AGS.API.IWalkBehavior.IsWalking
-  name: IsWalking
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_IsWalking
-  commentId: P:AGS.API.IWalkBehavior.IsWalking
-  fullName: AGS.API.IWalkBehavior.IsWalking
-  nameWithType: IWalkBehavior.IsWalking
-- uid: AGS.API.IWalkBehavior.IsWalking*
-  name: IsWalking
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_IsWalking_
-  commentId: Overload:AGS.API.IWalkBehavior.IsWalking
-  fullName: AGS.API.IWalkBehavior.IsWalking
-  nameWithType: IWalkBehavior.IsWalking
-- uid: AGS.API.IWalkBehavior.MovementLinkedToAnimation
-  name: MovementLinkedToAnimation
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_MovementLinkedToAnimation
-  commentId: P:AGS.API.IWalkBehavior.MovementLinkedToAnimation
-  fullName: AGS.API.IWalkBehavior.MovementLinkedToAnimation
-  nameWithType: IWalkBehavior.MovementLinkedToAnimation
-- uid: AGS.API.IWalkBehavior.MovementLinkedToAnimation*
-  name: MovementLinkedToAnimation
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_MovementLinkedToAnimation_
-  commentId: Overload:AGS.API.IWalkBehavior.MovementLinkedToAnimation
-  fullName: AGS.API.IWalkBehavior.MovementLinkedToAnimation
-  nameWithType: IWalkBehavior.MovementLinkedToAnimation
-- uid: AGS.API.IWalkBehavior.PlaceOnWalkableArea
-  name: PlaceOnWalkableArea()
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_PlaceOnWalkableArea
-  commentId: M:AGS.API.IWalkBehavior.PlaceOnWalkableArea
-  fullName: AGS.API.IWalkBehavior.PlaceOnWalkableArea()
-  nameWithType: IWalkBehavior.PlaceOnWalkableArea()
-- uid: AGS.API.IWalkBehavior.PlaceOnWalkableArea*
-  name: PlaceOnWalkableArea
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_PlaceOnWalkableArea_
-  commentId: Overload:AGS.API.IWalkBehavior.PlaceOnWalkableArea
-  fullName: AGS.API.IWalkBehavior.PlaceOnWalkableArea
-  nameWithType: IWalkBehavior.PlaceOnWalkableArea
-- uid: AGS.API.IWalkBehavior.StopWalkingAsync
-  name: StopWalkingAsync()
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_StopWalkingAsync
-  commentId: M:AGS.API.IWalkBehavior.StopWalkingAsync
-  fullName: AGS.API.IWalkBehavior.StopWalkingAsync()
-  nameWithType: IWalkBehavior.StopWalkingAsync()
-- uid: AGS.API.IWalkBehavior.StopWalkingAsync*
-  name: StopWalkingAsync
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_StopWalkingAsync_
-  commentId: Overload:AGS.API.IWalkBehavior.StopWalkingAsync
-  fullName: AGS.API.IWalkBehavior.StopWalkingAsync
-  nameWithType: IWalkBehavior.StopWalkingAsync
-- uid: AGS.API.IWalkBehavior.WalkAsync(AGS.API.ILocation)
-  name: WalkAsync(ILocation)
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_WalkAsync_AGS_API_ILocation_
-  commentId: M:AGS.API.IWalkBehavior.WalkAsync(AGS.API.ILocation)
-  fullName: AGS.API.IWalkBehavior.WalkAsync(AGS.API.ILocation)
-  nameWithType: IWalkBehavior.WalkAsync(ILocation)
-- uid: AGS.API.IWalkBehavior.WalkAsync*
-  name: WalkAsync
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_WalkAsync_
-  commentId: Overload:AGS.API.IWalkBehavior.WalkAsync
-  fullName: AGS.API.IWalkBehavior.WalkAsync
-  nameWithType: IWalkBehavior.WalkAsync
-- uid: AGS.API.IWalkBehavior.WalkDestination
-  name: WalkDestination
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_WalkDestination
-  commentId: P:AGS.API.IWalkBehavior.WalkDestination
-  fullName: AGS.API.IWalkBehavior.WalkDestination
-  nameWithType: IWalkBehavior.WalkDestination
-- uid: AGS.API.IWalkBehavior.WalkDestination*
-  name: WalkDestination
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_WalkDestination_
-  commentId: Overload:AGS.API.IWalkBehavior.WalkDestination
-  fullName: AGS.API.IWalkBehavior.WalkDestination
-  nameWithType: IWalkBehavior.WalkDestination
-- uid: AGS.API.IWalkBehavior.WalkStep
-  name: WalkStep
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_WalkStep
-  commentId: P:AGS.API.IWalkBehavior.WalkStep
-  fullName: AGS.API.IWalkBehavior.WalkStep
-  nameWithType: IWalkBehavior.WalkStep
-- uid: AGS.API.IWalkBehavior.WalkStep*
-  name: WalkStep
-  href: api/AGS.API.IWalkBehavior.html#AGS_API_IWalkBehavior_WalkStep_
-  commentId: Overload:AGS.API.IWalkBehavior.WalkStep
-  fullName: AGS.API.IWalkBehavior.WalkStep
-  nameWithType: IWalkBehavior.WalkStep
 - uid: AGS.API.IWalkBehindArea
   name: IWalkBehindArea
   href: api/AGS.API.IWalkBehindArea.html
@@ -13912,6 +13798,120 @@ references:
   commentId: Overload:AGS.API.IWalkBehindArea.Baseline
   fullName: AGS.API.IWalkBehindArea.Baseline
   nameWithType: IWalkBehindArea.Baseline
+- uid: AGS.API.IWalkComponent
+  name: IWalkComponent
+  href: api/AGS.API.IWalkComponent.html
+  commentId: T:AGS.API.IWalkComponent
+  fullName: AGS.API.IWalkComponent
+  nameWithType: IWalkComponent
+- uid: AGS.API.IWalkComponent.AdjustWalkSpeedToScaleArea
+  name: AdjustWalkSpeedToScaleArea
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_AdjustWalkSpeedToScaleArea
+  commentId: P:AGS.API.IWalkComponent.AdjustWalkSpeedToScaleArea
+  fullName: AGS.API.IWalkComponent.AdjustWalkSpeedToScaleArea
+  nameWithType: IWalkComponent.AdjustWalkSpeedToScaleArea
+- uid: AGS.API.IWalkComponent.AdjustWalkSpeedToScaleArea*
+  name: AdjustWalkSpeedToScaleArea
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_AdjustWalkSpeedToScaleArea_
+  commentId: Overload:AGS.API.IWalkComponent.AdjustWalkSpeedToScaleArea
+  fullName: AGS.API.IWalkComponent.AdjustWalkSpeedToScaleArea
+  nameWithType: IWalkComponent.AdjustWalkSpeedToScaleArea
+- uid: AGS.API.IWalkComponent.DebugDrawWalkPath
+  name: DebugDrawWalkPath
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_DebugDrawWalkPath
+  commentId: P:AGS.API.IWalkComponent.DebugDrawWalkPath
+  fullName: AGS.API.IWalkComponent.DebugDrawWalkPath
+  nameWithType: IWalkComponent.DebugDrawWalkPath
+- uid: AGS.API.IWalkComponent.DebugDrawWalkPath*
+  name: DebugDrawWalkPath
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_DebugDrawWalkPath_
+  commentId: Overload:AGS.API.IWalkComponent.DebugDrawWalkPath
+  fullName: AGS.API.IWalkComponent.DebugDrawWalkPath
+  nameWithType: IWalkComponent.DebugDrawWalkPath
+- uid: AGS.API.IWalkComponent.IsWalking
+  name: IsWalking
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_IsWalking
+  commentId: P:AGS.API.IWalkComponent.IsWalking
+  fullName: AGS.API.IWalkComponent.IsWalking
+  nameWithType: IWalkComponent.IsWalking
+- uid: AGS.API.IWalkComponent.IsWalking*
+  name: IsWalking
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_IsWalking_
+  commentId: Overload:AGS.API.IWalkComponent.IsWalking
+  fullName: AGS.API.IWalkComponent.IsWalking
+  nameWithType: IWalkComponent.IsWalking
+- uid: AGS.API.IWalkComponent.MovementLinkedToAnimation
+  name: MovementLinkedToAnimation
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_MovementLinkedToAnimation
+  commentId: P:AGS.API.IWalkComponent.MovementLinkedToAnimation
+  fullName: AGS.API.IWalkComponent.MovementLinkedToAnimation
+  nameWithType: IWalkComponent.MovementLinkedToAnimation
+- uid: AGS.API.IWalkComponent.MovementLinkedToAnimation*
+  name: MovementLinkedToAnimation
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_MovementLinkedToAnimation_
+  commentId: Overload:AGS.API.IWalkComponent.MovementLinkedToAnimation
+  fullName: AGS.API.IWalkComponent.MovementLinkedToAnimation
+  nameWithType: IWalkComponent.MovementLinkedToAnimation
+- uid: AGS.API.IWalkComponent.PlaceOnWalkableArea
+  name: PlaceOnWalkableArea()
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_PlaceOnWalkableArea
+  commentId: M:AGS.API.IWalkComponent.PlaceOnWalkableArea
+  fullName: AGS.API.IWalkComponent.PlaceOnWalkableArea()
+  nameWithType: IWalkComponent.PlaceOnWalkableArea()
+- uid: AGS.API.IWalkComponent.PlaceOnWalkableArea*
+  name: PlaceOnWalkableArea
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_PlaceOnWalkableArea_
+  commentId: Overload:AGS.API.IWalkComponent.PlaceOnWalkableArea
+  fullName: AGS.API.IWalkComponent.PlaceOnWalkableArea
+  nameWithType: IWalkComponent.PlaceOnWalkableArea
+- uid: AGS.API.IWalkComponent.StopWalkingAsync
+  name: StopWalkingAsync()
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_StopWalkingAsync
+  commentId: M:AGS.API.IWalkComponent.StopWalkingAsync
+  fullName: AGS.API.IWalkComponent.StopWalkingAsync()
+  nameWithType: IWalkComponent.StopWalkingAsync()
+- uid: AGS.API.IWalkComponent.StopWalkingAsync*
+  name: StopWalkingAsync
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_StopWalkingAsync_
+  commentId: Overload:AGS.API.IWalkComponent.StopWalkingAsync
+  fullName: AGS.API.IWalkComponent.StopWalkingAsync
+  nameWithType: IWalkComponent.StopWalkingAsync
+- uid: AGS.API.IWalkComponent.WalkAsync(AGS.API.ILocation)
+  name: WalkAsync(ILocation)
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkAsync_AGS_API_ILocation_
+  commentId: M:AGS.API.IWalkComponent.WalkAsync(AGS.API.ILocation)
+  fullName: AGS.API.IWalkComponent.WalkAsync(AGS.API.ILocation)
+  nameWithType: IWalkComponent.WalkAsync(ILocation)
+- uid: AGS.API.IWalkComponent.WalkAsync*
+  name: WalkAsync
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkAsync_
+  commentId: Overload:AGS.API.IWalkComponent.WalkAsync
+  fullName: AGS.API.IWalkComponent.WalkAsync
+  nameWithType: IWalkComponent.WalkAsync
+- uid: AGS.API.IWalkComponent.WalkDestination
+  name: WalkDestination
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkDestination
+  commentId: P:AGS.API.IWalkComponent.WalkDestination
+  fullName: AGS.API.IWalkComponent.WalkDestination
+  nameWithType: IWalkComponent.WalkDestination
+- uid: AGS.API.IWalkComponent.WalkDestination*
+  name: WalkDestination
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkDestination_
+  commentId: Overload:AGS.API.IWalkComponent.WalkDestination
+  fullName: AGS.API.IWalkComponent.WalkDestination
+  nameWithType: IWalkComponent.WalkDestination
+- uid: AGS.API.IWalkComponent.WalkStep
+  name: WalkStep
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkStep
+  commentId: P:AGS.API.IWalkComponent.WalkStep
+  fullName: AGS.API.IWalkComponent.WalkStep
+  nameWithType: IWalkComponent.WalkStep
+- uid: AGS.API.IWalkComponent.WalkStep*
+  name: WalkStep
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkStep_
+  commentId: Overload:AGS.API.IWalkComponent.WalkStep
+  fullName: AGS.API.IWalkComponent.WalkStep
+  nameWithType: IWalkComponent.WalkStep
 - uid: AGS.API.IZoomArea
   name: IZoomArea
   href: api/AGS.API.IZoomArea.html

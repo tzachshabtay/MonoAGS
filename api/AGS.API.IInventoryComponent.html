@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IHasOutfit
+    <title>Interface IInventoryComponent
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IHasOutfit
+    <meta name="title" content="Interface IInventoryComponent
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.28.3.0">
     
@@ -76,12 +76,12 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.IHasOutfit">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IInventoryComponent">
   
   
-  <h1 id="AGS_API_IHasOutfit" data-uid="AGS.API.IHasOutfit" class="text-break">Interface IHasOutfit
+  <h1 id="AGS_API_IInventoryComponent" data-uid="AGS.API.IInventoryComponent" class="text-break">Interface IInventoryComponent
   </h1>
-  <div class="markdown level0 summary"><p>Gives an entity the ability to have an outfit (and be able to change outfits).</p>
+  <div class="markdown level0 summary"><p>This component allows an entity to carry inventory.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritedMembers">
@@ -104,27 +104,27 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_IHasOutfit_syntax">Syntax</h5>
+  <h5 id="AGS_API_IInventoryComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IHasOutfit : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IInventoryComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenamingStuff/apiSpec/new?filename=AGS_API_IHasOutfit_Outfit.md&amp;value=---%0Auid%3A%20AGS.API.IHasOutfit.Outfit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenamingStuff/apiSpec/new?filename=AGS_API_IInventoryComponent_Inventory.md&amp;value=---%0Auid%3A%20AGS.API.IInventoryComponent.Inventory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenamingStuff/Source/AGS.API/Objects/Characters/IHasOutfit.cs/#L24">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenamingStuff/Source/AGS.API/Objects/Characters/IInventoryComponent.cs/#L13">View Source</a>
   </span>
-  <a id="AGS_API_IHasOutfit_Outfit_" data-uid="AGS.API.IHasOutfit.Outfit*"></a>
-  <h4 id="AGS_API_IHasOutfit_Outfit" data-uid="AGS.API.IHasOutfit.Outfit">Outfit</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the outfit for the entity.</p>
+  <a id="AGS_API_IInventoryComponent_Inventory_" data-uid="AGS.API.IInventoryComponent.Inventory*"></a>
+  <h4 id="AGS_API_IInventoryComponent_Inventory" data-uid="AGS.API.IInventoryComponent.Inventory">Inventory</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the inventory which is held by the entity.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IOutfit Outfit { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">IInventory Inventory { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -136,24 +136,15 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IOutfit.html">IOutfit</a></td>
-        <td><p>The outfit.</p>
+        <td><a class="xref" href="AGS.API.IInventory.html">IInventory</a></td>
+        <td><p>The inventory.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="AGS_API_IHasOutfit_Outfit_examples">Examples</h5>
-  <pre><code>cHero.Say(&quot;Let&apos;s try on this cool hat.&quot;); //Hero speaks with the normal outfit- without the hat
-var normalOutfit = cHero.Outfit; //Saving the current outfit so we can wear it back later
-cHero.Outfit = outfitWithHat;
-cHero.Say(&quot;Hmm, it looks nice, but not sure if it&apos;s comfortable.&quot;); //Character&apos;s animation now uses the hat for speaking.
-cHero.Walk(walkPoint); //Character&apos;s walk animation now includes the hat.
-cHero.Outfit = normalOutfit;
-cHero.Say(&quot;Yeah, it&apos;s not comfortable, I took it down.&quot;); //Character&apos;s animation is now again without the hat</code></pre>
-
-  <h5 id="AGS_API_IHasOutfit_Outfit_seealso">See Also</h5>
+  <h3 id="seealso">See Also</h3>
   <div class="seealso">
-      <div><a class="xref" href="AGS.API.IOutfit.html">IOutfit</a></div>
+      <div><a class="xref" href="AGS.API.IComponent.html">IComponent</a></div>
   </div>
 </article>
           </div>
@@ -163,10 +154,10 @@ cHero.Say(&quot;Yeah, it&apos;s not comfortable, I took it down.&quot;); //Chara
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenamingStuff/apiSpec/new?filename=AGS_API_IHasOutfit.md&amp;value=---%0Auid%3A%20AGS.API.IHasOutfit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenamingStuff/apiSpec/new?filename=AGS_API_IInventoryComponent.md&amp;value=---%0Auid%3A%20AGS.API.IInventoryComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenamingStuff/Source/AGS.API/Objects/Characters/IHasOutfit.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenamingStuff/Source/AGS.API/Objects/Characters/IInventoryComponent.cs/#L7" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

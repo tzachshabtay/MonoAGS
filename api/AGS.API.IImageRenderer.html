@@ -164,13 +164,13 @@ when calculating the object&apos;s matrix.</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenamingStuff/apiSpec/new?filename=AGS_API_IImageRenderer_Prepare_AGS_API_IObject_AGS_API_IDrawableInfo_AGS_API_IViewport_.md&amp;value=---%0Auid%3A%20AGS.API.IImageRenderer.Prepare(AGS.API.IObject%2CAGS.API.IDrawableInfo%2CAGS.API.IViewport)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenamingStuff/apiSpec/new?filename=AGS_API_IImageRenderer_Prepare_AGS_API_IObject_AGS_API_IDrawableInfoComponent_AGS_API_IViewport_.md&amp;value=---%0Auid%3A%20AGS.API.IImageRenderer.Prepare(AGS.API.IObject%2CAGS.API.IDrawableInfoComponent%2CAGS.API.IViewport)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenamingStuff/Source/AGS.API/Graphics/Logic/IImageRenderer.cs/#L33">View Source</a>
   </span>
   <a id="AGS_API_IImageRenderer_Prepare_" data-uid="AGS.API.IImageRenderer.Prepare*"></a>
-  <h4 id="AGS_API_IImageRenderer_Prepare_AGS_API_IObject_AGS_API_IDrawableInfo_AGS_API_IViewport_" data-uid="AGS.API.IImageRenderer.Prepare(AGS.API.IObject,AGS.API.IDrawableInfo,AGS.API.IViewport)">Prepare(IObject, IDrawableInfo, IViewport)</h4>
+  <h4 id="AGS_API_IImageRenderer_Prepare_AGS_API_IObject_AGS_API_IDrawableInfoComponent_AGS_API_IViewport_" data-uid="AGS.API.IImageRenderer.Prepare(AGS.API.IObject,AGS.API.IDrawableInfoComponent,AGS.API.IViewport)">Prepare(IObject, IDrawableInfoComponent, IViewport)</h4>
   <div class="markdown level1 summary"><p>Called before the &apos;Render&apos; method is called for each existing object, even if it will
 not be rendered. 
 This is called by the main loop of the game, on each tick and should not be called by the user.</p>
@@ -178,7 +178,7 @@ This is called by the main loop of the game, on each tick and should not be call
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)</code></pre>
+    <pre><code class="lang-csharp hljs">void Prepare(IObject obj, IDrawableInfoComponent drawable, IViewport viewport)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -197,7 +197,7 @@ This is called by the main loop of the game, on each tick and should not be call
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="AGS.API.IDrawableInfo.html">IDrawableInfo</a></td>
+        <td><a class="xref" href="AGS.API.IDrawableInfoComponent.html">IDrawableInfoComponent</a></td>
         <td><span class="parametername">drawable</span></td>
         <td><p>Drawable.</p>
 </td>

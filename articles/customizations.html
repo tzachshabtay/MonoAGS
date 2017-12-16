@@ -143,7 +143,7 @@ if (!_alreadyUsedCustomLocation)
     //do our custom thing
 }
 else return _defaultProvider.GetLocation(text, config);
-</code></pre><p>However, the <code>ISayLocationProvider</code> is requested by <code>ISayBehavior</code> component, and there&#39;s one component for each speaking character (or entity), and by default the resolver will create a new instance for our implementation for each character, which means that that each character will have its own instance of the boolean variable, and our custom behavior will happen once for each character, not once for the entire game which might not be what we want.</p>
+</code></pre><p>However, the <code>ISayLocationProvider</code> is requested by <code>ISayComponent</code> component, and there&#39;s one component for each speaking character (or entity), and by default the resolver will create a new instance for our implementation for each character, which means that that each character will have its own instance of the boolean variable, and our custom behavior will happen once for each character, not once for the entire game which might not be what we want.</p>
 <p>Well, we can solve this by changing the <code>Resolver</code> override we did before and adding the <code>SingleInstance</code> command:</p>
 <pre><code class="lang-csharp">
 Resolver.Override(resolver =&gt; 
@@ -151,7 +151,7 @@ Resolver.Override(resolver =&gt;
 </code></pre><ul>
 <li><p>Another thing to think about when we have state in our implementation, is that we might want to save this state in our game saves. One way to do that, is by adding our state as global variables (or to the entity&#39;s custom properties, or to the room&#39;s custom properties, depending on which system we&#39;re replacing). We plan to have easier ways to customize saving in the future.</p>
 </li>
-<li><p>One final thing to note: in this example, and perhaps many others, it&#39;s possible that we didn&#39;t actually need to implement our own <code>ISayLocationProvider</code>, as the engine already gives us a way to change the location where the speech is rendered without overriding any interface. The <code>ISayBehavior</code> component has an <code>OnBeforeSay</code> event which we can subscribe to. This event gives us the label that will be shown on the screen after its location was already decided, but we&#39;re then free to change its location to where we want it to be:</p>
+<li><p>One final thing to note: in this example, and perhaps many others, it&#39;s possible that we didn&#39;t actually need to implement our own <code>ISayLocationProvider</code>, as the engine already gives us a way to change the location where the speech is rendered without overriding any interface. The <code>ISayComponent</code> component has an <code>OnBeforeSay</code> event which we can subscribe to. This event gives us the label that will be shown on the screen after its location was already decided, but we&#39;re then free to change its location to where we want it to be:</p>
 </li>
 </ul>
 <pre><code class="lang-csharp">

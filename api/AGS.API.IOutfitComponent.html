@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IFollowBehavior
+    <title>Interface IOutfitComponent
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IFollowBehavior
+    <meta name="title" content="Interface IOutfitComponent
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.28.3.0">
     
@@ -76,13 +76,12 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.IFollowBehavior">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IOutfitComponent">
   
   
-  <h1 id="AGS_API_IFollowBehavior" data-uid="AGS.API.IFollowBehavior" class="text-break">Interface IFollowBehavior
+  <h1 id="AGS_API_IOutfitComponent" data-uid="AGS.API.IOutfitComponent" class="text-break">Interface IOutfitComponent
   </h1>
-  <div class="markdown level0 summary"><p>This component adds the ability for a character to follow another entity (i.e to keep walking
-to where the entity is. The follow settings can be configured to set how aggressive that follow is). </p>
+  <div class="markdown level0 summary"><p>Gives an entity the ability to have an outfit (and be able to change outfits).</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritedMembers">
@@ -105,30 +104,27 @@ to where the entity is. The follow settings can be configured to set how aggress
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_IFollowBehavior_syntax">Syntax</h5>
+  <h5 id="AGS_API_IOutfitComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IWalkBehavior), true)]
-[RequiredComponent(typeof (IHasRoom), true)]
-[RequiredComponent(typeof (ITranslateComponent), true)]
-public interface IFollowBehavior : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IOutfitComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenamingStuff/apiSpec/new?filename=AGS_API_IFollowBehavior_TargetBeingFollowed.md&amp;value=---%0Auid%3A%20AGS.API.IFollowBehavior.TargetBeingFollowed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenamingStuff/apiSpec/new?filename=AGS_API_IOutfitComponent_Outfit.md&amp;value=---%0Auid%3A%20AGS.API.IOutfitComponent.Outfit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenamingStuff/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowBehavior.cs/#L27">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenamingStuff/Source/AGS.API/Objects/Characters/IOutfitComponent.cs/#L24">View Source</a>
   </span>
-  <a id="AGS_API_IFollowBehavior_TargetBeingFollowed_" data-uid="AGS.API.IFollowBehavior.TargetBeingFollowed*"></a>
-  <h4 id="AGS_API_IFollowBehavior_TargetBeingFollowed" data-uid="AGS.API.IFollowBehavior.TargetBeingFollowed">TargetBeingFollowed</h4>
-  <div class="markdown level1 summary"><p>Gets the target that is currently being followed (or null if not currently following anybody).</p>
+  <a id="AGS_API_IOutfitComponent_Outfit_" data-uid="AGS.API.IOutfitComponent.Outfit*"></a>
+  <h4 id="AGS_API_IOutfitComponent_Outfit" data-uid="AGS.API.IOutfitComponent.Outfit">Outfit</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the outfit for the entity.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IObject TargetBeingFollowed { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IOutfit Outfit { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -140,58 +136,25 @@ public interface IFollowBehavior : IComponent, IDisposable, INotifyPropertyChang
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
-        <td><p>The target being followed.</p>
+        <td><a class="xref" href="AGS.API.IOutfit.html">IOutfit</a></td>
+        <td><p>The outfit.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="methods">Methods
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenamingStuff/apiSpec/new?filename=AGS_API_IFollowBehavior_Follow_AGS_API_IObject_AGS_API_IFollowSettings_.md&amp;value=---%0Auid%3A%20AGS.API.IFollowBehavior.Follow(AGS.API.IObject%2CAGS.API.IFollowSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenamingStuff/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowBehavior.cs/#L21">View Source</a>
-  </span>
-  <a id="AGS_API_IFollowBehavior_Follow_" data-uid="AGS.API.IFollowBehavior.Follow*"></a>
-  <h4 id="AGS_API_IFollowBehavior_Follow_AGS_API_IObject_AGS_API_IFollowSettings_" data-uid="AGS.API.IFollowBehavior.Follow(AGS.API.IObject,AGS.API.IFollowSettings)">Follow(IObject, IFollowSettings)</h4>
-  <div class="markdown level1 summary"><p>Starts following the specified object throughout the game. The character will walk to where
-the object is at, where the follow settings can be configured to say how aggressively to follow,
-and to what distance from the target.
-Calling Follow with another object will stop following the current object and start following the new object.
-To stop following altogether, call the Follow again with null as the target object.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Follow(IObject obj, IFollowSettings settings = null)</code></pre>
+  <h5 id="AGS_API_IOutfitComponent_Outfit_examples">Examples</h5>
+  <pre><code>cHero.Say(&quot;Let&apos;s try on this cool hat.&quot;); //Hero speaks with the normal outfit- without the hat
+var normalOutfit = cHero.Outfit; //Saving the current outfit so we can wear it back later
+cHero.Outfit = outfitWithHat;
+cHero.Say(&quot;Hmm, it looks nice, but not sure if it&apos;s comfortable.&quot;); //Character&apos;s animation now uses the hat for speaking.
+cHero.Walk(walkPoint); //Character&apos;s walk animation now includes the hat.
+cHero.Outfit = normalOutfit;
+cHero.Say(&quot;Yeah, it&apos;s not comfortable, I took it down.&quot;); //Character&apos;s animation is now again without the hat</code></pre>
+
+  <h5 id="AGS_API_IOutfitComponent_Outfit_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="AGS.API.IOutfit.html">IOutfit</a></div>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
-        <td><span class="parametername">obj</span></td>
-        <td><p>Object.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="AGS.API.IFollowSettings.html">IFollowSettings</a></td>
-        <td><span class="parametername">settings</span></td>
-        <td><p>Settings.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
 </article>
           </div>
           
@@ -200,10 +163,10 @@ To stop following altogether, call the Follow again with null as the target obje
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenamingStuff/apiSpec/new?filename=AGS_API_IFollowBehavior.md&amp;value=---%0Auid%3A%20AGS.API.IFollowBehavior%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/RenamingStuff/apiSpec/new?filename=AGS_API_IOutfitComponent.md&amp;value=---%0Auid%3A%20AGS.API.IOutfitComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenamingStuff/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowBehavior.cs/#L7" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/RenamingStuff/Source/AGS.API/Objects/Characters/IOutfitComponent.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
