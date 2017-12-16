@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -103,7 +104,7 @@ namespace AGS.Engine
         private bool anyChangesForLock()
         {
             return (_isHitTestBoxDirty || _isCropDirty || _areViewportsDirty ||
-                _boundingBoxes.Values.Any(v => v.IsDirty));
+                    (!(_drawable?.IgnoreViewport ?? false) && _boundingBoxes.Values.Any(v => v.IsDirty)));
         }
 
         public AGSBoundingBoxes GetBoundingBoxes(IViewport viewport)
@@ -116,6 +117,11 @@ namespace AGS.Engine
             var boundingBoxes = viewportBoxes.BoundingBoxes;
             if (!_isHitTestBoxDirty && !_isCropDirty && !_areViewportsDirty && !viewportBoxes.IsDirty)
                 return boundingBoxes;
+            if (!_isHitTestBoxDirty && !_isCropDirty && !_areViewportsDirty)
+            {
+                if (!viewportBoxes.IsDirty) return boundingBoxes;
+                if (_drawable?.IgnoreViewport ?? false) return boundingBoxes;
+            }
             var animation = _animation;
             var drawable = _drawable;
             var matrix = _matrix;
