@@ -21,12 +21,12 @@
     /// </summary>
     [RequiredComponent(typeof(IScaleComponent))]
     [RequiredComponent(typeof(ITranslateComponent))]
-    [RequiredComponent(typeof(IAnimationContainer))]
+    [RequiredComponent(typeof(IAnimationComponent))]
     [RequiredComponent(typeof(IRotateComponent))]
     [RequiredComponent(typeof(IImageComponent))]
-    [RequiredComponent(typeof(IHasRoom))]
-    [RequiredComponent(typeof(IDrawableInfo))]
-    [RequiredComponent(typeof(IInObjectTree))]
+    [RequiredComponent(typeof(IHasRoomComponent))]
+    [RequiredComponent(typeof(IDrawableInfoComponent))]
+    [RequiredComponent(typeof(IInObjectTreeComponent))]
     public interface IModelMatrixComponent : IComponent
     {
         /// <summary>

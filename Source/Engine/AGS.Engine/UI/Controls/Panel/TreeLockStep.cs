@@ -6,12 +6,12 @@ namespace AGS.Engine
 {
     public class TreeLockStep
     {
-        private readonly IInObjectTree _tree;
+        private readonly IInObjectTreeComponent _tree;
         private readonly List<ILockStep> _matrices, _boxes, _boxesWithChildren;
         private readonly List<(IImageRenderer renderer, IObject obj)> _renderers;
         private readonly Func<IObject, bool> _shouldLock;
 
-        public TreeLockStep(IInObjectTree tree, Func<IObject, bool> shouldLock)
+        public TreeLockStep(IInObjectTreeComponent tree, Func<IObject, bool> shouldLock)
         {
             _tree = tree;
             _matrices = _tree == null ? new List<ILockStep>() : new List<ILockStep>(_tree.TreeNode.ChildrenCount);
@@ -61,7 +61,7 @@ namespace AGS.Engine
             locks.Add(step);
         }
 
-        private void lockTree(IInObjectTree tree)
+        private void lockTree(IInObjectTreeComponent tree)
         {
             if (tree == null) return;
             foreach (var child in tree.TreeNode.Children)

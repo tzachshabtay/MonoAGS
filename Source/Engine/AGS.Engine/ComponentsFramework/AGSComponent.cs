@@ -48,7 +48,6 @@ namespace AGS.Engine
             return _type.Name
                         .Replace("AGS", "")
                         .Replace("Component", "")
-                        .Replace("Behavior", "")
                         .Replace("Property", "");
         }
 	}

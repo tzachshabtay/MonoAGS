@@ -7,7 +7,7 @@ namespace AGS.API
     /// A component for displaying a list of items (as text), and allowing selecting an item from the list.
     /// </summary>
     [RequiredComponent(typeof(IScaleComponent))]
-    [RequiredComponent(typeof(IInObjectTree))]
+    [RequiredComponent(typeof(IInObjectTreeComponent))]
     [RequiredComponent(typeof(IImageComponent))]
     [RequiredComponent(typeof(IStackLayoutComponent))]
     public interface IListboxComponent : IComponent

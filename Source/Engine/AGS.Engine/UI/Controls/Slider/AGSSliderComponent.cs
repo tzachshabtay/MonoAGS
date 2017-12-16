@@ -18,8 +18,8 @@ namespace AGS.Engine
         private readonly IGameEvents _gameEvents;
         private IBoundingBoxComponent _boundingBox;
         private IScaleComponent _scale;
-        private IDrawableInfo _drawableInfo;
-        private IInObjectTree _tree;
+        private IDrawableInfoComponent _drawableInfo;
+        private IInObjectTreeComponent _tree;
         private IVisibleComponent _visible;
         private IEnabledComponent _enabled;
 
@@ -40,8 +40,8 @@ namespace AGS.Engine
             base.Init(entity);
             _entity = entity;
             bindGraphics(Graphics);
-            entity.Bind<IDrawableInfo>(c => _drawableInfo = c, _ => _drawableInfo = null);
-            entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
+            entity.Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => _drawableInfo = null);
+            entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
             entity.Bind<IVisibleComponent>(c => _visible = c, _ => _visible = null);
             entity.Bind<IEnabledComponent>(c => _enabled = c, _ => _enabled = null);
             entity.Bind<IUIEvents>(c => c.LostFocus.Subscribe(onLostFocus), c => c.LostFocus.Unsubscribe(onLostFocus));

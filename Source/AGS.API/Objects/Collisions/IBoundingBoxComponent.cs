@@ -6,9 +6,9 @@
     /// </summary>
     [RequiredComponent(typeof(IModelMatrixComponent))]
     [RequiredComponent(typeof(IImageComponent))]
-    [RequiredComponent(typeof(IAnimationContainer))]
-    [RequiredComponent(typeof(IDrawableInfo))]
-    [RequiredComponent(typeof(IHasRoom))]
+    [RequiredComponent(typeof(IAnimationComponent))]
+    [RequiredComponent(typeof(IDrawableInfoComponent))]
+    [RequiredComponent(typeof(IHasRoomComponent))]
     [RequiredComponent(typeof(ICropSelfComponent), false)]
     public interface IBoundingBoxComponent : IComponent
     {

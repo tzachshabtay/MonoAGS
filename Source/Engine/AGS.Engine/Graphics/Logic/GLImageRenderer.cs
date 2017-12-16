@@ -39,7 +39,7 @@ namespace AGS.Engine
         public SizeF? CustomImageSize => null;
         public PointF? CustomImageResolutionFactor => null;
 
-        public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
+        public void Prepare(IObject obj, IDrawableInfoComponent drawable, IViewport viewport)
 		{
 		}
 

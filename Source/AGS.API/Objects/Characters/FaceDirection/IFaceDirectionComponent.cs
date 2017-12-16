@@ -21,9 +21,9 @@ namespace AGS.API
     /// Gives the ability for a character to change the direction he/she is facing.
     /// </summary>
     /// <seealso cref="AGS.API.IComponent" />
-    [RequiredComponent(typeof(IAnimationContainer))]
+    [RequiredComponent(typeof(IAnimationComponent))]
     [RequiredComponent(typeof(ITranslateComponent))]
-	public interface IFaceDirectionBehavior : IComponent
+	public interface IFaceDirectionComponent : IComponent
 	{
         /// <summary>
         /// Gets the current direction that the character is facing.

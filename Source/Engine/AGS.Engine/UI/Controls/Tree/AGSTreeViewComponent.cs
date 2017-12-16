@@ -9,9 +9,9 @@ namespace AGS.Engine
     {
         private Node _root;
         private IGameState _state;
-        private IInObjectTree _treeComponent;
+        private IInObjectTreeComponent _treeComponent;
         private ITreeStringNode _tree;
-        private IDrawableInfo _drawable;
+        private IDrawableInfoComponent _drawable;
 
         public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameState state)
         {
@@ -55,8 +55,8 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            entity.Bind<IInObjectTree>(c => _treeComponent = c, _ => _treeComponent = null);
-            entity.Bind<IDrawableInfo>(c => _drawable = c, _ => _drawable = null);
+            entity.Bind<IInObjectTreeComponent>(c => _treeComponent = c, _ => _treeComponent = null);
+            entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
         }
 
         public void RebuildTree()
@@ -256,10 +256,10 @@ namespace AGS.Engine
         {
             private ITreeViewComponent _tree;
             private bool _isCollapsed;
-            private Func<IDrawableInfo> _drawable;
-            private Func<IInObjectTree> _treeObj;
+            private Func<IDrawableInfoComponent> _drawable;
+            private Func<IInObjectTreeComponent> _treeObj;
 
-            public Node(ITreeStringNode item, Func<IDrawableInfo> drawable, Func<IInObjectTree> treeObj, Node parentNode, ITreeViewComponent tree)
+            public Node(ITreeStringNode item, Func<IDrawableInfoComponent> drawable, Func<IInObjectTreeComponent> treeObj, Node parentNode, ITreeViewComponent tree)
             {
                 _tree = tree;
                 _drawable = drawable;

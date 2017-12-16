@@ -12,14 +12,14 @@ namespace AGS.Engine
         private int _shouldFireOnUnlock, _pendingLocks;
         private ModelMatrices _matrices, _preLockMatrices;
 
-        private IAnimationContainer _animation;
-        private IInObjectTree _tree;
+        private IAnimationComponent _animation;
+        private IInObjectTreeComponent _tree;
         private IScaleComponent _scale;
         private ITranslateComponent _translate;
         private IRotateComponent _rotate;
         private IImageComponent _image;
-        private IHasRoom _room;
-        private IDrawableInfo _drawable;
+        private IHasRoomComponent _room;
+        private IDrawableInfoComponent _drawable;
         private IEntity _entity;
         private IObject _parent;
         private ISprite _sprite;
@@ -52,10 +52,10 @@ namespace AGS.Engine
 
         public override void AfterInit()
         {
-            _entity.Bind<IAnimationContainer>(
+            _entity.Bind<IAnimationComponent>(
                 c => { _animation = c; onSomethingChanged(); },
                 c => { _animation = null; onSomethingChanged(); });
-            _entity.Bind<IHasRoom>(
+            _entity.Bind<IHasRoomComponent>(
                 c => { _room = c; onSomethingChanged(); },
                 c => { _room = null; onSomethingChanged(); });
             
@@ -79,7 +79,7 @@ namespace AGS.Engine
                 c => { c.PropertyChanged -= onAnchorChanged; _image = null; onSomethingChanged(); }
 			);
 
-            _entity.Bind<IDrawableInfo>(
+            _entity.Bind<IDrawableInfoComponent>(
                 c => 
             {
                 _drawable = c;
@@ -92,7 +92,7 @@ namespace AGS.Engine
 				onSomethingChanged();
             });
 
-			_entity.Bind<IInObjectTree>(
+			_entity.Bind<IInObjectTreeComponent>(
 				c =>
 			{
 				_tree = c;
@@ -144,7 +144,7 @@ namespace AGS.Engine
 
         public IBlockingEvent OnMatrixChanged { get; private set; }
 
-        public static bool GetVirtualResolution(bool flattenLayerResolution, Size virtualResolution, IDrawableInfo drawable, 
+        public static bool GetVirtualResolution(bool flattenLayerResolution, Size virtualResolution, IDrawableInfoComponent drawable, 
                                          PointF? customResolutionFactor, out PointF resolutionFactor, out Size resolution)
         {
             //Priorities for virtual resolution: layer's resolution comes first, if not then the custom resolution (which is the text scaling resolution for text, otherwise null),
@@ -220,8 +220,8 @@ namespace AGS.Engine
 
         private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(IDrawableInfo.RenderLayer) &&
-                args.PropertyName != nameof(IDrawableInfo.IgnoreScalingArea)) return;
+            if (args.PropertyName != nameof(IDrawableInfoComponent.RenderLayer) &&
+                args.PropertyName != nameof(IDrawableInfoComponent.IgnoreScalingArea)) return;
             onSomethingChanged();
         }
 

@@ -6,7 +6,7 @@ namespace AGS.API
     /// An animation container. This gives access to the animation, and allows to start a new animation
     /// which will replace the old animation.
     /// </summary>
-    public interface IAnimationContainer : IComponent
+    public interface IAnimationComponent : IComponent
 	{
         /// <summary>
         /// The currently associated animation.

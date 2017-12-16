@@ -43,7 +43,7 @@
         /// You can set the Object property instead a short-hand convience.
         /// </summary>
         /// <value>The has room.</value>
-        IHasRoom HasRoom { get; set; }
+        IHasRoomComponent HasRoom { get; set; }
 
         /// <summary>
         /// Gets or sets the entity identifier. This is used by the emitter to check if the entity is in a volume altering area,

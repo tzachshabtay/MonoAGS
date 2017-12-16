@@ -8,28 +8,28 @@ using System.Diagnostics;
 
 namespace AGS.Engine
 {
-	public class AGSWalkBehavior : AGSComponent, IWalkBehavior
+	public class AGSWalkComponent : AGSComponent, IWalkComponent
 	{
         private TaskCompletionSource<object> _walkCompleted;
         private WalkLineInstruction _currentWalkLine;
         private IPathFinder _pathFinder;
 		private List<IObject> _debugPath;
-		private IFaceDirectionBehavior _faceDirection;
-		private IHasOutfit _outfit;
-        private IHasRoom _room;
-        private IDrawableInfo _drawable;
+		private IFaceDirectionComponent _faceDirection;
+		private IOutfitComponent _outfit;
+        private IHasRoomComponent _room;
+        private IDrawableInfoComponent _drawable;
 		private IObjectFactory _objFactory;
         private ITranslate _translate;
         private IEntity _entity;
 		private ICutscene _cutscene;
 		private IGameState _state;
         private IGameEvents _events;
-        private IAnimationContainer _animation;
+        private IAnimationComponent _animation;
         private ISprite _lastFrame;
         private float _lastViewportX, _lastViewportY, _compensateScrollX, _compensateScrollY;
         private readonly IGLUtils _glUtils;
 
-		public AGSWalkBehavior(IPathFinder pathFinder, IObjectFactory objFactory, IGame game, IGLUtils glUtils)
+		public AGSWalkComponent(IPathFinder pathFinder, IObjectFactory objFactory, IGame game, IGLUtils glUtils)
 		{
             _state = game.State;
             _cutscene = _state.Cutscene;
@@ -60,12 +60,12 @@ namespace AGS.Engine
         {
             base.Init(entity);
             _entity = entity;
-            entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
+            entity.Bind<IAnimationComponent>(c => _animation = c, _ => _animation = null);
             entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
-            entity.Bind<IHasOutfit>(c => _outfit = c, _ => _outfit = null);
-            entity.Bind<IHasRoom>(c => _room = c, _ => _room = null);
-            entity.Bind<IDrawableInfo>(c => _drawable = c, _ => _drawable = null);
-            entity.Bind<IFaceDirectionBehavior>(c => _faceDirection = c, _ => _faceDirection = null);
+            entity.Bind<IOutfitComponent>(c => _outfit = c, _ => _outfit = null);
+            entity.Bind<IHasRoomComponent>(c => _room = c, _ => _room = null);
+            entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
+            entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
         }
 
         #region IWalkBehavior implementation

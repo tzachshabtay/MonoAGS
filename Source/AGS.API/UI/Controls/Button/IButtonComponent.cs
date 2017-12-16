@@ -4,7 +4,7 @@
     /// A button component allows having the entity behave like a button.
     /// </summary>
 	[RequiredComponent(typeof(IUIEvents))]
-	[RequiredComponent(typeof(IAnimationContainer))]
+	[RequiredComponent(typeof(IAnimationComponent))]
     [RequiredComponent(typeof(ITextComponent), false)]
     [RequiredComponent(typeof(IImageComponent), false)]
 	public interface IButtonComponent : IComponent

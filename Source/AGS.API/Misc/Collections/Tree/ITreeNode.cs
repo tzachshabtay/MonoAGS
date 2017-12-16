@@ -101,6 +101,6 @@ namespace AGS.API
     /// A component which adds the ability for an entity to be a part of an object's tree.
     /// </summary>
     /// <seealso cref="IComponent"/>
-	public interface IInObjectTree : IInTree<IObject> {}
+	public interface IInObjectTreeComponent : IInTree<IObject> {}
 }
 

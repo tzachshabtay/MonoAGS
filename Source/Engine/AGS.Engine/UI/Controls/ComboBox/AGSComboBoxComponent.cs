@@ -7,7 +7,7 @@ namespace AGS.Engine
         private IButton _dropDownButton;
         private IListboxComponent _dropDownPanelList;
         private IVisibleComponent _dropDownPanelVisible;
-        private IDrawableInfo _dropDownPanelDrawable;
+        private IDrawableInfoComponent _dropDownPanelDrawable;
         private IEntity _dropDownPanel;
 
         public AGSComboBoxComponent(IGameEvents gameEvents)
@@ -38,7 +38,7 @@ namespace AGS.Engine
             {
                 _dropDownPanel = value;
                 var visibleComponent = value.GetComponent<IVisibleComponent>();
-                var drawableComponent = value.GetComponent<IDrawableInfo>();
+                var drawableComponent = value.GetComponent<IDrawableInfoComponent>();
                 var listBoxComponent = value.GetComponent<IListboxComponent>();
                 var imageComponent = value.GetComponent<IImageComponent>();
                 var translateComponent = value.GetComponent<ITranslateComponent>();
@@ -55,7 +55,7 @@ namespace AGS.Engine
         }
 
         public void SetDropDownPanel(IListboxComponent listBoxComponent, IVisibleComponent visibleComponent,
-                                     IDrawableInfo drawableComponent, IImageComponent imageComponent,
+                                     IDrawableInfoComponent drawableComponent, IImageComponent imageComponent,
                                      ITranslateComponent translateComponent)
         {
             _dropDownPanelVisible = visibleComponent;

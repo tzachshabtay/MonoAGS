@@ -298,7 +298,7 @@ namespace AGS.Engine
 
     public class LocationPropertyEditor : MultipleNumbersPropertyEditor<ILocation>
     {
-        public LocationPropertyEditor(IGameFactory factory, bool nullable, IGameSettings settings, IDrawableInfo drawable) : base(factory, false, nullable, 
+        public LocationPropertyEditor(IGameFactory factory, bool nullable, IGameSettings settings, IDrawableInfoComponent drawable) : base(factory, false, nullable, 
                             (internalEditor, editor) => 
                             {
                                 if (internalEditor.Text == "X")

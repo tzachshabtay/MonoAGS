@@ -32,7 +32,7 @@ namespace AGS.Engine
 
 		public ICharacter GetCharacter(string id, IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
-			ICharacter character = GetCharacter(id, outfit, _resolver.Container.Resolve<IAnimationContainer>());
+			ICharacter character = GetCharacter(id, outfit, _resolver.Container.Resolve<IAnimationComponent>());
 
             subscribeSentences(sayWhenLook, character.Interactions.OnInteract(AGSInteractions.LOOK));
             subscribeSentences(sayWhenInteract, character.Interactions.OnInteract(AGSInteractions.INTERACT));
@@ -40,11 +40,11 @@ namespace AGS.Engine
 			return character;
 		}
 
-		public ICharacter GetCharacter(string id, IOutfit outfit, IAnimationContainer container)
+		public ICharacter GetCharacter(string id, IOutfit outfit, IAnimationComponent container)
 		{
 			TypedParameter outfitParam = new TypedParameter (typeof(IOutfit), outfit);
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			TypedParameter animationParam = new TypedParameter (typeof(IAnimationContainer), container);
+			TypedParameter animationParam = new TypedParameter (typeof(IAnimationComponent), container);
 			ICharacter character = _resolver.Container.Resolve<ICharacter>(outfitParam, idParam, animationParam);
 			return character;
 		}

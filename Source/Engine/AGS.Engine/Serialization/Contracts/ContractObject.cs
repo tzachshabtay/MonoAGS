@@ -41,7 +41,7 @@ namespace AGS.Engine
 		public bool IgnoreScalingArea { get; set; }
 
 		[ProtoMember(8)]
-		public ContractAnimationContainer AnimationContainer { get; set; }
+		public ContractAnimationComponent AnimationComponent { get; set; }
 
 		[ProtoMember(9, AsReference = true)]
 		public IContract<IObject> Parent { get; set; }
@@ -115,7 +115,7 @@ namespace AGS.Engine
             obj.Tint = Color.FromHexa(Tint);
 
             obj.PixelPerfect(IsPixelPerfect);            
-            AnimationContainer.ToItem(context, obj);
+            AnimationComponent.ToItem(context, obj);
             if (obj.Animation.Frames.Count > 0)
                 obj.Scale = obj.Scale;
             obj.RenderLayer = RenderLayer.ToItem(context);
@@ -144,8 +144,8 @@ namespace AGS.Engine
 
             Properties = context.GetContract(item.Properties);
 
-			AnimationContainer = new ContractAnimationContainer ();
-			AnimationContainer.FromItem(context, item);
+			AnimationComponent = new ContractAnimationComponent ();
+			AnimationComponent.FromItem(context, item);
 
 			if (item.WalkPoint != null)
 			{

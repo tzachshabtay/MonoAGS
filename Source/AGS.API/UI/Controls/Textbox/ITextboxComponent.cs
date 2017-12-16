@@ -6,9 +6,9 @@
     [RequiredComponent(typeof(ITextComponent))]
     [RequiredComponent(typeof(IUIEvents))]
     [RequiredComponent(typeof(ITranslateComponent))]
-    [RequiredComponent(typeof(IDrawableInfo))]
-    [RequiredComponent(typeof(IInObjectTree))]
-    [RequiredComponent(typeof(IHasRoom))]
+    [RequiredComponent(typeof(IDrawableInfoComponent))]
+    [RequiredComponent(typeof(IInObjectTreeComponent))]
+    [RequiredComponent(typeof(IHasRoomComponent))]
     [RequiredComponent(typeof(IImageComponent))]
     [RequiredComponent(typeof(IVisibleComponent))]
     public interface ITextBoxComponent : IComponent

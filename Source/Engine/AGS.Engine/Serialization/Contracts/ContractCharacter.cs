@@ -45,7 +45,7 @@ namespace AGS.Engine
 		public ICharacter ToItem(AGSSerializationContext context)
 		{
             if (Obj == null) return null;
-			ICharacter item = context.Factory.Object.GetCharacter(Obj.ID, Outfit.ToItem(context), Obj.AnimationContainer.ToItem(context));
+			ICharacter item = context.Factory.Object.GetCharacter(Obj.ID, Outfit.ToItem(context), Obj.AnimationComponent.ToItem(context));
 			Obj.ToItem(context, item);
 			item.WalkStep = WalkSpeed;
             item.AdjustWalkSpeedToScaleArea = AdjustWalkSpeedToScaleArea;

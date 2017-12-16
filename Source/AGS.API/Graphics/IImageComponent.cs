@@ -62,7 +62,7 @@ namespace AGS.API
     /// <summary>
     /// A component which allows setting an image to the entity.
     /// </summary>
-    [RequiredComponent(typeof(IAnimationContainer))]
+    [RequiredComponent(typeof(IAnimationComponent))]
     [RequiredComponent(typeof(IScaleComponent))]
     public interface IImageComponent : IHasImage, IComponent
     {

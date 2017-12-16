@@ -46,7 +46,7 @@
 
     	protected override bool WriteInitComponent(Type interfaceType)
     	{
-    		if (interfaceType == typeof(ISayBehavior) || interfaceType == typeof(IWalkBehavior)) return false;
+    		if (interfaceType == typeof(ISayComponent) || interfaceType == typeof(IWalkComponent)) return false;
     		return base.WriteInitComponent(interfaceType);
     	}
 

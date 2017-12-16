@@ -10,10 +10,10 @@ namespace AGS.Engine
         private ITextComponent _textComponent;
         private IImageComponent _imageComponent;
         private IVisibleComponent _visibleComponent;
-        private IDrawableInfo _drawableComponent;
+        private IDrawableInfoComponent _drawableComponent;
         private IUIEvents _uiEvents;        
-        private IInObjectTree _tree;
-        private IHasRoom _room;
+        private IInObjectTreeComponent _tree;
+        private IHasRoomComponent _room;
         private IEntity _entity;
         private readonly IKeyboardState _keyboardState;
         private readonly IGame _game;
@@ -57,8 +57,8 @@ namespace AGS.Engine
 				c.MouseDown.Unsubscribe(onMouseDown);
 				c.LostFocus.Unsubscribe(onMouseDownOutside);
             });
-            entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
-            entity.Bind<IHasRoom>(c => _room = c, _ => _room = null);
+            entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
+            entity.Bind<IHasRoomComponent>(c => _room = c, _ => _room = null);
             entity.Bind<IVisibleComponent>(c => _visibleComponent = c, _ => _visibleComponent = null);
 
             _game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
@@ -67,7 +67,7 @@ namespace AGS.Engine
             _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _withCaret.Anchor = new PointF(0f, 0f);
 
-            entity.Bind<IDrawableInfo>(c =>
+            entity.Bind<IDrawableInfoComponent>(c =>
             {
                 _drawableComponent = c;
                 c.PropertyChanged += onDrawableChanged;
@@ -122,7 +122,7 @@ namespace AGS.Engine
 
         private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(IDrawableInfo.RenderLayer)) return;
+            if (args.PropertyName != nameof(IDrawableInfoComponent.RenderLayer)) return;
             onRenderLayerChanged();
         }
 

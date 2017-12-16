@@ -10,7 +10,7 @@ namespace AGS.Engine
     {
         private readonly Predicate<IObject> _getProperty;
         private readonly string _valuePropertyName, _underlyingPropertyName;
-        private IInObjectTree _tree;
+        private IInObjectTreeComponent _tree;
         private bool _underlyingValue, _lastValue, _initializedValue;
         private IComponent _lastParentComponent;
         private IComponentBinding _lastParentBinding;
@@ -35,7 +35,7 @@ namespace AGS.Engine
         public override void AfterInit()
         {
             base.AfterInit();
-            _entity.Bind<IInObjectTree>(c => { _tree = c; c.TreeNode.OnParentChanged.Subscribe(onParentChanged); onParentChanged(); },
+            _entity.Bind<IInObjectTreeComponent>(c => { _tree = c; c.TreeNode.OnParentChanged.Subscribe(onParentChanged); onParentChanged(); },
                                        c => { _tree = null; c.TreeNode.OnParentChanged.Unsubscribe(onParentChanged); });
         }
 

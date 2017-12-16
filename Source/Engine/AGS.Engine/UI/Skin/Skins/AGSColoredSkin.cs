@@ -26,7 +26,7 @@ namespace AGS.Engine
 
         public PointF DefaultItemSize = new PointF(100f, 50f);
 
-        private ButtonAnimation getAnimation(IAnimationContainer container, ButtonAnimation animation)
+        private ButtonAnimation getAnimation(IAnimationComponent container, ButtonAnimation animation)
         {
             if (animation.Border == null || container == null || container.Border == null) return animation;
             ButtonAnimation newAnimation = new ButtonAnimation(AGSBorders.Multiple(container.Border, animation.Border),
@@ -41,7 +41,7 @@ namespace AGS.Engine
 
             skin.AddRule(entity => entity.GetComponent<IButtonComponent>() != null, entity => 
             {
-                var animContainer = entity.GetComponent<IAnimationContainer>();
+                var animContainer = entity.GetComponent<IAnimationComponent>();
                 var button = entity.GetComponent<IButtonComponent>();
                 button.IdleAnimation = getAnimation(animContainer, ButtonIdleAnimation);
                 button.HoverAnimation = getAnimation(animContainer, ButtonHoverAnimation);
@@ -50,7 +50,7 @@ namespace AGS.Engine
 
             skin.AddRule(entity => entity.GetComponent<ICheckboxComponent>() != null, entity => 
             {
-                var animContainer = entity.GetComponent<IAnimationContainer>();
+                var animContainer = entity.GetComponent<IAnimationComponent>();
                 var button = entity.GetComponent<ICheckboxComponent>();
                 button.NotCheckedAnimation = getAnimation(animContainer, CheckboxNotCheckedAnimation);
                 button.CheckedAnimation = getAnimation(animContainer, CheckboxCheckedAnimation);
@@ -76,8 +76,8 @@ namespace AGS.Engine
             {
                 var imageComponent = entity.GetComponent<IImageComponent>();
                 if (imageComponent != null) imageComponent.Tint = DialogBoxColor;
-                var animationContainer = entity.GetComponent<IAnimationContainer>();
-                if (animationContainer != null) animationContainer.Border = DialogBoxBorder;
+                var animationComponent = entity.GetComponent<IAnimationComponent>();
+                if (animationComponent != null) animationComponent.Border = DialogBoxBorder;
             });
 
             skin.AddRule(entity =>
@@ -110,11 +110,11 @@ namespace AGS.Engine
 
             skin.AddRule<ITextBoxComponent>(entity =>
             {
-                var animationContainer = entity.GetComponent<IAnimationContainer>();
+                var animationComponent = entity.GetComponent<IAnimationComponent>();
                 var image = entity.GetComponent<IImageComponent>();
-                if (animationContainer == null) return;
+                if (animationComponent == null) return;
                 image.Tint = TextBoxBackColor;
-                animationContainer.Border = TextBoxBorderStyle;
+                animationComponent.Border = TextBoxBorderStyle;
             });
 
             return skin;

@@ -2,7 +2,7 @@
 
 namespace AGS.Engine
 {
-	public class InObjectTreeComponent : AGSComponent, IInObjectTree
+	public class InObjectTreeComponent : AGSComponent, IInObjectTreeComponent
     {
         public override void Init(IEntity entity)
         {

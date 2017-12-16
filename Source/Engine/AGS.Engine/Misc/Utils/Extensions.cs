@@ -129,7 +129,7 @@ namespace AGS.Engine
             }
         }
 
-        public static void StartAnimation(this ButtonAnimation button, IAnimationContainer animationComponent,
+        public static void StartAnimation(this ButtonAnimation button, IAnimationComponent animationComponent,
                                           ITextComponent textComponent, IImageComponent imageComponent)
         {
             if (button == null) return;

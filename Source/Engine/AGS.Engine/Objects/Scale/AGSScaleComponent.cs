@@ -10,7 +10,7 @@ namespace AGS.Engine
     {
         private IScale _scale;
         private readonly Resolver _resolver;
-        private IAnimationContainer _animation;
+        private IAnimationComponent _animation;
 
         public AGSScaleComponent(Resolver resolver)
         {
@@ -30,7 +30,7 @@ namespace AGS.Engine
                 _scale = null;
                 c.PropertyChanged -= onScalePropertyChanged;
             });
-            entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
+            entity.Bind<IAnimationComponent>(c => _animation = c, _ => _animation = null);
         }
 
         [Property(Category = "Size")]

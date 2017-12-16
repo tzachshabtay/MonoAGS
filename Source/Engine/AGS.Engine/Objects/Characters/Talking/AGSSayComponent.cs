@@ -4,20 +4,20 @@ using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
-	public class AGSSayBehavior : AGSComponent, ISayBehavior
+	public class AGSSayComponent : AGSComponent, ISayComponent
 	{
 		private readonly IGameState _state;
 		private readonly IGameFactory _factory;
 		private readonly IInput _input;
 		private readonly ISayLocationProvider _location;
 		private readonly FastFingerChecker _fastFingerChecker;
-		private IHasOutfit _outfit;
-		private IFaceDirectionBehavior _faceDirection;
+		private IOutfitComponent _outfit;
+		private IFaceDirectionComponent _faceDirection;
         private readonly ISoundEmitter _emitter;
         private readonly ISpeechCache _speechCache;
         private string _characterName;
 
-		public AGSSayBehavior(IGameState state, IGameFactory factory, IInput input, ISayLocationProvider location,
+		public AGSSayComponent(IGameState state, IGameFactory factory, IInput input, ISayLocationProvider location,
 			                  FastFingerChecker fastFingerChecker, ISayConfig sayConfig,
                               IBlockingEvent<BeforeSayEventArgs> onBeforeSay, 
                               ISoundEmitter emitter, ISpeechCache speechCache)
@@ -41,9 +41,9 @@ namespace AGS.Engine
             base.Init(entity);
             _characterName = entity.ID;
             entity.Bind<ITranslateComponent>(c => _emitter.Translate = c, _ => _emitter.Translate = null);
-            entity.Bind<IHasRoom>(c => _emitter.HasRoom = c, _ => _emitter.HasRoom = null);
-            entity.Bind<IFaceDirectionBehavior>(c => _faceDirection = c, _ => _faceDirection = null);
-            entity.Bind<IHasOutfit>(c => _outfit = c, _ => _outfit = null);
+            entity.Bind<IHasRoomComponent>(c => _emitter.HasRoom = c, _ => _emitter.HasRoom = null);
+            entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
+            entity.Bind<IOutfitComponent>(c => _outfit = c, _ => _outfit = null);
         }
 
 		public void Say(string text)

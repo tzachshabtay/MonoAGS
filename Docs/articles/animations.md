@@ -123,7 +123,7 @@ var tweenCamera = viewport.TweenAngle(180, 3).Task.ContinueWith(t => viewport.Tw
 var tweenMusic = music.TweenVolume(0, 4, Ease.SineIn).Task;
 var completedTask = await Task.WhenAny(tweenCamera, tweenMusic);
 if (completedTask == tweenMusic) {
-    cHero.Say("This is the expected the behavior, as the music clip took 4 seconds and the camera 6 seconds");
+    cHero.Say("This is the expected behavior, as the music clip took 4 seconds and the camera 6 seconds");
 }
 else cHero.Say("This can't happen!");
 

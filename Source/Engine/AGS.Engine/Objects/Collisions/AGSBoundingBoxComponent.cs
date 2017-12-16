@@ -18,8 +18,8 @@ namespace AGS.Engine
         private AGSBoundingBox _hitTestBox, _intermediateBox;
         private IModelMatrixComponent _matrix;
         private ICropSelfComponent _crop;
-        private IAnimationContainer _animation;
-        private IDrawableInfo _drawable;
+        private IAnimationComponent _animation;
+        private IDrawableInfoComponent _drawable;
         private ITextureOffsetComponent _textureOffset;
         private IGameSettings _settings;
         private readonly IGLViewportMatrixFactory _layerViewports;
@@ -58,8 +58,8 @@ namespace AGS.Engine
                                             c => { c.PropertyChanged -= onCropShouldChange; _crop = null; });
             entity.Bind<IImageComponent>(c => c.PropertyChanged += onImageChanged,
                                          c => c.PropertyChanged -= onImageChanged);
-            entity.Bind<IAnimationContainer>(c => _animation = c, _animation => _animation = null);
-            entity.Bind<IDrawableInfo>(c => { c.PropertyChanged += onDrawableChanged; _drawable = c; },
+            entity.Bind<IAnimationComponent>(c => _animation = c, _animation => _animation = null);
+            entity.Bind<IDrawableInfoComponent>(c => { c.PropertyChanged += onDrawableChanged; _drawable = c; },
                                        c => { c.PropertyChanged -= onDrawableChanged; _drawable = null; });
             entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += onTextureOffsetChanged; _textureOffset = c; onAllViewportsShouldChange(); }, 
                                                  c => { c.PropertyChanged -= onTextureOffsetChanged; _textureOffset = null; onAllViewportsShouldChange(); });
@@ -233,7 +233,7 @@ namespace AGS.Engine
                                                                 new Vector2(left, top), new Vector2(right, top));
         }
 
-        private void updateHitTestBox(IAnimationContainer animation, IDrawableInfo drawable, IModelMatrixComponent matrix)
+        private void updateHitTestBox(IAnimationComponent animation, IDrawableInfoComponent drawable, IModelMatrixComponent matrix)
         {
             var modelMatrices = matrix.GetModelMatrices();
             var modelMatrix = modelMatrices.InVirtualResolutionMatrix;
@@ -281,8 +281,8 @@ namespace AGS.Engine
 
         private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName == nameof(IDrawableInfo.RenderLayer)) onHitTextBoxShouldChange();
-            else if (args.PropertyName == nameof(IDrawableInfo.IgnoreViewport)) onAllViewportsShouldChange();
+            if (args.PropertyName == nameof(IDrawableInfoComponent.RenderLayer)) onHitTextBoxShouldChange();
+            else if (args.PropertyName == nameof(IDrawableInfoComponent.IgnoreViewport)) onAllViewportsShouldChange();
         }
 
 		//https://stackoverflow.com/questions/8946790/how-to-use-an-objects-identity-as-key-for-dictionaryk-v

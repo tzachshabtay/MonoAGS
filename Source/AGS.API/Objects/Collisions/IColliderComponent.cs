@@ -5,11 +5,11 @@
     /// The collision is checked via either the entity's bounding box, or via a pixel perfect collision
     /// if the <see cref="IPixelPerfectComponent"/> exists and enabled.
     /// </summary>
-	[RequiredComponent(typeof(IDrawableInfo))]
-	[RequiredComponent(typeof(IAnimationContainer))]
+	[RequiredComponent(typeof(IDrawableInfoComponent))]
+	[RequiredComponent(typeof(IAnimationComponent))]
     [RequiredComponent(typeof(IScaleComponent))]
     [RequiredComponent(typeof(IPixelPerfectComponent))]
-	public interface ICollider : IComponent
+	public interface IColliderComponent : IComponent
 	{
         /// <summary>
         /// Gets the center point of the entity.

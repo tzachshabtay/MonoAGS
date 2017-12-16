@@ -18,20 +18,20 @@ namespace AGS.Engine
 		public static async Task<IButton> DisplayAsync(string text, params IButton[] buttons)
 		{
 			float maxHeight = buttons.Length > 0 ? buttons.Max(b => b.Height) + (ButtonYPadding * 2f) : 0f;
-			var sayBehavior = getSayBehavior(maxHeight);
-			sayBehavior.SpeechConfig.SkipText = buttons.Length > 0 ? SkipText.External : SkipText.ByMouse;
+            var sayComponent = getSayComponent(maxHeight);
+			sayComponent.SpeechConfig.SkipText = buttons.Length > 0 ? SkipText.External : SkipText.ByMouse;
 			IButton selectedButton = null;
             ILabel label = null;
 			
-			sayBehavior.OnBeforeSay.Subscribe(args =>
+			sayComponent.OnBeforeSay.Subscribe(args =>
 			{
                 label = args.Label;
                 args.Label.RenderLayer = RenderLayer;
 				args.Label.Enabled = true;
                 args.Label.AddComponent<IModalWindowComponent>().GrabFocus();
-                var textConfig = sayBehavior.SpeechConfig.TextConfig;
+                var textConfig = sayComponent.SpeechConfig.TextConfig;
 
-                float labelWidth = sayBehavior.SpeechConfig.LabelSize.Width;
+                float labelWidth = sayComponent.SpeechConfig.LabelSize.Width;
 
                 float buttonsWidth = buttons.Sum(b => b.Width) + ButtonXPadding * (buttons.Length - 1);
 				if (buttonsWidth > labelWidth)
@@ -55,7 +55,7 @@ namespace AGS.Engine
 				}
 			});
 			
-			await sayBehavior.SayAsync(text);
+			await sayComponent.SayAsync(text);
             label?.GetComponent<IModalWindowComponent>().LoseFocus();
 			foreach (var button in buttons)
 			{
@@ -88,14 +88,14 @@ namespace AGS.Engine
 			return YesNoAsync(text, "OK", "Cancel");
 		}
 
-		private static ISayBehavior getSayBehavior(float buttonHeight)
+        private static ISayComponent getSayComponent(float buttonHeight)
 		{
-			TypedParameter outfitParameter = new TypedParameter (typeof(IHasOutfit), null);
+			TypedParameter outfitParameter = new TypedParameter (typeof(IOutfitComponent), null);
 			ISayLocationProvider location = new MessageBoxLocation (AGSGame.Game);
 			TypedParameter locationParameter = new TypedParameter (typeof(ISayLocationProvider), location);
-			TypedParameter faceDirectionParameter = new TypedParameter (typeof(IFaceDirectionBehavior), null);
+			TypedParameter faceDirectionParameter = new TypedParameter (typeof(IFaceDirectionComponent), null);
 			TypedParameter configParameter = new TypedParameter (typeof(ISayConfig), AGSSayConfig.FromConfig(Config, buttonHeight));
-			return AGSGame.Resolver.Container.Resolve<ISayBehavior>(locationParameter, outfitParameter, 
+			return AGSGame.Resolver.Container.Resolve<ISayComponent>(locationParameter, outfitParameter, 
 				faceDirectionParameter, configParameter);
 		}
 

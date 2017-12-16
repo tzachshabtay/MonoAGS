@@ -11,7 +11,7 @@ namespace AGS.Engine
         private IBoundingBoxComponent _boundingBox;
         private AGSBoundingBox _preUnlockBoundingBox, _preUnlockPreCropBoundingBox, _boundingBoxWithChildren, _preCropBoundingBoxWithChildren;
         private int _shouldFireOnUnlock, _pendingLocks;
-        private IInObjectTree _tree;
+        private IInObjectTreeComponent _tree;
         private IEntity _entity;
         private readonly IGameState _state;
         private bool _isDirty;
@@ -43,7 +43,7 @@ namespace AGS.Engine
                 c.OnBoundingBoxesChanged.Subscribe(onObjectChanged);
                 refresh();
             }, c => { c.OnBoundingBoxesChanged.Unsubscribe(onObjectChanged); _boundingBox = null; });
-            entity.Bind<IInObjectTree>(c => { _tree = c; subscribeTree(c.TreeNode); refresh(); },
+            entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeTree(c.TreeNode); refresh(); },
                                        c => { unsubscribeTree(c.TreeNode); _tree = null; });
         }
 
@@ -171,7 +171,7 @@ namespace AGS.Engine
             return (!lastBox.Equals(_preUnlockBoundingBox) || !lastPreBox.Equals(_preUnlockPreCropBoundingBox));
         }
 
-        private AGSBoundingBox getBoundingBox(IInObjectTree tree, IBoundingBoxComponent box, Func<AGSBoundingBoxes, AGSBoundingBox> getBox)
+        private AGSBoundingBox getBoundingBox(IInObjectTreeComponent tree, IBoundingBoxComponent box, Func<AGSBoundingBoxes, AGSBoundingBox> getBox)
         {
             float minX = float.MaxValue;
             float maxX = float.MinValue;

@@ -93,7 +93,7 @@ namespace AGS.Engine
         public ICropSelfComponent CustomTextCrop { get; set; }
         public AGSBoundingBoxes TextBoundingBoxes => _usedTextBoundingBoxes;
 
-        public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
+        public void Prepare(IObject obj, IDrawableInfoComponent drawable, IViewport viewport)
 		{
             if (!TextBackgroundVisible && !TextVisible) return;
             if (_lastObject != obj)
@@ -156,7 +156,7 @@ namespace AGS.Engine
             return TextVisible && config != null ? config.AutoFit : AutoFit.NoFitting;
         }
 
-        private void updateBoundingBoxes(IObject obj, IDrawableInfo drawable, IViewport viewport)
+        private void updateBoundingBoxes(IObject obj, IDrawableInfoComponent drawable, IViewport viewport)
 		{
             var noFactor = AGSModelMatrixComponent.NoScaling;
             bool resolutionMatches;

@@ -4,7 +4,7 @@ using Autofac;
 
 namespace AGS.Engine
 {
-	public class HasInventoryComponent : AGSComponent, IHasInventory
+	public class HasInventoryComponent : AGSComponent, IInventoryComponent
 	{
 		public HasInventoryComponent(Resolver resolver)
 		{

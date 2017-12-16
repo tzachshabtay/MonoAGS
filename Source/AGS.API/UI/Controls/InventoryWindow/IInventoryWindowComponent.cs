@@ -6,7 +6,7 @@
     /// <seealso cref="IInventory"/>
     /// <seealso cref="IInventoryItem"/>
 	[RequiredComponent(typeof(IScaleComponent))]
-	[RequiredComponent(typeof(IInObjectTree))]
+	[RequiredComponent(typeof(IInObjectTreeComponent))]
 	public interface IInventoryWindowComponent : IComponent
 	{
         /// <summary>

@@ -9,7 +9,7 @@ namespace AGS.Engine
     {
         private IHasImage _image;
         private IGraphicsFactory _factory;
-        private IAnimationContainer _animationContainer;
+        private IAnimationComponent _animationComponent;
         private IScaleComponent _scale;
 
         public AGSImageComponent(IHasImage image, IGraphicsFactory factory)
@@ -29,10 +29,7 @@ namespace AGS.Engine
         {
             get
             {
-                var animationContainer = _animationContainer;
-                if (animationContainer == null || animationContainer.Animation == null || 
-                    animationContainer.Animation.Sprite == null) return null;
-                return animationContainer.Animation.Sprite.Image;
+                return _animationComponent?.Animation?.Sprite?.Image;
             }
             set
             {
@@ -42,7 +39,7 @@ namespace AGS.Engine
                     var scale = _scale;
                     if (scale != null) scale.BaseSize = new SizeF(value.Width, value.Height);
                 }
-                _animationContainer?.StartAnimation(animation);
+                _animationComponent?.StartAnimation(animation);
             }
         }
 
@@ -53,7 +50,7 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            entity.Bind<IAnimationContainer>(c => _animationContainer = c, _ => _animationContainer = null);
+            entity.Bind<IAnimationComponent>(c => _animationComponent = c, _ => _animationComponent = null);
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
         }
 

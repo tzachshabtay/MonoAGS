@@ -13,7 +13,7 @@ namespace AGS.Engine
         private readonly InspectorPanel _inspector;
         private IPanel _treePanel, _scrollingPanel, _parent;
 
-        private IAnimationContainer _lastSelectedObject;
+        private IAnimationComponent _lastSelectedObject;
         private IVisibleComponent _lastSelectedMaskVisible;
         private IImageComponent _lastSelectedMaskImage;
         private IBorderStyle _lastObjectBorder;
@@ -91,7 +91,7 @@ namespace AGS.Engine
         { 
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
             _inspector.Inspector.Show(obj);
-            var animation = obj.GetComponent<IAnimationContainer>();
+            var animation = obj.GetComponent<IAnimationComponent>();
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
             if (animation != null)

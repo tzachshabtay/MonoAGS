@@ -17,14 +17,14 @@ namespace AGS.Engine
     {
         private IUIEvents _uIEvents;
         private ISkinComponent _skinComponent;
-        private IHasRoom _hasRoom;
-        private IAnimationContainer _animationContainer;
-        private IInObjectTree _inObjectTree;
-        private ICollider _collider;
+        private IHasRoomComponent _hasRoom;
+        private IAnimationComponent _animationComponent;
+        private IInObjectTreeComponent _inObjectTree;
+        private IColliderComponent _collider;
         private IVisibleComponent _visibleComponent;
         private IEnabledComponent _enabledComponent;
         private ICustomPropertiesComponent _customPropertiesComponent;
-        private IDrawableInfo _drawableInfo;
+        private IDrawableInfoComponent _drawableInfo;
         private IHotspotComponent _hotspotComponent;
         private IShaderComponent _shaderComponent;
         private ITranslateComponent _translateComponent;
@@ -42,22 +42,22 @@ namespace AGS.Engine
             Bind<IUIEvents>(c => _uIEvents = c, _ => {});            
             _skinComponent = AddComponent<ISkinComponent>();
             Bind<ISkinComponent>(c => _skinComponent = c, _ => {});            
-            _hasRoom = AddComponent<IHasRoom>();
-            Bind<IHasRoom>(c => _hasRoom = c, _ => {});            
-            _animationContainer = AddComponent<IAnimationContainer>();
-            Bind<IAnimationContainer>(c => _animationContainer = c, _ => {});            
-            _inObjectTree = AddComponent<IInObjectTree>();
-            Bind<IInObjectTree>(c => _inObjectTree = c, _ => {});            
-            _collider = AddComponent<ICollider>();
-            Bind<ICollider>(c => _collider = c, _ => {});            
+            _hasRoom = AddComponent<IHasRoomComponent>();
+            Bind<IHasRoomComponent>(c => _hasRoom = c, _ => {});            
+            _animationComponent = AddComponent<IAnimationComponent>();
+            Bind<IAnimationComponent>(c => _animationComponent = c, _ => {});            
+            _inObjectTree = AddComponent<IInObjectTreeComponent>();
+            Bind<IInObjectTreeComponent>(c => _inObjectTree = c, _ => {});            
+            _collider = AddComponent<IColliderComponent>();
+            Bind<IColliderComponent>(c => _collider = c, _ => {});            
             _visibleComponent = AddComponent<IVisibleComponent>();
             Bind<IVisibleComponent>(c => _visibleComponent = c, _ => {});            
             _enabledComponent = AddComponent<IEnabledComponent>();
             Bind<IEnabledComponent>(c => _enabledComponent = c, _ => {});            
             _customPropertiesComponent = AddComponent<ICustomPropertiesComponent>();
             Bind<ICustomPropertiesComponent>(c => _customPropertiesComponent = c, _ => {});            
-            _drawableInfo = AddComponent<IDrawableInfo>();
-            Bind<IDrawableInfo>(c => _drawableInfo = c, _ => {});            
+            _drawableInfo = AddComponent<IDrawableInfoComponent>();
+            Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => {});            
             _hotspotComponent = AddComponent<IHotspotComponent>();
             Bind<IHotspotComponent>(c => _hotspotComponent = c, _ => {});            
             _shaderComponent = AddComponent<IShaderComponent>();
@@ -187,39 +187,39 @@ namespace AGS.Engine
 
         public IAnimation Animation 
         {  
-            get { return _animationContainer.Animation; } 
+            get { return _animationComponent.Animation; } 
         }
 
         public Boolean DebugDrawAnchor 
         {  
-            get { return _animationContainer.DebugDrawAnchor; }  
-            set { _animationContainer.DebugDrawAnchor = value; } 
+            get { return _animationComponent.DebugDrawAnchor; }  
+            set { _animationComponent.DebugDrawAnchor = value; } 
         }
 
         public IBlockingEvent OnAnimationStarted 
         {  
-            get { return _animationContainer.OnAnimationStarted; } 
+            get { return _animationComponent.OnAnimationStarted; } 
         }
 
         public IBorderStyle Border 
         {  
-            get { return _animationContainer.Border; }  
-            set { _animationContainer.Border = value; } 
+            get { return _animationComponent.Border; }  
+            set { _animationComponent.Border = value; } 
         }
 
         public void StartAnimation(IAnimation animation)
         {
-            _animationContainer.StartAnimation(animation);
+            _animationComponent.StartAnimation(animation);
         }
 
         public AnimationCompletedEventArgs Animate(IAnimation animation)
         {
-            return _animationContainer.Animate(animation);
+            return _animationComponent.Animate(animation);
         }
 
         public Task<AnimationCompletedEventArgs> AnimateAsync(IAnimation animation)
         {
-            return _animationContainer.AnimateAsync(animation);
+            return _animationComponent.AnimateAsync(animation);
         }
 
         #endregion

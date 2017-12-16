@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
-	public class AGSAnimationContainer : AGSComponent, IAnimationContainer
+	public class AGSAnimationComponent : AGSComponent, IAnimationComponent
 	{
         private IScale _scale;
 
-		public AGSAnimationContainer()
+		public AGSAnimationComponent()
 		{
             OnAnimationStarted = new AGSEvent();
 		}		

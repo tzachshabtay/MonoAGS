@@ -9,7 +9,7 @@ using System;
 namespace Tests
 {
     [TestFixture]
-    public class WalkBehaviorTests
+    public class WalkComponentTests
 	{
 		private AGSEvent _onRepeatedlyExecute;
 		private bool _testCompleted;
@@ -42,12 +42,12 @@ namespace Tests
             //Setup:
             Mock<IEntity> entity = new Mock<IEntity>();
             Mock<ITranslateComponent> translate = new Mock<ITranslateComponent>();
-            Mock<IHasRoom> hasRoom = new Mock<IHasRoom>();
-			Mock<IHasOutfit> outfitHolder = new Mock<IHasOutfit> ();
+            Mock<IHasRoomComponent> hasRoom = new Mock<IHasRoomComponent>();
+			Mock<IOutfitComponent> outfitHolder = new Mock<IOutfitComponent> ();
 			Mock<IOutfit> outfit = new Mock<IOutfit> ();
-            Mock<IDrawableInfo> drawable = new Mock<IDrawableInfo>();
+            Mock<IDrawableInfoComponent> drawable = new Mock<IDrawableInfoComponent>();
 			Mock<IPathFinder> pathFinder = new Mock<IPathFinder> ();
-			Mock<IFaceDirectionBehavior> faceDirection = new Mock<IFaceDirectionBehavior> ();
+			Mock<IFaceDirectionComponent> faceDirection = new Mock<IFaceDirectionComponent> ();
 			Mock<IObjectFactory> objFactory = new Mock<IObjectFactory> ();
 			Mock<IRoom> room = new Mock<IRoom> ();
             Mock<IViewport> viewport = new Mock<IViewport>();
@@ -105,7 +105,7 @@ namespace Tests
 			pathFinder.Setup(p => p.GetWalkPoints(It.Is<ILocation>(l => l.X == fromX && l.Y == fromY),
 				It.Is<ILocation>(l => l.X == closeToX && l.Y == closeToY))).Returns(hasCloseToWalkable ? new List<ILocation> {closeLocation} : new List<ILocation>());
 			
-			AGSWalkBehavior walk = new AGSWalkBehavior (pathFinder.Object, objFactory.Object, game.Object, 
+			AGSWalkComponent walk = new AGSWalkComponent (pathFinder.Object, objFactory.Object, game.Object, 
                                                         glUtils.Object) { WalkStep = new PointF(4f, 4f), MovementLinkedToAnimation = false };
 
 			bool walkShouldSucceed = fromWalkable && (toWalkable || hasCloseToWalkable);

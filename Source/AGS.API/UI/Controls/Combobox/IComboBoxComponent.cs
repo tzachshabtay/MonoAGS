@@ -20,7 +20,7 @@
         /// <summary>
         /// Sets the drop down panel which hosts the selection item.
         /// The entity is expected to have the following components:
-        /// <see cref="IListboxComponent"/> , <see cref="IVisibleComponent"/> , <see cref="IDrawableInfo"/>,
+        /// <see cref="IListboxComponent"/> , <see cref="IVisibleComponent"/> , <see cref="IDrawableInfoComponent"/>,
         /// <see cref="IImageComponent"/> , <see cref="ITranslateComponent"/>   
         /// </summary>
         IEntity DropDownPanel { get; set; }

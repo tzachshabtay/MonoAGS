@@ -8,7 +8,7 @@ namespace AGS.Engine
     public class AGSStackLayoutComponent : AGSComponent, IStackLayoutComponent
     {
         private IBoundingBoxWithChildrenComponent _boundingBoxWithChildren;
-        private IInObjectTree _tree;
+        private IInObjectTreeComponent _tree;
         private float _absoluteSpacing, _relativeSpacing, _startLocation;
         private LayoutDirection _direction;
         private bool _isPaused;
@@ -37,7 +37,7 @@ namespace AGS.Engine
             base.Init(entity);
             entity.Bind<IBoundingBoxWithChildrenComponent>(c => { _boundingBoxWithChildren = c; c.OnBoundingBoxWithChildrenChanged.Subscribe(onSizeChanged); adjustLayout(); }, 
                                                     c => { c.OnBoundingBoxWithChildrenChanged.Unsubscribe(onSizeChanged); _boundingBoxWithChildren = null; });
-            entity.Bind<IInObjectTree>(c => { _tree = c; c.TreeNode.Children.OnListChanged.Subscribe(onChildrenChanged); adjustLayout(); },
+            entity.Bind<IInObjectTreeComponent>(c => { _tree = c; c.TreeNode.Children.OnListChanged.Subscribe(onChildrenChanged); adjustLayout(); },
                                        c => { _tree = null; c.TreeNode.Children.OnListChanged.Unsubscribe(onChildrenChanged); });
             EntitiesToIgnore.OnListChanged.Subscribe(onEntitiesToIgnoreChanged);
         }
@@ -84,7 +84,7 @@ namespace AGS.Engine
             adjustLayout(tree);
         }
 
-        private void adjustLayout(IInObjectTree tree)
+        private void adjustLayout(IInObjectTreeComponent tree)
         {
             try
             {
