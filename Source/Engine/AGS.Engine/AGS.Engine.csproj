@@ -114,7 +114,7 @@
     <Compile Include="Graphics\AGSSprite.cs" />
     <Compile Include="Graphics\Animations\AGSAnimation.cs" />
     <Compile Include="Graphics\Animations\AGSAnimationConfiguration.cs" />
-    <Compile Include="Graphics\Animations\AGSAnimationContainer.cs" />
+    <Compile Include="Graphics\Animations\AGSAnimationComponent.cs" />
     <Compile Include="Graphics\Animations\AGSAnimationFrame.cs" />
     <Compile Include="Graphics\Animations\AGSAnimationState.cs" />
     <Compile Include="Graphics\Animations\AGSDirectionalAnimation.cs" />
@@ -169,15 +169,15 @@
     <Compile Include="Objects\AGSObject.cs" />
     <Compile Include="Objects\AGSObjectBoolParentProperty.cs" />
     <Compile Include="Objects\Characters\AGSCharacter.cs" />
-    <Compile Include="Objects\Characters\FaceDirection\AGSFaceDirectionBehavior.cs" />
+    <Compile Include="Objects\Characters\FaceDirection\AGSFaceDirectionComponent.cs" />
     <Compile Include="Objects\Characters\Outfit\AGSOutfit.cs" />
     <Compile Include="Objects\Characters\Outfit\HasInventoryComponent.cs" />
     <Compile Include="Objects\Characters\Outfit\HasOutfitComponent.cs" />
-    <Compile Include="Objects\Characters\Talking\AGSSayBehavior.cs" />
+    <Compile Include="Objects\Characters\Talking\AGSSayComponent.cs" />
     <Compile Include="Objects\Characters\Talking\AGSSayConfig.cs" />
     <Compile Include="Objects\Characters\Talking\AGSSayLocationProvider.cs" />
     <Compile Include="Objects\Characters\Talking\FastFingerChecker.cs" />
-    <Compile Include="Objects\Characters\Walking\AGSWalkBehavior.cs" />
+    <Compile Include="Objects\Characters\Walking\AGSWalkComponent.cs" />
     <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\EPPathFinder.cs" />
     <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\Grid\BaseGrid.cs" />
     <Compile Include="Objects\Characters\Walking\Pathfinding\EPJumpPointSearch\Grid\DynamicGrid.cs" />
@@ -193,7 +193,7 @@
     <Compile Include="Objects\Characters\Walking\Pathfinding\SpatialAstar\PriorityQueue.cs" />
     <Compile Include="Objects\Characters\Walking\Pathfinding\SpatialAstar\SpatialAStar.cs" />
     <Compile Include="Objects\Characters\Walking\Pathfinding\SpatialAstar\SpatialAStarPathFinder.cs" />
-    <Compile Include="Objects\HasRoomBehavior.cs" />
+    <Compile Include="Objects\HasRoomComponent.cs" />
     <Compile Include="Objects\Interactions\AGSInteractionEvent.cs" />
     <Compile Include="Objects\Interactions\AGSInteractions.cs" />
     <Compile Include="Rooms\AGSRoom.cs" />
@@ -214,7 +214,7 @@
     <Compile Include="Serialization\Contract.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimation.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimationConfiguration.cs" />
-    <Compile Include="Serialization\Contracts\ContractAnimationContainer.cs" />
+    <Compile Include="Serialization\Contracts\ContractAnimationComponent.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimationFrame.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimationState.cs" />
     <Compile Include="Serialization\Contracts\ContractApproachStyle.cs" />
@@ -340,7 +340,7 @@
     <Compile Include="Audio\AGSSoundEmitter.cs" />
     <Compile Include="Audio\Interfaces\IAudioErrors.cs" />
     <Compile Include="Audio\ALErrors.cs" />
-    <Compile Include="Objects\Characters\Walking\Following\AGSFollowBehavior.cs" />
+    <Compile Include="Objects\Characters\Walking\Following\AGSFollowComponent.cs" />
     <Compile Include="Objects\Characters\Walking\Following\AGSFollowSettings.cs" />
     <Compile Include="Graphics\Logic\SpriteSheetLoader.cs" />
     <Compile Include="Game\AGSSyncContext.cs" />

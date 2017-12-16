@@ -86,7 +86,7 @@ else return _defaultProvider.GetLocation(text, config);
 
 ```
 
-However, the `ISayLocationProvider` is requested by `ISayBehavior` component, and there's one component for each speaking character (or entity), and by default the resolver will create a new instance for our implementation for each character, which means that that each character will have its own instance of the boolean variable, and our custom behavior will happen once for each character, not once for the entire game which might not be what we want.
+However, the `ISayLocationProvider` is requested by `ISayComponent` component, and there's one component for each speaking character (or entity), and by default the resolver will create a new instance for our implementation for each character, which means that that each character will have its own instance of the boolean variable, and our custom behavior will happen once for each character, not once for the entire game which might not be what we want.
 
 Well, we can solve this by changing the `Resolver` override we did before and adding the `SingleInstance` command:
 
@@ -99,7 +99,7 @@ Resolver.Override(resolver =>
 
 - Another thing to think about when we have state in our implementation, is that we might want to save this state in our game saves. One way to do that, is by adding our state as global variables (or to the entity's custom properties, or to the room's custom properties, depending on which system we're replacing). We plan to have easier ways to customize saving in the future.
 
-- One final thing to note: in this example, and perhaps many others, it's possible that we didn't actually need to implement our own `ISayLocationProvider`, as the engine already gives us a way to change the location where the speech is rendered without overriding any interface. The `ISayBehavior` component has an `OnBeforeSay` event which we can subscribe to. This event gives us the label that will be shown on the screen after its location was already decided, but we're then free to change its location to where we want it to be:
+- One final thing to note: in this example, and perhaps many others, it's possible that we didn't actually need to implement our own `ISayLocationProvider`, as the engine already gives us a way to change the location where the speech is rendered without overriding any interface. The `ISayComponent` component has an `OnBeforeSay` event which we can subscribe to. This event gives us the label that will be shown on the screen after its location was already decided, but we're then free to change its location to where we want it to be:
 
 ```csharp
 

@@ -5,14 +5,14 @@ namespace AGS.Engine
 	public class AGSButtonComponent : AGSComponent, IButtonComponent
 	{
 		private IUIEvents _events;
-		private IAnimationContainer _animation;
+		private IAnimationComponent _animation;
         private ITextComponent _text;
         private IImageComponent _image;
 
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-            entity.Bind<IAnimationContainer>(c => _animation = c, _ => _animation = null);
+            entity.Bind<IAnimationComponent>(c => _animation = c, _ => _animation = null);
             entity.Bind<ITextComponent>(c => _text = c, _ => _text = null);
             entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
             entity.Bind<IUIEvents>(c =>

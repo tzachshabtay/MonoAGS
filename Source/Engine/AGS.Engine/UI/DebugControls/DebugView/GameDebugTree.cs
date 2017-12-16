@@ -13,7 +13,7 @@ namespace AGS.Engine
         private readonly InspectorPanel _inspector;
         private IPanel _treePanel, _scrollingPanel, _parent;
 
-        private IAnimationContainer _lastSelectedObject;
+        private IAnimationComponent _lastSelectedObject;
         private IVisibleComponent _lastSelectedMaskVisible;
         private IImageComponent _lastSelectedMaskImage;
         private IBorderStyle _lastObjectBorder;
@@ -37,7 +37,7 @@ namespace AGS.Engine
             var factory = _game.Factory;
             _scrollingPanel = factory.UI.GetPanel("GameDebugTreeScrollingPanel", parent.Width, parent.Height / 2f, 0f, parent.Height / 2f, parent);
             _scrollingPanel.RenderLayer = _layer;
-            _scrollingPanel.Anchor = new PointF(0f, 0f);
+            _scrollingPanel.Pivot = new PointF(0f, 0f);
             _scrollingPanel.Tint = Colors.Transparent;
             _scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
             const float lineHeight = 42f;
@@ -91,7 +91,7 @@ namespace AGS.Engine
         { 
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
             _inspector.Inspector.Show(obj);
-            var animation = obj.GetComponent<IAnimationContainer>();
+            var animation = obj.GetComponent<IAnimationComponent>();
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
             if (animation != null)

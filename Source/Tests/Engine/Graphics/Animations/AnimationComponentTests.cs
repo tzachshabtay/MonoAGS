@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace Tests
 {
 	[TestFixture]
-	public class AnimationContainerTests
+	public class AnimationComponentTests
 	{
 		private Mocks _mocks;
 
@@ -99,7 +99,7 @@ namespace Tests
 			}
 		}
 
-		private async Task<AnimationCompletedEventArgs> animateWithTimeout(IAnimationContainer container, Task<AnimationCompletedEventArgs> task)
+		private async Task<AnimationCompletedEventArgs> animateWithTimeout(IAnimationComponent container, Task<AnimationCompletedEventArgs> task)
 		{
 			Task<AnimationCompletedEventArgs> timeoutTask = Task.Run(async () =>
 			{
@@ -111,7 +111,7 @@ namespace Tests
 			return result.Result;
 		}
 
-		private IEnumerable<IAnimationContainer> getImplementors()
+		private IEnumerable<IAnimationComponent> getImplementors()
 		{
 			foreach (var container in ObjectTests.GetImplementors(_mocks, _mocks.GameState()))
 			{

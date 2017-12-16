@@ -16,14 +16,14 @@ namespace AGS.Engine
 {
     public partial class AGSCharacter : AGSEntity, ICharacter
     {
-        private IHasRoom _hasRoom;
-        private IAnimationContainer _animationContainer;
-        private IInObjectTree _inObjectTree;
-        private ICollider _collider;
+        private IHasRoomComponent _hasRoom;
+        private IAnimationComponent _animationContainer;
+        private IInObjectTreeComponent _inObjectTree;
+        private IColliderComponent _collider;
         private IVisibleComponent _visibleComponent;
         private IEnabledComponent _enabledComponent;
         private ICustomPropertiesComponent _customPropertiesComponent;
-        private IDrawableInfo _drawableInfo;
+        private IDrawableInfoComponent _drawableInfo;
         private IHotspotComponent _hotspotComponent;
         private IShaderComponent _shaderComponent;
         private ITranslateComponent _translateComponent;
@@ -33,31 +33,31 @@ namespace AGS.Engine
         private IPixelPerfectComponent _pixelPerfectComponent;
         private IModelMatrixComponent _modelMatrixComponent;
         private IBoundingBoxComponent _boundingBoxComponent;
-        private ISayBehavior _sayBehavior;
-        private IWalkBehavior _walkBehavior;
-        private IFaceDirectionBehavior _faceDirectionBehavior;
-        private IHasOutfit _hasOutfit;
-        private IHasInventory _hasInventory;
-        private IFollowBehavior _followBehavior;
+        private ISayComponent _sayComponent;
+        private IWalkComponent _walkComponent;
+        private IFaceDirectionComponent _faceDirectionComponent;
+        private IOutfitComponent _hasOutfit;
+        private IInventoryComponent _hasInventory;
+        private IFollowComponent _followComponent;
 
         public AGSCharacter(string id, Resolver resolver, IOutfit outfit) : base(id, resolver)
         {            
-            _hasRoom = AddComponent<IHasRoom>();
-            Bind<IHasRoom>(c => _hasRoom = c, _ => {});            
-            _animationContainer = AddComponent<IAnimationContainer>();
-            Bind<IAnimationContainer>(c => _animationContainer = c, _ => {});            
-            _inObjectTree = AddComponent<IInObjectTree>();
-            Bind<IInObjectTree>(c => _inObjectTree = c, _ => {});            
-            _collider = AddComponent<ICollider>();
-            Bind<ICollider>(c => _collider = c, _ => {});            
+            _hasRoom = AddComponent<IHasRoomComponent>();
+            Bind<IHasRoomComponent>(c => _hasRoom = c, _ => {});            
+            _animationContainer = AddComponent<IAnimationComponent>();
+            Bind<IAnimationComponent>(c => _animationContainer = c, _ => {});            
+            _inObjectTree = AddComponent<IInObjectTreeComponent>();
+            Bind<IInObjectTreeComponent>(c => _inObjectTree = c, _ => {});            
+            _collider = AddComponent<IColliderComponent>();
+            Bind<IColliderComponent>(c => _collider = c, _ => {});            
             _visibleComponent = AddComponent<IVisibleComponent>();
             Bind<IVisibleComponent>(c => _visibleComponent = c, _ => {});            
             _enabledComponent = AddComponent<IEnabledComponent>();
             Bind<IEnabledComponent>(c => _enabledComponent = c, _ => {});            
             _customPropertiesComponent = AddComponent<ICustomPropertiesComponent>();
             Bind<ICustomPropertiesComponent>(c => _customPropertiesComponent = c, _ => {});            
-            _drawableInfo = AddComponent<IDrawableInfo>();
-            Bind<IDrawableInfo>(c => _drawableInfo = c, _ => {});            
+            _drawableInfo = AddComponent<IDrawableInfoComponent>();
+            Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => {});            
             _hotspotComponent = AddComponent<IHotspotComponent>();
             Bind<IHotspotComponent>(c => _hotspotComponent = c, _ => {});            
             _shaderComponent = AddComponent<IShaderComponent>();
@@ -76,14 +76,14 @@ namespace AGS.Engine
             Bind<IModelMatrixComponent>(c => _modelMatrixComponent = c, _ => {});            
             _boundingBoxComponent = AddComponent<IBoundingBoxComponent>();
             Bind<IBoundingBoxComponent>(c => _boundingBoxComponent = c, _ => {});            
-            _faceDirectionBehavior = AddComponent<IFaceDirectionBehavior>();
-            Bind<IFaceDirectionBehavior>(c => _faceDirectionBehavior = c, _ => {});            
-            _hasOutfit = AddComponent<IHasOutfit>();
-            Bind<IHasOutfit>(c => _hasOutfit = c, _ => {});            
-            _hasInventory = AddComponent<IHasInventory>();
-            Bind<IHasInventory>(c => _hasInventory = c, _ => {});            
-            _followBehavior = AddComponent<IFollowBehavior>();
-            Bind<IFollowBehavior>(c => _followBehavior = c, _ => {});
+            _faceDirectionComponent = AddComponent<IFaceDirectionComponent>();
+            Bind<IFaceDirectionComponent>(c => _faceDirectionComponent = c, _ => {});            
+            _hasOutfit = AddComponent<IOutfitComponent>();
+            Bind<IOutfitComponent>(c => _hasOutfit = c, _ => {});            
+            _hasInventory = AddComponent<IInventoryComponent>();
+            Bind<IInventoryComponent>(c => _hasInventory = c, _ => {});            
+            _followComponent = AddComponent<IFollowComponent>();
+            Bind<IFollowComponent>(c => _followComponent = c, _ => {});
 			beforeInitComponents(resolver, outfit);
             InitComponents();
             afterInitComponents(resolver, outfit);
@@ -127,10 +127,10 @@ namespace AGS.Engine
             get { return _animationContainer.Animation; } 
         }
 
-        public Boolean DebugDrawAnchor 
+        public Boolean DebugDrawPivot 
         {  
-            get { return _animationContainer.DebugDrawAnchor; }  
-            set { _animationContainer.DebugDrawAnchor = value; } 
+            get { return _animationContainer.DebugDrawPivot; }  
+            set { _animationContainer.DebugDrawPivot = value; } 
         }
 
         public IBlockingEvent OnAnimationStarted 
@@ -336,10 +336,10 @@ namespace AGS.Engine
             set { _imageComponent.Tint = value; } 
         }
 
-        public PointF Anchor 
+        public PointF Pivot 
         {  
-            get { return _imageComponent.Anchor; }  
-            set { _imageComponent.Anchor = value; } 
+            get { return _imageComponent.Pivot; }  
+            set { _imageComponent.Pivot = value; } 
         }
 
         public IImage Image 
@@ -497,22 +497,22 @@ namespace AGS.Engine
 
         public ISayConfig SpeechConfig 
         {  
-            get { return _sayBehavior.SpeechConfig; } 
+            get { return _sayComponent.SpeechConfig; } 
         }
 
         public IBlockingEvent<BeforeSayEventArgs> OnBeforeSay 
         {  
-            get { return _sayBehavior.OnBeforeSay; } 
+            get { return _sayComponent.OnBeforeSay; } 
         }
 
         public void Say(String text)
         {
-            _sayBehavior.Say(text);
+            _sayComponent.Say(text);
         }
 
         public Task SayAsync(String text)
         {
-            return _sayBehavior.SayAsync(text);
+            return _sayComponent.SayAsync(text);
         }
 
         #endregion
@@ -521,51 +521,51 @@ namespace AGS.Engine
 
         public PointF WalkStep 
         {  
-            get { return _walkBehavior.WalkStep; }  
-            set { _walkBehavior.WalkStep = value; } 
+            get { return _walkComponent.WalkStep; }  
+            set { _walkComponent.WalkStep = value; } 
         }
 
         public Boolean AdjustWalkSpeedToScaleArea 
         {  
-            get { return _walkBehavior.AdjustWalkSpeedToScaleArea; }  
-            set { _walkBehavior.AdjustWalkSpeedToScaleArea = value; } 
+            get { return _walkComponent.AdjustWalkSpeedToScaleArea; }  
+            set { _walkComponent.AdjustWalkSpeedToScaleArea = value; } 
         }
 
         public Boolean MovementLinkedToAnimation 
         {  
-            get { return _walkBehavior.MovementLinkedToAnimation; }  
-            set { _walkBehavior.MovementLinkedToAnimation = value; } 
+            get { return _walkComponent.MovementLinkedToAnimation; }  
+            set { _walkComponent.MovementLinkedToAnimation = value; } 
         }
 
         public Boolean IsWalking 
         {  
-            get { return _walkBehavior.IsWalking; } 
+            get { return _walkComponent.IsWalking; } 
         }
 
         public ILocation WalkDestination 
         {  
-            get { return _walkBehavior.WalkDestination; } 
+            get { return _walkComponent.WalkDestination; } 
         }
 
         public Boolean DebugDrawWalkPath 
         {  
-            get { return _walkBehavior.DebugDrawWalkPath; }  
-            set { _walkBehavior.DebugDrawWalkPath = value; } 
+            get { return _walkComponent.DebugDrawWalkPath; }  
+            set { _walkComponent.DebugDrawWalkPath = value; } 
         }
 
         public Task<Boolean> WalkAsync(ILocation location)
         {
-            return _walkBehavior.WalkAsync(location);
+            return _walkComponent.WalkAsync(location);
         }
 
         public Task StopWalkingAsync()
         {
-            return _walkBehavior.StopWalkingAsync();
+            return _walkComponent.StopWalkingAsync();
         }
 
         public void PlaceOnWalkableArea()
         {
-            _walkBehavior.PlaceOnWalkableArea();
+            _walkComponent.PlaceOnWalkableArea();
         }
 
         #endregion
@@ -574,53 +574,53 @@ namespace AGS.Engine
 
         public Direction Direction 
         {  
-            get { return _faceDirectionBehavior.Direction; } 
+            get { return _faceDirectionComponent.Direction; } 
         }
 
         public IDirectionalAnimation CurrentDirectionalAnimation 
         {  
-            get { return _faceDirectionBehavior.CurrentDirectionalAnimation; }  
-            set { _faceDirectionBehavior.CurrentDirectionalAnimation = value; } 
+            get { return _faceDirectionComponent.CurrentDirectionalAnimation; }  
+            set { _faceDirectionComponent.CurrentDirectionalAnimation = value; } 
         }
 
         public void FaceDirection(Direction direction)
         {
-            _faceDirectionBehavior.FaceDirection(direction);
+            _faceDirectionComponent.FaceDirection(direction);
         }
 
         public Task FaceDirectionAsync(Direction direction)
         {
-            return _faceDirectionBehavior.FaceDirectionAsync(direction);
+            return _faceDirectionComponent.FaceDirectionAsync(direction);
         }
 
         public void FaceDirection(IObject obj)
         {
-            _faceDirectionBehavior.FaceDirection(obj);
+            _faceDirectionComponent.FaceDirection(obj);
         }
 
         public Task FaceDirectionAsync(IObject obj)
         {
-            return _faceDirectionBehavior.FaceDirectionAsync(obj);
+            return _faceDirectionComponent.FaceDirectionAsync(obj);
         }
 
         public void FaceDirection(Single x, Single y)
         {
-            _faceDirectionBehavior.FaceDirection(x, y);
+            _faceDirectionComponent.FaceDirection(x, y);
         }
 
         public Task FaceDirectionAsync(Single x, Single y)
         {
-            return _faceDirectionBehavior.FaceDirectionAsync(x, y);
+            return _faceDirectionComponent.FaceDirectionAsync(x, y);
         }
 
         public void FaceDirection(Single fromX, Single fromY, Single toX, Single toY)
         {
-            _faceDirectionBehavior.FaceDirection(fromX, fromY, toX, toY);
+            _faceDirectionComponent.FaceDirection(fromX, fromY, toX, toY);
         }
 
         public Task FaceDirectionAsync(Single fromX, Single fromY, Single toX, Single toY)
         {
-            return _faceDirectionBehavior.FaceDirectionAsync(fromX, fromY, toX, toY);
+            return _faceDirectionComponent.FaceDirectionAsync(fromX, fromY, toX, toY);
         }
 
         #endregion
@@ -649,12 +649,12 @@ namespace AGS.Engine
 
         public IObject TargetBeingFollowed 
         {  
-            get { return _followBehavior.TargetBeingFollowed; } 
+            get { return _followComponent.TargetBeingFollowed; } 
         }
 
         public void Follow(IObject obj, IFollowSettings settings)
         {
-            _followBehavior.Follow(obj, settings);
+            _followComponent.Follow(obj, settings);
         }
 
         #endregion

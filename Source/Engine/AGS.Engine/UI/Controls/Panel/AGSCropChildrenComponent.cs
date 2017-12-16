@@ -7,7 +7,7 @@ namespace AGS.Engine
 {
     public class AGSCropChildrenComponent : AGSComponent, ICropChildrenComponent
     {
-        private IInObjectTree _tree;
+        private IInObjectTreeComponent _tree;
         private PointF _startPoint;
         private IBoundingBoxComponent _boundingBox;
         private bool _isDirty;
@@ -32,11 +32,11 @@ namespace AGS.Engine
         {
             base.Init(entity);
             entity.Bind<IBoundingBoxComponent>(c => { _boundingBox = c; }, _ => { _boundingBox = null; });
-            entity.Bind<IInObjectTree>(c => { subscribeTree(c); _tree = c; }, c => { unsubscribeTree(c); _tree = null; });
+            entity.Bind<IInObjectTreeComponent>(c => { subscribeTree(c); _tree = c; }, c => { unsubscribeTree(c); _tree = null; });
             rebuildEntireTree();
         }
 
-        private void subscribeTree(IInObjectTree node)
+        private void subscribeTree(IInObjectTreeComponent node)
         {
             if (node == null) return;
             node.TreeNode.Children.OnListChanged.Subscribe(onTreeChanged);
@@ -47,7 +47,7 @@ namespace AGS.Engine
             subscribeObject(node.TreeNode.Node);
         }
 
-        private void unsubscribeTree(IInObjectTree node)
+        private void unsubscribeTree(IInObjectTreeComponent node)
         {
             if (node == null) return;
             node.TreeNode.Children.OnListChanged.Unsubscribe(onTreeChanged);
@@ -122,7 +122,7 @@ namespace AGS.Engine
             rebuildTree(_tree);
         }
 
-        private void rebuildTree(IInObjectTree tree)
+        private void rebuildTree(IInObjectTreeComponent tree)
         {
             if (tree == null) return;
             foreach (var child in tree.TreeNode.Children)
@@ -147,7 +147,7 @@ namespace AGS.Engine
             }
         }
 
-        private void rebuildJump(IInObjectTree tree)
+        private void rebuildJump(IInObjectTreeComponent tree)
         {
             if (tree == null) return;
             foreach (var child in tree.TreeNode.Children)

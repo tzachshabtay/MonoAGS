@@ -6,7 +6,7 @@ namespace AGS.API
     /// An animation container. This gives access to the animation, and allows to start a new animation
     /// which will replace the old animation.
     /// </summary>
-    public interface IAnimationContainer : IComponent
+    public interface IAnimationComponent : IComponent
 	{
         /// <summary>
         /// The currently associated animation.
@@ -15,11 +15,11 @@ namespace AGS.API
 		IAnimation Animation { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the anchor (the pivot point for position/rotate/scale) will 
+        /// Gets or sets a value indicating whether the pivot (the pivot point for position/rotate/scale) will 
         /// be drawn on the screen as a cross. This can be used for debugging the game.
         /// </summary>
-        /// <value><c>true</c> if debug draw anchor; otherwise, <c>false</c>.</value>
-		bool DebugDrawAnchor { get; set; }
+        /// <value><c>true</c> if debug draw pivot; otherwise, <c>false</c>.</value>
+		bool DebugDrawPivot { get; set; }
 
         /// <summary>
         /// An event when fires whenever an animation is started on this container.

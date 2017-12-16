@@ -41,7 +41,7 @@ namespace AGS.Engine
 		public bool IgnoreScalingArea { get; set; }
 
 		[ProtoMember(8)]
-		public ContractAnimationContainer AnimationContainer { get; set; }
+		public ContractAnimationComponent AnimationComponent { get; set; }
 
 		[ProtoMember(9, AsReference = true)]
 		public IContract<IObject> Parent { get; set; }
@@ -77,7 +77,7 @@ namespace AGS.Engine
         public uint Tint { get; set; }
 
         [ProtoMember(20)]
-        public Tuple<float, float> Anchor { get; set; }
+        public Tuple<float, float> Pivot { get; set; }
 
         [ProtoMember(21)]
         public Contract<IImage> Image { get; set; }
@@ -110,12 +110,12 @@ namespace AGS.Engine
                 obj.Scale = new PointF(ScaleX, ScaleY);
             }
             obj.Location = new AGSLocation(Location.Item1, Location.Item2, Location.Item3);
-            obj.Anchor = new PointF(Anchor.Item1, Anchor.Item2);
+            obj.Pivot = new PointF(Pivot.Item1, Pivot.Item2);
             obj.Angle = Angle;
             obj.Tint = Color.FromHexa(Tint);
 
             obj.PixelPerfect(IsPixelPerfect);            
-            AnimationContainer.ToItem(context, obj);
+            AnimationComponent.ToItem(context, obj);
             if (obj.Animation.Frames.Count > 0)
                 obj.Scale = obj.Scale;
             obj.RenderLayer = RenderLayer.ToItem(context);
@@ -144,8 +144,8 @@ namespace AGS.Engine
 
             Properties = context.GetContract(item.Properties);
 
-			AnimationContainer = new ContractAnimationContainer ();
-			AnimationContainer.FromItem(context, item);
+			AnimationComponent = new ContractAnimationComponent ();
+			AnimationComponent.FromItem(context, item);
 
 			if (item.WalkPoint != null)
 			{
@@ -171,7 +171,7 @@ namespace AGS.Engine
             }
             Image = new Contract<IImage>();
             Image.FromItem(context, item.Image);
-            Anchor = new Tuple<float, float>(item.Anchor.X, item.Anchor.Y);
+            Pivot = new Tuple<float, float>(item.Pivot.X, item.Pivot.Y);
             Tint = item.Tint.Value;
             Angle = item.Angle;
             ScaleX = item.ScaleX;

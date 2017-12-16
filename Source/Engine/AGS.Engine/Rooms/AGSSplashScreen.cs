@@ -23,7 +23,7 @@ namespace AGS.Engine
 			                                   1f, game.Settings.VirtualResolution.Width/2f, 
 			                                   game.Settings.VirtualResolution.Height / 2f,
                                                config: TextConfig, addToUi: false);
-			_label.Anchor = new PointF(0.5f, 0.5f);
+			_label.Pivot = new PointF(0.5f, 0.5f);
 			_splashScreen = game.Factory.Room.GetRoom ("Splash Screen");
 			_splashScreen.Objects.Add (_label);
 			_splashScreen.ShowPlayer = false;

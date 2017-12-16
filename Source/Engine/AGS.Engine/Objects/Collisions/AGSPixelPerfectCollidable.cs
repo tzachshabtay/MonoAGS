@@ -4,10 +4,10 @@ namespace AGS.Engine
 {
     public class AGSPixelPerfectCollidable : IPixelPerfectCollidable
     {
-        private IAnimationContainer _animation;
+        private IAnimationComponent _animation;
         private bool _pixelPerfect;
 
-        public AGSPixelPerfectCollidable(IAnimationContainer animation)
+        public AGSPixelPerfectCollidable(IAnimationComponent animation)
         {
             _animation = animation;
             _animation.OnAnimationStarted.Subscribe(refreshPixelPerfect);

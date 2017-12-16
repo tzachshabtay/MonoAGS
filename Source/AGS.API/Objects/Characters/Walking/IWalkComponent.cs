@@ -6,12 +6,12 @@ namespace AGS.API
     /// Gives an entity the ability to walk around the room.
     /// </summary>
     [RequiredComponent(typeof(ITranslateComponent))]
-    [RequiredComponent(typeof(IFaceDirectionBehavior))]
-    [RequiredComponent(typeof(IHasOutfit))]
-    [RequiredComponent(typeof(IHasRoom))]
-    [RequiredComponent(typeof(IDrawableInfo))]
-    [RequiredComponent(typeof(IAnimationContainer), false)] //Only needed if "MovementLinkedToAnimation" is enabled
-	public interface IWalkBehavior : IComponent
+    [RequiredComponent(typeof(IFaceDirectionComponent))]
+    [RequiredComponent(typeof(IOutfitComponent))]
+    [RequiredComponent(typeof(IHasRoomComponent))]
+    [RequiredComponent(typeof(IDrawableInfoComponent))]
+    [RequiredComponent(typeof(IAnimationComponent), false)] //Only needed if "MovementLinkedToAnimation" is enabled
+	public interface IWalkComponent : IComponent
 	{
         /// <summary>
         /// Gets or sets the walk step.
@@ -27,14 +27,14 @@ namespace AGS.API
 		PointF WalkStep { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.IWalkBehavior"/> adjust the walk speed to
+        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.IWalkComponent"/> adjust the walk speed to
         /// the scaling area (i.e for a scaling area that shrinks the character to simulate a far away place, you'll want the character to walk slower).
         /// </summary>
         /// <value><c>true</c> if adjust walk speed to scale area; otherwise, <c>false</c>.</value>
         bool AdjustWalkSpeedToScaleArea { get; set; }
 
 		/// <summary>
-		/// Gets or sets a value indicating whether this <see cref="T:AGS.API.IWalkBehavior"/> movement is linked to the animation.
+		/// Gets or sets a value indicating whether this <see cref="T:AGS.API.IWalkComponent"/> movement is linked to the animation.
 		/// This is on by default, meaning that the walk step would only be performed when the walk animation frame changes.
 		/// For the walk to look right, the images need to be drawn so that a foot touching the ground moves back a 
 		/// constant amount of pixels in between frames. This amount should then be entered as the <see cref="WalkStep"/>, 

@@ -25,7 +25,7 @@ namespace DemoGame
 			IGameFactory factory = game.Factory;
 
 			_panel = await factory.UI.GetPanelAsync("Inventory Panel", "../../Assets/Gui/DialogBox/inventory.bmp", 160f, 100f);
-			_panel.Anchor = new PointF (0.5f, 0.5f);
+			_panel.Pivot = new PointF (0.5f, 0.5f);
 			_panel.Visible = false;
 
 			await loadButton("Inventory Look Button", factory, "magnify/", 5f, RotatingCursorScheme.LOOK_MODE);

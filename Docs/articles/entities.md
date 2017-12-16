@@ -9,10 +9,10 @@ Each component added to the entity gives it new skills, so you can pick and choo
 
 For example, the `object` is an entity with the following components:
 
-- `IHasRoom`: attaches the object to a room.
-- `IAnimationContainer`: adds the animation skill.
-- `IInObjectTree`: adds the composition skill.
-- `ICollider`: adds collision checking skill.
+- `IHasRoomComponent`: attaches the object to a room.
+- `IAnimationComponent`: adds the animation skill.
+- `IInObjectTreeComponent`: adds the composition skill.
+- `IColliderComponent`: adds collision checking skill.
 - `ITranslateComponent`: adds (x,y,z).
 - And so on...
 

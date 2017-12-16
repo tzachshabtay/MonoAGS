@@ -4,14 +4,14 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class HasRoomBehavior : AGSComponent, IHasRoom
+	public class HasRoomComponent : AGSComponent, IHasRoomComponent
 	{
 		private IObject _obj;
 		private readonly IGameState _state;
 		private Lazy<IRoom> _cachedRoom;
 		private IAGSRoomTransitions _roomTransitions;
 
-		public HasRoomBehavior(IGameState state, IAGSRoomTransitions roomTransitions)
+		public HasRoomComponent(IGameState state, IAGSRoomTransitions roomTransitions)
 		{
 			_state = state;
 			_roomTransitions = roomTransitions;

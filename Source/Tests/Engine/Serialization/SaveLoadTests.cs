@@ -111,7 +111,7 @@ namespace Tests
 
 		private void setupObject(IObject obj)
 		{
-			obj.Anchor = new AGS.API.PointF (0.1f, 0.2f);
+			obj.Pivot = new AGS.API.PointF (0.1f, 0.2f);
 			obj.WalkPoint = new AGS.API.PointF (0.3f, 0.4f);
 			obj.Location = new AGSLocation (0.5f, 0.6f, 0.7f);
 			obj.Angle = 0.8f;
@@ -125,8 +125,8 @@ namespace Tests
 
 		private void testObject(IObject actual)
 		{
-			Assert.AreEqual(0.1f, actual.Anchor.X);
-			Assert.AreEqual(0.2f, actual.Anchor.Y);
+			Assert.AreEqual(0.1f, actual.Pivot.X);
+			Assert.AreEqual(0.2f, actual.Pivot.Y);
 			Assert.AreEqual(0.3f, actual.WalkPoint.Value.X);
 			Assert.AreEqual(0.4f, actual.WalkPoint.Value.Y);
 			Assert.AreEqual(0.5f, actual.X);

@@ -7,7 +7,7 @@ namespace AGS.Engine
         private IButton _dropDownButton;
         private IListboxComponent _dropDownPanelList;
         private IVisibleComponent _dropDownPanelVisible;
-        private IDrawableInfo _dropDownPanelDrawable;
+        private IDrawableInfoComponent _dropDownPanelDrawable;
         private IEntity _dropDownPanel;
 
         public AGSComboBoxComponent(IGameEvents gameEvents)
@@ -38,7 +38,7 @@ namespace AGS.Engine
             {
                 _dropDownPanel = value;
                 var visibleComponent = value.GetComponent<IVisibleComponent>();
-                var drawableComponent = value.GetComponent<IDrawableInfo>();
+                var drawableComponent = value.GetComponent<IDrawableInfoComponent>();
                 var listBoxComponent = value.GetComponent<IListboxComponent>();
                 var imageComponent = value.GetComponent<IImageComponent>();
                 var translateComponent = value.GetComponent<ITranslateComponent>();
@@ -48,14 +48,14 @@ namespace AGS.Engine
                 _dropDownPanelList?.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
                 _dropDownPanelList = listBoxComponent;
                 listBoxComponent?.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
-                if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
+                if (imageComponent != null) imageComponent.Pivot = new PointF(0f, 1f);
                 if (translateComponent != null) translateComponent.Y = -1f;
                 if (visibleComponent != null) visibleComponent.Visible = false;
             }
         }
 
         public void SetDropDownPanel(IListboxComponent listBoxComponent, IVisibleComponent visibleComponent,
-                                     IDrawableInfo drawableComponent, IImageComponent imageComponent,
+                                     IDrawableInfoComponent drawableComponent, IImageComponent imageComponent,
                                      ITranslateComponent translateComponent)
         {
             _dropDownPanelVisible = visibleComponent;
@@ -64,7 +64,7 @@ namespace AGS.Engine
             _dropDownPanelList?.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
             _dropDownPanelList = listBoxComponent;
             listBoxComponent?.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
-            if (imageComponent != null) imageComponent.Anchor = new PointF(0f, 1f);
+            if (imageComponent != null) imageComponent.Pivot = new PointF(0f, 1f);
             if (translateComponent != null) translateComponent.Y = -1f;
             if (visibleComponent != null) visibleComponent.Visible = false;
         }

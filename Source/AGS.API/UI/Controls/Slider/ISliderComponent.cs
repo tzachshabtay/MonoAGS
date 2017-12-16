@@ -28,8 +28,8 @@
     /// a line (usually).
     /// </summary>
     [RequiredComponent(typeof(IBoundingBoxComponent))]
-	[RequiredComponent(typeof(IDrawableInfo))]
-	[RequiredComponent(typeof(IInObjectTree))]
+	[RequiredComponent(typeof(IDrawableInfoComponent))]
+	[RequiredComponent(typeof(IInObjectTreeComponent))]
 	[RequiredComponent(typeof(IVisibleComponent))]
 	[RequiredComponent(typeof(IEnabledComponent))]
     [RequiredComponent(typeof(IUIEvents))]

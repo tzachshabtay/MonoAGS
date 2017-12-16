@@ -14,7 +14,7 @@ namespace AGS.Engine
         private int _selectedIndex;
         private float _minHeight, _maxHeight;
         private IScaleComponent _scale;
-        private IInObjectTree _tree;
+        private IInObjectTreeComponent _tree;
         private IImageComponent _image;
         private IGameState _state;
         private IStackLayoutComponent _layout;
@@ -35,7 +35,7 @@ namespace AGS.Engine
         {
             base.Init(entity);
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
-            entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
+            entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
             entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
             entity.Bind<IStackLayoutComponent>(c => 
             { 

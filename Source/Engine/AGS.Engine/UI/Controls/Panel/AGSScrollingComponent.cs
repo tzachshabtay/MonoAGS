@@ -10,7 +10,7 @@ namespace AGS.Engine
         private ISlider _verticalScrollBar, _horizontalScrollBar;
         private IStackLayoutComponent _layout;
         private readonly IGameState _state;
-        private IInObjectTree _tree;
+        private IInObjectTreeComponent _tree;
         private IEntity _entity;
         private bool _inEvent;
 
@@ -80,7 +80,7 @@ namespace AGS.Engine
                 c => { _boundingBox = c; c.OnBoundingBoxesChanged.Subscribe(onSizeChanged); refreshSliderLimits(); },
                 c => { c.OnBoundingBoxesChanged.Unsubscribe(onSizeChanged); _boundingBox = null; });
             entity.Bind<IStackLayoutComponent>(c => _layout = c, _ => _layout = null);
-            entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
+            entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
         }
 
         private void onSizeChanged()

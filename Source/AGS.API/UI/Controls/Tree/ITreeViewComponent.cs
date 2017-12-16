@@ -11,8 +11,8 @@
     /// A component for displaying a hierarchical collection of text labels.
     /// Each label is a node in the tree which can be collapsed/expanded to hide/show its children.
     /// </summary>
-    [RequiredComponent(typeof(IInObjectTree))]
-    [RequiredComponent(typeof(IDrawableInfo))]
+    [RequiredComponent(typeof(IInObjectTreeComponent))]
+    [RequiredComponent(typeof(IDrawableInfoComponent))]
     public interface ITreeViewComponent : IComponent
     {
         /// <summary>

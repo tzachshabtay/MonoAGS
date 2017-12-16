@@ -30,7 +30,7 @@
         /// <param name="obj">Object.</param>
         /// <param name="drawable">Drawable.</param>
         /// <param name="viewport">Viewport.</param>
-		void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport);
+		void Prepare(IObject obj, IDrawableInfoComponent drawable, IViewport viewport);
 
         /// <summary>
         /// Renders the specified object on screen.

@@ -6,7 +6,7 @@ namespace AGS.API
     /// This component associates an entity with the game's room system.
     /// It means that the entity can be belong to a room and moved between rooms.
     /// </summary>
-    public interface IHasRoom : IComponent
+    public interface IHasRoomComponent : IComponent
     {
         /// <summary>
         /// The current room that the entity resides in.

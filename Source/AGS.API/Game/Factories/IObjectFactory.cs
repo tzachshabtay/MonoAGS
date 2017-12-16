@@ -32,7 +32,7 @@ namespace AGS.API
         /// <returns>The character.</returns>
         /// <param name="id">A unique identifier for the object (this has to be globally unique across all entities).</param>
         /// <param name="innerContainer">An animation container for the character</param>
-		ICharacter GetCharacter(string id, IOutfit outfit, IAnimationContainer innerContainer);
+		ICharacter GetCharacter(string id, IOutfit outfit, IAnimationComponent innerContainer);
 
         /// <summary>
         /// Creates a new hotspot object from a bitmap mask (the hotspot text will be shown when the mouse is hovering the object if a hotspot label is in the game).

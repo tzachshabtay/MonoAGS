@@ -4,15 +4,15 @@ using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
-	public class AGSFaceDirectionBehavior : AGSComponent, IFaceDirectionBehavior
+	public class AGSFaceDirectionComponent : AGSComponent, IFaceDirectionComponent
 	{
-		private IAnimationContainer _obj;
+		private IAnimationComponent _obj;
         private ITranslate _translate;
 
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-            entity.Bind<IAnimationContainer>(c => _obj = c, _ => _obj = null);
+            entity.Bind<IAnimationComponent>(c => _obj = c, _ => _obj = null);
             entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
 		}
 

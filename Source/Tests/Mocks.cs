@@ -246,7 +246,7 @@ namespace Tests
 				_obj.Setup(m => m.Image).Returns(Image().Object);
 				_obj.Setup(m => m.Enabled).Returns(true);
 				_obj.Setup(m => m.Visible).Returns(true);
-				_obj.Setup(m => m.Anchor).Returns(new AGS.API.PointF ());
+				_obj.Setup(m => m.Pivot).Returns(new AGS.API.PointF ());
                 _obj.Setup(m => m.TreeNode).Returns(new AGSTreeNode<IObject>());
                 _obj.Setup(m => m.Location).Returns(new AGSLocation(0f, 0f));
                 _obj.Setup(m => m.Properties).Returns(new AGSCustomProperties());
@@ -270,7 +270,7 @@ namespace Tests
 			{
 				_sprite = new Mock<ISprite> ();
 				_sprite.Setup(m => m.Image).Returns(Image().Object);
-				_sprite.Setup(m => m.Anchor).Returns(new AGS.API.PointF ());
+				_sprite.Setup(m => m.Pivot).Returns(new AGS.API.PointF ());
 			}
 			return _sprite;
 		}

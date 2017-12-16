@@ -7,7 +7,7 @@ namespace AGS.Engine
     {
         public AGSHasImage()
         {
-            Anchor = new PointF(0.5f, 0f);
+            Pivot = new PointF(0.5f, 0f);
             Tint = Colors.White;
         }
 
@@ -19,7 +19,7 @@ namespace AGS.Engine
 
         public Color Tint { get; set; }
 
-        public PointF Anchor { get; set; }
+        public PointF Pivot { get; set; }
 
         public IImage Image { get; set; }
 

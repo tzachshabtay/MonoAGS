@@ -149,7 +149,7 @@ namespace AGS.Engine
 		{
 			foreach (var frame in animation.Frames)
 			{
-				frame.Sprite.Anchor = new PointF (0.5f, 0f);
+				frame.Sprite.Pivot = new PointF (0.5f, 0f);
 			}
 			IAnimation clone = animation.Clone();
 			clone.FlipHorizontally();

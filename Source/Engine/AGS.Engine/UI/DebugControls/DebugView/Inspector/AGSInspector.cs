@@ -202,7 +202,7 @@ namespace AGS.Engine
             else if (propType == typeof(ILocation))
             {
                 var entity = _currentEntity;
-                var drawable = entity == null ? null : entity.GetComponent<IDrawableInfo>();
+                var drawable = entity == null ? null : entity.GetComponent<IDrawableInfoComponent>();
                 editor = new LocationPropertyEditor(_factory, false, _settings, drawable);
             }
             else if (propType == typeof(RectangleF)) editor = new RectangleFPropertyEditor(_factory, false);

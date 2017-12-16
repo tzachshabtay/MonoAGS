@@ -5,7 +5,7 @@
     /// of the minimal bounding box that surrounds them all).
     /// </summary>
     [RequiredComponent(typeof(IBoundingBoxComponent))]
-    [RequiredComponent(typeof(IInObjectTree))]
+    [RequiredComponent(typeof(IInObjectTreeComponent))]
     public interface IBoundingBoxWithChildrenComponent : IComponent
     {
         /// <summary>

@@ -8,14 +8,14 @@
         /// <summary>
         /// If the speaker is in the left side of the screen the portrait will be positioned on the left,
         /// otherwise on the right.
-        /// Note that the portrait's anchor will be automacially set to left in order for the portrait
+        /// Note that the portrait's pivot will be automacially set to left in order for the portrait
         /// to be properly positioned.
         /// </summary>
         SpeakerPosition,
         /// <summary>
         /// The portraits will alternate in positions so if two characters are having a dialog,
         /// each of them will have the portrait on a sepearate side.
-        /// Note that the portrait's anchor will be automacially set to left in order for the portrait
+        /// Note that the portrait's pivot will be automacially set to left in order for the portrait
         /// to be properly positioned.
         /// </summary>
         Alternating,

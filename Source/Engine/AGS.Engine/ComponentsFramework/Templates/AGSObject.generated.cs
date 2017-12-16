@@ -15,14 +15,14 @@ namespace AGS.Engine
 {
     public partial class AGSObject : AGSEntity, IObject
     {
-        private IHasRoom _hasRoom;
-        private IAnimationContainer _animationContainer;
-        private IInObjectTree _inObjectTree;
-        private ICollider _collider;
+        private IHasRoomComponent _hasRoom;
+        private IAnimationComponent _animationContainer;
+        private IInObjectTreeComponent _inObjectTree;
+        private IColliderComponent _collider;
         private IVisibleComponent _visibleComponent;
         private IEnabledComponent _enabledComponent;
         private ICustomPropertiesComponent _customPropertiesComponent;
-        private IDrawableInfo _drawableInfo;
+        private IDrawableInfoComponent _drawableInfo;
         private IHotspotComponent _hotspotComponent;
         private IShaderComponent _shaderComponent;
         private ITranslateComponent _translateComponent;
@@ -35,22 +35,22 @@ namespace AGS.Engine
 
         public AGSObject(string id, Resolver resolver) : base(id, resolver)
         {            
-            _hasRoom = AddComponent<IHasRoom>();
-            Bind<IHasRoom>(c => _hasRoom = c, _ => {});            
-            _animationContainer = AddComponent<IAnimationContainer>();
-            Bind<IAnimationContainer>(c => _animationContainer = c, _ => {});            
-            _inObjectTree = AddComponent<IInObjectTree>();
-            Bind<IInObjectTree>(c => _inObjectTree = c, _ => {});            
-            _collider = AddComponent<ICollider>();
-            Bind<ICollider>(c => _collider = c, _ => {});            
+            _hasRoom = AddComponent<IHasRoomComponent>();
+            Bind<IHasRoomComponent>(c => _hasRoom = c, _ => {});            
+            _animationContainer = AddComponent<IAnimationComponent>();
+            Bind<IAnimationComponent>(c => _animationContainer = c, _ => {});            
+            _inObjectTree = AddComponent<IInObjectTreeComponent>();
+            Bind<IInObjectTreeComponent>(c => _inObjectTree = c, _ => {});            
+            _collider = AddComponent<IColliderComponent>();
+            Bind<IColliderComponent>(c => _collider = c, _ => {});            
             _visibleComponent = AddComponent<IVisibleComponent>();
             Bind<IVisibleComponent>(c => _visibleComponent = c, _ => {});            
             _enabledComponent = AddComponent<IEnabledComponent>();
             Bind<IEnabledComponent>(c => _enabledComponent = c, _ => {});            
             _customPropertiesComponent = AddComponent<ICustomPropertiesComponent>();
             Bind<ICustomPropertiesComponent>(c => _customPropertiesComponent = c, _ => {});            
-            _drawableInfo = AddComponent<IDrawableInfo>();
-            Bind<IDrawableInfo>(c => _drawableInfo = c, _ => {});            
+            _drawableInfo = AddComponent<IDrawableInfoComponent>();
+            Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => {});            
             _hotspotComponent = AddComponent<IHotspotComponent>();
             Bind<IHotspotComponent>(c => _hotspotComponent = c, _ => {});            
             _shaderComponent = AddComponent<IShaderComponent>();
@@ -117,10 +117,10 @@ namespace AGS.Engine
             get { return _animationContainer.Animation; } 
         }
 
-        public Boolean DebugDrawAnchor 
+        public Boolean DebugDrawPivot 
         {  
-            get { return _animationContainer.DebugDrawAnchor; }  
-            set { _animationContainer.DebugDrawAnchor = value; } 
+            get { return _animationContainer.DebugDrawPivot; }  
+            set { _animationContainer.DebugDrawPivot = value; } 
         }
 
         public IBlockingEvent OnAnimationStarted 
@@ -326,10 +326,10 @@ namespace AGS.Engine
             set { _imageComponent.Tint = value; } 
         }
 
-        public PointF Anchor 
+        public PointF Pivot 
         {  
-            get { return _imageComponent.Anchor; }  
-            set { _imageComponent.Anchor = value; } 
+            get { return _imageComponent.Pivot; }  
+            set { _imageComponent.Pivot = value; } 
         }
 
         public IImage Image 

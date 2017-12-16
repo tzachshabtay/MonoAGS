@@ -6,7 +6,7 @@
     /// </summary>
 	[RequiredComponent(typeof(IEnabledComponent))]
 	[RequiredComponent(typeof(IVisibleComponent))]
-	[RequiredComponent(typeof(ICollider))]
+	[RequiredComponent(typeof(IColliderComponent))]
 	public interface IUIEvents : IComponent
 	{
         /// <summary>

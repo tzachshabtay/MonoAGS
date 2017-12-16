@@ -25,7 +25,7 @@ as an overall speed for the entire animation.
 
 ## Animation per-frame configuration
 
-An animation frame is actually using a `ISprite` object, which wraps around an image and gives it a lot of the capabilities that objects have. So you can have a position, scale, rotation, anchor, tint and even a custom renderer for each frame individually (those properties will be relative to the object, so if you have a frame with a position of (10, 5) it means that the frame will be offset from the rest of the object/animations by 10 pixels to the right and 5 pixels to the bottom).
+An animation frame is actually using a `ISprite` object, which wraps around an image and gives it a lot of the capabilities that objects have. So you can have a position, scale, rotation, pivot, tint and even a custom renderer for each frame individually (those properties will be relative to the object, so if you have a frame with a position of (10, 5) it means that the frame will be offset from the rest of the object/animations by 10 pixels to the right and 5 pixels to the bottom).
 
 Also, for each image, you can configure how to render the texture:
 
@@ -99,7 +99,7 @@ Directional animations allow grouping animations for different directions togeth
 
 Another form of animation is tweening (short for [inbetweening](https://en.wikipedia.org/wiki/Inbetweening)), which lets you interpolate values over time, which can be very useful for animating movements.
 
-Built-in tweens exist for animating position/scale/rotation/anchor/color for objects/sprites/viewports, and also for animating volume/pitch for sounds:
+Built-in tweens exist for animating position/scale/rotation/pivot/color for objects/sprites/viewports, and also for animating volume/pitch for sounds:
 
 ```csharp
 //Will move hero's x position to 100 in 5 seconds (linearly), without waiting for it to complete.
@@ -123,7 +123,7 @@ var tweenCamera = viewport.TweenAngle(180, 3).Task.ContinueWith(t => viewport.Tw
 var tweenMusic = music.TweenVolume(0, 4, Ease.SineIn).Task;
 var completedTask = await Task.WhenAny(tweenCamera, tweenMusic);
 if (completedTask == tweenMusic) {
-    cHero.Say("This is the expected the behavior, as the music clip took 4 seconds and the camera 6 seconds");
+    cHero.Say("This is the expected behavior, as the music clip took 4 seconds and the camera 6 seconds");
 }
 else cHero.Say("This can't happen!");
 

@@ -66,7 +66,7 @@ namespace AGS.Engine
         }
         public string EntityID { get; set; }
         public ITranslate Translate { get; set; }
-        public IHasRoom HasRoom { get; set; }
+        public IHasRoomComponent HasRoom { get; set; }
 
 		public bool AutoPan { get; set; }
 		public bool AutoAdjustVolume { get; set; }

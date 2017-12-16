@@ -11,7 +11,7 @@
     /// either horizontally, or vertically.
     /// The default is a simple vertical layout (top to bottom).
 	/// </summary>
-	[RequiredComponent(typeof(IInObjectTree))]
+	[RequiredComponent(typeof(IInObjectTreeComponent))]
     [RequiredComponent(typeof(IBoundingBoxWithChildrenComponent))]
     public interface IStackLayoutComponent : IComponent
     {

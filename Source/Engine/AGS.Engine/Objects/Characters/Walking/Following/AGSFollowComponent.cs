@@ -3,10 +3,10 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class AGSFollowBehavior : AGSComponent, IFollowBehavior
+	public class AGSFollowComponent : AGSComponent, IFollowComponent
 	{
-		private IWalkBehavior _walk;
-		private IHasRoom _hasRoom;
+		private IWalkComponent _walk;
+		private IHasRoomComponent _hasRoom;
 		private ITranslate _obj;
 		private IGame _game;
 		private IObject _lastTarget;
@@ -16,7 +16,7 @@ namespace AGS.Engine
 		private float? _newRoomX, _newRoomY;
         private IEntity _follower;
 
-		public AGSFollowBehavior(IGame game)
+		public AGSFollowComponent(IGame game)
 		{
 			_game = game;
             game.Events.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
@@ -26,8 +26,8 @@ namespace AGS.Engine
 		{
 			base.Init (entity);
             _follower = entity;
-            entity.Bind<IWalkBehavior>(c => _walk = c, _ => _walk = null);
-            entity.Bind<IHasRoom>(c => _hasRoom = c, _ => _hasRoom = null);
+            entity.Bind<IWalkComponent>(c => _walk = c, _ => _walk = null);
+            entity.Bind<IHasRoomComponent>(c => _hasRoom = c, _ => _hasRoom = null);
             entity.Bind<ITranslateComponent>(c => _obj = c, _ => _obj = null);
 		}
 
@@ -94,7 +94,7 @@ namespace AGS.Engine
 			setNextWalk (target, followSettings, walk);
 		}
 
-        private void setNextWalk (IObject target, IFollowSettings settings, IWalkBehavior walk)
+        private void setNextWalk (IObject target, IFollowSettings settings, IWalkComponent walk)
 		{
 			PointF targetPoint;
 			if (MathUtils.Random ().Next (100) <= settings.WanderOffPercentage) 

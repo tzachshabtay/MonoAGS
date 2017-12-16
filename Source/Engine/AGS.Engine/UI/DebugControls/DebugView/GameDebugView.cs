@@ -34,7 +34,7 @@ namespace AGS.Engine
             IGameFactory factory = _game.Factory;
             _panel = factory.UI.GetPanel(_panelId, _layer.IndependentResolution.Value.Width / 4f, _layer.IndependentResolution.Value.Height,
                                                      5f, _layer.IndependentResolution.Value.Height / 2f);
-            _panel.Anchor = new PointF(0f, 0.5f);
+            _panel.Pivot = new PointF(0f, 0.5f);
             _panel.Visible = false;
             _panel.Tint = Colors.Black.WithAlpha(150);
             _panel.Border = AGSBorders.SolidColor(Colors.Green, borderWidth, hasRoundCorners: true);
@@ -52,7 +52,7 @@ namespace AGS.Engine
                                                new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
                                                                  autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter),
                                                                  width: 40f, height: 40f);
-            xButton.Anchor = new PointF();
+            xButton.Pivot = new PointF();
             xButton.RenderLayer = _layer;
             xButton.Tint = Colors.Transparent;
             xButton.MouseEnter.Subscribe(_ => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
@@ -62,7 +62,7 @@ namespace AGS.Engine
             _panesButton = factory.UI.GetButton("GameDebugViewPanesButton", (IAnimation)null, null, null, _panel.Width, xButton.Y, _panel, "Display List",
                                                    new AGSTextConfig(autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleRight),
                                                    width: 120f, height: 40f);
-            _panesButton.Anchor = new PointF(1f, 0f);
+            _panesButton.Pivot = new PointF(1f, 0f);
             _panesButton.RenderLayer = _layer;
             _panesButton.Tint = Colors.Black;
             _panesButton.MouseEnter.Subscribe(_ => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
@@ -71,7 +71,7 @@ namespace AGS.Engine
 
             var parentPanelHeight = _panel.Height - headerHeight;
             var parentPanel = factory.UI.GetPanel("GameDebugParentPanel", _panel.Width, parentPanelHeight, 0f, parentPanelHeight, _panel);
-            parentPanel.Anchor = new PointF(0f, 1f);
+            parentPanel.Pivot = new PointF(0f, 1f);
             parentPanel.Tint = Colors.Transparent;
             parentPanel.RenderLayer = _layer;
 

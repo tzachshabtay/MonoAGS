@@ -15,7 +15,7 @@ namespace AGS.Engine
 		private IGameState _state;
 		private IGameEvents _gameEvents;
 		private IScale _scale;
-		private IInObjectTree _tree;
+		private IInObjectTreeComponent _tree;
 
 		public AGSInventoryWindowComponent(IGameState state, IGameEvents gameEvents)
 		{
@@ -29,7 +29,7 @@ namespace AGS.Engine
 		{
 			base.Init(entity);
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
-            entity.Bind<IInObjectTree>(c => _tree = c, _ => _tree = null);
+            entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
 		}
 
 		public override void Dispose()

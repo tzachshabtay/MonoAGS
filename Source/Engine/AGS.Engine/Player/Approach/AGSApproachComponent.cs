@@ -6,8 +6,8 @@ namespace AGS.Engine
 {
     public class AGSApproachComponent : AGSComponent, IApproachComponent
     {
-        private IFaceDirectionBehavior _faceDirection;
-        private IWalkBehavior _walk;
+        private IFaceDirectionComponent _faceDirection;
+        private IWalkComponent _walk;
 
         public AGSApproachComponent()
         {
@@ -19,8 +19,8 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            entity.Bind<IFaceDirectionBehavior>(c => _faceDirection = c, _ => _faceDirection = null);
-            entity.Bind<IWalkBehavior>(c => _walk = c, _ => _walk = null);
+            entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
+            entity.Bind<IWalkComponent>(c => _walk = c, _ => _walk = null);
         }
 
         public async Task<bool> ApproachAsync(string verb, IObject obj)

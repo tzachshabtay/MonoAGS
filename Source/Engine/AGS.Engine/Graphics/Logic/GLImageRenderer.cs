@@ -39,7 +39,7 @@ namespace AGS.Engine
         public SizeF? CustomImageSize => null;
         public PointF? CustomImageResolutionFactor => null;
 
-        public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
+        public void Prepare(IObject obj, IDrawableInfoComponent drawable, IViewport viewport)
 		{
 		}
 
@@ -79,15 +79,15 @@ namespace AGS.Engine
             _renderer.Render(texture.ID, renderBox, boundingBoxes.TextureBox, color);
 
 			border?.RenderBorderFront(borderBox);
-			if (obj.DebugDrawAnchor)
+			if (obj.DebugDrawPivot)
 			{
                 IObject parent = obj.TreeNode.Parent;
                 float x = obj.X;
                 float y = obj.Y;
 				while (parent != null)
 				{
-                    x += (parent.X - parent.Width * parent.Anchor.X);
-                    y += (parent.Y - parent.Height * parent.Anchor.Y);
+                    x += (parent.X - parent.Width * parent.Pivot.X);
+                    y += (parent.Y - parent.Height * parent.Pivot.Y);
 					parent = parent.TreeNode.Parent;
 				}
                 _glUtils.DrawCross(x - viewport.X, y - viewport.Y, 10, 10, 1f, 1f, 1f, 1f);

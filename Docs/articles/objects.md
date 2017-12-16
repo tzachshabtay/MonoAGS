@@ -27,7 +27,7 @@ so if you move the panel around all the buttons will move with it, if you hide t
 
 You can scale all objects to make them bigger or smaller. You can either scale by a factor (i.e scale by 2 to have double the size- note that this refers to scaling the original 
 size by 2, not the current size), or scale to a specific size (i.e I want my object to have a size of (200,500) pixels.
-There are also convenience methods for flipping the object vertically and/or horizontally (this will shift the scale and also change the anchor accordingly).
+There are also convenience methods for flipping the object vertically and/or horizontally (this will shift the scale and also change the pivot accordingly).
 
 Note that if the object is in a scaling area, then the scaling area takes over scaling, which you can disable by setting `IgnoreScalingArea` to true.
 
@@ -35,11 +35,11 @@ Note that if the object is in a scaling area, then the scaling area takes over s
 
 You can set (and get) an angle (in degrees) for every object you desire.
 
-### Anchor
+### Pivot
 
-Anchor is the pivot point for the scale, rotation and position.
-The anchor's units are normalized to the object's size, so (0,0) is the bottom left and (1,1) is the top right.
-So if, for example your anchor is (0.5,0.5) and you rotate the object, the object will pivot on its center (so it would mainly stay in the same place), and all (x,y) positions for the object would refer to its center.
+This is the pivot point for the scale, rotation and position.
+The pivot's units are normalized to the object's size, so (0,0) is the bottom left and (1,1) is the top right.
+So if, for example your pivot is (0.5,0.5) and you rotate the object, the object will pivot on its center (so it would mainly stay in the same place), and all (x,y) positions for the object would refer to its center.
 
 ### Position (Translate)
 

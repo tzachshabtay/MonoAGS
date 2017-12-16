@@ -2,7 +2,7 @@
 
 namespace AGS.Engine
 {
-	public class AGSDrawableInfoComponent : AGSComponent, IDrawableInfo
+	public class AGSDrawableInfoComponent : AGSComponent, IDrawableInfoComponent
 	{
         public IRenderLayer RenderLayer { get; set; }
 

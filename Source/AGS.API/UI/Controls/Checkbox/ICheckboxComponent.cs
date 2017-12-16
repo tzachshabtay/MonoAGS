@@ -4,7 +4,7 @@
     /// The checkbox component allows having an entity behave like a checkbox (can be checked an unchecked).
     /// </summary>
     [RequiredComponent(typeof(IUIEvents))]
-    [RequiredComponent(typeof(IAnimationContainer))]
+    [RequiredComponent(typeof(IAnimationComponent))]
     [RequiredComponent(typeof(ITextComponent), false)]
     [RequiredComponent(typeof(IImageComponent), false)]
     public interface ICheckboxComponent : IComponent

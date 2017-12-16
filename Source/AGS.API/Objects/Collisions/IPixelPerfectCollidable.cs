@@ -25,7 +25,7 @@ namespace AGS.API
     /// Adds the ability for an entity to have pixel perfect collision checks (as opposed to bounding box collision checks).
     /// See: https://wiki.allegro.cc/index.php?title=Pixel_Perfect_Collision
     /// </summary>
-    [RequiredComponent(typeof(IAnimationContainer))]
+    [RequiredComponent(typeof(IAnimationComponent))]
     public interface IPixelPerfectComponent : IPixelPerfectCollidable, IComponent
     { }
 }

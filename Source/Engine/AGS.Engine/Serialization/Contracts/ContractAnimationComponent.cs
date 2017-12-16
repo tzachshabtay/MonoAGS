@@ -6,9 +6,9 @@ using AGS.API;
 namespace AGS.Engine
 {
 	[ProtoContract]
-	public class ContractAnimationContainer : IContract<IAnimationContainer>
+	public class ContractAnimationComponent : IContract<IAnimationComponent>
 	{
-		public ContractAnimationContainer()
+		public ContractAnimationComponent()
 		{
 		}
 
@@ -16,23 +16,23 @@ namespace AGS.Engine
 		public IContract<IAnimation> Animation { get; set; }
 
 		[ProtoMember(2)]
-		public bool DebugDrawAnchor { get; set; }
+        public bool DebugDrawPivot { get; set; }
 
 		[ProtoMember(3)]
 		public IContract<IBorderStyle> Border { get; set; }
 
 		#region IContract implementation
 
-		public IAnimationContainer ToItem(AGSSerializationContext context)
+		public IAnimationComponent ToItem(AGSSerializationContext context)
 		{
-            AGSAnimationContainer container = new AGSAnimationContainer();
+            AGSAnimationComponent container = new AGSAnimationComponent();
 			ToItem(context, container);
 			return container;
 		}
 
-		public void ToItem(AGSSerializationContext context, IAnimationContainer container)
+		public void ToItem(AGSSerializationContext context, IAnimationComponent container)
 		{
-			container.DebugDrawAnchor = DebugDrawAnchor;
+			container.DebugDrawPivot = DebugDrawPivot;
 			container.Border = Border.ToItem(context);
 			IAnimation animation = Animation.ToItem(context);
 			if (animation != null)
@@ -41,12 +41,12 @@ namespace AGS.Engine
 			}
 		}
 
-		public void FromItem(AGSSerializationContext context, IAnimationContainer item)
+		public void FromItem(AGSSerializationContext context, IAnimationComponent item)
 		{
 			Animation = context.GetContract(item.Animation);
 			Border = context.GetContract(item.Border);
 
-			DebugDrawAnchor = item.DebugDrawAnchor;			
+			DebugDrawPivot = item.DebugDrawPivot;			
 		}
 
 		#endregion

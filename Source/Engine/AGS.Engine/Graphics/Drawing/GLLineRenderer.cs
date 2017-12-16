@@ -18,7 +18,7 @@ namespace AGS.Engine
 
 		#region ICustomRenderer implementation
 
-		public void Prepare(IObject obj, IDrawableInfo drawable, IViewport viewport)
+		public void Prepare(IObject obj, IDrawableInfoComponent drawable, IViewport viewport)
 		{
 		}
 

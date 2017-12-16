@@ -3,7 +3,7 @@
     /// <summary>
     /// Adds the ability to show/hide an entity.
     /// </summary>
-	[RequiredComponent(typeof(IInObjectTree))]
+	[RequiredComponent(typeof(IInObjectTreeComponent))]
 	public interface IVisibleComponent : IComponent
 	{
         /// <summary>

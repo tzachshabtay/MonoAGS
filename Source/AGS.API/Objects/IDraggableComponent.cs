@@ -5,7 +5,7 @@
     /// </summary>
     [RequiredComponent(typeof(IUIEvents))]
     [RequiredComponent(typeof(ITranslateComponent))]
-    [RequiredComponent(typeof(IDrawableInfo), false)]
+    [RequiredComponent(typeof(IDrawableInfoComponent), false)]
     public interface IDraggableComponent : IComponent
     {
         /// <summary>

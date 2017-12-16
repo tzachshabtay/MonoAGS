@@ -5,7 +5,7 @@
     /// For example, you can have an object to represent a TV, then crop all of its children entities,
     /// so the entities will not get out of the boundaries of the TV (giving the appearance that it's really a TV).
     /// </summary>
-    [RequiredComponent(typeof(IInObjectTree))]
+    [RequiredComponent(typeof(IInObjectTreeComponent))]
     [RequiredComponent(typeof(IScaleComponent))]
     [RequiredComponent(typeof(IBoundingBoxComponent))]
     public interface ICropChildrenComponent : IComponent

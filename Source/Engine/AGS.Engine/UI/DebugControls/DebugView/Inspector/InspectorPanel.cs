@@ -27,7 +27,7 @@ namespace AGS.Engine
             var height = parent.Height / 2f;
             _scrollingPanel = factory.UI.GetPanel("GameDebugInspectorScrollingPanel", parent.Width, height, 0f, height, parent);
 			_scrollingPanel.RenderLayer = _layer;
-			_scrollingPanel.Anchor = new PointF(0f, 1f);
+			_scrollingPanel.Pivot = new PointF(0f, 1f);
 			_scrollingPanel.Tint = Colors.Transparent;
 			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
 

@@ -3,7 +3,7 @@
     /// <summary>
     /// Adds the ability for an entity to configure various aspects of how it is rendered.
     /// </summary>
-	public interface IDrawableInfo : IComponent
+	public interface IDrawableInfoComponent : IComponent
 	{
         /// <summary>
         /// Gets or sets the render layer associated with the entity.

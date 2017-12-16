@@ -3,7 +3,7 @@
     /// <summary>
     /// Gives an entity the ability to have an outfit (and be able to change outfits).
     /// </summary>
-	public interface IHasOutfit : IComponent
+	public interface IOutfitComponent : IComponent
 	{
         /// <summary>
         /// Gets or sets the outfit for the entity.

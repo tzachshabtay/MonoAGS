@@ -2,11 +2,11 @@
 
 namespace AGS.Engine
 {
-	public class AGSCollider : AGSComponent, ICollider
+	public class AGSCollider : AGSComponent, IColliderComponent
 	{
 		private IGameState _state;
-		private IDrawableInfo _drawableInfo;
-		private IAnimationContainer _obj;
+		private IDrawableInfoComponent _drawableInfo;
+		private IAnimationComponent _obj;
         private IScale _scale;
         private IPixelPerfectCollidable _pixelPerfect;
         private IEntity _entity;
@@ -21,8 +21,8 @@ namespace AGS.Engine
 		{
 			base.Init(entity);
             _entity = entity;
-            entity.Bind<IDrawableInfo>(c => _drawableInfo = c, _ => _drawableInfo = null);
-            entity.Bind<IAnimationContainer>(c => _obj = c, _ => _obj = null);
+            entity.Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => _drawableInfo = null);
+            entity.Bind<IAnimationComponent>(c => _obj = c, _ => _obj = null);
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
             entity.Bind<IPixelPerfectComponent>(c => _pixelPerfect = c, _ => _pixelPerfect = null);
             entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);

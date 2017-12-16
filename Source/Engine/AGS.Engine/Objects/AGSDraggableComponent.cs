@@ -9,7 +9,7 @@ namespace AGS.Engine
         private readonly IGameSettings _settings;
         private float _dragObjectStartX, _dragObjectStartY, _dragMouseStartX, _dragMouseStartY;
         private ITranslate _translate;
-        private IDrawableInfo _drawable;
+        private IDrawableInfoComponent _drawable;
 
         public AGSDraggableComponent(IInput input, IGameEvents gameEvents, IRuntimeSettings settings)
         {
@@ -37,7 +37,7 @@ namespace AGS.Engine
             base.Init(entity);
             entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
             entity.Bind<IUIEvents>(c => c.MouseDown.Subscribe(onMouseDown), c => c.MouseDown.Unsubscribe(onMouseDown));
-            entity.Bind<IDrawableInfo>(c => _drawable = c, _ => _drawable = null);
+            entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
         }
 
         public override void Dispose()

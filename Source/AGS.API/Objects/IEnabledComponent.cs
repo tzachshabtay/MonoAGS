@@ -4,7 +4,7 @@
     /// Adds the ability for an entity to be disabled/enabled.
     /// Only enabled entities can be interacted with by the player.
     /// </summary>
-	[RequiredComponent(typeof(IInObjectTree))]
+	[RequiredComponent(typeof(IInObjectTreeComponent))]
 	public interface IEnabledComponent : IComponent
 	{
 		/// <summary>

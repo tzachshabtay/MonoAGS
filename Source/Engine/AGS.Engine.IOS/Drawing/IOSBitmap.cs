@@ -132,7 +132,7 @@ namespace AGS.Engine.IOS
             {
                 debugDraw = factory.Object.GetObject(id ?? path ?? "Mask Drawable");
                 debugDraw.Image = factory.Graphics.LoadImage(new IOSBitmap(debugMask, _graphics), null, path);
-                debugDraw.Anchor = new AGS.API.PointF();
+                debugDraw.Pivot = new AGS.API.PointF();
             }
             else debugMask?.Dispose();
 

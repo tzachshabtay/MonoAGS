@@ -32,7 +32,7 @@ namespace DemoGame
             IGameFactory factory = game.Factory;
             _panel = factory.UI.GetPanel(_panelId, 800, 600, 
                  _layer.IndependentResolution.Value.Width / 2f, _layer.IndependentResolution.Value.Height / 2f);
-			_panel.Anchor = new PointF(0.5f, 0.5f);
+			_panel.Pivot = new PointF(0.5f, 0.5f);
 			_panel.Visible = false;
             _panel.Tint = Colors.Black;
             _panel.Border = AGSBorders.SolidColor(Colors.Green, borderWidth, hasRoundCorners: true);
@@ -49,7 +49,7 @@ namespace DemoGame
                                                new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
                                                                  autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter), 
                                                                  width: 40f, height: 40f);
-            xButton.Anchor = new PointF();
+            xButton.Pivot = new PointF();
             xButton.RenderLayer = _layer;
             xButton.Tint = Colors.Transparent;
             xButton.MouseEnter.Subscribe(_ => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));

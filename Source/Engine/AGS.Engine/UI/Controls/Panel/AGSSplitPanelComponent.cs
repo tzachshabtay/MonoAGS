@@ -84,7 +84,7 @@ namespace AGS.Engine
 			var crop = topPanel.GetComponent<ICropChildrenComponent>();
 			crop?.EntitiesToSkipCrop.Add(splitLine.ID);
             HoverEffect.Add(splitLine, Colors.Transparent, Colors.Yellow.WithAlpha(100));
-			splitLine.Anchor = new PointF(0f, 0f);
+			splitLine.Pivot = new PointF(0f, 0f);
             positionSplitLine(splitLine, topPanel, lineWidth);
             splitLine.Z = -1f;
             topPanel.OnBoundingBoxesChanged.Subscribe(() => 
@@ -125,8 +125,8 @@ namespace AGS.Engine
 			float width = IsHorizontal ? lineWidth : box.Width;
 			float height = IsHorizontal ? box.Height : lineWidth;
 			splitLine.Image = new EmptyImage(width, height);
-			float anchorX = -topPanel.Width * topPanel.Anchor.X;
-			splitLine.X = IsHorizontal ? anchorX + topPanel.X + box.Width - lineWidth / 2f : anchorX;
+            float pivotX = -topPanel.Width * topPanel.Pivot.X;
+			splitLine.X = IsHorizontal ? pivotX + topPanel.X + box.Width - lineWidth / 2f : pivotX;
 			splitLine.Y = box.MinY;
         }
 

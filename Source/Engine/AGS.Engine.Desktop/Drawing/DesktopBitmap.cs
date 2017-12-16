@@ -147,7 +147,7 @@ namespace AGS.Engine.Desktop
 			{
 				debugDraw = factory.Object.GetObject(id ?? path ?? "Mask Drawable");
                 debugDraw.Image = factory.Graphics.LoadImage(new DesktopBitmap(debugMask, _graphics), null, path);
-				debugDraw.Anchor = new AGS.API.PointF ();
+				debugDraw.Pivot = new AGS.API.PointF ();
 			}
 
 			return new AGSMask (mask, debugDraw);

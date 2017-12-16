@@ -21,7 +21,7 @@
 		ByMouse,
         /// <summary>
         /// The engine will never skip the text itself, but will count on the developer to implement custom skipping (by 
-        /// subsribing to the <see cref="ISayBehavior.OnBeforeSay"/> event and calling the "SkipText" action when appropriate). 
+        /// subsribing to the <see cref="ISayComponent.OnBeforeSay"/> event and calling the "SkipText" action when appropriate). 
         /// </summary>
 		External,
 	}
