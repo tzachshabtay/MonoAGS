@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -13,7 +14,11 @@ namespace AGS.Engine
 
 		public RestrictionListType RestrictionType { get; set; }
 
-		public bool IsRestricted(string id)
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
+        public bool IsRestricted(string id)
 		{
 			if (id == null || RestrictionList.Count == 0) return false;
 			return RestrictionType == RestrictionListType.BlackList ?

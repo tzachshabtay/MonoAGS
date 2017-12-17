@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// Defines how a restriction list (<see cref="IRestrictionList"/>) is interpreted.
@@ -21,7 +23,7 @@
     /// Adds the ability to restrict certain entities from being affected by "something".
     /// That "something" can be an area, for example, or a display list for a viewport.
     /// </summary>
-    public interface IRestrictionList
+    public interface IRestrictionList : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets or sets the type of the restriction, black list (everybody in the list is restricted)

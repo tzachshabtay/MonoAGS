@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace AGS.API
 {
@@ -10,7 +11,7 @@ namespace AGS.API
     /// though you can change to a different room than the one the player is in if you want. 
     /// Note: this is different than "Classic" AGS in which the room is explicitly tied to where the player is.
     /// </summary>
-	public interface IRoom : IDisposable
+	public interface IRoom : IDisposable, INotifyPropertyChanged
 	{
         /// <summary>
         /// Each rooms should have a unique id (string) which identifies it to the engine.
@@ -101,7 +102,7 @@ namespace AGS.API
         /// <seealso cref="IZoomArea"/>
         /// <seealso cref="IAreaRestriction"/>
         /// <value>The areas.</value>
-		IList<IArea> Areas { get; }
+		IAGSBindingList<IArea> Areas { get; }
 
         /// <summary>
         /// Room edges are a convenient way for scripting a room change once a player walks beyond an edge. 

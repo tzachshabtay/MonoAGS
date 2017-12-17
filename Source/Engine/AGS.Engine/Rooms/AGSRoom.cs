@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using AGS.API;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace AGS.Engine
 {
@@ -14,7 +15,11 @@ namespace AGS.Engine
 		private readonly IGameEvents _gameEvents;
         private readonly IInput _input;
 
-		public AGSRoom (string id, IAGSEdges edges, IGameEvents gameEvents,
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
+        public AGSRoom (string id, IAGSEdges edges, IGameEvents gameEvents,
                         IRoomEvents roomEvents, IGameState state, ICustomProperties properties,
                         IRoomLimitsProvider roomLimitsProvider, IInput input)
 		{
@@ -24,8 +29,8 @@ namespace AGS.Engine
 			_gameEvents = gameEvents;
 			Events = roomEvents;
 			ID = id;
-			Objects = new AGSConcurrentHashSet<IObject> ();
-			Areas = new List<IArea> ();
+			Objects = new AGSConcurrentHashSet<IObject>();
+            Areas = new AGSBindingList<IArea>(5);
 			ShowPlayer = true;
 			_edges = edges;
 			Properties = properties;
@@ -73,7 +78,7 @@ namespace AGS.Engine
 
 		public IConcurrentHashSet<IObject> Objects { get; }
 
-		public IList<IArea> Areas { get; }
+		public IAGSBindingList<IArea> Areas { get; }
 
         public IEdges Edges => _edges;
 

@@ -1,5 +1,6 @@
 ﻿using AGS.API;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace AGS.Engine
 {
@@ -26,7 +27,11 @@ namespace AGS.Engine
         [Property(Browsable = false)]
 		public TaskCompletionSource<AnimationCompletedEventArgs> OnAnimationCompleted { get; private set; }
 
-		#endregion
-	}
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
+        #endregion
+    }
 }
 
