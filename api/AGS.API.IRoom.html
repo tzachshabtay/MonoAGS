@@ -93,12 +93,15 @@ Note: this is different than &quot;Classic&quot; AGS in which the room is explic
     <div>
       <span class="xref">System.IDisposable.Dispose()</span>
     </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IRoom_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IRoom : IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IRoom : IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -107,7 +110,7 @@ Note: this is different than &quot;Classic&quot; AGS in which the room is explic
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_Areas.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Areas%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L104">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L105">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Areas_" data-uid="AGS.API.IRoom.Areas*"></a>
   <h4 id="AGS_API_IRoom_Areas" data-uid="AGS.API.IRoom.Areas">Areas</h4>
@@ -117,7 +120,7 @@ There are several types of areas and things you can do with them.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IList&lt;IArea&gt; Areas { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IAGSBindingList&lt;IArea&gt; Areas { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -129,7 +132,7 @@ There are several types of areas and things you can do with them.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IList</span>&lt;<a class="xref" href="AGS.API.IArea.html">IArea</a>&gt;</td>
+        <td><a class="xref" href="AGS.API.IAGSBindingList-1.html">IAGSBindingList</a>&lt;<a class="xref" href="AGS.API.IArea.html">IArea</a>&gt;</td>
         <td><p>The areas.</p>
 </td>
       </tr>
@@ -149,7 +152,7 @@ There are several types of areas and things you can do with them.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_Background.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Background%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L45">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L46">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Background_" data-uid="AGS.API.IRoom.Background*"></a>
   <h4 id="AGS_API_IRoom_Background" data-uid="AGS.API.IRoom.Background">Background</h4>
@@ -187,7 +190,7 @@ available on regular objects.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_Edges.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Edges%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L112">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L113">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Edges_" data-uid="AGS.API.IRoom.Edges*"></a>
   <h4 id="AGS_API_IRoom_Edges" data-uid="AGS.API.IRoom.Edges">Edges</h4>
@@ -221,7 +224,7 @@ events when the player crosses the edge to change the room.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_Events.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Events%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L85">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L86">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Events_" data-uid="AGS.API.IRoom.Events*"></a>
   <h4 id="AGS_API_IRoom_Events" data-uid="AGS.API.IRoom.Events">Events</h4>
@@ -253,7 +256,7 @@ events when the player crosses the edge to change the room.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_ID.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.ID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L19">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L20">View Source</a>
   </span>
   <a id="AGS_API_IRoom_ID_" data-uid="AGS.API.IRoom.ID*"></a>
   <h4 id="AGS_API_IRoom_ID" data-uid="AGS.API.IRoom.ID">ID</h4>
@@ -285,7 +288,7 @@ events when the player crosses the edge to change the room.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_Limits.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Limits%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L54">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L55">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Limits_" data-uid="AGS.API.IRoom.Limits*"></a>
   <h4 id="AGS_API_IRoom_Limits" data-uid="AGS.API.IRoom.Limits">Limits</h4>
@@ -320,7 +323,7 @@ This can be changed, however, by setting a custom <a class="xref" href="AGS.API.
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_MusicOnLoad.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.MusicOnLoad%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L36">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L37">View Source</a>
   </span>
   <a id="AGS_API_IRoom_MusicOnLoad_" data-uid="AGS.API.IRoom.MusicOnLoad*"></a>
   <h4 id="AGS_API_IRoom_MusicOnLoad" data-uid="AGS.API.IRoom.MusicOnLoad">MusicOnLoad</h4>
@@ -355,7 +358,7 @@ and you can configure the cross-fading duration and easing functions from
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_Objects.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Objects%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L79">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L80">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Objects_" data-uid="AGS.API.IRoom.Objects*"></a>
   <h4 id="AGS_API_IRoom_Objects" data-uid="AGS.API.IRoom.Objects">Objects</h4>
@@ -387,7 +390,7 @@ and you can configure the cross-fading duration and easing functions from
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_Properties.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Properties%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L91">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L92">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Properties_" data-uid="AGS.API.IRoom.Properties*"></a>
   <h4 id="AGS_API_IRoom_Properties" data-uid="AGS.API.IRoom.Properties">Properties</h4>
@@ -419,7 +422,7 @@ and you can configure the cross-fading duration and easing functions from
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_RoomLimitsProvider.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.RoomLimitsProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L73">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L74">View Source</a>
   </span>
   <a id="AGS_API_IRoom_RoomLimitsProvider_" data-uid="AGS.API.IRoom.RoomLimitsProvider*"></a>
   <h4 id="AGS_API_IRoom_RoomLimitsProvider" data-uid="AGS.API.IRoom.RoomLimitsProvider">RoomLimitsProvider</h4>
@@ -462,7 +465,7 @@ room.RoomLimitsProvider = AGSRoomLimits.Custom(new RectangleF(-50f, 0f, 100f, 20
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_ShowPlayer.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.ShowPlayer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L27">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L28">View Source</a>
   </span>
   <a id="AGS_API_IRoom_ShowPlayer_" data-uid="AGS.API.IRoom.ShowPlayer*"></a>
   <h4 id="AGS_API_IRoom_ShowPlayer" data-uid="AGS.API.IRoom.ShowPlayer">ShowPlayer</h4>
@@ -498,7 +501,7 @@ to another room.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_Find__1_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Find%60%601(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L128">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L129">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Find_" data-uid="AGS.API.IRoom.Find*"></a>
   <h4 id="AGS_API_IRoom_Find__1_System_String_" data-uid="AGS.API.IRoom.Find``1(System.String)">Find&lt;TObject&gt;(String)</h4>
@@ -564,7 +567,7 @@ to another room.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom_GetMatchingAreas_AGS_API_PointF_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.GetMatchingAreas(AGS.API.PointF%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L120">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L121">View Source</a>
   </span>
   <a id="AGS_API_IRoom_GetMatchingAreas_" data-uid="AGS.API.IRoom.GetMatchingAreas*"></a>
   <h4 id="AGS_API_IRoom_GetMatchingAreas_AGS_API_PointF_System_String_" data-uid="AGS.API.IRoom.GetMatchingAreas(AGS.API.PointF,System.String)">GetMatchingAreas(PointF, String)</h4>
@@ -626,7 +629,7 @@ to another room.</p>
                     <a href="https://github.com/tzachshabtay/MonoAGS/new/DisplayListCaching/apiSpec/new?filename=AGS_API_IRoom.md&amp;value=---%0Auid%3A%20AGS.API.IRoom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L13" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DisplayListCaching/Source/AGS.API/Rooms/IRoom.cs/#L14" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
