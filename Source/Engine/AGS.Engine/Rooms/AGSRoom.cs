@@ -72,6 +72,7 @@ namespace AGS.Engine
 				if (_background != null)
 				{
 					_background.Pivot = new PointF ();
+                    _background.Enabled = false;
 				}
 			} 
 		}

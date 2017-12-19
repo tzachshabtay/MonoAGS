@@ -9,8 +9,6 @@ namespace AGS.Engine
         {
         }
 
-        public bool Backwards { get; set; }
-
 #if DEBUG
         public static bool Printouts { get; set; }
 #endif
@@ -21,12 +19,11 @@ namespace AGS.Engine
 		{
             float resultF = compare(s1, s2);
             int result = resultF > 0f ? 1 : resultF < 0 ? -1 : string.Compare(s1.ID, s2.ID);
-			if (Backwards) result *= -1;
 #if DEBUG
             if (Printouts)
             {
-                s1.Properties.Ints.SetValue($"Sort {(Backwards ? "backwards " : "")}{s2.ID ?? "null"}", result);
-                s2.Properties.Ints.SetValue($"Sort {(Backwards ? "backwards " : "")}{s1.ID ?? "null"}", -result);
+                s1.Properties.Ints.SetValue($"Sort {s2.ID ?? "null"}", result);
+                s2.Properties.Ints.SetValue($"Sort {s1.ID ?? "null"}", -result);
             }
 #endif
 			return result;
