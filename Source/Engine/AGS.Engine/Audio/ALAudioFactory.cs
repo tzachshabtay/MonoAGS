@@ -59,8 +59,7 @@ namespace AGS.Engine
 
 			try
 			{
-				List<ISoundDecoder> decoders;
-				if (_decoders.TryGetValue(fileExtension, out decoders))
+				if (_decoders.TryGetValue(fileExtension, out var decoders))
 				{
 					foreach (var decoder in decoders)
 					{

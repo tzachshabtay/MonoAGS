@@ -102,9 +102,8 @@ namespace DemoGame
         private async void onTreeNodeSelected(NodeEventArgs args)
         {
             var current = _currentPanel;
-            if (current != null) await current.Close(); 
-            Lazy<IFeaturesPanel> panel;
-            if (!_panels.TryGetValue(args.Node.Text, out panel) || panel == null) return;
+            if (current != null) await current.Close();
+            if (!_panels.TryGetValue(args.Node.Text, out var panel) || panel == null) return;
             panel.Value.Show();
             _currentPanel = panel.Value;
         }

@@ -65,7 +65,7 @@ namespace Tests
             game.Setup(g => g.Events).Returns(gameEvents.Object);
 			gameState.Setup(s => s.Cutscene).Returns(cutscene.Object);
             gameState.Setup(r => r.Viewport).Returns(viewport.Object);
-			room.Setup(r => r.Areas).Returns(new List<IArea> { area.Object });
+            room.Setup(r => r.Areas).Returns(new AGSBindingList<IArea>(1) { area.Object });
             walkableArea.Setup(w => w.IsWalkable).Returns(true);
 			area.Setup(a => a.Enabled).Returns(true);
 			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == fromX && p.Y == fromY))).Returns(fromWalkable);

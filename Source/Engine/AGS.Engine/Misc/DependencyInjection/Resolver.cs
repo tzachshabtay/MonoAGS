@@ -52,6 +52,7 @@ namespace AGS.Engine
             Builder.RegisterType<AGSFocusedUI>().SingleInstance().As<IFocusedUI>().As<IModalWindows>();
             Builder.RegisterType<RoomLimitsFromBackground>().SingleInstance().As<IRoomLimitsProvider>();
             Builder.RegisterType<UIEventsAggregator>().SingleInstance();
+            Builder.RegisterType<AGSDisplayList>().SingleInstance().As<IDisplayList>();
             Builder.RegisterType<AGSHitTest>().SingleInstance().As<IHitTest>();
 
 			registerComponents();

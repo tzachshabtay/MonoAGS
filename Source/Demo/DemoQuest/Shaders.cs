@@ -229,11 +229,11 @@ namespace DemoQuest
 			_vignetteShader = null;
 		}
 
-		public static void SetShakeShader()
+		public static async void SetShakeShader()
 		{
 			unbindVignetteShader();
 			ShakeEffect effect = new ShakeEffect ();
-			effect.RunBlocking(TimeSpan.FromSeconds(5));
+			await effect.RunAsync(TimeSpan.FromSeconds(5));
 		}
 
 		public static void TurnOffShader()

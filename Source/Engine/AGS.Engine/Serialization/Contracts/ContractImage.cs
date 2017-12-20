@@ -32,8 +32,7 @@ namespace AGS.Engine
 			if (string.IsNullOrEmpty(ID)) return new EmptyImage (Width, Height);
             var loadConfig = LoadConfig.ToItem(context);
 			var spriteSheet = SpriteSheet.ToItem(context);
-            ITexture texture;
-            if (context.Textures.TryGetValue(ID, out texture))
+            if (context.Textures.TryGetValue(ID, out var texture))
             {
                 return getImage(texture, spriteSheet, loadConfig);
             }

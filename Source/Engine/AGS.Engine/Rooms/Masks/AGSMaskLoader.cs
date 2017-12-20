@@ -74,6 +74,7 @@ namespace AGS.Engine
             debugDrawColor = debugDrawColor ?? Colors.Blue.WithAlpha(150); //for the debug display list window
 #endif
             var mask = image.CreateMask(_factory, path, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
+            if (mask.DebugDraw != null) mask.DebugDraw.Enabled = false;
 #if DEBUG
             if (!hasColor) mask.DebugDraw.Visible = false;
 #endif

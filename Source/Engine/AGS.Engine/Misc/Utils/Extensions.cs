@@ -10,8 +10,7 @@ namespace AGS.Engine
     {
         public static TValue GetOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> map, TKey key, Func<TValue> getValue)
         {
-            TValue value;
-            if (!map.TryGetValue(key, out value))
+            if (!map.TryGetValue(key, out var value))
             {
                 value = getValue();
                 map[key] = value;
@@ -21,8 +20,7 @@ namespace AGS.Engine
 
         public static TValue GetOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> map, TKey key, Func<TKey, TValue> getValue)
         {
-            TValue value;
-            if (!map.TryGetValue(key, out value))
+            if (!map.TryGetValue(key, out var value))
             {
                 value = getValue(key);
                 map[key] = value;

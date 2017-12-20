@@ -23,8 +23,7 @@ namespace AGS.Engine
         {
             string filename = getFileName(characterName, ref text);
             if (filename == null) return new AGSSpeechLine(null, text);
-            IAudioClip audioClip;
-            if (!_speechCache.TryGetValue(filename, out audioClip))
+            if (!_speechCache.TryGetValue(filename, out IAudioClip audioClip))
             {
                 audioClip = await _factory.LoadAudioClipAsync(_baseFolder + filename);
                 _speechCache.TryAdd(filename, audioClip);

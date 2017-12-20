@@ -69,8 +69,7 @@ namespace AGS.Engine
 
 		private string getSentence(string hotspot, string inventoryItem)
 		{
-			string format;
-			if (_verbFormats.TryGetValue(_getMode(), out format))
+			if (_verbFormats.TryGetValue(_getMode(), out var format))
 			{
 				return string.Format(format, hotspot, inventoryItem);
 			}

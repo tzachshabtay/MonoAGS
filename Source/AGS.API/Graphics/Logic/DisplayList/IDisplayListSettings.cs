@@ -1,9 +1,11 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// Controls what is shown on screen for this display list.
     /// </summary>
-    public interface IDisplayListSettings
+    public interface IDisplayListSettings : INotifyPropertyChanged
     {
         /// <summary>
         /// Should we display the objects in the room?

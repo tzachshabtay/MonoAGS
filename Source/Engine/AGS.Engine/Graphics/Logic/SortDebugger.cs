@@ -74,8 +74,7 @@ namespace AGS.Engine
 
         private static string getChain(string from, string to, Dictionary<string, List<string>> map, HashSet<string> checkedChain)
         {
-            List<string> mapped;
-            if (!map.TryGetValue(from, out mapped)) return null;
+            if (!map.TryGetValue(from, out var mapped)) return null;
             foreach (string item in mapped)
             {
                 if (item == to) return $"-->{to}";
@@ -124,8 +123,7 @@ namespace AGS.Engine
 		{
 			if (visited.Add(id))
 			{
-				List<string> items;
-				if (!map.TryGetValue(id, out items)) return null;
+				if (!map.TryGetValue(id, out var items)) return null;
 				List<string> chain = new List<string> { id };
 				recStack.Add(id, chain);
 				foreach (var item in items)

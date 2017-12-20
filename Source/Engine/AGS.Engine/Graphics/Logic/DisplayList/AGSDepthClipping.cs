@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using AGS.API;
 
 namespace AGS.Engine
@@ -14,6 +15,10 @@ namespace AGS.Engine
 
         public IClippingPlane NearClippingPlane { get; set; }
 		public IClippingPlane FarClippingPlane { get; set; }
+
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
 
         public bool IsObjectClipped(IObject obj)
         {

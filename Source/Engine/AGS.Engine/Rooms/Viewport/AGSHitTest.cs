@@ -9,12 +9,12 @@ namespace AGS.Engine
     {
         private readonly IGameState _state;
         private readonly IGameEvents _events;
-		private readonly RenderOrderSelector _sorter;
         private readonly IInput _input;
+        private readonly IDisplayList _displayList;
 
-        public AGSHitTest(IGameState state, IGameEvents events, IInput input)
+        public AGSHitTest(IGameState state, IGameEvents events, IInput input, IDisplayList displayList)
         {
-			_sorter = new RenderOrderSelector { Backwards = true };
+            _displayList = displayList;
 			_state = state;
             _events = events;
             _input = input;
@@ -60,11 +60,7 @@ namespace AGS.Engine
         private IObject findObject(IViewport viewport)
         {
             var room = viewport.RoomProvider.Room;
-            List<IObject> visibleObjects = room != null && viewport.DisplayListSettings.DisplayRoom ?
-                                                           room.Objects.Where(o => viewport.IsObjectVisible(o) && (room.ShowPlayer || o != _state.Player)).ToList() 
-                                                                   : new List<IObject>(_state.UI.Count);
-            if (viewport.DisplayListSettings.DisplayGUIs) visibleObjects.AddRange(_state.UI.Where(o => viewport.IsObjectVisible(o)));
-            visibleObjects.Sort(_sorter);
+            List<IObject> visibleObjects = _displayList.GetDisplayList(viewport);
             return getObjectAt(visibleObjects, _input.MousePosition.GetViewportX(viewport),
                                _input.MousePosition.GetViewportY(viewport), viewport);
             
@@ -72,8 +68,9 @@ namespace AGS.Engine
 
         private IObject getObjectAt(List<IObject> objects, float x, float y, IViewport viewport)
 		{
-			foreach (IObject obj in objects)
+            for (int i = objects.Count - 1; i >= 0; i--)
 			{
+                IObject obj = objects[i];
                 if (!obj.Enabled || obj.ClickThrough)
 					continue;
 

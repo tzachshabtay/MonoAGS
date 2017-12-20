@@ -1,11 +1,13 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
 	/// <summary>
 	/// Depth clipping allows clipping objects (i.e hiding objects) if they're either too close or too far from the camera.
 	/// A near clipping plane is for clipping objects which are too close to the camera, and a far clipping plane
 	/// is for clipping objects which are too far from the camera.
 	/// </summary>
-	public interface IDepthClipping
+    public interface IDepthClipping : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets or sets the near clipping plane (objects in front of the plane will be hidden from the camera).

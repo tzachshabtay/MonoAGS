@@ -80,8 +80,7 @@ namespace AGS.Engine
 
 		private IContract<TItem> getContract<TItem>(AGSSerializationContext context, TItem item, Type type)
 		{
-			Func<object> factory;
-			if (!_factories.TryGetValue(type, out factory)) return null;
+			if (!_factories.TryGetValue(type, out var factory)) return null;
 			return createContract(context, item, factory);
 		}
 

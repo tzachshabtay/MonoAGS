@@ -83,8 +83,7 @@ namespace AGS.Engine
 			}
 
 			string folderResource = getResourceName(folder);
-			List<string> embeddedResources;
-			if (_resourceFolders.TryGetValue(folderResource, out embeddedResources))
+			if (_resourceFolders.TryGetValue(folderResource, out var embeddedResources))
 			{
 				foreach (string resource in embeddedResources)
 				{
@@ -115,9 +114,8 @@ namespace AGS.Engine
             if (filename.Contains(".")) return path;
 
             //We're assuming we received a file/resource name without the extension: let's try to find a matching resource/file.
-            List<string> files;
             string folderResourceName = getResourceName(folder);
-            if (_resourceFolders.TryGetValue(folderResourceName, out files))
+            if (_resourceFolders.TryGetValue(folderResourceName, out var files))
             {
                 var matchingResource = files.FirstOrDefault(f => f.ToUpperInvariant().Contains(filename));
                 if (matchingResource != null) return matchingResource;

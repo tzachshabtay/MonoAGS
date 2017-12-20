@@ -129,9 +129,6 @@ namespace Tests
 
 			RenderOrderSelector selector = new RenderOrderSelector ();
 			int order1 = selector.Compare(o1, o2);
-			selector.Backwards = true;
-			int order2 = selector.Compare(o1, o2);
-			Assert.IsTrue((order1 <= 0 && order2 >= 0) || (order1 >= 0 && order2 <= 0));
 			return order1 > 0;
 		}
 

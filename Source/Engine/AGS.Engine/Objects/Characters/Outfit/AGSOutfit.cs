@@ -24,8 +24,7 @@ namespace AGS.Engine
         {
             get 
             {
-                IDirectionalAnimation animation;
-                _animations.TryGetValue(key, out animation);
+                _animations.TryGetValue(key, out var animation);
                 return animation;
             }
             set { _animations[key] = value; }

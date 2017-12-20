@@ -206,7 +206,7 @@ namespace Tests
 		{			
 			if (_room == null || newInstance)
 			{
-				List<IArea> areas = new List<IArea> ();
+                AGSBindingList<IArea> areas = new AGSBindingList<IArea>(5);
 				AGSConcurrentHashSet<IObject> roomObjects = new AGSConcurrentHashSet<IObject> ();
 				_room = new Mock<IRoom> ();
 				_room.Setup(m => m.Background).Returns(Object().Object);
@@ -242,6 +242,7 @@ namespace Tests
             if (_obj == null || newInstance)
 			{
 				_obj = new Mock<IObject> ();
+                _obj.Setup(m => m.ID).Returns(new Guid().ToString());
 				_obj.Setup(m => m.Animation).Returns(Animation().Object);
 				_obj.Setup(m => m.Image).Returns(Image().Object);
 				_obj.Setup(m => m.Enabled).Returns(true);

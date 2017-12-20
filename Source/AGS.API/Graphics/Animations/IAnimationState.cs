@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace AGS.API
 {
     /// <summary>
     /// Control and query the animation current state.
     /// </summary>
-    public interface IAnimationState
+    public interface IAnimationState : INotifyPropertyChanged
 	{
         /// <summary>
         /// Gets or sets a value indicating whether this animation is currently running backwards.

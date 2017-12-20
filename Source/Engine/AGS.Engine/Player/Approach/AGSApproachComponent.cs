@@ -56,8 +56,7 @@ namespace AGS.Engine
 
         private ApproachHotspots getApproachStyle(string verb)
         {
-            ApproachHotspots approachHotspots;
-            if (!ApproachStyle.ApproachWhenVerb.TryGetValue(verb, out approachHotspots))
+            if (!ApproachStyle.ApproachWhenVerb.TryGetValue(verb, out var approachHotspots))
             {
                 approachHotspots = ApproachHotspots.NeverWalk;
                 ApproachStyle.ApproachWhenVerb[verb] = approachHotspots;
