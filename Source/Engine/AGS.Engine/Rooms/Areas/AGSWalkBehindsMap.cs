@@ -31,7 +31,8 @@ namespace AGS.Engine
 			AreaKey key = new AreaKey (area, bg);
 			IObject obj = _objects.GetOrAdd(key, _createObjectFunc);
 			obj.Z = walkBehind.Baseline == null ? area.Mask.MinY : walkBehind.Baseline.Value;
-			obj.Image = _images.GetOrAdd(key, _createImageFunc);         
+			obj.Image = _images.GetOrAdd(key, _createImageFunc);
+            obj.Enabled = false;
 			return obj;
 		}
 
