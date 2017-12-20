@@ -70,11 +70,6 @@ namespace AGS.Engine
             _taskCompletionSource?.TrySetResult(null);
 		}
 
-		public void RunBlocking(TimeSpan time)
-		{
-			Task.Run(async () => await RunAsync(time)).Wait();
-		}
-
 		public async Task RunAsync(TimeSpan time)
 		{
 			Start();
