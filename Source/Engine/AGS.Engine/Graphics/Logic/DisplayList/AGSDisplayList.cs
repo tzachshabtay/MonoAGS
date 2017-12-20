@@ -77,7 +77,7 @@ namespace AGS.Engine
 
                 public void Unbind() 
                 {
-                    _binding.Unbind();
+                    _binding?.Unbind();
                     _unsubscribe();
                 }
             }
@@ -480,7 +480,7 @@ namespace AGS.Engine
         {
             _bindings.TryRemove(entity.ID, out var bindings);
             if (bindings == null) return;
-            foreach (var binding in bindings) binding.Unbind();
+            foreach (var binding in bindings) binding?.Unbind();
         }
 
         private void subscribeArea(IArea area)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AGS.API;
 using AGS.Engine;
 using Moq;
@@ -11,7 +12,7 @@ namespace Tests
         private Mocks _mocks;
         private Mock<IAGSRoomTransitions> _transitions;
         private Mock<IImageRenderer> _renderer;
-        private List<IArea> _areas;
+        private AGSBindingList<IArea> _areas;
         private AGSConcurrentHashSet<IObject> _roomObjects, _uiObjects;
         private Resolver _resolver;
 
@@ -22,7 +23,7 @@ namespace Tests
             _transitions = new Mock<IAGSRoomTransitions>();
             _resolver = Mocks.GetResolver();
 
-            _areas = new List<IArea>();
+            _areas = new AGSBindingList<IArea>(1);
             _roomObjects = new AGSConcurrentHashSet<IObject>();
             _uiObjects = new AGSConcurrentHashSet<IObject>();
 
@@ -54,18 +55,27 @@ namespace Tests
 
         [Test]
         public void RoomProperlyRendered_Test()
-        { 
-            _mocks.Room().Setup(m => m.ShowPlayer).Returns(false);
-            AGSViewport viewport = new AGSViewport(new AGSDisplayListSettings(), new AGSCamera());
-            viewport.RoomProvider = new AGSSingleRoomProvider(_mocks.Room().Object);
-            _mocks.GameState().Setup(m => m.Viewport).Returns(viewport);
-            _areas.Clear(); _areas.Add(getArea());
-            _roomObjects.Clear(); _roomObjects.Add(_mocks.Object(true).Object);
-            _uiObjects.Clear(); _uiObjects.Add(_mocks.Object(true).Object);
+        {
+            int threadID = AGSGame.UIThreadID;
+            AGSGame.UIThreadID = Environment.CurrentManagedThreadId;
+            try
+            {
+                _mocks.Room().Setup(m => m.ShowPlayer).Returns(false);
+                AGSViewport viewport = new AGSViewport(new AGSDisplayListSettings(), new AGSCamera());
+                viewport.RoomProvider = new AGSSingleRoomProvider(_mocks.Room().Object);
+                _mocks.GameState().Setup(m => m.Viewport).Returns(viewport);
+                _areas.Clear(); _areas.Add(getArea());
+                _roomObjects.Clear(); _roomObjects.Add(_mocks.Object(true).Object);
+                _uiObjects.Clear(); _uiObjects.Add(_mocks.Object(true).Object);
 
-            IRendererLoop loop = getLoop();
-            Assert.IsTrue(loop.Tick());
-            _renderer.Verify(r => r.Render(It.IsAny<IObject>(), It.IsAny<IViewport>()), Times.Exactly(2));
+                IRendererLoop loop = getLoop();
+                Assert.IsTrue(loop.Tick());
+                _renderer.Verify(r => r.Render(It.IsAny<IObject>(), It.IsAny<IViewport>()), Times.Exactly(2));
+            }
+            finally 
+            {
+                AGSGame.UIThreadID = threadID;
+            }
         }
 
         private IRendererLoop getLoop()
