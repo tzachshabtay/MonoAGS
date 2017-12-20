@@ -14,6 +14,7 @@ namespace AGS.Engine
         private readonly IImageRenderer _renderer;
         private readonly AGSWalkBehindsMap _walkBehinds;
         private readonly IComparer<IObject> _comparer;
+        private readonly List<IObject> _emptyList = new List<IObject>(1);
 
         private readonly ConcurrentDictionary<IViewport, DisplayList> _cache;
         private readonly ConcurrentDictionary<IViewport, ViewportSubscriber> _viewportSubscribers;
@@ -213,6 +214,11 @@ namespace AGS.Engine
             }
             else
             {
+                if (Environment.CurrentManagedThreadId != AGSGame.UIThreadID)
+                {
+                    _cache.TryGetValue(viewport, out var displayList);
+                    return displayList.Displayed ?? _emptyList;
+                }
                 list = _cache.GetOrAdd(viewport, getDisplayList);
             }
             return prepareDisplayList(list, viewport);
