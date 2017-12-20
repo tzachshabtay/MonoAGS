@@ -113,8 +113,7 @@ namespace AGS.Engine
         {
 			var components = _components;
 			if (components == null) return false;
-            Lazy<IComponent> existing;
-            if (!components.TryGetValue(component.GetType(), out existing) || existing.Value != component) return false;
+            if (!components.TryGetValue(component.GetType(), out var existing) || existing.Value != component) return false;
             return RemoveComponent(component.GetType());
         }
 
@@ -134,8 +133,7 @@ namespace AGS.Engine
         {
 			var components = _components;
 			if (components == null) return false;
-            Lazy<IComponent> existing;
-            return components.TryGetValue(component.GetType(), out existing) && existing.Value == component;
+            return components.TryGetValue(component.GetType(), out var existing) && existing.Value == component;
         }
 
         public TComponent GetComponent<TComponent>() where TComponent : IComponent
@@ -147,8 +145,7 @@ namespace AGS.Engine
         {
 			var components = _components;
             if (components == null) return default;
-            Lazy<IComponent> component;
-            if (!components.TryGetValue(componentType, out component)) return null;
+            if (!components.TryGetValue(componentType, out var component)) return null;
             return component.Value;
         }
 
