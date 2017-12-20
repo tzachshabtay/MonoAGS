@@ -205,7 +205,7 @@ namespace AGS.Engine
                 onSomethingChanged();
             }
             DisplayList list;
-            if (_isDirty)
+            if (_isDirty && Environment.CurrentManagedThreadId == AGSGame.UIThreadID)
             {
                 _isDirty = false;
                 list = getDisplayList(viewport);
