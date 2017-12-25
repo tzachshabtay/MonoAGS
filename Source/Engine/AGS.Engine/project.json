@@ -5,6 +5,7 @@
     "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
     "NETStandard.Library": "1.6.0",
     "PropertyChanged.Fody": "2.1.4",
+    "SkiaSharp": "1.59.3",
     "System.ValueTuple": "4.4.0"
   },
   "frameworks": {

@@ -12,6 +12,8 @@ namespace AGS.Engine.Desktop
         private IGameWindowSize _windowSize;
         private FrameEventArgs _updateFrameArgs, _renderFrameArgs;
 
+        public static SkiaSurface Surface = new SkiaSurface();
+
         public AGSGameWindow(IGameSettings settings, IGameWindowSize windowSize, Resolver resolver)
         {
             _windowSize = windowSize;
@@ -27,6 +29,7 @@ namespace AGS.Engine.Desktop
             _renderFrameArgs = new FrameEventArgs();
             _gameWindow.UpdateFrame += onUpdateFrame;
             _gameWindow.RenderFrame += onRenderFrame;
+            _gameWindow.Load += (sender, e) => Surface.Load();
         }
 
         public event EventHandler<EventArgs> Load

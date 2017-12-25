@@ -199,6 +199,8 @@ namespace AGS.Engine
 			}
 		}
 
+        public static Action DoSomething;
+
 		public void Quit()
 		{
 			GameWindow.Exit();

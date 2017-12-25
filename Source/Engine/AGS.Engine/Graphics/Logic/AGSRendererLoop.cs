@@ -153,6 +153,7 @@ namespace AGS.Engine
 			{
 				renderObject(viewport, obj);
 			}
+            AGSGame.DoSomething?.Invoke();
         }
 
         private void renderCursor()
