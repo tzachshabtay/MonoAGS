@@ -44,5 +44,11 @@
         /// </summary>
         /// <value>The hover checked animation.</value>
         ButtonAnimation HoverCheckedAnimation { get; set; }
+
+        /// <summary>
+        /// An optional text label to accompany the checkbox.
+        /// </summary>
+        /// <value>The text label.</value>
+        ILabel TextLabel { get; set; }
     }
 }
