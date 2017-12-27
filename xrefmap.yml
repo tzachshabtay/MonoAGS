@@ -4329,6 +4329,18 @@ references:
   commentId: Overload:AGS.API.ICheckboxComponent.OnCheckChanged
   fullName: AGS.API.ICheckboxComponent.OnCheckChanged
   nameWithType: ICheckboxComponent.OnCheckChanged
+- uid: AGS.API.ICheckboxComponent.TextLabel
+  name: TextLabel
+  href: api/AGS.API.ICheckboxComponent.html#AGS_API_ICheckboxComponent_TextLabel
+  commentId: P:AGS.API.ICheckboxComponent.TextLabel
+  fullName: AGS.API.ICheckboxComponent.TextLabel
+  nameWithType: ICheckboxComponent.TextLabel
+- uid: AGS.API.ICheckboxComponent.TextLabel*
+  name: TextLabel
+  href: api/AGS.API.ICheckboxComponent.html#AGS_API_ICheckboxComponent_TextLabel_
+  commentId: Overload:AGS.API.ICheckboxComponent.TextLabel
+  fullName: AGS.API.ICheckboxComponent.TextLabel
+  nameWithType: ICheckboxComponent.TextLabel
 - uid: AGS.API.IChildrenCollection
   name: IChildrenCollection
   href: api/AGS.API.IChildrenCollection.html
