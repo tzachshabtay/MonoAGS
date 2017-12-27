@@ -30,6 +30,8 @@ namespace AGS.Engine
             if (!_graphics.DrawFrameBuffer()) return false;
 
             _graphics.Viewport(0, 0, _width, _height);
+            _graphics.ClearColor(0f,0f,0f,0f);
+            _graphics.ClearScreen();
 			return true;
 		}
 
