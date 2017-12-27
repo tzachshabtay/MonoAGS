@@ -34,7 +34,6 @@ namespace AGS.Engine
         private IPixelPerfectComponent _pixelPerfectComponent;
         private IModelMatrixComponent _modelMatrixComponent;
         private IBoundingBoxComponent _boundingBoxComponent;
-        private ITextComponent _textComponent;
         private ICheckboxComponent _checkboxComponent;
 
         public AGSCheckBox(string id, Resolver resolver) : base(id, resolver)
@@ -77,8 +76,6 @@ namespace AGS.Engine
             Bind<IModelMatrixComponent>(c => _modelMatrixComponent = c, _ => {});            
             _boundingBoxComponent = AddComponent<IBoundingBoxComponent>();
             Bind<IBoundingBoxComponent>(c => _boundingBoxComponent = c, _ => {});            
-            _textComponent = AddComponent<ITextComponent>();
-            Bind<ITextComponent>(c => _textComponent = c, _ => {});            
             _checkboxComponent = AddComponent<ICheckboxComponent>();
             Bind<ICheckboxComponent>(c => _checkboxComponent = c, _ => {});
 			beforeInitComponents(resolver);
@@ -559,50 +556,6 @@ namespace AGS.Engine
 
         #endregion
 
-        #region ITextComponent implementation
-
-        public ITextConfig TextConfig 
-        {  
-            get { return _textComponent.TextConfig; }  
-            set { _textComponent.TextConfig = value; } 
-        }
-
-        public String Text 
-        {  
-            get { return _textComponent.Text; }  
-            set { _textComponent.Text = value; } 
-        }
-
-        public SizeF LabelRenderSize 
-        {  
-            get { return _textComponent.LabelRenderSize; }  
-            set { _textComponent.LabelRenderSize = value; } 
-        }
-
-        public Boolean TextVisible 
-        {  
-            get { return _textComponent.TextVisible; }  
-            set { _textComponent.TextVisible = value; } 
-        }
-
-        public Boolean TextBackgroundVisible
-        {
-            get { return _textComponent.TextBackgroundVisible; }
-            set { _textComponent.TextBackgroundVisible = value; }
-        }
-
-        public Single TextHeight 
-        {  
-            get { return _textComponent.TextHeight; } 
-        }
-
-        public Single TextWidth 
-        {  
-            get { return _textComponent.TextWidth; } 
-        }
-
-        #endregion
-
         #region ICheckboxComponent implementation
 
         public Boolean Checked 
@@ -638,6 +591,12 @@ namespace AGS.Engine
         {  
             get { return _checkboxComponent.HoverCheckedAnimation; }  
             set { _checkboxComponent.HoverCheckedAnimation = value; } 
+        }
+
+        public ILabel TextLabel
+        {
+            get { return _checkboxComponent.TextLabel; }
+            set { _checkboxComponent.TextLabel = value; }
         }
 
         #endregion

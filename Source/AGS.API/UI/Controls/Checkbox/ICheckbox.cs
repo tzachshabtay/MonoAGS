@@ -1,9 +1,9 @@
 ﻿namespace AGS.API
 {
     /// <summary>
-    /// A pre-set entity with all of the UI control components, plus a checkbox component and a text component.
+    /// A pre-set entity with all of the UI control components, plus a checkbox component.
     /// </summary>
-    public interface ICheckBox : IUIControl, ITextComponent, ICheckboxComponent
+    public interface ICheckBox : IUIControl, ICheckboxComponent
     {
     }
 }

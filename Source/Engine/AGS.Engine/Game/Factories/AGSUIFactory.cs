@@ -139,9 +139,10 @@ namespace AGS.Engine
             {
                 height = idle.Animation.Frames[0].Sprite.Height;
             }
-            idle = validateAnimation(id, idle, width, height);
-            hovered = validateAnimation(id, hovered, width, height);
-            pushed = validateAnimation(id, pushed, width, height);
+            Func<ButtonAnimation> defaultAnimation = () => new ButtonAnimation(null);
+            idle = validateAnimation(id, idle, defaultAnimation, width, height);
+            hovered = validateAnimation(id, hovered, defaultAnimation, width, height);
+            pushed = validateAnimation(id, pushed, defaultAnimation, width, height);
 
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IButton button = _resolver.Container.Resolve<IButton>(idParam);
@@ -230,19 +231,38 @@ namespace AGS.Engine
             {
                 height = notChecked.Animation.Frames[0].Sprite.Height;
             }
-            notChecked = validateAnimation(id, notChecked, width, height);
-            notCheckedHovered = validateAnimation(id, notCheckedHovered, width, height);
-            @checked = validateAnimation(id, @checked, width, height);
-            checkedHovered = validateAnimation(id, checkedHovered, width, height);
+
+            var idleColor = Colors.White;
+            var hoverColor = Colors.Yellow;
+            const float lineWidth = 1f;
+            const float padding = 300f;
+            Func<ButtonAnimation> notCheckedDefault = () => new ButtonAnimation(AGSBorders.SolidColor(idleColor, lineWidth), null, Colors.Black);
+            Func<ButtonAnimation> checkedDefault = () =>
+            {
+                var checkIcon = _graphics.Icons.GetXIcon(color: idleColor, padding: padding);
+                return new ButtonAnimation(AGSBorders.Multiple(AGSBorders.SolidColor(idleColor, lineWidth), checkIcon), null, Colors.Black);
+            };
+            Func<ButtonAnimation> hoverNotCheckedDefault = () => new ButtonAnimation(AGSBorders.SolidColor(hoverColor, lineWidth), null, Colors.Black);
+            Func<ButtonAnimation> hoverCheckedDefault = () =>
+            {
+                var checkHoverIcon = _graphics.Icons.GetXIcon(color: hoverColor, padding: padding);
+                return new ButtonAnimation(AGSBorders.Multiple(AGSBorders.SolidColor(hoverColor, lineWidth), checkHoverIcon), null, Colors.Black);
+            }; 
+
+            notChecked = validateAnimation(id, notChecked, notCheckedDefault, width, height);
+            notCheckedHovered = validateAnimation(id, notCheckedHovered, hoverNotCheckedDefault, width, height);
+            @checked = validateAnimation(id, @checked, checkedDefault, width, height);
+            checkedHovered = validateAnimation(id, checkedHovered, hoverCheckedDefault, width, height);
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             ICheckBox checkbox = _resolver.Container.Resolve<ICheckBox>(idParam);
-            checkbox.TextConfig = config;
-            checkbox.Text = text;
+            if (!string.IsNullOrEmpty(text))
+            {
+                checkbox.TextLabel = GetLabel($"{id}_Label", text, 100f, 20f, x + width + 5f, y, parent, config, addToUi);
+            }
             if (!isCheckButton)
             {
                 checkbox.SkinTags.Add(AGSSkin.CheckBoxTag);
             }
-            checkbox.LabelRenderSize = new AGS.API.SizeF(width, height);
             if (notChecked != null) checkbox.NotCheckedAnimation = notChecked;
             if (notCheckedHovered != null) checkbox.HoverNotCheckedAnimation = notCheckedHovered;
             if (@checked != null) checkbox.CheckedAnimation = @checked;
@@ -254,7 +274,7 @@ namespace AGS.Engine
             setParent(checkbox, parent);
 
             checkbox.Skin?.Apply(checkbox);
-            checkbox.StartAnimation(checkbox.NotCheckedAnimation.Animation);
+            checkbox.NotCheckedAnimation.StartAnimation(checkbox, checkbox.TextLabel, checkbox);
 
             if (addToUi)
                 _gameState.UI.Add(checkbox);
@@ -436,9 +456,9 @@ namespace AGS.Engine
             return slider;
         }
 
-        private ButtonAnimation validateAnimation(string id, ButtonAnimation button, float width, float height)
+        private ButtonAnimation validateAnimation(string id, ButtonAnimation button, Func<ButtonAnimation> defaultAnimation, float width, float height)
         {
-            button = button ?? new ButtonAnimation(null);
+            button = button ?? defaultAnimation();
             if (button.Animation != null) return button;
             if (width == -1f || height == -1)
             {

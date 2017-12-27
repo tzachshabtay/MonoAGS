@@ -15,17 +15,7 @@ namespace AGS.Engine
 
         public static ICheckBox CreateCheckbox(IUIControl label, IGameFactory factory, string id)
         {
-            var idleColor = Colors.White;
-            var hoverColor = Colors.Yellow;
-            const float lineWidth = 1f;
-            const float padding = 300f;
-            var checkIcon = factory.Graphics.Icons.GetXIcon(color: idleColor, padding: padding);
-            var checkHoverIcon = factory.Graphics.Icons.GetXIcon(color: hoverColor, padding: padding);
-            var notChecked = new ButtonAnimation(AGSBorders.SolidColor(idleColor, lineWidth), null, null);
-            var @checked = new ButtonAnimation(AGSBorders.Multiple(AGSBorders.SolidColor(idleColor, lineWidth), checkIcon), null, null);
-            var hoverNotChecked = new ButtonAnimation(AGSBorders.SolidColor(hoverColor, lineWidth), null, null);
-            var hoverChecked = new ButtonAnimation(AGSBorders.Multiple(AGSBorders.SolidColor(hoverColor, lineWidth), checkHoverIcon), null, null);
-            var checkbox = factory.UI.GetCheckBox(id, notChecked, hoverNotChecked, @checked, hoverChecked,
+            var checkbox = factory.UI.GetCheckBox(id, (ButtonAnimation)null, null, null, null,
                                                  label.X, label.Y, label.TreeNode.Parent,
                                                  "", width: 20f, height: 20f);
             checkbox.RenderLayer = label.RenderLayer;
