@@ -205,7 +205,7 @@ namespace AGS.Engine
             textbox.LabelRenderSize = new SizeF(width, height);
             textbox.X = x;
             textbox.Y = y;
-            if (width < 0f && config == null)
+            if (config == null)
             {
                 config = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop);
             }
