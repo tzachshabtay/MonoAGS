@@ -11,6 +11,7 @@
     [RequiredComponent(typeof(IHasRoomComponent))]
     [RequiredComponent(typeof(IImageComponent))]
     [RequiredComponent(typeof(IVisibleComponent))]
+    [RequiredComponent(typeof(IAnimationComponent), false)]
     public interface ITextBoxComponent : IComponent
     {
         /// <summary>

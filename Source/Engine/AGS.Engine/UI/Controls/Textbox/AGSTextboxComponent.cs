@@ -1,6 +1,7 @@
 ﻿using AGS.API;
 using System.Diagnostics;
 using System.ComponentModel;
+using System;
 
 namespace AGS.Engine
 {
@@ -11,6 +12,7 @@ namespace AGS.Engine
         private IImageComponent _imageComponent;
         private IVisibleComponent _visibleComponent;
         private IDrawableInfoComponent _drawableComponent;
+        private IAnimationComponent _animationComponent;
         private IUIEvents _uiEvents;        
         private IInObjectTreeComponent _tree;
         private IHasRoomComponent _room;
@@ -54,8 +56,8 @@ namespace AGS.Engine
             }, c =>
             {
                 _uiEvents = null;
-				c.MouseDown.Unsubscribe(onMouseDown);
-				c.LostFocus.Unsubscribe(onMouseDownOutside);
+                c.MouseDown.Unsubscribe(onMouseDown);
+                c.LostFocus.Unsubscribe(onMouseDownOutside);
             });
             entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
             entity.Bind<IHasRoomComponent>(c => _room = c, _ => _room = null);
@@ -67,6 +69,18 @@ namespace AGS.Engine
             _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _withCaret.Pivot = new PointF(0f, 0f);
 
+            entity.Bind<IAnimationComponent>(c =>
+            {
+                c.PropertyChanged += onAnimationPropertyChanged;
+                _animationComponent = c;
+                updateBorder();
+            }, c =>
+            {
+                c.PropertyChanged -= onAnimationPropertyChanged;
+                _animationComponent = null;
+                updateBorder();
+            });
+
             entity.Bind<IDrawableInfoComponent>(c =>
             {
                 _drawableComponent = c;
@@ -77,6 +91,17 @@ namespace AGS.Engine
                 c.PropertyChanged -= onDrawableChanged; 
                 _drawableComponent = null; 
             });
+        }
+
+        private void onAnimationPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(IAnimationComponent.Border)) return;
+            updateBorder();
+        }
+
+        private void updateBorder()
+        {
+            _withCaret.Border = _animationComponent?.Border;
         }
 
         public override void AfterInit()
