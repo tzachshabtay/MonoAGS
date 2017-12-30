@@ -26,7 +26,7 @@ namespace AGS.Engine
             _parent = parent;
 			var factory = _game.Factory;
 
-            _searchBox = factory.UI.GetTextBox("GameDebugInspectorSearchBox", 0f, parent.Height, parent, "Search", width: parent.Width, height: 30f);
+            _searchBox = factory.UI.GetTextBox("GameDebugInspectorSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;
             _searchBox.Border = AGSBorders.SolidColor(Colors.Green, 2f);
             _searchBox.Tint = Colors.Transparent;

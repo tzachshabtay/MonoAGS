@@ -168,7 +168,8 @@ namespace AGS.Engine
             AGSTextConfig config = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText);
             var textbox = _factory.UI.GetTextBox(id + "_Textbox",
                                               0f, SLIDER_HEIGHT + 1f, panel,
-                                              text, config, width: 100f, height: ROW_HEIGHT);
+                                              "", config, width: 100f, height: ROW_HEIGHT);
+            textbox.Text = text;
             textbox.RenderLayer = panel.RenderLayer;
             textbox.Z = panel.Z;
             HoverEffect.Add(textbox, Colors.Transparent, Colors.DarkSlateBlue);

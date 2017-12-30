@@ -27,7 +27,7 @@ namespace AGS.Engine
         private bool _leftShiftOn, _rightShiftOn;
         private bool _shiftOn => _leftShiftOn || _rightShiftOn || (_capslock && _keyboardState.SoftKeyboardVisible);
 
-        private ILabel _withCaret;
+        private ILabel _withCaret, _watermark;
 
         public AGSTextBoxComponent(IBlockingEvent<TextBoxKeyPressingEventArgs> onPressingKey,
                                    IInput input, IGame game, IKeyboardState keyboardState, IFocusedUI focusedUi)
@@ -46,7 +46,15 @@ namespace AGS.Engine
         {
             base.Init(entity);
             _entity = entity;
-            entity.Bind<ITextComponent>(c => _textComponent = c, _ => _textComponent = null);
+            entity.Bind<ITextComponent>(c =>
+            {
+                _textComponent = c;
+                c.PropertyChanged += onTextPropertyChanged;
+            }, c =>
+            {
+                _textComponent = null;
+                c.PropertyChanged -= onTextPropertyChanged;
+            });
             entity.Bind<IImageComponent>(c => _imageComponent = c, _ => _imageComponent = null);
             entity.Bind<IUIEvents>(c =>
             {
@@ -93,6 +101,12 @@ namespace AGS.Engine
             });
         }
 
+        private void onTextPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(ITextComponent.Text)) return;
+            updateWatermark();
+        }
+
         private void onAnimationPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(IAnimationComponent.Border)) return;
@@ -130,6 +144,7 @@ namespace AGS.Engine
                     if (_focusedUi.HasKeyboardFocus == this)
                         _focusedUi.HasKeyboardFocus = null;
                 }
+                updateWatermark();
             }
         }
 
@@ -137,6 +152,8 @@ namespace AGS.Engine
         public uint CaretFlashDelay { get; set; }
 
         public IBlockingEvent<TextBoxKeyPressingEventArgs> OnPressingKey { get; }
+
+        public ILabel Watermark { get { return _watermark; } set { _watermark = value; updateWatermark(); }}
 
         public override void Dispose()
         {
@@ -170,6 +187,13 @@ namespace AGS.Engine
         {
             _keyboardState.OnSoftKeyboardHidden.Unsubscribe(onSoftKeyboardHidden);
             IsFocused = false;
+        }
+
+        private void updateWatermark()
+        {
+            var watermark = _watermark;
+            if (watermark == null) return;
+            watermark.Visible = !IsFocused && string.IsNullOrEmpty(_textComponent?.Text);
         }
 
         private void onMouseDown(MouseButtonEventArgs args)
