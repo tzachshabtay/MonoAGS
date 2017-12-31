@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using AGS.API;
 
@@ -34,6 +35,7 @@ namespace AGS.Engine
             _searchBox.Tint = Colors.Transparent;
             _searchBox.Pivot = new PointF(0f, 1f);
             _searchBox.Visible = false;
+            _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
 
             _scrollingPanel = factory.UI.GetPanel("GameDebugDisplayListScrollingPanel", parent.Width, parent.Height - _searchBox.Height, 0f, 0f, parent);
 			_scrollingPanel.RenderLayer = _layer;
@@ -42,7 +44,8 @@ namespace AGS.Engine
 			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
             _scrollingPanel.Visible = false;
 
-            _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, _scrollingPanel.Height - 10, _scrollingPanel);
+            const float lineHeight = 42f;
+            _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, _scrollingPanel.Height - lineHeight, _scrollingPanel);
             _listPanel.Tint = Colors.Transparent;
             _listPanel.RenderLayer = _layer;
             _listPanel.Pivot = new PointF(0f, 1f);
@@ -54,9 +57,9 @@ namespace AGS.Engine
             _listBox.ItemButtonFactory = text =>
             {
                 var button = factory.UI.GetButton("GameDebugDisplayListPanel_" + text,
-                                                  new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null),
-                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null),
-                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null),
+                                                  new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText), null),
+                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText), null),
+                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
                                                   0f, 0f, width: 500f, height: 50f);
                 button.RenderLayer = parent.RenderLayer;
                 return button;
@@ -109,5 +112,10 @@ namespace AGS.Engine
             _lastDisplayList = args.DisplayList;
         }
 
+        private void onSearchPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(ITextComponent.Text)) return;
+            _listBox.SearchFilter = _searchBox.Text;
+        }
     }
 }
