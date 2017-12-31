@@ -46,6 +46,13 @@
         SelectionType AllowSelection { get; set; }
 
         /// <summary>
+        /// Gets or sets the search filter (a search text that filters the tree so that
+        /// only items containing the text appear in the tree).
+        /// </summary>
+        /// <value>The search filter.</value>
+        string SearchFilter { get; set; }
+
+        /// <summary>
         /// An event which fires every time a node is selected (if <see cref="AllowSelection"/> is set to allow selection).
         /// </summary>
         IBlockingEvent<NodeEventArgs> OnNodeSelected { get; }
