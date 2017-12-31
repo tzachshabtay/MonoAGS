@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -13,6 +14,7 @@ namespace AGS.Engine
         private ITreeStringNode _tree;
         private IDrawableInfoComponent _drawable;
         private string _searchFilter;
+        private TaskCompletionSource<object> _currentSearchToken;
 
         public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameState state)
         {
@@ -54,8 +56,7 @@ namespace AGS.Engine
             { 
                 value = value?.ToLowerInvariant() ?? "";
                 _searchFilter = value;
-                _root?.UpdateSearchFilter(value);
-                RefreshLayout();
+                applySearchOnIdle();
             }
         }
 
@@ -101,6 +102,19 @@ namespace AGS.Engine
             var nodeView = findNodeView(node);
             if (nodeView == null) return null;
             return nodeView.IsCollapsed;
+        }
+
+        private async void applySearchOnIdle()
+        {
+            _currentSearchToken?.TrySetResult(null);
+            var token = new TaskCompletionSource<object>();
+            _currentSearchToken = token;
+            var timeout = Task.Delay(800);
+            var task = await Task.WhenAny(token.Task, timeout);
+            if (task == timeout) //800 milliseconds has passed and we haven't got a new search text, user must have finished typing, let's do the performance killing stuff
+            {
+                _root?.UpdateSearchFilter(SearchFilter);
+            }
         }
 
         private Node findNodeView(ITreeStringNode node) => findNodeView(_root, node);
@@ -276,6 +290,7 @@ namespace AGS.Engine
             {
                 Visible,
                 VisibleBecauseOfChild,
+                VisibleBecauseOfParent,
                 NotVisible
             }
 
@@ -340,33 +355,47 @@ namespace AGS.Engine
                 button?.MouseClicked.Unsubscribe(onMouseClicked);
             }
 
-            public SearchFilterMode UpdateSearchFilter(string filter)
+            public void UpdateSearchFilter(string filter)
+            {
+                UpdateSearchFilter(filter, SearchFilterMode.NotVisible);
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    setCollapsedAfterSearch();
+                }
+                updateVisibilityWithChildren();
+                _tree.RefreshLayout();
+            }
+
+            public SearchFilterMode UpdateSearchFilter(string filter, SearchFilterMode parentMode)
             {
                 var filterMode = SearchFilterMode.NotVisible;
-                if (string.IsNullOrEmpty(filter))
+                if (passesFilter(filter))
                 {
                     filterMode = SearchFilterMode.Visible;
                 }
-                else if (passesFilter(filter))
+                else if (parentMode == SearchFilterMode.VisibleBecauseOfParent || parentMode == SearchFilterMode.Visible)
                 {
-                    filter = null; //Once the parent passes the filter, all children should be automatically shown as well.
-                    filterMode = SearchFilterMode.Visible;
+                    filterMode = SearchFilterMode.VisibleBecauseOfParent;
                 }
                 foreach (var child in Children)
                 {
-                    var childMode = child.UpdateSearchFilter(filter);
+                    var childMode = child.UpdateSearchFilter(filter, filterMode);
                     if (childMode != SearchFilterMode.NotVisible && filterMode != SearchFilterMode.Visible)
                     {
                         filterMode = SearchFilterMode.VisibleBecauseOfChild;
                     }
                 }
                 FilterMode = filterMode;
-                /*if (filterMode != SearchFilterMode.NotVisible && !string.IsNullOrEmpty(filter))
-                {
-                    Expand();
-                }*/
-                updateVisibility();
                 return FilterMode;
+            }
+
+            private void setCollapsedAfterSearch()
+            {
+                IsCollapsed = FilterMode != SearchFilterMode.VisibleBecauseOfChild;
+                foreach (var child in Children)
+                {
+                    child.setCollapsedAfterSearch();
+                }
             }
 
             public float ResetOffsets(float xOffset, float yOffset, float spacingX, float spacingY)
@@ -419,6 +448,15 @@ namespace AGS.Engine
                 if (view == null) return;
                 _tree.NodeViewProvider.BeforeDisplayingNode(Item, view,
                                                   IsCollapsed, IsHovered, IsSelected);
+            }
+
+            private void updateVisibilityWithChildren()
+            {
+                updateVisibility();
+                foreach (var child in Children)
+                {
+                    child.updateVisibilityWithChildren();
+                }
             }
 
             private bool passesFilter(string filter)
