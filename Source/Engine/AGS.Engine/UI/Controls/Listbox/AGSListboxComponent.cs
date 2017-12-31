@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using AGS.API;
 using PropertyChanged;
@@ -9,7 +10,7 @@ namespace AGS.Engine
     public class AGSListboxComponent : AGSComponent, IListboxComponent
     {
         private AGSBindingList<IStringItem> _items;
-        private List<IButton> _itemButtons;
+        private List<(IButton button, IStringItem item)> _itemButtons;
         private IUIFactory _uiFactory;
         private int _selectedIndex;
         private float _minHeight, _maxHeight;
@@ -18,12 +19,13 @@ namespace AGS.Engine
         private IImageComponent _image;
         private IGameState _state;
         private IStackLayoutComponent _layout;
+        private string _searchFilter;
 
         public AGSListboxComponent(IUIFactory factory, IGameState state)
         {
             _state = state;
             _uiFactory = factory;
-            _itemButtons = new List<IButton>();
+            _itemButtons = new List<(IButton, IStringItem)>();
             _items = new AGSBindingList<IStringItem>(10);
             _items.OnListChanged.Subscribe(onListChanged);
             _selectedIndex = -1;
@@ -53,7 +55,7 @@ namespace AGS.Engine
 
         public Func<string, IButton> ItemButtonFactory { get; set; }
 
-        public IEnumerable<IButton> ItemButtons => _itemButtons;
+        public IEnumerable<IButton> ItemButtons => _itemButtons.Select(c => c.button);
 
         public IAGSBindingList<IStringItem> Items => _items;
 
@@ -115,7 +117,33 @@ namespace AGS.Engine
             }
         }
 
+        public string SearchFilter
+        {
+            get => _searchFilter;
+            set
+            {
+                value = value?.ToLowerInvariant() ?? "";
+                _searchFilter = value;
+                applySearch(value);
+            }
+        }
+
         public IBlockingEvent<ListboxItemArgs> OnSelectedItemChanged { get; }
+
+        private void applySearch(string filter)
+        {
+            _layout?.StopLayout();
+            foreach (var (button, item) in _itemButtons)
+            {
+                var customSearch = item as ICustomSearchItem;
+                if (customSearch != null)
+                {
+                    button.Visible = customSearch.Contains(filter);
+                }
+                else button.Visible = (item.Text?.ToLowerInvariant() ?? "").Contains(filter);
+            }
+            _layout?.StartLayout();
+        }
 
         private void onListChanged(AGSListChangedEventArgs<IStringItem> args)
         {
@@ -123,10 +151,10 @@ namespace AGS.Engine
             if (args.ChangeType == ListChangeType.Remove)
             {
                 var items = args.Items.OrderByDescending(i => i.Index);
-                var buttons = new List<IButton>(_itemButtons);
+                var buttons = new List<(IButton, IStringItem)>(_itemButtons);
                 foreach (var item in items)
                 {
-                    var button = _itemButtons[item.Index];
+                    var button = _itemButtons[item.Index].button;
                     button.MouseClicked.Unsubscribe(onItemClicked);
                     tree?.TreeNode.RemoveChild(button);
                     _state.UI.Remove(button);
@@ -138,14 +166,14 @@ namespace AGS.Engine
             {
                 var items = args.Items.OrderBy(i => i.Index);
                 var newButtons = new List<IObject>(10);
-                var buttons = new List<IButton>(_itemButtons);
+                var buttons = new List<(IButton, IStringItem)>(_itemButtons);
                 foreach (var item in items)
                 {
                     string buttonText = item.Item.Text;
                     var newButton = ItemButtonFactory(buttonText);
                     newButton.Text = buttonText;
                     newButton.MouseClicked.Subscribe(onItemClicked);
-                    buttons.Insert(item.Index, newButton);
+                    buttons.Insert(item.Index, (newButton, item.Item));
                     newButtons.Add(newButton);
                 }
                 _itemButtons = buttons;
@@ -164,8 +192,10 @@ namespace AGS.Engine
             if (_itemButtons.Count == 0) return;
             var scale = _scale;
             if (scale == null) return;
-            scale.BaseSize = new SizeF(_itemButtons.Max(i => Math.Max(i.Width, i.TextWidth)),
-                                       MathUtils.Clamp(_itemButtons.Sum(i => Math.Max(i.Height, i.TextHeight)), _minHeight, _maxHeight));
+            var visibleButtons = _itemButtons.Where(i => i.button.Visible).ToList();
+            if (visibleButtons.Count == 0) return;
+            scale.BaseSize = new SizeF(visibleButtons.Max(i => Math.Max(i.button.Width, i.button.TextWidth)),
+                                       MathUtils.Clamp(visibleButtons.Sum(i => Math.Max(i.button.Height, i.button.TextHeight)), _minHeight, _maxHeight));
             _layout.StartLocation = scale.Height;
             var image = _image;
             if (image == null) return;
@@ -178,7 +208,16 @@ namespace AGS.Engine
 
         private void onItemClicked(MouseButtonEventArgs args)
         {
-            SelectedIndex = _itemButtons.IndexOf((IButton)args.ClickedEntity);
+            var button = (IButton)args.ClickedEntity;
+            for (int index = _itemButtons.Count - 1; index >= 0; index--)
+            {
+                if (_itemButtons[index].button == button)
+                {
+                    SelectedIndex = index;
+                    return;
+                }
+            }
+            SelectedIndex = -1;
         }
     }
 }
