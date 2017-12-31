@@ -24,6 +24,8 @@ namespace AGS.Engine
             _settings = settings;
         }
 
+        public ITreeViewComponent Tree => _treeView;
+
         public override void Init(IEntity entity)
         {
             base.Init(entity);

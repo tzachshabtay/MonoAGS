@@ -31,6 +31,7 @@ namespace AGS.Engine
             _searchBox.Border = AGSBorders.SolidColor(Colors.Green, 2f);
             _searchBox.Tint = Colors.Transparent;
             _searchBox.Pivot = new PointF(0f, 1f);
+            _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
 
             var height = parent.Height - _searchBox.Height;
             _scrollingPanel = factory.UI.GetPanel("GameDebugInspectorScrollingPanel", parent.Width, height, 0f, height, parent);
@@ -65,6 +66,12 @@ namespace AGS.Engine
             _scrollingPanel.Y = _parent.Height - _searchBox.Height;
             _searchBox.Y = _parent.Height;
             _panel.Y = _scrollingPanel.Height - _padding;
+        }
+
+        private void onSearchPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(ITextComponent.Text)) return;
+            Inspector.Tree.SearchFilter = _searchBox.Text;
         }
     }
 }

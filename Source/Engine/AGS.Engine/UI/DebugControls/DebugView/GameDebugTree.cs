@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -42,6 +44,7 @@ namespace AGS.Engine
             _searchBox.Border = AGSBorders.SolidColor(Colors.Green, 2f);
             _searchBox.Tint = Colors.Transparent;
             _searchBox.Pivot = new PointF(0f, 1f);
+            _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
 
             _scrollingPanel = factory.UI.GetPanel("GameDebugTreeScrollingPanel", parent.Width, parent.Height - _searchBox.Height, 0f, 0f, parent);
             _scrollingPanel.RenderLayer = _layer;
@@ -82,6 +85,12 @@ namespace AGS.Engine
         {
             _scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
             _searchBox.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
+        }
+
+        private void onSearchPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(ITextComponent.Text)) return;
+            _treeView.SearchFilter = _searchBox.Text;
         }
 
         private void onTreeNodeSelected(NodeEventArgs args)

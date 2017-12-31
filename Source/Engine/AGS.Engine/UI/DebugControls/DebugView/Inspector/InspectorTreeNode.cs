@@ -3,7 +3,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-    public class InspectorTreeNode : AGSComponent, IInspectorTreeNode
+    public class InspectorTreeNode : AGSComponent, IInspectorTreeNode, ICustomSearchItem
     {
 		private readonly IStringItem _item;
 
@@ -29,5 +29,13 @@ namespace AGS.Engine
         public InspectorProperty Property { get; }
 
         public IInspectorPropertyEditor Editor { get; }
+
+        public bool Contains(string searchText)
+        {
+            string text = Text?.ToLowerInvariant() ?? "";
+            if (text.Contains(searchText)) return true;
+            text = Property.Value?.ToLowerInvariant() ?? "";
+            return text.Contains(searchText);
+        }
     }
 }
