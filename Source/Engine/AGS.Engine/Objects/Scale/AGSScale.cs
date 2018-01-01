@@ -68,8 +68,10 @@ namespace AGS.Engine
             {
                 float width = value.Width * ScaleX;
                 float height = value.Height * ScaleY;
-                Width = width;
-                Height = height;
+                if (!MathUtils.FloatEquals(width, Width))
+                    Width = width;
+                if (!MathUtils.FloatEquals(height, Height))
+                    Height = height;
                 _baseSize = new SizeF(value.Width, value.Height);
             }
         }
