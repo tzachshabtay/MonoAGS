@@ -15,6 +15,7 @@ namespace AGS.Engine
         private IDrawableInfoComponent _drawable;
         private string _searchFilter;
         private TaskCompletionSource<object> _currentSearchToken;
+        private bool _skipRenderingRoot;
 
         public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameState state)
         {
@@ -50,13 +51,23 @@ namespace AGS.Engine
         public SelectionType AllowSelection { get; set; }
 
         public string SearchFilter 
-        { 
-            get { return _searchFilter; } 
+        {
+            get => _searchFilter;
             set 
             { 
                 value = value?.ToLowerInvariant() ?? "";
                 _searchFilter = value;
                 applySearchOnIdle();
+            }
+        }
+
+        public bool SkipRenderingRoot
+        {
+            get => _skipRenderingRoot;
+            set 
+            {
+                _skipRenderingRoot = value;
+                RefreshLayout();
             }
         }
 
@@ -400,14 +411,15 @@ namespace AGS.Engine
 
             public float ResetOffsets(float xOffset, float yOffset, float spacingX, float spacingY)
             {
-                xOffset += spacingX;
+                bool skipRoot = _tree.SkipRenderingRoot && Parent == null;
+                xOffset += skipRoot ? 0f : spacingX;
                 var view = View;
                 if (view != null)
                 {
                     view.VerticalPanel.X = xOffset;
                     view.ParentPanel.Y = yOffset;
                 }
-                var childYOffset = spacingY;
+                var childYOffset = skipRoot ? 0f : spacingY;
                 foreach (var child in Children)
                 {
                     childYOffset = child.ResetOffsets(xOffset, childYOffset, spacingX, spacingY);
@@ -548,6 +560,11 @@ namespace AGS.Engine
             {
                 var view = View;
                 if (view == null) return;
+                if (_tree.SkipRenderingRoot && Parent == null)
+                {
+                    view.ExpandButton.Visible = false;
+                    return;
+                }
                 view.ParentPanel.Visible = !(Parent?.IsCollapsed ?? false) && FilterMode != SearchFilterMode.NotVisible;
             }
 

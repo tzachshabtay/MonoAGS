@@ -9,7 +9,7 @@ namespace AGS.Engine
 		private readonly IGame _game;
         private IPanel _panel, _scrollingPanel, _parent;
         private ITextBox _searchBox;
-        const float _padding = 10f;
+        const float _padding = 42f;
 
         public InspectorPanel(IGame game, IRenderLayer layer)
         {
@@ -40,10 +40,11 @@ namespace AGS.Engine
 			_scrollingPanel.Tint = Colors.Transparent;
 			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
 
-            _panel = factory.UI.GetPanel("GameDebugInspectorPanel", parent.Width, height - _padding, 0f, height - _padding, _scrollingPanel);
+            _panel = factory.UI.GetPanel("GameDebugInspectorPanel", parent.Width, _padding, 0f, height - _padding, _scrollingPanel);
 			_panel.Tint = Colors.Transparent;
 			_panel.RenderLayer = _layer;
 			var treeView = _panel.AddComponent<ITreeViewComponent>();
+            treeView.SkipRenderingRoot = true;
             treeView.NodeViewProvider = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory);
 
             Inspector = new AGSInspector(_game.Factory, _game.Settings);
