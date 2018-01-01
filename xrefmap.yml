@@ -5277,6 +5277,24 @@ references:
   fullName.vb: AGS.API.ICustomPropertiesPerType(Of TValue).SetValue
   nameWithType: ICustomPropertiesPerType<TValue>.SetValue
   nameWithType.vb: ICustomPropertiesPerType(Of TValue).SetValue
+- uid: AGS.API.ICustomSearchItem
+  name: ICustomSearchItem
+  href: api/AGS.API.ICustomSearchItem.html
+  commentId: T:AGS.API.ICustomSearchItem
+  fullName: AGS.API.ICustomSearchItem
+  nameWithType: ICustomSearchItem
+- uid: AGS.API.ICustomSearchItem.Contains(System.String)
+  name: Contains(String)
+  href: api/AGS.API.ICustomSearchItem.html#AGS_API_ICustomSearchItem_Contains_System_String_
+  commentId: M:AGS.API.ICustomSearchItem.Contains(System.String)
+  fullName: AGS.API.ICustomSearchItem.Contains(System.String)
+  nameWithType: ICustomSearchItem.Contains(String)
+- uid: AGS.API.ICustomSearchItem.Contains*
+  name: Contains
+  href: api/AGS.API.ICustomSearchItem.html#AGS_API_ICustomSearchItem_Contains_
+  commentId: Overload:AGS.API.ICustomSearchItem.Contains
+  fullName: AGS.API.ICustomSearchItem.Contains
+  nameWithType: ICustomSearchItem.Contains
 - uid: AGS.API.ICustomSerializable
   name: ICustomSerializable
   href: api/AGS.API.ICustomSerializable.html
@@ -9013,6 +9031,18 @@ references:
   commentId: Overload:AGS.API.IListboxComponent.OnSelectedItemChanged
   fullName: AGS.API.IListboxComponent.OnSelectedItemChanged
   nameWithType: IListboxComponent.OnSelectedItemChanged
+- uid: AGS.API.IListboxComponent.SearchFilter
+  name: SearchFilter
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_SearchFilter
+  commentId: P:AGS.API.IListboxComponent.SearchFilter
+  fullName: AGS.API.IListboxComponent.SearchFilter
+  nameWithType: IListboxComponent.SearchFilter
+- uid: AGS.API.IListboxComponent.SearchFilter*
+  name: SearchFilter
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_SearchFilter_
+  commentId: Overload:AGS.API.IListboxComponent.SearchFilter
+  fullName: AGS.API.IListboxComponent.SearchFilter
+  nameWithType: IListboxComponent.SearchFilter
 - uid: AGS.API.IListboxComponent.SelectedIndex
   name: SelectedIndex
   href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_SelectedIndex
@@ -12397,6 +12427,18 @@ references:
   commentId: Overload:AGS.API.ITextBoxComponent.OnPressingKey
   fullName: AGS.API.ITextBoxComponent.OnPressingKey
   nameWithType: ITextBoxComponent.OnPressingKey
+- uid: AGS.API.ITextBoxComponent.Watermark
+  name: Watermark
+  href: api/AGS.API.ITextBoxComponent.html#AGS_API_ITextBoxComponent_Watermark
+  commentId: P:AGS.API.ITextBoxComponent.Watermark
+  fullName: AGS.API.ITextBoxComponent.Watermark
+  nameWithType: ITextBoxComponent.Watermark
+- uid: AGS.API.ITextBoxComponent.Watermark*
+  name: Watermark
+  href: api/AGS.API.ITextBoxComponent.html#AGS_API_ITextBoxComponent_Watermark_
+  commentId: Overload:AGS.API.ITextBoxComponent.Watermark
+  fullName: AGS.API.ITextBoxComponent.Watermark
+  nameWithType: ITextBoxComponent.Watermark
 - uid: AGS.API.ITextComponent
   name: ITextComponent
   href: api/AGS.API.ITextComponent.html
@@ -13261,6 +13303,30 @@ references:
   commentId: Overload:AGS.API.ITreeViewComponent.RefreshLayout
   fullName: AGS.API.ITreeViewComponent.RefreshLayout
   nameWithType: ITreeViewComponent.RefreshLayout
+- uid: AGS.API.ITreeViewComponent.SearchFilter
+  name: SearchFilter
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_SearchFilter
+  commentId: P:AGS.API.ITreeViewComponent.SearchFilter
+  fullName: AGS.API.ITreeViewComponent.SearchFilter
+  nameWithType: ITreeViewComponent.SearchFilter
+- uid: AGS.API.ITreeViewComponent.SearchFilter*
+  name: SearchFilter
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_SearchFilter_
+  commentId: Overload:AGS.API.ITreeViewComponent.SearchFilter
+  fullName: AGS.API.ITreeViewComponent.SearchFilter
+  nameWithType: ITreeViewComponent.SearchFilter
+- uid: AGS.API.ITreeViewComponent.SkipRenderingRoot
+  name: SkipRenderingRoot
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_SkipRenderingRoot
+  commentId: P:AGS.API.ITreeViewComponent.SkipRenderingRoot
+  fullName: AGS.API.ITreeViewComponent.SkipRenderingRoot
+  nameWithType: ITreeViewComponent.SkipRenderingRoot
+- uid: AGS.API.ITreeViewComponent.SkipRenderingRoot*
+  name: SkipRenderingRoot
+  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_SkipRenderingRoot_
+  commentId: Overload:AGS.API.ITreeViewComponent.SkipRenderingRoot
+  fullName: AGS.API.ITreeViewComponent.SkipRenderingRoot
+  nameWithType: ITreeViewComponent.SkipRenderingRoot
 - uid: AGS.API.ITreeViewComponent.Tree
   name: Tree
   href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_Tree

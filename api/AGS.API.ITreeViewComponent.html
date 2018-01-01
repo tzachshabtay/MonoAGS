@@ -214,7 +214,7 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorSearch/apiSpec/new?filename=AGS_API_ITreeViewComponent_OnNodeCollapsed.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.OnNodeCollapsed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L61">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L76">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_OnNodeCollapsed_" data-uid="AGS.API.ITreeViewComponent.OnNodeCollapsed*"></a>
   <h4 id="AGS_API_ITreeViewComponent_OnNodeCollapsed" data-uid="AGS.API.ITreeViewComponent.OnNodeCollapsed">OnNodeCollapsed</h4>
@@ -245,7 +245,7 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorSearch/apiSpec/new?filename=AGS_API_ITreeViewComponent_OnNodeExpanded.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.OnNodeExpanded%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L56">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L71">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_OnNodeExpanded_" data-uid="AGS.API.ITreeViewComponent.OnNodeExpanded*"></a>
   <h4 id="AGS_API_ITreeViewComponent_OnNodeExpanded" data-uid="AGS.API.ITreeViewComponent.OnNodeExpanded">OnNodeExpanded</h4>
@@ -276,7 +276,7 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorSearch/apiSpec/new?filename=AGS_API_ITreeViewComponent_OnNodeSelected.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.OnNodeSelected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L51">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L66">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_OnNodeSelected_" data-uid="AGS.API.ITreeViewComponent.OnNodeSelected*"></a>
   <h4 id="AGS_API_ITreeViewComponent_OnNodeSelected" data-uid="AGS.API.ITreeViewComponent.OnNodeSelected">OnNodeSelected</h4>
@@ -299,6 +299,73 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
       <tr>
         <td><a class="xref" href="AGS.API.IBlockingEvent-1.html">IBlockingEvent</a>&lt;<a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a>&gt;</td>
         <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorSearch/apiSpec/new?filename=AGS_API_ITreeViewComponent_SearchFilter.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.SearchFilter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L53">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeViewComponent_SearchFilter_" data-uid="AGS.API.ITreeViewComponent.SearchFilter*"></a>
+  <h4 id="AGS_API_ITreeViewComponent_SearchFilter" data-uid="AGS.API.ITreeViewComponent.SearchFilter">SearchFilter</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the search filter (a search text that filters the tree so that
+only items containing the text appear in the tree).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string SearchFilter { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The search filter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorSearch/apiSpec/new?filename=AGS_API_ITreeViewComponent_SkipRenderingRoot.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.SkipRenderingRoot%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L61">View Source</a>
+  </span>
+  <a id="AGS_API_ITreeViewComponent_SkipRenderingRoot_" data-uid="AGS.API.ITreeViewComponent.SkipRenderingRoot*"></a>
+  <h4 id="AGS_API_ITreeViewComponent_SkipRenderingRoot" data-uid="AGS.API.ITreeViewComponent.SkipRenderingRoot">SkipRenderingRoot</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.ITreeViewComponent.html">ITreeViewComponent</a> skip rendering the root node.
+This effectively means that the tree will show multiple &quot;detached&quot; roots (all the nodes in the second level in the tree),
+i.e it makes it possible for the tree view to show multiple &quot;trees&quot;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool SkipRenderingRoot { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if skip rendering root; otherwise, <code>false</code>.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -373,7 +440,7 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorSearch/apiSpec/new?filename=AGS_API_ITreeViewComponent_Collapse_AGS_API_ITreeStringNode_.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.Collapse(AGS.API.ITreeStringNode)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L73">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L88">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_Collapse_" data-uid="AGS.API.ITreeViewComponent.Collapse*"></a>
   <h4 id="AGS_API_ITreeViewComponent_Collapse_AGS_API_ITreeStringNode_" data-uid="AGS.API.ITreeViewComponent.Collapse(AGS.API.ITreeStringNode)">Collapse(ITreeStringNode)</h4>
@@ -407,7 +474,7 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorSearch/apiSpec/new?filename=AGS_API_ITreeViewComponent_Expand_AGS_API_ITreeStringNode_.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.Expand(AGS.API.ITreeStringNode)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L67">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L82">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_Expand_" data-uid="AGS.API.ITreeViewComponent.Expand*"></a>
   <h4 id="AGS_API_ITreeViewComponent_Expand_AGS_API_ITreeStringNode_" data-uid="AGS.API.ITreeViewComponent.Expand(AGS.API.ITreeStringNode)">Expand(ITreeStringNode)</h4>
@@ -441,7 +508,7 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorSearch/apiSpec/new?filename=AGS_API_ITreeViewComponent_IsCollapsed_AGS_API_ITreeStringNode_.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.IsCollapsed(AGS.API.ITreeStringNode)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L80">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L95">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_IsCollapsed_" data-uid="AGS.API.ITreeViewComponent.IsCollapsed*"></a>
   <h4 id="AGS_API_ITreeViewComponent_IsCollapsed_AGS_API_ITreeStringNode_" data-uid="AGS.API.ITreeViewComponent.IsCollapsed(AGS.API.ITreeStringNode)">IsCollapsed(ITreeStringNode)</h4>
@@ -491,7 +558,7 @@ public interface ITreeViewComponent : IComponent, IDisposable, INotifyPropertyCh
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorSearch/apiSpec/new?filename=AGS_API_ITreeViewComponent_RefreshLayout.md&amp;value=---%0Auid%3A%20AGS.API.ITreeViewComponent.RefreshLayout%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L85">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/UI/Controls/Tree/ITreeViewComponent.cs/#L100">View Source</a>
   </span>
   <a id="AGS_API_ITreeViewComponent_RefreshLayout_" data-uid="AGS.API.ITreeViewComponent.RefreshLayout*"></a>
   <h4 id="AGS_API_ITreeViewComponent_RefreshLayout" data-uid="AGS.API.ITreeViewComponent.RefreshLayout">RefreshLayout()</h4>

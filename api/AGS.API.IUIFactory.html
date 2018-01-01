@@ -1849,7 +1849,7 @@ The scrollbars are only shown if the contents is bigger than panel.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)</code></pre>
+    <pre><code class="lang-csharp hljs">ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string watermark = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1887,8 +1887,8 @@ The scrollbars are only shown if the contents is bigger than panel.</p>
       </tr>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">text</span></td>
-        <td><p>Text for the button.</p>
+        <td><span class="parametername">watermark</span></td>
+        <td><p>An optional watermark text to show when there&apos;s no text and the textbox is out of focus (i.e explanation text, see example here: <a href="https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl">https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl</a>).</p>
 </td>
       </tr>
       <tr>
