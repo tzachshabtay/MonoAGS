@@ -149,8 +149,7 @@ namespace AGS.Engine
         {
             //Priorities for virtual resolution: layer's resolution comes first, if not then the custom resolution (which is the text scaling resolution for text, otherwise null),
             //and if not use the virtual resolution.
-            var renderLayer = drawable == null ? null : drawable.RenderLayer;
-            var layerResolution = renderLayer == null ? null : renderLayer.IndependentResolution;
+            var layerResolution = drawable?.RenderLayer?.IndependentResolution;
             if (layerResolution != null)
             {
                 if (flattenLayerResolution)
