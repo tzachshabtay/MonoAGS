@@ -26,6 +26,7 @@ namespace AGS.Engine
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
         private readonly IGameState _state;
         private IEntity _entity;
+        private readonly AGSCropInfo _defaultCropInfo = default;
 
         public AGSBoundingBoxComponent(IRuntimeSettings settings, IGLViewportMatrixFactory layerViewports,
                                        IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events)
@@ -209,7 +210,7 @@ namespace AGS.Engine
                 else boundingBoxes.TextureBox = null;
             }
 
-            if (cropInfo.Equals(default))
+            if (cropInfo.Equals(_defaultCropInfo))
             {
                 boundingBoxes.HitTestBox = default;
             }

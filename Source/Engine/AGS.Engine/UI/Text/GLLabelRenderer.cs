@@ -35,6 +35,7 @@ namespace AGS.Engine
         private Matrix4 _lastViewportMatrix;
         private List<IComponentBinding> _bindings;
         private bool _shouldUpdateBoundingBoxes;
+        private AGSCropInfo _defaultCrop = default(AGSCropInfo);
 
         private float _lastWidth = 1f, _lastHeight = 1f;
 
@@ -160,7 +161,8 @@ namespace AGS.Engine
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
                 var cropInfo = _usedTextBoundingBoxes.RenderBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), AGSModelMatrixComponent.NoScaling);
-                if (cropInfo.Equals(default)) return;
+                if (cropInfo.Equals(_defaultCrop)) return;
+
                 _usedTextBoundingBoxes.RenderBox = cropInfo.BoundingBox;
 
                 _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropInfo.TextureBox, color);
