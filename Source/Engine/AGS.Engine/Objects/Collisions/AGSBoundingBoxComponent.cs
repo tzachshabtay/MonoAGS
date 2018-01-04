@@ -123,11 +123,11 @@ namespace AGS.Engine
                 if (!viewportBoxes.IsDirty) return boundingBoxes;
                 if (_drawable?.IgnoreViewport ?? false) return boundingBoxes;
             }
-            var animation = _animation;
+            var image = _animation?.Animation?.Sprite?.Image;
             var drawable = _drawable;
             var matrix = _matrix;
-            if (animation == null || animation.Animation == null || animation.Animation.Sprite == null ||
-                animation.Animation.Sprite.Image == null || drawable == null || matrix == null) return boundingBoxes;
+            if (image == null || drawable == null || matrix == null) 
+                return boundingBoxes;
             var boxes = recalculate(viewport, viewportBoxes);
             OnBoundingBoxesChanged.Invoke();
             return boxes;
