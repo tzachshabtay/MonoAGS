@@ -29,6 +29,7 @@ namespace AGS.Engine
         private readonly BoundingBoxesEmptyBuilder _labelBoundingBoxFakeBuilder;
         private readonly IGameState _state;
         private readonly IGameEvents _events;
+        private ITextConfig _lastTextConfig;
         private IObject _lastObject;
         private PointF _lastTextScaleFactor;
         private ModelMatrices _lastMatrices;
@@ -38,6 +39,10 @@ namespace AGS.Engine
         private AGSCropInfo _defaultCrop = default(AGSCropInfo);
 
         private float _lastWidth = 1f, _lastHeight = 1f;
+
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
 
         public GLLabelRenderer(Dictionary<string, ITexture> textures, 
 			IBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
@@ -73,6 +78,14 @@ namespace AGS.Engine
 
 			TextVisible = true;
             TextBackgroundVisible = true;
+
+            subscribeTextConfigChanges();
+            PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(TextVisible) || e.PropertyName == nameof(TextBackgroundVisible)) return;
+                onBoundingBoxShouldChange();
+                if (e.PropertyName == nameof(Config)) subscribeTextConfigChanges();
+            };
 		}
 
         public bool TextVisible { get; set; }
@@ -171,6 +184,20 @@ namespace AGS.Engine
 
         #endregion
 
+        private void subscribeTextConfigChanges()
+        {
+            var config = _lastTextConfig;
+            if (config != null) config.PropertyChanged -= onTextConfigPropertyChanged;
+            config = Config;
+            _lastTextConfig = config;
+            if (config != null) config.PropertyChanged += onTextConfigPropertyChanged;
+        }
+
+        private void onTextConfigPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            onBoundingBoxShouldChange();
+        }
+
         private void onBoundingBoxShouldChange()
         {
             _shouldUpdateBoundingBoxes = true;
@@ -256,6 +283,7 @@ namespace AGS.Engine
             {
                 return;
             }
+            _shouldUpdateBoundingBoxes = false;
 
             IGLMatrices textRenderMatrices = acquireMatrix(0).SetMatrices(modelMatrices.InObjResolutionMatrix, viewportMatrix);
             IGLMatrices labelRenderMatrices = obj.RenderLayer.IndependentResolution != null ? textRenderMatrices : acquireMatrix(1).SetMatrices(modelMatrices.InVirtualResolutionMatrix, viewportMatrix);
