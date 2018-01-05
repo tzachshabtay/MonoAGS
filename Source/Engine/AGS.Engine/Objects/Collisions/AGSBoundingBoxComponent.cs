@@ -141,8 +141,14 @@ namespace AGS.Engine
 			var matrix = _matrix;
             bool isHitTestBoxDirty = _isHitTestBoxDirty;
 
-			if (animation == null || animation.Animation == null || animation.Animation.Sprite == null ||
-                animation.Animation.Sprite.Image == null || drawable == null || matrix == null) return boundingBoxes;
+            if (animation?.Animation?.Sprite?.Image == null || drawable == null || matrix == null)
+            {
+                _isHitTestBoxDirty = false;
+                _isCropDirty = false;
+                _areViewportsDirty = false;
+                viewportBoxes.IsDirty = false;
+                return boundingBoxes;
+            }
 
             if (isHitTestBoxDirty)
             {

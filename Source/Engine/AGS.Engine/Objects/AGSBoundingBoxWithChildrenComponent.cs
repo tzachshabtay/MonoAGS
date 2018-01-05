@@ -16,11 +16,12 @@ namespace AGS.Engine
         private readonly IGameState _state;
         private bool _isDirty;
 
-        public AGSBoundingBoxWithChildrenComponent(IGameState state)
+        public AGSBoundingBoxWithChildrenComponent(IGameState state, IGameEvents events)
         {
             _state = state;
             EntitiesToSkip = new AGSConcurrentHashSet<string>();
             OnBoundingBoxWithChildrenChanged = new AGSEvent();
+            events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
         public ref AGSBoundingBox BoundingBoxWithChildren { get { return ref _boundingBoxWithChildren; } }
@@ -40,10 +41,10 @@ namespace AGS.Engine
             entity.Bind<IBoundingBoxComponent>(c =>
             {
                 _boundingBox = c;
-                c.OnBoundingBoxesChanged.Subscribe(onObjectChanged);
-                refresh();
-            }, c => { c.OnBoundingBoxesChanged.Unsubscribe(onObjectChanged); _boundingBox = null; });
-            entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeTree(c.TreeNode); refresh(); },
+                c.OnBoundingBoxesChanged.Subscribe(onBoundingBoxChanged);
+                onSomethingChanged();
+            }, c => { c.OnBoundingBoxesChanged.Unsubscribe(onBoundingBoxChanged); _boundingBox = null; });
+            entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeTree(c.TreeNode); onSomethingChanged(); },
                                        c => { unsubscribeTree(c.TreeNode); _tree = null; });
         }
 
@@ -74,6 +75,12 @@ namespace AGS.Engine
             }
         }
 
+        private void onRepeatedlyExecute()
+        {
+            if (!_isDirty) return;
+            refresh();
+        }
+
         private void onTreeChanged(AGSListChangedEventArgs<IObject> args)
         {
             if (args.ChangeType == ListChangeType.Add)
@@ -92,12 +99,27 @@ namespace AGS.Engine
                     unsubscribeTree(item.Item.TreeNode);
                 }
             }
-            refresh();
+            onSomethingChanged();
         }
 
-        private void onObjectChanged()
+        private void onSomethingChanged()
         {
-            refresh();
+            _isDirty = true;
+        }
+
+        private void onBoundingBoxChanged()
+        {
+            onSomethingChanged();
+        }
+
+        private void onObjBoundingBoxChanged()
+        {
+            onSomethingChanged();
+        }
+
+        private void onObjLabelSizeChanged()
+        {
+            onSomethingChanged();
         }
 
         private void subscribeTree(ITreeNode<IObject> node)
@@ -122,30 +144,29 @@ namespace AGS.Engine
 
         private void subscribeObject(IObject obj)
         {
-            obj.Bind<IBoundingBoxComponent>(c => c.OnBoundingBoxesChanged.Subscribe(onObjectChanged), c => c.OnBoundingBoxesChanged.Unsubscribe(onObjectChanged));
+            obj.Bind<IBoundingBoxComponent>(c => c.OnBoundingBoxesChanged.Subscribe(onObjBoundingBoxChanged), c => c.OnBoundingBoxesChanged.Unsubscribe(onObjBoundingBoxChanged));
             obj.Bind<IVisibleComponent>(c => c.PropertyChanged += onVisiblePropertyChanged, c => c.PropertyChanged -= onVisiblePropertyChanged);
             var labelRenderer = obj.CustomRenderer as ILabelRenderer;
-            labelRenderer?.OnLabelSizeChanged.Subscribe(onObjectChanged);
+            labelRenderer?.OnLabelSizeChanged.Subscribe(onObjLabelSizeChanged);
         }
 
         private void unsubscribeObject(IObject obj)
         {
-            obj.OnBoundingBoxesChanged.Unsubscribe(onObjectChanged); //todo: unbind
+            obj.OnBoundingBoxesChanged.Unsubscribe(onObjBoundingBoxChanged); //todo: unbind
             var visible = obj.GetComponent<IVisibleComponent>();
             if (visible != null) visible.PropertyChanged -= onVisiblePropertyChanged;
             var labelRenderer = obj.CustomRenderer as ILabelRenderer;
-            labelRenderer?.OnLabelSizeChanged.Unsubscribe(onObjectChanged);
+            labelRenderer?.OnLabelSizeChanged.Unsubscribe(onObjLabelSizeChanged);
         }
 
         private void onVisiblePropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IVisibleComponent.UnderlyingVisible)) return;
-            onObjectChanged();
+            onSomethingChanged();
         }
 
         private void refresh()
         {
-            _isDirty = true;
             bool shouldFire = recalculate();
             if (shouldFire) OnBoundingBoxWithChildrenChanged.Invoke();
         }
