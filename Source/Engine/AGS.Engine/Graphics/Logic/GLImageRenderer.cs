@@ -54,7 +54,6 @@ namespace AGS.Engine
 			{
 				return;
 			}
-            obj.GetModelMatrices();
             var boundingBoxes = obj.GetBoundingBoxes(viewport);
             if (boundingBoxes == null || boundingBoxes.RenderBox.Equals(default)) return;
             var renderBox = boundingBoxes.RenderBox;

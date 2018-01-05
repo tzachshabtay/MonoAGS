@@ -2,6 +2,8 @@
 using AGS.API;
 using System.Collections.Generic;
 using Autofac;
+using System.Diagnostics;
+using System.Text;
 
 namespace AGS.Engine
 {
@@ -14,6 +16,7 @@ namespace AGS.Engine
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly DisplayListEventArgs _displayListEventArgs;
         private readonly Stack<IObject> _parentStack;
+        private readonly HashSet<string> _parentHash;
         private readonly IGameWindow _gameWindow;
         private readonly IDisplayList _displayList;
         private readonly IInput _input;
@@ -39,6 +42,7 @@ namespace AGS.Engine
 			_roomTransitions = roomTransitions;
             _displayListEventArgs = new DisplayListEventArgs(null);
             _parentStack = new Stack<IObject>();
+            _parentHash = new HashSet<string>();
             OnBeforeRenderingDisplayList = onBeforeRenderingDisplayList;
 			_roomTransitions.Transition = new RoomTransitionInstant ();
 		}
@@ -128,6 +132,7 @@ namespace AGS.Engine
 
         private void renderAllViewports()
 		{
+            _parentHash.Clear();
             renderViewport(_gameState.Viewport);
             try
             {
@@ -167,6 +172,7 @@ namespace AGS.Engine
             _mouseCursorContainer.X = (_input.MousePosition.XMainViewport - viewport.X) * viewport.ScaleX;
             _mouseCursorContainer.Y = (_input.MousePosition.YMainViewport - viewport.Y) * viewport.ScaleY;
             _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport);
+            refreshParentMatrices(_mouseCursorContainer);
             renderObject(viewport, _mouseCursorContainer);
         }
 
@@ -193,14 +199,19 @@ namespace AGS.Engine
         {
             //Making sure all of the parents have their matrix refreshed before rendering the object,
             //as if they need a new matrix the object will need to recalculate its matrix as well.
-            //todo: find a more performant solution, to only visit each object once.
-			var parent = obj.TreeNode.Parent;
+			var parent = obj;
 			while (parent != null)
 			{
+                if (_parentHash.Contains(parent.ID)) break;
                 _parentStack.Push(parent);
 				parent = parent.TreeNode.Parent;
 			}
-			while (_parentStack.Count > 0) _parentStack.Pop().GetModelMatrices();
+            while (_parentStack.Count > 0)
+            {
+                parent = _parentStack.Pop();
+                _parentHash.Add(parent.ID);
+                parent.GetModelMatrices();
+            }
         }
 
 		private static IShader applyObjectShader(IObject obj)
