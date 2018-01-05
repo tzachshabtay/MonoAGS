@@ -12,7 +12,7 @@ namespace AGS.Engine
         private int _shouldFireOnUnlock, _pendingLocks;
         private ModelMatrices _matrices, _preLockMatrices;
 
-        private IAnimationComponent _animation;
+        private IAnimationComponent _animationComponent;
         private IInObjectTreeComponent _tree;
         private IScaleComponent _scale;
         private ITranslateComponent _translate;
@@ -25,6 +25,7 @@ namespace AGS.Engine
         private ISprite _sprite;
         private IJumpOffsetComponent _jump;
         private ILabelRenderer _labelRenderer;
+        private IAnimation _lastAnimation;
 
         private readonly Size _virtualResolution;
         private PointF _areaScaling;
@@ -54,8 +55,8 @@ namespace AGS.Engine
         public override void AfterInit()
         {
             _entity.Bind<IAnimationComponent>(
-                c => { _animation = c; onSomethingChanged(); },
-                c => { _animation = null; onSomethingChanged(); });
+                c => { _animationComponent = c; _animationComponent.PropertyChanged += onAnimationChanged; onSomethingChanged(); },
+                c => { _animationComponent = null; _animationComponent.PropertyChanged -= onAnimationChanged; onSomethingChanged(); });
             _entity.Bind<IHasRoomComponent>(
                 c => { _room = c; onSomethingChanged(); },
                 c => { _room = null; onSomethingChanged(); });
@@ -178,6 +179,29 @@ namespace AGS.Engine
             }
         }
 
+        private void onAnimationChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IAnimationComponent.Animation)) return;
+            unsubscribeSprite(_sprite);
+            var lastAnimation = _lastAnimation;
+            if (lastAnimation != null) lastAnimation.State.PropertyChanged -= onAnimationStateChanged;
+            lastAnimation = _animationComponent.Animation;
+            _lastAnimation = lastAnimation;
+            _sprite = lastAnimation?.Sprite;
+            subscribeSprite(_sprite);
+            lastAnimation.State.PropertyChanged += onAnimationStateChanged;
+            onSomethingChanged();
+        }
+
+        private void onAnimationStateChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IAnimationState.CurrentFrame)) return;
+            unsubscribeSprite(_sprite);
+            _sprite = _lastAnimation?.Sprite;
+            subscribeSprite(_sprite);
+            onSomethingChanged();
+        }
+
         private void onSpriteChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(ISprite.X) && args.PropertyName != nameof(ISprite.Y) &&
@@ -275,11 +299,6 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
-        private ISprite getSprite()
-        {
-            return _animation?.Animation?.Sprite;
-        }
-
         private void subscribeSprite(ISprite sprite)
         {
             if (sprite == null) return;
@@ -298,14 +317,6 @@ namespace AGS.Engine
             if (!_areaScaling.Equals(areaScaling)) 
             {
                 _areaScaling = areaScaling;
-                _isDirty = true;
-            }
-            var currentSprite = getSprite();
-            if (currentSprite != _sprite)
-            {
-                unsubscribeSprite(_sprite);
-                _sprite = currentSprite;
-                subscribeSprite(_sprite);
                 _isDirty = true;
             }
             return _isDirty;
@@ -335,7 +346,7 @@ namespace AGS.Engine
 
         private Matrix4 getMatrix(PointF resolutionFactor) 
         {
-            var animation = _animation;
+            var animation = _animationComponent;
             if (animation == null || animation.Animation == null) return Matrix4.Identity;
             var sprite = animation.Animation.Sprite;
             Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, null,
