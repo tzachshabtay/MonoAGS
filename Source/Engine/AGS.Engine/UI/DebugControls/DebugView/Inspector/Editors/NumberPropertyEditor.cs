@@ -139,6 +139,7 @@ namespace AGS.Engine
                 var propLabel = _factory.UI.GetLabel(id + "_PropLabel", editor.Text, 1f, 1f, 0f, 0f, panel, 
                                      new AGSTextConfig(paddingTop: 0f, paddingBottom: 0f, autoFit: AutoFit.LabelShouldFitText));
                 propLabel.Tint = Colors.Transparent;
+                propLabel.TextBackgroundVisible = false;
                 propLabel.RenderLayer = label.RenderLayer;
             }
             var textPanel = _factory.UI.GetPanel(id + "_TextPanel", 100f, ROW_HEIGHT, 0f, 0f, panel);
@@ -172,6 +173,7 @@ namespace AGS.Engine
             textbox.Text = text;
             textbox.RenderLayer = panel.RenderLayer;
             textbox.Z = panel.Z;
+            textbox.TextBackgroundVisible = false;
             HoverEffect.Add(textbox, Colors.Transparent, Colors.DarkSlateBlue);
             return textbox;
         }

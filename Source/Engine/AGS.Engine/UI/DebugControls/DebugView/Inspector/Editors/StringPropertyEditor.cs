@@ -23,6 +23,7 @@ namespace AGS.Engine
 												 label.X, label.Y, label.TreeNode.Parent,
 												 "", config, width: 100f, height: 20f);
             textbox.Text = property.Value;
+            textbox.TextBackgroundVisible = false;
             _textbox = textbox;
 			textbox.RenderLayer = label.RenderLayer;
 			textbox.Z = label.Z;

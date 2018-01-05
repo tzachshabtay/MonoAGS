@@ -68,7 +68,9 @@ namespace AGS.Engine
             parentPanel.Tint = Colors.Transparent;
             verticalPanel.Tint = Colors.Transparent;
             expandButton.Tint = Colors.Transparent;
+            expandButton.TextBackgroundVisible = false;
             label.Tint = Colors.Transparent;
+            label.TextBackgroundVisible = false;
             label.Enabled = true;
             expandButton.PixelPerfect(false);
             horizontalPanel.AddComponent<IBoundingBoxWithChildrenComponent>();

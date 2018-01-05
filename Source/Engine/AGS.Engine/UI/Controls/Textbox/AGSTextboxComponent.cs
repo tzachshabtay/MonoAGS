@@ -76,6 +76,7 @@ namespace AGS.Engine
             _caretFlashCounter = (int)CaretFlashDelay;
             _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _withCaret.Pivot = new PointF(0f, 0f);
+            _withCaret.TextBackgroundVisible = false;
 
             entity.Bind<IAnimationComponent>(c =>
             {
@@ -225,8 +226,8 @@ namespace AGS.Engine
                 }
             }
             _withCaret.Tint = _imageComponent.Tint;
-            _withCaret.TextVisible = _withCaret.TextBackgroundVisible = isVisible;
-            _textComponent.TextVisible = _textComponent.TextBackgroundVisible = !isVisible;
+            _withCaret.TextVisible = isVisible;
+            _textComponent.TextVisible = !isVisible;
             _withCaret.Text = _textComponent.Text;
             _withCaret.TextConfig = _textComponent.TextConfig;
             var renderer = _withCaret.CustomRenderer as ILabelRenderer;
@@ -238,7 +239,7 @@ namespace AGS.Engine
             }
             _textComponent.TextVisible = !isVisible;
             var imageComponent = _imageComponent;
-            renderer = imageComponent == null ? null : imageComponent.CustomRenderer as ILabelRenderer;
+            renderer = imageComponent?.CustomRenderer as ILabelRenderer;
             if (renderer != null)
             {
                 renderer.CaretPosition = CaretPosition;

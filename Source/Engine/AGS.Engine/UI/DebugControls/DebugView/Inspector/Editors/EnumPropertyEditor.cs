@@ -21,6 +21,7 @@ namespace AGS.Engine
             var label = view.TreeItem;
             var combobox = _factory.GetComboBox(id, null, null, null, label.TreeNode.Parent, defaultWidth: 100f, defaultHeight: 25f);
             _text = combobox.TextBox;
+            _text.TextBackgroundVisible = false;
             var list = new List<IStringItem>();
             Type enumType = property.Prop.PropertyType;
             foreach (var option in Enum.GetValues(enumType))
