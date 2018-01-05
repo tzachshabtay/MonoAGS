@@ -23,6 +23,7 @@ namespace AGS.Engine
             {
                 label.TextConfig = textConfig;
                 label.Text = item.Text;
+                label.TextBackgroundVisible = isSelected;
                 item.PropertyChanged += (sender, e) => 
                 {
                     if (e.PropertyName != nameof(ITreeStringNode.Text)) return;
