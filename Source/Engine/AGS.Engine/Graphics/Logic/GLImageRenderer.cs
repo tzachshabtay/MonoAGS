@@ -76,7 +76,7 @@ namespace AGS.Engine
 
 				border.RenderBorderBack(borderBox);
 			}
-            _renderer.Render(texture.ID, renderBox, boundingBoxes.TextureBox, color);
+            _renderer.Render(texture.ID, boundingBoxes, color);
 
 			border?.RenderBorderFront(borderBox);
 			if (obj.DebugDrawPivot)

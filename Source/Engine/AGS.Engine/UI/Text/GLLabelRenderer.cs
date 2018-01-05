@@ -126,7 +126,7 @@ namespace AGS.Engine
                 _lastObject = obj;
                 foreach (var binding in _bindings)
                 {
-                    binding.Unbind();
+                    binding?.Unbind();
                 }
                 var scaleBinding = obj.Bind<IScaleComponent>(c => c.PropertyChanged += onScalePropertyChanged, c => c.PropertyChanged -= onScalePropertyChanged);
                 var matrixBinding = obj.Bind<IModelMatrixComponent>(c => c.OnMatrixChanged.Subscribe(onMatrixChanged), c => c.OnMatrixChanged.Unsubscribe(onMatrixChanged));
@@ -141,22 +141,24 @@ namespace AGS.Engine
             _glTextRender = _glTextRender ?? new GLText(_graphics, _messagePump, _fonts, _bitmapPool, true);
 
 			updateBoundingBoxes(obj, drawable, viewport);
-            _labelBoundingBoxFakeBuilder.BoundingBoxes = _usedLabelBoundingBoxes;
+            if (_usedLabelBoundingBoxes != null)
+            {
+                _labelBoundingBoxFakeBuilder.BoundingBoxes = _usedLabelBoundingBoxes;
+            }
 			_bgRenderer.Prepare(obj, drawable, viewport);
             Width = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Width;
             Height = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Height;
 		}
 
         public void Render(IObject obj, IViewport viewport)
-		{
+        {
             if (!TextBackgroundVisible && !TextVisible) return;
             if (!obj.Visible) return;
 
             PointF resolutionFactor; Size resolution;
+            PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
             AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, obj,
-               new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY), out resolutionFactor,
-               out resolution);
-			PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
+               textScaleFactor, out resolutionFactor, out resolution);
             if (!resolutionFactor.Equals(textScaleFactor))
             {
                 resolutionFactor = AGSModelMatrixComponent.NoScaling;
@@ -177,8 +179,9 @@ namespace AGS.Engine
                 if (cropInfo.Equals(_defaultCrop)) return;
 
                 _usedTextBoundingBoxes.RenderBox = cropInfo.BoundingBox;
+                _usedTextBoundingBoxes.TextureBox = cropInfo.TextureBox;
 
-                _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropInfo.TextureBox, color);
+                _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes, color);
             }
 		}
 

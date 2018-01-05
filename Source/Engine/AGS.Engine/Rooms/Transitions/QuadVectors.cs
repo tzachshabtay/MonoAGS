@@ -5,6 +5,7 @@ namespace AGS.Engine
 	public class QuadVectors
 	{
         private readonly IGLUtils _glUtils;
+        private readonly AGSBoundingBox _box;
 
         public QuadVectors(IGame game, IGLUtils glUtils)
 		{
@@ -13,6 +14,7 @@ namespace AGS.Engine
 			BottomLeft = new Vector3 (0f, game.Settings.VirtualResolution.Height, 0f);
 			TopRight = new Vector3 (game.Settings.VirtualResolution.Width, 0f, 0f);
 			BottomRight = new Vector3 (game.Settings.VirtualResolution.Width, game.Settings.VirtualResolution.Height, 0f);
+            _box = new AGSBoundingBox(BottomLeft, BottomRight, TopLeft, TopRight);
 		}
 
         public QuadVectors(float x, float y, float width, float height, IGLUtils glUtils)
@@ -22,6 +24,7 @@ namespace AGS.Engine
 			BottomLeft = new Vector3 (x, y + height, 0f);
 			TopRight = new Vector3 (x + width, y, 0f);
 			BottomRight = new Vector3 (x + width, y + height, 0f);
+            _box = new AGSBoundingBox(BottomLeft, BottomRight, TopLeft, TopRight);
 		}
 
 		public Vector3 BottomLeft { get; private set; }
@@ -31,7 +34,7 @@ namespace AGS.Engine
 
         public void Render(ITexture texture, float r = 1f, float g = 1f, float b = 1f, float a = 1f)
 		{
-            _glUtils.DrawQuad(texture == null ? 0 : texture.ID, BottomLeft, BottomRight, TopLeft, TopRight, r, g, b, a);
+            _glUtils.DrawQuad(texture == null ? 0 : texture.ID, _box, r, g, b, a);
 		}
 	}
 }
