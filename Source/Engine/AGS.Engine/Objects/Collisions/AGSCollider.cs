@@ -70,7 +70,7 @@ namespace AGS.Engine
 
 			if (pixelPerfect == null || !pixelPerfect.Enabled)
 			{
-                if (boundingBox.Equals(default)) return false;
+                if (!boundingBox.IsValid) return false;
                 if (boundingBox.Contains(new Vector2 (x, y)))
 					return true;
 			}

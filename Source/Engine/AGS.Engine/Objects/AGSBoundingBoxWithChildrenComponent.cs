@@ -216,7 +216,7 @@ namespace AGS.Engine
                 {
                     if (child == null || !child.UnderlyingVisible || EntitiesToSkip.Contains(child.ID)) continue;
                     var childBox = getBoundingBox(child, child, getBox);
-                    if (childBox.IsInvalid) continue;
+                    if (!childBox.IsValid) continue;
                     if (minX > childBox.MinX) minX = childBox.MinX;
                     if (maxX < childBox.MaxX) maxX = childBox.MaxX;
                     if (minY > childBox.MinY) minY = childBox.MinY;

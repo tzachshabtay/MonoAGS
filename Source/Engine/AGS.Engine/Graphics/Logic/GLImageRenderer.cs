@@ -45,19 +45,16 @@ namespace AGS.Engine
 
         public void Render(IObject obj, IViewport viewport)
 		{
-			if (obj.Animation == null)
-			{
-				return;
-			}
-			ISprite sprite = obj.Animation.Sprite;
-			if (sprite == null || sprite.Image == null)
-			{
-				return;
-			}
+            ISprite sprite = obj.Animation?.Sprite;
+            if (sprite == null || sprite.Image == null)
+            {
+                return;
+            }
             var boundingBoxes = obj.GetBoundingBoxes(viewport);
-            if (boundingBoxes == null || boundingBoxes.RenderBox.Equals(default)) return;
-            var renderBox = boundingBoxes.RenderBox;
-            var hitTestBox = boundingBoxes.HitTestBox;
+            if (boundingBoxes == null || !boundingBoxes.RenderBox.IsValid)
+            {
+                return;
+            }
 
 			ITexture texture = _textures.GetOrAdd (sprite.Image.ID, _createTextureFunc);
 
@@ -70,8 +67,8 @@ namespace AGS.Engine
             if (!obj.Visible) return;
 			if (border != null)
 			{
-                if (renderBox.BottomLeft.X > renderBox.BottomRight.X) borderBox = renderBox.FlipHorizontal();
-                else borderBox = renderBox;
+                if (boundingBoxes.RenderBox.BottomLeft.X > boundingBoxes.RenderBox.BottomRight.X) borderBox = boundingBoxes.RenderBox.FlipHorizontal();
+                else borderBox = boundingBoxes.RenderBox;
 
 				border.RenderBorderBack(borderBox);
 			}

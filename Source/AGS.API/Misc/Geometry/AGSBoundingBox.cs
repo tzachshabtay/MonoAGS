@@ -39,7 +39,7 @@ namespace AGS.API
 			MinY = min(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
 			MaxY = max(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
 
-            IsInvalid = MathUtils.FloatEquals(MinX, MaxX) || MathUtils.FloatEquals(MinY, MaxY);
+            IsValid = !MathUtils.FloatEquals(MinX, MaxX) && !MathUtils.FloatEquals(MinY, MaxY);
 		}
 
         public AGSBoundingBox(float minX, float maxX, float minY, float maxY)
@@ -52,7 +52,7 @@ namespace AGS.API
             MaxX = maxX;
             MinY = minY;
             MaxY = maxY;
-            IsInvalid = MathUtils.FloatEquals(MinX, MaxX) || MathUtils.FloatEquals(MinY, MaxY);
+            IsValid = !MathUtils.FloatEquals(MinX, MaxX) && !MathUtils.FloatEquals(MinY, MaxY);
 		}
 
 		#region AGSBoundingBox implementation
@@ -121,7 +121,7 @@ namespace AGS.API
         /// Gets a value indicating whether this <see cref="T:AGS.API.AGSBoundingBox"/> is invalid (i.e max is not bigger than min).
         /// </summary>
         /// <value><c>true</c> if is empty; otherwise, <c>false</c>.</value>
-        public bool IsInvalid { get; }
+        public bool IsValid { get; }
 
         /// <summary>
         /// Create a cropped bounding box.
@@ -181,7 +181,7 @@ namespace AGS.API
 		public bool Contains(Vector2 point)
 		{
 			//http://www.emanueleferonato.com/2012/03/09/algorithm-to-determine-if-a-point-is-inside-a-square-with-mathematics-no-hit-test-involved/       
-			if (IsInvalid) return false;
+			if (!IsValid) return false;
 
 			Vector3 a = BottomLeft;
 			Vector3 b = BottomRight;

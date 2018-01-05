@@ -107,7 +107,7 @@ namespace AGS.API
             float x = GetViewportX(viewport);
             float y = GetViewportY(viewport);
 			var boundingBoxes = projectedInto.TreeNode.Parent?.GetBoundingBoxes(viewport);
-			if (boundingBoxes != null && !boundingBoxes.RenderBox.IsInvalid)
+            if (boundingBoxes != null && boundingBoxes.RenderBox.IsValid)
 			{
 				x -= boundingBoxes.HitTestBox.MinX;
 				y -= boundingBoxes.HitTestBox.MinY;
