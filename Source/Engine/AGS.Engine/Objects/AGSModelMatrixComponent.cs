@@ -24,6 +24,7 @@ namespace AGS.Engine
         private IObject _parent;
         private ISprite _sprite;
         private IJumpOffsetComponent _jump;
+        private ILabelRenderer _labelRenderer;
 
         private readonly Size _virtualResolution;
         private PointF _areaScaling;
@@ -75,8 +76,8 @@ namespace AGS.Engine
                 c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged();}
             );
 			_entity.Bind<IImageComponent>(
-                c => { _image = c; c.PropertyChanged += onPivotChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onPivotChanged; _image = null; onSomethingChanged(); }
+                c => { _image = c; subscribeLabelRenderer(); c.PropertyChanged += onImageChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onImageChanged; _image = null; onSomethingChanged(); }
 			);
 
             _entity.Bind<IDrawableInfoComponent>(
@@ -211,10 +212,47 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
-        private void onPivotChanged(object sender, PropertyChangedEventArgs args)
+        private void onImageChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(IImageComponent.Pivot)) return;
+            if (args.PropertyName != nameof(IImageComponent.Pivot) 
+                && args.PropertyName != nameof(IImageComponent.CustomRenderer)) return;
             onSomethingChanged();
+            if (args.PropertyName == nameof(IImageComponent.CustomRenderer))
+            {
+                subscribeLabelRenderer();
+            }
+        }
+
+        private void subscribeLabelRenderer()
+        {
+            var labelRenderer = _labelRenderer;
+            if (labelRenderer != null) labelRenderer.PropertyChanged -= onLabelRendererPropertyChanged;
+            labelRenderer = _image.CustomRenderer as ILabelRenderer;
+            if (labelRenderer != null)
+            {
+                _customImageSize = labelRenderer.CustomImageSize;
+                _customResolutionFactor = labelRenderer.CustomImageResolutionFactor;
+                labelRenderer.PropertyChanged += onLabelRendererPropertyChanged;
+            }
+            _labelRenderer = labelRenderer;
+        }
+
+        private void onLabelRendererPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            var labelRenderer = _labelRenderer;
+            if (labelRenderer == null) return;
+            if (args.PropertyName == nameof(ILabelRenderer.CustomImageSize))
+            {
+                _customImageSize = labelRenderer.CustomImageSize;
+                onSomethingChanged();
+                return;
+            }
+            if (args.PropertyName == nameof(ILabelRenderer.CustomImageResolutionFactor))
+            {
+                _customResolutionFactor = labelRenderer.CustomImageResolutionFactor;
+                onSomethingChanged();
+                return;
+            }
         }
 
         private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
@@ -239,7 +277,7 @@ namespace AGS.Engine
 
         private ISprite getSprite()
         {
-            return _animation == null || _animation.Animation == null ? null : _animation.Animation.Sprite;
+            return _animation?.Animation?.Sprite;
         }
 
         private void subscribeSprite(ISprite sprite)
@@ -269,28 +307,6 @@ namespace AGS.Engine
                 _sprite = currentSprite;
                 subscribeSprite(_sprite);
                 _isDirty = true;
-            }
-            var renderer = _image.CustomRenderer;
-            if (renderer != null)
-            {
-                var customImageSize = renderer?.CustomImageSize;
-                if ((customImageSize == null && _customImageSize != null) || 
-                    (customImageSize != null && _customImageSize == null) ||
-                    (customImageSize != null && _customImageSize != null && 
-                     !customImageSize.Value.Equals(_customImageSize.Value)))
-                {
-                    _customImageSize = customImageSize;
-                    _isDirty = true;
-                }
-                var customFactor = renderer?.CustomImageResolutionFactor;
-                if ((customFactor == null && _customResolutionFactor != null) ||
-                    (customFactor != null && _customResolutionFactor == null) ||
-                    (customFactor != null && _customResolutionFactor != null &&
-                     !customFactor.Value.Equals(_customResolutionFactor.Value)))
-                {
-                    _customResolutionFactor = customFactor;
-                    _isDirty = true;
-                }
             }
             return _isDirty;
         }
