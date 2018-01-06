@@ -186,8 +186,6 @@ namespace AGS.Engine
 
             IImageRenderer imageRenderer = getImageRenderer(obj);
 
-			imageRenderer.Prepare(obj, obj, viewport);
-
 			var shader = applyObjectShader(obj);
 
 			imageRenderer.Render (obj, viewport);

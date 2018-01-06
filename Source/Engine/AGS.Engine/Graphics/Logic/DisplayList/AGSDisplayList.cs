@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using AGS.API;
 
 namespace AGS.Engine
@@ -16,6 +17,7 @@ namespace AGS.Engine
         private readonly AGSWalkBehindsMap _walkBehinds;
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
+        private readonly HashSet<string> _alreadyPrepared = new HashSet<string>();
 
         private readonly ConcurrentDictionary<IViewport, List<IObject>> _cache;
         private readonly ConcurrentDictionary<IViewport, ViewportSubscriber> _viewportSubscribers;
@@ -174,7 +176,7 @@ namespace AGS.Engine
         }
 
         public AGSDisplayList(IGameState gameState, IInput input, AGSWalkBehindsMap walkBehinds, 
-                              IImageRenderer renderer)
+                              IImageRenderer renderer, IGameEvents events)
         {
             _gameState = gameState;
             _input = input;
@@ -184,6 +186,7 @@ namespace AGS.Engine
             _viewportSubscribers = new ConcurrentDictionary<IViewport, ViewportSubscriber>();
             _bindings = new ConcurrentDictionary<string, List<IComponentBinding>>();
             _comparer = new RenderOrderSelector();
+            events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 
             gameState.UI.OnListChanged.Subscribe(onUiChanged);
             subscribeObjects(gameState.UI);
@@ -200,24 +203,38 @@ namespace AGS.Engine
                 subscribeRoom();
                 onSomethingChanged();
             }
-            List<IObject> list;
-            if (_isDirty && Environment.CurrentManagedThreadId == AGSGame.UIThreadID)
-            {
-                _isDirty = false;
-                list = getDisplayList(viewport);
-                _cache[viewport] = list;
-            }
-            else
-            {
-                if (Environment.CurrentManagedThreadId != AGSGame.UIThreadID)
-                {
-                    _cache.TryGetValue(viewport, out var displayList);
-                    return displayList ?? _emptyList;
-                }
-                list = _cache.GetOrAdd(viewport, getDisplayList);
-            }
-            return list;
+            _cache.TryGetValue(viewport, out var displayList);
+            return displayList ?? _emptyList;
 		}
+
+        private void onRepeatedlyExecute()
+        {
+            _alreadyPrepared.Clear();
+            bool isDirty = _isDirty;
+            _isDirty = false;
+
+            foreach (var viewport in _viewportSubscribers.Keys)
+            {
+                List<IObject> list;
+                if (isDirty)
+                {
+                    list = getDisplayList(viewport);
+                    _cache[viewport] = list;
+                }
+                else
+                {
+                    list = _cache.GetOrAdd(viewport, getDisplayList);
+                }
+                foreach (var item in list)
+                {
+                    if (_alreadyPrepared.Add(item.ID))
+                    {
+                        var renderer = getImageRenderer(item);
+                        renderer.Prepare(item, item.GetComponent<IDrawableInfoComponent>(), viewport);
+                    }
+                }
+            }
+        }
 
         private List<IObject> getDisplayList(IViewport viewport)
         {
