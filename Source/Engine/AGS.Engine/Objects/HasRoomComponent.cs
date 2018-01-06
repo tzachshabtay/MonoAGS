@@ -17,9 +17,10 @@ namespace AGS.Engine
 			_roomTransitions = roomTransitions;
             OnRoomChanged = new AGSEvent();
 			refreshRoom();
+            state.Rooms.OnListChanged.Subscribe(onRoomsChanged);
 		}
 
-		public override void Init(IEntity entity)
+        public override void Init(IEntity entity)
 		{
 			base.Init(entity);
 			_obj = (IObject)entity;
@@ -54,6 +55,11 @@ namespace AGS.Engine
         private bool canCompleteRoomTransition()
         {
             return _roomTransitions.State == RoomTransitionState.NotInTransition;
+        }
+
+        private void onRoomsChanged(AGSListChangedEventArgs<IRoom> args)
+        {
+            if (Room == null && args.ChangeType == ListChangeType.Add) refreshRoom();
         }
 
         private void refreshRoom()
