@@ -153,7 +153,7 @@ namespace AGS.Engine
         public void Render(IObject obj, IViewport viewport)
         {
             if (!TextBackgroundVisible && !TextVisible) return;
-            if (!obj.Visible) return;
+            if (!obj.Visible || _usedTextBoundingBoxes == null) return;
 
             PointF resolutionFactor; Size resolution;
             PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
