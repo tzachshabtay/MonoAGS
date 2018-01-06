@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using AGS.API;
 
@@ -16,19 +17,13 @@ namespace AGS.Engine
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
 
-        private readonly ConcurrentDictionary<IViewport, DisplayList> _cache;
+        private readonly ConcurrentDictionary<IViewport, List<IObject>> _cache;
         private readonly ConcurrentDictionary<IViewport, ViewportSubscriber> _viewportSubscribers;
         private readonly ConcurrentDictionary<string, List<IComponentBinding>> _bindings;
 
         private IRoom _lastRoom;
         private IObject _lastRoomBackground;
         private bool _isDirty;
-
-        private struct DisplayList
-        {
-            public List<IObject> NotDisplayed { get; set; }
-            public List<IObject> Displayed { get; set; }
-        }
 
         private struct ViewportSubscriber
         {
@@ -185,7 +180,7 @@ namespace AGS.Engine
             _input = input;
             _renderer = renderer;
             _walkBehinds = walkBehinds;
-            _cache = new ConcurrentDictionary<IViewport, DisplayList>();
+            _cache = new ConcurrentDictionary<IViewport, List<IObject>>();
             _viewportSubscribers = new ConcurrentDictionary<IViewport, ViewportSubscriber>();
             _bindings = new ConcurrentDictionary<string, List<IComponentBinding>>();
             _comparer = new RenderOrderSelector();
@@ -205,7 +200,7 @@ namespace AGS.Engine
                 subscribeRoom();
                 onSomethingChanged();
             }
-            DisplayList list;
+            List<IObject> list;
             if (_isDirty && Environment.CurrentManagedThreadId == AGSGame.UIThreadID)
             {
                 _isDirty = false;
@@ -217,35 +212,20 @@ namespace AGS.Engine
                 if (Environment.CurrentManagedThreadId != AGSGame.UIThreadID)
                 {
                     _cache.TryGetValue(viewport, out var displayList);
-                    return displayList.Displayed ?? _emptyList;
+                    return displayList ?? _emptyList;
                 }
                 list = _cache.GetOrAdd(viewport, getDisplayList);
             }
-            return prepareDisplayList(list, viewport);
+            return list;
 		}
 
-        private List<IObject> prepareDisplayList(DisplayList list, IViewport viewport)
-        {
-            foreach (var obj in list.NotDisplayed)
-            {
-                IImageRenderer imageRenderer = getImageRenderer(obj);
-
-                imageRenderer.Prepare(obj, obj, viewport);
-            }
-            return list.Displayed;
-        }
-
-        private DisplayList getDisplayList(IViewport viewport)
+        private List<IObject> getDisplayList(IViewport viewport)
         {
             var settings = viewport.DisplayListSettings;
             var room = viewport.RoomProvider.Room;
             int count = 1 + (room == null ? 0 : room.Objects.Count) + _gameState.UI.Count;
 
-            DisplayList displayList = new DisplayList
-            {
-                Displayed = new List<IObject>(count),
-                NotDisplayed = new List<IObject>(count)
-            };
+            var displayList = new List<IObject>(count);
 
             if (settings.DisplayRoom && room != null)
             {
@@ -277,25 +257,24 @@ namespace AGS.Engine
                 }
             }
 
-            displayList.Displayed.Sort(_comparer);
+            displayList.Sort(_comparer);
             return displayList;
         }
 
-        private void addDebugDrawArea(DisplayList displayList, IArea area, IViewport viewport)
+        private void addDebugDrawArea(List<IObject> displayList, IArea area, IViewport viewport)
 		{
 			if (area.Mask.DebugDraw == null) return;
 			addToDisplayList(displayList, area.Mask.DebugDraw, viewport);
 		}
 
-        private void addToDisplayList(DisplayList displayList, IObject obj, IViewport viewport)
+        private void addToDisplayList(List<IObject> displayList, IObject obj, IViewport viewport)
 		{
             if (!viewport.IsObjectVisible(obj))
 			{
-                displayList.NotDisplayed.Add(obj);
                 return;
 			}
 
-            displayList.Displayed.Add(obj);
+            displayList.Add(obj);
 		}
 
         //todo: duplicate code with AGSRendererLoop
