@@ -22,9 +22,8 @@
         PointF? CustomImageResolutionFactor { get; }
 
         /// <summary>
-        /// Called before the 'Render' method is called for each existing object, even if it will
-        /// not be rendered. 
-        /// This is called by the main loop of the game, on each tick and should not be called by the user.
+        /// Called to prepare rendering information for objects.
+        /// This is called by the main update loop of the game, on each tick and should not be called by the user.
         /// </summary>
         /// <returns>The prepare.</returns>
         /// <param name="obj">Object.</param>
@@ -34,7 +33,7 @@
 
         /// <summary>
         /// Renders the specified object on screen.
-        /// This is called by the main loop of the game, on each tick and should not be called by the user.
+        /// This is called by the main render loop of the game, on each tick and should not be called by the user.
         /// </summary>
         /// <returns>The render.</returns>
         /// <param name="obj">Object.</param>
