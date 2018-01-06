@@ -76,7 +76,7 @@ namespace AGS.Engine
         public float Width { get; private set; }
         public float Height { get; private set; }
 
-        public void SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null,
+        public bool SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null,
               PointF? scaleUp = null, PointF? scaleDown = null, int caretPosition = 0, bool renderCaret = false,
               bool cropText = false, bool measureOnly = false)
         {
@@ -92,7 +92,7 @@ namespace AGS.Engine
                 || (scaleUp != null && !scaleUp.Value.Equals(_scaleUp))
                 || (scaleDown != null && !scaleDown.Value.Equals(_scaleDown));
 
-            if (!changeNeeded) return;
+            if (!changeNeeded) return false;
 
             _text = text;
             if (config != null && config != _config)
@@ -111,6 +111,8 @@ namespace AGS.Engine
             _renderCaret = renderCaret;
 
             prepareBitmapDraw();
+
+            return true;
         }
 
         public void Dispose()
