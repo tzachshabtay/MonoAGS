@@ -30,15 +30,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Moq">
-      <HintPath>..\..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\packages\Moq.4.8.0\lib\net45\Moq.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

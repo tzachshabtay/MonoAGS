@@ -186,7 +186,7 @@ namespace AGS.Engine
             _viewportSubscribers = new ConcurrentDictionary<IViewport, ViewportSubscriber>();
             _bindings = new ConcurrentDictionary<string, List<IComponentBinding>>();
             _comparer = new RenderOrderSelector();
-            events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+            events.OnRepeatedlyExecute?.Subscribe(onRepeatedlyExecute);
 
             gameState.UI.OnListChanged.Subscribe(onUiChanged);
             subscribeObjects(gameState.UI);
