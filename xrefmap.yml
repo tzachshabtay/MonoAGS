@@ -139,18 +139,18 @@ references:
   commentId: Overload:AGS.API.AGSBoundingBox.Height
   fullName: AGS.API.AGSBoundingBox.Height
   nameWithType: AGSBoundingBox.Height
-- uid: AGS.API.AGSBoundingBox.IsInvalid
-  name: IsInvalid
-  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_IsInvalid
-  commentId: P:AGS.API.AGSBoundingBox.IsInvalid
-  fullName: AGS.API.AGSBoundingBox.IsInvalid
-  nameWithType: AGSBoundingBox.IsInvalid
-- uid: AGS.API.AGSBoundingBox.IsInvalid*
-  name: IsInvalid
-  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_IsInvalid_
-  commentId: Overload:AGS.API.AGSBoundingBox.IsInvalid
-  fullName: AGS.API.AGSBoundingBox.IsInvalid
-  nameWithType: AGSBoundingBox.IsInvalid
+- uid: AGS.API.AGSBoundingBox.IsValid
+  name: IsValid
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_IsValid
+  commentId: P:AGS.API.AGSBoundingBox.IsValid
+  fullName: AGS.API.AGSBoundingBox.IsValid
+  nameWithType: AGSBoundingBox.IsValid
+- uid: AGS.API.AGSBoundingBox.IsValid*
+  name: IsValid
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_IsValid_
+  commentId: Overload:AGS.API.AGSBoundingBox.IsValid
+  fullName: AGS.API.AGSBoundingBox.IsValid
+  nameWithType: AGSBoundingBox.IsValid
 - uid: AGS.API.AGSBoundingBox.MaxX
   name: MaxX
   href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_MaxX

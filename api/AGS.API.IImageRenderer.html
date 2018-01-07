@@ -167,13 +167,12 @@ when calculating the object&apos;s matrix.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorSearch/apiSpec/new?filename=AGS_API_IImageRenderer_Prepare_AGS_API_IObject_AGS_API_IDrawableInfoComponent_AGS_API_IViewport_.md&amp;value=---%0Auid%3A%20AGS.API.IImageRenderer.Prepare(AGS.API.IObject%2CAGS.API.IDrawableInfoComponent%2CAGS.API.IViewport)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/Graphics/Logic/IImageRenderer.cs/#L33">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/Graphics/Logic/IImageRenderer.cs/#L32">View Source</a>
   </span>
   <a id="AGS_API_IImageRenderer_Prepare_" data-uid="AGS.API.IImageRenderer.Prepare*"></a>
   <h4 id="AGS_API_IImageRenderer_Prepare_AGS_API_IObject_AGS_API_IDrawableInfoComponent_AGS_API_IViewport_" data-uid="AGS.API.IImageRenderer.Prepare(AGS.API.IObject,AGS.API.IDrawableInfoComponent,AGS.API.IViewport)">Prepare(IObject, IDrawableInfoComponent, IViewport)</h4>
-  <div class="markdown level1 summary"><p>Called before the &apos;Render&apos; method is called for each existing object, even if it will
-not be rendered. 
-This is called by the main loop of the game, on each tick and should not be called by the user.</p>
+  <div class="markdown level1 summary"><p>Called to prepare rendering information for objects.
+This is called by the main update loop of the game, on each tick and should not be called by the user.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -215,12 +214,12 @@ This is called by the main loop of the game, on each tick and should not be call
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InspectorSearch/apiSpec/new?filename=AGS_API_IImageRenderer_Render_AGS_API_IObject_AGS_API_IViewport_.md&amp;value=---%0Auid%3A%20AGS.API.IImageRenderer.Render(AGS.API.IObject%2CAGS.API.IViewport)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/Graphics/Logic/IImageRenderer.cs/#L42">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InspectorSearch/Source/AGS.API/Graphics/Logic/IImageRenderer.cs/#L41">View Source</a>
   </span>
   <a id="AGS_API_IImageRenderer_Render_" data-uid="AGS.API.IImageRenderer.Render*"></a>
   <h4 id="AGS_API_IImageRenderer_Render_AGS_API_IObject_AGS_API_IViewport_" data-uid="AGS.API.IImageRenderer.Render(AGS.API.IObject,AGS.API.IViewport)">Render(IObject, IViewport)</h4>
   <div class="markdown level1 summary"><p>Renders the specified object on screen.
-This is called by the main loop of the game, on each tick and should not be called by the user.</p>
+This is called by the main render loop of the game, on each tick and should not be called by the user.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
