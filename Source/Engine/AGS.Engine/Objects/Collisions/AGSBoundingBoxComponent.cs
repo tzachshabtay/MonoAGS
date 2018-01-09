@@ -143,10 +143,6 @@ namespace AGS.Engine
 
             if (animation?.Animation?.Sprite?.Image == null || drawable == null || matrix == null)
             {
-                _isHitTestBoxDirty = false;
-                _isCropDirty = false;
-                _areViewportsDirty = false;
-                viewportBoxes.IsDirty = false;
                 return boundingBoxes;
             }
 

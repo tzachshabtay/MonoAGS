@@ -1,5 +1,4 @@
 ﻿﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using AGS.API;
@@ -15,6 +14,7 @@ namespace AGS.Engine
         private IEntity _entity;
         private readonly IGameState _state;
         private bool _isDirty;
+        private EntityListSubscriptions<IObject> _subscriptions;
 
         public AGSBoundingBoxWithChildrenComponent(IGameState state, IGameEvents events)
         {
@@ -81,27 +81,6 @@ namespace AGS.Engine
             refresh();
         }
 
-        private void onTreeChanged(AGSListChangedEventArgs<IObject> args)
-        {
-            if (args.ChangeType == ListChangeType.Add)
-            {
-                foreach (var item in args.Items)
-                {
-                    subscribeObject(item.Item);
-                    subscribeTree(item.Item.TreeNode);
-                }
-            }
-            else
-            {
-                foreach (var item in args.Items)
-                {
-                    unsubscribeObject(item.Item);
-                    unsubscribeTree(item.Item.TreeNode);
-                }
-            }
-            onSomethingChanged();
-        }
-
         private void onSomethingChanged()
         {
             _isDirty = true;
@@ -124,46 +103,29 @@ namespace AGS.Engine
 
         private void subscribeTree(ITreeNode<IObject> node)
         {
-            node.Children.OnListChanged.Subscribe(onTreeChanged);
-            foreach (var child in node.Children)
+            var visibleSubscription = new EntitySubscription<IVisibleComponent>(onVisiblePropertyChanged, 
+                propertyNames: nameof(IVisibleComponent.UnderlyingVisible));
+            var boundingBoxSubscription = new EntitySubscription<IBoundingBoxComponent>(null,
+                c => c.OnBoundingBoxesChanged.Subscribe(onObjBoundingBoxChanged), c => c.OnBoundingBoxesChanged.Unsubscribe(onObjBoundingBoxChanged));
+            var imageSubscription = new EntitySubscription<IImageComponent>(null, c =>
             {
-                subscribeObject(child);
-                subscribeTree(child.TreeNode);
-            }
+                var labelRenderer = c.CustomRenderer as ILabelRenderer;
+                labelRenderer?.OnLabelSizeChanged.Subscribe(onObjLabelSizeChanged);
+            }, c =>
+            {
+                var labelRenderer = c.CustomRenderer as ILabelRenderer;
+                labelRenderer?.OnLabelSizeChanged.Unsubscribe(onObjLabelSizeChanged);
+            });
+            _subscriptions = new EntityListSubscriptions<IObject>(node.Children, true, onSomethingChanged, 
+                                                                  visibleSubscription, boundingBoxSubscription);
         }
 
         private void unsubscribeTree(ITreeNode<IObject> node)
         {
-            node.Children.OnListChanged.Subscribe(onTreeChanged);
-            foreach (var child in node.Children)
-            {
-                unsubscribeObject(child);
-                unsubscribeTree(child.TreeNode);
-            }
+            _subscriptions?.Unsubscribe();
         }
 
-        private void subscribeObject(IObject obj)
-        {
-            obj.Bind<IBoundingBoxComponent>(c => c.OnBoundingBoxesChanged.Subscribe(onObjBoundingBoxChanged), c => c.OnBoundingBoxesChanged.Unsubscribe(onObjBoundingBoxChanged));
-            obj.Bind<IVisibleComponent>(c => c.PropertyChanged += onVisiblePropertyChanged, c => c.PropertyChanged -= onVisiblePropertyChanged);
-            var labelRenderer = obj.CustomRenderer as ILabelRenderer;
-            labelRenderer?.OnLabelSizeChanged.Subscribe(onObjLabelSizeChanged);
-        }
-
-        private void unsubscribeObject(IObject obj)
-        {
-            obj.OnBoundingBoxesChanged.Unsubscribe(onObjBoundingBoxChanged); //todo: unbind
-            var visible = obj.GetComponent<IVisibleComponent>();
-            if (visible != null) visible.PropertyChanged -= onVisiblePropertyChanged;
-            var labelRenderer = obj.CustomRenderer as ILabelRenderer;
-            labelRenderer?.OnLabelSizeChanged.Unsubscribe(onObjLabelSizeChanged);
-        }
-
-        private void onVisiblePropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(IVisibleComponent.UnderlyingVisible)) return;
-            onSomethingChanged();
-        }
+        private void onVisiblePropertyChanged() => onSomethingChanged();
 
         private void refresh()
         {
@@ -215,6 +177,13 @@ namespace AGS.Engine
                 foreach (var child in tree.TreeNode.Children)
                 {
                     if (child == null || !child.UnderlyingVisible || EntitiesToSkip.Contains(child.ID)) continue;
+
+                    //note: the label renderer check is needed for textboxes. We have a "with caret" version of the textbox flashing in and out
+                    //but we don't want to set it to visible and not visible because it hurts performance to keep changing the display list (which triggers sorting)
+                    //so we hide the the text and text background with label renderer properties. Because it's hidden the textbox may not be updated which correct bounding boxes.
+                    var labelRenderer = child.CustomRenderer as ILabelRenderer;
+                    if (labelRenderer != null && !labelRenderer.TextVisible && !labelRenderer.TextBackgroundVisible) continue;
+
                     var childBox = getBoundingBox(child, child, getBox);
                     if (!childBox.IsValid) continue;
                     if (minX > childBox.MinX) minX = childBox.MinX;

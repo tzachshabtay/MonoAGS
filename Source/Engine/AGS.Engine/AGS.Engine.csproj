@@ -438,6 +438,9 @@
     <Compile Include="Misc\Tweening\TweenRepeatInfo.cs" />
     <Compile Include="UI\Controls\Panel\TreeLockStep.cs" />
     <Compile Include="Game\AGSUpdateThread.cs" />
+    <Compile Include="Objects\Subscriptions\EntityListSubscriptions.cs" />
+    <Compile Include="Objects\Subscriptions\EntitySubscription.cs" />
+    <Compile Include="Objects\Subscriptions\IEntitySubscription.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -526,5 +529,6 @@
     <Folder Include="UI\DebugControls\DebugView\Inspector\" />
     <Folder Include="UI\DebugControls\DebugView\Inspector\Editors\" />
     <Folder Include="UI\Controls\Editors\" />
+    <Folder Include="Objects\Subscriptions\" />
   </ItemGroup>
 </Project>
