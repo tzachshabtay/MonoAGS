@@ -79,10 +79,11 @@ namespace AGS.Engine
                         obj => renderObject(_gameState.Viewport, obj)))
 					{
 						if (_fromTransitionBuffer == null) _fromTransitionBuffer = renderToBuffer();
-						_roomTransitions.State = RoomTransitionState.PreparingTransition;
+                        _roomTransitions.State = RoomTransitionState.PreparingTransition;
 						return false;
 					}
 					break;
+                case RoomTransitionState.PreparingNewRoomDisplayList:
 				case RoomTransitionState.PreparingTransition:
 					return false;
 				case RoomTransitionState.InTransition:

@@ -18,6 +18,7 @@ namespace AGS.Engine
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
         private readonly HashSet<string> _alreadyPrepared = new HashSet<string>();
+        private readonly IAGSRoomTransitions _roomTransitions;
 
         private readonly ConcurrentDictionary<IViewport, List<IObject>> _cache;
         private readonly ConcurrentDictionary<IViewport, ViewportSubscriber> _viewportSubscribers;
@@ -176,8 +177,9 @@ namespace AGS.Engine
         }
 
         public AGSDisplayList(IGameState gameState, IInput input, AGSWalkBehindsMap walkBehinds, 
-                              IImageRenderer renderer, IGameEvents events)
+                              IImageRenderer renderer, IGameEvents events, IAGSRoomTransitions roomTransitions)
         {
+            _roomTransitions = roomTransitions;
             _gameState = gameState;
             _input = input;
             _renderer = renderer;
@@ -210,7 +212,7 @@ namespace AGS.Engine
         private void onRepeatedlyExecute()
         {
             _alreadyPrepared.Clear();
-            bool isDirty = _isDirty;
+            bool isDirty = _isDirty || _roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList;
             _isDirty = false;
 
             foreach (var viewport in _viewportSubscribers.Keys)
@@ -233,6 +235,10 @@ namespace AGS.Engine
                         renderer.Prepare(item, item.GetComponent<IDrawableInfoComponent>(), viewport);
                     }
                 }
+            }
+            if (_roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList && isDirty)
+            {
+                _roomTransitions.State = RoomTransitionState.InTransition;
             }
         }
 

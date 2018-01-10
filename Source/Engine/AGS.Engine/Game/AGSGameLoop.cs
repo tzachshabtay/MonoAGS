@@ -1,7 +1,7 @@
 ﻿using System;
 using AGS.API;
 using System.Threading.Tasks;
-
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -40,7 +40,7 @@ namespace AGS.Engine
 						updateViewports(changedRoom);
                         _events.OnRoomChanging.Invoke();
 						if (_lastRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
-						else _roomTransitions.State = RoomTransitionState.InTransition;
+                        else _roomTransitions.State = RoomTransitionState.PreparingNewRoomDisplayList;
 					}
 				}
 				return;
