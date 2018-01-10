@@ -27,6 +27,7 @@ namespace AGS.Engine
         private IRoom _lastRoom;
         private IObject _lastRoomBackground;
         private bool _isDirty;
+        private int _inUpdate; //For preventing re-entrancy
 
         private struct ViewportSubscriber
         {
@@ -211,34 +212,42 @@ namespace AGS.Engine
 
         private void onRepeatedlyExecute()
         {
-            _alreadyPrepared.Clear();
-            bool isDirty = _isDirty || _roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList;
-            _isDirty = false;
-
-            foreach (var viewport in _viewportSubscribers.Keys)
+            if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
+            try
             {
-                List<IObject> list;
-                if (isDirty)
+                _alreadyPrepared.Clear();
+                bool isDirty = _isDirty || _roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList;
+                _isDirty = false;
+
+                foreach (var viewport in _viewportSubscribers.Keys)
                 {
-                    list = getDisplayList(viewport);
-                    _cache[viewport] = list;
-                }
-                else
-                {
-                    list = _cache.GetOrAdd(viewport, getDisplayList);
-                }
-                foreach (var item in list)
-                {
-                    if (_alreadyPrepared.Add(item.ID))
+                    List<IObject> list;
+                    if (isDirty)
                     {
-                        var renderer = getImageRenderer(item);
-                        renderer.Prepare(item, item.GetComponent<IDrawableInfoComponent>(), viewport);
+                        list = getDisplayList(viewport);
+                        _cache[viewport] = list;
+                    }
+                    else
+                    {
+                        list = _cache.GetOrAdd(viewport, getDisplayList);
+                    }
+                    foreach (var item in list)
+                    {
+                        if (_alreadyPrepared.Add(item.ID))
+                        {
+                            var renderer = getImageRenderer(item);
+                            renderer.Prepare(item, item.GetComponent<IDrawableInfoComponent>(), viewport);
+                        }
                     }
                 }
+                if (_roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList && isDirty)
+                {
+                    _roomTransitions.State = RoomTransitionState.InTransition;
+                }
             }
-            if (_roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList && isDirty)
+            finally
             {
-                _roomTransitions.State = RoomTransitionState.InTransition;
+                _inUpdate = 0;
             }
         }
 
