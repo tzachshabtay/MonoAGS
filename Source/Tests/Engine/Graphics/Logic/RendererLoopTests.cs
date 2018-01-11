@@ -59,7 +59,6 @@ namespace Tests
         }
 
         [Test]
-        [Ignore("Ignoring due to bug in moq: https://github.com/moq/moq4/issues/568")]
         public async Task RoomProperlyRendered_Test()
         {
             int threadID = AGSGame.UIThreadID;
@@ -90,10 +89,10 @@ namespace Tests
         { 
             _renderer = new Mock<IImageRenderer>();
             AGSDisplayList displayList = new AGSDisplayList(_mocks.GameState().Object, _mocks.Input().Object,
-                                                            new AGSWalkBehindsMap(null), _renderer.Object, _events);
+                                                            new AGSWalkBehindsMap(null), _renderer.Object, _events, new Mock<IAGSRoomTransitions>().Object);
             return new AGSRendererLoop(_resolver, _mocks.Game().Object, _renderer.Object,
                                        _transitions.Object, new Mock<IGLUtils>().Object, new Mock<IGameWindow>().Object,
-                                       new AGSEvent<DisplayListEventArgs>(), displayList, new Mock<IInput>().Object);
+                                       new AGSEvent<DisplayListEventArgs>(), displayList, new Mock<IInput>().Object, new Mock<IMatrixUpdater>().Object);
         }
 
         private IArea getArea()
