@@ -56,12 +56,19 @@ namespace AGS.Engine
                 c => c.OnBoundingBoxWithChildrenChanged.Subscribe(onSizeChanged), 
                 c => c.OnBoundingBoxWithChildrenChanged.Unsubscribe(onSizeChanged));
 
-            _subscriptions = new EntityListSubscriptions<IObject>(_tree.TreeNode.Children, false, adjustLayout, boundingBoxSubscription);
+            var visibleSubscription = new EntitySubscription<IVisibleComponent>(onVisibleChanged, propertyNames: nameof(IVisibleComponent.Visible));
+
+            _subscriptions = new EntityListSubscriptions<IObject>(_tree.TreeNode.Children, false, adjustLayout, boundingBoxSubscription, visibleSubscription);
         }
 
         private void unsubscribeChildren()
         {
             _subscriptions?.Unsubscribe();
+        }
+
+        private void onVisibleChanged()
+        {
+            adjustLayout();
         }
 
         private void onSizeChanged()
