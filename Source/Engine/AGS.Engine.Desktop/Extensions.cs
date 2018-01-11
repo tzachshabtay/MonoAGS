@@ -62,8 +62,14 @@ namespace AGS.Engine.Desktop
         public static System.Drawing.SizeF Measure(this string text, Font font, int maxWidth = int.MaxValue)
 		{
             var key = new TextMeasureKey(text, font, maxWidth);
-            var size = _measurements.GetOrAdd(key, 
-                      k => _graphics.Value.MeasureString(k.Text, k.Font, k.MaxWidth, StringFormat.GenericTypographic));
+            var size = _measurements.GetOrAdd(key,
+                      k =>
+            {
+                lock (DesktopBitmapTextDraw.GraphicsLocker)
+                {
+                    return _graphics.Value.MeasureString(k.Text, k.Font, k.MaxWidth, StringFormat.GenericTypographic);
+                }
+            });
             return size;
 		}
 
