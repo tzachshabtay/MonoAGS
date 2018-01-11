@@ -13,11 +13,16 @@
 		/// A room transition has started, we haven't left the old room yet.
 		/// </summary>
 		BeforeLeavingRoom,
-		/// <summary>
+        /// <summary>
 		/// We're preparing the transition screenshots (we need to take a screenshot of the old room,
 		/// then move the player to the new room, set up the camera and take another screenshot).
 		/// </summary>
 		PreparingTransition,
+        /// <summary>
+        /// We left the old room, we need to prepare the display list for the new room before taking the screenshot to
+        /// be used by the transition.
+        /// </summary>
+        PreparingNewRoomDisplayList,
 		/// <summary>
 		/// We're currently in transition. We have the 2 screenshots, which can be manipulated by the room transition.
 		/// </summary>

@@ -24,6 +24,8 @@ namespace AGS.Engine
             _settings = settings;
         }
 
+        public ITreeViewComponent Tree => _treeView;
+
         public override void Init(IEntity entity)
         {
             base.Init(entity);
@@ -65,6 +67,7 @@ namespace AGS.Engine
         {
 			var attr = prop.GetCustomAttribute<PropertyAttribute>();
 			if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
+            if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IBlockingEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
 			string name = prop.Name;
 			if (attr != null)
 			{

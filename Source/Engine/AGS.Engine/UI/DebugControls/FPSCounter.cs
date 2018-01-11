@@ -10,7 +10,7 @@ namespace AGS.Engine
 		private ILabel _label;
 		private IGame _game;
 
-		private int _numSamples;
+		private int _numRenderSamples, _numUpdateSamples;
 
 		private Stopwatch _stopwatch;
 
@@ -22,9 +22,10 @@ namespace AGS.Engine
 
 		public void Start()
 		{
-			_stopwatch = new Stopwatch ();
-			_stopwatch.Restart();
-			_game.Events.OnRepeatedlyExecute.Subscribe(onTick);
+            _stopwatch = new Stopwatch();
+            _stopwatch.Restart();
+            _game.Events.OnBeforeRender.Subscribe(onRenderTick);
+            _game.Events.OnRepeatedlyExecute.Subscribe(onUpdateTick);
 			_game.Events.OnSavedGameLoad.Subscribe(() => onSaveGameLoaded());
 		}
 
@@ -33,16 +34,22 @@ namespace AGS.Engine
 			_label = _game.Find<ILabel>(_label.ID);
 		}
 
-		private void onTick()
+        private void onRenderTick()
 		{
-			_numSamples++;
-			if (_stopwatch.ElapsedMilliseconds > 1000)
-			{
-				_label.Text = "FPS: " + _numSamples;
-				_numSamples = 0;
-				_stopwatch.Restart();
-			}
+            _numRenderSamples++;
 		}
+
+        private void onUpdateTick()
+        {
+            _numUpdateSamples++;
+            if (_stopwatch.ElapsedMilliseconds > 1000)
+            {
+                _label.Text = $"FPS: {_numRenderSamples}/{_numUpdateSamples}";
+                _numRenderSamples = 0;
+                _numUpdateSamples = 0;
+                _stopwatch.Restart();
+            }
+        }
 	}
 }
 

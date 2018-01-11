@@ -84,12 +84,15 @@ namespace AGS.Engine
         public ILocation Location { get => _translate.Location; set => _translate.Location = value; }
 
         [DoNotNotify]
+        [Property(Browsable = false)]
         public float X { get => _translate.X; set => _translate.X = value; }
 
         [DoNotNotify]
+        [Property(Browsable = false)]
         public float Y { get => _translate.Y; set => _translate.Y = value; }
 
         [DoNotNotify]
+        [Property(Browsable = false)]
         public float Z { get => _translate.Z; set => _translate.Z = value; }
 
         [DoNotNotify]
@@ -99,9 +102,11 @@ namespace AGS.Engine
         public float Width => _scale.Width;
 
         [DoNotNotify]
+        [Property(Browsable = false)]
         public float ScaleX { get => _scale.ScaleX; set => _scale.ScaleX = value; }
 
         [DoNotNotify]
+        [Property(Browsable = false)]
         public float ScaleY { get => _scale.ScaleY; set => _scale.ScaleY = value; }
 
         [DoNotNotify]

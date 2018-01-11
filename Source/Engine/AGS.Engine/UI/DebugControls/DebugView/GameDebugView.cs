@@ -75,13 +75,23 @@ namespace AGS.Engine
             parentPanel.Tint = Colors.Transparent;
             parentPanel.RenderLayer = _layer;
 
-            _debugTree.Load(parentPanel);
-            _displayList.Load(parentPanel);
-            _inspector.Load(parentPanel);
+            var topPanel = factory.UI.GetPanel("GameDebugTopPanel", _panel.Width, parentPanelHeight / 2f, 0f, parentPanelHeight / 2f, parentPanel);
+            topPanel.Pivot = new PointF(0f, 0f);
+            topPanel.Tint = Colors.Transparent;
+            topPanel.RenderLayer = _layer;
+
+            var bottomPanel = factory.UI.GetPanel("GameDebugBottomPanel", _panel.Width, parentPanelHeight / 2f, 0f, parentPanelHeight / 2f, parentPanel);
+            bottomPanel.Pivot = new PointF(0f, 1f);
+            bottomPanel.Tint = Colors.Transparent;
+            bottomPanel.RenderLayer = _layer;
+
+            _debugTree.Load(topPanel);
+            _displayList.Load(topPanel);
+            _inspector.Load(bottomPanel);
             _currentTab = _debugTree;
             _splitPanel = parentPanel.AddComponent<ISplitPanelComponent>();
-            _splitPanel.TopPanel = _debugTree.Panel;
-            _splitPanel.BottomPanel = _inspector.Panel;
+            _splitPanel.TopPanel = topPanel;
+            _splitPanel.BottomPanel = bottomPanel;
 
             var horizSplit = _panel.AddComponent<ISplitPanelComponent>();
             horizSplit.IsHorizontal = true;
@@ -93,6 +103,8 @@ namespace AGS.Engine
                 _panesButton.X = _panel.Width;
                 headerLabel.LabelRenderSize = new SizeF(_panel.Width, headerLabel.LabelRenderSize.Height);
                 parentPanel.BaseSize = new SizeF(_panel.Width, parentPanel.Height);
+                topPanel.BaseSize = new SizeF(_panel.Width, topPanel.Height);
+                bottomPanel.BaseSize = new SizeF(_panel.Width, bottomPanel.Height);
                 _currentTab.Resize();
                 _inspector.Resize();
             };
@@ -101,7 +113,6 @@ namespace AGS.Engine
         public Task Show()
         {
             _panel.Visible = true;
-            _splitPanel.TopPanel = _currentTab.Panel;
             return _currentTab.Show();
         }
 
@@ -116,7 +127,7 @@ namespace AGS.Engine
             _currentTab.Hide();
             _currentTab = (_currentTab == _debugTree) ? (IDebugTab)_displayList : _debugTree;
             _panesButton.Text = _currentTab == _debugTree ? "Display List" : "Scene Tree";
-            _splitPanel.TopPanel = _currentTab.Panel;
+            _currentTab.Resize();
             return _currentTab.Show();
         }
     }

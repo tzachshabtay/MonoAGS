@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using AGS.API;
 
@@ -9,6 +10,7 @@ namespace AGS.Engine
         private List<IObject> _lastDisplayList;
         private IListboxComponent _listBox;
         private IPanel _listPanel, _scrollingPanel, _parent;
+        private ITextBox _searchBox;
         private IStackLayoutComponent _layout;
         private readonly IRenderLayer _layer;
         private readonly IGame _game;
@@ -26,14 +28,24 @@ namespace AGS.Engine
         {
             _parent = parent;
             var factory = _game.Factory;
-			_scrollingPanel = factory.UI.GetPanel("GameDebugDisplayListScrollingPanel", parent.Width, parent.Height / 2f, 0f, parent.Height / 2f, parent);
+
+            _searchBox = factory.UI.GetTextBox("GameDebugDisplayListSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
+            _searchBox.RenderLayer = _layer;
+            _searchBox.Border = AGSBorders.SolidColor(Colors.Green, 2f);
+            _searchBox.Tint = Colors.Transparent;
+            _searchBox.Pivot = new PointF(0f, 1f);
+            _searchBox.Visible = false;
+            _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
+
+            _scrollingPanel = factory.UI.GetPanel("GameDebugDisplayListScrollingPanel", parent.Width, parent.Height - _searchBox.Height, 0f, 0f, parent);
 			_scrollingPanel.RenderLayer = _layer;
 			_scrollingPanel.Pivot = new PointF(0f, 0f);
 			_scrollingPanel.Tint = Colors.Transparent;
 			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
             _scrollingPanel.Visible = false;
 
-            _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, _scrollingPanel.Height - 10, _scrollingPanel);
+            const float lineHeight = 42f;
+            _listPanel = factory.UI.GetPanel("GameDebugDisplayListPanel", 1f, 1f, 0f, _scrollingPanel.Height - lineHeight, _scrollingPanel);
             _listPanel.Tint = Colors.Transparent;
             _listPanel.RenderLayer = _layer;
             _listPanel.Pivot = new PointF(0f, 1f);
@@ -45,18 +57,20 @@ namespace AGS.Engine
             _listBox.ItemButtonFactory = text =>
             {
                 var button = factory.UI.GetButton("GameDebugDisplayListPanel_" + text,
-                                                  new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null),
-                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null),
-                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), null),
+                                                  new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText), null),
+                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText), null),
+                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
                                                   0f, 0f, width: 500f, height: 50f);
                 button.RenderLayer = parent.RenderLayer;
                 return button;
             };
             factory.UI.CreateScrollingPanel(_scrollingPanel);
-            _scrollingPanel.GetComponent<IScaleComponent>().PropertyChanged += (_, args) =>
+            parent.GetComponent<IScaleComponent>().PropertyChanged += (_, args) =>
 			{
                 if (args.PropertyName != nameof(IScaleComponent.Height)) return;
+                _scrollingPanel.Image = new EmptyImage(_scrollingPanel.Width, parent.Height - _searchBox.Height);
                 _listPanel.Y = _scrollingPanel.Height - 10f;
+                _searchBox.Y = _parent.Height;
 			};
         }
 
@@ -65,11 +79,13 @@ namespace AGS.Engine
             await Task.Run(() => refresh());
             _layout.StartLayout();
             _scrollingPanel.Visible = true;
+            _searchBox.Visible = true;
         }
 
         public void Hide()
         {
             _scrollingPanel.Visible = false;
+            _searchBox.Visible = false;
             _layout.StopLayout();
             _listBox.Items.Clear();
         }
@@ -77,6 +93,7 @@ namespace AGS.Engine
 		public void Resize()
 		{
 			_scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
+            _searchBox.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
 		}
 
         private void refresh()
@@ -95,5 +112,10 @@ namespace AGS.Engine
             _lastDisplayList = args.DisplayList;
         }
 
+        private void onSearchPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(ITextComponent.Text)) return;
+            _listBox.SearchFilter = _searchBox.Text;
+        }
     }
 }

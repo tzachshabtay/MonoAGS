@@ -13,6 +13,8 @@ namespace AGS.Engine.Desktop
 		private string _text;
         private Graphics _gfx;
 
+        public static readonly object GraphicsLocker = new object();
+
 		public DesktopBitmapTextDraw(Bitmap bitmap)
 		{
 			_bitmap = bitmap;
@@ -44,25 +46,28 @@ namespace AGS.Engine.Desktop
 			float bottom = top + _config.OutlineWidth;
 
             var gfx = _gfx;
-            if (_config.OutlineWidth > 0f)
-			{
-				drawString(gfx, outlineBrush, left, top);
-				drawString(gfx, outlineBrush, centerX, top);
-				drawString(gfx, outlineBrush, right, top);
+            lock (GraphicsLocker)
+            {
+                if (_config.OutlineWidth > 0f)
+                {
+                    drawString(gfx, outlineBrush, left, top);
+                    drawString(gfx, outlineBrush, centerX, top);
+                    drawString(gfx, outlineBrush, right, top);
 
-				drawString(gfx, outlineBrush, left, centerY);
-				drawString(gfx, outlineBrush, right, centerY);
+                    drawString(gfx, outlineBrush, left, centerY);
+                    drawString(gfx, outlineBrush, right, centerY);
 
-				drawString(gfx, outlineBrush, left, bottom);
-				drawString(gfx, outlineBrush, centerX, bottom);
-				drawString(gfx, outlineBrush, right, bottom);
-			}
-			if (_config.ShadowBrush != null)
-			{
-				drawString(gfx, _config.ShadowBrush, centerX + _config.ShadowOffsetX, 
-					centerY + _config.ShadowOffsetY);
-			}
-			drawString(gfx, _config.Brush, centerX, centerY);
+                    drawString(gfx, outlineBrush, left, bottom);
+                    drawString(gfx, outlineBrush, centerX, bottom);
+                    drawString(gfx, outlineBrush, right, bottom);
+                }
+                if (_config.ShadowBrush != null)
+                {
+                    drawString(gfx, _config.ShadowBrush, centerX + _config.ShadowOffsetX,
+                        centerY + _config.ShadowOffsetY);
+                }
+                drawString(gfx, _config.Brush, centerX, centerY);
+            }
 
             //This should be a better way to render the outline (DrawPath renders the outline, and FillPath renders the text)
             //but for some reason some lines are missing when we render like that, at least on the mac

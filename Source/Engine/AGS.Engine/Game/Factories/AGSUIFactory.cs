@@ -197,7 +197,7 @@ namespace AGS.Engine
             return GetButton(id, idle, hovered, pushed, x, y, parent, text, config, addToUi, width, height);
         }
 
-        public ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string text = "", ITextConfig config = null,
+        public ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string watermark = "", ITextConfig config = null,
             bool addToUi = true, float width = -1F, float height = -1F)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
@@ -205,13 +205,21 @@ namespace AGS.Engine
             textbox.LabelRenderSize = new SizeF(width, height);
             textbox.X = x;
             textbox.Y = y;
-            if (width < 0f && config == null)
+            if (config == null)
             {
                 config = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop);
             }
             textbox.TextConfig = config;
-            textbox.Text = text;
+            textbox.Text = "";
             setParent(textbox, parent);
+            if (!string.IsNullOrEmpty(watermark))
+            {
+                var watermarkConfig = AGSTextConfig.Clone(config);
+                watermarkConfig.Brush = _graphics.Brushes.LoadSolidBrush(Colors.LightGray);
+                var watermarkLabel = GetLabel($"{id}_watermark", watermark, width, height, 0f, 0f, textbox, watermarkConfig, addToUi);
+                watermarkLabel.Opacity = 50;
+                textbox.Watermark = watermarkLabel;
+            }
 
             if (addToUi)
                 _gameState.UI.Add(textbox);

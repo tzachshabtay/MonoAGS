@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 
 namespace AGS.Engine
@@ -7,6 +8,10 @@ namespace AGS.Engine
     public class AGSTextConfig : ITextConfig
     {
         private static IBrushLoader _brushes => AGSGame.Device.BrushLoader;
+
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
 
         public AGSTextConfig(IBrush brush = null, IFont font = null, IBrush outlineBrush = null, float outlineWidth = 0f,
             IBrush shadowBrush = null, float shadowOffsetX = 0f, float shadowOffsetY = 0f,

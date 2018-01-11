@@ -2,6 +2,8 @@
 using AGS.API;
 using System.Collections.Generic;
 using Autofac;
+using System.Diagnostics;
+using System.Text;
 
 namespace AGS.Engine
 {
@@ -13,7 +15,7 @@ namespace AGS.Engine
 		private readonly Resolver _resolver;
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly DisplayListEventArgs _displayListEventArgs;
-        private readonly Stack<IObject> _parentStack;
+        private readonly IMatrixUpdater _matrixUpdater;
         private readonly IGameWindow _gameWindow;
         private readonly IDisplayList _displayList;
         private readonly IInput _input;
@@ -26,7 +28,7 @@ namespace AGS.Engine
 		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer,
             IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IGameWindow gameWindow,
             IBlockingEvent<DisplayListEventArgs> onBeforeRenderingDisplayList, IDisplayList displayList, 
-            IInput input)
+            IInput input, IMatrixUpdater matrixUpdater)
 		{
             _input = input;
             _displayList = displayList;
@@ -38,7 +40,7 @@ namespace AGS.Engine
 			_renderer = renderer;
 			_roomTransitions = roomTransitions;
             _displayListEventArgs = new DisplayListEventArgs(null);
-            _parentStack = new Stack<IObject>();
+            _matrixUpdater = matrixUpdater;
             OnBeforeRenderingDisplayList = onBeforeRenderingDisplayList;
 			_roomTransitions.Transition = new RoomTransitionInstant ();
 		}
@@ -75,10 +77,11 @@ namespace AGS.Engine
                         obj => renderObject(_gameState.Viewport, obj)))
 					{
 						if (_fromTransitionBuffer == null) _fromTransitionBuffer = renderToBuffer();
-						_roomTransitions.State = RoomTransitionState.PreparingTransition;
+                        _roomTransitions.State = RoomTransitionState.PreparingTransition;
 						return false;
 					}
 					break;
+                case RoomTransitionState.PreparingNewRoomDisplayList:
 				case RoomTransitionState.PreparingTransition:
 					return false;
 				case RoomTransitionState.InTransition:
@@ -128,6 +131,7 @@ namespace AGS.Engine
 
         private void renderAllViewports()
 		{
+            _matrixUpdater.ClearCache();
             renderViewport(_gameState.Viewport);
             try
             {
@@ -167,12 +171,13 @@ namespace AGS.Engine
             _mouseCursorContainer.X = (_input.MousePosition.XMainViewport - viewport.X) * viewport.ScaleX;
             _mouseCursorContainer.Y = (_input.MousePosition.YMainViewport - viewport.Y) * viewport.ScaleY;
             _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport);
+            _matrixUpdater.RefreshMatrix(_mouseCursorContainer);
             renderObject(viewport, _mouseCursorContainer);
         }
 
         private void renderObject(IViewport viewport, IObject obj)
 		{
-            refreshParentMatrices(obj);
+            _matrixUpdater.RefreshMatrix(obj);
             Size resolution = obj.RenderLayer == null || obj.RenderLayer.IndependentResolution == null ? 
                 _game.Settings.VirtualResolution :
                 obj.RenderLayer.IndependentResolution.Value;
@@ -180,28 +185,12 @@ namespace AGS.Engine
 
             IImageRenderer imageRenderer = getImageRenderer(obj);
 
-			imageRenderer.Prepare(obj, obj, viewport);
-
 			var shader = applyObjectShader(obj);
 
 			imageRenderer.Render (obj, viewport);
 
 			removeObjectShader(shader);
 		}
-
-        private void refreshParentMatrices(IObject obj)
-        {
-            //Making sure all of the parents have their matrix refreshed before rendering the object,
-            //as if they need a new matrix the object will need to recalculate its matrix as well.
-            //todo: find a more performant solution, to only visit each object once.
-			var parent = obj.TreeNode.Parent;
-			while (parent != null)
-			{
-                _parentStack.Push(parent);
-				parent = parent.TreeNode.Parent;
-			}
-			while (_parentStack.Count > 0) _parentStack.Pop().GetModelMatrices();
-        }
 
 		private static IShader applyObjectShader(IObject obj)
 		{

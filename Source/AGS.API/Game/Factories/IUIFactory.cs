@@ -165,12 +165,12 @@ namespace AGS.API
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
         /// <param name="parent">The UI control's parent.</param>
-        /// <param name="text">Text for the button.</param>
+        /// <param name="watermark">An optional watermark text to show when there's no text and the textbox is out of focus (i.e explanation text, see example here: https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl).</param>
         /// <param name="config">Configuration for rendering the text.</param>
         /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
         /// <param name="width">Width.</param>
         /// <param name="height">Height</param>/param>
-        ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, 
+        ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string watermark = "", ITextConfig config = null, bool addToUi = true, 
                             float width = -1, float height = -1); //todo: remove the optional -1 from width and height (need to reorder parameters)
 
         /// <summary>

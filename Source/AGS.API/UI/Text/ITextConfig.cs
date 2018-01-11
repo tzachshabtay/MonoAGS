@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// Allows for a label and its text to fit together in various way.
@@ -36,7 +38,7 @@
     /// <summary>
     /// Configuration which is used when rendering text.
     /// </summary>
-	public interface ITextConfig
+    public interface ITextConfig : INotifyPropertyChanged
 	{
         /// <summary>
         /// Gets the brush for drawing the text.

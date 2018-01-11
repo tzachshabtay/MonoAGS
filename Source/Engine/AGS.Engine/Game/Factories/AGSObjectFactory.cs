@@ -73,6 +73,7 @@ namespace AGS.Engine
 			string [] sayWhenInteract = null)
 		{
 			mask.DebugDraw.PixelPerfect (true);
+            mask.DebugDraw.Enabled = true;
 			mask.DebugDraw.Hotspot = hotspot;
 			mask.DebugDraw.Opacity = 0;
 			mask.DebugDraw.Z = mask.MinY;

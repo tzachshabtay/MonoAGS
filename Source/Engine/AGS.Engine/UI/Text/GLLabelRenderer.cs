@@ -3,6 +3,8 @@ using AGS.API;
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.ComponentModel;
+using System.Threading;
 
 namespace AGS.Engine
 {
@@ -18,7 +20,7 @@ namespace AGS.Engine
 		private readonly IGLTextureRenderer _textureRenderer;
 		private readonly AGSBoundingBoxes _labelBoundingBoxes, _textBoundingBoxes;
 		private readonly IGLViewportMatrixFactory _viewport;
-		private AGSBoundingBoxes _usedLabelBoundingBoxes, _usedTextBoundingBoxes;
+		private AGSBoundingBoxes _usedLabelBoundingBoxes, _usedTextBoundingBoxes, _afterCropTextBoundingBoxes;
 		private readonly BitmapPool _bitmapPool;
         private readonly IFontLoader _fonts;
         private readonly Size _virtualResolution;
@@ -28,9 +30,22 @@ namespace AGS.Engine
         private readonly BoundingBoxesEmptyBuilder _labelBoundingBoxFakeBuilder;
         private readonly IGameState _state;
         private readonly IGameEvents _events;
+
+        private ITextConfig _lastTextConfig;
         private IObject _lastObject;
+        private PointF _lastTextScaleFactor;
+        private ModelMatrices _lastMatrices;
+        private Matrix4 _lastViewportMatrix;
+
+        private List<IComponentBinding> _bindings;
+        private bool _shouldUpdateBoundingBoxes;
+        private AGSCropInfo _defaultCrop = default(AGSCropInfo);
 
         private float _lastWidth = 1f, _lastHeight = 1f;
+
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
 
         public GLLabelRenderer(Dictionary<string, ITexture> textures, 
 			IBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
@@ -39,6 +54,8 @@ namespace AGS.Engine
             IGLUtils glUtils, IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IFontLoader fonts,
             IRuntimeSettings settings, IRenderMessagePump messagePump, IGameState state, IGameEvents events)
 		{
+            _bindings = new List<IComponentBinding>();
+            _afterCropTextBoundingBoxes = new AGSBoundingBoxes();
             _state = state;
             _events = events;
             Width = 1f;
@@ -65,6 +82,15 @@ namespace AGS.Engine
 
 			TextVisible = true;
             TextBackgroundVisible = true;
+
+            subscribeTextConfigChanges();
+            PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(TextBackgroundVisible)) return;
+                onBoundingBoxShouldChange();
+                if (e.PropertyName == nameof(Config)) subscribeTextConfigChanges();
+            };
+            _shouldUpdateBoundingBoxes = true;
 		}
 
         public bool TextVisible { get; set; }
@@ -96,34 +122,49 @@ namespace AGS.Engine
         public void Prepare(IObject obj, IDrawableInfoComponent drawable, IViewport viewport)
 		{
             if (!TextBackgroundVisible && !TextVisible) return;
+
             if (_lastObject != obj)
             {
-                AGSBoundingBoxComponent box = new AGSBoundingBoxComponent(_settings, _viewport, 
+                AGSBoundingBoxComponent box = new AGSBoundingBoxComponent(_settings, _viewport,
                                                                           _labelBoundingBoxFakeBuilder, _state, _events);
                 obj.RemoveComponent<IBoundingBoxComponent>();
                 obj.AddComponent<IBoundingBoxComponent>(box);
                 _lastObject = obj;
+                foreach (var binding in _bindings)
+                {
+                    binding?.Unbind();
+                }
+                var scaleBinding = obj.Bind<IScaleComponent>(c => c.PropertyChanged += onScalePropertyChanged, c => c.PropertyChanged -= onScalePropertyChanged);
+                var matrixBinding = obj.Bind<IModelMatrixComponent>(c => c.OnMatrixChanged.Subscribe(onMatrixChanged), c => c.OnMatrixChanged.Unsubscribe(onMatrixChanged));
+                var drawableBinding = obj.Bind<IDrawableInfoComponent>(c => c.PropertyChanged += onDrawablePropertyChanged, c => c.PropertyChanged -= onDrawablePropertyChanged);
+                onBoundingBoxShouldChange();
+                _bindings.Clear();
+                _bindings.Add(scaleBinding);
+                _bindings.Add(matrixBinding);
+                _bindings.Add(drawableBinding);
             }
-            _glTextHitTest = _glTextHitTest ?? new GLText (_graphics, _messagePump, _fonts, _bitmapPool, false);
+            _glTextHitTest = _glTextHitTest ?? new GLText(_graphics, _messagePump, _fonts, _bitmapPool, false);
             _glTextRender = _glTextRender ?? new GLText(_graphics, _messagePump, _fonts, _bitmapPool, true);
 
-			updateBoundingBoxes(obj, drawable, viewport);
-            _labelBoundingBoxFakeBuilder.BoundingBoxes = _usedLabelBoundingBoxes;
-			_bgRenderer.Prepare(obj, drawable, viewport);
+            updateBoundingBoxes(obj, drawable, viewport);
+            if (_usedLabelBoundingBoxes != null)
+            {
+                _labelBoundingBoxFakeBuilder.BoundingBoxes = _usedLabelBoundingBoxes;
+            }
+            _bgRenderer.Prepare(obj, drawable, viewport);
             Width = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Width;
             Height = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Height;
 		}
 
-		public void Render(IObject obj, IViewport viewport)
-		{
+        public void Render(IObject obj, IViewport viewport)
+        {
             if (!TextBackgroundVisible && !TextVisible) return;
-            if (!obj.Visible) return;
+            if (!obj.Visible || _usedTextBoundingBoxes == null) return;
 
             PointF resolutionFactor; Size resolution;
+            PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
             AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, obj,
-               new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY), out resolutionFactor,
-               out resolution);
-			PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
+               textScaleFactor, out resolutionFactor, out resolution);
             if (!resolutionFactor.Equals(textScaleFactor))
             {
                 resolutionFactor = AGSModelMatrixComponent.NoScaling;
@@ -141,14 +182,51 @@ namespace AGS.Engine
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
                 var cropInfo = _usedTextBoundingBoxes.RenderBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), AGSModelMatrixComponent.NoScaling);
-                if (cropInfo.Equals(default)) return;
-                _usedTextBoundingBoxes.RenderBox = cropInfo.BoundingBox;
+                if (cropInfo.Equals(_defaultCrop)) return;
 
-                _textureRenderer.Render(_glTextHitTest.Texture, _usedTextBoundingBoxes.RenderBox, cropInfo.TextureBox, color);
+                _afterCropTextBoundingBoxes.RenderBox = cropInfo.BoundingBox;
+                _afterCropTextBoundingBoxes.TextureBox = cropInfo.TextureBox;
+
+                _textureRenderer.Render(_glTextHitTest.Texture, _afterCropTextBoundingBoxes, color);
             }
 		}
 
         #endregion
+
+        private void subscribeTextConfigChanges()
+        {
+            var config = _lastTextConfig;
+            if (config != null) config.PropertyChanged -= onTextConfigPropertyChanged;
+            config = Config;
+            _lastTextConfig = config;
+            if (config != null) config.PropertyChanged += onTextConfigPropertyChanged;
+        }
+
+        private void onTextConfigPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            onBoundingBoxShouldChange();
+        }
+
+        private void onBoundingBoxShouldChange()
+        {
+            _shouldUpdateBoundingBoxes = true;
+        }
+
+        private void onDrawablePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(IDrawableInfoComponent.RenderLayer) && e.PropertyName != nameof(IDrawableInfoComponent.IgnoreViewport))
+                return;
+            onBoundingBoxShouldChange();
+        }
+
+        private void onMatrixChanged() => onBoundingBoxShouldChange();
+
+        private void onScalePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(IScaleComponent.Width) && e.PropertyName != nameof(IScaleComponent.Height))
+                return;
+            onBoundingBoxShouldChange();
+        }
 
         private AutoFit getAutoFit()
         {
@@ -163,6 +241,11 @@ namespace AGS.Engine
             PointF hitTestResolutionFactor;
             Size resolution;
             PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
+            if (!textScaleFactor.Equals(_lastTextScaleFactor))
+            {
+                _lastTextScaleFactor = textScaleFactor;
+                onBoundingBoxShouldChange();
+            }
             resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, drawable,
                                                                                   textScaleFactor, out hitTestResolutionFactor,
                                                                                   out resolution);
@@ -177,6 +260,8 @@ namespace AGS.Engine
 			float height = obj.Height;
 			float width = obj.Width;
 
+            bool shouldUpdateBoundingBoxes = _shouldUpdateBoundingBoxes;
+            _shouldUpdateBoundingBoxes = false;
             if (autoFit == AutoFit.LabelShouldFitText)
             {
                 updateText(_glTextHitTest, resolutionMatches, GLText.EmptySize, scaleUpText, scaleDownText, int.MaxValue);
@@ -193,8 +278,22 @@ namespace AGS.Engine
 
             CustomImageResolutionFactor = hitTestResolutionFactor;
             var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : _viewport.GetViewport(drawable.RenderLayer.Z).GetMatrix(viewport, drawable.RenderLayer.ParallaxSpeed);
+            if (!viewportMatrix.Equals(_lastViewportMatrix))
+            {
+                _lastViewportMatrix = viewportMatrix;
+                onBoundingBoxShouldChange();
+            }
 
             var modelMatrices = obj.GetModelMatrices();
+            if (!modelMatrices.Equals(_lastMatrices))
+            {
+                _lastMatrices = modelMatrices;
+                onBoundingBoxShouldChange();
+            }
+            if (!shouldUpdateBoundingBoxes)
+            {
+                return;
+            }
 
             IGLMatrices textRenderMatrices = acquireMatrix(0).SetMatrices(modelMatrices.InObjResolutionMatrix, viewportMatrix);
             IGLMatrices labelRenderMatrices = obj.RenderLayer.IndependentResolution != null ? textRenderMatrices : acquireMatrix(1).SetMatrices(modelMatrices.InVirtualResolutionMatrix, viewportMatrix);
@@ -209,7 +308,7 @@ namespace AGS.Engine
 
             if (_lastWidth != Width || _lastHeight != Height)
             {
-                OnLabelSizeChanged.Invoke(); 
+                OnLabelSizeChanged.Invoke();
             }
             _lastWidth = Width;
             _lastHeight = Height;
@@ -309,7 +408,10 @@ namespace AGS.Engine
 			if (TextVisible)
 			{
                 if (Text == null) return;
-                glText.SetProperties(baseSize, Text, Config, maxWidth, scaleUp, scaleDown, CaretPosition, RenderCaret, cropText, measureOnly);
+                if (glText.SetProperties(baseSize, Text, Config, maxWidth, scaleUp, scaleDown, CaretPosition, RenderCaret, cropText, measureOnly))
+                {
+                    onBoundingBoxShouldChange();
+                }
 			}
 		}
 

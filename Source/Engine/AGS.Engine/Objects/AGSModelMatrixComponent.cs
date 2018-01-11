@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
@@ -12,7 +13,7 @@ namespace AGS.Engine
         private int _shouldFireOnUnlock, _pendingLocks;
         private ModelMatrices _matrices, _preLockMatrices;
 
-        private IAnimationComponent _animation;
+        private IAnimationComponent _animationComponent;
         private IInObjectTreeComponent _tree;
         private IScaleComponent _scale;
         private ITranslateComponent _translate;
@@ -24,17 +25,22 @@ namespace AGS.Engine
         private IObject _parent;
         private ISprite _sprite;
         private IJumpOffsetComponent _jump;
+        private ILabelRenderer _labelRenderer;
+        private IAnimation _lastAnimation;
+        private IRoom _lastRoom;
 
         private readonly Size _virtualResolution;
         private PointF _areaScaling;
         private SizeF? _customImageSize;
         private PointF? _customResolutionFactor;
         private readonly float? _nullFloat = null;
+        private Dictionary<string, List<IComponentBinding>> _areaBindings;
 
         public AGSModelMatrixComponent(IRuntimeSettings settings)
         {
             _isDirty = true;
             _matrices = new ModelMatrices();
+            _areaBindings = new Dictionary<string, List<IComponentBinding>>();
             _virtualResolution = settings.VirtualResolution;
             OnMatrixChanged = new AGSEvent();
         }
@@ -53,11 +59,11 @@ namespace AGS.Engine
         public override void AfterInit()
         {
             _entity.Bind<IAnimationComponent>(
-                c => { _animation = c; onSomethingChanged(); },
-                c => { _animation = null; onSomethingChanged(); });
+                c => { _animationComponent = c; _animationComponent.PropertyChanged += onAnimationChanged; onSomethingChanged(); },
+                c => { _animationComponent = null; _animationComponent.PropertyChanged -= onAnimationChanged; onSomethingChanged(); });
             _entity.Bind<IHasRoomComponent>(
-                c => { _room = c; onSomethingChanged(); },
-                c => { _room = null; onSomethingChanged(); });
+                c => { _room = c; refreshAreaScaling(); subscribeRoom(); onSomethingChanged(); },
+                c => { unsubscribeRoom(c); _room = null; refreshAreaScaling(); onSomethingChanged(); });
             
             _entity.Bind<IScaleComponent>(
                 c => { _scale = c; c.PropertyChanged += onScaleChanged; onSomethingChanged(); },
@@ -75,8 +81,8 @@ namespace AGS.Engine
                 c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged();}
             );
 			_entity.Bind<IImageComponent>(
-                c => { _image = c; c.PropertyChanged += onPivotChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onPivotChanged; _image = null; onSomethingChanged(); }
+                c => { _image = c; subscribeLabelRenderer(); c.PropertyChanged += onImageChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onImageChanged; _image = null; onSomethingChanged(); }
 			);
 
             _entity.Bind<IDrawableInfoComponent>(
@@ -113,7 +119,7 @@ namespace AGS.Engine
         public ref ModelMatrices GetModelMatrices() 
         {
             if (_pendingLocks > 0) return ref _preLockMatrices;
-            if (!shouldRecalculate())
+            if (!_isDirty)
             {
                 return ref _matrices;
             }
@@ -149,8 +155,7 @@ namespace AGS.Engine
         {
             //Priorities for virtual resolution: layer's resolution comes first, if not then the custom resolution (which is the text scaling resolution for text, otherwise null),
             //and if not use the virtual resolution.
-            var renderLayer = drawable == null ? null : drawable.RenderLayer;
-            var layerResolution = renderLayer == null ? null : renderLayer.IndependentResolution;
+            var layerResolution = drawable?.RenderLayer?.IndependentResolution;
             if (layerResolution != null)
             {
                 if (flattenLayerResolution)
@@ -178,6 +183,29 @@ namespace AGS.Engine
             }
         }
 
+        private void onAnimationChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IAnimationComponent.Animation)) return;
+            unsubscribeSprite(_sprite);
+            var lastAnimation = _lastAnimation;
+            if (lastAnimation != null) lastAnimation.State.PropertyChanged -= onAnimationStateChanged;
+            lastAnimation = _animationComponent.Animation;
+            _lastAnimation = lastAnimation;
+            _sprite = lastAnimation?.Sprite;
+            subscribeSprite(_sprite);
+            lastAnimation.State.PropertyChanged += onAnimationStateChanged;
+            onSomethingChanged();
+        }
+
+        private void onAnimationStateChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IAnimationState.CurrentFrame)) return;
+            unsubscribeSprite(_sprite);
+            _sprite = _lastAnimation?.Sprite;
+            subscribeSprite(_sprite);
+            onSomethingChanged();
+        }
+
         private void onSpriteChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(ISprite.X) && args.PropertyName != nameof(ISprite.Y) &&
@@ -190,6 +218,7 @@ namespace AGS.Engine
         private void onTranslateChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(ITranslateComponent.X) && args.PropertyName != nameof(ITranslateComponent.Y)) return;
+            refreshAreaScaling();
             onSomethingChanged();
         }
 
@@ -212,16 +241,57 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
-        private void onPivotChanged(object sender, PropertyChangedEventArgs args)
+        private void onImageChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(IImageComponent.Pivot)) return;
+            if (args.PropertyName != nameof(IImageComponent.Pivot) 
+                && args.PropertyName != nameof(IImageComponent.CustomRenderer)) return;
             onSomethingChanged();
+            if (args.PropertyName == nameof(IImageComponent.CustomRenderer))
+            {
+                subscribeLabelRenderer();
+            }
+        }
+
+        private void subscribeLabelRenderer()
+        {
+            var labelRenderer = _labelRenderer;
+            if (labelRenderer != null) labelRenderer.PropertyChanged -= onLabelRendererPropertyChanged;
+            labelRenderer = _image.CustomRenderer as ILabelRenderer;
+            if (labelRenderer != null)
+            {
+                _customImageSize = labelRenderer.CustomImageSize;
+                _customResolutionFactor = labelRenderer.CustomImageResolutionFactor;
+                labelRenderer.PropertyChanged += onLabelRendererPropertyChanged;
+            }
+            _labelRenderer = labelRenderer;
+        }
+
+        private void onLabelRendererPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            var labelRenderer = _labelRenderer;
+            if (labelRenderer == null) return;
+            if (args.PropertyName == nameof(ILabelRenderer.CustomImageSize))
+            {
+                _customImageSize = labelRenderer.CustomImageSize;
+                onSomethingChanged();
+                return;
+            }
+            if (args.PropertyName == nameof(ILabelRenderer.CustomImageResolutionFactor))
+            {
+                _customResolutionFactor = labelRenderer.CustomImageResolutionFactor;
+                onSomethingChanged();
+                return;
+            }
         }
 
         private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IDrawableInfoComponent.RenderLayer) &&
                 args.PropertyName != nameof(IDrawableInfoComponent.IgnoreScalingArea)) return;
+            if (args.PropertyName == nameof(IDrawableInfoComponent.IgnoreScalingArea))
+            {
+                refreshAreaScaling();
+            }
             onSomethingChanged();
         }
 
@@ -238,11 +308,6 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
-        private ISprite getSprite()
-        {
-            return _animation == null || _animation.Animation == null ? null : _animation.Animation.Sprite;
-        }
-
         private void subscribeSprite(ISprite sprite)
         {
             if (sprite == null) return;
@@ -253,47 +318,6 @@ namespace AGS.Engine
         {
             if (sprite == null) return;
             sprite.PropertyChanged -= onSpriteChanged;
-        }
-
-        private bool shouldRecalculate() 
-        {
-            PointF areaScaling = getAreaScaling();
-            if (!_areaScaling.Equals(areaScaling)) 
-            {
-                _areaScaling = areaScaling;
-                _isDirty = true;
-            }
-            var currentSprite = getSprite();
-            if (currentSprite != _sprite)
-            {
-                unsubscribeSprite(_sprite);
-                _sprite = currentSprite;
-                subscribeSprite(_sprite);
-                _isDirty = true;
-            }
-            var renderer = _image.CustomRenderer;
-            if (renderer != null)
-            {
-                var customImageSize = renderer?.CustomImageSize;
-                if ((customImageSize == null && _customImageSize != null) || 
-                    (customImageSize != null && _customImageSize == null) ||
-                    (customImageSize != null && _customImageSize != null && 
-                     !customImageSize.Value.Equals(_customImageSize.Value)))
-                {
-                    _customImageSize = customImageSize;
-                    _isDirty = true;
-                }
-                var customFactor = renderer?.CustomImageResolutionFactor;
-                if ((customFactor == null && _customResolutionFactor != null) ||
-                    (customFactor != null && _customResolutionFactor == null) ||
-                    (customFactor != null && _customResolutionFactor != null &&
-                     !customFactor.Value.Equals(_customResolutionFactor.Value)))
-                {
-                    _customResolutionFactor = customFactor;
-                    _isDirty = true;
-                }
-            }
-            return _isDirty;
         }
 
         private ref ModelMatrices recalculateMatrices()
@@ -320,7 +344,7 @@ namespace AGS.Engine
 
         private Matrix4 getMatrix(PointF resolutionFactor) 
         {
-            var animation = _animation;
+            var animation = _animationComponent;
             if (animation == null || animation.Animation == null) return Matrix4.Identity;
             var sprite = animation.Animation.Sprite;
             Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, null,
@@ -377,10 +401,125 @@ namespace AGS.Engine
             return new PointF(x, y);
         }
 
+        private void subscribeRoom()
+        {
+            _room.PropertyChanged += onRoomPropertyChanged;
+            subscribeRoomAreas();
+        }
+
+        private void subscribeRoomAreas()
+        {
+            var room = _room?.Room;
+            if (room == null) return;
+            room.Areas.OnListChanged.Subscribe(onAreasChanged);
+            foreach (var area in room.Areas) subscribeArea(area);
+        }
+
+        private void onRoomPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IHasRoomComponent.Room)) return;
+            unsubscribeRoomAreas();
+            _lastRoom = _room.Room;
+            subscribeRoomAreas();
+            refreshAreaScaling();
+        }
+
+        private void unsubscribeRoom(IHasRoomComponent room)
+        {
+            room.PropertyChanged -= onRoomPropertyChanged;
+            unsubscribeRoomAreas();
+        }
+
+        private void unsubscribeRoomAreas()
+        {
+            var room = _lastRoom;
+            if (room == null) return;
+            room.Areas.OnListChanged.Unsubscribe(onAreasChanged);
+            foreach (var area in room.Areas) unsubscribeArea(area);
+        }
+
+        private void onAreasChanged(AGSListChangedEventArgs<IArea> args)
+        {
+            if (args.ChangeType == ListChangeType.Add)
+            {
+                foreach (var area in args.Items) subscribeArea(area.Item);
+            }
+            else foreach (var area in args.Items) unsubscribeArea(area.Item);
+            refreshAreaScaling();
+        }
+
+        private void subscribeArea(IArea area)
+        {
+            var areaBinding = area.Bind<IAreaComponent>(c => c.PropertyChanged += onAreaPropertyChanged, c => c.PropertyChanged -= onAreaPropertyChanged);
+            var scaleBinding = area.Bind<IScalingArea>(c => c.PropertyChanged += onScalingAreaChanged, c => c.PropertyChanged -= onScalingAreaChanged);
+            var restrictBinding = area.Bind<IAreaRestriction>(c =>
+            {
+                c.RestrictionList.OnListChanged.Subscribe(onAreaRestrictListChanged);
+                c.PropertyChanged += onAreaRestrictionChanged;
+            }, c => 
+            {
+                c.RestrictionList.OnListChanged.Unsubscribe(onAreaRestrictListChanged);
+                c.PropertyChanged -= onAreaRestrictionChanged;
+            });
+            var bindings = _areaBindings.GetOrAdd(area.ID, () => new List<IComponentBinding>());
+            bindings.Add(scaleBinding);
+            bindings.Add(areaBinding);
+            bindings.Add(restrictBinding);
+        }
+
+        private void onAreaRestrictListChanged(AGSHashSetChangedEventArgs<string> obj)
+        {
+            refreshAreaScaling();
+        }
+
+        private void onAreaRestrictionChanged(object sender, PropertyChangedEventArgs e)
+        {
+            refreshAreaScaling();
+        }
+
+        private void onAreaPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            refreshAreaScaling();
+        }
+
+        private void unsubscribeArea(IArea area)
+        {
+            var areaComp = area.GetComponent<IAreaComponent>();
+            if (areaComp != null) areaComp.PropertyChanged -= onAreaPropertyChanged;
+            var scale = area.GetComponent<IScalingArea>();
+            if (scale != null) scale.PropertyChanged -= onScalingAreaChanged;
+            var restriction = area.GetComponent<IAreaRestriction>();
+            if (restriction != null)
+            {
+                restriction.PropertyChanged -= onAreaRestrictionChanged;
+                restriction.RestrictionList.OnListChanged.Unsubscribe(onAreaRestrictListChanged);
+            }
+            _areaBindings.TryGetValue(area.ID, out var bindings);
+            if (bindings == null) return;
+            foreach (var binding in bindings) binding.Unbind();
+        }
+
+        private void onScalingAreaChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IScalingArea.MinScaling) &&
+                args.PropertyName != nameof(IScalingArea.MaxScaling) &&
+                args.PropertyName != nameof(IScalingArea.Axis) &&
+                args.PropertyName != nameof(IScalingArea.ScaleObjectsX) &&
+                args.PropertyName != nameof(IScalingArea.ScaleObjectsY)) return;
+            refreshAreaScaling();
+        }
+
+        private void refreshAreaScaling()
+        {
+            _areaScaling = getAreaScaling();
+            onSomethingChanged();
+        }
+
         private PointF getAreaScaling()
         {
-            if (_room == null || (_drawable?.IgnoreScalingArea ?? false)) return NoScaling;
-            foreach (IArea area in _room.Room.GetMatchingAreas(_translate.Location.XY, _entity.ID))
+            var room = _room?.Room;
+            if (room == null || (_drawable?.IgnoreScalingArea ?? false)) return NoScaling;
+            foreach (IArea area in room.GetMatchingAreas(_translate.Location.XY, _entity.ID))
             {
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();
                 if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY)) continue;

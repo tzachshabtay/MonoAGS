@@ -141,8 +141,7 @@ namespace AGS.Engine
 
 		private void drawQuad(AGSBoundingBox quad, FourCorners<Vector2> texturePos)
 		{
-            _glUtils.DrawQuad(_texture, quad.BottomLeft, quad.BottomRight,
-				quad.TopLeft, quad.TopRight, _white, texturePos); 
+            _glUtils.DrawQuad(_texture, quad, _white, texturePos); 
 		}
 
 		private void drawStretch(SliceValues border, SliceValues slice, SliceValues width)

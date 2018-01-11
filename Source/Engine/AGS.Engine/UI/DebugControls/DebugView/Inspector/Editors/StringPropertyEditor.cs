@@ -21,7 +21,9 @@ namespace AGS.Engine
             AGSTextConfig config = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText);
 			var textbox = _factory.GetTextBox(id,
 												 label.X, label.Y, label.TreeNode.Parent,
-												 property.Value, config, width: 100f, height: 20f);
+												 "", config, width: 100f, height: 20f);
+            textbox.Text = property.Value;
+            textbox.TextBackgroundVisible = false;
             _textbox = textbox;
 			textbox.RenderLayer = label.RenderLayer;
 			textbox.Z = label.Z;

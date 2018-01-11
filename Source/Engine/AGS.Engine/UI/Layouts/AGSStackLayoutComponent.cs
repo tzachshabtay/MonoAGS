@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading;
 using AGS.API;
 
@@ -7,13 +6,13 @@ namespace AGS.Engine
 {
     public class AGSStackLayoutComponent : AGSComponent, IStackLayoutComponent
     {
-        private IBoundingBoxWithChildrenComponent _boundingBoxWithChildren;
         private IInObjectTreeComponent _tree;
         private float _absoluteSpacing, _relativeSpacing, _startLocation;
         private LayoutDirection _direction;
         private bool _isPaused;
         private IEntity _entity;
         private int _pendingLayouts;
+        private EntityListSubscriptions<IObject> _subscriptions;
 
         public AGSStackLayoutComponent()
         {
@@ -35,10 +34,8 @@ namespace AGS.Engine
         {
             _entity = entity;
             base.Init(entity);
-            entity.Bind<IBoundingBoxWithChildrenComponent>(c => { _boundingBoxWithChildren = c; c.OnBoundingBoxWithChildrenChanged.Subscribe(onSizeChanged); adjustLayout(); }, 
-                                                    c => { c.OnBoundingBoxWithChildrenChanged.Unsubscribe(onSizeChanged); _boundingBoxWithChildren = null; });
-            entity.Bind<IInObjectTreeComponent>(c => { _tree = c; c.TreeNode.Children.OnListChanged.Subscribe(onChildrenChanged); adjustLayout(); },
-                                       c => { _tree = null; c.TreeNode.Children.OnListChanged.Unsubscribe(onChildrenChanged); });
+            entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeChildren(); adjustLayout(); },
+                                                c => { _tree = null; unsubscribeChildren(); });
             EntitiesToIgnore.OnListChanged.Subscribe(onEntitiesToIgnoreChanged);
         }
 
@@ -53,17 +50,33 @@ namespace AGS.Engine
             _isPaused = true;
         }
 
-        private void onEntitiesToIgnoreChanged(AGSHashSetChangedEventArgs<string> args)
+        private void subscribeChildren()
         {
-            adjustLayout();
+            var boundingBoxSubscription = new EntitySubscription<IBoundingBoxWithChildrenComponent>(null,
+                c => c.OnBoundingBoxWithChildrenChanged.Subscribe(onSizeChanged), 
+                c => c.OnBoundingBoxWithChildrenChanged.Unsubscribe(onSizeChanged));
+
+            var visibleSubscription = new EntitySubscription<IVisibleComponent>(onVisibleChanged, propertyNames: nameof(IVisibleComponent.Visible));
+
+            _subscriptions = new EntityListSubscriptions<IObject>(_tree.TreeNode.Children, false, adjustLayout, boundingBoxSubscription, visibleSubscription);
         }
 
-        private void onChildrenChanged(AGSListChangedEventArgs<IObject> args)
+        private void unsubscribeChildren()
+        {
+            _subscriptions?.Unsubscribe();
+        }
+
+        private void onVisibleChanged()
         {
             adjustLayout();
         }
 
         private void onSizeChanged()
+        {
+            adjustLayout();
+        }
+
+        private void onEntitiesToIgnoreChanged(AGSHashSetChangedEventArgs<string> args)
         {
             adjustLayout();
         }

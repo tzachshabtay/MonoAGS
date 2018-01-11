@@ -628,6 +628,12 @@ namespace AGS.Engine
             set { _textBoxComponent.CaretFlashDelay = value; } 
         }
 
+        public ILabel Watermark
+        {
+            get { return _textBoxComponent.Watermark; }
+            set { _textBoxComponent.Watermark = value; }
+        }
+
         #endregion
     }
 }

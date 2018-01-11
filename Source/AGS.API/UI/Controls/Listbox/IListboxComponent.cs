@@ -63,5 +63,12 @@ namespace AGS.API
         /// </summary>
         /// <value>The height of the max.</value>
         float MaxHeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets the search filter (a search text that filters the tree so that
+        /// only items containing the text appear in the list).
+        /// </summary>
+        /// <value>The search filter.</value>
+        string SearchFilter { get; set; }
     }
 }

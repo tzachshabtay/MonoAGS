@@ -17,9 +17,10 @@ namespace AGS.Engine
 			_roomTransitions = roomTransitions;
             OnRoomChanged = new AGSEvent();
 			refreshRoom();
+            state.Rooms?.OnListChanged?.Subscribe(onRoomsChanged);
 		}
 
-		public override void Init(IEntity entity)
+        public override void Init(IEntity entity)
 		{
 			base.Init(entity);
 			_obj = (IObject)entity;
@@ -56,6 +57,11 @@ namespace AGS.Engine
             return _roomTransitions.State == RoomTransitionState.NotInTransition;
         }
 
+        private void onRoomsChanged(AGSListChangedEventArgs<IRoom> args)
+        {
+            if (Room == null && args.ChangeType == ListChangeType.Add) refreshRoom();
+        }
+
         private void refreshRoom()
 		{
 			_cachedRoom = new Lazy<IRoom> (getRoom, true);
@@ -65,9 +71,10 @@ namespace AGS.Engine
 
 		private IRoom getRoom()
 		{
-			if (_state == null) 
+            var rooms = _state?.Rooms;
+            if (rooms == null) 
 				return null;
-			foreach (var room in _state.Rooms)
+            foreach (var room in rooms)
 			{
 				if (room.Objects.Contains(_obj)) return room;
 			}

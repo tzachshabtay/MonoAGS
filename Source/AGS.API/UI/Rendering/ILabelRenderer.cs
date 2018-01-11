@@ -1,9 +1,11 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// Responsible for rendering labels (which show text).
     /// </summary>
-    public interface ILabelRenderer : IImageRenderer
+    public interface ILabelRenderer : IImageRenderer, INotifyPropertyChanged
 	{
         /// <summary>
         /// Gets or sets the text to render.

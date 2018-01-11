@@ -11,6 +11,7 @@
     [RequiredComponent(typeof(IHasRoomComponent))]
     [RequiredComponent(typeof(IImageComponent))]
     [RequiredComponent(typeof(IVisibleComponent))]
+    [RequiredComponent(typeof(IAnimationComponent), false)]
     public interface ITextBoxComponent : IComponent
     {
         /// <summary>
@@ -64,5 +65,13 @@
         /// The default is 10, meaning the caret will be shown for 10 frames, hidden for 10 frames, and so on.
         /// </summary>
         uint CaretFlashDelay { get; set; }
+
+        /// <summary>
+        /// An optional label that can act as a watermark.
+        /// A watermark is for text which is shown in the textbox when it's empty and out of focus.
+        /// An example of a watermark can be seen here: https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl
+        /// </summary>
+        /// <value>The watermark label.</value>
+        ILabel Watermark { get; set; }
     }
 }

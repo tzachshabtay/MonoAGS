@@ -102,13 +102,12 @@ namespace AGS.Engine
             _graphics.BindBuffer(_ebo, BufferType.ElementArrayBuffer);
 		}
 
-		public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
-			Vector3 topLeft, Vector3 topRight, float r, float g, float b, float a)
+        public void DrawQuad(int texture, AGSBoundingBox box, float r, float g, float b, float a)
 		{
-            _quad[0] = new GLVertex(bottomLeft.Xy, _bottomLeft, r, g, b, a);
-            _quad[1] = new GLVertex(bottomRight.Xy, _bottomRight, r, g, b, a);
-            _quad[2] = new GLVertex(topRight.Xy, _topRight, r, g, b, a);
-            _quad[3] = new GLVertex(topLeft.Xy, _topLeft, r, g, b, a);
+            _quad[0] = new GLVertex(box.BottomLeft.Xy, _bottomLeft, r, g, b, a);
+            _quad[1] = new GLVertex(box.BottomRight.Xy, _bottomRight, r, g, b, a);
+            _quad[2] = new GLVertex(box.TopRight.Xy, _topRight, r, g, b, a);
+            _quad[3] = new GLVertex(box.TopLeft.Xy, _topLeft, r, g, b, a);
             DrawQuad(texture, _quad);
 		}
 
@@ -123,13 +122,12 @@ namespace AGS.Engine
             DrawQuad(texture, _quad);
 		}
 
-        public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
-			Vector3 topLeft, Vector3 topRight, IGLColor color, FourCorners<Vector2> texturePos)
+        public void DrawQuad(int texture, AGSBoundingBox box, IGLColor color, FourCorners<Vector2> texturePos)
 		{
-            _quad[0] = new GLVertex(bottomLeft.Xy, texturePos.BottomLeft, color);
-            _quad[1] = new GLVertex(bottomRight.Xy, texturePos.BottomRight, color);
-            _quad[2] = new GLVertex(topRight.Xy, texturePos.TopRight, color);
-            _quad[3] = new GLVertex(topLeft.Xy, texturePos.TopLeft, color);
+            _quad[0] = new GLVertex(box.BottomLeft.Xy, texturePos.BottomLeft, color);
+            _quad[1] = new GLVertex(box.BottomRight.Xy, texturePos.BottomRight, color);
+            _quad[2] = new GLVertex(box.TopRight.Xy, texturePos.TopRight, color);
+            _quad[3] = new GLVertex(box.TopLeft.Xy, texturePos.TopLeft, color);
 
             DrawQuad(texture, _quad);
 		}

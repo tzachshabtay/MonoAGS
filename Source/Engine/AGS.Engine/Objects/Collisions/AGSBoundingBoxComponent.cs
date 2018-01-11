@@ -26,6 +26,7 @@ namespace AGS.Engine
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
         private readonly IGameState _state;
         private IEntity _entity;
+        private readonly AGSCropInfo _defaultCropInfo = default;
 
         public AGSBoundingBoxComponent(IRuntimeSettings settings, IGLViewportMatrixFactory layerViewports,
                                        IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events)
@@ -122,11 +123,11 @@ namespace AGS.Engine
                 if (!viewportBoxes.IsDirty) return boundingBoxes;
                 if (_drawable?.IgnoreViewport ?? false) return boundingBoxes;
             }
-            var animation = _animation;
+            var image = _animation?.Animation?.Sprite?.Image;
             var drawable = _drawable;
             var matrix = _matrix;
-            if (animation == null || animation.Animation == null || animation.Animation.Sprite == null ||
-                animation.Animation.Sprite.Image == null || drawable == null || matrix == null) return boundingBoxes;
+            if (image == null || drawable == null || matrix == null) 
+                return boundingBoxes;
             var boxes = recalculate(viewport, viewportBoxes);
             OnBoundingBoxesChanged.Invoke();
             return boxes;
@@ -140,8 +141,10 @@ namespace AGS.Engine
 			var matrix = _matrix;
             bool isHitTestBoxDirty = _isHitTestBoxDirty;
 
-			if (animation == null || animation.Animation == null || animation.Animation.Sprite == null ||
-                animation.Animation.Sprite.Image == null || drawable == null || matrix == null) return boundingBoxes;
+            if (animation?.Animation?.Sprite?.Image == null || drawable == null || matrix == null)
+            {
+                return boundingBoxes;
+            }
 
             if (isHitTestBoxDirty)
             {
@@ -209,7 +212,7 @@ namespace AGS.Engine
                 else boundingBoxes.TextureBox = null;
             }
 
-            if (cropInfo.Equals(default))
+            if (cropInfo.Equals(_defaultCropInfo))
             {
                 boundingBoxes.HitTestBox = default;
             }

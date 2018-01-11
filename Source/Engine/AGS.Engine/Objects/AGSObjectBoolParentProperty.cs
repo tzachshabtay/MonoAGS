@@ -42,12 +42,7 @@ namespace AGS.Engine
         [Property(Browsable = false)]
 		public bool Value 
 		{
-			get 
-            {
-                var tree = _tree;
-                if (tree == null || tree.TreeNode == null) return UnderlyingValue;
-                return getBooleanFromParentIfNeeded(tree.TreeNode.Parent); 
-            }
+            get => _lastValue;
 			set { UnderlyingValue = value;}
 		}
 
@@ -95,7 +90,7 @@ namespace AGS.Engine
 
         private void refreshValue()
         {
-            var newValue = Value;
+            var newValue = calculateValue();
 			if (!_initializedValue)
 			{
                 _initializedValue = true;
@@ -106,6 +101,13 @@ namespace AGS.Engine
             if (_lastValue == newValue) return;
             _lastValue = newValue;
             OnPropertyChanged(_valuePropertyName);
+        }
+
+        private bool calculateValue()
+        {
+            var tree = _tree;
+            if (tree == null || tree.TreeNode == null) return UnderlyingValue;
+            return getBooleanFromParentIfNeeded(tree.TreeNode.Parent);
         }
 	}
 

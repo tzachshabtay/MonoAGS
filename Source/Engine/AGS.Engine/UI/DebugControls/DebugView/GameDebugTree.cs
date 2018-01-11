@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -12,6 +14,7 @@ namespace AGS.Engine
         private readonly IConcurrentHashSet<string> _addedObjects;
         private readonly InspectorPanel _inspector;
         private IPanel _treePanel, _scrollingPanel, _parent;
+        private ITextBox _searchBox;
 
         private IAnimationComponent _lastSelectedObject;
         private IVisibleComponent _lastSelectedMaskVisible;
@@ -35,7 +38,15 @@ namespace AGS.Engine
             _parent = parent;
             _panelId = parent.TreeNode.GetRoot().ID;
             var factory = _game.Factory;
-            _scrollingPanel = factory.UI.GetPanel("GameDebugTreeScrollingPanel", parent.Width, parent.Height / 2f, 0f, parent.Height / 2f, parent);
+
+            _searchBox = factory.UI.GetTextBox("GameDebugTreeSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
+            _searchBox.RenderLayer = _layer;
+            _searchBox.Border = AGSBorders.SolidColor(Colors.Green, 2f);
+            _searchBox.Tint = Colors.Transparent;
+            _searchBox.Pivot = new PointF(0f, 1f);
+            _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
+
+            _scrollingPanel = factory.UI.GetPanel("GameDebugTreeScrollingPanel", parent.Width, parent.Height - _searchBox.Height, 0f, 0f, parent);
             _scrollingPanel.RenderLayer = _layer;
             _scrollingPanel.Pivot = new PointF(0f, 0f);
             _scrollingPanel.Tint = Colors.Transparent;
@@ -47,10 +58,12 @@ namespace AGS.Engine
             _treeView = _treePanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
             factory.UI.CreateScrollingPanel(_scrollingPanel);
-            _scrollingPanel.GetComponent<IScaleComponent>().PropertyChanged += (_, args) => 
+            parent.GetComponent<IScaleComponent>().PropertyChanged += (_, args) => 
             {
                 if (args.PropertyName != nameof(IScaleComponent.Height)) return;
+                _scrollingPanel.Image = new EmptyImage(_scrollingPanel.Width, parent.Height - _searchBox.Height);
                 _treePanel.Y = _scrollingPanel.Height - lineHeight;
+                _searchBox.Y = _parent.Height;
             };
         }
 
@@ -58,17 +71,26 @@ namespace AGS.Engine
         {
             await Task.Run(() => refresh());
             _scrollingPanel.Visible = true;
+            _searchBox.Visible = true;
         }
 
         public void Hide()
         {
 	        _scrollingPanel.Visible = false;
+            _searchBox.Visible = false;
             _treeView.Tree = null;
         }
 
         public void Resize()
         {
             _scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
+            _searchBox.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
+        }
+
+        private void onSearchPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(ITextComponent.Text)) return;
+            _treeView.SearchFilter = _searchBox.Text;
         }
 
         private void onTreeNodeSelected(NodeEventArgs args)

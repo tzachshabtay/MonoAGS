@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -12,6 +13,9 @@ namespace AGS.Engine
         private IInObjectTreeComponent _treeComponent;
         private ITreeStringNode _tree;
         private IDrawableInfoComponent _drawable;
+        private string _searchFilter;
+        private TaskCompletionSource<object> _currentSearchToken;
+        private bool _skipRenderingRoot;
 
         public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameState state)
         {
@@ -45,6 +49,27 @@ namespace AGS.Engine
         public float VerticalSpacing { get; set; }
 
         public SelectionType AllowSelection { get; set; }
+
+        public string SearchFilter 
+        {
+            get => _searchFilter;
+            set 
+            { 
+                value = value?.ToLowerInvariant() ?? "";
+                _searchFilter = value;
+                applySearchOnIdle();
+            }
+        }
+
+        public bool SkipRenderingRoot
+        {
+            get => _skipRenderingRoot;
+            set 
+            {
+                _skipRenderingRoot = value;
+                RefreshLayout();
+            }
+        }
 
         public IBlockingEvent<NodeEventArgs> OnNodeSelected { get; }
 
@@ -88,6 +113,19 @@ namespace AGS.Engine
             var nodeView = findNodeView(node);
             if (nodeView == null) return null;
             return nodeView.IsCollapsed;
+        }
+
+        private async void applySearchOnIdle()
+        {
+            _currentSearchToken?.TrySetResult(null);
+            var token = new TaskCompletionSource<object>();
+            _currentSearchToken = token;
+            var timeout = Task.Delay(800);
+            var task = await Task.WhenAny(token.Task, timeout);
+            if (task == timeout) //800 milliseconds has passed and we haven't got a new search text, user must have finished typing, let's do the performance killing stuff
+            {
+                _root?.UpdateSearchFilter(SearchFilter);
+            }
         }
 
         private Node findNodeView(ITreeStringNode node) => findNodeView(_root, node);
@@ -259,6 +297,14 @@ namespace AGS.Engine
             private Func<IDrawableInfoComponent> _drawable;
             private Func<IInObjectTreeComponent> _treeObj;
 
+            public enum SearchFilterMode
+            {
+                Visible,
+                VisibleBecauseOfChild,
+                VisibleBecauseOfParent,
+                NotVisible
+            }
+
             public Node(ITreeStringNode item, Func<IDrawableInfoComponent> drawable, Func<IInObjectTreeComponent> treeObj, Node parentNode, ITreeViewComponent tree)
             {
                 _tree = tree;
@@ -281,7 +327,7 @@ namespace AGS.Engine
             public Node Parent { get; }
 
             public bool IsNew { get; set; }
-            public bool IsCollapsed 
+            public bool IsCollapsed
             {
                 get => _isCollapsed;
                 set
@@ -301,6 +347,7 @@ namespace AGS.Engine
             public bool IsHovered { get; set; }
             public bool IsSelected { get; private set; }
             public float XOffset { get; private set; }
+            public SearchFilterMode FilterMode { get; private set; }
 
             public void Dispose()
             {
@@ -319,20 +366,65 @@ namespace AGS.Engine
                 button?.MouseClicked.Unsubscribe(onMouseClicked);
             }
 
+            public void UpdateSearchFilter(string filter)
+            {
+                UpdateSearchFilter(filter, SearchFilterMode.NotVisible);
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    setCollapsedAfterSearch();
+                }
+                updateVisibilityWithChildren();
+                _tree.RefreshLayout();
+            }
+
+            public SearchFilterMode UpdateSearchFilter(string filter, SearchFilterMode parentMode)
+            {
+                var filterMode = SearchFilterMode.NotVisible;
+                if (passesFilter(filter))
+                {
+                    filterMode = SearchFilterMode.Visible;
+                }
+                else if (parentMode == SearchFilterMode.VisibleBecauseOfParent || parentMode == SearchFilterMode.Visible)
+                {
+                    filterMode = SearchFilterMode.VisibleBecauseOfParent;
+                }
+                foreach (var child in Children)
+                {
+                    var childMode = child.UpdateSearchFilter(filter, filterMode);
+                    if (childMode != SearchFilterMode.NotVisible && filterMode != SearchFilterMode.Visible)
+                    {
+                        filterMode = SearchFilterMode.VisibleBecauseOfChild;
+                    }
+                }
+                FilterMode = filterMode;
+                return FilterMode;
+            }
+
+            private void setCollapsedAfterSearch()
+            {
+                IsCollapsed = FilterMode != SearchFilterMode.VisibleBecauseOfChild;
+                foreach (var child in Children)
+                {
+                    child.setCollapsedAfterSearch();
+                }
+            }
+
             public float ResetOffsets(float xOffset, float yOffset, float spacingX, float spacingY)
             {
-                xOffset += spacingX;
+                bool skipRoot = _tree.SkipRenderingRoot && Parent == null;
+                xOffset += skipRoot ? 0f : spacingX;
                 var view = View;
                 if (view != null)
                 {
                     view.VerticalPanel.X = xOffset;
                     view.ParentPanel.Y = yOffset;
                 }
-                var childYOffset = spacingY;
+                var childYOffset = skipRoot ? 0f : spacingY;
                 foreach (var child in Children)
                 {
                     childYOffset = child.ResetOffsets(xOffset, childYOffset, spacingX, spacingY);
                 }
+
                 if (view == null || !view.ParentPanel.Visible) return yOffset;
                 return yOffset + childYOffset;
             }
@@ -370,6 +462,24 @@ namespace AGS.Engine
                                                   IsCollapsed, IsHovered, IsSelected);
             }
 
+            private void updateVisibilityWithChildren()
+            {
+                updateVisibility();
+                foreach (var child in Children)
+                {
+                    child.updateVisibilityWithChildren();
+                }
+            }
+
+            private bool passesFilter(string filter)
+            {
+                if (string.IsNullOrEmpty(filter)) return true;
+                var customSearch = Item as ICustomSearchItem;
+                if (customSearch != null) return customSearch.Contains(filter);
+                string text = Item?.Text?.ToLowerInvariant() ?? "";
+                return (text.Contains(filter));
+            }
+
             private void initView()
             {
                 if (View != null) return;
@@ -379,6 +489,7 @@ namespace AGS.Engine
                 var parentNode = Parent;
                 if (parentNode != null)
                 {
+                    parentNode.initView();
                     view.ParentPanel.TreeNode.SetParent(parentNode.View.VerticalPanel.TreeNode);
                     view.ParentPanel.Visible = !parentNode.IsCollapsed;
                 }
@@ -400,6 +511,7 @@ namespace AGS.Engine
                 {
                     view.ParentPanel.TreeNode.SetParent(treeObj.TreeNode);
                 }
+                updateVisibility();
             }
 
             private Node getRoot()
@@ -439,9 +551,21 @@ namespace AGS.Engine
             {
 				foreach (var child in Children)
 				{
-					child.View.ParentPanel.Visible = !IsCollapsed;
+                    child.updateVisibility();
 				}
                 _tree.RefreshLayout();
+            }
+
+            private void updateVisibility()
+            {
+                var view = View;
+                if (view == null) return;
+                if (_tree.SkipRenderingRoot && Parent == null)
+                {
+                    view.ExpandButton.Visible = false;
+                    return;
+                }
+                view.ParentPanel.Visible = !(Parent?.IsCollapsed ?? false) && FilterMode != SearchFilterMode.NotVisible;
             }
 
             private void onItemSelected(MouseButtonEventArgs args)

@@ -46,6 +46,21 @@
         SelectionType AllowSelection { get; set; }
 
         /// <summary>
+        /// Gets or sets the search filter (a search text that filters the tree so that
+        /// only items containing the text appear in the tree).
+        /// </summary>
+        /// <value>The search filter.</value>
+        string SearchFilter { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.ITreeViewComponent"/> skip rendering the root node.
+        /// This effectively means that the tree will show multiple "detached" roots (all the nodes in the second level in the tree),
+        /// i.e it makes it possible for the tree view to show multiple "trees".
+        /// </summary>
+        /// <value><c>true</c> if skip rendering root; otherwise, <c>false</c>.</value>
+        bool SkipRenderingRoot { get; set; }
+
+        /// <summary>
         /// An event which fires every time a node is selected (if <see cref="AllowSelection"/> is set to allow selection).
         /// </summary>
         IBlockingEvent<NodeEventArgs> OnNodeSelected { get; }
