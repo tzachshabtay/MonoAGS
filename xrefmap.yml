@@ -18763,6 +18763,12 @@ references:
   commentId: F:AGS.API.RoomTransitionState.NotInTransition
   fullName: AGS.API.RoomTransitionState.NotInTransition
   nameWithType: RoomTransitionState.NotInTransition
+- uid: AGS.API.RoomTransitionState.PreparingNewRoomDisplayList
+  name: PreparingNewRoomDisplayList
+  href: api/AGS.API.RoomTransitionState.html#AGS_API_RoomTransitionState_PreparingNewRoomDisplayList
+  commentId: F:AGS.API.RoomTransitionState.PreparingNewRoomDisplayList
+  fullName: AGS.API.RoomTransitionState.PreparingNewRoomDisplayList
+  nameWithType: RoomTransitionState.PreparingNewRoomDisplayList
 - uid: AGS.API.RoomTransitionState.PreparingTransition
   name: PreparingTransition
   href: api/AGS.API.RoomTransitionState.html#AGS_API_RoomTransitionState_PreparingTransition
