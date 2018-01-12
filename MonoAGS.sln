@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Source\Tests\Tests.csproj", "{7E614795-A8D2-4E3B-847C-3443D1B81154}"
 EndProject
@@ -361,6 +361,8 @@ Global
 		{ED5CC880-E60B-452E-AACF-E61ED81504B3}.AndroidRelease|x64.ActiveCfg = Release|Any CPU
 		{ED5CC880-E60B-452E-AACF-E61ED81504B3}.AndroidRelease|x86.ActiveCfg = Release|Any CPU
 		{ED5CC880-E60B-452E-AACF-E61ED81504B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED5CC880-E60B-452E-AACF-E61ED81504B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED5CC880-E60B-452E-AACF-E61ED81504B3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{ED5CC880-E60B-452E-AACF-E61ED81504B3}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{ED5CC880-E60B-452E-AACF-E61ED81504B3}.Debug|ARM.Build.0 = Debug|Any CPU
 		{ED5CC880-E60B-452E-AACF-E61ED81504B3}.Debug|ARM.Deploy.0 = Debug|Any CPU

@@ -24,7 +24,7 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchFastDev>true</MtouchFastDev>
-<AssemblyName>DemoQuest.iOS</AssemblyName>
+    <AssemblyName>DemoQuest.iOS</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -48,7 +48,7 @@
     <MtouchArch>i386</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <CodesignKey>iPhone Developer</CodesignKey>
-<AssemblyName>DemoQuest.iOS</AssemblyName>
+    <AssemblyName>DemoQuest.iOS</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -65,7 +65,8 @@
     <MtouchDebug>true</MtouchDebug>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <CodesignProvision></CodesignProvision>
+    <CodesignProvision>
+    </CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -81,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
