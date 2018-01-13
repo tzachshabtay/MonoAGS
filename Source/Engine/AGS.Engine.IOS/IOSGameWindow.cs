@@ -95,7 +95,7 @@ namespace AGS.Engine.IOS
 
         public void OnUpdateFrame(FrameEventArgs args)
         {
-            UpdateFrame(this, args);
+            UpdateFrame?.Invoke(this, args);
         }
 
         public void Dispose()
