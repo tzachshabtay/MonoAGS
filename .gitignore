@@ -143,6 +143,7 @@ publish/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
 project.lock.json
+*.nuget.targets
 
 # Windows Azure Build Output
 csx/
