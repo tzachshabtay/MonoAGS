@@ -45,9 +45,9 @@ namespace AGS.Engine
 			_panel.RenderLayer = _layer;
 			var treeView = _panel.AddComponent<ITreeViewComponent>();
             treeView.SkipRenderingRoot = true;
-            treeView.NodeViewProvider = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory);
+            treeView.NodeViewProvider = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory, _game.Events);
 
-            Inspector = new AGSInspector(_game.Factory, _game.Settings);
+            Inspector = new AGSInspector(_game.Factory, _game.Settings, _game.State);
             _panel.AddComponent<IInspectorComponent>(Inspector);
             factory.UI.CreateScrollingPanel(_scrollingPanel);
             _parent.Bind<IScaleComponent>(c => c.PropertyChanged += onParentPanelScaleChanged,

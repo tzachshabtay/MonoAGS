@@ -6,12 +6,14 @@ namespace AGS.Engine
     public class StringPropertyEditor : IInspectorPropertyEditor
     {
         private readonly IUIFactory _factory;
+        private readonly bool _enabled;
         private InspectorProperty _property;
         private ITextComponent _textbox;
 
-        public StringPropertyEditor(IUIFactory factory)
+        public StringPropertyEditor(IUIFactory factory, bool enabled)
         {
             _factory = factory;
+            _enabled = enabled;
         }
 
         public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
@@ -24,6 +26,7 @@ namespace AGS.Engine
 												 "", config, width: 100f, height: 20f);
             textbox.Text = property.Value;
             textbox.TextBackgroundVisible = false;
+            textbox.Enabled = _enabled;
             _textbox = textbox;
 			textbox.RenderLayer = label.RenderLayer;
 			textbox.Z = label.Z;
