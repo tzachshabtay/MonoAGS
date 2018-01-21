@@ -58,6 +58,7 @@ namespace AGS.Engine
 		{
 			_scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
             _searchBox.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
+            _searchBox.Watermark.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
 		}
 
         private void onParentPanelScaleChanged(object sender, PropertyChangedEventArgs args)
