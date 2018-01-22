@@ -9,6 +9,7 @@ namespace AGS.Engine
 		private readonly IGame _game;
         private IPanel _panel, _scrollingPanel, _parent;
         private ITextBox _searchBox;
+        private InspectorTreeNodeProvider _inspectorNodeView;
         const float _padding = 42f;
 
         public InspectorPanel(IGame game, IRenderLayer layer)
@@ -45,11 +46,16 @@ namespace AGS.Engine
 			_panel.RenderLayer = _layer;
 			var treeView = _panel.AddComponent<ITreeViewComponent>();
             treeView.SkipRenderingRoot = true;
-            treeView.NodeViewProvider = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory, _game.Events);
 
             Inspector = new AGSInspector(_game.Factory, _game.Settings, _game.State);
             _panel.AddComponent<IInspectorComponent>(Inspector);
             factory.UI.CreateScrollingPanel(_scrollingPanel);
+
+            _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory, 
+                                                               _game.Events, _panel);
+            _inspectorNodeView.Resize(_parent.Width);
+            treeView.NodeViewProvider = _inspectorNodeView;
+
             _parent.Bind<IScaleComponent>(c => c.PropertyChanged += onParentPanelScaleChanged,
                                           c => c.PropertyChanged -= onParentPanelScaleChanged);
         }
@@ -59,6 +65,7 @@ namespace AGS.Engine
 			_scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
             _searchBox.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
             _searchBox.Watermark.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
+            _inspectorNodeView.Resize(_parent.Width);
 		}
 
         private void onParentPanelScaleChanged(object sender, PropertyChangedEventArgs args)
