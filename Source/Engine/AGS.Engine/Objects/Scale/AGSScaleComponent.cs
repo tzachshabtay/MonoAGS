@@ -39,7 +39,7 @@ namespace AGS.Engine
         [Property(Category = "Size")]
         public float Width => _scale.Width;
 
-        [Property(Category = "Transform")]
+        [Property(Category = "Transform", CategoryZ = -100)]
         public PointF Scale
         {
             get => _scale.Scale;

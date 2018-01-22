@@ -74,7 +74,7 @@ namespace AGS.Engine
 			if (attr != null)
 			{
 				if (!attr.Browsable) return null;
-				if (attr.Category != null) cat = new Category(attr.Category);
+                if (attr.Category != null) cat = new Category(attr.Category, attr.CategoryZ);
 				if (attr.DisplayName != null) name = attr.DisplayName;
 			}
 			InspectorProperty property = new InspectorProperty(obj, name, prop);
@@ -122,7 +122,7 @@ namespace AGS.Engine
             var treeView = _treeView;
             if (treeView == null) return;
             var root = new AGSTreeStringNode { Text = ""};
-            foreach (var pair in _props.OrderBy(p => p.Key.Name))
+            foreach (var pair in _props.OrderBy(p => p.Key.Z).ThenBy(p => p.Key.Name))
             {
                 ITreeStringNode cat = addToTree(pair.Key.Name, root);
                 foreach (var prop in pair.Value)
@@ -238,12 +238,15 @@ namespace AGS.Engine
 
         private class Category
         {
-            public Category(string name)
+            public Category(string name, int z = 0)
             {
                 Name = name;
+                Z = z;
             }
 
             public string Name { get; private set; }
+
+            public int Z { get; private set; }
 
             public override bool Equals(object obj)
             {

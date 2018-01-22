@@ -37,5 +37,11 @@ namespace AGS.API
         /// </summary>
         /// <value>The category.</value>
         public string Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category's z index for sorting in the inspector.
+        /// </summary>
+        /// <value>The category z.</value>
+        public int CategoryZ { get; set; }
     }
 }
