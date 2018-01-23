@@ -42,6 +42,9 @@ namespace AGS.Engine
                 textbox.IsFocused = false;
                 property.Prop.SetValue(property.Object, textbox.Text);
 			});
+            textbox.LostFocus.Subscribe(args => {
+                property.Prop.SetValue(property.Object, textbox.Text);
+            });
         }
 
         public void RefreshUI()
