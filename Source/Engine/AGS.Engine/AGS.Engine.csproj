@@ -445,6 +445,7 @@
     <Compile Include="Graphics\Logic\AGSMatrixUpdater.cs" />
     <Compile Include="UI\Layouts\TreeTable\TreeTableLayout.cs" />
     <Compile Include="UI\Layouts\TreeTable\AGSTreeTableRowLayoutComponent.cs" />
+    <Compile Include="UI\DebugControls\DebugView\GameViewColors.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

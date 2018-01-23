@@ -31,8 +31,8 @@ namespace AGS.Engine
 
             _searchBox = factory.UI.GetTextBox("GameDebugDisplayListSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;
-            _searchBox.Border = AGSBorders.SolidColor(Colors.Green, 2f);
-            _searchBox.Tint = Colors.Transparent;
+            _searchBox.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _searchBox.Tint = GameViewColors.Textbox;
             _searchBox.Pivot = new PointF(0f, 1f);
             _searchBox.Visible = false;
             _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
@@ -41,7 +41,7 @@ namespace AGS.Engine
 			_scrollingPanel.RenderLayer = _layer;
 			_scrollingPanel.Pivot = new PointF(0f, 0f);
 			_scrollingPanel.Tint = Colors.Transparent;
-			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
+            _scrollingPanel.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
             _scrollingPanel.Visible = false;
 
             const float lineHeight = 42f;
@@ -52,14 +52,14 @@ namespace AGS.Engine
             _listPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
             _layout = _listPanel.AddComponent<IStackLayoutComponent>();
             _listBox = _listPanel.AddComponent<IListboxComponent>();
-            var yellowBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow);
-            var whiteBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.White);
+            var hoverBrush = factory.Graphics.Brushes.LoadSolidBrush(GameViewColors.HoveredText);
+            var textBrush = factory.Graphics.Brushes.LoadSolidBrush(GameViewColors.Text);
             _listBox.ItemButtonFactory = text =>
             {
                 var button = factory.UI.GetButton("GameDebugDisplayListPanel_" + text,
-                                                  new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText), null),
-                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText), null),
-                                                  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
+                                                  new ButtonAnimation(null, new AGSTextConfig(textBrush, autoFit: AutoFit.LabelShouldFitText), null),
+                                                  new ButtonAnimation(null, new AGSTextConfig(hoverBrush, autoFit: AutoFit.LabelShouldFitText), null),
+                                                  new ButtonAnimation(null, new AGSTextConfig(hoverBrush, outlineBrush: textBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
                                                   0f, 0f, width: 500f, height: 50f);
                 button.RenderLayer = parent.RenderLayer;
                 return button;

@@ -169,7 +169,7 @@ namespace AGS.Engine
 
         private ITextBox addTextBox(string id, IUIControl panel, string text)
         {
-            AGSTextConfig config = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText);
+            var config = GameViewColors.TextConfig;
             var textbox = _factory.UI.GetTextBox(id + "_Textbox",
                                               0f, SLIDER_HEIGHT + 1f, panel,
                                               "", config, width: 100f, height: ROW_HEIGHT);
@@ -177,7 +177,7 @@ namespace AGS.Engine
             textbox.RenderLayer = panel.RenderLayer;
             textbox.Z = panel.Z;
             textbox.TextBackgroundVisible = false;
-            HoverEffect.Add(textbox, Colors.Transparent, Colors.DarkSlateBlue);
+            GameViewColors.AddHoverEffect(textbox);
             return textbox;
         }
 

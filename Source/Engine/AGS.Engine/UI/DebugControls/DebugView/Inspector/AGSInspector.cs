@@ -156,7 +156,7 @@ namespace AGS.Engine
 
         private ITreeStringNode addReadonlyNodeToTree(InspectorProperty property, ITreeStringNode parent)
         {
-            IInspectorPropertyEditor editor = new StringPropertyEditor(_factory.UI, false);
+            IInspectorPropertyEditor editor = new StringPropertyEditor(_factory, false);
             ITreeStringNode node = new InspectorTreeNode(property, editor);
             addToTree(node, parent);
             var propertyChanged = property.Object as INotifyPropertyChanged;
@@ -223,7 +223,7 @@ namespace AGS.Engine
                 var typeInfo = propType.GetTypeInfo();
                 if (typeInfo.IsEnum)
                     editor = new EnumPropertyEditor(_factory.UI);
-                else editor = new StringPropertyEditor(_factory.UI, true);
+                else editor = new StringPropertyEditor(_factory, propType == typeof(string));
             }
 
             ITreeStringNode node = new InspectorTreeNode(property, editor);

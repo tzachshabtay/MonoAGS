@@ -5,12 +5,12 @@ namespace AGS.Engine
 {
     public class StringPropertyEditor : IInspectorPropertyEditor
     {
-        private readonly IUIFactory _factory;
-        private readonly bool _enabled;
+        private readonly IGameFactory _factory;
         private InspectorProperty _property;
+        private readonly bool _enabled;
         private ITextComponent _textbox;
 
-        public StringPropertyEditor(IUIFactory factory, bool enabled)
+        public StringPropertyEditor(IGameFactory factory, bool enabled)
         {
             _factory = factory;
             _enabled = enabled;
@@ -20,13 +20,17 @@ namespace AGS.Engine
         {
             _property = property;
 			var label = view.TreeItem;
-            AGSTextConfig config = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText);
-			var textbox = _factory.GetTextBox(id,
+            var config = _enabled ? GameViewColors.TextConfig : GameViewColors.ReadonlyTextConfig;
+			var textbox = _factory.UI.GetTextBox(id,
 												 label.X, label.Y, label.TreeNode.Parent,
 												 "", config, width: 100f, height: 20f);
             textbox.Text = property.Value;
             textbox.TextBackgroundVisible = false;
             textbox.Enabled = _enabled;
+            if (_enabled)
+            {
+                GameViewColors.AddHoverEffect(textbox);
+            }
             _textbox = textbox;
 			textbox.RenderLayer = label.RenderLayer;
 			textbox.Z = label.Z;

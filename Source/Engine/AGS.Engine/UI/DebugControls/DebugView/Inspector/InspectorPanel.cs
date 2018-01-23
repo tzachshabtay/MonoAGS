@@ -29,8 +29,8 @@ namespace AGS.Engine
 
             _searchBox = factory.UI.GetTextBox("GameDebugInspectorSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;
-            _searchBox.Border = AGSBorders.SolidColor(Colors.Green, 2f);
-            _searchBox.Tint = Colors.Transparent;
+            _searchBox.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _searchBox.Tint = GameViewColors.Textbox;
             _searchBox.Pivot = new PointF(0f, 1f);
             _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
 
@@ -39,7 +39,7 @@ namespace AGS.Engine
 			_scrollingPanel.RenderLayer = _layer;
 			_scrollingPanel.Pivot = new PointF(0f, 1f);
 			_scrollingPanel.Tint = Colors.Transparent;
-			_scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
+            _scrollingPanel.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
 
             _panel = factory.UI.GetPanel("GameDebugInspectorPanel", parent.Width, _padding, 0f, height - _padding, _scrollingPanel);
 			_panel.Tint = Colors.Transparent;
