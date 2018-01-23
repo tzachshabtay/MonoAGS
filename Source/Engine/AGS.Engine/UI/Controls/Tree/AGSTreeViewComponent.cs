@@ -293,7 +293,7 @@ namespace AGS.Engine
         private class Node : IDisposable
         {
             private ITreeViewComponent _tree;
-            private bool _isCollapsed;
+            private bool _isCollapsed, _isExpandButtonHovered, _isNodeHovered;
             private Func<IDrawableInfoComponent> _drawable;
             private Func<IInObjectTreeComponent> _treeObj;
 
@@ -344,7 +344,7 @@ namespace AGS.Engine
                     }
                 }
             }
-            public bool IsHovered { get; set; }
+            public bool IsHovered { get => _isNodeHovered || _isExpandButtonHovered; }
             public bool IsSelected { get; private set; }
             public float XOffset { get; private set; }
             public SearchFilterMode FilterMode { get; private set; }
@@ -353,14 +353,14 @@ namespace AGS.Engine
             {
                 var view = View;
                 if (view == null) return;
-                view.TreeItem.MouseEnter.Unsubscribe(onMouseEnter);
-                view.TreeItem.MouseLeave.Unsubscribe(onMouseLeave);
+                view.TreeItem.MouseEnter.Unsubscribe(onMouseEnterNode);
+                view.TreeItem.MouseLeave.Unsubscribe(onMouseLeaveNode);
                 view.TreeItem.MouseClicked.Unsubscribe(onItemSelected);
                 var expandButton = view.ExpandButton;
                 if (expandButton != null)
                 {
-                    expandButton.MouseEnter.Unsubscribe(onMouseEnter);
-                    expandButton.MouseLeave.Unsubscribe(onMouseLeave);
+                    expandButton.MouseEnter.Unsubscribe(onMouseEnterExpandButton);
+                    expandButton.MouseLeave.Unsubscribe(onMouseLeaveExpandButton);
                 }
                 var button = getExpandButton();
                 button?.MouseClicked.Unsubscribe(onMouseClicked);
@@ -494,14 +494,14 @@ namespace AGS.Engine
                     view.ParentPanel.Visible = !parentNode.IsCollapsed;
                 }
 
-                view.TreeItem.MouseEnter.Subscribe(onMouseEnter);
-                view.TreeItem.MouseLeave.Subscribe(onMouseLeave);
+                view.TreeItem.MouseEnter.Subscribe(onMouseEnterNode);
+                view.TreeItem.MouseLeave.Subscribe(onMouseLeaveNode);
                 view.TreeItem.MouseClicked.Subscribe(onItemSelected);
                 var expandButton = view.ExpandButton;
                 if (expandButton != null)
                 {
-                    expandButton.MouseEnter.Subscribe(onMouseEnter);
-                    expandButton.MouseLeave.Subscribe(onMouseLeave);
+                    expandButton.MouseEnter.Subscribe(onMouseEnterExpandButton);
+                    expandButton.MouseLeave.Subscribe(onMouseLeaveExpandButton);
                 }
                 View = view;
                 getExpandButton().MouseClicked.Subscribe(onMouseClicked);
@@ -528,15 +528,28 @@ namespace AGS.Engine
                 return (IUIEvents)view.ExpandButton ?? view.TreeItem;
             }
 
-            private void onMouseEnter(MousePositionEventArgs args)
+            private void onMouseEnterExpandButton(MousePositionEventArgs args)
             {
-                IsHovered = true;
+                _isExpandButtonHovered = true;
                 RefreshDisplay();
             }
 
-            private void onMouseLeave(MousePositionEventArgs args)
+            private void onMouseLeaveExpandButton(MousePositionEventArgs args)
             {
-                IsHovered = false;
+                _isExpandButtonHovered = false;
+                _tree.NodeViewProvider.BeforeDisplayingNode(Item, View,
+                                                  IsCollapsed, IsHovered, IsSelected);
+            }
+
+            private void onMouseEnterNode(MousePositionEventArgs args)
+            {
+                _isNodeHovered = true;
+                RefreshDisplay();
+            }
+
+            private void onMouseLeaveNode(MousePositionEventArgs args)
+            {
+                _isNodeHovered = false;
                 _tree.NodeViewProvider.BeforeDisplayingNode(Item, View,
                                                   IsCollapsed, IsHovered, IsSelected);
             }
