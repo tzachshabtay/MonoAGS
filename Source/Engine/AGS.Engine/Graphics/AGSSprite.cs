@@ -110,13 +110,16 @@ namespace AGS.Engine
         public float ScaleY { get => _scale.ScaleY; set => _scale.ScaleY = value; }
 
         [DoNotNotify]
+        [NumberEditorSlider(sliderMin: 0f, sliderMax: 2f)]
         public PointF Scale { get => _scale.Scale; set => _scale.Scale = value; }
 
         [DoNotNotify]
         public SizeF BaseSize { get => _scale.BaseSize; set => _scale.BaseSize = value; }
 
+        [NumberEditorSlider(sliderMin: -180f, sliderMax: 180f)]
         public float Angle { get => _rotate.Angle; set => _rotate.Angle = value; }
 
+        [NumberEditorSlider(sliderMin: 0, sliderMax: 1f)]
         public PointF Pivot { get => _hasImage.Pivot; set => _hasImage.Pivot = value; }
 
         [DoNotNotify]
