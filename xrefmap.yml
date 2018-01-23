@@ -17980,6 +17980,18 @@ references:
   commentId: Overload:AGS.API.PropertyAttribute.Category
   fullName: AGS.API.PropertyAttribute.Category
   nameWithType: PropertyAttribute.Category
+- uid: AGS.API.PropertyAttribute.CategoryZ
+  name: CategoryZ
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_CategoryZ
+  commentId: P:AGS.API.PropertyAttribute.CategoryZ
+  fullName: AGS.API.PropertyAttribute.CategoryZ
+  nameWithType: PropertyAttribute.CategoryZ
+- uid: AGS.API.PropertyAttribute.CategoryZ*
+  name: CategoryZ
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_CategoryZ_
+  commentId: Overload:AGS.API.PropertyAttribute.CategoryZ
+  fullName: AGS.API.PropertyAttribute.CategoryZ
+  nameWithType: PropertyAttribute.CategoryZ
 - uid: AGS.API.PropertyAttribute.Description
   name: Description
   href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_Description
