@@ -57,8 +57,8 @@ Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/P
 | IsCollidingWithObject (character) | CollidesWith | `if (cEgo.IsCollidingWithChar(oBottle) == 1) {}` | `if (cEgo.CollidesWith(oBottle.X, oBottle.Y, state.Viewport)) {}` | Note that MonoAGS supports multiple viewports so we need to pass the viewport in which we'd like to test for collisions.
 | LockView | Outfit | `cEgo.LockView(12);` | `cEgo.Outfit = swimmingOutfit;` |
 | LockViewAligned | ? | `cEgo.LockViewAligned(12, 1, eAlignLeft);` | ? |
-| LockViewFrame | To display a still frame, use Image, for actual locking set a different outfit | `cEgo.LockViewFrame(AGHAST, 2, 4)` | `cEgo.Image = cEgo.Outfit["AGHAST"].Left.Frames[4].Sprite.Image;` |
-| LockViewOffset | ? | `cEgo.LockViewOffset(12, 1, -1);` | ? | Note that while there's no direct equivalent, you can change offsets for individual animation frames, so you can do that manually (at run-time if you desire), for example: `cEgo.Outfit["Walk"].Left.Frames[0].Sprite.X = 5; //will offset the first left walking animation frame by 5 pixels to the right`
+| LockViewFrame | To display a still frame, use Image, for actual locking set a different outfit | `cEgo.LockViewFrame(AGHAST, 2, 4)` | `cEgo.Image = cEgo.Outfit[Animations.Aghast].Left.Frames[4].Sprite.Image;` |
+| LockViewOffset | ? | `cEgo.LockViewOffset(12, 1, -1);` | ? | Note that while there's no direct equivalent, you can change offsets for individual animation frames, so you can do that manually (at run-time if you desire), for example: `cEgo.Outfit[Animations.Walk].Left.Frames[0].Sprite.X = 5; //will offset the first left walking animation frame by 5 pixels to the right`
 | LoseInventory | Inventory.Items.Remove | `cEgo.LoseInventory(iKnife);` | `cEgo.Inventory.Items.Remove(iKnife);` |
 | Move (character) | set the outfit to an outfit without a walk animation | `cEgo.Move(155, 122, eBlock);` | Non-blocking: `cEgo.Outfit = idleOnlyOutfit; cEgo.WalkAsync(155, 122);`, blocking: `cEgo.Outfit = idleOnlyOutfit; await cEgo.WalkAsync(155, 122);` | No support currently for "walk anywhere"
 | PlaceOnWalkableArea | PlaceOnWalkableArea | `cEgo.PlaceOnWalkableArea();` | `cEgo.PlaceOnWalkableArea();` |
@@ -90,7 +90,7 @@ Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/P
 | Frame | Animation.State.CurrentFrame | `cEgo.Frame` | `cEgo.Animation.State.CurrentFrame` |
 | HasExplicitTint | Tint | `if (cEgo.HasExplicitTint) {}` | `if (cEgo.Tint != Colors.White) {}` |
 | ID | ID | `cEgo.ID` | `cEgo.ID` |
-| IdleView | Outfit["Idle"] | `cEgo.IdleView` | `cEgo.Outfit["Idle"]` |
+| IdleView | Outfit[Animations.Idle] | `cEgo.IdleView` | `cEgo.Outfit[Animations.Idle]` |
 | IgnoreLighting | ? | `cEgo.IgnoreLighting = 1;` | ? |
 | IgnoreWalkbehinds | ? | `cEgo.IgnoreWalkbehinds = true;` | ? |
 | InventoryQuantity | InventoryItem.Qty | `player.InventoryQuantity[iCash.ID]` | `iCash.Qty` |
@@ -99,19 +99,19 @@ Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/P
 | MovementLinkedToAnimation | MovementLinkedToAnimation | `cEgo.MovementLinkedToAnimation = false;` | `cEgo.MovementLinkedToAnimation = false;` |
 | Moving | IsWalking | `if (cEgo.IsMoving) {}` | `if (cEgo.IsWalking) {}` |
 | Name | Hotspot | `cEgo.Name = "Bernard";` | `cEgo.Hotspot = "Bernard";` |
-| NormalView | Outfit["Walk"] | `cEgo.NormalView` | `cEgo.Outfit["Walk"];` |
+| NormalView | Outfit[Animations.Walk] | `cEgo.NormalView` | `cEgo.Outfit[Animations.Walk];` |
 | PreviousRoom | PreviousRoom | `if (cEgo.PreviousRoom == 5) {}` | `if (cEgo.PreviousRoom == elevator) {}` | In MonoAGS, `PreviousRoom` actually provides you with access to the entire room's API, not just its ID, so you can query the room's objects, for example.
 | Room | Room | `if (cEgo.Room == 5) {}` | `if (cEgo.Room == elevator) {}` | In MonoAGS, `Room` actually provides you with access to the entire room's API, not just its ID, so you can query the room's objects, for example.
 | ScaleMoveSpeed | AdjustWalkSpeedToScaleArea | `cEgo.ScaleMoveSpeed = true;` | `cEgo.AdjustWalkSpeedToScaleArea = true;` |
 | ScaleVolume | scalingArea.ScaleVolume | `cEgo.ScaleVolume = true;` | `scalingArea.ScaleVolume = true;` | This is not a 1-to-1 match. In AGS, scale volume scales the volume according to the scaling of the character, not matter if the scaling was set manually or in an area. In MonoAGS, this is specfically for areas, there is no equivalent configuration for manual scaling changes currently.
 | Scaling | ScaleX and ScaleY | `cEgo.ManualScaling = true; cEgo.Scaling = 200;` | `cEgo.ScaleX = 2; cEgo.ScaleY = 2;` | In AGS the range is 5 to 200, where the value must be an integer and 100 is not scaled. In MonoAGS there's no "allowed" range, the value is a float (so you can do `cEgo.ScaleX = 0.5f`) and 1 is not scaled.
 | Solid | ? | `if (cEgo.Solid) {}` | ? |
-| Speaking | Outfit["Speak"].Animation.State.IsPaused | `if (cEgo.Speaking) {}` | `if (!cEgo.Outfit["Speak"].Animation.State.IsPaused) {}` |
-| SpeakingFrame | Outfit["Speak"].Animation.State.CurrentFrame | `cEgo.SpeakingFrame` | `cEgo.Outfit["Speak"].Animation.State.CurrentFrame` |
-| SpeechAnimationDelay | Outfit["Speak"].Animation.Configuration.DelayBetweenFrames | `cEgo.SpeechAnimationDelay` | `cEgo.Outfit["Speak"].Animation.Configuration.DelayBetweenFrames` |
+| Speaking | Outfit[Animations.Speak].Animation.State.IsPaused | `if (cEgo.Speaking) {}` | `if (!cEgo.Outfit[Animations.Speak].Animation.State.IsPaused) {}` |
+| SpeakingFrame | Outfit[Animations.Speak].Animation.State.CurrentFrame | `cEgo.SpeakingFrame` | `cEgo.Outfit[Animations.Speak].Animation.State.CurrentFrame` |
+| SpeechAnimationDelay | Outfit[Animations.Speak].Animation.Configuration.DelayBetweenFrames | `cEgo.SpeechAnimationDelay` | `cEgo.Outfit[Animations.Speak].Animation.Configuration.DelayBetweenFrames` |
 | SpeechColor | SpeechConfig.TextConfig.Brush | `cEgo.SpeechColor = 14;` | `cEgo.SpeechConfig.TextConfig.Brush = blueSolidBrush;` |
-| SpeechView | Outfit["Speak"] | `cEgo.SpeechView` | `cEgo.Outfit["Speak"]` |
-| ThinkView | Outfit["Think"] | `cEgo.ThinkView` | `cEgo.Outfit["Think"]` | There's nothing particular about `Think` in MonoAGS currently, but using outfit you can assign and query specific animations, so you can create a "think" animation if it fits your game.
+| SpeechView | Outfit[Animations.Speak] | `cEgo.SpeechView` | `cEgo.Outfit[Animations.Speak]` |
+| ThinkView | Outfit[Animations.Think] | `cEgo.ThinkView` | `cEgo.Outfit[Animations.Think]` | There's nothing particular about `Think` in MonoAGS currently, but using outfit you can assign and query specific animations, so you can create a "think" animation if it fits your game.
 | Transparency | Opacity | `cEgo.Transparency = 100;` | `cEgo.Opacity = 0;` | The range for AGS transparency is 0-100, the range for MonoAGS opacity is 0-255
 | TurnBeforeWalking | ? | `cEgo.TurnBeforeWalking = 1;` | ? |
 | View | Animation | `cEgo.View` | `cEgo.Animation` |
@@ -206,3 +206,160 @@ The concept of dynamic sprite is not really needed in MonoAGS, as everything is 
 | Height | Height | `sprite.Height` | `image.Height` |
 | Width | Width | `sprite.Width` | `image.Width` |
 
+## File
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| Open | Open | `File *output = File.Open("temp.tmp", eFileWrite);` | `var output = File.Open("temp.tmp", FileMode.Create);` |
+| Close | Close | `output.Close();` | `output.Close();` |
+| Delete | Delete | `File.Delete("temp.tmp");` | `File.Delete("temp.tmp");` |
+| Exists | Exists | `if (File.Exists("temp.tmp")) {}` | `if (File.Exists("temp.tmp")) {}` |
+| ReadInt | BinaryReader.ReadInt32 | `int number; number = input.ReadInt();` | `using (var reader = new BinaryReader(File.OpenRead("file.txt")) ) { char c = reader.ReadInt32();` } |
+| ReadRawChar | BinaryReader.ReadChar | `String buffer = String.Format("%c", input.ReadRawChar());` | `using (var reader = new BinaryReader(File.OpenRead("file.txt")) ) { char c = reader.ReadChar();` } |
+| ReadRawInt | BinaryReader.ReadInt32 | `int number; number = input.ReadRawInt();` | `using (var reader = new BinaryReader(File.OpenRead("file.txt")) ) { char c = reader.ReadInt32();` } |
+| ReadRawLineBack | StreamReader.ReadLine | `String line = input.ReadRawLineBack();` | `using (var reader = new StreamReader("file.txt")) { string line = reader.ReadLine();`} |
+| ReadStringBack | BinaryReader.ReadString | `String buffer = input.ReadStringBack();` | `using (var reader = new BinaryReader(File.OpenRead("file.txt")) ) { char c = reader.ReadInt32();` |
+| WriteInt | BinaryWriter.Write | `output.WriteInt(6);` | `using (var writer = new BinaryWriter(File.Open("temp.tmp", FileMode.Create))) { writer.Write(6);` |
+| WriteRawChar | BinaryWriter.Write | `output.WriteRawChar('A');` | `using (var writer = new BinaryWriter(File.Open("temp.tmp", FileMode.Create))) { writer.Write('A');` |
+| WriteRawLine | StreamWriter.WriteLine | `output.WriteRawLine("My line");` | `using (var writer = new StreamWriter("file.txt")) { writer.WriteLine("My line");` } |
+| WriteString | BinaryWriter.Write | `output.WriteString("test string");` | `using (var writer = new BinaryWriter(File.Open("temp.tmp", FileMode.Create))) { writer.Write("test string");` |
+| EOF | BinaryReader.BaseStream.Position | `while (!output.EOF) {}` | `while (reader.BaseStream.Position != reader.BaseStream.Length)` |
+| Error | try/catch | `output.WriteInt(51); if (output.Error) { Display("Error writing the data!"); }` | `try { writer.Write(51); } catch (Exception e) { AGSMessageBox.DisplayAsync($"Error while writing the data. The error message is: {e.Message}"); }` |
+
+Missing in AGS but exists in MonoAGS: well, nothing here is MonoAGS specific, this is all c#. You can see all available functions here:
+https://msdn.microsoft.com/en-us/library/system.io.file(v=vs.110).aspx
+https://msdn.microsoft.com/en-us/library/system.io.binaryreader(v=vs.110).aspx
+https://msdn.microsoft.com/en-us/library/system.io.binarywriter(v=vs.110).aspx
+https://msdn.microsoft.com/en-us/library/system.io.streamreader(v=vs.110).aspx
+https://msdn.microsoft.com/en-us/library/system.io.streamwriter(v=vs.110).aspx
+
+## Game / Global functions
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| AbortGame | throw | `AbortGame("Error in game!");` | `throw new Exception("Error im game!");` |
+| CallRoomScript | Nothing specific, but you can create a shared interfaces between your rooms and call it. | `CallRoomScript(1); ... function on_call(int value) {...}` | `public interface IOnCall { void on_call(int value); } .. public class MyRoom : IOnCall { public void on_call(int value) {...} } ... (state.Room as IOnCall)?.on_call(1);` |
+| ChangeTranslation | ? | `Game.ChangeTranslation("Spanish")` | ? |
+| ClaimEvent | ? | `ClaimEvent();` | ? |
+| Debug | ? | `Debug(0);` | ? |
+| DeleteSaveSlot | N/A | `DeleteSaveSlot(130);` | `MonoAGS` doesn't have the concept of save slots, you can just delete the save file.
+| DisableInterface | ? | `DisableInterface();` | There's nothing specific currently, but you can disable all GUI controls and change the cursor.
+| DoOnceOnly | Repeat.Once | `if (Game.DoOnceOnly("open cupboard")) {}` | `if Repeat.Once("open cupboard") {}` |
+| EnableInterface | ? | `EnableInterface();` | There's nothing specific currently, but you can disable all GUI controls and change the cursor.
+| EndCutscene | Cutscene.End | `EndCutscene();` | `state.Cutscene.End();` |
+| GetColorFromRGB | Color.FromRgba | `Game.GetColorFromRGB(0, 255, 0);` | `Color.FromRgba(0, 255, 0, 255);` |
+| GetFrameCountForLoop | animation.Frames.Count | `Game.GetFrameCountForLoop(SWIMMING, 2);` | `cEgo.Outfit[Animations.Swim].Left.Frames.Count` |
+| GetGameOption | ? | `GetGameOption(OPT_WALKONLOOK)` | ? | There's a lot of unrelated very specific configurations for AGS here, some of them have equivalents in MonoAGS, see `SetGameOption` for more details.
+| GetGameSpeed | `state.Speed` | `GetGameSpeed();` | `game.State.Speed` |
+| GetLocationName | `hitTest.ObjectAtMousePosition` | `if (GetLocationName(mouse.x, mouse.y) == "Hero") {}` | `if (hitTest.ObjectAtMousePosition.Hotspot == "Hero") {}` | Currently, there's no support for getting at specific (x,y) position, but just for where the mouse is at.
+| GetLocationType | `hitTest.ObjectAtMousePosition` | `if (GetLocationType(mouse.x, mouse.y) == eLocationCharacter) {}` | `if (hitTest.ObjectAtMousePosition is ICharacter) {}` | Currently, there's no support for getting at specific (x,y) position, but just for where the mouse is at.
+| GetLoopCountForView | GetAllDirections | `Game.GetLoopCountForView(SWIMMING)` | `cEgo.Outfit[Animation.Swim].GetAllDirections().Count()` |
+| GetRunNextSettingForLoop | ? | `Game.GetRunNextSettingForLoop(SWIMMING, 5)` | ? |
+| GetSaveSlotDescription | ? | `Game.GetSaveSlotDescription(10)` | ? |
+| GetTextHeight | Font.MeasureString | `GetTextHeight("The message on the GUI!", Game.NormalFont, 100)` | `AGSGameSettings.DefaultTextFont.MeasureString("The message on the GUI!", 100).Height` |
+| GetTextWidth | Font.MeasureString | `GetTextWidth("Hello!", Game.NormalFont)` | `AGSGameSettings.DefaultTextFont.MeasureString("Hello!").Width` |
+| GetTranslation | ? | `GetTranslation("secret")` | ? |
+| GetViewFrame | Frames[index] | `Game.GetViewFrame(SWIMMING, 2, 3)` | `cEgo.Outfit[Animations.Swim].Left.Frames[3]` |
+| GiveScore | ? | `GiveScore(5)` | ? | Nothing specific in MonoAGS for this, but this could be easily implemented in just a few lines: `public static class Score { public static int Score { get; private set; } public static void GiveScore(int score) { Score += score; Sounds.Score.Play();}}`
+| InputBox | ? | `String name = Game.InputBox("!What is your name?");` | ? |
+| IsGamePaused | state.Paused | `if (IsGamePaused()) {}` | `if (game.State.Paused) {}` |
+| IsInterfaceEnabled | ? | `if (IsInterfaceEnabled()) {}` | ? | There's nothing specific for this in `MonoAGS`, but you can query (and set) enabled/disabled for individual GUI components.
+| IsInteractionAvailable | checking subscriber count on the interaction event | `if (IsInteractionAvailable(mouse.x,mouse.y, eModeLookat) == 0) {}` | `if (hitTest.ObjectAtMousePosition.Interactions.OnInteract(Verbs.Look).SubscribersCount == 0) {}` |
+| IsKeyPressed | input.IsKeyDown | `if (IsKeyPressed(eKeyUpArrow)) {}` | `if (game.Input.IsKeyDown(Key.Up)) {}` |
+| IsTimerExpired | Stopwatch.Elapsed | `SetTimer(1, 3000); ... if (IsTimerExpired(1)) {}` | `Stopwatch myTimer = new Stopwatch(); myTimer.Start(); ... if (myTimer.Elapsed.Seconds > 3) {}` |
+| IsTranslationAvailable | ? | `if (IsTranslationAvailable() == 1) {}` | ? |
+| PauseGame | state.Paused | `PauseGame();` | `game.State.Paused = true;` |
+| ProcessClick | invoke the interaction event | `ProcessClick(100, 50, eModeLookAt);` | `cEgo.Interactions.OnInteract(Verbs.Look).InvokeAsync(new ObjectEventArgs(oKnife));` |
+| QuitGame | game.Quit | `QuitGame(0);` | `game.Quit();` | No built-in support in `MonoAGS` for "ask first", though this could be easily coded by using a message box: `if (await AGSMessageBox.YesNoAsync("Are you sure you want to quit?")) { game.Quit(); } `
+| Random | MathUtils.Random().Next | `int ran = Random(2);` | `int ran = MathUtils.Random().Next(0, 2);` |
+| RestartGame | SaveLoad.Restart() | `RestartGame();` | `game.SaveLoad.Restart();` |
+| RestoreGameDialog | AGSSelectFileDialog.SelectFile | `RestoreGameDialog();` | `await AGSSelectFileDialog.SelectFile("Select file to load", FileSelection.FileOnly);` |
+| RestoreGameSlot | SaveLoad.Load | `RestoreGameSlot(5);` | `await game.SaveLoad.LoadAsync("save.bin");` |
+| RunAGSGame | Process.Start |  `RunAGSGame ("MyGame.exe", 0, 51);` | `Process.Start("MyGame.exe");` |
+| SaveGameDialog | AGSSelectFileDialog.SelectFile | `SaveGameDialog();` | `await AGSSelectFileDialog.SelectFile("Select file to save", FileSelection.FileOnly);` |
+| SaveGameSlot | SaveLoad.Save | `SaveGameSlot(30, "save game");` | `await game.SaveLoad.SaveAsync("save.bin");` |
+| SaveScreenShot | ? | `SaveScreenshot("pic.pcx");` | ? |
+| SetAmbientTint | ? | `SetAmbientTint(0, 0, 250, 30, 100);` | ? |
+| SetGameOption | ? | `SetGameOption(OPT_WALKONLOOK, 1);` | ? | There's a lot of unrelated very specific configurations for AGS here, some of them have equivalents in MonoAGS: `OPT_WALKONLOOK` + `OPT_NOWALKMODE` -> Configure the "approach" component, for example: `cEgo.ApproachStyle.ApproachWhenVerb[Verbs.Look] = ApproachHotspots.AlwaysWalk`, `OPT_PIXELPERFECT` -> can be configured per entity: `cEgo.PixelPerfect(false);`, `OPT_FIXEDINVCURSOR` -> can be configured per inventory item: `iKnife.CursoreGraphics = iKnife.Graphics;`, `OPT_CROSSFADEMUSIC` -> you have several more configuration options here, for example: `var crossFade = game.AudioSettings.RoomMusicCrossFading; crossFade.FadeIn = true; crossFade.FadeOut = false; crossFade.FadeInSeconds = 5f; crossFade.EaseFadeIn = Ease.QuadIn;`, `OPT_PORTRAITPOSITION` => `cEgo.SpeechConfig.PortraitConfig.Positioning = PortraitPositioning.Alternating;`
+| SetGameSpeed | `state.Speed` | `SetGameSpeed(80);` | `game.State.Speed = 80;` |
+| SetMultitaskingMode | ? | `SetMultitaskingMode(1);` | ? |
+| SetRestartPoint | SaveLoad.SetRestartPoint | `SetRestartPoint();` | `game.SaveLoad.SetRestartPoint();` |
+| SetSaveGameDirectory | ? | `Game.SetSaveGameDirectory("My cool game saves");` | ? | `MonoAGS` does not have a "save game directory" because when you save a game you select the directory to save in.
+| SetTextWindowGUI | ? | `SetTextWindowGUI(4);` | ? |
+| SetTimer | Stopwatch.Start | `SetTimer(1, 3000); ... if (IsTimerExpired(1)) {}` | `Stopwatch myTimer = new Stopwatch(); myTimer.Start(); ... if (myTimer.Elapsed.Seconds > 3) {}` |
+| SkipUntilCharacterStops | ? | `SkipUntilCharacterStops(EGO);` | ? |
+| StartCutscene | Cutscene.Start | `StartCutscene();` | `state.Cutscene.Start();` |
+| UpdateInventory | N/A | `UpdateInventory();` | N/A | Not needed
+| UnPauseGame | Paused | `UnPauseGame();` | `state.Paused = false;` |
+| Wait | Task.Delay or Thread.Sleep | `Wait(80);` | `await Task.Delay(80);` or `Thread.Sleep(80);` | Note, that both methods are not perfect fit-ins, as it waits milliseconds and not game loops as in `Wait`, so we'll need to add another option.
+| WaitKey | ? | `WaitKey(200);` | ? |
+| WaitMouseKey | ? | `WaitMouseKey(200);` | ? |
+| CharacterCount | calculate yourself | `Game.CharacterCount` | `state.Rooms.Select(r => r.Objects.Count(o => o is ICharacter)).Sum())` |
+| DialogCount | ? | `Game.DialogCount` | ? |
+| FileName | use dotnet functions | `Game.FileName` | `Process.GetCurrentProcess().MainModule.FileName` or `Path.GetFileName(Assembly.GetEntryAssembly().Location)` |
+| FontCount | ? | `Game.FontCount` | ? |
+| GlobalStrings | GlobalVariables.Strings | `Game.GlobalStrings[15] = "Joe";` | `state.GlobalVariables.Strings.SetValue("ImportantCharacterName", "Joe");` |
+| GUICount | state.UI.Count | `Game.GUICount` | `state.UI.Count` |
+| IgnoreUserInputAfterTextTimeoutMs | ? | `Game.IgnoreUserInputAfterTextTimeoutMs = 1000;` | ? | This is currently hard-coded to 500 ms in `MonoAGS` (in `FastFingerChecker` class), and you can bypass it with a custom value like this (should be done at the very start of the game): `FastFingerChecker checker = new FastFingerChecker { FastFingerSafeBuffer = 1000 }; Resolver.Override(resolver => resolver.Builder.RegisterInstance(checker));`
+| InSkippableCutscene | Cutscene.IsRunning | `if (Game.InSkippableCutscene) {}` | `if (state.Cutscene.IsRunning) {}` |
+| InventoryItemCount | ? | `Game.InventoryItemCount` | ? |
+| MinimumTextDisplayTimeMs | ? | `Game.MinimumTextDisplayTimeMs = 1000;` | ? | Currently hard-coded to 40 ms in `MonoAGS`.
+| MouseCursorCount | ? | `Game.MouseCursorCount` | ? |
+| Name | Title | `Game.Name = "My game";` | `game.Title = "My game";` |
+| NormalFont | AGSGameSettings.DefaultTextFont | `Game.NormalFont = eFontSpecial;` | `AGSGameSettings.DefaultTextFont = Fonts.Special;` |
+| SkippingCutscene | Cutscene.IsSkipping | `if (!Game.SkippingCutscene) {}` | `if (!state.Cutscene.IsSkipping) {}` |
+| SpeechFont | AGSGameSettings.DefaultSpeechFont | `Game.SpeechFont = eFontStandard;` | `AGSGameSettings.DefaultSpeechFont = Fonts.Standard;` |
+| SpriteHeight | sprite.Height | `Game.SpriteHeight[15]` | `animation.Left.Frames[3].Sprite.Height` |
+| SpriteWidth | sprite.Width | `Game.SpriteWidth[15]` | `animation.Left.Frames[3].Sprite.Width` |
+| TextReadingSpeed | SayConfig.TextDelay | `Game.TextReadingSpeed = 10;` | `cEgo.SayConfig.TextDelay = 100;` | Note the difference in units: in `AGS` it stands for "number of characters to read in a second", where in `MonoAGS` it stands for "number of milliseconds to wait for each character".
+| TranslationFilename | ? | `if (Game.TranslationFilename == "German") {}` | ? |
+| UseNativeCoordinates | N/A | `if (Game.UseNativeCoordinates) {}` | N/A | Not needed in `MonoAGS` (there is no low resolution backwards-compatible mode)
+| ViewCount | ? | `Game.ViewCount` | ? |
+
+## GUI
+
+In AGS there's a separation between GUI and GUI controls, where GUI is a panel containing other controls.
+In MonoAGS there's no distinction like this, as every control can contain other controls, however there is a "Panel" in MonoAGS which is a naked UI control without any other components added to it, which is probably the closest equivalent for AGS "GUI".
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| Centre | Position yourself | `gPanel.Centre();` | `gPanel.Pivot = new PointF(0.5f, 0.5f); gPanel.X = game.Settings.VirtualResolution.Width / 2; gPanel.Y = game.Settings.VirtualResolution.Height / 2;` | The example assumes that the panel has no parent and using the default game's resolution.
+| GetAtScreenXY | hitTest.ObjectAtMousePosition | `GUI.GetAtScreenXY(mouse.x, mouse.y)` | `hitTest.ObjectAtMousePosition` | Missing support for specific location checks.
+| SetPosition | Location | `gPanel.SetPosition(50, 50);` | `gPanel.Location = new AGSLocation(50, 50);` |
+| SetSize | BaseSize | `gPanel.setSize(100, 100);` | `gPanel.BaseSize = new SizeF(100, 100);` |
+| BackgroundGraphic | Image | `gPanel.BackgroundGraphic = 5;` | `gPanel.Image = myBackgroundImage;` |
+| Clickable | Enabled or ClickThrough | `gPanel.Clickable = false;` | `gPanel.Enabled = false;` or `gPanel.ClickThrough = false;` | Note the different between `Enabled` and `ClickThrough` in `MonoAGS`: `Enabled` disables the panel and all of the controls within, while `ClickThrough` disables the panel itself but still allows for inner children to respond.
+| ControlCount | TreeNode.ChildrenCount | `gPanel.ControlCount` | `gPanel.TreeNode.ChildrenCount` |
+| Controls | TreeNode.Children | `gPanel.Controls` | `gPanel.TreeNode.Children` |
+| Height | BaseSize.Height | `gPanel.Height = 100;` | `gPanel.BaseSize = new SizeF(gPanel.BaseSize.Width, 100);` |
+| ID | ID | `gPanel.ID` | `gPanel.ID` |
+| Transparency | Opacity | `gPanel.Transparency = 100;` | `gPanel.Opacity = 0;` | The range for AGS transparency is 0-100, the range for MonoAGS opacity is 0-255
+| Visible | Visible | `gPanel.Visible = true;` | `gPanel.Visible = true;` |
+| Width | BaseSize.Width | `gPanel.Width = 100;` | `gPanel.BaseSize = new SizeF(100, gPanel.BaseSize.Height);` |
+| X | X | `gPanel.X = 5;` | `gPanel.X = 5;` |
+| Y | Y | `gPanel.Y = 5;` | `gPanel.Y = 5;` |
+| ZOrder | Z | `gPanel.ZOrder = 5;` | `gPanel.Z = 5;` |
+
+Missing in AGS but exists in MonoAGS: scaling and rotating panels, scrolling panels, nesting panels (or any other object) within panels (or any other object), placing GUIs as part of the world (behind non-GUIs), different resolution from the game, custom rendering (including shaders), mouse events (enter, leave, move, click, double-click, down, up, lost focus), sub-pixel positioning, skinning, and also, as panels extend objects, see objects for more stuff.
+
+## GUI Controls
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| GetAtScreenXY | hitTest.ObjectAtMousePosition | `GUIControl.GetAtScreenXY(mouse.x, mouse.y)` | `hitTest.ObjectAtMousePosition` | Missing support for specific location checks.
+| AsType | as | `gIconbar.Controls[2].AsButton` | `gIconBar.TreeNode.Children[2] as IButton` |
+| BringToFront | Z | `btnBigButton.BringToFront()` | `btnBigButton.Z = btnBigButton.TreeNode.Parent.TreeNode.Children.Max(c => c.Z) + 1;` |
+| Clickable | ClickThrough | `btnSaveGame.Clickable = false;` | `btnSaveGame.ClickThrough = true;` |
+| Enabled | Enabled | `btnSaveGame.Enabled = false;` | `btnSaveGame.Enabled = false;` |
+| Height | BaseSize.Height | `btnConfirm.Height = 20;` | `btnConfirm.BaseSize = new SizeF(btnConfirm.BaseSize.Width, 20);`; |
+| ID | ID | `btnConfirm.ID` | `btnConfirm.ID` |
+| OwningGUI | TreeNode.Parent | `btnConfirm.OwningGUI` | `btnConfirm.TreeNode.Parent` |
+| SendToBack | Z | `btnBigButton.SendToBack()` | `btnBigButton.Z = btnBigButton.TreeNode.Parent.TreeNode.Children.Min(c => c.Z) - 1;` |
+| SetPosition | Location | `btnConfirm.SetPosition(40, 10);` | `btnConfirm.Location = new AGSLocation(40, 10);` |
+| SetSize | BaseSize | `invMain.SetSize(160, 100);` | `invMain.BaseSize = new SizeF(160, 100);` |
+| Visible | Visible | `btnSaveGame.Visible = false;` | `btnSaveGame.Visible = false;` |
+| Width | BaseSize.Width | `btnConfirm.Width = 20;` | `btnConfirm.BaseSize = new SizeF(20, btnConfirm.BaseSize.Height);`; |
+| X | X | `btnConfirm.X = 10;` | `btnConfirm.X = 10;` |
+| Y | Y | `btnConfirm.Y = 20;` | `btnConfirm.Y = 20;` |
+
+Missing in AGS but exists in MonoAGS: scaling and rotating controls, nesting controls (or any other object) within controls (or any other object), placing GUI controls as part of the world (behind non-GUIs), different resolution from the game, custom rendering (including shaders), mouse events (enter, leave, move, click, double-click, down, up, lost focus), sub-pixel positioning, skinning, and also, as panels extend objects, see objects for more stuff.
