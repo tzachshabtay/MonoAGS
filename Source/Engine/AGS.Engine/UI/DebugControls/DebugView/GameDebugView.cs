@@ -33,7 +33,7 @@ namespace AGS.Engine
             const float borderWidth = 3f;
             IGameFactory factory = _game.Factory;
             _panel = factory.UI.GetPanel(_panelId, _layer.IndependentResolution.Value.Width / 4f, _layer.IndependentResolution.Value.Height,
-                                                     5f, _layer.IndependentResolution.Value.Height / 2f);
+                                                     1f, _layer.IndependentResolution.Value.Height / 2f);
             _panel.Pivot = new PointF(0f, 0.5f);
             _panel.Visible = false;
             _panel.Tint = GameViewColors.Panel;
