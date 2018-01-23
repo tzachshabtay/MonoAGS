@@ -77,7 +77,7 @@ namespace AGS.Engine
 			var topPanel = TopPanel;
 			if (topPanel == null) return;
 
-            const float lineWidth = 10f;
+            const float lineWidth = 5f;
             var splitLine = _factory.Object.GetObject($"{topPanel.ID}_SplitLine");
             _state.FocusedUI.CannotLoseFocus.Add(splitLine.ID);
             splitLine.RenderLayer = topPanel.RenderLayer;
