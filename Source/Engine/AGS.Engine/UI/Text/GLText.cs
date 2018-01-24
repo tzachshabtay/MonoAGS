@@ -180,7 +180,9 @@ namespace AGS.Engine
 
             var config = AGSTextConfig.ScaleConfig(_config, _scaleUp.X);
             int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : (int)(_maxWidth * _scaleUp.X - config.PaddingLeft - config.PaddingRight);
-            SizeF originalTextSize = config.Font.MeasureString(text, _cropText ? int.MaxValue : maxWidth);
+            string textToMeasure = text;
+            if (_renderCaret && textToMeasure == "") textToMeasure = "|";
+            SizeF originalTextSize = config.Font.MeasureString(textToMeasure, _cropText ? int.MaxValue : maxWidth);
             SizeF textSize = originalTextSize;
             if (_cropText && textSize.Width > maxWidth)
             {
