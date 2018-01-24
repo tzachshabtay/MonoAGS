@@ -1,6 +1,7 @@
 ﻿using System;
 using AGS.API;
 using OpenTK;
+using OpenTK.Input;
 
 namespace AGS.Engine.Desktop
 {
@@ -9,14 +10,15 @@ namespace AGS.Engine.Desktop
         private GameWindow _game;
         private IGameWindowSize _windowSize;
         private int _virtualWidth, _virtualHeight;
+        private float _mouseX, _mouseY;
         private IGameState _state;
         private IShouldBlockInput _shouldBlockInput;
-        private IConcurrentHashSet<Key> _keysDown;
+        private IConcurrentHashSet<API.Key> _keysDown;
 
         private IObject _mouseCursor;
         private MouseCursor _originalOSCursor;
 
-        public AGSInput(GameWindow game, AGS.API.Size virtualResolution, IGameState state, 
+        public AGSInput(GameWindow game, API.Size virtualResolution, IGameState state, IGameEvents events,
                         IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
         {
             _windowSize = windowSize;
@@ -27,7 +29,7 @@ namespace AGS.Engine.Desktop
             this._virtualWidth = virtualResolution.Width;
             this._virtualHeight = virtualResolution.Height;
             this._state = state;
-            this._keysDown = new AGSConcurrentHashSet<Key>();
+            this._keysDown = new AGSConcurrentHashSet<API.Key>();
 
             this._game = game;
             this._originalOSCursor = _game.Cursor;
@@ -42,37 +44,37 @@ namespace AGS.Engine.Desktop
             {
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
-                if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = true;
-                else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = true;
                 await MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition));
             };
             game.MouseUp += async (sender, e) =>
             {
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
-                if (button == AGS.API.MouseButton.Left) LeftMouseButtonDown = false;
-                else if (button == AGS.API.MouseButton.Right) RightMouseButtonDown = false;
                 await MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition));
             };
             game.MouseMove += async (sender, e) =>
             {
                 if (isInputBlocked()) return;
+                _mouseX = e.Mouse.X;
+                _mouseY = e.Mouse.Y;
                 await MouseMove.InvokeAsync(new MousePositionEventArgs(MousePosition));
             };
             game.KeyDown += async (sender, e) =>
             {
-                Key key = convert(e.Key);
+                API.Key key = convert(e.Key);
                 _keysDown.Add(key);
                 if (isInputBlocked()) return;
                 await KeyDown.InvokeAsync(new KeyboardEventArgs(key));
             };
             game.KeyUp += async (sender, e) =>
             {
-                Key key = convert(e.Key);
+                API.Key key = convert(e.Key);
                 _keysDown.Remove(key);
                 if (isInputBlocked()) return;
                 await KeyUp.InvokeAsync(new KeyboardEventArgs(key));
             };
+
+            events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
         #region IInputEvents implementation
@@ -89,19 +91,12 @@ namespace AGS.Engine.Desktop
 
         #endregion
 
-        public bool IsKeyDown(Key key) => _keysDown.Contains(key);
+        public bool IsKeyDown(AGS.API.Key key) => _keysDown.Contains(key);
 
-        //For some reason GameWindow.Mouse is obsolete.
-        //From the warning it should be replaced by Input.Mouse which returns screen coordinates
-        //and not window coordinates. Changing will require us to gather the screen monitor coordinates
-        //and take multiple monitor issues into account, so for now we'll stick with the obsolete GameWindow.Mouse
-        //in the hope that future versions will keep it alive.
-#pragma warning disable 618
-        public MousePosition MousePosition => new MousePosition(_game.Mouse.X, _game.Mouse.Y, _state.Viewport);
-#pragma warning restore 618
+        public MousePosition MousePosition => new MousePosition(_mouseX, _mouseY, _state.Viewport);
 
         public bool LeftMouseButtonDown { get; private set; }
-		public bool RightMouseButtonDown { get; private set; }
+        public bool RightMouseButtonDown { get; private set; }
         public bool IsTouchDrag => false;  //todo: support touch screens on desktops
 
         public IObject Cursor
@@ -129,6 +124,13 @@ namespace AGS.Engine.Desktop
 				throw new NotSupportedException ();
 			}
 		}
+
+        private void onRepeatedlyExecute()
+        {
+            var cursorState = Mouse.GetCursorState();
+            LeftMouseButtonDown = cursorState.LeftButton == ButtonState.Pressed;
+            RightMouseButtonDown = cursorState.RightButton == ButtonState.Pressed;
+        }
 
         private AGS.API.Key convert(OpenTK.Input.Key key) => (AGS.API.Key)(int)key;
     }
