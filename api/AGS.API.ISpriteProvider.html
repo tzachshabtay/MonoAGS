@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enum RestrictionListType
+    <title>Interface ISpriteProvider
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Enum RestrictionListType
+    <meta name="title" content="Interface ISpriteProvider
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.29.1.0">
     
@@ -76,44 +76,60 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.RestrictionListType">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ISpriteProvider">
   
   
-  <h1 id="AGS_API_RestrictionListType" data-uid="AGS.API.RestrictionListType" class="text-break">Enum RestrictionListType
+  <h1 id="AGS_API_ISpriteProvider" data-uid="AGS.API.ISpriteProvider" class="text-break">Interface ISpriteProvider
   </h1>
-  <div class="markdown level0 summary"><p>Defines how a restriction list (<a class="xref" href="AGS.API.IRestrictionList.html">IRestrictionList</a>) is interpreted.</p>
+  <div class="markdown level0 summary"><p>Interface of a single sprite source.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_RestrictionListType_syntax">Syntax</h5>
+  <h5 id="AGS_API_ISpriteProvider_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum RestrictionListType</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ISpriteProvider : INotifyPropertyChanged</code></pre>
   </div>
-  <h3 id="fields">Fields
+  <h3 id="properties">Properties
   </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_ISpriteProvider_Sprite.md&amp;value=---%0Auid%3A%20AGS.API.ISpriteProvider.Sprite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Graphics/ISpriteRenderComponent.cs/#L14">View Source</a>
+  </span>
+  <a id="AGS_API_ISpriteProvider_Sprite_" data-uid="AGS.API.ISpriteProvider.Sprite*"></a>
+  <h4 id="AGS_API_ISpriteProvider_Sprite" data-uid="AGS.API.ISpriteProvider.Sprite">Sprite</h4>
+  <div class="markdown level1 summary"><p>Gets a sprite to work with.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISprite Sprite { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>Type</th>
         <th>Description</th>
       </tr>
-    <thead>
+    </thead>
     <tbody>
       <tr>
-        <td id="AGS_API_RestrictionListType_BlackList">BlackList</td>
-        <td><p>Using a black list means that everybody on the list are restricted and will not be affected (by the area, viewport, or whatever the context of the list is),
-everybody else will be &apos;welcome&apos; and will be affected (by the area, viewport, or whatever the context of the list is).</p>
-</td>
-      </tr>
-      <tr>
-        <td id="AGS_API_RestrictionListType_WhiteList">WhiteList</td>
-        <td><p>Using a white list means that everybody on the list are &apos;welcome&apos; and will be affected  (by the area, viewport, or whatever the context of the list is),
-everybody else will be restricted and will not be affected  (by the area, viewport, or whatever the context of the list is).</p>
+        <td><a class="xref" href="AGS.API.ISprite.html">ISprite</a></td>
+        <td><p>The sprite.</p>
 </td>
       </tr>
     </tbody>
-  </thead></thead></table>
+  </table>
 </article>
           </div>
           
@@ -122,10 +138,10 @@ everybody else will be restricted and will not be affected  (by the area, viewpo
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_RestrictionListType.md&amp;value=---%0Auid%3A%20AGS.API.RestrictionListType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_ISpriteProvider.md&amp;value=---%0Auid%3A%20AGS.API.ISpriteProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L8" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Graphics/ISpriteRenderComponent.cs/#L8" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
