@@ -342,7 +342,7 @@ In MonoAGS there's no distinction like this, as every control can contain other 
 
 Missing in AGS but exists in MonoAGS: scaling and rotating panels, scrolling panels, nesting panels (or any other object) within panels (or any other object), placing GUIs as part of the world (behind non-GUIs), different resolution from the game, custom rendering (including shaders), mouse events (enter, leave, move, click, double-click, down, up, lost focus), sub-pixel positioning, skinning, and also, as panels extend objects, see objects for more stuff.
 
-## GUI Controls
+## GUI Control
 
 | AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
 |-----|---------|-------------|-----------------|-----------------------------------
@@ -362,4 +362,97 @@ Missing in AGS but exists in MonoAGS: scaling and rotating panels, scrolling pan
 | X | X | `btnConfirm.X = 10;` | `btnConfirm.X = 10;` |
 | Y | Y | `btnConfirm.Y = 20;` | `btnConfirm.Y = 20;` |
 
-Missing in AGS but exists in MonoAGS: scaling and rotating controls, nesting controls (or any other object) within controls (or any other object), placing GUI controls as part of the world (behind non-GUIs), different resolution from the game, custom rendering (including shaders), mouse events (enter, leave, move, click, double-click, down, up, lost focus), sub-pixel positioning, skinning, and also, as panels extend objects, see objects for more stuff.
+Missing in AGS but exists in MonoAGS: scaling and rotating controls, nesting controls (or any other object) within controls (or any other object), placing GUI controls as part of the world (behind non-GUIs), different resolution from the game, custom rendering (including shaders), mouse events (enter, leave, move, click, double-click, down, up, lost focus), sub-pixel positioning, skinning, and also, as the controls extend objects, see objects for more stuff.
+
+## Button
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| Animate | AnimateAsync | `btnDeathAnim.Animate(6, 2, 4, eRepeat);` | `btnDeathAnim.AnimateAsync(deathAnimation); //The delay & repeat for the animation is configured in the animation configuration` |
+| ClipImage | image is always clipped to the button size | `btnOK.ClipImage = true;` | N/A |
+| Font | TextConfig.Font | `btnOK.Font = eFontMain;` | `btnOK.TextConfig.Font = Fonts.Main;` |
+| Graphic | Image | `btnPlay.Graphic` | `btnPlay.Image` |
+| MouseOverGraphic | HoverAnimation | `btnPlay.MouseOverGraphic = 5;` | `btnPlay.HoverAnimation = buttonHoverAnimation;` |
+| NormalGraphic | IdleAnimation | `btnPlay.NormalGraphic = 5;` | `btnPlay.IdleAnimation = buttonIdleAnimation;` |
+| PushedGraphic | PushedAnimation | `btnPlay.PushedGraphic = 5;` | `btnPlay.PushedAnimation = buttonPushedAnimation;` |
+| Text | Text | `btnPlay.Text = "Play";` | `btnPlay.Text = "Play";` |
+| TextColor | TextConfig.Brush | `btnPlay.TextColor = 15;` | `btnPlay.TextConfig.Brush = solidWhiteBrush;` |
+
+Missing in AGS but exists in MonoAGS: animations for button states, shadows + outlines/text brushes/alignments/auto-fitting, borders, see GUI controls for more.
+
+## InvWindow
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| ScrollDown | ScrollDown | `invMain.ScrollDown();` | `invMain.ScrollDown();` |
+| ScrollUp | ScrollUp | `invMain.ScrollUp();` | `invMain.ScrollUp();` |
+| CharacterToUse | Inventory | `invMain.CharacterToUse = cJack;` | `invMain.Inventory = cJack.Inventory;` |
+| ItemAtIndex | Inventory.Items[] | `item = invMain.ItemAtIndex[0];` | `item = invMain.Inventory.Items[0];` |
+| ItemCount | Inventory.Items.Count | `invMain.ItemCount` | `invMain.Inventory.Items.Count` |
+| ItemHeight | ItemSize.Height | `invMain.ItemHeight = 30;` | `invMain.ItemSize = new SizeF(50, 30);` |
+| ItemWidth | ItemSize.Width | `invMain.ItemWidth = 50;` | `invMain.ItemSize = new SizeF(50, 30);` |
+| ItemsPerRow | ItemsPerRow | `invMain.ItemsPerRow` | `invMain.ItemsPerRow` |
+| RowCount | RowCount | `invMain.RowCount` | `invMain.RowCount` |
+| TopItem | TopItem | `invMain.TopItem = 0;` | `invMain.TopItem = 0;` |
+
+Missing in AGS but exists in MonoAGS: The ability to attach inventories (and show them in the inventory window) to non-characters, see GUI controls for more.
+
+## Label
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| Font | TextConfig.Font | `lblStatus.Font = eFontMain;` | `lblStatus.TextConfig.Font = Fonts.Main;` |
+| Text | Text | `lblStatus.Text = "Play";` | `lblStatus.Text = "Play";` |
+| TextColor | TextConfig.Brush | `lblStatus.TextColor = 15;` | `lblStatus.TextConfig.Brush = solidWhiteBrush;` |
+
+Missing in AGS but exists in MonoAGS: shadows + outlines/text brushes/alignments/auto-fitting, borders, see GUI controls for more.
+
+## ListBox
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| AddItem | Items.Add | `lstChoices.AddItem("Hello");` | `lstChoices.Items.Add(new AGSStringItem("Hello"));` |
+| Clear | Items.Clear | `lstChoices.Clear();` | `lstChoices.Items.Clear();` |
+| FillDirList | ? | `lstSaveGames.FillDirList("agssave.*");` | ? |
+| FillSaveGameList | ? | `lstSaveGames.FillSaveGameList();` | ? |
+| GetItemAtLocation | hitTest.ObjectAtMousePosition | `lstOptions.GetItemAtLocation(mouse.x, mouse.y)` | `hitTest.ObjectAtMousePosition` | Missing support for specific location checks.
+| InsertItemAt | Items.Insert | `lstChoices.InsertItemAt(1, "Third item");` | `lstChoices.Items.Insert(1, new AGSStringItem("Third item"));` |
+| RemoveItem | Items.RemoveAt | `lstChoices.RemoveItem(0);` | `lstChoices.Items.RemoveAt(0);` |
+| ScrollDown | ? | `lstTest.ScrollDown();` |
+| ScrollUp | ? | `lstTest.ScrollUp();` |
+| Font | either set fonts on individual rows in the listbox, or set a default font in the factory | `lstSaveGames.Font = eFontSpeech;` | For individual rows: `lstSaveGames.ItemButtons[3].TextConfig.Font = Fonts.MyFont;`, a global font using a factory: `var defaultFactory = lstSaveGames.ItemButtonFactory; lstSaveGames.ItemButtonFactory = text => { var button = defaultFactory(text); button.TextConfig.Font = Fonts.MyFont; }` |
+| HideBorder | Border | `lstSaveGames.HideBorder = true;` | `lstSaveGames.Border = null;` |
+| HideScrollArrows | Scrolling component.Vertical/HorizontalScrollBar | `lstSaveGames.HideScrollArrows = true;` | `var scrolling = lstSaveGames.GetComponent<IScrollingComponent>(); scrolling.VerticalScrollBar = null;` |
+| ItemCount | Items.Count | `lstChoices.ItemCount` | `lstChoices.Items.Count` |
+| Items | Items | `lstOptions.Items[3]` | `lstOptions.Items[3]` |
+| RowCount | ? | `lstOptions.RowCount` | ? | Note, that the listbox in `MonoAGS` has a smooth scrollbar, meaning it might show part of a row if the scrollbar is set just in the middle of the row.
+| SaveGameSlots | ? | `lstSaveGames.SaveGameSlots[index]` | ? |
+| SelectedIndex | SelectedIndex | `lstSaveGames.SelectedIndex` | `lstSaveGames.SelectedIndex` |
+| TopItem | ? | `lstSaveGames.TopItem = 0;` | ? |
+
+Missing in AGS but exists in MonoAGS: smooth scrolling for the listbox, SelectedItem, control individual appearances of rows/scrollbars/panel, allow automatic resizing of the box with minimum and maximum height, change events, search filter, see GUI controls for more.
+
+## Slider
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------+
+| BackgroundGraphic | Graphics | `sldHealth.BackgroundGraphic = 5;` | `sldHealth.Graphics = animatedSliderBackground;` |
+| HandleGraphic | HandleGraphics | `sldHealth.HandleGraphic = 6;` | `sldHealth.HandleGraphics = animatedSliderHandle;` |
+| HandleOffset | Add the jump component to the handle graphics | `sldHealth.HandleOffset = 2;` | `var jump = sldHealth.HandleGraphics.AddComponent<IJumpOffsetComponent>(); jump.JumpOffset = new PointF(2, 0);` |
+| Max | MaxValue | `sldHealth.Max = 200;` | `sldHealth.MaxValue = 200;` |
+| Min | MinValue | `sldHealth.Min = 200;` | `sldHealth.MinValue = 200;` |
+| Value | Value | `sldHealth.Value = 100;` | `sldHealth.Value = 100;` |
+
+Missing in AGS but exists in MonoAGS: animations for slider background + handle, subscribing to slider events, non-integer values for the slider, see GUI controls for more.
+
+## Text Box
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------+
+| Font | TextConfig.Font | `txtUserInput.Font = eFontNormal;` | `txtUserInput.TextConfig.Font = Fonts.MyFont;` |
+| Text | Text | `txtUserInput.Text = "Hello";` | `txtUserInput.Text = "Hello";` |
+| TextColor | TextConfig.Brush | `txtUserInput.TextColor = 5;` | `txtUserInput.TextConfig.Brush = solidRedBrush;` |
+
+Missing in AGS but exists in MonoAGS: configuring background color/shadows + outlines/text brushes/borders/alignments/auto-fitting, configure caret flashing speed, query and set the caret position, set a watermark for the textbox, focus/unfocus, subscribe to text change events on the textbox with the option to undo entered text, see GUI controls for more.
+
+
