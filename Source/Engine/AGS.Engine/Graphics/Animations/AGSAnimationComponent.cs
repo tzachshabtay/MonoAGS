@@ -1,11 +1,13 @@
 ﻿using AGS.API;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace AGS.Engine
 {
-	public class AGSAnimationComponent : AGSComponent, IAnimationComponent
+	public class AGSAnimationComponent : AGSComponent, IAnimationComponent, ISpriteProvider
 	{
         private IScale _scale;
+        private ISpriteRenderComponent _spriteRender;
 
 		public AGSAnimationComponent()
 		{
@@ -16,15 +18,12 @@ namespace AGS.Engine
 
         public IBlockingEvent OnAnimationStarted { get; private set; }
 
-		public bool DebugDrawPivot { get; set; }
-
-		public IBorderStyle Border { get; set; }
-
 		public override void Init(IEntity entity)
         {
             base.Init(entity);
             entity.Bind<IScaleComponent>(c => _scale = c, c => _scale = null);
-        }        
+            entity.Bind<ISpriteRenderComponent>(c => _spriteRender = c, c => _spriteRender = null);
+        }
 
         public void StartAnimation(IAnimation animation)
 		{
@@ -34,11 +33,18 @@ namespace AGS.Engine
                 scale.BaseSize = new SizeF(animation.Frames[0].Sprite.Width, animation.Frames[0].Sprite.Height);
 			}
 			IAnimation currentAnimation = Animation;
-			currentAnimation?.State.OnAnimationCompleted.TrySetResult (new AnimationCompletedEventArgs (false));
-			
-			Animation = animation;
+            if (currentAnimation != null)
+            {
+                currentAnimation.State.PropertyChanged -= OnAnimationStatePropertyChanged;
+                currentAnimation.State.OnAnimationCompleted.TrySetResult(new AnimationCompletedEventArgs(false));
+            }
+
+            Animation = animation;
+            animation.State.PropertyChanged += OnAnimationStatePropertyChanged;
             OnAnimationStarted.Invoke();
-		}
+            if (_spriteRender != null)
+                _spriteRender.SpriteProvider = this;
+        }
 
 		public AnimationCompletedEventArgs Animate (IAnimation animation)
 		{
@@ -50,7 +56,17 @@ namespace AGS.Engine
 		{
 			StartAnimation (animation);
 			return await animation.State.OnAnimationCompleted.Task;
-		}        
-	}
-}
+		}
 
+        public ISprite Sprite { get => Animation?.Sprite; }
+
+        private void OnAnimationStatePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(IAnimationState.CurrentFrame))
+                return;
+            // resend property changed event to notify that ISpriteProvider.Sprite has new value
+            OnPropertyChanged(nameof(Sprite));
+        }
+
+    }
+}

@@ -16,6 +16,7 @@ namespace AGS.Engine
     public partial class AGSObject : AGSEntity, IObject
     {
         private IHasRoomComponent _hasRoom;
+        private ISpriteRenderComponent _spriteRender;
         private IAnimationComponent _animationContainer;
         private IInObjectTreeComponent _inObjectTree;
         private IColliderComponent _collider;
@@ -36,7 +37,9 @@ namespace AGS.Engine
         public AGSObject(string id, Resolver resolver) : base(id, resolver)
         {            
             _hasRoom = AddComponent<IHasRoomComponent>();
-            Bind<IHasRoomComponent>(c => _hasRoom = c, _ => {});            
+            Bind<IHasRoomComponent>(c => _hasRoom = c, _ => {});
+            _spriteRender = AddComponent<ISpriteRenderComponent>();
+            Bind<ISpriteRenderComponent>(c => _spriteRender = c, _ => { });
             _animationContainer = AddComponent<IAnimationComponent>();
             Bind<IAnimationComponent>(c => _animationContainer = c, _ => {});            
             _inObjectTree = AddComponent<IInObjectTreeComponent>();
@@ -110,6 +113,33 @@ namespace AGS.Engine
 
         #endregion
 
+        #region ISpriteRender implementation
+
+        public ISprite CurrentSprite
+        {
+            get { return _spriteRender.CurrentSprite; }
+        }
+
+        public ISpriteProvider SpriteProvider
+        {
+            get { return _spriteRender.SpriteProvider; }
+            set { _spriteRender.SpriteProvider = value; }
+        }
+
+        public Boolean DebugDrawPivot
+        {
+            get { return _spriteRender.DebugDrawPivot; }
+            set { _spriteRender.DebugDrawPivot = value; }
+        }
+
+        public IBorderStyle Border
+        {
+            get { return _spriteRender.Border; }
+            set { _spriteRender.Border = value; }
+        }
+
+        #endregion
+
         #region IAnimationContainer implementation
 
         public IAnimation Animation 
@@ -117,21 +147,9 @@ namespace AGS.Engine
             get { return _animationContainer.Animation; } 
         }
 
-        public Boolean DebugDrawPivot 
-        {  
-            get { return _animationContainer.DebugDrawPivot; }  
-            set { _animationContainer.DebugDrawPivot = value; } 
-        }
-
         public IBlockingEvent OnAnimationStarted 
         {  
             get { return _animationContainer.OnAnimationStarted; } 
-        }
-
-        public IBorderStyle Border 
-        {  
-            get { return _animationContainer.Border; }  
-            set { _animationContainer.Border = value; } 
         }
 
         public void StartAnimation(IAnimation animation)

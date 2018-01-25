@@ -16,7 +16,7 @@ namespace AGS.Engine
         private IPanel _treePanel, _scrollingPanel, _parent;
         private ITextBox _searchBox;
 
-        private IAnimationComponent _lastSelectedObject;
+        private ISpriteRenderComponent _lastSelectedObject;
         private IVisibleComponent _lastSelectedMaskVisible;
         private IImageComponent _lastSelectedMaskImage;
         private IBorderStyle _lastObjectBorder;
@@ -113,19 +113,19 @@ namespace AGS.Engine
         { 
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
             _inspector.Inspector.Show(obj);
-            var animation = obj.GetComponent<IAnimationComponent>();
+            var spriteRender = obj.GetComponent<ISpriteRenderComponent>();
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
-            if (animation != null)
+            if (spriteRender != null)
             {
-                _lastSelectedObject = animation;
+                _lastSelectedObject = spriteRender;
                 IBorderStyle border = null;          
-                border = animation.Border;
+                border = spriteRender.Border;
                 _lastObjectBorder = border;
                 IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
                                                                                       Colors.Yellow.WithAlpha(150), Colors.Yellow), 1, true);
-                if (border == null) animation.Border = hoverBorder;
-                else animation.Border = AGSBorders.Multiple(border, hoverBorder);
+                if (border == null) spriteRender.Border = hoverBorder;
+                else spriteRender.Border = AGSBorders.Multiple(border, hoverBorder);
             }
             if (visibleComponent != null)
             {

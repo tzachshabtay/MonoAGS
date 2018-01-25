@@ -12,7 +12,7 @@ namespace AGS.Engine
         private IImageComponent _imageComponent;
         private IVisibleComponent _visibleComponent;
         private IDrawableInfoComponent _drawableComponent;
-        private IAnimationComponent _animationComponent;
+        private ISpriteRenderComponent _spriteComponent;
         private IUIEvents _uiEvents;        
         private IInObjectTreeComponent _tree;
         private IHasRoomComponent _room;
@@ -78,15 +78,15 @@ namespace AGS.Engine
             _withCaret.Pivot = new PointF(0f, 0f);
             _withCaret.TextBackgroundVisible = false;
 
-            entity.Bind<IAnimationComponent>(c =>
+            entity.Bind<ISpriteRenderComponent>(c =>
             {
-                c.PropertyChanged += onAnimationPropertyChanged;
-                _animationComponent = c;
+                c.PropertyChanged += onSpritePropertyChanged;
+                _spriteComponent = c;
                 updateBorder();
             }, c =>
             {
-                c.PropertyChanged -= onAnimationPropertyChanged;
-                _animationComponent = null;
+                c.PropertyChanged -= onSpritePropertyChanged;
+                _spriteComponent = null;
                 updateBorder();
             });
 
@@ -108,15 +108,15 @@ namespace AGS.Engine
             updateWatermark();
         }
 
-        private void onAnimationPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void onSpritePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(IAnimationComponent.Border)) return;
+            if (e.PropertyName != nameof(ISpriteRenderComponent.Border)) return;
             updateBorder();
         }
 
         private void updateBorder()
         {
-            _withCaret.Border = _animationComponent?.Border;
+            _withCaret.Border = _spriteComponent?.Border;
         }
 
         public override void AfterInit()

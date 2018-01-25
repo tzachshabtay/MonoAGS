@@ -45,7 +45,7 @@ namespace AGS.Engine
 
         public void Render(IObject obj, IViewport viewport)
 		{
-            ISprite sprite = obj.Animation?.Sprite;
+            ISprite sprite = obj.CurrentSprite;
             if (sprite == null || sprite.Image == null)
             {
                 return;
