@@ -58,6 +58,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Graphics\Drawing\AGSSpriteRenderComponent.cs" />
     <Compile Include="Graphics\Image\AGSHasImage.cs" />
     <Compile Include="Graphics\Image\AGSImageComponent.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLUtils.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Serialization\AGSSerializationContext.cs" />
     <Compile Include="Serialization\Contract.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimation.cs" />
+    <Compile Include="Serialization\Contracts\ContractSpriteRenderComponent.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimationConfiguration.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimationComponent.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimationFrame.cs" />
