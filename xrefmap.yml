@@ -2851,6 +2851,30 @@ references:
   commentId: Overload:AGS.API.IAnimationComponent.Animation
   fullName: AGS.API.IAnimationComponent.Animation
   nameWithType: IAnimationComponent.Animation
+- uid: AGS.API.IAnimationComponent.Border
+  name: Border
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Border
+  commentId: P:AGS.API.IAnimationComponent.Border
+  fullName: AGS.API.IAnimationComponent.Border
+  nameWithType: IAnimationComponent.Border
+- uid: AGS.API.IAnimationComponent.Border*
+  name: Border
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Border_
+  commentId: Overload:AGS.API.IAnimationComponent.Border
+  fullName: AGS.API.IAnimationComponent.Border
+  nameWithType: IAnimationComponent.Border
+- uid: AGS.API.IAnimationComponent.DebugDrawPivot
+  name: DebugDrawPivot
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_DebugDrawPivot
+  commentId: P:AGS.API.IAnimationComponent.DebugDrawPivot
+  fullName: AGS.API.IAnimationComponent.DebugDrawPivot
+  nameWithType: IAnimationComponent.DebugDrawPivot
+- uid: AGS.API.IAnimationComponent.DebugDrawPivot*
+  name: DebugDrawPivot
+  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_DebugDrawPivot_
+  commentId: Overload:AGS.API.IAnimationComponent.DebugDrawPivot
+  fullName: AGS.API.IAnimationComponent.DebugDrawPivot
+  nameWithType: IAnimationComponent.DebugDrawPivot
 - uid: AGS.API.IAnimationComponent.OnAnimationStarted
   name: OnAnimationStarted
   href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_OnAnimationStarted
@@ -12109,78 +12133,6 @@ references:
   commentId: Overload:AGS.API.ISprite.Clone
   fullName: AGS.API.ISprite.Clone
   nameWithType: ISprite.Clone
-- uid: AGS.API.ISpriteProvider
-  name: ISpriteProvider
-  href: api/AGS.API.ISpriteProvider.html
-  commentId: T:AGS.API.ISpriteProvider
-  fullName: AGS.API.ISpriteProvider
-  nameWithType: ISpriteProvider
-- uid: AGS.API.ISpriteProvider.Sprite
-  name: Sprite
-  href: api/AGS.API.ISpriteProvider.html#AGS_API_ISpriteProvider_Sprite
-  commentId: P:AGS.API.ISpriteProvider.Sprite
-  fullName: AGS.API.ISpriteProvider.Sprite
-  nameWithType: ISpriteProvider.Sprite
-- uid: AGS.API.ISpriteProvider.Sprite*
-  name: Sprite
-  href: api/AGS.API.ISpriteProvider.html#AGS_API_ISpriteProvider_Sprite_
-  commentId: Overload:AGS.API.ISpriteProvider.Sprite
-  fullName: AGS.API.ISpriteProvider.Sprite
-  nameWithType: ISpriteProvider.Sprite
-- uid: AGS.API.ISpriteRenderComponent
-  name: ISpriteRenderComponent
-  href: api/AGS.API.ISpriteRenderComponent.html
-  commentId: T:AGS.API.ISpriteRenderComponent
-  fullName: AGS.API.ISpriteRenderComponent
-  nameWithType: ISpriteRenderComponent
-- uid: AGS.API.ISpriteRenderComponent.Border
-  name: Border
-  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_Border
-  commentId: P:AGS.API.ISpriteRenderComponent.Border
-  fullName: AGS.API.ISpriteRenderComponent.Border
-  nameWithType: ISpriteRenderComponent.Border
-- uid: AGS.API.ISpriteRenderComponent.Border*
-  name: Border
-  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_Border_
-  commentId: Overload:AGS.API.ISpriteRenderComponent.Border
-  fullName: AGS.API.ISpriteRenderComponent.Border
-  nameWithType: ISpriteRenderComponent.Border
-- uid: AGS.API.ISpriteRenderComponent.CurrentSprite
-  name: CurrentSprite
-  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_CurrentSprite
-  commentId: P:AGS.API.ISpriteRenderComponent.CurrentSprite
-  fullName: AGS.API.ISpriteRenderComponent.CurrentSprite
-  nameWithType: ISpriteRenderComponent.CurrentSprite
-- uid: AGS.API.ISpriteRenderComponent.CurrentSprite*
-  name: CurrentSprite
-  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_CurrentSprite_
-  commentId: Overload:AGS.API.ISpriteRenderComponent.CurrentSprite
-  fullName: AGS.API.ISpriteRenderComponent.CurrentSprite
-  nameWithType: ISpriteRenderComponent.CurrentSprite
-- uid: AGS.API.ISpriteRenderComponent.DebugDrawPivot
-  name: DebugDrawPivot
-  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_DebugDrawPivot
-  commentId: P:AGS.API.ISpriteRenderComponent.DebugDrawPivot
-  fullName: AGS.API.ISpriteRenderComponent.DebugDrawPivot
-  nameWithType: ISpriteRenderComponent.DebugDrawPivot
-- uid: AGS.API.ISpriteRenderComponent.DebugDrawPivot*
-  name: DebugDrawPivot
-  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_DebugDrawPivot_
-  commentId: Overload:AGS.API.ISpriteRenderComponent.DebugDrawPivot
-  fullName: AGS.API.ISpriteRenderComponent.DebugDrawPivot
-  nameWithType: ISpriteRenderComponent.DebugDrawPivot
-- uid: AGS.API.ISpriteRenderComponent.SpriteProvider
-  name: SpriteProvider
-  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_SpriteProvider
-  commentId: P:AGS.API.ISpriteRenderComponent.SpriteProvider
-  fullName: AGS.API.ISpriteRenderComponent.SpriteProvider
-  nameWithType: ISpriteRenderComponent.SpriteProvider
-- uid: AGS.API.ISpriteRenderComponent.SpriteProvider*
-  name: SpriteProvider
-  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_SpriteProvider_
-  commentId: Overload:AGS.API.ISpriteRenderComponent.SpriteProvider
-  fullName: AGS.API.ISpriteRenderComponent.SpriteProvider
-  nameWithType: ISpriteRenderComponent.SpriteProvider
 - uid: AGS.API.ISpriteSheet
   name: ISpriteSheet
   href: api/AGS.API.ISpriteSheet.html
