@@ -6,7 +6,6 @@
     /// if the <see cref="IPixelPerfectComponent"/> exists and enabled.
     /// </summary>
 	[RequiredComponent(typeof(IDrawableInfoComponent))]
-	[RequiredComponent(typeof(IAnimationComponent))]
     [RequiredComponent(typeof(IScaleComponent))]
     [RequiredComponent(typeof(IPixelPerfectComponent))]
 	public interface IColliderComponent : IComponent

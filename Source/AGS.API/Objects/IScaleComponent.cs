@@ -96,7 +96,6 @@ namespace AGS.API
     /// Allows scaling (changing the size of) an entity.
     /// </summary>
     [RequiredComponent(typeof(IImageComponent))]
-    [RequiredComponent(typeof(IAnimationComponent), false)]
     public interface IScaleComponent : IScale, IComponent
     {
     }

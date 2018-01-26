@@ -6,7 +6,6 @@
     /// </summary>
     [RequiredComponent(typeof(IModelMatrixComponent))]
     [RequiredComponent(typeof(IImageComponent))]
-    [RequiredComponent(typeof(IAnimationComponent))]
     [RequiredComponent(typeof(IDrawableInfoComponent))]
     [RequiredComponent(typeof(IHasRoomComponent))]
     [RequiredComponent(typeof(ICropSelfComponent), false)]

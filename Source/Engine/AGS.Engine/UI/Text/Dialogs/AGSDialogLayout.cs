@@ -40,7 +40,7 @@ namespace AGS.Engine
 				dialogGraphics.Image = new EmptyImage (_game.Settings.VirtualResolution.Width, y);
 			}
 
-			dialogGraphics.Animation.Sprite.ScaleTo(_game.Settings.VirtualResolution.Width, y);
+			dialogGraphics.CurrentSprite.ScaleTo(_game.Settings.VirtualResolution.Width, y);
 		}
 
 		#endregion

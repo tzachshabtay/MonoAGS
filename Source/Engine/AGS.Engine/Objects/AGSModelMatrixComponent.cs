@@ -13,7 +13,7 @@ namespace AGS.Engine
         private int _shouldFireOnUnlock, _pendingLocks;
         private ModelMatrices _matrices, _preLockMatrices;
 
-        private IAnimationComponent _animationComponent;
+        private ISpriteRenderComponent _spriteRender;
         private IInObjectTreeComponent _tree;
         private IScaleComponent _scale;
         private ITranslateComponent _translate;
@@ -26,7 +26,6 @@ namespace AGS.Engine
         private ISprite _sprite;
         private IJumpOffsetComponent _jump;
         private ILabelRenderer _labelRenderer;
-        private IAnimation _lastAnimation;
         private IRoom _lastRoom;
 
         private readonly Size _virtualResolution;
@@ -58,9 +57,9 @@ namespace AGS.Engine
 
         public override void AfterInit()
         {
-            _entity.Bind<IAnimationComponent>(
-                c => { _animationComponent = c; _animationComponent.PropertyChanged += onAnimationChanged; onSomethingChanged(); },
-                c => { _animationComponent = null; _animationComponent.PropertyChanged -= onAnimationChanged; onSomethingChanged(); });
+            _entity.Bind<ISpriteRenderComponent>(
+                c => { _spriteRender = c; _spriteRender.PropertyChanged += onSpriteChanged; onSomethingChanged(); },
+                c => { _spriteRender = null; _spriteRender.PropertyChanged -= onSpriteChanged; onSomethingChanged(); });
             _entity.Bind<IHasRoomComponent>(
                 c => { _room = c; refreshAreaScaling(); subscribeRoom(); onSomethingChanged(); },
                 c => { unsubscribeRoom(c); _room = null; refreshAreaScaling(); onSomethingChanged(); });
@@ -183,30 +182,16 @@ namespace AGS.Engine
             }
         }
 
-        private void onAnimationChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(IAnimationComponent.Animation)) return;
-            unsubscribeSprite(_sprite);
-            var lastAnimation = _lastAnimation;
-            if (lastAnimation != null) lastAnimation.State.PropertyChanged -= onAnimationStateChanged;
-            lastAnimation = _animationComponent.Animation;
-            _lastAnimation = lastAnimation;
-            _sprite = lastAnimation?.Sprite;
-            subscribeSprite(_sprite);
-            lastAnimation.State.PropertyChanged += onAnimationStateChanged;
-            onSomethingChanged();
-        }
-
-        private void onAnimationStateChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(IAnimationState.CurrentFrame)) return;
-            unsubscribeSprite(_sprite);
-            _sprite = _lastAnimation?.Sprite;
-            subscribeSprite(_sprite);
-            onSomethingChanged();
-        }
-
         private void onSpriteChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(ISpriteRenderComponent.CurrentSprite)) return;
+            unsubscribeSprite(_sprite);
+            _sprite = _spriteRender?.CurrentSprite;
+            subscribeSprite(_sprite);
+            onSomethingChanged();
+        }
+
+        private void onSpritePropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(ISprite.X) && args.PropertyName != nameof(ISprite.Y) &&
                 args.PropertyName != nameof(ISprite.ScaleX) && args.PropertyName != nameof(ISprite.ScaleY) &&
@@ -344,9 +329,9 @@ namespace AGS.Engine
 
         private Matrix4 getMatrix(PointF resolutionFactor) 
         {
-            var animation = _animationComponent;
-            if (animation == null || animation.Animation == null) return Matrix4.Identity;
-            var sprite = animation.Animation.Sprite;
+            if (_spriteRender == null || _spriteRender.CurrentSprite == null)
+                return Matrix4.Identity;
+            var sprite = _spriteRender.CurrentSprite;
             Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, null,
                                                   NoScaling, resolutionFactor, true);
             Matrix4 objMatrix = getModelMatrix(_scale, _rotate, _translate, _image,
