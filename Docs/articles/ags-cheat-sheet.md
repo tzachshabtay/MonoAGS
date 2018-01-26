@@ -50,8 +50,8 @@ Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/P
 | FaceObject | FaceDirection | `cEgo.FaceObject(oFridge, eBlock);` | Non-blocking: `cEgo.FaceDirectionAsync(oFridge);`, blocking: `await cEgo.FaceDirectionAsync(oFridge);` | Missing support for "turning" animation.
 | FollowCharacter | Follow | `cBadGuy.FollowCharacter(cEgo);` | `cBadGuy.Follow(cEgo);` | Note that in MonoAGS you can follow more than just characters, including objects and even GUIs.
 | GetAtScreenXY | IHitTest.ObjectAtMousePosition | `if (Character.GetAtScreenXY(mouse.x, mouse.y) == cEgo){}` | `if (hitTest.ObjectAtMousePosition == cEgo) {}` | Missing support for specific location checks.
-| GetProperty | Ints.GetValue | `if (cEgo.GetProperty("Value") > 200) {}` | `if (cEgo.Ints.GetValue("Value") > 200) {}` |
-| GetTextProperty | Strings.GetValue | `cEgo.GetTextProperty("Description");` | `cEgo.Strings.GetValue("Description");` |
+| GetProperty | Properties.Ints.GetValue | `if (cEgo.GetProperty("Value") > 200) {}` | `if (cEgo.Properties.Ints.GetValue("Value") > 200) {}` |
+| GetTextProperty | Properties.Strings.GetValue | `cEgo.GetTextProperty("Description");` | `cEgo.Properties.Strings.GetValue("Description");` |
 | HasInventory | Inventory.Items.Contains | `if (cEgo.HasInventory(iKnife)) {}` | `if (cEgo.Inventory.Items.Contains(iKnife)) {}` |
 | IsCollidingWithChar | CollidesWith | `if (cEgo.IsCollidingWithChar(cGuy) == 1) {}` | `if (cEgo.CollidesWith(cGuy.X, cGuy.Y, state.Viewport)) {}` | Note that MonoAGS supports multiple viewports so we need to pass the viewport in which we'd like to test for collisions.
 | IsCollidingWithObject (character) | CollidesWith | `if (cEgo.IsCollidingWithChar(oBottle) == 1) {}` | `if (cEgo.CollidesWith(oBottle.X, oBottle.Y, state.Viewport)) {}` | Note that MonoAGS supports multiple viewports so we need to pass the viewport in which we'd like to test for collisions.
@@ -63,7 +63,7 @@ Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/P
 | Move (character) | set the outfit to an outfit without a walk animation | `cEgo.Move(155, 122, eBlock);` | Non-blocking: `cEgo.Outfit = idleOnlyOutfit; cEgo.WalkAsync(155, 122);`, blocking: `cEgo.Outfit = idleOnlyOutfit; await cEgo.WalkAsync(155, 122);` | No support currently for "walk anywhere"
 | PlaceOnWalkableArea | PlaceOnWalkableArea | `cEgo.PlaceOnWalkableArea();` | `cEgo.PlaceOnWalkableArea();` |
 | RemoveTint | Tint | `cEgo.RemoveTint();` | `cEgo.Tint = Colors.White;` |
-| RunInteraction | Interactions.OnInteract(Verb).InvokeAsync | `cEgo.RunInteraction(eModeTalk);` | `cEgo.Interactions.OnInteract("Speak").InvokeAsync();` |
+| RunInteraction | Interactions.OnInteract(Verb).InvokeAsync | `cEgo.RunInteraction(eModeTalk);` | `cEgo.Interactions.OnInteract(Verbs.Talk).InvokeAsync();` |
 | Say | SayAsync | `cEgo.Say("Hello!");` | `await cEgo.SayAsync("Hello!");` |
 | SayAt | ? | `cEgo.SayAt("Hello!", 50, 50);` | ? | While there's no direct equivalent currently, this can be worked around by providing a custom implementation for `ISayLocationProvider`.
 | SayBackground | SayAsync | `cEgo.SayBackground("Hello!");` | `cEgo.SayAsync("Hello!");` | There's no way in AGS to know when `SayBackground` completes. MonoAGS gives you the task completion API for this: `Task task = cEgo.SayAsync("Hello!"); ... while (!task.IsCompleted) {..}`, or simply: `Task task = cEgo.SayAsync("Hello!"); ... await task; `
@@ -92,7 +92,7 @@ Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/P
 | ID | ID | `cEgo.ID` | `cEgo.ID` |
 | IdleView | Outfit[Animations.Idle] | `cEgo.IdleView` | `cEgo.Outfit[Animations.Idle]` |
 | IgnoreLighting | ? | `cEgo.IgnoreLighting = 1;` | ? |
-| IgnoreWalkbehinds | ? | `cEgo.IgnoreWalkbehinds = true;` | ? |
+| IgnoreWalkbehinds | ? | `cEgo.IgnoreWalkbehinds = true;` | ? | Probably not really needed in MonoAGS- with the combination of render layers, Z and parent-child relationships you have the ability control rendering order more easily
 | InventoryQuantity | InventoryItem.Qty | `player.InventoryQuantity[iCash.ID]` | `iCash.Qty` |
 | Loop | Animation.State.CurrentLoop | `cEgo.Loop` | `cEgo.Animation.State.CurrentLoop` |
 | ManualScaling | IgnoreScalingArea | `cEgo.ManualScaling = true;` | `cEgo.IgnoreScalingArea = true;` | This is not a 1-to-1 fit. In MonoAGS you can still set manual scaling to be applied onto the walkable area scaling, even if `IgnoreScalingArea` is false.
@@ -435,7 +435,7 @@ Missing in AGS but exists in MonoAGS: smooth scrolling for the listbox, Selected
 ## Slider
 
 | AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
-|-----|---------|-------------|-----------------|-----------------------------------+
+|-----|---------|-------------|-----------------|-----------------------------------
 | BackgroundGraphic | Graphics | `sldHealth.BackgroundGraphic = 5;` | `sldHealth.Graphics = animatedSliderBackground;` |
 | HandleGraphic | HandleGraphics | `sldHealth.HandleGraphic = 6;` | `sldHealth.HandleGraphics = animatedSliderHandle;` |
 | HandleOffset | Add the jump component to the handle graphics | `sldHealth.HandleOffset = 2;` | `var jump = sldHealth.HandleGraphics.AddComponent<IJumpOffsetComponent>(); jump.JumpOffset = new PointF(2, 0);` |
@@ -448,11 +448,136 @@ Missing in AGS but exists in MonoAGS: animations for slider background + handle,
 ## Text Box
 
 | AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
-|-----|---------|-------------|-----------------|-----------------------------------+
+|-----|---------|-------------|-----------------|-----------------------------------
 | Font | TextConfig.Font | `txtUserInput.Font = eFontNormal;` | `txtUserInput.TextConfig.Font = Fonts.MyFont;` |
 | Text | Text | `txtUserInput.Text = "Hello";` | `txtUserInput.Text = "Hello";` |
 | TextColor | TextConfig.Brush | `txtUserInput.TextColor = 5;` | `txtUserInput.TextConfig.Brush = solidRedBrush;` |
 
 Missing in AGS but exists in MonoAGS: configuring background color/shadows + outlines/text brushes/borders/alignments/auto-fitting, configure caret flashing speed, query and set the caret position, set a watermark for the textbox, focus/unfocus, subscribe to text change events on the textbox with the option to undo entered text, see GUI controls for more.
 
+## Hotspot
 
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| GetAtScreenXY | IHitTest.ObjectAtMousePosition | `if (Hotspot.GetAtScreenXY(mouse.x, mouse.y) == hDoor){}` | `if (hitTest.ObjectAtMousePosition == hDoor) {}` | Missing support for specific location checks.
+| GetProperty | Properties.Ints.GetValue | `if (hDoor.GetProperty("Value") > 200) {}` | `if (hDoor.Properties.Ints.GetValue("Value") > 200) {}` |
+| GetTextProperty | Properties.Strings.GetValue | `hDoor.GetTextProperty("Description");` | `hDoor.Properties.Strings.GetValue("Description");` |
+| RunInteraction | Interactions.OnInteract(Verb).InvokeAsync | `hDoor.RunInteraction(eModeLookat);` | `hDoor.Interactions.OnInteract(Verbs.Look).InvokeAsync();` |
+| Enabled | Enabled | `hDoor.Enabled = false;` | `hDoor.Enabled = false;` |
+| ID | ID | `hDoor.ID` | `hDoor.ID` |
+| Name | Hotspot | `hDoor.Name` | `hDoor.Hotspot` |
+| WalkToX | WalkPoint.X | `hDoor.WalkToX` | `hDoor.WalkPoint.X` |
+| WalkToY | WalkPoint.Y | `hDoor.WalkToY` | `hDoor.WalkPoint.Y` |
+
+Missing in AGS but exists in MonoAGS: Change hotspot name at run-time, change hotspot walk-point at run-time, rotating/scaling hotspot area (at run-time), and as hotspot extends object, see Object for more.
+
+## Inventory Item
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| GetAtScreenXY | IHitTest.ObjectAtMousePosition | `if (InventoryItem.GetAtScreenXY(mouse.x, mouse.y) == iKnife){}` | `if (hitTest.ObjectAtMousePosition == iKnife.Graphics) {}` | Missing support for specific location checks.
+| GetProperty | Properties.Ints.GetValue | `if (iKnife.GetProperty("Value") > 200) {}` | `if (iKnife.Graphics.Properties.Ints.GetValue("Value") > 200) {}` |
+| GetTextProperty | Properties.Strings.GetValue | `iKnife.GetTextProperty("Description");` | `iKnife.Graphics.Properties.Strings.GetValue("Description");` |
+| IsInteractionAvailable | checking subscriber count on the interaction event | `if (iKeyring.IsInteractionAvailable(eModeLookat) == 0) {}` | `if (iKeyring.Interactions.OnInteract(Verbs.Look).SubscribersCount == 0) {}` |
+| RunInteraction | Interactions.OnInteract(Verb).InvokeAsync | `iKeyring.RunInteraction(eModeLookat);` | `iKeyring.Interactions.OnInteract(Verbs.Look).InvokeAsync();` |
+| CursorGraphic | CursorGraphics | `iKey.CursorGraphic = 5;` | `iKey.CursorGraphics = animatedKeyCursor;` |
+| Graphic | Graphics | `iKey.Graphic = 5;` | `iKey.Graphics = animatedKey;` |
+| ID | Graphics.ID | `iKey.ID` | `iKey.Graphics.ID` |
+| Name | Graphics.Hotspot | `iKey.Name` | `iKey.Graphics.Hotspot` |
+
+Missing in AGS but exists in MonoAGS: animated inventory items (and cursors), inventory items extend objects so you can do with them everything you can do with objects (rotate, scale, etc), see Object for more.
+
+## Maths
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| FloatToInt | Floor or Ceiling or Round followed by casting to int | `FloatToInt(10.7, eRoundNearest)` | `(int)Math.Round(10.7f)`
+| IntToFloat | cast to float | `IntToFloat(myIntValue)` | `(float)myIntValue` |
+| ArcCos | Acos | `float angle = Maths.ArcCos(1.0);` | `float angle = Math.Acos(1)`; |
+| ArcSin | Asin | `float angle = Maths.ArcSin(0.5);` | `float angle = Math.Asin(0.5f)`; |
+| ArcTan | Atan | `float angle = Maths.ArcTan(0.5);` | `float angle = Math.Atan(0.5f);` |
+| ArcTan2 | Atan2 | `float angle = Maths.ArcTan2(-862.42, 78.5149);` |
+| Cos | Cos | `float x = Maths.Cos(100);` | `float x = Math.Cos(100);` |
+| Cosh | Cosh | `float x = Maths.Cosh(100);` | `float x = Math.Cosh(100);` |
+| DegreesToRadians | MathUtils.DegreesToRadians | `float radians = Maths.DegreesToRadians(360.0);` | `float radians = MathUtils.DegreesToRadians(360);` |
+| Exp | Exp | `float expValue = Maths.Exp(2.302585093);` | `float expValue = Math.Exp(2.302585093f);` |
+| Log | Log | `float logVal = Maths.Log(9000.0);` | `float logVal = Math.Log(9000);` |
+| Log10 | Log10 | `float logVal = Maths.Log10(9000.0);` | `float logVal = Math.Log10(9000);` |
+| RadiansToDegrees | ? | `float val = Maths.RadiansToDegrees(angle);` | `float val = angle * (180f / Math.PI);` |
+| RaiseToPower | Pow | `float value = Maths.RaiseToPower(4.5, 3.0);` | `float value = Math.Pow(4.5f, 3);` |
+| Sin | Sin | `float value = Maths.Sin(50.0);` | `float value = Math.Sin(50);` |
+| Sinh | Sinh | `float value = Maths.Sinh(50.0);` | `float value = Math.Sinh(50);` |
+| Sqrt | Sqrt | `float value = Maths.Sqrt(9.0);` | `float value = Math.Sqrt(9);` |
+| Tan | Tan | `float value = Maths.Tan(9.0);` | `float value = Math.Tan(9);` |
+| Tanh | Tanh | `float value = Maths.Tanh(9.0);` | `float value = Math.Tan(9);` |
+| Pi | PI | `Maths.Pi` | `Math.PI` |
+
+Missing in AGS but exists in MonoAGS: well, almost nothing here is MonoAGS specific, this is all c# Math class, which you can view here: https://msdn.microsoft.com/en-us/library/system.math(v=vs.110).aspx
+Also, MonoAGS has some additional useful math methods in `MathUtils` like Lerp and Clamp which can be useful.
+
+## Mouse
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| ChangeModeGraphic | input.Cursor | `mouse.ChangeModeGraphic(eModeLookat, 120);` | `game.Input.Cursor = myLookCursor;` | Note that the AGS "ChangeModeGraphic" function changes how the mouse cursor automatically changes, and the example shown here changes the cursor manually. For automatic changes, each control scheme might have different methods that you need to call as the logic might be completely different. For the rotating cursors scheme, for example, you'd call `scheme.AddCursor(Verbs.Look, myLookCursor, true);`
+| ChangeModeHotspot | change the pivot point on the cursor's object | `mouse.ChangeModeHotspot(eModeWalkTo, 10, 10);` | `walkCursor.Pivot = new PointF(0.1f, 0.1f);` | Note that the pivot point is in relative co-ordinates to the graphics, so (0.5, 0.5) is the center of the image, for example.
+| ChangeModeView | input.Cursor | `mouse.ChangeModeView(eModeLookat, ROLLEYES);` | `game.Input.Cursor = myLookCursor;` | See notes on ChangeModeGraphic
+| DisableMode | ? | `mouse.DisableMode(eModeWalkto);` | ? |
+| EnableMode | ? | `mouse.EnableMode(eModeWalkto);` | ? |
+| GetModeGraphic | ? | `mouse.GetModeGraphic(eModeWalkto);` | ? | There's nothing specific, but you can just query the specific mouse cursor that you're interested about
+| IsButtonDown | LeftMouseButtonDown or RightMouseButtonDown | `if (mouse.IsButtonDown(eMouseRight)) {}` | `if (game.Input.RightMouseButtonDown)` |
+| SaveCursorUntilItLeaves | use the cursor component | when hovering over "myHotspot": `mouse.SaveCursorUntilItLeaves(); mouse.Mode = eModeTalk;` | `var cursorComponent = myHotspot.AddComponent<IHasCursorComponent>(); cursorComponent.SpecialCursor = myAnimatedSpecialCursorForThisHotspot;` |
+| SelectNextMode | ? | `Mouse.SelectNextMode()` | In MonoAGS, by choosing the `RotatingCursorsScheme` as your control scheme, this is already handled (and you can look at the code if you want to it differently)
+| SetBounds | Subscribe to mouse move event and change the position of the mouse accordingly | `mouse.SetBounds(160, 100, 320, 200);` | `game.Input.MouseMove.Subscribe(args => if (args.MousePosition.XWindow > 160) OpenTK.Mouse.SetPosition(160, args.MousePosition.YWindow));` |
+| SetPosition | OpenTK.Mouse.SetPosition | `mouse.SetPosition(160, 100);` | `OpenTK.Mouse.SetPosition(160, 100);` |
+| Update | ? | `mouse.Update();` | ? |
+| UseDefaultGraphic | ? | `mouse.UseDefaultGraphic();` | ? |
+| UseModeGraphic | N/A | `mouse.UseModeGraphic(eModeWait)` | ? | This can be different depending on the control scheme you chose for the game. For the RotatingCursorsScheme for example, you'd write: `scheme.Mode = Verbs.Wait;` |
+| Mode | input.Cursor | `if (mouse.Mode == eModeWalkto) {}` | `if (game.Input.Cursor == myWalkCursor) {}` | For individual control schemes, you might have the concept of "Mode", but it's not related to the mouse. In RotatingCursorsScheme, for example, you can query `if (scheme.Mode == Verbs.Walk) {}`.
+| Visible | Input.Cursor.Visible | `mouse.Visible = false;` | `game.Input.Cursor.Visible = false;`
+
+Missing in AGS but exists in MonoAGS: The cursors is just an extension of objects, so they can be manipulated in all ways an object can be manipulated (see Object for more).
+
+## Multimedia
+
+Currently no equivalents to any of the multimedia functions in MonoAGS.
+
+## Object
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| Animate  | AnimateAsync | `oRope.Animate(3, 1, 0, eBlock, eBackwards);` | For blocking: `await oRope.AnimateAsync(jumpUpAnimation);`. For non-blocking, do the same just without awaiting it: `oRope.AnimateAsync(jumpUpAnimation);`. As for delay, repeat style and direction, those are configured as part of the animation ("jumpUpAnimation" in this scenario). It can be changed at run-time before animating, if you want. For example: `jumpUpAnimation.Looping = LoopingStyle.BackwardsForwards; jumpUpAnimation.Loops = 15; jumpUpAnimation.DelayBetweenFrames = 3;` | Note that `MonoAGS` doesn't have the concepts of view and loop, just individual animations for manual animations, and directional animations for automatic animations like walk and idle.
+| GetAtScreenXY  | IHitTest.ObjectAtMousePosition | `if (Object.GetAtScreenXY(mouse.x, mouse.y) == oRope){}` | `if (hitTest.ObjectAtMousePosition == oRope) {}` | Missing support for specific location checks.
+| GetProperty | Properties.Ints.GetValue | `if (oRope.GetProperty("Value") > 200) {}` | `if (oRope.Properties.Ints.GetValue("Value") > 200) {}` |
+| GetTextProperty | Properties.Strings.GetValue | `oRope.GetTextProperty("Description");` | `oRope.Properties.Strings.GetValue("Description");` |
+| IsCollidingWithObject (character) | CollidesWith | `if (oRope.IsCollidingWithChar(oBottle) == 1) {}` | `if (oRope.CollidesWith(oBottle.X, oBottle.Y, state.Viewport)) {}` | Note that MonoAGS supports multiple viewports so we need to pass the viewport in which we'd like to test for collisions.
+| MergeIntoBackground | ? | `object[3].MergeIntoBackground();` | ? |
+| Move | TweenX & TweenY | `object[2].Move(125, 40, 4, eBlock);` | For blocking: `await oRope.TweenX(125, 3, Ease.Linear);`, for non-blocking do the same just without awaiting it: `oRope.TweenX(125, 3, Ease.Linear);` |
+| RemoveTint | Tint | `oRope.RemoveTint();` | `oRope.Tint = Colors.White;` |
+| RunInteraction | Interactions.OnInteract(Verb).InvokeAsync | `oRope.RunInteraction(eModeTalk);` | `oRope.Interactions.OnInteract(Verbs.Talk).InvokeAsync();` |
+| SetPosition | Location | `oRope.SetPosition(50, 50);` | `oRope.Location = new AGSLocation(50, 50);` |
+| SetView | N/A | `object[3].SetView(14);` | No need | In AGS this is a command that must come before calling "Animate" so that AGS would know which animation to run. In MonoAGS you just pass the animation object to the "Animate" function, so SetView becomes redundant.
+| StopAnimating | Set an image | `oRope.StopAnimating();` | `oRope.Image = oRope.CurrentSprite.Image`; |
+| StopMoving | Stop the previous tween(s) | `oRope.StopMoving();` | `tween.Stop(TweenCompletion.Stay);` |
+| Tint | Tint | `oRope.Tint(0, 250, 0, 30, 100);` | `oRope.Tint = Colors.Green;` or `cEoRopego.Tint = Color.FromRgba(0, 255, 0, 255);` or `oRope.Tint = Color.FromHsla(200, 1, 1, 255);` or `oRope.Tint = Color.FromHexa(59f442);` |
+| Animating | Animation.State.IsPaused | `if (oRope.Animating) {}` | `if (!oRope.Animation.State.IsPaused) {}` |
+| Baseline | Z | `oRope.Baseline = 40;` | `oRope.Z = 40;` |
+| BlockingHeight | ? | `oRope.BlockingHeight = 20;` | ? |
+| BlockingWidth | ? | `oRope.BlockingWidth = 20;` | ? |
+| Clickable | Enabled | `oRope.Clickable = false;` | `oRope.Enabled = false;` |
+| Frame | Animation.State.CurrentFrame | `oRope.Frame` | `oRope.Animation.State.CurrentFrame` |
+| Graphic | Image | `oRope.Graphic = 100;` | `oRope.Image = ropeImage;` |
+| ID | ID | `oRope.ID` | `oRope.ID` |
+| IgnoreScaling | IgnoreScalingArea | `oRope.IgnoreScaling = true;` | `oRope.IgnoreScalingArea = true;` |
+| IgnoreWalkbehinds | ? | `oRope.IgnoreWalkbehinds = true;` | ? | Probably not really needed in MonoAGS- with the combination of render layers, Z and parent-child relationships you have the ability control rendering order more easily
+| Loop | Animation.State.CurrentLoop | `oRope.Loop` | `oRope.Animation.State.CurrentLoop` |
+| Moving | query the previous tween(s) | `if (oRope.Moving) {}` | `if (myTween.State == TweenState.Playing) {}` |
+| Name | Hotspot | `oRope.Name` | `oRope.Hotspot` |
+| Solid | ? | `oRope.Solid = true;` | ? |
+| Transparency | Opacity | `oRope.Transparency = 100;` | `oRope.Opacity = 0;` | The range for AGS transparency is 0-100, the range for MonoAGS opacity is 0-255
+| View | Animation | `oRope.View` | `oRope.Animation` |
+| Visible | Visible | `oRope.Visible = true;` | `oRope.Visible = true;` |
+| X | X | `oRope.X = 50;` | `oRope.X = 50.5f;` |
+| Y | Y | `oRope.Y = 50;` | `oRope.Y = 50.5f;` |
+
+Missing in AGS but exists in MonoAGS: scaling and rotating (with setting a pivot point), the ability to scale/rotate/translate individual animation frames, composition of objects (i.e nesting objects in other objects), mix & match with GUI, move between rooms, different resolution from the game, custom rendering (including shaders), sub-pixel positioning, rendering in multiple viewports, creation at run-time, selecting between pixel perfect or bounding box collision checks, objects are transitive with all other on-screen items (characters, GUIs), cropping objects, surround with borders, set hotspot text at runtime, controlling texture offset & scaling filter (per texture), subscribing to events (on pretty much anything that might change in any of the components), interactions with custom verbs, ability to extend objects with custom components, ability to replace engine implementation of components with your own (i.e implement your own collider component and provide custom collision checks, for example).
