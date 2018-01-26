@@ -164,6 +164,10 @@ look when shown via the inspector.</p>
       <h4><a class="xref" href="AGS.API.PropertyFolderAttribute.html">PropertyFolderAttribute</a></h4>
       <section><p>Allows declaring a class as a folder of properties which can be expanded in the inspector.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.QueryLayoutEventArgs.html">QueryLayoutEventArgs</a></h4>
+      <section><p>Event arguments used by <a class="xref" href="AGS.API.ITreeTableLayout.html">ITreeTableLayout</a> when querying the rows for the layout.
+Each row should set a new column size for each column with a size smaller than what the row needs.</p>
+</section>
       <h4><a class="xref" href="AGS.API.RequiredComponentAttribute.html">RequiredComponentAttribute</a></h4>
       <section><p>A decorator for components, to hint that this component requires other components
 in order to function.
@@ -951,6 +955,13 @@ of the node.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ITreeStringNode.html">ITreeStringNode</a></h4>
       <section><p>A string tree node, which will be shown in a <a class="xref" href="AGS.API.ITreeViewComponent.html">ITreeViewComponent</a> .</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ITreeTableLayout.html">ITreeTableLayout</a></h4>
+      <section><p>Represents a layout of columns that is shared between nodes in a tree view, using a <a class="xref" href="AGS.API.ITreeTableRowLayoutComponent.html">ITreeTableRowLayoutComponent</a>.
+By sharing the interaces different nodes on the list can align the columns together.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ITreeTableRowLayoutComponent.html">ITreeTableRowLayoutComponent</a></h4>
+      <section><p>Represents a row in a tree view that aligns its columns with other rows, based on <a class="xref" href="AGS.API.ITreeTableLayout.html">ITreeTableLayout</a> .</p>
 </section>
       <h4><a class="xref" href="AGS.API.ITreeViewComponent.html">ITreeViewComponent</a></h4>
       <section><p>A component for displaying a hierarchical collection of text labels.
