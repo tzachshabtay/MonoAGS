@@ -15,23 +15,10 @@ namespace AGS.API
 		IAnimation Animation { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the pivot (the pivot point for position/rotate/scale) will 
-        /// be drawn on the screen as a cross. This can be used for debugging the game.
-        /// </summary>
-        /// <value><c>true</c> if debug draw pivot; otherwise, <c>false</c>.</value>
-		bool DebugDrawPivot { get; set; }
-
-        /// <summary>
         /// An event when fires whenever an animation is started on this container.
         /// </summary>
         /// <value>The event.</value>
         IBlockingEvent OnAnimationStarted { get; }
-
-        /// <summary>
-        /// Gets or sets a border that will (optionally) surround the animation.
-        /// </summary>
-        /// <value>The border.</value>
-		IBorderStyle Border { get; set; }
 
         /// <summary>
         /// Starts a new animation (this does not wait for the animation to complete).

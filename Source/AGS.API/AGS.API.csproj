@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Graphics\IImageComponent.cs" />
+    <Compile Include="Graphics\ISpriteRenderComponent.cs" />
     <Compile Include="Objects\Collisions\IPixelPerfectCollidable.cs" />
     <Compile Include="Objects\IDraggableComponent.cs" />
     <Compile Include="Objects\IRotateComponent.cs" />
