@@ -50,6 +50,25 @@ namespace AGS.Engine
             _onTreeChange?.Invoke();
         }
 
+        private void onListChanged(AGSListChangedEventArgs<IObject> args)
+        {
+            if (args.ChangeType == ListChangeType.Add)
+            {
+                foreach (var entity in args.Items)
+                {
+                    subscribeEntity(entity.Item);
+                }
+            }
+            else
+            {
+                foreach (var entity in args.Items)
+                {
+                    unsubscribeEntity(entity.Item);
+                }
+            }
+            _onTreeChange?.Invoke();
+        }
+
         private void subscribeEntity(IEntity entity)
         {
             foreach (var subscription in _subscriptions)
@@ -61,6 +80,7 @@ namespace AGS.Engine
                 var treeComponent = entity.GetComponent<IInObjectTreeComponent>();
                 if (treeComponent != null)
                 {
+                    treeComponent.TreeNode.Children.OnListChanged.Subscribe(onListChanged);
                     foreach (var child in treeComponent.TreeNode.Children)
                     {
                         subscribeEntity(child);
@@ -80,6 +100,7 @@ namespace AGS.Engine
                 var treeComponent = entity.GetComponent<IInObjectTreeComponent>();
                 if (treeComponent != null)
                 {
+                    treeComponent.TreeNode.Children.OnListChanged.Unsubscribe(onListChanged);
                     foreach (var child in treeComponent.TreeNode.Children)
                     {
                         unsubscribeEntity(child);
