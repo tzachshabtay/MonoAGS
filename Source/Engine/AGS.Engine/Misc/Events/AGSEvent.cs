@@ -19,7 +19,7 @@ namespace AGS.Engine
 
         #region IEvent implementation
 
-        public int SubscribersCount => _invocationList.Count;
+        public int SubscribersCount => _count;
 
         public void Subscribe (Action<TEventArgs> callback)
 		{
@@ -34,8 +34,9 @@ namespace AGS.Engine
 
 		public void Unsubscribe (Action<TEventArgs> callback)
 		{
-			if (!_invocationList.Remove(new Callback (callback)))
+			if (_invocationList.Remove(new Callback (callback)))
 			{
+                _count--;
 			}
 		}
 
@@ -98,7 +99,8 @@ namespace AGS.Engine
 
 		private void subscribeToAsync(Callback callback)
 		{
-			if (_invocationList.Count > MAX_SUBSCRIPTIONS)
+            _count++;
+            if (_count > MAX_SUBSCRIPTIONS)
 			{
 				Debug.WriteLine("Subscribe Overflow!!");
 				return;
@@ -108,8 +110,9 @@ namespace AGS.Engine
 
 		private void unsubscribeToAsync(Callback callback)
 		{
-			if (!_invocationList.Remove(callback))
+			if (_invocationList.Remove(callback))
 			{
+                _count--;
 			}
 		}
 
@@ -176,6 +179,7 @@ namespace AGS.Engine
 	{
 		private readonly IConcurrentHashSet<Callback> _invocationList;
 		private const int MAX_SUBSCRIPTIONS = 10000;
+        private int _count;
 
 		public AGSEvent()
 		{
@@ -184,11 +188,12 @@ namespace AGS.Engine
 
         #region IEvent implementation
 
-        public int SubscribersCount => _invocationList.Count;
+        public int SubscribersCount => _count;
 
         public void Subscribe(Action callback)
 		{
-			if (_invocationList.Count > MAX_SUBSCRIPTIONS)
+            _count++;
+            if (_count > MAX_SUBSCRIPTIONS)
 			{
 				Debug.WriteLine("Subscribe Overflow!");
 				return;
@@ -198,8 +203,9 @@ namespace AGS.Engine
 
 		public void Unsubscribe(Action callback)
 		{
-			if (!_invocationList.Remove(new Callback(callback)))
+			if (_invocationList.Remove(new Callback(callback)))
 			{
+                _count--;
 			}
 		}
 
@@ -261,7 +267,8 @@ namespace AGS.Engine
 
 		private void subscribeToAsync(Callback callback)
 		{
-			if (_invocationList.Count > MAX_SUBSCRIPTIONS)
+            _count++;
+            if (_count > MAX_SUBSCRIPTIONS)
 			{
 				Debug.WriteLine("Subscribe Overflow!!");
 				return;
@@ -271,8 +278,9 @@ namespace AGS.Engine
 
 		private void unsubscribeToAsync(Callback callback)
 		{
-			if (!_invocationList.Remove(callback))
+			if (_invocationList.Remove(callback))
 			{
+                _count--;
 			}
 		}
 
