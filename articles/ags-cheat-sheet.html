@@ -1,0 +1,3311 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>AGS Cheat Sheet | MonoAGS Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="AGS Cheat Sheet | MonoAGS Documentation ">
+    <meta name="generator" content="docfx 2.29.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ags-cheat-sheet">AGS Cheat Sheet</h1>
+
+<p>For people coming in from AGS, this is a &quot;cheat sheet&quot;, going over the AGS functions and properties and shows how to do the same in <code>MonoAGS</code>, or if something is missing, and also explaining some differences between the two.</p>
+<h2 id="audiochannel">AudioChannel</h2>
+<p>The equivalent in <code>MonoAGS</code> would be <code>ISound</code>. Both are returned when you&#39;re playing an audio clip. The difference between AGS channel and MonoAGS sound is that a sound relates to the specific sound you&#39;re playing, it &quot;dies&quot; when you finished playing the sound. The channel however lives on throughout the game and can play other sounds in the future, so you can&#39;t always trust it&#39;s playing the sound you requested.</p>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Seek</td>
+<td>Seek</td>
+<td><code>channel.Seek(milliseconds);</code></td>
+<td><code>sound.Seek = seconds;</code></td>
+<td>Milliseconds in AGS, seconds in MonoAGS. In AGS the value is int meaning you can&#39;t get a lower resolution than milliseconds. In MonoAGS the value is float meaning you can go as low in resolution as the hardware understands.</td>
+</tr>
+<tr>
+<td>SetRoomLocation</td>
+<td>?</td>
+<td><code>channel.SetRoomLocation(x,y);</code></td>
+<td>?</td>
+<td>MonoAGS has the concept of a sound emitter which automatically pans the sound based on the location in the room, and can set the volume based on volume-changing areas, but nothing currently specifically exists for volume based on distance from a character.</td>
+</tr>
+<tr>
+<td>Stop</td>
+<td>Stop</td>
+<td><code>channel.Stop();</code></td>
+<td><code>sound.Stop();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ID</td>
+<td>SourceID</td>
+<td><code>channel.ID</code></td>
+<td><code>sound.SourceID</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IsPlaying</td>
+<td>HasCompleted</td>
+<td><code>if (!channel.IsPlaying)</code></td>
+<td><code>if (sound.HasCompleted)</code></td>
+<td>If you want to check whether the sound you played completed playing, <code>MonoAGS</code> provides you with a better option: In AGS, <code>channel.IsPlaying</code> might return true even if your sound finished playing, because another sound is now being played on that channel.</td>
+</tr>
+<tr>
+<td>LengthMs</td>
+<td>?</td>
+<td><code>channel.LengthMs</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Panning</td>
+<td>Panning</td>
+<td><code>channel.Panning = -100;</code></td>
+<td><code>sound.Panning = -1;</code></td>
+<td>-100 - 100 in AGS, -1 - 1 in MonoAGS. In AGS the value is int (meaning you can only have 200 values) where in MonoAGS the value is float (when you can have a range as big as the hardware understands).</td>
+</tr>
+<tr>
+<td>PlayingClip</td>
+<td>?</td>
+<td><code>channel.PlayingClip</code></td>
+<td>?</td>
+<td>This is critical in AGS due to the fact the channel might be playing a lot of clips in its lifetime. Much less important in <code>MonoAGS</code> as you can know which clip the sound is coming from, because you&#39;re playing that sound.</td>
+</tr>
+<tr>
+<td>Position</td>
+<td>Seek</td>
+<td><code>if (channel.Position == 0)</code></td>
+<td><code>if (channel.Seek == 0)</code></td>
+<td>Milliseconds in AGS, seconds in MonoAGS</td>
+</tr>
+<tr>
+<td>Volume</td>
+<td>Volume</td>
+<td><code>channel.Volume = 100;</code></td>
+<td><code>sound.Volume = 1f;</code></td>
+<td>0 - 100 in AGS, 0 - 1 in MonoAGS. In AGS the value is int (meaning you can only have 200 values) where in MonoAGS the value is float (when you can have a range as big as the hardware understands).</td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: Pitch, Asynchronous completion API, Pause/Resume, Rewind, IsPaused, IsLooping, IsValid.</p>
+<h2 id="audioclip">AudioClip</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Play</td>
+<td>Play</td>
+<td><code>clip.Play(eAudioPriorityNormal, eOnce); clip.Play(eAudioPriorityNormal, eRepeat);</code></td>
+<td><code>clip.Play(false); clip.Play(true);</code></td>
+<td>There&#39;s no equivalence for audio priority currently.</td>
+</tr>
+<tr>
+<td>PlayFrom</td>
+<td>Seek the sound coming back from the clip.</td>
+<td><code>clip.PlayFrom(1000);</code></td>
+<td><code>var sound = clip.Play(); sound.Seek = 1;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>PlayQueued</td>
+<td>?</td>
+<td><code>clip.PlayQueued();</code></td>
+<td>?</td>
+<td>Note that in AGS the number of available channels is 10; In MonoAGS the number of available channels is based on what the running hardware provides, which, on modern machines is usually at least 32 (and on older machines, usually at least 16), so this feature becomes less important.</td>
+</tr>
+<tr>
+<td>Stop</td>
+<td>You can query all playing sounds and stop them</td>
+<td><code>clip.Stop();</code></td>
+<td><code>foreach (var sound in clip.CurrentlyPlayingSounds) sound.Stop();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>FileType</td>
+<td>?</td>
+<td><code>clip.FileType</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>IsAvailable</td>
+<td>?</td>
+<td><code>clip.IsAvailable</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Type</td>
+<td>?</td>
+<td><code>clip.Type</code></td>
+<td>?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/Panning (so you can change the template at runtime, not just from the editor), playing a clip while overriding default volume/pitch/panning.</p>
+<h2 id="character">Character</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AddInventory</td>
+<td>Inventory.Items.Add</td>
+<td><code>cEgo.AddInventory(iKey);</code></td>
+<td><code>cEgo.Inventory.Items.Add(iKey)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>AddWaypoint</td>
+<td>Either use <code>await</code> or <code>ContinueWith</code></td>
+<td><code>cSomeguy.Walk(160, 100); cSomeguy.AddWaypoint(50, 150);</code></td>
+<td>Using await: <code>private async Task walk() { await cSomeguy.WalkAsync(160, 100); await cSomeguy.WalkAsync(50, 150); }</code> (we can now call this walk method and either block (with another await) or doesn&#39;t block, it&#39;s up to us. Using ContinueWith: <code>cSomeguy.WalkAsync(160, 100).ContinueWith(_ =&gt; cSomeguy.WalkAsync(50, 150));</code></td>
+<td>Note what we gain using the <code>await</code> that we can&#39;t do with AGS: we can easily create an endless loop of non-blocking walking in circles: <code>private async void endlessWalk() { while (true) { await cSomeguy.WalkAsync(50, 150); await cSomeguy.WalkAsync(160, 100);}}</code></td>
+</tr>
+<tr>
+<td>Animate</td>
+<td>AnimateAsync</td>
+<td><code>cEgo.Animate(3, 1, 0, eBlock, eBackwards);</code></td>
+<td>For blocking: <code>await cEgo.AnimateAsync(jumpUpAnimation);</code>. For non-blocking, do the same just without awaiting it: <code>cEgo.AnimateAsync(jumpUpAnimation);</code>. As for delay, repeat style and direction, those are configured as part of the animation (&quot;jumpUpAnimation&quot; in this scenario). It can be changed at run-time before animating, if you want. For example: <code>jumpUpAnimation.Looping = LoopingStyle.BackwardsForwards; jumpUpAnimation.Loops = 15; jumpUpAnimation.DelayBetweenFrames = 3;</code></td>
+<td>Note that <code>MonoAGS</code> doesn&#39;t have the concepts of view and loop, just individual animations for manual animations, and directional animations for automatic animations like walk and idle.</td>
+</tr>
+<tr>
+<td>ChangeRoom</td>
+<td>ChangeRoomAsync</td>
+<td><code>cEgo.ChangeRoom(4, 50, 50);</code></td>
+<td><code>cEgo.ChangeRoomAsync(rLobby, 50, 50);</code></td>
+<td>Note that unlike AGS, you CAN wait for the change room to finish in your current script if you use await.</td>
+</tr>
+<tr>
+<td>ChangeRoomAutoPosition</td>
+<td>?</td>
+<td><code>cEgo.ChangeRoomAutoPosition()</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>ChangeView</td>
+<td>Outfit</td>
+<td><code>cEgo.ChangeView(5);</code></td>
+<td><code>cEgo.Outfit = outfitWithHat;</code></td>
+<td>Note that the concepts are not identical: <code>ChangeView</code> in AGS changes the walk animation, where <code>Outfit</code> in MonoAGS changes all animations in that outfit (which can be walk, idle, etc).</td>
+</tr>
+<tr>
+<td>FaceCharacter</td>
+<td>FaceDirection</td>
+<td><code>cEgo.FaceCharacter(cSomeGirl, eBlock);</code></td>
+<td>Non-blocking: <code>cEgo.FaceDirectionAsync(cSomeGirl);</code>, blocking: <code>await cEgo.FaceDirectionAsync(cSomeGirl);</code></td>
+<td>Missing support for &quot;turning&quot; animation.</td>
+</tr>
+<tr>
+<td>FaceLocation</td>
+<td>FaceDirection</td>
+<td><code>cEgo.FaceLocation(50, 50, eBlock);</code></td>
+<td>Non-blocking: <code>cEgo.FaceDirectionAsync(50, 50);</code>, blocking: <code>await cEgo.FaceDirectionAsync(50, 50);</code></td>
+<td>Missing support for &quot;turning&quot; animation.</td>
+</tr>
+<tr>
+<td>FaceObject</td>
+<td>FaceDirection</td>
+<td><code>cEgo.FaceObject(oFridge, eBlock);</code></td>
+<td>Non-blocking: <code>cEgo.FaceDirectionAsync(oFridge);</code>, blocking: <code>await cEgo.FaceDirectionAsync(oFridge);</code></td>
+<td>Missing support for &quot;turning&quot; animation.</td>
+</tr>
+<tr>
+<td>FollowCharacter</td>
+<td>Follow</td>
+<td><code>cBadGuy.FollowCharacter(cEgo);</code></td>
+<td><code>cBadGuy.Follow(cEgo);</code></td>
+<td>Note that in MonoAGS you can follow more than just characters, including objects and even GUIs.</td>
+</tr>
+<tr>
+<td>GetAtScreenXY</td>
+<td>IHitTest.ObjectAtMousePosition</td>
+<td><code>if (Character.GetAtScreenXY(mouse.x, mouse.y) == cEgo){}</code></td>
+<td><code>if (hitTest.ObjectAtMousePosition == cEgo) {}</code></td>
+<td>Missing support for specific location checks.</td>
+</tr>
+<tr>
+<td>GetProperty</td>
+<td>Properties.Ints.GetValue</td>
+<td><code>if (cEgo.GetProperty(&quot;Value&quot;) &gt; 200) {}</code></td>
+<td><code>if (cEgo.Properties.Ints.GetValue(&quot;Value&quot;) &gt; 200) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetTextProperty</td>
+<td>Properties.Strings.GetValue</td>
+<td><code>cEgo.GetTextProperty(&quot;Description&quot;);</code></td>
+<td><code>cEgo.Properties.Strings.GetValue(&quot;Description&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HasInventory</td>
+<td>Inventory.Items.Contains</td>
+<td><code>if (cEgo.HasInventory(iKnife)) {}</code></td>
+<td><code>if (cEgo.Inventory.Items.Contains(iKnife)) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IsCollidingWithChar</td>
+<td>CollidesWith</td>
+<td><code>if (cEgo.IsCollidingWithChar(cGuy) == 1) {}</code></td>
+<td><code>if (cEgo.CollidesWith(cGuy.X, cGuy.Y, state.Viewport)) {}</code></td>
+<td>Note that MonoAGS supports multiple viewports so we need to pass the viewport in which we&#39;d like to test for collisions.</td>
+</tr>
+<tr>
+<td>IsCollidingWithObject (character)</td>
+<td>CollidesWith</td>
+<td><code>if (cEgo.IsCollidingWithChar(oBottle) == 1) {}</code></td>
+<td><code>if (cEgo.CollidesWith(oBottle.X, oBottle.Y, state.Viewport)) {}</code></td>
+<td>Note that MonoAGS supports multiple viewports so we need to pass the viewport in which we&#39;d like to test for collisions.</td>
+</tr>
+<tr>
+<td>LockView</td>
+<td>Outfit</td>
+<td><code>cEgo.LockView(12);</code></td>
+<td><code>cEgo.Outfit = swimmingOutfit;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>LockViewAligned</td>
+<td>?</td>
+<td><code>cEgo.LockViewAligned(12, 1, eAlignLeft);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>LockViewFrame</td>
+<td>To display a still frame, use Image, for actual locking set a different outfit</td>
+<td><code>cEgo.LockViewFrame(AGHAST, 2, 4)</code></td>
+<td><code>cEgo.Image = cEgo.Outfit[Animations.Aghast].Left.Frames[4].Sprite.Image;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>LockViewOffset</td>
+<td>?</td>
+<td><code>cEgo.LockViewOffset(12, 1, -1);</code></td>
+<td>?</td>
+<td>Note that while there&#39;s no direct equivalent, you can change offsets for individual animation frames, so you can do that manually (at run-time if you desire), for example: <code>cEgo.Outfit[Animations.Walk].Left.Frames[0].Sprite.X = 5; //will offset the first left walking animation frame by 5 pixels to the right</code></td>
+</tr>
+<tr>
+<td>LoseInventory</td>
+<td>Inventory.Items.Remove</td>
+<td><code>cEgo.LoseInventory(iKnife);</code></td>
+<td><code>cEgo.Inventory.Items.Remove(iKnife);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Move (character)</td>
+<td>set the outfit to an outfit without a walk animation</td>
+<td><code>cEgo.Move(155, 122, eBlock);</code></td>
+<td>Non-blocking: <code>cEgo.Outfit = idleOnlyOutfit; cEgo.WalkAsync(155, 122);</code>, blocking: <code>cEgo.Outfit = idleOnlyOutfit; await cEgo.WalkAsync(155, 122);</code></td>
+<td>No support currently for &quot;walk anywhere&quot;</td>
+</tr>
+<tr>
+<td>PlaceOnWalkableArea</td>
+<td>PlaceOnWalkableArea</td>
+<td><code>cEgo.PlaceOnWalkableArea();</code></td>
+<td><code>cEgo.PlaceOnWalkableArea();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RemoveTint</td>
+<td>Tint</td>
+<td><code>cEgo.RemoveTint();</code></td>
+<td><code>cEgo.Tint = Colors.White;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RunInteraction</td>
+<td>Interactions.OnInteract(Verb).InvokeAsync</td>
+<td><code>cEgo.RunInteraction(eModeTalk);</code></td>
+<td><code>cEgo.Interactions.OnInteract(Verbs.Talk).InvokeAsync();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Say</td>
+<td>SayAsync</td>
+<td><code>cEgo.Say(&quot;Hello!&quot;);</code></td>
+<td><code>await cEgo.SayAsync(&quot;Hello!&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SayAt</td>
+<td>?</td>
+<td><code>cEgo.SayAt(&quot;Hello!&quot;, 50, 50);</code></td>
+<td>?</td>
+<td>While there&#39;s no direct equivalent currently, this can be worked around by providing a custom implementation for <code>ISayLocationProvider</code>.</td>
+</tr>
+<tr>
+<td>SayBackground</td>
+<td>SayAsync</td>
+<td><code>cEgo.SayBackground(&quot;Hello!&quot;);</code></td>
+<td><code>cEgo.SayAsync(&quot;Hello!&quot;);</code></td>
+<td>There&#39;s no way in AGS to know when <code>SayBackground</code> completes. MonoAGS gives you the task completion API for this: <code>Task task = cEgo.SayAsync(&quot;Hello!&quot;); ... while (!task.IsCompleted) {..}</code>, or simply: <code>Task task = cEgo.SayAsync(&quot;Hello!&quot;); ... await task;</code></td>
+</tr>
+<tr>
+<td>SetAsPlayer</td>
+<td>IGameState.Player</td>
+<td><code>cEgo.SetAsPlayer();</code></td>
+<td><code>state.Player = cEgo;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetIdleView</td>
+<td>Outfit</td>
+<td><code>cEgo.SetIdleView(5);</code></td>
+<td><code>cEgo.Outfit = outfitWithHat;</code></td>
+<td>Note that the concepts are not identical: <code>SetIdleView</code> in AGS changes the idle animation, where <code>Outfit</code> in MonoAGS changes all animations in that outfit (which can be walk, idle, etc).</td>
+</tr>
+<tr>
+<td>SetWalkSpeed</td>
+<td>WalkStep</td>
+<td><code>cEgo.SetWalkSpeed(5, 5);</code></td>
+<td><code>cEgo.WalkStep = new PointF(5, 5);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>StopMoving</td>
+<td>StopWalkingAsync</td>
+<td><code>cEgo.StopMoving();</code></td>
+<td><code>cEgo.StopWalkingAsync();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Think</td>
+<td>?</td>
+<td><code>cEgo.Think(&quot;Hmmmm..&quot;);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Tint</td>
+<td>Tint</td>
+<td><code>cEgo.Tint(0, 250, 0, 30, 100);</code></td>
+<td><code>cEgo.Tint = Colors.Green;</code> or <code>cEgo.Tint = Color.FromRgba(0, 255, 0, 255);</code> or <code>cEgo.Tint = Color.FromHsla(200, 1, 1, 255);</code> or <code>cEgo.Tint = Color.FromHexa(59f442);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>UnlockView</td>
+<td>Outfit</td>
+<td><code>cEgo.UnlockView();</code></td>
+<td><code>cEgo.Outfit = defaultOutfit;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Walk</td>
+<td>WalkAsync</td>
+<td><code>cEgo.Walk(100, 100);</code></td>
+<td>For non blocking: <code>cEgo.WalkAsync(100, 100);</code>, for blocking: <code>await cEgo.WalkAsync(100, 100);</code></td>
+<td>No support currently for &quot;walk anywhere&quot;</td>
+</tr>
+<tr>
+<td>WalkStraight</td>
+<td>?</td>
+<td><code>cEgo.WalkStraight(100, 100);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>ActiveInventory</td>
+<td>Inventory.ActiveItem</td>
+<td><code>cEgo.ActiveInventory</code></td>
+<td><code>cEgo.Inventory.ActiveItem</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Animating</td>
+<td>Animation.State.IsPaused</td>
+<td><code>if (cEgo.Animating) {}</code></td>
+<td><code>if (!cEgo.Animation.State.IsPaused) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>AnimationSpeed</td>
+<td>Animation.Configuration.DelayBetweenFrames</td>
+<td><code>cEgo.AnimationSpeed = 4;</code></td>
+<td><code>cEgo.Animation.Configuration.DelayBetweenFrames = 4;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Baseline</td>
+<td>Z</td>
+<td><code>cEgo.Baseline = 40;</code></td>
+<td><code>cEgo.Z = 40;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>BlinkInterval</td>
+<td>?</td>
+<td><code>cEgo.BlinkInterval = 10;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>BlinkView</td>
+<td>?</td>
+<td><code>cEgo.BlinkView = 10;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>BlinkWhileThinking property</td>
+<td>?</td>
+<td><code>cEgo.BlinkWhileThinking = false;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>BlockingHeight</td>
+<td>?</td>
+<td><code>cEgo.BlockingHeight = 20;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>BlockingWidth</td>
+<td>?</td>
+<td><code>cEgo.BlockingWidth = 20;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Clickable</td>
+<td>Enabled</td>
+<td><code>cEgo.Clickable = false;</code></td>
+<td><code>cEgo.Enabled = false;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DiagonalLoops</td>
+<td>Simply configure your directional animation either with or without diagonal directions</td>
+<td><code>cEgo.DiagonalLoops = true;</code></td>
+<td>Nothing special needed for this to work</td>
+<td></td>
+</tr>
+<tr>
+<td>Frame</td>
+<td>Animation.State.CurrentFrame</td>
+<td><code>cEgo.Frame</code></td>
+<td><code>cEgo.Animation.State.CurrentFrame</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HasExplicitTint</td>
+<td>Tint</td>
+<td><code>if (cEgo.HasExplicitTint) {}</code></td>
+<td><code>if (cEgo.Tint != Colors.White) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ID</td>
+<td>ID</td>
+<td><code>cEgo.ID</code></td>
+<td><code>cEgo.ID</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IdleView</td>
+<td>Outfit[Animations.Idle]</td>
+<td><code>cEgo.IdleView</code></td>
+<td><code>cEgo.Outfit[Animations.Idle]</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IgnoreLighting</td>
+<td>?</td>
+<td><code>cEgo.IgnoreLighting = 1;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>IgnoreWalkbehinds</td>
+<td>?</td>
+<td><code>cEgo.IgnoreWalkbehinds = true;</code></td>
+<td>?</td>
+<td>Probably not really needed in MonoAGS- with the combination of render layers, Z and parent-child relationships you have the ability control rendering order more easily</td>
+</tr>
+<tr>
+<td>InventoryQuantity</td>
+<td>InventoryItem.Qty</td>
+<td><code>player.InventoryQuantity[iCash.ID]</code></td>
+<td><code>iCash.Qty</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Loop</td>
+<td>Animation.State.CurrentLoop</td>
+<td><code>cEgo.Loop</code></td>
+<td><code>cEgo.Animation.State.CurrentLoop</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ManualScaling</td>
+<td>IgnoreScalingArea</td>
+<td><code>cEgo.ManualScaling = true;</code></td>
+<td><code>cEgo.IgnoreScalingArea = true;</code></td>
+<td>This is not a 1-to-1 fit. In MonoAGS you can still set manual scaling to be applied onto the walkable area scaling, even if <code>IgnoreScalingArea</code> is false.</td>
+</tr>
+<tr>
+<td>MovementLinkedToAnimation</td>
+<td>MovementLinkedToAnimation</td>
+<td><code>cEgo.MovementLinkedToAnimation = false;</code></td>
+<td><code>cEgo.MovementLinkedToAnimation = false;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Moving</td>
+<td>IsWalking</td>
+<td><code>if (cEgo.IsMoving) {}</code></td>
+<td><code>if (cEgo.IsWalking) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>Hotspot</td>
+<td><code>cEgo.Name = &quot;Bernard&quot;;</code></td>
+<td><code>cEgo.Hotspot = &quot;Bernard&quot;;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>NormalView</td>
+<td>Outfit[Animations.Walk]</td>
+<td><code>cEgo.NormalView</code></td>
+<td><code>cEgo.Outfit[Animations.Walk];</code></td>
+<td></td>
+</tr>
+<tr>
+<td>PreviousRoom</td>
+<td>PreviousRoom</td>
+<td><code>if (cEgo.PreviousRoom == 5) {}</code></td>
+<td><code>if (cEgo.PreviousRoom == elevator) {}</code></td>
+<td>In MonoAGS, <code>PreviousRoom</code> actually provides you with access to the entire room&#39;s API, not just its ID, so you can query the room&#39;s objects, for example.</td>
+</tr>
+<tr>
+<td>Room</td>
+<td>Room</td>
+<td><code>if (cEgo.Room == 5) {}</code></td>
+<td><code>if (cEgo.Room == elevator) {}</code></td>
+<td>In MonoAGS, <code>Room</code> actually provides you with access to the entire room&#39;s API, not just its ID, so you can query the room&#39;s objects, for example.</td>
+</tr>
+<tr>
+<td>ScaleMoveSpeed</td>
+<td>AdjustWalkSpeedToScaleArea</td>
+<td><code>cEgo.ScaleMoveSpeed = true;</code></td>
+<td><code>cEgo.AdjustWalkSpeedToScaleArea = true;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ScaleVolume</td>
+<td>scalingArea.ScaleVolume</td>
+<td><code>cEgo.ScaleVolume = true;</code></td>
+<td><code>scalingArea.ScaleVolume = true;</code></td>
+<td>This is not a 1-to-1 match. In AGS, scale volume scales the volume according to the scaling of the character, not matter if the scaling was set manually or in an area. In MonoAGS, this is specfically for areas, there is no equivalent configuration for manual scaling changes currently.</td>
+</tr>
+<tr>
+<td>Scaling</td>
+<td>ScaleX and ScaleY</td>
+<td><code>cEgo.ManualScaling = true; cEgo.Scaling = 200;</code></td>
+<td><code>cEgo.ScaleX = 2; cEgo.ScaleY = 2;</code></td>
+<td>In AGS the range is 5 to 200, where the value must be an integer and 100 is not scaled. In MonoAGS there&#39;s no &quot;allowed&quot; range, the value is a float (so you can do <code>cEgo.ScaleX = 0.5f</code>) and 1 is not scaled.</td>
+</tr>
+<tr>
+<td>Solid</td>
+<td>?</td>
+<td><code>if (cEgo.Solid) {}</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Speaking</td>
+<td>Outfit[Animations.Speak].Animation.State.IsPaused</td>
+<td><code>if (cEgo.Speaking) {}</code></td>
+<td><code>if (!cEgo.Outfit[Animations.Speak].Animation.State.IsPaused) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SpeakingFrame</td>
+<td>Outfit[Animations.Speak].Animation.State.CurrentFrame</td>
+<td><code>cEgo.SpeakingFrame</code></td>
+<td><code>cEgo.Outfit[Animations.Speak].Animation.State.CurrentFrame</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SpeechAnimationDelay</td>
+<td>Outfit[Animations.Speak].Animation.Configuration.DelayBetweenFrames</td>
+<td><code>cEgo.SpeechAnimationDelay</code></td>
+<td><code>cEgo.Outfit[Animations.Speak].Animation.Configuration.DelayBetweenFrames</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SpeechColor</td>
+<td>SpeechConfig.TextConfig.Brush</td>
+<td><code>cEgo.SpeechColor = 14;</code></td>
+<td><code>cEgo.SpeechConfig.TextConfig.Brush = blueSolidBrush;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SpeechView</td>
+<td>Outfit[Animations.Speak]</td>
+<td><code>cEgo.SpeechView</code></td>
+<td><code>cEgo.Outfit[Animations.Speak]</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ThinkView</td>
+<td>Outfit[Animations.Think]</td>
+<td><code>cEgo.ThinkView</code></td>
+<td><code>cEgo.Outfit[Animations.Think]</code></td>
+<td>There&#39;s nothing particular about <code>Think</code> in MonoAGS currently, but using outfit you can assign and query specific animations, so you can create a &quot;think&quot; animation if it fits your game.</td>
+</tr>
+<tr>
+<td>Transparency</td>
+<td>Opacity</td>
+<td><code>cEgo.Transparency = 100;</code></td>
+<td><code>cEgo.Opacity = 0;</code></td>
+<td>The range for AGS transparency is 0-100, the range for MonoAGS opacity is 0-255</td>
+</tr>
+<tr>
+<td>TurnBeforeWalking</td>
+<td>?</td>
+<td><code>cEgo.TurnBeforeWalking = 1;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>View</td>
+<td>Animation</td>
+<td><code>cEgo.View</code></td>
+<td><code>cEgo.Animation</code></td>
+<td></td>
+</tr>
+<tr>
+<td>WalkSpeedX</td>
+<td>WalkStep.X</td>
+<td><code>cEgo.WalkSpeedX</code></td>
+<td><code>cEgo.WalkStep.X</code></td>
+<td></td>
+</tr>
+<tr>
+<td>WalkSpeedY</td>
+<td>WalkStep.Y</td>
+<td><code>cEgo.WalkSpeedY</code></td>
+<td><code>cEgo.WalkStep.Y</code></td>
+<td></td>
+</tr>
+<tr>
+<td>x</td>
+<td>X</td>
+<td><code>cEgo.x</code></td>
+<td><code>cEgo.X</code></td>
+<td></td>
+</tr>
+<tr>
+<td>y</td>
+<td>Y</td>
+<td><code>cEgo.y</code></td>
+<td><code>cEgo.Y</code></td>
+<td></td>
+</tr>
+<tr>
+<td>z</td>
+<td>JumpOffset.Y</td>
+<td><code>cEgo.Z = 100;</code></td>
+<td><code>cEgo.JumpOffset = new PointF(0, 100);</code></td>
+<td>This requires the jump component to be added to the character.</td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: asynchronous speech/walk, configuring speech background color/shadows + outlines/text brushes/borders/alignments/text skipping/portraits, hooking/customizing speech/walk/path finding, getting walk destination, face direction with left/right/etc, face direction based on where somebody else is looking, iterating/querying inventory items, subscribing/unsubscribing interaction events during the game, more configurations for following, follow objects which are not characters, query the current follow target, and as a character is an extension of object, see the list for object for more stuff.</p>
+<h2 id="datetime">DateTime</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Now</td>
+<td>Now</td>
+<td><code>DateTime.Now</code></td>
+<td><code>DateTime.Now</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DayOfMonth</td>
+<td>DayOfMonth</td>
+<td><code>now.DayOfMonth</code></td>
+<td><code>now.DayOfMonth</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Hour</td>
+<td>Hour</td>
+<td><code>now.Hour</code></td>
+<td><code>now.Hour</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Minute</td>
+<td>Minute</td>
+<td><code>now.Minute</code></td>
+<td><code>now.Minute</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Month</td>
+<td>Month</td>
+<td><code>now.Month</code></td>
+<td><code>now.Month</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RawTime</td>
+<td>Need to calculate</td>
+<td><code>DateTime.Now.RawTime</code></td>
+<td><code>(DateTime.UtcNow - new DateTime(1970,1,1)).TotalSeconds</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Second</td>
+<td>Second</td>
+<td><code>now.Second</code></td>
+<td><code>now.Second</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Year</td>
+<td>Year</td>
+<td><code>now.Year</code></td>
+<td><code>now.Year</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: well, nothing here is MonoAGS specific, this is all c#. You can see all available functions here: <a href="https://msdn.microsoft.com/en-us/library/system.datetime(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.datetime(v=vs.110).aspx</a></p>
+<p>Also note, that if you need correct handling of time zones and DST, this a recommended library which you can add to your project: <a href="https://github.com/nodatime/nodatime">https://github.com/nodatime/nodatime</a></p>
+<h2 id="dialog">Dialog</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DisplayOptions</td>
+<td>?</td>
+<td><code>dOldMan.DisplayOptions();</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>GetOptionState</td>
+<td>option.Label.UnderlyingVisible (and optionally combine with ShowOnce if you need to compare with &quot;off forever&quot;)</td>
+<td><code>if (dJoeExcited.GetOptionState(2) == eOptionOffForever) {}</code></td>
+<td><code>dOption = dJoeExcited.Options[2]; if (!dOption.Label.UnderlyingVisible &amp;&amp; dOption.ShowOnce) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetOptionText</td>
+<td>option.Label.Text</td>
+<td><code>dJoeExcited.GetOptionText(3)</code></td>
+<td><code>dJoeExcited.Options[3].Label.Text</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HasOptionBeenChosen</td>
+<td>option.HasOptionBeenChosen</td>
+<td><code>dJoeExcited.HasOptionBeenChosen(3)</code></td>
+<td><code>dJoeExcited.Options[3].HasOptionBeenChosen</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ID</td>
+<td>?</td>
+<td><code>dJoeExcited.ID</code></td>
+<td>?</td>
+<td>It doesn&#39;t seem there&#39;s any need for an id for the dialog, you can just compare with the dialog reference if you need equality checks</td>
+</tr>
+<tr>
+<td>OptionCount</td>
+<td>Options.Count</td>
+<td><code>dJoeExcited.OptionCount</code></td>
+<td><code>dJoeExcited.Options.Count</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetOptionState</td>
+<td>Either set option.Label.Visible or option.ShowOnce</td>
+<td><code>dJoeExcited.SetOptionState(2, eOptionOff)</code></td>
+<td>For option off/on: <code>dJoeExcited.Options[2].Label.Visible = false;</code>, for off forever, you can add: <code>dJoeExcited.Options[2].ShowOnce = true;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ShowTextParser</td>
+<td>?</td>
+<td><code>if (cJoeExcited.ShowTextParser) {}</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Start</td>
+<td>RunAsync</td>
+<td><code>dJoeExcited.Start();</code></td>
+<td><code>dJoeExcited.RunAsync();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>StopDialog</td>
+<td>?</td>
+<td><code>dJoeExcited.StopDialog();</code></td>
+<td>?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: create and change dialogs at run-time, customize appearances of everything dialog related, asynchronously wait for a dialog to complete, automatic grey-out (or any desired rendering) for already selected options, show/hide dialog options when speaking, run a specific dialog option on demand, enable/disable specific dialog actions.</p>
+<h2 id="dialogoptionsrenderinginfo">DialogOptionsRenderingInfo</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ActiveOptionID</td>
+<td>Not Needed</td>
+<td><code>info.ActiveOptionID = 1</code></td>
+<td>N/A</td>
+<td>This is required for custom dialog rendering in AGS, as the assumption is you get a drawing surface and natively drawing all the options, and then AGS can&#39;t do hit-tests itself so you need to worry about it. This is not required in MonoAGS, as you can provide individual rendering for the dialog options and they can still be used as hit-test targets.</td>
+</tr>
+<tr>
+<td>DialogToRender</td>
+<td>?</td>
+<td><code>info.DialogToRender</code></td>
+<td>?</td>
+<td>The way to do custom rendering is a bit different in MonoAGS. There&#39;s no one single hook to customize the dialogs, but you can choose on which lever you want to provide your own different implementation. So you can provide a different implementation for <code>IDialogLayout</code> (which gets the dialog graphics and options graphics and chooses how to place them), or you can provide a different implementation for each (or for specific) <code>IDialogOption</code> to change how they are rendered/behave, or you can provide a different implementation for <code>IDialog</code> to completely rewrite the dialog mechanism (but still be able to hook it up to existing dialog code). Each of those custom implementations can be either changed for all dialogs or for specific dialogs.</td>
+</tr>
+<tr>
+<td>Height</td>
+<td>dialog.Graphics.Height</td>
+<td><code>info.Height</code></td>
+<td><code>dialog.Graphics.Height</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ParserTextBoxWidth</td>
+<td>?</td>
+<td><code>info.ParserTextBoxWidth</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>ParserTextBoxX</td>
+<td>?</td>
+<td><code>info.ParserTextBoxX</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>ParserTextBoxY</td>
+<td>?</td>
+<td><code>info.ParserTextBoxY</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Surface</td>
+<td>Not needed</td>
+<td><code>info.Surface</code></td>
+<td>N/A</td>
+<td>See notes on &quot;ActiveOptionID&quot; and &quot;DialogToRender&quot; to see why this is not needed.</td>
+</tr>
+<tr>
+<td>Width</td>
+<td>dialog.Graphics.Width</td>
+<td><code>info.Width</code></td>
+<td><code>dialog.Graphics.Width</code></td>
+<td></td>
+</tr>
+<tr>
+<td>X</td>
+<td>dialog.Graphics.X</td>
+<td><code>info.X</code></td>
+<td><code>dialog.Graphics.X</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Y</td>
+<td>dialog.Graphics.Y</td>
+<td><code>info.Y</code></td>
+<td><code>dialog.Graphics.Y</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: The whole process for custom dialog rendering is completely different (see notes on <code>DialogToRender</code>).</p>
+<h2 id="drawingsurface">DrawingSurface</h2>
+<p>Currently nothing built in that&#39;s equivalent for this, but one could directly implement <code>IImageRenderer</code>, assign it to its object with <code>obj.CustomRenderer = myRenderer</code> and use OpenGL in that renderer implementation to do everything desired.</p>
+<h2 id="dynamicsprite">DynamicSprite</h2>
+<p>The concept of dynamic sprite is not really needed in MonoAGS, as everything is dynamic by default, so you can create objects, characters, animations, etc, all in run-time. So in this section, equivalent behaviors might be found on one or more levels: bitmaps, images (container above bitmap which also adds texture information), sprites (container above image which adds abilities for run-time transforms) and objects (which contain sprites as individual animation frames or a single image).</p>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create</td>
+<td>new EmptyImage</td>
+<td><code>DynamicSprite.Create(50, 30);</code></td>
+<td><code>new EmptyImage(50, 30);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CreateFromBackground</td>
+<td>LoadImage</td>
+<td><code>DynamicSprite.CreateFromBackground()</code></td>
+<td><code>graphicsFactory.LoadImage(state.Room.Image.OriginalBitmap)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CreateFromDrawingSurface</td>
+<td>?</td>
+<td><code>DynamicSprite.CreateFromDrawingSurface(surface, 0, 0, 10, 10);</code></td>
+<td>?</td>
+<td>While there&#39;s nothing drawing area specific, one could implement a custom renderer for doing something like this.</td>
+</tr>
+<tr>
+<td>CreateFromExistingSprite</td>
+<td>LoadImage</td>
+<td><code>DynamicSprite.CreateFromExistingSprite(20);</code></td>
+<td><code>graphicsFactory.LoadImage(existingImage.OriginalBitmap)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CreateFromFile</td>
+<td>LoadImage</td>
+<td><code>DynamicSprite.CreateFromFile(&quot;door.png&quot;)</code></td>
+<td><code>graphicsFactory.LoadImage(&quot;door.png&quot;)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CreateFromSaveGame</td>
+<td>?</td>
+<td><code>DynamicSprite.CreateFromSaveGame(1, 50, 50)</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>CreateFromScreenShot</td>
+<td>?</td>
+<td><code>DynamicSprite.CreateFromScreenShot(80, 50)</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>ChangeCanvasSize</td>
+<td>?</td>
+<td><code>DynamicSprite.ChangeCanvasSize(sprite.Width + 10, sprite.Height, 5, 0);</code></td>
+<td>?</td>
+<td>While there&#39;s nothing specific for this, this could be implemented by manual bitmap manipulations (but it&#39;s tedious): you first create a bitmap with the new size, manually get pixels from the original bitmap and set them in the new bitmap, then load an image from the new bitmap.</td>
+</tr>
+<tr>
+<td>CopyTransparencyMask</td>
+<td>?</td>
+<td><code>DynamicSprite.CopyTransparencyMask</code></td>
+<td>?</td>
+<td>While there&#39;s nothing specific for this, this could be implemented by manual bitmap manipulations (but it&#39;s tedious): you first create a bitmap with the new size, manually get pixels from the original bitmap and set them in the new bitmap, then load an image from the new bitmap.</td>
+</tr>
+<tr>
+<td>Crop</td>
+<td>bitmap.Crop</td>
+<td><code>sprite.Crop(10, 10, sprite.Width - 10, sprite.Height - 10);</code></td>
+<td><code>graphicsFactory.LoadImage(sprite.OriginalBitmap.Crop(new Rectangle(10, 10, sprite.Width - 10, sprite.Height - 10)));</code></td>
+<td>Also, instead of cropping the bitmap, one could add an <code>ICropSelfComponent</code> to the object which will crop the rendered object at run-time (without touching the bitmap).</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>?</td>
+<td><code>sprite.Delete();</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Flip</td>
+<td>FlipHorizontally or FlipVertically</td>
+<td><code>sprite.Flip(eFlipUpsideDown);</code></td>
+<td><code>obj.FlipHorizontally();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetDrawingSurface</td>
+<td>?</td>
+<td><code>sprite.GetDrawingSurface()</code></td>
+<td>?</td>
+<td>While there&#39;s nothing drawing area specific, one could implement a custom renderer for doing something like this.</td>
+</tr>
+<tr>
+<td>Resize</td>
+<td>ScaleX and ScaleY</td>
+<td><code>sprite.Resize(100, 50);</code></td>
+<td><code>obj.ScaleX = 100; obj.ScaleY = 50;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Rotate</td>
+<td>Angle</td>
+<td><code>sprite.Rotate(180);</code></td>
+<td><code>obj.Angle = 180;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SaveToFile</td>
+<td>bitmap.SafeToFile</td>
+<td><code>sprite.SaveToFile(&quot;abc.png&quot;);</code></td>
+<td><code>sprite.OriginalBitmap.SaveToFile(&quot;abc.png&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Tint</td>
+<td>Tint</td>
+<td><code>sprite.Tint(0, 250, 0, 30, 100);</code></td>
+<td><code>sprite.Tint = Colors.Green;</code> or <code>sprite.Tint = Color.FromRgba(0, 255, 0, 255);</code> or <code>sprite.Tint = Color.FromHsla(200, 1, 1, 255);</code> or <code>sprite.Tint = Color.FromHexa(59f442);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ColorDepth</td>
+<td>?</td>
+<td><code>sprite.ColorDepth</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Graphic</td>
+<td>ID</td>
+<td><code>sprite.Graphic</code></td>
+<td><code>image.ID</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Height</td>
+<td>Height</td>
+<td><code>sprite.Height</code></td>
+<td><code>image.Height</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Width</td>
+<td>Width</td>
+<td><code>sprite.Width</code></td>
+<td><code>image.Width</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="file">File</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open</td>
+<td>Open</td>
+<td><code>File *output = File.Open(&quot;temp.tmp&quot;, eFileWrite);</code></td>
+<td><code>var output = File.Open(&quot;temp.tmp&quot;, FileMode.Create);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Close</td>
+<td>Close</td>
+<td><code>output.Close();</code></td>
+<td><code>output.Close();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>Delete</td>
+<td><code>File.Delete(&quot;temp.tmp&quot;);</code></td>
+<td><code>File.Delete(&quot;temp.tmp&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Exists</td>
+<td>Exists</td>
+<td><code>if (File.Exists(&quot;temp.tmp&quot;)) {}</code></td>
+<td><code>if (File.Exists(&quot;temp.tmp&quot;)) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ReadInt</td>
+<td>BinaryReader.ReadInt32</td>
+<td><code>int number; number = input.ReadInt();</code></td>
+<td><code>using (var reader = new BinaryReader(File.OpenRead(&quot;file.txt&quot;)) ) { char c = reader.ReadInt32();</code> }</td>
+<td></td>
+</tr>
+<tr>
+<td>ReadRawChar</td>
+<td>BinaryReader.ReadChar</td>
+<td><code>String buffer = String.Format(&quot;%c&quot;, input.ReadRawChar());</code></td>
+<td><code>using (var reader = new BinaryReader(File.OpenRead(&quot;file.txt&quot;)) ) { char c = reader.ReadChar();</code> }</td>
+<td></td>
+</tr>
+<tr>
+<td>ReadRawInt</td>
+<td>BinaryReader.ReadInt32</td>
+<td><code>int number; number = input.ReadRawInt();</code></td>
+<td><code>using (var reader = new BinaryReader(File.OpenRead(&quot;file.txt&quot;)) ) { char c = reader.ReadInt32();</code> }</td>
+<td></td>
+</tr>
+<tr>
+<td>ReadRawLineBack</td>
+<td>StreamReader.ReadLine</td>
+<td><code>String line = input.ReadRawLineBack();</code></td>
+<td><code>using (var reader = new StreamReader(&quot;file.txt&quot;)) { string line = reader.ReadLine();</code>}</td>
+<td></td>
+</tr>
+<tr>
+<td>ReadStringBack</td>
+<td>BinaryReader.ReadString</td>
+<td><code>String buffer = input.ReadStringBack();</code></td>
+<td><code>using (var reader = new BinaryReader(File.OpenRead(&quot;file.txt&quot;)) ) { char c = reader.ReadInt32();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>WriteInt</td>
+<td>BinaryWriter.Write</td>
+<td><code>output.WriteInt(6);</code></td>
+<td><code>using (var writer = new BinaryWriter(File.Open(&quot;temp.tmp&quot;, FileMode.Create))) { writer.Write(6);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>WriteRawChar</td>
+<td>BinaryWriter.Write</td>
+<td><code>output.WriteRawChar(&#39;A&#39;);</code></td>
+<td><code>using (var writer = new BinaryWriter(File.Open(&quot;temp.tmp&quot;, FileMode.Create))) { writer.Write(&#39;A&#39;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>WriteRawLine</td>
+<td>StreamWriter.WriteLine</td>
+<td><code>output.WriteRawLine(&quot;My line&quot;);</code></td>
+<td><code>using (var writer = new StreamWriter(&quot;file.txt&quot;)) { writer.WriteLine(&quot;My line&quot;);</code> }</td>
+<td></td>
+</tr>
+<tr>
+<td>WriteString</td>
+<td>BinaryWriter.Write</td>
+<td><code>output.WriteString(&quot;test string&quot;);</code></td>
+<td><code>using (var writer = new BinaryWriter(File.Open(&quot;temp.tmp&quot;, FileMode.Create))) { writer.Write(&quot;test string&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>EOF</td>
+<td>BinaryReader.BaseStream.Position</td>
+<td><code>while (!output.EOF) {}</code></td>
+<td><code>while (reader.BaseStream.Position != reader.BaseStream.Length)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Error</td>
+<td>try/catch</td>
+<td><code>output.WriteInt(51); if (output.Error) { Display(&quot;Error writing the data!&quot;); }</code></td>
+<td><code>try { writer.Write(51); } catch (Exception e) { AGSMessageBox.DisplayAsync($&quot;Error while writing the data. The error message is: {e.Message}&quot;); }</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: well, nothing here is MonoAGS specific, this is all c#. You can see all available functions here:
+<a href="https://msdn.microsoft.com/en-us/library/system.io.file(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.io.file(v=vs.110).aspx</a>
+<a href="https://msdn.microsoft.com/en-us/library/system.io.binaryreader(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.io.binaryreader(v=vs.110).aspx</a>
+<a href="https://msdn.microsoft.com/en-us/library/system.io.binarywriter(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.io.binarywriter(v=vs.110).aspx</a>
+<a href="https://msdn.microsoft.com/en-us/library/system.io.streamreader(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.io.streamreader(v=vs.110).aspx</a>
+<a href="https://msdn.microsoft.com/en-us/library/system.io.streamwriter(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.io.streamwriter(v=vs.110).aspx</a></p>
+<h2 id="game--global-functions">Game / Global functions</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AbortGame</td>
+<td>throw</td>
+<td><code>AbortGame(&quot;Error in game!&quot;);</code></td>
+<td><code>throw new Exception(&quot;Error im game!&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CallRoomScript</td>
+<td>Nothing specific, but you can create a shared interfaces between your rooms and call it.</td>
+<td><code>CallRoomScript(1); ... function on_call(int value) {...}</code></td>
+<td><code>public interface IOnCall { void on_call(int value); } .. public class MyRoom : IOnCall { public void on_call(int value) {...} } ... (state.Room as IOnCall)?.on_call(1);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ChangeTranslation</td>
+<td>?</td>
+<td><code>Game.ChangeTranslation(&quot;Spanish&quot;)</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>ClaimEvent</td>
+<td>?</td>
+<td><code>ClaimEvent();</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Debug</td>
+<td>?</td>
+<td><code>Debug(0);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>DeleteSaveSlot</td>
+<td>N/A</td>
+<td><code>DeleteSaveSlot(130);</code></td>
+<td><code>MonoAGS</code> doesn&#39;t have the concept of save slots, you can just delete the save file.</td>
+<td></td>
+</tr>
+<tr>
+<td>DisableInterface</td>
+<td>?</td>
+<td><code>DisableInterface();</code></td>
+<td>There&#39;s nothing specific currently, but you can disable all GUI controls and change the cursor.</td>
+<td></td>
+</tr>
+<tr>
+<td>DoOnceOnly</td>
+<td>Repeat.Once</td>
+<td><code>if (Game.DoOnceOnly(&quot;open cupboard&quot;)) {}</code></td>
+<td><code>if Repeat.Once(&quot;open cupboard&quot;) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>EnableInterface</td>
+<td>?</td>
+<td><code>EnableInterface();</code></td>
+<td>There&#39;s nothing specific currently, but you can disable all GUI controls and change the cursor.</td>
+<td></td>
+</tr>
+<tr>
+<td>EndCutscene</td>
+<td>Cutscene.End</td>
+<td><code>EndCutscene();</code></td>
+<td><code>state.Cutscene.End();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetColorFromRGB</td>
+<td>Color.FromRgba</td>
+<td><code>Game.GetColorFromRGB(0, 255, 0);</code></td>
+<td><code>Color.FromRgba(0, 255, 0, 255);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetFrameCountForLoop</td>
+<td>animation.Frames.Count</td>
+<td><code>Game.GetFrameCountForLoop(SWIMMING, 2);</code></td>
+<td><code>cEgo.Outfit[Animations.Swim].Left.Frames.Count</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetGameOption</td>
+<td>?</td>
+<td><code>GetGameOption(OPT_WALKONLOOK)</code></td>
+<td>?</td>
+<td>There&#39;s a lot of unrelated very specific configurations for AGS here, some of them have equivalents in MonoAGS, see <code>SetGameOption</code> for more details.</td>
+</tr>
+<tr>
+<td>GetGameSpeed</td>
+<td><code>state.Speed</code></td>
+<td><code>GetGameSpeed();</code></td>
+<td><code>game.State.Speed</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetLocationName</td>
+<td><code>hitTest.ObjectAtMousePosition</code></td>
+<td><code>if (GetLocationName(mouse.x, mouse.y) == &quot;Hero&quot;) {}</code></td>
+<td><code>if (hitTest.ObjectAtMousePosition.Hotspot == &quot;Hero&quot;) {}</code></td>
+<td>Currently, there&#39;s no support for getting at specific (x,y) position, but just for where the mouse is at.</td>
+</tr>
+<tr>
+<td>GetLocationType</td>
+<td><code>hitTest.ObjectAtMousePosition</code></td>
+<td><code>if (GetLocationType(mouse.x, mouse.y) == eLocationCharacter) {}</code></td>
+<td><code>if (hitTest.ObjectAtMousePosition is ICharacter) {}</code></td>
+<td>Currently, there&#39;s no support for getting at specific (x,y) position, but just for where the mouse is at.</td>
+</tr>
+<tr>
+<td>GetLoopCountForView</td>
+<td>GetAllDirections</td>
+<td><code>Game.GetLoopCountForView(SWIMMING)</code></td>
+<td><code>cEgo.Outfit[Animation.Swim].GetAllDirections().Count()</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetRunNextSettingForLoop</td>
+<td>?</td>
+<td><code>Game.GetRunNextSettingForLoop(SWIMMING, 5)</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>GetSaveSlotDescription</td>
+<td>?</td>
+<td><code>Game.GetSaveSlotDescription(10)</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>GetTextHeight</td>
+<td>Font.MeasureString</td>
+<td><code>GetTextHeight(&quot;The message on the GUI!&quot;, Game.NormalFont, 100)</code></td>
+<td><code>AGSGameSettings.DefaultTextFont.MeasureString(&quot;The message on the GUI!&quot;, 100).Height</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetTextWidth</td>
+<td>Font.MeasureString</td>
+<td><code>GetTextWidth(&quot;Hello!&quot;, Game.NormalFont)</code></td>
+<td><code>AGSGameSettings.DefaultTextFont.MeasureString(&quot;Hello!&quot;).Width</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetTranslation</td>
+<td>?</td>
+<td><code>GetTranslation(&quot;secret&quot;)</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>GetViewFrame</td>
+<td>Frames[index]</td>
+<td><code>Game.GetViewFrame(SWIMMING, 2, 3)</code></td>
+<td><code>cEgo.Outfit[Animations.Swim].Left.Frames[3]</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GiveScore</td>
+<td>?</td>
+<td><code>GiveScore(5)</code></td>
+<td>?</td>
+<td>Nothing specific in MonoAGS for this, but this could be easily implemented in just a few lines: <code>public static class Score { public static int Score { get; private set; } public static void GiveScore(int score) { Score += score; Sounds.Score.Play();}}</code></td>
+</tr>
+<tr>
+<td>InputBox</td>
+<td>?</td>
+<td><code>String name = Game.InputBox(&quot;!What is your name?&quot;);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>IsGamePaused</td>
+<td>state.Paused</td>
+<td><code>if (IsGamePaused()) {}</code></td>
+<td><code>if (game.State.Paused) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IsInterfaceEnabled</td>
+<td>?</td>
+<td><code>if (IsInterfaceEnabled()) {}</code></td>
+<td>?</td>
+<td>There&#39;s nothing specific for this in <code>MonoAGS</code>, but you can query (and set) enabled/disabled for individual GUI components.</td>
+</tr>
+<tr>
+<td>IsInteractionAvailable</td>
+<td>checking subscriber count on the interaction event</td>
+<td><code>if (IsInteractionAvailable(mouse.x,mouse.y, eModeLookat) == 0) {}</code></td>
+<td><code>if (hitTest.ObjectAtMousePosition.Interactions.OnInteract(Verbs.Look).SubscribersCount == 0) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IsKeyPressed</td>
+<td>input.IsKeyDown</td>
+<td><code>if (IsKeyPressed(eKeyUpArrow)) {}</code></td>
+<td><code>if (game.Input.IsKeyDown(Key.Up)) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IsTimerExpired</td>
+<td>Stopwatch.Elapsed</td>
+<td><code>SetTimer(1, 3000); ... if (IsTimerExpired(1)) {}</code></td>
+<td><code>Stopwatch myTimer = new Stopwatch(); myTimer.Start(); ... if (myTimer.Elapsed.Seconds &gt; 3) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IsTranslationAvailable</td>
+<td>?</td>
+<td><code>if (IsTranslationAvailable() == 1) {}</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>PauseGame</td>
+<td>state.Paused</td>
+<td><code>PauseGame();</code></td>
+<td><code>game.State.Paused = true;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ProcessClick</td>
+<td>invoke the interaction event</td>
+<td><code>ProcessClick(100, 50, eModeLookAt);</code></td>
+<td><code>cEgo.Interactions.OnInteract(Verbs.Look).InvokeAsync(new ObjectEventArgs(oKnife));</code></td>
+<td></td>
+</tr>
+<tr>
+<td>QuitGame</td>
+<td>game.Quit</td>
+<td><code>QuitGame(0);</code></td>
+<td><code>game.Quit();</code></td>
+<td>No built-in support in <code>MonoAGS</code> for &quot;ask first&quot;, though this could be easily coded by using a message box: <code>if (await AGSMessageBox.YesNoAsync(&quot;Are you sure you want to quit?&quot;)) { game.Quit(); }</code></td>
+</tr>
+<tr>
+<td>Random</td>
+<td>MathUtils.Random().Next</td>
+<td><code>int ran = Random(2);</code></td>
+<td><code>int ran = MathUtils.Random().Next(0, 2);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RestartGame</td>
+<td>SaveLoad.Restart()</td>
+<td><code>RestartGame();</code></td>
+<td><code>game.SaveLoad.Restart();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RestoreGameDialog</td>
+<td>AGSSelectFileDialog.SelectFile</td>
+<td><code>RestoreGameDialog();</code></td>
+<td><code>await AGSSelectFileDialog.SelectFile(&quot;Select file to load&quot;, FileSelection.FileOnly);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RestoreGameSlot</td>
+<td>SaveLoad.Load</td>
+<td><code>RestoreGameSlot(5);</code></td>
+<td><code>await game.SaveLoad.LoadAsync(&quot;save.bin&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RunAGSGame</td>
+<td>Process.Start</td>
+<td><code>RunAGSGame (&quot;MyGame.exe&quot;, 0, 51);</code></td>
+<td><code>Process.Start(&quot;MyGame.exe&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SaveGameDialog</td>
+<td>AGSSelectFileDialog.SelectFile</td>
+<td><code>SaveGameDialog();</code></td>
+<td><code>await AGSSelectFileDialog.SelectFile(&quot;Select file to save&quot;, FileSelection.FileOnly);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SaveGameSlot</td>
+<td>SaveLoad.Save</td>
+<td><code>SaveGameSlot(30, &quot;save game&quot;);</code></td>
+<td><code>await game.SaveLoad.SaveAsync(&quot;save.bin&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SaveScreenShot</td>
+<td>?</td>
+<td><code>SaveScreenshot(&quot;pic.pcx&quot;);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>SetAmbientTint</td>
+<td>?</td>
+<td><code>SetAmbientTint(0, 0, 250, 30, 100);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>SetGameOption</td>
+<td>?</td>
+<td><code>SetGameOption(OPT_WALKONLOOK, 1);</code></td>
+<td>?</td>
+<td>There&#39;s a lot of unrelated very specific configurations for AGS here, some of them have equivalents in MonoAGS: <code>OPT_WALKONLOOK</code> + <code>OPT_NOWALKMODE</code> -&gt; Configure the &quot;approach&quot; component, for example: <code>cEgo.ApproachStyle.ApproachWhenVerb[Verbs.Look] = ApproachHotspots.AlwaysWalk</code>, <code>OPT_PIXELPERFECT</code> -&gt; can be configured per entity: <code>cEgo.PixelPerfect(false);</code>, <code>OPT_FIXEDINVCURSOR</code> -&gt; can be configured per inventory item: <code>iKnife.CursoreGraphics = iKnife.Graphics;</code>, <code>OPT_CROSSFADEMUSIC</code> -&gt; you have several more configuration options here, for example: <code>var crossFade = game.AudioSettings.RoomMusicCrossFading; crossFade.FadeIn = true; crossFade.FadeOut = false; crossFade.FadeInSeconds = 5f; crossFade.EaseFadeIn = Ease.QuadIn;</code>, <code>OPT_PORTRAITPOSITION</code> =&gt; <code>cEgo.SpeechConfig.PortraitConfig.Positioning = PortraitPositioning.Alternating;</code></td>
+</tr>
+<tr>
+<td>SetGameSpeed</td>
+<td><code>state.Speed</code></td>
+<td><code>SetGameSpeed(80);</code></td>
+<td><code>game.State.Speed = 80;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetMultitaskingMode</td>
+<td>?</td>
+<td><code>SetMultitaskingMode(1);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>SetRestartPoint</td>
+<td>SaveLoad.SetRestartPoint</td>
+<td><code>SetRestartPoint();</code></td>
+<td><code>game.SaveLoad.SetRestartPoint();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetSaveGameDirectory</td>
+<td>?</td>
+<td><code>Game.SetSaveGameDirectory(&quot;My cool game saves&quot;);</code></td>
+<td>?</td>
+<td><code>MonoAGS</code> does not have a &quot;save game directory&quot; because when you save a game you select the directory to save in.</td>
+</tr>
+<tr>
+<td>SetTextWindowGUI</td>
+<td>?</td>
+<td><code>SetTextWindowGUI(4);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>SetTimer</td>
+<td>Stopwatch.Start</td>
+<td><code>SetTimer(1, 3000); ... if (IsTimerExpired(1)) {}</code></td>
+<td><code>Stopwatch myTimer = new Stopwatch(); myTimer.Start(); ... if (myTimer.Elapsed.Seconds &gt; 3) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SkipUntilCharacterStops</td>
+<td>?</td>
+<td><code>SkipUntilCharacterStops(EGO);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>StartCutscene</td>
+<td>Cutscene.Start</td>
+<td><code>StartCutscene();</code></td>
+<td><code>state.Cutscene.Start();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>UpdateInventory</td>
+<td>N/A</td>
+<td><code>UpdateInventory();</code></td>
+<td>N/A</td>
+<td>Not needed</td>
+</tr>
+<tr>
+<td>UnPauseGame</td>
+<td>Paused</td>
+<td><code>UnPauseGame();</code></td>
+<td><code>state.Paused = false;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Wait</td>
+<td>Task.Delay or Thread.Sleep</td>
+<td><code>Wait(80);</code></td>
+<td><code>await Task.Delay(80);</code> or <code>Thread.Sleep(80);</code></td>
+<td>Note, that both methods are not perfect fit-ins, as it waits milliseconds and not game loops as in <code>Wait</code>, so we&#39;ll need to add another option.</td>
+</tr>
+<tr>
+<td>WaitKey</td>
+<td>?</td>
+<td><code>WaitKey(200);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>WaitMouseKey</td>
+<td>?</td>
+<td><code>WaitMouseKey(200);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>CharacterCount</td>
+<td>calculate yourself</td>
+<td><code>Game.CharacterCount</code></td>
+<td><code>state.Rooms.Select(r =&gt; r.Objects.Count(o =&gt; o is ICharacter)).Sum())</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DialogCount</td>
+<td>?</td>
+<td><code>Game.DialogCount</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>FileName</td>
+<td>use dotnet functions</td>
+<td><code>Game.FileName</code></td>
+<td><code>Process.GetCurrentProcess().MainModule.FileName</code> or <code>Path.GetFileName(Assembly.GetEntryAssembly().Location)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>FontCount</td>
+<td>?</td>
+<td><code>Game.FontCount</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>GlobalStrings</td>
+<td>GlobalVariables.Strings</td>
+<td><code>Game.GlobalStrings[15] = &quot;Joe&quot;;</code></td>
+<td><code>state.GlobalVariables.Strings.SetValue(&quot;ImportantCharacterName&quot;, &quot;Joe&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GUICount</td>
+<td>state.UI.Count</td>
+<td><code>Game.GUICount</code></td>
+<td><code>state.UI.Count</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IgnoreUserInputAfterTextTimeoutMs</td>
+<td>?</td>
+<td><code>Game.IgnoreUserInputAfterTextTimeoutMs = 1000;</code></td>
+<td>?</td>
+<td>This is currently hard-coded to 500 ms in <code>MonoAGS</code> (in <code>FastFingerChecker</code> class), and you can bypass it with a custom value like this (should be done at the very start of the game): <code>FastFingerChecker checker = new FastFingerChecker { FastFingerSafeBuffer = 1000 }; Resolver.Override(resolver =&gt; resolver.Builder.RegisterInstance(checker));</code></td>
+</tr>
+<tr>
+<td>InSkippableCutscene</td>
+<td>Cutscene.IsRunning</td>
+<td><code>if (Game.InSkippableCutscene) {}</code></td>
+<td><code>if (state.Cutscene.IsRunning) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>InventoryItemCount</td>
+<td>?</td>
+<td><code>Game.InventoryItemCount</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>MinimumTextDisplayTimeMs</td>
+<td>?</td>
+<td><code>Game.MinimumTextDisplayTimeMs = 1000;</code></td>
+<td>?</td>
+<td>Currently hard-coded to 40 ms in <code>MonoAGS</code>.</td>
+</tr>
+<tr>
+<td>MouseCursorCount</td>
+<td>?</td>
+<td><code>Game.MouseCursorCount</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>Title</td>
+<td><code>Game.Name = &quot;My game&quot;;</code></td>
+<td><code>game.Title = &quot;My game&quot;;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>NormalFont</td>
+<td>AGSGameSettings.DefaultTextFont</td>
+<td><code>Game.NormalFont = eFontSpecial;</code></td>
+<td><code>AGSGameSettings.DefaultTextFont = Fonts.Special;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SkippingCutscene</td>
+<td>Cutscene.IsSkipping</td>
+<td><code>if (!Game.SkippingCutscene) {}</code></td>
+<td><code>if (!state.Cutscene.IsSkipping) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SpeechFont</td>
+<td>AGSGameSettings.DefaultSpeechFont</td>
+<td><code>Game.SpeechFont = eFontStandard;</code></td>
+<td><code>AGSGameSettings.DefaultSpeechFont = Fonts.Standard;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SpriteHeight</td>
+<td>sprite.Height</td>
+<td><code>Game.SpriteHeight[15]</code></td>
+<td><code>animation.Left.Frames[3].Sprite.Height</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SpriteWidth</td>
+<td>sprite.Width</td>
+<td><code>Game.SpriteWidth[15]</code></td>
+<td><code>animation.Left.Frames[3].Sprite.Width</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TextReadingSpeed</td>
+<td>SayConfig.TextDelay</td>
+<td><code>Game.TextReadingSpeed = 10;</code></td>
+<td><code>cEgo.SayConfig.TextDelay = 100;</code></td>
+<td>Note the difference in units: in <code>AGS</code> it stands for &quot;number of characters to read in a second&quot;, where in <code>MonoAGS</code> it stands for &quot;number of milliseconds to wait for each character&quot;.</td>
+</tr>
+<tr>
+<td>TranslationFilename</td>
+<td>?</td>
+<td><code>if (Game.TranslationFilename == &quot;German&quot;) {}</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>UseNativeCoordinates</td>
+<td>N/A</td>
+<td><code>if (Game.UseNativeCoordinates) {}</code></td>
+<td>N/A</td>
+<td>Not needed in <code>MonoAGS</code> (there is no low resolution backwards-compatible mode)</td>
+</tr>
+<tr>
+<td>ViewCount</td>
+<td>?</td>
+<td><code>Game.ViewCount</code></td>
+<td>?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="gui">GUI</h2>
+<p>In AGS there&#39;s a separation between GUI and GUI controls, where GUI is a panel containing other controls.
+In MonoAGS there&#39;s no distinction like this, as every control can contain other controls, however there is a &quot;Panel&quot; in MonoAGS which is a naked UI control without any other components added to it, which is probably the closest equivalent for AGS &quot;GUI&quot;.</p>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Centre</td>
+<td>Position yourself</td>
+<td><code>gPanel.Centre();</code></td>
+<td><code>gPanel.Pivot = new PointF(0.5f, 0.5f); gPanel.X = game.Settings.VirtualResolution.Width / 2; gPanel.Y = game.Settings.VirtualResolution.Height / 2;</code></td>
+<td>The example assumes that the panel has no parent and using the default game&#39;s resolution.</td>
+</tr>
+<tr>
+<td>GetAtScreenXY</td>
+<td>hitTest.ObjectAtMousePosition</td>
+<td><code>GUI.GetAtScreenXY(mouse.x, mouse.y)</code></td>
+<td><code>hitTest.ObjectAtMousePosition</code></td>
+<td>Missing support for specific location checks.</td>
+</tr>
+<tr>
+<td>SetPosition</td>
+<td>Location</td>
+<td><code>gPanel.SetPosition(50, 50);</code></td>
+<td><code>gPanel.Location = new AGSLocation(50, 50);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetSize</td>
+<td>BaseSize</td>
+<td><code>gPanel.setSize(100, 100);</code></td>
+<td><code>gPanel.BaseSize = new SizeF(100, 100);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>BackgroundGraphic</td>
+<td>Image</td>
+<td><code>gPanel.BackgroundGraphic = 5;</code></td>
+<td><code>gPanel.Image = myBackgroundImage;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Clickable</td>
+<td>Enabled or ClickThrough</td>
+<td><code>gPanel.Clickable = false;</code></td>
+<td><code>gPanel.Enabled = false;</code> or <code>gPanel.ClickThrough = false;</code></td>
+<td>Note the different between <code>Enabled</code> and <code>ClickThrough</code> in <code>MonoAGS</code>: <code>Enabled</code> disables the panel and all of the controls within, while <code>ClickThrough</code> disables the panel itself but still allows for inner children to respond.</td>
+</tr>
+<tr>
+<td>ControlCount</td>
+<td>TreeNode.ChildrenCount</td>
+<td><code>gPanel.ControlCount</code></td>
+<td><code>gPanel.TreeNode.ChildrenCount</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Controls</td>
+<td>TreeNode.Children</td>
+<td><code>gPanel.Controls</code></td>
+<td><code>gPanel.TreeNode.Children</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Height</td>
+<td>BaseSize.Height</td>
+<td><code>gPanel.Height = 100;</code></td>
+<td><code>gPanel.BaseSize = new SizeF(gPanel.BaseSize.Width, 100);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ID</td>
+<td>ID</td>
+<td><code>gPanel.ID</code></td>
+<td><code>gPanel.ID</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Transparency</td>
+<td>Opacity</td>
+<td><code>gPanel.Transparency = 100;</code></td>
+<td><code>gPanel.Opacity = 0;</code></td>
+<td>The range for AGS transparency is 0-100, the range for MonoAGS opacity is 0-255</td>
+</tr>
+<tr>
+<td>Visible</td>
+<td>Visible</td>
+<td><code>gPanel.Visible = true;</code></td>
+<td><code>gPanel.Visible = true;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Width</td>
+<td>BaseSize.Width</td>
+<td><code>gPanel.Width = 100;</code></td>
+<td><code>gPanel.BaseSize = new SizeF(100, gPanel.BaseSize.Height);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>X</td>
+<td>X</td>
+<td><code>gPanel.X = 5;</code></td>
+<td><code>gPanel.X = 5;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Y</td>
+<td>Y</td>
+<td><code>gPanel.Y = 5;</code></td>
+<td><code>gPanel.Y = 5;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ZOrder</td>
+<td>Z</td>
+<td><code>gPanel.ZOrder = 5;</code></td>
+<td><code>gPanel.Z = 5;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: scaling and rotating panels, scrolling panels, nesting panels (or any other object) within panels (or any other object), placing GUIs as part of the world (behind non-GUIs), different resolution from the game, custom rendering (including shaders), mouse events (enter, leave, move, click, double-click, down, up, lost focus), sub-pixel positioning, skinning, and also, as panels extend objects, see objects for more stuff.</p>
+<h2 id="gui-control">GUI Control</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GetAtScreenXY</td>
+<td>hitTest.ObjectAtMousePosition</td>
+<td><code>GUIControl.GetAtScreenXY(mouse.x, mouse.y)</code></td>
+<td><code>hitTest.ObjectAtMousePosition</code></td>
+<td>Missing support for specific location checks.</td>
+</tr>
+<tr>
+<td>AsType</td>
+<td>as</td>
+<td><code>gIconbar.Controls[2].AsButton</code></td>
+<td><code>gIconBar.TreeNode.Children[2] as IButton</code></td>
+<td></td>
+</tr>
+<tr>
+<td>BringToFront</td>
+<td>Z</td>
+<td><code>btnBigButton.BringToFront()</code></td>
+<td><code>btnBigButton.Z = btnBigButton.TreeNode.Parent.TreeNode.Children.Max(c =&gt; c.Z) + 1;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Clickable</td>
+<td>ClickThrough</td>
+<td><code>btnSaveGame.Clickable = false;</code></td>
+<td><code>btnSaveGame.ClickThrough = true;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Enabled</td>
+<td>Enabled</td>
+<td><code>btnSaveGame.Enabled = false;</code></td>
+<td><code>btnSaveGame.Enabled = false;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Height</td>
+<td>BaseSize.Height</td>
+<td><code>btnConfirm.Height = 20;</code></td>
+<td><code>btnConfirm.BaseSize = new SizeF(btnConfirm.BaseSize.Width, 20);</code>;</td>
+<td></td>
+</tr>
+<tr>
+<td>ID</td>
+<td>ID</td>
+<td><code>btnConfirm.ID</code></td>
+<td><code>btnConfirm.ID</code></td>
+<td></td>
+</tr>
+<tr>
+<td>OwningGUI</td>
+<td>TreeNode.Parent</td>
+<td><code>btnConfirm.OwningGUI</code></td>
+<td><code>btnConfirm.TreeNode.Parent</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SendToBack</td>
+<td>Z</td>
+<td><code>btnBigButton.SendToBack()</code></td>
+<td><code>btnBigButton.Z = btnBigButton.TreeNode.Parent.TreeNode.Children.Min(c =&gt; c.Z) - 1;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetPosition</td>
+<td>Location</td>
+<td><code>btnConfirm.SetPosition(40, 10);</code></td>
+<td><code>btnConfirm.Location = new AGSLocation(40, 10);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetSize</td>
+<td>BaseSize</td>
+<td><code>invMain.SetSize(160, 100);</code></td>
+<td><code>invMain.BaseSize = new SizeF(160, 100);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Visible</td>
+<td>Visible</td>
+<td><code>btnSaveGame.Visible = false;</code></td>
+<td><code>btnSaveGame.Visible = false;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Width</td>
+<td>BaseSize.Width</td>
+<td><code>btnConfirm.Width = 20;</code></td>
+<td><code>btnConfirm.BaseSize = new SizeF(20, btnConfirm.BaseSize.Height);</code>;</td>
+<td></td>
+</tr>
+<tr>
+<td>X</td>
+<td>X</td>
+<td><code>btnConfirm.X = 10;</code></td>
+<td><code>btnConfirm.X = 10;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Y</td>
+<td>Y</td>
+<td><code>btnConfirm.Y = 20;</code></td>
+<td><code>btnConfirm.Y = 20;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: scaling and rotating controls, nesting controls (or any other object) within controls (or any other object), placing GUI controls as part of the world (behind non-GUIs), different resolution from the game, custom rendering (including shaders), mouse events (enter, leave, move, click, double-click, down, up, lost focus), sub-pixel positioning, skinning, and also, as the controls extend objects, see objects for more stuff.</p>
+<h2 id="button">Button</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Animate</td>
+<td>AnimateAsync</td>
+<td><code>btnDeathAnim.Animate(6, 2, 4, eRepeat);</code></td>
+<td><code>btnDeathAnim.AnimateAsync(deathAnimation); //The delay &amp; repeat for the animation is configured in the animation configuration</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ClipImage</td>
+<td>image is always clipped to the button size</td>
+<td><code>btnOK.ClipImage = true;</code></td>
+<td>N/A</td>
+<td></td>
+</tr>
+<tr>
+<td>Font</td>
+<td>TextConfig.Font</td>
+<td><code>btnOK.Font = eFontMain;</code></td>
+<td><code>btnOK.TextConfig.Font = Fonts.Main;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Graphic</td>
+<td>Image</td>
+<td><code>btnPlay.Graphic</code></td>
+<td><code>btnPlay.Image</code></td>
+<td></td>
+</tr>
+<tr>
+<td>MouseOverGraphic</td>
+<td>HoverAnimation</td>
+<td><code>btnPlay.MouseOverGraphic = 5;</code></td>
+<td><code>btnPlay.HoverAnimation = buttonHoverAnimation;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>NormalGraphic</td>
+<td>IdleAnimation</td>
+<td><code>btnPlay.NormalGraphic = 5;</code></td>
+<td><code>btnPlay.IdleAnimation = buttonIdleAnimation;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>PushedGraphic</td>
+<td>PushedAnimation</td>
+<td><code>btnPlay.PushedGraphic = 5;</code></td>
+<td><code>btnPlay.PushedAnimation = buttonPushedAnimation;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Text</td>
+<td>Text</td>
+<td><code>btnPlay.Text = &quot;Play&quot;;</code></td>
+<td><code>btnPlay.Text = &quot;Play&quot;;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TextColor</td>
+<td>TextConfig.Brush</td>
+<td><code>btnPlay.TextColor = 15;</code></td>
+<td><code>btnPlay.TextConfig.Brush = solidWhiteBrush;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: animations for button states, shadows + outlines/text brushes/alignments/auto-fitting, borders, see GUI controls for more.</p>
+<h2 id="invwindow">InvWindow</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ScrollDown</td>
+<td>ScrollDown</td>
+<td><code>invMain.ScrollDown();</code></td>
+<td><code>invMain.ScrollDown();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ScrollUp</td>
+<td>ScrollUp</td>
+<td><code>invMain.ScrollUp();</code></td>
+<td><code>invMain.ScrollUp();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CharacterToUse</td>
+<td>Inventory</td>
+<td><code>invMain.CharacterToUse = cJack;</code></td>
+<td><code>invMain.Inventory = cJack.Inventory;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ItemAtIndex</td>
+<td>Inventory.Items[]</td>
+<td><code>item = invMain.ItemAtIndex[0];</code></td>
+<td><code>item = invMain.Inventory.Items[0];</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ItemCount</td>
+<td>Inventory.Items.Count</td>
+<td><code>invMain.ItemCount</code></td>
+<td><code>invMain.Inventory.Items.Count</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ItemHeight</td>
+<td>ItemSize.Height</td>
+<td><code>invMain.ItemHeight = 30;</code></td>
+<td><code>invMain.ItemSize = new SizeF(50, 30);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ItemWidth</td>
+<td>ItemSize.Width</td>
+<td><code>invMain.ItemWidth = 50;</code></td>
+<td><code>invMain.ItemSize = new SizeF(50, 30);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ItemsPerRow</td>
+<td>ItemsPerRow</td>
+<td><code>invMain.ItemsPerRow</code></td>
+<td><code>invMain.ItemsPerRow</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RowCount</td>
+<td>RowCount</td>
+<td><code>invMain.RowCount</code></td>
+<td><code>invMain.RowCount</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TopItem</td>
+<td>TopItem</td>
+<td><code>invMain.TopItem = 0;</code></td>
+<td><code>invMain.TopItem = 0;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: The ability to attach inventories (and show them in the inventory window) to non-characters, see GUI controls for more.</p>
+<h2 id="label">Label</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Font</td>
+<td>TextConfig.Font</td>
+<td><code>lblStatus.Font = eFontMain;</code></td>
+<td><code>lblStatus.TextConfig.Font = Fonts.Main;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Text</td>
+<td>Text</td>
+<td><code>lblStatus.Text = &quot;Play&quot;;</code></td>
+<td><code>lblStatus.Text = &quot;Play&quot;;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TextColor</td>
+<td>TextConfig.Brush</td>
+<td><code>lblStatus.TextColor = 15;</code></td>
+<td><code>lblStatus.TextConfig.Brush = solidWhiteBrush;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: shadows + outlines/text brushes/alignments/auto-fitting, borders, see GUI controls for more.</p>
+<h2 id="listbox">ListBox</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AddItem</td>
+<td>Items.Add</td>
+<td><code>lstChoices.AddItem(&quot;Hello&quot;);</code></td>
+<td><code>lstChoices.Items.Add(new AGSStringItem(&quot;Hello&quot;));</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Clear</td>
+<td>Items.Clear</td>
+<td><code>lstChoices.Clear();</code></td>
+<td><code>lstChoices.Items.Clear();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>FillDirList</td>
+<td>?</td>
+<td><code>lstSaveGames.FillDirList(&quot;agssave.*&quot;);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>FillSaveGameList</td>
+<td>?</td>
+<td><code>lstSaveGames.FillSaveGameList();</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>GetItemAtLocation</td>
+<td>hitTest.ObjectAtMousePosition</td>
+<td><code>lstOptions.GetItemAtLocation(mouse.x, mouse.y)</code></td>
+<td><code>hitTest.ObjectAtMousePosition</code></td>
+<td>Missing support for specific location checks.</td>
+</tr>
+<tr>
+<td>InsertItemAt</td>
+<td>Items.Insert</td>
+<td><code>lstChoices.InsertItemAt(1, &quot;Third item&quot;);</code></td>
+<td><code>lstChoices.Items.Insert(1, new AGSStringItem(&quot;Third item&quot;));</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RemoveItem</td>
+<td>Items.RemoveAt</td>
+<td><code>lstChoices.RemoveItem(0);</code></td>
+<td><code>lstChoices.Items.RemoveAt(0);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ScrollDown</td>
+<td>?</td>
+<td><code>lstTest.ScrollDown();</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ScrollUp</td>
+<td>?</td>
+<td><code>lstTest.ScrollUp();</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Font</td>
+<td>either set fonts on individual rows in the listbox, or set a default font in the factory</td>
+<td><code>lstSaveGames.Font = eFontSpeech;</code></td>
+<td>For individual rows: <code>lstSaveGames.ItemButtons[3].TextConfig.Font = Fonts.MyFont;</code>, a global font using a factory: <code>var defaultFactory = lstSaveGames.ItemButtonFactory; lstSaveGames.ItemButtonFactory = text =&gt; { var button = defaultFactory(text); button.TextConfig.Font = Fonts.MyFont; }</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HideBorder</td>
+<td>Border</td>
+<td><code>lstSaveGames.HideBorder = true;</code></td>
+<td><code>lstSaveGames.Border = null;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HideScrollArrows</td>
+<td>Scrolling component.Vertical/HorizontalScrollBar</td>
+<td><code>lstSaveGames.HideScrollArrows = true;</code></td>
+<td><code>var scrolling = lstSaveGames.GetComponent&lt;IScrollingComponent&gt;(); scrolling.VerticalScrollBar = null;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ItemCount</td>
+<td>Items.Count</td>
+<td><code>lstChoices.ItemCount</code></td>
+<td><code>lstChoices.Items.Count</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Items</td>
+<td>Items</td>
+<td><code>lstOptions.Items[3]</code></td>
+<td><code>lstOptions.Items[3]</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RowCount</td>
+<td>?</td>
+<td><code>lstOptions.RowCount</code></td>
+<td>?</td>
+<td>Note, that the listbox in <code>MonoAGS</code> has a smooth scrollbar, meaning it might show part of a row if the scrollbar is set just in the middle of the row.</td>
+</tr>
+<tr>
+<td>SaveGameSlots</td>
+<td>?</td>
+<td><code>lstSaveGames.SaveGameSlots[index]</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>SelectedIndex</td>
+<td>SelectedIndex</td>
+<td><code>lstSaveGames.SelectedIndex</code></td>
+<td><code>lstSaveGames.SelectedIndex</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TopItem</td>
+<td>?</td>
+<td><code>lstSaveGames.TopItem = 0;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: smooth scrolling for the listbox, SelectedItem, control individual appearances of rows/scrollbars/panel, allow automatic resizing of the box with minimum and maximum height, change events, search filter, see GUI controls for more.</p>
+<h2 id="slider">Slider</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BackgroundGraphic</td>
+<td>Graphics</td>
+<td><code>sldHealth.BackgroundGraphic = 5;</code></td>
+<td><code>sldHealth.Graphics = animatedSliderBackground;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HandleGraphic</td>
+<td>HandleGraphics</td>
+<td><code>sldHealth.HandleGraphic = 6;</code></td>
+<td><code>sldHealth.HandleGraphics = animatedSliderHandle;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HandleOffset</td>
+<td>Add the jump component to the handle graphics</td>
+<td><code>sldHealth.HandleOffset = 2;</code></td>
+<td><code>var jump = sldHealth.HandleGraphics.AddComponent&lt;IJumpOffsetComponent&gt;(); jump.JumpOffset = new PointF(2, 0);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Max</td>
+<td>MaxValue</td>
+<td><code>sldHealth.Max = 200;</code></td>
+<td><code>sldHealth.MaxValue = 200;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Min</td>
+<td>MinValue</td>
+<td><code>sldHealth.Min = 200;</code></td>
+<td><code>sldHealth.MinValue = 200;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Value</td>
+<td>Value</td>
+<td><code>sldHealth.Value = 100;</code></td>
+<td><code>sldHealth.Value = 100;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: animations for slider background + handle, subscribing to slider events, non-integer values for the slider, see GUI controls for more.</p>
+<h2 id="text-box">Text Box</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Font</td>
+<td>TextConfig.Font</td>
+<td><code>txtUserInput.Font = eFontNormal;</code></td>
+<td><code>txtUserInput.TextConfig.Font = Fonts.MyFont;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Text</td>
+<td>Text</td>
+<td><code>txtUserInput.Text = &quot;Hello&quot;;</code></td>
+<td><code>txtUserInput.Text = &quot;Hello&quot;;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TextColor</td>
+<td>TextConfig.Brush</td>
+<td><code>txtUserInput.TextColor = 5;</code></td>
+<td><code>txtUserInput.TextConfig.Brush = solidRedBrush;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: configuring background color/shadows + outlines/text brushes/borders/alignments/auto-fitting, configure caret flashing speed, query and set the caret position, set a watermark for the textbox, focus/unfocus, subscribe to text change events on the textbox with the option to undo entered text, see GUI controls for more.</p>
+<h2 id="hotspot">Hotspot</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GetAtScreenXY</td>
+<td>IHitTest.ObjectAtMousePosition</td>
+<td><code>if (Hotspot.GetAtScreenXY(mouse.x, mouse.y) == hDoor){}</code></td>
+<td><code>if (hitTest.ObjectAtMousePosition == hDoor) {}</code></td>
+<td>Missing support for specific location checks.</td>
+</tr>
+<tr>
+<td>GetProperty</td>
+<td>Properties.Ints.GetValue</td>
+<td><code>if (hDoor.GetProperty(&quot;Value&quot;) &gt; 200) {}</code></td>
+<td><code>if (hDoor.Properties.Ints.GetValue(&quot;Value&quot;) &gt; 200) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetTextProperty</td>
+<td>Properties.Strings.GetValue</td>
+<td><code>hDoor.GetTextProperty(&quot;Description&quot;);</code></td>
+<td><code>hDoor.Properties.Strings.GetValue(&quot;Description&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RunInteraction</td>
+<td>Interactions.OnInteract(Verb).InvokeAsync</td>
+<td><code>hDoor.RunInteraction(eModeLookat);</code></td>
+<td><code>hDoor.Interactions.OnInteract(Verbs.Look).InvokeAsync();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Enabled</td>
+<td>Enabled</td>
+<td><code>hDoor.Enabled = false;</code></td>
+<td><code>hDoor.Enabled = false;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ID</td>
+<td>ID</td>
+<td><code>hDoor.ID</code></td>
+<td><code>hDoor.ID</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>Hotspot</td>
+<td><code>hDoor.Name</code></td>
+<td><code>hDoor.Hotspot</code></td>
+<td></td>
+</tr>
+<tr>
+<td>WalkToX</td>
+<td>WalkPoint.X</td>
+<td><code>hDoor.WalkToX</code></td>
+<td><code>hDoor.WalkPoint.X</code></td>
+<td></td>
+</tr>
+<tr>
+<td>WalkToY</td>
+<td>WalkPoint.Y</td>
+<td><code>hDoor.WalkToY</code></td>
+<td><code>hDoor.WalkPoint.Y</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: Change hotspot name at run-time, change hotspot walk-point at run-time, rotating/scaling hotspot area (at run-time), and as hotspot extends object, see Object for more.</p>
+<h2 id="inventory-item">Inventory Item</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GetAtScreenXY</td>
+<td>IHitTest.ObjectAtMousePosition</td>
+<td><code>if (InventoryItem.GetAtScreenXY(mouse.x, mouse.y) == iKnife){}</code></td>
+<td><code>if (hitTest.ObjectAtMousePosition == iKnife.Graphics) {}</code></td>
+<td>Missing support for specific location checks.</td>
+</tr>
+<tr>
+<td>GetProperty</td>
+<td>Properties.Ints.GetValue</td>
+<td><code>if (iKnife.GetProperty(&quot;Value&quot;) &gt; 200) {}</code></td>
+<td><code>if (iKnife.Graphics.Properties.Ints.GetValue(&quot;Value&quot;) &gt; 200) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetTextProperty</td>
+<td>Properties.Strings.GetValue</td>
+<td><code>iKnife.GetTextProperty(&quot;Description&quot;);</code></td>
+<td><code>iKnife.Graphics.Properties.Strings.GetValue(&quot;Description&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IsInteractionAvailable</td>
+<td>checking subscriber count on the interaction event</td>
+<td><code>if (iKeyring.IsInteractionAvailable(eModeLookat) == 0) {}</code></td>
+<td><code>if (iKeyring.Interactions.OnInteract(Verbs.Look).SubscribersCount == 0) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RunInteraction</td>
+<td>Interactions.OnInteract(Verb).InvokeAsync</td>
+<td><code>iKeyring.RunInteraction(eModeLookat);</code></td>
+<td><code>iKeyring.Interactions.OnInteract(Verbs.Look).InvokeAsync();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CursorGraphic</td>
+<td>CursorGraphics</td>
+<td><code>iKey.CursorGraphic = 5;</code></td>
+<td><code>iKey.CursorGraphics = animatedKeyCursor;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Graphic</td>
+<td>Graphics</td>
+<td><code>iKey.Graphic = 5;</code></td>
+<td><code>iKey.Graphics = animatedKey;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ID</td>
+<td>Graphics.ID</td>
+<td><code>iKey.ID</code></td>
+<td><code>iKey.Graphics.ID</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>Graphics.Hotspot</td>
+<td><code>iKey.Name</code></td>
+<td><code>iKey.Graphics.Hotspot</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: animated inventory items (and cursors), inventory items extend objects so you can do with them everything you can do with objects (rotate, scale, etc), see Object for more.</p>
+<h2 id="maths">Maths</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FloatToInt</td>
+<td>Floor or Ceiling or Round followed by casting to int</td>
+<td><code>FloatToInt(10.7, eRoundNearest)</code></td>
+<td><code>(int)Math.Round(10.7f)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IntToFloat</td>
+<td>cast to float</td>
+<td><code>IntToFloat(myIntValue)</code></td>
+<td><code>(float)myIntValue</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ArcCos</td>
+<td>Acos</td>
+<td><code>float angle = Maths.ArcCos(1.0);</code></td>
+<td><code>float angle = Math.Acos(1)</code>;</td>
+<td></td>
+</tr>
+<tr>
+<td>ArcSin</td>
+<td>Asin</td>
+<td><code>float angle = Maths.ArcSin(0.5);</code></td>
+<td><code>float angle = Math.Asin(0.5f)</code>;</td>
+<td></td>
+</tr>
+<tr>
+<td>ArcTan</td>
+<td>Atan</td>
+<td><code>float angle = Maths.ArcTan(0.5);</code></td>
+<td><code>float angle = Math.Atan(0.5f);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ArcTan2</td>
+<td>Atan2</td>
+<td><code>float angle = Maths.ArcTan2(-862.42, 78.5149);</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Cos</td>
+<td>Cos</td>
+<td><code>float x = Maths.Cos(100);</code></td>
+<td><code>float x = Math.Cos(100);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Cosh</td>
+<td>Cosh</td>
+<td><code>float x = Maths.Cosh(100);</code></td>
+<td><code>float x = Math.Cosh(100);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DegreesToRadians</td>
+<td>MathUtils.DegreesToRadians</td>
+<td><code>float radians = Maths.DegreesToRadians(360.0);</code></td>
+<td><code>float radians = MathUtils.DegreesToRadians(360);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Exp</td>
+<td>Exp</td>
+<td><code>float expValue = Maths.Exp(2.302585093);</code></td>
+<td><code>float expValue = Math.Exp(2.302585093f);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Log</td>
+<td>Log</td>
+<td><code>float logVal = Maths.Log(9000.0);</code></td>
+<td><code>float logVal = Math.Log(9000);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Log10</td>
+<td>Log10</td>
+<td><code>float logVal = Maths.Log10(9000.0);</code></td>
+<td><code>float logVal = Math.Log10(9000);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RadiansToDegrees</td>
+<td>?</td>
+<td><code>float val = Maths.RadiansToDegrees(angle);</code></td>
+<td><code>float val = angle * (180f / Math.PI);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RaiseToPower</td>
+<td>Pow</td>
+<td><code>float value = Maths.RaiseToPower(4.5, 3.0);</code></td>
+<td><code>float value = Math.Pow(4.5f, 3);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Sin</td>
+<td>Sin</td>
+<td><code>float value = Maths.Sin(50.0);</code></td>
+<td><code>float value = Math.Sin(50);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Sinh</td>
+<td>Sinh</td>
+<td><code>float value = Maths.Sinh(50.0);</code></td>
+<td><code>float value = Math.Sinh(50);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Sqrt</td>
+<td>Sqrt</td>
+<td><code>float value = Maths.Sqrt(9.0);</code></td>
+<td><code>float value = Math.Sqrt(9);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Tan</td>
+<td>Tan</td>
+<td><code>float value = Maths.Tan(9.0);</code></td>
+<td><code>float value = Math.Tan(9);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Tanh</td>
+<td>Tanh</td>
+<td><code>float value = Maths.Tanh(9.0);</code></td>
+<td><code>float value = Math.Tan(9);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Pi</td>
+<td>PI</td>
+<td><code>Maths.Pi</code></td>
+<td><code>Math.PI</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: well, almost nothing here is MonoAGS specific, this is all c# Math class, which you can view here: <a href="https://msdn.microsoft.com/en-us/library/system.math(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.math(v=vs.110).aspx</a>
+Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> like Lerp and Clamp which can be useful.</p>
+<h2 id="mouse">Mouse</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ChangeModeGraphic</td>
+<td>input.Cursor</td>
+<td><code>mouse.ChangeModeGraphic(eModeLookat, 120);</code></td>
+<td><code>game.Input.Cursor = myLookCursor;</code></td>
+<td>Note that the AGS &quot;ChangeModeGraphic&quot; function changes how the mouse cursor automatically changes, and the example shown here changes the cursor manually. For automatic changes, each control scheme might have different methods that you need to call as the logic might be completely different. For the rotating cursors scheme, for example, you&#39;d call <code>scheme.AddCursor(Verbs.Look, myLookCursor, true);</code></td>
+</tr>
+<tr>
+<td>ChangeModeHotspot</td>
+<td>change the pivot point on the cursor&#39;s object</td>
+<td><code>mouse.ChangeModeHotspot(eModeWalkTo, 10, 10);</code></td>
+<td><code>walkCursor.Pivot = new PointF(0.1f, 0.1f);</code></td>
+<td>Note that the pivot point is in relative co-ordinates to the graphics, so (0.5, 0.5) is the center of the image, for example.</td>
+</tr>
+<tr>
+<td>ChangeModeView</td>
+<td>input.Cursor</td>
+<td><code>mouse.ChangeModeView(eModeLookat, ROLLEYES);</code></td>
+<td><code>game.Input.Cursor = myLookCursor;</code></td>
+<td>See notes on ChangeModeGraphic</td>
+</tr>
+<tr>
+<td>DisableMode</td>
+<td>?</td>
+<td><code>mouse.DisableMode(eModeWalkto);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>EnableMode</td>
+<td>?</td>
+<td><code>mouse.EnableMode(eModeWalkto);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>GetModeGraphic</td>
+<td>?</td>
+<td><code>mouse.GetModeGraphic(eModeWalkto);</code></td>
+<td>?</td>
+<td>There&#39;s nothing specific, but you can just query the specific mouse cursor that you&#39;re interested about</td>
+</tr>
+<tr>
+<td>IsButtonDown</td>
+<td>LeftMouseButtonDown or RightMouseButtonDown</td>
+<td><code>if (mouse.IsButtonDown(eMouseRight)) {}</code></td>
+<td><code>if (game.Input.RightMouseButtonDown)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SaveCursorUntilItLeaves</td>
+<td>use the cursor component</td>
+<td>when hovering over &quot;myHotspot&quot;: <code>mouse.SaveCursorUntilItLeaves(); mouse.Mode = eModeTalk;</code></td>
+<td><code>var cursorComponent = myHotspot.AddComponent&lt;IHasCursorComponent&gt;(); cursorComponent.SpecialCursor = myAnimatedSpecialCursorForThisHotspot;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SelectNextMode</td>
+<td>?</td>
+<td><code>Mouse.SelectNextMode()</code></td>
+<td>In MonoAGS, by choosing the <code>RotatingCursorsScheme</code> as your control scheme, this is already handled (and you can look at the code if you want to it differently)</td>
+<td></td>
+</tr>
+<tr>
+<td>SetBounds</td>
+<td>Subscribe to mouse move event and change the position of the mouse accordingly</td>
+<td><code>mouse.SetBounds(160, 100, 320, 200);</code></td>
+<td><code>game.Input.MouseMove.Subscribe(args =&gt; if (args.MousePosition.XWindow &gt; 160) OpenTK.Mouse.SetPosition(160, args.MousePosition.YWindow));</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetPosition</td>
+<td>OpenTK.Mouse.SetPosition</td>
+<td><code>mouse.SetPosition(160, 100);</code></td>
+<td><code>OpenTK.Mouse.SetPosition(160, 100);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Update</td>
+<td>?</td>
+<td><code>mouse.Update();</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>UseDefaultGraphic</td>
+<td>?</td>
+<td><code>mouse.UseDefaultGraphic();</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>UseModeGraphic</td>
+<td>N/A</td>
+<td><code>mouse.UseModeGraphic(eModeWait)</code></td>
+<td>?</td>
+<td>This can be different depending on the control scheme you chose for the game. For the RotatingCursorsScheme for example, you&#39;d write: <code>scheme.Mode = Verbs.Wait;</code></td>
+</tr>
+<tr>
+<td>Mode</td>
+<td>input.Cursor</td>
+<td><code>if (mouse.Mode == eModeWalkto) {}</code></td>
+<td><code>if (game.Input.Cursor == myWalkCursor) {}</code></td>
+<td>For individual control schemes, you might have the concept of &quot;Mode&quot;, but it&#39;s not related to the mouse. In RotatingCursorsScheme, for example, you can query <code>if (scheme.Mode == Verbs.Walk) {}</code>.</td>
+</tr>
+<tr>
+<td>Visible</td>
+<td>Input.Cursor.Visible</td>
+<td><code>mouse.Visible = false;</code></td>
+<td><code>game.Input.Cursor.Visible = false;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: The cursors is just an extension of objects, so they can be manipulated in all ways an object can be manipulated (see Object for more).</p>
+<h2 id="multimedia">Multimedia</h2>
+<p>Currently no equivalents to any of the multimedia functions in MonoAGS.</p>
+<h2 id="object">Object</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Animate</td>
+<td>AnimateAsync</td>
+<td><code>oRope.Animate(3, 1, 0, eBlock, eBackwards);</code></td>
+<td>For blocking: <code>await oRope.AnimateAsync(jumpUpAnimation);</code>. For non-blocking, do the same just without awaiting it: <code>oRope.AnimateAsync(jumpUpAnimation);</code>. As for delay, repeat style and direction, those are configured as part of the animation (&quot;jumpUpAnimation&quot; in this scenario). It can be changed at run-time before animating, if you want. For example: <code>jumpUpAnimation.Looping = LoopingStyle.BackwardsForwards; jumpUpAnimation.Loops = 15; jumpUpAnimation.DelayBetweenFrames = 3;</code></td>
+<td>Note that <code>MonoAGS</code> doesn&#39;t have the concepts of view and loop, just individual animations for manual animations, and directional animations for automatic animations like walk and idle.</td>
+</tr>
+<tr>
+<td>GetAtScreenXY</td>
+<td>IHitTest.ObjectAtMousePosition</td>
+<td><code>if (Object.GetAtScreenXY(mouse.x, mouse.y) == oRope){}</code></td>
+<td><code>if (hitTest.ObjectAtMousePosition == oRope) {}</code></td>
+<td>Missing support for specific location checks.</td>
+</tr>
+<tr>
+<td>GetProperty</td>
+<td>Properties.Ints.GetValue</td>
+<td><code>if (oRope.GetProperty(&quot;Value&quot;) &gt; 200) {}</code></td>
+<td><code>if (oRope.Properties.Ints.GetValue(&quot;Value&quot;) &gt; 200) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetTextProperty</td>
+<td>Properties.Strings.GetValue</td>
+<td><code>oRope.GetTextProperty(&quot;Description&quot;);</code></td>
+<td><code>oRope.Properties.Strings.GetValue(&quot;Description&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IsCollidingWithObject (character)</td>
+<td>CollidesWith</td>
+<td><code>if (oRope.IsCollidingWithChar(oBottle) == 1) {}</code></td>
+<td><code>if (oRope.CollidesWith(oBottle.X, oBottle.Y, state.Viewport)) {}</code></td>
+<td>Note that MonoAGS supports multiple viewports so we need to pass the viewport in which we&#39;d like to test for collisions.</td>
+</tr>
+<tr>
+<td>MergeIntoBackground</td>
+<td>?</td>
+<td><code>object[3].MergeIntoBackground();</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Move</td>
+<td>TweenX &amp; TweenY</td>
+<td><code>object[2].Move(125, 40, 4, eBlock);</code></td>
+<td>For blocking: <code>await oRope.TweenX(125, 3, Ease.Linear);</code>, for non-blocking do the same just without awaiting it: <code>oRope.TweenX(125, 3, Ease.Linear);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RemoveTint</td>
+<td>Tint</td>
+<td><code>oRope.RemoveTint();</code></td>
+<td><code>oRope.Tint = Colors.White;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RunInteraction</td>
+<td>Interactions.OnInteract(Verb).InvokeAsync</td>
+<td><code>oRope.RunInteraction(eModeTalk);</code></td>
+<td><code>oRope.Interactions.OnInteract(Verbs.Talk).InvokeAsync();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetPosition</td>
+<td>Location</td>
+<td><code>oRope.SetPosition(50, 50);</code></td>
+<td><code>oRope.Location = new AGSLocation(50, 50);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetView</td>
+<td>N/A</td>
+<td><code>object[3].SetView(14);</code></td>
+<td>No need</td>
+<td>In AGS this is a command that must come before calling &quot;Animate&quot; so that AGS would know which animation to run. In MonoAGS you just pass the animation object to the &quot;Animate&quot; function, so SetView becomes redundant.</td>
+</tr>
+<tr>
+<td>StopAnimating</td>
+<td>Set an image</td>
+<td><code>oRope.StopAnimating();</code></td>
+<td><code>oRope.Image = oRope.CurrentSprite.Image</code>;</td>
+<td></td>
+</tr>
+<tr>
+<td>StopMoving</td>
+<td>Stop the previous tween(s)</td>
+<td><code>oRope.StopMoving();</code></td>
+<td><code>tween.Stop(TweenCompletion.Stay);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Tint</td>
+<td>Tint</td>
+<td><code>oRope.Tint(0, 250, 0, 30, 100);</code></td>
+<td><code>oRope.Tint = Colors.Green;</code> or <code>cEoRopego.Tint = Color.FromRgba(0, 255, 0, 255);</code> or <code>oRope.Tint = Color.FromHsla(200, 1, 1, 255);</code> or <code>oRope.Tint = Color.FromHexa(59f442);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Animating</td>
+<td>Animation.State.IsPaused</td>
+<td><code>if (oRope.Animating) {}</code></td>
+<td><code>if (!oRope.Animation.State.IsPaused) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Baseline</td>
+<td>Z</td>
+<td><code>oRope.Baseline = 40;</code></td>
+<td><code>oRope.Z = 40;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>BlockingHeight</td>
+<td>?</td>
+<td><code>oRope.BlockingHeight = 20;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>BlockingWidth</td>
+<td>?</td>
+<td><code>oRope.BlockingWidth = 20;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Clickable</td>
+<td>Enabled</td>
+<td><code>oRope.Clickable = false;</code></td>
+<td><code>oRope.Enabled = false;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Frame</td>
+<td>Animation.State.CurrentFrame</td>
+<td><code>oRope.Frame</code></td>
+<td><code>oRope.Animation.State.CurrentFrame</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Graphic</td>
+<td>Image</td>
+<td><code>oRope.Graphic = 100;</code></td>
+<td><code>oRope.Image = ropeImage;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ID</td>
+<td>ID</td>
+<td><code>oRope.ID</code></td>
+<td><code>oRope.ID</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IgnoreScaling</td>
+<td>IgnoreScalingArea</td>
+<td><code>oRope.IgnoreScaling = true;</code></td>
+<td><code>oRope.IgnoreScalingArea = true;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IgnoreWalkbehinds</td>
+<td>?</td>
+<td><code>oRope.IgnoreWalkbehinds = true;</code></td>
+<td>?</td>
+<td>Probably not really needed in MonoAGS- with the combination of render layers, Z and parent-child relationships you have the ability control rendering order more easily</td>
+</tr>
+<tr>
+<td>Loop</td>
+<td>Animation.State.CurrentLoop</td>
+<td><code>oRope.Loop</code></td>
+<td><code>oRope.Animation.State.CurrentLoop</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Moving</td>
+<td>query the previous tween(s)</td>
+<td><code>if (oRope.Moving) {}</code></td>
+<td><code>if (myTween.State == TweenState.Playing) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>Hotspot</td>
+<td><code>oRope.Name</code></td>
+<td><code>oRope.Hotspot</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Solid</td>
+<td>?</td>
+<td><code>oRope.Solid = true;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Transparency</td>
+<td>Opacity</td>
+<td><code>oRope.Transparency = 100;</code></td>
+<td><code>oRope.Opacity = 0;</code></td>
+<td>The range for AGS transparency is 0-100, the range for MonoAGS opacity is 0-255</td>
+</tr>
+<tr>
+<td>View</td>
+<td>Animation</td>
+<td><code>oRope.View</code></td>
+<td><code>oRope.Animation</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Visible</td>
+<td>Visible</td>
+<td><code>oRope.Visible = true;</code></td>
+<td><code>oRope.Visible = true;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>X</td>
+<td>X</td>
+<td><code>oRope.X = 50;</code></td>
+<td><code>oRope.X = 50.5f;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Y</td>
+<td>Y</td>
+<td><code>oRope.Y = 50;</code></td>
+<td><code>oRope.Y = 50.5f;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: scaling and rotating (with setting a pivot point), the ability to scale/rotate/translate individual animation frames, composition of objects (i.e nesting objects in other objects), mix &amp; match with GUI, move between rooms, different resolution from the game, custom rendering (including shaders), sub-pixel positioning, rendering in multiple viewports, creation at run-time, selecting between pixel perfect or bounding box collision checks, objects are transitive with all other on-screen items (characters, GUIs), cropping objects, surround with borders, set hotspot text at runtime, controlling texture offset &amp; scaling filter (per texture), subscribing to events (on pretty much anything that might change in any of the components), interactions with custom verbs, ability to extend objects with custom components, ability to replace engine implementation of components with your own (i.e implement your own collider component and provide custom collision checks, for example).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/AGSCheatSheet/Docs/articles/ags-cheat-sheet.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
