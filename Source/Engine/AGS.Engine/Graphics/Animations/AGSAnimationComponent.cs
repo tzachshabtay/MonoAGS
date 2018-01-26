@@ -22,7 +22,9 @@ namespace AGS.Engine
         {
             base.Init(entity);
             entity.Bind<IScaleComponent>(c => _scale = c, c => _scale = null);
-            entity.Bind<ISpriteRenderComponent>(c => _spriteRender = c, c => _spriteRender = null);
+            entity.Bind<ISpriteRenderComponent>(
+                c => { _spriteRender = c; c.PropertyChanged += onSpriteRenderPropertyChanged; },
+                c => { c.PropertyChanged -= onSpriteRenderPropertyChanged; _spriteRender = null; } );
         }
 
         public void StartAnimation(IAnimation animation)
@@ -32,15 +34,11 @@ namespace AGS.Engine
 			{
                 scale.BaseSize = new SizeF(animation.Frames[0].Sprite.Width, animation.Frames[0].Sprite.Height);
 			}
-			IAnimation currentAnimation = Animation;
-            if (currentAnimation != null)
-            {
-                currentAnimation.State.PropertyChanged -= OnAnimationStatePropertyChanged;
-                currentAnimation.State.OnAnimationCompleted.TrySetResult(new AnimationCompletedEventArgs(false));
-            }
+
+            stopAnimation();
 
             Animation = animation;
-            animation.State.PropertyChanged += OnAnimationStatePropertyChanged;
+            animation.State.PropertyChanged += onAnimationStatePropertyChanged;
             OnAnimationStarted.Invoke();
             if (_spriteRender != null)
                 _spriteRender.SpriteProvider = this;
@@ -61,7 +59,17 @@ namespace AGS.Engine
         [Property(Browsable = false)]
         public ISprite Sprite { get => Animation?.Sprite; }
 
-        private void OnAnimationStatePropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void stopAnimation()
+        {
+            IAnimation currentAnimation = Animation;
+            if (currentAnimation != null)
+            {
+                currentAnimation.State.PropertyChanged -= onAnimationStatePropertyChanged;
+                currentAnimation.State.OnAnimationCompleted.TrySetResult(new AnimationCompletedEventArgs(false));
+            }
+        }
+
+        private void onAnimationStatePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(IAnimationState.CurrentFrame))
                 return;
@@ -69,5 +77,15 @@ namespace AGS.Engine
             OnPropertyChanged(nameof(Sprite));
         }
 
+        private void onSpriteRenderPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(ISpriteRenderComponent.SpriteProvider))
+                return;
+            if (_spriteRender.SpriteProvider != this)
+            {
+                stopAnimation();
+                Animation = null;
+            }
+        }
     }
 }
