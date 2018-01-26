@@ -18028,6 +18028,18 @@ references:
   commentId: Overload:AGS.API.PropertyAttribute.Category
   fullName: AGS.API.PropertyAttribute.Category
   nameWithType: PropertyAttribute.Category
+- uid: AGS.API.PropertyAttribute.CategoryExpand
+  name: CategoryExpand
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_CategoryExpand
+  commentId: P:AGS.API.PropertyAttribute.CategoryExpand
+  fullName: AGS.API.PropertyAttribute.CategoryExpand
+  nameWithType: PropertyAttribute.CategoryExpand
+- uid: AGS.API.PropertyAttribute.CategoryExpand*
+  name: CategoryExpand
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_CategoryExpand_
+  commentId: Overload:AGS.API.PropertyAttribute.CategoryExpand
+  fullName: AGS.API.PropertyAttribute.CategoryExpand
+  nameWithType: PropertyAttribute.CategoryExpand
 - uid: AGS.API.PropertyAttribute.CategoryZ
   name: CategoryZ
   href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_CategoryZ
