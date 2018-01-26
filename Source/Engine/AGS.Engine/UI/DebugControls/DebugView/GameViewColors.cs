@@ -18,7 +18,8 @@ namespace AGS.Engine
         public static IBrush ReadonlyTextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(ReadonlyText);
 
         public static ITextConfig TextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: TextBrush);
-        public static ITextConfig ReadonlyTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: ReadonlyTextBrush);
+        public static ITextConfig ReadonlyTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: ReadonlyTextBrush, 
+                    font: AGSGame.Device.FontLoader.LoadFont(AGSGameSettings.DefaultTextFont.FontFamily, 12f));
         public static ITextConfig HoverTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: HoveredTextBrush);
 
 
