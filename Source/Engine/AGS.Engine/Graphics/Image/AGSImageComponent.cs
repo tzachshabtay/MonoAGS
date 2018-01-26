@@ -19,7 +19,7 @@ namespace AGS.Engine
             _image.PropertyChanged += onPropertyChanged;
         }
 
-        [Property(Category = "Transform", CategoryZ = -100)]
+        [Property(Category = "Transform", CategoryZ = -100, CategoryExpand = true)]
         [NumberEditorSlider(sliderMin: 0, sliderMax: 1f)]
         public PointF Pivot { get => _image.Pivot; set => _image.Pivot = value; }
 

@@ -39,7 +39,7 @@ namespace AGS.Engine
         [Property(Category = "Size")]
         public float Width => _scale.Width;
 
-        [Property(Category = "Transform", CategoryZ = -100)]
+        [Property(Category = "Transform", CategoryZ = -100, CategoryExpand = true)]
         [NumberEditorSlider(sliderMin: 0f, sliderMax: 2f)]
         public PointF Scale
         {

@@ -74,7 +74,7 @@ namespace AGS.Engine
 			if (attr != null)
 			{
 				if (!attr.Browsable) return null;
-                if (attr.Category != null) cat = new Category(attr.Category, attr.CategoryZ);
+                if (attr.Category != null) cat = new Category(attr.Category, attr.CategoryZ, attr.CategoryExpand);
 				if (attr.DisplayName != null) name = attr.DisplayName;
 			}
 			InspectorProperty property = new InspectorProperty(obj, name, prop);
@@ -122,6 +122,7 @@ namespace AGS.Engine
             var treeView = _treeView;
             if (treeView == null) return;
             var root = new AGSTreeStringNode { Text = ""};
+            List<ITreeStringNode> toExpand = new List<ITreeStringNode>();
             foreach (var pair in _props.OrderBy(p => p.Key.Z).ThenBy(p => p.Key.Name))
             {
                 ITreeStringNode cat = addToTree(pair.Key.Name, root);
@@ -129,9 +130,17 @@ namespace AGS.Engine
                 {
                     addToTree(cat, prop);
                 }
+                if (pair.Key.Expand)
+                {
+                    toExpand.Add(cat);
+                }
             }
             treeView.Tree = root;
             treeView.Expand(root);
+            foreach (var node in toExpand)
+            {
+                treeView.Expand(node);
+            }
         }
 
         private void addToTree(ITreeStringNode parent, InspectorProperty prop)
@@ -238,15 +247,18 @@ namespace AGS.Engine
 
         private class Category
         {
-            public Category(string name, int z = 0)
+            public Category(string name, int z = 0, bool expand = false)
             {
                 Name = name;
                 Z = z;
+                Expand = expand;
             }
 
             public string Name { get; private set; }
 
             public int Z { get; private set; }
+
+            public bool Expand { get; private set; }
 
             public override bool Equals(object obj)
             {
