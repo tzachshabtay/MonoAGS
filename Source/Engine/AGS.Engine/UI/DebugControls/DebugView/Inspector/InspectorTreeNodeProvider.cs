@@ -11,11 +11,12 @@ namespace AGS.Engine
     {
         private ITreeNodeViewProvider _provider;
         private IGameFactory _factory;
+        private float _rowWidth;
         private readonly Dictionary<string, ITreeTableLayout> _layouts;
         private readonly IGameEvents _gameEvents;
-        private readonly IBlockingEvent _onResize;
+        private readonly IBlockingEvent<float> _onResize;
         private readonly IObject _inspectorPanel;
-        private float _rowWidth;
+        private readonly Dictionary<ITreeNodeView, ResizeSubscriber> _resizeSubscribers;
 
         private static int _nextNodeId;
 
@@ -23,11 +24,12 @@ namespace AGS.Engine
                                          IGameEvents gameEvents, IObject inspectorPanel)
         {
             _inspectorPanel = inspectorPanel;
-            _onResize = new AGSEvent();
+            _onResize = new AGSEvent<float>();
             _provider = provider;
             _factory = factory;
             _gameEvents = gameEvents;
             _layouts = new Dictionary<string, ITreeTableLayout>();
+            _resizeSubscribers = new Dictionary<ITreeNodeView, ResizeSubscriber>();
         }
 
         public void BeforeDisplayingNode(ITreeStringNode item, ITreeNodeView nodeView, bool isCollapsed, bool isHovered, bool isSelected)
@@ -43,7 +45,7 @@ namespace AGS.Engine
         public void Resize(float width)
         {
             _rowWidth = width;
-            _onResize.Invoke();
+            _onResize.Invoke(width);
         }
 
         public ITreeNodeView CreateNode(ITreeStringNode item, IRenderLayer layer)
@@ -98,13 +100,29 @@ namespace AGS.Engine
         {
             nodeView.TreeItem.Tint = Colors.Transparent;
             nodeView.HorizontalPanel.Tint = isSelected ? Colors.DarkSlateBlue : Colors.Gray.WithAlpha(50);
-            _onResize.Unsubscribe(onResize);
-            _onResize.Subscribe(onResize);
-            onResize();
+            var subscriber = _resizeSubscribers.GetOrAdd(nodeView, () => new ResizeSubscriber(nodeView));
+            subscriber.Subscribe(_onResize);
+            subscriber.Resize(_rowWidth);
+        }
 
-            void onResize()
+        private class ResizeSubscriber
+        {
+            private ITreeNodeView _nodeView;
+
+            public ResizeSubscriber(ITreeNodeView nodeView)
             {
-                nodeView.HorizontalPanel.BaseSize = new SizeF(_rowWidth, 30f);
+                _nodeView = nodeView;
+            }
+
+            public void Subscribe(IBlockingEvent<float> resizeEvent)
+            {
+                resizeEvent.Unsubscribe(Resize);
+                resizeEvent.Subscribe(Resize);
+            }
+
+            public void Resize(float rowWidth)
+            {
+                _nodeView.HorizontalPanel.BaseSize = new SizeF(rowWidth, 30f);
             }
         }
     }
