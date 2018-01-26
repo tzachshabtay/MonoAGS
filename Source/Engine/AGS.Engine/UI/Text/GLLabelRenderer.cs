@@ -175,10 +175,10 @@ namespace AGS.Engine
                 _bgRenderer.Render(obj, viewport);
             }
 
-            if (TextVisible && Text != "")
+            if (TextVisible && (!string.IsNullOrEmpty(Text) || RenderCaret))
             {
                 _glTextHitTest.Refresh();
-                if (!string.IsNullOrEmpty(Text)) _glUtils.AdjustResolution(resolution.Width, resolution.Height);
+                _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
                 var cropInfo = _usedTextBoundingBoxes.RenderBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), AGSModelMatrixComponent.NoScaling);

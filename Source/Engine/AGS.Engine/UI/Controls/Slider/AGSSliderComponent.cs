@@ -253,9 +253,7 @@ namespace AGS.Engine
             if (visible == null || !visible.Visible || enabled == null || !enabled.Enabled || 
                 enabled.ClickThrough || boundingBoxes == null || 
                 (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
-                Graphics.GetBoundingBoxes(_state.Viewport) == null || !Graphics.CollidesWith(
-                    _input.MousePosition.XMainViewport, _input.MousePosition.YMainViewport, _state.Viewport) || 
-                HandleGraphics == null)
+                Graphics.GetBoundingBoxes(_state.Viewport) == null || HandleGraphics == null)
 			{
 				if (_isSliding)
 				{
@@ -264,6 +262,11 @@ namespace AGS.Engine
 				}
 				return;
 			}
+            if (!_isSliding && !Graphics.CollidesWith(
+                _input.MousePosition.XMainViewport, _input.MousePosition.YMainViewport, _state.Viewport))
+            {
+                return;
+            }
             _focus.HasKeyboardFocus = _entity;
 			_isSliding = true;
             if (isHorizontal()) setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.XMainViewport - boundingBoxes.HitTestBox.MinX, 

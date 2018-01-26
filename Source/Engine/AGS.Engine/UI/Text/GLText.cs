@@ -64,7 +64,7 @@ namespace AGS.Engine
 
         ~GLText()
         {
-            dispose(false);
+            disposeTexture();
         }
 
         public static AGS.API.SizeF EmptySize = new AGS.API.SizeF(0f, 0f);
@@ -117,7 +117,7 @@ namespace AGS.Engine
 
         public void Dispose()
         {
-            dispose(true);
+            disposeTexture();
             GC.SuppressFinalize(this);
         }
 
@@ -180,7 +180,9 @@ namespace AGS.Engine
 
             var config = AGSTextConfig.ScaleConfig(_config, _scaleUp.X);
             int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : (int)(_maxWidth * _scaleUp.X - config.PaddingLeft - config.PaddingRight);
-            SizeF originalTextSize = config.Font.MeasureString(text, _cropText ? int.MaxValue : maxWidth);
+            string textToMeasure = text;
+            if (_renderCaret && textToMeasure == "") textToMeasure = "|";
+            SizeF originalTextSize = config.Font.MeasureString(textToMeasure, _cropText ? int.MaxValue : maxWidth);
             SizeF textSize = originalTextSize;
             if (_cropText && textSize.Width > maxWidth)
             {
@@ -237,6 +239,7 @@ namespace AGS.Engine
 
         private void uploadBitmapToOpenGl()
         {
+            disposeTexture();
             _texture = createTexture();
             IBitmap bitmap = _bitmapPool.Acquire(_draw.BitmapWidth, _draw.BitmapHeight);
             try
@@ -262,9 +265,10 @@ namespace AGS.Engine
             }
         }
 
-        private void dispose(bool disposing)
+        private void disposeTexture()
         {
-            if (_texture != 0) _messagePump.Post(_ => _graphics.DeleteTexture(_texture), null);
+            var texture = _texture;
+            if (texture != 0) _messagePump.Post(_ => _graphics.DeleteTexture(texture), null);
         }
 
         private void releaseBitmap(IBitmap bitmap)

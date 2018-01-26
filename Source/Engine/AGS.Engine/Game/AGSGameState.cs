@@ -10,7 +10,6 @@ namespace AGS.Engine
 	{
 		private Lazy<ICutscene> _cutscene;
         private IAGSRoomTransitions _roomTransitions;
-        private Task[] _emptyTaskArray = new Task[] { };
 
         public AGSGameState (ICustomProperties globalVariables, IAGSRoomTransitions roomTransitions, 
                              Resolver resolver, IFocusedUI focusedUi, IViewport viewport)
@@ -64,7 +63,7 @@ namespace AGS.Engine
                 {
                     while (_roomTransitions.State != RoomTransitionState.NotInTransition)
                     {
-                        Task.WaitAll(_emptyTaskArray, 10); //Busy waiting, agghh!
+                        await Task.Delay(10); //Busy waiting, agghh!
                     }
                     if (Room == newRoom) return; //somebody already changed to this room, no need to change again.
                 }

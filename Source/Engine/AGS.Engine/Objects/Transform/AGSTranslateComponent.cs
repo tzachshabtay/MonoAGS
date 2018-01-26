@@ -14,7 +14,7 @@ namespace AGS.Engine
             _translate.PropertyChanged += (sender, e) => OnPropertyChanged(e);
         }
 
-        [Property(Category = "Transform")]
+        [Property(Category = "Transform", CategoryZ = -100, CategoryExpand = true)]
         public ILocation Location { get => _translate.Location; set => _translate.Location = value; }
 
         [Property(Browsable = false)]

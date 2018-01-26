@@ -85,6 +85,7 @@ namespace AGS.Engine
 			debugRenderers = DebugDrawWalkPath ? new List<IObject> () : null;
 			_debugPath = debugRenderers;
 			_walkCompleted = new TaskCompletionSource<object> (null);
+            OnPropertyChanged(nameof(IsWalking));
             float xSource = _translate.X;
             float ySource = _translate.Y;
 			bool completedWalk = false;
@@ -97,6 +98,7 @@ namespace AGS.Engine
                 _faceDirection.CurrentDirectionalAnimation = _outfit.Outfit[AGSOutfit.Idle];
                 await _faceDirection.FaceDirectionAsync(_faceDirection.Direction);
                 _walkCompleted.TrySetResult(null);
+                OnPropertyChanged(nameof(IsWalking));
             }
 
 			return completedWalk;

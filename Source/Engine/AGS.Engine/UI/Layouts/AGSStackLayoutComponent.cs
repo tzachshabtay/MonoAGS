@@ -50,6 +50,13 @@ namespace AGS.Engine
             _isPaused = true;
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            StopLayout();
+            unsubscribeChildren();
+        }
+
         private void subscribeChildren()
         {
             var boundingBoxSubscription = new EntitySubscription<IBoundingBoxWithChildrenComponent>(null,

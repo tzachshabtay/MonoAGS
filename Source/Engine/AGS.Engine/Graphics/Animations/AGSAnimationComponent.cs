@@ -58,6 +58,7 @@ namespace AGS.Engine
 			return await animation.State.OnAnimationCompleted.Task;
 		}
 
+        [Property(Browsable = false)]
         public ISprite Sprite { get => Animation?.Sprite; }
 
         private void OnAnimationStatePropertyChanged(object sender, PropertyChangedEventArgs e)

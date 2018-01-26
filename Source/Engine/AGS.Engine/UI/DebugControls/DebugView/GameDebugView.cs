@@ -33,11 +33,11 @@ namespace AGS.Engine
             const float borderWidth = 3f;
             IGameFactory factory = _game.Factory;
             _panel = factory.UI.GetPanel(_panelId, _layer.IndependentResolution.Value.Width / 4f, _layer.IndependentResolution.Value.Height,
-                                                     5f, _layer.IndependentResolution.Value.Height / 2f);
+                                                     1f, _layer.IndependentResolution.Value.Height / 2f);
             _panel.Pivot = new PointF(0f, 0.5f);
             _panel.Visible = false;
-            _panel.Tint = Colors.Black.WithAlpha(150);
-            _panel.Border = AGSBorders.SolidColor(Colors.Green, borderWidth, hasRoundCorners: true);
+            _panel.Tint = GameViewColors.Panel;
+            _panel.Border = AGSBorders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
             _panel.RenderLayer = _layer;
             _panel.ClickThrough = false;
             _game.State.FocusedUI.CannotLoseFocus.Add(_panelId);
@@ -55,7 +55,7 @@ namespace AGS.Engine
             xButton.Pivot = new PointF();
             xButton.RenderLayer = _layer;
             xButton.Tint = Colors.Transparent;
-            xButton.MouseEnter.Subscribe(_ => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
+            xButton.MouseEnter.Subscribe(_ => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, GameViewColors.HoveredText, GameViewColors.HoveredText, 0.3f));
             xButton.MouseLeave.Subscribe(_ => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Red, Colors.Transparent, 0f));
             xButton.MouseClicked.Subscribe(_ => Hide());
 
@@ -64,9 +64,9 @@ namespace AGS.Engine
                                                    width: 120f, height: 40f);
             _panesButton.Pivot = new PointF(1f, 0f);
             _panesButton.RenderLayer = _layer;
-            _panesButton.Tint = Colors.Black;
-            _panesButton.MouseEnter.Subscribe(_ => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
-            _panesButton.MouseLeave.Subscribe(_ => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.White, Colors.Transparent, 0f));
+            _panesButton.Tint = GameViewColors.Button;
+            _panesButton.MouseEnter.Subscribe(_ => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, GameViewColors.HoveredText, GameViewColors.HoveredText, 0.3f));
+            _panesButton.MouseLeave.Subscribe(_ => _panesButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, GameViewColors.Text, Colors.Transparent, 0f));
             _panesButton.MouseClicked.SubscribeToAsync(onPaneSwitch);
 
             var parentPanelHeight = _panel.Height - headerHeight;

@@ -268,6 +268,9 @@
     <Compile Include="Editor\Attributes\NumberEditor\NumberEditorSliderAttribute.cs" />
     <Compile Include="Objects\ILockStep.cs" />
     <Compile Include="UI\Controls\Listbox\ICustomSearchItem.cs" />
+    <Compile Include="UI\Layouts\TreeTable\ITreeTableLayout.cs" />
+    <Compile Include="UI\Layouts\TreeTable\ITreeTableRowLayoutComponent.cs" />
+    <Compile Include="UI\Layouts\TreeTable\QueryLayoutEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
@@ -281,5 +284,6 @@
     <Folder Include="UI\Controls\Editors\" />
     <Folder Include="Editor\Attributes\" />
     <Folder Include="Editor\Attributes\NumberEditor\" />
+    <Folder Include="UI\Layouts\TreeTable\" />
   </ItemGroup>
 </Project>

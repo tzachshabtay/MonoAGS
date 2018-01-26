@@ -41,8 +41,8 @@ namespace AGS.Engine
 
             _searchBox = factory.UI.GetTextBox("GameDebugTreeSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;
-            _searchBox.Border = AGSBorders.SolidColor(Colors.Green, 2f);
-            _searchBox.Tint = Colors.Transparent;
+            _searchBox.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _searchBox.Tint = GameViewColors.Textbox;
             _searchBox.Pivot = new PointF(0f, 1f);
             _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
 
@@ -50,7 +50,7 @@ namespace AGS.Engine
             _scrollingPanel.RenderLayer = _layer;
             _scrollingPanel.Pivot = new PointF(0f, 0f);
             _scrollingPanel.Tint = Colors.Transparent;
-            _scrollingPanel.Border = AGSBorders.SolidColor(Colors.Green, 2f);
+            _scrollingPanel.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
             const float lineHeight = 42f;
             _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, _scrollingPanel.Height - lineHeight, _scrollingPanel);
             _treePanel.Tint = Colors.Transparent;
@@ -85,6 +85,7 @@ namespace AGS.Engine
         {
             _scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
             _searchBox.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
+            _searchBox.Watermark.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
         }
 
         private void onSearchPropertyChanged(object sender, PropertyChangedEventArgs e)
