@@ -126,7 +126,7 @@ namespace AGS.Engine
             foreach (var pair in _props.OrderBy(p => p.Key.Z).ThenBy(p => p.Key.Name))
             {
                 ITreeStringNode cat = addToTree(pair.Key.Name, root);
-                foreach (var prop in pair.Value)
+                foreach (var prop in pair.Value.OrderBy(p => p.Name))
                 {
                     addToTree(cat, prop);
                 }
