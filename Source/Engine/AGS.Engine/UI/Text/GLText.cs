@@ -64,7 +64,7 @@ namespace AGS.Engine
 
         ~GLText()
         {
-            dispose(false);
+            disposeTexture();
         }
 
         public static AGS.API.SizeF EmptySize = new AGS.API.SizeF(0f, 0f);
@@ -117,7 +117,7 @@ namespace AGS.Engine
 
         public void Dispose()
         {
-            dispose(true);
+            disposeTexture();
             GC.SuppressFinalize(this);
         }
 
@@ -239,6 +239,7 @@ namespace AGS.Engine
 
         private void uploadBitmapToOpenGl()
         {
+            disposeTexture();
             _texture = createTexture();
             IBitmap bitmap = _bitmapPool.Acquire(_draw.BitmapWidth, _draw.BitmapHeight);
             try
@@ -264,9 +265,10 @@ namespace AGS.Engine
             }
         }
 
-        private void dispose(bool disposing)
+        private void disposeTexture()
         {
-            if (_texture != 0) _messagePump.Post(_ => _graphics.DeleteTexture(_texture), null);
+            var texture = _texture;
+            if (texture != 0) _messagePump.Post(_ => _graphics.DeleteTexture(texture), null);
         }
 
         private void releaseBitmap(IBitmap bitmap)
