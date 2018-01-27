@@ -1,45 +1,84 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
     public class AGSPixelPerfectCollidable : IPixelPerfectCollidable
     {
+        private ISpriteRenderComponent _spriteRender;
         private IAnimationComponent _animation;
         private bool _pixelPerfect;
 
-        public AGSPixelPerfectCollidable(IAnimationComponent animation)
+        public AGSPixelPerfectCollidable(ISpriteRenderComponent spriteRender)
         {
-            _animation = animation;
-            _animation.OnAnimationStarted.Subscribe(refreshPixelPerfect);
+            _spriteRender = spriteRender;
+            _spriteRender.PropertyChanged += onProviderChanged;
+            updateProvider();
         }
 
         public IArea PixelPerfectHitTestArea
         {
             get
             {
-                if (_animation.Animation == null || _animation.Animation.Sprite == null) return null;
-                return _animation.Animation.Sprite.PixelPerfectHitTestArea;
+                return _spriteRender?.CurrentSprite?.PixelPerfectHitTestArea;
             }
         }        
 
         public void PixelPerfect(bool pixelPerfect)
         {
             _pixelPerfect = pixelPerfect;
-            if (_animation.Animation == null || _animation.Animation.Frames == null) return;
-            foreach (var frame in _animation.Animation.Frames)
+            if (_animation != null)
             {
-                frame.Sprite.PixelPerfect(pixelPerfect);
+                // Special case if the sprite provider is animation, where we need to update all frames
+                // TODO: may there be a way to implement an abstract approach here to let do the same
+                // kind of update to any hypothetical custom component?
+                // Or, event better, do not have the pixel-perfect switch in the sprites at all.
+                if (_animation.Animation == null || _animation.Animation.Frames == null)
+                    return;
+                foreach (var frame in _animation.Animation.Frames)
+                {
+                    frame.Sprite.PixelPerfect(pixelPerfect);
+                }
+            }
+            else if (_spriteRender.CurrentSprite != null)
+            {
+                _spriteRender.CurrentSprite.PixelPerfect(pixelPerfect);
             }
         }
 
         public void Dispose()
         {
-            _animation.OnAnimationStarted.Unsubscribe(refreshPixelPerfect);
+            if (_animation != null)
+                _animation.OnAnimationStarted.Unsubscribe(refreshPixelPerfect);
+            _spriteRender.PropertyChanged -= onProviderChanged;
         }
 
         private void refreshPixelPerfect()
         {
             PixelPerfect(_pixelPerfect);
+        }
+
+        private void onProviderChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ISpriteRenderComponent.SpriteProvider))
+                updateProvider();
+        }
+
+        private void updateProvider()
+        {
+            if (_spriteRender.SpriteProvider != null &&
+                _spriteRender.SpriteProvider is IAnimationComponent animation)
+            {
+                _animation = animation;
+                _animation.OnAnimationStarted.Subscribe(refreshPixelPerfect);
+            }
+            else
+            {
+                if (_animation != null)
+                    _animation.OnAnimationStarted.Unsubscribe(refreshPixelPerfect);
+                _animation = null;
+            }
+            refreshPixelPerfect();
         }
     }
 }

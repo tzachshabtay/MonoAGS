@@ -99,7 +99,9 @@ namespace AGS.Engine
 			{
 				if (x.GetTypeInfo().IsAssignableFrom(y.GetTypeInfo()))
 					return 1;
-				return -1;
+                else if (y.GetTypeInfo().IsAssignableFrom(x.GetTypeInfo()))
+				    return -1;
+                return 0;
 			}
 			#endregion
 
