@@ -2851,30 +2851,6 @@ references:
   commentId: Overload:AGS.API.IAnimationComponent.Animation
   fullName: AGS.API.IAnimationComponent.Animation
   nameWithType: IAnimationComponent.Animation
-- uid: AGS.API.IAnimationComponent.Border
-  name: Border
-  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Border
-  commentId: P:AGS.API.IAnimationComponent.Border
-  fullName: AGS.API.IAnimationComponent.Border
-  nameWithType: IAnimationComponent.Border
-- uid: AGS.API.IAnimationComponent.Border*
-  name: Border
-  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Border_
-  commentId: Overload:AGS.API.IAnimationComponent.Border
-  fullName: AGS.API.IAnimationComponent.Border
-  nameWithType: IAnimationComponent.Border
-- uid: AGS.API.IAnimationComponent.DebugDrawPivot
-  name: DebugDrawPivot
-  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_DebugDrawPivot
-  commentId: P:AGS.API.IAnimationComponent.DebugDrawPivot
-  fullName: AGS.API.IAnimationComponent.DebugDrawPivot
-  nameWithType: IAnimationComponent.DebugDrawPivot
-- uid: AGS.API.IAnimationComponent.DebugDrawPivot*
-  name: DebugDrawPivot
-  href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_DebugDrawPivot_
-  commentId: Overload:AGS.API.IAnimationComponent.DebugDrawPivot
-  fullName: AGS.API.IAnimationComponent.DebugDrawPivot
-  nameWithType: IAnimationComponent.DebugDrawPivot
 - uid: AGS.API.IAnimationComponent.OnAnimationStarted
   name: OnAnimationStarted
   href: api/AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_OnAnimationStarted
@@ -12133,6 +12109,78 @@ references:
   commentId: Overload:AGS.API.ISprite.Clone
   fullName: AGS.API.ISprite.Clone
   nameWithType: ISprite.Clone
+- uid: AGS.API.ISpriteProvider
+  name: ISpriteProvider
+  href: api/AGS.API.ISpriteProvider.html
+  commentId: T:AGS.API.ISpriteProvider
+  fullName: AGS.API.ISpriteProvider
+  nameWithType: ISpriteProvider
+- uid: AGS.API.ISpriteProvider.Sprite
+  name: Sprite
+  href: api/AGS.API.ISpriteProvider.html#AGS_API_ISpriteProvider_Sprite
+  commentId: P:AGS.API.ISpriteProvider.Sprite
+  fullName: AGS.API.ISpriteProvider.Sprite
+  nameWithType: ISpriteProvider.Sprite
+- uid: AGS.API.ISpriteProvider.Sprite*
+  name: Sprite
+  href: api/AGS.API.ISpriteProvider.html#AGS_API_ISpriteProvider_Sprite_
+  commentId: Overload:AGS.API.ISpriteProvider.Sprite
+  fullName: AGS.API.ISpriteProvider.Sprite
+  nameWithType: ISpriteProvider.Sprite
+- uid: AGS.API.ISpriteRenderComponent
+  name: ISpriteRenderComponent
+  href: api/AGS.API.ISpriteRenderComponent.html
+  commentId: T:AGS.API.ISpriteRenderComponent
+  fullName: AGS.API.ISpriteRenderComponent
+  nameWithType: ISpriteRenderComponent
+- uid: AGS.API.ISpriteRenderComponent.Border
+  name: Border
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_Border
+  commentId: P:AGS.API.ISpriteRenderComponent.Border
+  fullName: AGS.API.ISpriteRenderComponent.Border
+  nameWithType: ISpriteRenderComponent.Border
+- uid: AGS.API.ISpriteRenderComponent.Border*
+  name: Border
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_Border_
+  commentId: Overload:AGS.API.ISpriteRenderComponent.Border
+  fullName: AGS.API.ISpriteRenderComponent.Border
+  nameWithType: ISpriteRenderComponent.Border
+- uid: AGS.API.ISpriteRenderComponent.CurrentSprite
+  name: CurrentSprite
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_CurrentSprite
+  commentId: P:AGS.API.ISpriteRenderComponent.CurrentSprite
+  fullName: AGS.API.ISpriteRenderComponent.CurrentSprite
+  nameWithType: ISpriteRenderComponent.CurrentSprite
+- uid: AGS.API.ISpriteRenderComponent.CurrentSprite*
+  name: CurrentSprite
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_CurrentSprite_
+  commentId: Overload:AGS.API.ISpriteRenderComponent.CurrentSprite
+  fullName: AGS.API.ISpriteRenderComponent.CurrentSprite
+  nameWithType: ISpriteRenderComponent.CurrentSprite
+- uid: AGS.API.ISpriteRenderComponent.DebugDrawPivot
+  name: DebugDrawPivot
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_DebugDrawPivot
+  commentId: P:AGS.API.ISpriteRenderComponent.DebugDrawPivot
+  fullName: AGS.API.ISpriteRenderComponent.DebugDrawPivot
+  nameWithType: ISpriteRenderComponent.DebugDrawPivot
+- uid: AGS.API.ISpriteRenderComponent.DebugDrawPivot*
+  name: DebugDrawPivot
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_DebugDrawPivot_
+  commentId: Overload:AGS.API.ISpriteRenderComponent.DebugDrawPivot
+  fullName: AGS.API.ISpriteRenderComponent.DebugDrawPivot
+  nameWithType: ISpriteRenderComponent.DebugDrawPivot
+- uid: AGS.API.ISpriteRenderComponent.SpriteProvider
+  name: SpriteProvider
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_SpriteProvider
+  commentId: P:AGS.API.ISpriteRenderComponent.SpriteProvider
+  fullName: AGS.API.ISpriteRenderComponent.SpriteProvider
+  nameWithType: ISpriteRenderComponent.SpriteProvider
+- uid: AGS.API.ISpriteRenderComponent.SpriteProvider*
+  name: SpriteProvider
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_SpriteProvider_
+  commentId: Overload:AGS.API.ISpriteRenderComponent.SpriteProvider
+  fullName: AGS.API.ISpriteRenderComponent.SpriteProvider
+  nameWithType: ISpriteRenderComponent.SpriteProvider
 - uid: AGS.API.ISpriteSheet
   name: ISpriteSheet
   href: api/AGS.API.ISpriteSheet.html
@@ -13177,6 +13225,114 @@ references:
   commentId: T:AGS.API.ITreeStringNode
   fullName: AGS.API.ITreeStringNode
   nameWithType: ITreeStringNode
+- uid: AGS.API.ITreeTableLayout
+  name: ITreeTableLayout
+  href: api/AGS.API.ITreeTableLayout.html
+  commentId: T:AGS.API.ITreeTableLayout
+  fullName: AGS.API.ITreeTableLayout
+  nameWithType: ITreeTableLayout
+- uid: AGS.API.ITreeTableLayout.ColumnPadding
+  name: ColumnPadding
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_ColumnPadding
+  commentId: P:AGS.API.ITreeTableLayout.ColumnPadding
+  fullName: AGS.API.ITreeTableLayout.ColumnPadding
+  nameWithType: ITreeTableLayout.ColumnPadding
+- uid: AGS.API.ITreeTableLayout.ColumnPadding*
+  name: ColumnPadding
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_ColumnPadding_
+  commentId: Overload:AGS.API.ITreeTableLayout.ColumnPadding
+  fullName: AGS.API.ITreeTableLayout.ColumnPadding
+  nameWithType: ITreeTableLayout.ColumnPadding
+- uid: AGS.API.ITreeTableLayout.ColumnSizes
+  name: ColumnSizes
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_ColumnSizes
+  commentId: P:AGS.API.ITreeTableLayout.ColumnSizes
+  fullName: AGS.API.ITreeTableLayout.ColumnSizes
+  nameWithType: ITreeTableLayout.ColumnSizes
+- uid: AGS.API.ITreeTableLayout.ColumnSizes*
+  name: ColumnSizes
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_ColumnSizes_
+  commentId: Overload:AGS.API.ITreeTableLayout.ColumnSizes
+  fullName: AGS.API.ITreeTableLayout.ColumnSizes
+  nameWithType: ITreeTableLayout.ColumnSizes
+- uid: AGS.API.ITreeTableLayout.OnQueryLayout
+  name: OnQueryLayout
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_OnQueryLayout
+  commentId: P:AGS.API.ITreeTableLayout.OnQueryLayout
+  fullName: AGS.API.ITreeTableLayout.OnQueryLayout
+  nameWithType: ITreeTableLayout.OnQueryLayout
+- uid: AGS.API.ITreeTableLayout.OnQueryLayout*
+  name: OnQueryLayout
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_OnQueryLayout_
+  commentId: Overload:AGS.API.ITreeTableLayout.OnQueryLayout
+  fullName: AGS.API.ITreeTableLayout.OnQueryLayout
+  nameWithType: ITreeTableLayout.OnQueryLayout
+- uid: AGS.API.ITreeTableLayout.OnRefreshLayoutNeeded
+  name: OnRefreshLayoutNeeded
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_OnRefreshLayoutNeeded
+  commentId: P:AGS.API.ITreeTableLayout.OnRefreshLayoutNeeded
+  fullName: AGS.API.ITreeTableLayout.OnRefreshLayoutNeeded
+  nameWithType: ITreeTableLayout.OnRefreshLayoutNeeded
+- uid: AGS.API.ITreeTableLayout.OnRefreshLayoutNeeded*
+  name: OnRefreshLayoutNeeded
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_OnRefreshLayoutNeeded_
+  commentId: Overload:AGS.API.ITreeTableLayout.OnRefreshLayoutNeeded
+  fullName: AGS.API.ITreeTableLayout.OnRefreshLayoutNeeded
+  nameWithType: ITreeTableLayout.OnRefreshLayoutNeeded
+- uid: AGS.API.ITreeTableLayout.PerformLayout
+  name: PerformLayout()
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_PerformLayout
+  commentId: M:AGS.API.ITreeTableLayout.PerformLayout
+  fullName: AGS.API.ITreeTableLayout.PerformLayout()
+  nameWithType: ITreeTableLayout.PerformLayout()
+- uid: AGS.API.ITreeTableLayout.PerformLayout*
+  name: PerformLayout
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_PerformLayout_
+  commentId: Overload:AGS.API.ITreeTableLayout.PerformLayout
+  fullName: AGS.API.ITreeTableLayout.PerformLayout
+  nameWithType: ITreeTableLayout.PerformLayout
+- uid: AGS.API.ITreeTableLayout.Rows
+  name: Rows
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_Rows
+  commentId: P:AGS.API.ITreeTableLayout.Rows
+  fullName: AGS.API.ITreeTableLayout.Rows
+  nameWithType: ITreeTableLayout.Rows
+- uid: AGS.API.ITreeTableLayout.Rows*
+  name: Rows
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_Rows_
+  commentId: Overload:AGS.API.ITreeTableLayout.Rows
+  fullName: AGS.API.ITreeTableLayout.Rows
+  nameWithType: ITreeTableLayout.Rows
+- uid: AGS.API.ITreeTableLayout.StartX
+  name: StartX
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_StartX
+  commentId: P:AGS.API.ITreeTableLayout.StartX
+  fullName: AGS.API.ITreeTableLayout.StartX
+  nameWithType: ITreeTableLayout.StartX
+- uid: AGS.API.ITreeTableLayout.StartX*
+  name: StartX
+  href: api/AGS.API.ITreeTableLayout.html#AGS_API_ITreeTableLayout_StartX_
+  commentId: Overload:AGS.API.ITreeTableLayout.StartX
+  fullName: AGS.API.ITreeTableLayout.StartX
+  nameWithType: ITreeTableLayout.StartX
+- uid: AGS.API.ITreeTableRowLayoutComponent
+  name: ITreeTableRowLayoutComponent
+  href: api/AGS.API.ITreeTableRowLayoutComponent.html
+  commentId: T:AGS.API.ITreeTableRowLayoutComponent
+  fullName: AGS.API.ITreeTableRowLayoutComponent
+  nameWithType: ITreeTableRowLayoutComponent
+- uid: AGS.API.ITreeTableRowLayoutComponent.Table
+  name: Table
+  href: api/AGS.API.ITreeTableRowLayoutComponent.html#AGS_API_ITreeTableRowLayoutComponent_Table
+  commentId: P:AGS.API.ITreeTableRowLayoutComponent.Table
+  fullName: AGS.API.ITreeTableRowLayoutComponent.Table
+  nameWithType: ITreeTableRowLayoutComponent.Table
+- uid: AGS.API.ITreeTableRowLayoutComponent.Table*
+  name: Table
+  href: api/AGS.API.ITreeTableRowLayoutComponent.html#AGS_API_ITreeTableRowLayoutComponent_Table_
+  commentId: Overload:AGS.API.ITreeTableRowLayoutComponent.Table
+  fullName: AGS.API.ITreeTableRowLayoutComponent.Table
+  nameWithType: ITreeTableRowLayoutComponent.Table
 - uid: AGS.API.ITreeViewComponent
   name: ITreeViewComponent
   href: api/AGS.API.ITreeViewComponent.html
@@ -17872,6 +18028,30 @@ references:
   commentId: Overload:AGS.API.PropertyAttribute.Category
   fullName: AGS.API.PropertyAttribute.Category
   nameWithType: PropertyAttribute.Category
+- uid: AGS.API.PropertyAttribute.CategoryExpand
+  name: CategoryExpand
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_CategoryExpand
+  commentId: P:AGS.API.PropertyAttribute.CategoryExpand
+  fullName: AGS.API.PropertyAttribute.CategoryExpand
+  nameWithType: PropertyAttribute.CategoryExpand
+- uid: AGS.API.PropertyAttribute.CategoryExpand*
+  name: CategoryExpand
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_CategoryExpand_
+  commentId: Overload:AGS.API.PropertyAttribute.CategoryExpand
+  fullName: AGS.API.PropertyAttribute.CategoryExpand
+  nameWithType: PropertyAttribute.CategoryExpand
+- uid: AGS.API.PropertyAttribute.CategoryZ
+  name: CategoryZ
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_CategoryZ
+  commentId: P:AGS.API.PropertyAttribute.CategoryZ
+  fullName: AGS.API.PropertyAttribute.CategoryZ
+  nameWithType: PropertyAttribute.CategoryZ
+- uid: AGS.API.PropertyAttribute.CategoryZ*
+  name: CategoryZ
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_CategoryZ_
+  commentId: Overload:AGS.API.PropertyAttribute.CategoryZ
+  fullName: AGS.API.PropertyAttribute.CategoryZ
+  nameWithType: PropertyAttribute.CategoryZ
 - uid: AGS.API.PropertyAttribute.Description
   name: Description
   href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_Description
@@ -18451,6 +18631,36 @@ references:
   commentId: Overload:AGS.API.Quaternion.Z
   fullName: AGS.API.Quaternion.Z
   nameWithType: Quaternion.Z
+- uid: AGS.API.QueryLayoutEventArgs
+  name: QueryLayoutEventArgs
+  href: api/AGS.API.QueryLayoutEventArgs.html
+  commentId: T:AGS.API.QueryLayoutEventArgs
+  fullName: AGS.API.QueryLayoutEventArgs
+  nameWithType: QueryLayoutEventArgs
+- uid: AGS.API.QueryLayoutEventArgs.#ctor
+  name: QueryLayoutEventArgs()
+  href: api/AGS.API.QueryLayoutEventArgs.html#AGS_API_QueryLayoutEventArgs__ctor
+  commentId: M:AGS.API.QueryLayoutEventArgs.#ctor
+  fullName: AGS.API.QueryLayoutEventArgs.QueryLayoutEventArgs()
+  nameWithType: QueryLayoutEventArgs.QueryLayoutEventArgs()
+- uid: AGS.API.QueryLayoutEventArgs.#ctor*
+  name: QueryLayoutEventArgs
+  href: api/AGS.API.QueryLayoutEventArgs.html#AGS_API_QueryLayoutEventArgs__ctor_
+  commentId: Overload:AGS.API.QueryLayoutEventArgs.#ctor
+  fullName: AGS.API.QueryLayoutEventArgs.QueryLayoutEventArgs
+  nameWithType: QueryLayoutEventArgs.QueryLayoutEventArgs
+- uid: AGS.API.QueryLayoutEventArgs.ColumnSizes
+  name: ColumnSizes
+  href: api/AGS.API.QueryLayoutEventArgs.html#AGS_API_QueryLayoutEventArgs_ColumnSizes
+  commentId: P:AGS.API.QueryLayoutEventArgs.ColumnSizes
+  fullName: AGS.API.QueryLayoutEventArgs.ColumnSizes
+  nameWithType: QueryLayoutEventArgs.ColumnSizes
+- uid: AGS.API.QueryLayoutEventArgs.ColumnSizes*
+  name: ColumnSizes
+  href: api/AGS.API.QueryLayoutEventArgs.html#AGS_API_QueryLayoutEventArgs_ColumnSizes_
+  commentId: Overload:AGS.API.QueryLayoutEventArgs.ColumnSizes
+  fullName: AGS.API.QueryLayoutEventArgs.ColumnSizes
+  nameWithType: QueryLayoutEventArgs.ColumnSizes
 - uid: AGS.API.Rectangle
   name: Rectangle
   href: api/AGS.API.Rectangle.html
