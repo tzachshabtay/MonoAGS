@@ -317,8 +317,7 @@ namespace AGS.Engine
 
 		private IImageRenderer getSpriteRenderer(IObject obj)
 		{
-			if (obj.CurrentSprite == null) return null;
-			return obj.CurrentSprite.CustomRenderer;
+			return obj?.CurrentSprite?.CustomRenderer;
 		}
 
         private void onUiChanged(AGSHashSetChangedEventArgs<IObject> args)

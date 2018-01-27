@@ -66,9 +66,10 @@ namespace AGS.Engine
 
         private void updateProvider()
         {
-            if (_spriteRender.SpriteProvider != null && _spriteRender.SpriteProvider is IAnimationComponent)
+            if (_spriteRender.SpriteProvider != null &&
+                _spriteRender.SpriteProvider is IAnimationComponent animation)
             {
-                _animation = _spriteRender.SpriteProvider as IAnimationComponent;
+                _animation = animation;
                 _animation.OnAnimationStarted.Subscribe(refreshPixelPerfect);
             }
             else
