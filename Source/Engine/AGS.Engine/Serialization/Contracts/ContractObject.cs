@@ -114,10 +114,8 @@ namespace AGS.Engine
             obj.Angle = Angle;
             obj.Tint = Color.FromHexa(Tint);
 
-            obj.PixelPerfect(IsPixelPerfect);            
+            obj.PixelPerfect(IsPixelPerfect);
             AnimationComponent.ToItem(context, obj);
-            if (obj.Animation.Frames.Count > 0)
-                obj.Scale = obj.Scale;
             obj.RenderLayer = RenderLayer.ToItem(context);
 			if (WalkPoint != null)
 			{
