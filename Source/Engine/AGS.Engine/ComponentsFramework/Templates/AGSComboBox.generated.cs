@@ -123,6 +123,18 @@ namespace AGS.Engine
             get { return _comboBoxComponent.DropDownPanelList; } 
         }
 
+        public ComboSuggest SuggestMode
+        {
+            get { return _comboBoxComponent.SuggestMode; }
+            set { _comboBoxComponent.SuggestMode = value; }
+        }
+
+        public Action<IButton, IButton> MarkComboboxSuggestion
+        {
+            get { return _comboBoxComponent.MarkComboboxSuggestion; }
+            set { _comboBoxComponent.MarkComboboxSuggestion = value; }
+        }
+
         #endregion
 
         #region IUIEvents implementation

@@ -32,6 +32,10 @@ namespace AGS.Engine
             combobox.Z = label.Z;
             combobox.TextBox.Text = property.Value;
             combobox.TextBox.TextConfig.AutoFit = AutoFit.LabelShouldFitText;
+            if (list.Count > 5) //If more than 5 items in the dropdown, let's have it with textbox suggestions as user might prefer to type for filtering the dropdown
+            {
+                combobox.SuggestMode = ComboSuggest.Enforce;
+            }
             combobox.DropDownPanelList.OnSelectedItemChanged.Subscribe(args => 
             {
                 property.Prop.SetValue(property.Object, Enum.Parse(enumType, args.Item.Text));
