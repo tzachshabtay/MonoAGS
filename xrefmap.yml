@@ -2015,6 +2015,30 @@ references:
   commentId: F:AGS.API.Colors.YellowGreen
   fullName: AGS.API.Colors.YellowGreen
   nameWithType: Colors.YellowGreen
+- uid: AGS.API.ComboSuggest
+  name: ComboSuggest
+  href: api/AGS.API.ComboSuggest.html
+  commentId: T:AGS.API.ComboSuggest
+  fullName: AGS.API.ComboSuggest
+  nameWithType: ComboSuggest
+- uid: AGS.API.ComboSuggest.Enforce
+  name: Enforce
+  href: api/AGS.API.ComboSuggest.html#AGS_API_ComboSuggest_Enforce
+  commentId: F:AGS.API.ComboSuggest.Enforce
+  fullName: AGS.API.ComboSuggest.Enforce
+  nameWithType: ComboSuggest.Enforce
+- uid: AGS.API.ComboSuggest.None
+  name: None
+  href: api/AGS.API.ComboSuggest.html#AGS_API_ComboSuggest_None
+  commentId: F:AGS.API.ComboSuggest.None
+  fullName: AGS.API.ComboSuggest.None
+  nameWithType: ComboSuggest.None
+- uid: AGS.API.ComboSuggest.Suggest
+  name: Suggest
+  href: api/AGS.API.ComboSuggest.html#AGS_API_ComboSuggest_Suggest
+  commentId: F:AGS.API.ComboSuggest.Suggest
+  fullName: AGS.API.ComboSuggest.Suggest
+  nameWithType: ComboSuggest.Suggest
 - uid: AGS.API.CustomStringApplyWhen
   name: CustomStringApplyWhen
   href: api/AGS.API.CustomStringApplyWhen.html
@@ -4521,6 +4545,30 @@ references:
   commentId: Overload:AGS.API.IComboBoxComponent.DropDownPanelList
   fullName: AGS.API.IComboBoxComponent.DropDownPanelList
   nameWithType: IComboBoxComponent.DropDownPanelList
+- uid: AGS.API.IComboBoxComponent.MarkComboboxSuggestion
+  name: MarkComboboxSuggestion
+  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_MarkComboboxSuggestion
+  commentId: P:AGS.API.IComboBoxComponent.MarkComboboxSuggestion
+  fullName: AGS.API.IComboBoxComponent.MarkComboboxSuggestion
+  nameWithType: IComboBoxComponent.MarkComboboxSuggestion
+- uid: AGS.API.IComboBoxComponent.MarkComboboxSuggestion*
+  name: MarkComboboxSuggestion
+  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_MarkComboboxSuggestion_
+  commentId: Overload:AGS.API.IComboBoxComponent.MarkComboboxSuggestion
+  fullName: AGS.API.IComboBoxComponent.MarkComboboxSuggestion
+  nameWithType: IComboBoxComponent.MarkComboboxSuggestion
+- uid: AGS.API.IComboBoxComponent.SuggestMode
+  name: SuggestMode
+  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_SuggestMode
+  commentId: P:AGS.API.IComboBoxComponent.SuggestMode
+  fullName: AGS.API.IComboBoxComponent.SuggestMode
+  nameWithType: IComboBoxComponent.SuggestMode
+- uid: AGS.API.IComboBoxComponent.SuggestMode*
+  name: SuggestMode
+  href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_SuggestMode_
+  commentId: Overload:AGS.API.IComboBoxComponent.SuggestMode
+  fullName: AGS.API.IComboBoxComponent.SuggestMode
+  nameWithType: IComboBoxComponent.SuggestMode
 - uid: AGS.API.IComboBoxComponent.TextBox
   name: TextBox
   href: api/AGS.API.IComboBoxComponent.html#AGS_API_IComboBoxComponent_TextBox
@@ -13717,15 +13765,15 @@ references:
   commentId: Overload:AGS.API.IUIFactory.GetCheckBoxAsync
   fullName: AGS.API.IUIFactory.GetCheckBoxAsync
   nameWithType: IUIFactory.GetCheckBoxAsync
-- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single)
-  name: GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_
-  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single)
-  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single)
-  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func<System.String, AGS.API.IButton>, AGS.API.IObject, System.Boolean, System.Single, System.Single)
-  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func(Of System.String, AGS.API.IButton), AGS.API.IObject, System.Boolean, System.Single, System.Single)
-  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single)
-  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single)
+- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
+  name: GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single, String)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_
+  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
+  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single, String)
+  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func<System.String, AGS.API.IButton>, AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
+  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func(Of System.String, AGS.API.IButton), AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
+  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single, String)
+  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single, String)
 - uid: AGS.API.IUIFactory.GetComboBox*
   name: GetComboBox
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_
