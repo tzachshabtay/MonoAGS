@@ -265,8 +265,9 @@ namespace AGS.API
 		/// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
 		/// <param name="defaultWidth">If no textbox was provided, this will be the width of the textbox.</param>
 		/// <param name="defaultHeight">If no textbox or dropdown button was provided, this will be the height of the combobox.</param>
+        /// <param name="watermark">An optional watermark text to show when there's no text and the textbox is out of focus (i.e explanation text, see example here: https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl).</param>
 		IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null, Func<string, IButton> itemButtonFactory = null,
-                              IObject parent = null, bool addToUi = true, float defaultWidth = 500f, float defaultHeight = 40f);
+                              IObject parent = null, bool addToUi = true, float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "");
 
         /// <summary>
         /// Creates a slider

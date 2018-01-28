@@ -114,9 +114,11 @@ namespace DemoGame
             var y = _parent.Height - 60f;
             _targetCombobox = addCombobox("FeaturesTweenTargetComboBox", 40f, y, "Select Target", onTargetSelected, _tweens.Keys.ToArray());
             _easeCombobox = addCombobox("FeaturesTweenEaseComboBox", 320f, y, "Select Ease", onItemSelected, _eases.Keys.ToArray());
+            _easeCombobox.SuggestMode = ComboSuggest.Enforce;
             _tweenCombobox = addCombobox("FeaturesTweenTweenComboBox", 40f, y - 50f, "Select Tween", onItemSelected);
             _tweenCombobox.TextBox.Opacity = 100;
             _tweenCombobox.DropDownButton.Enabled = false;
+            _tweenCombobox.SuggestMode = ComboSuggest.Enforce;
             _repeatCombobox = addCombobox("FeaturesTweenRepeatComboBox", 320f, y - 50f, "Select Repeat", onItemSelected, Enum.GetValues(typeof(LoopingStyle)).Cast<LoopingStyle>().Select(l => l.ToString()).ToArray());
             _addTweenButton = addButton("FeaturesTweenAddButton", "Add Tween", 250f, y - 120f, addTween);
             _addTweenButton.Enabled = false;
@@ -246,8 +248,7 @@ namespace DemoGame
 
         private IComboBox addCombobox(string id, float x, float y, string initialText, Action<ListboxItemArgs> callback, params string[] options)
         {
-            var combo = _game.Factory.UI.GetComboBox(id, null, null, null, _parent, false, 220f);
-            combo.TextBox.Text = initialText;
+            var combo = _game.Factory.UI.GetComboBox(id, null, null, null, _parent, false, 220f, watermark: initialText);
             combo.X = x;
             combo.Y = y;
             var list = combo.DropDownPanelList;
@@ -271,6 +272,7 @@ namespace DemoGame
         {
             _game.State.UI.Add(combo.TextBox);
             _game.State.UI.Add(combo.DropDownButton);
+            _game.State.UI.Add(combo.TextBox.Watermark);
             _game.State.UI.Add(combo);
         }
 
@@ -278,6 +280,7 @@ namespace DemoGame
         {
             _game.State.UI.Remove(combo.TextBox);
             _game.State.UI.Remove(combo.DropDownButton);
+            _game.State.UI.Remove(combo.TextBox.Watermark);
             _game.State.UI.Remove(combo);
         }
 

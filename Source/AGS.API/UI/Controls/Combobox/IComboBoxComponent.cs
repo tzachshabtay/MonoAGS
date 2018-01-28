@@ -1,6 +1,27 @@
 ﻿namespace AGS.API
 {
     /// <summary>
+    /// Which mode to apply when typing text in the combo box's textbox?
+    /// </summary>
+    public enum ComboSuggest
+    {
+        /// <summary>
+        /// The textbox is disabled, combobox selection must be made with the drop-down alone (best for comboboxes with a small number of options).
+        /// </summary>
+        None,
+        /// <summary>
+        /// User gets suggestions when typing in the textbox (based on the combobox items), however those are only suggestions, and the user is free
+        /// to type text which is not part of the combobox options. An example where this can be used is in a color selector, where you have a list of available colors (in the dropdown)
+        /// but also the ability to type RGB values directly.
+        /// </summary>
+        Suggest,
+        /// <summary>
+        /// User can type in the textbox to filter the options in the combobox, but the user does not have the ability to type text which is not part of the combobox options (best for comboboxes with a lot of options).
+        /// </summary>
+        Enforce,
+    }
+
+    /// <summary>
     /// The combo box component allows having the entity behave like a drop-down for selecting an item from a list.
     /// </summary>
     public interface IComboBoxComponent : IComponent
@@ -30,5 +51,11 @@
         /// </summary>
         /// <value>The drop down panel.</value>
         IListboxComponent DropDownPanelList { get; }
+
+        /// <summary>
+        /// Gets or sets the suggestion mode (how does the combobox behave when the user types text directly in the textbox instead of using the dropdown button).
+        /// </summary>
+        /// <value>The suggestion mode.</value>
+        ComboSuggest SuggestMode { get; set; }
     }
 }

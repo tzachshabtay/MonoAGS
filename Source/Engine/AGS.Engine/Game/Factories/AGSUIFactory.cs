@@ -321,7 +321,8 @@ namespace AGS.Engine
         }
 
         public IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null,
-            Func<string, IButton> itemButtonFactory = null, IObject parent = null, bool addToUi = true, float defaultWidth = 500f, float defaultHeight = 40f)
+            Func<string, IButton> itemButtonFactory = null, IObject parent = null, bool addToUi = true, 
+            float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "")
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IComboBox comboBox = _resolver.Container.Resolve<IComboBox>(idParam);
@@ -331,7 +332,7 @@ namespace AGS.Engine
 
             if (textBox == null)
             {
-                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, "", new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel),
+                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, watermark, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel),
                                      false, itemWidth, defaultHeight);
 				textBox.Border = AGSBorders.SolidColor(Colors.WhiteSmoke, 3f);
 				textBox.Tint = Colors.Transparent;
