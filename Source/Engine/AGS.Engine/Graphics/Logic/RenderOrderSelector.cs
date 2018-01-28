@@ -116,14 +116,14 @@ namespace AGS.Engine
 
 		private float getZ(IObject obj)
 		{
-            float zAnimation = obj.Animation == null || obj.Animation.Sprite == null ? 0f : obj.Animation.Sprite.Z;
-			return obj.Z + zAnimation;
+            float zSprite = obj.CurrentSprite == null ? 0f : obj.CurrentSprite.Z;
+			return obj.Z + zSprite;
 		}
 
         private float getX(IObject obj)
         {
-            float xAnimation = obj.Animation == null || obj.Animation.Sprite == null ? 0f : obj.Animation.Sprite.X;
-            return obj.X + xAnimation;
+            float xSprite = obj.CurrentSprite == null ? 0f : obj.CurrentSprite.X;
+            return obj.X + xSprite;
         }
 	}
 }

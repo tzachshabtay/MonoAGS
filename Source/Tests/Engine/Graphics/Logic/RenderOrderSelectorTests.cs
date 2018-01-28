@@ -151,9 +151,6 @@ namespace Tests
 			Mock<ISprite> sprite = new Mock<ISprite> ();
 			sprite.Setup(s => s.Z).Returns(spriteZ);
 
-			Mock<IAnimation> animation = new Mock<IAnimation> ();
-			animation.Setup(a => a.Sprite).Returns(sprite.Object);
-
 			Mock<ITreeNode<IObject>> tree = new Mock<ITreeNode<IObject>> ();
 			tree.Setup(t => t.Parent).Returns(parent);
 
@@ -167,7 +164,7 @@ namespace Tests
 
 			Mock<IObject> obj = new Mock<IObject> ();
 			obj.Setup(o => o.Z).Returns(z);
-			obj.Setup(o => o.Animation).Returns(animation.Object);
+			obj.Setup(o => o.CurrentSprite).Returns(sprite.Object);
 			obj.Setup(o => o.TreeNode).Returns(tree.Object);
 			obj.Setup(o => o.RenderLayer).Returns(layer);
             obj.Setup(o => o.Properties).Returns(new AGSCustomProperties());

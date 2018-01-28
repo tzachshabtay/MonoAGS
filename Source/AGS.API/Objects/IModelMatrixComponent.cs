@@ -21,7 +21,6 @@
     /// </summary>
     [RequiredComponent(typeof(IScaleComponent))]
     [RequiredComponent(typeof(ITranslateComponent))]
-    [RequiredComponent(typeof(IAnimationComponent))]
     [RequiredComponent(typeof(IRotateComponent))]
     [RequiredComponent(typeof(IImageComponent))]
     [RequiredComponent(typeof(IHasRoomComponent))]

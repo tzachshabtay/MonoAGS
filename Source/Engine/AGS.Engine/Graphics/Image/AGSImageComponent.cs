@@ -5,12 +5,13 @@ using PropertyChanged;
 namespace AGS.Engine
 {
     [DoNotNotify]
-    public class AGSImageComponent : AGSComponent, IImageComponent
+    public class AGSImageComponent : AGSComponent, IImageComponent, ISpriteProvider
     {
         private IHasImage _image;
         private IGraphicsFactory _factory;
-        private IAnimationComponent _animationComponent;
+        private ISprite _sprite;
         private IScaleComponent _scale;
+        private ISpriteRenderComponent _spriteRender;
 
         public AGSImageComponent(IHasImage image, IGraphicsFactory factory)
         {
@@ -29,17 +30,24 @@ namespace AGS.Engine
         {
             get
             {
-                return _animationComponent?.Animation?.Sprite?.Image;
+                return _sprite?.Image;
             }
             set
             {
-                AGSSingleFrameAnimation animation = new AGSSingleFrameAnimation(value, _factory);
+                if (_sprite == null)
+                {
+                    _sprite = _factory.GetSprite();
+                    _sprite.Location = AGSLocation.Empty();
+                }
+                _sprite.Image = value;
+                
                 if (value != null)
                 {
                     var scale = _scale;
                     if (scale != null) scale.BaseSize = new SizeF(value.Width, value.Height);
+                    if (_spriteRender != null)
+                        _spriteRender.SpriteProvider = this;
                 }
-                _animationComponent?.StartAnimation(animation);
             }
         }
 
@@ -47,16 +55,28 @@ namespace AGS.Engine
 
         public Color Tint { get => _image.Tint; set => _image.Tint = value; }
 
+        public ISprite Sprite { get => _sprite; }
+
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            entity.Bind<IAnimationComponent>(c => _animationComponent = c, _ => _animationComponent = null);
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            entity.Bind<ISpriteRenderComponent>(
+                c => { _spriteRender = c; c.PropertyChanged += onSpriteRenderPropertyChanged; },
+                c => { c.PropertyChanged -= onSpriteRenderPropertyChanged; _spriteRender = null; });
         }
 
         private void onPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(e);
+        }
+
+        private void onSpriteRenderPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(ISpriteRenderComponent.SpriteProvider))
+                return;
+            if (_spriteRender.SpriteProvider != this)
+                Image = null;
         }
     }
 }

@@ -312,13 +312,12 @@ namespace AGS.Engine
         //todo: duplicate code with AGSRendererLoop
 		private IImageRenderer getImageRenderer(IObject obj)
 		{
-			return obj.CustomRenderer ?? getAnimationRenderer(obj) ?? _renderer;
+			return obj.CustomRenderer ?? getSpriteRenderer(obj) ?? _renderer;
 		}
 
-		private IImageRenderer getAnimationRenderer(IObject obj)
+		private IImageRenderer getSpriteRenderer(IObject obj)
 		{
-			if (obj.Animation == null) return null;
-			return obj.Animation.Sprite.CustomRenderer;
+			return obj?.CurrentSprite?.CustomRenderer;
 		}
 
         private void onUiChanged(AGSHashSetChangedEventArgs<IObject> args)

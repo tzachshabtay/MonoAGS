@@ -104,7 +104,7 @@ namespace DemoGame
 			if (_lastInventoryItem != null)
 			{
 				_inventoryItemIcon.Image = _lastInventoryItem.CursorGraphics.Image;
-				_inventoryItemIcon.Animation.Sprite.Pivot = new PointF (0.5f, 0.5f);
+				_inventoryItemIcon.CurrentSprite.Pivot = new PointF (0.5f, 0.5f);
 				_inventoryItemIcon.ScaleTo(15f, 15f);
 			}
 			_inventoryItemIcon.Visible = (_lastInventoryItem != null);

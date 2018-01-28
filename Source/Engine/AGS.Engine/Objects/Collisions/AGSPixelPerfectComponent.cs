@@ -17,11 +17,10 @@ namespace AGS.Engine
         {
             base.Init(entity);
 
-            entity.Bind<IAnimationComponent>(c =>
+            entity.Bind<ISpriteRenderComponent>(c =>
             {
-                IAnimationComponent animation = entity.GetComponent<IAnimationComponent>();
-                TypedParameter animationParam = new TypedParameter(typeof(IAnimationComponent), animation);
-                _pixelPerfect = _resolver.Container.Resolve<IPixelPerfectCollidable>(animationParam);
+                TypedParameter spriteParam = new TypedParameter(typeof(ISpriteRenderComponent), c);
+                _pixelPerfect = _resolver.Container.Resolve<IPixelPerfectCollidable>(spriteParam);
             }, c => { c.Dispose(); _pixelPerfect = null; });
         }
 
