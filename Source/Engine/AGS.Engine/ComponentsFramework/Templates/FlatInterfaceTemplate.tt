@@ -51,6 +51,11 @@
                 args.Append(">");
                 paramType = string.Format("{0}{1}", paramType, args.ToString());
             }
+            if (paramType.EndsWith("&")) //ref param
+            {
+                paramType = paramType.Substring(0, paramType.Length - 1);
+                paramType = "ref " + paramType;
+            }
             return paramType;
         }
 
@@ -105,6 +110,10 @@
                     string methodName = method.Name;
                     string returnType = GetTypeName(method.ReturnType);
                     string hasReturn = returnType == "void" ? "" : "return ";
+                    if (returnType.StartsWith("ref "))
+                    {
+                        hasReturn = hasReturn + "ref ";
+                    }
                     ParameterInfo[] parameters = method.GetParameters();
                     #>        public <#= returnType #> <#= methodName #>(<#+
                     for (int i = 0; i < parameters.Length; i++)
