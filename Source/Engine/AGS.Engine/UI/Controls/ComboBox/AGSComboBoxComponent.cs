@@ -24,6 +24,7 @@ namespace AGS.Engine
 
         public AGSComboBoxComponent(IGameEvents gameEvents)
         {
+            MarkComboboxSuggestion = markSuggestion;
             gameEvents.OnRepeatedlyExecute.Subscribe(refreshDropDownLayout);
         }
 
@@ -87,6 +88,8 @@ namespace AGS.Engine
                 if (visibleComponent != null) visibleComponent.Visible = false;
             }
         }
+
+        public Action<IButton, IButton> MarkComboboxSuggestion { get; set; }
 
         private void updateTextbox()
         {
@@ -179,7 +182,6 @@ namespace AGS.Engine
 
         private void markFirstVisibleSuggestion(List<IButton> buttons)
         {
-            Debug.WriteLine("Mark first visible");
             for (int index = 0; index < buttons.Count; index++)
             {
                 if (!buttons[index].Visible) continue;
@@ -203,29 +205,44 @@ namespace AGS.Engine
             } 
         }
 
+        private void markSuggestion(IButton oldButton, IButton newButton)
+        {
+            var lastTint = _lastSuggestionTint;
+            if (oldButton != null && lastTint != null)
+            {
+                oldButton.Tint = lastTint.Value;
+            }
+            if (newButton != null)
+            {
+                _lastSuggestionTint = newButton.Tint;
+                newButton.Tint = Colors.Orange;
+            }
+        }
+
         private void markSuggestion(List<IButton> buttons, int newSuggestion)
         {
             if (buttons.Count == 0) return;
-            Debug.WriteLine($"Mark suggestion {newSuggestion}");
+            IButton oldButton = null;
+            IButton newButton = null;
             if (_currentSuggestion >= 0 && _currentSuggestion < buttons.Count)
             {
-                var lastTint = _lastSuggestionTint;
-                if (lastTint != null) buttons[_currentSuggestion].Tint = lastTint.Value;
+                oldButton = buttons[_currentSuggestion];
             }
             if (newSuggestion >= 0 && newSuggestion < buttons.Count)
             {
-                _lastSuggestionTint = buttons[newSuggestion].Tint;
                 var button = buttons[newSuggestion];
-                if (!button.Visible) return;
-                button.Tint = Colors.Orange;
-                scrollToSuggestion(buttons, button, newSuggestion);
+                if (button.Visible) newButton = button;
             }
-            _currentSuggestion = newSuggestion;
+            MarkComboboxSuggestion?.Invoke(oldButton, newButton);
+            if (newButton != null)
+            {
+                scrollToSuggestion(buttons, newButton, newSuggestion);
+                _currentSuggestion = newSuggestion;
+            }
         }
 
         private void scrollToSuggestion(List<IButton> buttons, IButton button, int index)
         {
-            Debug.WriteLine($"Testing Scrolling to {index}");
             var crop = button.GetComponent<ICropSelfComponent>();
             if (crop == null) return;
 
@@ -241,17 +258,10 @@ namespace AGS.Engine
             int step = firstVisible > index ? -1 : 1;
             int retries = 1000;
 
-            Debug.WriteLine($"{button.ID}: crop height: {crop.CropArea.Height}, button height: {button.Height}");
-            Debug.WriteLine($"{_scrolling.VerticalScrollBar.Value}: {_scrolling.VerticalScrollBar.MinValue}-{_scrolling.VerticalScrollBar.MaxValue}");
-            Debug.WriteLine($"Retries: {retries}");
-
             while (crop.CropArea.Height < button.Height && retries > 0 &&
                    (step < 0 || _scrolling.VerticalScrollBar.Value < _scrolling.VerticalScrollBar.MaxValue) &&
                    (step > 0 || _scrolling.VerticalScrollBar.Value > _scrolling.VerticalScrollBar.MinValue))
             {
-                Debug.WriteLine($"{button.ID}: crop height: {crop.CropArea.Height}, button height: {button.Height}");
-                Debug.WriteLine($"{_scrolling.VerticalScrollBar.Value}: {_scrolling.VerticalScrollBar.MinValue}-{_scrolling.VerticalScrollBar.MaxValue}");
-                Debug.WriteLine($"Retries: {retries}");
                 _scrolling.VerticalScrollBar.Value += step;
                 retries--;
             }

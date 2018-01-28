@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System;
+
+namespace AGS.API
 {
     /// <summary>
     /// Which mode to apply when typing text in the combo box's textbox?
@@ -57,5 +59,14 @@
         /// </summary>
         /// <value>The suggestion mode.</value>
         ComboSuggest SuggestMode { get; set; }
+
+        /// <summary>
+        /// Allows to override the behavior when marking suggestions on the dropdown as the user types text in the textbox.
+        /// By default, the suggestion is given an orange color, but if you want a different behavior, set this callback which gets 2 parameters: 
+        /// the old button which is no longer the current marked suggestion (passed to clear the current mark) and the new button which is the new suggestion
+        /// in the dropdown (passed to "draw" the mark on the button).
+        /// </summary>
+        /// <value>The mark suggestion.</value>
+        Action<IButton, IButton> MarkComboboxSuggestion { get; set; }
     }
 }

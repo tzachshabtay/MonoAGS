@@ -129,6 +129,12 @@ namespace AGS.Engine
             set { _comboBoxComponent.SuggestMode = value; }
         }
 
+        public Action<IButton, IButton> MarkComboboxSuggestion
+        {
+            get { return _comboBoxComponent.MarkComboboxSuggestion; }
+            set { _comboBoxComponent.MarkComboboxSuggestion = value; }
+        }
+
         #endregion
 
         #region IUIEvents implementation
