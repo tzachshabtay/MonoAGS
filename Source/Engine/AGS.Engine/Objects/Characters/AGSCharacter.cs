@@ -24,13 +24,13 @@ namespace AGS.Engine
 			RenderLayer = AGSLayers.Foreground;
 			IgnoreScalingArea = false;
 
-			_hasOutfit.Outfit = outfit;
+			_outfitComponent.Outfit = outfit;
 		}
 
 		public async Task ChangeRoomAsync(IRoom room, float? x = null, float? y = null)
 		{
 			await StopWalkingAsync();
-			await _hasRoom.ChangeRoomAsync(room, x, y);
+			await _hasRoomComponent.ChangeRoomAsync(room, x, y);
 		}
 	}
 }
