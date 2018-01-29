@@ -244,7 +244,7 @@ https://msdn.microsoft.com/en-us/library/system.io.streamwriter(v=vs.110).aspx
 | Debug | ? | `Debug(0);` | ? |
 | DeleteSaveSlot | N/A | `DeleteSaveSlot(130);` | `MonoAGS` doesn't have the concept of save slots, you can just delete the save file.
 | DisableInterface | ? | `DisableInterface();` | There's nothing specific currently, but you can disable all GUI controls and change the cursor.
-| DoOnceOnly | Repeat.Once | `if (Game.DoOnceOnly("open cupboard")) {}` | `if Repeat.Once("open cupboard") {}` |
+| DoOnceOnly | Repeat.OnceOnly | `if (Game.DoOnceOnly("open cupboard")) {}` | `if Repeat.OnceOnly("open cupboard") {}` |
 | EnableInterface | ? | `EnableInterface();` | There's nothing specific currently, but you can disable all GUI controls and change the cursor.
 | EndCutscene | Cutscene.End | `EndCutscene();` | `state.Cutscene.End();` |
 | GetColorFromRGB | Color.FromRgba | `Game.GetColorFromRGB(0, 255, 0);` | `Color.FromRgba(0, 255, 0, 255);` |
@@ -581,3 +581,68 @@ Currently no equivalents to any of the multimedia functions in MonoAGS.
 | Y | Y | `oRope.Y = 50;` | `oRope.Y = 50.5f;` |
 
 Missing in AGS but exists in MonoAGS: scaling and rotating (with setting a pivot point), the ability to scale/rotate/translate individual animation frames, composition of objects (i.e nesting objects in other objects), mix & match with GUI, move between rooms, different resolution from the game, custom rendering (including shaders), sub-pixel positioning, rendering in multiple viewports, creation at run-time, selecting between pixel perfect or bounding box collision checks, objects are transitive with all other on-screen items (characters, GUIs), cropping objects, surround with borders, set hotspot text at runtime, controlling texture offset & scaling filter (per texture), subscribing to events (on pretty much anything that might change in any of the components), interactions with custom verbs, ability to extend objects with custom components, ability to replace engine implementation of components with your own (i.e implement your own collider component and provide custom collision checks, for example).
+
+## Overlay
+
+The whole concept of overlays in AGS is for allowing to show graphics/text at run-time. In MonoAGS, all objects can be created at run-time so the whole concept of "overlay" is not really needed.
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| CreateGraphical | Create an object | `Overlay* myOverlay = Overlay.CreateGraphical(100, 100, 300, true);` | `IObject myObj = game.Factory.Object.GetObject("id for my object"); myObj.Image = game.Factory.Graphics.LoadImageAsync("overlay.png"); myObj.X = 100; myObj.Y = 100; game.State.Room.Objects.Add(myObj);` |
+| CreateTextual | Create a label | `Overlay* myOverlay = Overlay.CreateTextual(50,80,120, Game.SpeechFont, 15,"This is a text overlay");` | `ILabel myLabel = game.Factory.UI.GetLabel("id for my label", "This is a text overlay", 120, 0, 50, 80, addToUi: false); myLabel.TextConfig.AutoFit = AutoFit.TextShouldWrapAndLabelShouldFitHeight; myLabel.TextConfig.Font = AGSGameSettings.DefaultSpeechFont; game.State.Room.Objects.Add(myLabel);` | Note that when getting the label from the factory we passed "addToUi: false", this is to closely simulate the overlay behavior in AGS, where the overlay is local to the room and not global like a GUI (so instead of adding to UI, we add the label to the current room). This is still not identical behavior, as the AGS overlay gets removed when you switch to another room, and in MonoAGS the label will still be there if you return to the room (if you want the exact same behavior, subscribe to the room leave event and remove the label).
+| Remove | Remove the object from the room (or from the global GUI list) | `myOverlay.Remove();` | If the object is in a specific room: `myRoom.Objects.Remove(myObj);`, and if the object is in the global GUI list: `game.State.UI.Remove(myObj);` |
+| SetText | Set desired properties on the label | `myOverlay.SetText(120,Game.SpeechFont,15,"This is another text overlay");` | `myLabel.Text = "This is another text overlay"; myLabel.BaseSize = new SizeF(120, 0); myLabel.TextConfig.Font = AGSGameSettings.DefaultSpeechFont; myLabel.TextConfig.Brush = game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Red);` |
+| Valid | Check if the object is contained in room (or global GUI list) | `if (myOverlay.Valid) {}` | Checking in a specific room: `if (room.Objects.Contains(myObj) {}`, checking in global GUI list: `if (game.State.UI.Contains(myObj)) {}` |
+| X | X | `myOverlay.X = 5;` | `myObj.X = 5;` |
+| Y | Y | `myOverlay.Y = 5;` | `myObj.Y = 5;` |
+
+Missing in AGS but exists in MonoAGS: no limits to the number of presented overlays, overlays are just objects so can be treated exactly the same as objects (like rotating/scaling), see the Object section for more details.
+
+## Palette
+
+Currently no equivalents to the palette in MonoAGS (if you want to implement something like this, it would probably require writing a custom shader).
+
+## Parser
+
+Currently no equivalents to the parser in MonoAGS, you'll have to program parsing logic yourself (but you can use a textbox and subscribe to key pressed events on the textbox).
+
+## Region
+
+Currently no equivalents to regions in MonoAGS.
+
+## Room
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| AreThingsOverlapping | CollidesWith | `if (AreThingsOverlapping(1002, EGO)) {}` | `if (cEgo.CollidesWith(oBullet.X, oBullet.Y, game.State.Viewport)) {}` | Note that in MonoAGS, if the colliding objects have the pixel-perfect component enabled, the collision checks will be accurate, and not using a bounding box like in AGS.
+| DisableGroundLevelAreas | manually disable areas & edges | `DisableGroundLevelAreas(0);` | `foreach (var area in myRoom.Areas) { area.Enabled = false; } foreach (var edge in myRoom.Edges) { edge.Enabled = false; } ` |
+| EnableGroundLevelAreas | manually enable areas & edges | `EnableGroundLevelAreas();` | `foreach (var area in myRoom.Areas) { area.Enabled = true; } foreach (var edge in myRoom.Edges) { edge.Enabled = true; } ` |
+| GetBackgroundFrame | Background.Animation.State.CurrentFrame | `if (GetBackgroundFrame()==4) {}` | `if (state.Room.Background.Animation.State.CurrentFrame == 4) {}` |
+| GetDrawingSurfaceForBackground | ? | `DrawingSurface *surface = Room.GetDrawingSurfaceForBackground();` | ? | No built-in way, but you can implement a custom renderer for the background and draw whatever you want.
+| GetRoomProperty | Properties.Bools/Ints/etc | `if (GetRoomProperty("CanBeAttackedHere")) {}` | `if (myRoom.Properties.Bools.GetValue("CanBeAttackedHere")) {}` |
+| GetTextProperty | Properties.Strings | `Room.GetTextProperty("Description");` | `myRoom.Properties.Strings.GetValue("Description");` |
+| GetScalingAt | GetMatchingAreas and then calculate it yourself | `if (GetScalingAt(player.x, player.y) == 100) {}` | `float getAreaScalingWidth(IRoom room, IObject obj) { foreach (IArea are in room.GetMatchingAreas(obj.Location.XY, obj.ID)) { IScalingArea scaleArea = area.GetComponent<IScalingArea>(); is (scaleArea == null || !scaleArea.ScaleObjectsX) continue; return scaleArea.GetScaling(scaleArea.Axis == ScalingAxis.X ? obj.Location.X : obj.Location.Y).Width; }} ... if (getAreaScalingWidth(myRoom, myObj) == 1f) {}` | Some notes on the MonoAGS example: note that it's not enough to just pass x,y to get the scaling, we also need to pass the actual object- that's because in MonoAGS areas might be configured to include/exclude specific objects. Also note that the horizontal and vertical scaling are not necessarily the same, that the scaling area has an axis which need to be accounted for (in AGS the axis is always vertical) and the value returned is the factor in which scaling is multiplied (so 100 scaling in AGS is 1 scaling in MonoAGS), and unlike AGS there are no limits to the scaling.
+| GetViewportX | viewport.X | `if (GetViewportX() > 100) {}` | `if (state.Viewport.X > 100) {}` | Note that in MonoAGS you can have multiple viewports, which you can access using the "SecondaryViewports" property: `if (state.SecondaryViewports[0].X > 100) {}`
+| GetViewportY | viewport.Y | ``if (GetViewportY() > 100) {}` | `if (state.Viewport.Y > 100) {}` | Note that in MonoAGS you can have multiple viewports, which you can access using the "SecondaryViewports" property: `if (state.SecondaryViewports[0].Y > 100) {}`
+| GetWalkableAreaAt | GetMatchingAreas and then calculate it yourself | `if (GetWalkableAreaAt(mouse.x,mouse.y) == 0) {}` | `private IArea getWalkableAreaAt(IRoom room, IObject obj) { return room.GetMatchingAreas(obj.Location.XY, obj.ID).FirstOrDefault(area => area.GetComponent<IWalkableArea>()?.IsWalkable ?? false); } ... if (getWalkableAreaAt(myRoom, myObj) == null) {}` | Note that it's not enough to just pass x,y to get the walkable area, we also need to pass the actual object- that's because in MonoAGS areas might be configured to include/exclude specific objects.
+| HasPlayerBeenInRoom | ? | `if (HasPlayerBeenInRoom(14)) {}` | ? | Note that while this is not built-in, it can be programmed easily if needed: when entering the room you're interested in tracking, you can run `Repeat.Do("playerInMySpecialRoom");`,  and then, for testing "HasPlayerBeenInRoom", you can run `if (Repeat.Current("playerInMySpecialRoom") >= 1) {}`
+| ReleaseViewport | viewport.Camera.Enabled | `ReleaseViewport();` | `state.Viewport.Camera.Enabled = true;` | Note that in MonoAGS you can have multiple viewports, which you can access using the "SecondaryViewports" property: `state.SecondaryViewports[0].Camera.Enabled = true;`
+| RemoveWalkableArea | area.Enabled | `RemoveWalkableArea(5);` | `myArea.Enabled = false;` | Note, that unlike AGS, the change is permanent, it does not reset when you switch rooms
+| ResetRoom | ? | `ResetRoom(0);` | ? |
+| RestoreWalkableArea | area.Enabled | `RestoreWalkableArea(5);` | `myArea.Enabled = true;` |
+| SetAreaScaling | scalingArea.MinScaling/MaxScaling | `SetAreaScaling(5, 120, 170);` | `var scalingArea = area.GetComponent<IScalingArea>(); scalingArea.MinScaling = 1.2f; scalingArea.MaxScaling = 1.7f;` | Not that in MonoAGS the scaling value is the factor in which scaling is multiplied (so 100 scaling in AGS is 1 scaling in MonoAGS), and unlike AGS there are no limits to the scaling.
+| SetBackgroundFrame | Background.Image | `SetBackgroundFrame(4);` and to get back to the animation: `SetBackgroundFrame(-1);` | `myRoom.Background.Image = myRoom.Background.Animation.Frames[4].Sprite.Image` and to get back to the animation `myRoom.Background.StartAnimation(myRoomAnimation);` | Note that there is no "4 animation frames" limit in MonoAGS like there is in AGS
+| SetViewport | Disable the camera and then set viewport x/y | `SetViewport(100, 100);` | `state.Viewport.Camera.Enabled = false; state.Viewport.X = 100; state.Viewport.Y = 100;` |
+| SetWalkBehindBase | Baseline | `SetWalkBehindBase (3,0);` | `var walkbehind = area.GetComponent<IWalkBehindArea>(); walkbehind.Baseline = 0;` |
+| BottomEdge | Edges.Bottom.Value | `Room.BottomEdge` | `myRoom.Edges.Bottom.Value` |
+| ColorDepth | ? | `Room.ColorDepth` | ? | This is probably not needed in MonoAGS, mix & match images with different color depths should work.
+| Height | Limits.Height | `Room.Height` | `myRoom.Limits.Height` |
+| LeftEdge | Edges.Left.Value | `Room.LeftEdge` | `myRoom.Edges.Left.Value` |
+| Messages | Properties.Strings | `String description = Room.Messages[1];` | `string dsescription = myRoom.Properties.Strings.GetValue("MyRoomDescription");`
+| MusicOnLoad | MusicOnLoad | `Room.MusicOnLoad` | `myRoom.MusicOnLoad` |
+| ObjectCount | Objects.Count | `Room.ObjectCount` | `myRoom.Objects.Count` | Note that in MonoAGS this includes the characters in the room (as characters are also objects)
+| RightEdge | Edges.Right.Value | `Room.RightEdge` | `myRoom.Edges.Right.Value` |
+| TopEdge | Edges.Top.Value | `Room.TopEdge` | `myRoom.Edges.Top.Value` |
+| Width | Limits.Width | `Room.Width` | `myRoom.Limits.Width` |
+
+Missing in AGS but exists in MonoAGS: no limits on the scaling areas, no limits on the number of animation frames for the background, multiple viewports, restriction lists to include/exclude specific entities from specific areas, separate horizontal/vertical scaling for scaling areas, set the scaling axis for scaling areas, can set custom properties at run-time, can create rooms at run-time, can subscribe/unsubcribe events at run-time, set custom limits for the room (including "endless" rooms), enable/disable specific areas & edges, volume scaling areas, camera zoom areas, zoom/scale the viewport.
