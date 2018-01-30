@@ -3566,6 +3566,510 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 </tbody>
 </table>
 <p>Missing in AGS but exists in MonoAGS: no limits on the scaling areas, no limits on the number of animation frames for the background, multiple viewports, restriction lists to include/exclude specific entities from specific areas, separate horizontal/vertical scaling for scaling areas, set the scaling axis for scaling areas, can set custom properties at run-time, can create rooms at run-time, can subscribe/unsubcribe events at run-time, set custom limits for the room (including &quot;endless&quot; rooms), enable/disable specific areas &amp; edges, volume scaling areas, camera zoom areas, zoom/scale the viewport.</p>
+<h2 id="screen">Screen</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FadeIn</td>
+<td>?</td>
+<td><code>FadeIn(10);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>FadeOut</td>
+<td>?</td>
+<td><code>FadeOut(30);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>FlipScreen</td>
+<td>?</td>
+<td><code>FlipScreen(1);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>SetFadeColor</td>
+<td>?</td>
+<td><code>SetFadeColor(200, 0, 0);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>SetNextScreenTransition</td>
+<td>state.RoomTransitions.SetOneTimeNextTransition</td>
+<td><code>SetNextScreenTransition(eTransitionBoxout);</code></td>
+<td><code>state.RoomTransitions.SetOneTimeNextTransition</code></td>
+<td><code>SetNextScreenTransition(eTransitionBoxout);</code></td>
+</tr>
+<tr>
+<td>SetScreenTransition</td>
+<td>state.RoomTransitions.Transition</td>
+<td><code>SetScreenTransition(eTransitionFade);</code></td>
+<td><code>state.RoomTransitions.Transition = AGSRoomTransitions.Fade();</code></td>
+<td>Note that you can give more options to the room transition in MonoAGS, for example: <code>AGSRoomTransitions.Fade(timeInSeconds: 3.5f, easeFadeOut: Ease.CubeIn, easeFadeIn: Ease.CubeOut)</code></td>
+</tr>
+<tr>
+<td>ShakeScreen</td>
+<td>ShakeEffect</td>
+<td><code>ShakeScreen(5);</code></td>
+<td><code>ShakeEffect effect = new ShakeEffect (); await effect.RunAsync(TimeSpan.FromSeconds(5));</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ShakeScreenBackground</td>
+<td>ShakeEffect</td>
+<td><code>ShakeScreenBackground (4, 10, 80);</code></td>
+<td><code>ShakeEffect effect = new ShakeEffect(strength: 0.1f, decay: 0.9f); effect.RunAsync(TimeSpan.FromSeconds(5));</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TintScreen</td>
+<td>?</td>
+<td><code>TintScreen (100, 50, 50);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: Customize time and easing for built in room transitions, code your own custom room transitions, shake can be applied to individual objects (not just the screen), custom shaders to generate all sorts of effects.</p>
+<h2 id="string">String</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Append</td>
+<td>+</td>
+<td><code>mytext = mytext.Append(&quot;World&quot;);</code></td>
+<td><code>mytext = mytext + &quot;World&quot;</code>, or <code>mytext += &quot;World&quot;</code>, or <code>mytext = $&quot;{mytext}World&quot;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>AppendChar</td>
+<td>+</td>
+<td><code>mytext = mytext.AppendChar(&#39;o&#39;);</code></td>
+<td><code>mytext = mytext + &#39;o&#39;</code>, or <code>mytext += &#39;o&#39;</code>, or <code>mytext = $&quot;{mytext}o&quot;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CompareTo</td>
+<td>for direct equality, you can use &quot;==&quot;, otherwise, CompareTo</td>
+<td><code>if (mytext.CompareTo(&quot;hello&quot;) == 0) {}</code></td>
+<td><code>if (mytext == &quot;hello&quot;) {}</code> or <code>if (mytext.CompareTo(&quot;hello&quot;) == 0) {}</code></td>
+<td>Note, in c# both CompareTo and == are case sensitive, as opposed to AGS. If you want case insensitive equality check, you can do <code>if (string.Equals(a, b, StringComparison.CurrentCultureIgnoreCase)) {}</code></td>
+</tr>
+<tr>
+<td>Copy</td>
+<td>Copy</td>
+<td><code>String newstring = mystring.Copy();</code></td>
+<td><code>String newstring = mystring.Copy();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>EndsWith</td>
+<td>EndsWith</td>
+<td><code>if (myString.EndsWith(&quot;script!&quot;)) {}</code></td>
+<td><code>if (myString.EndsWith(&quot;script!&quot;, false)) {}</code></td>
+<td>In c# EndsWith is case sensitive by default, as opposed to AGS which is case insensitive by default (that&#39;s the reason for the added false parameter in the c# example, to match the AGS sample).</td>
+</tr>
+<tr>
+<td>Format</td>
+<td>Format, or string interpolation</td>
+<td><code>String text = String.Format(&quot;%d, %d&quot;, health, score);</code></td>
+<td><code>string text = string.Format(&quot;{0}, {1}&quot;, health, score);</code> or <code>string text = $&quot;{health}, {score}&quot;;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IndexOf</td>
+<td>IndexOf</td>
+<td><code>int result = haystack.IndexOf(&quot;a needle&quot;);</code></td>
+<td><code>int result = haystack.IndexOf(&quot;a needle&quot;);</code></td>
+<td>In c# IndexOf is case sensitive by default, if you want case insensitive, you can do: <code>int result = haystack.IndexOf(&quot;a needle&quot;, StringComparison.InvariantCultureIgnoreCase);</code></td>
+</tr>
+<tr>
+<td>IsNullOrEmpty</td>
+<td>IsNullOrEmpty</td>
+<td><code>if (String.IsNullOrEmpty(myString)) {}</code></td>
+<td><code>if (string.IsNullOrEmpty(myString)) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>LowerCase</td>
+<td>ToLower</td>
+<td><code>String lowercased = mystring.LowerCase();</code></td>
+<td><code>string lowercased = mystring.ToLower();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Replace</td>
+<td>Replace</td>
+<td><code>String changed = original.Replace(&quot;hello&quot;, &quot;goodbye&quot;);</code></td>
+<td><code>string changed = original.Replace(&quot;hello&quot;, &quot;goodbye&quot;);</code></td>
+<td>In c# Replace is case sensitive, to do a case insensitive replace you can use a regular expression: <code>string changed = Regex.Replace(original, &quot;hello&quot;, &quot;goodbye&quot;);</code></td>
+</tr>
+<tr>
+<td>ReplaceCharAt</td>
+<td>ToCharArray + index</td>
+<td><code>String changed = mystring.ReplaceCharAt(2, &#39;m&#39;);</code></td>
+<td><code>char[] ch = mystring.ToCharArray(); ch[2] = &#39;m&#39;; string changed = new string(ch);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>StartsWith</td>
+<td>StartsWith</td>
+<td><code>if (myString.StartsWith(&quot;script!&quot;)) {}</code></td>
+<td><code>if (myString.StartsWith(&quot;script!&quot;, false)) {}</code></td>
+<td>In c# StartsWith is case sensitive by default, as opposed to AGS which is case insensitive by default (that&#39;s the reason for the added false parameter in the c# example, to match the AGS sample).</td>
+</tr>
+<tr>
+<td>Substring</td>
+<td>Substring</td>
+<td><code>String substring = mystring.Substring(3, 5);</code></td>
+<td><code>String substring = mystring.Substring(3, 5);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Truncate</td>
+<td>Substring</td>
+<td><code>String truncated = mystring.Truncate(4);</code></td>
+<td><code>string truncated = mystring.Length &lt;= 4 ? mystring : mystring.Substring(0, 4);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>UpperCase</td>
+<td>ToUpper</td>
+<td><code>String uppercased = mystring.UpperCase();</code></td>
+<td><code>string uppercased = mystring.ToUpper();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>AsFloat</td>
+<td>float.TryParse</td>
+<td><code>float number1; number1 = text1.AsFloat;</code></td>
+<td><code>float.TryParse(text1, out float number1);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>AsInt</td>
+<td>int.TryParse</td>
+<td><code>int number1; number1 = text1.AsInt;</code></td>
+<td><code>int.TryParse(text1, out int number1);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Chars</td>
+<td>[]</td>
+<td><code>text.Chars[3]</code></td>
+<td><code>text[3]</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Length</td>
+<td>Length</td>
+<td><code>text.Length</code></td>
+<td><code>text.Length</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: Everything here is not MonoAGS specific but c#: you can see c# string reference here: <a href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</a></p>
+<h2 id="system">System</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AudioChannelCount</td>
+<td>?</td>
+<td><code>System.AudioChannelCount</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>AudioChannels</td>
+<td>?</td>
+<td><code>AudioChannel *channel = System.AudioChannels[2];</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>CapsLock</td>
+<td>Device.KeyboardState.CapslockOn</td>
+<td><code>if (System.CapsLock) {}</code></td>
+<td><code>if (AGSGame.Device.KeyboardState.CapslockOn) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ColorDepth</td>
+<td>?</td>
+<td><code>System.ColorDepth</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Gamma</td>
+<td>?</td>
+<td><code>System.Gamma</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>HardwareAcceleration</td>
+<td>Device.GrahpicsBackend.AreShadersSupported</td>
+<td><code>if (System.HardwareAcceleration) {}</code></td>
+<td><code>if (AGSGame.Device.GraphicsBackend.AreShadersSupported()) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>NumLock</td>
+<td>?</td>
+<td><code>if (System.NunLock) {}</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>OperatingSystem</td>
+<td>?</td>
+<td><code>if (System.OperatingSystem == eOSWindows) {}</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>ScreenHeight</td>
+<td>Settings.WindowSize.Height</td>
+<td><code>System.ScreenHeight</code></td>
+<td><code>game.Settings.WindowSize.Height</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ScreenWidth</td>
+<td>Settings.WindowSize.Width</td>
+<td><code>System.ScreenWidth</code></td>
+<td><code>game.Settings.WindowSize.Width</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ScrollLock</td>
+<td>?</td>
+<td><code>if (System.ScrollLock) {}</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>SupportsGammaControl</td>
+<td>?</td>
+<td><code>System.SupportsGammaControl</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Version</td>
+<td>?</td>
+<td><code>System.Version</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>ViewportHeight</td>
+<td>?</td>
+<td><code>System.ViewportHeight</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>ViewportWidth</td>
+<td>?</td>
+<td><code>System.ViewportWidth</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>Volume</td>
+<td>AudioSettings.MasterVolume</td>
+<td><code>System.Volume = 80;</code></td>
+<td><code>game.AudioSettings.MasterVolume = 0.8f;</code></td>
+<td>Range in AGS is 0-100, range in MonoAGS is 0-1</td>
+</tr>
+<tr>
+<td>VSync</td>
+<td>Settings.Vsync</td>
+<td><code>System.Vsync = true;</code></td>
+<td><code>game.Settings.Vsync = VsyncMode.On;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Windowed</td>
+<td>Settings.WindowState</td>
+<td><code>if (Settings.Windowed) {}</code></td>
+<td><code>if (game.Settings.WindowState == WindowState.Normal) {}</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: Change window size at runtime (including windowed or not, and bordered or not), adaptive vsync.</p>
+<h2 id="text-display--speech">Text Display / Speech</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Display</td>
+<td>AGSMessageBox.DisplayAsync</td>
+<td><code>Display(&quot;Hello&quot;);</code></td>
+<td><code>await AGSMessageBox.DisplayAsync(&quot;Hello&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DisplayAt</td>
+<td>?</td>
+<td><code>DisplayAt (50,50,100, &quot;This is a message&quot;);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>DisplayAtY</td>
+<td>?</td>
+<td><code>DisplayAt (50, &quot;This is a message&quot;);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>DisplayMessage</td>
+<td>AGSMessageBox.DisplayAsync</td>
+<td><code>DisplayMessage(220);</code></td>
+<td><code>await AGSMessageBox.DisplayAsync(game.Properties.Strings.GetValue(&quot;MySpecialMessage&quot;));</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DisplayMessageAtY</td>
+<td>?</td>
+<td><code>DisplayMessageAtY(527, 200);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>DisplayTopBar</td>
+<td>?</td>
+<td><code>DisplayTopBar(25, 8, 7, &quot;Evil wizard&quot;, &quot;Get out of my house and never return!&quot;);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>SetSkipSpeech</td>
+<td>SpeechConfig.SkipText</td>
+<td><code>SetSkipSpeech(2);</code></td>
+<td><code>player.SpeechConfig.SkipText = SkipText.ByTime;</code></td>
+<td>Note that the example given in MonoAGS is for setting the skip style for a specific character, not a global change like in AGS.</td>
+</tr>
+<tr>
+<td>SetSpeechStyle</td>
+<td>customize to your liking</td>
+<td><code>SetSpeechStyle(eSpeechSierra);</code></td>
+<td>N/A</td>
+<td>For the &quot;lucas arts&quot; style (text over character&#39;s head), do nothing, that&#39;s the default. For the &quot;sierra&quot; style, set a portrait in the charater&#39;s speech config: <code>cGraham.SpeechConfig.PortraitConfig.Portrait = grahamPortrait;</code>. For the &quot;sierra with background&quot; style, set a portrait as before, and also set BackgroundColor in the character&#39;s speech config: <code>cGraham.SpeechConfig.BackgroundColor = Colors.Pink;</code>. For &quot;QFG4-style full screen&quot;, set the portrait object to be a full-screen size object, and for customize where the speech text and portrait will be located, you need to provide your custom implementation for &quot;ISayLocationProvider&quot; and then replace the default implementation. For example, this custom implementation will place both text and portrait in the bottom-left of the screen: <code>public class Qfg4StyleSayLocationProvider : ISayLocationProvider { public ISayLocation GetLocation(string text, ISayConfig config) { var textLocation = new PointF(0f, 0f); var portraitLocation = new PointF(0f, 0f); return new AGSSayLocation(textLocation, portraitLocation); }}</code>, then to use this implementation instead of the default engine&#39;s implementation, write (before the game loads): <code>Resolver.Override(resolver =&gt; resolver.Builder.RegisterType&lt;Qfg4StyleSayLocationProvider&gt;().As&lt;ISayLocationProvider&gt;());</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: Setting &quot;skip text&quot; styles for specific characters, show yes/no or ok/cancel dialogs (or any dialog with a custom number of buttons), more customizations to speech style, including creating custom say functions completely.</p>
+<h2 id="viewframe">ViewFrame</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flipped</td>
+<td>?</td>
+<td>if (frame.Flipped) {}</td>
+<td>?</td>
+<td>Note that you can currently flip a frame horizontally or vertically by doing <code>frame.Sprite.FlipHorizontally()</code>, but currently no way to query if a frame is flipped (other, perhaps, then checking if the scaling of the sprite is negative)</td>
+</tr>
+<tr>
+<td>Frame</td>
+<td>Frames.IndexOf</td>
+<td><code>frame.Frame</code></td>
+<td><code>animation.Frames.IndexOf(frame)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Graphic</td>
+<td>Sprite.Image.ID</td>
+<td><code>frame.Graphic</code></td>
+<td><code>frame.Sprite.Image.ID</code></td>
+<td></td>
+</tr>
+<tr>
+<td>LinkedAudio</td>
+<td>SoundEmitter.AudioClip</td>
+<td><code>frame.LinkedAudio</code></td>
+<td><code>frame.SoundEmitter.AudioClip</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Loop</td>
+<td>N/A</td>
+<td><code>frame.Loop</code></td>
+<td>N/A</td>
+<td>MonoAGS does not have the concept of loops in a view, so getting the loop of a frame is meaningless. You can check whether a frame is part of a particular animations by doing: <code>animation.Frames.Contains(frame)</code>.</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Delay</td>
+<td><code>frame.Speed</code></td>
+<td><code>frame.Delay</code></td>
+<td></td>
+</tr>
+<tr>
+<td>View</td>
+<td>N/A</td>
+<td><code>frame.View</code></td>
+<td>N/A</td>
+<td>MonoAGS does not have the concept of a view. The most equivalent for a view is a directional animation. For a specific directional animation, you can check if the frame exists for one of its animations by doing: <code>if (myDirectionalAnimation.GetAllDirections().Any(animation =&gt; animation.Frames.Contains(frame)) {}</code></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: rotate/scale/translate individual animation frames (including at run-time), change the animation frame speed at run-time and allow for random animation frame delays within a range (very useful for speak animations), for the linked sound, allows to configure whether to automatically pan and adjust the volume of the sound based on the location of the animation relative to the center of the screen (for panning) and based on the location within a volume changing area.</p>
+<h2 id="scummverbcoingui">SCUMM_VERBCOIN_GUI</h2>
+<p>Currently no equivalents to verb coin GUI in MonoAGS.</p>
 </article>
           </div>
           
