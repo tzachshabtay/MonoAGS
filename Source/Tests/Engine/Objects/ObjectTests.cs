@@ -43,8 +43,8 @@ namespace Tests
 				IRoom room = _mocks.Room(true).Object;
 				rooms.Add(room);
 				await obj.ChangeRoomAsync(room);
-				Assert.AreEqual(room, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
-				Assert.IsNull(obj.PreviousRoom, "Prev room not null for " + obj.Hotspot ?? "null");
+				Assert.AreEqual(room, obj.Room, "Room not changed for " + obj.DisplayName ?? "null");
+				Assert.IsNull(obj.PreviousRoom, "Prev room not null for " + obj.DisplayName ?? "null");
 			}
 		}
 
@@ -65,8 +65,8 @@ namespace Tests
 				rooms.Add(newRoom);
 				await obj.ChangeRoomAsync(oldRoom);
 				await obj.ChangeRoomAsync(newRoom);
-				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
-				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.Hotspot ?? "null");
+				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.DisplayName ?? "null");
+				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.DisplayName ?? "null");
 			}
 		}
 
@@ -87,8 +87,8 @@ namespace Tests
 				rooms.Add(newRoom);
 				await obj.ChangeRoomAsync(oldRoom);
 				await obj.ChangeRoomAsync(newRoom);
-				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
-				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.Hotspot ?? "null");
+				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.DisplayName ?? "null");
+				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.DisplayName ?? "null");
 			}
 		}
 
@@ -108,8 +108,8 @@ namespace Tests
 				rooms.Add(oldRoom);
 				await obj.ChangeRoomAsync(oldRoom);
 				await obj.ChangeRoomAsync(newRoom);
-				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.Hotspot ?? "null");
-				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.Hotspot ?? "null");
+				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.DisplayName ?? "null");
+				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.DisplayName ?? "null");
 			}
 		}
 
@@ -285,7 +285,7 @@ namespace Tests
 	{
 		public static IObject Hotspot(this IObject obj, string hotspot)
 		{
-			obj.Hotspot = hotspot;
+			obj.DisplayName = hotspot;
 			return obj;
 		}
 	}

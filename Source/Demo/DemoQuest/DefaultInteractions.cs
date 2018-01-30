@@ -60,14 +60,14 @@ namespace DemoGame
 
 		private async Task onInventoryCombination(InventoryCombinationEventArgs args)
 		{
-			if (string.IsNullOrEmpty(args.ActiveItem.Graphics.Hotspot) ||
-			    string.IsNullOrEmpty(args.PassiveItem.Graphics.Hotspot))
+			if (string.IsNullOrEmpty(args.ActiveItem.Graphics.DisplayName) ||
+			    string.IsNullOrEmpty(args.PassiveItem.Graphics.DisplayName))
 			{
 				await _game.State.Player.SayAsync("I don't think these two items go together.");
 				return;
 			}
 
-			await _game.State.Player.SayAsync($"Use {args.ActiveItem.Graphics.Hotspot} on {args.PassiveItem.Graphics.Hotspot}? I don't get it...");
+			await _game.State.Player.SayAsync($"Use {args.ActiveItem.Graphics.DisplayName} on {args.PassiveItem.Graphics.DisplayName}? I don't get it...");
 		}
 
         private Task sayAsync(string text)

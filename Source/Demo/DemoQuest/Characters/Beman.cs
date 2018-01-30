@@ -51,7 +51,7 @@ namespace DemoGame
 			Characters.RandomAnimationDelay(speakAnimation.Up);
 
             _character.StartAnimation (_character.Outfit[AGSOutfit.Idle].Down);
-			_character.Hotspot = "Beman";
+			_character.DisplayName = "Beman";
 			_character.PixelPerfect(true);
 
 			Characters.Beman = _character;

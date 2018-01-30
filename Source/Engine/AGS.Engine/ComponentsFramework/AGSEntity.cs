@@ -44,6 +44,10 @@ namespace AGS.Engine
 
         public string ID { get; private set; }
 
+        public string DisplayName { get; set; }
+
+        public string GetFriendlyName() { return DisplayName ?? ID; }
+
         public IBlockingEvent OnComponentsInitialized { get; private set; }
 
         public IBlockingEvent<AGSListChangedEventArgs<IComponent>> OnComponentsChanged { get; private set; }

@@ -19,12 +19,6 @@
         /// <seealso cref="IApproachStyle"/>
         /// <value>The walk point.</value>
 		PointF? WalkPoint { get; set; }
-
-        /// <summary>
-        /// Gets or sets the hotspot text that can be showed by a hotspot label when hovering over the entity.
-        /// </summary>
-        /// <value>The hotspot.</value>
-		string Hotspot { get; set; }
 	}
 }
 

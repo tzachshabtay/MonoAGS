@@ -15,6 +15,19 @@
         /// </summary>
         /// <value>The identifier.</value>
 		string ID { get; }
-	}
+
+        /// <summary>
+        /// A human-readable name.
+        /// This string could be used to display entity's name to players.
+        /// </summary>
+        /// <value>The name.</value>
+        string DisplayName { get; set; }
+
+        /// <summary>
+        /// Returns a human-readable name of an entity, either taken from DisplayName or composed from other properties.
+        /// </summary>
+        /// <returns>The name.</returns>
+        string GetFriendlyName();
+    }
 }
 

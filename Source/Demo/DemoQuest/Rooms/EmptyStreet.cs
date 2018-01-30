@@ -54,7 +54,7 @@ namespace DemoGame
 			_bottle.WalkPoint = bottleHotspot.WalkPoint;
 			_bottle.X = 185f;
 			_bottle.Y = 85f;
-			_bottle.Hotspot = "Bottle";
+			_bottle.DisplayName = "Bottle";
 			_room.Objects.Add(_bottle);
 
 			subscribeEvents();

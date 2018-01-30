@@ -27,8 +27,6 @@ namespace AGS.Engine
 		public IInteractions Interactions { get; private set; }
 
 		public PointF? WalkPoint { get; set; }
-
-		public string Hotspot { get; set; }
 	}
 }
 

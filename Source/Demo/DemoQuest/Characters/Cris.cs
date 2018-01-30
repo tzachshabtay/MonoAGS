@@ -46,7 +46,7 @@ namespace DemoGame
             emitter.Assign(_character.Outfit[AGSOutfit.Walk], 1, 5);
 
             _character.StartAnimation (_character.Outfit[AGSOutfit.Idle].Down);
-			_character.Hotspot = "Cris";
+			_character.DisplayName = "Cris";
 			_character.PixelPerfect(true);
 
 			Characters.Cris = _character;

@@ -32,7 +32,7 @@ namespace AGS.Engine
 		public bool Enabled { get; set; }
 
 		[ProtoMember(5)]
-		public string Hotspot { get; set; }
+		public string DisplayName { get; set; }
 
 		[ProtoMember(6)]
 		public bool IgnoreViewport { get; set; }
@@ -123,7 +123,7 @@ namespace AGS.Engine
 			}
             obj.Properties.CopyFrom(Properties.ToItem(context));
 			obj.Enabled = Enabled;
-			obj.Hotspot = Hotspot;
+			obj.DisplayName = DisplayName;
 			obj.IgnoreViewport = IgnoreViewport;
 			obj.IgnoreScalingArea = IgnoreScalingArea;
 			obj.Visible = Visible;
@@ -151,7 +151,7 @@ namespace AGS.Engine
 			}
 			Enabled = item.UnderlyingEnabled;
 			Visible = item.UnderlyingVisible;
-			Hotspot = item.Hotspot;
+            DisplayName = item.DisplayName;
 			IgnoreViewport = item.IgnoreViewport;
 			IgnoreScalingArea = item.IgnoreScalingArea;
 			if (Parent == null && item.TreeNode != null && item.TreeNode.Parent != null)

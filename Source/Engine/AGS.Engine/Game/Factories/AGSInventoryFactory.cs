@@ -80,7 +80,7 @@ namespace AGS.Engine
 			graphics.IgnoreViewport = true;
 			graphics.IgnoreScalingArea = true;
 			graphics.Pivot = new PointF (0.5f, 0.5f);
-			graphics.Hotspot = hotspot;
+			graphics.DisplayName = hotspot;
 
 			IObject cursor = _object.GetObject ($"{hotspot ?? ""}(inventory item cursor)");
 			cursor.Image = cursorImage;

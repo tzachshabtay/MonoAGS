@@ -63,7 +63,7 @@ namespace DemoGame
 			_room.Objects.Add(wallHotspot);
 
 			IObject panel = factory.Object.GetObject("Panel");
-			panel.Hotspot = "Panel";
+			panel.DisplayName = "Panel";
 			IAnimation panelAnimation = await factory.Graphics.LoadAnimationFromFolderAsync(_baseFolder + "Panel");
 			Characters.RandomAnimationDelay(panelAnimation);
 			panel.StartAnimation(panelAnimation);
