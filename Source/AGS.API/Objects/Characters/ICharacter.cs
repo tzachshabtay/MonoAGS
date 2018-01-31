@@ -5,8 +5,8 @@
     /// to depict adventure game characters.
     /// </summary>
 	public interface ICharacter : IObject, ISayComponent, IWalkComponent, IFaceDirectionComponent, 
-		IOutfitComponent, IInventoryComponent, IFollowComponent
-	{
+		IOutfitComponent, IInventoryComponent, IFollowComponent, IHotspotComponent
+    {
 	}
 }
 

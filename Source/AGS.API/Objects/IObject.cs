@@ -5,7 +5,7 @@
     /// to depict all adventure game objects. Both characters and UI controls are also objects (with additional components).
     /// </summary>
 	public interface IObject : IEntity, IHasRoomComponent, ISpriteRenderComponent, IAnimationComponent, IInObjectTreeComponent, IColliderComponent, 
-		IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfoComponent, IHotspotComponent, 
+		IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfoComponent, 
         IShaderComponent, ITranslateComponent, IImageComponent, IScaleComponent, IRotateComponent, 
         IPixelPerfectComponent, IHasModelMatrix, IModelMatrixComponent, IBoundingBoxComponent
 	{

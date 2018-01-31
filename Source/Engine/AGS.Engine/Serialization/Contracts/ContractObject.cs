@@ -23,67 +23,64 @@ namespace AGS.Engine
 		public IContract<IRenderLayer> RenderLayer { get; set; }
 
 		[ProtoMember(2)]
-		public Tuple<float, float> WalkPoint { get; set; }
-
-		[ProtoMember(3)]
 		public IContract<ICustomProperties> Properties { get; set; }
 
-		[ProtoMember(4)]
+		[ProtoMember(3)]
 		public bool Enabled { get; set; }
 
-		[ProtoMember(5)]
+		[ProtoMember(4)]
 		public string DisplayName { get; set; }
 
-		[ProtoMember(6)]
+		[ProtoMember(5)]
 		public bool IgnoreViewport { get; set; }
 
-		[ProtoMember(7)]
+		[ProtoMember(6)]
 		public bool IgnoreScalingArea { get; set; }
 
-		[ProtoMember(8)]
+		[ProtoMember(7)]
 		public ContractAnimationComponent AnimationComponent { get; set; }
 
-		[ProtoMember(9, AsReference = true)]
+		[ProtoMember(8, AsReference = true)]
 		public IContract<IObject> Parent { get; set; }
 
-		[ProtoMember(10)]
+		[ProtoMember(9)]
 		public string ID { get; set; }
 
-		[ProtoMember(11)]
+		[ProtoMember(10)]
 		public bool Visible { get; set; }
 
-        [ProtoMember(12)]
+        [ProtoMember(11)]
         public float InitialWidth { get; set; }
 
-        [ProtoMember(13)]
+        [ProtoMember(12)]
         public float InitialHeight { get; set; }
 
-        [ProtoMember(14)]
+        [ProtoMember(13)]
         public Tuple<float, float, float> Location { get; set; }
 
-        [ProtoMember(15)]
+        [ProtoMember(14)]
         public bool IsPixelPerfect { get; set; }
 
-        [ProtoMember(16)]
+        [ProtoMember(15)]
         public float ScaleX { get; set; }
 
-        [ProtoMember(17)]
+        [ProtoMember(16)]
         public float ScaleY { get; set; }
 
-        [ProtoMember(18)]
+        [ProtoMember(17)]
         public float Angle { get; set; }
 
-        [ProtoMember(19)]
+        [ProtoMember(18)]
         public uint Tint { get; set; }
 
-        [ProtoMember(20)]
+        [ProtoMember(19)]
         public Tuple<float, float> Pivot { get; set; }
 
-        [ProtoMember(21)]
+        [ProtoMember(20)]
         public Contract<IImage> Image { get; set; }
 
         //todo: support custom renderer deserialization
-        [ProtoMember(22)]
+        [ProtoMember(21)]
         public string CustomRenderer { get; set; }
 
         //todo: save object's previous room
@@ -117,10 +114,6 @@ namespace AGS.Engine
             obj.PixelPerfect(IsPixelPerfect);
             AnimationComponent.ToItem(context, obj);
             obj.RenderLayer = RenderLayer.ToItem(context);
-			if (WalkPoint != null)
-			{
-				obj.WalkPoint = new PointF (WalkPoint.Item1, WalkPoint.Item2);
-			}
             obj.Properties.CopyFrom(Properties.ToItem(context));
 			obj.Enabled = Enabled;
 			obj.DisplayName = DisplayName;
@@ -145,10 +138,6 @@ namespace AGS.Engine
 			AnimationComponent = new ContractAnimationComponent ();
 			AnimationComponent.FromItem(context, item);
 
-			if (item.WalkPoint != null)
-			{
-				WalkPoint = new Tuple<float, float> (item.WalkPoint.Value.X, item.WalkPoint.Value.Y);
-			}
 			Enabled = item.UnderlyingEnabled;
 			Visible = item.UnderlyingVisible;
             DisplayName = item.DisplayName;

@@ -18,19 +18,23 @@ namespace AGS.Engine
 			_gameState = gameState;
 		}
 
-		public IObject GetObject(string id, string[] sayWhenLook = null, string[] sayWhenInteract = null)
+		public IObject GetObject(string id)
 		{
             Debug.WriteLine("Getting object: " + id ?? "null");
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			IObject obj = _resolver.Container.Resolve<IObject>(idParam);
-
-            subscribeSentences(sayWhenLook, obj.Interactions.OnInteract(AGSInteractions.LOOK));
-            subscribeSentences(sayWhenInteract, obj.Interactions.OnInteract(AGSInteractions.INTERACT));
-
-			return obj;
+			return _resolver.Container.Resolve<IObject>(idParam);
 		}
 
-		public ICharacter GetCharacter(string id, IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null)
+        public IObject GetAdventureObject(string id, string[] sayWhenLook = null, string[] sayWhenInteract = null)
+        {
+            IObject obj = GetObject(id);
+            IHotspotComponent hotspot = obj.AddComponent<IHotspotComponent>();
+            subscribeSentences(sayWhenLook, hotspot.Interactions.OnInteract(AGSInteractions.LOOK));
+            subscribeSentences(sayWhenInteract, hotspot.Interactions.OnInteract(AGSInteractions.INTERACT));
+            return obj;
+        }
+
+        public ICharacter GetCharacter(string id, IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
 			ICharacter character = GetCharacter(id, outfit, _resolver.Container.Resolve<IAnimationComponent>());
 
@@ -54,7 +58,7 @@ namespace AGS.Engine
 		{
             _maskLoader = _maskLoader ?? _resolver.Container.Resolve<IMaskLoader>();
 			IMask mask = _maskLoader.Load(maskPath, debugDrawColor:  Colors.White, id: id ?? hotspot);
-            if (mask == null) return new AGSObject(id ?? hotspot, _resolver);
+            if (mask == null) return newAdventureObject(id ?? hotspot, _resolver);
 			setMask (mask, hotspot, sayWhenLook, sayWhenInteract);
 			return mask.DebugDraw;
 		}
@@ -64,10 +68,17 @@ namespace AGS.Engine
 		{
             _maskLoader = _maskLoader ?? _resolver.Container.Resolve<IMaskLoader>();
 			IMask mask = await _maskLoader.LoadAsync(maskPath, debugDrawColor: Colors.White, id: id ?? hotspot);
-            if (mask == null) return new AGSObject(id ?? hotspot, _resolver);
+            if (mask == null) return newAdventureObject(id ?? hotspot, _resolver);
 			setMask (mask, hotspot, sayWhenLook, sayWhenInteract);
 			return mask.DebugDraw;
 		}
+
+        private IObject newAdventureObject(string id, Resolver resolver)
+        {
+            IObject obj = new AGSObject(id, _resolver);
+            obj.AddComponent<IHotspotComponent>();
+            return obj;
+        }
 
 		private void setMask (IMask mask, string hotspot, string [] sayWhenLook = null,
 			string [] sayWhenInteract = null)
@@ -78,8 +89,9 @@ namespace AGS.Engine
 			mask.DebugDraw.Opacity = 0;
 			mask.DebugDraw.Z = mask.MinY;
 
-            subscribeSentences (sayWhenLook, mask.DebugDraw.Interactions.OnInteract(AGSInteractions.LOOK));
-            subscribeSentences (sayWhenInteract, mask.DebugDraw.Interactions.OnInteract(AGSInteractions.INTERACT));
+            IHotspotComponent hotobj = mask.DebugDraw.GetComponent<IHotspotComponent>();
+            subscribeSentences (sayWhenLook, hotobj.Interactions.OnInteract(AGSInteractions.LOOK));
+            subscribeSentences (sayWhenInteract, hotobj.Interactions.OnInteract(AGSInteractions.INTERACT));
 		}
 
 		private void subscribeSentences(string[] sentences, IEvent<ObjectEventArgs> e)

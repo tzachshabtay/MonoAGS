@@ -104,8 +104,9 @@ namespace AGS.Engine
 		{
 			string mode = CurrentMode;
             IObject hotspot = hitTest.ObjectAtMousePosition;
+            IHotspotComponent hotComp = hotspot?.GetComponent<IHotspotComponent>();
 
-			if (_game.Input.Cursor != _inventoryCursor.Animation)
+            if (_game.Input.Cursor != _inventoryCursor.Animation)
 			{
 				if (hotspot != null && hotspot.Room == null) 
 				{
@@ -138,19 +139,19 @@ namespace AGS.Engine
 					_handlingClick = true;
 					try
 					{
-						if (hotspot == null) return;
+						if (hotComp == null) return;
 
 						if (mode == LOOK_MODE)
 						{
-                            await hotspot.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(new ObjectEventArgs (hotspot));
+                            await hotComp.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(new ObjectEventArgs (hotspot));
 						}
 						else if (mode == INTERACT_MODE)
 						{
-                            await hotspot.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(new ObjectEventArgs (hotspot));
+                            await hotComp.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(new ObjectEventArgs (hotspot));
 						}
 						else
 						{
-                            await hotspot.Interactions.OnInteract(mode).InvokeAsync(new ObjectEventArgs (hotspot));
+                            await hotComp.Interactions.OnInteract(mode).InvokeAsync(new ObjectEventArgs (hotspot));
 						}
 					}
 					finally
@@ -159,7 +160,7 @@ namespace AGS.Engine
 					}
 				}
 			}
-			else if (hotspot != null)
+			else if (hotComp != null)
 			{
 				if (hotspot.Room == null)
 				{
@@ -174,7 +175,7 @@ namespace AGS.Engine
 					return;
 				}
 
-                await hotspot.Interactions.OnInventoryInteract(AGSInteractions.INTERACT).InvokeAsync(new InventoryInteractEventArgs(hotspot,
+                await hotComp.Interactions.OnInventoryInteract(AGSInteractions.INTERACT).InvokeAsync(new InventoryInteractEventArgs(hotspot,
 					state.Player.Inventory.ActiveItem));
 			}
 		}

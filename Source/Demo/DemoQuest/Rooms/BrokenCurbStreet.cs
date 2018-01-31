@@ -62,7 +62,7 @@ namespace DemoGame
 			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "slimeHotspot.png", "Slime"));
 			_room.Objects.Add(wallHotspot);
 
-			IObject panel = factory.Object.GetObject("Panel");
+			IObject panel = factory.Object.GetAdventureObject("Panel");
 			panel.DisplayName = "Panel";
 			IAnimation panelAnimation = await factory.Graphics.LoadAnimationFromFolderAsync(_baseFolder + "Panel");
 			Characters.RandomAnimationDelay(panelAnimation);
@@ -70,7 +70,7 @@ namespace DemoGame
 			panel.X = 195;
 			panel.Y = 145;
 			panel.Z = 110;
-            panel.Interactions.OnInteract(AGSInteractions.INTERACT).Subscribe(_ => panel.Animation.State.IsPaused = !panel.Animation.State.IsPaused);
+            panel.GetComponent<IHotspotComponent>().Interactions.OnInteract(AGSInteractions.INTERACT).Subscribe(_ => panel.Animation.State.IsPaused = !panel.Animation.State.IsPaused);
 			_room.Objects.Add(panel);
 
 			subscribeEvents();

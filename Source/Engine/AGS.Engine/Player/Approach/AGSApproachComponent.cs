@@ -28,6 +28,8 @@ namespace AGS.Engine
             ApproachHotspots approachStyle = getApproachStyle(verb);
             var faceDirection = _faceDirection;
             var walk = _walk;
+            var hotspot = obj.GetComponent<IHotspotComponent>();
+            var walkPt = hotspot?.WalkPoint;
             switch (approachStyle)
             {
                 case ApproachHotspots.NeverWalk:
@@ -36,15 +38,15 @@ namespace AGS.Engine
                     if (faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
                     break;
                 case ApproachHotspots.WalkIfHaveWalkPoint:
-                    if (obj.WalkPoint == null && faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
+                    if (walkPt == null && faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
                     else
                     {
-                        if (walk != null && !await walk.WalkAsync(new AGSLocation(obj.WalkPoint.Value))) return false;
+                        if (walk != null && !await walk.WalkAsync(new AGSLocation(walkPt.Value))) return false;
                         if (faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
                     }
                     break;
                 case ApproachHotspots.AlwaysWalk:
-                    PointF? walkPoint = obj.WalkPoint ?? obj.CenterPoint ?? obj.Location.XY;
+                    PointF? walkPoint = walkPt ?? obj.CenterPoint ?? obj.Location.XY;
                     if (walk != null && !await walk.WalkAsync(new AGSLocation(walkPoint.Value))) return false;
                     if (faceDirection != null) await _faceDirection.FaceDirectionAsync(obj);
                     break;

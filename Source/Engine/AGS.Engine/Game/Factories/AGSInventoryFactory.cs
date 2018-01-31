@@ -74,7 +74,7 @@ namespace AGS.Engine
 
 		private IInventoryItem getInventoryItem(string hotspot, IImage graphicsImage, IImage cursorImage, bool playerStartsWithItem = false)
 		{
-			IObject graphics = _object.GetObject ($"{hotspot ?? ""}(inventory item)");
+			IObject graphics = _object.GetAdventureObject ($"{hotspot ?? ""}(inventory item)");
 			graphics.Image = graphicsImage;
 			graphics.RenderLayer = AGSLayers.UI;
 			graphics.IgnoreViewport = true;

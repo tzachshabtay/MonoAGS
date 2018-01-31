@@ -44,14 +44,14 @@ namespace DemoGame
             factory.Room.CreateScaleArea(_room.Areas[1], 0.75f, 0.90f);
 
 			IObject bottleHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "BottleHotspot.png", "Bottle");
-			bottleHotspot.WalkPoint = new PointF (140f, 50f);
+			bottleHotspot.GetComponent<IHotspotComponent>().WalkPoint = new PointF (140f, 50f);
 			_room.Objects.Add(await factory.Object.GetHotspotAsync (_baseFolder + "CurbHotspot.png", "Curb"));
 			_room.Objects.Add(bottleHotspot);
 			_room.Objects.Add(await factory.Object.GetHotspotAsync (_baseFolder + "GapHotspot.png", "Gap", new[]{"It's a gap!", "I wonder what's in there!"}));
 
-			_bottle = factory.Object.GetObject(_bottleId);
+			_bottle = factory.Object.GetAdventureObject(_bottleId);
 			_bottle.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bottle.bmp", loadConfig: loadConfig);
-			_bottle.WalkPoint = bottleHotspot.WalkPoint;
+			_bottle.GetComponent<IHotspotComponent>().WalkPoint = bottleHotspot.GetComponent<IHotspotComponent>().WalkPoint;
 			_bottle.X = 185f;
 			_bottle.Y = 85f;
 			_bottle.DisplayName = "Bottle";
@@ -76,7 +76,7 @@ namespace DemoGame
 			_room.Edges.Right.OnEdgeCrossed.Subscribe(onRightEdgeCrossed);
 			_room.Events.OnBeforeFadeIn.Subscribe(onBeforeFadeIn);
 			_room.Events.OnAfterFadeIn.Subscribe(onAfterFadeIn);
-            _bottle?.Interactions.OnInteract(AGSInteractions.INTERACT).SubscribeToAsync(onBottleInteract);
+            _bottle?.GetComponent<IHotspotComponent>().Interactions.OnInteract(AGSInteractions.INTERACT).SubscribeToAsync(onBottleInteract);
 		}
 
 		private async Task onBottleInteract(ObjectEventArgs args)
