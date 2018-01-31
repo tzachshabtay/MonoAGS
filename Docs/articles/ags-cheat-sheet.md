@@ -98,7 +98,7 @@ Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/P
 | ManualScaling | IgnoreScalingArea | `cEgo.ManualScaling = true;` | `cEgo.IgnoreScalingArea = true;` | This is not a 1-to-1 fit. In MonoAGS you can still set manual scaling to be applied onto the walkable area scaling, even if `IgnoreScalingArea` is false.
 | MovementLinkedToAnimation | MovementLinkedToAnimation | `cEgo.MovementLinkedToAnimation = false;` | `cEgo.MovementLinkedToAnimation = false;` |
 | Moving | IsWalking | `if (cEgo.IsMoving) {}` | `if (cEgo.IsWalking) {}` |
-| Name | Hotspot | `cEgo.Name = "Bernard";` | `cEgo.Hotspot = "Bernard";` |
+| Name | DisplayName | `cEgo.Name = "Bernard";` | `cEgo.DisplayName = "Bernard";` |
 | NormalView | Outfit[Animations.Walk] | `cEgo.NormalView` | `cEgo.Outfit[Animations.Walk];` |
 | PreviousRoom | PreviousRoom | `if (cEgo.PreviousRoom == 5) {}` | `if (cEgo.PreviousRoom == elevator) {}` | In MonoAGS, `PreviousRoom` actually provides you with access to the entire room's API, not just its ID, so you can query the room's objects, for example.
 | Room | Room | `if (cEgo.Room == 5) {}` | `if (cEgo.Room == elevator) {}` | In MonoAGS, `Room` actually provides you with access to the entire room's API, not just its ID, so you can query the room's objects, for example.
@@ -162,7 +162,7 @@ Missing in AGS but exists in MonoAGS: create and change dialogs at run-time, cus
 | AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
 |-----|---------|-------------|-----------------|-----------------------------------
 | ActiveOptionID | Not Needed | `info.ActiveOptionID = 1` | N/A | This is required for custom dialog rendering in AGS, as the assumption is you get a drawing surface and natively drawing all the options, and then AGS can't do hit-tests itself so you need to worry about it. This is not required in MonoAGS, as you can provide individual rendering for the dialog options and they can still be used as hit-test targets.
-| DialogToRender | ? | `info.DialogToRender` | ? | The way to do custom rendering is a bit different in MonoAGS. There's no one single hook to customize the dialogs, but you can choose on which lever you want to provide your own different implementation. So you can provide a different implementation for `IDialogLayout` (which gets the dialog graphics and options graphics and chooses how to place them), or you can provide a different implementation for each (or for specific) `IDialogOption` to change how they are rendered/behave, or you can provide a different implementation for `IDialog` to completely rewrite the dialog mechanism (but still be able to hook it up to existing dialog code). Each of those custom implementations can be either changed for all dialogs or for specific dialogs.
+| DialogToRender | ? | `info.DialogToRender` | ? | The way to do custom rendering is a bit different in MonoAGS. There's no one single hook to customize the dialogs, but you can choose on which layer you want to provide your own different implementation. So you can provide a different implementation for `IDialogLayout` (which gets the dialog graphics and options graphics and chooses how to place them), or you can provide a different implementation for each (or for specific) `IDialogOption` to change how they are rendered/behave, or you can provide a different implementation for `IDialog` to completely rewrite the dialog mechanism (but still be able to hook it up to existing dialog code). Each of those custom implementations can be either changed for all dialogs or for specific dialogs.
 | Height | dialog.Graphics.Height | `info.Height` | `dialog.Graphics.Height` |
 | ParserTextBoxWidth | ? | `info.ParserTextBoxWidth` | ? |
 | ParserTextBoxX | ? | `info.ParserTextBoxX` | ? |
@@ -251,7 +251,7 @@ https://msdn.microsoft.com/en-us/library/system.io.streamwriter(v=vs.110).aspx
 | GetFrameCountForLoop | animation.Frames.Count | `Game.GetFrameCountForLoop(SWIMMING, 2);` | `cEgo.Outfit[Animations.Swim].Left.Frames.Count` |
 | GetGameOption | ? | `GetGameOption(OPT_WALKONLOOK)` | ? | There's a lot of unrelated very specific configurations for AGS here, some of them have equivalents in MonoAGS, see `SetGameOption` for more details.
 | GetGameSpeed | `state.Speed` | `GetGameSpeed();` | `game.State.Speed` |
-| GetLocationName | `hitTest.ObjectAtMousePosition` | `if (GetLocationName(mouse.x, mouse.y) == "Hero") {}` | `if (hitTest.ObjectAtMousePosition.Hotspot == "Hero") {}` | Currently, there's no support for getting at specific (x,y) position, but just for where the mouse is at.
+| GetLocationName | `hitTest.ObjectAtMousePosition` | `if (GetLocationName(mouse.x, mouse.y) == "Hero") {}` | `if (hitTest.ObjectAtMousePosition.DisplayName == "Hero") {}` | Currently, there's no support for getting at specific (x,y) position, but just for where the mouse is at.
 | GetLocationType | `hitTest.ObjectAtMousePosition` | `if (GetLocationType(mouse.x, mouse.y) == eLocationCharacter) {}` | `if (hitTest.ObjectAtMousePosition is ICharacter) {}` | Currently, there's no support for getting at specific (x,y) position, but just for where the mouse is at.
 | GetLoopCountForView | GetAllDirections | `Game.GetLoopCountForView(SWIMMING)` | `cEgo.Outfit[Animation.Swim].GetAllDirections().Count()` |
 | GetRunNextSettingForLoop | ? | `Game.GetRunNextSettingForLoop(SWIMMING, 5)` | ? |
@@ -465,7 +465,7 @@ Missing in AGS but exists in MonoAGS: configuring background color/shadows + out
 | RunInteraction | Interactions.OnInteract(Verb).InvokeAsync | `hDoor.RunInteraction(eModeLookat);` | `hDoor.Interactions.OnInteract(Verbs.Look).InvokeAsync();` |
 | Enabled | Enabled | `hDoor.Enabled = false;` | `hDoor.Enabled = false;` |
 | ID | ID | `hDoor.ID` | `hDoor.ID` |
-| Name | Hotspot | `hDoor.Name` | `hDoor.Hotspot` |
+| Name | DisplayName | `hDoor.Name` | `hDoor.DisplayName` |
 | WalkToX | WalkPoint.X | `hDoor.WalkToX` | `hDoor.WalkPoint.X` |
 | WalkToY | WalkPoint.Y | `hDoor.WalkToY` | `hDoor.WalkPoint.Y` |
 
@@ -483,7 +483,7 @@ Missing in AGS but exists in MonoAGS: Change hotspot name at run-time, change ho
 | CursorGraphic | CursorGraphics | `iKey.CursorGraphic = 5;` | `iKey.CursorGraphics = animatedKeyCursor;` |
 | Graphic | Graphics | `iKey.Graphic = 5;` | `iKey.Graphics = animatedKey;` |
 | ID | Graphics.ID | `iKey.ID` | `iKey.Graphics.ID` |
-| Name | Graphics.Hotspot | `iKey.Name` | `iKey.Graphics.Hotspot` |
+| Name | Graphics.DisplayName | `iKey.Name` | `iKey.Graphics.DisplayName` |
 
 Missing in AGS but exists in MonoAGS: animated inventory items (and cursors), inventory items extend objects so you can do with them everything you can do with objects (rotate, scale, etc), see Object for more.
 
@@ -572,7 +572,7 @@ Currently no equivalents to any of the multimedia functions in MonoAGS.
 | IgnoreWalkbehinds | ? | `oRope.IgnoreWalkbehinds = true;` | ? | Probably not really needed in MonoAGS- with the combination of render layers, Z and parent-child relationships you have the ability control rendering order more easily
 | Loop | Animation.State.CurrentLoop | `oRope.Loop` | `oRope.Animation.State.CurrentLoop` |
 | Moving | query the previous tween(s) | `if (oRope.Moving) {}` | `if (myTween.State == TweenState.Playing) {}` |
-| Name | Hotspot | `oRope.Name` | `oRope.Hotspot` |
+| Name | DisplayName | `oRope.Name` | `oRope.DisplayName` |
 | Solid | ? | `oRope.Solid = true;` | ? |
 | Transparency | Opacity | `oRope.Transparency = 100;` | `oRope.Opacity = 0;` | The range for AGS transparency is 0-100, the range for MonoAGS opacity is 0-255
 | View | Animation | `oRope.View` | `oRope.Animation` |
