@@ -289,6 +289,12 @@ namespace AGS.Engine
             set { _hotspotComponent.WalkPoint = value; } 
         }
 
+        public bool DisplayHotspot 
+        {  
+            get { return _hotspotComponent.DisplayHotspot; }  
+            set { _hotspotComponent.DisplayHotspot = value; } 
+        }
+
         #endregion
 
         #region IShaderComponent implementation

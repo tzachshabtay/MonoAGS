@@ -54,7 +54,7 @@ namespace AGS.Engine
             if (_label == null || _state.Player == null) return;
             IObject obj = _game.HitTest.ObjectAtMousePosition;
             IHotspotComponent hotspot = obj?.GetComponent<IHotspotComponent>();
-            string hotspotName = hotspot != null ? obj.DisplayName : null;
+            string hotspotName = hotspot != null && hotspot.DisplayHotspot ? obj.DisplayName : null;
             if (obj == null || hotspotName == null) 
 			{
 				_label.Visible = false;

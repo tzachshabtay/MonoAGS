@@ -21,12 +21,15 @@ namespace AGS.Engine
 			TypedParameter defaults = new TypedParameter (typeof(IInteractions), _gameEvents.DefaultInteractions);
 			TypedParameter objParam = new TypedParameter (typeof(IObject), entity as IObject);
 			Interactions = _resolver.Container.Resolve<IInteractions>(defaults, objParam);
+            DisplayHotspot = true;
 		}
 
         [Property(Browsable = false)]
 		public IInteractions Interactions { get; private set; }
 
 		public PointF? WalkPoint { get; set; }
+
+		public bool DisplayHotspot { get; set; }
 	}
 }
 

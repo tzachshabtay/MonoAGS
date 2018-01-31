@@ -19,6 +19,13 @@
         /// <seealso cref="IApproachStyle"/>
         /// <value>The walk point.</value>
 		PointF? WalkPoint { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the hotspot name should be shown by a hotspot label when hovering over the entity.
+        /// <seealso cref="IEntity.DisplayName"/>
+        /// </summary>
+        /// <value><c>true</c> if display hotspot's name; otherwise, <c>false</c>.</value>
+		bool DisplayHotspot { get; set; }
 	}
 }
 
