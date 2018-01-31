@@ -24,15 +24,20 @@ namespace AGS.Engine
             events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
+        [Property(Browsable = false)]
         public ref AGSBoundingBox BoundingBoxWithChildren { get { return ref _boundingBoxWithChildren; } }
 
+        [Property(Browsable = false)]
         public ref AGSBoundingBox PreCropBoundingBoxWithChildren { get { return ref _preCropBoundingBoxWithChildren; } }
 
         public IBlockingEvent OnBoundingBoxWithChildrenChanged { get; private set; }
 
         public IConcurrentHashSet<string> EntitiesToSkip { get; private set; }
 
+        [Property(Browsable = false)]
         public ILockStep LockStep { get { return this;} }
+
+        public bool DebugPrintouts { get; set; }
 
         public override void Init(IEntity entity)
         {
@@ -139,8 +144,12 @@ namespace AGS.Engine
             var lastBox = BoundingBoxWithChildren;
             var lastPreBox = PreCropBoundingBoxWithChildren;
             _isDirty = false;
-            _boundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.RenderBox);
-            _preCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox);
+            _boundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.RenderBox, DebugPrintouts ? $"Box ({_entity.ID})" : null);
+            _preCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox, DebugPrintouts ? $"Box Pre Crop ({_entity.ID})" : null);
+            if (DebugPrintouts)
+            {
+                Debug.WriteLine($"Pre crop for ${_entity.ID}: {_preUnlockBoundingBox.ToString()}");
+            }
             return (!lastBox.Equals(BoundingBoxWithChildren) || !lastPreBox.Equals(PreCropBoundingBoxWithChildren));
         }
 
@@ -148,13 +157,18 @@ namespace AGS.Engine
         {
             var lastBox = BoundingBoxWithChildren;
             var lastPreBox = PreCropBoundingBoxWithChildren;
-            _preUnlockBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.RenderBox);
-            _preUnlockPreCropBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox);
+            _preUnlockBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.RenderBox, DebugPrintouts ? $"Box before unlock ({_entity.ID})" : null);
+            _preUnlockPreCropBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox, DebugPrintouts ? $"Box Pre Crop before unlock ({_entity.ID})" : null);
+            if (DebugPrintouts)
+            {
+                Debug.WriteLine($"Pre crop (before unlock) for ${_entity.ID}: {_preUnlockBoundingBox.ToString()}");
+            }
             _isDirty = false;
             return (!lastBox.Equals(_preUnlockBoundingBox) || !lastPreBox.Equals(_preUnlockPreCropBoundingBox));
         }
 
-        private AGSBoundingBox getBoundingBox(IInObjectTreeComponent tree, IBoundingBoxComponent box, Func<AGSBoundingBoxes, AGSBoundingBox> getBox)
+        private AGSBoundingBox getBoundingBox(IInObjectTreeComponent tree, IBoundingBoxComponent box,
+                          Func<AGSBoundingBoxes, AGSBoundingBox> getBox, string printoutId)
         {
             float minX = float.MaxValue;
             float maxX = float.MinValue;
@@ -170,6 +184,11 @@ namespace AGS.Engine
                 maxX = boundingBox.MaxX;
                 minY = boundingBox.MinY;
                 maxY = boundingBox.MaxY;
+
+                if (printoutId != null)
+                {
+                    Debug.WriteLine($"{printoutId}: {minX}-{maxX}, {minY}-{maxY}");
+                }
             }
 
             if (tree?.TreeNode != null)
@@ -184,7 +203,7 @@ namespace AGS.Engine
                     var labelRenderer = child.CustomRenderer as ILabelRenderer;
                     if (labelRenderer != null && !labelRenderer.TextVisible && !labelRenderer.TextBackgroundVisible) continue;
 
-                    var childBox = getBoundingBox(child, child, getBox);
+                    var childBox = getBoundingBox(child, child, getBox, printoutId == null ? null : child.ID);
                     if (!childBox.IsValid) continue;
                     if (minX > childBox.MinX) minX = childBox.MinX;
                     if (maxX < childBox.MaxX) maxX = childBox.MaxX;
