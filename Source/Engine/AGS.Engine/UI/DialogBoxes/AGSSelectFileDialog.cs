@@ -317,7 +317,7 @@ namespace AGS.Engine
             newObj.Pivot = obj.Pivot;
             newObj.Location = obj.Location;
             newObj.Tint = obj.Tint;
-            newObj.Hotspot = obj.Hotspot;
+            newObj.DisplayName = obj.DisplayName;
             newObj.RenderLayer = obj.RenderLayer;
             newObj.IgnoreViewport = obj.IgnoreViewport;
             newObj.IgnoreScalingArea = obj.IgnoreScalingArea;

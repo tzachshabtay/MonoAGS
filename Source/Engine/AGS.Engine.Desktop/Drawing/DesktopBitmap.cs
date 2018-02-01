@@ -145,7 +145,7 @@ namespace AGS.Engine.Desktop
 			IObject debugDraw = null;
 			if (debugDrawColor != null)
 			{
-				debugDraw = factory.Object.GetObject(id ?? path ?? "Mask Drawable");
+				debugDraw = factory.Object.GetAdventureObject(id ?? path ?? "Mask Drawable");
                 debugDraw.Image = factory.Graphics.LoadImage(new DesktopBitmap(debugMask, _graphics), null, path);
 				debugDraw.Pivot = new AGS.API.PointF ();
 			}

@@ -21,10 +21,11 @@
 		PointF? WalkPoint { get; set; }
 
         /// <summary>
-        /// Gets or sets the hotspot text that can be showed by a hotspot label when hovering over the entity.
+        /// Gets or sets whether the hotspot name should be shown by a hotspot label when hovering over the entity.
+        /// <seealso cref="IEntity.DisplayName"/>
         /// </summary>
-        /// <value>The hotspot.</value>
-		string Hotspot { get; set; }
+        /// <value><c>true</c> if display hotspot's name; otherwise, <c>false</c>.</value>
+		bool DisplayHotspot { get; set; }
 	}
 }
 

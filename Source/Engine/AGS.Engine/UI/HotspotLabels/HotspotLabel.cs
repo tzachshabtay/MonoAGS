@@ -39,12 +39,14 @@ namespace AGS.Engine
 		{
             if (_label == null) return;
             IObject obj = _game.HitTest.ObjectAtMousePosition;
-            if (obj == null || (obj.Hotspot == null && !DebugMode)) 
+            IHotspotComponent hotspot = obj?.GetComponent<IHotspotComponent>();
+            string hotspotName = hotspot != null && hotspot.DisplayHotspot ? obj.GetFriendlyName() : null;
+            if (obj == null || (hotspotName == null && !DebugMode))
 			{
 				_label.Visible = false;
 				return;
 			}
-            _label.Text = obj.Hotspot ?? obj.ID ?? "???";
+            _label.Text = hotspotName ?? "???";
 			_label.Visible = true;
 		}
 	}

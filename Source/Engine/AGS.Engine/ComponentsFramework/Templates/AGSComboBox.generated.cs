@@ -26,7 +26,6 @@ namespace AGS.Engine
         private IEnabledComponent _enabledComponent;
         private ICustomPropertiesComponent _customPropertiesComponent;
         private IDrawableInfoComponent _drawableInfoComponent;
-        private IHotspotComponent _hotspotComponent;
         private IShaderComponent _shaderComponent;
         private ITranslateComponent _translateComponent;
         private IImageComponent _imageComponent;
@@ -62,8 +61,6 @@ namespace AGS.Engine
             Bind<ICustomPropertiesComponent>(c => _customPropertiesComponent = c, _ => {});            
             _drawableInfoComponent = AddComponent<IDrawableInfoComponent>();
             Bind<IDrawableInfoComponent>(c => _drawableInfoComponent = c, _ => {});            
-            _hotspotComponent = AddComponent<IHotspotComponent>();
-            Bind<IHotspotComponent>(c => _hotspotComponent = c, _ => {});            
             _shaderComponent = AddComponent<IShaderComponent>();
             Bind<IShaderComponent>(c => _shaderComponent = c, _ => {});            
             _translateComponent = AddComponent<ITranslateComponent>();
@@ -374,27 +371,6 @@ namespace AGS.Engine
         {  
             get { return _drawableInfoComponent.IgnoreScalingArea; }  
             set { _drawableInfoComponent.IgnoreScalingArea = value; } 
-        }
-
-        #endregion
-
-        #region IHotspotComponent implementation
-
-        public IInteractions Interactions 
-        {  
-            get { return _hotspotComponent.Interactions; } 
-        }
-
-        public Nullable<PointF> WalkPoint 
-        {  
-            get { return _hotspotComponent.WalkPoint; }  
-            set { _hotspotComponent.WalkPoint = value; } 
-        }
-
-        public String Hotspot 
-        {  
-            get { return _hotspotComponent.Hotspot; }  
-            set { _hotspotComponent.Hotspot = value; } 
         }
 
         #endregion

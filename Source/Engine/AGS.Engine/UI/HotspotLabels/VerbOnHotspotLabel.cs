@@ -53,7 +53,9 @@ namespace AGS.Engine
 		{
             if (_label == null || _state.Player == null) return;
             IObject obj = _game.HitTest.ObjectAtMousePosition;
-			if (obj == null || obj.Hotspot == null) 
+            IHotspotComponent hotspot = obj?.GetComponent<IHotspotComponent>();
+            string hotspotName = hotspot != null && hotspot.DisplayHotspot ? obj.DisplayName : null;
+            if (obj == null || hotspotName == null) 
 			{
 				_label.Visible = false;
 				return;
@@ -61,9 +63,9 @@ namespace AGS.Engine
 			_label.Visible = true;
             IInventoryItem inventoryItem = _state.Player.Inventory.ActiveItem;
             string inventoryText = inventoryItem == null ? "" : 
-                inventoryItem.Graphics.Hotspot ?? inventoryItem.CursorGraphics.Hotspot ?? "Item";
+                inventoryItem.Graphics.DisplayName ?? inventoryItem.CursorGraphics.DisplayName ?? "Item";
             
-			_label.Text = getSentence(obj.Hotspot, inventoryText);
+			_label.Text = getSentence(hotspotName, inventoryText);
 
 		}
 

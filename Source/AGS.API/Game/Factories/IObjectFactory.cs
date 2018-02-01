@@ -12,9 +12,17 @@ namespace AGS.API
         /// </summary>
         /// <returns>The object.</returns>
         /// <param name="id">A unique identifier for the object (this has to be globally unique across all entities).</param>
+		IObject GetObject(string id);
+
+        /// <summary>
+        /// Creates a new object with IHotspotComponent, which supports have reaction to character interactions (command verbs).
+        /// TODO: invent a new type name for this. It can be IAdventureObject or something simple like IHotspot.
+        /// </summary>
+        /// <returns>The object.</returns>
+        /// <param name="id">A unique identifier for the object (this has to be globally unique across all entities).</param>
         /// <param name="sayWhenLook">An optional list of things that the player will say (one after the other) when looking on the object.</param>
         /// <param name="sayWhenInteract">An optional list of things that the player will say (one after the other) when interacting with the object.</param>
-		IObject GetObject(string id, string[] sayWhenLook = null, string[] sayWhenInteract = null);
+        IObject GetAdventureObject(string id, string[] sayWhenLook = null, string[] sayWhenInteract = null);
 
         /// <summary>
         /// Creates a new character

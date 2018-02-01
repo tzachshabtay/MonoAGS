@@ -74,13 +74,13 @@ namespace AGS.Engine
 
 		private IInventoryItem getInventoryItem(string hotspot, IImage graphicsImage, IImage cursorImage, bool playerStartsWithItem = false)
 		{
-			IObject graphics = _object.GetObject ($"{hotspot ?? ""}(inventory item)");
+			IObject graphics = _object.GetAdventureObject ($"{hotspot ?? ""}(inventory item)");
 			graphics.Image = graphicsImage;
 			graphics.RenderLayer = AGSLayers.UI;
 			graphics.IgnoreViewport = true;
 			graphics.IgnoreScalingArea = true;
 			graphics.Pivot = new PointF (0.5f, 0.5f);
-			graphics.Hotspot = hotspot;
+			graphics.DisplayName = hotspot;
 
 			IObject cursor = _object.GetObject ($"{hotspot ?? ""}(inventory item cursor)");
 			cursor.Image = cursorImage;
