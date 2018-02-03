@@ -13,7 +13,7 @@ namespace AGS.Engine
         private readonly IGame _game;
         private readonly IConcurrentHashSet<string> _addedObjects;
         private readonly InspectorPanel _inspector;
-        private IPanel _treePanel, _scrollingPanel, _parent;
+        private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
 
         private ISpriteRenderComponent _lastSelectedObject;
@@ -22,6 +22,9 @@ namespace AGS.Engine
         private IBorderStyle _lastObjectBorder;
         private bool _lastMaskVisible;
         private byte _lastOpacity;
+
+        const float _padding = 42f;
+        const float _gutterSize = 15f;
 
         public GameDebugTree(IGame game, IRenderLayer layer, InspectorPanel inspector)
         {
@@ -46,23 +49,23 @@ namespace AGS.Engine
             _searchBox.Pivot = new PointF(0f, 1f);
             _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
 
-            _scrollingPanel = factory.UI.GetPanel("GameDebugTreeScrollingPanel", parent.Width, parent.Height - _searchBox.Height, 0f, 0f, parent);
+            _scrollingPanel = factory.UI.GetPanel("GameDebugTreeScrollingPanel", parent.Width - _gutterSize, parent.Height - _searchBox.Height - _gutterSize, 0f, 0f, parent);
             _scrollingPanel.RenderLayer = _layer;
             _scrollingPanel.Pivot = new PointF(0f, 0f);
             _scrollingPanel.Tint = Colors.Transparent;
             _scrollingPanel.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
-            const float lineHeight = 42f;
-            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, _scrollingPanel.Height - lineHeight, _scrollingPanel);
+            _contentsPanel = factory.UI.CreateScrollingPanel(_scrollingPanel);
+            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, _contentsPanel.Height - _padding, _contentsPanel);
             _treePanel.Tint = Colors.Transparent;
             _treePanel.RenderLayer = _layer;
+            _treePanel.Pivot = new PointF(0f, 1f);
             _treeView = _treePanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
-            factory.UI.CreateScrollingPanel(_scrollingPanel);
             parent.GetComponent<IScaleComponent>().PropertyChanged += (_, args) => 
             {
                 if (args.PropertyName != nameof(IScaleComponent.Height)) return;
-                _scrollingPanel.Image = new EmptyImage(_scrollingPanel.Width, parent.Height - _searchBox.Height);
-                _treePanel.Y = _scrollingPanel.Height - lineHeight;
+                _contentsPanel.BaseSize = new SizeF(_contentsPanel.Width, parent.Height - _searchBox.Height - _gutterSize);
+                _treePanel.Y = _contentsPanel.Height - _padding;
                 _searchBox.Y = _parent.Height;
             };
         }
@@ -83,7 +86,7 @@ namespace AGS.Engine
 
         public void Resize()
         {
-            _scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
+            _contentsPanel.BaseSize = new SizeF(_parent.Width - _gutterSize, _contentsPanel.Height);
             _searchBox.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
             _searchBox.Watermark.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
         }

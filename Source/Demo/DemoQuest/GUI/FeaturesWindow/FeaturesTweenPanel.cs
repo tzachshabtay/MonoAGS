@@ -15,7 +15,7 @@ namespace DemoGame
         private IButton _addTweenButton, _clearTweensButton;
         private IGame _game;
         private IObject _parent;
-        private IPanel _tweensListPanel, _window;
+        private IPanel _tweensListScrollingPanel, _tweensListContentsPanel, _window;
         private readonly Dictionary<string, List<(string propertyName, Func<Tween> getTween)>> _tweens;
         private readonly Dictionary<string, Func<float, float>> _eases;
         private readonly List<RunningTween> _runningTweens;
@@ -124,15 +124,15 @@ namespace DemoGame
             _addTweenButton.Enabled = false;
             _addTweenButton.Opacity = 100;
             _clearTweensButton = addButton("FeaturesTweenClearAll", "Clear All", _addTweenButton.X, 20f, clearTweens);
-            _tweensListPanel = _game.Factory.UI.GetPanel("FeaturesTweenListPanel", 600f, 250f, 0f, _parent.Height - 200f, parent, false);
-            _tweensListPanel.Tint = Colors.Transparent;
-            _tweensListPanel.Pivot = new PointF(0f, 1f);
-            _tweensListPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
-            _game.Factory.UI.CreateScrollingPanel(_tweensListPanel);
-            var layout = _tweensListPanel.AddComponent<IStackLayoutComponent>();
+            _tweensListScrollingPanel = _game.Factory.UI.GetPanel("FeaturesTweenListPanel", 580f, 250f, 0f, _parent.Height - 200f, parent, false);
+            _tweensListScrollingPanel.Tint = Colors.Transparent;
+            _tweensListContentsPanel = _game.Factory.UI.CreateScrollingPanel(_tweensListScrollingPanel);
+            _tweensListContentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
+            _tweensListScrollingPanel.Pivot = new PointF(0f, 1f);
+            var layout = _tweensListContentsPanel.AddComponent<IStackLayoutComponent>();
             layout.Direction = LayoutDirection.Vertical;
             layout.AbsoluteSpacing = -10f;
-            layout.StartLocation = _tweensListPanel.Height - 20f;
+            layout.StartLocation = _tweensListContentsPanel.Height - 20f;
             layout.StartLayout();
         }
 
@@ -145,7 +145,8 @@ namespace DemoGame
             removeComboboxFromUI(_repeatCombobox);
             _game.State.UI.Remove(_addTweenButton);
             _game.State.UI.Remove(_clearTweensButton);
-            _game.State.UI.Remove(_tweensListPanel);
+            _game.State.UI.Remove(_tweensListScrollingPanel);
+            _game.State.UI.Remove(_tweensListContentsPanel);
             _game.State.Viewport.Camera.Enabled = true;
             _game.State.Player.Tint = Colors.White;
             TopBar.InventoryButton.Tint = Colors.White;
@@ -161,7 +162,8 @@ namespace DemoGame
             addComboboxToUI(_repeatCombobox);
             _game.State.UI.Add(_addTweenButton);
             _game.State.UI.Add(_clearTweensButton);
-            _game.State.UI.Add(_tweensListPanel);
+            _game.State.UI.Add(_tweensListScrollingPanel);
+            _game.State.UI.Add(_tweensListContentsPanel);
             _game.State.Viewport.Camera.Enabled = false;
             await AGSMessageBox.DisplayAsync("Don't freak out! We're going to change some of the colors now to make the colored tween effects more visible.");
             _game.State.Player.Tint = Color.FromHsla(0, 0.8f, 0.5f, 255);
@@ -183,7 +185,7 @@ namespace DemoGame
             }
             tween = tween.RepeatForever(looping, 3f);
             _runningTweens.Add(new RunningTween($"{targetText}.{tweenText}", 
-                                                tween, _game, _tweensListPanel));
+                                                tween, _game, _tweensListContentsPanel));
         }
 
         private void clearTweens()

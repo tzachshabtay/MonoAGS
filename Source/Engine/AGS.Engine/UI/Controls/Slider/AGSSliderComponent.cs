@@ -8,7 +8,7 @@ namespace AGS.Engine
         private bool _isSliding;
         private IObject _graphics, _handleGraphics;
         private ILabel _label;
-        private float _minValue, _maxValue, _value;
+        private float _minValue, _maxValue, _value, _minHandleOffset, _maxHandleOffset;
         private SliderDirection _direction;
         private IEntity _entity;
 
@@ -112,6 +112,34 @@ namespace AGS.Engine
             {
                 if (MathUtils.FloatEquals(_maxValue, value)) return;
                 _maxValue = value;
+                refresh();
+            }
+        }
+
+        public float MinHandleOffset
+        {
+            get
+            {
+                return _minHandleOffset;
+            }
+            set
+            {
+                if (MathUtils.FloatEquals(_minHandleOffset, value)) return;
+                _minHandleOffset = value;
+                refresh();
+            }
+        }
+
+        public float MaxHandleOffset
+        {
+            get
+            {
+                return _maxHandleOffset;
+            }
+            set
+            {
+                if (MathUtils.FloatEquals(_maxHandleOffset, value)) return;
+                _maxHandleOffset = value;
                 refresh();
             }
         }
@@ -304,8 +332,8 @@ namespace AGS.Engine
 		{
 			float min = isReverse() ? MaxValue : MinValue;
 			float max = isReverse() ? MinValue : MaxValue;
-            return MathUtils.Lerp(min, 0f, max, isHorizontal() ? 
-                                  scale.Width : scale.Height, 
+            return MathUtils.Lerp(min, _minHandleOffset, max, isHorizontal() ? 
+                                  scale.Width - _maxHandleOffset : scale.Height - _maxHandleOffset, 
                                   value);
 		}
 

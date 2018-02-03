@@ -12,7 +12,6 @@ namespace AGS.Engine
         private IButton _dropDownButton;
         private IListboxComponent _dropDownPanelList;
         private IVisibleComponent _dropDownPanelVisible;
-        private IDrawableInfoComponent _dropDownPanelDrawable;
         private IScrollingComponent _scrolling;
         private IEntity _dropDownPanel;
         private ComboSuggest _suggestMode;
@@ -71,19 +70,19 @@ namespace AGS.Engine
             set 
             {
                 _dropDownPanel = value;
-                var visibleComponent = value.GetComponent<IVisibleComponent>();
-                var drawableComponent = value.GetComponent<IDrawableInfoComponent>();
+                var scrollingContainer = value.GetComponent<IInObjectTreeComponent>()?.TreeNode.Parent ?? value;
+                var visibleComponent = scrollingContainer.GetComponent<IVisibleComponent>();
                 var listBoxComponent = value.GetComponent<IListboxComponent>();
+                var scrollingImageComponent = scrollingContainer.GetComponent<IImageComponent>();
                 var imageComponent = value.GetComponent<IImageComponent>();
                 var translateComponent = value.GetComponent<ITranslateComponent>();
                 _scrolling = value.GetComponent<IScrollingComponent>();
                 _dropDownPanelVisible = visibleComponent;
-                _dropDownPanelDrawable = drawableComponent;
 
                 _dropDownPanelList?.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
                 _dropDownPanelList = listBoxComponent;
                 listBoxComponent?.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
-                if (imageComponent != null) imageComponent.Pivot = new PointF(0f, 1f);
+                if (scrollingImageComponent != null) scrollingImageComponent.Pivot = new PointF(0f, 1f);
                 if (translateComponent != null) translateComponent.Y = -1f;
                 if (visibleComponent != null) visibleComponent.Visible = false;
             }

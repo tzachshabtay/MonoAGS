@@ -27,7 +27,6 @@ namespace AGS.Engine
                 _verticalScrollBar?.OnValueChanged.Unsubscribe(onVerticalSliderChanged);
                 if (value != null)
                 {
-                    _crop?.EntitiesToSkipCrop.Add(value.ID);
                     value.OnValueChanged.Subscribe(onVerticalSliderChanged);
                 }
                 _verticalScrollBar = value;
@@ -43,7 +42,6 @@ namespace AGS.Engine
 				_horizontalScrollBar?.OnValueChanged.Unsubscribe(onHorizontalSliderChanged);
                 if (value != null)
                 {
-                    _crop?.EntitiesToSkipCrop.Add(value.ID);
                     value.OnValueChanged.Subscribe(onHorizontalSliderChanged);
                 }
 				_horizontalScrollBar = value;
@@ -55,19 +53,7 @@ namespace AGS.Engine
         {
             base.Init(entity);
             _entity = entity;
-            entity.Bind<ICropChildrenComponent>(c => {
-                _crop = c;
-                var verticalScrollBar = VerticalScrollBar;
-                if (verticalScrollBar != null)
-                {
-                    c.EntitiesToSkipCrop.Add(verticalScrollBar.ID);
-                }
-                var horizontalScrollBar = HorizontalScrollBar;
-                if (horizontalScrollBar != null)
-                {
-                    c.EntitiesToSkipCrop.Add(horizontalScrollBar.ID);
-                }
-            }, _ => _crop = null);
+            entity.Bind<ICropChildrenComponent>(c => _crop = c, _ => _crop = null);
 
             //Note: we're subscribing both to the bounding box changed and bounding box with children events.
             //The bounding box event is for the scrolling container, and the box with children is for the scrolling content.
@@ -93,7 +79,7 @@ namespace AGS.Engine
             if (_inEvent) return;
             var container = _boundingBox?.GetBoundingBoxes(_state.Viewport)?.RenderBox;
             var withChildren = _boundingBoxWithChildren?.PreCropBoundingBoxWithChildren;
-            if (container == null || withChildren == null) return;
+            if (container == null || !container.Value.IsValid || withChildren == null || !withChildren.Value.IsValid) return;
 
 			var verticalScrollBar = _verticalScrollBar;
             if (verticalScrollBar != null)
