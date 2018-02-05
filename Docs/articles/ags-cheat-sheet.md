@@ -1,6 +1,510 @@
 # AGS Cheat Sheet
 
-For people coming in from AGS, this is a "cheat sheet", going over the AGS functions and properties and shows how to do the same in `MonoAGS`, or if something is missing, and also explaining some differences between the two.
+This is a "cheat sheet" for people coming in from `AGS`. The "cheat sheet" is divided into 2 sections. The first section roughly demonstrates the language differences between AGS script and c#. The second section goes over the AGS scripting API (individual functions and properties) and compares them with AGS: it shows how to do the same in `MonoAGS`, or if something is missing, and also explaining some differences between the two, with brief highlights of things that don't exist in `AGS` but do exist in `MonoAGS`.
+
+# General Scripting Differences
+
+C# has a lot of similarities to AGS Script, but there are also many differences. In some sense, c# is simpler than AGS script (no pointers, no script headers, the order of the scripts doesn't matter), and in another sense it's more complicated (all functions need to be wrapped in classes/structs, and there are a lot more keywords).
+Let's go over the main differences:
+
+## Writing Functions
+
+In AGS, a common function signature might look like this:
+
+```
+
+function do_something(int param)
+{
+    // contents of function go here
+}
+
+```
+
+The equivalent in c# would look like this:
+
+```csharp
+
+void do_something(int param)
+{
+    // contents of function go here
+}
+
+```
+
+The only difference here is that instead of `function` we wrote `void`. `void` is a keyword that means that the function doesn't return anything.
+In c#, when you write a function, you need to declare what the function returns.
+
+So, if the AGS function returns an int, like this:
+
+```
+
+function do_something(int param)
+{
+    return 5;
+}
+
+```
+
+The c# equivalent function will look like this:
+
+```csharp
+
+int do_something(int param)
+{
+    return 5;
+}
+
+```
+
+Another big difference is that in AGS we can write a function anywhere in the file. In c#, the functions need to be written inside either a class or a struct, and that needs to be wrapped inside a namespace.
+A namespace is used to group multiple classes together, you shouldn't usually worry about this, when you add a new code file from the editor the namespace is automatically generated and written to the file.
+
+A c# struct is identical to the AGS struct, and a c# class represents a reference type, which basically means it's an instance that you can carry around: this is basically the replacement to pointers in AGS.
+It's not critical to understand this at first, as almost always you'd want to use a class. If you want to dig deeper and understand when you'd like to use a struct, this link is a good start: https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/choosing-between-class-and-struct
+
+A single class can contain multiple functions, and is usually used to group functions which revolve around the same purpose.
+So, in our example, we'll put the `do_something` function in a class like this:
+
+```csharp
+
+namespace MyGame
+{
+    class MyClass
+    {
+        int do_something(int param)
+        {
+            return 5;
+        }
+    }
+}
+
+```
+
+## Returning multiple values from a function
+
+If you want to return multiple values from your function in AGS script, you'd have to create a struct especially for that purpose, which complicates things. In c#, you can just use tuples for this:
+
+```csharp
+
+(float x, float y) get_position()
+{
+    return (100, 200);
+}
+
+```
+
+You can now call this function easily like this:
+
+
+```csharp
+
+(float x, float y) = get_position();
+Debug.WriteLine($"X = {x}, Y = {y}");
+
+```
+
+## Variables & Scope
+
+Variables in c# are declared the same way as in AGS script, with the difference that, like functions, the variables need to reside inside the class/struct.
+
+Variables can also declared inside function, this would make their scope local to the function, meaning that their value will be erased once the function completes.
+
+Here's an example:
+
+```csharp
+
+namespace MyGame
+{
+    class MyClass
+    {
+        string var1;
+        string var2 = "Hello";
+
+        int do_something(int param)
+        {
+            string var3 = "Hi";
+
+            var1 = "aaa";
+            var2 = "bbb";
+            var3 = "ccc";
+
+            return 5;
+        }
+
+        int do_something2()
+        {
+            var1 = "aaa";
+            var2 = "bbb";
+            var3 = "ccc"; //THIS DOES NOT COMPILE, var3 does not exist!
+        }
+    }
+}
+
+```
+
+In the example above, `var1` and `var2` are class variables, so they can be used anywhere within the class. `var3` however, is local to the `do_something` function, so it cannot be accessed from the `do_something2` function.
+
+## Exporting functions & variables
+
+In AGS script, in order to be able to access a function from different script, you need to add an import to it in your exporting script header, and in order to export a variable you need to add an `export` to it and that `export` must reside in the end of the file.
+
+In c#, there is no script header file: both functions and variables can be exported simply by prefixing them with the keyword `public`, like this:
+
+```csharp
+
+public string var1;
+
+public int do_something()
+{
+    return 5;
+}
+
+```
+
+## Static vs instance
+
+Another big difference that needs to be understood, is the different between static functions/variables to instance functions/variables. In AGS, functions and variables that are declared inside a struct are instance functions/variables, but all other functions and variables that you code are static.
+
+In c#, however, all functions/variables are instance by default, unless you explicitly make them static. The difference is that instance functions/variables are associated with instances that are generated from the class (which can be looked at like a blueprint for creating instances), while static variables belong to the class itself.
+
+If I have a `Dog` class to represent a dog, and a `health` variable that gives a number between 0-100 to say how healthy the dog is, then `health` should be an instance variable: if I create 3 different dogs, they should have 3 different `health` states.
+If, on the other hand, I have a `Utilities` class with random scripts, and among them I have a `sum_two_numbers` function, that function makes sense as a static function, there is no point in having 2 (or more) "Utilities".
+
+In c#, to have a function (or variable) static, you prefix it with the keyword `static`.
+
+So the 2 examples from above would look like this:
+
+```csharp
+
+namespace MyGame
+{
+    class Dog
+    {
+        public int Health;
+    }
+
+    class Utitilies
+    {
+        public static int sum_two_numbers(int x, int y)
+        {
+            return x + y;
+        }
+    }
+}
+
+```
+
+## Importing functions & variables
+
+In AGS, to import functions/variables you need to add an import for them in the script header.
+In c#, assuming both files are using the same namespace, you can call them without adding anything specific.
+
+How you call the functions/variables in c# depends if they are static or instance functions/variables.
+For static functions/variables you need to prefix the class name and a dot before the function/variable.
+For instance functions/variables you need to create a new instance of your class using the `new` keyword, assign that to a variable, and then you can call that instance's functions/variables by prefixing it with the variable name and a dot.
+
+As an example, let's use or `Dog` and `Utilities` classes from the previous example in a different file:
+
+```csharp
+
+namespace MyGame
+{
+    class MyClass
+    {
+        Dog dog1 = new Dog();
+        Dog dog2 = new Dog();
+
+        void init()
+        {
+            dog1.Health = 10;
+            dog2.Health = 20;
+
+            int combined_health = get_dogs_combined_health();
+            Debug.WriteLine($"The combined health of both dogs is: {combined_health}");
+        }
+
+        int get_dogs_combined_health()
+        {
+            return Utilities.sum_two_numbers(dog1.Health, dog2.Health);
+        }
+    }
+}
+
+```
+
+Sometimes we want to import functions/variables from another namespace which is not our own.
+For example, the `Debug.WriteLine` we used above (that writes a message to our debug console) is part of the `System.Diagnostics` namespace, as that is part of the c# standard library. The standard library is a library of common useful functions that is bundled with every c# application (and it has a lot of useful stuff in there). Because it's in a different namespace than ours, we need to explicitly import that namespace, and we do that with the `using` keyword:
+
+```csharp
+
+using System.Diagnostics;
+
+namespace MyGame
+{
+    class MyClass
+    {
+        void write_hello()
+        {
+            Debug.WriteLine("Hello!");
+        }
+    }
+}
+
+```
+
+Note that if you're using an IDE like Visual Studio to write your code, and you forgot putting the `using` section, a lot of times Visual Studio can add this automatically for you: you'll see a squigly line under your usage of a missing library (`Debug.WriteLine` in this scenario) and a lightbulb icon which, when clicked on, will give you the option to automatically add the missing `using` clause.
+
+Sometimes we want to import functions/variables from an external library: in that case we'll want to add a reference to that library before we can add `using` clauses for its namespaces.
+For example, we might want to add a library that will allow us to vibrate the mobile phone (if the game is played on a mobile phone). We can search for an available package directly from the IDE. From Visual Studio, under your project node in the solution explorer, there's a "Packages" node, right click it and select "add package". This will open a window in which you can search and install packages. If you search for "vibrate", for example, you'll see "Vibrate Plugin for Xamarin and Windows" which you can then install by clicking "Add Package".
+Once you have the package installed, you can use its namespaces using the same `using` keyword we saw before (and you should read that package documentation to understand how to use it).
+
+## Scripts
+
+In AGS, you have a global script, room scripts, and additional scripts you can create on will. In c# there's no global script, and you are free to organize the scripts as you want them to be.
+The order of the scripts (unlike AGS) does not matter.
+There are no "special functions" that you can put in your script (like `game_start`) that are magically called, you have to call it yourself.
+
+## Data types and operators
+
+All AGS data types and operators exist in c# with the same syntax, and used the same way.
+c# has additional data types and operators which do not exist in AGS.
+You can see all data types here: https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/types-and-variables
+You can see all operators here: https://msdn.microsoft.com/en-us/library/6a71f45d(v=vs.120).aspx
+
+Additionally, c# has the keyword `var` which can be used when declaring the variable is it is clear what data type it has.
+For example:
+
+```csharp
+
+var x = "hello"; //x is a string, it's clear from how x is initialized, so we can use var instead of string when declaring the variable (if we want).
+
+```
+
+## Arrays
+
+The c# syntax for arrays is slightly different from the AGS syntax for dynamic arrays, in that you put the brackets next to the type and not next to the variable name:
+
+```csharp
+
+int[] characterHealth = new int[50];
+
+
+```
+
+Also, in c# you have lists, which is like an array only without a size limit, so you can add and remove items from the list:
+
+```csharp
+
+List<int> characterHealth = new List<int>();
+
+characterHealth.Add(5);
+characterHealth.Add(6);
+characterHealth.Add(7);
+
+Debug.WriteLine(characterHealth[0]); //5
+Debug.WriteLine(characterHealth[1]); //6
+Debug.WriteLine(characterHealth[2]); //7
+
+characterHealth.RemoveAt(1);
+Debug.WriteLine(characterHealth[0]); //5
+Debug.WriteLine(characterHealth[1]); //7
+
+```
+
+## Conditionals and Loops
+
+The syntax for `if`, `else`, `while` and `switch` in c# is identical to the syntax in AGS.
+
+C# also had additional constructs for conditionals and loops: most notably the `?` operator can be used in some scenarios instead of `if`, and the `foreach` keyword can be used in some scenarios instead of `while`:
+
+```csharp
+
+//using an if:
+string getVisibleWord()
+{
+    if (visible) return "visible";
+    else return "invisible";
+}
+
+//using '?'
+string getVisibleWord()
+{
+    return visible ? "visible" : "invisible";
+}
+
+//using while
+int getSum(int[] numbers)
+{
+    int sum = 0;
+    int index = 0;
+    while (index < numbers.Length)
+    {
+        sum += numbers[index];
+        index++;
+    }
+    return sum;
+}
+
+//using foreach
+int getSum(int[] numbers)
+{
+    int sum = 0;
+    foreach (int number in numbers)
+    {
+        sum += number;
+    }
+    return sum;
+}
+
+```
+
+Also, c# has a wonderful querying language for collections, called LINQ, which can be used to make a lot of tasks more simpler. Foe example:
+
+```csharp
+
+//without LINQ
+int getSumOfNumbersBiggerThan10(int[] numbers)
+{
+    int sum = 0;
+    foreach (int number in numbers)
+    {
+        if (number > 10) sum += number;
+    }
+    return sum
+}
+
+//with LINQ
+int getSumOfNumbersBiggerThan10(int[] numbers)
+{
+    return numbers.Where(number => number > 10).Sum();
+}
+
+```
+
+You can read more on LINQ here: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/getting-started-with-linq
+
+## String Formatting
+
+c# has a `string.Format` function which is similar to the `String.Format` function in AGS.
+c# also has support for string interpolation, though, which usually gives a better experience.
+
+Let's go over the different of `string.Format` first:
+
+In AGS script:
+
+```
+
+String posString = String.Format("The position is: %d,%d", x, y);
+
+```
+
+In c#:
+
+```csharp
+
+string posString = string.Format("The position is: {0},{1}", x, y);
+
+```
+
+The main different is that in AGS script you need to specify the type of the variables, where you don't have to do that in c#, but in c# you have to specify the location of the parameter in the string.
+
+AGS also has the `%0Xd` and `%.Xf` special formatting codes for zero padding and showing decimal places. c# also has special formatting codes for a lot more scenarios. So, for example, for padding to 5 zeroes and showing 3 decimal places, we can rewrite our previous formatting like this:
+
+```csharp
+
+string posString = string.Format("The position is: {0:00000.###},{1:00000.###}", x, y);
+
+```
+
+You can read about all the special formatting codes here: https://docs.microsoft.com/en-us/dotnet/standard/base-types/formatting-types
+
+AGS also uses the left bracket as a special code for a new line, in c# you can use `Environment.NewLine` instead.
+
+### String Interpolation
+
+String interpolation is a newer type of formatting which allows placing the parameters directly in the string. For creating an interpolated string, you should prefix the string with `$`, and then can directly put the parameters inside `{}`.
+So we can rewrite our previous example like this:
+
+```csharp
+
+string posString = $"The position is: {x:00000.###},{y::00000.###}";
+
+```
+
+You can read more about interpolated strings here: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/interpolated-strings
+
+## Constants (Compilation Flags)
+
+What in AGS script is called "constants" is actually 2 separate things in c#: constants and compilation flags. In c# constants are variables that cannot be changed ever:
+
+```csharp
+
+const int x = 5;
+x = 6; //This is illegal -> will not compile
+
+```
+
+So, the AGS constant `AGS_MAX_INV_ITEMS` would have been defined as a constant in c# as well (though MonoAGS doesn't have all of the limit constants in AGS, there are no limits in MonoAGS).
+
+On the contrary, all of the AGS constants that might or might not be defined, those are compilation flags. The AGS directive `#ifdef` has an equivalent `#if` directive in c# and `#ifndef` equivalent is `#if !`.
+The `DEBUG` compilation flag that exists in AGS also exists in c#, so you can use it to do things only when debugging:
+
+```csharp
+
+#if DEBUG
+
+//do something debug specific here.
+
+#endif
+
+```
+
+All of the other AGS compilation flags are AGS specific and have no equivalents in MonoAGS.
+Except for `#if`, c# has more directives which you can see here: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives/
+
+## Extender functions
+
+The c# equivalent to AGS extender functions is extension methods (note that in c# a function is called a method usually, but it means the same thing).
+
+The syntax is similar, with the exception that in c# you need to mark your method static and the class should also be marked as static (a static class is a class for which all the functions within are also static).
+
+So, in AGS you would write:
+
+```
+
+function Scream(this Character*)
+{
+    this.Say("AAAAARRRRGGGGHHHHHH!!!!");
+}
+
+```
+
+In c# you would write:
+
+```csharp
+
+public static class CharacterExtensions
+{
+    public static void Scream(this ICharacter character)
+    {
+        character.Say("AAAAARRRRGGGGHHHHHH!!!!");
+    }
+}
+
+```
+
+## noloopcheck
+
+`noloopcheck` is something that's AGS specific and has no equivalent in c#. Or rather, the loop checks are AGS specific, you can think of all loops in c# as `noloopcheck`.
+
+## async/await
+
+`async/await` is a c# specific mechanism for asynchronous programming which doesn't have an equivalent in AGS.
+As it's an important part of programming your game, there's a specific article devoted to `async/await`, which you can find [here](async.md).
+
+# API Comparisons
+
+This section goes over each API provided by AGS (based on the AGS manual), and compares against the MonoAGS API. Items marked with `?` are items that currently don't have an equivalent in `MonoAGS`.
 
 ## AudioChannel
 
@@ -746,3 +1250,74 @@ Missing in AGS but exists in MonoAGS: rotate/scale/translate individual animatio
 ## SCUMM_VERBCOIN_GUI
 
 Currently no equivalents to verb coin GUI in MonoAGS.
+
+## Game variables
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| abort_key | ? | `game.abort_key = 324` | ? |
+| ambient_sounds_persist | ? | `game.ambient_sounds_persist = 0` | ? |
+| anim_background_speed | room.Background.Animation.Configuration.DelayBetweenFrames | `game.anim_background_speed = 5;` | `game.State.Room.Background.Animation.Configuration.DelayBetweenFrames = 5;` |
+| auto_use_walkto_points | ApproachStyle | `game.auto_use_walkto_points = 0;` | `player.ApproachStyle.ApproachWhenVerb[Verbs.Look] = ApproachHotspots.NeverWalk;` |
+| bgspeech_game_speed | ? | `game.bgspeech_game_speed = 0;` | ? |
+| bgspeech_stay_on_display | ? | `game.bgspeech_stay_on_display = 0;` | ? |
+| close_mouth_end_speech_time | ? | `game.close_mouth_end_speech_time = 10;` | ? |
+| debug_mode | `#if DEBUG` | `if (game.debug_mode == 1) {}` | `#if DEBUG ... #endif` |
+| dialog_options_x | ? | `game.dialog_options_x = 4;` | ? |
+| dialog_options_y | ? | `game.dialog_options_y = 4;` | ? |
+| disable_antialiasing | you can select texture filter scaling per image | `game.disable_antialiasing = 1;` | `image.Texture.Config = new AGSTextureConfig(scaleUp: ScaleUpFilters.Nearest);` |
+| following_room_timer | ? | `game.following_room_timer = 150;` | ? |
+| keep_screen_during_instant_transition | ? | `game.keep_screen_during_instant_transition = 1;` | ? |
+| inv_activated | Inventory.ActiveItem | `game.inv_activated` | `player.Inventory.ActiveItem` |
+| inventory_greys_out | ? | `game.inventory_greys_out = 1;` | ? |
+| lipsync_speed | ? | `game.lipsync_speed = 15;` | ?
+| max_dialogoption_width | ? | `game.max_dialogoption_width = 180;` | ? |
+| min_dialogoption_width | ? | `game.min_dialogoption_width = 0;` | ? |
+| narrator_speech | ? | `game.narrator_speech = 5;` | ? |
+| no_textbg_when_voice | ? | `game.no_textbg_when_voice = 0;` | ? |
+| read_dialog_option_color | ? | `game.read_dialog_option_color = 5;` | ? |
+| roomscript_finished | N/A | `game.roomscript_finished` | N/A | There's no need for `on_call` as there's no problem just executing functions between scripts
+| score | ? | `game.score` | ? | There's no problem mimicking a score with a simple global variable
+| score_sound | ? | `game.score_sound` | ? | There's no problem mimicking a score sound with a simple function that changes a global variable and plays a sound.
+| screenshot_height | ? | `game.screenshot_height = 200;` | ? |
+| screenshot_width | ? | `game.screenshot_width = 320;` | ? |
+| show_single_dialog_option | ? | `game.show_single_dialog_option = 1;` | ? |
+| sierra_inv_color | set an empty image with a color on the inventory window | `game.sierra_inv_color = 5;` | `invWindow.Image = new EmptyImage(300, 200); invWindow.Tint = Colors.Pink;` |
+| skip_display | ? | `game.skip_display = 3;` | ? |
+| skip_speech_specific_key | Implement custom text skipping | `game.skip_speech_specific_key = 5;` | `player.SpeechConfig.SkipText = SkipText.External;  player.OnBeforeSay.Subscribe(args => { input.KeyDown.Subscribe(keyArgs => if (keyArgs.Key == Key.PageDown) args.Skip();) });`
+| speech_bubble_width | ? | `game.speech_bubble_width = 100;` | ? |
+| speech_text_align | SpeechConfig.TextConfig.Alignment | `game.speech_text_align = eAlignCentre;` | `player.SpeechConfig.TextConfig.Alignment = Alignment.MiddleCenter;` |
+| speech_text_gui | Either set properties in `SpeechConfig` or subscribe to `OnBeforeSay` and manipulate the label | `game.speech_text_gui = 4;` | For basic changes: `player.SpeechConfig.BackgroundColor = Colors.Pink; player.SpeechConfig.Border = AGSBorders.Solid(Colors.Red, lineWidth: 5);`, for complete control: `player.OnBeforeSay.Subscribe(args => { args.Label.Opacity = 0; args.Label.TweenOpacity(255, 3f);});` |
+| text_align | SpeechConfig.TextConfig.Alignment | `game.speech_text_align = eAlignCentre;` | `AGSMessageBox.Config.TextConfig.Alignment = Alignment.MiddleCenter;` |
+| text_shadow_color | SpeechConfig.TextConfig.ShadowBrush | `game.text_shadow_color = 16;` | `player.SpeechConfig.TextConfig.ShadowBrush = Brushes.SolidBlue;` |
+| top_bar_XXXX | ? | `game.top_bar_bordercolor = 5;` | ? |
+| total_score | ? | `game.total_score = 50;` | ? | There's no problem mimicking a score sound with a simple function that changes a global variable and plays a sound.
+| used_mode | N/A | `game.used_mode` | N/A | The "used mode" is dependent on your control scheme. For a "rotating cursors" scheme, you can get `scheme.CurrentMode`
+| mouse.x | input.MousePosition.XMainViewport | `mouse.x` | `game.Input.MousePosition.XMainViewport` |
+| mouse.y | input.MousePosition.YMainViewport | `mouse.y` | `game.Input.MousePosition.YMainViewport` |
+| palette[SLOT] | ? | `palette[0].r` | ? |
+| player | state.Player | `player` | `game.State.Player` |
+
+## Predefined global script functions
+
+The predefined global script function in AGS are events. As there is no way of runtime event subscription in AGS, there are "magic" predefined functions in the script. In MonoAGS you can subscribe/unsubscribe events at will.
+
+| AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
+|-----|---------|-------------|-----------------|-----------------------------------
+| dialog_request | ? | `function dialog_request(int parameter) {}` | ? |
+| game_start | game.Events.OnLoad | `function game_start() {}` | `game.Events.OnLoad.Subscribe(onGameStart); ... void onGameStart() {}` |
+| on_event:eEventEnterRoomBeforeFadein | room.Events.OnBeforeFadeIn for specific room, or game.Events.OnRoomChanging | `function on_event (EventType event, int data) { if (event == eEventEnterRoomBeforeFadein) { int room = data; } }` | `game.Events.OnRoomChanging.Subscribe(onRoomChanging); ... void onRoomChanging() { IRoom room = game.State.Room; }` |
+| on_event:eEventLeaveRoom | room.Events.OnAfterFadeOut for specific room, or game.Events.OnRoomChanging | `function on_event (EventType event, int data) { if (event == eEventLeaveRoom) { int room = data; } }` | `game.Events.OnRoomChanging.Subscribe(onRoomChanging); ... void onRoomChanging() { IRoom room = player.PreviousRoom; }` | Missing `state.PreviousRoom` so `OnRoomChanging` for getting the previous room for the player will not work if that room is changed without moving the player to that room.
+| on_event:eEventGotScore | ? | `function on_event (EventType event, int data) { if (event == eEventGotScore) {} }` | ? |
+| on_event:eEventGUIMouseDown | gui.MouseDown for specific gui, or subscribe to input.MouseDown and use hitTest for GUI checks | `function on_event (EventType event, int data) { if (event == eEventGUIMouseDown) { int gui = data; } }` | `game.Input.MouseDown.Subscribe(onMouseDown); ... void onMouseDown(MouseButtonEventArgs args) { var clickedObject = hitTest.ObjectAtMousePosition; }` |
+| on_event:eEventGUIMouseUp | gui.MouseUp for specific gui, or subscribe to input.MouseUp and use hitTest for GUI checks | `function on_event (EventType event, int data) { if (event == eEventGUIMouseUp) { int gui = data; } }` | `game.Input.MouseUp.Subscribe(onMouseUp); ... void onMouseUp(MouseButtonEventArgs args) { var clickedObject = hitTest.ObjectAtMousePosition; }` |
+| on_event:eEventAddInventory | ? | `function on_event (EventType event, int data) { if (event == eEventAddInventory) {} }` | ? |
+| on_event:eEventLoseInventory | ? | `function on_event (EventType event, int data) { if (event == eEventLoseInventory) {} }` | ? |
+| on_event:eEventRestoreGame | ? | `function on_event (EventType event, int data) { if (event == eEventRestoreGame) {} }` | ? |
+| on_key_press | input.KeyDown | `function on_key_press (eKeyCode keycode) {}` | `input.KeyDown.Subscribe(onKeyDown); ... void onKeyDown(KeyboardEventArgs args) {}`
+| on_mouse_click | input.MouseDown | `function on_mouse_click (MouseButton button) {}` | `input.MouseDown.Subscribe(onMouseDown); ... void onMouseDown(MouseButtonEventArgs args) {}` |
+| repeatedly_execute | Events.OnRepeatedlyExecute | `function repeatedly_execute() {}` | `game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute); ... void onRepeatedlyExecute() { if (game.State.Paused) return; }` |
+| repeatedly_execute_always | Events.OnRepeatedlyExecute | `function repeatedly_execute() {}` | `game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute); ... void onRepeatedlyExecute() { }` |
+| unhandled_event | Events.DefaultInteractions | `function unhandled_event (int what, int type) { if (what == 1 && type == 1) {}}` | `game.Events.DefaultInteractions.OnInteract(Verbs.Look).Subscribe(args => {});` |
+
+Missing in AGS but exists in MonoAGS: Subscribe/unsubscribe to events at runtime, mouse move and key up generic events, mouse enter/leave/up/double click/lost focus per object events
