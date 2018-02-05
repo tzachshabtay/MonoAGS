@@ -114,7 +114,7 @@ namespace AGS.Engine
             switch (args.PressedKey)
             {
                 case Key.Enter:
-                    if (_suggestMode == ComboSuggest.Enforce)
+                    if (_suggestMode == ComboSuggest.Enforce || _currentlyNavigatingSuggestions)
                     {
                         var matchingItem = dropDownPanel.Items.FirstOrDefault(c => c.Text.ToLowerInvariant() != args.IntendedState.Text.ToLowerInvariant());
                         if (matchingItem == null || _currentlyNavigatingSuggestions)
