@@ -1019,7 +1019,7 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td>scalingArea.ScaleVolume</td>
 <td><code>cEgo.ScaleVolume = true;</code></td>
 <td><code>scalingArea.ScaleVolume = true;</code></td>
-<td>This is not a 1-to-1 match. In AGS, scale volume scales the volume according to the scaling of the character, not matter if the scaling was set manually or in an area. In MonoAGS, this is specfically for areas, there is no equivalent configuration for manual scaling changes currently.</td>
+<td>This is not a 1-to-1 match. In AGS, scale volume scales the volume according to the scaling of the character, and it doesn&#39;t matter if the scaling was set manually or in an area. In MonoAGS, this is specfically for areas, there is no equivalent configuration for manual scaling changes currently.</td>
 </tr>
 <tr>
 <td>Scaling</td>
@@ -3293,7 +3293,7 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>SelectNextMode</td>
 <td>?</td>
 <td><code>Mouse.SelectNextMode()</code></td>
-<td>In MonoAGS, by choosing the <code>RotatingCursorsScheme</code> as your control scheme, this is already handled (and you can look at the code if you want to it differently)</td>
+<td>In MonoAGS, by choosing the <code>RotatingCursorsScheme</code> as your control scheme, this is already handled (and you can look at the code if you want to handle it differently)</td>
 <td></td>
 </tr>
 <tr>
@@ -3349,7 +3349,7 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 </table>
 <p>Missing in AGS but exists in MonoAGS: The cursors is just an extension of objects, so they can be manipulated in all ways an object can be manipulated (see Object for more).</p>
 <h2 id="multimedia">Multimedia</h2>
-<p>Currently no equivalents to any of the multimedia functions in MonoAGS.</p>
+<p>Currently there are no equivalents to any of the multimedia functions in MonoAGS.</p>
 <h2 id="object">Object</h2>
 <table>
 <thead>
@@ -3662,11 +3662,11 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 </table>
 <p>Missing in AGS but exists in MonoAGS: no limits to the number of presented overlays, overlays are just objects so can be treated exactly the same as objects (like rotating/scaling), see the Object section for more details.</p>
 <h2 id="palette">Palette</h2>
-<p>Currently no equivalents to the palette in MonoAGS (if you want to implement something like this, it would probably require writing a custom shader).</p>
+<p>Currently there are no equivalents to the palette in MonoAGS (if you want to implement something like this, it would probably require writing a custom shader).</p>
 <h2 id="parser">Parser</h2>
-<p>Currently no equivalents to the parser in MonoAGS, you&#39;ll have to program parsing logic yourself (but you can use a textbox and subscribe to key pressed events on the textbox).</p>
+<p>Currently there are no equivalents to the parser in MonoAGS, you&#39;ll have to program parsing logic yourself (but you can use a textbox and subscribe to key pressed events on the textbox).</p>
 <h2 id="region">Region</h2>
-<p>Currently no equivalents to regions in MonoAGS.</p>
+<p>Currently there are no equivalents to regions in MonoAGS.</p>
 <h2 id="room">Room</h2>
 <table>
 <thead>
@@ -3796,7 +3796,7 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>scalingArea.MinScaling/MaxScaling</td>
 <td><code>SetAreaScaling(5, 120, 170);</code></td>
 <td><code>var scalingArea = area.GetComponent&lt;IScalingArea&gt;(); scalingArea.MinScaling = 1.2f; scalingArea.MaxScaling = 1.7f;</code></td>
-<td>Not that in MonoAGS the scaling value is the factor in which scaling is multiplied (so 100 scaling in AGS is 1 scaling in MonoAGS), and unlike AGS there are no limits to the scaling.</td>
+<td>Note that in MonoAGS the scaling value is the factor in which scaling is multiplied (so 100 scaling in AGS is 1 scaling in MonoAGS), and unlike AGS there are no limits to the scaling.</td>
 </tr>
 <tr>
 <td>SetBackgroundFrame</td>
@@ -3936,8 +3936,8 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>SetNextScreenTransition</td>
 <td>state.RoomTransitions.SetOneTimeNextTransition</td>
 <td><code>SetNextScreenTransition(eTransitionBoxout);</code></td>
-<td><code>state.RoomTransitions.SetOneTimeNextTransition</code></td>
-<td><code>SetNextScreenTransition(eTransitionBoxout);</code></td>
+<td><code>state.RoomTransitions.SetOneTimeNextTransition(AGSRoomTransitions.BoxOut());</code></td>
+<td>Note that you can give more options to the room transition in MonoAGS, for example: <code>AGSRoomTransitions.BoxOut(timeInSeconds: 3, easeBoxOut: Ease.CubeIn, easeBoxIn: Ease.CubeOut)</code></td>
 </tr>
 <tr>
 <td>SetScreenTransition</td>
@@ -4325,7 +4325,7 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>customize to your liking</td>
 <td><code>SetSpeechStyle(eSpeechSierra);</code></td>
 <td>N/A</td>
-<td>For the &quot;lucas arts&quot; style (text over character&#39;s head), do nothing, that&#39;s the default. For the &quot;sierra&quot; style, set a portrait in the charater&#39;s speech config: <code>cGraham.SpeechConfig.PortraitConfig.Portrait = grahamPortrait;</code>. For the &quot;sierra with background&quot; style, set a portrait as before, and also set BackgroundColor in the character&#39;s speech config: <code>cGraham.SpeechConfig.BackgroundColor = Colors.Pink;</code>. For &quot;QFG4-style full screen&quot;, set the portrait object to be a full-screen size object, and for customize where the speech text and portrait will be located, you need to provide your custom implementation for &quot;ISayLocationProvider&quot; and then replace the default implementation. For example, this custom implementation will place both text and portrait in the bottom-left of the screen: <code>public class Qfg4StyleSayLocationProvider : ISayLocationProvider { public ISayLocation GetLocation(string text, ISayConfig config) { var textLocation = new PointF(0f, 0f); var portraitLocation = new PointF(0f, 0f); return new AGSSayLocation(textLocation, portraitLocation); }}</code>, then to use this implementation instead of the default engine&#39;s implementation, write (before the game loads): <code>Resolver.Override(resolver =&gt; resolver.Builder.RegisterType&lt;Qfg4StyleSayLocationProvider&gt;().As&lt;ISayLocationProvider&gt;());</code>.</td>
+<td>For the &quot;lucas arts&quot; style (text over character&#39;s head), do nothing, that&#39;s the default. For the &quot;sierra&quot; style, set a portrait in the charater&#39;s speech config: <code>cGraham.SpeechConfig.PortraitConfig.Portrait = grahamPortrait;</code>. For the &quot;sierra with background&quot; style, set a portrait as before, and also set BackgroundColor in the character&#39;s speech config: <code>cGraham.SpeechConfig.BackgroundColor = Colors.Pink;</code>. For &quot;QFG4-style full screen&quot;, set the portrait object to be a full-screen size object, and for customizing where the speech text and portrait will be located, you need to provide your custom implementation for <code>ISayLocationProvider</code> and then replace the default implementation. For example, this custom implementation will place both text and portrait in the bottom-left of the screen: <code>public class Qfg4StyleSayLocationProvider : ISayLocationProvider { public ISayLocation GetLocation(string text, ISayConfig config) { var textLocation = new PointF(0f, 0f); var portraitLocation = new PointF(0f, 0f); return new AGSSayLocation(textLocation, portraitLocation); }}</code>, then to use this implementation instead of the default engine&#39;s implementation, write (before the game loads): <code>Resolver.Override(resolver =&gt; resolver.Builder.RegisterType&lt;Qfg4StyleSayLocationProvider&gt;().As&lt;ISayLocationProvider&gt;());</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -4395,7 +4395,7 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 </table>
 <p>Missing in AGS but exists in MonoAGS: rotate/scale/translate individual animation frames (including at run-time), change the animation frame speed at run-time and allow for random animation frame delays within a range (very useful for speak animations), for the linked sound, allows to configure whether to automatically pan and adjust the volume of the sound based on the location of the animation relative to the center of the screen (for panning) and based on the location within a volume changing area.</p>
 <h2 id="scummverbcoingui">SCUMM_VERBCOIN_GUI</h2>
-<p>Currently no equivalents to verb coin GUI in MonoAGS.</p>
+<p>Currently there are no equivalents to verb coin GUI in MonoAGS.</p>
 <h2 id="game-variables">Game variables</h2>
 <table>
 <thead>
