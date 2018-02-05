@@ -31,22 +31,29 @@ namespace AGS.Engine
 
 		public void Refresh()
 		{
-			object val = Prop.GetValue(Object);
-            if (val == null) Value = NullValue;
-            else
+            try
             {
-                var provider = _customValueProviders.GetOrAdd(Prop.PropertyType, () =>
+                object val = Prop.GetValue(Object);
+                if (val == null) Value = NullValue;
+                else
                 {
-                    var methods = Prop.PropertyType.GetRuntimeMethods();
-                    foreach (var candidate in methods)
+                    var provider = _customValueProviders.GetOrAdd(Prop.PropertyType, () =>
                     {
-                        var attr = candidate.GetCustomAttribute<CustomStringValueAttribute>();
-                        if (attr != null) return (candidate, attr);
-                    }
-                    return default;
-                });
-                MethodInfo method = getCustomStringMethod(provider);
-                Value = method == null ? val.ToString() : method.Invoke(val, null).ToString();
+                        var methods = Prop.PropertyType.GetRuntimeMethods();
+                        foreach (var candidate in methods)
+                        {
+                            var attr = candidate.GetCustomAttribute<CustomStringValueAttribute>();
+                            if (attr != null) return (candidate, attr);
+                        }
+                        return default;
+                    });
+                    MethodInfo method = getCustomStringMethod(provider);
+                    Value = method == null ? val.ToString() : method.Invoke(val, null).ToString();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Failed to refresh property: {Name}", e);
             }
 		}
 
