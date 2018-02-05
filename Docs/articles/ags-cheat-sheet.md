@@ -609,7 +609,7 @@ Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/P
 | PreviousRoom | PreviousRoom | `if (cEgo.PreviousRoom == 5) {}` | `if (cEgo.PreviousRoom == elevator) {}` | In MonoAGS, `PreviousRoom` actually provides you with access to the entire room's API, not just its ID, so you can query the room's objects, for example.
 | Room | Room | `if (cEgo.Room == 5) {}` | `if (cEgo.Room == elevator) {}` | In MonoAGS, `Room` actually provides you with access to the entire room's API, not just its ID, so you can query the room's objects, for example.
 | ScaleMoveSpeed | AdjustWalkSpeedToScaleArea | `cEgo.ScaleMoveSpeed = true;` | `cEgo.AdjustWalkSpeedToScaleArea = true;` |
-| ScaleVolume | scalingArea.ScaleVolume | `cEgo.ScaleVolume = true;` | `scalingArea.ScaleVolume = true;` | This is not a 1-to-1 match. In AGS, scale volume scales the volume according to the scaling of the character, not matter if the scaling was set manually or in an area. In MonoAGS, this is specfically for areas, there is no equivalent configuration for manual scaling changes currently.
+| ScaleVolume | scalingArea.ScaleVolume | `cEgo.ScaleVolume = true;` | `scalingArea.ScaleVolume = true;` | This is not a 1-to-1 match. In AGS, scale volume scales the volume according to the scaling of the character, and it doesn't matter if the scaling was set manually or in an area. In MonoAGS, this is specfically for areas, there is no equivalent configuration for manual scaling changes currently.
 | Scaling | ScaleX and ScaleY | `cEgo.ManualScaling = true; cEgo.Scaling = 200;` | `cEgo.ScaleX = 2; cEgo.ScaleY = 2;` | In AGS the range is 5 to 200, where the value must be an integer and 100 is not scaled. In MonoAGS there's no "allowed" range, the value is a float (so you can do `cEgo.ScaleX = 0.5f`) and 1 is not scaled.
 | Solid | ? | `if (cEgo.Solid) {}` | ? |
 | Speaking | Outfit[Animations.Speak].Animation.State.IsPaused | `if (cEgo.Speaking) {}` | `if (!cEgo.Outfit[Animations.Speak].Animation.State.IsPaused) {}` |
@@ -1033,7 +1033,7 @@ Also, MonoAGS has some additional useful math methods in `MathUtils` like Lerp a
 | GetModeGraphic | ? | `mouse.GetModeGraphic(eModeWalkto);` | ? | There's nothing specific, but you can just query the specific mouse cursor that you're interested about
 | IsButtonDown | LeftMouseButtonDown or RightMouseButtonDown | `if (mouse.IsButtonDown(eMouseRight)) {}` | `if (game.Input.RightMouseButtonDown)` |
 | SaveCursorUntilItLeaves | use the cursor component | when hovering over "myHotspot": `mouse.SaveCursorUntilItLeaves(); mouse.Mode = eModeTalk;` | `var cursorComponent = myHotspot.AddComponent<IHasCursorComponent>(); cursorComponent.SpecialCursor = myAnimatedSpecialCursorForThisHotspot;` |
-| SelectNextMode | ? | `Mouse.SelectNextMode()` | In MonoAGS, by choosing the `RotatingCursorsScheme` as your control scheme, this is already handled (and you can look at the code if you want to it differently)
+| SelectNextMode | ? | `Mouse.SelectNextMode()` | In MonoAGS, by choosing the `RotatingCursorsScheme` as your control scheme, this is already handled (and you can look at the code if you want to handle it differently)
 | SetBounds | Subscribe to mouse move event and change the position of the mouse accordingly | `mouse.SetBounds(160, 100, 320, 200);` | `game.Input.MouseMove.Subscribe(args => if (args.MousePosition.XWindow > 160) OpenTK.Mouse.SetPosition(160, args.MousePosition.YWindow));` |
 | SetPosition | OpenTK.Mouse.SetPosition | `mouse.SetPosition(160, 100);` | `OpenTK.Mouse.SetPosition(160, 100);` |
 | Update | ? | `mouse.Update();` | ? |
@@ -1046,7 +1046,7 @@ Missing in AGS but exists in MonoAGS: The cursors is just an extension of object
 
 ## Multimedia
 
-Currently no equivalents to any of the multimedia functions in MonoAGS.
+Currently there are no equivalents to any of the multimedia functions in MonoAGS.
 
 ## Object
 
@@ -1106,15 +1106,15 @@ Missing in AGS but exists in MonoAGS: no limits to the number of presented overl
 
 ## Palette
 
-Currently no equivalents to the palette in MonoAGS (if you want to implement something like this, it would probably require writing a custom shader).
+Currently there are no equivalents to the palette in MonoAGS (if you want to implement something like this, it would probably require writing a custom shader).
 
 ## Parser
 
-Currently no equivalents to the parser in MonoAGS, you'll have to program parsing logic yourself (but you can use a textbox and subscribe to key pressed events on the textbox).
+Currently there are no equivalents to the parser in MonoAGS, you'll have to program parsing logic yourself (but you can use a textbox and subscribe to key pressed events on the textbox).
 
 ## Region
 
-Currently no equivalents to regions in MonoAGS.
+Currently there are no equivalents to regions in MonoAGS.
 
 ## Room
 
@@ -1136,7 +1136,7 @@ Currently no equivalents to regions in MonoAGS.
 | RemoveWalkableArea | area.Enabled | `RemoveWalkableArea(5);` | `myArea.Enabled = false;` | Note, that unlike AGS, the change is permanent, it does not reset when you switch rooms
 | ResetRoom | ? | `ResetRoom(0);` | ? |
 | RestoreWalkableArea | area.Enabled | `RestoreWalkableArea(5);` | `myArea.Enabled = true;` |
-| SetAreaScaling | scalingArea.MinScaling/MaxScaling | `SetAreaScaling(5, 120, 170);` | `var scalingArea = area.GetComponent<IScalingArea>(); scalingArea.MinScaling = 1.2f; scalingArea.MaxScaling = 1.7f;` | Not that in MonoAGS the scaling value is the factor in which scaling is multiplied (so 100 scaling in AGS is 1 scaling in MonoAGS), and unlike AGS there are no limits to the scaling.
+| SetAreaScaling | scalingArea.MinScaling/MaxScaling | `SetAreaScaling(5, 120, 170);` | `var scalingArea = area.GetComponent<IScalingArea>(); scalingArea.MinScaling = 1.2f; scalingArea.MaxScaling = 1.7f;` | Note that in MonoAGS the scaling value is the factor in which scaling is multiplied (so 100 scaling in AGS is 1 scaling in MonoAGS), and unlike AGS there are no limits to the scaling.
 | SetBackgroundFrame | Background.Image | `SetBackgroundFrame(4);` and to get back to the animation: `SetBackgroundFrame(-1);` | `myRoom.Background.Image = myRoom.Background.Animation.Frames[4].Sprite.Image` and to get back to the animation `myRoom.Background.StartAnimation(myRoomAnimation);` | Note that there is no "4 animation frames" limit in MonoAGS like there is in AGS
 | SetViewport | Disable the camera and then set viewport x/y | `SetViewport(100, 100);` | `state.Viewport.Camera.Enabled = false; state.Viewport.X = 100; state.Viewport.Y = 100;` |
 | SetWalkBehindBase | Baseline | `SetWalkBehindBase (3,0);` | `var walkbehind = area.GetComponent<IWalkBehindArea>(); walkbehind.Baseline = 0;` |
@@ -1161,7 +1161,7 @@ Missing in AGS but exists in MonoAGS: no limits on the scaling areas, no limits 
 | FadeOut | ? | `FadeOut(30);` | ? |
 | FlipScreen | ? | `FlipScreen(1);` | ? |
 | SetFadeColor | ? | `SetFadeColor(200, 0, 0);` | ? |
-| SetNextScreenTransition | state.RoomTransitions.SetOneTimeNextTransition | `SetNextScreenTransition(eTransitionBoxout);` | `state.RoomTransitions.SetOneTimeNextTransition` | `SetNextScreenTransition(eTransitionBoxout);` | `state.RoomTransitions.SetOneTimeNextTransition(AGSRoomTransitions.BoxOut());` | Note that you can give more options to the room transition in MonoAGS, for example: `AGSRoomTransitions.BoxOut(timeInSeconds: 3, easeBoxOut: Ease.CubeIn, easeBoxIn: Ease.CubeOut)`
+| SetNextScreenTransition | state.RoomTransitions.SetOneTimeNextTransition | `SetNextScreenTransition(eTransitionBoxout);` | `state.RoomTransitions.SetOneTimeNextTransition(AGSRoomTransitions.BoxOut());` | Note that you can give more options to the room transition in MonoAGS, for example: `AGSRoomTransitions.BoxOut(timeInSeconds: 3, easeBoxOut: Ease.CubeIn, easeBoxIn: Ease.CubeOut)`
 | SetScreenTransition | state.RoomTransitions.Transition | `SetScreenTransition(eTransitionFade);` | `state.RoomTransitions.Transition = AGSRoomTransitions.Fade();` | Note that you can give more options to the room transition in MonoAGS, for example: `AGSRoomTransitions.Fade(timeInSeconds: 3.5f, easeFadeOut: Ease.CubeIn, easeFadeIn: Ease.CubeOut)`
 | ShakeScreen | ShakeEffect | `ShakeScreen(5);` | `ShakeEffect effect = new ShakeEffect (); await effect.RunAsync(TimeSpan.FromSeconds(5));` |
 | ShakeScreenBackground | ShakeEffect | `ShakeScreenBackground (4, 10, 80);` | `ShakeEffect effect = new ShakeEffect(strength: 0.1f, decay: 0.9f); effect.RunAsync(TimeSpan.FromSeconds(5));` |
@@ -1231,7 +1231,7 @@ Missing in AGS but exists in MonoAGS: Change window size at runtime (including w
 | DisplayMessageAtY | ? | `DisplayMessageAtY(527, 200);` | ? |
 | DisplayTopBar | ? | `DisplayTopBar(25, 8, 7, "Evil wizard", "Get out of my house and never return!");` | ? |
 | SetSkipSpeech | SpeechConfig.SkipText | `SetSkipSpeech(2);` | `player.SpeechConfig.SkipText = SkipText.ByTime;` | Note that the example given in MonoAGS is for setting the skip style for a specific character, not a global change like in AGS.
-| SetSpeechStyle | customize to your liking | `SetSpeechStyle(eSpeechSierra);` | N/A | For the "lucas arts" style (text over character's head), do nothing, that's the default. For the "sierra" style, set a portrait in the charater's speech config: `cGraham.SpeechConfig.PortraitConfig.Portrait = grahamPortrait;`. For the "sierra with background" style, set a portrait as before, and also set BackgroundColor in the character's speech config: `cGraham.SpeechConfig.BackgroundColor = Colors.Pink;`. For "QFG4-style full screen", set the portrait object to be a full-screen size object, and for customize where the speech text and portrait will be located, you need to provide your custom implementation for "ISayLocationProvider" and then replace the default implementation. For example, this custom implementation will place both text and portrait in the bottom-left of the screen: `public class Qfg4StyleSayLocationProvider : ISayLocationProvider { public ISayLocation GetLocation(string text, ISayConfig config) { var textLocation = new PointF(0f, 0f); var portraitLocation = new PointF(0f, 0f); return new AGSSayLocation(textLocation, portraitLocation); }}`, then to use this implementation instead of the default engine's implementation, write (before the game loads): `Resolver.Override(resolver => resolver.Builder.RegisterType<Qfg4StyleSayLocationProvider>().As<ISayLocationProvider>());`.
+| SetSpeechStyle | customize to your liking | `SetSpeechStyle(eSpeechSierra);` | N/A | For the "lucas arts" style (text over character's head), do nothing, that's the default. For the "sierra" style, set a portrait in the charater's speech config: `cGraham.SpeechConfig.PortraitConfig.Portrait = grahamPortrait;`. For the "sierra with background" style, set a portrait as before, and also set BackgroundColor in the character's speech config: `cGraham.SpeechConfig.BackgroundColor = Colors.Pink;`. For "QFG4-style full screen", set the portrait object to be a full-screen size object, and for customizing where the speech text and portrait will be located, you need to provide your custom implementation for `ISayLocationProvider` and then replace the default implementation. For example, this custom implementation will place both text and portrait in the bottom-left of the screen: `public class Qfg4StyleSayLocationProvider : ISayLocationProvider { public ISayLocation GetLocation(string text, ISayConfig config) { var textLocation = new PointF(0f, 0f); var portraitLocation = new PointF(0f, 0f); return new AGSSayLocation(textLocation, portraitLocation); }}`, then to use this implementation instead of the default engine's implementation, write (before the game loads): `Resolver.Override(resolver => resolver.Builder.RegisterType<Qfg4StyleSayLocationProvider>().As<ISayLocationProvider>());`.
 
 Missing in AGS but exists in MonoAGS: Setting "skip text" styles for specific characters, show yes/no or ok/cancel dialogs (or any dialog with a custom number of buttons), more customizations to speech style, including creating custom say functions completely.
 
@@ -1251,7 +1251,7 @@ Missing in AGS but exists in MonoAGS: rotate/scale/translate individual animatio
 
 ## SCUMM_VERBCOIN_GUI
 
-Currently no equivalents to verb coin GUI in MonoAGS.
+Currently there are no equivalents to verb coin GUI in MonoAGS.
 
 ## Game variables
 
