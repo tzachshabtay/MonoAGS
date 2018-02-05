@@ -138,7 +138,7 @@ namespace MyGame
 Debug.WriteLine($&quot;X = {x}, Y = {y}&quot;);
 </code></pre><h2 id="variables--scope">Variables &amp; Scope</h2>
 <p>Variables in c# are declared the same way as in AGS script, with the difference that, like functions, the variables need to reside inside the class/struct.</p>
-<p>Variables can also declared inside function, this would make their scope local to the function, meaning that their value will be erased once the function completes.</p>
+<p>Variables can also declared inside a function, this would make their scope local to the function, meaning that the variable will not exist once the function completes.</p>
 <p>Here&#39;s an example:</p>
 <pre><code class="lang-csharp">
 namespace MyGame
@@ -256,9 +256,9 @@ The order of the scripts (unlike AGS) does not matter.
 There are no &quot;special functions&quot; that you can put in your script (like <code>game_start</code>) that are magically called, you have to call it yourself.</p>
 <h2 id="data-types-and-operators">Data types and operators</h2>
 <p>All AGS data types and operators exist in c# with the same syntax, and used the same way.
-c# has additional data types and operators which do not exist in AGS.
-You can see all data types here: <a href="https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/types-and-variables">https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/types-and-variables</a>
-You can see all operators here: <a href="https://msdn.microsoft.com/en-us/library/6a71f45d(v=vs.120).aspx">https://msdn.microsoft.com/en-us/library/6a71f45d(v=vs.120).aspx</a></p>
+c# has additional data types and operators which do not exist in AGS.</p>
+<p>You can see all data types here: <a href="https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/types-and-variables">https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/types-and-variables</a></p>
+<p>You can see all operators here: <a href="https://msdn.microsoft.com/en-us/library/6a71f45d(v=vs.120).aspx">https://msdn.microsoft.com/en-us/library/6a71f45d(v=vs.120).aspx</a></p>
 <p>Additionally, c# has the keyword <code>var</code> which can be used when declaring the variable is it is clear what data type it has.
 For example:</p>
 <pre><code class="lang-csharp">
@@ -322,7 +322,7 @@ int getSum(int[] numbers)
     }
     return sum;
 }
-</code></pre><p>Also, c# has a wonderful querying language for collections, called LINQ, which can be used to make a lot of tasks more simpler. Foe example:</p>
+</code></pre><p>Also, c# has a wonderful querying language for collections, called LINQ, which can be used to make a lot of tasks more simpler. For example:</p>
 <pre><code class="lang-csharp">
 //without LINQ
 int getSumOfNumbersBiggerThan10(int[] numbers)
