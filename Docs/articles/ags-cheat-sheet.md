@@ -107,7 +107,7 @@ Debug.WriteLine($"X = {x}, Y = {y}");
 
 Variables in c# are declared the same way as in AGS script, with the difference that, like functions, the variables need to reside inside the class/struct.
 
-Variables can also declared inside function, this would make their scope local to the function, meaning that their value will be erased once the function completes.
+Variables can also declared inside a function, this would make their scope local to the function, meaning that the variable will not exist once the function completes.
 
 Here's an example:
 
@@ -268,7 +268,9 @@ There are no "special functions" that you can put in your script (like `game_sta
 
 All AGS data types and operators exist in c# with the same syntax, and used the same way.
 c# has additional data types and operators which do not exist in AGS.
+
 You can see all data types here: https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/types-and-variables
+
 You can see all operators here: https://msdn.microsoft.com/en-us/library/6a71f45d(v=vs.120).aspx
 
 Additionally, c# has the keyword `var` which can be used when declaring the variable is it is clear what data type it has.
@@ -358,7 +360,7 @@ int getSum(int[] numbers)
 
 ```
 
-Also, c# has a wonderful querying language for collections, called LINQ, which can be used to make a lot of tasks more simpler. Foe example:
+Also, c# has a wonderful querying language for collections, called LINQ, which can be used to make a lot of tasks more simpler. For example:
 
 ```csharp
 
