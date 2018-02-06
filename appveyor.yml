@@ -49,7 +49,7 @@ test_script:
 
         .\packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover -i ./opencoverCoverage.xml --repoToken 7hZHP5bLxlE8doYiQg6b79oF7wM6jlecs
     }
-    else if ($env:CONFIGURATION -ne "DOCS")
+    elseif ($env:CONFIGURATION -ne "DOCS")
     {
         .\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe .\Source\Tests\bin\Release\Tests.dll
     }
