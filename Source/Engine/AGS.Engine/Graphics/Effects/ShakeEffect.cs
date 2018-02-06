@@ -16,10 +16,8 @@ namespace AGS.Engine
     varying vec2 vTexCoord;
 
     attribute vec4 aColor;
-    varying vec4 vColor;
-#else
-    varying vec4 gl_FrontColor;
 #endif
+    varying vec4 vColor;
 
     uniform float time;
     uniform float strength;
@@ -29,11 +27,11 @@ namespace AGS.Engine
        vec4 position = vec4(aPosition.xy, 1., 1.);
        gl_Position = uMvp * position;
        vTexCoord = aTexCoord;
-       vColor = aColor; 
+       vColor = aColor;
 #else
-       gl_FrontColor = gl_Color;
+       vColor = gl_Color;
        gl_TexCoord[0] = gl_MultiTexCoord0;
-       gl_Position = ftransform();             
+       gl_Position = ftransform();
 #endif
        gl_Position.x += cos(time * 10.0) * strength;        
        gl_Position.y += cos(time * 15.0) * strength;

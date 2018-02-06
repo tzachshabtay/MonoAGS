@@ -8,6 +8,7 @@ namespace AGS.Engine
     public class OpenGLBackend : IGraphicsBackend
     {
         private Rectangle _lastViewport, _currentViewport;
+        private string glVersion;
 
         public void Init()
         {
@@ -19,6 +20,10 @@ namespace AGS.Engine
             GL.EnableClientState(ArrayCap.TextureCoordArray);
             GL.EnableClientState(ArrayCap.ColorArray);
             GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
+
+            glVersion = GL.GetString(StringName.Version);
+            Debug.WriteLine($"OpenGL Version: {glVersion}");
+            Debug.WriteLine($"GLSL Version: {GL.GetString(StringName.ShadingLanguageVersion)}");
         }
 
         public void ClearColor(float r, float g, float b, float a) => GL.ClearColor(r, g, b, a);
@@ -99,7 +104,7 @@ namespace AGS.Engine
         }
         public bool AreShadersSupported() 
         {
-            return new Version(GL.GetString(StringName.Version).Substring(0, 3)) >= new Version(2, 0);
+            return new Version(glVersion.Substring(0, 3)) >= new Version(2, 0);
         }
         public void LineWidth(float lineWidth) => GL.LineWidth(lineWidth);
 
@@ -142,11 +147,11 @@ namespace AGS.Engine
         {
             return @"#version 120
 
-            varying vec4 gl_FrontColor;
+            varying vec4 vColor;
 
             void main(void)
             {
-                gl_FrontColor = gl_Color;
+                vColor = gl_Color;
                 gl_TexCoord[0] = gl_MultiTexCoord0;
                 gl_Position = ftransform();
             }
@@ -158,13 +163,13 @@ namespace AGS.Engine
             return @"#version 120
 
             uniform sampler2D texture;
-            varying vec4 gl_Color;
+            varying vec4 vColor;
 
             void main()
             {
                 vec2 pos = gl_TexCoord[0].xy;
                 vec4 col = texture2D(texture, pos);
-                gl_FragColor = col * gl_Color;
+                gl_FragColor = col * vColor;
             }";
         }
 

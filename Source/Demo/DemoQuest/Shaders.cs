@@ -15,18 +15,15 @@ namespace DemoQuest
             precision mediump float;
 #endif        
             uniform sampler2D uTexture;
-#ifdef GL_ES
             varying vec4 vColor;
+#ifdef GL_ES
             varying vec2 vTexCoord;
-#else
-            varying vec4 gl_Color;
 #endif
 
             void main()
             {
 #ifndef GL_ES
                 vec2 vTexCoord = gl_TexCoord[0].xy;
-                vec4 vColor = gl_Color;
 #endif
             	vec4 col = texture2D(uTexture, vTexCoord) * vColor;
             	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
@@ -39,11 +36,9 @@ namespace DemoQuest
             precision mediump float;
 #endif        
             uniform sampler2D uTexture;
-#ifdef GL_ES
             varying vec4 vColor;
+#ifdef GL_ES    
             varying vec2 vTexCoord;
-#else
-            varying vec4 gl_Color;
 #endif
             const vec3 SEPIA = vec3(1.2, 1.0, 0.8); 
 
@@ -51,7 +46,6 @@ namespace DemoQuest
             {
 #ifndef GL_ES
                 vec2 vTexCoord = gl_TexCoord[0].xy;
-                vec4 vColor = gl_Color;
 #endif
             	vec4 col = texture2D(uTexture, vTexCoord) * vColor;
             	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
@@ -64,11 +58,9 @@ namespace DemoQuest
             precision mediump float;
 #endif        
             uniform sampler2D uTexture;
-#ifdef GL_ES
             varying vec4 vColor;
+#ifdef GL_ES
             varying vec2 vTexCoord;
-#else
-            varying vec4 gl_Color;
 #endif
             const vec3 SEPIA = vec3(1.2, 1.0, 0.8); 
 
@@ -76,7 +68,6 @@ namespace DemoQuest
             {
 #ifndef GL_ES
                 vec2 vTexCoord = gl_TexCoord[0].xy;
-                vec4 vColor = gl_Color;
 #endif
             	vec4 col = texture2D(uTexture, vTexCoord);
             	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
@@ -91,11 +82,9 @@ namespace DemoQuest
             precision mediump float;
 #endif        
             uniform sampler2D uTexture;
-#ifdef GL_ES
             varying vec4 vColor;
+#ifdef GL_ES
             varying vec2 vTexCoord;
-#else
-            varying vec4 gl_Color;
 #endif
             //The resolution needs to be set whenever the screen resizes
             uniform vec2 resolution;
@@ -110,7 +99,6 @@ namespace DemoQuest
             {
 #ifndef GL_ES
                 vec2 vTexCoord = gl_TexCoord[0].xy;
-                vec4 vColor = gl_Color;
 #endif
             	vec4 col = texture2D(uTexture, vTexCoord);
 
@@ -135,18 +123,15 @@ namespace DemoQuest
             precision mediump float;
 #endif        
             uniform sampler2D uTexture;
-#ifdef GL_ES
             varying vec4 vColor;
+#ifdef GL_ES
             varying vec2 vTexCoord;
-#else
-            varying vec4 gl_Color;
 #endif
 
             void main()
             {
 #ifndef GL_ES
                 vec2 vTexCoord = gl_TexCoord[0].xy;
-                vec4 vColor = gl_Color;
 #endif
             	vec4 col = texture2D(uTexture, vTexCoord) * vColor;
 

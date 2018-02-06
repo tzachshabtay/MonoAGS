@@ -13,18 +13,15 @@ namespace AGS.Engine
 #endif
             uniform sampler2D uTexture;
             uniform float time;
-#ifdef GL_ES
             varying vec4 vColor;
+#ifdef GL_ES
             varying vec2 vTexCoord;
-#else
-            varying vec4 gl_Color;
 #endif
 
             void main()
             {
 #ifndef GL_ES
                 vec2 vTexCoord = gl_TexCoord[0].xy;
-                vec4 vColor = gl_Color;
 #endif
                 vec4 col = texture2D(uTexture, vTexCoord);
                 float height = col.r;
