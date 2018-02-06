@@ -74,7 +74,7 @@ namespace AGS.Engine
                     _unsubscribe = unsubscribe;
                 }
 
-                public void Unbind() 
+                public void Unbind()
                 {
                     _binding?.Unbind();
                     _unsubscribe();
@@ -177,7 +177,7 @@ namespace AGS.Engine
             }
         }
 
-        public AGSDisplayList(IGameState gameState, IInput input, AGSWalkBehindsMap walkBehinds, 
+        public AGSDisplayList(IGameState gameState, IInput input, AGSWalkBehindsMap walkBehinds,
                               IImageRenderer renderer, IGameEvents events, IAGSRoomTransitions roomTransitions)
         {
             _roomTransitions = roomTransitions;
@@ -336,7 +336,7 @@ namespace AGS.Engine
 
         private void subscribeObjects(IEnumerable<IObject> items)
         {
-            foreach (var item in items) subscribeObj(item);   
+            foreach (var item in items) subscribeObj(item);
         }
 
         private void unsubscribeObjects(IEnumerable<IObject> items)
@@ -388,7 +388,7 @@ namespace AGS.Engine
             {
                 unsubscribeObj(_lastRoomBackground);
                 _lastRoomBackground = _lastRoom.Background;
-                subscribeObj(_lastRoom.Background); 
+                subscribeObj(_lastRoom.Background);
             }
         }
 
@@ -406,7 +406,7 @@ namespace AGS.Engine
 
         private void onObjTranslatePropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(ITranslateComponent.Z) && 
+            if (args.PropertyName != nameof(ITranslateComponent.Z) &&
                 args.PropertyName != nameof(ITranslateComponent.X)) return;
             onSomethingChanged();
         }

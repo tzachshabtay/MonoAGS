@@ -51,7 +51,7 @@ namespace AGS.Engine
             _panel.AddComponent<IInspectorComponent>(Inspector);
             factory.UI.CreateScrollingPanel(_scrollingPanel);
 
-            _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory, 
+            _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory,
                                                                _game.Events, _panel);
             _inspectorNodeView.Resize(_parent.Width);
             treeView.NodeViewProvider = _inspectorNodeView;

@@ -60,7 +60,7 @@ namespace AGS.Engine
         private void subscribeChildren()
         {
             var boundingBoxSubscription = new EntitySubscription<IBoundingBoxWithChildrenComponent>(null,
-                c => c.OnBoundingBoxWithChildrenChanged.Subscribe(onSizeChanged), 
+                c => c.OnBoundingBoxWithChildrenChanged.Subscribe(onSizeChanged),
                 c => c.OnBoundingBoxWithChildrenChanged.Unsubscribe(onSizeChanged));
 
             var visibleSubscription = new EntitySubscription<IVisibleComponent>(onVisibleChanged, propertyNames: nameof(IVisibleComponent.Visible));

@@ -58,7 +58,7 @@ namespace AGS.Engine
             _treeView = _treePanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
             factory.UI.CreateScrollingPanel(_scrollingPanel);
-            parent.GetComponent<IScaleComponent>().PropertyChanged += (_, args) => 
+            parent.GetComponent<IScaleComponent>().PropertyChanged += (_, args) =>
             {
                 if (args.PropertyName != nameof(IScaleComponent.Height)) return;
                 _scrollingPanel.Image = new EmptyImage(_scrollingPanel.Width, parent.Height - _searchBox.Height);
@@ -111,7 +111,7 @@ namespace AGS.Engine
         }
 
         private void selectObject(ITreeStringNode node)
-        { 
+        {
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
             _inspector.Inspector.Show(obj);
             var spriteRender = obj.GetComponent<ISpriteRenderComponent>();
@@ -120,7 +120,7 @@ namespace AGS.Engine
             if (spriteRender != null)
             {
                 _lastSelectedObject = spriteRender;
-                IBorderStyle border = null;          
+                IBorderStyle border = null;
                 border = spriteRender.Border;
                 _lastObjectBorder = border;
                 IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
@@ -143,7 +143,7 @@ namespace AGS.Engine
         }
 
         private void selectArea(ITreeStringNode node)
-        { 
+        {
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
             _inspector.Inspector.Show(obj);
             var area = obj.GetComponent<IAreaComponent>();

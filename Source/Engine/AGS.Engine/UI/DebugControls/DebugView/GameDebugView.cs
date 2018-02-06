@@ -97,7 +97,7 @@ namespace AGS.Engine
             horizSplit.IsHorizontal = true;
             horizSplit.TopPanel = _panel;
 
-            _panel.GetComponent<IScaleComponent>().PropertyChanged += (_, args) => 
+            _panel.GetComponent<IScaleComponent>().PropertyChanged += (_, args) =>
             {
                 if (args.PropertyName != nameof(IScaleComponent.Width)) return;
                 _panesButton.X = _panel.Width;
