@@ -131,7 +131,7 @@ namespace AGS.Engine.Desktop
 			}
 		}
 
-        private async void onRepeatedlyExecute()
+        private void onRepeatedlyExecute()
         {
             var cursorState = Mouse.GetCursorState();
             LeftMouseButtonDown = cursorState.LeftButton == ButtonState.Pressed;
@@ -142,7 +142,7 @@ namespace AGS.Engine.Desktop
             {
                 while (_actions.TryDequeue(out var action))
                 {
-                    await action();
+                    action();
                 }
             }
             finally
