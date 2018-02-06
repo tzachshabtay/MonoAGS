@@ -47,6 +47,8 @@
           href: repeat.md
         - name: Effects
           href: effects.md
+        - name: AGS Cheat Sheet
+          href: ags-cheat-sheet.md
 - name: Advanced
   items:
     - name: Entities & Components
