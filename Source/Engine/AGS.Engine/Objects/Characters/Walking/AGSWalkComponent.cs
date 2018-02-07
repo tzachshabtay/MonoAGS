@@ -146,7 +146,8 @@ namespace AGS.Engine
             WalkLineInstruction currentLine = _currentWalkLine;
             if (currentLine == null) return;
 
-            if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 1f || !isWalkable(_translate.Location))
+            if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 1f || 
+                !isWalkable(_translate.Location) || _room?.Room != currentLine.Room)
             {
                 _currentWalkLine = null; //Possible race condition here? If so, need to replace with concurrent queue
                 _lastFrame = null;
@@ -216,7 +217,7 @@ namespace AGS.Engine
 			foreach (var point in walkPoints) 
 			{
                 if (point.X == _translate.X && point.Y == _translate.Y) continue;
-                if (!await walkStraightLine(point, token, debugRenderers))
+                if (!await walkStraightLine(_room?.Room, point, token, debugRenderers))
                     return false;
 			}
 			return true;
@@ -325,15 +326,17 @@ namespace AGS.Engine
             });
         }
 
-		private async Task<bool> walkStraightLine(ILocation destination, 
+		private async Task<bool> walkStraightLine(IRoom room, ILocation destination, 
 			CancellationTokenSource token, List<IObject> debugRenderers)
 		{
+            if (_room?.Room != room) return false;
+
 			if (debugRenderers != null) 
 			{
                 GLLineRenderer line = new GLLineRenderer (_glUtils, _translate.X, _translate.Y, destination.X, destination.Y);
 				IObject renderer = _objFactory.GetObject("Debug Line");
 				renderer.CustomRenderer = line;
-                await renderer.ChangeRoomAsync(_room.Room);
+                await renderer.ChangeRoomAsync(room);
 				debugRenderers.Add (renderer);
 			}
 
@@ -370,7 +373,7 @@ namespace AGS.Engine
             if (_translate.Y > destination.Y) yStep = -yStep;
 
 			WalkLineInstruction instruction = new WalkLineInstruction(token, numSteps, xStep, yStep, 
-                                                                      isBaseStepX, destination);
+                                                                      isBaseStepX, destination, room);
             _currentWalkLine = instruction;
             Task timeout = Task.Delay(WalkLineTimeoutInMilliseconds);
 			Task completedTask = await Task.WhenAny(instruction.OnCompletion.Task, timeout);
@@ -381,7 +384,7 @@ namespace AGS.Engine
                 return false;
             }
 
-            if (instruction.CancelToken.IsCancellationRequested || !isWalkable(_translate.Location))
+            if (instruction.CancelToken.IsCancellationRequested || _room?.Room != room || !isWalkable(_translate.Location))
             {
                 return false;
             }
@@ -406,8 +409,8 @@ namespace AGS.Engine
 
         private PointF adjustWalkSpeedBasedOnArea(PointF walkSpeed)
         {
-            if (_room == null || _room.Room == null || _room.Room.Areas == null ||
-                _drawable.IgnoreScalingArea || !AdjustWalkSpeedToScaleArea) return walkSpeed;
+            if (_room?.Room?.Areas == null || _drawable.IgnoreScalingArea || !AdjustWalkSpeedToScaleArea) 
+                return walkSpeed;
             
             foreach (var area in _room.Room.Areas)
             {
@@ -433,7 +436,7 @@ namespace AGS.Engine
         private class WalkLineInstruction
         {
 			public WalkLineInstruction(CancellationTokenSource token, float numSteps, float xStep, float yStep, 
-                                       bool isBaseStepX, ILocation destination)
+                                       bool isBaseStepX, ILocation destination, IRoom room)
             {
                 CancelToken = token;
                 NumSteps = numSteps;
@@ -442,6 +445,7 @@ namespace AGS.Engine
 				IsBaseStepX = isBaseStepX;
                 OnCompletion = new TaskCompletionSource<object>();
                 Destination = destination;
+                Room = room;
             }
 
             public CancellationTokenSource CancelToken { get; private set; }
@@ -451,6 +455,7 @@ namespace AGS.Engine
             public float YStep { get; private set; }
 			public bool IsBaseStepX { get; private set; }
             public ILocation Destination { get; private set; }
+            public IRoom Room { get; private set; }
         }
     }
 }
