@@ -11,9 +11,9 @@ namespace AGS.Engine.Desktop
     /// <summary>
     /// Code adapted from Duality2D: https://github.com/AdamsLair/duality/blob/7febba7196982e9fa7903a501378bf6e121157fe/Source/Platform/DefaultOpenTK/Backend/Audio/AudioLibraryLoader.cs
     /// 
-    /// This loads the OpenALSoft dll for Windows (basically by renaming the appropriate dll to the binary folder, OpenTK will take it from there
+    /// This loads the OpenALSoft dll for Windows/Linux (basically by renaming the appropriate dll to the binary folder, OpenTK will take it from there
     /// </summary>
-    public static class WindowsOpenALSoftLoader
+    public static class OpenALSoftLoader
     {
         public static void Load()
         {
@@ -22,17 +22,29 @@ namespace AGS.Engine.Desktop
                 Environment.OSVersion.Platform == PlatformID.Win32NT ||
                 Environment.OSVersion.Platform == PlatformID.Win32S ||
                 Environment.OSVersion.Platform == PlatformID.Win32Windows ||
-                Environment.OSVersion.Platform == PlatformID.WinCE;            
+                Environment.OSVersion.Platform == PlatformID.WinCE;
 
-            if (!isWindows)
+            bool isLinux = isRunningLinux();
+
+            if (!isWindows && !isLinux)
                 return;
 
+            string fileName32 = isWindows ? "OpenALSoft32.dll" : "libopenal_32.so.1";
+            string fileName64 = isWindows ? "OpenALSoft64.dll" : "libopenal_64.so.1";
+
             string exeFolder = AppDomain.CurrentDomain.BaseDirectory;
-            string source32BitFilePath = Path.Combine(exeFolder, "OpenALSoft32.dll");
-            string source64BitFilePath = Path.Combine(exeFolder, "OpenALSoft64.dll");
-            const string targetFileName = "OpenAL32.dll";
+            string source32BitFilePath = Path.Combine(exeFolder, fileName32);
+            string source64BitFilePath = Path.Combine(exeFolder, fileName64);
+            string targetFileName = isWindows ? "OpenAL32.dll" : "libopenal.so.1";
 
             copyCorrectFile(source32BitFilePath, source64BitFilePath, targetFileName);
+        }
+
+        private static bool isRunningLinux()
+        {
+            //https://stackoverflow.com/questions/5116977/how-to-check-the-os-version-at-runtime-e-g-windows-or-linux-without-using-a-con
+            int p = (int)Environment.OSVersion.Platform;
+            return (p == 4) || (p == 6) || (p == 128);
         }
 
         private static void copyCorrectFile(string source32BitFilePath, string source64BitFilePath, string targetFilePath)
