@@ -6381,6 +6381,30 @@ references:
   commentId: T:AGS.API.IEntity
   fullName: AGS.API.IEntity
   nameWithType: IEntity
+- uid: AGS.API.IEntity.DisplayName
+  name: DisplayName
+  href: api/AGS.API.IEntity.html#AGS_API_IEntity_DisplayName
+  commentId: P:AGS.API.IEntity.DisplayName
+  fullName: AGS.API.IEntity.DisplayName
+  nameWithType: IEntity.DisplayName
+- uid: AGS.API.IEntity.DisplayName*
+  name: DisplayName
+  href: api/AGS.API.IEntity.html#AGS_API_IEntity_DisplayName_
+  commentId: Overload:AGS.API.IEntity.DisplayName
+  fullName: AGS.API.IEntity.DisplayName
+  nameWithType: IEntity.DisplayName
+- uid: AGS.API.IEntity.GetFriendlyName
+  name: GetFriendlyName()
+  href: api/AGS.API.IEntity.html#AGS_API_IEntity_GetFriendlyName
+  commentId: M:AGS.API.IEntity.GetFriendlyName
+  fullName: AGS.API.IEntity.GetFriendlyName()
+  nameWithType: IEntity.GetFriendlyName()
+- uid: AGS.API.IEntity.GetFriendlyName*
+  name: GetFriendlyName
+  href: api/AGS.API.IEntity.html#AGS_API_IEntity_GetFriendlyName_
+  commentId: Overload:AGS.API.IEntity.GetFriendlyName
+  fullName: AGS.API.IEntity.GetFriendlyName
+  nameWithType: IEntity.GetFriendlyName
 - uid: AGS.API.IEntity.ID
   name: ID
   href: api/AGS.API.IEntity.html#AGS_API_IEntity_ID
@@ -8070,18 +8094,18 @@ references:
   commentId: T:AGS.API.IHotspotComponent
   fullName: AGS.API.IHotspotComponent
   nameWithType: IHotspotComponent
-- uid: AGS.API.IHotspotComponent.Hotspot
-  name: Hotspot
-  href: api/AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_Hotspot
-  commentId: P:AGS.API.IHotspotComponent.Hotspot
-  fullName: AGS.API.IHotspotComponent.Hotspot
-  nameWithType: IHotspotComponent.Hotspot
-- uid: AGS.API.IHotspotComponent.Hotspot*
-  name: Hotspot
-  href: api/AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_Hotspot_
-  commentId: Overload:AGS.API.IHotspotComponent.Hotspot
-  fullName: AGS.API.IHotspotComponent.Hotspot
-  nameWithType: IHotspotComponent.Hotspot
+- uid: AGS.API.IHotspotComponent.DisplayHotspot
+  name: DisplayHotspot
+  href: api/AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_DisplayHotspot
+  commentId: P:AGS.API.IHotspotComponent.DisplayHotspot
+  fullName: AGS.API.IHotspotComponent.DisplayHotspot
+  nameWithType: IHotspotComponent.DisplayHotspot
+- uid: AGS.API.IHotspotComponent.DisplayHotspot*
+  name: DisplayHotspot
+  href: api/AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_DisplayHotspot_
+  commentId: Overload:AGS.API.IHotspotComponent.DisplayHotspot
+  fullName: AGS.API.IHotspotComponent.DisplayHotspot
+  nameWithType: IHotspotComponent.DisplayHotspot
 - uid: AGS.API.IHotspotComponent.Interactions
   name: Interactions
   href: api/AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_Interactions
@@ -9772,6 +9796,21 @@ references:
   commentId: T:AGS.API.IObjectFactory
   fullName: AGS.API.IObjectFactory
   nameWithType: IObjectFactory
+- uid: AGS.API.IObjectFactory.GetAdventureObject(System.String,System.String[],System.String[])
+  name: GetAdventureObject(String, String[], String[])
+  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetAdventureObject_System_String_System_String___System_String___
+  commentId: M:AGS.API.IObjectFactory.GetAdventureObject(System.String,System.String[],System.String[])
+  name.vb: GetAdventureObject(String, String(), String())
+  fullName: AGS.API.IObjectFactory.GetAdventureObject(System.String, System.String[], System.String[])
+  fullName.vb: AGS.API.IObjectFactory.GetAdventureObject(System.String, System.String(), System.String())
+  nameWithType: IObjectFactory.GetAdventureObject(String, String[], String[])
+  nameWithType.vb: IObjectFactory.GetAdventureObject(String, String(), String())
+- uid: AGS.API.IObjectFactory.GetAdventureObject*
+  name: GetAdventureObject
+  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetAdventureObject_
+  commentId: Overload:AGS.API.IObjectFactory.GetAdventureObject
+  fullName: AGS.API.IObjectFactory.GetAdventureObject
+  nameWithType: IObjectFactory.GetAdventureObject
 - uid: AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IAnimationComponent)
   name: GetCharacter(String, IOutfit, IAnimationComponent)
   href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IAnimationComponent_
@@ -9823,15 +9862,12 @@ references:
   commentId: Overload:AGS.API.IObjectFactory.GetHotspotAsync
   fullName: AGS.API.IObjectFactory.GetHotspotAsync
   nameWithType: IObjectFactory.GetHotspotAsync
-- uid: AGS.API.IObjectFactory.GetObject(System.String,System.String[],System.String[])
-  name: GetObject(String, String[], String[])
-  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetObject_System_String_System_String___System_String___
-  commentId: M:AGS.API.IObjectFactory.GetObject(System.String,System.String[],System.String[])
-  name.vb: GetObject(String, String(), String())
-  fullName: AGS.API.IObjectFactory.GetObject(System.String, System.String[], System.String[])
-  fullName.vb: AGS.API.IObjectFactory.GetObject(System.String, System.String(), System.String())
-  nameWithType: IObjectFactory.GetObject(String, String[], String[])
-  nameWithType.vb: IObjectFactory.GetObject(String, String(), String())
+- uid: AGS.API.IObjectFactory.GetObject(System.String)
+  name: GetObject(String)
+  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetObject_System_String_
+  commentId: M:AGS.API.IObjectFactory.GetObject(System.String)
+  fullName: AGS.API.IObjectFactory.GetObject(System.String)
+  nameWithType: IObjectFactory.GetObject(String)
 - uid: AGS.API.IObjectFactory.GetObject*
   name: GetObject
   href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetObject_
@@ -11620,18 +11656,6 @@ references:
   commentId: Overload:AGS.API.ISliderComponent.Label
   fullName: AGS.API.ISliderComponent.Label
   nameWithType: ISliderComponent.Label
-- uid: AGS.API.ISliderComponent.MaxHandleOffset
-  name: MaxHandleOffset
-  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MaxHandleOffset
-  commentId: P:AGS.API.ISliderComponent.MaxHandleOffset
-  fullName: AGS.API.ISliderComponent.MaxHandleOffset
-  nameWithType: ISliderComponent.MaxHandleOffset
-- uid: AGS.API.ISliderComponent.MaxHandleOffset*
-  name: MaxHandleOffset
-  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MaxHandleOffset_
-  commentId: Overload:AGS.API.ISliderComponent.MaxHandleOffset
-  fullName: AGS.API.ISliderComponent.MaxHandleOffset
-  nameWithType: ISliderComponent.MaxHandleOffset
 - uid: AGS.API.ISliderComponent.MaxValue
   name: MaxValue
   href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MaxValue
@@ -11644,18 +11668,6 @@ references:
   commentId: Overload:AGS.API.ISliderComponent.MaxValue
   fullName: AGS.API.ISliderComponent.MaxValue
   nameWithType: ISliderComponent.MaxValue
-- uid: AGS.API.ISliderComponent.MinHandleOffset
-  name: MinHandleOffset
-  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MinHandleOffset
-  commentId: P:AGS.API.ISliderComponent.MinHandleOffset
-  fullName: AGS.API.ISliderComponent.MinHandleOffset
-  nameWithType: ISliderComponent.MinHandleOffset
-- uid: AGS.API.ISliderComponent.MinHandleOffset*
-  name: MinHandleOffset
-  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MinHandleOffset_
-  commentId: Overload:AGS.API.ISliderComponent.MinHandleOffset
-  fullName: AGS.API.ISliderComponent.MinHandleOffset
-  nameWithType: ISliderComponent.MinHandleOffset
 - uid: AGS.API.ISliderComponent.MinValue
   name: MinValue
   href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MinValue
@@ -13705,12 +13717,12 @@ references:
   commentId: T:AGS.API.IUIFactory
   fullName: AGS.API.IUIFactory
   nameWithType: IUIFactory
-- uid: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel,System.Single)
-  name: CreateScrollingPanel(IPanel, Single)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScrollingPanel_AGS_API_IPanel_System_Single_
-  commentId: M:AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel,System.Single)
-  fullName: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel, System.Single)
-  nameWithType: IUIFactory.CreateScrollingPanel(IPanel, Single)
+- uid: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel)
+  name: CreateScrollingPanel(IPanel)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScrollingPanel_AGS_API_IPanel_
+  commentId: M:AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel)
+  fullName: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel)
+  nameWithType: IUIFactory.CreateScrollingPanel(IPanel)
 - uid: AGS.API.IUIFactory.CreateScrollingPanel*
   name: CreateScrollingPanel
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScrollingPanel_
