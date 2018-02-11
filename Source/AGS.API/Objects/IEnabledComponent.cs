@@ -16,7 +16,7 @@
 		/// become enabled if was set to be enabled before.
 		/// </summary>
 		/// <example>
-		/// <code>
+		/// <code language="lang-csharp">
 		/// button.TreeNode.SetParent(null); // the button has no parent
 		/// button.Enabled = true;
 		/// Debug.WriteLine("Is button enabled? {0}, button.Enabled); //This will print "Is button enabled? True".

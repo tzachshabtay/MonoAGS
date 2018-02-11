@@ -18,7 +18,7 @@ namespace AGS.API
 		/// <param name="renderObj">A convenience method that renders an object.</param>
 		/// <example>
 		/// Let's render all objects with a yellow tint:
-		/// <code>
+		/// <code language="lang-csharp">
 		/// public bool RenderBeforeLeavingRoom(List&lt;IObject&gt; displayList, Action&lt;IObject&gt; renderObj)
 		/// {
 		/// 	foreach (var obj in displayList)
@@ -42,7 +42,7 @@ namespace AGS.API
 		/// <param name="to">A screenshot of the room that we entering into.</param>
 		/// <example>
 		/// Let's render the "old" screenshot with half opacity over the "new" screenshot:
-		/// <code>
+		/// <code language="lang-csharp">
 		/// QuadVectors _screenVectors = new QuadVectors(AGSGame.Game); //will create a quad covering the entire screen
 		/// 
 		/// public bool RenderTransition(IFrameBuffer from, IFrameBuffer to)
@@ -66,7 +66,7 @@ namespace AGS.API
 		/// <param name="renderObj">A convenience method that renders an object.</param>
 		/// <example>
 		/// Let's only render every 3rd object!
-		/// <code>
+		/// <code language="lang-csharp">
 		/// for (int i = 0; i &lt; displayList.Count; i++)
 		/// {
 		/// 	if (i %% 3 != 0) continue;

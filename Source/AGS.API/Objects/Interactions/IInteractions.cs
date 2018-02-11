@@ -21,7 +21,7 @@
         /// The interaction event.
         /// </value>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// public void SubscribeEvents()
         /// {
         ///     game.Events.DefaultInteractions.OnInteract("Talk").Subscribe(onDefaultTalk);
@@ -76,7 +76,7 @@
         /// The inventory interaction event.
         /// </value>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// public void SubscribeEvents()
         /// {
         ///     oTeapot.Interactions.OnInventoryInteract(AGSInteractions.Interact).Subscribe(onTeapotInventoryInteract);

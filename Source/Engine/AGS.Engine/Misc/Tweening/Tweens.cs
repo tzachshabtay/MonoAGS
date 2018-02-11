@@ -9,7 +9,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the x position.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenX(200f, 2f, Ease.QuadIn);
         /// await tween.Task;
         /// </code>
@@ -30,7 +30,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the y position.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenY(200f, 2f, Ease.QuadIn);
         /// await tween.Task;
         /// </code>
@@ -51,7 +51,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the z position.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenZ(200f, 2f, Ease.QuadIn);
         /// await tween.Task;
         /// </code>
@@ -72,7 +72,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the angle to rotate.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenAngle(45f, 2f, Ease.Linear);
         /// await tween.Task;
         /// </code>
@@ -93,7 +93,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the opacity of the image.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenOpacity(0, 2f, Ease.Linear); //Fade out
         /// await tween.Task;
         /// </code>
@@ -138,7 +138,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the red tint of the image.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenRed(255, 2f, Ease.QuadIn);
         /// await tween.Task;
         /// </code>
@@ -160,7 +160,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the green tint of the image.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenGreen(255, 2f, Ease.QuadIn);
         /// await tween.Task;
         /// </code>
@@ -182,7 +182,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the blue tint of the image.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenBlue(255, 2f, Ease.QuadIn);
         /// await tween.Task;
         /// </code>
@@ -204,7 +204,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the hue of the image (based on HSLA color scheme).
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenHue(0, 2f, Ease.QuadOut);
         /// await tween.Task;
         /// </code>
@@ -227,7 +227,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the saturation of the image (based on HSLA color scheme).
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenSaturation(0f, 2f, Ease.QuadOut);
         /// await tween.Task;
         /// </code>
@@ -250,7 +250,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the lightness of the image (based on HSLA color scheme).
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenLightness(0f, 2f, Ease.QuadOut);
         /// await tween.Task;
         /// </code>
@@ -273,7 +273,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the pivot point (its x position) of an image.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenPivotX(0.5f, 2f, Ease.SineIn);
         /// await tween.Task;
         /// </code>
@@ -294,7 +294,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the pivot point (its y position) of an image.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenPivotY(0.5f, 2f, Ease.SineIn);
         /// await tween.Task;
         /// </code>
@@ -315,7 +315,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the horizontal scaling of an object.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenScaleX(0.5f, 2f, Ease.SineInOut);
         /// await tween.Task;
         /// </code>
@@ -336,7 +336,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the vertical scaling of an object.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenScaleY(0.5f, 2f, Ease.SineInOut);
         /// await tween.Task;
         /// </code>
@@ -357,7 +357,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the width of an object.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenWidth(100f, 2f, Ease.SineInOut);
         /// await tween.Task;
         /// </code>
@@ -378,7 +378,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the height of an object.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenHeight(100f, 2f, Ease.SineInOut);
         /// await tween.Task;
         /// </code>
@@ -399,7 +399,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the x position of a viewport.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = viewport.TweenX(100f, 2f, Ease.BounceIn);
         /// await tween.Task;
         /// </code>
@@ -420,7 +420,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the y position of a viewport.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = viewport.TweenY(100f, 2f, Ease.BounceIn);
         /// await tween.Task;
         /// </code>
@@ -441,7 +441,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the horizontal zoom of a viewport.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = viewport.TweenScaleX(4f, 2f, Ease.ElasticOut);
         /// await tween.Task;
         /// </code>
@@ -462,7 +462,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the vertical zoom of a viewport.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = viewport.TweenScaleY(4f, 2f, Ease.ElasticOut);
         /// await tween.Task;
         /// </code>
@@ -483,7 +483,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the projected x position of a viewport.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = viewport.TweenProjectX(100f, 2f, Ease.ElasticInOut);
         /// await tween.Task;
         /// </code>
@@ -506,7 +506,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the projected y position of a viewport.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = viewport.TweenProjectY(100f, 2f, Ease.ElasticInOut);
         /// await tween.Task;
         /// </code>
@@ -529,7 +529,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the projected width of a viewport.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = viewport.TweenProjectWidth(100f, 2f, Ease.ElasticInOut);
         /// await tween.Task;
         /// </code>
@@ -552,7 +552,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the projected height of a viewport.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = viewport.TweenProjectHeight(100f, 2f, Ease.ElasticInOut);
         /// await tween.Task;
         /// </code>
@@ -575,7 +575,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the rotated angle of a viewport.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = viewport.TweenAngle(45f, 2f, Ease.ElasticInOut);
         /// await tween.Task;
         /// </code>
@@ -596,7 +596,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the volume of a sound.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = sound.TweenVolume(0f, 2f, Ease.CubeIn);
         /// await tween.Task;
         /// </code>
@@ -617,7 +617,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the pitch of a sound.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = sound.TweenPitch(0f, 2f, Ease.CubeIn);
         /// await tween.Task;
         /// </code>
@@ -639,7 +639,7 @@ namespace AGS.Engine
         /// Tweens the panning of a sound.
         /// Note: Panning can only work on Mono sounds (it will not work for Stereo sounds).
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = sound.TweenPanning(-1f, 2f, Ease.CubeIn); //Pan the sound to the left speaker
         /// await tween.Task;
         /// </code>
@@ -660,7 +660,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the x offset of a texture.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = texture.TweenX(0.5f, 2f, Ease.CubeIn);
         /// await tween.Task;
         /// </code>
@@ -681,7 +681,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the y offset of a texture.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = texture.TweenY(0.5f, 2f, Ease.CubeIn);
         /// await tween.Task;
         /// </code>
@@ -702,7 +702,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the x offset (the left edge) of the crop area.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = crop.TweenX(15f, 2f, Ease.CubeIn);
         /// await tween.Task;
         /// </code>
@@ -723,7 +723,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the y offset (the bottom edge) of the crop area.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = crop.TweenX(15f, 2f, Ease.CubeIn);
         /// await tween.Task;
         /// </code>
@@ -744,7 +744,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the width of the crop area.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = crop.TweenWidth(15f, 2f, Ease.CubeIn);
         /// await tween.Task;
         /// </code>
@@ -765,7 +765,7 @@ namespace AGS.Engine
         /// <summary>
         /// Tweens the height of the crop area.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = crop.TweenHeight(15f, 2f, Ease.CubeIn);
         /// await tween.Task;
         /// </code>

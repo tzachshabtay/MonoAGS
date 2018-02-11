@@ -49,7 +49,7 @@ namespace AGS.API
         /// If the engine does not find the file it will not play an audio clip, and in any way the "&amp;17" will be stripped away from the text and will not be displayed on screen. 
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// cHero.Say("&amp;17 Hello there!"); //Will say "Hello there!" and will play "JASO17.ogg" (assuming the character name is "Jason" and JASO17.ogg exists in Assets/Speech/English)
         /// </code>
         /// </example>
@@ -80,7 +80,7 @@ namespace AGS.API
         /// If the engine does not find the file it will not play an audio clip, and in any way the "&amp;17" will be stripped away from the text and will not be displayed on screen. 
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// await cHero.SayAsync("&amp;17 Hello there!"); //Will say "Hello there!" and will play "JASO17.ogg" (assuming the character name is "Jason" and JASO17.ogg exists in Assets/Speech/English)
         /// 
         /// Task waitForTalk = cHero.SayAsync("Walking Home!");

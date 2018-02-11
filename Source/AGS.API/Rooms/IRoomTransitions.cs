@@ -46,7 +46,7 @@
 		/// <value>The transition.</value>
 		/// <example>
 		/// Let's set a box out transition:
-		/// <code>
+		/// <code language="lang-csharp">
 		/// _gameState.RoomTransitions.Transition = AGSRoomTransitions.BoxOut();
 		/// </code>
 		/// </example>
@@ -59,7 +59,7 @@
 		/// <param name="transition">The room transition to be used once.</param>
 		/// <example>
 		/// Let's set a dissolve transition, only for the next room transition:
-		/// <code>
+		/// <code language="lang-csharp">
 		/// _gameState.RoomTransitions.SetOneTimeNextTransition(AGSRoomTransitions.Dissolve());
 		/// </code>
 		/// </example>

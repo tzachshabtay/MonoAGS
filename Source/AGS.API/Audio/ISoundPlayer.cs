@@ -14,7 +14,7 @@ namespace AGS.API
         /// <param name="properties">Properties.</param>
         /// <example>
         /// In order to play a sound and then asynchronously wait for it to finish:
-        /// <code>
+        /// <code language="lang-csharp">
         /// private async Task onSpecificTrigger()
         /// {
         ///     ISound sound = myAudioClip.Play();

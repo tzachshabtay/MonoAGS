@@ -33,7 +33,7 @@ namespace AGS.API
         /// Suppose you want to replace an existing component in the entity, for example the rotation component.
         /// By using `IRotateComponent` as your type parameter, other components will get your component back when querying for `IRotateComponent`. 
         /// Your component should implement `IRotateComponent`.
-        /// <code>
+        /// <code language="lang-csharp">
         /// public class MyRotateComponent : AGSComponent, IRotateComponent
         /// {
         ///  ...

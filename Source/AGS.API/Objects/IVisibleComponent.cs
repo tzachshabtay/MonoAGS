@@ -15,7 +15,7 @@
         /// become visible if was set to be visible before.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// button.TreeNode.SetParent(null); // the button has no parent
         /// button.Visible = true;
         /// Debug.WriteLine("Is button visible? {0}, button.Visible); //This will print "Is button visible? True".
