@@ -148,7 +148,7 @@ namespace AGS.Engine
             _preCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox, DebugPrintouts ? $"Box Pre Crop ({_entity.ID})" : null);
             if (DebugPrintouts)
             {
-                Debug.WriteLine($"Pre crop for {_entity.ID}: {_preUnlockBoundingBox.ToString()}");
+                Debug.WriteLine($"Pre crop for {_entity.ID}: {_preCropBoundingBoxWithChildren.ToString()}");
             }
             return (!lastBox.Equals(BoundingBoxWithChildren) || !lastPreBox.Equals(PreCropBoundingBoxWithChildren));
         }
