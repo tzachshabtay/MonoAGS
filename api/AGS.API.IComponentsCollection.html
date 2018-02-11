@@ -368,7 +368,7 @@
 Suppose you want to replace an existing component in the entity, for example the rotation component.
 By using <code>IRotateComponent</code> as your type parameter, other components will get your component back when querying for <code>IRotateComponent</code>. 
 Your component should implement <code>IRotateComponent</code>.</p>
-<pre><code>public class MyRotateComponent : AGSComponent, IRotateComponent
+<pre><code class="lang-csharp">public class MyRotateComponent : AGSComponent, IRotateComponent
 {
  ...
 }

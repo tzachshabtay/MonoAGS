@@ -454,7 +454,7 @@ This can be changed, however, by setting this property to a different room limit
   </table>
   <h5 id="AGS_API_IRoom_RoomLimitsProvider_examples">Examples</h5>
   <p>You can use the AGSRoomLimits class, which provides some built in options for room limits:</p>
-<pre><code>room.RoomLimitsProvider = AGSRoomLimits.FromBackground; //This is the default option
+<pre><code class="lang-csharp">room.RoomLimitsProvider = AGSRoomLimits.FromBackground; //This is the default option
 
 room.RoomLimitsProvider = AGSRoomLimits.Infinite; //A room &quot;without&quot; limits. The only limits enforced are due to the coordinates supplied in floating points, so the actual limits for the room will be -3.402823e38 - 3.402823e38 (i.e 3402823 + 38 zeroes).
 

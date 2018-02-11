@@ -116,7 +116,7 @@ perfect fit for footsteps, for example).</p>
     <pre><code class="lang-csharp hljs">public interface ISoundEmitter : ISoundPlayer</code></pre>
   </div>
   <h5 id="AGS_API_ISoundEmitter_examples"><strong>Examples</strong></h5>
-  <pre><code>var footstep = await game.Factory.Sound.LoadAudioClipAsync(&quot;../../Assets/Sounds/footstep.ogg&quot;);
+  <pre><code class="lang-csharp">var footstep = await game.Factory.Sound.LoadAudioClipAsync(&quot;../../Assets/Sounds/footstep.ogg&quot;);
 ISoundEmitter emitter = new AGSSoundEmitter(game);
 emitter.AudioClip = footstep;
 emitter.Object = cHero;

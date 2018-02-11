@@ -397,7 +397,7 @@ Otherwise it would try to place it on a walkable area close by.</p>
 <example>
 Let&apos;s start walking to the chair, say something about it while we&apos;re walking,
 and then properly respond if the user decided they want to walk somewhere else before we got to the chair.<p>
-<pre><code>Task&lt;bool> walkSuccessful = cHero.WalkAsync(oChair.Location);
+<pre><code class="lang-csharp">Task&lt;bool> walkSuccessful = cHero.WalkAsync(oChair.Location);
 await cHero.SayAsync(&quot;I&apos;m walking to the chair!&quot;);
 if (await walkSuccessful)
 {

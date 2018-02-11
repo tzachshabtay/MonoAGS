@@ -145,7 +145,7 @@ public interface IFaceDirectionComponent : IComponent, IDisposable, INotifyPrope
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_CurrentDirectionalAnimation_examples">Examples</h5>
-  <pre><code>cEgo.CurrentDirectionalAnimation = cEgo.Outfit.IdleAnimation;
+  <pre><code class="lang-csharp">cEgo.CurrentDirectionalAnimation = cEgo.Outfit.IdleAnimation;
 cEgo.FaceDirection(Direction.Right); //character is facing right doing nothing (idle).
 cEgo.CurrentDirectionalAnimation = dancingAnimation;
 cEgo.FaceDirection(Direction.Down); //character is now doing a dance right to our face!</code></pre>
@@ -185,7 +185,7 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_Direction_examples">Examples</h5>
-  <pre><code>if (cEgo.Direction == Direction.Down)
+  <pre><code class="lang-csharp">if (cEgo.Direction == Direction.Down)
 {
     cEgo.Say(&quot;I&apos;m looking right at you!&quot;);
 }</code></pre>
@@ -227,7 +227,7 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirection_AGS_API_Direction__examples">Examples</h5>
-  <pre><code>cEgo.FaceDirection(Direction.Up);
+  <pre><code class="lang-csharp">cEgo.FaceDirection(Direction.Up);
 cEgo.Say(&quot;I&apos;m standing with my back at you.&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
@@ -265,7 +265,7 @@ cEgo.Say(&quot;I&apos;m standing with my back at you.&quot;);</code></pre>
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirection_AGS_API_IObject__examples">Examples</h5>
-  <pre><code>cEgo.FaceDirection(oMirror);
+  <pre><code class="lang-csharp">cEgo.FaceDirection(oMirror);
 cEgo.Say(&quot;Mirror mirror on the wall, I&apos;m watching you!&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
@@ -309,7 +309,7 @@ cEgo.Say(&quot;Mirror mirror on the wall, I&apos;m watching you!&quot;);</code><
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirection_System_Single_System_Single__examples">Examples</h5>
-  <pre><code>cEgo.FaceDirection(100f,100f);</code></pre>
+  <pre><code class="lang-csharp">cEgo.FaceDirection(100f,100f);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -364,7 +364,7 @@ cEgo.Say(&quot;Mirror mirror on the wall, I&apos;m watching you!&quot;);</code><
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirection_System_Single_System_Single_System_Single_System_Single__examples">Examples</h5>
-  <pre><code>cGeneral.Say(&quot;Everybody, look at the way I&apos;m looking.&quot;);
+  <pre><code class="lang-csharp">cGeneral.Say(&quot;Everybody, look at the way I&apos;m looking.&quot;);
 cGeneral.FaceDirection(150f, 150f);
 foreach (var soldier in soldiers)
 {
@@ -422,11 +422,11 @@ foreach (var soldier in soldiers)
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_Direction__examples">Examples</h5>
-  <pre><code>private async Task faceDown()
+  <pre><code class="lang-csharp">private async Task faceDown()
 {
     await cEgo.FaceDirectionAsync(Direction.Down);
 }</code></pre>
-<pre><code>private async Task faceDownAndDoStuffInBetween()
+<pre><code class="lang-csharp">private async Task faceDownAndDoStuffInBetween()
 {
     Task faceDirectionCompleted = cEgo.FaceDirectionAsync(Direction.Down);
     cSomeOtherDude.Say(&quot;Let me know when you finished turning around..&quot;);
@@ -485,11 +485,11 @@ foreach (var soldier in soldiers)
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_IObject__examples">Examples</h5>
-  <pre><code>private async Task lookAtMirror()
+  <pre><code class="lang-csharp">private async Task lookAtMirror()
 {
     await cEgo.FaceDirection(oMirror);
 }</code></pre>
-<pre><code>private async Task lookAtMirrorAndDoStuffInBetween()
+<pre><code class="lang-csharp">private async Task lookAtMirrorAndDoStuffInBetween()
 {
     Task faceMirrorCompleted = cEgo.FaceDirectionAsync(oMirror);
     cSomeOtherDude.Say(&quot;Let me know when you see the mirror.&quot;);
@@ -554,7 +554,7 @@ foreach (var soldier in soldiers)
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single__examples">Examples</h5>
-  <pre><code>private async Task face100100()
+  <pre><code class="lang-csharp">private async Task face100100()
 {
     await cEgo.FaceDirection(100f,100f);
 }</code></pre>
@@ -627,7 +627,7 @@ foreach (var soldier in soldiers)
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single_System_Single_System_Single__examples">Examples</h5>
-  <pre><code>private async Task armyLookOneByOne()
+  <pre><code class="lang-csharp">private async Task armyLookOneByOne()
 {
     cGeneral.Say(&quot;Everybody, look at the way I&apos;m looking.&quot;);
     cGeneral.FaceDirection(150f, 150f);
@@ -637,7 +637,7 @@ foreach (var soldier in soldiers)
     }    
     cGeneral.Say(&quot;Took you long enough!&quot;);    
 }</code></pre>
-<pre><code>private async Task armyLookAtTheSameTime()
+<pre><code class="lang-csharp">private async Task armyLookAtTheSameTime()
 {
     cGeneral.Say(&quot;Everybody, look at the way I&apos;m looking.&quot;);
     cGeneral.FaceDirection(150f, 150f);
@@ -649,7 +649,7 @@ foreach (var soldier in soldiers)
     await Task.WhenAll(tasks);
     cGeneral.Say(&quot;Took you long enough!&quot;);
 }</code></pre>
-<pre><code>private async Task armyLookAtRandomTimes()
+<pre><code class="lang-csharp">private async Task armyLookAtRandomTimes()
 {
     cGeneral.Say(&quot;Everybody, look at the way I&apos;m looking.&quot;);
     cGeneral.FaceDirection(150f, 150f);

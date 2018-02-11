@@ -283,7 +283,7 @@ Note: if an animation is an endless loop, this task will never complete (unless 
   </table>
   <h5 id="AGS_API_IAnimationComponent_AnimateAsync_AGS_API_IAnimation__examples">Examples</h5>
   <p>Let&apos;s animate our 3 musical instruments to play at the same time and wait for the first one to complete.</p>
-<pre><code>var trumpetTask = player1.AnimateAsync(trumpetAnimation);
+<pre><code class="lang-csharp">var trumpetTask = player1.AnimateAsync(trumpetAnimation);
 var pianoTask = player2.AnimateAsync(pianoAnimation);
 var drumsTask = player3.AnimateAsync(drumAnimation);
 //As we didn&apos;t await the tasks yet, the trumpet, piano and drums are playing at the same time.

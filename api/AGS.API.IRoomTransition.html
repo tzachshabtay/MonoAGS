@@ -153,7 +153,7 @@ all objects that are rendered in the scene, sorted by their order.</p>
   </table>
   <h5 id="AGS_API_IRoomTransition_RenderAfterEnteringRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject___examples">Examples</h5>
   <p>Let&apos;s only render every 3rd object!</p>
-<pre><code>for (int i = 0; i &lt; displayList.Count; i++)
+<pre><code class="lang-csharp">for (int i = 0; i &lt; displayList.Count; i++)
 {
     if (i %% 3 != 0) continue;
     renderObj(displayList[i]);
@@ -220,7 +220,7 @@ all objects that are rendered in the scene, sorted by their order.</p>
   </table>
   <h5 id="AGS_API_IRoomTransition_RenderBeforeLeavingRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject___examples">Examples</h5>
   <p>Let&apos;s render all objects with a yellow tint:</p>
-<pre><code>public bool RenderBeforeLeavingRoom(List&lt;IObject> displayList, Action&lt;IObject> renderObj)
+<pre><code class="lang-csharp">public bool RenderBeforeLeavingRoom(List&lt;IObject> displayList, Action&lt;IObject> renderObj)
 {
     foreach (var obj in displayList)
     {
@@ -290,7 +290,7 @@ all objects that are rendered in the scene, sorted by their order.</p>
   </table>
   <h5 id="AGS_API_IRoomTransition_RenderTransition_AGS_API_IFrameBuffer_AGS_API_IFrameBuffer__examples">Examples</h5>
   <p>Let&apos;s render the &quot;old&quot; screenshot with half opacity over the &quot;new&quot; screenshot:</p>
-<pre><code>QuadVectors _screenVectors = new QuadVectors(AGSGame.Game); //will create a quad covering the entire screen
+<pre><code class="lang-csharp">QuadVectors _screenVectors = new QuadVectors(AGSGame.Game); //will create a quad covering the entire screen
 
 public bool RenderTransition(IFrameBuffer from, IFrameBuffer to)
 {

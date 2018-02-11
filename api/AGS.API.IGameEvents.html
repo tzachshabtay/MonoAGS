@@ -235,7 +235,7 @@ So it&apos;s important to keep two rules:</p>
   </table>
   <h5 id="AGS_API_IGameEvents_OnRepeatedlyExecute_examples">Examples</h5>
   <p>Let&apos;s look at some bad and good examples on how to use the event:</p>
-<pre><code>private void onRepeatedlyExecute()
+<pre><code class="lang-csharp">private void onRepeatedlyExecute()
 {        
     //BAD!! running the dance animation on every tick will make the game run incredibly slow! 
     performDanceAnimation(); 
@@ -324,7 +324,7 @@ This event can be used to rewire external code back to the game, and to make cha
   <h5 id="AGS_API_IGameEvents_OnSavedGameLoad_examples">Examples</h5>
   <p>This examples show how we rewire external code back to the saved game.
 Let&apos;s say we saved the player to an external variable which is used outside the game state:</p>
-<pre><code>IPlayer _player;
+<pre><code class="lang-csharp">IPlayer _player;
 
 public void LoadModule(IGame game)
 {
@@ -333,7 +333,7 @@ public void LoadModule(IGame game)
 
 <p>All is nice and well, but if we load a saved game, _player will point to the player from before the save.
 We want to &quot;rewire&quot; it back to hold the correct player after the save, so we can rewrite the code like this:</p>
-<pre><code>private IPlayer _player;
+<pre><code class="lang-csharp">private IPlayer _player;
 private IGame _game;
 
 public void LoadModule(IGame game)
@@ -360,7 +360,7 @@ That bowling ball did not exist in the previous version of the game, but since w
 But the player might saved a game after the last point he/she could have acquired the bowling ball.
 We, as game designers, might decide, that if we have the candle, then it&apos;s not possible for us not to have the bowling ball.
 So we can code it like this:</p>
-<pre><code>        
+<pre><code class="lang-csharp">        
 private IGame _game;
 
 public void LoadModule(IGame game)

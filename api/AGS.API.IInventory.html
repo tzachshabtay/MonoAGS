@@ -127,8 +127,8 @@ To deselect the current inventory, set it to null.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IInventory_ActiveItem_examples">Examples</h5>
-  <pre><code>cEgo.ActiveInventory = iKey; //The character is now &quot;holding&quot; the key.</code></pre>
-<pre><code>private void onDoorClicked()
+  <pre><code class="lang-csharp">cEgo.ActiveInventory = iKey; //The character is now &quot;holding&quot; the key.</code></pre>
+<pre><code class="lang-csharp">private void onDoorClicked()
 {
     if (cEgo.ActiveInventory == iKey) openDoor();
     else cEgo.Say(&quot;I can&apos;t open the door without holding the key!&quot;);
@@ -168,7 +168,7 @@ To deselect the current inventory, set it to null.</p>
   </table>
   <h5 id="AGS_API_IInventory_Items_examples">Examples</h5>
   <p>Do I have the key?</p>
-<pre><code>if (Items.Any(item => item == iKey)) cEgo.Say(&quot;I have the key!&quot;);
+<pre><code class="lang-csharp">if (Items.Any(item => item == iKey)) cEgo.Say(&quot;I have the key!&quot;);
 else cEgo.Say(&quot;I don&apos;t have the key!&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
@@ -205,9 +205,9 @@ else cEgo.Say(&quot;I don&apos;t have the key!&quot;);</code></pre>
   </table>
   <h5 id="AGS_API_IInventory_OnDefaultCombination_examples">Examples</h5>
   <p>First, we subscribe to the event:</p>
-<pre><code>cEgo.Inventory.OnDefaultCombination.Subscribe(onDefaultCombination);</code></pre>
+<pre><code class="lang-csharp">cEgo.Inventory.OnDefaultCombination.Subscribe(onDefaultCombination);</code></pre>
 <p>Then, we define the event (what do we do when the user tried to combine two random items?):</p>
-<pre><code>private void onDefaultCombination(object sender, InventoryCombinationEventArgs args)
+<pre><code class="lang-csharp">private void onDefaultCombination(object sender, InventoryCombinationEventArgs args)
 {
     cEgo.Say(string.Format(&quot;I can&apos;t use {0} on {1}. It doesn&apos;t make sense!&quot;, args.ActiveItem.Graphics.Hotspot, args.PassiveItem.Graphics.Hotspot));
 }</code></pre>
@@ -272,10 +272,10 @@ else cEgo.Say(&quot;I don&apos;t have the key!&quot;);</code></pre>
   </table>
   <h5 id="AGS_API_IInventory_OnCombination_AGS_API_IInventoryItem_AGS_API_IInventoryItem__examples">Examples</h5>
   <p>First, we subscribe to the event:</p>
-<pre><code>cEgo.Inventory.OnCombination(iScissors, iRope).Subscribe(cutRope);
+<pre><code class="lang-csharp">cEgo.Inventory.OnCombination(iScissors, iRope).Subscribe(cutRope);
 cEgo.Inventory.OnCombination(iRope, iScissors).Subscribe(cutRope); //Assuming we want a symmetrical combination, we don&apos;t care which item is used on which</code></pre>
 <p>Then, we define the event (we describe what happens when using the scissors and the rope together:</p>
-<pre><code>private void cutRope(object sender, InventoryCombinationEventArgs args)
+<pre><code class="lang-csharp">private void cutRope(object sender, InventoryCombinationEventArgs args)
 {
     displayCutRopeAnimation();
     cEgo.Inventory.Items.Remove(iRope); //No more rope for us!
