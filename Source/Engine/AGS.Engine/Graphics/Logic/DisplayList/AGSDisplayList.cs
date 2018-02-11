@@ -55,7 +55,7 @@ namespace AGS.Engine
             }
         }
 
-        private struct AnimationSubscriber
+        private class AnimationSubscriber
         {
             private IAnimation _lastAnimation;
             private ISprite _lastSprite;

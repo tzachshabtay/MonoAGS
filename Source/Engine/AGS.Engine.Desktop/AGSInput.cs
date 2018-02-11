@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Threading;
+using System.Threading.Tasks;
 using AGS.API;
 using OpenTK;
 using OpenTK.Input;
@@ -17,10 +20,13 @@ namespace AGS.Engine.Desktop
 
         private IObject _mouseCursor;
         private MouseCursor _originalOSCursor;
+        private ConcurrentQueue<Func<Task>> _actions;
+        private int _inUpdate; //For preventing re-entrancy
 
         public AGSInput(GameWindow game, API.Size virtualResolution, IGameState state, IGameEvents events,
                         IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
         {
+            _actions = new ConcurrentQueue<Func<Task>>();
             _windowSize = windowSize;
             this._shouldBlockInput = shouldBlockInput;
             API.MousePosition.VirtualResolution = virtualResolution;
@@ -40,38 +46,38 @@ namespace AGS.Engine.Desktop
             KeyDown = new AGSEvent<KeyboardEventArgs>();
             KeyUp = new AGSEvent<KeyboardEventArgs>();
 
-            game.MouseDown += async (sender, e) =>
+            game.MouseDown += (sender, e) =>
             {
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
-                await MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition));
+                _actions.Enqueue(() => MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition)));
             };
-            game.MouseUp += async (sender, e) =>
+            game.MouseUp += (sender, e) =>
             {
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
-                await MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition));
+                _actions.Enqueue(() => MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition)));
             };
-            game.MouseMove += async (sender, e) =>
+            game.MouseMove += (sender, e) =>
             {
                 if (isInputBlocked()) return;
                 _mouseX = e.Mouse.X;
                 _mouseY = e.Mouse.Y;
-                await MouseMove.InvokeAsync(new MousePositionEventArgs(MousePosition));
+                _actions.Enqueue(() => MouseMove.InvokeAsync(new MousePositionEventArgs(MousePosition)));
             };
-            game.KeyDown += async (sender, e) =>
+            game.KeyDown += (sender, e) =>
             {
                 API.Key key = convert(e.Key);
                 _keysDown.Add(key);
                 if (isInputBlocked()) return;
-                await KeyDown.InvokeAsync(new KeyboardEventArgs(key));
+                _actions.Enqueue(() => KeyDown.InvokeAsync(new KeyboardEventArgs(key)));
             };
-            game.KeyUp += async (sender, e) =>
+            game.KeyUp += (sender, e) =>
             {
                 API.Key key = convert(e.Key);
                 _keysDown.Remove(key);
                 if (isInputBlocked()) return;
-                await KeyUp.InvokeAsync(new KeyboardEventArgs(key));
+                _actions.Enqueue(() => KeyUp.InvokeAsync(new KeyboardEventArgs(key)));
             };
 
             events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
@@ -130,6 +136,19 @@ namespace AGS.Engine.Desktop
             var cursorState = Mouse.GetCursorState();
             LeftMouseButtonDown = cursorState.LeftButton == ButtonState.Pressed;
             RightMouseButtonDown = cursorState.RightButton == ButtonState.Pressed;
+
+            if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
+            try
+            {
+                while (_actions.TryDequeue(out var action))
+                {
+                    action();
+                }
+            }
+            finally
+            {
+                _inUpdate = 0;   
+            }
         }
 
         private AGS.API.Key convert(OpenTK.Input.Key key) => (AGS.API.Key)(int)key;

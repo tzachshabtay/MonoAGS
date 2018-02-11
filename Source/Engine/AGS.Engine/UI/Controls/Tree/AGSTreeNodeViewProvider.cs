@@ -24,11 +24,6 @@ namespace AGS.Engine
                 label.TextConfig = textConfig;
                 label.Text = item.Text;
                 label.TextBackgroundVisible = isSelected;
-                item.PropertyChanged += (sender, e) => 
-                {
-                    if (e.PropertyName != nameof(ITreeStringNode.Text)) return;
-                    label.Text = item.Text;
-                };
             }
             nodeView.TreeItem.Tint = isSelected ? Colors.DarkSlateBlue : Colors.Transparent;
             var expandButton = nodeView.ExpandButton;
@@ -79,6 +74,12 @@ namespace AGS.Engine
             layout.RelativeSpacing = 1f;
             layout.Direction = LayoutDirection.Horizontal;
             layout.StartLayout();
+
+            item.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName != nameof(ITreeStringNode.Text)) return;
+                label.Text = item.Text;
+            };
 
             var nodeView = new AGSTreeNodeView(label, expandButton, parentPanel, verticalPanel, horizontalPanel);
             return nodeView;

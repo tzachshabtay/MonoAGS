@@ -7,10 +7,12 @@ namespace AGS.Engine
     {
 		private readonly IRenderLayer _layer;
 		private readonly IGame _game;
-        private IPanel _panel, _scrollingPanel, _parent;
+        private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
         private InspectorTreeNodeProvider _inspectorNodeView;
+
         const float _padding = 42f;
+        const float _gutterSize = 15f;
 
         public InspectorPanel(IGame game, IRenderLayer layer)
         {
@@ -34,26 +36,27 @@ namespace AGS.Engine
             _searchBox.Pivot = new PointF(0f, 1f);
             _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
 
-            var height = parent.Height - _searchBox.Height;
-            _scrollingPanel = factory.UI.GetPanel("GameDebugInspectorScrollingPanel", parent.Width, height, 0f, height, parent);
+            var height = parent.Height - _searchBox.Height - _gutterSize;
+            _scrollingPanel = factory.UI.GetPanel("GameDebugInspectorScrollingPanel", parent.Width - _gutterSize, height, 0f, parent.Height - _searchBox.Height, parent);
 			_scrollingPanel.RenderLayer = _layer;
 			_scrollingPanel.Pivot = new PointF(0f, 1f);
 			_scrollingPanel.Tint = Colors.Transparent;
             _scrollingPanel.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _contentsPanel = factory.UI.CreateScrollingPanel(_scrollingPanel);
 
-            _panel = factory.UI.GetPanel("GameDebugInspectorPanel", parent.Width, _padding, 0f, height - _padding, _scrollingPanel);
-			_panel.Tint = Colors.Transparent;
-			_panel.RenderLayer = _layer;
-			var treeView = _panel.AddComponent<ITreeViewComponent>();
+            _treePanel = factory.UI.GetPanel("GameDebugInspectorPanel", 0f, 0f, 0f, _contentsPanel.Height - _padding, _contentsPanel);
+			_treePanel.Tint = Colors.Transparent;
+            _treePanel.RenderLayer = _layer;
+            _treePanel.Pivot = new PointF(0f, 1f);
+			var treeView = _treePanel.AddComponent<ITreeViewComponent>();
             treeView.SkipRenderingRoot = true;
 
             Inspector = new AGSInspector(_game.Factory, _game.Settings, _game.State);
-            _panel.AddComponent<IInspectorComponent>(Inspector);
-            factory.UI.CreateScrollingPanel(_scrollingPanel);
+            _treePanel.AddComponent<IInspectorComponent>(Inspector);
 
             _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory, 
-                                                               _game.Events, _panel);
-            _inspectorNodeView.Resize(_parent.Width);
+                                                               _game.Events, _treePanel);
+            _inspectorNodeView.Resize(_contentsPanel.Width);
             treeView.NodeViewProvider = _inspectorNodeView;
 
             _parent.Bind<IScaleComponent>(c => c.PropertyChanged += onParentPanelScaleChanged,
@@ -62,19 +65,20 @@ namespace AGS.Engine
 
 		public void Resize()
 		{
-			_scrollingPanel.Image = new EmptyImage(_parent.Width, _scrollingPanel.Image.Height);
+            _contentsPanel.BaseSize = new SizeF(_parent.Width - _gutterSize, _contentsPanel.Height);
             _searchBox.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
             _searchBox.Watermark.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
-            _inspectorNodeView.Resize(_parent.Width);
+            _inspectorNodeView.Resize(_contentsPanel.Width);
 		}
 
         private void onParentPanelScaleChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IScaleComponent.Height)) return;
-            _scrollingPanel.Image = new EmptyImage(_scrollingPanel.Image.Width, _parent.Height - _searchBox.Height);
+
+            _contentsPanel.BaseSize = new SizeF(_contentsPanel.Width, _parent.Height - _searchBox.Height - _gutterSize);
             _scrollingPanel.Y = _parent.Height - _searchBox.Height;
             _searchBox.Y = _parent.Height;
-            _panel.Y = _scrollingPanel.Height - _padding;
+            _treePanel.Y = _contentsPanel.Height - _padding;
         }
 
         private void onSearchPropertyChanged(object sender, PropertyChangedEventArgs e)

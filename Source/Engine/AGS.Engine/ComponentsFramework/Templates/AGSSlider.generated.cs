@@ -132,6 +132,18 @@ namespace AGS.Engine
             set { _sliderComponent.Value = value; } 
         }
 
+        public Single MinHandleOffset
+        {
+            get { return _sliderComponent.MinHandleOffset; }
+            set { _sliderComponent.MinHandleOffset = value; }
+        }
+
+        public Single MaxHandleOffset
+        {
+            get { return _sliderComponent.MaxHandleOffset; }
+            set { _sliderComponent.MaxHandleOffset = value; }
+        }
+
         public Boolean AllowKeyboardControl 
         {  
             get { return _sliderComponent.AllowKeyboardControl; }  

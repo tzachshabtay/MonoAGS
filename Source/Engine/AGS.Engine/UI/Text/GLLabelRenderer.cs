@@ -125,8 +125,9 @@ namespace AGS.Engine
 
             if (_lastObject != obj)
             {
+                IBlockingEvent boxChangeEvent = obj.GetComponent<IBoundingBoxComponent>()?.OnBoundingBoxesChanged ?? new AGSEvent();
                 AGSBoundingBoxComponent box = new AGSBoundingBoxComponent(_settings, _viewport,
-                                                                          _labelBoundingBoxFakeBuilder, _state, _events);
+                                              _labelBoundingBoxFakeBuilder, _state, _events, boxChangeEvent);
                 obj.RemoveComponent<IBoundingBoxComponent>();
                 obj.AddComponent<IBoundingBoxComponent>(box);
                 _lastObject = obj;

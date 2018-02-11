@@ -329,10 +329,8 @@ namespace AGS.Engine
 
         private Matrix4 getMatrix(PointF resolutionFactor) 
         {
-            if (_spriteRender == null || _spriteRender.CurrentSprite == null)
-                return Matrix4.Identity;
-            var sprite = _spriteRender.CurrentSprite;
-            Matrix4 spriteMatrix = getModelMatrix(sprite, sprite, sprite, sprite, null,
+            var sprite = _spriteRender?.CurrentSprite;
+            Matrix4 spriteMatrix = sprite == null ? Matrix4.Identity : getModelMatrix(sprite, sprite, sprite, sprite, null,
                                                   NoScaling, resolutionFactor, true);
             Matrix4 objMatrix = getModelMatrix(_scale, _rotate, _translate, _image,
                                                _jump, _areaScaling, resolutionFactor, true);

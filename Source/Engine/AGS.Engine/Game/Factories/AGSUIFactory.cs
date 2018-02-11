@@ -55,58 +55,79 @@ namespace AGS.Engine
             return GetPanel(id, image, x, y, parent, addToUi);
         }
 
-        public void CreateScrollingPanel(IPanel panel)
+        public IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f)
         {
-			panel.AddComponent<ICropChildrenComponent>();
-			var box = panel.AddComponent<IBoundingBoxWithChildrenComponent>();
-			IScrollingComponent scroll = panel.AddComponent<IScrollingComponent>();
+            var contentsPanel = GetPanel($"{panel.ID}_Contents", panel.Width, panel.Height, 0f, 0f, panel);
+            contentsPanel.Opacity = 0;
+
+            contentsPanel.RenderLayer = panel.RenderLayer;
+
+            contentsPanel.AddComponent<ICropChildrenComponent>();
+            var box = contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
+            IScrollingComponent scroll = contentsPanel.AddComponent<IScrollingComponent>();
 
             var horizSlider = GetSlider($"{panel.ID}_HorizontalSlider", null, null, 0f, 0f, 0f, panel);
-			horizSlider.HandleGraphics.Pivot = new PointF(0f, 0.5f);
+			horizSlider.HandleGraphics.Pivot = new PointF(0f, 0f);
             horizSlider.Direction = SliderDirection.LeftToRight;
-			horizSlider.Graphics.Pivot = new PointF(0f, 0.5f);
+			horizSlider.Graphics.Pivot = new PointF(0f, 0f);
 			horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
 			horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
             HoverEffect.Add(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
 			HoverEffect.Add(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
             var verSlider = GetSlider($"{panel.ID}_VerticalSlider", null, null, 0f, 0f, 0f, panel);
-			verSlider.HandleGraphics.Pivot = new PointF(0.5f, 0f);
+			verSlider.HandleGraphics.Pivot = new PointF(0f, 0f);
             verSlider.Direction = SliderDirection.TopToBottom;
-			verSlider.Graphics.Pivot = new PointF(0.5f, 0f);
+			verSlider.Graphics.Pivot = new PointF(0f, 0f);
 			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
 			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
+            verSlider.MaxHandleOffset = gutterSize;
 			HoverEffect.Add(verSlider.Graphics, Colors.Gray, Colors.LightGray);
             HoverEffect.Add(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
-            box.EntitiesToSkip.AddRange(new List<string>{ horizSlider.ID, horizSlider.HandleGraphics.ID, horizSlider.Graphics.ID,
-                verSlider.ID, verSlider.HandleGraphics.ID, verSlider.Graphics.ID});
+            (var idle, var hovered, var pushed) = getArrowButtonAnimations(ArrowDirection.Up, 1f);
+            var upButton = GetButton($"{panel.ID}_ScrollUpButton", idle, hovered, pushed, 0f, panel.Height - gutterSize * 2f, verSlider, width: gutterSize, height: gutterSize);
+            upButton.Pivot = new PointF(0f, 1f);
+            upButton.MouseClicked.Subscribe(args => verSlider.Value--);
+
+            (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Down, 1f);
+            var downButton = GetButton($"{panel.ID}_ScrollDownButton", idle, hovered, pushed, 0f, 0f, verSlider, width: gutterSize, height: gutterSize);
+            downButton.Pivot = new PointF(0f, 1f);
+            downButton.MouseClicked.Subscribe(args => verSlider.Value++);
+
+            (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Left, 1f);
+            var leftButton = GetButton($"{panel.ID}_ScrollUpLeft", idle, hovered, pushed, 0f, 0f, horizSlider, width: gutterSize, height: gutterSize);
+            leftButton.Pivot = new PointF(1f, 0f);
+            leftButton.MouseClicked.Subscribe(args => horizSlider.Value--);
+
+            (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Right, 1f);
+            var rightButton = GetButton($"{panel.ID}_ScrollDownRight", idle, hovered, pushed, panel.Width - gutterSize * 2f, 0f, horizSlider, width: gutterSize, height: gutterSize);
+            rightButton.Pivot = new PointF(0f, 0f);
+            rightButton.MouseClicked.Subscribe(args => horizSlider.Value++);
 
             PropertyChangedEventHandler resize = (_, args) =>
             {
                 if (args.PropertyName != nameof(IScaleComponent.Width) && args.PropertyName != nameof(IScaleComponent.Height)) return;
-                const float widthFactor = 25f;
-                const float heightFactor = 25f;
-                float widthUnit = panel.Width / widthFactor;
-                float heightUnit = panel.Height / heightFactor;
-                horizSlider.Graphics.Image = new EmptyImage(panel.Width - widthUnit * 2f, heightUnit / 2f);
-                horizSlider.HandleGraphics.Image = new EmptyImage(widthUnit, heightUnit);
-                verSlider.Graphics.Image = new EmptyImage(widthUnit / 2f, panel.Height - heightUnit * 4f);
-                verSlider.HandleGraphics.Image = new EmptyImage(widthUnit, heightUnit);
-                horizSlider.X = -panel.Width * panel.Pivot.X + widthUnit;
-                horizSlider.Y = heightUnit;
-                verSlider.X = panel.Width - widthUnit;
-                verSlider.Y = heightUnit * 2f;
+                panel.BaseSize = new SizeF(contentsPanel.Width + gutterSize, contentsPanel.Height + gutterSize);
+                horizSlider.Graphics.Image = new EmptyImage(panel.Width - gutterSize * 2f, gutterSize);
+                horizSlider.HandleGraphics.Image = new EmptyImage(gutterSize, gutterSize);
+                verSlider.Graphics.Image = new EmptyImage(gutterSize, panel.Height - gutterSize * 3f);
+                verSlider.HandleGraphics.Image = new EmptyImage(gutterSize, gutterSize);
+                horizSlider.X = -panel.Width * panel.Pivot.X + gutterSize;
+                verSlider.X = panel.Width - gutterSize;
+                verSlider.Y = gutterSize * 2f;
+                upButton.Y = panel.Height - gutterSize * 2f;
+                rightButton.X = panel.Width - gutterSize * 2f;
+                contentsPanel.Y = gutterSize;
             };
-
-            panel.Bind<IStackLayoutComponent>(
-                c => c.EntitiesToIgnore.AddRange(new List<string> { verSlider.ID, horizSlider.ID }), _ =>{});
 
             resize(this, new PropertyChangedEventArgs(nameof(IScaleComponent.Width)));
             scroll.HorizontalScrollBar = horizSlider;
 			scroll.VerticalScrollBar = verSlider;
 
-            panel.Bind<IScaleComponent>(c => c.PropertyChanged += resize, c => c.PropertyChanged -= resize);
+            contentsPanel.Bind<IScaleComponent>(c => c.PropertyChanged += resize, c => c.PropertyChanged -= resize);
+
+            return contentsPanel;
         }
 
         public ILabel GetLabel(string id, string text, float width, float height, float x, float y, IObject parent = null, ITextConfig config = null, bool addToUi = true)
@@ -343,18 +364,9 @@ namespace AGS.Engine
 
             if (dropDownButton == null)
             {
-				var whiteArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.WhiteSmoke, 3f),
-												 _graphics.Icons.GetArrowIcon(ArrowDirection.Down, Colors.WhiteSmoke));
-				var yellowArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.Yellow, 3f),
-													  _graphics.Icons.GetArrowIcon(ArrowDirection.Down, Colors.Yellow));
-				dropDownButton = GetButton(id + "_DropDownButton",
-                                                                  new ButtonAnimation(whiteArrow, null, Colors.Transparent),
-                                                                  new ButtonAnimation(yellowArrow, null, Colors.Transparent),
-                                                                  new ButtonAnimation(yellowArrow, null, Colors.White.WithAlpha(100)),
-                                                                  0f, 0f, comboBox, "", null,
-                                                                  false, 30f, defaultHeight);
-
-				dropDownButton.Border = whiteArrow;
+                (var idle, var hovered, var pushed) = getArrowButtonAnimations(ArrowDirection.Down, 3f);
+				dropDownButton = GetButton(id + "_DropDownButton", idle, hovered, pushed, 0f, 0f, comboBox, "", null, false, 30f, defaultHeight);
+                dropDownButton.Border = idle.Border;
 			}
 			else setParent(dropDownButton, comboBox);
             dropDownButton.RenderLayer = comboBox.RenderLayer;
@@ -380,20 +392,34 @@ namespace AGS.Engine
 				};
             }
 
-            var dropDownPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, comboBox);
-            dropDownPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
-            dropDownPanel.AddComponent<IStackLayoutComponent>();
+            var dropDownPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, null, false);
+            dropDownPanel.Visible = false;
+            _gameState.UI.Add(dropDownPanel);
             dropDownPanel.Border = AGSBorders.SolidColor(Colors.White, 3f);
             dropDownPanel.Tint = Colors.Black;
             dropDownPanel.RenderLayer = dropDownPanelLayer;
-            var listBox = dropDownPanel.AddComponent<IListboxComponent>();
+            _gameState.FocusedUI.CannotLoseFocus.Add(dropDownPanel.ID);
+            var contentsPanel = CreateScrollingPanel(dropDownPanel);
+            var listBox = contentsPanel.AddComponent<IListboxComponent>();
             listBox.ItemButtonFactory = itemButtonFactory;
             listBox.MaxHeight = 300f;
-            CreateScrollingPanel(dropDownPanel);
+
+            Action placePanel = () =>
+            {
+                var box = textBox.GetBoundingBoxes(_gameState.Viewport)?.RenderBox;
+                if (box == null) return;
+                dropDownPanel.Location = new AGSLocation(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
+            };
+
+            textBox.OnBoundingBoxesChanged.Subscribe(placePanel);
+            placePanel();
+
+            contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
+            contentsPanel.AddComponent<IStackLayoutComponent>();
 
             comboBox.DropDownButton = dropDownButton;
             comboBox.TextBox = textBox;
-            comboBox.DropDownPanel = dropDownPanel;
+            comboBox.DropDownPanel = contentsPanel;
 
             setParent(comboBox, parent);
 
@@ -463,6 +489,18 @@ namespace AGS.Engine
             if (addToUi)
                 _gameState.UI.Add(slider);
             return slider;
+        }
+
+        private (ButtonAnimation idle, ButtonAnimation hovered, ButtonAnimation pushed) getArrowButtonAnimations(ArrowDirection direction, float lineWidth)
+        {
+            var whiteArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.WhiteSmoke, lineWidth),
+                                                 _graphics.Icons.GetArrowIcon(direction, Colors.WhiteSmoke));
+            var yellowArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.Yellow, lineWidth),
+                                                  _graphics.Icons.GetArrowIcon(direction, Colors.Yellow));
+
+            return (new ButtonAnimation(whiteArrow, null, Colors.Transparent),
+                    new ButtonAnimation(yellowArrow, null, Colors.Transparent),
+                    new ButtonAnimation(yellowArrow, null, Colors.White.WithAlpha(100)));
         }
 
         private ButtonAnimation validateAnimation(string id, ButtonAnimation button, Func<ButtonAnimation> defaultAnimation, float width, float height)

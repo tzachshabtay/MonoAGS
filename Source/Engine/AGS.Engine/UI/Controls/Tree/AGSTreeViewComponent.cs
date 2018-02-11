@@ -575,7 +575,7 @@ namespace AGS.Engine
                 if (view == null) return;
                 if (_tree.SkipRenderingRoot && Parent == null)
                 {
-                    view.ExpandButton.Visible = false;
+                    view.HorizontalPanel.Visible = false;
                     return;
                 }
                 view.ParentPanel.Visible = !(Parent?.IsCollapsed ?? false) && FilterMode != SearchFilterMode.NotVisible;

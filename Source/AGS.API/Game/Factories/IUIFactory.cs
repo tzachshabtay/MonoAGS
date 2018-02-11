@@ -62,9 +62,12 @@ namespace AGS.API
         /// <summary>
         /// Adds horizontal and vertical scrollbars on the edges of the panel that allow to scroll the contents on the panel.
         /// The scrollbars are only shown if the contents is bigger than panel.
+        /// 
+        /// The function expands the given panel by a gutter size which is used to display the scrollbars, and returns 
+        /// a contents panel with the original size, in which to put the scrolled contents.
         /// </summary>
         /// <param name="panel">Panel.</param>
-        void CreateScrollingPanel(IPanel panel);
+        IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f);
 
         /// <summary>
         /// Creates a label.

@@ -10,6 +10,8 @@ namespace AGS.Engine
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public int GetPropertyChangedSubscriberCount() => PropertyChanged?.GetInvocationList().Length ?? 0;
+
         public AGSComponent()
 		{
 			_type = GetType();

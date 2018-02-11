@@ -19,6 +19,7 @@ namespace AGS.Engine
         private IModelMatrixComponent _matrix;
         private ICropSelfComponent _crop;
         private ISpriteRenderComponent _spriteRender;
+        private IScaleComponent _scale;
         private IDrawableInfoComponent _drawable;
         private ITextureOffsetComponent _textureOffset;
         private IGameSettings _settings;
@@ -29,13 +30,14 @@ namespace AGS.Engine
         private readonly AGSCropInfo _defaultCropInfo = default;
 
         public AGSBoundingBoxComponent(IRuntimeSettings settings, IGLViewportMatrixFactory layerViewports,
-                                       IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events)
+                                       IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events,
+                                       IBlockingEvent onBoundingBoxChanged)
         {
             _boundingBoxes = new ConcurrentDictionary<IViewport, ViewportBoundingBoxes>(new IdentityEqualityComparer<IViewport>());
             _boundingBoxes.TryAdd(state.Viewport, new ViewportBoundingBoxes(state.Viewport));
             _settings = settings;
             _state = state;
-            OnBoundingBoxesChanged = new AGSEvent();
+            OnBoundingBoxesChanged = onBoundingBoxChanged;
             _layerViewports = layerViewports;
             _boundingBoxBuilder = boundingBoxBuilder;
             boundingBoxBuilder.OnNewBoxBuildRequired.Subscribe(onHitTextBoxShouldChange);
@@ -60,6 +62,7 @@ namespace AGS.Engine
             entity.Bind<IImageComponent>(c => c.PropertyChanged += onImageChanged,
                                          c => c.PropertyChanged -= onImageChanged);
             entity.Bind<ISpriteRenderComponent>(c => _spriteRender = c, _ => _spriteRender = null);
+            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
             entity.Bind<IDrawableInfoComponent>(c => { c.PropertyChanged += onDrawableChanged; _drawable = c; },
                                        c => { c.PropertyChanged -= onDrawableChanged; _drawable = null; });
             entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += onTextureOffsetChanged; _textureOffset = c; onAllViewportsShouldChange(); }, 
@@ -123,10 +126,9 @@ namespace AGS.Engine
                 if (!viewportBoxes.IsDirty) return boundingBoxes;
                 if (_drawable?.IgnoreViewport ?? false) return boundingBoxes;
             }
-            var image = _spriteRender?.CurrentSprite?.Image;
             var drawable = _drawable;
             var matrix = _matrix;
-            if (image == null || drawable == null || matrix == null) 
+            if (drawable == null || matrix == null) 
                 return boundingBoxes;
             var boxes = recalculate(viewport, viewportBoxes);
             OnBoundingBoxesChanged.Invoke();
@@ -136,21 +138,23 @@ namespace AGS.Engine
         private AGSBoundingBoxes recalculate(IViewport viewport, ViewportBoundingBoxes viewportBoxes)
         {
             var boundingBoxes = viewportBoxes.BoundingBoxes;
-            var sprite = _spriteRender?.CurrentSprite;
             var drawable = _drawable;
 			var matrix = _matrix;
+            var scale = _scale;
+            var sprite = _spriteRender?.CurrentSprite;
             bool isHitTestBoxDirty = _isHitTestBoxDirty;
 
-            if (sprite?.Image == null || drawable == null || matrix == null)
+            if (scale == null || drawable == null || matrix == null)
             {
                 return boundingBoxes;
             }
 
+            var baseSize = sprite?.BaseSize ?? scale.BaseSize;
             if (isHitTestBoxDirty)
             {
                 _isCropDirty = true;
                 _isHitTestBoxDirty = false;
-                updateHitTestBox(sprite, drawable, matrix);
+                updateHitTestBox(baseSize, drawable, matrix);
             }
             var crop = _crop;
 
@@ -168,8 +172,8 @@ namespace AGS.Engine
             AGSBoundingBox intermediateBox, hitTestBox;
             hitTestBox = _hitTestBox;
 
-			float width = sprite.BaseSize.Width;
-			float height = sprite.BaseSize.Height;
+            float width = baseSize.Width;
+            float height = baseSize.Height;
 
 			if (resolutionMatches)
             {
@@ -202,11 +206,12 @@ namespace AGS.Engine
             else
             {
                 var textureOffset = _textureOffset;
-                if (width != sprite.Image.Width || height != sprite.Image.Height ||
-                    (!textureOffset?.TextureOffset.Equals(Vector2.Zero) ?? false))
+                var image = sprite?.Image;
+                if (image != null && (width != image.Width || height != image.Height ||
+                                      (!textureOffset?.TextureOffset.Equals(Vector2.Zero) ?? false)))
                 {
                     var offset = textureOffset?.TextureOffset ?? PointF.Empty;
-                    setProportionalTextureSize(boundingBoxes, sprite, width, height, offset);
+                    setProportionalTextureSize(boundingBoxes, image, width, height, offset);
                 }
                 else boundingBoxes.TextureBox = null;
             }
@@ -225,17 +230,17 @@ namespace AGS.Engine
 		}
 
         private static void setProportionalTextureSize(AGSBoundingBoxes boundingBoxes,
-                           ISprite sprite, float width, float height, PointF textureOffset)
+                           IImage image, float width, float height, PointF textureOffset)
         {
             float left = textureOffset.X;
             float top = textureOffset.Y;
-            float right = width / sprite.Image.Width + textureOffset.X;
-            float bottom = height / sprite.Image.Height + textureOffset.Y;
+            float right = width / image.Width + textureOffset.X;
+            float bottom = height / image.Height + textureOffset.Y;
             boundingBoxes.TextureBox = new FourCorners<Vector2>(new Vector2(left, bottom), new Vector2(right, bottom),
                                                                 new Vector2(left, top), new Vector2(right, top));
         }
 
-        private void updateHitTestBox(ISprite sprite, IDrawableInfoComponent drawable, IModelMatrixComponent matrix)
+        private void updateHitTestBox(SizeF size, IDrawableInfoComponent drawable, IModelMatrixComponent matrix)
         {
             var modelMatrices = matrix.GetModelMatrices();
             var modelMatrix = modelMatrices.InVirtualResolutionMatrix;
@@ -245,8 +250,8 @@ namespace AGS.Engine
 			bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
 												 drawable, null, out resolutionFactor, out resolution);
             
-            float width = sprite.BaseSize.Width / resolutionFactor.X;
-			float height = sprite.BaseSize.Height / resolutionFactor.Y;
+            float width = size.Width / resolutionFactor.X;
+            float height = size.Height / resolutionFactor.Y;
             _intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, ref modelMatrix);
             _hitTestBox = _boundingBoxBuilder.BuildHitTestBox(ref _intermediateBox);
 		}
