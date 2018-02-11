@@ -30,13 +30,14 @@ namespace AGS.Engine
         private readonly AGSCropInfo _defaultCropInfo = default;
 
         public AGSBoundingBoxComponent(IRuntimeSettings settings, IGLViewportMatrixFactory layerViewports,
-                                       IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events)
+                                       IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events,
+                                       IBlockingEvent onBoundingBoxChanged)
         {
             _boundingBoxes = new ConcurrentDictionary<IViewport, ViewportBoundingBoxes>(new IdentityEqualityComparer<IViewport>());
             _boundingBoxes.TryAdd(state.Viewport, new ViewportBoundingBoxes(state.Viewport));
             _settings = settings;
             _state = state;
-            OnBoundingBoxesChanged = new AGSEvent();
+            OnBoundingBoxesChanged = onBoundingBoxChanged;
             _layerViewports = layerViewports;
             _boundingBoxBuilder = boundingBoxBuilder;
             boundingBoxBuilder.OnNewBoxBuildRequired.Subscribe(onHitTextBoxShouldChange);
