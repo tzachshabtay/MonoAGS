@@ -78,7 +78,7 @@ namespace AGS.Engine
             _contentsPanel.BaseSize = new SizeF(_contentsPanel.Width, _parent.Height - _searchBox.Height - _gutterSize);
             _scrollingPanel.Y = _parent.Height - _searchBox.Height;
             _searchBox.Y = _parent.Height;
-            _treePanel.Y = _contentsPanel.Height;
+            _treePanel.Y = _contentsPanel.Height - _padding;
         }
 
         private void onSearchPropertyChanged(object sender, PropertyChangedEventArgs e)
