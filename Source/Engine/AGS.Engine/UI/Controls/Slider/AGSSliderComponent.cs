@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -98,7 +99,8 @@ namespace AGS.Engine
             {
                 if (MathUtils.FloatEquals(_minValue, value)) return;
                 _minValue = value;
-                refresh();
+                if (Value < _minValue) Value = _minValue;
+                else refresh();
             }
         }
 
@@ -112,7 +114,8 @@ namespace AGS.Engine
             {
                 if (MathUtils.FloatEquals(_maxValue, value)) return;
                 _maxValue = value;
-                refresh();
+                if (Value > _maxValue) Value = _maxValue;
+                else refresh();
             }
         }
 
