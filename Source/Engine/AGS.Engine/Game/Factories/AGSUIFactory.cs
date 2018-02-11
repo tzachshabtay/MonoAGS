@@ -392,14 +392,27 @@ namespace AGS.Engine
 				};
             }
 
-            var dropDownPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, comboBox);
+            var dropDownPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, null, false);
+            dropDownPanel.Visible = false;
+            _gameState.UI.Add(dropDownPanel);
             dropDownPanel.Border = AGSBorders.SolidColor(Colors.White, 3f);
             dropDownPanel.Tint = Colors.Black;
             dropDownPanel.RenderLayer = dropDownPanelLayer;
+            _gameState.FocusedUI.CannotLoseFocus.Add(dropDownPanel.ID);
             var contentsPanel = CreateScrollingPanel(dropDownPanel);
             var listBox = contentsPanel.AddComponent<IListboxComponent>();
             listBox.ItemButtonFactory = itemButtonFactory;
             listBox.MaxHeight = 300f;
+
+            Action placePanel = () =>
+            {
+                var box = textBox.GetBoundingBoxes(_gameState.Viewport)?.RenderBox;
+                if (box == null) return;
+                dropDownPanel.Location = new AGSLocation(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
+            };
+
+            textBox.OnBoundingBoxesChanged.Subscribe(placePanel);
+            placePanel();
 
             contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
             contentsPanel.AddComponent<IStackLayoutComponent>();

@@ -75,7 +75,6 @@ namespace AGS.Engine
                 var listBoxComponent = value.GetComponent<IListboxComponent>();
                 var scrollingImageComponent = scrollingContainer.GetComponent<IImageComponent>();
                 var imageComponent = value.GetComponent<IImageComponent>();
-                var translateComponent = value.GetComponent<ITranslateComponent>();
                 _scrolling = value.GetComponent<IScrollingComponent>();
                 _dropDownPanelVisible = visibleComponent;
 
@@ -83,7 +82,6 @@ namespace AGS.Engine
                 _dropDownPanelList = listBoxComponent;
                 listBoxComponent?.OnSelectedItemChanged.Subscribe(onSelectedItemChanged);
                 if (scrollingImageComponent != null) scrollingImageComponent.Pivot = new PointF(0f, 1f);
-                if (translateComponent != null) translateComponent.Y = -1f;
                 if (visibleComponent != null) visibleComponent.Visible = false;
             }
         }
@@ -150,7 +148,7 @@ namespace AGS.Engine
             }
             else
             {
-                scrollToSuggestion(buttons, buttons[_currentSuggestion], _currentSuggestion);
+                scrollToSuggestion();
             }
         }
 
@@ -201,7 +199,17 @@ namespace AGS.Engine
                     markSuggestion(buttons, newSuggestion);
                     return;
                 }
-            } 
+            }
+            newSuggestion = step > 0 ? 0 : buttons.Count - 1;
+            while (newSuggestion >= 0 && newSuggestion < buttons.Count && newSuggestion != _currentSuggestion)
+            {
+                if (newSuggestion >= 0 && newSuggestion < buttons.Count && buttons[newSuggestion].Visible)
+                {
+                    markSuggestion(buttons, newSuggestion);
+                    return;
+                }
+                newSuggestion += step;
+            }
         }
 
         private void markSuggestion(IButton oldButton, IButton newButton)
@@ -235,47 +243,35 @@ namespace AGS.Engine
             MarkComboboxSuggestion?.Invoke(oldButton, newButton);
             if (newButton != null)
             {
-                scrollToSuggestion(buttons, newButton, newSuggestion);
                 _currentSuggestion = newSuggestion;
+                scrollToSuggestion();
             }
         }
 
-        private void scrollToSuggestion(List<IButton> buttons, IButton button, int index)
+        private async void scrollToSuggestion()
         {
+            if (!_currentlyUsingTextbox || _currentSuggestion < 0) return;
+            await Task.Delay(500); //waiting for buttons on drop-down to change visibility based on the filter -> todo: find a better way
+            List<IButton> buttons = _dropDownPanelList.ItemButtons.ToList();
+            if (_currentSuggestion >= buttons.Count) return;
+            var button = buttons[_currentSuggestion];
             var crop = button.GetComponent<ICropSelfComponent>();
             if (crop == null) return;
 
             if (crop.CropArea.Height >= button.Height) return;
-                
-            var firstVisible = findFirstVisibleSuggestion(buttons);
-            if (firstVisible < 0)
-            {
-                _scrolling.VerticalScrollBar.Value = _scrolling.VerticalScrollBar.MinValue;
-                return;
-            }
 
-            int step = firstVisible > index ? -1 : 1;
-            int retries = 1000;
+            var visibleButtons = buttons.Where(b => b.Visible).ToList();
+            if (visibleButtons.Count == 0) return;
+            int index = visibleButtons.IndexOf(button);
+            if (index < 0) return;
 
-            while (crop.CropArea.Height < button.Height && retries > 0 &&
-                   (step < 0 || _scrolling.VerticalScrollBar.Value < _scrolling.VerticalScrollBar.MaxValue) &&
-                   (step > 0 || _scrolling.VerticalScrollBar.Value > _scrolling.VerticalScrollBar.MinValue))
-            {
-                _scrolling.VerticalScrollBar.Value += step;
-                retries--;
-            }
-        }
+            var totalHeight = button.Height * visibleButtons.Count;
+            var heightToReachButton = button.Height * index;
 
-        private int findFirstVisibleSuggestion(List<IButton> buttons)
-        {
-            for (int index = 0; index < buttons.Count; index++)
-            {
-                var button = buttons[index];
-                if (!button.Visible) continue;
-                var crop = button.GetComponent<ICropSelfComponent>();
-                if (crop != null && MathUtils.FloatEquals(crop.CropArea.Height, button.Height)) return index;
-            }
-            return -1;
+            var sliderValue = MathUtils.Lerp(0f, _scrolling.VerticalScrollBar.MinValue,
+                                             totalHeight, _scrolling.VerticalScrollBar.MaxValue, heightToReachButton);
+
+            _scrolling.VerticalScrollBar.Value = sliderValue;                
         }
 
         private void onSelectedItemChanged(ListboxItemArgs args)
@@ -308,7 +304,11 @@ namespace AGS.Engine
 
         private void onDropDownClicked(MouseButtonEventArgs args)
         {
-            if (_dropDownPanelVisible != null) _dropDownPanelVisible.Visible = !_dropDownPanelVisible.Visible;
+            if (_dropDownPanelVisible != null)
+            {
+                bool visible = _dropDownPanelVisible.Visible;
+                _dropDownPanelVisible.Visible = !visible;
+            }
             if (_currentlyUsingTextbox)
             {
                 var buttons = _dropDownPanelList.ItemButtons.ToList();
