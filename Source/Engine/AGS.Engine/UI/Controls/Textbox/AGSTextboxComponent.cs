@@ -12,7 +12,6 @@ namespace AGS.Engine
         private IImageComponent _imageComponent;
         private IVisibleComponent _visibleComponent;
         private IDrawableInfoComponent _drawableComponent;
-        private ISpriteRenderComponent _spriteComponent;
         private IUIEvents _uiEvents;        
         private IInObjectTreeComponent _tree;
         private IHasRoomComponent _room;
@@ -55,7 +54,6 @@ namespace AGS.Engine
                 _textComponent = null;
                 c.PropertyChanged -= onTextPropertyChanged;
             });
-            entity.Bind<IImageComponent>(c => _imageComponent = c, _ => _imageComponent = null);
             entity.Bind<IUIEvents>(c =>
             {
                 _uiEvents = c;
@@ -71,22 +69,20 @@ namespace AGS.Engine
             entity.Bind<IHasRoomComponent>(c => _room = c, _ => _room = null);
             entity.Bind<IVisibleComponent>(c => _visibleComponent = c, _ => _visibleComponent = null);
 
-            _game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
-
             _caretFlashCounter = (int)CaretFlashDelay;
             _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _withCaret.Pivot = new PointF(0f, 0f);
             _withCaret.TextBackgroundVisible = false;
 
-            entity.Bind<ISpriteRenderComponent>(c =>
+            entity.Bind<IImageComponent>(c =>
             {
-                c.PropertyChanged += onSpritePropertyChanged;
-                _spriteComponent = c;
+                c.PropertyChanged += onImagePropertyChanged;
+                _imageComponent = c;
                 updateBorder();
             }, c =>
             {
-                c.PropertyChanged -= onSpritePropertyChanged;
-                _spriteComponent = null;
+                c.PropertyChanged -= onImagePropertyChanged;
+                _imageComponent = null;
                 updateBorder();
             });
 
@@ -100,6 +96,8 @@ namespace AGS.Engine
                 c.PropertyChanged -= onDrawableChanged; 
                 _drawableComponent = null; 
             });
+
+            _game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
         private void onTextPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -108,15 +106,15 @@ namespace AGS.Engine
             updateWatermark();
         }
 
-        private void onSpritePropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void onImagePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(ISpriteRenderComponent.Border)) return;
+            if (e.PropertyName != nameof(IImageComponent.Border)) return;
             updateBorder();
         }
 
         private void updateBorder()
         {
-            _withCaret.Border = _spriteComponent?.Border;
+            _withCaret.Border = _imageComponent?.Border;
         }
 
         public override void AfterInit()

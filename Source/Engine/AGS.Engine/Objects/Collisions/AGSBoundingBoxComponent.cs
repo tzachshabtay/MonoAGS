@@ -18,7 +18,7 @@ namespace AGS.Engine
         private AGSBoundingBox _hitTestBox, _intermediateBox;
         private IModelMatrixComponent _matrix;
         private ICropSelfComponent _crop;
-        private ISpriteRenderComponent _spriteRender;
+        private IImageComponent _image;
         private IScaleComponent _scale;
         private IDrawableInfoComponent _drawable;
         private ITextureOffsetComponent _textureOffset;
@@ -59,9 +59,8 @@ namespace AGS.Engine
                                                c => { c.OnMatrixChanged.Unsubscribe(onHitTextBoxShouldChange); _matrix = null; });
             entity.Bind<ICropSelfComponent>(c => { c.PropertyChanged += onCropShouldChange; _crop = c; },
                                             c => { c.PropertyChanged -= onCropShouldChange; _crop = null; });
-            entity.Bind<IImageComponent>(c => c.PropertyChanged += onImageChanged,
-                                         c => c.PropertyChanged -= onImageChanged);
-            entity.Bind<ISpriteRenderComponent>(c => _spriteRender = c, _ => _spriteRender = null);
+            entity.Bind<IImageComponent>(c => { _image = c; c.PropertyChanged += onImageChanged; },
+                                         c => { _image = null; c.PropertyChanged -= onImageChanged; });
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
             entity.Bind<IDrawableInfoComponent>(c => { c.PropertyChanged += onDrawableChanged; _drawable = c; },
                                        c => { c.PropertyChanged -= onDrawableChanged; _drawable = null; });
@@ -141,7 +140,7 @@ namespace AGS.Engine
             var drawable = _drawable;
 			var matrix = _matrix;
             var scale = _scale;
-            var sprite = _spriteRender?.CurrentSprite;
+            var sprite = _image?.CurrentSprite;
             bool isHitTestBoxDirty = _isHitTestBoxDirty;
 
             if (scale == null || drawable == null || matrix == null)

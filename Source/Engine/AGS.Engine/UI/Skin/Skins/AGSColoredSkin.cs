@@ -26,7 +26,7 @@ namespace AGS.Engine
 
         public PointF DefaultItemSize = new PointF(100f, 50f);
 
-        private ButtonAnimation getAnimation(ISpriteRenderComponent container, ButtonAnimation animation)
+        private ButtonAnimation getAnimation(IImageComponent container, ButtonAnimation animation)
         {
             if (animation.Border == null || container == null || container.Border == null) return animation;
             ButtonAnimation newAnimation = new ButtonAnimation(AGSBorders.Multiple(container.Border, animation.Border),
@@ -41,21 +41,21 @@ namespace AGS.Engine
 
             skin.AddRule(entity => entity.GetComponent<IButtonComponent>() != null, entity => 
             {
-                var spriteRender = entity.GetComponent<ISpriteRenderComponent>();
+                var image = entity.GetComponent<IImageComponent>();
                 var button = entity.GetComponent<IButtonComponent>();
-                button.IdleAnimation = getAnimation(spriteRender, ButtonIdleAnimation);
-                button.HoverAnimation = getAnimation(spriteRender, ButtonHoverAnimation);
-                button.PushedAnimation = getAnimation(spriteRender, ButtonPushedAnimation);
+                button.IdleAnimation = getAnimation(image, ButtonIdleAnimation);
+                button.HoverAnimation = getAnimation(image, ButtonHoverAnimation);
+                button.PushedAnimation = getAnimation(image, ButtonPushedAnimation);
             });
 
             skin.AddRule(entity => entity.GetComponent<ICheckboxComponent>() != null, entity => 
             {
-                var spriteRender = entity.GetComponent<ISpriteRenderComponent>();
+                var image = entity.GetComponent<IImageComponent>();
                 var button = entity.GetComponent<ICheckboxComponent>();
-                button.NotCheckedAnimation = getAnimation(spriteRender, CheckboxNotCheckedAnimation);
-                button.CheckedAnimation = getAnimation(spriteRender, CheckboxCheckedAnimation);
-                button.HoverCheckedAnimation = getAnimation(spriteRender, CheckboxHoverCheckedAnimation);
-                button.HoverNotCheckedAnimation = getAnimation(spriteRender, CheckboxHoverNotCheckedAnimation);
+                button.NotCheckedAnimation = getAnimation(image, CheckboxNotCheckedAnimation);
+                button.CheckedAnimation = getAnimation(image, CheckboxCheckedAnimation);
+                button.HoverCheckedAnimation = getAnimation(image, CheckboxHoverCheckedAnimation);
+                button.HoverNotCheckedAnimation = getAnimation(image, CheckboxHoverNotCheckedAnimation);
             });
 
             skin.AddRule(entity =>
@@ -75,9 +75,11 @@ namespace AGS.Engine
             }, entity =>
             {
                 var imageComponent = entity.GetComponent<IImageComponent>();
-                if (imageComponent != null) imageComponent.Tint = DialogBoxColor;
-                var spriteRender = entity.GetComponent<ISpriteRenderComponent>();
-                if (spriteRender != null) spriteRender.Border = DialogBoxBorder;
+                if (imageComponent != null)
+                {
+                    imageComponent.Tint = DialogBoxColor;
+                    imageComponent.Border = DialogBoxBorder;
+                }
             });
 
             skin.AddRule(entity =>
@@ -110,11 +112,10 @@ namespace AGS.Engine
 
             skin.AddRule<ITextBoxComponent>(entity =>
             {
-                var spriteComponent = entity.GetComponent<ISpriteRenderComponent>();
                 var image = entity.GetComponent<IImageComponent>();
-                if (spriteComponent == null) return;
+                if (image == null) return;
                 image.Tint = TextBoxBackColor;
-                spriteComponent.Border = TextBoxBorderStyle;
+                image.Border = TextBoxBorderStyle;
             });
 
             return skin;

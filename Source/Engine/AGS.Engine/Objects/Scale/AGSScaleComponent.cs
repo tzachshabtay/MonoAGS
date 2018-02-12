@@ -10,7 +10,7 @@ namespace AGS.Engine
     {
         private IScale _scale;
         private readonly Resolver _resolver;
-        private ISpriteRenderComponent _spriteRender;
+        private IImageComponent _image;
 
         public AGSScaleComponent(Resolver resolver)
         {
@@ -22,15 +22,16 @@ namespace AGS.Engine
             base.Init(entity);
             entity.Bind<IImageComponent>(c =>
             {
+                _image = c;
                 TypedParameter imageParam = new TypedParameter(typeof(IHasImage), c);
                 _scale = _resolver.Container.Resolve<IScale>(imageParam);
                 _scale.PropertyChanged += onScalePropertyChanged;
             }, c =>
             {
+                _image = null;
                 _scale = null;
                 c.PropertyChanged -= onScalePropertyChanged;
             });
-            entity.Bind<ISpriteRenderComponent>(c => _spriteRender = c, _ => _spriteRender = null);
         }
 
         [Property(Category = "Size")]
@@ -94,7 +95,7 @@ namespace AGS.Engine
 
         private ISprite getSprite()
         {
-            return _spriteRender?.CurrentSprite;
+            return _image?.CurrentSprite;
         }
 
         private void onScalePropertyChanged(object sender, PropertyChangedEventArgs args)

@@ -6,7 +6,7 @@ namespace AGS.Engine
 	{
 		private IGameState _state;
 		private IDrawableInfoComponent _drawableInfo;
-		private ISpriteRenderComponent _obj;
+		private IImageComponent _obj;
         private IScale _scale;
         private IPixelPerfectCollidable _pixelPerfect;
         private IEntity _entity;
@@ -22,7 +22,7 @@ namespace AGS.Engine
 			base.Init(entity);
             _entity = entity;
             entity.Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => _drawableInfo = null);
-            entity.Bind<ISpriteRenderComponent>(c => _obj = c, _ => _obj = null);
+            entity.Bind<IImageComponent>(c => _obj = c, _ => _obj = null);
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
             entity.Bind<IPixelPerfectComponent>(c => _pixelPerfect = c, _ => _pixelPerfect = null);
             entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
