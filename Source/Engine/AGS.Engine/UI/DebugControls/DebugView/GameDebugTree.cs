@@ -16,7 +16,7 @@ namespace AGS.Engine
         private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
 
-        private ISpriteRenderComponent _lastSelectedObject;
+        private IImageComponent _lastSelectedObject;
         private IVisibleComponent _lastSelectedMaskVisible;
         private IImageComponent _lastSelectedMaskImage;
         private IBorderStyle _lastObjectBorder;
@@ -117,31 +117,31 @@ namespace AGS.Engine
         { 
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
             _inspector.Inspector.Show(obj);
-            var spriteRender = obj.GetComponent<ISpriteRenderComponent>();
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
-            if (spriteRender != null)
+            if (image != null)
             {
-                _lastSelectedObject = spriteRender;
+                _lastSelectedObject = image;
                 IBorderStyle border = null;          
-                border = spriteRender.Border;
+                border = image.Border;
                 _lastObjectBorder = border;
                 IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
                                                                                       Colors.Yellow.WithAlpha(150), Colors.Yellow), 1, true);
-                if (border == null) spriteRender.Border = hoverBorder;
-                else spriteRender.Border = AGSBorders.Multiple(border, hoverBorder);
+                if (border == null) image.Border = hoverBorder;
+                else image.Border = AGSBorders.Multiple(border, hoverBorder);
+
+                if (image.Opacity == 0)
+                {
+                    _lastOpacity = image.Opacity;
+                    _lastSelectedMaskImage = image;
+                    image.Opacity = 100;
+                }
             }
             if (visibleComponent != null)
             {
                 _lastMaskVisible = visibleComponent.Visible;
                 _lastSelectedMaskVisible = visibleComponent;
                 visibleComponent.Visible = true;
-            }
-            if (image != null && image.Opacity == 0)
-            {
-                _lastOpacity = image.Opacity;
-                _lastSelectedMaskImage = image;
-                image.Opacity = 100;
             }
         }
 

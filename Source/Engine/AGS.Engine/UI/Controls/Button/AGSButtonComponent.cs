@@ -5,7 +5,6 @@ namespace AGS.Engine
 	public class AGSButtonComponent : AGSComponent, IButtonComponent
 	{
 		private IUIEvents _events;
-        private ISpriteRenderComponent _spriteRender;
 		private IAnimationComponent _animation;
         private ITextComponent _text;
         private IImageComponent _image;
@@ -13,7 +12,6 @@ namespace AGS.Engine
 		public override void Init(IEntity entity)
 		{
 			base.Init(entity);
-            entity.Bind<ISpriteRenderComponent>(c => _spriteRender = c, _ => _spriteRender = null);
             entity.Bind<IAnimationComponent>(c => _animation = c, _ => _animation = null);
             entity.Bind<ITextComponent>(c => _text = c, _ => _text = null);
             entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
@@ -64,7 +62,7 @@ namespace AGS.Engine
 
         private void startAnimation(ButtonAnimation button)
         {
-            button.StartAnimation(_animation, _text, _image, _spriteRender);
+            button.StartAnimation(_animation, _text, _image);
         }
 	}
 }

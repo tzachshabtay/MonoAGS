@@ -17,9 +17,9 @@ namespace AGS.Engine
         {
             base.Init(entity);
 
-            entity.Bind<ISpriteRenderComponent>(c =>
+            entity.Bind<IImageComponent>(c =>
             {
-                TypedParameter spriteParam = new TypedParameter(typeof(ISpriteRenderComponent), c);
+                TypedParameter spriteParam = new TypedParameter(typeof(IImageComponent), c);
                 _pixelPerfect = _resolver.Container.Resolve<IPixelPerfectCollidable>(spriteParam);
             }, c => { c.Dispose(); _pixelPerfect = null; });
         }

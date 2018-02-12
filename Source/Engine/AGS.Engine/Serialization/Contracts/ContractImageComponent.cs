@@ -6,9 +6,9 @@ using AGS.API;
 namespace AGS.Engine
 {
     [ProtoContract]
-    public class ContractSpriteRenderComponent : IContract<ISpriteRenderComponent>
+    public class ContractImageComponent : IContract<IImageComponent>
     {
-        public ContractSpriteRenderComponent()
+        public ContractImageComponent()
         {
         }
         
@@ -21,27 +21,33 @@ namespace AGS.Engine
         [ProtoMember(3)]
         public IContract<IBorderStyle> Border { get; set; }
 
+        [ProtoMember(4)]
+        public IContract<IImage> Image { get; set; }
+
         #region IContract implementation
 
-        public ISpriteRenderComponent ToItem(AGSSerializationContext context)
+        public IImageComponent ToItem(AGSSerializationContext context)
         {
-            AGSSpriteRenderComponent container = new AGSSpriteRenderComponent();
+            AGSHasImage image = new AGSHasImage();
+            AGSImageComponent container = new AGSImageComponent(image, context.Factory.Graphics);
             ToItem(context, container);
             return container;
         }
 
-        public void ToItem(AGSSerializationContext context, ISpriteRenderComponent container)
+        public void ToItem(AGSSerializationContext context, AGSImageComponent container)
         {
             container.SpriteProvider = SpriteProvider.ToItem(context);
             container.Border = Border.ToItem(context);
             container.DebugDrawPivot = DebugDrawPivot;
+            container.Image = Image.ToItem(context);
         }
 
-        public void FromItem(AGSSerializationContext context, ISpriteRenderComponent item)
+        public void FromItem(AGSSerializationContext context, IImageComponent item)
         {
             SpriteProvider = context.GetContract(item.SpriteProvider);
             Border = context.GetContract(item.Border);
             DebugDrawPivot = item.DebugDrawPivot;
+            Image = context.GetContract(item.Image);
         }
 
         #endregion

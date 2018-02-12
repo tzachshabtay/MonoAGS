@@ -58,7 +58,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Graphics\Drawing\AGSSpriteRenderComponent.cs" />
     <Compile Include="Graphics\Image\AGSHasImage.cs" />
     <Compile Include="Graphics\Image\AGSImageComponent.cs" />
     <Compile Include="Graphics\Logic\Interfaces\IGLUtils.cs" />
@@ -214,7 +213,7 @@
     <Compile Include="Serialization\AGSSerializationContext.cs" />
     <Compile Include="Serialization\Contract.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimation.cs" />
-    <Compile Include="Serialization\Contracts\ContractSpriteRenderComponent.cs" />
+    <Compile Include="Serialization\Contracts\ContractImageComponent.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimationConfiguration.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimationComponent.cs" />
     <Compile Include="Serialization\Contracts\ContractAnimationFrame.cs" />
@@ -532,12 +531,5 @@
   <ItemGroup />
   <ItemGroup />
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Graphics\Logic\DisplayList\" />
-    <Folder Include="UI\DebugControls\DebugView\Inspector\" />
-    <Folder Include="UI\DebugControls\DebugView\Inspector\Editors\" />
-    <Folder Include="UI\Controls\Editors\" />
-    <Folder Include="Objects\Subscriptions\" />
-    <Folder Include="UI\Layouts\TreeTable\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

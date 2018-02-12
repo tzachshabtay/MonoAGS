@@ -7,7 +7,7 @@ namespace AGS.Engine
 	public class AGSAnimationComponent : AGSComponent, IAnimationComponent, ISpriteProvider
 	{
         private IScale _scale;
-        private ISpriteRenderComponent _spriteRender;
+        private IImageComponent _image;
 
 		public AGSAnimationComponent()
 		{
@@ -22,9 +22,9 @@ namespace AGS.Engine
         {
             base.Init(entity);
             entity.Bind<IScaleComponent>(c => _scale = c, c => _scale = null);
-            entity.Bind<ISpriteRenderComponent>(
-                c => { _spriteRender = c; c.PropertyChanged += onSpriteRenderPropertyChanged; },
-                c => { c.PropertyChanged -= onSpriteRenderPropertyChanged; _spriteRender = null; } );
+            entity.Bind<IImageComponent>(
+                c => { _image = c; c.PropertyChanged += onSpriteRenderPropertyChanged; },
+                c => { c.PropertyChanged -= onSpriteRenderPropertyChanged; _image = null; } );
         }
 
         public void StartAnimation(IAnimation animation)
@@ -40,8 +40,8 @@ namespace AGS.Engine
             Animation = animation;
             animation.State.PropertyChanged += onAnimationStatePropertyChanged;
             OnAnimationStarted.Invoke();
-            if (_spriteRender != null)
-                _spriteRender.SpriteProvider = this;
+            if (_image != null)
+                _image.SpriteProvider = this;
         }
 
 		public AnimationCompletedEventArgs Animate (IAnimation animation)
@@ -79,9 +79,9 @@ namespace AGS.Engine
 
         private void onSpriteRenderPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(ISpriteRenderComponent.SpriteProvider))
+            if (e.PropertyName != nameof(IImageComponent.SpriteProvider))
                 return;
-            if (_spriteRender.SpriteProvider != this)
+            if (_image.SpriteProvider != this)
             {
                 stopAnimation();
                 Animation = null;

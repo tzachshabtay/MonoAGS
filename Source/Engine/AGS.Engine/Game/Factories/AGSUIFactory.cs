@@ -180,7 +180,7 @@ namespace AGS.Engine
             setParent(button, parent);
 
             button.Skin?.Apply(button);
-            button.IdleAnimation.StartAnimation(button, button, button, button);
+            button.IdleAnimation.StartAnimation(button, button, button);
 
             if (addToUi)
                 _gameState.UI.Add(button);
@@ -303,7 +303,7 @@ namespace AGS.Engine
             setParent(checkbox, parent);
 
             checkbox.Skin?.Apply(checkbox);
-            checkbox.NotCheckedAnimation.StartAnimation(checkbox, checkbox.TextLabel, checkbox, checkbox);
+            checkbox.NotCheckedAnimation.StartAnimation(checkbox, checkbox.TextLabel, checkbox);
 
             if (addToUi)
                 _gameState.UI.Add(checkbox);
