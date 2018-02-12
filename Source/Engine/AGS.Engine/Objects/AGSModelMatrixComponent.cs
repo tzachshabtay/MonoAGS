@@ -13,7 +13,6 @@ namespace AGS.Engine
         private int _shouldFireOnUnlock, _pendingLocks;
         private ModelMatrices _matrices, _preLockMatrices;
 
-        private ISpriteRenderComponent _spriteRender;
         private IInObjectTreeComponent _tree;
         private IScaleComponent _scale;
         private ITranslateComponent _translate;
@@ -57,9 +56,6 @@ namespace AGS.Engine
 
         public override void AfterInit()
         {
-            _entity.Bind<ISpriteRenderComponent>(
-                c => { _spriteRender = c; _spriteRender.PropertyChanged += onSpriteChanged; onSomethingChanged(); },
-                c => { _spriteRender = null; _spriteRender.PropertyChanged -= onSpriteChanged; onSomethingChanged(); });
             _entity.Bind<IHasRoomComponent>(
                 c => { _room = c; refreshAreaScaling(); subscribeRoom(); onSomethingChanged(); },
                 c => { unsubscribeRoom(c); _room = null; refreshAreaScaling(); onSomethingChanged(); });
@@ -182,15 +178,6 @@ namespace AGS.Engine
             }
         }
 
-        private void onSpriteChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(ISpriteRenderComponent.CurrentSprite)) return;
-            unsubscribeSprite(_sprite);
-            _sprite = _spriteRender?.CurrentSprite;
-            subscribeSprite(_sprite);
-            onSomethingChanged();
-        }
-
         private void onSpritePropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(ISprite.X) && args.PropertyName != nameof(ISprite.Y) &&
@@ -229,7 +216,14 @@ namespace AGS.Engine
         private void onImageChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IImageComponent.Pivot) 
-                && args.PropertyName != nameof(IImageComponent.CustomRenderer)) return;
+                && args.PropertyName != nameof(IImageComponent.CustomRenderer)
+                && args.PropertyName != nameof(IImageComponent.CurrentSprite)) return;
+            if (args.PropertyName == nameof(IImageComponent.CurrentSprite))
+            {
+                unsubscribeSprite(_sprite);
+                _sprite = _image?.CurrentSprite;
+                subscribeSprite(_sprite);
+            }
             onSomethingChanged();
             if (args.PropertyName == nameof(IImageComponent.CustomRenderer))
             {
@@ -296,13 +290,13 @@ namespace AGS.Engine
         private void subscribeSprite(ISprite sprite)
         {
             if (sprite == null) return;
-            sprite.PropertyChanged += onSpriteChanged;
+            sprite.PropertyChanged += onSpritePropertyChanged;
         }
 
         private void unsubscribeSprite(ISprite sprite)
         {
             if (sprite == null) return;
-            sprite.PropertyChanged -= onSpriteChanged;
+            sprite.PropertyChanged -= onSpritePropertyChanged;
         }
 
         private ref ModelMatrices recalculateMatrices()
@@ -329,7 +323,7 @@ namespace AGS.Engine
 
         private Matrix4 getMatrix(PointF resolutionFactor) 
         {
-            var sprite = _spriteRender?.CurrentSprite;
+            var sprite = _image?.CurrentSprite;
             Matrix4 spriteMatrix = sprite == null ? Matrix4.Identity : getModelMatrix(sprite, sprite, sprite, sprite, null,
                                                   NoScaling, resolutionFactor, true);
             Matrix4 objMatrix = getModelMatrix(_scale, _rotate, _translate, _image,
