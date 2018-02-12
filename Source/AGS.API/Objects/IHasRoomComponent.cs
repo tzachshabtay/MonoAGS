@@ -34,7 +34,7 @@ namespace AGS.API
         /// <param name="x">An optional x co-ordinate for the entity to move inside the new room.</param>
         /// <param name="y">An optional y co-ordinate for the entity to move inside the new room.</param>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// private void onDoorHotspotClicked()
         /// {
         ///     cPlayer.Say("Ok, time to get inside the house.");

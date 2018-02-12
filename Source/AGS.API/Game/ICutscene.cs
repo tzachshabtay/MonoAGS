@@ -42,7 +42,7 @@
         /// be run if the cutscene is being skipped over.        
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// if (!cutscene.IsSkipping)
         /// {
         ///    aScaryMusic.Play();
@@ -57,7 +57,7 @@
         /// When the player chooses to skip a cutscene all of the script code is run as usual, but any blocking commands are run through without the usual game cycle delays. 
         /// Therefore, you should never normally need to use this property since cutscenes should all be handled automatically, but it could be useful for script modules.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// if (cutscene.IsRunning)
         /// {
         ///    //Do Something

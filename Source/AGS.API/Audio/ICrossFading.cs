@@ -35,7 +35,7 @@ namespace AGS.API
         /// If the audio clip for the old room is set to fade out, this allows you to set the easing function for the fade out (linear, ease-in, etc).
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// game.AudioSettings.RoomMusicCrossFading.EaseFadeOut = Ease.QuadOut;
         /// </code>
         /// </example>
@@ -46,7 +46,7 @@ namespace AGS.API
         /// If the audio clip for the new room is set to fade in, this allows you to set the easing function for the fade in (linear, ease-in, etc).
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// game.AudioSettings.RoomMusicCrossFading.EaseFadeIn = Ease.CubeInOut;
         /// </code>
         /// </example>

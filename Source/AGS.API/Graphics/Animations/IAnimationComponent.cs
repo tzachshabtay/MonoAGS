@@ -42,7 +42,7 @@ namespace AGS.API
         /// </summary>
         /// <example>
         /// Let's animate our 3 musical instruments to play at the same time and wait for the first one to complete.
-        /// <code>
+        /// <code language="lang-csharp">
         /// var trumpetTask = player1.AnimateAsync(trumpetAnimation);
         /// var pianoTask = player2.AnimateAsync(pianoAnimation);
         /// var drumsTask = player3.AnimateAsync(drumAnimation);

@@ -42,7 +42,7 @@ namespace AGS.API
         /// A task that can be used to await a playing sound asynchronously until it completes (do not use on a looping sound).
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// private async Task onMusicBoxInteract()
         /// {
         ///     ISound sound = musicBoxAudioClip.Play();

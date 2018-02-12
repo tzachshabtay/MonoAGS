@@ -38,7 +38,7 @@ namespace AGS.API
         /// not the current size. (1,1) is the default, meaning no scale.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// sprite.ResetScale(10f,10f);
         /// sprite.Scale = new PointF(2f, 1f);
         /// Debug.WriteLine("Size of sprite is ({0},{1})", sprite.Width, sprite.Height); //prints "Size of sprite is (20,10)"
@@ -73,7 +73,7 @@ namespace AGS.API
         /// <param name="width">Width.</param>
         /// <param name="height">Height.</param>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// sprite.ResetScale(10f,10f);
         /// sprite.ScaleTo(20f,30f);
         /// Debug.WriteLine("Sprite is scaled by ({0},{1})", sprite.ScaleX, sprite.ScaleY); //prints "Sprite is scaled by (2,3)"

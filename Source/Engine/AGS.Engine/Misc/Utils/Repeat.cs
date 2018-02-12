@@ -74,7 +74,7 @@ namespace AGS.Engine
         /// </summary>
         /// <example>
         /// This can be useful when wanting to have multiple responses for an interaction which repeat themselves:
-        /// <code>
+        /// <code language="lang-csharp">
         /// private void someDefaultInteraction()
         /// {
         ///    Repeat.Rotate("default interaction",
@@ -102,7 +102,7 @@ namespace AGS.Engine
         /// </summary>
         /// <example>
         /// This can be useful when wanting to have multiple responses for an interaction which repeat themselves:
-        /// <code>
+        /// <code language="lang-csharp">
         /// private async Task someDefaultInteraction()
         /// {
         ///    await Repeat.RotateAsync("default interaction",

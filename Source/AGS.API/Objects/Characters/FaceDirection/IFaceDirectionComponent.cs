@@ -34,7 +34,7 @@ namespace AGS.API
         /// The direction.
         /// </value>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// if (cEgo.Direction == Direction.Down)
         /// {
         ///     cEgo.Say("I'm looking right at you!");
@@ -49,7 +49,7 @@ namespace AGS.API
         /// The current directional animation.
         /// </value>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// cEgo.CurrentDirectionalAnimation = cEgo.Outfit.IdleAnimation;
         /// cEgo.FaceDirection(Direction.Right); //character is facing right doing nothing (idle).
         /// cEgo.CurrentDirectionalAnimation = dancingAnimation;
@@ -63,7 +63,7 @@ namespace AGS.API
         /// </summary>
         /// <param name="direction">The direction to face.</param>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// cEgo.FaceDirection(Direction.Up);
         /// cEgo.Say("I'm standing with my back at you.");
         /// </code>
@@ -75,13 +75,13 @@ namespace AGS.API
         /// <param name="direction">The direction to face.</param>
         /// <returns>The task that should be awaited on to signal completion.</returns>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// private async Task faceDown()
         /// {
         ///     await cEgo.FaceDirectionAsync(Direction.Down);
         /// }
         /// </code>
-        /// <code>
+        /// <code language="lang-csharp">
         /// private async Task faceDownAndDoStuffInBetween()
         /// {
         ///     Task faceDirectionCompleted = cEgo.FaceDirectionAsync(Direction.Down);
@@ -98,7 +98,7 @@ namespace AGS.API
         /// </summary>
         /// <param name="obj">The object to face.</param>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// cEgo.FaceDirection(oMirror);
         /// cEgo.Say("Mirror mirror on the wall, I'm watching you!");
         /// </code>
@@ -110,13 +110,13 @@ namespace AGS.API
         /// <param name="obj">The object to face.</param>
         /// <returns>The task that should be awaited on to signal completion.</returns>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// private async Task lookAtMirror()
         /// {
         ///     await cEgo.FaceDirection(oMirror);
         /// }
         /// </code>
-        /// <code>
+        /// <code language="lang-csharp">
         /// private async Task lookAtMirrorAndDoStuffInBetween()
         /// {
         ///     Task faceMirrorCompleted = cEgo.FaceDirectionAsync(oMirror);
@@ -134,7 +134,7 @@ namespace AGS.API
         /// <param name="x">The x position.</param>
         /// <param name="y">The y position.</param>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// cEgo.FaceDirection(100f,100f);
         /// </code>
         /// </example>
@@ -146,7 +146,7 @@ namespace AGS.API
         /// <param name="y">The y position.</param>
         /// <returns>The task that should be awaited on to signal completion.</returns>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// private async Task face100100()
         /// {
         ///     await cEgo.FaceDirection(100f,100f);
@@ -163,7 +163,7 @@ namespace AGS.API
         /// <param name="toX">To x.</param>
         /// <param name="toY">To y.</param>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// cGeneral.Say("Everybody, look at the way I'm looking.");
         /// cGeneral.FaceDirection(150f, 150f);
         /// foreach (var soldier in soldiers)
@@ -181,7 +181,7 @@ namespace AGS.API
         /// <param name="toX">To x.</param>
         /// <param name="toY">To y.</param>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// private async Task armyLookOneByOne()
         /// {
         ///     cGeneral.Say("Everybody, look at the way I'm looking.");
@@ -193,7 +193,7 @@ namespace AGS.API
         ///     cGeneral.Say("Took you long enough!");    
         /// }
         /// </code>
-        /// <code>
+        /// <code language="lang-csharp">
         /// private async Task armyLookAtTheSameTime()
         /// {
         ///     cGeneral.Say("Everybody, look at the way I'm looking.");
@@ -207,7 +207,7 @@ namespace AGS.API
         ///     cGeneral.Say("Took you long enough!");
         /// }
         /// </code>
-        /// <code>
+        /// <code language="lang-csharp">
         /// private async Task armyLookAtRandomTimes()
         /// {
         ///     cGeneral.Say("Everybody, look at the way I'm looking.");

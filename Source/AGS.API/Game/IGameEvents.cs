@@ -30,7 +30,7 @@
         /// </value>
         /// <example>
         /// Let's look at some bad and good examples on how to use the event:
-        /// <code>
+        /// <code language="lang-csharp">
         /// private void onRepeatedlyExecute()
         /// {        
         ///     //BAD!! running the dance animation on every tick will make the game run incredibly slow! 
@@ -77,7 +77,7 @@
         /// <example>
         /// This examples show how we rewire external code back to the saved game.
         /// Let's say we saved the player to an external variable which is used outside the game state:
-        /// <code>
+        /// <code language="lang-csharp">
         /// IPlayer _player;
         /// 
         /// public void LoadModule(IGame game)
@@ -88,7 +88,7 @@
         /// 
         /// All is nice and well, but if we load a saved game, _player will point to the player from before the save.
         /// We want to "rewire" it back to hold the correct player after the save, so we can rewrite the code like this:
-        /// <code>
+        /// <code language="lang-csharp">
         /// private IPlayer _player;
         /// private IGame _game;
         /// 
@@ -118,7 +118,7 @@
         /// But the player might saved a game after the last point he/she could have acquired the bowling ball.
         /// We, as game designers, might decide, that if we have the candle, then it's not possible for us not to have the bowling ball.
         /// So we can code it like this:
-        /// <code>        
+        /// <code language="lang-csharp">        
         /// private IGame _game;
         /// 
         /// public void LoadModule(IGame game)

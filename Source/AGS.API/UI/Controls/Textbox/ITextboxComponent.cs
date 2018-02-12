@@ -22,7 +22,7 @@
         /// First, we'll subscribe to the event. Then, if a space key is pressed, we'll cancel its processing.
         /// Also, let's say that our textbox is inside a dialog, and we want the enter key to close the dialog (and then do something with the text).
         /// We'll listen to the enter key in the same dialog to close it.
-        /// <code>
+        /// <code language="lang-csharp">
         /// _myTextbox.OnPressingKey.Subscribe(onPressingKey);
         /// ...
         /// ...

@@ -17,7 +17,7 @@ namespace AGS.API
         /// <summary>
         /// Gets or sets the tinting color for the object.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// cHero.Tint = Colors.Red; //will give our here a red tint.
         /// </code>
         /// </example>
@@ -36,7 +36,7 @@ namespace AGS.API
         /// point of the image.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// image.Pivot = new PointF(0.5f, 0.5f); //placing the pivot point in the middle of the image
         /// </code>
         /// </example>

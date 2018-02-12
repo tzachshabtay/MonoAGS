@@ -11,7 +11,7 @@ namespace AGS.API
     /// and the other without. Each outfit will have different walk, idle and speak animations (one with a jacket and 
     /// the other without).
     /// </example>
-    /// <code>
+    /// <code language="lang-csharp">
     /// private void onJacketClicked()
     /// {
     ///     cPlayer.Say("Let's wear the jacket!"); //The character speaks with the "no jacket" outfit
@@ -26,7 +26,7 @@ namespace AGS.API
         /// Some built in keys are expected by some components to change animations (idle, walk, speak).
         /// Custom animations can be added and accessed from the outfit as needed.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// cPlayer.Outfit[AGSOutfit.Walk] = aCrazyWalkAnimation;
         /// cPlayer.Outfit[AGSOutfit.Idle] = aPlayingYoyoAnimation;
         /// cPlayer.Outfit[AGSOutfit.Speak] = aScaryAnimation;
