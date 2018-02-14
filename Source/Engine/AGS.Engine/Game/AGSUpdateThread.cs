@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AGS.Engine
@@ -25,6 +26,8 @@ namespace AGS.Engine
 
         private IGameWindow _window;
         private bool _isExiting => _window.IsExiting;
+
+        private SpinWait _spinner = new SpinWait();
 
         public AGSUpdateThread(IGameWindow window)
         {
@@ -204,6 +207,7 @@ namespace AGS.Engine
                     break;
                 }
             }
+            _spinner.SpinOnce();
         }
 
         private void RaiseUpdateFrame(double elapsed, ref double timestamp)
