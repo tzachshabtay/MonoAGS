@@ -4,7 +4,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-    public abstract class AGSComponent : IComponent, INotifyPropertyChanged
+    public abstract class AGSComponent : API.IComponent, INotifyPropertyChanged
 	{
 		private Type _type;
 
