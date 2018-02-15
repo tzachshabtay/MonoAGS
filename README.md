@@ -1,6 +1,6 @@
 # MonoAGS
 AGS (Adventure Game Studio) reimagined in Mono
- 
+
 ### Builds:
 
 | Windows            | Android            | Linux            | Mac            |
@@ -25,13 +25,33 @@ Code Coverage:
 
 Install Visual Studio 2017 Community, make sure to install both the dot net framework workflow and the mobile workflow.
 Right click the solution and build.
-Please note that you will not be able to run IOS without a Mac.
+
+To be able to build for Android, follow the tutorial here for setting up: https://developer.xamarin.com/guides/cross-platform/getting_started/installation/windows/#Installation
+You'll also need to setup your Android device for testing purposes, see here for instructions:  https://developer.xamarin.com/guides/android/getting_started/installation/set_up_device_for_development/.
+Once you're setup, select the `AndroidRelease` configuration and the `ARM` architecture (both should be available from the drop downs at the top bar), and then you can build and run.
+
+Please note that you will not be able to run IOS without a Mac, but if you own a Mac, it's possible to connect the Mac to the Windows machine, and run from Windows, see here for setup: https://developer.xamarin.com/guides/ios/getting_started/installation/windows/.
+
 To run the unit tests, please install the NUnit 2 Test Adapter (available from Visual Studio, tools menu -> Extensions and Updates... -> Online).
 
 #### On Mac:
 
-Install the latest edition of Xamarin Studio Community Edition.
+Install Visual Studio for Mac Community Edition.
 Right click the solution and build.
+
+To be able to build for Android, follow the tutorial here for setting up: https://developer.xamarin.com/get-started-droid/
+You'll also need to setup your Android device for testing purposes, see here for instructions:  https://developer.xamarin.com/guides/android/getting_started/installation/set_up_device_for_development/.
+Once you're setup, select the `AndroidRelease` configuration and the `ARM` architecture (both should be available from the drop downs at the top bar), and then you can build and run.
+
+To be able to build for IOS, follow the tutorial here for setting up: https://developer.xamarin.com/guides/ios/getting_started/installation/
+You'll also need to setup your Android device for testing purposes, see here for instructions:  https://developer.xamarin.com/guides/ios/getting_started/installation/device_provisioning/.
+
+#### On Linux:
+
+Install Mono and MonoDevelop.
+Right click the solution and build.
+
+It's not currently possible compiling for Android & IOS from Linux.
 
 ### Documentation
 
