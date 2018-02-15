@@ -719,7 +719,7 @@ UI layer is next, to ensure that it can always be seen (unless obstructed by tex
 This is followed by the Foreground layer, which is the default for all non UI objects.
 And lastly the Background layer, which is the default for the room&apos;s background graphics.
 You can assign those layers yourself, using AGSLayers static class:<br><example><p>
-<pre><code class="lang-csharp">cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!</code></pre>
+<pre><code>cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!</code></pre>
 <p></example></p>
 </section>
       <h4><a class="xref" href="AGS.API.IResource.html">IResource</a></h4>
@@ -897,6 +897,10 @@ and have a split line in between which can be dragged to resize both panels at t
 </section>
       <h4><a class="xref" href="AGS.API.ISpriteProvider.html">ISpriteProvider</a></h4>
       <section><p>Interface of a single sprite source.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ISpriteRenderComponent.html">ISpriteRenderComponent</a></h4>
+      <section><p>A component that renders an entity using 2D sprites.
+A sprite and other properties may be set either by user or by other components.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISpriteSheet.html">ISpriteSheet</a></h4>
       <section><p>Represents a sprite sheet: An image that contains multiple sprites in it, with some

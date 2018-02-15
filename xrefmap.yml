@@ -8292,54 +8292,6 @@ references:
   commentId: T:AGS.API.IImageComponent
   fullName: AGS.API.IImageComponent
   nameWithType: IImageComponent
-- uid: AGS.API.IImageComponent.Border
-  name: Border
-  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_Border
-  commentId: P:AGS.API.IImageComponent.Border
-  fullName: AGS.API.IImageComponent.Border
-  nameWithType: IImageComponent.Border
-- uid: AGS.API.IImageComponent.Border*
-  name: Border
-  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_Border_
-  commentId: Overload:AGS.API.IImageComponent.Border
-  fullName: AGS.API.IImageComponent.Border
-  nameWithType: IImageComponent.Border
-- uid: AGS.API.IImageComponent.CurrentSprite
-  name: CurrentSprite
-  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_CurrentSprite
-  commentId: P:AGS.API.IImageComponent.CurrentSprite
-  fullName: AGS.API.IImageComponent.CurrentSprite
-  nameWithType: IImageComponent.CurrentSprite
-- uid: AGS.API.IImageComponent.CurrentSprite*
-  name: CurrentSprite
-  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_CurrentSprite_
-  commentId: Overload:AGS.API.IImageComponent.CurrentSprite
-  fullName: AGS.API.IImageComponent.CurrentSprite
-  nameWithType: IImageComponent.CurrentSprite
-- uid: AGS.API.IImageComponent.DebugDrawPivot
-  name: DebugDrawPivot
-  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_DebugDrawPivot
-  commentId: P:AGS.API.IImageComponent.DebugDrawPivot
-  fullName: AGS.API.IImageComponent.DebugDrawPivot
-  nameWithType: IImageComponent.DebugDrawPivot
-- uid: AGS.API.IImageComponent.DebugDrawPivot*
-  name: DebugDrawPivot
-  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_DebugDrawPivot_
-  commentId: Overload:AGS.API.IImageComponent.DebugDrawPivot
-  fullName: AGS.API.IImageComponent.DebugDrawPivot
-  nameWithType: IImageComponent.DebugDrawPivot
-- uid: AGS.API.IImageComponent.SpriteProvider
-  name: SpriteProvider
-  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_SpriteProvider
-  commentId: P:AGS.API.IImageComponent.SpriteProvider
-  fullName: AGS.API.IImageComponent.SpriteProvider
-  nameWithType: IImageComponent.SpriteProvider
-- uid: AGS.API.IImageComponent.SpriteProvider*
-  name: SpriteProvider
-  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_SpriteProvider_
-  commentId: Overload:AGS.API.IImageComponent.SpriteProvider
-  fullName: AGS.API.IImageComponent.SpriteProvider
-  nameWithType: IImageComponent.SpriteProvider
 - uid: AGS.API.IImageRenderer
   name: IImageRenderer
   href: api/AGS.API.IImageRenderer.html
@@ -11704,18 +11656,6 @@ references:
   commentId: Overload:AGS.API.ISliderComponent.Label
   fullName: AGS.API.ISliderComponent.Label
   nameWithType: ISliderComponent.Label
-- uid: AGS.API.ISliderComponent.MaxHandleOffset
-  name: MaxHandleOffset
-  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MaxHandleOffset
-  commentId: P:AGS.API.ISliderComponent.MaxHandleOffset
-  fullName: AGS.API.ISliderComponent.MaxHandleOffset
-  nameWithType: ISliderComponent.MaxHandleOffset
-- uid: AGS.API.ISliderComponent.MaxHandleOffset*
-  name: MaxHandleOffset
-  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MaxHandleOffset_
-  commentId: Overload:AGS.API.ISliderComponent.MaxHandleOffset
-  fullName: AGS.API.ISliderComponent.MaxHandleOffset
-  nameWithType: ISliderComponent.MaxHandleOffset
 - uid: AGS.API.ISliderComponent.MaxValue
   name: MaxValue
   href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MaxValue
@@ -11728,18 +11668,6 @@ references:
   commentId: Overload:AGS.API.ISliderComponent.MaxValue
   fullName: AGS.API.ISliderComponent.MaxValue
   nameWithType: ISliderComponent.MaxValue
-- uid: AGS.API.ISliderComponent.MinHandleOffset
-  name: MinHandleOffset
-  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MinHandleOffset
-  commentId: P:AGS.API.ISliderComponent.MinHandleOffset
-  fullName: AGS.API.ISliderComponent.MinHandleOffset
-  nameWithType: ISliderComponent.MinHandleOffset
-- uid: AGS.API.ISliderComponent.MinHandleOffset*
-  name: MinHandleOffset
-  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MinHandleOffset_
-  commentId: Overload:AGS.API.ISliderComponent.MinHandleOffset
-  fullName: AGS.API.ISliderComponent.MinHandleOffset
-  nameWithType: ISliderComponent.MinHandleOffset
 - uid: AGS.API.ISliderComponent.MinValue
   name: MinValue
   href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_MinValue
@@ -12283,6 +12211,60 @@ references:
   commentId: Overload:AGS.API.ISpriteProvider.Sprite
   fullName: AGS.API.ISpriteProvider.Sprite
   nameWithType: ISpriteProvider.Sprite
+- uid: AGS.API.ISpriteRenderComponent
+  name: ISpriteRenderComponent
+  href: api/AGS.API.ISpriteRenderComponent.html
+  commentId: T:AGS.API.ISpriteRenderComponent
+  fullName: AGS.API.ISpriteRenderComponent
+  nameWithType: ISpriteRenderComponent
+- uid: AGS.API.ISpriteRenderComponent.Border
+  name: Border
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_Border
+  commentId: P:AGS.API.ISpriteRenderComponent.Border
+  fullName: AGS.API.ISpriteRenderComponent.Border
+  nameWithType: ISpriteRenderComponent.Border
+- uid: AGS.API.ISpriteRenderComponent.Border*
+  name: Border
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_Border_
+  commentId: Overload:AGS.API.ISpriteRenderComponent.Border
+  fullName: AGS.API.ISpriteRenderComponent.Border
+  nameWithType: ISpriteRenderComponent.Border
+- uid: AGS.API.ISpriteRenderComponent.CurrentSprite
+  name: CurrentSprite
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_CurrentSprite
+  commentId: P:AGS.API.ISpriteRenderComponent.CurrentSprite
+  fullName: AGS.API.ISpriteRenderComponent.CurrentSprite
+  nameWithType: ISpriteRenderComponent.CurrentSprite
+- uid: AGS.API.ISpriteRenderComponent.CurrentSprite*
+  name: CurrentSprite
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_CurrentSprite_
+  commentId: Overload:AGS.API.ISpriteRenderComponent.CurrentSprite
+  fullName: AGS.API.ISpriteRenderComponent.CurrentSprite
+  nameWithType: ISpriteRenderComponent.CurrentSprite
+- uid: AGS.API.ISpriteRenderComponent.DebugDrawPivot
+  name: DebugDrawPivot
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_DebugDrawPivot
+  commentId: P:AGS.API.ISpriteRenderComponent.DebugDrawPivot
+  fullName: AGS.API.ISpriteRenderComponent.DebugDrawPivot
+  nameWithType: ISpriteRenderComponent.DebugDrawPivot
+- uid: AGS.API.ISpriteRenderComponent.DebugDrawPivot*
+  name: DebugDrawPivot
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_DebugDrawPivot_
+  commentId: Overload:AGS.API.ISpriteRenderComponent.DebugDrawPivot
+  fullName: AGS.API.ISpriteRenderComponent.DebugDrawPivot
+  nameWithType: ISpriteRenderComponent.DebugDrawPivot
+- uid: AGS.API.ISpriteRenderComponent.SpriteProvider
+  name: SpriteProvider
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_SpriteProvider
+  commentId: P:AGS.API.ISpriteRenderComponent.SpriteProvider
+  fullName: AGS.API.ISpriteRenderComponent.SpriteProvider
+  nameWithType: ISpriteRenderComponent.SpriteProvider
+- uid: AGS.API.ISpriteRenderComponent.SpriteProvider*
+  name: SpriteProvider
+  href: api/AGS.API.ISpriteRenderComponent.html#AGS_API_ISpriteRenderComponent_SpriteProvider_
+  commentId: Overload:AGS.API.ISpriteRenderComponent.SpriteProvider
+  fullName: AGS.API.ISpriteRenderComponent.SpriteProvider
+  nameWithType: ISpriteRenderComponent.SpriteProvider
 - uid: AGS.API.ISpriteSheet
   name: ISpriteSheet
   href: api/AGS.API.ISpriteSheet.html
@@ -13735,12 +13717,12 @@ references:
   commentId: T:AGS.API.IUIFactory
   fullName: AGS.API.IUIFactory
   nameWithType: IUIFactory
-- uid: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel,System.Single)
-  name: CreateScrollingPanel(IPanel, Single)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScrollingPanel_AGS_API_IPanel_System_Single_
-  commentId: M:AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel,System.Single)
-  fullName: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel, System.Single)
-  nameWithType: IUIFactory.CreateScrollingPanel(IPanel, Single)
+- uid: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel)
+  name: CreateScrollingPanel(IPanel)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScrollingPanel_AGS_API_IPanel_
+  commentId: M:AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel)
+  fullName: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel)
+  nameWithType: IUIFactory.CreateScrollingPanel(IPanel)
 - uid: AGS.API.IUIFactory.CreateScrollingPanel*
   name: CreateScrollingPanel
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScrollingPanel_

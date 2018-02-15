@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IStringItem
+    <title>Interface ISpriteRenderComponent
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IStringItem
+    <meta name="title" content="Interface ISpriteRenderComponent
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.31.0.0">
     
@@ -76,37 +76,56 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.IStringItem">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ISpriteRenderComponent">
   
   
-  <h1 id="AGS_API_IStringItem" data-uid="AGS.API.IStringItem" class="text-break">Interface IStringItem
+  <h1 id="AGS_API_ISpriteRenderComponent" data-uid="AGS.API.ISpriteRenderComponent" class="text-break">Interface ISpriteRenderComponent
   </h1>
-  <div class="markdown level0 summary"><p>A textual item to be shown on GUI controls (like combobox, listbox or tree).</p>
+  <div class="markdown level0 summary"><p>A component that renders an entity using 2D sprites.
+A sprite and other properties may be set either by user or by other components.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
+    </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_IStringItem_syntax">Syntax</h5>
+  <h5 id="AGS_API_ISpriteRenderComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IStringItem</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ISpriteRenderComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_IStringItem_HoverTextConfig.md&amp;value=---%0Auid%3A%20AGS.API.IStringItem.HoverTextConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISpriteRenderComponent_Border.md&amp;value=---%0Auid%3A%20AGS.API.ISpriteRenderComponent.Border%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Listbox/IStringItem.cs/#L24">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/Graphics/ISpriteRenderComponent.cs/#L46">View Source</a>
   </span>
-  <a id="AGS_API_IStringItem_HoverTextConfig_" data-uid="AGS.API.IStringItem.HoverTextConfig*"></a>
-  <h4 id="AGS_API_IStringItem_HoverTextConfig" data-uid="AGS.API.IStringItem.HoverTextConfig">HoverTextConfig</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the text rendering configuration for the item when the mouse is hovered over it.</p>
+  <a id="AGS_API_ISpriteRenderComponent_Border_" data-uid="AGS.API.ISpriteRenderComponent.Border*"></a>
+  <h4 id="AGS_API_ISpriteRenderComponent_Border" data-uid="AGS.API.ISpriteRenderComponent.Border">Border</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a border that will (optionally) surround the sprite.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ITextConfig HoverTextConfig { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">IBorderStyle Border { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -118,27 +137,27 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
-        <td><p>The hover text config.</p>
+        <td><a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a></td>
+        <td><p>The border.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_IStringItem_IdleTextConfig.md&amp;value=---%0Auid%3A%20AGS.API.IStringItem.IdleTextConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISpriteRenderComponent_CurrentSprite.md&amp;value=---%0Auid%3A%20AGS.API.ISpriteRenderComponent.CurrentSprite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Listbox/IStringItem.cs/#L18">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/Graphics/ISpriteRenderComponent.cs/#L27">View Source</a>
   </span>
-  <a id="AGS_API_IStringItem_IdleTextConfig_" data-uid="AGS.API.IStringItem.IdleTextConfig*"></a>
-  <h4 id="AGS_API_IStringItem_IdleTextConfig" data-uid="AGS.API.IStringItem.IdleTextConfig">IdleTextConfig</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the text rendering configuration for the item.</p>
+  <a id="AGS_API_ISpriteRenderComponent_CurrentSprite_" data-uid="AGS.API.ISpriteRenderComponent.CurrentSprite*"></a>
+  <h4 id="AGS_API_ISpriteRenderComponent_CurrentSprite" data-uid="AGS.API.ISpriteRenderComponent.CurrentSprite">CurrentSprite</h4>
+  <div class="markdown level1 summary"><p>Gets sprite to render.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ITextConfig IdleTextConfig { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">ISprite CurrentSprite { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -150,27 +169,28 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.ITextConfig.html">ITextConfig</a></td>
-        <td><p>The idle text config.</p>
+        <td><a class="xref" href="AGS.API.ISprite.html">ISprite</a></td>
+        <td><p>The sprite.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_IStringItem_Properties.md&amp;value=---%0Auid%3A%20AGS.API.IStringItem.Properties%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISpriteRenderComponent_DebugDrawPivot.md&amp;value=---%0Auid%3A%20AGS.API.ISpriteRenderComponent.DebugDrawPivot%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Listbox/IStringItem.cs/#L30">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/Graphics/ISpriteRenderComponent.cs/#L40">View Source</a>
   </span>
-  <a id="AGS_API_IStringItem_Properties_" data-uid="AGS.API.IStringItem.Properties*"></a>
-  <h4 id="AGS_API_IStringItem_Properties" data-uid="AGS.API.IStringItem.Properties">Properties</h4>
-  <div class="markdown level1 summary"><p>Custom properties which can be assigned to the item and give more context.</p>
+  <a id="AGS_API_ISpriteRenderComponent_DebugDrawPivot_" data-uid="AGS.API.ISpriteRenderComponent.DebugDrawPivot*"></a>
+  <h4 id="AGS_API_ISpriteRenderComponent_DebugDrawPivot" data-uid="AGS.API.ISpriteRenderComponent.DebugDrawPivot">DebugDrawPivot</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the pivot (the pivot point for position/rotate/scale) will 
+be drawn on the screen as a cross. This can be used for debugging the game.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ICustomProperties Properties { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">bool DebugDrawPivot { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -182,27 +202,27 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.ICustomProperties.html">ICustomProperties</a></td>
-        <td><p>The custom properties.</p>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if debug draw pivot; otherwise, <code>false</code>.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_IStringItem_Text.md&amp;value=---%0Auid%3A%20AGS.API.IStringItem.Text%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISpriteRenderComponent_SpriteProvider.md&amp;value=---%0Auid%3A%20AGS.API.ISpriteRenderComponent.SpriteProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Listbox/IStringItem.cs/#L12">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/Graphics/ISpriteRenderComponent.cs/#L33">View Source</a>
   </span>
-  <a id="AGS_API_IStringItem_Text_" data-uid="AGS.API.IStringItem.Text*"></a>
-  <h4 id="AGS_API_IStringItem_Text" data-uid="AGS.API.IStringItem.Text">Text</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the text of the item.</p>
+  <a id="AGS_API_ISpriteRenderComponent_SpriteProvider_" data-uid="AGS.API.ISpriteRenderComponent.SpriteProvider*"></a>
+  <h4 id="AGS_API_ISpriteRenderComponent_SpriteProvider" data-uid="AGS.API.ISpriteRenderComponent.SpriteProvider">SpriteProvider</h4>
+  <div class="markdown level1 summary"><p>Gets or sets sprite provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">string Text { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">ISpriteProvider SpriteProvider { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -214,8 +234,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>The text.</p>
+        <td><a class="xref" href="AGS.API.ISpriteProvider.html">ISpriteProvider</a></td>
+        <td><p>The sprite provider implementation.</p>
 </td>
       </tr>
     </tbody>
@@ -228,10 +248,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_IStringItem.md&amp;value=---%0Auid%3A%20AGS.API.IStringItem%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISpriteRenderComponent.md&amp;value=---%0Auid%3A%20AGS.API.ISpriteRenderComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Listbox/IStringItem.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/Graphics/ISpriteRenderComponent.cs/#L21" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
