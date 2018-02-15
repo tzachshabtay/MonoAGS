@@ -72,6 +72,20 @@
 		float Value { get; set; }
 
         /// <summary>
+        /// Gets or sets an offset for the handle to be placed from the minimum X/Y of the background image.
+        /// This can be useful for properly aligning the handle to the background graphics.
+        /// </summary>
+        /// <value>The minimum handle offset.</value>
+        float MinHandleOffset { get; set; }
+
+        /// <summary>
+        /// Gets or sets an offset for the handle to be placed from the maximum X/Y of the background image.
+        /// This can be useful for properly aligning the handle to the background graphics.
+        /// </summary>
+        /// <value>The minimum handle offset.</value>
+        float MaxHandleOffset { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:AGS.API.ISliderComponent"/> allows keyboard control for moving the slider when it is in focus (i.e after the user clicked on the slider).
         /// Default is true.
         /// </summary>

@@ -16,7 +16,6 @@ namespace AGS.Engine
     public partial class AGSCharacter : AGSEntity, ICharacter
     {
         private IHasRoomComponent _hasRoomComponent;
-        private ISpriteRenderComponent _spriteRenderComponent;
         private IAnimationComponent _animationComponent;
         private IInObjectTreeComponent _inObjectTreeComponent;
         private IColliderComponent _colliderComponent;
@@ -24,7 +23,6 @@ namespace AGS.Engine
         private IEnabledComponent _enabledComponent;
         private ICustomPropertiesComponent _customPropertiesComponent;
         private IDrawableInfoComponent _drawableInfoComponent;
-        private IHotspotComponent _hotspotComponent;
         private IShaderComponent _shaderComponent;
         private ITranslateComponent _translateComponent;
         private IImageComponent _imageComponent;
@@ -39,13 +37,12 @@ namespace AGS.Engine
         private IOutfitComponent _outfitComponent;
         private IInventoryComponent _inventoryComponent;
         private IFollowComponent _followComponent;
+        private IHotspotComponent _hotspotComponent;
 
         public AGSCharacter(string id, Resolver resolver, IOutfit outfit) : base(id, resolver)
         {            
             _hasRoomComponent = AddComponent<IHasRoomComponent>();
             Bind<IHasRoomComponent>(c => _hasRoomComponent = c, _ => {});            
-            _spriteRenderComponent = AddComponent<ISpriteRenderComponent>();
-            Bind<ISpriteRenderComponent>(c => _spriteRenderComponent = c, _ => {});            
             _animationComponent = AddComponent<IAnimationComponent>();
             Bind<IAnimationComponent>(c => _animationComponent = c, _ => {});            
             _inObjectTreeComponent = AddComponent<IInObjectTreeComponent>();
@@ -60,8 +57,6 @@ namespace AGS.Engine
             Bind<ICustomPropertiesComponent>(c => _customPropertiesComponent = c, _ => {});            
             _drawableInfoComponent = AddComponent<IDrawableInfoComponent>();
             Bind<IDrawableInfoComponent>(c => _drawableInfoComponent = c, _ => {});            
-            _hotspotComponent = AddComponent<IHotspotComponent>();
-            Bind<IHotspotComponent>(c => _hotspotComponent = c, _ => {});            
             _shaderComponent = AddComponent<IShaderComponent>();
             Bind<IShaderComponent>(c => _shaderComponent = c, _ => {});            
             _translateComponent = AddComponent<ITranslateComponent>();
@@ -85,7 +80,9 @@ namespace AGS.Engine
             _inventoryComponent = AddComponent<IInventoryComponent>();
             Bind<IInventoryComponent>(c => _inventoryComponent = c, _ => {});            
             _followComponent = AddComponent<IFollowComponent>();
-            Bind<IFollowComponent>(c => _followComponent = c, _ => {});
+            Bind<IFollowComponent>(c => _followComponent = c, _ => {});            
+            _hotspotComponent = AddComponent<IHotspotComponent>();
+            Bind<IHotspotComponent>(c => _hotspotComponent = c, _ => {});
 			beforeInitComponents(resolver, outfit);
             InitComponents();
             afterInitComponents(resolver, outfit);
@@ -123,33 +120,6 @@ namespace AGS.Engine
         #endregion
 
         #region INotifyPropertyChanged implementation
-
-        #endregion
-
-        #region ISpriteRenderComponent implementation
-
-        public ISprite CurrentSprite 
-        {  
-            get { return _spriteRenderComponent.CurrentSprite; } 
-        }
-
-        public ISpriteProvider SpriteProvider 
-        {  
-            get { return _spriteRenderComponent.SpriteProvider; }  
-            set { _spriteRenderComponent.SpriteProvider = value; } 
-        }
-
-        public Boolean DebugDrawPivot 
-        {  
-            get { return _spriteRenderComponent.DebugDrawPivot; }  
-            set { _spriteRenderComponent.DebugDrawPivot = value; } 
-        }
-
-        public IBorderStyle Border 
-        {  
-            get { return _spriteRenderComponent.Border; }  
-            set { _spriteRenderComponent.Border = value; } 
-        }
 
         #endregion
 
@@ -276,27 +246,6 @@ namespace AGS.Engine
 
         #endregion
 
-        #region IHotspotComponent implementation
-
-        public IInteractions Interactions 
-        {  
-            get { return _hotspotComponent.Interactions; } 
-        }
-
-        public Nullable<PointF> WalkPoint 
-        {  
-            get { return _hotspotComponent.WalkPoint; }  
-            set { _hotspotComponent.WalkPoint = value; } 
-        }
-
-        public bool DisplayHotspot 
-        {  
-            get { return _hotspotComponent.DisplayHotspot; }  
-            set { _hotspotComponent.DisplayHotspot = value; } 
-        }
-
-        #endregion
-
         #region IShaderComponent implementation
 
         public IShader Shader 
@@ -340,6 +289,29 @@ namespace AGS.Engine
         #endregion
 
         #region IImageComponent implementation
+
+        public ISprite CurrentSprite 
+        {  
+            get { return _imageComponent.CurrentSprite; } 
+        }
+
+        public ISpriteProvider SpriteProvider 
+        {  
+            get { return _imageComponent.SpriteProvider; }  
+            set { _imageComponent.SpriteProvider = value; } 
+        }
+
+        public Boolean DebugDrawPivot 
+        {  
+            get { return _imageComponent.DebugDrawPivot; }  
+            set { _imageComponent.DebugDrawPivot = value; } 
+        }
+
+        public IBorderStyle Border 
+        {  
+            get { return _imageComponent.Border; }  
+            set { _imageComponent.Border = value; } 
+        }
 
         #endregion
 
@@ -676,6 +648,27 @@ namespace AGS.Engine
         public void Follow(IObject obj, IFollowSettings settings)
         {
             _followComponent.Follow(obj, settings);
+        }
+
+        #endregion
+
+        #region IHotspotComponent implementation
+
+        public IInteractions Interactions 
+        {  
+            get { return _hotspotComponent.Interactions; } 
+        }
+
+        public Nullable<PointF> WalkPoint 
+        {  
+            get { return _hotspotComponent.WalkPoint; }  
+            set { _hotspotComponent.WalkPoint = value; } 
+        }
+
+        public Boolean DisplayHotspot 
+        {  
+            get { return _hotspotComponent.DisplayHotspot; }  
+            set { _hotspotComponent.DisplayHotspot = value; } 
         }
 
         #endregion

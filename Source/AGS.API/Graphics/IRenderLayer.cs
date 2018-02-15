@@ -15,7 +15,7 @@
     /// And lastly the Background layer, which is the default for the room's background graphics.
     /// You can assign those layers yourself, using AGSLayers static class:    
     /// <example>
-    /// <code>
+    /// <code language="lang-csharp">
     /// cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!
     /// </code>
     /// </example>
@@ -25,7 +25,7 @@
         /// <summary>
         /// Gets the Z ordering for the layer. The smaller the number, the more visible the layer gets.
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// Debug.WriteLine("Z value for the background layer is: " + AGSLayers.Background.Z);
         /// </code>
         /// </example>
@@ -46,7 +46,7 @@
         /// The closer the object is to the front, the faster it should go, so it should have a bigger parallax speed.       
         /// Objects in the foreground should have values larger than 1, and objects in the background should have values smaller than 1.         
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// PointF parallaxSpeed = new PointF (1.4f, 1f); //all objects in this layer will move at a faster horizontal speed than the rest of the objects.
         /// AGSRenderLayer parallaxForegroundLayer = new AGSRenderLayer(-50, parallaxSpeed); //This layer is positioned before the foreground layer and behind the UI layer.
         /// 

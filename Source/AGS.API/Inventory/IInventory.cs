@@ -16,10 +16,10 @@ namespace AGS.API
         /// The active inventory item.
         /// </value>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// cEgo.ActiveInventory = iKey; //The character is now "holding" the key.
         /// </code>
-        /// <code>
+        /// <code language="lang-csharp">
         /// private void onDoorClicked()
         /// {
         ///     if (cEgo.ActiveInventory == iKey) openDoor();
@@ -34,7 +34,7 @@ namespace AGS.API
         /// </summary>
         /// <example>
         /// Do I have the key?
-        /// <code>
+        /// <code language="lang-csharp">
         /// if (Items.Any(item => item == iKey)) cEgo.Say("I have the key!");
         /// else cEgo.Say("I don't have the key!");
         /// </code>
@@ -52,12 +52,12 @@ namespace AGS.API
         /// <returns>The event to subscribe.</returns>
         /// <example>
         /// First, we subscribe to the event:
-        /// <code>
+        /// <code language="lang-csharp">
         /// cEgo.Inventory.OnCombination(iScissors, iRope).Subscribe(cutRope);
         /// cEgo.Inventory.OnCombination(iRope, iScissors).Subscribe(cutRope); //Assuming we want a symmetrical combination, we don't care which item is used on which
         /// </code>
         /// Then, we define the event (we describe what happens when using the scissors and the rope together:
-        /// <code>
+        /// <code language="lang-csharp">
         /// private void cutRope(object sender, InventoryCombinationEventArgs args)
         /// {
         ///     displayCutRopeAnimation();
@@ -75,11 +75,11 @@ namespace AGS.API
         /// </value>
         /// <example>
         /// First, we subscribe to the event:
-        /// <code>
+        /// <code language="lang-csharp">
         /// cEgo.Inventory.OnDefaultCombination.Subscribe(onDefaultCombination);
         /// </code>
         /// Then, we define the event (what do we do when the user tried to combine two random items?):
-        /// <code>
+        /// <code language="lang-csharp">
         /// private void onDefaultCombination(object sender, InventoryCombinationEventArgs args)
         /// {
         ///     cEgo.Say(string.Format("I can't use {0} on {1}. It doesn't make sense!", args.ActiveItem.Graphics.Hotspot, args.PassiveItem.Graphics.Hotspot));

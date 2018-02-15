@@ -224,12 +224,12 @@ namespace AGS.Engine
         /// to make the tween code a little more simple.
         /// <example>
         /// To tween the X position of an object on a "sine in" curve, we can either use the build in tween:
-        /// <code>
+        /// <code language="lang-csharp">
         /// var tween = obj.TweenX(200f, 2f, Ease.SineIn); //Will animate the x position to x = 200 in 2 seconds on a "sine in" curve.
         /// await tween.Task; //Asynchronously wait for the tween to complete.
         /// </code>
         /// Or use the general purpose function:
-        ///<code>
+        ///<code language="lang-csharp">
         /// var tween = Tween.Run(obj.X, 200f, x => obj.X = x, 2f, Ease.SineIn); //Same animation as before
         /// await tween.Task;
         /// </code>

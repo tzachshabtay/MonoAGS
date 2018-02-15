@@ -80,11 +80,15 @@ namespace AGS.Engine
 			var parent = viewport.Parent;
 			if (parent != null)
 			{
-				var boundingBoxes = parent.GetBoundingBoxes(_state.Viewport);
+                var boundingBoxes = parent.GetBoundingBoxes(_state.Viewport);
 				if (boundingBoxes != null)
 				{
-                    viewX += (int)boundingBoxes.RenderBox.MinX;
-                    viewY += (int)boundingBoxes.RenderBox.MinY;
+                    var resX = (float)(parent.RenderLayer?.IndependentResolution?.Width ?? settings.VirtualResolution.Width);
+                    var resY = (float)(parent.RenderLayer?.IndependentResolution?.Height ?? settings.VirtualResolution.Height);
+                    var factorX = width / resX;
+                    var factorY = height / resY;
+                    viewX += (int)(boundingBoxes.RenderBox.MinX * factorX);
+                    viewY += (int)(boundingBoxes.RenderBox.MinY * factorY);
 				}
 			}
 			width = (int)Math.Round((float)width * projectionBox.Width);

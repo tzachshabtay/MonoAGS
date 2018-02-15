@@ -43,7 +43,7 @@ namespace AGS.API
         /// is configured to loop forever, the task will never complete).
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// await cHero.SayAsync("Waiting for the animation to complete");
         /// await state.OnAnimationCompleted.Task;
         /// await cHero.SayAsync("Done!");

@@ -9,7 +9,7 @@
         /// Gets or sets the outfit for the entity.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// cHero.Say("Let's try on this cool hat."); //Hero speaks with the normal outfit- without the hat
         /// var normalOutfit = cHero.Outfit; //Saving the current outfit so we can wear it back later
         /// cHero.Outfit = outfitWithHat;

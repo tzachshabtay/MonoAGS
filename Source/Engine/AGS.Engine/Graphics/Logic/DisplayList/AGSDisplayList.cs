@@ -22,7 +22,7 @@ namespace AGS.Engine
 
         private readonly ConcurrentDictionary<IViewport, List<IObject>> _cache;
         private readonly ConcurrentDictionary<IViewport, ViewportSubscriber> _viewportSubscribers;
-        private readonly ConcurrentDictionary<string, List<IComponentBinding>> _bindings;
+        private readonly ConcurrentDictionary<string, List<API.IComponentBinding>> _bindings;
 
         private IRoom _lastRoom;
         private IObject _lastRoomBackground;
@@ -55,7 +55,7 @@ namespace AGS.Engine
             }
         }
 
-        private struct AnimationSubscriber
+        private class AnimationSubscriber
         {
             private IAnimation _lastAnimation;
             private ISprite _lastSprite;
@@ -63,12 +63,12 @@ namespace AGS.Engine
             private IObject _obj;
             private Action _onSomethingChanged;
 
-            private class BindingWrapper : IComponentBinding
+            private class BindingWrapper : API.IComponentBinding
             {
-                private IComponentBinding _binding;
+                private API.IComponentBinding _binding;
                 private Action _unsubscribe;
 
-                public BindingWrapper(IComponentBinding binding, Action unsubscribe)
+                public BindingWrapper(API.IComponentBinding binding, Action unsubscribe)
                 {
                     _binding = binding;
                     _unsubscribe = unsubscribe;
@@ -91,7 +91,7 @@ namespace AGS.Engine
                 _lastZ = float.MinValue;
             }
 
-            public IComponentBinding Bind()
+            public API.IComponentBinding Bind()
             {
                 subscribeAnimation();
                 return new BindingWrapper(bind<IAnimationComponent>(_obj, onObjAnimationPropertyChanged), unsubscribeAll);
@@ -187,7 +187,7 @@ namespace AGS.Engine
             _walkBehinds = walkBehinds;
             _cache = new ConcurrentDictionary<IViewport, List<IObject>>();
             _viewportSubscribers = new ConcurrentDictionary<IViewport, ViewportSubscriber>();
-            _bindings = new ConcurrentDictionary<string, List<IComponentBinding>>();
+            _bindings = new ConcurrentDictionary<string, List<API.IComponentBinding>>();
             _comparer = new RenderOrderSelector();
             events.OnRepeatedlyExecute?.Subscribe(onRepeatedlyExecute);
 
@@ -458,7 +458,7 @@ namespace AGS.Engine
             unsubscribeAreas(lastRoom.Areas);
         }
 
-        private static IComponentBinding bind<TComponent>(IEntity entity, PropertyChangedEventHandler ev) where TComponent : IComponent
+        private static API.IComponentBinding bind<TComponent>(IEntity entity, PropertyChangedEventHandler ev) where TComponent : API.IComponent
         {
             return entity.Bind<TComponent>(c => c.PropertyChanged += ev, c => c.PropertyChanged -= ev);
         }
@@ -476,7 +476,7 @@ namespace AGS.Engine
 
             obj.TreeNode.OnParentChanged.Subscribe(onSomethingChanged);
 
-            _bindings[obj.ID] = new List<IComponentBinding> { vBinding, iBinding, tBinding, dBinding, aBinding };
+            _bindings[obj.ID] = new List<API.IComponentBinding> { vBinding, iBinding, tBinding, dBinding, aBinding };
         }
 
         private void unsubscribeObj(IObject obj)
@@ -499,7 +499,7 @@ namespace AGS.Engine
             subscribeObj(area.Mask?.DebugDraw);
             var aBinding = bind<IAreaComponent>(area, onAreaPropertyChanged);
             var bBinding = bind<IWalkBehindArea>(area, onWalkBehindPropertyChanged);
-            _bindings[area.ID] = new List<IComponentBinding> { aBinding, bBinding };
+            _bindings[area.ID] = new List<API.IComponentBinding> { aBinding, bBinding };
         }
 
         private void unsubscribeArea(IArea area)

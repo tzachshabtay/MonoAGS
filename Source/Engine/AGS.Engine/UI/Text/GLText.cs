@@ -80,9 +80,10 @@ namespace AGS.Engine
               PointF? scaleUp = null, PointF? scaleDown = null, int caretPosition = 0, bool renderCaret = false,
               bool cropText = false, bool measureOnly = false)
         {
+            bool configIsDifferent = config != null && !config.Equals(_config);
             bool changeNeeded =
                 (text != null && text != _text)
-                || (config != null && !config.Equals(_config))
+                || configIsDifferent
                 || (maxWidth != null && maxWidth.Value != _maxWidth)
                 || !baseSize.Equals(_baseSize)
                 || _caretPosition != caretPosition
@@ -95,9 +96,9 @@ namespace AGS.Engine
             if (!changeNeeded) return false;
 
             _text = text;
-            if (config != null && config != _config)
+            if (configIsDifferent)
             {
-                _config = config;
+                _config = AGSTextConfig.Clone(config);
                 _spaceWidth = measureSpace();
             }
             if (maxWidth != null) _maxWidth = maxWidth.Value;

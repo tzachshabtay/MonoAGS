@@ -200,6 +200,8 @@ namespace AGS.Engine
 
             var propType = property.Prop.PropertyType;
             if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory);
+            else if (propType == typeof(Color)) 
+                editor = new ColorPropertyEditor(_factory);
 
             else if (propType == typeof(int)) editor = new NumberPropertyEditor(_state, _factory, true, false);
             else if (propType == typeof(float)) editor = new NumberPropertyEditor(_state, _factory, false, false);

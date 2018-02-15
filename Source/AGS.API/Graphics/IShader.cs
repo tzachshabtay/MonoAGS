@@ -18,7 +18,7 @@
         /// <returns>Will return itself if compiled successfully or null if there are compilation errors (those will be logged to the screen).</returns>
         /// <example>
         /// A common pattern will look like this:
-        /// <code>
+        /// <code language="lang-csharp">
         /// const string VERTEX_SHADER = "GLSL vertex shader code goes here";
         /// const string FRAGMENT_SHADER = "GLSL fragment shader code goes here";
         /// IShader shader = GLShader.FromText(VERTEX_SHADER, FRAGMENT_SHADER).Compile();
@@ -28,7 +28,7 @@
         /// }
         /// </code>
         /// There's also a possibility of loading the shader from a resource/file:
-        /// <code>
+        /// <code language="lang-csharp">
         /// IShader shader = await GLShader.FromResource("vertexShader.glsl", "fragmentShader.glsl");
         /// </code>
         /// </example>
@@ -39,7 +39,7 @@
         /// Setting variables for the shader must also be performed when the shader is bound.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// //assuming shader was already successfully compiled...
         /// shader.Bind(); //shader is now in control!        
         /// </code>
@@ -49,7 +49,7 @@
         /// Unbinds this shader, leaving control to the normal renderer. This must be performed from the rendering thread.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// shader.Bind(); //shader is now in control!
         /// await Task.Delay(2000);
         /// shader.Unbind(); //shader is done, back to normal rendering.
@@ -63,7 +63,7 @@
         /// <param name="x">The value.</param>
         /// <returns>True if the variable was found and set</returns>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// //In GLSL shader:
         /// uniform float myVariable;
         /// //Do stuff with myVariable...
@@ -83,7 +83,7 @@
         /// <param name="y">The y value.</param>
         /// <returns>True if the variable was found and set</returns>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// //In GLSL shader:
         /// uniform vec2 myVariable;
         /// //Do stuff with myVariable...
@@ -104,7 +104,7 @@
         /// <param name="z">The z value.</param>
         /// <returns>True if the variable was found and set</returns>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// //In GLSL shader:
         /// uniform vec3 myVariable;
         /// //Do stuff with myVariable...
@@ -126,7 +126,7 @@
         /// <param name="w">The w value.</param>
         /// <returns>True if the variable was found and set</returns>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// //In GLSL shader:
         /// uniform vec4 myVariable;
         /// //Do stuff with myVariable...
@@ -146,7 +146,7 @@
         /// <param name="c">The color.</param>        
         /// <returns>True if the variable was found and set</returns>
         /// <example>
-        /// <code>
+        /// <code language="lang-csharp">
         /// //In GLSL shader:
         /// uniform vec4 myColor;
         /// //Do stuff with myColor...

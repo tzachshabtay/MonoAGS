@@ -62,7 +62,7 @@ namespace AGS.API
         /// </summary>
         /// <example>
         /// You can use the AGSRoomLimits class, which provides some built in options for room limits:
-        /// <code>
+        /// <code language="lang-csharp">
         /// room.RoomLimitsProvider = AGSRoomLimits.FromBackground; //This is the default option
         /// 
         /// room.RoomLimitsProvider = AGSRoomLimits.Infinite; //A room "without" limits. The only limits enforced are due to the coordinates supplied in floating points, so the actual limits for the room will be -3.402823e38 - 3.402823e38 (i.e 3402823 + 38 zeroes).

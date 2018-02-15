@@ -21,5 +21,17 @@ namespace AGS.API
     public interface IHasModelMatrix : IScale, IRotate, ITranslate, IHasImage
     {
     }
+
+    /// <summary>
+    /// Interface of a single sprite source.
+    /// </summary>
+    public interface ISpriteProvider : INotifyPropertyChanged
+    {
+        /// <summary>
+        /// Gets a sprite to work with.
+        /// </summary>
+        /// <value>The sprite.</value>
+        ISprite Sprite { get; }
+    }
 }
 

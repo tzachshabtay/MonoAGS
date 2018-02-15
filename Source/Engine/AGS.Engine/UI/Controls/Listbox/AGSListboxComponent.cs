@@ -147,6 +147,7 @@ namespace AGS.Engine
 
         private void onListChanged(AGSListChangedEventArgs<IStringItem> args)
         {
+            _layout?.StopLayout();
             var tree = _tree;
             if (args.ChangeType == ListChangeType.Remove)
             {
@@ -180,6 +181,7 @@ namespace AGS.Engine
                 tree?.TreeNode.AddChildren(newButtons);
             }
             refreshItemsLayout();
+            _layout?.StartLayout();
         }
 
         private void onLayoutChanged()

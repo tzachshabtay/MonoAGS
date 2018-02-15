@@ -11,7 +11,7 @@ namespace AGS.Engine
         private IGraphicsFactory _factory;
         private ISprite _sprite;
         private IScaleComponent _scale;
-        private ISpriteRenderComponent _spriteRender;
+        private ISpriteProvider _provider;
 
         public AGSImageComponent(IHasImage image, IGraphicsFactory factory)
         {
@@ -26,11 +26,13 @@ namespace AGS.Engine
 
         public IImageRenderer CustomRenderer { get => _image.CustomRenderer; set => _image.CustomRenderer = value; }
 
+
+        [DoNotNotify]
         public IImage Image
         {
             get
             {
-                return _sprite?.Image;
+                return _provider?.Sprite?.Image;
             }
             set
             {
@@ -45,8 +47,7 @@ namespace AGS.Engine
                 {
                     var scale = _scale;
                     if (scale != null) scale.BaseSize = new SizeF(value.Width, value.Height);
-                    if (_spriteRender != null)
-                        _spriteRender.SpriteProvider = this;
+                    SpriteProvider = this;
                 }
             }
         }
@@ -57,26 +58,50 @@ namespace AGS.Engine
 
         public ISprite Sprite { get => _sprite; }
 
+        public ISprite CurrentSprite { get => _provider?.Sprite; }
+
+        public ISpriteProvider SpriteProvider
+        {
+            get => _provider;
+            set
+            {
+                var previousProvider = _provider;
+                if (previousProvider != null)
+                    previousProvider.PropertyChanged -= OnProviderPropertyChanged;
+                if (value != null)
+                    value.PropertyChanged += OnProviderPropertyChanged;
+                _provider = value;
+                if (value != this)
+                {
+                    Image = null;
+                }
+                OnPropertyChanged(nameof(CurrentSprite));
+                OnPropertyChanged(nameof(Image));
+            }
+        }
+
+        public bool DebugDrawPivot { get; set; }
+
+        public IBorderStyle Border { get; set; }
+
         public override void Init(IEntity entity)
         {
             base.Init(entity);
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
-            entity.Bind<ISpriteRenderComponent>(
-                c => { _spriteRender = c; c.PropertyChanged += onSpriteRenderPropertyChanged; },
-                c => { c.PropertyChanged -= onSpriteRenderPropertyChanged; _spriteRender = null; });
+        }
+
+        private void OnProviderPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(ISpriteProvider.Sprite))
+                return;
+            // resend property changed event to notify that ISpriteRenderComponent.CurrentSprite has new value
+            OnPropertyChanged(nameof(CurrentSprite));
+            OnPropertyChanged(nameof(Image));
         }
 
         private void onPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(e);
-        }
-
-        private void onSpriteRenderPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName != nameof(ISpriteRenderComponent.SpriteProvider))
-                return;
-            if (_spriteRender.SpriteProvider != this)
-                Image = null;
         }
     }
 }

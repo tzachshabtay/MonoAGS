@@ -15,7 +15,6 @@ namespace AGS.Engine
     public partial class AGSObject : AGSEntity, IObject
     {
         private IHasRoomComponent _hasRoomComponent;
-        private ISpriteRenderComponent _spriteRenderComponent;
         private IAnimationComponent _animationComponent;
         private IInObjectTreeComponent _inObjectTreeComponent;
         private IColliderComponent _colliderComponent;
@@ -36,8 +35,6 @@ namespace AGS.Engine
         {            
             _hasRoomComponent = AddComponent<IHasRoomComponent>();
             Bind<IHasRoomComponent>(c => _hasRoomComponent = c, _ => {});            
-            _spriteRenderComponent = AddComponent<ISpriteRenderComponent>();
-            Bind<ISpriteRenderComponent>(c => _spriteRenderComponent = c, _ => {});            
             _animationComponent = AddComponent<IAnimationComponent>();
             Bind<IAnimationComponent>(c => _animationComponent = c, _ => {});            
             _inObjectTreeComponent = AddComponent<IInObjectTreeComponent>();
@@ -110,33 +107,6 @@ namespace AGS.Engine
         #endregion
 
         #region INotifyPropertyChanged implementation
-
-        #endregion
-
-        #region ISpriteRenderComponent implementation
-
-        public ISprite CurrentSprite 
-        {  
-            get { return _spriteRenderComponent.CurrentSprite; } 
-        }
-
-        public ISpriteProvider SpriteProvider 
-        {  
-            get { return _spriteRenderComponent.SpriteProvider; }  
-            set { _spriteRenderComponent.SpriteProvider = value; } 
-        }
-
-        public Boolean DebugDrawPivot 
-        {  
-            get { return _spriteRenderComponent.DebugDrawPivot; }  
-            set { _spriteRenderComponent.DebugDrawPivot = value; } 
-        }
-
-        public IBorderStyle Border 
-        {  
-            get { return _spriteRenderComponent.Border; }  
-            set { _spriteRenderComponent.Border = value; } 
-        }
 
         #endregion
 
@@ -306,6 +276,29 @@ namespace AGS.Engine
         #endregion
 
         #region IImageComponent implementation
+
+        public ISprite CurrentSprite 
+        {  
+            get { return _imageComponent.CurrentSprite; } 
+        }
+
+        public ISpriteProvider SpriteProvider 
+        {  
+            get { return _imageComponent.SpriteProvider; }  
+            set { _imageComponent.SpriteProvider = value; } 
+        }
+
+        public Boolean DebugDrawPivot 
+        {  
+            get { return _imageComponent.DebugDrawPivot; }  
+            set { _imageComponent.DebugDrawPivot = value; } 
+        }
+
+        public IBorderStyle Border 
+        {  
+            get { return _imageComponent.Border; }  
+            set { _imageComponent.Border = value; } 
+        }
 
         #endregion
 

@@ -5,14 +5,14 @@ namespace AGS.Engine
 {
     public class AGSPixelPerfectCollidable : IPixelPerfectCollidable
     {
-        private ISpriteRenderComponent _spriteRender;
+        private IImageComponent _image;
         private IAnimationComponent _animation;
         private bool _pixelPerfect;
 
-        public AGSPixelPerfectCollidable(ISpriteRenderComponent spriteRender)
+        public AGSPixelPerfectCollidable(IImageComponent spriteRender)
         {
-            _spriteRender = spriteRender;
-            _spriteRender.PropertyChanged += onProviderChanged;
+            _image = spriteRender;
+            _image.PropertyChanged += onProviderChanged;
             updateProvider();
         }
 
@@ -20,7 +20,7 @@ namespace AGS.Engine
         {
             get
             {
-                return _spriteRender?.CurrentSprite?.PixelPerfectHitTestArea;
+                return _image?.CurrentSprite?.PixelPerfectHitTestArea;
             }
         }        
 
@@ -40,9 +40,9 @@ namespace AGS.Engine
                     frame.Sprite.PixelPerfect(pixelPerfect);
                 }
             }
-            else if (_spriteRender.CurrentSprite != null)
+            else if (_image.CurrentSprite != null)
             {
-                _spriteRender.CurrentSprite.PixelPerfect(pixelPerfect);
+                _image.CurrentSprite.PixelPerfect(pixelPerfect);
             }
         }
 
@@ -50,7 +50,7 @@ namespace AGS.Engine
         {
             if (_animation != null)
                 _animation.OnAnimationStarted.Unsubscribe(refreshPixelPerfect);
-            _spriteRender.PropertyChanged -= onProviderChanged;
+            _image.PropertyChanged -= onProviderChanged;
         }
 
         private void refreshPixelPerfect()
@@ -60,14 +60,14 @@ namespace AGS.Engine
 
         private void onProviderChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ISpriteRenderComponent.SpriteProvider))
+            if (e.PropertyName == nameof(IImageComponent.SpriteProvider))
                 updateProvider();
         }
 
         private void updateProvider()
         {
-            if (_spriteRender.SpriteProvider != null &&
-                _spriteRender.SpriteProvider is IAnimationComponent animation)
+            if (_image.SpriteProvider != null &&
+                _image.SpriteProvider is IAnimationComponent animation)
             {
                 _animation = animation;
                 _animation.OnAnimationStarted.Subscribe(refreshPixelPerfect);

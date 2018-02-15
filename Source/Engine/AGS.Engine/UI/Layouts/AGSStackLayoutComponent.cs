@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using AGS.API;
 
@@ -13,14 +14,20 @@ namespace AGS.Engine
         private IEntity _entity;
         private int _pendingLayouts;
         private EntityListSubscriptions<IObject> _subscriptions;
+        private IGameEvents _gameEvents;
+        private bool _isDirty;
+        private int _inUpdate; //For preventing re-entrancy
 
-        public AGSStackLayoutComponent()
+        public AGSStackLayoutComponent(IGameEvents gameEvents)
         {
+            _gameEvents = gameEvents;
             _isPaused = true;
+            _isDirty = true;
             OnLayoutChanged = new AGSEvent();
             EntitiesToIgnore = new AGSConcurrentHashSet<string>();
             _direction = LayoutDirection.Vertical;
             _relativeSpacing = -1f; //a simple vertical layout top to bottom by default.
+            gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
         public LayoutDirection Direction { get => _direction; set { _direction = value; adjustLayout(); } }
@@ -42,7 +49,6 @@ namespace AGS.Engine
         public void StartLayout()
         {
             _isPaused = false;
-            adjustLayout();
         }
 
         public void StopLayout()
@@ -54,7 +60,23 @@ namespace AGS.Engine
         {
             base.Dispose();
             StopLayout();
+            _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
             unsubscribeChildren();
+        }
+
+        private void onRepeatedlyExecute()
+        {
+            if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
+            try
+            {
+                if (!_isDirty) return;
+                _isDirty = false;
+                adjustLayout();
+            }
+            finally
+            {
+                _inUpdate = 0;
+            }
         }
 
         private void subscribeChildren()
@@ -73,19 +95,24 @@ namespace AGS.Engine
             _subscriptions?.Unsubscribe();
         }
 
+        private void onSomethingChanged()
+        {
+            _isDirty = true;
+        }
+
         private void onVisibleChanged()
         {
-            adjustLayout();
+            onSomethingChanged();
         }
 
         private void onSizeChanged()
         {
-            adjustLayout();
+            onSomethingChanged();
         }
 
         private void onEntitiesToIgnoreChanged(AGSHashSetChangedEventArgs<string> args)
         {
-            adjustLayout();
+            onSomethingChanged();
         }
 
         private void adjustLayout()

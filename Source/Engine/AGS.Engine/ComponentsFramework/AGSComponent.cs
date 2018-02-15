@@ -4,11 +4,13 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-    public abstract class AGSComponent : IComponent, INotifyPropertyChanged
+    public abstract class AGSComponent : API.IComponent, INotifyPropertyChanged
 	{
 		private Type _type;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public int GetPropertyChangedSubscriberCount() => PropertyChanged?.GetInvocationList().Length ?? 0;
 
         public AGSComponent()
 		{

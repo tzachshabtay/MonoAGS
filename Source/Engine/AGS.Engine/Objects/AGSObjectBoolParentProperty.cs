@@ -6,14 +6,14 @@ using PropertyChanged;
 namespace AGS.Engine
 {
     [DoNotNotify]
-    public abstract class AGSObjectBoolParentProperty<TComponent> : AGSComponent where TComponent : IComponent
+    public abstract class AGSObjectBoolParentProperty<TComponent> : AGSComponent where TComponent : API.IComponent
     {
         private readonly Predicate<IObject> _getProperty;
         private readonly string _valuePropertyName, _underlyingPropertyName;
         private IInObjectTreeComponent _tree;
         private bool _underlyingValue, _lastValue, _initializedValue;
-        private IComponent _lastParentComponent;
-        private IComponentBinding _lastParentBinding;
+        private API.IComponent _lastParentComponent;
+        private API.IComponentBinding _lastParentBinding;
         private IEntity _entity;
 
         public AGSObjectBoolParentProperty(Predicate<IObject> getProperty,
