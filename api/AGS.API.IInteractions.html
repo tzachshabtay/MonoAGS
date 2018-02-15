@@ -153,7 +153,7 @@ The event handler lookup is as follows: </p>
     </tbody>
   </table>
   <h5 id="AGS_API_IInteractions_OnInteract_System_String__examples">Examples</h5>
-  <pre><code>public void SubscribeEvents()
+  <pre><code class="lang-csharp">public void SubscribeEvents()
 {
     game.Events.DefaultInteractions.OnInteract(&quot;Talk&quot;).Subscribe(onDefaultTalk);
     oTeapot.Interactions.OnInteract(AGSInteractions.Look).Subscribe(onTeapotLook);
@@ -249,7 +249,7 @@ The event handler lookup is as follows: </p>
     </tbody>
   </table>
   <h5 id="AGS_API_IInteractions_OnInventoryInteract_System_String__examples">Examples</h5>
-  <pre><code>public void SubscribeEvents()
+  <pre><code class="lang-csharp">public void SubscribeEvents()
 {
     oTeapot.Interactions.OnInventoryInteract(AGSInteractions.Interact).Subscribe(onTeapotInventoryInteract);
     game.Events.DefaultInteractions.OnInventoryInteract(AGSInteractions.Interact).Subscribe(onDefaultInventoryInteract);

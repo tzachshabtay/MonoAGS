@@ -138,7 +138,7 @@ You&apos;ll usually use an <a class="xref" href="AGS.API.IAudioClip.html">IAudio
     </tbody>
   </table>
   <h5 id="AGS_API_ISound_Completed_examples">Examples</h5>
-  <pre><code>private async Task onMusicBoxInteract()
+  <pre><code class="lang-csharp">private async Task onMusicBoxInteract()
 {
     ISound sound = musicBoxAudioClip.Play();
     await cHero.SayAsync(&quot;The music box is currently playing a song...&quot;); //We didn&apos;t wait for the sound to complete yet, so the character is speaking in parallel

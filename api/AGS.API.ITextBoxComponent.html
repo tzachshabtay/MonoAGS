@@ -233,7 +233,7 @@ Let&apos;s say, for example, that we don&apos;t want our textbox to allow spaces
 First, we&apos;ll subscribe to the event. Then, if a space key is pressed, we&apos;ll cancel its processing.
 Also, let&apos;s say that our textbox is inside a dialog, and we want the enter key to close the dialog (and then do something with the text).
 We&apos;ll listen to the enter key in the same dialog to close it.<p>
-<pre><code>_myTextbox.OnPressingKey.Subscribe(onPressingKey);
+<pre><code class="lang-csharp">_myTextbox.OnPressingKey.Subscribe(onPressingKey);
 ...
 ...
 private void onPressingKey(TextboxKeyPressingEventArgs args)

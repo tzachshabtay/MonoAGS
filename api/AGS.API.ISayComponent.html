@@ -236,7 +236,7 @@ If the engine does not find the file it will not play an audio clip, and in any 
     </tbody>
   </table>
   <h5 id="AGS_API_ISayComponent_Say_System_String__examples">Examples</h5>
-  <pre><code>cHero.Say(&quot;&amp;17 Hello there!&quot;); //Will say &quot;Hello there!&quot; and will play &quot;JASO17.ogg&quot; (assuming the character name is &quot;Jason&quot; and JASO17.ogg exists in Assets/Speech/English)</code></pre>
+  <pre><code class="lang-csharp">cHero.Say(&quot;&amp;17 Hello there!&quot;); //Will say &quot;Hello there!&quot; and will play &quot;JASO17.ogg&quot; (assuming the character name is &quot;Jason&quot; and JASO17.ogg exists in Assets/Speech/English)</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -308,7 +308,7 @@ If the engine does not find the file it will not play an audio clip, and in any 
     </tbody>
   </table>
   <h5 id="AGS_API_ISayComponent_SayAsync_System_String__examples">Examples</h5>
-  <pre><code>await cHero.SayAsync(&quot;&amp;17 Hello there!&quot;); //Will say &quot;Hello there!&quot; and will play &quot;JASO17.ogg&quot; (assuming the character name is &quot;Jason&quot; and JASO17.ogg exists in Assets/Speech/English)
+  <pre><code class="lang-csharp">await cHero.SayAsync(&quot;&amp;17 Hello there!&quot;); //Will say &quot;Hello there!&quot; and will play &quot;JASO17.ogg&quot; (assuming the character name is &quot;Jason&quot; and JASO17.ogg exists in Assets/Speech/English)
 
 Task waitForTalk = cHero.SayAsync(&quot;Walking Home!&quot;);
 await cHero.WalkAsync(home); //character will walk and talk at the same time.

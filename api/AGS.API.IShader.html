@@ -147,7 +147,7 @@ Setting variables for the shader must also be performed when the shader is bound
     <pre><code class="lang-csharp hljs">void Bind()</code></pre>
   </div>
   <h5 id="AGS_API_IShader_Bind_examples">Examples</h5>
-  <pre><code>//assuming shader was already successfully compiled...
+  <pre><code class="lang-csharp">//assuming shader was already successfully compiled...
 shader.Bind(); //shader is now in control!        </code></pre>
 
   <span class="small pull-right mobile-hide">
@@ -184,7 +184,7 @@ shader.Bind(); //shader is now in control!        </code></pre>
   </table>
   <h5 id="AGS_API_IShader_Compile_examples">Examples</h5>
   <p>A common pattern will look like this:</p>
-<pre><code>const string VERTEX_SHADER = &quot;GLSL vertex shader code goes here&quot;;
+<pre><code class="lang-csharp">const string VERTEX_SHADER = &quot;GLSL vertex shader code goes here&quot;;
 const string FRAGMENT_SHADER = &quot;GLSL fragment shader code goes here&quot;;
 IShader shader = GLShader.FromText(VERTEX_SHADER, FRAGMENT_SHADER).Compile();
 if (shader == null)
@@ -192,7 +192,7 @@ if (shader == null)
   //oh oh, it did not compile!
 }</code></pre>
 <p>There&apos;s also a possibility of loading the shader from a resource/file:</p>
-<pre><code>IShader shader = await GLShader.FromResource(&quot;vertexShader.glsl&quot;, &quot;fragmentShader.glsl&quot;);</code></pre>
+<pre><code class="lang-csharp">IShader shader = await GLShader.FromResource(&quot;vertexShader.glsl&quot;, &quot;fragmentShader.glsl&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -308,7 +308,7 @@ This is just a convenience method that can be used instead of the 4d version for
     </tbody>
   </table>
   <h5 id="AGS_API_IShader_SetVariable_System_String_AGS_API_Color__examples">Examples</h5>
-  <pre><code>//In GLSL shader:
+  <pre><code class="lang-csharp">//In GLSL shader:
 uniform vec4 myColor;
 //Do stuff with myColor...
 ...
@@ -374,7 +374,7 @@ shader.SetVariable(&quot;myColor&quot;, Colors.White);</code></pre>
     </tbody>
   </table>
   <h5 id="AGS_API_IShader_SetVariable_System_String_System_Single__examples">Examples</h5>
-  <pre><code>//In GLSL shader:
+  <pre><code class="lang-csharp">//In GLSL shader:
 uniform float myVariable;
 //Do stuff with myVariable...
 ...
@@ -446,7 +446,7 @@ shader.SetVariable(&quot;myVariable&quot;, 5.5f);</code></pre>
     </tbody>
   </table>
   <h5 id="AGS_API_IShader_SetVariable_System_String_System_Single_System_Single__examples">Examples</h5>
-  <pre><code>//In GLSL shader:
+  <pre><code class="lang-csharp">//In GLSL shader:
 uniform vec2 myVariable;
 //Do stuff with myVariable...
 ...
@@ -524,7 +524,7 @@ shader.SetVariable(&quot;myVariable&quot;, 5.5f, 3f);</code></pre>
     </tbody>
   </table>
   <h5 id="AGS_API_IShader_SetVariable_System_String_System_Single_System_Single_System_Single__examples">Examples</h5>
-  <pre><code>//In GLSL shader:
+  <pre><code class="lang-csharp">//In GLSL shader:
 uniform vec3 myVariable;
 //Do stuff with myVariable...
 ...
@@ -608,7 +608,7 @@ shader.SetVariable(&quot;myVariable&quot;, 5.5f, 3f, 0.1f);</code></pre>
     </tbody>
   </table>
   <h5 id="AGS_API_IShader_SetVariable_System_String_System_Single_System_Single_System_Single_System_Single__examples">Examples</h5>
-  <pre><code>//In GLSL shader:
+  <pre><code class="lang-csharp">//In GLSL shader:
 uniform vec4 myVariable;
 //Do stuff with myVariable...
 ...
@@ -634,7 +634,7 @@ shader.SetVariable(&quot;myVariable&quot;, 5.5f, 3f, 0.1f, 2.5f);</code></pre>
     <pre><code class="lang-csharp hljs">void Unbind()</code></pre>
   </div>
   <h5 id="AGS_API_IShader_Unbind_examples">Examples</h5>
-  <pre><code>shader.Bind(); //shader is now in control!
+  <pre><code class="lang-csharp">shader.Bind(); //shader is now in control!
 await Task.Delay(2000);
 shader.Unbind(); //shader is done, back to normal rendering.</code></pre>
 

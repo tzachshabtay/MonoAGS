@@ -105,7 +105,7 @@ This is useful for things like introduction sequences, where you want the player
   <div class="markdown level1 summary"><p>When the player chooses to skip a cutscene all of the script code is run as usual, but any blocking commands are run through without the usual game cycle delays. 
 Therefore, you should never normally need to use this property since cutscenes should all be handled automatically, but it could be useful for script modules.
 <example><p>
-<pre><code>if (cutscene.IsRunning)
+<pre><code class="lang-csharp">if (cutscene.IsRunning)
 {
    //Do Something
 }</code></pre>
@@ -165,7 +165,7 @@ be run if the cutscene is being skipped over.        </p>
     </tbody>
   </table>
   <h5 id="AGS_API_ICutscene_IsSkipping_examples">Examples</h5>
-  <pre><code>if (!cutscene.IsSkipping)
+  <pre><code class="lang-csharp">if (!cutscene.IsSkipping)
 {
    aScaryMusic.Play();
    Thread.Sleep(100);

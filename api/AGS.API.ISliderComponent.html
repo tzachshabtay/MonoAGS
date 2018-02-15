@@ -122,7 +122,7 @@ public interface ISliderComponent : IComponent, IDisposable, INotifyPropertyChan
     <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISliderComponent_AllowKeyboardControl.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.AllowKeyboardControl%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L79">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L93">View Source</a>
   </span>
   <a id="AGS_API_ISliderComponent_AllowKeyboardControl_" data-uid="AGS.API.ISliderComponent.AllowKeyboardControl*"></a>
   <h4 id="AGS_API_ISliderComponent_AllowKeyboardControl" data-uid="AGS.API.ISliderComponent.AllowKeyboardControl">AllowKeyboardControl</h4>
@@ -155,7 +155,7 @@ Default is true.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISliderComponent_Direction.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.Direction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L86">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L100">View Source</a>
   </span>
   <a id="AGS_API_ISliderComponent_Direction_" data-uid="AGS.API.ISliderComponent.Direction*"></a>
   <h4 id="AGS_API_ISliderComponent_Direction" data-uid="AGS.API.ISliderComponent.Direction">Direction</h4>
@@ -281,6 +281,39 @@ and the maximum value will correspond with the top most location on the slider.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISliderComponent_MaxHandleOffset.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.MaxHandleOffset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L86">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_MaxHandleOffset_" data-uid="AGS.API.ISliderComponent.MaxHandleOffset*"></a>
+  <h4 id="AGS_API_ISliderComponent_MaxHandleOffset" data-uid="AGS.API.ISliderComponent.MaxHandleOffset">MaxHandleOffset</h4>
+  <div class="markdown level1 summary"><p>Gets or sets an offset for the handle to be placed from the maximum X/Y of the background image.
+This can be useful for properly aligning the handle to the background graphics.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float MaxHandleOffset { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><p>The minimum handle offset.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISliderComponent_MaxValue.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.MaxValue%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
@@ -307,6 +340,39 @@ and the maximum value will correspond with the top most location on the slider.<
       <tr>
         <td><span class="xref">System.Single</span></td>
         <td><p>The max value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISliderComponent_MinHandleOffset.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.MinHandleOffset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L79">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_MinHandleOffset_" data-uid="AGS.API.ISliderComponent.MinHandleOffset*"></a>
+  <h4 id="AGS_API_ISliderComponent_MinHandleOffset" data-uid="AGS.API.ISliderComponent.MinHandleOffset">MinHandleOffset</h4>
+  <div class="markdown level1 summary"><p>Gets or sets an offset for the handle to be placed from the minimum X/Y of the background image.
+This can be useful for properly aligning the handle to the background graphics.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float MinHandleOffset { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><p>The minimum handle offset.</p>
 </td>
       </tr>
     </tbody>
@@ -348,7 +414,7 @@ and the maximum value will correspond with the top most location on the slider.<
     <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISliderComponent_OnValueChanged.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.OnValueChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L94">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L108">View Source</a>
   </span>
   <a id="AGS_API_ISliderComponent_OnValueChanged_" data-uid="AGS.API.ISliderComponent.OnValueChanged*"></a>
   <h4 id="AGS_API_ISliderComponent_OnValueChanged" data-uid="AGS.API.ISliderComponent.OnValueChanged">OnValueChanged</h4>
@@ -382,7 +448,7 @@ For continous refreshes as the user drags the handle, <a class="xref" href="AGS.
     <a href="https://github.com/tzachshabtay/MonoAGS/new/Linux/apiSpec/new?filename=AGS_API_ISliderComponent_OnValueChanging.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.OnValueChanging%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L102">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Linux/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L116">View Source</a>
   </span>
   <a id="AGS_API_ISliderComponent_OnValueChanging_" data-uid="AGS.API.ISliderComponent.OnValueChanging*"></a>
   <h4 id="AGS_API_ISliderComponent_OnValueChanging" data-uid="AGS.API.ISliderComponent.OnValueChanging">OnValueChanging</h4>
