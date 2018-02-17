@@ -16,7 +16,7 @@ namespace AGS.Engine
         private readonly IGameFactory _factory;
         private readonly IGameSettings _settings;
         private readonly IGameState _state;
-        private IEntity _currentEntity; 
+        private IEntity _currentEntity;
 
         public AGSInspector(IGameFactory factory, IGameSettings settings, IGameState state)
         {
@@ -183,7 +183,7 @@ namespace AGS.Engine
                     //todo: we'd like to enable expanding a node that was previously expanded however there's a bug that needs to be investigated before that, to reproduce:
                     //In the demo game, show the inspector for the character and expand its current room. Then move to another room.
                     //For some reason this results in endless boundin box/matrix changes until stack overflow is reached.
-                    //if (isExpanded) 
+                    //if (isExpanded)
                       //  _treeView.Expand(node);
                 };
             }

@@ -64,9 +64,9 @@ namespace AGS.Engine
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
             entity.Bind<IDrawableInfoComponent>(c => { c.PropertyChanged += onDrawableChanged; _drawable = c; },
                                        c => { c.PropertyChanged -= onDrawableChanged; _drawable = null; });
-            entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += onTextureOffsetChanged; _textureOffset = c; onAllViewportsShouldChange(); }, 
+            entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += onTextureOffsetChanged; _textureOffset = c; onAllViewportsShouldChange(); },
                                                  c => { c.PropertyChanged -= onTextureOffsetChanged; _textureOffset = null; onAllViewportsShouldChange(); });
-            
+
         }
 
         public void Lock()
@@ -127,7 +127,7 @@ namespace AGS.Engine
             }
             var drawable = _drawable;
             var matrix = _matrix;
-            if (drawable == null || matrix == null) 
+            if (drawable == null || matrix == null)
                 return boundingBoxes;
             var boxes = recalculate(viewport, viewportBoxes);
             OnBoundingBoxesChanged.Invoke();
@@ -248,7 +248,7 @@ namespace AGS.Engine
 			PointF resolutionFactor;
 			bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
 												 drawable, null, out resolutionFactor, out resolution);
-            
+
             float width = size.Width / resolutionFactor.X;
             float height = size.Height / resolutionFactor.Y;
             _intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, ref modelMatrix);

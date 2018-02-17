@@ -54,7 +54,7 @@ namespace AGS.Engine
             Inspector = new AGSInspector(_game.Factory, _game.Settings, _game.State);
             _treePanel.AddComponent<IInspectorComponent>(Inspector);
 
-            _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory, 
+            _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory,
                                                                _game.Events, _treePanel);
             _inspectorNodeView.Resize(_contentsPanel.Width);
             treeView.NodeViewProvider = _inspectorNodeView;

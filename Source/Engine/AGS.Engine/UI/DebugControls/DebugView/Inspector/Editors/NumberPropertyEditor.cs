@@ -22,7 +22,7 @@ namespace AGS.Engine
         public class InternalNumberEditor
         {
             public InternalNumberEditor(string text, Func<InspectorProperty, string> getValueString,
-                                        Action<InspectorProperty, float> setValue, 
+                                        Action<InspectorProperty, float> setValue,
                                         Action<InternalNumberEditor, INumberEditorComponent> configureNumberEditor)
             {
                 Text = text;
@@ -136,7 +136,7 @@ namespace AGS.Engine
             float x = 0f;
             if (editor.Text != null)
             {
-                var propLabel = _factory.UI.GetLabel(id + "_PropLabel", editor.Text, 1f, 1f, 0f, 0f, panel, 
+                var propLabel = _factory.UI.GetLabel(id + "_PropLabel", editor.Text, 1f, 1f, 0f, 0f, panel,
                                      new AGSTextConfig(paddingTop: 0f, paddingBottom: 0f, autoFit: AutoFit.LabelShouldFitText));
                 propLabel.Tint = Colors.Transparent;
                 propLabel.TextBackgroundVisible = false;
@@ -250,9 +250,9 @@ namespace AGS.Engine
     public class MultipleNumbersPropertyEditor<T> : NumberPropertyEditor
     {
         public MultipleNumbersPropertyEditor(IGameState state, IGameFactory factory, bool wholeNumbers, bool nullable,
-                                             Action<InternalNumberEditor, INumberEditorComponent> configureNumberEditor, 
+                                             Action<InternalNumberEditor, INumberEditorComponent> configureNumberEditor,
                                              params (string text, Func<float, T, T> getValue)[] creators) :
-        base(state, factory, wholeNumbers, nullable, creators.Select((creator, index) => 
+        base(state, factory, wholeNumbers, nullable, creators.Select((creator, index) =>
             new InternalNumberEditor(creator.text, prop => prop.Value == InspectorProperty.NullValue ?
                                      InspectorProperty.NullValue : prop.Value.Split(',')[index],
                                      (prop, value) =>
@@ -261,7 +261,7 @@ namespace AGS.Engine
                 T val = objVal == null ? default : (T)objVal;
                 prop.Prop.SetValue(prop.Object, creator.getValue(value, val));
             }, configureNumberEditor)
-        ).ToList()){} 
+        ).ToList()){}
     }
 
     public class SizeFPropertyEditor : MultipleNumbersPropertyEditor<SizeF>
@@ -304,8 +304,8 @@ namespace AGS.Engine
 
     public class LocationPropertyEditor : MultipleNumbersPropertyEditor<ILocation>
     {
-        public LocationPropertyEditor(IGameState state, IGameFactory factory, bool nullable, IGameSettings settings, IDrawableInfoComponent drawable) : base(state, factory, false, nullable, 
-                            (internalEditor, editor) => 
+        public LocationPropertyEditor(IGameState state, IGameFactory factory, bool nullable, IGameSettings settings, IDrawableInfoComponent drawable) : base(state, factory, false, nullable,
+                            (internalEditor, editor) =>
                             {
                                 if (internalEditor.Text == "X")
                                 {

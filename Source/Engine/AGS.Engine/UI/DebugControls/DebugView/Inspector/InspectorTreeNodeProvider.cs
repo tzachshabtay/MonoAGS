@@ -20,7 +20,7 @@ namespace AGS.Engine
 
         private static int _nextNodeId;
 
-        public InspectorTreeNodeProvider(ITreeNodeViewProvider provider, IGameFactory factory, 
+        public InspectorTreeNodeProvider(ITreeNodeViewProvider provider, IGameFactory factory,
                                          IGameEvents gameEvents, IObject inspectorPanel)
         {
             _inspectorPanel = inspectorPanel;
@@ -74,7 +74,7 @@ namespace AGS.Engine
             var propertyChanged = node.Property.Object as INotifyPropertyChanged;
             if (propertyChanged != null)
             {
-                propertyChanged.PropertyChanged += (sender, e) => 
+                propertyChanged.PropertyChanged += (sender, e) =>
                 {
                     if (e.PropertyName != node.Property.Name) return;
                     node.Property.Refresh();

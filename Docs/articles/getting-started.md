@@ -6,21 +6,28 @@ As there is no release yet, the code needs to be downloaded from the [Github rep
 
 If you're developing from a Windows machine, you need to install [Visual Studio 2017](https://www.visualstudio.com/downloads/) (Community edition is enough and free).
 
-If you're developing from a Mac, you need to install [Xamarin Studio](https://www.xamarin.com/download) (Community edition is enough and free).
+If you're developing from a Mac, you need to install [Visual Studio For Mac](https://www.xamarin.com/download) (Community edition is enough and free).
 
-After installing, open your IDE (either Visual Studio or Xamarin Studio) and open the MonoAGS.sln (the solution) file that's in the root folder of the code you downloaded.
+If you're developing from Linux, you need to install [Mono](http://www.mono-project.com/download/stable/#download-lin) and [MonoDevelop](http://www.monodevelop.com/download/linux/).
+
+After installing, open Visual Studio and open the MonoAGS.sln (the solution) file that's in the root folder of the code you downloaded.
 
 ## Compile the code:
 
-When you want to compile for development purposes, choose the Debug configuration (from the top bar), but when you compile for deploying your game, choose DesktopRelease for desktop or AndroidRelease for android. As for platform, choose "Any Cpu" for desktop and "ARM" for android (note: on Xamarin Studio "Any Cpu" is actually the default option and nothing is written next to the configuration).
+When you want to compile for development purposes, choose the Debug configuration (from the top bar), but when you compile for deploying your game, choose DesktopRelease for desktop or AndroidRelease for android. As for platform, choose "Any Cpu" for desktop and "ARM" for android (note: on Mac and Linux "Any Cpu" is actually the default option and nothing is written next to the configuration).
+
+For setting up Android development, see [this](https://developer.xamarin.com/guides/cross-platform/getting_started/installation/windows/#Installation) guide if you're running on Windows and [this](https://developer.xamarin.com/get-started-droid/) guide if you're running on Mac (Android development is currently not possible from Linux). Then setup your device using [this](https://developer.xamarin.com/guides/android/getting_started/installation/set_up_device_for_development/) guide.
+
+For IOS development, you need to run from Mac, see [this](https://developer.xamarin.com/guides/ios/getting_started/installation/) guide for installation, and [this](https://developer.xamarin.com/guides/ios/getting_started/installation/device_provisioning/) guide for setting up your device.
+If you own both a Mac and a Windows machine and want to test IOS from your Windows machine, it's possible connecting it to the Mac machine, see [here](https://developer.xamarin.com/guides/ios/getting_started/installation/windows/) for instructions.
 
 ## Running the demo:
 
-The game comes with a small demo which you can run to test that everything is working properly (and see a few of the features in action)- if you look at the solution explorer (the side bar) you'll see a demo folder, that contains a DemoQuest.Desktop (for the desktop build) and a DemoQuest.Droid (for the android build). Right click the project which you want to run, and select "Set as startup project". After that, press the "play" button on the top bar (the arrow pointing right) for starting the game. Note that if you run the android version you need to either [attach a device](https://developer.xamarin.com/guides/android/getting_started/installation/set_up_device_for_development/) or run with the [emulator](https://developer.xamarin.com/guides/android/deployment,_testing,_and_metrics/debug-on-emulator/android-sdk-emulator/).
+The game comes with a small demo which you can run to test that everything is working properly (and see a few of the features in action)- if you look at the solution explorer (the side bar) you'll see a demo folder, that contains a DemoQuest.Desktop (for the desktop build) and a DemoQuest.Droid (for the android build). Right click the project which you want to run, and select "Set as startup project". After that, press the "play" button on the top bar (the arrow pointing right) for starting the game.
 
 ## Solution structure:
 
-The demo folder contains several projects: 
+The demo folder contains several projects:
 
 *DemoQuest*- this is the project that contains the core logic of the game. It is a shared project that is used by both the desktop and android projects, so you won't have to write your code twice (or more, once more platforms are added).
 
@@ -48,7 +55,7 @@ Then copy the boilerplate code from the DemoQuest.Desktop and DemoQuest.Android 
 
 The official language for coding your game is C#. There are a lot of resources online for learning c# if needed.
 While not officially supported, other languages might be used on some or all platforms (they should play nice with dot net, mono, and xamarin). F# would be the best bet as it's the modern functional language counter-part of c#, but other languages might be partially or fully supported.
-See the following links: 
+See the following links:
 - http://www.mono-project.com/docs/about-mono/languages/
 - https://en.wikipedia.org/wiki/List_of_CLI_languages
 

@@ -18,9 +18,10 @@ namespace AGS.Engine.Desktop
         private PrivateFontCollection _fontCollection;
 		private int _lastFontInCollection;
         private Dictionary<string, FontFamily> _families;
-		private bool _restartNeeded;
+		private Action _refreshFontCache;
 
 		private const string MAC_FONT_LIBRARY = "/Library/Fonts";
+        private readonly string LINUX_FONT_LIBRARY = $"{Environment.GetEnvironmentVariable("HOME")}/.fonts"; //or: /usr/share/fonts/(truetype)
 
 		public DesktopFontFamilyLoader(IResourceLoader resources)
 		{
@@ -35,13 +36,7 @@ namespace AGS.Engine.Desktop
 			{
 				LoadFontFamily(path);
 			}
-			if (!_restartNeeded) return;
-
-			//todo: If we can't find a better way, at least show a message box that we're gonna attempt to restart as new fonts were installed
-			string processPath = Assembly.GetEntryAssembly().CodeBase;
-			ProcessStartInfo info = new ProcessStartInfo("mono", processPath) { UseShellExecute = false };
-			Process.Start(info);
-			Environment.Exit(0);
+            _refreshFontCache?.Invoke();
 		}
 
         public FontFamily LoadFontFamily(string path)
@@ -60,7 +55,6 @@ namespace AGS.Engine.Desktop
 
 			Marshal.Copy(buffer, 0, fontPtr, buffer.Length);
 
-			//todo: make this work on linux: http://stackoverflow.com/questions/32406859/privatefontcollection-in-mono-3-2-8-on-linux-ubuntu-14-04-1
 			_fontCollection.AddMemoryFont(fontPtr, buffer.Length);
 
 			//Marshal.FreeCoTaskMem(fontPtr); The pointer should not be released: See Hans Passant's answer on this: http://stackoverflow.com/questions/25583394/privatefontcollection-addmemoryfont-producing-random-errors-on-windows-server-20
@@ -72,6 +66,10 @@ namespace AGS.Engine.Desktop
 			{
 				return loadFontFamilyOnMac(path, buffer, family);
 			}
+            else if (isLinux())
+            {
+                return loadFontFamilyOnLinux(path, buffer, family);
+            }
 
 			return family;
 		}
@@ -84,17 +82,55 @@ namespace AGS.Engine.Desktop
 			if (!File.Exists(path))
 			{
 				File.WriteAllBytes(path, buffer);
-				//todo: installing a font on a mac doesn't catch unless you restart.. need to find a better way
-				_restartNeeded = true;
+                //todo: installing a font on a mac doesn't catch unless you restart.. need to find a better way
+                _refreshFontCache = restart;
 			}
 			return new FontFamily (family.Name);
 		}
+
+        //https://wiki.ubuntu.com/Fonts
+        private FontFamily loadFontFamilyOnLinux(string path, byte[] buffer, FontFamily family)
+        {
+            string filename = Path.GetFileName(path);
+            path = Path.Combine(LINUX_FONT_LIBRARY, filename);
+            if (!Directory.Exists(LINUX_FONT_LIBRARY))
+            {
+                Directory.CreateDirectory(LINUX_FONT_LIBRARY);
+            }
+            if (!File.Exists(path))
+            {
+                File.WriteAllBytes(path, buffer);
+                _refreshFontCache = () => {
+                    Debug.WriteLine("Refreshing font cache");
+                    ProcessStartInfo info = new ProcessStartInfo("fc-cache", "-f -v") { UseShellExecute = false };
+                    var process = Process.Start(info);
+                    process.WaitForExit();
+                    Debug.WriteLine("Completed refreshing font cache, restarting...");
+                    restart();
+                };
+            }
+            return new FontFamily(family.Name);
+        }
 
 		private bool isMac()
 		{
 			if (Path.DirectorySeparatorChar != '/') return false;
 			return Directory.Exists(MAC_FONT_LIBRARY);
 		}
+
+        private bool isLinux()
+        {
+            return Path.DirectorySeparatorChar == '/';
+        }
+
+        private void restart()
+        {
+            //todo: If we can't find a better way, at least show a message box that we're gonna attempt to restart as new fonts were installed
+            string processPath = Assembly.GetEntryAssembly().CodeBase;
+            ProcessStartInfo info = new ProcessStartInfo("mono", processPath) { UseShellExecute = false };
+            Process.Start(info);
+            Environment.Exit(0);
+        }
 	}
 }
 

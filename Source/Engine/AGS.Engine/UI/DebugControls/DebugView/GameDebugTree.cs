@@ -61,7 +61,7 @@ namespace AGS.Engine
             _treePanel.Pivot = new PointF(0f, 1f);
             _treeView = _treePanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
-            parent.GetComponent<IScaleComponent>().PropertyChanged += (_, args) => 
+            parent.GetComponent<IScaleComponent>().PropertyChanged += (_, args) =>
             {
                 if (args.PropertyName != nameof(IScaleComponent.Height)) return;
                 _contentsPanel.BaseSize = new SizeF(_contentsPanel.Width, parent.Height - _searchBox.Height - _gutterSize);
@@ -114,7 +114,7 @@ namespace AGS.Engine
         }
 
         private void selectObject(ITreeStringNode node)
-        { 
+        {
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
             _inspector.Inspector.Show(obj);
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
@@ -122,7 +122,7 @@ namespace AGS.Engine
             if (image != null)
             {
                 _lastSelectedObject = image;
-                IBorderStyle border = null;          
+                IBorderStyle border = null;
                 border = image.Border;
                 _lastObjectBorder = border;
                 IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
@@ -146,7 +146,7 @@ namespace AGS.Engine
         }
 
         private void selectArea(ITreeStringNode node)
-        { 
+        {
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
             _inspector.Inspector.Show(obj);
             var area = obj.GetComponent<IAreaComponent>();
