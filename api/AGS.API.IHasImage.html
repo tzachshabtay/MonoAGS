@@ -84,62 +84,26 @@
   <div class="markdown level0 summary"><p>A container for an image.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IHasImage_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IHasImage</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IHasImage : INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasImage_Anchor.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.Anchor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IHasImage_CustomRenderer.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.CustomRenderer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IImageComponent.cs/#L43">View Source</a>
-  </span>
-  <a id="AGS_API_IHasImage_Anchor_" data-uid="AGS.API.IHasImage.Anchor*"></a>
-  <h4 id="AGS_API_IHasImage_Anchor" data-uid="AGS.API.IHasImage.Anchor">Anchor</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the anchor. The anchor for an image is the pivot point from which 
-the position, scale and rotation are determined. For example, rotating an image
-from it&apos;s center point will rotate it in place, while rotating it from it&apos;s bottom-left
-point will rotate the entire image around the bottom-left. I might help to think of an anchor
-as the point on an image on which you place your finger on before rotating.</p>
-<p>The units of the anchor point is in relation for the image size, where (0f,0f) is the bottom-left
-corner, and (1f,1f) is the top-right corner. The default is (0.5f, 0f), which means the bottom-center
-point of the image.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">PointF Anchor { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.PointF.html">PointF</a></td>
-        <td><p>The anchor.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="AGS_API_IHasImage_Anchor_examples">Examples</h5>
-  <pre><code>image.Anchor = new PointF(0.5f, 0.5f); //placing the anchor point in the middle of the image</code></pre>
-
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasImage_CustomRenderer.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.CustomRenderer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IImageComponent.cs/#L57">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/IImageComponent.cs/#L58">View Source</a>
   </span>
   <a id="AGS_API_IHasImage_CustomRenderer_" data-uid="AGS.API.IHasImage.CustomRenderer*"></a>
   <h4 id="AGS_API_IHasImage_CustomRenderer" data-uid="AGS.API.IHasImage.CustomRenderer">CustomRenderer</h4>
@@ -170,10 +134,10 @@ if you desire.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasImage_Image.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.Image%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IHasImage_Image.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.Image%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IImageComponent.cs/#L49">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/IImageComponent.cs/#L50">View Source</a>
   </span>
   <a id="AGS_API_IHasImage_Image_" data-uid="AGS.API.IHasImage.Image*"></a>
   <h4 id="AGS_API_IHasImage_Image" data-uid="AGS.API.IHasImage.Image">Image</h4>
@@ -202,106 +166,10 @@ if you desire.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasImage_OnAnchorChanged.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.OnAnchorChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IHasImage_Opacity.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.Opacity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IImageComponent.cs/#L69">View Source</a>
-  </span>
-  <a id="AGS_API_IHasImage_OnAnchorChanged_" data-uid="AGS.API.IHasImage.OnAnchorChanged*"></a>
-  <h4 id="AGS_API_IHasImage_OnAnchorChanged" data-uid="AGS.API.IHasImage.OnAnchorChanged">OnAnchorChanged</h4>
-  <div class="markdown level1 summary"><p>An event that triggers whenever the anchor changes.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnAnchorChanged { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
-        <td><p>The event.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasImage_OnImageChanged.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.OnImageChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IImageComponent.cs/#L63">View Source</a>
-  </span>
-  <a id="AGS_API_IHasImage_OnImageChanged_" data-uid="AGS.API.IHasImage.OnImageChanged*"></a>
-  <h4 id="AGS_API_IHasImage_OnImageChanged" data-uid="AGS.API.IHasImage.OnImageChanged">OnImageChanged</h4>
-  <div class="markdown level1 summary"><p>An event that triggers whenever the image changes.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnImageChanged { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
-        <td><p>The event.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasImage_OnTintChanged.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.OnTintChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IImageComponent.cs/#L75">View Source</a>
-  </span>
-  <a id="AGS_API_IHasImage_OnTintChanged_" data-uid="AGS.API.IHasImage.OnTintChanged*"></a>
-  <h4 id="AGS_API_IHasImage_OnTintChanged" data-uid="AGS.API.IHasImage.OnTintChanged">OnTintChanged</h4>
-  <div class="markdown level1 summary"><p>An event that triggers whenever the tint changes.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnTintChanged { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
-        <td><p>The event.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasImage_Opacity.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.Opacity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IImageComponent.cs/#L13">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/IImageComponent.cs/#L15">View Source</a>
   </span>
   <a id="AGS_API_IHasImage_Opacity_" data-uid="AGS.API.IHasImage.Opacity*"></a>
   <h4 id="AGS_API_IHasImage_Opacity" data-uid="AGS.API.IHasImage.Opacity">Opacity</h4>
@@ -330,16 +198,57 @@ if you desire.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasImage_Tint.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.Tint%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IHasImage_Pivot.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.Pivot%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IImageComponent.cs/#L24">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/IImageComponent.cs/#L44">View Source</a>
+  </span>
+  <a id="AGS_API_IHasImage_Pivot_" data-uid="AGS.API.IHasImage.Pivot*"></a>
+  <h4 id="AGS_API_IHasImage_Pivot" data-uid="AGS.API.IHasImage.Pivot">Pivot</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the pivot point from which the position, scale and rotation are determined. 
+For example, rotating an image from it&apos;s center point will rotate it in place, 
+while rotating it from it&apos;s bottom-left point will rotate the entire image around the bottom-left. 
+It might help to think of the pivot as the point on an image on which you place your finger on before rotating.</p>
+<p>The units of the pivot point is in relation for the image size, where (0f,0f) is the bottom-left
+corner, and (1f,1f) is the top-right corner. The default is (0.5f, 0f), which means the bottom-center
+point of the image.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">PointF Pivot { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.PointF.html">PointF</a></td>
+        <td><p>The pivot.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_IHasImage_Pivot_examples">Examples</h5>
+  <pre><code class="lang-csharp">image.Pivot = new PointF(0.5f, 0.5f); //placing the pivot point in the middle of the image</code></pre>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IHasImage_Tint.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage.Tint%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/IImageComponent.cs/#L26">View Source</a>
   </span>
   <a id="AGS_API_IHasImage_Tint_" data-uid="AGS.API.IHasImage.Tint*"></a>
   <h4 id="AGS_API_IHasImage_Tint" data-uid="AGS.API.IHasImage.Tint">Tint</h4>
   <div class="markdown level1 summary"><p>Gets or sets the tinting color for the object.
 <example><p>
-<pre><code>cHero.Tint = Colors.Red; //will give our here a red tint.</code></pre>
+<pre><code class="lang-csharp">cHero.Tint = Colors.Red; //will give our here a red tint.</code></pre>
 <p></example></p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -375,10 +284,10 @@ if you desire.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasImage.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IHasImage.md&amp;value=---%0Auid%3A%20AGS.API.IHasImage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IImageComponent.cs/#L7" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/IImageComponent.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface ISayBehavior
+    <title>Interface ISayComponent
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface ISayBehavior
+    <meta name="title" content="Interface ISayComponent
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.31.0.0">
     
@@ -76,10 +76,10 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.ISayBehavior">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ISayComponent">
   
   
-  <h1 id="AGS_API_ISayBehavior" data-uid="AGS.API.ISayBehavior" class="text-break">Interface ISayBehavior
+  <h1 id="AGS_API_ISayComponent" data-uid="AGS.API.ISayComponent" class="text-break">Interface ISayComponent
   </h1>
   <div class="markdown level0 summary"><p>A component which adds the ability to speak for an entity.</p>
 </div>
@@ -90,9 +90,6 @@
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
-    </div>
-    <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
     </div>
     <div>
@@ -101,26 +98,31 @@
     <div>
       <span class="xref">System.IDisposable.Dispose()</span>
     </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_ISayBehavior_syntax">Syntax</h5>
+  <h5 id="AGS_API_ISayComponent_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (ITranslateComponent), false)]
-[RequiredComponent(typeof (IHasRoom), false)]
-public interface ISayBehavior : IComponent, IDisposable</code></pre>
+[RequiredComponent(typeof (IHasRoomComponent), false)]
+[RequiredComponent(typeof (IOutfitComponent), true)]
+[RequiredComponent(typeof (IFaceDirectionComponent), true)]
+public interface ISayComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ISayBehavior_OnBeforeSay.md&amp;value=---%0Auid%3A%20AGS.API.ISayBehavior.OnBeforeSay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_ISayComponent_OnBeforeSay.md&amp;value=---%0Auid%3A%20AGS.API.ISayComponent.OnBeforeSay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Objects/Characters/Talking/ISayBehavior.cs/#L24">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Objects/Characters/Talking/ISayComponent.cs/#L26">View Source</a>
   </span>
-  <a id="AGS_API_ISayBehavior_OnBeforeSay_" data-uid="AGS.API.ISayBehavior.OnBeforeSay*"></a>
-  <h4 id="AGS_API_ISayBehavior_OnBeforeSay" data-uid="AGS.API.ISayBehavior.OnBeforeSay">OnBeforeSay</h4>
+  <a id="AGS_API_ISayComponent_OnBeforeSay_" data-uid="AGS.API.ISayComponent.OnBeforeSay*"></a>
+  <h4 id="AGS_API_ISayComponent_OnBeforeSay" data-uid="AGS.API.ISayComponent.OnBeforeSay">OnBeforeSay</h4>
   <div class="markdown level1 summary"><p>An event which allows you to manipulate the text label just before it is being rendered,
 and to allow you to have a custom skip text implementation.</p>
 </div>
@@ -147,13 +149,13 @@ and to allow you to have a custom skip text implementation.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ISayBehavior_SpeechConfig.md&amp;value=---%0Auid%3A%20AGS.API.ISayBehavior.SpeechConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_ISayComponent_SpeechConfig.md&amp;value=---%0Auid%3A%20AGS.API.ISayComponent.SpeechConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Objects/Characters/Talking/ISayBehavior.cs/#L17">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Objects/Characters/Talking/ISayComponent.cs/#L19">View Source</a>
   </span>
-  <a id="AGS_API_ISayBehavior_SpeechConfig_" data-uid="AGS.API.ISayBehavior.SpeechConfig*"></a>
-  <h4 id="AGS_API_ISayBehavior_SpeechConfig" data-uid="AGS.API.ISayBehavior.SpeechConfig">SpeechConfig</h4>
+  <a id="AGS_API_ISayComponent_SpeechConfig_" data-uid="AGS.API.ISayComponent.SpeechConfig*"></a>
+  <h4 id="AGS_API_ISayComponent_SpeechConfig" data-uid="AGS.API.ISayComponent.SpeechConfig">SpeechConfig</h4>
   <div class="markdown level1 summary"><p>Gets the speech configuration.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -181,13 +183,13 @@ and to allow you to have a custom skip text implementation.</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ISayBehavior_Say_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.ISayBehavior.Say(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_ISayComponent_Say_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.ISayComponent.Say(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Objects/Characters/Talking/ISayBehavior.cs/#L55">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Objects/Characters/Talking/ISayComponent.cs/#L57">View Source</a>
   </span>
-  <a id="AGS_API_ISayBehavior_Say_" data-uid="AGS.API.ISayBehavior.Say*"></a>
-  <h4 id="AGS_API_ISayBehavior_Say_System_String_" data-uid="AGS.API.ISayBehavior.Say(System.String)">Say(String)</h4>
+  <a id="AGS_API_ISayComponent_Say_" data-uid="AGS.API.ISayComponent.Say*"></a>
+  <h4 id="AGS_API_ISayComponent_Say_System_String_" data-uid="AGS.API.ISayComponent.Say(System.String)">Say(String)</h4>
   <div class="markdown level1 summary"><p>Say the specified text.
 This basically does the following:</p>
 <ol>
@@ -233,18 +235,18 @@ If the engine does not find the file it will not play an audio clip, and in any 
       </tr>
     </tbody>
   </table>
-  <h5 id="AGS_API_ISayBehavior_Say_System_String__examples">Examples</h5>
-  <pre><code>cHero.Say(&quot;&amp;17 Hello there!&quot;); //Will say &quot;Hello there!&quot; and will play &quot;JASO17.ogg&quot; (assuming the character name is &quot;Jason&quot; and JASO17.ogg exists in Assets/Speech/English)</code></pre>
+  <h5 id="AGS_API_ISayComponent_Say_System_String__examples">Examples</h5>
+  <pre><code class="lang-csharp">cHero.Say(&quot;&amp;17 Hello there!&quot;); //Will say &quot;Hello there!&quot; and will play &quot;JASO17.ogg&quot; (assuming the character name is &quot;Jason&quot; and JASO17.ogg exists in Assets/Speech/English)</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ISayBehavior_SayAsync_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.ISayBehavior.SayAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_ISayComponent_SayAsync_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.ISayComponent.SayAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Objects/Characters/Talking/ISayBehavior.cs/#L91">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Objects/Characters/Talking/ISayComponent.cs/#L93">View Source</a>
   </span>
-  <a id="AGS_API_ISayBehavior_SayAsync_" data-uid="AGS.API.ISayBehavior.SayAsync*"></a>
-  <h4 id="AGS_API_ISayBehavior_SayAsync_System_String_" data-uid="AGS.API.ISayBehavior.SayAsync(System.String)">SayAsync(String)</h4>
+  <a id="AGS_API_ISayComponent_SayAsync_" data-uid="AGS.API.ISayComponent.SayAsync*"></a>
+  <h4 id="AGS_API_ISayComponent_SayAsync_System_String_" data-uid="AGS.API.ISayComponent.SayAsync(System.String)">SayAsync(String)</h4>
   <div class="markdown level1 summary"><p>Say the specified text asynchronously.
 This basically does the following:</p>
 <ol>
@@ -305,8 +307,8 @@ If the engine does not find the file it will not play an audio clip, and in any 
       </tr>
     </tbody>
   </table>
-  <h5 id="AGS_API_ISayBehavior_SayAsync_System_String__examples">Examples</h5>
-  <pre><code>await cHero.SayAsync(&quot;&amp;17 Hello there!&quot;); //Will say &quot;Hello there!&quot; and will play &quot;JASO17.ogg&quot; (assuming the character name is &quot;Jason&quot; and JASO17.ogg exists in Assets/Speech/English)
+  <h5 id="AGS_API_ISayComponent_SayAsync_System_String__examples">Examples</h5>
+  <pre><code class="lang-csharp">await cHero.SayAsync(&quot;&amp;17 Hello there!&quot;); //Will say &quot;Hello there!&quot; and will play &quot;JASO17.ogg&quot; (assuming the character name is &quot;Jason&quot; and JASO17.ogg exists in Assets/Speech/English)
 
 Task waitForTalk = cHero.SayAsync(&quot;Walking Home!&quot;);
 await cHero.WalkAsync(home); //character will walk and talk at the same time.
@@ -325,10 +327,10 @@ cHero.Say(&quot;And, I&apos;m home!&quot;);</code></pre>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ISayBehavior.md&amp;value=---%0Auid%3A%20AGS.API.ISayBehavior%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_ISayComponent.md&amp;value=---%0Auid%3A%20AGS.API.ISayComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Objects/Characters/Talking/ISayBehavior.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Objects/Characters/Talking/ISayComponent.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

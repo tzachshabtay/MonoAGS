@@ -93,7 +93,7 @@
       <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Tint">IHasImage.Tint</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Anchor">IHasImage.Anchor</a>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Pivot">IHasImage.Pivot</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Image">IHasImage.Image</a>
@@ -102,19 +102,7 @@
       <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_CustomRenderer">IHasImage.CustomRenderer</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnImageChanged">IHasImage.OnImageChanged</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnAnchorChanged">IHasImage.OnAnchorChanged</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnTintChanged">IHasImage.OnTintChanged</a>
-    </div>
-    <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
@@ -125,15 +113,148 @@
     <div>
       <span class="xref">System.IDisposable.Dispose()</span>
     </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IImageComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IAnimationContainer), true)]
-[RequiredComponent(typeof (IScaleComponent), true)]
-public interface IImageComponent : IHasImage, IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (IScaleComponent), true)]
+public interface IImageComponent : IHasImage, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IImageComponent_Border.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.Border%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/IImageComponent.cs/#L90">View Source</a>
+  </span>
+  <a id="AGS_API_IImageComponent_Border_" data-uid="AGS.API.IImageComponent.Border*"></a>
+  <h4 id="AGS_API_IImageComponent_Border" data-uid="AGS.API.IImageComponent.Border">Border</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a border that will (optionally) surround the sprite.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBorderStyle Border { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a></td>
+        <td><p>The border.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IImageComponent_CurrentSprite.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.CurrentSprite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/IImageComponent.cs/#L71">View Source</a>
+  </span>
+  <a id="AGS_API_IImageComponent_CurrentSprite_" data-uid="AGS.API.IImageComponent.CurrentSprite*"></a>
+  <h4 id="AGS_API_IImageComponent_CurrentSprite" data-uid="AGS.API.IImageComponent.CurrentSprite">CurrentSprite</h4>
+  <div class="markdown level1 summary"><p>Gets sprite to render.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISprite CurrentSprite { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ISprite.html">ISprite</a></td>
+        <td><p>The sprite.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IImageComponent_DebugDrawPivot.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.DebugDrawPivot%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/IImageComponent.cs/#L84">View Source</a>
+  </span>
+  <a id="AGS_API_IImageComponent_DebugDrawPivot_" data-uid="AGS.API.IImageComponent.DebugDrawPivot*"></a>
+  <h4 id="AGS_API_IImageComponent_DebugDrawPivot" data-uid="AGS.API.IImageComponent.DebugDrawPivot">DebugDrawPivot</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the pivot (the pivot point for position/rotate/scale) will 
+be drawn on the screen as a cross. This can be used for debugging the game.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool DebugDrawPivot { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if debug draw pivot; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IImageComponent_SpriteProvider.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.SpriteProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/IImageComponent.cs/#L77">View Source</a>
+  </span>
+  <a id="AGS_API_IImageComponent_SpriteProvider_" data-uid="AGS.API.IImageComponent.SpriteProvider*"></a>
+  <h4 id="AGS_API_IImageComponent_SpriteProvider" data-uid="AGS.API.IImageComponent.SpriteProvider">SpriteProvider</h4>
+  <div class="markdown level1 summary"><p>Gets or sets sprite provider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISpriteProvider SpriteProvider { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ISpriteProvider.html">ISpriteProvider</a></td>
+        <td><p>The sprite provider implementation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
@@ -142,10 +263,10 @@ public interface IImageComponent : IHasImage, IComponent, IDisposable</code></pr
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IImageComponent.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IImageComponent.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IImageComponent.cs/#L81" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/IImageComponent.cs/#L64" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

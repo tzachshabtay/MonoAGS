@@ -92,7 +92,7 @@ Note that each frame can be configured with an additional delay. That delay will
 overall delay for that specific frame, so a frame&#39;s delay is relative, while this delay can be used
 as an overall speed for the entire animation.</p>
 <h2 id="animation-per-frame-configuration">Animation per-frame configuration</h2>
-<p>An animation frame is actually using a <code>ISprite</code> object, which wraps around an image and gives it a lot of the capabilities that objects have. So you can have a position, scale, rotation, anchor, tint and even a custom renderer for each frame individually (those properties will be relative to the object, so if you have a frame with a position of (10, 5) it means that the frame will be offset from the rest of the object/animations by 10 pixels to the right and 5 pixels to the bottom).</p>
+<p>An animation frame is actually using a <code>ISprite</code> object, which wraps around an image and gives it a lot of the capabilities that objects have. So you can have a position, scale, rotation, pivot, tint and even a custom renderer for each frame individually (those properties will be relative to the object, so if you have a frame with a position of (10, 5) it means that the frame will be offset from the rest of the object/animations by 10 pixels to the right and 5 pixels to the bottom).</p>
 <p>Also, for each image, you can configure how to render the texture:</p>
 <h3 id="textures">Textures</h3>
 <p>A texture is the 2D image asset which is rendered as the image. For each texture you can configure:</p>
@@ -133,7 +133,7 @@ Here are the properties you can query/control at run-time:</p>
 <p>Directional animations allow grouping animations for different directions together (for example, walking left and right). This is used by the character (using the <a href="characters.html#outfits">outfit</a>) when choosing a directional animation: if you don&#39;t assign all of the directions, the engine will attempt to choose the best direction based on what you have assigned. So, for example, if you only assign Left and Right animations for your walk animation, and the player is attempting to walk down-right, the engine will use the Right animation.</p>
 <h2 id="tweens">Tweens</h2>
 <p>Another form of animation is tweening (short for <a href="https://en.wikipedia.org/wiki/Inbetweening">inbetweening</a>), which lets you interpolate values over time, which can be very useful for animating movements.</p>
-<p>Built-in tweens exist for animating position/scale/rotation/anchor/color for objects/sprites/viewports, and also for animating volume/pitch for sounds:</p>
+<p>Built-in tweens exist for animating position/scale/rotation/pivot/color for objects/sprites/viewports, and also for animating volume/pitch for sounds:</p>
 <pre><code class="lang-csharp">//Will move hero&#39;s x position to 100 in 5 seconds (linearly), without waiting for it to complete.
 cHero.TweenX(100, 5); 
 
@@ -155,7 +155,7 @@ var tweenCamera = viewport.TweenAngle(180, 3).Task.ContinueWith(t =&gt; viewport
 var tweenMusic = music.TweenVolume(0, 4, Ease.SineIn).Task;
 var completedTask = await Task.WhenAny(tweenCamera, tweenMusic);
 if (completedTask == tweenMusic) {
-    cHero.Say(&quot;This is the expected the behavior, as the music clip took 4 seconds and the camera 6 seconds&quot;);
+    cHero.Say(&quot;This is the expected behavior, as the music clip took 4 seconds and the camera 6 seconds&quot;);
 }
 else cHero.Say(&quot;This can&#39;t happen!&quot;);
 
@@ -180,7 +180,7 @@ Here is, for example, the one-liner function implementation for <code>TweenX</co
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Docs/articles/animations.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Docs/articles/animations.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

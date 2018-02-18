@@ -90,9 +90,6 @@
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
-    </div>
-    <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
     </div>
     <div>
@@ -100,6 +97,9 @@
     </div>
     <div>
       <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
@@ -109,21 +109,22 @@
     <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (ITextComponent), true)]
 [RequiredComponent(typeof (IUIEvents), true)]
 [RequiredComponent(typeof (ITranslateComponent), true)]
-[RequiredComponent(typeof (IDrawableInfo), true)]
-[RequiredComponent(typeof (IInObjectTree), true)]
-[RequiredComponent(typeof (IHasRoom), true)]
+[RequiredComponent(typeof (IDrawableInfoComponent), true)]
+[RequiredComponent(typeof (IInObjectTreeComponent), true)]
+[RequiredComponent(typeof (IHasRoomComponent), true)]
 [RequiredComponent(typeof (IImageComponent), true)]
 [RequiredComponent(typeof (IVisibleComponent), true)]
-public interface ITextBoxComponent : IComponent, IDisposable</code></pre>
+[RequiredComponent(typeof (IAnimationComponent), false)]
+public interface ITextBoxComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ITextBoxComponent_CaretFlashDelay.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.CaretFlashDelay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_ITextBoxComponent_CaretFlashDelay.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.CaretFlashDelay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L71">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L67">View Source</a>
   </span>
   <a id="AGS_API_ITextBoxComponent_CaretFlashDelay_" data-uid="AGS.API.ITextBoxComponent.CaretFlashDelay*"></a>
   <h4 id="AGS_API_ITextBoxComponent_CaretFlashDelay" data-uid="AGS.API.ITextBoxComponent.CaretFlashDelay">CaretFlashDelay</h4>
@@ -152,10 +153,10 @@ The default is 10, meaning the caret will be shown for 10 frames, hidden for 10 
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ITextBoxComponent_CaretPosition.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.CaretPosition%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_ITextBoxComponent_CaretPosition.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.CaretPosition%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L65">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L61">View Source</a>
   </span>
   <a id="AGS_API_ITextBoxComponent_CaretPosition_" data-uid="AGS.API.ITextBoxComponent.CaretPosition*"></a>
   <h4 id="AGS_API_ITextBoxComponent_CaretPosition" data-uid="AGS.API.ITextBoxComponent.CaretPosition">CaretPosition</h4>
@@ -185,10 +186,10 @@ The caret position automatically changes based on the keyboard input.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ITextBoxComponent_IsFocused.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.IsFocused%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_ITextBoxComponent_IsFocused.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.IsFocused%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L58">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L54">View Source</a>
   </span>
   <a id="AGS_API_ITextBoxComponent_IsFocused_" data-uid="AGS.API.ITextBoxComponent.IsFocused*"></a>
   <h4 id="AGS_API_ITextBoxComponent_IsFocused" data-uid="AGS.API.ITextBoxComponent.IsFocused">IsFocused</h4>
@@ -218,41 +219,10 @@ The textbox automatically gets focus when clicked, and loses focus when the user
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ITextBoxComponent_OnFocusChanged.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.OnFocusChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_ITextBoxComponent_OnPressingKey.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.OnPressingKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L51">View Source</a>
-  </span>
-  <a id="AGS_API_ITextBoxComponent_OnFocusChanged_" data-uid="AGS.API.ITextBoxComponent.OnFocusChanged*"></a>
-  <h4 id="AGS_API_ITextBoxComponent_OnFocusChanged" data-uid="AGS.API.ITextBoxComponent.OnFocusChanged">OnFocusChanged</h4>
-  <div class="markdown level1 summary"><p>This event can be subscribed to get notifications for when the textbox gets or a loses focus.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnFocusChanged { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ITextBoxComponent_OnPressingKey.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.OnPressingKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L46">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L47">View Source</a>
   </span>
   <a id="AGS_API_ITextBoxComponent_OnPressingKey_" data-uid="AGS.API.ITextBoxComponent.OnPressingKey*"></a>
   <h4 id="AGS_API_ITextBoxComponent_OnPressingKey" data-uid="AGS.API.ITextBoxComponent.OnPressingKey">OnPressingKey</h4>
@@ -263,7 +233,7 @@ Let&apos;s say, for example, that we don&apos;t want our textbox to allow spaces
 First, we&apos;ll subscribe to the event. Then, if a space key is pressed, we&apos;ll cancel its processing.
 Also, let&apos;s say that our textbox is inside a dialog, and we want the enter key to close the dialog (and then do something with the text).
 We&apos;ll listen to the enter key in the same dialog to close it.<p>
-<pre><code>_myTextbox.OnPressingKey.Subscribe(onPressingKey);
+<pre><code class="lang-csharp">_myTextbox.OnPressingKey.Subscribe(onPressingKey);
 ...
 ...
 private void onPressingKey(TextboxKeyPressingEventArgs args)
@@ -286,7 +256,7 @@ private void onPressingKey(TextboxKeyPressingEventArgs args)
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent&lt;TextBoxKeyPressingEventArgs&gt; OnPressingKey { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IBlockingEvent&lt;TextBoxKeyPressingEventArgs&gt; OnPressingKey { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -298,8 +268,42 @@ private void onPressingKey(TextboxKeyPressingEventArgs args)
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.TextBoxKeyPressingEventArgs.html">TextBoxKeyPressingEventArgs</a>&gt;</td>
+        <td><a class="xref" href="AGS.API.IBlockingEvent-1.html">IBlockingEvent</a>&lt;<a class="xref" href="AGS.API.TextBoxKeyPressingEventArgs.html">TextBoxKeyPressingEventArgs</a>&gt;</td>
         <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_ITextBoxComponent_Watermark.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.Watermark%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L75">View Source</a>
+  </span>
+  <a id="AGS_API_ITextBoxComponent_Watermark_" data-uid="AGS.API.ITextBoxComponent.Watermark*"></a>
+  <h4 id="AGS_API_ITextBoxComponent_Watermark" data-uid="AGS.API.ITextBoxComponent.Watermark">Watermark</h4>
+  <div class="markdown level1 summary"><p>An optional label that can act as a watermark.
+A watermark is for text which is shown in the textbox when it&apos;s empty and out of focus.
+An example of a watermark can be seen here: <a href="https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl">https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ILabel Watermark { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ILabel.html">ILabel</a></td>
+        <td><p>The watermark label.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -311,10 +315,10 @@ private void onPressingKey(TextboxKeyPressingEventArgs args)
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ITextBoxComponent.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_ITextBoxComponent.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

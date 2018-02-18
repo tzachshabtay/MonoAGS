@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IAnimationContainer
+    <title>Interface IAnimationComponent
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IAnimationContainer
+    <meta name="title" content="Interface IAnimationComponent
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.31.0.0">
     
@@ -76,10 +76,10 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.IAnimationContainer">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IAnimationComponent">
   
   
-  <h1 id="AGS_API_IAnimationContainer" data-uid="AGS.API.IAnimationContainer" class="text-break">Interface IAnimationContainer
+  <h1 id="AGS_API_IAnimationComponent" data-uid="AGS.API.IAnimationComponent" class="text-break">Interface IAnimationComponent
   </h1>
   <div class="markdown level0 summary"><p>An animation container. This gives access to the animation, and allows to start a new animation
 which will replace the old animation.</p>
@@ -91,9 +91,6 @@ which will replace the old animation.</p>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
-    </div>
-    <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
     </div>
     <div>
@@ -102,24 +99,27 @@ which will replace the old animation.</p>
     <div>
       <span class="xref">System.IDisposable.Dispose()</span>
     </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_IAnimationContainer_syntax">Syntax</h5>
+  <h5 id="AGS_API_IAnimationComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IAnimationContainer : IComponent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IAnimationComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IAnimationContainer_Animation.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationContainer.Animation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IAnimationComponent_Animation.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationComponent.Animation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/Animations/IAnimationContainer.cs/#L15">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/Animations/IAnimationComponent.cs/#L15">View Source</a>
   </span>
-  <a id="AGS_API_IAnimationContainer_Animation_" data-uid="AGS.API.IAnimationContainer.Animation*"></a>
-  <h4 id="AGS_API_IAnimationContainer_Animation" data-uid="AGS.API.IAnimationContainer.Animation">Animation</h4>
+  <a id="AGS_API_IAnimationComponent_Animation_" data-uid="AGS.API.IAnimationComponent.Animation*"></a>
+  <h4 id="AGS_API_IAnimationComponent_Animation" data-uid="AGS.API.IAnimationComponent.Animation">Animation</h4>
   <div class="markdown level1 summary"><p>The currently associated animation.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -145,84 +145,19 @@ which will replace the old animation.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IAnimationContainer_Border.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationContainer.Border%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IAnimationComponent_OnAnimationStarted.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationComponent.OnAnimationStarted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/Animations/IAnimationContainer.cs/#L34">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/Animations/IAnimationComponent.cs/#L21">View Source</a>
   </span>
-  <a id="AGS_API_IAnimationContainer_Border_" data-uid="AGS.API.IAnimationContainer.Border*"></a>
-  <h4 id="AGS_API_IAnimationContainer_Border" data-uid="AGS.API.IAnimationContainer.Border">Border</h4>
-  <div class="markdown level1 summary"><p>Gets or sets a border that will (optionally) surround the animation.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IBorderStyle Border { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a></td>
-        <td><p>The border.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IAnimationContainer_DebugDrawAnchor.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationContainer.DebugDrawAnchor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/Animations/IAnimationContainer.cs/#L22">View Source</a>
-  </span>
-  <a id="AGS_API_IAnimationContainer_DebugDrawAnchor_" data-uid="AGS.API.IAnimationContainer.DebugDrawAnchor*"></a>
-  <h4 id="AGS_API_IAnimationContainer_DebugDrawAnchor" data-uid="AGS.API.IAnimationContainer.DebugDrawAnchor">DebugDrawAnchor</h4>
-  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the anchor (the pivot point for position/rotate/scale) will 
-be drawn on the screen as a cross. This can be used for debugging the game.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool DebugDrawAnchor { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if debug draw anchor; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IAnimationContainer_OnAnimationStarted.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationContainer.OnAnimationStarted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/Animations/IAnimationContainer.cs/#L28">View Source</a>
-  </span>
-  <a id="AGS_API_IAnimationContainer_OnAnimationStarted_" data-uid="AGS.API.IAnimationContainer.OnAnimationStarted*"></a>
-  <h4 id="AGS_API_IAnimationContainer_OnAnimationStarted" data-uid="AGS.API.IAnimationContainer.OnAnimationStarted">OnAnimationStarted</h4>
+  <a id="AGS_API_IAnimationComponent_OnAnimationStarted_" data-uid="AGS.API.IAnimationComponent.OnAnimationStarted*"></a>
+  <h4 id="AGS_API_IAnimationComponent_OnAnimationStarted" data-uid="AGS.API.IAnimationComponent.OnAnimationStarted">OnAnimationStarted</h4>
   <div class="markdown level1 summary"><p>An event when fires whenever an animation is started on this container.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEvent OnAnimationStarted { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IBlockingEvent OnAnimationStarted { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -234,7 +169,7 @@ be drawn on the screen as a cross. This can be used for debugging the game.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
+        <td><a class="xref" href="AGS.API.IBlockingEvent.html">IBlockingEvent</a></td>
         <td><p>The event.</p>
 </td>
       </tr>
@@ -244,13 +179,13 @@ be drawn on the screen as a cross. This can be used for debugging the game.</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IAnimationContainer_Animate_AGS_API_IAnimation_.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationContainer.Animate(AGS.API.IAnimation)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IAnimationComponent_Animate_AGS_API_IAnimation_.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationComponent.Animate(AGS.API.IAnimation)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/Animations/IAnimationContainer.cs/#L48">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/Animations/IAnimationComponent.cs/#L35">View Source</a>
   </span>
-  <a id="AGS_API_IAnimationContainer_Animate_" data-uid="AGS.API.IAnimationContainer.Animate*"></a>
-  <h4 id="AGS_API_IAnimationContainer_Animate_AGS_API_IAnimation_" data-uid="AGS.API.IAnimationContainer.Animate(AGS.API.IAnimation)">Animate(IAnimation)</h4>
+  <a id="AGS_API_IAnimationComponent_Animate_" data-uid="AGS.API.IAnimationComponent.Animate*"></a>
+  <h4 id="AGS_API_IAnimationComponent_Animate_AGS_API_IAnimation_" data-uid="AGS.API.IAnimationComponent.Animate(AGS.API.IAnimation)">Animate(IAnimation)</h4>
   <div class="markdown level1 summary"><p>Starts a new animation and waits for it to complete.
 Note: if an animation is an endless loop, this method will never return (unless the animation is stopped manually).</p>
 </div>
@@ -295,13 +230,13 @@ Note: if an animation is an endless loop, this method will never return (unless 
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IAnimationContainer_AnimateAsync_AGS_API_IAnimation_.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationContainer.AnimateAsync(AGS.API.IAnimation)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IAnimationComponent_AnimateAsync_AGS_API_IAnimation_.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationComponent.AnimateAsync(AGS.API.IAnimation)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/Animations/IAnimationContainer.cs/#L76">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/Animations/IAnimationComponent.cs/#L63">View Source</a>
   </span>
-  <a id="AGS_API_IAnimationContainer_AnimateAsync_" data-uid="AGS.API.IAnimationContainer.AnimateAsync*"></a>
-  <h4 id="AGS_API_IAnimationContainer_AnimateAsync_AGS_API_IAnimation_" data-uid="AGS.API.IAnimationContainer.AnimateAsync(AGS.API.IAnimation)">AnimateAsync(IAnimation)</h4>
+  <a id="AGS_API_IAnimationComponent_AnimateAsync_" data-uid="AGS.API.IAnimationComponent.AnimateAsync*"></a>
+  <h4 id="AGS_API_IAnimationComponent_AnimateAsync_AGS_API_IAnimation_" data-uid="AGS.API.IAnimationComponent.AnimateAsync(AGS.API.IAnimation)">AnimateAsync(IAnimation)</h4>
   <div class="markdown level1 summary"><p>Starts a new animation and returns a task for allowing asynchronously waiting for the animation to complete.
 This allows for doing more things in parallel while the animation is playing, while still having the power 
 to wait for the animation when you&apos;re done.
@@ -346,9 +281,9 @@ Note: if an animation is an endless loop, this task will never complete (unless 
       </tr>
     </tbody>
   </table>
-  <h5 id="AGS_API_IAnimationContainer_AnimateAsync_AGS_API_IAnimation__examples">Examples</h5>
+  <h5 id="AGS_API_IAnimationComponent_AnimateAsync_AGS_API_IAnimation__examples">Examples</h5>
   <p>Let&apos;s animate our 3 musical instruments to play at the same time and wait for the first one to complete.</p>
-<pre><code>var trumpetTask = player1.AnimateAsync(trumpetAnimation);
+<pre><code class="lang-csharp">var trumpetTask = player1.AnimateAsync(trumpetAnimation);
 var pianoTask = player2.AnimateAsync(pianoAnimation);
 var drumsTask = player3.AnimateAsync(drumAnimation);
 //As we didn&apos;t await the tasks yet, the trumpet, piano and drums are playing at the same time.
@@ -364,13 +299,13 @@ await player4.SayAsync(&quot;Nice job, everybody!&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IAnimationContainer_StartAnimation_AGS_API_IAnimation_.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationContainer.StartAnimation(AGS.API.IAnimation)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IAnimationComponent_StartAnimation_AGS_API_IAnimation_.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationComponent.StartAnimation(AGS.API.IAnimation)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/Animations/IAnimationContainer.cs/#L40">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/Animations/IAnimationComponent.cs/#L27">View Source</a>
   </span>
-  <a id="AGS_API_IAnimationContainer_StartAnimation_" data-uid="AGS.API.IAnimationContainer.StartAnimation*"></a>
-  <h4 id="AGS_API_IAnimationContainer_StartAnimation_AGS_API_IAnimation_" data-uid="AGS.API.IAnimationContainer.StartAnimation(AGS.API.IAnimation)">StartAnimation(IAnimation)</h4>
+  <a id="AGS_API_IAnimationComponent_StartAnimation_" data-uid="AGS.API.IAnimationComponent.StartAnimation*"></a>
+  <h4 id="AGS_API_IAnimationComponent_StartAnimation_AGS_API_IAnimation_" data-uid="AGS.API.IAnimationComponent.StartAnimation(AGS.API.IAnimation)">StartAnimation(IAnimation)</h4>
   <div class="markdown level1 summary"><p>Starts a new animation (this does not wait for the animation to complete).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -404,10 +339,10 @@ await player4.SayAsync(&quot;Nice job, everybody!&quot;);</code></pre>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IAnimationContainer.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationContainer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IAnimationComponent.md&amp;value=---%0Auid%3A%20AGS.API.IAnimationComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/Animations/IAnimationContainer.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Graphics/Animations/IAnimationComponent.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

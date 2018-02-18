@@ -91,9 +91,6 @@ scroll the content (i.e the children) of the entity.</p>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
-    </div>
-    <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
     </div>
     <div>
@@ -101,6 +98,9 @@ scroll the content (i.e the children) of the entity.</p>
     </div>
     <div>
       <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
@@ -110,16 +110,16 @@ scroll the content (i.e the children) of the entity.</p>
     <pre><code class="lang-csharp hljs">[RequiredComponent(typeof (ICropChildrenComponent), true)]
 [RequiredComponent(typeof (IBoundingBoxWithChildrenComponent), false)]
 [RequiredComponent(typeof (IBoundingBoxComponent), false)]
-public interface IScrollingComponent : IComponent, IDisposable</code></pre>
+public interface IScrollingComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IScrollingComponent_HorizontalScrollBar.md&amp;value=---%0Auid%3A%20AGS.API.IScrollingComponent.HorizontalScrollBar%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IScrollingComponent_HorizontalScrollBar.md&amp;value=---%0Auid%3A%20AGS.API.IScrollingComponent.HorizontalScrollBar%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/UI/Controls/Panel/IScrollingComponent.cs/#L22">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/UI/Controls/Panel/IScrollingComponent.cs/#L22">View Source</a>
   </span>
   <a id="AGS_API_IScrollingComponent_HorizontalScrollBar_" data-uid="AGS.API.IScrollingComponent.HorizontalScrollBar*"></a>
   <h4 id="AGS_API_IScrollingComponent_HorizontalScrollBar" data-uid="AGS.API.IScrollingComponent.HorizontalScrollBar">HorizontalScrollBar</h4>
@@ -148,10 +148,10 @@ public interface IScrollingComponent : IComponent, IDisposable</code></pre>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IScrollingComponent_VerticalScrollBar.md&amp;value=---%0Auid%3A%20AGS.API.IScrollingComponent.VerticalScrollBar%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IScrollingComponent_VerticalScrollBar.md&amp;value=---%0Auid%3A%20AGS.API.IScrollingComponent.VerticalScrollBar%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/UI/Controls/Panel/IScrollingComponent.cs/#L16">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/UI/Controls/Panel/IScrollingComponent.cs/#L16">View Source</a>
   </span>
   <a id="AGS_API_IScrollingComponent_VerticalScrollBar_" data-uid="AGS.API.IScrollingComponent.VerticalScrollBar*"></a>
   <h4 id="AGS_API_IScrollingComponent_VerticalScrollBar" data-uid="AGS.API.IScrollingComponent.VerticalScrollBar">VerticalScrollBar</h4>
@@ -186,10 +186,10 @@ public interface IScrollingComponent : IComponent, IDisposable</code></pre>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IScrollingComponent.md&amp;value=---%0Auid%3A%20AGS.API.IScrollingComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IScrollingComponent.md&amp;value=---%0Auid%3A%20AGS.API.IScrollingComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/UI/Controls/Panel/IScrollingComponent.cs/#L7" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/UI/Controls/Panel/IScrollingComponent.cs/#L7" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

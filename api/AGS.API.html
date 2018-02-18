@@ -112,6 +112,11 @@ border, background color (tint) or text rendering configuration (font, shadows, 
       <h4><a class="xref" href="AGS.API.Colors.html">Colors</a></h4>
       <section><p>A list of colors to choose from.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.CustomStringValueAttribute.html">CustomStringValueAttribute</a></h4>
+      <section><p>An attribute to be placed on a method that will be used instead of ToString() to supply the string display value
+to the inspector.
+The method must accept no arguments and return a string.</p>
+</section>
       <h4><a class="xref" href="AGS.API.DisplayListEventArgs.html">DisplayListEventArgs</a></h4>
       <section><p>Event arguments for retrieiving (and possibly modifying) the display list before rendering it.</p>
 </section>
@@ -145,8 +150,23 @@ The arguments contain the two combined items.</p>
       <h4><a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a></h4>
       <section><p>Event arguments which contain a tree node.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.NumberEditorSliderAttribute.html">NumberEditorSliderAttribute</a></h4>
+      <section><p>Allows controlling the &quot;suggested&quot; minimum and maximum values that will be assigned to 
+a slider of a number editor in the inspector.</p>
+</section>
       <h4><a class="xref" href="AGS.API.ObjectEventArgs.html">ObjectEventArgs</a></h4>
       <section><p>Event arguments for interacting with an object.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.PropertyAttribute.html">PropertyAttribute</a></h4>
+      <section><p>Allows attaching an attribute to a property which controls various aspects on how it will
+look when shown via the inspector.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.PropertyFolderAttribute.html">PropertyFolderAttribute</a></h4>
+      <section><p>Allows declaring a class as a folder of properties which can be expanded in the inspector.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.QueryLayoutEventArgs.html">QueryLayoutEventArgs</a></h4>
+      <section><p>Event arguments used by <a class="xref" href="AGS.API.ITreeTableLayout.html">ITreeTableLayout</a> when querying the rows for the layout.
+Each row should set a new column size for each column with a size smaller than what the row needs.</p>
 </section>
       <h4><a class="xref" href="AGS.API.RequiredComponentAttribute.html">RequiredComponentAttribute</a></h4>
       <section><p>A decorator for components, to hint that this component requires other components
@@ -161,6 +181,9 @@ attribute with the animation component.</p>
 </section>
       <h4><a class="xref" href="AGS.API.TextBoxKeyPressingEventArgs.html">TextBoxKeyPressingEventArgs</a></h4>
       <section><p>Event arguments for when a key is pressed on the textbox.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.TextboxState.html">TextboxState</a></h4>
+      <section><p>Represents the state in which the textbox is currently in.</p>
 </section>
     <h3 id="structs">Structs
   </h3>
@@ -231,12 +254,12 @@ Allows to get the position in either window coordinates or viewport coordinates.
       <section><p>Represents an animation. This allows you to configure an animation, and also to query/control animation
 when it&apos;s running.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IAnimationConfiguration.html">IAnimationConfiguration</a></h4>
-      <section><p>Allows to configure various aspects of the animation.</p>
-</section>
-      <h4><a class="xref" href="AGS.API.IAnimationContainer.html">IAnimationContainer</a></h4>
+      <h4><a class="xref" href="AGS.API.IAnimationComponent.html">IAnimationComponent</a></h4>
       <section><p>An animation container. This gives access to the animation, and allows to start a new animation
 which will replace the old animation.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IAnimationConfiguration.html">IAnimationConfiguration</a></h4>
+      <section><p>Allows to configure various aspects of the animation.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IAnimationFrame.html">IAnimationFrame</a></h4>
       <section><p>An animation frame (an animation is composed from a list of frames, which change all the time
@@ -339,7 +362,7 @@ so the target is at the center, while also adjusting the zoom if the target is s
 to depict adventure game characters.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ICheckBox.html">ICheckBox</a></h4>
-      <section><p>A pre-set entity with all of the UI control components, plus a checkbox component and a text component.</p>
+      <section><p>A pre-set entity with all of the UI control components, plus a checkbox component.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ICheckboxComponent.html">ICheckboxComponent</a></h4>
       <section><p>The checkbox component allows having an entity behave like a checkbox (can be checked an unchecked).</p>
@@ -352,7 +375,7 @@ to depict adventure game characters.</p>
 A near clipping plane is for clipping objects which are too close to the camera, and a far clipping plane
 is for clipping objects which are too far from the camera.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.ICollider.html">ICollider</a></h4>
+      <h4><a class="xref" href="AGS.API.IColliderComponent.html">IColliderComponent</a></h4>
       <section><p>Adds the ability for an entity to check collisions (i.e check whether it collides with a point in the room).
 The collision is checked via either the entity&apos;s bounding box, or via a pixel perfect collision
 if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectComponent</a> exists and enabled.</p>
@@ -395,6 +418,9 @@ so the entities will not get out of the boundaries of the TV (giving the appeara
       <section></section>
       <h4><a class="xref" href="AGS.API.ICustomPropertiesPerType-1.html">ICustomPropertiesPerType&lt;TValue&gt;</a></h4>
       <section><p>Custom properties that you can attach to entities and can be used to get/set values during the game.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ICustomSearchItem.html">ICustomSearchItem</a></h4>
+      <section><p>Allows providing behavior for custom searching text in tree view or list box.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ICustomSerializable.html">ICustomSerializable</a></h4>
       <section></section>
@@ -450,7 +476,7 @@ is attempting to walk down-right, the engine will use the Right animation.</p>
       <h4><a class="xref" href="AGS.API.IDraggableComponent.html">IDraggableComponent</a></h4>
       <section><p>Adds the ability for an entity to be dragged on the screen with the mouse/touch.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IDrawableInfo.html">IDrawableInfo</a></h4>
+      <h4><a class="xref" href="AGS.API.IDrawableInfoComponent.html">IDrawableInfoComponent</a></h4>
       <section><p>Adds the ability for an entity to configure various aspects of how it is rendered.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IEdge.html">IEdge</a></h4>
@@ -473,22 +499,22 @@ Each added component adds more abilities to the entity.
 For example, adding a &quot;talk&quot; component to the entity, will give the entity the ability to talk.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IEvent.html">IEvent</a></h4>
-      <section><p>Represents an event which can be subscribed and invoked, both synchronously and asynchronously.
+      <section><p>Represents an event which can be subscribed both synchronously or asynchorously, and is invoked asynchronously.
 An event is a notification for something that has happened.
 Interested parties can subscribe to the event and be notified when it triggers (<a href="https://en.wikipedia.org/wiki/Event-driven_programming">https://en.wikipedia.org/wiki/Event-driven_programming</a>).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IEvent-1.html">IEvent&lt;TEventArgs&gt;</a></h4>
-      <section><p>Represents an event which can be subscribed and invoked, both synchronously and asynchronously.
+      <section><p>Represents an event which can be subscribed both synchronously or asynchorously, and is invoked asynchronously.
 An event is a notification for something that has happened.
 Interested parties can subscribe to the event and be notified when it triggers (<a href="https://en.wikipedia.org/wiki/Event-driven_programming">https://en.wikipedia.org/wiki/Event-driven_programming</a>).</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IFaceDirectionBehavior.html">IFaceDirectionBehavior</a></h4>
+      <h4><a class="xref" href="AGS.API.IFaceDirectionComponent.html">IFaceDirectionComponent</a></h4>
       <section><p>Gives the ability for a character to change the direction he/she is facing.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IFocusedUI.html">IFocusedUI</a></h4>
       <section><p>Contains information about UI controls which have focus (and thus block input from other controls).</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IFollowBehavior.html">IFollowBehavior</a></h4>
+      <h4><a class="xref" href="AGS.API.IFollowComponent.html">IFollowComponent</a></h4>
       <section><p>This component adds the ability for a character to follow another entity (i.e to keep walking
 to where the entity is. The follow settings can be configured to set how aggressive that follow is). </p>
 </section>
@@ -534,16 +560,10 @@ This can be useful for having special &quot;Exit&quot; cursors for doors (for ex
       <h4><a class="xref" href="AGS.API.IHasImage.html">IHasImage</a></h4>
       <section><p>A container for an image.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IHasInventory.html">IHasInventory</a></h4>
-      <section><p>This component allows an entity to carry inventory.</p>
-</section>
       <h4><a class="xref" href="AGS.API.IHasModelMatrix.html">IHasModelMatrix</a></h4>
       <section><p>An interface representing an entity which has a model matrix and can be rendered on screen.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IHasOutfit.html">IHasOutfit</a></h4>
-      <section><p>Gives an entity the ability to have an outfit (and be able to change outfits).</p>
-</section>
-      <h4><a class="xref" href="AGS.API.IHasRoom.html">IHasRoom</a></h4>
+      <h4><a class="xref" href="AGS.API.IHasRoomComponent.html">IHasRoomComponent</a></h4>
       <section><p>This component associates an entity with the game&apos;s room system.
 It means that the entity can be belong to a room and moved between rooms.</p>
 </section>
@@ -567,7 +587,7 @@ It means that the entity can be belong to a room and moved between rooms.</p>
 which is used for object, which you can override with your own implementation (though
 this will require advanced coding knowledge).</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IInObjectTree.html">IInObjectTree</a></h4>
+      <h4><a class="xref" href="AGS.API.IInObjectTreeComponent.html">IInObjectTreeComponent</a></h4>
       <section><p>A component which adds the ability for an entity to be a part of an object&apos;s tree.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IInput.html">IInput</a></h4>
@@ -585,6 +605,9 @@ this will require advanced coding knowledge).</p>
       <h4><a class="xref" href="AGS.API.IInventory.html">IInventory</a></h4>
       <section><p>The character&apos;s inventory. Those are the items that the character holds in his/her (usually) imaginary bag.
 It is composed of a list of inventory items, and one active item that the character holds in his/her hand.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IInventoryComponent.html">IInventoryComponent</a></h4>
+      <section><p>This component allows an entity to carry inventory.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IInventoryFactory.html">IInventoryFactory</a></h4>
       <section><p>A factory for creating inventory items and inventory windows.</p>
@@ -621,6 +644,9 @@ This is also used by the engine for scrolling contents inside a scrolling panel.
       <h4><a class="xref" href="AGS.API.ILocation.html">ILocation</a></h4>
       <section><p>A 3D location in the world.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.ILockStep.html">ILockStep</a></h4>
+      <section><p>A mechanism to lock changes for various components, to ensure multiple changes happen at once.</p>
+</section>
       <h4><a class="xref" href="AGS.API.IMask.html">IMask</a></h4>
       <section><p>A mask is basically a 2D array of booleans, usually representing an area on the screen.</p>
 </section>
@@ -637,6 +663,9 @@ when the window is shown, and lose focus when the window is closed.</p>
       <section><p>A component to calculate the matrix used to render/hit-test the object.
 The matrix includes transormations, rotations and scale.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.INumberEditorComponent.html">INumberEditorComponent</a></h4>
+      <section><p>A component that acts as a control to edit numbers.</p>
+</section>
       <h4><a class="xref" href="AGS.API.IObject.html">IObject</a></h4>
       <section><p>An object is an entity with pre-set components (like location, scale, rotation, animation, etc) which is useful
 to depict all adventure game objects. Both characters and UI controls are also objects (with additional components).</p>
@@ -647,6 +676,9 @@ to depict all adventure game objects. Both characters and UI controls are also o
       <h4><a class="xref" href="AGS.API.IOutfit.html">IOutfit</a></h4>
       <section><p>An outfit is a collection of animations that are associated with a character.
 The collection can be swapped with another collection when the character changes his look.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IOutfitComponent.html">IOutfitComponent</a></h4>
+      <section><p>Gives an entity the ability to have an outfit (and be able to change outfits).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IOutfitFactory.html">IOutfitFactory</a></h4>
       <section><p>A factory for creating animation outfits for characters. The factory conveniently allows for idle, walk and speak animations,
@@ -687,7 +719,7 @@ UI layer is next, to ensure that it can always be seen (unless obstructed by tex
 This is followed by the Foreground layer, which is the default for all non UI objects.
 And lastly the Background layer, which is the default for the room&apos;s background graphics.
 You can assign those layers yourself, using AGSLayers static class:<br><example><p>
-<pre><code>cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!</code></pre>
+<pre><code class="lang-csharp">cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!</code></pre>
 <p></example></p>
 </section>
       <h4><a class="xref" href="AGS.API.IResource.html">IResource</a></h4>
@@ -765,7 +797,7 @@ when transitioning from room to room.</p>
       <h4><a class="xref" href="AGS.API.ISaveLoad.html">ISaveLoad</a></h4>
       <section><p>Allows saving/loading a game.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.ISayBehavior.html">ISayBehavior</a></h4>
+      <h4><a class="xref" href="AGS.API.ISayComponent.html">ISayComponent</a></h4>
       <section><p>A component which adds the ability to speak for an entity.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISayConfig.html">ISayConfig</a></h4>
@@ -856,8 +888,15 @@ that&apos;s being said.</p>
       <h4><a class="xref" href="AGS.API.ISpeechLine.html">ISpeechLine</a></h4>
       <section><p>Represents a line of speech (text and sound).</p>
 </section>
+      <h4><a class="xref" href="AGS.API.ISplitPanelComponent.html">ISplitPanelComponent</a></h4>
+      <section><p>Adds the ability to place 2 panels adjacent to each other (either vertically or horizontally),
+and have a split line in between which can be dragged to resize both panels at the same time.</p>
+</section>
       <h4><a class="xref" href="AGS.API.ISprite.html">ISprite</a></h4>
       <section><p>A sprite is an image which can be manipulated (scaled, rotated or translated in space).</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ISpriteProvider.html">ISpriteProvider</a></h4>
+      <section><p>Interface of a single sprite source.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISpriteSheet.html">ISpriteSheet</a></h4>
       <section><p>Represents a sprite sheet: An image that contains multiple sprites in it, with some
@@ -889,6 +928,12 @@ for allowing editing/inserting text.</p>
       <h4><a class="xref" href="AGS.API.ITextureConfig.html">ITextureConfig</a></h4>
       <section><p>Various configurations for a texture.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.ITextureOffsetComponent.html">ITextureOffsetComponent</a></h4>
+      <section><p>Allows changing the starting offset from which the texture will be rendered.</p>
+<p>This can be useful, for example, when dealing with a tiled texture 
+(i.e when the <a class="xref" href="AGS.API.ITextureConfig.html">ITextureConfig</a> has either wrapX or wrapY as <a class="xref" href="AGS.API.TextureWrap.html#AGS_API_TextureWrap_Repeat">Repeat</a> or <a class="xref" href="AGS.API.TextureWrap.html#AGS_API_TextureWrap_MirroredRepeat">MirroredRepeat</a>)
+when you want to animate the tile.</p>
+</section>
       <h4><a class="xref" href="AGS.API.ITransformMatrix.html">ITransformMatrix</a></h4>
       <section></section>
       <h4><a class="xref" href="AGS.API.ITranslate.html">ITranslate</a></h4>
@@ -913,6 +958,13 @@ of the node.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ITreeStringNode.html">ITreeStringNode</a></h4>
       <section><p>A string tree node, which will be shown in a <a class="xref" href="AGS.API.ITreeViewComponent.html">ITreeViewComponent</a> .</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ITreeTableLayout.html">ITreeTableLayout</a></h4>
+      <section><p>Represents a layout of columns that is shared between nodes in a tree view, using a <a class="xref" href="AGS.API.ITreeTableRowLayoutComponent.html">ITreeTableRowLayoutComponent</a>.
+By sharing the interaces different nodes on the list can align the columns together.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ITreeTableRowLayoutComponent.html">ITreeTableRowLayoutComponent</a></h4>
+      <section><p>Represents a row in a tree view that aligns its columns with other rows, based on <a class="xref" href="AGS.API.ITreeTableLayout.html">ITreeTableLayout</a> .</p>
 </section>
       <h4><a class="xref" href="AGS.API.ITreeViewComponent.html">ITreeViewComponent</a></h4>
       <section><p>A component for displaying a hierarchical collection of text labels.
@@ -940,12 +992,12 @@ A viewport to the room instructs the engine on what parts of the room to show.</
       <h4><a class="xref" href="AGS.API.IWalkableArea.html">IWalkableArea</a></h4>
       <section><p>These are the areas that indicate where the characters can walk.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IWalkBehavior.html">IWalkBehavior</a></h4>
-      <section><p>Gives an entity the ability to walk around the room.</p>
-</section>
       <h4><a class="xref" href="AGS.API.IWalkBehindArea.html">IWalkBehindArea</a></h4>
       <section><p>These are areas that indicate that the background graphic of the room should be in front of the 
 characters/objects. When rendering the engine will actually crop those up and render them on top.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IWalkComponent.html">IWalkComponent</a></h4>
+      <section><p>Gives an entity the ability to walk around the room.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IZoomArea.html">IZoomArea</a></h4>
       <section><p>These are areas that indicate the camera should automatically zoom when the player (or whatever other target 
@@ -970,6 +1022,12 @@ away from the camera.</p>
 </section>
       <h4><a class="xref" href="AGS.API.BrushType.html">BrushType</a></h4>
       <section></section>
+      <h4><a class="xref" href="AGS.API.ComboSuggest.html">ComboSuggest</a></h4>
+      <section><p>Which mode to apply when typing text in the combo box&apos;s textbox?</p>
+</section>
+      <h4><a class="xref" href="AGS.API.CustomStringApplyWhen.html">CustomStringApplyWhen</a></h4>
+      <section><p>Indicates when to apply a custom display string instead of using ToString().</p>
+</section>
       <h4><a class="xref" href="AGS.API.Direction.html">Direction</a></h4>
       <section><p>A general direction to which a character can face.</p>
 </section>
@@ -1018,11 +1076,15 @@ away from the camera.</p>
       <h4><a class="xref" href="AGS.API.SkipText.html">SkipText</a></h4>
       <section><p>How to skip the text?</p>
 </section>
+      <h4><a class="xref" href="AGS.API.SliderDirection.html">SliderDirection</a></h4>
+      <section><p>The direction in which the slider moves from minimum to maximum.</p>
+</section>
       <h4><a class="xref" href="AGS.API.SpriteSheetOrder.html">SpriteSheetOrder</a></h4>
       <section><p>Determines the order in which a sprite sheet is read.</p>
 </section>
       <h4><a class="xref" href="AGS.API.TextureWrap.html">TextureWrap</a></h4>
-      <section><p>How a texture is wrapped to fill an image.</p>
+      <section><p>How a texture is wrapped to fill an image.
+<a class="xref" href="AGS.API.ITextureOffsetComponent.html">ITextureOffsetComponent</a></p>
 </section>
       <h4><a class="xref" href="AGS.API.VsyncMode.html">VsyncMode</a></h4>
       <section><p>Vsync mode- how the FPS and screen refresh rate are synchronized.</p>
