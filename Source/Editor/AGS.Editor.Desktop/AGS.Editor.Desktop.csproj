@@ -43,10 +43,17 @@
       <Project>{6BEEC517-011A-441E-8A2F-D9461806A879}</Project>
       <Name>AGS.Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AGS.Editor\AGS.Editor.csproj">
+      <Project>{5F511E0A-CE3C-49C6-8706-2D9850FA9FE0}</Project>
+      <Name>AGS.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\AGS.Engine.Desktop\AGS.Engine.Desktop.csproj">
+      <Project>{1C51A706-4D2C-49D4-972F-CB5075324F5F}</Project>
+      <Name>AGS.Engine.Desktop</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
-  <Import Project="..\AGS.Editor\AGS.Editor.projitems" Label="Shared" Condition="Exists('..\AGS.Editor\AGS.Editor.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

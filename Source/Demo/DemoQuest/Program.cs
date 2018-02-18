@@ -7,13 +7,13 @@ using System;
 
 namespace DemoGame
 {
-	public class DemoStarter
+    public class DemoStarter : IGameCreator
 	{
         private static Lazy<GameDebugView> _gameDebugView;
 
-		public static void Run()
-		{
-			IGame game = AGSGame.CreateEmpty();
+        public IGame CreateGame()
+        {
+            IGame game = AGSGame.CreateEmpty();
             _gameDebugView = new Lazy<GameDebugView>(() =>
             {
                 var gameDebugView = new GameDebugView(game);
@@ -41,12 +41,18 @@ namespace DemoGame
                 Debug.WriteLine("Startup: Loaded Player Character");
                 await loadSplashScreen(game);
             });
+            return game;
+        }
 
+		public static void Run()
+		{
+            DemoStarter starter = new DemoStarter();
+            var game = starter.CreateGame();
             game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
 				windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal));
 		}
 
-        private static void setKeyboardEvents(IGame game)
+        private void setKeyboardEvents(IGame game)
         {
             game.State.Cutscene.SkipTrigger = SkipCutsceneTrigger.AnyKey;
             game.Input.KeyDown.SubscribeToAsync(async args =>
@@ -79,7 +85,7 @@ namespace DemoGame
             });
         }
 
-		private static async Task<IPanel> loadUi(IGame game)
+		private async Task<IPanel> loadUi(IGame game)
 		{
 			MouseCursors cursors = new MouseCursors();
 			await cursors.LoadAsync(game);
@@ -104,7 +110,7 @@ namespace DemoGame
 			return topPanel;
 		}
 
-        private static async Task loadPlayerCharacter(IGame game)
+        private async Task loadPlayerCharacter(IGame game)
         { 
             Cris cris = new Cris();
             ICharacter character = await cris.LoadAsync(game);
@@ -112,7 +118,7 @@ namespace DemoGame
             game.State.Player = character;
         }
 
-		private static async Task loadCharacters(IGame game)
+		private async Task loadCharacters(IGame game)
 		{
             ICharacter character = game.State.Player;
 			KeyboardMovement movement = new KeyboardMovement (character, game.Input, 
@@ -131,7 +137,7 @@ namespace DemoGame
 			Characters.Init (game);
 		}
 
-        private static async Task loadSplashScreen(IGame game)
+        private async Task loadSplashScreen(IGame game)
         { 
             AGSSplashScreen splashScreen = new AGSSplashScreen();
             Rooms.SplashScreen = splashScreen.Load(game);
@@ -154,7 +160,7 @@ namespace DemoGame
             Debug.WriteLine("Startup: Loaded splash screen");
         }
 
-		private static async Task loadRooms(IGame game)
+		private async Task loadRooms(IGame game)
 		{
             Debug.WriteLine("Startup: Loading Rooms");
 			EmptyStreet emptyStreet = new EmptyStreet (game.State.Player);
@@ -187,19 +193,19 @@ namespace DemoGame
 			//await Rooms.DarsStreet;
 		}
 
-		private static void addRoomWhenLoaded (IGame game, Task<IRoom> task)
+		private void addRoomWhenLoaded (IGame game, Task<IRoom> task)
 		{
 			task.ContinueWith(room => game.State.Rooms.Add (room.Result));
 		}
 
-        private static async Task waitForRoom(IGame game, Task<IRoom> task)
+        private async Task waitForRoom(IGame game, Task<IRoom> task)
         {
             var room = await task;
             game.State.Rooms.Add(room);
         }
 
 		[Conditional("DEBUG")]
-		private static void addDebugLabels(IGame game)
+		private void addDebugLabels(IGame game)
 		{
             var resolution = new Size(1200, 800);
             ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, resolution.Width, 2, config: new AGSTextConfig(alignment: Alignment.TopLeft,
@@ -229,5 +235,5 @@ namespace DemoGame
             HotspotLabel hotspot = new HotspotLabel(game, debugHotspotLabel) { DebugMode = true };
             hotspot.Start();
 		}
-	}
+    }
 }
