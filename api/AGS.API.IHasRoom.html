@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IHasRoomComponent
+    <title>Interface IHasRoom
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IHasRoomComponent
+    <meta name="title" content="Interface IHasRoom
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.31.0.0">
     
@@ -76,10 +76,10 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.IHasRoomComponent">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IHasRoom">
   
   
-  <h1 id="AGS_API_IHasRoomComponent" data-uid="AGS.API.IHasRoomComponent" class="text-break">Interface IHasRoomComponent
+  <h1 id="AGS_API_IHasRoom" data-uid="AGS.API.IHasRoom" class="text-break">Interface IHasRoom
   </h1>
   <div class="markdown level0 summary"><p>This component associates an entity with the game&apos;s room system.
 It means that the entity can be belong to a room and moved between rooms.</p>
@@ -91,6 +91,9 @@ It means that the entity can be belong to a room and moved between rooms.</p>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
     </div>
     <div>
@@ -99,33 +102,30 @@ It means that the entity can be belong to a room and moved between rooms.</p>
     <div>
       <span class="xref">System.IDisposable.Dispose()</span>
     </div>
-    <div>
-      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_IHasRoomComponent_syntax">Syntax</h5>
+  <h5 id="AGS_API_IHasRoom_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IHasRoomComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IHasRoom : IComponent, IDisposable</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IHasRoomComponent_OnRoomChanged.md&amp;value=---%0Auid%3A%20AGS.API.IHasRoomComponent.OnRoomChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasRoom_OnRoomChanged.md&amp;value=---%0Auid%3A%20AGS.API.IHasRoom.OnRoomChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Objects/IHasRoomComponent.cs/#L27">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Objects/IHasRoom.cs/#L27">View Source</a>
   </span>
-  <a id="AGS_API_IHasRoomComponent_OnRoomChanged_" data-uid="AGS.API.IHasRoomComponent.OnRoomChanged*"></a>
-  <h4 id="AGS_API_IHasRoomComponent_OnRoomChanged" data-uid="AGS.API.IHasRoomComponent.OnRoomChanged">OnRoomChanged</h4>
+  <a id="AGS_API_IHasRoom_OnRoomChanged_" data-uid="AGS.API.IHasRoom.OnRoomChanged*"></a>
+  <h4 id="AGS_API_IHasRoom_OnRoomChanged" data-uid="AGS.API.IHasRoom.OnRoomChanged">OnRoomChanged</h4>
   <div class="markdown level1 summary"><p>An event which fires whenever the room is changed.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IBlockingEvent OnRoomChanged { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IEvent OnRoomChanged { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -137,7 +137,7 @@ It means that the entity can be belong to a room and moved between rooms.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IBlockingEvent.html">IBlockingEvent</a></td>
+        <td><a class="xref" href="AGS.API.IEvent.html">IEvent</a></td>
         <td><p>The on room changed event.</p>
 </td>
       </tr>
@@ -145,13 +145,13 @@ It means that the entity can be belong to a room and moved between rooms.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IHasRoomComponent_PreviousRoom.md&amp;value=---%0Auid%3A%20AGS.API.IHasRoomComponent.PreviousRoom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasRoom_PreviousRoom.md&amp;value=---%0Auid%3A%20AGS.API.IHasRoom.PreviousRoom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Objects/IHasRoomComponent.cs/#L21">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Objects/IHasRoom.cs/#L21">View Source</a>
   </span>
-  <a id="AGS_API_IHasRoomComponent_PreviousRoom_" data-uid="AGS.API.IHasRoomComponent.PreviousRoom*"></a>
-  <h4 id="AGS_API_IHasRoomComponent_PreviousRoom" data-uid="AGS.API.IHasRoomComponent.PreviousRoom">PreviousRoom</h4>
+  <a id="AGS_API_IHasRoom_PreviousRoom_" data-uid="AGS.API.IHasRoom.PreviousRoom*"></a>
+  <h4 id="AGS_API_IHasRoom_PreviousRoom" data-uid="AGS.API.IHasRoom.PreviousRoom">PreviousRoom</h4>
   <div class="markdown level1 summary"><p>The previous room that the entity used to reside in until it moved to the current room.
 This will be null if the entity has never moved rooms.</p>
 </div>
@@ -177,13 +177,13 @@ This will be null if the entity has never moved rooms.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IHasRoomComponent_Room.md&amp;value=---%0Auid%3A%20AGS.API.IHasRoomComponent.Room%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasRoom_Room.md&amp;value=---%0Auid%3A%20AGS.API.IHasRoom.Room%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Objects/IHasRoomComponent.cs/#L15">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Objects/IHasRoom.cs/#L15">View Source</a>
   </span>
-  <a id="AGS_API_IHasRoomComponent_Room_" data-uid="AGS.API.IHasRoomComponent.Room*"></a>
-  <h4 id="AGS_API_IHasRoomComponent_Room" data-uid="AGS.API.IHasRoomComponent.Room">Room</h4>
+  <a id="AGS_API_IHasRoom_Room_" data-uid="AGS.API.IHasRoom.Room*"></a>
+  <h4 id="AGS_API_IHasRoom_Room" data-uid="AGS.API.IHasRoom.Room">Room</h4>
   <div class="markdown level1 summary"><p>The current room that the entity resides in.
 If this is entity is to be rendered to the screen it will only be rendered if it&apos;s in the same room as the player (or if it&apos;s in the UI).       </p>
 </div>
@@ -211,13 +211,13 @@ If this is entity is to be rendered to the screen it will only be rendered if it
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IHasRoomComponent_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single__.md&amp;value=---%0Auid%3A%20AGS.API.IHasRoomComponent.ChangeRoomAsync(AGS.API.IRoom%2CSystem.Nullable%7BSystem.Single%7D%2CSystem.Nullable%7BSystem.Single%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasRoom_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single__.md&amp;value=---%0Auid%3A%20AGS.API.IHasRoom.ChangeRoomAsync(AGS.API.IRoom%2CSystem.Nullable%7BSystem.Single%7D%2CSystem.Nullable%7BSystem.Single%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Objects/IHasRoomComponent.cs/#L45">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Objects/IHasRoom.cs/#L45">View Source</a>
   </span>
-  <a id="AGS_API_IHasRoomComponent_ChangeRoomAsync_" data-uid="AGS.API.IHasRoomComponent.ChangeRoomAsync*"></a>
-  <h4 id="AGS_API_IHasRoomComponent_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single__" data-uid="AGS.API.IHasRoomComponent.ChangeRoomAsync(AGS.API.IRoom,System.Nullable{System.Single},System.Nullable{System.Single})">ChangeRoomAsync(IRoom, Nullable&lt;Single&gt;, Nullable&lt;Single&gt;)</h4>
+  <a id="AGS_API_IHasRoom_ChangeRoomAsync_" data-uid="AGS.API.IHasRoom.ChangeRoomAsync*"></a>
+  <h4 id="AGS_API_IHasRoom_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single__" data-uid="AGS.API.IHasRoom.ChangeRoomAsync(AGS.API.IRoom,System.Nullable{System.Single},System.Nullable{System.Single})">ChangeRoomAsync(IRoom, Nullable&lt;Single&gt;, Nullable&lt;Single&gt;)</h4>
   <div class="markdown level1 summary"><p>Move the entity to a new room.
 If the entity that&apos;s moved to a new room is the player, the new room will be the one shown on the screen.</p>
 </div>
@@ -271,8 +271,8 @@ If the entity that&apos;s moved to a new room is the player, the new room will b
       </tr>
     </tbody>
   </table>
-  <h5 id="AGS_API_IHasRoomComponent_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single___examples">Examples</h5>
-  <pre><code class="lang-csharp">private void onDoorHotspotClicked()
+  <h5 id="AGS_API_IHasRoom_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single___examples">Examples</h5>
+  <pre><code>private void onDoorHotspotClicked()
 {
     cPlayer.Say(&quot;Ok, time to get inside the house.&quot;);
     cPlayer.ChangeRoom(rHouse, 120, 100); //Will move the player to the house (to co-ordinates: 120,100).
@@ -286,10 +286,10 @@ If the entity that&apos;s moved to a new room is the player, the new room will b
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IHasRoomComponent.md&amp;value=---%0Auid%3A%20AGS.API.IHasRoomComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IHasRoom.md&amp;value=---%0Auid%3A%20AGS.API.IHasRoom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Objects/IHasRoomComponent.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Objects/IHasRoom.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

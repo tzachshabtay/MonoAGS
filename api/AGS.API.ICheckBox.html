@@ -81,7 +81,7 @@
   
   <h1 id="AGS_API_ICheckBox" data-uid="AGS.API.ICheckBox" class="text-break">Interface ICheckBox
   </h1>
-  <div class="markdown level0 summary"><p>A pre-set entity with all of the UI control components, plus a checkbox component.</p>
+  <div class="markdown level0 summary"><p>A pre-set entity with all of the UI control components, plus a checkbox component and a text component.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritedMembers">
@@ -123,25 +123,19 @@
       <a class="xref" href="AGS.API.IEntity.html#AGS_API_IEntity_ID">IEntity.ID</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IEntity.html#AGS_API_IEntity_DisplayName">IEntity.DisplayName</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IEntity.html#AGS_API_IEntity_GetFriendlyName">IEntity.GetFriendlyName()</a>
-    </div>
-    <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent__1">IComponentsCollection.AddComponent&lt;TComponent&gt;()</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_System_Type_">IComponentsCollection.AddComponent(Type)</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent__1_AGS_API_IComponent_">IComponentsCollection.AddComponent&lt;TComponent&gt;(IComponent)</a>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_AGS_API_IComponent_">IComponentsCollection.AddComponent(IComponent)</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent__1">IComponentsCollection.RemoveComponent&lt;TComponent&gt;()</a>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponents__1">IComponentsCollection.RemoveComponents&lt;TComponent&gt;()</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_System_Type_">IComponentsCollection.RemoveComponent(Type)</a>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponents_System_Type_">IComponentsCollection.RemoveComponents(Type)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_AGS_API_IComponent_">IComponentsCollection.RemoveComponent(IComponent)</a>
@@ -162,10 +156,22 @@
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_System_Type_">IComponentsCollection.GetComponent(Type)</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponents__1">IComponentsCollection.GetComponents&lt;TComponent&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponents_System_Type_">IComponentsCollection.GetComponents(Type)</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind__1_System_Action___0__System_Action___0__">IComponentsCollection.Bind&lt;TComponent&gt;(Action&lt;TComponent&gt;, Action&lt;TComponent&gt;)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Count">IComponentsCollection.Count</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_CountType_System_Type_">IComponentsCollection.CountType(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_CountType__1">IComponentsCollection.CountType&lt;TComponent&gt;()</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_OnComponentsInitialized">IComponentsCollection.OnComponentsInitialized</a>
@@ -177,46 +183,58 @@
       <span class="xref">System.Collections.Generic.IEnumerable&lt;AGS.API.IComponent&gt;.GetEnumerator()</span>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_Room">IHasRoomComponent.Room</a>
+      <a class="xref" href="AGS.API.IHasRoom.html#AGS_API_IHasRoom_Room">IHasRoom.Room</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_PreviousRoom">IHasRoomComponent.PreviousRoom</a>
+      <a class="xref" href="AGS.API.IHasRoom.html#AGS_API_IHasRoom_PreviousRoom">IHasRoom.PreviousRoom</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_OnRoomChanged">IHasRoomComponent.OnRoomChanged</a>
+      <a class="xref" href="AGS.API.IHasRoom.html#AGS_API_IHasRoom_OnRoomChanged">IHasRoom.OnRoomChanged</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single__">IHasRoomComponent.ChangeRoomAsync(IRoom, Nullable&lt;Single&gt;, Nullable&lt;Single&gt;)</a>
+      <a class="xref" href="AGS.API.IHasRoom.html#AGS_API_IHasRoom_ChangeRoomAsync_AGS_API_IRoom_System_Nullable_System_Single__System_Nullable_System_Single__">IHasRoom.ChangeRoomAsync(IRoom, Nullable&lt;Single&gt;, Nullable&lt;Single&gt;)</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Animation">IAnimationComponent.Animation</a>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Animation">IAnimationContainer.Animation</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_OnAnimationStarted">IAnimationComponent.OnAnimationStarted</a>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_DebugDrawAnchor">IAnimationContainer.DebugDrawAnchor</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_StartAnimation_AGS_API_IAnimation_">IAnimationComponent.StartAnimation(IAnimation)</a>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_OnAnimationStarted">IAnimationContainer.OnAnimationStarted</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_Animate_AGS_API_IAnimation_">IAnimationComponent.Animate(IAnimation)</a>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Border">IAnimationContainer.Border</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IAnimationComponent.html#AGS_API_IAnimationComponent_AnimateAsync_AGS_API_IAnimation_">IAnimationComponent.AnimateAsync(IAnimation)</a>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_StartAnimation_AGS_API_IAnimation_">IAnimationContainer.StartAnimation(IAnimation)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_Animate_AGS_API_IAnimation_">IAnimationContainer.Animate(IAnimation)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IAnimationContainer.html#AGS_API_IAnimationContainer_AnimateAsync_AGS_API_IAnimation_">IAnimationContainer.AnimateAsync(IAnimation)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IInTree-1.html#AGS_API_IInTree_1_TreeNode">IInTree&lt;IObject&gt;.TreeNode</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IColliderComponent.html#AGS_API_IColliderComponent_CenterPoint">IColliderComponent.CenterPoint</a>
+      <a class="xref" href="AGS.API.ICollider.html#AGS_API_ICollider_CenterPoint">ICollider.CenterPoint</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IColliderComponent.html#AGS_API_IColliderComponent_CollidesWith_System_Single_System_Single_AGS_API_IViewport_">IColliderComponent.CollidesWith(Single, Single, IViewport)</a>
+      <a class="xref" href="AGS.API.ICollider.html#AGS_API_ICollider_CollidesWith_System_Single_System_Single_AGS_API_IViewport_">ICollider.CollidesWith(Single, Single, IViewport)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_Visible">IVisibleComponent.Visible</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_UnderlyingVisible">IVisibleComponent.UnderlyingVisible</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_OnVisibleChanged">IVisibleComponent.OnVisibleChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_OnUnderlyingVisibleChanged">IVisibleComponent.OnUnderlyingVisibleChanged</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_Enabled">IEnabledComponent.Enabled</a>
@@ -228,31 +246,43 @@
       <a class="xref" href="AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_ClickThrough">IEnabledComponent.ClickThrough</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_OnEnabledChanged">IEnabledComponent.OnEnabledChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IEnabledComponent.html#AGS_API_IEnabledComponent_OnUnderlyingEnabledChanged">IEnabledComponent.OnUnderlyingEnabledChanged</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.ICustomPropertiesComponent.html#AGS_API_ICustomPropertiesComponent_Properties">ICustomPropertiesComponent.Properties</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IDrawableInfoComponent.html#AGS_API_IDrawableInfoComponent_RenderLayer">IDrawableInfoComponent.RenderLayer</a>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_RenderLayer">IDrawableInfo.RenderLayer</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IDrawableInfoComponent.html#AGS_API_IDrawableInfoComponent_IgnoreViewport">IDrawableInfoComponent.IgnoreViewport</a>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_IgnoreViewport">IDrawableInfo.IgnoreViewport</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IDrawableInfoComponent.html#AGS_API_IDrawableInfoComponent_IgnoreScalingArea">IDrawableInfoComponent.IgnoreScalingArea</a>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_IgnoreScalingArea">IDrawableInfo.IgnoreScalingArea</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnIgnoreScalingAreaChanged">IDrawableInfo.OnIgnoreScalingAreaChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnIgnoreViewportChanged">IDrawableInfo.OnIgnoreViewportChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IDrawableInfo.html#AGS_API_IDrawableInfo_OnRenderLayerChanged">IDrawableInfo.OnRenderLayerChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_Interactions">IHotspotComponent.Interactions</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_WalkPoint">IHotspotComponent.WalkPoint</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHotspotComponent.html#AGS_API_IHotspotComponent_Hotspot">IHotspotComponent.Hotspot</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IShaderComponent.html#AGS_API_IShaderComponent_Shader">IShaderComponent.Shader</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IImageComponent.html#AGS_API_IImageComponent_CurrentSprite">IImageComponent.CurrentSprite</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IImageComponent.html#AGS_API_IImageComponent_SpriteProvider">IImageComponent.SpriteProvider</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IImageComponent.html#AGS_API_IImageComponent_DebugDrawPivot">IImageComponent.DebugDrawPivot</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IImageComponent.html#AGS_API_IImageComponent_Border">IImageComponent.Border</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IPixelPerfectCollidable.html#AGS_API_IPixelPerfectCollidable_PixelPerfectHitTestArea">IPixelPerfectCollidable.PixelPerfectHitTestArea</a>
@@ -273,16 +303,22 @@
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleY">IScale.ScaleY</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_Scale">IScale.Scale</a>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_BaseSize">IScale.BaseSize</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_BaseSize">IScale.BaseSize</a>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_OnScaleChanged">IScale.OnScaleChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetBaseSize_System_Single_System_Single_">IScale.ResetBaseSize(Single, Single)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetScale">IScale.ResetScale()</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ResetScale_System_Single_System_Single_">IScale.ResetScale(Single, Single)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleBy_System_Single_System_Single_">IScale.ScaleBy(Single, Single)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IScale.html#AGS_API_IScale_ScaleTo_System_Single_System_Single_">IScale.ScaleTo(Single, Single)</a>
@@ -297,6 +333,9 @@
       <a class="xref" href="AGS.API.IRotate.html#AGS_API_IRotate_Angle">IRotate.Angle</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IRotate.html#AGS_API_IRotate_OnAngleChanged">IRotate.OnAngleChanged</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.ITranslate.html#AGS_API_ITranslate_Location">ITranslate.Location</a>
     </div>
     <div>
@@ -309,13 +348,16 @@
       <a class="xref" href="AGS.API.ITranslate.html#AGS_API_ITranslate_Z">ITranslate.Z</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.ITranslate.html#AGS_API_ITranslate_OnLocationChanged">ITranslate.OnLocationChanged</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Opacity">IHasImage.Opacity</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Tint">IHasImage.Tint</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Pivot">IHasImage.Pivot</a>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Anchor">IHasImage.Anchor</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Image">IHasImage.Image</a>
@@ -324,13 +366,19 @@
       <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_CustomRenderer">IHasImage.CustomRenderer</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnImageChanged">IHasImage.OnImageChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnAnchorChanged">IHasImage.OnAnchorChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_OnTintChanged">IHasImage.OnTintChanged</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IModelMatrixComponent.html#AGS_API_IModelMatrixComponent_GetModelMatrices">IModelMatrixComponent.GetModelMatrices()</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IModelMatrixComponent.html#AGS_API_IModelMatrixComponent_OnMatrixChanged">IModelMatrixComponent.OnMatrixChanged</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IModelMatrixComponent.html#AGS_API_IModelMatrixComponent_ModelMatrixLockStep">IModelMatrixComponent.ModelMatrixLockStep</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_GetBoundingBoxes_AGS_API_IViewport_">IBoundingBoxComponent.GetBoundingBoxes(IViewport)</a>
@@ -339,7 +387,22 @@
       <a class="xref" href="AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_OnBoundingBoxesChanged">IBoundingBoxComponent.OnBoundingBoxesChanged</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_BoundingBoxLockStep">IBoundingBoxComponent.BoundingBoxLockStep</a>
+      <a class="xref" href="AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextConfig">ITextComponent.TextConfig</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ITextComponent.html#AGS_API_ITextComponent_Text">ITextComponent.Text</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ITextComponent.html#AGS_API_ITextComponent_LabelRenderSize">ITextComponent.LabelRenderSize</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextVisible">ITextComponent.TextVisible</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextHeight">ITextComponent.TextHeight</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextWidth">ITextComponent.TextWidth</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.ICheckboxComponent.html#AGS_API_ICheckboxComponent_Checked">ICheckboxComponent.Checked</a>
@@ -360,10 +423,10 @@
       <a class="xref" href="AGS.API.ICheckboxComponent.html#AGS_API_ICheckboxComponent_HoverCheckedAnimation">ICheckboxComponent.HoverCheckedAnimation</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.ICheckboxComponent.html#AGS_API_ICheckboxComponent_TextLabel">ICheckboxComponent.TextLabel</a>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AllowMultiple">IComponent.AllowMultiple</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
@@ -374,15 +437,12 @@
     <div>
       <span class="xref">System.IDisposable.Dispose()</span>
     </div>
-    <div>
-      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_ICheckBox_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ICheckBox : IUIControl, IUIEvents, ISkinComponent, IObject, IEntity, IComponentsCollection, IEnumerable&lt;IComponent&gt;, IEnumerable, IHasRoomComponent, IAnimationComponent, IInObjectTreeComponent, IInTree&lt;IObject&gt;, IColliderComponent, IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfoComponent, IShaderComponent, ITranslateComponent, IImageComponent, IScaleComponent, IRotateComponent, IPixelPerfectComponent, IPixelPerfectCollidable, IHasModelMatrix, IScale, IRotate, ITranslate, IHasImage, IModelMatrixComponent, IBoundingBoxComponent, ICheckboxComponent, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ICheckBox : IUIControl, IUIEvents, ISkinComponent, IObject, IEntity, IComponentsCollection, IEnumerable&lt;IComponent&gt;, IEnumerable, IHasRoom, IAnimationContainer, IInObjectTree, IInTree&lt;IObject&gt;, ICollider, IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfo, IHotspotComponent, IShaderComponent, ITranslateComponent, IImageComponent, IScaleComponent, IRotateComponent, IPixelPerfectComponent, IPixelPerfectCollidable, IHasModelMatrix, IScale, IRotate, ITranslate, IHasImage, IModelMatrixComponent, IBoundingBoxComponent, ITextComponent, ICheckboxComponent, IComponent, IDisposable</code></pre>
   </div>
 </article>
           </div>
@@ -392,10 +452,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_ICheckBox.md&amp;value=---%0Auid%3A%20AGS.API.ICheckBox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_ICheckBox.md&amp;value=---%0Auid%3A%20AGS.API.ICheckBox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/UI/Controls/Checkbox/ICheckbox.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/UI/Controls/Checkbox/ICheckbox.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

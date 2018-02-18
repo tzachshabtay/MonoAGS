@@ -81,59 +81,40 @@
   
   <h1 id="AGS_API_IEvent" data-uid="AGS.API.IEvent" class="text-break">Interface IEvent
   </h1>
-  <div class="markdown level0 summary"><p>Represents an event which can be subscribed both synchronously or asynchorously, and is invoked asynchronously.
+  <div class="markdown level0 summary"><p>Represents an event which can be subscribed and invoked, both synchronously and asynchronously.
 An event is a notification for something that has happened.
 Interested parties can subscribe to the event and be notified when it triggers (<a href="https://en.wikipedia.org/wiki/Event-driven_programming">https://en.wikipedia.org/wiki/Event-driven_programming</a>).</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_SubscribersCount">IBlockingEvent.SubscribersCount</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_System_Action_">IBlockingEvent.Subscribe(Action)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_System_Action_">IBlockingEvent.Unsubscribe(Action)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Invoke">IBlockingEvent.Invoke()</a>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IEvent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IEvent</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IEvent : IBlockingEvent</code></pre>
   </div>
-  <h3 id="properties">Properties
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IEvent_SubscribersCount.md&amp;value=---%0Auid%3A%20AGS.API.IEvent.SubscribersCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Misc/Events/IEvent.cs/#L72">View Source</a>
-  </span>
-  <a id="AGS_API_IEvent_SubscribersCount_" data-uid="AGS.API.IEvent.SubscribersCount*"></a>
-  <h4 id="AGS_API_IEvent_SubscribersCount" data-uid="AGS.API.IEvent.SubscribersCount">SubscribersCount</h4>
-  <div class="markdown level1 summary"><p>Gets the number of subscribers to the event.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">int SubscribersCount { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><p>The subscribers count.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IEvent_InvokeAsync.md&amp;value=---%0Auid%3A%20AGS.API.IEvent.InvokeAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IEvent_InvokeAsync.md&amp;value=---%0Auid%3A%20AGS.API.IEvent.InvokeAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Misc/Events/IEvent.cs/#L112">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Misc/Events/IEvent.cs/#L72">View Source</a>
   </span>
   <a id="AGS_API_IEvent_InvokeAsync_" data-uid="AGS.API.IEvent.InvokeAsync*"></a>
   <h4 id="AGS_API_IEvent_InvokeAsync" data-uid="AGS.API.IEvent.InvokeAsync">InvokeAsync()</h4>
@@ -161,45 +142,10 @@ Interested parties can subscribe to the event and be notified when it triggers (
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IEvent_Subscribe_System_Action_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent.Subscribe(System.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IEvent_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent.SubscribeToAsync(System.Func%7BSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Misc/Events/IEvent.cs/#L79">View Source</a>
-  </span>
-  <a id="AGS_API_IEvent_Subscribe_" data-uid="AGS.API.IEvent.Subscribe*"></a>
-  <h4 id="AGS_API_IEvent_Subscribe_System_Action_" data-uid="AGS.API.IEvent.Subscribe(System.Action)">Subscribe(Action)</h4>
-  <div class="markdown level1 summary"><p>Subscribe the specified callback to the event.
-Once subscribed, whenever the event happens this callback will be called.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Subscribe(Action callback)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Action</span></td>
-        <td><span class="parametername">callback</span></td>
-        <td><p>Callback.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IEvent_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent.SubscribeToAsync(System.Func%7BSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Misc/Events/IEvent.cs/#L93">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Misc/Events/IEvent.cs/#L53">View Source</a>
   </span>
   <a id="AGS_API_IEvent_SubscribeToAsync_" data-uid="AGS.API.IEvent.SubscribeToAsync*"></a>
   <h4 id="AGS_API_IEvent_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__" data-uid="AGS.API.IEvent.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})">SubscribeToAsync(Func&lt;Task&gt;)</h4>
@@ -231,45 +177,10 @@ Once subscribed, whenever the event happens this callback will be called.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IEvent_Unsubscribe_System_Action_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent.Unsubscribe(System.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IEvent_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent.UnsubscribeToAsync(System.Func%7BSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Misc/Events/IEvent.cs/#L86">View Source</a>
-  </span>
-  <a id="AGS_API_IEvent_Unsubscribe_" data-uid="AGS.API.IEvent.Unsubscribe*"></a>
-  <h4 id="AGS_API_IEvent_Unsubscribe_System_Action_" data-uid="AGS.API.IEvent.Unsubscribe(System.Action)">Unsubscribe(Action)</h4>
-  <div class="markdown level1 summary"><p>Unsubscribe the specified callback from the event.
-This will stops notifications to call this callback.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Unsubscribe(Action callback)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Action</span></td>
-        <td><span class="parametername">callback</span></td>
-        <td><p>Callback.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IEvent_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent.UnsubscribeToAsync(System.Func%7BSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Misc/Events/IEvent.cs/#L100">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Misc/Events/IEvent.cs/#L60">View Source</a>
   </span>
   <a id="AGS_API_IEvent_UnsubscribeToAsync_" data-uid="AGS.API.IEvent.UnsubscribeToAsync*"></a>
   <h4 id="AGS_API_IEvent_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__" data-uid="AGS.API.IEvent.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})">UnsubscribeToAsync(Func&lt;Task&gt;)</h4>
@@ -301,10 +212,10 @@ This will stops notifications to call this callback.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IEvent_WaitUntilAsync_System_Func_System_Boolean__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent.WaitUntilAsync(System.Func%7BSystem.Boolean%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IEvent_WaitUntilAsync_System_Func_System_Boolean__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent.WaitUntilAsync(System.Func%7BSystem.Boolean%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Misc/Events/IEvent.cs/#L107">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Misc/Events/IEvent.cs/#L67">View Source</a>
   </span>
   <a id="AGS_API_IEvent_WaitUntilAsync_" data-uid="AGS.API.IEvent.WaitUntilAsync*"></a>
   <h4 id="AGS_API_IEvent_WaitUntilAsync_System_Func_System_Boolean__" data-uid="AGS.API.IEvent.WaitUntilAsync(System.Func{System.Boolean})">WaitUntilAsync(Func&lt;Boolean&gt;)</h4>
@@ -357,10 +268,10 @@ This will stops notifications to call this callback.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IEvent.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IEvent.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Misc/Events/IEvent.cs/#L66" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Misc/Events/IEvent.cs/#L46" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

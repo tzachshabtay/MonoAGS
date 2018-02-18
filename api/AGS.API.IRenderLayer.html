@@ -93,7 +93,7 @@ UI layer is next, to ensure that it can always be seen (unless obstructed by tex
 This is followed by the Foreground layer, which is the default for all non UI objects.
 And lastly the Background layer, which is the default for the room&apos;s background graphics.
 You can assign those layers yourself, using AGSLayers static class:<br><example><p>
-<pre><code class="lang-csharp">cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!</code></pre>
+<pre><code>cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!</code></pre>
 <p></example></p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -107,10 +107,10 @@ You can assign those layers yourself, using AGSLayers static class:<br><example>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IRenderLayer_IndependentResolution.md&amp;value=---%0Auid%3A%20AGS.API.IRenderLayer.IndependentResolution%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IRenderLayer_IndependentResolution.md&amp;value=---%0Auid%3A%20AGS.API.IRenderLayer.IndependentResolution%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Graphics/IRenderLayer.cs/#L74">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IRenderLayer.cs/#L74">View Source</a>
   </span>
   <a id="AGS_API_IRenderLayer_IndependentResolution_" data-uid="AGS.API.IRenderLayer.IndependentResolution*"></a>
   <h4 id="AGS_API_IRenderLayer_IndependentResolution" data-uid="AGS.API.IRenderLayer.IndependentResolution">IndependentResolution</h4>
@@ -147,10 +147,10 @@ actually be drawn in the same location.</p>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IRenderLayer_ParallaxSpeed.md&amp;value=---%0Auid%3A%20AGS.API.IRenderLayer.ParallaxSpeed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IRenderLayer_ParallaxSpeed.md&amp;value=---%0Auid%3A%20AGS.API.IRenderLayer.ParallaxSpeed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Graphics/IRenderLayer.cs/#L60">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IRenderLayer.cs/#L60">View Source</a>
   </span>
   <a id="AGS_API_IRenderLayer_ParallaxSpeed_" data-uid="AGS.API.IRenderLayer.ParallaxSpeed*"></a>
   <h4 id="AGS_API_IRenderLayer_ParallaxSpeed" data-uid="AGS.API.IRenderLayer.ParallaxSpeed">ParallaxSpeed</h4>
@@ -162,7 +162,7 @@ If the room scrolls horizontally (the majority of scrolling rooms), you&apos;d l
 If the room scrolls vertically (rare but can happen), you&apos;d like to change the Y value of the parallax speed.
 All the default layers have parallax speed of 1 (i.e normal speed), so you&apos;ll need to create your own layers to enable the parallax effect.
 The closer the object is to the front, the faster it should go, so it should have a bigger parallax speed.<br>Objects in the foreground should have values larger than 1, and objects in the background should have values smaller than 1.<br><example><p>
-<pre><code class="lang-csharp">PointF parallaxSpeed = new PointF (1.4f, 1f); //all objects in this layer will move at a faster horizontal speed than the rest of the objects.
+<pre><code>PointF parallaxSpeed = new PointF (1.4f, 1f); //all objects in this layer will move at a faster horizontal speed than the rest of the objects.
 AGSRenderLayer parallaxForegroundLayer = new AGSRenderLayer(-50, parallaxSpeed); //This layer is positioned before the foreground layer and behind the UI layer.
 
 myObjInFront.RenderLayer = parallaxForegroundLayer;</code></pre>
@@ -191,16 +191,16 @@ myObjInFront.RenderLayer = parallaxForegroundLayer;</code></pre>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IRenderLayer_Z.md&amp;value=---%0Auid%3A%20AGS.API.IRenderLayer.Z%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IRenderLayer_Z.md&amp;value=---%0Auid%3A%20AGS.API.IRenderLayer.Z%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Graphics/IRenderLayer.cs/#L36">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IRenderLayer.cs/#L36">View Source</a>
   </span>
   <a id="AGS_API_IRenderLayer_Z_" data-uid="AGS.API.IRenderLayer.Z*"></a>
   <h4 id="AGS_API_IRenderLayer_Z" data-uid="AGS.API.IRenderLayer.Z">Z</h4>
   <div class="markdown level1 summary"><p>Gets the Z ordering for the layer. The smaller the number, the more visible the layer gets.
 <example><p>
-<pre><code class="lang-csharp">Debug.WriteLine(&quot;Z value for the background layer is: &quot; + AGSLayers.Background.Z);</code></pre>
+<pre><code>Debug.WriteLine(&quot;Z value for the background layer is: &quot; + AGSLayers.Background.Z);</code></pre>
 <p></example></p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -232,10 +232,10 @@ myObjInFront.RenderLayer = parallaxForegroundLayer;</code></pre>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/EditorProject/apiSpec/new?filename=AGS_API_IRenderLayer.md&amp;value=---%0Auid%3A%20AGS.API.IRenderLayer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/SmoothTransitions/apiSpec/new?filename=AGS_API_IRenderLayer.md&amp;value=---%0Auid%3A%20AGS.API.IRenderLayer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/EditorProject/Source/AGS.API/Graphics/IRenderLayer.cs/#L23" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/SmoothTransitions/Source/AGS.API/Graphics/IRenderLayer.cs/#L23" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
