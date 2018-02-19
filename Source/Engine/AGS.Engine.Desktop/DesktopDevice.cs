@@ -10,7 +10,7 @@ namespace AGS.Engine.Desktop
         {
             FileSystem = new DesktopFileSystem();
             Assemblies = new DesktopAssemblies();
-            _fontFamilyLoader = new DesktopFontFamilyLoader(new ResourceLoader(FileSystem, Assemblies));
+            _fontFamilyLoader = new DesktopFontFamilyLoader(getResourceLoader());
             GraphicsBackend = new OpenGLBackend();
             BitmapLoader = new DesktopBitmapLoader(GraphicsBackend);
             BrushLoader = new DesktopBrushLoader();
@@ -36,5 +36,15 @@ namespace AGS.Engine.Desktop
         public IGraphicsBackend GraphicsBackend { get; }
 
         public IKeyboardState KeyboardState { get; }
+
+        private IResourceLoader getResourceLoader()
+        {
+            ResourceLoader resourceLoader = new ResourceLoader();
+            FileSystemResourcePack fileResourcePack = new FileSystemResourcePack(FileSystem);
+            EmbeddedResourcesPack embeddedResourcePack = new EmbeddedResourcesPack(Assemblies.EntryAssembly);
+            resourceLoader.ResourcePacks.Add(fileResourcePack);
+            resourceLoader.ResourcePacks.Add(embeddedResourcePack);
+            return resourceLoader;
+        }
     }
 }

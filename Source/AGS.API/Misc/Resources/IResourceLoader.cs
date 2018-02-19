@@ -3,7 +3,11 @@
 namespace AGS.API
 {
     /// <summary>
-    /// There are 2 ways you can have resources in your game: 
+    /// The resource loader is the go-to place for retrieving resources.
+    /// It does so by querying various resources packs for the resource you require until it is found.
+    /// Each resource pack has a priority which determines the order of precedence in which the packs are queried (higher priority gets precedence).
+    /// 
+    /// There are currently 2 built-in resource packs in the engine, which allow for 2 ways you can have resources in your game: 
     /// They can be embedded in the project or loaded from the file system.
     /// This interface allows for loading resource either from the embedded project files or from the file system.
     /// 
@@ -30,35 +34,20 @@ namespace AGS.API
     /// searches for an embedded resource with that path, but if one is not found, it looks for the file in the 
     /// file system.
     /// </summary>
-    public interface IResourceLoader
+    public interface IResourceLoader : IResourcePack
 	{
         /// <summary>
-        /// Loads a resource from a embedded/file path.
+        /// Allows adding/removing resource packs from the resource loader.
         /// </summary>
-        /// <returns>The resource.</returns>
-        /// <param name="path">Path.</param>
-		IResource LoadResource(string path);
+        /// <value>The resource packs.</value>
+        IAGSBindingList<IResourcePack> ResourcePacks { get; }
 
         /// <summary>
         /// Loads a list of resources from a list of embedded/file paths.
         /// </summary>
         /// <returns>The resources.</returns>
         /// <param name="paths">Paths.</param>
-		List<IResource> LoadResources(params string[] paths);
-
-        /// <summary>
-        /// Loads all the the resource available in the specified embedded/file system folder.
-        /// </summary>
-        /// <returns>The resources.</returns>
-        /// <param name="folder">Folder.</param>
-		List<IResource> LoadResources(string folder);
-
-        /// <summary>
-        /// Finds a file/resource path for the specified path.
-        /// </summary>
-        /// <returns>The file/resource path if found a matching resource/file, otherwise null.</returns>
-        /// <param name="path">Path.</param>
-        string FindFilePath(string path);
+        List<IResource> LoadResourcesFromPaths(params string[] paths);
 	}
 }
 
