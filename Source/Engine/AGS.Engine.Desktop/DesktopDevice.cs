@@ -42,8 +42,8 @@ namespace AGS.Engine.Desktop
             ResourceLoader resourceLoader = new ResourceLoader();
             FileSystemResourcePack fileResourcePack = new FileSystemResourcePack(FileSystem);
             EmbeddedResourcesPack embeddedResourcePack = new EmbeddedResourcesPack(Assemblies.EntryAssembly);
-            resourceLoader.ResourcePacks.Add(fileResourcePack);
-            resourceLoader.ResourcePacks.Add(embeddedResourcePack);
+            resourceLoader.ResourcePacks.Add(new ResourcePack(fileResourcePack, 0));
+            resourceLoader.ResourcePacks.Add(new ResourcePack(embeddedResourcePack, 1));
             return resourceLoader;
         }
     }

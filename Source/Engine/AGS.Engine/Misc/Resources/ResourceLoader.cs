@@ -11,16 +11,13 @@ namespace AGS.Engine
         private readonly List<IResource> _emptyResources = new List<IResource>(1);
         private List<IResourcePack> _sortedResourcePacks = new List<IResourcePack>(1);
 
-        public ResourceLoader(int priority = 0)
+        public ResourceLoader()
 		{
-            ResourcePacks = new AGSBindingList<IResourcePack>(5);
-            ResourcePacks.OnListChanged.Subscribe(args => _sortedResourcePacks = ResourcePacks.OrderByDescending(r => r.Priority).ToList());
-            Priority = priority;
+            ResourcePacks = new AGSBindingList<ResourcePack>(5);
+            ResourcePacks.OnListChanged.Subscribe(args => _sortedResourcePacks = ResourcePacks.OrderByDescending(r => r.Priority).Select(r => r.Pack).ToList());
 		}
 
-        public IAGSBindingList<IResourcePack> ResourcePacks { get; private set; }
-
-        public int Priority { get; private set; }
+        public IAGSBindingList<ResourcePack> ResourcePacks { get; private set; }
 
 		public IResource LoadResource(string path)
 		{

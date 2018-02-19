@@ -13,14 +13,11 @@ namespace AGS.Engine
         private string _assemblyName;
         private Dictionary<string, List<string>> _resourceFolders;
 
-        public EmbeddedResourcesPack(Assembly assembly, string customAssemblyName = null, int priority = 1)
+        public EmbeddedResourcesPack(Assembly assembly, string customAssemblyName = null)
         {
-            Priority = priority;
             _assembly = assembly;
             _assemblyName = customAssemblyName ?? assembly?.GetName().Name;
         }
-
-        public int Priority { get; private set; }
 
         public static string AssetsFolder = "Assets";
 

@@ -12,12 +12,6 @@ namespace AGS.API
     public interface IResourcePack
     {
         /// <summary>
-        /// Gets the priority of the pack which is used by the <see cref="IResourceLoader"/> for determining which resource pack is queried first (higher priority gets precedence).
-        /// </summary>
-        /// <value>The priority.</value>
-        int Priority { get; }
-
-        /// <summary>
         /// Loads a resource from a embedded/file path.
         /// </summary>
         /// <returns>The resource.</returns>

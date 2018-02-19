@@ -27,8 +27,8 @@ namespace DemoGame
 
             game.Events.OnLoad.Subscribe(async () =>
             {
-                game.Factory.Resources.ResourcePacks.Add(new FileSystemResourcePack(AGSGame.Device.FileSystem));
-                game.Factory.Resources.ResourcePacks.Add(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly));
+                game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem), 0));
+                game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly), 1));
                 game.Factory.Fonts.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
                 AGSGameSettings.DefaultSpeechFont = game.Factory.Fonts.LoadFontFromPath("../../Assets/Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
                 AGSGameSettings.DefaultTextFont = game.Factory.Fonts.LoadFontFromPath("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);

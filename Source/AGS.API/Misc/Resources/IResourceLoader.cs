@@ -40,7 +40,7 @@ namespace AGS.API
         /// Allows adding/removing resource packs from the resource loader.
         /// </summary>
         /// <value>The resource packs.</value>
-        IAGSBindingList<IResourcePack> ResourcePacks { get; }
+        IAGSBindingList<ResourcePack> ResourcePacks { get; }
 
         /// <summary>
         /// Loads a list of resources from a list of embedded/file paths.
@@ -49,5 +49,35 @@ namespace AGS.API
         /// <param name="paths">Paths.</param>
         List<IResource> LoadResourcesFromPaths(params string[] paths);
 	}
+
+    /// <summary>
+    /// A resource pack to be registered with the resource loader. It carries both the resource pack implementation,
+    /// and a priority which used to decide which resource pack takes precedence in the resource loader (higher is better).
+    /// </summary>
+    public struct ResourcePack
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:AGS.API.ResourcePack"/> struct.
+        /// </summary>
+        /// <param name="pack">Pack.</param>
+        /// <param name="priority">Priority.</param>
+        public ResourcePack(IResourcePack pack, int priority)
+        {
+            Pack = pack;
+            Priority = priority;
+        }
+
+        /// <summary>
+        /// Gets the resource pack.
+        /// </summary>
+        /// <value>The resource pack.</value>
+        public IResourcePack Pack { get; private set; }
+
+        /// <summary>
+        /// Gets the priority.
+        /// </summary>
+        /// <value>The priority.</value>
+        public int Priority { get; private set; }
+    }
 }
 

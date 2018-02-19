@@ -13,15 +13,12 @@ namespace AGS.Engine
         private readonly Func<string, List<string>> _getFilesInFolderFunc;
         private readonly IFileSystem _fileSystem;
 
-        public FileSystemResourcePack(IFileSystem fileSystem, int priority = 0)
+        public FileSystemResourcePack(IFileSystem fileSystem)
         {
             _fileSystem = fileSystem;
-            Priority = priority;
             _externalFolders = new Dictionary<string, List<string>>(10);
             _getFilesInFolderFunc = getFilesInFolder; //Caching delegate to avoid memory allocations in critical path
         }
-
-        public int Priority { get; private set; }
 
         public string ResolvePath(string path)
         {
