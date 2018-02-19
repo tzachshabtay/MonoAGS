@@ -10297,18 +10297,6 @@ references:
   commentId: Overload:AGS.API.IResourcePack.LoadResources
   fullName: AGS.API.IResourcePack.LoadResources
   nameWithType: IResourcePack.LoadResources
-- uid: AGS.API.IResourcePack.Priority
-  name: Priority
-  href: api/AGS.API.IResourcePack.html#AGS_API_IResourcePack_Priority
-  commentId: P:AGS.API.IResourcePack.Priority
-  fullName: AGS.API.IResourcePack.Priority
-  nameWithType: IResourcePack.Priority
-- uid: AGS.API.IResourcePack.Priority*
-  name: Priority
-  href: api/AGS.API.IResourcePack.html#AGS_API_IResourcePack_Priority_
-  commentId: Overload:AGS.API.IResourcePack.Priority
-  fullName: AGS.API.IResourcePack.Priority
-  nameWithType: IResourcePack.Priority
 - uid: AGS.API.IResourcePack.ResolvePath(System.String)
   name: ResolvePath(String)
   href: api/AGS.API.IResourcePack.html#AGS_API_IResourcePack_ResolvePath_System_String_
@@ -19063,6 +19051,48 @@ references:
   commentId: Overload:AGS.API.RequiredComponentAttribute.Mandatory
   fullName: AGS.API.RequiredComponentAttribute.Mandatory
   nameWithType: RequiredComponentAttribute.Mandatory
+- uid: AGS.API.ResourcePack
+  name: ResourcePack
+  href: api/AGS.API.ResourcePack.html
+  commentId: T:AGS.API.ResourcePack
+  fullName: AGS.API.ResourcePack
+  nameWithType: ResourcePack
+- uid: AGS.API.ResourcePack.#ctor(AGS.API.IResourcePack,System.Int32)
+  name: ResourcePack(IResourcePack, Int32)
+  href: api/AGS.API.ResourcePack.html#AGS_API_ResourcePack__ctor_AGS_API_IResourcePack_System_Int32_
+  commentId: M:AGS.API.ResourcePack.#ctor(AGS.API.IResourcePack,System.Int32)
+  fullName: AGS.API.ResourcePack.ResourcePack(AGS.API.IResourcePack, System.Int32)
+  nameWithType: ResourcePack.ResourcePack(IResourcePack, Int32)
+- uid: AGS.API.ResourcePack.#ctor*
+  name: ResourcePack
+  href: api/AGS.API.ResourcePack.html#AGS_API_ResourcePack__ctor_
+  commentId: Overload:AGS.API.ResourcePack.#ctor
+  fullName: AGS.API.ResourcePack.ResourcePack
+  nameWithType: ResourcePack.ResourcePack
+- uid: AGS.API.ResourcePack.Pack
+  name: Pack
+  href: api/AGS.API.ResourcePack.html#AGS_API_ResourcePack_Pack
+  commentId: P:AGS.API.ResourcePack.Pack
+  fullName: AGS.API.ResourcePack.Pack
+  nameWithType: ResourcePack.Pack
+- uid: AGS.API.ResourcePack.Pack*
+  name: Pack
+  href: api/AGS.API.ResourcePack.html#AGS_API_ResourcePack_Pack_
+  commentId: Overload:AGS.API.ResourcePack.Pack
+  fullName: AGS.API.ResourcePack.Pack
+  nameWithType: ResourcePack.Pack
+- uid: AGS.API.ResourcePack.Priority
+  name: Priority
+  href: api/AGS.API.ResourcePack.html#AGS_API_ResourcePack_Priority
+  commentId: P:AGS.API.ResourcePack.Priority
+  fullName: AGS.API.ResourcePack.Priority
+  nameWithType: ResourcePack.Priority
+- uid: AGS.API.ResourcePack.Priority*
+  name: Priority
+  href: api/AGS.API.ResourcePack.html#AGS_API_ResourcePack_Priority_
+  commentId: Overload:AGS.API.ResourcePack.Priority
+  fullName: AGS.API.ResourcePack.Priority
+  nameWithType: ResourcePack.Priority
 - uid: AGS.API.RestrictionListType
   name: RestrictionListType
   href: api/AGS.API.RestrictionListType.html

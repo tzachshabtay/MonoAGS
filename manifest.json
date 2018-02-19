@@ -1890,7 +1890,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IResourceLoader.html",
-          "hash": "VQk0vuSo2ZAP1XnlzNhOwQ=="
+          "hash": "99p93UFQFQnCLtfz8EV88A=="
         }
       },
       "is_incremental": false,
@@ -1902,7 +1902,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IResourcePack.html",
-          "hash": "PO8qi26zLNAzcJMO7LkV+Q=="
+          "hash": "SRI0ACKN6oKMJWqXygRgmw=="
         }
       },
       "is_incremental": false,
@@ -3074,6 +3074,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.ResourcePack.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.ResourcePack.html",
+          "hash": "tY0RhwYJ01C6dXbaG+w9cQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AGS.API.RestrictionListType.yml",
       "output": {
         ".html": {
@@ -3354,7 +3366,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.html",
-          "hash": "hAuZl9UF9zBJg1psaShDsw=="
+          "hash": "Q+azXg4MjS4m8SxzI7K+WQ=="
         }
       },
       "is_incremental": false,
@@ -3366,7 +3378,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "S4CHHPF3P0rwUzlP0jy+PA=="
+          "hash": "Adggvk/1JQjEp/Ga9uwzfQ=="
         }
       },
       "is_incremental": false,
