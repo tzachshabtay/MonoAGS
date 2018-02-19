@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using AGS.API;
 using AGS.Engine;
+using Autofac;
 
 namespace AGS.Editor
 {
@@ -39,6 +40,12 @@ namespace AGS.Editor
             var gameCreatorImplementation = games[0];
             var gameCreator = (IGameCreator)Activator.CreateInstance(gameCreatorImplementation);
             var game = gameCreator.CreateGame();
+
+            if (game is AGSGame agsGame) //todo: find a solution for any IGame implementation
+            {
+                var resourceLoader = agsGame.GetResolver().Container.Resolve<IResourceLoader>();
+                resourceLoader.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(assembly), 2));
+            }
 
             _gameDebugView = new Lazy<GameDebugView>(() =>
             {

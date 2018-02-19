@@ -81,6 +81,8 @@ namespace AGS.Engine
 
         public IHitTest HitTest { get; private set; }
 
+        public Resolver GetResolver() => _resolver;
+
         public void Start(IGameSettings settings)
 		{
 			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), settings.VirtualResolution));
@@ -101,14 +103,14 @@ namespace AGS.Engine
                     TypedParameter gameWindowParameter = new TypedParameter(typeof(IGameWindow), GameWindow);
                     GameWindow.Load += (sender, e) =>
                     {
-                        Settings = Resolver.Container.Resolve<IRuntimeSettings>(settingsParameter, gameWindowParameter);
+                        Settings = _resolver.Container.Resolve<IRuntimeSettings>(settingsParameter, gameWindowParameter);
 
                         _graphics.ClearColor(0f, 0f, 0f, 1f);
 
                         _graphics.Init();
                         _glUtils.GenBuffers();
 
-                        Factory = Resolver.Container.Resolve<IGameFactory>();
+                        Factory = _resolver.Container.Resolve<IGameFactory>();
 
                         TypedParameter sizeParameter = new TypedParameter(typeof(AGS.API.Size), Settings.VirtualResolution);
                         Input = _resolver.Container.Resolve<IInput>(gameWindowParameter, sizeParameter);
