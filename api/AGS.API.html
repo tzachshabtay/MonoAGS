@@ -727,7 +727,10 @@ You can assign those layers yourself, using AGSLayers static class:<br><example>
 or any other stream).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IResourceLoader.html">IResourceLoader</a></h4>
-      <section><p>There are 2 ways you can have resources in your game: 
+      <section><p>The resource loader is the go-to place for retrieving resources.
+It does so by querying various resources packs for the resource you require until it is found.
+Each resource pack has a priority which determines the order of precedence in which the packs are queried (higher priority gets precedence).</p>
+<p>There are currently 2 built-in resource packs in the engine, which allow for 2 ways you can have resources in your game: 
 They can be embedded in the project or loaded from the file system.
 This interface allows for loading resource either from the embedded project files or from the file system.</p>
 <p>The advantage of having the resources embedded is that you can rest assured the resources will be distributed with your game and cannot be touched from outside, 
@@ -751,6 +754,12 @@ the &quot;Assets&quot; folder). So, for example, if you have an audio file calle
 work even if the file is sitting in that folder but not embedded. This is because <code>ResourceLoader</code> first 
 searches for an embedded resource with that path, but if one is not found, it looks for the file in the 
 file system.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IResourcePack.html">IResourcePack</a></h4>
+      <section><p>A resource pack is an abstract representation of a storage space for retrieving resources.
+There can be a resource pack that&apos;s based on the file system, a resource pack which retrieves embedded resource in the game file itself,
+a resource pack that downloads resources from the web, a resource pack based on a zip file, etc.
+<a class="xref" href="AGS.API.IResourceLoader.html">IResourceLoader</a></p>
 </section>
       <h4><a class="xref" href="AGS.API.IRestrictionList.html">IRestrictionList</a></h4>
       <section><p>Adds the ability to restrict certain entities from being affected by &quot;something&quot;.

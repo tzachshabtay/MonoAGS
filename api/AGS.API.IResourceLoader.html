@@ -81,7 +81,10 @@
   
   <h1 id="AGS_API_IResourceLoader" data-uid="AGS.API.IResourceLoader" class="text-break">Interface IResourceLoader
   </h1>
-  <div class="markdown level0 summary"><p>There are 2 ways you can have resources in your game: 
+  <div class="markdown level0 summary"><p>The resource loader is the go-to place for retrieving resources.
+It does so by querying various resources packs for the resource you require until it is found.
+Each resource pack has a priority which determines the order of precedence in which the packs are queried (higher priority gets precedence).</p>
+<p>There are currently 2 built-in resource packs in the engine, which allow for 2 ways you can have resources in your game: 
 They can be embedded in the project or loaded from the file system.
 This interface allows for loading resource either from the embedded project files or from the file system.</p>
 <p>The advantage of having the resources embedded is that you can rest assured the resources will be distributed with your game and cannot be touched from outside, 
@@ -107,179 +110,78 @@ searches for an embedded resource with that path, but if one is not found, it lo
 file system.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IResourcePack.html#AGS_API_IResourcePack_Priority">IResourcePack.Priority</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IResourcePack.html#AGS_API_IResourcePack_LoadResource_System_String_">IResourcePack.LoadResource(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IResourcePack.html#AGS_API_IResourcePack_LoadResources_System_String_">IResourcePack.LoadResources(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IResourcePack.html#AGS_API_IResourcePack_ResolvePath_System_String_">IResourcePack.ResolvePath(String)</a>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IResourceLoader_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IResourceLoader</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IResourceLoader : IResourcePack</code></pre>
   </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IResourceLoader_ResourcePacks.md&amp;value=---%0Auid%3A%20AGS.API.IResourceLoader.ResourcePacks%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Misc/Resources/IResourceLoader.cs/#L43">View Source</a>
+  </span>
+  <a id="AGS_API_IResourceLoader_ResourcePacks_" data-uid="AGS.API.IResourceLoader.ResourcePacks*"></a>
+  <h4 id="AGS_API_IResourceLoader_ResourcePacks" data-uid="AGS.API.IResourceLoader.ResourcePacks">ResourcePacks</h4>
+  <div class="markdown level1 summary"><p>Allows adding/removing resource packs from the resource loader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IAGSBindingList&lt;IResourcePack&gt; ResourcePacks { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IAGSBindingList-1.html">IAGSBindingList</a>&lt;<a class="xref" href="AGS.API.IResourcePack.html">IResourcePack</a>&gt;</td>
+        <td><p>The resource packs.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IResourceLoader_FindFilePath_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IResourceLoader.FindFilePath(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IResourceLoader_LoadResourcesFromPaths_System_String___.md&amp;value=---%0Auid%3A%20AGS.API.IResourceLoader.LoadResourcesFromPaths(System.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Misc/Resources/IResourceLoader.cs/#L61">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Misc/Resources/IResourceLoader.cs/#L50">View Source</a>
   </span>
-  <a id="AGS_API_IResourceLoader_FindFilePath_" data-uid="AGS.API.IResourceLoader.FindFilePath*"></a>
-  <h4 id="AGS_API_IResourceLoader_FindFilePath_System_String_" data-uid="AGS.API.IResourceLoader.FindFilePath(System.String)">FindFilePath(String)</h4>
-  <div class="markdown level1 summary"><p>Finds a file/resource path for the specified path.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">string FindFilePath(string path)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">path</span></td>
-        <td><p>Path.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>The file/resource path if found a matching resource/file, otherwise null.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IResourceLoader_LoadResource_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IResourceLoader.LoadResource(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Misc/Resources/IResourceLoader.cs/#L40">View Source</a>
-  </span>
-  <a id="AGS_API_IResourceLoader_LoadResource_" data-uid="AGS.API.IResourceLoader.LoadResource*"></a>
-  <h4 id="AGS_API_IResourceLoader_LoadResource_System_String_" data-uid="AGS.API.IResourceLoader.LoadResource(System.String)">LoadResource(String)</h4>
-  <div class="markdown level1 summary"><p>Loads a resource from a embedded/file path.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IResource LoadResource(string path)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">path</span></td>
-        <td><p>Path.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IResource.html">IResource</a></td>
-        <td><p>The resource.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IResourceLoader_LoadResources_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IResourceLoader.LoadResources(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Misc/Resources/IResourceLoader.cs/#L54">View Source</a>
-  </span>
-  <a id="AGS_API_IResourceLoader_LoadResources_" data-uid="AGS.API.IResourceLoader.LoadResources*"></a>
-  <h4 id="AGS_API_IResourceLoader_LoadResources_System_String_" data-uid="AGS.API.IResourceLoader.LoadResources(System.String)">LoadResources(String)</h4>
-  <div class="markdown level1 summary"><p>Loads all the the resource available in the specified embedded/file system folder.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">List&lt;IResource&gt; LoadResources(string folder)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">folder</span></td>
-        <td><p>Folder.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="AGS.API.IResource.html">IResource</a>&gt;</td>
-        <td><p>The resources.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IResourceLoader_LoadResources_System_String___.md&amp;value=---%0Auid%3A%20AGS.API.IResourceLoader.LoadResources(System.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Misc/Resources/IResourceLoader.cs/#L47">View Source</a>
-  </span>
-  <a id="AGS_API_IResourceLoader_LoadResources_" data-uid="AGS.API.IResourceLoader.LoadResources*"></a>
-  <h4 id="AGS_API_IResourceLoader_LoadResources_System_String___" data-uid="AGS.API.IResourceLoader.LoadResources(System.String[])">LoadResources(String[])</h4>
+  <a id="AGS_API_IResourceLoader_LoadResourcesFromPaths_" data-uid="AGS.API.IResourceLoader.LoadResourcesFromPaths*"></a>
+  <h4 id="AGS_API_IResourceLoader_LoadResourcesFromPaths_System_String___" data-uid="AGS.API.IResourceLoader.LoadResourcesFromPaths(System.String[])">LoadResourcesFromPaths(String[])</h4>
   <div class="markdown level1 summary"><p>Loads a list of resources from a list of embedded/file paths.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">List&lt;IResource&gt; LoadResources(params string[] paths)</code></pre>
+    <pre><code class="lang-csharp hljs">List&lt;IResource&gt; LoadResourcesFromPaths(params string[] paths)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -326,7 +228,7 @@ file system.</p>
                     <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourcePacks/apiSpec/new?filename=AGS_API_IResourceLoader.md&amp;value=---%0Auid%3A%20AGS.API.IResourceLoader%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Misc/Resources/IResourceLoader.cs/#L33" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourcePacks/Source/AGS.API/Misc/Resources/IResourceLoader.cs/#L37" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
