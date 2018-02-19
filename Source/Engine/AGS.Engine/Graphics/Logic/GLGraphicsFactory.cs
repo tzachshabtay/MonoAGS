@@ -93,13 +93,13 @@ namespace AGS.Engine
 		public IAnimation LoadAnimationFromFiles(IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string[] files)
 		{
             if (files.Length == 0) throw new InvalidOperationException("No files given to LoadAnimationFromFiles");
-			return loadAnimationFromResources(files[0], _resources.LoadResources(files), animationConfig, loadConfig);
+			return loadAnimationFromResources(files[0], _resources.LoadResourcesFromPaths(files), animationConfig, loadConfig);
 		}
 
 		public async Task<IAnimation> LoadAnimationFromFilesAsync(IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null, params string [] files)
 		{
             if (files.Length == 0) throw new InvalidOperationException("No files given to LoadAnimationFromFilesAsync");
-			return await loadAnimationFromResourcesAsync(files[0], await Task.Run(() => _resources.LoadResources (files)), 
+			return await loadAnimationFromResourcesAsync(files[0], await Task.Run(() => _resources.LoadResourcesFromPaths(files)), 
 			                                             animationConfig, loadConfig);
 		}
 
