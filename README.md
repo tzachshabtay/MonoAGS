@@ -15,9 +15,10 @@ AGS (Adventure Game Studio) reimagined in Mono
 [6]: https://travis-ci.org/tzachshabtay/MonoAGS
 
 
-Code Coverage:
+Code Quality:
 
 [![Coverage Status](https://coveralls.io/repos/tzachshabtay/MonoAGS/badge.svg?branch=master&service=github)](https://coveralls.io/github/tzachshabtay/MonoAGS?branch=master)
+[![CodeFactor](https://www.codefactor.io/repository/github/tzachshabtay/monoags/badge)](https://www.codefactor.io/repository/github/tzachshabtay/monoags)
 
 ### Compiling the code:
 
