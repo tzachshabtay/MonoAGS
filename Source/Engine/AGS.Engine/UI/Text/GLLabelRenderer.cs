@@ -47,11 +47,11 @@ namespace AGS.Engine
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore CS0067
 
-        public GLLabelRenderer(Dictionary<string, ITexture> textures, 
+        public GLLabelRenderer(ITextureCache textures, ITextureFactory textureFactory,
 			IBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
 			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrixFactory viewportMatrix,
-            AGSBoundingBoxes labelBoundingBoxes, AGSBoundingBoxes textBoundingBoxes, IGraphicsFactory graphicsFactory,
-            IGLUtils glUtils, IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IFontLoader fonts,
+            AGSBoundingBoxes labelBoundingBoxes, AGSBoundingBoxes textBoundingBoxes,
+            IGLUtils glUtils, IGraphicsBackend graphics, IFontLoader fonts,
             IRuntimeSettings settings, IRenderMessagePump messagePump, IGameState state, IGameEvents events)
 		{
             _bindings = new List<IComponentBinding>();
@@ -75,8 +75,7 @@ namespace AGS.Engine
             _virtualResolution = settings.VirtualResolution;
             _settings = settings;
             _labelBoundingBoxFakeBuilder = new BoundingBoxesEmptyBuilder();
-			_bgRenderer = new GLImageRenderer(textures,
-				colorBuilder, _textureRenderer, graphicsFactory, glUtils, bitmapLoader);
+			_bgRenderer = new GLImageRenderer(textures, textureFactory, colorBuilder, _textureRenderer, glUtils);
 
 			_colorBuilder = colorBuilder;
 

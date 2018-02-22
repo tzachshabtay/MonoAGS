@@ -9,7 +9,7 @@ namespace AGS.Engine
 		private readonly ContractsFactory _contracts;
 		private readonly List<Action<IGameState>> _rewireActions;
 
-        public AGSSerializationContext(IGameFactory factory, IDictionary<string, ITexture> textures, 
+        public AGSSerializationContext(IGameFactory factory, ITextureCache textures, 
                                        Resolver resolver, IGLUtils glUtils)
 		{
 			Factory = factory;
@@ -24,7 +24,7 @@ namespace AGS.Engine
 
 		public IGameFactory Factory { get; private set; }
 
-        public IDictionary<string, ITexture> Textures { get; private set; }
+        public ITextureCache Textures { get; private set; }
 
 		public Resolver Resolver { get; private set; }
 

@@ -32,7 +32,7 @@ namespace AGS.Engine
 			if (string.IsNullOrEmpty(ID)) return new EmptyImage (Width, Height);
             var loadConfig = LoadConfig.ToItem(context);
 			var spriteSheet = SpriteSheet.ToItem(context);
-            if (context.Textures.TryGetValue(ID, out var texture))
+            if (context.Textures.TryGetTexture(ID, out var texture))
             {
                 return getImage(texture, spriteSheet, loadConfig);
             }
@@ -40,7 +40,7 @@ namespace AGS.Engine
             if (spriteSheet != null)
 			{
 				context.Factory.Graphics.LoadAnimationFromSpriteSheet(spriteSheet, null, loadConfig);
-                if (context.Textures.TryGetValue(ID, out texture))
+                if (context.Textures.TryGetTexture(ID, out texture))
 				{
 					return getImage(texture, spriteSheet, loadConfig);
 				}
@@ -48,7 +48,7 @@ namespace AGS.Engine
 			try
 			{
                 texture = context.Factory.Graphics.LoadImage(ID, loadConfig).Texture;
-				context.Textures.Add(ID, texture);
+                context.Textures.GetTexture(ID, _ => texture);
 				return getImage(texture, spriteSheet, loadConfig);
 			}
 			catch (ArgumentException e)

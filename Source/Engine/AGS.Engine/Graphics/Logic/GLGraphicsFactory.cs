@@ -9,14 +9,14 @@ namespace AGS.Engine
 {
 	public class GLGraphicsFactory : IGraphicsFactory
 	{
-        private readonly Dictionary<string, ITexture> _textures;
+        private readonly ITextureCache _textures;
         private readonly Resolver _resolver;
 		private readonly IResourceLoader _resources;
 		private readonly IBitmapLoader _bitmapLoader;
 		private readonly SpriteSheetLoader _spriteSheetLoader;
         private readonly IRenderThread _renderThread;
 
-        public GLGraphicsFactory (Dictionary<string, ITexture> textures, Resolver resolver, IGLUtils glUtils, 
+        public GLGraphicsFactory (ITextureCache textures, Resolver resolver, IGLUtils glUtils, 
                                   IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IRenderThread renderThread,
                                   IResourceLoader resources, IIconFactory icons, IBrushLoader brushes, IRenderMessagePump messagePump)
 		{
@@ -313,8 +313,8 @@ namespace AGS.Engine
 			GLImage image = new GLImage (bitmap, id, texture, spriteSheet, config);
 
             string imageId = image.ID;
-			_textures?.GetOrAdd (imageId, () => image.Texture);
-            image.OnImageDisposed.Subscribe(() => _textures.Remove(imageId));
+            _textures?.GetTexture(imageId, _ => image.Texture);
+            image.OnImageDisposed.Subscribe(() => _textures.RemoveTexture(imageId));
 			return image;
 		}
 
