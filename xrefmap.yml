@@ -12931,6 +12931,54 @@ references:
   commentId: Overload:AGS.API.ITexture.ID
   fullName: AGS.API.ITexture.ID
   nameWithType: ITexture.ID
+- uid: AGS.API.ITextureCache
+  name: ITextureCache
+  href: api/AGS.API.ITextureCache.html
+  commentId: T:AGS.API.ITextureCache
+  fullName: AGS.API.ITextureCache
+  nameWithType: ITextureCache
+- uid: AGS.API.ITextureCache.GetTexture(System.String,System.Func{System.String,AGS.API.ITexture})
+  name: GetTexture(String, Func<String, ITexture>)
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_GetTexture_System_String_System_Func_System_String_AGS_API_ITexture__
+  commentId: M:AGS.API.ITextureCache.GetTexture(System.String,System.Func{System.String,AGS.API.ITexture})
+  name.vb: GetTexture(String, Func(Of String, ITexture))
+  fullName: AGS.API.ITextureCache.GetTexture(System.String, System.Func<System.String, AGS.API.ITexture>)
+  fullName.vb: AGS.API.ITextureCache.GetTexture(System.String, System.Func(Of System.String, AGS.API.ITexture))
+  nameWithType: ITextureCache.GetTexture(String, Func<String, ITexture>)
+  nameWithType.vb: ITextureCache.GetTexture(String, Func(Of String, ITexture))
+- uid: AGS.API.ITextureCache.GetTexture*
+  name: GetTexture
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_GetTexture_
+  commentId: Overload:AGS.API.ITextureCache.GetTexture
+  fullName: AGS.API.ITextureCache.GetTexture
+  nameWithType: ITextureCache.GetTexture
+- uid: AGS.API.ITextureCache.RemoveTexture(System.String)
+  name: RemoveTexture(String)
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_RemoveTexture_System_String_
+  commentId: M:AGS.API.ITextureCache.RemoveTexture(System.String)
+  fullName: AGS.API.ITextureCache.RemoveTexture(System.String)
+  nameWithType: ITextureCache.RemoveTexture(String)
+- uid: AGS.API.ITextureCache.RemoveTexture*
+  name: RemoveTexture
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_RemoveTexture_
+  commentId: Overload:AGS.API.ITextureCache.RemoveTexture
+  fullName: AGS.API.ITextureCache.RemoveTexture
+  nameWithType: ITextureCache.RemoveTexture
+- uid: AGS.API.ITextureCache.TryGetTexture(System.String,AGS.API.ITexture@)
+  name: TryGetTexture(String, out ITexture)
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_TryGetTexture_System_String_AGS_API_ITexture__
+  commentId: M:AGS.API.ITextureCache.TryGetTexture(System.String,AGS.API.ITexture@)
+  name.vb: TryGetTexture(String, ByRef ITexture)
+  fullName: AGS.API.ITextureCache.TryGetTexture(System.String, out AGS.API.ITexture)
+  fullName.vb: AGS.API.ITextureCache.TryGetTexture(System.String, ByRef AGS.API.ITexture)
+  nameWithType: ITextureCache.TryGetTexture(String, out ITexture)
+  nameWithType.vb: ITextureCache.TryGetTexture(String, ByRef ITexture)
+- uid: AGS.API.ITextureCache.TryGetTexture*
+  name: TryGetTexture
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_TryGetTexture_
+  commentId: Overload:AGS.API.ITextureCache.TryGetTexture
+  fullName: AGS.API.ITextureCache.TryGetTexture
+  nameWithType: ITextureCache.TryGetTexture
 - uid: AGS.API.ITextureConfig
   name: ITextureConfig
   href: api/AGS.API.ITextureConfig.html
@@ -12985,6 +13033,24 @@ references:
   commentId: Overload:AGS.API.ITextureConfig.WrapY
   fullName: AGS.API.ITextureConfig.WrapY
   nameWithType: ITextureConfig.WrapY
+- uid: AGS.API.ITextureFactory
+  name: ITextureFactory
+  href: api/AGS.API.ITextureFactory.html
+  commentId: T:AGS.API.ITextureFactory
+  fullName: AGS.API.ITextureFactory
+  nameWithType: ITextureFactory
+- uid: AGS.API.ITextureFactory.CreateTexture(System.String)
+  name: CreateTexture(String)
+  href: api/AGS.API.ITextureFactory.html#AGS_API_ITextureFactory_CreateTexture_System_String_
+  commentId: M:AGS.API.ITextureFactory.CreateTexture(System.String)
+  fullName: AGS.API.ITextureFactory.CreateTexture(System.String)
+  nameWithType: ITextureFactory.CreateTexture(String)
+- uid: AGS.API.ITextureFactory.CreateTexture*
+  name: CreateTexture
+  href: api/AGS.API.ITextureFactory.html#AGS_API_ITextureFactory_CreateTexture_
+  commentId: Overload:AGS.API.ITextureFactory.CreateTexture
+  fullName: AGS.API.ITextureFactory.CreateTexture
+  nameWithType: ITextureFactory.CreateTexture
 - uid: AGS.API.ITextureOffsetComponent
   name: ITextureOffsetComponent
   href: api/AGS.API.ITextureOffsetComponent.html

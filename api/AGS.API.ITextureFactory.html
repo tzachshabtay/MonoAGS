@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface ITexture
+    <title>Interface ITextureFactory
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface ITexture
+    <meta name="title" content="Interface ITextureFactory
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.31.0.0">
     
@@ -76,69 +76,57 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.ITexture">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ITextureFactory">
   
   
-  <h1 id="AGS_API_ITexture" data-uid="AGS.API.ITexture" class="text-break">Interface ITexture
+  <h1 id="AGS_API_ITextureFactory" data-uid="AGS.API.ITextureFactory" class="text-break">Interface ITextureFactory
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>A factory for creating textures.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_ITexture_syntax">Syntax</h5>
+  <h5 id="AGS_API_ITextureFactory_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ITexture</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ITextureFactory</code></pre>
   </div>
-  <h3 id="properties">Properties
+  <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/TextureCache/apiSpec/new?filename=AGS_API_ITexture_Config.md&amp;value=---%0Auid%3A%20AGS.API.ITexture.Config%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/TextureCache/apiSpec/new?filename=AGS_API_ITextureFactory_CreateTexture_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.ITextureFactory.CreateTexture(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/TextureCache/Source/AGS.API/Graphics/Textures/ITexture.cs/#L13">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/TextureCache/Source/AGS.API/Graphics/Textures/ITextureFactory.cs/#L13">View Source</a>
   </span>
-  <a id="AGS_API_ITexture_Config_" data-uid="AGS.API.ITexture.Config*"></a>
-  <h4 id="AGS_API_ITexture_Config" data-uid="AGS.API.ITexture.Config">Config</h4>
-  <div class="markdown level1 summary"><p>Gets the configuration of the texture (scaling filter, should the texture be tiled or not).</p>
+  <a id="AGS_API_ITextureFactory_CreateTexture_" data-uid="AGS.API.ITextureFactory.CreateTexture*"></a>
+  <h4 id="AGS_API_ITextureFactory_CreateTexture_System_String_" data-uid="AGS.API.ITextureFactory.CreateTexture(System.String)">CreateTexture(String)</h4>
+  <div class="markdown level1 summary"><p>Creates the texture from the identifier (or returns an empty texture if the id is null).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ITextureConfig Config { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">ITexture CreateTexture(string id)</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
+        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.ITextureConfig.html">ITextureConfig</a></td>
-        <td></td>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The texture id (path in the file system, for example).</p>
+</td>
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/TextureCache/apiSpec/new?filename=AGS_API_ITexture_ID.md&amp;value=---%0Auid%3A%20AGS.API.ITexture.ID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/TextureCache/Source/AGS.API/Graphics/Textures/ITexture.cs/#L8">View Source</a>
-  </span>
-  <a id="AGS_API_ITexture_ID_" data-uid="AGS.API.ITexture.ID*"></a>
-  <h4 id="AGS_API_ITexture_ID" data-uid="AGS.API.ITexture.ID">ID</h4>
-  <div class="markdown level1 summary"><p>Gets the texture identifier.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">int ID { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -148,8 +136,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td></td>
+        <td><a class="xref" href="AGS.API.ITexture.html">ITexture</a></td>
+        <td><p>The texture.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -161,10 +150,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/TextureCache/apiSpec/new?filename=AGS_API_ITexture.md&amp;value=---%0Auid%3A%20AGS.API.ITexture%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/TextureCache/apiSpec/new?filename=AGS_API_ITextureFactory.md&amp;value=---%0Auid%3A%20AGS.API.ITextureFactory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/TextureCache/Source/AGS.API/Graphics/Textures/ITexture.cs/#L3" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/TextureCache/Source/AGS.API/Graphics/Textures/ITextureFactory.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

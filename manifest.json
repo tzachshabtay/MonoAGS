@@ -2454,7 +2454,19 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ITexture.html",
-          "hash": "ffqLVxWsrqLwIkesaoOwsQ=="
+          "hash": "1tlshk219VkcHalw155hSA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.ITextureCache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.ITextureCache.html",
+          "hash": "hlQ3F7LNv+ceegJv4gXS7A=="
         }
       },
       "is_incremental": false,
@@ -2466,7 +2478,19 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ITextureConfig.html",
-          "hash": "6KNPRtGYMWEu0UhiFpagHw=="
+          "hash": "lQejCLmHPd8h3wVx6Jcs3Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.ITextureFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.ITextureFactory.html",
+          "hash": "vIRKa6E3ZE8ak3LqXrrCzg=="
         }
       },
       "is_incremental": false,
@@ -3114,7 +3138,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ScaleDownFilters.html",
-          "hash": "jPVQrRDWu98kpzIIkm8mpA=="
+          "hash": "yTrXnx1Yt5UOBHpoa+umlw=="
         }
       },
       "is_incremental": false,
@@ -3126,7 +3150,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ScaleUpFilters.html",
-          "hash": "LVYJrzE7LZwhTi1HKj9ebQ=="
+          "hash": "LLjJBMBVSReWGG51fSUFoA=="
         }
       },
       "is_incremental": false,
@@ -3270,7 +3294,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.TextureWrap.html",
-          "hash": "8OzMudbTXfx3PL62LfGApA=="
+          "hash": "miwvYTTkNAfb6BqG0fS5TQ=="
         }
       },
       "is_incremental": false,
@@ -3366,7 +3390,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.html",
-          "hash": "Q+azXg4MjS4m8SxzI7K+WQ=="
+          "hash": "s6763KOvHmdoUgL7L+WxGw=="
         }
       },
       "is_incremental": false,
@@ -3378,7 +3402,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Adggvk/1JQjEp/Ga9uwzfQ=="
+          "hash": "L5HGo5MuiFPJELMe0AZTiA=="
         }
       },
       "is_incremental": false,
@@ -3791,17 +3815,17 @@
           "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ResourceDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }
