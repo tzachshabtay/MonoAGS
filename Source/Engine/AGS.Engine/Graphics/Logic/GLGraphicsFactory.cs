@@ -127,8 +127,25 @@ namespace AGS.Engine
 		{
 			return await _spriteSheetLoader.LoadAnimationFromSpriteSheetAsync (spriteSheet, animationConfig, loadConfig);
 		}
-			
-		public IImage LoadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
+
+        public IBitmap GetBitmap(int width, int height)
+        {
+            return _bitmapLoader.Load(width, height);
+        }
+
+        public IBitmap LoadBitmap(string path)
+        {
+            IResource resource = _resources.LoadResource(path);
+            return loadBitmap(resource);
+        }
+
+        public async Task<IBitmap> LoadBitmapAsync(string path)
+        {
+            IResource resource = await Task.Run(() => _resources.LoadResource(path));
+            return await loadBitmapAsync(resource);
+        }
+
+        public IImage LoadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
 		{
             return loadImage(bitmap, config, id);
 		}
@@ -203,6 +220,38 @@ namespace AGS.Engine
 			AGSAnimationFrame frame = new AGSAnimationFrame (sprite);
 			animation.Frames.Add (frame);
 		}
+
+        private IBitmap loadBitmap(IResource resource)
+        {
+            IBitmap bitmap = null;
+            _renderThread.RunBlocking(() =>
+            {
+                try
+                {
+                    bitmap = _bitmapLoader.Load(resource.Stream);
+                }
+                catch (ArgumentException e)
+                {
+                    Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+                }
+            });
+            return bitmap;
+        }
+
+        private async Task<IBitmap> loadBitmapAsync(IResource resource)
+        {
+            try
+            {
+                if (resource == null)
+                    return _bitmapLoader.Load(1, 1);
+                return await Task.Run(() => _bitmapLoader.Load(resource.Stream));
+            }
+            catch (ArgumentException e)
+            {
+                Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+                return null;
+            }
+        }
 
         private IImage loadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
         {
