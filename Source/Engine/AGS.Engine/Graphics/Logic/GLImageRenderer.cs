@@ -1,40 +1,29 @@
-﻿using AGS.API;
-using System.Collections.Generic;
-using System;
+﻿using System;
+using AGS.API;
 
 namespace AGS.Engine
 {
 	public class GLImageRenderer : IImageRenderer
 	{
-        private readonly Dictionary<string, ITexture> _textures;
-        private static Lazy<ITexture> _emptyTexture;
+        private readonly ITextureCache _textures;
+        private readonly Func<string, ITexture> _getTextureFunc;
 		private readonly IGLColorBuilder _colorBuilder;
 		private readonly IGLTextureRenderer _renderer;
-        private readonly IGraphicsFactory _graphicsFactory;
         private readonly IGLUtils _glUtils;
-        private readonly IBitmapLoader _bitmapLoader;
         private readonly GLMatrices _matrices = new GLMatrices();
         private readonly AGSBoundingBox _emptySquare = default;
-        private readonly Func<string, ITexture> _createTextureFunc;
         private readonly IHasImage[] _colorAdjusters;
 
-        public GLImageRenderer (Dictionary<string, ITexture> textures, 
-			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer,
-            IGraphicsFactory graphicsFactory, IGLUtils glUtils, 
-            IBitmapLoader bitmapLoader)
+        public GLImageRenderer (ITextureCache textures, ITextureFactory textureFactory,
+			IGLColorBuilder colorBuilder, IGLTextureRenderer renderer, IGLUtils glUtils)
 		{
-            _graphicsFactory = graphicsFactory;
-            _createTextureFunc = createNewTexture; //Creating a delegate in advance to avoid memory allocations on critical path
 			_textures = textures;
+            _getTextureFunc = textureFactory.CreateTexture;  //Creating a delegate in advance to avoid memory allocations on critical path
 			_colorBuilder = colorBuilder;
 			_renderer = renderer;
             _glUtils = glUtils;
-            _bitmapLoader = bitmapLoader;
-            _emptyTexture = new Lazy<ITexture>(() => initEmptyTexture());
             _colorAdjusters = new IHasImage[2];
 		}
-
-        public static ITexture EmptyTexture => _emptyTexture.Value;
 
         public SizeF? CustomImageSize => null;
         public PointF? CustomImageResolutionFactor => null;
@@ -56,7 +45,7 @@ namespace AGS.Engine
                 return;
             }
 
-			ITexture texture = _textures.GetOrAdd (sprite.Image.ID, _createTextureFunc);
+            ITexture texture = _textures.GetTexture(sprite.Image.ID, _getTextureFunc);
 
             _colorAdjusters[0] = sprite;
             _colorAdjusters[1] = obj;
@@ -89,19 +78,6 @@ namespace AGS.Engine
                 _glUtils.DrawCross(x - viewport.X, y - viewport.Y, 10, 10, 1f, 1f, 1f, 1f);
 			}
 		}
-			
-        private ITexture createNewTexture(string path)
-		{
-            if (string.IsNullOrEmpty(path)) return _emptyTexture.Value;
-            return _graphicsFactory.LoadImage(path).Texture;
-		}
-
-        private ITexture initEmptyTexture()
-        {
-            var bitmap = _bitmapLoader.Load(1, 1);
-            bitmap.SetPixel(Colors.White, 0, 0);
-            return _graphicsFactory.LoadImage(bitmap, new AGSLoadImageConfig(config: new AGSTextureConfig(scaleUp: ScaleUpFilters.Nearest))).Texture;
-        }
 	}
 }
 

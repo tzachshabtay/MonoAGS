@@ -230,7 +230,7 @@ namespace AGS.Engine
 
         private static int getTexture(int texture)
         {
-            return texture == 0 ? GLImageRenderer.EmptyTexture.ID : texture;
+            return texture == 0 ? GLTextureFactory.EmptyTexture.ID : texture;
         }
 	}
 }

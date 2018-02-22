@@ -17,7 +17,7 @@ namespace AGS.Engine
 	{
 		private readonly Resolver _resolver;
 		private readonly IGameFactory _factory;
-        private readonly IDictionary<string, ITexture> _textures;
+        private readonly ITextureCache _textures;
 		private readonly IGameState _state;
 		private readonly IGameEvents _events;
         private readonly IFileSystem _fileSystem;
@@ -25,7 +25,7 @@ namespace AGS.Engine
 		private const string RESTART_FILENAME = "RestartPoint.bin";
 
 		public AGSSaveLoad(Resolver resolver, IGameFactory factory, 
-                           IDictionary<string, ITexture> textures, IGame game, IFileSystem fileSystem)
+                           ITextureCache textures, IGame game, IFileSystem fileSystem)
 		{
 			_resolver = resolver;
 			_factory = factory;
