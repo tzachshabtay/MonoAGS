@@ -51,10 +51,7 @@ test_script:
     }
     elseif ($env:CONFIGURATION -eq "DesktopRelease")
     {
-        .\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe .\Source\Tests\bin\Release\Tests.dll
-        
-        $wc = New-Object 'System.Net.WebClient'
-        $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit3/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\TestResult.xml))
+        nunit3-console .\Source\Tests\bin\Release\Tests.dll --framework=net-4.6 --result='dummy.xml;format=AppVeyor'
     }
 after_build:
 # Several examples of how to build the docs:
