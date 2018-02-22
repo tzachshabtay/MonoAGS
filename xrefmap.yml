@@ -7767,18 +7767,6 @@ references:
   commentId: Overload:AGS.API.IGraphicsFactory.Brushes
   fullName: AGS.API.IGraphicsFactory.Brushes
   nameWithType: IGraphicsFactory.Brushes
-- uid: AGS.API.IGraphicsFactory.GetBitmap(System.Int32,System.Int32)
-  name: GetBitmap(Int32, Int32)
-  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_GetBitmap_System_Int32_System_Int32_
-  commentId: M:AGS.API.IGraphicsFactory.GetBitmap(System.Int32,System.Int32)
-  fullName: AGS.API.IGraphicsFactory.GetBitmap(System.Int32, System.Int32)
-  nameWithType: IGraphicsFactory.GetBitmap(Int32, Int32)
-- uid: AGS.API.IGraphicsFactory.GetBitmap*
-  name: GetBitmap
-  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_GetBitmap_
-  commentId: Overload:AGS.API.IGraphicsFactory.GetBitmap
-  fullName: AGS.API.IGraphicsFactory.GetBitmap
-  nameWithType: IGraphicsFactory.GetBitmap
 - uid: AGS.API.IGraphicsFactory.GetSprite
   name: GetSprite()
   href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_GetSprite
@@ -7881,30 +7869,6 @@ references:
   commentId: Overload:AGS.API.IGraphicsFactory.LoadAnimationFromSpriteSheetAsync
   fullName: AGS.API.IGraphicsFactory.LoadAnimationFromSpriteSheetAsync
   nameWithType: IGraphicsFactory.LoadAnimationFromSpriteSheetAsync
-- uid: AGS.API.IGraphicsFactory.LoadBitmap(System.String)
-  name: LoadBitmap(String)
-  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadBitmap_System_String_
-  commentId: M:AGS.API.IGraphicsFactory.LoadBitmap(System.String)
-  fullName: AGS.API.IGraphicsFactory.LoadBitmap(System.String)
-  nameWithType: IGraphicsFactory.LoadBitmap(String)
-- uid: AGS.API.IGraphicsFactory.LoadBitmap*
-  name: LoadBitmap
-  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadBitmap_
-  commentId: Overload:AGS.API.IGraphicsFactory.LoadBitmap
-  fullName: AGS.API.IGraphicsFactory.LoadBitmap
-  nameWithType: IGraphicsFactory.LoadBitmap
-- uid: AGS.API.IGraphicsFactory.LoadBitmapAsync(System.String)
-  name: LoadBitmapAsync(String)
-  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadBitmapAsync_System_String_
-  commentId: M:AGS.API.IGraphicsFactory.LoadBitmapAsync(System.String)
-  fullName: AGS.API.IGraphicsFactory.LoadBitmapAsync(System.String)
-  nameWithType: IGraphicsFactory.LoadBitmapAsync(String)
-- uid: AGS.API.IGraphicsFactory.LoadBitmapAsync*
-  name: LoadBitmapAsync
-  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadBitmapAsync_
-  commentId: Overload:AGS.API.IGraphicsFactory.LoadBitmapAsync
-  fullName: AGS.API.IGraphicsFactory.LoadBitmapAsync
-  nameWithType: IGraphicsFactory.LoadBitmapAsync
 - uid: AGS.API.IGraphicsFactory.LoadDirectionalAnimationFromFolders(System.String,System.String,System.String,System.String,System.String,AGS.API.IAnimationConfiguration,AGS.API.ILoadImageConfig)
   name: LoadDirectionalAnimationFromFolders(String, String, String, String, String, IAnimationConfiguration, ILoadImageConfig)
   href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadDirectionalAnimationFromFolders_System_String_System_String_System_String_System_String_System_String_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_
