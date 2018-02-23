@@ -34,7 +34,12 @@ namespace AGS.Editor
             return (games, assembly);
         }
 
-        public static void Load(string path)
+        public static void Load(IRenderMessagePump messagePump, string path)
+        {
+            messagePump.Post(_ => load(path), null);
+        }
+
+        private static void load(string path)
         {
             var (games, assembly) = GetGames(path);
             if (games.Count == 0)
@@ -76,7 +81,7 @@ namespace AGS.Editor
             });
         }
 
-        static Assembly loadFromSameFolder(object sender, ResolveEventArgs args)
+        private static Assembly loadFromSameFolder(object sender, ResolveEventArgs args)
         {
             if (_currentFolder == null) return null;
             string assemblyPath = Path.Combine(_currentFolder, new AssemblyName(args.Name).Name + ".dll");

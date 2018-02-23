@@ -11,6 +11,7 @@ namespace AGS.Engine
         public static Color HoveredText = Colors.Yellow;
         public static Color ReadonlyText = Colors.LightGray;
         public static Color Button = Border;
+        public static Color SubPanel = Border;
         public static Color Textbox = Border;
 
         public static IBrush TextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(Text);

@@ -8,4 +8,7 @@
     <ProjectReference Include="..\..\AGS.API\AGS.API.csproj" />
     <ProjectReference Include="..\..\Engine\AGS.Engine\AGS.Engine.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Welcome\" />
+  </ItemGroup>
 </Project>
