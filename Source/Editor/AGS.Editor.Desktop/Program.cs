@@ -11,7 +11,7 @@ namespace AGS.Editor.Desktop
 		public static void Main(string[] args)
 		{
             AGSEngineDesktop.Init();
-            GameLoader.Load(@"../../../../Demo/DemoQuest.Desktop/bin/Debug/DemoQuest.Desktop.exe");
+            Program.Run();
 		}
 	}
 }

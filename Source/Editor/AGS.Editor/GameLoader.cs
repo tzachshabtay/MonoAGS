@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -20,7 +21,7 @@ namespace AGS.Editor
             currentDomain.AssemblyResolve += loadFromSameFolder;
         }
 
-        public static void Load(string path)
+        public static (List<Type> games, Assembly assembly) GetGames(string path)
         {
             var gameCreatorInterface = typeof(IGameCreator);
             FileInfo fileInfo = new FileInfo(path);
@@ -28,7 +29,14 @@ namespace AGS.Editor
             var assembly = Assembly.LoadFrom(path);
             var types = assembly.GetTypes();
             var etypes = assembly.GetExportedTypes();
-            var games = assembly.GetTypes().Where(type => gameCreatorInterface.IsAssignableFrom(type)).ToList();
+            var games = assembly.GetTypes().Where(type => gameCreatorInterface.IsAssignableFrom(type) 
+                                                  && gameCreatorInterface != type).ToList();
+            return (games, assembly);
+        }
+
+        public static void Load(string path)
+        {
+            var (games, assembly) = GetGames(path);
             if (games.Count == 0)
             {
                 throw new Exception($"Cannot load game: failed to find an instance of IGameCreator in {path}.");
