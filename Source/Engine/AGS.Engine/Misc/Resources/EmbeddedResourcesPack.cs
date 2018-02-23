@@ -11,12 +11,13 @@ namespace AGS.Engine
     {
         private Assembly _assembly;
         private string _assemblyName;
-        private Dictionary<string, List<string>> _resourceFolders;
+        private Lazy<Dictionary<string, List<string>>> _resourceFolders;
 
         public EmbeddedResourcesPack(Assembly assembly, string customAssemblyName = null)
         {
             _assembly = assembly;
             _assemblyName = customAssemblyName ?? assembly?.GetName().Name;
+            _resourceFolders = new Lazy<Dictionary<string, List<string>>>(loadResourceFolders);
         }
 
         public static string AssetsFolder = "Assets";
@@ -29,7 +30,7 @@ namespace AGS.Engine
 
             //We're assuming we received a file/resource name without the extension: let's try to find a matching resource/file.
             string folderResourceName = getResourceName(folder);
-            if (_resourceFolders.TryGetValue(folderResourceName, out var files))
+            if (_resourceFolders.Value.TryGetValue(folderResourceName, out var files))
             {
                 var matchingResource = files.FirstOrDefault(f => f.ToUpperInvariant().Contains(filename));
                 if (matchingResource != null) return matchingResource;
@@ -46,11 +47,9 @@ namespace AGS.Engine
 
         public List<IResource> LoadResources(string folder)
         {
-            loadResourceFolders();
-
             string folderResource = getResourceName(folder);
             List<IResource> resources = new List<IResource>();
-            if (_resourceFolders.TryGetValue(folderResource, out var embeddedResources))
+            if (_resourceFolders.Value.TryGetValue(folderResource, out var embeddedResources))
             {
                 foreach (string resourceName in embeddedResources)
                 {
@@ -87,18 +86,16 @@ namespace AGS.Engine
             }
         }
 
-        private void loadResourceFolders()
+        private Dictionary<string, List<string>> loadResourceFolders()
         {
-            if (Repeat.OnceOnly("LoadResourceFolders"))
+            var resourceFolders = new Dictionary<string, List<string>>(50);
+            foreach (string name in _assembly.GetManifestResourceNames())
             {
-                _resourceFolders = new Dictionary<string, List<string>>(50);
-                foreach (string name in _assembly.GetManifestResourceNames())
-                {
-                    string folder = getFolderName(name);
-                    if (folder == null) continue;
-                    _resourceFolders.GetOrAdd(folder, () => new List<string>(20)).Add(name);
-                }
+                string folder = getFolderName(name);
+                if (folder == null) continue;
+                resourceFolders.GetOrAdd(folder, () => new List<string>(20)).Add(name);
             }
+            return resourceFolders;
         }
 
         private string getFolderName(string resource)
