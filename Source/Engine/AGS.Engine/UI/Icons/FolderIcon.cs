@@ -25,6 +25,9 @@ namespace AGS.Engine
         private readonly GLVertex[] _quad = new GLVertex[4];
         private bool _isSelected;
 
+        private AGSBoundingBox _lastSquare;
+        private Size _lastWindowSize;
+
         public FolderIcon(IGLUtils glUtils, IRuntimeSettings settings, Color? color = null, Color? foldColor = null, 
                           Color? selectedColor = null, Color? selectedFoldColor = null)
         {
@@ -47,7 +50,11 @@ namespace AGS.Engine
 
         public void RenderBorderBack(AGSBoundingBox square)
         {
-            if (_glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
+            if (_settings.WindowSize.Equals(_lastWindowSize) && _lastSquare.Equals(square)
+                && _glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
+
+            _lastSquare = square;
+            _lastWindowSize = _settings.WindowSize;
 
             float width = _glUtils.CurrentResolution.Width;
             float height = _glUtils.CurrentResolution.Height;
