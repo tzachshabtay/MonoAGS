@@ -642,7 +642,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IButton.html",
-          "hash": "JyghtRWcfD3ymAkt4YOYIg=="
+          "hash": "jKi6vZFSVJvwRLOgL4IY7w=="
         }
       },
       "is_incremental": false,
@@ -678,7 +678,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ICharacter.html",
-          "hash": "ZmhE79K6P8yF+GGuuRtZGw=="
+          "hash": "StjSSuF5iTLj6YbfP0Xidg=="
         }
       },
       "is_incremental": false,
@@ -690,7 +690,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ICheckBox.html",
-          "hash": "V2K/gaq7+zg/GjcP8ChczQ=="
+          "hash": "oUIgoBnzmrnaJE1j/hPNIg=="
         }
       },
       "is_incremental": false,
@@ -762,7 +762,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IComboBox.html",
-          "hash": "x/5AL9uonUh/mCUX+K3ThA=="
+          "hash": "xVqcbuwQ80+GYe5Z7gu5fw=="
         }
       },
       "is_incremental": false,
@@ -1566,7 +1566,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IInventoryWindow.html",
-          "hash": "+1R8sgcD5QSQ7iWOGt4D1A=="
+          "hash": "o9MQocdUvxB9d9hhmf969A=="
         }
       },
       "is_incremental": false,
@@ -1602,7 +1602,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ILabel.html",
-          "hash": "HN1cFL4z+1rT8jZohZ3Low=="
+          "hash": "bgNYz09fbNEzvtyHV6iBoQ=="
         }
       },
       "is_incremental": false,
@@ -1734,7 +1734,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IObject.html",
-          "hash": "SG559eCCYDVLlDB1qInmng=="
+          "hash": "qEEwdGm+nh2fuy98CyEpvg=="
         }
       },
       "is_incremental": false,
@@ -1794,7 +1794,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IPanel.html",
-          "hash": "QGK7morOB3B5ExdQyTTmPQ=="
+          "hash": "xVcRy+xQmH2fx0KqL2XKDg=="
         }
       },
       "is_incremental": false,
@@ -1818,7 +1818,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IPixelPerfectCollidable.html",
-          "hash": "t1JSaxHzjr44htjAkcpSUw=="
+          "hash": "MHQRvvJs51G2x+7VYpAkXg=="
         }
       },
       "is_incremental": false,
@@ -1830,7 +1830,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IPixelPerfectComponent.html",
-          "hash": "vwQcTH2BocPXpc0s6OsNyw=="
+          "hash": "6AjhYEt7ml0dXOZEnB/vfg=="
         }
       },
       "is_incremental": false,
@@ -2238,7 +2238,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ISlider.html",
-          "hash": "G5ZJ+D29A34IKyWcreSmAg=="
+          "hash": "49Eu2GSRbfOF5icK8ZLiLg=="
         }
       },
       "is_incremental": false,
@@ -2346,7 +2346,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ISprite.html",
-          "hash": "loa1veVyoOTuBnq/X9nbTw=="
+          "hash": "9ouXfuhSIV8bF/rhH1NEJg=="
         }
       },
       "is_incremental": false,
@@ -2406,7 +2406,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ITextBox.html",
-          "hash": "ce3DrbroJCI8ZcdX0ho9Uw=="
+          "hash": "93z+AJN/Q48mW3Ff7P2CIw=="
         }
       },
       "is_incremental": false,
@@ -2634,7 +2634,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IUIControl.html",
-          "hash": "O1c6F0XqBjHRWFkNKAwKLw=="
+          "hash": "/v2q2DSnQwdBAvl0R+xveA=="
         }
       },
       "is_incremental": false,
@@ -3810,22 +3810,22 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "TocDocumentProcessor": {
+        "ResourceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ResourceDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }

@@ -10084,18 +10084,6 @@ references:
   commentId: T:AGS.API.IPixelPerfectCollidable
   fullName: AGS.API.IPixelPerfectCollidable
   nameWithType: IPixelPerfectCollidable
-- uid: AGS.API.IPixelPerfectCollidable.PixelPerfect(System.Boolean)
-  name: PixelPerfect(Boolean)
-  href: api/AGS.API.IPixelPerfectCollidable.html#AGS_API_IPixelPerfectCollidable_PixelPerfect_System_Boolean_
-  commentId: M:AGS.API.IPixelPerfectCollidable.PixelPerfect(System.Boolean)
-  fullName: AGS.API.IPixelPerfectCollidable.PixelPerfect(System.Boolean)
-  nameWithType: IPixelPerfectCollidable.PixelPerfect(Boolean)
-- uid: AGS.API.IPixelPerfectCollidable.PixelPerfect*
-  name: PixelPerfect
-  href: api/AGS.API.IPixelPerfectCollidable.html#AGS_API_IPixelPerfectCollidable_PixelPerfect_
-  commentId: Overload:AGS.API.IPixelPerfectCollidable.PixelPerfect
-  fullName: AGS.API.IPixelPerfectCollidable.PixelPerfect
-  nameWithType: IPixelPerfectCollidable.PixelPerfect
 - uid: AGS.API.IPixelPerfectCollidable.PixelPerfectHitTestArea
   name: PixelPerfectHitTestArea
   href: api/AGS.API.IPixelPerfectCollidable.html#AGS_API_IPixelPerfectCollidable_PixelPerfectHitTestArea
@@ -10114,6 +10102,18 @@ references:
   commentId: T:AGS.API.IPixelPerfectComponent
   fullName: AGS.API.IPixelPerfectComponent
   nameWithType: IPixelPerfectComponent
+- uid: AGS.API.IPixelPerfectComponent.IsPixelPerfect
+  name: IsPixelPerfect
+  href: api/AGS.API.IPixelPerfectComponent.html#AGS_API_IPixelPerfectComponent_IsPixelPerfect
+  commentId: P:AGS.API.IPixelPerfectComponent.IsPixelPerfect
+  fullName: AGS.API.IPixelPerfectComponent.IsPixelPerfect
+  nameWithType: IPixelPerfectComponent.IsPixelPerfect
+- uid: AGS.API.IPixelPerfectComponent.IsPixelPerfect*
+  name: IsPixelPerfect
+  href: api/AGS.API.IPixelPerfectComponent.html#AGS_API_IPixelPerfectComponent_IsPixelPerfect_
+  commentId: Overload:AGS.API.IPixelPerfectComponent.IsPixelPerfect
+  fullName: AGS.API.IPixelPerfectComponent.IsPixelPerfect
+  nameWithType: IPixelPerfectComponent.IsPixelPerfect
 - uid: AGS.API.IPortraitConfig
   name: IPortraitConfig
   href: api/AGS.API.IPortraitConfig.html
