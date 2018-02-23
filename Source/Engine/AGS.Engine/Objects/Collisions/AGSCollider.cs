@@ -8,7 +8,7 @@ namespace AGS.Engine
 		private IDrawableInfoComponent _drawableInfo;
 		private IImageComponent _obj;
         private IScale _scale;
-        private IPixelPerfectCollidable _pixelPerfect;
+        private IPixelPerfectComponent _pixelPerfect;
         private IEntity _entity;
         private IBoundingBoxComponent _boundingBox;
 
@@ -59,7 +59,7 @@ namespace AGS.Engine
             if (boundingBoxes == null) return false;
             AGSBoundingBox boundingBox = boundingBoxes.HitTestBox;
             var pixelPerfectComponent = _pixelPerfect;
-			IArea pixelPerfect = pixelPerfectComponent == null ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
+            IArea pixelPerfect = pixelPerfectComponent == null || !pixelPerfectComponent.IsPixelPerfect ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 
             if (_drawableInfo?.IgnoreViewport ?? false) 
 			{
