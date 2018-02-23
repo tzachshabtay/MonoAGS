@@ -70,7 +70,6 @@ namespace AGS.Engine
             try
             {
                 if (!_isDirty) return;
-                _isDirty = false;
                 adjustLayout();
             }
             finally
@@ -135,6 +134,7 @@ namespace AGS.Engine
         {
             try
             {
+                _isDirty = false;
                 float location = StartLocation;
                 var lockStep = new TreeLockStep(tree, obj => obj.UnderlyingVisible && !EntitiesToIgnore.Contains(obj.ID));
                 lockStep.Lock();
