@@ -48,7 +48,7 @@ namespace AGS.Engine
                 autoFit: AutoFit.TextShouldFitLabel, font: game.Factory.Fonts.LoadFont(null, 10f));
             _filesTextConfig = new AGSTextConfig(alignment: Alignment.BottomCenter,
                 autoFit: AutoFit.TextShouldFitLabel, font: game.Factory.Fonts.LoadFont(null, 10f),
-                brush: _device.BrushLoader.LoadSolidBrush(Colors.Black));
+                brush: _device.BrushLoader.LoadSolidBrush(Colors.White));
             _tcs = new TaskCompletionSource<bool>(false);
         }
 
@@ -68,8 +68,8 @@ namespace AGS.Engine
             const float buttonHeight = 20f;
             float itemHeight = panelHeight / 8f;
             ITEM_WIDTH = panelWidth / 10f;
-            const float itemPaddingX = 5f;
-            const float itemPaddingY = 5f;
+            float itemPaddingX = panelWidth / 10f;
+            float itemPaddingY = panelHeight / 12f;
             const float scrollButtonWidth = 20f;
             const float scrollButtonHeight = 20f;
             const float scrollButtonOffsetX = 5f;
@@ -273,7 +273,7 @@ namespace AGS.Engine
             graphics = clone("FileItem_" + file, _game.Factory, graphics);
             graphics.Properties.Strings.SetValue(PATH_PROPERTY, file);
             ILabel fileLabel = _game.Factory.UI.GetLabel("FileItemLabel_" + file, getLastName(file), 
-                ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, 0f, graphics, _filesTextConfig);
+                ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, -10f, graphics, _filesTextConfig);
             graphics.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 3);
             fileLabel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 4);
             var item = _game.Factory.Inventory.GetInventoryItem(graphics, null);

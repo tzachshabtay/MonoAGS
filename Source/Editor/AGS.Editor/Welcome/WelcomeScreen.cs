@@ -49,7 +49,7 @@ namespace AGS.Editor
 
         private async Task onLoadGameClicked(MouseButtonEventArgs args)
         {
-            AGSGameSettings.CurrentSkin = new AGSBlueSkin(_game.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
+            AGSGameSettings.CurrentSkin = new AGSSilverSkin(_game.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to load", FileSelection.FileOnly, isGame);
             AGSGameSettings.CurrentSkin = null;
             if (string.IsNullOrEmpty(file)) return;
