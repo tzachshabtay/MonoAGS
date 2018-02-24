@@ -38,9 +38,10 @@ namespace AGS.Engine
 
         public void RenderBorderFront(AGSBoundingBox square)
         {
-            if (_settings.WindowSize.Equals(_lastWindowSize) && _lastSquare.Equals(square) 
+            if (_settings.WindowSize.Equals(_lastWindowSize) && _lastSquare.SameSize(square) 
                 && _glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
 
+            _frameBuffer?.Dispose();
             _lastSquare = square;
             _lastWindowSize = _settings.WindowSize;
             float width = _glUtils.CurrentResolution.Width;

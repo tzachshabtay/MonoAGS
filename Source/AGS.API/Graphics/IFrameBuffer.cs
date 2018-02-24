@@ -1,9 +1,11 @@
-﻿namespace AGS.API
+﻿using System;
+
+namespace AGS.API
 {
     /// <summary>
     /// Allows rendering into a texture instead of rendering to screen
     /// </summary>
-	public interface IFrameBuffer
+    public interface IFrameBuffer : IDisposable
 	{
         /// <summary>
         /// Gets the texture that was rendered (will be valid after End() was called).
