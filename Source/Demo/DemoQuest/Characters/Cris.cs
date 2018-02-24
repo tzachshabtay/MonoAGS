@@ -48,7 +48,7 @@ namespace DemoGame
 
             _character.StartAnimation (_character.Outfit[AGSOutfit.Idle].Down);
 			_character.DisplayName = "Cris";
-			_character.PixelPerfect(true);
+            _character.IsPixelPerfect = true;
 
 			Characters.Cris = _character;
 			return _character;

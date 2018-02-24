@@ -60,7 +60,6 @@ namespace AGS.Engine
 
 			Builder.RegisterType<AGSSprite>().As<ISprite>();
             Builder.RegisterType<AGSBoundingBoxesBuilder>().As<IBoundingBoxBuilder>();
-            Builder.RegisterType<AGSPixelPerfectCollidable>().As<IPixelPerfectCollidable>();
             Builder.RegisterType<AGSTranslate>().As<ITranslate>();
             Builder.RegisterType<AGSScale>().As<IScale>();
             Builder.RegisterType<AGSRotate>().As<IRotate>();

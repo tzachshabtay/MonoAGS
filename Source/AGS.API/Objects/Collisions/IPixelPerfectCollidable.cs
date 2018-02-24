@@ -13,12 +13,6 @@ namespace AGS.API
         /// </summary>
         /// <value>The pixel perfect hit test area.</value>
         IArea PixelPerfectHitTestArea { get; }
-
-        /// <summary>
-        /// Enables/disables pixel perfect collision checks (disabling will resort to a bounding box collision check).
-        /// </summary>
-        /// <param name="pixelPerfect">If set to <c>true</c> pixel perfect.</param>
-        void PixelPerfect(bool pixelPerfect);
     }
 
     /// <summary>
@@ -27,5 +21,7 @@ namespace AGS.API
     /// </summary>
     [RequiredComponent(typeof(IAnimationComponent))]
     public interface IPixelPerfectComponent : IPixelPerfectCollidable, IComponent
-    { }
+    {
+        bool IsPixelPerfect { get; set; }
+    }
 }

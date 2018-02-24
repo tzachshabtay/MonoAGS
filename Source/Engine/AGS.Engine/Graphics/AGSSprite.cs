@@ -17,13 +17,14 @@ namespace AGS.Engine
         private readonly IScale _scale;
         private readonly Resolver _resolver;
         private readonly int _id;
-        private static readonly IConcurrentHashSet<int> _registeredPixelPerfectIds = new AGSConcurrentHashSet<int>(1000);
+        private readonly Lazy<IArea> _pixelPerfectArea;
         private static readonly SizeF _emptySize = new SizeF(1f, 1f);
         private static int _lastId = 0;
 
 		public AGSSprite (Resolver resolver, IMaskLoader maskLoader)
 		{
             _id = Interlocked.Increment(ref _lastId);
+            _pixelPerfectArea = new Lazy<IArea>(generatePixelPerfectArea);
             _maskLoader = maskLoader;
             _resolver = resolver;
 
@@ -134,35 +135,8 @@ namespace AGS.Engine
         [DoNotNotify]
         public Color Tint { get => _hasImage.Tint; set => _hasImage.Tint = value; }
 
-        public IArea PixelPerfectHitTestArea { get; private set; }
-        public void PixelPerfect(bool pixelPerfect)
-        {
-            IArea area = PixelPerfectHitTestArea;
-            if (!pixelPerfect)
-            {
-                if (area == null) return;
-                area.Enabled = false;
-                return;
-            }
-            if (area != null)
-            {
-                area.Enabled = true;
-                return;
-            }
+        public IArea PixelPerfectHitTestArea => _pixelPerfectArea.Value;
 
-            string areaId = $"Sprite_PixelPerfect_{Image.ID}_{_id}";
-			if (!_registeredPixelPerfectIds.Add(_id))
-			{
-				//Without this check bitmap.LockBits can be called twice without unlocking in between which crashes GDI+: https://github.com/mono/libgdiplus/blob/0c0592d09c7393fc418fa7f65f54e8b3bcc14cf2/src/bitmap.c#L1960
-				Debug.WriteLine("2 concurrent commands were given at the same time for setting pixel perfect areas, ignoring one to set pixel perfect as {0} for {1}", pixelPerfect, areaId);
-				return;
-			}
-
-			string maskId = $"Mask_{areaId}";
-            PixelPerfectHitTestArea = new AGSArea(areaId, _resolver) { Mask = _maskLoader.Load(maskId, _hasImage.Image.OriginalBitmap) };
-            PixelPerfectHitTestArea.Mask.DebugDraw?.RemoveComponent<IPixelPerfectComponent>(); //Removing the pixel perfect from the debug draw mask, otherwise it disables the pixel perfect for the images which can be used by actual characters
-            PixelPerfectHitTestArea.Enabled = true;
-        }
         #endregion
 
         public override string ToString() => _hasImage.ToString();
@@ -170,6 +144,17 @@ namespace AGS.Engine
         private void onPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(e);
+        }
+
+        private IArea generatePixelPerfectArea()
+        {
+            string areaId = $"Sprite_PixelPerfect_{Image.ID}_{_id}";
+
+            string maskId = $"Mask_{areaId}";
+            var area = new AGSArea(areaId, _resolver) { Mask = _maskLoader.Load(maskId, _hasImage.Image.OriginalBitmap) };
+            area.Mask?.DebugDraw?.RemoveComponent<IPixelPerfectComponent>(); //Removing the pixel perfect from the debug draw mask, otherwise it disables the pixel perfect for the images which can be used by actual characters
+            area.Enabled = true;
+            return area;
         }
 	}
 }

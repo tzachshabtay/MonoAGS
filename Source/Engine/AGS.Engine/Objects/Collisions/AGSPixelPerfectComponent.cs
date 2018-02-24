@@ -1,52 +1,22 @@
 ﻿using AGS.API;
-using Autofac;
 
 namespace AGS.Engine
 {
     public class AGSPixelPerfectComponent : AGSComponent, IPixelPerfectComponent
     {
-        private IPixelPerfectCollidable _pixelPerfect;
-        private readonly Resolver _resolver;
-
-        public AGSPixelPerfectComponent(Resolver resolver)
-        {
-            _resolver = resolver;            
-        }
+        private IImageComponent _image;
 
         public override void Init(IEntity entity)
         {
             base.Init(entity);
 
-            entity.Bind<IImageComponent>(c =>
-            {
-                TypedParameter spriteParam = new TypedParameter(typeof(IImageComponent), c);
-                _pixelPerfect = _resolver.Container.Resolve<IPixelPerfectCollidable>(spriteParam);
-            }, c => { c.Dispose(); _pixelPerfect = null; });
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _pixelPerfect?.Dispose();
+            entity.Bind<IImageComponent>(c => { _image = c; }, _ => { _image = null; });
         }
 
         [Property(Category = "Collider")]
-        public bool IsPixelPerfect
-        {
-            get 
-            {
-                var area = PixelPerfectHitTestArea;
-                return area?.Enabled ?? false;
-            }
-            set { PixelPerfect(value);}
-        }
+        public bool IsPixelPerfect { get; set; }
 
         [Property(Browsable = false)]
-        public IArea PixelPerfectHitTestArea => _pixelPerfect.PixelPerfectHitTestArea;
-
-        public void PixelPerfect(bool pixelPerfect)
-        {
-            _pixelPerfect.PixelPerfect(pixelPerfect); //A pixel perfect line!
-        }
+        public IArea PixelPerfectHitTestArea => _image?.CurrentSprite?.PixelPerfectHitTestArea;
     }
 }
