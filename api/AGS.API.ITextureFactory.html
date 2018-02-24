@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enum ScaleUpFilters
+    <title>Interface ITextureFactory
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Enum ScaleUpFilters
+    <meta name="title" content="Interface ITextureFactory
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.31.0.0">
     
@@ -76,44 +76,72 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.ScaleUpFilters">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ITextureFactory">
   
   
-  <h1 id="AGS_API_ScaleUpFilters" data-uid="AGS.API.ScaleUpFilters" class="text-break">Enum ScaleUpFilters
+  <h1 id="AGS_API_ITextureFactory" data-uid="AGS.API.ITextureFactory" class="text-break">Interface ITextureFactory
   </h1>
-  <div class="markdown level0 summary"><p>The filter to be used when scaling up the texture.</p>
+  <div class="markdown level0 summary"><p>A factory for creating textures.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_ScaleUpFilters_syntax">Syntax</h5>
+  <h5 id="AGS_API_ITextureFactory_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum ScaleUpFilters</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ITextureFactory</code></pre>
   </div>
-  <h3 id="fields">Fields
+  <h3 id="methods">Methods
   </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_ITextureFactory_CreateTexture_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.ITextureFactory.CreateTexture(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Graphics/Textures/ITextureFactory.cs/#L13">View Source</a>
+  </span>
+  <a id="AGS_API_ITextureFactory_CreateTexture_" data-uid="AGS.API.ITextureFactory.CreateTexture*"></a>
+  <h4 id="AGS_API_ITextureFactory_CreateTexture_System_String_" data-uid="AGS.API.ITextureFactory.CreateTexture(System.String)">CreateTexture(String)</h4>
+  <div class="markdown level1 summary"><p>Creates the texture from the identifier (or returns an empty texture if the id is null).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ITexture CreateTexture(string id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
+        <th>Type</th>
         <th>Name</th>
         <th>Description</th>
       </tr>
-    <thead>
+    </thead>
     <tbody>
       <tr>
-        <td id="AGS_API_ScaleUpFilters_Linear">Linear</td>
-        <td><p>Uses a weighted average of the closest pixels.
-Gives a smooth look (recommended for non pixel art games).</p>
-</td>
-      </tr>
-      <tr>
-        <td id="AGS_API_ScaleUpFilters_Nearest">Nearest</td>
-        <td><p>Uses the nearest neighbor (in Manhattan Distance) as the neighbor to be used.
-Gives a pixelated look (recommended for pixel art games).</p>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The texture id (path in the file system, for example).</p>
 </td>
       </tr>
     </tbody>
-  </thead></thead></table>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.ITexture.html">ITexture</a></td>
+        <td><p>The texture.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
@@ -122,10 +150,10 @@ Gives a pixelated look (recommended for pixel art games).</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_ScaleUpFilters.md&amp;value=---%0Auid%3A%20AGS.API.ScaleUpFilters%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_ITextureFactory.md&amp;value=---%0Auid%3A%20AGS.API.ITextureFactory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Graphics/Textures/ITextureConfig.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Graphics/Textures/ITextureFactory.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
