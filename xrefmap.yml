@@ -7767,6 +7767,18 @@ references:
   commentId: Overload:AGS.API.IGraphicsFactory.Brushes
   fullName: AGS.API.IGraphicsFactory.Brushes
   nameWithType: IGraphicsFactory.Brushes
+- uid: AGS.API.IGraphicsFactory.GetBitmap(System.Int32,System.Int32)
+  name: GetBitmap(Int32, Int32)
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_GetBitmap_System_Int32_System_Int32_
+  commentId: M:AGS.API.IGraphicsFactory.GetBitmap(System.Int32,System.Int32)
+  fullName: AGS.API.IGraphicsFactory.GetBitmap(System.Int32, System.Int32)
+  nameWithType: IGraphicsFactory.GetBitmap(Int32, Int32)
+- uid: AGS.API.IGraphicsFactory.GetBitmap*
+  name: GetBitmap
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_GetBitmap_
+  commentId: Overload:AGS.API.IGraphicsFactory.GetBitmap
+  fullName: AGS.API.IGraphicsFactory.GetBitmap
+  nameWithType: IGraphicsFactory.GetBitmap
 - uid: AGS.API.IGraphicsFactory.GetSprite
   name: GetSprite()
   href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_GetSprite
@@ -7869,6 +7881,30 @@ references:
   commentId: Overload:AGS.API.IGraphicsFactory.LoadAnimationFromSpriteSheetAsync
   fullName: AGS.API.IGraphicsFactory.LoadAnimationFromSpriteSheetAsync
   nameWithType: IGraphicsFactory.LoadAnimationFromSpriteSheetAsync
+- uid: AGS.API.IGraphicsFactory.LoadBitmap(System.String)
+  name: LoadBitmap(String)
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadBitmap_System_String_
+  commentId: M:AGS.API.IGraphicsFactory.LoadBitmap(System.String)
+  fullName: AGS.API.IGraphicsFactory.LoadBitmap(System.String)
+  nameWithType: IGraphicsFactory.LoadBitmap(String)
+- uid: AGS.API.IGraphicsFactory.LoadBitmap*
+  name: LoadBitmap
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadBitmap_
+  commentId: Overload:AGS.API.IGraphicsFactory.LoadBitmap
+  fullName: AGS.API.IGraphicsFactory.LoadBitmap
+  nameWithType: IGraphicsFactory.LoadBitmap
+- uid: AGS.API.IGraphicsFactory.LoadBitmapAsync(System.String)
+  name: LoadBitmapAsync(String)
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadBitmapAsync_System_String_
+  commentId: M:AGS.API.IGraphicsFactory.LoadBitmapAsync(System.String)
+  fullName: AGS.API.IGraphicsFactory.LoadBitmapAsync(System.String)
+  nameWithType: IGraphicsFactory.LoadBitmapAsync(String)
+- uid: AGS.API.IGraphicsFactory.LoadBitmapAsync*
+  name: LoadBitmapAsync
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadBitmapAsync_
+  commentId: Overload:AGS.API.IGraphicsFactory.LoadBitmapAsync
+  fullName: AGS.API.IGraphicsFactory.LoadBitmapAsync
+  nameWithType: IGraphicsFactory.LoadBitmapAsync
 - uid: AGS.API.IGraphicsFactory.LoadDirectionalAnimationFromFolders(System.String,System.String,System.String,System.String,System.String,AGS.API.IAnimationConfiguration,AGS.API.ILoadImageConfig)
   name: LoadDirectionalAnimationFromFolders(String, String, String, String, String, IAnimationConfiguration, ILoadImageConfig)
   href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadDirectionalAnimationFromFolders_System_String_System_String_System_String_System_String_System_String_AGS_API_IAnimationConfiguration_AGS_API_ILoadImageConfig_
@@ -10048,18 +10084,6 @@ references:
   commentId: T:AGS.API.IPixelPerfectCollidable
   fullName: AGS.API.IPixelPerfectCollidable
   nameWithType: IPixelPerfectCollidable
-- uid: AGS.API.IPixelPerfectCollidable.PixelPerfect(System.Boolean)
-  name: PixelPerfect(Boolean)
-  href: api/AGS.API.IPixelPerfectCollidable.html#AGS_API_IPixelPerfectCollidable_PixelPerfect_System_Boolean_
-  commentId: M:AGS.API.IPixelPerfectCollidable.PixelPerfect(System.Boolean)
-  fullName: AGS.API.IPixelPerfectCollidable.PixelPerfect(System.Boolean)
-  nameWithType: IPixelPerfectCollidable.PixelPerfect(Boolean)
-- uid: AGS.API.IPixelPerfectCollidable.PixelPerfect*
-  name: PixelPerfect
-  href: api/AGS.API.IPixelPerfectCollidable.html#AGS_API_IPixelPerfectCollidable_PixelPerfect_
-  commentId: Overload:AGS.API.IPixelPerfectCollidable.PixelPerfect
-  fullName: AGS.API.IPixelPerfectCollidable.PixelPerfect
-  nameWithType: IPixelPerfectCollidable.PixelPerfect
 - uid: AGS.API.IPixelPerfectCollidable.PixelPerfectHitTestArea
   name: PixelPerfectHitTestArea
   href: api/AGS.API.IPixelPerfectCollidable.html#AGS_API_IPixelPerfectCollidable_PixelPerfectHitTestArea
@@ -10078,6 +10102,18 @@ references:
   commentId: T:AGS.API.IPixelPerfectComponent
   fullName: AGS.API.IPixelPerfectComponent
   nameWithType: IPixelPerfectComponent
+- uid: AGS.API.IPixelPerfectComponent.IsPixelPerfect
+  name: IsPixelPerfect
+  href: api/AGS.API.IPixelPerfectComponent.html#AGS_API_IPixelPerfectComponent_IsPixelPerfect
+  commentId: P:AGS.API.IPixelPerfectComponent.IsPixelPerfect
+  fullName: AGS.API.IPixelPerfectComponent.IsPixelPerfect
+  nameWithType: IPixelPerfectComponent.IsPixelPerfect
+- uid: AGS.API.IPixelPerfectComponent.IsPixelPerfect*
+  name: IsPixelPerfect
+  href: api/AGS.API.IPixelPerfectComponent.html#AGS_API_IPixelPerfectComponent_IsPixelPerfect_
+  commentId: Overload:AGS.API.IPixelPerfectComponent.IsPixelPerfect
+  fullName: AGS.API.IPixelPerfectComponent.IsPixelPerfect
+  nameWithType: IPixelPerfectComponent.IsPixelPerfect
 - uid: AGS.API.IPortraitConfig
   name: IPortraitConfig
   href: api/AGS.API.IPortraitConfig.html
@@ -12895,6 +12931,54 @@ references:
   commentId: Overload:AGS.API.ITexture.ID
   fullName: AGS.API.ITexture.ID
   nameWithType: ITexture.ID
+- uid: AGS.API.ITextureCache
+  name: ITextureCache
+  href: api/AGS.API.ITextureCache.html
+  commentId: T:AGS.API.ITextureCache
+  fullName: AGS.API.ITextureCache
+  nameWithType: ITextureCache
+- uid: AGS.API.ITextureCache.GetTexture(System.String,System.Func{System.String,AGS.API.ITexture})
+  name: GetTexture(String, Func<String, ITexture>)
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_GetTexture_System_String_System_Func_System_String_AGS_API_ITexture__
+  commentId: M:AGS.API.ITextureCache.GetTexture(System.String,System.Func{System.String,AGS.API.ITexture})
+  name.vb: GetTexture(String, Func(Of String, ITexture))
+  fullName: AGS.API.ITextureCache.GetTexture(System.String, System.Func<System.String, AGS.API.ITexture>)
+  fullName.vb: AGS.API.ITextureCache.GetTexture(System.String, System.Func(Of System.String, AGS.API.ITexture))
+  nameWithType: ITextureCache.GetTexture(String, Func<String, ITexture>)
+  nameWithType.vb: ITextureCache.GetTexture(String, Func(Of String, ITexture))
+- uid: AGS.API.ITextureCache.GetTexture*
+  name: GetTexture
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_GetTexture_
+  commentId: Overload:AGS.API.ITextureCache.GetTexture
+  fullName: AGS.API.ITextureCache.GetTexture
+  nameWithType: ITextureCache.GetTexture
+- uid: AGS.API.ITextureCache.RemoveTexture(System.String)
+  name: RemoveTexture(String)
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_RemoveTexture_System_String_
+  commentId: M:AGS.API.ITextureCache.RemoveTexture(System.String)
+  fullName: AGS.API.ITextureCache.RemoveTexture(System.String)
+  nameWithType: ITextureCache.RemoveTexture(String)
+- uid: AGS.API.ITextureCache.RemoveTexture*
+  name: RemoveTexture
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_RemoveTexture_
+  commentId: Overload:AGS.API.ITextureCache.RemoveTexture
+  fullName: AGS.API.ITextureCache.RemoveTexture
+  nameWithType: ITextureCache.RemoveTexture
+- uid: AGS.API.ITextureCache.TryGetTexture(System.String,AGS.API.ITexture@)
+  name: TryGetTexture(String, out ITexture)
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_TryGetTexture_System_String_AGS_API_ITexture__
+  commentId: M:AGS.API.ITextureCache.TryGetTexture(System.String,AGS.API.ITexture@)
+  name.vb: TryGetTexture(String, ByRef ITexture)
+  fullName: AGS.API.ITextureCache.TryGetTexture(System.String, out AGS.API.ITexture)
+  fullName.vb: AGS.API.ITextureCache.TryGetTexture(System.String, ByRef AGS.API.ITexture)
+  nameWithType: ITextureCache.TryGetTexture(String, out ITexture)
+  nameWithType.vb: ITextureCache.TryGetTexture(String, ByRef ITexture)
+- uid: AGS.API.ITextureCache.TryGetTexture*
+  name: TryGetTexture
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_TryGetTexture_
+  commentId: Overload:AGS.API.ITextureCache.TryGetTexture
+  fullName: AGS.API.ITextureCache.TryGetTexture
+  nameWithType: ITextureCache.TryGetTexture
 - uid: AGS.API.ITextureConfig
   name: ITextureConfig
   href: api/AGS.API.ITextureConfig.html
@@ -12949,6 +13033,24 @@ references:
   commentId: Overload:AGS.API.ITextureConfig.WrapY
   fullName: AGS.API.ITextureConfig.WrapY
   nameWithType: ITextureConfig.WrapY
+- uid: AGS.API.ITextureFactory
+  name: ITextureFactory
+  href: api/AGS.API.ITextureFactory.html
+  commentId: T:AGS.API.ITextureFactory
+  fullName: AGS.API.ITextureFactory
+  nameWithType: ITextureFactory
+- uid: AGS.API.ITextureFactory.CreateTexture(System.String)
+  name: CreateTexture(String)
+  href: api/AGS.API.ITextureFactory.html#AGS_API_ITextureFactory_CreateTexture_System_String_
+  commentId: M:AGS.API.ITextureFactory.CreateTexture(System.String)
+  fullName: AGS.API.ITextureFactory.CreateTexture(System.String)
+  nameWithType: ITextureFactory.CreateTexture(String)
+- uid: AGS.API.ITextureFactory.CreateTexture*
+  name: CreateTexture
+  href: api/AGS.API.ITextureFactory.html#AGS_API_ITextureFactory_CreateTexture_
+  commentId: Overload:AGS.API.ITextureFactory.CreateTexture
+  fullName: AGS.API.ITextureFactory.CreateTexture
+  nameWithType: ITextureFactory.CreateTexture
 - uid: AGS.API.ITextureOffsetComponent
   name: ITextureOffsetComponent
   href: api/AGS.API.ITextureOffsetComponent.html
