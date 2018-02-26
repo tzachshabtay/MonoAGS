@@ -6541,6 +6541,14 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).InvokeAsync
   nameWithType: IEvent<TEventArgs>.InvokeAsync
   nameWithType.vb: IEvent(Of TEventArgs).InvokeAsync
+- uid: AGS.API.IEvent`1.Subscribe(System.Action)
+  name: Subscribe(Action)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_System_Action_
+  commentId: M:AGS.API.IEvent`1.Subscribe(System.Action)
+  fullName: AGS.API.IEvent<TEventArgs>.Subscribe(System.Action)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Subscribe(System.Action)
+  nameWithType: IEvent<TEventArgs>.Subscribe(Action)
+  nameWithType.vb: IEvent(Of TEventArgs).Subscribe(Action)
 - uid: AGS.API.IEvent`1.Subscribe(System.Action{`0})
   name: Subscribe(Action<TEventArgs>)
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_System_Action__0__
@@ -6583,6 +6591,15 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task))
   nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<TEventArgs, Task>)
   nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of TEventArgs, Task))
+- uid: AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})
+  name: SubscribeToAsync(Func<Task>)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})
+  name.vb: SubscribeToAsync(Func(Of Task))
+  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(System.Func<System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of System.Threading.Tasks.Task))
+  nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<Task>)
+  nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of Task))
 - uid: AGS.API.IEvent`1.SubscribeToAsync*
   name: SubscribeToAsync
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_
@@ -6591,6 +6608,14 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync
   nameWithType: IEvent<TEventArgs>.SubscribeToAsync
   nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync
+- uid: AGS.API.IEvent`1.Unsubscribe(System.Action)
+  name: Unsubscribe(Action)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_System_Action_
+  commentId: M:AGS.API.IEvent`1.Unsubscribe(System.Action)
+  fullName: AGS.API.IEvent<TEventArgs>.Unsubscribe(System.Action)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe(System.Action)
+  nameWithType: IEvent<TEventArgs>.Unsubscribe(Action)
+  nameWithType.vb: IEvent(Of TEventArgs).Unsubscribe(Action)
 - uid: AGS.API.IEvent`1.Unsubscribe(System.Action{`0})
   name: Unsubscribe(Action<TEventArgs>)
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_System_Action__0__
@@ -6617,6 +6642,15 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task))
   nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<TEventArgs, Task>)
   nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of TEventArgs, Task))
+- uid: AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})
+  name: UnsubscribeToAsync(Func<Task>)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__
+  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})
+  name.vb: UnsubscribeToAsync(Func(Of Task))
+  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(System.Func<System.Threading.Tasks.Task>)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of System.Threading.Tasks.Task))
+  nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<Task>)
+  nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of Task))
 - uid: AGS.API.IEvent`1.UnsubscribeToAsync*
   name: UnsubscribeToAsync
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_
@@ -10240,6 +10274,24 @@ references:
   commentId: Overload:AGS.API.IRenderLayer.Z
   fullName: AGS.API.IRenderLayer.Z
   nameWithType: IRenderLayer.Z
+- uid: AGS.API.IRepeatedlyExecuteEventArgs
+  name: IRepeatedlyExecuteEventArgs
+  href: api/AGS.API.IRepeatedlyExecuteEventArgs.html
+  commentId: T:AGS.API.IRepeatedlyExecuteEventArgs
+  fullName: AGS.API.IRepeatedlyExecuteEventArgs
+  nameWithType: IRepeatedlyExecuteEventArgs
+- uid: AGS.API.IRepeatedlyExecuteEventArgs.DeltaTime
+  name: DeltaTime
+  href: api/AGS.API.IRepeatedlyExecuteEventArgs.html#AGS_API_IRepeatedlyExecuteEventArgs_DeltaTime
+  commentId: P:AGS.API.IRepeatedlyExecuteEventArgs.DeltaTime
+  fullName: AGS.API.IRepeatedlyExecuteEventArgs.DeltaTime
+  nameWithType: IRepeatedlyExecuteEventArgs.DeltaTime
+- uid: AGS.API.IRepeatedlyExecuteEventArgs.DeltaTime*
+  name: DeltaTime
+  href: api/AGS.API.IRepeatedlyExecuteEventArgs.html#AGS_API_IRepeatedlyExecuteEventArgs_DeltaTime_
+  commentId: Overload:AGS.API.IRepeatedlyExecuteEventArgs.DeltaTime
+  fullName: AGS.API.IRepeatedlyExecuteEventArgs.DeltaTime
+  nameWithType: IRepeatedlyExecuteEventArgs.DeltaTime
 - uid: AGS.API.IResource
   name: IResource
   href: api/AGS.API.IResource.html
