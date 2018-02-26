@@ -38,6 +38,16 @@ namespace AGS.Engine
             _ev.Unsubscribe(callback);
         }
 
+        public void Subscribe(Action callback)
+        {
+            _ev.Subscribe(callback);
+        }
+
+        public void Unsubscribe(Action callback)
+        {
+            _ev.Unsubscribe(callback);
+        }
+
         public void WaitUntil(Predicate<TEventArgs> condition)
         {
             Task.Run(async () => await WaitUntilAsync(condition)).Wait();
@@ -49,6 +59,16 @@ namespace AGS.Engine
         }
 
         public void UnsubscribeToAsync(Func<TEventArgs, Task> callback)
+        {
+            _ev.UnsubscribeToAsync(callback);
+        }
+
+        public void SubscribeToAsync(Func<Task> callback)
+        {
+            _ev.SubscribeToAsync(callback);
+        }
+
+        public void UnsubscribeToAsync(Func<Task> callback)
         {
             _ev.UnsubscribeToAsync(callback);
         }
