@@ -51,7 +51,7 @@
         /// }
         /// </code>        
         /// </example>
-        IEvent OnRepeatedlyExecute { get; }
+        IEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecute { get; }
 
 		/// <summary>
 		/// This event is called on every render cycle before rendering starts.

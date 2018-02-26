@@ -13,6 +13,7 @@ namespace AGS.Engine
 		private readonly IMessagePump _renderMessagePump, _updateMessagePump;
         private readonly IGraphicsBackend _graphics;
         private readonly IGLUtils _glUtils;
+        private readonly RepeatedlyExecuteEventArgs _repeatArgs = new RepeatedlyExecuteEventArgs();
 		public const double UPDATE_RATE = 60.0;
         private int _updateFrameRetries = 0, _renderFrameRetries = 0;
         private AGSUpdateThread _updateThread;
@@ -150,7 +151,8 @@ namespace AGS.Engine
                             //waits for the walk to stop, only the walk also happens on RepeatedlyExecute and we'll hang.
                             //Since we're running asynchronously, the next UpdateFrame will call RepeatedlyExecute for the walk cycle to stop itself and we're good.
                             ///The downside of this approach is that we need to look out for re-entrancy issues.
-                            await Events.OnRepeatedlyExecute.InvokeAsync();
+                            _repeatArgs.DeltaTime = e.Time;
+                            await Events.OnRepeatedlyExecute.InvokeAsync(_repeatArgs);
                         }
                         catch (Exception ex)
                         {
