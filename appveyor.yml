@@ -71,5 +71,6 @@ after_build:
             Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:git_token):x-oauth-basic@github.com`n"
             git config --global user.email %github_email%
             git config --global user.name "tzachshabtay"
-            cmd /c 'gh-pages 2>&1' -d Docs\_site -m "CI Docs Updates"
+            $args = '-d Docs\_site -m "CI Docs Updates"';
+            cmd /c gh-pages $args 2`>`&1
         }
