@@ -45,6 +45,36 @@ namespace AGS.API
 		void UnsubscribeToAsync(Func<TEventArgs, Task> callback);
 
         /// <summary>
+        /// Subscribe the specified callback to the event.
+        /// Once subscribed, whenever the event happens this callback will be called.
+        /// This version of Subscribe ignores incoming arguments from the event (if you need the arguments, use the other overload which gets an action of TEventArgs).
+        /// </summary>
+        /// <param name="callback">Callback.</param>
+        void Subscribe(Action callback);
+
+        /// <summary>
+        /// Unsubscribe the specified callback from the event.
+        /// This will stops notifications to call this callback.
+        /// </summary>
+        /// <param name="callback">Callback.</param>
+        void Unsubscribe(Action callback);
+
+        /// <summary>
+        /// Subscribe the specified asynchronous callback to the event.
+        /// Once subscribed, whenever the event happens this callback will be called.
+        /// This version of Subscribe ignores incoming arguments from the event (if you need the arguments, use the other overload which gets a func of TEventArgs -> Task).
+        /// </summary>
+        /// <param name="callback">Callback.</param>
+        void SubscribeToAsync(Func<Task> callback);
+
+        /// <summary>
+        /// Unsubscribe the specified asynchronous callback from the event.
+        /// This will stops notifications to call this callback.
+        /// </summary>
+        /// <param name="callback">Callback.</param>
+        void UnsubscribeToAsync(Func<Task> callback);
+
+        /// <summary>
         /// Asynchronously wait until the event fires and the specific condition applies.
         /// </summary>
         /// <returns>The task to be awaited.</returns>

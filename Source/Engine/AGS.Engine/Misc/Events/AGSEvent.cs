@@ -32,6 +32,17 @@ namespace AGS.Engine
 			_invocationList.Add (new Callback (callback));
 		}
 
+        public void Subscribe(Action callback)
+        {
+            _count++;
+            if (_count > MAX_SUBSCRIPTIONS)
+            {
+                Debug.WriteLine("Subscribe Overflow!");
+                return;
+            }
+            _invocationList.Add(new Callback(callback));
+        }
+
 		public void Unsubscribe (Action<TEventArgs> callback)
 		{
 			if (_invocationList.Remove(new Callback (callback)))
@@ -39,6 +50,14 @@ namespace AGS.Engine
                 _count--;
 			}
 		}
+
+        public void Unsubscribe(Action callback)
+        {
+            if (_invocationList.Remove(new Callback(callback)))
+            {
+                _count--;
+            }
+        }
 
 		public void SubscribeToAsync (Func<TEventArgs, Task> callback)
 		{
@@ -49,6 +68,16 @@ namespace AGS.Engine
 		{
 			unsubscribeToAsync(new Callback (callback));
 		}
+
+        public void SubscribeToAsync(Func<Task> callback)
+        {
+            subscribeToAsync(new Callback(callback));
+        }
+
+        public void UnsubscribeToAsync(Func<Task> callback)
+        {
+            unsubscribeToAsync(new Callback(callback));
+        }
 
 		public async Task WaitUntilAsync(Predicate<TEventArgs> condition)
 		{
@@ -66,6 +95,8 @@ namespace AGS.Engine
 				foreach (var target in _invocationList) 
 				{
                     if (target.BlockingEvent != null) target.BlockingEvent(args);
+                    else if (target.EmptyBlockingEvent != null) target.EmptyBlockingEvent();
+                    else if (target.EmptyEvent != null) await target.EmptyEvent();
 					else await target.Event (args);
 				}
 			}
@@ -84,6 +115,8 @@ namespace AGS.Engine
 				foreach (var target in _invocationList) 
 				{
                     if (target.BlockingEvent != null) target.BlockingEvent(args);
+                    else if (target.EmptyBlockingEvent != null) target.EmptyBlockingEvent();
+                    else if (target.EmptyEvent != null) target.EmptyEvent();
                     else target.Event(args);
 				}
 			}
@@ -116,7 +149,7 @@ namespace AGS.Engine
 			}
 		}
 
-		private class Callback
+        private class Callback
 		{
 			private readonly Delegate _origObject;
 
@@ -138,8 +171,22 @@ namespace AGS.Engine
 				Event = convert(condition, tcs);
 			}
 
+            public Callback(Action callback)
+            {
+                _origObject = callback;
+                EmptyBlockingEvent = callback;
+            }
+
+            public Callback(Func<Task> callback)
+            {
+                _origObject = callback;
+                EmptyEvent = callback;
+            }
+
 			public Func<TEventArgs, Task> Event { get; }
 			public Action<TEventArgs> BlockingEvent { get; }
+            public Func<Task> EmptyEvent { get; }
+            public Action EmptyBlockingEvent { get; }
 
 			public override bool Equals(object obj)
 			{

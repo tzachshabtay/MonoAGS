@@ -75,7 +75,7 @@ namespace Tests
 
                 IRendererLoop loop = getLoop();
                 Assert.IsTrue(loop.Tick()); //First tick just to tell the display list about our viewport, the second tick will have the objects to render
-                await _events.OnRepeatedlyExecute.InvokeAsync();
+                await _events.OnRepeatedlyExecute.InvokeAsync(new RepeatedlyExecuteEventArgs());
                 Assert.IsTrue(loop.Tick());
                 _renderer.Verify(r => r.Render(It.IsAny<IObject>(), It.IsAny<IViewport>()), Times.Exactly(2));
             }
