@@ -80,7 +80,7 @@ namespace AGS.Engine.Desktop
                 _actions.Enqueue(() => KeyUp.InvokeAsync(new KeyboardEventArgs(key)));
             };
 
-            events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+            events.OnRepeatedlyExecuteAlways.Subscribe(onRepeatedlyExecute);
         }
 
         #region IInputEvents implementation
