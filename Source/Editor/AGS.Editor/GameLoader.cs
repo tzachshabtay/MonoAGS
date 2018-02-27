@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -15,6 +16,8 @@ namespace AGS.Editor
 
         private static string _currentFolder;
 
+        private static AppDomain _domain;
+
         static GameLoader()
         {
             AppDomain currentDomain = AppDomain.CurrentDomain;
@@ -23,15 +26,34 @@ namespace AGS.Editor
 
         public static (List<Type> games, Assembly assembly) GetGames(string path)
         {
+            if (_domain != null)
+            {
+                _domain.AssemblyResolve -= loadFromSameFolder;
+                AppDomain.Unload(_domain);
+            }
             var gameCreatorInterface = typeof(IGameStarter);
             FileInfo fileInfo = new FileInfo(path);
             _currentFolder = fileInfo.DirectoryName;
-            var assembly = Assembly.LoadFrom(path);
-            var types = assembly.GetTypes();
-            var etypes = assembly.GetExportedTypes();
-            var games = assembly.GetTypes().Where(type => gameCreatorInterface.IsAssignableFrom(type) 
-                                                  && gameCreatorInterface != type).ToList();
-            return (games, assembly);
+            _domain = AppDomain.CreateDomain("LoadingGameDomain");
+            _domain.AssemblyResolve += loadFromSameFolder;
+            AssemblyName assemblyName = new AssemblyName();
+            assemblyName.CodeBase = path;
+            var assembly = _domain.Load(assemblyName);
+            try
+            {
+                var games = assembly.GetTypes().Where(type => gameCreatorInterface.IsAssignableFrom(type)
+                                                      && gameCreatorInterface != type).ToList();
+                return (games, assembly);
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                Debug.WriteLine($"Game Loader: Can't load types from {path}. Exception: {e.ToString()}");
+                foreach (var loaderException in e.LoaderExceptions)
+                {
+                    Debug.WriteLine(loaderException.ToString());
+                }
+                return (new List<Type>(), assembly);
+            }
         }
 
         public static void Load(IRenderMessagePump messagePump, string path, IGame editorGame)
@@ -86,7 +108,14 @@ namespace AGS.Editor
         {
             if (_currentFolder == null) return null;
             string assemblyPath = Path.Combine(_currentFolder, new AssemblyName(args.Name).Name + ".dll");
-            if (!File.Exists(assemblyPath)) return null;
+            if (!File.Exists(assemblyPath))
+            {
+                assemblyPath = assemblyPath.Replace(".dll", ".exe");
+                if (!File.Exists(assemblyPath))
+                {
+                    return null;
+                }
+            }
             Assembly assembly = Assembly.LoadFrom(assemblyPath);
             return assembly;
         }
