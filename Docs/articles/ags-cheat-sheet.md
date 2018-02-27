@@ -1318,8 +1318,8 @@ The predefined global script function in AGS are events. As there is no way of r
 | on_event:eEventRestoreGame | ? | `function on_event (EventType event, int data) { if (event == eEventRestoreGame) {} }` | ? |
 | on_key_press | input.KeyDown | `function on_key_press (eKeyCode keycode) {}` | `input.KeyDown.Subscribe(onKeyDown); ... void onKeyDown(KeyboardEventArgs args) {}`
 | on_mouse_click | input.MouseDown | `function on_mouse_click (MouseButton button) {}` | `input.MouseDown.Subscribe(onMouseDown); ... void onMouseDown(MouseButtonEventArgs args) {}` |
-| repeatedly_execute | Events.OnRepeatedlyExecute | `function repeatedly_execute() {}` | `game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute); ... void onRepeatedlyExecute() { if (game.State.Paused) return; }` |
-| repeatedly_execute_always | Events.OnRepeatedlyExecute | `function repeatedly_execute() {}` | `game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute); ... void onRepeatedlyExecute() { }` |
+| repeatedly_execute | Events.OnRepeatedlyExecute | `function repeatedly_execute() {}` | `game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute); ... void onRepeatedlyExecute() {}` |
+| repeatedly_execute_always | Events.OnRepeatedlyExecuteAlways | `function repeatedly_execute_always() {}` | `game.Events.OnRepeatedlyExecuteAlways.Subscribe(onRepeatedlyExecute); ... void onRepeatedlyExecute() { }` |
 | unhandled_event | Events.DefaultInteractions | `function unhandled_event (int what, int type) { if (what == 1 && type == 1) {}}` | `game.Events.DefaultInteractions.OnInteract(Verbs.Look).Subscribe(args => {});` |
 
 Missing in AGS but exists in MonoAGS: Subscribe/unsubscribe to events at runtime, mouse move and key up generic events, mouse enter/leave/up/double click/lost focus per object events

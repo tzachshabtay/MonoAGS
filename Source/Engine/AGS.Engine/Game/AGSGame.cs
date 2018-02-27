@@ -142,6 +142,8 @@ namespace AGS.Engine
                         try
                         {
                             _updateMessagePump.PumpMessages();
+                            _repeatArgs.DeltaTime = e.Time;
+                            await Events.OnRepeatedlyExecuteAlways.InvokeAsync(_repeatArgs);
                             if (State.Paused) return;
                             adjustSpeed();
                             await GameLoop.UpdateAsync();
@@ -151,7 +153,6 @@ namespace AGS.Engine
                             //waits for the walk to stop, only the walk also happens on RepeatedlyExecute and we'll hang.
                             //Since we're running asynchronously, the next UpdateFrame will call RepeatedlyExecute for the walk cycle to stop itself and we're good.
                             ///The downside of this approach is that we need to look out for re-entrancy issues.
-                            _repeatArgs.DeltaTime = e.Time;
                             await Events.OnRepeatedlyExecute.InvokeAsync(_repeatArgs);
                         }
                         catch (Exception ex)
