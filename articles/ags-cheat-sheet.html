@@ -4805,14 +4805,14 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>repeatedly_execute</td>
 <td>Events.OnRepeatedlyExecute</td>
 <td><code>function repeatedly_execute() {}</code></td>
-<td><code>game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute); ... void onRepeatedlyExecute() { if (game.State.Paused) return; }</code></td>
+<td><code>game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute); ... void onRepeatedlyExecute() {}</code></td>
 <td></td>
 </tr>
 <tr>
 <td>repeatedly_execute_always</td>
-<td>Events.OnRepeatedlyExecute</td>
-<td><code>function repeatedly_execute() {}</code></td>
-<td><code>game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute); ... void onRepeatedlyExecute() { }</code></td>
+<td>Events.OnRepeatedlyExecuteAlways</td>
+<td><code>function repeatedly_execute_always() {}</code></td>
+<td><code>game.Events.OnRepeatedlyExecuteAlways.Subscribe(onRepeatedlyExecute); ... void onRepeatedlyExecute() { }</code></td>
 <td></td>
 </tr>
 <tr>

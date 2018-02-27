@@ -7300,6 +7300,18 @@ references:
   commentId: Overload:AGS.API.IGameEvents.OnRepeatedlyExecute
   fullName: AGS.API.IGameEvents.OnRepeatedlyExecute
   nameWithType: IGameEvents.OnRepeatedlyExecute
+- uid: AGS.API.IGameEvents.OnRepeatedlyExecuteAlways
+  name: OnRepeatedlyExecuteAlways
+  href: api/AGS.API.IGameEvents.html#AGS_API_IGameEvents_OnRepeatedlyExecuteAlways
+  commentId: P:AGS.API.IGameEvents.OnRepeatedlyExecuteAlways
+  fullName: AGS.API.IGameEvents.OnRepeatedlyExecuteAlways
+  nameWithType: IGameEvents.OnRepeatedlyExecuteAlways
+- uid: AGS.API.IGameEvents.OnRepeatedlyExecuteAlways*
+  name: OnRepeatedlyExecuteAlways
+  href: api/AGS.API.IGameEvents.html#AGS_API_IGameEvents_OnRepeatedlyExecuteAlways_
+  commentId: Overload:AGS.API.IGameEvents.OnRepeatedlyExecuteAlways
+  fullName: AGS.API.IGameEvents.OnRepeatedlyExecuteAlways
+  nameWithType: IGameEvents.OnRepeatedlyExecuteAlways
 - uid: AGS.API.IGameEvents.OnRoomChanging
   name: OnRoomChanging
   href: api/AGS.API.IGameEvents.html#AGS_API_IGameEvents_OnRoomChanging

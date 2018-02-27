@@ -97,7 +97,7 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/repeatedly_always/apiSpec/new?filename=AGS_API_IGameEvents_DefaultInteractions.md&amp;value=---%0Auid%3A%20AGS.API.IGameEvents.DefaultInteractions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L155">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L164">View Source</a>
   </span>
   <a id="AGS_API_IGameEvents_DefaultInteractions_" data-uid="AGS.API.IGameEvents.DefaultInteractions*"></a>
   <h4 id="AGS_API_IGameEvents_DefaultInteractions" data-uid="AGS.API.IGameEvents.DefaultInteractions">DefaultInteractions</h4>
@@ -130,7 +130,7 @@ defined specific interactions.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/repeatedly_always/apiSpec/new?filename=AGS_API_IGameEvents_OnBeforeRender.md&amp;value=---%0Auid%3A%20AGS.API.IGameEvents.OnBeforeRender%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L62">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L71">View Source</a>
   </span>
   <a id="AGS_API_IGameEvents_OnBeforeRender_" data-uid="AGS.API.IGameEvents.OnBeforeRender*"></a>
   <h4 id="AGS_API_IGameEvents_OnBeforeRender" data-uid="AGS.API.IGameEvents.OnBeforeRender">OnBeforeRender</h4>
@@ -197,7 +197,7 @@ This is where all the rooms, objects and events are setup.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/repeatedly_always/apiSpec/new?filename=AGS_API_IGameEvents_OnRepeatedlyExecute.md&amp;value=---%0Auid%3A%20AGS.API.IGameEvents.OnRepeatedlyExecute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L54">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L57">View Source</a>
   </span>
   <a id="AGS_API_IGameEvents_OnRepeatedlyExecute_" data-uid="AGS.API.IGameEvents.OnRepeatedlyExecute*"></a>
   <h4 id="AGS_API_IGameEvents_OnRepeatedlyExecute" data-uid="AGS.API.IGameEvents.OnRepeatedlyExecute">OnRepeatedlyExecute</h4>
@@ -205,6 +205,8 @@ This is where all the rooms, objects and events are setup.</p>
 and do specific actions when the conditions fulfill.
 The frequency of this events depends on the FPS (frames per second). By default, if the hardware (and software) can handle it,
 we run at 60 FPS, meaning this event will be called 60 times per second.</p>
+<p>Note that this event is not fired when the game is paused (which is usually what you&apos;d want), if you want an event that&apos;s always being called,
+take a look at <a class="xref" href="AGS.API.IGameEvents.html#AGS_API_IGameEvents_OnRepeatedlyExecuteAlways">OnRepeatedlyExecuteAlways</a>.</p>
 <p>IMPORTANT: As this event runs 60 times per second (by default), it can be abused and deteriorate the performance of the game.
 So it&apos;s important to keep two rules:</p>
 <ol>
@@ -256,10 +258,42 @@ So it&apos;s important to keep two rules:</p>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/repeatedly_always/apiSpec/new?filename=AGS_API_IGameEvents_OnRepeatedlyExecuteAlways.md&amp;value=---%0Auid%3A%20AGS.API.IGameEvents.OnRepeatedlyExecuteAlways%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L63">View Source</a>
+  </span>
+  <a id="AGS_API_IGameEvents_OnRepeatedlyExecuteAlways_" data-uid="AGS.API.IGameEvents.OnRepeatedlyExecuteAlways*"></a>
+  <h4 id="AGS_API_IGameEvents_OnRepeatedlyExecuteAlways" data-uid="AGS.API.IGameEvents.OnRepeatedlyExecuteAlways">OnRepeatedlyExecuteAlways</h4>
+  <div class="markdown level1 summary"><p>This event is similar to the <a class="xref" href="AGS.API.IGameEvents.html#AGS_API_IGameEvents_OnRepeatedlyExecute">OnRepeatedlyExecute</a> with the exception that it&apos;s always fired, even when the game is paused.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEvent&lt;IRepeatedlyExecuteEventArgs&gt; OnRepeatedlyExecuteAlways { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.IRepeatedlyExecuteEventArgs.html">IRepeatedlyExecuteEventArgs</a>&gt;</td>
+        <td><p>The on repeatedly execute always.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/repeatedly_always/apiSpec/new?filename=AGS_API_IGameEvents_OnRoomChanging.md&amp;value=---%0Auid%3A%20AGS.API.IGameEvents.OnRoomChanging%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L163">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L172">View Source</a>
   </span>
   <a id="AGS_API_IGameEvents_OnRoomChanging_" data-uid="AGS.API.IGameEvents.OnRoomChanging*"></a>
   <h4 id="AGS_API_IGameEvents_OnRoomChanging" data-uid="AGS.API.IGameEvents.OnRoomChanging">OnRoomChanging</h4>
@@ -293,7 +327,7 @@ The event is fired after the current room&apos;s fade-out event, and before the 
     <a href="https://github.com/tzachshabtay/MonoAGS/new/repeatedly_always/apiSpec/new?filename=AGS_API_IGameEvents_OnSavedGameLoad.md&amp;value=---%0Auid%3A%20AGS.API.IGameEvents.OnSavedGameLoad%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L146">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L155">View Source</a>
   </span>
   <a id="AGS_API_IGameEvents_OnSavedGameLoad_" data-uid="AGS.API.IGameEvents.OnSavedGameLoad*"></a>
   <h4 id="AGS_API_IGameEvents_OnSavedGameLoad" data-uid="AGS.API.IGameEvents.OnSavedGameLoad">OnSavedGameLoad</h4>
@@ -389,7 +423,7 @@ private void onSavedGameLoad()
     <a href="https://github.com/tzachshabtay/MonoAGS/new/repeatedly_always/apiSpec/new?filename=AGS_API_IGameEvents_OnScreenResize.md&amp;value=---%0Auid%3A%20AGS.API.IGameEvents.OnScreenResize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L68">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/repeatedly_always/Source/AGS.API/Game/IGameEvents.cs/#L77">View Source</a>
   </span>
   <a id="AGS_API_IGameEvents_OnScreenResize_" data-uid="AGS.API.IGameEvents.OnScreenResize*"></a>
   <h4 id="AGS_API_IGameEvents_OnScreenResize" data-uid="AGS.API.IGameEvents.OnScreenResize">OnScreenResize</h4>
