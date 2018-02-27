@@ -55,24 +55,10 @@ namespace AGS.Engine
 
     public class RenderThreadSyncContext : AGSSyncContext, IRenderMessagePump, IRenderThread
     {
-        private static bool _initialized;
-
-        public RenderThreadSyncContext()
-        {
-            if (_initialized) throw new InvalidOperationException("Render Synchronization context was already initialized!");
-            _initialized = true;
-        }
     }
 
     public class UpdateThreadSyncContext : AGSSyncContext, IUpdateMessagePump, IUpdateThread
     {
-        private static bool _initialized;
-
-        public UpdateThreadSyncContext()
-        {
-            if (_initialized) throw new InvalidOperationException("Update Synchronization context was already initialized!");
-            _initialized = true;
-        }
     }
 }
 

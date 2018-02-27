@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using AGS.API;
@@ -15,12 +16,14 @@ namespace AGS.Editor
         private readonly IGameFactory _factory;
         private readonly List<string> _games = new List<string>();
         private readonly IRenderMessagePump _messagePump;
+        private readonly IGame _editorGame;
 
-        public RecentGames(IFileSystem fileSystem, IGameFactory factory, IRenderMessagePump messagePump)
+        public RecentGames(IFileSystem fileSystem, IGameFactory factory, IRenderMessagePump messagePump, IGame editorGame)
         {
             _fileSystem = fileSystem;
             _factory = factory;
             _messagePump = messagePump;
+            _editorGame = editorGame;
         }
 
         public void Load()
@@ -84,7 +87,7 @@ namespace AGS.Editor
                     parent.Visible = false;
                     AddGame(path);
                     await Task.Delay(100);
-                    GameLoader.Load(_messagePump, path);
+                    GameLoader.Load(_messagePump, path, _editorGame);
                 });
                 _factory.UI.GetLabel($"RecentGameLabel_{path}", path, 200f, 20f, 0f, 0f, gamePanel, new AGSTextConfig(_factory.Graphics.Brushes.LoadSolidBrush(Colors.Gray), labelFont));
             }

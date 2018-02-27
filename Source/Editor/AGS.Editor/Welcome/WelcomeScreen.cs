@@ -57,7 +57,7 @@ namespace AGS.Editor
             _panel.Visible = false;
             _recentGames.AddGame(file);
             await Task.Delay(100);
-            GameLoader.Load(messagePump, file);
+            GameLoader.Load(messagePump, file, _game);
         }
 
         private bool isGame(string file)

@@ -8,6 +8,7 @@ namespace AGS.Engine
         private readonly IRenderMessagePump _messagePump;
         private readonly IGLUtils _glUtils;
         private bool _preserveAspectRatio;
+        private string _title;
 
         public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IRenderMessagePump messagePump, IGLUtils glUtils)
         {
@@ -22,7 +23,7 @@ namespace AGS.Engine
             WindowBorder = settings.WindowBorder;
         }
 
-        public string Title { get => _gameWindow.Title; set => _gameWindow.Title = value; }
+        public string Title { get => _title; set { _gameWindow.Title = value; _title = value; } }
         
         public AGS.API.Size VirtualResolution { get; }
 

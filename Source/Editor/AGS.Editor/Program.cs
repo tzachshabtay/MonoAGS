@@ -19,7 +19,7 @@ namespace AGS.Editor
             {
                 AGSGameSettings.CurrentSkin = null;
 
-                addDebugLabels(game);
+                //addDebugLabels(game);
                 WelcomeScreen screen = new WelcomeScreen(game);
                 screen.Load();
                 screen.Show();

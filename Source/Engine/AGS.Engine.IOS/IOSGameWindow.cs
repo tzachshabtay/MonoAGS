@@ -26,7 +26,7 @@ namespace AGS.Engine.IOS
             Debug.WriteLine("IOS Game Window Constructor");
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<IOSGestures>().SingleInstance());
-            Resolver.Override(resolver => resolver.Builder.RegisterType<IOSInput>().SingleInstance().As<IInput>());
+            Resolver.Override(resolver => resolver.Builder.RegisterType<IOSInput>().SingleInstance().As<IInput>().As<IAGSInput>());
         }
 
         public IOSGameView View

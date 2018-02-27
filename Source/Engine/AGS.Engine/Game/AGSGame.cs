@@ -16,6 +16,11 @@ namespace AGS.Engine
 		public const double UPDATE_RATE = 60.0;
         private int _updateFrameRetries = 0, _renderFrameRetries = 0;
         private AGSUpdateThread _updateThread;
+        private bool _shouldSetRestart = true;
+        private int _gameIndex;
+
+        private static int _gameCount;
+        private static bool _shouldSwapBuffers = true;
 
         public AGSGame(IGameState state, IGameEvents gameEvents, IRenderMessagePump renderMessagePump, IUpdateMessagePump updateMessagePump,
                        IGraphicsBackend graphics, IGLUtils glUtils)
@@ -45,7 +50,6 @@ namespace AGS.Engine
 
 		public static IGame CreateEmpty()
 		{
-            if (Game != null) return Game;
 			UIThreadID = Environment.CurrentManagedThreadId;
 
 			printRuntime();
@@ -85,14 +89,21 @@ namespace AGS.Engine
 
         public void Start(IGameSettings settings)
 		{
+            _gameCount++;
+            _gameIndex = _gameCount;
 			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), settings.VirtualResolution));
             TypedParameter settingsParameter = new TypedParameter(typeof(IGameSettings), settings);
 
-            try { GameWindow = Resolver.Container.Resolve<IGameWindow>(settingsParameter); }
-            catch (Exception ese) 
+            bool isNewWindow = false;
+            if (GameWindow == null)
             {
-                Debug.WriteLine(ese.ToString());
-                throw;
+                isNewWindow = true;
+                try { GameWindow = Resolver.Container.Resolve<IGameWindow>(settingsParameter); }
+                catch (Exception ese)
+                {
+                    Debug.WriteLine(ese.ToString());
+                    throw;
+                }
             }
             _updateThread = new AGSUpdateThread(GameWindow);
 
@@ -100,32 +111,11 @@ namespace AGS.Engine
 			{
                 try
                 {
-                    TypedParameter gameWindowParameter = new TypedParameter(typeof(IGameWindow), GameWindow);
                     GameWindow.Load += (sender, e) =>
                     {
-                        Settings = _resolver.Container.Resolve<IRuntimeSettings>(settingsParameter, gameWindowParameter);
-
-                        _graphics.ClearColor(0f, 0f, 0f, 1f);
-
-                        _graphics.Init();
-                        _glUtils.GenBuffers();
-
-                        Factory = _resolver.Container.Resolve<IGameFactory>();
-
-                        TypedParameter sizeParameter = new TypedParameter(typeof(AGS.API.Size), Settings.VirtualResolution);
-                        Input = _resolver.Container.Resolve<IInput>(gameWindowParameter, sizeParameter);
-                        TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
-                        TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
-                        RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter);
-                        updateResolver();
-                        HitTest = _resolver.Container.Resolve<IHitTest>();
-                        AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
-                        SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
-
-                        _glUtils.AdjustResolution(settings.VirtualResolution.Width, settings.VirtualResolution.Height);
-
-                        Events.OnLoad.Invoke();
+                        onGameWindowLoaded(settingsParameter, settings);
                     };
+                    if (!isNewWindow) onGameWindowLoaded(settingsParameter, settings);
 
                     GameWindow.Resize += (sender, e) =>
                     {
@@ -169,15 +159,30 @@ namespace AGS.Engine
                         {
                             _renderMessagePump.PumpMessages();
                             // render graphics
-                            _graphics.ClearScreen();
+                            if (_gameCount == 1 || _gameIndex == 2) //if we have 2 games (editor + game) we want the editor layout drawn above the game so only clear screen from the actual game
+                            {
+                                _graphics.ClearScreen();
+                            }
                             Events.OnBeforeRender.Invoke();
 
                             if (RenderLoop.Tick())
                             {
-                                GameWindow.SwapBuffers();
+                                if (_gameIndex == 1) //if we have 2 games (editor + game) editor is game index 1 and should be drawn last, so only the editor should swap buffers
+                                {
+                                    if (_shouldSwapBuffers)
+                                    {
+                                        GameWindow.SwapBuffers();
+                                    }
+                                    _shouldSwapBuffers = true;
+                                }
                             }
-                            if (Repeat.OnceOnly("SetFirstRestart"))
+                            else if (_gameIndex != 1)
                             {
+                                _shouldSwapBuffers = false;
+                            }
+                            if (_shouldSetRestart)
+                            {
+                                _shouldSetRestart = false;
                                 SaveLoad.SetRestartPoint();
                             }
                         }
@@ -190,10 +195,14 @@ namespace AGS.Engine
     					}
     				};
 
-				// Run the game at 60 updates per second
-                _updateThread.Run(UPDATE_RATE);
-				GameWindow.Run(UPDATE_RATE);
-                } catch (Exception exx)
+    				// Run the game at 60 updates per second
+                    _updateThread.Run(UPDATE_RATE);
+                    if (isNewWindow)
+                    {
+                        GameWindow.Run(UPDATE_RATE);
+                    }
+                } 
+                catch (Exception exx)
                 {
                     Debug.WriteLine(exx.ToString());
                     throw;
@@ -212,6 +221,34 @@ namespace AGS.Engine
 		}
 
         #endregion
+
+        private void onGameWindowLoaded(TypedParameter settingsParameter, IGameSettings settings)
+        {
+            TypedParameter gameWindowParameter = new TypedParameter(typeof(IGameWindow), GameWindow);
+            Settings = _resolver.Container.Resolve<IRuntimeSettings>(settingsParameter, gameWindowParameter);
+
+            _graphics.ClearColor(0f, 0f, 0f, 1f);
+
+            _graphics.Init();
+            _glUtils.GenBuffers();
+
+            Factory = _resolver.Container.Resolve<IGameFactory>();
+
+            IAGSInput input = _resolver.Container.Resolve<IAGSInput>();
+            input.Init(settings.VirtualResolution);
+            Input = input;
+            TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
+            TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
+            RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter, gameWindowParameter);
+            updateResolver();
+            HitTest = _resolver.Container.Resolve<IHitTest>();
+            AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
+            SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
+
+            _glUtils.AdjustResolution(settings.VirtualResolution.Width, settings.VirtualResolution.Height);
+
+            Events.OnLoad.Invoke();
+        }
 
 		private void updateResolver()
 		{

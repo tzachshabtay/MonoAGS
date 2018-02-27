@@ -270,7 +270,7 @@
     <Compile Include="UI\Layouts\TreeTable\ITreeTableLayout.cs" />
     <Compile Include="UI\Layouts\TreeTable\ITreeTableRowLayoutComponent.cs" />
     <Compile Include="UI\Layouts\TreeTable\QueryLayoutEventArgs.cs" />
-    <Compile Include="Game\IGameCreator.cs" />
+    <Compile Include="Game\IGameStarter.cs" />
     <Compile Include="Misc\Resources\IResourcePack.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

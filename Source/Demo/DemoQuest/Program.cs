@@ -7,20 +7,12 @@ using System;
 
 namespace DemoGame
 {
-    public class DemoStarter : IGameCreator
+    public class DemoStarter : IGameStarter
 	{
         private static Lazy<GameDebugView> _gameDebugView;
 
-        public IGame CreateGame()
+        public void StartGame(IGame game)
         {
-            IGame game = AGSGame.CreateEmpty();
-            _gameDebugView = new Lazy<GameDebugView>(() =>
-            {
-                var gameDebugView = new GameDebugView(game);
-                gameDebugView.Load();
-                return gameDebugView;
-            });
-
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
             GLText.TextResolutionFactorX = 4;
             GLText.TextResolutionFactorY = 4;
@@ -43,13 +35,21 @@ namespace DemoGame
                 Debug.WriteLine("Startup: Loaded Player Character");
                 await loadSplashScreen(game);
             });
-            return game;
         }
 
 		public static void Run()
 		{
             DemoStarter starter = new DemoStarter();
-            var game = starter.CreateGame();
+            var game = AGSGame.CreateEmpty();
+
+            _gameDebugView = new Lazy<GameDebugView>(() =>
+            {
+                var gameDebugView = new GameDebugView(game);
+                gameDebugView.Load();
+                return gameDebugView;
+            });
+
+            starter.StartGame(game);
             game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
 				windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal));
 		}
@@ -78,7 +78,7 @@ namespace DemoGame
                     if (game.State.Cutscene.IsRunning) return;
                     game.Quit();
                 }
-                else if (args.Key == Key.G && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
+                else if (args.Key == Key.G && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)) && _gameDebugView != null)
                 {
                     var gameDebug = _gameDebugView.Value;
                     if (gameDebug.Visible) gameDebug.Hide();

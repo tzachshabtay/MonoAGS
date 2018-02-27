@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -27,17 +28,19 @@ namespace AGS.Engine
             _messagePump = messagePump;
             _quad = new GLVertex[4];
             _line = new GLVertex[2];
-            CurrentResolution = new SizeF();
+            CurrentGlobalResolution = new SizeF();
         }
 
         public static Rectangle ScreenViewport { get; private set; }
 
-        public SizeF CurrentResolution { get; private set; }
+        public SizeF CurrentResolution => CurrentGlobalResolution;
+
+        public static SizeF CurrentGlobalResolution { get; private set; }
 
         public void AdjustResolution(int width, int height)
         {
-            if (CurrentResolution.Width == width && CurrentResolution.Height == height) return;
-            CurrentResolution = new SizeF(width, height);
+            if (CurrentGlobalResolution.Width == width && CurrentGlobalResolution.Height == height) return;
+            CurrentGlobalResolution = new SizeF(width, height);
 
             _graphics.MatrixMode(MatrixType.Projection);
             _graphics.LoadIdentity();

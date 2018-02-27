@@ -23,7 +23,7 @@ namespace AGS.Editor
 
         public static (List<Type> games, Assembly assembly) GetGames(string path)
         {
-            var gameCreatorInterface = typeof(IGameCreator);
+            var gameCreatorInterface = typeof(IGameStarter);
             FileInfo fileInfo = new FileInfo(path);
             _currentFolder = fileInfo.DirectoryName;
             var assembly = Assembly.LoadFrom(path);
@@ -34,12 +34,12 @@ namespace AGS.Editor
             return (games, assembly);
         }
 
-        public static void Load(IRenderMessagePump messagePump, string path)
+        public static void Load(IRenderMessagePump messagePump, string path, IGame editorGame)
         {
-            messagePump.Post(_ => load(path), null);
+            messagePump.Post(_ => load(path, editorGame), null);
         }
 
-        private static void load(string path)
+        private static void load(string path, IGame editorGame)
         {
             var (games, assembly) = GetGames(path);
             if (games.Count == 0)
@@ -51,8 +51,9 @@ namespace AGS.Editor
                 throw new Exception($"Cannot load game: found more than one instance of IGameCreator in {path}.");
             }
             var gameCreatorImplementation = games[0];
-            var gameCreator = (IGameCreator)Activator.CreateInstance(gameCreatorImplementation);
-            var game = gameCreator.CreateGame();
+            var gameCreator = (IGameStarter)Activator.CreateInstance(gameCreatorImplementation);
+            var game = AGSGame.CreateEmpty();
+            gameCreator.StartGame(game);
 
             if (game is AGSGame agsGame) //todo: find a solution for any IGame implementation
             {

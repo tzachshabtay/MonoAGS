@@ -7,21 +7,19 @@ using IOS::UIKit;
 
 namespace AGS.Engine.IOS
 {
-    public class IOSInput : IInput
+    public class IOSInput : IAGSInput
     {
         private IGameWindow _gameWindow;
         private IGameState _state;
         private IShouldBlockInput _shouldBlockInput;
         private DateTime _lastDrag;
 
-        public IOSInput(IOSGestures gestures, AGS.API.Size virtualResolution,
-                        IGameState state, IShouldBlockInput shouldBlockInput, IGameWindow gameWindow)
+        public IOSInput(IOSGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IGameWindow gameWindow)
         {
             MousePosition = new MousePosition(0f, 0f, state.Viewport);
             _shouldBlockInput = shouldBlockInput;
             _gameWindow = gameWindow;
             _state = state;
-			API.MousePosition.VirtualResolution = virtualResolution;
             updateWindowSizeFunctions();
 
 			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
@@ -54,6 +52,11 @@ namespace AGS.Engine.IOS
                 await MouseUp.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MousePosition));
                 LeftMouseButtonDown = false;
             };
+        }
+
+        public void Init(AGS.API.Size virtualResolution)
+        {
+            API.MousePosition.VirtualResolution = virtualResolution;
         }
 
         public IObject Cursor { get; set; }
