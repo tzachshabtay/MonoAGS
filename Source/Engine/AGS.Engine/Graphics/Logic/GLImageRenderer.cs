@@ -75,7 +75,12 @@ namespace AGS.Engine
                     y += (parent.Y - parent.Height * parent.Pivot.Y);
 					parent = parent.TreeNode.Parent;
 				}
-                _glUtils.DrawCross(x - viewport.X, y - viewport.Y, 10, 10, 1f, 1f, 1f, 1f);
+                if (!obj.IgnoreViewport)
+                {
+                    x -= viewport.X;
+                    y -= viewport.Y;
+                }
+                _glUtils.DrawCross(x, y, 10, 10, 1f, 1f, 1f, 1f);
 			}
 		}
 	}
