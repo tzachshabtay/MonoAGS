@@ -46,7 +46,7 @@ namespace AGS.Engine
 				int index = _cursors.FindIndex(c => c.Mode == value);
 				if (index < 0)
 				{
-					Debug.WriteLine("Did not find cursor mode {0}", value);
+					Debug.WriteLine($"Did not find cursor mode {value}");
 					return;
 				}
 				_currentMode = index;

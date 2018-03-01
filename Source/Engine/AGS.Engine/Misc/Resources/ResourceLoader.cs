@@ -46,7 +46,7 @@ namespace AGS.Engine
 				IResource resource = LoadResource(path);
 				if (resource == null)
 				{
-					Debug.WriteLine("Failed to load resource {0}.", path);
+					Debug.WriteLine($"Failed to load resource {path}.");
 					continue;
 				}
 				resources.Add(resource);
