@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
-using Microsoft.CodeAnalysis;
+//using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.MSBuild;
 
 namespace AGS.Editor.Desktop
@@ -57,9 +57,9 @@ namespace AGS.Editor.Desktop
                                .Select(d => d.GetMessage()));*/
         }
 
-        private void onWorkspaceFailed(object sender, WorkspaceDiagnosticEventArgs e)
+        /*private void onWorkspaceFailed(object sender, WorkspaceDiagnosticEventArgs e)
         {
             Debug.WriteLine($"Workspace failed: {e.Diagnostic.ToString()}");
-        }
+        }*/
     }
 }

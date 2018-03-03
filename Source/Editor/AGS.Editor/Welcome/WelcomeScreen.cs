@@ -65,6 +65,5 @@ namespace AGS.Editor
         {
             return file.EndsWith(".agsproj.json", StringComparison.InvariantCultureIgnoreCase);
         }
-
     }
 }

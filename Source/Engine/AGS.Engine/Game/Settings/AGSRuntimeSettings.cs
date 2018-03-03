@@ -23,7 +23,15 @@ namespace AGS.Engine
             WindowBorder = settings.WindowBorder;
         }
 
-        public string Title { get => _title; set { _gameWindow.Title = value; _title = value; } }
+        public string Title 
+        { 
+            get => _title; 
+            set 
+            { 
+                _gameWindow.Title = value; 
+                _title = value; 
+            } 
+        }
         
         public AGS.API.Size VirtualResolution { get; }
 

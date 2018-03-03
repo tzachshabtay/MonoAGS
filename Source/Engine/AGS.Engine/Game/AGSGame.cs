@@ -128,75 +128,9 @@ namespace AGS.Engine
                         _updateMessagePump.SetSyncContext();
                     };
 
-                    _updateThread.UpdateFrame += async (sender, e) =>
-                    {
-                        if (_updateFrameRetries > 3) return;
-                        try
-                        {
-                            _updateMessagePump.PumpMessages();
-                            _repeatArgs.DeltaTime = e.Time;
-                            await Events.OnRepeatedlyExecuteAlways.InvokeAsync(_repeatArgs);
-                            if (State.Paused) return;
-                            adjustSpeed();
-                            await GameLoop.UpdateAsync();
+                    _updateThread.UpdateFrame += onUpdateFrame;
 
-                            //Invoking repeatedly execute asynchronously, as if one subscriber is waiting on another subscriber the event will 
-                            //never get to it (for example: calling ChangeRoom from within RepeatedlyExecute calls StopWalking which 
-                            //waits for the walk to stop, only the walk also happens on RepeatedlyExecute and we'll hang.
-                            //Since we're running asynchronously, the next UpdateFrame will call RepeatedlyExecute for the walk cycle to stop itself and we're good.
-                            ///The downside of this approach is that we need to look out for re-entrancy issues.
-                            await Events.OnRepeatedlyExecute.InvokeAsync(_repeatArgs);
-                        }
-                        catch (Exception ex)
-                        {
-                            _updateFrameRetries++;
-                            Debug.WriteLine(ex.ToString());
-                            throw ex;
-                        }
-                    };
-
-                    GameWindow.RenderFrame += (sender, e) =>
-                    {
-                        if (RenderLoop == null || _renderFrameRetries > 3) return;
-                        try
-                        {
-                            _renderMessagePump.PumpMessages();
-                            // render graphics
-                            if (_gameCount == 1 || _gameIndex == 2) //if we have 2 games (editor + game) we want the editor layout drawn above the game so only clear screen from the actual game
-                            {
-                                _graphics.ClearScreen();
-                            }
-                            Events.OnBeforeRender.Invoke();
-
-                            if (RenderLoop.Tick())
-                            {
-                                if (_gameIndex == 1) //if we have 2 games (editor + game) editor is game index 1 and should be drawn last, so only the editor should swap buffers
-                                {
-                                    if (_shouldSwapBuffers)
-                                    {
-                                        GameWindow.SwapBuffers();
-                                    }
-                                    _shouldSwapBuffers = true;
-                                }
-                            }
-                            else if (_gameIndex != 1)
-                            {
-                                _shouldSwapBuffers = false;
-                            }
-                            if (_shouldSetRestart)
-                            {
-                                _shouldSetRestart = false;
-                                SaveLoad.SetRestartPoint();
-                            }
-                        }
-                        catch (Exception ex)
-    					{
-                            _renderFrameRetries++;
-    						Debug.WriteLine("Exception when rendering:");
-    						Debug.WriteLine(ex.ToString());
-    						throw;
-    					}
-    				};
+                    GameWindow.RenderFrame += onRenderFrame;
 
     				// Run the game at 60 updates per second
                     _updateThread.Run(UPDATE_RATE);
@@ -224,6 +158,76 @@ namespace AGS.Engine
 		}
 
         #endregion
+
+        private async void onUpdateFrame(object sender, FrameEventArgs e)
+        {
+            if (_updateFrameRetries > 3) return;
+            try
+            {
+                _updateMessagePump.PumpMessages();
+                _repeatArgs.DeltaTime = e.Time;
+                await Events.OnRepeatedlyExecuteAlways.InvokeAsync(_repeatArgs);
+                if (State.Paused) return;
+                adjustSpeed();
+                await GameLoop.UpdateAsync();
+
+                //Invoking repeatedly execute asynchronously, as if one subscriber is waiting on another subscriber the event will 
+                //never get to it (for example: calling ChangeRoom from within RepeatedlyExecute calls StopWalking which 
+                //waits for the walk to stop, only the walk also happens on RepeatedlyExecute and we'll hang.
+                //Since we're running asynchronously, the next UpdateFrame will call RepeatedlyExecute for the walk cycle to stop itself and we're good.
+                ///The downside of this approach is that we need to look out for re-entrancy issues.
+                await Events.OnRepeatedlyExecute.InvokeAsync(_repeatArgs);
+            }
+            catch (Exception ex)
+            {
+                _updateFrameRetries++;
+                Debug.WriteLine(ex.ToString());
+                throw ex;
+            }
+        }
+
+        private void onRenderFrame(object sender, FrameEventArgs e)
+        {
+            if (RenderLoop == null || _renderFrameRetries > 3) return;
+            try
+            {
+                _renderMessagePump.PumpMessages();
+                // render graphics
+                if (_gameCount == 1 || _gameIndex == 2) //if we have 2 games (editor + game) we want the editor layout drawn above the game so only clear screen from the actual game
+                {
+                    _graphics.ClearScreen();
+                }
+                Events.OnBeforeRender.Invoke();
+
+                if (RenderLoop.Tick())
+                {
+                    if (_gameIndex == 1) //if we have 2 games (editor + game) editor is game index 1 and should be drawn last, so only the editor should swap buffers
+                    {
+                        if (_shouldSwapBuffers)
+                        {
+                            GameWindow.SwapBuffers();
+                        }
+                        _shouldSwapBuffers = true;
+                    }
+                }
+                else if (_gameIndex != 1)
+                {
+                    _shouldSwapBuffers = false;
+                }
+                if (_shouldSetRestart)
+                {
+                    _shouldSetRestart = false;
+                    SaveLoad.SetRestartPoint();
+                }
+            }
+            catch (Exception ex)
+            {
+                _renderFrameRetries++;
+                Debug.WriteLine("Exception when rendering:");
+                Debug.WriteLine(ex.ToString());
+                throw;
+            }
+        }
 
         private void onGameWindowLoaded(TypedParameter settingsParameter, IGameSettings settings)
         {
