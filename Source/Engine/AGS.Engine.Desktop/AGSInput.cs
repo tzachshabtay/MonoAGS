@@ -8,43 +8,55 @@ using OpenTK.Input;
 
 namespace AGS.Engine.Desktop
 {
-    public class AGSInput : IInput
+    public class AGSInput : IAGSInput
     {
         private GameWindow _game;
-        private IGameWindowSize _windowSize;
+        private readonly IGameWindowSize _windowSize;
         private int _virtualWidth, _virtualHeight;
         private float _mouseX, _mouseY;
-        private IGameState _state;
-        private IShouldBlockInput _shouldBlockInput;
-        private IConcurrentHashSet<API.Key> _keysDown;
+        private readonly IGameState _state;
+        private readonly IShouldBlockInput _shouldBlockInput;
+        private readonly IConcurrentHashSet<API.Key> _keysDown;
+        private readonly IGameEvents _events;
 
         private IObject _mouseCursor;
         private MouseCursor _originalOSCursor;
-        private ConcurrentQueue<Func<Task>> _actions;
+        private readonly ConcurrentQueue<Func<Task>> _actions;
         private int _inUpdate; //For preventing re-entrancy
 
-        public AGSInput(GameWindow game, API.Size virtualResolution, IGameState state, IGameEvents events,
+        public AGSInput(IGameState state, IGameEvents events,
                         IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
         {
+            _events = events;
             _actions = new ConcurrentQueue<Func<Task>>();
             _windowSize = windowSize;
             this._shouldBlockInput = shouldBlockInput;
-            API.MousePosition.VirtualResolution = virtualResolution;
             API.MousePosition.GetWindowWidth = () => _windowSize.GetWidth(_game);
             API.MousePosition.GetWindowHeight = () => _windowSize.GetHeight(_game);
-            this._virtualWidth = virtualResolution.Width;
-            this._virtualHeight = virtualResolution.Height;
             this._state = state;
             this._keysDown = new AGSConcurrentHashSet<API.Key>();
-
-            this._game = game;
-            this._originalOSCursor = _game.Cursor;
 
             MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseMove = new AGSEvent<MousePositionEventArgs>();
             KeyDown = new AGSEvent<KeyboardEventArgs>();
             KeyUp = new AGSEvent<KeyboardEventArgs>();
+
+            if (AGSGameWindow.GameWindow != null) Init(AGSGameWindow.GameWindow);
+        }
+
+        public void Init(API.Size virtualResolution)
+        {
+            API.MousePosition.VirtualResolution = virtualResolution;
+            this._virtualWidth = virtualResolution.Width;
+            this._virtualHeight = virtualResolution.Height;
+        }
+
+        public void Init(GameWindow game)
+        {
+            if (_game != null) return;
+            _game = game;
+            this._originalOSCursor = _game.Cursor;
 
             game.MouseDown += (sender, e) =>
             {
@@ -80,20 +92,20 @@ namespace AGS.Engine.Desktop
                 _actions.Enqueue(() => KeyUp.InvokeAsync(new KeyboardEventArgs(key)));
             };
 
-            events.OnRepeatedlyExecuteAlways.Subscribe(onRepeatedlyExecute);
+            _events.OnRepeatedlyExecuteAlways.Subscribe(onRepeatedlyExecute);
         }
 
         #region IInputEvents implementation
 
         public IEvent<AGS.API.MouseButtonEventArgs> MouseDown { get; private set; }
 
-		public IEvent<AGS.API.MouseButtonEventArgs> MouseUp { get; private set; }
+        public IEvent<AGS.API.MouseButtonEventArgs> MouseUp { get; private set; }
 
-		public IEvent<MousePositionEventArgs> MouseMove { get; private set; }
+        public IEvent<MousePositionEventArgs> MouseMove { get; private set; }
 
-		public IEvent<KeyboardEventArgs> KeyDown { get; private set; }
+        public IEvent<KeyboardEventArgs> KeyDown { get; private set; }
 
-		public IEvent<KeyboardEventArgs> KeyUp { get; private set; }
+        public IEvent<KeyboardEventArgs> KeyUp { get; private set; }
 
         #endregion
 
@@ -106,30 +118,31 @@ namespace AGS.Engine.Desktop
         public bool IsTouchDrag => false;  //todo: support touch screens on desktops
 
         public IObject Cursor
-		{
+        {
             get => _mouseCursor;
-            set 
-		  	{ 
-				_mouseCursor = value;
-				_game.Cursor = _mouseCursor == null ? _originalOSCursor : MouseCursor.Empty;
-		  	}
-		}
+            set
+            {
+                _mouseCursor = value;
+                _game.Cursor = _mouseCursor == null ? _originalOSCursor : MouseCursor.Empty;
+            }
+        }
 
         private bool isInputBlocked() => _shouldBlockInput.ShouldBlockInput();
 
         private AGS.API.MouseButton convert(OpenTK.Input.MouseButton button)
-		{
-			switch (button) {
-			case OpenTK.Input.MouseButton.Left:
-				return AGS.API.MouseButton.Left;
-			case OpenTK.Input.MouseButton.Right:
-				return AGS.API.MouseButton.Right;
-			case OpenTK.Input.MouseButton.Middle:
-				return AGS.API.MouseButton.Middle;
-			default:
-				throw new NotSupportedException ();
-			}
-		}
+        {
+            switch (button)
+            {
+                case OpenTK.Input.MouseButton.Left:
+                    return AGS.API.MouseButton.Left;
+                case OpenTK.Input.MouseButton.Right:
+                    return AGS.API.MouseButton.Right;
+                case OpenTK.Input.MouseButton.Middle:
+                    return AGS.API.MouseButton.Middle;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
 
         private void onRepeatedlyExecute()
         {
@@ -147,7 +160,7 @@ namespace AGS.Engine.Desktop
             }
             finally
             {
-                _inUpdate = 0;   
+                _inUpdate = 0;
             }
         }
 

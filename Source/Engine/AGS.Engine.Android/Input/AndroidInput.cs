@@ -15,14 +15,12 @@ namespace AGS.Engine.Android
         private DateTime _lastDrag;
         private AGSGameView _view;
 
-        public AndroidInput(AndroidSimpleGestures gestures, AGS.API.Size virtualResolution, 
-                            IGameState state, IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
+        public AndroidInput(AndroidSimpleGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
         {
             MousePosition = new MousePosition(0f, 0f, state.Viewport);
             _shouldBlockInput = shouldBlockInput;
             _windowSize = windowSize;
             _state = state;
-			API.MousePosition.VirtualResolution = virtualResolution;
             float density = Resources.System.DisplayMetrics.Density;
             API.MousePosition.GetWindowWidth = () => (int)(_windowSize.GetWidth(null) - ((GLUtils.ScreenViewport.X * 2) / density));
             API.MousePosition.GetWindowHeight = () => (int)(_windowSize.GetHeight(null) - ((GLUtils.ScreenViewport.Y * 2) / density));
@@ -55,6 +53,11 @@ namespace AGS.Engine.Android
             };
             AndroidGameWindow.Instance.OnNewView += onViewChanged;
             onViewChanged(null, AndroidGameWindow.Instance.View);
+        }
+
+        public void Init(AGS.API.Size virtualResolution)
+        {
+            API.MousePosition.VirtualResolution = virtualResolution;
         }
 
         public IObject Cursor { get; set; }

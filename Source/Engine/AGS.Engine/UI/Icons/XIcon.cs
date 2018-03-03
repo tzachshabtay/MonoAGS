@@ -13,6 +13,9 @@ namespace AGS.Engine
         private readonly GLVertex[] _quad = new GLVertex[4];
         private readonly float _lineWidth, _padding;
 
+        private AGSBoundingBox _lastSquare;
+        private Size _lastWindowSize;
+
         public XIcon(IGLUtils glUtils, IRuntimeSettings settings, float lineWidth, float padding, Color? color)
         {
             _glUtils = glUtils;
@@ -32,7 +35,12 @@ namespace AGS.Engine
 
         public void RenderBorderFront(AGSBoundingBox square)
         {
-            if (_glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
+            if (_settings.WindowSize.Equals(_lastWindowSize) && _lastSquare.SameSize(square)
+                && _glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
+
+            _frameBuffer?.Dispose();
+            _lastSquare = square;
+            _lastWindowSize = _settings.WindowSize;
 
             float width = _glUtils.CurrentResolution.Width - _padding;
             float height = _glUtils.CurrentResolution.Height - _padding;

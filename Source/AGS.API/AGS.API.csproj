@@ -269,6 +269,7 @@
     <Compile Include="UI\Layouts\TreeTable\ITreeTableLayout.cs" />
     <Compile Include="UI\Layouts\TreeTable\ITreeTableRowLayoutComponent.cs" />
     <Compile Include="UI\Layouts\TreeTable\QueryLayoutEventArgs.cs" />
+    <Compile Include="Game\IGameStarter.cs" />
     <Compile Include="Misc\Resources\IResourcePack.cs" />
     <Compile Include="Graphics\Textures\ITexture.cs" />
     <Compile Include="Graphics\Textures\ITextureCache.cs" />

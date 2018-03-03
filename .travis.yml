@@ -13,10 +13,11 @@ matrix:
       dotnet: 2.0.2
 
 install:
+  - curl -L -o nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 
 script:
  - dotnet restore
- - nuget restore MonoAGS.sln
+ - mono nuget.exe restore MonoAGS.sln
  - msbuild /p:Configuration=$BUILD_CONFIG /p:Platform="$BUILD_PLATFORM" MonoAGS.sln
  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Source/Tests/bin/Release/Tests.dll

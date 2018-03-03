@@ -218,6 +218,16 @@ namespace AGS.API
 				 && TopLeft.Equals(square.TopLeft) && TopRight.Equals(square.TopRight);
 		}
 
+        /// <summary>
+        /// Is the given box the same size as this box?
+        /// </summary>
+        /// <returns><c>true</c>, if size is the same, <c>false</c> otherwise.</returns>
+        /// <param name="box">Box.</param>
+        public bool SameSize(AGSBoundingBox box)
+        {
+            return MathUtils.FloatEquals(Width, box.Width) && MathUtils.FloatEquals(Height, box.Height);
+        }
+
 		#endregion
 
 		private float distance(Vector3 a, Vector3 b)

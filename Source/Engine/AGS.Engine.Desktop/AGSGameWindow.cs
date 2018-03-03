@@ -8,26 +8,25 @@ namespace AGS.Engine.Desktop
 {
 	public class AGSGameWindow : IGameWindow
 	{
-        private GameWindow _gameWindow;
+        private static GameWindow _gameWindow;
         private IGameWindowSize _windowSize;
         private FrameEventArgs _updateFrameArgs, _renderFrameArgs;
 
-        public AGSGameWindow(IGameSettings settings, IGameWindowSize windowSize, Resolver resolver)
+        public AGSGameWindow(IGameSettings settings, IGameWindowSize windowSize, AGSInput input)
         {
             _windowSize = windowSize;
-            _gameWindow = new GameWindow(settings.WindowSize.Width, settings.WindowSize.Height, 
+            _gameWindow = new GameWindow(settings.WindowSize.Width, settings.WindowSize.Height,
                                          GraphicsMode.Default, settings.Title);
-            
-            var updater = new ContainerBuilder();
-            updater.RegisterType<AGSInput>().SingleInstance().As<IInput>();
-            updater.RegisterInstance(_gameWindow);
-            updater.Update(resolver.Container);
+
+            input.Init(_gameWindow);
 
             _updateFrameArgs = new FrameEventArgs();
             _renderFrameArgs = new FrameEventArgs();
             _gameWindow.UpdateFrame += onUpdateFrame;
             _gameWindow.RenderFrame += onRenderFrame;
         }
+
+        public static GameWindow GameWindow => _gameWindow;
 
         public event EventHandler<EventArgs> Load
         {

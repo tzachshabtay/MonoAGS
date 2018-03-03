@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
 {
-	public class GLFrameBuffer : IFrameBuffer, IDisposable
+	public class GLFrameBuffer : IFrameBuffer
 	{
 		private readonly int _fbo, _width, _height;
         private readonly IGraphicsBackend _graphics;
@@ -27,7 +28,11 @@ namespace AGS.Engine
 			_graphics.BindFrameBuffer(_fbo);
             _graphics.FrameBufferTexture2D(Texture.ID);
             _graphics.BindTexture2D(0);
-            if (!_graphics.DrawFrameBuffer()) return false;
+            if (!_graphics.DrawFrameBuffer())
+            {
+                _graphics.BindFrameBuffer(0);
+                return false;
+            }
 
             _graphics.Viewport(0, 0, _width, _height);
             _graphics.ClearColor(0f,0f,0f,0f);

@@ -12,6 +12,8 @@ namespace AGS.Engine
         private IRuntimeSettings _settings;
         private ArrowDirection _direction;
         private IGLColor _color;
+        private AGSBoundingBox _lastSquare;
+        private Size _lastWindowSize;
 
         public ArrowIcon(IGLUtils glUtils, IRuntimeSettings settings, ArrowDirection direction = default,
                         Color? color = null)
@@ -36,8 +38,12 @@ namespace AGS.Engine
 
         public void RenderBorderFront(AGSBoundingBox square)
         {
-            if (_glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
+            if (_settings.WindowSize.Equals(_lastWindowSize) && _lastSquare.SameSize(square) 
+                && _glUtils.DrawQuad(_frameBuffer, square, _quad)) return;
 
+            _frameBuffer?.Dispose();
+            _lastSquare = square;
+            _lastWindowSize = _settings.WindowSize;
             float width = _glUtils.CurrentResolution.Width;
             float height = _glUtils.CurrentResolution.Height;
             float arrowWidth = width * (1f / 2f);

@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.IO;
 using Autofac;
+using AGS.API;
 
 namespace AGS.Engine.Desktop
 {
@@ -18,6 +19,7 @@ namespace AGS.Engine.Desktop
             DesktopDevice device = new DesktopDevice();
             AGSGame.Device = device;
 
+            Resolver.Override(resolver => resolver.Builder.RegisterType<AGSInput>().SingleInstance().As<IInput>().As<IAGSInput>().As<AGSInput>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<DesktopGameWindowSize>().SingleInstance().As<IGameWindowSize>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<AGSGameWindow>().SingleInstance().As<IGameWindow>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<ALAudioBackend>().SingleInstance().As<IAudioBackend>());

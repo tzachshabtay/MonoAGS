@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Autofac;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 namespace AGS.Engine
 {
@@ -19,6 +20,7 @@ namespace AGS.Engine
         private readonly IGameWindow _gameWindow;
         private readonly IDisplayList _displayList;
         private readonly IInput _input;
+        private readonly IGameSettings _noAspectRatioSettings;
         private IGLUtils _glUtils;
         private IShader _lastShaderUsed;
         private IObject _mouseCursorContainer;
@@ -37,6 +39,7 @@ namespace AGS.Engine
 			_resolver = resolver;
             _game = game;
 			_gameState = game.State;
+            _noAspectRatioSettings = new AGSGameSettings(game.Settings.Title, game.Settings.VirtualResolution, preserveAspectRatio: false);
 			_renderer = renderer;
 			_roomTransitions = roomTransitions;
             _displayListEventArgs = new DisplayListEventArgs(null);
@@ -49,9 +52,10 @@ namespace AGS.Engine
 
         public IBlockingEvent<DisplayListEventArgs> OnBeforeRenderingDisplayList { get; private set; }
 
-		public bool Tick ()
-		{
+        public bool Tick()
+        {
             _glUtils.RefreshViewport(_game.Settings, _gameWindow, _gameState.Viewport);
+            _glUtils.AdjustResolution(_game.Settings.VirtualResolution.Width, _game.Settings.VirtualResolution.Height);
 
 			var transitionState = _roomTransitions.State;
             if (_gameState.Room == null) transitionState = RoomTransitionState.NotInTransition; //If there's no room, then room transition state is meaningless -> we'll interpret as not in transition, which will render the viewports, without a room (so GUIs will still be rendered).
@@ -93,7 +97,8 @@ namespace AGS.Engine
                         return false;
                     }
 					if (_toTransitionBuffer == null) _toTransitionBuffer = renderToBuffer();
-					if (!_roomTransitions.Transition.RenderTransition(_fromTransitionBuffer, _toTransitionBuffer))
+                    _glUtils.RefreshViewport(_noAspectRatioSettings, _gameWindow, _gameState.Viewport);
+                    if (!_roomTransitions.Transition.RenderTransition(_fromTransitionBuffer, _toTransitionBuffer))
 					{
 						_fromTransitionBuffer = null;
 						_toTransitionBuffer = null;

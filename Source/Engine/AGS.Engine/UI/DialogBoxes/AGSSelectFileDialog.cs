@@ -26,7 +26,7 @@ namespace AGS.Engine
         private ITextBox _fileTextBox;
         private IObject _fileGraphics, _folderGraphics;
         const float FILE_TEXT_HEIGHT = 10f;
-        const float ITEM_WIDTH = 20f;
+        static float ITEM_WIDTH = 20f;
         const string PATH_PROPERTY = "FilePath";
 
         private TaskCompletionSource<bool> _tcs;
@@ -34,25 +34,27 @@ namespace AGS.Engine
         private IDevice _device => AGSGame.Device;
 
         private IBorderStyle _fileIcon, _fileIconSelected, _folderIcon, _folderIconSelected;
+        private Predicate<string> _fileFilter;
 
-        private AGSSelectFileDialog(IGame game, IGLUtils glUtils, string title, FileSelection fileSelection, string startPath = null)
+        private AGSSelectFileDialog(IGame game, IGLUtils glUtils, string title, FileSelection fileSelection, Predicate<string> fileFilter = null, string startPath = null)
         {
             _glUtils = glUtils;
             _game = game;
             _title = title;
             _fileSelection = fileSelection;
+            _fileFilter = fileFilter;
             _startPath = startPath ?? _device.FileSystem.GetCurrentDirectory() ?? "";
             _buttonsTextConfig = new AGSTextConfig(alignment: Alignment.BottomCenter,
                 autoFit: AutoFit.TextShouldFitLabel, font: game.Factory.Fonts.LoadFont(null, 10f));
             _filesTextConfig = new AGSTextConfig(alignment: Alignment.BottomCenter,
                 autoFit: AutoFit.TextShouldFitLabel, font: game.Factory.Fonts.LoadFont(null, 10f),
-                brush: _device.BrushLoader.LoadSolidBrush(Colors.Black));
+                brush: _device.BrushLoader.LoadSolidBrush(Colors.White));
             _tcs = new TaskCompletionSource<bool>(false);
         }
 
-        public static async Task<string> SelectFile(string title, FileSelection fileSelection, string startPath = null)
+        public static async Task<string> SelectFile(string title, FileSelection fileSelection, Predicate<string> fileFilter = null, string startPath = null)
         {
-            var dialog = new AGSSelectFileDialog(AGSGame.Game, AGSGame.Resolver.Container.Resolve<IGLUtils>(), title, fileSelection, startPath);
+            var dialog = new AGSSelectFileDialog(AGSGame.Game, AGSGame.Resolver.Container.Resolve<IGLUtils>(), title, fileSelection, fileFilter, startPath);
             return await dialog.Run();
         }
 
@@ -64,9 +66,10 @@ namespace AGS.Engine
             const float labelHeight = 20f;
             const float textBoxHeight = 20f;
             const float buttonHeight = 20f;
-            const float itemHeight = 20f;
-            const float itemPaddingX = 5f;
-            const float itemPaddingY = 5f;
+            float itemHeight = panelHeight / 8f;
+            ITEM_WIDTH = panelWidth / 10f;
+            float itemPaddingX = panelWidth / 10f;
+            float itemPaddingY = panelHeight / 12f;
             const float scrollButtonWidth = 20f;
             const float scrollButtonHeight = 20f;
             const float scrollButtonOffsetX = 5f;
@@ -84,8 +87,9 @@ namespace AGS.Engine
                 autoFit: AutoFit.TextShouldCrop, font: _game.Factory.Fonts.LoadFont(null, 10f));
 
             IPanel panel = factory.UI.GetPanel("SelectFilePanel", panelWidth, panelHeight, panelX, panelY);
+            panel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1);
             panel.SkinTags.Add(AGSSkin.DialogBoxTag);
-            panel.Skin.Apply(panel);
+            panel.Skin?.Apply(panel);
             panel.AddComponent<IModalWindowComponent>().GrabFocus();
             ILabel titleLabel = factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, panel, _buttonsTextConfig);
             _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, panel, _startPath, textBoxConfig, width: panelWidth, height: textBoxHeight);
@@ -113,21 +117,21 @@ namespace AGS.Engine
             _folderIconSelected = iconFactory.GetFolderIcon(true);
 
             var arrowDownIcon = getIcon("ArrowDown", factory, scrollButtonWidth, scrollButtonHeight, 
-                                        iconFactory.GetArrowIcon(ArrowDirection.Down));
+                                        iconFactory.GetArrowIcon(ArrowDirection.Down), scrollDownButton.RenderLayer);
             arrowDownIcon.Pivot = new PointF();
             arrowDownIcon.Enabled = false;
             arrowDownIcon.TreeNode.SetParent(scrollDownButton.TreeNode);
             _game.State.UI.Add(arrowDownIcon);
 
             var arrowUpIcon = getIcon("ArrowUp", factory, scrollButtonWidth, scrollButtonHeight,
-                                      iconFactory.GetArrowIcon(ArrowDirection.Up));
+                                      iconFactory.GetArrowIcon(ArrowDirection.Up), scrollUpButton.RenderLayer);
             arrowUpIcon.Pivot = new PointF();
             arrowUpIcon.Enabled = false;
             arrowUpIcon.TreeNode.SetParent(scrollUpButton.TreeNode);
             _game.State.UI.Add(arrowUpIcon);
 
-            _fileGraphics = getIcon("FileGraphics", factory, ITEM_WIDTH, itemHeight, _fileIcon);
-            _folderGraphics = getIcon("FolderGraphics", factory, ITEM_WIDTH, itemHeight, _folderIcon);
+            _fileGraphics = getIcon("FileGraphics", factory, ITEM_WIDTH, itemHeight, _fileIcon, scrollUpButton.RenderLayer);
+            _folderGraphics = getIcon("FolderGraphics", factory, ITEM_WIDTH, itemHeight, _folderIcon, scrollUpButton.RenderLayer);
 
             fillAllFiles(_startPath);
 
@@ -141,12 +145,12 @@ namespace AGS.Engine
             return _fileTextBox.Text;
         }
 
-        private IObject getIcon(string id, IGameFactory factory, float width, float height, IBorderStyle icon)
+        private IObject getIcon(string id, IGameFactory factory, float width, float height, IBorderStyle icon, IRenderLayer renderLayer)
         {
             var obj = factory.Object.GetObject(id);
             obj.Tint = Colors.Transparent;
             obj.Image = new EmptyImage(width, height);
-            obj.RenderLayer = AGSLayers.UI;
+            obj.RenderLayer = renderLayer;
             obj.Pivot = new PointF(0.5f, 0.5f);
             obj.IgnoreScalingArea = true;
             obj.IgnoreViewport = true;
@@ -215,7 +219,7 @@ namespace AGS.Engine
         {
             _selectedItem = null;
             _inventory.Items.Clear();
-            var allFiles = _device.FileSystem.GetFiles(folder).ToList();
+            var allFiles = _device.FileSystem.GetFiles(folder).Where(f => _fileFilter == null || _fileFilter(f)).ToList();
             var allDirs = folder == "" ? _device.FileSystem.GetLogicalDrives().ToList() : _device.FileSystem.GetDirectories(folder).ToList();
             const string back = "..";
             if (folder != "") allDirs.Insert(0, back);
@@ -269,9 +273,9 @@ namespace AGS.Engine
             graphics = clone("FileItem_" + file, _game.Factory, graphics);
             graphics.Properties.Strings.SetValue(PATH_PROPERTY, file);
             ILabel fileLabel = _game.Factory.UI.GetLabel("FileItemLabel_" + file, getLastName(file), 
-                ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, 0f, graphics, _filesTextConfig);
-            graphics.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1);
-            fileLabel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 2);
+                ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, -10f, graphics, _filesTextConfig);
+            graphics.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 3);
+            fileLabel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 4);
             var item = _game.Factory.Inventory.GetInventoryItem(graphics, null);
             _inventory.Items.Add(item);
             return graphics;
@@ -317,6 +321,7 @@ namespace AGS.Engine
             newObj.Pivot = obj.Pivot;
             newObj.Location = obj.Location;
             newObj.Tint = obj.Tint;
+            newObj.Image = obj.Image;
             newObj.DisplayName = obj.DisplayName;
             newObj.RenderLayer = obj.RenderLayer;
             newObj.IgnoreViewport = obj.IgnoreViewport;

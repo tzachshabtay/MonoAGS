@@ -93,7 +93,8 @@ namespace AGS.Engine
         public void Viewport(int x, int y, int width, int height) 
         { 
             _lastViewport = _currentViewport; 
-            _currentViewport = new Rectangle(x, y, width, height); GL.Viewport(x, y, width, height); 
+            _currentViewport = new Rectangle(x, y, width, height);
+            GL.Viewport(x, y, width, height); 
         }
         public void UndoLastViewport() => Viewport(_lastViewport.X, _lastViewport.Y, _lastViewport.Width, _lastViewport.Height);
         public void MatrixMode(MatrixType matrix) => GL.MatrixMode(getMatrixMode(matrix));
