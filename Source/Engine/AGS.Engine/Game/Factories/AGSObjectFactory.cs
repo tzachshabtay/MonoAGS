@@ -83,7 +83,7 @@ namespace AGS.Engine
 		private void setMask (IMask mask, string hotspot, string [] sayWhenLook = null,
 			string [] sayWhenInteract = null)
 		{
-			mask.DebugDraw.PixelPerfect (true);
+            mask.DebugDraw.IsPixelPerfect = true;
             mask.DebugDraw.Enabled = true;
 			mask.DebugDraw.DisplayName = hotspot;
 			mask.DebugDraw.Opacity = 0;

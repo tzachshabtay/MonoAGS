@@ -59,7 +59,7 @@ namespace AGS.Engine.Desktop
         {
             if (!File.Exists(from))
             {
-                Debug.WriteLine("OpenAL Soft dll not found in path {0}, audio will not be played if OpenAL is not installed", from);
+                Debug.WriteLine($"OpenAL Soft dll not found in path {from}, audio will not be played if OpenAL is not installed");
                 return;
             }
 
@@ -74,8 +74,7 @@ namespace AGS.Engine.Desktop
 
             if (e == null)
                 return;
-            Debug.WriteLine("Failed to copy OpenAL Soft dll, audio will not be played if OpenAL is not installed. Exception: {0}",
-                e.ToString());            
+            Debug.WriteLine($"Failed to copy OpenAL Soft dll, audio will not be played if OpenAL is not installed. Exception: {e.ToString()}");
         }
     }
 }

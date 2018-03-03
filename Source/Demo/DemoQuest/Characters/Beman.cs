@@ -52,7 +52,7 @@ namespace DemoGame
 
             _character.StartAnimation (_character.Outfit[AGSOutfit.Idle].Down);
 			_character.DisplayName = "Beman";
-			_character.PixelPerfect(true);
+            _character.IsPixelPerfect = true;
 
 			Characters.Beman = _character;
 

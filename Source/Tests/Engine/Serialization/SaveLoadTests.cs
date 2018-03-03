@@ -14,7 +14,7 @@ namespace Tests
 	public class SaveLoadTests
 	{
 		private Resolver _resolver;
-        private IDictionary<string, ITexture> _textures;
+        private GLTextureCache _textures;
 		private IGameState _state;
 		private IGameFactory _factory;
 		private AGSSaveLoad _saveLoad;
@@ -39,7 +39,7 @@ namespace Tests
             updater.RegisterInstance(renderThread.Object);
             updater.RegisterInstance(updateThread.Object);
 			updater.Update(_resolver.Container);
-            _textures = new Dictionary<string, ITexture> ();
+            _textures = new GLTextureCache();
 			_state = _resolver.Container.Resolve<IGameState>();
 			_factory = _resolver.Container.Resolve<IGameFactory>();
             DesktopFileSystem fileSystem = new DesktopFileSystem();

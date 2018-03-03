@@ -5,12 +5,14 @@ namespace AGS.Engine
 {
 	public class AGSGameEvents : IGameEvents
 	{
-        public AGSGameEvents(IBlockingEvent onLoad, IEvent onRepeatedlyExecute,
+        public AGSGameEvents(IBlockingEvent onLoad, IEvent<IRepeatedlyExecuteEventArgs> onRepeatedlyExecute,
+            IEvent<IRepeatedlyExecuteEventArgs> onRepeatedlyExecuteAlways,
 			IBlockingEvent onBeforeRender, IBlockingEvent onScreenResize,
             IBlockingEvent onSavedGameLoad, IBlockingEvent onRoomChanging, Resolver resolver)
 		{
 			OnLoad = onLoad;
 			OnRepeatedlyExecute = onRepeatedlyExecute;
+            OnRepeatedlyExecuteAlways = onRepeatedlyExecuteAlways;
 			OnBeforeRender = onBeforeRender;
 			OnScreenResize = onScreenResize;
 			OnSavedGameLoad = onSavedGameLoad;
@@ -25,7 +27,9 @@ namespace AGS.Engine
 
         public IBlockingEvent OnLoad { get; private set; }
 
-		public IEvent OnRepeatedlyExecute { get; private set; }
+        public IEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecute { get; private set; }
+
+        public IEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecuteAlways { get; private set; }
 
 		public IBlockingEvent OnBeforeRender { get; private set; }
 

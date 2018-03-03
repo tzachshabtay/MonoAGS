@@ -62,7 +62,7 @@ namespace AGS.Engine
         {
             if (!_fileSystem.FileExists(path))
             {
-                Debug.WriteLine("File system resource pack- failed to find resource at path: {0}", path);
+                Debug.WriteLine($"File system resource pack- failed to find resource at path: {path}");
                 return null;
             }
             return new AGSResource(path, _fileSystem.Open(path));

@@ -47,11 +47,14 @@ test_script:
     {
         .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:.\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe "-targetargs:""Source\Tests\bin\Debug\Tests.dll"" /noshadow" -filter:"+[AGS.Engine]*" -output:opencoverCoverage.xml
 
+        # Uncomment for debugging OpenCover issues
+        # Push-AppveyorArtifact opencoverCoverage.xml
+
         .\packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover -i ./opencoverCoverage.xml --repoToken 7hZHP5bLxlE8doYiQg6b79oF7wM6jlecs
     }
     elseif ($env:CONFIGURATION -eq "DesktopRelease")
     {
-        .\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe .\Source\Tests\bin\Release\Tests.dll
+        nunit-console .\Source\Tests\bin\Release\Tests.dll --framework=net-4.5 --result='myresults.xml;format=AppVeyor'
     }
 after_build:
 # Several examples of how to build the docs:
@@ -68,5 +71,5 @@ after_build:
             Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:git_token):x-oauth-basic@github.com`n"
             git config --global user.email %github_email%
             git config --global user.name "tzachshabtay"
-            gh-pages -d Docs\_site -m "CI Docs Updates"
+            cmd /c "gh-pages -d Docs\_site -m "CI Docs Updates"" 2`>`&1
         }

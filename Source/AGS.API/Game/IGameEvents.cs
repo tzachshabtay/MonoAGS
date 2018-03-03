@@ -20,6 +20,9 @@
         /// The frequency of this events depends on the FPS (frames per second). By default, if the hardware (and software) can handle it,
         /// we run at 60 FPS, meaning this event will be called 60 times per second.
         /// 
+        /// Note that this event is not fired when the game is paused (which is usually what you'd want), if you want an event that's always being called,
+        /// take a look at <see cref="OnRepeatedlyExecuteAlways"/>.
+        /// 
         /// IMPORTANT: As this event runs 60 times per second (by default), it can be abused and deteriorate the performance of the game.
         /// So it's important to keep two rules:
         /// 1. Don't perform long actions on each tick.
@@ -51,7 +54,13 @@
         /// }
         /// </code>        
         /// </example>
-        IEvent OnRepeatedlyExecute { get; }
+        IEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecute { get; }
+
+        /// <summary>
+        /// This event is similar to the <see cref="OnRepeatedlyExecute"/> with the exception that it's always fired, even when the game is paused.
+        /// </summary>
+        /// <value>The on repeatedly execute always.</value>
+        IEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecuteAlways { get; }
 
 		/// <summary>
 		/// This event is called on every render cycle before rendering starts.

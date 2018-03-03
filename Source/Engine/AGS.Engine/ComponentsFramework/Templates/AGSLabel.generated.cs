@@ -536,18 +536,15 @@ namespace AGS.Engine
 
         #region IPixelPerfectComponent implementation
 
-        #endregion
-
-        #region IPixelPerfectCollidable implementation
-
         public IArea PixelPerfectHitTestArea 
         {  
             get { return _pixelPerfectComponent.PixelPerfectHitTestArea; } 
         }
 
-        public void PixelPerfect(Boolean pixelPerfect)
+        public bool IsPixelPerfect
         {
-            _pixelPerfectComponent.PixelPerfect(pixelPerfect);
+            get { return _pixelPerfectComponent.IsPixelPerfect; }
+            set { _pixelPerfectComponent.IsPixelPerfect = value; }
         }
 
         #endregion

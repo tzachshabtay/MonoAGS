@@ -43,7 +43,7 @@ namespace AGS.Engine
 			{
 				if (character == null)
 				{
-					Debug.WriteLine("Null character received for dialog text: {0}", text);
+					Debug.WriteLine($"Null character received for dialog text: {text}");
 					return true;
 				}
 				await character.SayAsync(text);

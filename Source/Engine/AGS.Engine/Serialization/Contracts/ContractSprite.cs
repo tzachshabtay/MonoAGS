@@ -17,28 +17,25 @@ namespace AGS.Engine
 		public Tuple<float, float, float> Location { get; set; }
 
 		[ProtoMember(2)]
-		public bool IsPixelPerfect { get; set; }
-
-		[ProtoMember(3)]
 		public float ScaleX { get; set; }
 
-		[ProtoMember(4)]
+		[ProtoMember(3)]
 		public float ScaleY { get; set; }
 
-		[ProtoMember(5)]
+		[ProtoMember(4)]
 		public float Angle { get; set; }
 
-		[ProtoMember(6)]
+		[ProtoMember(5)]
 		public uint Tint { get; set; }
 
-		[ProtoMember(7)]
+		[ProtoMember(6)]
         public Tuple<float, float> Pivot { get; set; }
 
-		[ProtoMember(8)]
+		[ProtoMember(7)]
 		public Contract<IImage> Image { get; set; }
 
 		//todo: support custom renderer deserialization
-		[ProtoMember(9)]
+		[ProtoMember(8)]
 		public string CustomRenderer { get; set; }
 
 		public ISprite ToItem(AGSSerializationContext context)
@@ -60,8 +57,6 @@ namespace AGS.Engine
 			sprite.Pivot = new PointF (Pivot.Item1, Pivot.Item2);
 			sprite.Angle = Angle;
 			sprite.Tint = Color.FromHexa(Tint);
-
-			sprite.PixelPerfect(IsPixelPerfect);
 		}
 
 		public void FromItem(AGSSerializationContext context, ISprite sprite)
@@ -73,7 +68,6 @@ namespace AGS.Engine
 			Angle = sprite.Angle;
 			ScaleX = sprite.ScaleX;
 			ScaleY = sprite.ScaleY;
-			IsPixelPerfect = sprite.PixelPerfectHitTestArea != null;
 			Location = new Tuple<float, float, float> (sprite.X, sprite.Y, sprite.Z);
 			CustomRenderer = sprite.CustomRenderer == null ? null : sprite.CustomRenderer.GetType().Name;
 		}

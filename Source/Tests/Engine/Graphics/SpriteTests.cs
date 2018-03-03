@@ -80,7 +80,7 @@ namespace Tests
 
 				sprite.Model.Image = _mocks.Image().Object;
 
-				sprite.PixelPerfect.PixelPerfect(true);
+                sprite.PixelPerfect.IsPixelPerfect = true;
 
 				Assert.AreEqual(mask.Object, sprite.PixelPerfect.PixelPerfectHitTestArea.Mask);
 				Assert.IsTrue(sprite.PixelPerfect.PixelPerfectHitTestArea.Enabled);
@@ -97,7 +97,9 @@ namespace Tests
 				_mocks.MaskLoader().Setup(m => m.Load(It.IsAny<string>(), (IBitmap)null, false, null, null)).Returns(mask.Object);
 				sprite.Model.Image = _mocks.Image().Object;
 
-				sprite.PixelPerfect.PixelPerfect(true);
+                sprite.PixelPerfect.IsPixelPerfect = true;
+                var area = sprite.PixelPerfect.PixelPerfectHitTestArea;
+                Assert.IsNotNull(area);
 				count++;
 
 				_mocks.MaskLoader().Verify(m => m.Load(It.IsAny<string>(), (IBitmap)null, false, null, null), Times.Exactly(count));
@@ -109,8 +111,8 @@ namespace Tests
 		{
 			foreach (var sprite in getPixelPerfectImplementors())
 			{
-                sprite.PixelPerfect.PixelPerfect(false);
-				Assert.IsNull(sprite.PixelPerfect.PixelPerfectHitTestArea);
+                sprite.PixelPerfect.IsPixelPerfect = false;
+                Assert.IsFalse(sprite.PixelPerfect.IsPixelPerfect);
 			}
 		}
 
@@ -123,11 +125,11 @@ namespace Tests
                 _mocks.MaskLoader().Setup(m => m.Load(It.IsAny<string>(), (IBitmap)null, false, null, null)).Returns(mask.Object);
 				sprite.Model.Image = _mocks.Image().Object;
 
-				sprite.PixelPerfect.PixelPerfect(true);
-				sprite.PixelPerfect.PixelPerfect(false);
+                sprite.PixelPerfect.IsPixelPerfect = true;
+                sprite.PixelPerfect.IsPixelPerfect = false;
 
 				Assert.IsNotNull(sprite.PixelPerfect.PixelPerfectHitTestArea);
-				Assert.IsFalse(sprite.PixelPerfect.PixelPerfectHitTestArea.Enabled);
+                Assert.IsFalse(sprite.PixelPerfect.IsPixelPerfect);
 			}
 		}
 
@@ -155,7 +157,7 @@ namespace Tests
         {
             foreach (var sprite in getImplementors())
             {
-                yield return new PixelPerfectImplementation(sprite);
+                if (sprite is IPixelPerfectComponent) yield return new PixelPerfectImplementation(sprite);
             }
         }
 
@@ -164,11 +166,10 @@ namespace Tests
             public PixelPerfectImplementation(IHasModelMatrix model)
             {
                 Model = model;
-                if (model is IPixelPerfectCollidable) PixelPerfect = (IPixelPerfectCollidable)model;
-                else throw new InvalidOperationException("Missing pixel perfect implementation");
+                PixelPerfect = (IPixelPerfectComponent)model;
             }
 
-            public IPixelPerfectCollidable PixelPerfect { get; private set; }
+            public IPixelPerfectComponent PixelPerfect { get; private set; }
 
             public IHasModelMatrix Model { get; private set; }
         }

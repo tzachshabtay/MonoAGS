@@ -9,6 +9,7 @@
     <RootNamespace>AGS.API</RootNamespace>
     <AssemblyName>AGS.API</AssemblyName>
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -196,8 +197,6 @@
     <Compile Include="Objects\IHasCursorComponent.cs" />
     <Compile Include="Game\Settings\IGameSettings.cs" />
     <Compile Include="Game\Settings\IRuntimeSettings.cs" />
-    <Compile Include="Graphics\ITextureConfig.cs" />
-    <Compile Include="Graphics\ITexture.cs" />
     <Compile Include="Rooms\Areas\IArea.cs" />
     <Compile Include="Rooms\Areas\IScalingArea.cs" />
     <Compile Include="Rooms\Areas\IWalkBehindArea.cs" />
@@ -272,6 +271,11 @@
     <Compile Include="UI\Layouts\TreeTable\QueryLayoutEventArgs.cs" />
     <Compile Include="Game\IGameStarter.cs" />
     <Compile Include="Misc\Resources\IResourcePack.cs" />
+    <Compile Include="Graphics\Textures\ITexture.cs" />
+    <Compile Include="Graphics\Textures\ITextureCache.cs" />
+    <Compile Include="Graphics\Textures\ITextureConfig.cs" />
+    <Compile Include="Graphics\Textures\ITextureFactory.cs" />
+    <Compile Include="Game\IRepeatedlyExecuteEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
@@ -280,4 +284,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Graphics\Textures\" />
+  </ItemGroup>
 </Project>

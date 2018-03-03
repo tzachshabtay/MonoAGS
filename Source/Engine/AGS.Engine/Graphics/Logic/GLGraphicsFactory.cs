@@ -9,14 +9,14 @@ namespace AGS.Engine
 {
 	public class GLGraphicsFactory : IGraphicsFactory
 	{
-        private readonly Dictionary<string, ITexture> _textures;
+        private readonly ITextureCache _textures;
         private readonly Resolver _resolver;
 		private readonly IResourceLoader _resources;
 		private readonly IBitmapLoader _bitmapLoader;
 		private readonly SpriteSheetLoader _spriteSheetLoader;
         private readonly IRenderThread _renderThread;
 
-        public GLGraphicsFactory (Dictionary<string, ITexture> textures, Resolver resolver, IGLUtils glUtils, 
+        public GLGraphicsFactory (ITextureCache textures, Resolver resolver, IGLUtils glUtils, 
                                   IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IRenderThread renderThread,
                                   IResourceLoader resources, IIconFactory icons, IBrushLoader brushes, IRenderMessagePump messagePump)
 		{
@@ -127,8 +127,25 @@ namespace AGS.Engine
 		{
 			return await _spriteSheetLoader.LoadAnimationFromSpriteSheetAsync (spriteSheet, animationConfig, loadConfig);
 		}
-			
-		public IImage LoadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
+
+        public IBitmap GetBitmap(int width, int height)
+        {
+            return _bitmapLoader.Load(width, height);
+        }
+
+        public IBitmap LoadBitmap(string path)
+        {
+            IResource resource = _resources.LoadResource(path);
+            return loadBitmap(resource);
+        }
+
+        public async Task<IBitmap> LoadBitmapAsync(string path)
+        {
+            IResource resource = await Task.Run(() => _resources.LoadResource(path));
+            return await loadBitmapAsync(resource);
+        }
+
+        public IImage LoadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
 		{
             return loadImage(bitmap, config, id);
 		}
@@ -204,6 +221,38 @@ namespace AGS.Engine
 			animation.Frames.Add (frame);
 		}
 
+        private IBitmap loadBitmap(IResource resource)
+        {
+            IBitmap bitmap = null;
+            _renderThread.RunBlocking(() =>
+            {
+                try
+                {
+                    bitmap = _bitmapLoader.Load(resource.Stream);
+                }
+                catch (ArgumentException e)
+                {
+                    Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+                }
+            });
+            return bitmap;
+        }
+
+        private async Task<IBitmap> loadBitmapAsync(IResource resource)
+        {
+            try
+            {
+                if (resource == null)
+                    return _bitmapLoader.Load(1, 1);
+                return await Task.Run(() => _bitmapLoader.Load(resource.Stream));
+            }
+            catch (ArgumentException e)
+            {
+                Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+                return null;
+            }
+        }
+
         private IImage loadImage(IBitmap bitmap, ILoadImageConfig config = null, string id = null)
         {
             id = id ?? Guid.NewGuid().ToString();
@@ -264,8 +313,8 @@ namespace AGS.Engine
 			GLImage image = new GLImage (bitmap, id, texture, spriteSheet, config);
 
             string imageId = image.ID;
-			_textures?.GetOrAdd (imageId, () => image.Texture);
-            image.OnImageDisposed.Subscribe(() => _textures.Remove(imageId));
+            _textures?.GetTexture(imageId, _ => image.Texture);
+            image.OnImageDisposed.Subscribe(() => _textures.RemoveTexture(imageId));
 			return image;
 		}
 

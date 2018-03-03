@@ -111,7 +111,7 @@ namespace AGS.Engine
             obj.Angle = Angle;
             obj.Tint = Color.FromHexa(Tint);
 
-            obj.PixelPerfect(IsPixelPerfect);
+            obj.IsPixelPerfect = IsPixelPerfect;
             AnimationComponent.ToItem(context, obj);
             obj.RenderLayer = RenderLayer.ToItem(context);
             obj.Properties.CopyFrom(Properties.ToItem(context));
@@ -163,7 +163,7 @@ namespace AGS.Engine
             Angle = item.Angle;
             ScaleX = item.ScaleX;
             ScaleY = item.ScaleY;
-            IsPixelPerfect = item.PixelPerfectHitTestArea != null;
+            IsPixelPerfect = item.IsPixelPerfect;
             Location = new Tuple<float, float, float>(item.X, item.Y, item.Z);
             CustomRenderer = item.CustomRenderer == null ? null : item.CustomRenderer.GetType().Name;
         }

@@ -54,12 +54,12 @@ namespace AGS.Engine
             Builder.RegisterType<UIEventsAggregator>().SingleInstance();
             Builder.RegisterType<AGSDisplayList>().SingleInstance().As<IDisplayList>();
             Builder.RegisterType<AGSHitTest>().SingleInstance().As<IHitTest>();
+            Builder.RegisterType<GLTextureCache>().SingleInstance().As<ITextureCache>();
 
 			registerComponents();
 
 			Builder.RegisterType<AGSSprite>().As<ISprite>();
             Builder.RegisterType<AGSBoundingBoxesBuilder>().As<IBoundingBoxBuilder>();
-            Builder.RegisterType<AGSPixelPerfectCollidable>().As<IPixelPerfectCollidable>();
             Builder.RegisterType<AGSTranslate>().As<ITranslate>();
             Builder.RegisterType<AGSScale>().As<IScale>();
             Builder.RegisterType<AGSRotate>().As<IRotate>();
@@ -70,10 +70,6 @@ namespace AGS.Engine
 
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
 			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IBlockingEvent<>));
-
-            Dictionary<string, ITexture> textures = new Dictionary<string, ITexture> (1024);
-			Builder.RegisterInstance(textures);
-            Builder.RegisterInstance(textures).As(typeof(IDictionary<string, ITexture>));
 
 			FastFingerChecker checker = new FastFingerChecker ();
 			Builder.RegisterInstance(checker);

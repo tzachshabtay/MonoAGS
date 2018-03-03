@@ -92,20 +92,20 @@ namespace AGS.Engine.Desktop
                 _actions.Enqueue(() => KeyUp.InvokeAsync(new KeyboardEventArgs(key)));
             };
 
-            _events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+            _events.OnRepeatedlyExecuteAlways.Subscribe(onRepeatedlyExecute);
         }
 
         #region IInputEvents implementation
 
         public IEvent<AGS.API.MouseButtonEventArgs> MouseDown { get; private set; }
 
-		public IEvent<AGS.API.MouseButtonEventArgs> MouseUp { get; private set; }
+        public IEvent<AGS.API.MouseButtonEventArgs> MouseUp { get; private set; }
 
-		public IEvent<MousePositionEventArgs> MouseMove { get; private set; }
+        public IEvent<MousePositionEventArgs> MouseMove { get; private set; }
 
-		public IEvent<KeyboardEventArgs> KeyDown { get; private set; }
+        public IEvent<KeyboardEventArgs> KeyDown { get; private set; }
 
-		public IEvent<KeyboardEventArgs> KeyUp { get; private set; }
+        public IEvent<KeyboardEventArgs> KeyUp { get; private set; }
 
         #endregion
 
@@ -118,30 +118,31 @@ namespace AGS.Engine.Desktop
         public bool IsTouchDrag => false;  //todo: support touch screens on desktops
 
         public IObject Cursor
-		{
+        {
             get => _mouseCursor;
-            set 
-		  	{ 
-				_mouseCursor = value;
-				_game.Cursor = _mouseCursor == null ? _originalOSCursor : MouseCursor.Empty;
-		  	}
-		}
+            set
+            {
+                _mouseCursor = value;
+                _game.Cursor = _mouseCursor == null ? _originalOSCursor : MouseCursor.Empty;
+            }
+        }
 
         private bool isInputBlocked() => _shouldBlockInput.ShouldBlockInput();
 
         private AGS.API.MouseButton convert(OpenTK.Input.MouseButton button)
-		{
-			switch (button) {
-			case OpenTK.Input.MouseButton.Left:
-				return AGS.API.MouseButton.Left;
-			case OpenTK.Input.MouseButton.Right:
-				return AGS.API.MouseButton.Right;
-			case OpenTK.Input.MouseButton.Middle:
-				return AGS.API.MouseButton.Middle;
-			default:
-				throw new NotSupportedException ();
-			}
-		}
+        {
+            switch (button)
+            {
+                case OpenTK.Input.MouseButton.Left:
+                    return AGS.API.MouseButton.Left;
+                case OpenTK.Input.MouseButton.Right:
+                    return AGS.API.MouseButton.Right;
+                case OpenTK.Input.MouseButton.Middle:
+                    return AGS.API.MouseButton.Middle;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
 
         private void onRepeatedlyExecute()
         {
@@ -159,7 +160,7 @@ namespace AGS.Engine.Desktop
             }
             finally
             {
-                _inUpdate = 0;   
+                _inUpdate = 0;
             }
         }
 

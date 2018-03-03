@@ -26,6 +26,28 @@ namespace AGS.API
 		ISprite GetSprite();
 
         /// <summary>
+        /// Creates an empty bitmap with the specified width and height (in pixels).
+        /// </summary>
+        /// <returns>The bitmap.</returns>
+        /// <param name="width">Width.</param>
+        /// <param name="height">Height.</param>
+        IBitmap GetBitmap(int width, int height);
+
+        /// <summary>
+        /// Loads a raw bitmap from a resource/file path (<see cref="IResourceLoader"/>).
+        /// </summary>
+        /// <returns>The bitmap.</returns>
+        /// <param name="filePath">File/resource path.</param>
+        IBitmap LoadBitmap(string filePath);
+
+        /// <summary>
+        /// Loads a raw bitmap asynchronously from a resource/file path (<see cref="IResourceLoader"/>).
+        /// </summary>
+        /// <returns>The bitmap.</returns>
+        /// <param name="filePath">File/resource path.</param>
+        Task<IBitmap> LoadBitmapAsync(string filePath);
+
+        /// <summary>
         /// Loads an image from a resource/file path (<see cref="IResourceLoader"/>).
         /// </summary>
         /// <returns>The image.</returns>
