@@ -199,6 +199,18 @@ references:
   commentId: Overload:AGS.API.AGSBoundingBox.MinY
   fullName: AGS.API.AGSBoundingBox.MinY
   nameWithType: AGSBoundingBox.MinY
+- uid: AGS.API.AGSBoundingBox.SameSize(AGS.API.AGSBoundingBox)
+  name: SameSize(AGSBoundingBox)
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_SameSize_AGS_API_AGSBoundingBox_
+  commentId: M:AGS.API.AGSBoundingBox.SameSize(AGS.API.AGSBoundingBox)
+  fullName: AGS.API.AGSBoundingBox.SameSize(AGS.API.AGSBoundingBox)
+  nameWithType: AGSBoundingBox.SameSize(AGSBoundingBox)
+- uid: AGS.API.AGSBoundingBox.SameSize*
+  name: SameSize
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_SameSize_
+  commentId: Overload:AGS.API.AGSBoundingBox.SameSize
+  fullName: AGS.API.AGSBoundingBox.SameSize
+  nameWithType: AGSBoundingBox.SameSize
 - uid: AGS.API.AGSBoundingBox.TopLeft
   name: TopLeft
   href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_TopLeft
@@ -7606,6 +7618,24 @@ references:
   commentId: Overload:AGS.API.IGameSettings.WindowState
   fullName: AGS.API.IGameSettings.WindowState
   nameWithType: IGameSettings.WindowState
+- uid: AGS.API.IGameStarter
+  name: IGameStarter
+  href: api/AGS.API.IGameStarter.html
+  commentId: T:AGS.API.IGameStarter
+  fullName: AGS.API.IGameStarter
+  nameWithType: IGameStarter
+- uid: AGS.API.IGameStarter.StartGame(AGS.API.IGame)
+  name: StartGame(IGame)
+  href: api/AGS.API.IGameStarter.html#AGS_API_IGameStarter_StartGame_AGS_API_IGame_
+  commentId: M:AGS.API.IGameStarter.StartGame(AGS.API.IGame)
+  fullName: AGS.API.IGameStarter.StartGame(AGS.API.IGame)
+  nameWithType: IGameStarter.StartGame(IGame)
+- uid: AGS.API.IGameStarter.StartGame*
+  name: StartGame
+  href: api/AGS.API.IGameStarter.html#AGS_API_IGameStarter_StartGame_
+  commentId: Overload:AGS.API.IGameStarter.StartGame
+  fullName: AGS.API.IGameStarter.StartGame
+  nameWithType: IGameStarter.StartGame
 - uid: AGS.API.IGameState
   name: IGameState
   href: api/AGS.API.IGameState.html
