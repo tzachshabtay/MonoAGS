@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using AGS.Editor;
 using AGS.Engine.Desktop;
+using Microsoft.CodeAnalysis.MSBuild;
 
 namespace AGS.Editor.Desktop
 {
@@ -11,6 +12,7 @@ namespace AGS.Editor.Desktop
 		public static void Main(string[] args)
 		{
             AGSEngineDesktop.Init();
+            GameLoader.Platform = new DesktopEditorPlatform();
             Program.Run();
 		}
 	}

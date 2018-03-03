@@ -55,23 +55,15 @@ namespace AGS.Editor
             if (string.IsNullOrEmpty(file)) return;
             var messagePump = _resolver.Container.Resolve<IRenderMessagePump>();
             _panel.Visible = false;
-            _recentGames.AddGame(file);
+            AGSProject agsProj = AGSProject.Load(file);
+            _recentGames.AddGame(agsProj.Name, file);
             await Task.Delay(100);
-            GameLoader.Load(messagePump, file, _game);
+            GameLoader.Load(messagePump, agsProj);
         }
 
         private bool isGame(string file)
         {
-            if (!file.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase) &&
-                !file.EndsWith(".exe", StringComparison.InvariantCultureIgnoreCase)) return false;
-            try
-            {
-                return GameLoader.GetGames(file).games.Count > 0;
-            }
-            catch (BadImageFormatException)
-            {
-                return false;
-            }
+            return file.EndsWith(".agsproj.json", StringComparison.InvariantCultureIgnoreCase);
         }
 
     }

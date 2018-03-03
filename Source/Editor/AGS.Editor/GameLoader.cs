@@ -4,9 +4,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 using Autofac;
+using Newtonsoft.Json;
 
 namespace AGS.Editor
 {
@@ -24,8 +26,15 @@ namespace AGS.Editor
             currentDomain.AssemblyResolve += loadFromSameFolder;
         }
 
-        public static (List<Type> games, Assembly assembly) GetGames(string path)
+        public static IEditorPlatform Platform { get; set; }
+
+        public static async Task<(List<Type> games, Assembly assembly)> GetGames(AGSProject agsProj)
         {
+            string path = await getOutputPath(agsProj);
+            if (path == null)
+            {
+                return (new List<Type>(), null);
+            }
             if (_domain != null)
             {
                 _domain.AssemblyResolve -= loadFromSameFolder;
@@ -56,21 +65,53 @@ namespace AGS.Editor
             }
         }
 
-        public static void Load(IRenderMessagePump messagePump, string path, IGame editorGame)
+        public static void Load(IRenderMessagePump messagePump, AGSProject agsProj)
         {
-            messagePump.Post(_ => load(path, editorGame), null);
+            messagePump.Post(async _ => load(agsProj), null);
         }
 
-        private static void load(string path, IGame editorGame)
+        private static async Task<string> getOutputPath(AGSProject agsProj)
         {
-            var (games, assembly) = GetGames(path);
+            try
+            {
+                string currentDir = Directory.GetCurrentDirectory();
+                Directory.SetCurrentDirectory(Path.GetDirectoryName(agsProj.AGSProjectPath));
+                await Platform.DotnetProject.Load(agsProj.DotnetProjectPath);
+                Directory.SetCurrentDirectory(currentDir);
+                if (!File.Exists(Platform.DotnetProject.OutputFilePath))
+                {
+                    string errors = await Platform.DotnetProject.Compile();
+                    if (errors != null)
+                    {
+                        Debug.WriteLine($"Can't compile dotnet project: {agsProj.DotnetProjectPath}, referenced in AGS project: {agsProj.AGSProjectPath}");
+                        Debug.WriteLine(errors);
+                        return null;
+                    }
+                    if (!File.Exists(Platform.DotnetProject.OutputFilePath))
+                    {
+                        Debug.WriteLine($"Project was compiled but output not found for dotnet project: {agsProj.DotnetProjectPath}, referenced in AGS project: {agsProj.AGSProjectPath}");
+                        return null;
+                    }
+                }
+                return Platform.DotnetProject.OutputFilePath;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+                throw;
+            }
+        }
+
+        private static async Task load(AGSProject agsProj)
+        {
+            var (games, assembly) = await GetGames(agsProj);
             if (games.Count == 0)
             {
-                throw new Exception($"Cannot load game: failed to find an instance of IGameCreator in {path}.");
+                throw new Exception($"Cannot load game: failed to find an instance of IGameCreator in {agsProj.AGSProjectPath}.");
             }
             if (games.Count > 1)
             {
-                throw new Exception($"Cannot load game: found more than one instance of IGameCreator in {path}.");
+                throw new Exception($"Cannot load game: found more than one instance of IGameCreator in {agsProj.AGSProjectPath}.");
             }
             var gameCreatorImplementation = games[0];
             var gameCreator = (IGameStarter)Activator.CreateInstance(gameCreatorImplementation);

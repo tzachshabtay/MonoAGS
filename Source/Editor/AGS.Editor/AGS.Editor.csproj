@@ -9,7 +9,6 @@
     <ProjectReference Include="..\..\Engine\AGS.Engine\AGS.Engine.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Welcome\" />
-    <Folder Include="Skins\" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
   </ItemGroup>
 </Project>
