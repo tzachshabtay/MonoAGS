@@ -20,37 +20,21 @@ namespace AGS.Engine
 
         public int SubscribersCount => _counter.Count;
 
-        public void Subscribe(Action callback)
-		{
-            _counter.Add();
-			_invocationList.Add(new Callback(callback));
-		}
+        public void Subscribe(Action callback) => subscribe(new Callback(callback));
 
-		public void Unsubscribe(Action callback)
-		{
-			if (_invocationList.Remove(new Callback(callback)))
-			{
-                _counter.Remove();
-			}
-		}
+        public void Unsubscribe(Action callback) => unsubscribe(new Callback(callback));
 
-		public void SubscribeToAsync(Func<Task> callback)
-		{
-			subscribeToAsync(new Callback(callback));
-		}
+        public void SubscribeToAsync(Func<Task> callback) => subscribe(new Callback(callback));
 
-		public void UnsubscribeToAsync(Func<Task> callback)
-		{
-			unsubscribeToAsync(new Callback(callback));
-		}
+        public void UnsubscribeToAsync(Func<Task> callback) => unsubscribe(new Callback(callback));
 
 		public async Task WaitUntilAsync(Func<bool> condition)
 		{
 			TaskCompletionSource<object> tcs = new TaskCompletionSource<object>(null);
 			var callback = new Callback(condition, tcs);
-			subscribeToAsync(callback);
+			subscribe(callback);
 			await tcs.Task;
-			unsubscribeToAsync(callback);
+			unsubscribe(callback);
 		}
 
 		public async Task InvokeAsync()
@@ -90,13 +74,13 @@ namespace AGS.Engine
 
 		#endregion
 
-		private void subscribeToAsync(Callback callback)
+		private void subscribe(Callback callback)
 		{
             _counter.Add();
 			_invocationList.Add(callback);
 		}
 
-		private void unsubscribeToAsync(Callback callback)
+		private void unsubscribe(Callback callback)
 		{
 			if (_invocationList.Remove(callback))
 			{
