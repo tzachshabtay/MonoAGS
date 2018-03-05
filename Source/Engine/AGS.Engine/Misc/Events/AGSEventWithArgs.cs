@@ -9,8 +9,7 @@ namespace AGS.Engine
     public class AGSEvent<TEventArgs> : IEvent<TEventArgs>, IBlockingEvent<TEventArgs>
     {
         private readonly IConcurrentHashSet<Callback> _invocationList;
-        private const int MAX_SUBSCRIPTIONS = 10000;
-        private int _count;
+        private readonly EventSubscriberCounter _counter = new EventSubscriberCounter();
 
         public AGSEvent()
         {
@@ -19,27 +18,17 @@ namespace AGS.Engine
 
         #region IEvent implementation
 
-        public int SubscribersCount => _count;
+        public int SubscribersCount => _counter.Count;
 
         public void Subscribe (Action<TEventArgs> callback)
         {
-            _count++;
-            if (_count > MAX_SUBSCRIPTIONS)
-            {
-                Debug.WriteLine("Subscribe Overflow!");
-                return;
-            }
+            _counter.Add();
             _invocationList.Add (new Callback (callback));
         }
 
         public void Subscribe(Action callback)
         {
-            _count++;
-            if (_count > MAX_SUBSCRIPTIONS)
-            {
-                Debug.WriteLine("Subscribe Overflow!");
-                return;
-            }
+            _counter.Add();
             _invocationList.Add(new Callback(callback));
         }
 
@@ -47,7 +36,7 @@ namespace AGS.Engine
         {
             if (_invocationList.Remove(new Callback (callback)))
             {
-                _count--;
+                _counter.Remove();
             }
         }
 
@@ -55,7 +44,7 @@ namespace AGS.Engine
         {
             if (_invocationList.Remove(new Callback(callback)))
             {
-                _count--;
+                _counter.Remove();
             }
         }
 
@@ -132,12 +121,7 @@ namespace AGS.Engine
 
         private void subscribeToAsync(Callback callback)
         {
-            _count++;
-            if (_count > MAX_SUBSCRIPTIONS)
-            {
-                Debug.WriteLine("Subscribe Overflow!!");
-                return;
-            }
+            _counter.Add();
             _invocationList.Add (callback);
         }
 
@@ -145,7 +129,7 @@ namespace AGS.Engine
         {
             if (_invocationList.Remove(callback))
             {
-                _count--;
+                _counter.Remove();
             }
         }
 
