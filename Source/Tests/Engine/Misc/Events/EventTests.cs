@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using AGS.Engine;
 using System.Threading.Tasks;
+using AGS.API;
 
 namespace Tests
 {
@@ -139,11 +140,50 @@ namespace Tests
 			Assert.AreEqual(1, ev.SubscribersCount);
 		}
 
+        [Test]
+        public void ClaimEventTest()
+        {
+            AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs>();
+            ev.Subscribe(onEventClaim);
+            EventTests target2 = new EventTests();
+            ev.Subscribe(target2.onEventClaim);
+            ev.Invoke(new MockEventArgs(x));
+            Assert.AreEqual(2, ev.SubscribersCount);
+            Assert.AreEqual(1, syncEvents);
+            Assert.AreEqual(0, target2.syncEvents);
+        }
+
+        [Test]
+        public void DontClaimEventTest()
+        {
+            AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs>();
+            ev.Subscribe(onEventDontClaim);
+            EventTests target2 = new EventTests();
+            ev.Subscribe(target2.onEventDontClaim);
+            ev.Invoke(new MockEventArgs(x));
+            Assert.AreEqual(2, ev.SubscribersCount);
+            Assert.AreEqual(1, syncEvents);
+            Assert.AreEqual(1, target2.syncEvents);
+        }
+
 		private void onEvent(MockEventArgs e)
 		{
 			Assert.AreEqual (x, e.X);
 			syncEvents++;
 		}
+
+        private void onEventClaim(MockEventArgs e, ref ClaimEventToken token)
+        {
+            Assert.AreEqual(x, e.X);
+            syncEvents++;
+            token.Claimed = true;
+        }
+
+        private void onEventDontClaim(MockEventArgs e, ref ClaimEventToken token)
+        {
+            Assert.AreEqual(x, e.X);
+            syncEvents++;
+        }
 
 		private async Task onEventAsync(MockEventArgs e)
 		{

@@ -24,6 +24,10 @@ namespace AGS.Engine
 
         public void Unsubscribe(Action callback) => unsubscribe(new Callback(callback));
 
+        public void Subscribe(ClaimableCallback callback) => subscribe(new Callback(callback));
+
+        public void Unsubscribe(ClaimableCallback callback) => unsubscribe(new Callback(callback));
+
         public void SubscribeToAsync(Func<Task> callback) => subscribe(new Callback(callback));
 
         public void UnsubscribeToAsync(Func<Task> callback) => unsubscribe(new Callback(callback));
@@ -41,8 +45,14 @@ namespace AGS.Engine
 		{
 			try
 			{
+                ClaimEventToken token = new ClaimEventToken();
 				foreach (var target in _invocationList)
 				{
+                    if (target.BlockingEventWithClaimToken != null)
+                    {
+                        target.BlockingEventWithClaimToken(ref token);
+                        if (token.Claimed) return;
+                    }
 					await target.Event();
 				}
 			}
@@ -58,8 +68,14 @@ namespace AGS.Engine
 		{
 			try
 			{
+                ClaimEventToken token = new ClaimEventToken();
 				foreach (var target in _invocationList)
 				{
+                    if (target.BlockingEventWithClaimToken != null)
+                    {
+                        target.BlockingEventWithClaimToken(ref token);
+                        if (token.Claimed) return;
+                    }
                     if (target.BlockingEvent != null) target.BlockingEvent();
                     else target.Event();
 				}
@@ -111,8 +127,15 @@ namespace AGS.Engine
 				Event = convert(condition, tcs);
 			}
 
+            public Callback(ClaimableCallback callback)
+            {
+                _origObject = callback;
+                BlockingEventWithClaimToken = callback;
+            }
+
 			public Func<Task> Event { get; }
 			public Action BlockingEvent { get; }
+            public ClaimableCallback BlockingEventWithClaimToken { get; }
 
 			public override bool Equals(object obj)
 			{

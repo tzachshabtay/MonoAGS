@@ -276,6 +276,7 @@
     <Compile Include="Graphics\Textures\ITextureConfig.cs" />
     <Compile Include="Graphics\Textures\ITextureFactory.cs" />
     <Compile Include="Game\IRepeatedlyExecuteEventArgs.cs" />
+    <Compile Include="Misc\Events\ClaimEventToken.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

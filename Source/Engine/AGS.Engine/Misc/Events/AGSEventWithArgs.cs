@@ -24,9 +24,13 @@ namespace AGS.Engine
 
         public void Subscribe(Action callback) => subscribe(new Callback(callback));
 
+        public void Subscribe(ClaimableCallbackWithArgs<TEventArgs> callback) => subscribe(new Callback(callback));
+
         public void Unsubscribe(Action<TEventArgs> callback) => unsubscribe(new Callback(callback));
 
         public void Unsubscribe(Action callback) => unsubscribe(new Callback(callback));
+
+        public void Unsubscribe(ClaimableCallbackWithArgs<TEventArgs> callback) => unsubscribe(new Callback(callback));
 
         public void SubscribeToAsync (Func<TEventArgs, Task> callback) => subscribe(new Callback (callback));
 
@@ -49,9 +53,15 @@ namespace AGS.Engine
         {
             try
             {
+                ClaimEventToken token = new ClaimEventToken();
                 foreach (var target in _invocationList) 
                 {
                     if (target.BlockingEvent != null) target.BlockingEvent(args);
+                    else if (target.BlockingEventWithToken != null)
+                    {
+                        target.BlockingEventWithToken(args, ref token);
+                        if (token.Claimed) return;
+                    }
                     else if (target.EmptyBlockingEvent != null) target.EmptyBlockingEvent();
                     else if (target.EmptyEvent != null) await target.EmptyEvent();
                     else await target.Event (args);
@@ -69,9 +79,15 @@ namespace AGS.Engine
         {
             try
             {
+                ClaimEventToken token = new ClaimEventToken();
                 foreach (var target in _invocationList) 
                 {
                     if (target.BlockingEvent != null) target.BlockingEvent(args);
+                    else if (target.BlockingEventWithToken != null)
+                    {
+                        target.BlockingEventWithToken(args, ref token);
+                        if (token.Claimed) return;
+                    }
                     else if (target.EmptyBlockingEvent != null) target.EmptyBlockingEvent();
                     else if (target.EmptyEvent != null) target.EmptyEvent();
                     else target.Event(args);
@@ -135,8 +151,15 @@ namespace AGS.Engine
                 EmptyEvent = callback;
             }
 
+            public Callback(ClaimableCallbackWithArgs<TEventArgs> callback)
+            {
+                _origObject = callback;
+                BlockingEventWithToken = callback;
+            }
+
             public Func<TEventArgs, Task> Event { get; }
             public Action<TEventArgs> BlockingEvent { get; }
+            public ClaimableCallbackWithArgs<TEventArgs> BlockingEventWithToken { get; }
             public Func<Task> EmptyEvent { get; }
             public Action EmptyBlockingEvent { get; }
 
