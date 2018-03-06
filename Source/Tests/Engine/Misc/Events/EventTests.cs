@@ -144,7 +144,7 @@ namespace Tests
         public void ClaimEventTest()
         {
             AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs>();
-            ev.Subscribe(onEventClaim);
+            ev.Subscribe(onEventClaim, CallbackPriority.High);
             EventTests target2 = new EventTests();
             ev.Subscribe(target2.onEventClaim);
             ev.Invoke(new MockEventArgs(x));

@@ -8,45 +8,44 @@ namespace AGS.Engine
 {
     public class AGSEvent<TEventArgs> : IEvent<TEventArgs>, IBlockingEvent<TEventArgs>
     {
-        private readonly IConcurrentHashSet<Callback> _invocationList;
-        private readonly EventSubscriberCounter _counter = new EventSubscriberCounter();
+        private readonly EventCallbacksCollection<Callback> _invocationList;
 
         public AGSEvent()
         {
-            _invocationList = new AGSConcurrentHashSet<Callback>(fireListChangedEvent: false);
+            _invocationList = new EventCallbacksCollection<Callback>();
         }
 
         #region IEvent implementation
 
-        public int SubscribersCount => _counter.Count;
+        public int SubscribersCount => _invocationList.Count;
 
-        public void Subscribe(Action<TEventArgs> callback) => subscribe(new Callback(callback));
+        public void Subscribe(Action<TEventArgs> callback, CallbackPriority priority = CallbackPriority.Normal) => subscribe(new Callback(callback), priority);
 
-        public void Subscribe(Action callback) => subscribe(new Callback(callback));
+        public void Subscribe(Action callback, CallbackPriority priority = CallbackPriority.Normal) => subscribe(new Callback(callback), priority);
 
-        public void Subscribe(ClaimableCallbackWithArgs<TEventArgs> callback) => subscribe(new Callback(callback));
+        public void Subscribe(ClaimableCallbackWithArgs<TEventArgs> callback, CallbackPriority priority = CallbackPriority.Normal) => subscribe(new Callback(callback), priority);
 
-        public void Unsubscribe(Action<TEventArgs> callback) => unsubscribe(new Callback(callback));
+        public void Unsubscribe(Action<TEventArgs> callback, CallbackPriority priority = CallbackPriority.Normal) => unsubscribe(new Callback(callback), priority);
 
-        public void Unsubscribe(Action callback) => unsubscribe(new Callback(callback));
+        public void Unsubscribe(Action callback, CallbackPriority priority = CallbackPriority.Normal) => unsubscribe(new Callback(callback), priority);
 
-        public void Unsubscribe(ClaimableCallbackWithArgs<TEventArgs> callback) => unsubscribe(new Callback(callback));
+        public void Unsubscribe(ClaimableCallbackWithArgs<TEventArgs> callback, CallbackPriority priority = CallbackPriority.Normal) => unsubscribe(new Callback(callback), priority);
 
-        public void SubscribeToAsync (Func<TEventArgs, Task> callback) => subscribe(new Callback (callback));
+        public void SubscribeToAsync (Func<TEventArgs, Task> callback, CallbackPriority priority = CallbackPriority.Normal) => subscribe(new Callback (callback), priority);
 
-        public void UnsubscribeToAsync (Func<TEventArgs, Task> callback) => unsubscribe(new Callback (callback));
+        public void UnsubscribeToAsync (Func<TEventArgs, Task> callback, CallbackPriority priority = CallbackPriority.Normal) => unsubscribe(new Callback (callback), priority);
 
-        public void SubscribeToAsync(Func<Task> callback) => subscribe(new Callback(callback));
+        public void SubscribeToAsync(Func<Task> callback, CallbackPriority priority = CallbackPriority.Normal) => subscribe(new Callback(callback), priority);
 
-        public void UnsubscribeToAsync(Func<Task> callback) => unsubscribe(new Callback(callback));
+        public void UnsubscribeToAsync(Func<Task> callback, CallbackPriority priority = CallbackPriority.Normal) => unsubscribe(new Callback(callback), priority);
 
-        public async Task WaitUntilAsync(Predicate<TEventArgs> condition)
+        public async Task WaitUntilAsync(Predicate<TEventArgs> condition, CallbackPriority priority = CallbackPriority.Normal)
         {
             TaskCompletionSource<object> tcs = new TaskCompletionSource<object> (null);
             var callback = new Callback(condition, tcs);
-            subscribe(callback);
+            subscribe(callback, priority);
             await tcs.Task;
-            unsubscribe(callback);
+            unsubscribe(callback, priority);
         }
 
         public async Task InvokeAsync (TEventArgs args)
@@ -103,20 +102,14 @@ namespace AGS.Engine
 
         #endregion
 
-        private void subscribe(Callback callback)
+        private void subscribe(Callback callback, CallbackPriority priority)
         {
-            if (_invocationList.Add (callback))
-            {
-                _counter.Add();
-            }
+            _invocationList.Add(callback, priority);
         }
 
-        private void unsubscribe(Callback callback)
+        private void unsubscribe(Callback callback, CallbackPriority priority)
         {
-            if (_invocationList.Remove(callback))
-            {
-                _counter.Remove();
-            }
+            _invocationList.Remove(callback, priority);
         }
 
         private class Callback

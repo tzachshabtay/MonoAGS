@@ -28,57 +28,57 @@ namespace AGS.Engine
 
         public int SubscribersCount => _ev.SubscribersCount;
 
-        public void Subscribe(Action<TEventArgs> callback)
+        public void Subscribe(Action<TEventArgs> callback, CallbackPriority priority = CallbackPriority.Normal)
         {
-            _ev.Subscribe(callback);
+            _ev.Subscribe(callback, priority);
         }
 
-        public void Unsubscribe(Action<TEventArgs> callback)
+        public void Unsubscribe(Action<TEventArgs> callback, CallbackPriority priority = CallbackPriority.Normal)
         {
-            _ev.Unsubscribe(callback);
+            _ev.Unsubscribe(callback, priority);
         }
 
-        public void Subscribe(Action callback)
+        public void Subscribe(Action callback, CallbackPriority priority = CallbackPriority.Normal)
         {
-            _ev.Subscribe(callback);
+            _ev.Subscribe(callback, priority);
         }
 
-        public void Unsubscribe(Action callback)
+        public void Unsubscribe(Action callback, CallbackPriority priority = CallbackPriority.Normal)
         {
-            _ev.Unsubscribe(callback);
+            _ev.Unsubscribe(callback, priority);
         }
 
-        public void WaitUntil(Predicate<TEventArgs> condition)
+        public void WaitUntil(Predicate<TEventArgs> condition, CallbackPriority priority = CallbackPriority.Normal)
         {
-            Task.Run(async () => await WaitUntilAsync(condition)).Wait();
+            Task.Run(async () => await WaitUntilAsync(condition, priority)).Wait();
         }
 
-        public void SubscribeToAsync(Func<TEventArgs, Task> callback)
+        public void SubscribeToAsync(Func<TEventArgs, Task> callback, CallbackPriority priority = CallbackPriority.Normal)
         {
-            _ev.SubscribeToAsync(callback);
+            _ev.SubscribeToAsync(callback, priority);
         }
 
-        public void UnsubscribeToAsync(Func<TEventArgs, Task> callback)
+        public void UnsubscribeToAsync(Func<TEventArgs, Task> callback, CallbackPriority priority = CallbackPriority.Normal)
         {
-            _ev.UnsubscribeToAsync(callback);
+            _ev.UnsubscribeToAsync(callback, priority);
         }
 
-        public void SubscribeToAsync(Func<Task> callback)
+        public void SubscribeToAsync(Func<Task> callback, CallbackPriority priority = CallbackPriority.Normal)
         {
-            _ev.SubscribeToAsync(callback);
+            _ev.SubscribeToAsync(callback, priority);
         }
 
-        public void UnsubscribeToAsync(Func<Task> callback)
+        public void UnsubscribeToAsync(Func<Task> callback, CallbackPriority priority = CallbackPriority.Normal)
         {
-            _ev.UnsubscribeToAsync(callback);
+            _ev.UnsubscribeToAsync(callback, priority);
         }
 
-        public async Task WaitUntilAsync(Predicate<TEventArgs> condition)
+        public async Task WaitUntilAsync(Predicate<TEventArgs> condition, CallbackPriority priority = CallbackPriority.Normal)
         {
             var ev = getEvent();
             if (ev == null) return;
             if (!await approachHotspot(ev)) return;
-            await ev.WaitUntilAsync(condition);
+            await ev.WaitUntilAsync(condition, priority);
         }
 
         public async Task InvokeAsync(TEventArgs args)
