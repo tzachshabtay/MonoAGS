@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IEvent&lt;TEventArgs&gt;
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.32.0.0">
+    <meta name="generator" content="docfx 2.32.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -148,7 +148,7 @@ Interested parties can subscribe to the event and be notified when it triggers (
     <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_InvokeAsync__0_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.InvokeAsync(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L88">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L97">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_InvokeAsync_" data-uid="AGS.API.IEvent`1.InvokeAsync*"></a>
   <h4 id="AGS_API_IEvent_1_InvokeAsync__0_" data-uid="AGS.API.IEvent`1.InvokeAsync(`0)">InvokeAsync(TEventArgs)</h4>
@@ -194,13 +194,13 @@ Interested parties can subscribe to the event and be notified when it triggers (
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_Subscribe_System_Action_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.Subscribe(System.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_Subscribe_System_Action_AGS_API_CallbackPriority_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.Subscribe(System.Action%2CAGS.API.CallbackPriority)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L53">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L58">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_Subscribe_" data-uid="AGS.API.IEvent`1.Subscribe*"></a>
-  <h4 id="AGS_API_IEvent_1_Subscribe_System_Action_" data-uid="AGS.API.IEvent`1.Subscribe(System.Action)">Subscribe(Action)</h4>
+  <h4 id="AGS_API_IEvent_1_Subscribe_System_Action_AGS_API_CallbackPriority_" data-uid="AGS.API.IEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)">Subscribe(Action, CallbackPriority)</h4>
   <div class="markdown level1 summary"><p>Subscribe the specified callback to the event.
 Once subscribed, whenever the event happens this callback will be called.
 This version of Subscribe ignores incoming arguments from the event (if you need the arguments, use the other overload which gets an action of TEventArgs).</p>
@@ -208,7 +208,7 @@ This version of Subscribe ignores incoming arguments from the event (if you need
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Subscribe(Action callback)</code></pre>
+    <pre><code class="lang-csharp hljs">void Subscribe(Action callback, CallbackPriority priority = CallbackPriority.Normal)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -226,24 +226,30 @@ This version of Subscribe ignores incoming arguments from the event (if you need
         <td><p>Callback.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.CallbackPriority.html">CallbackPriority</a></td>
+        <td><span class="parametername">priority</span></td>
+        <td><p>The callback priority (determines the order in which the subscribers get the events).</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_Subscribe_System_Action__0__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.Subscribe(System.Action%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_Subscribe_System_Action__0__AGS_API_CallbackPriority_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.Subscribe(System.Action%7B%600%7D%2CAGS.API.CallbackPriority)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L24">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L25">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_Subscribe_" data-uid="AGS.API.IEvent`1.Subscribe*"></a>
-  <h4 id="AGS_API_IEvent_1_Subscribe_System_Action__0__" data-uid="AGS.API.IEvent`1.Subscribe(System.Action{`0})">Subscribe(Action&lt;TEventArgs&gt;)</h4>
+  <h4 id="AGS_API_IEvent_1_Subscribe_System_Action__0__AGS_API_CallbackPriority_" data-uid="AGS.API.IEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)">Subscribe(Action&lt;TEventArgs&gt;, CallbackPriority)</h4>
   <div class="markdown level1 summary"><p>Subscribe the specified callback to the event.
 Once subscribed, whenever the event happens this callback will be called.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Subscribe(Action&lt;TEventArgs&gt; callback)</code></pre>
+    <pre><code class="lang-csharp hljs">void Subscribe(Action&lt;TEventArgs&gt; callback, CallbackPriority priority = CallbackPriority.Normal)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -261,24 +267,30 @@ Once subscribed, whenever the event happens this callback will be called.</p>
         <td><p>Callback.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.CallbackPriority.html">CallbackPriority</a></td>
+        <td><span class="parametername">priority</span></td>
+        <td><p>The callback priority (determines the order in which the subscribers get the events).</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_SubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.SubscribeToAsync(System.Func%7B%600%2CSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_SubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__AGS_API_CallbackPriority_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.SubscribeToAsync(System.Func%7B%600%2CSystem.Threading.Tasks.Task%7D%2CAGS.API.CallbackPriority)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L38">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L41">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_SubscribeToAsync_" data-uid="AGS.API.IEvent`1.SubscribeToAsync*"></a>
-  <h4 id="AGS_API_IEvent_1_SubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__" data-uid="AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})">SubscribeToAsync(Func&lt;TEventArgs, Task&gt;)</h4>
+  <h4 id="AGS_API_IEvent_1_SubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__AGS_API_CallbackPriority_" data-uid="AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task},AGS.API.CallbackPriority)">SubscribeToAsync(Func&lt;TEventArgs, Task&gt;, CallbackPriority)</h4>
   <div class="markdown level1 summary"><p>Subscribe the specified asynchronous callback to the event.
 Once subscribed, whenever the event happens this callback will be called.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void SubscribeToAsync(Func&lt;TEventArgs, Task&gt; callback)</code></pre>
+    <pre><code class="lang-csharp hljs">void SubscribeToAsync(Func&lt;TEventArgs, Task&gt; callback, CallbackPriority priority = CallbackPriority.Normal)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -296,17 +308,23 @@ Once subscribed, whenever the event happens this callback will be called.</p>
         <td><p>Callback.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.CallbackPriority.html">CallbackPriority</a></td>
+        <td><span class="parametername">priority</span></td>
+        <td><p>The callback priority (determines the order in which the subscribers get the events).</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.SubscribeToAsync(System.Func%7BSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.SubscribeToAsync(System.Func%7BSystem.Threading.Tasks.Task%7D%2CAGS.API.CallbackPriority)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L68">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L75">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_SubscribeToAsync_" data-uid="AGS.API.IEvent`1.SubscribeToAsync*"></a>
-  <h4 id="AGS_API_IEvent_1_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__" data-uid="AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})">SubscribeToAsync(Func&lt;Task&gt;)</h4>
+  <h4 id="AGS_API_IEvent_1_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_" data-uid="AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)">SubscribeToAsync(Func&lt;Task&gt;, CallbackPriority)</h4>
   <div class="markdown level1 summary"><p>Subscribe the specified asynchronous callback to the event.
 Once subscribed, whenever the event happens this callback will be called.
 This version of Subscribe ignores incoming arguments from the event (if you need the arguments, use the other overload which gets a func of TEventArgs -&gt; Task).</p>
@@ -314,7 +332,7 @@ This version of Subscribe ignores incoming arguments from the event (if you need
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void SubscribeToAsync(Func&lt;Task&gt; callback)</code></pre>
+    <pre><code class="lang-csharp hljs">void SubscribeToAsync(Func&lt;Task&gt; callback, CallbackPriority priority = CallbackPriority.Normal)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -332,24 +350,30 @@ This version of Subscribe ignores incoming arguments from the event (if you need
         <td><p>Callback.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.CallbackPriority.html">CallbackPriority</a></td>
+        <td><span class="parametername">priority</span></td>
+        <td><p>The callback priority (determines the order in which the subscribers get the events).</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_Unsubscribe_System_Action_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.Unsubscribe(System.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_Unsubscribe_System_Action_AGS_API_CallbackPriority_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.Unsubscribe(System.Action%2CAGS.API.CallbackPriority)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L60">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L66">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_Unsubscribe_" data-uid="AGS.API.IEvent`1.Unsubscribe*"></a>
-  <h4 id="AGS_API_IEvent_1_Unsubscribe_System_Action_" data-uid="AGS.API.IEvent`1.Unsubscribe(System.Action)">Unsubscribe(Action)</h4>
+  <h4 id="AGS_API_IEvent_1_Unsubscribe_System_Action_AGS_API_CallbackPriority_" data-uid="AGS.API.IEvent`1.Unsubscribe(System.Action,AGS.API.CallbackPriority)">Unsubscribe(Action, CallbackPriority)</h4>
   <div class="markdown level1 summary"><p>Unsubscribe the specified callback from the event.
 This will stops notifications to call this callback.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Unsubscribe(Action callback)</code></pre>
+    <pre><code class="lang-csharp hljs">void Unsubscribe(Action callback, CallbackPriority priority = CallbackPriority.Normal)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -367,24 +391,30 @@ This will stops notifications to call this callback.</p>
         <td><p>Callback.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.CallbackPriority.html">CallbackPriority</a></td>
+        <td><span class="parametername">priority</span></td>
+        <td><p>The callback priority (determines the order in which the subscribers get the events).</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_Unsubscribe_System_Action__0__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.Unsubscribe(System.Action%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_Unsubscribe_System_Action__0__AGS_API_CallbackPriority_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.Unsubscribe(System.Action%7B%600%7D%2CAGS.API.CallbackPriority)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L31">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L33">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_Unsubscribe_" data-uid="AGS.API.IEvent`1.Unsubscribe*"></a>
-  <h4 id="AGS_API_IEvent_1_Unsubscribe_System_Action__0__" data-uid="AGS.API.IEvent`1.Unsubscribe(System.Action{`0})">Unsubscribe(Action&lt;TEventArgs&gt;)</h4>
+  <h4 id="AGS_API_IEvent_1_Unsubscribe_System_Action__0__AGS_API_CallbackPriority_" data-uid="AGS.API.IEvent`1.Unsubscribe(System.Action{`0},AGS.API.CallbackPriority)">Unsubscribe(Action&lt;TEventArgs&gt;, CallbackPriority)</h4>
   <div class="markdown level1 summary"><p>Unsubscribe the specified callback from the event.
 This will stops notifications to call this callback.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Unsubscribe(Action&lt;TEventArgs&gt; callback)</code></pre>
+    <pre><code class="lang-csharp hljs">void Unsubscribe(Action&lt;TEventArgs&gt; callback, CallbackPriority priority = CallbackPriority.Normal)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -402,24 +432,30 @@ This will stops notifications to call this callback.</p>
         <td><p>Callback.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.CallbackPriority.html">CallbackPriority</a></td>
+        <td><span class="parametername">priority</span></td>
+        <td><p>The callback priority (determines the order in which the subscribers get the events).</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_UnsubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.UnsubscribeToAsync(System.Func%7B%600%2CSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_UnsubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__AGS_API_CallbackPriority_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.UnsubscribeToAsync(System.Func%7B%600%2CSystem.Threading.Tasks.Task%7D%2CAGS.API.CallbackPriority)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L45">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L49">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_UnsubscribeToAsync_" data-uid="AGS.API.IEvent`1.UnsubscribeToAsync*"></a>
-  <h4 id="AGS_API_IEvent_1_UnsubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__" data-uid="AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})">UnsubscribeToAsync(Func&lt;TEventArgs, Task&gt;)</h4>
+  <h4 id="AGS_API_IEvent_1_UnsubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__AGS_API_CallbackPriority_" data-uid="AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task},AGS.API.CallbackPriority)">UnsubscribeToAsync(Func&lt;TEventArgs, Task&gt;, CallbackPriority)</h4>
   <div class="markdown level1 summary"><p>Unsubscribe the specified asynchronous callback from the event.
 This will stops notifications to call this callback.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void UnsubscribeToAsync(Func&lt;TEventArgs, Task&gt; callback)</code></pre>
+    <pre><code class="lang-csharp hljs">void UnsubscribeToAsync(Func&lt;TEventArgs, Task&gt; callback, CallbackPriority priority = CallbackPriority.Normal)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -437,24 +473,30 @@ This will stops notifications to call this callback.</p>
         <td><p>Callback.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.CallbackPriority.html">CallbackPriority</a></td>
+        <td><span class="parametername">priority</span></td>
+        <td><p>The callback priority (determines the order in which the subscribers get the events).</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.UnsubscribeToAsync(System.Func%7BSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.UnsubscribeToAsync(System.Func%7BSystem.Threading.Tasks.Task%7D%2CAGS.API.CallbackPriority)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L75">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L83">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_UnsubscribeToAsync_" data-uid="AGS.API.IEvent`1.UnsubscribeToAsync*"></a>
-  <h4 id="AGS_API_IEvent_1_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__" data-uid="AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})">UnsubscribeToAsync(Func&lt;Task&gt;)</h4>
+  <h4 id="AGS_API_IEvent_1_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_" data-uid="AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)">UnsubscribeToAsync(Func&lt;Task&gt;, CallbackPriority)</h4>
   <div class="markdown level1 summary"><p>Unsubscribe the specified asynchronous callback from the event.
 This will stops notifications to call this callback.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void UnsubscribeToAsync(Func&lt;Task&gt; callback)</code></pre>
+    <pre><code class="lang-csharp hljs">void UnsubscribeToAsync(Func&lt;Task&gt; callback, CallbackPriority priority = CallbackPriority.Normal)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -472,23 +514,29 @@ This will stops notifications to call this callback.</p>
         <td><p>Callback.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.CallbackPriority.html">CallbackPriority</a></td>
+        <td><span class="parametername">priority</span></td>
+        <td><p>The callback priority (determines the order in which the subscribers get the events).</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_WaitUntilAsync_System_Predicate__0__.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.WaitUntilAsync(System.Predicate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ClaimEvent/apiSpec/new?filename=AGS_API_IEvent_1_WaitUntilAsync_System_Predicate__0__AGS_API_CallbackPriority_.md&amp;value=---%0Auid%3A%20AGS.API.IEvent%601.WaitUntilAsync(System.Predicate%7B%600%7D%2CAGS.API.CallbackPriority)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L82">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ClaimEvent/Source/AGS.API/Misc/Events/IEvent.cs/#L91">View Source</a>
   </span>
   <a id="AGS_API_IEvent_1_WaitUntilAsync_" data-uid="AGS.API.IEvent`1.WaitUntilAsync*"></a>
-  <h4 id="AGS_API_IEvent_1_WaitUntilAsync_System_Predicate__0__" data-uid="AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0})">WaitUntilAsync(Predicate&lt;TEventArgs&gt;)</h4>
+  <h4 id="AGS_API_IEvent_1_WaitUntilAsync_System_Predicate__0__AGS_API_CallbackPriority_" data-uid="AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0},AGS.API.CallbackPriority)">WaitUntilAsync(Predicate&lt;TEventArgs&gt;, CallbackPriority)</h4>
   <div class="markdown level1 summary"><p>Asynchronously wait until the event fires and the specific condition applies.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task WaitUntilAsync(Predicate&lt;TEventArgs&gt; condition)</code></pre>
+    <pre><code class="lang-csharp hljs">Task WaitUntilAsync(Predicate&lt;TEventArgs&gt; condition, CallbackPriority priority = CallbackPriority.Normal)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -504,6 +552,12 @@ This will stops notifications to call this callback.</p>
         <td><span class="xref">System.Predicate</span>&lt;TEventArgs&gt;</td>
         <td><span class="parametername">condition</span></td>
         <td><p>The condition we are waiting to apply before moving on.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.CallbackPriority.html">CallbackPriority</a></td>
+        <td><span class="parametername">priority</span></td>
+        <td><p>The callback priority (determines the order in which the subscribers get the events).</p>
 </td>
       </tr>
     </tbody>

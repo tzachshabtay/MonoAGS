@@ -971,6 +971,30 @@ references:
   commentId: Overload:AGS.API.ButtonAnimation.Tint
   fullName: AGS.API.ButtonAnimation.Tint
   nameWithType: ButtonAnimation.Tint
+- uid: AGS.API.CallbackPriority
+  name: CallbackPriority
+  href: api/AGS.API.CallbackPriority.html
+  commentId: T:AGS.API.CallbackPriority
+  fullName: AGS.API.CallbackPriority
+  nameWithType: CallbackPriority
+- uid: AGS.API.CallbackPriority.High
+  name: High
+  href: api/AGS.API.CallbackPriority.html#AGS_API_CallbackPriority_High
+  commentId: F:AGS.API.CallbackPriority.High
+  fullName: AGS.API.CallbackPriority.High
+  nameWithType: CallbackPriority.High
+- uid: AGS.API.CallbackPriority.Low
+  name: Low
+  href: api/AGS.API.CallbackPriority.html#AGS_API_CallbackPriority_Low
+  commentId: F:AGS.API.CallbackPriority.Low
+  fullName: AGS.API.CallbackPriority.Low
+  nameWithType: CallbackPriority.Low
+- uid: AGS.API.CallbackPriority.Normal
+  name: Normal
+  href: api/AGS.API.CallbackPriority.html#AGS_API_CallbackPriority_Normal
+  commentId: F:AGS.API.CallbackPriority.Normal
+  fullName: AGS.API.CallbackPriority.Normal
+  nameWithType: CallbackPriority.Normal
 - uid: AGS.API.CheckBoxEventArgs
   name: CheckBoxEventArgs
   href: api/AGS.API.CheckBoxEventArgs.html
@@ -1001,6 +1025,39 @@ references:
   commentId: Overload:AGS.API.CheckBoxEventArgs.Checked
   fullName: AGS.API.CheckBoxEventArgs.Checked
   nameWithType: CheckBoxEventArgs.Checked
+- uid: AGS.API.ClaimableCallback
+  name: ClaimableCallback
+  href: api/AGS.API.ClaimableCallback.html
+  commentId: T:AGS.API.ClaimableCallback
+  fullName: AGS.API.ClaimableCallback
+  nameWithType: ClaimableCallback
+- uid: AGS.API.ClaimableCallbackWithArgs`1
+  name: ClaimableCallbackWithArgs<TEventArgs>
+  href: api/AGS.API.ClaimableCallbackWithArgs-1.html
+  commentId: T:AGS.API.ClaimableCallbackWithArgs`1
+  name.vb: ClaimableCallbackWithArgs(Of TEventArgs)
+  fullName: AGS.API.ClaimableCallbackWithArgs<TEventArgs>
+  fullName.vb: AGS.API.ClaimableCallbackWithArgs(Of TEventArgs)
+  nameWithType: ClaimableCallbackWithArgs<TEventArgs>
+  nameWithType.vb: ClaimableCallbackWithArgs(Of TEventArgs)
+- uid: AGS.API.ClaimEventToken
+  name: ClaimEventToken
+  href: api/AGS.API.ClaimEventToken.html
+  commentId: T:AGS.API.ClaimEventToken
+  fullName: AGS.API.ClaimEventToken
+  nameWithType: ClaimEventToken
+- uid: AGS.API.ClaimEventToken.Claimed
+  name: Claimed
+  href: api/AGS.API.ClaimEventToken.html#AGS_API_ClaimEventToken_Claimed
+  commentId: P:AGS.API.ClaimEventToken.Claimed
+  fullName: AGS.API.ClaimEventToken.Claimed
+  nameWithType: ClaimEventToken.Claimed
+- uid: AGS.API.ClaimEventToken.Claimed*
+  name: Claimed
+  href: api/AGS.API.ClaimEventToken.html#AGS_API_ClaimEventToken_Claimed_
+  commentId: Overload:AGS.API.ClaimEventToken.Claimed
+  fullName: AGS.API.ClaimEventToken.Claimed
+  nameWithType: ClaimEventToken.Claimed
 - uid: AGS.API.Color
   name: Color
   href: api/AGS.API.Color.html
@@ -3607,12 +3664,18 @@ references:
   commentId: Overload:AGS.API.IBlockingEvent.Invoke
   fullName: AGS.API.IBlockingEvent.Invoke
   nameWithType: IBlockingEvent.Invoke
-- uid: AGS.API.IBlockingEvent.Subscribe(System.Action)
-  name: Subscribe(Action)
-  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_System_Action_
-  commentId: M:AGS.API.IBlockingEvent.Subscribe(System.Action)
-  fullName: AGS.API.IBlockingEvent.Subscribe(System.Action)
-  nameWithType: IBlockingEvent.Subscribe(Action)
+- uid: AGS.API.IBlockingEvent.Subscribe(AGS.API.ClaimableCallback,AGS.API.CallbackPriority)
+  name: Subscribe(ClaimableCallback, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_AGS_API_ClaimableCallback_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent.Subscribe(AGS.API.ClaimableCallback,AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent.Subscribe(AGS.API.ClaimableCallback, AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent.Subscribe(ClaimableCallback, CallbackPriority)
+- uid: AGS.API.IBlockingEvent.Subscribe(System.Action,AGS.API.CallbackPriority)
+  name: Subscribe(Action, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_System_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent.Subscribe(System.Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent.Subscribe(System.Action, AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent.Subscribe(Action, CallbackPriority)
 - uid: AGS.API.IBlockingEvent.Subscribe*
   name: Subscribe
   href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_
@@ -3631,27 +3694,33 @@ references:
   commentId: Overload:AGS.API.IBlockingEvent.SubscribersCount
   fullName: AGS.API.IBlockingEvent.SubscribersCount
   nameWithType: IBlockingEvent.SubscribersCount
-- uid: AGS.API.IBlockingEvent.Unsubscribe(System.Action)
-  name: Unsubscribe(Action)
-  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_System_Action_
-  commentId: M:AGS.API.IBlockingEvent.Unsubscribe(System.Action)
-  fullName: AGS.API.IBlockingEvent.Unsubscribe(System.Action)
-  nameWithType: IBlockingEvent.Unsubscribe(Action)
+- uid: AGS.API.IBlockingEvent.Unsubscribe(AGS.API.ClaimableCallback,AGS.API.CallbackPriority)
+  name: Unsubscribe(ClaimableCallback, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_AGS_API_ClaimableCallback_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent.Unsubscribe(AGS.API.ClaimableCallback,AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent.Unsubscribe(AGS.API.ClaimableCallback, AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent.Unsubscribe(ClaimableCallback, CallbackPriority)
+- uid: AGS.API.IBlockingEvent.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+  name: Unsubscribe(Action, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_System_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent.Unsubscribe(System.Action, AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent.Unsubscribe(Action, CallbackPriority)
 - uid: AGS.API.IBlockingEvent.Unsubscribe*
   name: Unsubscribe
   href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_
   commentId: Overload:AGS.API.IBlockingEvent.Unsubscribe
   fullName: AGS.API.IBlockingEvent.Unsubscribe
   nameWithType: IBlockingEvent.Unsubscribe
-- uid: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func{System.Boolean})
-  name: WaitUntilAsync(Func<Boolean>)
-  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_WaitUntilAsync_System_Func_System_Boolean__
-  commentId: M:AGS.API.IBlockingEvent.WaitUntilAsync(System.Func{System.Boolean})
-  name.vb: WaitUntilAsync(Func(Of Boolean))
-  fullName: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func<System.Boolean>)
-  fullName.vb: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func(Of System.Boolean))
-  nameWithType: IBlockingEvent.WaitUntilAsync(Func<Boolean>)
-  nameWithType.vb: IBlockingEvent.WaitUntilAsync(Func(Of Boolean))
+- uid: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func{System.Boolean},AGS.API.CallbackPriority)
+  name: WaitUntilAsync(Func<Boolean>, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_WaitUntilAsync_System_Func_System_Boolean__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent.WaitUntilAsync(System.Func{System.Boolean},AGS.API.CallbackPriority)
+  name.vb: WaitUntilAsync(Func(Of Boolean), CallbackPriority)
+  fullName: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func<System.Boolean>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func(Of System.Boolean), AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent.WaitUntilAsync(Func<Boolean>, CallbackPriority)
+  nameWithType.vb: IBlockingEvent.WaitUntilAsync(Func(Of Boolean), CallbackPriority)
 - uid: AGS.API.IBlockingEvent.WaitUntilAsync*
   name: WaitUntilAsync
   href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_WaitUntilAsync_
@@ -3683,15 +3752,24 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Invoke
   nameWithType: IBlockingEvent<TEventArgs>.Invoke
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Invoke
-- uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0})
-  name: Subscribe(Action<TEventArgs>)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action__0__
-  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0})
-  name.vb: Subscribe(Action(Of TEventArgs))
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(System.Action<TEventArgs>)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(System.Action(Of TEventArgs))
-  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action<TEventArgs>)
-  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs))
+- uid: AGS.API.IBlockingEvent`1.Subscribe(AGS.API.ClaimableCallbackWithArgs{`0},AGS.API.CallbackPriority)
+  name: Subscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_AGS_API_ClaimableCallbackWithArgs__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(AGS.API.ClaimableCallbackWithArgs{`0},AGS.API.CallbackPriority)
+  name.vb: Subscribe(ClaimableCallbackWithArgs(Of TEventArgs), CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(AGS.API.ClaimableCallbackWithArgs<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(AGS.API.ClaimableCallbackWithArgs(Of TEventArgs), AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(ClaimableCallbackWithArgs(Of TEventArgs), CallbackPriority)
+- uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)
+  name: Subscribe(Action<TEventArgs>, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)
+  name.vb: Subscribe(Action(Of TEventArgs), CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(System.Action<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(System.Action(Of TEventArgs), AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action<TEventArgs>, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.Subscribe*
   name: Subscribe
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_
@@ -3716,15 +3794,24 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).SubscribersCount
   nameWithType: IBlockingEvent<TEventArgs>.SubscribersCount
   nameWithType.vb: IBlockingEvent(Of TEventArgs).SubscribersCount
-- uid: AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0})
-  name: Unsubscribe(Action<TEventArgs>)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action__0__
-  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0})
-  name.vb: Unsubscribe(Action(Of TEventArgs))
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(System.Action<TEventArgs>)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(System.Action(Of TEventArgs))
-  nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>)
-  nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs))
+- uid: AGS.API.IBlockingEvent`1.Unsubscribe(AGS.API.ClaimableCallbackWithArgs{`0},AGS.API.CallbackPriority)
+  name: Unsubscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_AGS_API_ClaimableCallbackWithArgs__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(AGS.API.ClaimableCallbackWithArgs{`0},AGS.API.CallbackPriority)
+  name.vb: Unsubscribe(ClaimableCallbackWithArgs(Of TEventArgs), CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(AGS.API.ClaimableCallbackWithArgs<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(AGS.API.ClaimableCallbackWithArgs(Of TEventArgs), AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(ClaimableCallbackWithArgs(Of TEventArgs), CallbackPriority)
+- uid: AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0},AGS.API.CallbackPriority)
+  name: Unsubscribe(Action<TEventArgs>, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0},AGS.API.CallbackPriority)
+  name.vb: Unsubscribe(Action(Of TEventArgs), CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(System.Action<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(System.Action(Of TEventArgs), AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.Unsubscribe*
   name: Unsubscribe
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_
@@ -3733,15 +3820,15 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe
   nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe
-- uid: AGS.API.IBlockingEvent`1.WaitUntilAsync(System.Predicate{`0})
-  name: WaitUntilAsync(Predicate<TEventArgs>)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_WaitUntilAsync_System_Predicate__0__
-  commentId: M:AGS.API.IBlockingEvent`1.WaitUntilAsync(System.Predicate{`0})
-  name.vb: WaitUntilAsync(Predicate(Of TEventArgs))
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.WaitUntilAsync(System.Predicate<TEventArgs>)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).WaitUntilAsync(System.Predicate(Of TEventArgs))
-  nameWithType: IBlockingEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>)
-  nameWithType.vb: IBlockingEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs))
+- uid: AGS.API.IBlockingEvent`1.WaitUntilAsync(System.Predicate{`0},AGS.API.CallbackPriority)
+  name: WaitUntilAsync(Predicate<TEventArgs>, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_WaitUntilAsync_System_Predicate__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.WaitUntilAsync(System.Predicate{`0},AGS.API.CallbackPriority)
+  name.vb: WaitUntilAsync(Predicate(Of TEventArgs), CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.WaitUntilAsync(System.Predicate<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).WaitUntilAsync(System.Predicate(Of TEventArgs), AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.WaitUntilAsync*
   name: WaitUntilAsync
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_WaitUntilAsync_
@@ -6447,12 +6534,12 @@ references:
   commentId: Overload:AGS.API.IEvent.InvokeAsync
   fullName: AGS.API.IEvent.InvokeAsync
   nameWithType: IEvent.InvokeAsync
-- uid: AGS.API.IEvent.Subscribe(System.Action)
-  name: Subscribe(Action)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Subscribe_System_Action_
-  commentId: M:AGS.API.IEvent.Subscribe(System.Action)
-  fullName: AGS.API.IEvent.Subscribe(System.Action)
-  nameWithType: IEvent.Subscribe(Action)
+- uid: AGS.API.IEvent.Subscribe(System.Action,AGS.API.CallbackPriority)
+  name: Subscribe(Action, CallbackPriority)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Subscribe_System_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent.Subscribe(System.Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent.Subscribe(System.Action, AGS.API.CallbackPriority)
+  nameWithType: IEvent.Subscribe(Action, CallbackPriority)
 - uid: AGS.API.IEvent.Subscribe*
   name: Subscribe
   href: api/AGS.API.IEvent.html#AGS_API_IEvent_Subscribe_
@@ -6471,57 +6558,57 @@ references:
   commentId: Overload:AGS.API.IEvent.SubscribersCount
   fullName: AGS.API.IEvent.SubscribersCount
   nameWithType: IEvent.SubscribersCount
-- uid: AGS.API.IEvent.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})
-  name: SubscribeToAsync(Func<Task>)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__
-  commentId: M:AGS.API.IEvent.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})
-  name.vb: SubscribeToAsync(Func(Of Task))
-  fullName: AGS.API.IEvent.SubscribeToAsync(System.Func<System.Threading.Tasks.Task>)
-  fullName.vb: AGS.API.IEvent.SubscribeToAsync(System.Func(Of System.Threading.Tasks.Task))
-  nameWithType: IEvent.SubscribeToAsync(Func<Task>)
-  nameWithType.vb: IEvent.SubscribeToAsync(Func(Of Task))
+- uid: AGS.API.IEvent.SubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name: SubscribeToAsync(Func<Task>, CallbackPriority)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent.SubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name.vb: SubscribeToAsync(Func(Of Task), CallbackPriority)
+  fullName: AGS.API.IEvent.SubscribeToAsync(System.Func<System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent.SubscribeToAsync(System.Func(Of System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  nameWithType: IEvent.SubscribeToAsync(Func<Task>, CallbackPriority)
+  nameWithType.vb: IEvent.SubscribeToAsync(Func(Of Task), CallbackPriority)
 - uid: AGS.API.IEvent.SubscribeToAsync*
   name: SubscribeToAsync
   href: api/AGS.API.IEvent.html#AGS_API_IEvent_SubscribeToAsync_
   commentId: Overload:AGS.API.IEvent.SubscribeToAsync
   fullName: AGS.API.IEvent.SubscribeToAsync
   nameWithType: IEvent.SubscribeToAsync
-- uid: AGS.API.IEvent.Unsubscribe(System.Action)
-  name: Unsubscribe(Action)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Unsubscribe_System_Action_
-  commentId: M:AGS.API.IEvent.Unsubscribe(System.Action)
-  fullName: AGS.API.IEvent.Unsubscribe(System.Action)
-  nameWithType: IEvent.Unsubscribe(Action)
+- uid: AGS.API.IEvent.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+  name: Unsubscribe(Action, CallbackPriority)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Unsubscribe_System_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent.Unsubscribe(System.Action, AGS.API.CallbackPriority)
+  nameWithType: IEvent.Unsubscribe(Action, CallbackPriority)
 - uid: AGS.API.IEvent.Unsubscribe*
   name: Unsubscribe
   href: api/AGS.API.IEvent.html#AGS_API_IEvent_Unsubscribe_
   commentId: Overload:AGS.API.IEvent.Unsubscribe
   fullName: AGS.API.IEvent.Unsubscribe
   nameWithType: IEvent.Unsubscribe
-- uid: AGS.API.IEvent.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})
-  name: UnsubscribeToAsync(Func<Task>)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__
-  commentId: M:AGS.API.IEvent.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})
-  name.vb: UnsubscribeToAsync(Func(Of Task))
-  fullName: AGS.API.IEvent.UnsubscribeToAsync(System.Func<System.Threading.Tasks.Task>)
-  fullName.vb: AGS.API.IEvent.UnsubscribeToAsync(System.Func(Of System.Threading.Tasks.Task))
-  nameWithType: IEvent.UnsubscribeToAsync(Func<Task>)
-  nameWithType.vb: IEvent.UnsubscribeToAsync(Func(Of Task))
+- uid: AGS.API.IEvent.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name: UnsubscribeToAsync(Func<Task>, CallbackPriority)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name.vb: UnsubscribeToAsync(Func(Of Task), CallbackPriority)
+  fullName: AGS.API.IEvent.UnsubscribeToAsync(System.Func<System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent.UnsubscribeToAsync(System.Func(Of System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  nameWithType: IEvent.UnsubscribeToAsync(Func<Task>, CallbackPriority)
+  nameWithType.vb: IEvent.UnsubscribeToAsync(Func(Of Task), CallbackPriority)
 - uid: AGS.API.IEvent.UnsubscribeToAsync*
   name: UnsubscribeToAsync
   href: api/AGS.API.IEvent.html#AGS_API_IEvent_UnsubscribeToAsync_
   commentId: Overload:AGS.API.IEvent.UnsubscribeToAsync
   fullName: AGS.API.IEvent.UnsubscribeToAsync
   nameWithType: IEvent.UnsubscribeToAsync
-- uid: AGS.API.IEvent.WaitUntilAsync(System.Func{System.Boolean})
-  name: WaitUntilAsync(Func<Boolean>)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_WaitUntilAsync_System_Func_System_Boolean__
-  commentId: M:AGS.API.IEvent.WaitUntilAsync(System.Func{System.Boolean})
-  name.vb: WaitUntilAsync(Func(Of Boolean))
-  fullName: AGS.API.IEvent.WaitUntilAsync(System.Func<System.Boolean>)
-  fullName.vb: AGS.API.IEvent.WaitUntilAsync(System.Func(Of System.Boolean))
-  nameWithType: IEvent.WaitUntilAsync(Func<Boolean>)
-  nameWithType.vb: IEvent.WaitUntilAsync(Func(Of Boolean))
+- uid: AGS.API.IEvent.WaitUntilAsync(System.Func{System.Boolean},AGS.API.CallbackPriority)
+  name: WaitUntilAsync(Func<Boolean>, CallbackPriority)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_WaitUntilAsync_System_Func_System_Boolean__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent.WaitUntilAsync(System.Func{System.Boolean},AGS.API.CallbackPriority)
+  name.vb: WaitUntilAsync(Func(Of Boolean), CallbackPriority)
+  fullName: AGS.API.IEvent.WaitUntilAsync(System.Func<System.Boolean>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent.WaitUntilAsync(System.Func(Of System.Boolean), AGS.API.CallbackPriority)
+  nameWithType: IEvent.WaitUntilAsync(Func<Boolean>, CallbackPriority)
+  nameWithType.vb: IEvent.WaitUntilAsync(Func(Of Boolean), CallbackPriority)
 - uid: AGS.API.IEvent.WaitUntilAsync*
   name: WaitUntilAsync
   href: api/AGS.API.IEvent.html#AGS_API_IEvent_WaitUntilAsync_
@@ -6553,23 +6640,23 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).InvokeAsync
   nameWithType: IEvent<TEventArgs>.InvokeAsync
   nameWithType.vb: IEvent(Of TEventArgs).InvokeAsync
-- uid: AGS.API.IEvent`1.Subscribe(System.Action)
-  name: Subscribe(Action)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_System_Action_
-  commentId: M:AGS.API.IEvent`1.Subscribe(System.Action)
-  fullName: AGS.API.IEvent<TEventArgs>.Subscribe(System.Action)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).Subscribe(System.Action)
-  nameWithType: IEvent<TEventArgs>.Subscribe(Action)
-  nameWithType.vb: IEvent(Of TEventArgs).Subscribe(Action)
-- uid: AGS.API.IEvent`1.Subscribe(System.Action{`0})
-  name: Subscribe(Action<TEventArgs>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_System_Action__0__
-  commentId: M:AGS.API.IEvent`1.Subscribe(System.Action{`0})
-  name.vb: Subscribe(Action(Of TEventArgs))
-  fullName: AGS.API.IEvent<TEventArgs>.Subscribe(System.Action<TEventArgs>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).Subscribe(System.Action(Of TEventArgs))
-  nameWithType: IEvent<TEventArgs>.Subscribe(Action<TEventArgs>)
-  nameWithType.vb: IEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs))
+- uid: AGS.API.IEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
+  name: Subscribe(Action, CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_System_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.Subscribe(System.Action, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Subscribe(System.Action, AGS.API.CallbackPriority)
+  nameWithType: IEvent<TEventArgs>.Subscribe(Action, CallbackPriority)
+  nameWithType.vb: IEvent(Of TEventArgs).Subscribe(Action, CallbackPriority)
+- uid: AGS.API.IEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)
+  name: Subscribe(Action<TEventArgs>, CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_System_Action__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)
+  name.vb: Subscribe(Action(Of TEventArgs), CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.Subscribe(System.Action<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Subscribe(System.Action(Of TEventArgs), AGS.API.CallbackPriority)
+  nameWithType: IEvent<TEventArgs>.Subscribe(Action<TEventArgs>, CallbackPriority)
+  nameWithType.vb: IEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IEvent`1.Subscribe*
   name: Subscribe
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_
@@ -6594,24 +6681,24 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribersCount
   nameWithType: IEvent<TEventArgs>.SubscribersCount
   nameWithType.vb: IEvent(Of TEventArgs).SubscribersCount
-- uid: AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
-  name: SubscribeToAsync(Func<TEventArgs, Task>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__
-  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
-  name.vb: SubscribeToAsync(Func(Of TEventArgs, Task))
-  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(System.Func<TEventArgs, System.Threading.Tasks.Task>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task))
-  nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<TEventArgs, Task>)
-  nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of TEventArgs, Task))
-- uid: AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})
-  name: SubscribeToAsync(Func<Task>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__
-  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Threading.Tasks.Task})
-  name.vb: SubscribeToAsync(Func(Of Task))
-  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(System.Func<System.Threading.Tasks.Task>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of System.Threading.Tasks.Task))
-  nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<Task>)
-  nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of Task))
+- uid: AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name: SubscribeToAsync(Func<TEventArgs, Task>, CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name.vb: SubscribeToAsync(Func(Of TEventArgs, Task), CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(System.Func<TEventArgs, System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<TEventArgs, Task>, CallbackPriority)
+  nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of TEventArgs, Task), CallbackPriority)
+- uid: AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name: SubscribeToAsync(Func<Task>, CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name.vb: SubscribeToAsync(Func(Of Task), CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(System.Func<System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<Task>, CallbackPriority)
+  nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of Task), CallbackPriority)
 - uid: AGS.API.IEvent`1.SubscribeToAsync*
   name: SubscribeToAsync
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_
@@ -6620,23 +6707,23 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync
   nameWithType: IEvent<TEventArgs>.SubscribeToAsync
   nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync
-- uid: AGS.API.IEvent`1.Unsubscribe(System.Action)
-  name: Unsubscribe(Action)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_System_Action_
-  commentId: M:AGS.API.IEvent`1.Unsubscribe(System.Action)
-  fullName: AGS.API.IEvent<TEventArgs>.Unsubscribe(System.Action)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe(System.Action)
-  nameWithType: IEvent<TEventArgs>.Unsubscribe(Action)
-  nameWithType.vb: IEvent(Of TEventArgs).Unsubscribe(Action)
-- uid: AGS.API.IEvent`1.Unsubscribe(System.Action{`0})
-  name: Unsubscribe(Action<TEventArgs>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_System_Action__0__
-  commentId: M:AGS.API.IEvent`1.Unsubscribe(System.Action{`0})
-  name.vb: Unsubscribe(Action(Of TEventArgs))
-  fullName: AGS.API.IEvent<TEventArgs>.Unsubscribe(System.Action<TEventArgs>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe(System.Action(Of TEventArgs))
-  nameWithType: IEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>)
-  nameWithType.vb: IEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs))
+- uid: AGS.API.IEvent`1.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+  name: Unsubscribe(Action, CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_System_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.Unsubscribe(System.Action, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe(System.Action, AGS.API.CallbackPriority)
+  nameWithType: IEvent<TEventArgs>.Unsubscribe(Action, CallbackPriority)
+  nameWithType.vb: IEvent(Of TEventArgs).Unsubscribe(Action, CallbackPriority)
+- uid: AGS.API.IEvent`1.Unsubscribe(System.Action{`0},AGS.API.CallbackPriority)
+  name: Unsubscribe(Action<TEventArgs>, CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_System_Action__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.Unsubscribe(System.Action{`0},AGS.API.CallbackPriority)
+  name.vb: Unsubscribe(Action(Of TEventArgs), CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.Unsubscribe(System.Action<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe(System.Action(Of TEventArgs), AGS.API.CallbackPriority)
+  nameWithType: IEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>, CallbackPriority)
+  nameWithType.vb: IEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IEvent`1.Unsubscribe*
   name: Unsubscribe
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_
@@ -6645,24 +6732,24 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe
   nameWithType: IEvent<TEventArgs>.Unsubscribe
   nameWithType.vb: IEvent(Of TEventArgs).Unsubscribe
-- uid: AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
-  name: UnsubscribeToAsync(Func<TEventArgs, Task>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__
-  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task})
-  name.vb: UnsubscribeToAsync(Func(Of TEventArgs, Task))
-  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(System.Func<TEventArgs, System.Threading.Tasks.Task>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task))
-  nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<TEventArgs, Task>)
-  nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of TEventArgs, Task))
-- uid: AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})
-  name: UnsubscribeToAsync(Func<Task>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__
-  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task})
-  name.vb: UnsubscribeToAsync(Func(Of Task))
-  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(System.Func<System.Threading.Tasks.Task>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of System.Threading.Tasks.Task))
-  nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<Task>)
-  nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of Task))
+- uid: AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name: UnsubscribeToAsync(Func<TEventArgs, Task>, CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name.vb: UnsubscribeToAsync(Func(Of TEventArgs, Task), CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(System.Func<TEventArgs, System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<TEventArgs, Task>, CallbackPriority)
+  nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of TEventArgs, Task), CallbackPriority)
+- uid: AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name: UnsubscribeToAsync(Func<Task>, CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  name.vb: UnsubscribeToAsync(Func(Of Task), CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(System.Func<System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<Task>, CallbackPriority)
+  nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of Task), CallbackPriority)
 - uid: AGS.API.IEvent`1.UnsubscribeToAsync*
   name: UnsubscribeToAsync
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_
@@ -6671,15 +6758,15 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync
   nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync
   nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync
-- uid: AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0})
-  name: WaitUntilAsync(Predicate<TEventArgs>)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_WaitUntilAsync_System_Predicate__0__
-  commentId: M:AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0})
-  name.vb: WaitUntilAsync(Predicate(Of TEventArgs))
-  fullName: AGS.API.IEvent<TEventArgs>.WaitUntilAsync(System.Predicate<TEventArgs>)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).WaitUntilAsync(System.Predicate(Of TEventArgs))
-  nameWithType: IEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>)
-  nameWithType.vb: IEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs))
+- uid: AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0},AGS.API.CallbackPriority)
+  name: WaitUntilAsync(Predicate<TEventArgs>, CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_WaitUntilAsync_System_Predicate__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0},AGS.API.CallbackPriority)
+  name.vb: WaitUntilAsync(Predicate(Of TEventArgs), CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.WaitUntilAsync(System.Predicate<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).WaitUntilAsync(System.Predicate(Of TEventArgs), AGS.API.CallbackPriority)
+  nameWithType: IEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>, CallbackPriority)
+  nameWithType.vb: IEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IEvent`1.WaitUntilAsync*
   name: WaitUntilAsync
   href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_WaitUntilAsync_

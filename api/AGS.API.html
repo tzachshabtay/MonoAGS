@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace AGS.API
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.32.0.0">
+    <meta name="generator" content="docfx 2.32.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -198,6 +198,10 @@ attribute with the animation component.</p>
 </section>
       <h4><a class="xref" href="AGS.API.BeforeCropEventArgs.html">BeforeCropEventArgs</a></h4>
       <section><p>Event arguments for the &quot;before crop&quot; event.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ClaimEventToken.html">ClaimEventToken</a></h4>
+      <section><p>This is a token that can be used when you want to claim an event, so that other subscribers which follow you on the subscriber list will not get that event.
+<a class="xref" href="AGS.API.ClaimableCallback.html">ClaimableCallback</a></p>
 </section>
       <h4><a class="xref" href="AGS.API.Color.html">Color</a></h4>
       <section><p>Represents a color.</p>
@@ -1046,6 +1050,11 @@ away from the camera.</p>
 </section>
       <h4><a class="xref" href="AGS.API.BrushType.html">BrushType</a></h4>
       <section></section>
+      <h4><a class="xref" href="AGS.API.CallbackPriority.html">CallbackPriority</a></h4>
+      <section><p>In a scenario where an event has multiple subscribers, the callback priority affects which subscriber gets the callback first.
+High priority subscribers will receive the event before normal priority (the default) subscribers, and low priority will receive the event last.</p>
+<p>Note: For 2 subscribers with the same callback priority, there&apos;s no guarantee regarding who gets the event first.</p>
+</section>
       <h4><a class="xref" href="AGS.API.ComboSuggest.html">ComboSuggest</a></h4>
       <section><p>Which mode to apply when typing text in the combo box&apos;s textbox?</p>
 </section>
@@ -1121,6 +1130,24 @@ away from the camera.</p>
 </section>
       <h4><a class="xref" href="AGS.API.WrapMode.html">WrapMode</a></h4>
       <section></section>
+    <h3 id="delegates">Delegates
+  </h3>
+      <h4><a class="xref" href="AGS.API.ClaimableCallback.html">ClaimableCallback</a></h4>
+      <section><p>This allows you to subscribe to an event with the option of claiming the event, so that other subscribers in the list will not receive the event.</p>
+<example>
+<pre><code class="lang-csharp">myEvent.Subscribe(onEvent1);
+myEvent.Subscribe(onEvent2);
+
+void onEvent1(ref ClaimEventToken token)
+{
+    token.Claimed = true; //We claimed the event, &quot;onEvent2&quot; will not get called.
+}</code></pre>
+</example>
+</section>
+      <h4><a class="xref" href="AGS.API.ClaimableCallbackWithArgs-1.html">ClaimableCallbackWithArgs&lt;TEventArgs&gt;</a></h4>
+      <section><p>This allows you to subscribe to an event with the option of claiming the event, so that other subscribers in the list will not receive the event.</p>
+<p>For an example- <a class="xref" href="AGS.API.ClaimableCallback.html">ClaimableCallback</a>.</p>
+</section>
 </article>
           </div>
           
