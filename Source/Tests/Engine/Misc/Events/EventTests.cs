@@ -166,6 +166,15 @@ namespace Tests
             Assert.AreEqual(1, target2.syncEvents);
         }
 
+        [Test]
+        public void DuplicateSubscribersTest()
+        {
+            AGSEvent<MockEventArgs> ev = new AGSEvent<MockEventArgs>();
+            ev.Subscribe(onEvent);
+            ev.Subscribe(onEvent);
+            Assert.AreEqual(1, ev.SubscribersCount);
+        }
+
 		private void onEvent(MockEventArgs e)
 		{
 			Assert.AreEqual (x, e.X);

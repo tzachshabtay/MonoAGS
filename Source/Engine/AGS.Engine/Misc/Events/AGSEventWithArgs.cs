@@ -105,8 +105,10 @@ namespace AGS.Engine
 
         private void subscribe(Callback callback)
         {
-            _counter.Add();
-            _invocationList.Add (callback);
+            if (_invocationList.Add (callback))
+            {
+                _counter.Add();
+            }
         }
 
         private void unsubscribe(Callback callback)
