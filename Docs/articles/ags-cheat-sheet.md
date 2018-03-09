@@ -519,7 +519,7 @@ The equivalent in `MonoAGS` would be `ISound`. Both are returned when you're pla
 | Stop | Stop | `channel.Stop();` | `sound.Stop();` |
 | ID | SourceID | `channel.ID` | `sound.SourceID` |
 | IsPlaying | HasCompleted | `if (!channel.IsPlaying)` | `if (sound.HasCompleted)` | If you want to check whether the sound you played completed playing, `MonoAGS` provides you with a better option: In AGS, `channel.IsPlaying` might return true even if your sound finished playing, because another sound is now being played on that channel.
-| LengthMs | ? | `channel.LengthMs` | ? |
+| LengthMs | Duration | `channel.LengthMs` | `sound.Duration` |
 | Panning | Panning | `channel.Panning = -100;` | `sound.Panning = -1;` | -100 - 100 in AGS, -1 - 1 in MonoAGS. In AGS the value is int (meaning you can only have 200 values) where in MonoAGS the value is float (when you can have a range as big as the hardware understands).
 | PlayingClip | ? | `channel.PlayingClip` | ? | This is critical in AGS due to the fact the channel might be playing a lot of clips in its lifetime. Much less important in `MonoAGS` as you can know which clip the sound is coming from, because you're playing that sound.
 | Position | Seek | `if (channel.Position == 0)` | `if (channel.Seek == 0)` | Milliseconds in AGS, seconds in MonoAGS
