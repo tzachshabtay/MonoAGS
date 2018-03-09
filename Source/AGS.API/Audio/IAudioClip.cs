@@ -16,6 +16,11 @@
         /// </summary>
         /// <value>The identifier.</value>
 		string ID { get; }
-	}
+
+        /// <summary>
+        /// Gets duration of the sound in seconds.
+        /// </summary>
+        float Duration { get; }
+    }
 }
 

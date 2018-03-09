@@ -21,6 +21,11 @@ namespace AGS.API
         bool IsValid { get; }
 
         /// <summary>
+        /// Gets duration of the sound in seconds.
+        /// </summary>
+        float Duration { get; }
+
+        /// <summary>
         /// Is this <see cref="T:AGS.API.ISound"/> paused?
         /// </summary>
         /// <value><c>true</c> if is paused; otherwise, <c>false</c>.</value>
