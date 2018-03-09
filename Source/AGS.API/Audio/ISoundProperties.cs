@@ -1,10 +1,15 @@
 ﻿namespace AGS.API
 {
     /// <summary>
-    /// Allows to set the properties (volume, pitch, gain) of a sound/clip.
+    /// Allows to read or adjust the properties (volume, pitch, gain) of a sound/clip.
     /// </summary>
 	public interface ISoundProperties
 	{
+        /// <summary>
+        /// Gets duration of the sound in seconds.
+        /// </summary>
+        float Duration { get; }
+
 		/// <summary>
 		/// Gets or sets the volume.
 		/// The minimum volume is 0 (no volume).
