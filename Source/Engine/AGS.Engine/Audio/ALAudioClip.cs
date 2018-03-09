@@ -24,11 +24,14 @@ namespace AGS.Engine
             _backend = backend;
 			ID = id;
 			_buffer = new Lazy<int> (() => generateBuffer());
+            Duration = getDuration(soundData.DataLength, soundData.Channels, soundData.BitsPerSample, soundData.SampleRate);
             _playingSounds = new AGSConcurrentHashSet<ISound>();
 			_system = system;
 			Volume = 1f;
 			Pitch = 1f;
 		}
+
+        public float Duration { get; private set; }
 
 		#region ISound implementation
 
@@ -71,7 +74,7 @@ namespace AGS.Engine
 		{
             //Debug.WriteLine("Playing Sound: " + ID);
 			int source = getSource();
-            ALSound sound = new ALSound (source, volume, pitch, looping, panning, _errors, _backend);
+            ALSound sound = new ALSound (source, Duration, volume, pitch, looping, panning, _errors, _backend);
             _playingSounds.Add(sound);
 			sound.Play(_buffer.Value);
             sound.Completed.ContinueWith(_ =>
@@ -83,6 +86,13 @@ namespace AGS.Engine
 		}
 
         private int getSource() => _system.AcquireSource();
+
+        private float getDuration(int dataLength, int channels, int bitsPerSample, int sampleRate)
+        {
+            if (channels == 0 || bitsPerSample == 0 || sampleRate == 0)
+                return 0f;
+            return (float)((dataLength / channels) * 8 / bitsPerSample) / sampleRate;
+        }
 
         private int generateBuffer()
 		{

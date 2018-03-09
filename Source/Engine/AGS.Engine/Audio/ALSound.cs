@@ -14,13 +14,14 @@ namespace AGS.Engine
 		private IAudioErrors _errors;
         private IAudioBackend _backend;
 
-        public ALSound(int source, float volume, float pitch, bool isLooping, float panning, 
+        public ALSound(int source, float duration, float volume, float pitch, bool isLooping, float panning, 
             IAudioErrors errors, IAudioBackend backend)
 		{
 			_tcs = new TaskCompletionSource<object> (null);
             _backend = backend;
 			_source = source;
 			_volume = volume;
+            Duration = duration;
 			_pitch = pitch;
 			_panning = panning;
 			IsLooping = isLooping;
@@ -116,6 +117,8 @@ namespace AGS.Engine
 				_errors.HasErrors();
 			}
 		}
+
+        public float Duration { get; private set; }
 
 		public float Seek
 		{
