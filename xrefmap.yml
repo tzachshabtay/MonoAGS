@@ -12362,6 +12362,18 @@ references:
   commentId: T:AGS.API.ISoundProperties
   fullName: AGS.API.ISoundProperties
   nameWithType: ISoundProperties
+- uid: AGS.API.ISoundProperties.Duration
+  name: Duration
+  href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Duration
+  commentId: P:AGS.API.ISoundProperties.Duration
+  fullName: AGS.API.ISoundProperties.Duration
+  nameWithType: ISoundProperties.Duration
+- uid: AGS.API.ISoundProperties.Duration*
+  name: Duration
+  href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Duration_
+  commentId: Overload:AGS.API.ISoundProperties.Duration
+  fullName: AGS.API.ISoundProperties.Duration
+  nameWithType: ISoundProperties.Duration
 - uid: AGS.API.ISoundProperties.Panning
   name: Panning
   href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Panning
