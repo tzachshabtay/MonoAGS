@@ -3319,6 +3319,18 @@ references:
   commentId: T:AGS.API.IAudioClip
   fullName: AGS.API.IAudioClip
   nameWithType: IAudioClip
+- uid: AGS.API.IAudioClip.Duration
+  name: Duration
+  href: api/AGS.API.IAudioClip.html#AGS_API_IAudioClip_Duration
+  commentId: P:AGS.API.IAudioClip.Duration
+  fullName: AGS.API.IAudioClip.Duration
+  nameWithType: IAudioClip.Duration
+- uid: AGS.API.IAudioClip.Duration*
+  name: Duration
+  href: api/AGS.API.IAudioClip.html#AGS_API_IAudioClip_Duration_
+  commentId: Overload:AGS.API.IAudioClip.Duration
+  fullName: AGS.API.IAudioClip.Duration
+  nameWithType: IAudioClip.Duration
 - uid: AGS.API.IAudioClip.ID
   name: ID
   href: api/AGS.API.IAudioClip.html#AGS_API_IAudioClip_ID
@@ -12047,6 +12059,18 @@ references:
   commentId: Overload:AGS.API.ISound.Completed
   fullName: AGS.API.ISound.Completed
   nameWithType: ISound.Completed
+- uid: AGS.API.ISound.Duration
+  name: Duration
+  href: api/AGS.API.ISound.html#AGS_API_ISound_Duration
+  commentId: P:AGS.API.ISound.Duration
+  fullName: AGS.API.ISound.Duration
+  nameWithType: ISound.Duration
+- uid: AGS.API.ISound.Duration*
+  name: Duration
+  href: api/AGS.API.ISound.html#AGS_API_ISound_Duration_
+  commentId: Overload:AGS.API.ISound.Duration
+  fullName: AGS.API.ISound.Duration
+  nameWithType: ISound.Duration
 - uid: AGS.API.ISound.HasCompleted
   name: HasCompleted
   href: api/AGS.API.ISound.html#AGS_API_ISound_HasCompleted
@@ -12362,18 +12386,6 @@ references:
   commentId: T:AGS.API.ISoundProperties
   fullName: AGS.API.ISoundProperties
   nameWithType: ISoundProperties
-- uid: AGS.API.ISoundProperties.Duration
-  name: Duration
-  href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Duration
-  commentId: P:AGS.API.ISoundProperties.Duration
-  fullName: AGS.API.ISoundProperties.Duration
-  nameWithType: ISoundProperties.Duration
-- uid: AGS.API.ISoundProperties.Duration*
-  name: Duration
-  href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Duration_
-  commentId: Overload:AGS.API.ISoundProperties.Duration
-  fullName: AGS.API.ISoundProperties.Duration
-  nameWithType: ISoundProperties.Duration
 - uid: AGS.API.ISoundProperties.Panning
   name: Panning
   href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Panning
