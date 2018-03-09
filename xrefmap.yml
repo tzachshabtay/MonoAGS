@@ -12107,6 +12107,18 @@ references:
   commentId: Overload:AGS.API.ISound.Pause
   fullName: AGS.API.ISound.Pause
   nameWithType: ISound.Pause
+- uid: AGS.API.ISound.Position
+  name: Position
+  href: api/AGS.API.ISound.html#AGS_API_ISound_Position
+  commentId: P:AGS.API.ISound.Position
+  fullName: AGS.API.ISound.Position
+  nameWithType: ISound.Position
+- uid: AGS.API.ISound.Position*
+  name: Position
+  href: api/AGS.API.ISound.html#AGS_API_ISound_Position_
+  commentId: Overload:AGS.API.ISound.Position
+  fullName: AGS.API.ISound.Position
+  nameWithType: ISound.Position
 - uid: AGS.API.ISound.Resume
   name: Resume()
   href: api/AGS.API.ISound.html#AGS_API_ISound_Resume
@@ -12131,18 +12143,6 @@ references:
   commentId: Overload:AGS.API.ISound.Rewind
   fullName: AGS.API.ISound.Rewind
   nameWithType: ISound.Rewind
-- uid: AGS.API.ISound.Seek
-  name: Seek
-  href: api/AGS.API.ISound.html#AGS_API_ISound_Seek
-  commentId: P:AGS.API.ISound.Seek
-  fullName: AGS.API.ISound.Seek
-  nameWithType: ISound.Seek
-- uid: AGS.API.ISound.Seek*
-  name: Seek
-  href: api/AGS.API.ISound.html#AGS_API_ISound_Seek_
-  commentId: Overload:AGS.API.ISound.Seek
-  fullName: AGS.API.ISound.Seek
-  nameWithType: ISound.Seek
 - uid: AGS.API.ISound.SourceID
   name: SourceID
   href: api/AGS.API.ISound.html#AGS_API_ISound_SourceID

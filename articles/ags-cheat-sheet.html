@@ -420,9 +420,9 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <tbody>
 <tr>
 <td>Seek</td>
-<td>Seek</td>
-<td><code>channel.Seek(milliseconds);</code></td>
-<td><code>sound.Seek = seconds;</code></td>
+<td>Position</td>
+<td><code>channel.Seek(2500);</code></td>
+<td><code>sound.Position = 2.5;</code></td>
 <td>Milliseconds in AGS, seconds in MonoAGS. In AGS the value is int meaning you can&#39;t get a lower resolution than milliseconds. In MonoAGS the value is float meaning you can go as low in resolution as the hardware understands.</td>
 </tr>
 <tr>
@@ -476,9 +476,9 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 </tr>
 <tr>
 <td>Position</td>
-<td>Seek</td>
-<td><code>if (channel.Position == 0)</code></td>
-<td><code>if (channel.Seek == 0)</code></td>
+<td>Position</td>
+<td><code>if (channel.Position == 1500)</code></td>
+<td><code>if (channel.Position == 1.5)</code></td>
 <td>Milliseconds in AGS, seconds in MonoAGS</td>
 </tr>
 <tr>
