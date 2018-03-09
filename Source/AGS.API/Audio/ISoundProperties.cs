@@ -6,11 +6,6 @@
 	public interface ISoundProperties
 	{
         /// <summary>
-        /// Gets duration of the sound in seconds.
-        /// </summary>
-        float Duration { get; }
-
-		/// <summary>
 		/// Gets or sets the volume.
 		/// The minimum volume is 0 (no volume).
 		/// The maximum volume is 1 (also the default), though some sound cards may actually support increasing the volume.
