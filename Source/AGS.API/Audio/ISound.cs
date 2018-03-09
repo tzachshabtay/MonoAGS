@@ -56,10 +56,10 @@ namespace AGS.API
 		Task Completed { get; }
 
 		/// <summary>
-		/// Gets or sets the seek (position within the sound) in seconds.
+		/// Gets or sets the playback position within the sound in seconds.
 		/// </summary>
-		/// <value>The seek.</value>
-		float Seek { get; set; }
+		/// <value>The position.</value>
+		float Position { get; set; }
 
         /// <summary>
         /// Pause this sound.

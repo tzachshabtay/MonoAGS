@@ -19,7 +19,7 @@ You can query an audio clip to see how many sounds for this clip (if any) are cu
 
 When you play an audio clip, you'll get back a sound. A sound is an "instance" of the audio clip which is playing right now. The same properties that you can set for an audio clip (volume, pitch, panning) can also be set for a sound, only those will affect just this current sound, not future sounds that will be played from the clip, and also you can change those properties over and over as the sound running to achieve effect (like gradually reducing the volume for a fade-out effect, for example).
 
-You can also pause/stop/resume a sound, rewind a sound to the beginning or set the sound to a specific position within the file (by changing the "seek").
+You can also pause/stop/resume a sound, rewind a sound to the beginning or set the sound to a specific position within the file (by changing the "Position" property).
 You can query and see whether the sound is looping or not and whether it's valid or not (an invalid sound might result if something is wrong with the user's computer and the engine was not able to play the sound).
 
 Lastly, you can query the sound to see if it was already completed, and asynchronously wait for the sound to complete playing.

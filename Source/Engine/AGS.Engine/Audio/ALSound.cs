@@ -120,7 +120,7 @@ namespace AGS.Engine
 
         public float Duration { get; private set; }
 
-		public float Seek
+		public float Position
 		{
 			get 
 			{
