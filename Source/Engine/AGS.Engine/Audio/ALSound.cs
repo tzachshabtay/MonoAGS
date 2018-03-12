@@ -80,6 +80,7 @@ namespace AGS.Engine
 			if (HasCompleted) return;
 			_backend.SourceStop(_source);
 			_errors.HasErrors();
+			_tcs.TrySetResult(null);
 		}
 
         public int SourceID => _source;
