@@ -84,6 +84,7 @@
     <Compile Include="Engine\Misc\Collection\TreeNodeTests.cs" />
     <Compile Include="Engine\ComponentsFramework\EntityTests.cs" />
     <Compile Include="Engine\ComponentsFramework\ComponentTests.cs" />
+    <Compile Include="Engine\Misc\DependencyInjection\ResolverTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -112,5 +113,6 @@
   <ItemGroup>
     <Folder Include="Engine\ComponentsFramework\" />
     <Folder Include="Engine\Misc\Collection\" />
+    <Folder Include="Engine\Misc\DependencyInjection\" />
   </ItemGroup>
 </Project>
