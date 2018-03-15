@@ -8,13 +8,12 @@ namespace AGS.Engine
     [DoNotNotify]
     public class AGSScaleComponent : AGSComponent, IScaleComponent
     {
-        private IScale _scale;
-        private readonly Resolver _resolver;
+        private readonly IScale _scale;
         private IImageComponent _image;
 
-        public AGSScaleComponent(Resolver resolver)
+        public AGSScaleComponent(IScale scale)
         {
-            _resolver = resolver;
+            _scale = scale;
         }
 
         public override void Init(IEntity entity)
@@ -23,13 +22,11 @@ namespace AGS.Engine
             entity.Bind<IImageComponent>(c =>
             {
                 _image = c;
-                TypedParameter imageParam = new TypedParameter(typeof(IHasImage), c);
-                _scale = _resolver.Container.Resolve<IScale>(imageParam);
+                AGSScale.BindSizeToImage(c, _scale);
                 _scale.PropertyChanged += onScalePropertyChanged;
             }, c =>
             {
                 _image = null;
-                _scale = null;
                 c.PropertyChanged -= onScalePropertyChanged;
             });
         }
