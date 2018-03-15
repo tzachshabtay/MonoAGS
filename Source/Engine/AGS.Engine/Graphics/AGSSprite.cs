@@ -136,7 +136,7 @@ namespace AGS.Engine
         [DoNotNotify]
         public Color Tint { get => _hasImage.Tint; set => _hasImage.Tint = value; }
 
-        public IArea PixelPerfectHitTestArea => _pixelPerfectArea.Value;
+        public IArea PixelPerfectHitTestArea => Image == null ? null : _pixelPerfectArea.Value;
 
         #endregion
 
