@@ -7,7 +7,6 @@ namespace AGS.Engine
 {
     public class AGSScale : IScale
     {
-        private IHasImage _image;
         private float _scaleX, _scaleY;
         private SizeF _baseSize;
 
@@ -18,17 +17,19 @@ namespace AGS.Engine
         private static readonly PropertyChangedEventArgs _scaleArgs = new PropertyChangedEventArgs(nameof(Scale));
         private static readonly PropertyChangedEventArgs _baseSizeArgs = new PropertyChangedEventArgs(nameof(BaseSize));
 
-        public AGSScale(IHasImage image)
+        public AGSScale()
         { 
-            _image = image;
-
             _scaleX = 1;
             _scaleY = 1;
+        }
 
+        public static void BindSizeToImage(IHasImage image, IScale scale)
+        {
             image.PropertyChanged += ((_, args) =>
             {
                 if (args.PropertyName != nameof(IHasImage.Image)) return;
-                if (MathUtils.FloatEquals(BaseSize.Width, 0f) && _image.Image != null) BaseSize = new SizeF(_image.Image.Width, _image.Image.Height);
+                if (MathUtils.FloatEquals(scale.BaseSize.Width, 0f) && image.Image != null) 
+                    scale.BaseSize = new SizeF(image.Image.Width, image.Image.Height);
             });
         }
 

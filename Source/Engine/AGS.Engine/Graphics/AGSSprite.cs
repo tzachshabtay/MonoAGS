@@ -32,7 +32,8 @@ namespace AGS.Engine
             _translate = new AGSTranslate();
             _hasImage = new AGSHasImage();
             _hasImage.Pivot = new PointF();
-            _scale = new AGSScale(_hasImage);
+            _scale = new AGSScale();
+            AGSScale.BindSizeToImage(_hasImage, _scale);
             _rotate = new AGSRotate();
 
             _scale.PropertyChanged += onPropertyChanged;
