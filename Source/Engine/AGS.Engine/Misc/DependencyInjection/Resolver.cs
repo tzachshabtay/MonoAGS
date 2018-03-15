@@ -21,16 +21,16 @@ namespace AGS.Engine
 			}
 
 			Builder.RegisterAssemblyTypes(typeof(AGSGame).GetTypeInfo().Assembly).
-				Except<SpatialAStarPathFinder>().AsImplementedInterfaces();
+                   Except<SpatialAStarPathFinder>().AsImplementedInterfaces().ExternallyOwned();
 
             registerDevice(device);
 
-			Builder.RegisterType<GLImageRenderer>().As<IImageRenderer>();
-			Builder.RegisterType<AGSObject>().As<IObject>();
-			Builder.RegisterType<GLImage>().As<IImage>();
-			Builder.RegisterType<AGSDialogActions>().As<IDialogActions>();
-			Builder.RegisterType<AGSSayLocationProvider>().As<ISayLocationProvider>();
-            Builder.RegisterType<AGSTreeNodeViewProvider>().As<ITreeNodeViewProvider>();
+            RegisterType<GLImageRenderer, IImageRenderer>();
+            RegisterType<AGSObject, IObject>();
+            RegisterType<GLImage, IImage>();
+            RegisterType<AGSDialogActions, IDialogActions>();
+            RegisterType<AGSSayLocationProvider, ISayLocationProvider>();
+            RegisterType<AGSTreeNodeViewProvider, ITreeNodeViewProvider>();
 
 			Builder.RegisterType<AGSGameState>().SingleInstance().As<IGameState>();
 			Builder.RegisterType<AGSGame>().SingleInstance().As<IGame>();
@@ -58,26 +58,31 @@ namespace AGS.Engine
 
 			registerComponents();
 
-			Builder.RegisterType<AGSSprite>().As<ISprite>();
-            Builder.RegisterType<AGSBoundingBoxesBuilder>().As<IBoundingBoxBuilder>();
-            Builder.RegisterType<AGSTranslate>().As<ITranslate>();
-            Builder.RegisterType<AGSScale>().As<IScale>();
-            Builder.RegisterType<AGSRotate>().As<IRotate>();
-            Builder.RegisterType<AGSHasImage>().As<IHasImage>();
-            Builder.RegisterType<AGSEvent>().As<IEvent>();
-            Builder.RegisterType<AGSEvent>().As<IBlockingEvent>();
-            Builder.RegisterType<AGSRestrictionList>().As<IRestrictionList>();
+			RegisterType<AGSSprite, ISprite>();
+            RegisterType<AGSBoundingBoxesBuilder, IBoundingBoxBuilder>();
+            RegisterType<AGSTranslate, ITranslate>();
+            RegisterType<AGSScale, IScale>();
+            RegisterType<AGSRotate, IRotate>();
+            RegisterType<AGSHasImage, IHasImage>();
+            RegisterType<AGSEvent, IEvent>();
+            RegisterType<AGSEvent, IBlockingEvent>();
+            RegisterType<AGSRestrictionList, IRestrictionList>();
 
-			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>));
-			Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IBlockingEvent<>));
+            Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IEvent<>)).ExternallyOwned();
+            Builder.RegisterGeneric(typeof(AGSEvent<>)).As(typeof(IBlockingEvent<>)).ExternallyOwned();
 
 			FastFingerChecker checker = new FastFingerChecker ();
 			Builder.RegisterInstance(checker);
 
-            Builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
+            Builder.RegisterSource(new ResolveAnythingSource());
 
             foreach (var action in _overrides) action(this);
 		}
+
+        public void RegisterType<TType, TInterface>()
+        {
+            Builder.RegisterType<TType>().As<TInterface>().ExternallyOwned();
+        }
 
         public static void Override(Action<Resolver> action)
         {
@@ -114,8 +119,8 @@ namespace AGS.Engine
 				if (!isComponent(type)) continue;
 				registerComponent(type);
 			}
-			Builder.RegisterType<VisibleProperty>().As<IVisibleComponent>();
-			Builder.RegisterType<EnabledProperty>().As<IEnabledComponent>();
+			RegisterType<VisibleProperty, IVisibleComponent>();
+			RegisterType<EnabledProperty, IEnabledComponent>();
 		}
 
 		private bool isComponent(TypeInfo type)
@@ -128,7 +133,7 @@ namespace AGS.Engine
 			foreach (var compInterface in type.ImplementedInterfaces)
 			{
 				if (compInterface == typeof(IComponent) || compInterface == typeof(IDisposable)) continue;
-				Builder.RegisterType(type.AsType()).As(compInterface);
+                Builder.RegisterType(type.AsType()).As(compInterface).ExternallyOwned();
 			}
 		}
 	}
