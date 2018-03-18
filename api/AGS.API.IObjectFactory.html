@@ -94,20 +94,20 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetAdventureObject_System_String_System_String___System_String___.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetAdventureObject(System.String%2CSystem.String%5B%5D%2CSystem.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetAdventureObject_System_String_AGS_API_IRoom_System_String___System_String___.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetAdventureObject(System.String%2CAGS.API.IRoom%2CSystem.String%5B%5D%2CSystem.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L25">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L27">View Source</a>
   </span>
   <a id="AGS_API_IObjectFactory_GetAdventureObject_" data-uid="AGS.API.IObjectFactory.GetAdventureObject*"></a>
-  <h4 id="AGS_API_IObjectFactory_GetAdventureObject_System_String_System_String___System_String___" data-uid="AGS.API.IObjectFactory.GetAdventureObject(System.String,System.String[],System.String[])">GetAdventureObject(String, String[], String[])</h4>
+  <h4 id="AGS_API_IObjectFactory_GetAdventureObject_System_String_AGS_API_IRoom_System_String___System_String___" data-uid="AGS.API.IObjectFactory.GetAdventureObject(System.String,AGS.API.IRoom,System.String[],System.String[])">GetAdventureObject(String, IRoom, String[], String[])</h4>
   <div class="markdown level1 summary"><p>Creates a new object with IHotspotComponent, which supports have reaction to character interactions (command verbs).
 TODO: invent a new type name for this. It can be IAdventureObject or something simple like IHotspot.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IObject GetAdventureObject(string id, string[] sayWhenLook = null, string[] sayWhenInteract = null)</code></pre>
+    <pre><code class="lang-csharp hljs">IObject GetAdventureObject(string id, IRoom room = null, string[] sayWhenLook = null, string[] sayWhenInteract = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -123,6 +123,12 @@ TODO: invent a new type name for this. It can be IAdventureObject or something s
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">id</span></td>
         <td><p>A unique identifier for the object (this has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IRoom.html">IRoom</a></td>
+        <td><span class="parametername">room</span></td>
+        <td><p>The room to place the object in.</p>
 </td>
       </tr>
       <tr>
@@ -157,19 +163,19 @@ TODO: invent a new type name for this. It can be IAdventureObject or something s
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IAnimationComponent_.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetCharacter(System.String%2CAGS.API.IOutfit%2CAGS.API.IAnimationComponent)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IAnimationComponent_AGS_API_IRoom_.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetCharacter(System.String%2CAGS.API.IOutfit%2CAGS.API.IAnimationComponent%2CAGS.API.IRoom)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L43">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L47">View Source</a>
   </span>
   <a id="AGS_API_IObjectFactory_GetCharacter_" data-uid="AGS.API.IObjectFactory.GetCharacter*"></a>
-  <h4 id="AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IAnimationComponent_" data-uid="AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IAnimationComponent)">GetCharacter(String, IOutfit, IAnimationComponent)</h4>
+  <h4 id="AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IAnimationComponent_AGS_API_IRoom_" data-uid="AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IAnimationComponent,AGS.API.IRoom)">GetCharacter(String, IOutfit, IAnimationComponent, IRoom)</h4>
   <div class="markdown level1 summary"><p>Creates a new character</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ICharacter GetCharacter(string id, IOutfit outfit, IAnimationComponent innerContainer)</code></pre>
+    <pre><code class="lang-csharp hljs">ICharacter GetCharacter(string id, IOutfit outfit, IAnimationComponent innerContainer, IRoom room = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -198,6 +204,12 @@ TODO: invent a new type name for this. It can be IAdventureObject or something s
         <td><p>An animation container for the character</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IRoom.html">IRoom</a></td>
+        <td><span class="parametername">room</span></td>
+        <td><p>The room to place the character in.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -218,19 +230,19 @@ TODO: invent a new type name for this. It can be IAdventureObject or something s
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_System_String___System_String___.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetCharacter(System.String%2CAGS.API.IOutfit%2CSystem.String%5B%5D%2CSystem.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IRoom_System_String___System_String___.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetCharacter(System.String%2CAGS.API.IOutfit%2CAGS.API.IRoom%2CSystem.String%5B%5D%2CSystem.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L35">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L38">View Source</a>
   </span>
   <a id="AGS_API_IObjectFactory_GetCharacter_" data-uid="AGS.API.IObjectFactory.GetCharacter*"></a>
-  <h4 id="AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_System_String___System_String___" data-uid="AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,System.String[],System.String[])">GetCharacter(String, IOutfit, String[], String[])</h4>
+  <h4 id="AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IRoom_System_String___System_String___" data-uid="AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IRoom,System.String[],System.String[])">GetCharacter(String, IOutfit, IRoom, String[], String[])</h4>
   <div class="markdown level1 summary"><p>Creates a new character</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ICharacter GetCharacter(string id, IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null)</code></pre>
+    <pre><code class="lang-csharp hljs">ICharacter GetCharacter(string id, IOutfit outfit, IRoom room = null, string[] sayWhenLook = null, string[] sayWhenInteract = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -252,6 +264,12 @@ TODO: invent a new type name for this. It can be IAdventureObject or something s
         <td><a class="xref" href="AGS.API.IOutfit.html">IOutfit</a></td>
         <td><span class="parametername">outfit</span></td>
         <td><p>An animation outfit for the character (this can be created from the outfit factory).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IRoom.html">IRoom</a></td>
+        <td><span class="parametername">room</span></td>
+        <td><p>The room to place the character in.</p>
 </td>
       </tr>
       <tr>
@@ -286,19 +304,19 @@ TODO: invent a new type name for this. It can be IAdventureObject or something s
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetHotspot_System_String_System_String_System_String___System_String___System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetHotspot(System.String%2CSystem.String%2CSystem.String%5B%5D%2CSystem.String%5B%5D%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetHotspot_System_String_System_String_AGS_API_IRoom_System_String___System_String___System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetHotspot(System.String%2CSystem.String%2CAGS.API.IRoom%2CSystem.String%5B%5D%2CSystem.String%5B%5D%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L54">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L59">View Source</a>
   </span>
   <a id="AGS_API_IObjectFactory_GetHotspot_" data-uid="AGS.API.IObjectFactory.GetHotspot*"></a>
-  <h4 id="AGS_API_IObjectFactory_GetHotspot_System_String_System_String_System_String___System_String___System_String_" data-uid="AGS.API.IObjectFactory.GetHotspot(System.String,System.String,System.String[],System.String[],System.String)">GetHotspot(String, String, String[], String[], String)</h4>
+  <h4 id="AGS_API_IObjectFactory_GetHotspot_System_String_System_String_AGS_API_IRoom_System_String___System_String___System_String_" data-uid="AGS.API.IObjectFactory.GetHotspot(System.String,System.String,AGS.API.IRoom,System.String[],System.String[],System.String)">GetHotspot(String, String, IRoom, String[], String[], String)</h4>
   <div class="markdown level1 summary"><p>Creates a new hotspot object from a bitmap mask (the hotspot text will be shown when the mouse is hovering the object if a hotspot label is in the game).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IObject GetHotspot(string maskPath, string hotspot, string[] sayWhenLook = null, string[] sayWhenInteract = null, string id = null)</code></pre>
+    <pre><code class="lang-csharp hljs">IObject GetHotspot(string maskPath, string hotspot, IRoom room = null, string[] sayWhenLook = null, string[] sayWhenInteract = null, string id = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -320,6 +338,12 @@ TODO: invent a new type name for this. It can be IAdventureObject or something s
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">hotspot</span></td>
         <td><p>The hotspot text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IRoom.html">IRoom</a></td>
+        <td><span class="parametername">room</span></td>
+        <td><p>The room to place the hotspot in.</p>
 </td>
       </tr>
       <tr>
@@ -360,19 +384,19 @@ TODO: invent a new type name for this. It can be IAdventureObject or something s
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetHotspotAsync_System_String_System_String_System_String___System_String___System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetHotspotAsync(System.String%2CSystem.String%2CSystem.String%5B%5D%2CSystem.String%5B%5D%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetHotspotAsync_System_String_System_String_AGS_API_IRoom_System_String___System_String___System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetHotspotAsync(System.String%2CSystem.String%2CAGS.API.IRoom%2CSystem.String%5B%5D%2CSystem.String%5B%5D%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L65">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L71">View Source</a>
   </span>
   <a id="AGS_API_IObjectFactory_GetHotspotAsync_" data-uid="AGS.API.IObjectFactory.GetHotspotAsync*"></a>
-  <h4 id="AGS_API_IObjectFactory_GetHotspotAsync_System_String_System_String_System_String___System_String___System_String_" data-uid="AGS.API.IObjectFactory.GetHotspotAsync(System.String,System.String,System.String[],System.String[],System.String)">GetHotspotAsync(String, String, String[], String[], String)</h4>
+  <h4 id="AGS_API_IObjectFactory_GetHotspotAsync_System_String_System_String_AGS_API_IRoom_System_String___System_String___System_String_" data-uid="AGS.API.IObjectFactory.GetHotspotAsync(System.String,System.String,AGS.API.IRoom,System.String[],System.String[],System.String)">GetHotspotAsync(String, String, IRoom, String[], String[], String)</h4>
   <div class="markdown level1 summary"><p>Creates a new hotspot object from a bitmap mask asynchronously (the hotspot text will be shown when the mouse is hovering the object if a hotspot label is in the game).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;IObject&gt; GetHotspotAsync(string maskPath, string hotspot, string[] sayWhenLook = null, string[] sayWhenInteract = null, string id = null)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;IObject&gt; GetHotspotAsync(string maskPath, string hotspot, IRoom room = null, string[] sayWhenLook = null, string[] sayWhenInteract = null, string id = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -394,6 +418,12 @@ TODO: invent a new type name for this. It can be IAdventureObject or something s
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">hotspot</span></td>
         <td><p>The hotspot text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IRoom.html">IRoom</a></td>
+        <td><span class="parametername">room</span></td>
+        <td><p>The room to place the hotspot in.</p>
 </td>
       </tr>
       <tr>
@@ -434,19 +464,19 @@ TODO: invent a new type name for this. It can be IAdventureObject or something s
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetObject_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetObject(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetObject/apiSpec/new?filename=AGS_API_IObjectFactory_GetObject_System_String_AGS_API_IRoom_.md&amp;value=---%0Auid%3A%20AGS.API.IObjectFactory.GetObject(System.String%2CAGS.API.IRoom)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L15">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetObject/Source/AGS.API/Game/Factories/IObjectFactory.cs/#L16">View Source</a>
   </span>
   <a id="AGS_API_IObjectFactory_GetObject_" data-uid="AGS.API.IObjectFactory.GetObject*"></a>
-  <h4 id="AGS_API_IObjectFactory_GetObject_System_String_" data-uid="AGS.API.IObjectFactory.GetObject(System.String)">GetObject(String)</h4>
+  <h4 id="AGS_API_IObjectFactory_GetObject_System_String_AGS_API_IRoom_" data-uid="AGS.API.IObjectFactory.GetObject(System.String,AGS.API.IRoom)">GetObject(String, IRoom)</h4>
   <div class="markdown level1 summary"><p>Creates a new object.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IObject GetObject(string id)</code></pre>
+    <pre><code class="lang-csharp hljs">IObject GetObject(string id, IRoom room = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -462,6 +492,12 @@ TODO: invent a new type name for this. It can be IAdventureObject or something s
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">id</span></td>
         <td><p>A unique identifier for the object (this has to be globally unique across all entities).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.IRoom.html">IRoom</a></td>
+        <td><span class="parametername">room</span></td>
+        <td><p>The room to place the object in.</p>
 </td>
       </tr>
     </tbody>

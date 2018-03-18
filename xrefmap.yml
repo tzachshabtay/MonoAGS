@@ -10055,78 +10055,78 @@ references:
   commentId: T:AGS.API.IObjectFactory
   fullName: AGS.API.IObjectFactory
   nameWithType: IObjectFactory
-- uid: AGS.API.IObjectFactory.GetAdventureObject(System.String,System.String[],System.String[])
-  name: GetAdventureObject(String, String[], String[])
-  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetAdventureObject_System_String_System_String___System_String___
-  commentId: M:AGS.API.IObjectFactory.GetAdventureObject(System.String,System.String[],System.String[])
-  name.vb: GetAdventureObject(String, String(), String())
-  fullName: AGS.API.IObjectFactory.GetAdventureObject(System.String, System.String[], System.String[])
-  fullName.vb: AGS.API.IObjectFactory.GetAdventureObject(System.String, System.String(), System.String())
-  nameWithType: IObjectFactory.GetAdventureObject(String, String[], String[])
-  nameWithType.vb: IObjectFactory.GetAdventureObject(String, String(), String())
+- uid: AGS.API.IObjectFactory.GetAdventureObject(System.String,AGS.API.IRoom,System.String[],System.String[])
+  name: GetAdventureObject(String, IRoom, String[], String[])
+  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetAdventureObject_System_String_AGS_API_IRoom_System_String___System_String___
+  commentId: M:AGS.API.IObjectFactory.GetAdventureObject(System.String,AGS.API.IRoom,System.String[],System.String[])
+  name.vb: GetAdventureObject(String, IRoom, String(), String())
+  fullName: AGS.API.IObjectFactory.GetAdventureObject(System.String, AGS.API.IRoom, System.String[], System.String[])
+  fullName.vb: AGS.API.IObjectFactory.GetAdventureObject(System.String, AGS.API.IRoom, System.String(), System.String())
+  nameWithType: IObjectFactory.GetAdventureObject(String, IRoom, String[], String[])
+  nameWithType.vb: IObjectFactory.GetAdventureObject(String, IRoom, String(), String())
 - uid: AGS.API.IObjectFactory.GetAdventureObject*
   name: GetAdventureObject
   href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetAdventureObject_
   commentId: Overload:AGS.API.IObjectFactory.GetAdventureObject
   fullName: AGS.API.IObjectFactory.GetAdventureObject
   nameWithType: IObjectFactory.GetAdventureObject
-- uid: AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IAnimationComponent)
-  name: GetCharacter(String, IOutfit, IAnimationComponent)
-  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IAnimationComponent_
-  commentId: M:AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IAnimationComponent)
-  fullName: AGS.API.IObjectFactory.GetCharacter(System.String, AGS.API.IOutfit, AGS.API.IAnimationComponent)
-  nameWithType: IObjectFactory.GetCharacter(String, IOutfit, IAnimationComponent)
-- uid: AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,System.String[],System.String[])
-  name: GetCharacter(String, IOutfit, String[], String[])
-  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_System_String___System_String___
-  commentId: M:AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,System.String[],System.String[])
-  name.vb: GetCharacter(String, IOutfit, String(), String())
-  fullName: AGS.API.IObjectFactory.GetCharacter(System.String, AGS.API.IOutfit, System.String[], System.String[])
-  fullName.vb: AGS.API.IObjectFactory.GetCharacter(System.String, AGS.API.IOutfit, System.String(), System.String())
-  nameWithType: IObjectFactory.GetCharacter(String, IOutfit, String[], String[])
-  nameWithType.vb: IObjectFactory.GetCharacter(String, IOutfit, String(), String())
+- uid: AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IAnimationComponent,AGS.API.IRoom)
+  name: GetCharacter(String, IOutfit, IAnimationComponent, IRoom)
+  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IAnimationComponent_AGS_API_IRoom_
+  commentId: M:AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IAnimationComponent,AGS.API.IRoom)
+  fullName: AGS.API.IObjectFactory.GetCharacter(System.String, AGS.API.IOutfit, AGS.API.IAnimationComponent, AGS.API.IRoom)
+  nameWithType: IObjectFactory.GetCharacter(String, IOutfit, IAnimationComponent, IRoom)
+- uid: AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IRoom,System.String[],System.String[])
+  name: GetCharacter(String, IOutfit, IRoom, String[], String[])
+  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetCharacter_System_String_AGS_API_IOutfit_AGS_API_IRoom_System_String___System_String___
+  commentId: M:AGS.API.IObjectFactory.GetCharacter(System.String,AGS.API.IOutfit,AGS.API.IRoom,System.String[],System.String[])
+  name.vb: GetCharacter(String, IOutfit, IRoom, String(), String())
+  fullName: AGS.API.IObjectFactory.GetCharacter(System.String, AGS.API.IOutfit, AGS.API.IRoom, System.String[], System.String[])
+  fullName.vb: AGS.API.IObjectFactory.GetCharacter(System.String, AGS.API.IOutfit, AGS.API.IRoom, System.String(), System.String())
+  nameWithType: IObjectFactory.GetCharacter(String, IOutfit, IRoom, String[], String[])
+  nameWithType.vb: IObjectFactory.GetCharacter(String, IOutfit, IRoom, String(), String())
 - uid: AGS.API.IObjectFactory.GetCharacter*
   name: GetCharacter
   href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetCharacter_
   commentId: Overload:AGS.API.IObjectFactory.GetCharacter
   fullName: AGS.API.IObjectFactory.GetCharacter
   nameWithType: IObjectFactory.GetCharacter
-- uid: AGS.API.IObjectFactory.GetHotspot(System.String,System.String,System.String[],System.String[],System.String)
-  name: GetHotspot(String, String, String[], String[], String)
-  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetHotspot_System_String_System_String_System_String___System_String___System_String_
-  commentId: M:AGS.API.IObjectFactory.GetHotspot(System.String,System.String,System.String[],System.String[],System.String)
-  name.vb: GetHotspot(String, String, String(), String(), String)
-  fullName: AGS.API.IObjectFactory.GetHotspot(System.String, System.String, System.String[], System.String[], System.String)
-  fullName.vb: AGS.API.IObjectFactory.GetHotspot(System.String, System.String, System.String(), System.String(), System.String)
-  nameWithType: IObjectFactory.GetHotspot(String, String, String[], String[], String)
-  nameWithType.vb: IObjectFactory.GetHotspot(String, String, String(), String(), String)
+- uid: AGS.API.IObjectFactory.GetHotspot(System.String,System.String,AGS.API.IRoom,System.String[],System.String[],System.String)
+  name: GetHotspot(String, String, IRoom, String[], String[], String)
+  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetHotspot_System_String_System_String_AGS_API_IRoom_System_String___System_String___System_String_
+  commentId: M:AGS.API.IObjectFactory.GetHotspot(System.String,System.String,AGS.API.IRoom,System.String[],System.String[],System.String)
+  name.vb: GetHotspot(String, String, IRoom, String(), String(), String)
+  fullName: AGS.API.IObjectFactory.GetHotspot(System.String, System.String, AGS.API.IRoom, System.String[], System.String[], System.String)
+  fullName.vb: AGS.API.IObjectFactory.GetHotspot(System.String, System.String, AGS.API.IRoom, System.String(), System.String(), System.String)
+  nameWithType: IObjectFactory.GetHotspot(String, String, IRoom, String[], String[], String)
+  nameWithType.vb: IObjectFactory.GetHotspot(String, String, IRoom, String(), String(), String)
 - uid: AGS.API.IObjectFactory.GetHotspot*
   name: GetHotspot
   href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetHotspot_
   commentId: Overload:AGS.API.IObjectFactory.GetHotspot
   fullName: AGS.API.IObjectFactory.GetHotspot
   nameWithType: IObjectFactory.GetHotspot
-- uid: AGS.API.IObjectFactory.GetHotspotAsync(System.String,System.String,System.String[],System.String[],System.String)
-  name: GetHotspotAsync(String, String, String[], String[], String)
-  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetHotspotAsync_System_String_System_String_System_String___System_String___System_String_
-  commentId: M:AGS.API.IObjectFactory.GetHotspotAsync(System.String,System.String,System.String[],System.String[],System.String)
-  name.vb: GetHotspotAsync(String, String, String(), String(), String)
-  fullName: AGS.API.IObjectFactory.GetHotspotAsync(System.String, System.String, System.String[], System.String[], System.String)
-  fullName.vb: AGS.API.IObjectFactory.GetHotspotAsync(System.String, System.String, System.String(), System.String(), System.String)
-  nameWithType: IObjectFactory.GetHotspotAsync(String, String, String[], String[], String)
-  nameWithType.vb: IObjectFactory.GetHotspotAsync(String, String, String(), String(), String)
+- uid: AGS.API.IObjectFactory.GetHotspotAsync(System.String,System.String,AGS.API.IRoom,System.String[],System.String[],System.String)
+  name: GetHotspotAsync(String, String, IRoom, String[], String[], String)
+  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetHotspotAsync_System_String_System_String_AGS_API_IRoom_System_String___System_String___System_String_
+  commentId: M:AGS.API.IObjectFactory.GetHotspotAsync(System.String,System.String,AGS.API.IRoom,System.String[],System.String[],System.String)
+  name.vb: GetHotspotAsync(String, String, IRoom, String(), String(), String)
+  fullName: AGS.API.IObjectFactory.GetHotspotAsync(System.String, System.String, AGS.API.IRoom, System.String[], System.String[], System.String)
+  fullName.vb: AGS.API.IObjectFactory.GetHotspotAsync(System.String, System.String, AGS.API.IRoom, System.String(), System.String(), System.String)
+  nameWithType: IObjectFactory.GetHotspotAsync(String, String, IRoom, String[], String[], String)
+  nameWithType.vb: IObjectFactory.GetHotspotAsync(String, String, IRoom, String(), String(), String)
 - uid: AGS.API.IObjectFactory.GetHotspotAsync*
   name: GetHotspotAsync
   href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetHotspotAsync_
   commentId: Overload:AGS.API.IObjectFactory.GetHotspotAsync
   fullName: AGS.API.IObjectFactory.GetHotspotAsync
   nameWithType: IObjectFactory.GetHotspotAsync
-- uid: AGS.API.IObjectFactory.GetObject(System.String)
-  name: GetObject(String)
-  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetObject_System_String_
-  commentId: M:AGS.API.IObjectFactory.GetObject(System.String)
-  fullName: AGS.API.IObjectFactory.GetObject(System.String)
-  nameWithType: IObjectFactory.GetObject(String)
+- uid: AGS.API.IObjectFactory.GetObject(System.String,AGS.API.IRoom)
+  name: GetObject(String, IRoom)
+  href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetObject_System_String_AGS_API_IRoom_
+  commentId: M:AGS.API.IObjectFactory.GetObject(System.String,AGS.API.IRoom)
+  fullName: AGS.API.IObjectFactory.GetObject(System.String, AGS.API.IRoom)
+  nameWithType: IObjectFactory.GetObject(String, IRoom)
 - uid: AGS.API.IObjectFactory.GetObject*
   name: GetObject
   href: api/AGS.API.IObjectFactory.html#AGS_API_IObjectFactory_GetObject_
@@ -10829,30 +10829,30 @@ references:
   commentId: Overload:AGS.API.IRoomFactory.CreateZoomArea
   fullName: AGS.API.IRoomFactory.CreateZoomArea
   nameWithType: IRoomFactory.CreateZoomArea
-- uid: AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IMask,System.Boolean,System.Boolean)
-  name: GetArea(String, IMask, Boolean, Boolean)
-  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetArea_System_String_AGS_API_IMask_System_Boolean_System_Boolean_
-  commentId: M:AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IMask,System.Boolean,System.Boolean)
-  fullName: AGS.API.IRoomFactory.GetArea(System.String, AGS.API.IMask, System.Boolean, System.Boolean)
-  nameWithType: IRoomFactory.GetArea(String, IMask, Boolean, Boolean)
-- uid: AGS.API.IRoomFactory.GetArea(System.String,System.Boolean,System.Boolean)
-  name: GetArea(String, Boolean, Boolean)
-  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetArea_System_String_System_Boolean_System_Boolean_
-  commentId: M:AGS.API.IRoomFactory.GetArea(System.String,System.Boolean,System.Boolean)
-  fullName: AGS.API.IRoomFactory.GetArea(System.String, System.Boolean, System.Boolean)
-  nameWithType: IRoomFactory.GetArea(String, Boolean, Boolean)
+- uid: AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IMask,AGS.API.IRoom,System.Boolean,System.Boolean)
+  name: GetArea(String, IMask, IRoom, Boolean, Boolean)
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetArea_System_String_AGS_API_IMask_AGS_API_IRoom_System_Boolean_System_Boolean_
+  commentId: M:AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IMask,AGS.API.IRoom,System.Boolean,System.Boolean)
+  fullName: AGS.API.IRoomFactory.GetArea(System.String, AGS.API.IMask, AGS.API.IRoom, System.Boolean, System.Boolean)
+  nameWithType: IRoomFactory.GetArea(String, IMask, IRoom, Boolean, Boolean)
+- uid: AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IRoom,System.Boolean,System.Boolean)
+  name: GetArea(String, IRoom, Boolean, Boolean)
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetArea_System_String_AGS_API_IRoom_System_Boolean_System_Boolean_
+  commentId: M:AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IRoom,System.Boolean,System.Boolean)
+  fullName: AGS.API.IRoomFactory.GetArea(System.String, AGS.API.IRoom, System.Boolean, System.Boolean)
+  nameWithType: IRoomFactory.GetArea(String, IRoom, Boolean, Boolean)
 - uid: AGS.API.IRoomFactory.GetArea*
   name: GetArea
   href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetArea_
   commentId: Overload:AGS.API.IRoomFactory.GetArea
   fullName: AGS.API.IRoomFactory.GetArea
   nameWithType: IRoomFactory.GetArea
-- uid: AGS.API.IRoomFactory.GetAreaAsync(System.String,System.Boolean,System.Boolean)
-  name: GetAreaAsync(String, Boolean, Boolean)
-  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetAreaAsync_System_String_System_Boolean_System_Boolean_
-  commentId: M:AGS.API.IRoomFactory.GetAreaAsync(System.String,System.Boolean,System.Boolean)
-  fullName: AGS.API.IRoomFactory.GetAreaAsync(System.String, System.Boolean, System.Boolean)
-  nameWithType: IRoomFactory.GetAreaAsync(String, Boolean, Boolean)
+- uid: AGS.API.IRoomFactory.GetAreaAsync(System.String,AGS.API.IRoom,System.Boolean,System.Boolean)
+  name: GetAreaAsync(String, IRoom, Boolean, Boolean)
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetAreaAsync_System_String_AGS_API_IRoom_System_Boolean_System_Boolean_
+  commentId: M:AGS.API.IRoomFactory.GetAreaAsync(System.String,AGS.API.IRoom,System.Boolean,System.Boolean)
+  fullName: AGS.API.IRoomFactory.GetAreaAsync(System.String, AGS.API.IRoom, System.Boolean, System.Boolean)
+  nameWithType: IRoomFactory.GetAreaAsync(String, IRoom, Boolean, Boolean)
 - uid: AGS.API.IRoomFactory.GetAreaAsync*
   name: GetAreaAsync
   href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetAreaAsync_
