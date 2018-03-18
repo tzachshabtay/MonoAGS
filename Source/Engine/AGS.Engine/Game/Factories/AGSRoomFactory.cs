@@ -32,19 +32,19 @@ namespace AGS.Engine
 			return room;
 		}
 
-        public IArea GetArea(string maskPath, bool isWalkable = false, bool isWalkBehind = false)
+        public IArea GetArea(string maskPath, IRoom room = null, bool isWalkable = false, bool isWalkBehind = false)
         {
-            return createArea(maskPath, _masks.Value.Load(maskPath), isWalkable, isWalkBehind);
+            return createArea(maskPath, _masks.Value.Load(maskPath), room, isWalkable, isWalkBehind);
         }
 
-        public IArea GetArea(string id, IMask mask, bool isWalkable = false, bool isWalkBehind = false)
+        public IArea GetArea(string id, IMask mask, IRoom room = null, bool isWalkable = false, bool isWalkBehind = false)
         {
-            return createArea(id, mask, isWalkable, isWalkBehind);
+            return createArea(id, mask, room, isWalkable, isWalkBehind);
         }
 
-        public async Task<IArea> GetAreaAsync(string maskPath, bool isWalkable = false, bool isWalkBehind = false)
+        public async Task<IArea> GetAreaAsync(string maskPath, IRoom room = null, bool isWalkable = false, bool isWalkBehind = false)
         {
-            return createArea(maskPath, await _masks.Value.LoadAsync(maskPath), isWalkable, isWalkBehind);
+            return createArea(maskPath, await _masks.Value.LoadAsync(maskPath), room, isWalkable, isWalkBehind);
         }
 
         public void CreateScaleArea(IArea area, float minScaling, float maxScaling, bool scaleObjectsX = true, bool scaleObjectsY = true, bool scaleVolume = true)
@@ -64,13 +64,14 @@ namespace AGS.Engine
             component.MaxZoom = maxZoom;
         }
 
-        private IArea createArea(string id, IMask mask, bool isWalkable = false, bool isWalkBehind = false)
+        private IArea createArea(string id, IMask mask, IRoom room, bool isWalkable, bool isWalkBehind)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IArea area = _resolver.Container.Resolve<IArea>(idParam);
             area.Mask = mask;
             if (isWalkable) area.AddComponent<IWalkableArea>();
             if (isWalkBehind) area.AddComponent<IWalkBehindArea>();
+            room?.Areas.Add(area);
             return area;
         }
 	}

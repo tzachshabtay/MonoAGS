@@ -18,70 +18,74 @@ namespace AGS.Engine
 			_gameState = gameState;
 		}
 
-		public IObject GetObject(string id)
+		public IObject GetObject(string id, IRoom room = null)
 		{
             Debug.WriteLine("Getting object: " + id ?? "null");
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
-			return _resolver.Container.Resolve<IObject>(idParam);
+			var obj = _resolver.Container.Resolve<IObject>(idParam);
+            room?.Objects.Add(obj);
+            return obj;
 		}
 
-        public IObject GetAdventureObject(string id, string[] sayWhenLook = null, string[] sayWhenInteract = null)
+        public IObject GetAdventureObject(string id, IRoom room = null, string[] sayWhenLook = null, string[] sayWhenInteract = null)
         {
             IObject obj = GetObject(id);
             IHotspotComponent hotspot = obj.AddComponent<IHotspotComponent>();
             subscribeSentences(sayWhenLook, hotspot.Interactions.OnInteract(AGSInteractions.LOOK));
             subscribeSentences(sayWhenInteract, hotspot.Interactions.OnInteract(AGSInteractions.INTERACT));
+            room?.Objects.Add(obj);
             return obj;
         }
 
-        public ICharacter GetCharacter(string id, IOutfit outfit, string[] sayWhenLook = null, string[] sayWhenInteract = null)
+        public ICharacter GetCharacter(string id, IOutfit outfit, IRoom room = null, string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
 			ICharacter character = GetCharacter(id, outfit, _resolver.Container.Resolve<IAnimationComponent>());
 
             subscribeSentences(sayWhenLook, character.Interactions.OnInteract(AGSInteractions.LOOK));
             subscribeSentences(sayWhenInteract, character.Interactions.OnInteract(AGSInteractions.INTERACT));
 
+            room?.Objects.Add(character);
 			return character;
 		}
 
-		public ICharacter GetCharacter(string id, IOutfit outfit, IAnimationComponent container)
+		public ICharacter GetCharacter(string id, IOutfit outfit, IAnimationComponent container, IRoom room = null)
 		{
 			TypedParameter outfitParam = new TypedParameter (typeof(IOutfit), outfit);
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
 			TypedParameter animationParam = new TypedParameter (typeof(IAnimationComponent), container);
 			ICharacter character = _resolver.Container.Resolve<ICharacter>(outfitParam, idParam, animationParam);
+            room?.Objects.Add(character);
 			return character;
 		}
 
-		public IObject GetHotspot(string maskPath, string hotspot, string[] sayWhenLook = null, 
+		public IObject GetHotspot(string maskPath, string hotspot, IRoom room = null, string[] sayWhenLook = null, 
 			string[] sayWhenInteract = null, string id = null)
 		{
             _maskLoader = _maskLoader ?? _resolver.Container.Resolve<IMaskLoader>();
 			IMask mask = _maskLoader.Load(maskPath, debugDrawColor:  Colors.White, id: id ?? hotspot);
-            if (mask == null) return newAdventureObject(id ?? hotspot, _resolver);
-			setMask (mask, hotspot, sayWhenLook, sayWhenInteract);
+            if (mask == null) return newAdventureObject(id ?? hotspot);
+			setMask (mask, hotspot, room, sayWhenLook, sayWhenInteract);
 			return mask.DebugDraw;
 		}
 
-		public async Task<IObject> GetHotspotAsync(string maskPath, string hotspot, string [] sayWhenLook = null,
-			string [] sayWhenInteract = null, string id = null)
+		public async Task<IObject> GetHotspotAsync(string maskPath, string hotspot, IRoom room = null, string[] sayWhenLook = null,
+			string[] sayWhenInteract = null, string id = null)
 		{
             _maskLoader = _maskLoader ?? _resolver.Container.Resolve<IMaskLoader>();
 			IMask mask = await _maskLoader.LoadAsync(maskPath, debugDrawColor: Colors.White, id: id ?? hotspot);
-            if (mask == null) return newAdventureObject(id ?? hotspot, _resolver);
-			setMask (mask, hotspot, sayWhenLook, sayWhenInteract);
+            if (mask == null) return newAdventureObject(id ?? hotspot);
+			setMask (mask, hotspot, room, sayWhenLook, sayWhenInteract);
 			return mask.DebugDraw;
 		}
 
-        private IObject newAdventureObject(string id, Resolver resolver)
+        private IObject newAdventureObject(string id)
         {
             IObject obj = new AGSObject(id, _resolver);
             obj.AddComponent<IHotspotComponent>();
             return obj;
         }
 
-		private void setMask (IMask mask, string hotspot, string [] sayWhenLook = null,
-			string [] sayWhenInteract = null)
+		private void setMask(IMask mask, string hotspot, IRoom room, string [] sayWhenLook, string [] sayWhenInteract)
 		{
             mask.DebugDraw.IsPixelPerfect = true;
             mask.DebugDraw.Enabled = true;
@@ -92,6 +96,7 @@ namespace AGS.Engine
             IHotspotComponent hotobj = mask.DebugDraw.GetComponent<IHotspotComponent>();
             subscribeSentences (sayWhenLook, hotobj.Interactions.OnInteract(AGSInteractions.LOOK));
             subscribeSentences (sayWhenInteract, hotobj.Interactions.OnInteract(AGSInteractions.INTERACT));
+            room?.Objects.Add(mask.DebugDraw);
 		}
 
 		private void subscribeSentences(string[] sentences, IEvent<ObjectEventArgs> e)
@@ -108,4 +113,3 @@ namespace AGS.Engine
 		}
 	}
 }
-
