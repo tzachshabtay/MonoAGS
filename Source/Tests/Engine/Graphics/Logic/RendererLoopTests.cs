@@ -66,7 +66,7 @@ namespace Tests
             try
             {
                 _mocks.Room().Setup(m => m.ShowPlayer).Returns(false);
-                AGSViewport viewport = new AGSViewport(new AGSDisplayListSettings(), new AGSCamera());
+                AGSViewport viewport = new AGSViewport(new AGSDisplayListSettings(), new AGSCamera(), Mocks.GetResolver());
                 viewport.RoomProvider = new AGSSingleRoomProvider(_mocks.Room().Object);
                 _mocks.GameState().Setup(m => m.Viewport).Returns(viewport);
                 _areas.Clear(); _areas.Add(getArea());
