@@ -41,9 +41,12 @@ namespace DemoGame
 			{
 				DisplayGUIs = false
 			};
-			_viewport2 = new AGSViewport(settings2, null);
+            _viewport2 = new AGSViewport(settings2, null);
             _viewport2.RoomProvider = new AGSSingleRoomProvider(await Rooms.BrokenCurbStreet);
 			_viewport2.ProjectionBox = new RectangleF(0.15f, 0.37f, 0.25f, 0.25f);
+            _viewport2.Pivot = new PointF(0.5f, 0.5f);
+            _viewport2.X = -160f;
+            _viewport2.Y = -100f;
             _viewport2.Parent = _parent;
 			_game.State.SecondaryViewports.Add(_viewport2);
 

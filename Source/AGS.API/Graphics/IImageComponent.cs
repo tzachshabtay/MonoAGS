@@ -27,11 +27,11 @@ namespace AGS.API
 
         /// <summary>
         /// Gets or sets the pivot point from which the position, scale and rotation are determined. 
-        /// For example, rotating an image from it's center point will rotate it in place, 
-        /// while rotating it from it's bottom-left point will rotate the entire image around the bottom-left. 
+        /// For example, rotating an image from its center point will rotate it in place, 
+        /// while rotating it from its bottom-left point will rotate the entire image around the bottom-left. 
         /// It might help to think of the pivot as the point on an image on which you place your finger on before rotating.
         ///
-        /// The units of the pivot point is in relation for the image size, where (0f,0f) is the bottom-left
+        /// The units of the pivot point is in relation to the image size, where (0f,0f) is the bottom-left
         /// corner, and (1f,1f) is the top-right corner. The default is (0.5f, 0f), which means the bottom-center
         /// point of the image.
         /// </summary>

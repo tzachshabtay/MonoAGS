@@ -1,12 +1,23 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using AGS.API;
+using Autofac;
 
 namespace AGS.Engine
 {
 	public class AGSViewport : IViewport
 	{
-        public AGSViewport(IDisplayListSettings displayListSettings, ICamera camera)
+        private readonly Resolver _resolver;
+        private readonly Func<int, IGLViewportMatrix> _createMatrixFunc;
+        private readonly Dictionary<int, IGLViewportMatrix> _viewports;
+        private readonly static IRenderLayer _dummyLayer = new AGSRenderLayer(0);
+
+        public AGSViewport(IDisplayListSettings displayListSettings, ICamera camera, Resolver resolver = null)
 		{
+            _resolver = resolver ?? AGSGame.Resolver;
+            _createMatrixFunc = _ => createMatrix(); //Creating a delegate in advance to avoid memory allocation in critical path
+            _viewports = new Dictionary<int, IGLViewportMatrix>(10);
 			ScaleX = 1f;
 			ScaleY = 1f;
             Camera = camera;
@@ -31,6 +42,8 @@ namespace AGS.Engine
 
         public float Angle { get; set; }
 
+        public PointF Pivot { get; set; }
+
         public bool Interactive { get; set; }
 
         public RectangleF ProjectionBox { get; set; }
@@ -48,7 +61,19 @@ namespace AGS.Engine
                       && !DisplayListSettings.DepthClipping.IsObjectClipped(obj);
         }
 
+        public Matrix4 GetMatrix(IRenderLayer renderLayer)
+        {
+            renderLayer = renderLayer ?? _dummyLayer;
+            var matrixProvider = _viewports.GetOrAdd(renderLayer.Z, _createMatrixFunc);
+            return matrixProvider.GetMatrix(this, renderLayer.ParallaxSpeed);
+        }
+
         #endregion
-	}
+
+        private IGLViewportMatrix createMatrix()
+        {
+            return _resolver.Container.Resolve<IGLViewportMatrix>();
+        }
+    }
 }
 

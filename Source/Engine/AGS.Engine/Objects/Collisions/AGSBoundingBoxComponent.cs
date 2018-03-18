@@ -23,13 +23,12 @@ namespace AGS.Engine
         private IDrawableInfoComponent _drawable;
         private ITextureOffsetComponent _textureOffset;
         private IGameSettings _settings;
-        private readonly IGLViewportMatrixFactory _layerViewports;
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
         private readonly IGameState _state;
         private IEntity _entity;
         private readonly AGSCropInfo _defaultCropInfo = default;
 
-        public AGSBoundingBoxComponent(IRuntimeSettings settings, IGLViewportMatrixFactory layerViewports,
+        public AGSBoundingBoxComponent(IRuntimeSettings settings,
                                        IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events,
                                        IBlockingEvent onBoundingBoxChanged)
         {
@@ -38,7 +37,6 @@ namespace AGS.Engine
             _settings = settings;
             _state = state;
             OnBoundingBoxesChanged = onBoundingBoxChanged;
-            _layerViewports = layerViewports;
             _boundingBoxBuilder = boundingBoxBuilder;
             boundingBoxBuilder.OnNewBoxBuildRequired.Subscribe(onHitTextBoxShouldChange);
             events.OnRoomChanging.Subscribe(onHitTextBoxShouldChange);
@@ -161,13 +159,12 @@ namespace AGS.Engine
             _areViewportsDirty = false;
             viewportBoxes.IsDirty = false;
 
-            var layerViewport = _layerViewports.GetViewport(drawable.RenderLayer.Z);
 			Size resolution;
 			PointF resolutionFactor;
 			bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
                                                  drawable, null, out resolutionFactor, out resolution);
 
-            var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : layerViewport.GetMatrix(viewport, drawable.RenderLayer.ParallaxSpeed);
+            var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : viewport.GetMatrix(drawable.RenderLayer);
             AGSBoundingBox intermediateBox, hitTestBox;
             hitTestBox = _hitTestBox;
 

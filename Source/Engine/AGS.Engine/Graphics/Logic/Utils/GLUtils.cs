@@ -53,8 +53,8 @@ namespace AGS.Engine
 
         public void RefreshViewport(IGameSettings settings, IGameWindow gameWindow, IViewport viewport)
         {
-            int viewX = 0;
-            int viewY = 0;
+            float viewX = 0;
+            float viewY = 0;
             int width = gameWindow.Width;
             int height = gameWindow.Height;
             if (settings.PreserveAspectRatio) //http://www.david-amador.com/2013/04/opengl-2d-independent-resolution-rendering/
@@ -75,28 +75,25 @@ namespace AGS.Engine
                 viewY = (screen.Height / 2) - (height / 2);
             }
 
-            ScreenViewport = new Rectangle(viewX, viewY, width, height);
-
-			var projectionBox = viewport.ProjectionBox;
-			viewX = (int)Math.Round(viewX + (float)(viewX + width) * projectionBox.X);
-			viewY = (int)Math.Round(viewY + (float)(viewY + height) * projectionBox.Y);
+            var projectionBox = viewport.ProjectionBox;
+			viewX = viewX + (float)(viewX + width) * projectionBox.X;
+			viewY = viewY + (float)(viewY + height) * projectionBox.Y;
 			var parent = viewport.Parent;
 			if (parent != null)
 			{
                 var boundingBoxes = parent.GetBoundingBoxes(_state.Viewport);
 				if (boundingBoxes != null)
 				{
-                    var resX = (float)(parent.RenderLayer?.IndependentResolution?.Width ?? settings.VirtualResolution.Width);
-                    var resY = (float)(parent.RenderLayer?.IndependentResolution?.Height ?? settings.VirtualResolution.Height);
-                    var factorX = width / resX;
-                    var factorY = height / resY;
-                    viewX += (int)(boundingBoxes.RenderBox.MinX * factorX);
-                    viewY += (int)(boundingBoxes.RenderBox.MinY * factorY);
+                    viewX += boundingBoxes.RenderBox.MinX;
+                    viewY += boundingBoxes.RenderBox.MinY;
 				}
 			}
 			width = (int)Math.Round((float)width * projectionBox.Width);
 			height = (int)Math.Round((float)height * projectionBox.Height);
-			_graphics.Viewport(viewX, viewY, width, height);
+            var viewXInt = (int)Math.Round(viewX);
+            var viewYInt = (int)Math.Round(viewY);
+            ScreenViewport = new Rectangle(viewXInt, viewYInt, width, height);
+            _graphics.Viewport(viewXInt, viewYInt, width, height);
         }
 
 		public void GenBuffers()

@@ -59,19 +59,15 @@ namespace AGS.API
             float windowWidth = GetWindowWidth();
             var projectLeft = viewport.ProjectionBox.X * windowWidth;
             var projectRight = projectLeft + viewport.ProjectionBox.Width * windowWidth;
-			var parent = viewport.Parent;
-			if (parent != null)
-			{
-				var boundingBoxes = parent.GetBoundingBoxes(_mainViewport);
-				if (boundingBoxes != null)
-				{
-					projectLeft += boundingBoxes.RenderBox.MinX;
-					projectRight += boundingBoxes.RenderBox.MinX;
-				}
-			}
-            var virtualWidth = VirtualResolution.Width / viewport.ScaleX;
-            float x = MathUtils.Lerp(projectLeft, 0f, projectRight, virtualWidth, XWindow);
-			return x + viewport.X;
+            var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
+            if (parentBoundingBoxes != null)
+            {
+                projectLeft += parentBoundingBoxes.RenderBox.MinX;
+                projectRight += parentBoundingBoxes.RenderBox.MinX;
+            }
+
+            float x = MathUtils.Lerp(projectLeft, 0f, projectRight, VirtualResolution.Width, XWindow);
+            return x;
         }
 
         /// <summary>
@@ -84,15 +80,15 @@ namespace AGS.API
             float windowHeight = GetWindowHeight();
             var projectBottom = windowHeight - viewport.ProjectionBox.Y * windowHeight;
             var projectTop = projectBottom - viewport.ProjectionBox.Height * windowHeight;
-            var boundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
-            if (boundingBoxes != null)
+            var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
+            if (parentBoundingBoxes != null)
             {
-                projectBottom -= boundingBoxes.RenderBox.MinY;
-                projectTop -= boundingBoxes.RenderBox.MinY;
+                projectBottom -= parentBoundingBoxes.RenderBox.MinY;
+                projectTop -= parentBoundingBoxes.RenderBox.MinY;
             }
-            var virtualHeight = VirtualResolution.Height / viewport.ScaleY;
-            float y = MathUtils.Lerp(projectTop, virtualHeight, projectBottom, 0f, YWindow);
-			return y + viewport.Y;
+
+            float y = MathUtils.Lerp(projectBottom, 0f, projectTop, VirtualResolution.Height, YWindow);
+            return y;
         }
 
         /// <summary>
@@ -104,8 +100,30 @@ namespace AGS.API
         /// <param name="projectedInto">Projected into.</param>
         public Vector2 GetProjectedPoint(IViewport viewport, IObject projectedInto)
         {
-            float x = GetViewportX(viewport);
-            float y = GetViewportY(viewport);
+            float windowWidth = GetWindowWidth();
+            float windowHeight = GetWindowHeight();
+            var projectBottom = windowHeight - viewport.ProjectionBox.Y * windowHeight;
+            var projectTop = projectBottom - viewport.ProjectionBox.Height * windowHeight;
+            var projectLeft = viewport.ProjectionBox.X * windowWidth;
+            var projectRight = projectLeft + viewport.ProjectionBox.Width * windowWidth;
+            var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
+            if (parentBoundingBoxes != null)
+            {
+                projectLeft += parentBoundingBoxes.RenderBox.MinX;
+                projectRight += parentBoundingBoxes.RenderBox.MinX;
+                projectBottom -= parentBoundingBoxes.RenderBox.MinY;
+                projectTop -= parentBoundingBoxes.RenderBox.MinY;
+            }
+            float y = MathUtils.Lerp(projectTop, VirtualResolution.Height, projectBottom, 0f, YWindow);
+            float x = MathUtils.Lerp(projectLeft, 0f, projectRight, VirtualResolution.Width, XWindow);
+
+            var matrix = viewport.GetMatrix(projectedInto.RenderLayer);
+            matrix.Invert();
+            Vector3 xyz = new Vector3(x, y, 0f);
+            Vector3.Transform(ref xyz, ref matrix, out xyz);
+            x = xyz.X;
+            y = xyz.Y;
+
 			var boundingBoxes = projectedInto.TreeNode.Parent?.GetBoundingBoxes(viewport);
             if (boundingBoxes != null && boundingBoxes.RenderBox.IsValid)
 			{
