@@ -14291,6 +14291,18 @@ references:
   commentId: Overload:AGS.API.IViewport.DisplayListSettings
   fullName: AGS.API.IViewport.DisplayListSettings
   nameWithType: IViewport.DisplayListSettings
+- uid: AGS.API.IViewport.GetMatrix(AGS.API.IRenderLayer)
+  name: GetMatrix(IRenderLayer)
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_GetMatrix_AGS_API_IRenderLayer_
+  commentId: M:AGS.API.IViewport.GetMatrix(AGS.API.IRenderLayer)
+  fullName: AGS.API.IViewport.GetMatrix(AGS.API.IRenderLayer)
+  nameWithType: IViewport.GetMatrix(IRenderLayer)
+- uid: AGS.API.IViewport.GetMatrix*
+  name: GetMatrix
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_GetMatrix_
+  commentId: Overload:AGS.API.IViewport.GetMatrix
+  fullName: AGS.API.IViewport.GetMatrix
+  nameWithType: IViewport.GetMatrix
 - uid: AGS.API.IViewport.Interactive
   name: Interactive
   href: api/AGS.API.IViewport.html#AGS_API_IViewport_Interactive
@@ -14327,6 +14339,18 @@ references:
   commentId: Overload:AGS.API.IViewport.Parent
   fullName: AGS.API.IViewport.Parent
   nameWithType: IViewport.Parent
+- uid: AGS.API.IViewport.Pivot
+  name: Pivot
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_Pivot
+  commentId: P:AGS.API.IViewport.Pivot
+  fullName: AGS.API.IViewport.Pivot
+  nameWithType: IViewport.Pivot
+- uid: AGS.API.IViewport.Pivot*
+  name: Pivot
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_Pivot_
+  commentId: Overload:AGS.API.IViewport.Pivot
+  fullName: AGS.API.IViewport.Pivot
+  nameWithType: IViewport.Pivot
 - uid: AGS.API.IViewport.ProjectionBox
   name: ProjectionBox
   href: api/AGS.API.IViewport.html#AGS_API_IViewport_ProjectionBox
