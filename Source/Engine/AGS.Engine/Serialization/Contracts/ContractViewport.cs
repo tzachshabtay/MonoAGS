@@ -43,7 +43,7 @@ namespace AGS.Engine
 
 		public IViewport ToItem(AGSSerializationContext context)
 		{
-            AGSViewport viewport = new AGSViewport(DisplayListSettings.ToItem(context) ,Camera.ToItem(context));
+            AGSViewport viewport = new AGSViewport(DisplayListSettings.ToItem(context), Camera.ToItem(context), context.Resolver);
 			viewport.X = X;
 			viewport.Y = Y;
 			viewport.ScaleX = ScaleX;

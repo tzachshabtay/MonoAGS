@@ -97,10 +97,12 @@ namespace DemoGame
                         ( "Angle", () => viewport.TweenAngle(45f, time, ease())),
                         ( "ScaleX", () => viewport.TweenScaleX(2f, time, ease())),
                         ( "ScaleY", () => viewport.TweenScaleY(2f, time, ease())),
-                        ( "ProjectX", () => viewport.TweenProjectX(-0.5f, time, ease())),
-                        ( "ProjectY", () => viewport.TweenProjectY(-0.5f, time, ease())),
+                        ( "ProjectX", () => viewport.TweenProjectX(0.5f, time, ease())),
+                        ( "ProjectY", () => viewport.TweenProjectY(0.5f, time, ease())),
                         ( "ProjectWidth", () => viewport.TweenProjectWidth(0.5f, time, ease())),
                         ( "ProjectHeight", () => viewport.TweenProjectHeight(0.5f, time, ease())),
+                        ( "PivotX", () => viewport.TweenPivotX(0.5f, time, ease())),
+                        ( "PivotY", () => viewport.TweenPivotY(0.5f, time, ease())),
                     }
                 },
                 { "Music", new List<(string, Func<Tween>)>{

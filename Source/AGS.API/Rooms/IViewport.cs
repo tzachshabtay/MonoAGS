@@ -40,6 +40,24 @@ namespace AGS.API
 		float Angle { get; set; }
 
         /// <summary>
+        /// Gets or sets the pivot point from which the position, scale and rotation of the viewport are determined. 
+        /// For example, rotating the viewport from its center point will rotate it in place, 
+        /// while rotating it from its bottom-left point will rotate the entire viewport around the bottom-left. 
+        /// It might help to think of the pivot as the point on an image on which you place your finger on before rotating.
+        ///
+        /// The units of the pivot point is in relation to the viewport size, where (0f,0f) is the bottom-left
+        /// corner, and (1f,1f) is the top-right corner. The default is (0f, 0f), which means the bottom-left
+        /// point of the viewport.
+        /// </summary>
+        /// <example>
+        /// <code language="lang-csharp">
+        /// viewport.Pivot = new PointF(0.5f, 0.5f); //placing the pivot point in the middle of the viewport
+        /// </code>
+        /// </example>
+        /// <value>The pivot.</value>
+        PointF Pivot { get; set; }
+
+        /// <summary>
         /// Gets or sets the camera which automatically manipulates the viewport to follow a target (usually the player).
         /// </summary>
         /// <value>The camera.</value>
@@ -89,6 +107,13 @@ namespace AGS.API
         /// <returns><c>true</c>, if object should be visible, <c>false</c> otherwise.</returns>
         /// <param name="obj">Object.</param>
         bool IsObjectVisible(IObject obj);
+
+        /// <summary>
+        /// Gets the matrix used to transform objects from the viewport co-ordinates to the screen co-ordinates.
+        /// </summary>
+        /// <returns>The matrix.</returns>
+        /// <param name="layer">Layer.</param>
+        Matrix4 GetMatrix(IRenderLayer layer);
 	}
 }
 

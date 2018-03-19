@@ -168,13 +168,14 @@ namespace AGS.Engine
         {
 			IObject cursor = _input.Cursor;
 			if (cursor == null) return;
+            cursor.IgnoreViewport = true;
 			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
 			{
 				_mouseCursorContainer = cursor;
 			}
             var viewport = _gameState.Viewport;
-            _mouseCursorContainer.X = (_input.MousePosition.XMainViewport - viewport.X) * viewport.ScaleX;
-            _mouseCursorContainer.Y = (_input.MousePosition.YMainViewport - viewport.Y) * viewport.ScaleY;
+            _mouseCursorContainer.X = _input.MousePosition.GetViewportX(viewport);
+            _mouseCursorContainer.Y = _input.MousePosition.GetViewportY(viewport);
             _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport);
             _matrixUpdater.RefreshMatrix(_mouseCursorContainer);
             renderObject(viewport, _mouseCursorContainer);

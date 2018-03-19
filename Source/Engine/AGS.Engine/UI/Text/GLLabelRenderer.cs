@@ -19,7 +19,6 @@ namespace AGS.Engine
 		private readonly IGLColorBuilder _colorBuilder;
 		private readonly IGLTextureRenderer _textureRenderer;
 		private readonly AGSBoundingBoxes _labelBoundingBoxes, _textBoundingBoxes;
-		private readonly IGLViewportMatrixFactory _viewport;
 		private AGSBoundingBoxes _usedLabelBoundingBoxes, _usedTextBoundingBoxes, _afterCropTextBoundingBoxes;
 		private readonly BitmapPool _bitmapPool;
         private readonly IFontLoader _fonts;
@@ -49,7 +48,7 @@ namespace AGS.Engine
 
         public GLLabelRenderer(ITextureCache textures, ITextureFactory textureFactory,
 			IBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder, 
-			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool, IGLViewportMatrixFactory viewportMatrix,
+			IGLTextureRenderer textureRenderer, BitmapPool bitmapPool,
             AGSBoundingBoxes labelBoundingBoxes, AGSBoundingBoxes textBoundingBoxes,
             IGLUtils glUtils, IGraphicsBackend graphics, IFontLoader fonts,
             IRuntimeSettings settings, IRenderMessagePump messagePump, IGameState state, IGameEvents events)
@@ -67,7 +66,6 @@ namespace AGS.Engine
             _graphics = graphics;
             _fonts = fonts;
 			_bitmapPool = bitmapPool;
-			_viewport = viewportMatrix;
 			_textureRenderer = textureRenderer;
 			_labelBoundingBoxes = labelBoundingBoxes;
 			_textBoundingBoxes = textBoundingBoxes;
@@ -125,8 +123,7 @@ namespace AGS.Engine
             if (_lastObject != obj)
             {
                 IBlockingEvent boxChangeEvent = obj.GetComponent<IBoundingBoxComponent>()?.OnBoundingBoxesChanged ?? new AGSEvent();
-                AGSBoundingBoxComponent box = new AGSBoundingBoxComponent(_settings, _viewport,
-                                              _labelBoundingBoxFakeBuilder, _state, _events, boxChangeEvent);
+                AGSBoundingBoxComponent box = new AGSBoundingBoxComponent(_settings, _labelBoundingBoxFakeBuilder, _state, _events, boxChangeEvent);
                 obj.RemoveComponent<IBoundingBoxComponent>();
                 obj.AddComponent<IBoundingBoxComponent>(box);
                 _lastObject = obj;
@@ -277,7 +274,7 @@ namespace AGS.Engine
             else CustomImageSize = BaseSize;
 
             CustomImageResolutionFactor = hitTestResolutionFactor;
-            var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : _viewport.GetViewport(drawable.RenderLayer.Z).GetMatrix(viewport, drawable.RenderLayer.ParallaxSpeed);
+            var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : viewport.GetMatrix(drawable.RenderLayer);
             if (!viewportMatrix.Equals(_lastViewportMatrix))
             {
                 _lastViewportMatrix = viewportMatrix;

@@ -594,6 +594,48 @@ namespace AGS.Engine
 		}
 
         /// <summary>
+        /// Tweens the x of the viewport's pivot point.
+        /// <example>
+        /// <code language="lang-csharp">
+        /// var tween = viewport.TweenPivotX(0.5f, 2f, Ease.ElasticInOut);
+        /// await tween.Task;
+        /// </code>
+        /// </example>
+        /// <seealso cref="Tween"/>
+        /// <seealso cref="IViewport.Pivot"/>
+        /// </summary>
+        /// <returns>The tween.</returns>
+        /// <param name="viewport">viewport.</param>
+        /// <param name="toX">To X.</param>
+        /// <param name="timeInSeconds">Time in seconds.</param>
+        /// <param name="easing">Easing function.</param>
+        public static Tween TweenPivotX(this IViewport viewport, float toX, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return Tween.Run(viewport.Pivot.X, toX, x => viewport.Pivot = new PointF(x, viewport.Pivot.Y), timeInSeconds, easing);
+        }
+
+        /// <summary>
+        /// Tweens the y of the viewport's pivot point.
+        /// <example>
+        /// <code language="lang-csharp">
+        /// var tween = viewport.TweenPivotY(0.5f, 2f, Ease.ElasticInOut);
+        /// await tween.Task;
+        /// </code>
+        /// </example>
+        /// <seealso cref="Tween"/>
+        /// <seealso cref="IViewport.Pivot"/>
+        /// </summary>
+        /// <returns>The tween.</returns>
+        /// <param name="viewport">viewport.</param>
+        /// <param name="toY">To Y.</param>
+        /// <param name="timeInSeconds">Time in seconds.</param>
+        /// <param name="easing">Easing function.</param>
+        public static Tween TweenPivotY(this IViewport viewport, float toY, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return Tween.Run(viewport.Pivot.Y, toY, y => viewport.Pivot = new PointF(viewport.Pivot.X, y), timeInSeconds, easing);
+        }
+
+        /// <summary>
         /// Tweens the volume of a sound.
         /// <example>
         /// <code language="lang-csharp">

@@ -49,7 +49,7 @@ namespace Tests
 			_mocks.Object().Setup(o => o.Y).Returns(0f);
 			Func<IObject> getTarget = () => _mocks.Object().Object;
 			camera.Target = getTarget;
-            AGSViewport viewport = new AGSViewport(new AGSDisplayListSettings(), camera);
+            AGSViewport viewport = new AGSViewport(new AGSDisplayListSettings(), camera, Mocks.GetResolver());
 			viewport.X = currentViewX;
 			viewport.Y = 0f;
             camera.Tick(viewport, new RectangleF (0f, 0f, roomWidth, 200), new Size (screenWidth, 200), false);

@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.Diagnostics;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -12,7 +13,7 @@ namespace AGS.Engine
         private IEntity _entity;
         private IBoundingBoxComponent _boundingBox;
 
-		public AGSCollider(IGameState state)
+        public AGSCollider(IGameState state)
 		{
 			_state = state;
 		}
@@ -61,11 +62,15 @@ namespace AGS.Engine
             var pixelPerfectComponent = _pixelPerfect;
             IArea pixelPerfect = pixelPerfectComponent == null || !pixelPerfectComponent.IsPixelPerfect ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 
-            if (_drawableInfo?.IgnoreViewport ?? false) 
+            if (!(_drawableInfo?.IgnoreViewport ?? false))
 			{
-				//todo: Support viewport rotation (+ ignore scaling areas = false?)
-				x = (x - viewport.X) * viewport.ScaleX;
-				y = (y - viewport.Y) * viewport.ScaleY;
+                var matrix = viewport.GetMatrix(_drawableInfo.RenderLayer);
+                matrix.Invert();
+                Vector3 xyz = new Vector3(x, y, 0f);
+                Vector3.Transform(ref xyz, ref matrix, out xyz);
+                //todo: (support ignore scaling areas = false?)
+                x = xyz.X;
+                y = xyz.Y;
 			}
 
 			if (pixelPerfect == null || !pixelPerfect.Enabled)
@@ -89,4 +94,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

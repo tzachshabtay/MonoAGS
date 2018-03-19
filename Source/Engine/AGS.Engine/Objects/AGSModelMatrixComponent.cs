@@ -145,6 +145,13 @@ namespace AGS.Engine
 
         public IBlockingEvent OnMatrixChanged { get; private set; }
 
+        public static PointF GetPivotOffsets(PointF pivot, float width, float height)
+        {
+            float x = MathUtils.Lerp(0f, 0f, 1f, width, pivot.X);
+            float y = MathUtils.Lerp(0f, 0f, 1f, height, pivot.Y);
+            return new PointF(x, y);
+        }
+
         public static bool GetVirtualResolution(bool flattenLayerResolution, Size virtualResolution, IDrawableInfoComponent drawable, 
                                          PointF? customResolutionFactor, out PointF resolutionFactor, out Size resolution)
         {
@@ -353,7 +360,7 @@ namespace AGS.Engine
                 _nullFloat : (_customImageSize.Value.Height * scale.ScaleY);
             float width = (customWidth ?? scale.Width) * areaScaling.X * resolutionTransform.X;
             float height = (customHeight ?? scale.Height) * areaScaling.Y * resolutionTransform.Y;
-            PointF pivotOffsets = getPivotOffsets(image == null ? PointF.Empty : image.Pivot, 
+            PointF pivotOffsets = GetPivotOffsets(image == null ? PointF.Empty : image.Pivot, 
                                                     width, height);
             Matrix4 pivotMat = Matrix4.CreateTranslation(new Vector3(-pivotOffsets.X, -pivotOffsets.Y, 0f));
             Matrix4 scaleMat = Matrix4.CreateScale(new Vector3(scale.ScaleX * areaScaling.X,
@@ -369,13 +376,6 @@ namespace AGS.Engine
             }
             Matrix4 translateMat = Matrix4.CreateTranslation(new Vector3(x, y, 0f));
             return scaleMat * pivotMat * rotationMat * translateMat;
-        }
-
-        private PointF getPivotOffsets(PointF pivot, float width, float height)
-        {
-            float x = MathUtils.Lerp(0f, 0f, 1f, width, pivot.X);
-            float y = MathUtils.Lerp(0f, 0f, 1f, height, pivot.Y);
-            return new PointF(x, y);
         }
 
         private void subscribeRoom()
