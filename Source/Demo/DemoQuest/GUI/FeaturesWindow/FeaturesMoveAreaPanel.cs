@@ -58,7 +58,7 @@ namespace DemoGame
 
             bool[,] maskArr = new bool[200, 200];
             var mask = factory.Masks.Load(maskArr, "Elevator Mask", true, Colors.GreenYellow.WithAlpha(150));
-            var area = factory.Room.GetArea("Elevator Area", mask, true);
+            var area = factory.Room.GetArea("Elevator Area", mask, null, true);
             area.Mask.DebugDraw.TreeNode.SetParent(areaParent.TreeNode);
             area.Mask.DebugDraw.RenderLayer = _parent.RenderLayer;
             var areaTranslate = area.AddComponent<ITranslateComponent>();

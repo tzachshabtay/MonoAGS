@@ -33,11 +33,11 @@ namespace AGS.API
         /// background image contains spots which should actually be in the front.
         /// </summary>
         /// <returns>The area.</returns>
-        /// <param name="id">A unique identifier for the area.</param>
         /// <param name="maskPath">The resource path which contains the bitmap mask for the area.</param>
+        /// <param name="room">The room to place the area in.</param>
         /// <param name="isWalkable">If set to <c>true</c> the area should be made walkable.</param>
         /// <param name="isWalkBehind">If set to <c>true</c> the should be made a walk-behind area.</param>
-        IArea GetArea(string maskPath, bool isWalkable = false, bool isWalkBehind = false);
+        IArea GetArea(string maskPath, IRoom room = null, bool isWalkable = false, bool isWalkBehind = false);
 
 		/// <summary>
 		/// Creates an area from a mask, which can be made walkable and/or walk-behind (or none of the above).
@@ -49,9 +49,10 @@ namespace AGS.API
 		/// <returns>The area.</returns>
 		/// <param name="id">Unique identifier for the area.</param>
 		/// <param name="mask">Mask.</param>
+        /// <param name="room">The room to place the area in.</param>
 		/// <param name="isWalkable">If set to <c>true</c> is walkable.</param>
 		/// <param name="isWalkBehind">If set to <c>true</c> is walk behind.</param>
-		IArea GetArea(string id, IMask mask, bool isWalkable = false, bool isWalkBehind = false);
+		IArea GetArea(string id, IMask mask, IRoom room = null, bool isWalkable = false, bool isWalkBehind = false);
 
         /// <summary>
         /// Creates an area asynchronously, which can be made walkable and/or walk-behind (or none of the above).
@@ -61,11 +62,11 @@ namespace AGS.API
         /// background image contains spots which should actually be in the front.
         /// </summary>
         /// <returns>The area.</returns>
-        /// <param name="id">A unique identifier for the area.</param>
         /// <param name="maskPath">The resource path which contains the bitmap mask for the area.</param>
+        /// <param name="room">The room to place the area in.</param>
         /// <param name="isWalkable">If set to <c>true</c> the area should be made walkable.</param>
         /// <param name="isWalkBehind">If set to <c>true</c> the should be made a walk-behind area.</param>
-        Task<IArea> GetAreaAsync(string maskPath, bool isWalkable = false, bool isWalkBehind = false);
+        Task<IArea> GetAreaAsync(string maskPath, IRoom room = null, bool isWalkable = false, bool isWalkBehind = false);
 
         /// <summary>
         /// Creates a scaling area(<see cref="IScalingArea"/>). 
@@ -87,4 +88,3 @@ namespace AGS.API
         void CreateZoomArea(IArea area, float minZoom, float maxZoom);
 	}
 }
-

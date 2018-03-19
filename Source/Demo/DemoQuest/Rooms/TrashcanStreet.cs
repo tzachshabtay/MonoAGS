@@ -24,14 +24,14 @@ namespace DemoGame
 			_room.Background = bg;
 
             var device = AGSGame.Device;
-            _room.Areas.Add(await factory.Room.GetAreaAsync(_baseFolder + "walkable.png", isWalkable: true));
+            await factory.Room.GetAreaAsync(_baseFolder + "walkable.png", _room, isWalkable: true);
             factory.Room.CreateScaleArea(_room.Areas[0], 0.50f, 0.90f);
 
-			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "HoleHotspot.png", "Hole"));
-			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "roadHotspot.png", "Road"));
-			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "sidewalkHotspot.png", "Sidewalk"));
-			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "SignHotspot.png", "Sign"));
-			_room.Objects.Add(await factory.Object.GetHotspotAsync(_baseFolder + "trashCansHotspot.png", "Trashcans"));
+			await factory.Object.GetHotspotAsync(_baseFolder + "HoleHotspot.png", "Hole", _room);
+			await factory.Object.GetHotspotAsync(_baseFolder + "roadHotspot.png", "Road", _room);
+			await factory.Object.GetHotspotAsync(_baseFolder + "sidewalkHotspot.png", "Sidewalk", _room);
+			await factory.Object.GetHotspotAsync(_baseFolder + "SignHotspot.png", "Sign", _room);
+			await factory.Object.GetHotspotAsync(_baseFolder + "trashCansHotspot.png", "Trashcans", _room);
 
 			subscribeEvents();
 			return _room;
