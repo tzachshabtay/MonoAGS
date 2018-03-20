@@ -87,11 +87,12 @@ namespace AGS.Engine
             if (bitmap == null) return;
             _drawable = _drawable ?? createObject();
             _drawable.Image = _images.GetOrAdd(bitmap, _createImageFunc);
+            _room?.Objects?.Add(_drawable);
         }
 
         private IObject createObject()
         {
-            var obj = _factory.Object.GetObject($"Walk-Behind Drawable: {_entity.ID}", _room);
+            var obj = _factory.Object.GetObject($"Walk-Behind Drawable: {_entity.ID}");
             obj.Pivot = new PointF();
             obj.Z = Baseline == null ? _area.Mask.MinY : Baseline.Value;
             obj.Enabled = false;
