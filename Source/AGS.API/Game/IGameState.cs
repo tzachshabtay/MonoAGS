@@ -36,6 +36,12 @@ namespace AGS.API
         IAGSBindingList<IViewport> SecondaryViewports { get; }
 
         /// <summary>
+        /// Gets the viewports sorted (in ascending order) by their Z index.
+        /// </summary>
+        /// <returns>The sorted viewports.</returns>
+        List<IViewport> GetSortedViewports();
+
+        /// <summary>
         /// All of the non-room objects in the game. Those are usually GUIs which stay on the screen
         /// even if you switch between rooms (like the top bar, a hotspot label, inventory window, menus, etc).
         /// </summary>

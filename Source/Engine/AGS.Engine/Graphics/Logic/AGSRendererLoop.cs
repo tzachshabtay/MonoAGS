@@ -137,16 +137,17 @@ namespace AGS.Engine
         private void renderAllViewports()
 		{
             _matrixUpdater.ClearCache();
-            renderViewport(_gameState.Viewport);
+            var viewports = _gameState.GetSortedViewports();
             try
             {
-                foreach (var viewport in _gameState.SecondaryViewports)
+                for (int i = viewports.Count - 1; i >= 0; i--)
                 {
+                    var viewport = viewports[i];
                     if (viewport == null) continue;
                     renderViewport(viewport);
                 }
             }
-            catch (InvalidOperationException) {} //can be triggered if a viewport was added/removed while enumerating- this should be resolved on next tick
+            catch (IndexOutOfRangeException) {} //can be triggered if a viewport was added/removed while enumerating- this should be resolved on next tick
             renderCursor();
 		}
 

@@ -34,6 +34,7 @@ namespace DemoGame
             _viewport1 = new AGSViewport(settings1, null);
             _viewport1.RoomProvider = new AGSSingleRoomProvider(await Rooms.DarsStreet);
             _viewport1.ProjectionBox = new RectangleF(0.15f, 0.07f, 0.25f, 0.25f);
+            _viewport1.Z = -1f;
             _viewport1.Parent = _parent;
             _game.State.SecondaryViewports.Add(_viewport1);
 
@@ -47,6 +48,7 @@ namespace DemoGame
             _viewport2.Pivot = new PointF(0.5f, 0.5f);
             _viewport2.X = -160f;
             _viewport2.Y = -100f;
+            _viewport2.Z = -2f;
             _viewport2.Parent = _parent;
 			_game.State.SecondaryViewports.Add(_viewport2);
 
