@@ -3532,12 +3532,12 @@ references:
   commentId: T:AGS.API.IBitmap
   fullName: AGS.API.IBitmap
   nameWithType: IBitmap
-- uid: AGS.API.IBitmap.ApplyArea(AGS.API.IAreaComponent)
-  name: ApplyArea(IAreaComponent)
-  href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_ApplyArea_AGS_API_IAreaComponent_
-  commentId: M:AGS.API.IBitmap.ApplyArea(AGS.API.IAreaComponent)
-  fullName: AGS.API.IBitmap.ApplyArea(AGS.API.IAreaComponent)
-  nameWithType: IBitmap.ApplyArea(IAreaComponent)
+- uid: AGS.API.IBitmap.ApplyArea(AGS.API.IArea)
+  name: ApplyArea(IArea)
+  href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_ApplyArea_AGS_API_IArea_
+  commentId: M:AGS.API.IBitmap.ApplyArea(AGS.API.IArea)
+  fullName: AGS.API.IBitmap.ApplyArea(AGS.API.IArea)
+  nameWithType: IBitmap.ApplyArea(IArea)
 - uid: AGS.API.IBitmap.ApplyArea*
   name: ApplyArea
   href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_ApplyArea_
