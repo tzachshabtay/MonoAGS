@@ -49,6 +49,7 @@ namespace Tests
         public void EmptyRoom_NotError_Test()
         {
             _mocks.Room().Setup(m => m.ShowPlayer).Returns(false);
+            _mocks.GameState().Setup(m => m.GetSortedViewports()).Returns(new List<IViewport>{_mocks.GameState().Object.Viewport});
             _areas.Clear();
             _roomObjects.Clear();
             _uiObjects.Clear();
@@ -69,6 +70,7 @@ namespace Tests
                 AGSViewport viewport = new AGSViewport(new AGSDisplayListSettings(), new AGSCamera(), Mocks.GetResolver());
                 viewport.RoomProvider = new AGSSingleRoomProvider(_mocks.Room().Object);
                 _mocks.GameState().Setup(m => m.Viewport).Returns(viewport);
+                    _mocks.GameState().Setup(m => m.GetSortedViewports()).Returns(new List<IViewport> { _mocks.GameState().Object.Viewport });
                 _areas.Clear(); _areas.Add(getArea());
                 _roomObjects.Clear(); _roomObjects.Add(_mocks.Object(true).Object);
                 _uiObjects.Clear(); _uiObjects.Add(_mocks.Object(true).Object);

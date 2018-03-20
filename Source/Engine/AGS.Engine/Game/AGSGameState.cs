@@ -3,6 +3,7 @@ using System.Linq;
 using AGS.API;
 using Autofac;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace AGS.Engine
 {
@@ -10,6 +11,7 @@ namespace AGS.Engine
 	{
 		private Lazy<ICutscene> _cutscene;
         private IAGSRoomTransitions _roomTransitions;
+        private readonly ViewportCollection _viewports;
 
         public AGSGameState (ICustomProperties globalVariables, IAGSRoomTransitions roomTransitions, 
                              Resolver resolver, IFocusedUI focusedUi, IViewport viewport)
@@ -25,6 +27,7 @@ namespace AGS.Engine
             FocusedUI = focusedUi;
 			_cutscene = new Lazy<ICutscene> (() => resolver.Container.Resolve<ICutscene>());
 			_roomTransitions = roomTransitions;
+            _viewports = new ViewportCollection(this);
 		}
 
 		#region IGameState implementation
@@ -38,6 +41,8 @@ namespace AGS.Engine
         public IViewport Viewport { get; }
 
         public IAGSBindingList<IViewport> SecondaryViewports { get; }
+
+        public List<IViewport> GetSortedViewports() => _viewports.SortedViewports;
 
 		public IConcurrentHashSet<IObject> UI { get; private set; }
 

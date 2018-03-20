@@ -36,6 +36,8 @@ namespace AGS.Engine
 
         public float Y { get; set; }
 
+        public float Z { get; set; }
+
         public float ScaleX { get; set; }
 
         public float ScaleY { get; set; }

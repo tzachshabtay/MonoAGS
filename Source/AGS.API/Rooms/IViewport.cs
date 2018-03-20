@@ -22,6 +22,12 @@ namespace AGS.API
 		float Y { get; set; }
 
         /// <summary>
+        /// Gets or sets the Z ordering for the viewport. The smaller the number, the more visible the viewport gets..
+        /// </summary>
+        /// <value>The z.</value>
+        float Z { get; set; }
+
+        /// <summary>
         /// The horizontal zoom factor of the room.
         /// </summary>
         /// <value>The scale x.</value>
