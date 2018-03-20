@@ -3532,12 +3532,12 @@ references:
   commentId: T:AGS.API.IBitmap
   fullName: AGS.API.IBitmap
   nameWithType: IBitmap
-- uid: AGS.API.IBitmap.ApplyArea(AGS.API.IAreaComponent)
-  name: ApplyArea(IAreaComponent)
-  href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_ApplyArea_AGS_API_IAreaComponent_
-  commentId: M:AGS.API.IBitmap.ApplyArea(AGS.API.IAreaComponent)
-  fullName: AGS.API.IBitmap.ApplyArea(AGS.API.IAreaComponent)
-  nameWithType: IBitmap.ApplyArea(IAreaComponent)
+- uid: AGS.API.IBitmap.ApplyArea(AGS.API.IArea)
+  name: ApplyArea(IArea)
+  href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_ApplyArea_AGS_API_IArea_
+  commentId: M:AGS.API.IBitmap.ApplyArea(AGS.API.IArea)
+  fullName: AGS.API.IBitmap.ApplyArea(AGS.API.IArea)
+  nameWithType: IBitmap.ApplyArea(IArea)
 - uid: AGS.API.IBitmap.ApplyArea*
   name: ApplyArea
   href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_ApplyArea_
@@ -8241,6 +8241,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IGameState.FocusedUI
   nameWithType: IGameState.FocusedUI
+- uid: AGS.API.IGameState.GetSortedViewports
+  name: GetSortedViewports()
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_GetSortedViewports
+  commentId: M:AGS.API.IGameState.GetSortedViewports
+  fullName: AGS.API.IGameState.GetSortedViewports()
+  nameWithType: IGameState.GetSortedViewports()
+- uid: AGS.API.IGameState.GetSortedViewports*
+  name: GetSortedViewports
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_GetSortedViewports_
+  commentId: Overload:AGS.API.IGameState.GetSortedViewports
+  isSpec: "True"
+  fullName: AGS.API.IGameState.GetSortedViewports
+  nameWithType: IGameState.GetSortedViewports
 - uid: AGS.API.IGameState.GlobalVariables
   name: GlobalVariables
   href: api/AGS.API.IGameState.html#AGS_API_IGameState_GlobalVariables
@@ -15317,6 +15330,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IViewport.Y
   nameWithType: IViewport.Y
+- uid: AGS.API.IViewport.Z
+  name: Z
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_Z
+  commentId: P:AGS.API.IViewport.Z
+  fullName: AGS.API.IViewport.Z
+  nameWithType: IViewport.Z
+- uid: AGS.API.IViewport.Z*
+  name: Z
+  href: api/AGS.API.IViewport.html#AGS_API_IViewport_Z_
+  commentId: Overload:AGS.API.IViewport.Z
+  isSpec: "True"
+  fullName: AGS.API.IViewport.Z
+  nameWithType: IViewport.Z
 - uid: AGS.API.IVisibleComponent
   name: IVisibleComponent
   href: api/AGS.API.IVisibleComponent.html
