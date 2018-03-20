@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AGS.API;
 
@@ -71,15 +72,7 @@ namespace AGS.Engine
 
 		private IRoom getRoom()
 		{
-            var rooms = _state?.Rooms;
-            if (rooms == null) 
-				return null;
-            foreach (var room in rooms)
-			{
-				if (room.Objects.Contains(_obj)) return room;
-			}
-			return null;
+            return _state?.Rooms?.FirstOrDefault(r => r.Objects.Contains(_obj));
 		}
 	}
 }
-

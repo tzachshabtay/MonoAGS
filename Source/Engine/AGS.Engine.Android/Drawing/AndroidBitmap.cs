@@ -80,7 +80,7 @@ namespace AGS.Engine.Android
 			_bitmap.UnlockPixels();
 		}
 
-		public IBitmap ApplyArea(IArea area)
+		public IBitmap ApplyArea(IAreaComponent area)
 		{
 			//todo: performance can be improved by only creating a bitmap the size of the area, and not the entire background.
 			//This will require to change the rendering as well to offset the location
