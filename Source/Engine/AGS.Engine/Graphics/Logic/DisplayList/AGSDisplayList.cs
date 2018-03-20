@@ -14,7 +14,6 @@ namespace AGS.Engine
         private readonly IGameState _gameState;
         private readonly IInput _input;
         private readonly IImageRenderer _renderer;
-        private readonly AGSWalkBehindsMap _walkBehinds;
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
         private readonly HashSet<string> _alreadyPrepared = new HashSet<string>();
@@ -177,14 +176,13 @@ namespace AGS.Engine
             }
         }
 
-        public AGSDisplayList(IGameState gameState, IInput input, AGSWalkBehindsMap walkBehinds,
+        public AGSDisplayList(IGameState gameState, IInput input, 
                               IImageRenderer renderer, IGameEvents events, IAGSRoomTransitions roomTransitions)
         {
             _roomTransitions = roomTransitions;
             _gameState = gameState;
             _input = input;
             _renderer = renderer;
-            _walkBehinds = walkBehinds;
             _cache = new ConcurrentDictionary<IViewport, List<IObject>>();
             _viewportSubscribers = new ConcurrentDictionary<IViewport, ViewportSubscriber>();
             _bindings = new ConcurrentDictionary<string, List<API.IComponentBinding>>();
@@ -272,13 +270,6 @@ namespace AGS.Engine
                 }
 
                 foreach (var area in room.Areas) addDebugDrawArea(displayList, area, viewport);
-                foreach (var area in room.Areas)
-                {
-                    if (!area.Enabled || room.Background == null || room.Background.Image == null) continue;
-                    IObject drawable = _walkBehinds.GetDrawable(area, room.Background.Image.OriginalBitmap);
-                    if (drawable == null) continue;
-                    addToDisplayList(displayList, drawable, viewport);
-                }
             }
 
             if (settings.DisplayGUIs)

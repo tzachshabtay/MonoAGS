@@ -64,7 +64,7 @@ namespace AGS.API
         /// </summary>
         /// <returns>The new bitmap.</returns>
         /// <param name="area">Area.</param>
-		IBitmap ApplyArea(IArea area);
+		IBitmap ApplyArea(IAreaComponent area);
 
         /// <summary>
         /// Creates a new bitmap which is cropped to the given rectangle.
@@ -99,4 +99,3 @@ namespace AGS.API
         void SaveToFile(string path);
     }
 }
-

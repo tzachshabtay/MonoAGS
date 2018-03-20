@@ -1,5 +1,6 @@
 ﻿using System;
 using AGS.API;
+using Autofac;
 using ProtoBuf;
 
 namespace AGS.Engine
@@ -18,7 +19,7 @@ namespace AGS.Engine
 
 		public IWalkBehindArea ToItem(AGSSerializationContext context)
 		{
-			AGSWalkBehindArea area = new AGSWalkBehindArea ();
+            IWalkBehindArea area = context.Resolver.Container.Resolve<IWalkBehindArea>();
 			area.Baseline = BaseLine;
 			return area;
 		}
