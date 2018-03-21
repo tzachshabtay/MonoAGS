@@ -92,7 +92,9 @@ namespace DemoGame
 
 			for (int index = 0; index < numLampPosts; index++)
 			{
-				IObject lampPost = factory.Object.GetObject("Lamp Post " + index, _room);
+                IObject lampPost = factory.Object.GetAdventureObject("Lamp Post " + index, _room);
+                lampPost.DisplayName = "Lamp Post";
+                lampPost.IsPixelPerfect = true;
 				lampPost.X = 200f * index + 30f;
 				lampPost.Y = -130f;
 				lampPost.RenderLayer = parallaxLayer;
