@@ -51,12 +51,10 @@ namespace AGS.Engine
             var pivotOffsets = AGSModelMatrixComponent.GetPivotOffsets(_lastPivot, _virtualResolution.Width, _virtualResolution.Height);
             Matrix4 pivotMat = Matrix4.CreateTranslation(new Vector3(-pivotOffsets.X, -pivotOffsets.Y, 0f));
             var radians = MathUtils.DegreesToRadians(_lastRotation);
-
-            _lastMatrix = pivotMat * 
-                Matrix4.CreateScale(_lastScaleX, _lastScaleY, 1f) *
+            _lastMatrix = pivotMat *
                 Matrix4.CreateRotationZ(radians) *
-                Matrix4.CreateTranslation(new Vector3(-_lastX * _lastParallaxSpeedX, -_lastY * _lastParallaxSpeedY, 0f));
+                Matrix4.CreateTranslation(new Vector3(-_lastX * _lastParallaxSpeedX, -_lastY * _lastParallaxSpeedY, 0f)) *
+                Matrix4.CreateScale(_lastScaleX, _lastScaleY, 1f);
 		}
 	}
 }
-
