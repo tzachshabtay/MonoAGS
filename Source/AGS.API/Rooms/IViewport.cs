@@ -46,7 +46,7 @@ namespace AGS.API
 		float Angle { get; set; }
 
         /// <summary>
-        /// Gets or sets the pivot point from which the position, scale and rotation of the viewport are determined. 
+        /// Gets or sets the pivot point from which the scale and rotation of the viewport are determined. 
         /// For example, rotating the viewport from its center point will rotate it in place, 
         /// while rotating it from its bottom-left point will rotate the entire viewport around the bottom-left. 
         /// It might help to think of the pivot as the point on an image on which you place your finger on before rotating.
