@@ -45,9 +45,10 @@ namespace AGS.Engine
 
 			setScale(target, viewport, resetPosition);
 
-			//todo: Allow control over which point in the target to follow
-			float targetX = target.X;//target.CenterPoint == null ? target.X : target.CenterPoint.X;
-			float targetY = target.Y;//target.CenterPoint == null ? target.Y : target.CenterPoint.Y;
+            //todo: Allow control over which point in the target to follow
+            Vector3 center = target.GetBoundingBoxes(viewport).HitTestBox.CenterPoint;
+            float targetX = center.X;
+            float targetY = center.Y;
 			float maxResolutionX = virtualResoution.Width / viewport.ScaleX;
 			float maxResolutionY = virtualResoution.Height / viewport.ScaleY;
             targetX = getTargetPos(targetX, roomLimits.X, roomLimits.Width, maxResolutionX);
