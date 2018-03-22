@@ -49,13 +49,13 @@ namespace AGS.Engine
 		private void buildMatrix()
 		{
             var pivotOffsets = AGSModelMatrixComponent.GetPivotOffsets(_lastPivot, _virtualResolution.Width, _virtualResolution.Height);
-            Matrix4 pivotMat = Matrix4.CreateTranslation(new Vector3(-pivotOffsets.X, -pivotOffsets.Y, 0f));
-            Matrix4 reversePivotMat = Matrix4.CreateTranslation(new Vector3(pivotOffsets.X, pivotOffsets.Y, 0f));
+            Matrix4 pivotMat = Matrix4.CreateTranslation(new Vector3(pivotOffsets.X, pivotOffsets.Y, 0f));
             var radians = MathUtils.DegreesToRadians(_lastRotation);
-            _lastMatrix = pivotMat *
-                Matrix4.CreateRotationZ(radians) *
+            _lastMatrix =
                 Matrix4.CreateTranslation(new Vector3(-_lastX * _lastParallaxSpeedX, -_lastY * _lastParallaxSpeedY, 0f)) *
-                Matrix4.CreateScale(_lastScaleX, _lastScaleY, 1f) * reversePivotMat;
+                Matrix4.CreateRotationZ(radians) *
+                pivotMat *
+                Matrix4.CreateScale(_lastScaleX, _lastScaleY, 1f);
 		}
 	}
 }
