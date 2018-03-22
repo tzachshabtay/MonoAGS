@@ -38,6 +38,8 @@ namespace AGS.API
 			MaxX = max(bottomLeft.X, bottomRight.X, topLeft.X, topRight.X);
 			MinY = min(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
 			MaxY = max(bottomLeft.Y, bottomRight.Y, topLeft.Y, topRight.Y);
+            
+            CenterPoint = new Vector3((MinX + MaxX) / 2, (MinY + MaxY) / 2, 0f);
 
             IsValid = !MathUtils.FloatEquals(MinX, MaxX) && !MathUtils.FloatEquals(MinY, MaxY);
 		}
@@ -52,6 +54,7 @@ namespace AGS.API
             MaxX = maxX;
             MinY = minY;
             MaxY = maxY;
+            CenterPoint = new Vector3((minX + maxX) / 2, (minY + maxY) / 2, 0f);
             IsValid = !MathUtils.FloatEquals(MinX, MaxX) && !MathUtils.FloatEquals(MinY, MaxY);
 		}
 
@@ -80,6 +83,12 @@ namespace AGS.API
         /// </summary>
         /// <value>The top right point.</value>
 		public Vector3 TopRight { get; }
+
+        /// <summary>
+        /// Gets the center point in a flat XY plane.
+        /// </summary>
+        /// <value>The center point.</value>
+        public Vector3 CenterPoint { get; }
 
         /// <summary>
         /// Gets the width.
