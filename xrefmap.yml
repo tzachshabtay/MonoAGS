@@ -8622,6 +8622,19 @@ references:
   commentId: T:AGS.API.IHasImage
   fullName: AGS.API.IHasImage
   nameWithType: IHasImage
+- uid: AGS.API.IHasImage.Brightness
+  name: Brightness
+  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_Brightness
+  commentId: P:AGS.API.IHasImage.Brightness
+  fullName: AGS.API.IHasImage.Brightness
+  nameWithType: IHasImage.Brightness
+- uid: AGS.API.IHasImage.Brightness*
+  name: Brightness
+  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_Brightness_
+  commentId: Overload:AGS.API.IHasImage.Brightness
+  isSpec: "True"
+  fullName: AGS.API.IHasImage.Brightness
+  nameWithType: IHasImage.Brightness
 - uid: AGS.API.IHasImage.CustomRenderer
   name: CustomRenderer
   href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_CustomRenderer
