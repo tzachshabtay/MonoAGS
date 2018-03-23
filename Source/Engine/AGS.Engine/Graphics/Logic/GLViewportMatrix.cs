@@ -54,8 +54,7 @@ namespace AGS.Engine
             _lastMatrix =
                 Matrix4.CreateTranslation(new Vector3(-_lastX * _lastParallaxSpeedX, -_lastY * _lastParallaxSpeedY, 0f)) *
                 Matrix4.CreateRotationZ(radians) *
-                pivotMat *
-                Matrix4.CreateScale(_lastScaleX, _lastScaleY, 1f);
+                Matrix4.CreateScale(_lastScaleX, _lastScaleY, 1f) * pivotMat;
 		}
 	}
 }
