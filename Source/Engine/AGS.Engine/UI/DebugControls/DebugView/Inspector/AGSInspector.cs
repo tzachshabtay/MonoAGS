@@ -210,6 +210,8 @@ namespace AGS.Engine
             else if (propType == typeof(PointF)) editor = new PointFPropertyEditor(_state, _factory, false);
             else if (propType == typeof(Point)) editor = new PointPropertyEditor(_state, _factory, false);
             else if (propType == typeof(Vector2)) editor = new Vector2PropertyEditor(_state, _factory, false);
+            else if (propType == typeof(Vector3)) editor = new Vector3PropertyEditor(_state, _factory, false);
+            else if (propType == typeof(Vector4)) editor = new Vector4PropertyEditor(_state, _factory, false);
             else if (propType == typeof(ILocation))
             {
                 var entity = _currentEntity;
@@ -226,6 +228,8 @@ namespace AGS.Engine
             else if (propType == typeof(PointF?)) editor = new PointFPropertyEditor(_state, _factory, true);
             else if (propType == typeof(Point?)) editor = new PointPropertyEditor(_state, _factory, true);
             else if (propType == typeof(Vector2?)) editor = new Vector2PropertyEditor(_state, _factory, true);
+            else if (propType == typeof(Vector3?)) editor = new Vector3PropertyEditor(_state, _factory, true);
+            else if (propType == typeof(Vector4?)) editor = new Vector4PropertyEditor(_state, _factory, true);
             else if (propType == typeof(RectangleF?)) editor = new RectangleFPropertyEditor(_state, _factory, true);
             else if (propType == typeof(Rectangle?)) editor = new RectanglePropertyEditor(_state, _factory, true);
 

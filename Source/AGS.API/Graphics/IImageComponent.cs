@@ -26,6 +26,17 @@ namespace AGS.API
         Color Tint { get; set; }
 
         /// <summary>
+        /// Gets or sets the brightness of the object.
+        /// This is an additional modifier to the tint (<see cref="Tint"/>), which allows you to reach brighter
+        /// colors than the original image.
+        /// The brightness has 4 components to allow modifying each of the 4 RGBA components of the original color.
+        /// By default it's (1,1,1,1), meaning no changes to the original image.
+        /// To make the object twice as bright, set Brightness = new Vector4(2,2,2,2), or simply: new Vector4(2).
+        /// </summary>
+        /// <value>The brightness.</value>
+        Vector4 Brightness { get; set; }
+
+        /// <summary>
         /// Gets or sets the pivot point from which the position, scale and rotation are determined. 
         /// For example, rotating an image from its center point will rotate it in place, 
         /// while rotating it from its bottom-left point will rotate the entire image around the bottom-left. 

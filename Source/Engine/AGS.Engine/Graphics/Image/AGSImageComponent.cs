@@ -56,6 +56,8 @@ namespace AGS.Engine
 
         public Color Tint { get => _image.Tint; set => _image.Tint = value; }
 
+        public Vector4 Brightness { get => _image.Brightness; set => _image.Brightness = value; }
+
         public ISprite Sprite { get => _sprite; }
 
         public ISprite CurrentSprite { get => _provider?.Sprite; }

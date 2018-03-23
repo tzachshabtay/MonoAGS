@@ -271,6 +271,27 @@ namespace AGS.Engine
 		}
 
         /// <summary>
+        /// Tweens the brightness of the image (where 1 is default, 2 is twice as bright).
+        /// <example>
+        /// <code language="lang-csharp">
+        /// var tween = obj.TweenBrightness(2f, 2f, Ease.QuadOut);
+        /// await tween.Task;
+        /// </code>
+        /// </example>
+        /// <seealso cref="Tween"/>
+        /// <seealso cref="IHasImage.Brightness"/>
+        /// </summary>
+        /// <returns>The tween.</returns>
+        /// <param name="sprite">Sprite.</param>
+        /// <param name="toBrightness">To brightness.</param>
+        /// <param name="timeInSeconds">Time in seconds.</param>
+        /// <param name="easing">Easing function.</param>
+        public static Tween TweenBrightness(this IHasImage sprite, float toBrightness, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return Tween.Run(sprite.Brightness.X, toBrightness, b => sprite.Brightness = new Vector4(b), timeInSeconds, easing);
+        }
+
+        /// <summary>
         /// Tweens the pivot point (its x position) of an image.
         /// <example>
         /// <code language="lang-csharp">

@@ -47,6 +47,7 @@ namespace DemoGame
                     ( "Red", () => o.TweenRed(0, time, ease())),
                     ( "Green", () => o.TweenGreen(255, time, ease())),
                     ( "Blue", () => o.TweenBlue(255, time, ease())),
+                    ( "Brightness", () => o.TweenBrightness(3f, time, ease())),
                     ( "Hue", () => o.TweenHue(360, time, ease())),
                     ( "Saturation", () => o.TweenSaturation(0f, time, ease())),
                     ( "Lightness", () => o.TweenLightness(0f, time, ease())),

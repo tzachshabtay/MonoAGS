@@ -254,7 +254,7 @@ namespace AGS.Engine
                                              params (string text, Func<float, T, T> getValue)[] creators) :
         base(state, factory, wholeNumbers, nullable, creators.Select((creator, index) =>
             new InternalNumberEditor(creator.text, prop => prop.Value == InspectorProperty.NullValue ?
-                                     InspectorProperty.NullValue : prop.Value.Split(',')[index],
+                                     InspectorProperty.NullValue : prop.Value.Replace("(", "").Replace(")", "").Split(',')[index],
                                      (prop, value) =>
             {
                 object objVal = prop.Prop.GetValue(prop.Object);
@@ -299,6 +299,25 @@ namespace AGS.Engine
         public Vector2PropertyEditor(IGameState state, IGameFactory factory, bool nullable) : base(state, factory, false, nullable, null,
                            ("X", (x, vector) => new Vector2(x, vector.Y)),
                            ("Y", (y, vector) => new Vector2(vector.X, y)))
+        { }
+    }
+
+    public class Vector3PropertyEditor : MultipleNumbersPropertyEditor<Vector3>
+    {
+        public Vector3PropertyEditor(IGameState state, IGameFactory factory, bool nullable) : base(state, factory, false, nullable, null,
+                           ("X", (x, vector) => new Vector3(x, vector.Y, vector.Z)),
+                           ("Y", (y, vector) => new Vector3(vector.X, y, vector.Z)),
+                           ("Z", (z, vector) => new Vector3(vector.X, vector.Y, z)))
+        { }
+    }
+
+    public class Vector4PropertyEditor : MultipleNumbersPropertyEditor<Vector4>
+    {
+        public Vector4PropertyEditor(IGameState state, IGameFactory factory, bool nullable) : base(state, factory, false, nullable, null,
+                           ("X", (x, vector) => new Vector4(x, vector.Y, vector.Z, vector.W)),
+                           ("Y", (y, vector) => new Vector4(vector.X, y, vector.Z, vector.W)),
+                           ("Z", (z, vector) => new Vector4(vector.X, vector.Y, z, vector.W)),
+                           ("W", (w, vector) => new Vector4(vector.X, vector.Y, vector.Z, w)))
         { }
     }
 

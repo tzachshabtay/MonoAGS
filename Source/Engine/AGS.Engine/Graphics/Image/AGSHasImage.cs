@@ -9,6 +9,7 @@ namespace AGS.Engine
         {
             Pivot = new PointF(0.5f, 0f);
             Tint = Colors.White;
+            Brightness = new Vector4(1f);
         }
 
         public byte Opacity
@@ -18,6 +19,8 @@ namespace AGS.Engine
         }
 
         public Color Tint { get; set; }
+
+        public Vector4 Brightness { get; set; }
 
         public PointF Pivot { get; set; }
 
