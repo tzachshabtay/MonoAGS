@@ -110,6 +110,10 @@ namespace Tests
 
 		[TestCase(0,0,1,       0,null,1, 0f,2f,1f, 1f,1f,0f, 0f,1f,1f, 1f,0f,0f, Result=false)]
 		[TestCase(0,1,0,       0,1,0,    1f,1f,2f, 0f,0f,5f, 1f,5f,5f, 0f,3f,3f, Result=true)]
+
+        //Test for bug: https://github.com/tzachshabtay/MonoAGS/issues/269
+        //The result here is less important (both objects has the same Z across the board so it's undefined), just making sure it doesn't crash.
+        [TestCase(0,0,null,    0,null,null, 0f,0f,null, 0f,null,null, 0f,0f,null, 0f,null,null, Result=false)]
 		public bool IsObjectInFrontTest(
 			int? o1RenderLayerZ, int? o1ParentRenderLayerZ, int? o1GrandParentRenderLayerZ,
 			int? o2RenderLayerZ, int? o2ParentRenderLayerZ, int? o2GrandParentRenderLayerZ,
