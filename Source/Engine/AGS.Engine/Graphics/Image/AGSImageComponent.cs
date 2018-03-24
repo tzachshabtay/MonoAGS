@@ -56,6 +56,7 @@ namespace AGS.Engine
 
         public Color Tint { get => _image.Tint; set => _image.Tint = value; }
 
+        [NumberEditorSlider(sliderMin: 0f, sliderMax: 2f, step: 0.1f)]
         public Vector4 Brightness { get => _image.Brightness; set => _image.Brightness = value; }
 
         public ISprite Sprite { get => _sprite; }
