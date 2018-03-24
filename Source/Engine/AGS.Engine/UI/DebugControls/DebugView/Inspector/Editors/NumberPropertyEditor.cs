@@ -35,6 +35,7 @@ namespace AGS.Engine
                     {
                         editor.SuggestedMinValue = slider.SliderMin;
                         editor.SuggestedMaxValue = slider.SliderMax;
+                        editor.Step = slider.Step;
                     }
                     else configureNumberEditor?.Invoke(this, editor);
                 };

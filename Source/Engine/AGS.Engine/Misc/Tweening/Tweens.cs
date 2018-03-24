@@ -202,7 +202,7 @@ namespace AGS.Engine
 		}
 
         /// <summary>
-        /// Tweens the hue of the image (based on HSLA color scheme).
+        /// Tweens the hue of the image's tint (based on HSLA color scheme).
         /// <example>
         /// <code language="lang-csharp">
         /// var tween = obj.TweenHue(0, 2f, Ease.QuadOut);
@@ -218,14 +218,14 @@ namespace AGS.Engine
         /// <param name="toHue">To hue.</param>
         /// <param name="timeInSeconds">Time in seconds.</param>
         /// <param name="easing">Easing function.</param>
-		public static Tween TweenHue(this IHasImage sprite, int toHue, float timeInSeconds, Func<float, float> easing = null)
+		public static Tween TweenTintHue(this IHasImage sprite, int toHue, float timeInSeconds, Func<float, float> easing = null)
 		{
 			return Tween.Run((float)sprite.Tint.GetHue(), (float)toHue, h => sprite.Tint = Color.FromHsla((int)h, sprite.Tint.GetSaturation(),
 				sprite.Tint.GetLightness(), sprite.Tint.A), timeInSeconds, easing);
 		}
 
         /// <summary>
-        /// Tweens the saturation of the image (based on HSLA color scheme).
+        /// Tweens the saturation of the image's tint (based on HSLA color scheme).
         /// <example>
         /// <code language="lang-csharp">
         /// var tween = obj.TweenSaturation(0f, 2f, Ease.QuadOut);
@@ -241,14 +241,14 @@ namespace AGS.Engine
         /// <param name="toSaturation">To saturation.</param>
         /// <param name="timeInSeconds">Time in seconds.</param>
         /// <param name="easing">Easing function.</param>
-		public static Tween TweenSaturation(this IHasImage sprite, float toSaturation, float timeInSeconds, Func<float, float> easing = null)
+		public static Tween TweenTintSaturation(this IHasImage sprite, float toSaturation, float timeInSeconds, Func<float, float> easing = null)
 		{
 			return Tween.Run(sprite.Tint.GetSaturation(), toSaturation, s => sprite.Tint = Color.FromHsla(sprite.Tint.GetHue(), s,
 				sprite.Tint.GetLightness(), sprite.Tint.A), timeInSeconds, easing);
 		}
 
         /// <summary>
-        /// Tweens the lightness of the image (based on HSLA color scheme).
+        /// Tweens the lightness of the image's tint (based on HSLA color scheme).
         /// <example>
         /// <code language="lang-csharp">
         /// var tween = obj.TweenLightness(0f, 2f, Ease.QuadOut);
@@ -264,7 +264,7 @@ namespace AGS.Engine
         /// <param name="toLightness">To lightness.</param>
         /// <param name="timeInSeconds">Time in seconds.</param>
         /// <param name="easing">Easing function.</param>
-		public static Tween TweenLightness(this IHasImage sprite, float toLightness, float timeInSeconds, Func<float, float> easing = null)
+		public static Tween TweenTintLightness(this IHasImage sprite, float toLightness, float timeInSeconds, Func<float, float> easing = null)
 		{
 			return Tween.Run(sprite.Tint.GetLightness(), toLightness, l => sprite.Tint = Color.FromHsla(sprite.Tint.GetHue(), 
 				sprite.Tint.GetSaturation(), l, sprite.Tint.A), timeInSeconds, easing);
@@ -289,6 +289,27 @@ namespace AGS.Engine
         public static Tween TweenBrightness(this IHasImage sprite, float toBrightness, float timeInSeconds, Func<float, float> easing = null)
         {
             return Tween.Run(sprite.Brightness.X, toBrightness, b => sprite.Brightness = new Vector4(b), timeInSeconds, easing);
+        }
+
+        /// <summary>
+        /// Tweens the saturation of the image (where 1 is default, 0 is completely unsaturated).
+        /// <example>
+        /// <code language="lang-csharp">
+        /// var tween = obj.TweenSaturation(0f, 2f, Ease.QuadOut);
+        /// await tween.Task;
+        /// </code>
+        /// </example>
+        /// <seealso cref="Tween"/>
+        /// <seealso cref="ISaturationEffectComponent.Saturation"/>
+        /// </summary>
+        /// <returns>The saturation.</returns>
+        /// <param name="effect">Effect.</param>
+        /// <param name="toSaturation">To saturation.</param>
+        /// <param name="timeInSeconds">Time in seconds.</param>
+        /// <param name="easing">Easing function.</param>
+        public static Tween TweenSaturation(this ISaturationEffectComponent effect, float toSaturation, float timeInSeconds, Func<float, float> easing = null)
+        {
+            return Tween.Run(effect.Saturation, toSaturation, s => effect.Saturation = s, timeInSeconds, easing);
         }
 
         /// <summary>

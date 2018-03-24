@@ -38,14 +38,14 @@ namespace AGS.Engine
     }
 ";
 
-		private readonly IObject _target;
+        private readonly IShaderComponent _target;
 		private readonly float _decay;
 		private float _strength;
 
 		private IShader _shakeShader, _previousShader;
 		private TaskCompletionSource<object> _taskCompletionSource;
 
-        public ShakeEffect(float strength = 0.05f, float decay = 0.99f, IObject target = null)
+        public ShakeEffect(float strength = 0.05f, float decay = 0.99f, IShaderComponent target = null)
 		{
 			_target = target;
 			_strength = strength;
