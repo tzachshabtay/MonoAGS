@@ -15,8 +15,10 @@ namespace AGS.Engine
         private EntityListSubscriptions<IObject> _subscriptions;
         private List<float> _columnSizes;
 
-        public AGSTreeTableRowLayoutComponent()
+        public AGSTreeTableRowLayoutComponent(IRestrictionList restrictionList)
         {
+            RestrictionList = restrictionList;
+            if (restrictionList != null) restrictionList.PropertyChanged += onRestrictionListChanged;
             _columnSizes = new List<float>();
         }
 
@@ -33,6 +35,8 @@ namespace AGS.Engine
                 value?.Rows.Add(this);
             }
         }
+
+        public IRestrictionList RestrictionList { get; private set; }
 
         public override void Init(IEntity entity)
         {
@@ -80,6 +84,11 @@ namespace AGS.Engine
             calculateColumns();
         }
 
+        private void onRestrictionListChanged(object sender, PropertyChangedEventArgs args)
+        {
+            calculateColumns();
+        }
+
         private void calculateColumns()
         {
             var tree = _tree;
@@ -108,10 +117,16 @@ namespace AGS.Engine
             for (int index = 0; index < tree.TreeNode.ChildrenCount; index++)
             {
                 var child = tree.TreeNode.Children[index];
-                var width = child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Width;
+                var width = isRestricted(child) ? 0f :
+                    child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Width;
                 _columnSizes[index] = width;
             }
             _table?.PerformLayout();
+        }
+
+        private bool isRestricted(IEntity entity)
+        {
+            return RestrictionList?.IsRestricted(entity.ID) ?? false;
         }
 
         private void unsubscribeChildren()
@@ -157,7 +172,8 @@ namespace AGS.Engine
             {
                 var child = tree.TreeNode.Children[index];
                 child.X = x;
-                var width = table.ColumnSizes[index];
+                var width = isRestricted(child) ? child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Width : 
+                                                table.ColumnSizes[index];
                 x += width + table.ColumnPadding;
             }
         }
