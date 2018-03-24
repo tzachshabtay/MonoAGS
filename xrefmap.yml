@@ -8622,6 +8622,19 @@ references:
   commentId: T:AGS.API.IHasImage
   fullName: AGS.API.IHasImage
   nameWithType: IHasImage
+- uid: AGS.API.IHasImage.Brightness
+  name: Brightness
+  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_Brightness
+  commentId: P:AGS.API.IHasImage.Brightness
+  fullName: AGS.API.IHasImage.Brightness
+  nameWithType: IHasImage.Brightness
+- uid: AGS.API.IHasImage.Brightness*
+  name: Brightness
+  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_Brightness_
+  commentId: Overload:AGS.API.IHasImage.Brightness
+  isSpec: "True"
+  fullName: AGS.API.IHasImage.Brightness
+  nameWithType: IHasImage.Brightness
 - uid: AGS.API.IHasImage.CustomRenderer
   name: CustomRenderer
   href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_CustomRenderer
@@ -11782,6 +11795,25 @@ references:
   isSpec: "True"
   fullName: AGS.API.IRuntimeSettings.WindowState
   nameWithType: IRuntimeSettings.WindowState
+- uid: AGS.API.ISaturationEffectComponent
+  name: ISaturationEffectComponent
+  href: api/AGS.API.ISaturationEffectComponent.html
+  commentId: T:AGS.API.ISaturationEffectComponent
+  fullName: AGS.API.ISaturationEffectComponent
+  nameWithType: ISaturationEffectComponent
+- uid: AGS.API.ISaturationEffectComponent.Saturation
+  name: Saturation
+  href: api/AGS.API.ISaturationEffectComponent.html#AGS_API_ISaturationEffectComponent_Saturation
+  commentId: P:AGS.API.ISaturationEffectComponent.Saturation
+  fullName: AGS.API.ISaturationEffectComponent.Saturation
+  nameWithType: ISaturationEffectComponent.Saturation
+- uid: AGS.API.ISaturationEffectComponent.Saturation*
+  name: Saturation
+  href: api/AGS.API.ISaturationEffectComponent.html#AGS_API_ISaturationEffectComponent_Saturation_
+  commentId: Overload:AGS.API.ISaturationEffectComponent.Saturation
+  isSpec: "True"
+  fullName: AGS.API.ISaturationEffectComponent.Saturation
+  nameWithType: ISaturationEffectComponent.Saturation
 - uid: AGS.API.ISaveLoad
   name: ISaveLoad
   href: api/AGS.API.ISaveLoad.html
@@ -14611,6 +14643,19 @@ references:
   commentId: T:AGS.API.ITreeTableRowLayoutComponent
   fullName: AGS.API.ITreeTableRowLayoutComponent
   nameWithType: ITreeTableRowLayoutComponent
+- uid: AGS.API.ITreeTableRowLayoutComponent.RestrictionList
+  name: RestrictionList
+  href: api/AGS.API.ITreeTableRowLayoutComponent.html#AGS_API_ITreeTableRowLayoutComponent_RestrictionList
+  commentId: P:AGS.API.ITreeTableRowLayoutComponent.RestrictionList
+  fullName: AGS.API.ITreeTableRowLayoutComponent.RestrictionList
+  nameWithType: ITreeTableRowLayoutComponent.RestrictionList
+- uid: AGS.API.ITreeTableRowLayoutComponent.RestrictionList*
+  name: RestrictionList
+  href: api/AGS.API.ITreeTableRowLayoutComponent.html#AGS_API_ITreeTableRowLayoutComponent_RestrictionList_
+  commentId: Overload:AGS.API.ITreeTableRowLayoutComponent.RestrictionList
+  isSpec: "True"
+  fullName: AGS.API.ITreeTableRowLayoutComponent.RestrictionList
+  nameWithType: ITreeTableRowLayoutComponent.RestrictionList
 - uid: AGS.API.ITreeTableRowLayoutComponent.Table
   name: Table
   href: api/AGS.API.ITreeTableRowLayoutComponent.html#AGS_API_ITreeTableRowLayoutComponent_Table
@@ -19224,12 +19269,12 @@ references:
   commentId: T:AGS.API.NumberEditorSliderAttribute
   fullName: AGS.API.NumberEditorSliderAttribute
   nameWithType: NumberEditorSliderAttribute
-- uid: AGS.API.NumberEditorSliderAttribute.#ctor(System.Single,System.Single)
-  name: NumberEditorSliderAttribute(Single, Single)
-  href: api/AGS.API.NumberEditorSliderAttribute.html#AGS_API_NumberEditorSliderAttribute__ctor_System_Single_System_Single_
-  commentId: M:AGS.API.NumberEditorSliderAttribute.#ctor(System.Single,System.Single)
-  fullName: AGS.API.NumberEditorSliderAttribute.NumberEditorSliderAttribute(System.Single, System.Single)
-  nameWithType: NumberEditorSliderAttribute.NumberEditorSliderAttribute(Single, Single)
+- uid: AGS.API.NumberEditorSliderAttribute.#ctor(System.Single,System.Single,System.Single)
+  name: NumberEditorSliderAttribute(Single, Single, Single)
+  href: api/AGS.API.NumberEditorSliderAttribute.html#AGS_API_NumberEditorSliderAttribute__ctor_System_Single_System_Single_System_Single_
+  commentId: M:AGS.API.NumberEditorSliderAttribute.#ctor(System.Single,System.Single,System.Single)
+  fullName: AGS.API.NumberEditorSliderAttribute.NumberEditorSliderAttribute(System.Single, System.Single, System.Single)
+  nameWithType: NumberEditorSliderAttribute.NumberEditorSliderAttribute(Single, Single, Single)
 - uid: AGS.API.NumberEditorSliderAttribute.#ctor*
   name: NumberEditorSliderAttribute
   href: api/AGS.API.NumberEditorSliderAttribute.html#AGS_API_NumberEditorSliderAttribute__ctor_
@@ -19263,6 +19308,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.NumberEditorSliderAttribute.SliderMin
   nameWithType: NumberEditorSliderAttribute.SliderMin
+- uid: AGS.API.NumberEditorSliderAttribute.Step
+  name: Step
+  href: api/AGS.API.NumberEditorSliderAttribute.html#AGS_API_NumberEditorSliderAttribute_Step
+  commentId: P:AGS.API.NumberEditorSliderAttribute.Step
+  fullName: AGS.API.NumberEditorSliderAttribute.Step
+  nameWithType: NumberEditorSliderAttribute.Step
+- uid: AGS.API.NumberEditorSliderAttribute.Step*
+  name: Step
+  href: api/AGS.API.NumberEditorSliderAttribute.html#AGS_API_NumberEditorSliderAttribute_Step_
+  commentId: Overload:AGS.API.NumberEditorSliderAttribute.Step
+  isSpec: "True"
+  fullName: AGS.API.NumberEditorSliderAttribute.Step
+  nameWithType: NumberEditorSliderAttribute.Step
 - uid: AGS.API.ObjectEventArgs
   name: ObjectEventArgs
   href: api/AGS.API.ObjectEventArgs.html
