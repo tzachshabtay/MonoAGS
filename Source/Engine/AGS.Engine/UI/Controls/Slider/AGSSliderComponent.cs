@@ -278,11 +278,11 @@ namespace AGS.Engine
 		{
             var boundingBox = _boundingBox;
             if (boundingBox == null) return;
-            var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
+            var hitTestBox = boundingBox.HitTestBoundingBox;
             var visible = _visible;
             var enabled = _enabled;
             if (visible == null || !visible.Visible || enabled == null || !enabled.Enabled || 
-                enabled.ClickThrough || boundingBoxes == null || 
+                enabled.ClickThrough ||
                 (!_input.LeftMouseButtonDown && !_input.IsTouchDrag) || Graphics == null || 
                 Graphics.GetBoundingBoxes(_state.Viewport) == null || HandleGraphics == null)
 			{
@@ -300,10 +300,10 @@ namespace AGS.Engine
             }
             _focus.HasKeyboardFocus = _entity;
 			_isSliding = true;
-            if (isHorizontal()) setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.XMainViewport - boundingBoxes.HitTestBox.MinX, 
-                                                                      0f, boundingBoxes.HitTestBox.Width), boundingBoxes));
-            else setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.YMainViewport - boundingBoxes.HitTestBox.MinY
-                                                         , 0f, boundingBoxes.HitTestBox.Height), boundingBoxes));
+            if (isHorizontal()) setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.XMainViewport - hitTestBox.MinX, 
+                                                                        0f, hitTestBox.Width), ref hitTestBox));
+            else setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.YMainViewport - hitTestBox.MinY
+                                                         , 0f, hitTestBox.Height), ref hitTestBox));
 		}
 
 		private void refresh()
@@ -322,12 +322,12 @@ namespace AGS.Engine
 			setText();
 		}
 
-        private float getSliderValue(float handlePos, AGSBoundingBoxes boundingBoxes)
+        private float getSliderValue(float handlePos, ref AGSBoundingBox hitTestBox)
 		{
             float min = isReverse() ? MaxValue : MinValue;
             float max = isReverse() ? MinValue : MaxValue;
             return MathUtils.Lerp(0f, min, isHorizontal() ? 
-                                  boundingBoxes.HitTestBox.Width : boundingBoxes.HitTestBox.Height, 
+                                  hitTestBox.Width : hitTestBox.Height, 
                                   max, handlePos);
 		}
 

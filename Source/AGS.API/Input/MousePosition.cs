@@ -124,11 +124,11 @@ namespace AGS.API
             x = xyz.X;
             y = xyz.Y;
 
-			var boundingBoxes = projectedInto.TreeNode.Parent?.GetBoundingBoxes(viewport);
-            if (boundingBoxes != null && boundingBoxes.RenderBox.IsValid)
+            var hitTestBox = projectedInto.TreeNode.Parent?.HitTestBoundingBox;
+            if (hitTestBox?.IsValid ?? false)
 			{
-				x -= boundingBoxes.HitTestBox.MinX;
-				y -= boundingBoxes.HitTestBox.MinY;
+                x -= hitTestBox.Value.MinX;
+                y -= hitTestBox.Value.MinY;
 			}
             var renderLayer = projectedInto.RenderLayer;
 			if (renderLayer?.IndependentResolution != null)

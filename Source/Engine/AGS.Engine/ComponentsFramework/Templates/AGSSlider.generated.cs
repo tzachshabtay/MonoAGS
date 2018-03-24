@@ -621,6 +621,8 @@ namespace AGS.Engine
             return _boundingBoxComponent.GetBoundingBoxes(viewport);
         }
 
+        public AGSBoundingBox HitTestBoundingBox { get { return _boundingBoxComponent.HitTestBoundingBox; } }
+
         #endregion
     }
 }

@@ -48,6 +48,8 @@ namespace AGS.Engine
         [Property(Browsable = false)]
         public ILockStep BoundingBoxLockStep => this;
 
+        public AGSBoundingBox HitTestBoundingBox => _pendingLocks > 0 ? GetBoundingBoxes(_state.Viewport).HitTestBox : _hitTestBox; 
+
         public override void Init(IEntity entity)
         {
             _entity = entity;
