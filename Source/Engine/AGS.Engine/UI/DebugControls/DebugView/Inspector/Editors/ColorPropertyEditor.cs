@@ -45,6 +45,8 @@ namespace AGS.Engine
             _colorLabel = _factory.UI.GetLabel($"{id}_ColorLabel", "", 50f, 25f, combobox.Width + 10f, 0f, label.TreeNode.Parent);
             _colorLabel.TextVisible = false;
 
+            view.HorizontalPanel.GetComponent<ITreeTableRowLayoutComponent>().RestrictionList.RestrictionList.AddRange(new List<string> { combobox.ID, _colorLabel.ID });
+
             RefreshUI();
             _text.TextConfig.AutoFit = AutoFit.TextShouldFitLabel;
             _text.TextConfig.Alignment = Alignment.MiddleLeft;

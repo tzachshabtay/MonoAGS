@@ -36,10 +36,10 @@ namespace AGS.Engine
 
 		public IGLColor Build(params IHasImage[] sprites)
 		{
-			R = multiply (s => s.Tint.R / COLOR_FACTOR, sprites);
-			G = multiply (s => s.Tint.G / COLOR_FACTOR, sprites);
-			B = multiply (s => s.Tint.B / COLOR_FACTOR, sprites);
-			A = multiply (s => s.Opacity / COLOR_FACTOR, sprites);
+            R = multiply(s => (s.Tint.R / COLOR_FACTOR) * s.Brightness.X, sprites);
+            G = multiply(s => (s.Tint.G / COLOR_FACTOR) * s.Brightness.Y, sprites);
+            B = multiply(s => (s.Tint.B / COLOR_FACTOR) * s.Brightness.Z, sprites);
+            A = multiply(s => (s.Opacity / COLOR_FACTOR) * s.Brightness.W, sprites);
 			return this;
 		}
 

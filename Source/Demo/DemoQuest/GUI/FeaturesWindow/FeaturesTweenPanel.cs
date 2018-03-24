@@ -47,9 +47,11 @@ namespace DemoGame
                     ( "Red", () => o.TweenRed(0, time, ease())),
                     ( "Green", () => o.TweenGreen(255, time, ease())),
                     ( "Blue", () => o.TweenBlue(255, time, ease())),
-                    ( "Hue", () => o.TweenHue(360, time, ease())),
-                    ( "Saturation", () => o.TweenSaturation(0f, time, ease())),
-                    ( "Lightness", () => o.TweenLightness(0f, time, ease())),
+                    ( "Brightness", () => o.TweenBrightness(3f, time, ease())),
+                    ( "Tint Hue", () => o.TweenTintHue(360, time, ease())),
+                    ( "Tint Saturation", () => o.TweenTintSaturation(0f, time, ease())),
+                    ( "Tint Lightness", () => o.TweenTintLightness(0f, time, ease())),
+                    ( "Saturation", () => o.AddComponent<ISaturationEffectComponent>().TweenSaturation(0f, time, ease())),
                     ( "ScaleX", () => o.TweenScaleX(2f, time, ease())),
                     ( "ScaleY", () => o.TweenScaleY(2f, time, ease())),
                     ( "PivotX", () => o.TweenPivotX(1f, time, ease())),
@@ -103,6 +105,12 @@ namespace DemoGame
                         ( "ProjectHeight", () => viewport.TweenProjectHeight(0.5f, time, ease())),
                         ( "PivotX", () => viewport.TweenPivotX(0.5f, time, ease())),
                         ( "PivotY", () => viewport.TweenPivotY(0.5f, time, ease())),
+                        ( "Saturation", () => //maybe we should a "Screen" target and put the saturation tween there
+                            {
+                                SaturationEffectComponent effect = new SaturationEffectComponent(game.Factory.Shaders, game.Events);
+                                effect.Init(null);
+                                return effect.TweenSaturation(0f, time, ease());
+                        })
                     }
                 },
                 { "Music", new List<(string, Func<Tween>)>{

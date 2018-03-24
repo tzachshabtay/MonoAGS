@@ -27,7 +27,7 @@ namespace DemoGame
             approach.ApproachStyle.ApproachWhenVerb["Talk"] = ApproachHotspots.WalkIfHaveWalkPoint;
 			emitter.Object = _character;
 
-
+            _character.AddComponent<ISaturationEffectComponent>();
             //Uncomment for portrait
             /*
             var portrait = game.Factory.Object.GetObject("CrisPortrait");

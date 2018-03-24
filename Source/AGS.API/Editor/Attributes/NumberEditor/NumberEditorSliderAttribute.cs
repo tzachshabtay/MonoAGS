@@ -13,10 +13,12 @@ namespace AGS.API
         /// </summary>
         /// <param name="sliderMin">Slider minimum.</param>
         /// <param name="sliderMax">Slider max.</param>
-        public NumberEditorSliderAttribute(float sliderMin, float sliderMax)
+        /// <param name="step">The step when using the keyboard arrows to control the value.</param>
+        public NumberEditorSliderAttribute(float sliderMin, float sliderMax, float step = 1f)
         {
             SliderMin = sliderMin;
             SliderMax = sliderMax;
+            Step = step;
         }
 
         /// <summary>
@@ -30,5 +32,11 @@ namespace AGS.API
         /// </summary>
         /// <value>The slider max.</value>
         public float SliderMax { get; private set; }
+
+        /// <summary>
+        /// Gets the step when using the keyboard arrows to control the value.
+        /// </summary>
+        /// <value>The step.</value>
+        public float Step { get; private set; }
     }
 }

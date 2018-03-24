@@ -21,6 +21,7 @@ namespace AGS.Engine
             _property = property;
 			var label = view.TreeItem;
             var config = _enabled ? GameViewColors.TextConfig : GameViewColors.ReadonlyTextConfig;
+            if (!_enabled) view.HorizontalPanel.GetComponent<ITreeTableRowLayoutComponent>().RestrictionList.RestrictionList.Add(id);
 			var textbox = _factory.UI.GetTextBox(id,
 												 label.X, label.Y, label.TreeNode.Parent,
 												 "", config, width: 100f, height: 20f);

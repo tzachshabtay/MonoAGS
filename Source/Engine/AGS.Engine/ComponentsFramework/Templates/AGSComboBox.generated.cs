@@ -428,6 +428,12 @@ namespace AGS.Engine
             set { _imageComponent.Tint = value; } 
         }
 
+        public Vector4 Brightness
+        {
+            get { return _imageComponent.Brightness; }
+            set { _imageComponent.Brightness = value; }
+        }
+
         public PointF Pivot 
         {  
             get { return _imageComponent.Pivot; }  
