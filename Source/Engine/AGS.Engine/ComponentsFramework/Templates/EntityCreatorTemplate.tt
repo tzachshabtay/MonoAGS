@@ -100,7 +100,7 @@ namespace <#= NamespaceName #>
         {
             if (!
             WriteInitComponent(component)) continue;#>
-            
+
             <#= getVarName(component) #> = AddComponent<<#= helper.GetTypeName(component) #>>();
             Bind<<#= helper.GetTypeName(component) #>>(c => <#= getVarName(component) #> = c, _ => {});<#+
             }
