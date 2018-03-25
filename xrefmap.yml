@@ -4116,6 +4116,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IBoundingBoxComponent.GetBoundingBoxes
   nameWithType: IBoundingBoxComponent.GetBoundingBoxes
+- uid: AGS.API.IBoundingBoxComponent.HitTestBoundingBox
+  name: HitTestBoundingBox
+  href: api/AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_HitTestBoundingBox
+  commentId: P:AGS.API.IBoundingBoxComponent.HitTestBoundingBox
+  fullName: AGS.API.IBoundingBoxComponent.HitTestBoundingBox
+  nameWithType: IBoundingBoxComponent.HitTestBoundingBox
+- uid: AGS.API.IBoundingBoxComponent.HitTestBoundingBox*
+  name: HitTestBoundingBox
+  href: api/AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_HitTestBoundingBox_
+  commentId: Overload:AGS.API.IBoundingBoxComponent.HitTestBoundingBox
+  isSpec: "True"
+  fullName: AGS.API.IBoundingBoxComponent.HitTestBoundingBox
+  nameWithType: IBoundingBoxComponent.HitTestBoundingBox
 - uid: AGS.API.IBoundingBoxComponent.OnBoundingBoxesChanged
   name: OnBoundingBoxesChanged
   href: api/AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_OnBoundingBoxesChanged
@@ -15581,6 +15594,38 @@ references:
   isSpec: "True"
   fullName: AGS.API.IWalkComponent.WalkStep
   nameWithType: IWalkComponent.WalkStep
+- uid: AGS.API.IWorldPositionComponent
+  name: IWorldPositionComponent
+  href: api/AGS.API.IWorldPositionComponent.html
+  commentId: T:AGS.API.IWorldPositionComponent
+  fullName: AGS.API.IWorldPositionComponent
+  nameWithType: IWorldPositionComponent
+- uid: AGS.API.IWorldPositionComponent.WorldX
+  name: WorldX
+  href: api/AGS.API.IWorldPositionComponent.html#AGS_API_IWorldPositionComponent_WorldX
+  commentId: P:AGS.API.IWorldPositionComponent.WorldX
+  fullName: AGS.API.IWorldPositionComponent.WorldX
+  nameWithType: IWorldPositionComponent.WorldX
+- uid: AGS.API.IWorldPositionComponent.WorldX*
+  name: WorldX
+  href: api/AGS.API.IWorldPositionComponent.html#AGS_API_IWorldPositionComponent_WorldX_
+  commentId: Overload:AGS.API.IWorldPositionComponent.WorldX
+  isSpec: "True"
+  fullName: AGS.API.IWorldPositionComponent.WorldX
+  nameWithType: IWorldPositionComponent.WorldX
+- uid: AGS.API.IWorldPositionComponent.WorldY
+  name: WorldY
+  href: api/AGS.API.IWorldPositionComponent.html#AGS_API_IWorldPositionComponent_WorldY
+  commentId: P:AGS.API.IWorldPositionComponent.WorldY
+  fullName: AGS.API.IWorldPositionComponent.WorldY
+  nameWithType: IWorldPositionComponent.WorldY
+- uid: AGS.API.IWorldPositionComponent.WorldY*
+  name: WorldY
+  href: api/AGS.API.IWorldPositionComponent.html#AGS_API_IWorldPositionComponent_WorldY_
+  commentId: Overload:AGS.API.IWorldPositionComponent.WorldY
+  isSpec: "True"
+  fullName: AGS.API.IWorldPositionComponent.WorldY
+  nameWithType: IWorldPositionComponent.WorldY
 - uid: AGS.API.IZoomArea
   name: IZoomArea
   href: api/AGS.API.IZoomArea.html

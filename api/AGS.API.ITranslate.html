@@ -103,13 +103,15 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/XY_Fixes/apiSpec/new?filename=AGS_API_ITranslate_Location.md&amp;value=---%0Auid%3A%20AGS.API.ITranslate.Location%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Objects/ITranslateComponent.cs/#L19">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Objects/ITranslateComponent.cs/#L23">View Source</a>
   </span>
   <a id="AGS_API_ITranslate_Location_" data-uid="AGS.API.ITranslate.Location*"></a>
   <h4 id="AGS_API_ITranslate_Location" data-uid="AGS.API.ITranslate.Location">Location</h4>
   <div class="markdown level1 summary"><p>Gets or sets the location.
-(X,Y) are used to place the entity/sprite in 2D space (in room coordinates).
-Z is used for deciding how the entities/sprites are ordered in 2D space (higher Z in front).
+(X,Y) are used to place the entity/sprite in 2D space (in local coordinates).
+The local coordinates are the world coordinates if the entity has no parent, otherwise its 
+the coordinates relative to the parent.</p>
+<p>Z is used for deciding how the entities/sprites are ordered in 2D space (higher Z in front).
 If Z and Y are the same when setting the location, then Z will be bound to Y: whenever Y moves,
 Z moves, which will make entities closer to the bottom appear in front, which is the desired behavior
 in most scenarios. You can change this behavior by explicitly setting Z to a different value.</p>
@@ -135,16 +137,22 @@ in most scenarios. You can change this behavior by explicitly setting Z to a dif
       </tr>
     </tbody>
   </table>
+  <h5 id="AGS_API_ITranslate_Location_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="AGS.API.IWorldPositionComponent.html">IWorldPositionComponent</a></div>
+  </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/XY_Fixes/apiSpec/new?filename=AGS_API_ITranslate_X.md&amp;value=---%0Auid%3A%20AGS.API.ITranslate.X%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Objects/ITranslateComponent.cs/#L25">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Objects/ITranslateComponent.cs/#L32">View Source</a>
   </span>
   <a id="AGS_API_ITranslate_X_" data-uid="AGS.API.ITranslate.X*"></a>
   <h4 id="AGS_API_ITranslate_X" data-uid="AGS.API.ITranslate.X">X</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the x coordinate (in room coordinates).</p>
+  <div class="markdown level1 summary"><p>Gets or sets the x coordinate (in local coordinates).
+The local coordinates are the world coordinates if the entity has no parent, otherwise its 
+the coordinates relative to the parent.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -167,16 +175,22 @@ in most scenarios. You can change this behavior by explicitly setting Z to a dif
       </tr>
     </tbody>
   </table>
+  <h5 id="AGS_API_ITranslate_X_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="AGS.API.IWorldPositionComponent.html#AGS_API_IWorldPositionComponent_WorldX">WorldX</a></div>
+  </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/XY_Fixes/apiSpec/new?filename=AGS_API_ITranslate_Y.md&amp;value=---%0Auid%3A%20AGS.API.ITranslate.Y%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Objects/ITranslateComponent.cs/#L31">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Objects/ITranslateComponent.cs/#L41">View Source</a>
   </span>
   <a id="AGS_API_ITranslate_Y_" data-uid="AGS.API.ITranslate.Y*"></a>
   <h4 id="AGS_API_ITranslate_Y" data-uid="AGS.API.ITranslate.Y">Y</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the y coordinate (in room coordinates).</p>
+  <div class="markdown level1 summary"><p>Gets or sets the y coordinate (in local coordinates).
+The local coordinates are the world coordinates if the entity has no parent, otherwise its 
+the coordinates relative to the parent.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -199,12 +213,16 @@ in most scenarios. You can change this behavior by explicitly setting Z to a dif
       </tr>
     </tbody>
   </table>
+  <h5 id="AGS_API_ITranslate_Y_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="AGS.API.IWorldPositionComponent.html#AGS_API_IWorldPositionComponent_WorldY">WorldY</a></div>
+  </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/XY_Fixes/apiSpec/new?filename=AGS_API_ITranslate_Z.md&amp;value=---%0Auid%3A%20AGS.API.ITranslate.Z%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Objects/ITranslateComponent.cs/#L41">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Objects/ITranslateComponent.cs/#L51">View Source</a>
   </span>
   <a id="AGS_API_ITranslate_Z_" data-uid="AGS.API.ITranslate.Z*"></a>
   <h4 id="AGS_API_ITranslate_Z" data-uid="AGS.API.ITranslate.Z">Z</h4>

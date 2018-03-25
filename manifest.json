@@ -642,7 +642,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IBoundingBoxComponent.html",
-          "hash": "0XZGhMdejQqSXjW9vFo/jQ=="
+          "hash": "hX2oimFrEm/i6R/Hb4f82g=="
         }
       },
       "is_incremental": false,
@@ -690,7 +690,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IButton.html",
-          "hash": "//wLfWphanULu6PBrAN+tg=="
+          "hash": "Hg6nFLQGHMSdSGs1qNttng=="
         }
       },
       "is_incremental": false,
@@ -726,7 +726,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ICharacter.html",
-          "hash": "hHQhZdgQ6N6a5r0PqLctIA=="
+          "hash": "QlhD7MvSr5mOh1yokgq4Qw=="
         }
       },
       "is_incremental": false,
@@ -738,7 +738,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ICheckBox.html",
-          "hash": "i1vqmul5KsUCbJYHFAAaXQ=="
+          "hash": "7dorgpLgDhg0s2aGhGYvFA=="
         }
       },
       "is_incremental": false,
@@ -810,7 +810,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IComboBox.html",
-          "hash": "m5GHdaZJj4r4E/sUjjRn8w=="
+          "hash": "aT7TaLCINC809uQ2rteqOA=="
         }
       },
       "is_incremental": false,
@@ -1626,7 +1626,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IInventoryWindow.html",
-          "hash": "7dQZyW5+AN94bLW3j62ftA=="
+          "hash": "9S4+6hWmGSEMSCX1hGkU+A=="
         }
       },
       "is_incremental": false,
@@ -1662,7 +1662,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ILabel.html",
-          "hash": "RLUFRzhxYcgmp2TmII0C5w=="
+          "hash": "puS8X8sRmWHc6pnwLo8UbA=="
         }
       },
       "is_incremental": false,
@@ -1794,7 +1794,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IObject.html",
-          "hash": "Ty2QiUu+tR4HYH7QLwkimw=="
+          "hash": "ouJk9ryjchZVVsqdtnZJ7Q=="
         }
       },
       "is_incremental": false,
@@ -1854,7 +1854,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IPanel.html",
-          "hash": "EbXqgd5a9q1veI7hsuCHOg=="
+          "hash": "jUBw93yddGI6f1vc5b6i7g=="
         }
       },
       "is_incremental": false,
@@ -2322,7 +2322,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ISlider.html",
-          "hash": "6lj9boTMHOZlgKN7bEKlCA=="
+          "hash": "bvbuKFVxH9HQuE3+Iw8Npw=="
         }
       },
       "is_incremental": false,
@@ -2490,7 +2490,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ITextBox.html",
-          "hash": "lFCAa1fWbhqDCRRPLaZCsg=="
+          "hash": "hU8+i82lEMU6xEkzmcvqeg=="
         }
       },
       "is_incremental": false,
@@ -2610,7 +2610,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ITranslate.html",
-          "hash": "UZrgcqZa/RbWLPNysq3uyw=="
+          "hash": "VtlsV3vxDC2AobwSuBnS9g=="
         }
       },
       "is_incremental": false,
@@ -2622,7 +2622,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ITranslateComponent.html",
-          "hash": "iwH6HGbPguFjZwn0CeRZtg=="
+          "hash": "r9Eyi3iTnu21TTS+8P7oqA=="
         }
       },
       "is_incremental": false,
@@ -2718,7 +2718,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IUIControl.html",
-          "hash": "ArBTvSF0nWz66Snx0OCr9w=="
+          "hash": "63zHJuw9nYuZobKMUeJc1Q=="
         }
       },
       "is_incremental": false,
@@ -2803,6 +2803,18 @@
         ".html": {
           "relative_path": "api/AGS.API.IWalkableArea.html",
           "hash": "tMqYOyQpdJVFtyEthufE4A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.IWorldPositionComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.IWorldPositionComponent.html",
+          "hash": "fKYtNZbq+BZXPuc23AGhNg=="
         }
       },
       "is_incremental": false,
@@ -3474,7 +3486,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.html",
-          "hash": "MQfhYxkk0gifR70y2RWrug=="
+          "hash": "/y4vr6wqNbAeJlpcqLEv/w=="
         }
       },
       "is_incremental": false,
@@ -3486,7 +3498,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "k86i0/TQqlTZh5326cP33g=="
+          "hash": "1ytj9QhwHvEWKwTKMctqCw=="
         }
       },
       "is_incremental": false,
@@ -3894,22 +3906,22 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "TocDocumentProcessor": {
+        "ResourceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ResourceDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }
