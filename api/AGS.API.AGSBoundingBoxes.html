@@ -123,54 +123,21 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/XY_Fixes/apiSpec/new?filename=AGS_API_AGSBoundingBoxes_HitTestBox.md&amp;value=---%0Auid%3A%20AGS.API.AGSBoundingBoxes.HitTestBox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Misc/Geometry/AGSBoundingBoxes.cs/#L24">View Source</a>
-  </span>
-  <a id="AGS_API_AGSBoundingBoxes_HitTestBox_" data-uid="AGS.API.AGSBoundingBoxes.HitTestBox*"></a>
-  <h4 id="AGS_API_AGSBoundingBoxes_HitTestBox" data-uid="AGS.API.AGSBoundingBoxes.HitTestBox">HitTestBox</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the hit-test box used for collision checks.
-This should be only set from the engine.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AGSBoundingBox HitTestBox { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.AGSBoundingBox.html">AGSBoundingBox</a></td>
-        <td><p>The hit-test box.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/XY_Fixes/apiSpec/new?filename=AGS_API_AGSBoundingBoxes_PreCropRenderBox.md&amp;value=---%0Auid%3A%20AGS.API.AGSBoundingBoxes.PreCropRenderBox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/XY_Fixes/apiSpec/new?filename=AGS_API_AGSBoundingBoxes_PreCropViewportBox.md&amp;value=---%0Auid%3A%20AGS.API.AGSBoundingBoxes.PreCropViewportBox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Misc/Geometry/AGSBoundingBoxes.cs/#L40">View Source</a>
   </span>
-  <a id="AGS_API_AGSBoundingBoxes_PreCropRenderBox_" data-uid="AGS.API.AGSBoundingBoxes.PreCropRenderBox*"></a>
-  <h4 id="AGS_API_AGSBoundingBoxes_PreCropRenderBox" data-uid="AGS.API.AGSBoundingBoxes.PreCropRenderBox">PreCropRenderBox</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the render box before the object was cropped.
-This will usually be the same as the render box unless the object was actually cropped (i.e if
+  <a id="AGS_API_AGSBoundingBoxes_PreCropViewportBox_" data-uid="AGS.API.AGSBoundingBoxes.PreCropViewportBox*"></a>
+  <h4 id="AGS_API_AGSBoundingBoxes_PreCropViewportBox" data-uid="AGS.API.AGSBoundingBoxes.PreCropViewportBox">PreCropViewportBox</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the viewport bounding box before the object was cropped.
+This will usually be the same as the viewport box unless the object was actually cropped (i.e if
 it had the <a class="xref" href="AGS.API.ICropSelfComponent.html">ICropSelfComponent</a> attached, maybe inside a scrolling panel, for example).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AGSBoundingBox PreCropRenderBox { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public AGSBoundingBox PreCropViewportBox { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -184,39 +151,6 @@ it had the <a class="xref" href="AGS.API.ICropSelfComponent.html">ICropSelfCompo
       <tr>
         <td><a class="xref" href="AGS.API.AGSBoundingBox.html">AGSBoundingBox</a></td>
         <td><p>The pre crop render box.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/XY_Fixes/apiSpec/new?filename=AGS_API_AGSBoundingBoxes_RenderBox.md&amp;value=---%0Auid%3A%20AGS.API.AGSBoundingBoxes.RenderBox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Misc/Geometry/AGSBoundingBoxes.cs/#L17">View Source</a>
-  </span>
-  <a id="AGS_API_AGSBoundingBoxes_RenderBox_" data-uid="AGS.API.AGSBoundingBoxes.RenderBox*"></a>
-  <h4 id="AGS_API_AGSBoundingBoxes_RenderBox" data-uid="AGS.API.AGSBoundingBoxes.RenderBox">RenderBox</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the render box used for rendering the entity.
-This should be only set from the engine.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AGSBoundingBox RenderBox { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.AGSBoundingBox.html">AGSBoundingBox</a></td>
-        <td><p>The render box.</p>
 </td>
       </tr>
     </tbody>
@@ -251,6 +185,72 @@ This should be only set from the engine.</p>
       <tr>
         <td><a class="xref" href="AGS.API.FourCorners-1.html">FourCorners</a>&lt;<a class="xref" href="AGS.API.Vector2.html">Vector2</a>&gt;</td>
         <td><p>The texture box.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/XY_Fixes/apiSpec/new?filename=AGS_API_AGSBoundingBoxes_ViewportBox.md&amp;value=---%0Auid%3A%20AGS.API.AGSBoundingBoxes.ViewportBox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Misc/Geometry/AGSBoundingBoxes.cs/#L17">View Source</a>
+  </span>
+  <a id="AGS_API_AGSBoundingBoxes_ViewportBox_" data-uid="AGS.API.AGSBoundingBoxes.ViewportBox*"></a>
+  <h4 id="AGS_API_AGSBoundingBoxes_ViewportBox" data-uid="AGS.API.AGSBoundingBoxes.ViewportBox">ViewportBox</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the bounding box in viewport coordinages (used for rendering the entity).
+This should be only set from the engine.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AGSBoundingBox ViewportBox { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.AGSBoundingBox.html">AGSBoundingBox</a></td>
+        <td><p>The render box.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/XY_Fixes/apiSpec/new?filename=AGS_API_AGSBoundingBoxes_WorldBox.md&amp;value=---%0Auid%3A%20AGS.API.AGSBoundingBoxes.WorldBox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/XY_Fixes/Source/AGS.API/Misc/Geometry/AGSBoundingBoxes.cs/#L24">View Source</a>
+  </span>
+  <a id="AGS_API_AGSBoundingBoxes_WorldBox_" data-uid="AGS.API.AGSBoundingBoxes.WorldBox*"></a>
+  <h4 id="AGS_API_AGSBoundingBoxes_WorldBox" data-uid="AGS.API.AGSBoundingBoxes.WorldBox">WorldBox</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the bounding box in world coordinates (used for collision checks).
+This should be only set from the engine.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AGSBoundingBox WorldBox { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.AGSBoundingBox.html">AGSBoundingBox</a></td>
+        <td><p>The hit-test box.</p>
 </td>
       </tr>
     </tbody>

@@ -310,45 +310,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.AGSBoundingBoxes.Equals
   nameWithType: AGSBoundingBoxes.Equals
-- uid: AGS.API.AGSBoundingBoxes.HitTestBox
-  name: HitTestBox
-  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_HitTestBox
-  commentId: P:AGS.API.AGSBoundingBoxes.HitTestBox
-  fullName: AGS.API.AGSBoundingBoxes.HitTestBox
-  nameWithType: AGSBoundingBoxes.HitTestBox
-- uid: AGS.API.AGSBoundingBoxes.HitTestBox*
-  name: HitTestBox
-  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_HitTestBox_
-  commentId: Overload:AGS.API.AGSBoundingBoxes.HitTestBox
+- uid: AGS.API.AGSBoundingBoxes.PreCropViewportBox
+  name: PreCropViewportBox
+  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_PreCropViewportBox
+  commentId: P:AGS.API.AGSBoundingBoxes.PreCropViewportBox
+  fullName: AGS.API.AGSBoundingBoxes.PreCropViewportBox
+  nameWithType: AGSBoundingBoxes.PreCropViewportBox
+- uid: AGS.API.AGSBoundingBoxes.PreCropViewportBox*
+  name: PreCropViewportBox
+  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_PreCropViewportBox_
+  commentId: Overload:AGS.API.AGSBoundingBoxes.PreCropViewportBox
   isSpec: "True"
-  fullName: AGS.API.AGSBoundingBoxes.HitTestBox
-  nameWithType: AGSBoundingBoxes.HitTestBox
-- uid: AGS.API.AGSBoundingBoxes.PreCropRenderBox
-  name: PreCropRenderBox
-  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_PreCropRenderBox
-  commentId: P:AGS.API.AGSBoundingBoxes.PreCropRenderBox
-  fullName: AGS.API.AGSBoundingBoxes.PreCropRenderBox
-  nameWithType: AGSBoundingBoxes.PreCropRenderBox
-- uid: AGS.API.AGSBoundingBoxes.PreCropRenderBox*
-  name: PreCropRenderBox
-  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_PreCropRenderBox_
-  commentId: Overload:AGS.API.AGSBoundingBoxes.PreCropRenderBox
-  isSpec: "True"
-  fullName: AGS.API.AGSBoundingBoxes.PreCropRenderBox
-  nameWithType: AGSBoundingBoxes.PreCropRenderBox
-- uid: AGS.API.AGSBoundingBoxes.RenderBox
-  name: RenderBox
-  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_RenderBox
-  commentId: P:AGS.API.AGSBoundingBoxes.RenderBox
-  fullName: AGS.API.AGSBoundingBoxes.RenderBox
-  nameWithType: AGSBoundingBoxes.RenderBox
-- uid: AGS.API.AGSBoundingBoxes.RenderBox*
-  name: RenderBox
-  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_RenderBox_
-  commentId: Overload:AGS.API.AGSBoundingBoxes.RenderBox
-  isSpec: "True"
-  fullName: AGS.API.AGSBoundingBoxes.RenderBox
-  nameWithType: AGSBoundingBoxes.RenderBox
+  fullName: AGS.API.AGSBoundingBoxes.PreCropViewportBox
+  nameWithType: AGSBoundingBoxes.PreCropViewportBox
 - uid: AGS.API.AGSBoundingBoxes.TextureBox
   name: TextureBox
   href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_TextureBox
@@ -362,6 +336,32 @@ references:
   isSpec: "True"
   fullName: AGS.API.AGSBoundingBoxes.TextureBox
   nameWithType: AGSBoundingBoxes.TextureBox
+- uid: AGS.API.AGSBoundingBoxes.ViewportBox
+  name: ViewportBox
+  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_ViewportBox
+  commentId: P:AGS.API.AGSBoundingBoxes.ViewportBox
+  fullName: AGS.API.AGSBoundingBoxes.ViewportBox
+  nameWithType: AGSBoundingBoxes.ViewportBox
+- uid: AGS.API.AGSBoundingBoxes.ViewportBox*
+  name: ViewportBox
+  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_ViewportBox_
+  commentId: Overload:AGS.API.AGSBoundingBoxes.ViewportBox
+  isSpec: "True"
+  fullName: AGS.API.AGSBoundingBoxes.ViewportBox
+  nameWithType: AGSBoundingBoxes.ViewportBox
+- uid: AGS.API.AGSBoundingBoxes.WorldBox
+  name: WorldBox
+  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_WorldBox
+  commentId: P:AGS.API.AGSBoundingBoxes.WorldBox
+  fullName: AGS.API.AGSBoundingBoxes.WorldBox
+  nameWithType: AGSBoundingBoxes.WorldBox
+- uid: AGS.API.AGSBoundingBoxes.WorldBox*
+  name: WorldBox
+  href: api/AGS.API.AGSBoundingBoxes.html#AGS_API_AGSBoundingBoxes_WorldBox_
+  commentId: Overload:AGS.API.AGSBoundingBoxes.WorldBox
+  isSpec: "True"
+  fullName: AGS.API.AGSBoundingBoxes.WorldBox
+  nameWithType: AGSBoundingBoxes.WorldBox
 - uid: AGS.API.AGSCropInfo
   name: AGSCropInfo
   href: api/AGS.API.AGSCropInfo.html
@@ -4116,19 +4116,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IBoundingBoxComponent.GetBoundingBoxes
   nameWithType: IBoundingBoxComponent.GetBoundingBoxes
-- uid: AGS.API.IBoundingBoxComponent.HitTestBoundingBox
-  name: HitTestBoundingBox
-  href: api/AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_HitTestBoundingBox
-  commentId: P:AGS.API.IBoundingBoxComponent.HitTestBoundingBox
-  fullName: AGS.API.IBoundingBoxComponent.HitTestBoundingBox
-  nameWithType: IBoundingBoxComponent.HitTestBoundingBox
-- uid: AGS.API.IBoundingBoxComponent.HitTestBoundingBox*
-  name: HitTestBoundingBox
-  href: api/AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_HitTestBoundingBox_
-  commentId: Overload:AGS.API.IBoundingBoxComponent.HitTestBoundingBox
-  isSpec: "True"
-  fullName: AGS.API.IBoundingBoxComponent.HitTestBoundingBox
-  nameWithType: IBoundingBoxComponent.HitTestBoundingBox
 - uid: AGS.API.IBoundingBoxComponent.OnBoundingBoxesChanged
   name: OnBoundingBoxesChanged
   href: api/AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_OnBoundingBoxesChanged
@@ -4142,6 +4129,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IBoundingBoxComponent.OnBoundingBoxesChanged
   nameWithType: IBoundingBoxComponent.OnBoundingBoxesChanged
+- uid: AGS.API.IBoundingBoxComponent.WorldBoundingBox
+  name: WorldBoundingBox
+  href: api/AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_WorldBoundingBox
+  commentId: P:AGS.API.IBoundingBoxComponent.WorldBoundingBox
+  fullName: AGS.API.IBoundingBoxComponent.WorldBoundingBox
+  nameWithType: IBoundingBoxComponent.WorldBoundingBox
+- uid: AGS.API.IBoundingBoxComponent.WorldBoundingBox*
+  name: WorldBoundingBox
+  href: api/AGS.API.IBoundingBoxComponent.html#AGS_API_IBoundingBoxComponent_WorldBoundingBox_
+  commentId: Overload:AGS.API.IBoundingBoxComponent.WorldBoundingBox
+  isSpec: "True"
+  fullName: AGS.API.IBoundingBoxComponent.WorldBoundingBox
+  nameWithType: IBoundingBoxComponent.WorldBoundingBox
 - uid: AGS.API.IBoundingBoxWithChildrenComponent
   name: IBoundingBoxWithChildrenComponent
   href: api/AGS.API.IBoundingBoxWithChildrenComponent.html
@@ -6497,6 +6497,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDisplayList.GetDisplayList
   nameWithType: IDisplayList.GetDisplayList
+- uid: AGS.API.IDisplayList.Update
+  name: Update()
+  href: api/AGS.API.IDisplayList.html#AGS_API_IDisplayList_Update
+  commentId: M:AGS.API.IDisplayList.Update
+  fullName: AGS.API.IDisplayList.Update()
+  nameWithType: IDisplayList.Update()
+- uid: AGS.API.IDisplayList.Update*
+  name: Update
+  href: api/AGS.API.IDisplayList.html#AGS_API_IDisplayList_Update_
+  commentId: Overload:AGS.API.IDisplayList.Update
+  isSpec: "True"
+  fullName: AGS.API.IDisplayList.Update
+  nameWithType: IDisplayList.Update
 - uid: AGS.API.IDisplayListSettings
   name: IDisplayListSettings
   href: api/AGS.API.IDisplayListSettings.html
@@ -13103,19 +13116,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISoundEmitter.Object
   nameWithType: ISoundEmitter.Object
-- uid: AGS.API.ISoundEmitter.Translate
-  name: Translate
-  href: api/AGS.API.ISoundEmitter.html#AGS_API_ISoundEmitter_Translate
-  commentId: P:AGS.API.ISoundEmitter.Translate
-  fullName: AGS.API.ISoundEmitter.Translate
-  nameWithType: ISoundEmitter.Translate
-- uid: AGS.API.ISoundEmitter.Translate*
-  name: Translate
-  href: api/AGS.API.ISoundEmitter.html#AGS_API_ISoundEmitter_Translate_
-  commentId: Overload:AGS.API.ISoundEmitter.Translate
+- uid: AGS.API.ISoundEmitter.WorldPosition
+  name: WorldPosition
+  href: api/AGS.API.ISoundEmitter.html#AGS_API_ISoundEmitter_WorldPosition
+  commentId: P:AGS.API.ISoundEmitter.WorldPosition
+  fullName: AGS.API.ISoundEmitter.WorldPosition
+  nameWithType: ISoundEmitter.WorldPosition
+- uid: AGS.API.ISoundEmitter.WorldPosition*
+  name: WorldPosition
+  href: api/AGS.API.ISoundEmitter.html#AGS_API_ISoundEmitter_WorldPosition_
+  commentId: Overload:AGS.API.ISoundEmitter.WorldPosition
   isSpec: "True"
-  fullName: AGS.API.ISoundEmitter.Translate
-  nameWithType: ISoundEmitter.Translate
+  fullName: AGS.API.ISoundEmitter.WorldPosition
+  nameWithType: ISoundEmitter.WorldPosition
 - uid: AGS.API.ISoundPlayer
   name: ISoundPlayer
   href: api/AGS.API.ISoundPlayer.html
@@ -15613,6 +15626,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IWorldPositionComponent.WorldX
   nameWithType: IWorldPositionComponent.WorldX
+- uid: AGS.API.IWorldPositionComponent.WorldXY
+  name: WorldXY
+  href: api/AGS.API.IWorldPositionComponent.html#AGS_API_IWorldPositionComponent_WorldXY
+  commentId: P:AGS.API.IWorldPositionComponent.WorldXY
+  fullName: AGS.API.IWorldPositionComponent.WorldXY
+  nameWithType: IWorldPositionComponent.WorldXY
+- uid: AGS.API.IWorldPositionComponent.WorldXY*
+  name: WorldXY
+  href: api/AGS.API.IWorldPositionComponent.html#AGS_API_IWorldPositionComponent_WorldXY_
+  commentId: Overload:AGS.API.IWorldPositionComponent.WorldXY
+  isSpec: "True"
+  fullName: AGS.API.IWorldPositionComponent.WorldXY
+  nameWithType: IWorldPositionComponent.WorldXY
 - uid: AGS.API.IWorldPositionComponent.WorldY
   name: WorldY
   href: api/AGS.API.IWorldPositionComponent.html#AGS_API_IWorldPositionComponent_WorldY
