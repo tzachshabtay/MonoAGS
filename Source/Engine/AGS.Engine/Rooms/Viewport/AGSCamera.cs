@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -13,7 +14,9 @@ namespace AGS.Engine
 		/// <param name="startSpeedX">Start speed x (in percentage, i.e 30 is 30% percent movement toward the target).</param>
 		/// <param name="startSpeedY">Start speed y (in percentage, i.e 30 is 30% percent movement toward the target).</param>
 		/// <param name="startSpeedScale">Start speed scale (in percentage, i.e 30 is 30% percent zoom toward the target).</param>
-		public AGSCamera (float startSpeedX = 30f, float startSpeedY = 30f, float startSpeedScale = 8f)
+        /// <param name="targetPoint">The target point on the entity for the camera to center on. The coordinates used are in relation to the entity's size (similarly to <see cref="IHasImage.Pivot"/>).
+        /// If not specified, the pivot point of the entity is used as the target point. </param>
+		public AGSCamera (float startSpeedX = 30f, float startSpeedY = 30f, float startSpeedScale = 8f, PointF? targetPoint = null)
 		{
 			Enabled = true;
 			StartSpeedX = startSpeedX;
@@ -23,6 +26,7 @@ namespace AGS.Engine
 			SpeedY = StartSpeedY;
 			SpeedScaleX = StartSpeedScale;
 			SpeedScaleY = StartSpeedScale;
+            TargetPoint = targetPoint;
 		}
 
 		public bool Enabled { get; set; }
@@ -36,6 +40,8 @@ namespace AGS.Engine
 		public float SpeedScaleX { get => _speedScaleX; set => _speedScaleX = value; }
 		public float SpeedScaleY { get => _speedScaleY; set => _speedScaleY = value; }
 
+        public PointF? TargetPoint { get; set; }
+
 		#region ICamera implementation
 
         public void Tick (IViewport viewport, RectangleF roomLimits, Size virtualResoution, bool resetPosition)
@@ -45,9 +51,10 @@ namespace AGS.Engine
 
 			setScale(target, viewport, resetPosition);
 
-			//todo: Allow control over which point in the target to follow
-			float targetX = target.X;//target.CenterPoint == null ? target.X : target.CenterPoint.X;
-			float targetY = target.Y;//target.CenterPoint == null ? target.Y : target.CenterPoint.Y;
+            var box = target.HitTestBoundingBox;
+            var targetPoint = TargetPoint;
+            float targetX = targetPoint == null ? target.WorldX : MathUtils.Lerp(0f, box.MinX, 1f, box.MaxX, targetPoint.Value.X);
+            float targetY = targetPoint == null ? target.WorldY : MathUtils.Lerp(0f, box.MinY, 1f, box.MaxY, targetPoint.Value.Y);
 			float maxResolutionX = virtualResoution.Width / viewport.ScaleX;
 			float maxResolutionY = virtualResoution.Height / viewport.ScaleY;
             targetX = getTargetPos(targetX, roomLimits.X, roomLimits.Width, maxResolutionX);
@@ -85,7 +92,7 @@ namespace AGS.Engine
 		{
 			if (target.Room == null || target.Room.Areas == null) return viewport.ScaleX;
 
-            foreach (var area in target.Room.GetMatchingAreas(target.Location.XY, target.ID))
+            foreach (var area in target.Room.GetMatchingAreas(target.WorldXY, target.ID))
 			{
                 var zoomArea = area.GetComponent<IZoomArea>();
                 if (zoomArea == null || !zoomArea.ZoomCamera) continue;
