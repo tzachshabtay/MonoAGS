@@ -55,6 +55,7 @@ namespace Tests
 			builder.RegisterInstance(new Mock<IRenderMessagePump> ().Object);
             builder.RegisterInstance(new Mock<IUpdateMessagePump>().Object);
             builder.RegisterInstance(new Mock<IGameEvents>().Object);
+            builder.RegisterInstance(new Mock<IDisplayList>().Object);
 			builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 
 			mocks.container = builder.Build();

@@ -84,8 +84,8 @@ namespace AGS.Engine
                 var boundingBoxes = parent.GetBoundingBoxes(_state.Viewport);
 				if (boundingBoxes != null)
 				{
-                    viewX += boundingBoxes.RenderBox.MinX;
-                    viewY += boundingBoxes.RenderBox.MinY;
+                    viewX += boundingBoxes.ViewportBox.MinX;
+                    viewY += boundingBoxes.ViewportBox.MinY;
 				}
 			}
 			width = (int)Math.Round((float)width * projectionBox.Width);

@@ -149,8 +149,8 @@ namespace AGS.Engine
                 _labelBoundingBoxFakeBuilder.BoundingBoxes = _usedLabelBoundingBoxes;
             }
             _bgRenderer.Prepare(obj, drawable, viewport);
-            Width = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Width;
-            Height = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.RenderBox.Height;
+            Width = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.ViewportBox.Width;
+            Height = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.ViewportBox.Height;
 		}
 
         public void Render(IObject obj, IViewport viewport)
@@ -178,10 +178,10 @@ namespace AGS.Engine
                 _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
-                var cropInfo = _usedTextBoundingBoxes.RenderBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), AGSModelMatrixComponent.NoScaling);
+                var cropInfo = _usedTextBoundingBoxes.ViewportBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? obj.GetComponent<ICropSelfComponent>(), AGSModelMatrixComponent.NoScaling);
                 if (cropInfo.Equals(_defaultCrop)) return;
 
-                _afterCropTextBoundingBoxes.RenderBox = cropInfo.BoundingBox;
+                _afterCropTextBoundingBoxes.ViewportBox = cropInfo.BoundingBox;
                 _afterCropTextBoundingBoxes.TextureBox = cropInfo.TextureBox;
 
                 _textureRenderer.Render(_glTextHitTest.Texture, _afterCropTextBoundingBoxes, color);
@@ -390,13 +390,13 @@ namespace AGS.Engine
             var intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, ref modelMatrix);
             if (buildHitTestBox)
             {
-                boxes.HitTestBox = _boundingBoxBuilder.BuildHitTestBox(ref intermediateBox);
+                boxes.WorldBox = _boundingBoxBuilder.BuildHitTestBox(ref intermediateBox);
             }
             if (buildRenderBox)
             {
                 PointF scale;
                 var viewportMatrix = matrices.ViewportMatrix;
-                boxes.RenderBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out scale);
+                boxes.ViewportBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out scale);
             }
         }
 
@@ -438,12 +438,12 @@ namespace AGS.Engine
 
             public AGSBoundingBox BuildIntermediateBox(float width, float height, ref Matrix4 modelMatrix) => default;
 
-            public AGSBoundingBox BuildHitTestBox(ref AGSBoundingBox intermediateBox) => BoundingBoxes?.HitTestBox ?? default;
+            public AGSBoundingBox BuildHitTestBox(ref AGSBoundingBox intermediateBox) => BoundingBoxes?.WorldBox ?? default;
 
             public AGSBoundingBox BuildRenderBox(ref AGSBoundingBox intermediateBox, ref Matrix4 viewportMatrix, out PointF scale)
             {
                 scale = AGSModelMatrixComponent.NoScaling;
-                return BoundingBoxes?.RenderBox ?? default;
+                return BoundingBoxes?.ViewportBox ?? default;
             }
 
 			#endregion

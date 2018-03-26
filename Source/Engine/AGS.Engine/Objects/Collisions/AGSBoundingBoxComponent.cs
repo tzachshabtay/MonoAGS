@@ -48,6 +48,8 @@ namespace AGS.Engine
         [Property(Browsable = false)]
         public ILockStep BoundingBoxLockStep => this;
 
+        public AGSBoundingBox WorldBoundingBox => _pendingLocks > 0 ? GetBoundingBoxes(_state.Viewport).WorldBox : _hitTestBox; 
+
         public override void Init(IEntity entity)
         {
             _entity = entity;
@@ -73,9 +75,9 @@ namespace AGS.Engine
             {
                 boxes.PreLockBoundingBoxes = new AGSBoundingBoxes
                 {
-                    HitTestBox = boxes.BoundingBoxes.HitTestBox,
-                    PreCropRenderBox = boxes.BoundingBoxes.PreCropRenderBox,
-                    RenderBox = boxes.BoundingBoxes.RenderBox,
+                    WorldBox = boxes.BoundingBoxes.WorldBox,
+                    PreCropViewportBox = boxes.BoundingBoxes.PreCropViewportBox,
+                    ViewportBox = boxes.BoundingBoxes.ViewportBox,
                     TextureBox = boxes.BoundingBoxes.TextureBox
                 };
             }
@@ -192,9 +194,9 @@ namespace AGS.Engine
             }
 
             var cropInfo = renderBox.Crop(BoundingBoxType.Render, crop, renderCropScale);
-			boundingBoxes.PreCropRenderBox = renderBox;
+			boundingBoxes.PreCropViewportBox = renderBox;
 			renderBox = cropInfo.BoundingBox;
-            boundingBoxes.RenderBox = renderBox;
+            boundingBoxes.ViewportBox = renderBox;
             if (cropInfo.TextureBox != null)
             {
                 boundingBoxes.TextureBox = cropInfo.TextureBox;
@@ -214,12 +216,12 @@ namespace AGS.Engine
 
             if (cropInfo.Equals(_defaultCropInfo))
             {
-                boundingBoxes.HitTestBox = default;
+                boundingBoxes.WorldBox = default;
             }
             else
             {
                 hitTestBox = hitTestBox.Crop(BoundingBoxType.HitTest, crop, hitTestCropScale).BoundingBox;
-                boundingBoxes.HitTestBox = hitTestBox;
+                boundingBoxes.WorldBox = hitTestBox;
             }
 
             return boundingBoxes;

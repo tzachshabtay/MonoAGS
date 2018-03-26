@@ -33,4 +33,101 @@
       <HintPath>..\..\..\DLLs\protobuf-net.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <None Update="ComponentsFramework\Templates\AGSButton.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSButton.generated.cs</LastGenOutput>
+    </None>
+    <None Update="ComponentsFramework\Templates\AGSCharacter.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSCharacter.generated.cs</LastGenOutput>
+    </None>
+    <None Update="ComponentsFramework\Templates\AGSCheckbox.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSCheckbox.generated.cs</LastGenOutput>
+    </None>
+    <None Update="ComponentsFramework\Templates\AGSComboBox.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSComboBox.generated.cs</LastGenOutput>
+    </None>
+    <None Update="ComponentsFramework\Templates\AGSInventoryWindow.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSInventoryWindow.generated.cs</LastGenOutput>
+    </None>
+    <None Update="ComponentsFramework\Templates\AGSLabel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSLabel.generated.cs</LastGenOutput>
+    </None>
+    <None Update="ComponentsFramework\Templates\AGSObject.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSObject.generated.cs</LastGenOutput>
+    </None>
+    <None Update="ComponentsFramework\Templates\AGSPanel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSPanel.generated.cs</LastGenOutput>
+    </None>
+    <None Update="ComponentsFramework\Templates\AGSSlider.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSSlider.generated.cs</LastGenOutput>
+    </None>
+    <None Update="ComponentsFramework\Templates\AGSTextbox.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGSTextbox.generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ComponentsFramework\Templates\AGSButton.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AGSButton.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ComponentsFramework\Templates\AGSCharacter.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AGSCharacter.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ComponentsFramework\Templates\AGSCheckbox.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AGSCheckbox.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ComponentsFramework\Templates\AGSComboBox.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AGSComboBox.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ComponentsFramework\Templates\AGSInventoryWindow.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AGSInventoryWindow.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ComponentsFramework\Templates\AGSLabel.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AGSLabel.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ComponentsFramework\Templates\AGSObject.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AGSObject.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ComponentsFramework\Templates\AGSPanel.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AGSPanel.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ComponentsFramework\Templates\AGSSlider.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AGSSlider.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ComponentsFramework\Templates\AGSTextbox.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AGSTextbox.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

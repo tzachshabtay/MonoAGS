@@ -18,6 +18,7 @@ namespace AGS.Engine
         private readonly List<IObject> _emptyList = new List<IObject>(1);
         private readonly HashSet<string> _alreadyPrepared = new HashSet<string>();
         private readonly IAGSRoomTransitions _roomTransitions;
+        private readonly IMatrixUpdater _matrixUpdater;
 
         private readonly ConcurrentDictionary<IViewport, List<IObject>> _cache;
         private readonly ConcurrentDictionary<IViewport, ViewportSubscriber> _viewportSubscribers;
@@ -26,7 +27,6 @@ namespace AGS.Engine
         private IRoom _lastRoom;
         private IObject _lastRoomBackground;
         private bool _isDirty;
-        private int _inUpdate; //For preventing re-entrancy
 
         private struct ViewportSubscriber
         {
@@ -177,8 +177,9 @@ namespace AGS.Engine
         }
 
         public AGSDisplayList(IGameState gameState, IInput input, 
-                              IImageRenderer renderer, IGameEvents events, IAGSRoomTransitions roomTransitions)
+                              IImageRenderer renderer, IMatrixUpdater matrixUpdater, IAGSRoomTransitions roomTransitions)
         {
+            _matrixUpdater = matrixUpdater;
             _roomTransitions = roomTransitions;
             _gameState = gameState;
             _input = input;
@@ -187,7 +188,6 @@ namespace AGS.Engine
             _viewportSubscribers = new ConcurrentDictionary<IViewport, ViewportSubscriber>();
             _bindings = new ConcurrentDictionary<string, List<API.IComponentBinding>>();
             _comparer = new RenderOrderSelector();
-            events.OnRepeatedlyExecute?.Subscribe(onRepeatedlyExecute);
 
             gameState.UI.OnListChanged.Subscribe(onUiChanged);
             subscribeObjects(gameState.UI);
@@ -208,44 +208,34 @@ namespace AGS.Engine
             return displayList ?? _emptyList;
 		}
 
-        private void onRepeatedlyExecute()
+        public void Update()
         {
-            if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
-            try
-            {
-                _alreadyPrepared.Clear();
-                bool isDirty = _isDirty || _roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList;
-                _isDirty = false;
+            _alreadyPrepared.Clear();
+            bool isDirty = _isDirty || _roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList;
+            _isDirty = false;
 
-                foreach (var viewport in _viewportSubscribers.Keys)
-                {
-                    List<IObject> list;
-                    if (isDirty)
-                    {
-                        list = getDisplayList(viewport);
-                        _cache[viewport] = list;
-                    }
-                    else
-                    {
-                        list = _cache.GetOrAdd(viewport, getDisplayList);
-                    }
-                    foreach (var item in list)
-                    {
-                        if (_alreadyPrepared.Add(item.ID))
-                        {
-                            var renderer = getImageRenderer(item);
-                            renderer.Prepare(item, item.GetComponent<IDrawableInfoComponent>(), viewport);
-                        }
-                    }
-                }
-                if (_roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList && isDirty)
-                {
-                    _roomTransitions.State = RoomTransitionState.InTransition;
-                }
-            }
-            finally
+            _matrixUpdater.ClearCache();
+            foreach (var viewport in _viewportSubscribers.Keys)
             {
-                _inUpdate = 0;
+                List<IObject> list;
+                if (isDirty)
+                {
+                    list = getDisplayList(viewport);
+                    _cache[viewport] = list;
+                }
+                else
+                {
+                    list = _cache.GetOrAdd(viewport, getDisplayList);
+                }
+                foreach (var item in list)
+                {
+                    if (_alreadyPrepared.Add(item.ID))
+                    {
+                        _matrixUpdater.RefreshMatrix(item);
+                        var renderer = getImageRenderer(item);
+                        renderer.Prepare(item, item.GetComponent<IDrawableInfoComponent>(), viewport);
+                    }
+                }
             }
         }
 

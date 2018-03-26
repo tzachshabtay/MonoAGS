@@ -77,7 +77,7 @@ namespace AGS.Engine
         private void refreshSliderLimits()
         {
             if (_inEvent) return;
-            var container = _boundingBox?.GetBoundingBoxes(_state.Viewport)?.RenderBox;
+            var container = _boundingBox?.GetBoundingBoxes(_state.Viewport)?.ViewportBox;
             var withChildren = _boundingBoxWithChildren?.PreCropBoundingBoxWithChildren;
             if (container == null || !container.Value.IsValid || withChildren == null || !withChildren.Value.IsValid) return;
 

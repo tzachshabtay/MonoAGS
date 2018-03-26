@@ -17,6 +17,7 @@ namespace AGS.Engine
         private IScaleComponent _scale;
         private ITranslateComponent _translate;
         private IRotateComponent _rotate;
+        private IWorldPositionComponent _worldPosition;
         private IImageComponent _image;
         private IHasRoomComponent _room;
         private IDrawableInfoComponent _drawable;
@@ -66,6 +67,10 @@ namespace AGS.Engine
             _entity.Bind<ITranslateComponent>(
                 c => { _translate = c; c.PropertyChanged += onTranslateChanged; onSomethingChanged(); },
                 c => { c.PropertyChanged -= onTranslateChanged; _translate = null; onSomethingChanged();}
+            );
+            _entity.Bind<IWorldPositionComponent>(
+                c => { _worldPosition = c; c.PropertyChanged += onWorldPositionChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onWorldPositionChanged; _translate = null; onSomethingChanged(); }
             );
             _entity.Bind<IJumpOffsetComponent>(
                 c => { _jump = c; c.PropertyChanged += onJumpOffsetChanged; onSomethingChanged();},
@@ -197,6 +202,12 @@ namespace AGS.Engine
         private void onTranslateChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(ITranslateComponent.X) && args.PropertyName != nameof(ITranslateComponent.Y)) return;
+            onSomethingChanged();
+        }
+
+        private void onWorldPositionChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IWorldPositionComponent.WorldXY)) return;
             refreshAreaScaling();
             onSomethingChanged();
         }
@@ -496,11 +507,20 @@ namespace AGS.Engine
         {
             var room = _room?.Room;
             if (room == null || (_drawable?.IgnoreScalingArea ?? false)) return NoScaling;
-            foreach (IArea area in room.GetMatchingAreas(_translate.Location.XY, _entity.ID))
+
+            //Problem: we'd like to always use the world position when checking if the entity is standing
+            //in a scaling area. However, the world position is calculated from the bounding box, which
+            //in itself is calculated from the matrix, which is calculated here... 
+            //So at best this will always be in one frame delay, and at worst can cause real scaling jittering issues.
+            //So this is why we're checking and in cases the entity doesn't have a parent (which is the vast majority of scenarios)
+            //we'll continue using the local coordinates, at least until a better solution is found.
+            var position = _tree.TreeNode.Parent == null ? _translate.Location.XY : _worldPosition.WorldXY;
+
+            foreach (IArea area in room.GetMatchingAreas(position, _entity.ID))
             {
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();
                 if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY)) continue;
-                float scale = scaleArea.GetScaling(scaleArea.Axis == ScalingAxis.X ? _translate.X : _translate.Y);
+                float scale = scaleArea.GetScaling(scaleArea.Axis == ScalingAxis.X ? position.X : position.Y);
                 return new PointF(scaleArea.ScaleObjectsX ? scale : 1f, scaleArea.ScaleObjectsY ? scale : 1f);
             }
             return NoScaling;

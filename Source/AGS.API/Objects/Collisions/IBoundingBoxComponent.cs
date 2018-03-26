@@ -12,11 +12,16 @@
     public interface IBoundingBoxComponent : IComponent
     {
         /// <summary>
-        /// Gets or sets the bounding box which surrounds the entity.
-        /// The bounding box is set by the engine, and should not be set by the user.
+        /// Gets the bounding boxes which surrounds the entity.
         /// </summary>
         /// <value>The bounding boxes.</value>
         AGSBoundingBoxes GetBoundingBoxes(IViewport viewport);
+
+        /// <summary>
+        /// Gets the entity's bounding box in world co-ordinates (can be used for hit-tests).
+        /// </summary>
+        /// <value>The world bounding box.</value>
+        AGSBoundingBox WorldBoundingBox { get; }
 
         /// <summary>
         /// An event which fires whenever the bounding boxes for the entity change.

@@ -31,6 +31,7 @@ namespace AGS.Engine
         private IPixelPerfectComponent _pixelPerfectComponent;
         private IModelMatrixComponent _modelMatrixComponent;
         private IBoundingBoxComponent _boundingBoxComponent;
+        private IWorldPositionComponent _worldPositionComponent;
         private ISayComponent _sayComponent;
         private IWalkComponent _walkComponent;
         private IFaceDirectionComponent _faceDirectionComponent;
@@ -40,47 +41,49 @@ namespace AGS.Engine
         private IHotspotComponent _hotspotComponent;
 
         public AGSCharacter(string id, Resolver resolver, IOutfit outfit) : base(id, resolver)
-        {            
+        {
             _hasRoomComponent = AddComponent<IHasRoomComponent>();
-            Bind<IHasRoomComponent>(c => _hasRoomComponent = c, _ => {});            
+            Bind<IHasRoomComponent>(c => _hasRoomComponent = c, _ => {});
             _animationComponent = AddComponent<IAnimationComponent>();
-            Bind<IAnimationComponent>(c => _animationComponent = c, _ => {});            
+            Bind<IAnimationComponent>(c => _animationComponent = c, _ => {});
             _inObjectTreeComponent = AddComponent<IInObjectTreeComponent>();
-            Bind<IInObjectTreeComponent>(c => _inObjectTreeComponent = c, _ => {});            
+            Bind<IInObjectTreeComponent>(c => _inObjectTreeComponent = c, _ => {});
             _colliderComponent = AddComponent<IColliderComponent>();
-            Bind<IColliderComponent>(c => _colliderComponent = c, _ => {});            
+            Bind<IColliderComponent>(c => _colliderComponent = c, _ => {});
             _visibleComponent = AddComponent<IVisibleComponent>();
-            Bind<IVisibleComponent>(c => _visibleComponent = c, _ => {});            
+            Bind<IVisibleComponent>(c => _visibleComponent = c, _ => {});
             _enabledComponent = AddComponent<IEnabledComponent>();
-            Bind<IEnabledComponent>(c => _enabledComponent = c, _ => {});            
+            Bind<IEnabledComponent>(c => _enabledComponent = c, _ => {});
             _customPropertiesComponent = AddComponent<ICustomPropertiesComponent>();
-            Bind<ICustomPropertiesComponent>(c => _customPropertiesComponent = c, _ => {});            
+            Bind<ICustomPropertiesComponent>(c => _customPropertiesComponent = c, _ => {});
             _drawableInfoComponent = AddComponent<IDrawableInfoComponent>();
-            Bind<IDrawableInfoComponent>(c => _drawableInfoComponent = c, _ => {});            
+            Bind<IDrawableInfoComponent>(c => _drawableInfoComponent = c, _ => {});
             _shaderComponent = AddComponent<IShaderComponent>();
-            Bind<IShaderComponent>(c => _shaderComponent = c, _ => {});            
+            Bind<IShaderComponent>(c => _shaderComponent = c, _ => {});
             _translateComponent = AddComponent<ITranslateComponent>();
-            Bind<ITranslateComponent>(c => _translateComponent = c, _ => {});            
+            Bind<ITranslateComponent>(c => _translateComponent = c, _ => {});
             _imageComponent = AddComponent<IImageComponent>();
-            Bind<IImageComponent>(c => _imageComponent = c, _ => {});            
+            Bind<IImageComponent>(c => _imageComponent = c, _ => {});
             _scaleComponent = AddComponent<IScaleComponent>();
-            Bind<IScaleComponent>(c => _scaleComponent = c, _ => {});            
+            Bind<IScaleComponent>(c => _scaleComponent = c, _ => {});
             _rotateComponent = AddComponent<IRotateComponent>();
-            Bind<IRotateComponent>(c => _rotateComponent = c, _ => {});            
+            Bind<IRotateComponent>(c => _rotateComponent = c, _ => {});
             _pixelPerfectComponent = AddComponent<IPixelPerfectComponent>();
-            Bind<IPixelPerfectComponent>(c => _pixelPerfectComponent = c, _ => {});            
+            Bind<IPixelPerfectComponent>(c => _pixelPerfectComponent = c, _ => {});
             _modelMatrixComponent = AddComponent<IModelMatrixComponent>();
-            Bind<IModelMatrixComponent>(c => _modelMatrixComponent = c, _ => {});            
+            Bind<IModelMatrixComponent>(c => _modelMatrixComponent = c, _ => {});
             _boundingBoxComponent = AddComponent<IBoundingBoxComponent>();
-            Bind<IBoundingBoxComponent>(c => _boundingBoxComponent = c, _ => {});            
+            Bind<IBoundingBoxComponent>(c => _boundingBoxComponent = c, _ => {});
+            _worldPositionComponent = AddComponent<IWorldPositionComponent>();
+            Bind<IWorldPositionComponent>(c => _worldPositionComponent = c, _ => {});
             _faceDirectionComponent = AddComponent<IFaceDirectionComponent>();
-            Bind<IFaceDirectionComponent>(c => _faceDirectionComponent = c, _ => {});            
+            Bind<IFaceDirectionComponent>(c => _faceDirectionComponent = c, _ => {});
             _outfitComponent = AddComponent<IOutfitComponent>();
-            Bind<IOutfitComponent>(c => _outfitComponent = c, _ => {});            
+            Bind<IOutfitComponent>(c => _outfitComponent = c, _ => {});
             _inventoryComponent = AddComponent<IInventoryComponent>();
-            Bind<IInventoryComponent>(c => _inventoryComponent = c, _ => {});            
+            Bind<IInventoryComponent>(c => _inventoryComponent = c, _ => {});
             _followComponent = AddComponent<IFollowComponent>();
-            Bind<IFollowComponent>(c => _followComponent = c, _ => {});            
+            Bind<IFollowComponent>(c => _followComponent = c, _ => {});
             _hotspotComponent = AddComponent<IHotspotComponent>();
             Bind<IHotspotComponent>(c => _hotspotComponent = c, _ => {});
 			beforeInitComponents(resolver, outfit);
@@ -329,10 +332,10 @@ namespace AGS.Engine
             set { _imageComponent.Tint = value; } 
         }
 
-        public Vector4 Brightness
-        {
-            get { return _imageComponent.Brightness; }
-            set { _imageComponent.Brightness = value; }
+        public Vector4 Brightness 
+        {  
+            get { return _imageComponent.Brightness; }  
+            set { _imageComponent.Brightness = value; } 
         }
 
         public PointF Pivot 
@@ -438,15 +441,19 @@ namespace AGS.Engine
 
         #region IPixelPerfectComponent implementation
 
+        public Boolean IsPixelPerfect 
+        {  
+            get { return _pixelPerfectComponent.IsPixelPerfect; }  
+            set { _pixelPerfectComponent.IsPixelPerfect = value; } 
+        }
+
+        #endregion
+
+        #region IPixelPerfectCollidable implementation
+
         public IArea PixelPerfectHitTestArea 
         {  
             get { return _pixelPerfectComponent.PixelPerfectHitTestArea; } 
-        }
-
-        public bool IsPixelPerfect
-        {
-            get { return _pixelPerfectComponent.IsPixelPerfect; }
-            set { _pixelPerfectComponent.IsPixelPerfect = value; }
         }
 
         #endregion
@@ -472,6 +479,11 @@ namespace AGS.Engine
 
         #region IBoundingBoxComponent implementation
 
+        public AGSBoundingBox WorldBoundingBox 
+        {  
+            get { return _boundingBoxComponent.WorldBoundingBox; } 
+        }
+
         public IBlockingEvent OnBoundingBoxesChanged 
         {  
             get { return _boundingBoxComponent.OnBoundingBoxesChanged; } 
@@ -485,6 +497,25 @@ namespace AGS.Engine
         public AGSBoundingBoxes GetBoundingBoxes(IViewport viewport)
         {
             return _boundingBoxComponent.GetBoundingBoxes(viewport);
+        }
+
+        #endregion
+
+        #region IWorldPositionComponent implementation
+
+        public Single WorldX 
+        {  
+            get { return _worldPositionComponent.WorldX; } 
+        }
+
+        public Single WorldY 
+        {  
+            get { return _worldPositionComponent.WorldY; } 
+        }
+
+        public PointF WorldXY
+        {
+            get { return _worldPositionComponent.WorldXY; }
         }
 
         #endregion

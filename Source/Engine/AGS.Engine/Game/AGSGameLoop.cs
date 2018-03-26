@@ -2,20 +2,24 @@
 using AGS.API;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Threading;
 
 namespace AGS.Engine
 {
 	public class AGSGameLoop : IGameLoop
 	{
-		private IGameState _gameState;
+		private readonly IGameState _gameState;
 		private AGS.API.Size _virtualResolution;
 		private IRoom _lastRoom;
-		private IAGSRoomTransitions _roomTransitions;
-        private IGameEvents _events;
+		private readonly IAGSRoomTransitions _roomTransitions;
+        private readonly IGameEvents _events;
+        private int _inUpdate; //For preventing re-entrancy
+        private readonly IDisplayList _displayList;
 
 		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution, 
-                            IAGSRoomTransitions roomTransitions, IGameEvents events)
+                            IAGSRoomTransitions roomTransitions, IGameEvents events, IDisplayList displayList)
 		{
+            _displayList = displayList;
 			_gameState = gameState;
             _events = events;
 			_virtualResolution = virtualResolution;
@@ -26,28 +30,43 @@ namespace AGS.Engine
 
 		public virtual async Task UpdateAsync()
 		{
-            if (_gameState.Room == null) return;
-			IRoom room = _gameState.Room;
-            bool changedRoom = _lastRoom != room;
-			if (_roomTransitions.State != RoomTransitionState.NotInTransition)
-			{
-				if (_roomTransitions.State == RoomTransitionState.PreparingTransition)
-				{
-					if (changedRoom)
-					{
-						_lastRoom?.Events.OnAfterFadeOut.Invoke();
-						room.Events.OnBeforeFadeIn.Invoke();
-						updateViewports(changedRoom);
-                        _events.OnRoomChanging.Invoke();
-						if (_lastRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
-                        else _roomTransitions.State = RoomTransitionState.PreparingNewRoomDisplayList;
-					}
-				}
-				return;
-			}
+            if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
+            try
+            {
+                if (_gameState.Room == null) return;
+                IRoom room = _gameState.Room;
+                bool changedRoom = _lastRoom != room;
+                if (_roomTransitions.State != RoomTransitionState.NotInTransition)
+                {
+                    if (_roomTransitions.State == RoomTransitionState.PreparingTransition)
+                    {
+                        if (changedRoom)
+                        {
+                            _lastRoom?.Events.OnAfterFadeOut.Invoke();
+                            room.Events.OnBeforeFadeIn.Invoke();
+                            updateViewports(changedRoom);
+                            _events.OnRoomChanging.Invoke();
+                            if (_lastRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
+                            else _roomTransitions.State = RoomTransitionState.PreparingNewRoomDisplayList;
+                        }
+                    }
+                    else if (_roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList)
+                    {
+                        _displayList.Update();
+                        updateViewports(changedRoom);
+                        _roomTransitions.State = RoomTransitionState.InTransition;
+                    }
+                    return;
+                }
 
-			updateViewports(changedRoom);
-			await updateRoom(room);
+                updateViewports(changedRoom);
+                _displayList.Update();
+                await updateRoom(room);
+            }
+            finally
+            {
+                _inUpdate = 0;
+            }
 		}
 
 		#endregion
@@ -112,4 +131,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

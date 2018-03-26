@@ -40,7 +40,7 @@ namespace AGS.Engine
                 return;
             }
             var boundingBoxes = obj.GetBoundingBoxes(viewport);
-            if (boundingBoxes == null || !boundingBoxes.RenderBox.IsValid)
+            if (boundingBoxes == null || !boundingBoxes.ViewportBox.IsValid)
             {
                 return;
             }
@@ -56,8 +56,8 @@ namespace AGS.Engine
             if (!obj.Visible) return;
 			if (border != null)
 			{
-                if (boundingBoxes.RenderBox.BottomLeft.X > boundingBoxes.RenderBox.BottomRight.X) borderBox = boundingBoxes.RenderBox.FlipHorizontal();
-                else borderBox = boundingBoxes.RenderBox;
+                if (boundingBoxes.ViewportBox.BottomLeft.X > boundingBoxes.ViewportBox.BottomRight.X) borderBox = boundingBoxes.ViewportBox.FlipHorizontal();
+                else borderBox = boundingBoxes.ViewportBox;
 
 				border.RenderBorderBack(borderBox);
 			}

@@ -13,5 +13,10 @@ namespace AGS.API
 		/// <returns>The display list.</returns>
 		/// <param name="viewport">Viewport.</param>
 		List<IObject> GetDisplayList(IViewport viewport);
+
+        /// <summary>
+        /// Update the display list (this is called every tick by the game engine itself).
+        /// </summary>
+        void Update();
     }
 }
