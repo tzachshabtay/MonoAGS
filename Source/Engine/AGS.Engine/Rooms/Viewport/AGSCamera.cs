@@ -51,7 +51,7 @@ namespace AGS.Engine
 
 			setScale(target, viewport, resetPosition);
 
-            var box = target.HitTestBoundingBox;
+            var box = target.WorldBoundingBox;
             var targetPoint = TargetPoint;
             float targetX = targetPoint == null ? target.WorldX : MathUtils.Lerp(0f, box.MinX, 1f, box.MaxX, targetPoint.Value.X);
             float targetY = targetPoint == null ? target.WorldY : MathUtils.Lerp(0f, box.MinY, 1f, box.MaxY, targetPoint.Value.Y);

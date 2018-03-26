@@ -406,7 +406,7 @@ namespace AGS.Engine
 
             Action placePanel = () =>
             {
-                var box = textBox.GetBoundingBoxes(_gameState.Viewport)?.RenderBox;
+                var box = textBox.GetBoundingBoxes(_gameState.Viewport)?.ViewportBox;
                 if (box == null) return;
                 dropDownPanel.Location = new AGSLocation(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
             };

@@ -62,8 +62,8 @@ namespace AGS.API
             var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
             if (parentBoundingBoxes != null)
             {
-                projectLeft += parentBoundingBoxes.RenderBox.MinX;
-                projectRight += parentBoundingBoxes.RenderBox.MinX;
+                projectLeft += parentBoundingBoxes.ViewportBox.MinX;
+                projectRight += parentBoundingBoxes.ViewportBox.MinX;
             }
 
             float x = MathUtils.Lerp(projectLeft, 0f, projectRight, VirtualResolution.Width, XWindow);
@@ -83,8 +83,8 @@ namespace AGS.API
             var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
             if (parentBoundingBoxes != null)
             {
-                projectBottom -= parentBoundingBoxes.RenderBox.MinY;
-                projectTop -= parentBoundingBoxes.RenderBox.MinY;
+                projectBottom -= parentBoundingBoxes.ViewportBox.MinY;
+                projectTop -= parentBoundingBoxes.ViewportBox.MinY;
             }
 
             float y = MathUtils.Lerp(projectBottom, 0f, projectTop, VirtualResolution.Height, YWindow);
@@ -109,10 +109,10 @@ namespace AGS.API
             var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
             if (parentBoundingBoxes != null)
             {
-                projectLeft += parentBoundingBoxes.RenderBox.MinX;
-                projectRight += parentBoundingBoxes.RenderBox.MinX;
-                projectBottom -= parentBoundingBoxes.RenderBox.MinY;
-                projectTop -= parentBoundingBoxes.RenderBox.MinY;
+                projectLeft += parentBoundingBoxes.ViewportBox.MinX;
+                projectRight += parentBoundingBoxes.ViewportBox.MinX;
+                projectBottom -= parentBoundingBoxes.ViewportBox.MinY;
+                projectTop -= parentBoundingBoxes.ViewportBox.MinY;
             }
             float y = MathUtils.Lerp(projectTop, VirtualResolution.Height, projectBottom, 0f, YWindow);
             float x = MathUtils.Lerp(projectLeft, 0f, projectRight, VirtualResolution.Width, XWindow);
@@ -124,7 +124,7 @@ namespace AGS.API
             x = xyz.X;
             y = xyz.Y;
 
-            var hitTestBox = projectedInto.TreeNode.Parent?.HitTestBoundingBox;
+            var hitTestBox = projectedInto.TreeNode.Parent?.WorldBoundingBox;
             if (hitTestBox?.IsValid ?? false)
 			{
                 x -= hitTestBox.Value.MinX;

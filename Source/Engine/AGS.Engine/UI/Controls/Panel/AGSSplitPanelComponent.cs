@@ -121,7 +121,7 @@ namespace AGS.Engine
         private void positionSplitLine(IObject splitLine, IPanel topPanel, float lineWidth)
         {
 			var boundingBoxes = topPanel.GetBoundingBoxes(_state.Viewport);
-			var box = boundingBoxes.RenderBox;
+			var box = boundingBoxes.ViewportBox;
 			float width = IsHorizontal ? lineWidth : box.Width;
 			float height = IsHorizontal ? box.Height : lineWidth;
 			splitLine.Image = new EmptyImage(width, height);

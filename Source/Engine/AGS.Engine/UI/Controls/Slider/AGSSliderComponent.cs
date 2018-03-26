@@ -278,7 +278,7 @@ namespace AGS.Engine
 		{
             var boundingBox = _boundingBox;
             if (boundingBox == null) return;
-            var hitTestBox = boundingBox.HitTestBoundingBox;
+            var hitTestBox = boundingBox.WorldBoundingBox;
             var visible = _visible;
             var enabled = _enabled;
             if (visible == null || !visible.Visible || enabled == null || !enabled.Enabled || 
@@ -317,8 +317,8 @@ namespace AGS.Engine
             if (MathUtils.FloatEquals(MinValue, MaxValue)) return;
 
             var handlePos = getHandlePos(Value, scale);
-            if (isHorizontal()) HandleGraphics.X = MathUtils.Clamp(handlePos, 0f, boundingBoxes.RenderBox.Width);
-            else HandleGraphics.Y = MathUtils.Clamp(handlePos, 0f, boundingBoxes.RenderBox.Height);
+            if (isHorizontal()) HandleGraphics.X = MathUtils.Clamp(handlePos, 0f, boundingBoxes.ViewportBox.Width);
+            else HandleGraphics.Y = MathUtils.Clamp(handlePos, 0f, boundingBoxes.ViewportBox.Height);
 			setText();
 		}
 

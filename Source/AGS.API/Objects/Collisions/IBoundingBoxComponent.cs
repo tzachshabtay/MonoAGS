@@ -18,10 +18,10 @@
         AGSBoundingBoxes GetBoundingBoxes(IViewport viewport);
 
         /// <summary>
-        /// Gets the hit test bounding box (the entity's bounding box in world co-ordinates).
+        /// Gets the entity's bounding box in world co-ordinates (can be used for hit-tests).
         /// </summary>
-        /// <value>The hit test bounding box.</value>
-        AGSBoundingBox HitTestBoundingBox { get; }
+        /// <value>The world bounding box.</value>
+        AGSBoundingBox WorldBoundingBox { get; }
 
         /// <summary>
         /// An event which fires whenever the bounding boxes for the entity change.

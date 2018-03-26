@@ -17,11 +17,11 @@ namespace AGS.Engine
 		{
             if (boundingBoxes.TextureBox == null)
             {
-                _glUtils.DrawQuad(texture, boundingBoxes.RenderBox, color.R, color.G, color.B, color.A);
+                _glUtils.DrawQuad(texture, boundingBoxes.ViewportBox, color.R, color.G, color.B, color.A);
             }
             else
             {
-                _glUtils.DrawQuad(texture, boundingBoxes.RenderBox, color, boundingBoxes.TextureBox);
+                _glUtils.DrawQuad(texture, boundingBoxes.ViewportBox, color, boundingBoxes.TextureBox);
             }
 		}
 

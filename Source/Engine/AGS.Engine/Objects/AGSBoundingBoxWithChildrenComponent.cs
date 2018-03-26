@@ -144,8 +144,8 @@ namespace AGS.Engine
             var lastBox = BoundingBoxWithChildren;
             var lastPreBox = PreCropBoundingBoxWithChildren;
             _isDirty = false;
-            _boundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.RenderBox, DebugPrintouts ? $"Box ({_entity.ID})" : null);
-            _preCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox, DebugPrintouts ? $"Box Pre Crop ({_entity.ID})" : null);
+            _boundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.ViewportBox, DebugPrintouts ? $"Box ({_entity.ID})" : null);
+            _preCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropViewportBox, DebugPrintouts ? $"Box Pre Crop ({_entity.ID})" : null);
             if (DebugPrintouts)
             {
                 Debug.WriteLine($"Pre crop for {_entity.ID}: {_preCropBoundingBoxWithChildren.ToString()}");
@@ -157,8 +157,8 @@ namespace AGS.Engine
         {
             var lastBox = BoundingBoxWithChildren;
             var lastPreBox = PreCropBoundingBoxWithChildren;
-            _preUnlockBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.RenderBox, DebugPrintouts ? $"Box before unlock ({_entity.ID})" : null);
-            _preUnlockPreCropBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropRenderBox, DebugPrintouts ? $"Box Pre Crop before unlock ({_entity.ID})" : null);
+            _preUnlockBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.ViewportBox, DebugPrintouts ? $"Box before unlock ({_entity.ID})" : null);
+            _preUnlockPreCropBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropViewportBox, DebugPrintouts ? $"Box Pre Crop before unlock ({_entity.ID})" : null);
             if (DebugPrintouts)
             {
                 Debug.WriteLine($"Pre crop (before unlock) for ${_entity.ID}: {_preUnlockBoundingBox.ToString()}");

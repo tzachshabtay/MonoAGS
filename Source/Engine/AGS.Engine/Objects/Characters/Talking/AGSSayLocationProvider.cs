@@ -28,7 +28,7 @@ namespace AGS.Engine
 		{
             var portraitLocation = getPortraitLocation(config);
             _lastSpeaker = _obj;
-            var boundingBox = _obj.HitTestBoundingBox;
+            var boundingBox = _obj.WorldBoundingBox;
             float x = portraitLocation == null ? (boundingBox.MaxX - (_obj.IgnoreViewport ? 0 : _state.Viewport.X)) 
                                                   : portraitLocation.Value.X;
             if (portraitLocation != null && _lastSpeakerOnLeft) x += config.PortraitConfig.Portrait.Width + getBorderWidth(config.PortraitConfig, true).X;

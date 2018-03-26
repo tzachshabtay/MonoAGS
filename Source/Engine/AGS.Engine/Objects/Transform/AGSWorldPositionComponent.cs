@@ -47,7 +47,7 @@ namespace AGS.Engine
             var boxComponent = _box;
             var image = _image;
             if (boxComponent == null || image == null) return;
-            var box = _box.HitTestBoundingBox;
+            var box = _box.WorldBoundingBox;
             var pivot = _image.Pivot;
             var oldXY = _worldXY;
             var worldX = MathUtils.Lerp(0f, box.MinX, 1f, box.MaxX, pivot.X);

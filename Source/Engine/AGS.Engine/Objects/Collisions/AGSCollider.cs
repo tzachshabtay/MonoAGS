@@ -36,7 +36,7 @@ namespace AGS.Engine
 			{
                 var boundingBoxesComponent = _boundingBox;
                 if (boundingBoxesComponent == null) return null;
-                var boundingBox = boundingBoxesComponent.HitTestBoundingBox;
+                var boundingBox = boundingBoxesComponent.WorldBoundingBox;
                 var pixelPerfectComponent = _pixelPerfect;
                 var pixelPerfect = pixelPerfectComponent == null ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 				float minX = boundingBox.MinX;
@@ -54,7 +54,7 @@ namespace AGS.Engine
 		{
 			var boundingBoxesComponent = _boundingBox;
             if (boundingBoxesComponent == null) return false;
-            AGSBoundingBox boundingBox = boundingBoxesComponent.HitTestBoundingBox;
+            AGSBoundingBox boundingBox = boundingBoxesComponent.WorldBoundingBox;
             var pixelPerfectComponent = _pixelPerfect;
             IArea pixelPerfect = pixelPerfectComponent == null || !pixelPerfectComponent.IsPixelPerfect ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 

@@ -172,7 +172,7 @@ namespace AGS.Engine
                 if (cropSelf == null)
                 {
                     cropSelf = new AGSCropSelfComponent();
-                    ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.RenderBox);
+                    ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.ViewportBox);
                     cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
                     cropSelf.Init(obj);
                     cropSelf.AfterInit();
@@ -184,7 +184,7 @@ namespace AGS.Engine
             {
                 cropSelf = new AGSCropSelfComponent();
                 cropSelf.CropEnabled = false;
-                ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.RenderBox);
+                ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.ViewportBox);
                 cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
                 obj.AddComponent<ICropSelfComponent>(cropSelf);
             }

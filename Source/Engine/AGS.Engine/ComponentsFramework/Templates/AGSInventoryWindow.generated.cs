@@ -539,9 +539,9 @@ namespace AGS.Engine
 
         #region IBoundingBoxComponent implementation
 
-        public AGSBoundingBox HitTestBoundingBox 
+        public AGSBoundingBox WorldBoundingBox 
         {  
-            get { return _boundingBoxComponent.HitTestBoundingBox; } 
+            get { return _boundingBoxComponent.WorldBoundingBox; } 
         }
 
         public IBlockingEvent OnBoundingBoxesChanged 
