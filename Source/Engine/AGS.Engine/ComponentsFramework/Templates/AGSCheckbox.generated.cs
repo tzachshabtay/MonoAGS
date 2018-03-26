@@ -573,6 +573,11 @@ namespace AGS.Engine
             get { return _worldPositionComponent.WorldY; } 
         }
 
+        public PointF WorldXY
+        {
+            get { return _worldPositionComponent.WorldXY; }
+        }
+
         #endregion
 
         #region ICheckboxComponent implementation
