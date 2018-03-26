@@ -149,8 +149,8 @@ namespace AGS.Engine
 
 		private ILocation findFarWalkable(float xOffset, float yOffset)
 		{
-			float x = _character.X;
-			float y = _character.Y;
+            float x = _character.WorldX;
+            float y = _character.WorldY;
 			bool walkable = true;
 			while (walkable)
 			{

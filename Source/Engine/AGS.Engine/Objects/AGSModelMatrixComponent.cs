@@ -17,6 +17,7 @@ namespace AGS.Engine
         private IScaleComponent _scale;
         private ITranslateComponent _translate;
         private IRotateComponent _rotate;
+        private IWorldPositionComponent _worldPosition;
         private IImageComponent _image;
         private IHasRoomComponent _room;
         private IDrawableInfoComponent _drawable;
@@ -66,6 +67,10 @@ namespace AGS.Engine
             _entity.Bind<ITranslateComponent>(
                 c => { _translate = c; c.PropertyChanged += onTranslateChanged; onSomethingChanged(); },
                 c => { c.PropertyChanged -= onTranslateChanged; _translate = null; onSomethingChanged();}
+            );
+            _entity.Bind<IWorldPositionComponent>(
+                c => { _worldPosition = c; c.PropertyChanged += onWorldPositionChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onWorldPositionChanged; _translate = null; onSomethingChanged(); }
             );
             _entity.Bind<IJumpOffsetComponent>(
                 c => { _jump = c; c.PropertyChanged += onJumpOffsetChanged; onSomethingChanged();},
@@ -197,6 +202,12 @@ namespace AGS.Engine
         private void onTranslateChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(ITranslateComponent.X) && args.PropertyName != nameof(ITranslateComponent.Y)) return;
+            onSomethingChanged();
+        }
+
+        private void onWorldPositionChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IWorldPositionComponent.WorldXY)) return;
             refreshAreaScaling();
             onSomethingChanged();
         }
@@ -496,11 +507,11 @@ namespace AGS.Engine
         {
             var room = _room?.Room;
             if (room == null || (_drawable?.IgnoreScalingArea ?? false)) return NoScaling;
-            foreach (IArea area in room.GetMatchingAreas(_translate.Location.XY, _entity.ID))
+            foreach (IArea area in room.GetMatchingAreas(_worldPosition.WorldXY, _entity.ID))
             {
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();
                 if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY)) continue;
-                float scale = scaleArea.GetScaling(scaleArea.Axis == ScalingAxis.X ? _translate.X : _translate.Y);
+                float scale = scaleArea.GetScaling(scaleArea.Axis == ScalingAxis.X ? _worldPosition.WorldX : _worldPosition.WorldY);
                 return new PointF(scaleArea.ScaleObjectsX ? scale : 1f, scaleArea.ScaleObjectsY ? scale : 1f);
             }
             return NoScaling;

@@ -40,7 +40,7 @@ namespace AGS.Engine
         {
             base.Init(entity);
             _characterName = entity.ID;
-            entity.Bind<ITranslateComponent>(c => _emitter.Translate = c, _ => _emitter.Translate = null);
+            entity.Bind<IWorldPositionComponent>(c => _emitter.WorldPosition = c, _ => _emitter.WorldPosition = null);
             entity.Bind<IHasRoomComponent>(c => _emitter.HasRoom = c, _ => _emitter.HasRoom = null);
             entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
             entity.Bind<IOutfitComponent>(c => _outfit = c, _ => _outfit = null);

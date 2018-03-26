@@ -32,11 +32,11 @@
         IObject Object { set; }
 
         /// <summary>
-        /// Gets or sets the translate component (for binding to location).
+        /// Gets or sets the world position component (for binding to location).
         /// You can set the Object property instead a short-hand convience. 
         /// </summary>
         /// <value>The translate.</value>
-        ITranslate Translate { get; set; }
+        IWorldPositionComponent WorldPosition { get; set; }
 
         /// <summary>
         /// Gets or sets the room component, for the emitter to not play the sound if the entity is not in currently rendered room.

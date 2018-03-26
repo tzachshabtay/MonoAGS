@@ -62,11 +62,11 @@ namespace AGS.Engine
 
         public IObject Object 
         { 
-            set { Translate = value; HasRoom = value; EntityID = value == null ? null : value.ID; }
+            set { HasRoom = value; WorldPosition = value; EntityID = value == null ? null : value.ID; }
         }
         public string EntityID { get; set; }
-        public ITranslate Translate { get; set; }
         public IHasRoomComponent HasRoom { get; set; }
+        public IWorldPositionComponent WorldPosition { get; set; }
 
 		public bool AutoPan { get; set; }
 		public bool AutoAdjustVolume { get; set; }
@@ -109,7 +109,7 @@ namespace AGS.Engine
 		private void onRepeatedlyExecute()
 		{
 			if (_game.State.Paused) return;
-            var obj = Translate;
+            var pos = WorldPosition;
             var hasRoom = HasRoom;
 
 			foreach (var sound in _playingSounds)
@@ -120,10 +120,10 @@ namespace AGS.Engine
 					_playingSounds.TryRemove(sound.Key, out value);
 					continue;
 				}
-				if (obj == null) continue;
+				if (pos == null) continue;
 				if (AutoPan)
 				{
-					float pan = MathUtils.Lerp(0f, -1f, _game.Settings.VirtualResolution.Width, 1f, obj.Location.X);
+                    float pan = MathUtils.Lerp(0f, -1f, _game.Settings.VirtualResolution.Width, 1f, pos.WorldX);
 					sound.Value.Sound.Panning = pan;
 				}
 				if (AutoAdjustVolume)
@@ -131,11 +131,11 @@ namespace AGS.Engine
                     if (hasRoom == null) continue;
                     var room = _game.State.Room;
                     if (room != hasRoom.Room) return;
-                    foreach (var area in room.GetMatchingAreas(obj.Location.XY, EntityID))
+                    foreach (var area in room.GetMatchingAreas(pos.WorldXY, EntityID))
 					{
                         var scalingArea = area.GetComponent<IScalingArea>();
                         if (scalingArea == null || !scalingArea.ScaleVolume) continue;
-						float scale = scalingArea.GetScaling(obj.Y);
+                        float scale = scalingArea.GetScaling(pos.WorldY);
 						sound.Value.Sound.Volume = AudioClip.Volume * scale;
 					}
 				}
