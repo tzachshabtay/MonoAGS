@@ -507,11 +507,20 @@ namespace AGS.Engine
         {
             var room = _room?.Room;
             if (room == null || (_drawable?.IgnoreScalingArea ?? false)) return NoScaling;
-            foreach (IArea area in room.GetMatchingAreas(_worldPosition.WorldXY, _entity.ID))
+
+            //Problem: we'd like to always use the world position when checking if the entity is standing
+            //in a scaling area. However, the world position is calculated from the bounding box, which
+            //in itself is calculated from the matrix, which is calculated here... 
+            //So at best this will always be in one frame delay, and at worst can cause real scaling jittering issues.
+            //So this is why we're checking and in cases the entity doesn't have a parent (which is the vast majority of scenarios)
+            //we'll continue using the local coordinates, at least until a better solution is found.
+            var position = _tree.TreeNode.Parent == null ? _translate.Location.XY : _worldPosition.WorldXY;
+
+            foreach (IArea area in room.GetMatchingAreas(position, _entity.ID))
             {
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();
                 if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY)) continue;
-                float scale = scaleArea.GetScaling(scaleArea.Axis == ScalingAxis.X ? _worldPosition.WorldX : _worldPosition.WorldY);
+                float scale = scaleArea.GetScaling(scaleArea.Axis == ScalingAxis.X ? position.X : position.Y);
                 return new PointF(scaleArea.ScaleObjectsX ? scale : 1f, scaleArea.ScaleObjectsY ? scale : 1f);
             }
             return NoScaling;
