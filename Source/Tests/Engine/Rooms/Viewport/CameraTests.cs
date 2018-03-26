@@ -45,8 +45,8 @@ namespace Tests
 			int roomWidth, int screenWidth, float speedX)
 		{
 			AGSCamera camera = new AGSCamera (speedX, 0f);
-			_mocks.Object().Setup(o => o.X).Returns(targetPosX);
-			_mocks.Object().Setup(o => o.Y).Returns(0f);
+			_mocks.Object().Setup(o => o.WorldX).Returns(targetPosX);
+			_mocks.Object().Setup(o => o.WorldY).Returns(0f);
 			Func<IObject> getTarget = () => _mocks.Object().Object;
 			camera.Target = getTarget;
             AGSViewport viewport = new AGSViewport(new AGSDisplayListSettings(), camera, Mocks.GetResolver());
