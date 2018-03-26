@@ -8,9 +8,11 @@ namespace AGS.Engine
     {
         private readonly Stack<IObject> _parentStack;
         private readonly HashSet<string> _alreadyRefreshedIdsCache;
+        private readonly IGameState _state;
 
-        public AGSMatrixUpdater()
+        public AGSMatrixUpdater(IGameState state)
         {
+            _state = state;
             _parentStack = new Stack<IObject>();
             _alreadyRefreshedIdsCache = new HashSet<string>();
         }
@@ -36,6 +38,7 @@ namespace AGS.Engine
                 parent = _parentStack.Pop();
                 _alreadyRefreshedIdsCache.Add(parent.ID);
                 parent.GetModelMatrices();
+                parent.GetBoundingBoxes(_state.Viewport);
             }
         }
     }
