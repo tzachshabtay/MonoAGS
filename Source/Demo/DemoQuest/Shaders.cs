@@ -204,6 +204,7 @@ namespace DemoQuest
 			_vignetteShader.Compile();
 			_vignetteShader.Bind();
 			_vignetteShader.SetVariable("resolution", resolution.Width, resolution.Height);
+            _vignetteShader.Unbind();
 		}
 
 		private static void unbindVignetteShader()

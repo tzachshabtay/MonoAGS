@@ -78,6 +78,7 @@ namespace AGS.Engine
             }
             shader.Bind();
             shader.SetVariable("adjustment", Saturation);
+            shader.Unbind();
         }
     }
 }
