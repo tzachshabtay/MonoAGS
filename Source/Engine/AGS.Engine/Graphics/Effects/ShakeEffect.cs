@@ -90,6 +90,7 @@ namespace AGS.Engine
             shader.SetVariable("time", (float)Repeat.Do("ShakeEffect"));
 			var currentStrength = _strength + MathUtils.Random().Next(1000) / 1000000f; //Adding a little jerkiness
 			shader.SetVariable("strength", currentStrength);
+            shader.Unbind();
 			_strength = _strength * _decay;
 		}
 
