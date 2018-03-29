@@ -12,7 +12,7 @@ namespace AGS.Engine
 
 		public AGSInventory()
 		{
-			Items = new List<IInventoryItem> (20);
+            Items = new AGSBindingList<IInventoryItem> (20);
             _eventsMap = new ConcurrentDictionary<(IInventoryItem, IInventoryItem), IEvent<InventoryCombinationEventArgs>> (2, 400);
 			OnDefaultCombination = new AGSEvent<InventoryCombinationEventArgs> ();
 		}
@@ -36,7 +36,7 @@ namespace AGS.Engine
 
 		public IInventoryItem ActiveItem { get; set; }
 
-		public IList<IInventoryItem> Items { get; private set; }
+        public IAGSBindingList<IInventoryItem> Items { get; private set; }
 
 		#endregion
 	}

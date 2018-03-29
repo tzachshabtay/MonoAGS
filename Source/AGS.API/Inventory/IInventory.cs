@@ -42,7 +42,7 @@ namespace AGS.API
         /// <value>
         /// The inventory items.
         /// </value>
-        IList<IInventoryItem> Items { get; }
+        IAGSBindingList<IInventoryItem> Items { get; }
 
         /// <summary>
         /// Called when one inventory item is combined with another.        
