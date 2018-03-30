@@ -6,12 +6,13 @@ namespace AGS.Engine
 {
     public class AGSRenderPipeline : IRenderPipeline, IAGSRenderPipeline
     {
-        private readonly Dictionary<string, List<IRenderer>> _renderers;
+        private readonly Dictionary<string, List<(int z, IRenderer)>> _renderers;
         private readonly IGameState _state;
         private readonly IDisplayList _displayList;
         private readonly DisplayListEventArgs _displayListEventArgs;
         private readonly IGame _game;
         private readonly IAGSRoomTransitions _roomTransitions;
+        private readonly RendererComparer _comparer = new RendererComparer();
 
         public AGSRenderPipeline(IGameState state, IDisplayList displayList, IGame game,
                                  IBlockingEvent<DisplayListEventArgs> onBeforeProcessingDisplayList,
@@ -23,21 +24,28 @@ namespace AGS.Engine
             _displayList = displayList;
             _displayListEventArgs = new DisplayListEventArgs(null);
             OnBeforeProcessingDisplayList = onBeforeProcessingDisplayList;
-            _renderers = new Dictionary<string, List<IRenderer>>(100);
+            _renderers = new Dictionary<string, List<(int z, IRenderer)>>(100);
         }
 
         public IBlockingEvent<DisplayListEventArgs> OnBeforeProcessingDisplayList { get; private set; }
 
         public IReadOnlyList<(IViewport, List<IRenderBatch>)> InstructionSet { get; private set; }
 
-        public void Subscribe(string entityID, IRenderer renderer)
+        public void Subscribe(string entityID, IRenderer renderer, int z = 0)
         {
-            _renderers.GetOrAdd(entityID, _ => new List<IRenderer>()).Add(renderer);
+            Unsubscribe(entityID, renderer);
+            var renderers = _renderers.GetOrAdd(entityID, _ => new List<(int z, IRenderer)>());
+            renderers.Add((z, renderer));
+            renderers.Sort(_comparer);
         }
 
         public void Unsubscribe(string entityID, IRenderer renderer)
         {
-            _renderers.GetOrAdd(entityID, _ => new List<IRenderer>()).Remove(renderer);
+            _renderers.TryGetValue(entityID, out List<(int, IRenderer other)> renderers);
+            if (renderers == null) return;
+            int index = renderers.FindIndex(t => renderer == t.other);
+            if (index < 0) return;
+            renderers.RemoveAt(index);
         }
 
         public void Update()
@@ -114,13 +122,22 @@ namespace AGS.Engine
             List<IRenderInstruction> instructions = new List<IRenderInstruction>();
             if (_renderers.TryGetValue(entityId, out var renderers))
             {
-                foreach (var renderer in renderers)
+                foreach (var (_, renderer) in renderers)
                 {
                     var instruction = renderer.GetNextInstruction(viewport);
+                    if (instruction == null) continue;
                     instructions.Add(instruction);
                 }
             }
             return instructions;
+        }
+
+        private class RendererComparer : IComparer<(int z, IRenderer)>
+        {
+            public int Compare((int z, IRenderer) x, (int z, IRenderer) y)
+            {
+                return y.z - x.z;
+            }
         }
     }
 }

@@ -28,7 +28,9 @@ namespace AGS.API
         /// </summary>
         /// <param name="entityID">Entity identifier.</param>
         /// <param name="renderer">Renderer.</param>
-        void Subscribe(string entityID, IRenderer renderer);
+        /// <param name="z">Gets the z index for deciding which renderer will be in front of the other renderer (in case there are multiple renderers per entity).
+        /// The smaller the Z, the more in front a renderer is. </param>
+        void Subscribe(string entityID, IRenderer renderer, int z = 0);
 
         /// <summary>
         /// Unsubscribe the specified renderer and entity.
