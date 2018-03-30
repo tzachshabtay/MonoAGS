@@ -28,7 +28,9 @@ namespace AGS.Engine
 		public override void Dispose()
 		{
             base.Dispose();
-            _pipeline.Unsubscribe(_entity.ID, this);
+            var entity = _entity;
+            if (entity == null) return;
+            _pipeline.Unsubscribe(entity.ID, this);
 		}
 
 		public IRenderInstruction GetNextInstruction(IViewport viewport)
