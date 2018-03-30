@@ -3,6 +3,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
+    [RequiredComponent(typeof(IWorldPositionComponent))]
     public class PivotRendererComponent : AGSComponent, IRenderer
     {
         private readonly IGLUtils _utils;
