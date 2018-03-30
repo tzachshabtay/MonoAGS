@@ -64,25 +64,6 @@ namespace AGS.Engine
             _renderer.Render(texture.ID, boundingBoxes, color);
 
 			border?.RenderBorderFront(borderBox);
-			if (obj.DebugDrawPivot)
-			{
-                IObject parent = obj.TreeNode.Parent;
-                float x = obj.X;
-                float y = obj.Y;
-				while (parent != null)
-				{
-                    x += (parent.X - parent.Width * parent.Pivot.X);
-                    y += (parent.Y - parent.Height * parent.Pivot.Y);
-					parent = parent.TreeNode.Parent;
-				}
-                if (!obj.IgnoreViewport)
-                {
-                    x -= viewport.X;
-                    y -= viewport.Y;
-                }
-                _glUtils.DrawCross(x, y, 10, 10, 1f, 1f, 1f, 1f);
-			}
 		}
 	}
 }
-

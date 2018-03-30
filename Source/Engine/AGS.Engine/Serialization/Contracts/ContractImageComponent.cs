@@ -16,12 +16,9 @@ namespace AGS.Engine
         public IContract<ISpriteProvider> SpriteProvider { get; set; }
 
         [ProtoMember(2)]
-        public bool DebugDrawPivot { get; set; }
-
-        [ProtoMember(3)]
         public IContract<IBorderStyle> Border { get; set; }
 
-        [ProtoMember(4)]
+        [ProtoMember(3)]
         public IContract<IImage> Image { get; set; }
 
         #region IContract implementation
@@ -39,7 +36,6 @@ namespace AGS.Engine
         {
             container.SpriteProvider = SpriteProvider.ToItem(context);
             container.Border = Border.ToItem(context);
-            container.DebugDrawPivot = DebugDrawPivot;
             container.Image = Image.ToItem(context);
         }
 
@@ -47,11 +43,9 @@ namespace AGS.Engine
         {
             SpriteProvider = context.GetContract(item.SpriteProvider);
             Border = context.GetContract(item.Border);
-            DebugDrawPivot = item.DebugDrawPivot;
             Image = context.GetContract(item.Image);
         }
 
         #endregion
     }
 }
-

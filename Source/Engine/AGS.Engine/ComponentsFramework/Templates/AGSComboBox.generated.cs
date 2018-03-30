@@ -403,12 +403,6 @@ namespace AGS.Engine
             set { _imageComponent.SpriteProvider = value; } 
         }
 
-        public Boolean DebugDrawPivot 
-        {  
-            get { return _imageComponent.DebugDrawPivot; }  
-            set { _imageComponent.DebugDrawPivot = value; } 
-        }
-
         public IBorderStyle Border 
         {  
             get { return _imageComponent.Border; }  
