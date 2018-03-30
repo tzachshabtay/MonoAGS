@@ -15,12 +15,12 @@ namespace AGS.Engine
 		private readonly IImageRenderer _renderer;
 		private readonly Resolver _resolver;
 		private readonly IAGSRoomTransitions _roomTransitions;
-        private readonly DisplayListEventArgs _displayListEventArgs;
         private readonly IMatrixUpdater _matrixUpdater;
         private readonly IGameWindow _gameWindow;
         private readonly IDisplayList _displayList;
         private readonly IInput _input;
         private readonly IGameSettings _noAspectRatioSettings;
+        private readonly IAGSRenderPipeline _pipeline;
         private IGLUtils _glUtils;
         private IShader _lastShaderUsed;
         private IObject _mouseCursorContainer;
@@ -29,9 +29,10 @@ namespace AGS.Engine
 
 		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer,
             IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IGameWindow gameWindow,
-            IBlockingEvent<DisplayListEventArgs> onBeforeRenderingDisplayList, IDisplayList displayList, 
+            IAGSRenderPipeline pipeline, IDisplayList displayList, 
             IInput input, IMatrixUpdater matrixUpdater)
 		{
+            _pipeline = pipeline;
             _input = input;
             _displayList = displayList;
             _glUtils = glUtils;
@@ -42,15 +43,11 @@ namespace AGS.Engine
             _noAspectRatioSettings = new AGSGameSettings(game.Settings.Title, game.Settings.VirtualResolution, preserveAspectRatio: false);
 			_renderer = renderer;
 			_roomTransitions = roomTransitions;
-            _displayListEventArgs = new DisplayListEventArgs(null);
             _matrixUpdater = matrixUpdater;
-            OnBeforeRenderingDisplayList = onBeforeRenderingDisplayList;
 			_roomTransitions.Transition = new RoomTransitionInstant ();
 		}
 
 		#region IRendererLoop implementation
-
-        public IBlockingEvent<DisplayListEventArgs> OnBeforeRenderingDisplayList { get; private set; }
 
         public bool Tick()
         {
@@ -85,7 +82,7 @@ namespace AGS.Engine
 						return false;
 					}
 					break;
-                case RoomTransitionState.PreparingNewRoomDisplayList:
+                case RoomTransitionState.PreparingNewRoomRendering:
 				case RoomTransitionState.PreparingTransition:
 					return false;
 				case RoomTransitionState.InTransition:
@@ -137,32 +134,38 @@ namespace AGS.Engine
         private void renderAllViewports()
 		{
             _matrixUpdater.ClearCache();
-            var viewports = _gameState.GetSortedViewports();
-            try
+            var instructionSet = _pipeline.InstructionSet;
+            if (instructionSet == null) return;
+            foreach (var (viewport, instructions) in instructionSet)
             {
-                for (int i = viewports.Count - 1; i >= 0; i--)
-                {
-                    var viewport = viewports[i];
-                    if (viewport == null) continue;
-                    renderViewport(viewport);
-                }
+                renderViewport(viewport, instructions);
             }
-            catch (IndexOutOfRangeException) {} //can be triggered if a viewport was added/removed while enumerating- this should be resolved on next tick
             renderCursor();
 		}
 
-        private void renderViewport(IViewport viewport)
+        private void renderViewport(IViewport viewport, List<IRenderBatch> instructions)
         {
             _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport);
-            List<IObject> displayList = _displayList.GetDisplayList(viewport);
-			_displayListEventArgs.DisplayList = displayList;
-			OnBeforeRenderingDisplayList.Invoke(_displayListEventArgs);
-			displayList = _displayListEventArgs.DisplayList;
 
-			foreach (IObject obj in displayList)
-			{
-				renderObject(viewport, obj);
-			}
+            foreach (var batch in instructions)
+            {
+                renderBatch(batch);
+            }
+        }
+
+        private void renderBatch(IRenderBatch batch)
+        {
+            _glUtils.AdjustResolution(batch.Resolution.Width, batch.Resolution.Height);
+
+            var shader = applyObjectShader(batch.Shader);
+
+            foreach (var instruction in batch.Instructions)
+            {
+                instruction.Render();
+                instruction.Release();
+            }
+
+            removeObjectShader(shader);
         }
 
         private void renderCursor()
@@ -192,16 +195,15 @@ namespace AGS.Engine
 
             IImageRenderer imageRenderer = getImageRenderer(obj);
 
-			var shader = applyObjectShader(obj);
+            var shader = applyObjectShader(obj.Shader);
 
 			imageRenderer.Render (obj, viewport);
 
 			removeObjectShader(shader);
 		}
 
-		private static IShader applyObjectShader(IObject obj)
+		private static IShader applyObjectShader(IShader shader)
 		{
-			var shader = obj.Shader;
 			if (shader != null) shader = shader.Compile();
 			shader?.Bind();
 			return shader;
@@ -240,4 +242,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

@@ -175,6 +175,7 @@ namespace AGS.Engine
             if (TextVisible && (!string.IsNullOrEmpty(Text) || RenderCaret))
             {
                 _glTextHitTest.Refresh();
+                var currentResolution = _glUtils.CurrentResolution;
                 _glUtils.AdjustResolution(resolution.Width, resolution.Height);
 
                 IGLColor color = _colorBuilder.Build(Colors.White);
@@ -185,6 +186,8 @@ namespace AGS.Engine
                 _afterCropTextBoundingBoxes.TextureBox = cropInfo.TextureBox;
 
                 _textureRenderer.Render(_glTextHitTest.Texture, _afterCropTextBoundingBoxes, color);
+
+                _glUtils.AdjustResolution((int)currentResolution.Width, (int)currentResolution.Height);
             }
 		}
 

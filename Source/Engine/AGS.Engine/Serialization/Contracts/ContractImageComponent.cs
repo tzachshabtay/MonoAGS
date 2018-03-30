@@ -1,7 +1,7 @@
 ﻿using System;
 using ProtoBuf;
 using AGS.API;
-
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -29,7 +29,8 @@ namespace AGS.Engine
         public IImageComponent ToItem(AGSSerializationContext context)
         {
             AGSHasImage image = new AGSHasImage();
-            AGSImageComponent container = new AGSImageComponent(image, context.Factory.Graphics);
+            AGSImageComponent container = new AGSImageComponent(image, context.Factory.Graphics, 
+                                                                context.Resolver.Container.Resolve<IRenderPipeline>(), context.Resolver.Container.Resolve<IImageRenderer>());
             ToItem(context, container);
             return container;
         }

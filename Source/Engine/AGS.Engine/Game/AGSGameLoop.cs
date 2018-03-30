@@ -17,7 +17,8 @@ namespace AGS.Engine
         private readonly IDisplayList _displayList;
 
 		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution, 
-                            IAGSRoomTransitions roomTransitions, IGameEvents events, IDisplayList displayList)
+                            IAGSRoomTransitions roomTransitions, IGameEvents events, 
+                            IDisplayList displayList)
 		{
             _displayList = displayList;
 			_gameState = gameState;
@@ -28,7 +29,7 @@ namespace AGS.Engine
 
 		#region IGameLoop implementation
 
-		public virtual async Task UpdateAsync()
+		public void Update()
 		{
             if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
             try
@@ -47,21 +48,20 @@ namespace AGS.Engine
                             updateViewports(changedRoom);
                             _events.OnRoomChanging.Invoke();
                             if (_lastRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
-                            else _roomTransitions.State = RoomTransitionState.PreparingNewRoomDisplayList;
+                            else
+                            {
+                                _displayList.Update();
+                                updateViewports(changedRoom);
+                                _roomTransitions.State = RoomTransitionState.PreparingNewRoomRendering;
+                            }
                         }
-                    }
-                    else if (_roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList)
-                    {
-                        _displayList.Update();
-                        updateViewports(changedRoom);
-                        _roomTransitions.State = RoomTransitionState.InTransition;
                     }
                     return;
                 }
 
                 updateViewports(changedRoom);
                 _displayList.Update();
-                await updateRoom(room);
+                updateRoom(room);
             }
             finally
             {
@@ -104,11 +104,11 @@ namespace AGS.Engine
 			}
 		}
 
-		private async Task updateRoom(IRoom room)
+		private void updateRoom(IRoom room)
 		{
 			if (_lastRoom == room) return;
             _lastRoom = room;
-            await room.Events.OnAfterFadeIn.InvokeAsync();
+            room.Events.OnAfterFadeIn.InvokeAsync();
 		}
 
 		private void runAnimation(IAnimation animation)

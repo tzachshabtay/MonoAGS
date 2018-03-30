@@ -211,7 +211,7 @@ namespace AGS.Engine
         public void Update()
         {
             _alreadyPrepared.Clear();
-            bool isDirty = _isDirty || _roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList;
+            bool isDirty = _isDirty || _roomTransitions.State == RoomTransitionState.PreparingNewRoomRendering;
             _isDirty = false;
 
             _matrixUpdater.ClearCache();

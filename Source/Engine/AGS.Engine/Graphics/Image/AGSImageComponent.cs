@@ -5,19 +5,24 @@ using PropertyChanged;
 namespace AGS.Engine
 {
     [DoNotNotify]
-    public class AGSImageComponent : AGSComponent, IImageComponent, ISpriteProvider
+    public class AGSImageComponent : AGSComponent, IImageComponent, ISpriteProvider, IRenderer
     {
         private IHasImage _image;
         private IGraphicsFactory _factory;
         private ISprite _sprite;
         private IScaleComponent _scale;
         private ISpriteProvider _provider;
+        private readonly IRenderPipeline _pipeline;
+        private IEntity _entity;
+        private readonly IImageRenderer _renderer;
 
-        public AGSImageComponent(IHasImage image, IGraphicsFactory factory)
+        public AGSImageComponent(IHasImage image, IGraphicsFactory factory, IRenderPipeline pipeline, IImageRenderer renderer)
         {
+            _renderer = renderer;
             _image = image;
             _factory = factory;
             _image.PropertyChanged += onPropertyChanged;
+            _pipeline = pipeline;
         }
 
         [Property(Category = "Transform", CategoryZ = -100, CategoryExpand = true)]
@@ -90,10 +95,20 @@ namespace AGS.Engine
         public override void Init(IEntity entity)
         {
             base.Init(entity);
+            _entity = entity;
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            _pipeline.Subscribe(entity.ID, this);
         }
 
-        private void OnProviderPropertyChanged(object sender, PropertyChangedEventArgs args)
+		public override void Dispose()
+		{
+            base.Dispose();
+            var entity = _entity;
+            if (entity == null) return;
+            _pipeline.Unsubscribe(_entity.ID, this);
+		}
+
+		private void OnProviderPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(ISpriteProvider.Sprite))
                 return;
@@ -105,6 +120,27 @@ namespace AGS.Engine
         private void onPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(e);
+        }
+
+        public IRenderInstruction GetNextInstruction(IViewport viewport)
+        {
+            return new Instruction { Obj = _entity as IObject, Renderer = CustomRenderer ?? _renderer, Viewport = viewport };
+        }
+
+        private class Instruction : IRenderInstruction
+        {
+            public IImageRenderer Renderer { get; set; }
+            public IObject Obj { get; set; }
+            public IViewport Viewport { get; set; }
+
+            public void Release()
+            {
+            }
+
+            public void Render()
+            {
+                Renderer.Render(Obj, Viewport);
+            }
         }
     }
 }

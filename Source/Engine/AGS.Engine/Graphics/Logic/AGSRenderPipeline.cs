@@ -1,0 +1,126 @@
+﻿using System;
+using System.Collections.Generic;
+using AGS.API;
+
+namespace AGS.Engine
+{
+    public class AGSRenderPipeline : IRenderPipeline, IAGSRenderPipeline
+    {
+        private readonly Dictionary<string, List<IRenderer>> _renderers;
+        private readonly IGameState _state;
+        private readonly IDisplayList _displayList;
+        private readonly DisplayListEventArgs _displayListEventArgs;
+        private readonly IGame _game;
+        private readonly IAGSRoomTransitions _roomTransitions;
+
+        public AGSRenderPipeline(IGameState state, IDisplayList displayList, IGame game,
+                                 IBlockingEvent<DisplayListEventArgs> onBeforeProcessingDisplayList,
+                                 IAGSRoomTransitions roomTransitions)
+        {
+            _roomTransitions = roomTransitions;
+            _state = state;
+            _game = game;
+            _displayList = displayList;
+            _displayListEventArgs = new DisplayListEventArgs(null);
+            OnBeforeProcessingDisplayList = onBeforeProcessingDisplayList;
+            _renderers = new Dictionary<string, List<IRenderer>>(100);
+        }
+
+        public IBlockingEvent<DisplayListEventArgs> OnBeforeProcessingDisplayList { get; private set; }
+
+        public IReadOnlyList<(IViewport, List<IRenderBatch>)> InstructionSet { get; private set; }
+
+        public void Subscribe(string entityID, IRenderer renderer)
+        {
+            _renderers.GetOrAdd(entityID, _ => new List<IRenderer>()).Add(renderer);
+        }
+
+        public void Unsubscribe(string entityID, IRenderer renderer)
+        {
+            _renderers.GetOrAdd(entityID, _ => new List<IRenderer>()).Remove(renderer);
+        }
+
+        public void Update()
+        {
+            if (_game.Settings == null) return;
+            var instructions = new List<(IViewport, List<IRenderBatch>)>();
+            bool preparingTransition = _roomTransitions.State == RoomTransitionState.PreparingNewRoomRendering;
+
+            var viewports = _state.GetSortedViewports();
+            try
+            {
+                for (int i = viewports.Count - 1; i >= 0; i--)
+                {
+                    var viewport = viewports[i];
+                    if (viewport == null) continue;
+                    var viewportInstructions = getInstructions(viewport);
+                    instructions.Add((viewport, viewportInstructions));
+                }
+                InstructionSet = instructions;
+                if (preparingTransition)
+                {
+                    _roomTransitions.State = RoomTransitionState.InTransition;
+                }
+            }
+            catch (IndexOutOfRangeException) { } //can be triggered if a viewport was added/removed while enumerating- this should be resolved on next tick
+        }
+
+        private List<IRenderBatch> getInstructions(IViewport viewport)
+        {
+            List<IObject> displayList = _displayList.GetDisplayList(viewport);
+            _displayListEventArgs.DisplayList = displayList;
+            OnBeforeProcessingDisplayList.Invoke(_displayListEventArgs);
+            displayList = _displayListEventArgs.DisplayList;
+
+            List<IRenderBatch> instructions = new List<IRenderBatch>(displayList.Count);
+
+            Size resolution = new Size();
+            IShader shader = null;
+            List<IRenderInstruction> batch = new List<IRenderInstruction>();
+            foreach (IObject obj in displayList)
+            {
+                Size objResolution = obj.RenderLayer == null || obj.RenderLayer.IndependentResolution == null ?
+                    _game.Settings.VirtualResolution :
+                    obj.RenderLayer.IndependentResolution.Value;
+                var objShader = obj.Shader;
+
+                if (!resolution.Equals(objResolution) || shader != objShader)
+                {
+                    if (batch.Count > 0)
+                    {
+                        var renderBatch = new AGSRenderBatch(resolution, shader, batch);
+                        instructions.Add(renderBatch);
+                    }
+                    resolution = objResolution;
+                    shader = obj.Shader;
+                    batch = new List<IRenderInstruction>();
+                }
+                
+                var entityInstructions = getInstructions(obj.ID, viewport);
+                batch.AddRange(entityInstructions);
+            }
+
+            if (batch.Count > 0)
+            {
+                var renderBatch = new AGSRenderBatch(resolution, shader, batch);
+                instructions.Add(renderBatch);
+            }
+
+            return instructions;
+        }
+
+        private List<IRenderInstruction> getInstructions(string entityId, IViewport viewport)
+        {
+            List<IRenderInstruction> instructions = new List<IRenderInstruction>();
+            if (_renderers.TryGetValue(entityId, out var renderers))
+            {
+                foreach (var renderer in renderers)
+                {
+                    var instruction = renderer.GetNextInstruction(viewport);
+                    instructions.Add(instruction);
+                }
+            }
+            return instructions;
+        }
+    }
+}

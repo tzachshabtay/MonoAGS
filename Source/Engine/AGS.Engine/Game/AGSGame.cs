@@ -19,6 +19,7 @@ namespace AGS.Engine
         private AGSUpdateThread _updateThread;
         private bool _shouldSetRestart = true;
         private int _gameIndex;
+        private IAGSRenderPipeline _pipeline;
 
         private static int _gameCount;
         private static bool _shouldSwapBuffers = true;
@@ -73,6 +74,8 @@ namespace AGS.Engine
 		public IGameLoop GameLoop { get; private set; } 
 
         public IRendererLoop RenderLoop { get; private set; }
+
+        public IRenderPipeline RenderPipeline => _pipeline;
 
 		public ISaveLoad SaveLoad { get; private set; } 
 
@@ -169,7 +172,7 @@ namespace AGS.Engine
                 await Events.OnRepeatedlyExecuteAlways.InvokeAsync(_repeatArgs);
                 if (State.Paused) return;
                 adjustSpeed();
-                await GameLoop.UpdateAsync();
+                GameLoop.Update();
 
                 //Invoking repeatedly execute asynchronously, as if one subscriber is waiting on another subscriber the event will 
                 //never get to it (for example: calling ChangeRoom from within RepeatedlyExecute calls StopWalking which 
@@ -177,6 +180,8 @@ namespace AGS.Engine
                 //Since we're running asynchronously, the next UpdateFrame will call RepeatedlyExecute for the walk cycle to stop itself and we're good.
                 ///The downside of this approach is that we need to look out for re-entrancy issues.
                 await Events.OnRepeatedlyExecute.InvokeAsync(_repeatArgs);
+
+                _pipeline?.Update();
             }
             catch (Exception ex)
             {
@@ -246,7 +251,10 @@ namespace AGS.Engine
             Input = input;
             TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
             TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
-            RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter, gameWindowParameter);
+            _pipeline = _resolver.Container.Resolve<IAGSRenderPipeline>(gameParameter);
+            TypedParameter pipelineParameter = new TypedParameter(typeof(IAGSRenderPipeline), _pipeline);
+            RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter, 
+                                                                    gameWindowParameter, pipelineParameter);
             updateResolver();
             HitTest = _resolver.Container.Resolve<IHitTest>();
             AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
@@ -262,6 +270,7 @@ namespace AGS.Engine
 			var updater = new ContainerBuilder ();
 			updater.RegisterInstance(Input).As<IInput>();
 			updater.RegisterInstance(RenderLoop).As<IRendererLoop>();
+            updater.RegisterInstance(_pipeline).As<IRenderPipeline>().As<IAGSRenderPipeline>();
 			updater.RegisterInstance(this).As<IGame>();
             updater.RegisterInstance(Settings).As<IGameSettings>();
             updater.RegisterInstance(Settings).As<IRuntimeSettings>();
