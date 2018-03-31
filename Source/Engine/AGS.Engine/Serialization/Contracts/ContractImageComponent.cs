@@ -16,9 +16,6 @@ namespace AGS.Engine
         public IContract<ISpriteProvider> SpriteProvider { get; set; }
 
         [ProtoMember(2)]
-        public IContract<IBorderStyle> Border { get; set; }
-
-        [ProtoMember(3)]
         public IContract<IImage> Image { get; set; }
 
         #region IContract implementation
@@ -35,14 +32,12 @@ namespace AGS.Engine
         public void ToItem(AGSSerializationContext context, AGSImageComponent container)
         {
             container.SpriteProvider = SpriteProvider.ToItem(context);
-            container.Border = Border.ToItem(context);
             container.Image = Image.ToItem(context);
         }
 
         public void FromItem(AGSSerializationContext context, IImageComponent item)
         {
             SpriteProvider = context.GetContract(item.SpriteProvider);
-            Border = context.GetContract(item.Border);
             Image = context.GetContract(item.Image);
         }
 

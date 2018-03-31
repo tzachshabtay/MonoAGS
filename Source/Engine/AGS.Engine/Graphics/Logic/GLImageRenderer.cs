@@ -51,19 +51,8 @@ namespace AGS.Engine
             _colorAdjusters[1] = obj;
 			IGLColor color = _colorBuilder.Build(_colorAdjusters);
 
-            IBorderStyle border = obj.Border;
-            AGSBoundingBox borderBox = _emptySquare;
             if (!obj.Visible) return;
-			if (border != null)
-			{
-                if (boundingBoxes.ViewportBox.BottomLeft.X > boundingBoxes.ViewportBox.BottomRight.X) borderBox = boundingBoxes.ViewportBox.FlipHorizontal();
-                else borderBox = boundingBoxes.ViewportBox;
-
-				border.RenderBorderBack(borderBox);
-			}
             _renderer.Render(texture.ID, boundingBoxes, color);
-
-			border?.RenderBorderFront(borderBox);
 		}
 	}
 }

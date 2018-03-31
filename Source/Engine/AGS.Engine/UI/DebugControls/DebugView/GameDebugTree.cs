@@ -16,7 +16,7 @@ namespace AGS.Engine
         private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
 
-        private IImageComponent _lastSelectedObject;
+        private IBorderComponent _lastSelectedBorder;
         private IVisibleComponent _lastSelectedMaskVisible;
         private IImageComponent _lastSelectedMaskImage;
         private IBorderStyle _lastObjectBorder;
@@ -119,16 +119,17 @@ namespace AGS.Engine
             _inspector.Inspector.Show(obj);
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
-            if (image != null)
+            var borderComponent = obj.GetComponent<IBorderComponent>();
+            if (image != null && borderComponent != null)
             {
-                _lastSelectedObject = image;
+                _lastSelectedBorder = borderComponent;
                 IBorderStyle border = null;
-                border = image.Border;
+                border = borderComponent.Border;
                 _lastObjectBorder = border;
                 IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
                                                                                       Colors.Yellow.WithAlpha(150), Colors.Yellow), 1, true);
-                if (border == null) image.Border = hoverBorder;
-                else image.Border = AGSBorders.Multiple(border, hoverBorder);
+                if (border == null) borderComponent.Border = hoverBorder;
+                else borderComponent.Border = AGSBorders.Multiple(border, hoverBorder);
 
                 if (image.Opacity == 0)
                 {
@@ -161,13 +162,13 @@ namespace AGS.Engine
 
         private void unselect()
         {
-            var lastSelectedObject = _lastSelectedObject;
+            var lastSelectedBorder = _lastSelectedBorder;
             var lastSelectedMaskVisible = _lastSelectedMaskVisible;
             var lastSelectedMaskImage = _lastSelectedMaskImage;
-            if (lastSelectedObject != null) lastSelectedObject.Border = _lastObjectBorder;
+            if (lastSelectedBorder != null) lastSelectedBorder.Border = _lastObjectBorder;
             if (lastSelectedMaskVisible != null) lastSelectedMaskVisible.Visible = _lastMaskVisible;
             if (lastSelectedMaskImage != null) lastSelectedMaskImage.Opacity = _lastOpacity;
-            _lastSelectedObject = null;
+            _lastSelectedBorder = null;
             _lastObjectBorder = null;
             _lastMaskVisible = false;
             _lastOpacity = 0;

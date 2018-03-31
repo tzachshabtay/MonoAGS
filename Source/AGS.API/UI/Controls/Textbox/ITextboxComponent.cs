@@ -12,6 +12,7 @@
     [RequiredComponent(typeof(IImageComponent))]
     [RequiredComponent(typeof(IVisibleComponent))]
     [RequiredComponent(typeof(IAnimationComponent), false)]
+    [RequiredComponent(typeof(IBorderComponent), false)]
     public interface ITextBoxComponent : IComponent
     {
         /// <summary>

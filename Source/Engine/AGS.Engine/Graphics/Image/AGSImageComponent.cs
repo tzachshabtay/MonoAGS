@@ -90,8 +90,6 @@ namespace AGS.Engine
 
         public bool DebugDrawPivot { get; set; }
 
-        public IBorderStyle Border { get; set; }
-
         public override void Init(IEntity entity)
         {
             base.Init(entity);

@@ -128,7 +128,7 @@ namespace AGS.Engine
         }
 
         public static void StartAnimation(this ButtonAnimation button, IAnimationComponent animationComponent,
-                                          ITextComponent textComponent, IImageComponent imageComponent)
+                                          ITextComponent textComponent, IImageComponent imageComponent, IBorderComponent borderComponent)
         {
             if (button == null) return;
 
@@ -136,7 +136,7 @@ namespace AGS.Engine
             if (animation != null && animation.Frames.Count > 0) animationComponent?.StartAnimation(animation);
 
             var border = button.Border;
-            if (border != null && imageComponent != null) imageComponent.Border = border;
+            if (border != null && borderComponent != null) borderComponent.Border = border;
 
             var textConfig = button.TextConfig;
             if (textConfig != null && textComponent != null) textComponent.TextConfig = textConfig;

@@ -7,6 +7,7 @@
     [RequiredComponent(typeof(IAnimationComponent))]
     [RequiredComponent(typeof(ITextComponent), false)]
     [RequiredComponent(typeof(IImageComponent), false)]
+    [RequiredComponent(typeof(IBorderComponent), false)]
     public interface ICheckboxComponent : IComponent
     {
         /// <summary>

@@ -28,6 +28,7 @@ namespace AGS.Engine
         private IShaderComponent _shaderComponent;
         private ITranslateComponent _translateComponent;
         private IImageComponent _imageComponent;
+        private IBorderComponent _borderComponent;
         private IScaleComponent _scaleComponent;
         private IRotateComponent _rotateComponent;
         private IPixelPerfectComponent _pixelPerfectComponent;
@@ -65,6 +66,8 @@ namespace AGS.Engine
             Bind<ITranslateComponent>(c => _translateComponent = c, _ => {});
             _imageComponent = AddComponent<IImageComponent>();
             Bind<IImageComponent>(c => _imageComponent = c, _ => {});
+            _borderComponent = AddComponent<IBorderComponent>();
+            Bind<IBorderComponent>(c => _borderComponent = c, _ => { });
             _scaleComponent = AddComponent<IScaleComponent>();
             Bind<IScaleComponent>(c => _scaleComponent = c, _ => {});
             _rotateComponent = AddComponent<IRotateComponent>();
@@ -408,10 +411,14 @@ namespace AGS.Engine
             set { _imageComponent.SpriteProvider = value; } 
         }
 
-        public IBorderStyle Border 
-        {  
-            get { return _imageComponent.Border; }  
-            set { _imageComponent.Border = value; } 
+        #endregion
+
+        #region IBorderComponent implementation
+
+        public IBorderStyle Border
+        {
+            get { return _borderComponent.Border; }
+            set { _borderComponent.Border = value; }
         }
 
         #endregion

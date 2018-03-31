@@ -86,11 +86,5 @@ namespace AGS.API
         /// </summary>
         /// <value>The sprite provider implementation.</value>
         ISpriteProvider SpriteProvider { get; set; }
-
-        /// <summary>
-        /// Gets or sets a border that will (optionally) surround the sprite.
-        /// </summary>
-        /// <value>The border.</value>
-		IBorderStyle Border { get; set; }
     }
 }
