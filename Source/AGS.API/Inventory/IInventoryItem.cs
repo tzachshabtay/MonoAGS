@@ -44,6 +44,28 @@
         ///   <c>true</c> if should use the interact events; otherwise, it will combine as normal.
         /// </value>
         bool ShouldInteract { get; set; }
+
+        /// <summary>
+        /// Called when one inventory item is combined with another.
+        /// <seealso cref="IDefaultInteractions.OnInventoryCombination"/>
+        /// </summary>
+        /// <param name="otherItem">The second inventory item, which is combined with this inventory item.</param>
+        /// <returns>The event to subscribe.</returns>
+        /// <example>
+        /// First, we subscribe to the event:
+        /// <code language="lang-csharp">
+        /// iScissors.OnCombination(iRope).Subscribe(cutRope); //The "cutRope" will be called whether the scissors were used on the rope, or vice versa.
+        /// </code>
+        /// Then, we define the event (we describe what happens when using the scissors and the rope together:
+        /// <code language="lang-csharp">
+        /// private void cutRope(object sender, InventoryCombinationEventArgs args)
+        /// {
+        ///     displayCutRopeAnimation();
+        ///     cEgo.Inventory.Items.Remove(iRope); //No more rope for us!
+        /// }
+        /// </code>
+        /// </example>
+        IEvent<InventoryCombinationEventArgs> OnCombination(IInventoryItem otherItem);
 	}
 }
 
