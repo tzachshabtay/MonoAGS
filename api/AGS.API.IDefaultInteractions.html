@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IInventory
+    <title>Interface IDefaultInteractions
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IInventory
+    <meta name="title" content="Interface IDefaultInteractions
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.33.1.0">
     
@@ -76,39 +76,49 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.IInventory">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IDefaultInteractions">
   
   
-  <h1 id="AGS_API_IInventory" data-uid="AGS.API.IInventory" class="text-break">Interface IInventory
+  <h1 id="AGS_API_IDefaultInteractions" data-uid="AGS.API.IDefaultInteractions" class="text-break">Interface IDefaultInteractions
   </h1>
-  <div class="markdown level0 summary"><p>The character&apos;s inventory. Those are the items that the character holds in his/her (usually) imaginary bag.
-It is composed of a list of inventory items, and one active item that the character holds in his/her hand.</p>
+  <div class="markdown level0 summary"><p>Default interactions (when no specific interaction callback is subscribed) are defined here.
+This is where you define generic responses (like the famous &quot;this doesn&apos;t work&quot;) that cover all of the interactions for which 
+you didn&apos;t code a specific response.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IInteractions.html#AGS_API_IInteractions_OnInteract_System_String_">IInteractions.OnInteract(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IInteractions.html#AGS_API_IInteractions_OnInventoryInteract_System_String_">IInteractions.OnInventoryInteract(String)</a>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_IInventory_syntax">Syntax</h5>
+  <h5 id="AGS_API_IDefaultInteractions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IInventory</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IDefaultInteractions : IInteractions</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Inventory/apiSpec/new?filename=AGS_API_IInventory_ActiveItem.md&amp;value=---%0Auid%3A%20AGS.API.IInventory.ActiveItem%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Inventory/apiSpec/new?filename=AGS_API_IDefaultInteractions_OnInventoryCombination.md&amp;value=---%0Auid%3A%20AGS.API.IDefaultInteractions.OnInventoryCombination%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Inventory/Source/AGS.API/Inventory/IInventory.cs/#L30">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Inventory/Source/AGS.API/Objects/Interactions/IDefaultInteractions.cs/#L30">View Source</a>
   </span>
-  <a id="AGS_API_IInventory_ActiveItem_" data-uid="AGS.API.IInventory.ActiveItem*"></a>
-  <h4 id="AGS_API_IInventory_ActiveItem" data-uid="AGS.API.IInventory.ActiveItem">ActiveItem</h4>
-  <div class="markdown level1 summary"><p>Gets/sets the character&apos;s current active inventory item (for example the item that character currently holds in his/her hand). Setting it will update the mouse cursor if appropriate.
-To deselect the current inventory, set it to null.</p>
+  <a id="AGS_API_IDefaultInteractions_OnInventoryCombination_" data-uid="AGS.API.IDefaultInteractions.OnInventoryCombination*"></a>
+  <h4 id="AGS_API_IDefaultInteractions_OnInventoryCombination" data-uid="AGS.API.IDefaultInteractions.OnInventoryCombination">OnInventoryCombination</h4>
+  <div class="markdown level1 summary"><p>Called when two inventory items are combined and there is no combination event subscribed specifically for them.
+<a class="xref" href="AGS.API.IInventoryItem.html#AGS_API_IInventoryItem_OnCombination_AGS_API_IInventoryItem_">OnCombination(IInventoryItem)</a></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IInventoryItem ActiveItem { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">IEvent&lt;InventoryCombinationEventArgs&gt; OnInventoryCombination { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -120,56 +130,20 @@ To deselect the current inventory, set it to null.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IInventoryItem.html">IInventoryItem</a></td>
-        <td><p>The active inventory item.</p>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.InventoryCombinationEventArgs.html">InventoryCombinationEventArgs</a>&gt;</td>
+        <td><p>The default combination event.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="AGS_API_IInventory_ActiveItem_examples">Examples</h5>
-  <pre><code class="lang-csharp">cEgo.ActiveInventory = iKey; //The character is now &quot;holding&quot; the key.</code></pre>
-<pre><code class="lang-csharp">private void onDoorClicked()
+  <h5 id="AGS_API_IDefaultInteractions_OnInventoryCombination_examples">Examples</h5>
+  <p>First, we subscribe to the event:</p>
+<pre><code class="lang-csharp">cEgo.Inventory.OnDefaultCombination.Subscribe(onDefaultCombination);</code></pre>
+<p>Then, we define the event (what do we do when the user tried to combine two random items?):</p>
+<pre><code class="lang-csharp">private void onDefaultCombination(object sender, InventoryCombinationEventArgs args)
 {
-    if (cEgo.ActiveInventory == iKey) openDoor();
-    else cEgo.Say(&quot;I can&apos;t open the door without holding the key!&quot;);
+    cEgo.Say($&quot;I can&apos;t use {args.ActiveItem.Graphics.DisplayName} on {args.PassiveItem.Graphics.DisplayName}. It doesn&apos;t make sense!&quot;);
 }</code></pre>
-
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Inventory/apiSpec/new?filename=AGS_API_IInventory_Items.md&amp;value=---%0Auid%3A%20AGS.API.IInventory.Items%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Inventory/Source/AGS.API/Inventory/IInventory.cs/#L45">View Source</a>
-  </span>
-  <a id="AGS_API_IInventory_Items_" data-uid="AGS.API.IInventory.Items*"></a>
-  <h4 id="AGS_API_IInventory_Items" data-uid="AGS.API.IInventory.Items">Items</h4>
-  <div class="markdown level1 summary"><p>Gets the list of inventory items the character has.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IAGSBindingList&lt;IInventoryItem&gt; Items { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IAGSBindingList-1.html">IAGSBindingList</a>&lt;<a class="xref" href="AGS.API.IInventoryItem.html">IInventoryItem</a>&gt;</td>
-        <td><p>The inventory items.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="AGS_API_IInventory_Items_examples">Examples</h5>
-  <p>Do I have the key?</p>
-<pre><code class="lang-csharp">if (Items.Any(item => item == iKey)) cEgo.Say(&quot;I have the key!&quot;);
-else cEgo.Say(&quot;I don&apos;t have the key!&quot;);</code></pre>
 
 </article>
           </div>
@@ -179,10 +153,10 @@ else cEgo.Say(&quot;I don&apos;t have the key!&quot;);</code></pre>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Inventory/apiSpec/new?filename=AGS_API_IInventory.md&amp;value=---%0Auid%3A%20AGS.API.IInventory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Inventory/apiSpec/new?filename=AGS_API_IDefaultInteractions.md&amp;value=---%0Auid%3A%20AGS.API.IDefaultInteractions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Inventory/Source/AGS.API/Inventory/IInventory.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Inventory/Source/AGS.API/Objects/Interactions/IDefaultInteractions.cs/#L8" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

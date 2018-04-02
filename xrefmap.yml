@@ -5861,6 +5861,25 @@ references:
   isSpec: "True"
   fullName: AGS.API.ICutscene.Start
   nameWithType: ICutscene.Start
+- uid: AGS.API.IDefaultInteractions
+  name: IDefaultInteractions
+  href: api/AGS.API.IDefaultInteractions.html
+  commentId: T:AGS.API.IDefaultInteractions
+  fullName: AGS.API.IDefaultInteractions
+  nameWithType: IDefaultInteractions
+- uid: AGS.API.IDefaultInteractions.OnInventoryCombination
+  name: OnInventoryCombination
+  href: api/AGS.API.IDefaultInteractions.html#AGS_API_IDefaultInteractions_OnInventoryCombination
+  commentId: P:AGS.API.IDefaultInteractions.OnInventoryCombination
+  fullName: AGS.API.IDefaultInteractions.OnInventoryCombination
+  nameWithType: IDefaultInteractions.OnInventoryCombination
+- uid: AGS.API.IDefaultInteractions.OnInventoryCombination*
+  name: OnInventoryCombination
+  href: api/AGS.API.IDefaultInteractions.html#AGS_API_IDefaultInteractions_OnInventoryCombination_
+  commentId: Overload:AGS.API.IDefaultInteractions.OnInventoryCombination
+  isSpec: "True"
+  fullName: AGS.API.IDefaultInteractions.OnInventoryCombination
+  nameWithType: IDefaultInteractions.OnInventoryCombination
 - uid: AGS.API.IDepthClipping
   name: IDepthClipping
   href: api/AGS.API.IDepthClipping.html
@@ -9391,32 +9410,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IInventory.Items
   nameWithType: IInventory.Items
-- uid: AGS.API.IInventory.OnCombination(AGS.API.IInventoryItem,AGS.API.IInventoryItem)
-  name: OnCombination(IInventoryItem, IInventoryItem)
-  href: api/AGS.API.IInventory.html#AGS_API_IInventory_OnCombination_AGS_API_IInventoryItem_AGS_API_IInventoryItem_
-  commentId: M:AGS.API.IInventory.OnCombination(AGS.API.IInventoryItem,AGS.API.IInventoryItem)
-  fullName: AGS.API.IInventory.OnCombination(AGS.API.IInventoryItem, AGS.API.IInventoryItem)
-  nameWithType: IInventory.OnCombination(IInventoryItem, IInventoryItem)
-- uid: AGS.API.IInventory.OnCombination*
-  name: OnCombination
-  href: api/AGS.API.IInventory.html#AGS_API_IInventory_OnCombination_
-  commentId: Overload:AGS.API.IInventory.OnCombination
-  isSpec: "True"
-  fullName: AGS.API.IInventory.OnCombination
-  nameWithType: IInventory.OnCombination
-- uid: AGS.API.IInventory.OnDefaultCombination
-  name: OnDefaultCombination
-  href: api/AGS.API.IInventory.html#AGS_API_IInventory_OnDefaultCombination
-  commentId: P:AGS.API.IInventory.OnDefaultCombination
-  fullName: AGS.API.IInventory.OnDefaultCombination
-  nameWithType: IInventory.OnDefaultCombination
-- uid: AGS.API.IInventory.OnDefaultCombination*
-  name: OnDefaultCombination
-  href: api/AGS.API.IInventory.html#AGS_API_IInventory_OnDefaultCombination_
-  commentId: Overload:AGS.API.IInventory.OnDefaultCombination
-  isSpec: "True"
-  fullName: AGS.API.IInventory.OnDefaultCombination
-  nameWithType: IInventory.OnDefaultCombination
 - uid: AGS.API.IInventoryComponent
   name: IInventoryComponent
   href: api/AGS.API.IInventoryComponent.html
@@ -9525,6 +9518,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IInventoryItem.Graphics
   nameWithType: IInventoryItem.Graphics
+- uid: AGS.API.IInventoryItem.OnCombination(AGS.API.IInventoryItem)
+  name: OnCombination(IInventoryItem)
+  href: api/AGS.API.IInventoryItem.html#AGS_API_IInventoryItem_OnCombination_AGS_API_IInventoryItem_
+  commentId: M:AGS.API.IInventoryItem.OnCombination(AGS.API.IInventoryItem)
+  fullName: AGS.API.IInventoryItem.OnCombination(AGS.API.IInventoryItem)
+  nameWithType: IInventoryItem.OnCombination(IInventoryItem)
+- uid: AGS.API.IInventoryItem.OnCombination*
+  name: OnCombination
+  href: api/AGS.API.IInventoryItem.html#AGS_API_IInventoryItem_OnCombination_
+  commentId: Overload:AGS.API.IInventoryItem.OnCombination
+  isSpec: "True"
+  fullName: AGS.API.IInventoryItem.OnCombination
+  nameWithType: IInventoryItem.OnCombination
 - uid: AGS.API.IInventoryItem.Qty
   name: Qty
   href: api/AGS.API.IInventoryItem.html#AGS_API_IInventoryItem_Qty
