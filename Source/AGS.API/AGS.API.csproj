@@ -279,6 +279,7 @@
     <Compile Include="Misc\Events\ClaimEventToken.cs" />
     <Compile Include="Graphics\Effects\ISaturationEffectComponent.cs" />
     <Compile Include="Objects\IWorldPositionComponent.cs" />
+    <Compile Include="Objects\Interactions\IDefaultInteractions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

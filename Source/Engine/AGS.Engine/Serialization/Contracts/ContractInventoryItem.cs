@@ -1,5 +1,6 @@
 ﻿using System;
 using AGS.API;
+using Autofac;
 using ProtoBuf;
 
 namespace AGS.Engine
@@ -27,7 +28,7 @@ namespace AGS.Engine
 
 		public IInventoryItem ToItem(AGSSerializationContext context)
 		{
-			AGSInventoryItem item = new AGSInventoryItem ();
+            IInventoryItem item = context.Resolver.Container.Resolve<IInventoryItem>();
 			item.Graphics = Graphics.ToItem(context);
 			item.CursorGraphics = CursorGraphics.ToItem(context);
 			item.Qty = Qty;

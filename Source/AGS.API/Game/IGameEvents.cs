@@ -161,7 +161,7 @@
         /// <value>
         /// The default interactions.
         /// </value>
-        IInteractions DefaultInteractions { get; }
+        IDefaultInteractions DefaultInteractions { get; }
 
         /// <summary>
         /// This event is fired whenever the visible room of the game is changing.

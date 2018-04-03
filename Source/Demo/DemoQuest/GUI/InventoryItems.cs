@@ -21,7 +21,13 @@ namespace DemoGame
 			VoodooDoll = await factory.Inventory.GetInventoryItemAsync("Voodoo Doll", _baseFolder + "voodooDoll.bmp", null, loadConfig, true);
 			Poster = await factory.Inventory.GetInventoryItemAsync("Poster", _baseFolder + "poster.bmp", playerStartsWithItem: true);
 			Manual = await factory.Inventory.GetInventoryItemAsync("Manual", _baseFolder + "manual.bmp", null, loadConfig, true);
-		}
-	}
-}
 
+            Poster.OnCombination(Manual).SubscribeToAsync(onPutPosterInManual);
+		}
+
+        private async Task onPutPosterInManual(InventoryCombinationEventArgs args)
+        {
+            await Characters.Cris.SayAsync("I don't see a reason to put the poster in the manual.");
+        }
+    }
+}
