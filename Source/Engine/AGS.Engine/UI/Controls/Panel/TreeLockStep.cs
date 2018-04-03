@@ -8,7 +8,7 @@ namespace AGS.Engine
     {
         private readonly IInObjectTreeComponent _tree;
         private readonly List<ILockStep> _matrices, _boxes, _boxesWithChildren;
-        private readonly List<(IImageRenderer renderer, IObject obj)> _renderers;
+        private readonly List<(ITextComponent textComponent, IObject obj)> _textComponents;
         private readonly Func<IObject, bool> _shouldLock;
 
         public TreeLockStep(IInObjectTreeComponent tree, Func<IObject, bool> shouldLock)
@@ -17,8 +17,8 @@ namespace AGS.Engine
             _matrices = _tree == null ? new List<ILockStep>() : new List<ILockStep>(_tree.TreeNode.ChildrenCount);
             _boxes = _tree == null ? new List<ILockStep>() : new List<ILockStep>(_tree.TreeNode.ChildrenCount);
             _boxesWithChildren = _tree == null ? new List<ILockStep>() : new List<ILockStep>(_tree.TreeNode.ChildrenCount);
-            _renderers = _tree == null ? new List<(IImageRenderer, IObject)>() : 
-                new List<(IImageRenderer, IObject)>(_tree.TreeNode.ChildrenCount);
+            _textComponents = _tree == null ? new List<(ITextComponent, IObject)>() : 
+                new List<(ITextComponent, IObject)>(_tree.TreeNode.ChildrenCount);
             _shouldLock = shouldLock;
         }
 
@@ -30,13 +30,9 @@ namespace AGS.Engine
         public void Unlock()
         {
             unlock(_matrices);
-            foreach (var renderer in _renderers)
+            foreach (var component in _textComponents)
             {
-                renderer.renderer.Prepare(renderer.obj, renderer.obj, AGSGame.Game.State.Viewport);
-                foreach (var viewport in AGSGame.Game.State.SecondaryViewports)
-                {
-                    renderer.renderer.Prepare(renderer.obj, renderer.obj, viewport);
-                }
+                component.textComponent.PrepareTextBoundingBoxes();
             }
             unlock(_boxes);
             unlock(_boxesWithChildren);
@@ -82,7 +78,8 @@ namespace AGS.Engine
                 {
                     lockComponent(boxWithChildren.LockStep, _boxesWithChildren);
                 }
-                if (child.CustomRenderer != null) _renderers.Add((child.CustomRenderer, child));
+                var textComponent = child.GetComponent<ITextComponent>();
+                if (textComponent != null) _textComponents.Add((textComponent, child));
                 lockTree(child);
             }
         }

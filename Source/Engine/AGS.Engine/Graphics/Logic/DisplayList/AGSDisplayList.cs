@@ -232,8 +232,6 @@ namespace AGS.Engine
                     if (_alreadyPrepared.Add(item.ID))
                     {
                         _matrixUpdater.RefreshMatrix(item);
-                        var renderer = getImageRenderer(item);
-                        renderer.Prepare(item, item.GetComponent<IDrawableInfoComponent>(), viewport);
                     }
                 }
             }
@@ -288,17 +286,6 @@ namespace AGS.Engine
 			}
 
             displayList.Add(obj);
-		}
-
-        //todo: duplicate code with AGSRendererLoop
-		private IImageRenderer getImageRenderer(IObject obj)
-		{
-			return obj.CustomRenderer ?? getSpriteRenderer(obj) ?? _renderer;
-		}
-
-		private IImageRenderer getSpriteRenderer(IObject obj)
-		{
-			return obj?.CurrentSprite?.CustomRenderer;
 		}
 
         private void onUiChanged(AGSHashSetChangedEventArgs<IObject> args)
@@ -379,12 +366,6 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
-        private void onObjImagePropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(IImageComponent.CustomRenderer)) return;
-            onSomethingChanged();
-        }
-
         private void onObjTranslatePropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(ITranslateComponent.Z) &&
@@ -448,7 +429,6 @@ namespace AGS.Engine
         {
             if (obj == null) return;
             var vBinding = bind<IVisibleComponent>(obj, onObjVisibleChanged);
-            var iBinding = bind<IImageComponent>(obj, onObjImagePropertyChanged);
             var tBinding = bind<ITranslateComponent>(obj, onObjTranslatePropertyChanged);
             var dBinding = bind<IDrawableInfoComponent>(obj, onObjDrawablePropertyChanged);
 
@@ -457,7 +437,7 @@ namespace AGS.Engine
 
             obj.TreeNode.OnParentChanged.Subscribe(onSomethingChanged);
 
-            _bindings[obj.ID] = new List<API.IComponentBinding> { vBinding, iBinding, tBinding, dBinding, aBinding };
+            _bindings[obj.ID] = new List<API.IComponentBinding> { vBinding, tBinding, dBinding, aBinding };
         }
 
         private void unsubscribeObj(IObject obj)

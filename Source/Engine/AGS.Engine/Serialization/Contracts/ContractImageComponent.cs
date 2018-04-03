@@ -23,10 +23,13 @@ namespace AGS.Engine
         public IImageComponent ToItem(AGSSerializationContext context)
         {
             AGSHasImage image = new AGSHasImage();
-            AGSImageComponent container = new AGSImageComponent(image, context.Factory.Graphics, 
-                                                                context.Resolver.Container.Resolve<IRenderPipeline>(), context.Resolver.Container.Resolve<IImageRenderer>());
-            ToItem(context, container);
-            return container;
+            var container = context.Resolver.Container;
+            AGSImageComponent imageComponent = new AGSImageComponent(image, context.Factory.Graphics, 
+                                 container.Resolve<IRenderPipeline>(), container.Resolve<IGLTextureRenderer>(),
+                                 container.Resolve<ITextureCache>(), container.Resolve<ITextureFactory>(), 
+                                 container.Resolve<IGLColorBuilder>());
+            ToItem(context, imageComponent);
+            return imageComponent;
         }
 
         public void ToItem(AGSSerializationContext context, AGSImageComponent container)

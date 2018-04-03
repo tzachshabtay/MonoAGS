@@ -27,6 +27,7 @@
     [RequiredComponent(typeof(IDrawableInfoComponent))]
     [RequiredComponent(typeof(IInObjectTreeComponent))]
     [RequiredComponent(typeof(IWorldPositionComponent))]
+    [RequiredComponent(typeof(ITextComponent), false)]
     public interface IModelMatrixComponent : IComponent
     {
         /// <summary>

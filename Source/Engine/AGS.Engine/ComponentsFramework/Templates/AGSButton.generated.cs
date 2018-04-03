@@ -414,10 +414,10 @@ namespace AGS.Engine
             set { _imageComponent.Image = value; } 
         }
 
-        public IImageRenderer CustomRenderer 
-        {  
-            get { return _imageComponent.CustomRenderer; }  
-            set { _imageComponent.CustomRenderer = value; } 
+        public bool IsImageVisible
+        {
+            get { return _imageComponent.IsImageVisible; }
+            set { _imageComponent.IsImageVisible = value; }
         }
 
         #endregion
@@ -624,6 +624,49 @@ namespace AGS.Engine
         public Single TextWidth 
         {  
             get { return _textComponent.TextWidth; } 
+        }
+
+        public IBlockingEvent OnLabelSizeChanged 
+        { 
+            get { return _textComponent.OnLabelSizeChanged; }
+        }
+
+        public SizeF? CustomImageSize 
+        { 
+            get { return _textComponent.CustomImageSize; }
+        }
+
+        public PointF? CustomImageResolutionFactor 
+        { 
+            get { return _textComponent.CustomImageResolutionFactor; } 
+        }
+
+        public ICropSelfComponent CustomTextCrop 
+        { 
+            get { return _textComponent.CustomTextCrop; } 
+            set { _textComponent.CustomTextCrop = value; } 
+        }
+
+        public AGSBoundingBoxes TextBoundingBoxes 
+        { 
+            get { return _textComponent.TextBoundingBoxes; } 
+        }
+
+        public int CaretPosition 
+        { 
+            get { return _textComponent.CaretPosition; } 
+            set { _textComponent.CaretPosition = value; } 
+        }
+
+        public bool RenderCaret 
+        { 
+            get { return _textComponent.RenderCaret; } 
+            set { _textComponent.RenderCaret = value; } 
+        }
+
+        public void PrepareTextBoundingBoxes()
+        {
+            _textComponent.PrepareTextBoundingBoxes();
         }
 
         #endregion

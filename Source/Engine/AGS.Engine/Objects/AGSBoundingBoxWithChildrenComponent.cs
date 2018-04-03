@@ -112,14 +112,12 @@ namespace AGS.Engine
                 propertyNames: nameof(IVisibleComponent.UnderlyingVisible));
             var boundingBoxSubscription = new EntitySubscription<IBoundingBoxComponent>(null,
                 c => c.OnBoundingBoxesChanged.Subscribe(onObjBoundingBoxChanged), c => c.OnBoundingBoxesChanged.Unsubscribe(onObjBoundingBoxChanged));
-            var imageSubscription = new EntitySubscription<IImageComponent>(null, c =>
+            var textSubscription = new EntitySubscription<ITextComponent>(null, c =>
             {
-                var labelRenderer = c.CustomRenderer as ILabelRenderer;
-                labelRenderer?.OnLabelSizeChanged.Subscribe(onObjLabelSizeChanged);
+                c.OnLabelSizeChanged.Subscribe(onObjLabelSizeChanged);
             }, c =>
             {
-                var labelRenderer = c.CustomRenderer as ILabelRenderer;
-                labelRenderer?.OnLabelSizeChanged.Unsubscribe(onObjLabelSizeChanged);
+                c.OnLabelSizeChanged.Unsubscribe(onObjLabelSizeChanged);
             });
             _subscriptions = new EntityListSubscriptions<IObject>(node.Children, true, onSomethingChanged, 
                                                                   visibleSubscription, boundingBoxSubscription);
@@ -200,11 +198,11 @@ namespace AGS.Engine
                 {
                     if (child == null || !child.UnderlyingVisible || EntitiesToSkip.Contains(child.ID)) continue;
 
-                    //note: the label renderer check is needed for textboxes. We have a "with caret" version of the textbox flashing in and out
+                    //note: the text component check is needed for textboxes. We have a "with caret" version of the textbox flashing in and out
                     //but we don't want to set it to visible and not visible because it hurts performance to keep changing the display list (which triggers sorting)
                     //so we hide the the text and text background with label renderer properties. Because it's hidden the textbox may not be updated which correct bounding boxes.
-                    var labelRenderer = child.CustomRenderer as ILabelRenderer;
-                    if (labelRenderer != null && !labelRenderer.TextVisible && !labelRenderer.TextBackgroundVisible) continue;
+                    var textComponent = child.GetComponent<ITextComponent>();
+                    if (textComponent != null && !textComponent.TextVisible && !child.IsImageVisible) continue;
 
                     var childBox = getBoundingBox(child, child, getBox, printoutId == null ? null : child.ID);
                     if (!childBox.IsValid) continue;

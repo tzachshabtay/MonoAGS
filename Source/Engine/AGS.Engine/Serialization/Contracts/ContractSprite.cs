@@ -34,10 +34,6 @@ namespace AGS.Engine
 		[ProtoMember(7)]
 		public Contract<IImage> Image { get; set; }
 
-		//todo: support custom renderer deserialization
-		[ProtoMember(8)]
-		public string CustomRenderer { get; set; }
-
 		public ISprite ToItem(AGSSerializationContext context)
 		{
 			ISprite sprite = context.Factory.Graphics.GetSprite();
@@ -69,7 +65,6 @@ namespace AGS.Engine
 			ScaleX = sprite.ScaleX;
 			ScaleY = sprite.ScaleY;
 			Location = new Tuple<float, float, float> (sprite.X, sprite.Y, sprite.Z);
-			CustomRenderer = sprite.CustomRenderer == null ? null : sprite.CustomRenderer.GetType().Name;
 		}
 	}
 }

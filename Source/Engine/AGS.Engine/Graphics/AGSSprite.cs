@@ -47,7 +47,6 @@ namespace AGS.Engine
             _hasImage.Pivot = sprite._hasImage.Pivot;
             _hasImage.Image = sprite._hasImage.Image;
             _hasImage.Tint = sprite._hasImage.Tint;
-            _hasImage.CustomRenderer = sprite._hasImage.CustomRenderer;
             _rotate.Angle = sprite._rotate.Angle;
             BaseSize = sprite.BaseSize;
             Scale = sprite.Scale;
@@ -123,9 +122,6 @@ namespace AGS.Engine
 
         [NumberEditorSlider(sliderMin: 0, sliderMax: 1f)]
         public PointF Pivot { get => _hasImage.Pivot; set => _hasImage.Pivot = value; }
-
-        [DoNotNotify]
-        public IImageRenderer CustomRenderer { get => _hasImage.CustomRenderer; set => _hasImage.CustomRenderer = value; }
 
         [DoNotNotify]
         public IImage Image { get => _hasImage.Image; set => _hasImage.Image = value; }

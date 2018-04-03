@@ -233,12 +233,7 @@ namespace AGS.Engine
         //todo: duplicate code with AGSDisplayList
 		private IImageRenderer getImageRenderer(IObject obj)
 		{
-			return obj.CustomRenderer ?? getSpriteRenderer(obj) ?? _renderer;
-		}
-
-		private IImageRenderer getSpriteRenderer(IObject obj)
-		{
-			return obj?.CurrentSprite?.CustomRenderer;
+			return _renderer;
 		}
 	}
 }

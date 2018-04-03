@@ -71,9 +71,10 @@ namespace AGS.Engine
 		public async Task<IObject> GetHotspotAsync(string maskPath, string hotspot, IRoom room = null, string[] sayWhenLook = null,
 			string[] sayWhenInteract = null, string id = null)
 		{
+            id = id ?? $"{hotspot} {maskPath}";
             _maskLoader = _maskLoader ?? _resolver.Container.Resolve<IMaskLoader>();
-			IMask mask = await _maskLoader.LoadAsync(maskPath, debugDrawColor: Colors.White, id: id ?? hotspot);
-            if (mask == null) return newAdventureObject(id ?? hotspot);
+			IMask mask = await _maskLoader.LoadAsync(maskPath, debugDrawColor: Colors.White, id: id);
+            if (mask == null) return newAdventureObject(id);
 			setMask (mask, hotspot, room, sayWhenLook, sayWhenInteract);
 			return mask.DebugDraw;
 		}

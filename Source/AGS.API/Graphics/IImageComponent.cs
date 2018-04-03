@@ -59,22 +59,24 @@ namespace AGS.API
         /// </summary>
         /// <value>The image.</value>
         IImage Image { get; set; }
-
-        /// <summary>
-        /// Gets or sets a custom renderer for the image.
-        /// This is null by default which uses the engine's default renderer, but you can implement a custom renderer
-        /// if you desire.
-        /// </summary>
-        /// <value>The custom renderer.</value>
-        IImageRenderer CustomRenderer { get; set; }
     }
 
     /// <summary>
     /// A component which allows setting an image to the entity.
     /// </summary>
     [RequiredComponent(typeof(IScaleComponent))]
+    [RequiredComponent(typeof(IBoundingBoxComponent))]
     public interface IImageComponent : IHasImage, IComponent
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether this image is visible.
+        /// Note that the difference between this and <see cref="IVisibleComponent.Visible"/> is that this
+        /// property controls the image renderer only, and the <see cref="IVisibleComponent.Visible"/> property
+        /// controls all renderers for the entity.
+        /// </summary>
+        /// <value><c>true</c> if is image visible; otherwise, <c>false</c>.</value>
+        bool IsImageVisible { get; set; }
+
         /// <summary>
         /// Gets sprite to render.
         /// </summary>

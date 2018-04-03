@@ -11,7 +11,6 @@ namespace AGS.Engine
 		private readonly IGLTextureRenderer _renderer;
         private readonly IGLUtils _glUtils;
         private readonly GLMatrices _matrices = new GLMatrices();
-        private readonly AGSBoundingBox _emptySquare = default;
         private readonly IHasImage[] _colorAdjusters;
 
         public GLImageRenderer (ITextureCache textures, ITextureFactory textureFactory,

@@ -338,10 +338,10 @@ namespace AGS.Engine
             set { _imageComponent.Image = value; } 
         }
 
-        public IImageRenderer CustomRenderer 
-        {  
-            get { return _imageComponent.CustomRenderer; }  
-            set { _imageComponent.CustomRenderer = value; } 
+        public bool IsImageVisible
+        {
+            get { return _imageComponent.IsImageVisible; }
+            set { _imageComponent.IsImageVisible = value; }
         }
 
         #endregion

@@ -9,7 +9,7 @@ namespace AGS.Engine
         private readonly IComponentsCollection _collection;
 
         public AGSComponentBinding(IComponentsCollection collection, Action<TComponent> onAdded, 
-                                   Action<TComponent> onRemoved, bool componentsInitialized)
+                                   Action<TComponent> onRemoved)
         {
             _collection = collection;
             this.onAdded = onAdded;
@@ -17,7 +17,7 @@ namespace AGS.Engine
             collection.OnComponentsChanged.Subscribe(onComponentsChanged);
 			TComponent component = collection.GetComponent<TComponent>();
             if (component != null) onAdded.Invoke(component);
-            else if (!componentsInitialized) collection.OnComponentsInitialized.Subscribe(onComponentsInitialized);
+            else if (!collection.ComponentsInitialized) collection.OnComponentsInitialized.Subscribe(onComponentsInitialized);
         }
 
         private void onComponentsChanged(AGSListChangedEventArgs<IComponent> args)
@@ -26,14 +26,21 @@ namespace AGS.Engine
 			{
 				foreach (var component in args.Items)
 				{
-					if (component.Item is TComponent) onAdded((TComponent)component.Item);
+                    if (component.Item is TComponent boundComponent) onAdded(boundComponent);
 				}
 			}
             else if (args.ChangeType == ListChangeType.Remove && onRemoved != null)
 			{
 				foreach (var component in args.Items)
 				{
-					if (component.Item is TComponent) onRemoved((TComponent)component.Item);
+                    if (component.Item is TComponent boundComponent)
+                    {
+                        onRemoved(boundComponent);
+                        if (!_collection.ComponentsInitialized)
+                        {
+                            _collection.OnComponentsInitialized.Subscribe(onComponentsInitialized);
+                        }
+                    }
 				}
 			}
         }
@@ -43,7 +50,7 @@ namespace AGS.Engine
             if (onAdded == null) return;
             foreach (var component in _collection)
             {
-                if (component is TComponent) onAdded((TComponent)component);
+                if (component is TComponent boundComponent) onAdded(boundComponent);
             }
         }
 

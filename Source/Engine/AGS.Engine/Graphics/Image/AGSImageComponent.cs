@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using AGS.API;
 using PropertyChanged;
 
@@ -14,23 +15,34 @@ namespace AGS.Engine
         private ISpriteProvider _provider;
         private readonly IRenderPipeline _pipeline;
         private IEntity _entity;
-        private readonly IImageRenderer _renderer;
+        private IBoundingBoxComponent _boundingBox;
+        private readonly Func<string, ITexture> _getTextureFunc;
+        private readonly IGLTextureRenderer _renderer;
+        private readonly ITextureCache _textures;
+        private readonly IHasImage[] _colorAdjusters;
+        private readonly IGLColorBuilder _colorBuilder;
 
-        public AGSImageComponent(IHasImage image, IGraphicsFactory factory, IRenderPipeline pipeline, IImageRenderer renderer)
+        public AGSImageComponent(IHasImage image, IGraphicsFactory factory, IRenderPipeline pipeline, 
+                                 IGLTextureRenderer renderer, ITextureCache textures, 
+                                 ITextureFactory textureFactory, IGLColorBuilder colorBuilder)
         {
+            IsImageVisible = true;
+            _getTextureFunc = textureFactory.CreateTexture;  //Creating a delegate in advance to avoid memory allocations on critical path
+            _textures = textures;
+            _colorBuilder = colorBuilder;
             _renderer = renderer;
             _image = image;
             _factory = factory;
+            _colorAdjusters = new IHasImage[2];
             _image.PropertyChanged += onPropertyChanged;
             _pipeline = pipeline;
         }
 
+        public bool IsImageVisible { get; set; }
+
         [Property(Category = "Transform", CategoryZ = -100, CategoryExpand = true)]
         [NumberEditorSlider(sliderMin: 0, sliderMax: 1f)]
         public PointF Pivot { get => _image.Pivot; set => _image.Pivot = value; }
-
-        public IImageRenderer CustomRenderer { get => _image.CustomRenderer; set => _image.CustomRenderer = value; }
-
 
         [DoNotNotify]
         public IImage Image
@@ -88,13 +100,12 @@ namespace AGS.Engine
             }
         }
 
-        public bool DebugDrawPivot { get; set; }
-
         public override void Init(IEntity entity)
         {
             base.Init(entity);
             _entity = entity;
             entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
             _pipeline.Subscribe(entity.ID, this);
         }
 
@@ -122,14 +133,29 @@ namespace AGS.Engine
 
         public IRenderInstruction GetNextInstruction(IViewport viewport)
         {
-            return new Instruction { Obj = _entity as IObject, Renderer = CustomRenderer ?? _renderer, Viewport = viewport };
+            if (!IsImageVisible) return null;
+            var sprite = CurrentSprite;
+            if (sprite?.Image == null) return null;
+            var boundingBoxes = _boundingBox?.GetBoundingBoxes(viewport);
+            if (boundingBoxes == null || !boundingBoxes.ViewportBox.IsValid)
+            {
+                return null;
+            }
+            boundingBoxes = new AGSBoundingBoxes { TextureBox = boundingBoxes.TextureBox, ViewportBox = boundingBoxes.ViewportBox };
+            ITexture texture = _textures.GetTexture(sprite.Image.ID, _getTextureFunc);
+
+            _colorAdjusters[0] = sprite;
+            _colorAdjusters[1] = this;
+            IGLColor color = _colorBuilder.Build(_colorAdjusters);
+            return new Instruction { Renderer = _renderer, Boxes = boundingBoxes, Color = color, Texture = texture };
         }
 
         private class Instruction : IRenderInstruction
         {
-            public IImageRenderer Renderer { get; set; }
-            public IObject Obj { get; set; }
-            public IViewport Viewport { get; set; }
+            public IGLTextureRenderer Renderer { get; set; }
+            public ITexture Texture { get; set; }
+            public AGSBoundingBoxes Boxes { get; set; }
+            public IGLColor Color { get; set; }
 
             public void Release()
             {
@@ -137,7 +163,7 @@ namespace AGS.Engine
 
             public void Render()
             {
-                Renderer.Render(Obj, Viewport);
+                Renderer.Render(Texture.ID, Boxes, Color);
             }
         }
     }

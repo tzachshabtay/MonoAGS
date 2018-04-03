@@ -211,19 +211,19 @@ namespace AGS.Engine
             _textComponent.TextVisible = !isVisible;
             _withCaret.Text = _textComponent.Text;
             _withCaret.TextConfig = _textComponent.TextConfig;
-            var renderer = _withCaret.CustomRenderer as ILabelRenderer;
-            if (renderer != null)
+            var caretTextComponent = _withCaret.GetComponent<ITextComponent>();
+            if (caretTextComponent != null)
             {
-                renderer.CaretPosition = CaretPosition;
-                renderer.BaseSize = _textComponent.LabelRenderSize;
-                renderer.RenderCaret = true;
+                caretTextComponent.CaretPosition = CaretPosition;
+                caretTextComponent.LabelRenderSize = _textComponent.LabelRenderSize;
+                caretTextComponent.RenderCaret = true;
             }
             _textComponent.TextVisible = !isVisible;
             var imageComponent = _imageComponent;
-            renderer = imageComponent?.CustomRenderer as ILabelRenderer;
-            if (renderer != null)
+            var textComponent = _textComponent;
+            if (textComponent != null)
             {
-                renderer.CaretPosition = CaretPosition;
+                textComponent.CaretPosition = CaretPosition;
             }
         }
 

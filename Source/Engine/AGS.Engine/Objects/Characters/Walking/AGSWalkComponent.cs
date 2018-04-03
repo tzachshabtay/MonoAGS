@@ -79,6 +79,7 @@ namespace AGS.Engine
 				foreach (var renderer in debugRenderers) 
 				{
 					await renderer.ChangeRoomAsync(null);
+                    renderer.Dispose();
 				}
 			}
 			CancellationTokenSource token = await stopWalkingAsync();
@@ -333,9 +334,12 @@ namespace AGS.Engine
 
 			if (debugRenderers != null) 
 			{
-                GLLineRenderer line = new GLLineRenderer (_glUtils, _translate.X, _translate.Y, destination.X, destination.Y);
 				IObject renderer = _objFactory.GetObject("Debug Line");
-				renderer.CustomRenderer = line;
+                var line = renderer.AddComponent<GLLineRenderer>();
+                line.X1 = _translate.X;
+                line.Y1 = _translate.Y;
+                line.X2 = destination.X;
+                line.Y2 = destination.Y;
                 await renderer.ChangeRoomAsync(room);
 				debugRenderers.Add (renderer);
 			}
