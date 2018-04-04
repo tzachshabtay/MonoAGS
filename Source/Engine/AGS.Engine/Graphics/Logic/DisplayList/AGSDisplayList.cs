@@ -13,7 +13,6 @@ namespace AGS.Engine
     {
         private readonly IGameState _gameState;
         private readonly IInput _input;
-        private readonly IImageRenderer _renderer;
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
         private readonly HashSet<string> _alreadyPrepared = new HashSet<string>();
@@ -27,6 +26,7 @@ namespace AGS.Engine
         private IRoom _lastRoom;
         private IObject _lastRoomBackground;
         private bool _isDirty;
+        private IObject _cursor;
 
         private struct ViewportSubscriber
         {
@@ -177,13 +177,12 @@ namespace AGS.Engine
         }
 
         public AGSDisplayList(IGameState gameState, IInput input, 
-                              IImageRenderer renderer, IMatrixUpdater matrixUpdater, IAGSRoomTransitions roomTransitions)
+                              IMatrixUpdater matrixUpdater, IAGSRoomTransitions roomTransitions)
         {
             _matrixUpdater = matrixUpdater;
             _roomTransitions = roomTransitions;
             _gameState = gameState;
             _input = input;
-            _renderer = renderer;
             _cache = new ConcurrentDictionary<IViewport, List<IObject>>();
             _viewportSubscribers = new ConcurrentDictionary<IViewport, ViewportSubscriber>();
             _bindings = new ConcurrentDictionary<string, List<API.IComponentBinding>>();
@@ -208,8 +207,11 @@ namespace AGS.Engine
             return displayList ?? _emptyList;
 		}
 
+        public IObject GetCursor() => _cursor;
+
         public void Update()
         {
+            _cursor = _input.Cursor;
             _alreadyPrepared.Clear();
             bool isDirty = _isDirty || _roomTransitions.State == RoomTransitionState.PreparingNewRoomRendering;
             _isDirty = false;

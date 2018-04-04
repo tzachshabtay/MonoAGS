@@ -9,22 +9,24 @@ namespace AGS.Engine
 	public class AGSGameLoop : IGameLoop
 	{
 		private readonly IGameState _gameState;
-		private AGS.API.Size _virtualResolution;
+		private readonly AGS.API.Size _virtualResolution;
 		private IRoom _lastRoom;
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly IGameEvents _events;
         private int _inUpdate; //For preventing re-entrancy
         private readonly IDisplayList _displayList;
+        private readonly IInput _input;
 
 		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution, 
                             IAGSRoomTransitions roomTransitions, IGameEvents events, 
-                            IDisplayList displayList)
+                            IDisplayList displayList, IInput input)
 		{
             _displayList = displayList;
 			_gameState = gameState;
             _events = events;
 			_virtualResolution = virtualResolution;
 			_roomTransitions = roomTransitions;
+            _input = input;
 		}
 
 		#region IGameLoop implementation
@@ -61,6 +63,7 @@ namespace AGS.Engine
 
                 updateViewports(changedRoom);
                 _displayList.Update();
+                updateCursor();
                 updateRoom(room);
             }
             finally
@@ -103,6 +106,17 @@ namespace AGS.Engine
 				runAnimation(obj.Animation);
 			}
 		}
+
+        private void updateCursor()
+        {
+            IObject cursor = _input.Cursor;
+            if (cursor == null) return;
+            var viewport = _gameState.Viewport;
+            cursor.X = _input.MousePosition.XMainViewport;
+            cursor.Y = _input.MousePosition.YMainViewport;
+            cursor.GetModelMatrices();
+            cursor.GetBoundingBoxes(viewport);
+        }
 
 		private void updateRoom(IRoom room)
 		{

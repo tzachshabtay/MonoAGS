@@ -71,7 +71,6 @@
     <Compile Include="Graphics\IRenderLayer.cs" />
     <Compile Include="Graphics\ISprite.cs" />
     <Compile Include="Graphics\Logic\IGraphicsFactory.cs" />
-    <Compile Include="Graphics\Logic\IImageRenderer.cs" />
     <Compile Include="Graphics\Logic\ILoadImageConfig.cs" />
     <Compile Include="Graphics\Logic\IRendererLoop.cs" />
     <Compile Include="Input\IInput.cs" />

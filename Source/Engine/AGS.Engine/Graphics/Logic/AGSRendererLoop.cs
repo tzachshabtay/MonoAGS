@@ -3,8 +3,6 @@ using AGS.API;
 using System.Collections.Generic;
 using Autofac;
 using System.Diagnostics;
-using System.Text;
-using System.Threading;
 
 namespace AGS.Engine
 {
@@ -12,7 +10,6 @@ namespace AGS.Engine
 	{
 		private readonly IGameState _gameState;
         private readonly IGame _game;
-		private readonly IImageRenderer _renderer;
 		private readonly Resolver _resolver;
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
@@ -23,11 +20,10 @@ namespace AGS.Engine
         private readonly IAGSRenderPipeline _pipeline;
         private IGLUtils _glUtils;
         private IShader _lastShaderUsed;
-        private IObject _mouseCursorContainer;
 		
         private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
 
-		public AGSRendererLoop (Resolver resolver, IGame game, IImageRenderer renderer,
+		public AGSRendererLoop (Resolver resolver, IGame game,
             IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IGameWindow gameWindow,
             IAGSRenderPipeline pipeline, IDisplayList displayList, 
             IInput input, IMatrixUpdater matrixUpdater)
@@ -41,7 +37,6 @@ namespace AGS.Engine
             _game = game;
 			_gameState = game.State;
             _noAspectRatioSettings = new AGSGameSettings(game.Settings.Title, game.Settings.VirtualResolution, preserveAspectRatio: false);
-			_renderer = renderer;
 			_roomTransitions = roomTransitions;
             _matrixUpdater = matrixUpdater;
 			_roomTransitions.Transition = new RoomTransitionInstant ();
@@ -74,8 +69,7 @@ namespace AGS.Engine
                         return false;
                     }
                     else if (!_roomTransitions.Transition.RenderBeforeLeavingRoom(
-                        _displayList.GetDisplayList(_gameState.Viewport), 
-                        obj => renderObject(_gameState.Viewport, obj)))
+                        _displayList.GetDisplayList(_gameState.Viewport)))
 					{
 						if (_fromTransitionBuffer == null) _fromTransitionBuffer = renderToBuffer();
                         _roomTransitions.State = RoomTransitionState.PreparingTransition;
@@ -105,8 +99,7 @@ namespace AGS.Engine
 					break;
 				case RoomTransitionState.AfterEnteringRoom:
                     if (_gameState.Cutscene.IsSkipping || !_roomTransitions.Transition.RenderAfterEnteringRoom(
-                        _displayList.GetDisplayList(_gameState.Viewport), 
-                        obj => renderObject(_gameState.Viewport, obj)))
+                        _displayList.GetDisplayList(_gameState.Viewport)))
 					{
 						_roomTransitions.SetOneTimeNextTransition(null);
 						_roomTransitions.State = RoomTransitionState.NotInTransition;
@@ -140,7 +133,6 @@ namespace AGS.Engine
             {
                 renderViewport(viewport, instructions);
             }
-            renderCursor();
 		}
 
         private void renderViewport(IViewport viewport, List<IRenderBatch> instructions)
@@ -168,40 +160,6 @@ namespace AGS.Engine
             removeObjectShader(shader);
         }
 
-        private void renderCursor()
-        {
-			IObject cursor = _input.Cursor;
-			if (cursor == null) return;
-            cursor.IgnoreViewport = true;
-			if (_mouseCursorContainer == null || _mouseCursorContainer.Animation != cursor.Animation)
-			{
-				_mouseCursorContainer = cursor;
-			}
-            var viewport = _gameState.Viewport;
-            _mouseCursorContainer.X = _input.MousePosition.GetViewportX(viewport);
-            _mouseCursorContainer.Y = _input.MousePosition.GetViewportY(viewport);
-            _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport);
-            _matrixUpdater.RefreshMatrix(_mouseCursorContainer);
-            renderObject(viewport, _mouseCursorContainer);
-        }
-
-        private void renderObject(IViewport viewport, IObject obj)
-		{
-            _matrixUpdater.RefreshMatrix(obj);
-            Size resolution = obj.RenderLayer == null || obj.RenderLayer.IndependentResolution == null ? 
-                _game.Settings.VirtualResolution :
-                obj.RenderLayer.IndependentResolution.Value;
-            _glUtils.AdjustResolution(resolution.Width, resolution.Height);
-
-            IImageRenderer imageRenderer = getImageRenderer(obj);
-
-            var shader = applyObjectShader(obj.Shader);
-
-			imageRenderer.Render (obj, viewport);
-
-			removeObjectShader(shader);
-		}
-
 		private static IShader applyObjectShader(IShader shader)
 		{
 			if (shader != null) shader = shader.Compile();
@@ -228,12 +186,6 @@ namespace AGS.Engine
 			}
 			_lastShaderUsed = shader;
 			shader.Bind();
-		}
-
-        //todo: duplicate code with AGSDisplayList
-		private IImageRenderer getImageRenderer(IObject obj)
-		{
-			return _renderer;
 		}
 	}
 }

@@ -15,24 +15,7 @@ namespace AGS.API
 		/// <returns><c>true</c>, if we still want control, <c>false</c> otherwise.</returns>
 		/// <param name="displayList">The display list of the room we are leaving. The display list contains
 		/// all objects that are rendered in the scene, sorted by their order.</param>
-		/// <param name="renderObj">A convenience method that renders an object.</param>
-		/// <example>
-		/// Let's render all objects with a yellow tint:
-		/// <code language="lang-csharp">
-		/// public bool RenderBeforeLeavingRoom(List&lt;IObject&gt; displayList, Action&lt;IObject&gt; renderObj)
-		/// {
-		/// 	foreach (var obj in displayList)
-		/// 	{
-		/// 		var currentTint = obj.Tint;
-		/// 		obj.Tint = Colors.Yellow;
-		/// 		renderObj(obj);
-		/// 		obj.Tint = currentTint;
-		/// 	}
-		/// 	return true; //Note that this room transition will never end if we always return true, at some point we need to return false...
-		/// }
-		/// </code>
-		/// </example>
-		bool RenderBeforeLeavingRoom(List<IObject> displayList, Action<IObject> renderObj);
+		bool RenderBeforeLeavingRoom(List<IObject> displayList);
 
 		/// <summary>
 		/// Will be called repeatedly during the rooms transition, up until this function will return false.
@@ -63,20 +46,7 @@ namespace AGS.API
 		/// <returns><c>true</c>, if we still want control, <c>false</c> otherwise.</returns>
 		/// <param name="displayList">The display list of the room we are leaving. The display list contains
 		/// all objects that are rendered in the scene, sorted by their order.</param>
-		/// <param name="renderObj">A convenience method that renders an object.</param>
-		/// <example>
-		/// Let's only render every 3rd object!
-		/// <code language="lang-csharp">
-		/// for (int i = 0; i &lt; displayList.Count; i++)
-		/// {
-		/// 	if (i %% 3 != 0) continue;
-		/// 	renderObj(displayList[i]);
-		/// }
-		/// 
-		/// return true; //Note that this room transition will never end if we always return true, at some point we need to return false...
-		/// </code>
-		/// </example>
-		bool RenderAfterEnteringRoom(List<IObject> displayList, Action<IObject> renderObj);
+		bool RenderAfterEnteringRoom(List<IObject> displayList);
 	}
 }
 

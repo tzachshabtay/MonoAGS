@@ -25,7 +25,6 @@ namespace AGS.Engine
 
             registerDevice(device);
 
-            RegisterType<GLImageRenderer, IImageRenderer>();
             RegisterType<AGSObject, IObject>();
             RegisterType<GLImage, IImage>();
             RegisterType<AGSDialogActions, IDialogActions>();

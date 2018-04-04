@@ -64,6 +64,7 @@ namespace AGS.Engine
                     var viewportInstructions = getInstructions(viewport);
                     instructions.Add((viewport, viewportInstructions));
                 }
+                addCursor(instructions);
                 InstructionSet = instructions;
                 if (preparingTransition)
                 {
@@ -71,6 +72,22 @@ namespace AGS.Engine
                 }
             }
             catch (IndexOutOfRangeException) { } //can be triggered if a viewport was added/removed while enumerating- this should be resolved on next tick
+        }
+
+        private void addCursor(List<(IViewport, List<IRenderBatch>)> instructions)
+        {
+            var cursor = _displayList.GetCursor();
+            if (cursor == null) return;
+            AGSRenderBatch cursorBatch = new AGSRenderBatch(getResolution(cursor), cursor.Shader, getInstructions(_displayList.GetCursor().ID, _state.Viewport));
+            instructions.Add((_state.Viewport, new List<IRenderBatch> { cursorBatch }));
+        }
+
+        private Size getResolution(IObject obj)
+        {
+            Size objResolution = obj.RenderLayer == null || obj.RenderLayer.IndependentResolution == null ?
+                _game.Settings.VirtualResolution :
+                obj.RenderLayer.IndependentResolution.Value;
+            return objResolution;
         }
 
         private List<IRenderBatch> getInstructions(IViewport viewport)
@@ -87,9 +104,7 @@ namespace AGS.Engine
             List<IRenderInstruction> batch = new List<IRenderInstruction>();
             foreach (IObject obj in displayList)
             {
-                Size objResolution = obj.RenderLayer == null || obj.RenderLayer.IndependentResolution == null ?
-                    _game.Settings.VirtualResolution :
-                    obj.RenderLayer.IndependentResolution.Value;
+                Size objResolution = getResolution(obj);
                 var objShader = obj.Shader;
 
                 if (!resolution.Equals(objResolution) || shader != objShader)
