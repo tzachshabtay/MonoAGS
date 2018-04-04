@@ -84,9 +84,7 @@ namespace AGS.Engine
 
         private Size getResolution(IObject obj)
         {
-            Size objResolution = obj.RenderLayer == null || obj.RenderLayer.IndependentResolution == null ?
-                _game.Settings.VirtualResolution :
-                obj.RenderLayer.IndependentResolution.Value;
+            Size objResolution = obj.RenderLayer?.IndependentResolution ?? _game.Settings.VirtualResolution;
             return objResolution;
         }
 
