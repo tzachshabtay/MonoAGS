@@ -12,7 +12,7 @@ namespace AGS.API
         /// This is called repeatedly by the engine, and usually should not be used by the user.
         /// </summary>
         /// <returns>The update task.</returns>
-		Task UpdateAsync();
+		void Update();
 	}
 }
 

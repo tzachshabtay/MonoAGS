@@ -6,7 +6,7 @@
     /// </summary>
 	public interface IObject : IEntity, IHasRoomComponent, IAnimationComponent, IInObjectTreeComponent, IColliderComponent, 
 		IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfoComponent, 
-        IShaderComponent, ITranslateComponent, IImageComponent, IScaleComponent, IRotateComponent, 
+        IShaderComponent, ITranslateComponent, IImageComponent, IBorderComponent, IScaleComponent, IRotateComponent, 
         IPixelPerfectComponent, IHasModelMatrix, IModelMatrixComponent, IBoundingBoxComponent, IWorldPositionComponent
 	{
 	}

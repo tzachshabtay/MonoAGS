@@ -142,7 +142,7 @@ namespace AGS.Engine
                 propLabel.Tint = Colors.Transparent;
                 propLabel.TextBackgroundVisible = false;
                 propLabel.RenderLayer = label.RenderLayer;
-                propLabel.CustomRenderer.Prepare(propLabel, propLabel.GetComponent<IDrawableInfoComponent>(), _state.Viewport);
+                propLabel.PrepareTextBoundingBoxes();
                 x += propLabel.TextWidth + 3f;
             }
             var textPanel = _factory.UI.GetPanel(id + "_TextPanel", 100f, ROW_HEIGHT, x, 0f, panel);

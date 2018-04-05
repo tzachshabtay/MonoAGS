@@ -19,10 +19,10 @@
 		/// </summary>
 		PreparingTransition,
         /// <summary>
-        /// We left the old room, we need to prepare the display list for the new room before taking the screenshot to
+        /// We left the old room, we need to prepare the render instructions for the new room before taking the screenshot to
         /// be used by the transition.
         /// </summary>
-        PreparingNewRoomDisplayList,
+        PreparingNewRoomRendering,
 		/// <summary>
 		/// We're currently in transition. We have the 2 screenshots, which can be manipulated by the room transition.
 		/// </summary>

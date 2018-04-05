@@ -21,11 +21,11 @@ namespace AGS.Engine
         private IImageComponent _image;
         private IHasRoomComponent _room;
         private IDrawableInfoComponent _drawable;
+        private ITextComponent _text;
         private IEntity _entity;
         private IObject _parent;
         private ISprite _sprite;
         private IJumpOffsetComponent _jump;
-        private ILabelRenderer _labelRenderer;
         private IRoom _lastRoom;
 
         private readonly Size _virtualResolution;
@@ -81,9 +81,13 @@ namespace AGS.Engine
                 c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged();}
             );
 			_entity.Bind<IImageComponent>(
-                c => { _image = c; subscribeLabelRenderer(); c.PropertyChanged += onImageChanged; onSomethingChanged(); },
+                c => { _image = c; c.PropertyChanged += onImageChanged; onSomethingChanged(); },
                 c => { c.PropertyChanged -= onImageChanged; _image = null; onSomethingChanged(); }
 			);
+            _entity.Bind<ITextComponent>(
+                c => { _text = c; subscribeTextComponent(); },
+                c => { unsubscribeTextComponent(c); _text = null; }
+            );
 
             _entity.Bind<IDrawableInfoComponent>(
                 c => 
@@ -234,7 +238,6 @@ namespace AGS.Engine
         private void onImageChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IImageComponent.Pivot) 
-                && args.PropertyName != nameof(IImageComponent.CustomRenderer)
                 && args.PropertyName != nameof(IImageComponent.CurrentSprite)) return;
             if (args.PropertyName == nameof(IImageComponent.CurrentSprite))
             {
@@ -243,39 +246,37 @@ namespace AGS.Engine
                 subscribeSprite(_sprite);
             }
             onSomethingChanged();
-            if (args.PropertyName == nameof(IImageComponent.CustomRenderer))
-            {
-                subscribeLabelRenderer();
-            }
         }
 
-        private void subscribeLabelRenderer()
+        private void subscribeTextComponent()
         {
-            var labelRenderer = _labelRenderer;
-            if (labelRenderer != null) labelRenderer.PropertyChanged -= onLabelRendererPropertyChanged;
-            labelRenderer = _image.CustomRenderer as ILabelRenderer;
-            if (labelRenderer != null)
-            {
-                _customImageSize = labelRenderer.CustomImageSize;
-                _customResolutionFactor = labelRenderer.CustomImageResolutionFactor;
-                labelRenderer.PropertyChanged += onLabelRendererPropertyChanged;
-            }
-            _labelRenderer = labelRenderer;
+            _customImageSize = _text.CustomImageSize;
+            _customResolutionFactor = _text.CustomImageResolutionFactor;
+            _text.PropertyChanged += onTextPropertyChanged;
+            onSomethingChanged();
         }
 
-        private void onLabelRendererPropertyChanged(object sender, PropertyChangedEventArgs args)
+        private void unsubscribeTextComponent(ITextComponent text)
         {
-            var labelRenderer = _labelRenderer;
-            if (labelRenderer == null) return;
-            if (args.PropertyName == nameof(ILabelRenderer.CustomImageSize))
+            _customImageSize = null;
+            _customResolutionFactor = null;
+            _text.PropertyChanged -= onTextPropertyChanged;
+            onSomethingChanged();
+        }
+
+        private void onTextPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            var text = _text;
+            if (text == null) return;
+            if (args.PropertyName == nameof(ITextComponent.CustomImageSize))
             {
-                _customImageSize = labelRenderer.CustomImageSize;
+                _customImageSize = text.CustomImageSize;
                 onSomethingChanged();
                 return;
             }
-            if (args.PropertyName == nameof(ILabelRenderer.CustomImageResolutionFactor))
+            if (args.PropertyName == nameof(ITextComponent.CustomImageResolutionFactor))
             {
-                _customResolutionFactor = labelRenderer.CustomImageResolutionFactor;
+                _customResolutionFactor = text.CustomImageResolutionFactor;
                 onSomethingChanged();
                 return;
             }

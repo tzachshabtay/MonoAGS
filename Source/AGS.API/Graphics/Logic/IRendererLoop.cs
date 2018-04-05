@@ -3,6 +3,9 @@
     /// <summary>
     /// Represents the render loop of the game. All drawing to the screen is performed from the render loop.
     /// </summary>
+    /// <seealso cref="IRenderPipeline"/>
+    /// <seealso cref="IRenderer"/>
+    /// <seealso cref="IRenderInstruction"/>
     public interface IRendererLoop
 	{
         /// <summary>
@@ -11,13 +14,6 @@
         /// </summary>
         /// <returns>True if a render is performed (can return false if we're in the midst of a room transition)</returns>
         bool Tick();
-
-        /// <summary>
-        /// An event that fires on each tick before rendering the display list.
-        /// This allows viewing (and even modifying) the display list prior to rendering it.
-        /// </summary>
-        /// <returns>The event.</returns>
-        IBlockingEvent<DisplayListEventArgs> OnBeforeRenderingDisplayList { get; }
 	}
 }
 

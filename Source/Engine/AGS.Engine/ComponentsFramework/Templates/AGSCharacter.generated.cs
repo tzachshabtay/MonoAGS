@@ -26,6 +26,7 @@ namespace AGS.Engine
         private IShaderComponent _shaderComponent;
         private ITranslateComponent _translateComponent;
         private IImageComponent _imageComponent;
+        private IBorderComponent _borderComponent;
         private IScaleComponent _scaleComponent;
         private IRotateComponent _rotateComponent;
         private IPixelPerfectComponent _pixelPerfectComponent;
@@ -64,6 +65,8 @@ namespace AGS.Engine
             Bind<ITranslateComponent>(c => _translateComponent = c, _ => {});
             _imageComponent = AddComponent<IImageComponent>();
             Bind<IImageComponent>(c => _imageComponent = c, _ => {});
+            _borderComponent = AddComponent<IBorderComponent>();
+            Bind<IBorderComponent>(c => _borderComponent = c, _ => { });
             _scaleComponent = AddComponent<IScaleComponent>();
             Bind<IScaleComponent>(c => _scaleComponent = c, _ => {});
             _rotateComponent = AddComponent<IRotateComponent>();
@@ -304,16 +307,14 @@ namespace AGS.Engine
             set { _imageComponent.SpriteProvider = value; } 
         }
 
-        public Boolean DebugDrawPivot 
-        {  
-            get { return _imageComponent.DebugDrawPivot; }  
-            set { _imageComponent.DebugDrawPivot = value; } 
-        }
+        #endregion
 
-        public IBorderStyle Border 
-        {  
-            get { return _imageComponent.Border; }  
-            set { _imageComponent.Border = value; } 
+        #region IBorderComponent implementation
+
+        public IBorderStyle Border
+        {
+            get { return _borderComponent.Border; }
+            set { _borderComponent.Border = value; }
         }
 
         #endregion
@@ -350,10 +351,10 @@ namespace AGS.Engine
             set { _imageComponent.Image = value; } 
         }
 
-        public IImageRenderer CustomRenderer 
-        {  
-            get { return _imageComponent.CustomRenderer; }  
-            set { _imageComponent.CustomRenderer = value; } 
+        public bool IsImageVisible
+        {
+            get { return _imageComponent.IsImageVisible; }
+            set { _imageComponent.IsImageVisible = value; }
         }
 
         #endregion

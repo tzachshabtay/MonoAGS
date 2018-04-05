@@ -32,6 +32,13 @@
         IRendererLoop RenderLoop { get; }
 
         /// <summary>
+        /// Gets the render pipeline, which is responsible of collecting drawing instructions from all of the renderers
+        /// and passing it on to the render loop.
+        /// </summary>
+        /// <value>The render pipeline.</value>
+        IRenderPipeline RenderPipeline { get; }
+
+        /// <summary>
         /// Interface for saving/loading the game.
         /// </summary>
         /// <value>The save load.</value>

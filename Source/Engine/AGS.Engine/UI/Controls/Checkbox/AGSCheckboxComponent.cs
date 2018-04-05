@@ -9,6 +9,7 @@ namespace AGS.Engine.UI.Controls
         private IAnimationComponent _animation;
         private ITextComponent _text;
         private IImageComponent _image;
+        private IBorderComponent _border;
 
         public AGSCheckboxComponent()
         {
@@ -21,6 +22,7 @@ namespace AGS.Engine.UI.Controls
             entity.Bind<IAnimationComponent>(c => _animation = c, _ => _animation = null);
 			entity.Bind<ITextComponent>(c => _text = c, _ => _text = null);
 			entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
+            entity.Bind<IBorderComponent>(c => _border = c, _ => _border = null);
 			entity.Bind<IUIEvents>(c =>
 			{
 				_events = c;
@@ -89,7 +91,7 @@ namespace AGS.Engine.UI.Controls
 
         private void startAnimation(ButtonAnimation button)
         {
-	        button.StartAnimation(_animation, _text, _image);
+	        button.StartAnimation(_animation, _text, _image, _border);
         }
     }
 }

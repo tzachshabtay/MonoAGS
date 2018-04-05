@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AGS.API;
 
 namespace AGS.Engine
@@ -24,7 +25,7 @@ namespace AGS.Engine
 
 		#region IRoomTransition implementation
 
-		public bool RenderBeforeLeavingRoom(System.Collections.Generic.List<IObject> displayList, Action<IObject> renderObj)
+		public bool RenderBeforeLeavingRoom(List<IObject> displayList)
 		{
 			_tween = Tween.RunWithExternalVisit(1f, 0f, b => _alpha = b, _timeInSeconds, _easingFadeOut, out _visitTween);
 			return false;
@@ -42,7 +43,7 @@ namespace AGS.Engine
 			return true;
 		}
 
-		public bool RenderAfterEnteringRoom(System.Collections.Generic.List<IObject> displayList, Action<IObject> renderObj)
+		public bool RenderAfterEnteringRoom(List<IObject> displayList)
 		{
 			return false;
 		}

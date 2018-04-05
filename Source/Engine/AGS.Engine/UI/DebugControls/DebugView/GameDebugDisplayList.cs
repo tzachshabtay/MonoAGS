@@ -22,7 +22,7 @@ namespace AGS.Engine
         {
             _game = game;
             _layer = layer;
-            game.RenderLoop.OnBeforeRenderingDisplayList.Subscribe(onBeforeRenderingDisplayList);
+            game.RenderPipeline.OnBeforeProcessingDisplayList.Subscribe(onBeforeProcessingDisplayList);
         }
 
         public IPanel Panel => _scrollingPanel;
@@ -109,7 +109,7 @@ namespace AGS.Engine
             }
         }
 
-        private void onBeforeRenderingDisplayList(DisplayListEventArgs args)
+        private void onBeforeProcessingDisplayList(DisplayListEventArgs args)
         {
             SortDebugger.DebugIfNeeded(args.DisplayList);
             _lastDisplayList = args.DisplayList;

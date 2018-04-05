@@ -245,7 +245,6 @@ namespace Tests
             resolver.Builder.RegisterInstance(new Mock<IUpdateMessagePump>().Object);
             resolver.Builder.RegisterInstance(renderThread.Object);
             resolver.Builder.RegisterInstance(updateThread.Object);
-            resolver.Builder.RegisterInstance(new Mock<ILabelRenderer>().Object);
             resolver.Builder.RegisterInstance(new Mock<ITexture>().Object);
             resolver.Builder.RegisterInstance(mocks.MaskLoader().Object).As<IMaskLoader>();
             resolver.Builder.RegisterInstance(settings.Object).As<IGameSettings>();

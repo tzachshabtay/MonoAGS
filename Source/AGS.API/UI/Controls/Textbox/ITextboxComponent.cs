@@ -12,6 +12,7 @@
     [RequiredComponent(typeof(IImageComponent))]
     [RequiredComponent(typeof(IVisibleComponent))]
     [RequiredComponent(typeof(IAnimationComponent), false)]
+    [RequiredComponent(typeof(IBorderComponent), false)]
     public interface ITextBoxComponent : IComponent
     {
         /// <summary>
@@ -52,13 +53,6 @@
         /// The textbox automatically gets focus when clicked, and loses focus when the user clicks somewhere else.
         /// </summary>
         bool IsFocused { get; set; }
-
-        /// <summary>
-        /// The position of the caret inside the string. A value of 3, for example, means the caret will be shown after the 3rd character.
-        /// The default is 0, meaning the caret will be placed at the start of the string.
-        /// The caret position automatically changes based on the keyboard input.
-        /// </summary>
-        int CaretPosition { get; set; }       
 
         /// <summary>
         /// Sets the number of frames will wait for flashing the caret.

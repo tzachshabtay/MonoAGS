@@ -124,6 +124,12 @@ namespace AGS.API
 		int Count { get; }
 
         /// <summary>
+        /// Gets a value indicating whether the components were already initialized.
+        /// </summary>
+        /// <value><c>true</c> if components initialized; otherwise, <c>false</c>.</value>
+        bool ComponentsInitialized { get; }
+
+        /// <summary>
         /// An event that fires after all components were initialized.
         /// </summary>
         /// <value>The event.</value>

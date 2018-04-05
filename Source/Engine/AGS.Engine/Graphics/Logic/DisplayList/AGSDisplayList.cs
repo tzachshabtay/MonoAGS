@@ -13,7 +13,6 @@ namespace AGS.Engine
     {
         private readonly IGameState _gameState;
         private readonly IInput _input;
-        private readonly IImageRenderer _renderer;
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
         private readonly HashSet<string> _alreadyPrepared = new HashSet<string>();
@@ -27,6 +26,7 @@ namespace AGS.Engine
         private IRoom _lastRoom;
         private IObject _lastRoomBackground;
         private bool _isDirty;
+        private IObject _cursor;
 
         private struct ViewportSubscriber
         {
@@ -177,13 +177,12 @@ namespace AGS.Engine
         }
 
         public AGSDisplayList(IGameState gameState, IInput input, 
-                              IImageRenderer renderer, IMatrixUpdater matrixUpdater, IAGSRoomTransitions roomTransitions)
+                              IMatrixUpdater matrixUpdater, IAGSRoomTransitions roomTransitions)
         {
             _matrixUpdater = matrixUpdater;
             _roomTransitions = roomTransitions;
             _gameState = gameState;
             _input = input;
-            _renderer = renderer;
             _cache = new ConcurrentDictionary<IViewport, List<IObject>>();
             _viewportSubscribers = new ConcurrentDictionary<IViewport, ViewportSubscriber>();
             _bindings = new ConcurrentDictionary<string, List<API.IComponentBinding>>();
@@ -208,10 +207,13 @@ namespace AGS.Engine
             return displayList ?? _emptyList;
 		}
 
+        public IObject GetCursor() => _cursor;
+
         public void Update()
         {
+            _cursor = _input.Cursor;
             _alreadyPrepared.Clear();
-            bool isDirty = _isDirty || _roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList;
+            bool isDirty = _isDirty || _roomTransitions.State == RoomTransitionState.PreparingNewRoomRendering;
             _isDirty = false;
 
             _matrixUpdater.ClearCache();
@@ -232,8 +234,6 @@ namespace AGS.Engine
                     if (_alreadyPrepared.Add(item.ID))
                     {
                         _matrixUpdater.RefreshMatrix(item);
-                        var renderer = getImageRenderer(item);
-                        renderer.Prepare(item, item.GetComponent<IDrawableInfoComponent>(), viewport);
                     }
                 }
             }
@@ -288,17 +288,6 @@ namespace AGS.Engine
 			}
 
             displayList.Add(obj);
-		}
-
-        //todo: duplicate code with AGSRendererLoop
-		private IImageRenderer getImageRenderer(IObject obj)
-		{
-			return obj.CustomRenderer ?? getSpriteRenderer(obj) ?? _renderer;
-		}
-
-		private IImageRenderer getSpriteRenderer(IObject obj)
-		{
-			return obj?.CurrentSprite?.CustomRenderer;
 		}
 
         private void onUiChanged(AGSHashSetChangedEventArgs<IObject> args)
@@ -379,12 +368,6 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
-        private void onObjImagePropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(IImageComponent.CustomRenderer)) return;
-            onSomethingChanged();
-        }
-
         private void onObjTranslatePropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(ITranslateComponent.Z) &&
@@ -448,7 +431,6 @@ namespace AGS.Engine
         {
             if (obj == null) return;
             var vBinding = bind<IVisibleComponent>(obj, onObjVisibleChanged);
-            var iBinding = bind<IImageComponent>(obj, onObjImagePropertyChanged);
             var tBinding = bind<ITranslateComponent>(obj, onObjTranslatePropertyChanged);
             var dBinding = bind<IDrawableInfoComponent>(obj, onObjDrawablePropertyChanged);
 
@@ -457,7 +439,7 @@ namespace AGS.Engine
 
             obj.TreeNode.OnParentChanged.Subscribe(onSomethingChanged);
 
-            _bindings[obj.ID] = new List<API.IComponentBinding> { vBinding, iBinding, tBinding, dBinding, aBinding };
+            _bindings[obj.ID] = new List<API.IComponentBinding> { vBinding, tBinding, dBinding, aBinding };
         }
 
         private void unsubscribeObj(IObject obj)

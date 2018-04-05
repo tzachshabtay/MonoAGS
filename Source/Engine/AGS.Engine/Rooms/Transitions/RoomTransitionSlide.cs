@@ -37,7 +37,7 @@ namespace AGS.Engine
 
 		#region IRoomTransition implementation
 
-		public bool RenderBeforeLeavingRoom(List<IObject> displayList, Action<IObject> renderObj)
+		public bool RenderBeforeLeavingRoom(List<IObject> displayList)
 		{
 			_x = _slideIn ? _targetX : 0f;
 			_y = _slideIn ? _targetY : 0f;
@@ -71,7 +71,7 @@ namespace AGS.Engine
 			return true;
 		}
 
-		public bool RenderAfterEnteringRoom(List<IObject> displayList, Action<IObject> renderObj)
+		public bool RenderAfterEnteringRoom(List<IObject> displayList)
 		{
 			return false;
 		}

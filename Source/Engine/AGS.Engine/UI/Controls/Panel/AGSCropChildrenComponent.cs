@@ -165,10 +165,10 @@ namespace AGS.Engine
             var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
             if (boundingBoxes == null || obj.GetBoundingBoxes(_state.Viewport) == null) return;
             ICropSelfComponent cropSelf;
-            var labelRenderer = obj.CustomRenderer as GLLabelRenderer;
-            if (labelRenderer?.TextBoundingBoxes != null)
+            var textComponent = obj.GetComponent<ITextComponent>();
+            if (textComponent?.TextBoundingBoxes != null)
             {
-                cropSelf = labelRenderer.CustomTextCrop;
+                cropSelf = textComponent.CustomTextCrop;
                 if (cropSelf == null)
                 {
                     cropSelf = new AGSCropSelfComponent();
@@ -176,7 +176,7 @@ namespace AGS.Engine
                     cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
                     cropSelf.Init(obj);
                     cropSelf.AfterInit();
-                    labelRenderer.CustomTextCrop = cropSelf;
+                    textComponent.CustomTextCrop = cropSelf;
                 }
             }
             cropSelf = obj.GetComponent<ICropSelfComponent>();

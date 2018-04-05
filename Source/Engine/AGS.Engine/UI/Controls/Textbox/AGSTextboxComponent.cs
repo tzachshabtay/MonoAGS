@@ -10,6 +10,7 @@ namespace AGS.Engine
         private bool _isFocused;
         private ITextComponent _textComponent;
         private IImageComponent _imageComponent;
+        private IBorderComponent _borderComponent;
         private IVisibleComponent _visibleComponent;
         private IDrawableInfoComponent _drawableComponent;
         private IUIEvents _uiEvents;        
@@ -74,17 +75,9 @@ namespace AGS.Engine
             _withCaret.Pivot = new PointF(0f, 0f);
             _withCaret.TextBackgroundVisible = false;
 
-            entity.Bind<IImageComponent>(c =>
-            {
-                c.PropertyChanged += onImagePropertyChanged;
-                _imageComponent = c;
-                updateBorder();
-            }, c =>
-            {
-                c.PropertyChanged -= onImagePropertyChanged;
-                _imageComponent = null;
-                updateBorder();
-            });
+            entity.Bind<IImageComponent>(c => _imageComponent = c, _ => _imageComponent = null);
+
+            entity.Bind<IBorderComponent>(c => _borderComponent = c, _ => _borderComponent = null);
 
             entity.Bind<IDrawableInfoComponent>(c =>
             {
@@ -104,17 +97,6 @@ namespace AGS.Engine
         {
             if (e.PropertyName != nameof(ITextComponent.Text)) return;
             updateWatermark();
-        }
-
-        private void onImagePropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName != nameof(IImageComponent.Border)) return;
-            updateBorder();
-        }
-
-        private void updateBorder()
-        {
-            _withCaret.Border = _imageComponent?.Border;
         }
 
         public override void AfterInit()
@@ -225,22 +207,23 @@ namespace AGS.Engine
             }
             _withCaret.Tint = _imageComponent.Tint;
             _withCaret.TextVisible = isVisible;
+            _withCaret.Border = isVisible ? _borderComponent?.Border : null;
             _textComponent.TextVisible = !isVisible;
             _withCaret.Text = _textComponent.Text;
             _withCaret.TextConfig = _textComponent.TextConfig;
-            var renderer = _withCaret.CustomRenderer as ILabelRenderer;
-            if (renderer != null)
+            var caretTextComponent = _withCaret.GetComponent<ITextComponent>();
+            if (caretTextComponent != null)
             {
-                renderer.CaretPosition = CaretPosition;
-                renderer.BaseSize = _textComponent.LabelRenderSize;
-                renderer.RenderCaret = true;
+                caretTextComponent.CaretPosition = CaretPosition;
+                caretTextComponent.LabelRenderSize = _textComponent.LabelRenderSize;
+                caretTextComponent.RenderCaret = true;
             }
             _textComponent.TextVisible = !isVisible;
             var imageComponent = _imageComponent;
-            renderer = imageComponent?.CustomRenderer as ILabelRenderer;
-            if (renderer != null)
+            var textComponent = _textComponent;
+            if (textComponent != null)
             {
-                renderer.CaretPosition = CaretPosition;
+                textComponent.CaretPosition = CaretPosition;
             }
         }
 

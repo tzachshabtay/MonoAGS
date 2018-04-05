@@ -15,6 +15,12 @@ namespace AGS.API
 		List<IObject> GetDisplayList(IViewport viewport);
 
         /// <summary>
+        /// Gets the mouse cursor.
+        /// </summary>
+        /// <returns>The cursor.</returns>
+        IObject GetCursor();
+
+        /// <summary>
         /// Update the display list (this is called every tick by the game engine itself).
         /// </summary>
         void Update();

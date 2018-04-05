@@ -85,6 +85,7 @@ namespace AGS.Engine
 
 			await waitForText(text, externalSkipToken.Task, sound);
 			_state.UI.Remove(label);
+            label.Dispose();
             if (portrait != null) portrait.Visible = false;
 
             if (_outfit != null) setAnimation(_outfit.Outfit[AGSOutfit.Idle]);

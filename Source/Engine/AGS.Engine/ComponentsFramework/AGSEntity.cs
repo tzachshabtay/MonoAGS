@@ -17,7 +17,6 @@ namespace AGS.Engine
         private ConcurrentDictionary<Type, Lazy<API.IComponent>> _components;
         private AGSConcurrentHashSet<API.IComponentBinding> _bindings;
         private Resolver _resolver;
-        private bool _componentsInitialized;
 
         //This a design limitation, as all of the preset entities (object, character, etc) implement the components as a convinience they also need to implement the PropertyChanged event, though there really
         //is no need to provide it on the entity level (if there is then we'll need to add support).
@@ -48,6 +47,8 @@ namespace AGS.Engine
 
         public string GetFriendlyName() { return DisplayName ?? ID; }
 
+        public bool ComponentsInitialized { get; private set; }
+
         public IBlockingEvent OnComponentsInitialized { get; private set; }
 
         public IBlockingEvent<AGSListChangedEventArgs<API.IComponent>> OnComponentsChanged { get; private set; }
@@ -56,7 +57,7 @@ namespace AGS.Engine
         {
             foreach (var component in this) component.Init(this);
             foreach (var component in this) component.AfterInit();
-            _componentsInitialized = true;
+            ComponentsInitialized = true;
             OnComponentsInitialized.Invoke();
         }
 
@@ -157,7 +158,7 @@ namespace AGS.Engine
         {
             var bindings = _bindings;
             if (bindings == null) return null; //Entity was already disposed -> not binding
-            AGSComponentBinding<TComponent> binding = new AGSComponentBinding<TComponent>(this, onAdded, onRemoved, _componentsInitialized);
+            AGSComponentBinding<TComponent> binding = new AGSComponentBinding<TComponent>(this, onAdded, onRemoved);
             bindings.Add(binding);
             return binding;
         }
@@ -210,7 +211,7 @@ namespace AGS.Engine
 
         private void initComponentIfNeeded(API.IComponent component)
         {
-            if (!_componentsInitialized) return;
+            if (!ComponentsInitialized) return;
             component.Init(this);
             component.AfterInit();
             OnComponentsChanged.Invoke(new AGSListChangedEventArgs<API.IComponent>(ListChangeType.Add,

@@ -9,26 +9,29 @@ namespace AGS.Engine
 	public class AGSGameLoop : IGameLoop
 	{
 		private readonly IGameState _gameState;
-		private AGS.API.Size _virtualResolution;
+		private readonly AGS.API.Size _virtualResolution;
 		private IRoom _lastRoom;
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly IGameEvents _events;
         private int _inUpdate; //For preventing re-entrancy
         private readonly IDisplayList _displayList;
+        private readonly IInput _input;
 
 		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution, 
-                            IAGSRoomTransitions roomTransitions, IGameEvents events, IDisplayList displayList)
+                            IAGSRoomTransitions roomTransitions, IGameEvents events, 
+                            IDisplayList displayList, IInput input)
 		{
             _displayList = displayList;
 			_gameState = gameState;
             _events = events;
 			_virtualResolution = virtualResolution;
 			_roomTransitions = roomTransitions;
+            _input = input;
 		}
 
 		#region IGameLoop implementation
 
-		public virtual async Task UpdateAsync()
+		public void Update()
 		{
             if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
             try
@@ -47,21 +50,21 @@ namespace AGS.Engine
                             updateViewports(changedRoom);
                             _events.OnRoomChanging.Invoke();
                             if (_lastRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
-                            else _roomTransitions.State = RoomTransitionState.PreparingNewRoomDisplayList;
+                            else
+                            {
+                                _displayList.Update();
+                                updateViewports(changedRoom);
+                                _roomTransitions.State = RoomTransitionState.PreparingNewRoomRendering;
+                            }
                         }
-                    }
-                    else if (_roomTransitions.State == RoomTransitionState.PreparingNewRoomDisplayList)
-                    {
-                        _displayList.Update();
-                        updateViewports(changedRoom);
-                        _roomTransitions.State = RoomTransitionState.InTransition;
                     }
                     return;
                 }
 
                 updateViewports(changedRoom);
                 _displayList.Update();
-                await updateRoom(room);
+                updateCursor();
+                updateRoom(room);
             }
             finally
             {
@@ -104,11 +107,22 @@ namespace AGS.Engine
 			}
 		}
 
-		private async Task updateRoom(IRoom room)
+        private void updateCursor()
+        {
+            IObject cursor = _input.Cursor;
+            if (cursor == null) return;
+            var viewport = _gameState.Viewport;
+            cursor.X = _input.MousePosition.XMainViewport;
+            cursor.Y = _input.MousePosition.YMainViewport;
+            cursor.GetModelMatrices();
+            cursor.GetBoundingBoxes(viewport);
+        }
+
+		private void updateRoom(IRoom room)
 		{
 			if (_lastRoom == room) return;
             _lastRoom = room;
-            await room.Events.OnAfterFadeIn.InvokeAsync();
+            room.Events.OnAfterFadeIn.InvokeAsync();
 		}
 
 		private void runAnimation(IAnimation animation)

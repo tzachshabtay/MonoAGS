@@ -33,7 +33,7 @@ namespace AGS.Engine
 
 		#region IRoomTransition implementation
 
-		public bool RenderBeforeLeavingRoom(List<IObject> displayList, Action<IObject> renderObj)
+		public bool RenderBeforeLeavingRoom(List<IObject> displayList)
 		{
 			_tweenWidth = Tween.RunWithExternalVisit(0f, _screenWidth, f => _boxWidth = f, _timeInSeconds, _easingBoxOut, out _visitTweenWidth);
 			Tween.RunWithExternalVisit(0f, _screenHeight, f => _boxHeight = f, _timeInSeconds, _easingBoxOut, out _visitTweenHeight);
@@ -79,7 +79,7 @@ namespace AGS.Engine
 			return true;
 		}
 
-		public bool RenderAfterEnteringRoom(List<IObject> displayList, Action<IObject> renderObj)
+		public bool RenderAfterEnteringRoom(List<IObject> displayList)
 		{
 			return false;
 		}

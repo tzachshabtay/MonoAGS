@@ -79,10 +79,6 @@ namespace AGS.Engine
         [ProtoMember(20)]
         public Contract<IImage> Image { get; set; }
 
-        //todo: support custom renderer deserialization
-        [ProtoMember(21)]
-        public string CustomRenderer { get; set; }
-
         //todo: save object's previous room
 
         #region IContract implementation
@@ -165,7 +161,6 @@ namespace AGS.Engine
             ScaleY = item.ScaleY;
             IsPixelPerfect = item.IsPixelPerfect;
             Location = new Tuple<float, float, float>(item.X, item.Y, item.Z);
-            CustomRenderer = item.CustomRenderer == null ? null : item.CustomRenderer.GetType().Name;
         }
 
 		#endregion
