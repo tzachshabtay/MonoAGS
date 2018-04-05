@@ -281,6 +281,7 @@
     <Compile Include="Graphics\Logic\IRenderer.cs" />
     <Compile Include="Graphics\Logic\IRenderPipeline.cs" />
     <Compile Include="Graphics\IBorderComponent.cs" />
+    <Compile Include="Objects\Interactions\IDefaultInteractions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

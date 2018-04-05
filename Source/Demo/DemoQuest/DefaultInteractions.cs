@@ -31,7 +31,7 @@ namespace DemoGame
 
 		private void subscribeDefaultInventoryCombination()
 		{
-			_game.State.Player.Inventory.OnDefaultCombination.SubscribeToAsync(onInventoryCombination);
+            _game.Events.DefaultInteractions.OnInventoryCombination.SubscribeToAsync(onInventoryCombination);
 		}
 
 		private async Task onLook(ObjectEventArgs args)
@@ -76,4 +76,3 @@ namespace DemoGame
         }
 	}
 }
-

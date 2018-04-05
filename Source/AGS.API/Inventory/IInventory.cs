@@ -42,51 +42,7 @@ namespace AGS.API
         /// <value>
         /// The inventory items.
         /// </value>
-        IList<IInventoryItem> Items { get; }
-
-        /// <summary>
-        /// Called when one inventory item is combined with another.        
-        /// </summary>
-        /// <param name="item1">The "active" inventory item (the item that the character is currently "holding").</param>
-        /// <param name="item2">The "passive" inventory item (the item we're using the "active" item on).</param>
-        /// <returns>The event to subscribe.</returns>
-        /// <example>
-        /// First, we subscribe to the event:
-        /// <code language="lang-csharp">
-        /// cEgo.Inventory.OnCombination(iScissors, iRope).Subscribe(cutRope);
-        /// cEgo.Inventory.OnCombination(iRope, iScissors).Subscribe(cutRope); //Assuming we want a symmetrical combination, we don't care which item is used on which
-        /// </code>
-        /// Then, we define the event (we describe what happens when using the scissors and the rope together:
-        /// <code language="lang-csharp">
-        /// private void cutRope(object sender, InventoryCombinationEventArgs args)
-        /// {
-        ///     displayCutRopeAnimation();
-        ///     cEgo.Inventory.Items.Remove(iRope); //No more rope for us!
-        /// }
-        /// </code>
-        /// </example>
-        IEvent<InventoryCombinationEventArgs> OnCombination(IInventoryItem item1, IInventoryItem item2);
-
-        /// <summary>
-        /// Called when two inventory items are combined when there is no combination event subscribed specifically for them.
-        /// </summary>
-        /// <value>
-        /// The default combination event.
-        /// </value>
-        /// <example>
-        /// First, we subscribe to the event:
-        /// <code language="lang-csharp">
-        /// cEgo.Inventory.OnDefaultCombination.Subscribe(onDefaultCombination);
-        /// </code>
-        /// Then, we define the event (what do we do when the user tried to combine two random items?):
-        /// <code language="lang-csharp">
-        /// private void onDefaultCombination(object sender, InventoryCombinationEventArgs args)
-        /// {
-        ///     cEgo.Say(string.Format("I can't use {0} on {1}. It doesn't make sense!", args.ActiveItem.Graphics.Hotspot, args.PassiveItem.Graphics.Hotspot));
-        /// }
-        /// </code>
-        /// </example>
-        IEvent<InventoryCombinationEventArgs> OnDefaultCombination { get; }
+        IAGSBindingList<IInventoryItem> Items { get; }
 	}
 }
 

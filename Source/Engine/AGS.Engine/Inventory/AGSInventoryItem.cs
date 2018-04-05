@@ -1,13 +1,15 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
     [PropertyFolder]
 	public class AGSInventoryItem : IInventoryItem
 	{
-		public AGSInventoryItem()
+        private readonly InventorySubscriptions _subscriptions;
+
+        public AGSInventoryItem(InventorySubscriptions subscriptions)
 		{
+            _subscriptions = subscriptions;
 			Qty = 1f;
 		}
 
@@ -21,12 +23,16 @@ namespace AGS.Engine
 
 		public bool ShouldInteract { get; set; }
 
-		#endregion
+        public IEvent<InventoryCombinationEventArgs> OnCombination(IInventoryItem otherItem)
+        {
+            return _subscriptions.Subscribe(this, otherItem);
+        }
 
-		public override string ToString()
+        #endregion
+
+        public override string ToString()
 		{
 			return $"Inventory Item: {Graphics.GetFriendlyName() ?? Graphics.ToString()}";
 		}
 	}
 }
-

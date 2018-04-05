@@ -168,9 +168,8 @@ namespace AGS.Engine
 						                              i => i.Graphics == hotspot);
 					if (inventoryItem != null)
 					{
-						await state.Player.Inventory.OnCombination(state.Player.Inventory.ActiveItem,
-							inventoryItem).InvokeAsync(new InventoryCombinationEventArgs (
-							state.Player.Inventory.ActiveItem, inventoryItem));
+                        var activeItem = state.Player.Inventory.ActiveItem;
+                        await activeItem.OnCombination(inventoryItem).InvokeAsync(new InventoryCombinationEventArgs(activeItem, inventoryItem));
 					}
 					return;
 				}
