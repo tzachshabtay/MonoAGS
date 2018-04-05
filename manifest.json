@@ -1010,6 +1010,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.IDefaultInteractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.IDefaultInteractions.html",
+          "hash": "YKxvUIX1ACki9IDVcR4aVA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AGS.API.IDepthClipping.yml",
       "output": {
         ".html": {
@@ -1326,7 +1338,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IGameEvents.html",
-          "hash": "NpvG4avNstW6dHuw738MyA=="
+          "hash": "CPJVnqv0Y+PbSBqB9eERSQ=="
         }
       },
       "is_incremental": false,
@@ -1578,7 +1590,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IInventory.html",
-          "hash": "1QtGro3y7P0nZSqZ3VJpNw=="
+          "hash": "4rEBSH8k0PIRlj7Fy3ZlBA=="
         }
       },
       "is_incremental": false,
@@ -1614,7 +1626,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IInventoryItem.html",
-          "hash": "zOwjnv2J3X4PNwDSzh238Q=="
+          "hash": "6EqEgr6U8mIK5oFVpAHhiA=="
         }
       },
       "is_incremental": false,
@@ -3510,7 +3522,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.html",
-          "hash": "1jMlrT+EmRrTT9pyTQvFiQ=="
+          "hash": "cHU7gwdmL+BYhoBw31U/iA=="
         }
       },
       "is_incremental": false,
@@ -3522,7 +3534,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "0/9B4T+xYwpJwy5xrYBM3w=="
+          "hash": "Vv8G2eoVZ2LTdJ8VJXKo6Q=="
         }
       },
       "is_incremental": false,
@@ -3930,22 +3942,22 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ResourceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }
