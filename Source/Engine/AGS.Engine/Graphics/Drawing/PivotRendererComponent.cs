@@ -3,25 +3,28 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-    [RequiredComponent(typeof(IWorldPositionComponent))]
+    [RequiredComponent(typeof(IBoundingBoxComponent))]
+    [RequiredComponent(typeof(IImageComponent))]
     public class PivotRendererComponent : AGSComponent, IRenderer
     {
-        private readonly IGLUtils _utils;
         private readonly IAGSRenderPipeline _pipeline;
-        private IWorldPositionComponent _worldPosition;
+        private readonly ObjectPool<Instruction> _pool;
+        private IBoundingBoxComponent _boundingBox;
+        private IImageComponent _image;
         private IEntity _entity;
 
         public PivotRendererComponent(IGLUtils utils, IAGSRenderPipeline pipeline)
         {
-            _utils = utils;
             _pipeline = pipeline;
+            _pool = new ObjectPool<Instruction>(pool => new Instruction(pool, utils), 2);
         }
 
 		public override void Init(IEntity entity)
 		{
             base.Init(entity);
             _entity = entity;
-            entity.Bind<IWorldPositionComponent>(c => _worldPosition = c, _ => _worldPosition = null);
+            entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
+            entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
             _pipeline.Subscribe(entity.ID, this, -200);
 		}
 
@@ -35,23 +38,45 @@ namespace AGS.Engine
 
 		public IRenderInstruction GetNextInstruction(IViewport viewport)
         {
-            var worldPosition = _worldPosition;
-            if (worldPosition == null) return null;
-            return new Instruction { XY = worldPosition.WorldXY, Utils = _utils };
+            var boxComponent = _boundingBox;
+            if (boxComponent == null) return null;
+            var image = _image;
+            if (image == null) return null;
+            var pivot = _image.Pivot;
+            var box = boxComponent.GetBoundingBoxes(viewport).ViewportBox;
+            var viewX = MathUtils.Lerp(0f, box.MinX, 1f, box.MaxX, pivot.X);
+            var viewY = MathUtils.Lerp(0f, box.MinY, 1f, box.MaxY, pivot.Y);
+            var instruction = _pool.Acquire();
+            instruction.Setup(viewX, viewY);
+            return instruction;
         }
 
         private class Instruction : IRenderInstruction
         {
-            public PointF XY { get; set; }
-            public IGLUtils Utils { get; set; }
+            private readonly ObjectPool<Instruction> _pool;
+            private readonly IGLUtils _utils;
+            private float _x, _y;
+
+            public Instruction(ObjectPool<Instruction> pool, IGLUtils utils)
+            {
+                _pool = pool;
+                _utils = utils;
+            }
+
+            public void Setup(float x, float y)
+            {
+                _x = x;
+                _y = y;
+            }
 
             public void Release()
             {
+                _pool.Release(this);
             }
 
             public void Render()
             {
-                Utils.DrawCross(XY.X, XY.Y, 5f, 5f, 1f, 1f, 1f, 1f);
+                _utils.DrawCross(_x, _y, 5f, 5f, 1f, 1f, 1f, 1f);
             }
         }
     }
