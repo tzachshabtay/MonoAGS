@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class NodeEventArgs
+    <title>Interface IRenderInstruction
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class NodeEventArgs
+    <meta name="title" content="Interface IRenderInstruction
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.34.0.0">
     
@@ -76,119 +76,63 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.NodeEventArgs">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IRenderInstruction">
   
   
-  <h1 id="AGS_API_NodeEventArgs" data-uid="AGS.API.NodeEventArgs" class="text-break">Class NodeEventArgs
+  <h1 id="AGS_API_IRenderInstruction" data-uid="AGS.API.IRenderInstruction" class="text-break">Interface IRenderInstruction
   </h1>
-  <div class="markdown level0 summary"><p>Event arguments which contain a tree node.</p>
+  <div class="markdown level0 summary"><p>A render instruction represents an instruction to draw something.
+It is created on demand by renderers, and used by the rendering loop to draw on the screen on each game tick.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">NodeEventArgs</span></div>
-  </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetHashCode()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_NodeEventArgs_syntax">Syntax</h5>
+  <h5 id="AGS_API_IRenderInstruction_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class NodeEventArgs</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IRenderInstruction</code></pre>
   </div>
-  <h3 id="constructors">Constructors
+  <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Rendering/apiSpec/new?filename=AGS_API_NodeEventArgs__ctor_AGS_API_ITreeStringNode_.md&amp;value=---%0Auid%3A%20AGS.API.NodeEventArgs.%23ctor(AGS.API.ITreeStringNode)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Rendering/apiSpec/new?filename=AGS_API_IRenderInstruction_Release.md&amp;value=---%0Auid%3A%20AGS.API.IRenderInstruction.Release%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Rendering/Source/AGS.API/UI/Controls/Tree/NodeEventArgs.cs/#L12">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Rendering/Source/AGS.API/Graphics/Logic/IRenderInstruction.cs/#L23">View Source</a>
   </span>
-  <a id="AGS_API_NodeEventArgs__ctor_" data-uid="AGS.API.NodeEventArgs.#ctor*"></a>
-  <h4 id="AGS_API_NodeEventArgs__ctor_AGS_API_ITreeStringNode_" data-uid="AGS.API.NodeEventArgs.#ctor(AGS.API.ITreeStringNode)">NodeEventArgs(ITreeStringNode)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a> class.</p>
+  <a id="AGS_API_IRenderInstruction_Release_" data-uid="AGS.API.IRenderInstruction.Release*"></a>
+  <h4 id="AGS_API_IRenderInstruction_Release" data-uid="AGS.API.IRenderInstruction.Release">Release()</h4>
+  <div class="markdown level1 summary"><p>After the rendering instruction has completed, the rendering loop tells the render instruction that it&apos;s
+not needed anymore by calling the &quot;Release&quot; function. 
+The instruction can then recycle itself (if object pooling is used) to reduce memory allocations.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public NodeEventArgs(ITreeStringNode node)</code></pre>
+    <pre><code class="lang-csharp hljs">void Release()</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.ITreeStringNode.html">ITreeStringNode</a></td>
-        <td><span class="parametername">node</span></td>
-        <td><p>Node.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-  </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/Rendering/apiSpec/new?filename=AGS_API_NodeEventArgs_Node.md&amp;value=---%0Auid%3A%20AGS.API.NodeEventArgs.Node%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/Rendering/apiSpec/new?filename=AGS_API_IRenderInstruction_Render.md&amp;value=---%0Auid%3A%20AGS.API.IRenderInstruction.Render%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Rendering/Source/AGS.API/UI/Controls/Tree/NodeEventArgs.cs/#L21">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Rendering/Source/AGS.API/Graphics/Logic/IRenderInstruction.cs/#L16">View Source</a>
   </span>
-  <a id="AGS_API_NodeEventArgs_Node_" data-uid="AGS.API.NodeEventArgs.Node*"></a>
-  <h4 id="AGS_API_NodeEventArgs_Node" data-uid="AGS.API.NodeEventArgs.Node">Node</h4>
-  <div class="markdown level1 summary"><p>Gets the node.</p>
+  <a id="AGS_API_IRenderInstruction_Render_" data-uid="AGS.API.IRenderInstruction.Render*"></a>
+  <h4 id="AGS_API_IRenderInstruction_Render" data-uid="AGS.API.IRenderInstruction.Render">Render()</h4>
+  <div class="markdown level1 summary"><p>Draw something.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ITreeStringNode Node { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">void Render()</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.ITreeStringNode.html">ITreeStringNode</a></td>
-        <td><p>The node.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="AGS.API.IRenderPipeline.html">IRenderPipeline</a></div>
+      <div><a class="xref" href="AGS.API.IRenderer.html">IRenderer</a></div>
+      <div><a class="xref" href="AGS.API.IRendererLoop.html">IRendererLoop</a></div>
+  </div>
 </article>
           </div>
           
@@ -197,10 +141,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Rendering/apiSpec/new?filename=AGS_API_NodeEventArgs.md&amp;value=---%0Auid%3A%20AGS.API.NodeEventArgs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Rendering/apiSpec/new?filename=AGS_API_IRenderInstruction.md&amp;value=---%0Auid%3A%20AGS.API.IRenderInstruction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Rendering/Source/AGS.API/UI/Controls/Tree/NodeEventArgs.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Rendering/Source/AGS.API/Graphics/Logic/IRenderInstruction.cs/#L11" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

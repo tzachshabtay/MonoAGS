@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IUIControl
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.33.1.0">
+    <meta name="generator" content="docfx 2.34.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -170,6 +170,9 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Count">IComponentsCollection.Count</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_ComponentsInitialized">IComponentsCollection.ComponentsInitialized</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_OnComponentsInitialized">IComponentsCollection.OnComponentsInitialized</a>
     </div>
     <div>
@@ -245,16 +248,16 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
       <a class="xref" href="AGS.API.IShaderComponent.html#AGS_API_IShaderComponent_Shader">IShaderComponent.Shader</a>
     </div>
     <div>
+      <a class="xref" href="AGS.API.IImageComponent.html#AGS_API_IImageComponent_IsImageVisible">IImageComponent.IsImageVisible</a>
+    </div>
+    <div>
       <a class="xref" href="AGS.API.IImageComponent.html#AGS_API_IImageComponent_CurrentSprite">IImageComponent.CurrentSprite</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IImageComponent.html#AGS_API_IImageComponent_SpriteProvider">IImageComponent.SpriteProvider</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IImageComponent.html#AGS_API_IImageComponent_DebugDrawPivot">IImageComponent.DebugDrawPivot</a>
-    </div>
-    <div>
-      <a class="xref" href="AGS.API.IImageComponent.html#AGS_API_IImageComponent_Border">IImageComponent.Border</a>
+      <a class="xref" href="AGS.API.IBorderComponent.html#AGS_API_IBorderComponent_Border">IBorderComponent.Border</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IPixelPerfectComponent.html#AGS_API_IPixelPerfectComponent_IsPixelPerfect">IPixelPerfectComponent.IsPixelPerfect</a>
@@ -326,9 +329,6 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
       <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Image">IHasImage.Image</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_CustomRenderer">IHasImage.CustomRenderer</a>
-    </div>
-    <div>
       <a class="xref" href="AGS.API.IModelMatrixComponent.html#AGS_API_IModelMatrixComponent_GetModelMatrices">IModelMatrixComponent.GetModelMatrices()</a>
     </div>
     <div>
@@ -378,7 +378,7 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IUIControl_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IUIControl : IUIEvents, ISkinComponent, IObject, IEntity, IComponentsCollection, IEnumerable&lt;IComponent&gt;, IEnumerable, IHasRoomComponent, IAnimationComponent, IInObjectTreeComponent, IInTree&lt;IObject&gt;, IColliderComponent, IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfoComponent, IShaderComponent, ITranslateComponent, IImageComponent, IScaleComponent, IRotateComponent, IPixelPerfectComponent, IPixelPerfectCollidable, IHasModelMatrix, IScale, IRotate, ITranslate, IHasImage, IModelMatrixComponent, IBoundingBoxComponent, IWorldPositionComponent, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IUIControl : IUIEvents, ISkinComponent, IObject, IEntity, IComponentsCollection, IEnumerable&lt;IComponent&gt;, IEnumerable, IHasRoomComponent, IAnimationComponent, IInObjectTreeComponent, IInTree&lt;IObject&gt;, IColliderComponent, IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfoComponent, IShaderComponent, ITranslateComponent, IImageComponent, IBorderComponent, IScaleComponent, IRotateComponent, IPixelPerfectComponent, IPixelPerfectCollidable, IHasModelMatrix, IScale, IRotate, ITranslate, IHasImage, IModelMatrixComponent, IBoundingBoxComponent, IWorldPositionComponent, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
 </article>
           </div>
@@ -388,10 +388,10 @@ All other GUIs (buttons, checkboxes, textboxes, etc) are also a UI control.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IUIControl.md&amp;value=---%0Auid%3A%20AGS.API.IUIControl%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/Rendering/apiSpec/new?filename=AGS_API_IUIControl.md&amp;value=---%0Auid%3A%20AGS.API.IUIControl%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/UI/Controls/IUIControl.cs/#L75" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/Rendering/Source/AGS.API/UI/Controls/IUIControl.cs/#L75" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
