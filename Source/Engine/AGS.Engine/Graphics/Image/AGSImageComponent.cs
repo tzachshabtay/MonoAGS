@@ -17,10 +17,11 @@ namespace AGS.Engine
         private IEntity _entity;
         private IBoundingBoxComponent _boundingBox;
         private readonly Func<string, ITexture> _getTextureFunc;
-        private readonly IGLTextureRenderer _renderer;
         private readonly ITextureCache _textures;
         private readonly IHasImage[] _colorAdjusters;
         private readonly IGLColorBuilder _colorBuilder;
+        private readonly ObjectPool<Instruction> _instructionPool;
+        private readonly ObjectPool<AGSBoundingBoxes> _boxesPool;
 
         public AGSImageComponent(IHasImage image, IGraphicsFactory factory, IRenderPipeline pipeline, 
                                  IGLTextureRenderer renderer, ITextureCache textures, 
@@ -30,12 +31,13 @@ namespace AGS.Engine
             _getTextureFunc = textureFactory.CreateTexture;  //Creating a delegate in advance to avoid memory allocations on critical path
             _textures = textures;
             _colorBuilder = colorBuilder;
-            _renderer = renderer;
             _image = image;
             _factory = factory;
             _colorAdjusters = new IHasImage[2];
             _image.PropertyChanged += onPropertyChanged;
             _pipeline = pipeline;
+            _boxesPool = new ObjectPool<AGSBoundingBoxes>(_ => new AGSBoundingBoxes(), 2);
+            _instructionPool = new ObjectPool<Instruction>(instructionPool => new Instruction(instructionPool, _boxesPool, renderer), 2);
         }
 
         public bool IsImageVisible { get; set; }
@@ -141,29 +143,52 @@ namespace AGS.Engine
             {
                 return null;
             }
-            boundingBoxes = new AGSBoundingBoxes { TextureBox = boundingBoxes.TextureBox, ViewportBox = boundingBoxes.ViewportBox };
+            var clonedBoxes = _boxesPool.Acquire();
+            clonedBoxes.TextureBox = boundingBoxes.TextureBox;
+            clonedBoxes.ViewportBox = boundingBoxes.ViewportBox;
             ITexture texture = _textures.GetTexture(sprite.Image.ID, _getTextureFunc);
 
             _colorAdjusters[0] = sprite;
             _colorAdjusters[1] = this;
             IGLColor color = _colorBuilder.Build(_colorAdjusters);
-            return new Instruction { Renderer = _renderer, Boxes = boundingBoxes, Color = color, Texture = texture };
+            var instruction = _instructionPool.Acquire();
+            instruction.Setup(texture, clonedBoxes, color);
+            return instruction;
         }
 
         private class Instruction : IRenderInstruction
         {
-            public IGLTextureRenderer Renderer { get; set; }
-            public ITexture Texture { get; set; }
-            public AGSBoundingBoxes Boxes { get; set; }
-            public IGLColor Color { get; set; }
+            private readonly ObjectPool<Instruction> _instructionPool;
+            private readonly ObjectPool<AGSBoundingBoxes> _boxesPool;
+            private readonly IGLTextureRenderer _renderer;
+
+            private ITexture _texture;
+            private AGSBoundingBoxes _boxes;
+            private IGLColor _color;
+
+            public Instruction(ObjectPool<Instruction> instructionPool, ObjectPool<AGSBoundingBoxes> boxesPool, IGLTextureRenderer renderer)
+            {
+                _instructionPool = instructionPool;
+                _boxesPool = boxesPool;
+                _renderer = renderer;
+            }
+
+            public void Setup(ITexture texture, AGSBoundingBoxes boxes, IGLColor color)
+            {
+                _texture = texture;
+                _boxes = boxes;
+                _color = color;
+            }
 
             public void Release()
             {
+                _boxesPool.Release(_boxes);
+                _instructionPool.Release(this);
             }
 
             public void Render()
             {
-                Renderer.Render(Texture.ID, Boxes, Color);
+                _renderer.Render(_texture.ID, _boxes, _color);
             }
         }
     }

@@ -35,11 +35,9 @@ namespace AGS.Engine
         private readonly IFontLoader _fonts;
         private readonly BoundingBoxesEmptyBuilder _labelBoundingBoxFakeBuilder;
         private readonly IRuntimeSettings _settings;
+        private readonly ObjectPool<Instruction> _instructionPool;
         private float _lastWidth = 1f, _lastHeight = 1f;
 
-        private readonly IGLUtils _glUtils;
-        private readonly IGLColorBuilder _colorBuilder;
-        private readonly IGLTextureRenderer _textureRenderer;
         private IDrawableInfoComponent _drawable;
         private ICropSelfComponent _cropSelf;
 
@@ -58,11 +56,9 @@ namespace AGS.Engine
             _matricesPool = new GLMatrices[3];
             _messagePump = messagePump;
             OnLabelSizeChanged = new AGSEvent();
-            _glUtils = glUtils;
             _graphics = graphics;
             _fonts = fonts;
             _bitmapPool = bitmapPool;
-            _textureRenderer = textureRenderer;
             _labelBoundingBoxes = labelBoundingBoxes;
             _textBoundingBoxes = textBoundingBoxes;
             _boundingBoxBuilder = boundingBoxBuilder;
@@ -70,7 +66,8 @@ namespace AGS.Engine
             _settings = settings;
             _labelBoundingBoxFakeBuilder = new BoundingBoxesEmptyBuilder();
 
-            _colorBuilder = colorBuilder;
+            var white = colorBuilder.Build(Colors.White);
+            _instructionPool = new ObjectPool<Instruction>(pool => new Instruction(pool, white, glUtils, textureRenderer, _glTextHitTest), 0);
 
             TextVisible = true;
 
@@ -175,16 +172,9 @@ namespace AGS.Engine
             _afterCropTextBoundingBoxes.ViewportBox = cropInfo.BoundingBox;
             _afterCropTextBoundingBoxes.TextureBox = cropInfo.TextureBox;
 
-            return new Instruction
-            {
-                GLText = _glTextHitTest,
-                Resolution = resolution,
-                Color = _colorBuilder,
-                Utils = _glUtils,
-                AfterCropBoxes = _afterCropTextBoundingBoxes,
-                Renderer = _textureRenderer,
-                Box = _usedTextBoundingBoxes.ViewportBox
-            };
+            var instruction = _instructionPool.Acquire();
+            instruction.Setup(resolution, _afterCropTextBoundingBoxes);
+            return instruction;
         }
 
         public void PrepareTextBoundingBoxes()
@@ -450,29 +440,45 @@ namespace AGS.Engine
 
         private class Instruction : IRenderInstruction
         {
-            public GLText GLText { get; set; }
-            public Size Resolution { get; set; }
-            public IGLUtils Utils { get; set; }
-            public IGLColorBuilder Color { get; set; }
-            public AGSBoundingBoxes AfterCropBoxes { get; set; }
-            public IGLTextureRenderer Renderer { get; set; }
-            public AGSBoundingBox Box { get; set; }
+            private readonly IGLColor _white;
+            private readonly ObjectPool<Instruction> _instructionPool;
+            private readonly IGLUtils _utils;
+            private readonly IGLTextureRenderer _renderer;
+            private readonly GLText _text;
+
+            private Size _resolution;
+            private AGSBoundingBoxes _afterCropBoxes;
+
+            public Instruction(ObjectPool<Instruction> instructionPool, IGLColor white, IGLUtils utils, 
+                               IGLTextureRenderer renderer, GLText text)
+            {
+                _instructionPool = instructionPool;
+                _renderer = renderer;
+                _white = white;
+                _utils = utils;
+                _text = text;
+            }
+
+            public void Setup(Size resolution, AGSBoundingBoxes afterCropBoxes)
+            {
+                _resolution = resolution;
+                _afterCropBoxes = afterCropBoxes;
+            }
 
             public void Release()
             {
+                _instructionPool.Release(this);
             }
 
             public void Render()
             {
-                GLText.Refresh();
-                var currentResolution = Utils.CurrentResolution;
-                Utils.AdjustResolution(Resolution.Width, Resolution.Height);
+                _text.Refresh();
+                var currentResolution = _utils.CurrentResolution;
+                _utils.AdjustResolution(_resolution.Width, _resolution.Height);
 
-                IGLColor color = Color.Build(Colors.White);
+                _renderer.Render(_text.Texture, _afterCropBoxes, _white);
 
-                Renderer.Render(GLText.Texture, AfterCropBoxes, color);
-
-                Utils.AdjustResolution((int)currentResolution.Width, (int)currentResolution.Height);
+                _utils.AdjustResolution((int)currentResolution.Width, (int)currentResolution.Height);
             }
         }
 

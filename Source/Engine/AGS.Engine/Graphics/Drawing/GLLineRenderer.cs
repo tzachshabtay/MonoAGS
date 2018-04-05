@@ -5,15 +5,15 @@ namespace AGS.Engine
     [RequiredComponent(typeof(IDrawableInfoComponent), false)]
     public class GLLineRenderer : AGSComponent, IRenderer
 	{
-        private readonly IGLUtils _glUtils;
+        private readonly ObjectPool<Instruction> _pool;
         private IDrawableInfoComponent _drawable;
-        private IRenderPipeline _pipeline;
+        private readonly IRenderPipeline _pipeline;
         private IEntity _entity;
 
         public GLLineRenderer (IGLUtils glUtils, IRenderPipeline pipeline)
 		{
             _pipeline = pipeline;
-            _glUtils = glUtils;
+            _pool = new ObjectPool<Instruction>(pool => new Instruction(pool, glUtils), 2);
 		}
 
 		public override void Init(IEntity entity)
@@ -32,19 +32,14 @@ namespace AGS.Engine
             _pipeline.Unsubscribe(entity.ID, this);
 		}
 
-		public void Render (IObject obj, IViewport viewport)
-		{
-			float x1 = obj.IgnoreViewport ? X1 : X1 - viewport.X;
-			float x2 = obj.IgnoreViewport ? X2 : X2 - viewport.X;
-			_glUtils.DrawLine (x1, Y1, x2, Y2, 1f, 1f, 0f, 0f, 1f);
-		}
-
 		public IRenderInstruction GetNextInstruction(IViewport viewport)
         {
             bool ignoreViewport = _drawable?.IgnoreViewport ?? false;
             float x1 = ignoreViewport ? X1 : X1 - viewport.X;
             float x2 = ignoreViewport ? X2 : X2 - viewport.X;
-            return new Instruction { Utils = _glUtils, X1 = x1, X2 = x2, Y1 = Y1, Y2 = Y2 };
+            var instruction = _pool.Acquire();
+            instruction.Setup(x1, Y1, x2, Y2);
+            return instruction;
         }
 
         public float X1 { get; set; }
@@ -54,19 +49,32 @@ namespace AGS.Engine
 
         private class Instruction : IRenderInstruction
         {
-            public float X1 { get; set; }
-            public float Y1 { get; set; }
-            public float X2 { get; set; }
-            public float Y2 { get; set; }
-            public IGLUtils Utils { get; set; }
+            private readonly ObjectPool<Instruction> _pool;
+            private readonly IGLUtils _utils;
+            private float _x1, _y1, _x2, _y2;
+
+            public Instruction(ObjectPool<Instruction> pool, IGLUtils utils)
+            {
+                _pool = pool;
+                _utils = utils;
+            }
+
+            public void Setup(float x1, float y1, float x2, float y2)
+            {
+                _x1 = x1;
+                _y1 = y1;
+                _x2 = x2;
+                _y2 = y2;
+            }
 
             public void Release()
             {
+                _pool.Release(this);
             }
 
             public void Render()
             {
-                Utils.DrawLine(X1, Y1, X2, Y2, 1f, 1f, 0f, 0f, 1f);
+                _utils.DrawLine(_x1, _y1, _x2, _y2, 1f, 1f, 0f, 0f, 1f);
             }
         }
     }
