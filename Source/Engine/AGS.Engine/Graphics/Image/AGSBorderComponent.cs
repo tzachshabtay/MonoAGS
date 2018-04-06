@@ -59,6 +59,7 @@ namespace AGS.Engine
                 var boxComponent = _border._box;
                 if (boxComponent == null) return null;
                 var box = boxComponent.GetBoundingBoxes(viewport).ViewportBox;
+                if (!box.IsValid) return null;
                 if (box.BottomLeft.X > box.BottomRight.X) box = box.FlipHorizontal();
                 var instruction = _pool.Acquire();
                 instruction.Setup(border, box);
@@ -84,6 +85,7 @@ namespace AGS.Engine
                 var boxComponent = _border._box;
                 if (boxComponent == null) return null;
                 var box = boxComponent.GetBoundingBoxes(viewport).ViewportBox;
+                if (!box.IsValid) return null;
                 if (box.BottomLeft.X > box.BottomRight.X) box = box.FlipHorizontal();
                 var instruction = _pool.Acquire();
                 instruction.Setup(border, box);
