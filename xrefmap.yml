@@ -4000,25 +4000,6 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).WaitUntilAsync
   nameWithType: IBlockingEvent<TEventArgs>.WaitUntilAsync
   nameWithType.vb: IBlockingEvent(Of TEventArgs).WaitUntilAsync
-- uid: AGS.API.IBorderComponent
-  name: IBorderComponent
-  href: api/AGS.API.IBorderComponent.html
-  commentId: T:AGS.API.IBorderComponent
-  fullName: AGS.API.IBorderComponent
-  nameWithType: IBorderComponent
-- uid: AGS.API.IBorderComponent.Border
-  name: Border
-  href: api/AGS.API.IBorderComponent.html#AGS_API_IBorderComponent_Border
-  commentId: P:AGS.API.IBorderComponent.Border
-  fullName: AGS.API.IBorderComponent.Border
-  nameWithType: IBorderComponent.Border
-- uid: AGS.API.IBorderComponent.Border*
-  name: Border
-  href: api/AGS.API.IBorderComponent.html#AGS_API_IBorderComponent_Border_
-  commentId: Overload:AGS.API.IBorderComponent.Border
-  isSpec: "True"
-  fullName: AGS.API.IBorderComponent.Border
-  nameWithType: IBorderComponent.Border
 - uid: AGS.API.IBorderStyle
   name: IBorderStyle
   href: api/AGS.API.IBorderStyle.html
@@ -5052,19 +5033,6 @@ references:
   fullName.vb: AGS.API.IComponentsCollection.Bind(Of TComponent)(System.Action(Of TComponent), System.Action(Of TComponent))
   nameWithType: IComponentsCollection.Bind<TComponent>(Action<TComponent>, Action<TComponent>)
   nameWithType.vb: IComponentsCollection.Bind(Of TComponent)(Action(Of TComponent), Action(Of TComponent))
-- uid: AGS.API.IComponentsCollection.ComponentsInitialized
-  name: ComponentsInitialized
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_ComponentsInitialized
-  commentId: P:AGS.API.IComponentsCollection.ComponentsInitialized
-  fullName: AGS.API.IComponentsCollection.ComponentsInitialized
-  nameWithType: IComponentsCollection.ComponentsInitialized
-- uid: AGS.API.IComponentsCollection.ComponentsInitialized*
-  name: ComponentsInitialized
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_ComponentsInitialized_
-  commentId: Overload:AGS.API.IComponentsCollection.ComponentsInitialized
-  isSpec: "True"
-  fullName: AGS.API.IComponentsCollection.ComponentsInitialized
-  nameWithType: IComponentsCollection.ComponentsInitialized
 - uid: AGS.API.IComponentsCollection.Count
   name: Count
   href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Count
@@ -5893,25 +5861,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ICutscene.Start
   nameWithType: ICutscene.Start
-- uid: AGS.API.IDefaultInteractions
-  name: IDefaultInteractions
-  href: api/AGS.API.IDefaultInteractions.html
-  commentId: T:AGS.API.IDefaultInteractions
-  fullName: AGS.API.IDefaultInteractions
-  nameWithType: IDefaultInteractions
-- uid: AGS.API.IDefaultInteractions.OnInventoryCombination
-  name: OnInventoryCombination
-  href: api/AGS.API.IDefaultInteractions.html#AGS_API_IDefaultInteractions_OnInventoryCombination
-  commentId: P:AGS.API.IDefaultInteractions.OnInventoryCombination
-  fullName: AGS.API.IDefaultInteractions.OnInventoryCombination
-  nameWithType: IDefaultInteractions.OnInventoryCombination
-- uid: AGS.API.IDefaultInteractions.OnInventoryCombination*
-  name: OnInventoryCombination
-  href: api/AGS.API.IDefaultInteractions.html#AGS_API_IDefaultInteractions_OnInventoryCombination_
-  commentId: Overload:AGS.API.IDefaultInteractions.OnInventoryCombination
-  isSpec: "True"
-  fullName: AGS.API.IDefaultInteractions.OnInventoryCombination
-  nameWithType: IDefaultInteractions.OnInventoryCombination
 - uid: AGS.API.IDepthClipping
   name: IDepthClipping
   href: api/AGS.API.IDepthClipping.html
@@ -6535,19 +6484,6 @@ references:
   commentId: T:AGS.API.IDisplayList
   fullName: AGS.API.IDisplayList
   nameWithType: IDisplayList
-- uid: AGS.API.IDisplayList.GetCursor
-  name: GetCursor()
-  href: api/AGS.API.IDisplayList.html#AGS_API_IDisplayList_GetCursor
-  commentId: M:AGS.API.IDisplayList.GetCursor
-  fullName: AGS.API.IDisplayList.GetCursor()
-  nameWithType: IDisplayList.GetCursor()
-- uid: AGS.API.IDisplayList.GetCursor*
-  name: GetCursor
-  href: api/AGS.API.IDisplayList.html#AGS_API_IDisplayList_GetCursor_
-  commentId: Overload:AGS.API.IDisplayList.GetCursor
-  isSpec: "True"
-  fullName: AGS.API.IDisplayList.GetCursor
-  nameWithType: IDisplayList.GetCursor
 - uid: AGS.API.IDisplayList.GetDisplayList(AGS.API.IViewport)
   name: GetDisplayList(IViewport)
   href: api/AGS.API.IDisplayList.html#AGS_API_IDisplayList_GetDisplayList_AGS_API_IViewport_
@@ -7785,19 +7721,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IGame.RenderLoop
   nameWithType: IGame.RenderLoop
-- uid: AGS.API.IGame.RenderPipeline
-  name: RenderPipeline
-  href: api/AGS.API.IGame.html#AGS_API_IGame_RenderPipeline
-  commentId: P:AGS.API.IGame.RenderPipeline
-  fullName: AGS.API.IGame.RenderPipeline
-  nameWithType: IGame.RenderPipeline
-- uid: AGS.API.IGame.RenderPipeline*
-  name: RenderPipeline
-  href: api/AGS.API.IGame.html#AGS_API_IGame_RenderPipeline_
-  commentId: Overload:AGS.API.IGame.RenderPipeline
-  isSpec: "True"
-  fullName: AGS.API.IGame.RenderPipeline
-  nameWithType: IGame.RenderPipeline
 - uid: AGS.API.IGame.SaveLoad
   name: SaveLoad
   href: api/AGS.API.IGame.html#AGS_API_IGame_SaveLoad
@@ -8128,19 +8051,19 @@ references:
   commentId: T:AGS.API.IGameLoop
   fullName: AGS.API.IGameLoop
   nameWithType: IGameLoop
-- uid: AGS.API.IGameLoop.Update
-  name: Update()
-  href: api/AGS.API.IGameLoop.html#AGS_API_IGameLoop_Update
-  commentId: M:AGS.API.IGameLoop.Update
-  fullName: AGS.API.IGameLoop.Update()
-  nameWithType: IGameLoop.Update()
-- uid: AGS.API.IGameLoop.Update*
-  name: Update
-  href: api/AGS.API.IGameLoop.html#AGS_API_IGameLoop_Update_
-  commentId: Overload:AGS.API.IGameLoop.Update
+- uid: AGS.API.IGameLoop.UpdateAsync
+  name: UpdateAsync()
+  href: api/AGS.API.IGameLoop.html#AGS_API_IGameLoop_UpdateAsync
+  commentId: M:AGS.API.IGameLoop.UpdateAsync
+  fullName: AGS.API.IGameLoop.UpdateAsync()
+  nameWithType: IGameLoop.UpdateAsync()
+- uid: AGS.API.IGameLoop.UpdateAsync*
+  name: UpdateAsync
+  href: api/AGS.API.IGameLoop.html#AGS_API_IGameLoop_UpdateAsync_
+  commentId: Overload:AGS.API.IGameLoop.UpdateAsync
   isSpec: "True"
-  fullName: AGS.API.IGameLoop.Update
-  nameWithType: IGameLoop.Update
+  fullName: AGS.API.IGameLoop.UpdateAsync
+  nameWithType: IGameLoop.UpdateAsync
 - uid: AGS.API.IGameSettings
   name: IGameSettings
   href: api/AGS.API.IGameSettings.html
@@ -8738,6 +8661,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IHasImage.Brightness
   nameWithType: IHasImage.Brightness
+- uid: AGS.API.IHasImage.CustomRenderer
+  name: CustomRenderer
+  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_CustomRenderer
+  commentId: P:AGS.API.IHasImage.CustomRenderer
+  fullName: AGS.API.IHasImage.CustomRenderer
+  nameWithType: IHasImage.CustomRenderer
+- uid: AGS.API.IHasImage.CustomRenderer*
+  name: CustomRenderer
+  href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_CustomRenderer_
+  commentId: Overload:AGS.API.IHasImage.CustomRenderer
+  isSpec: "True"
+  fullName: AGS.API.IHasImage.CustomRenderer
+  nameWithType: IHasImage.CustomRenderer
 - uid: AGS.API.IHasImage.Image
   name: Image
   href: api/AGS.API.IHasImage.html#AGS_API_IHasImage_Image
@@ -9094,6 +9030,19 @@ references:
   commentId: T:AGS.API.IImageComponent
   fullName: AGS.API.IImageComponent
   nameWithType: IImageComponent
+- uid: AGS.API.IImageComponent.Border
+  name: Border
+  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_Border
+  commentId: P:AGS.API.IImageComponent.Border
+  fullName: AGS.API.IImageComponent.Border
+  nameWithType: IImageComponent.Border
+- uid: AGS.API.IImageComponent.Border*
+  name: Border
+  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_Border_
+  commentId: Overload:AGS.API.IImageComponent.Border
+  isSpec: "True"
+  fullName: AGS.API.IImageComponent.Border
+  nameWithType: IImageComponent.Border
 - uid: AGS.API.IImageComponent.CurrentSprite
   name: CurrentSprite
   href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_CurrentSprite
@@ -9107,19 +9056,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IImageComponent.CurrentSprite
   nameWithType: IImageComponent.CurrentSprite
-- uid: AGS.API.IImageComponent.IsImageVisible
-  name: IsImageVisible
-  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_IsImageVisible
-  commentId: P:AGS.API.IImageComponent.IsImageVisible
-  fullName: AGS.API.IImageComponent.IsImageVisible
-  nameWithType: IImageComponent.IsImageVisible
-- uid: AGS.API.IImageComponent.IsImageVisible*
-  name: IsImageVisible
-  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_IsImageVisible_
-  commentId: Overload:AGS.API.IImageComponent.IsImageVisible
+- uid: AGS.API.IImageComponent.DebugDrawPivot
+  name: DebugDrawPivot
+  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_DebugDrawPivot
+  commentId: P:AGS.API.IImageComponent.DebugDrawPivot
+  fullName: AGS.API.IImageComponent.DebugDrawPivot
+  nameWithType: IImageComponent.DebugDrawPivot
+- uid: AGS.API.IImageComponent.DebugDrawPivot*
+  name: DebugDrawPivot
+  href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_DebugDrawPivot_
+  commentId: Overload:AGS.API.IImageComponent.DebugDrawPivot
   isSpec: "True"
-  fullName: AGS.API.IImageComponent.IsImageVisible
-  nameWithType: IImageComponent.IsImageVisible
+  fullName: AGS.API.IImageComponent.DebugDrawPivot
+  nameWithType: IImageComponent.DebugDrawPivot
 - uid: AGS.API.IImageComponent.SpriteProvider
   name: SpriteProvider
   href: api/AGS.API.IImageComponent.html#AGS_API_IImageComponent_SpriteProvider
@@ -9133,6 +9082,64 @@ references:
   isSpec: "True"
   fullName: AGS.API.IImageComponent.SpriteProvider
   nameWithType: IImageComponent.SpriteProvider
+- uid: AGS.API.IImageRenderer
+  name: IImageRenderer
+  href: api/AGS.API.IImageRenderer.html
+  commentId: T:AGS.API.IImageRenderer
+  fullName: AGS.API.IImageRenderer
+  nameWithType: IImageRenderer
+- uid: AGS.API.IImageRenderer.CustomImageResolutionFactor
+  name: CustomImageResolutionFactor
+  href: api/AGS.API.IImageRenderer.html#AGS_API_IImageRenderer_CustomImageResolutionFactor
+  commentId: P:AGS.API.IImageRenderer.CustomImageResolutionFactor
+  fullName: AGS.API.IImageRenderer.CustomImageResolutionFactor
+  nameWithType: IImageRenderer.CustomImageResolutionFactor
+- uid: AGS.API.IImageRenderer.CustomImageResolutionFactor*
+  name: CustomImageResolutionFactor
+  href: api/AGS.API.IImageRenderer.html#AGS_API_IImageRenderer_CustomImageResolutionFactor_
+  commentId: Overload:AGS.API.IImageRenderer.CustomImageResolutionFactor
+  isSpec: "True"
+  fullName: AGS.API.IImageRenderer.CustomImageResolutionFactor
+  nameWithType: IImageRenderer.CustomImageResolutionFactor
+- uid: AGS.API.IImageRenderer.CustomImageSize
+  name: CustomImageSize
+  href: api/AGS.API.IImageRenderer.html#AGS_API_IImageRenderer_CustomImageSize
+  commentId: P:AGS.API.IImageRenderer.CustomImageSize
+  fullName: AGS.API.IImageRenderer.CustomImageSize
+  nameWithType: IImageRenderer.CustomImageSize
+- uid: AGS.API.IImageRenderer.CustomImageSize*
+  name: CustomImageSize
+  href: api/AGS.API.IImageRenderer.html#AGS_API_IImageRenderer_CustomImageSize_
+  commentId: Overload:AGS.API.IImageRenderer.CustomImageSize
+  isSpec: "True"
+  fullName: AGS.API.IImageRenderer.CustomImageSize
+  nameWithType: IImageRenderer.CustomImageSize
+- uid: AGS.API.IImageRenderer.Prepare(AGS.API.IObject,AGS.API.IDrawableInfoComponent,AGS.API.IViewport)
+  name: Prepare(IObject, IDrawableInfoComponent, IViewport)
+  href: api/AGS.API.IImageRenderer.html#AGS_API_IImageRenderer_Prepare_AGS_API_IObject_AGS_API_IDrawableInfoComponent_AGS_API_IViewport_
+  commentId: M:AGS.API.IImageRenderer.Prepare(AGS.API.IObject,AGS.API.IDrawableInfoComponent,AGS.API.IViewport)
+  fullName: AGS.API.IImageRenderer.Prepare(AGS.API.IObject, AGS.API.IDrawableInfoComponent, AGS.API.IViewport)
+  nameWithType: IImageRenderer.Prepare(IObject, IDrawableInfoComponent, IViewport)
+- uid: AGS.API.IImageRenderer.Prepare*
+  name: Prepare
+  href: api/AGS.API.IImageRenderer.html#AGS_API_IImageRenderer_Prepare_
+  commentId: Overload:AGS.API.IImageRenderer.Prepare
+  isSpec: "True"
+  fullName: AGS.API.IImageRenderer.Prepare
+  nameWithType: IImageRenderer.Prepare
+- uid: AGS.API.IImageRenderer.Render(AGS.API.IObject,AGS.API.IViewport)
+  name: Render(IObject, IViewport)
+  href: api/AGS.API.IImageRenderer.html#AGS_API_IImageRenderer_Render_AGS_API_IObject_AGS_API_IViewport_
+  commentId: M:AGS.API.IImageRenderer.Render(AGS.API.IObject,AGS.API.IViewport)
+  fullName: AGS.API.IImageRenderer.Render(AGS.API.IObject, AGS.API.IViewport)
+  nameWithType: IImageRenderer.Render(IObject, IViewport)
+- uid: AGS.API.IImageRenderer.Render*
+  name: Render
+  href: api/AGS.API.IImageRenderer.html#AGS_API_IImageRenderer_Render_
+  commentId: Overload:AGS.API.IImageRenderer.Render
+  isSpec: "True"
+  fullName: AGS.API.IImageRenderer.Render
+  nameWithType: IImageRenderer.Render
 - uid: AGS.API.IInObjectTreeComponent
   name: IInObjectTreeComponent
   href: api/AGS.API.IInObjectTreeComponent.html
@@ -9384,6 +9391,32 @@ references:
   isSpec: "True"
   fullName: AGS.API.IInventory.Items
   nameWithType: IInventory.Items
+- uid: AGS.API.IInventory.OnCombination(AGS.API.IInventoryItem,AGS.API.IInventoryItem)
+  name: OnCombination(IInventoryItem, IInventoryItem)
+  href: api/AGS.API.IInventory.html#AGS_API_IInventory_OnCombination_AGS_API_IInventoryItem_AGS_API_IInventoryItem_
+  commentId: M:AGS.API.IInventory.OnCombination(AGS.API.IInventoryItem,AGS.API.IInventoryItem)
+  fullName: AGS.API.IInventory.OnCombination(AGS.API.IInventoryItem, AGS.API.IInventoryItem)
+  nameWithType: IInventory.OnCombination(IInventoryItem, IInventoryItem)
+- uid: AGS.API.IInventory.OnCombination*
+  name: OnCombination
+  href: api/AGS.API.IInventory.html#AGS_API_IInventory_OnCombination_
+  commentId: Overload:AGS.API.IInventory.OnCombination
+  isSpec: "True"
+  fullName: AGS.API.IInventory.OnCombination
+  nameWithType: IInventory.OnCombination
+- uid: AGS.API.IInventory.OnDefaultCombination
+  name: OnDefaultCombination
+  href: api/AGS.API.IInventory.html#AGS_API_IInventory_OnDefaultCombination
+  commentId: P:AGS.API.IInventory.OnDefaultCombination
+  fullName: AGS.API.IInventory.OnDefaultCombination
+  nameWithType: IInventory.OnDefaultCombination
+- uid: AGS.API.IInventory.OnDefaultCombination*
+  name: OnDefaultCombination
+  href: api/AGS.API.IInventory.html#AGS_API_IInventory_OnDefaultCombination_
+  commentId: Overload:AGS.API.IInventory.OnDefaultCombination
+  isSpec: "True"
+  fullName: AGS.API.IInventory.OnDefaultCombination
+  nameWithType: IInventory.OnDefaultCombination
 - uid: AGS.API.IInventoryComponent
   name: IInventoryComponent
   href: api/AGS.API.IInventoryComponent.html
@@ -9492,19 +9525,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IInventoryItem.Graphics
   nameWithType: IInventoryItem.Graphics
-- uid: AGS.API.IInventoryItem.OnCombination(AGS.API.IInventoryItem)
-  name: OnCombination(IInventoryItem)
-  href: api/AGS.API.IInventoryItem.html#AGS_API_IInventoryItem_OnCombination_AGS_API_IInventoryItem_
-  commentId: M:AGS.API.IInventoryItem.OnCombination(AGS.API.IInventoryItem)
-  fullName: AGS.API.IInventoryItem.OnCombination(AGS.API.IInventoryItem)
-  nameWithType: IInventoryItem.OnCombination(IInventoryItem)
-- uid: AGS.API.IInventoryItem.OnCombination*
-  name: OnCombination
-  href: api/AGS.API.IInventoryItem.html#AGS_API_IInventoryItem_OnCombination_
-  commentId: Overload:AGS.API.IInventoryItem.OnCombination
-  isSpec: "True"
-  fullName: AGS.API.IInventoryItem.OnCombination
-  nameWithType: IInventoryItem.OnCombination
 - uid: AGS.API.IInventoryItem.Qty
   name: Qty
   href: api/AGS.API.IInventoryItem.html#AGS_API_IInventoryItem_Qty
@@ -9659,6 +9679,168 @@ references:
   commentId: T:AGS.API.ILabel
   fullName: AGS.API.ILabel
   nameWithType: ILabel
+- uid: AGS.API.ILabelRenderer
+  name: ILabelRenderer
+  href: api/AGS.API.ILabelRenderer.html
+  commentId: T:AGS.API.ILabelRenderer
+  fullName: AGS.API.ILabelRenderer
+  nameWithType: ILabelRenderer
+- uid: AGS.API.ILabelRenderer.BaseSize
+  name: BaseSize
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_BaseSize
+  commentId: P:AGS.API.ILabelRenderer.BaseSize
+  fullName: AGS.API.ILabelRenderer.BaseSize
+  nameWithType: ILabelRenderer.BaseSize
+- uid: AGS.API.ILabelRenderer.BaseSize*
+  name: BaseSize
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_BaseSize_
+  commentId: Overload:AGS.API.ILabelRenderer.BaseSize
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.BaseSize
+  nameWithType: ILabelRenderer.BaseSize
+- uid: AGS.API.ILabelRenderer.CaretPosition
+  name: CaretPosition
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_CaretPosition
+  commentId: P:AGS.API.ILabelRenderer.CaretPosition
+  fullName: AGS.API.ILabelRenderer.CaretPosition
+  nameWithType: ILabelRenderer.CaretPosition
+- uid: AGS.API.ILabelRenderer.CaretPosition*
+  name: CaretPosition
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_CaretPosition_
+  commentId: Overload:AGS.API.ILabelRenderer.CaretPosition
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.CaretPosition
+  nameWithType: ILabelRenderer.CaretPosition
+- uid: AGS.API.ILabelRenderer.Config
+  name: Config
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_Config
+  commentId: P:AGS.API.ILabelRenderer.Config
+  fullName: AGS.API.ILabelRenderer.Config
+  nameWithType: ILabelRenderer.Config
+- uid: AGS.API.ILabelRenderer.Config*
+  name: Config
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_Config_
+  commentId: Overload:AGS.API.ILabelRenderer.Config
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.Config
+  nameWithType: ILabelRenderer.Config
+- uid: AGS.API.ILabelRenderer.Height
+  name: Height
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_Height
+  commentId: P:AGS.API.ILabelRenderer.Height
+  fullName: AGS.API.ILabelRenderer.Height
+  nameWithType: ILabelRenderer.Height
+- uid: AGS.API.ILabelRenderer.Height*
+  name: Height
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_Height_
+  commentId: Overload:AGS.API.ILabelRenderer.Height
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.Height
+  nameWithType: ILabelRenderer.Height
+- uid: AGS.API.ILabelRenderer.OnLabelSizeChanged
+  name: OnLabelSizeChanged
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_OnLabelSizeChanged
+  commentId: P:AGS.API.ILabelRenderer.OnLabelSizeChanged
+  fullName: AGS.API.ILabelRenderer.OnLabelSizeChanged
+  nameWithType: ILabelRenderer.OnLabelSizeChanged
+- uid: AGS.API.ILabelRenderer.OnLabelSizeChanged*
+  name: OnLabelSizeChanged
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_OnLabelSizeChanged_
+  commentId: Overload:AGS.API.ILabelRenderer.OnLabelSizeChanged
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.OnLabelSizeChanged
+  nameWithType: ILabelRenderer.OnLabelSizeChanged
+- uid: AGS.API.ILabelRenderer.RenderCaret
+  name: RenderCaret
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_RenderCaret
+  commentId: P:AGS.API.ILabelRenderer.RenderCaret
+  fullName: AGS.API.ILabelRenderer.RenderCaret
+  nameWithType: ILabelRenderer.RenderCaret
+- uid: AGS.API.ILabelRenderer.RenderCaret*
+  name: RenderCaret
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_RenderCaret_
+  commentId: Overload:AGS.API.ILabelRenderer.RenderCaret
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.RenderCaret
+  nameWithType: ILabelRenderer.RenderCaret
+- uid: AGS.API.ILabelRenderer.Text
+  name: Text
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_Text
+  commentId: P:AGS.API.ILabelRenderer.Text
+  fullName: AGS.API.ILabelRenderer.Text
+  nameWithType: ILabelRenderer.Text
+- uid: AGS.API.ILabelRenderer.Text*
+  name: Text
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_Text_
+  commentId: Overload:AGS.API.ILabelRenderer.Text
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.Text
+  nameWithType: ILabelRenderer.Text
+- uid: AGS.API.ILabelRenderer.TextBackgroundVisible
+  name: TextBackgroundVisible
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_TextBackgroundVisible
+  commentId: P:AGS.API.ILabelRenderer.TextBackgroundVisible
+  fullName: AGS.API.ILabelRenderer.TextBackgroundVisible
+  nameWithType: ILabelRenderer.TextBackgroundVisible
+- uid: AGS.API.ILabelRenderer.TextBackgroundVisible*
+  name: TextBackgroundVisible
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_TextBackgroundVisible_
+  commentId: Overload:AGS.API.ILabelRenderer.TextBackgroundVisible
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.TextBackgroundVisible
+  nameWithType: ILabelRenderer.TextBackgroundVisible
+- uid: AGS.API.ILabelRenderer.TextHeight
+  name: TextHeight
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_TextHeight
+  commentId: P:AGS.API.ILabelRenderer.TextHeight
+  fullName: AGS.API.ILabelRenderer.TextHeight
+  nameWithType: ILabelRenderer.TextHeight
+- uid: AGS.API.ILabelRenderer.TextHeight*
+  name: TextHeight
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_TextHeight_
+  commentId: Overload:AGS.API.ILabelRenderer.TextHeight
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.TextHeight
+  nameWithType: ILabelRenderer.TextHeight
+- uid: AGS.API.ILabelRenderer.TextVisible
+  name: TextVisible
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_TextVisible
+  commentId: P:AGS.API.ILabelRenderer.TextVisible
+  fullName: AGS.API.ILabelRenderer.TextVisible
+  nameWithType: ILabelRenderer.TextVisible
+- uid: AGS.API.ILabelRenderer.TextVisible*
+  name: TextVisible
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_TextVisible_
+  commentId: Overload:AGS.API.ILabelRenderer.TextVisible
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.TextVisible
+  nameWithType: ILabelRenderer.TextVisible
+- uid: AGS.API.ILabelRenderer.TextWidth
+  name: TextWidth
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_TextWidth
+  commentId: P:AGS.API.ILabelRenderer.TextWidth
+  fullName: AGS.API.ILabelRenderer.TextWidth
+  nameWithType: ILabelRenderer.TextWidth
+- uid: AGS.API.ILabelRenderer.TextWidth*
+  name: TextWidth
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_TextWidth_
+  commentId: Overload:AGS.API.ILabelRenderer.TextWidth
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.TextWidth
+  nameWithType: ILabelRenderer.TextWidth
+- uid: AGS.API.ILabelRenderer.Width
+  name: Width
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_Width
+  commentId: P:AGS.API.ILabelRenderer.Width
+  fullName: AGS.API.ILabelRenderer.Width
+  nameWithType: ILabelRenderer.Width
+- uid: AGS.API.ILabelRenderer.Width*
+  name: Width
+  href: api/AGS.API.ILabelRenderer.html#AGS_API_ILabelRenderer_Width_
+  commentId: Overload:AGS.API.ILabelRenderer.Width
+  isSpec: "True"
+  fullName: AGS.API.ILabelRenderer.Width
+  nameWithType: ILabelRenderer.Width
 - uid: AGS.API.IListboxComponent
   name: IListboxComponent
   href: api/AGS.API.IListboxComponent.html
@@ -10817,31 +10999,25 @@ references:
   isSpec: "True"
   fullName: AGS.API.IPortraitConfig.TextOffset
   nameWithType: IPortraitConfig.TextOffset
-- uid: AGS.API.IRenderer
-  name: IRenderer
-  href: api/AGS.API.IRenderer.html
-  commentId: T:AGS.API.IRenderer
-  fullName: AGS.API.IRenderer
-  nameWithType: IRenderer
-- uid: AGS.API.IRenderer.GetNextInstruction(AGS.API.IViewport)
-  name: GetNextInstruction(IViewport)
-  href: api/AGS.API.IRenderer.html#AGS_API_IRenderer_GetNextInstruction_AGS_API_IViewport_
-  commentId: M:AGS.API.IRenderer.GetNextInstruction(AGS.API.IViewport)
-  fullName: AGS.API.IRenderer.GetNextInstruction(AGS.API.IViewport)
-  nameWithType: IRenderer.GetNextInstruction(IViewport)
-- uid: AGS.API.IRenderer.GetNextInstruction*
-  name: GetNextInstruction
-  href: api/AGS.API.IRenderer.html#AGS_API_IRenderer_GetNextInstruction_
-  commentId: Overload:AGS.API.IRenderer.GetNextInstruction
-  isSpec: "True"
-  fullName: AGS.API.IRenderer.GetNextInstruction
-  nameWithType: IRenderer.GetNextInstruction
 - uid: AGS.API.IRendererLoop
   name: IRendererLoop
   href: api/AGS.API.IRendererLoop.html
   commentId: T:AGS.API.IRendererLoop
   fullName: AGS.API.IRendererLoop
   nameWithType: IRendererLoop
+- uid: AGS.API.IRendererLoop.OnBeforeRenderingDisplayList
+  name: OnBeforeRenderingDisplayList
+  href: api/AGS.API.IRendererLoop.html#AGS_API_IRendererLoop_OnBeforeRenderingDisplayList
+  commentId: P:AGS.API.IRendererLoop.OnBeforeRenderingDisplayList
+  fullName: AGS.API.IRendererLoop.OnBeforeRenderingDisplayList
+  nameWithType: IRendererLoop.OnBeforeRenderingDisplayList
+- uid: AGS.API.IRendererLoop.OnBeforeRenderingDisplayList*
+  name: OnBeforeRenderingDisplayList
+  href: api/AGS.API.IRendererLoop.html#AGS_API_IRendererLoop_OnBeforeRenderingDisplayList_
+  commentId: Overload:AGS.API.IRendererLoop.OnBeforeRenderingDisplayList
+  isSpec: "True"
+  fullName: AGS.API.IRendererLoop.OnBeforeRenderingDisplayList
+  nameWithType: IRendererLoop.OnBeforeRenderingDisplayList
 - uid: AGS.API.IRendererLoop.Tick
   name: Tick()
   href: api/AGS.API.IRendererLoop.html#AGS_API_IRendererLoop_Tick
@@ -10855,38 +11031,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IRendererLoop.Tick
   nameWithType: IRendererLoop.Tick
-- uid: AGS.API.IRenderInstruction
-  name: IRenderInstruction
-  href: api/AGS.API.IRenderInstruction.html
-  commentId: T:AGS.API.IRenderInstruction
-  fullName: AGS.API.IRenderInstruction
-  nameWithType: IRenderInstruction
-- uid: AGS.API.IRenderInstruction.Release
-  name: Release()
-  href: api/AGS.API.IRenderInstruction.html#AGS_API_IRenderInstruction_Release
-  commentId: M:AGS.API.IRenderInstruction.Release
-  fullName: AGS.API.IRenderInstruction.Release()
-  nameWithType: IRenderInstruction.Release()
-- uid: AGS.API.IRenderInstruction.Release*
-  name: Release
-  href: api/AGS.API.IRenderInstruction.html#AGS_API_IRenderInstruction_Release_
-  commentId: Overload:AGS.API.IRenderInstruction.Release
-  isSpec: "True"
-  fullName: AGS.API.IRenderInstruction.Release
-  nameWithType: IRenderInstruction.Release
-- uid: AGS.API.IRenderInstruction.Render
-  name: Render()
-  href: api/AGS.API.IRenderInstruction.html#AGS_API_IRenderInstruction_Render
-  commentId: M:AGS.API.IRenderInstruction.Render
-  fullName: AGS.API.IRenderInstruction.Render()
-  nameWithType: IRenderInstruction.Render()
-- uid: AGS.API.IRenderInstruction.Render*
-  name: Render
-  href: api/AGS.API.IRenderInstruction.html#AGS_API_IRenderInstruction_Render_
-  commentId: Overload:AGS.API.IRenderInstruction.Render
-  isSpec: "True"
-  fullName: AGS.API.IRenderInstruction.Render
-  nameWithType: IRenderInstruction.Render
 - uid: AGS.API.IRenderLayer
   name: IRenderLayer
   href: api/AGS.API.IRenderLayer.html
@@ -10932,51 +11076,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IRenderLayer.Z
   nameWithType: IRenderLayer.Z
-- uid: AGS.API.IRenderPipeline
-  name: IRenderPipeline
-  href: api/AGS.API.IRenderPipeline.html
-  commentId: T:AGS.API.IRenderPipeline
-  fullName: AGS.API.IRenderPipeline
-  nameWithType: IRenderPipeline
-- uid: AGS.API.IRenderPipeline.OnBeforeProcessingDisplayList
-  name: OnBeforeProcessingDisplayList
-  href: api/AGS.API.IRenderPipeline.html#AGS_API_IRenderPipeline_OnBeforeProcessingDisplayList
-  commentId: P:AGS.API.IRenderPipeline.OnBeforeProcessingDisplayList
-  fullName: AGS.API.IRenderPipeline.OnBeforeProcessingDisplayList
-  nameWithType: IRenderPipeline.OnBeforeProcessingDisplayList
-- uid: AGS.API.IRenderPipeline.OnBeforeProcessingDisplayList*
-  name: OnBeforeProcessingDisplayList
-  href: api/AGS.API.IRenderPipeline.html#AGS_API_IRenderPipeline_OnBeforeProcessingDisplayList_
-  commentId: Overload:AGS.API.IRenderPipeline.OnBeforeProcessingDisplayList
-  isSpec: "True"
-  fullName: AGS.API.IRenderPipeline.OnBeforeProcessingDisplayList
-  nameWithType: IRenderPipeline.OnBeforeProcessingDisplayList
-- uid: AGS.API.IRenderPipeline.Subscribe(System.String,AGS.API.IRenderer,System.Int32)
-  name: Subscribe(String, IRenderer, Int32)
-  href: api/AGS.API.IRenderPipeline.html#AGS_API_IRenderPipeline_Subscribe_System_String_AGS_API_IRenderer_System_Int32_
-  commentId: M:AGS.API.IRenderPipeline.Subscribe(System.String,AGS.API.IRenderer,System.Int32)
-  fullName: AGS.API.IRenderPipeline.Subscribe(System.String, AGS.API.IRenderer, System.Int32)
-  nameWithType: IRenderPipeline.Subscribe(String, IRenderer, Int32)
-- uid: AGS.API.IRenderPipeline.Subscribe*
-  name: Subscribe
-  href: api/AGS.API.IRenderPipeline.html#AGS_API_IRenderPipeline_Subscribe_
-  commentId: Overload:AGS.API.IRenderPipeline.Subscribe
-  isSpec: "True"
-  fullName: AGS.API.IRenderPipeline.Subscribe
-  nameWithType: IRenderPipeline.Subscribe
-- uid: AGS.API.IRenderPipeline.Unsubscribe(System.String,AGS.API.IRenderer)
-  name: Unsubscribe(String, IRenderer)
-  href: api/AGS.API.IRenderPipeline.html#AGS_API_IRenderPipeline_Unsubscribe_System_String_AGS_API_IRenderer_
-  commentId: M:AGS.API.IRenderPipeline.Unsubscribe(System.String,AGS.API.IRenderer)
-  fullName: AGS.API.IRenderPipeline.Unsubscribe(System.String, AGS.API.IRenderer)
-  nameWithType: IRenderPipeline.Unsubscribe(String, IRenderer)
-- uid: AGS.API.IRenderPipeline.Unsubscribe*
-  name: Unsubscribe
-  href: api/AGS.API.IRenderPipeline.html#AGS_API_IRenderPipeline_Unsubscribe_
-  commentId: Overload:AGS.API.IRenderPipeline.Unsubscribe
-  isSpec: "True"
-  fullName: AGS.API.IRenderPipeline.Unsubscribe
-  nameWithType: IRenderPipeline.Unsubscribe
 - uid: AGS.API.IRepeatedlyExecuteEventArgs
   name: IRepeatedlyExecuteEventArgs
   href: api/AGS.API.IRepeatedlyExecuteEventArgs.html
@@ -11523,15 +11622,15 @@ references:
   commentId: T:AGS.API.IRoomTransition
   fullName: AGS.API.IRoomTransition
   nameWithType: IRoomTransition
-- uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List{AGS.API.IObject})
-  name: RenderAfterEnteringRoom(List<IObject>)
-  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderAfterEnteringRoom_System_Collections_Generic_List_AGS_API_IObject__
-  commentId: M:AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List{AGS.API.IObject})
-  name.vb: RenderAfterEnteringRoom(List(Of IObject))
-  fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List<AGS.API.IObject>)
-  fullName.vb: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List(Of AGS.API.IObject))
-  nameWithType: IRoomTransition.RenderAfterEnteringRoom(List<IObject>)
-  nameWithType.vb: IRoomTransition.RenderAfterEnteringRoom(List(Of IObject))
+- uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
+  name: RenderAfterEnteringRoom(List<IObject>, Action<IObject>)
+  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderAfterEnteringRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject__
+  commentId: M:AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
+  name.vb: RenderAfterEnteringRoom(List(Of IObject), Action(Of IObject))
+  fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List<AGS.API.IObject>, System.Action<AGS.API.IObject>)
+  fullName.vb: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List(Of AGS.API.IObject), System.Action(Of AGS.API.IObject))
+  nameWithType: IRoomTransition.RenderAfterEnteringRoom(List<IObject>, Action<IObject>)
+  nameWithType.vb: IRoomTransition.RenderAfterEnteringRoom(List(Of IObject), Action(Of IObject))
 - uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom*
   name: RenderAfterEnteringRoom
   href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderAfterEnteringRoom_
@@ -11539,15 +11638,15 @@ references:
   isSpec: "True"
   fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom
   nameWithType: IRoomTransition.RenderAfterEnteringRoom
-- uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List{AGS.API.IObject})
-  name: RenderBeforeLeavingRoom(List<IObject>)
-  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderBeforeLeavingRoom_System_Collections_Generic_List_AGS_API_IObject__
-  commentId: M:AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List{AGS.API.IObject})
-  name.vb: RenderBeforeLeavingRoom(List(Of IObject))
-  fullName: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List<AGS.API.IObject>)
-  fullName.vb: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List(Of AGS.API.IObject))
-  nameWithType: IRoomTransition.RenderBeforeLeavingRoom(List<IObject>)
-  nameWithType.vb: IRoomTransition.RenderBeforeLeavingRoom(List(Of IObject))
+- uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
+  name: RenderBeforeLeavingRoom(List<IObject>, Action<IObject>)
+  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderBeforeLeavingRoom_System_Collections_Generic_List_AGS_API_IObject__System_Action_AGS_API_IObject__
+  commentId: M:AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List{AGS.API.IObject},System.Action{AGS.API.IObject})
+  name.vb: RenderBeforeLeavingRoom(List(Of IObject), Action(Of IObject))
+  fullName: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List<AGS.API.IObject>, System.Action<AGS.API.IObject>)
+  fullName.vb: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List(Of AGS.API.IObject), System.Action(Of AGS.API.IObject))
+  nameWithType: IRoomTransition.RenderBeforeLeavingRoom(List<IObject>, Action<IObject>)
+  nameWithType.vb: IRoomTransition.RenderBeforeLeavingRoom(List(Of IObject), Action(Of IObject))
 - uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom*
   name: RenderBeforeLeavingRoom
   href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderBeforeLeavingRoom_
@@ -13556,6 +13655,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITextBoxComponent.CaretFlashDelay
   nameWithType: ITextBoxComponent.CaretFlashDelay
+- uid: AGS.API.ITextBoxComponent.CaretPosition
+  name: CaretPosition
+  href: api/AGS.API.ITextBoxComponent.html#AGS_API_ITextBoxComponent_CaretPosition
+  commentId: P:AGS.API.ITextBoxComponent.CaretPosition
+  fullName: AGS.API.ITextBoxComponent.CaretPosition
+  nameWithType: ITextBoxComponent.CaretPosition
+- uid: AGS.API.ITextBoxComponent.CaretPosition*
+  name: CaretPosition
+  href: api/AGS.API.ITextBoxComponent.html#AGS_API_ITextBoxComponent_CaretPosition_
+  commentId: Overload:AGS.API.ITextBoxComponent.CaretPosition
+  isSpec: "True"
+  fullName: AGS.API.ITextBoxComponent.CaretPosition
+  nameWithType: ITextBoxComponent.CaretPosition
 - uid: AGS.API.ITextBoxComponent.IsFocused
   name: IsFocused
   href: api/AGS.API.ITextBoxComponent.html#AGS_API_ITextBoxComponent_IsFocused
@@ -13601,58 +13713,6 @@ references:
   commentId: T:AGS.API.ITextComponent
   fullName: AGS.API.ITextComponent
   nameWithType: ITextComponent
-- uid: AGS.API.ITextComponent.CaretPosition
-  name: CaretPosition
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CaretPosition
-  commentId: P:AGS.API.ITextComponent.CaretPosition
-  fullName: AGS.API.ITextComponent.CaretPosition
-  nameWithType: ITextComponent.CaretPosition
-- uid: AGS.API.ITextComponent.CaretPosition*
-  name: CaretPosition
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CaretPosition_
-  commentId: Overload:AGS.API.ITextComponent.CaretPosition
-  isSpec: "True"
-  fullName: AGS.API.ITextComponent.CaretPosition
-  nameWithType: ITextComponent.CaretPosition
-- uid: AGS.API.ITextComponent.CustomImageResolutionFactor
-  name: CustomImageResolutionFactor
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CustomImageResolutionFactor
-  commentId: P:AGS.API.ITextComponent.CustomImageResolutionFactor
-  fullName: AGS.API.ITextComponent.CustomImageResolutionFactor
-  nameWithType: ITextComponent.CustomImageResolutionFactor
-- uid: AGS.API.ITextComponent.CustomImageResolutionFactor*
-  name: CustomImageResolutionFactor
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CustomImageResolutionFactor_
-  commentId: Overload:AGS.API.ITextComponent.CustomImageResolutionFactor
-  isSpec: "True"
-  fullName: AGS.API.ITextComponent.CustomImageResolutionFactor
-  nameWithType: ITextComponent.CustomImageResolutionFactor
-- uid: AGS.API.ITextComponent.CustomImageSize
-  name: CustomImageSize
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CustomImageSize
-  commentId: P:AGS.API.ITextComponent.CustomImageSize
-  fullName: AGS.API.ITextComponent.CustomImageSize
-  nameWithType: ITextComponent.CustomImageSize
-- uid: AGS.API.ITextComponent.CustomImageSize*
-  name: CustomImageSize
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CustomImageSize_
-  commentId: Overload:AGS.API.ITextComponent.CustomImageSize
-  isSpec: "True"
-  fullName: AGS.API.ITextComponent.CustomImageSize
-  nameWithType: ITextComponent.CustomImageSize
-- uid: AGS.API.ITextComponent.CustomTextCrop
-  name: CustomTextCrop
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CustomTextCrop
-  commentId: P:AGS.API.ITextComponent.CustomTextCrop
-  fullName: AGS.API.ITextComponent.CustomTextCrop
-  nameWithType: ITextComponent.CustomTextCrop
-- uid: AGS.API.ITextComponent.CustomTextCrop*
-  name: CustomTextCrop
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CustomTextCrop_
-  commentId: Overload:AGS.API.ITextComponent.CustomTextCrop
-  isSpec: "True"
-  fullName: AGS.API.ITextComponent.CustomTextCrop
-  nameWithType: ITextComponent.CustomTextCrop
 - uid: AGS.API.ITextComponent.LabelRenderSize
   name: LabelRenderSize
   href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_LabelRenderSize
@@ -13666,45 +13726,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITextComponent.LabelRenderSize
   nameWithType: ITextComponent.LabelRenderSize
-- uid: AGS.API.ITextComponent.OnLabelSizeChanged
-  name: OnLabelSizeChanged
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_OnLabelSizeChanged
-  commentId: P:AGS.API.ITextComponent.OnLabelSizeChanged
-  fullName: AGS.API.ITextComponent.OnLabelSizeChanged
-  nameWithType: ITextComponent.OnLabelSizeChanged
-- uid: AGS.API.ITextComponent.OnLabelSizeChanged*
-  name: OnLabelSizeChanged
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_OnLabelSizeChanged_
-  commentId: Overload:AGS.API.ITextComponent.OnLabelSizeChanged
-  isSpec: "True"
-  fullName: AGS.API.ITextComponent.OnLabelSizeChanged
-  nameWithType: ITextComponent.OnLabelSizeChanged
-- uid: AGS.API.ITextComponent.PrepareTextBoundingBoxes
-  name: PrepareTextBoundingBoxes()
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_PrepareTextBoundingBoxes
-  commentId: M:AGS.API.ITextComponent.PrepareTextBoundingBoxes
-  fullName: AGS.API.ITextComponent.PrepareTextBoundingBoxes()
-  nameWithType: ITextComponent.PrepareTextBoundingBoxes()
-- uid: AGS.API.ITextComponent.PrepareTextBoundingBoxes*
-  name: PrepareTextBoundingBoxes
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_PrepareTextBoundingBoxes_
-  commentId: Overload:AGS.API.ITextComponent.PrepareTextBoundingBoxes
-  isSpec: "True"
-  fullName: AGS.API.ITextComponent.PrepareTextBoundingBoxes
-  nameWithType: ITextComponent.PrepareTextBoundingBoxes
-- uid: AGS.API.ITextComponent.RenderCaret
-  name: RenderCaret
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_RenderCaret
-  commentId: P:AGS.API.ITextComponent.RenderCaret
-  fullName: AGS.API.ITextComponent.RenderCaret
-  nameWithType: ITextComponent.RenderCaret
-- uid: AGS.API.ITextComponent.RenderCaret*
-  name: RenderCaret
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_RenderCaret_
-  commentId: Overload:AGS.API.ITextComponent.RenderCaret
-  isSpec: "True"
-  fullName: AGS.API.ITextComponent.RenderCaret
-  nameWithType: ITextComponent.RenderCaret
 - uid: AGS.API.ITextComponent.Text
   name: Text
   href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_Text
@@ -13731,19 +13752,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITextComponent.TextBackgroundVisible
   nameWithType: ITextComponent.TextBackgroundVisible
-- uid: AGS.API.ITextComponent.TextBoundingBoxes
-  name: TextBoundingBoxes
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextBoundingBoxes
-  commentId: P:AGS.API.ITextComponent.TextBoundingBoxes
-  fullName: AGS.API.ITextComponent.TextBoundingBoxes
-  nameWithType: ITextComponent.TextBoundingBoxes
-- uid: AGS.API.ITextComponent.TextBoundingBoxes*
-  name: TextBoundingBoxes
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextBoundingBoxes_
-  commentId: Overload:AGS.API.ITextComponent.TextBoundingBoxes
-  isSpec: "True"
-  fullName: AGS.API.ITextComponent.TextBoundingBoxes
-  nameWithType: ITextComponent.TextBoundingBoxes
 - uid: AGS.API.ITextComponent.TextConfig
   name: TextConfig
   href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextConfig
@@ -20763,12 +20771,12 @@ references:
   commentId: F:AGS.API.RoomTransitionState.NotInTransition
   fullName: AGS.API.RoomTransitionState.NotInTransition
   nameWithType: RoomTransitionState.NotInTransition
-- uid: AGS.API.RoomTransitionState.PreparingNewRoomRendering
-  name: PreparingNewRoomRendering
-  href: api/AGS.API.RoomTransitionState.html#AGS_API_RoomTransitionState_PreparingNewRoomRendering
-  commentId: F:AGS.API.RoomTransitionState.PreparingNewRoomRendering
-  fullName: AGS.API.RoomTransitionState.PreparingNewRoomRendering
-  nameWithType: RoomTransitionState.PreparingNewRoomRendering
+- uid: AGS.API.RoomTransitionState.PreparingNewRoomDisplayList
+  name: PreparingNewRoomDisplayList
+  href: api/AGS.API.RoomTransitionState.html#AGS_API_RoomTransitionState_PreparingNewRoomDisplayList
+  commentId: F:AGS.API.RoomTransitionState.PreparingNewRoomDisplayList
+  fullName: AGS.API.RoomTransitionState.PreparingNewRoomDisplayList
+  nameWithType: RoomTransitionState.PreparingNewRoomDisplayList
 - uid: AGS.API.RoomTransitionState.PreparingTransition
   name: PreparingTransition
   href: api/AGS.API.RoomTransitionState.html#AGS_API_RoomTransitionState_PreparingTransition

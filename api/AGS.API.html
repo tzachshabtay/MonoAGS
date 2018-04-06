@@ -325,9 +325,6 @@ Interested parties can subscribe to the event and be notified when it triggers (
 An event is a notification for something that has happened.
 Interested parties can subscribe to the event and be notified when it triggers (<a href="https://en.wikipedia.org/wiki/Event-driven_programming">https://en.wikipedia.org/wiki/Event-driven_programming</a>).</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IBorderComponent.html">IBorderComponent</a></h4>
-      <section><p>Allows drawing a border around the entity.</p>
-</section>
       <h4><a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a></h4>
       <section><p>A border style will draw a border around an entity.
 It can draw both behind and in front of the entity.</p>
@@ -440,11 +437,6 @@ so the entities will not get out of the boundaries of the TV (giving the appeara
       <h4><a class="xref" href="AGS.API.ICutscene.html">ICutscene</a></h4>
       <section><p>A cutscene is used to wrap a portion of the game together. This portion can then be skipped by the user.
 This is useful for things like introduction sequences, where you want the player to be able to skip over an intro that they&apos;ve seen before. </p>
-</section>
-      <h4><a class="xref" href="AGS.API.IDefaultInteractions.html">IDefaultInteractions</a></h4>
-      <section><p>Default interactions (when no specific interaction callback is subscribed) are defined here.
-This is where you define generic responses (like the famous &quot;this doesn&apos;t work&quot;) that cover all of the interactions for which 
-you didn&apos;t code a specific response.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IDepthClipping.html">IDepthClipping</a></h4>
       <section><p>Depth clipping allows clipping objects (i.e hiding objects) if they&apos;re either too close or too far from the camera.
@@ -600,6 +592,11 @@ It means that the entity can be belong to a room and moved between rooms.</p>
       <h4><a class="xref" href="AGS.API.IImageComponent.html">IImageComponent</a></h4>
       <section><p>A component which allows setting an image to the entity.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.IImageRenderer.html">IImageRenderer</a></h4>
+      <section><p>An interface for rendering image on screen. There&apos;s a default renderer
+which is used for object, which you can override with your own implementation (though
+this will require advanced coding knowledge).</p>
+</section>
       <h4><a class="xref" href="AGS.API.IInObjectTreeComponent.html">IInObjectTreeComponent</a></h4>
       <section><p>A component which adds the ability for an entity to be a part of an object&apos;s tree.</p>
 </section>
@@ -644,6 +641,9 @@ This is also used by the engine for scrolling contents inside a scrolling panel.
 </section>
       <h4><a class="xref" href="AGS.API.ILabel.html">ILabel</a></h4>
       <section><p>A pre-set entity with all of the UI control components, plus a text component for displaying text.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ILabelRenderer.html">ILabelRenderer</a></h4>
+      <section><p>Responsible for rendering labels (which show text).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IListboxComponent.html">IListboxComponent</a></h4>
       <section><p>A component for displaying a list of items (as text), and allowing selecting an item from the list.</p>
@@ -713,18 +713,8 @@ See: <a href="https://wiki.allegro.cc/index.php?title=Pixel_Perfect_Collision">h
       <h4><a class="xref" href="AGS.API.IPortraitConfig.html">IPortraitConfig</a></h4>
       <section><p>Configuration for how the speech portrait is rendered.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IRenderer.html">IRenderer</a></h4>
-      <section><p>A renderer is an object which passes on drawing instructions on demand.
-All renderers which are subcribed to the rendering pipeline (for entities which are to be displayed),
-are requested to pass on the drawing instructions on each game tick.
-The rendering loop then uses those instructions to draw on the screen.</p>
-</section>
       <h4><a class="xref" href="AGS.API.IRendererLoop.html">IRendererLoop</a></h4>
       <section><p>Represents the render loop of the game. All drawing to the screen is performed from the render loop.</p>
-</section>
-      <h4><a class="xref" href="AGS.API.IRenderInstruction.html">IRenderInstruction</a></h4>
-      <section><p>A render instruction represents an instruction to draw something.
-It is created on demand by renderers, and used by the rendering loop to draw on the screen on each game tick.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IRenderLayer.html">IRenderLayer</a></h4>
       <section><p>A render layer is an abstract grouping of objects with similar rendering properties.
@@ -741,11 +731,6 @@ And lastly the Background layer, which is the default for the room&apos;s backgr
 You can assign those layers yourself, using AGSLayers static class:<br><example><p>
 <pre><code class="lang-csharp">cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!</code></pre>
 <p></example></p>
-</section>
-      <h4><a class="xref" href="AGS.API.IRenderPipeline.html">IRenderPipeline</a></h4>
-      <section><p>The render pipeline is responsible for collecting all of the rendering information and passing it on
-to the render loop.
-It allows entities to subscribe their own renderers and pass on custom drawing instructions.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IRepeatedlyExecuteEventArgs.html">IRepeatedlyExecuteEventArgs</a></h4>
       <section><p>Event arguments for the <a class="xref" href="AGS.API.IGameEvents.html#AGS_API_IGameEvents_OnRepeatedlyExecute">OnRepeatedlyExecute</a> event.</p>
