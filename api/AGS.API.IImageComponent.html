@@ -102,9 +102,6 @@
       <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_Image">IHasImage.Image</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IHasImage.html#AGS_API_IHasImage_CustomRenderer">IHasImage.CustomRenderer</a>
-    </div>
-    <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
@@ -125,48 +122,17 @@
   <h5 id="AGS_API_IImageComponent_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[RequiredComponent(typeof(IScaleComponent), true)]
+[RequiredComponent(typeof(IBoundingBoxComponent), true)]
 public interface IImageComponent : IHasImage, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CameraParallax/apiSpec/new?filename=AGS_API_IImageComponent_Border.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.Border%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IImageComponent_CurrentSprite.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.CurrentSprite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CameraParallax/Source/AGS.API/Graphics/IImageComponent.cs/#L101">View Source</a>
-  </span>
-  <a id="AGS_API_IImageComponent_Border_" data-uid="AGS.API.IImageComponent.Border*"></a>
-  <h4 id="AGS_API_IImageComponent_Border" data-uid="AGS.API.IImageComponent.Border">Border</h4>
-  <div class="markdown level1 summary"><p>Gets or sets a border that will (optionally) surround the sprite.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IBorderStyle Border { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a></td>
-        <td><p>The border.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CameraParallax/apiSpec/new?filename=AGS_API_IImageComponent_CurrentSprite.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.CurrentSprite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CameraParallax/Source/AGS.API/Graphics/IImageComponent.cs/#L82">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Graphics/IImageComponent.cs/#L84">View Source</a>
   </span>
   <a id="AGS_API_IImageComponent_CurrentSprite_" data-uid="AGS.API.IImageComponent.CurrentSprite*"></a>
   <h4 id="AGS_API_IImageComponent_CurrentSprite" data-uid="AGS.API.IImageComponent.CurrentSprite">CurrentSprite</h4>
@@ -195,20 +161,22 @@ public interface IImageComponent : IHasImage, IComponent, IDisposable, INotifyPr
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CameraParallax/apiSpec/new?filename=AGS_API_IImageComponent_DebugDrawPivot.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.DebugDrawPivot%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IImageComponent_IsImageVisible.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.IsImageVisible%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CameraParallax/Source/AGS.API/Graphics/IImageComponent.cs/#L95">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Graphics/IImageComponent.cs/#L78">View Source</a>
   </span>
-  <a id="AGS_API_IImageComponent_DebugDrawPivot_" data-uid="AGS.API.IImageComponent.DebugDrawPivot*"></a>
-  <h4 id="AGS_API_IImageComponent_DebugDrawPivot" data-uid="AGS.API.IImageComponent.DebugDrawPivot">DebugDrawPivot</h4>
-  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the pivot (the pivot point for position/rotate/scale) will 
-be drawn on the screen as a cross. This can be used for debugging the game.</p>
+  <a id="AGS_API_IImageComponent_IsImageVisible_" data-uid="AGS.API.IImageComponent.IsImageVisible*"></a>
+  <h4 id="AGS_API_IImageComponent_IsImageVisible" data-uid="AGS.API.IImageComponent.IsImageVisible">IsImageVisible</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this image is visible.
+Note that the difference between this and <a class="xref" href="AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_Visible">Visible</a> is that this
+property controls the image renderer only, and the <a class="xref" href="AGS.API.IVisibleComponent.html#AGS_API_IVisibleComponent_Visible">Visible</a> property
+controls all renderers for the entity.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool DebugDrawPivot { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">bool IsImageVisible { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -221,17 +189,17 @@ be drawn on the screen as a cross. This can be used for debugging the game.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if debug draw pivot; otherwise, <code>false</code>.</p>
+        <td><p><code>true</code> if is image visible; otherwise, <code>false</code>.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CameraParallax/apiSpec/new?filename=AGS_API_IImageComponent_SpriteProvider.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.SpriteProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IImageComponent_SpriteProvider.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.SpriteProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CameraParallax/Source/AGS.API/Graphics/IImageComponent.cs/#L88">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Graphics/IImageComponent.cs/#L90">View Source</a>
   </span>
   <a id="AGS_API_IImageComponent_SpriteProvider_" data-uid="AGS.API.IImageComponent.SpriteProvider*"></a>
   <h4 id="AGS_API_IImageComponent_SpriteProvider" data-uid="AGS.API.IImageComponent.SpriteProvider">SpriteProvider</h4>
@@ -266,10 +234,10 @@ be drawn on the screen as a cross. This can be used for debugging the game.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/CameraParallax/apiSpec/new?filename=AGS_API_IImageComponent.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IImageComponent.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CameraParallax/Source/AGS.API/Graphics/IImageComponent.cs/#L75" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Graphics/IImageComponent.cs/#L67" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
