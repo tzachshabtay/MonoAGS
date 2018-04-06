@@ -53,7 +53,7 @@ namespace AGS.Engine
 
             var box = target.WorldBoundingBox;
             var targetPoint = TargetPoint;
-            var parallaxSpeed = target.RenderLayer.ParallaxSpeed;
+            var parallaxSpeed = target.RenderLayer?.ParallaxSpeed ?? new PointF(1f, 1f);
             var parallaxOffsetX = -viewport.X * (parallaxSpeed.X - 1f);
             var parallaxOffsetY = -viewport.Y * (parallaxSpeed.Y - 1f);
             float targetX = targetPoint == null ? target.WorldX : MathUtils.Lerp(0f, box.MinX, 1f, box.MaxX, targetPoint.Value.X);
