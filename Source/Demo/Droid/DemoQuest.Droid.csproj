@@ -15,7 +15,7 @@
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>DemoQuest.Droid</AssemblyName>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidTlsProvider>
@@ -91,6 +91,10 @@
     <ProjectReference Include="..\..\Engine\AGS.Engine.Android\AGS.Engine.Android.csproj">
       <Project>{6A2504D8-3C7F-485E-9793-A51989C6B2B6}</Project>
       <Name>AGS.Engine.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Editor\AGS.Editor\AGS.Editor.csproj">
+      <Project>{5F511E0A-CE3C-49C6-8706-2D9850FA9FE0}</Project>
+      <Name>AGS.Editor</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

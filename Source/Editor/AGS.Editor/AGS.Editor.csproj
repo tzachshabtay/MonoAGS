@@ -3,12 +3,23 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>7.1</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7.1</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AGS.API\AGS.API.csproj" />
     <ProjectReference Include="..\..\Engine\AGS.Engine\AGS.Engine.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GameView\" />
   </ItemGroup>
 </Project>
