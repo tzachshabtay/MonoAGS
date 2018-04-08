@@ -1,6 +1,6 @@
 ﻿using AGS.API;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     /// <summary>
     /// Allows to "inspect" objects to show (and allow editing) all of the object's properties in a GUI.

@@ -4,8 +4,9 @@ using System.Linq;
 using AGS.API;
 using System.Reflection;
 using System.ComponentModel;
+using AGS.Engine;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public class NumberPropertyEditor : IInspectorPropertyEditor
     {

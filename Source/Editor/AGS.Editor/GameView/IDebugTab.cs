@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AGS.API;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public interface IDebugTab
     {

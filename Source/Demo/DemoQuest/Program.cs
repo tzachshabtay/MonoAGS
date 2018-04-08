@@ -1,6 +1,7 @@
 ﻿using AGS.Engine;
 using System.Threading.Tasks;
 using AGS.API;
+using AGS.Editor;
 using System.Diagnostics;
 using DemoQuest;
 using System;

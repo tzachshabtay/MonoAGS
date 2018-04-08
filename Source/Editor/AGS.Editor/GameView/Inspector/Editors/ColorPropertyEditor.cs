@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using AGS.API;
+using AGS.Engine;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public class ColorPropertyEditor : IInspectorPropertyEditor
     {

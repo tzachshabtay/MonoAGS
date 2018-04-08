@@ -1,6 +1,6 @@
 ﻿using AGS.API;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public class BoolPropertyEditor : IInspectorPropertyEditor
     {

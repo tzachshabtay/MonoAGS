@@ -5,8 +5,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using AGS.API;
+using AGS.Engine;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     [RequiredComponent(typeof(ITreeViewComponent))]
     public class AGSInspector : AGSComponent, IInspectorComponent

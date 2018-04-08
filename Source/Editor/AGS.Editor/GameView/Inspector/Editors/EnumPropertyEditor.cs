@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using AGS.API;
+using AGS.Engine;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public class EnumPropertyEditor : IInspectorPropertyEditor
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using AGS.API;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public interface IInspectorPropertyEditor
     {

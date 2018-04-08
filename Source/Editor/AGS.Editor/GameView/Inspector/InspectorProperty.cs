@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Reflection;
 using AGS.API;
+using AGS.Engine;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public class InspectorProperty
     {

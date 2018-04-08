@@ -1,7 +1,8 @@
 ﻿using System;
 using AGS.API;
+using AGS.Engine;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public static class GameViewColors
     {

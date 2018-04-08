@@ -2,8 +2,9 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using AGS.API;
+using AGS.Engine;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public class GameDebugTree : IDebugTab
     {

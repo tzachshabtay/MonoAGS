@@ -4,8 +4,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using AGS.API;
+using AGS.Engine;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public class InspectorTreeNodeProvider : ITreeNodeViewProvider
     {
