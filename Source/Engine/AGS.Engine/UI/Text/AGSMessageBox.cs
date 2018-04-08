@@ -21,11 +21,9 @@ namespace AGS.Engine
             var sayComponent = getSayComponent(maxHeight);
 			sayComponent.SpeechConfig.SkipText = buttons.Length > 0 ? SkipText.External : SkipText.ByMouse;
 			IButton selectedButton = null;
-            ILabel label = null;
 			
 			sayComponent.OnBeforeSay.Subscribe(args =>
 			{
-                label = args.Label;
                 args.Label.RenderLayer = RenderLayer;
 				args.Label.Enabled = true;
                 args.Label.AddComponent<IModalWindowComponent>().GrabFocus();
@@ -56,7 +54,6 @@ namespace AGS.Engine
 			});
 			
 			await sayComponent.SayAsync(text);
-            label?.GetComponent<IModalWindowComponent>().LoseFocus();
 			foreach (var button in buttons)
 			{
 				AGSGame.Game.State.UI.Remove(button);

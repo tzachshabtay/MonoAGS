@@ -202,15 +202,17 @@ namespace AGS.Engine
                     if (_caretFlashCounter < -CaretFlashDelay)
                     {
                         _caretFlashCounter = (int)CaretFlashDelay;
-                    }                    
+                    }
                 }
+
+                _withCaret.Tint = _imageComponent.Tint;
+                _withCaret.Border = isVisible ? _borderComponent?.Border : null;
+                _withCaret.Text = _textComponent.Text;
+                _withCaret.TextConfig = _textComponent.TextConfig;
             }
-            _withCaret.Tint = _imageComponent.Tint;
             _withCaret.TextVisible = isVisible;
-            _withCaret.Border = isVisible ? _borderComponent?.Border : null;
             _textComponent.TextVisible = !isVisible;
-            _withCaret.Text = _textComponent.Text;
-            _withCaret.TextConfig = _textComponent.TextConfig;
+
             var caretTextComponent = _withCaret.GetComponent<ITextComponent>();
             if (caretTextComponent != null)
             {

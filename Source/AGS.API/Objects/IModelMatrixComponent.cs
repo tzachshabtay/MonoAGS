@@ -13,6 +13,12 @@
         /// The object's matrix calculated in the game's resoution (used for hit-testing).
         /// </summary>
         public Matrix4 InVirtualResolutionMatrix;
+
+        public bool Equals(ref ModelMatrices other)
+        {
+            return InObjResolutionMatrix.Equals(other.InObjResolutionMatrix) &&
+                   InVirtualResolutionMatrix.Equals(other.InVirtualResolutionMatrix);
+        }
     }
 
     /// <summary>

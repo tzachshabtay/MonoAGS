@@ -5,8 +5,11 @@ namespace AGS.Engine
 {
     public class RenderOrderSelector : IComparer<IObject>
     {
+        private readonly Stack<IObject> _stack1, _stack2;
         public RenderOrderSelector()
         {
+            _stack1 = new Stack<IObject>(5);
+            _stack2 = new Stack<IObject>(5);
         }
 
 #if DEBUG
@@ -41,12 +44,12 @@ namespace AGS.Engine
 			if (isParentOf(s1, s2)) return 1f;
             if (isParentOf(s2, s1)) return -1f;
 
-			IObject parent1 = null;
-			IObject parent2 = null;
+            getParentChain(s1, _stack1);
+            getParentChain(s2, _stack2);
 			while (true)
 			{
-                IObject newParent1 = getNewParent(parent1, s1);
-                IObject newParent2 = getNewParent(parent2, s2);
+                IObject newParent1 = _stack1.Count == 0 ? null : _stack1.Pop();
+                IObject newParent2 = _stack2.Count == 0 ? null : _stack2.Pop();
                 if (newParent1 != newParent2)
                 {
                     float result = compareObj(newParent1, newParent2);
@@ -57,8 +60,6 @@ namespace AGS.Engine
 					//Trying to avoid ambiguity, so using X as a last resort
 					return getX(s2) - getX(s1);
                 }
-				parent1 = newParent1;
-                parent2 = newParent2;
 			}
 		}
 
@@ -92,15 +93,14 @@ namespace AGS.Engine
             return 0;
 		}
 
-        private IObject getNewParent(IObject parent, IObject obj)
+        private void getParentChain(IObject obj, Stack<IObject> stack)
         {
-			var newParent = obj;
-
-			while (newParent != null && newParent.TreeNode.Parent != (parent == null ? null : parent.TreeNode.Node))
-			{
-				newParent = newParent.TreeNode.Parent;
-			}
-            return newParent;
+            stack.Clear();
+            while (obj != null) 
+            {
+                stack.Push(obj);
+                obj = obj.TreeNode.Parent;
+            }
         }
 
 		private float getZ(IObject parent, IObject obj, out IObject newParent)
@@ -127,4 +127,3 @@ namespace AGS.Engine
         }
 	}
 }
-

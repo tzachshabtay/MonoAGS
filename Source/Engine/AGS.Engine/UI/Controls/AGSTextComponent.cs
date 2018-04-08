@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using AGS.API;
 using PropertyChanged;
 
@@ -25,7 +26,6 @@ namespace AGS.Engine
         private ModelMatrices _lastMatrices;
         private Matrix4 _lastViewportMatrix;
         private bool _shouldUpdateBoundingBoxes;
-        private AGSCropInfo _defaultCrop = default;
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
         private readonly GLMatrices[] _matricesPool;
         private readonly IGameState _state;
@@ -167,7 +167,7 @@ namespace AGS.Engine
                textScaleFactor, out _, out resolution);
 
             var cropInfo = _usedTextBoundingBoxes.ViewportBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? _cropSelf, AGSModelMatrixComponent.NoScaling);
-            if (cropInfo.Equals(_defaultCrop)) return null;
+            if (!cropInfo.BoundingBox.IsValid) return null;
 
             _afterCropTextBoundingBoxes.ViewportBox = cropInfo.BoundingBox;
             _afterCropTextBoundingBoxes.TextureBox = cropInfo.TextureBox;
@@ -273,7 +273,7 @@ namespace AGS.Engine
             }
 
             var modelMatrices = _matrix.GetModelMatrices();
-            if (!modelMatrices.Equals(_lastMatrices))
+            if (!modelMatrices.Equals(ref _lastMatrices))
             {
                 _lastMatrices = modelMatrices;
                 onBoundingBoxShouldChange();
