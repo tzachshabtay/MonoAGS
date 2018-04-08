@@ -19,9 +19,80 @@ namespace AGS.Engine
         private readonly IAGSRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
 
-        private readonly ConcurrentDictionary<IViewport, List<IObject>> _cache;
+        private class LayerListComparer : IComparer<(int z, List<IObject>)>
+        {
+            public int Compare((int z, List<IObject>) x, (int z, List<IObject>) y)
+            {
+                return y.z - x.z;
+            }
+        }
+
+        private class LayerDisplayList
+        {
+            private IComparer<IObject> _comparer;
+            private bool _isDirty;
+
+            public LayerDisplayList(IComparer<IObject> comparer)
+            {
+                _comparer = comparer;
+                IsDirty = true;
+            }
+
+            public bool IsDirty 
+            {
+                get => _isDirty;
+                set
+                {
+                    _isDirty = value;
+                    if (value) Items = new List<IObject>(100);
+                }
+            }
+            public List<IObject> Items { get; private set; }
+
+            public void Sort()
+            {
+                if (!IsDirty) return;
+                Items.Sort(_comparer);
+                IsDirty = false;
+            }
+        }
+
+        private class ViewportDisplayList
+        {
+            private LayerListComparer _comparer;
+
+            public ViewportDisplayList()
+            {
+                _comparer = new LayerListComparer();
+                DisplayListPerLayer = new ConcurrentDictionary<int, LayerDisplayList>();
+            }
+
+            public List<IObject> DisplayList { get; private set; }
+            public ConcurrentDictionary<int, LayerDisplayList> DisplayListPerLayer { get; private set; }
+
+            public void Sort()
+            {
+                List<(int z, List<IObject> items)> layers = new List<(int, List<IObject>)>();
+                int count = 0;
+                foreach (var pair in DisplayListPerLayer)
+                {
+                    count += pair.Value.Items.Count;
+                    pair.Value.Sort();
+                    layers.Add((pair.Key, pair.Value.Items));
+                }
+                layers.Sort(_comparer);
+                var displayList = new List<IObject>(count);
+                foreach (var layer in layers)
+                {
+                    displayList.AddRange(layer.items);
+                }
+                DisplayList = displayList;
+            }
+        }
+
+        private readonly ConcurrentDictionary<IViewport, ViewportDisplayList> _cache;
         private readonly ConcurrentDictionary<IViewport, ViewportSubscriber> _viewportSubscribers;
-        private readonly ConcurrentDictionary<string, List<API.IComponentBinding>> _bindings;
+        private readonly ConcurrentDictionary<string, EntitySubscriber> _entitySubscribers;
 
         private IRoom _lastRoom;
         private IObject _lastRoomBackground;
@@ -56,10 +127,12 @@ namespace AGS.Engine
 
         private class AnimationSubscriber
         {
+            private IAnimationComponent _animationComponent;
+            private IComponentBinding _animationComponentBinding;
             private IAnimation _lastAnimation;
             private ISprite _lastSprite;
             private float _lastX, _lastZ;
-            private IObject _obj;
+            private IEntity _obj;
             private Action _onSomethingChanged;
 
             private class BindingWrapper : API.IComponentBinding
@@ -80,8 +153,9 @@ namespace AGS.Engine
                 }
             }
 
-            public AnimationSubscriber(IObject obj, Action onSomethingChanged)
+            public AnimationSubscriber(IEntity obj, Action onSomethingChanged)
             {
+                _animationComponentBinding = obj.Bind<IAnimationComponent>(c => _animationComponent = c, _ => _animationComponent = null);
                 _obj = obj;
                 _onSomethingChanged = onSomethingChanged;
                 _lastAnimation = null;
@@ -100,6 +174,7 @@ namespace AGS.Engine
             {
                 unsubscribeLastAnimation();
                 unsubscribeLastSprite();
+                _animationComponentBinding?.Unbind();
             }
 
             private void onObjAnimationPropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -111,8 +186,8 @@ namespace AGS.Engine
             private void subscribeAnimation()
             {
                 unsubscribeLastAnimation();
-                _lastAnimation = _obj.Animation;
-                var state = _obj.Animation?.State;
+                _lastAnimation = _animationComponent?.Animation;
+                var state = _animationComponent?.Animation?.State;
                 if (state != null)
                 {
                     state.PropertyChanged += onAnimationStatePropertyChanged;
@@ -143,7 +218,7 @@ namespace AGS.Engine
 
             private void onSpriteZChange()
             {
-                var sprite = _obj.Animation?.Sprite;
+                var sprite = _animationComponent?.Animation?.Sprite;
                 if (sprite == null) return;
                 if (MathUtils.FloatEquals(_lastZ, sprite.Z)) return;
                 _lastZ = sprite.Z;
@@ -152,7 +227,7 @@ namespace AGS.Engine
 
             private void onSpriteXChange()
             {
-                var sprite = _obj.Animation?.Sprite;
+                var sprite = _animationComponent?.Animation?.Sprite;
                 if (sprite == null) return;
                 if (MathUtils.FloatEquals(_lastX, sprite.X)) return;
                 _lastX = sprite.X;
@@ -162,7 +237,7 @@ namespace AGS.Engine
             private void subscribeSprite()
             {
                 unsubscribeLastSprite();
-                var newSprite = _obj.Animation?.Sprite;
+                var newSprite = _animationComponent?.Animation?.Sprite;
                 if (newSprite != null) newSprite.PropertyChanged += onSpritePropertyChanged;
                 _lastSprite = newSprite;
                 onSpriteZChange();
@@ -176,6 +251,72 @@ namespace AGS.Engine
             }
         }
 
+        private class EntitySubscriber
+        {
+            private IEntity _entity;
+            private Action<int> _onLayerChanged;
+            private int _layer;
+            private List<IComponentBinding> _bindings;
+            private IInObjectTreeComponent _tree;
+
+            public EntitySubscriber(IEntity entity, Action<int> onLayerChanged)
+            {
+                _entity = entity;
+                _onLayerChanged = onLayerChanged;
+                entity.Bind<IDrawableInfoComponent>(c => _layer = c.RenderLayer?.Z ?? 0, _ => _layer = 0);
+
+                var vBinding = bind<IVisibleComponent>(entity, onObjVisibleChanged);
+                var tBinding = bind<ITranslateComponent>(entity, onObjTranslatePropertyChanged);
+                var dBinding = bind<IDrawableInfoComponent>(entity, onObjDrawablePropertyChanged);
+
+                AnimationSubscriber animSubscriber = new AnimationSubscriber(entity, onSomethingChanged);
+                var aBinding = animSubscriber.Bind();
+
+                var trBinding = entity.Bind<IInObjectTreeComponent>(c => { _tree = c; c.TreeNode.OnParentChanged.Subscribe(onSomethingChanged); onSomethingChanged(); }, c => { _tree = null; c.TreeNode.OnParentChanged.Unsubscribe(onSomethingChanged); onSomethingChanged(); });
+
+                _bindings = new List<API.IComponentBinding> { vBinding, tBinding, dBinding, aBinding, trBinding };
+            }
+
+            public void Unsubscribe()
+            {
+                _tree?.TreeNode.OnParentChanged.Unsubscribe(onSomethingChanged);
+                foreach (var binding in _bindings) binding?.Unbind();
+            }
+
+            private void onObjVisibleChanged(object sender, PropertyChangedEventArgs args)
+            {
+                if (args.PropertyName != nameof(IVisibleComponent.Visible)) return;
+                onSomethingChanged();
+            }
+
+            private void onObjTranslatePropertyChanged(object sender, PropertyChangedEventArgs args)
+            {
+                if (args.PropertyName != nameof(ITranslateComponent.Z)) return;
+                onSomethingChanged();
+            }
+
+            private void onObjDrawablePropertyChanged(object sender, PropertyChangedEventArgs args)
+            {
+                if (args.PropertyName != nameof(IDrawableInfoComponent.RenderLayer)) return;
+                onSomethingChanged();
+            }
+
+            private void onAreaPropertyChanged(object sender, PropertyChangedEventArgs args)
+            {
+                onSomethingChanged();
+            }
+
+            private void onWalkBehindPropertyChanged(object sender, PropertyChangedEventArgs args)
+            {
+                onSomethingChanged();
+            }
+
+            private void onSomethingChanged()
+            {
+                _onLayerChanged(_layer);
+            }
+        }
+
         public AGSDisplayList(IGameState gameState, IInput input, 
                               IMatrixUpdater matrixUpdater, IAGSRoomTransitions roomTransitions)
         {
@@ -183,9 +324,9 @@ namespace AGS.Engine
             _roomTransitions = roomTransitions;
             _gameState = gameState;
             _input = input;
-            _cache = new ConcurrentDictionary<IViewport, List<IObject>>();
+            _cache = new ConcurrentDictionary<IViewport, ViewportDisplayList>();
             _viewportSubscribers = new ConcurrentDictionary<IViewport, ViewportSubscriber>();
-            _bindings = new ConcurrentDictionary<string, List<API.IComponentBinding>>();
+            _entitySubscribers = new ConcurrentDictionary<string, EntitySubscriber>();
             _comparer = new RenderOrderSelector();
 
             gameState.UI.OnListChanged.Subscribe(onUiChanged);
@@ -196,15 +337,15 @@ namespace AGS.Engine
 
         public List<IObject> GetDisplayList(IViewport viewport)
         {
-            _viewportSubscribers.GetOrAdd(viewport, v => new ViewportSubscriber(v, onSomethingChanged));
+            _viewportSubscribers.GetOrAdd(viewport, v => new ViewportSubscriber(v, onEverythingChanged));
             if (_gameState.Room != _lastRoom)
             {
                 unsubscribeLastRoom();
                 subscribeRoom();
-                onSomethingChanged();
+                onEverythingChanged();
             }
             _cache.TryGetValue(viewport, out var displayList);
-            return displayList ?? _emptyList;
+            return displayList?.DisplayList ?? _emptyList;
 		}
 
         public IObject GetCursor() => _cursor;
@@ -219,17 +360,18 @@ namespace AGS.Engine
             _matrixUpdater.ClearCache();
             foreach (var viewport in _viewportSubscribers.Keys)
             {
-                List<IObject> list;
+                ViewportDisplayList list;
                 if (isDirty)
                 {
-                    list = getDisplayList(viewport);
+                    list = _cache.GetOrAdd(viewport, initDisplayList);
+                    updateDisplayList(viewport, list);
                     _cache[viewport] = list;
                 }
                 else
                 {
-                    list = _cache.GetOrAdd(viewport, getDisplayList);
+                    list = _cache.GetOrAdd(viewport, initAndUpdateDisplayList);
                 }
-                foreach (var item in list)
+                foreach (var item in list.DisplayList)
                 {
                     if (_alreadyPrepared.Add(item.ID))
                     {
@@ -239,13 +381,22 @@ namespace AGS.Engine
             }
         }
 
-        private List<IObject> getDisplayList(IViewport viewport)
+        private ViewportDisplayList initDisplayList(IViewport viewport)
+        {
+            return new ViewportDisplayList();
+        }
+
+        private ViewportDisplayList initAndUpdateDisplayList(IViewport viewport)
+        {
+            var displayList = initDisplayList(viewport);
+            updateDisplayList(viewport, displayList);
+            return displayList;
+        }
+
+        private void updateDisplayList(IViewport viewport, ViewportDisplayList displayList)
         {
             var settings = viewport.DisplayListSettings;
             var room = viewport.RoomProvider.Room;
-            int count = 1 + (room == null ? 0 : room.Objects.Count) + _gameState.UI.Count;
-
-            var displayList = new List<IObject>(count);
 
             if (settings.DisplayRoom && room != null)
             {
@@ -270,48 +421,49 @@ namespace AGS.Engine
                 }
             }
 
-            displayList.Sort(_comparer);
-            return displayList;
+            displayList.Sort();
         }
 
-        private void addDebugDrawArea(List<IObject> displayList, IArea area, IViewport viewport)
+        private void addDebugDrawArea(ViewportDisplayList displayList, IArea area, IViewport viewport)
 		{
 			if (area.Mask.DebugDraw == null) return;
 			addToDisplayList(displayList, area.Mask.DebugDraw, viewport);
 		}
 
-        private void addToDisplayList(List<IObject> displayList, IObject obj, IViewport viewport)
+        private void addToDisplayList(ViewportDisplayList displayList, IObject obj, IViewport viewport)
 		{
             if (!viewport.IsObjectVisible(obj))
 			{
                 return;
 			}
 
-            displayList.Add(obj);
+            var layer = displayList.DisplayListPerLayer.GetOrAdd(obj?.RenderLayer?.Z ?? 0, _ => new LayerDisplayList(_comparer));
+            if (!layer.IsDirty) return;
+            layer.Items.Add(obj);
 		}
 
         private void onUiChanged(AGSHashSetChangedEventArgs<IObject> args)
         {
             if (args.ChangeType == ListChangeType.Add) subscribeObjects(args.Items);
             else unsubscribeObjects(args.Items);
-            onSomethingChanged();
+            onEverythingChanged();
         }
 
         private void onRoomObjectsChanged(AGSHashSetChangedEventArgs<IObject> args)
         {
             if (args.ChangeType == ListChangeType.Add) subscribeObjects(args.Items);
             else unsubscribeObjects(args.Items);
-            onSomethingChanged();
+            onEverythingChanged();
         }
 
         private void subscribeObjects(IEnumerable<IObject> items)
         {
-            foreach (var item in items) subscribeObj(item);
+            foreach (var item in items) subscribeEntity(item);
         }
 
         private void unsubscribeObjects(IEnumerable<IObject> items)
         {
-            foreach (var item in items) unsubscribeObj(item);
+            foreach (var item in items) unsubscribeEntity(item);
         }
 
         private void onAreaListChanged(AGSListChangedEventArgs<IArea> args)
@@ -319,7 +471,7 @@ namespace AGS.Engine
             if (args.ChangeType == ListChangeType.Add) subscribeAreas(args.Items.Select(a => a.Item));
             else unsubscribeAreas(args.Items.Select(a => a.Item));
 
-            onSomethingChanged();
+            onEverythingChanged();
         }
 
         private void subscribeAreas(IAGSBindingList<IArea> areas)
@@ -349,46 +501,39 @@ namespace AGS.Engine
             _isDirty = true;
         }
 
+        private void onEverythingChanged()
+        {
+            foreach (var list in _cache.Values)
+            {
+                foreach (var layerList in list.DisplayListPerLayer.Values)
+                {
+                    layerList.IsDirty = true;
+                }
+            }
+            onSomethingChanged();
+        }
+
+        private void onLayerChanged(int z)
+        {
+            foreach (var list in _cache.Values)
+            {
+                list.DisplayListPerLayer.TryGetValue(z, out var layerList);
+                if (layerList != null) layerList.IsDirty = true;
+            }
+            onSomethingChanged();
+        }
+
         private void onRoomPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IRoom.Background) && args.PropertyName != nameof(IRoom.RoomLimitsProvider)
                 && args.PropertyName != nameof(IRoom.ShowPlayer)) return;
-            onSomethingChanged();
+            onEverythingChanged();
             if (args.PropertyName == nameof(IRoom.Background))
             {
-                unsubscribeObj(_lastRoomBackground);
+                unsubscribeEntity(_lastRoomBackground);
                 _lastRoomBackground = _lastRoom.Background;
-                subscribeObj(_lastRoom.Background);
+                subscribeEntity(_lastRoom.Background);
             }
-        }
-
-        private void onObjVisibleChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(IVisibleComponent.Visible)) return;
-            onSomethingChanged();
-        }
-
-        private void onObjTranslatePropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(ITranslateComponent.Z) &&
-                args.PropertyName != nameof(ITranslateComponent.X)) return;
-            onSomethingChanged();
-        }
-
-        private void onObjDrawablePropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(IDrawableInfoComponent.RenderLayer)) return;
-            onSomethingChanged();
-        }
-
-        private void onAreaPropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            onSomethingChanged();
-        }
-
-        private void onWalkBehindPropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            onSomethingChanged();
         }
 
         private void subscribeRoom()
@@ -405,7 +550,7 @@ namespace AGS.Engine
 
             room.Objects.OnListChanged.Subscribe(onRoomObjectsChanged);
             room.PropertyChanged += onRoomPropertyChanged;
-            subscribeObj(room.Background);
+            subscribeEntity(room.Background);
             subscribeObjects(room.Objects);
             subscribeAreas(room.Areas);
         }
@@ -417,7 +562,7 @@ namespace AGS.Engine
 
             lastRoom.Objects.OnListChanged.Unsubscribe(onRoomObjectsChanged);
             lastRoom.PropertyChanged -= onRoomPropertyChanged;
-            unsubscribeObj(lastRoom.Background);
+            unsubscribeEntity(lastRoom.Background);
             unsubscribeObjects(lastRoom.Objects);
             unsubscribeAreas(lastRoom.Areas);
         }
@@ -427,48 +572,31 @@ namespace AGS.Engine
             return entity.Bind<TComponent>(c => c.PropertyChanged += ev, c => c.PropertyChanged -= ev);
         }
 
-        private void subscribeObj(IObject obj)
+        private void subscribeEntity(IEntity entity)
         {
-            if (obj == null) return;
-            var vBinding = bind<IVisibleComponent>(obj, onObjVisibleChanged);
-            var tBinding = bind<ITranslateComponent>(obj, onObjTranslatePropertyChanged);
-            var dBinding = bind<IDrawableInfoComponent>(obj, onObjDrawablePropertyChanged);
-
-            AnimationSubscriber animSubscriber = new AnimationSubscriber(obj, onSomethingChanged);
-            var aBinding = animSubscriber.Bind();
-
-            obj.TreeNode.OnParentChanged.Subscribe(onSomethingChanged);
-
-            _bindings[obj.ID] = new List<API.IComponentBinding> { vBinding, tBinding, dBinding, aBinding };
-        }
-
-        private void unsubscribeObj(IObject obj)
-        {
-            if (obj == null) return;
-            obj.TreeNode.OnParentChanged.Unsubscribe(onSomethingChanged);
-            unsubscribeEntity(obj);
+            if (entity == null) return;
+            EntitySubscriber subscriber = new EntitySubscriber(entity, onLayerChanged);
+            _entitySubscribers[entity.ID] = subscriber;
         }
 
         private void unsubscribeEntity(IEntity entity)
         {
-            _bindings.TryRemove(entity.ID, out var bindings);
-            if (bindings == null) return;
-            foreach (var binding in bindings) binding?.Unbind();
+            if (entity == null) return;
+            _entitySubscribers.TryRemove(entity.ID, out var subscriber);
+            subscriber?.Unsubscribe();
         }
 
         private void subscribeArea(IArea area)
         {
             if (area == null) return;
-            subscribeObj(area.Mask?.DebugDraw);
-            var aBinding = bind<IAreaComponent>(area, onAreaPropertyChanged);
-            var bBinding = bind<IWalkBehindArea>(area, onWalkBehindPropertyChanged);
-            _bindings[area.ID] = new List<API.IComponentBinding> { aBinding, bBinding };
+            subscribeEntity(area.Mask?.DebugDraw);
+            subscribeEntity(area);
         }
 
         private void unsubscribeArea(IArea area)
         {
             if (area == null) return;
-            unsubscribeObj(area.Mask?.DebugDraw);
+            unsubscribeEntity(area.Mask?.DebugDraw);
             unsubscribeEntity(area);
         }
     }
