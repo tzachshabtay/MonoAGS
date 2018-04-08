@@ -19019,6 +19019,22 @@ references:
   commentId: T:AGS.API.ModelMatrices
   fullName: AGS.API.ModelMatrices
   nameWithType: ModelMatrices
+- uid: AGS.API.ModelMatrices.Equals(AGS.API.ModelMatrices@)
+  name: Equals(ref ModelMatrices)
+  href: api/AGS.API.ModelMatrices.html#AGS_API_ModelMatrices_Equals_AGS_API_ModelMatrices__
+  commentId: M:AGS.API.ModelMatrices.Equals(AGS.API.ModelMatrices@)
+  name.vb: Equals(ByRef ModelMatrices)
+  fullName: AGS.API.ModelMatrices.Equals(ref AGS.API.ModelMatrices)
+  fullName.vb: AGS.API.ModelMatrices.Equals(ByRef AGS.API.ModelMatrices)
+  nameWithType: ModelMatrices.Equals(ref ModelMatrices)
+  nameWithType.vb: ModelMatrices.Equals(ByRef ModelMatrices)
+- uid: AGS.API.ModelMatrices.Equals*
+  name: Equals
+  href: api/AGS.API.ModelMatrices.html#AGS_API_ModelMatrices_Equals_
+  commentId: Overload:AGS.API.ModelMatrices.Equals
+  isSpec: "True"
+  fullName: AGS.API.ModelMatrices.Equals
+  nameWithType: ModelMatrices.Equals
 - uid: AGS.API.ModelMatrices.InObjResolutionMatrix
   name: InObjResolutionMatrix
   href: api/AGS.API.ModelMatrices.html#AGS_API_ModelMatrices_InObjResolutionMatrix
