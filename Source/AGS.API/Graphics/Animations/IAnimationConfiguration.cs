@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// Determines how the animation will run.
@@ -26,7 +28,7 @@
     /// <summary>
     /// Allows to configure various aspects of the animation.
     /// </summary>
-	public interface IAnimationConfiguration
+    public interface IAnimationConfiguration : INotifyPropertyChanged
 	{
         /// <summary>
         /// Allows to configure how the animation cycles (does it run forwards, backwards, does it zig zag?)
