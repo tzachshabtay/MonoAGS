@@ -47,6 +47,12 @@ Used to support playing OGG Vorbis files (audio file format).
 
 Used to support playing FLAC files (audio file format).
 
+## Editor only dependencies
+
+### [GuiLabs.Undo](https://github.com/KirillOsenkov/Undo)
+
+Framework for supporting undo/redo operations.
+
 ## Development only dependencies
 
 ### [NUnit](http://nunit.org/)

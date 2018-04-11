@@ -1,16 +1,19 @@
 ﻿using AGS.API;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
     public class BoolPropertyEditor : IInspectorPropertyEditor
     {
         private readonly IGameFactory _factory;
+        private readonly ActionManager _actions;
         private InspectorProperty _property;
         private ICheckboxComponent _checkbox;
 
-        public BoolPropertyEditor(IGameFactory factory)
+        public BoolPropertyEditor(IGameFactory factory, ActionManager actions)
         {
             _factory = factory;
+            _actions = actions;
         }
 
         public static ICheckBox CreateCheckbox(IUIControl label, IGameFactory factory, string id)
@@ -32,7 +35,8 @@ namespace AGS.Editor
             checkbox.Checked = bool.Parse(property.Value);
             checkbox.OnCheckChanged.Subscribe(args => 
             {
-                property.Prop.SetValue(property.Object, args.Checked);
+                if (_actions.ActionIsExecuting) return;
+                _actions.RecordAction(new PropertyAction(property, args.Checked));
             });
         }
 

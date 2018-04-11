@@ -122,7 +122,7 @@ namespace AGS.Engine
                 else
                 {
                     _keyboardState.HideSoftKeyboard();
-                    if (_focusedUi.HasKeyboardFocus == this)
+                    if (_focusedUi.HasKeyboardFocus == _entity)
                         _focusedUi.HasKeyboardFocus = null;
                 }
                 updateWatermark();

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -11,6 +12,7 @@ namespace AGS.Editor
         private readonly GameDebugTree _debugTree;
         private readonly GameDebugDisplayList _displayList;
         private readonly InspectorPanel _inspector;
+        private readonly IInput _input;
         private const string _panelId = "Game Debug Tree Panel";
         private IPanel _panel;
         private ISplitPanelComponent _splitPanel;
@@ -24,6 +26,8 @@ namespace AGS.Editor
             _inspector = new InspectorPanel(game, _layer);
             _debugTree = new GameDebugTree(game, _layer, _inspector);
             _displayList = new GameDebugDisplayList(game, _layer);
+            _input = game.Input;
+            game.Input.KeyDown.Subscribe(onKeyDown);
         }
 
         public bool Visible => _panel.Visible;
@@ -130,6 +134,27 @@ namespace AGS.Editor
             _panesButton.Text = _currentTab == _debugTree ? "Display List" : "Scene Tree";
             _currentTab.Resize();
             return _currentTab.Show();
+        }
+
+        private void onKeyDown(KeyboardEventArgs args)
+        {
+            if (!_panel?.Visible ?? false) return;
+
+            switch (args.Key)
+            {
+                case Key.Z:
+                    if (_input.IsKeyDown(Key.ControlLeft) || _input.IsKeyDown(Key.ControlRight)) 
+                    {
+                        _inspector?.Inspector?.Undo();
+                    }
+                    break;
+                case Key.Y:
+                    if (_input.IsKeyDown(Key.ControlLeft) || _input.IsKeyDown(Key.ControlRight))
+                    {
+                        _inspector?.Inspector?.Redo();
+                    }
+                    break;
+            }
         }
     }
 }
