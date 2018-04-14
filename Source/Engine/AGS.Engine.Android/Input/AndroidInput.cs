@@ -7,7 +7,7 @@ using Android.Views;
 
 namespace AGS.Engine.Android
 {
-    public class AndroidInput : IInput
+    public class AndroidInput : IAGSInput
     {
         private IGameWindowSize _windowSize;
         private IGameState _state;

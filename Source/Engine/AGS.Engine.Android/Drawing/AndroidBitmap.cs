@@ -161,7 +161,7 @@ namespace AGS.Engine.Android
 			IObject debugDraw = null;
 			if (debugDrawColor != null)
 			{
-				debugDraw = factory.Object.GetObject(id ?? path ?? "Mask Drawable");
+				debugDraw = factory.Object.GetAdventureObject(id ?? path ?? "Mask Drawable");
                 debugDraw.Image = factory.Graphics.LoadImage(new AndroidBitmap(debugMask, _graphics), null, path);
 				debugDraw.Pivot = new AGS.API.PointF ();
 			}
