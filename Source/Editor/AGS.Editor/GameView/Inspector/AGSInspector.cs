@@ -35,7 +35,7 @@ namespace AGS.Editor
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            entity.Bind<ITreeViewComponent>(c => { _treeView = c; configureTree(); refreshTree();}, _ => _treeView = null);
+            entity.Bind<ITreeViewComponent>(c => { _treeView = c; configureTree(); refreshTree(); }, _ => _treeView = null);
         }
 
         public void Show(object obj)
@@ -220,9 +220,7 @@ namespace AGS.Editor
 
             var propType = property.Prop.PropertyType;
             if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory, _actions);
-            else if (propType == typeof(Color)) 
-                editor = new ColorPropertyEditor(_factory, _actions);
-
+            else if (propType == typeof(Color)) editor = new ColorPropertyEditor(_factory, _actions);
             else if (propType == typeof(int)) editor = new NumberPropertyEditor(_actions, _state, _factory, true, false);
             else if (propType == typeof(float)) editor = new NumberPropertyEditor(_actions, _state, _factory, false, false);
             else if (propType == typeof(SizeF)) editor = new SizeFPropertyEditor(_actions, _state, _factory, false);
@@ -240,7 +238,6 @@ namespace AGS.Editor
             }
             else if (propType == typeof(RectangleF)) editor = new RectangleFPropertyEditor(_actions, _state, _factory, false);
             else if (propType == typeof(Rectangle)) editor = new RectanglePropertyEditor(_actions, _state, _factory, false);
-
             else if (propType == typeof(int?)) editor = new NumberPropertyEditor(_actions, _state, _factory, true, true);
             else if (propType == typeof(float?)) editor = new NumberPropertyEditor(_actions, _state, _factory, false, true);
             else if (propType == typeof(SizeF?)) editor = new SizeFPropertyEditor(_actions, _state, _factory, true);
@@ -252,7 +249,6 @@ namespace AGS.Editor
             else if (propType == typeof(Vector4?)) editor = new Vector4PropertyEditor(_actions, _state, _factory, true);
             else if (propType == typeof(RectangleF?)) editor = new RectangleFPropertyEditor(_actions, _state, _factory, true);
             else if (propType == typeof(Rectangle?)) editor = new RectanglePropertyEditor(_actions, _state, _factory, true);
-
             else
             {
                 var typeInfo = propType.GetTypeInfo();
