@@ -90,19 +90,19 @@ namespace Tests
 		[Test]
 		public void PerformingPixelPerfect_OnlyOnce_Test()
 		{
-			int count = 0;
 			foreach (var sprite in getPixelPerfectImplementors())
 			{
 				Mock<IMask> mask = new Mock<IMask>();
-				_mocks.MaskLoader().Setup(m => m.Load(It.IsAny<string>(), (IBitmap)null, false, null, null)).Returns(mask.Object);
+                Mock<IBitmap> bitmap = new Mock<IBitmap>();
+                _mocks.MaskLoader().Setup(m => m.Load(It.IsAny<string>(), bitmap.Object, false, null, null)).Returns(mask.Object);
 				sprite.Model.Image = _mocks.Image().Object;
+                _mocks.Image().Setup(i => i.OriginalBitmap).Returns(bitmap.Object);
 
                 sprite.PixelPerfect.IsPixelPerfect = true;
                 var area = sprite.PixelPerfect.PixelPerfectHitTestArea;
                 Assert.IsNotNull(area);
-				count++;
 
-				_mocks.MaskLoader().Verify(m => m.Load(It.IsAny<string>(), (IBitmap)null, false, null, null), Times.Exactly(count));
+                _mocks.MaskLoader().Verify(m => m.Load(It.IsAny<string>(), bitmap.Object, false, null, null), Times.Once);
 			}
 		}
 
@@ -124,6 +124,7 @@ namespace Tests
                 Mock<IMask> mask = new Mock<IMask>();
                 _mocks.MaskLoader().Setup(m => m.Load(It.IsAny<string>(), (IBitmap)null, false, null, null)).Returns(mask.Object);
 				sprite.Model.Image = _mocks.Image().Object;
+                _mocks.Image().Setup(i => i.OriginalBitmap).Returns(new Mock<IBitmap>().Object);
 
                 sprite.PixelPerfect.IsPixelPerfect = true;
                 sprite.PixelPerfect.IsPixelPerfect = false;
@@ -175,4 +176,3 @@ namespace Tests
         }
 	}
 }
-
