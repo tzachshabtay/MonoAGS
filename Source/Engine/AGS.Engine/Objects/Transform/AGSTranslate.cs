@@ -83,7 +83,12 @@ namespace AGS.Engine
             set
             {
                 float prevY = _location.Y;
+                float prevZ = _location.Z;
                 _location = new AGSLocation(X, value, Z == Y ? value : Z);
+                if (prevZ != _location.Z)
+                {
+                    PropertyChanged(this, _argsZ);
+                }
                 if (prevY != value)
                 {
                     PropertyChanged(this, _argsY);
