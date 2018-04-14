@@ -13,21 +13,23 @@ namespace AGS.Editor
         private readonly GameDebugDisplayList _displayList;
         private readonly InspectorPanel _inspector;
         private readonly IInput _input;
+        private readonly KeyboardBindings _keyboardBindings;
         private const string _panelId = "Game Debug Tree Panel";
         private IPanel _panel;
         private ISplitPanelComponent _splitPanel;
         private IDebugTab _currentTab;
         private IButton _panesButton;
 
-        public GameDebugView(IGame game)
+        public GameDebugView(IGame game, KeyboardBindings keyboardBindings)
         {
             _game = game;
+            _keyboardBindings = keyboardBindings;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: new Size(1800, 1200));
             _inspector = new InspectorPanel(game, _layer);
             _debugTree = new GameDebugTree(game, _layer, _inspector);
             _displayList = new GameDebugDisplayList(game, _layer);
             _input = game.Input;
-            game.Input.KeyDown.Subscribe(onKeyDown);
+            keyboardBindings.OnKeyboardShortcutPressed.Subscribe(onShortcutKeyPressed);
         }
 
         public bool Visible => _panel.Visible;
@@ -136,24 +138,17 @@ namespace AGS.Editor
             return _currentTab.Show();
         }
 
-        private void onKeyDown(KeyboardEventArgs args)
+        private void onShortcutKeyPressed(string action)
         {
             if (!_panel?.Visible ?? false) return;
 
-            switch (args.Key)
+            if (action == KeyboardBindings.Undo)
             {
-                case Key.Z:
-                    if (_input.IsKeyDown(Key.ControlLeft) || _input.IsKeyDown(Key.ControlRight)) 
-                    {
-                        _inspector?.Inspector?.Undo();
-                    }
-                    break;
-                case Key.Y:
-                    if (_input.IsKeyDown(Key.ControlLeft) || _input.IsKeyDown(Key.ControlRight))
-                    {
-                        _inspector?.Inspector?.Redo();
-                    }
-                    break;
+                _inspector?.Inspector?.Undo();
+            }
+            else if (action == KeyboardBindings.Redo)
+            {
+                _inspector?.Inspector?.Redo();
             }
         }
     }

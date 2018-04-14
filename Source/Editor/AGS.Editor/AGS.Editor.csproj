@@ -23,5 +23,6 @@
   <ItemGroup>
     <Folder Include="GameView\" />
     <Folder Include="UndoRedo\" />
+    <Folder Include="Input\" />
   </ItemGroup>
 </Project>

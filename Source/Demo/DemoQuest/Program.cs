@@ -45,7 +45,7 @@ namespace DemoGame
 
             _gameDebugView = new Lazy<GameDebugView>(() =>
             {
-                var gameDebugView = new GameDebugView(game);
+                var gameDebugView = new GameDebugView(game, new KeyboardBindings(game.Input));
                 gameDebugView.Load();
                 return gameDebugView;
             });
