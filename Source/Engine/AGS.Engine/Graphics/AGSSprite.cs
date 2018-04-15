@@ -135,7 +135,7 @@ namespace AGS.Engine
         [DoNotNotify]
         public Vector4 Brightness { get => _hasImage.Brightness; set => _hasImage.Brightness = value; }
 
-        public IArea PixelPerfectHitTestArea => Image == null ? null : _pixelPerfectArea.Value;
+        public IArea PixelPerfectHitTestArea => Image?.OriginalBitmap == null ? null : _pixelPerfectArea.Value;
 
         #endregion
 
@@ -158,4 +158,3 @@ namespace AGS.Engine
         }
 	}
 }
-

@@ -17,14 +17,9 @@ namespace AGS.Engine
         private ConcurrentDictionary<Type, Lazy<API.IComponent>> _components;
         private AGSConcurrentHashSet<API.IComponentBinding> _bindings;
         private Resolver _resolver;
+        private string _displayName;
 
-        //This a design limitation, as all of the preset entities (object, character, etc) implement the components as a convinience they also need to implement the PropertyChanged event, though there really
-        //is no need to provide it on the entity level (if there is then we'll need to add support).
-        public event PropertyChangedEventHandler PropertyChanged
-        {
-            add { throw new NotSupportedException(); }
-            remove { throw new NotSupportedException(); }
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public AGSEntity(string id, Resolver resolver)
         {
@@ -43,11 +38,22 @@ namespace AGS.Engine
 
         public string ID { get; private set; }
 
-        public string DisplayName { get; set; }
+        public string DisplayName 
+        { 
+            get { return _displayName; }
+            set 
+            {
+                if (_displayName == value) return;
+                _displayName = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+            }
+        }
 
-        public string GetFriendlyName() { return DisplayName ?? ID; }
+        public string GetFriendlyName() => DisplayName ?? ID;
 
-        public bool ComponentsInitialized { get; private set; }
+        public override string ToString() => GetFriendlyName();
+
+		public bool ComponentsInitialized { get; private set; }
 
         public IBlockingEvent OnComponentsInitialized { get; private set; }
 
@@ -238,4 +244,3 @@ namespace AGS.Engine
         }
     }
 }
-

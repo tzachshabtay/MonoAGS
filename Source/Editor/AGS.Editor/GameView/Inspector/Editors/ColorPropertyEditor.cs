@@ -4,12 +4,14 @@ using System.Globalization;
 using System.Reflection;
 using AGS.API;
 using AGS.Engine;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
     public class ColorPropertyEditor : IInspectorPropertyEditor
     {
         private readonly IGameFactory _factory;
+        private readonly ActionManager _actions;
         private InspectorProperty _property;
         private ITextBox _text;
         private ILabel _colorLabel;
@@ -17,9 +19,10 @@ namespace AGS.Editor
         private Dictionary<string, uint> _namedColors;
         private Dictionary<uint, string> _namedColorsReversed;
 
-        public ColorPropertyEditor(IGameFactory factory)
+        public ColorPropertyEditor(IGameFactory factory, ActionManager actions)
         {
             _factory = factory;
+            _actions = actions;
             _namedColors = new Dictionary<string, uint>();
             _namedColorsReversed = new Dictionary<uint, string>();
         }
@@ -61,7 +64,7 @@ namespace AGS.Editor
             combobox.SuggestMode = ComboSuggest.Suggest;
             combobox.DropDownPanelList.OnSelectedItemChanged.Subscribe(args =>
             {
-                property.Prop.SetValue(property.Object, Color.FromHexa(_namedColors[args.Item.Text]));
+                setColor(Color.FromHexa(_namedColors[args.Item.Text]));
             });
         }
 
@@ -108,7 +111,7 @@ namespace AGS.Editor
                 text = "ff" + text;
             }
             if (!uint.TryParse(text, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint hexaColor)) return false;
-            _property.Prop.SetValue(_property.Object, Color.FromHexa(hexaColor));
+            setColor(Color.FromHexa(hexaColor));
             return true;
         }
 
@@ -133,7 +136,7 @@ namespace AGS.Editor
                 if (tokens.Length == 4) args.IntendedState.Text = $"{color.R},{color.G},{color.B},{color.A}";
                 else args.IntendedState.Text = $"{color.R},{color.G},{color.B}";
             }
-            _property.Prop.SetValue(_property.Object, color);
+            setColor(color);
             return true;
         }
 
@@ -184,6 +187,12 @@ namespace AGS.Editor
             if (idx == -1)
                 return -1;
             return nthIndexOfComma(input, idx + 1, nth - 1);
+        }
+
+        private void setColor(Color color)
+        {
+            if (_actions.ActionIsExecuting) return;
+            _actions.RecordAction(new PropertyAction(_property, color));
         }
     }
 }

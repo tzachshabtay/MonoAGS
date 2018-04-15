@@ -130,7 +130,7 @@ namespace AGS.Engine.IOS
             IObject debugDraw = null;
             if (debugDrawColor != null)
             {
-                debugDraw = factory.Object.GetObject(id ?? path ?? "Mask Drawable");
+                debugDraw = factory.Object.GetAdventureObject(id ?? path ?? "Mask Drawable");
                 debugDraw.Image = factory.Graphics.LoadImage(new IOSBitmap(debugMask, _graphics), null, path);
                 debugDraw.Pivot = new AGS.API.PointF();
             }

@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -18,7 +19,10 @@ namespace AGS.Engine
 
         public int DelayBetweenFrames { get; set; }
 
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
 		#endregion
 	}
 }
-

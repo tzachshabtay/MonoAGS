@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using AGS.API;
 using AGS.Engine;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
     public class EnumPropertyEditor : IInspectorPropertyEditor
     {
         private readonly IUIFactory _factory;
+        private readonly ActionManager _actions;
         private InspectorProperty _property;
         private ITextComponent _text;
 
-        public EnumPropertyEditor(IUIFactory factory)
+        public EnumPropertyEditor(IUIFactory factory, ActionManager actions)
         {
             _factory = factory;
+            _actions = actions;
         }
 
         public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
@@ -39,7 +42,8 @@ namespace AGS.Editor
             }
             combobox.DropDownPanelList.OnSelectedItemChanged.Subscribe(args => 
             {
-                property.Prop.SetValue(property.Object, Enum.Parse(enumType, args.Item.Text));
+                if (_actions.ActionIsExecuting) return;
+                _actions.RecordAction(new PropertyAction(property, Enum.Parse(enumType, args.Item.Text)));
             });
         }
 

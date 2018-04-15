@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using AGS.API;
 using AGS.Engine;
+using Autofac;
 
 namespace AGS.Editor
 {
@@ -9,6 +10,8 @@ namespace AGS.Editor
     {
         public static void Run()
         {
+            setupResolver();
+
             IGame game = AGSGame.CreateEmpty();
 
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
@@ -30,6 +33,11 @@ namespace AGS.Editor
 
             game.Start(new AGSGameSettings("MonoAGS Editor", new AGS.API.Size(1280, 800),
                windowSize: new AGS.API.Size(1280, 800), windowState: WindowState.Normal, preserveAspectRatio: false));
+        }
+
+        private static void setupResolver()
+        {
+            Resolver.Override(resolver => resolver.Builder.RegisterType<KeyboardBindings>().SingleInstance());
         }
 
         [Conditional("DEBUG")]

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 
@@ -11,19 +12,24 @@ namespace AGS.Editor
         private readonly GameDebugTree _debugTree;
         private readonly GameDebugDisplayList _displayList;
         private readonly InspectorPanel _inspector;
+        private readonly IInput _input;
+        private readonly KeyboardBindings _keyboardBindings;
         private const string _panelId = "Game Debug Tree Panel";
         private IPanel _panel;
         private ISplitPanelComponent _splitPanel;
         private IDebugTab _currentTab;
         private IButton _panesButton;
 
-        public GameDebugView(IGame game)
+        public GameDebugView(IGame game, KeyboardBindings keyboardBindings)
         {
             _game = game;
+            _keyboardBindings = keyboardBindings;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: new Size(1800, 1200));
             _inspector = new InspectorPanel(game, _layer);
             _debugTree = new GameDebugTree(game, _layer, _inspector);
             _displayList = new GameDebugDisplayList(game, _layer);
+            _input = game.Input;
+            keyboardBindings.OnKeyboardShortcutPressed.Subscribe(onShortcutKeyPressed);
         }
 
         public bool Visible => _panel.Visible;
@@ -130,6 +136,20 @@ namespace AGS.Editor
             _panesButton.Text = _currentTab == _debugTree ? "Display List" : "Scene Tree";
             _currentTab.Resize();
             return _currentTab.Show();
+        }
+
+        private void onShortcutKeyPressed(string action)
+        {
+            if (!_panel?.Visible ?? false) return;
+
+            if (action == KeyboardBindings.Undo)
+            {
+                _inspector?.Inspector?.Undo();
+            }
+            else if (action == KeyboardBindings.Redo)
+            {
+                _inspector?.Inspector?.Redo();
+            }
         }
     }
 }

@@ -67,7 +67,7 @@ namespace AGS.Editor
 
         public static void Load(IRenderMessagePump messagePump, AGSProject agsProj)
         {
-            messagePump.Post(async _ => load(agsProj), null);
+            messagePump.Post(async _ => await load(agsProj), null);
         }
 
         private static async Task<string> getOutputPath(AGSProject agsProj)
@@ -118,15 +118,18 @@ namespace AGS.Editor
             var game = AGSGame.CreateEmpty();
             gameCreator.StartGame(game);
 
+            KeyboardBindings keyboardBindings = null;
             if (game is AGSGame agsGame) //todo: find a solution for any IGame implementation
             {
-                var resourceLoader = agsGame.GetResolver().Container.Resolve<IResourceLoader>();
+                Resolver resolver = agsGame.GetResolver();
+                keyboardBindings = resolver.Container.Resolve<KeyboardBindings>();
+                var resourceLoader = resolver.Container.Resolve<IResourceLoader>();
                 resourceLoader.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(assembly), 2));
             }
 
             _gameDebugView = new Lazy<GameDebugView>(() =>
             {
-                var gameDebugView = new GameDebugView(game);
+                var gameDebugView = new GameDebugView(game, keyboardBindings);
                 gameDebugView.Load();
                 return gameDebugView;
             });
@@ -134,9 +137,9 @@ namespace AGS.Editor
             game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200),
                windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal));
 
-            game.Input.KeyDown.SubscribeToAsync(async args =>
+            keyboardBindings.OnKeyboardShortcutPressed.Subscribe(async action =>
             {
-                if (args.Key == Key.G && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
+                if (action == KeyboardBindings.GameView)
                 {
                     var gameDebug = _gameDebugView.Value;
                     if (gameDebug.Visible) gameDebug.Hide();

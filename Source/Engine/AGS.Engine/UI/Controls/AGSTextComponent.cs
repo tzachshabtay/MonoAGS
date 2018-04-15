@@ -284,9 +284,9 @@ namespace AGS.Engine
             }
 
             IGLMatrices textRenderMatrices = acquireMatrix(0).SetMatrices(modelMatrices.InObjResolutionMatrix, viewportMatrix);
-            IGLMatrices labelRenderMatrices = _drawable.RenderLayer.IndependentResolution != null ? textRenderMatrices : acquireMatrix(1).SetMatrices(modelMatrices.InVirtualResolutionMatrix, viewportMatrix);
-            IGLMatrices textHitTestMatrices = resolutionMatches ? textRenderMatrices : _drawable.RenderLayer.IndependentResolution == null ? labelRenderMatrices : acquireMatrix(2).SetMatrices(modelMatrices.InVirtualResolutionMatrix, viewportMatrix);
-            IGLMatrices labelHitTestMatrices = _drawable.RenderLayer.IndependentResolution == null ? labelRenderMatrices : textHitTestMatrices;
+            IGLMatrices labelRenderMatrices = _drawable.RenderLayer?.IndependentResolution != null ? textRenderMatrices : acquireMatrix(1).SetMatrices(modelMatrices.InVirtualResolutionMatrix, viewportMatrix);
+            IGLMatrices textHitTestMatrices = resolutionMatches ? textRenderMatrices : _drawable.RenderLayer?.IndependentResolution == null ? labelRenderMatrices : acquireMatrix(2).SetMatrices(modelMatrices.InVirtualResolutionMatrix, viewportMatrix);
+            IGLMatrices labelHitTestMatrices = _drawable.RenderLayer?.IndependentResolution == null ? labelRenderMatrices : textHitTestMatrices;
 
             if (textScaleFactor.Equals(hitTestResolutionFactor))
                 hitTestResolutionFactor = noFactor;
