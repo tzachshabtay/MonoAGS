@@ -162,6 +162,7 @@ namespace AGS.Engine
         {
             var visible = _visibleComponent;
             if (visible == null || !visible.Visible) IsFocused = false;
+            if (_withCaret.TreeNode.Parent == null) _withCaret.TreeNode.SetParent(_tree.TreeNode);
         }
 
         private void onSoftKeyboardHidden()
@@ -191,7 +192,6 @@ namespace AGS.Engine
         {
             if (_textComponent == null) return;
             if (_room.Room != null && _room.Room != _game.State.Room) return;
-            if (_withCaret.TreeNode.Parent == null) _withCaret.TreeNode.SetParent(_tree.TreeNode);
             bool isVisible = IsFocused;
             if (isVisible)
             {
