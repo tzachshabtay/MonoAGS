@@ -24,5 +24,6 @@
     <Folder Include="GameView\" />
     <Folder Include="UndoRedo\" />
     <Folder Include="Input\" />
+    <Folder Include="Designers\" />
   </ItemGroup>
 </Project>

@@ -18,11 +18,15 @@ namespace AGS.Editor
         private ITextBox _searchBox;
 
         private IBorderComponent _lastSelectedBorder;
+        private IEnabledComponent _lastSelectedEnabled;
         private IVisibleComponent _lastSelectedMaskVisible;
         private IImageComponent _lastSelectedMaskImage;
+        private IEntity _lastSelectedEntity;
         private IBorderStyle _lastObjectBorder;
         private bool _lastMaskVisible;
         private byte _lastOpacity;
+        private bool _lastEnabled;
+        private bool _lastClickThrough;
 
         const float _padding = 42f;
         const float _gutterSize = 15f;
@@ -118,9 +122,22 @@ namespace AGS.Editor
         {
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
             _inspector.Inspector.Show(obj);
+            _lastSelectedEntity = obj;
+            obj.AddComponent<IUIEvents>();
+            obj.AddComponent<IDraggableComponent>();
+            obj.AddComponent<EntityDesigner>();
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
             var borderComponent = obj.GetComponent<IBorderComponent>();
+            var enabledComponent = obj.GetComponent<IEnabledComponent>();
+            if (enabledComponent != null)
+            {
+                _lastSelectedEnabled = enabledComponent;
+                _lastEnabled = enabledComponent.Enabled;
+                _lastClickThrough = enabledComponent.ClickThrough;
+                enabledComponent.Enabled = true;
+                enabledComponent.ClickThrough = false;
+            }
             if (image != null && borderComponent != null)
             {
                 _lastSelectedBorder = borderComponent;
@@ -163,14 +180,22 @@ namespace AGS.Editor
 
         private void unselect()
         {
+            _lastSelectedEntity?.RemoveComponent<IDraggableComponent>();
             var lastSelectedBorder = _lastSelectedBorder;
             var lastSelectedMaskVisible = _lastSelectedMaskVisible;
             var lastSelectedMaskImage = _lastSelectedMaskImage;
+            var lastEnabled = _lastEnabled;
             if (lastSelectedBorder != null) lastSelectedBorder.Border = _lastObjectBorder;
             if (lastSelectedMaskVisible != null) lastSelectedMaskVisible.Visible = _lastMaskVisible;
             if (lastSelectedMaskImage != null) lastSelectedMaskImage.Opacity = _lastOpacity;
+            if (_lastSelectedEnabled != null)
+            {
+                _lastSelectedEnabled.Enabled = lastEnabled;
+                _lastSelectedEnabled.ClickThrough = _lastClickThrough;
+            }
             _lastSelectedBorder = null;
             _lastObjectBorder = null;
+            _lastSelectedEnabled = null;
             _lastMaskVisible = false;
             _lastOpacity = 0;
         }

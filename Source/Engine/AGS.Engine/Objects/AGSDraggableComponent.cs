@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -19,6 +20,8 @@ namespace AGS.Engine
             _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
             IsDragEnabled = true;
         }
+
+        public static float ClampingToWhenAlt = 5f;
 
         public float? DragMaxX { get; set; }
 
@@ -71,10 +74,27 @@ namespace AGS.Engine
 			var translate = _translate;
 			if (translate == null) return;
 
-            var translateX = _dragObjectStartX + (mousePos.X - _dragMouseStartX);
-            var translateY = _dragObjectStartY + (mousePos.Y - _dragMouseStartY);
+            var diffX = mousePos.X - _dragMouseStartX;
+            var diffY = mousePos.Y - _dragMouseStartY;
+            var translateX = _dragObjectStartX + diffX;
+            var translateY = _dragObjectStartY + diffY;
             bool canDragX = true;
             bool canDragY = true;
+
+            if (_input.IsKeyDown(Key.AltLeft) || _input.IsKeyDown(Key.AltRight))
+            {
+                translateX = (float)Math.Round(translateX / ClampingToWhenAlt) * ClampingToWhenAlt;
+                translateY = (float)Math.Round(translateY / ClampingToWhenAlt) * ClampingToWhenAlt;
+            }
+            if (_input.IsKeyDown(Key.ControlLeft) || _input.IsKeyDown(Key.ControlRight))
+            {
+                if (Math.Abs(diffX) > Math.Abs(diffY))
+                {
+                    translateY = translate.Y;
+                }
+                else translateX = translate.X;
+            }
+
             if (DragMinX != null && translateX < DragMinX.Value) canDragX = false;
             else if (DragMaxX != null && translateX > DragMaxX.Value) canDragX = false;
             if (DragMinY != null && translateY < DragMinY.Value) canDragY = false;
