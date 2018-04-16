@@ -64,6 +64,7 @@ namespace AGS.Engine
 		}
 
         public static int UIThreadID;
+        public static int UpdateThreadID;
 
 		#region IGame implementation
 

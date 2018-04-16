@@ -158,6 +158,7 @@ namespace AGS.Engine
 
         private void threadLoop()
         {
+            AGSGame.UpdateThreadID = Environment.CurrentManagedThreadId;
             OnThreadStarted(this, null);
             watch.Start();
             while (!_isExiting)
