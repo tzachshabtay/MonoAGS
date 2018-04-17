@@ -54,12 +54,9 @@ namespace AGS.Editor
         private void addResizeHandles(IEntity entity, params Direction[] directions)
         {
             var config = FontIcons.IconConfig;
-            var idle = new ButtonAnimation(null, config, null);
-            var hover = new ButtonAnimation(null, AGSTextConfig.ChangeColor(config, Colors.Yellow, Colors.White, 0f), null);
-            var pushed = hover;
             foreach (var direction in directions)
             {
-                var label = _factory.UI.GetButton($"{entity.ID}_ResizeHandle{direction}", idle, hover, pushed, 0f, 0f, width: 5f, height: 5f, addToUi: false);
+                var label = _factory.UI.GetLabel($"{entity.ID}_ResizeHandle{direction}", "", 5f, 5f, 0f, 0f, config: config, addToUi: false);
                 _resizeHandles.Add(new ResizeHandle(label, _state, _input, direction));
             }
         }
@@ -83,17 +80,22 @@ namespace AGS.Editor
 
         private class ResizeHandle
         {
-            private readonly IButton _handle;
+            private readonly ILabel _handle;
             private readonly IInput _input;
             private readonly Direction _direction;
+
+            private readonly ITextConfig _idleConfig;
+            private readonly ITextConfig _hoverConfig;
 
             private IScaleComponent _scale;
             private float _widthOnDown, _heightOnDown;
             private float _xOnDown, _yOnDown;
             private bool _isDown;
 
-            public ResizeHandle(IButton handle, IGameState state, IInput input, Direction direction)
+            public ResizeHandle(ILabel handle, IGameState state, IInput input, Direction direction)
             {
+                _idleConfig = handle.TextConfig;
+                _hoverConfig = AGSTextConfig.ChangeColor(handle.TextConfig, Colors.Yellow, Colors.White, 0f);
                 _direction = direction;
                 _input = input;
                 _handle = handle;
@@ -102,7 +104,9 @@ namespace AGS.Editor
                 _handle.Enabled = true;
                 _handle.RenderLayer = AGSLayers.UI;
                 _handle.TextBackgroundVisible = false;
+                _handle.MouseEnter.Subscribe(onMouseEnter);
                 _handle.MouseDown.Subscribe(onMouseDown);
+                _handle.MouseLeave.Subscribe(onMouseLeave);
 
                 state.UI.Add(_handle);
             }
@@ -155,6 +159,7 @@ namespace AGS.Editor
                 if (!_input.LeftMouseButtonDown)
                 {
                     _isDown = false;
+                    _handle.TextConfig = _idleConfig;
                     return;
                 }
                 switch (_direction)
@@ -282,6 +287,17 @@ namespace AGS.Editor
                 _xOnDown = args.MousePosition.XMainViewport;
                 _yOnDown = args.MousePosition.YMainViewport;
                 _isDown = true;
+            }
+
+            private void onMouseLeave(MousePositionEventArgs args)
+            {
+                if (_input.LeftMouseButtonDown) return;
+                _handle.TextConfig = _idleConfig;
+            }
+
+            private void onMouseEnter(MousePositionEventArgs args)
+            {
+                _handle.TextConfig = _hoverConfig;
             }
         }
 	}
