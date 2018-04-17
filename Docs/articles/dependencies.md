@@ -53,6 +53,10 @@ Used to support playing FLAC files (audio file format).
 
 Framework for supporting undo/redo operations.
 
+### [Font Awesome](https://fontawesome.com)
+
+Font used to display icons in the editor.
+
 ## Development only dependencies
 
 ### [NUnit](http://nunit.org/)

@@ -53,10 +53,15 @@ namespace AGS.Editor
 
         private void addResizeHandles(IEntity entity, params Direction[] directions)
         {
+            var config = new AGSTextConfig(font: FontIcons.Font, autoFit: AutoFit.NoFitting, alignment: Alignment.MiddleCenter,
+                                           paddingLeft: 0f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f);
+            var idle = new ButtonAnimation(null, config, null);
+            var hover = new ButtonAnimation(null, AGSTextConfig.ChangeColor(config, Colors.Yellow, Colors.White, 0f), null);
+            var pushed = hover;
             foreach (var direction in directions)
             {
-                var obj = _factory.Object.GetObject($"{entity.ID}_ResizeHandle{direction}");
-                _resizeHandles.Add(new ResizeHandle(obj, _state, _input, direction));
+                var label = _factory.UI.GetButton($"{entity.ID}_ResizeHandle{direction}", idle, hover, pushed, 0f, 0f, width: 5f, height: 5f, addToUi: false);
+                _resizeHandles.Add(new ResizeHandle(label, _state, _input, direction));
             }
         }
 
@@ -79,7 +84,7 @@ namespace AGS.Editor
 
         private class ResizeHandle
         {
-            private readonly IObject _handle;
+            private readonly IButton _handle;
             private readonly IInput _input;
             private readonly Direction _direction;
 
@@ -88,18 +93,17 @@ namespace AGS.Editor
             private float _xOnDown, _yOnDown;
             private bool _isDown;
 
-            public ResizeHandle(IObject handle, IGameState state, IInput input, Direction direction)
+            public ResizeHandle(IButton handle, IGameState state, IInput input, Direction direction)
             {
                 _direction = direction;
                 _input = input;
                 _handle = handle;
-                _handle.Image = new EmptyImage(5f, 5f);
-                setPivot();
+                setIcon();
                 _handle.Visible = false;
+                _handle.Enabled = true;
                 _handle.RenderLayer = AGSLayers.UI;
-                var uiEvents = _handle.AddComponent<IUIEvents>();
-                uiEvents.MouseDown.Subscribe(onMouseDown);
-                HoverEffect.Add(_handle, Colors.Blue, Colors.Yellow);
+                _handle.TextBackgroundVisible = false;
+                _handle.MouseDown.Subscribe(onMouseDown);
 
                 state.UI.Add(_handle);
             }
@@ -112,31 +116,35 @@ namespace AGS.Editor
 
             public void UpdatePosition(IBoundingBoxComponent box)
             {
+                const float padding = 1f;
+                float offsetHoriz = FontIcons.Font.SizeInPoints / 2f + padding;
+                float offsetVert = FontIcons.Font.SizeInPoints / 2f + padding;
+
                 switch (_direction)
                 {
                     case Direction.Right:
-                        move(box.WorldBoundingBox.MaxX + 1f, (box.WorldBoundingBox.MinY + box.WorldBoundingBox.MaxY) / 2f);
+                        move(box.WorldBoundingBox.MaxX + padding, (box.WorldBoundingBox.MinY + box.WorldBoundingBox.MaxY) / 2f);
                         break;
                     case Direction.Left:
-                        move(box.WorldBoundingBox.MinX - 1f, (box.WorldBoundingBox.MinY + box.WorldBoundingBox.MaxY) / 2f);
+                        move(box.WorldBoundingBox.MinX - padding, (box.WorldBoundingBox.MinY + box.WorldBoundingBox.MaxY) / 2f);
                         break;
                     case Direction.Up:
-                        move((box.WorldBoundingBox.MinX + box.WorldBoundingBox.MaxX) / 2f, box.WorldBoundingBox.MaxY + 1f);
+                        move((box.WorldBoundingBox.MinX + box.WorldBoundingBox.MaxX) / 2f, box.WorldBoundingBox.MaxY + padding);
                         break;
                     case Direction.Down:
-                        move((box.WorldBoundingBox.MinX + box.WorldBoundingBox.MaxX) / 2f, box.WorldBoundingBox.MinY - 1f);
+                        move((box.WorldBoundingBox.MinX + box.WorldBoundingBox.MaxX) / 2f, box.WorldBoundingBox.MinY - padding);
                         break;
                     case Direction.UpRight:
-                        move(box.WorldBoundingBox.MaxX + 1f, box.WorldBoundingBox.MaxY + 1f);
+                        move(box.WorldBoundingBox.MaxX + offsetHoriz, box.WorldBoundingBox.MaxY + offsetVert);
                         break;
                     case Direction.UpLeft:
-                        move(box.WorldBoundingBox.MinX - 1f, box.WorldBoundingBox.MaxY + 1f);
+                        move(box.WorldBoundingBox.MinX - offsetHoriz, box.WorldBoundingBox.MaxY + offsetVert);
                         break;
                     case Direction.DownRight:
-                        move(box.WorldBoundingBox.MaxX + 1f, box.WorldBoundingBox.MinY - 1f);
+                        move(box.WorldBoundingBox.MaxX + offsetHoriz, box.WorldBoundingBox.MinY - offsetVert);
                         break;
                     case Direction.DownLeft:
-                        move(box.WorldBoundingBox.MinX - 1f, box.WorldBoundingBox.MinY - 1f);
+                        move(box.WorldBoundingBox.MinX - offsetHoriz, box.WorldBoundingBox.MinY - offsetVert);
                         break;
                 }
             }
@@ -179,35 +187,57 @@ namespace AGS.Editor
                 }
             }
 
-            private void setPivot()
+            private void setIcon()
             {
                 switch (_direction)
                 {
                     case Direction.Right:
+                        icon(FontIcons.ResizeHorizontal);
                         pivot(0f, 0.5f);
                         break;
                     case Direction.Left:
+                        icon(FontIcons.ResizeHorizontal);
                         pivot(1f, 0.5f);
                         break;
                     case Direction.Up:
+                        icon(FontIcons.ResizeVertical);
                         pivot(0.5f, 0f);
                         break;
                     case Direction.Down:
+                        icon(FontIcons.ResizeVertical);
                         pivot(0.5f, 1f);
                         break;
                     case Direction.UpRight:
-                        pivot(0f, 0f);
+                        icon(FontIcons.ResizeHorizontal);
+                        rotate(45f);
+                        pivot(0.5f, 0.5f);
                         break;
                     case Direction.UpLeft:
-                        pivot(1f, 0f);
+                        icon(FontIcons.ResizeHorizontal);
+                        rotate(-45f);
+                        pivot(0.5f, 0.5f);
                         break;
                     case Direction.DownRight:
-                        pivot(0f, 1f);
+                        icon(FontIcons.ResizeHorizontal);
+                        rotate(-45f);
+                        pivot(0.5f, 0.5f);
                         break;
                     case Direction.DownLeft:
-                        pivot(1f, 1f);
+                        icon(FontIcons.ResizeHorizontal);
+                        rotate(45f);
+                        pivot(0.5f, 0.5f);
                         break;
                 }
+            }
+
+            private void rotate(float angle)
+            {
+                _handle.Angle = angle;
+            }
+
+            private void icon(string text)
+            {
+                _handle.Text = text;
             }
 
             private void pivot(float x, float y)
