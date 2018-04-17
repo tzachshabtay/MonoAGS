@@ -31,12 +31,16 @@ namespace AGS.Editor
         const float _padding = 42f;
         const float _gutterSize = 15f;
 
+        private ILabel _moveCursor;
+
         public GameDebugTree(IGame game, IRenderLayer layer, InspectorPanel inspector)
         {
             _game = game;
             _inspector = inspector;
             _addedObjects = new AGSConcurrentHashSet<string>(100, false);
             _layer = layer;
+            _moveCursor = game.Factory.UI.GetLabel("MoveCursor", "", 5f, 5f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
+            _moveCursor.Text = FontIcons.Move;
         }
 
         public IPanel Panel => _scrollingPanel;
@@ -126,6 +130,7 @@ namespace AGS.Editor
             obj.AddComponent<IUIEvents>();
             obj.AddComponent<IDraggableComponent>();
             obj.AddComponent<EntityDesigner>();
+            obj.AddComponent<IHasCursorComponent>().SpecialCursor = _moveCursor;
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
             var borderComponent = obj.GetComponent<IBorderComponent>();
@@ -181,6 +186,7 @@ namespace AGS.Editor
         private void unselect()
         {
             _lastSelectedEntity?.RemoveComponent<IDraggableComponent>();
+            _lastSelectedEntity?.RemoveComponent<IHasCursorComponent>();
             var lastSelectedBorder = _lastSelectedBorder;
             var lastSelectedMaskVisible = _lastSelectedMaskVisible;
             var lastSelectedMaskImage = _lastSelectedMaskImage;

@@ -53,8 +53,7 @@ namespace AGS.Editor
 
         private void addResizeHandles(IEntity entity, params Direction[] directions)
         {
-            var config = new AGSTextConfig(font: FontIcons.Font, autoFit: AutoFit.NoFitting, alignment: Alignment.MiddleCenter,
-                                           paddingLeft: 0f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f);
+            var config = FontIcons.IconConfig;
             var idle = new ButtonAnimation(null, config, null);
             var hover = new ButtonAnimation(null, AGSTextConfig.ChangeColor(config, Colors.Yellow, Colors.White, 0f), null);
             var pushed = hover;
@@ -117,8 +116,8 @@ namespace AGS.Editor
             public void UpdatePosition(IBoundingBoxComponent box)
             {
                 const float padding = 1f;
-                float offsetHoriz = FontIcons.Font.SizeInPoints / 2f + padding;
-                float offsetVert = FontIcons.Font.SizeInPoints / 2f + padding;
+                float offsetHoriz = FontIcons.IconConfig.Font.SizeInPoints / 2f + padding;
+                float offsetVert = FontIcons.IconConfig.Font.SizeInPoints / 2f + padding;
 
                 switch (_direction)
                 {
