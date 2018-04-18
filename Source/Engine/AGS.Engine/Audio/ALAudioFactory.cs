@@ -13,10 +13,12 @@ namespace AGS.Engine
 		private readonly IResourceLoader _loader;
 		private readonly Dictionary<string, List<ISoundDecoder>> _decoders;
         private readonly Resolver _resolver;
+        private readonly IAudioSystem _audioSystem;
         private object _unsafeMemoryLocker = new object();
 
-        public ALAudioFactory(IResourceLoader loader, Resolver resolver)
+        public ALAudioFactory(IResourceLoader loader, Resolver resolver, IAudioSystem audioSystem)
 		{
+            _audioSystem = audioSystem;
 			_loader = loader;
             _resolver = resolver;
 			_decoders = new Dictionary<string, List<ISoundDecoder>> 
@@ -39,7 +41,9 @@ namespace AGS.Engine
             if (soundData == null) return null;
             TypedParameter idParam = new TypedParameter(typeof(string), id ?? filePath);
             TypedParameter soundParam = new TypedParameter(typeof(ISoundData), soundData);
-            return _resolver.Container.Resolve<IAudioClip>(idParam, soundParam);
+            var clip = _resolver.Container.Resolve<IAudioClip>(idParam, soundParam);
+            _audioSystem.AudioClips.Add(clip);
+            return clip;
         }
 
 		public async Task<IAudioClip> LoadAudioClipAsync(string filePath, string id = null)
@@ -96,4 +100,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

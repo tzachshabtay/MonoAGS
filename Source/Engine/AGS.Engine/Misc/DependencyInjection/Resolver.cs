@@ -38,7 +38,8 @@ namespace AGS.Engine
 			Builder.RegisterType<ResourceLoader>().SingleInstance().As<IResourceLoader>();
 			Builder.RegisterType<AGSCutscene>().SingleInstance().As<ICutscene>();
 			Builder.RegisterType<AGSRoomTransitions>().SingleInstance().As<IAGSRoomTransitions>();
-			Builder.RegisterType<ALAudioSystem>().SingleInstance().As<IAudioSystem>();
+            Builder.RegisterType<ALAudioSystem>().SingleInstance().As<IALAudioSystem>();
+            Builder.RegisterType<AGSAudioSystem>().SingleInstance().As<IAudioSystem>();
 			Builder.RegisterType<RoomMusicCrossFading>().SingleInstance().As<ICrossFading>();
 			Builder.RegisterType<AGSAudioSettings>().SingleInstance().As<IAudioSettings>();
 			Builder.RegisterType<ALListener>().SingleInstance().As<IAudioListener>();

@@ -14,6 +14,8 @@ namespace AGS.Engine
         public AGSSoundEmitter(IGame game)
         {
             _game = game;
+            OnSoundStarted = new AGSEvent<ISound>();
+            OnSoundCompleted = new AGSEvent<ISound>();
             _playingSounds = new ConcurrentDictionary<int, EmittedSound>();
             game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
             AutoPan = true;
@@ -25,33 +27,41 @@ namespace AGS.Engine
         public ISound Play(bool shouldLoop = false, ISoundProperties properties = null)
         {
             ISound sound = AudioClip.Play(shouldLoop, properties);
+            OnSoundStarted.Invoke(sound);
             EmittedSound emittedSound = new EmittedSound(sound);
             _playingSounds.TryAdd(emittedSound.ID, emittedSound);
+            sound.Completed.ContinueWith(_ => OnSoundCompleted?.Invoke(sound));
             return sound;
         }
 
         public ISound Play(float volume, bool shouldLoop = false)
         {
             ISound sound = AudioClip.Play(volume, shouldLoop);
+            OnSoundStarted.Invoke(sound);
             EmittedSound emittedSound = new EmittedSound(sound);
             _playingSounds.TryAdd(emittedSound.ID, emittedSound);
+            sound.Completed.ContinueWith(_ => OnSoundCompleted?.Invoke(sound));
             return sound;
         }
 
         public void PlayAndWait(ISoundProperties properties = null)
         {
             ISound sound = AudioClip.Play(false, properties);
+            OnSoundStarted.Invoke(sound);
             EmittedSound emittedSound = new EmittedSound(sound);
             _playingSounds.TryAdd(emittedSound.ID, emittedSound);
             Task.Run(async () => await sound.Completed).Wait();
+            OnSoundCompleted.Invoke(sound);
         }
 
         public void PlayAndWait(float volume)
         {
             ISound sound = AudioClip.Play(volume, false);
+            OnSoundStarted.Invoke(sound);
             EmittedSound emittedSound = new EmittedSound(sound);
             _playingSounds.TryAdd(emittedSound.ID, emittedSound);
-            Task.Run(async () => await sound.Completed).Wait(); 
+            Task.Run(async () => await sound.Completed).Wait();
+            OnSoundCompleted.Invoke(sound);
         }
 
         #endregion
@@ -60,8 +70,8 @@ namespace AGS.Engine
 
         public IAudioClip AudioClip { get; set; }
 
-        public IObject Object 
-        { 
+        public IObject Object
+        {
             set { HasRoom = value; WorldPosition = value; EntityID = value == null ? null : value.ID; }
         }
         public string EntityID { get; set; }
@@ -73,6 +83,10 @@ namespace AGS.Engine
 
         public bool IsPlaying => _playingSounds.Count > 0;
         public ReadOnlyCollection<ISound> CurrentlyPlayingSounds => _playingSounds.Select(p => p.Value.Sound).ToList().AsReadOnly();
+
+        public IBlockingEvent<ISound> OnSoundStarted { get; }
+
+        public IBlockingEvent<ISound> OnSoundCompleted { get; }
 
         public void Assign(IDirectionalAnimation animation, params int[] frames)
 		{
@@ -158,4 +172,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

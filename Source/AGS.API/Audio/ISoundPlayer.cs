@@ -25,6 +25,7 @@ namespace AGS.API
         /// </code>
         /// </example>
 		ISound Play(bool shouldLoop = false, ISoundProperties properties = null);
+
         /// <summary>
         /// Plays a sound
         /// </summary>
@@ -48,11 +49,23 @@ namespace AGS.API
         /// </summary>
         /// <value><c>true</c> if is playing; otherwise, <c>false</c>.</value>
         bool IsPlaying { get; }
+
         /// <summary>
         /// Gets a list of currently playing sounds for this audio clip.
         /// </summary>
         /// <value>The list of currently playing sounds.</value>
         ReadOnlyCollection<ISound> CurrentlyPlayingSounds { get; }
+
+        /// <summary>
+        /// An event which is sent when a new sound starts playing.
+        /// </summary>
+        /// <value>The event.</value>
+        IBlockingEvent<ISound> OnSoundStarted { get; }
+
+        /// <summary>
+        /// An event which is sent when an existing sound has completed playing.
+        /// </summary>
+        /// <value>The event.</value>
+        IBlockingEvent<ISound> OnSoundCompleted { get; }
 	}
 }
-

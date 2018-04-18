@@ -27,7 +27,7 @@ namespace Tests
 		Mock<IRoomEvents> _roomEvents;
 		Mock<ICutscene> _cutscene;
 		Mock<IInput> _input;
-		Mock<IAudioSystem> _audioSystem;
+		Mock<IAGSAudioSystem> _audioSystem;
         Mock<IGame> _game;
         Mock<IRuntimeSettings> _settings;
 
@@ -116,11 +116,11 @@ namespace Tests
             return files;
         }
 
-		public Mock<IAudioSystem> AudioSystem(bool newInstance = false)
+		public Mock<IAGSAudioSystem> AudioSystem(bool newInstance = false)
 		{
 			if (_audioSystem == null || newInstance)
 			{
-				_audioSystem = new Mock<IAudioSystem> ();
+				_audioSystem = new Mock<IAGSAudioSystem> ();
 			}
 			return _audioSystem;
 		}

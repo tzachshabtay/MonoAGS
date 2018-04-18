@@ -51,10 +51,10 @@
 		IInput Input { get; }
 
         /// <summary>
-        /// Gets the audio settings.
+        /// Game's audio system (the entry point for interacting with everything sound related).
         /// </summary>
-        /// <value>The audio settings.</value>
-		IAudioSettings AudioSettings { get; }
+        /// <value>The audio.</value>
+        IAudioSystem Audio { get; }
 
         /// <summary>
         /// Gets the top-level game events (game loaded, on repeatedly execute, etc).

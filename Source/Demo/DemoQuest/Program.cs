@@ -29,6 +29,7 @@ namespace DemoGame
                 game.State.RoomTransitions.Transition = AGSRoomTransitions.Fade();
                 setKeyboardEvents(game);
                 Shaders.SetStandardShader();
+                game.Audio.AudioRules.Add(new ReduceWhenSpeechAudioRule(game.Audio));
 
                 addDebugLabels(game);
                 Debug.WriteLine("Startup: Loading Assets");
