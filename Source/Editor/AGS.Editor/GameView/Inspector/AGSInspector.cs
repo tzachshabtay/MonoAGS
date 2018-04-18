@@ -32,6 +32,8 @@ namespace AGS.Editor
 
         public ITreeViewComponent Tree => _treeView;
 
+        public object SelectedObject { get; private set; }
+
         public override void Init(IEntity entity)
         {
             base.Init(entity);
@@ -40,6 +42,7 @@ namespace AGS.Editor
 
         public void Show(object obj)
         {
+            SelectedObject = obj;
             _props.Clear();
             var entity = obj as IEntity;
             _currentEntity = entity;

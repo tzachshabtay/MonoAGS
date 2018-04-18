@@ -30,6 +30,7 @@ namespace AGS.Editor
             _displayList = new GameDebugDisplayList(game, _layer);
             _input = game.Input;
             keyboardBindings.OnKeyboardShortcutPressed.Subscribe(onShortcutKeyPressed);
+            game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
         public bool Visible => _panel.Visible;
@@ -150,6 +151,45 @@ namespace AGS.Editor
             {
                 _inspector?.Inspector?.Redo();
             }
+        }
+
+        private void moveEntity(IEntity entity, float xOffset, float yOffset)
+        {
+            var translate = entity.GetComponent<ITranslateComponent>();
+            if (translate == null) return;
+            if (_input.IsKeyDown(Key.AltLeft) || _input.IsKeyDown(Key.AltRight))
+            {
+                xOffset /= 10f;
+                yOffset /= 10f;
+            }
+            if (!MathUtils.FloatEquals(xOffset, 0f)) translate.X += xOffset;
+            if (!MathUtils.FloatEquals(yOffset, 0f)) translate.Y += yOffset;
+        }
+
+        private void rotateEntity(IEntity entity, float angleOffset)
+        {
+            var rotate = entity.GetComponent<IRotateComponent>();
+            if (rotate == null) return;
+            if (_input.IsKeyDown(Key.AltLeft) || _input.IsKeyDown(Key.AltRight))
+            {
+                angleOffset /= 10f;
+            }
+            rotate.Angle += angleOffset;
+        }
+
+        private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs args)
+        {
+            var entity = _inspector.Inspector.SelectedObject as IEntity;
+            if (entity == null) return;
+
+            if (_input.IsKeyDown(Key.Down)) moveEntity(entity, 0f, -1f);
+            else if (_input.IsKeyDown(Key.Up)) moveEntity(entity, 0f, 1f);
+
+            if (_input.IsKeyDown(Key.Left)) moveEntity(entity, -1f, 0f);
+            else if (_input.IsKeyDown(Key.Right)) moveEntity(entity, 1f, 0f);
+
+            if (_input.IsKeyDown(Key.BracketLeft)) rotateEntity(entity, -1f);
+            else if (_input.IsKeyDown(Key.BracketRight)) rotateEntity(entity, 1f);
         }
     }
 }
