@@ -11,6 +11,7 @@ namespace AGS.Editor
             private readonly ILabel _handle;
             private readonly IInput _input;
             private readonly Direction _direction;
+            private readonly IGameState _state;
 
             private readonly ITextConfig _idleConfig;
             private readonly ITextConfig _hoverConfig;
@@ -23,6 +24,7 @@ namespace AGS.Editor
 
             public RotateHandle(ILabel handle, IGameState state, IInput input, Direction direction)
             {
+                _state = state;
                 _idleConfig = handle.TextConfig;
                 _hoverConfig = AGSTextConfig.ChangeColor(handle.TextConfig, Colors.Yellow, Colors.White, 0f);
                 _direction = direction;
@@ -50,6 +52,12 @@ namespace AGS.Editor
             {
                 _isVisible = visible;
                 _handle.Visible = visible && _rotate != null;
+            }
+
+            public void Dispose()
+            {
+                SetVisible(false);
+                _state.UI.Remove(_handle);
             }
 
             public void UpdatePosition(IBoundingBoxComponent box)

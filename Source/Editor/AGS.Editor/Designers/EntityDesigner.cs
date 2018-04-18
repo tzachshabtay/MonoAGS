@@ -54,6 +54,8 @@ namespace AGS.Editor
         {
             base.Dispose();
             _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+            foreach (var handle in _resizeHandles) handle.Dispose();
+            foreach (var handle in _rotateHandles) handle.Dispose();
         }
 
         private void onMouseClicked(MouseButtonEventArgs obj)

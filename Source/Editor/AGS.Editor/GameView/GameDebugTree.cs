@@ -187,6 +187,7 @@ namespace AGS.Editor
         {
             _lastSelectedEntity?.RemoveComponent<IDraggableComponent>();
             _lastSelectedEntity?.RemoveComponent<IHasCursorComponent>();
+            _lastSelectedEntity?.RemoveComponent<EntityDesigner>();
             var lastSelectedBorder = _lastSelectedBorder;
             var lastSelectedMaskVisible = _lastSelectedMaskVisible;
             var lastSelectedMaskImage = _lastSelectedMaskImage;
