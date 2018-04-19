@@ -1,6 +1,7 @@
 ﻿using System;
 using AGS.API;
 using AGS.Engine;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
@@ -9,12 +10,14 @@ namespace AGS.Editor
         private readonly IInput _input;
         private readonly IGameEvents _gameEvents;
         private readonly IGameSettings _settings;
+        private readonly ActionManager _actions;
         private float _dragObjectStartX, _dragObjectStartY, _dragMouseStartX, _dragMouseStartY;
         private ITranslate _translate;
         private IDrawableInfoComponent _drawable;
 
-        public AGSDraggableComponent(IInput input, IGameEvents gameEvents, IRuntimeSettings settings)
+        public AGSDraggableComponent(IInput input, IGameEvents gameEvents, IRuntimeSettings settings, ActionManager actions)
         {
+            _actions = actions;
             _input = input;
             _settings = settings;
             _gameEvents = gameEvents;
@@ -79,8 +82,6 @@ namespace AGS.Editor
             var diffY = mousePos.Y - _dragMouseStartY;
             var translateX = _dragObjectStartX + diffX;
             var translateY = _dragObjectStartY + diffY;
-            bool canDragX = true;
-            bool canDragY = true;
 
             if (_input.IsKeyDown(Key.AltLeft) || _input.IsKeyDown(Key.AltRight))
             {
@@ -96,13 +97,14 @@ namespace AGS.Editor
                 else translateX = translate.X;
             }
 
-            if (DragMinX != null && translateX < DragMinX.Value) canDragX = false;
-            else if (DragMaxX != null && translateX > DragMaxX.Value) canDragX = false;
-            if (DragMinY != null && translateY < DragMinY.Value) canDragY = false;
-            else if (DragMaxY != null && translateY > DragMaxY.Value) canDragY = false;
+            if (DragMinX != null && translateX < DragMinX.Value) translateX = translate.X;
+            else if (DragMaxX != null && translateX > DragMaxX.Value) translateX = translate.X;
+            if (DragMinY != null && translateY < DragMinY.Value) translateY = translate.Y;
+            else if (DragMaxY != null && translateY > DragMaxY.Value) translateY = translate.Y;
 
-            if (canDragX) translate.X = translateX;
-            if (canDragY) translate.Y = translateY;
+            InspectorProperty property = new InspectorProperty(translate, "Location", translate.GetType().GetProperty(nameof(ITranslate.Location)));
+            PropertyAction action = new PropertyAction(property, new AGSLocation(translateX, translateY));
+            _actions.RecordAction(action);
         }
 
         private Vector2 getMousePosition()
