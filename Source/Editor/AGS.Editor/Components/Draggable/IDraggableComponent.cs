@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using AGS.API;
+
+namespace AGS.Editor
 {
     /// <summary>
     /// Adds the ability for an entity to be dragged on the screen with the mouse/touch.

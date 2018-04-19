@@ -1,7 +1,8 @@
 ﻿using System;
 using AGS.API;
+using AGS.Engine;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public class AGSDraggableComponent : AGSComponent, IDraggableComponent
     {
@@ -118,6 +119,5 @@ namespace AGS.Engine
 			
             return new Vector2(mouseX, mouseY);
 		}
-
     }
 }

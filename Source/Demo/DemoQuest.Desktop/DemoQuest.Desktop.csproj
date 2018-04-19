@@ -35,9 +35,6 @@
       <HintPath>..\..\..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="GuiLabs.Undo">
-      <HintPath>..\..\..\packages\GuiLabs.Undo.1.0.2\lib\netstandard2.0\GuiLabs.Undo.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -57,10 +54,6 @@
     <ProjectReference Include="..\..\Engine\AGS.Engine\AGS.Engine.csproj">
       <Project>{6BEEC517-011A-441E-8A2F-D9461806A879}</Project>
       <Name>AGS.Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Editor\AGS.Editor\AGS.Editor.csproj">
-      <Project>{5F511E0A-CE3C-49C6-8706-2D9850FA9FE0}</Project>
-      <Name>AGS.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,9 @@
     <Folder Include="GameView\" />
     <Folder Include="UndoRedo\" />
     <Folder Include="Input\" />
-    <Folder Include="Designers\" />
+    <Folder Include="Components\" />
+    <Folder Include="Components\EntityDesigner\" />
+    <Folder Include="Components\Draggable\" />
+    <Folder Include="Components\SplitPanel\" />
   </ItemGroup>
 </Project>

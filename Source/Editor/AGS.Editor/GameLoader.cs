@@ -27,6 +27,14 @@ namespace AGS.Editor
             currentDomain.AssemblyResolve += loadFromSameFolder;
         }
 
+        public static void SetupResolver()
+        {
+            Resolver.Override(resolver => resolver.Builder.RegisterType<KeyboardBindings>().SingleInstance());
+            Resolver.Override(resolver => resolver.Builder.RegisterType<ActionManager>().SingleInstance());
+            Resolver.Override(resolver => resolver.Builder.RegisterAssemblyTypes(typeof(GameLoader).Assembly).
+                              Except<InspectorTreeNodeProvider>().AsImplementedInterfaces().ExternallyOwned());
+        }
+
         public static IEditorPlatform Platform { get; set; }
 
         public static async Task<(List<Type> games, Assembly assembly)> GetGames(AGSProject agsProj)

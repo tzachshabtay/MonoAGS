@@ -112,10 +112,6 @@
       <Project>{2C72EB5A-14C6-4CB5-A7EA-EF5AA329DEEE}</Project>
       <Name>AGS.Engine.IOS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Editor\AGS.Editor\AGS.Editor.csproj">
-      <Project>{5F511E0A-CE3C-49C6-8706-2D9850FA9FE0}</Project>
-      <Name>AGS.Editor</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="..\DemoQuest\DemoQuest.projitems" Label="Shared" Condition="Exists('..\DemoQuest\DemoQuest.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

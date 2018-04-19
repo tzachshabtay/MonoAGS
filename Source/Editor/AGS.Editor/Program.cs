@@ -11,7 +11,7 @@ namespace AGS.Editor
     {
         public static void Run()
         {
-            setupResolver();
+            GameLoader.SetupResolver();
 
             IGame game = AGSGame.CreateEmpty();
 
@@ -39,12 +39,6 @@ namespace AGS.Editor
 
             game.Start(new AGSGameSettings("MonoAGS Editor", new AGS.API.Size(1280, 800),
                windowSize: new AGS.API.Size(1280, 800), windowState: WindowState.Normal, preserveAspectRatio: false));
-        }
-
-        private static void setupResolver()
-        {
-            Resolver.Override(resolver => resolver.Builder.RegisterType<KeyboardBindings>().SingleInstance());
-            Resolver.Override(resolver => resolver.Builder.RegisterType<ActionManager>().SingleInstance());
         }
 
         [Conditional("DEBUG")]

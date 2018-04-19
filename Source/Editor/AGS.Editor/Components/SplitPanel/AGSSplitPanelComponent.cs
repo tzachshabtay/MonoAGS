@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 using AGS.API;
+using AGS.Engine;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public class AGSSplitPanelComponent : AGSComponent, ISplitPanelComponent
     {
