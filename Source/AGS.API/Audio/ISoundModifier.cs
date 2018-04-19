@@ -13,7 +13,7 @@
         /// to be notified it that it needs to re-calculate its properties.
         /// </summary>
         /// <value>The on change.</value>
-        IEvent OnChange { get; }
+        IBlockingEvent OnChange { get; }
 
         /// <summary>
         /// Gets the volume after modification.

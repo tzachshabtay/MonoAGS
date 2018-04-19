@@ -1,19 +1,30 @@
-﻿using System;
+﻿using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
 {
     public class VolumeModifier : ISoundModifier
     {
+        private float _volumeFactor;
+
         public VolumeModifier(float volumeFactor)
         {
             OnChange = new AGSEvent();
-            VolumeFactor = volumeFactor;
+            _volumeFactor = volumeFactor;
         }
 
-        public float VolumeFactor { get; private set; }
+        public float VolumeFactor
+        {
+            get => _volumeFactor;
+            set
+            {
+                if (MathUtils.FloatEquals(_volumeFactor, value)) return;
+                _volumeFactor = value;
+                OnChange.Invoke();
+            }
+        }
 
-        public IEvent OnChange { get; }
+        public IBlockingEvent OnChange { get; }
 
         public float GetPanning(float panning) => panning;
 
