@@ -21,9 +21,9 @@ namespace AGS.Editor
         private IEntity _currentEntity;
         private readonly ActionManager _actions;
 
-        public AGSInspector(IGameFactory factory, IGameSettings settings, IGameState state)
+        public AGSInspector(IGameFactory factory, IGameSettings settings, IGameState state, ActionManager actions)
         {
-            _actions = new ActionManager();
+            _actions = actions;
             _state = state;
             _props = new Dictionary<Category, List<InspectorProperty>>();
             _factory = factory;

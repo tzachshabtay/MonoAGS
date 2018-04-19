@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 using Autofac;
+using GuiLabs.Undo;
 using Newtonsoft.Json;
 
 namespace AGS.Editor
@@ -119,17 +120,19 @@ namespace AGS.Editor
             gameCreator.StartGame(game);
 
             KeyboardBindings keyboardBindings = null;
+            ActionManager actions = null;
             if (game is AGSGame agsGame) //todo: find a solution for any IGame implementation
             {
                 Resolver resolver = agsGame.GetResolver();
                 keyboardBindings = resolver.Container.Resolve<KeyboardBindings>();
+                actions = resolver.Container.Resolve<ActionManager>();
                 var resourceLoader = resolver.Container.Resolve<IResourceLoader>();
                 resourceLoader.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(assembly), 2));
             }
 
             _gameDebugView = new Lazy<GameDebugView>(() =>
             {
-                var gameDebugView = new GameDebugView(game, keyboardBindings);
+                var gameDebugView = new GameDebugView(game, keyboardBindings, actions);
                 gameDebugView.Load();
                 return gameDebugView;
             });

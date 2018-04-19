@@ -3,6 +3,7 @@ using System.Diagnostics;
 using AGS.API;
 using AGS.Engine;
 using Autofac;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
@@ -43,6 +44,7 @@ namespace AGS.Editor
         private static void setupResolver()
         {
             Resolver.Override(resolver => resolver.Builder.RegisterType<KeyboardBindings>().SingleInstance());
+            Resolver.Override(resolver => resolver.Builder.RegisterType<ActionManager>().SingleInstance());
         }
 
         [Conditional("DEBUG")]

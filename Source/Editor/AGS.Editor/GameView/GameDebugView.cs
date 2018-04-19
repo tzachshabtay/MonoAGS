@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
@@ -14,18 +16,20 @@ namespace AGS.Editor
         private readonly InspectorPanel _inspector;
         private readonly IInput _input;
         private readonly KeyboardBindings _keyboardBindings;
+        private readonly ActionManager _actions;
         private const string _panelId = "Game Debug Tree Panel";
         private IPanel _panel;
         private ISplitPanelComponent _splitPanel;
         private IDebugTab _currentTab;
         private IButton _panesButton;
 
-        public GameDebugView(IGame game, KeyboardBindings keyboardBindings)
+        public GameDebugView(IGame game, KeyboardBindings keyboardBindings, ActionManager actions)
         {
+            _actions = actions;
             _game = game;
             _keyboardBindings = keyboardBindings;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: new Size(1800, 1200));
-            _inspector = new InspectorPanel(game, _layer);
+            _inspector = new InspectorPanel(game, _layer, actions);
             _debugTree = new GameDebugTree(game, _layer, _inspector);
             _displayList = new GameDebugDisplayList(game, _layer);
             _input = game.Input;
@@ -162,8 +166,18 @@ namespace AGS.Editor
                 xOffset /= 10f;
                 yOffset /= 10f;
             }
-            if (!MathUtils.FloatEquals(xOffset, 0f)) translate.X += xOffset;
-            if (!MathUtils.FloatEquals(yOffset, 0f)) translate.Y += yOffset;
+            if (!MathUtils.FloatEquals(xOffset, 0f))
+            {
+                PropertyInfo prop = translate.GetType().GetProperty(nameof(ITranslateComponent.X));
+                PropertyAction action = new PropertyAction(new InspectorProperty(translate, "X", prop), translate.X + xOffset);
+                _actions.RecordAction(action);
+            }
+            if (!MathUtils.FloatEquals(yOffset, 0f))
+            {
+                PropertyInfo prop = translate.GetType().GetProperty(nameof(ITranslateComponent.Y));
+                PropertyAction action = new PropertyAction(new InspectorProperty(translate, "Y", prop), translate.Y + yOffset);
+                _actions.RecordAction(action);
+            }
         }
 
         private void rotateEntity(IEntity entity, float angleOffset)
@@ -174,7 +188,10 @@ namespace AGS.Editor
             {
                 angleOffset /= 10f;
             }
-            rotate.Angle += angleOffset;
+            if (MathUtils.FloatEquals(angleOffset, 0f)) return;
+            PropertyInfo prop = rotate.GetType().GetProperty(nameof(IRotateComponent.Angle));
+            PropertyAction action = new PropertyAction(new InspectorProperty(rotate, "Angle", prop), rotate.Angle + angleOffset);
+            _actions.RecordAction(action);
         }
 
         private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs args)

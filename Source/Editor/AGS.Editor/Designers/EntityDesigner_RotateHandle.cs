@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Reflection;
 using AGS.API;
 using AGS.Engine;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
@@ -12,6 +14,7 @@ namespace AGS.Editor
             private readonly IInput _input;
             private readonly Direction _direction;
             private readonly IGameState _state;
+            private readonly ActionManager _actions;
 
             private readonly ITextConfig _idleConfig;
             private readonly ITextConfig _hoverConfig;
@@ -22,8 +25,9 @@ namespace AGS.Editor
             private bool _isDown;
             private bool _isVisible;
 
-            public RotateHandle(ILabel handle, IGameState state, IInput input, Direction direction)
+            public RotateHandle(ILabel handle, IGameState state, IInput input, ActionManager actions, Direction direction)
             {
+                _actions = actions;
                 _state = state;
                 _idleConfig = handle.TextConfig;
                 _hoverConfig = AGSTextConfig.ChangeColor(handle.TextConfig, Colors.Yellow, Colors.White, 0f);
@@ -108,7 +112,9 @@ namespace AGS.Editor
                     angle = (float)Math.Round(angle / clamp) * clamp;
                 }
 
-                rotate.Angle = angle;
+                PropertyInfo prop = rotate.GetType().GetProperty(nameof(IRotateComponent.Angle));
+                PropertyAction action = new PropertyAction(new InspectorProperty(rotate, "Angle", prop), angle);
+                _actions.RecordAction(action);
             }
 
             private void setIcon()

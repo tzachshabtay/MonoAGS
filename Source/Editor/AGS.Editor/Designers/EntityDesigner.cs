@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AGS.API;
 using AGS.Engine;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
@@ -17,11 +18,13 @@ namespace AGS.Editor
         private readonly IInput _input;
         private readonly List<ResizeHandle> _resizeHandles;
         private readonly List<RotateHandle> _rotateHandles;
+        private readonly ActionManager _actions;
         private IBoundingBoxComponent _box;
         private bool _resizeVisible;
 
-        public EntityDesigner(IGameFactory factory, IGameState state, IGameEvents events, IInput input)
+        public EntityDesigner(IGameFactory factory, IGameState state, IGameEvents events, IInput input, ActionManager actions)
         {
+            _actions = actions;
             _factory = factory;
             _state = state;
             _events = events;
@@ -81,7 +84,7 @@ namespace AGS.Editor
             foreach (var direction in directions)
             {
                 var label = _factory.UI.GetLabel($"{entity.ID}_ResizeHandle{direction}", "", 5f, 5f, 0f, 0f, config: config, addToUi: false);
-                _resizeHandles.Add(new ResizeHandle(label, _state, _input, direction));
+                _resizeHandles.Add(new ResizeHandle(label, _state, _input, _actions, direction));
             }
         }
 
@@ -91,7 +94,7 @@ namespace AGS.Editor
             foreach (var direction in directions)
             {
                 var label = _factory.UI.GetLabel($"{entity.ID}_RotateHandle{direction}", "", 5f, 5f, 0f, 0f, config: config, addToUi: false);
-                _rotateHandles.Add(new RotateHandle(label, _state, _input, direction));
+                _rotateHandles.Add(new RotateHandle(label, _state, _input, _actions, direction));
             }
         }
 

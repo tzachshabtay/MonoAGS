@@ -5,6 +5,7 @@ using AGS.Editor;
 using System.Diagnostics;
 using DemoQuest;
 using System;
+using GuiLabs.Undo;
 
 namespace DemoGame
 {
@@ -45,7 +46,7 @@ namespace DemoGame
 
             _gameDebugView = new Lazy<GameDebugView>(() =>
             {
-                var gameDebugView = new GameDebugView(game, new KeyboardBindings(game.Input));
+                var gameDebugView = new GameDebugView(game, new KeyboardBindings(game.Input), new ActionManager());
                 gameDebugView.Load();
                 return gameDebugView;
             });

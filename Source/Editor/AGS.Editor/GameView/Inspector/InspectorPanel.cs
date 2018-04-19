@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using AGS.API;
 using AGS.Engine;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
@@ -8,6 +9,7 @@ namespace AGS.Editor
     {
 		private readonly IRenderLayer _layer;
 		private readonly IGame _game;
+        private readonly ActionManager _actions;
         private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
         private InspectorTreeNodeProvider _inspectorNodeView;
@@ -15,8 +17,9 @@ namespace AGS.Editor
         const float _padding = 42f;
         const float _gutterSize = 15f;
 
-        public InspectorPanel(IGame game, IRenderLayer layer)
+        public InspectorPanel(IGame game, IRenderLayer layer, ActionManager actions)
         {
+            _actions = actions;
             _game = game;
             _layer = layer;
         }
@@ -52,7 +55,7 @@ namespace AGS.Editor
 			var treeView = _treePanel.AddComponent<ITreeViewComponent>();
             treeView.SkipRenderingRoot = true;
 
-            Inspector = new AGSInspector(_game.Factory, _game.Settings, _game.State);
+            Inspector = new AGSInspector(_game.Factory, _game.Settings, _game.State, _actions);
             _treePanel.AddComponent<IInspectorComponent>(Inspector);
 
             _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory,

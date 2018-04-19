@@ -1,6 +1,7 @@
 ﻿using System;
 using AGS.API;
 using AGS.Engine;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
@@ -12,6 +13,7 @@ namespace AGS.Editor
             private readonly IInput _input;
             private readonly Direction _direction;
             private readonly IGameState _state;
+            private readonly ActionManager _actions;
 
             private readonly ITextConfig _idleConfig;
             private readonly ITextConfig _hoverConfig;
@@ -22,8 +24,9 @@ namespace AGS.Editor
             private bool _isDown;
             private bool _isVisible;
 
-            public ResizeHandle(ILabel handle, IGameState state, IInput input, Direction direction)
+            public ResizeHandle(ILabel handle, IGameState state, IInput input, ActionManager actions, Direction direction)
             {
+                _actions = actions;
                 _state = state;
                 _idleConfig = handle.TextConfig;
                 _hoverConfig = AGSTextConfig.ChangeColor(handle.TextConfig, Colors.Yellow, Colors.White, 0f);
@@ -219,7 +222,8 @@ namespace AGS.Editor
                     }
                     else h = heightCandidate;
                 }
-                _scale.ScaleTo(w, h);
+                ScaleAction action = new ScaleAction(_handle.GetFriendlyName(), _scale, w, h);
+                _actions.RecordAction(action);
             }
 
             private void onMouseDown(MouseButtonEventArgs args)
