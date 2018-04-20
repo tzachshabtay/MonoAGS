@@ -24,5 +24,7 @@ namespace AGS.Editor
         public const string RotateRight = "\uf064";
 
         public const string Move = "\uf0b2";
+
+        public const string Pivot = "\uf05b";
     }
 }

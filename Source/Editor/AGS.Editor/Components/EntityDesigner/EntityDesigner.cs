@@ -10,6 +10,8 @@ namespace AGS.Editor
     [RequiredComponent(typeof(IScaleComponent))]
     [RequiredComponent(typeof(IRotateComponent))]
     [RequiredComponent(typeof(IUIEvents))]
+    [RequiredComponent(typeof(IImageComponent))]
+    [RequiredComponent(typeof(ITranslateComponent))]
     public partial class EntityDesigner : AGSComponent
     {
         private readonly IGameFactory _factory;
@@ -18,6 +20,7 @@ namespace AGS.Editor
         private readonly IInput _input;
         private readonly List<ResizeHandle> _resizeHandles;
         private readonly List<RotateHandle> _rotateHandles;
+        private PivotHandle _pivotHandle;
         private readonly ActionManager _actions;
         private IBoundingBoxComponent _box;
         private bool _resizeVisible;
@@ -40,13 +43,16 @@ namespace AGS.Editor
             addResizeHandles(entity, Direction.Right, Direction.Left, Direction.Up, Direction.Down,
                              Direction.UpRight, Direction.UpLeft, Direction.DownRight, Direction.DownLeft);
             addRotateHandles(entity, Direction.UpRight, Direction.UpLeft, Direction.DownRight, Direction.DownLeft);
+            addPivotHandle(entity);
 
             entity.Bind<IScaleComponent>(c => setScale(c), _ => setScale(null));
             entity.Bind<IRotateComponent>(c => setRotate(c), _ => setRotate(null));
+            entity.Bind<IImageComponent>(c => _pivotHandle.SetImage(c), _ => _pivotHandle.SetImage(null));
+            entity.Bind<ITranslateComponent>(c => _pivotHandle.SetTranslate(c), _ => _pivotHandle.SetTranslate(null));
 
             entity.Bind<IBoundingBoxComponent>(
-                c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(onBoundingBoxChanged); updatePositions(); },
-                c => { _box = null; c.OnBoundingBoxesChanged.Unsubscribe(onBoundingBoxChanged); });
+                c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(onBoundingBoxChanged); _pivotHandle.SetBox(c); updatePositions(); },
+                c => { _box = null; c.OnBoundingBoxesChanged.Unsubscribe(onBoundingBoxChanged); _pivotHandle.SetBox(null); });
 
             entity.Bind<IUIEvents>(c => c.MouseClicked.Subscribe(onMouseClicked), c => c.MouseClicked.Unsubscribe(onMouseClicked));
 
@@ -59,6 +65,7 @@ namespace AGS.Editor
             _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
             foreach (var handle in _resizeHandles) handle.Dispose();
             foreach (var handle in _rotateHandles) handle.Dispose();
+            _pivotHandle.Dispose();
         }
 
         private void onMouseClicked(MouseButtonEventArgs obj)
@@ -98,10 +105,18 @@ namespace AGS.Editor
             }
         }
 
+        private void addPivotHandle(IEntity entity)
+        {
+            var config = FontIcons.IconConfig;
+            var label = _factory.UI.GetLabel($"{entity.ID}_PivotHAndle", "", 5f, 5f, 0f, 0f, config: config, addToUi: false);
+            _pivotHandle = new PivotHandle(label, _state, _input, _actions);
+        }
+
         private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs obj)
         {
             foreach (var handle in _resizeHandles) handle.Visit();
             foreach (var handle in _rotateHandles) handle.Visit();
+            _pivotHandle.Visit();
         }
 
         private void onBoundingBoxChanged()
@@ -115,6 +130,7 @@ namespace AGS.Editor
             if (box == null) return;
             foreach (var handle in _resizeHandles) handle.UpdatePosition(box);
             foreach (var handle in _rotateHandles) handle.UpdatePosition(box);
+            _pivotHandle.UpdatePosition();
         }
     }
 }
