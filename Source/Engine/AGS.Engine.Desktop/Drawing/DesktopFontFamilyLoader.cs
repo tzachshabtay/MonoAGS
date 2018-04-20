@@ -16,8 +16,8 @@ namespace AGS.Engine.Desktop
 	{
 		private IResourceLoader _resources;
         private PrivateFontCollection _fontCollection;
-		private int _lastFontInCollection;
         private Dictionary<string, FontFamily> _families;
+        private HashSet<string> _loadedFamilies;
 		private Action _refreshFontCache;
 
 		private const string MAC_FONT_LIBRARY = "/Library/Fonts";
@@ -27,6 +27,7 @@ namespace AGS.Engine.Desktop
 		{
 			_resources = resources;
             _fontCollection = new PrivateFontCollection();
+            _loadedFamilies = new HashSet<string>();
             _families = new Dictionary<string, FontFamily>();
 		}
 
@@ -57,10 +58,23 @@ namespace AGS.Engine.Desktop
 
 			_fontCollection.AddMemoryFont(fontPtr, buffer.Length);
 
-			//Marshal.FreeCoTaskMem(fontPtr); The pointer should not be released: See Hans Passant's answer on this: http://stackoverflow.com/questions/25583394/privatefontcollection-addmemoryfont-producing-random-errors-on-windows-server-20
+            //Marshal.FreeCoTaskMem(fontPtr); The pointer should not be released: See Hans Passant's answer on this: http://stackoverflow.com/questions/25583394/privatefontcollection-addmemoryfont-producing-random-errors-on-windows-server-20
 
-			FontFamily family = _fontCollection.Families[_lastFontInCollection];
-			_lastFontInCollection++;
+            FontFamily family = null;
+            bool foundFamily = false;
+            for (int i = 0; i < _fontCollection.Families.Length; i++)
+            {
+                family = _fontCollection.Families[i];
+                if (_loadedFamilies.Add(family.Name))
+                {
+                    foundFamily = true;
+                    break;
+                }
+            }
+            if (!foundFamily)
+            {
+                throw new IOException($"Failed to find family from {path} after adding it to the private memory collection.");
+            }
 
 			if (isMac())
 			{
