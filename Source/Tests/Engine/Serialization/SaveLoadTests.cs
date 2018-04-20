@@ -28,7 +28,7 @@ namespace Tests
 			_resolver.Build();
 			var updater = new ContainerBuilder ();
 			updater.RegisterInstance(_mocks.Input().Object).As<IInput>();
-			updater.RegisterInstance(_mocks.AudioSystem().Object).As<IAGSAudioSystem>();
+			updater.RegisterInstance(_mocks.AudioSystem().Object).As<IALAudioSystem>();
 			updater.RegisterInstance(new Mock<IRenderMessagePump>().Object);
             updater.RegisterInstance(new Mock<IUpdateMessagePump>().Object);
             updater.RegisterInstance(new Mock<IRuntimeSettings>().Object);

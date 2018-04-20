@@ -228,7 +228,7 @@ namespace Tests
             buttonComponent.Setup(b => b.HoverAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
             buttonComponent.Setup(b => b.IdleAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
             buttonComponent.Setup(b => b.PushedAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
-            Mock<IAGSAudioSystem> audioSystem = new Mock<IAGSAudioSystem>();
+            Mock<IALAudioSystem> audioSystem = new Mock<IALAudioSystem>();
             Mock<IRuntimeSettings> settings = mocks.Settings();
             Mock<IRenderThread> renderThread = new Mock<IRenderThread>();
             Mock<IUpdateThread> updateThread = new Mock<IUpdateThread>();
