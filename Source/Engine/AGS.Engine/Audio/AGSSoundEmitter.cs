@@ -138,7 +138,7 @@ namespace AGS.Engine
 				if (AutoPan)
 				{
                     float pan = MathUtils.Lerp(0f, -1f, _game.Settings.VirtualResolution.Width, 1f, pos.WorldX);
-					sound.Value.Sound.Panning = pan;
+					sound.Value.Panning = pan;
 				}
 				if (AutoAdjustVolume)
 				{
@@ -150,7 +150,7 @@ namespace AGS.Engine
                         var scalingArea = area.GetComponent<IScalingArea>();
                         if (scalingArea == null || !scalingArea.ScaleVolume) continue;
                         float scale = scalingArea.GetScaling(pos.WorldY);
-						sound.Value.Sound.Volume = AudioClip.Volume * scale;
+						sound.Value.Volume = scale;
 					}
 				}
 			}
@@ -159,16 +159,24 @@ namespace AGS.Engine
 		private class EmittedSound
 		{
 			private static int runningId;
+            private VolumeModifier _volumeModifier;
+            private PanningModifier _panningModifier;
 
 			public EmittedSound(ISound sound)
 			{
 				Sound = sound;
 				ID = runningId;
 				runningId++;
+                _volumeModifier = new VolumeModifier(1f);
+                _panningModifier = new PanningModifier(1f);
+                sound.SoundModifiers.Add(_volumeModifier);
+                sound.SoundModifiers.Add(_panningModifier);
 			}
 
 			public ISound Sound { get; }
 			public int ID { get; }
+            public float Volume { set => _volumeModifier.VolumeFactor = value; }
+            public float Panning { set => _panningModifier.PanningOffset = value; }
 		}
 	}
 }

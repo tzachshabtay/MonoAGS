@@ -130,4 +130,7 @@
       <DependentUpon>AGSTextbox.tt</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Audio\Modifiers\" />
+  </ItemGroup>
 </Project>
