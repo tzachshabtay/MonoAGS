@@ -22,12 +22,12 @@ namespace AGS.Engine.Desktop
 
 		public IFont LoadFont(string fontFamily, float sizeInPoints, AGS.API.FontStyle style)
 		{
-			return new DesktopFont (new Font (fontFamily ?? SystemFonts.DefaultFont.FontFamily.Name, sizeInPoints, style.Convert()));
+			return new DesktopFont (new Font (fontFamily ?? SystemFonts.DefaultFont.FontFamily.Name, sizeInPoints, style.Convert()), this);
 		}
 
 		public IFont LoadFontFromPath(string path, float sizeInPoints, AGS.API.FontStyle style)
 		{
-			return new DesktopFont(new Font(_familyLoader.LoadFontFamily(path), sizeInPoints, style.Convert()));
+			return new DesktopFont(new Font(_familyLoader.LoadFontFamily(path), sizeInPoints, style.Convert()), this);
 		}
 
 		#endregion

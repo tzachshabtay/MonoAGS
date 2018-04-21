@@ -55,7 +55,7 @@ namespace AGS.Engine
         public static AGSTextConfig ScaleConfig(ITextConfig config, float sizeFactor)
         {
             AGSTextConfig textConfig = Clone(config);
-            textConfig.Font = AGSGame.Game.Factory.Fonts.LoadFont(config.Font.FontFamily, config.Font.SizeInPoints * sizeFactor, config.Font.Style);
+            textConfig.Font = config.Font.Resize(config.Font.SizeInPoints * sizeFactor);
             textConfig.OutlineWidth *= sizeFactor;
             textConfig.ShadowOffsetX *= sizeFactor;
             textConfig.ShadowOffsetY *= sizeFactor;
@@ -117,4 +117,3 @@ namespace AGS.Engine
         public override int GetHashCode() => Font.GetHashCode();
     }
 }
-

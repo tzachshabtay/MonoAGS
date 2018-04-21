@@ -30,6 +30,12 @@
         /// <param name="text">Text.</param>
         /// <param name="maxWidth">Max width if the text is expected to be wrapped, or int.MaxValue for unlimited width.</param>
 		SizeF MeasureString(string text, int maxWidth = int.MaxValue);
+
+        /// <summary>
+        /// Returns a new font with the same properties as the current font, but with a new size.
+        /// </summary>
+        /// <returns>The resized font.</returns>
+        /// <param name="sizeInPoints">Size in points.</param>
+        IFont Resize(float sizeInPoints);
 	}
 }
-

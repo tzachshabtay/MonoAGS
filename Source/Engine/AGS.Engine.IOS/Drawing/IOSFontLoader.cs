@@ -34,7 +34,7 @@ namespace AGS.Engine.IOS
             CTFont font = new CTFont(postScriptName, sizeInPoints);
             _postScriptNames[fontFamily ?? ""] = font.PostScriptName;
             font = setFontStyle(font, sizeInPoints, style);
-            return new IOSFont(font, style);
+            return new IOSFont(font, style, this);
         }
 
         public IFont LoadFontFromPath(string path, float sizeInPoints, FontStyle style = FontStyle.Regular)
@@ -54,7 +54,7 @@ namespace AGS.Engine.IOS
 
             CTFont font = new CTFont(cgFont, sizeInPoints, CGAffineTransform.MakeIdentity());
             font = setFontStyle(font, sizeInPoints, style);
-            return new IOSFont(font, style);
+            return new IOSFont(font, style, this);
         }
 
         private CTFont setFontStyle(CTFont font, float sizeInPoints, FontStyle style)
