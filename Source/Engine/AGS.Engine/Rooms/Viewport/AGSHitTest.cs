@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using AGS.API;
 
@@ -46,7 +47,7 @@ namespace AGS.Engine
             foreach (var viewport in _state.GetSortedViewports())
             {
                 if (!viewport.Interactive) continue;
-                obj = findObject(_state.Viewport);
+                obj = findObject(viewport);
                 if (obj != null) break;
             }
             ObjectAtMousePosition = obj;
@@ -58,7 +59,6 @@ namespace AGS.Engine
             List<IObject> visibleObjects = _displayList.GetDisplayList(viewport);
             return getObjectAt(visibleObjects, _input.MousePosition.GetViewportX(viewport),
                                _input.MousePosition.GetViewportY(viewport), viewport);
-            
         }
 
         private IObject getObjectAt(List<IObject> objects, float x, float y, IViewport viewport)
