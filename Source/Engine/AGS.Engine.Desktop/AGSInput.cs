@@ -12,7 +12,7 @@ namespace AGS.Engine.Desktop
     {
         private GameWindow _game;
         private readonly IGameWindowSize _windowSize;
-        private int _virtualWidth, _virtualHeight;
+        private Size _virtualResolution;
         private float _mouseX, _mouseY;
         private readonly IGameState _state;
         private readonly IShouldBlockInput _shouldBlockInput;
@@ -47,9 +47,7 @@ namespace AGS.Engine.Desktop
 
         public void Init(API.Size virtualResolution)
         {
-            API.MousePosition.VirtualResolution = virtualResolution;
-            this._virtualWidth = virtualResolution.Width;
-            this._virtualHeight = virtualResolution.Height;
+            _virtualResolution = virtualResolution;
         }
 
         public void Init(GameWindow game)
@@ -111,7 +109,7 @@ namespace AGS.Engine.Desktop
 
         public bool IsKeyDown(AGS.API.Key key) => _keysDown.Contains(key);
 
-        public MousePosition MousePosition => new MousePosition(_mouseX, _mouseY, _state.Viewport);
+        public MousePosition MousePosition => new MousePosition(_mouseX, _mouseY, _state.Viewport, _virtualResolution);
 
         public bool LeftMouseButtonDown { get; private set; }
         public bool RightMouseButtonDown { get; private set; }
@@ -167,4 +165,3 @@ namespace AGS.Engine.Desktop
         private AGS.API.Key convert(OpenTK.Input.Key key) => (AGS.API.Key)(int)key;
     }
 }
-

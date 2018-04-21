@@ -8,11 +8,11 @@ namespace AGS.API
     /// </summary>
     public struct MousePosition
     {
-        public static Size VirtualResolution { private get; set; }
         public static Func<int> GetWindowWidth { private get; set; }
         public static Func<int> GetWindowHeight { private get; set; }
 
         private IViewport _mainViewport;
+        private Size _virtualResolution;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:AGS.API.MousePosition"/> struct.
@@ -20,11 +20,13 @@ namespace AGS.API
         /// <param name="xWindow">X position of the mouse in window coordinates.</param>
         /// <param name="yWindow">Y position of the mouse in window coordinates.</param>
         /// <param name="viewport">The main viewport.</param>
-        public MousePosition(float xWindow, float yWindow, IViewport viewport)
+        /// <param name="virtualResolution">The virtual resolution.</param>
+        public MousePosition(float xWindow, float yWindow, IViewport viewport, Size virtualResolution)
         {
             XWindow = xWindow;
             YWindow = yWindow;
             _mainViewport = viewport;
+            _virtualResolution = virtualResolution;
         }
 
         /// <summary>
@@ -66,7 +68,7 @@ namespace AGS.API
                 projectRight += parentBoundingBoxes.ViewportBox.MinX;
             }
 
-            float x = MathUtils.Lerp(projectLeft, 0f, projectRight, VirtualResolution.Width, XWindow);
+            float x = MathUtils.Lerp(projectLeft, 0f, projectRight, _virtualResolution.Width, XWindow);
             return x;
         }
 
@@ -87,7 +89,7 @@ namespace AGS.API
                 projectTop -= parentBoundingBoxes.ViewportBox.MinY;
             }
 
-            float y = MathUtils.Lerp(projectBottom, 0f, projectTop, VirtualResolution.Height, YWindow);
+            float y = MathUtils.Lerp(projectBottom, 0f, projectTop, _virtualResolution.Height, YWindow);
             return y;
         }
 
@@ -114,8 +116,8 @@ namespace AGS.API
                 projectBottom -= parentBoundingBoxes.ViewportBox.MinY;
                 projectTop -= parentBoundingBoxes.ViewportBox.MinY;
             }
-            float y = MathUtils.Lerp(projectTop, VirtualResolution.Height, projectBottom, 0f, YWindow);
-            float x = MathUtils.Lerp(projectLeft, 0f, projectRight, VirtualResolution.Width, XWindow);
+            float y = MathUtils.Lerp(projectTop, _virtualResolution.Height, projectBottom, 0f, YWindow);
+            float x = MathUtils.Lerp(projectLeft, 0f, projectRight, _virtualResolution.Width, XWindow);
 
             var matrix = viewport.GetMatrix(projectedInto.RenderLayer);
             matrix.Invert();
@@ -135,8 +137,8 @@ namespace AGS.API
 			{
 				float maxX = renderLayer.IndependentResolution.Value.Width;
 				float maxY = renderLayer.IndependentResolution.Value.Height;
-				x = MathUtils.Lerp(0f, 0f, VirtualResolution.Width, maxX, x);
-				y = MathUtils.Lerp(0f, 0f, VirtualResolution.Height, maxY, y);
+                x = MathUtils.Lerp(0f, 0f, _virtualResolution.Width, maxX, x);
+                y = MathUtils.Lerp(0f, 0f, _virtualResolution.Height, maxY, y);
 			}
             return new Vector2(x, y);
         }

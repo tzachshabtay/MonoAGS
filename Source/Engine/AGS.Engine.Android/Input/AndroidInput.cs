@@ -14,10 +14,11 @@ namespace AGS.Engine.Android
         private IShouldBlockInput _shouldBlockInput;
         private DateTime _lastDrag;
         private AGSGameView _view;
+        private Size _virtualResolution;
 
         public AndroidInput(AndroidSimpleGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
         {
-            MousePosition = new MousePosition(0f, 0f, state.Viewport);
+            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0));
             _shouldBlockInput = shouldBlockInput;
             _windowSize = windowSize;
             _state = state;
@@ -57,7 +58,7 @@ namespace AGS.Engine.Android
 
         public void Init(AGS.API.Size virtualResolution)
         {
-            API.MousePosition.VirtualResolution = virtualResolution;
+            _virtualResolution = virtualResolution;
         }
 
         public IObject Cursor { get; set; }
@@ -123,7 +124,7 @@ namespace AGS.Engine.Android
         { 
             float x = convertX(e.GetX());
             float y = convertY(e.GetY());
-            MousePosition = new MousePosition(x, y, _state.Viewport);
+            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution);
         }
 
         private float convertX(float x)

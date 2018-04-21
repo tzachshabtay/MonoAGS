@@ -13,10 +13,11 @@ namespace AGS.Engine.IOS
         private IGameState _state;
         private IShouldBlockInput _shouldBlockInput;
         private DateTime _lastDrag;
+        private Size _virtualResolution;
 
         public IOSInput(IOSGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IGameWindow gameWindow)
         {
-            MousePosition = new MousePosition(0f, 0f, state.Viewport);
+            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0));
             _shouldBlockInput = shouldBlockInput;
             _gameWindow = gameWindow;
             _state = state;
@@ -56,7 +57,7 @@ namespace AGS.Engine.IOS
 
         public void Init(AGS.API.Size virtualResolution)
         {
-            API.MousePosition.VirtualResolution = virtualResolution;
+            _virtualResolution = virtualResolution;
         }
 
         public IObject Cursor { get; set; }
@@ -94,7 +95,7 @@ namespace AGS.Engine.IOS
             float x = convertX(e.MousePosition.XWindow);
             float y = convertY(e.MousePosition.YWindow);
             updateWindowSizeFunctions();
-            MousePosition = new MousePosition(x, y, _state.Viewport);
+            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution);
         }
 
         private void updateWindowSizeFunctions()
