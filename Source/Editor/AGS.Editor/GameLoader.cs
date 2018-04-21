@@ -74,9 +74,9 @@ namespace AGS.Editor
             }
         }
 
-        public static void Load(IRenderMessagePump messagePump, AGSProject agsProj)
+        public static void Load(IRenderMessagePump messagePump, AGSProject agsProj, IGameFactory factory)
         {
-            messagePump.Post(async _ => await load(agsProj), null);
+            messagePump.Post(async _ => await load(agsProj, factory), null);
         }
 
         private static async Task<string> getOutputPath(AGSProject agsProj)
@@ -111,7 +111,7 @@ namespace AGS.Editor
             }
         }
 
-        private static async Task load(AGSProject agsProj)
+        private static async Task load(AGSProject agsProj, IGameFactory factory)
         {
             var (games, assembly) = await GetGames(agsProj);
             if (games.Count == 0)
@@ -143,6 +143,14 @@ namespace AGS.Editor
                 var gameDebugView = new GameDebugView(game, keyboardBindings, actions);
                 gameDebugView.Load();
                 return gameDebugView;
+            });
+
+            var toolbar = new GameToolbar();
+            toolbar.Init(factory);
+
+            game.Events.OnLoad.Subscribe(() =>
+            {
+                toolbar.SetGame(game);
             });
 
             game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200),

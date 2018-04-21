@@ -93,7 +93,7 @@ namespace AGS.Editor
                     parent.Visible = false;
                     AddGame(game, path);
                     await Task.Delay(100);
-                    GameLoader.Load(_messagePump, AGSProject.Load(path));
+                    GameLoader.Load(_messagePump, AGSProject.Load(path), _factory);
                 });
                 _factory.UI.GetLabel($"RecentGameLabel_{path}", path, 200f, 20f, 0f, 0f, gamePanel, new AGSTextConfig(_factory.Graphics.Brushes.LoadSolidBrush(Colors.Gray), labelFont));
             }

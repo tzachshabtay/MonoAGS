@@ -8,12 +8,20 @@ namespace AGS.Editor
     {
         public static void Init(IFontLoader fontLoader)
         {
-            var font = fontLoader.LoadFontFromPath("../../Assets/Fonts/Font Awesome 5 Free-Solid-900.otf", 3f, FontStyle.Regular);
-            IconConfig = new AGSTextConfig(font: font, autoFit: AutoFit.NoFitting, alignment: Alignment.MiddleCenter,
+            const string path = "../../Assets/Fonts/Font Awesome 5 Free-Solid-900.otf";
+
+            var smallFont = fontLoader.LoadFontFromPath(path, 3f, FontStyle.Regular);
+            IconConfig = new AGSTextConfig(font: smallFont, autoFit: AutoFit.NoFitting, alignment: Alignment.MiddleCenter,
+                                           paddingLeft: 0f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f);
+
+            var largeFont = fontLoader.LoadFontFromPath(path, 14f, FontStyle.Regular);
+            ButtonConfig = new AGSTextConfig(font: largeFont, autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter,
                                            paddingLeft: 0f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f);
         }
 
         public static ITextConfig IconConfig { get; private set; }
+
+        public static ITextConfig ButtonConfig { get; private set; }
 
         //https://fontawesome.com/cheatsheet
 
@@ -26,5 +34,8 @@ namespace AGS.Editor
         public const string Move = "\uf0b2";
 
         public const string Pivot = "\uf05b";
+
+        public const string Pause = "\uf04c";
+        public const string Play = "\uf04b";
     }
 }

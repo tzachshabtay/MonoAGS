@@ -58,7 +58,7 @@ namespace AGS.Editor
             AGSProject agsProj = AGSProject.Load(file);
             _recentGames.AddGame(agsProj.Name, file);
             await Task.Delay(100);
-            GameLoader.Load(messagePump, agsProj);
+            GameLoader.Load(messagePump, agsProj, _game.Factory);
         }
 
         private bool isGame(string file)
