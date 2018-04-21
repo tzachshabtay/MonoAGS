@@ -54,7 +54,7 @@ namespace AGS.Engine.Desktop
         {
             if (_game != null) return;
             _game = game;
-            this._originalOSCursor = _game.Cursor;
+            this._originalOSCursor = game.Cursor;
 
             game.MouseDown += (sender, e) =>
             {
@@ -121,8 +121,17 @@ namespace AGS.Engine.Desktop
             set
             {
                 _mouseCursor = value;
-                _game.Cursor = _mouseCursor == null ? _originalOSCursor : MouseCursor.Empty;
+                if (value != null)
+                {
+                    _game.Cursor = MouseCursor.Empty;
+                }
             }
+        }
+
+        public bool ShowHardwareCursor
+        {
+            get => _game.Cursor != MouseCursor.Empty;
+            set => _game.Cursor = value ? _originalOSCursor : MouseCursor.Empty;
         }
 
         private bool isInputBlocked() => _shouldBlockInput.ShouldBlockInput();

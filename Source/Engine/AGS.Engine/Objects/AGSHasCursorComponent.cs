@@ -7,6 +7,7 @@ namespace AGS.Engine
         private bool _showingObjectSpecificCursor;
         private IGame _game;
         private IObject _lastCursor;
+        private bool _cursotWasSaved;
 
         public AGSHasCursorComponent(IGame game)
         {
@@ -33,6 +34,7 @@ namespace AGS.Engine
             if (_game.Input.Cursor != specialCursor.SpecialCursor)
             {
                 _lastCursor = _game.Input.Cursor;
+                _cursotWasSaved = true;
                 _game.Input.Cursor = specialCursor.SpecialCursor;
             }
             _showingObjectSpecificCursor = true;
@@ -43,7 +45,7 @@ namespace AGS.Engine
             if (!_showingObjectSpecificCursor) return;
             _showingObjectSpecificCursor = false;
             var lastCursor = _lastCursor;
-            if (lastCursor != null)
+            if (_cursotWasSaved)
             {
                 _game.Input.Cursor = _lastCursor;
             }
