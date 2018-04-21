@@ -24,8 +24,10 @@ namespace AGS.Engine.Desktop
         private readonly ConcurrentQueue<Func<Task>> _actions;
         private int _inUpdate; //For preventing re-entrancy
 
-        public AGSInput(IGameState state, IGameEvents events,
-                        IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
+        public AGSInput(IGameState state, IGameEvents events, IShouldBlockInput shouldBlockInput, 
+                        IGameWindowSize windowSize, IEvent<AGS.API.MouseButtonEventArgs> mouseDown, 
+                        IEvent<AGS.API.MouseButtonEventArgs> mouseUp, IEvent<MousePositionEventArgs> mouseMove,
+                        IEvent<KeyboardEventArgs> keyDown, IEvent<KeyboardEventArgs> keyUp)
         {
             _events = events;
             _actions = new ConcurrentQueue<Func<Task>>();
@@ -36,11 +38,11 @@ namespace AGS.Engine.Desktop
             this._state = state;
             this._keysDown = new AGSConcurrentHashSet<API.Key>();
 
-            MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
-            MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
-            MouseMove = new AGSEvent<MousePositionEventArgs>();
-            KeyDown = new AGSEvent<KeyboardEventArgs>();
-            KeyUp = new AGSEvent<KeyboardEventArgs>();
+            MouseDown = mouseDown;
+            MouseUp = mouseUp;
+            MouseMove = mouseMove;
+            KeyDown = keyDown;
+            KeyUp = keyUp;
 
             if (AGSGameWindow.GameWindow != null) Init(AGSGameWindow.GameWindow);
         }

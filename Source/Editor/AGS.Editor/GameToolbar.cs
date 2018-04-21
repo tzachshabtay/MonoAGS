@@ -1,12 +1,15 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 
 namespace AGS.Editor
 {
     public class GameToolbar
     {
+        private readonly EditorShouldBlockEngineInput _blocker;
         private ILabel _fpsLabel, _mousePosLabel, _hotspotLabel;
+        private IButton _playPauseButton;
+
+        public GameToolbar(EditorShouldBlockEngineInput blocker) => _blocker = blocker;
 
         public void Init(IGameFactory factory)
         {
@@ -32,13 +35,13 @@ namespace AGS.Editor
             float buttonHeight = toolbar.Height * 3 / 4f;
             float buttonY = toolbar.Height / 2f;
             float buttonX = toolbar.Width / 2f;
-            var button = factory.UI.GetButton("PlayPauseGameButton", idle, hover, pushed, buttonX, buttonY, toolbar, width: buttonWidth, height: buttonHeight);
-            button.Text = FontIcons.Pause;
-            button.Pivot = new PointF(0.5f, 0.5f);
-            button.RenderLayer = toolbar.RenderLayer;
-            button.MouseClicked.Subscribe(() => button.Text = button.Text == FontIcons.Pause ? FontIcons.Play : FontIcons.Pause);
+            _playPauseButton = factory.UI.GetButton("PlayPauseGameButton", idle, hover, pushed, buttonX, buttonY, toolbar, width: buttonWidth, height: buttonHeight);
+            _playPauseButton.Text = FontIcons.Pause;
+            _playPauseButton.Pivot = new PointF(0.5f, 0.5f);
+            _playPauseButton.RenderLayer = toolbar.RenderLayer;
+            _playPauseButton.MouseClicked.Subscribe(onPlayPauseClicked);
 
-            _fpsLabel = factory.UI.GetLabel("FPS Label", "", 30f, 25f, 0f, button.Y, toolbar, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
+            _fpsLabel = factory.UI.GetLabel("FPS Label", "", 30f, 25f, 0f, _playPauseButton.Y, toolbar, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _fpsLabel.Pivot = new PointF(0f, 0.5f);
             _fpsLabel.TextBackgroundVisible = false;
             _fpsLabel.RenderLayer = toolbar.RenderLayer;
@@ -47,16 +50,22 @@ namespace AGS.Editor
             _fpsLabel.MouseLeave.Subscribe(_ => _fpsLabel.Tint = Colors.IndianRed.WithAlpha(125));
 
 
-            _mousePosLabel = factory.UI.GetLabel("Mouse Position Label", "", 1f, 1f, 120f, button.Y, toolbar, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
+            _mousePosLabel = factory.UI.GetLabel("Mouse Position Label", "", 1f, 1f, 120f, _playPauseButton.Y, toolbar, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _mousePosLabel.TextBackgroundVisible = false;
             _mousePosLabel.Pivot = new PointF(0f, 0.5f);
             _mousePosLabel.RenderLayer = toolbar.RenderLayer;
 
-            _hotspotLabel = factory.UI.GetLabel("Debug Hotspot Label", "", 250f, _fpsLabel.Height, toolbar.Width, button.Y, toolbar, config: new AGSTextConfig(alignment: Alignment.TopRight,
+            _hotspotLabel = factory.UI.GetLabel("Debug Hotspot Label", "", 250f, _fpsLabel.Height, toolbar.Width, _playPauseButton.Y, toolbar, config: new AGSTextConfig(alignment: Alignment.TopRight,
                                                                                                                                                      autoFit: AutoFit.TextShouldFitLabel));
             _hotspotLabel.TextBackgroundVisible = false;
             _hotspotLabel.Pivot = new PointF(1f, 0.5f);
             _hotspotLabel.RenderLayer = toolbar.RenderLayer;
+        }
+
+        private void onPlayPauseClicked(MouseButtonEventArgs obj)
+        {
+            _playPauseButton.Text = _playPauseButton.Text == FontIcons.Pause ? FontIcons.Play : FontIcons.Pause;
+            _blocker.BlockEngine = _playPauseButton.Text == FontIcons.Play;
         }
 
         public void SetGame(IGame game)

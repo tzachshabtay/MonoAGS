@@ -7,8 +7,6 @@ namespace AGS.Editor
     {
         public static void Run()
         {
-            GameLoader.SetupResolver();
-
             IGame game = AGSGame.CreateEmpty();
 
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.

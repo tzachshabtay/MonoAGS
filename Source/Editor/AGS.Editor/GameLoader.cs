@@ -9,7 +9,6 @@ using AGS.API;
 using AGS.Engine;
 using Autofac;
 using GuiLabs.Undo;
-using Newtonsoft.Json;
 
 namespace AGS.Editor
 {
@@ -32,7 +31,7 @@ namespace AGS.Editor
             Resolver.Override(resolver => resolver.Builder.RegisterType<KeyboardBindings>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterType<ActionManager>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterAssemblyTypes(typeof(GameLoader).Assembly).
-                              Except<InspectorTreeNodeProvider>().AsImplementedInterfaces().ExternallyOwned());
+                              Except<InspectorTreeNodeProvider>().Except<EditorShouldBlockEngineInput>().AsImplementedInterfaces().ExternallyOwned());
         }
 
         public static IEditorPlatform Platform { get; set; }
@@ -124,19 +123,16 @@ namespace AGS.Editor
             }
             var gameCreatorImplementation = games[0];
             var gameCreator = (IGameStarter)Activator.CreateInstance(gameCreatorImplementation);
-            var game = AGSGame.CreateEmpty();
+
+            var resolver = new Resolver(AGSGame.Device);
+            resolver.Builder.RegisterType<EditorShouldBlockEngineInput>().SingleInstance().As<IShouldBlockInput>().As<EditorShouldBlockEngineInput>();
+            var game = AGSGame.CreateEmpty(resolver);
             gameCreator.StartGame(game);
 
-            KeyboardBindings keyboardBindings = null;
-            ActionManager actions = null;
-            if (game is AGSGame agsGame) //todo: find a solution for any IGame implementation
-            {
-                Resolver resolver = agsGame.GetResolver();
-                keyboardBindings = resolver.Container.Resolve<KeyboardBindings>();
-                actions = resolver.Container.Resolve<ActionManager>();
-                var resourceLoader = resolver.Container.Resolve<IResourceLoader>();
-                resourceLoader.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(assembly), 2));
-            }
+            var keyboardBindings = resolver.Container.Resolve<KeyboardBindings>();
+            var actions = resolver.Container.Resolve<ActionManager>();
+            var resourceLoader = resolver.Container.Resolve<IResourceLoader>();
+            resourceLoader.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(assembly), 2));
 
             _gameDebugView = new Lazy<GameDebugView>(() =>
             {
@@ -145,7 +141,9 @@ namespace AGS.Editor
                 return gameDebugView;
             });
 
-            var toolbar = new GameToolbar();
+            EditorShouldBlockEngineInput blocker = resolver.Container.Resolve<EditorShouldBlockEngineInput>();
+
+            var toolbar = new GameToolbar(blocker);
             toolbar.Init(factory);
 
             game.Events.OnLoad.Subscribe(() =>

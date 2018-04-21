@@ -55,6 +55,7 @@ namespace AGS.Engine
             Builder.RegisterType<GLTextureCache>().SingleInstance().As<ITextureCache>();
             Builder.RegisterType<AGSDefaultInteractions>().SingleInstance().As<IDefaultInteractions>();
             Builder.RegisterType<InventorySubscriptions>().SingleInstance();
+            Builder.RegisterType<AGSShouldBlockInput>().SingleInstance().As<IShouldBlockInput>();
 
 			registerComponents();
 
@@ -138,4 +139,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

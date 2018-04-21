@@ -50,12 +50,12 @@ namespace AGS.Engine
 
         public static IGLUtils GLUtils { get; private set; }
 
-		public static IGame CreateEmpty()
+		public static IGame CreateEmpty(Resolver resolver = null)
 		{
 			UIThreadID = Environment.CurrentManagedThreadId;
 
 			printRuntime();
-			Resolver resolver = new Resolver(Device);
+			resolver = resolver ?? new Resolver(Device);
 			resolver.Build();
 			AGSGame game = resolver.Container.Resolve<AGSGame>();
 			game._resolver = resolver;
