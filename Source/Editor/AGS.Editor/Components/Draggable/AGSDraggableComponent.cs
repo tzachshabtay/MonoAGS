@@ -115,8 +115,8 @@ namespace AGS.Editor
             var resolution = _drawable?.RenderLayer?.IndependentResolution;
 			if (resolution != null)
 			{
-				mouseX *= (resolution.Value.Width / _settings.VirtualResolution.Width);
-				mouseY *= (resolution.Value.Height / _settings.VirtualResolution.Height);
+				mouseX *= ((float)resolution.Value.Width / _settings.VirtualResolution.Width);
+				mouseY *= ((float)resolution.Value.Height / _settings.VirtualResolution.Height);
 			}
 			
             return new Vector2(mouseX, mouseY);
