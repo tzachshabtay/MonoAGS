@@ -96,7 +96,11 @@ namespace Tests
             Mock<IKeyboardState> keyboard = new Mock<IKeyboardState>();
             device.Setup(d => d.KeyboardState).Returns(keyboard.Object);
 
-            return new Resolver(device.Object);
+            var resolver = new Resolver(device.Object);
+
+            Mock<IAudioBackend> audio = new Mock<IAudioBackend>();
+            resolver.Builder.RegisterInstance(audio.Object);
+            return resolver;
         }
 
 		public TItem Create<TItem>(params Parameter[] parameters)
