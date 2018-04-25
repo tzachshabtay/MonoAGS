@@ -4023,6 +4023,14 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(AGS.API.ClaimableCallbackWithArgs(Of TEventArgs), AGS.API.CallbackPriority)
   nameWithType: IBlockingEvent<TEventArgs>.Subscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(ClaimableCallbackWithArgs(Of TEventArgs), CallbackPriority)
+- uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
+  name: Subscribe(Action, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(System.Action, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(System.Action, AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action, CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)
   name: Subscribe(Action<TEventArgs>, CallbackPriority)
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action__0__AGS_API_CallbackPriority_
