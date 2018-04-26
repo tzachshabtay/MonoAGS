@@ -282,6 +282,9 @@
     <Compile Include="Graphics\Logic\IRenderPipeline.cs" />
     <Compile Include="Graphics\IBorderComponent.cs" />
     <Compile Include="Objects\Interactions\IDefaultInteractions.cs" />
+    <Compile Include="Audio\ISoundModifier.cs" />
+    <Compile Include="Audio\IAudioRule.cs" />
+    <Compile Include="Audio\IAudioSystem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

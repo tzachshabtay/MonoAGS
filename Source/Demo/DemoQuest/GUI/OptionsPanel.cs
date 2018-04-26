@@ -107,7 +107,7 @@ namespace DemoGame
 
 		private void onVolumeChanged(float volume)
 		{
-			_game.AudioSettings.MasterVolume = volume;
+			_game.Audio.Settings.MasterVolume = volume;
 		}
 
 		public void Show()

@@ -152,7 +152,7 @@
         /// }
         /// </code>
         /// </example>
-        IBlockingEvent OnSavedGameLoad { get; }
+        IBlockingEvent<IGame> OnSavedGameLoad { get; }
 
         /// <summary>
         /// Defines the default interactions for objects on the screen that can be interacted in some way, but for which we haven't

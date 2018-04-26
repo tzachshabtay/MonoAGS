@@ -39,7 +39,7 @@ namespace AGS.Engine
         private void subscribeTree(IInObjectTreeComponent node)
         {
             if (node == null) return;
-            node.TreeNode.Children.OnListChanged.Subscribe(onTreeChanged);
+            node.TreeNode.Children.OnListChanged.Subscribe(onChildrenChanged);
             foreach (var child in node.TreeNode.Children)
             {
                 subscribeTree(child);
@@ -50,7 +50,7 @@ namespace AGS.Engine
         private void unsubscribeTree(IInObjectTreeComponent node)
         {
             if (node == null) return;
-            node.TreeNode.Children.OnListChanged.Unsubscribe(onTreeChanged);
+            node.TreeNode.Children.OnListChanged.Unsubscribe(onChildrenChanged);
             foreach (var child in node.TreeNode.Children)
             {
                 unsubscribeTree(child);
@@ -96,7 +96,7 @@ namespace AGS.Engine
             onTreeChanged();
         }
 
-        private void onTreeChanged(AGSListChangedEventArgs<IObject> args)
+        private void onChildrenChanged(AGSListChangedEventArgs<IObject> args)
         {
             if (args.ChangeType == ListChangeType.Add)
             {

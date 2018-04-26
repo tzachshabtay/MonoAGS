@@ -27,7 +27,7 @@ namespace Tests
 		Mock<IRoomEvents> _roomEvents;
 		Mock<ICutscene> _cutscene;
 		Mock<IInput> _input;
-		Mock<IAudioSystem> _audioSystem;
+		Mock<IALAudioSystem> _audioSystem;
         Mock<IGame> _game;
         Mock<IRuntimeSettings> _settings;
 
@@ -96,7 +96,11 @@ namespace Tests
             Mock<IKeyboardState> keyboard = new Mock<IKeyboardState>();
             device.Setup(d => d.KeyboardState).Returns(keyboard.Object);
 
-            return new Resolver(device.Object);
+            var resolver = new Resolver(device.Object);
+
+            Mock<IAudioBackend> audio = new Mock<IAudioBackend>();
+            resolver.Builder.RegisterInstance(audio.Object);
+            return resolver;
         }
 
 		public TItem Create<TItem>(params Parameter[] parameters)
@@ -116,11 +120,11 @@ namespace Tests
             return files;
         }
 
-		public Mock<IAudioSystem> AudioSystem(bool newInstance = false)
+		public Mock<IALAudioSystem> AudioSystem(bool newInstance = false)
 		{
 			if (_audioSystem == null || newInstance)
 			{
-				_audioSystem = new Mock<IAudioSystem> ();
+                _audioSystem = new Mock<IALAudioSystem> ();
 			}
 			return _audioSystem;
 		}
@@ -175,6 +179,7 @@ namespace Tests
 				_gameState = new Mock<IGameState> ();
 				_gameState.Setup(m => m.Player).Returns(Player().Object);
                 _gameState.Setup(m => m.Room).Returns(() => Player().Object.Room);
+                _gameState.Setup(m => m.Rooms).Returns(() => { var rooms = new AGSBindingList<IRoom>(1); rooms.Add(Player().Object.Room); return rooms; });
                 _gameState.Setup(m => m.Viewport).Returns(Viewport().Object);
                 _gameState.Setup(m => m.SecondaryViewports).Returns(new AGSBindingList<IViewport>(0));
                 Viewport().Setup(v => v.RoomProvider).Returns(_gameState.Object);
@@ -215,6 +220,7 @@ namespace Tests
 				_room.Setup(m => m.ShowPlayer).Returns(true);
 				_room.Setup(m => m.Events).Returns(RoomEvents().Object);
 				_room.Setup(m => m.Areas).Returns(areas);
+                _room.Setup(m => m.ID).Returns(new Guid().ToString());
 			}
 			return _room;
 		}

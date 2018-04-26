@@ -21,12 +21,14 @@ namespace AGS.Engine
 		private readonly IGameState _state;
 		private readonly IGameEvents _events;
         private readonly IFileSystem _fileSystem;
+        private readonly IGame _game;
 		private static bool _firstTimeSetup = true;
 		private const string RESTART_FILENAME = "RestartPoint.bin";
 
 		public AGSSaveLoad(Resolver resolver, IGameFactory factory, 
                            ITextureCache textures, IGame game, IFileSystem fileSystem)
 		{
+            _game = game;
 			_resolver = resolver;
 			_factory = factory;
 			_textures = textures;
@@ -92,7 +94,7 @@ namespace AGS.Engine
 				context.Rewire(newState);
 				_state.CopyFrom(newState);
 
-				_events.OnSavedGameLoad.Invoke();
+				_events.OnSavedGameLoad.Invoke(_game);
 
 				_state.Paused = false;
 			}

@@ -7,20 +7,18 @@ namespace AGS.Engine
 	public class RoomMusicCrossFading : ICrossFading
 	{
 		private ConcurrentDictionary<string, RoomCrossFader> _map;
-		private IGame _game;
 		private IGameState _state;
 
-		public RoomMusicCrossFading(IGame game)
+		public RoomMusicCrossFading(IGameState state, IGameEvents events)
 		{
 			//Default: Linear 3 seconds fade out with no fade in (most music clips already have a 'fade-in' at the start)
 			FadeOut = true;
 			FadeOutSeconds = 3f;
 
 			_map = new ConcurrentDictionary<string, RoomCrossFader> ();
-			_game = game;
-			_state = game.State;
-			game.State.Rooms.OnListChanged.Subscribe(onRoomsChange);
-			game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoad);
+			_state = state;
+            state.Rooms.OnListChanged.Subscribe(onRoomsChange);
+            events.OnSavedGameLoad.Subscribe(onSavedGameLoad);
 		}
 
 		#region ICrossFading implementation
@@ -53,7 +51,7 @@ namespace AGS.Engine
             }
 		}
 
-		private void onSavedGameLoad()
+		private void onSavedGameLoad(IGame game)
 		{
 			_state.Rooms.OnListChanged.Unsubscribe(onRoomsChange);
 			foreach (var fader in _map.Values)
@@ -64,7 +62,7 @@ namespace AGS.Engine
 			{
 				_map.TryAdd(room.ID, new RoomCrossFader (this, room));
 			}
-			_state = _game.State;
+			_state = game.State;
 			_state.Rooms.OnListChanged.Subscribe(onRoomsChange);
 		}
 

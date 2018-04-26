@@ -7,8 +7,11 @@ namespace AGS.Engine
         public AGSSpeechLine(IAudioClip audioClip, string text)
         {
             AudioClip = audioClip;
+            audioClip?.Tags.Add(SpeechTag);
             Text = text;
         }
+
+        public const string SpeechTag = "Speech";
 
         public IAudioClip AudioClip { get; private set; }
 

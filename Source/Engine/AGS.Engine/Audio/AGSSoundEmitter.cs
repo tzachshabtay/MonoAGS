@@ -14,6 +14,8 @@ namespace AGS.Engine
         public AGSSoundEmitter(IGame game)
         {
             _game = game;
+            OnSoundStarted = new AGSEvent<ISound>();
+            OnSoundCompleted = new AGSEvent<ISound>();
             _playingSounds = new ConcurrentDictionary<int, EmittedSound>();
             game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
             AutoPan = true;
@@ -25,33 +27,41 @@ namespace AGS.Engine
         public ISound Play(bool shouldLoop = false, ISoundProperties properties = null)
         {
             ISound sound = AudioClip.Play(shouldLoop, properties);
+            OnSoundStarted.Invoke(sound);
             EmittedSound emittedSound = new EmittedSound(sound);
             _playingSounds.TryAdd(emittedSound.ID, emittedSound);
+            sound.Completed.ContinueWith(_ => OnSoundCompleted?.Invoke(sound));
             return sound;
         }
 
         public ISound Play(float volume, bool shouldLoop = false)
         {
             ISound sound = AudioClip.Play(volume, shouldLoop);
+            OnSoundStarted.Invoke(sound);
             EmittedSound emittedSound = new EmittedSound(sound);
             _playingSounds.TryAdd(emittedSound.ID, emittedSound);
+            sound.Completed.ContinueWith(_ => OnSoundCompleted?.Invoke(sound));
             return sound;
         }
 
         public void PlayAndWait(ISoundProperties properties = null)
         {
             ISound sound = AudioClip.Play(false, properties);
+            OnSoundStarted.Invoke(sound);
             EmittedSound emittedSound = new EmittedSound(sound);
             _playingSounds.TryAdd(emittedSound.ID, emittedSound);
             Task.Run(async () => await sound.Completed).Wait();
+            OnSoundCompleted.Invoke(sound);
         }
 
         public void PlayAndWait(float volume)
         {
             ISound sound = AudioClip.Play(volume, false);
+            OnSoundStarted.Invoke(sound);
             EmittedSound emittedSound = new EmittedSound(sound);
             _playingSounds.TryAdd(emittedSound.ID, emittedSound);
-            Task.Run(async () => await sound.Completed).Wait(); 
+            Task.Run(async () => await sound.Completed).Wait();
+            OnSoundCompleted.Invoke(sound);
         }
 
         #endregion
@@ -60,8 +70,8 @@ namespace AGS.Engine
 
         public IAudioClip AudioClip { get; set; }
 
-        public IObject Object 
-        { 
+        public IObject Object
+        {
             set { HasRoom = value; WorldPosition = value; EntityID = value == null ? null : value.ID; }
         }
         public string EntityID { get; set; }
@@ -73,6 +83,10 @@ namespace AGS.Engine
 
         public bool IsPlaying => _playingSounds.Count > 0;
         public ReadOnlyCollection<ISound> CurrentlyPlayingSounds => _playingSounds.Select(p => p.Value.Sound).ToList().AsReadOnly();
+
+        public IBlockingEvent<ISound> OnSoundStarted { get; }
+
+        public IBlockingEvent<ISound> OnSoundCompleted { get; }
 
         public void Assign(IDirectionalAnimation animation, params int[] frames)
 		{
@@ -124,7 +138,7 @@ namespace AGS.Engine
 				if (AutoPan)
 				{
                     float pan = MathUtils.Lerp(0f, -1f, _game.Settings.VirtualResolution.Width, 1f, pos.WorldX);
-					sound.Value.Sound.Panning = pan;
+					sound.Value.Panning = pan;
 				}
 				if (AutoAdjustVolume)
 				{
@@ -136,7 +150,7 @@ namespace AGS.Engine
                         var scalingArea = area.GetComponent<IScalingArea>();
                         if (scalingArea == null || !scalingArea.ScaleVolume) continue;
                         float scale = scalingArea.GetScaling(pos.WorldY);
-						sound.Value.Sound.Volume = AudioClip.Volume * scale;
+						sound.Value.Volume = scale;
 					}
 				}
 			}
@@ -145,17 +159,24 @@ namespace AGS.Engine
 		private class EmittedSound
 		{
 			private static int runningId;
+            private VolumeModifier _volumeModifier;
+            private PanningModifier _panningModifier;
 
 			public EmittedSound(ISound sound)
 			{
 				Sound = sound;
 				ID = runningId;
 				runningId++;
+                _volumeModifier = new VolumeModifier(1f);
+                _panningModifier = new PanningModifier(1f);
+                sound.SoundModifiers.Add(_volumeModifier);
+                sound.SoundModifiers.Add(_panningModifier);
 			}
 
 			public ISound Sound { get; }
 			public int ID { get; }
+            public float Volume { set => _volumeModifier.VolumeFactor = value; }
+            public float Panning { set => _panningModifier.PanningOffset = value; }
 		}
 	}
 }
-

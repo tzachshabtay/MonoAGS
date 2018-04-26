@@ -12,13 +12,16 @@ namespace AGS.Engine
 	{
 		private ISoundData _soundData;
 		private Lazy<int> _buffer;
-		private IAudioSystem _system;
+		private IALAudioSystem _system;
 		private IAudioErrors _errors;
         private AGSConcurrentHashSet<ISound> _playingSounds;
         private IAudioBackend _backend;
 
-        public ALAudioClip(string id, ISoundData soundData, IAudioSystem system, IAudioErrors errors, IAudioBackend backend)
+        public ALAudioClip(string id, ISoundData soundData, IALAudioSystem system, IAudioErrors errors, IAudioBackend backend,
+                           IBlockingEvent<ISound> onSoundStarted, IBlockingEvent<ISound> onSoundCompleted)
 		{
+            OnSoundStarted = onSoundStarted;
+            OnSoundCompleted = onSoundCompleted;
 			_soundData = soundData;
 			_errors = errors;
             _backend = backend;
@@ -26,6 +29,7 @@ namespace AGS.Engine
 			_buffer = new Lazy<int> (() => generateBuffer());
             Duration = getDuration(soundData.DataLength, soundData.Channels, soundData.BitsPerSample, soundData.SampleRate);
             _playingSounds = new AGSConcurrentHashSet<ISound>();
+            Tags = new AGSConcurrentHashSet<string>();
 			_system = system;
 			Volume = 1f;
 			Pitch = 1f;
@@ -38,27 +42,27 @@ namespace AGS.Engine
 		public ISound Play(bool shouldLoop = false, ISoundProperties properties = null)
 		{
 			properties = properties ?? this;
-			return playSound(properties.Volume, properties.Pitch, properties.Panning, shouldLoop);
+			return playSound(properties.Volume, properties.Pitch, properties.Panning, properties.Tags, shouldLoop);
 		}
 
 		public ISound Play(float volume, bool shouldLoop = false)
 		{
-			return playSound(volume, Pitch, Panning, shouldLoop);
+			return playSound(volume, Pitch, Panning, Tags, shouldLoop);
 		}
 
 		public void PlayAndWait(ISoundProperties properties = null)
 		{
 			properties = properties ?? this;
-			ISound sound = playSound(properties.Volume, properties.Pitch, properties.Panning);
+            ISound sound = playSound(properties.Volume, properties.Pitch, properties.Panning, properties.Tags);
 			Task.Run(async () => await sound.Completed).Wait();
 		}
 
 		public void PlayAndWait(float volume)
 		{
-			ISound sound = playSound(volume, Pitch, Panning);
+			ISound sound = playSound(volume, Pitch, Panning, Tags);
 			Task.Run(async () => await sound.Completed).Wait();
 		}
-			
+
 		public string ID { get; }
 
 		public float Volume { get; set; }
@@ -68,19 +72,27 @@ namespace AGS.Engine
         public bool IsPlaying => _playingSounds.Count > 0;
         public ReadOnlyCollection<ISound> CurrentlyPlayingSounds => _playingSounds.ToList().AsReadOnly();
 
+        public IConcurrentHashSet<string> Tags { get; }
+
+        public IBlockingEvent<ISound> OnSoundStarted { get; }
+
+        public IBlockingEvent<ISound> OnSoundCompleted { get; }
+
         #endregion
 
-        private ISound playSound(float volume, float pitch, float panning, bool looping = false)
+        private ISound playSound(float volume, float pitch, float panning, IConcurrentHashSet<string> tags, bool looping = false)
 		{
             //Debug.WriteLine("Playing Sound: " + ID);
 			int source = getSource();
-            ALSound sound = new ALSound (source, Duration, volume, pitch, looping, panning, _errors, _backend);
+            ALSound sound = new ALSound (source, Duration, volume, pitch, looping, panning, tags, _errors, _backend);
             _playingSounds.Add(sound);
+            OnSoundStarted.Invoke(sound);
 			sound.Play(_buffer.Value);
             sound.Completed.ContinueWith(_ =>
             {
                 _system.ReleaseSource(source);
                 _playingSounds.Remove(sound);
+                OnSoundCompleted.Invoke(sound);
             });
 			return sound;
 		}
@@ -130,4 +142,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

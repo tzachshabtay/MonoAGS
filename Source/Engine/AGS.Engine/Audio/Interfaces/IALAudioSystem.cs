@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AGS.Engine
+﻿namespace AGS.Engine
 {
-	public interface IAudioSystem
+	public interface IALAudioSystem
 	{
 		IAudioListener Listener { get; }
 
@@ -10,4 +8,3 @@ namespace AGS.Engine
 		void ReleaseSource(int source);
 	}
 }
-

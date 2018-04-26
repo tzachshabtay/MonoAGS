@@ -67,6 +67,43 @@ namespace AGS.API
 		float Position { get; set; }
 
         /// <summary>
+        /// Gets the real volume of the sound (after it has been modified by all the existing sound modifiers).
+        /// </summary>
+        /// <seealso cref="SoundModifiers"/>
+        /// <seealso cref="ISoundProperties.Volume"/>
+        /// <value>The real volume.</value>
+        float RealVolume { get; }
+
+        /// <summary>
+        /// Gets the real pitch of the sound (after it has been modified by all the existing sound modifiers).
+        /// </summary>
+        /// <seealso cref="SoundModifiers"/>
+        /// <seealso cref="ISoundProperties.Pitch"/>
+        /// <value>The real pitch.</value>
+        float RealPitch { get; }
+
+        /// <summary>
+        /// Gets the real panning of the sound (after it has been modified by all the existing sound modifiers).
+        /// </summary>
+        /// <seealso cref="SoundModifiers"/>
+        /// <seealso cref="ISoundProperties.Panning"/>
+        /// <value>The real panning.</value>
+        float RealPanning { get; }
+
+        /// <summary>
+        /// A list of modifiers for sound properties. The sound modifiers act on the existing sound properties that you set (volume, panning, pitch),
+        /// and modify them on-the-fly (for example, the engine has a rule where the volume of non-speech sounds is reduced when speech is playing).
+        /// </summary>
+        /// <seealso cref="ISoundProperties.Volume"/>
+        /// <seealso cref="ISoundProperties.Pitch"/>
+        /// <seealso cref="ISoundProperties.Panning"/>
+		/// <seealso cref="RealVolume"/>
+        /// <seealso cref="RealPitch"/>
+        /// <seealso cref="RealPanning"/>
+        /// <value>The list of sound modifiers.</value>
+        IAGSBindingList<ISoundModifier> SoundModifiers { get; }
+
+        /// <summary>
         /// Pause this sound.
         /// </summary>
 		void Pause();
@@ -87,4 +124,3 @@ namespace AGS.API
 		void Stop();
 	}
 }
-
