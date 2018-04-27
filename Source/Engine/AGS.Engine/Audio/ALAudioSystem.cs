@@ -2,10 +2,10 @@
 
 namespace AGS.Engine
 {
-	public class ALAudioSystem : IDisposable, IAudioSystem
+	public class ALAudioSystem : IDisposable, IALAudioSystem
 	{
-        private IAudioBackend _backend;
-		private IAudioErrors _errors;
+        private readonly IAudioBackend _backend;
+		private readonly IAudioErrors _errors;
 
         public ALAudioSystem(IAudioBackend backend, IAudioListener listener, IAudioErrors errors)
 		{
@@ -18,7 +18,7 @@ namespace AGS.Engine
 
 		public IAudioListener Listener { get; private set; }
 
-		public int AcquireSource()
+        public int AcquireSource()
 		{
 			int source = _backend.GenSource();
 			_errors.HasErrors();
@@ -31,9 +31,9 @@ namespace AGS.Engine
 			_backend.DeleteSource(source);
 			_errors.HasErrors();
 		}
-			
+
 		#endregion
-			
+
 		#region IDisposable implementation
 		public void Dispose()
 		{
@@ -42,4 +42,3 @@ namespace AGS.Engine
 		#endregion
 	}
 }
-

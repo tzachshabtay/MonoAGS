@@ -84,7 +84,7 @@ namespace AGS.Engine
 
 		public IGameEvents Events { get; private set; }
 
-		public IAudioSettings AudioSettings { get; private set; }
+        public IAudioSystem Audio { get; private set; }
 
         public IRuntimeSettings Settings { get; private set; }
 
@@ -258,7 +258,7 @@ namespace AGS.Engine
                                                                     gameWindowParameter, pipelineParameter);
             updateResolver();
             HitTest = _resolver.Container.Resolve<IHitTest>();
-            AudioSettings = _resolver.Container.Resolve<IAudioSettings>();
+            Audio = _resolver.Container.Resolve<IAudioSystem>();
             SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
 
             _glUtils.AdjustResolution(settings.VirtualResolution.Width, settings.VirtualResolution.Height);

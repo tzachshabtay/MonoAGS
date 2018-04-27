@@ -57,7 +57,6 @@
     <Compile Include="Engine\Graphics\SpriteTests.cs" />
     <Compile Include="Engine\Graphics\Logic\RenderOrderSelectorTests.cs" />
     <Compile Include="Engine\Graphics\Logic\RendererLoopTests.cs" />
-    <Compile Include="Engine\Graphics\Logic\ImageRendererTests.cs" />
     <Compile Include="Engine\Input\InputEventsTests.cs" />
     <Compile Include="Engine\Input\Schemes\TwoButtonsInputSchemeTests.cs" />
     <Compile Include="Engine\Objects\ChildrenObjectsTests.cs" />

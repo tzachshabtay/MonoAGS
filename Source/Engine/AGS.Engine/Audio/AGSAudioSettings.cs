@@ -5,9 +5,9 @@ namespace AGS.Engine
 {
 	public class AGSAudioSettings : IAudioSettings
 	{
-		private IAudioSystem _system;
+		private IALAudioSystem _system;
 
-		public AGSAudioSettings(IAudioSystem system, ICrossFading roomMusicCrossFading)
+		public AGSAudioSettings(IALAudioSystem system, ICrossFading roomMusicCrossFading)
 		{
 			_system = system;
 			RoomMusicCrossFading = roomMusicCrossFading;
@@ -26,4 +26,3 @@ namespace AGS.Engine
 		#endregion
 	}
 }
-

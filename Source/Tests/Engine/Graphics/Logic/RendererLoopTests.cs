@@ -13,7 +13,6 @@ namespace Tests
     {
         private Mocks _mocks;
         private Mock<IAGSRoomTransitions> _transitions;
-        //private Mock<IImageRenderer> _renderer;
         private AGSBindingList<IArea> _areas;
         private AGSConcurrentHashSet<IObject> _roomObjects, _uiObjects;
         private Resolver _resolver;

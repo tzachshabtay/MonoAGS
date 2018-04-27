@@ -30,7 +30,7 @@ namespace AGS.API
     /// <summary>
     /// In a scenario where an event has multiple subscribers, the callback priority affects which subscriber gets the callback first.
     /// High priority subscribers will receive the event before normal priority (the default) subscribers, and low priority will receive the event last.
-    /// 
+    ///
     /// Note: For 2 subscribers with the same callback priority, there's no guarantee regarding who gets the event first.
     /// </summary>
     public enum CallbackPriority : byte
@@ -69,6 +69,14 @@ namespace AGS.API
         /// <param name="callback">Callback.</param>
         /// <param name="priority">The callback priority (determines the order in which the subscribers get the events).</param>
         void Subscribe(Action<TEventArgs> callback, CallbackPriority priority = CallbackPriority.Normal);
+
+        /// <summary>
+        /// Subscribe the specified callback to the event.
+        /// Once subscribed, whenever the event happens this callback will be called.
+        /// </summary>
+        /// <param name="callback">Callback.</param>
+        /// <param name="priority">The callback priority (determines the order in which the subscribers get the events).</param>
+        void Subscribe(Action callback, CallbackPriority priority = CallbackPriority.Normal);
 
         /// <summary>
         /// Unsubscribe the specified callback from the event.

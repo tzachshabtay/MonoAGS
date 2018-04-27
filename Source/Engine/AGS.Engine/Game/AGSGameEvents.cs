@@ -8,7 +8,7 @@ namespace AGS.Engine
         public AGSGameEvents(IBlockingEvent onLoad, IEvent<IRepeatedlyExecuteEventArgs> onRepeatedlyExecute,
             IEvent<IRepeatedlyExecuteEventArgs> onRepeatedlyExecuteAlways,
 			IBlockingEvent onBeforeRender, IBlockingEvent onScreenResize,
-            IBlockingEvent onSavedGameLoad, IBlockingEvent onRoomChanging, IDefaultInteractions defaultInteractions)
+            IBlockingEvent<IGame> onSavedGameLoad, IBlockingEvent onRoomChanging, IDefaultInteractions defaultInteractions)
 		{
 			OnLoad = onLoad;
 			OnRepeatedlyExecute = onRepeatedlyExecute;
@@ -32,7 +32,7 @@ namespace AGS.Engine
 
 		public IBlockingEvent OnScreenResize { get; private set; }
 
-        public IBlockingEvent OnSavedGameLoad { get; private set; }
+        public IBlockingEvent<IGame> OnSavedGameLoad { get; private set; }
 
 		public IDefaultInteractions DefaultInteractions { get; private set; }
 

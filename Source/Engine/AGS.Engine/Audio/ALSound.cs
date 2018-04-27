@@ -7,16 +7,25 @@ namespace AGS.Engine
 	public class ALSound : ISound
 	{
 		private readonly int _source;
-		private float _volume;
-		private float _pitch;
-		private float _panning;
+		private float _volume, _realVolume;
+		private float _pitch, _realPitch;
+		private float _panning, _realPanning;
 		private TaskCompletionSource<object> _tcs;
 		private IAudioErrors _errors;
         private IAudioBackend _backend;
+        private readonly Action modifierChangeCallback;
+        private readonly Action<AGSListChangedEventArgs<ISoundModifier>> modifiersChangedCallback;
 
-        public ALSound(int source, float duration, float volume, float pitch, bool isLooping, float panning, 
-            IAudioErrors errors, IAudioBackend backend)
+        public ALSound(int source, float duration, float volume, float pitch, bool isLooping, float panning,
+            IConcurrentHashSet<string> tags, IAudioErrors errors, IAudioBackend backend)
 		{
+            //Using delegates to avoid heap allocations
+            modifierChangeCallback = onModifierChanged;
+            modifiersChangedCallback = onModifiersChanged;
+
+            SoundModifiers = new AGSBindingList<ISoundModifier>(3);
+            SoundModifiers.OnListChanged.Subscribe(modifiersChangedCallback);
+            Tags = tags;
 			_tcs = new TaskCompletionSource<object> (null);
             _backend = backend;
 			_source = source;
@@ -93,28 +102,30 @@ namespace AGS.Engine
 
         public Task Completed => _tcs.Task;
 
+        public IAGSBindingList<ISoundModifier> SoundModifiers { get; }
+
+        public IConcurrentHashSet<string> Tags { get; }
+
         #endregion
 
-        #region ISoundProperties implementation
-
-        public float Volume
+        public float RealVolume
 		{
-            get => _volume;
-            set
+            get => _realVolume;
+            private set
 			{
-				_volume = value;
-                _backend.SourceSetGain(_source, _volume);
+                _realVolume = value;
+                _backend.SourceSetGain(_source, _realVolume);
 				_errors.HasErrors();
 			}
 		}
 
-		public float Pitch
+		public float RealPitch
 		{
-            get => _pitch;
-            set
+            get => _realPitch;
+            private set
 			{
-				_pitch = value;
-                _backend.SourceSetPitch(_source, _pitch);
+                _realPitch = value;
+                _backend.SourceSetPitch(_source, _realPitch);
 				_errors.HasErrors();
 			}
 		}
@@ -137,12 +148,12 @@ namespace AGS.Engine
 			}
 		}
 
-		public float Panning
+		public float RealPanning
 		{
-            get => _panning;
-            set 
+            get => _realPanning;
+            private set 
 			{
-				_panning = value;
+                _realPanning = value;
 				//formula from: https://code.google.com/archive/p/libgdx/issues/1183
 				float x = (float)Math.Cos((value - 1) * Math.PI / 2);
 				float z = (float)Math.Sin((value + 1) * Math.PI / 2);
@@ -151,7 +162,84 @@ namespace AGS.Engine
 			}
 		}
 
-		#endregion
+        public float Volume
+        {
+            get => _volume;
+            set
+            {
+                _volume = value;
+                setVolume();
+            }
+        }
+
+        public float Pitch
+        {
+            get => _pitch;
+            set
+            {
+                _pitch = value;
+                setPitch();
+            }
+        }
+
+        public float Panning
+        {
+            get => _panning;
+            set
+            {
+                _panning = value;
+                setPanning();
+            }
+        }
+
+        private void onModifiersChanged(AGSListChangedEventArgs<ISoundModifier> args)
+        {
+            if (args.ChangeType == ListChangeType.Add)
+            {
+                foreach (var modifier in args.Items) modifier.Item.OnChange.Subscribe(modifierChangeCallback);
+            }
+            else
+            {
+                foreach (var modifier in args.Items) modifier.Item.OnChange.Unsubscribe(modifierChangeCallback);
+            }
+            onModifierChanged();
+        }
+
+        private void onModifierChanged()
+        {
+            setVolume();
+            setPitch();
+            setPanning();
+        }
+
+        private void setVolume()
+        {
+            float volume = _volume;
+            foreach (var modifier in SoundModifiers)
+            {
+                volume = modifier.GetVolume(volume);
+            }
+            RealVolume = volume;
+        }
+
+        private void setPitch()
+        {
+            float pitch = _pitch;
+            foreach (var modifier in SoundModifiers)
+            {
+                pitch = modifier.GetPitch(pitch);
+            }
+            RealPitch = pitch;
+        }
+
+        private void setPanning()
+        {
+            float panning = _panning;
+            foreach (var modifier in SoundModifiers)
+            {
+                panning = modifier.GetPanning(panning);
+            }
+            RealPanning = panning;
+        }
 	}
 }
-
