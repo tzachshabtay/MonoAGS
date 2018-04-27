@@ -3494,6 +3494,51 @@ references:
   isSpec: "True"
   fullName: AGS.API.IAudioFactory.LoadAudioClipAsync
   nameWithType: IAudioFactory.LoadAudioClipAsync
+- uid: AGS.API.IAudioRule
+  name: IAudioRule
+  href: api/AGS.API.IAudioRule.html
+  commentId: T:AGS.API.IAudioRule
+  fullName: AGS.API.IAudioRule
+  nameWithType: IAudioRule
+- uid: AGS.API.IAudioRule.Enabled
+  name: Enabled
+  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_Enabled
+  commentId: P:AGS.API.IAudioRule.Enabled
+  fullName: AGS.API.IAudioRule.Enabled
+  nameWithType: IAudioRule.Enabled
+- uid: AGS.API.IAudioRule.Enabled*
+  name: Enabled
+  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_Enabled_
+  commentId: Overload:AGS.API.IAudioRule.Enabled
+  isSpec: "True"
+  fullName: AGS.API.IAudioRule.Enabled
+  nameWithType: IAudioRule.Enabled
+- uid: AGS.API.IAudioRule.OnSoundCompleted(AGS.API.ISound)
+  name: OnSoundCompleted(ISound)
+  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_OnSoundCompleted_AGS_API_ISound_
+  commentId: M:AGS.API.IAudioRule.OnSoundCompleted(AGS.API.ISound)
+  fullName: AGS.API.IAudioRule.OnSoundCompleted(AGS.API.ISound)
+  nameWithType: IAudioRule.OnSoundCompleted(ISound)
+- uid: AGS.API.IAudioRule.OnSoundCompleted*
+  name: OnSoundCompleted
+  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_OnSoundCompleted_
+  commentId: Overload:AGS.API.IAudioRule.OnSoundCompleted
+  isSpec: "True"
+  fullName: AGS.API.IAudioRule.OnSoundCompleted
+  nameWithType: IAudioRule.OnSoundCompleted
+- uid: AGS.API.IAudioRule.OnSoundStarted(AGS.API.ISound)
+  name: OnSoundStarted(ISound)
+  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_OnSoundStarted_AGS_API_ISound_
+  commentId: M:AGS.API.IAudioRule.OnSoundStarted(AGS.API.ISound)
+  fullName: AGS.API.IAudioRule.OnSoundStarted(AGS.API.ISound)
+  nameWithType: IAudioRule.OnSoundStarted(ISound)
+- uid: AGS.API.IAudioRule.OnSoundStarted*
+  name: OnSoundStarted
+  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_OnSoundStarted_
+  commentId: Overload:AGS.API.IAudioRule.OnSoundStarted
+  isSpec: "True"
+  fullName: AGS.API.IAudioRule.OnSoundStarted
+  nameWithType: IAudioRule.OnSoundStarted
 - uid: AGS.API.IAudioSettings
   name: IAudioSettings
   href: api/AGS.API.IAudioSettings.html
@@ -3526,6 +3571,64 @@ references:
   isSpec: "True"
   fullName: AGS.API.IAudioSettings.RoomMusicCrossFading
   nameWithType: IAudioSettings.RoomMusicCrossFading
+- uid: AGS.API.IAudioSystem
+  name: IAudioSystem
+  href: api/AGS.API.IAudioSystem.html
+  commentId: T:AGS.API.IAudioSystem
+  fullName: AGS.API.IAudioSystem
+  nameWithType: IAudioSystem
+- uid: AGS.API.IAudioSystem.AudioClips
+  name: AudioClips
+  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_AudioClips
+  commentId: P:AGS.API.IAudioSystem.AudioClips
+  fullName: AGS.API.IAudioSystem.AudioClips
+  nameWithType: IAudioSystem.AudioClips
+- uid: AGS.API.IAudioSystem.AudioClips*
+  name: AudioClips
+  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_AudioClips_
+  commentId: Overload:AGS.API.IAudioSystem.AudioClips
+  isSpec: "True"
+  fullName: AGS.API.IAudioSystem.AudioClips
+  nameWithType: IAudioSystem.AudioClips
+- uid: AGS.API.IAudioSystem.AudioRules
+  name: AudioRules
+  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_AudioRules
+  commentId: P:AGS.API.IAudioSystem.AudioRules
+  fullName: AGS.API.IAudioSystem.AudioRules
+  nameWithType: IAudioSystem.AudioRules
+- uid: AGS.API.IAudioSystem.AudioRules*
+  name: AudioRules
+  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_AudioRules_
+  commentId: Overload:AGS.API.IAudioSystem.AudioRules
+  isSpec: "True"
+  fullName: AGS.API.IAudioSystem.AudioRules
+  nameWithType: IAudioSystem.AudioRules
+- uid: AGS.API.IAudioSystem.CurrentlyPlayingSounds
+  name: CurrentlyPlayingSounds
+  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_CurrentlyPlayingSounds
+  commentId: P:AGS.API.IAudioSystem.CurrentlyPlayingSounds
+  fullName: AGS.API.IAudioSystem.CurrentlyPlayingSounds
+  nameWithType: IAudioSystem.CurrentlyPlayingSounds
+- uid: AGS.API.IAudioSystem.CurrentlyPlayingSounds*
+  name: CurrentlyPlayingSounds
+  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_CurrentlyPlayingSounds_
+  commentId: Overload:AGS.API.IAudioSystem.CurrentlyPlayingSounds
+  isSpec: "True"
+  fullName: AGS.API.IAudioSystem.CurrentlyPlayingSounds
+  nameWithType: IAudioSystem.CurrentlyPlayingSounds
+- uid: AGS.API.IAudioSystem.Settings
+  name: Settings
+  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_Settings
+  commentId: P:AGS.API.IAudioSystem.Settings
+  fullName: AGS.API.IAudioSystem.Settings
+  nameWithType: IAudioSystem.Settings
+- uid: AGS.API.IAudioSystem.Settings*
+  name: Settings
+  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_Settings_
+  commentId: Overload:AGS.API.IAudioSystem.Settings
+  isSpec: "True"
+  fullName: AGS.API.IAudioSystem.Settings
+  nameWithType: IAudioSystem.Settings
 - uid: AGS.API.IBitmap
   name: IBitmap
   href: api/AGS.API.IBitmap.html
@@ -3920,6 +4023,14 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(AGS.API.ClaimableCallbackWithArgs(Of TEventArgs), AGS.API.CallbackPriority)
   nameWithType: IBlockingEvent<TEventArgs>.Subscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(ClaimableCallbackWithArgs(Of TEventArgs), CallbackPriority)
+- uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
+  name: Subscribe(Action, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(System.Action, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(System.Action, AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action, CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)
   name: Subscribe(Action<TEventArgs>, CallbackPriority)
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action__0__AGS_API_CallbackPriority_
@@ -7594,19 +7705,19 @@ references:
   commentId: T:AGS.API.IGame
   fullName: AGS.API.IGame
   nameWithType: IGame
-- uid: AGS.API.IGame.AudioSettings
-  name: AudioSettings
-  href: api/AGS.API.IGame.html#AGS_API_IGame_AudioSettings
-  commentId: P:AGS.API.IGame.AudioSettings
-  fullName: AGS.API.IGame.AudioSettings
-  nameWithType: IGame.AudioSettings
-- uid: AGS.API.IGame.AudioSettings*
-  name: AudioSettings
-  href: api/AGS.API.IGame.html#AGS_API_IGame_AudioSettings_
-  commentId: Overload:AGS.API.IGame.AudioSettings
+- uid: AGS.API.IGame.Audio
+  name: Audio
+  href: api/AGS.API.IGame.html#AGS_API_IGame_Audio
+  commentId: P:AGS.API.IGame.Audio
+  fullName: AGS.API.IGame.Audio
+  nameWithType: IGame.Audio
+- uid: AGS.API.IGame.Audio*
+  name: Audio
+  href: api/AGS.API.IGame.html#AGS_API_IGame_Audio_
+  commentId: Overload:AGS.API.IGame.Audio
   isSpec: "True"
-  fullName: AGS.API.IGame.AudioSettings
-  nameWithType: IGame.AudioSettings
+  fullName: AGS.API.IGame.Audio
+  nameWithType: IGame.Audio
 - uid: AGS.API.IGame.Events
   name: Events
   href: api/AGS.API.IGame.html#AGS_API_IGame_Events
@@ -12789,6 +12900,45 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISound.Position
   nameWithType: ISound.Position
+- uid: AGS.API.ISound.RealPanning
+  name: RealPanning
+  href: api/AGS.API.ISound.html#AGS_API_ISound_RealPanning
+  commentId: P:AGS.API.ISound.RealPanning
+  fullName: AGS.API.ISound.RealPanning
+  nameWithType: ISound.RealPanning
+- uid: AGS.API.ISound.RealPanning*
+  name: RealPanning
+  href: api/AGS.API.ISound.html#AGS_API_ISound_RealPanning_
+  commentId: Overload:AGS.API.ISound.RealPanning
+  isSpec: "True"
+  fullName: AGS.API.ISound.RealPanning
+  nameWithType: ISound.RealPanning
+- uid: AGS.API.ISound.RealPitch
+  name: RealPitch
+  href: api/AGS.API.ISound.html#AGS_API_ISound_RealPitch
+  commentId: P:AGS.API.ISound.RealPitch
+  fullName: AGS.API.ISound.RealPitch
+  nameWithType: ISound.RealPitch
+- uid: AGS.API.ISound.RealPitch*
+  name: RealPitch
+  href: api/AGS.API.ISound.html#AGS_API_ISound_RealPitch_
+  commentId: Overload:AGS.API.ISound.RealPitch
+  isSpec: "True"
+  fullName: AGS.API.ISound.RealPitch
+  nameWithType: ISound.RealPitch
+- uid: AGS.API.ISound.RealVolume
+  name: RealVolume
+  href: api/AGS.API.ISound.html#AGS_API_ISound_RealVolume
+  commentId: P:AGS.API.ISound.RealVolume
+  fullName: AGS.API.ISound.RealVolume
+  nameWithType: ISound.RealVolume
+- uid: AGS.API.ISound.RealVolume*
+  name: RealVolume
+  href: api/AGS.API.ISound.html#AGS_API_ISound_RealVolume_
+  commentId: Overload:AGS.API.ISound.RealVolume
+  isSpec: "True"
+  fullName: AGS.API.ISound.RealVolume
+  nameWithType: ISound.RealVolume
 - uid: AGS.API.ISound.Resume
   name: Resume()
   href: api/AGS.API.ISound.html#AGS_API_ISound_Resume
@@ -12815,6 +12965,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISound.Rewind
   nameWithType: ISound.Rewind
+- uid: AGS.API.ISound.SoundModifiers
+  name: SoundModifiers
+  href: api/AGS.API.ISound.html#AGS_API_ISound_SoundModifiers
+  commentId: P:AGS.API.ISound.SoundModifiers
+  fullName: AGS.API.ISound.SoundModifiers
+  nameWithType: ISound.SoundModifiers
+- uid: AGS.API.ISound.SoundModifiers*
+  name: SoundModifiers
+  href: api/AGS.API.ISound.html#AGS_API_ISound_SoundModifiers_
+  commentId: Overload:AGS.API.ISound.SoundModifiers
+  isSpec: "True"
+  fullName: AGS.API.ISound.SoundModifiers
+  nameWithType: ISound.SoundModifiers
 - uid: AGS.API.ISound.SourceID
   name: SourceID
   href: api/AGS.API.ISound.html#AGS_API_ISound_SourceID
@@ -12972,6 +13135,64 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISoundEmitter.WorldPosition
   nameWithType: ISoundEmitter.WorldPosition
+- uid: AGS.API.ISoundModifier
+  name: ISoundModifier
+  href: api/AGS.API.ISoundModifier.html
+  commentId: T:AGS.API.ISoundModifier
+  fullName: AGS.API.ISoundModifier
+  nameWithType: ISoundModifier
+- uid: AGS.API.ISoundModifier.GetPanning(System.Single)
+  name: GetPanning(Single)
+  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetPanning_System_Single_
+  commentId: M:AGS.API.ISoundModifier.GetPanning(System.Single)
+  fullName: AGS.API.ISoundModifier.GetPanning(System.Single)
+  nameWithType: ISoundModifier.GetPanning(Single)
+- uid: AGS.API.ISoundModifier.GetPanning*
+  name: GetPanning
+  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetPanning_
+  commentId: Overload:AGS.API.ISoundModifier.GetPanning
+  isSpec: "True"
+  fullName: AGS.API.ISoundModifier.GetPanning
+  nameWithType: ISoundModifier.GetPanning
+- uid: AGS.API.ISoundModifier.GetPitch(System.Single)
+  name: GetPitch(Single)
+  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetPitch_System_Single_
+  commentId: M:AGS.API.ISoundModifier.GetPitch(System.Single)
+  fullName: AGS.API.ISoundModifier.GetPitch(System.Single)
+  nameWithType: ISoundModifier.GetPitch(Single)
+- uid: AGS.API.ISoundModifier.GetPitch*
+  name: GetPitch
+  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetPitch_
+  commentId: Overload:AGS.API.ISoundModifier.GetPitch
+  isSpec: "True"
+  fullName: AGS.API.ISoundModifier.GetPitch
+  nameWithType: ISoundModifier.GetPitch
+- uid: AGS.API.ISoundModifier.GetVolume(System.Single)
+  name: GetVolume(Single)
+  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetVolume_System_Single_
+  commentId: M:AGS.API.ISoundModifier.GetVolume(System.Single)
+  fullName: AGS.API.ISoundModifier.GetVolume(System.Single)
+  nameWithType: ISoundModifier.GetVolume(Single)
+- uid: AGS.API.ISoundModifier.GetVolume*
+  name: GetVolume
+  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetVolume_
+  commentId: Overload:AGS.API.ISoundModifier.GetVolume
+  isSpec: "True"
+  fullName: AGS.API.ISoundModifier.GetVolume
+  nameWithType: ISoundModifier.GetVolume
+- uid: AGS.API.ISoundModifier.OnChange
+  name: OnChange
+  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_OnChange
+  commentId: P:AGS.API.ISoundModifier.OnChange
+  fullName: AGS.API.ISoundModifier.OnChange
+  nameWithType: ISoundModifier.OnChange
+- uid: AGS.API.ISoundModifier.OnChange*
+  name: OnChange
+  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_OnChange_
+  commentId: Overload:AGS.API.ISoundModifier.OnChange
+  isSpec: "True"
+  fullName: AGS.API.ISoundModifier.OnChange
+  nameWithType: ISoundModifier.OnChange
 - uid: AGS.API.ISoundPlayer
   name: ISoundPlayer
   href: api/AGS.API.ISoundPlayer.html
@@ -13004,6 +13225,32 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISoundPlayer.IsPlaying
   nameWithType: ISoundPlayer.IsPlaying
+- uid: AGS.API.ISoundPlayer.OnSoundCompleted
+  name: OnSoundCompleted
+  href: api/AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_OnSoundCompleted
+  commentId: P:AGS.API.ISoundPlayer.OnSoundCompleted
+  fullName: AGS.API.ISoundPlayer.OnSoundCompleted
+  nameWithType: ISoundPlayer.OnSoundCompleted
+- uid: AGS.API.ISoundPlayer.OnSoundCompleted*
+  name: OnSoundCompleted
+  href: api/AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_OnSoundCompleted_
+  commentId: Overload:AGS.API.ISoundPlayer.OnSoundCompleted
+  isSpec: "True"
+  fullName: AGS.API.ISoundPlayer.OnSoundCompleted
+  nameWithType: ISoundPlayer.OnSoundCompleted
+- uid: AGS.API.ISoundPlayer.OnSoundStarted
+  name: OnSoundStarted
+  href: api/AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_OnSoundStarted
+  commentId: P:AGS.API.ISoundPlayer.OnSoundStarted
+  fullName: AGS.API.ISoundPlayer.OnSoundStarted
+  nameWithType: ISoundPlayer.OnSoundStarted
+- uid: AGS.API.ISoundPlayer.OnSoundStarted*
+  name: OnSoundStarted
+  href: api/AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_OnSoundStarted_
+  commentId: Overload:AGS.API.ISoundPlayer.OnSoundStarted
+  isSpec: "True"
+  fullName: AGS.API.ISoundPlayer.OnSoundStarted
+  nameWithType: ISoundPlayer.OnSoundStarted
 - uid: AGS.API.ISoundPlayer.Play(System.Boolean,AGS.API.ISoundProperties)
   name: Play(Boolean, ISoundProperties)
   href: api/AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_Play_System_Boolean_AGS_API_ISoundProperties_
@@ -13074,6 +13321,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISoundProperties.Pitch
   nameWithType: ISoundProperties.Pitch
+- uid: AGS.API.ISoundProperties.Tags
+  name: Tags
+  href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Tags
+  commentId: P:AGS.API.ISoundProperties.Tags
+  fullName: AGS.API.ISoundProperties.Tags
+  nameWithType: ISoundProperties.Tags
+- uid: AGS.API.ISoundProperties.Tags*
+  name: Tags
+  href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Tags_
+  commentId: Overload:AGS.API.ISoundProperties.Tags
+  isSpec: "True"
+  fullName: AGS.API.ISoundProperties.Tags
+  nameWithType: ISoundProperties.Tags
 - uid: AGS.API.ISoundProperties.Volume
   name: Volume
   href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Volume

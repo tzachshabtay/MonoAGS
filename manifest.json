@@ -522,7 +522,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IAudioClip.html",
-          "hash": "yNDO+al7DJSKLe3/RypqGQ=="
+          "hash": "ORbM5wB/zJ7OEw2NfmmhRw=="
         }
       },
       "is_incremental": false,
@@ -542,11 +542,35 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.IAudioRule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.IAudioRule.html",
+          "hash": "VIJs6m7ExSKMFDaEkaZuDQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AGS.API.IAudioSettings.yml",
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IAudioSettings.html",
           "hash": "XPmWY416+Rr8bK6+gj/UNA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.IAudioSystem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.IAudioSystem.html",
+          "hash": "b6ORd7jBssp5AtR2PhDObg=="
         }
       },
       "is_incremental": false,
@@ -606,7 +630,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IBlockingEvent-1.html",
-          "hash": "JGGuce3SW/l/S0lSjcRvnQ=="
+          "hash": "TnqJkFGL1LLwXKGugVLv/w=="
         }
       },
       "is_incremental": false,
@@ -618,7 +642,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IBlockingEvent.html",
-          "hash": "fdoOqm+aqMTLgrXwYGVRvg=="
+          "hash": "vG8qfRDGJ7AYLUKYaasPaQ=="
         }
       },
       "is_incremental": false,
@@ -1314,7 +1338,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IGame.html",
-          "hash": "QKwjcUErRxEQBqjXrka9Fg=="
+          "hash": "42SCWUTewmd2Cc+KUo+s9w=="
         }
       },
       "is_incremental": false,
@@ -1326,7 +1350,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IGameEvents.html",
-          "hash": "DPXqyDvblmdzdhnwkX/tUw=="
+          "hash": "PDheVdpJMOp+LL+oQ3zMGw=="
         }
       },
       "is_incremental": false,
@@ -2370,7 +2394,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ISound.html",
-          "hash": "qlhkbpIe+iGX9TCBf5rsUQ=="
+          "hash": "fX/C1hB+ZROws1IXn5XMLg=="
         }
       },
       "is_incremental": false,
@@ -2382,7 +2406,19 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ISoundEmitter.html",
-          "hash": "iIjOyvu39nJqLUQGI8w4GQ=="
+          "hash": "BxU0CoharxEztDHZJ3VhDQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.ISoundModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.ISoundModifier.html",
+          "hash": "liTiXB31At+ea59IJ9PW9Q=="
         }
       },
       "is_incremental": false,
@@ -2394,7 +2430,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ISoundPlayer.html",
-          "hash": "psa9toACbzMnATMg04Sb5A=="
+          "hash": "erxDYgKomiMRLyaRIKo4Ww=="
         }
       },
       "is_incremental": false,
@@ -2406,7 +2442,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ISoundProperties.html",
-          "hash": "cWh7+8KCy+aKyG9dCAITlw=="
+          "hash": "Gjs7P+3tODcFPkDaMeZusw=="
         }
       },
       "is_incremental": false,
@@ -3510,7 +3546,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.html",
-          "hash": "XMwp9YZq45d7CfjmdoHBLA=="
+          "hash": "4VV2GUhgUJM0QP1Ckss7Wg=="
         }
       },
       "is_incremental": false,
@@ -3522,7 +3558,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "vL5OuXgajY+Juq4M/QM74w=="
+          "hash": "YXk2w/aBmdH6G3x6xOXq8w=="
         }
       },
       "is_incremental": false,
@@ -3930,6 +3966,11 @@
         "incrementalPhase": "build"
       },
       "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
@@ -3941,11 +3982,6 @@
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }

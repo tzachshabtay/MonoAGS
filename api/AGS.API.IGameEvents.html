@@ -339,7 +339,7 @@ This event can be used to rewire external code back to the game, and to make cha
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IBlockingEvent OnSavedGameLoad { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IBlockingEvent&lt;IGame&gt; OnSavedGameLoad { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -351,7 +351,7 @@ This event can be used to rewire external code back to the game, and to make cha
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IBlockingEvent.html">IBlockingEvent</a></td>
+        <td><a class="xref" href="AGS.API.IBlockingEvent-1.html">IBlockingEvent</a>&lt;<a class="xref" href="AGS.API.IGame.html">IGame</a>&gt;</td>
         <td><p>The on saved game load event.</p>
 </td>
       </tr>

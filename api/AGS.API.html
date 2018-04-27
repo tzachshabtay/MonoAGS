@@ -306,8 +306,18 @@ playing sound instance.</p>
       <h4><a class="xref" href="AGS.API.IAudioFactory.html">IAudioFactory</a></h4>
       <section><p>A factory to load audio clips from files.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.IAudioRule.html">IAudioRule</a></h4>
+      <section><p>You can implement an audio rule and add it to <a class="xref" href="AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_AudioRules">AudioRules</a>, to modify properties of playing sounds.
+It gets callbacks from the engines whenever a sound has played and completed, and can add a <a class="xref" href="AGS.API.ISoundModifier.html">ISoundModifier</a> to
+the sound (<a class="xref" href="AGS.API.ISound.html#AGS_API_ISound_SoundModifiers">SoundModifiers</a>) to modify its properties.</p>
+<p>Note: the audio rule is a conviency interface for interacting all the sounds in the system. You don&apos;t have to use it, though, there&apos;s
+nothing stopping you from adding sound modifiers to sounds outside this system.</p>
+</section>
       <h4><a class="xref" href="AGS.API.IAudioSettings.html">IAudioSettings</a></h4>
       <section><p>Allows to set global audio settings</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IAudioSystem.html">IAudioSystem</a></h4>
+      <section><p>The entry point for interacting with the audio system.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IBitmap.html">IBitmap</a></h4>
       <section><p>A low level bitmap which can be manipulated.</p>
@@ -915,6 +925,11 @@ Playing a sound from the emitter will pan it or set the volume (both can be turn
 it coming from the same location the entity is in.
 You can also assign the emitter to automatically play the sound on specific animation frames (so it&apos;s a 
 perfect fit for footsteps, for example).</p>
+</section>
+      <h4><a class="xref" href="AGS.API.ISoundModifier.html">ISoundModifier</a></h4>
+      <section><p>A sound modifier can be implemented in order to modify one or more properties of a sound on-the-fly.
+For example, the engine has an audio rule (<a class="xref" href="AGS.API.IAudioRule.html">IAudioRule</a>) that adds a modifier to all non-speech sounds, which
+reduces the volume of those sounds when a speech sound plays.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISoundPlayer.html">ISoundPlayer</a></h4>
       <section><p>Allows to play a sound.</p>
