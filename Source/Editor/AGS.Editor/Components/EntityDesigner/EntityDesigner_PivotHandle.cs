@@ -14,6 +14,7 @@ namespace AGS.Editor
             private readonly IInput _input;
             private readonly IGameState _state;
             private readonly ActionManager _actions;
+            private readonly AGSEditor _editor;
 
             private readonly ITextConfig _idleConfig;
             private readonly ITextConfig _hoverConfig;
@@ -25,8 +26,9 @@ namespace AGS.Editor
             private float _xOnDown, _yOnDown, _translateXOnDown, _translateYOnDown;
             private bool _isDown;
 
-            public PivotHandle(ILabel handle, IGameState state, IInput input, ActionManager actions)
+            public PivotHandle(ILabel handle, AGSEditor editor, IGameState state, IInput input, ActionManager actions)
             {
+                _editor = editor;
                 _actions = actions;
                 _state = state;
                 _idleConfig = handle.TextConfig;
@@ -88,6 +90,9 @@ namespace AGS.Editor
                 var pivot = image.Pivot;
                 var x = MathUtils.Lerp(0f, box.MinX, 1f, box.MaxX, pivot.X);
                 var y = MathUtils.Lerp(0f, box.MinY, 1f, box.MaxY, pivot.Y);
+
+                (x, y) = _editor.ToEditorResolution(x, y);
+
                 _handle.Location = new AGSLocation(x, y);
             }
 
@@ -107,6 +112,7 @@ namespace AGS.Editor
 
                 float xDiff = _input.MousePosition.XMainViewport - _xOnDown;
                 float yDiff = _input.MousePosition.YMainViewport - _yOnDown;
+                (xDiff, yDiff) = _editor.ToGameResolution(xDiff, yDiff);
                 float pivotXOffset = xDiff / boundingBox.WorldBoundingBox.Width;
                 float pivotYOffset = yDiff / boundingBox.WorldBoundingBox.Height;
                 float toPivotX = _pivotOnDown.X + pivotXOffset;

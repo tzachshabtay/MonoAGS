@@ -1,5 +1,6 @@
 ﻿using AGS.API;
 using AGS.Engine;
+using Autofac;
 
 namespace AGS.Editor
 {
@@ -7,7 +8,8 @@ namespace AGS.Editor
     {
         public static void Run()
         {
-            IGame game = AGSGame.CreateEmpty();
+            Resolver resolver = new Resolver(AGSGame.Device);
+            IGame game = AGSGame.CreateEmpty(resolver);
 
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
             GLText.TextResolutionFactorX = 4;
@@ -20,9 +22,12 @@ namespace AGS.Editor
                 game.Factory.Fonts.InstallFonts("../../Assets/Fonts/Font Awesome 5 Free-Solid-900.otf");
                 FontIcons.Init(game.Factory.Fonts);
 
+                AGSEditor editor = resolver.Container.Resolve<AGSEditor>();
+                editor.Editor = game;
+
                 AGSGameSettings.CurrentSkin = null;
 
-                WelcomeScreen screen = new WelcomeScreen(game);
+                WelcomeScreen screen = new WelcomeScreen(editor);
                 screen.Load();
                 screen.Show();
 

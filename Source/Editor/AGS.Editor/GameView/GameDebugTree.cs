@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
+using Autofac;
 
 namespace AGS.Editor
 {
@@ -11,7 +12,7 @@ namespace AGS.Editor
         private readonly IRenderLayer _layer;
         private string _panelId;
         private ITreeViewComponent _treeView;
-        private readonly IGame _game;
+        private readonly AGSEditor _editor;
         private readonly IConcurrentHashSet<string> _addedObjects;
         private readonly InspectorPanel _inspector;
         private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
@@ -33,13 +34,13 @@ namespace AGS.Editor
 
         private ILabel _moveCursor;
 
-        public GameDebugTree(IGame game, IRenderLayer layer, InspectorPanel inspector)
+        public GameDebugTree(AGSEditor editor, IRenderLayer layer, InspectorPanel inspector)
         {
-            _game = game;
+            _editor = editor;
             _inspector = inspector;
             _addedObjects = new AGSConcurrentHashSet<string>(100, false);
             _layer = layer;
-            _moveCursor = game.Factory.UI.GetLabel("MoveCursor", "", 5f, 5f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
+            _moveCursor = editor.Editor.Factory.UI.GetLabel("MoveCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
             _moveCursor.Text = FontIcons.Move;
         }
 
@@ -49,7 +50,7 @@ namespace AGS.Editor
         {
             _parent = parent;
             _panelId = parent.TreeNode.GetRoot().ID;
-            var factory = _game.Factory;
+            var factory = _editor.Editor.Factory;
 
             _searchBox = factory.UI.GetTextBox("GameDebugTreeSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;
@@ -127,10 +128,17 @@ namespace AGS.Editor
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
             _inspector.Inspector.Show(obj);
             _lastSelectedEntity = obj;
-            obj.AddComponent<IUIEvents>();
-            obj.AddComponent<IDraggableComponent>();
-            obj.AddComponent<EntityDesigner>();
-            obj.AddComponent<IHasCursorComponent>().SpecialCursor = _moveCursor;
+            var host = new AGSComponentHost(_editor.EditorResolver);
+            host.Init(obj);
+            TypedParameter uiEventsAggParam = new TypedParameter(typeof(UIEventsAggregator), _editor.UIEventsAggregator);
+            var uiEvents = _editor.EditorResolver.Container.Resolve<EditorUIEvents>(uiEventsAggParam);
+            obj.AddComponent<EditorUIEvents>(uiEvents);
+            host.AddComponent<IDraggableComponent>();
+            host.AddComponent<EntityDesigner>();
+
+            AGSHasCursorComponent hasCursor = new AGSHasCursorComponent(_editor.Editor.Events, _editor.Game.HitTest, _editor.Editor.Input);
+            hasCursor.SpecialCursor = _moveCursor;
+            obj.AddComponent<IHasCursorComponent>(hasCursor);
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
             var borderComponent = obj.GetComponent<IBorderComponent>();
@@ -213,16 +221,17 @@ namespace AGS.Editor
             var root = addToTree("Game", null);
             var ui = addToTree("UI", root);
 
-            foreach (var obj in _game.State.UI)
+            var state = _editor.Game.State;
+            foreach (var obj in state.UI)
             {
                 addObjectToTree(getRoot(obj), ui);
             }
-            addRoomToTree(_game.State.Room, root);
+            addRoomToTree(state.Room, root);
 
             var rooms = addToTree("More Rooms", root);
-            foreach (var room in _game.State.Rooms)
+            foreach (var room in state.Rooms)
             {
-                if (room == _game.State.Room) continue;
+                if (room == state.Room) continue;
                 addRoomToTree(room, rooms);
             }
 

@@ -72,7 +72,6 @@ namespace AGS.Engine.Desktop
             };
             game.MouseMove += (sender, e) =>
             {
-                if (isInputBlocked()) return;
                 _mouseX = e.Mouse.X;
                 _mouseY = e.Mouse.Y;
                 _actions.Enqueue(() => MouseMove.InvokeAsync(new MousePositionEventArgs(MousePosition)));
@@ -155,9 +154,12 @@ namespace AGS.Engine.Desktop
 
         private void onRepeatedlyExecute()
         {
-            var cursorState = Mouse.GetCursorState();
-            LeftMouseButtonDown = cursorState.LeftButton == ButtonState.Pressed;
-            RightMouseButtonDown = cursorState.RightButton == ButtonState.Pressed;
+            if (!isInputBlocked())
+            {
+                var cursorState = Mouse.GetCursorState();
+                LeftMouseButtonDown = cursorState.LeftButton == ButtonState.Pressed;
+                RightMouseButtonDown = cursorState.RightButton == ButtonState.Pressed;
+            }
 
             if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
             try

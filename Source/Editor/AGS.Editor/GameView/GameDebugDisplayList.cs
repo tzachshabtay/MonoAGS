@@ -14,14 +14,15 @@ namespace AGS.Editor
         private ITextBox _searchBox;
         private IStackLayoutComponent _layout;
         private readonly IRenderLayer _layer;
-        private readonly IGame _game;
+        private readonly IGame _game, _editor;
 
         const float _gutterSize = 15f;
         const float _padding = 42f;
 
-        public GameDebugDisplayList(IGame game, IRenderLayer layer)
+        public GameDebugDisplayList(IGame editor, IGame game, IRenderLayer layer)
         {
             _game = game;
+            _editor = editor;
             _layer = layer;
             game.RenderPipeline.OnBeforeProcessingDisplayList.Subscribe(onBeforeProcessingDisplayList);
         }
@@ -31,7 +32,7 @@ namespace AGS.Editor
         public void Load(IPanel parent)
         {
             _parent = parent;
-            var factory = _game.Factory;
+            var factory = _editor.Factory;
 
             _searchBox = factory.UI.GetTextBox("GameDebugDisplayListSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;

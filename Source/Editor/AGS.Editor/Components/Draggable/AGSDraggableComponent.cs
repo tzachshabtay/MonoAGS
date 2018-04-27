@@ -9,19 +9,20 @@ namespace AGS.Editor
     {
         private readonly IInput _input;
         private readonly IGameEvents _gameEvents;
-        private readonly IGameSettings _settings;
         private readonly ActionManager _actions;
+        private IGame _game;
+        private readonly AGSEditor _editor;
+        private IEntity _entity;
         private float _dragObjectStartX, _dragObjectStartY, _dragMouseStartX, _dragMouseStartY;
         private ITranslate _translate;
         private IDrawableInfoComponent _drawable;
 
-        public AGSDraggableComponent(IInput input, IGameEvents gameEvents, IRuntimeSettings settings, ActionManager actions)
+        public AGSDraggableComponent(AGSEditor editor, ActionManager actions)
         {
+            _editor = editor;
             _actions = actions;
-            _input = input;
-            _settings = settings;
-            _gameEvents = gameEvents;
-            _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+            _input = editor.Editor.Input;
+            _gameEvents = editor.Editor.Events;
             IsDragEnabled = true;
         }
 
@@ -42,9 +43,13 @@ namespace AGS.Editor
         public override void Init(IEntity entity)
         {
             base.Init(entity);
+            _entity = entity;
             entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
-            entity.Bind<IUIEvents>(c => c.MouseDown.Subscribe(onMouseDown), c => c.MouseDown.Unsubscribe(onMouseDown));
             entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
+            entity.Bind<EditorUIEvents>(c => c.MouseDown.Subscribe(onMouseDown), c => c.MouseDown.Unsubscribe(onMouseDown));
+
+            _game = _editor.Game.Find<IEntity>(entity.ID) == null ? _editor.Editor : _editor.Game;
+            _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
         public override void Dispose()
@@ -80,6 +85,10 @@ namespace AGS.Editor
 
             var diffX = mousePos.X - _dragMouseStartX;
             var diffY = mousePos.Y - _dragMouseStartY;
+            if (_game == _editor.Game)
+            {
+                (diffX, diffY) = _editor.ToGameResolution(diffX, diffY);
+            }
             var translateX = _dragObjectStartX + diffX;
             var translateY = _dragObjectStartY + diffY;
 
@@ -115,8 +124,8 @@ namespace AGS.Editor
             var resolution = _drawable?.RenderLayer?.IndependentResolution;
 			if (resolution != null)
 			{
-				mouseX *= ((float)resolution.Value.Width / _settings.VirtualResolution.Width);
-				mouseY *= ((float)resolution.Value.Height / _settings.VirtualResolution.Height);
+                mouseX *= ((float)resolution.Value.Width / _game.Settings.VirtualResolution.Width);
+                mouseY *= ((float)resolution.Value.Height / _game.Settings.VirtualResolution.Height);
 			}
 			
             return new Vector2(mouseX, mouseY);

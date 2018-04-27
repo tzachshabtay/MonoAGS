@@ -10,7 +10,7 @@ namespace AGS.Editor
     public class GameDebugView
     {
         private readonly IRenderLayer _layer;
-        private readonly IGame _game;
+        private readonly AGSEditor _editor;
         private readonly GameDebugTree _debugTree;
         private readonly GameDebugDisplayList _displayList;
         private readonly InspectorPanel _inspector;
@@ -23,18 +23,18 @@ namespace AGS.Editor
         private IDebugTab _currentTab;
         private IButton _panesButton;
 
-        public GameDebugView(IGame game, KeyboardBindings keyboardBindings, ActionManager actions)
+        public GameDebugView(AGSEditor editor, KeyboardBindings keyboardBindings, ActionManager actions)
         {
             _actions = actions;
-            _game = game;
+            _editor = editor;
             _keyboardBindings = keyboardBindings;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: new Size(1800, 1200));
-            _inspector = new InspectorPanel(game, _layer, actions);
-            _debugTree = new GameDebugTree(game, _layer, _inspector);
-            _displayList = new GameDebugDisplayList(game, _layer);
-            _input = game.Input;
+            _inspector = new InspectorPanel(editor.Editor, editor.Game, _layer, actions);
+            _debugTree = new GameDebugTree(editor, _layer, _inspector);
+            _displayList = new GameDebugDisplayList(editor.Editor, editor.Game, _layer);
+            _input = editor.Editor.Input;
             keyboardBindings.OnKeyboardShortcutPressed.Subscribe(onShortcutKeyPressed);
-            game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+            editor.Editor.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
         public bool Visible => _panel.Visible;
@@ -43,7 +43,7 @@ namespace AGS.Editor
         {
             const float headerHeight = 50f;
             const float borderWidth = 3f;
-            IGameFactory factory = _game.Factory;
+            IGameFactory factory = _editor.Editor.Factory;
             _panel = factory.UI.GetPanel(_panelId, _layer.IndependentResolution.Value.Width / 4f, _layer.IndependentResolution.Value.Height,
                                                      1f, _layer.IndependentResolution.Value.Height / 2f);
             _panel.Pivot = new PointF(0f, 0.5f);
@@ -52,7 +52,7 @@ namespace AGS.Editor
             _panel.Border = AGSBorders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
             _panel.RenderLayer = _layer;
             _panel.ClickThrough = false;
-            _game.State.FocusedUI.CannotLoseFocus.Add(_panelId);
+            _editor.Editor.State.FocusedUI.CannotLoseFocus.Add(_panelId);
 
             var headerLabel = factory.UI.GetLabel("GameDebugTreeLabel", "Game Debug", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
                                       _panel, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
@@ -196,7 +196,7 @@ namespace AGS.Editor
 
         private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs args)
         {
-            var entity = _inspector.Inspector.SelectedObject as IEntity;
+            var entity = _inspector.Inspector?.SelectedObject as IEntity;
             if (entity == null) return;
 
             if (_input.IsKeyDown(Key.Down)) moveEntity(entity, 0f, -1f);

@@ -15,6 +15,7 @@ namespace AGS.Editor
             private readonly Direction _direction;
             private readonly IGameState _state;
             private readonly ActionManager _actions;
+            private readonly AGSEditor _editor;
 
             private readonly ITextConfig _idleConfig;
             private readonly ITextConfig _hoverConfig;
@@ -25,8 +26,9 @@ namespace AGS.Editor
             private bool _isDown;
             private bool _isVisible;
 
-            public RotateHandle(ILabel handle, IGameState state, IInput input, ActionManager actions, Direction direction)
+            public RotateHandle(ILabel handle, AGSEditor editor, IGameState state, IInput input, ActionManager actions, Direction direction)
             {
+                _editor = editor;
                 _actions = actions;
                 _state = state;
                 _idleConfig = handle.TextConfig;
@@ -67,8 +69,8 @@ namespace AGS.Editor
             public void UpdatePosition(IBoundingBoxComponent box)
             {
                 const float padding = 1f;
-                float offsetHoriz = FontIcons.IconConfig.Font.SizeInPoints / 2f + padding;
-                float offsetVert = FontIcons.IconConfig.Font.SizeInPoints / 2f + padding;
+                float offsetHoriz = 2f + padding;
+                float offsetVert = 2f + padding;
 
                 switch (_direction)
                 {
@@ -103,6 +105,8 @@ namespace AGS.Editor
                 float offsetY = _input.MousePosition.YMainViewport - _yOnDown;
 
                 if (MathUtils.FloatEquals(offsetX, 0f) || MathUtils.FloatEquals(offsetY, 0f)) return;
+
+                (offsetX, offsetY) = _editor.ToGameResolution(offsetX, offsetY);
 
                 float angle = (float)MathHelper.RadiansToDegrees(-Math.Atan2(offsetX, offsetY)) + 90f;
 
@@ -146,6 +150,7 @@ namespace AGS.Editor
 
             private void move(float x, float y)
             {
+                (x, y) = _editor.ToEditorResolution(x, y);
                 _handle.Location = new AGSLocation(x, y);
             }
 

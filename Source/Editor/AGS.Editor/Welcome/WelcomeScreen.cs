@@ -8,22 +8,22 @@ namespace AGS.Editor
 {
     public class WelcomeScreen
     {
-        private readonly IGame _game;
+        private readonly AGSEditor _editor;
         private readonly RecentGames _recentGames;
         private readonly Resolver _resolver;
         private IPanel _panel;
 
-        public WelcomeScreen(IGame game)
+        public WelcomeScreen(AGSEditor editor)
         {
-            _game = game;
-            _resolver = ((AGSGame)game).GetResolver();
+            _editor = editor;
+            _resolver = editor.EditorResolver;
             _recentGames = _resolver.Container.Resolve<RecentGames>();
         }
 
         public void Load()
         {
             _recentGames.Load();
-            _panel = _game.Factory.UI.GetPanel("WelcomeScreenPanel", 1280, 800, 0, 0, addToUi: false);
+            _panel = _editor.Editor.Factory.UI.GetPanel("WelcomeScreenPanel", 1280, 800, 0, 0, addToUi: false);
             _panel.Tint = GameViewColors.Panel;
 
             var border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
@@ -31,7 +31,7 @@ namespace AGS.Editor
             var idle = new ButtonAnimation(border, GameViewColors.TextConfig, GameViewColors.Button);
             var hovered = new ButtonAnimation(border, GameViewColors.HoverTextConfig, GameViewColors.Button);
             var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.Black, 2f), GameViewColors.TextConfig, GameViewColors.Button);
-            var loadButton = _game.Factory.UI.GetButton("LoadGameButton", idle, hovered, pushed, 200f, 700f, _panel, 
+            var loadButton = _editor.Editor.Factory.UI.GetButton("LoadGameButton", idle, hovered, pushed, 200f, 700f, _panel, 
                     "Load Game...", new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText), width: 100f, height: 100f);
             loadButton.Pivot = new PointF(0f, 1f);
 
@@ -44,12 +44,12 @@ namespace AGS.Editor
             recentGamesPanel.X = 400f;
             recentGamesPanel.Y = 700f;
             recentGamesPanel.Pivot = new PointF(0f, 1f);
-            _game.State.UI.Add(_panel);
+            _editor.Editor.State.UI.Add(_panel);
         }
 
         private async Task onLoadGameClicked(MouseButtonEventArgs args)
         {
-            AGSGameSettings.CurrentSkin = new AGSSilverSkin(_game.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
+            AGSGameSettings.CurrentSkin = new AGSSilverSkin(_editor.Editor.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to load", FileSelection.FileOnly, isGame);
             AGSGameSettings.CurrentSkin = null;
             if (string.IsNullOrEmpty(file)) return;
@@ -58,7 +58,7 @@ namespace AGS.Editor
             AGSProject agsProj = AGSProject.Load(file);
             _recentGames.AddGame(agsProj.Name, file);
             await Task.Delay(100);
-            GameLoader.Load(messagePump, agsProj, _game.Factory);
+            GameLoader.Load(messagePump, agsProj, _editor);
         }
 
         private bool isGame(string file)

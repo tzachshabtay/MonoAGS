@@ -6,17 +6,27 @@ namespace AGS.Editor
     public class GameToolbar
     {
         private readonly EditorShouldBlockEngineInput _blocker;
+        private readonly IInput _editorInput;
+        private IInput _gameInput;
         private ILabel _fpsLabel, _mousePosLabel, _hotspotLabel;
         private IButton _playPauseButton;
+        private IObject _lastGameCursor;
 
-        public GameToolbar(EditorShouldBlockEngineInput blocker) => _blocker = blocker;
+        private ILabel _pointer;
+
+        public GameToolbar(EditorShouldBlockEngineInput blocker, IInput editorInput)
+        {
+            _editorInput = editorInput;
+            _blocker = blocker;
+        }
 
         public void Init(IGameFactory factory)
         {
             var resolution = new Size(1200, 800);
 
-            var moveCursor = factory.UI.GetLabel("MoveCursor", "", 25f, 25f, 0f, 0f, config: AGSTextConfig.ScaleConfig(FontIcons.IconConfig, 5f), addToUi: false);
-            moveCursor.Text = FontIcons.Move;
+            _pointer = factory.UI.GetLabel("PointerCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
+            _pointer.Text = FontIcons.Pointer;
+            _pointer.Pivot = new PointF(0f, 1f);
 
             var toolbarHeight = resolution.Height / 20f;
             var toolbar = factory.UI.GetPanel("GameToolbar", resolution.Width / 2f, toolbarHeight, resolution.Width / 2f, 20f);
@@ -25,8 +35,6 @@ namespace AGS.Editor
             toolbar.RenderLayer = new AGSRenderLayer(-99999, independentResolution: resolution);
             toolbar.ClickThrough = false;
             toolbar.Border = AGSBorders.SolidColor(GameViewColors.Border, 3f, true);
-            toolbar.AddComponent<IDraggableComponent>();
-            toolbar.AddComponent<IHasCursorComponent>().SpecialCursor = moveCursor;
 
             var idle = new ButtonAnimation(null, FontIcons.ButtonConfig, GameViewColors.Button);
             var hover = new ButtonAnimation(null, AGSTextConfig.ChangeColor(FontIcons.ButtonConfig, Colors.Yellow, Colors.White, 0f), GameViewColors.HoveredButton);
@@ -65,11 +73,17 @@ namespace AGS.Editor
         private void onPlayPauseClicked(MouseButtonEventArgs obj)
         {
             _playPauseButton.Text = _playPauseButton.Text == FontIcons.Pause ? FontIcons.Play : FontIcons.Pause;
-            _blocker.BlockEngine = _playPauseButton.Text == FontIcons.Play;
+            bool isPaused = _playPauseButton.Text == FontIcons.Play;
+            _blocker.BlockEngine = isPaused;
+            _editorInput.Cursor = isPaused ? _pointer : null;
+            if (isPaused) _lastGameCursor = _gameInput.Cursor;
+            _gameInput.Cursor = isPaused ? null : _lastGameCursor;
         }
 
         public void SetGame(IGame game)
         {
+            _gameInput = game.Input;
+
             FPSCounter fps = new FPSCounter(game, _fpsLabel);
             fps.Start();
 

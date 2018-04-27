@@ -5,21 +5,32 @@ namespace AGS.Engine
     public class AGSHasCursorComponent : AGSComponent, IHasCursorComponent
     {
         private bool _showingObjectSpecificCursor;
-        private IGame _game;
         private IObject _lastCursor;
         private bool _cursotWasSaved;
 
-        public AGSHasCursorComponent(IGame game)
+        private readonly IGameEvents _events;
+        private readonly IHitTest _hitTest;
+        private readonly IInput _input;
+
+        public AGSHasCursorComponent(IGameEvents events, IHitTest hitTest, IInput input)
         {
-            _game = game;
-            _game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+            _events = events;
+            _hitTest = hitTest;
+            _input = input;
+            events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
         public IObject SpecialCursor { get; set; }
 
-        private void onRepeatedlyExecute()
+		public override void Dispose()
+		{
+            base.Dispose();
+            _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+		}
+
+		private void onRepeatedlyExecute()
         {
-            IObject hotspot = _game.HitTest.ObjectAtMousePosition;
+            IObject hotspot = _hitTest.ObjectAtMousePosition;
             if (hotspot == null)
             {
                 turnOffObjectSpecificCursor();
@@ -31,11 +42,11 @@ namespace AGS.Engine
                 turnOffObjectSpecificCursor();
                 return;
             }
-            if (_game.Input.Cursor != specialCursor.SpecialCursor)
+            if (_input.Cursor != specialCursor.SpecialCursor)
             {
-                _lastCursor = _game.Input.Cursor;
+                _lastCursor = _input.Cursor;
                 _cursotWasSaved = true;
-                _game.Input.Cursor = specialCursor.SpecialCursor;
+                _input.Cursor = specialCursor.SpecialCursor;
             }
             _showingObjectSpecificCursor = true;
         }
@@ -47,9 +58,8 @@ namespace AGS.Engine
             var lastCursor = _lastCursor;
             if (_cursotWasSaved)
             {
-                _game.Input.Cursor = _lastCursor;
+                _input.Cursor = _lastCursor;
             }
         }
     }
 }
-

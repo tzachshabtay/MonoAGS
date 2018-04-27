@@ -14,6 +14,7 @@ namespace AGS.Editor
             private readonly Direction _direction;
             private readonly IGameState _state;
             private readonly ActionManager _actions;
+            private readonly AGSEditor _editor;
 
             private readonly ITextConfig _idleConfig;
             private readonly ITextConfig _hoverConfig;
@@ -24,8 +25,9 @@ namespace AGS.Editor
             private bool _isDown;
             private bool _isVisible;
 
-            public ResizeHandle(ILabel handle, IGameState state, IInput input, ActionManager actions, Direction direction)
+            public ResizeHandle(ILabel handle, AGSEditor editor, IGameState state, IInput input, ActionManager actions, Direction direction)
             {
+                _editor = editor;
                 _actions = actions;
                 _state = state;
                 _idleConfig = handle.TextConfig;
@@ -67,8 +69,8 @@ namespace AGS.Editor
             public void UpdatePosition(IBoundingBoxComponent box)
             {
                 const float padding = 1f;
-                float offsetHoriz = FontIcons.IconConfig.Font.SizeInPoints / 2f + padding;
-                float offsetVert = FontIcons.IconConfig.Font.SizeInPoints / 2f + padding;
+                float offsetHoriz = 2f + padding;
+                float offsetVert = 2f + padding;
 
                 switch (_direction)
                 {
@@ -198,11 +200,13 @@ namespace AGS.Editor
 
             private void move(float x, float y)
             {
+                (x, y) = _editor.ToEditorResolution(x, y);
                 _handle.Location = new AGSLocation(x, y);
             }
 
             private void scale(float width, float height)
             {
+                (width, height) = _editor.ToGameResolution(width, height);
                 float w = _widthOnDown + width;
                 float h = _heightOnDown + height;
                 if (_input.IsKeyDown(Key.AltLeft) || _input.IsKeyDown(Key.AltRight))

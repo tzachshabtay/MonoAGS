@@ -5,9 +5,9 @@ namespace AGS.Editor
     /// <summary>
     /// Adds the ability for an entity to be dragged on the screen with the mouse/touch.
     /// </summary>
-    [RequiredComponent(typeof(IUIEvents))]
     [RequiredComponent(typeof(ITranslateComponent))]
     [RequiredComponent(typeof(IDrawableInfoComponent), false)]
+    [RequiredComponent(typeof(EditorUIEvents))]
     public interface IDraggableComponent : IComponent
     {
         /// <summary>

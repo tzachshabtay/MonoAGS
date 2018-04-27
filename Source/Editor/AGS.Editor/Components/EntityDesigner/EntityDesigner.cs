@@ -9,7 +9,7 @@ namespace AGS.Editor
     [RequiredComponent(typeof(IBoundingBoxComponent))]
     [RequiredComponent(typeof(IScaleComponent))]
     [RequiredComponent(typeof(IRotateComponent))]
-    [RequiredComponent(typeof(IUIEvents))]
+    [RequiredComponent(typeof(EditorUIEvents))]
     [RequiredComponent(typeof(IImageComponent))]
     [RequiredComponent(typeof(ITranslateComponent))]
     public partial class EntityDesigner : AGSComponent
@@ -20,18 +20,20 @@ namespace AGS.Editor
         private readonly IInput _input;
         private readonly List<ResizeHandle> _resizeHandles;
         private readonly List<RotateHandle> _rotateHandles;
+        private readonly AGSEditor _editor;
         private PivotHandle _pivotHandle;
         private readonly ActionManager _actions;
         private IBoundingBoxComponent _box;
         private bool _resizeVisible;
 
-        public EntityDesigner(IGameFactory factory, IGameState state, IGameEvents events, IInput input, ActionManager actions)
+        public EntityDesigner(AGSEditor editor, ActionManager actions)
         {
             _actions = actions;
-            _factory = factory;
-            _state = state;
-            _events = events;
-            _input = input;
+            _editor = editor;
+            _factory = editor.Editor.Factory;
+            _state = editor.Editor.State;
+            _events = editor.Editor.Events;
+            _input = editor.Editor.Input;
             _resizeVisible = true;
             _resizeHandles = new List<ResizeHandle>(8);
             _rotateHandles = new List<RotateHandle>(4);
@@ -54,7 +56,7 @@ namespace AGS.Editor
                 c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(onBoundingBoxChanged); _pivotHandle.SetBox(c); updatePositions(); },
                 c => { _box = null; c.OnBoundingBoxesChanged.Unsubscribe(onBoundingBoxChanged); _pivotHandle.SetBox(null); });
 
-            entity.Bind<IUIEvents>(c => c.MouseClicked.Subscribe(onMouseClicked), c => c.MouseClicked.Unsubscribe(onMouseClicked));
+            entity.Bind<EditorUIEvents>(c => c.MouseClicked.Subscribe(onMouseClicked), c => c.MouseClicked.Unsubscribe(onMouseClicked));
 
             _events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
@@ -90,8 +92,8 @@ namespace AGS.Editor
             var config = FontIcons.IconConfig;
             foreach (var direction in directions)
             {
-                var label = _factory.UI.GetLabel($"{entity.ID}_ResizeHandle{direction}", "", 5f, 5f, 0f, 0f, config: config, addToUi: false);
-                _resizeHandles.Add(new ResizeHandle(label, _state, _input, _actions, direction));
+                var label = _factory.UI.GetLabel($"{entity.ID}_ResizeHandle{direction}", "", 25f, 25f, 0f, 0f, config: config, addToUi: false);
+                _resizeHandles.Add(new ResizeHandle(label, _editor, _state, _input, _actions, direction));
             }
         }
 
@@ -100,16 +102,16 @@ namespace AGS.Editor
             var config = FontIcons.IconConfig;
             foreach (var direction in directions)
             {
-                var label = _factory.UI.GetLabel($"{entity.ID}_RotateHandle{direction}", "", 5f, 5f, 0f, 0f, config: config, addToUi: false);
-                _rotateHandles.Add(new RotateHandle(label, _state, _input, _actions, direction));
+                var label = _factory.UI.GetLabel($"{entity.ID}_RotateHandle{direction}", "", 25f, 25f, 0f, 0f, config: config, addToUi: false);
+                _rotateHandles.Add(new RotateHandle(label, _editor, _state, _input, _actions, direction));
             }
         }
 
         private void addPivotHandle(IEntity entity)
         {
             var config = FontIcons.IconConfig;
-            var label = _factory.UI.GetLabel($"{entity.ID}_PivotHAndle", "", 5f, 5f, 0f, 0f, config: config, addToUi: false);
-            _pivotHandle = new PivotHandle(label, _state, _input, _actions);
+            var label = _factory.UI.GetLabel($"{entity.ID}_PivotHAndle", "", 25f, 25f, 0f, 0f, config: config, addToUi: false);
+            _pivotHandle = new PivotHandle(label, _editor, _state, _input, _actions);
         }
 
         private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs obj)

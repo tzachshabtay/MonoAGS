@@ -26,16 +26,6 @@ namespace AGS.Editor
             currentDomain.AssemblyResolve += loadFromSameFolder;
         }
 
-        public static void SetupResolver()
-        {
-            Resolver.Override(resolver => resolver.Builder.RegisterType<KeyboardBindings>().SingleInstance());
-            Resolver.Override(resolver => resolver.Builder.RegisterType<ActionManager>().SingleInstance());
-            Resolver.Override(resolver => resolver.Builder.RegisterAssemblyTypes(typeof(GameLoader).Assembly).
-                              Except<InspectorTreeNodeProvider>().Except<EditorShouldBlockEngineInput>().AsImplementedInterfaces().ExternallyOwned());
-        }
-
-        public static IEditorPlatform Platform { get; set; }
-
         public static async Task<(List<Type> games, Assembly assembly)> GetGames(AGSProject agsProj)
         {
             string path = await getOutputPath(agsProj);
@@ -73,9 +63,9 @@ namespace AGS.Editor
             }
         }
 
-        public static void Load(IRenderMessagePump messagePump, AGSProject agsProj, IGameFactory factory)
+        public static void Load(IRenderMessagePump messagePump, AGSProject agsProj, AGSEditor editor)
         {
-            messagePump.Post(async _ => await load(agsProj, factory), null);
+            messagePump.Post(async _ => await load(agsProj, editor), null);
         }
 
         private static async Task<string> getOutputPath(AGSProject agsProj)
@@ -84,24 +74,24 @@ namespace AGS.Editor
             {
                 string currentDir = Directory.GetCurrentDirectory();
                 Directory.SetCurrentDirectory(Path.GetDirectoryName(agsProj.AGSProjectPath));
-                await Platform.DotnetProject.Load(agsProj.DotnetProjectPath);
+                await AGSEditor.Platform.DotnetProject.Load(agsProj.DotnetProjectPath);
                 Directory.SetCurrentDirectory(currentDir);
-                if (!File.Exists(Platform.DotnetProject.OutputFilePath))
+                if (!File.Exists(AGSEditor.Platform.DotnetProject.OutputFilePath))
                 {
-                    string errors = await Platform.DotnetProject.Compile();
+                    string errors = await AGSEditor.Platform.DotnetProject.Compile();
                     if (errors != null)
                     {
                         Debug.WriteLine($"Can't compile dotnet project: {agsProj.DotnetProjectPath}, referenced in AGS project: {agsProj.AGSProjectPath}");
                         Debug.WriteLine(errors);
                         return null;
                     }
-                    if (!File.Exists(Platform.DotnetProject.OutputFilePath))
+                    if (!File.Exists(AGSEditor.Platform.DotnetProject.OutputFilePath))
                     {
                         Debug.WriteLine($"Project was compiled but output not found for dotnet project: {agsProj.DotnetProjectPath}, referenced in AGS project: {agsProj.AGSProjectPath}");
                         return null;
                     }
                 }
-                return Platform.DotnetProject.OutputFilePath;
+                return AGSEditor.Platform.DotnetProject.OutputFilePath;
             }
             catch (Exception e)
             {
@@ -110,7 +100,7 @@ namespace AGS.Editor
             }
         }
 
-        private static async Task load(AGSProject agsProj, IGameFactory factory)
+        private static async Task load(AGSProject agsProj, AGSEditor editor)
         {
             var (games, assembly) = await GetGames(agsProj);
             if (games.Count == 0)
@@ -124,35 +114,42 @@ namespace AGS.Editor
             var gameCreatorImplementation = games[0];
             var gameCreator = (IGameStarter)Activator.CreateInstance(gameCreatorImplementation);
 
+            var editorResolver = editor.EditorResolver;
+            var updatePump = editorResolver.Container.Resolve<IUpdateMessagePump>();
+
             var resolver = new Resolver(AGSGame.Device);
             resolver.Builder.RegisterType<EditorShouldBlockEngineInput>().SingleInstance().As<IShouldBlockInput>().As<EditorShouldBlockEngineInput>();
+            resolver.Builder.RegisterInstance(updatePump).As<IUpdateMessagePump>().As<IUpdateThread>();
             var game = AGSGame.CreateEmpty(resolver);
+            editor.Game = game;
+            editor.GameResolver = resolver;
             gameCreator.StartGame(game);
 
-            var keyboardBindings = resolver.Container.Resolve<KeyboardBindings>();
-            var actions = resolver.Container.Resolve<ActionManager>();
+            var keyboardBindings = new KeyboardBindings(editor.Editor.Input);
+            var actions = editorResolver.Container.Resolve<ActionManager>();
             var resourceLoader = resolver.Container.Resolve<IResourceLoader>();
             resourceLoader.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(assembly), 2));
 
             _gameDebugView = new Lazy<GameDebugView>(() =>
             {
-                var gameDebugView = new GameDebugView(game, keyboardBindings, actions);
+                var gameDebugView = new GameDebugView(editor, keyboardBindings, actions);
                 gameDebugView.Load();
                 return gameDebugView;
             });
 
             EditorShouldBlockEngineInput blocker = resolver.Container.Resolve<EditorShouldBlockEngineInput>();
 
-            var toolbar = new GameToolbar(blocker);
-            toolbar.Init(factory);
+            var toolbar = new GameToolbar(blocker, editor.Editor.Input);
+            toolbar.Init(editor.Editor.Factory);
 
             game.Events.OnLoad.Subscribe(() =>
             {
+                editor.Init();
                 toolbar.SetGame(game);
             });
 
             game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200),
-               windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal));
+               windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal, preserveAspectRatio: false));
 
             keyboardBindings.OnKeyboardShortcutPressed.Subscribe(async action =>
             {
