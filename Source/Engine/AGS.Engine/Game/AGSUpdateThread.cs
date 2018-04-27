@@ -153,6 +153,7 @@ namespace AGS.Engine
             {
                 TargetUpdateFrequency = updates_per_second;
             }
+            if (_thread != null) return;
             _thread = Task.Factory.StartNew(threadLoop, TaskCreationOptions.LongRunning);
         }
 

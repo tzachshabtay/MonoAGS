@@ -16,7 +16,7 @@ namespace AGS.Engine
         private readonly RepeatedlyExecuteEventArgs _repeatArgs = new RepeatedlyExecuteEventArgs();
 		public const double UPDATE_RATE = 60.0;
         private int _updateFrameRetries = 0, _renderFrameRetries = 0;
-        private AGSUpdateThread _updateThread;
+        private static AGSUpdateThread _updateThread;
         private bool _shouldSetRestart = true;
         private int _gameIndex;
         private IAGSRenderPipeline _pipeline;
@@ -109,8 +109,8 @@ namespace AGS.Engine
                     Debug.WriteLine(ese.ToString());
                     throw;
                 }
+                _updateThread = new AGSUpdateThread(GameWindow);
             }
-            _updateThread = new AGSUpdateThread(GameWindow);
 
             //using (GameWindow)
 			{
