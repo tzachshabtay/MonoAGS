@@ -6743,6 +6743,90 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDisplayListSettings.RestrictionList
   nameWithType: IDisplayListSettings.RestrictionList
+- uid: AGS.API.IDraggableComponent
+  name: IDraggableComponent
+  href: api/AGS.API.IDraggableComponent.html
+  commentId: T:AGS.API.IDraggableComponent
+  fullName: AGS.API.IDraggableComponent
+  nameWithType: IDraggableComponent
+- uid: AGS.API.IDraggableComponent.DragMaxX
+  name: DragMaxX
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMaxX
+  commentId: P:AGS.API.IDraggableComponent.DragMaxX
+  fullName: AGS.API.IDraggableComponent.DragMaxX
+  nameWithType: IDraggableComponent.DragMaxX
+- uid: AGS.API.IDraggableComponent.DragMaxX*
+  name: DragMaxX
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMaxX_
+  commentId: Overload:AGS.API.IDraggableComponent.DragMaxX
+  isSpec: "True"
+  fullName: AGS.API.IDraggableComponent.DragMaxX
+  nameWithType: IDraggableComponent.DragMaxX
+- uid: AGS.API.IDraggableComponent.DragMaxY
+  name: DragMaxY
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMaxY
+  commentId: P:AGS.API.IDraggableComponent.DragMaxY
+  fullName: AGS.API.IDraggableComponent.DragMaxY
+  nameWithType: IDraggableComponent.DragMaxY
+- uid: AGS.API.IDraggableComponent.DragMaxY*
+  name: DragMaxY
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMaxY_
+  commentId: Overload:AGS.API.IDraggableComponent.DragMaxY
+  isSpec: "True"
+  fullName: AGS.API.IDraggableComponent.DragMaxY
+  nameWithType: IDraggableComponent.DragMaxY
+- uid: AGS.API.IDraggableComponent.DragMinX
+  name: DragMinX
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMinX
+  commentId: P:AGS.API.IDraggableComponent.DragMinX
+  fullName: AGS.API.IDraggableComponent.DragMinX
+  nameWithType: IDraggableComponent.DragMinX
+- uid: AGS.API.IDraggableComponent.DragMinX*
+  name: DragMinX
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMinX_
+  commentId: Overload:AGS.API.IDraggableComponent.DragMinX
+  isSpec: "True"
+  fullName: AGS.API.IDraggableComponent.DragMinX
+  nameWithType: IDraggableComponent.DragMinX
+- uid: AGS.API.IDraggableComponent.DragMinY
+  name: DragMinY
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMinY
+  commentId: P:AGS.API.IDraggableComponent.DragMinY
+  fullName: AGS.API.IDraggableComponent.DragMinY
+  nameWithType: IDraggableComponent.DragMinY
+- uid: AGS.API.IDraggableComponent.DragMinY*
+  name: DragMinY
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMinY_
+  commentId: Overload:AGS.API.IDraggableComponent.DragMinY
+  isSpec: "True"
+  fullName: AGS.API.IDraggableComponent.DragMinY
+  nameWithType: IDraggableComponent.DragMinY
+- uid: AGS.API.IDraggableComponent.IsCurrentlyDragged
+  name: IsCurrentlyDragged
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_IsCurrentlyDragged
+  commentId: P:AGS.API.IDraggableComponent.IsCurrentlyDragged
+  fullName: AGS.API.IDraggableComponent.IsCurrentlyDragged
+  nameWithType: IDraggableComponent.IsCurrentlyDragged
+- uid: AGS.API.IDraggableComponent.IsCurrentlyDragged*
+  name: IsCurrentlyDragged
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_IsCurrentlyDragged_
+  commentId: Overload:AGS.API.IDraggableComponent.IsCurrentlyDragged
+  isSpec: "True"
+  fullName: AGS.API.IDraggableComponent.IsCurrentlyDragged
+  nameWithType: IDraggableComponent.IsCurrentlyDragged
+- uid: AGS.API.IDraggableComponent.IsDragEnabled
+  name: IsDragEnabled
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_IsDragEnabled
+  commentId: P:AGS.API.IDraggableComponent.IsDragEnabled
+  fullName: AGS.API.IDraggableComponent.IsDragEnabled
+  nameWithType: IDraggableComponent.IsDragEnabled
+- uid: AGS.API.IDraggableComponent.IsDragEnabled*
+  name: IsDragEnabled
+  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_IsDragEnabled_
+  commentId: Overload:AGS.API.IDraggableComponent.IsDragEnabled
+  isSpec: "True"
+  fullName: AGS.API.IDraggableComponent.IsDragEnabled
+  nameWithType: IDraggableComponent.IsDragEnabled
 - uid: AGS.API.IDrawableInfoComponent
   name: IDrawableInfoComponent
   href: api/AGS.API.IDrawableInfoComponent.html
@@ -7567,19 +7651,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFont.MeasureString
   nameWithType: IFont.MeasureString
-- uid: AGS.API.IFont.Resize(System.Single)
-  name: Resize(Single)
-  href: api/AGS.API.IFont.html#AGS_API_IFont_Resize_System_Single_
-  commentId: M:AGS.API.IFont.Resize(System.Single)
-  fullName: AGS.API.IFont.Resize(System.Single)
-  nameWithType: IFont.Resize(Single)
-- uid: AGS.API.IFont.Resize*
-  name: Resize
-  href: api/AGS.API.IFont.html#AGS_API_IFont_Resize_
-  commentId: Overload:AGS.API.IFont.Resize
-  isSpec: "True"
-  fullName: AGS.API.IFont.Resize
-  nameWithType: IFont.Resize
 - uid: AGS.API.IFont.SizeInPoints
   name: SizeInPoints
   href: api/AGS.API.IFont.html#AGS_API_IFont_SizeInPoints
@@ -10358,19 +10429,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.INumberEditorComponent.OnValueChanged
   nameWithType: INumberEditorComponent.OnValueChanged
-- uid: AGS.API.INumberEditorComponent.SetUserInitiatedValue(System.Single)
-  name: SetUserInitiatedValue(Single)
-  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_SetUserInitiatedValue_System_Single_
-  commentId: M:AGS.API.INumberEditorComponent.SetUserInitiatedValue(System.Single)
-  fullName: AGS.API.INumberEditorComponent.SetUserInitiatedValue(System.Single)
-  nameWithType: INumberEditorComponent.SetUserInitiatedValue(Single)
-- uid: AGS.API.INumberEditorComponent.SetUserInitiatedValue*
-  name: SetUserInitiatedValue
-  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_SetUserInitiatedValue_
-  commentId: Overload:AGS.API.INumberEditorComponent.SetUserInitiatedValue
-  isSpec: "True"
-  fullName: AGS.API.INumberEditorComponent.SetUserInitiatedValue
-  nameWithType: INumberEditorComponent.SetUserInitiatedValue
 - uid: AGS.API.INumberEditorComponent.Slider
   name: Slider
   href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_Slider
@@ -13398,6 +13456,51 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISpeechLine.Text
   nameWithType: ISpeechLine.Text
+- uid: AGS.API.ISplitPanelComponent
+  name: ISplitPanelComponent
+  href: api/AGS.API.ISplitPanelComponent.html
+  commentId: T:AGS.API.ISplitPanelComponent
+  fullName: AGS.API.ISplitPanelComponent
+  nameWithType: ISplitPanelComponent
+- uid: AGS.API.ISplitPanelComponent.BottomPanel
+  name: BottomPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_BottomPanel
+  commentId: P:AGS.API.ISplitPanelComponent.BottomPanel
+  fullName: AGS.API.ISplitPanelComponent.BottomPanel
+  nameWithType: ISplitPanelComponent.BottomPanel
+- uid: AGS.API.ISplitPanelComponent.BottomPanel*
+  name: BottomPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_BottomPanel_
+  commentId: Overload:AGS.API.ISplitPanelComponent.BottomPanel
+  isSpec: "True"
+  fullName: AGS.API.ISplitPanelComponent.BottomPanel
+  nameWithType: ISplitPanelComponent.BottomPanel
+- uid: AGS.API.ISplitPanelComponent.IsHorizontal
+  name: IsHorizontal
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_IsHorizontal
+  commentId: P:AGS.API.ISplitPanelComponent.IsHorizontal
+  fullName: AGS.API.ISplitPanelComponent.IsHorizontal
+  nameWithType: ISplitPanelComponent.IsHorizontal
+- uid: AGS.API.ISplitPanelComponent.IsHorizontal*
+  name: IsHorizontal
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_IsHorizontal_
+  commentId: Overload:AGS.API.ISplitPanelComponent.IsHorizontal
+  isSpec: "True"
+  fullName: AGS.API.ISplitPanelComponent.IsHorizontal
+  nameWithType: ISplitPanelComponent.IsHorizontal
+- uid: AGS.API.ISplitPanelComponent.TopPanel
+  name: TopPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_TopPanel
+  commentId: P:AGS.API.ISplitPanelComponent.TopPanel
+  fullName: AGS.API.ISplitPanelComponent.TopPanel
+  nameWithType: ISplitPanelComponent.TopPanel
+- uid: AGS.API.ISplitPanelComponent.TopPanel*
+  name: TopPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_TopPanel_
+  commentId: Overload:AGS.API.ISplitPanelComponent.TopPanel
+  isSpec: "True"
+  fullName: AGS.API.ISplitPanelComponent.TopPanel
+  nameWithType: ISplitPanelComponent.TopPanel
 - uid: AGS.API.ISprite
   name: ISprite
   href: api/AGS.API.ISprite.html
@@ -19292,12 +19395,12 @@ references:
   commentId: T:AGS.API.MousePosition
   fullName: AGS.API.MousePosition
   nameWithType: MousePosition
-- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size)
-  name: MousePosition(Single, Single, IViewport, Size)
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_
-  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size)
-  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport, AGS.API.Size)
-  nameWithType: MousePosition.MousePosition(Single, Single, IViewport, Size)
+- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport)
+  name: MousePosition(Single, Single, IViewport)
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_
+  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport)
+  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport)
+  nameWithType: MousePosition.MousePosition(Single, Single, IViewport)
 - uid: AGS.API.MousePosition.#ctor*
   name: MousePosition
   href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_
@@ -19370,6 +19473,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.MousePosition.GetWindowWidth
   nameWithType: MousePosition.GetWindowWidth
+- uid: AGS.API.MousePosition.VirtualResolution
+  name: VirtualResolution
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_VirtualResolution
+  commentId: P:AGS.API.MousePosition.VirtualResolution
+  fullName: AGS.API.MousePosition.VirtualResolution
+  nameWithType: MousePosition.VirtualResolution
+- uid: AGS.API.MousePosition.VirtualResolution*
+  name: VirtualResolution
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_VirtualResolution_
+  commentId: Overload:AGS.API.MousePosition.VirtualResolution
+  isSpec: "True"
+  fullName: AGS.API.MousePosition.VirtualResolution
+  nameWithType: MousePosition.VirtualResolution
 - uid: AGS.API.MousePosition.XMainViewport
   name: XMainViewport
   href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_XMainViewport
@@ -19544,38 +19660,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.NumberEditorSliderAttribute.Step
   nameWithType: NumberEditorSliderAttribute.Step
-- uid: AGS.API.NumberValueChangedArgs
-  name: NumberValueChangedArgs
-  href: api/AGS.API.NumberValueChangedArgs.html
-  commentId: T:AGS.API.NumberValueChangedArgs
-  fullName: AGS.API.NumberValueChangedArgs
-  nameWithType: NumberValueChangedArgs
-- uid: AGS.API.NumberValueChangedArgs.#ctor(System.Boolean)
-  name: NumberValueChangedArgs(Boolean)
-  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs__ctor_System_Boolean_
-  commentId: M:AGS.API.NumberValueChangedArgs.#ctor(System.Boolean)
-  fullName: AGS.API.NumberValueChangedArgs.NumberValueChangedArgs(System.Boolean)
-  nameWithType: NumberValueChangedArgs.NumberValueChangedArgs(Boolean)
-- uid: AGS.API.NumberValueChangedArgs.#ctor*
-  name: NumberValueChangedArgs
-  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs__ctor_
-  commentId: Overload:AGS.API.NumberValueChangedArgs.#ctor
-  isSpec: "True"
-  fullName: AGS.API.NumberValueChangedArgs.NumberValueChangedArgs
-  nameWithType: NumberValueChangedArgs.NumberValueChangedArgs
-- uid: AGS.API.NumberValueChangedArgs.UserInitiated
-  name: UserInitiated
-  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs_UserInitiated
-  commentId: P:AGS.API.NumberValueChangedArgs.UserInitiated
-  fullName: AGS.API.NumberValueChangedArgs.UserInitiated
-  nameWithType: NumberValueChangedArgs.UserInitiated
-- uid: AGS.API.NumberValueChangedArgs.UserInitiated*
-  name: UserInitiated
-  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs_UserInitiated_
-  commentId: Overload:AGS.API.NumberValueChangedArgs.UserInitiated
-  isSpec: "True"
-  fullName: AGS.API.NumberValueChangedArgs.UserInitiated
-  nameWithType: NumberValueChangedArgs.UserInitiated
 - uid: AGS.API.ObjectEventArgs
   name: ObjectEventArgs
   href: api/AGS.API.ObjectEventArgs.html

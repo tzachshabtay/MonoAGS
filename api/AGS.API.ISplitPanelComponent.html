@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IRestrictionList
+    <title>Interface ISplitPanelComponent
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IRestrictionList
+    <meta name="title" content="Interface ISplitPanelComponent
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.35.2.0">
     
@@ -78,45 +78,56 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.IRestrictionList">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ISplitPanelComponent">
   
   
-  <h1 id="AGS_API_IRestrictionList" data-uid="AGS.API.IRestrictionList" class="text-break">Interface IRestrictionList
+  <h1 id="AGS_API_ISplitPanelComponent" data-uid="AGS.API.ISplitPanelComponent" class="text-break">Interface ISplitPanelComponent
   </h1>
-  <div class="markdown level0 summary"><p>Adds the ability to restrict certain entities from being affected by &quot;something&quot;.
-That &quot;something&quot; can be an area, for example, or a display list for a viewport.</p>
+  <div class="markdown level0 summary"><p>Adds the ability to place 2 panels adjacent to each other (either vertically or horizontally),
+and have a split line in between which can be dragged to resize both panels at the same time.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
+    </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
     <div>
       <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_IRestrictionList_syntax">Syntax</h5>
+  <h5 id="AGS_API_ISplitPanelComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IRestrictionList : INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ISplitPanelComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ffmpeg/apiSpec/new?filename=AGS_API_IRestrictionList_RestrictionList.md&amp;value=---%0Auid%3A%20AGS.API.IRestrictionList.RestrictionList%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ffmpeg/apiSpec/new?filename=AGS_API_ISplitPanelComponent_BottomPanel.md&amp;value=---%0Auid%3A%20AGS.API.ISplitPanelComponent.BottomPanel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ffmpeg/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L40">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ffmpeg/Source/AGS.API/UI/Controls/Panel/ISplitPanelComponent.cs/#L19">View Source</a>
   </span>
-  <a id="AGS_API_IRestrictionList_RestrictionList_" data-uid="AGS.API.IRestrictionList.RestrictionList*"></a>
-  <h4 id="AGS_API_IRestrictionList_RestrictionList" data-uid="AGS.API.IRestrictionList.RestrictionList">RestrictionList</h4>
-  <div class="markdown level1 summary"><p>Gets list of restricted entities (if it&apos;s a black list), or permitted entities (if it&apos;s a white list).
-If the list is empty then the component is effectively ignored (everybody is permitted).</p>
+  <a id="AGS_API_ISplitPanelComponent_BottomPanel_" data-uid="AGS.API.ISplitPanelComponent.BottomPanel*"></a>
+  <h4 id="AGS_API_ISplitPanelComponent_BottomPanel" data-uid="AGS.API.ISplitPanelComponent.BottomPanel">BottomPanel</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the bottom panel (or the right panel, if this is a horizontal split panel).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IConcurrentHashSet&lt;string&gt; RestrictionList { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IPanel BottomPanel { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -128,82 +139,29 @@ If the list is empty then the component is effectively ignored (everybody is per
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IConcurrentHashSet-1.html">IConcurrentHashSet</a>&lt;<span class="xref">System.String</span>&gt;</td>
-        <td><p>The restriction list.</p>
+        <td><a class="xref" href="AGS.API.IPanel.html">IPanel</a></td>
+        <td><p>The bottom panel.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ffmpeg/apiSpec/new?filename=AGS_API_IRestrictionList_RestrictionType.md&amp;value=---%0Auid%3A%20AGS.API.IRestrictionList.RestrictionType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ffmpeg/apiSpec/new?filename=AGS_API_ISplitPanelComponent_IsHorizontal.md&amp;value=---%0Auid%3A%20AGS.API.ISplitPanelComponent.IsHorizontal%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ffmpeg/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L33">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ffmpeg/Source/AGS.API/UI/Controls/Panel/ISplitPanelComponent.cs/#L25">View Source</a>
   </span>
-  <a id="AGS_API_IRestrictionList_RestrictionType_" data-uid="AGS.API.IRestrictionList.RestrictionType*"></a>
-  <h4 id="AGS_API_IRestrictionList_RestrictionType" data-uid="AGS.API.IRestrictionList.RestrictionType">RestrictionType</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the type of the restriction, black list (everybody in the list is restricted)
-or white list (everybody not in the list is restricted).</p>
+  <a id="AGS_API_ISplitPanelComponent_IsHorizontal_" data-uid="AGS.API.ISplitPanelComponent.IsHorizontal*"></a>
+  <h4 id="AGS_API_ISplitPanelComponent_IsHorizontal" data-uid="AGS.API.ISplitPanelComponent.IsHorizontal">IsHorizontal</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.ISplitPanelComponent.html">ISplitPanelComponent</a> is horizontal (or vertical- which is the default).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">RestrictionListType RestrictionType { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">bool IsHorizontal { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.RestrictionListType.html">RestrictionListType</a></td>
-        <td><p>The type of the restriction.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ffmpeg/apiSpec/new?filename=AGS_API_IRestrictionList_IsRestricted_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IRestrictionList.IsRestricted(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ffmpeg/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L47">View Source</a>
-  </span>
-  <a id="AGS_API_IRestrictionList_IsRestricted_" data-uid="AGS.API.IRestrictionList.IsRestricted*"></a>
-  <h4 id="AGS_API_IRestrictionList_IsRestricted_System_String_" data-uid="AGS.API.IRestrictionList.IsRestricted(System.String)">IsRestricted(String)</h4>
-  <div class="markdown level1 summary"><p>Checks if an entity is restricted to this area (based on the restriction type and list).</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool IsRestricted(string entityId)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">entityId</span></td>
-        <td><p>Entity identifier.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -214,7 +172,39 @@ or white list (everybody not in the list is restricted).</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code>, if entity is restricted, <code>false</code> otherwise.</p>
+        <td><p><code>true</code> if is horizonal; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ffmpeg/apiSpec/new?filename=AGS_API_ISplitPanelComponent_TopPanel.md&amp;value=---%0Auid%3A%20AGS.API.ISplitPanelComponent.TopPanel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ffmpeg/Source/AGS.API/UI/Controls/Panel/ISplitPanelComponent.cs/#L13">View Source</a>
+  </span>
+  <a id="AGS_API_ISplitPanelComponent_TopPanel_" data-uid="AGS.API.ISplitPanelComponent.TopPanel*"></a>
+  <h4 id="AGS_API_ISplitPanelComponent_TopPanel" data-uid="AGS.API.ISplitPanelComponent.TopPanel">TopPanel</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the top panel (or the left panel, if this is a horizontal split panel).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPanel TopPanel { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IPanel.html">IPanel</a></td>
+        <td><p>The top panel.</p>
 </td>
       </tr>
     </tbody>
@@ -227,10 +217,10 @@ or white list (everybody not in the list is restricted).</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/ffmpeg/apiSpec/new?filename=AGS_API_IRestrictionList.md&amp;value=---%0Auid%3A%20AGS.API.IRestrictionList%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/ffmpeg/apiSpec/new?filename=AGS_API_ISplitPanelComponent.md&amp;value=---%0Auid%3A%20AGS.API.ISplitPanelComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ffmpeg/Source/AGS.API/Rooms/Areas/IAreaRestriction.cs/#L26" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ffmpeg/Source/AGS.API/UI/Controls/Panel/ISplitPanelComponent.cs/#L7" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
