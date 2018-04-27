@@ -3494,51 +3494,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IAudioFactory.LoadAudioClipAsync
   nameWithType: IAudioFactory.LoadAudioClipAsync
-- uid: AGS.API.IAudioRule
-  name: IAudioRule
-  href: api/AGS.API.IAudioRule.html
-  commentId: T:AGS.API.IAudioRule
-  fullName: AGS.API.IAudioRule
-  nameWithType: IAudioRule
-- uid: AGS.API.IAudioRule.Enabled
-  name: Enabled
-  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_Enabled
-  commentId: P:AGS.API.IAudioRule.Enabled
-  fullName: AGS.API.IAudioRule.Enabled
-  nameWithType: IAudioRule.Enabled
-- uid: AGS.API.IAudioRule.Enabled*
-  name: Enabled
-  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_Enabled_
-  commentId: Overload:AGS.API.IAudioRule.Enabled
-  isSpec: "True"
-  fullName: AGS.API.IAudioRule.Enabled
-  nameWithType: IAudioRule.Enabled
-- uid: AGS.API.IAudioRule.OnSoundCompleted(AGS.API.ISound)
-  name: OnSoundCompleted(ISound)
-  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_OnSoundCompleted_AGS_API_ISound_
-  commentId: M:AGS.API.IAudioRule.OnSoundCompleted(AGS.API.ISound)
-  fullName: AGS.API.IAudioRule.OnSoundCompleted(AGS.API.ISound)
-  nameWithType: IAudioRule.OnSoundCompleted(ISound)
-- uid: AGS.API.IAudioRule.OnSoundCompleted*
-  name: OnSoundCompleted
-  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_OnSoundCompleted_
-  commentId: Overload:AGS.API.IAudioRule.OnSoundCompleted
-  isSpec: "True"
-  fullName: AGS.API.IAudioRule.OnSoundCompleted
-  nameWithType: IAudioRule.OnSoundCompleted
-- uid: AGS.API.IAudioRule.OnSoundStarted(AGS.API.ISound)
-  name: OnSoundStarted(ISound)
-  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_OnSoundStarted_AGS_API_ISound_
-  commentId: M:AGS.API.IAudioRule.OnSoundStarted(AGS.API.ISound)
-  fullName: AGS.API.IAudioRule.OnSoundStarted(AGS.API.ISound)
-  nameWithType: IAudioRule.OnSoundStarted(ISound)
-- uid: AGS.API.IAudioRule.OnSoundStarted*
-  name: OnSoundStarted
-  href: api/AGS.API.IAudioRule.html#AGS_API_IAudioRule_OnSoundStarted_
-  commentId: Overload:AGS.API.IAudioRule.OnSoundStarted
-  isSpec: "True"
-  fullName: AGS.API.IAudioRule.OnSoundStarted
-  nameWithType: IAudioRule.OnSoundStarted
 - uid: AGS.API.IAudioSettings
   name: IAudioSettings
   href: api/AGS.API.IAudioSettings.html
@@ -3571,64 +3526,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IAudioSettings.RoomMusicCrossFading
   nameWithType: IAudioSettings.RoomMusicCrossFading
-- uid: AGS.API.IAudioSystem
-  name: IAudioSystem
-  href: api/AGS.API.IAudioSystem.html
-  commentId: T:AGS.API.IAudioSystem
-  fullName: AGS.API.IAudioSystem
-  nameWithType: IAudioSystem
-- uid: AGS.API.IAudioSystem.AudioClips
-  name: AudioClips
-  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_AudioClips
-  commentId: P:AGS.API.IAudioSystem.AudioClips
-  fullName: AGS.API.IAudioSystem.AudioClips
-  nameWithType: IAudioSystem.AudioClips
-- uid: AGS.API.IAudioSystem.AudioClips*
-  name: AudioClips
-  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_AudioClips_
-  commentId: Overload:AGS.API.IAudioSystem.AudioClips
-  isSpec: "True"
-  fullName: AGS.API.IAudioSystem.AudioClips
-  nameWithType: IAudioSystem.AudioClips
-- uid: AGS.API.IAudioSystem.AudioRules
-  name: AudioRules
-  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_AudioRules
-  commentId: P:AGS.API.IAudioSystem.AudioRules
-  fullName: AGS.API.IAudioSystem.AudioRules
-  nameWithType: IAudioSystem.AudioRules
-- uid: AGS.API.IAudioSystem.AudioRules*
-  name: AudioRules
-  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_AudioRules_
-  commentId: Overload:AGS.API.IAudioSystem.AudioRules
-  isSpec: "True"
-  fullName: AGS.API.IAudioSystem.AudioRules
-  nameWithType: IAudioSystem.AudioRules
-- uid: AGS.API.IAudioSystem.CurrentlyPlayingSounds
-  name: CurrentlyPlayingSounds
-  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_CurrentlyPlayingSounds
-  commentId: P:AGS.API.IAudioSystem.CurrentlyPlayingSounds
-  fullName: AGS.API.IAudioSystem.CurrentlyPlayingSounds
-  nameWithType: IAudioSystem.CurrentlyPlayingSounds
-- uid: AGS.API.IAudioSystem.CurrentlyPlayingSounds*
-  name: CurrentlyPlayingSounds
-  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_CurrentlyPlayingSounds_
-  commentId: Overload:AGS.API.IAudioSystem.CurrentlyPlayingSounds
-  isSpec: "True"
-  fullName: AGS.API.IAudioSystem.CurrentlyPlayingSounds
-  nameWithType: IAudioSystem.CurrentlyPlayingSounds
-- uid: AGS.API.IAudioSystem.Settings
-  name: Settings
-  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_Settings
-  commentId: P:AGS.API.IAudioSystem.Settings
-  fullName: AGS.API.IAudioSystem.Settings
-  nameWithType: IAudioSystem.Settings
-- uid: AGS.API.IAudioSystem.Settings*
-  name: Settings
-  href: api/AGS.API.IAudioSystem.html#AGS_API_IAudioSystem_Settings_
-  commentId: Overload:AGS.API.IAudioSystem.Settings
-  isSpec: "True"
-  fullName: AGS.API.IAudioSystem.Settings
-  nameWithType: IAudioSystem.Settings
 - uid: AGS.API.IBitmap
   name: IBitmap
   href: api/AGS.API.IBitmap.html
@@ -4023,14 +3920,6 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(AGS.API.ClaimableCallbackWithArgs(Of TEventArgs), AGS.API.CallbackPriority)
   nameWithType: IBlockingEvent<TEventArgs>.Subscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(ClaimableCallbackWithArgs(Of TEventArgs), CallbackPriority)
-- uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
-  name: Subscribe(Action, CallbackPriority)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action_AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(System.Action, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(System.Action, AGS.API.CallbackPriority)
-  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action, CallbackPriority)
-  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action, CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)
   name: Subscribe(Action<TEventArgs>, CallbackPriority)
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action__0__AGS_API_CallbackPriority_
@@ -6743,90 +6632,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDisplayListSettings.RestrictionList
   nameWithType: IDisplayListSettings.RestrictionList
-- uid: AGS.API.IDraggableComponent
-  name: IDraggableComponent
-  href: api/AGS.API.IDraggableComponent.html
-  commentId: T:AGS.API.IDraggableComponent
-  fullName: AGS.API.IDraggableComponent
-  nameWithType: IDraggableComponent
-- uid: AGS.API.IDraggableComponent.DragMaxX
-  name: DragMaxX
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMaxX
-  commentId: P:AGS.API.IDraggableComponent.DragMaxX
-  fullName: AGS.API.IDraggableComponent.DragMaxX
-  nameWithType: IDraggableComponent.DragMaxX
-- uid: AGS.API.IDraggableComponent.DragMaxX*
-  name: DragMaxX
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMaxX_
-  commentId: Overload:AGS.API.IDraggableComponent.DragMaxX
-  isSpec: "True"
-  fullName: AGS.API.IDraggableComponent.DragMaxX
-  nameWithType: IDraggableComponent.DragMaxX
-- uid: AGS.API.IDraggableComponent.DragMaxY
-  name: DragMaxY
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMaxY
-  commentId: P:AGS.API.IDraggableComponent.DragMaxY
-  fullName: AGS.API.IDraggableComponent.DragMaxY
-  nameWithType: IDraggableComponent.DragMaxY
-- uid: AGS.API.IDraggableComponent.DragMaxY*
-  name: DragMaxY
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMaxY_
-  commentId: Overload:AGS.API.IDraggableComponent.DragMaxY
-  isSpec: "True"
-  fullName: AGS.API.IDraggableComponent.DragMaxY
-  nameWithType: IDraggableComponent.DragMaxY
-- uid: AGS.API.IDraggableComponent.DragMinX
-  name: DragMinX
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMinX
-  commentId: P:AGS.API.IDraggableComponent.DragMinX
-  fullName: AGS.API.IDraggableComponent.DragMinX
-  nameWithType: IDraggableComponent.DragMinX
-- uid: AGS.API.IDraggableComponent.DragMinX*
-  name: DragMinX
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMinX_
-  commentId: Overload:AGS.API.IDraggableComponent.DragMinX
-  isSpec: "True"
-  fullName: AGS.API.IDraggableComponent.DragMinX
-  nameWithType: IDraggableComponent.DragMinX
-- uid: AGS.API.IDraggableComponent.DragMinY
-  name: DragMinY
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMinY
-  commentId: P:AGS.API.IDraggableComponent.DragMinY
-  fullName: AGS.API.IDraggableComponent.DragMinY
-  nameWithType: IDraggableComponent.DragMinY
-- uid: AGS.API.IDraggableComponent.DragMinY*
-  name: DragMinY
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_DragMinY_
-  commentId: Overload:AGS.API.IDraggableComponent.DragMinY
-  isSpec: "True"
-  fullName: AGS.API.IDraggableComponent.DragMinY
-  nameWithType: IDraggableComponent.DragMinY
-- uid: AGS.API.IDraggableComponent.IsCurrentlyDragged
-  name: IsCurrentlyDragged
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_IsCurrentlyDragged
-  commentId: P:AGS.API.IDraggableComponent.IsCurrentlyDragged
-  fullName: AGS.API.IDraggableComponent.IsCurrentlyDragged
-  nameWithType: IDraggableComponent.IsCurrentlyDragged
-- uid: AGS.API.IDraggableComponent.IsCurrentlyDragged*
-  name: IsCurrentlyDragged
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_IsCurrentlyDragged_
-  commentId: Overload:AGS.API.IDraggableComponent.IsCurrentlyDragged
-  isSpec: "True"
-  fullName: AGS.API.IDraggableComponent.IsCurrentlyDragged
-  nameWithType: IDraggableComponent.IsCurrentlyDragged
-- uid: AGS.API.IDraggableComponent.IsDragEnabled
-  name: IsDragEnabled
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_IsDragEnabled
-  commentId: P:AGS.API.IDraggableComponent.IsDragEnabled
-  fullName: AGS.API.IDraggableComponent.IsDragEnabled
-  nameWithType: IDraggableComponent.IsDragEnabled
-- uid: AGS.API.IDraggableComponent.IsDragEnabled*
-  name: IsDragEnabled
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_IsDragEnabled_
-  commentId: Overload:AGS.API.IDraggableComponent.IsDragEnabled
-  isSpec: "True"
-  fullName: AGS.API.IDraggableComponent.IsDragEnabled
-  nameWithType: IDraggableComponent.IsDragEnabled
 - uid: AGS.API.IDrawableInfoComponent
   name: IDrawableInfoComponent
   href: api/AGS.API.IDrawableInfoComponent.html
@@ -7651,6 +7456,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFont.MeasureString
   nameWithType: IFont.MeasureString
+- uid: AGS.API.IFont.Resize(System.Single)
+  name: Resize(Single)
+  href: api/AGS.API.IFont.html#AGS_API_IFont_Resize_System_Single_
+  commentId: M:AGS.API.IFont.Resize(System.Single)
+  fullName: AGS.API.IFont.Resize(System.Single)
+  nameWithType: IFont.Resize(Single)
+- uid: AGS.API.IFont.Resize*
+  name: Resize
+  href: api/AGS.API.IFont.html#AGS_API_IFont_Resize_
+  commentId: Overload:AGS.API.IFont.Resize
+  isSpec: "True"
+  fullName: AGS.API.IFont.Resize
+  nameWithType: IFont.Resize
 - uid: AGS.API.IFont.SizeInPoints
   name: SizeInPoints
   href: api/AGS.API.IFont.html#AGS_API_IFont_SizeInPoints
@@ -7776,19 +7594,19 @@ references:
   commentId: T:AGS.API.IGame
   fullName: AGS.API.IGame
   nameWithType: IGame
-- uid: AGS.API.IGame.Audio
-  name: Audio
-  href: api/AGS.API.IGame.html#AGS_API_IGame_Audio
-  commentId: P:AGS.API.IGame.Audio
-  fullName: AGS.API.IGame.Audio
-  nameWithType: IGame.Audio
-- uid: AGS.API.IGame.Audio*
-  name: Audio
-  href: api/AGS.API.IGame.html#AGS_API_IGame_Audio_
-  commentId: Overload:AGS.API.IGame.Audio
+- uid: AGS.API.IGame.AudioSettings
+  name: AudioSettings
+  href: api/AGS.API.IGame.html#AGS_API_IGame_AudioSettings
+  commentId: P:AGS.API.IGame.AudioSettings
+  fullName: AGS.API.IGame.AudioSettings
+  nameWithType: IGame.AudioSettings
+- uid: AGS.API.IGame.AudioSettings*
+  name: AudioSettings
+  href: api/AGS.API.IGame.html#AGS_API_IGame_AudioSettings_
+  commentId: Overload:AGS.API.IGame.AudioSettings
   isSpec: "True"
-  fullName: AGS.API.IGame.Audio
-  nameWithType: IGame.Audio
+  fullName: AGS.API.IGame.AudioSettings
+  nameWithType: IGame.AudioSettings
 - uid: AGS.API.IGame.Events
   name: Events
   href: api/AGS.API.IGame.html#AGS_API_IGame_Events
@@ -10429,6 +10247,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.INumberEditorComponent.OnValueChanged
   nameWithType: INumberEditorComponent.OnValueChanged
+- uid: AGS.API.INumberEditorComponent.SetUserInitiatedValue(System.Single)
+  name: SetUserInitiatedValue(Single)
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_SetUserInitiatedValue_System_Single_
+  commentId: M:AGS.API.INumberEditorComponent.SetUserInitiatedValue(System.Single)
+  fullName: AGS.API.INumberEditorComponent.SetUserInitiatedValue(System.Single)
+  nameWithType: INumberEditorComponent.SetUserInitiatedValue(Single)
+- uid: AGS.API.INumberEditorComponent.SetUserInitiatedValue*
+  name: SetUserInitiatedValue
+  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_SetUserInitiatedValue_
+  commentId: Overload:AGS.API.INumberEditorComponent.SetUserInitiatedValue
+  isSpec: "True"
+  fullName: AGS.API.INumberEditorComponent.SetUserInitiatedValue
+  nameWithType: INumberEditorComponent.SetUserInitiatedValue
 - uid: AGS.API.INumberEditorComponent.Slider
   name: Slider
   href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_Slider
@@ -12958,45 +12789,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISound.Position
   nameWithType: ISound.Position
-- uid: AGS.API.ISound.RealPanning
-  name: RealPanning
-  href: api/AGS.API.ISound.html#AGS_API_ISound_RealPanning
-  commentId: P:AGS.API.ISound.RealPanning
-  fullName: AGS.API.ISound.RealPanning
-  nameWithType: ISound.RealPanning
-- uid: AGS.API.ISound.RealPanning*
-  name: RealPanning
-  href: api/AGS.API.ISound.html#AGS_API_ISound_RealPanning_
-  commentId: Overload:AGS.API.ISound.RealPanning
-  isSpec: "True"
-  fullName: AGS.API.ISound.RealPanning
-  nameWithType: ISound.RealPanning
-- uid: AGS.API.ISound.RealPitch
-  name: RealPitch
-  href: api/AGS.API.ISound.html#AGS_API_ISound_RealPitch
-  commentId: P:AGS.API.ISound.RealPitch
-  fullName: AGS.API.ISound.RealPitch
-  nameWithType: ISound.RealPitch
-- uid: AGS.API.ISound.RealPitch*
-  name: RealPitch
-  href: api/AGS.API.ISound.html#AGS_API_ISound_RealPitch_
-  commentId: Overload:AGS.API.ISound.RealPitch
-  isSpec: "True"
-  fullName: AGS.API.ISound.RealPitch
-  nameWithType: ISound.RealPitch
-- uid: AGS.API.ISound.RealVolume
-  name: RealVolume
-  href: api/AGS.API.ISound.html#AGS_API_ISound_RealVolume
-  commentId: P:AGS.API.ISound.RealVolume
-  fullName: AGS.API.ISound.RealVolume
-  nameWithType: ISound.RealVolume
-- uid: AGS.API.ISound.RealVolume*
-  name: RealVolume
-  href: api/AGS.API.ISound.html#AGS_API_ISound_RealVolume_
-  commentId: Overload:AGS.API.ISound.RealVolume
-  isSpec: "True"
-  fullName: AGS.API.ISound.RealVolume
-  nameWithType: ISound.RealVolume
 - uid: AGS.API.ISound.Resume
   name: Resume()
   href: api/AGS.API.ISound.html#AGS_API_ISound_Resume
@@ -13023,19 +12815,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISound.Rewind
   nameWithType: ISound.Rewind
-- uid: AGS.API.ISound.SoundModifiers
-  name: SoundModifiers
-  href: api/AGS.API.ISound.html#AGS_API_ISound_SoundModifiers
-  commentId: P:AGS.API.ISound.SoundModifiers
-  fullName: AGS.API.ISound.SoundModifiers
-  nameWithType: ISound.SoundModifiers
-- uid: AGS.API.ISound.SoundModifiers*
-  name: SoundModifiers
-  href: api/AGS.API.ISound.html#AGS_API_ISound_SoundModifiers_
-  commentId: Overload:AGS.API.ISound.SoundModifiers
-  isSpec: "True"
-  fullName: AGS.API.ISound.SoundModifiers
-  nameWithType: ISound.SoundModifiers
 - uid: AGS.API.ISound.SourceID
   name: SourceID
   href: api/AGS.API.ISound.html#AGS_API_ISound_SourceID
@@ -13193,64 +12972,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISoundEmitter.WorldPosition
   nameWithType: ISoundEmitter.WorldPosition
-- uid: AGS.API.ISoundModifier
-  name: ISoundModifier
-  href: api/AGS.API.ISoundModifier.html
-  commentId: T:AGS.API.ISoundModifier
-  fullName: AGS.API.ISoundModifier
-  nameWithType: ISoundModifier
-- uid: AGS.API.ISoundModifier.GetPanning(System.Single)
-  name: GetPanning(Single)
-  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetPanning_System_Single_
-  commentId: M:AGS.API.ISoundModifier.GetPanning(System.Single)
-  fullName: AGS.API.ISoundModifier.GetPanning(System.Single)
-  nameWithType: ISoundModifier.GetPanning(Single)
-- uid: AGS.API.ISoundModifier.GetPanning*
-  name: GetPanning
-  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetPanning_
-  commentId: Overload:AGS.API.ISoundModifier.GetPanning
-  isSpec: "True"
-  fullName: AGS.API.ISoundModifier.GetPanning
-  nameWithType: ISoundModifier.GetPanning
-- uid: AGS.API.ISoundModifier.GetPitch(System.Single)
-  name: GetPitch(Single)
-  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetPitch_System_Single_
-  commentId: M:AGS.API.ISoundModifier.GetPitch(System.Single)
-  fullName: AGS.API.ISoundModifier.GetPitch(System.Single)
-  nameWithType: ISoundModifier.GetPitch(Single)
-- uid: AGS.API.ISoundModifier.GetPitch*
-  name: GetPitch
-  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetPitch_
-  commentId: Overload:AGS.API.ISoundModifier.GetPitch
-  isSpec: "True"
-  fullName: AGS.API.ISoundModifier.GetPitch
-  nameWithType: ISoundModifier.GetPitch
-- uid: AGS.API.ISoundModifier.GetVolume(System.Single)
-  name: GetVolume(Single)
-  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetVolume_System_Single_
-  commentId: M:AGS.API.ISoundModifier.GetVolume(System.Single)
-  fullName: AGS.API.ISoundModifier.GetVolume(System.Single)
-  nameWithType: ISoundModifier.GetVolume(Single)
-- uid: AGS.API.ISoundModifier.GetVolume*
-  name: GetVolume
-  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_GetVolume_
-  commentId: Overload:AGS.API.ISoundModifier.GetVolume
-  isSpec: "True"
-  fullName: AGS.API.ISoundModifier.GetVolume
-  nameWithType: ISoundModifier.GetVolume
-- uid: AGS.API.ISoundModifier.OnChange
-  name: OnChange
-  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_OnChange
-  commentId: P:AGS.API.ISoundModifier.OnChange
-  fullName: AGS.API.ISoundModifier.OnChange
-  nameWithType: ISoundModifier.OnChange
-- uid: AGS.API.ISoundModifier.OnChange*
-  name: OnChange
-  href: api/AGS.API.ISoundModifier.html#AGS_API_ISoundModifier_OnChange_
-  commentId: Overload:AGS.API.ISoundModifier.OnChange
-  isSpec: "True"
-  fullName: AGS.API.ISoundModifier.OnChange
-  nameWithType: ISoundModifier.OnChange
 - uid: AGS.API.ISoundPlayer
   name: ISoundPlayer
   href: api/AGS.API.ISoundPlayer.html
@@ -13283,32 +13004,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISoundPlayer.IsPlaying
   nameWithType: ISoundPlayer.IsPlaying
-- uid: AGS.API.ISoundPlayer.OnSoundCompleted
-  name: OnSoundCompleted
-  href: api/AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_OnSoundCompleted
-  commentId: P:AGS.API.ISoundPlayer.OnSoundCompleted
-  fullName: AGS.API.ISoundPlayer.OnSoundCompleted
-  nameWithType: ISoundPlayer.OnSoundCompleted
-- uid: AGS.API.ISoundPlayer.OnSoundCompleted*
-  name: OnSoundCompleted
-  href: api/AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_OnSoundCompleted_
-  commentId: Overload:AGS.API.ISoundPlayer.OnSoundCompleted
-  isSpec: "True"
-  fullName: AGS.API.ISoundPlayer.OnSoundCompleted
-  nameWithType: ISoundPlayer.OnSoundCompleted
-- uid: AGS.API.ISoundPlayer.OnSoundStarted
-  name: OnSoundStarted
-  href: api/AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_OnSoundStarted
-  commentId: P:AGS.API.ISoundPlayer.OnSoundStarted
-  fullName: AGS.API.ISoundPlayer.OnSoundStarted
-  nameWithType: ISoundPlayer.OnSoundStarted
-- uid: AGS.API.ISoundPlayer.OnSoundStarted*
-  name: OnSoundStarted
-  href: api/AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_OnSoundStarted_
-  commentId: Overload:AGS.API.ISoundPlayer.OnSoundStarted
-  isSpec: "True"
-  fullName: AGS.API.ISoundPlayer.OnSoundStarted
-  nameWithType: ISoundPlayer.OnSoundStarted
 - uid: AGS.API.ISoundPlayer.Play(System.Boolean,AGS.API.ISoundProperties)
   name: Play(Boolean, ISoundProperties)
   href: api/AGS.API.ISoundPlayer.html#AGS_API_ISoundPlayer_Play_System_Boolean_AGS_API_ISoundProperties_
@@ -13379,19 +13074,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISoundProperties.Pitch
   nameWithType: ISoundProperties.Pitch
-- uid: AGS.API.ISoundProperties.Tags
-  name: Tags
-  href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Tags
-  commentId: P:AGS.API.ISoundProperties.Tags
-  fullName: AGS.API.ISoundProperties.Tags
-  nameWithType: ISoundProperties.Tags
-- uid: AGS.API.ISoundProperties.Tags*
-  name: Tags
-  href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Tags_
-  commentId: Overload:AGS.API.ISoundProperties.Tags
-  isSpec: "True"
-  fullName: AGS.API.ISoundProperties.Tags
-  nameWithType: ISoundProperties.Tags
 - uid: AGS.API.ISoundProperties.Volume
   name: Volume
   href: api/AGS.API.ISoundProperties.html#AGS_API_ISoundProperties_Volume
@@ -13456,51 +13138,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISpeechLine.Text
   nameWithType: ISpeechLine.Text
-- uid: AGS.API.ISplitPanelComponent
-  name: ISplitPanelComponent
-  href: api/AGS.API.ISplitPanelComponent.html
-  commentId: T:AGS.API.ISplitPanelComponent
-  fullName: AGS.API.ISplitPanelComponent
-  nameWithType: ISplitPanelComponent
-- uid: AGS.API.ISplitPanelComponent.BottomPanel
-  name: BottomPanel
-  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_BottomPanel
-  commentId: P:AGS.API.ISplitPanelComponent.BottomPanel
-  fullName: AGS.API.ISplitPanelComponent.BottomPanel
-  nameWithType: ISplitPanelComponent.BottomPanel
-- uid: AGS.API.ISplitPanelComponent.BottomPanel*
-  name: BottomPanel
-  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_BottomPanel_
-  commentId: Overload:AGS.API.ISplitPanelComponent.BottomPanel
-  isSpec: "True"
-  fullName: AGS.API.ISplitPanelComponent.BottomPanel
-  nameWithType: ISplitPanelComponent.BottomPanel
-- uid: AGS.API.ISplitPanelComponent.IsHorizontal
-  name: IsHorizontal
-  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_IsHorizontal
-  commentId: P:AGS.API.ISplitPanelComponent.IsHorizontal
-  fullName: AGS.API.ISplitPanelComponent.IsHorizontal
-  nameWithType: ISplitPanelComponent.IsHorizontal
-- uid: AGS.API.ISplitPanelComponent.IsHorizontal*
-  name: IsHorizontal
-  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_IsHorizontal_
-  commentId: Overload:AGS.API.ISplitPanelComponent.IsHorizontal
-  isSpec: "True"
-  fullName: AGS.API.ISplitPanelComponent.IsHorizontal
-  nameWithType: ISplitPanelComponent.IsHorizontal
-- uid: AGS.API.ISplitPanelComponent.TopPanel
-  name: TopPanel
-  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_TopPanel
-  commentId: P:AGS.API.ISplitPanelComponent.TopPanel
-  fullName: AGS.API.ISplitPanelComponent.TopPanel
-  nameWithType: ISplitPanelComponent.TopPanel
-- uid: AGS.API.ISplitPanelComponent.TopPanel*
-  name: TopPanel
-  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_TopPanel_
-  commentId: Overload:AGS.API.ISplitPanelComponent.TopPanel
-  isSpec: "True"
-  fullName: AGS.API.ISplitPanelComponent.TopPanel
-  nameWithType: ISplitPanelComponent.TopPanel
 - uid: AGS.API.ISprite
   name: ISprite
   href: api/AGS.API.ISprite.html
@@ -19395,12 +19032,12 @@ references:
   commentId: T:AGS.API.MousePosition
   fullName: AGS.API.MousePosition
   nameWithType: MousePosition
-- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport)
-  name: MousePosition(Single, Single, IViewport)
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_
-  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport)
-  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport)
-  nameWithType: MousePosition.MousePosition(Single, Single, IViewport)
+- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size)
+  name: MousePosition(Single, Single, IViewport, Size)
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_
+  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size)
+  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport, AGS.API.Size)
+  nameWithType: MousePosition.MousePosition(Single, Single, IViewport, Size)
 - uid: AGS.API.MousePosition.#ctor*
   name: MousePosition
   href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_
@@ -19473,19 +19110,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.MousePosition.GetWindowWidth
   nameWithType: MousePosition.GetWindowWidth
-- uid: AGS.API.MousePosition.VirtualResolution
-  name: VirtualResolution
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_VirtualResolution
-  commentId: P:AGS.API.MousePosition.VirtualResolution
-  fullName: AGS.API.MousePosition.VirtualResolution
-  nameWithType: MousePosition.VirtualResolution
-- uid: AGS.API.MousePosition.VirtualResolution*
-  name: VirtualResolution
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_VirtualResolution_
-  commentId: Overload:AGS.API.MousePosition.VirtualResolution
-  isSpec: "True"
-  fullName: AGS.API.MousePosition.VirtualResolution
-  nameWithType: MousePosition.VirtualResolution
 - uid: AGS.API.MousePosition.XMainViewport
   name: XMainViewport
   href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_XMainViewport
@@ -19660,6 +19284,38 @@ references:
   isSpec: "True"
   fullName: AGS.API.NumberEditorSliderAttribute.Step
   nameWithType: NumberEditorSliderAttribute.Step
+- uid: AGS.API.NumberValueChangedArgs
+  name: NumberValueChangedArgs
+  href: api/AGS.API.NumberValueChangedArgs.html
+  commentId: T:AGS.API.NumberValueChangedArgs
+  fullName: AGS.API.NumberValueChangedArgs
+  nameWithType: NumberValueChangedArgs
+- uid: AGS.API.NumberValueChangedArgs.#ctor(System.Boolean)
+  name: NumberValueChangedArgs(Boolean)
+  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs__ctor_System_Boolean_
+  commentId: M:AGS.API.NumberValueChangedArgs.#ctor(System.Boolean)
+  fullName: AGS.API.NumberValueChangedArgs.NumberValueChangedArgs(System.Boolean)
+  nameWithType: NumberValueChangedArgs.NumberValueChangedArgs(Boolean)
+- uid: AGS.API.NumberValueChangedArgs.#ctor*
+  name: NumberValueChangedArgs
+  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs__ctor_
+  commentId: Overload:AGS.API.NumberValueChangedArgs.#ctor
+  isSpec: "True"
+  fullName: AGS.API.NumberValueChangedArgs.NumberValueChangedArgs
+  nameWithType: NumberValueChangedArgs.NumberValueChangedArgs
+- uid: AGS.API.NumberValueChangedArgs.UserInitiated
+  name: UserInitiated
+  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs_UserInitiated
+  commentId: P:AGS.API.NumberValueChangedArgs.UserInitiated
+  fullName: AGS.API.NumberValueChangedArgs.UserInitiated
+  nameWithType: NumberValueChangedArgs.UserInitiated
+- uid: AGS.API.NumberValueChangedArgs.UserInitiated*
+  name: UserInitiated
+  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs_UserInitiated_
+  commentId: Overload:AGS.API.NumberValueChangedArgs.UserInitiated
+  isSpec: "True"
+  fullName: AGS.API.NumberValueChangedArgs.UserInitiated
+  nameWithType: NumberValueChangedArgs.UserInitiated
 - uid: AGS.API.ObjectEventArgs
   name: ObjectEventArgs
   href: api/AGS.API.ObjectEventArgs.html
