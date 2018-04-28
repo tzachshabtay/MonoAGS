@@ -18,12 +18,10 @@ namespace AGS.Editor
         private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
 
-        private IBorderComponent _lastSelectedBorder;
         private IEnabledComponent _lastSelectedEnabled;
         private IVisibleComponent _lastSelectedMaskVisible;
         private IImageComponent _lastSelectedMaskImage;
         private IEntity _lastSelectedEntity;
-        private IBorderStyle _lastObjectBorder;
         private bool _lastMaskVisible;
         private byte _lastOpacity;
         private bool _lastEnabled;
@@ -32,16 +30,12 @@ namespace AGS.Editor
         const float _padding = 42f;
         const float _gutterSize = 15f;
 
-        private ILabel _moveCursor;
-
         public GameDebugTree(AGSEditor editor, IRenderLayer layer, InspectorPanel inspector)
         {
             _editor = editor;
             _inspector = inspector;
             _addedObjects = new AGSConcurrentHashSet<string>(100, false);
             _layer = layer;
-            _moveCursor = editor.Editor.Factory.UI.GetLabel("MoveCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
-            _moveCursor.Text = FontIcons.Move;
         }
 
         public IPanel Panel => _scrollingPanel;
@@ -133,12 +127,8 @@ namespace AGS.Editor
             TypedParameter uiEventsAggParam = new TypedParameter(typeof(UIEventsAggregator), _editor.UIEventsAggregator);
             var uiEvents = _editor.EditorResolver.Container.Resolve<EditorUIEvents>(uiEventsAggParam);
             obj.AddComponent<EditorUIEvents>(uiEvents);
-            host.AddComponent<IDraggableComponent>();
             host.AddComponent<EntityDesigner>();
 
-            AGSHasCursorComponent hasCursor = new AGSHasCursorComponent(_editor.Editor.Events, _editor.Game.HitTest, _editor.Editor.Input);
-            hasCursor.SpecialCursor = _moveCursor;
-            obj.AddComponent<IHasCursorComponent>(hasCursor);
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
             var borderComponent = obj.GetComponent<IBorderComponent>();
@@ -151,17 +141,8 @@ namespace AGS.Editor
                 enabledComponent.Enabled = true;
                 enabledComponent.ClickThrough = false;
             }
-            if (image != null && borderComponent != null)
+            if (image != null)
             {
-                _lastSelectedBorder = borderComponent;
-                IBorderStyle border = null;
-                border = borderComponent.Border;
-                _lastObjectBorder = border;
-                IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
-                                                                                      Colors.Yellow.WithAlpha(150), Colors.Yellow), 1, true);
-                if (border == null) borderComponent.Border = hoverBorder;
-                else borderComponent.Border = AGSBorders.Multiple(border, hoverBorder);
-
                 if (image.Opacity == 0)
                 {
                     _lastOpacity = image.Opacity;
@@ -193,14 +174,11 @@ namespace AGS.Editor
 
         private void unselect()
         {
-            _lastSelectedEntity?.RemoveComponent<IDraggableComponent>();
-            _lastSelectedEntity?.RemoveComponent<IHasCursorComponent>();
+            _lastSelectedEntity?.GetComponent<EntityDesigner>()?.Dispose();
             _lastSelectedEntity?.RemoveComponent<EntityDesigner>();
-            var lastSelectedBorder = _lastSelectedBorder;
             var lastSelectedMaskVisible = _lastSelectedMaskVisible;
             var lastSelectedMaskImage = _lastSelectedMaskImage;
             var lastEnabled = _lastEnabled;
-            if (lastSelectedBorder != null) lastSelectedBorder.Border = _lastObjectBorder;
             if (lastSelectedMaskVisible != null) lastSelectedMaskVisible.Visible = _lastMaskVisible;
             if (lastSelectedMaskImage != null) lastSelectedMaskImage.Opacity = _lastOpacity;
             if (_lastSelectedEnabled != null)
@@ -208,8 +186,6 @@ namespace AGS.Editor
                 _lastSelectedEnabled.Enabled = lastEnabled;
                 _lastSelectedEnabled.ClickThrough = _lastClickThrough;
             }
-            _lastSelectedBorder = null;
-            _lastObjectBorder = null;
             _lastSelectedEnabled = null;
             _lastMaskVisible = false;
             _lastOpacity = 0;

@@ -1,13 +1,11 @@
-﻿using AGS.API;
-
-namespace AGS.Editor
+﻿namespace AGS.API
 {
     /// <summary>
     /// Adds the ability for an entity to be dragged on the screen with the mouse/touch.
     /// </summary>
     [RequiredComponent(typeof(ITranslateComponent))]
     [RequiredComponent(typeof(IDrawableInfoComponent), false)]
-    [RequiredComponent(typeof(EditorUIEvents))]
+    [RequiredComponent(typeof(IUIEvents))]
     public interface IDraggableComponent : IComponent
     {
         /// <summary>
@@ -45,5 +43,12 @@ namespace AGS.Editor
         /// </summary>
         /// <value>The drag maximum y.</value>
         float? DragMaxY { get; set; }
+
+        /// <summary>
+        /// An event that fires when dragging the entity starts. The x & y properties
+        /// of the entity are sent as the event arguments.
+        /// </summary>
+        /// <value>The event.</value>
+        IBlockingEvent<(float dragStartX, float dragStartY)> OnDragStart { get; }
     }
 }

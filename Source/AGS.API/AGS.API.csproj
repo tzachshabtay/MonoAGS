@@ -284,6 +284,8 @@
     <Compile Include="Audio\ISoundModifier.cs" />
     <Compile Include="Audio\IAudioRule.cs" />
     <Compile Include="Audio\IAudioSystem.cs" />
+    <Compile Include="Objects\IDraggableComponent.cs" />
+    <Compile Include="UI\Controls\MouseClickEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />

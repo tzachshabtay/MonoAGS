@@ -19,6 +19,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="GuiLabs.Undo" Version="1.0.2" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameView\" />
@@ -26,7 +27,6 @@
     <Folder Include="Input\" />
     <Folder Include="Components\" />
     <Folder Include="Components\EntityDesigner\" />
-    <Folder Include="Components\Draggable\" />
     <Folder Include="Components\SplitPanel\" />
   </ItemGroup>
 </Project>

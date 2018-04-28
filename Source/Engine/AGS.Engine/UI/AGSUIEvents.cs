@@ -14,8 +14,8 @@ namespace AGS.Engine
 			MouseEnter = new AGSEvent<MousePositionEventArgs> ();
 			MouseLeave = new AGSEvent<MousePositionEventArgs> ();
 			MouseMove = new AGSEvent<MousePositionEventArgs> ();
-			MouseClicked = new AGSEvent<MouseButtonEventArgs> ();
-            MouseDoubleClicked = new AGSEvent<MouseButtonEventArgs>();
+            MouseClicked = new AGSEvent<MouseClickEventArgs> ();
+            MouseDoubleClicked = new AGSEvent<MouseClickEventArgs>();
             MouseDown = new AGSEvent<MouseButtonEventArgs> ();
 			MouseUp = new AGSEvent<MouseButtonEventArgs> ();
             LostFocus = new AGSEvent<MouseButtonEventArgs>();
@@ -42,9 +42,9 @@ namespace AGS.Engine
 
 		public IEvent<MousePositionEventArgs> MouseMove { get; private set; }
 
-		public IEvent<MouseButtonEventArgs> MouseClicked { get; private set; }
+		public IEvent<MouseClickEventArgs> MouseClicked { get; private set; }
 
-        public IEvent<MouseButtonEventArgs> MouseDoubleClicked { get; private set; }
+        public IEvent<MouseClickEventArgs> MouseDoubleClicked { get; private set; }
 
         public IEvent<MouseButtonEventArgs> MouseDown { get; private set; }
 

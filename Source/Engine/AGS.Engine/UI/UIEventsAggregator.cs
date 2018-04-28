@@ -163,9 +163,10 @@ namespace AGS.Engine
             }
             bool fireClick = false;
             bool fireDoubleClick = false;
+            long elapsedClick = sw.ElapsedMilliseconds;
             if (fireUp)
             {
-                if (subscriber.Events.IsMouseIn && sw.ElapsedMilliseconds < 1500 && sw.ElapsedMilliseconds != 0)
+                if (subscriber.Events.IsMouseIn && elapsedClick < 1500 && elapsedClick != 0)
                 {
                     fireClick = true;
                     if (doubleClickSw.ElapsedMilliseconds == 0)
@@ -188,7 +189,7 @@ namespace AGS.Engine
 
             if (fireDown || fireUp || fireClick || fireDownOutside)
             {
-                MouseButtonEventArgs args = new MouseButtonEventArgs(subscriber.Entity, button, _mousePosition);
+                MouseClickEventArgs args = new MouseClickEventArgs(subscriber.Entity, button, _mousePosition, elapsedClick);
                 if (fireDown) await subscriber.Events.MouseDown.InvokeAsync(args);
                 else if (fireUp) await subscriber.Events.MouseUp.InvokeAsync(args);
                 else if (fireDownOutside) await subscriber.Events.LostFocus.InvokeAsync(args);

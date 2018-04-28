@@ -2,6 +2,7 @@
   "dependencies": {
     "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
     "NETStandard.Library": "1.6.0",
+    "System.ValueTuple": "4.4.0",
     "System.Xml.XmlSerializer": "4.3.0"
   },
   "frameworks": {

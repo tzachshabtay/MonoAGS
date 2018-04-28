@@ -157,12 +157,12 @@ namespace AGS.Engine
             get { return _uIEvents.MouseMove; } 
         }
 
-        public IEvent<MouseButtonEventArgs> MouseClicked 
+        public IEvent<MouseClickEventArgs> MouseClicked 
         {  
             get { return _uIEvents.MouseClicked; } 
         }
 
-        public IEvent<MouseButtonEventArgs> MouseDoubleClicked 
+        public IEvent<MouseClickEventArgs> MouseDoubleClicked 
         {  
             get { return _uIEvents.MouseDoubleClicked; } 
         }

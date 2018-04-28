@@ -32,14 +32,14 @@
         /// Note that a mouse click is mouse button pressed down, swiftly followed by button release.
         /// </summary>
         /// <value>The event.</value>
-		IEvent<MouseButtonEventArgs> MouseClicked { get; }
+		IEvent<MouseClickEventArgs> MouseClicked { get; }
 
         /// <summary>
         /// An event which is triggered whenever the mouse is double clicked within the boundaries of the entity.
         /// Note that a mouse double click is 2 swift mouse button clicks in a row (of the same button).
         /// </summary>
         /// <value>The event.</value>
-        IEvent<MouseButtonEventArgs> MouseDoubleClicked { get; }
+        IEvent<MouseClickEventArgs> MouseDoubleClicked { get; }
 
         /// <summary>
         /// An event which is triggered whenever a mouse button is pressed down within the boundaries of the entity.

@@ -1,28 +1,24 @@
 ﻿using System;
 using AGS.API;
-using AGS.Engine;
-using GuiLabs.Undo;
 
-namespace AGS.Editor
+namespace AGS.Engine
 {
     public class AGSDraggableComponent : AGSComponent, IDraggableComponent
     {
         private readonly IInput _input;
         private readonly IGameEvents _gameEvents;
-        private readonly ActionManager _actions;
-        private IGame _game;
-        private readonly AGSEditor _editor;
-        private IEntity _entity;
+        private readonly IGameSettings _settings;
         private float _dragObjectStartX, _dragObjectStartY, _dragMouseStartX, _dragMouseStartY;
         private ITranslate _translate;
         private IDrawableInfoComponent _drawable;
 
-        public AGSDraggableComponent(AGSEditor editor, ActionManager actions)
+        public AGSDraggableComponent(IInput input, IGameEvents gameEvents, IRuntimeSettings settings,
+                                     IBlockingEvent<(float dragStartX, float dragStartY)> onDragStart)
         {
-            _editor = editor;
-            _actions = actions;
-            _input = editor.Editor.Input;
-            _gameEvents = editor.Editor.Events;
+            _input = input;
+            _settings = settings;
+            _gameEvents = gameEvents;
+            OnDragStart = onDragStart;
             IsDragEnabled = true;
         }
 
@@ -40,15 +36,15 @@ namespace AGS.Editor
 
         public bool IsCurrentlyDragged { get; private set; }
 
+        public IBlockingEvent<(float dragStartX, float dragStartY)> OnDragStart { get; }
+
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            _entity = entity;
             entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
+            entity.Bind<IUIEvents>(c => c.MouseDown.Subscribe(onMouseDown), c => c.MouseDown.Unsubscribe(onMouseDown));
             entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
-            entity.Bind<EditorUIEvents>(c => c.MouseDown.Subscribe(onMouseDown), c => c.MouseDown.Unsubscribe(onMouseDown));
 
-            _game = _editor.Game.Find<IEntity>(entity.ID) == null ? _editor.Editor : _editor.Game;
             _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
@@ -64,9 +60,8 @@ namespace AGS.Editor
             IsCurrentlyDragged = true;
             _dragObjectStartX = _translate.X;
             _dragObjectStartY = _translate.Y;
-            var mousePos = getMousePosition();
-            _dragMouseStartX = mousePos.X;
-            _dragMouseStartY = mousePos.Y;
+            (_dragMouseStartX, _dragMouseStartY) = getMousePosition();
+            OnDragStart.Invoke((_dragObjectStartX, _dragObjectStartY));
         }
 
         private void onRepeatedlyExecute()
@@ -80,15 +75,11 @@ namespace AGS.Editor
 
             var mousePos = getMousePosition();
 
-			var translate = _translate;
-			if (translate == null) return;
+            var translate = _translate;
+            if (translate == null) return;
 
-            var diffX = mousePos.X - _dragMouseStartX;
-            var diffY = mousePos.Y - _dragMouseStartY;
-            if (_game == _editor.Game)
-            {
-                (diffX, diffY) = _editor.ToGameResolution(diffX, diffY);
-            }
+            var diffX = mousePos.x - _dragMouseStartX;
+            var diffY = mousePos.y - _dragMouseStartY;
             var translateX = _dragObjectStartX + diffX;
             var translateY = _dragObjectStartY + diffY;
 
@@ -106,29 +97,30 @@ namespace AGS.Editor
                 else translateX = translate.X;
             }
 
-            if (DragMinX != null && translateX < DragMinX.Value) translateX = translate.X;
-            else if (DragMaxX != null && translateX > DragMaxX.Value) translateX = translate.X;
-            if (DragMinY != null && translateY < DragMinY.Value) translateY = translate.Y;
-            else if (DragMaxY != null && translateY > DragMaxY.Value) translateY = translate.Y;
+            bool canDragX = true;
+            bool canDragY = true;
+            if (DragMinX != null && translateX < DragMinX.Value) canDragX = false;
+            else if (DragMaxX != null && translateX > DragMaxX.Value) canDragX = false;
+            if (DragMinY != null && translateY < DragMinY.Value) canDragY = false;
+            else if (DragMaxY != null && translateY > DragMaxY.Value) canDragY = false;
 
-            InspectorProperty property = new InspectorProperty(translate, "Location", translate.GetType().GetProperty(nameof(ITranslate.Location)));
-            PropertyAction action = new PropertyAction(property, new AGSLocation(translateX, translateY));
-            _actions.RecordAction(action);
+            if (canDragX) translate.X = translateX;
+            if (canDragY) translate.Y = translateY;
         }
 
-        private Vector2 getMousePosition()
+        private (float x, float y) getMousePosition()
         {
-			float mouseX = _input.MousePosition.XMainViewport;
-			float mouseY = _input.MousePosition.YMainViewport;
+            float mouseX = _input.MousePosition.XMainViewport;
+            float mouseY = _input.MousePosition.YMainViewport;
 
             var resolution = _drawable?.RenderLayer?.IndependentResolution;
-			if (resolution != null)
-			{
-                mouseX *= ((float)resolution.Value.Width / _game.Settings.VirtualResolution.Width);
-                mouseY *= ((float)resolution.Value.Height / _game.Settings.VirtualResolution.Height);
-			}
-			
-            return new Vector2(mouseX, mouseY);
-		}
+            if (resolution != null)
+            {
+                mouseX *= ((float)resolution.Value.Width / _settings.VirtualResolution.Width);
+                mouseY *= ((float)resolution.Value.Height / _settings.VirtualResolution.Height);
+            }
+
+            return (mouseX, mouseY);
+        }
     }
 }
