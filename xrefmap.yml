@@ -19421,12 +19421,12 @@ references:
   commentId: T:AGS.API.MousePosition
   fullName: AGS.API.MousePosition
   nameWithType: MousePosition
-- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size)
-  name: MousePosition(Single, Single, IViewport, Size)
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_
-  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size)
-  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport, AGS.API.Size)
-  nameWithType: MousePosition.MousePosition(Single, Single, IViewport, Size)
+- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.Rectangle)
+  name: MousePosition(Single, Single, IViewport, Size, Rectangle)
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_AGS_API_Rectangle_
+  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.Rectangle)
+  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport, AGS.API.Size, AGS.API.Rectangle)
+  nameWithType: MousePosition.MousePosition(Single, Single, IViewport, Size, Rectangle)
 - uid: AGS.API.MousePosition.#ctor*
   name: MousePosition
   href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_
@@ -19473,32 +19473,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.MousePosition.GetViewportY
   nameWithType: MousePosition.GetViewportY
-- uid: AGS.API.MousePosition.GetWindowHeight
-  name: GetWindowHeight
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowHeight
-  commentId: P:AGS.API.MousePosition.GetWindowHeight
-  fullName: AGS.API.MousePosition.GetWindowHeight
-  nameWithType: MousePosition.GetWindowHeight
-- uid: AGS.API.MousePosition.GetWindowHeight*
-  name: GetWindowHeight
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowHeight_
-  commentId: Overload:AGS.API.MousePosition.GetWindowHeight
-  isSpec: "True"
-  fullName: AGS.API.MousePosition.GetWindowHeight
-  nameWithType: MousePosition.GetWindowHeight
-- uid: AGS.API.MousePosition.GetWindowWidth
-  name: GetWindowWidth
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowWidth
-  commentId: P:AGS.API.MousePosition.GetWindowWidth
-  fullName: AGS.API.MousePosition.GetWindowWidth
-  nameWithType: MousePosition.GetWindowWidth
-- uid: AGS.API.MousePosition.GetWindowWidth*
-  name: GetWindowWidth
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowWidth_
-  commentId: Overload:AGS.API.MousePosition.GetWindowWidth
-  isSpec: "True"
-  fullName: AGS.API.MousePosition.GetWindowWidth
-  nameWithType: MousePosition.GetWindowWidth
 - uid: AGS.API.MousePosition.XMainViewport
   name: XMainViewport
   href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_XMainViewport

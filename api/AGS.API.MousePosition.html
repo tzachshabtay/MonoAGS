@@ -118,19 +118,19 @@ Allows to get the position in either window coordinates or viewport coordinates.
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_.md&amp;value=---%0Auid%3A%20AGS.API.MousePosition.%23ctor(System.Single%2CSystem.Single%2CAGS.API.IViewport%2CAGS.API.Size)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_AGS_API_Rectangle_.md&amp;value=---%0Auid%3A%20AGS.API.MousePosition.%23ctor(System.Single%2CSystem.Single%2CAGS.API.IViewport%2CAGS.API.Size%2CAGS.API.Rectangle)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/Input/MousePosition.cs/#L24">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/Input/MousePosition.cs/#L23">View Source</a>
   </span>
   <a id="AGS_API_MousePosition__ctor_" data-uid="AGS.API.MousePosition.#ctor*"></a>
-  <h4 id="AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_" data-uid="AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size)">MousePosition(Single, Single, IViewport, Size)</h4>
+  <h4 id="AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_AGS_API_Rectangle_" data-uid="AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.Rectangle)">MousePosition(Single, Single, IViewport, Size, Rectangle)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="AGS.API.MousePosition.html">MousePosition</a> struct.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MousePosition(float xWindow, float yWindow, IViewport viewport, Size virtualResolution)</code></pre>
+    <pre><code class="lang-csharp hljs">public MousePosition(float xWindow, float yWindow, IViewport viewport, Size virtualResolution, Rectangle window)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -166,70 +166,16 @@ Allows to get the position in either window coordinates or viewport coordinates.
         <td><p>The virtual resolution.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.Rectangle.html">Rectangle</a></td>
+        <td><span class="parametername">window</span></td>
+        <td><p>The hosting window rectangle.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h3 id="properties">Properties
   </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_MousePosition_GetWindowHeight.md&amp;value=---%0Auid%3A%20AGS.API.MousePosition.GetWindowHeight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/Input/MousePosition.cs/#L12">View Source</a>
-  </span>
-  <a id="AGS_API_MousePosition_GetWindowHeight_" data-uid="AGS.API.MousePosition.GetWindowHeight*"></a>
-  <h4 id="AGS_API_MousePosition_GetWindowHeight" data-uid="AGS.API.MousePosition.GetWindowHeight">GetWindowHeight</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Func&lt;int&gt; GetWindowHeight { set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_MousePosition_GetWindowWidth.md&amp;value=---%0Auid%3A%20AGS.API.MousePosition.GetWindowWidth%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/Input/MousePosition.cs/#L11">View Source</a>
-  </span>
-  <a id="AGS_API_MousePosition_GetWindowWidth_" data-uid="AGS.API.MousePosition.GetWindowWidth*"></a>
-  <h4 id="AGS_API_MousePosition_GetWindowWidth" data-uid="AGS.API.MousePosition.GetWindowWidth">GetWindowWidth</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Func&lt;int&gt; GetWindowWidth { set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_MousePosition_XMainViewport.md&amp;value=---%0Auid%3A%20AGS.API.MousePosition.XMainViewport%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
