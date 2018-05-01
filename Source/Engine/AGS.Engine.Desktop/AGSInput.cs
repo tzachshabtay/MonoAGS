@@ -33,8 +33,6 @@ namespace AGS.Engine.Desktop
             _actions = new ConcurrentQueue<Func<Task>>();
             _windowSize = windowSize;
             this._shouldBlockInput = shouldBlockInput;
-            API.MousePosition.GetWindowWidth = () => _windowSize.GetWidth(_game);
-            API.MousePosition.GetWindowHeight = () => _windowSize.GetHeight(_game);
             this._state = state;
             this._keysDown = new AGSConcurrentHashSet<API.Key>();
 
@@ -110,7 +108,7 @@ namespace AGS.Engine.Desktop
 
         public bool IsKeyDown(AGS.API.Key key) => _keysDown.Contains(key);
 
-        public MousePosition MousePosition => new MousePosition(_mouseX, _mouseY, _state.Viewport, _virtualResolution);
+        public MousePosition MousePosition => new MousePosition(_mouseX, _mouseY, _state.Viewport, _virtualResolution, _windowSize.GetWindow(_game));
 
         public bool LeftMouseButtonDown { get; private set; }
         public bool RightMouseButtonDown { get; private set; }

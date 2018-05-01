@@ -9,10 +9,11 @@ using OpenTK.Graphics;
 using IOS::UIKit;
 using IOS::CoreGraphics;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace AGS.Engine.IOS
 {
-    public class IOSGameWindow : IGameWindow
+    public class IOSGameWindow : IGameWindow, IHostingWindow
     {
         private IOSGameView _view;
         private bool _started;
@@ -24,7 +25,7 @@ namespace AGS.Engine.IOS
         private IOSGameWindow()
         {
             Debug.WriteLine("IOS Game Window Constructor");
-            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>());
+            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>().As<IHostingWindow>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<IOSGestures>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterType<IOSInput>().SingleInstance().As<IInput>().As<IAGSInput>());
         }
@@ -40,6 +41,8 @@ namespace AGS.Engine.IOS
                 OnNewView?.Invoke(this, value);
             }
         }
+
+        public Rectangle HostingWindow => new Rectangle(0, 0, Width, Height);
 
         public event EventHandler<IOSGameView> OnNewView;
 
@@ -65,6 +68,10 @@ namespace AGS.Engine.IOS
         public event EventHandler<FrameEventArgs> RenderFrame;
         public event EventHandler<EventArgs> Resize;
         public event EventHandler<FrameEventArgs> UpdateFrame;
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
 
         public void OnLoad(EventArgs args)
         {

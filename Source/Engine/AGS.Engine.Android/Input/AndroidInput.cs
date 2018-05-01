@@ -18,13 +18,10 @@ namespace AGS.Engine.Android
 
         public AndroidInput(AndroidSimpleGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
         {
-            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0));
+            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0), windowSize.GetWindow(null));
             _shouldBlockInput = shouldBlockInput;
             _windowSize = windowSize;
             _state = state;
-            float density = Resources.System.DisplayMetrics.Density;
-            API.MousePosition.GetWindowWidth = () => (int)(_windowSize.GetWidth(null) - ((GLUtils.ScreenViewport.X * 2) / density));
-            API.MousePosition.GetWindowHeight = () => (int)(_windowSize.GetHeight(null) - ((GLUtils.ScreenViewport.Y * 2) / density));
 			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseMove = new AGSEvent<MousePositionEventArgs>();
@@ -124,7 +121,7 @@ namespace AGS.Engine.Android
         { 
             float x = convertX(e.GetX());
             float y = convertY(e.GetY());
-            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution);
+            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution, _windowSize.GetWindow(null));
         }
 
         private float convertX(float x)

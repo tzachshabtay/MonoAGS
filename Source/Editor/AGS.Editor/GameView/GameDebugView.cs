@@ -17,14 +17,16 @@ namespace AGS.Editor
         private readonly IInput _input;
         private readonly KeyboardBindings _keyboardBindings;
         private readonly ActionManager _actions;
+        private readonly GameToolbar _toolbar;
         private const string _panelId = "Game Debug Tree Panel";
         private IPanel _panel;
         private ISplitPanelComponent _splitPanel;
         private IDebugTab _currentTab;
         private IButton _panesButton;
 
-        public GameDebugView(AGSEditor editor, KeyboardBindings keyboardBindings, ActionManager actions)
+        public GameDebugView(AGSEditor editor, KeyboardBindings keyboardBindings, ActionManager actions, GameToolbar toolbar)
         {
+            _toolbar = toolbar;
             _actions = actions;
             _editor = editor;
             _keyboardBindings = keyboardBindings;
@@ -119,12 +121,14 @@ namespace AGS.Editor
                 bottomPanel.BaseSize = new SizeF(_panel.Width, bottomPanel.Height);
                 _currentTab.Resize();
                 _inspector.Resize();
+                resizeGameWindow();
             };
         }
 
         public Task Show()
         {
             _panel.Visible = true;
+            resizeGameWindow();
             return _currentTab.Show();
         }
 
@@ -132,6 +136,23 @@ namespace AGS.Editor
         {
             _panel.Visible = false;
             _currentTab.Hide();
+            resizeGameWindow();
+        }
+
+        private void resizeGameWindow()
+        {
+            int height = _editor.Editor.Settings.WindowSize.Height - 100;
+            if (_panel.Visible)
+            {
+                float panelWidth = MathUtils.Lerp(0f, 0f, _layer.IndependentResolution.Value.Width, _editor.Editor.Settings.WindowSize.Width, _panel.Width);
+                AGSEditor.Platform.SetHostedGameWindow(new Rectangle((int)Math.Round(panelWidth), 0, (int)Math.Round(_editor.Editor.Settings.WindowSize.Width - panelWidth), height));
+                _toolbar.SetPosition(_panel.Width);
+            }
+            else
+            {
+                AGSEditor.Platform.SetHostedGameWindow(new Rectangle(0, 0, _editor.Editor.Settings.WindowSize.Width, height));
+                _toolbar.SetPosition(0f);
+            }
         }
 
         private Task onPaneSwitch(MouseButtonEventArgs args)

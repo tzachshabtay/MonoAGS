@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using AGS.API;
 using AGS.Engine;
+using Autofac;
 using GuiLabs.Undo;
 
 namespace AGS.Editor
@@ -35,6 +37,8 @@ namespace AGS.Editor
             _state = editor.Editor.State;
             _events = editor.Editor.Events;
             _input = editor.Editor.Input;
+            var window = editor.GameResolver.Container.Resolve<IHostingWindow>();
+            window.PropertyChanged += onWindowPropertyChanged;
             _resizeVisible = true;
             _resizeHandles = new List<ResizeHandle>(8);
             _rotateHandles = new List<RotateHandle>(4);
@@ -147,6 +151,11 @@ namespace AGS.Editor
             foreach (var handle in _resizeHandles) handle.Visit();
             foreach (var handle in _rotateHandles) handle.Visit();
             _pivotHandle.Visit();
+        }
+
+        private void onWindowPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            updatePositions();
         }
 
         private void onBoundingBoxChanged()

@@ -17,11 +17,10 @@ namespace AGS.Engine.IOS
 
         public IOSInput(IOSGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IGameWindow gameWindow)
         {
-            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0));
+            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0), getWindow());
             _shouldBlockInput = shouldBlockInput;
             _gameWindow = gameWindow;
             _state = state;
-            updateWindowSizeFunctions();
 
 			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
@@ -94,19 +93,18 @@ namespace AGS.Engine.IOS
         {
             float x = convertX(e.MousePosition.XWindow);
             float y = convertY(e.MousePosition.YWindow);
-            updateWindowSizeFunctions();
-            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution);
+            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution, getWindow());
         }
 
-        private void updateWindowSizeFunctions()
+        private Rectangle getWindow()
         {
 			//we have to statically evaluate the window size, because _gameWindow.Width & Height must be called from the UI thread.
             float density = (float)UIScreen.MainScreen.Scale;
 			int windowWidth = _gameWindow.Width;
             int windowHeight = _gameWindow.Height;
 
-            API.MousePosition.GetWindowWidth = () => (int)((windowWidth - (GLUtils.ScreenViewport.X * 2)) / density);
-            API.MousePosition.GetWindowHeight = () => (int)((windowHeight - (GLUtils.ScreenViewport.Y * 2)) / density);
+            return new Rectangle(0, 0, (int)((windowWidth - (GLUtils.ScreenViewport.X * 2)) / density),
+                                       (int)((windowHeight - (GLUtils.ScreenViewport.Y * 2)) / density));
         }
 
         private float convertX(float x)

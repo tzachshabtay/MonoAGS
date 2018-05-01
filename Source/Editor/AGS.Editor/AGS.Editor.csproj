@@ -20,6 +20,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="GuiLabs.Undo" Version="1.0.2" />
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+    <PackageReference Include="Fody" Version="2.4.1" />
+    <PackageReference Include="PropertyChanged.Fody" Version="2.1.4" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameView\" />

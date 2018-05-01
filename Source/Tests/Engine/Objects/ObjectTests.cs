@@ -209,8 +209,9 @@ namespace Tests
 
             Mock<IUIEvents> uiEvents = new Mock<IUIEvents>();
             Mock<IEvent<MouseButtonEventArgs>> buttonEvent = new Mock<IEvent<MouseButtonEventArgs>>();
+            Mock<IEvent<MouseClickEventArgs>> buttonClickEvent = new Mock<IEvent<MouseClickEventArgs>>();
             Mock<IEvent<MousePositionEventArgs>> mouseEvent = new Mock<IEvent<MousePositionEventArgs>>();
-            uiEvents.Setup(u => u.MouseClicked).Returns(buttonEvent.Object);
+            uiEvents.Setup(u => u.MouseClicked).Returns(buttonClickEvent.Object);
             uiEvents.Setup(u => u.MouseDown).Returns(buttonEvent.Object);
             uiEvents.Setup(u => u.MouseUp).Returns(buttonEvent.Object);
             uiEvents.Setup(u => u.LostFocus).Returns(buttonEvent.Object);

@@ -51,23 +51,23 @@ namespace AGS.Engine
             _graphics.LoadIdentity();
         }
 
-        public void RefreshViewport(IGameSettings settings, IGameWindow gameWindow, IViewport viewport)
+        public void RefreshViewport(IGameSettings settings, IHostingWindow gameWindow, IViewport viewport)
         {
             float viewX = 0;
             float viewY = 0;
-            int width = gameWindow.Width;
-            int height = gameWindow.Height;
+            float width = gameWindow.HostingWindow.Width;
+            float height = gameWindow.HostingWindow.Height;
             if (settings.PreserveAspectRatio) //http://www.david-amador.com/2013/04/opengl-2d-independent-resolution-rendering/
             {
                 float targetAspectRatio = (float)settings.VirtualResolution.Width / settings.VirtualResolution.Height;
-                Size screen = new Size(gameWindow.Width, gameWindow.Height);
+                Size screen = new Size(gameWindow.HostingWindow.Width, gameWindow.HostingWindow.Height);
                 width = screen.Width;
-                height = (int)(width / targetAspectRatio + 0.5f);
+                height = width / targetAspectRatio + 0.5f;
                 if (height > screen.Height)
                 {
                     //It doesn't fit our height, we must switch to pillarbox then
                     height = screen.Height;
-                    width = (int)(height * targetAspectRatio + 0.5f);
+                    width = height * targetAspectRatio + 0.5f;
                 }
 
                 // set up the new viewport centered in the backbuffer
@@ -76,8 +76,8 @@ namespace AGS.Engine
             }
 
             var projectionBox = viewport.ProjectionBox;
-			viewX = viewX + (float)(viewX + width) * projectionBox.X;
-			viewY = viewY + (float)(viewY + height) * projectionBox.Y;
+			viewX = viewX + (viewX + width) * projectionBox.X;
+			viewY = viewY + (viewY + height) * projectionBox.Y;
 			var parent = viewport.Parent;
 			if (parent != null)
 			{
@@ -88,12 +88,12 @@ namespace AGS.Engine
                     viewY += boundingBoxes.ViewportBox.MinY;
 				}
 			}
-			width = (int)Math.Round((float)width * projectionBox.Width);
-			height = (int)Math.Round((float)height * projectionBox.Height);
-            var viewXInt = (int)Math.Round(viewX);
-            var viewYInt = (int)Math.Round(viewY);
-            ScreenViewport = new Rectangle(viewXInt, viewYInt, width, height);
-            _graphics.Viewport(viewXInt, viewYInt, width, height);
+			int widthInt = (int)Math.Round((float)width * projectionBox.Width);
+			int heightInt = (int)Math.Round((float)height * projectionBox.Height);
+            var viewXInt = (int)Math.Round(viewX + gameWindow.HostingWindow.X);
+            var viewYInt = (int)Math.Round(viewY + gameWindow.HostingWindow.Y);
+            ScreenViewport = new Rectangle(viewXInt, viewYInt, widthInt, heightInt);
+            _graphics.Viewport(viewXInt, viewYInt, widthInt, heightInt);
         }
 
 		public void GenBuffers()

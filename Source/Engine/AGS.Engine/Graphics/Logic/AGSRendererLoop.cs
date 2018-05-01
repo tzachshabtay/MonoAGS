@@ -13,7 +13,7 @@ namespace AGS.Engine
 		private readonly Resolver _resolver;
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
-        private readonly IGameWindow _gameWindow;
+        private readonly IHostingWindow _gameWindow;
         private readonly IDisplayList _displayList;
         private readonly IInput _input;
         private readonly IGameSettings _noAspectRatioSettings;
@@ -24,7 +24,7 @@ namespace AGS.Engine
         private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
 
 		public AGSRendererLoop (Resolver resolver, IGame game,
-            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IGameWindow gameWindow,
+            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IHostingWindow gameWindow,
             IAGSRenderPipeline pipeline, IDisplayList displayList, 
             IInput input, IMatrixUpdater matrixUpdater)
 		{

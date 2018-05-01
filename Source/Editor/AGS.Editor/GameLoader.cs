@@ -120,6 +120,7 @@ namespace AGS.Editor
             var resolver = new Resolver(AGSGame.Device);
             resolver.Builder.RegisterType<EditorShouldBlockEngineInput>().SingleInstance().As<IShouldBlockInput>().As<EditorShouldBlockEngineInput>();
             resolver.Builder.RegisterInstance(updatePump).As<IUpdateMessagePump>().As<IUpdateThread>();
+            AGSEditor.Platform.SetResolverForGame(resolver);
             var game = AGSGame.CreateEmpty(resolver);
             editor.Game = game;
             editor.GameResolver = resolver;
@@ -130,17 +131,17 @@ namespace AGS.Editor
             var resourceLoader = resolver.Container.Resolve<IResourceLoader>();
             resourceLoader.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(assembly), 2));
 
-            _gameDebugView = new Lazy<GameDebugView>(() =>
-            {
-                var gameDebugView = new GameDebugView(editor, keyboardBindings, actions);
-                gameDebugView.Load();
-                return gameDebugView;
-            });
-
             EditorShouldBlockEngineInput blocker = resolver.Container.Resolve<EditorShouldBlockEngineInput>();
 
             var toolbar = new GameToolbar(blocker, editor.Editor.Input);
             toolbar.Init(editor.Editor.Factory);
+
+            _gameDebugView = new Lazy<GameDebugView>(() =>
+            {
+                var gameDebugView = new GameDebugView(editor, keyboardBindings, actions, toolbar);
+                gameDebugView.Load();
+                return gameDebugView;
+            });
 
             game.Events.OnLoad.Subscribe(() =>
             {
