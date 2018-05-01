@@ -41,6 +41,7 @@ namespace AGS.Editor
                 _draggable.OnDragStart.Subscribe(onDragStart);
 
                 var moveCursor = editor.Editor.Factory.UI.GetLabel("MoveCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
+                moveCursor.Pivot = new PointF(0.5f, 0.5f);
                 moveCursor.Text = FontIcons.Move;
 
                 _handle.AddComponent<IHasCursorComponent>().SpecialCursor = moveCursor;

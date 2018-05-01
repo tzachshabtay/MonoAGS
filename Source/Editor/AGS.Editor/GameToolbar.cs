@@ -26,7 +26,7 @@ namespace AGS.Editor
         {
             _pointer = factory.UI.GetLabel("PointerCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
             _pointer.Text = FontIcons.Pointer;
-            _pointer.Pivot = new PointF(0f, 1f);
+            _pointer.Pivot = new PointF(0.29f, 0.83f);
 
             var toolbarHeight = _resolution.Height / 20f;
             _toolbar = factory.UI.GetPanel("GameToolbar", _resolution.Width / 2f, toolbarHeight, _resolution.Width / 2f, _resolution.Height - toolbarHeight);
