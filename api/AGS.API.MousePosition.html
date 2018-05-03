@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Struct MousePosition
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.35.2.0">
+    <meta name="generator" content="docfx 2.35.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -118,19 +118,19 @@ Allows to get the position in either window coordinates or viewport coordinates.
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_AGS_API_Rectangle_.md&amp;value=---%0Auid%3A%20AGS.API.MousePosition.%23ctor(System.Single%2CSystem.Single%2CAGS.API.IViewport%2CAGS.API.Size%2CAGS.API.Rectangle)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_AGS_API_IWindowInfo_.md&amp;value=---%0Auid%3A%20AGS.API.MousePosition.%23ctor(System.Single%2CSystem.Single%2CAGS.API.IViewport%2CAGS.API.Size%2CAGS.API.IWindowInfo)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/Input/MousePosition.cs/#L23">View Source</a>
   </span>
   <a id="AGS_API_MousePosition__ctor_" data-uid="AGS.API.MousePosition.#ctor*"></a>
-  <h4 id="AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_AGS_API_Rectangle_" data-uid="AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.Rectangle)">MousePosition(Single, Single, IViewport, Size, Rectangle)</h4>
+  <h4 id="AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_AGS_API_IWindowInfo_" data-uid="AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.IWindowInfo)">MousePosition(Single, Single, IViewport, Size, IWindowInfo)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="AGS.API.MousePosition.html">MousePosition</a> struct.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MousePosition(float xWindow, float yWindow, IViewport viewport, Size virtualResolution, Rectangle window)</code></pre>
+    <pre><code class="lang-csharp hljs">public MousePosition(float xWindow, float yWindow, IViewport viewport, Size virtualResolution, IWindowInfo window)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -167,9 +167,9 @@ Allows to get the position in either window coordinates or viewport coordinates.
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="AGS.API.Rectangle.html">Rectangle</a></td>
+        <td><a class="xref" href="AGS.API.IWindowInfo.html">IWindowInfo</a></td>
         <td><span class="parametername">window</span></td>
-        <td><p>The hosting window rectangle.</p>
+        <td><p>The hosting window info.</p>
 </td>
       </tr>
     </tbody>

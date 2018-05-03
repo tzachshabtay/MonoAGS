@@ -7961,12 +7961,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.IGame.Settings
   nameWithType: IGame.Settings
-- uid: AGS.API.IGame.Start(AGS.API.IGameSettings)
-  name: Start(IGameSettings)
-  href: api/AGS.API.IGame.html#AGS_API_IGame_Start_AGS_API_IGameSettings_
-  commentId: M:AGS.API.IGame.Start(AGS.API.IGameSettings)
-  fullName: AGS.API.IGame.Start(AGS.API.IGameSettings)
-  nameWithType: IGame.Start(IGameSettings)
+- uid: AGS.API.IGame.Start
+  name: Start()
+  href: api/AGS.API.IGame.html#AGS_API_IGame_Start
+  commentId: M:AGS.API.IGame.Start
+  fullName: AGS.API.IGame.Start()
+  nameWithType: IGame.Start()
 - uid: AGS.API.IGame.Start*
   name: Start
   href: api/AGS.API.IGame.html#AGS_API_IGame_Start_
@@ -15853,6 +15853,51 @@ references:
   isSpec: "True"
   fullName: AGS.API.IWalkComponent.WalkStep
   nameWithType: IWalkComponent.WalkStep
+- uid: AGS.API.IWindowInfo
+  name: IWindowInfo
+  href: api/AGS.API.IWindowInfo.html
+  commentId: T:AGS.API.IWindowInfo
+  fullName: AGS.API.IWindowInfo
+  nameWithType: IWindowInfo
+- uid: AGS.API.IWindowInfo.AppWindowHeight
+  name: AppWindowHeight
+  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_AppWindowHeight
+  commentId: P:AGS.API.IWindowInfo.AppWindowHeight
+  fullName: AGS.API.IWindowInfo.AppWindowHeight
+  nameWithType: IWindowInfo.AppWindowHeight
+- uid: AGS.API.IWindowInfo.AppWindowHeight*
+  name: AppWindowHeight
+  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_AppWindowHeight_
+  commentId: Overload:AGS.API.IWindowInfo.AppWindowHeight
+  isSpec: "True"
+  fullName: AGS.API.IWindowInfo.AppWindowHeight
+  nameWithType: IWindowInfo.AppWindowHeight
+- uid: AGS.API.IWindowInfo.AppWindowWidth
+  name: AppWindowWidth
+  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_AppWindowWidth
+  commentId: P:AGS.API.IWindowInfo.AppWindowWidth
+  fullName: AGS.API.IWindowInfo.AppWindowWidth
+  nameWithType: IWindowInfo.AppWindowWidth
+- uid: AGS.API.IWindowInfo.AppWindowWidth*
+  name: AppWindowWidth
+  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_AppWindowWidth_
+  commentId: Overload:AGS.API.IWindowInfo.AppWindowWidth
+  isSpec: "True"
+  fullName: AGS.API.IWindowInfo.AppWindowWidth
+  nameWithType: IWindowInfo.AppWindowWidth
+- uid: AGS.API.IWindowInfo.GameSubWindow
+  name: GameSubWindow
+  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_GameSubWindow
+  commentId: P:AGS.API.IWindowInfo.GameSubWindow
+  fullName: AGS.API.IWindowInfo.GameSubWindow
+  nameWithType: IWindowInfo.GameSubWindow
+- uid: AGS.API.IWindowInfo.GameSubWindow*
+  name: GameSubWindow
+  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_GameSubWindow_
+  commentId: Overload:AGS.API.IWindowInfo.GameSubWindow
+  isSpec: "True"
+  fullName: AGS.API.IWindowInfo.GameSubWindow
+  nameWithType: IWindowInfo.GameSubWindow
 - uid: AGS.API.IWorldPositionComponent
   name: IWorldPositionComponent
   href: api/AGS.API.IWorldPositionComponent.html
@@ -19421,12 +19466,12 @@ references:
   commentId: T:AGS.API.MousePosition
   fullName: AGS.API.MousePosition
   nameWithType: MousePosition
-- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.Rectangle)
-  name: MousePosition(Single, Single, IViewport, Size, Rectangle)
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_AGS_API_Rectangle_
-  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.Rectangle)
-  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport, AGS.API.Size, AGS.API.Rectangle)
-  nameWithType: MousePosition.MousePosition(Single, Single, IViewport, Size, Rectangle)
+- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.IWindowInfo)
+  name: MousePosition(Single, Single, IViewport, Size, IWindowInfo)
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_AGS_API_IWindowInfo_
+  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.IWindowInfo)
+  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport, AGS.API.Size, AGS.API.IWindowInfo)
+  nameWithType: MousePosition.MousePosition(Single, Single, IViewport, Size, IWindowInfo)
 - uid: AGS.API.MousePosition.#ctor*
   name: MousePosition
   href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_
