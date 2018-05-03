@@ -106,7 +106,7 @@ namespace AGS.Editor
 
                 if (MathUtils.FloatEquals(offsetX, 0f) || MathUtils.FloatEquals(offsetY, 0f)) return;
 
-                (offsetX, offsetY) = _editor.ToGameResolution(offsetX, offsetY);
+                (offsetX, offsetY) = _editor.ToGameSize(offsetX, offsetY);
 
                 float angle = (float)MathHelper.RadiansToDegrees(-Math.Atan2(offsetX, offsetY)) + 90f;
 

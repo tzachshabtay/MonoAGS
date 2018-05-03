@@ -112,7 +112,7 @@ namespace AGS.Editor
 
                 float xDiff = _input.MousePosition.XMainViewport - _xOnDown;
                 float yDiff = _input.MousePosition.YMainViewport - _yOnDown;
-                (xDiff, yDiff) = _editor.ToGameResolution(xDiff, yDiff);
+                (xDiff, yDiff) = _editor.ToGameSize(xDiff, yDiff);
                 float pivotXOffset = xDiff / boundingBox.WorldBoundingBox.Width;
                 float pivotYOffset = yDiff / boundingBox.WorldBoundingBox.Height;
                 float toPivotX = _pivotOnDown.X + pivotXOffset;

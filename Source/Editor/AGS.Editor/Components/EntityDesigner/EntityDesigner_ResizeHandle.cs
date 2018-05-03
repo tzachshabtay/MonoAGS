@@ -206,7 +206,7 @@ namespace AGS.Editor
 
             private void scale(float width, float height)
             {
-                (width, height) = _editor.ToGameResolution(width, height);
+                (width, height) = _editor.ToGameSize(width, height);
                 float w = _widthOnDown + width;
                 float h = _heightOnDown + height;
                 if (_input.IsKeyDown(Key.AltLeft) || _input.IsKeyDown(Key.AltRight))

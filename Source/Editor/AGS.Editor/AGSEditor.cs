@@ -50,6 +50,20 @@ namespace AGS.Editor
             return (x, y);
         }
 
+        public (float, float) ToGameSize(float width, float height)
+        {
+            width = MathUtils.Lerp(0f, 0f, Editor.Settings.VirtualResolution.Width, Game.Settings.VirtualResolution.Width, width);
+            height = MathUtils.Lerp(0f, 0f, Editor.Settings.VirtualResolution.Height, Game.Settings.VirtualResolution.Height, height);
+            return (width, height);
+        }
+
+        public (float, float) ToEditorSize(float width, float height)
+        {
+            width = MathUtils.Lerp(0f, 0f, Game.Settings.VirtualResolution.Width, Editor.Settings.VirtualResolution.Width, width);
+            height = MathUtils.Lerp(0f, 0f, Game.Settings.VirtualResolution.Height, Editor.Settings.VirtualResolution.Height, height);
+            return (width, height);
+        }
+
         public static void SetupResolver()
         {
             Resolver.Override(resolver => resolver.Builder.RegisterType<KeyboardBindings>().SingleInstance());
