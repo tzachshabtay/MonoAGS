@@ -50,12 +50,17 @@ namespace AGS.Engine
 
         public static IGLUtils GLUtils { get; private set; }
 
-		public static IGame CreateEmpty(Resolver resolver = null)
+        public static IGame Create(IGameSettings settings)
+        {
+            var resolver = new Resolver(Device, settings);
+            return Create(resolver);
+        }
+
+		public static IGame Create(Resolver resolver)
 		{
 			UIThreadID = Environment.CurrentManagedThreadId;
 
 			printRuntime();
-			resolver = resolver ?? new Resolver(Device);
 			resolver.Build();
 			AGSGame game = resolver.Container.Resolve<AGSGame>();
 			game._resolver = resolver;
@@ -92,10 +97,11 @@ namespace AGS.Engine
 
         public Resolver GetResolver() => _resolver;
 
-        public void Start(IGameSettings settings)
+        public void Start()
 		{
             _gameCount++;
             _gameIndex = _gameCount;
+            var settings = _resolver.Container.Resolve<IGameSettings>();
 			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), settings.VirtualResolution));
             TypedParameter settingsParameter = new TypedParameter(typeof(IGameSettings), settings);
 

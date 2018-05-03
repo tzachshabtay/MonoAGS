@@ -14,9 +14,9 @@ namespace AGS.Editor.Desktop
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore CS0067
 
-        public int GetHeight(INativeWindow gameWindow) => Window.Height;
+        public int GetHeight(INativeWindow gameWindow) => gameWindow?.ClientSize.Height ?? 0;
 
-        public int GetWidth(INativeWindow gameWindow) => Window.Width;
+        public int GetWidth(INativeWindow gameWindow) =>gameWindow?.ClientSize.Width ?? 0;
 
         public Rectangle GetWindow(INativeWindow gameWindow) => Window;
 

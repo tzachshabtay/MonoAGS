@@ -8,8 +8,9 @@ namespace AGS.Editor
     {
         public static void Run()
         {
-            Resolver resolver = new Resolver(AGSGame.Device);
-            IGame game = AGSGame.CreateEmpty(resolver);
+            Resolver resolver = new Resolver(AGSGame.Device, new AGSGameSettings("MonoAGS Editor", new AGS.API.Size(1280, 800),
+               windowSize: new AGS.API.Size(1280, 800), windowState: WindowState.Normal, preserveAspectRatio: false));
+            IGame game = AGSGame.Create(resolver);
 
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
             GLText.TextResolutionFactorX = 4;
@@ -35,8 +36,7 @@ namespace AGS.Editor
                 await game.State.ChangeRoomAsync(room);
             });
 
-            game.Start(new AGSGameSettings("MonoAGS Editor", new AGS.API.Size(1280, 800),
-               windowSize: new AGS.API.Size(1280, 800), windowState: WindowState.Normal, preserveAspectRatio: false));
+            game.Start();
         }
     }
 }

@@ -117,21 +117,23 @@ namespace AGS.Editor
             var editorResolver = editor.EditorResolver;
             var updatePump = editorResolver.Container.Resolve<IUpdateMessagePump>();
 
-            var resolver = new Resolver(AGSGame.Device);
-            resolver.Builder.RegisterType<EditorShouldBlockEngineInput>().SingleInstance().As<IShouldBlockInput>().As<EditorShouldBlockEngineInput>();
-            resolver.Builder.RegisterInstance(updatePump).As<IUpdateMessagePump>().As<IUpdateThread>();
-            AGSEditor.Platform.SetResolverForGame(resolver);
-            var game = AGSGame.CreateEmpty(resolver);
+            var gameSettings = new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200),
+               windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal, preserveAspectRatio: false);
+            var gameResolver = new Resolver(AGSGame.Device, gameSettings);
+            gameResolver.Builder.RegisterType<EditorShouldBlockEngineInput>().SingleInstance().As<IShouldBlockInput>().As<EditorShouldBlockEngineInput>();
+            gameResolver.Builder.RegisterInstance(updatePump).As<IUpdateMessagePump>().As<IUpdateThread>();
+            AGSEditor.Platform.SetResolverForGame(gameResolver, editorResolver);
+            var game = AGSGame.Create(gameResolver);
             editor.Game = game;
-            editor.GameResolver = resolver;
+            editor.GameResolver = gameResolver;
             gameCreator.StartGame(game);
 
             var keyboardBindings = new KeyboardBindings(editor.Editor.Input);
             var actions = editorResolver.Container.Resolve<ActionManager>();
-            var resourceLoader = resolver.Container.Resolve<IResourceLoader>();
+            var resourceLoader = gameResolver.Container.Resolve<IResourceLoader>();
             resourceLoader.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(assembly), 2));
 
-            EditorShouldBlockEngineInput blocker = resolver.Container.Resolve<EditorShouldBlockEngineInput>();
+            EditorShouldBlockEngineInput blocker = gameResolver.Container.Resolve<EditorShouldBlockEngineInput>();
 
             var toolbar = new GameToolbar(blocker, editor.Editor.Input);
             toolbar.Init(editor.Editor.Factory);
@@ -149,8 +151,7 @@ namespace AGS.Editor
                 toolbar.SetGame(game);
             });
 
-            game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200),
-               windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal, preserveAspectRatio: false));
+            game.Start();
 
             keyboardBindings.OnKeyboardShortcutPressed.Subscribe(async action =>
             {

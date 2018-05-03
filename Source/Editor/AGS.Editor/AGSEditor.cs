@@ -28,23 +28,23 @@ namespace AGS.Editor
 
         public (float, float) ToGameResolution(float x, float y)
         {
-            var hostingWindow = GameResolver.Container.Resolve<IHostingWindow>();
+            var window = GameResolver.Container.Resolve<IWindowInfo>();
             x = MathUtils.Lerp(0f, 0f, Editor.Settings.VirtualResolution.Width, Game.Settings.WindowSize.Width, x);
             y = MathUtils.Lerp(0f, 0f, Editor.Settings.VirtualResolution.Height, Game.Settings.WindowSize.Height, y);
-            x -= hostingWindow.HostingWindow.X;
-            y -= hostingWindow.HostingWindow.Y;
-            x = MathUtils.Lerp(0f, 0f, hostingWindow.HostingWindow.Width,Game.Settings.VirtualResolution.Width, x);
-            y = MathUtils.Lerp(0f, 0f, hostingWindow.HostingWindow.Height, Game.Settings.VirtualResolution.Height, y);
+            x -= window.GameSubWindow.X;
+            y -= window.GameSubWindow.Y;
+            x = MathUtils.Lerp(0f, 0f, window.GameSubWindow.Width, Game.Settings.VirtualResolution.Width, x);
+            y = MathUtils.Lerp(0f, 0f, window.GameSubWindow.Height, Game.Settings.VirtualResolution.Height, y);
             return (x, y);
         }
 
         public (float, float) ToEditorResolution(float x, float y)
         {
-            var hostingWindow = GameResolver.Container.Resolve<IHostingWindow>();
-            x = MathUtils.Lerp(0f, 0f, Game.Settings.VirtualResolution.Width, hostingWindow.HostingWindow.Width, x);
-            y = MathUtils.Lerp(0f, 0f, Game.Settings.VirtualResolution.Height, hostingWindow.HostingWindow.Height, y);
-            x += hostingWindow.HostingWindow.X;
-            y += hostingWindow.HostingWindow.Y;
+            var window = GameResolver.Container.Resolve<IWindowInfo>();
+            x = MathUtils.Lerp(0f, 0f, Game.Settings.VirtualResolution.Width, window.GameSubWindow.Width, x);
+            y = MathUtils.Lerp(0f, 0f, Game.Settings.VirtualResolution.Height, window.GameSubWindow.Height, y);
+            x += window.GameSubWindow.X;
+            y += window.GameSubWindow.Y;
             x = MathUtils.Lerp(0f, 0f, Game.Settings.WindowSize.Width, Editor.Settings.VirtualResolution.Width, x);
             y = MathUtils.Lerp(0f, 0f, Game.Settings.WindowSize.Height, Editor.Settings.VirtualResolution.Height, y);
             return (x, y);

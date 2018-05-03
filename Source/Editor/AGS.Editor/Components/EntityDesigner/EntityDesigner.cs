@@ -37,7 +37,7 @@ namespace AGS.Editor
             _state = editor.Editor.State;
             _events = editor.Editor.Events;
             _input = editor.Editor.Input;
-            var window = editor.GameResolver.Container.Resolve<IHostingWindow>();
+            var window = editor.GameResolver.Container.Resolve<IWindowInfo>();
             window.PropertyChanged += onWindowPropertyChanged;
             _resizeVisible = true;
             _resizeHandles = new List<ResizeHandle>(8);

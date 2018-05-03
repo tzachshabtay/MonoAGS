@@ -13,7 +13,7 @@ namespace AGS.Engine
 		private readonly Resolver _resolver;
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
-        private readonly IHostingWindow _gameWindow;
+        private readonly IWindowInfo _window;
         private readonly IDisplayList _displayList;
         private readonly IInput _input;
         private readonly IGameSettings _noAspectRatioSettings;
@@ -24,7 +24,7 @@ namespace AGS.Engine
         private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
 
 		public AGSRendererLoop (Resolver resolver, IGame game,
-            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IHostingWindow gameWindow,
+            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IWindowInfo window,
             IAGSRenderPipeline pipeline, IDisplayList displayList, 
             IInput input, IMatrixUpdater matrixUpdater)
 		{
@@ -32,7 +32,7 @@ namespace AGS.Engine
             _input = input;
             _displayList = displayList;
             _glUtils = glUtils;
-            _gameWindow = gameWindow;
+            _window = window;
 			_resolver = resolver;
             _game = game;
 			_gameState = game.State;
@@ -46,7 +46,7 @@ namespace AGS.Engine
 
         public bool Tick()
         {
-            _glUtils.RefreshViewport(_game.Settings, _gameWindow, _gameState.Viewport);
+            _glUtils.RefreshViewport(_game.Settings, _window, _gameState.Viewport);
             _glUtils.AdjustResolution(_game.Settings.VirtualResolution.Width, _game.Settings.VirtualResolution.Height);
 
 			var transitionState = _roomTransitions.State;
@@ -88,7 +88,7 @@ namespace AGS.Engine
                         return false;
                     }
 					if (_toTransitionBuffer == null) _toTransitionBuffer = renderToBuffer();
-                    _glUtils.RefreshViewport(_noAspectRatioSettings, _gameWindow, _gameState.Viewport);
+                    _glUtils.RefreshViewport(_noAspectRatioSettings, _window, _gameState.Viewport);
                     if (!_roomTransitions.Transition.RenderTransition(_fromTransitionBuffer, _toTransitionBuffer))
 					{
 						_fromTransitionBuffer = null;
@@ -137,7 +137,7 @@ namespace AGS.Engine
 
         private void renderViewport(IViewport viewport, List<IRenderBatch> instructions)
         {
-            _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport);
+            _glUtils.RefreshViewport(_game.Settings, _window, viewport);
 
             foreach (var batch in instructions)
             {

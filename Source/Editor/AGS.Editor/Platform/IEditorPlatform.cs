@@ -8,7 +8,7 @@ namespace AGS.Editor
     {
         IDotnetProject DotnetProject { get; }
 
-        void SetResolverForGame(Resolver resolver);
+        void SetResolverForGame(Resolver gameResolver, Resolver editorResolver);
 
         void SetHostedGameWindow(Rectangle windowSize);
     }

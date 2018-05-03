@@ -7,7 +7,7 @@ using OpenTK.Graphics;
 
 namespace AGS.Engine.Desktop
 {
-    public class AGSGameWindow : IGameWindow, IHostingWindow
+    public class AGSGameWindow : IGameWindow, IWindowInfo
 	{
         private static GameWindow _gameWindow;
         private IGameWindowSize _windowSize;
@@ -18,7 +18,7 @@ namespace AGS.Engine.Desktop
             _windowSize = windowSize;
             _gameWindow = new GameWindow(settings.WindowSize.Width, settings.WindowSize.Height,
                                          GraphicsMode.Default, settings.Title);
-
+            input.Init(this);
             input.Init(_gameWindow);
 
             _updateFrameArgs = new FrameEventArgs();
@@ -64,7 +64,9 @@ namespace AGS.Engine.Desktop
         public int ClientWidth => _windowSize.GetWidth(_gameWindow);
         public int ClientHeight => _windowSize.GetHeight(_gameWindow);
         public void SetSize(Size size) => _windowSize.SetSize(_gameWindow, size);
-        public Rectangle HostingWindow => _windowSize.GetWindow(_gameWindow);
+        public Rectangle GameSubWindow => _windowSize.GetWindow(_gameWindow);
+        public float AppWindowHeight => _windowSize.GetHeight(_gameWindow);
+        public float AppWindowWidth => _windowSize.GetWidth(_gameWindow);
 
         public void Run(double updateRate) => _gameWindow.Run(updateRate);
         public void SwapBuffers() => _gameWindow.SwapBuffers();

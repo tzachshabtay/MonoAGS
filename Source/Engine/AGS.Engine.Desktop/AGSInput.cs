@@ -11,7 +11,7 @@ namespace AGS.Engine.Desktop
     public class AGSInput : IAGSInput
     {
         private GameWindow _game;
-        private readonly IGameWindowSize _windowSize;
+        private IWindowInfo _window;
         private Size _virtualResolution;
         private float _mouseX, _mouseY;
         private readonly IGameState _state;
@@ -25,13 +25,12 @@ namespace AGS.Engine.Desktop
         private int _inUpdate; //For preventing re-entrancy
 
         public AGSInput(IGameState state, IGameEvents events, IShouldBlockInput shouldBlockInput, 
-                        IGameWindowSize windowSize, IEvent<AGS.API.MouseButtonEventArgs> mouseDown, 
+                        IEvent<AGS.API.MouseButtonEventArgs> mouseDown, 
                         IEvent<AGS.API.MouseButtonEventArgs> mouseUp, IEvent<MousePositionEventArgs> mouseMove,
                         IEvent<KeyboardEventArgs> keyDown, IEvent<KeyboardEventArgs> keyUp)
         {
             _events = events;
             _actions = new ConcurrentQueue<Func<Task>>();
-            _windowSize = windowSize;
             this._shouldBlockInput = shouldBlockInput;
             this._state = state;
             this._keysDown = new AGSConcurrentHashSet<API.Key>();
@@ -45,15 +44,23 @@ namespace AGS.Engine.Desktop
             if (AGSGameWindow.GameWindow != null) Init(AGSGameWindow.GameWindow);
         }
 
-        public void Init(API.Size virtualResolution)
+        public void Init(API.Size virtualResolution) => _virtualResolution = virtualResolution;
+
+        public void Init(IWindowInfo window)
         {
-            _virtualResolution = virtualResolution;
+            _window = window;
+            if (_game != null) init(_game);
         }
 
         public void Init(GameWindow game)
         {
             if (_game != null) return;
             _game = game;
+            if (_window != null) init(game);
+        }
+
+        private void init(GameWindow game)
+        {
             this._originalOSCursor = game.Cursor;
 
             game.MouseDown += (sender, e) =>
@@ -108,7 +115,7 @@ namespace AGS.Engine.Desktop
 
         public bool IsKeyDown(AGS.API.Key key) => _keysDown.Contains(key);
 
-        public MousePosition MousePosition => new MousePosition(_mouseX, _mouseY, _state.Viewport, _virtualResolution, _windowSize.GetWindow(_game));
+        public MousePosition MousePosition => new MousePosition(_mouseX, _mouseY, _state.Viewport, _virtualResolution, _window);
 
         public bool LeftMouseButtonDown { get; private set; }
         public bool RightMouseButtonDown { get; private set; }

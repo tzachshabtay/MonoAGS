@@ -19,11 +19,13 @@ namespace AGS.Editor.Desktop
 
         public IDotnetProject DotnetProject { get; private set; }
 
-        public void SetResolverForGame(Resolver resolver)
+        public void SetResolverForGame(Resolver gameResolver, Resolver editorResolver)
         {
-            HostingGameDesktopWindow hostedGame = new HostingGameDesktopWindow(_windowSize);
-            resolver.Builder.RegisterInstance(_windowSize).As<IGameWindowSize>();
-            resolver.Builder.RegisterInstance(hostedGame).As<IHostingWindow>();
+            var nativeWindw = editorResolver.Container.Resolve<OpenTK.INativeWindow>();
+            HostingGameDesktopWindow hostedGame = new HostingGameDesktopWindow(_windowSize, nativeWindw);
+            gameResolver.Builder.RegisterInstance(_windowSize).As<IGameWindowSize>();
+            gameResolver.Builder.RegisterInstance(hostedGame).As<IWindowInfo>();
+            gameResolver.Builder.RegisterType<AGSInput>().SingleInstance().As<IInput>().As<AGSInput>().As<IAGSInput>().OnActivated(e => e.Instance.Init(hostedGame));
         }
 
         public void SetHostedGameWindow(Rectangle windowSize)

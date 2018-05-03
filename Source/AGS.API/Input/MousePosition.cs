@@ -10,7 +10,7 @@ namespace AGS.API
     {
         private readonly IViewport _mainViewport;
         private readonly Size _virtualResolution;
-        private readonly Rectangle _window;
+        private readonly IWindowInfo _window;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:AGS.API.MousePosition"/> struct.
@@ -19,8 +19,8 @@ namespace AGS.API
         /// <param name="yWindow">Y position of the mouse in window coordinates.</param>
         /// <param name="viewport">The main viewport.</param>
         /// <param name="virtualResolution">The virtual resolution.</param>
-        /// <param name="window">The hosting window rectangle.</param>
-        public MousePosition(float xWindow, float yWindow, IViewport viewport, Size virtualResolution, Rectangle window)
+        /// <param name="window">The hosting window info.</param>
+        public MousePosition(float xWindow, float yWindow, IViewport viewport, Size virtualResolution, IWindowInfo window)
         {
             XWindow = xWindow;
             YWindow = yWindow;
@@ -58,8 +58,8 @@ namespace AGS.API
         /// <param name="viewport">Viewport.</param>
         public float GetViewportX(IViewport viewport)
         {
-            float windowWidth = _window.Width;
-            var projectLeft = _window.X + viewport.ProjectionBox.X * windowWidth;
+            float windowWidth = _window.GameSubWindow.Width;
+            var projectLeft = _window.GameSubWindow.X + viewport.ProjectionBox.X * windowWidth;
             var projectRight = projectLeft + viewport.ProjectionBox.Width * windowWidth;
             var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
             if (parentBoundingBoxes != null)
@@ -79,9 +79,9 @@ namespace AGS.API
         /// <param name="viewport">Viewport.</param>
         public float GetViewportY(IViewport viewport)
         {
-            float windowHeight = _window.Height;
-            var projectBottom = _window.Y + windowHeight - viewport.ProjectionBox.Y * windowHeight;
-            var projectTop = projectBottom - viewport.ProjectionBox.Height * windowHeight;
+            var projectBottom = _window.AppWindowHeight - _window.GameSubWindow.Y - viewport.ProjectionBox.Y * _window.GameSubWindow.Height;
+            var projectTop = projectBottom - viewport.ProjectionBox.Height * _window.GameSubWindow.Height;
+
             var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
             if (parentBoundingBoxes != null)
             {
@@ -102,10 +102,10 @@ namespace AGS.API
         /// <param name="projectedInto">Projected into.</param>
         public Vector2 GetProjectedPoint(IViewport viewport, IObject projectedInto)
         {
-            var projectBottom = _window.Y + _window.Height - viewport.ProjectionBox.Y * _window.Height;
-            var projectTop = projectBottom - viewport.ProjectionBox.Height * _window.Height;
-            var projectLeft = _window.X + viewport.ProjectionBox.X * _window.Width;
-            var projectRight = projectLeft + viewport.ProjectionBox.Width * _window.Width;
+            var projectBottom = _window.AppWindowHeight - _window.GameSubWindow.Y - viewport.ProjectionBox.Y * _window.GameSubWindow.Height;
+            var projectTop = projectBottom - viewport.ProjectionBox.Height * _window.GameSubWindow.Height;
+            var projectLeft = _window.GameSubWindow.X + viewport.ProjectionBox.X * _window.GameSubWindow.Width;
+            var projectRight = projectLeft + viewport.ProjectionBox.Width * _window.GameSubWindow.Width;
             var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
             if (parentBoundingBoxes != null)
             {

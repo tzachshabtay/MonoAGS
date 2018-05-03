@@ -11,7 +11,7 @@ namespace AGS.Engine
 	{
         private static List<Action<Resolver>> _overrides = new List<Action<Resolver>>();
 
-		public Resolver(IDevice device)
+        public Resolver(IDevice device, IGameSettings settings)
 		{
 			Builder = new ContainerBuilder ();
 
@@ -75,6 +75,7 @@ namespace AGS.Engine
 
 			FastFingerChecker checker = new FastFingerChecker ();
 			Builder.RegisterInstance(checker);
+            Builder.RegisterInstance(settings).As<IGameSettings>();
 
             Builder.RegisterSource(new ResolveAnythingSource());
 

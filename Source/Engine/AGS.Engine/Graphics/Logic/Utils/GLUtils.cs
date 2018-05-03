@@ -51,16 +51,16 @@ namespace AGS.Engine
             _graphics.LoadIdentity();
         }
 
-        public void RefreshViewport(IGameSettings settings, IHostingWindow gameWindow, IViewport viewport)
+        public void RefreshViewport(IGameSettings settings, IWindowInfo window, IViewport viewport)
         {
             float viewX = 0;
             float viewY = 0;
-            float width = gameWindow.HostingWindow.Width;
-            float height = gameWindow.HostingWindow.Height;
+            float width = window.GameSubWindow.Width;
+            float height = window.GameSubWindow.Height;
             if (settings.PreserveAspectRatio) //http://www.david-amador.com/2013/04/opengl-2d-independent-resolution-rendering/
             {
                 float targetAspectRatio = (float)settings.VirtualResolution.Width / settings.VirtualResolution.Height;
-                Size screen = new Size(gameWindow.HostingWindow.Width, gameWindow.HostingWindow.Height);
+                Size screen = new Size(window.GameSubWindow.Width, window.GameSubWindow.Height);
                 width = screen.Width;
                 height = width / targetAspectRatio + 0.5f;
                 if (height > screen.Height)
@@ -90,8 +90,8 @@ namespace AGS.Engine
 			}
 			int widthInt = (int)Math.Round((float)width * projectionBox.Width);
 			int heightInt = (int)Math.Round((float)height * projectionBox.Height);
-            var viewXInt = (int)Math.Round(viewX + gameWindow.HostingWindow.X);
-            var viewYInt = (int)Math.Round(viewY + gameWindow.HostingWindow.Y);
+            var viewXInt = (int)Math.Round(viewX + window.GameSubWindow.X);
+            var viewYInt = (int)Math.Round(viewY + window.GameSubWindow.Y);
             ScreenViewport = new Rectangle(viewXInt, viewYInt, widthInt, heightInt);
             _graphics.Viewport(viewXInt, viewYInt, widthInt, heightInt);
         }

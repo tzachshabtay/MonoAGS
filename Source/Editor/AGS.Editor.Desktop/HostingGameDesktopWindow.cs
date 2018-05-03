@@ -2,20 +2,25 @@
 using System.ComponentModel;
 using AGS.API;
 using AGS.Engine;
+using AGS.Engine.Desktop;
 
 namespace AGS.Editor.Desktop
 {
-    public class HostingGameDesktopWindow : IHostingWindow
+    public class HostingGameDesktopWindow : IWindowInfo
     {
         private readonly HostingGameDesktopWindowSize _windowSize;
+        private readonly OpenTK.INativeWindow _nativeWindow;
 
-        public HostingGameDesktopWindow(HostingGameDesktopWindowSize windowSize)
+        public HostingGameDesktopWindow(HostingGameDesktopWindowSize windowSize, OpenTK.INativeWindow nativeWindow)
         {
             _windowSize = windowSize;
+            _nativeWindow = nativeWindow;
             windowSize.PropertyChanged += onWindowSizePropertyChanged;
         }
 
-        public Rectangle HostingWindow => _windowSize.Window;
+        public Rectangle GameSubWindow => _windowSize.Window;
+        public float AppWindowHeight => _windowSize.GetHeight(_nativeWindow);
+        public float AppWindowWidth => _windowSize.GetWidth(_nativeWindow);
 
         public event PropertyChangedEventHandler PropertyChanged;
 

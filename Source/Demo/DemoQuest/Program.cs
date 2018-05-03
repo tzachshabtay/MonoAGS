@@ -39,11 +39,11 @@ namespace DemoGame
 		public static void Run()
 		{
             DemoStarter starter = new DemoStarter();
-            var game = AGSGame.CreateEmpty();
+            var game = AGSGame.Create(new AGSGameSettings("Demo Game", new Size(320, 200),
+                windowSize: new Size(640, 400), windowState: WindowState.Normal));
 
             starter.StartGame(game);
-            game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
-				windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal));
+            game.Start();
 		}
 
         private void setKeyboardEvents(IGame game)
