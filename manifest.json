@@ -3722,6 +3722,18 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "articles/faq.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/faq.html",
+          "hash": "d/2Mw8uZaWRKZwZmHEke0g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "articles/game-structure.md",
       "output": {
         ".html": {
@@ -3750,7 +3762,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/getting-started.html",
-          "hash": "gdHqN+IveHU3y1DuEFTBgw=="
+          "hash": "FeFxbQWzYobRoQwwInNofw=="
         }
       },
       "is_incremental": false,
@@ -3786,6 +3798,17 @@
       "output": {
         "resource": {
           "relative_path": "articles/images/room.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/unsupported-projects.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/unsupported-projects.png"
         }
       },
       "is_incremental": false,
@@ -3903,7 +3926,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/toc.html",
-          "hash": "qLHvPlGLQp65PEGnnzlhZw=="
+          "hash": "kvQ6ex0FJdWhk6hxKr1G4A=="
         }
       },
       "is_incremental": false,
@@ -3983,11 +4006,11 @@
           "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
