@@ -21,6 +21,8 @@ For setting up Android development, see [this](https://developer.xamarin.com/gui
 For IOS development, you need to run from Mac, see [this](https://developer.xamarin.com/guides/ios/getting_started/installation/) guide for installation, and [this](https://developer.xamarin.com/guides/ios/getting_started/installation/device_provisioning/) guide for setting up your device.
 If you own both a Mac and a Windows machine and want to test IOS from your Windows machine, it's possible connecting it to the Mac machine, see [here](https://developer.xamarin.com/guides/ios/getting_started/installation/windows/) for instructions.
 
+If you're having errors with compiling or running the game, check out possible reasons in the [troubleshooting](faq.md#troubleshooting) section in the faq.
+
 ## Running the demo:
 
 The game comes with a small demo which you can run to test that everything is working properly (and see a few of the features in action)- if you look at the solution explorer (the side bar) you'll see a demo folder, that contains a DemoQuest.Desktop (for the desktop build) and a DemoQuest.Droid (for the android build). Right click the project which you want to run, and select "Set as startup project". After that, press the "play" button on the top bar (the arrow pointing right) for starting the game.
