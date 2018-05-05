@@ -147,7 +147,7 @@ namespace AGS.Editor
             game.Events.OnLoad.Subscribe(() =>
             {
                 editor.Init();
-                toolbar.SetGame(game);
+                toolbar.SetGame(game, editor.GameResolver.Container.Resolve<IWindowInfo>());
             });
 
             game.Start();

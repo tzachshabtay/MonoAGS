@@ -1,4 +1,6 @@
-﻿using AGS.API;
+﻿using System;
+using System.ComponentModel;
+using AGS.API;
 using AGS.Engine;
 
 namespace AGS.Editor
@@ -7,6 +9,7 @@ namespace AGS.Editor
     {
         private readonly EditorShouldBlockEngineInput _blocker;
         private readonly IInput _editorInput;
+        private IWindowInfo _windowInfo;
         private IInput _gameInput;
         private ILabel _fpsLabel, _mousePosLabel, _hotspotLabel;
         private IButton _playPauseButton;
@@ -57,7 +60,6 @@ namespace AGS.Editor
             _fpsLabel.MouseEnter.Subscribe(_ => _fpsLabel.Tint = Colors.Indigo);
             _fpsLabel.MouseLeave.Subscribe(_ => _fpsLabel.Tint = Colors.IndianRed.WithAlpha(125));
 
-
             _mousePosLabel = factory.UI.GetLabel("Mouse Position Label", "", 1f, 1f, 120f, _playPauseButton.Y, _toolbar, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _mousePosLabel.TextBackgroundVisible = false;
             _mousePosLabel.Pivot = new PointF(0f, 0.5f);
@@ -70,9 +72,17 @@ namespace AGS.Editor
             _hotspotLabel.RenderLayer = _toolbar.RenderLayer;
         }
 
-        public void SetPosition(float x)
+        private void setPosition()
         {
-            _toolbar.X = x + ((_resolution.Width - x) / 2f);
+            float x = MathUtils.Lerp(0f, 0f, _windowInfo.AppWindowWidth, _resolution.Width, _windowInfo.ScreenViewport.X);
+            float width = MathUtils.Lerp(0f, 0f, _windowInfo.AppWindowWidth, _resolution.Width, _windowInfo.ScreenViewport.Width);
+            _toolbar.X = x + width / 2f;
+        }
+
+        private void onGameWindowPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IWindowInfo.ScreenViewport)) return;
+            setPosition();
         }
 
         private void onPlayPauseClicked(MouseButtonEventArgs obj)
@@ -85,8 +95,12 @@ namespace AGS.Editor
             _gameInput.Cursor = isPaused ? null : _lastGameCursor;
         }
 
-        public void SetGame(IGame game)
+        public void SetGame(IGame game, IWindowInfo gameWindow)
         {
+            _windowInfo = gameWindow;
+            gameWindow.PropertyChanged += onGameWindowPropertyChanged;
+            setPosition();
+
             _gameInput = game.Input;
 
             FPSCounter fps = new FPSCounter(game, _fpsLabel);

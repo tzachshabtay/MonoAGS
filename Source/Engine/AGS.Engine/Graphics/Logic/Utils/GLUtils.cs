@@ -51,7 +51,7 @@ namespace AGS.Engine
             _graphics.LoadIdentity();
         }
 
-        public void RefreshViewport(IGameSettings settings, IWindowInfo window, IViewport viewport)
+        public void RefreshViewport(IGameSettings settings, IAGSWindowInfo window, IViewport viewport)
         {
             float viewX = 0;
             float viewY = 0;
@@ -93,6 +93,7 @@ namespace AGS.Engine
             var viewXInt = (int)Math.Round(viewX + window.GameSubWindow.X);
             var viewYInt = (int)Math.Round(viewY + window.GameSubWindow.Y);
             ScreenViewport = new Rectangle(viewXInt, viewYInt, widthInt, heightInt);
+            window.ScreenViewport = ScreenViewport;
             _graphics.Viewport(viewXInt, viewYInt, widthInt, heightInt);
         }
 

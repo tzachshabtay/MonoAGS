@@ -58,8 +58,8 @@ namespace AGS.API
         /// <param name="viewport">Viewport.</param>
         public float GetViewportX(IViewport viewport)
         {
-            float windowWidth = _window.GameSubWindow.Width;
-            var projectLeft = _window.GameSubWindow.X + viewport.ProjectionBox.X * windowWidth;
+            float windowWidth = _window.ScreenViewport.Width;
+            var projectLeft = _window.ScreenViewport.X + viewport.ProjectionBox.X * windowWidth;
             var projectRight = projectLeft + viewport.ProjectionBox.Width * windowWidth;
             var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
             if (parentBoundingBoxes != null)
@@ -79,8 +79,8 @@ namespace AGS.API
         /// <param name="viewport">Viewport.</param>
         public float GetViewportY(IViewport viewport)
         {
-            var projectBottom = _window.AppWindowHeight - _window.GameSubWindow.Y - viewport.ProjectionBox.Y * _window.GameSubWindow.Height;
-            var projectTop = projectBottom - viewport.ProjectionBox.Height * _window.GameSubWindow.Height;
+            var projectBottom = _window.AppWindowHeight - _window.ScreenViewport.Y - viewport.ProjectionBox.Y * _window.ScreenViewport.Height;
+            var projectTop = projectBottom - viewport.ProjectionBox.Height * _window.ScreenViewport.Height;
 
             var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
             if (parentBoundingBoxes != null)
@@ -102,10 +102,10 @@ namespace AGS.API
         /// <param name="projectedInto">Projected into.</param>
         public Vector2 GetProjectedPoint(IViewport viewport, IObject projectedInto)
         {
-            var projectBottom = _window.AppWindowHeight - _window.GameSubWindow.Y - viewport.ProjectionBox.Y * _window.GameSubWindow.Height;
-            var projectTop = projectBottom - viewport.ProjectionBox.Height * _window.GameSubWindow.Height;
-            var projectLeft = _window.GameSubWindow.X + viewport.ProjectionBox.X * _window.GameSubWindow.Width;
-            var projectRight = projectLeft + viewport.ProjectionBox.Width * _window.GameSubWindow.Width;
+            var projectBottom = _window.AppWindowHeight - _window.ScreenViewport.Y - viewport.ProjectionBox.Y * _window.ScreenViewport.Height;
+            var projectTop = projectBottom - viewport.ProjectionBox.Height * _window.ScreenViewport.Height;
+            var projectLeft = _window.ScreenViewport.X + viewport.ProjectionBox.X * _window.ScreenViewport.Width;
+            var projectRight = projectLeft + viewport.ProjectionBox.Width * _window.ScreenViewport.Width;
             var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
             if (parentBoundingBoxes != null)
             {

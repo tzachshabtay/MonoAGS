@@ -147,12 +147,10 @@ namespace AGS.Editor
             {
                 float panelWidth = MathUtils.Lerp(0f, 0f, _layer.IndependentResolution.Value.Width, _editor.Editor.Settings.WindowSize.Width, _panel.Width);
                 AGSEditor.Platform.SetHostedGameWindow(new Rectangle((int)Math.Round(panelWidth), 0, (int)Math.Round(_editor.Editor.Settings.WindowSize.Width - panelWidth), height));
-                _toolbar.SetPosition(_panel.Width);
             }
             else
             {
                 AGSEditor.Platform.SetHostedGameWindow(new Rectangle(0, 0, _editor.Editor.Settings.WindowSize.Width, height));
-                _toolbar.SetPosition(0f);
             }
         }
 

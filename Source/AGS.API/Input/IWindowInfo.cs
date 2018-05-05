@@ -25,8 +25,18 @@ namespace AGS.API
         /// <summary>
         /// Gets the rectangle (a subset of the application window) which contains the game.
         /// In the normal case this rectangle will be the entire application window.
+        /// This rectangle includes possible black borders (if <see cref="IGameSettings.PreserveAspectRatio"/> is enabled).
+        /// To get the rectangle without the black borders, <see cref="ScreenViewport"/>.
         /// </summary>
         /// <value>The game sub window.</value>
         Rectangle GameSubWindow { get; }
+
+        /// <summary>
+        /// Gets the screen viewport. This is the actual rectangle showing the game, minus the black borders
+        /// in case <see cref="IGameSettings.PreserveAspectRatio"/> is enabled (otherwise this will contain the same
+        /// value as <see cref="GameSubWindow"/>.
+        /// </summary>
+        /// <value>The screen viewport.</value>
+        Rectangle ScreenViewport { get; }
     }
 }
