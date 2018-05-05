@@ -37,6 +37,7 @@ namespace AGS.Editor
             _input = editor.Editor.Input;
             keyboardBindings.OnKeyboardShortcutPressed.Subscribe(onShortcutKeyPressed);
             editor.Editor.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+            editor.Editor.Events.OnScreenResize.Subscribe(onScreenResize);
         }
 
         public bool Visible => _panel.Visible;
@@ -154,6 +155,8 @@ namespace AGS.Editor
                 _toolbar.SetPosition(0f);
             }
         }
+
+        private void onScreenResize() => resizeGameWindow();
 
         private Task onPaneSwitch(MouseButtonEventArgs args)
         {
