@@ -117,8 +117,7 @@ namespace AGS.Editor
             var editorResolver = editor.EditorResolver;
             var updatePump = editorResolver.Container.Resolve<IUpdateMessagePump>();
 
-            var gameSettings = new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200),
-               windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal, preserveAspectRatio: false);
+            var gameSettings = gameCreator.Settings;
             var gameResolver = new Resolver(AGSGame.Device, gameSettings);
             gameResolver.Builder.RegisterType<EditorShouldBlockEngineInput>().SingleInstance().As<IShouldBlockInput>().As<EditorShouldBlockEngineInput>();
             gameResolver.Builder.RegisterInstance(updatePump).As<IUpdateMessagePump>().As<IUpdateThread>();

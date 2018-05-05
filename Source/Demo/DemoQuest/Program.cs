@@ -9,6 +9,9 @@ namespace DemoGame
 {
     public class DemoStarter : IGameStarter
 	{
+        public IGameSettings Settings => new AGSGameSettings("Demo Game", new Size(320, 200),
+                windowSize: new Size(640, 400), windowState: WindowState.Normal);
+        
         public void StartGame(IGame game)
         {
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
@@ -39,8 +42,7 @@ namespace DemoGame
 		public static void Run()
 		{
             DemoStarter starter = new DemoStarter();
-            var game = AGSGame.Create(new AGSGameSettings("Demo Game", new Size(320, 200),
-                windowSize: new Size(640, 400), windowState: WindowState.Normal));
+            var game = AGSGame.Create(starter.Settings);
 
             starter.StartGame(game);
             game.Start();
