@@ -28,6 +28,7 @@ namespace AGS.Editor
 
         public TComponent AddComponent<TComponent>() where TComponent : IComponent
         {
+            if (_entity.HasComponent<TComponent>()) return _entity.GetComponent<TComponent>();
             TComponent component = (TComponent)_resolver.Container.Resolve(typeof(TComponent));
             _entity.AddComponent<TComponent>(component);
             return component;

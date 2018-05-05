@@ -58,6 +58,11 @@ namespace AGS.Engine
         {
             _collection.OnComponentsChanged.Unsubscribe(onComponentsChanged);
             _collection.OnComponentsInitialized.Unsubscribe(onComponentsInitialized);
+            if (onRemoved == null) return;
+            foreach (var component in _collection)
+            {
+                if (component is TComponent boundComponent) onRemoved(boundComponent);
+            }
         }
     }
 }

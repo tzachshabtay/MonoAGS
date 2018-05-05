@@ -77,7 +77,7 @@ namespace AGS.Editor
 
             public void Dispose()
             {
-                _handle.Visible = false;
+                _handle.Dispose();
                 _state.UI.Remove(_handle);
             }
 

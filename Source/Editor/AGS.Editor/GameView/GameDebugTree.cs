@@ -22,6 +22,7 @@ namespace AGS.Editor
         private IVisibleComponent _lastSelectedMaskVisible;
         private IImageComponent _lastSelectedMaskImage;
         private IEntity _lastSelectedEntity;
+        private ITreeStringNode _lastSelectedNode;
         private bool _lastMaskVisible;
         private byte _lastOpacity;
         private bool _lastEnabled;
@@ -103,6 +104,8 @@ namespace AGS.Editor
 
         private void onTreeNodeSelected(NodeEventArgs args)
         {
+            if (args.Node == _lastSelectedNode) return;
+            _lastSelectedNode = args.Node;
             unselect();
             string nodeType = args.Node.Properties.Strings.GetValue(Fields.Type);
             if (nodeType == null) return;

@@ -17,6 +17,7 @@ namespace AGS.Editor
             private readonly ActionManager _actions;
             private readonly AGSEditor _editor;
             private readonly IDraggableComponent _draggable;
+            private readonly ILabel _moveCursor;
 
             private IBoundingBoxComponent _boundingBox;
             private ITranslateComponent _translate;
@@ -40,11 +41,11 @@ namespace AGS.Editor
                 _draggable = _handle.AddComponent<IDraggableComponent>();
                 _draggable.OnDragStart.Subscribe(onDragStart);
 
-                var moveCursor = editor.Editor.Factory.UI.GetLabel("MoveCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
-                moveCursor.Pivot = new PointF(0.5f, 0.5f);
-                moveCursor.Text = FontIcons.Move;
+                _moveCursor = editor.Editor.Factory.UI.GetLabel("MoveCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
+                _moveCursor.Pivot = new PointF(0.5f, 0.5f);
+                _moveCursor.Text = FontIcons.Move;
 
-                _handle.AddComponent<IHasCursorComponent>().SpecialCursor = moveCursor;
+                _handle.AddComponent<IHasCursorComponent>().SpecialCursor = _moveCursor;
 
                 state.UI.Add(_handle);
 
@@ -74,7 +75,8 @@ namespace AGS.Editor
 
             public void Dispose()
             {
-                _handle.Visible = false;
+                _handle.Dispose();
+                _moveCursor.Dispose();
                 _state.UI.Remove(_handle);
             }
 
