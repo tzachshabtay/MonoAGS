@@ -49,9 +49,9 @@ namespace AGS.Editor
 
         private async Task onLoadGameClicked(MouseButtonEventArgs args)
         {
-            AGSGameSettings.CurrentSkin = new AGSSilverSkin(_editor.Editor.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
+            _editor.Editor.Settings.Defaults.Skin = new AGSSilverSkin(_editor.Editor.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to load", FileSelection.FileOnly, isGame);
-            AGSGameSettings.CurrentSkin = null;
+            _editor.Editor.Settings.Defaults.Skin = null;
             if (string.IsNullOrEmpty(file)) return;
             var messagePump = _resolver.Container.Resolve<IRenderMessagePump>();
             _panel.Visible = false;

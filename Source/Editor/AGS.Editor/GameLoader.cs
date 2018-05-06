@@ -132,7 +132,7 @@ namespace AGS.Editor
 
             EditorShouldBlockEngineInput blocker = gameResolver.Container.Resolve<EditorShouldBlockEngineInput>();
 
-            var toolbar = new GameToolbar(blocker, editor.Editor.Input);
+            var toolbar = new GameToolbar(blocker, editor.Editor.Input, editor.Editor.Settings);
             toolbar.Init(editor.Editor.Factory);
 
             /*var gameDebugView = new Lazy<GameDebugView>(() =>

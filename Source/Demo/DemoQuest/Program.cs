@@ -23,9 +23,9 @@ namespace DemoGame
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem), 0));
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly), 1));
                 game.Factory.Fonts.InstallFonts("../../Assets/Fonts/pf_ronda_seven.ttf", "../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
-                AGSGameSettings.DefaultSpeechFont = game.Factory.Fonts.LoadFontFromPath("../../Assets/Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
-                AGSGameSettings.DefaultTextFont = game.Factory.Fonts.LoadFontFromPath("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
-                AGSGameSettings.CurrentSkin = null;
+                game.Settings.Defaults.SpeechFont = game.Factory.Fonts.LoadFontFromPath("../../Assets/Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
+                game.Settings.Defaults.TextFont = game.Factory.Fonts.LoadFontFromPath("../../Assets/Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
+                game.Settings.Defaults.Skin = null;
                 game.State.RoomTransitions.Transition = AGSRoomTransitions.Fade();
                 setKeyboardEvents(game);
                 Shaders.SetStandardShader();

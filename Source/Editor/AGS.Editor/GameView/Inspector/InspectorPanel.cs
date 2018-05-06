@@ -56,7 +56,7 @@ namespace AGS.Editor
 			var treeView = _treePanel.AddComponent<ITreeViewComponent>();
             treeView.SkipRenderingRoot = true;
 
-            Inspector = new AGSInspector(_editor.Factory, _game.Settings, _editor.State, _actions);
+            Inspector = new AGSInspector(_editor.Factory, _game.Settings, _editor.Settings, _editor.State, _actions);
             _treePanel.AddComponent<IInspectorComponent>(Inspector);
 
             _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _editor.Factory,

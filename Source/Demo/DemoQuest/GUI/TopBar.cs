@@ -66,7 +66,7 @@ namespace DemoGame
 
             ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 150f, 20f, 200f, 0f, _panel, new AGSTextConfig(brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen),
                 alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, paddingBottom: 5f,
-                font: game.Factory.Fonts.LoadFont(AGSGameSettings.DefaultTextFont.FontFamily, 10f)));
+                font: game.Factory.Fonts.LoadFont(game.Settings.Defaults.TextFont.FontFamily, 10f)));
             label.Pivot = new AGS.API.PointF(0.5f, 0f);
             VerbOnHotspotLabel hotspotLabel = new VerbOnHotspotLabel(() => _scheme.CurrentMode, game, label);
             hotspotLabel.Start();

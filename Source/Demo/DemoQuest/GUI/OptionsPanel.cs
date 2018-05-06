@@ -131,9 +131,9 @@ namespace DemoGame
 
 		private async void save()
 		{
-            AGSGameSettings.CurrentSkin = new AGSBlueSkin(_game.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
+            _game.Settings.Defaults.Skin = new AGSBlueSkin(_game.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to save", FileSelection.FileOnly);
-            AGSGameSettings.CurrentSkin = null;
+            _game.Settings.Defaults.Skin = null;
             if (file == null) return;
             _game.SaveLoad.Save(file);
 			hide();
@@ -141,9 +141,9 @@ namespace DemoGame
 
 		private async void load()
 		{
-            AGSGameSettings.CurrentSkin = new AGSBlueSkin(_game.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
+            _game.Settings.Defaults.Skin = new AGSBlueSkin(_game.Factory.Graphics, AGSGame.GLUtils).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to load", FileSelection.FileOnly);
-            AGSGameSettings.CurrentSkin = null;
+            _game.Settings.Defaults.Skin = null;
             if (file == null) return;
             _game.SaveLoad.Load(file);
 			hide();

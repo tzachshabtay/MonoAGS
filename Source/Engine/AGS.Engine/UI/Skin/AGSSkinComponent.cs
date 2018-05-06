@@ -6,9 +6,9 @@ namespace AGS.Engine
     {
         private IEntity _entity;
 
-        public AGSSkinComponent()
+        public AGSSkinComponent(IGameSettings settings)
         {
-            Skin = AGSGameSettings.CurrentSkin;
+            Skin = settings.Defaults.Skin;
             SkinTags = new AGSConcurrentHashSet<string>();
         }
 

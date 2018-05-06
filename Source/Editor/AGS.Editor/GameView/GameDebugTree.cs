@@ -121,6 +121,11 @@ namespace AGS.Editor
             var expander = new NodesExpander(_treeView);
             prevRoom?.TreeNode.SetParent(_moreRoomsNode.TreeNode);
             newRoom?.TreeNode.SetParent(_treeView.Tree.TreeNode);
+
+            //removing and re-adding "more rooms" so that it would be after the current room in the tree view
+            _moreRoomsNode.TreeNode.SetParent(null);
+            _moreRoomsNode.TreeNode.SetParent(_treeView.Tree.TreeNode);
+
             expander.Expand();
         }
 
@@ -365,7 +370,7 @@ namespace AGS.Editor
 
         private ITreeStringNode addToTree(string text, ITreeStringNode parent)
         {
-            var node = new AGSTreeStringNode { Text = text };
+            var node = new AGSTreeStringNode(text, _editor.Editor.Settings.Defaults.TextFont);
             if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
             return node;
         }

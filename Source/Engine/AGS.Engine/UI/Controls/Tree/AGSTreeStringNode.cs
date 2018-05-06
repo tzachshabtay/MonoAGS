@@ -6,10 +6,11 @@ namespace AGS.Engine
     {
         private readonly IStringItem _item;
 
-        public AGSTreeStringNode()
+        public AGSTreeStringNode(string text, IFont font)
         {
             TreeNode = new AGSTreeNode<ITreeStringNode>(this);
-            _item = new AGSStringItem();
+            _item = new AGSStringItem(font);
+            Text = text;
         }
 
         public ITextConfig HoverTextConfig { get => _item.HoverTextConfig; set => _item.HoverTextConfig = value; }

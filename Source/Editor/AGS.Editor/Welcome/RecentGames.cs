@@ -65,7 +65,7 @@ namespace AGS.Editor
             layout.AbsoluteSpacing = -10f;
             factory.UI.GetLabel("RecentGamesLabel", "Recent Games:", 200f, 50f, 0f, 0f, panel);
 
-            var labelFont = factory.Fonts.LoadFont(AGSGameSettings.DefaultTextFont.FontFamily, 8f, FontStyle.Italic);
+            var labelFont = factory.Fonts.LoadFont(_editor.Editor.Settings.Defaults.TextFont.FontFamily, 8f, FontStyle.Italic);
             if (_games.Count == 0)
             {
                 factory.UI.GetLabel("NoRecentGamesLabel", "There's nothing here yet, time to start making games!", 200f, 20f, 0f, 0f, panel, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Gray), labelFont));
@@ -73,7 +73,7 @@ namespace AGS.Editor
                 return panel;
             }
 
-            var buttonFont = factory.Fonts.LoadFont(AGSGameSettings.DefaultTextFont.FontFamily, 14f, FontStyle.Bold);
+            var buttonFont = factory.Fonts.LoadFont(_editor.Editor.Settings.Defaults.TextFont.FontFamily, 14f, FontStyle.Bold);
 
             var idle = new ButtonAnimation(null, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.LightSkyBlue), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
             var hovered = new ButtonAnimation(null, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);

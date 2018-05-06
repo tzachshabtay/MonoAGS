@@ -36,6 +36,11 @@ namespace AGS.Engine.Desktop
             return _fontLoader.LoadFont(FontFamily, sizeInPoints, Style);
         }
 
+		public override string ToString()
+		{
+            return $"{FontFamily}: {SizeInPoints} ({Style})";
+		}
+
 		#endregion
 	}
 }

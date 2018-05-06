@@ -19,7 +19,7 @@ namespace AGS.Engine
             float paddingLeft = 2f, float paddingRight = 2f, float paddingTop = 2f, float paddingBottom = 2f)
         {
             Brush = brush ?? _brushes.LoadSolidBrush(Colors.White);
-            Font = font ?? AGSGameSettings.DefaultTextFont;
+            Font = font ?? AGSGame.Game.Settings.Defaults.TextFont;
             OutlineBrush = outlineBrush ?? _brushes.LoadSolidBrush(Colors.White);
             OutlineWidth = outlineWidth;
             ShadowBrush = shadowBrush;
@@ -35,20 +35,9 @@ namespace AGS.Engine
 
         public static AGSTextConfig Clone(ITextConfig config)
         {
-            AGSTextConfig textConfig = new AGSTextConfig();
-            textConfig.Brush = config.Brush;
-            textConfig.Font = config.Font;
-            textConfig.Alignment = config.Alignment;
-            textConfig.OutlineBrush = config.OutlineBrush;
-            textConfig.OutlineWidth = config.OutlineWidth;
-            textConfig.ShadowBrush = config.ShadowBrush;
-            textConfig.ShadowOffsetX = config.ShadowOffsetX;
-            textConfig.ShadowOffsetY = config.ShadowOffsetY;
-            textConfig.AutoFit = config.AutoFit;
-            textConfig.PaddingLeft = config.PaddingLeft;
-            textConfig.PaddingRight = config.PaddingRight;
-            textConfig.PaddingTop = config.PaddingTop;
-            textConfig.PaddingBottom = config.PaddingBottom;
+            AGSTextConfig textConfig = new AGSTextConfig(config.Brush, config.Font, config.OutlineBrush, config.OutlineWidth,
+                                                         config.ShadowBrush, config.ShadowOffsetX, config.ShadowOffsetY, config.Alignment, config.AutoFit, 
+                                                         config.PaddingLeft, config.PaddingRight, config.PaddingTop, config.PaddingBottom);
             return textConfig;
         }
 

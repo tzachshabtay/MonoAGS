@@ -26,7 +26,7 @@ namespace AGS.Editor
                 AGSEditor editor = resolver.Container.Resolve<AGSEditor>();
                 editor.Editor = game;
 
-                AGSGameSettings.CurrentSkin = null;
+                game.Settings.Defaults.Skin = null;
 
                 WelcomeScreen screen = new WelcomeScreen(editor);
                 screen.Load();

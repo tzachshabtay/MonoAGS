@@ -204,8 +204,8 @@ namespace AGS.Engine
             if (!!TextBackgroundVisible && !TextVisible) return;
             if (!_visible.Visible) return;
 
-            _glTextHitTest = _glTextHitTest ?? new GLText(_graphics, _messagePump, _fonts, _bitmapPool, false);
-            _glTextRender = _glTextRender ?? new GLText(_graphics, _messagePump, _fonts, _bitmapPool, true);
+            _glTextHitTest = _glTextHitTest ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.TextFont, _bitmapPool, false);
+            _glTextRender = _glTextRender ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.TextFont, _bitmapPool, true);
 
             updateBoundingBoxes(viewport);
             if (_usedLabelBoundingBoxes != null)

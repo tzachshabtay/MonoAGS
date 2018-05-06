@@ -10,13 +10,15 @@ namespace AGS.Engine
 {
     public class AGSUIFactory : IUIFactory
     {
-        private Resolver _resolver;
-        private IGameState _gameState;
-        private IGraphicsFactory _graphics;
-        private IObjectFactory _object;
+        private readonly Resolver _resolver;
+        private readonly IGameState _gameState;
+        private readonly IGraphicsFactory _graphics;
+        private readonly IObjectFactory _object;
+        private readonly IGameSettings _settings;
 
-        public AGSUIFactory(Resolver resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj)
+        public AGSUIFactory(Resolver resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj, IGameSettings settings)
         {
+            _settings = settings;
             _resolver = resolver;
             _gameState = gameState;
             _graphics = graphics;
@@ -140,7 +142,7 @@ namespace AGS.Engine
             label.X = x;
             label.Y = y;
             label.Tint = Colors.Transparent;
-            label.TextConfig = config ?? new AGSTextConfig();
+            label.TextConfig = config ?? new AGSTextConfig(font: _settings.Defaults.TextFont);
             setParent(label, parent);
             if (addToUi)
                 _gameState.UI.Add(label);
@@ -175,7 +177,7 @@ namespace AGS.Engine
             button.Tint = pixelArtButton ? Colors.White : Colors.Transparent;
             button.X = x;
             button.Y = y;
-            button.TextConfig = config ?? new AGSTextConfig(alignment: Alignment.MiddleCenter);
+            button.TextConfig = config ?? new AGSTextConfig(alignment: Alignment.MiddleCenter, font: _settings.Defaults.TextFont);
             button.Text = text;
             setParent(button, parent);
 
@@ -228,7 +230,7 @@ namespace AGS.Engine
             textbox.Y = y;
             if (config == null)
             {
-                config = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop);
+                config = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop, font: _settings.Defaults.TextFont);
             }
             textbox.TextConfig = config;
             textbox.Text = "";
@@ -353,7 +355,7 @@ namespace AGS.Engine
 
             if (textBox == null)
             {
-                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, watermark, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel),
+                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, watermark, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, font: _settings.Defaults.TextFont),
                                      false, itemWidth, defaultHeight);
 				textBox.Border = AGSBorders.SolidColor(Colors.WhiteSmoke, 3f);
 				textBox.Tint = Colors.Transparent;
@@ -382,9 +384,9 @@ namespace AGS.Engine
 				itemButtonFactory = text =>
 				{
 					var button = GetButton(id + "_" + text,
-                                           new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText), null),
-													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText), null),
-													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
+                                           new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
+                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
+                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
                                                       0f, 0f, width: itemWidth, height: defaultHeight);
                     button.Pivot = new PointF(0f, 1f);
 					button.RenderLayer = dropDownPanelLayer;
