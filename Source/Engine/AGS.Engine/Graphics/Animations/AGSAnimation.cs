@@ -125,8 +125,14 @@ namespace AGS.Engine
 		{ 
 			get 
 			{ 
-				if (State.CurrentFrame >= Frames.Count) return null;
-				return Frames[State.CurrentFrame].Sprite; 
+                try
+                {
+                    return Frames[State.CurrentFrame].Sprite;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    return null;
+                }
 			} 
 		}
 
