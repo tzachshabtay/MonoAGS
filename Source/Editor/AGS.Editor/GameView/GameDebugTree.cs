@@ -95,6 +95,7 @@ namespace AGS.Editor
             _editor.Game.State.Rooms.OnListChanged.Subscribe(onRoomsChanged);
             _editor.Game.Events.OnRoomChanging.Subscribe(onRoomChanged);
             subscribeRooms(_editor.Game.State.Rooms);
+            _treeView.Expand(_treeView.Tree);
             return Task.CompletedTask;
         }
 
@@ -320,7 +321,6 @@ namespace AGS.Editor
             }
 
             _treeView.Tree = root;
-            _treeView.Expand(root);
         }
 
         private void addRoomToTree(IRoom room, ITreeStringNode parent)
