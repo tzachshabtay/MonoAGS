@@ -14,8 +14,6 @@ namespace AGS.Editor
 {
     public static class GameLoader
     {
-        private static Lazy<GameDebugView> _gameDebugView;
-
         private static string _currentFolder;
 
         private static AppDomain _domain;
@@ -137,30 +135,33 @@ namespace AGS.Editor
             var toolbar = new GameToolbar(blocker, editor.Editor.Input);
             toolbar.Init(editor.Editor.Factory);
 
-            _gameDebugView = new Lazy<GameDebugView>(() =>
+            /*var gameDebugView = new Lazy<GameDebugView>(() =>
             {
                 var gameDebugView = new GameDebugView(editor, keyboardBindings, actions, toolbar);
                 gameDebugView.Load();
                 return gameDebugView;
-            });
+            });*/
 
             game.Events.OnLoad.Subscribe(() =>
             {
                 editor.Init();
                 toolbar.SetGame(game, editor.GameResolver.Container.Resolve<IWindowInfo>());
+
+                var gameDebugView = new GameDebugView(editor, keyboardBindings, actions, toolbar);
+                gameDebugView.Load();
+                gameDebugView.Show();
+
+                keyboardBindings.OnKeyboardShortcutPressed.Subscribe(async action =>
+                {
+                    if (action == KeyboardBindings.GameView)
+                    {
+                        if (gameDebugView.Visible) gameDebugView.Hide();
+                        else await gameDebugView.Show();
+                    }
+                });
             });
 
             game.Start();
-
-            keyboardBindings.OnKeyboardShortcutPressed.Subscribe(async action =>
-            {
-                if (action == KeyboardBindings.GameView)
-                {
-                    var gameDebug = _gameDebugView.Value;
-                    if (gameDebug.Visible) gameDebug.Hide();
-                    else await gameDebug.Show();
-                }
-            });
         }
 
         private static Assembly loadFromSameFolder(object sender, ResolveEventArgs args)
