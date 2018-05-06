@@ -375,9 +375,10 @@ namespace AGS.Editor
             return node;
         }
 
-        private void removeFromTree(string text, ITreeStringNode parent)
+        private void removeFromTree(string id, ITreeStringNode parent)
         {
-            var node = parent.TreeNode.Children.FirstOrDefault(c => c.Text == text);
+            _addedObjects.Remove(id);
+            var node = parent.TreeNode.Children.FirstOrDefault(c => c.Text == id);
             node?.TreeNode.SetParent(null);
         }
 
