@@ -131,8 +131,14 @@ namespace AGS.Editor
 
         private void setValue(InspectorProperty property, float value, bool userInitiated)
         {
-            if (!userInitiated) property.Prop.SetValue(property.Object, value);
-            else _actions.RecordAction(new PropertyAction(property, value));
+            object val = value;
+            if (_wholeNumbers)
+            {
+                int valInt = (int)value;
+                val = valInt;
+            }
+            if (!userInitiated) property.Prop.SetValue(property.Object, val);
+            else _actions.RecordAction(new PropertyAction(property, val));
         }
 
         private (IObject control, INumberEditorComponent editor) addEditor(string id, ITreeNodeView view, InspectorProperty property, InternalNumberEditor editor)
