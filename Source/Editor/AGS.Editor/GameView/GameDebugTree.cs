@@ -103,6 +103,10 @@ namespace AGS.Editor
         {
 	        _scrollingPanel.Visible = false;
             _searchBox.Visible = false;
+            _editor.Game.State.UI.OnListChanged.Unsubscribe(onGuiChanged);
+            _editor.Game.State.Rooms.OnListChanged.Unsubscribe(onRoomsChanged);
+            _editor.Game.Events.OnRoomChanging.Unsubscribe(onRoomChanged);
+            unsubscribeRooms(_editor.Game.State.Rooms);
             _treeView.Tree = null;
         }
 
@@ -139,11 +143,11 @@ namespace AGS.Editor
             }
         }
 
-        private void unsubscribeRooms(IEnumerable<AGSListItem<IRoom>> rooms)
+        private void unsubscribeRooms(IEnumerable<IRoom> rooms)
         {
             foreach (var room in rooms)
             {
-                var subscriber = _roomSubscribers.FirstOrDefault(c => c.Room == room.Item);
+                var subscriber = _roomSubscribers.FirstOrDefault(c => c.Room == room);
                 if (subscriber != null)
                 {
                     subscriber.Unsubscribe();
@@ -171,7 +175,7 @@ namespace AGS.Editor
             }
             else
             {
-                unsubscribeRooms(args.Items);
+                unsubscribeRooms(args.Items.Select(i => i.Item));
                 foreach (var room in args.Items)
                 {
                     var roomNode = findRoom(room.Item);
