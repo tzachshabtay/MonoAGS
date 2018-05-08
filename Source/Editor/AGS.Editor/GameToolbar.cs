@@ -23,6 +23,7 @@ namespace AGS.Editor
         public GameToolbar(EditorShouldBlockEngineInput blocker, IInput editorInput, IGameSettings settings)
         {
             _editorInput = editorInput;
+            _editorInput.MouseMove.Subscribe(onMouseMove);
             _blocker = blocker;
             _font = settings.Defaults.TextFont;
         }
@@ -88,12 +89,13 @@ namespace AGS.Editor
             setPosition();
         }
 
+        private bool isPaused => _playPauseButton.Text == FontIcons.Play;
+
         private void onPlayPauseClicked(MouseButtonEventArgs obj)
         {
             _playPauseButton.Text = _playPauseButton.Text == FontIcons.Pause ? FontIcons.Play : FontIcons.Pause;
-            bool isPaused = _playPauseButton.Text == FontIcons.Play;
             _blocker.BlockEngine = isPaused;
-            _editorInput.Cursor = isPaused ? _pointer : null;
+            updateEditorCursor(_editorInput.MousePosition);
             if (isPaused) _lastGameCursor = _game.Input.Cursor;
             _game.Input.Cursor = isPaused ? null : _lastGameCursor;
         }
@@ -114,6 +116,34 @@ namespace AGS.Editor
 
             HotspotLabel hotspot = new HotspotLabel(game, _hotspotLabel) { DebugMode = true };
             hotspot.Start();
+        }
+
+        private void onMouseMove(MousePositionEventArgs args)
+        {
+            updateEditorCursor(args.MousePosition);
+        }
+
+        private void updateEditorCursor(MousePosition mousePosition)
+        {
+            if (isPaused)
+            {
+                if (_editorInput.Cursor != null) return;
+                _editorInput.Cursor = _pointer;
+                return;
+            }
+
+            var viewport = _game.State.Viewport;
+            if (mousePosition.XWindow < viewport.ScreenArea.X ||
+                mousePosition.XWindow > viewport.ScreenArea.X + viewport.ScreenArea.Width ||
+                mousePosition.YWindow < viewport.ScreenArea.Y ||
+                mousePosition.YWindow > viewport.ScreenArea.Y + viewport.ScreenArea.Height)
+            {
+                _editorInput.Cursor = _pointer;
+            }
+            else
+            {
+                _editorInput.Cursor = null;
+            }
         }
     }
 }
