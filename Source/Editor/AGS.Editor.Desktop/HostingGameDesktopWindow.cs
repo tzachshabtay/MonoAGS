@@ -6,7 +6,7 @@ using AGS.Engine.Desktop;
 
 namespace AGS.Editor.Desktop
 {
-    public class HostingGameDesktopWindow : IAGSWindowInfo
+    public class HostingGameDesktopWindow : IWindowInfo
     {
         private readonly HostingGameDesktopWindowSize _windowSize;
         private readonly OpenTK.INativeWindow _nativeWindow;
@@ -21,8 +21,6 @@ namespace AGS.Editor.Desktop
         public Rectangle GameSubWindow => _windowSize.Window;
         public float AppWindowHeight => _windowSize.GetHeight(_nativeWindow);
         public float AppWindowWidth => _windowSize.GetWidth(_nativeWindow);
-
-        public Rectangle ScreenViewport { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -11,7 +11,7 @@ namespace AGS.Editor
         private readonly IInput _editorInput;
         private readonly IFont _font;
         private IWindowInfo _windowInfo;
-        private IInput _gameInput;
+        private IGame _game;
         private ILabel _fpsLabel, _mousePosLabel, _hotspotLabel;
         private IButton _playPauseButton;
         private IObject _lastGameCursor;
@@ -76,14 +76,15 @@ namespace AGS.Editor
 
         private void setPosition()
         {
-            float x = MathUtils.Lerp(0f, 0f, _windowInfo.AppWindowWidth, _resolution.Width, _windowInfo.ScreenViewport.X);
-            float width = MathUtils.Lerp(0f, 0f, _windowInfo.AppWindowWidth, _resolution.Width, _windowInfo.ScreenViewport.Width);
+            var viewport = _game.State.Viewport;
+            float x = MathUtils.Lerp(0f, 0f, _windowInfo.AppWindowWidth, _resolution.Width, viewport.ScreenArea.X);
+            float width = MathUtils.Lerp(0f, 0f, _windowInfo.AppWindowWidth, _resolution.Width, viewport.ScreenArea.Width);
             _toolbar.X = x + width / 2f;
         }
 
-        private void onGameWindowPropertyChanged(object sender, PropertyChangedEventArgs args)
+        private void onViewportPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(IWindowInfo.ScreenViewport)) return;
+            if (args.PropertyName != nameof(IViewport.ScreenArea)) return;
             setPosition();
         }
 
@@ -93,17 +94,17 @@ namespace AGS.Editor
             bool isPaused = _playPauseButton.Text == FontIcons.Play;
             _blocker.BlockEngine = isPaused;
             _editorInput.Cursor = isPaused ? _pointer : null;
-            if (isPaused) _lastGameCursor = _gameInput.Cursor;
-            _gameInput.Cursor = isPaused ? null : _lastGameCursor;
+            if (isPaused) _lastGameCursor = _game.Input.Cursor;
+            _game.Input.Cursor = isPaused ? null : _lastGameCursor;
         }
 
         public void SetGame(IGame game, IWindowInfo gameWindow)
         {
             _windowInfo = gameWindow;
-            gameWindow.PropertyChanged += onGameWindowPropertyChanged;
-            setPosition();
+            _game = game;
 
-            _gameInput = game.Input;
+            game.State.Viewport.PropertyChanged += onViewportPropertyChanged;
+            setPosition();
 
             FPSCounter fps = new FPSCounter(game, _fpsLabel);
             fps.Start();
