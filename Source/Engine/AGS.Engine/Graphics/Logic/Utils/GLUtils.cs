@@ -53,7 +53,7 @@ namespace AGS.Engine
 
         public void RefreshViewport(IGameSettings settings, IWindowInfo window, IViewport viewport)
         {
-            viewport.RefreshScreenArea(settings, window, _state);
+            viewport.RefreshScreenArea(settings, window);
             ScreenViewport = viewport.ScreenArea;
             _graphics.Viewport(viewport.ScreenArea.X, viewport.ScreenArea.Y, viewport.ScreenArea.Width, viewport.ScreenArea.Height);
         }

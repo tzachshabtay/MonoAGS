@@ -72,7 +72,7 @@ namespace AGS.Engine
             return matrixProvider.GetMatrix(this, renderLayer.ParallaxSpeed);
         }
 
-        public void RefreshScreenArea(IGameSettings settings, IWindowInfo window, IGameState state)
+        public void RefreshScreenArea(IGameSettings settings, IWindowInfo window)
         {
             float viewX = 0;
             float viewY = 0;

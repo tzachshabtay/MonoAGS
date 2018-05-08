@@ -132,7 +132,6 @@ namespace AGS.API
         /// </summary>
         /// <param name="settings">Settings.</param>
         /// <param name="window">Window.</param>
-        /// <param name="state">State.</param>
-        void RefreshScreenArea(IGameSettings settings, IWindowInfo window, IGameState state);
+        void RefreshScreenArea(IGameSettings settings, IWindowInfo window);
 	}
 }
