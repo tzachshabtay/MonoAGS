@@ -120,6 +120,19 @@ namespace AGS.API
         /// <returns>The matrix.</returns>
         /// <param name="layer">Layer.</param>
         Matrix4 GetMatrix(IRenderLayer layer);
+
+        /// <summary>
+        /// Gets the area (in window co-ordinates) used by the viewport.
+        /// </summary>
+        /// <value>The screen area.</value>
+        Rectangle ScreenArea { get; }
+
+        /// <summary>
+        /// Refreshs the screen area for the viewport (this is called by the engine).
+        /// </summary>
+        /// <param name="settings">Settings.</param>
+        /// <param name="window">Window.</param>
+        /// <param name="state">State.</param>
+        void RefreshScreenArea(IGameSettings settings, IWindowInfo window, IGameState state);
 	}
 }
-

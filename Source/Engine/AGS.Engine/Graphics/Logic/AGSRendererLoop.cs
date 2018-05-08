@@ -14,7 +14,7 @@ namespace AGS.Engine
 		private readonly Resolver _resolver;
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
-        private readonly IAGSWindowInfo _window;
+        private readonly IWindowInfo _window;
         private readonly IDisplayList _displayList;
         private readonly IInput _input;
         private readonly IGameSettings _noAspectRatioSettings;
@@ -26,7 +26,7 @@ namespace AGS.Engine
         private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
 
 		public AGSRendererLoop (Resolver resolver, IGame game,
-            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IAGSWindowInfo window,
+            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IWindowInfo window,
             IAGSRenderPipeline pipeline, IDisplayList displayList, 
             IInput input, IMatrixUpdater matrixUpdater)
 		{
@@ -193,7 +193,7 @@ namespace AGS.Engine
 			shader.Bind();
 		}
 
-        private class DummyWindow : IAGSWindowInfo
+        private class DummyWindow : IWindowInfo
         {
             public float AppWindowHeight => throw new NotImplementedException();
             public float AppWindowWidth => throw new NotImplementedException();

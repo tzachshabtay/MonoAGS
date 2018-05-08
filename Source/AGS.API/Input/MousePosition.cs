@@ -58,15 +58,8 @@ namespace AGS.API
         /// <param name="viewport">Viewport.</param>
         public float GetViewportX(IViewport viewport)
         {
-            float windowWidth = _window.ScreenViewport.Width;
-            var projectLeft = _window.ScreenViewport.X + viewport.ProjectionBox.X * windowWidth;
-            var projectRight = projectLeft + viewport.ProjectionBox.Width * windowWidth;
-            var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
-            if (parentBoundingBoxes != null)
-            {
-                projectLeft += parentBoundingBoxes.ViewportBox.MinX;
-                projectRight += parentBoundingBoxes.ViewportBox.MinX;
-            }
+            var projectLeft = viewport.ScreenArea.X;
+            var projectRight = projectLeft + viewport.ScreenArea.Width;
 
             float x = MathUtils.Lerp(projectLeft, 0f, projectRight, _virtualResolution.Width, XWindow);
             return x;
@@ -79,15 +72,8 @@ namespace AGS.API
         /// <param name="viewport">Viewport.</param>
         public float GetViewportY(IViewport viewport)
         {
-            var projectBottom = _window.AppWindowHeight - _window.ScreenViewport.Y - viewport.ProjectionBox.Y * _window.ScreenViewport.Height;
-            var projectTop = projectBottom - viewport.ProjectionBox.Height * _window.ScreenViewport.Height;
-
-            var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
-            if (parentBoundingBoxes != null)
-            {
-                projectBottom -= parentBoundingBoxes.ViewportBox.MinY;
-                projectTop -= parentBoundingBoxes.ViewportBox.MinY;
-            }
+            var projectTop = viewport.ScreenArea.Y;
+            var projectBottom = projectTop + viewport.ScreenArea.Height;
 
             float y = MathUtils.Lerp(projectBottom, 0f, projectTop, _virtualResolution.Height, YWindow);
             return y;
@@ -102,18 +88,10 @@ namespace AGS.API
         /// <param name="projectedInto">Projected into.</param>
         public Vector2 GetProjectedPoint(IViewport viewport, IObject projectedInto)
         {
-            var projectBottom = _window.AppWindowHeight - _window.ScreenViewport.Y - viewport.ProjectionBox.Y * _window.ScreenViewport.Height;
-            var projectTop = projectBottom - viewport.ProjectionBox.Height * _window.ScreenViewport.Height;
-            var projectLeft = _window.ScreenViewport.X + viewport.ProjectionBox.X * _window.ScreenViewport.Width;
-            var projectRight = projectLeft + viewport.ProjectionBox.Width * _window.ScreenViewport.Width;
-            var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
-            if (parentBoundingBoxes != null)
-            {
-                projectLeft += parentBoundingBoxes.ViewportBox.MinX;
-                projectRight += parentBoundingBoxes.ViewportBox.MinX;
-                projectBottom -= parentBoundingBoxes.ViewportBox.MinY;
-                projectTop -= parentBoundingBoxes.ViewportBox.MinY;
-            }
+            var projectTop = viewport.ScreenArea.Y;
+            var projectBottom = projectTop + viewport.ScreenArea.Height;
+            var projectLeft = viewport.ScreenArea.X;
+            var projectRight = projectLeft + viewport.ScreenArea.Width;
             float y = MathUtils.Lerp(projectTop, _virtualResolution.Height, projectBottom, 0f, YWindow);
             float x = MathUtils.Lerp(projectLeft, 0f, projectRight, _virtualResolution.Width, XWindow);
 

@@ -7,7 +7,7 @@ using OpenTK.Graphics;
 
 namespace AGS.Engine.Desktop
 {
-    public class AGSGameWindow : IGameWindow, IAGSWindowInfo
+    public class AGSGameWindow : IGameWindow, IWindowInfo
 	{
         private static GameWindow _gameWindow;
         private IGameWindowSize _windowSize;
