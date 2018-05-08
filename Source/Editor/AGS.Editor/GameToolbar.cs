@@ -133,10 +133,13 @@ namespace AGS.Editor
             }
 
             var viewport = _game.State.Viewport;
+            var projectBottom = _windowInfo.AppWindowHeight - viewport.ScreenArea.Y - viewport.ProjectionBox.Y * viewport.ScreenArea.Height;
+            var projectTop = projectBottom - viewport.ProjectionBox.Height * viewport.ScreenArea.Height;
+
             if (mousePosition.XWindow < viewport.ScreenArea.X ||
                 mousePosition.XWindow > viewport.ScreenArea.X + viewport.ScreenArea.Width ||
-                mousePosition.YWindow < viewport.ScreenArea.Y ||
-                mousePosition.YWindow > viewport.ScreenArea.Y + viewport.ScreenArea.Height)
+                mousePosition.YWindow < projectTop ||
+                mousePosition.YWindow > projectBottom)
             {
                 _editorInput.Cursor = _pointer;
             }

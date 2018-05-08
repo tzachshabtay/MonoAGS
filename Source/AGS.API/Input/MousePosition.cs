@@ -72,8 +72,15 @@ namespace AGS.API
         /// <param name="viewport">Viewport.</param>
         public float GetViewportY(IViewport viewport)
         {
-            var projectTop = viewport.ScreenArea.Y;
-            var projectBottom = projectTop + viewport.ScreenArea.Height;
+            var projectBottom = _window.AppWindowHeight - viewport.ScreenArea.Y - viewport.ProjectionBox.Y * viewport.ScreenArea.Height;
+            var projectTop = projectBottom - viewport.ProjectionBox.Height * viewport.ScreenArea.Height;
+
+            var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
+            if (parentBoundingBoxes != null)
+            {
+                projectBottom -= parentBoundingBoxes.ViewportBox.MinY;
+                projectTop -= parentBoundingBoxes.ViewportBox.MinY;
+            }
 
             float y = MathUtils.Lerp(projectBottom, 0f, projectTop, _virtualResolution.Height, YWindow);
             return y;
@@ -88,8 +95,15 @@ namespace AGS.API
         /// <param name="projectedInto">Projected into.</param>
         public Vector2 GetProjectedPoint(IViewport viewport, IObject projectedInto)
         {
-            var projectTop = viewport.ScreenArea.Y;
-            var projectBottom = projectTop + viewport.ScreenArea.Height;
+            var projectBottom = _window.AppWindowHeight - viewport.ScreenArea.Y - viewport.ProjectionBox.Y * viewport.ScreenArea.Height;
+            var projectTop = projectBottom - viewport.ProjectionBox.Height * viewport.ScreenArea.Height;
+            var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
+            if (parentBoundingBoxes != null)
+            {
+                projectBottom -= parentBoundingBoxes.ViewportBox.MinY;
+                projectTop -= parentBoundingBoxes.ViewportBox.MinY;
+            }
+
             var projectLeft = viewport.ScreenArea.X;
             var projectRight = projectLeft + viewport.ScreenArea.Width;
             float y = MathUtils.Lerp(projectTop, _virtualResolution.Height, projectBottom, 0f, YWindow);
