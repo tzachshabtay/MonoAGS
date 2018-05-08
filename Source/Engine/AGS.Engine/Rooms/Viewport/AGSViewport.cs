@@ -102,11 +102,14 @@ namespace AGS.Engine
             var parent = Parent;
             if (parent != null)
             {
-                var boundingBoxes = parent.GetBoundingBoxes(state.Viewport);
-                if (boundingBoxes != null)
+                var box = parent.WorldBoundingBox;
+
+                if (box.IsValid)
                 {
-                    viewX += boundingBoxes.ViewportBox.MinX;
-                    viewY += boundingBoxes.ViewportBox.MinY;
+                    float parentX = MathUtils.Lerp(0f, 0f, settings.VirtualResolution.Width, width, box.MinX);
+                    float parentY = MathUtils.Lerp(0f, 0f, settings.VirtualResolution.Height, height, box.MinY);
+                    viewX += parentX;
+                    viewY += parentY;
                 }
             }
             int widthInt = (int)Math.Round((float)width * projectionBox.Width);
