@@ -82,24 +82,7 @@ namespace AGS.Editor
 
             public void UpdatePosition()
             {
-                //if (_draggable.IsCurrentlyDragged) return;
-                var boxComponent = _boundingBox;
-                if (boxComponent == null) return;
-                var image = _image;
-                if (image == null) return;
-                var box = boxComponent.WorldBoundingBox;
-
-                _handle.Pivot = image.Pivot;
-                var x = MathUtils.Lerp(0f, box.MinX, 1f, box.MaxX, image.Pivot.X);
-                var y = MathUtils.Lerp(0f, box.MinY, 1f, box.MaxY, image.Pivot.Y);
-
-                (x, y) = _editor.ToEditorResolution(x, y);
-
-                (var minX, var minY) = _editor.ToEditorResolution(box.MinX, box.MinY);
-                (var maxX, var maxY) = _editor.ToEditorResolution(box.MaxX, box.MaxY);
-
-                _handle.Location = new AGSLocation(x, y);
-                _handle.BaseSize = new SizeF(maxX - minX, maxY - minY);
+                GameCanvas.ExpandAroundGameObject(_editor, _boundingBox, _image, _handle);
             }
 
             private void setVisible()

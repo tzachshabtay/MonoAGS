@@ -115,6 +115,12 @@ namespace AGS.Engine
             return nodeView.IsCollapsed;
         }
 
+        public void Select(ITreeStringNode node)
+        {
+            var nodeView = findNodeView(node);
+            nodeView?.Select();
+        }
+
         private async void applySearchOnIdle()
         {
             _currentSearchToken?.TrySetResult(null);
@@ -462,6 +468,15 @@ namespace AGS.Engine
                                                   IsCollapsed, IsHovered, IsSelected);
             }
 
+            public void Select()
+            {
+                getRoot().ResetSelection();
+                if (_tree.AllowSelection == SelectionType.None) return;
+                IsSelected = true;
+                _tree.OnNodeSelected.Invoke(new NodeEventArgs(Item));
+                RefreshDisplay();
+            }
+
             private void updateVisibilityWithChildren()
             {
                 updateVisibility();
@@ -583,11 +598,7 @@ namespace AGS.Engine
 
             private void onItemSelected(MouseButtonEventArgs args)
             {
-                getRoot().ResetSelection();
-                if (_tree.AllowSelection == SelectionType.None) return;
-                IsSelected = true;
-                _tree.OnNodeSelected.Invoke(new NodeEventArgs(Item));
-                RefreshDisplay();
+                Select();
             }
         }
     }

@@ -28,6 +28,8 @@ namespace AGS.Editor
             _font = settings.Defaults.TextFont;
         }
 
+        public bool IsPaused => _playPauseButton.Text == FontIcons.Play;
+
         public void Init(IGameFactory factory)
         {
             _pointer = factory.UI.GetLabel("PointerCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
@@ -89,15 +91,13 @@ namespace AGS.Editor
             setPosition();
         }
 
-        private bool isPaused => _playPauseButton.Text == FontIcons.Play;
-
         private void onPlayPauseClicked(MouseButtonEventArgs obj)
         {
             _playPauseButton.Text = _playPauseButton.Text == FontIcons.Pause ? FontIcons.Play : FontIcons.Pause;
-            _blocker.BlockEngine = isPaused;
+            _blocker.BlockEngine = IsPaused;
             updateEditorCursor(_editorInput.MousePosition);
-            if (isPaused) _lastGameCursor = _game.Input.Cursor;
-            _game.Input.Cursor = isPaused ? null : _lastGameCursor;
+            if (IsPaused) _lastGameCursor = _game.Input.Cursor;
+            _game.Input.Cursor = IsPaused ? null : _lastGameCursor;
         }
 
         public void SetGame(IGame game, IWindowInfo gameWindow)
@@ -125,7 +125,7 @@ namespace AGS.Editor
 
         private void updateEditorCursor(MousePosition mousePosition)
         {
-            if (isPaused)
+            if (IsPaused)
             {
                 if (_editorInput.Cursor != null) return;
                 _editorInput.Cursor = _pointer;

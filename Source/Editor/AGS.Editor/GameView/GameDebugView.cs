@@ -11,7 +11,6 @@ namespace AGS.Editor
     {
         private readonly IRenderLayer _layer;
         private readonly AGSEditor _editor;
-        private readonly GameDebugTree _debugTree;
         private readonly GameDebugDisplayList _displayList;
         private readonly InspectorPanel _inspector;
         private readonly IInput _input;
@@ -32,7 +31,7 @@ namespace AGS.Editor
             _keyboardBindings = keyboardBindings;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: new Size(1800, 1200));
             _inspector = new InspectorPanel(editor.Editor, editor.Game, _layer, actions);
-            _debugTree = new GameDebugTree(editor, _layer, _inspector);
+            Tree = new GameDebugTree(editor, _layer, _inspector);
             _displayList = new GameDebugDisplayList(editor.Editor, editor.Game, _layer);
             _input = editor.Editor.Input;
             keyboardBindings.OnKeyboardShortcutPressed.Subscribe(onShortcutKeyPressed);
@@ -41,6 +40,8 @@ namespace AGS.Editor
         }
 
         public bool Visible => _panel.Visible;
+
+        public GameDebugTree Tree { get; }
 
         public void Load()
         {
@@ -100,10 +101,10 @@ namespace AGS.Editor
             bottomPanel.Tint = Colors.Transparent;
             bottomPanel.RenderLayer = _layer;
 
-            _debugTree.Load(topPanel);
+            Tree.Load(topPanel);
             _displayList.Load(topPanel);
             _inspector.Load(bottomPanel);
-            _currentTab = _debugTree;
+            _currentTab = Tree;
             _splitPanel = parentPanel.AddComponent<ISplitPanelComponent>();
             _splitPanel.TopPanel = topPanel;
             _splitPanel.BottomPanel = bottomPanel;
@@ -159,8 +160,8 @@ namespace AGS.Editor
         private Task onPaneSwitch(MouseButtonEventArgs args)
         {
             _currentTab.Hide();
-            _currentTab = (_currentTab == _debugTree) ? (IDebugTab)_displayList : _debugTree;
-            _panesButton.Text = _currentTab == _debugTree ? "Display List" : "Scene Tree";
+            _currentTab = (_currentTab == Tree) ? (IDebugTab)_displayList : Tree;
+            _panesButton.Text = _currentTab == Tree ? "Display List" : "Scene Tree";
             _currentTab.Resize();
             return _currentTab.Show();
         }

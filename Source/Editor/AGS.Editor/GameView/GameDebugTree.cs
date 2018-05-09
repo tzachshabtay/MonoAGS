@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace AGS.Editor
         private readonly IConcurrentHashSet<string> _addedObjects;
         private readonly List<RoomSubscriber> _roomSubscribers;
         private readonly InspectorPanel _inspector;
+        private readonly ConcurrentDictionary<string, ITreeStringNode> _entitiesToNodes;
         private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
 
@@ -45,6 +47,7 @@ namespace AGS.Editor
         {
             _editor = editor;
             _inspector = inspector;
+            _entitiesToNodes = new ConcurrentDictionary<string, ITreeStringNode>();
             _addedObjects = new AGSConcurrentHashSet<string>(100, false);
             _roomSubscribers = new List<RoomSubscriber>(20);
             _layer = layer;
@@ -115,6 +118,37 @@ namespace AGS.Editor
             _contentsPanel.BaseSize = new SizeF(_parent.Width - _gutterSize, _contentsPanel.Height);
             _searchBox.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
             _searchBox.Watermark.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
+        }
+
+        public void Select(IEntity entity)
+        {
+            if (!_entitiesToNodes.TryGetValue(entity.ID, out var node)) return;
+            var parent = node.TreeNode.Parent;
+            while (parent != null)
+            {
+                _treeView.Expand(parent);
+                parent = parent.TreeNode.Parent;
+            }
+            _treeView.Select(node);
+        }
+
+        public void Unselect()
+        {
+            _lastSelectedEntity?.GetComponent<EntityDesigner>()?.Dispose();
+            _lastSelectedEntity?.RemoveComponent<EntityDesigner>();
+            var lastSelectedMaskVisible = _lastSelectedMaskVisible;
+            var lastSelectedMaskImage = _lastSelectedMaskImage;
+            var lastEnabled = _lastEnabled;
+            if (lastSelectedMaskVisible != null) lastSelectedMaskVisible.Visible = _lastMaskVisible;
+            if (lastSelectedMaskImage != null) lastSelectedMaskImage.Opacity = _lastOpacity;
+            if (_lastSelectedEnabled != null)
+            {
+                _lastSelectedEnabled.Enabled = lastEnabled;
+                _lastSelectedEnabled.ClickThrough = _lastClickThrough;
+            }
+            _lastSelectedEnabled = null;
+            _lastMaskVisible = false;
+            _lastOpacity = 0;
         }
 
         private void onRoomChanged()
@@ -216,7 +250,7 @@ namespace AGS.Editor
         {
             if (args.Node == _lastSelectedNode) return;
             _lastSelectedNode = args.Node;
-            unselect();
+            Unselect();
             string nodeType = args.Node.Properties.Strings.GetValue(Fields.Type);
             if (nodeType == null) return;
             switch (nodeType)
@@ -285,25 +319,6 @@ namespace AGS.Editor
             }
         }
 
-        private void unselect()
-        {
-            _lastSelectedEntity?.GetComponent<EntityDesigner>()?.Dispose();
-            _lastSelectedEntity?.RemoveComponent<EntityDesigner>();
-            var lastSelectedMaskVisible = _lastSelectedMaskVisible;
-            var lastSelectedMaskImage = _lastSelectedMaskImage;
-            var lastEnabled = _lastEnabled;
-            if (lastSelectedMaskVisible != null) lastSelectedMaskVisible.Visible = _lastMaskVisible;
-            if (lastSelectedMaskImage != null) lastSelectedMaskImage.Opacity = _lastOpacity;
-            if (_lastSelectedEnabled != null)
-            {
-                _lastSelectedEnabled.Enabled = lastEnabled;
-                _lastSelectedEnabled.ClickThrough = _lastClickThrough;
-            }
-            _lastSelectedEnabled = null;
-            _lastMaskVisible = false;
-            _lastOpacity = 0;
-        }
-
         private void refresh()
         {
             _addedObjects.Clear();
@@ -350,6 +365,7 @@ namespace AGS.Editor
             var node = addToTree(area.ID, parent);
             node.Properties.Strings.SetValue(Fields.Type, NodeType.Area);
             node.Properties.Entities.SetValue(Fields.Entity, area);
+            _entitiesToNodes[area.ID] = node;
         }
 
         private IObject getRoot(IObject obj)
@@ -366,6 +382,7 @@ namespace AGS.Editor
             var node = addToTree(obj.ID, parent);
             node.Properties.Strings.SetValue(Fields.Type, NodeType.Object);
             node.Properties.Entities.SetValue(Fields.Entity, obj);
+            _entitiesToNodes[obj.ID] = node;
             foreach (var child in obj.TreeNode.Children)
             {
                 addObjectToTree(child, node);

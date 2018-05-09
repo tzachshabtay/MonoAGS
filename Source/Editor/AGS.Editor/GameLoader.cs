@@ -135,19 +135,14 @@ namespace AGS.Editor
             var toolbar = new GameToolbar(blocker, editor.Editor.Input, editor.Editor.Settings);
             toolbar.Init(editor.Editor.Factory);
 
-            /*var gameDebugView = new Lazy<GameDebugView>(() =>
-            {
-                var gameDebugView = new GameDebugView(editor, keyboardBindings, actions, toolbar);
-                gameDebugView.Load();
-                return gameDebugView;
-            });*/
-
             game.Events.OnLoad.Subscribe(() =>
             {
                 editor.Init();
                 toolbar.SetGame(game, editor.GameResolver.Container.Resolve<IWindowInfo>());
 
                 var gameDebugView = new GameDebugView(editor, keyboardBindings, actions, toolbar);
+                var canvas = new GameCanvas(editor, toolbar, gameDebugView.Tree);
+                canvas.Init();
                 gameDebugView.Load();
                 gameDebugView.Show();
 
