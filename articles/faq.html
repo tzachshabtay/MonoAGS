@@ -5,11 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enum ArrowDirection
-   | MonoAGS Documentation </title>
+    <title>FAQ (Frequently Asked Questions) | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Enum ArrowDirection
-   | MonoAGS Documentation ">
+    <meta name="title" content="FAQ (Frequently Asked Questions) | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.35.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -78,47 +76,22 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.ArrowDirection">
-  
-  
-  <h1 id="AGS_API_ArrowDirection" data-uid="AGS.API.ArrowDirection" class="text-break">Enum ArrowDirection
-  </h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
-  <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_ArrowDirection_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum ArrowDirection</code></pre>
-  </div>
-  <h3 id="fields">Fields
-  </h3>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    <thead>
-    <tbody>
-      <tr>
-        <td id="AGS_API_ArrowDirection_Down">Down</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td id="AGS_API_ArrowDirection_Left">Left</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td id="AGS_API_ArrowDirection_Right">Right</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td id="AGS_API_ArrowDirection_Up">Up</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </thead></thead></table>
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="faq-frequently-asked-questions">FAQ (Frequently Asked Questions)</h1>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="the-version-of-visual-studio-is-unable-to-open-the-following-projects">&quot;The version of Visual Studio is unable to open the following projects.&quot;</h3>
+<p>If you see this error when loading the projects:</p>
+<p><img src="images/unsupported-projects.png" alt="Error"></p>
+<p>It means that Xamarin for Android/IOS is not installed.
+Check out the <a href="getting-started.html#compile-the-code">Getting Started</a> section for instructions on how to set up android/ios development.
+If you are not interested in developing for android/ios, you can safely ignore this error.</p>
+<p>Note that if you are developing from a Linux machine, then developing for ios/android is not available. You can ignore these error and develop your game, and then switch to a Windows/Mac machine at a time when you&#39;re interested in testing/developing mobile.</p>
+<h3 id="the-current-net-sdk-does-not-support-targeting-net-standard-20-">&quot;The current .NET SDK does not support targeting .NET Standard 2.0. ...&quot;</h3>
+<p>Check that you have .Net Core installed. You can type <code>dotnet --info</code> from the console to verify.
+If you don&#39;t have it installed, you can install it from <a href="https://www.microsoft.com/net/learn/get-started">here</a>.</p>
+<h3 id="the-solution-builds-fine-but-the-project-wont-start">The solution builds fine but the project won&#39;t start</h3>
+<p>Check if you have a message similar to &quot;you can&#39;t run that type of project&quot;. If so, it means that your startup project is currently a library and not the game itself. You can change the startup project either by right clicking the game project in the solution explorer and selecting &quot;Set as Startup Project&quot;, or simply by selecting that project from the drop-down at the top of the screen.</p>
 </article>
           </div>
           
@@ -127,10 +100,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/AutomatedTweens/apiSpec/new?filename=AGS_API_ArrowDirection.md&amp;value=---%0Auid%3A%20AGS.API.ArrowDirection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/AutomatedTweens/Source/AGS.API/Game/Factories/IIconFactory.cs/#L3" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/AutomatedTweens/Docs/articles/faq.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
