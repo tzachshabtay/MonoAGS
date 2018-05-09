@@ -192,13 +192,13 @@ namespace AGS.Editor
             if (!MathUtils.FloatEquals(xOffset, 0f))
             {
                 PropertyInfo prop = translate.GetType().GetProperty(nameof(ITranslateComponent.X));
-                PropertyAction action = new PropertyAction(new InspectorProperty(translate, "X", prop), translate.X + xOffset);
+                PropertyAction action = new PropertyAction(new InspectorProperty(translate, nameof(ITranslateComponent.X), prop), translate.X + xOffset);
                 _actions.RecordAction(action);
             }
             if (!MathUtils.FloatEquals(yOffset, 0f))
             {
                 PropertyInfo prop = translate.GetType().GetProperty(nameof(ITranslateComponent.Y));
-                PropertyAction action = new PropertyAction(new InspectorProperty(translate, "Y", prop), translate.Y + yOffset);
+                PropertyAction action = new PropertyAction(new InspectorProperty(translate, nameof(ITranslateComponent.Y), prop), translate.Y + yOffset);
                 _actions.RecordAction(action);
             }
         }
@@ -213,7 +213,20 @@ namespace AGS.Editor
             }
             if (MathUtils.FloatEquals(angleOffset, 0f)) return;
             PropertyInfo prop = rotate.GetType().GetProperty(nameof(IRotateComponent.Angle));
-            PropertyAction action = new PropertyAction(new InspectorProperty(rotate, "Angle", prop), rotate.Angle + angleOffset);
+            PropertyAction action = new PropertyAction(new InspectorProperty(rotate, nameof(IRotateComponent.Angle), prop), rotate.Angle + angleOffset);
+            _actions.RecordAction(action);
+        }
+
+        private void scaleEntity(IEntity entity, float scaleOffset)
+        {
+            var scale = entity.GetComponent<IScaleComponent>();
+            if (scale == null) return;
+            if (_input.IsKeyDown(Key.AltLeft) || _input.IsKeyDown(Key.AltRight))
+            {
+                scaleOffset /= 10f;
+            }
+            PropertyInfo prop = scale.GetType().GetProperty(nameof(IScaleComponent.Scale));
+            PropertyAction action = new PropertyAction(new InspectorProperty(scale, nameof(IScaleComponent.Scale), prop), new PointF(scale.ScaleX + scaleOffset, scale.ScaleY + scaleOffset));
             _actions.RecordAction(action);
         }
 
@@ -230,6 +243,9 @@ namespace AGS.Editor
 
             if (_input.IsKeyDown(Key.BracketLeft)) rotateEntity(entity, -1f);
             else if (_input.IsKeyDown(Key.BracketRight)) rotateEntity(entity, 1f);
+
+            if (_input.IsKeyDown(Key.Plus)) scaleEntity(entity, 0.1f);
+            else if (_input.IsKeyDown(Key.Minus)) scaleEntity(entity, -0.1f);
         }
     }
 }
