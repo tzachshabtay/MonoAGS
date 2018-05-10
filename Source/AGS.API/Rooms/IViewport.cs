@@ -132,6 +132,7 @@ namespace AGS.API
         /// </summary>
         /// <param name="settings">Settings.</param>
         /// <param name="window">Window.</param>
-        void RefreshScreenArea(IGameSettings settings, IWindowInfo window);
+        /// <param name="updateArea">Should we update the screen area internally? This is not always desired, like if we're setting a viewport for a frame buffer and not the screen.</param>
+        Rectangle GetScreenArea(IGameSettings settings, IWindowInfo window, bool updateArea);
 	}
 }

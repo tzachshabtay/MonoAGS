@@ -49,7 +49,7 @@ namespace AGS.Engine
 
         public bool Tick()
         {
-            _glUtils.RefreshViewport(_game.Settings, _window, _gameState.Viewport);
+            _glUtils.RefreshViewport(_game.Settings, _window, _gameState.Viewport, true);
             _glUtils.AdjustResolution(_game.Settings.VirtualResolution.Width, _game.Settings.VirtualResolution.Height);
 
 			var transitionState = _roomTransitions.State;
@@ -92,7 +92,7 @@ namespace AGS.Engine
                     }
 					if (_toTransitionBuffer == null) _toTransitionBuffer = renderToBuffer();
                     _dummyWindow.GameSubWindow = new Rectangle(0, 0, (int)_window.AppWindowWidth, (int)_window.AppWindowHeight);
-                    _glUtils.RefreshViewport(_noAspectRatioSettings, _dummyWindow, _gameState.Viewport);
+                    _glUtils.RefreshViewport(_noAspectRatioSettings, _dummyWindow, _gameState.Viewport, false);
                     if (!_roomTransitions.Transition.RenderTransition(_fromTransitionBuffer, _toTransitionBuffer))
 					{
 						_fromTransitionBuffer = null;
@@ -142,7 +142,7 @@ namespace AGS.Engine
 
         private void renderViewport(IViewport viewport, List<IRenderBatch> instructions)
         {
-            _glUtils.RefreshViewport(_game.Settings, _window, viewport);
+            _glUtils.RefreshViewport(_game.Settings, _window, viewport, true);
 
             foreach (var batch in instructions)
             {

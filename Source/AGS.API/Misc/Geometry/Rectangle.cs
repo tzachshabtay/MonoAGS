@@ -50,6 +50,15 @@
 
         [CustomStringValue(CustomStringApplyWhen.CanWrite)]
         public string ToInspectorString() => $"{X},{Y},{Width},{Height}";
-    }
-}
 
+		public override bool Equals(object obj)
+		{
+            return obj is Rectangle rect && rect.X == X && rect.Y == Y && rect.Width == Width && rect.Height == Height;
+		}
+
+		public override int GetHashCode()
+		{
+            return X.GetHashCode();
+		}
+	}
+}

@@ -51,11 +51,11 @@ namespace AGS.Engine
             _graphics.LoadIdentity();
         }
 
-        public void RefreshViewport(IGameSettings settings, IWindowInfo window, IViewport viewport)
+        public void RefreshViewport(IGameSettings settings, IWindowInfo window, IViewport viewport, bool updateViewportScreenArea)
         {
-            viewport.RefreshScreenArea(settings, window);
+            var area = viewport.GetScreenArea(settings, window, updateViewportScreenArea);
             ScreenViewport = viewport.ScreenArea;
-            _graphics.Viewport(viewport.ScreenArea.X, viewport.ScreenArea.Y, viewport.ScreenArea.Width, viewport.ScreenArea.Height);
+            _graphics.Viewport(area.X, area.Y, area.Width, area.Height);
         }
 
 		public void GenBuffers()

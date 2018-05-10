@@ -72,7 +72,7 @@ namespace AGS.Engine
             return matrixProvider.GetMatrix(this, renderLayer.ParallaxSpeed);
         }
 
-        public void RefreshScreenArea(IGameSettings settings, IWindowInfo window)
+        public Rectangle GetScreenArea(IGameSettings settings, IWindowInfo window, bool updateScreenArea)
         {
             float viewX = 0;
             float viewY = 0;
@@ -116,7 +116,9 @@ namespace AGS.Engine
             int heightInt = (int)Math.Round((float)height * projectionBox.Height);
             var viewXInt = (int)Math.Round(viewX + window.GameSubWindow.X);
             var viewYInt = (int)Math.Round(viewY + window.GameSubWindow.Y);
-            ScreenArea = new Rectangle(viewXInt, viewYInt, widthInt, heightInt);
+            var screenArea = new Rectangle(viewXInt, viewYInt, widthInt, heightInt);
+            if (updateScreenArea) ScreenArea = screenArea;
+            return screenArea;
         }
 
         #endregion
