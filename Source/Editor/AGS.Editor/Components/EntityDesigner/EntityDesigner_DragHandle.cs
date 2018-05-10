@@ -82,6 +82,7 @@ namespace AGS.Editor
 
             public void UpdatePosition()
             {
+                if (_draggable.IsCurrentlyDragged) return;
                 GameCanvas.ExpandAroundGameObject(_editor, _boundingBox, _image, _handle);
             }
 
