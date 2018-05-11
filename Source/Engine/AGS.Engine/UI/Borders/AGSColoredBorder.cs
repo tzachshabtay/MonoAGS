@@ -10,6 +10,9 @@ namespace AGS.Engine
 		public static int ROUND_CORNER_SAMPLE_SIZE = 15;
         private readonly IGLUtils _glUtils;
 
+        private FourCorners<Color> _colors;
+        private FourCorners<IGLColor> _glColors;
+
 		public AGSColoredBorder(IGLUtils glUtils, float lineWidth, FourCorners<Color> color, FourCorners<bool> hasRoundCorner)
 		{
             _glUtils = glUtils;
@@ -20,7 +23,15 @@ namespace AGS.Engine
 		}
 
 		public float LineWidth { get; set; }
-		public FourCorners<Color> Color { get; set; }
+		public FourCorners<Color> Color 
+        {
+            get => _colors;
+            set
+            {
+                _colors = value;
+                _glColors = value.Convert(c => c.ToGLColor());
+            }
+        }
 		public FourCorners<bool> HasRoundCorner { get; set; }
 		public bool DrawBorderBehind { get; set; }
 
@@ -45,7 +56,7 @@ namespace AGS.Engine
 
         private void drawBorders(AGSBoundingBox square)
 		{
-            FourCorners<IGLColor> colors = Color.Convert(c => c.ToGLColor());
+            FourCorners<IGLColor> colors = _glColors;
 
             float farBottomLeftX = square.BottomLeft.X - LineWidth;
             float farBottomLeftY = square.BottomLeft.Y - LineWidth;
@@ -95,10 +106,10 @@ namespace AGS.Engine
 
 		private void drawQuad(AGSBoundingBox quad, AGSBoundingBox border, FourCorners<IGLColor> colors)
 		{
-			GLColor bottomLeftColor = getColor(colors, border, quad.BottomLeft); 
-			GLColor bottomRightColor = getColor(colors, border, quad.BottomRight);
-			GLColor topRightColor = getColor(colors, border, quad.TopRight);
-			GLColor topLeftColor = getColor(colors, border, quad.TopLeft);
+			IGLColor bottomLeftColor = getColor(colors, border, quad.BottomLeft); 
+			IGLColor bottomRightColor = getColor(colors, border, quad.BottomRight);
+			IGLColor topRightColor = getColor(colors, border, quad.TopRight);
+			IGLColor topLeftColor = getColor(colors, border, quad.TopLeft);
 
             _glUtils.DrawQuad(0, quad.BottomLeft, quad.BottomRight,
 				quad.TopLeft, quad.TopRight, bottomLeftColor, bottomRightColor, topLeftColor, topRightColor);
@@ -123,21 +134,22 @@ namespace AGS.Engine
             _glUtils.DrawTriangleFan(0, _roundCorner);
 		}
 
-        private GLColor getColor(FourCorners<IGLColor> colors, AGSBoundingBox border, Vector3 point)
+        private IGLColor getColor(FourCorners<IGLColor> colors, AGSBoundingBox border, Vector3 point)
 		{
 			return getColor(colors, MathUtils.Lerp(border.BottomLeft.X, 0f, border.BottomRight.X, 1f, point.X),
 				MathUtils.Lerp(border.BottomRight.Y, 0f, border.TopRight.Y, 1f, point.Y));
 		}
 
-		private GLColor getColor(FourCorners<IGLColor> color, float fractionX, float fractionY)
+		private IGLColor getColor(FourCorners<IGLColor> color, float fractionX, float fractionY)
 		{
-			GLColor colorBottomX = getColor(color.BottomLeft, color.BottomRight, fractionX);
-			GLColor colorTopX = getColor(color.TopLeft, color.TopRight, fractionX);
+			IGLColor colorBottomX = getColor(color.BottomLeft, color.BottomRight, fractionX);
+			IGLColor colorTopX = getColor(color.TopLeft, color.TopRight, fractionX);
 			return getColor(colorBottomX, colorTopX, fractionY);
 		}
 			
-		private GLColor getColor(IGLColor color1, IGLColor color2, float fraction)
+		private IGLColor getColor(IGLColor color1, IGLColor color2, float fraction)
 		{
+            if (color1.Equals(color2)) return color1;
 			float r = color1.R + ((color2.R - color1.R) * fraction);
 			float g = color1.G + ((color2.G - color1.G) * fraction);
 			float b = color1.B + ((color2.B - color1.B) * fraction);
@@ -146,4 +158,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

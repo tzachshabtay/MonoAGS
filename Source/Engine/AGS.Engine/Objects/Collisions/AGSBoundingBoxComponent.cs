@@ -27,11 +27,13 @@ namespace AGS.Engine
         private readonly IGameState _state;
         private IEntity _entity;
         private readonly AGSCropInfo _defaultCropInfo = default;
+        private readonly Func<IViewport, ViewportBoundingBoxes> _createNewViewportBoundingBoxes;
 
         public AGSBoundingBoxComponent(IRuntimeSettings settings,
                                        IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events,
                                        IBlockingEvent onBoundingBoxChanged)
         {
+            _createNewViewportBoundingBoxes = viewport => new ViewportBoundingBoxes(viewport);
             _boundingBoxes = new ConcurrentDictionary<IViewport, ViewportBoundingBoxes>(new IdentityEqualityComparer<IViewport>());
             _boundingBoxes.TryAdd(state.Viewport, new ViewportBoundingBoxes(state.Viewport));
             _settings = settings;
@@ -112,7 +114,7 @@ namespace AGS.Engine
 
         public AGSBoundingBoxes GetBoundingBoxes(IViewport viewport)
         {
-            var viewportBoxes = _boundingBoxes.GetOrAdd(viewport, _ => new ViewportBoundingBoxes(viewport));
+            var viewportBoxes = _boundingBoxes.GetOrAdd(viewport, _createNewViewportBoundingBoxes);
             if (_pendingLocks > 0)
             {
                 return viewportBoxes.PreLockBoundingBoxes;

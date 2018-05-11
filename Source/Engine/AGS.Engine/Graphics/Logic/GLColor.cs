@@ -4,7 +4,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class GLColor : IGLColor, IGLColorBuilder
+    public class GLColor : IGLColor, IGLColorBuilder, IEquatable<GLColor>
 	{
 		private const float COLOR_FACTOR = 255f;
 
@@ -57,6 +57,22 @@ namespace AGS.Engine
 			return $"[GLColor: R={R}, G={G}, B={B}, A={A}]";
 		}
 
+		public override bool Equals(object obj)
+		{
+            return (obj is GLColor color) && Equals(color);
+		}
+        
+        public bool Equals(GLColor other)
+        {
+            return MathUtils.FloatEquals(other.R, R) && MathUtils.FloatEquals(other.G, G) &&
+                   MathUtils.FloatEquals(other.B, B) && MathUtils.FloatEquals(other.A, A);
+        }
+
+		public override int GetHashCode()
+		{
+            return R.GetHashCode();
+		}
+
 		#endregion
 
 		private float multiply(Func<IHasImage, float> getter, params IHasImage[] sprites)
@@ -85,4 +101,3 @@ namespace AGS.Engine
 		}
 	}
 }
-
