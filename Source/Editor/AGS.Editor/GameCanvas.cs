@@ -11,16 +11,6 @@ namespace AGS.Editor
         private readonly GameToolbar _toolbar;
         private readonly GameDebugTree _tree;
 
-        private IEnabledComponent _lastSelectedEnabled;
-        private IVisibleComponent _lastSelectedMaskVisible;
-        private IImageComponent _lastSelectedMaskImage;
-        private IEntity _lastSelectedEntity;
-
-        private bool _lastMaskVisible;
-        private byte _lastOpacity;
-        private bool _lastEnabled;
-        private bool _lastClickThrough;
-
         public GameCanvas(AGSEditor editor, GameToolbar toolbar, GameDebugTree tree)
         {
             _toolbar = toolbar;
@@ -58,25 +48,6 @@ namespace AGS.Editor
             objToExpand.BaseSize = new SizeF(maxX - minX, maxY - minY);
         }
 
-        public void Unselect()
-        {
-            _lastSelectedEntity?.GetComponent<EntityDesigner>()?.Dispose();
-            _lastSelectedEntity?.RemoveComponent<EntityDesigner>();
-            var lastSelectedMaskVisible = _lastSelectedMaskVisible;
-            var lastSelectedMaskImage = _lastSelectedMaskImage;
-            var lastEnabled = _lastEnabled;
-            if (lastSelectedMaskVisible != null) lastSelectedMaskVisible.Visible = _lastMaskVisible;
-            if (lastSelectedMaskImage != null) lastSelectedMaskImage.Opacity = _lastOpacity;
-            if (_lastSelectedEnabled != null)
-            {
-                _lastSelectedEnabled.Enabled = lastEnabled;
-                _lastSelectedEnabled.ClickThrough = _lastClickThrough;
-            }
-            _lastSelectedEnabled = null;
-            _lastMaskVisible = false;
-            _lastOpacity = 0;
-        }
-
         private void onRepeatedlyExecute()
         {
             if (!_toolbar.IsPaused)
@@ -98,7 +69,6 @@ namespace AGS.Editor
         private void onMouseUp(MouseButtonEventArgs args)
         {
             if (args.Button != MouseButton.Left) return;
-            Unselect();
             if (!_selectionMarker.Visible) return;
             var obj = _editor.Game.HitTest.ObjectAtMousePosition;
             if (obj == null) return;
