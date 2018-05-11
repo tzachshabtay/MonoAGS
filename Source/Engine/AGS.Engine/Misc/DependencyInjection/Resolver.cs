@@ -25,7 +25,6 @@ namespace AGS.Engine
 
             registerDevice(device);
 
-            RegisterType<AGSObject, IObject>();
             RegisterType<GLImage, IImage>();
             RegisterType<AGSDialogActions, IDialogActions>();
             RegisterType<AGSSayLocationProvider, ISayLocationProvider>();
@@ -57,6 +56,16 @@ namespace AGS.Engine
             Builder.RegisterType<AGSDefaultInteractions>().SingleInstance().As<IDefaultInteractions>();
             Builder.RegisterType<InventorySubscriptions>().SingleInstance();
             Builder.RegisterType<AGSShouldBlockInput>().SingleInstance().As<IShouldBlockInput>();
+
+            //Registering lambdas for increasing performance
+            Builder.Register<IPanel>((c, p) => new AGSPanel(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<IButton>((c, p) => new AGSButton(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<ILabel>((c, p) => new AGSLabel(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<IObject>((c, p) => new AGSObject(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<ISlider>((c, p) => new AGSSlider(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<ITextBox>((c, p) => new AGSTextbox(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<ICheckBox>((c, p) => new AGSCheckBox(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<IComboBox>((c, p) => new AGSComboBox(p.TypedAs<string>(), this)).ExternallyOwned();
 
 			registerComponents();
 

@@ -28,8 +28,10 @@ namespace AGS.Engine
         public IPanel GetPanel(string id, IImage image, float x, float y, IObject parent = null, bool addToUi = true)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
-            TypedParameter imageParameter = new TypedParameter(typeof(IImage), image);
-            IPanel panel = _resolver.Container.Resolve<IPanel>(idParam, imageParameter);
+            Measure.Start("RESOLVE panel");
+            IPanel panel = _resolver.Container.Resolve<IPanel>(idParam);
+            Measure.End("RESOLVE panel");
+            panel.Image = image;
             panel.X = x;
             panel.Y = y;
             panel.ClickThrough = true;
@@ -470,7 +472,7 @@ namespace AGS.Engine
             handle.IgnoreViewport = true;
 
             TypedParameter idParam = new TypedParameter(typeof(string), id);
-            ISlider slider = _resolver.Container.Resolve<ISlider>(idParam, idParam);
+            ISlider slider = _resolver.Container.Resolve<ISlider>(idParam);
             setParent(slider, parent);
             setParent(handle, slider);
             setParent(graphics, slider);
