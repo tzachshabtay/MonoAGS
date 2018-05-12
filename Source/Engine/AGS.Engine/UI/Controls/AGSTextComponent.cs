@@ -201,7 +201,7 @@ namespace AGS.Engine
 
         private void prepare(IViewport viewport)
         {
-            if (!!TextBackgroundVisible && !TextVisible) return;
+            if (!TextBackgroundVisible && !TextVisible) return;
             if (!_visible.Visible) return;
 
             _glTextHitTest = _glTextHitTest ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.TextFont, _bitmapPool, false);
