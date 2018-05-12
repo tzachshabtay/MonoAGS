@@ -57,6 +57,8 @@ namespace AGS.Engine
             Builder.RegisterType<InventorySubscriptions>().SingleInstance();
             Builder.RegisterType<AGSShouldBlockInput>().SingleInstance().As<IShouldBlockInput>();
 
+            registerComponents();
+
             //Registering lambdas for increasing performance
             Builder.Register<IPanel>((c, p) => new AGSPanel(p.TypedAs<string>(), this)).ExternallyOwned();
             Builder.Register<IButton>((c, p) => new AGSButton(p.TypedAs<string>(), this)).ExternallyOwned();
@@ -66,14 +68,30 @@ namespace AGS.Engine
             Builder.Register<ITextBox>((c, p) => new AGSTextbox(p.TypedAs<string>(), this)).ExternallyOwned();
             Builder.Register<ICheckBox>((c, p) => new AGSCheckBox(p.TypedAs<string>(), this)).ExternallyOwned();
             Builder.Register<IComboBox>((c, p) => new AGSComboBox(p.TypedAs<string>(), this)).ExternallyOwned();
-
-			registerComponents();
+            Builder.Register<ITranslateComponent>((c, p) => new AGSTranslateComponent(c.Resolve<ITranslate>())).ExternallyOwned();
+            Builder.Register<ITranslate>((c, p) => new AGSTranslate()).ExternallyOwned();
+            Builder.Register<IScaleComponent>((c, p) => new AGSScaleComponent(c.Resolve<IScale>())).ExternallyOwned();
+            Builder.Register<IScale>((c, p) => new AGSScale()).ExternallyOwned();
+            Builder.Register<IRotateComponent>((c, p) => new AGSRotateComponent(c.Resolve<IRotate>())).ExternallyOwned();
+            Builder.Register<IRotate>((c, p) => new AGSRotate()).ExternallyOwned();
+            Builder.Register<IDrawableInfoComponent>((c, p) => new AGSDrawableInfoComponent()).ExternallyOwned();
+            Builder.Register<IUIEvents>((c, p) => new AGSUIEvents(c.Resolve<UIEventsAggregator>())).ExternallyOwned();
+            Builder.Register<ISkinComponent>((c, p) => new AGSSkinComponent(c.Resolve<IGameSettings>())).ExternallyOwned();
+            Builder.Register<IHasRoomComponent>((c, p) => new HasRoomComponent(c.Resolve<IGameState>(), c.Resolve<IAGSRoomTransitions>())).ExternallyOwned();
+            Builder.Register<IAnimationComponent>((c, p) => new AGSAnimationComponent()).ExternallyOwned();
+            Builder.Register<IInObjectTreeComponent>((c, p) => new InObjectTreeComponent()).ExternallyOwned();
+            Builder.Register<IColliderComponent>((c, p) => new AGSCollider(c.Resolve<IGameState>())).ExternallyOwned();
+            Builder.Register<IVisibleComponent>((c, p) => new VisibleProperty()).ExternallyOwned();
+            Builder.Register<IEnabledComponent>((c, p) => new EnabledProperty()).ExternallyOwned();
+            Builder.Register<ICustomPropertiesComponent>((c, p) => new AGSCustomPropertiesComponent(c.Resolve<ICustomProperties>())).ExternallyOwned();
+            Builder.Register<IShaderComponent>((c, p) => new AGSShaderComponent()).ExternallyOwned();
+            Builder.Register<IBorderComponent>((c, p) => new AGSBorderComponent(c.Resolve<IRenderPipeline>())).ExternallyOwned();
+            Builder.Register<IPixelPerfectComponent>((c, p) => new AGSPixelPerfectComponent()).ExternallyOwned();
+            Builder.Register<IModelMatrixComponent>((c, p) => new AGSModelMatrixComponent(c.Resolve<IRuntimeSettings>())).ExternallyOwned();
+            Builder.Register<IWorldPositionComponent>((c, p) => new AGSWorldPositionComponent()).ExternallyOwned();
 
 			RegisterType<AGSSprite, ISprite>();
             RegisterType<AGSBoundingBoxesBuilder, IBoundingBoxBuilder>();
-            RegisterType<AGSTranslate, ITranslate>();
-            RegisterType<AGSScale, IScale>();
-            RegisterType<AGSRotate, IRotate>();
             RegisterType<AGSHasImage, IHasImage>();
             RegisterType<AGSEvent, IEvent>();
             RegisterType<AGSEvent, IBlockingEvent>();

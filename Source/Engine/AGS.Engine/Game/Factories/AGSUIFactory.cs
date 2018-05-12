@@ -28,9 +28,7 @@ namespace AGS.Engine
         public IPanel GetPanel(string id, IImage image, float x, float y, IObject parent = null, bool addToUi = true)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
-            Measure.Start("RESOLVE panel");
             IPanel panel = _resolver.Container.Resolve<IPanel>(idParam);
-            Measure.End("RESOLVE panel");
             panel.Image = image;
             panel.X = x;
             panel.Y = y;
