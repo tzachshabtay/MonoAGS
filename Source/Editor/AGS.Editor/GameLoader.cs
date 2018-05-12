@@ -103,11 +103,11 @@ namespace AGS.Editor
             var (games, assembly) = await GetGames(agsProj);
             if (games.Count == 0)
             {
-                throw new Exception($"Cannot load game: failed to find an instance of IGameCreator in {agsProj.AGSProjectPath}.");
+                throw new Exception($"Cannot load game: failed to find an instance of {nameof(IGameStarter)} in {agsProj.AGSProjectPath}.");
             }
             if (games.Count > 1)
             {
-                throw new Exception($"Cannot load game: found more than one instance of IGameCreator in {agsProj.AGSProjectPath}.");
+                throw new Exception($"Cannot load game: found more than one instance of {nameof(IGameStarter)} in {agsProj.AGSProjectPath}.");
             }
             var gameCreatorImplementation = games[0];
             var gameCreator = (IGameStarter)Activator.CreateInstance(gameCreatorImplementation);
