@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class QueryLayoutEventArgs
+    <title>Class MouseClickEventArgs
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class QueryLayoutEventArgs
+    <meta name="title" content="Class MouseClickEventArgs
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.35.4.0">
     
@@ -78,22 +78,31 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.QueryLayoutEventArgs">
+            <article class="content wrap" id="_content" data-uid="AGS.API.MouseClickEventArgs">
   
   
-  <h1 id="AGS_API_QueryLayoutEventArgs" data-uid="AGS.API.QueryLayoutEventArgs" class="text-break">Class QueryLayoutEventArgs
+  <h1 id="AGS_API_MouseClickEventArgs" data-uid="AGS.API.MouseClickEventArgs" class="text-break">Class MouseClickEventArgs
   </h1>
-  <div class="markdown level0 summary"><p>Event arguments used by <a class="xref" href="AGS.API.ITreeTableLayout.html">ITreeTableLayout</a> when querying the rows for the layout.
-Each row should set a new column size for each column with a size smaller than what the row needs.</p>
+  <div class="markdown level0 summary"><p>Mouse click/double-click event arguments.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">QueryLayoutEventArgs</span></div>
+    <div class="level1"><a class="xref" href="AGS.API.MouseButtonEventArgs.html">MouseButtonEventArgs</a></div>
+    <div class="level2"><span class="xref">MouseClickEventArgs</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_ClickedEntity">MouseButtonEventArgs.ClickedEntity</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_Button">MouseButtonEventArgs.Button</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.MouseButtonEventArgs.html#AGS_API_MouseButtonEventArgs_MousePosition">MouseButtonEventArgs.MousePosition</a>
+    </div>
     <div>
       <span class="xref">System.Object.Equals(System.Object)</span>
     </div>
@@ -118,46 +127,81 @@ Each row should set a new column size for each column with a size smaller than w
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_QueryLayoutEventArgs_syntax">Syntax</h5>
+  <h5 id="AGS_API_MouseClickEventArgs_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class QueryLayoutEventArgs</code></pre>
+    <pre><code class="lang-csharp hljs">public class MouseClickEventArgs : MouseButtonEventArgs</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_QueryLayoutEventArgs__ctor.md&amp;value=---%0Auid%3A%20AGS.API.QueryLayoutEventArgs.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_MouseClickEventArgs__ctor_AGS_API_IEntity_AGS_API_MouseButton_AGS_API_MousePosition_System_Int64_.md&amp;value=---%0Auid%3A%20AGS.API.MouseClickEventArgs.%23ctor(AGS.API.IEntity%2CAGS.API.MouseButton%2CAGS.API.MousePosition%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/UI/Layouts/TreeTable/QueryLayoutEventArgs.cs/#L14">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/UI/Controls/MouseClickEventArgs.cs/#L16">View Source</a>
   </span>
-  <a id="AGS_API_QueryLayoutEventArgs__ctor_" data-uid="AGS.API.QueryLayoutEventArgs.#ctor*"></a>
-  <h4 id="AGS_API_QueryLayoutEventArgs__ctor" data-uid="AGS.API.QueryLayoutEventArgs.#ctor">QueryLayoutEventArgs()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="AGS.API.QueryLayoutEventArgs.html">QueryLayoutEventArgs</a> class.</p>
+  <a id="AGS_API_MouseClickEventArgs__ctor_" data-uid="AGS.API.MouseClickEventArgs.#ctor*"></a>
+  <h4 id="AGS_API_MouseClickEventArgs__ctor_AGS_API_IEntity_AGS_API_MouseButton_AGS_API_MousePosition_System_Int64_" data-uid="AGS.API.MouseClickEventArgs.#ctor(AGS.API.IEntity,AGS.API.MouseButton,AGS.API.MousePosition,System.Int64)">MouseClickEventArgs(IEntity, MouseButton, MousePosition, Int64)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="AGS.API.MouseClickEventArgs.html">MouseClickEventArgs</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public QueryLayoutEventArgs()</code></pre>
+    <pre><code class="lang-csharp hljs">public MouseClickEventArgs(IEntity clickedEntity, MouseButton button, MousePosition mousePosition, long clickTimeInMilliseconds)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IEntity.html">IEntity</a></td>
+        <td><span class="parametername">clickedEntity</span></td>
+        <td><p>Clicked entity.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.MouseButton.html">MouseButton</a></td>
+        <td><span class="parametername">button</span></td>
+        <td><p>Button.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AGS.API.MousePosition.html">MousePosition</a></td>
+        <td><span class="parametername">mousePosition</span></td>
+        <td><p>Mouse position.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">clickTimeInMilliseconds</span></td>
+        <td><p>Click time in milliseconds.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_QueryLayoutEventArgs_ColumnSizes.md&amp;value=---%0Auid%3A%20AGS.API.QueryLayoutEventArgs.ColumnSizes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_MouseClickEventArgs_ClickTimeInMilliseconds.md&amp;value=---%0Auid%3A%20AGS.API.MouseClickEventArgs.ClickTimeInMilliseconds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/UI/Layouts/TreeTable/QueryLayoutEventArgs.cs/#L24">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/UI/Controls/MouseClickEventArgs.cs/#L26">View Source</a>
   </span>
-  <a id="AGS_API_QueryLayoutEventArgs_ColumnSizes_" data-uid="AGS.API.QueryLayoutEventArgs.ColumnSizes*"></a>
-  <h4 id="AGS_API_QueryLayoutEventArgs_ColumnSizes" data-uid="AGS.API.QueryLayoutEventArgs.ColumnSizes">ColumnSizes</h4>
-  <div class="markdown level1 summary"><p>Gets the column sizes.
-Each row should set a new column size for each column with a size smaller than what the row needs.</p>
+  <a id="AGS_API_MouseClickEventArgs_ClickTimeInMilliseconds_" data-uid="AGS.API.MouseClickEventArgs.ClickTimeInMilliseconds*"></a>
+  <h4 id="AGS_API_MouseClickEventArgs_ClickTimeInMilliseconds" data-uid="AGS.API.MouseClickEventArgs.ClickTimeInMilliseconds">ClickTimeInMilliseconds</h4>
+  <div class="markdown level1 summary"><p>How much time has passed between the mouse button down and up states.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;float&gt; ColumnSizes { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public long ClickTimeInMilliseconds { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -169,8 +213,8 @@ Each row should set a new column size for each column with a size smaller than w
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Single</span>&gt;</td>
-        <td><p>The column sizes.</p>
+        <td><span class="xref">System.Int64</span></td>
+        <td><p>The click time in milliseconds.</p>
 </td>
       </tr>
     </tbody>
@@ -183,10 +227,10 @@ Each row should set a new column size for each column with a size smaller than w
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_QueryLayoutEventArgs.md&amp;value=---%0Auid%3A%20AGS.API.QueryLayoutEventArgs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_MouseClickEventArgs.md&amp;value=---%0Auid%3A%20AGS.API.MouseClickEventArgs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/UI/Layouts/TreeTable/QueryLayoutEventArgs.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/UI/Controls/MouseClickEventArgs.cs/#L7" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
