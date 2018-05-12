@@ -30,7 +30,7 @@ install:
   - ps: Set-Content -path "$env:USERPROFILE\.xamarin-credentials" -value "xamarin.com,$env:XAMARIN_COOKIE"
   - npm install gh-pages -g
 before_build:
-  - ps: dotnet restore
+  - ps: msbuild /t:restore MonoAGS.sln
   - nuget restore ".\MonoAGS.sln"
   - xamarin-component.exe restore ".\MonoAGS.sln"
   - ps: |

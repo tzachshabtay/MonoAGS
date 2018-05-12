@@ -1,5 +1,7 @@
 - name: Getting Started
   href: getting-started.md
+- name: FAQ
+  href: faq.md
 - name: Game Structure
   href: game-structure.md
   items:
