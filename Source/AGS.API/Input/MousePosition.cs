@@ -27,6 +27,8 @@ namespace AGS.API
             _window = window;
             _mainViewport = viewport;
             _virtualResolution = virtualResolution;
+            XMainViewport = calculateViewportX(_mainViewport, _virtualResolution.Width, xWindow);
+            YMainViewport = calculateViewportY(_mainViewport, _mainViewport, _window.AppWindowHeight, _virtualResolution.Height, yWindow);
         }
 
         /// <summary>
@@ -44,24 +46,30 @@ namespace AGS.API
         /// <summary>
         /// X position of the mouse in the main viewport coordinates (i.e the world coordinates).
         /// </summary>
-        public float XMainViewport => GetViewportX(_mainViewport);
+        public float XMainViewport { get; }
 
         /// <summary>
         /// Y position of the mouse in the main viewport coordinates (i.e the world coordinates).
         /// </summary>
-        public float YMainViewport => GetViewportY(_mainViewport);
+        public float YMainViewport { get; }
+
+        public bool InWindow =>
+            XMainViewport >= 0f && XMainViewport <= _virtualResolution.Width && 
+            YMainViewport >= 0 && YMainViewport <= _virtualResolution.Height;
 
         /// <summary>
         /// Gets the x position of the mouse in a specific viewport coordinates.
         /// </summary>
         /// <returns>The x position.</returns>
         /// <param name="viewport">Viewport.</param>
-        public float GetViewportX(IViewport viewport)
+        public float GetViewportX(IViewport viewport) => calculateViewportX(viewport, _virtualResolution.Width, XWindow);
+
+        private static float calculateViewportX(IViewport viewport, float virtualWidth, float xWindow)
         {
             var projectLeft = viewport.ScreenArea.X;
             var projectRight = projectLeft + viewport.ScreenArea.Width;
 
-            float x = MathUtils.Lerp(projectLeft, 0f, projectRight, _virtualResolution.Width, XWindow);
+            float x = MathUtils.Lerp(projectLeft, 0f, projectRight, virtualWidth, xWindow);
             return x;
         }
 
@@ -70,19 +78,23 @@ namespace AGS.API
         /// </summary>
         /// <returns>The y position.</returns>
         /// <param name="viewport">Viewport.</param>
-        public float GetViewportY(IViewport viewport)
+        public float GetViewportY(IViewport viewport) => calculateViewportY(viewport, _mainViewport, 
+                                            _window.AppWindowHeight, _virtualResolution.Height, YWindow);
+
+        private static float calculateViewportY(IViewport viewport, IViewport mainViewport, 
+                                                float appWindowHeight, float virtualHeight, float yWindow)
         {
-            var projectBottom = _window.AppWindowHeight - viewport.ScreenArea.Y - viewport.ProjectionBox.Y * viewport.ScreenArea.Height;
+            var projectBottom = appWindowHeight - viewport.ScreenArea.Y - viewport.ProjectionBox.Y * viewport.ScreenArea.Height;
             var projectTop = projectBottom - viewport.ProjectionBox.Height * viewport.ScreenArea.Height;
 
-            var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(_mainViewport);
+            var parentBoundingBoxes = viewport.Parent?.GetBoundingBoxes(mainViewport);
             if (parentBoundingBoxes != null)
             {
                 projectBottom -= parentBoundingBoxes.ViewportBox.MinY;
                 projectTop -= parentBoundingBoxes.ViewportBox.MinY;
             }
 
-            float y = MathUtils.Lerp(projectBottom, 0f, projectTop, _virtualResolution.Height, YWindow);
+            float y = MathUtils.Lerp(projectBottom, 0f, projectTop, virtualHeight, yWindow);
             return y;
         }
 
