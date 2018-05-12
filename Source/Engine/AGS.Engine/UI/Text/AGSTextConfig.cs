@@ -19,7 +19,7 @@ namespace AGS.Engine
             float paddingLeft = 2f, float paddingRight = 2f, float paddingTop = 2f, float paddingBottom = 2f)
         {
             Brush = brush ?? _brushes.LoadSolidBrush(Colors.White);
-            Font = font ?? AGSGame.Game.Settings.Defaults.TextFont;
+            Font = font ?? AGSGame.Game?.Settings.Defaults.TextFont;
             OutlineBrush = outlineBrush ?? _brushes.LoadSolidBrush(Colors.White);
             OutlineWidth = outlineWidth;
             ShadowBrush = shadowBrush;

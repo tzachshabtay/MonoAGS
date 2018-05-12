@@ -96,7 +96,10 @@ namespace Tests
             Mock<IKeyboardState> keyboard = new Mock<IKeyboardState>();
             device.Setup(d => d.KeyboardState).Returns(keyboard.Object);
 
-            var resolver = new Resolver(device.Object);
+            Mock<IGameSettings> settings = new Mock<IGameSettings>();
+            settings.Setup(s => s.Defaults).Returns(new Mock<IDefaultsSettings>().Object);
+
+            var resolver = new Resolver(device.Object, settings.Object);
 
             Mock<IAudioBackend> audio = new Mock<IAudioBackend>();
             resolver.Builder.RegisterInstance(audio.Object);
@@ -168,6 +171,7 @@ namespace Tests
             {
                 _settings = new Mock<IRuntimeSettings>();
                 _settings.Setup(g => g.VirtualResolution).Returns(new AGS.API.Size(640, 480));
+                _settings.Setup(g => g.Defaults).Returns(new Mock<IDefaultsSettings>().Object);
             }
             return _settings;
         }

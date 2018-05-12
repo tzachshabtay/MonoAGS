@@ -259,7 +259,7 @@ namespace Tests
 
             Mock<IOutfit> outfit = new Mock<IOutfit>();
 
-            Func<IPanel> basePanel = () => new AGSPanel("Panel", resolver, image.Object);
+            Func<IPanel> basePanel = () => new AGSPanel("Panel", resolver) { Image = image.Object};
             Func<ILabel> baseLabel = () => new AGSLabel("Label", resolver) { LabelRenderSize = new AGS.API.SizeF(100f, 50f) };
             var button = new AGSButton("Button", resolver) { LabelRenderSize = new AGS.API.SizeF(100f, 50f) };
 
@@ -271,7 +271,7 @@ namespace Tests
                 baseLabel().Hotspot("Label"),
                 button.Hotspot("Button"),
 				new AGSInventoryWindow("Inventory", resolver, image.Object).Hotspot("Inventory"),
-				new AGSSlider("Slider", resolver, image.Object).Hotspot("Slider"),
+                (new AGSSlider("Slider", resolver) { Image = image.Object}).Hotspot("Slider"),
                 new AGSCheckBox("Checkbox", resolver),
                 new AGSTextbox("Textbox", resolver),
                 new AGSComboBox("Combobox", resolver),

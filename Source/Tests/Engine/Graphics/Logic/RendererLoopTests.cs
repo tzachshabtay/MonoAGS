@@ -119,7 +119,7 @@ namespace Tests
             displayList = displayList ?? getDisplayList();
             pipeline = pipeline ?? getPipeline(displayList);
             return new AGSRendererLoop(_resolver, _mocks.Game().Object,
-                                       _transitions.Object, new Mock<IGLUtils>().Object, new Mock<IGameWindow>().Object, pipeline,
+                                       _transitions.Object, new Mock<IGLUtils>().Object, new Mock<IWindowInfo>().Object, pipeline,
                                        displayList, new Mock<IInput>().Object, new Mock<IMatrixUpdater>().Object);
         }
 
