@@ -138,9 +138,9 @@ namespace AGS.Editor
             game.Events.OnLoad.Subscribe(() =>
             {
                 editor.Init();
-                toolbar.SetGame(game, editor.GameResolver.Container.Resolve<IWindowInfo>());
 
                 var gameDebugView = new GameDebugView(editor, keyboardBindings, actions, toolbar);
+                toolbar.SetGame(game, editor.GameResolver.Container.Resolve<IWindowInfo>(), gameDebugView.Tree);
                 var canvas = new GameCanvas(editor, toolbar, gameDebugView.Tree);
                 canvas.Init();
                 gameDebugView.Load();

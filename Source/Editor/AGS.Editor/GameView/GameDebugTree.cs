@@ -134,6 +134,8 @@ namespace AGS.Editor
 
         public void Unselect()
         {
+            if (_lastSelectedNode == null) return;
+            _lastSelectedNode = null;
             _lastSelectedEntity?.GetComponent<EntityDesigner>()?.Dispose();
             _lastSelectedEntity?.RemoveComponent<EntityDesigner>();
             var lastSelectedMaskVisible = _lastSelectedMaskVisible;
@@ -249,8 +251,8 @@ namespace AGS.Editor
         private void onTreeNodeSelected(NodeEventArgs args)
         {
             if (args.Node == _lastSelectedNode) return;
-            _lastSelectedNode = args.Node;
             Unselect();
+            _lastSelectedNode = args.Node;
             string nodeType = args.Node.Properties.Strings.GetValue(Fields.Type);
             if (nodeType == null) return;
             switch (nodeType)

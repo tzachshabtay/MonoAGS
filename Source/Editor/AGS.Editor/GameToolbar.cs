@@ -17,6 +17,7 @@ namespace AGS.Editor
         private IObject _lastGameCursor;
         private IPanel _toolbar;
         private Size _resolution = new Size(1200, 800);
+        private GameDebugTree _tree;
 
         private ILabel _pointer;
 
@@ -97,11 +98,13 @@ namespace AGS.Editor
             _blocker.BlockEngine = IsPaused;
             updateEditorCursor(_editorInput.MousePosition);
             if (IsPaused) _lastGameCursor = _game.Input.Cursor;
+            else _tree?.Unselect();
             _game.Input.Cursor = IsPaused ? null : _lastGameCursor;
         }
 
-        public void SetGame(IGame game, IWindowInfo gameWindow)
+        public void SetGame(IGame game, IWindowInfo gameWindow, GameDebugTree tree)
         {
+            _tree = tree;
             _windowInfo = gameWindow;
             _game = game;
 
