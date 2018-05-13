@@ -27,12 +27,11 @@ namespace AGS.API
     /// 
     /// The path used by the loading methods has to be structured as so: if the resource is to be loaded from a file 
     /// in the file system, then put the absolute path of the file. If the resource is embedded then put the relative 
-    /// path of the file (when the current folder is the folder where the executable sits, which is 2 folders above 
-    /// the "Assets" folder). So, for example, if you have an audio file called "trumpet.ogg" sitting under a 
-    /// "Sounds" folder in "Assets", your path would be "../../Assets/Sounds/trumpet.ogg". Note that this would 
-    /// work even if the file is sitting in that folder but not embedded. This is because `ResourceLoader` first 
-    /// searches for an embedded resource with that path, but if one is not found, it looks for the file in the 
-    /// file system.
+    /// path of the file (when the current folder is the "Assets" folder). So, for example, if you have an audio file called "trumpet.ogg" sitting under a 
+    /// "Sounds" folder in "Assets", your path would be "Sounds/trumpet.ogg". Note that this would 
+    /// work even if the file is sitting in that folder but not embedded. This is because (assuming the resource loader is configured
+    /// with both an embedded resource pack and a file system resource pack) `ResourceLoader` will search for both an embedded resource and for 
+    /// a file from the file system. The order of the search depends on the configured priority for each resource pack.
     /// </summary>
     public interface IResourceLoader : IResourcePack
 	{
@@ -80,4 +79,3 @@ namespace AGS.API
         public int Priority { get; private set; }
     }
 }
-

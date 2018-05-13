@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using AGS.API;
 
 namespace AGS.Engine
@@ -12,10 +13,19 @@ namespace AGS.Engine
         private Dictionary<string, List<string>> _externalFolders;
         private readonly Func<string, List<string>> _getFilesInFolderFunc;
         private readonly IFileSystem _fileSystem;
+        private readonly string _rootFolderPath;
 
-        public FileSystemResourcePack(IFileSystem fileSystem)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:AGS.Engine.FileSystemResourcePack"/> class.
+        /// </summary>
+        /// <param name="fileSystem">File system.</param>
+        /// <param name="assembly">The entry assembly (this will be used to figure out the root folder, if no root folder is given).</param>
+        /// <param name="rootFolderPath">The root folder from which to resolve relative paths. 
+        /// If not given the engine will try looking for the "Assets" folder itself.</param>
+        public FileSystemResourcePack(IFileSystem fileSystem, Assembly assembly, string rootFolderPath = null)
         {
             _fileSystem = fileSystem;
+            _rootFolderPath = rootFolderPath ?? autoDetectAssetsFolder(assembly);
             _externalFolders = new Dictionary<string, List<string>>(10);
             _getFilesInFolderFunc = getFilesInFolder; //Caching delegate to avoid memory allocations in critical path
         }
@@ -23,6 +33,7 @@ namespace AGS.Engine
         public string ResolvePath(string path)
         {
             if (shouldIgnoreFile(path)) return null;
+            path = getAbsolutePath(path);
             string folder = Path.GetDirectoryName(path);
             string filename = Path.GetFileName(path).ToUpper();
             if (filename.Contains(".")) return path;
@@ -43,6 +54,7 @@ namespace AGS.Engine
 
         public List<IResource> LoadResources(string folder)
         {
+            folder = getAbsolutePath(folder);
             List<IResource> resources = new List<IResource>();
             foreach (var file in _fileSystem.GetFiles(folder))
             {
@@ -52,6 +64,8 @@ namespace AGS.Engine
             }
             return resources;
         }
+
+        private string getAbsolutePath(string path) => Path.IsPathRooted(path) ? path : Path.Combine(_rootFolderPath, path);
 
         private List<string> getFilesInFolder(string folder)
         {
@@ -72,6 +86,29 @@ namespace AGS.Engine
         {
             return path == null ||
                 path.EndsWith(".DS_Store", StringComparison.Ordinal); //Mac OS file
+        }
+
+        private string autoDetectAssetsFolder(Assembly assembly)
+        {
+            string exeDir = assembly == null ? _fileSystem.GetCurrentDirectory() : Path.GetDirectoryName(assembly.GetName().CodeBase);
+            string dir = exeDir;
+            while (true)
+            {
+                var assetsDir = _fileSystem.GetDirectories(dir).FirstOrDefault(
+                    p => Path.GetFileName(p).ToLowerInvariant() == EmbeddedResourcesPack.AssetsFolder.ToLowerInvariant());
+                if (assetsDir != null)
+                {
+                    Debug.WriteLine($"Found assets directory at: {assetsDir}");
+                    return assetsDir;
+                }
+                DirectoryInfo dirInfo = Directory.GetParent(dir);
+                if (dirInfo == null)
+                {
+                    Debug.WriteLine($"Did not find assets directory, using executable directory: {exeDir}");
+                    return exeDir;
+                }
+                dir = dirInfo.FullName;
+            }
         }
     }
 }

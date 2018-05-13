@@ -7,7 +7,7 @@ namespace DemoGame
 {
     public class OptionsPanel
     {
-        private const string _sliderFolder = "../../Assets/Gui/Sliders/";
+        private const string _sliderFolder = "Gui/Sliders/";
         private const string _panelId = "Options Panel";
         private const string _buttonsPanelId = "Options Buttons Panel";
         private IPanel _panel, _buttonsPanel;
@@ -34,7 +34,7 @@ namespace DemoGame
         {
             _game = game;
             IGameFactory factory = game.Factory;
-            _panel = await factory.UI.GetPanelAsync(_panelId, "../../Assets/Gui/DialogBox/options.bmp", 160f, 100f);
+            _panel = await factory.UI.GetPanelAsync(_panelId, "Gui/DialogBox/options.bmp", 160f, 100f);
             _panel.Pivot = new PointF(0.5f, 0.5f);
             _panel.Visible = false;
             _panel.AddComponent<IModalWindowComponent>();
@@ -93,7 +93,7 @@ namespace DemoGame
 
 		private async Task loadButton(string text, Action onClick)
 		{
-			const string folder = "../../Assets/Gui/Buttons/buttonSmall/";
+			const string folder = "Gui/Buttons/buttonSmall/";
 			string buttonId = $"{text} Button";
 			IButton button = await _game.Factory.UI.GetButtonAsync(buttonId, folder + "normal.bmp", folder + "hovered.bmp",
                folder + "pushed.bmp", 15f, 0f, _buttonsPanel, text, _buttonTextConfig);

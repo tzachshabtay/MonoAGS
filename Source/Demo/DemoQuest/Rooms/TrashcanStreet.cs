@@ -10,7 +10,7 @@ namespace DemoGame
         private ICharacter _player;
 		private IGame _game;
 
-		private const string _baseFolder = "../../Assets/Rooms/TrashcanStreet/";
+		private const string _baseFolder = "Rooms/TrashcanStreet/";
 
 		public async Task<IRoom> LoadAsync(IGame game)
 		{
@@ -67,4 +67,3 @@ namespace DemoGame
 		}
 	}
 }
-

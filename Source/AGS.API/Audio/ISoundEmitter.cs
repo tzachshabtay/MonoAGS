@@ -9,7 +9,7 @@
     /// </summary>
     /// <example>
     /// <code language="lang-csharp">
-    /// var footstep = await game.Factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/footstep.ogg");
+    /// var footstep = await game.Factory.Sound.LoadAudioClipAsync("Sounds/footstep.ogg");
     /// ISoundEmitter emitter = new AGSSoundEmitter(game);
     /// emitter.AudioClip = footstep;
     /// emitter.Object = cHero;
