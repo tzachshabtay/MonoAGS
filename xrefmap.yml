@@ -6023,51 +6023,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDefaultInteractions.OnInventoryCombination
   nameWithType: IDefaultInteractions.OnInventoryCombination
-- uid: AGS.API.IDefaultsSettings
-  name: IDefaultsSettings
-  href: api/AGS.API.IDefaultsSettings.html
-  commentId: T:AGS.API.IDefaultsSettings
-  fullName: AGS.API.IDefaultsSettings
-  nameWithType: IDefaultsSettings
-- uid: AGS.API.IDefaultsSettings.Skin
-  name: Skin
-  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_Skin
-  commentId: P:AGS.API.IDefaultsSettings.Skin
-  fullName: AGS.API.IDefaultsSettings.Skin
-  nameWithType: IDefaultsSettings.Skin
-- uid: AGS.API.IDefaultsSettings.Skin*
-  name: Skin
-  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_Skin_
-  commentId: Overload:AGS.API.IDefaultsSettings.Skin
-  isSpec: "True"
-  fullName: AGS.API.IDefaultsSettings.Skin
-  nameWithType: IDefaultsSettings.Skin
-- uid: AGS.API.IDefaultsSettings.SpeechFont
-  name: SpeechFont
-  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_SpeechFont
-  commentId: P:AGS.API.IDefaultsSettings.SpeechFont
-  fullName: AGS.API.IDefaultsSettings.SpeechFont
-  nameWithType: IDefaultsSettings.SpeechFont
-- uid: AGS.API.IDefaultsSettings.SpeechFont*
-  name: SpeechFont
-  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_SpeechFont_
-  commentId: Overload:AGS.API.IDefaultsSettings.SpeechFont
-  isSpec: "True"
-  fullName: AGS.API.IDefaultsSettings.SpeechFont
-  nameWithType: IDefaultsSettings.SpeechFont
-- uid: AGS.API.IDefaultsSettings.TextFont
-  name: TextFont
-  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_TextFont
-  commentId: P:AGS.API.IDefaultsSettings.TextFont
-  fullName: AGS.API.IDefaultsSettings.TextFont
-  nameWithType: IDefaultsSettings.TextFont
-- uid: AGS.API.IDefaultsSettings.TextFont*
-  name: TextFont
-  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_TextFont_
-  commentId: Overload:AGS.API.IDefaultsSettings.TextFont
-  isSpec: "True"
-  fullName: AGS.API.IDefaultsSettings.TextFont
-  nameWithType: IDefaultsSettings.TextFont
 - uid: AGS.API.IDepthClipping
   name: IDepthClipping
   href: api/AGS.API.IDepthClipping.html
@@ -6872,19 +6827,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDraggableComponent.IsDragEnabled
   nameWithType: IDraggableComponent.IsDragEnabled
-- uid: AGS.API.IDraggableComponent.OnDragStart
-  name: OnDragStart
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_OnDragStart
-  commentId: P:AGS.API.IDraggableComponent.OnDragStart
-  fullName: AGS.API.IDraggableComponent.OnDragStart
-  nameWithType: IDraggableComponent.OnDragStart
-- uid: AGS.API.IDraggableComponent.OnDragStart*
-  name: OnDragStart
-  href: api/AGS.API.IDraggableComponent.html#AGS_API_IDraggableComponent_OnDragStart_
-  commentId: Overload:AGS.API.IDraggableComponent.OnDragStart
-  isSpec: "True"
-  fullName: AGS.API.IDraggableComponent.OnDragStart
-  nameWithType: IDraggableComponent.OnDragStart
 - uid: AGS.API.IDrawableInfoComponent
   name: IDrawableInfoComponent
   href: api/AGS.API.IDrawableInfoComponent.html
@@ -7709,19 +7651,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFont.MeasureString
   nameWithType: IFont.MeasureString
-- uid: AGS.API.IFont.Resize(System.Single)
-  name: Resize(Single)
-  href: api/AGS.API.IFont.html#AGS_API_IFont_Resize_System_Single_
-  commentId: M:AGS.API.IFont.Resize(System.Single)
-  fullName: AGS.API.IFont.Resize(System.Single)
-  nameWithType: IFont.Resize(Single)
-- uid: AGS.API.IFont.Resize*
-  name: Resize
-  href: api/AGS.API.IFont.html#AGS_API_IFont_Resize_
-  commentId: Overload:AGS.API.IFont.Resize
-  isSpec: "True"
-  fullName: AGS.API.IFont.Resize
-  nameWithType: IFont.Resize
 - uid: AGS.API.IFont.SizeInPoints
   name: SizeInPoints
   href: api/AGS.API.IFont.html#AGS_API_IFont_SizeInPoints
@@ -8006,12 +7935,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.IGame.Settings
   nameWithType: IGame.Settings
-- uid: AGS.API.IGame.Start
-  name: Start()
-  href: api/AGS.API.IGame.html#AGS_API_IGame_Start
-  commentId: M:AGS.API.IGame.Start
-  fullName: AGS.API.IGame.Start()
-  nameWithType: IGame.Start()
+- uid: AGS.API.IGame.Start(AGS.API.IGameSettings)
+  name: Start(IGameSettings)
+  href: api/AGS.API.IGame.html#AGS_API_IGame_Start_AGS_API_IGameSettings_
+  commentId: M:AGS.API.IGame.Start(AGS.API.IGameSettings)
+  fullName: AGS.API.IGame.Start(AGS.API.IGameSettings)
+  nameWithType: IGame.Start(IGameSettings)
 - uid: AGS.API.IGame.Start*
   name: Start
   href: api/AGS.API.IGame.html#AGS_API_IGame_Start_
@@ -8329,19 +8258,6 @@ references:
   commentId: T:AGS.API.IGameSettings
   fullName: AGS.API.IGameSettings
   nameWithType: IGameSettings
-- uid: AGS.API.IGameSettings.Defaults
-  name: Defaults
-  href: api/AGS.API.IGameSettings.html#AGS_API_IGameSettings_Defaults
-  commentId: P:AGS.API.IGameSettings.Defaults
-  fullName: AGS.API.IGameSettings.Defaults
-  nameWithType: IGameSettings.Defaults
-- uid: AGS.API.IGameSettings.Defaults*
-  name: Defaults
-  href: api/AGS.API.IGameSettings.html#AGS_API_IGameSettings_Defaults_
-  commentId: Overload:AGS.API.IGameSettings.Defaults
-  isSpec: "True"
-  fullName: AGS.API.IGameSettings.Defaults
-  nameWithType: IGameSettings.Defaults
 - uid: AGS.API.IGameSettings.PreserveAspectRatio
   name: PreserveAspectRatio
   href: api/AGS.API.IGameSettings.html#AGS_API_IGameSettings_PreserveAspectRatio
@@ -8439,19 +8355,6 @@ references:
   commentId: T:AGS.API.IGameStarter
   fullName: AGS.API.IGameStarter
   nameWithType: IGameStarter
-- uid: AGS.API.IGameStarter.Settings
-  name: Settings
-  href: api/AGS.API.IGameStarter.html#AGS_API_IGameStarter_Settings
-  commentId: P:AGS.API.IGameStarter.Settings
-  fullName: AGS.API.IGameStarter.Settings
-  nameWithType: IGameStarter.Settings
-- uid: AGS.API.IGameStarter.Settings*
-  name: Settings
-  href: api/AGS.API.IGameStarter.html#AGS_API_IGameStarter_Settings_
-  commentId: Overload:AGS.API.IGameStarter.Settings
-  isSpec: "True"
-  fullName: AGS.API.IGameStarter.Settings
-  nameWithType: IGameStarter.Settings
 - uid: AGS.API.IGameStarter.StartGame(AGS.API.IGame)
   name: StartGame(IGame)
   href: api/AGS.API.IGameStarter.html#AGS_API_IGameStarter_StartGame_AGS_API_IGame_
@@ -10526,19 +10429,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.INumberEditorComponent.OnValueChanged
   nameWithType: INumberEditorComponent.OnValueChanged
-- uid: AGS.API.INumberEditorComponent.SetUserInitiatedValue(System.Single)
-  name: SetUserInitiatedValue(Single)
-  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_SetUserInitiatedValue_System_Single_
-  commentId: M:AGS.API.INumberEditorComponent.SetUserInitiatedValue(System.Single)
-  fullName: AGS.API.INumberEditorComponent.SetUserInitiatedValue(System.Single)
-  nameWithType: INumberEditorComponent.SetUserInitiatedValue(Single)
-- uid: AGS.API.INumberEditorComponent.SetUserInitiatedValue*
-  name: SetUserInitiatedValue
-  href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_SetUserInitiatedValue_
-  commentId: Overload:AGS.API.INumberEditorComponent.SetUserInitiatedValue
-  isSpec: "True"
-  fullName: AGS.API.INumberEditorComponent.SetUserInitiatedValue
-  nameWithType: INumberEditorComponent.SetUserInitiatedValue
 - uid: AGS.API.INumberEditorComponent.Slider
   name: Slider
   href: api/AGS.API.INumberEditorComponent.html#AGS_API_INumberEditorComponent_Slider
@@ -13566,6 +13456,51 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISpeechLine.Text
   nameWithType: ISpeechLine.Text
+- uid: AGS.API.ISplitPanelComponent
+  name: ISplitPanelComponent
+  href: api/AGS.API.ISplitPanelComponent.html
+  commentId: T:AGS.API.ISplitPanelComponent
+  fullName: AGS.API.ISplitPanelComponent
+  nameWithType: ISplitPanelComponent
+- uid: AGS.API.ISplitPanelComponent.BottomPanel
+  name: BottomPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_BottomPanel
+  commentId: P:AGS.API.ISplitPanelComponent.BottomPanel
+  fullName: AGS.API.ISplitPanelComponent.BottomPanel
+  nameWithType: ISplitPanelComponent.BottomPanel
+- uid: AGS.API.ISplitPanelComponent.BottomPanel*
+  name: BottomPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_BottomPanel_
+  commentId: Overload:AGS.API.ISplitPanelComponent.BottomPanel
+  isSpec: "True"
+  fullName: AGS.API.ISplitPanelComponent.BottomPanel
+  nameWithType: ISplitPanelComponent.BottomPanel
+- uid: AGS.API.ISplitPanelComponent.IsHorizontal
+  name: IsHorizontal
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_IsHorizontal
+  commentId: P:AGS.API.ISplitPanelComponent.IsHorizontal
+  fullName: AGS.API.ISplitPanelComponent.IsHorizontal
+  nameWithType: ISplitPanelComponent.IsHorizontal
+- uid: AGS.API.ISplitPanelComponent.IsHorizontal*
+  name: IsHorizontal
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_IsHorizontal_
+  commentId: Overload:AGS.API.ISplitPanelComponent.IsHorizontal
+  isSpec: "True"
+  fullName: AGS.API.ISplitPanelComponent.IsHorizontal
+  nameWithType: ISplitPanelComponent.IsHorizontal
+- uid: AGS.API.ISplitPanelComponent.TopPanel
+  name: TopPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_TopPanel
+  commentId: P:AGS.API.ISplitPanelComponent.TopPanel
+  fullName: AGS.API.ISplitPanelComponent.TopPanel
+  nameWithType: ISplitPanelComponent.TopPanel
+- uid: AGS.API.ISplitPanelComponent.TopPanel*
+  name: TopPanel
+  href: api/AGS.API.ISplitPanelComponent.html#AGS_API_ISplitPanelComponent_TopPanel_
+  commentId: Overload:AGS.API.ISplitPanelComponent.TopPanel
+  isSpec: "True"
+  fullName: AGS.API.ISplitPanelComponent.TopPanel
+  nameWithType: ISplitPanelComponent.TopPanel
 - uid: AGS.API.ISprite
   name: ISprite
   href: api/AGS.API.ISprite.html
@@ -15161,19 +15096,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITreeViewComponent.SearchFilter
   nameWithType: ITreeViewComponent.SearchFilter
-- uid: AGS.API.ITreeViewComponent.Select(AGS.API.ITreeStringNode)
-  name: Select(ITreeStringNode)
-  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_Select_AGS_API_ITreeStringNode_
-  commentId: M:AGS.API.ITreeViewComponent.Select(AGS.API.ITreeStringNode)
-  fullName: AGS.API.ITreeViewComponent.Select(AGS.API.ITreeStringNode)
-  nameWithType: ITreeViewComponent.Select(ITreeStringNode)
-- uid: AGS.API.ITreeViewComponent.Select*
-  name: Select
-  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_Select_
-  commentId: Overload:AGS.API.ITreeViewComponent.Select
-  isSpec: "True"
-  fullName: AGS.API.ITreeViewComponent.Select
-  nameWithType: ITreeViewComponent.Select
 - uid: AGS.API.ITreeViewComponent.SkipRenderingRoot
   name: SkipRenderingRoot
   href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_SkipRenderingRoot
@@ -15601,19 +15523,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IViewport.GetMatrix
   nameWithType: IViewport.GetMatrix
-- uid: AGS.API.IViewport.GetScreenArea(AGS.API.IGameSettings,AGS.API.IWindowInfo,System.Boolean)
-  name: GetScreenArea(IGameSettings, IWindowInfo, Boolean)
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_GetScreenArea_AGS_API_IGameSettings_AGS_API_IWindowInfo_System_Boolean_
-  commentId: M:AGS.API.IViewport.GetScreenArea(AGS.API.IGameSettings,AGS.API.IWindowInfo,System.Boolean)
-  fullName: AGS.API.IViewport.GetScreenArea(AGS.API.IGameSettings, AGS.API.IWindowInfo, System.Boolean)
-  nameWithType: IViewport.GetScreenArea(IGameSettings, IWindowInfo, Boolean)
-- uid: AGS.API.IViewport.GetScreenArea*
-  name: GetScreenArea
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_GetScreenArea_
-  commentId: Overload:AGS.API.IViewport.GetScreenArea
-  isSpec: "True"
-  fullName: AGS.API.IViewport.GetScreenArea
-  nameWithType: IViewport.GetScreenArea
 - uid: AGS.API.IViewport.Interactive
   name: Interactive
   href: api/AGS.API.IViewport.html#AGS_API_IViewport_Interactive
@@ -15718,19 +15627,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IViewport.ScaleY
   nameWithType: IViewport.ScaleY
-- uid: AGS.API.IViewport.ScreenArea
-  name: ScreenArea
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_ScreenArea
-  commentId: P:AGS.API.IViewport.ScreenArea
-  fullName: AGS.API.IViewport.ScreenArea
-  nameWithType: IViewport.ScreenArea
-- uid: AGS.API.IViewport.ScreenArea*
-  name: ScreenArea
-  href: api/AGS.API.IViewport.html#AGS_API_IViewport_ScreenArea_
-  commentId: Overload:AGS.API.IViewport.ScreenArea
-  isSpec: "True"
-  fullName: AGS.API.IViewport.ScreenArea
-  nameWithType: IViewport.ScreenArea
 - uid: AGS.API.IViewport.X
   name: X
   href: api/AGS.API.IViewport.html#AGS_API_IViewport_X
@@ -15963,51 +15859,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IWalkComponent.WalkStep
   nameWithType: IWalkComponent.WalkStep
-- uid: AGS.API.IWindowInfo
-  name: IWindowInfo
-  href: api/AGS.API.IWindowInfo.html
-  commentId: T:AGS.API.IWindowInfo
-  fullName: AGS.API.IWindowInfo
-  nameWithType: IWindowInfo
-- uid: AGS.API.IWindowInfo.AppWindowHeight
-  name: AppWindowHeight
-  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_AppWindowHeight
-  commentId: P:AGS.API.IWindowInfo.AppWindowHeight
-  fullName: AGS.API.IWindowInfo.AppWindowHeight
-  nameWithType: IWindowInfo.AppWindowHeight
-- uid: AGS.API.IWindowInfo.AppWindowHeight*
-  name: AppWindowHeight
-  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_AppWindowHeight_
-  commentId: Overload:AGS.API.IWindowInfo.AppWindowHeight
-  isSpec: "True"
-  fullName: AGS.API.IWindowInfo.AppWindowHeight
-  nameWithType: IWindowInfo.AppWindowHeight
-- uid: AGS.API.IWindowInfo.AppWindowWidth
-  name: AppWindowWidth
-  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_AppWindowWidth
-  commentId: P:AGS.API.IWindowInfo.AppWindowWidth
-  fullName: AGS.API.IWindowInfo.AppWindowWidth
-  nameWithType: IWindowInfo.AppWindowWidth
-- uid: AGS.API.IWindowInfo.AppWindowWidth*
-  name: AppWindowWidth
-  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_AppWindowWidth_
-  commentId: Overload:AGS.API.IWindowInfo.AppWindowWidth
-  isSpec: "True"
-  fullName: AGS.API.IWindowInfo.AppWindowWidth
-  nameWithType: IWindowInfo.AppWindowWidth
-- uid: AGS.API.IWindowInfo.GameSubWindow
-  name: GameSubWindow
-  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_GameSubWindow
-  commentId: P:AGS.API.IWindowInfo.GameSubWindow
-  fullName: AGS.API.IWindowInfo.GameSubWindow
-  nameWithType: IWindowInfo.GameSubWindow
-- uid: AGS.API.IWindowInfo.GameSubWindow*
-  name: GameSubWindow
-  href: api/AGS.API.IWindowInfo.html#AGS_API_IWindowInfo_GameSubWindow_
-  commentId: Overload:AGS.API.IWindowInfo.GameSubWindow
-  isSpec: "True"
-  fullName: AGS.API.IWindowInfo.GameSubWindow
-  nameWithType: IWindowInfo.GameSubWindow
 - uid: AGS.API.IWorldPositionComponent
   name: IWorldPositionComponent
   href: api/AGS.API.IWorldPositionComponent.html
@@ -19538,50 +19389,18 @@ references:
   isSpec: "True"
   fullName: AGS.API.MouseButtonEventArgs.MousePosition
   nameWithType: MouseButtonEventArgs.MousePosition
-- uid: AGS.API.MouseClickEventArgs
-  name: MouseClickEventArgs
-  href: api/AGS.API.MouseClickEventArgs.html
-  commentId: T:AGS.API.MouseClickEventArgs
-  fullName: AGS.API.MouseClickEventArgs
-  nameWithType: MouseClickEventArgs
-- uid: AGS.API.MouseClickEventArgs.#ctor(AGS.API.IEntity,AGS.API.MouseButton,AGS.API.MousePosition,System.Int64)
-  name: MouseClickEventArgs(IEntity, MouseButton, MousePosition, Int64)
-  href: api/AGS.API.MouseClickEventArgs.html#AGS_API_MouseClickEventArgs__ctor_AGS_API_IEntity_AGS_API_MouseButton_AGS_API_MousePosition_System_Int64_
-  commentId: M:AGS.API.MouseClickEventArgs.#ctor(AGS.API.IEntity,AGS.API.MouseButton,AGS.API.MousePosition,System.Int64)
-  fullName: AGS.API.MouseClickEventArgs.MouseClickEventArgs(AGS.API.IEntity, AGS.API.MouseButton, AGS.API.MousePosition, System.Int64)
-  nameWithType: MouseClickEventArgs.MouseClickEventArgs(IEntity, MouseButton, MousePosition, Int64)
-- uid: AGS.API.MouseClickEventArgs.#ctor*
-  name: MouseClickEventArgs
-  href: api/AGS.API.MouseClickEventArgs.html#AGS_API_MouseClickEventArgs__ctor_
-  commentId: Overload:AGS.API.MouseClickEventArgs.#ctor
-  isSpec: "True"
-  fullName: AGS.API.MouseClickEventArgs.MouseClickEventArgs
-  nameWithType: MouseClickEventArgs.MouseClickEventArgs
-- uid: AGS.API.MouseClickEventArgs.ClickTimeInMilliseconds
-  name: ClickTimeInMilliseconds
-  href: api/AGS.API.MouseClickEventArgs.html#AGS_API_MouseClickEventArgs_ClickTimeInMilliseconds
-  commentId: P:AGS.API.MouseClickEventArgs.ClickTimeInMilliseconds
-  fullName: AGS.API.MouseClickEventArgs.ClickTimeInMilliseconds
-  nameWithType: MouseClickEventArgs.ClickTimeInMilliseconds
-- uid: AGS.API.MouseClickEventArgs.ClickTimeInMilliseconds*
-  name: ClickTimeInMilliseconds
-  href: api/AGS.API.MouseClickEventArgs.html#AGS_API_MouseClickEventArgs_ClickTimeInMilliseconds_
-  commentId: Overload:AGS.API.MouseClickEventArgs.ClickTimeInMilliseconds
-  isSpec: "True"
-  fullName: AGS.API.MouseClickEventArgs.ClickTimeInMilliseconds
-  nameWithType: MouseClickEventArgs.ClickTimeInMilliseconds
 - uid: AGS.API.MousePosition
   name: MousePosition
   href: api/AGS.API.MousePosition.html
   commentId: T:AGS.API.MousePosition
   fullName: AGS.API.MousePosition
   nameWithType: MousePosition
-- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.IWindowInfo)
-  name: MousePosition(Single, Single, IViewport, Size, IWindowInfo)
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_AGS_API_IWindowInfo_
-  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.IWindowInfo)
-  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport, AGS.API.Size, AGS.API.IWindowInfo)
-  nameWithType: MousePosition.MousePosition(Single, Single, IViewport, Size, IWindowInfo)
+- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport)
+  name: MousePosition(Single, Single, IViewport)
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_
+  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport)
+  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport)
+  nameWithType: MousePosition.MousePosition(Single, Single, IViewport)
 - uid: AGS.API.MousePosition.#ctor*
   name: MousePosition
   href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_
@@ -19628,19 +19447,45 @@ references:
   isSpec: "True"
   fullName: AGS.API.MousePosition.GetViewportY
   nameWithType: MousePosition.GetViewportY
-- uid: AGS.API.MousePosition.InWindow
-  name: InWindow
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_InWindow
-  commentId: P:AGS.API.MousePosition.InWindow
-  fullName: AGS.API.MousePosition.InWindow
-  nameWithType: MousePosition.InWindow
-- uid: AGS.API.MousePosition.InWindow*
-  name: InWindow
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_InWindow_
-  commentId: Overload:AGS.API.MousePosition.InWindow
+- uid: AGS.API.MousePosition.GetWindowHeight
+  name: GetWindowHeight
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowHeight
+  commentId: P:AGS.API.MousePosition.GetWindowHeight
+  fullName: AGS.API.MousePosition.GetWindowHeight
+  nameWithType: MousePosition.GetWindowHeight
+- uid: AGS.API.MousePosition.GetWindowHeight*
+  name: GetWindowHeight
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowHeight_
+  commentId: Overload:AGS.API.MousePosition.GetWindowHeight
   isSpec: "True"
-  fullName: AGS.API.MousePosition.InWindow
-  nameWithType: MousePosition.InWindow
+  fullName: AGS.API.MousePosition.GetWindowHeight
+  nameWithType: MousePosition.GetWindowHeight
+- uid: AGS.API.MousePosition.GetWindowWidth
+  name: GetWindowWidth
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowWidth
+  commentId: P:AGS.API.MousePosition.GetWindowWidth
+  fullName: AGS.API.MousePosition.GetWindowWidth
+  nameWithType: MousePosition.GetWindowWidth
+- uid: AGS.API.MousePosition.GetWindowWidth*
+  name: GetWindowWidth
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_GetWindowWidth_
+  commentId: Overload:AGS.API.MousePosition.GetWindowWidth
+  isSpec: "True"
+  fullName: AGS.API.MousePosition.GetWindowWidth
+  nameWithType: MousePosition.GetWindowWidth
+- uid: AGS.API.MousePosition.VirtualResolution
+  name: VirtualResolution
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_VirtualResolution
+  commentId: P:AGS.API.MousePosition.VirtualResolution
+  fullName: AGS.API.MousePosition.VirtualResolution
+  nameWithType: MousePosition.VirtualResolution
+- uid: AGS.API.MousePosition.VirtualResolution*
+  name: VirtualResolution
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_VirtualResolution_
+  commentId: Overload:AGS.API.MousePosition.VirtualResolution
+  isSpec: "True"
+  fullName: AGS.API.MousePosition.VirtualResolution
+  nameWithType: MousePosition.VirtualResolution
 - uid: AGS.API.MousePosition.XMainViewport
   name: XMainViewport
   href: api/AGS.API.MousePosition.html#AGS_API_MousePosition_XMainViewport
@@ -19815,38 +19660,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.NumberEditorSliderAttribute.Step
   nameWithType: NumberEditorSliderAttribute.Step
-- uid: AGS.API.NumberValueChangedArgs
-  name: NumberValueChangedArgs
-  href: api/AGS.API.NumberValueChangedArgs.html
-  commentId: T:AGS.API.NumberValueChangedArgs
-  fullName: AGS.API.NumberValueChangedArgs
-  nameWithType: NumberValueChangedArgs
-- uid: AGS.API.NumberValueChangedArgs.#ctor(System.Boolean)
-  name: NumberValueChangedArgs(Boolean)
-  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs__ctor_System_Boolean_
-  commentId: M:AGS.API.NumberValueChangedArgs.#ctor(System.Boolean)
-  fullName: AGS.API.NumberValueChangedArgs.NumberValueChangedArgs(System.Boolean)
-  nameWithType: NumberValueChangedArgs.NumberValueChangedArgs(Boolean)
-- uid: AGS.API.NumberValueChangedArgs.#ctor*
-  name: NumberValueChangedArgs
-  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs__ctor_
-  commentId: Overload:AGS.API.NumberValueChangedArgs.#ctor
-  isSpec: "True"
-  fullName: AGS.API.NumberValueChangedArgs.NumberValueChangedArgs
-  nameWithType: NumberValueChangedArgs.NumberValueChangedArgs
-- uid: AGS.API.NumberValueChangedArgs.UserInitiated
-  name: UserInitiated
-  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs_UserInitiated
-  commentId: P:AGS.API.NumberValueChangedArgs.UserInitiated
-  fullName: AGS.API.NumberValueChangedArgs.UserInitiated
-  nameWithType: NumberValueChangedArgs.UserInitiated
-- uid: AGS.API.NumberValueChangedArgs.UserInitiated*
-  name: UserInitiated
-  href: api/AGS.API.NumberValueChangedArgs.html#AGS_API_NumberValueChangedArgs_UserInitiated_
-  commentId: Overload:AGS.API.NumberValueChangedArgs.UserInitiated
-  isSpec: "True"
-  fullName: AGS.API.NumberValueChangedArgs.UserInitiated
-  nameWithType: NumberValueChangedArgs.UserInitiated
 - uid: AGS.API.ObjectEventArgs
   name: ObjectEventArgs
   href: api/AGS.API.ObjectEventArgs.html
@@ -20868,32 +20681,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.Rectangle.Rectangle
   nameWithType: Rectangle.Rectangle
-- uid: AGS.API.Rectangle.Equals(System.Object)
-  name: Equals(Object)
-  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_Equals_System_Object_
-  commentId: M:AGS.API.Rectangle.Equals(System.Object)
-  fullName: AGS.API.Rectangle.Equals(System.Object)
-  nameWithType: Rectangle.Equals(Object)
-- uid: AGS.API.Rectangle.Equals*
-  name: Equals
-  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_Equals_
-  commentId: Overload:AGS.API.Rectangle.Equals
-  isSpec: "True"
-  fullName: AGS.API.Rectangle.Equals
-  nameWithType: Rectangle.Equals
-- uid: AGS.API.Rectangle.GetHashCode
-  name: GetHashCode()
-  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_GetHashCode
-  commentId: M:AGS.API.Rectangle.GetHashCode
-  fullName: AGS.API.Rectangle.GetHashCode()
-  nameWithType: Rectangle.GetHashCode()
-- uid: AGS.API.Rectangle.GetHashCode*
-  name: GetHashCode
-  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_GetHashCode_
-  commentId: Overload:AGS.API.Rectangle.GetHashCode
-  isSpec: "True"
-  fullName: AGS.API.Rectangle.GetHashCode
-  nameWithType: Rectangle.GetHashCode
 - uid: AGS.API.Rectangle.Height
   name: Height
   href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_Height
