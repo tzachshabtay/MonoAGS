@@ -7,13 +7,13 @@ namespace DemoGame
     public class Cris
 	{
 		private ICharacter _character;
-		private const string _baseFolder = "../../Assets/Characters/Cris/";
+		private const string _baseFolder = "Characters/Cris/";
 
 		public async Task<ICharacter> LoadAsync(IGame game)
 		{
             AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
 
-			var footstep = await game.Factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/151238__owlstorm__hard-female-footstep-2.wav");
+			var footstep = await game.Factory.Sound.LoadAudioClipAsync("Sounds/151238__owlstorm__hard-female-footstep-2.wav");
 			ISoundEmitter emitter = new AGSSoundEmitter (game);
 			emitter.AudioClip = footstep;
 

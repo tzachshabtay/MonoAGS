@@ -6,7 +6,7 @@ namespace DemoGame
 {
 	public class InventoryPanel
 	{
-		private const string _baseFolder = "../../Assets/Gui/Buttons/";
+		private const string _baseFolder = "Gui/Buttons/";
 		private IPanel _panel;
 		private readonly RotatingCursorScheme _scheme;
 		private string _lastMode;
@@ -24,7 +24,7 @@ namespace DemoGame
             _game.Events.OnSavedGameLoad.Subscribe(onSaveGameLoaded);
 			IGameFactory factory = game.Factory;
 
-			_panel = await factory.UI.GetPanelAsync("Inventory Panel", "../../Assets/Gui/DialogBox/inventory.bmp", 160f, 100f);
+			_panel = await factory.UI.GetPanelAsync("Inventory Panel", "Gui/DialogBox/inventory.bmp", 160f, 100f);
 			_panel.Pivot = new PointF (0.5f, 0.5f);
 			_panel.Visible = false;
 

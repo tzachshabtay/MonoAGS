@@ -6,7 +6,7 @@ namespace DemoGame
 {
 	public class TopBar
 	{
-		private const string _baseFolder = "../../Assets/Gui/Buttons/";
+		private const string _baseFolder = "Gui/Buttons/";
 		private IPanel _panel;
 		private readonly RotatingCursorScheme _scheme;
 		private InventoryPanel _invPanel;
@@ -35,7 +35,7 @@ namespace DemoGame
             _game.Events.OnSavedGameLoad.Subscribe(onSaveGameLoaded);
 			IGameFactory factory = game.Factory;
 			_player = game.State.Player;
-			_panel = await factory.UI.GetPanelAsync("Toolbar", "../../Assets/Gui/DialogBox/toolbar.bmp", 0f, 180f);
+			_panel = await factory.UI.GetPanelAsync("Toolbar", "Gui/DialogBox/toolbar.bmp", 0f, 180f);
 			_panel.Visible = false;
 
 			await loadButton("Walk Button", factory, "walk/", 0f, RotatingCursorScheme.WALK_MODE);

@@ -11,7 +11,7 @@ namespace AGS.Engine
     {
         private IAudioFactory _factory;
         private ConcurrentDictionary<string, IAudioClip> _speechCache;
-        private const string _baseFolder = "../../Assets/Speech/English/";
+        private const string _baseFolder = "Speech/English/";
 
         public AGSClassicSpeechCache(IAudioFactory factory)
         {

@@ -12,7 +12,7 @@ namespace DemoGame
 		private IGame _game;
 		private IAudioClip _bottleEffectClip;
 
-		private const string _baseFolder = "../../Assets/Rooms/EmptyStreet/";
+		private const string _baseFolder = "Rooms/EmptyStreet/";
 		private const string _roomId = "Empty Street";
 		private const string _bottleId = "Bottle (object)";
 
@@ -25,11 +25,11 @@ namespace DemoGame
 		{
 			_game = game;
 			IGameFactory factory = game.Factory;
-			_bottleEffectClip = await factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/254818__kwahmah-02__rattling-glass-bottles-impact.wav");
+			_bottleEffectClip = await factory.Sound.LoadAudioClipAsync("Sounds/254818__kwahmah-02__rattling-glass-bottles-impact.wav");
 
             ILoadImageConfig loadConfig = new AGSLoadImageConfig(new Point(0, 0));
 			_room = factory.Room.GetRoom(_roomId, 20f, 310f, 190f, 10f);
-			_room.MusicOnLoad = await factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/AMemoryAway.ogg");
+			_room.MusicOnLoad = await factory.Sound.LoadAudioClipAsync("Sounds/AMemoryAway.ogg");
 
             _game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoaded);
 
