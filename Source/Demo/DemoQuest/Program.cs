@@ -145,6 +145,11 @@ namespace DemoGame
         { 
             AGSSplashScreen splashScreen = new AGSSplashScreen();
             Rooms.SplashScreen = splashScreen.Load(game);
+
+            var splashBackground = game.Factory.Object.GetObject("Splash Background");
+            splashBackground.Image = await game.Factory.Graphics.LoadImageAsync("Rooms/Splash/bg.png");
+            Rooms.SplashScreen.Background = splashBackground;
+
             game.State.Rooms.Add(Rooms.SplashScreen);
             Rooms.SplashScreen.Events.OnAfterFadeIn.SubscribeToAsync(async () => 
             { 
