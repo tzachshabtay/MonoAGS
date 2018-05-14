@@ -18,9 +18,9 @@ namespace AGS.Editor
 
             game.Events.OnLoad.Subscribe(async () =>
             {
-                game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem), 0));
+                game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem, AGSGame.Device.Assemblies.EntryAssembly), 0));
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly), 1));
-                game.Factory.Fonts.InstallFonts("../../Assets/Fonts/Font Awesome 5 Free-Solid-900.otf");
+                game.Factory.Fonts.InstallFonts("Fonts/Font Awesome 5 Free-Solid-900.otf");
                 FontIcons.Init(game.Factory.Fonts);
 
                 AGSEditor editor = resolver.Container.Resolve<AGSEditor>();

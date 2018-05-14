@@ -8,7 +8,7 @@ namespace AGS.Editor
     {
         public static void Init(IFontLoader fontLoader)
         {
-            const string path = "../../Assets/Fonts/Font Awesome 5 Free-Solid-900.otf";
+            const string path = "Fonts/Font Awesome 5 Free-Solid-900.otf";
 
             var font = fontLoader.LoadFontFromPath(path, 14f, FontStyle.Regular);
             IconConfig = new AGSTextConfig(font: font, autoFit: AutoFit.NoFitting, alignment: Alignment.MiddleCenter,
