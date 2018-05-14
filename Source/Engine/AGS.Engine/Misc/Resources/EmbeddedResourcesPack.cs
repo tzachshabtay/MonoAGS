@@ -73,12 +73,9 @@ namespace AGS.Engine
         {
             try
             {
-                int assetsIndex = path.IndexOf(AssetsFolder, StringComparison.Ordinal);
-                if (assetsIndex < 0) return null;
-                string resourcePath = path.Substring(assetsIndex);
-                resourcePath = resourcePath.Replace('/', '.').Replace('\\', '.');
-                resourcePath = $"{_assemblyName}.{resourcePath}";
-                return resourcePath;
+                path = path.Replace('/', '.').Replace('\\', '.');
+                path = $"{_assemblyName}.{AssetsFolder}.{path}";
+                return path;
             }
             catch (Exception e)
             {

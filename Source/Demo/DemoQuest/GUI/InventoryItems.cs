@@ -7,7 +7,7 @@ namespace DemoGame
 {
 	public class InventoryItems
 	{
-		private const string _baseFolder = "../../Assets/Inventory/";
+		private const string _baseFolder = "Inventory/";
 
 		public static IInventoryItem Bottle { get; private set; }
 		public static IInventoryItem VoodooDoll { get; private set; }
@@ -17,7 +17,7 @@ namespace DemoGame
 		public async Task LoadAsync(IGameFactory factory)
 		{
             AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
-			Bottle = await factory.Inventory.GetInventoryItemAsync("Bottle", "../../Assets/Rooms/EmptyStreet/bottle.bmp", null, loadConfig);
+			Bottle = await factory.Inventory.GetInventoryItemAsync("Bottle", "Rooms/EmptyStreet/bottle.bmp", null, loadConfig);
 			VoodooDoll = await factory.Inventory.GetInventoryItemAsync("Voodoo Doll", _baseFolder + "voodooDoll.bmp", null, loadConfig, true);
 			Poster = await factory.Inventory.GetInventoryItemAsync("Poster", _baseFolder + "poster.bmp", playerStartsWithItem: true);
 			Manual = await factory.Inventory.GetInventoryItemAsync("Manual", _baseFolder + "manual.bmp", null, loadConfig, true);

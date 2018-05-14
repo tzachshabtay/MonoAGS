@@ -7,7 +7,7 @@ namespace DemoGame
 {
 	public class MouseCursors
 	{
-		private const string _baseFolder = "../../Assets/Gui/Cursors/";
+		private const string _baseFolder = "Gui/Cursors/";
 		private readonly AGSLoadImageConfig _loadConfig;
 
 		public MouseCursors()
@@ -56,4 +56,3 @@ namespace DemoGame
 		}
 	}
 }
-

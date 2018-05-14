@@ -7,7 +7,7 @@ namespace DemoGame
     public class Beman
 	{
 		private ICharacter _character;
-		private const string _baseFolder = "../../Assets/Characters/Beman/";
+		private const string _baseFolder = "Characters/Beman/";
 		private BemanDialogs _dialogs = new BemanDialogs();
 		private IGame _game;
 
@@ -73,4 +73,3 @@ namespace DemoGame
 		}
 	}
 }
-

@@ -10,7 +10,7 @@ namespace DemoGame
         private ICharacter _player;
 		private IGame _game;
 
-		private const string _baseFolder = "../../Assets/Rooms/BrokenCurbStreet/";
+		private const string _baseFolder = "Rooms/BrokenCurbStreet/";
 
 		public async Task<IRoom> LoadAsync(IGame game)
 		{
@@ -21,7 +21,7 @@ namespace DemoGame
 			_room = factory.Room.GetRoom ("Broken Curb Street", 20f, 310f, 190f, 10f);
 
             //todo: temporary removed loading the flac file as it crashes on windows after migrating to dotnet standard
-			//_room.MusicOnLoad = await factory.Sound.LoadAudioClipAsync("../../Assets/Sounds/01_Ghosts_I.flac");
+			//_room.MusicOnLoad = await factory.Sound.LoadAudioClipAsync("Sounds/01_Ghosts_I.flac");
 
 			IObject bg = factory.Object.GetObject("Broken Curb BG");
 			bg.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bg.png");
@@ -96,4 +96,3 @@ namespace DemoGame
 		}
 	}
 }
-
