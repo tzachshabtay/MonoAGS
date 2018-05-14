@@ -49,6 +49,8 @@
           href: repeat.md
         - name: Effects
           href: effects.md
+        - name: Splash Screen
+          href: splash-screen.md
         - name: AGS Cheat Sheet
           href: ags-cheat-sheet.md
 - name: Advanced
