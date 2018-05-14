@@ -128,7 +128,8 @@ namespace AGS.Editor
             var keyboardBindings = new KeyboardBindings(editor.Editor.Input);
             var actions = editorResolver.Container.Resolve<ActionManager>();
             var resourceLoader = gameResolver.Container.Resolve<IResourceLoader>();
-            resourceLoader.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(assembly), 2));
+            resourceLoader.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem, assembly), 2));
+            resourceLoader.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(assembly), 3));
 
             EditorShouldBlockEngineInput blocker = gameResolver.Container.Resolve<EditorShouldBlockEngineInput>();
 
