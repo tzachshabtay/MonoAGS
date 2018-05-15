@@ -1,7 +1,6 @@
 ﻿using AGS.Engine;
 using System.Threading.Tasks;
 using AGS.API;
-using AGS.Editor;
 using System.Diagnostics;
 using DemoQuest;
 using System;
@@ -10,12 +9,11 @@ namespace DemoGame
 {
     public class DemoStarter : IGameStarter
 	{
-        private static Lazy<GameDebugView> _gameDebugView;
-
         public void StartGame(IGame game)
         {
+            FFTester.Test();
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
-            GLText.TextResolutionFactorX = 4;
+            /*GLText.TextResolutionFactorX = 4;
             GLText.TextResolutionFactorY = 4;
 
             game.Events.OnLoad.Subscribe(async () =>
@@ -36,20 +34,13 @@ namespace DemoGame
                 await loadPlayerCharacter(game);
                 Debug.WriteLine("Startup: Loaded Player Character");
                 await loadSplashScreen(game);
-            });
+            });*/
         }
 
 		public static void Run()
 		{
             DemoStarter starter = new DemoStarter();
             var game = AGSGame.CreateEmpty();
-
-            _gameDebugView = new Lazy<GameDebugView>(() =>
-            {
-                var gameDebugView = new GameDebugView(game, new KeyboardBindings(game.Input));
-                gameDebugView.Load();
-                return gameDebugView;
-            });
 
             starter.StartGame(game);
             game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
@@ -79,12 +70,6 @@ namespace DemoGame
                 {
                     if (game.State.Cutscene.IsRunning) return;
                     game.Quit();
-                }
-                else if (args.Key == Key.G && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)) && _gameDebugView != null)
-                {
-                    var gameDebug = _gameDebugView.Value;
-                    if (gameDebug.Visible) gameDebug.Hide();
-                    else await gameDebug.Show();
                 }
             });
         }
