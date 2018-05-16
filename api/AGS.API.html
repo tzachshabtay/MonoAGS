@@ -146,6 +146,9 @@ The arguments contain the two combined items.</p>
       <h4><a class="xref" href="AGS.API.MouseButtonEventArgs.html">MouseButtonEventArgs</a></h4>
       <section><p>Mouse button down/up event arguments.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.MouseClickEventArgs.html">MouseClickEventArgs</a></h4>
+      <section><p>Mouse click/double-click event arguments.</p>
+</section>
       <h4><a class="xref" href="AGS.API.MousePositionEventArgs.html">MousePositionEventArgs</a></h4>
       <section><p>Event arguments for mouse move to indicate the mouse&apos;s position.</p>
 </section>
@@ -155,6 +158,9 @@ The arguments contain the two combined items.</p>
       <h4><a class="xref" href="AGS.API.NumberEditorSliderAttribute.html">NumberEditorSliderAttribute</a></h4>
       <section><p>Allows controlling the &quot;suggested&quot; minimum and maximum values that will be assigned to 
 a slider of a number editor in the inspector.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.NumberValueChangedArgs.html">NumberValueChangedArgs</a></h4>
+      <section><p>Event arguments for when the number editor&apos;s value changed.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ObjectEventArgs.html">ObjectEventArgs</a></h4>
       <section><p>Event arguments for interacting with an object.</p>
@@ -457,6 +463,9 @@ This is useful for things like introduction sequences, where you want the player
       <section><p>Default interactions (when no specific interaction callback is subscribed) are defined here.
 This is where you define generic responses (like the famous &quot;this doesn&apos;t work&quot;) that cover all of the interactions for which 
 you didn&apos;t code a specific response.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IDefaultsSettings.html">IDefaultsSettings</a></h4>
+      <section><p>Gets or sets settings for various defaults.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IDepthClipping.html">IDepthClipping</a></h4>
       <section><p>Depth clipping allows clipping objects (i.e hiding objects) if they&apos;re either too close or too far from the camera.
@@ -943,10 +952,6 @@ that&apos;s being said.</p>
       <h4><a class="xref" href="AGS.API.ISpeechLine.html">ISpeechLine</a></h4>
       <section><p>Represents a line of speech (text and sound).</p>
 </section>
-      <h4><a class="xref" href="AGS.API.ISplitPanelComponent.html">ISplitPanelComponent</a></h4>
-      <section><p>Adds the ability to place 2 panels adjacent to each other (either vertically or horizontally),
-and have a split line in between which can be dragged to resize both panels at the same time.</p>
-</section>
       <h4><a class="xref" href="AGS.API.ISprite.html">ISprite</a></h4>
       <section><p>A sprite is an image which can be manipulated (scaled, rotated or translated in space).</p>
 </section>
@@ -1059,6 +1064,11 @@ characters/objects. When rendering the engine will actually crop those up and re
 </section>
       <h4><a class="xref" href="AGS.API.IWalkComponent.html">IWalkComponent</a></h4>
       <section><p>Gives an entity the ability to walk around the room.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IWindowInfo.html">IWindowInfo</a></h4>
+      <section><p>Information about the application window and the sub-window containing the game.
+Usually, the window hosting the game IS the application window, but for some scenarios (like for the editor which is hosting the game)
+the game can be configured to only use part of the window (a &quot;sub window&quot;).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IWorldPositionComponent.html">IWorldPositionComponent</a></h4>
       <section><p>Allows getting the world position for entities.</p>
