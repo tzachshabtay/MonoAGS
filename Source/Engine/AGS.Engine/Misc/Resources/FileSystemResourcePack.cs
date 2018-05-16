@@ -88,18 +88,32 @@ namespace AGS.Engine
                 path.EndsWith(".DS_Store", StringComparison.Ordinal); //Mac OS file
         }
 
+        private string findAssetsDir(IEnumerable<string> dirs)
+        {
+            var assetsDir = dirs.FirstOrDefault(
+                    p => Path.GetFileName(p).ToLowerInvariant() == EmbeddedResourcesPack.AssetsFolder.ToLowerInvariant());
+            if (assetsDir != null)
+            {
+                Debug.WriteLine($"Found assets directory at: {assetsDir}");
+            }
+            return assetsDir;
+        }
+
         private string autoDetectAssetsFolder(Assembly assembly)
         {
-            string exeDir = assembly == null ? _fileSystem.GetCurrentDirectory() : Path.GetDirectoryName(assembly.GetName().CodeBase);
+            string exeDir = assembly == null ? _fileSystem.GetCurrentDirectory() :
+                Path.GetDirectoryName(assembly.GetName().CodeBase.Replace("file:///", ""));
             string dir = exeDir;
             while (true)
             {
-                var assetsDir = _fileSystem.GetDirectories(dir).FirstOrDefault(
-                    p => Path.GetFileName(p).ToLowerInvariant() == EmbeddedResourcesPack.AssetsFolder.ToLowerInvariant());
-                if (assetsDir != null)
+                var childDirs = _fileSystem.GetDirectories(dir);
+                var assetsDir = findAssetsDir(childDirs);
+                if (assetsDir != null) return assetsDir;
+
+                foreach (var childDir in childDirs)
                 {
-                    Debug.WriteLine($"Found assets directory at: {assetsDir}");
-                    return assetsDir;
+                    assetsDir = findAssetsDir(_fileSystem.GetDirectories(childDir));
+                    if (assetsDir != null) return assetsDir;
                 }
                 DirectoryInfo dirInfo = Directory.GetParent(dir);
                 if (dirInfo == null)
