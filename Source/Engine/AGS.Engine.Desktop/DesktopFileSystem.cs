@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace AGS.Engine.Desktop
@@ -12,14 +13,30 @@ namespace AGS.Engine.Desktop
 
         public IEnumerable<string> GetFiles(string folder)
 		{
-            if (!Directory.Exists(folder)) return new List<string>();
-			return Directory.GetFiles(folder);
+            try
+            {
+                if (!Directory.Exists(folder)) return new List<string>();
+                return Directory.GetFiles(folder);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Debug.WriteLine($"GetFiles: Permission denied for {folder}");
+                return new List<string>();
+            }
 		}
 
         public IEnumerable<string> GetDirectories(string folder)
         {
-            if (!Directory.Exists(folder)) return new List<string>();
-            return Directory.GetDirectories(folder);
+            try
+            {
+                if (!Directory.Exists(folder)) return new List<string>();
+                return Directory.GetDirectories(folder);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Debug.WriteLine($"GetDirectories: Permission denied for {folder}");
+                return new List<string>();
+            }
         }
 
         public IEnumerable<string> GetLogicalDrives() => Directory.GetLogicalDrives();
@@ -43,4 +60,3 @@ namespace AGS.Engine.Desktop
 		
 	}
 }
-
