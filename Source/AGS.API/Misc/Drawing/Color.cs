@@ -204,6 +204,20 @@ namespace AGS.API
         /// <returns>The color.</returns>
         /// <param name="a">The alpha component. 0 is fully transparent and 255 is fully opaque.</param>
         public Color WithAlpha(byte a) => Color.FromArgb(a, R, G, B);
-    }
-}
 
+		public override bool Equals(object obj)
+		{
+            return obj is Color other && Equals(other);
+		}
+
+        public bool Equals(Color other)
+        {
+            return Value == other.Value;
+        }
+
+		public override int GetHashCode()
+		{
+            return Value.GetHashCode();
+		}
+	}
+}

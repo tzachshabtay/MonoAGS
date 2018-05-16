@@ -13,10 +13,10 @@
       <HintPath>..\..\..\DLLs\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
-    <PackageReference Include="Autofac" Version="4.4.0"/>
+    <PackageReference Include="Autofac" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AGS.Engine\AGS.Engine.csproj"/>
+    <ProjectReference Include="..\AGS.Engine\AGS.Engine.csproj" />
   </ItemGroup>
   <ItemGroup>
     <!-- https://stackoverflow.com/questions/43412140/csproj-copy-files-depending-on-operating-system -->

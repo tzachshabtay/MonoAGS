@@ -66,10 +66,10 @@ namespace AGS.Engine.Desktop
 			{
 				return loadFontFamilyOnMac(path, buffer, family);
 			}
-            else if (isLinux())
+            /*else if (isLinux())
             {
                 return loadFontFamilyOnLinux(path, buffer, family);
-            }
+            }*/
 
 			return family;
 		}

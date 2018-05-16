@@ -10,11 +10,10 @@ namespace AGS.Engine.Desktop
         {
             FileSystem = new DesktopFileSystem();
             Assemblies = new DesktopAssemblies();
-            _fontFamilyLoader = new DesktopFontFamilyLoader(getResourceLoader());
             GraphicsBackend = new OpenGLBackend();
-            BitmapLoader = new DesktopBitmapLoader(GraphicsBackend);
-            BrushLoader = new DesktopBrushLoader();
-            FontLoader = new DesktopFontLoader(_fontFamilyLoader);
+            BitmapLoader = new SkiaBitmapLoader(GraphicsBackend);
+            BrushLoader = new SkiaBrushLoader();
+            FontLoader = new SkiaFontLoader();
             ConfigFile = new DesktopEngineConfigFile();
             KeyboardState = new DesktopKeyboardState();
         }
