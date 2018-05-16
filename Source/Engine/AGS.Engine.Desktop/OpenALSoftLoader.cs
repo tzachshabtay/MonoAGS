@@ -36,8 +36,9 @@ namespace AGS.Engine.Desktop
             string source32BitFilePath = Path.Combine(exeFolder, fileName32);
             string source64BitFilePath = Path.Combine(exeFolder, fileName64);
             string targetFileName = isWindows ? "OpenAL32.dll" : "libopenal.so.1";
+            string targetFilePath = Path.Combine(exeFolder, targetFileName);
 
-            copyCorrectFile(source32BitFilePath, source64BitFilePath, targetFileName);
+            copyCorrectFile(source32BitFilePath, source64BitFilePath, targetFilePath);
         }
 
         private static bool isRunningLinux()
