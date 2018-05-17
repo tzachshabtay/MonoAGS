@@ -98,12 +98,6 @@ It means that the entity can be belong to a room and moved between rooms.</p>
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
     </div>
-    <div>
-      <span class="xref">System.IDisposable.Dispose()</span>
-    </div>
-    <div>
-      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
@@ -226,7 +220,7 @@ If the entity that&apos;s moved to a new room is the player, the new room will b
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task ChangeRoomAsync(IRoom room, float? x = default(float? ), float? y = default(float? ))</code></pre>
+    <pre><code class="lang-csharp hljs">Task ChangeRoomAsync(IRoom room, float? x = null, float? y = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -268,7 +262,7 @@ If the entity that&apos;s moved to a new room is the player, the new room will b
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><span class="xref">Task</span></td>
         <td></td>
       </tr>
     </tbody>

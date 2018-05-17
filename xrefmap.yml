@@ -427,13 +427,13 @@ references:
   fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(AGS.API.ListChangeType, TItem)
   nameWithType: AGSHashSetChangedEventArgs<TItem>.AGSHashSetChangedEventArgs(ListChangeType, TItem)
   nameWithType.vb: AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(ListChangeType, TItem)
-- uid: AGS.API.AGSHashSetChangedEventArgs`1.#ctor(AGS.API.ListChangeType,System.Collections.Generic.IEnumerable{`0})
+- uid: AGS.API.AGSHashSetChangedEventArgs`1.#ctor(AGS.API.ListChangeType,IEnumerable{`0})
   name: AGSHashSetChangedEventArgs(ListChangeType, IEnumerable<TItem>)
-  href: api/AGS.API.AGSHashSetChangedEventArgs-1.html#AGS_API_AGSHashSetChangedEventArgs_1__ctor_AGS_API_ListChangeType_System_Collections_Generic_IEnumerable__0__
-  commentId: M:AGS.API.AGSHashSetChangedEventArgs`1.#ctor(AGS.API.ListChangeType,System.Collections.Generic.IEnumerable{`0})
+  href: api/AGS.API.AGSHashSetChangedEventArgs-1.html#AGS_API_AGSHashSetChangedEventArgs_1__ctor_AGS_API_ListChangeType_IEnumerable__0__
+  commentId: M:AGS.API.AGSHashSetChangedEventArgs`1.#ctor(AGS.API.ListChangeType,IEnumerable{`0})
   name.vb: AGSHashSetChangedEventArgs(ListChangeType, IEnumerable(Of TItem))
-  fullName: AGS.API.AGSHashSetChangedEventArgs<TItem>.AGSHashSetChangedEventArgs(AGS.API.ListChangeType, System.Collections.Generic.IEnumerable<TItem>)
-  fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(AGS.API.ListChangeType, System.Collections.Generic.IEnumerable(Of TItem))
+  fullName: AGS.API.AGSHashSetChangedEventArgs<TItem>.AGSHashSetChangedEventArgs(AGS.API.ListChangeType, IEnumerable<TItem>)
+  fullName.vb: AGS.API.AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(AGS.API.ListChangeType, IEnumerable(Of TItem))
   nameWithType: AGSHashSetChangedEventArgs<TItem>.AGSHashSetChangedEventArgs(ListChangeType, IEnumerable<TItem>)
   nameWithType.vb: AGSHashSetChangedEventArgs(Of TItem).AGSHashSetChangedEventArgs(ListChangeType, IEnumerable(Of TItem))
 - uid: AGS.API.AGSHashSetChangedEventArgs`1.#ctor*
@@ -497,13 +497,13 @@ references:
   fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(AGS.API.ListChangeType, AGS.API.AGSListItem(Of TItem))
   nameWithType: AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(ListChangeType, AGSListItem<TItem>)
   nameWithType.vb: AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(ListChangeType, AGSListItem(Of TItem))
-- uid: AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,System.Collections.Generic.IEnumerable{AGS.API.AGSListItem{`0}})
+- uid: AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,IEnumerable{AGS.API.AGSListItem{`0}})
   name: AGSListChangedEventArgs(ListChangeType, IEnumerable<AGSListItem<TItem>>)
-  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1__ctor_AGS_API_ListChangeType_System_Collections_Generic_IEnumerable_AGS_API_AGSListItem__0___
-  commentId: M:AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,System.Collections.Generic.IEnumerable{AGS.API.AGSListItem{`0}})
+  href: api/AGS.API.AGSListChangedEventArgs-1.html#AGS_API_AGSListChangedEventArgs_1__ctor_AGS_API_ListChangeType_IEnumerable_AGS_API_AGSListItem__0___
+  commentId: M:AGS.API.AGSListChangedEventArgs`1.#ctor(AGS.API.ListChangeType,IEnumerable{AGS.API.AGSListItem{`0}})
   name.vb: AGSListChangedEventArgs(ListChangeType, IEnumerable(Of AGSListItem(Of TItem)))
-  fullName: AGS.API.AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(AGS.API.ListChangeType, System.Collections.Generic.IEnumerable<AGS.API.AGSListItem<TItem>>)
-  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(AGS.API.ListChangeType, System.Collections.Generic.IEnumerable(Of AGS.API.AGSListItem(Of TItem)))
+  fullName: AGS.API.AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(AGS.API.ListChangeType, IEnumerable<AGS.API.AGSListItem<TItem>>)
+  fullName.vb: AGS.API.AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(AGS.API.ListChangeType, IEnumerable(Of AGS.API.AGSListItem(Of TItem)))
   nameWithType: AGSListChangedEventArgs<TItem>.AGSListChangedEventArgs(ListChangeType, IEnumerable<AGSListItem<TItem>>)
   nameWithType.vb: AGSListChangedEventArgs(Of TItem).AGSListChangedEventArgs(ListChangeType, IEnumerable(Of AGSListItem(Of TItem)))
 - uid: AGS.API.AGSListChangedEventArgs`1.#ctor*
@@ -848,11 +848,11 @@ references:
   commentId: T:AGS.API.BeforeSayEventArgs
   fullName: AGS.API.BeforeSayEventArgs
   nameWithType: BeforeSayEventArgs
-- uid: AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,System.Action)
+- uid: AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,Action)
   name: BeforeSayEventArgs(ILabel, Action)
-  href: api/AGS.API.BeforeSayEventArgs.html#AGS_API_BeforeSayEventArgs__ctor_AGS_API_ILabel_System_Action_
-  commentId: M:AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,System.Action)
-  fullName: AGS.API.BeforeSayEventArgs.BeforeSayEventArgs(AGS.API.ILabel, System.Action)
+  href: api/AGS.API.BeforeSayEventArgs.html#AGS_API_BeforeSayEventArgs__ctor_AGS_API_ILabel_Action_
+  commentId: M:AGS.API.BeforeSayEventArgs.#ctor(AGS.API.ILabel,Action)
+  fullName: AGS.API.BeforeSayEventArgs.BeforeSayEventArgs(AGS.API.ILabel, Action)
   nameWithType: BeforeSayEventArgs.BeforeSayEventArgs(ILabel, Action)
 - uid: AGS.API.BeforeSayEventArgs.#ctor*
   name: BeforeSayEventArgs
@@ -2291,13 +2291,13 @@ references:
   commentId: T:AGS.API.DisplayListEventArgs
   fullName: AGS.API.DisplayListEventArgs
   nameWithType: DisplayListEventArgs
-- uid: AGS.API.DisplayListEventArgs.#ctor(System.Collections.Generic.List{AGS.API.IObject})
+- uid: AGS.API.DisplayListEventArgs.#ctor(List{AGS.API.IObject})
   name: DisplayListEventArgs(List<IObject>)
-  href: api/AGS.API.DisplayListEventArgs.html#AGS_API_DisplayListEventArgs__ctor_System_Collections_Generic_List_AGS_API_IObject__
-  commentId: M:AGS.API.DisplayListEventArgs.#ctor(System.Collections.Generic.List{AGS.API.IObject})
+  href: api/AGS.API.DisplayListEventArgs.html#AGS_API_DisplayListEventArgs__ctor_List_AGS_API_IObject__
+  commentId: M:AGS.API.DisplayListEventArgs.#ctor(List{AGS.API.IObject})
   name.vb: DisplayListEventArgs(List(Of IObject))
-  fullName: AGS.API.DisplayListEventArgs.DisplayListEventArgs(System.Collections.Generic.List<AGS.API.IObject>)
-  fullName.vb: AGS.API.DisplayListEventArgs.DisplayListEventArgs(System.Collections.Generic.List(Of AGS.API.IObject))
+  fullName: AGS.API.DisplayListEventArgs.DisplayListEventArgs(List<AGS.API.IObject>)
+  fullName.vb: AGS.API.DisplayListEventArgs.DisplayListEventArgs(List(Of AGS.API.IObject))
   nameWithType: DisplayListEventArgs.DisplayListEventArgs(List<IObject>)
   nameWithType.vb: DisplayListEventArgs.DisplayListEventArgs(List(Of IObject))
 - uid: AGS.API.DisplayListEventArgs.#ctor*
@@ -2433,13 +2433,13 @@ references:
   fullName.vb: AGS.API.FourCorners(Of TValue).Convert
   nameWithType: FourCorners<TValue>.Convert
   nameWithType.vb: FourCorners(Of TValue).Convert
-- uid: AGS.API.FourCorners`1.Convert``1(System.Func{`0,``0})
+- uid: AGS.API.FourCorners`1.Convert``1(Func{`0,``0})
   name: Convert<TNewValue>(Func<TValue, TNewValue>)
-  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_Convert__1_System_Func__0___0__
-  commentId: M:AGS.API.FourCorners`1.Convert``1(System.Func{`0,``0})
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_Convert__1_Func__0___0__
+  commentId: M:AGS.API.FourCorners`1.Convert``1(Func{`0,``0})
   name.vb: Convert(Of TNewValue)(Func(Of TValue, TNewValue))
-  fullName: AGS.API.FourCorners<TValue>.Convert<TNewValue>(System.Func<TValue, TNewValue>)
-  fullName.vb: AGS.API.FourCorners(Of TValue).Convert(Of TNewValue)(System.Func(Of TValue, TNewValue))
+  fullName: AGS.API.FourCorners<TValue>.Convert<TNewValue>(Func<TValue, TNewValue>)
+  fullName.vb: AGS.API.FourCorners(Of TValue).Convert(Of TNewValue)(Func(Of TValue, TNewValue))
   nameWithType: FourCorners<TValue>.Convert<TNewValue>(Func<TValue, TNewValue>)
   nameWithType.vb: FourCorners(Of TValue).Convert(Of TNewValue)(Func(Of TValue, TNewValue))
 - uid: AGS.API.FourCorners`1.Equals(AGS.API.FourCorners{`0})
@@ -2845,13 +2845,13 @@ references:
   fullName.vb: AGS.API.IAGSBindingList(Of TItem)
   nameWithType: IAGSBindingList<TItem>
   nameWithType.vb: IAGSBindingList(Of TItem)
-- uid: AGS.API.IAGSBindingList`1.AddRange(System.Collections.Generic.List{`0})
+- uid: AGS.API.IAGSBindingList`1.AddRange(List{`0})
   name: AddRange(List<TItem>)
-  href: api/AGS.API.IAGSBindingList-1.html#AGS_API_IAGSBindingList_1_AddRange_System_Collections_Generic_List__0__
-  commentId: M:AGS.API.IAGSBindingList`1.AddRange(System.Collections.Generic.List{`0})
+  href: api/AGS.API.IAGSBindingList-1.html#AGS_API_IAGSBindingList_1_AddRange_List__0__
+  commentId: M:AGS.API.IAGSBindingList`1.AddRange(List{`0})
   name.vb: AddRange(List(Of TItem))
-  fullName: AGS.API.IAGSBindingList<TItem>.AddRange(System.Collections.Generic.List<TItem>)
-  fullName.vb: AGS.API.IAGSBindingList(Of TItem).AddRange(System.Collections.Generic.List(Of TItem))
+  fullName: AGS.API.IAGSBindingList<TItem>.AddRange(List<TItem>)
+  fullName.vb: AGS.API.IAGSBindingList(Of TItem).AddRange(List(Of TItem))
   nameWithType: IAGSBindingList<TItem>.AddRange(List<TItem>)
   nameWithType.vb: IAGSBindingList(Of TItem).AddRange(List(Of TItem))
 - uid: AGS.API.IAGSBindingList`1.AddRange*
@@ -3784,13 +3784,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.IBitmap.SetPixel
   nameWithType: IBitmap.SetPixel
-- uid: AGS.API.IBitmap.SetPixels(AGS.API.Color,System.Collections.Generic.List{AGS.API.Point})
+- uid: AGS.API.IBitmap.SetPixels(AGS.API.Color,List{AGS.API.Point})
   name: SetPixels(Color, List<Point>)
-  href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_SetPixels_AGS_API_Color_System_Collections_Generic_List_AGS_API_Point__
-  commentId: M:AGS.API.IBitmap.SetPixels(AGS.API.Color,System.Collections.Generic.List{AGS.API.Point})
+  href: api/AGS.API.IBitmap.html#AGS_API_IBitmap_SetPixels_AGS_API_Color_List_AGS_API_Point__
+  commentId: M:AGS.API.IBitmap.SetPixels(AGS.API.Color,List{AGS.API.Point})
   name.vb: SetPixels(Color, List(Of Point))
-  fullName: AGS.API.IBitmap.SetPixels(AGS.API.Color, System.Collections.Generic.List<AGS.API.Point>)
-  fullName.vb: AGS.API.IBitmap.SetPixels(AGS.API.Color, System.Collections.Generic.List(Of AGS.API.Point))
+  fullName: AGS.API.IBitmap.SetPixels(AGS.API.Color, List<AGS.API.Point>)
+  fullName.vb: AGS.API.IBitmap.SetPixels(AGS.API.Color, List(Of AGS.API.Point))
   nameWithType: IBitmap.SetPixels(Color, List<Point>)
   nameWithType.vb: IBitmap.SetPixels(Color, List(Of Point))
 - uid: AGS.API.IBitmap.SetPixels*
@@ -3819,18 +3819,18 @@ references:
   commentId: T:AGS.API.IBitmapLoader
   fullName: AGS.API.IBitmapLoader
   nameWithType: IBitmapLoader
+- uid: AGS.API.IBitmapLoader.Load(Stream)
+  name: Load(Stream)
+  href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_Stream_
+  commentId: M:AGS.API.IBitmapLoader.Load(Stream)
+  fullName: AGS.API.IBitmapLoader.Load(Stream)
+  nameWithType: IBitmapLoader.Load(Stream)
 - uid: AGS.API.IBitmapLoader.Load(System.Int32,System.Int32)
   name: Load(Int32, Int32)
   href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_System_Int32_System_Int32_
   commentId: M:AGS.API.IBitmapLoader.Load(System.Int32,System.Int32)
   fullName: AGS.API.IBitmapLoader.Load(System.Int32, System.Int32)
   nameWithType: IBitmapLoader.Load(Int32, Int32)
-- uid: AGS.API.IBitmapLoader.Load(System.IO.Stream)
-  name: Load(Stream)
-  href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_System_IO_Stream_
-  commentId: M:AGS.API.IBitmapLoader.Load(System.IO.Stream)
-  fullName: AGS.API.IBitmapLoader.Load(System.IO.Stream)
-  nameWithType: IBitmapLoader.Load(Stream)
 - uid: AGS.API.IBitmapLoader.Load*
   name: Load
   href: api/AGS.API.IBitmapLoader.html#AGS_API_IBitmapLoader_Load_
@@ -3921,18 +3921,18 @@ references:
   isSpec: "True"
   fullName: AGS.API.IBlockingEvent.Invoke
   nameWithType: IBlockingEvent.Invoke
+- uid: AGS.API.IBlockingEvent.Subscribe(Action,AGS.API.CallbackPriority)
+  name: Subscribe(Action, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent.Subscribe(Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent.Subscribe(Action, AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent.Subscribe(Action, CallbackPriority)
 - uid: AGS.API.IBlockingEvent.Subscribe(AGS.API.ClaimableCallback,AGS.API.CallbackPriority)
   name: Subscribe(ClaimableCallback, CallbackPriority)
   href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_AGS_API_ClaimableCallback_AGS_API_CallbackPriority_
   commentId: M:AGS.API.IBlockingEvent.Subscribe(AGS.API.ClaimableCallback,AGS.API.CallbackPriority)
   fullName: AGS.API.IBlockingEvent.Subscribe(AGS.API.ClaimableCallback, AGS.API.CallbackPriority)
   nameWithType: IBlockingEvent.Subscribe(ClaimableCallback, CallbackPriority)
-- uid: AGS.API.IBlockingEvent.Subscribe(System.Action,AGS.API.CallbackPriority)
-  name: Subscribe(Action, CallbackPriority)
-  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_System_Action_AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IBlockingEvent.Subscribe(System.Action,AGS.API.CallbackPriority)
-  fullName: AGS.API.IBlockingEvent.Subscribe(System.Action, AGS.API.CallbackPriority)
-  nameWithType: IBlockingEvent.Subscribe(Action, CallbackPriority)
 - uid: AGS.API.IBlockingEvent.Subscribe*
   name: Subscribe
   href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Subscribe_
@@ -3953,18 +3953,18 @@ references:
   isSpec: "True"
   fullName: AGS.API.IBlockingEvent.SubscribersCount
   nameWithType: IBlockingEvent.SubscribersCount
+- uid: AGS.API.IBlockingEvent.Unsubscribe(Action,AGS.API.CallbackPriority)
+  name: Unsubscribe(Action, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent.Unsubscribe(Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent.Unsubscribe(Action, AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent.Unsubscribe(Action, CallbackPriority)
 - uid: AGS.API.IBlockingEvent.Unsubscribe(AGS.API.ClaimableCallback,AGS.API.CallbackPriority)
   name: Unsubscribe(ClaimableCallback, CallbackPriority)
   href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_AGS_API_ClaimableCallback_AGS_API_CallbackPriority_
   commentId: M:AGS.API.IBlockingEvent.Unsubscribe(AGS.API.ClaimableCallback,AGS.API.CallbackPriority)
   fullName: AGS.API.IBlockingEvent.Unsubscribe(AGS.API.ClaimableCallback, AGS.API.CallbackPriority)
   nameWithType: IBlockingEvent.Unsubscribe(ClaimableCallback, CallbackPriority)
-- uid: AGS.API.IBlockingEvent.Unsubscribe(System.Action,AGS.API.CallbackPriority)
-  name: Unsubscribe(Action, CallbackPriority)
-  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_System_Action_AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IBlockingEvent.Unsubscribe(System.Action,AGS.API.CallbackPriority)
-  fullName: AGS.API.IBlockingEvent.Unsubscribe(System.Action, AGS.API.CallbackPriority)
-  nameWithType: IBlockingEvent.Unsubscribe(Action, CallbackPriority)
 - uid: AGS.API.IBlockingEvent.Unsubscribe*
   name: Unsubscribe
   href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_Unsubscribe_
@@ -3972,13 +3972,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.IBlockingEvent.Unsubscribe
   nameWithType: IBlockingEvent.Unsubscribe
-- uid: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func{System.Boolean},AGS.API.CallbackPriority)
+- uid: AGS.API.IBlockingEvent.WaitUntilAsync(Func{System.Boolean},AGS.API.CallbackPriority)
   name: WaitUntilAsync(Func<Boolean>, CallbackPriority)
-  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_WaitUntilAsync_System_Func_System_Boolean__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IBlockingEvent.WaitUntilAsync(System.Func{System.Boolean},AGS.API.CallbackPriority)
+  href: api/AGS.API.IBlockingEvent.html#AGS_API_IBlockingEvent_WaitUntilAsync_Func_System_Boolean__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent.WaitUntilAsync(Func{System.Boolean},AGS.API.CallbackPriority)
   name.vb: WaitUntilAsync(Func(Of Boolean), CallbackPriority)
-  fullName: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func<System.Boolean>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IBlockingEvent.WaitUntilAsync(System.Func(Of System.Boolean), AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent.WaitUntilAsync(Func<System.Boolean>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent.WaitUntilAsync(Func(Of System.Boolean), AGS.API.CallbackPriority)
   nameWithType: IBlockingEvent.WaitUntilAsync(Func<Boolean>, CallbackPriority)
   nameWithType.vb: IBlockingEvent.WaitUntilAsync(Func(Of Boolean), CallbackPriority)
 - uid: AGS.API.IBlockingEvent.WaitUntilAsync*
@@ -4014,6 +4014,23 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Invoke
   nameWithType: IBlockingEvent<TEventArgs>.Invoke
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Invoke
+- uid: AGS.API.IBlockingEvent`1.Subscribe(Action,AGS.API.CallbackPriority)
+  name: Subscribe(Action, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(Action, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(Action, AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action, CallbackPriority)
+- uid: AGS.API.IBlockingEvent`1.Subscribe(Action{`0},AGS.API.CallbackPriority)
+  name: Subscribe(Action<TEventArgs>, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_Action__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(Action{`0},AGS.API.CallbackPriority)
+  name.vb: Subscribe(Action(Of TEventArgs), CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(Action<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs), AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action<TEventArgs>, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.Subscribe(AGS.API.ClaimableCallbackWithArgs{`0},AGS.API.CallbackPriority)
   name: Subscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_AGS_API_ClaimableCallbackWithArgs__0__AGS_API_CallbackPriority_
@@ -4023,23 +4040,6 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(AGS.API.ClaimableCallbackWithArgs(Of TEventArgs), AGS.API.CallbackPriority)
   nameWithType: IBlockingEvent<TEventArgs>.Subscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(ClaimableCallbackWithArgs(Of TEventArgs), CallbackPriority)
-- uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
-  name: Subscribe(Action, CallbackPriority)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action_AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(System.Action, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(System.Action, AGS.API.CallbackPriority)
-  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action, CallbackPriority)
-  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action, CallbackPriority)
-- uid: AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)
-  name: Subscribe(Action<TEventArgs>, CallbackPriority)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_System_Action__0__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IBlockingEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)
-  name.vb: Subscribe(Action(Of TEventArgs), CallbackPriority)
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Subscribe(System.Action<TEventArgs>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Subscribe(System.Action(Of TEventArgs), AGS.API.CallbackPriority)
-  nameWithType: IBlockingEvent<TEventArgs>.Subscribe(Action<TEventArgs>, CallbackPriority)
-  nameWithType.vb: IBlockingEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.Subscribe*
   name: Subscribe
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Subscribe_
@@ -4066,6 +4066,15 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).SubscribersCount
   nameWithType: IBlockingEvent<TEventArgs>.SubscribersCount
   nameWithType.vb: IBlockingEvent(Of TEventArgs).SubscribersCount
+- uid: AGS.API.IBlockingEvent`1.Unsubscribe(Action{`0},AGS.API.CallbackPriority)
+  name: Unsubscribe(Action<TEventArgs>, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_Action__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(Action{`0},AGS.API.CallbackPriority)
+  name.vb: Unsubscribe(Action(Of TEventArgs), CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs), AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.Unsubscribe(AGS.API.ClaimableCallbackWithArgs{`0},AGS.API.CallbackPriority)
   name: Unsubscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_AGS_API_ClaimableCallbackWithArgs__0__AGS_API_CallbackPriority_
@@ -4075,15 +4084,6 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(AGS.API.ClaimableCallbackWithArgs(Of TEventArgs), AGS.API.CallbackPriority)
   nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(ClaimableCallbackWithArgs(Of TEventArgs), CallbackPriority)
-- uid: AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0},AGS.API.CallbackPriority)
-  name: Unsubscribe(Action<TEventArgs>, CallbackPriority)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action__0__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0},AGS.API.CallbackPriority)
-  name.vb: Unsubscribe(Action(Of TEventArgs), CallbackPriority)
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(System.Action<TEventArgs>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(System.Action(Of TEventArgs), AGS.API.CallbackPriority)
-  nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>, CallbackPriority)
-  nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.Unsubscribe*
   name: Unsubscribe
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_
@@ -4093,13 +4093,13 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe
   nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe
-- uid: AGS.API.IBlockingEvent`1.WaitUntilAsync(System.Predicate{`0},AGS.API.CallbackPriority)
+- uid: AGS.API.IBlockingEvent`1.WaitUntilAsync(Predicate{`0},AGS.API.CallbackPriority)
   name: WaitUntilAsync(Predicate<TEventArgs>, CallbackPriority)
-  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_WaitUntilAsync_System_Predicate__0__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IBlockingEvent`1.WaitUntilAsync(System.Predicate{`0},AGS.API.CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_WaitUntilAsync_Predicate__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.WaitUntilAsync(Predicate{`0},AGS.API.CallbackPriority)
   name.vb: WaitUntilAsync(Predicate(Of TEventArgs), CallbackPriority)
-  fullName: AGS.API.IBlockingEvent<TEventArgs>.WaitUntilAsync(System.Predicate<TEventArgs>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).WaitUntilAsync(System.Predicate(Of TEventArgs), AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs), AGS.API.CallbackPriority)
   nameWithType: IBlockingEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>, CallbackPriority)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.WaitUntilAsync*
@@ -5116,11 +5116,11 @@ references:
   commentId: T:AGS.API.IComponentsCollection
   fullName: AGS.API.IComponentsCollection
   nameWithType: IComponentsCollection
-- uid: AGS.API.IComponentsCollection.AddComponent(System.Type)
+- uid: AGS.API.IComponentsCollection.AddComponent(Type)
   name: AddComponent(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_System_Type_
-  commentId: M:AGS.API.IComponentsCollection.AddComponent(System.Type)
-  fullName: AGS.API.IComponentsCollection.AddComponent(System.Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_Type_
+  commentId: M:AGS.API.IComponentsCollection.AddComponent(Type)
+  fullName: AGS.API.IComponentsCollection.AddComponent(Type)
   nameWithType: IComponentsCollection.AddComponent(Type)
 - uid: AGS.API.IComponentsCollection.AddComponent*
   name: AddComponent
@@ -5154,13 +5154,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.IComponentsCollection.Bind
   nameWithType: IComponentsCollection.Bind
-- uid: AGS.API.IComponentsCollection.Bind``1(System.Action{``0},System.Action{``0})
+- uid: AGS.API.IComponentsCollection.Bind``1(Action{``0},Action{``0})
   name: Bind<TComponent>(Action<TComponent>, Action<TComponent>)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind__1_System_Action___0__System_Action___0__
-  commentId: M:AGS.API.IComponentsCollection.Bind``1(System.Action{``0},System.Action{``0})
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind__1_Action___0__Action___0__
+  commentId: M:AGS.API.IComponentsCollection.Bind``1(Action{``0},Action{``0})
   name.vb: Bind(Of TComponent)(Action(Of TComponent), Action(Of TComponent))
-  fullName: AGS.API.IComponentsCollection.Bind<TComponent>(System.Action<TComponent>, System.Action<TComponent>)
-  fullName.vb: AGS.API.IComponentsCollection.Bind(Of TComponent)(System.Action(Of TComponent), System.Action(Of TComponent))
+  fullName: AGS.API.IComponentsCollection.Bind<TComponent>(Action<TComponent>, Action<TComponent>)
+  fullName.vb: AGS.API.IComponentsCollection.Bind(Of TComponent)(Action(Of TComponent), Action(Of TComponent))
   nameWithType: IComponentsCollection.Bind<TComponent>(Action<TComponent>, Action<TComponent>)
   nameWithType.vb: IComponentsCollection.Bind(Of TComponent)(Action(Of TComponent), Action(Of TComponent))
 - uid: AGS.API.IComponentsCollection.ComponentsInitialized
@@ -5189,11 +5189,11 @@ references:
   isSpec: "True"
   fullName: AGS.API.IComponentsCollection.Count
   nameWithType: IComponentsCollection.Count
-- uid: AGS.API.IComponentsCollection.GetComponent(System.Type)
+- uid: AGS.API.IComponentsCollection.GetComponent(Type)
   name: GetComponent(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_System_Type_
-  commentId: M:AGS.API.IComponentsCollection.GetComponent(System.Type)
-  fullName: AGS.API.IComponentsCollection.GetComponent(System.Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_Type_
+  commentId: M:AGS.API.IComponentsCollection.GetComponent(Type)
+  fullName: AGS.API.IComponentsCollection.GetComponent(Type)
   nameWithType: IComponentsCollection.GetComponent(Type)
 - uid: AGS.API.IComponentsCollection.GetComponent*
   name: GetComponent
@@ -5217,11 +5217,11 @@ references:
   commentId: M:AGS.API.IComponentsCollection.HasComponent(AGS.API.IComponent)
   fullName: AGS.API.IComponentsCollection.HasComponent(AGS.API.IComponent)
   nameWithType: IComponentsCollection.HasComponent(IComponent)
-- uid: AGS.API.IComponentsCollection.HasComponent(System.Type)
+- uid: AGS.API.IComponentsCollection.HasComponent(Type)
   name: HasComponent(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_System_Type_
-  commentId: M:AGS.API.IComponentsCollection.HasComponent(System.Type)
-  fullName: AGS.API.IComponentsCollection.HasComponent(System.Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_Type_
+  commentId: M:AGS.API.IComponentsCollection.HasComponent(Type)
+  fullName: AGS.API.IComponentsCollection.HasComponent(Type)
   nameWithType: IComponentsCollection.HasComponent(Type)
 - uid: AGS.API.IComponentsCollection.HasComponent*
   name: HasComponent
@@ -5271,11 +5271,11 @@ references:
   commentId: M:AGS.API.IComponentsCollection.RemoveComponent(AGS.API.IComponent)
   fullName: AGS.API.IComponentsCollection.RemoveComponent(AGS.API.IComponent)
   nameWithType: IComponentsCollection.RemoveComponent(IComponent)
-- uid: AGS.API.IComponentsCollection.RemoveComponent(System.Type)
+- uid: AGS.API.IComponentsCollection.RemoveComponent(Type)
   name: RemoveComponent(Type)
-  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_System_Type_
-  commentId: M:AGS.API.IComponentsCollection.RemoveComponent(System.Type)
-  fullName: AGS.API.IComponentsCollection.RemoveComponent(System.Type)
+  href: api/AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_Type_
+  commentId: M:AGS.API.IComponentsCollection.RemoveComponent(Type)
+  fullName: AGS.API.IComponentsCollection.RemoveComponent(Type)
   nameWithType: IComponentsCollection.RemoveComponent(Type)
 - uid: AGS.API.IComponentsCollection.RemoveComponent*
   name: RemoveComponent
@@ -5319,13 +5319,13 @@ references:
   fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).Add
   nameWithType: IConcurrentHashSet<TItem>.Add
   nameWithType.vb: IConcurrentHashSet(Of TItem).Add
-- uid: AGS.API.IConcurrentHashSet`1.AddRange(System.Collections.Generic.List{`0})
+- uid: AGS.API.IConcurrentHashSet`1.AddRange(List{`0})
   name: AddRange(List<TItem>)
-  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_AddRange_System_Collections_Generic_List__0__
-  commentId: M:AGS.API.IConcurrentHashSet`1.AddRange(System.Collections.Generic.List{`0})
+  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_AddRange_List__0__
+  commentId: M:AGS.API.IConcurrentHashSet`1.AddRange(List{`0})
   name.vb: AddRange(List(Of TItem))
-  fullName: AGS.API.IConcurrentHashSet<TItem>.AddRange(System.Collections.Generic.List<TItem>)
-  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).AddRange(System.Collections.Generic.List(Of TItem))
+  fullName: AGS.API.IConcurrentHashSet<TItem>.AddRange(List<TItem>)
+  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).AddRange(List(Of TItem))
   nameWithType: IConcurrentHashSet<TItem>.AddRange(List<TItem>)
   nameWithType.vb: IConcurrentHashSet(Of TItem).AddRange(List(Of TItem))
 - uid: AGS.API.IConcurrentHashSet`1.AddRange*
@@ -5422,13 +5422,13 @@ references:
   fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).Remove
   nameWithType: IConcurrentHashSet<TItem>.Remove
   nameWithType.vb: IConcurrentHashSet(Of TItem).Remove
-- uid: AGS.API.IConcurrentHashSet`1.RemoveAll(System.Predicate{`0})
+- uid: AGS.API.IConcurrentHashSet`1.RemoveAll(Predicate{`0})
   name: RemoveAll(Predicate<TItem>)
-  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_RemoveAll_System_Predicate__0__
-  commentId: M:AGS.API.IConcurrentHashSet`1.RemoveAll(System.Predicate{`0})
+  href: api/AGS.API.IConcurrentHashSet-1.html#AGS_API_IConcurrentHashSet_1_RemoveAll_Predicate__0__
+  commentId: M:AGS.API.IConcurrentHashSet`1.RemoveAll(Predicate{`0})
   name.vb: RemoveAll(Predicate(Of TItem))
-  fullName: AGS.API.IConcurrentHashSet<TItem>.RemoveAll(System.Predicate<TItem>)
-  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).RemoveAll(System.Predicate(Of TItem))
+  fullName: AGS.API.IConcurrentHashSet<TItem>.RemoveAll(Predicate<TItem>)
+  fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).RemoveAll(Predicate(Of TItem))
   nameWithType: IConcurrentHashSet<TItem>.RemoveAll(Predicate<TItem>)
   nameWithType.vb: IConcurrentHashSet(Of TItem).RemoveAll(Predicate(Of TItem))
 - uid: AGS.API.IConcurrentHashSet`1.RemoveAll*
@@ -6219,6 +6219,15 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDialogActions.Actions
   nameWithType: IDialogActions.Actions
+- uid: AGS.API.IDialogActions.AddActions(Action[])
+  name: AddActions(Action[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_Action___
+  commentId: M:AGS.API.IDialogActions.AddActions(Action[])
+  name.vb: AddActions(Action())
+  fullName: AGS.API.IDialogActions.AddActions(Action[])
+  fullName.vb: AGS.API.IDialogActions.AddActions(Action())
+  nameWithType: IDialogActions.AddActions(Action[])
+  nameWithType.vb: IDialogActions.AddActions(Action())
 - uid: AGS.API.IDialogActions.AddActions(AGS.API.IDialogAction[])
   name: AddActions(IDialogAction[])
   href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_AGS_API_IDialogAction___
@@ -6228,15 +6237,6 @@ references:
   fullName.vb: AGS.API.IDialogActions.AddActions(AGS.API.IDialogAction())
   nameWithType: IDialogActions.AddActions(IDialogAction[])
   nameWithType.vb: IDialogActions.AddActions(IDialogAction())
-- uid: AGS.API.IDialogActions.AddActions(System.Action[])
-  name: AddActions(Action[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_System_Action___
-  commentId: M:AGS.API.IDialogActions.AddActions(System.Action[])
-  name.vb: AddActions(Action())
-  fullName: AGS.API.IDialogActions.AddActions(System.Action[])
-  fullName.vb: AGS.API.IDialogActions.AddActions(System.Action())
-  nameWithType: IDialogActions.AddActions(Action[])
-  nameWithType.vb: IDialogActions.AddActions(Action())
 - uid: AGS.API.IDialogActions.AddActions*
   name: AddActions
   href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddActions_
@@ -6244,13 +6244,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDialogActions.AddActions
   nameWithType: IDialogActions.AddActions
-- uid: AGS.API.IDialogActions.AddAsyncActions(System.Func{System.Threading.Tasks.Task}[])
+- uid: AGS.API.IDialogActions.AddAsyncActions(Func{Task}[])
   name: AddAsyncActions(Func<Task>[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncActions_System_Func_System_Threading_Tasks_Task____
-  commentId: M:AGS.API.IDialogActions.AddAsyncActions(System.Func{System.Threading.Tasks.Task}[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncActions_Func_Task____
+  commentId: M:AGS.API.IDialogActions.AddAsyncActions(Func{Task}[])
   name.vb: AddAsyncActions(Func(Of Task)())
-  fullName: AGS.API.IDialogActions.AddAsyncActions(System.Func<System.Threading.Tasks.Task>[])
-  fullName.vb: AGS.API.IDialogActions.AddAsyncActions(System.Func(Of System.Threading.Tasks.Task)())
+  fullName: AGS.API.IDialogActions.AddAsyncActions(Func<Task>[])
+  fullName.vb: AGS.API.IDialogActions.AddAsyncActions(Func(Of Task)())
   nameWithType: IDialogActions.AddAsyncActions(Func<Task>[])
   nameWithType.vb: IDialogActions.AddAsyncActions(Func(Of Task)())
 - uid: AGS.API.IDialogActions.AddAsyncActions*
@@ -6260,13 +6260,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDialogActions.AddAsyncActions
   nameWithType: IDialogActions.AddAsyncActions
-- uid: AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func{System.Threading.Tasks.Task{System.Boolean}}[])
+- uid: AGS.API.IDialogActions.AddAsyncConditionalActions(Func{Task{System.Boolean}}[])
   name: AddAsyncConditionalActions(Func<Task<Boolean>>[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncConditionalActions_System_Func_System_Threading_Tasks_Task_System_Boolean_____
-  commentId: M:AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func{System.Threading.Tasks.Task{System.Boolean}}[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddAsyncConditionalActions_Func_Task_System_Boolean_____
+  commentId: M:AGS.API.IDialogActions.AddAsyncConditionalActions(Func{Task{System.Boolean}}[])
   name.vb: AddAsyncConditionalActions(Func(Of Task(Of Boolean))())
-  fullName: AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func<System.Threading.Tasks.Task<System.Boolean>>[])
-  fullName.vb: AGS.API.IDialogActions.AddAsyncConditionalActions(System.Func(Of System.Threading.Tasks.Task(Of System.Boolean))())
+  fullName: AGS.API.IDialogActions.AddAsyncConditionalActions(Func<Task<System.Boolean>>[])
+  fullName.vb: AGS.API.IDialogActions.AddAsyncConditionalActions(Func(Of Task(Of System.Boolean))())
   nameWithType: IDialogActions.AddAsyncConditionalActions(Func<Task<Boolean>>[])
   nameWithType.vb: IDialogActions.AddAsyncConditionalActions(Func(Of Task(Of Boolean))())
 - uid: AGS.API.IDialogActions.AddAsyncConditionalActions*
@@ -6276,13 +6276,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDialogActions.AddAsyncConditionalActions
   nameWithType: IDialogActions.AddAsyncConditionalActions
-- uid: AGS.API.IDialogActions.AddConditionalActions(System.Func{System.Boolean}[])
+- uid: AGS.API.IDialogActions.AddConditionalActions(Func{System.Boolean}[])
   name: AddConditionalActions(Func<Boolean>[])
-  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddConditionalActions_System_Func_System_Boolean____
-  commentId: M:AGS.API.IDialogActions.AddConditionalActions(System.Func{System.Boolean}[])
+  href: api/AGS.API.IDialogActions.html#AGS_API_IDialogActions_AddConditionalActions_Func_System_Boolean____
+  commentId: M:AGS.API.IDialogActions.AddConditionalActions(Func{System.Boolean}[])
   name.vb: AddConditionalActions(Func(Of Boolean)())
-  fullName: AGS.API.IDialogActions.AddConditionalActions(System.Func<System.Boolean>[])
-  fullName.vb: AGS.API.IDialogActions.AddConditionalActions(System.Func(Of System.Boolean)())
+  fullName: AGS.API.IDialogActions.AddConditionalActions(Func<System.Boolean>[])
+  fullName.vb: AGS.API.IDialogActions.AddConditionalActions(Func(Of System.Boolean)())
   nameWithType: IDialogActions.AddConditionalActions(Func<Boolean>[])
   nameWithType.vb: IDialogActions.AddConditionalActions(Func(Of Boolean)())
 - uid: AGS.API.IDialogActions.AddConditionalActions*
@@ -6378,13 +6378,13 @@ references:
   commentId: T:AGS.API.IDialogLayout
   fullName: AGS.API.IDialogLayout
   nameWithType: IDialogLayout
-- uid: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,System.Collections.Generic.IList{AGS.API.IDialogOption})
+- uid: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,IList{AGS.API.IDialogOption})
   name: LayoutAsync(IObject, IList<IDialogOption>)
-  href: api/AGS.API.IDialogLayout.html#AGS_API_IDialogLayout_LayoutAsync_AGS_API_IObject_System_Collections_Generic_IList_AGS_API_IDialogOption__
-  commentId: M:AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,System.Collections.Generic.IList{AGS.API.IDialogOption})
+  href: api/AGS.API.IDialogLayout.html#AGS_API_IDialogLayout_LayoutAsync_AGS_API_IObject_IList_AGS_API_IDialogOption__
+  commentId: M:AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject,IList{AGS.API.IDialogOption})
   name.vb: LayoutAsync(IObject, IList(Of IDialogOption))
-  fullName: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, System.Collections.Generic.IList<AGS.API.IDialogOption>)
-  fullName.vb: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, System.Collections.Generic.IList(Of AGS.API.IDialogOption))
+  fullName: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, IList<AGS.API.IDialogOption>)
+  fullName.vb: AGS.API.IDialogLayout.LayoutAsync(AGS.API.IObject, IList(Of AGS.API.IDialogOption))
   nameWithType: IDialogLayout.LayoutAsync(IObject, IList<IDialogOption>)
   nameWithType.vb: IDialogLayout.LayoutAsync(IObject, IList(Of IDialogOption))
 - uid: AGS.API.IDialogLayout.LayoutAsync*
@@ -7084,11 +7084,11 @@ references:
   isSpec: "True"
   fullName: AGS.API.IEvent.InvokeAsync
   nameWithType: IEvent.InvokeAsync
-- uid: AGS.API.IEvent.Subscribe(System.Action,AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent.Subscribe(Action,AGS.API.CallbackPriority)
   name: Subscribe(Action, CallbackPriority)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Subscribe_System_Action_AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent.Subscribe(System.Action,AGS.API.CallbackPriority)
-  fullName: AGS.API.IEvent.Subscribe(System.Action, AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Subscribe_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent.Subscribe(Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent.Subscribe(Action, AGS.API.CallbackPriority)
   nameWithType: IEvent.Subscribe(Action, CallbackPriority)
 - uid: AGS.API.IEvent.Subscribe*
   name: Subscribe
@@ -7110,13 +7110,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.IEvent.SubscribersCount
   nameWithType: IEvent.SubscribersCount
-- uid: AGS.API.IEvent.SubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent.SubscribeToAsync(Func{Task},AGS.API.CallbackPriority)
   name: SubscribeToAsync(Func<Task>, CallbackPriority)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent.SubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_SubscribeToAsync_Func_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent.SubscribeToAsync(Func{Task},AGS.API.CallbackPriority)
   name.vb: SubscribeToAsync(Func(Of Task), CallbackPriority)
-  fullName: AGS.API.IEvent.SubscribeToAsync(System.Func<System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent.SubscribeToAsync(System.Func(Of System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent.SubscribeToAsync(Func<Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent.SubscribeToAsync(Func(Of Task), AGS.API.CallbackPriority)
   nameWithType: IEvent.SubscribeToAsync(Func<Task>, CallbackPriority)
   nameWithType.vb: IEvent.SubscribeToAsync(Func(Of Task), CallbackPriority)
 - uid: AGS.API.IEvent.SubscribeToAsync*
@@ -7126,11 +7126,11 @@ references:
   isSpec: "True"
   fullName: AGS.API.IEvent.SubscribeToAsync
   nameWithType: IEvent.SubscribeToAsync
-- uid: AGS.API.IEvent.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent.Unsubscribe(Action,AGS.API.CallbackPriority)
   name: Unsubscribe(Action, CallbackPriority)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Unsubscribe_System_Action_AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent.Unsubscribe(System.Action,AGS.API.CallbackPriority)
-  fullName: AGS.API.IEvent.Unsubscribe(System.Action, AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_Unsubscribe_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent.Unsubscribe(Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent.Unsubscribe(Action, AGS.API.CallbackPriority)
   nameWithType: IEvent.Unsubscribe(Action, CallbackPriority)
 - uid: AGS.API.IEvent.Unsubscribe*
   name: Unsubscribe
@@ -7139,13 +7139,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.IEvent.Unsubscribe
   nameWithType: IEvent.Unsubscribe
-- uid: AGS.API.IEvent.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent.UnsubscribeToAsync(Func{Task},AGS.API.CallbackPriority)
   name: UnsubscribeToAsync(Func<Task>, CallbackPriority)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_UnsubscribeToAsync_Func_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent.UnsubscribeToAsync(Func{Task},AGS.API.CallbackPriority)
   name.vb: UnsubscribeToAsync(Func(Of Task), CallbackPriority)
-  fullName: AGS.API.IEvent.UnsubscribeToAsync(System.Func<System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent.UnsubscribeToAsync(System.Func(Of System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent.UnsubscribeToAsync(Func<Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent.UnsubscribeToAsync(Func(Of Task), AGS.API.CallbackPriority)
   nameWithType: IEvent.UnsubscribeToAsync(Func<Task>, CallbackPriority)
   nameWithType.vb: IEvent.UnsubscribeToAsync(Func(Of Task), CallbackPriority)
 - uid: AGS.API.IEvent.UnsubscribeToAsync*
@@ -7155,13 +7155,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.IEvent.UnsubscribeToAsync
   nameWithType: IEvent.UnsubscribeToAsync
-- uid: AGS.API.IEvent.WaitUntilAsync(System.Func{System.Boolean},AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent.WaitUntilAsync(Func{System.Boolean},AGS.API.CallbackPriority)
   name: WaitUntilAsync(Func<Boolean>, CallbackPriority)
-  href: api/AGS.API.IEvent.html#AGS_API_IEvent_WaitUntilAsync_System_Func_System_Boolean__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent.WaitUntilAsync(System.Func{System.Boolean},AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent.html#AGS_API_IEvent_WaitUntilAsync_Func_System_Boolean__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent.WaitUntilAsync(Func{System.Boolean},AGS.API.CallbackPriority)
   name.vb: WaitUntilAsync(Func(Of Boolean), CallbackPriority)
-  fullName: AGS.API.IEvent.WaitUntilAsync(System.Func<System.Boolean>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent.WaitUntilAsync(System.Func(Of System.Boolean), AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent.WaitUntilAsync(Func<System.Boolean>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent.WaitUntilAsync(Func(Of System.Boolean), AGS.API.CallbackPriority)
   nameWithType: IEvent.WaitUntilAsync(Func<Boolean>, CallbackPriority)
   nameWithType.vb: IEvent.WaitUntilAsync(Func(Of Boolean), CallbackPriority)
 - uid: AGS.API.IEvent.WaitUntilAsync*
@@ -7197,21 +7197,21 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).InvokeAsync
   nameWithType: IEvent<TEventArgs>.InvokeAsync
   nameWithType.vb: IEvent(Of TEventArgs).InvokeAsync
-- uid: AGS.API.IEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent`1.Subscribe(Action,AGS.API.CallbackPriority)
   name: Subscribe(Action, CallbackPriority)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_System_Action_AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent`1.Subscribe(System.Action,AGS.API.CallbackPriority)
-  fullName: AGS.API.IEvent<TEventArgs>.Subscribe(System.Action, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).Subscribe(System.Action, AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.Subscribe(Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.Subscribe(Action, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Subscribe(Action, AGS.API.CallbackPriority)
   nameWithType: IEvent<TEventArgs>.Subscribe(Action, CallbackPriority)
   nameWithType.vb: IEvent(Of TEventArgs).Subscribe(Action, CallbackPriority)
-- uid: AGS.API.IEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent`1.Subscribe(Action{`0},AGS.API.CallbackPriority)
   name: Subscribe(Action<TEventArgs>, CallbackPriority)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_System_Action__0__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent`1.Subscribe(System.Action{`0},AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Subscribe_Action__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.Subscribe(Action{`0},AGS.API.CallbackPriority)
   name.vb: Subscribe(Action(Of TEventArgs), CallbackPriority)
-  fullName: AGS.API.IEvent<TEventArgs>.Subscribe(System.Action<TEventArgs>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).Subscribe(System.Action(Of TEventArgs), AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.Subscribe(Action<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs), AGS.API.CallbackPriority)
   nameWithType: IEvent<TEventArgs>.Subscribe(Action<TEventArgs>, CallbackPriority)
   nameWithType.vb: IEvent(Of TEventArgs).Subscribe(Action(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IEvent`1.Subscribe*
@@ -7240,22 +7240,22 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribersCount
   nameWithType: IEvent<TEventArgs>.SubscribersCount
   nameWithType.vb: IEvent(Of TEventArgs).SubscribersCount
-- uid: AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent`1.SubscribeToAsync(Func{`0,Task},AGS.API.CallbackPriority)
   name: SubscribeToAsync(Func<TEventArgs, Task>, CallbackPriority)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_Func__0_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(Func{`0,Task},AGS.API.CallbackPriority)
   name.vb: SubscribeToAsync(Func(Of TEventArgs, Task), CallbackPriority)
-  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(System.Func<TEventArgs, System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(Func<TEventArgs, Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(Func(Of TEventArgs, Task), AGS.API.CallbackPriority)
   nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<TEventArgs, Task>, CallbackPriority)
   nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of TEventArgs, Task), CallbackPriority)
-- uid: AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent`1.SubscribeToAsync(Func{Task},AGS.API.CallbackPriority)
   name: SubscribeToAsync(Func<Task>, CallbackPriority)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_SubscribeToAsync_Func_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.SubscribeToAsync(Func{Task},AGS.API.CallbackPriority)
   name.vb: SubscribeToAsync(Func(Of Task), CallbackPriority)
-  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(System.Func<System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(System.Func(Of System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.SubscribeToAsync(Func<Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync(Func(Of Task), AGS.API.CallbackPriority)
   nameWithType: IEvent<TEventArgs>.SubscribeToAsync(Func<Task>, CallbackPriority)
   nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync(Func(Of Task), CallbackPriority)
 - uid: AGS.API.IEvent`1.SubscribeToAsync*
@@ -7267,21 +7267,21 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).SubscribeToAsync
   nameWithType: IEvent<TEventArgs>.SubscribeToAsync
   nameWithType.vb: IEvent(Of TEventArgs).SubscribeToAsync
-- uid: AGS.API.IEvent`1.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent`1.Unsubscribe(Action,AGS.API.CallbackPriority)
   name: Unsubscribe(Action, CallbackPriority)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_System_Action_AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent`1.Unsubscribe(System.Action,AGS.API.CallbackPriority)
-  fullName: AGS.API.IEvent<TEventArgs>.Unsubscribe(System.Action, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe(System.Action, AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.Unsubscribe(Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.Unsubscribe(Action, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe(Action, AGS.API.CallbackPriority)
   nameWithType: IEvent<TEventArgs>.Unsubscribe(Action, CallbackPriority)
   nameWithType.vb: IEvent(Of TEventArgs).Unsubscribe(Action, CallbackPriority)
-- uid: AGS.API.IEvent`1.Unsubscribe(System.Action{`0},AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent`1.Unsubscribe(Action{`0},AGS.API.CallbackPriority)
   name: Unsubscribe(Action<TEventArgs>, CallbackPriority)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_System_Action__0__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent`1.Unsubscribe(System.Action{`0},AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_Unsubscribe_Action__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.Unsubscribe(Action{`0},AGS.API.CallbackPriority)
   name.vb: Unsubscribe(Action(Of TEventArgs), CallbackPriority)
-  fullName: AGS.API.IEvent<TEventArgs>.Unsubscribe(System.Action<TEventArgs>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe(System.Action(Of TEventArgs), AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs), AGS.API.CallbackPriority)
   nameWithType: IEvent<TEventArgs>.Unsubscribe(Action<TEventArgs>, CallbackPriority)
   nameWithType.vb: IEvent(Of TEventArgs).Unsubscribe(Action(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IEvent`1.Unsubscribe*
@@ -7293,22 +7293,22 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).Unsubscribe
   nameWithType: IEvent<TEventArgs>.Unsubscribe
   nameWithType.vb: IEvent(Of TEventArgs).Unsubscribe
-- uid: AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent`1.UnsubscribeToAsync(Func{`0,Task},AGS.API.CallbackPriority)
   name: UnsubscribeToAsync(Func<TEventArgs, Task>, CallbackPriority)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_System_Func__0_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{`0,System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_Func__0_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(Func{`0,Task},AGS.API.CallbackPriority)
   name.vb: UnsubscribeToAsync(Func(Of TEventArgs, Task), CallbackPriority)
-  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(System.Func<TEventArgs, System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of TEventArgs, System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(Func<TEventArgs, Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of TEventArgs, Task), AGS.API.CallbackPriority)
   nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<TEventArgs, Task>, CallbackPriority)
   nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of TEventArgs, Task), CallbackPriority)
-- uid: AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent`1.UnsubscribeToAsync(Func{Task},AGS.API.CallbackPriority)
   name: UnsubscribeToAsync(Func<Task>, CallbackPriority)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_System_Func_System_Threading_Tasks_Task__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(System.Func{System.Threading.Tasks.Task},AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_UnsubscribeToAsync_Func_Task__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.UnsubscribeToAsync(Func{Task},AGS.API.CallbackPriority)
   name.vb: UnsubscribeToAsync(Func(Of Task), CallbackPriority)
-  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(System.Func<System.Threading.Tasks.Task>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(System.Func(Of System.Threading.Tasks.Task), AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.UnsubscribeToAsync(Func<Task>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of Task), AGS.API.CallbackPriority)
   nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync(Func<Task>, CallbackPriority)
   nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync(Func(Of Task), CallbackPriority)
 - uid: AGS.API.IEvent`1.UnsubscribeToAsync*
@@ -7320,13 +7320,13 @@ references:
   fullName.vb: AGS.API.IEvent(Of TEventArgs).UnsubscribeToAsync
   nameWithType: IEvent<TEventArgs>.UnsubscribeToAsync
   nameWithType.vb: IEvent(Of TEventArgs).UnsubscribeToAsync
-- uid: AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0},AGS.API.CallbackPriority)
+- uid: AGS.API.IEvent`1.WaitUntilAsync(Predicate{`0},AGS.API.CallbackPriority)
   name: WaitUntilAsync(Predicate<TEventArgs>, CallbackPriority)
-  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_WaitUntilAsync_System_Predicate__0__AGS_API_CallbackPriority_
-  commentId: M:AGS.API.IEvent`1.WaitUntilAsync(System.Predicate{`0},AGS.API.CallbackPriority)
+  href: api/AGS.API.IEvent-1.html#AGS_API_IEvent_1_WaitUntilAsync_Predicate__0__AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IEvent`1.WaitUntilAsync(Predicate{`0},AGS.API.CallbackPriority)
   name.vb: WaitUntilAsync(Predicate(Of TEventArgs), CallbackPriority)
-  fullName: AGS.API.IEvent<TEventArgs>.WaitUntilAsync(System.Predicate<TEventArgs>, AGS.API.CallbackPriority)
-  fullName.vb: AGS.API.IEvent(Of TEventArgs).WaitUntilAsync(System.Predicate(Of TEventArgs), AGS.API.CallbackPriority)
+  fullName: AGS.API.IEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs), AGS.API.CallbackPriority)
   nameWithType: IEvent<TEventArgs>.WaitUntilAsync(Predicate<TEventArgs>, CallbackPriority)
   nameWithType.vb: IEvent(Of TEventArgs).WaitUntilAsync(Predicate(Of TEventArgs), CallbackPriority)
 - uid: AGS.API.IEvent`1.WaitUntilAsync*
@@ -8374,11 +8374,11 @@ references:
   commentId: T:AGS.API.IGameState
   fullName: AGS.API.IGameState
   nameWithType: IGameState
-- uid: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,System.Action)
+- uid: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,Action)
   name: ChangeRoomAsync(IRoom, Action)
-  href: api/AGS.API.IGameState.html#AGS_API_IGameState_ChangeRoomAsync_AGS_API_IRoom_System_Action_
-  commentId: M:AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,System.Action)
-  fullName: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom, System.Action)
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_ChangeRoomAsync_AGS_API_IRoom_Action_
+  commentId: M:AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom,Action)
+  fullName: AGS.API.IGameState.ChangeRoomAsync(AGS.API.IRoom, Action)
   nameWithType: IGameState.ChangeRoomAsync(IRoom, Action)
 - uid: AGS.API.IGameState.ChangeRoomAsync*
   name: ChangeRoomAsync
@@ -11634,13 +11634,13 @@ references:
   commentId: T:AGS.API.IRoomTransition
   fullName: AGS.API.IRoomTransition
   nameWithType: IRoomTransition
-- uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List{AGS.API.IObject})
+- uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom(List{AGS.API.IObject})
   name: RenderAfterEnteringRoom(List<IObject>)
-  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderAfterEnteringRoom_System_Collections_Generic_List_AGS_API_IObject__
-  commentId: M:AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List{AGS.API.IObject})
+  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderAfterEnteringRoom_List_AGS_API_IObject__
+  commentId: M:AGS.API.IRoomTransition.RenderAfterEnteringRoom(List{AGS.API.IObject})
   name.vb: RenderAfterEnteringRoom(List(Of IObject))
-  fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List<AGS.API.IObject>)
-  fullName.vb: AGS.API.IRoomTransition.RenderAfterEnteringRoom(System.Collections.Generic.List(Of AGS.API.IObject))
+  fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom(List<AGS.API.IObject>)
+  fullName.vb: AGS.API.IRoomTransition.RenderAfterEnteringRoom(List(Of AGS.API.IObject))
   nameWithType: IRoomTransition.RenderAfterEnteringRoom(List<IObject>)
   nameWithType.vb: IRoomTransition.RenderAfterEnteringRoom(List(Of IObject))
 - uid: AGS.API.IRoomTransition.RenderAfterEnteringRoom*
@@ -11650,13 +11650,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.IRoomTransition.RenderAfterEnteringRoom
   nameWithType: IRoomTransition.RenderAfterEnteringRoom
-- uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List{AGS.API.IObject})
+- uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List{AGS.API.IObject})
   name: RenderBeforeLeavingRoom(List<IObject>)
-  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderBeforeLeavingRoom_System_Collections_Generic_List_AGS_API_IObject__
-  commentId: M:AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List{AGS.API.IObject})
+  href: api/AGS.API.IRoomTransition.html#AGS_API_IRoomTransition_RenderBeforeLeavingRoom_List_AGS_API_IObject__
+  commentId: M:AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List{AGS.API.IObject})
   name.vb: RenderBeforeLeavingRoom(List(Of IObject))
-  fullName: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List<AGS.API.IObject>)
-  fullName.vb: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(System.Collections.Generic.List(Of AGS.API.IObject))
+  fullName: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List<AGS.API.IObject>)
+  fullName.vb: AGS.API.IRoomTransition.RenderBeforeLeavingRoom(List(Of AGS.API.IObject))
   nameWithType: IRoomTransition.RenderBeforeLeavingRoom(List<IObject>)
   nameWithType.vb: IRoomTransition.RenderBeforeLeavingRoom(List(Of IObject))
 - uid: AGS.API.IRoomTransition.RenderBeforeLeavingRoom*
@@ -14269,13 +14269,13 @@ references:
   commentId: T:AGS.API.ITextureCache
   fullName: AGS.API.ITextureCache
   nameWithType: ITextureCache
-- uid: AGS.API.ITextureCache.GetTexture(System.String,System.Func{System.String,AGS.API.ITexture})
+- uid: AGS.API.ITextureCache.GetTexture(System.String,Func{System.String,AGS.API.ITexture})
   name: GetTexture(String, Func<String, ITexture>)
-  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_GetTexture_System_String_System_Func_System_String_AGS_API_ITexture__
-  commentId: M:AGS.API.ITextureCache.GetTexture(System.String,System.Func{System.String,AGS.API.ITexture})
+  href: api/AGS.API.ITextureCache.html#AGS_API_ITextureCache_GetTexture_System_String_Func_System_String_AGS_API_ITexture__
+  commentId: M:AGS.API.ITextureCache.GetTexture(System.String,Func{System.String,AGS.API.ITexture})
   name.vb: GetTexture(String, Func(Of String, ITexture))
-  fullName: AGS.API.ITextureCache.GetTexture(System.String, System.Func<System.String, AGS.API.ITexture>)
-  fullName.vb: AGS.API.ITextureCache.GetTexture(System.String, System.Func(Of System.String, AGS.API.ITexture))
+  fullName: AGS.API.ITextureCache.GetTexture(System.String, Func<System.String, AGS.API.ITexture>)
+  fullName.vb: AGS.API.ITextureCache.GetTexture(System.String, Func(Of System.String, AGS.API.ITexture))
   nameWithType: ITextureCache.GetTexture(String, Func<String, ITexture>)
   nameWithType.vb: ITextureCache.GetTexture(String, Func(Of String, ITexture))
 - uid: AGS.API.ITextureCache.GetTexture*
@@ -14519,13 +14519,13 @@ references:
   fullName.vb: AGS.API.ITreeNode(Of TItem).AddChild
   nameWithType: ITreeNode<TItem>.AddChild
   nameWithType.vb: ITreeNode(Of TItem).AddChild
-- uid: AGS.API.ITreeNode`1.AddChildren(System.Collections.Generic.List{`0})
+- uid: AGS.API.ITreeNode`1.AddChildren(List{`0})
   name: AddChildren(List<TItem>)
-  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_AddChildren_System_Collections_Generic_List__0__
-  commentId: M:AGS.API.ITreeNode`1.AddChildren(System.Collections.Generic.List{`0})
+  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_AddChildren_List__0__
+  commentId: M:AGS.API.ITreeNode`1.AddChildren(List{`0})
   name.vb: AddChildren(List(Of TItem))
-  fullName: AGS.API.ITreeNode<TItem>.AddChildren(System.Collections.Generic.List<TItem>)
-  fullName.vb: AGS.API.ITreeNode(Of TItem).AddChildren(System.Collections.Generic.List(Of TItem))
+  fullName: AGS.API.ITreeNode<TItem>.AddChildren(List<TItem>)
+  fullName.vb: AGS.API.ITreeNode(Of TItem).AddChildren(List(Of TItem))
   nameWithType: ITreeNode<TItem>.AddChildren(List<TItem>)
   nameWithType.vb: ITreeNode(Of TItem).AddChildren(List(Of TItem))
 - uid: AGS.API.ITreeNode`1.AddChildren*
@@ -15359,13 +15359,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.IUIFactory.GetCheckBoxAsync
   nameWithType: IUIFactory.GetCheckBoxAsync
-- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
+- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
   name: GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single, String)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_
-  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_
+  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
   name.vb: GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single, String)
-  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func<System.String, AGS.API.IButton>, AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
-  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func(Of System.String, AGS.API.IButton), AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
+  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, Func<System.String, AGS.API.IButton>, AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
+  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, Func(Of System.String, AGS.API.IButton), AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
   nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single, String)
   nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single, String)
 - uid: AGS.API.IUIFactory.GetComboBox*
@@ -19794,11 +19794,11 @@ references:
   commentId: M:AGS.API.PointF.Equals(AGS.API.PointF)
   fullName: AGS.API.PointF.Equals(AGS.API.PointF)
   nameWithType: PointF.Equals(PointF)
-- uid: AGS.API.PointF.Equals(System.Object)
+- uid: AGS.API.PointF.Equals(Object)
   name: Equals(Object)
-  href: api/AGS.API.PointF.html#AGS_API_PointF_Equals_System_Object_
-  commentId: M:AGS.API.PointF.Equals(System.Object)
-  fullName: AGS.API.PointF.Equals(System.Object)
+  href: api/AGS.API.PointF.html#AGS_API_PointF_Equals_Object_
+  commentId: M:AGS.API.PointF.Equals(Object)
+  fullName: AGS.API.PointF.Equals(Object)
   nameWithType: PointF.Equals(Object)
 - uid: AGS.API.PointF.Equals*
   name: Equals
@@ -20597,6 +20597,12 @@ references:
   commentId: P:AGS.API.Quaternion.Xyz
   fullName: AGS.API.Quaternion.Xyz
   nameWithType: Quaternion.Xyz
+- uid: AGS.API.Quaternion.XYZ
+  name: XYZ
+  href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_XYZ
+  commentId: P:AGS.API.Quaternion.XYZ
+  fullName: AGS.API.Quaternion.XYZ
+  nameWithType: Quaternion.XYZ
 - uid: AGS.API.Quaternion.Xyz*
   name: Xyz
   href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_Xyz_
@@ -20604,6 +20610,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.Quaternion.Xyz
   nameWithType: Quaternion.Xyz
+- uid: AGS.API.Quaternion.XYZ*
+  name: XYZ
+  href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_XYZ_
+  commentId: Overload:AGS.API.Quaternion.XYZ
+  isSpec: "True"
+  fullName: AGS.API.Quaternion.XYZ
+  nameWithType: Quaternion.XYZ
 - uid: AGS.API.Quaternion.Y
   name: Y
   href: api/AGS.API.Quaternion.html#AGS_API_Quaternion_Y
@@ -20797,11 +20810,11 @@ references:
   commentId: M:AGS.API.RectangleF.Equals(AGS.API.RectangleF)
   fullName: AGS.API.RectangleF.Equals(AGS.API.RectangleF)
   nameWithType: RectangleF.Equals(RectangleF)
-- uid: AGS.API.RectangleF.Equals(System.Object)
+- uid: AGS.API.RectangleF.Equals(Object)
   name: Equals(Object)
-  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Equals_System_Object_
-  commentId: M:AGS.API.RectangleF.Equals(System.Object)
-  fullName: AGS.API.RectangleF.Equals(System.Object)
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Equals_Object_
+  commentId: M:AGS.API.RectangleF.Equals(Object)
+  fullName: AGS.API.RectangleF.Equals(Object)
   nameWithType: RectangleF.Equals(Object)
 - uid: AGS.API.RectangleF.Equals*
   name: Equals
@@ -20907,11 +20920,11 @@ references:
   commentId: T:AGS.API.RequiredComponentAttribute
   fullName: AGS.API.RequiredComponentAttribute
   nameWithType: RequiredComponentAttribute
-- uid: AGS.API.RequiredComponentAttribute.#ctor(System.Type,System.Boolean)
+- uid: AGS.API.RequiredComponentAttribute.#ctor(Type,System.Boolean)
   name: RequiredComponentAttribute(Type, Boolean)
-  href: api/AGS.API.RequiredComponentAttribute.html#AGS_API_RequiredComponentAttribute__ctor_System_Type_System_Boolean_
-  commentId: M:AGS.API.RequiredComponentAttribute.#ctor(System.Type,System.Boolean)
-  fullName: AGS.API.RequiredComponentAttribute.RequiredComponentAttribute(System.Type, System.Boolean)
+  href: api/AGS.API.RequiredComponentAttribute.html#AGS_API_RequiredComponentAttribute__ctor_Type_System_Boolean_
+  commentId: M:AGS.API.RequiredComponentAttribute.#ctor(Type,System.Boolean)
+  fullName: AGS.API.RequiredComponentAttribute.RequiredComponentAttribute(Type, System.Boolean)
   nameWithType: RequiredComponentAttribute.RequiredComponentAttribute(Type, Boolean)
 - uid: AGS.API.RequiredComponentAttribute.#ctor*
   name: RequiredComponentAttribute
@@ -21172,11 +21185,11 @@ references:
   commentId: M:AGS.API.Size.Equals(AGS.API.Size)
   fullName: AGS.API.Size.Equals(AGS.API.Size)
   nameWithType: Size.Equals(Size)
-- uid: AGS.API.Size.Equals(System.Object)
+- uid: AGS.API.Size.Equals(Object)
   name: Equals(Object)
-  href: api/AGS.API.Size.html#AGS_API_Size_Equals_System_Object_
-  commentId: M:AGS.API.Size.Equals(System.Object)
-  fullName: AGS.API.Size.Equals(System.Object)
+  href: api/AGS.API.Size.html#AGS_API_Size_Equals_Object_
+  commentId: M:AGS.API.Size.Equals(Object)
+  fullName: AGS.API.Size.Equals(Object)
   nameWithType: Size.Equals(Object)
 - uid: AGS.API.Size.Equals*
   name: Equals
@@ -24227,13 +24240,13 @@ references:
   isSpec: "True"
   fullName: AGS.API.Vector4.Equality
   nameWithType: Vector4.Equality
-- uid: AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~System.IntPtr
+- uid: AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~IntPtr
   name: Explicit(Vector4 to IntPtr)
-  href: api/AGS.API.Vector4.html#AGS_API_Vector4_op_Explicit_AGS_API_Vector4__System_IntPtr
-  commentId: M:AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~System.IntPtr
+  href: api/AGS.API.Vector4.html#AGS_API_Vector4_op_Explicit_AGS_API_Vector4__IntPtr
+  commentId: M:AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~IntPtr
   name.vb: Narrowing(Vector4 to IntPtr)
-  fullName: AGS.API.Vector4.Explicit(AGS.API.Vector4 to System.IntPtr)
-  fullName.vb: AGS.API.Vector4.Narrowing(AGS.API.Vector4 to System.IntPtr)
+  fullName: AGS.API.Vector4.Explicit(AGS.API.Vector4 to IntPtr)
+  fullName.vb: AGS.API.Vector4.Narrowing(AGS.API.Vector4 to IntPtr)
   nameWithType: Vector4.Explicit(Vector4 to IntPtr)
   nameWithType.vb: Vector4.Narrowing(Vector4 to IntPtr)
 - uid: AGS.API.Vector4.op_Explicit(AGS.API.Vector4)~System.Single*

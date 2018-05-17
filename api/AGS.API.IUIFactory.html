@@ -165,7 +165,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IButton GetButton(string id, ButtonAnimation idle, ButtonAnimation hovered, ButtonAnimation pushed, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)</code></pre>
+    <pre><code class="lang-csharp hljs">IButton GetButton(string id, ButtonAnimation idle, ButtonAnimation hovered, ButtonAnimation pushed, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -281,7 +281,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IButton GetButton(string id, IAnimation idle, IAnimation hovered, IAnimation pushed, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)</code></pre>
+    <pre><code class="lang-csharp hljs">IButton GetButton(string id, IAnimation idle, IAnimation hovered, IAnimation pushed, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -397,7 +397,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IButton GetButton(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)</code></pre>
+    <pre><code class="lang-csharp hljs">IButton GetButton(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -513,7 +513,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;IButton&gt; GetButtonAsync(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;IButton&gt; GetButtonAsync(string id, string idleImagePath, string hoveredImagePath, string pushedImagePath, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -609,7 +609,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="AGS.API.IButton.html">IButton</a>&gt;</td>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.IButton.html">IButton</a>&gt;</td>
         <td><p>The button.</p>
 </td>
       </tr>
@@ -629,7 +629,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ICheckBox GetCheckBox(string id, ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation checked, ButtonAnimation checkedHovered, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)</code></pre>
+    <pre><code class="lang-csharp hljs">ICheckBox GetCheckBox(string id, ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation checked, ButtonAnimation checkedHovered, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null, bool isCheckButton = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -756,7 +756,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ICheckBox GetCheckBox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation checked, IAnimation checkedHovered, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)</code></pre>
+    <pre><code class="lang-csharp hljs">ICheckBox GetCheckBox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation checked, IAnimation checkedHovered, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null, bool isCheckButton = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -883,7 +883,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ICheckBox GetCheckBox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)</code></pre>
+    <pre><code class="lang-csharp hljs">ICheckBox GetCheckBox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null, bool isCheckButton = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1010,7 +1010,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;ICheckBox&gt; GetCheckBoxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;ICheckBox&gt; GetCheckBoxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath, float x, float y, IObject parent = null, string text = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null, bool isCheckButton = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1117,7 +1117,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="AGS.API.ICheckBox.html">ICheckBox</a>&gt;</td>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.ICheckBox.html">ICheckBox</a>&gt;</td>
         <td><p>The checkbox.</p>
 </td>
       </tr>
@@ -1125,13 +1125,13 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ImageSharp/apiSpec/new?filename=AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetComboBox(System.String%2CAGS.API.IButton%2CAGS.API.ITextBox%2CSystem.Func%7BSystem.String%2CAGS.API.IButton%7D%2CAGS.API.IObject%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ImageSharp/apiSpec/new?filename=AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetComboBox(System.String%2CAGS.API.IButton%2CAGS.API.ITextBox%2CFunc%7BSystem.String%2CAGS.API.IButton%7D%2CAGS.API.IObject%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/ImageSharp/Source/AGS.API/Game/Factories/IUIFactory.cs/#L272">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetComboBox_" data-uid="AGS.API.IUIFactory.GetComboBox*"></a>
-  <h4 id="AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_" data-uid="AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)">GetComboBox(String, IButton, ITextBox, Func&lt;String, IButton&gt;, IObject, Boolean, Single, Single, String)</h4>
+  <h4 id="AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_" data-uid="AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)">GetComboBox(String, IButton, ITextBox, Func&lt;String, IButton&gt;, IObject, Boolean, Single, Single, String)</h4>
   <div class="markdown level1 summary"><p>Creates a combo box (drop down).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1168,7 +1168,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.String</span>, <a class="xref" href="AGS.API.IButton.html">IButton</a>&gt;</td>
+        <td><span class="xref">Func</span>&lt;<span class="xref">System.String</span>, <a class="xref" href="AGS.API.IButton.html">IButton</a>&gt;</td>
         <td><span class="parametername">itemButtonFactory</span></td>
         <td><p>A function for creating a button for the drop down list. If not provided the a default one will be created.</p>
 </td>
@@ -1651,7 +1651,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="AGS.API.IPanel.html">IPanel</a>&gt;</td>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.IPanel.html">IPanel</a>&gt;</td>
         <td><p>The panel.</p>
 </td>
       </tr>
@@ -1859,7 +1859,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="AGS.API.ISlider.html">ISlider</a>&gt;</td>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="AGS.API.ISlider.html">ISlider</a>&gt;</td>
         <td><p>The slider.</p>
 </td>
       </tr>
@@ -1879,7 +1879,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string watermark = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F)</code></pre>
+    <pre><code class="lang-csharp hljs">ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string watermark = &quot;&quot;, ITextConfig config = null, bool addToUi = true, float width = null, float height = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

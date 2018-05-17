@@ -102,7 +102,7 @@ to depict all adventure game objects. Both characters and UI controls are also o
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent__1">IComponentsCollection.AddComponent&lt;TComponent&gt;()</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_System_Type_">IComponentsCollection.AddComponent(Type)</a>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent_Type_">IComponentsCollection.AddComponent(Type)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_AddComponent__1_AGS_API_IComponent_">IComponentsCollection.AddComponent&lt;TComponent&gt;(IComponent)</a>
@@ -111,7 +111,7 @@ to depict all adventure game objects. Both characters and UI controls are also o
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent__1">IComponentsCollection.RemoveComponent&lt;TComponent&gt;()</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_System_Type_">IComponentsCollection.RemoveComponent(Type)</a>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_Type_">IComponentsCollection.RemoveComponent(Type)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_RemoveComponent_AGS_API_IComponent_">IComponentsCollection.RemoveComponent(IComponent)</a>
@@ -120,7 +120,7 @@ to depict all adventure game objects. Both characters and UI controls are also o
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent__1">IComponentsCollection.HasComponent&lt;TComponent&gt;()</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_System_Type_">IComponentsCollection.HasComponent(Type)</a>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_Type_">IComponentsCollection.HasComponent(Type)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_HasComponent_AGS_API_IComponent_">IComponentsCollection.HasComponent(IComponent)</a>
@@ -129,10 +129,10 @@ to depict all adventure game objects. Both characters and UI controls are also o
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent__1">IComponentsCollection.GetComponent&lt;TComponent&gt;()</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_System_Type_">IComponentsCollection.GetComponent(Type)</a>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_GetComponent_Type_">IComponentsCollection.GetComponent(Type)</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind__1_System_Action___0__System_Action___0__">IComponentsCollection.Bind&lt;TComponent&gt;(Action&lt;TComponent&gt;, Action&lt;TComponent&gt;)</a>
+      <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Bind__1_Action___0__Action___0__">IComponentsCollection.Bind&lt;TComponent&gt;(Action&lt;TComponent&gt;, Action&lt;TComponent&gt;)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_Count">IComponentsCollection.Count</a>
@@ -145,9 +145,6 @@ to depict all adventure game objects. Both characters and UI controls are also o
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponentsCollection.html#AGS_API_IComponentsCollection_OnComponentsChanged">IComponentsCollection.OnComponentsChanged</a>
-    </div>
-    <div>
-      <span class="xref">System.Collections.Generic.IEnumerable&lt;AGS.API.IComponent&gt;.GetEnumerator()</span>
     </div>
     <div>
       <a class="xref" href="AGS.API.IHasRoomComponent.html#AGS_API_IHasRoomComponent_Room">IHasRoomComponent.Room</a>
@@ -335,18 +332,12 @@ to depict all adventure game objects. Both characters and UI controls are also o
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
     </div>
-    <div>
-      <span class="xref">System.IDisposable.Dispose()</span>
-    </div>
-    <div>
-      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IObject_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IObject : IEntity, IComponentsCollection, IEnumerable&lt;IComponent&gt;, IEnumerable, IHasRoomComponent, IAnimationComponent, IInObjectTreeComponent, IInTree&lt;IObject&gt;, IColliderComponent, IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfoComponent, IShaderComponent, ITranslateComponent, IImageComponent, IBorderComponent, IScaleComponent, IRotateComponent, IPixelPerfectComponent, IPixelPerfectCollidable, IHasModelMatrix, IScale, IRotate, ITranslate, IHasImage, IModelMatrixComponent, IBoundingBoxComponent, IWorldPositionComponent, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IObject : IEntity, IComponentsCollection, IEnumerable&lt;IComponent&gt;, IHasRoomComponent, IAnimationComponent, IInObjectTreeComponent, IInTree&lt;IObject&gt;, IColliderComponent, IVisibleComponent, IEnabledComponent, ICustomPropertiesComponent, IDrawableInfoComponent, IShaderComponent, ITranslateComponent, IImageComponent, IBorderComponent, IScaleComponent, IRotateComponent, IPixelPerfectComponent, IPixelPerfectCollidable, IHasModelMatrix, IScale, IRotate, ITranslate, IHasImage, IModelMatrixComponent, IBoundingBoxComponent, IWorldPositionComponent, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
 </article>
           </div>

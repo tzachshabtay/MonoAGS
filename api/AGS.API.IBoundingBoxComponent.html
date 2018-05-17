@@ -98,23 +98,12 @@ This is for both the bounding box used to render the entity, and for collision c
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
     </div>
-    <div>
-      <span class="xref">System.IDisposable.Dispose()</span>
-    </div>
-    <div>
-      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IBoundingBoxComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof(IModelMatrixComponent), true)]
-[RequiredComponent(typeof(IImageComponent), true)]
-[RequiredComponent(typeof(IDrawableInfoComponent), true)]
-[RequiredComponent(typeof(IHasRoomComponent), true)]
-[RequiredComponent(typeof(ICropSelfComponent), false)]
-public interface IBoundingBoxComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IBoundingBoxComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
