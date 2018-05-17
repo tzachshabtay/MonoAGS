@@ -17,6 +17,8 @@
     <PackageReference Include="Fody" Version="2.4.1" />
     <PackageReference Include="PropertyChanged.Fody" Version="2.1.4" />
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0003" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0003" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AGS.API\AGS.API.csproj" />
@@ -128,8 +130,5 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AGSTextbox.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Audio\Modifiers\" />
   </ItemGroup>
 </Project>

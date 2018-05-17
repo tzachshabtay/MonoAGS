@@ -4,17 +4,14 @@ namespace AGS.Engine.Desktop
 {
     public class DesktopDevice : IDevice
     {
-        private static DesktopFontFamilyLoader _fontFamilyLoader; //Must stay in memory
-
         public DesktopDevice()
         {
             FileSystem = new DesktopFileSystem();
             Assemblies = new DesktopAssemblies();
-            _fontFamilyLoader = new DesktopFontFamilyLoader(getResourceLoader());
             GraphicsBackend = new OpenGLBackend();
-            BitmapLoader = new DesktopBitmapLoader(GraphicsBackend);
-            BrushLoader = new DesktopBrushLoader();
-            FontLoader = new DesktopFontLoader(_fontFamilyLoader);
+            BitmapLoader = new ImageSharpBitmapLoader(GraphicsBackend);
+            BrushLoader = new ImageSharpBrushLoader();
+            FontLoader = new ImageSharpFontLoader(getResourceLoader());
             ConfigFile = new DesktopEngineConfigFile();
             KeyboardState = new DesktopKeyboardState();
         }
