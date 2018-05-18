@@ -10,11 +10,15 @@ namespace AGS.Engine
     {
         private readonly FontCollection _collection;
         private readonly IResourceLoader _resources;
+        private readonly FontFamily _defaultFamily;
 
         public ImageSharpFontLoader(IResourceLoader resources)
         {
             _resources = resources;
             _collection = new FontCollection();
+
+            _defaultFamily = SystemFonts.Collection.Families.First();
+            Debug.WriteLine($"Default system font is {_defaultFamily.Name}.");
         }
 
         public void InstallFonts(params string[] paths) {}
@@ -24,8 +28,7 @@ namespace AGS.Engine
             FontFamily family = null;
             if (fontFamily == null)
             {
-                family = SystemFonts.Collection.Families.First();
-                Debug.WriteLine($"Default system font is {family.Name}.");
+                family = _defaultFamily;
             }
             else
             {
@@ -45,8 +48,12 @@ namespace AGS.Engine
             resource.Stream.Close();
             if (family == null)
             {
-                family = SystemFonts.Collection.Families.First();
+                family = _defaultFamily;
                 Debug.WriteLine($"Failed to install font family from {path}, using {family.Name} instead.");
+            }
+            else
+            {
+                Debug.WriteLine($"Installed font family {family.Name} from {path}.");
             }
             return new ImageSharpFont(family, sizeInPoints, style);
         }
