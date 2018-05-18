@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using AGS.API;
 using SixLabors.ImageSharp;
@@ -17,7 +18,21 @@ namespace AGS.Engine
 
         public IBitmap Load(Stream stream)
         {
-            return new ImageSharpBitmap(Image.Load(stream), _graphics);
+            var format = Image.DetectFormat(stream);
+            var b = Image.Load(stream);
+            if (format.Name == "BMP")
+            {
+                //workaround for this bug: https://github.com/SixLabors/ImageSharp/issues/581
+                for (int x = 0; x < b.Width; x++)
+                {
+                    for (int y = 0; y < b.Height; y++)
+                    {
+                        var c = b[x, y];
+                        b[x, y] = new Rgba32(c.R, c.G, c.B, 255);
+                    }
+                }
+            }
+            return new ImageSharpBitmap(b, _graphics);
         }
 
         public IBitmap Load(int width, int height)
