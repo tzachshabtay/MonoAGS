@@ -32,7 +32,7 @@ namespace AGS.Engine
         public void BindTexture2D(int textureId) => GL.BindTexture(TextureTarget.Texture2D, textureId);
         public void TexImage2D(int width, int height, IntPtr scan0)
         {
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, width, height, 0, PixelFormat.Bgra,
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, width, height, 0, PixelFormat.Rgba,
                           PixelType.UnsignedByte, scan0);
         }
         public int GenTexture() => GL.GenTexture();
