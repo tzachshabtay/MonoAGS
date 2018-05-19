@@ -94,6 +94,8 @@ namespace AGS.Engine
             Task.Run(async () => await InvokeAsync(args)).Wait();
         }
 
+        public void Dispose() => _ev?.Dispose();
+
         #endregion
 
         private IEvent<TEventArgs> getEvent() => _events.FirstOrDefault(ev => ev.SubscribersCount > 0);

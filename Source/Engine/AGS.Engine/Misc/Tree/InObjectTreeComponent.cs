@@ -11,6 +11,12 @@ namespace AGS.Engine
         }
 
         public ITreeNode<IObject> TreeNode { get; set; }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            TreeNode?.Dispose();
+        }
     }
 }
 

@@ -13,12 +13,14 @@ namespace AGS.Engine
         private IInObjectTreeComponent _tree;
         private IEntity _entity;
         private readonly IGameState _state;
+        private readonly IGameEvents _events;
         private bool _isDirty;
         private EntityListSubscriptions<IObject> _subscriptions;
 
         public AGSBoundingBoxWithChildrenComponent(IGameState state, IGameEvents events)
         {
             _state = state;
+            _events = events;
             EntitiesToSkip = new AGSConcurrentHashSet<string>();
             OnBoundingBoxWithChildrenChanged = new AGSEvent();
             events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
@@ -51,6 +53,13 @@ namespace AGS.Engine
             }, c => { c.OnBoundingBoxesChanged.Unsubscribe(onBoundingBoxChanged); _boundingBox = null; });
             entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeTree(c.TreeNode); onSomethingChanged(); },
                                        c => { unsubscribeTree(c.TreeNode); _tree = null; });
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+            _entity = null;
         }
 
         public void Lock()

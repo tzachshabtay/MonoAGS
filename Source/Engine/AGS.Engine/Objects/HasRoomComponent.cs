@@ -27,7 +27,15 @@ namespace AGS.Engine
 			_obj = (IObject)entity;
 		}
 
-        public IRoom Room => _cachedRoom.Value;
+        public override void Dispose()
+        {
+            base.Dispose();
+            _state?.Rooms?.OnListChanged?.Unsubscribe(onRoomsChanged);
+            _cachedRoom = null;
+            _obj = null;
+        }
+
+        public IRoom Room => _cachedRoom?.Value ?? null;
 
         public IRoom PreviousRoom { get; private set; }
 

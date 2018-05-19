@@ -41,6 +41,7 @@ namespace AGS.Engine
 
         public virtual void Dispose()
 		{
+            PropertyChanged = null;
 		}
 
 		#endregion

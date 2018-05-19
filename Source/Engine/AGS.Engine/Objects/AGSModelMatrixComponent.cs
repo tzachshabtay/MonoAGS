@@ -120,6 +120,14 @@ namespace AGS.Engine
 			});
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            unsubscribeSprite(_sprite);
+            unsubscribeRoomAreas();
+            _entity = null;
+        }
+
         public ref ModelMatrices GetModelMatrices() 
         {
             if (_pendingLocks > 0) return ref _preLockMatrices;

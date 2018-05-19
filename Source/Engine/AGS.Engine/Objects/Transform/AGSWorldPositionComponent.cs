@@ -17,10 +17,10 @@ namespace AGS.Engine
             base.Init(entity);
             entity.Bind<IBoundingBoxComponent>(
                 c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(refresh); refresh(); },
-                _ => _box = null);
+                c => { _box = null; c.OnBoundingBoxesChanged.Unsubscribe(refresh); });
             entity.Bind<IImageComponent>(
                 c => { _image = c; c.PropertyChanged += onImagePropertyChanged; refresh(); },
-                _ => _image = null);
+                c => { _image = null; c.PropertyChanged -= onImagePropertyChanged; });
 		}
 
         [DoNotNotify]

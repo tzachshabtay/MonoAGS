@@ -10,7 +10,7 @@ namespace AGS.Editor
     {
         private class PivotHandle
         {
-            private readonly ILabel _handle;
+            private ILabel _handle;
             private readonly IInput _input;
             private readonly IGameState _state;
             private readonly ActionManager _actions;
@@ -77,8 +77,13 @@ namespace AGS.Editor
 
             public void Dispose()
             {
-                _handle.Dispose();
-                _state.UI.Remove(_handle);
+                var handle = _handle;
+                if (handle != null)
+                {
+                    handle.Dispose();
+                    _state.UI.Remove(handle);
+                    _handle = null;
+                }
             }
 
             public void UpdatePosition()

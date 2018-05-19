@@ -27,8 +27,7 @@ namespace AGS.Engine
             get => _table;
             set 
             {
-                _table?.OnRefreshLayoutNeeded.Unsubscribe(onRefreshLayout);
-                _table?.OnQueryLayout.Unsubscribe(onQueryLayout);
+                unsubscribeTable();
                 _table = value;
                 value.OnQueryLayout.Subscribe(onQueryLayout);
                 value.OnRefreshLayoutNeeded.Subscribe(onRefreshLayout);
@@ -61,6 +60,21 @@ namespace AGS.Engine
             }, _ => _tree = null);
 
             subscribeChildren();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            unsubscribeChildren();
+            unsubscribeTable();
+
+            var restrictionList = RestrictionList;
+            if (restrictionList != null)
+            {
+                restrictionList.PropertyChanged -= onRestrictionListChanged;
+                RestrictionList = null;
+            }
+            _entity = null;
         }
 
         private void subscribeChildren()
@@ -118,7 +132,7 @@ namespace AGS.Engine
             {
                 var child = tree.TreeNode.Children[index];
                 var width = isRestricted(child) ? 0f :
-                    child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Width;
+                    child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Width ?? 0f;
                 _columnSizes[index] = width;
             }
             _table?.PerformLayout();
@@ -132,6 +146,13 @@ namespace AGS.Engine
         private void unsubscribeChildren()
         {
             _subscriptions?.Unsubscribe();
+            _subscriptions = null;
+        }
+
+        private void unsubscribeTable()
+        {
+            _table?.OnRefreshLayoutNeeded?.Unsubscribe(onRefreshLayout);
+            _table?.OnQueryLayout?.Unsubscribe(onQueryLayout);
         }
 
         private void onVisiblePropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -172,7 +193,7 @@ namespace AGS.Engine
             {
                 var child = tree.TreeNode.Children[index];
                 child.X = x;
-                var width = isRestricted(child) ? child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Width : 
+                var width = isRestricted(child) ? child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Width ?? 0f : 
                                                 table.ColumnSizes[index];
                 x += width + table.ColumnPadding;
             }

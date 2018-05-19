@@ -153,16 +153,16 @@ namespace AGS.Engine
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
-            bool pixelArtButton = idle?.Animation != null && idle.Animation.Frames.Count > 0;
+            bool pixelArtButton = idle?.Image != null || (idle?.Animation != null && idle.Animation.Frames.Count > 0);
             if (width == -1f && pixelArtButton)
             {
-                width = idle.Animation.Frames[0].Sprite.Width;
+                width = idle.Image?.Width ?? idle.Animation.Frames[0].Sprite.Width;
             }
             if (height == -1f && pixelArtButton)
             {
-                height = idle.Animation.Frames[0].Sprite.Height;
+                height = idle.Image?.Height ?? idle.Animation.Frames[0].Sprite.Height;
             }
-            Func<ButtonAnimation> defaultAnimation = () => new ButtonAnimation(null);
+            Func<ButtonAnimation> defaultAnimation = () => new ButtonAnimation((IImage)null);
             idle = validateAnimation(id, idle, defaultAnimation, width, height);
             hovered = validateAnimation(id, hovered, defaultAnimation, width, height);
             pushed = validateAnimation(id, pushed, defaultAnimation, width, height);
@@ -202,9 +202,9 @@ namespace AGS.Engine
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
-            IAnimation idle = _graphics.LoadAnimationFromFiles(files: new[] { idleImagePath });
-            IAnimation hovered = _graphics.LoadAnimationFromFiles(files: new[] { hoveredImagePath });
-            IAnimation pushed = _graphics.LoadAnimationFromFiles(files: new[] { pushedImagePath });
+            ButtonAnimation idle = new ButtonAnimation(_graphics.LoadImage(idleImagePath));
+            ButtonAnimation hovered = new ButtonAnimation(_graphics.LoadImage(hoveredImagePath));
+            ButtonAnimation pushed = new ButtonAnimation(_graphics.LoadImage(pushedImagePath));
 
             return GetButton(id, idle, hovered, pushed, x, y, parent, text, config, addToUi, width, height);
         }
@@ -213,9 +213,9 @@ namespace AGS.Engine
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
-            IAnimation idle = await _graphics.LoadAnimationFromFilesAsync(files: new[] { idleImagePath });
-            IAnimation hovered = await _graphics.LoadAnimationFromFilesAsync(files: new[] { hoveredImagePath });
-            IAnimation pushed = await _graphics.LoadAnimationFromFilesAsync(files: new[] { pushedImagePath });
+            ButtonAnimation idle = new ButtonAnimation(await _graphics.LoadImageAsync(idleImagePath));
+            ButtonAnimation hovered = new ButtonAnimation(await _graphics.LoadImageAsync(hoveredImagePath));
+            ButtonAnimation pushed = new ButtonAnimation(await _graphics.LoadImageAsync(pushedImagePath));
 
             return GetButton(id, idle, hovered, pushed, x, y, parent, text, config, addToUi, width, height);
         }
@@ -253,14 +253,14 @@ namespace AGS.Engine
         public ICheckBox GetCheckBox(string id, ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation @checked, ButtonAnimation checkedHovered,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
         {
-            bool pixelArtButton = notChecked?.Animation != null && notChecked.Animation.Frames.Count > 0;
+            bool pixelArtButton = notChecked?.Image != null || (notChecked?.Animation != null && notChecked.Animation.Frames.Count > 0);
             if (width == -1f && pixelArtButton)
             {
-                width = notChecked.Animation.Frames[0].Sprite.Width;
+                width = notChecked.Image?.Width ?? notChecked.Animation.Frames[0].Sprite.Width;
             }
             if (height == -1f && pixelArtButton)
             {
-                height = notChecked.Animation.Frames[0].Sprite.Height;
+                height = notChecked.Image?.Height ?? notChecked.Animation.Frames[0].Sprite.Height;
             }
 
             var idleColor = Colors.White;
@@ -508,12 +508,12 @@ namespace AGS.Engine
         private ButtonAnimation validateAnimation(string id, ButtonAnimation button, Func<ButtonAnimation> defaultAnimation, float width, float height)
         {
             button = button ?? defaultAnimation();
-            if (button.Animation != null) return button;
+            if (button.Animation != null || button.Image != null) return button;
             if (width == -1f || height == -1)
             {
                 throw new InvalidOperationException("No animation and no size was supplied for GUI control " + id);
             }
-            button.Animation = new AGSSingleFrameAnimation(new EmptyImage(width, height), _graphics);
+            button.Image = new EmptyImage(width, height);
             return button;
         }
 

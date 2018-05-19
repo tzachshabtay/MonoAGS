@@ -56,6 +56,9 @@ namespace AGS.Engine
             Builder.RegisterType<AGSDefaultInteractions>().SingleInstance().As<IDefaultInteractions>();
             Builder.RegisterType<InventorySubscriptions>().SingleInstance();
             Builder.RegisterType<AGSShouldBlockInput>().SingleInstance().As<IShouldBlockInput>();
+            Builder.RegisterType<AGSMaskLoader>().SingleInstance().As<IMaskLoader>();
+            Builder.RegisterType<AGSGameFactory>().SingleInstance().As<IGameFactory>();
+            Builder.RegisterType<ALAudioFactory>().SingleInstance().As<IAudioFactory>();
 
             registerComponents();
 

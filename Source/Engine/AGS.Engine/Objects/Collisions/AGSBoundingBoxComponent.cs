@@ -25,6 +25,7 @@ namespace AGS.Engine
         private IGameSettings _settings;
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
         private readonly IGameState _state;
+        private readonly IGameEvents _events;
         private IEntity _entity;
         private readonly AGSCropInfo _defaultCropInfo = default;
         private readonly Func<IViewport, ViewportBoundingBoxes> _createNewViewportBoundingBoxes;
@@ -37,6 +38,7 @@ namespace AGS.Engine
             _boundingBoxes = new ConcurrentDictionary<IViewport, ViewportBoundingBoxes>(new IdentityEqualityComparer<IViewport>());
             _boundingBoxes.TryAdd(state.Viewport, new ViewportBoundingBoxes(state.Viewport));
             _settings = settings;
+            _events = events;
             _state = state;
             OnBoundingBoxesChanged = onBoundingBoxChanged;
             _boundingBoxBuilder = boundingBoxBuilder;
@@ -69,6 +71,18 @@ namespace AGS.Engine
             entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += onTextureOffsetChanged; _textureOffset = c; onAllViewportsShouldChange(); },
                                                  c => { c.PropertyChanged -= onTextureOffsetChanged; _textureOffset = null; onAllViewportsShouldChange(); });
 
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            foreach (var viewportBox in _boundingBoxes?.Values ?? new List<ViewportBoundingBoxes>())
+            {
+                viewportBox?.Dispose();
+            }
+            _boundingBoxBuilder?.OnNewBoxBuildRequired?.Unsubscribe(onHitTextBoxShouldChange);
+            _events?.OnRoomChanging?.Unsubscribe(onHitTextBoxShouldChange);
+            _entity = null;
         }
 
         public void Lock()
@@ -318,6 +332,11 @@ namespace AGS.Engine
             private void onViewportChanged(object sender, PropertyChangedEventArgs args)
             {
                 IsDirty = true;
+            }
+
+            public void Dispose()
+            {
+                _viewport.PropertyChanged -= onViewportChanged;
             }
         }
 	}

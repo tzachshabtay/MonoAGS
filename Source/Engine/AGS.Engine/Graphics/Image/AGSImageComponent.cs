@@ -114,10 +114,28 @@ namespace AGS.Engine
 		public override void Dispose()
 		{
             base.Dispose();
+            _sprite?.Dispose();
+            var image = _image;
+            if (image != null)
+            {
+                image.PropertyChanged -= onPropertyChanged;
+            }
+            var provider = _provider;
+            if (provider != null)
+            {
+                provider.PropertyChanged -= OnProviderPropertyChanged;
+            }
             var entity = _entity;
-            if (entity == null) return;
-            _pipeline.Unsubscribe(_entity.ID, this);
-		}
+            if (entity != null)
+            {
+                _pipeline.Unsubscribe(entity.ID, this);
+            }
+            _colorAdjusters[0] = null;
+            _colorAdjusters[1] = null;
+            _instructionPool?.Dispose();
+            _boxesPool?.Dispose();
+            _entity = null;
+        }
 
 		private void OnProviderPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
@@ -144,6 +162,10 @@ namespace AGS.Engine
                 return null;
             }
             var clonedBoxes = _boxesPool.Acquire();
+            if (clonedBoxes == null)
+            {
+                return null;
+            }
             clonedBoxes.TextureBox = boundingBoxes.TextureBox;
             clonedBoxes.ViewportBox = boundingBoxes.ViewportBox;
             ITexture texture = _textures.GetTexture(sprite.Image.ID, _getTextureFunc);
@@ -152,6 +174,10 @@ namespace AGS.Engine
             _colorAdjusters[1] = this;
             IGLColor color = _colorBuilder.Build(_colorAdjusters);
             var instruction = _instructionPool.Acquire();
+            if (instruction == null)
+            {
+                return null;
+            }
             instruction.Setup(texture, clonedBoxes, color);
             return instruction;
         }

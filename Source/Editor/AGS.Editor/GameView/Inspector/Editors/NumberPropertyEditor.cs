@@ -172,10 +172,12 @@ namespace AGS.Editor
             {
                 numberEditor.Value = float.Parse(text);
             }
-            numberEditor.OnValueChanged.Subscribe(args =>
+            Action<NumberValueChangedArgs> onValueChanged = (args =>
             {
                 editor.SetValue(property, numberEditor.Value, args.UserInitiated);
             });
+            numberEditor.OnValueChanged.Subscribe(onValueChanged);
+            panel.OnDisposed(() => numberEditor.OnValueChanged.Unsubscribe(onValueChanged));
             x += textbox.Width;
             addArrowButtons(id, panel, numberEditor, x);
             editor.ConfigureNumberEditor(property, numberEditor);

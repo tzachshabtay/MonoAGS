@@ -1,10 +1,12 @@
-﻿namespace AGS.API
+﻿using System;
+
+namespace AGS.API
 {
     /// <summary>
     /// Represents a layout of columns that is shared between nodes in a tree view, using a <see cref="ITreeTableRowLayoutComponent"/>.
     /// By sharing the interaces different nodes on the list can align the columns together.
     /// </summary>
-    public interface ITreeTableLayout
+    public interface ITreeTableLayout : IDisposable
     {
         /// <summary>
         /// Gets or sets the column padding.

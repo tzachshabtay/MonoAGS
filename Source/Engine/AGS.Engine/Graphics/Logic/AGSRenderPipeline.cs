@@ -46,6 +46,7 @@ namespace AGS.Engine
             int index = renderers.FindIndex(t => renderer == t.other);
             if (index < 0) return;
             renderers.RemoveAt(index);
+            if (renderers.Count == 0) _renderers.Remove(entityID);
         }
 
         public void Update()

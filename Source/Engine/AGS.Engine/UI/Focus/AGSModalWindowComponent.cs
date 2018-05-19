@@ -24,6 +24,7 @@ namespace AGS.Engine
 		{
             base.Dispose();
             LoseFocus();
+            _entity = null;
 		}
 
 		public bool HasFocus => _focusedUi.FocusedWindow == _entity;

@@ -54,6 +54,7 @@ namespace AGS.Engine
         {
             base.Dispose();
             _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+            _entity = null;
         }
 
         public override void Init(IEntity entity)
@@ -336,10 +337,13 @@ namespace AGS.Engine
 			{
 				IObject renderer = _objFactory.GetObject("Debug Line");
                 var line = renderer.AddComponent<GLLineRenderer>();
-                line.X1 = _translate.X;
-                line.Y1 = _translate.Y;
-                line.X2 = destination.X;
-                line.Y2 = destination.Y;
+                if (line != null)
+                {
+                    line.X1 = _translate.X;
+                    line.Y1 = _translate.Y;
+                    line.X2 = destination.X;
+                    line.Y2 = destination.Y;
+                }
                 await renderer.ChangeRoomAsync(room);
 				debugRenderers.Add (renderer);
 			}

@@ -11,13 +11,13 @@ namespace AGS.Editor
     {
         private class DragHandle
         {
-            private readonly IObject _handle;
+            private IObject _handle;
             private readonly IInput _input;
             private readonly IGameState _state;
             private readonly ActionManager _actions;
             private readonly AGSEditor _editor;
             private readonly IDraggableComponent _draggable;
-            private readonly ILabel _moveCursor;
+            private ILabel _moveCursor;
 
             private IBoundingBoxComponent _boundingBox;
             private ITranslateComponent _translate;
@@ -75,9 +75,16 @@ namespace AGS.Editor
 
             public void Dispose()
             {
-                _handle.Dispose();
-                _moveCursor.Dispose();
-                _state.UI.Remove(_handle);
+                _moveCursor?.Dispose();
+                _moveCursor = null;
+
+                var handle = _handle;
+                if (handle != null)
+                {
+                    handle.Dispose();
+                    _state.UI.Remove(handle);
+                    _handle = handle;
+                }
             }
 
             public void UpdatePosition()

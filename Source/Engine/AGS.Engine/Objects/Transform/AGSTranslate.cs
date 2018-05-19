@@ -35,25 +35,29 @@ namespace AGS.Engine
 
                 _location = value;
 
-                bool hasChanged = false;
-                if (prevX != value.X)
+                var propertyChanged = PropertyChanged;
+                if (propertyChanged != null)
                 {
-                    hasChanged = true;
-                    PropertyChanged(this, _argsX);
-                }
-                if (prevY != value.Y)
-                {
-                    hasChanged = true;
-                    PropertyChanged(this, _argsY);
-                }
-                if (prevZ != value.Z)
-                {
-                    hasChanged = true;
-                    PropertyChanged(this, _argsZ);
-                }
-                if (hasChanged)
-                {
-                    PropertyChanged(this, _argsLocation);
+                    bool hasChanged = false;
+                    if (prevX != value.X)
+                    {
+                        hasChanged = true;
+                        propertyChanged(this, _argsX);
+                    }
+                    if (prevY != value.Y)
+                    {
+                        hasChanged = true;
+                        propertyChanged(this, _argsY);
+                    }
+                    if (prevZ != value.Z)
+                    {
+                        hasChanged = true;
+                        propertyChanged(this, _argsZ);
+                    }
+                    if (hasChanged)
+                    {
+                        propertyChanged(this, _argsLocation);
+                    }
                 }
             }
         }
@@ -67,10 +71,11 @@ namespace AGS.Engine
             {
                 var prevX = _location.X;
                 _location = new AGSLocation(value, Y, Z);
-                if (prevX != value)
+                var propertyChanged = PropertyChanged;
+                if (prevX != value && propertyChanged != null)
                 {
-                    PropertyChanged(this, _argsX);
-                    PropertyChanged(this, _argsLocation);
+                    propertyChanged(this, _argsX);
+                    propertyChanged(this, _argsLocation);
                 }
             }
         }
@@ -85,14 +90,16 @@ namespace AGS.Engine
                 float prevY = _location.Y;
                 float prevZ = _location.Z;
                 _location = new AGSLocation(X, value, Z == Y ? value : Z);
+                var propertyChanged = PropertyChanged;
+                if (propertyChanged == null) return;
                 if (prevZ != _location.Z)
                 {
-                    PropertyChanged(this, _argsZ);
+                    propertyChanged(this, _argsZ);
                 }
                 if (prevY != value)
                 {
-                    PropertyChanged(this, _argsY);
-                    PropertyChanged(this, _argsLocation);
+                    propertyChanged(this, _argsY);
+                    propertyChanged(this, _argsLocation);
                 }
             }
         }
@@ -106,14 +113,24 @@ namespace AGS.Engine
             {
                 float prevZ = _location.Z;
                 _location = new AGSLocation(X, Y, value);
-                if (prevZ != value)
+                var propertyChanged = PropertyChanged;
+                if (prevZ != value && propertyChanged != null)
                 {
-                    PropertyChanged(this, _argsZ);
-                    PropertyChanged(this, _argsLocation);
+                    propertyChanged(this, _argsZ);
+                    propertyChanged(this, _argsLocation);
                 }
             }
         }
 
 #pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+
+        public void Dispose()
+        {
+            PropertyChanged = null;
+            _argsLocation = null;
+            _argsX = null;
+            _argsY = null;
+            _argsZ = null;
+        }
     }
 }

@@ -17,7 +17,8 @@ namespace AGS.Engine
         private readonly IScale _scale;
         private readonly Resolver _resolver;
         private readonly int _id;
-        private readonly Lazy<IArea> _pixelPerfectArea;
+        private Action _unsubscribeBindToSize;
+        private Lazy<IArea> _pixelPerfectArea;
         private static readonly SizeF _emptySize = new SizeF(1f, 1f);
         private static int _lastId = 0;
 
@@ -33,7 +34,7 @@ namespace AGS.Engine
             _hasImage = new AGSHasImage();
             _hasImage.Pivot = new PointF();
             _scale = new AGSScale();
-            AGSScale.BindSizeToImage(_hasImage, _scale);
+            _unsubscribeBindToSize = AGSScale.BindSizeToImage(_hasImage, _scale);
             _rotate = new AGSRotate();
 
             _scale.PropertyChanged += onPropertyChanged;
@@ -50,6 +51,29 @@ namespace AGS.Engine
             _rotate.Angle = sprite._rotate.Angle;
             BaseSize = sprite.BaseSize;
             Scale = sprite.Scale;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _unsubscribeBindToSize?.Invoke();
+            _unsubscribeBindToSize = null;
+            var scale = _scale;
+            if (scale != null)
+            {
+                scale.PropertyChanged -= onPropertyChanged;
+            }
+            var image = _hasImage;
+            if (image != null)
+            {
+                image.PropertyChanged -= onPropertyChanged;
+            }
+            var translate = _translate;
+            if (translate != null)
+            {
+                translate.PropertyChanged -= onPropertyChanged;
+            }
+            _pixelPerfectArea = null;
         }
 
         #region ISprite implementation

@@ -141,8 +141,14 @@ namespace AGS.Engine
             var textConfig = button.TextConfig;
             if (textConfig != null && textComponent != null) textComponent.TextConfig = textConfig;
 
-            var tint = button.Tint;
-            if (tint != null && imageComponent != null) imageComponent.Tint = tint.Value;
+            if (imageComponent != null)
+            {
+                var image = button.Image;
+                if (image != null) imageComponent.Image = image;
+
+                var tint = button.Tint;
+                if (tint != null) imageComponent.Tint = tint.Value;
+            }
         }
 
         public static void RunOnTree<TItem>(this ITreeNode<TItem> node, int level, Action<TItem, int> action)
@@ -153,6 +159,18 @@ namespace AGS.Engine
             {
                 child.TreeNode.RunOnTree(level + 1, action);
             }
+        }
+
+        public static void DestroyWithChildren(this IObject obj, IGameState state = null)
+        {
+            if (obj == null) return;
+            state = state ?? AGSGame.Game.State;
+            if (obj.Room != null)
+                obj.Room.Objects.Remove(obj);
+            else state.UI.Remove(obj);
+            for (int i = obj.TreeNode.ChildrenCount - 1; i >= 0; i--)
+                obj.TreeNode.Children[i].DestroyWithChildren(state);
+            obj.Dispose();
         }
 	}
 }

@@ -181,10 +181,12 @@ namespace AGS.Engine
 
         public override void Dispose()
         {
-            _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+            _gameEvents?.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+            _input?.KeyUp.Unsubscribe(onKeyUp);
             _graphics?.Dispose();
             _handleGraphics?.Dispose();
             _label?.Dispose();
+            _entity = null;
         }
 
         private void bindGraphics(IObject graphics)

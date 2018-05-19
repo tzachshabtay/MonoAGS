@@ -32,6 +32,7 @@ namespace AGS.Engine
             ButtonAnimation newAnimation = new ButtonAnimation(AGSBorders.Multiple(container.Border, animation.Border),
                                                                animation.TextConfig, animation.Tint);
             newAnimation.Animation = animation.Animation;
+            newAnimation.Image = animation.Image;
             return newAnimation;
         }
 

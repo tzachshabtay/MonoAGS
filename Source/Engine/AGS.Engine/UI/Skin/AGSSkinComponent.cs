@@ -23,6 +23,12 @@ namespace AGS.Engine
             entity.OnComponentsInitialized.Subscribe(onComponentsInitialized);
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            _entity = null;
+        }
+
         private void onComponentsInitialized()
         {
             var skin = Skin;

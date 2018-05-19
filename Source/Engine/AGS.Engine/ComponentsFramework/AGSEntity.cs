@@ -18,6 +18,7 @@ namespace AGS.Engine
         private AGSConcurrentHashSet<API.IComponentBinding> _bindings;
         private Resolver _resolver;
         private string _displayName;
+        private IBlockingEvent _onDisposed;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,6 +30,7 @@ namespace AGS.Engine
             _bindings = new AGSConcurrentHashSet<API.IComponentBinding>();
             OnComponentsInitialized = new AGSEvent();
             OnComponentsChanged = new AGSEvent<AGSListChangedEventArgs<API.IComponent>>();
+            _onDisposed = new AGSEvent();
         }
 
         ~AGSEntity()
@@ -110,8 +112,7 @@ namespace AGS.Engine
 			var components = _components;
             if (components == null) return false;
             int count = Count;
-            Lazy<API.IComponent> component;
-            if (!components.TryRemove(componentType, out component)) return false;
+            if (!components.TryRemove(componentType, out var component)) return false;
 
             component.Value.Dispose();
 			OnComponentsChanged.Invoke(new AGSListChangedEventArgs<API.IComponent>(ListChangeType.Remove,
@@ -126,6 +127,21 @@ namespace AGS.Engine
 			if (components == null) return false;
             if (!components.TryGetValue(component.GetType(), out var existing) || existing.Value != component) return false;
             return RemoveComponent(component.GetType());
+        }
+
+        public TComponent PopComponent<TComponent>() where TComponent : API.IComponent
+        {
+            var components = _components;
+            if (components == null)
+                return default;
+            int count = Count;
+            if (!components.TryRemove(typeof(TComponent), out var component))
+                return default;
+
+            OnComponentsChanged.Invoke(new AGSListChangedEventArgs<API.IComponent>(ListChangeType.Remove,
+                                                                  new AGSListItem<API.IComponent>(component.Value, count--)));
+
+            return (TComponent)component.Value;
         }
 
         public bool HasComponent<TComponent>() where TComponent : API.IComponent
@@ -196,6 +212,12 @@ namespace AGS.Engine
             return components.Values.Select(c => c.Value).GetEnumerator();
         }
 
+        public void OnDisposed(Action action)
+        {
+            _onDisposed?.Subscribe(action);
+            if (_onDisposed == null) action?.Invoke();
+        }
+
         #endregion
 
         #region IEnumerable implementation
@@ -226,21 +248,31 @@ namespace AGS.Engine
 
         private void dispose(bool disposing)
         {
-            var components = _components;
-            if (components == null) return;
-            foreach (var component in components.Values)
-            {
-                component.Value.Dispose();
-            }
-            _components = null;
-
             var bindings = _bindings;
-            if (bindings == null) return;
-            foreach (var binding in bindings)
+            if (bindings != null)
             {
-                binding.Unbind();
+                foreach (var binding in bindings)
+                {
+                    binding.Unbind();
+                }
             }
+
+            _onDisposed?.Invoke();
+            _onDisposed?.Dispose();
+            _onDisposed = null;
+
+            var components = _components;
+            if (components != null)
+            {
+                foreach (var component in components.Values)
+                {
+                    component.Value.Dispose();
+                }
+            }
+
+            _components = null;
             _bindings = null;
+            PropertyChanged = null;
         }
     }
 }

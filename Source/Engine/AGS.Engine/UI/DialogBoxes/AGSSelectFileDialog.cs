@@ -160,11 +160,7 @@ namespace AGS.Engine
 
         private void removeAllUI(IObject obj)
         {
-            _game.State.UI.Remove(obj);
-            foreach (var child in obj.TreeNode.Children)
-            {
-                removeAllUI(child);
-            }
+            obj.DestroyWithChildren(_game.State);
         }
 
         private void onCancelClicked(MouseButtonEventArgs args)

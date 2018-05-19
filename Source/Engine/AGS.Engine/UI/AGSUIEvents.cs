@@ -34,6 +34,15 @@ namespace AGS.Engine
         {
             base.Dispose();
             _aggregator.Unsubscribe(_entity);
+            MouseEnter?.Dispose();
+            MouseLeave?.Dispose();
+            MouseMove?.Dispose();
+            MouseClicked?.Dispose();
+            MouseDoubleClicked?.Dispose();
+            MouseDown?.Dispose();
+            MouseUp?.Dispose();
+            LostFocus?.Dispose();
+            _entity = null;
         }
 
 		public IEvent<MousePositionEventArgs> MouseEnter { get; private set; }
@@ -55,4 +64,3 @@ namespace AGS.Engine
         public bool IsMouseIn { get; private set; }
 	}
 }
-

@@ -81,6 +81,14 @@ namespace AGS.Engine
             entity.Bind<ITextComponent>(c => { _text = c; c.Text = valueToString(); }, _ => { _text = null; });
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            _slider?.OnValueChanging?.Unsubscribe(onSliderValueChanged);
+            _upButton?.MouseClicked?.Unsubscribe(onUpButtonClicked);
+            _downButton?.MouseClicked?.Unsubscribe(onDownButtonClicked);
+        }
+
         private string valueToString()
         {
             string valStr = Value.ToString("F");

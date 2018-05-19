@@ -19,7 +19,7 @@ namespace AGS.Engine
             _state = state;
             _bindings = new ConcurrentDictionary<string, IComponentBinding[]>();
             EntitiesToSkipCrop = new AGSConcurrentHashSet<string>();
-            EntitiesToSkipCrop.OnListChanged.Subscribe(_ => rebuildEntireTree());
+            EntitiesToSkipCrop.OnListChanged.Subscribe(onEntitiesToSkipCropChanged);
         }
 
         public bool CropChildrenEnabled { get; set; }
@@ -35,6 +35,16 @@ namespace AGS.Engine
             entity.Bind<IInObjectTreeComponent>(c => { subscribeTree(c); _tree = c; }, c => { unsubscribeTree(c); _tree = null; });
             rebuildEntireTree();
         }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            var tree = _tree;
+            if (tree != null) unsubscribeTree(tree);
+            EntitiesToSkipCrop?.OnListChanged?.Unsubscribe(onEntitiesToSkipCropChanged);
+        }
+
+        private void onEntitiesToSkipCropChanged(AGSHashSetChangedEventArgs<string> _) => rebuildEntireTree();
 
         private void subscribeTree(IInObjectTreeComponent node)
         {
@@ -64,6 +74,7 @@ namespace AGS.Engine
             bindings[0] = obj.Bind<ITranslateComponent>(c => c.PropertyChanged += onLocationChanged, c => c.PropertyChanged -= onLocationChanged);
             bindings[1] = obj.Bind<IVisibleComponent>(c => c.PropertyChanged += onVisibleChanged, c => c.PropertyChanged -= onVisibleChanged);
             _bindings[obj.ID] = bindings;
+            obj.OnDisposed(() => unsubscribeObject(obj));
         }
 
         private void unsubscribeObject(IObject obj)
@@ -154,7 +165,10 @@ namespace AGS.Engine
 			{
                 if (!child.Visible || EntitiesToSkipCrop.Contains(child.ID)) continue;
 				var jump = child.AddComponent<IJumpOffsetComponent>();
-				jump.JumpOffset = new PointF(-StartPoint.X, -StartPoint.Y);
+                if (jump != null)
+                {
+                    jump.JumpOffset = new PointF(-StartPoint.X, -StartPoint.Y);
+                }
 			}
         }
 
@@ -177,6 +191,7 @@ namespace AGS.Engine
                     cropSelf.Init(obj);
                     cropSelf.AfterInit();
                     textComponent.CustomTextCrop = cropSelf;
+                    obj.OnDisposed(() => cropSelf.OnBeforeCrop?.Unsubscribe(cropper.CropIfNeeded));
                 }
             }
             cropSelf = obj.GetComponent<ICropSelfComponent>();
@@ -186,7 +201,15 @@ namespace AGS.Engine
                 cropSelf.CropEnabled = false;
                 ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.ViewportBox);
                 cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
-                obj.AddComponent<ICropSelfComponent>(cropSelf);
+                if (obj.AddComponent<ICropSelfComponent>(cropSelf))
+                {
+                    obj.OnDisposed(() => cropSelf.OnBeforeCrop.Unsubscribe(cropper.CropIfNeeded));
+                }
+                else
+                {
+                    cropSelf.OnBeforeCrop.Unsubscribe(cropper.CropIfNeeded);
+                    cropSelf.Dispose();
+                }
             }
         }
 

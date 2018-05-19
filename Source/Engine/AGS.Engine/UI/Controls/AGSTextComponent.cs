@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -72,11 +73,7 @@ namespace AGS.Engine
             TextVisible = true;
 
             subscribeTextConfigChanges();
-            PropertyChanged += (sender, e) =>
-            {
-                onBoundingBoxShouldChange();
-                if (e.PropertyName == nameof(TextConfig)) subscribeTextConfigChanges();
-            };
+            PropertyChanged += onPropertyChanged;
             _shouldUpdateBoundingBoxes = true;
         }
 
@@ -114,7 +111,16 @@ namespace AGS.Engine
         {
             base.Dispose();
             _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
-            _pipeline.Unsubscribe(_entity.ID, this);
+            PropertyChanged -= onPropertyChanged;
+            unsubscribeTextConfigChanges();
+            var entity = _entity;
+            if (entity != null)
+            {
+                _pipeline.Unsubscribe(entity.ID, this);
+            }
+            CustomTextCrop = null;
+            _instructionPool?.Dispose();
+            _entity = null;
         }
 
         public ITextConfig TextConfig { get; set; }
@@ -173,6 +179,7 @@ namespace AGS.Engine
             _afterCropTextBoundingBoxes.TextureBox = cropInfo.TextureBox;
 
             var instruction = _instructionPool.Acquire();
+            if (instruction == null) return null;
             instruction.Setup(resolution, _afterCropTextBoundingBoxes);
             return instruction;
         }
@@ -180,6 +187,13 @@ namespace AGS.Engine
         public void PrepareTextBoundingBoxes()
         {
             prepare(_state.Viewport); //todo: support multiple viewports
+        }
+
+        private void onPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            onBoundingBoxShouldChange();
+            if (e.PropertyName == nameof(TextConfig))
+                subscribeTextConfigChanges();
         }
 
         private void onRepeatedlyExecute()
@@ -421,11 +435,16 @@ namespace AGS.Engine
 
         private void subscribeTextConfigChanges()
         {
-            var config = _lastTextConfig;
-            if (config != null) config.PropertyChanged -= onTextConfigPropertyChanged;
-            config = TextConfig;
+            unsubscribeTextConfigChanges();
+            var config = TextConfig;
             _lastTextConfig = config;
             if (config != null) config.PropertyChanged += onTextConfigPropertyChanged;
+        }
+
+        private void unsubscribeTextConfigChanges()
+        {
+            var config = _lastTextConfig;
+            if (config != null) config.PropertyChanged -= onTextConfigPropertyChanged;
         }
 
         private void onTextConfigPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -45,16 +45,20 @@ namespace AGS.Engine
                 var resource = _resources.LoadResource(resourcePath);
                 if (resource == null) throw new NullReferenceException($"Failed to find font in path: {resourcePath}, current directory: {Directory.GetCurrentDirectory()}");
                 filePath = Path.Combine(_device.FileSystem.StorageFolder, Path.GetFileName(resourcePath));
-                if (_device.FileSystem.FileExists(filePath))
+                try
                 {
-                    _device.FileSystem.Delete(filePath);
-                }
+                    if (_device.FileSystem.FileExists(filePath))
+                    {
+                        _device.FileSystem.Delete(filePath);
+                    }
 
-                using (Stream fileStream = _device.FileSystem.Create(filePath))
-                using (resource.Stream)
-                {
-                    resource.Stream.CopyTo(fileStream);
+                    using (Stream fileStream = _device.FileSystem.Create(filePath))
+                    using (resource.Stream)
+                    {
+                        resource.Stream.CopyTo(fileStream);
+                    }
                 }
+                catch (UnauthorizedAccessException) { }
 
                 return filePath;
             });

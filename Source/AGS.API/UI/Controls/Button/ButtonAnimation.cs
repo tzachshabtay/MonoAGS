@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// Allows changing properties of the button to "animate" it as it moves between states (idle, hover, pushed).
-    /// Each <see cref="ButtonAnimation"/> represents one of this states, and can have a different animation,
+    /// Each <see cref="ButtonAnimation"/> represents one of this states, and can have a different animation (or image),
     /// border, background color (tint) or text rendering configuration (font, shadows, etc- <see cref="ITextConfig"/>).
     /// </summary>
     public class ButtonAnimation
@@ -19,6 +19,15 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:AGS.API.ButtonAnimation"/> class.
         /// </summary>
+        /// <param name="image">Image.</param>
+        public ButtonAnimation(IImage image)
+        {
+            Image = image;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:AGS.API.ButtonAnimation"/> class.
+        /// </summary>
         /// <param name="border">Border.</param>
         /// <param name="textConfig">Text config.</param>
         /// <param name="tint">Tint.</param>
@@ -28,6 +37,11 @@
             TextConfig = textConfig;
             Tint = tint;
         }
+
+        /// <summary>
+        /// Gets or sets the image.
+        /// </summary>
+        public IImage Image { get; set; }
 
         /// <summary>
         /// Gets or sets the animation.

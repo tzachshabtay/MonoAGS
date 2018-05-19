@@ -48,6 +48,14 @@ namespace AGS.Engine
 
         public bool HasChild(TItem child) => _children.Contains(child);
 
+        public void Dispose()
+        {
+            SetParent(null);
+            OnParentChanged?.Dispose();
+            _children?.Dispose();
+            Node = null;
+        }
+
         public TItem Node { get; set; }
 
 		public TItem Parent

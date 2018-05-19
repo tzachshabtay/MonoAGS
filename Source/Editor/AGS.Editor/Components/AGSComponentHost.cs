@@ -26,6 +26,12 @@ namespace AGS.Editor
             _entity = entity;
 		}
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            _entity = null;
+        }
+
         public TComponent AddComponent<TComponent>() where TComponent : IComponent
         {
             if (_entity.HasComponent<TComponent>()) return _entity.GetComponent<TComponent>();

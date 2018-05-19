@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using AGS.API;
 using Autofac;
 using PropertyChanged;
@@ -10,6 +11,7 @@ namespace AGS.Engine
     {
         private readonly IScale _scale;
         private IImageComponent _image;
+        private Action _unsubscribeBindSizeToImage;
 
         public AGSScaleComponent(IScale scale)
         {
@@ -22,11 +24,13 @@ namespace AGS.Engine
             entity.Bind<IImageComponent>(c =>
             {
                 _image = c;
-                AGSScale.BindSizeToImage(c, _scale);
+                _unsubscribeBindSizeToImage = AGSScale.BindSizeToImage(c, _scale);
                 _scale.PropertyChanged += onScalePropertyChanged;
             }, c =>
             {
                 _image = null;
+                _unsubscribeBindSizeToImage?.Invoke();
+                _unsubscribeBindSizeToImage = null;
                 c.PropertyChanged -= onScalePropertyChanged;
             });
         }

@@ -243,6 +243,7 @@ namespace AGS.Engine
             disposeTexture();
             _texture = createTexture();
             IBitmap bitmap = _bitmapPool.Acquire(_draw.BitmapWidth, _draw.BitmapHeight);
+            if (bitmap == null) return;
             try
             {
                 IBitmapTextDraw textDraw = bitmap.GetTextDraw();

@@ -54,7 +54,7 @@ namespace AGS.API
     /// An event is a notification for something that has happened.
     /// Interested parties can subscribe to the event and be notified when it triggers (https://en.wikipedia.org/wiki/Event-driven_programming).
     /// </summary>
-	public interface IBlockingEvent<TEventArgs>
+	public interface IBlockingEvent<TEventArgs> : IDisposable
 	{
         /// <summary>
         /// Gets the number of subscribers to the event.
@@ -125,7 +125,7 @@ namespace AGS.API
     /// An event is a notification for something that has happened.
     /// Interested parties can subscribe to the event and be notified when it triggers (https://en.wikipedia.org/wiki/Event-driven_programming).
     /// </summary>
-    public interface IBlockingEvent
+    public interface IBlockingEvent : IDisposable
     {
         /// <summary>
         /// Gets the number of subscribers to the event.

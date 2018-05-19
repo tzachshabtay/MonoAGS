@@ -46,6 +46,7 @@ namespace AGS.Engine
         private readonly IGameEvents _gameEvents;
         private readonly IFocusedUI _focus;
         private List<Subscriber> _subscribers;
+        private HashSet<string> _subscriberIds;
         private readonly ConcurrentQueue<Subscriber> _subscribersToAdd;
         private readonly ConcurrentQueue<string> _subscribersToRemove;
         private MousePosition _mousePosition;
@@ -54,6 +55,7 @@ namespace AGS.Engine
 
         public UIEventsAggregator(IInput input, IHitTest hitTest, IGameEvents gameEvents, IFocusedUI focus)
         {
+            _subscriberIds = new HashSet<string>();
             _hitTest = hitTest;
             _focus = focus;
             _subscribersToAdd = new ConcurrentQueue<Subscriber>();
@@ -95,11 +97,19 @@ namespace AGS.Engine
                 var subscribers = _subscribers;
 
                 Subscriber subscriberToAdd;
-                while (_subscribersToAdd.TryDequeue(out subscriberToAdd)) subscribers.Add(subscriberToAdd);
+                while (_subscribersToAdd.TryDequeue(out subscriberToAdd))
+                {
+                    if (!_subscriberIds.Add(subscriberToAdd.Entity.ID))
+                    {
+                        return;
+                    }
+                    subscribers.Add(subscriberToAdd);
+                }
 
                 string entityToRemove;
                 while (_subscribersToRemove.TryDequeue(out entityToRemove))
                 {
+                    _subscriberIds.Remove(entityToRemove);
                     int index = subscribers.FindIndex(sub => sub.Entity.ID == entityToRemove);
                     if (index >= 0) subscribers.RemoveAt(index);
                 }

@@ -27,6 +27,7 @@ namespace AGS.Editor
         private DragHandle _dragHandle;
         private readonly ActionManager _actions;
         private IBoundingBoxComponent _box;
+        private IWindowInfo _window;
         private bool _resizeVisible;
 
         public EntityDesigner(AGSEditor editor, ActionManager actions)
@@ -37,8 +38,8 @@ namespace AGS.Editor
             _state = editor.Editor.State;
             _events = editor.Editor.Events;
             _input = editor.Editor.Input;
-            var window = editor.GameResolver.Container.Resolve<IWindowInfo>();
-            window.PropertyChanged += onWindowPropertyChanged;
+            _window = editor.GameResolver.Container.Resolve<IWindowInfo>();
+            _window.PropertyChanged += onWindowPropertyChanged;
             _resizeVisible = true;
             _resizeHandles = new List<ResizeHandle>(8);
             _rotateHandles = new List<RotateHandle>(4);
@@ -59,8 +60,8 @@ namespace AGS.Editor
             entity.Bind<ITranslateComponent>(setTranslate, _ => setTranslate(null));
 
             entity.Bind<IBoundingBoxComponent>(
-                c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(onBoundingBoxChanged); _pivotHandle.SetBox(c); _dragHandle.SetBox(c); updatePositions(); },
-                c => { _box = null; c.OnBoundingBoxesChanged.Unsubscribe(onBoundingBoxChanged); _pivotHandle.SetBox(null); _dragHandle.SetBox(null); });
+                c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(onBoundingBoxChanged); _pivotHandle?.SetBox(c); _dragHandle?.SetBox(c); updatePositions(); },
+                c => { _box = null; c.OnBoundingBoxesChanged.Unsubscribe(onBoundingBoxChanged); _pivotHandle?.SetBox(null); _dragHandle?.SetBox(null); });
 
             entity.Bind<EditorUIEvents>(c => c.MouseClicked.Subscribe(onMouseClicked), c => c.MouseClicked.Unsubscribe(onMouseClicked));
 
@@ -73,15 +74,26 @@ namespace AGS.Editor
             _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
             foreach (var handle in _resizeHandles) handle.Dispose();
             foreach (var handle in _rotateHandles) handle.Dispose();
-            _pivotHandle.Dispose();
-            _dragHandle.Dispose();
+            _pivotHandle?.Dispose();
+            _dragHandle?.Dispose();
+            _resizeHandles.Clear();
+            _rotateHandles.Clear();
+            _pivotHandle = null;
+            _dragHandle = null;
+            var window = _window;
+            if (window != null)
+            {
+                window.PropertyChanged -= onWindowPropertyChanged;
+                _window = null;
+            }
         }
 
         private void onMouseClicked(MouseClickEventArgs args)
         {
-            if (args.Button != MouseButton.Left) return;
+            var dragHandle = _dragHandle;
+            if (args.Button != MouseButton.Left || dragHandle == null) return;
             const long millis = 300;
-            if (args.ClickTimeInMilliseconds > millis && _dragHandle.LastDragged > DateTime.Now.AddMilliseconds(-millis))
+            if (args.ClickTimeInMilliseconds > millis && dragHandle.LastDragged > DateTime.Now.AddMilliseconds(-millis))
             {
                 //Checking against "false alarms" -> the user meant to do a quick drag of the object, not to change between scale/rotate handles
                 return;
@@ -93,14 +105,14 @@ namespace AGS.Editor
 
         private void setTranslate(ITranslateComponent translate)
         {
-            _pivotHandle.SetTranslate(translate);
-            _dragHandle.SetTranslate(translate);
+            _pivotHandle?.SetTranslate(translate);
+            _dragHandle?.SetTranslate(translate);
         }
 
         private void setImage(IImageComponent image)
         {
-            _pivotHandle.SetImage(image);
-            _dragHandle.SetImage(image);
+            _pivotHandle?.SetImage(image);
+            _dragHandle?.SetImage(image);
         }
 
         private void setScale(IScaleComponent scale)
@@ -169,8 +181,8 @@ namespace AGS.Editor
             if (box == null) return;
             foreach (var handle in _resizeHandles) handle.UpdatePosition(box);
             foreach (var handle in _rotateHandles) handle.UpdatePosition(box);
-            _pivotHandle.UpdatePosition();
-            _dragHandle.UpdatePosition();
+            _pivotHandle?.UpdatePosition();
+            _dragHandle?.UpdatePosition();
         }
     }
 }

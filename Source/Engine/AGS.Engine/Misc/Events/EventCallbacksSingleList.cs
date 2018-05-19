@@ -34,6 +34,12 @@ namespace AGS.Engine
             Count--;
         }
 
+        public void Clear()
+        {
+            _list.Clear();
+            Count = 0;
+        }
+
         public IEnumerator<Callback> GetEnumerator()
         {
             return _list.GetEnumerator();

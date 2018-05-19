@@ -54,6 +54,13 @@ namespace AGS.Engine
             }
         }
 
+        public void Clear()
+        {
+            _high?.Clear();
+            _normal?.Clear();
+            _low?.Clear();
+        }
+
         public IEnumerator<Callback> GetEnumerator()
         {
             foreach (var callback in _high) yield return callback;

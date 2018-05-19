@@ -64,12 +64,12 @@ namespace AGS.Engine
 		public static async Task<bool> YesNoAsync(string text, string yes = "Yes", string no = "No")
 		{
 			var factory = AGSGame.Game.Factory;
-			IAnimation idle = new AGSSingleFrameAnimation (new EmptyImage (ButtonWidth, ButtonHeight), factory.Graphics);
-			idle.Sprite.Tint = Colors.Black;
-			IAnimation hovered = new AGSSingleFrameAnimation (new EmptyImage (ButtonWidth, ButtonHeight), factory.Graphics);
-			hovered.Sprite.Tint = Colors.Yellow;
-			IAnimation pushed = new AGSSingleFrameAnimation (new EmptyImage (ButtonWidth, ButtonHeight), factory.Graphics);
-			pushed.Sprite.Tint = Colors.DarkSlateBlue;
+			var idle = new ButtonAnimation (new EmptyImage (ButtonWidth, ButtonHeight));
+			idle.Tint = Colors.Black;
+			var hovered = new ButtonAnimation(new EmptyImage (ButtonWidth, ButtonHeight));
+			hovered.Tint = Colors.Yellow;
+			var pushed = new ButtonAnimation(new EmptyImage (ButtonWidth, ButtonHeight));
+			pushed.Tint = Colors.DarkSlateBlue;
             var border = AGSBorders.Gradient(AGSGame.Resolver.Container.Resolve<IGLUtils>(), new FourCorners<Color>(Colors.DarkOliveGreen,
 				Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
 			

@@ -87,6 +87,8 @@ namespace AGS.Engine
 			}
 		}
 
+        public void Dispose() => _invocationList?.Clear();
+
 		#endregion
 
         private void subscribe(Callback callback, CallbackPriority priority)
