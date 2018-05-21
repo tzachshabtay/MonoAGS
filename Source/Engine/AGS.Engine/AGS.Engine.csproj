@@ -130,6 +130,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Audio\Modifiers\" />
+    <Content Include="..\..\..\DLLs\OpenTK.dll.config">
+      <Link>OpenTK.dll.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
