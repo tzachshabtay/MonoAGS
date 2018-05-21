@@ -8785,6 +8785,38 @@ references:
   isSpec: "True"
   fullName: AGS.API.IGraphicsFactory.LoadImageAsync
   nameWithType: IGraphicsFactory.LoadImageAsync
+- uid: AGS.API.IGraphicsFactory.LoadSprite(AGS.API.IBitmap,AGS.API.ILoadImageConfig,System.String)
+  name: LoadSprite(IBitmap, ILoadImageConfig, String)
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadSprite_AGS_API_IBitmap_AGS_API_ILoadImageConfig_System_String_
+  commentId: M:AGS.API.IGraphicsFactory.LoadSprite(AGS.API.IBitmap,AGS.API.ILoadImageConfig,System.String)
+  fullName: AGS.API.IGraphicsFactory.LoadSprite(AGS.API.IBitmap, AGS.API.ILoadImageConfig, System.String)
+  nameWithType: IGraphicsFactory.LoadSprite(IBitmap, ILoadImageConfig, String)
+- uid: AGS.API.IGraphicsFactory.LoadSprite(System.String,AGS.API.ILoadImageConfig)
+  name: LoadSprite(String, ILoadImageConfig)
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadSprite_System_String_AGS_API_ILoadImageConfig_
+  commentId: M:AGS.API.IGraphicsFactory.LoadSprite(System.String,AGS.API.ILoadImageConfig)
+  fullName: AGS.API.IGraphicsFactory.LoadSprite(System.String, AGS.API.ILoadImageConfig)
+  nameWithType: IGraphicsFactory.LoadSprite(String, ILoadImageConfig)
+- uid: AGS.API.IGraphicsFactory.LoadSprite*
+  name: LoadSprite
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadSprite_
+  commentId: Overload:AGS.API.IGraphicsFactory.LoadSprite
+  isSpec: "True"
+  fullName: AGS.API.IGraphicsFactory.LoadSprite
+  nameWithType: IGraphicsFactory.LoadSprite
+- uid: AGS.API.IGraphicsFactory.LoadSpriteAsync(System.String,AGS.API.ILoadImageConfig)
+  name: LoadSpriteAsync(String, ILoadImageConfig)
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadSpriteAsync_System_String_AGS_API_ILoadImageConfig_
+  commentId: M:AGS.API.IGraphicsFactory.LoadSpriteAsync(System.String,AGS.API.ILoadImageConfig)
+  fullName: AGS.API.IGraphicsFactory.LoadSpriteAsync(System.String, AGS.API.ILoadImageConfig)
+  nameWithType: IGraphicsFactory.LoadSpriteAsync(String, ILoadImageConfig)
+- uid: AGS.API.IGraphicsFactory.LoadSpriteAsync*
+  name: LoadSpriteAsync
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_LoadSpriteAsync_
+  commentId: Overload:AGS.API.IGraphicsFactory.LoadSpriteAsync
+  isSpec: "True"
+  fullName: AGS.API.IGraphicsFactory.LoadSpriteAsync
+  nameWithType: IGraphicsFactory.LoadSpriteAsync
 - uid: AGS.API.IHasCursorComponent
   name: IHasCursorComponent
   href: api/AGS.API.IHasCursorComponent.html

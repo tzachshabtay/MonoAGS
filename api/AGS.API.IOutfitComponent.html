@@ -108,10 +108,10 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IOutfitComponent_Outfit.md&amp;value=---%0Auid%3A%20AGS.API.IOutfitComponent.Outfit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetSpriteFromFile/apiSpec/new?filename=AGS_API_IOutfitComponent_Outfit.md&amp;value=---%0Auid%3A%20AGS.API.IOutfitComponent.Outfit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Characters/IOutfitComponent.cs/#L24">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetSpriteFromFile/Source/AGS.API/Objects/Characters/IOutfitComponent.cs/#L24">View Source</a>
   </span>
   <a id="AGS_API_IOutfitComponent_Outfit_" data-uid="AGS.API.IOutfitComponent.Outfit*"></a>
   <h4 id="AGS_API_IOutfitComponent_Outfit" data-uid="AGS.API.IOutfitComponent.Outfit">Outfit</h4>
@@ -139,13 +139,13 @@
     </tbody>
   </table>
   <h5 id="AGS_API_IOutfitComponent_Outfit_examples">Examples</h5>
-  <pre><code class="lang-csharp">cHero.Say(&quot;Let&apos;s try on this cool hat.&quot;); //Hero speaks with the normal outfit- without the hat
+  <pre><code class="lang-csharp">await cHero.SayAsync(&quot;Let&apos;s try on this cool hat.&quot;); //Hero speaks with the normal outfit- without the hat
 var normalOutfit = cHero.Outfit; //Saving the current outfit so we can wear it back later
 cHero.Outfit = outfitWithHat;
-cHero.Say(&quot;Hmm, it looks nice, but not sure if it&apos;s comfortable.&quot;); //Character&apos;s animation now uses the hat for speaking.
-cHero.Walk(walkPoint); //Character&apos;s walk animation now includes the hat.
+await cHero.SayAsync(&quot;Hmm, it looks nice, but not sure if it&apos;s comfortable.&quot;); //Character&apos;s animation now uses the hat for speaking.
+await cHero.WalkAsync(walkPoint); //Character&apos;s walk animation now includes the hat.
 cHero.Outfit = normalOutfit;
-cHero.Say(&quot;Yeah, it&apos;s not comfortable, I took it down.&quot;); //Character&apos;s animation is now again without the hat</code></pre>
+await cHero.SayAsync(&quot;Yeah, it&apos;s not comfortable, I took it down.&quot;); //Character&apos;s animation is now again without the hat</code></pre>
 
   <h5 id="AGS_API_IOutfitComponent_Outfit_seealso">See Also</h5>
   <div class="seealso">
@@ -159,10 +159,10 @@ cHero.Say(&quot;Yeah, it&apos;s not comfortable, I took it down.&quot;); //Chara
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IOutfitComponent.md&amp;value=---%0Auid%3A%20AGS.API.IOutfitComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetSpriteFromFile/apiSpec/new?filename=AGS_API_IOutfitComponent.md&amp;value=---%0Auid%3A%20AGS.API.IOutfitComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Characters/IOutfitComponent.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetSpriteFromFile/Source/AGS.API/Objects/Characters/IOutfitComponent.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

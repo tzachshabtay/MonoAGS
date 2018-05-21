@@ -96,10 +96,10 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IInteractions_OnInteract_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IInteractions.OnInteract(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetSpriteFromFile/apiSpec/new?filename=AGS_API_IInteractions_OnInteract_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IInteractions.OnInteract(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Interactions/IInteractions.cs/#L61">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetSpriteFromFile/Source/AGS.API/Objects/Interactions/IInteractions.cs/#L61">View Source</a>
   </span>
   <a id="AGS_API_IInteractions_OnInteract_" data-uid="AGS.API.IInteractions.OnInteract*"></a>
   <h4 id="AGS_API_IInteractions_OnInteract_System_String_" data-uid="AGS.API.IInteractions.OnInteract(System.String)">OnInteract(String)</h4>
@@ -164,14 +164,14 @@ The event handler lookup is as follows: </p>
     oTeapot.Interactions.OnInteract(AGSInteractions.Default).Subscribe(onTeapotDefault);
 }
 
-private void onDefaultTalk(ObjectEventArgs args)
+private async void onDefaultTalk(ObjectEventArgs args)
 {
-    cEgo.Say(string.Format(&quot;{0}? No, I don&apos;t think it&apos;s going to talk back.&quot;, args.Object.Hotspot));
+    await cEgo.SayAsync(string.Format(&quot;{0}? No, I don&apos;t think it&apos;s going to talk back.&quot;, args.Object.Hotspot));
 }
 
-private void onTeapotLook(ObjectEventArgs args)
+private async void onTeapotLook(ObjectEventArgs args)
 {
-    cEgo.Say(&quot;What a lovely looking teapot!&quot;);
+    await cEgo.SayAsync(&quot;What a lovely looking teapot!&quot;);
 }
 
 private async Task onTeapotInteract(ObjectEventArgs args)
@@ -180,22 +180,22 @@ private async Task onTeapotInteract(ObjectEventArgs args)
     oTeapot.StartAnimation(aPourTea);
 }
 
-private void onTeapotThrow(ObjectEventArgs args)
+private async void onTeapotThrow(ObjectEventArgs args)
 {
-    cEgo.Say(&quot;No way, I&apos;m not throwing the teapot.&quot;);
+    await cEgo.SayAsync(&quot;No way, I&apos;m not throwing the teapot.&quot;);
 }
 
-private void onTeapotDefault(ObjectEventArgs args)
+private async void onTeapotDefault(ObjectEventArgs args)
 {
-    cEgo.Say(&quot;I&apos;m not doing anything like that to the teapot.&quot;);
+    await cEgo.SayAsync(&quot;I&apos;m not doing anything like that to the teapot.&quot;);
 }</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IInteractions_OnInventoryInteract_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IInteractions.OnInventoryInteract(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetSpriteFromFile/apiSpec/new?filename=AGS_API_IInteractions_OnInventoryInteract_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IInteractions.OnInventoryInteract(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Interactions/IInteractions.cs/#L110">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetSpriteFromFile/Source/AGS.API/Objects/Interactions/IInteractions.cs/#L111">View Source</a>
   </span>
   <a id="AGS_API_IInteractions_OnInventoryInteract_" data-uid="AGS.API.IInteractions.OnInventoryInteract*"></a>
   <h4 id="AGS_API_IInteractions_OnInventoryInteract_System_String_" data-uid="AGS.API.IInteractions.OnInventoryInteract(System.String)">OnInventoryInteract(String)</h4>
@@ -257,27 +257,28 @@ The event handler lookup is as follows: </p>
     game.Events.DefaultInteractions.OnInventoryInteract(AGSInteractions.Interact).Subscribe(onDefaultInventoryInteract);
 }
 
-private void onTeapotInventoryInteract(InventoryInteractEventArgs args)
+private async void onTeapotInventoryInteract(InventoryInteractEventArgs args)
 {
     if (args.Item == iCup)
     {
-        cEgo.Say(&quot;Ok, I&apos;m going to pour tea in the cup&quot;);
+        await cEgo.SayAsync(&quot;Ok, I&apos;m going to pour tea in the cup&quot;);
         oTeapot.StartAnimation(aPourTea);
         cEgo.Inventory.Items.Remove(iCup);
         cEgo.Inventory.Items.Add(iFullCup);
     }
     else if (args.Item == iFullCup)
     {
-        cEgo.Say(&quot;The cup is already full.&quot;);
+        await cEgo.SayAsync(&quot;The cup is already full.&quot;);
     }
     else
     {
-        cEgo.Say(&quot;This is not what you&apos;d usually use on a teapot...&quot;);
+        await cEgo.SayAsync(&quot;This is not what you&apos;d usually use on a teapot...&quot;);
     }
 }
-private void onDefaultInventoryInteract(InventoryInteractEventArgs args)
+
+private async void onDefaultInventoryInteract(InventoryInteractEventArgs args)
 {
-    cEgo.Say(string.Format(&quot;Using {0} on {1}? No, I don&apos;t think so.&quot;, args.Item.Graphics.Hotspot, args.Object.Hotspot));
+    await cEgo.SayAsync(string.Format(&quot;Using {0} on {1}? No, I don&apos;t think so.&quot;, args.Item.Graphics.Hotspot, args.Object.Hotspot));
 }</code></pre>
 
 </article>
@@ -288,10 +289,10 @@ private void onDefaultInventoryInteract(InventoryInteractEventArgs args)
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IInteractions.md&amp;value=---%0Auid%3A%20AGS.API.IInteractions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/GetSpriteFromFile/apiSpec/new?filename=AGS_API_IInteractions.md&amp;value=---%0Auid%3A%20AGS.API.IInteractions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Interactions/IInteractions.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GetSpriteFromFile/Source/AGS.API/Objects/Interactions/IInteractions.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
