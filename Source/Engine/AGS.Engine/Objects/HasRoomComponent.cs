@@ -35,7 +35,7 @@ namespace AGS.Engine
 
         public async Task ChangeRoomAsync(IRoom newRoom, float? x = null, float? y = null)
 		{
-            bool firstRoom = PreviousRoom == null;
+            bool firstRoom = _state.Room == null;
             Action changeRoom = () => 
             {
                 Room?.Objects.Remove(_obj);
