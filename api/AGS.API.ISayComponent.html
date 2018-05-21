@@ -175,67 +175,10 @@ and to allow you to have a custom skip text implementation.</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/BugFixes/apiSpec/new?filename=AGS_API_ISayComponent_Say_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.ISayComponent.Say(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/BugFixes/Source/AGS.API/Objects/Characters/Talking/ISayComponent.cs/#L57">View Source</a>
-  </span>
-  <a id="AGS_API_ISayComponent_Say_" data-uid="AGS.API.ISayComponent.Say*"></a>
-  <h4 id="AGS_API_ISayComponent_Say_System_String_" data-uid="AGS.API.ISayComponent.Say(System.String)">Say(String)</h4>
-  <div class="markdown level1 summary"><p>Say the specified text.
-This basically does the following:</p>
-<ol>
-<li>Puts text on the screen for some time</li>
-<li>Change the character animation to the speaking animation</li>
-<li>Optionally display a portrait of the character</li>
-<li>Optionally play an audio clip
-You can configure how the text is rendered (color, font, etc: see text rendering section for more on the all the options that you have for text rendering), when the text is skipped
-(by time and how much, by mouse, both, or none which means you implement text skipping yourself), a label to host the text with a border(see the section about borders) and background color,
-and a text offset to offset the location of the text.That offset will be relative to the default text display location which will be selected by the engine: The engine, by default, tries to place
-the text above the character and a little to the side, unless the text won&apos;t fit the screen, then it changes the location to ensure the text fits the screen.
-If you don&apos;t like that behavior you can implement your own text location by implementing the <a class="xref" href="AGS.API.ISayLocationProvider.html">ISayLocationProvider</a>  interface (and hooking it up, see the section about customizability).</li>
-</ol>
-<p>As for the portrait, you can configure the object which shows the portrait(this is a standard object, so it can has everything a normal object has, including animations, scaling, rotations, etc),
-plus a strategy on where to position the portrait(SpeakerPosition- on the top, either left or right based on where the speaker is standing, Alternating- top right, then top left, then top right, etc
-or Custom which leaves the portrait positioning to you) and custom offsets for both the portrait and for the text from the portrait.</p>
-<p>In order to play an audio clip, the text you pass to the speech method should have a number at the beginning prefixed by an ampersand, for example, &quot;&amp;17 Hello there!&quot;.
-If the number exists, the engine will look for an audio file with the first four capital letters of your character&apos;s id followed by the number. So if the line was said by &quot;Christopher&quot;,
-the engine will look for the file &quot;CHRI17&quot;. Those files should be placed in a special folder, under Assets -&gt; Speech -&gt; English.
-Note: In future revisions we&apos;re planning on introducing multi-language support, and also other ways of building the speech &quot;database&quot;.
-If the engine does not find the file it will not play an audio clip, and in any way the &quot;&amp;17&quot; will be stripped away from the text and will not be displayed on screen. </p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Say(string text)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">text</span></td>
-        <td><p>Text.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="AGS_API_ISayComponent_Say_System_String__examples">Examples</h5>
-  <pre><code class="lang-csharp">cHero.Say(&quot;&amp;17 Hello there!&quot;); //Will say &quot;Hello there!&quot; and will play &quot;JASO17.ogg&quot; (assuming the character name is &quot;Jason&quot; and JASO17.ogg exists in Assets/Speech/English)</code></pre>
-
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/BugFixes/apiSpec/new?filename=AGS_API_ISayComponent_SayAsync_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.ISayComponent.SayAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/BugFixes/Source/AGS.API/Objects/Characters/Talking/ISayComponent.cs/#L93">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/BugFixes/Source/AGS.API/Objects/Characters/Talking/ISayComponent.cs/#L62">View Source</a>
   </span>
   <a id="AGS_API_ISayComponent_SayAsync_" data-uid="AGS.API.ISayComponent.SayAsync*"></a>
   <h4 id="AGS_API_ISayComponent_SayAsync_System_String_" data-uid="AGS.API.ISayComponent.SayAsync(System.String)">SayAsync(String)</h4>

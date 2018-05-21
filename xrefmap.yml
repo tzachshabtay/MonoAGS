@@ -6116,19 +6116,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDialog.Options
   nameWithType: IDialog.Options
-- uid: AGS.API.IDialog.Run
-  name: Run()
-  href: api/AGS.API.IDialog.html#AGS_API_IDialog_Run
-  commentId: M:AGS.API.IDialog.Run
-  fullName: AGS.API.IDialog.Run()
-  nameWithType: IDialog.Run()
-- uid: AGS.API.IDialog.Run*
-  name: Run
-  href: api/AGS.API.IDialog.html#AGS_API_IDialog_Run_
-  commentId: Overload:AGS.API.IDialog.Run
-  isSpec: "True"
-  fullName: AGS.API.IDialog.Run
-  nameWithType: IDialog.Run
 - uid: AGS.API.IDialog.RunAsync
   name: RunAsync()
   href: api/AGS.API.IDialog.html#AGS_API_IDialog_RunAsync
@@ -6478,19 +6465,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDialogOption.Label
   nameWithType: IDialogOption.Label
-- uid: AGS.API.IDialogOption.Run
-  name: Run()
-  href: api/AGS.API.IDialogOption.html#AGS_API_IDialogOption_Run
-  commentId: M:AGS.API.IDialogOption.Run
-  fullName: AGS.API.IDialogOption.Run()
-  nameWithType: IDialogOption.Run()
-- uid: AGS.API.IDialogOption.Run*
-  name: Run
-  href: api/AGS.API.IDialogOption.html#AGS_API_IDialogOption_Run_
-  commentId: Overload:AGS.API.IDialogOption.Run
-  isSpec: "True"
-  fullName: AGS.API.IDialogOption.Run
-  nameWithType: IDialogOption.Run
 - uid: AGS.API.IDialogOption.ShowOnce
   name: ShowOnce
   href: api/AGS.API.IDialogOption.html#AGS_API_IDialogOption_ShowOnce
@@ -11955,19 +11929,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISayComponent.OnBeforeSay
   nameWithType: ISayComponent.OnBeforeSay
-- uid: AGS.API.ISayComponent.Say(System.String)
-  name: Say(String)
-  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_Say_System_String_
-  commentId: M:AGS.API.ISayComponent.Say(System.String)
-  fullName: AGS.API.ISayComponent.Say(System.String)
-  nameWithType: ISayComponent.Say(String)
-- uid: AGS.API.ISayComponent.Say*
-  name: Say
-  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_Say_
-  commentId: Overload:AGS.API.ISayComponent.Say
-  isSpec: "True"
-  fullName: AGS.API.ISayComponent.Say
-  nameWithType: ISayComponent.Say
 - uid: AGS.API.ISayComponent.SayAsync(System.String)
   name: SayAsync(String)
   href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_SayAsync_System_String_
