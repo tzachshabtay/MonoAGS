@@ -26,6 +26,30 @@ namespace AGS.API
 		ISprite GetSprite();
 
         /// <summary>
+        /// Loads a sprite from a resource/file path (<see cref="IResourceLoader"/>). 
+        /// </summary>
+        /// <returns>The sprite.</returns>
+        /// <param name="path">File/resource path.</param>
+        /// <param name="loadConfig">Configuration on how to load the image.</param>
+        ISprite LoadSprite(string path, ILoadImageConfig loadConfig = null);
+
+        // <summary>
+        /// Loads a sprite asynchronously from a resource/file path (<see cref="IResourceLoader"/>). 
+        /// </summary>
+        /// <returns>The sprite.</returns>
+        /// <param name="path">File/resource path.</param>
+        /// <param name="loadConfig">Configuration on how to load the image.</param>
+        Task<ISprite> LoadSpriteAsync(string path, ILoadImageConfig loadConfig = null);
+
+        /// <summary>
+        /// Loads a sprite from a bitmap.
+        /// </summary>
+        /// <returns>The image.</returns>
+        /// <param name="loadConfig">Configuration on how to load the image.</param>
+        /// <param name="id">An optional unique id for the image (if not given, the engine will generate one automatically).</param>
+        ISprite LoadSprite(IBitmap bitmap, ILoadImageConfig loadConfig = null, string id = null);
+
+        /// <summary>
         /// Creates an empty bitmap with the specified width and height (in pixels).
         /// </summary>
         /// <returns>The bitmap.</returns>

@@ -42,6 +42,30 @@ namespace AGS.Engine
 			return sprite;
 		}
 
+        public ISprite LoadSprite(string path, ILoadImageConfig loadConfig = null)
+        {
+            var sprite = GetSprite();
+            var image = LoadImage(path, loadConfig);
+            sprite.Image = image;
+            return sprite;
+        }
+
+        public async Task<ISprite> LoadSpriteAsync(string path, ILoadImageConfig loadConfig = null)
+        {
+            var sprite = GetSprite();
+            var image = await LoadImageAsync(path, loadConfig);
+            sprite.Image = image;
+            return sprite;
+        }
+
+        public ISprite LoadSprite(IBitmap bitmap, ILoadImageConfig loadConfig = null, string id = null)
+        {
+            var sprite = GetSprite();
+            var image = LoadImage(bitmap, loadConfig, id);
+            sprite.Image = image;
+            return sprite;
+        }
+
 		public IDirectionalAnimation LoadDirectionalAnimationFromFolders(string baseFolder, string leftFolder = null,
 			string rightFolder = null, string downFolder = null, string upFolder = null,
 			IAnimationConfiguration animationConfig = null, ILoadImageConfig loadConfig = null)
