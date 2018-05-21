@@ -49,6 +49,13 @@ namespace AGS.Engine
 			IObject target = Target == null ? null : Target();
 			if (!Enabled || target == null) return;
 
+            if (resetPosition)
+            {
+                //forcing a model refresh to make sure the target is in the correct place before resetting the camera.
+                target.GetModelMatrices();
+                target.GetBoundingBoxes(viewport);
+            }
+
 			setScale(target, viewport, resetPosition);
 
             var box = target.WorldBoundingBox;
