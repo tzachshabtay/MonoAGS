@@ -28,11 +28,6 @@ namespace AGS.Engine
 
 		#region IDialog implementation
 
-		public void Run()
-		{
-			Task.Run(async () => await RunAsync()).Wait();
-		}
-
 		public async Task RunAsync()
 		{
 			if (!_inDialog)

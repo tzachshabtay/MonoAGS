@@ -43,12 +43,6 @@ namespace AGS.API
 		void AddOptions(params IDialogOption[] options);
 
         /// <summary>
-        /// Run the dialog. This will run the <see cref="StartupActions"/>, followed by showing the
-        /// <see cref="Options"/>.
-        /// </summary>
-		void Run();
-
-        /// <summary>
         /// Run the dialog asynchronously. This will run the <see cref="StartupActions"/>, followed by showing the
         /// <see cref="Options"/>  
         /// </summary>

@@ -48,11 +48,6 @@ namespace AGS.Engine
             _ev.Unsubscribe(callback, priority);
         }
 
-        public void WaitUntil(Predicate<TEventArgs> condition, CallbackPriority priority = CallbackPriority.Normal)
-        {
-            Task.Run(async () => await WaitUntilAsync(condition, priority)).Wait();
-        }
-
         public void SubscribeToAsync(Func<TEventArgs, Task> callback, CallbackPriority priority = CallbackPriority.Normal)
         {
             _ev.SubscribeToAsync(callback, priority);
@@ -87,11 +82,6 @@ namespace AGS.Engine
             if (ev == null) return;
             if (!await approachHotspot(ev)) return;
             await ev.InvokeAsync(args);
-        }
-
-        public void Invoke(TEventArgs args)
-        {
-            Task.Run(async () => await InvokeAsync(args)).Wait();
         }
 
         #endregion

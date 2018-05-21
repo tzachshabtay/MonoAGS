@@ -533,11 +533,6 @@ namespace AGS.Engine
             get { return _sayComponent.OnBeforeSay; } 
         }
 
-        public void Say(String text)
-        {
-            _sayComponent.Say(text);
-        }
-
         public Task SayAsync(String text)
         {
             return _sayComponent.SayAsync(text);
