@@ -46,11 +46,6 @@ namespace AGS.Engine
             entity.Bind<IOutfitComponent>(c => _outfit = c, _ => _outfit = null);
         }
 
-		public void Say(string text)
-		{
-			Task.Run(async () => await SayAsync(text)).Wait();
-		}
-
 		public async Task SayAsync(string text)
 		{
 			if (_state.Cutscene.IsSkipping)

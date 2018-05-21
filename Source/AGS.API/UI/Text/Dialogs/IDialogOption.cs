@@ -66,11 +66,6 @@ namespace AGS.API
         /// </summary>
         /// <value><c>true</c> if has option been chosen; otherwise, <c>false</c>.</value>
         bool HasOptionBeenChosen { get; set; }
-
-        /// <summary>
-        /// Run the list of actions for this dialog option.
-        /// </summary>
-		void Run();
 	}
 }
 
