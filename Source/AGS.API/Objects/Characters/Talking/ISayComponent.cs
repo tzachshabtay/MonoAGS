@@ -55,7 +55,7 @@ namespace AGS.API
         /// Task waitForTalk = cHero.SayAsync("Walking Home!");
         /// await cHero.WalkAsync(home); //character will walk and talk at the same time.
         /// await waitForTalk; //Waiting for the talk to complete before moving to the next setnence.
-        /// cHero.Say("And, I'm home!");
+        /// await cHero.SayAsync("And, I'm home!");
         /// </code>
         /// </example>
         /// <param name="text">Text.</param>
