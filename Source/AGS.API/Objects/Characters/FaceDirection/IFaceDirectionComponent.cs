@@ -37,7 +37,7 @@ namespace AGS.API
         /// <code language="lang-csharp">
         /// if (cEgo.Direction == Direction.Down)
         /// {
-        ///     cEgo.Say("I'm looking right at you!");
+        ///     await cEgo.SayAsync("I'm looking right at you!");
         /// }
         /// </code>
         /// </example>
@@ -65,7 +65,7 @@ namespace AGS.API
         /// <example>
         /// <code language="lang-csharp">
         /// cEgo.FaceDirection(Direction.Up);
-        /// cEgo.Say("I'm standing with my back at you.");
+        /// await cEgo.SayAsync("I'm standing with my back at you.");
         /// </code>
         /// </example>
         void FaceDirection(Direction direction);
@@ -85,9 +85,9 @@ namespace AGS.API
         /// private async Task faceDownAndDoStuffInBetween()
         /// {
         ///     Task faceDirectionCompleted = cEgo.FaceDirectionAsync(Direction.Down);
-        ///     cSomeOtherDude.Say("Let me know when you finished turning around..");
+        ///     await cSomeOtherDude.SayAsync("Let me know when you finished turning around..");
         ///     await faceDirectionCompleted;;
-        ///     cEgo.Say("All done!");
+        ///     await cEgo.SayAsync("All done!");
         /// }
         /// </code>
         /// </example>
@@ -100,7 +100,7 @@ namespace AGS.API
         /// <example>
         /// <code language="lang-csharp">
         /// cEgo.FaceDirection(oMirror);
-        /// cEgo.Say("Mirror mirror on the wall, I'm watching you!");
+        /// await cEgo.SayAsync("Mirror mirror on the wall, I'm watching you!");
         /// </code>
         /// </example>
         void FaceDirection(IObject obj);
@@ -120,9 +120,9 @@ namespace AGS.API
         /// private async Task lookAtMirrorAndDoStuffInBetween()
         /// {
         ///     Task faceMirrorCompleted = cEgo.FaceDirectionAsync(oMirror);
-        ///     cSomeOtherDude.Say("Let me know when you see the mirror.");
+        ///     await cSomeOtherDude.SayAsync("Let me know when you see the mirror.");
         ///     await faceMirrorCompleted;
-        ///     cEgo.Say("Yes, I see it now!");
+        ///     await cEgo.SayAsync("Yes, I see it now!");
         /// }
         /// </code>
         /// </example>
@@ -164,7 +164,7 @@ namespace AGS.API
         /// <param name="toY">To y.</param>
         /// <example>
         /// <code language="lang-csharp">
-        /// cGeneral.Say("Everybody, look at the way I'm looking.");
+        /// await cGeneral.SayAsync("Everybody, look at the way I'm looking.");
         /// cGeneral.FaceDirection(150f, 150f);
         /// foreach (var soldier in soldiers)
         /// {
@@ -184,19 +184,19 @@ namespace AGS.API
         /// <code language="lang-csharp">
         /// private async Task armyLookOneByOne()
         /// {
-        ///     cGeneral.Say("Everybody, look at the way I'm looking.");
+        ///     await cGeneral.SayAsync("Everybody, look at the way I'm looking.");
         ///     cGeneral.FaceDirection(150f, 150f);
         ///     foreach (var soldier in soldiers)
         ///     {
         ///         await soldier.FaceDirectionAsync(cGeneral.X, cGeneral.Y, 150f, 150f); //Awaiting each soldier before going over to the next, meaning the will change directions one by one.
         ///     }    
-        ///     cGeneral.Say("Took you long enough!");    
+        ///     await cGeneral.SayAsync("Took you long enough!");    
         /// }
         /// </code>
         /// <code language="lang-csharp">
         /// private async Task armyLookAtTheSameTime()
         /// {
-        ///     cGeneral.Say("Everybody, look at the way I'm looking.");
+        ///     await cGeneral.SayAsync("Everybody, look at the way I'm looking.");
         ///     cGeneral.FaceDirection(150f, 150f);
         ///     List{Task} tasks = new List{Task}(soldiers.Count);
         ///     foreach (var soldier in soldiers)
@@ -204,13 +204,13 @@ namespace AGS.API
         ///         tasks.Add(soldier.FaceDirectionAsync(cGeneral.X, cGeneral.Y, 150f, 150f)); 
         ///     }
         ///     await Task.WhenAll(tasks);
-        ///     cGeneral.Say("Took you long enough!");
+        ///     await cGeneral.SayAsync("Took you long enough!");
         /// }
         /// </code>
         /// <code language="lang-csharp">
         /// private async Task armyLookAtRandomTimes()
         /// {
-        ///     cGeneral.Say("Everybody, look at the way I'm looking.");
+        ///     await cGeneral.SayAsync("Everybody, look at the way I'm looking.");
         ///     cGeneral.FaceDirection(150f, 150f);
         ///     List{Task} tasks = new List{Task}(soldiers.Count);
         ///     foreach (var soldier in soldiers)
@@ -218,7 +218,7 @@ namespace AGS.API
         ///         tasks.Add(Task.Delay(MathUtils.Random().Next(10,50)).ContinueWith(soldier.FaceDirectionAsync(cGeneral.X, cGeneral.Y, 150f, 150f))); 
         ///     }
         ///     await Task.WhenAll(tasks);
-        ///     cGeneral.Say("Took you long enough!");
+        ///     await cGeneral.SayAsync("Took you long enough!");
         /// }
         /// </code>
         /// </example>

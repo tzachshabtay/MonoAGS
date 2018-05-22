@@ -21,9 +21,9 @@
         /// </code>
         /// Then, we define the event (what do we do when the user tried to combine two random items?):
         /// <code language="lang-csharp">
-        /// private void onDefaultCombination(object sender, InventoryCombinationEventArgs args)
+        /// private async Task onDefaultCombination(object sender, InventoryCombinationEventArgs args)
         /// {
-        ///     cEgo.Say($"I can't use {args.ActiveItem.Graphics.DisplayName} on {args.PassiveItem.Graphics.DisplayName}. It doesn't make sense!");
+        ///     await cEgo.SayAsync($"I can't use {args.ActiveItem.Graphics.DisplayName} on {args.PassiveItem.Graphics.DisplayName}. It doesn't make sense!");
         /// }
         /// </code>
         /// </example>

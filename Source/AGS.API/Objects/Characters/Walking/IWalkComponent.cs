@@ -87,12 +87,12 @@ namespace AGS.API
         /// await cHero.SayAsync("I'm walking to the chair!");
         /// if (await walkSuccessful)
         /// {
-        ///     cHero.Say("And now I'm sitting!");
+        ///     await cHero.SayAsync("And now I'm sitting!");
         ///     sitOnChair();
         /// }
         /// else
         /// {
-        ///     cHero.Say("You know what, that the chair doesn't look too comfortable, I think I'll pass.");
+        ///     await cHero.SayAsync("You know what, that the chair doesn't look too comfortable, I think I'll pass.");
         /// }
         /// </code>
         /// </example>

@@ -78,9 +78,9 @@ namespace AGS.Engine
         /// private void someDefaultInteraction()
         /// {
         ///    Repeat.Rotate("default interaction",
-        ///        () => cHero.Say("I'm not going to do that."),
-        ///        () => cHero.Say("Nope, I don't think so."),
-        ///        () => cHero.Say("I really don't want to, sorry."));
+        ///        () => cHero.SayAsync("I'm not going to do that."),
+        ///        () => cHero.SayAsync("Nope, I don't think so."),
+        ///        () => cHero.SayAsync("I really don't want to, sorry."));
         /// }
         /// </code>
         /// </example>
