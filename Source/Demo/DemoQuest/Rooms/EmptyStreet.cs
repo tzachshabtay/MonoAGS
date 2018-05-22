@@ -44,7 +44,7 @@ namespace DemoGame
             factory.Room.CreateScaleArea(_room.Areas[1], 0.75f, 0.90f);
 
             IObject bottleHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "BottleHotspot.png", "Bottle", _room);
-			bottleHotspot.GetComponent<IHotspotComponent>().WalkPoint = new PointF (140f, 50f);
+			bottleHotspot.GetComponent<IHotspotComponent>().WalkPoint = (140f, 50f);
 			await factory.Object.GetHotspotAsync(_baseFolder + "CurbHotspot.png", "Curb", _room);
 			await factory.Object.GetHotspotAsync(_baseFolder + "GapHotspot.png", "Gap", _room, new[]{"It's a gap!", "I wonder what's in there!"});
 

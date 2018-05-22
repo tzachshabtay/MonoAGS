@@ -46,6 +46,14 @@ namespace AGS.API
 
         public static PointF operator /(PointF p1, float factor) => new PointF(p1.X / factor, p1.Y / factor);
 
+        public static implicit operator PointF((float x, float y) point) => new PointF(point.x, point.y);
+
+        public void Deconstruct(out float x, out float y)
+        {
+            x = this.X;
+            y = this.Y;
+        }
+
         public override string ToString() => $"{X:0.##},{Y:0.##}";
 
         public override bool Equals(Object obj) 
@@ -61,4 +69,3 @@ namespace AGS.API
         public override int GetHashCode() => (((int)X).GetHashCode() * 397) ^ ((int)Y).GetHashCode();
     }
 }
-

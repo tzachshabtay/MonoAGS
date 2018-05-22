@@ -27,12 +27,7 @@
 
         public override string ToString() => $"{Width:0.##},{Height:0.##}";
 
-        public override bool Equals(object obj)
-        {
-            SizeF? other = obj as SizeF?;
-            if (other == null) return false;
-            return Equals(other.Value);
-        }
+        public override bool Equals(object obj) => obj is SizeF size && Equals(size);
 
         public bool Equals(SizeF other) => other.Width == _width && other.Height == _height;
 
@@ -45,6 +40,13 @@
         /// <param name="factorX">The factor in which to scale the width.</param>
         /// <param name="factorY">The factor in which to scale the height.</param>
         public SizeF Scale(float factorX, float factorY) => new SizeF(_width * factorX, _height * factorY);
+
+        public static implicit operator SizeF((float width, float height) size) => new SizeF(size.width, size.height);
+
+        public void Deconstruct(out float width, out float height)
+        {
+            width = this.Width;
+            height = this.Height;
+        }
     }
 }
-

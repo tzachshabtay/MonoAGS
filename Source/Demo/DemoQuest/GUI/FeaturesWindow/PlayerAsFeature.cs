@@ -45,7 +45,7 @@ namespace DemoGame
 			foreach (var area in _lastAreas) _player.Room.Areas.Add(area);
             await _player.StopWalkingAsync();
 			_player.Location = _lastLocation;
-            _player.Scale = new PointF(_lastScaleX, _lastScaleY);
+            _player.Scale = (_lastScaleX, _lastScaleY);
         }
     }
 }

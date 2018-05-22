@@ -75,6 +75,16 @@ namespace AGS.API
         }
 
         public override int GetHashCode() => (((int)X).GetHashCode() * 397) ^ ((int)Y).GetHashCode();
+
+        public static implicit operator RectangleF((float x, float y, float width, float height) rect) => 
+            new RectangleF(rect.x, rect.y, rect.width, rect.height);
+
+        public void Deconstruct(out float x, out float y, out float width, out float height)
+        {
+            x = this.X;
+            y = this.Y;
+            width = this.Width;
+            height = this.Height;
+        }
     }
 }
-

@@ -32,6 +32,16 @@ namespace AGS.Engine
 		{
             return $"{XY.ToString()},{Z:0.##}";
 		}
+
+        public static implicit operator AGSLocation((float x, float y) pos) => new AGSLocation(pos.x, pos.y);
+
+        public static implicit operator AGSLocation((float x, float y, float z) pos) => new AGSLocation(pos.x, pos.y, pos.z);
+
+        public void Deconstruct(out float x, out float y, out float z)
+        {
+            x = this.X;
+            y = this.Y;
+            z = this.Z;
+        }
 	}
 }
-

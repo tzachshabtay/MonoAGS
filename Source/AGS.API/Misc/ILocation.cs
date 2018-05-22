@@ -33,6 +33,7 @@
         /// </summary>
         /// <value>The xy.</value>
 		PointF XY { get; }
+
+        void Deconstruct(out float x, out float y, out float z);
 	}
 }
-

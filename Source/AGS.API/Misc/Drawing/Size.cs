@@ -29,17 +29,18 @@ namespace AGS.API
 
         public override string ToString() => $"{Width},{Height}";
 
-        public override bool Equals(Object obj)
-        {
-            Size? other = obj as Size?;
-            if (other == null) return false;
-
-            return Equals(other.Value);
-        }
+        public override bool Equals(Object obj) => obj is Size size && Equals(size);
 
         public bool Equals(Size other) => (Width == other.Width) && (Height == other.Height);
 
         public override int GetHashCode() => (Width.GetHashCode() * 397) ^ Height.GetHashCode();
+
+        public static implicit operator Size((int width, int height) size) => new Size(size.width, size.height);
+
+        public void Deconstruct(out int width, out int height)
+        {
+            width = this.Width;
+            height = this.Height;
+        }
     }
 }
-
