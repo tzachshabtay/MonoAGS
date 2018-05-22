@@ -92,7 +92,7 @@ namespace AGS.Engine
 
         private void onLocationChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(ITranslateComponent.Location)) return;
+            if (args.PropertyName != nameof(ITranslateComponent.Position)) return;
             onTreeChanged();
         }
 

@@ -132,7 +132,7 @@ namespace AGS.Engine
 
         private void onSplitLineMoved(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(ITranslateComponent.Location)) return;
+            if (args.PropertyName != nameof(ITranslateComponent.Position)) return;
 			var topPanel = TopPanel;
             if (topPanel == null) return;
 			var bottomPanel = BottomPanel;

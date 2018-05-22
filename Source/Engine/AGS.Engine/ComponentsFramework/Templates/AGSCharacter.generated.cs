@@ -268,10 +268,10 @@ namespace AGS.Engine
 
         #region ITranslate implementation
 
-        public ILocation Location 
+        public Position Position 
         {  
-            get { return _translateComponent.Location; }  
-            set { _translateComponent.Location = value; } 
+            get { return _translateComponent.Position; }  
+            set { _translateComponent.Position = value; } 
         }
 
         public Single X 
@@ -565,7 +565,7 @@ namespace AGS.Engine
             get { return _walkComponent.IsWalking; } 
         }
 
-        public ILocation WalkDestination 
+        public Position WalkDestination 
         {  
             get { return _walkComponent.WalkDestination; } 
         }
@@ -576,9 +576,9 @@ namespace AGS.Engine
             set { _walkComponent.DebugDrawWalkPath = value; } 
         }
 
-        public Task<Boolean> WalkAsync(ILocation location)
+        public Task<Boolean> WalkAsync(Position position)
         {
-            return _walkComponent.WalkAsync(location);
+            return _walkComponent.WalkAsync(position);
         }
 
         public Task StopWalkingAsync()

@@ -43,8 +43,7 @@ namespace DemoGame
 
             ISlider volumeSlider = await factory.UI.GetSliderAsync("Volume Slider", _sliderFolder + "slider.bmp", 
                _sliderFolder + "handle.bmp", 0.5f, 0f, 1f, _panel, loadConfig: loadConfig);
-            volumeSlider.X = 120f;
-            volumeSlider.Y = 10f;
+            volumeSlider.Position = (120f, 10f);
             volumeSlider.HandleGraphics.Pivot = (0.5f, 0.5f);
             volumeSlider.OnValueChanged(onVolumeChanged, _game);
 
@@ -53,8 +52,7 @@ namespace DemoGame
 
             ISlider speedSlider = await factory.UI.GetSliderAsync("Speed Slider", _sliderFolder + "slider.bmp", 
                 _sliderFolder + "handle.bmp", 100f, 1f, 200f, _panel, loadConfig: loadConfig);
-            speedSlider.X = 180f;
-            speedSlider.Y = 10f;
+            speedSlider.Position = (180f, 10f);
             speedSlider.HandleGraphics.Pivot = (0.5f, 0.5f);
             speedSlider.OnValueChanged(onSpeedChanged, _game);
 

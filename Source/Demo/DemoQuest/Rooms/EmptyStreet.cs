@@ -51,8 +51,7 @@ namespace DemoGame
 			_bottle = factory.Object.GetAdventureObject(_bottleId, _room);
 			_bottle.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bottle.bmp", loadConfig: loadConfig);
 			_bottle.GetComponent<IHotspotComponent>().WalkPoint = bottleHotspot.GetComponent<IHotspotComponent>().WalkPoint;
-			_bottle.X = 185f;
-			_bottle.Y = 85f;
+            _bottle.Position = (185f, 85f);
 			_bottle.DisplayName = "Bottle";
 
 			subscribeEvents();

@@ -47,8 +47,7 @@ namespace DemoGame
             parent.RenderLayer = _parent.RenderLayer;
             parent.Image = new EmptyImage(1f, 1f);
             parent.Opacity = 0;
-            parent.X = 200f;
-            parent.Y = 100f;
+            parent.Position = (200f, 100f);
 
 			var areaParent = factory.Object.GetObject("Elevator Area Parent");
 			areaParent.TreeNode.SetParent(parent.TreeNode);
@@ -120,15 +119,13 @@ namespace DemoGame
 
             if (_stopped)
             {
-                parent.X = 200f;
-                parent.Y = 100f;
+                parent.Position = (200f, 100f);
                 parent.Angle = 0f;
                 areaTranslate.X = 0f;
                 areaTranslate.Y = 0f;
                 areaRotate.Angle = 0f;
                 _rotationStage = 0;
-                _game.State.Player.X = 50f;
-                _game.State.Player.Y = 30f;
+                _game.State.Player.Position = (50f, 30f);
                 _stopped = false;
             }
 

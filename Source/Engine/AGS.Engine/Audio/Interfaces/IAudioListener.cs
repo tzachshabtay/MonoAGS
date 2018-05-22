@@ -6,7 +6,7 @@ namespace AGS.Engine
 	public interface IAudioListener
 	{
 		float Volume { get; set; }
-		ILocation Location { get; set; }
+		Position Position { get; set; }
 	}
 }
 

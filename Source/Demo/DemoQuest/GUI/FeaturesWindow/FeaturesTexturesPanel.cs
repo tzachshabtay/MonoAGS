@@ -35,8 +35,7 @@ namespace DemoGame
 			_playerAsFeature.PlaceInFeatureWindow(_parent);
             var animation = player.Outfit[AGSOutfit.Walk].Down;
             player.StartAnimation(animation);
-            player.X = 150f;
-            player.Y = 50f;
+            player.Position = (150f, 50f);
             player.Scale = (2f, 2f);
 
             foreach (var frame in animation.Frames)

@@ -54,8 +54,7 @@ namespace DemoGame
 
 			game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 			_inventoryItemIcon = factory.Object.GetObject("Inventory Item Icon");
-			_inventoryItemIcon.X = 10f;
-			_inventoryItemIcon.Y = 10f;
+            _inventoryItemIcon.Position = (10f, 10f);
 			_inventoryItemIcon.Pivot = (0f, 0f);
 			_inventoryItemIcon.TreeNode.SetParent(activeInvButton.TreeNode);
 			_inventoryItemIcon.RenderLayer = _panel.RenderLayer;

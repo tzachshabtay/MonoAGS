@@ -21,9 +21,8 @@ namespace AGS.Engine
 		{
 			ISprite sprite = factory.GetSprite();
 			sprite.Image = image;
-			sprite.Location = AGSLocation.Empty();
+            sprite.Position = Position.Empty;
 			return sprite;
 		}
 	}
 }
-

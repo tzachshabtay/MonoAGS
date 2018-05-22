@@ -261,8 +261,7 @@ namespace DemoGame
         private IComboBox addCombobox(string id, float x, float y, string initialText, Action<ListboxItemArgs> callback, params string[] options)
         {
             var combo = _game.Factory.UI.GetComboBox(id, null, null, null, _parent, false, 220f, watermark: initialText);
-            combo.X = x;
-            combo.Y = y;
+            combo.Position = (x, y);
             var list = combo.DropDownPanelList;
             list.Items.AddRange(options.Select(o => (IStringItem)new AGSStringItem { Text = o }).ToList());
 
@@ -330,7 +329,7 @@ namespace DemoGame
                 _panel.Pivot = (0f, 1f);
 
                 _slider = factory.GetSlider($"FeaturesTweenSlider_{tweenId}", null, null, 0f, 0f, tween.DurationInTicks, _panel);
-                _slider.Location = new AGSLocation(10f, 10f);
+                _slider.Position = (10f, 10f);
                 _slider.HandleGraphics.Pivot = (0.5f, 0.5f);
                 _slider.Direction = SliderDirection.LeftToRight;
                 _slider.Graphics.Pivot = (0f, 0.5f);

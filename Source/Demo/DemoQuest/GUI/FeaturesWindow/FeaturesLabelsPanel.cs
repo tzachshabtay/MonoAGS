@@ -34,8 +34,7 @@ namespace DemoGame
 
             _featuresAutoFitCombobox = factory.UI.GetComboBox("FeaturesAutoFitCombo", null, null, null, parent, false);
             _featuresAutoFitCombobox.TextBox.Text = nameof(AutoFit.TextShouldWrapAndLabelShouldFitHeight);
-            _featuresAutoFitCombobox.X = autoFitX;
-            _featuresAutoFitCombobox.Y = autoFitY;
+            _featuresAutoFitCombobox.Position = (autoFitX, autoFitY);
             var autoFitList = _featuresAutoFitCombobox.DropDownPanelList;
             foreach (var autoFitOption in Enum.GetValues(typeof(AutoFit)))
             {

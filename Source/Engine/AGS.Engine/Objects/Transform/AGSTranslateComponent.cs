@@ -15,7 +15,7 @@ namespace AGS.Engine
         }
 
         [Property(Category = "Transform", CategoryZ = -100, CategoryExpand = true)]
-        public ILocation Location { get => _translate.Location; set => _translate.Location = value; }
+        public Position Position { get => _translate.Position; set => _translate.Position = value; }
 
         [Property(Browsable = false)]
         public float X { get => _translate.X; set => _translate.X = value; }
