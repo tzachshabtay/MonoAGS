@@ -54,7 +54,7 @@ namespace AGS.Engine
 		{
 			UIThreadID = Environment.CurrentManagedThreadId;
 
-			printRuntime();
+			printInfo();
 			Resolver resolver = new Resolver(Device);
 			resolver.Build();
 			AGSGame game = resolver.Container.Resolve<AGSGame>();
@@ -287,9 +287,22 @@ namespace AGS.Engine
             _updateThread.TargetUpdateFrequency = UPDATE_RATE * (_relativeSpeed / 100f);
 		}
 
+        private static void printInfo()
+        {
+            printVersion();
+            printRuntime();
+        }
+
+        private static void printVersion()
+        {
+            Debug.WriteLine($"MonoAGS version: {ThisAssembly.AssemblyVersion}");
+            Debug.WriteLine($"Detailed version: {ThisAssembly.AssemblyInformationalVersion}");
+            Debug.WriteLine($"File version: {ThisAssembly.AssemblyFileVersion}");
+        }
+
 		private static void printRuntime()
 		{
-			Type type = Type.GetType("Mono.Runtime");
+            Type type = Type.GetType("Mono.Runtime");
 			
 			MethodInfo getDisplayName = type?.GetRuntimeMethod("GetDisplayName", new Type[]{}); 
 				
