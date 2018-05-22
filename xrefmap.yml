@@ -9931,64 +9931,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ILoadImageConfig.TransparentColorSamplePoint
   nameWithType: ILoadImageConfig.TransparentColorSamplePoint
-- uid: AGS.API.ILocation
-  name: ILocation
-  href: api/AGS.API.ILocation.html
-  commentId: T:AGS.API.ILocation
-  fullName: AGS.API.ILocation
-  nameWithType: ILocation
-- uid: AGS.API.ILocation.X
-  name: X
-  href: api/AGS.API.ILocation.html#AGS_API_ILocation_X
-  commentId: P:AGS.API.ILocation.X
-  fullName: AGS.API.ILocation.X
-  nameWithType: ILocation.X
-- uid: AGS.API.ILocation.X*
-  name: X
-  href: api/AGS.API.ILocation.html#AGS_API_ILocation_X_
-  commentId: Overload:AGS.API.ILocation.X
-  isSpec: "True"
-  fullName: AGS.API.ILocation.X
-  nameWithType: ILocation.X
-- uid: AGS.API.ILocation.XY
-  name: XY
-  href: api/AGS.API.ILocation.html#AGS_API_ILocation_XY
-  commentId: P:AGS.API.ILocation.XY
-  fullName: AGS.API.ILocation.XY
-  nameWithType: ILocation.XY
-- uid: AGS.API.ILocation.XY*
-  name: XY
-  href: api/AGS.API.ILocation.html#AGS_API_ILocation_XY_
-  commentId: Overload:AGS.API.ILocation.XY
-  isSpec: "True"
-  fullName: AGS.API.ILocation.XY
-  nameWithType: ILocation.XY
-- uid: AGS.API.ILocation.Y
-  name: Y
-  href: api/AGS.API.ILocation.html#AGS_API_ILocation_Y
-  commentId: P:AGS.API.ILocation.Y
-  fullName: AGS.API.ILocation.Y
-  nameWithType: ILocation.Y
-- uid: AGS.API.ILocation.Y*
-  name: Y
-  href: api/AGS.API.ILocation.html#AGS_API_ILocation_Y_
-  commentId: Overload:AGS.API.ILocation.Y
-  isSpec: "True"
-  fullName: AGS.API.ILocation.Y
-  nameWithType: ILocation.Y
-- uid: AGS.API.ILocation.Z
-  name: Z
-  href: api/AGS.API.ILocation.html#AGS_API_ILocation_Z
-  commentId: P:AGS.API.ILocation.Z
-  fullName: AGS.API.ILocation.Z
-  nameWithType: ILocation.Z
-- uid: AGS.API.ILocation.Z*
-  name: Z
-  href: api/AGS.API.ILocation.html#AGS_API_ILocation_Z_
-  commentId: Overload:AGS.API.ILocation.Z
-  isSpec: "True"
-  fullName: AGS.API.ILocation.Z
-  nameWithType: ILocation.Z
 - uid: AGS.API.ILockStep
   name: ILockStep
   href: api/AGS.API.ILockStep.html
@@ -10809,12 +10751,12 @@ references:
   commentId: T:AGS.API.IPathFinder
   fullName: AGS.API.IPathFinder
   nameWithType: IPathFinder
-- uid: AGS.API.IPathFinder.GetWalkPoints(AGS.API.ILocation,AGS.API.ILocation)
-  name: GetWalkPoints(ILocation, ILocation)
-  href: api/AGS.API.IPathFinder.html#AGS_API_IPathFinder_GetWalkPoints_AGS_API_ILocation_AGS_API_ILocation_
-  commentId: M:AGS.API.IPathFinder.GetWalkPoints(AGS.API.ILocation,AGS.API.ILocation)
-  fullName: AGS.API.IPathFinder.GetWalkPoints(AGS.API.ILocation, AGS.API.ILocation)
-  nameWithType: IPathFinder.GetWalkPoints(ILocation, ILocation)
+- uid: AGS.API.IPathFinder.GetWalkPoints(AGS.API.Position,AGS.API.Position)
+  name: GetWalkPoints(Position, Position)
+  href: api/AGS.API.IPathFinder.html#AGS_API_IPathFinder_GetWalkPoints_AGS_API_Position_AGS_API_Position_
+  commentId: M:AGS.API.IPathFinder.GetWalkPoints(AGS.API.Position,AGS.API.Position)
+  fullName: AGS.API.IPathFinder.GetWalkPoints(AGS.API.Position, AGS.API.Position)
+  nameWithType: IPathFinder.GetWalkPoints(Position, Position)
 - uid: AGS.API.IPathFinder.GetWalkPoints*
   name: GetWalkPoints
   href: api/AGS.API.IPathFinder.html#AGS_API_IPathFinder_GetWalkPoints_
@@ -14428,19 +14370,19 @@ references:
   commentId: T:AGS.API.ITranslate
   fullName: AGS.API.ITranslate
   nameWithType: ITranslate
-- uid: AGS.API.ITranslate.Location
-  name: Location
-  href: api/AGS.API.ITranslate.html#AGS_API_ITranslate_Location
-  commentId: P:AGS.API.ITranslate.Location
-  fullName: AGS.API.ITranslate.Location
-  nameWithType: ITranslate.Location
-- uid: AGS.API.ITranslate.Location*
-  name: Location
-  href: api/AGS.API.ITranslate.html#AGS_API_ITranslate_Location_
-  commentId: Overload:AGS.API.ITranslate.Location
+- uid: AGS.API.ITranslate.Position
+  name: Position
+  href: api/AGS.API.ITranslate.html#AGS_API_ITranslate_Position
+  commentId: P:AGS.API.ITranslate.Position
+  fullName: AGS.API.ITranslate.Position
+  nameWithType: ITranslate.Position
+- uid: AGS.API.ITranslate.Position*
+  name: Position
+  href: api/AGS.API.ITranslate.html#AGS_API_ITranslate_Position_
+  commentId: Overload:AGS.API.ITranslate.Position
   isSpec: "True"
-  fullName: AGS.API.ITranslate.Location
-  nameWithType: ITranslate.Location
+  fullName: AGS.API.ITranslate.Position
+  nameWithType: ITranslate.Position
 - uid: AGS.API.ITranslate.X
   name: X
   href: api/AGS.API.ITranslate.html#AGS_API_ITranslate_X
@@ -15813,12 +15755,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.IWalkComponent.StopWalkingAsync
   nameWithType: IWalkComponent.StopWalkingAsync
-- uid: AGS.API.IWalkComponent.WalkAsync(AGS.API.ILocation)
-  name: WalkAsync(ILocation)
-  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkAsync_AGS_API_ILocation_
-  commentId: M:AGS.API.IWalkComponent.WalkAsync(AGS.API.ILocation)
-  fullName: AGS.API.IWalkComponent.WalkAsync(AGS.API.ILocation)
-  nameWithType: IWalkComponent.WalkAsync(ILocation)
+- uid: AGS.API.IWalkComponent.WalkAsync(AGS.API.Position)
+  name: WalkAsync(Position)
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkAsync_AGS_API_Position_
+  commentId: M:AGS.API.IWalkComponent.WalkAsync(AGS.API.Position)
+  fullName: AGS.API.IWalkComponent.WalkAsync(AGS.API.Position)
+  nameWithType: IWalkComponent.WalkAsync(Position)
 - uid: AGS.API.IWalkComponent.WalkAsync*
   name: WalkAsync
   href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkAsync_
@@ -19717,6 +19659,41 @@ references:
   isSpec: "True"
   fullName: AGS.API.Point.Point
   nameWithType: Point.Point
+- uid: AGS.API.Point.Deconstruct(System.Int32@,System.Int32@)
+  name: Deconstruct(out Int32, out Int32)
+  href: api/AGS.API.Point.html#AGS_API_Point_Deconstruct_System_Int32__System_Int32__
+  commentId: M:AGS.API.Point.Deconstruct(System.Int32@,System.Int32@)
+  name.vb: Deconstruct(ByRef Int32, ByRef Int32)
+  fullName: AGS.API.Point.Deconstruct(out System.Int32, out System.Int32)
+  fullName.vb: AGS.API.Point.Deconstruct(ByRef System.Int32, ByRef System.Int32)
+  nameWithType: Point.Deconstruct(out Int32, out Int32)
+  nameWithType.vb: Point.Deconstruct(ByRef Int32, ByRef Int32)
+- uid: AGS.API.Point.Deconstruct*
+  name: Deconstruct
+  href: api/AGS.API.Point.html#AGS_API_Point_Deconstruct_
+  commentId: Overload:AGS.API.Point.Deconstruct
+  isSpec: "True"
+  fullName: AGS.API.Point.Deconstruct
+  nameWithType: Point.Deconstruct
+- uid: AGS.API.Point.op_Implicit(System.ValueTuple{System.Int32,System.Int32})~AGS.API.Point
+  name: Implicit( to Point)
+  href: api/AGS.API.Point.html#AGS_API_Point_op_Implicit_System_ValueTuple_System_Int32_System_Int32___AGS_API_Point
+  commentId: M:AGS.API.Point.op_Implicit(System.ValueTuple{System.Int32,System.Int32})~AGS.API.Point
+  name.vb: Widening( to Point)
+  fullName: AGS.API.Point.Implicit(System. to AGS.API.Point)
+  fullName.vb: AGS.API.Point.Widening(System. to AGS.API.Point)
+  nameWithType: Point.Implicit( to Point)
+  nameWithType.vb: Point.Widening( to Point)
+- uid: AGS.API.Point.op_Implicit*
+  name: Implicit
+  href: api/AGS.API.Point.html#AGS_API_Point_op_Implicit_
+  commentId: Overload:AGS.API.Point.op_Implicit
+  isSpec: "True"
+  name.vb: Widening
+  fullName: AGS.API.Point.Implicit
+  fullName.vb: AGS.API.Point.Widening
+  nameWithType: Point.Implicit
+  nameWithType.vb: Point.Widening
 - uid: AGS.API.Point.ToString
   name: ToString()
   href: api/AGS.API.Point.html#AGS_API_Point_ToString
@@ -19775,6 +19752,22 @@ references:
   isSpec: "True"
   fullName: AGS.API.PointF.PointF
   nameWithType: PointF.PointF
+- uid: AGS.API.PointF.Deconstruct(System.Single@,System.Single@)
+  name: Deconstruct(out Single, out Single)
+  href: api/AGS.API.PointF.html#AGS_API_PointF_Deconstruct_System_Single__System_Single__
+  commentId: M:AGS.API.PointF.Deconstruct(System.Single@,System.Single@)
+  name.vb: Deconstruct(ByRef Single, ByRef Single)
+  fullName: AGS.API.PointF.Deconstruct(out System.Single, out System.Single)
+  fullName.vb: AGS.API.PointF.Deconstruct(ByRef System.Single, ByRef System.Single)
+  nameWithType: PointF.Deconstruct(out Single, out Single)
+  nameWithType.vb: PointF.Deconstruct(ByRef Single, ByRef Single)
+- uid: AGS.API.PointF.Deconstruct*
+  name: Deconstruct
+  href: api/AGS.API.PointF.html#AGS_API_PointF_Deconstruct_
+  commentId: Overload:AGS.API.PointF.Deconstruct
+  isSpec: "True"
+  fullName: AGS.API.PointF.Deconstruct
+  nameWithType: PointF.Deconstruct
 - uid: AGS.API.PointF.Empty
   name: Empty
   href: api/AGS.API.PointF.html#AGS_API_PointF_Empty
@@ -19845,6 +19838,25 @@ references:
   isSpec: "True"
   fullName: AGS.API.PointF.Division
   nameWithType: PointF.Division
+- uid: AGS.API.PointF.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.PointF
+  name: Implicit( to PointF)
+  href: api/AGS.API.PointF.html#AGS_API_PointF_op_Implicit_System_ValueTuple_System_Single_System_Single___AGS_API_PointF
+  commentId: M:AGS.API.PointF.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.PointF
+  name.vb: Widening( to PointF)
+  fullName: AGS.API.PointF.Implicit(System. to AGS.API.PointF)
+  fullName.vb: AGS.API.PointF.Widening(System. to AGS.API.PointF)
+  nameWithType: PointF.Implicit( to PointF)
+  nameWithType.vb: PointF.Widening( to PointF)
+- uid: AGS.API.PointF.op_Implicit*
+  name: Implicit
+  href: api/AGS.API.PointF.html#AGS_API_PointF_op_Implicit_
+  commentId: Overload:AGS.API.PointF.op_Implicit
+  isSpec: "True"
+  name.vb: Widening
+  fullName: AGS.API.PointF.Implicit
+  fullName.vb: AGS.API.PointF.Widening
+  nameWithType: PointF.Implicit
+  nameWithType.vb: PointF.Widening
 - uid: AGS.API.PointF.op_Multiply(AGS.API.PointF,AGS.API.PointF)
   name: Multiply(PointF, PointF)
   href: api/AGS.API.PointF.html#AGS_API_PointF_op_Multiply_AGS_API_PointF_AGS_API_PointF_
@@ -19940,6 +19952,152 @@ references:
   commentId: F:AGS.API.PortraitPositioning.SpeakerPosition
   fullName: AGS.API.PortraitPositioning.SpeakerPosition
   nameWithType: PortraitPositioning.SpeakerPosition
+- uid: AGS.API.Position
+  name: Position
+  href: api/AGS.API.Position.html
+  commentId: T:AGS.API.Position
+  fullName: AGS.API.Position
+  nameWithType: Position
+- uid: AGS.API.Position.#ctor(AGS.API.PointF,System.Nullable{System.Single})
+  name: Position(PointF, Nullable<Single>)
+  href: api/AGS.API.Position.html#AGS_API_Position__ctor_AGS_API_PointF_System_Nullable_System_Single__
+  commentId: M:AGS.API.Position.#ctor(AGS.API.PointF,System.Nullable{System.Single})
+  name.vb: Position(PointF, Nullable(Of Single))
+  fullName: AGS.API.Position.Position(AGS.API.PointF, System.Nullable<System.Single>)
+  fullName.vb: AGS.API.Position.Position(AGS.API.PointF, System.Nullable(Of System.Single))
+  nameWithType: Position.Position(PointF, Nullable<Single>)
+  nameWithType.vb: Position.Position(PointF, Nullable(Of Single))
+- uid: AGS.API.Position.#ctor(System.Single,System.Single,System.Nullable{System.Single})
+  name: Position(Single, Single, Nullable<Single>)
+  href: api/AGS.API.Position.html#AGS_API_Position__ctor_System_Single_System_Single_System_Nullable_System_Single__
+  commentId: M:AGS.API.Position.#ctor(System.Single,System.Single,System.Nullable{System.Single})
+  name.vb: Position(Single, Single, Nullable(Of Single))
+  fullName: AGS.API.Position.Position(System.Single, System.Single, System.Nullable<System.Single>)
+  fullName.vb: AGS.API.Position.Position(System.Single, System.Single, System.Nullable(Of System.Single))
+  nameWithType: Position.Position(Single, Single, Nullable<Single>)
+  nameWithType.vb: Position.Position(Single, Single, Nullable(Of Single))
+- uid: AGS.API.Position.#ctor*
+  name: Position
+  href: api/AGS.API.Position.html#AGS_API_Position__ctor_
+  commentId: Overload:AGS.API.Position.#ctor
+  isSpec: "True"
+  fullName: AGS.API.Position.Position
+  nameWithType: Position.Position
+- uid: AGS.API.Position.Deconstruct(System.Single@,System.Single@,System.Single@)
+  name: Deconstruct(out Single, out Single, out Single)
+  href: api/AGS.API.Position.html#AGS_API_Position_Deconstruct_System_Single__System_Single__System_Single__
+  commentId: M:AGS.API.Position.Deconstruct(System.Single@,System.Single@,System.Single@)
+  name.vb: Deconstruct(ByRef Single, ByRef Single, ByRef Single)
+  fullName: AGS.API.Position.Deconstruct(out System.Single, out System.Single, out System.Single)
+  fullName.vb: AGS.API.Position.Deconstruct(ByRef System.Single, ByRef System.Single, ByRef System.Single)
+  nameWithType: Position.Deconstruct(out Single, out Single, out Single)
+  nameWithType.vb: Position.Deconstruct(ByRef Single, ByRef Single, ByRef Single)
+- uid: AGS.API.Position.Deconstruct*
+  name: Deconstruct
+  href: api/AGS.API.Position.html#AGS_API_Position_Deconstruct_
+  commentId: Overload:AGS.API.Position.Deconstruct
+  isSpec: "True"
+  fullName: AGS.API.Position.Deconstruct
+  nameWithType: Position.Deconstruct
+- uid: AGS.API.Position.Empty
+  name: Empty
+  href: api/AGS.API.Position.html#AGS_API_Position_Empty
+  commentId: F:AGS.API.Position.Empty
+  fullName: AGS.API.Position.Empty
+  nameWithType: Position.Empty
+- uid: AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Nullable{System.Single}})~AGS.API.Position
+  name: Implicit( to Position)
+  href: api/AGS.API.Position.html#AGS_API_Position_op_Implicit_System_ValueTuple_System_Single_System_Single_System_Nullable_System_Single____AGS_API_Position
+  commentId: M:AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Nullable{System.Single}})~AGS.API.Position
+  name.vb: Widening( to Position)
+  fullName: AGS.API.Position.Implicit(System. to AGS.API.Position)
+  fullName.vb: AGS.API.Position.Widening(System. to AGS.API.Position)
+  nameWithType: Position.Implicit( to Position)
+  nameWithType.vb: Position.Widening( to Position)
+- uid: AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.Position
+  name: Implicit( to Position)
+  href: api/AGS.API.Position.html#AGS_API_Position_op_Implicit_System_ValueTuple_System_Single_System_Single___AGS_API_Position
+  commentId: M:AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.Position
+  name.vb: Widening( to Position)
+  fullName: AGS.API.Position.Implicit(System. to AGS.API.Position)
+  fullName.vb: AGS.API.Position.Widening(System. to AGS.API.Position)
+  nameWithType: Position.Implicit( to Position)
+  nameWithType.vb: Position.Widening( to Position)
+- uid: AGS.API.Position.op_Implicit*
+  name: Implicit
+  href: api/AGS.API.Position.html#AGS_API_Position_op_Implicit_
+  commentId: Overload:AGS.API.Position.op_Implicit
+  isSpec: "True"
+  name.vb: Widening
+  fullName: AGS.API.Position.Implicit
+  fullName.vb: AGS.API.Position.Widening
+  nameWithType: Position.Implicit
+  nameWithType.vb: Position.Widening
+- uid: AGS.API.Position.ToString
+  name: ToString()
+  href: api/AGS.API.Position.html#AGS_API_Position_ToString
+  commentId: M:AGS.API.Position.ToString
+  fullName: AGS.API.Position.ToString()
+  nameWithType: Position.ToString()
+- uid: AGS.API.Position.ToString*
+  name: ToString
+  href: api/AGS.API.Position.html#AGS_API_Position_ToString_
+  commentId: Overload:AGS.API.Position.ToString
+  isSpec: "True"
+  fullName: AGS.API.Position.ToString
+  nameWithType: Position.ToString
+- uid: AGS.API.Position.X
+  name: X
+  href: api/AGS.API.Position.html#AGS_API_Position_X
+  commentId: P:AGS.API.Position.X
+  fullName: AGS.API.Position.X
+  nameWithType: Position.X
+- uid: AGS.API.Position.X*
+  name: X
+  href: api/AGS.API.Position.html#AGS_API_Position_X_
+  commentId: Overload:AGS.API.Position.X
+  isSpec: "True"
+  fullName: AGS.API.Position.X
+  nameWithType: Position.X
+- uid: AGS.API.Position.XY
+  name: XY
+  href: api/AGS.API.Position.html#AGS_API_Position_XY
+  commentId: P:AGS.API.Position.XY
+  fullName: AGS.API.Position.XY
+  nameWithType: Position.XY
+- uid: AGS.API.Position.XY*
+  name: XY
+  href: api/AGS.API.Position.html#AGS_API_Position_XY_
+  commentId: Overload:AGS.API.Position.XY
+  isSpec: "True"
+  fullName: AGS.API.Position.XY
+  nameWithType: Position.XY
+- uid: AGS.API.Position.Y
+  name: Y
+  href: api/AGS.API.Position.html#AGS_API_Position_Y
+  commentId: P:AGS.API.Position.Y
+  fullName: AGS.API.Position.Y
+  nameWithType: Position.Y
+- uid: AGS.API.Position.Y*
+  name: Y
+  href: api/AGS.API.Position.html#AGS_API_Position_Y_
+  commentId: Overload:AGS.API.Position.Y
+  isSpec: "True"
+  fullName: AGS.API.Position.Y
+  nameWithType: Position.Y
+- uid: AGS.API.Position.Z
+  name: Z
+  href: api/AGS.API.Position.html#AGS_API_Position_Z
+  commentId: P:AGS.API.Position.Z
+  fullName: AGS.API.Position.Z
+  nameWithType: Position.Z
+- uid: AGS.API.Position.Z*
+  name: Z
+  href: api/AGS.API.Position.html#AGS_API_Position_Z_
+  commentId: Overload:AGS.API.Position.Z
+  isSpec: "True"
+  fullName: AGS.API.Position.Z
+  nameWithType: Position.Z
 - uid: AGS.API.PropertyAttribute
   name: PropertyAttribute
   href: api/AGS.API.PropertyAttribute.html
@@ -20687,6 +20845,22 @@ references:
   isSpec: "True"
   fullName: AGS.API.Rectangle.Rectangle
   nameWithType: Rectangle.Rectangle
+- uid: AGS.API.Rectangle.Deconstruct(System.Int32@,System.Int32@,System.Int32@,System.Int32@)
+  name: Deconstruct(out Int32, out Int32, out Int32, out Int32)
+  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_Deconstruct_System_Int32__System_Int32__System_Int32__System_Int32__
+  commentId: M:AGS.API.Rectangle.Deconstruct(System.Int32@,System.Int32@,System.Int32@,System.Int32@)
+  name.vb: Deconstruct(ByRef Int32, ByRef Int32, ByRef Int32, ByRef Int32)
+  fullName: AGS.API.Rectangle.Deconstruct(out System.Int32, out System.Int32, out System.Int32, out System.Int32)
+  fullName.vb: AGS.API.Rectangle.Deconstruct(ByRef System.Int32, ByRef System.Int32, ByRef System.Int32, ByRef System.Int32)
+  nameWithType: Rectangle.Deconstruct(out Int32, out Int32, out Int32, out Int32)
+  nameWithType.vb: Rectangle.Deconstruct(ByRef Int32, ByRef Int32, ByRef Int32, ByRef Int32)
+- uid: AGS.API.Rectangle.Deconstruct*
+  name: Deconstruct
+  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_Deconstruct_
+  commentId: Overload:AGS.API.Rectangle.Deconstruct
+  isSpec: "True"
+  fullName: AGS.API.Rectangle.Deconstruct
+  nameWithType: Rectangle.Deconstruct
 - uid: AGS.API.Rectangle.Height
   name: Height
   href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_Height
@@ -20700,6 +20874,25 @@ references:
   isSpec: "True"
   fullName: AGS.API.Rectangle.Height
   nameWithType: Rectangle.Height
+- uid: AGS.API.Rectangle.op_Implicit(System.ValueTuple{System.Int32,System.Int32,System.Int32,System.Int32})~AGS.API.Rectangle
+  name: Implicit( to Rectangle)
+  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_op_Implicit_System_ValueTuple_System_Int32_System_Int32_System_Int32_System_Int32___AGS_API_Rectangle
+  commentId: M:AGS.API.Rectangle.op_Implicit(System.ValueTuple{System.Int32,System.Int32,System.Int32,System.Int32})~AGS.API.Rectangle
+  name.vb: Widening( to Rectangle)
+  fullName: AGS.API.Rectangle.Implicit(System. to AGS.API.Rectangle)
+  fullName.vb: AGS.API.Rectangle.Widening(System. to AGS.API.Rectangle)
+  nameWithType: Rectangle.Implicit( to Rectangle)
+  nameWithType.vb: Rectangle.Widening( to Rectangle)
+- uid: AGS.API.Rectangle.op_Implicit*
+  name: Implicit
+  href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_op_Implicit_
+  commentId: Overload:AGS.API.Rectangle.op_Implicit
+  isSpec: "True"
+  name.vb: Widening
+  fullName: AGS.API.Rectangle.Implicit
+  fullName.vb: AGS.API.Rectangle.Widening
+  nameWithType: Rectangle.Implicit
+  nameWithType.vb: Rectangle.Widening
 - uid: AGS.API.Rectangle.ToInspectorString
   name: ToInspectorString()
   href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_ToInspectorString
@@ -20797,6 +20990,22 @@ references:
   isSpec: "True"
   fullName: AGS.API.RectangleF.Contains
   nameWithType: RectangleF.Contains
+- uid: AGS.API.RectangleF.Deconstruct(System.Single@,System.Single@,System.Single@,System.Single@)
+  name: Deconstruct(out Single, out Single, out Single, out Single)
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Deconstruct_System_Single__System_Single__System_Single__System_Single__
+  commentId: M:AGS.API.RectangleF.Deconstruct(System.Single@,System.Single@,System.Single@,System.Single@)
+  name.vb: Deconstruct(ByRef Single, ByRef Single, ByRef Single, ByRef Single)
+  fullName: AGS.API.RectangleF.Deconstruct(out System.Single, out System.Single, out System.Single, out System.Single)
+  fullName.vb: AGS.API.RectangleF.Deconstruct(ByRef System.Single, ByRef System.Single, ByRef System.Single, ByRef System.Single)
+  nameWithType: RectangleF.Deconstruct(out Single, out Single, out Single, out Single)
+  nameWithType.vb: RectangleF.Deconstruct(ByRef Single, ByRef Single, ByRef Single, ByRef Single)
+- uid: AGS.API.RectangleF.Deconstruct*
+  name: Deconstruct
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Deconstruct_
+  commentId: Overload:AGS.API.RectangleF.Deconstruct
+  isSpec: "True"
+  fullName: AGS.API.RectangleF.Deconstruct
+  nameWithType: RectangleF.Deconstruct
 - uid: AGS.API.RectangleF.Equals(AGS.API.RectangleF)
   name: Equals(RectangleF)
   href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_Equals_AGS_API_RectangleF_
@@ -20842,6 +21051,25 @@ references:
   isSpec: "True"
   fullName: AGS.API.RectangleF.Height
   nameWithType: RectangleF.Height
+- uid: AGS.API.RectangleF.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Single,System.Single})~AGS.API.RectangleF
+  name: Implicit( to RectangleF)
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_op_Implicit_System_ValueTuple_System_Single_System_Single_System_Single_System_Single___AGS_API_RectangleF
+  commentId: M:AGS.API.RectangleF.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Single,System.Single})~AGS.API.RectangleF
+  name.vb: Widening( to RectangleF)
+  fullName: AGS.API.RectangleF.Implicit(System. to AGS.API.RectangleF)
+  fullName.vb: AGS.API.RectangleF.Widening(System. to AGS.API.RectangleF)
+  nameWithType: RectangleF.Implicit( to RectangleF)
+  nameWithType.vb: RectangleF.Widening( to RectangleF)
+- uid: AGS.API.RectangleF.op_Implicit*
+  name: Implicit
+  href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_op_Implicit_
+  commentId: Overload:AGS.API.RectangleF.op_Implicit
+  isSpec: "True"
+  name.vb: Widening
+  fullName: AGS.API.RectangleF.Implicit
+  fullName.vb: AGS.API.RectangleF.Widening
+  nameWithType: RectangleF.Implicit
+  nameWithType.vb: RectangleF.Widening
 - uid: AGS.API.RectangleF.ToInspectorString
   name: ToInspectorString()
   href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_ToInspectorString
@@ -21172,6 +21400,22 @@ references:
   isSpec: "True"
   fullName: AGS.API.Size.Size
   nameWithType: Size.Size
+- uid: AGS.API.Size.Deconstruct(System.Int32@,System.Int32@)
+  name: Deconstruct(out Int32, out Int32)
+  href: api/AGS.API.Size.html#AGS_API_Size_Deconstruct_System_Int32__System_Int32__
+  commentId: M:AGS.API.Size.Deconstruct(System.Int32@,System.Int32@)
+  name.vb: Deconstruct(ByRef Int32, ByRef Int32)
+  fullName: AGS.API.Size.Deconstruct(out System.Int32, out System.Int32)
+  fullName.vb: AGS.API.Size.Deconstruct(ByRef System.Int32, ByRef System.Int32)
+  nameWithType: Size.Deconstruct(out Int32, out Int32)
+  nameWithType.vb: Size.Deconstruct(ByRef Int32, ByRef Int32)
+- uid: AGS.API.Size.Deconstruct*
+  name: Deconstruct
+  href: api/AGS.API.Size.html#AGS_API_Size_Deconstruct_
+  commentId: Overload:AGS.API.Size.Deconstruct
+  isSpec: "True"
+  fullName: AGS.API.Size.Deconstruct
+  nameWithType: Size.Deconstruct
 - uid: AGS.API.Size.Equals(AGS.API.Size)
   name: Equals(Size)
   href: api/AGS.API.Size.html#AGS_API_Size_Equals_AGS_API_Size_
@@ -21217,6 +21461,25 @@ references:
   isSpec: "True"
   fullName: AGS.API.Size.Height
   nameWithType: Size.Height
+- uid: AGS.API.Size.op_Implicit(System.ValueTuple{System.Int32,System.Int32})~AGS.API.Size
+  name: Implicit( to Size)
+  href: api/AGS.API.Size.html#AGS_API_Size_op_Implicit_System_ValueTuple_System_Int32_System_Int32___AGS_API_Size
+  commentId: M:AGS.API.Size.op_Implicit(System.ValueTuple{System.Int32,System.Int32})~AGS.API.Size
+  name.vb: Widening( to Size)
+  fullName: AGS.API.Size.Implicit(System. to AGS.API.Size)
+  fullName.vb: AGS.API.Size.Widening(System. to AGS.API.Size)
+  nameWithType: Size.Implicit( to Size)
+  nameWithType.vb: Size.Widening( to Size)
+- uid: AGS.API.Size.op_Implicit*
+  name: Implicit
+  href: api/AGS.API.Size.html#AGS_API_Size_op_Implicit_
+  commentId: Overload:AGS.API.Size.op_Implicit
+  isSpec: "True"
+  name.vb: Widening
+  fullName: AGS.API.Size.Implicit
+  fullName.vb: AGS.API.Size.Widening
+  nameWithType: Size.Implicit
+  nameWithType.vb: Size.Widening
 - uid: AGS.API.Size.ToString
   name: ToString()
   href: api/AGS.API.Size.html#AGS_API_Size_ToString
@@ -21262,6 +21525,22 @@ references:
   isSpec: "True"
   fullName: AGS.API.SizeF.SizeF
   nameWithType: SizeF.SizeF
+- uid: AGS.API.SizeF.Deconstruct(System.Single@,System.Single@)
+  name: Deconstruct(out Single, out Single)
+  href: api/AGS.API.SizeF.html#AGS_API_SizeF_Deconstruct_System_Single__System_Single__
+  commentId: M:AGS.API.SizeF.Deconstruct(System.Single@,System.Single@)
+  name.vb: Deconstruct(ByRef Single, ByRef Single)
+  fullName: AGS.API.SizeF.Deconstruct(out System.Single, out System.Single)
+  fullName.vb: AGS.API.SizeF.Deconstruct(ByRef System.Single, ByRef System.Single)
+  nameWithType: SizeF.Deconstruct(out Single, out Single)
+  nameWithType.vb: SizeF.Deconstruct(ByRef Single, ByRef Single)
+- uid: AGS.API.SizeF.Deconstruct*
+  name: Deconstruct
+  href: api/AGS.API.SizeF.html#AGS_API_SizeF_Deconstruct_
+  commentId: Overload:AGS.API.SizeF.Deconstruct
+  isSpec: "True"
+  fullName: AGS.API.SizeF.Deconstruct
+  nameWithType: SizeF.Deconstruct
 - uid: AGS.API.SizeF.Equals(AGS.API.SizeF)
   name: Equals(SizeF)
   href: api/AGS.API.SizeF.html#AGS_API_SizeF_Equals_AGS_API_SizeF_
@@ -21307,6 +21586,25 @@ references:
   isSpec: "True"
   fullName: AGS.API.SizeF.Height
   nameWithType: SizeF.Height
+- uid: AGS.API.SizeF.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.SizeF
+  name: Implicit( to SizeF)
+  href: api/AGS.API.SizeF.html#AGS_API_SizeF_op_Implicit_System_ValueTuple_System_Single_System_Single___AGS_API_SizeF
+  commentId: M:AGS.API.SizeF.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.SizeF
+  name.vb: Widening( to SizeF)
+  fullName: AGS.API.SizeF.Implicit(System. to AGS.API.SizeF)
+  fullName.vb: AGS.API.SizeF.Widening(System. to AGS.API.SizeF)
+  nameWithType: SizeF.Implicit( to SizeF)
+  nameWithType.vb: SizeF.Widening( to SizeF)
+- uid: AGS.API.SizeF.op_Implicit*
+  name: Implicit
+  href: api/AGS.API.SizeF.html#AGS_API_SizeF_op_Implicit_
+  commentId: Overload:AGS.API.SizeF.op_Implicit
+  isSpec: "True"
+  name.vb: Widening
+  fullName: AGS.API.SizeF.Implicit
+  fullName.vb: AGS.API.SizeF.Widening
+  nameWithType: SizeF.Implicit
+  nameWithType.vb: SizeF.Widening
 - uid: AGS.API.SizeF.Scale(System.Single,System.Single)
   name: Scale(Single, Single)
   href: api/AGS.API.SizeF.html#AGS_API_SizeF_Scale_System_Single_System_Single_
