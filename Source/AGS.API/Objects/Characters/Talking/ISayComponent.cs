@@ -55,11 +55,19 @@ namespace AGS.API
         /// Task waitForTalk = cHero.SayAsync("Walking Home!");
         /// await cHero.WalkAsync(home); //character will walk and talk at the same time.
         /// await waitForTalk; //Waiting for the talk to complete before moving to the next setnence.
-        /// await cHero.SayAsync("And, I'm home!");
+        /// await cHero.SayAsync("And, I'm home!", (200, 100)); //The text for this sentence will be placed at co-ordinates (200, 100) instead of above the character's head.
         /// </code>
         /// </example>
         /// <param name="text">Text.</param>
-		Task SayAsync(string text);
+        /// <param name="textPosition">Optional position (bottom-left by default, subscribe <see cref="OnBeforeSay"/> and change the <see cref="IHasImage.Pivot"/> of the label to override it) for where the text will be placed. 
+        /// If not provided, the engine will place the text above the character's head. 
+        /// The interface for selecting the default text position (if none is passed here) is <see cref="ISayLocationProvider"/> and you
+        /// can override it if needed to provide default text (and portrait) locations.</param>
+        /// <param name="portraitPosition">Optional position for where the portrait will be placed (if there is a portrait configured).
+        /// If no position provided the engine will place the portrait based on the portrait configuration (<see cref="ISayConfig.PortraitConfig"/>),
+        /// assuming there is a portrait configuration. 
+        /// The interface for selecting the default portrait position (if none is passed here) is <see cref="ISayLocationProvider"/> and you
+        /// can override it if needed to provide default portrait (and text) locations.</param>
+		Task SayAsync(string text, PointF? textPosition = null, PointF? portraitPosition = null);
 	}
 }
-

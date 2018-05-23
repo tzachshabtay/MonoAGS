@@ -18,14 +18,14 @@ Please refer to the [Walking](walking.md) section for more details.
 ### Facing directions
 
 Allows your characters to face directions: either to face a specific point on screen, or face to a specific object in the room, or simply to face left, up, up-left, etc.
-This would change the current animation to use the most suited animation for the current direction (so, for example, if you face left but only has an "up", "left" or "down" animations, 
+This would change the current animation to use the most suited animation for the current direction (so, for example, if you face left but only has an "up", "left" or "down" animations,
 either "up" or "down" will be used).
 
 ### Following
 
-Allows commanding a character to follow another character/object in the room. 
+Allows commanding a character to follow another character/object in the room.
 You can configure how the character performs a follow, to be able to accommodate different scenario (a companion, a spy or an enemy, for example).
-You can configure with the time range the character will wait before commencing a new walk towards the target, what's the distance range you'd want to have your character away from the target, 
+You can configure with the time range the character will wait before commencing a new walk towards the target, what's the distance range you'd want to have your character away from the target,
 what's the probability of having your character wander off somewhere else, and whether or not the character will move between rooms if the target moves to another room.
 
 ### Approaching
@@ -39,7 +39,7 @@ or always walk towards the target (`AlwaysWalk`).
 
 ### Speaking
 
-Allows a character to speak. You'll use either `Say` or `SayAsync` for the character to speak which basically does the following:
+Allows a character to speak. You'll use `SayAsync` for the character to speak which basically does the following:
 1. Puts text on the screen for some time
 2. Change the character animation to the speaking animation
 3. Optionally display a portrait of the character
@@ -52,11 +52,12 @@ You can configure how the text is rendered (color, font, etc: see [Labels](label
 and a text offset to offset the location of the text. That offset will be relative to the default text display location which will be selected by the engine: The engine, by default, tries to place
 the text above the character and a little to the side, unless the text won't fit the screen, then it changes the location to ensure the text fits the screen.
 If you don't like that behavior you can implement your own text location by implementing the `ISayLocationProvider` interface (and hooking it up, see the section about customizability).
+You can also specify a one-time text (and/or portrait) position to `SayAsync` to replace the built-in behavior.
 
-#### Displaying portrait 
+#### Displaying portrait
 
 As for the portrait, you can configure the object which shows the portrait (this is a standard object, so it can has everything a normal object has, including animations, scaling, rotations, etc),
-plus a strategy on where to position the portrait (SpeakerPosition- on the top, either left or right based on where the speaker is standing, Alternating- top right, then top left, then top right, etc 
+plus a strategy on where to position the portrait (SpeakerPosition- on the top, either left or right based on where the speaker is standing, Alternating- top right, then top left, then top right, etc
 or Custom which leaves the portrait positioning to you) and custom offsets for both the portrait and for the text from the portrait.
 
 #### Playing the audio clip
@@ -65,7 +66,7 @@ In order to play an audio clip, the text you pass to the speech method should ha
 If the number exists, the engine will look for an audio file with the first four capital letters of your character's id followed by the number. So if the line was said by "Christopher",
 the engine will look for the file "CHRI17". Those files should be placed in a special folder, under Assets -> Speech -> English.
 Note: In future revisions we're planning on introducing multi-language support, and also other ways of building the speech "database".
-If the engine does not find the file it will not play an audio clip, and in any way the "&17" will be stripped away from the text and will not be displayed on screen. 
+If the engine does not find the file it will not play an audio clip, and in any way the "&17" will be stripped away from the text and will not be displayed on screen.
 
 ### Outfits
 
@@ -74,13 +75,13 @@ An outfit is a collection of animations that are associated with a character.
 The collection can be swapped with another collection when the character changes his look.
 
 Say, for example, your player can wear a jacket. You can create two outfits in advance, one with a jacket
-and the other without. Each outfit will have different walk, idle and speak animations (one with a jacket and 
+and the other without. Each outfit will have different walk, idle and speak animations (one with a jacket and
 the other without).
 
 There walk, idle and speak animations that the engine might look for when walking, standing still and speaking.
 Additionally you can add more animations to an outfit (like "Jump", or "Swim" for example), which you then need to draw per outfit, and will enable you
 to call your animation from whatever outfit the character is currently using.
-	
+
 ### Inventory
 
 Allows your character to carry inventory. Those are the items that the character holds in his/her (usually) imaginary bag.
