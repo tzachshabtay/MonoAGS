@@ -85,7 +85,7 @@ namespace DemoGame
 
 		private async Task addLampPosts(IGameFactory factory)
 		{
-			PointF parallaxSpeed = new PointF (1.4f, 1f);
+			PointF parallaxSpeed = (1.4f, 1f);
 			AGSRenderLayer parallaxLayer = new AGSRenderLayer (-50, parallaxSpeed);
 			var image = await factory.Graphics.LoadImageAsync(_baseFolder + "lampPost.png");
 			const int numLampPosts = 3;

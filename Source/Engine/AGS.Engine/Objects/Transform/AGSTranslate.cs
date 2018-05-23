@@ -6,16 +6,16 @@ namespace AGS.Engine
 {
     public class AGSTranslate : ITranslate
     {
-        private ILocation _location;
+        private Position _position;
         private PropertyChangedEventArgs _argsX, _argsY, _argsZ, _argsLocation;
 
         public AGSTranslate()
         {
-            _location = AGSLocation.Empty();
+            _position = Position.Empty;
             _argsX = new PropertyChangedEventArgs(nameof(X));
             _argsY = new PropertyChangedEventArgs(nameof(Y));
             _argsZ = new PropertyChangedEventArgs(nameof(Z));
-            _argsLocation = new PropertyChangedEventArgs(nameof(Location));
+            _argsLocation = new PropertyChangedEventArgs(nameof(Position));
         }
 
 #pragma warning disable CS0067
@@ -24,16 +24,16 @@ namespace AGS.Engine
 
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
         [DoNotNotify]
-        public ILocation Location 
+        public Position Position 
         { 
-            get => _location; 
+            get => _position; 
             set
             {
-                float prevX = _location.X;
-                float prevY = _location.Y;
-                float prevZ = _location.Z;
+                float prevX = _position.X;
+                float prevY = _position.Y;
+                float prevZ = _position.Z;
 
-                _location = value;
+                _position = value;
 
                 bool hasChanged = false;
                 if (prevX != value.X)
@@ -62,11 +62,11 @@ namespace AGS.Engine
         [DoNotNotify]
         public float X 
         { 
-            get => Location.X; 
+            get => _position.X; 
             set
             {
-                var prevX = _location.X;
-                _location = new AGSLocation(value, Y, Z);
+                var prevX = _position.X;
+                _position = new Position(value, Y, Z == Y ? (float?)null : Z);
                 if (prevX != value)
                 {
                     PropertyChanged(this, _argsX);
@@ -79,13 +79,13 @@ namespace AGS.Engine
         [DoNotNotify]
         public float Y
         {
-            get => Location.Y;
+            get => _position.Y;
             set
             {
-                float prevY = _location.Y;
-                float prevZ = _location.Z;
-                _location = new AGSLocation(X, value, Z == Y ? value : Z);
-                if (prevZ != _location.Z)
+                float prevY = _position.Y;
+                float prevZ = _position.Z;
+                _position = new Position(X, value, Z == Y ? (float?)null : Z);
+                if (prevZ != _position.Z)
                 {
                     PropertyChanged(this, _argsZ);
                 }
@@ -101,11 +101,11 @@ namespace AGS.Engine
         [DoNotNotify]
         public float Z
         {
-            get => Location.Z;
+            get => _position.Z;
             set 
             {
-                float prevZ = _location.Z;
-                _location = new AGSLocation(X, Y, value);
+                float prevZ = _position.Z;
+                _position = new Position(X, Y, value == Y ? (float?)null : value);
                 if (prevZ != value)
                 {
                     PropertyChanged(this, _argsZ);

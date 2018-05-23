@@ -95,7 +95,7 @@ namespace AGS.Engine
             if (portrait != null)
             {
                 portrait.Visible = true;
-                portrait.Location = new AGSLocation(location.PortraitLocation.Value);
+                portrait.Position = new Position(location.PortraitLocation.Value);
             }
             return portrait;
         }
@@ -157,4 +157,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

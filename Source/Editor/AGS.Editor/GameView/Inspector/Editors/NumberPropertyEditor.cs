@@ -332,7 +332,7 @@ namespace AGS.Editor
         { }
     }
 
-    public class LocationPropertyEditor : MultipleNumbersPropertyEditor<ILocation>
+    public class LocationPropertyEditor : MultipleNumbersPropertyEditor<Position>
     {
         public LocationPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, bool nullable, IGameSettings settings, IDrawableInfoComponent drawable) 
             : base(actions, state, factory, false, nullable,
@@ -349,9 +349,9 @@ namespace AGS.Editor
                                     editor.SuggestedMaxValue = drawable == null || drawable.RenderLayer == null || drawable.RenderLayer.IndependentResolution == null ? settings.VirtualResolution.Height : drawable.RenderLayer.IndependentResolution.Value.Height;
                                 }
                             },
-                           ("X", (x, vector) => new AGSLocation(x, vector.Y, vector.Z)),
-                           ("Y", (y, vector) => new AGSLocation(vector.X, y, vector.Z)),
-                           ("Z", (z, vector) => new AGSLocation(vector.X, vector.Y, z)))
+                           ("X", (x, vector) => new Position(x, vector.Y, vector.Z)),
+                           ("Y", (y, vector) => new Position(vector.X, y, vector.Z)),
+                           ("Z", (z, vector) => new Position(vector.X, vector.Y, z)))
         { }
     }
 

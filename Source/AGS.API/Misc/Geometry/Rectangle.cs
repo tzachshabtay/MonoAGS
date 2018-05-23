@@ -50,6 +50,17 @@
 
         [CustomStringValue(CustomStringApplyWhen.CanWrite)]
         public string ToInspectorString() => $"{X},{Y},{Width},{Height}";
+
+        public static implicit operator Rectangle((int x, int y, int width, int height) rect) =>
+            new Rectangle(rect.x, rect.y, rect.width, rect.height);
+
+        public void Deconstruct(out int x, out int y, out int width, out int height)
+        {
+            x = this.X;
+            y = this.Y;
+            width = this.Width;
+            height = this.Height;
+        }
     }
 }
 

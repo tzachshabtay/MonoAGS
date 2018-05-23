@@ -319,7 +319,7 @@ namespace AGS.Engine
         {
             IObject newObj = factory.Object.GetObject(id);
             newObj.Pivot = obj.Pivot;
-            newObj.Location = obj.Location;
+            newObj.Position = obj.Position;
             newObj.Tint = obj.Tint;
             newObj.Image = obj.Image;
             newObj.DisplayName = obj.DisplayName;

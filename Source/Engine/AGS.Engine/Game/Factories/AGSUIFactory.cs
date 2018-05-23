@@ -408,7 +408,7 @@ namespace AGS.Engine
             {
                 var box = textBox.GetBoundingBoxes(_gameState.Viewport)?.ViewportBox;
                 if (box == null) return;
-                dropDownPanel.Location = new AGSLocation(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
+                dropDownPanel.Position = new Position(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
             };
 
             textBox.OnBoundingBoxesChanged.Subscribe(placePanel);
@@ -523,4 +523,3 @@ namespace AGS.Engine
         }
     }
 }
-

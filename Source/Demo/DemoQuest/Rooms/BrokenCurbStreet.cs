@@ -62,9 +62,7 @@ namespace DemoGame
 			IAnimation panelAnimation = await factory.Graphics.LoadAnimationFromFolderAsync(_baseFolder + "Panel");
 			Characters.RandomAnimationDelay(panelAnimation);
 			panel.StartAnimation(panelAnimation);
-			panel.X = 195;
-			panel.Y = 145;
-			panel.Z = 110;
+            panel.Position = (195, 145, 110);
             panel.GetComponent<IHotspotComponent>().Interactions.OnInteract(AGSInteractions.INTERACT).Subscribe(_ => panel.Animation.State.IsPaused = !panel.Animation.State.IsPaused);
 
 			subscribeEvents();

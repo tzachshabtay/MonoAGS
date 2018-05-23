@@ -515,7 +515,7 @@ namespace AGS.Engine
             //So at best this will always be in one frame delay, and at worst can cause real scaling jittering issues.
             //So this is why we're checking and in cases the entity doesn't have a parent (which is the vast majority of scenarios)
             //we'll continue using the local coordinates, at least until a better solution is found.
-            var position = _tree.TreeNode.Parent == null ? _translate.Location.XY : _worldPosition.WorldXY;
+            var position = _tree.TreeNode.Parent == null ? _translate.Position.XY : _worldPosition.WorldXY;
 
             foreach (IArea area in room.GetMatchingAreas(position, _entity.ID))
             {

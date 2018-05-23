@@ -58,7 +58,7 @@ namespace AGS.Engine
                 if (_sprite == null)
                 {
                     _sprite = _factory.GetSprite();
-                    _sprite.Location = AGSLocation.Empty();
+                    _sprite.Position = Position.Empty;
                 }
                 _sprite.Image = value;
                 

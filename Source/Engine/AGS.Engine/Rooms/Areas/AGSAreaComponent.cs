@@ -94,11 +94,11 @@ namespace AGS.Engine
 
         private void onLocationChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(ITranslateComponent.Location)) return;
+            if (args.PropertyName != nameof(ITranslateComponent.Position)) return;
             var translate = _translate;
             var obj = Mask.DebugDraw;
             if (translate == null || obj == null) return;
-            obj.Location = translate.Location;
+            obj.Position = translate.Position;
             Mask.Transform(createMatrix(_translate, _rotate));
         }
 

@@ -32,15 +32,15 @@ namespace AGS.Engine
 			this._mask = mask;
 		}
 
-		public IEnumerable<ILocation> GetWalkPoints(ILocation from, ILocation to)
+        public IEnumerable<Position> GetWalkPoints(Position from, Position to)
 		{
 			if (_mask == null || _mask [0] == null)
-				return new List<ILocation> ();
+                return new List<Position> ();
 			var grid = CreateGrid(_mask);
 			return getWalkPoints(grid, from, to);
 		}
 
-		private IEnumerable<ILocation> getWalkPoints(BaseGrid grid, ILocation from, ILocation to)
+        private IEnumerable<Position> getWalkPoints(BaseGrid grid, Position from, Position to)
 		{
 			JumpPointParam input = new JumpPointParam (grid, getPos(from), getPos(to), AllowEndNodeUnwalkable, CrossCorner, CrossAdjacentPoint, Heuristics) { UseRecursive = UseRecursive };
 			var cells = JumpPointFinder.FindPath (input);
@@ -48,15 +48,14 @@ namespace AGS.Engine
 			return cells.Select (c => getLocation (c, to.Z));
 		}
 
-		private GridPos getPos(ILocation location)
+        private GridPos getPos(Position location)
 		{
 			return new GridPos ((int)location.X, (int)location.Y);
 		}
 
-		private ILocation getLocation(GridPos pos, float z)
+        private Position getLocation(GridPos pos, float z)
 		{
-			return new AGSLocation (pos.x, pos.y, z);
+            return new Position(pos.x, pos.y, z);
 		}
 	}
 }
-

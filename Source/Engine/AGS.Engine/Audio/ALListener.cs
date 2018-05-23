@@ -5,7 +5,7 @@ namespace AGS.Engine
 	public class ALListener : IAudioListener
 	{
 		private float _volume;
-		private ILocation _location;
+		private Position _position;
 		private IAudioErrors _errors;
         private IAudioBackend _backend;
 
@@ -14,7 +14,7 @@ namespace AGS.Engine
 			_errors = errors;
             _backend = backend;
 			Volume = 0.5f;
-			_location = new AGSLocation ();
+            _position = new Position ();
 		}
 
 		public float Volume
@@ -28,16 +28,15 @@ namespace AGS.Engine
 			}
 		}
 
-		public ILocation Location
+        public Position Position
 		{
-            get => _location;
+            get => _position;
             set
 			{
-				_location = value;
+                _position = value;
                 _backend.ListenerSetPosition(value.X, value.Y, value.Z);
 				_errors.HasErrors();
 			}
 		}
 	}
 }
-

@@ -68,7 +68,7 @@ namespace AGS.API
         /// or the last destination the character was walking to (if currently not walking).
         /// </summary>
         /// <value>The walk destination.</value>
-        ILocation WalkDestination { get; }
+        Position WalkDestination { get; }
 
         /// <summary>
         /// If set to true, lines will be drawn to mark the selected paths to walk by the path finder.
@@ -98,8 +98,8 @@ namespace AGS.API
         /// </example>
         /// </summary>
         /// <returns>Returns true if the walk was completed successfully, or false if the walk was cancelled (if the user clicked on something else).</returns>
-        /// <param name="location">The location.</param>
-		Task<bool> WalkAsync(ILocation location);
+        /// <param name="position">The position.</param>
+		Task<bool> WalkAsync(Position position);
 
         /// <summary>
         /// Asynchronosly stops the current walk (if there is a walk to stop).

@@ -89,11 +89,11 @@ namespace Tests
 		private bool testPathFinder(IPathFinder pathFinder, bool[][] array, float fromX, float fromY, float toX, float toY)
 		{
 			if (array != null) pathFinder.Init(array);
-			AGSLocation from = new AGSLocation (fromX, fromY);
-			AGSLocation to = new AGSLocation (toX, toY);
-			IEnumerable<ILocation> points = pathFinder.GetWalkPoints(from, to);
+            Position from = new Position (fromX, fromY);
+            Position to = new Position (toX, toY);
+            IEnumerable<Position> points = pathFinder.GetWalkPoints(from, to);
 			if (!points.Any()) return false;
-			foreach (ILocation point in points)
+            foreach (Position point in points)
 			{
 				Assert.IsTrue(array[(int)point.X][(int)point.Y]);
 			}
@@ -142,4 +142,3 @@ namespace Tests
 		}
 	}
 }
-

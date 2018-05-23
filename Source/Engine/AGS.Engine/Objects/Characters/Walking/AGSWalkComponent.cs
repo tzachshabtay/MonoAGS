@@ -70,9 +70,9 @@ namespace AGS.Engine
 
         #region IWalkBehavior implementation
 
-		public async Task<bool> WalkAsync (ILocation location)	
+        public async Task<bool> WalkAsync (Position position)	
 		{
-            WalkDestination = location;
+            WalkDestination = position;
 			List<IObject> debugRenderers = _debugPath;
 			if (debugRenderers != null) 
 			{
@@ -92,7 +92,7 @@ namespace AGS.Engine
 			bool completedWalk = false;
             try
             {
-                completedWalk = await walkAsync(location, token, debugRenderers);
+                completedWalk = await walkAsync(position, token, debugRenderers);
             }
             finally
             {
@@ -136,7 +136,7 @@ namespace AGS.Engine
 			}
 		}
 
-        public ILocation WalkDestination { get; private set; }
+        public Position WalkDestination { get; private set; }
 
 		public bool DebugDrawWalkPath { get; set; }
 
@@ -148,7 +148,7 @@ namespace AGS.Engine
             if (currentLine == null) return;
 
             if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 1f || 
-                !isWalkable(_translate.Location) || _room?.Room != currentLine.Room)
+                !isWalkable(_translate.Position) || _room?.Room != currentLine.Room)
             {
                 _currentWalkLine = null; //Possible race condition here? If so, need to replace with concurrent queue
                 _lastFrame = null;
@@ -179,7 +179,7 @@ namespace AGS.Engine
                 var compensateY = _compensateScrollY;
                 var candidateX = _translate.X + compensateForViewScrollIfNeeded(_state.Viewport.X, xStep, ref compensateX, ref _lastViewportX);
                 var candidateY = _translate.Y + compensateForViewScrollIfNeeded(_state.Viewport.Y, yStep, ref compensateY, ref _lastViewportY);
-                if (isWalkable(new AGSLocation(candidateX, candidateY)))
+                if (isWalkable(new Position(candidateX, candidateY)))
                 {
                     _compensateScrollX = compensateX;
                     _compensateScrollY = compensateY;
@@ -209,9 +209,9 @@ namespace AGS.Engine
             return smoothStep;
         }
 
-		private async Task<bool> walkAsync(ILocation location, CancellationTokenSource token, List<IObject> debugRenderers)
+        private async Task<bool> walkAsync(Position location, CancellationTokenSource token, List<IObject> debugRenderers)
 		{
-			IEnumerable<ILocation> walkPoints = getWalkPoints (location);
+            IEnumerable<Position> walkPoints = getWalkPoints (location);
 
 			if (!walkPoints.Any ()) 
 				return false;
@@ -257,10 +257,10 @@ namespace AGS.Engine
             return points.OrderBy(p => p.distance).Select(p => p.point).ToList();
 		}
 
-		private IEnumerable<ILocation> getWalkPoints(ILocation destination)
+        private IEnumerable<Position> getWalkPoints(Position destination)
 		{
-            if (!isWalkable(_translate.Location))
-				return new List<ILocation> ();
+            if (!isWalkable(_translate.Position))
+                return new List<Position> ();
             List<PointF> closestPoints = new List<PointF> (_room.Room.Areas.Count + 1);
 			if (isWalkable(destination))
 			{
@@ -269,23 +269,23 @@ namespace AGS.Engine
 
 			closestPoints.AddRange(getClosestWalkablePoints (destination.XY));
 			if (closestPoints.Count == 0)
-				return new List<ILocation>();
+                return new List<Position>();
 
             Point offset;
 			bool[][] mask = getWalkableMask(out offset);
-            var from = _translate.Location;
-            from = new AGSLocation(from.X - offset.X, from.Y - offset.Y, from.Z);
+            var from = _translate.Position;
+            from = new Position(from.X - offset.X, from.Y - offset.Y, from.Z);
 			_pathFinder.Init(mask);
 			foreach (var closest in closestPoints)
 			{
-                destination = new AGSLocation (closest.X - offset.X, closest.Y - offset.Y, destination.Z);
+                destination = new Position(closest.X - offset.X, closest.Y - offset.Y, destination.Z);
 				var walkPoints = _pathFinder.GetWalkPoints(from, destination);
-                if (walkPoints.Any()) return walkPoints.Select(w => (ILocation)new AGSLocation(w.X + offset.X, w.Y + offset.Y, w.Z));
+                if (walkPoints.Any()) return walkPoints.Select(w => new Position(w.X + offset.X, w.Y + offset.Y, w.Z));
 			}
-			return new List<ILocation> ();
+            return new List<Position> ();
 		}
 
-		private bool isWalkable(ILocation location)
+        private bool isWalkable(Position location)
 		{
             foreach (var area in getWalkableAreas()) 
 			{
@@ -327,7 +327,7 @@ namespace AGS.Engine
             });
         }
 
-		private async Task<bool> walkStraightLine(IRoom room, ILocation destination, 
+        private async Task<bool> walkStraightLine(IRoom room, Position destination, 
 			CancellationTokenSource token, List<IObject> debugRenderers)
 		{
             if (_room?.Room != room) return false;
@@ -388,7 +388,7 @@ namespace AGS.Engine
                 return false;
             }
 
-            if (instruction.CancelToken.IsCancellationRequested || _room?.Room != room || !isWalkable(_translate.Location))
+            if (instruction.CancelToken.IsCancellationRequested || _room?.Room != room || !isWalkable(_translate.Position))
             {
                 return false;
             }
@@ -398,7 +398,7 @@ namespace AGS.Engine
 			return true;
 		}
 
-		private bool isDistanceVeryShort(ILocation destination)
+        private bool isDistanceVeryShort(Position destination)
 		{
             var deltaX = destination.X - _translate.X;
             var deltaY = destination.Y - _translate.Y;
@@ -418,7 +418,7 @@ namespace AGS.Engine
             
             foreach (var area in _room.Room.Areas)
             {
-                if (!area.Enabled || !area.IsInArea(_translate.Location.XY)) continue;
+                if (!area.Enabled || !area.IsInArea(_translate.Position.XY)) continue;
                 var scalingArea = area.GetComponent<IScalingArea>();
                 if (scalingArea == null || (!scalingArea.ScaleObjectsX && !scalingArea.ScaleObjectsY)) continue;
                 float scale = scalingArea.GetScaling(scalingArea.Axis == ScalingAxis.X ? _translate.X : _translate.Y);
@@ -440,7 +440,7 @@ namespace AGS.Engine
         private class WalkLineInstruction
         {
 			public WalkLineInstruction(CancellationTokenSource token, float numSteps, float xStep, float yStep, 
-                                       bool isBaseStepX, ILocation destination, IRoom room)
+                                       bool isBaseStepX, Position destination, IRoom room)
             {
                 CancelToken = token;
                 NumSteps = numSteps;
@@ -458,9 +458,8 @@ namespace AGS.Engine
             public float XStep { get; private set; }
             public float YStep { get; private set; }
 			public bool IsBaseStepX { get; private set; }
-            public ILocation Destination { get; private set; }
+            public Position Destination { get; private set; }
             public IRoom Room { get; private set; }
         }
     }
 }
-

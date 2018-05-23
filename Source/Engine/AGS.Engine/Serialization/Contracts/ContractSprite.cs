@@ -49,7 +49,7 @@ namespace AGS.Engine
 				sprite.Image = image;
                 sprite.Scale = new PointF(ScaleX, ScaleY);
 			}
-			sprite.Location = new AGSLocation (Location.Item1, Location.Item2, Location.Item3);
+            sprite.Position = new Position(Location.Item1, Location.Item2, Location.Item3);
 			sprite.Pivot = new PointF (Pivot.Item1, Pivot.Item2);
 			sprite.Angle = Angle;
 			sprite.Tint = Color.FromHexa(Tint);
@@ -68,4 +68,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

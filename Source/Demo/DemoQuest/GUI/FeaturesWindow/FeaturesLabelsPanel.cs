@@ -22,7 +22,7 @@ namespace DemoGame
                                          200f, 50f, 25f, _parent.Height - 25f, parent, 
                                          new AGSTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), false);
             _label.RenderLayer = parent.RenderLayer;
-            _label.Pivot = new PointF(0f, 1f);
+            _label.Pivot = (0f, 1f);
             _label.Tint = Colors.DarkOliveGreen;
             _label.Border = AGSBorders.SolidColor(Colors.LightSeaGreen, 3f);
             _label.MouseEnter.Subscribe(_ => _label.Tint = Colors.DarkGoldenrod);
@@ -34,8 +34,7 @@ namespace DemoGame
 
             _featuresAutoFitCombobox = factory.UI.GetComboBox("FeaturesAutoFitCombo", null, null, null, parent, false);
             _featuresAutoFitCombobox.TextBox.Text = nameof(AutoFit.TextShouldWrapAndLabelShouldFitHeight);
-            _featuresAutoFitCombobox.X = autoFitX;
-            _featuresAutoFitCombobox.Y = autoFitY;
+            _featuresAutoFitCombobox.Position = (autoFitX, autoFitY);
             var autoFitList = _featuresAutoFitCombobox.DropDownPanelList;
             foreach (var autoFitOption in Enum.GetValues(typeof(AutoFit)))
             {
