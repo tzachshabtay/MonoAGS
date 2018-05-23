@@ -46,7 +46,7 @@ namespace AGS.Engine
             entity.Bind<IOutfitComponent>(c => _outfit = c, _ => _outfit = null);
         }
 
-		public async Task SayAsync(string text)
+        public async Task SayAsync(string text, PointF? textPosition = null, PointF? portraitPosition = null)
 		{
 			if (_state.Cutscene.IsSkipping)
 			{
@@ -59,9 +59,11 @@ namespace AGS.Engine
             text = speech.Text;
 
             ISayLocation location = getLocation(text);
-            IObject portrait = showPortrait(location);
+            var textLocation = textPosition ?? location.TextLocation;
+            portraitPosition = portraitPosition ?? location.PortraitLocation;
+            IObject portrait = showPortrait(portraitPosition);
 			ILabel label = _factory.UI.GetLabel($"Say: {text}", text, SpeechConfig.LabelSize.Width, 
-                SpeechConfig.LabelSize.Height, location.TextLocation.X, location.TextLocation.Y,
+                SpeechConfig.LabelSize.Height, textLocation.X, textLocation.Y,
                 config: SpeechConfig.TextConfig, addToUi: false);
 			label.RenderLayer = AGSLayers.Speech;
 			label.Border = SpeechConfig.Border;
@@ -86,16 +88,16 @@ namespace AGS.Engine
             if (_outfit != null) setAnimation(_outfit.Outfit[AGSOutfit.Idle]);
 		}
 
-        private IObject showPortrait(ISayLocation location)
+        private IObject showPortrait(PointF? portraitLocation)
         {
-            if (location.PortraitLocation == null) return null;
+            if (portraitLocation == null) return null;
             var portraitConfig = SpeechConfig.PortraitConfig;
             if (portraitConfig == null) return null;
             IObject portrait = portraitConfig.Portrait;
             if (portrait != null)
             {
                 portrait.Visible = true;
-                portrait.Position = new Position(location.PortraitLocation.Value);
+                portrait.Position = new Position(portraitLocation.Value);
             }
             return portrait;
         }

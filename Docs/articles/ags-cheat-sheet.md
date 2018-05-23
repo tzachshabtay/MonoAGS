@@ -571,7 +571,7 @@ Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/P
 | RemoveTint | Tint | `cEgo.RemoveTint();` | `cEgo.Tint = Colors.White;` |
 | RunInteraction | Interactions.OnInteract(Verb).InvokeAsync | `cEgo.RunInteraction(eModeTalk);` | `cEgo.Interactions.OnInteract(Verbs.Talk).InvokeAsync();` |
 | Say | SayAsync | `cEgo.Say("Hello!");` | `await cEgo.SayAsync("Hello!");` |
-| SayAt | ? | `cEgo.SayAt("Hello!", 50, 50);` | ? | While there's no direct equivalent currently, this can be worked around by providing a custom implementation for `ISayLocationProvider`.
+| SayAt | ? | `cEgo.SayAt("Hello!", 50, 50);` | `await cEgo.SayAsync("Hello!", (50, 50));` |
 | SayBackground | SayAsync | `cEgo.SayBackground("Hello!");` | `cEgo.SayAsync("Hello!");` | There's no way in AGS to know when `SayBackground` completes. MonoAGS gives you the task completion API for this: `Task task = cEgo.SayAsync("Hello!"); ... while (!task.IsCompleted) {..}`, or simply: `Task task = cEgo.SayAsync("Hello!"); ... await task; `
 | SetAsPlayer | IGameState.Player | `cEgo.SetAsPlayer();` | `state.Player = cEgo;` |
 | SetIdleView | Outfit | `cEgo.SetIdleView(5);` | `cEgo.Outfit = outfitWithHat;` | Note that the concepts are not identical: `SetIdleView` in AGS changes the idle animation, where `Outfit` in MonoAGS changes all animations in that outfit (which can be walk, idle, etc).

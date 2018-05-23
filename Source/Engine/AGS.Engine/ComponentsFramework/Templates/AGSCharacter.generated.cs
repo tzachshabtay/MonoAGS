@@ -533,9 +533,9 @@ namespace AGS.Engine
             get { return _sayComponent.OnBeforeSay; } 
         }
 
-        public Task SayAsync(String text)
+        public Task SayAsync(String text, PointF? textPosition = null, PointF? portraitPosition = null)
         {
-            return _sayComponent.SayAsync(text);
+            return _sayComponent.SayAsync(text, textPosition, portraitPosition);
         }
 
         #endregion
