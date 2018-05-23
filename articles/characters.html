@@ -90,12 +90,12 @@ Therefore we will not cover all the stuff that the characters can do here, but j
 Please refer to the <a href="walking.html">Walking</a> section for more details.</p>
 <h3 id="facing-directions">Facing directions</h3>
 <p>Allows your characters to face directions: either to face a specific point on screen, or face to a specific object in the room, or simply to face left, up, up-left, etc.
-This would change the current animation to use the most suited animation for the current direction (so, for example, if you face left but only has an &quot;up&quot;, &quot;left&quot; or &quot;down&quot; animations, 
+This would change the current animation to use the most suited animation for the current direction (so, for example, if you face left but only has an &quot;up&quot;, &quot;left&quot; or &quot;down&quot; animations,
 either &quot;up&quot; or &quot;down&quot; will be used).</p>
 <h3 id="following">Following</h3>
-<p>Allows commanding a character to follow another character/object in the room. 
+<p>Allows commanding a character to follow another character/object in the room.
 You can configure how the character performs a follow, to be able to accommodate different scenario (a companion, a spy or an enemy, for example).
-You can configure with the time range the character will wait before commencing a new walk towards the target, what&#39;s the distance range you&#39;d want to have your character away from the target, 
+You can configure with the time range the character will wait before commencing a new walk towards the target, what&#39;s the distance range you&#39;d want to have your character away from the target,
 what&#39;s the probability of having your character wander off somewhere else, and whether or not the character will move between rooms if the target moves to another room.</p>
 <h3 id="approaching">Approaching</h3>
 <p>Allows a character to approach an object/character. This is by default, only exists for the player character.
@@ -105,7 +105,7 @@ You can configure what &quot;approach&quot; means to you per each different inte
 You can set &quot;approach&quot; to do nothing (<code>NeverWalk</code>), face the direction of the target without walking (<code>FaceOnly</code>), walk to the target if the target has a walk point configured (<code>WalkIfHaveWalkPoint</code>),
 or always walk towards the target (<code>AlwaysWalk</code>).</p>
 <h3 id="speaking">Speaking</h3>
-<p>Allows a character to speak. You&#39;ll use either <code>Say</code> or <code>SayAsync</code> for the character to speak which basically does the following:</p>
+<p>Allows a character to speak. You&#39;ll use <code>SayAsync</code> for the character to speak which basically does the following:</p>
 <ol>
 <li>Puts text on the screen for some time</li>
 <li>Change the character animation to the speaking animation</li>
@@ -117,23 +117,24 @@ or always walk towards the target (<code>AlwaysWalk</code>).</p>
 (by time and how much, by mouse, both, or none which means you implement text skipping yourself), a label to host the text with a border (see the section about borders) and background color,
 and a text offset to offset the location of the text. That offset will be relative to the default text display location which will be selected by the engine: The engine, by default, tries to place
 the text above the character and a little to the side, unless the text won&#39;t fit the screen, then it changes the location to ensure the text fits the screen.
-If you don&#39;t like that behavior you can implement your own text location by implementing the <code>ISayLocationProvider</code> interface (and hooking it up, see the section about customizability).</p>
+If you don&#39;t like that behavior you can implement your own text location by implementing the <code>ISayLocationProvider</code> interface (and hooking it up, see the section about customizability).
+You can also specify a one-time text (and/or portrait) position to <code>SayAsync</code> to replace the built-in behavior.</p>
 <h4 id="displaying-portrait">Displaying portrait</h4>
 <p>As for the portrait, you can configure the object which shows the portrait (this is a standard object, so it can has everything a normal object has, including animations, scaling, rotations, etc),
-plus a strategy on where to position the portrait (SpeakerPosition- on the top, either left or right based on where the speaker is standing, Alternating- top right, then top left, then top right, etc 
+plus a strategy on where to position the portrait (SpeakerPosition- on the top, either left or right based on where the speaker is standing, Alternating- top right, then top left, then top right, etc
 or Custom which leaves the portrait positioning to you) and custom offsets for both the portrait and for the text from the portrait.</p>
 <h4 id="playing-the-audio-clip">Playing the audio clip</h4>
 <p>In order to play an audio clip, the text you pass to the speech method should have a number at the beginning prefixed by an ampersand, for example, &quot;&amp;17 Hello there!&quot;.
 If the number exists, the engine will look for an audio file with the first four capital letters of your character&#39;s id followed by the number. So if the line was said by &quot;Christopher&quot;,
 the engine will look for the file &quot;CHRI17&quot;. Those files should be placed in a special folder, under Assets -&gt; Speech -&gt; English.
 Note: In future revisions we&#39;re planning on introducing multi-language support, and also other ways of building the speech &quot;database&quot;.
-If the engine does not find the file it will not play an audio clip, and in any way the &quot;&amp;17&quot; will be stripped away from the text and will not be displayed on screen. </p>
+If the engine does not find the file it will not play an audio clip, and in any way the &quot;&amp;17&quot; will be stripped away from the text and will not be displayed on screen.</p>
 <h3 id="outfits">Outfits</h3>
 <p>Allows a character to switch outfits.
 An outfit is a collection of animations that are associated with a character.
 The collection can be swapped with another collection when the character changes his look.</p>
 <p>Say, for example, your player can wear a jacket. You can create two outfits in advance, one with a jacket
-and the other without. Each outfit will have different walk, idle and speak animations (one with a jacket and 
+and the other without. Each outfit will have different walk, idle and speak animations (one with a jacket and
 the other without).</p>
 <p>There walk, idle and speak animations that the engine might look for when walking, standing still and speaking.
 Additionally you can add more animations to an outfit (like &quot;Jump&quot;, or &quot;Swim&quot; for example), which you then need to draw per outfit, and will enable you
