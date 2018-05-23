@@ -11903,12 +11903,15 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISayComponent.OnBeforeSay
   nameWithType: ISayComponent.OnBeforeSay
-- uid: AGS.API.ISayComponent.SayAsync(System.String)
-  name: SayAsync(String)
-  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_SayAsync_System_String_
-  commentId: M:AGS.API.ISayComponent.SayAsync(System.String)
-  fullName: AGS.API.ISayComponent.SayAsync(System.String)
-  nameWithType: ISayComponent.SayAsync(String)
+- uid: AGS.API.ISayComponent.SayAsync(System.String,System.Nullable{AGS.API.PointF},System.Nullable{AGS.API.PointF})
+  name: SayAsync(String, Nullable<PointF>, Nullable<PointF>)
+  href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_SayAsync_System_String_System_Nullable_AGS_API_PointF__System_Nullable_AGS_API_PointF__
+  commentId: M:AGS.API.ISayComponent.SayAsync(System.String,System.Nullable{AGS.API.PointF},System.Nullable{AGS.API.PointF})
+  name.vb: SayAsync(String, Nullable(Of PointF), Nullable(Of PointF))
+  fullName: AGS.API.ISayComponent.SayAsync(System.String, System.Nullable<AGS.API.PointF>, System.Nullable<AGS.API.PointF>)
+  fullName.vb: AGS.API.ISayComponent.SayAsync(System.String, System.Nullable(Of AGS.API.PointF), System.Nullable(Of AGS.API.PointF))
+  nameWithType: ISayComponent.SayAsync(String, Nullable<PointF>, Nullable<PointF>)
+  nameWithType.vb: ISayComponent.SayAsync(String, Nullable(Of PointF), Nullable(Of PointF))
 - uid: AGS.API.ISayComponent.SayAsync*
   name: SayAsync
   href: api/AGS.API.ISayComponent.html#AGS_API_ISayComponent_SayAsync_
