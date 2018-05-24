@@ -117,6 +117,7 @@ namespace AGS.Engine
         private class Callback
         {
             private readonly Delegate _origObject;
+            private string _methodName;
 
             public Callback(Func<TEventArgs, Task> callback)
             {
@@ -166,21 +167,28 @@ namespace AGS.Engine
                 if (other == null) return false;
                 if (other._origObject == _origObject) return true;
                 if (_origObject.Target != other._origObject.Target) return false;
-                return getMethodName(_origObject) == getMethodName(other._origObject);
+                return getMethodName() == other.getMethodName();
             }
 
             public override int GetHashCode()
             {
-                if (_origObject.Target == null) return getMethodName(_origObject).GetHashCode(); //static method subscriptions
+                if (_origObject.Target == null) return getMethodName().GetHashCode(); //static method subscriptions
                 return _origObject.Target.GetHashCode();
             }
 
             public override string ToString()
             {
-                return $"[Event on {_origObject.Target.ToString()} ({getMethodName(_origObject)})]";
+                return $"[Event on {_origObject.Target.ToString()} ({getMethodName()})]";
             }
 
-            private string getMethodName(Delegate del) => RuntimeReflectionExtensions.GetMethodInfo(del).Name;
+            private string getMethodName()
+            {
+                if (_methodName == null)
+                {
+                    _methodName = RuntimeReflectionExtensions.GetMethodInfo(_origObject).Name;
+                }
+                return _methodName;
+            }
 
             private Func<TEventArgs, Task> convert(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
             {

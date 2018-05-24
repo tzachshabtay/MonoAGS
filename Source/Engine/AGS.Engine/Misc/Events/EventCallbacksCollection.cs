@@ -11,9 +11,9 @@ namespace AGS.Engine
 
         public EventCallbacksCollection()
         {
-            _high = new EventCallbacksSingleList<Callback>();
-            _normal = new EventCallbacksSingleList<Callback>();
-            _low = new EventCallbacksSingleList<Callback>();
+            _high = new EventCallbacksSingleList<Callback>(1);
+            _normal = new EventCallbacksSingleList<Callback>(20);
+            _low = new EventCallbacksSingleList<Callback>(1);
         }
 
         public int Count => _high.Count + _normal.Count + _low.Count;
