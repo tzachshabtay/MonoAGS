@@ -61,16 +61,23 @@ namespace AGS.Engine.Desktop
 
         public static System.Drawing.SizeF Measure(this string text, Font font, int maxWidth = int.MaxValue)
 		{
-            var key = new TextMeasureKey(text, font, maxWidth);
-            var size = _measurements.GetOrAdd(key,
-                      k =>
+            try
             {
-                lock (DesktopBitmapTextDraw.GraphicsLocker)
+                var key = new TextMeasureKey(text, font, maxWidth);
+                var size = _measurements.GetOrAdd(key,
+                          k =>
                 {
-                    return _graphics.Value.MeasureString(k.Text, k.Font, k.MaxWidth, StringFormat.GenericTypographic);
-                }
-            });
-            return size;
+                    lock (DesktopBitmapTextDraw.GraphicsLocker)
+                    {
+                        return _graphics.Value.MeasureString(k.Text, k.Font, k.MaxWidth, StringFormat.GenericTypographic);
+                    }
+                });
+                return size;
+            }
+            catch (ObjectDisposedException)
+            {
+                return SizeF.Empty;
+            }
 		}
 
 		public static System.Drawing.Color Convert(this AGS.API.Color color)
