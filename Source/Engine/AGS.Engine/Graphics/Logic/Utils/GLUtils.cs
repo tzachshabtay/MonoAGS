@@ -123,7 +123,7 @@ namespace AGS.Engine
             return true;
         }
 
-        public IFrameBuffer BeginFrameBuffer(AGSBoundingBox square, IRuntimeSettings settings)
+        public IFrameBuffer BeginFrameBuffer(AGSBoundingBox square, IGameSettings settings)
         {
             float width = square.MaxX - square.MinX;
             float height = square.MaxY - square.MinY;

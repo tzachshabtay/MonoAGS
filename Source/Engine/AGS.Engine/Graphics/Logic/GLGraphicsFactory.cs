@@ -30,7 +30,7 @@ namespace AGS.Engine
 			_bitmapLoader = bitmapLoader;
             _spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage, graphics, messagePump);
             
-            settings.Defaults.Skin = new AGSBlueSkin(this, glUtils).CreateSkin();
+            settings.Defaults.Skin = new AGSBlueSkin(this, glUtils, settings).CreateSkin();
 		}
 
         public IIconFactory Icons { get; private set; }

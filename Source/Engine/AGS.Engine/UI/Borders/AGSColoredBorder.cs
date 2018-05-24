@@ -9,13 +9,20 @@ namespace AGS.Engine
 		private GLVertex[] _roundCorner;
 		public static int ROUND_CORNER_SAMPLE_SIZE = 15;
         private readonly IGLUtils _glUtils;
+        private readonly IGameSettings _settings;
+        private IFrameBuffer _frameBuffer;
+        private readonly GLVertex[] _quad = new GLVertex[4];
 
         private FourCorners<Color> _colors;
         private FourCorners<IGLColor> _glColors;
 
-		public AGSColoredBorder(IGLUtils glUtils, float lineWidth, FourCorners<Color> color, FourCorners<bool> hasRoundCorner)
+        private AGSBoundingBox _lastSquare;
+        private Size _lastWindowSize;
+
+        public AGSColoredBorder(IGLUtils glUtils, IGameSettings settings, float lineWidth, FourCorners<Color> color, FourCorners<bool> hasRoundCorner)
 		{
             _glUtils = glUtils;
+            _settings = settings;
 			LineWidth = lineWidth;
 			Color = color;
 			HasRoundCorner = hasRoundCorner;
@@ -56,53 +63,80 @@ namespace AGS.Engine
 
         private void drawBorders(AGSBoundingBox square)
 		{
+            var screenSquare = new AGSBoundingBox(0f, _glUtils.CurrentResolution.Width, 0f, _glUtils.CurrentResolution.Height);
+
+            if (_settings.WindowSize.Equals(_lastWindowSize) && _lastSquare.Equals(square)
+                && _glUtils.DrawQuad(_frameBuffer, screenSquare, _quad))
+                return;
+
+            _frameBuffer?.Dispose();
+            _lastSquare = square;
+            _lastWindowSize = _settings.WindowSize;
+
             FourCorners<IGLColor> colors = _glColors;
 
             float farBottomLeftX = square.BottomLeft.X - LineWidth;
-            float farBottomLeftY = square.BottomLeft.Y - LineWidth;
+            float farBottomLeftY = _glUtils.CurrentResolution.Height - square.BottomLeft.Y - LineWidth;
             float farBottomRightX = square.BottomRight.X + LineWidth;
-            float farBottomRightY = square.BottomRight.Y - LineWidth;
+            float farBottomRightY = _glUtils.CurrentResolution.Height - square.BottomRight.Y - LineWidth;
             float farTopLeftX = square.TopLeft.X - LineWidth;
-            float farTopLeftY = square.TopLeft.Y + LineWidth;
+            float farTopLeftY = _glUtils.CurrentResolution.Height - square.TopLeft.Y + LineWidth;
             float farTopRightX = square.TopRight.X + LineWidth;
-            float farTopRightY = square.TopRight.Y + LineWidth;
+            float farTopRightY = _glUtils.CurrentResolution.Height - square.TopRight.Y + LineWidth;
 
-			AGSBoundingBox colorBox = new AGSBoundingBox (new Vector2 (farBottomLeftX, farBottomLeftY), new Vector2 (farBottomRightX, farBottomRightY),
-				new Vector2 (farTopLeftX, farTopLeftY), new Vector2 (farTopRightX, farTopRightY));
+            float topLeftX = square.TopLeft.X;
+            float topRightX = square.TopRight.X;
+            float topLeftY = _glUtils.CurrentResolution.Height - square.TopLeft.Y;
+            float topRightY = _glUtils.CurrentResolution.Height - square.TopRight.Y;
 
-			float topQuadLeftX = HasRoundCorner.TopLeft ? square.TopLeft.X : farTopLeftX;
-			float topQuadRightX = HasRoundCorner.TopRight ? square.TopRight.X : farTopRightX;
-            AGSBoundingBox topQuad = new AGSBoundingBox (
-                new Vector2 (topQuadLeftX, square.TopLeft.Y), new Vector2 (topQuadRightX, square.TopRight.Y),
-                new Vector2 (topQuadLeftX, farTopLeftY), new Vector2 (topQuadRightX, farTopRightY));
+            float bottomLeftX = square.BottomLeft.X;
+            float bottomRightX = square.BottomRight.X;
+            float bottomLeftY = _glUtils.CurrentResolution.Height - square.BottomLeft.Y;
+            float bottomRightY = _glUtils.CurrentResolution.Height - square.BottomRight.Y;
 
-            float bottomQuadLeftX = HasRoundCorner.BottomLeft ? square.BottomLeft.X : farBottomLeftX;
-            float bottomQuadRightX = HasRoundCorner.BottomRight ? square.BottomRight.X : farBottomRightX;
-            AGSBoundingBox bottomQuad = new AGSBoundingBox (
-                new Vector2 (bottomQuadLeftX, farBottomLeftY), new Vector2 (bottomQuadRightX, farBottomRightY),
-                new Vector2 (bottomQuadLeftX, square.BottomLeft.Y), new Vector2 (bottomQuadRightX, square.BottomRight.Y));
+            AGSBoundingBox colorBox = new AGSBoundingBox(new Vector2(farBottomLeftX, farBottomLeftY), new Vector2(farBottomRightX, farBottomRightY),
+                new Vector2(farTopLeftX, farTopLeftY), new Vector2(farTopRightX, farTopRightY));
 
-            float leftQuadBottomY = square.BottomLeft.Y;
-            float leftQuadTopY = square.TopLeft.Y;
-            AGSBoundingBox leftQuad = new AGSBoundingBox (
-                new Vector2 (farBottomLeftX, leftQuadBottomY), new Vector2 (square.BottomLeft.X, leftQuadBottomY),
-                new Vector2 (farTopLeftX, leftQuadTopY), new Vector2 (square.TopLeft.X, leftQuadTopY));
+            float topQuadLeftX = HasRoundCorner.TopLeft ? topLeftX : farTopLeftX;
+            float topQuadRightX = HasRoundCorner.TopRight ? topRightX : farTopRightX;
+            AGSBoundingBox topQuad = new AGSBoundingBox(
+                new Vector2(topQuadLeftX, topLeftY), new Vector2(topQuadRightX, topRightY),
+                new Vector2(topQuadLeftX, farTopLeftY), new Vector2(topQuadRightX, farTopRightY));
 
-            float rightQuadBottomY = square.BottomRight.Y;
-            float rightQuadTopY = square.TopRight.Y;
-            AGSBoundingBox rightQuad = new AGSBoundingBox (
-                new Vector2 (square.BottomRight.X, rightQuadBottomY), new Vector2 (farBottomRightX, rightQuadBottomY),
-                new Vector2 (square.TopRight.X, rightQuadTopY), new Vector2 (farTopRightX, rightQuadTopY));
+            float bottomQuadLeftX = HasRoundCorner.BottomLeft ? bottomLeftX : farBottomLeftX;
+            float bottomQuadRightX = HasRoundCorner.BottomRight ? bottomRightX : farBottomRightX;
+            AGSBoundingBox bottomQuad = new AGSBoundingBox(
+                new Vector2(bottomQuadLeftX, farBottomLeftY), new Vector2(bottomQuadRightX, farBottomRightY),
+                new Vector2(bottomQuadLeftX, bottomLeftY), new Vector2(bottomQuadRightX, bottomRightY));
 
-            if (HasRoundCorner.TopLeft) drawRoundCorner(square.TopLeft, LineWidth, 270f, colorBox, colors);
-            if (HasRoundCorner.TopRight) drawRoundCorner(square.TopRight, LineWidth, 0f, colorBox, colors);
-            if (HasRoundCorner.BottomLeft) drawRoundCorner(square.BottomLeft, LineWidth, 180f, colorBox, colors);
-            if (HasRoundCorner.BottomRight) drawRoundCorner(square.BottomRight, LineWidth, 90f, colorBox, colors);
+            float leftQuadBottomY = bottomLeftY;
+            float leftQuadTopY = topLeftY;
+            AGSBoundingBox leftQuad = new AGSBoundingBox(
+                new Vector2(farBottomLeftX, leftQuadBottomY), new Vector2(bottomLeftX, leftQuadBottomY),
+                new Vector2(farTopLeftX, leftQuadTopY), new Vector2(topLeftX, leftQuadTopY));
+
+            float rightQuadBottomY = bottomRightY;
+            float rightQuadTopY = topRightY;
+            AGSBoundingBox rightQuad = new AGSBoundingBox(
+                new Vector2(bottomRightX, rightQuadBottomY), new Vector2(farBottomRightX, rightQuadBottomY),
+                new Vector2(topRightX, rightQuadTopY), new Vector2(farTopRightX, rightQuadTopY));
+
+            _frameBuffer = _glUtils.BeginFrameBuffer(screenSquare, _settings);
+            if (_frameBuffer == null)
+                return;
+            if (HasRoundCorner.TopLeft) drawRoundCorner(new Vector3(topLeftX, topLeftY, 0f), LineWidth, 270f, colorBox, colors);
+            if (HasRoundCorner.TopRight) drawRoundCorner(new Vector3(topRightX, topRightY, 0f), LineWidth, 0f, colorBox, colors);
+            if (HasRoundCorner.BottomLeft) drawRoundCorner(new Vector3(bottomLeftX, bottomLeftY, 0f), LineWidth, 180f, colorBox, colors);
+            if (HasRoundCorner.BottomRight) drawRoundCorner(new Vector3(bottomRightX, bottomRightY, 0f), LineWidth, 90f, colorBox, colors);
+
             drawQuad(topQuad, colorBox, colors);
             drawQuad(bottomQuad, colorBox, colors);
             drawQuad(leftQuad, colorBox, colors);
             drawQuad(rightQuad, colorBox, colors);
-		}
+            _frameBuffer.End();
+
+            _glUtils.DrawQuad(_frameBuffer, screenSquare, _quad);
+        }
 
 		private void drawQuad(AGSBoundingBox quad, AGSBoundingBox border, FourCorners<IGLColor> colors)
 		{

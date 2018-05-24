@@ -61,7 +61,7 @@ namespace AGS.Editor
             var headerLabel = factory.UI.GetLabel("GameDebugTreeLabel", "Game Debug", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
                                       _panel, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
             headerLabel.Tint = Colors.Transparent;
-            headerLabel.Border = _panel.Border;
+            headerLabel.Border = AGSBorders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
             headerLabel.RenderLayer = _layer;
 
             var xButton = factory.UI.GetButton("GameDebugTreeCloseButton", (IAnimation)null, null, null, 0f, _panel.Height - headerHeight + 5f, _panel, "X",

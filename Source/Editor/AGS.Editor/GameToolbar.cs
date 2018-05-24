@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using AGS.API;
 using AGS.Engine;
+using Autofac;
 
 namespace AGS.Editor
 {
@@ -31,7 +32,7 @@ namespace AGS.Editor
 
         public bool IsPaused => _playPauseButton.Text == FontIcons.Play;
 
-        public void Init(IGameFactory factory)
+        public void Init(IGameFactory factory, AGSEditor editor)
         {
             _pointer = factory.UI.GetLabel("PointerCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
             _pointer.Text = FontIcons.Pointer;
@@ -43,7 +44,7 @@ namespace AGS.Editor
             _toolbar.Tint = GameViewColors.SubPanel;
             _toolbar.RenderLayer = new AGSRenderLayer(-99999, independentResolution: _resolution);
             _toolbar.ClickThrough = false;
-            _toolbar.Border = AGSBorders.SolidColor(GameViewColors.Border, 3f, true);
+            _toolbar.Border = AGSBorders.SolidColor(editor.EditorResolver.Container.Resolve<IGLUtils>(), editor.Editor.Settings,  GameViewColors.Border, 3f, true);
 
             var idle = new ButtonAnimation(null, FontIcons.ButtonConfig, GameViewColors.Button);
             var hover = new ButtonAnimation(null, AGSTextConfig.ChangeColor(FontIcons.ButtonConfig, Colors.Yellow, Colors.White, 0f), GameViewColors.HoveredButton);
