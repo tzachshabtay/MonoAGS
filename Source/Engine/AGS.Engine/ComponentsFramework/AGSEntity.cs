@@ -27,7 +27,7 @@ namespace AGS.Engine
             ID = id;
             _resolver = resolver;
             _components = new ConcurrentDictionary<Type, Lazy<API.IComponent>>();
-            _bindings = new AGSConcurrentHashSet<API.IComponentBinding>();
+            _bindings = new AGSConcurrentHashSet<API.IComponentBinding>(200, false);
             OnComponentsInitialized = new AGSEvent();
             OnComponentsChanged = new AGSEvent<AGSListChangedEventArgs<API.IComponent>>();
             _onDisposed = new AGSEvent();
@@ -208,8 +208,12 @@ namespace AGS.Engine
         public IEnumerator<API.IComponent> GetEnumerator()
         {
 			var components = _components;
-			if (components == null) return new List<API.IComponent>().GetEnumerator();
-            return components.Values.Select(c => c.Value).GetEnumerator();
+            if (components == null)
+                yield break;
+            foreach (var component in components.Values)
+            {
+                yield return component.Value;
+            }
         }
 
         public void OnDisposed(Action action)
