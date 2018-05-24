@@ -90,12 +90,16 @@ namespace AGS.Editor
             public void UpdatePosition()
             {
                 if (_draggable.IsCurrentlyDragged) return;
-                GameCanvas.ExpandAroundGameObject(_editor, _boundingBox, _image, _handle);
+                var handle = _handle;
+                if (handle == null) return;
+                GameCanvas.ExpandAroundGameObject(_editor, _boundingBox, _image, handle);
             }
 
             private void setVisible()
             {
-                _handle.Visible = _boundingBox != null && _translate != null && _image != null;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.Visible = _boundingBox != null && _translate != null && _image != null;
             }
 
             private void onDragStart((float dragStartX, float dragStartY) args)
@@ -111,13 +115,15 @@ namespace AGS.Editor
                 if (box == null) return;
                 var image = _image;
                 if (image == null) return;
+                var handle = _handle;
+                if (handle == null) return;
 
                 LastDragged = DateTime.Now;
 
-                var handleBottomLeft = _handle.WorldBoundingBox.BottomLeft;
+                var handleBottomLeft = handle.WorldBoundingBox.BottomLeft;
                 var (entityBottomLeftX, entityBottomLeftY) = _editor.ToGameResolution(handleBottomLeft.X, handleBottomLeft.Y);
 
-                var (translateX, translateY) = _editor.ToGameResolution(_handle.X, _handle.Y);
+                var (translateX, translateY) = _editor.ToGameResolution(handle.X, handle.Y);
                 (translateX, translateY) = (translateX + _offsetX, translateY + _offsetY);
 
                 InspectorProperty property = new InspectorProperty(_translate, "Location", _translate.GetType().GetProperty(nameof(ITranslate.Location)));

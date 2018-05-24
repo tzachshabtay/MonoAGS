@@ -57,7 +57,9 @@ namespace AGS.Editor
             public void SetVisible(bool visible)
             {
                 _isVisible = visible;
-                _handle.Visible = visible && _rotate != null;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.Visible = visible && _rotate != null;
             }
 
             public void Dispose()
@@ -98,11 +100,13 @@ namespace AGS.Editor
             {
                 var rotate = _rotate;
                 if (!_isDown || rotate == null) return;
+                var handle = _handle;
+                if (handle == null) return;
 
                 if (!_input.LeftMouseButtonDown)
                 {
                     _isDown = false;
-                    _handle.TextConfig = _idleConfig;
+                    handle.TextConfig = _idleConfig;
                     return;
                 }
 
@@ -128,7 +132,9 @@ namespace AGS.Editor
 
             private void setIcon()
             {
-                _handle.Pivot = new PointF(0.5f, 0.5f);
+                var handle = _handle;
+                if (handle == null) return;
+                handle.Pivot = new PointF(0.5f, 0.5f);
                 switch (_direction)
                 {
                     case Direction.UpRight:
@@ -150,13 +156,17 @@ namespace AGS.Editor
 
             private void icon(string text)
             {
-                _handle.Text = text;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.Text = text;
             }
 
             private void move(float x, float y)
             {
+                var handle = _handle;
+                if (handle == null) return;
                 (x, y) = _editor.ToEditorResolution(x, y);
-                _handle.Location = new AGSLocation(x, y);
+                handle.Location = new AGSLocation(x, y);
             }
 
             private void onMouseDown(MouseButtonEventArgs args)
@@ -172,12 +182,16 @@ namespace AGS.Editor
             private void onMouseLeave(MousePositionEventArgs args)
             {
                 if (_isDown) return;
-                _handle.TextConfig = _idleConfig;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.TextConfig = _idleConfig;
             }
 
             private void onMouseEnter(MousePositionEventArgs args)
             {
-                _handle.TextConfig = _hoverConfig;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.TextConfig = _hoverConfig;
             }
         }
     }

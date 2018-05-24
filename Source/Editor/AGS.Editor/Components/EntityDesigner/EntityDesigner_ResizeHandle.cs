@@ -57,7 +57,9 @@ namespace AGS.Editor
             public void SetVisible(bool visible)
             {
                 _isVisible = visible;
-                _handle.Visible = visible && _scale != null;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.Visible = visible && _scale != null;
             }
 
             public void Dispose()
@@ -110,10 +112,13 @@ namespace AGS.Editor
             {
                 if (!_isDown) return;
 
+                var handle = _handle;
+                if (handle == null) return;
+
                 if (!_input.LeftMouseButtonDown)
                 {
                     _isDown = false;
-                    _handle.TextConfig = _idleConfig;
+                    handle.TextConfig = _idleConfig;
                     return;
                 }
                 switch (_direction)
@@ -190,27 +195,37 @@ namespace AGS.Editor
 
             private void rotate(float angle)
             {
-                _handle.Angle = angle;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.Angle = angle;
             }
 
             private void icon(string text)
             {
-                _handle.Text = text;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.Text = text;
             }
 
             private void pivot(float x, float y)
             {
-                _handle.Pivot = new PointF(x, y);
+                var handle = _handle;
+                if (handle == null) return;
+                handle.Pivot = new PointF(x, y);
             }
 
             private void move(float x, float y)
             {
+                var handle = _handle;
+                if (handle == null) return;
                 (x, y) = _editor.ToEditorResolution(x, y);
-                _handle.Location = new AGSLocation(x, y);
+                handle.Location = new AGSLocation(x, y);
             }
 
             private void scale(float width, float height)
             {
+                var handle = _handle;
+                if (handle == null) return;
                 (width, height) = _editor.ToGameSize(width, height);
                 float w = _widthOnDown + width;
                 float h = _heightOnDown + height;
@@ -231,7 +246,7 @@ namespace AGS.Editor
                     }
                     else h = heightCandidate;
                 }
-                ScaleAction action = new ScaleAction(_handle.GetFriendlyName(), _scale, w, h);
+                ScaleAction action = new ScaleAction(handle.GetFriendlyName(), _scale, w, h);
                 _actions.RecordAction(action);
             }
 
@@ -249,12 +264,16 @@ namespace AGS.Editor
             private void onMouseLeave(MousePositionEventArgs args)
             {
                 if (_isDown) return;
-                _handle.TextConfig = _idleConfig;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.TextConfig = _idleConfig;
             }
 
             private void onMouseEnter(MousePositionEventArgs args)
             {
-                _handle.TextConfig = _hoverConfig;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.TextConfig = _hoverConfig;
             }
         }
     }

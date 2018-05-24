@@ -90,7 +90,8 @@ namespace AGS.Editor
             {
                 var image = _image;
                 var boxComponent = _boundingBox;
-                if (image == null || boxComponent == null) return;
+                var handle = _handle;
+                if (image == null || boxComponent == null || handle == null) return;
                 var box = boxComponent.WorldBoundingBox;
                 var pivot = image.Pivot;
                 var x = MathUtils.Lerp(0f, box.MinX, 1f, box.MaxX, pivot.X);
@@ -98,17 +99,23 @@ namespace AGS.Editor
 
                 (x, y) = _editor.ToEditorResolution(x, y);
 
-                _handle.Location = new AGSLocation(x, y);
+                handle.Location = new AGSLocation(x, y);
             }
 
             public void Visit()
             {
                 if (!_isDown) return;
 
+                var handle = _handle;
+                if (handle == null)
+                {
+                    return;
+                }
+
                 if (!_input.LeftMouseButtonDown)
                 {
                     _isDown = false;
-                    _handle.TextConfig = _idleConfig;
+                    handle.TextConfig = _idleConfig;
                     return;
                 }
 
@@ -142,14 +149,16 @@ namespace AGS.Editor
                 }
                 float toX = _translateXOnDown + xDiff;
                 float toY = _translateYOnDown + yDiff;
-                MovePivotAction action = new MovePivotAction(_handle.GetFriendlyName(), _image, _translate,
+                MovePivotAction action = new MovePivotAction(handle.GetFriendlyName(), _image, _translate,
                                                              toPivotX, toPivotY, toX, toY);
                 _actions.RecordAction(action);
             }
 
             private void setVisible()
             {
-                _handle.Visible = _boundingBox != null && _image != null && _translate != null;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.Visible = _boundingBox != null && _image != null && _translate != null;
             }
 
             private void onMouseDown(MouseButtonEventArgs args)
@@ -168,12 +177,16 @@ namespace AGS.Editor
             private void onMouseLeave(MousePositionEventArgs args)
             {
                 if (_isDown) return;
-                _handle.TextConfig = _idleConfig;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.TextConfig = _idleConfig;
             }
 
             private void onMouseEnter(MousePositionEventArgs args)
             {
-                _handle.TextConfig = _hoverConfig;
+                var handle = _handle;
+                if (handle == null) return;
+                handle.TextConfig = _hoverConfig;
             }
 
             private void onImagePropertyChanged(object sender, PropertyChangedEventArgs args)
