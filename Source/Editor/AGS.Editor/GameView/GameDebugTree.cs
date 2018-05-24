@@ -123,12 +123,13 @@ namespace AGS.Editor
         public void Select(IEntity entity)
         {
             if (!_entitiesToNodes.TryGetValue(entity.ID, out var node)) return;
+            /* todo: expand and scroll to node in debug tree
             var parent = node.TreeNode.Parent;
             while (parent != null)
             {
                 _treeView.Expand(parent);
                 parent = parent.TreeNode.Parent;
-            }
+            }*/
             _treeView.Select(node);
         }
 
@@ -269,7 +270,7 @@ namespace AGS.Editor
         private void selectObject(ITreeStringNode node)
         {
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
-            _inspector.Inspector.Show(obj);
+            _inspector.Show(obj);
             _lastSelectedEntity = obj;
             var host = new AGSComponentHost(_editor.EditorResolver);
             host.Init(obj);
@@ -310,7 +311,7 @@ namespace AGS.Editor
         private void selectArea(ITreeStringNode node)
         {
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
-            _inspector.Inspector.Show(obj);
+            _inspector.Show(obj);
             var area = obj.GetComponent<IAreaComponent>();
             var debugMask = area.Mask.DebugDraw;
             if (debugMask != null)

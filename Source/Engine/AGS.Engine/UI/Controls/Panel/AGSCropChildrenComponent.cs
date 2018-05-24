@@ -10,7 +10,7 @@ namespace AGS.Engine
         private IInObjectTreeComponent _tree;
         private PointF _startPoint;
         private IBoundingBoxComponent _boundingBox;
-        private bool _isDirty;
+        private bool _isDirty, _isCropEnabled;
         private readonly IGameState _state;
         private readonly ConcurrentDictionary<string, IComponentBinding[]> _bindings;
 
@@ -18,11 +18,25 @@ namespace AGS.Engine
         {
             _state = state;
             _bindings = new ConcurrentDictionary<string, IComponentBinding[]>();
+            _isCropEnabled = true;
             EntitiesToSkipCrop = new AGSConcurrentHashSet<string>();
             EntitiesToSkipCrop.OnListChanged.Subscribe(onEntitiesToSkipCropChanged);
         }
 
-        public bool CropChildrenEnabled { get; set; }
+        public bool CropChildrenEnabled
+        {
+            get => _isCropEnabled;
+            set
+            {
+                if (_isCropEnabled == value) return;
+                _isCropEnabled = value;
+                if (value)
+                {
+                    rebuildJump(_tree);
+                    rebuildEntireTree();
+                }
+            }
+        }
 
         public PointF StartPoint { get => _startPoint; set { _startPoint = value; rebuildJump(_tree); rebuildEntireTree(); } }
 
@@ -135,7 +149,7 @@ namespace AGS.Engine
 
         private void rebuildTree(IInObjectTreeComponent tree)
         {
-            if (tree == null) return;
+            if (tree == null || !_isCropEnabled) return;
             foreach (var child in tree.TreeNode.Children)
             {
                 if (!child.Visible) continue;
