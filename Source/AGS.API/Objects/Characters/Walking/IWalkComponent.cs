@@ -97,9 +97,18 @@ namespace AGS.API
         /// </code>
         /// </example>
         /// </summary>
-        /// <returns>Returns true if the walk was completed successfully, or false if the walk was cancelled (if the user clicked on something else).</returns>
+        /// <returns>Returns true if the walk was completed successfully, or false if the walk was cancelled (if the user clicked on something else) or the character failed to reach the destination.</returns>
         /// <param name="position">The position.</param>
-		Task<bool> WalkAsync(Position position);
+        /// <param name="walkAnywhere">If set to true, the character will simply walk directly to the destination, ignoring walkable areas and treat the entire room as walkable.</param>
+		Task<bool> WalkAsync(Position position, bool walkAnywhere = false);
+
+        /// <summary>
+        /// Walk asynchronously to the specified position in a straight line as far as is possible before hitting a non-walkable area. 
+        /// This is useful for use with the arrow keys for character movement, since it guarantees that the character will move in a straight line in the direction specified.
+        /// </summary>
+        /// <returns>Returns true if the walk was completed successfully, or false if the walk was cancelled (if the user clicked on something else) or the character failed to reach the destination.</returns>
+        /// <param name="position">Position.</param>
+        Task<bool> WalkStraightAsync(Position position);
 
         /// <summary>
         /// Asynchronosly stops the current walk (if there is a walk to stop).
@@ -114,4 +123,3 @@ namespace AGS.API
 		void PlaceOnWalkableArea();
 	}
 }
-

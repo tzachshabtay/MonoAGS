@@ -84,7 +84,7 @@ namespace AGS.Engine
 			}
 			CurrentDirection = direction;
 			if (direction == null) return;
-			await _character.WalkAsync(getTarget(direction.Value));
+			await _character.WalkStraightAsync(getTarget(direction.Value));
 		}
 
 		private async Task onKeyUp(KeyboardEventArgs args)
@@ -100,7 +100,7 @@ namespace AGS.Engine
 				await _character.StopWalkingAsync();
 				return;
 			}
-			await _character.WalkAsync(getTarget(direction.Value));
+			await _character.WalkStraightAsync(getTarget(direction.Value));
 		}
 
 		private Direction? getDirection()
@@ -124,59 +124,31 @@ namespace AGS.Engine
 
 		private Position getTarget(Direction direction)
 		{
-			const float offset = 10f;
-			float xOffset = 0, yOffset = 0;
+            (var x, var y, _) = _character.Position;
 			switch (direction)
 			{
 				case Direction.Down: case Direction.DownLeft: case Direction.DownRight:
-					yOffset = -offset;
+                    y = float.MinValue;
 					break;
 				case Direction.Up: case Direction.UpLeft: case Direction.UpRight:
-					yOffset = offset;
+                    y = float.MaxValue;
 					break;
 			}
 			switch (direction)
 			{
 				case Direction.Left: case Direction.DownLeft: case Direction.UpLeft:
-					xOffset = -offset;
+                    x = float.MinValue;
 					break;
 				case Direction.Right: case Direction.DownRight: case Direction.UpRight:
-					xOffset = offset;
+                    x = float.MaxValue;
 					break;
 			}
-			return findFarWalkable(xOffset, yOffset);
+			return (x, y);
 		}
 
-        private Position findFarWalkable(float xOffset, float yOffset)
-		{
-            float x = _character.WorldX;
-            float y = _character.WorldY;
-			bool walkable = true;
-			while (walkable)
-			{
-				x += xOffset;
-				y += yOffset;
-                if (!isWalkable(x, y)) return new Position(x - xOffset, y - yOffset);
-			}
-            return new Position(_character.X, _character.Y); 
-		}
-
-		private bool isWalkable(float x, float y)
-		{
-			PointF point = new PointF (x, y);
-            foreach (var area in _character.Room.GetMatchingAreas(point, _character.ID))
-			{
-                var walkableArea = area.GetComponent<IWalkableArea>();
-                if (walkableArea == null || !walkableArea.IsWalkable) continue;
-                return true;
-			}
-			return false;
-		}
-
-        private bool isUp() => _keysDown.Any(k => _up.Contains(k));
-        private bool isDown() => _keysDown.Any(k => _down.Contains(k));
-        private bool isLeft() => _keysDown.Any(k => _left.Contains(k));
-        private bool isRight() => _keysDown.Any(k => _right.Contains(k));
+        private bool isUp() => _keysDown.Any(_up.Contains);
+        private bool isDown() => _keysDown.Any(_down.Contains);
+        private bool isLeft() => _keysDown.Any(_left.Contains);
+        private bool isRight() => _keysDown.Any(_right.Contains);
     }
 }
-
