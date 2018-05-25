@@ -99,7 +99,7 @@ namespace AGS.Editor
 
                 (x, y) = _editor.ToEditorResolution(x, y);
 
-                handle.Location = new AGSLocation(x, y);
+                handle.Position = new Position(x, y);
             }
 
             public void Visit()

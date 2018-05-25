@@ -131,6 +131,11 @@ namespace DemoGame
         { 
             AGSSplashScreen splashScreen = new AGSSplashScreen();
             Rooms.SplashScreen = splashScreen.Load(game);
+
+            var splashBackground = game.Factory.Object.GetObject("Splash Background");
+            splashBackground.Image = await game.Factory.Graphics.LoadImageAsync("Rooms/Splash/bg.png");
+            Rooms.SplashScreen.Background = splashBackground;
+
             game.State.Rooms.Add(Rooms.SplashScreen);
             Rooms.SplashScreen.Events.OnAfterFadeIn.SubscribeToAsync(async () => 
             { 
@@ -200,7 +205,7 @@ namespace DemoGame
             var resolution = new Size(1200, 800);
             ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, resolution.Width, 2, config: new AGSTextConfig(alignment: Alignment.TopLeft,
 				autoFit: AutoFit.LabelShouldFitText));
-			fpsLabel.Pivot = new PointF (1f, 0f);
+			fpsLabel.Pivot = (1f, 0f);
             fpsLabel.RenderLayer = new AGSRenderLayer(-99999, independentResolution: resolution);
             fpsLabel.Enabled = true;
             fpsLabel.MouseEnter.Subscribe(_ => fpsLabel.Tint = Colors.Indigo);
@@ -212,7 +217,7 @@ namespace DemoGame
             ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 1, 1, resolution.Width, 32, config: new AGSTextConfig(alignment: Alignment.TopRight,
 				autoFit: AutoFit.LabelShouldFitText));
             label.Tint = Colors.SlateBlue.WithAlpha(125);
-			label.Pivot = new PointF (1f, 0f);
+			label.Pivot = (1f, 0f);
             label.RenderLayer = fpsLabel.RenderLayer;
             MousePositionLabel mouseLabel = new MousePositionLabel(game, label);
 			mouseLabel.Start();
@@ -220,7 +225,7 @@ namespace DemoGame
             ILabel debugHotspotLabel = game.Factory.UI.GetLabel("Debug Hotspot Label", "", 1f, 1f, resolution.Width, 62, config: new AGSTextConfig(alignment: Alignment.TopRight,
               autoFit: AutoFit.LabelShouldFitText));
             debugHotspotLabel.Tint = Colors.DarkSeaGreen.WithAlpha(125);
-            debugHotspotLabel.Pivot = new PointF(1f, 0f);
+            debugHotspotLabel.Pivot = (1f, 0f);
             debugHotspotLabel.RenderLayer = fpsLabel.RenderLayer;
             HotspotLabel hotspot = new HotspotLabel(game, debugHotspotLabel) { DebugMode = true };
             hotspot.Start();

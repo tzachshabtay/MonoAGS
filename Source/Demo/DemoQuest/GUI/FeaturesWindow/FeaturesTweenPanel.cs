@@ -65,7 +65,7 @@ namespace DemoGame
                 var crop = o.GetComponent<ICropSelfComponent>();
                 if (crop != null) return crop;
                 crop = o.AddComponent<ICropSelfComponent>();
-                crop.CropArea = new RectangleF(0f, 0f, o.Width, o.Height);
+                crop.CropArea = (0f, 0f, o.Width, o.Height);
                 return crop;
             };
 
@@ -138,7 +138,7 @@ namespace DemoGame
             _tweensListScrollingPanel.Tint = Colors.Transparent;
             _tweensListContentsPanel = _game.Factory.UI.CreateScrollingPanel(_tweensListScrollingPanel);
             _tweensListContentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
-            _tweensListScrollingPanel.Pivot = new PointF(0f, 1f);
+            _tweensListScrollingPanel.Pivot = (0f, 1f);
             var layout = _tweensListContentsPanel.AddComponent<IStackLayoutComponent>();
             layout.Direction = LayoutDirection.Vertical;
             layout.AbsoluteSpacing = -10f;
@@ -261,8 +261,7 @@ namespace DemoGame
         private IComboBox addCombobox(string id, float x, float y, string initialText, Action<ListboxItemArgs> callback, params string[] options)
         {
             var combo = _game.Factory.UI.GetComboBox(id, null, null, null, _parent, false, 220f, watermark: initialText);
-            combo.X = x;
-            combo.Y = y;
+            combo.Position = (x, y);
             var list = combo.DropDownPanelList;
             list.Items.AddRange(options.Select(o => (IStringItem)new AGSStringItem { Text = o }).ToList());
 
@@ -327,13 +326,13 @@ namespace DemoGame
                 _panel.Visible = false;
                 _panel.RenderLayer = parent.RenderLayer;
                 _panel.Tint = Colors.Transparent;
-                _panel.Pivot = new PointF(0f, 1f);
+                _panel.Pivot = (0f, 1f);
 
                 _slider = factory.GetSlider($"FeaturesTweenSlider_{tweenId}", null, null, 0f, 0f, tween.DurationInTicks, _panel);
-                _slider.Location = new AGSLocation(10f, 10f);
-                _slider.HandleGraphics.Pivot = new PointF(0.5f, 0.5f);
+                _slider.Position = (10f, 10f);
+                _slider.HandleGraphics.Pivot = (0.5f, 0.5f);
                 _slider.Direction = SliderDirection.LeftToRight;
-                _slider.Graphics.Pivot = new PointF(0f, 0.5f);
+                _slider.Graphics.Pivot = (0f, 0.5f);
                 _slider.Graphics.Image = new EmptyImage(_panel.Width - 100f, 10f);
                 _slider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
                 _slider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
@@ -343,7 +342,7 @@ namespace DemoGame
                 _label = factory.GetLabel($"FeaturesTweenLabel_{tweenId}", name, 100f, 20f,
                                           _slider.X + _slider.Graphics.Width / 2f, _slider.Y + 10f, _panel,
                                           new AGSTextConfig(autoFit: AutoFit.TextShouldFitLabel));
-                _label.Pivot = new PointF(0.5f, 0f);
+                _label.Pivot = (0.5f, 0f);
 
                 AGSTextConfig idleConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
                 AGSTextConfig hoverConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));

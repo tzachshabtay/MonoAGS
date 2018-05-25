@@ -126,8 +126,8 @@ namespace AGS.Editor
                 var (translateX, translateY) = _editor.ToGameResolution(handle.X, handle.Y);
                 (translateX, translateY) = (translateX + _offsetX, translateY + _offsetY);
 
-                InspectorProperty property = new InspectorProperty(_translate, "Location", _translate.GetType().GetProperty(nameof(ITranslate.Location)));
-                PropertyAction action = new PropertyAction(property, new AGSLocation(translateX, translateY));
+                InspectorProperty property = new InspectorProperty(_translate, "Position", _translate.GetType().GetProperty(nameof(ITranslate.Position)));
+                PropertyAction action = new PropertyAction(property, new Position(translateX, translateY));
                 _actions.RecordAction(action);
             }
         }

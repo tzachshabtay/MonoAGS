@@ -35,13 +35,13 @@ namespace AGS.Editor
             _fromX = _translate.X;
             _fromY = _translate.Y;
             _image.Pivot = new PointF(_toPivotX, _toPivotY);
-            _translate.Location = new AGSLocation(_toX, _toY);
+            _translate.Position = new Position(_toX, _toY);
         }
 
         protected override void UnExecuteCore()
         {
             _image.Pivot = new PointF(_fromPivotX, _fromPivotY);
-            _translate.Location = new AGSLocation(_fromX, _fromY);
+            _translate.Position = new Position(_fromX, _fromY);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace AGS.Editor
                 _toPivotY = next._toPivotY;
                 _actionDisplayName = next._actionDisplayName;
                 _image.Pivot = new PointF(_toPivotX, _toPivotY);
-                _translate.Location = new AGSLocation(_toX, _toY);
+                _translate.Position = new Position(_toX, _toY);
                 return true;
             }
             return false;

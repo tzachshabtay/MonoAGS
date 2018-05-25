@@ -35,10 +35,10 @@ namespace AGS.API
         /// <param name="y">An optional y co-ordinate for the entity to move inside the new room.</param>
         /// <example>
         /// <code language="lang-csharp">
-        /// private void onDoorHotspotClicked()
+        /// private async Task onDoorHotspotClicked()
         /// {
-        ///     cPlayer.Say("Ok, time to get inside the house.");
-        ///     cPlayer.ChangeRoom(rHouse, 120, 100); //Will move the player to the house (to co-ordinates: 120,100).
+        ///     await cPlayer.SayAsync("Ok, time to get inside the house.");
+        ///     await cPlayer.ChangeRoomAsync(rHouse, 120, 100); //Will move the player to the house (to co-ordinates: 120,100).
         /// }
         /// </code>
         /// </example>

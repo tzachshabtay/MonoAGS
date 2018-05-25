@@ -112,7 +112,7 @@ namespace Tests
 		private void setupObject(IObject obj)
 		{
 			obj.Pivot = new AGS.API.PointF (0.1f, 0.2f);
-			obj.Location = new AGSLocation (0.5f, 0.6f, 0.7f);
+            obj.Position = (0.5f, 0.6f, 0.7f);
 			obj.Angle = 0.8f;
 			obj.Image = new EmptyImage (100f, 50f);
             obj.Scale = new PointF(2f, 2.5f);

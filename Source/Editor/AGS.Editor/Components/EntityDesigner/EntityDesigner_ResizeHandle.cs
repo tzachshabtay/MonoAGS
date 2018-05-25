@@ -219,7 +219,7 @@ namespace AGS.Editor
                 var handle = _handle;
                 if (handle == null) return;
                 (x, y) = _editor.ToEditorResolution(x, y);
-                handle.Location = new AGSLocation(x, y);
+                handle.Position = new Position(x, y);
             }
 
             private void scale(float width, float height)

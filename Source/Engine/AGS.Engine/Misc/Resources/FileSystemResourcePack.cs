@@ -101,7 +101,7 @@ namespace AGS.Engine
 
         private string autoDetectAssetsFolder(Assembly assembly)
         {
-            string exeDir = assembly == null ? _fileSystem.GetCurrentDirectory() : 
+            string exeDir = assembly == null ? _fileSystem.GetCurrentDirectory() :
                 Path.GetDirectoryName(assembly.GetName().CodeBase.Replace("file:///", ""));
             string dir = exeDir;
             while (true)

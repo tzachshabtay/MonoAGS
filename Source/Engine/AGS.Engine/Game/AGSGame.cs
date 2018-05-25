@@ -6,15 +6,15 @@ using System.Reflection;
 
 namespace AGS.Engine
 {
-	public class AGSGame : IGame
-	{
-		private Resolver _resolver;
-		private int _relativeSpeed;
-		private readonly IMessagePump _renderMessagePump, _updateMessagePump;
+    public class AGSGame : IGame
+    {
+        private Resolver _resolver;
+        private int _relativeSpeed;
+        private readonly IMessagePump _renderMessagePump, _updateMessagePump;
         private readonly IGraphicsBackend _graphics;
         private readonly IGLUtils _glUtils;
         private readonly RepeatedlyExecuteEventArgs _repeatArgs = new RepeatedlyExecuteEventArgs();
-		public const double UPDATE_RATE = 60.0;
+        public const double UPDATE_RATE = 60.0;
         private int _updateFrameRetries = 0, _renderFrameRetries = 0;
         private static AGSUpdateThread _updateThread;
         private bool _shouldSetRestart = true;
@@ -26,25 +26,25 @@ namespace AGS.Engine
 
         public AGSGame(IGameState state, IGameEvents gameEvents, IRenderMessagePump renderMessagePump, IUpdateMessagePump updateMessagePump,
                        IGraphicsBackend graphics, IGLUtils glUtils)
-		{
+        {
             _renderMessagePump = renderMessagePump;
-            _renderMessagePump.SetSyncContext ();
+            _renderMessagePump.SetSyncContext();
             _updateMessagePump = updateMessagePump;
-			State = state;
-			Events = gameEvents;
-			_relativeSpeed = state.Speed;
+            State = state;
+            Events = gameEvents;
+            _relativeSpeed = state.Speed;
             _graphics = graphics;
             _glUtils = glUtils;
             GLUtils = _glUtils;
-		}
+        }
 
-		public static IGameWindow GameWindow { get; private set; }
+        public static IGameWindow GameWindow { get; private set; }
 
-		public static IGame Game { get; private set; }
+        public static IGame Game { get; private set; }
 
         public static IDevice Device { get; set; }
 
-		public static IShader Shader { get; set; }
+        public static IShader Shader { get; set; }
 
         public static Resolver Resolver => ((AGSGame)Game)._resolver;
 
@@ -56,38 +56,38 @@ namespace AGS.Engine
             return Create(resolver);
         }
 
-		public static IGame Create(Resolver resolver)
-		{
-			UIThreadID = Environment.CurrentManagedThreadId;
+        public static IGame Create(Resolver resolver)
+        {
+            UIThreadID = Environment.CurrentManagedThreadId;
 
-			printRuntime();
-			resolver.Build();
-			AGSGame game = resolver.Container.Resolve<AGSGame>();
-			game._resolver = resolver;
-			Game = game;
-			return game;
-		}
+            printInfo();
+            resolver.Build();
+            AGSGame game = resolver.Container.Resolve<AGSGame>();
+            game._resolver = resolver;
+            Game = game;
+            return game;
+        }
 
         public static int UIThreadID;
         public static int UpdateThreadID;
 
-		#region IGame implementation
+        #region IGame implementation
 
-		public IGameFactory Factory { get; private set; }
+        public IGameFactory Factory { get; private set; }
 
-		public IGameState State { get; private set; } 
+        public IGameState State { get; private set; }
 
-		public IGameLoop GameLoop { get; private set; } 
+        public IGameLoop GameLoop { get; private set; }
 
         public IRendererLoop RenderLoop { get; private set; }
 
         public IRenderPipeline RenderPipeline => _pipeline;
 
-		public ISaveLoad SaveLoad { get; private set; } 
+        public ISaveLoad SaveLoad { get; private set; }
 
-		public IInput Input { get; private set; } 
+        public IInput Input { get; private set; }
 
-		public IGameEvents Events { get; private set; }
+        public IGameEvents Events { get; private set; }
 
         public IAudioSystem Audio { get; private set; }
 
@@ -98,11 +98,11 @@ namespace AGS.Engine
         public Resolver GetResolver() => _resolver;
 
         public void Start()
-		{
+        {
             _gameCount++;
             _gameIndex = _gameCount;
             var settings = _resolver.Container.Resolve<IGameSettings>();
-			GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter (typeof(AGS.API.Size), settings.VirtualResolution));
+            GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter(typeof(AGS.API.Size), settings.VirtualResolution));
             TypedParameter settingsParameter = new TypedParameter(typeof(IGameSettings), settings);
 
             bool isNewWindow = false;
@@ -119,7 +119,7 @@ namespace AGS.Engine
             }
 
             //using (GameWindow)
-			{
+            {
                 try
                 {
                     GameWindow.Load += (sender, e) =>
@@ -142,30 +142,30 @@ namespace AGS.Engine
 
                     GameWindow.RenderFrame += onRenderFrame;
 
-    				// Run the game at 60 updates per second
+                    // Run the game at 60 updates per second
                     _updateThread.Run(UPDATE_RATE);
                     if (isNewWindow)
                     {
                         GameWindow.Run(UPDATE_RATE);
                     }
-                } 
+                }
                 catch (Exception exx)
                 {
                     Debug.WriteLine(exx.ToString());
                     throw;
                 }
-			}
-		}
+            }
+        }
 
-		public void Quit()
-		{
-			GameWindow.Exit();
-		}
+        public void Quit()
+        {
+            GameWindow.Exit();
+        }
 
-		public TEntity Find<TEntity>(string id) where TEntity : class, IEntity
-		{
-			return State.Find<TEntity>(id);
-		}
+        public TEntity Find<TEntity>(string id) where TEntity : class, IEntity
+        {
+            return State.Find<TEntity>(id);
+        }
 
         #endregion
 
@@ -260,7 +260,7 @@ namespace AGS.Engine
             TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
             _pipeline = _resolver.Container.Resolve<IAGSRenderPipeline>(gameParameter);
             TypedParameter pipelineParameter = new TypedParameter(typeof(IAGSRenderPipeline), _pipeline);
-            RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter, 
+            RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter,
                                                                     gameWindowParameter, pipelineParameter);
             updateResolver();
             HitTest = _resolver.Container.Resolve<IHitTest>();
@@ -272,37 +272,50 @@ namespace AGS.Engine
             Events.OnLoad.Invoke();
         }
 
-		private void updateResolver()
-		{
-			var updater = new ContainerBuilder ();
-			updater.RegisterInstance(Input).As<IInput>();
-			updater.RegisterInstance(RenderLoop).As<IRendererLoop>();
+        private void updateResolver()
+        {
+            var updater = new ContainerBuilder();
+            updater.RegisterInstance(Input).As<IInput>();
+            updater.RegisterInstance(RenderLoop).As<IRendererLoop>();
             updater.RegisterInstance(_pipeline).As<IRenderPipeline>().As<IAGSRenderPipeline>();
-			updater.RegisterInstance(this).As<IGame>();
+            updater.RegisterInstance(this).As<IGame>();
             updater.RegisterInstance(Settings).As<IGameSettings>();
             updater.RegisterInstance(Settings).As<IRuntimeSettings>();
 
-			updater.Update(_resolver.Container);
-		}
+            updater.Update(_resolver.Container);
+        }
 
-		void adjustSpeed()
-		{
-			if (_relativeSpeed == State.Speed) return;
+        void adjustSpeed()
+        {
+            if (_relativeSpeed == State.Speed) return;
 
-			_relativeSpeed = State.Speed;
-			GameWindow.TargetUpdateFrequency = UPDATE_RATE * (_relativeSpeed / 100f);
+            _relativeSpeed = State.Speed;
+            GameWindow.TargetUpdateFrequency = UPDATE_RATE * (_relativeSpeed / 100f);
             _updateThread.TargetUpdateFrequency = UPDATE_RATE * (_relativeSpeed / 100f);
-		}
+        }
 
-		private static void printRuntime()
-		{
-			Type type = Type.GetType("Mono.Runtime");
-			
-			MethodInfo getDisplayName = type?.GetRuntimeMethod("GetDisplayName", new Type[]{}); 
-				
+        private static void printInfo()
+        {
+            printVersion();
+            printRuntime();
+        }
+
+        private static void printVersion()
+        {
+            Debug.WriteLine($"MonoAGS version: {ThisAssembly.AssemblyVersion}");
+            Debug.WriteLine($"Detailed version: {ThisAssembly.AssemblyInformationalVersion}");
+            Debug.WriteLine($"File version: {ThisAssembly.AssemblyFileVersion}");
+        }
+
+        private static void printRuntime()
+        {
+            Type type = Type.GetType("Mono.Runtime");
+
+            MethodInfo getDisplayName = type?.GetRuntimeMethod("GetDisplayName", new Type[] { });
+
             object displayName = getDisplayName?.Invoke(null, null);
-			Debug.WriteLine($"Runtime: Mono- {displayName ?? "Unknown"}"); 
-		}
-	}
+            Debug.WriteLine($"Runtime: Mono- {displayName ?? "Unknown"}");
+        }
+    }
 }
 

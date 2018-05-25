@@ -122,7 +122,7 @@ namespace AGS.Engine
 			return null;
 		}
 
-		private ILocation getTarget(Direction direction)
+		private Position getTarget(Direction direction)
 		{
 			const float offset = 10f;
 			float xOffset = 0, yOffset = 0;
@@ -147,7 +147,7 @@ namespace AGS.Engine
 			return findFarWalkable(xOffset, yOffset);
 		}
 
-		private ILocation findFarWalkable(float xOffset, float yOffset)
+        private Position findFarWalkable(float xOffset, float yOffset)
 		{
             float x = _character.WorldX;
             float y = _character.WorldY;
@@ -156,9 +156,9 @@ namespace AGS.Engine
 			{
 				x += xOffset;
 				y += yOffset;
-				if (!isWalkable(x, y)) return new AGSLocation (x - xOffset, y - yOffset);
+                if (!isWalkable(x, y)) return new Position(x - xOffset, y - yOffset);
 			}
-			return new AGSLocation (_character.X, _character.Y); 
+            return new Position(_character.X, _character.Y); 
 		}
 
 		private bool isWalkable(float x, float y)

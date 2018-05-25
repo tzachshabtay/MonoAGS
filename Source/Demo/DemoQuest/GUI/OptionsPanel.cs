@@ -35,7 +35,7 @@ namespace DemoGame
             _game = game;
             IGameFactory factory = game.Factory;
             _panel = await factory.UI.GetPanelAsync(_panelId, "Gui/DialogBox/options.bmp", 160f, 100f);
-            _panel.Pivot = new PointF(0.5f, 0.5f);
+            _panel.Pivot = (0.5f, 0.5f);
             _panel.Visible = false;
             _panel.AddComponent<IModalWindowComponent>();
 
@@ -43,23 +43,21 @@ namespace DemoGame
 
             ISlider volumeSlider = await factory.UI.GetSliderAsync("Volume Slider", _sliderFolder + "slider.bmp", 
                _sliderFolder + "handle.bmp", 0.5f, 0f, 1f, _panel, loadConfig: loadConfig);
-            volumeSlider.X = 120f;
-            volumeSlider.Y = 10f;
-            volumeSlider.HandleGraphics.Pivot = new PointF(0.5f, 0.5f);
+            volumeSlider.Position = (120f, 10f);
+            volumeSlider.HandleGraphics.Pivot = (0.5f, 0.5f);
             volumeSlider.OnValueChanged(onVolumeChanged, _game);
 
             ILabel volumeLabel = factory.UI.GetLabel("Volume Label", "Volume", 50f, 30f, 120f, 85f, _panel, _textConfig);
-            volumeLabel.Pivot = new PointF(0.5f, 0f);
+            volumeLabel.Pivot = (0.5f, 0f);
 
             ISlider speedSlider = await factory.UI.GetSliderAsync("Speed Slider", _sliderFolder + "slider.bmp", 
                 _sliderFolder + "handle.bmp", 100f, 1f, 200f, _panel, loadConfig: loadConfig);
-            speedSlider.X = 180f;
-            speedSlider.Y = 10f;
-            speedSlider.HandleGraphics.Pivot = new AGS.API.PointF(0.5f, 0.5f);
+            speedSlider.Position = (180f, 10f);
+            speedSlider.HandleGraphics.Pivot = (0.5f, 0.5f);
             speedSlider.OnValueChanged(onSpeedChanged, _game);
 
             ILabel speedLabel = factory.UI.GetLabel("Speed Label", "Speed", 50f, 30f, 180f, 85f, _panel, _textConfig);
-            speedLabel.Pivot = new PointF(0.5f, 0f);
+            speedLabel.Pivot = (0.5f, 0f);
 
             _game.Events.OnSavedGameLoad.Subscribe(findPanel);
 

@@ -44,7 +44,7 @@ namespace AGS.Engine
 
         private AGSSprite(AGSSprite sprite) : this(sprite._resolver, sprite._maskLoader)
         {
-            _translate.Location = sprite._translate.Location;
+            _translate.Position = sprite._translate.Position;
             _hasImage.Pivot = sprite._hasImage.Pivot;
             _hasImage.Image = sprite._hasImage.Image;
             _hasImage.Tint = sprite._hasImage.Tint;
@@ -106,7 +106,7 @@ namespace AGS.Engine
         public ISprite Clone() => new AGSSprite(this);
 
         [DoNotNotify]
-        public ILocation Location { get => _translate.Location; set => _translate.Location = value; }
+        public Position Position { get => _translate.Position; set => _translate.Position = value; }
 
         [DoNotNotify]
         [Property(Browsable = false)]

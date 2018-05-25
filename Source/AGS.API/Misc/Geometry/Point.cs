@@ -31,6 +31,13 @@
         public int Y => _y;
 
         public override string ToString() => $"{X},{Y}";
+
+        public static implicit operator Point((int x, int y) point) => new Point(point.x, point.y);
+
+        public void Deconstruct(out int x, out int y)
+        {
+            x = this.X;
+            y = this.Y;
+        }
     }
 }
-

@@ -246,7 +246,7 @@ namespace AGS.Editor
             else if (propType == typeof(Vector2)) editor = new Vector2PropertyEditor(_actions, _state, _factory, false);
             else if (propType == typeof(Vector3)) editor = new Vector3PropertyEditor(_actions, _state, _factory, false);
             else if (propType == typeof(Vector4)) editor = new Vector4PropertyEditor(_actions, _state, _factory, false);
-            else if (propType == typeof(ILocation))
+            else if (propType == typeof(Position))
             {
                 var entity = _currentEntity;
                 var drawable = entity == null ? null : entity.GetComponent<IDrawableInfoComponent>();

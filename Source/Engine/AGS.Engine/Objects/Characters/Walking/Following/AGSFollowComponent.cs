@@ -103,7 +103,7 @@ namespace AGS.Engine
 			} 
 			else targetPoint = follow (target, settings);
 
-			_currentWalk = walk.WalkAsync (new AGSLocation (targetPoint.X, targetPoint.Y));
+            _currentWalk = walk.WalkAsync (new Position(targetPoint.X, targetPoint.Y));
 		}
 
 		private PointF wanderOff()
@@ -125,4 +125,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

@@ -87,6 +87,10 @@ Automated CI build for Windows & Android, also used to build the documentation w
 
 Used to generate the documentation website.
 
+### [Nerdbank.GitVersioning](https://github.com/AArnott/Nerdbank.GitVersioning)
+
+Used to auto-generate a version number.
+
 ### [Travis Matrix Badges](https://github.com/bjfish/travis-matrix-badges)
 
 A small service to display Travis CI build badges on Github.

@@ -21,7 +21,7 @@ namespace AGS.API
         /// </summary>
         /// <seealso cref="IWorldPositionComponent"/>
         /// <value>The location.</value>
-        ILocation Location { get; set; }
+        Position Position { get; set; }
 
         /// <summary>
         /// Gets or sets the x coordinate (in local coordinates).

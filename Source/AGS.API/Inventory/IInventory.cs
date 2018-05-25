@@ -20,10 +20,10 @@ namespace AGS.API
         /// cEgo.ActiveInventory = iKey; //The character is now "holding" the key.
         /// </code>
         /// <code language="lang-csharp">
-        /// private void onDoorClicked()
+        /// private async void onDoorClicked()
         /// {
         ///     if (cEgo.ActiveInventory == iKey) openDoor();
-        ///     else cEgo.Say("I can't open the door without holding the key!");
+        ///     else await cEgo.SayAsync("I can't open the door without holding the key!");
         /// }
         /// </code>
         /// </example>
@@ -35,8 +35,8 @@ namespace AGS.API
         /// <example>
         /// Do I have the key?
         /// <code language="lang-csharp">
-        /// if (Items.Any(item => item == iKey)) cEgo.Say("I have the key!");
-        /// else cEgo.Say("I don't have the key!");
+        /// if (Items.Any(item => item == iKey)) await cEgo.SayAsync("I have the key!");
+        /// else await cEgo.SayAsync("I don't have the key!");
         /// </code>
         /// </example>
         /// <value>

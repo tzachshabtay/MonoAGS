@@ -44,7 +44,7 @@ namespace AGS.Editor
             (var minX, var minY) = editor.ToEditorResolution(box.MinX, box.MinY);
             (var maxX, var maxY) = editor.ToEditorResolution(box.MaxX, box.MaxY);
 
-            objToExpand.Location = new AGSLocation(x, y);
+            objToExpand.Position = (x, y);
             objToExpand.BaseSize = new SizeF(maxX - minX, maxY - minY);
         }
 

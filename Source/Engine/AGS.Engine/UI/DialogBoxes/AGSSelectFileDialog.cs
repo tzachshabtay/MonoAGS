@@ -139,8 +139,8 @@ namespace AGS.Engine
 
             bool okGiven = await _tcs.Task;
             _inventory.Items.Clear();
-            removeAllUI(panel);
             panel.GetComponent<IModalWindowComponent>().LoseFocus();
+            removeAllUI(panel);
             if (!okGiven) return null;
             return _fileTextBox.Text;
         }
@@ -315,7 +315,7 @@ namespace AGS.Engine
         {
             IObject newObj = factory.Object.GetObject(id);
             newObj.Pivot = obj.Pivot;
-            newObj.Location = obj.Location;
+            newObj.Position = obj.Position;
             newObj.Tint = obj.Tint;
             newObj.Image = obj.Image;
             newObj.DisplayName = obj.DisplayName;

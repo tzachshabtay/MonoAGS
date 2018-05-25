@@ -10,7 +10,7 @@ namespace DemoGame
 		private List<IArea> _lastAreas;
 		private IRenderLayer _lastLayer;
 		private IObject _lastParent;
-		private ILocation _lastLocation;
+        private Position _lastPosition;
         private float _lastScaleX, _lastScaleY;
         private readonly ICharacter _player;
 
@@ -24,7 +24,7 @@ namespace DemoGame
 			_lastAreas = new List<IArea>(_player.Room.Areas);
 			_lastLayer = _player.RenderLayer;
 			_lastParent = _player.TreeNode.Parent;
-			_lastLocation = _player.Location;
+            _lastPosition = _player.Position;
             _lastScaleX = _player.ScaleX;
             _lastScaleY = _player.ScaleY;
 
@@ -44,8 +44,8 @@ namespace DemoGame
 			_player.Room.Edges.Right.Enabled = true;
 			foreach (var area in _lastAreas) _player.Room.Areas.Add(area);
             await _player.StopWalkingAsync();
-			_player.Location = _lastLocation;
-            _player.Scale = new PointF(_lastScaleX, _lastScaleY);
+            _player.Position = _lastPosition;
+            _player.Scale = (_lastScaleX, _lastScaleY);
         }
     }
 }
