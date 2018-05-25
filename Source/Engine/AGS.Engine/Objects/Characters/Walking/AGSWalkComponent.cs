@@ -10,8 +10,7 @@ namespace AGS.Engine
 {
 	public class AGSWalkComponent : AGSComponent, IWalkComponent
 	{
-        private TaskCompletionSource<object> _walkCompleted;
-        private WalkLineInstruction _currentWalkLine;
+        private WalkInstruction _currentWalk;
         private IPathFinder _pathFinder;
 		private List<IObject> _debugPath;
 		private IFaceDirectionComponent _faceDirection;
@@ -39,8 +38,6 @@ namespace AGS.Engine
             _glUtils = glUtils;
 
 			_debugPath = new List<IObject> ();
-			_walkCompleted = new TaskCompletionSource<object> ();
-			_walkCompleted.SetResult(null);
             AdjustWalkSpeedToScaleArea = true;
             MovementLinkedToAnimation = true;
             WalkStep = new PointF(8f, 8f);
@@ -82,7 +79,7 @@ namespace AGS.Engine
 
 		public async Task StopWalkingAsync()
 		{
-			await stopWalkingAsync();
+            await resetWalkAsync(false);
 		}
 
 		public void PlaceOnWalkableArea()
@@ -105,7 +102,8 @@ namespace AGS.Engine
 		{
 			get
 			{
-				Task task = _walkCompleted.Task;
+                Task task = _currentWalk?.OnCompletion.Task;
+                if (task == null) return false;
 				return (!task.IsCompleted && !task.IsCanceled && !task.IsFaulted);
 			}
 		}
@@ -118,19 +116,20 @@ namespace AGS.Engine
 
         private void onRepeatedlyExecute()
         {
-            WalkLineInstruction currentLine = _currentWalkLine;
+            WalkInstruction currentWalk = _currentWalk;
+            WalkLineInstruction currentLine = currentWalk?.CurrentLine;
             if (currentLine == null) return;
 
-            if (currentLine.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 1f ||
-                (!currentLine.WalkAnywhere && !isWalkable(_translate.Position)) || _room?.Room != currentLine.Room)
+            if (currentWalk.CancelToken.IsCancellationRequested || currentLine.NumSteps <= 1f ||
+                (!currentWalk.WalkAnywhere && !isWalkable(_translate.Position)) || _room?.Room != currentWalk.Room)
             {
-                onWalkCompleted(currentLine);
+                onWalkCompleted(currentWalk, currentLine);
                 return;
             }
             if (_cutscene.IsSkipping)
             {
                 _translate.Position = currentLine.Destination;
-                onWalkCompleted(currentLine);
+                onWalkCompleted(currentWalk, currentLine);
                 return;
             }
             PointF walkSpeed = adjustWalkSpeed(WalkStep);
@@ -145,7 +144,7 @@ namespace AGS.Engine
                 var compensateY = _compensateScrollY;
                 var candidateX = _translate.X + compensateForViewScrollIfNeeded(_state.Viewport.X, xStep, ref compensateX, ref _lastViewportX);
                 var candidateY = _translate.Y + compensateForViewScrollIfNeeded(_state.Viewport.Y, yStep, ref compensateY, ref _lastViewportY);
-                if (currentLine.WalkAnywhere || isWalkable(new Position(candidateX, candidateY)))
+                if (currentWalk.WalkAnywhere || isWalkable(new Position(candidateX, candidateY)))
                 {
                     _compensateScrollX = compensateX;
                     _compensateScrollY = compensateY;
@@ -161,22 +160,22 @@ namespace AGS.Engine
 			{
                 var candidateX = _translate.X + (xStep - _compensateScrollX);
                 var candidateY = _translate.Y + (yStep - _compensateScrollY);
-                if (currentLine.WalkAnywhere || isWalkable(new Position(candidateX, candidateY)))
+                if (currentWalk.WalkAnywhere || isWalkable(new Position(candidateX, candidateY)))
                 {
                     _translate.Position = (candidateX, candidateY);
                 }
                 else
                 {
-                    onWalkCompleted(currentLine);
+                    onWalkCompleted(currentWalk, currentLine);
                     return;
                 }
 			}
             _compensateScrollX = _compensateScrollY = 0f;
         }
 
-        private void onWalkCompleted(WalkLineInstruction currentLine)
+        private void onWalkCompleted(WalkInstruction currentWalk, WalkLineInstruction currentLine)
         {
-            _currentWalkLine = null; //Possible race condition here? If so, need to replace with concurrent queue
+            currentWalk.CurrentLine = null; //Possible race condition here? If so, need to replace with concurrent queue
             _lastFrame = null;
             _compensateScrollX = _compensateScrollY = 0f;
             currentLine.OnCompletion.TrySetResult(null);
@@ -203,31 +202,30 @@ namespace AGS.Engine
                     renderer.Dispose();
                 }
             }
-            CancellationTokenSource token = await stopWalkingAsync();
+            WalkInstruction currentWalk = await resetWalkAsync(walkAnywhere);
+            _currentWalk = currentWalk;
             debugRenderers = DebugDrawWalkPath ? new List<IObject>() : null;
             _debugPath = debugRenderers;
-            var walkCompleted = new TaskCompletionSource<object>(null);
-            _walkCompleted = walkCompleted;
             OnPropertyChanged(nameof(IsWalking));
             float xSource = _translate.X;
             float ySource = _translate.Y;
             bool completedWalk = false;
             try
             {
-                completedWalk = await walkAsync(position, token, straightLine, walkAnywhere, debugRenderers);
+                completedWalk = await walkAsync(currentWalk, position, straightLine, debugRenderers);
             }
             finally
             {
                 _faceDirection.CurrentDirectionalAnimation = _outfit.Outfit[AGSOutfit.Idle];
                 await _faceDirection.FaceDirectionAsync(_faceDirection.Direction);
-                walkCompleted.TrySetResult(null);
+                currentWalk.OnCompletion.TrySetResult(null);
                 OnPropertyChanged(nameof(IsWalking));
             }
 
             return completedWalk;
         }
 
-        private async Task<bool> walkAsync(Position location, CancellationTokenSource token, bool straightLine, bool walkAnywhere, List<IObject> debugRenderers)
+        private async Task<bool> walkAsync(WalkInstruction currentWalk, Position location, bool straightLine, List<IObject> debugRenderers)
 		{
             IEnumerable<Position> walkPoints = straightLine ? new List<Position> { location} : getWalkPoints (location);
 
@@ -236,23 +234,23 @@ namespace AGS.Engine
 			foreach (var point in walkPoints)
 			{
                 if (point.X == _translate.X && point.Y == _translate.Y) continue;
-                if (!await walkStraightLine(_room?.Room, point, token, walkAnywhere, debugRenderers))
+                if (!await walkStraightLine(currentWalk, point, debugRenderers))
                     return false;
 			}
 			return true;
 		}
 
-		private async Task<CancellationTokenSource> stopWalkingAsync()
+        private async Task<WalkInstruction> resetWalkAsync(bool walkAnywhere)
 		{
-            var currentLine = _currentWalkLine;
-            if (currentLine != null)
+            var currentWalk = _currentWalk;
+            if (currentWalk != null)
             {
-                currentLine.CancelToken.Cancel();
-                await currentLine.OnCompletion.Task;
+                currentWalk.CancelToken.Cancel();
+                await currentWalk.OnCompletion.Task;
+                _currentWalk = null;
             }
-			CancellationTokenSource token = new CancellationTokenSource ();
-			await _walkCompleted.Task;
-			return token;
+            WalkInstruction newWalk = new WalkInstruction(_room?.Room, walkAnywhere);
+            return newWalk;
 		}
 
 		private PointF? getClosestWalkablePoint(PointF target)
@@ -345,10 +343,9 @@ namespace AGS.Engine
             });
         }
 
-        private async Task<bool> walkStraightLine(IRoom room, Position destination,
-			CancellationTokenSource token, bool walkAnywhere, List<IObject> debugRenderers)
+        private async Task<bool> walkStraightLine(WalkInstruction currentWalk, Position destination, List<IObject> debugRenderers)
 		{
-            if (_room?.Room != room) return false;
+            if (_room?.Room != currentWalk.Room) return false;
 
 			if (debugRenderers != null)
 			{
@@ -358,7 +355,7 @@ namespace AGS.Engine
                 line.Y1 = _translate.Y;
                 line.X2 = destination.X;
                 line.Y2 = destination.Y;
-                await renderer.ChangeRoomAsync(room);
+                await renderer.ChangeRoomAsync(currentWalk.Room);
 				debugRenderers.Add (renderer);
 			}
 
@@ -393,24 +390,24 @@ namespace AGS.Engine
 			float yStep = ySteps / numSteps;
             if (_translate.Y > destination.Y) yStep = -yStep;
 
-			WalkLineInstruction instruction = new WalkLineInstruction(token, numSteps, xStep, yStep,
-                                                                      isBaseStepX, destination, room, walkAnywhere);
-            _currentWalkLine = instruction;
+			WalkLineInstruction instruction = new WalkLineInstruction(numSteps, xStep, yStep,
+                                                                      isBaseStepX, destination);
+            currentWalk.CurrentLine = instruction;
             Task timeout = Task.Delay(WalkLineTimeoutInMilliseconds);
 			Task completedTask = await Task.WhenAny(instruction.OnCompletion.Task, timeout);
 
             if (completedTask == timeout)
             {
-                instruction.CancelToken.Cancel();
+                currentWalk.CancelToken.Cancel();
                 return false;
             }
 
-            if (instruction.CancelToken.IsCancellationRequested || _room?.Room != room || (!walkAnywhere && !isWalkable(_translate.Position)))
+            if (currentWalk.CancelToken.IsCancellationRequested || _room?.Room != currentWalk.Room || (!currentWalk.WalkAnywhere && !isWalkable(_translate.Position)))
             {
                 return false;
             }
 
-            if (walkAnywhere || isWalkable(destination))
+            if (currentWalk.WalkAnywhere || isWalkable(destination))
             {
                 _translate.Position = destination;
                 return true;
@@ -458,31 +455,42 @@ namespace AGS.Engine
             return walkSpeed;
         }
 
-        private class WalkLineInstruction
+        private class WalkInstruction
         {
-			public WalkLineInstruction(CancellationTokenSource token, float numSteps, float xStep, float yStep,
-                                       bool isBaseStepX, Position destination, IRoom room, bool walkAnywhere)
+            public WalkInstruction(IRoom room, bool walkAnywhere)
             {
-                CancelToken = token;
-                NumSteps = numSteps;
-                XStep = xStep;
-                YStep = yStep;
-				IsBaseStepX = isBaseStepX;
+                CancelToken = new CancellationTokenSource();
                 OnCompletion = new TaskCompletionSource<object>();
-                Destination = destination;
                 Room = room;
                 WalkAnywhere = walkAnywhere;
             }
 
             public CancellationTokenSource CancelToken { get; }
             public TaskCompletionSource<object> OnCompletion { get; }
-			public float NumSteps { get; set; }
+            public IRoom Room { get; }
+            public bool WalkAnywhere { get; }
+            public WalkLineInstruction CurrentLine { get; set; }
+        }
+
+        private class WalkLineInstruction
+        {
+			public WalkLineInstruction(float numSteps, float xStep, float yStep,
+                                       bool isBaseStepX, Position destination)
+            {
+                NumSteps = numSteps;
+                XStep = xStep;
+                YStep = yStep;
+				IsBaseStepX = isBaseStepX;
+                Destination = destination;
+                OnCompletion = new TaskCompletionSource<object>();
+            }
+
+            public TaskCompletionSource<object> OnCompletion { get; }
+            public float NumSteps { get; set; }
             public float XStep { get; }
             public float YStep { get; }
             public bool IsBaseStepX { get; }
             public Position Destination { get; }
-            public IRoom Room { get; }
-            public bool WalkAnywhere { get; }
         }
     }
 }
