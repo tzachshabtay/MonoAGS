@@ -15758,12 +15758,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.IWalkComponent.StopWalkingAsync
   nameWithType: IWalkComponent.StopWalkingAsync
-- uid: AGS.API.IWalkComponent.WalkAsync(AGS.API.Position,System.Boolean)
-  name: WalkAsync(Position, Boolean)
-  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkAsync_AGS_API_Position_System_Boolean_
-  commentId: M:AGS.API.IWalkComponent.WalkAsync(AGS.API.Position,System.Boolean)
-  fullName: AGS.API.IWalkComponent.WalkAsync(AGS.API.Position, System.Boolean)
-  nameWithType: IWalkComponent.WalkAsync(Position, Boolean)
+- uid: AGS.API.IWalkComponent.WalkAsync(AGS.API.Position)
+  name: WalkAsync(Position)
+  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkAsync_AGS_API_Position_
+  commentId: M:AGS.API.IWalkComponent.WalkAsync(AGS.API.Position)
+  fullName: AGS.API.IWalkComponent.WalkAsync(AGS.API.Position)
+  nameWithType: IWalkComponent.WalkAsync(Position)
 - uid: AGS.API.IWalkComponent.WalkAsync*
   name: WalkAsync
   href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkAsync_
@@ -15797,19 +15797,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IWalkComponent.WalkStep
   nameWithType: IWalkComponent.WalkStep
-- uid: AGS.API.IWalkComponent.WalkStraightAsync(AGS.API.Position)
-  name: WalkStraightAsync(Position)
-  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkStraightAsync_AGS_API_Position_
-  commentId: M:AGS.API.IWalkComponent.WalkStraightAsync(AGS.API.Position)
-  fullName: AGS.API.IWalkComponent.WalkStraightAsync(AGS.API.Position)
-  nameWithType: IWalkComponent.WalkStraightAsync(Position)
-- uid: AGS.API.IWalkComponent.WalkStraightAsync*
-  name: WalkStraightAsync
-  href: api/AGS.API.IWalkComponent.html#AGS_API_IWalkComponent_WalkStraightAsync_
-  commentId: Overload:AGS.API.IWalkComponent.WalkStraightAsync
-  isSpec: "True"
-  fullName: AGS.API.IWalkComponent.WalkStraightAsync
-  nameWithType: IWalkComponent.WalkStraightAsync
 - uid: AGS.API.IWorldPositionComponent
   name: IWorldPositionComponent
   href: api/AGS.API.IWorldPositionComponent.html
