@@ -22,8 +22,18 @@ namespace AGS.Engine.Desktop
 
 		public IFont LoadFont(string fontFamily, float sizeInPoints, AGS.API.FontStyle style)
 		{
-			return new DesktopFont (new Font (fontFamily ?? SystemFonts.DefaultFont.FontFamily.Name, sizeInPoints, style.Convert()), this);
-		}
+            if (fontFamily == null)
+            {
+                return new DesktopFont(new Font(SystemFonts.DefaultFont.FontFamily.Name, sizeInPoints, style.Convert()), this);
+            }
+            var family = _familyLoader.SearchByName(fontFamily);
+            if (family != null)
+            {
+                return new DesktopFont(new Font(family, sizeInPoints, style.Convert()), this);
+            }
+            return new DesktopFont(new Font(fontFamily, sizeInPoints, style.Convert()), this);
+
+        }
 
 		public IFont LoadFontFromPath(string path, float sizeInPoints, AGS.API.FontStyle style)
 		{

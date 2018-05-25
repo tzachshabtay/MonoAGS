@@ -138,6 +138,7 @@ namespace AGS.Engine
             Builder.RegisterInstance(device.Assemblies).As<IAssemblies>();
             Builder.RegisterInstance(device.BitmapLoader).As<IBitmapLoader>();
             Builder.RegisterInstance(device.BrushLoader).As<IBrushLoader>();
+            Builder.RegisterInstance(device.FontLoader).As<IFontLoader>();
             Builder.RegisterInstance(device.ConfigFile).As<IEngineConfigFile>();
             Builder.RegisterInstance(device.FileSystem).As<IFileSystem>();
             Builder.RegisterInstance(device.GraphicsBackend).As<IGraphicsBackend>();
