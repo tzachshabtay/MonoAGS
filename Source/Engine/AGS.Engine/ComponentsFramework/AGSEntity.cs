@@ -7,6 +7,7 @@ using Autofac;
 using System.Linq;
 using System.ComponentModel;
 using PropertyChanged;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -22,9 +23,15 @@ namespace AGS.Engine
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private static AGSConcurrentHashSet<string> _ids = new AGSConcurrentHashSet<string>(1000, false);
+
         public AGSEntity(string id, Resolver resolver)
         {
             ID = id;
+            if (!_ids.Add(id))
+            {
+                throw new ArgumentException($"Duplicate entity: {id}");
+            }
             _resolver = resolver;
             _components = new ConcurrentDictionary<Type, Lazy<API.IComponent>>();
             _bindings = new AGSConcurrentHashSet<API.IComponentBinding>(200, false);
@@ -252,6 +259,7 @@ namespace AGS.Engine
 
         private void dispose(bool disposing)
         {
+            _ids.Remove(ID);
             var bindings = _bindings;
             if (bindings != null)
             {

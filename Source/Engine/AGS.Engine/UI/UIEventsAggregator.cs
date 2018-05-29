@@ -39,6 +39,8 @@ namespace AGS.Engine
             public bool WasClickedIn { get; set; }
 
             public Stopwatch LeftMouseClickTimer, RightMouseClickTimer, LeftMouseDoubleClickTimer, RightMouseDoubleClickTimer;
+
+            public override string ToString() => Entity.ID;
         }
 
         private readonly IInput _input;
@@ -101,6 +103,7 @@ namespace AGS.Engine
                 {
                     if (!_subscriberIds.Add(subscriberToAdd.Entity.ID))
                     {
+                        Debug.WriteLine($"Ignoring duplicate subscriber: {subscriberToAdd.Entity.ID}");
                         return;
                     }
                     subscribers.Add(subscriberToAdd);

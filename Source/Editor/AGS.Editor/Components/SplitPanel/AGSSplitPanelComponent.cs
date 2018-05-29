@@ -69,6 +69,7 @@ namespace AGS.Editor
                 {
                     translate.PropertyChanged -= onSplitLineMoved;
                 }
+                existing.Dispose();
             }
         }
 
@@ -79,7 +80,8 @@ namespace AGS.Editor
 			if (topPanel == null) return;
 
             const float lineWidth = 5f;
-            var splitLine = _factory.Object.GetObject($"{topPanel.ID}_SplitLine");
+            string suffix = IsHorizontal ? "Horiz" : "Vert";
+            var splitLine = _factory.Object.GetObject($"{topPanel.ID}_SplitLine_{suffix}");
             _state.FocusedUI.CannotLoseFocus.Add(splitLine.ID);
             splitLine.RenderLayer = topPanel.RenderLayer;
 			var crop = topPanel.GetComponent<ICropChildrenComponent>();

@@ -44,7 +44,7 @@ namespace AGS.Engine
 
         public async Task<IArea> GetAreaAsync(string maskPath, IRoom room = null, bool isWalkable = false, bool isWalkBehind = false)
         {
-            return createArea(maskPath, await _masks.Value.LoadAsync(maskPath), room, isWalkable, isWalkBehind);
+            return createArea(maskPath, await _masks.Value.LoadAsync(maskPath, id: $"Mask:{maskPath}"), room, isWalkable, isWalkBehind);
         }
 
         public void CreateScaleArea(IArea area, float minScaling, float maxScaling, bool scaleObjectsX = true, bool scaleObjectsY = true, bool scaleVolume = true)

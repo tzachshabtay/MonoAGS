@@ -59,7 +59,7 @@ namespace AGS.Editor
             _playPauseButton.RenderLayer = _toolbar.RenderLayer;
             _playPauseButton.MouseClicked.Subscribe(onPlayPauseClicked);
 
-            _fpsLabel = factory.UI.GetLabel("FPS Label", "", 30f, 25f, 0f, _playPauseButton.Y, _toolbar, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, font: _font));
+            _fpsLabel = factory.UI.GetLabel("FPS Label (Editor)", "", 30f, 25f, 0f, _playPauseButton.Y, _toolbar, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, font: _font));
             _fpsLabel.Pivot = new PointF(0f, 0.5f);
             _fpsLabel.TextBackgroundVisible = false;
             _fpsLabel.RenderLayer = _toolbar.RenderLayer;
@@ -67,12 +67,12 @@ namespace AGS.Editor
             _fpsLabel.MouseEnter.Subscribe(_ => _fpsLabel.Tint = Colors.Indigo);
             _fpsLabel.MouseLeave.Subscribe(_ => _fpsLabel.Tint = Colors.IndianRed.WithAlpha(125));
 
-            _mousePosLabel = factory.UI.GetLabel("Mouse Position Label", "", 1f, 1f, 120f, _playPauseButton.Y, _toolbar, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, font: _font));
+            _mousePosLabel = factory.UI.GetLabel("Mouse Position Label (Editor)", "", 1f, 1f, 120f, _playPauseButton.Y, _toolbar, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, font: _font));
             _mousePosLabel.TextBackgroundVisible = false;
             _mousePosLabel.Pivot = new PointF(0f, 0.5f);
             _mousePosLabel.RenderLayer = _toolbar.RenderLayer;
 
-            _hotspotLabel = factory.UI.GetLabel("Debug Hotspot Label", "", 250f, _fpsLabel.Height, _toolbar.Width, _playPauseButton.Y, _toolbar, config: new AGSTextConfig(alignment: Alignment.TopRight,
+            _hotspotLabel = factory.UI.GetLabel("Debug Hotspot Label (Editor)", "", 250f, _fpsLabel.Height, _toolbar.Width, _playPauseButton.Y, _toolbar, config: new AGSTextConfig(alignment: Alignment.TopRight,
                                                                                                                                                                            autoFit: AutoFit.TextShouldFitLabel, font: _font));
             _hotspotLabel.TextBackgroundVisible = false;
             _hotspotLabel.Pivot = new PointF(1f, 0.5f);

@@ -27,6 +27,7 @@ namespace AGS.Engine
         private IObject _fileGraphics, _folderGraphics;
         const float FILE_TEXT_HEIGHT = 10f;
         static float ITEM_WIDTH = 20f;
+        static int _runningIndex;
         const string PATH_PROPERTY = "FilePath";
 
         private TaskCompletionSource<bool> _tcs;
@@ -266,7 +267,7 @@ namespace AGS.Engine
 
         private IObject addFileItem(string file, IObject graphics)
         {
-            graphics = clone("FileItem_" + file, _game.Factory, graphics);
+            graphics = clone($"FileItem_{file}_{_runningIndex++}", _game.Factory, graphics);
             graphics.Properties.Strings.SetValue(PATH_PROPERTY, file);
             ILabel fileLabel = _game.Factory.UI.GetLabel("FileItemLabel_" + file, getLastName(file), 
                 ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, -10f, graphics, _filesTextConfig);
