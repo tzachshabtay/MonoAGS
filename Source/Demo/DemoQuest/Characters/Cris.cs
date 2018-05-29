@@ -28,6 +28,11 @@ namespace DemoGame
 			emitter.Object = _character;
 
             _character.AddComponent<ISaturationEffectComponent>();
+
+            var movement = _character.AddComponent<KeyboardMovement>();
+            movement.AddArrows();
+            movement.AddWASD();
+
             //Uncomment for portrait
             /*
             var portrait = game.Factory.Object.GetObject("CrisPortrait");
