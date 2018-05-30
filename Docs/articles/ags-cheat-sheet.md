@@ -580,8 +580,8 @@ Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/P
 | Think | ? | `cEgo.Think("Hmmmm..");` | ? |
 | Tint | Tint | `cEgo.Tint(0, 250, 0, 30, 100);` | `cEgo.Tint = Colors.Green;` or `cEgo.Tint = Color.FromRgba(0, 255, 0, 255);` or `cEgo.Tint = Color.FromHsla(200, 1, 1, 255);` or `cEgo.Tint = Color.FromHexa(59f442);` |
 | UnlockView | Outfit | `cEgo.UnlockView();` | `cEgo.Outfit = defaultOutfit;` |
-| Walk | WalkAsync | `cEgo.Walk(100, 100);` | For non blocking: `cEgo.WalkAsync(100, 100);`, for blocking: `await cEgo.WalkAsync(100, 100);` | No support currently for "walk anywhere"
-| WalkStraight | ? | `cEgo.WalkStraight(100, 100);` | ? |
+| Walk | WalkAsync | `cEgo.Walk(100, 100);` | For non blocking: `cEgo.WalkAsync((100, 100));`, for blocking: `await cEgo.WalkAsync((100, 100));` |
+| WalkStraight | ? | `cEgo.WalkStraight(100, 100);` | `await cEgo.WalkStraight((100, 100));` |
 | ActiveInventory | Inventory.ActiveItem | `cEgo.ActiveInventory` | `cEgo.Inventory.ActiveItem` |
 | Animating | Animation.State.IsPaused | `if (cEgo.Animating) {}` | `if (!cEgo.Animation.State.IsPaused) {}` |
 | AnimationSpeed | Animation.Configuration.DelayBetweenFrames | `cEgo.AnimationSpeed = 4;` | `cEgo.Animation.Configuration.DelayBetweenFrames = 4;` |

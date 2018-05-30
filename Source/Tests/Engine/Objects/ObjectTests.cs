@@ -235,6 +235,8 @@ namespace Tests
             renderThread.Setup(u => u.RunBlocking(It.IsAny<Action>())).Callback<Action>(a => a());
             updateThread.Setup(u => u.RunBlocking(It.IsAny<Action>())).Callback<Action>(a => a());
 
+            var walkComponent = new Mock<IWalkComponent>();
+
             resolver.Builder.RegisterInstance(input.Object);
             resolver.Builder.RegisterInstance(state);
             resolver.Builder.RegisterInstance(uiEvents.Object);
@@ -245,6 +247,7 @@ namespace Tests
             resolver.Builder.RegisterInstance(new Mock<IUpdateMessagePump>().Object);
             resolver.Builder.RegisterInstance(renderThread.Object);
             resolver.Builder.RegisterInstance(updateThread.Object);
+            resolver.Builder.RegisterInstance(walkComponent.Object);
             resolver.Builder.RegisterInstance(new Mock<ITexture>().Object);
             resolver.Builder.RegisterInstance(mocks.MaskLoader().Object).As<IMaskLoader>();
             resolver.Builder.RegisterInstance(settings.Object).As<IGameSettings>();

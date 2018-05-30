@@ -124,17 +124,11 @@ namespace DemoGame
 
 		private async Task loadCharacters(IGame game)
 		{
-            ICharacter character = game.State.Player;
-			KeyboardMovement movement = new KeyboardMovement (character, game.Input, 
-                                                              game.State.FocusedUI, KeyboardMovementMode.Pressing);
-			movement.AddArrows();
-			movement.AddWASD();
-
             InventoryItems items = new InventoryItems();
             await items.LoadAsync(game.Factory);
 
             Beman beman = new Beman ();
-			character = await beman.LoadAsync(game);
+			var character = await beman.LoadAsync(game);
 			var room = await Rooms.BrokenCurbStreet;
 			await character.ChangeRoomAsync(room, 100, 110);
 
