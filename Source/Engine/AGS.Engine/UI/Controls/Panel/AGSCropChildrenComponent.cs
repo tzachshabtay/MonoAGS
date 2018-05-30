@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -147,19 +148,28 @@ namespace AGS.Engine
             rebuildTree(_tree);
         }
 
-        private void rebuildTree(IInObjectTreeComponent tree)
+        private void rebuildTree(IInObjectTreeComponent tree, int retries = 3)
         {
-            if (tree == null || !_isCropEnabled) return;
-            foreach (var child in tree.TreeNode.Children)
+            try
             {
-                if (!child.Visible) continue;
-                if (EntitiesToSkipCrop.Contains(child.ID))
+                if (tree == null || !_isCropEnabled) return;
+                foreach (var child in tree.TreeNode.Children)
                 {
-                    if (child.HasComponent<ICropSelfComponent>()) removeCrop(child);
-                    continue;
+                    if (!child.Visible) continue;
+                    if (EntitiesToSkipCrop.Contains(child.ID))
+                    {
+                        if (child.HasComponent<ICropSelfComponent>()) removeCrop(child);
+                        continue;
+                    }
+                    prepareCrop(child);
+                    rebuildTree(child);
                 }
-                prepareCrop(child);
-                rebuildTree(child);
+            }
+            catch (InvalidOperationException e)
+            {
+                Debug.WriteLine($"CropChildrenComponent: Exception when iterating children. retries = {retries}, error: {e.Message}");
+                if (retries <= 0) throw;
+                rebuildTree(tree, retries - 1);
             }
         }
 

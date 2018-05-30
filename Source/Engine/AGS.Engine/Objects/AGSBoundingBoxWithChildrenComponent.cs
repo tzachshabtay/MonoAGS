@@ -175,54 +175,63 @@ namespace AGS.Engine
         }
 
         private AGSBoundingBox getBoundingBox(IInObjectTreeComponent tree, IBoundingBoxComponent box,
-                          Func<AGSBoundingBoxes, AGSBoundingBox> getBox, string printoutId)
+                          Func<AGSBoundingBoxes, AGSBoundingBox> getBox, string printoutId, int retries = 3)
         {
-            float minX = float.MaxValue;
-            float maxX = float.MinValue;
-            float minY = float.MaxValue;
-            float maxY = float.MinValue;
-
-            var boxes = box?.GetBoundingBoxes(_state.Viewport);
-            if (boxes != null)
+            try
             {
-                var boundingBox = getBox(boxes);
+                float minX = float.MaxValue;
+                float maxX = float.MinValue;
+                float minY = float.MaxValue;
+                float maxY = float.MinValue;
 
-                if (boundingBox.IsValid)
+                var boxes = box?.GetBoundingBoxes(_state.Viewport);
+                if (boxes != null)
                 {
-                    minX = boundingBox.MinX;
-                    maxX = boundingBox.MaxX;
-                    minY = boundingBox.MinY;
-                    maxY = boundingBox.MaxY;
+                    var boundingBox = getBox(boxes);
+
+                    if (boundingBox.IsValid)
+                    {
+                        minX = boundingBox.MinX;
+                        maxX = boundingBox.MaxX;
+                        minY = boundingBox.MinY;
+                        maxY = boundingBox.MaxY;
+                    }
+
+                    if (printoutId != null)
+                    {
+                        Debug.WriteLine($"{printoutId}: {minX}-{maxX}, {minY}-{maxY}");
+                    }
                 }
 
-                if (printoutId != null)
+                if (tree?.TreeNode != null)
                 {
-                    Debug.WriteLine($"{printoutId}: {minX}-{maxX}, {minY}-{maxY}");
+                    foreach (var child in tree.TreeNode.Children)
+                    {
+                        if (child == null || !child.UnderlyingVisible || EntitiesToSkip.Contains(child.ID)) continue;
+
+                        //note: the text component check is needed for textboxes. We have a "with caret" version of the textbox flashing in and out
+                        //but we don't want to set it to visible and not visible because it hurts performance to keep changing the display list (which triggers sorting)
+                        //so we hide the the text and text background with label renderer properties. Because it's hidden the textbox may not be updated which correct bounding boxes.
+                        var textComponent = child.GetComponent<ITextComponent>();
+                        if (textComponent != null && !textComponent.TextVisible && !child.IsImageVisible) continue;
+
+                        var childBox = getBoundingBox(child, child, getBox, printoutId == null ? null : child.ID);
+                        if (!childBox.IsValid) continue;
+                        if (minX > childBox.MinX) minX = childBox.MinX;
+                        if (maxX < childBox.MaxX) maxX = childBox.MaxX;
+                        if (minY > childBox.MinY) minY = childBox.MinY;
+                        if (maxY < childBox.MaxY) maxY = childBox.MaxY;
+                    }
                 }
+                if (MathUtils.FloatEquals(minX, float.MaxValue)) return default;
+                return new AGSBoundingBox(minX, maxX, minY, maxY);
             }
-
-            if (tree?.TreeNode != null)
+            catch (InvalidOperationException e) //retrying in case children collection was modified from another thread
             {
-                foreach (var child in tree.TreeNode.Children)
-                {
-                    if (child == null || !child.UnderlyingVisible || EntitiesToSkip.Contains(child.ID)) continue;
-
-                    //note: the text component check is needed for textboxes. We have a "with caret" version of the textbox flashing in and out
-                    //but we don't want to set it to visible and not visible because it hurts performance to keep changing the display list (which triggers sorting)
-                    //so we hide the the text and text background with label renderer properties. Because it's hidden the textbox may not be updated which correct bounding boxes.
-                    var textComponent = child.GetComponent<ITextComponent>();
-                    if (textComponent != null && !textComponent.TextVisible && !child.IsImageVisible) continue;
-
-                    var childBox = getBoundingBox(child, child, getBox, printoutId == null ? null : child.ID);
-                    if (!childBox.IsValid) continue;
-                    if (minX > childBox.MinX) minX = childBox.MinX;
-                    if (maxX < childBox.MaxX) maxX = childBox.MaxX;
-                    if (minY > childBox.MinY) minY = childBox.MinY;
-                    if (maxY < childBox.MaxY) maxY = childBox.MaxY;
-                }
+                Debug.WriteLine($"BoundingBoxWithChildren: Exception when iterating children. retries = {retries}, error: {e.Message}");
+                if (retries <= 0) throw;
+                return getBoundingBox(tree, box, getBox, printoutId, retries - 1);
             }
-            if (MathUtils.FloatEquals(minX, float.MaxValue)) return default;
-            return new AGSBoundingBox(minX, maxX, minY, maxY);
         }
     }
 }
