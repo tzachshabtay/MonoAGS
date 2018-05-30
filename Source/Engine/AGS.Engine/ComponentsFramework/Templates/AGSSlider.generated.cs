@@ -153,6 +153,12 @@ namespace AGS.Engine
             set { _sliderComponent.AllowKeyboardControl = value; } 
         }
 
+        public bool ShouldClampValuesWhenChangingMinMax
+        {
+            get { return _sliderComponent.ShouldClampValuesWhenChangingMinMax; } 
+            set { _sliderComponent.ShouldClampValuesWhenChangingMinMax = value; }
+        }
+
         public SliderDirection Direction 
         {  
             get { return _sliderComponent.Direction; }  

@@ -50,5 +50,12 @@
         /// </summary>
         /// <value>The event.</value>
         IBlockingEvent<(float dragStartX, float dragStartY)> OnDragStart { get; }
+
+        /// <summary>
+        /// Simulates a mouse down event. This can be useful if you add the draggable component after the
+        /// mouse was already pressed down.
+        /// </summary>
+        /// <param name="args">Arguments.</param>
+        void SimulateMouseDown(MouseButtonEventArgs args);
     }
 }

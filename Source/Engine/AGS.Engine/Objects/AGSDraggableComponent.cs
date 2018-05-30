@@ -48,6 +48,8 @@ namespace AGS.Engine
             _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
+        public void SimulateMouseDown(MouseButtonEventArgs args) => onMouseDown(args);
+
         public override void Dispose()
         {
             base.Dispose();

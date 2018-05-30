@@ -136,6 +136,7 @@ namespace AGS.Engine
             if (slider == null) return;
             float suggestedMinValue = SuggestedMinValue.HasValue ? SuggestedMinValue.Value : minValue;
             float suggestedMaxValue = SuggestedMaxValue.HasValue ? SuggestedMaxValue.Value : maxValue;
+            slider.ShouldClampValuesWhenChangingMinMax = false;
             slider.MinValue = suggestedMinValue;
             slider.MaxValue = suggestedMaxValue;
         }

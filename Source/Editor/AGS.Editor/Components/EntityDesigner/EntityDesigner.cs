@@ -155,7 +155,7 @@ namespace AGS.Editor
         private void addDragHandle(IEntity entity)
         {
             var obj = _factory.Object.GetObject($"{entity.ID}_DragHandle");
-            _dragHandle = new DragHandle(obj, _editor, _state, _input, _actions);
+            _dragHandle = new DragHandle(obj, _editor, _state, _input, _actions, true);
         }
 
         private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs obj)

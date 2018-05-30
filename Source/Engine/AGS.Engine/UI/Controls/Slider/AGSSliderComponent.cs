@@ -31,6 +31,7 @@ namespace AGS.Engine
             _input = input;
             _gameEvents = gameEvents;
             AllowKeyboardControl = true;
+            ShouldClampValuesWhenChangingMinMax = true;
             OnValueChanged = new AGSEvent<SliderValueEventArgs>();
             OnValueChanging = new AGSEvent<SliderValueEventArgs>();
             input.KeyUp.Subscribe(onKeyUp);
@@ -99,7 +100,7 @@ namespace AGS.Engine
             {
                 if (MathUtils.FloatEquals(_minValue, value)) return;
                 _minValue = value;
-                if (Value < _minValue) Value = _minValue;
+                if (ShouldClampValuesWhenChangingMinMax && Value < _minValue) Value = _minValue;
                 else refresh();
             }
         }
@@ -114,10 +115,12 @@ namespace AGS.Engine
             {
                 if (MathUtils.FloatEquals(_maxValue, value)) return;
                 _maxValue = value;
-                if (Value > _maxValue) Value = _maxValue;
+                if (ShouldClampValuesWhenChangingMinMax && Value > _maxValue) Value = _maxValue;
                 else refresh();
             }
         }
+
+        public bool ShouldClampValuesWhenChangingMinMax { get; set; }
 
         public float MinHandleOffset
         {
