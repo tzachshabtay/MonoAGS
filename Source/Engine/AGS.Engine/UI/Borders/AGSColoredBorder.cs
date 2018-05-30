@@ -75,24 +75,25 @@ namespace AGS.Engine
 
             FourCorners<IGLColor> colors = _glColors;
 
-            float farBottomLeftX = square.BottomLeft.X - LineWidth;
-            float farBottomLeftY = _glUtils.CurrentResolution.Height - square.BottomLeft.Y - LineWidth;
-            float farBottomRightX = square.BottomRight.X + LineWidth;
-            float farBottomRightY = _glUtils.CurrentResolution.Height - square.BottomRight.Y - LineWidth;
-            float farTopLeftX = square.TopLeft.X - LineWidth;
-            float farTopLeftY = _glUtils.CurrentResolution.Height - square.TopLeft.Y + LineWidth;
-            float farTopRightX = square.TopRight.X + LineWidth;
-            float farTopRightY = _glUtils.CurrentResolution.Height - square.TopRight.Y + LineWidth;
+            float almostLineWidth = LineWidth * (9f / 10f);
+            float farBottomLeftX = square.BottomLeft.X - almostLineWidth;
+            float farBottomLeftY = _glUtils.CurrentResolution.Height - square.BottomLeft.Y - almostLineWidth;
+            float farBottomRightX = square.BottomRight.X + almostLineWidth;
+            float farBottomRightY = _glUtils.CurrentResolution.Height - square.BottomRight.Y - almostLineWidth;
+            float farTopLeftX = square.TopLeft.X - almostLineWidth;
+            float farTopLeftY = _glUtils.CurrentResolution.Height - square.TopLeft.Y + almostLineWidth;
+            float farTopRightX = square.TopRight.X + almostLineWidth;
+            float farTopRightY = _glUtils.CurrentResolution.Height - square.TopRight.Y + almostLineWidth;
 
-            float topLeftX = square.TopLeft.X;
-            float topRightX = square.TopRight.X;
-            float topLeftY = _glUtils.CurrentResolution.Height - square.TopLeft.Y;
-            float topRightY = _glUtils.CurrentResolution.Height - square.TopRight.Y;
+            float topLeftX = farTopLeftX + LineWidth;
+            float topRightX = farTopRightX - LineWidth;
+            float topLeftY = farTopLeftY - LineWidth;
+            float topRightY = farTopRightY - LineWidth;
 
-            float bottomLeftX = square.BottomLeft.X;
-            float bottomRightX = square.BottomRight.X;
-            float bottomLeftY = _glUtils.CurrentResolution.Height - square.BottomLeft.Y;
-            float bottomRightY = _glUtils.CurrentResolution.Height - square.BottomRight.Y;
+            float bottomLeftX = farBottomLeftX + LineWidth;
+            float bottomRightX = farBottomRightX - LineWidth;
+            float bottomLeftY = farBottomLeftY + LineWidth;
+            float bottomRightY = farBottomRightY + LineWidth;
 
             AGSBoundingBox colorBox = new AGSBoundingBox(new Vector2(farBottomLeftX, farBottomLeftY), new Vector2(farBottomRightX, farBottomRightY),
                 new Vector2(farTopLeftX, farTopLeftY), new Vector2(farTopRightX, farTopRightY));
