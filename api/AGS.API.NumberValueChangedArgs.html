@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface ISpriteProvider
+    <title>Class NumberValueChangedArgs
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface ISpriteProvider
+    <meta name="title" content="Class NumberValueChangedArgs
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.36.1.0">
     
@@ -78,37 +78,78 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.ISpriteProvider">
+            <article class="content wrap" id="_content" data-uid="AGS.API.NumberValueChangedArgs">
   
   
-  <h1 id="AGS_API_ISpriteProvider" data-uid="AGS.API.ISpriteProvider" class="text-break">Interface ISpriteProvider
+  <h1 id="AGS_API_NumberValueChangedArgs" data-uid="AGS.API.NumberValueChangedArgs" class="text-break">Class NumberValueChangedArgs
   </h1>
-  <div class="markdown level0 summary"><p>Interface of a single sprite source.</p>
+  <div class="markdown level0 summary"><p>Event arguments for when the number editor&apos;s value changed.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">NumberValueChangedArgs</span></div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_ISpriteProvider_syntax">Syntax</h5>
+  <h5 id="AGS_API_NumberValueChangedArgs_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ISpriteProvider : INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public class NumberValueChangedArgs : object</code></pre>
   </div>
-  <h3 id="properties">Properties
+  <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_ISpriteProvider_Sprite.md&amp;value=---%0Auid%3A%20AGS.API.ISpriteProvider.Sprite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_NumberValueChangedArgs__ctor_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.NumberValueChangedArgs.%23ctor(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/Graphics/ISprite.cs/#L35">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/UI/Controls/Editors/NumberValueChangedArgs.cs/#L13">View Source</a>
   </span>
-  <a id="AGS_API_ISpriteProvider_Sprite_" data-uid="AGS.API.ISpriteProvider.Sprite*"></a>
-  <h4 id="AGS_API_ISpriteProvider_Sprite" data-uid="AGS.API.ISpriteProvider.Sprite">Sprite</h4>
-  <div class="markdown level1 summary"><p>Gets a sprite to work with.</p>
+  <a id="AGS_API_NumberValueChangedArgs__ctor_" data-uid="AGS.API.NumberValueChangedArgs.#ctor*"></a>
+  <h4 id="AGS_API_NumberValueChangedArgs__ctor_System_Boolean_" data-uid="AGS.API.NumberValueChangedArgs.#ctor(System.Boolean)">NumberValueChangedArgs(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="AGS.API.NumberValueChangedArgs.html">NumberValueChangedArgs</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ISprite Sprite { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public NumberValueChangedArgs(bool userInitiated)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">userInitiated</span></td>
+        <td><p>If set to <code>true</code> user initiated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_NumberValueChangedArgs_UserInitiated.md&amp;value=---%0Auid%3A%20AGS.API.NumberValueChangedArgs.UserInitiated%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/UI/Controls/Editors/NumberValueChangedArgs.cs/#L22">View Source</a>
+  </span>
+  <a id="AGS_API_NumberValueChangedArgs_UserInitiated_" data-uid="AGS.API.NumberValueChangedArgs.UserInitiated*"></a>
+  <h4 id="AGS_API_NumberValueChangedArgs_UserInitiated" data-uid="AGS.API.NumberValueChangedArgs.UserInitiated">UserInitiated</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the value was changed by the user (using the editor) or programmatically.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UserInitiated { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -120,8 +161,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.ISprite.html">ISprite</a></td>
-        <td><p>The sprite.</p>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if user initiated; otherwise, <code>false</code>.</p>
 </td>
       </tr>
     </tbody>
@@ -134,10 +175,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_ISpriteProvider.md&amp;value=---%0Auid%3A%20AGS.API.ISpriteProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_NumberValueChangedArgs.md&amp;value=---%0Auid%3A%20AGS.API.NumberValueChangedArgs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/Graphics/ISprite.cs/#L29" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/UI/Controls/Editors/NumberValueChangedArgs.cs/#L7" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
