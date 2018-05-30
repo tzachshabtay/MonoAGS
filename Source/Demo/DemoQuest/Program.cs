@@ -51,7 +51,7 @@ namespace DemoGame
         private void setKeyboardEvents(IGame game)
         {
             game.State.Cutscene.SkipTrigger = SkipCutsceneTrigger.AnyKey;
-            game.Input.KeyDown.SubscribeToAsync(async args =>
+            game.Input.KeyDown.Subscribe(args =>
             {
                 if (args.Key == Key.Enter && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
                 {
