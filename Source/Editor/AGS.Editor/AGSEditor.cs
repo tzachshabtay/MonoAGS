@@ -69,7 +69,7 @@ namespace AGS.Editor
             Resolver.Override(resolver => resolver.Builder.RegisterType<KeyboardBindings>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterType<ActionManager>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterAssemblyTypes(typeof(GameLoader).Assembly).
-                              Except<InspectorTreeNodeProvider>().Except<EditorShouldBlockEngineInput>().AsImplementedInterfaces().ExternallyOwned());
+                              Except<InspectorTreeNodeProvider>().Except<EditorShouldBlockEngineInput>().Except<EditorUIEvents>().AsImplementedInterfaces().ExternallyOwned());
             Resolver.Override(resolver => { var editor = new AGSEditor(resolver); resolver.Builder.RegisterInstance(editor); });
         }
 
