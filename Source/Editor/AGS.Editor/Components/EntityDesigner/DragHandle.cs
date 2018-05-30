@@ -85,16 +85,15 @@ namespace AGS.Editor
             {
                 handle.Dispose();
                 _state.UI.Remove(handle);
-                _handle = handle;
+                _handle = null;
             }
         }
 
         public void UpdatePosition()
         {
-            if (_draggable.IsCurrentlyDragged) return;
             var handle = _handle;
             if (handle == null) return;
-            GameCanvas.ExpandAroundGameObject(_editor, _boundingBox, _image, handle);
+            GameCanvas.ExpandAroundGameObject(_editor, _boundingBox, _image, handle, !_draggable.IsCurrentlyDragged);
         }
 
         private void setVisible()

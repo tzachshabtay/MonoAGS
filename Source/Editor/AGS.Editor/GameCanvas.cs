@@ -34,7 +34,8 @@ namespace AGS.Editor
             _editor.Editor.Input.MouseUp.Subscribe(onMouseUp);
         }
 
-        public static void ExpandAroundGameObject(AGSEditor editor, IBoundingBoxComponent boxComponent, IImageComponent image, IObject objToExpand)
+        public static void ExpandAroundGameObject(AGSEditor editor, IBoundingBoxComponent boxComponent, 
+                                                  IImageComponent image, IObject objToExpand, bool updatePosition)
         {
             if (boxComponent == null || image == null) return;
             var box = boxComponent.WorldBoundingBox;
@@ -48,7 +49,10 @@ namespace AGS.Editor
             (var minX, var minY) = editor.ToEditorResolution(box.MinX, box.MinY);
             (var maxX, var maxY) = editor.ToEditorResolution(box.MaxX, box.MaxY);
 
-            objToExpand.Position = (x, y);
+            if (updatePosition)
+            {
+                objToExpand.Position = (x, y);
+            }
             objToExpand.BaseSize = new SizeF(maxX - minX, maxY - minY);
         }
 
@@ -66,7 +70,8 @@ namespace AGS.Editor
                 return;
             }
 
-            ExpandAroundGameObject(_editor, obj.GetComponent<IBoundingBoxComponent>(), obj.GetComponent<IImageComponent>(), _selectionMarker);
+            ExpandAroundGameObject(_editor, obj.GetComponent<IBoundingBoxComponent>(), 
+                                   obj.GetComponent<IImageComponent>(), _selectionMarker, true);
             _selectionMarker.Visible = true;
         }
 
