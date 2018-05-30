@@ -43,14 +43,49 @@ namespace AGS.Engine
             public override string ToString() => Entity.ID;
         }
 
+        private interface ICommand
+        {
+            void Execute(List<Subscriber> subscribers, HashSet<string> subscriberIds);
+        }
+
+        private class SubscribeCommand : ICommand
+        {
+            private readonly Subscriber _subscriber;
+
+            public SubscribeCommand(Subscriber subscriber) => _subscriber = subscriber;
+
+            public void Execute(List<Subscriber> subscribers, HashSet<string> subscriberIds)
+            {
+                if (!subscriberIds.Add(_subscriber.Entity.ID))
+                {
+                    Debug.WriteLine($"Ignoring duplicate subscriber: {_subscriber.Entity.ID}");
+                    return;
+                }
+                subscribers.Add(_subscriber);
+            }
+        }
+
+        private class UnsubscribeCommand : ICommand
+        {
+            private string _id;
+
+            public UnsubscribeCommand(string entityID) => _id = entityID;
+
+            public void Execute(List<Subscriber> subscribers, HashSet<string> subscriberIds)
+            {
+                subscriberIds.Remove(_id);
+                int index = subscribers.FindIndex(sub => sub.Entity.ID == _id);
+                if (index >= 0) subscribers.RemoveAt(index);
+            }
+        }
+
         private readonly IInput _input;
         private readonly IHitTest _hitTest;
         private readonly IGameEvents _gameEvents;
         private readonly IFocusedUI _focus;
         private List<Subscriber> _subscribers;
         private HashSet<string> _subscriberIds;
-        private readonly ConcurrentQueue<Subscriber> _subscribersToAdd;
-        private readonly ConcurrentQueue<string> _subscribersToRemove;
+        private readonly ConcurrentQueue<ICommand> _commands;
         private MousePosition _mousePosition;
         private bool _leftMouseDown, _rightMouseDown;
         private int _inUpdate; //For preventing re-entrancy
@@ -60,8 +95,7 @@ namespace AGS.Engine
             _subscriberIds = new HashSet<string>();
             _hitTest = hitTest;
             _focus = focus;
-            _subscribersToAdd = new ConcurrentQueue<Subscriber>();
-            _subscribersToRemove = new ConcurrentQueue<string>();
+            _commands = new ConcurrentQueue<ICommand>();
             _input = input;
             _gameEvents = gameEvents;
             _subscribers = new List<Subscriber>(100);
@@ -76,13 +110,13 @@ namespace AGS.Engine
 
         public void Subscribe(IEntity entity, Action<bool> setMouseIn, IUIEvents uiEvents, IEnabledComponent enabled, IVisibleComponent visible)
         {
-            _subscribersToAdd.Enqueue(new Subscriber(entity, setMouseIn, uiEvents, enabled, visible));
+            _commands.Enqueue(new SubscribeCommand(new Subscriber(entity, setMouseIn, uiEvents, enabled, visible)));
         }
 
         public void Unsubscribe(IEntity entity)
         {
             if (entity == null) return;
-            _subscribersToRemove.Enqueue(entity.ID);
+            _commands.Enqueue(new UnsubscribeCommand(entity.ID));
         }
 
         private void onRepeatedlyExecute()
@@ -98,23 +132,9 @@ namespace AGS.Engine
                 bool anyButtonDown = leftMouseDown || rightMouseDown;
                 var subscribers = _subscribers;
 
-                Subscriber subscriberToAdd;
-                while (_subscribersToAdd.TryDequeue(out subscriberToAdd))
+                while (_commands.TryDequeue(out var command))
                 {
-                    if (!_subscriberIds.Add(subscriberToAdd.Entity.ID))
-                    {
-                        Debug.WriteLine($"Ignoring duplicate subscriber: {subscriberToAdd.Entity.ID}");
-                        return;
-                    }
-                    subscribers.Add(subscriberToAdd);
-                }
-
-                string entityToRemove;
-                while (_subscribersToRemove.TryDequeue(out entityToRemove))
-                {
-                    _subscriberIds.Remove(entityToRemove);
-                    int index = subscribers.FindIndex(sub => sub.Entity.ID == entityToRemove);
-                    if (index >= 0) subscribers.RemoveAt(index);
+                    command.Execute(subscribers, _subscriberIds);
                 }
 
                 foreach (var subscriber in subscribers)
